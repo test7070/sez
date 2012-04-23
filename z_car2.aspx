@@ -78,9 +78,6 @@
                         }, {
                             type : '6',
                             name : 'xcarno'
-                        }, {
-                            type : '6',
-                            name : 'enddate'
                         }]
                     });
                     q_getFormat();
