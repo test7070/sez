@@ -17,14 +17,14 @@
             var isBott = false;
             var afield, t_htm;
             var i, s1;
-            var decbbs = ['money', 'installment'];
+            var decbbs = ['money','installment', 'installmentamount'];
             var decbbm = [];
             var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [];
-            //var bbmNum_comma = [];
-            var bbsNum = [['txtMoney', 10, 0, 1], ['txtInstallment', 10, 0, 1]];
-            //var bbsNum_comma = ['txtMoney'];
+            var bbmNum_comma = [];
+            var bbsNum = [['txtMoney', 10, 0, 1], ['txtInstallment', 2, 0, 1], ['txtInstallmentamount', 10, 0, 1]];
+            var bbsNum_comma = [];
             var bbmMask = [];
             var bbsMask = [['txtBdate', '999/99/99'], ['txtEdate', '999/99/99']];
 			aPop = [['txtLenderno_', 'btnLender_', 'lender', 'noa,comp', 'txtLenderno_,txtLender_', 'lender_b.aspx']];
@@ -51,7 +51,6 @@
                 q_mask(bbmMask);
             }
 			function mainPost(){
-				q_cmbParse("cmbIsin" , q_getPara('sys.yn'), 's');  
 			}
             function q_gtPost(t_name) {
 
@@ -129,8 +128,8 @@
 					<td class="td3" align="center" style="width:9%;"><a id='lblBdate'></a></td>
 					<td class="td4" align="center" style="width:9%;"><a id='lblEdate'></a></td>
 					<td class="td5" align="center" style="width:9%;"><a id='lblMoney'></a></td>
-					<td class="td6" align="center" style="width:9%;"><a id='lblInstallment'></a></td>
-					<td class="td7" align="center" style="width:3%;"><a id='lblIsin'></a></td>
+					<td class="td6" align="center" style="width:4%;"><a id='lblInstallment'></a></td>
+					<td class="td6" align="center" style="width:9%;"><a id='lblInstallmentamount'></a></td>
 					<td class="td8" align="center" style="width:15%;"><a id='lblMemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -155,7 +154,7 @@
 					<input class="txt" id="txtInstallment.*" type="text" style="width:95%; text-align: right;" />
 					</td>
 					<td class="td7">
-					<select id="cmbIsin.*" style="width:95%; text-align: center;"></select>
+					<input class="txt" id="txtInstallmentamount.*" type="text" style="width:95%; text-align: right;" />
 					</td>
 					<td class="td8">
 					<input class="txt" id="txtMemo.*" type="text" style="width:95%;"  />
