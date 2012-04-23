@@ -128,7 +128,7 @@
 					<td class="td3" align="center" style="width:9%;"><a id='lblBdate'></a></td>
 					<td class="td4" align="center" style="width:9%;"><a id='lblEdate'></a></td>
 					<td class="td5" align="center" style="width:9%;"><a id='lblMoney'></a></td>
-					<td class="td6" align="center" style="width:4%;"><a id='lblInstallment'></a></td>
+					<td class="td6" align="center" style="width:5%;"><a id='lblInstallment'></a></td>
 					<td class="td6" align="center" style="width:9%;"><a id='lblInstallmentamount'></a></td>
 					<td class="td8" align="center" style="width:15%;"><a id='lblMemo'></a></td>
 				</tr>
