@@ -15,10 +15,8 @@
             var t_sqlname = 'carlender_load';
             t_postname = q_name;
             var isBott = false;
-
             var afield, t_htm;
             var i, s1;
-
             var decbbs = ['money', 'installment'];
             var decbbm = [];
             var q_readonly = [];
