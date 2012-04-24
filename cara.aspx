@@ -123,8 +123,7 @@
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
-                _btnModi();
-                $('#txtProduct').focus();
+                _btnModi();     
             }
 
             function btnPrint() {
@@ -147,16 +146,6 @@
                 q_nowf();
                 as['date'] = abbm2['date'];
 
-                //            t_err ='';
-                //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-                //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-                //
-                //            if (t_err) {
-                //                alert(t_err)
-                //                return false;
-                //            }
-                //
                 return true;
             }
 
@@ -234,86 +223,106 @@
             }
 		</script>
 		<style type="text/css">
+            #dmain {
+                overflow: hidden;
+            }
+            .dview {
+                float: left;
+                width: 25%;
+            }
             .tview {
-                FONT-SIZE: 12pt;
-                COLOR: Blue;
-                background: #FFCC00;
-                padding: 3px;
-                TEXT-ALIGN: center;
+                margin: 0;
+                padding: 2px;
+                border: 1px black double;
+                border-spacing: 0;
+                font-size: 16px;
+                background-color: #FFFF66;
+                color: blue;
+            }
+            .tview td {
+                padding: 2px;
+                text-align: center;
+                border: 1px black solid;
+            }
+            .dbbm {
+                float: left;
+                width: 73%;
+            }
+            .dbbm div {
+                border: 1px solid #000000;
+                border-radius: 5px;
             }
             .tbbm {
-                FONT-SIZE: 12pt;
-                COLOR: blue;
-                TEXT-ALIGN: left;
-                border-color: white;
-                width: 100%;
+                margin: 0;
+                padding: 2px;
+                border: 1px white double;
+                border-spacing: 0;
                 border-collapse: collapse;
+                font-size: 16px;
+                color: blue;
                 background: #cad3ff;
-            }
-
-            .tbbs {
-                FONT-SIZE: 12pt;
-                COLOR: blue;
-                TEXT-ALIGN: left;
-                BORDER: 1PX LIGHTGREY SOLID;
                 width: 100%;
-                height: 100%;
             }
-
-            .column1 {
+            .tbbm tr {
+                height: 35px;
+            }
+            .tbbm .td1, .tbbm .td3, .tbbm .td5, .tbbm .td7 {
+                width: 10%;
+            }
+            .tbbm .td2, .tbbm  .td4, .tbbm  .td6, .tbbm .td8 {
                 width: 12%;
             }
-            .column2 {
-                width: 10%;
+            .dbbs .tbbs {
+                margin: 0;
+                padding: 2px;
+                border: 1px white double;
+                border-spacing: 0;
+                border-collapse: collapse;
+                font-size: 16px;
+                color: blue;
+                background: #cad3ff;
+                width: 100%;
             }
-            .column3 {
-                width: 10%;
+            .dbbs .tbbs tr {
+                height: 35px;
             }
-            .column4 {
-                width: 10%;
+            .lbl {
+                float: right;
+                color: blue;
+                font-size: 16px;
             }
-            .column5 {
-                width: 10%;
+            .lbl.btn {
+                color: #4297D7;
+                font-weight: bolder;
             }
-            .label1 {
-                width: 8%;
-                text-align: right;
-            }
-            .label2 {
-                width: 8%;
-                text-align: right;
-            }
-            .label3 {
-                width: 8%;
-                text-align: right;
-            }
-            .label4 {
-                width: 10%;
-                text-align: right;
-            }
-            .label5 {
-                width: 8%;
-                text-align: right;
+            .lbl.btn:hover {
+                color: #FF8F19;
             }
             .txt.c1 {
                 width: 95%;
+                float: left;
             }
             .txt.c2 {
-                width: 90%;
+                width: 40%;
+                float: left;
             }
-            .td1 {
-                width: 10%;
+            .txt.c3 {
+                width: 50%;
+                float: left;
             }
-            .td2 {
-                width: 7%;
+            .txt.num{
+            	text-align: right;
+            }
+            .dbbm input[type="button"]{
+            	float:right;
             }
 		</style>
 	</head>
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
-			<div class="dview" id="dview" style="float: left;width: 15%;"  >
-				<table class="tview" id="tview"  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+			<div class="dview">
+				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width: 25%;"><a id='vewDatea'></a></td>
@@ -328,8 +337,8 @@
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 98%; float:left;width: 80%;">
-				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='2'style="float: left;">
+			<div class='dbbm'>
+				<table class="tbbm"  id="tbbm">
 					<tr>
 						<td class="label"  align="right"><a id="lblCarno" ></a></td><td class="column1">
 						<input id="txtCarno"  type="text"  style='width:43%;'/>
@@ -395,8 +404,7 @@
 			</div>
 
 			<div class='dbbs'>
-				<%--style="overflow-x: hidden; overflow-y: scroll; "  --%>
-				<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 95%;" >
+				<table id="tbbs" class='tbbs' >
 					<tr style='color:White; background:#003366;' >
 						<td align="center">
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />

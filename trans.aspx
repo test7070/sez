@@ -26,7 +26,8 @@
 		    brwList = [];
 		    brwNowPage = 0;
 		    brwKey = 'noa';
-		    q_alias = 'a';
+		    q_alias = '';
+		    q_desc = 1;
 		    aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtAddno1', 'lblAdd1', 'addr', 'noa,addr', 'txtAddno1,txtAdd1', 'addr_b.aspx'], ['txtAddno2', 'lblAdd2', 'addr', 'noa,addr', 'txtAddno2,txtAdd2', 'addr_b.aspx'], ['txtAddno3', 'lblAdd3', 'addr', 'noa,addr', 'txtAddno3,txtAdd3', 'addr_b.aspx'], ['txtAddno4', 'lblAdd4', 'addr', 'noa,addr', 'txtAddno4,txtAdd4', 'addr_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'noa,name', 'txtWorkerno,txtWorker', 'sss_b.aspx']);
 		    $(document).ready(function () {
 		        bbmKey = ['noa'];
