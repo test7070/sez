@@ -317,6 +317,9 @@
             .txt.num{
             	text-align: right;
             }
+            .dbbm input[type="button"]{
+            	float:right;
+            }
 		</style>
 	</head>
 	<body>
