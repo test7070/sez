@@ -13,7 +13,7 @@
 
 		<script type="text/javascript">
             this.errorHandler = null;
-
+ 
             q_tables = 's';
             var q_name = "borr";
             var decbbm = ['payc', 'taxrate', 'tax', 'cash', 'checka', 'money', 'rate', 'inteis', 'bwmoney', 'pay'];
