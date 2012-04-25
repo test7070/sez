@@ -57,7 +57,7 @@
             function mainPost() {
                 fbbm[fbbm.length] = 'txtMemo';
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-                q_cmbParse("cmbTypea", q_getPara('gqb.type'), 's');
+                q_cmbParse("cmbTypea", q_getPara('gqb.typea'), 's');
             }
 
             function pop(form, seq) {
