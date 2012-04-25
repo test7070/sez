@@ -16,7 +16,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
+ 
             var decbbm = ["inmoney", "outmoney", "irange", "manage", "guile", "labor", "health", "reserve", "help", "vrate", "rrate", "orate", "irate", "prate", "ulicense", "dlicense", "spring", "summer", "falla", "winter", "cylinder", "salemoney","amortization"];
             var q_name = "car2";
             var q_readonly = ['txtCardeal', 'txtCarowner', 'cmbSex', 'txtIdno', 'txtBirthday', 'txtTel1', 'txtTel2', 'txtMobile', 'txtFax', 'txtAddr_conn', 'txtAddr_home', 'txtDriver'];
