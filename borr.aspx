@@ -13,7 +13,7 @@
 
 		<script type="text/javascript">
             this.errorHandler = null;
- 
+
             q_tables = 's';
             var q_name = "borr";
             var decbbm = ['payc', 'taxrate', 'tax', 'cash', 'checka', 'money', 'rate', 'inteis', 'bwmoney', 'pay'];
@@ -57,7 +57,7 @@
             function mainPost() {
                 fbbm[fbbm.length] = 'txtMemo';
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-                q_cmbParse("cmbTypea" , q_getPara('gqb.type'), 's');
+                q_cmbParse("cmbTypea", q_getPara('gqb.type'), 's');
             }
 
             function pop(form, seq) {
@@ -167,7 +167,7 @@
             function btnMinus(id) {
                 _btnMinus(id);
             }
-			
+
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
                 if(q_tables == 's')
@@ -314,11 +314,11 @@
                 width: 50%;
                 float: left;
             }
-            .txt.num{
-            	text-align: right;
+            .txt.num {
+                text-align: right;
             }
-            .dbbm input[type="button"]{
-            	float:right;
+            .dbbm input[type="button"] {
+                float: right;
             }
 		</style>
 	</head>
@@ -383,11 +383,9 @@
 						<input id="txtPayc"  type="text"  class="txt c1"/>
 						</td>
 						<td class="td3" ><a id="lblTaxtype" class="lbl"></a></td>
-						<td class="td4">
-							<select id="cmbTaxtype"  class="txt c2"></select>
-							<input id="txtTaxrate"  type="text"  class="txt c2 num"/>
-							<a id="lblTaxrate"></a>
-						</td>
+						<td class="td4"><select id="cmbTaxtype"  class="txt c2"></select>
+						<input id="txtTaxrate"  type="text"  class="txt c2 num"/>
+						<a id="lblTaxrate"></a></td>
 						<td class="td5" ><a id="lblTax" class="lbl"></a></td>
 						<td class="td6">
 						<input id="txtTax"  type="text"  class="txt c1 num"/>
@@ -454,7 +452,7 @@
 					</tr>
 
 				</table>
-			</div> 
+			</div>
 			<div class='dbbs' >
 				<table id="tbbs" class='tbbs'>
 					<tr style='color:white; background:#003366;' >
@@ -475,9 +473,7 @@
 						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						<input class="txt" id="txtNoq.*" type="text" style="display: none;"/>
 						</td>
-						<td>
-						<select id="cmbTypea.*" style="width:95%; text-align: center;"></select>	
-						</td>
+						<td><select id="cmbTypea.*" style="width:95%; text-align: center;"></select></td>
 						<td>
 						<input class="txt" id="txtCheckno.*" type="text" style="width:95%;"/>
 						</td>

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -31,11 +31,12 @@
         //ajaxPath = ""; // 只在根目錄執行，才需設定
 
         $(document).ready(function () {
+            q_desc = 1;
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
 
             q_brwCount();  // 計算 合適  brwCount 
-            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)  
+            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
         });
 
         //////////////////   end Ready
@@ -59,7 +60,7 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-            q_cmbParse("cmbType", q_getPara('vcc.type'));   // 需在 main_form() 後執行，才會載入 系統參數
+            q_cmbParse("cmbTypea", q_getPara('vcc.typea'));   // 需在 main_form() 後執行，才會載入 系統參數
             q_cmbParse("cmbStype", q_getPara('vcc.stype'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));   
             q_cmbParse("cmbCoin", q_getPara('sys.coin'));      /// q_cmbParse 會加入 fbbm
@@ -418,7 +419,7 @@
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
-                   <td align="center" id='type'>~type</td>
+                   <td align="center" id='typea=vcc.typea'>~typea=vcc.typea</td>
                    <td align="center" id='datea'>~datea</td>
                    <td align="center" id='noa'>~noa</td>
                    <td align="center" id='custno comp,4'>~custno ~comp,4</td>
@@ -430,8 +431,7 @@
             <tr>
                <td class="label1"  align="right"><a id='lblType'></a></td>
                <td class="column1" >
-               <%--<input id="txtType" maxlength='10' type="text"  style='width:0%; visibility:collapse;'/>--%>
-               <select id="cmbType" style='width:100%;'/></td>
+               <select id="cmbTypea" style='width:100%;'/></td>
                <td class="column2" align='right' ><a id='lblStype'></a><select id="cmbStype" style='width:70%;'/></td>
                <td class="label2" align="right" ><a id='lblDatea'></a></td>
                <td class="column3"><input id="txtDatea" maxlength='10' type="text"  style='width:97%;'/></td>
