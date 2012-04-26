@@ -4,7 +4,7 @@
 	<head>
 		<title></title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
-		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='../script/qj.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
@@ -16,7 +16,7 @@
 		        alert("An error occurred:\r\n" + error.Message);
 		    }
 
-		    var decbbm = ['mount', 'price', 'price2', 'price3', 'discount', 'miles', 'reserve', 'tolls', 'ticket', 'gross', 'weight', 'plus', 'minus', 'mount2', 'total', 'overw', 'overh', 'total2', 'commission', 'gps', 'pton', 'pton2','unpack', 'dhirdprice'];
+		    var decbbm = ['mount', 'price', 'price2', 'price3', 'discount', 'miles', 'reserve', 'tolls', 'ticket', 'gross', 'weight', 'plus', 'minus', 'mount2', 'total', 'overw', 'overh', 'total2', 'commission', 'gps', 'pton', 'pton2','unpack', 'thirdprice'];
 		    var q_name = "trans";
 		    var q_readonly = [];
 		    var bbmNum = new Array(['txtUnpack',10,0],['txtMount', 10, 0], ['txtPrice', 10, 2], ['txtPrice2', 10, 2], ['txtPrice3', 10, 2], ['txtDiscount', 10, 0], ['miles', 10, 2], ['txtReserve', 10, 0], ['tolls', 10, 0], ['txtTicket', 10, 0], ['txGross', 10, 2], ['txtWeight', 10, 2], ['txtPlus', 10, 0], ['txtMius', 10, 0], ['txtMount2', 10, 2], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtOverH', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2]);
@@ -44,6 +44,11 @@
 		        mainForm(0);
 
 		    }
+
+        function q_stPost() {
+            abbm[q_recno]['accno'] = xmlString;
+            $('#txtAccno').val(xmlString);
+        }
 
 		    function q_funcPost(t_func, result) {
 		        if (result.substr(0, 5) == '<Data') {
@@ -586,7 +591,10 @@
 							<td class="td4" >
 							<input id="txtUnit2" type="text"  class="txt c1"/>
 							</td>
-							
+							<td class="td5"></td>
+							<td class="td6" ></td>
+                            <td class="td7"><a id="lblAccno" class="lbl"></a></td>
+                            <td class="td8" ><input id="txtAccno" type="text"  class="txt c1"/></td>
 						</tr>
 						<tr class="tr21">
 							<td class="td1"><a id="lblOverw" class="lbl"></a></td>
