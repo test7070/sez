@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title></title>
-		<script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
@@ -21,7 +21,6 @@
             var q_name = "driver";
             var q_readonly = [];
             var bbmNum = [['txtLabor',10,0],['txtHealth',10,0],['txtPensionfund',10,0],['txtDependents',2,0],['txtMoney',10,0]];
-            var bbmNum_comma = [];
             var bbmMask = [['txtZip_home','999-99'],['txtZip_conn','999-99'],['txtBirthday','999/99/99'],['txtTakeofficedate','999/99/99'],['txtLeaveofficedate','999/99/99'],['txtStrdate','999/99/99'],['txtEnddate','999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
@@ -34,11 +33,8 @@
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
-
                 q_brwCount();
-
-                if(!q_gt(q_name, q_content, q_sqlCount, 1))
-                    return;
+                q_gt(q_name, q_content, q_sqlCount, 1)
             });
             //////////////////   end Ready
             function main() {
@@ -58,6 +54,7 @@
 
             function mainPost() {
             	q_cmbParse("cmbSex",q_getPara('sys.sex'));
+            	q_cmbParse("cmbCartype",q_getPara('driver.cartype'));
                 fbbm[fbbm.length] = 'txtMemo';
             }
 
@@ -142,17 +139,10 @@
                 _btnOk(key_value, bbmKey[0], '', '', 2);
             }
 
-            function format() {
-                var i;
-
-                q_format(bbmNum_comma, bbmNum);
-                q_init = 0;
-            }
 
             function refresh(recno) {
                 _refresh(recno);
 
-                format();
             }
 
             function readonly(t_para, empty) {
@@ -170,7 +160,7 @@
             }
 
             function q_appendData(t_Table) {
-                dataErr = !_q_appendData(t_Table);
+                return _q_appendData(t_Table);
             }
 
             function btnSeek() {
@@ -219,7 +209,7 @@
                 color: blue;
                 background: #FFCC00;
                 padding: 3px;
-                text-align: center
+                text-align: center;
             }
             .tbbm {
                 font-size: 12pt;
@@ -268,7 +258,6 @@
 		</style>
 	</head>
 	<body>
-		<form id="form1" style="height: 100%;" action="">
 			<!--#include file="../inc/toolbar.inc"-->
 			<div class="dview" id="dview" style="float: left;  width:32%;"  >
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
@@ -349,8 +338,8 @@
 						<td class="td4">
 						<input id="txtLeaveofficedate" type="text" class="txt c1"/>
 						</td>
-						<td class="td5"></td>
-						<td class="td6"></td>
+						<td class="td5"><a id="lblCartype" class="label"></a></td>
+						<td class="td6"><select id="cmbCartype" class="txt c1"></select></td>
 						<td class="td7"></td>
 						<td class="td8"></td>
 					</tr>
@@ -404,9 +393,20 @@
 						<td class="td7"></td>
 						<td class="td8"></td>
 					</tr>
+					<tr class="tr9">
+                        <td class="td1"><a id="lblGuild" class="label"></a></td>
+                        <td class="td2">
+                        <input id="txtGuild" type="text" class="txt c1"/>
+                        </td>
+                        <td class="td3"><input id="btnInsurer" type="button"/></td>
+                        <td class="td4">
+                        <input id="txtInsurerno" type="text" class="txt c1"/>
+                        </td> 
+                        <td class="td5" colspan="3"><input id="txtInsurer" type="text" class="txt c1"/></td>                     
+                        <td class="td8"></td>
+                    </tr>
 				</table>
 			</div>
 			<input id="q_sys" type="hidden" />
-		</form>
 	</body>
 </html>
