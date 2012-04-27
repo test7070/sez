@@ -497,7 +497,7 @@
 							<td class="td5" ></td>
 							<td class="td6" ></td>
 							<td class="td7" ><a id="lblDiscount" class="lbl"></a></td>
-							<td class="td8" >
+							<td class="td8" >  
 							<input id="txtDiscount" type="text" class="txt num  c1"/>
 							</td>
 						</tr>
