@@ -26,7 +26,7 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtCustno', 'btnCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],['txtProductno', 'btnProduct', 'ucc', 'noa,product', 'txtProductno,txtproduct', 'ucc_b.aspx'],
+        aPop = new Array(['txtCustno', 'btnCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],['txtProductno', 'btnProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
         ['txtTggno', 'btnTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'],['txtMechno', 'btnMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -460,7 +460,7 @@
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input id="txtCustno.*" type="text" style="width: 80%;"/><input id="btnCust.*" type="button" value="..." style="width: 14%;"/></td>
-                <td ><input class="txt c1" id="txtComp.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtCust.*" type="text" /></td>
                 <td style="width: 2%;"><input class="txt c1" id="txtStyle.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtDime.*" type="text" style="text-align: right;"/></td>
                 <td ><input class="txt c1" id="txtWidth.*" type="text" style="text-align: right;"/></td>
