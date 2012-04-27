@@ -3,10 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title></title>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
-		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>		
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
@@ -18,14 +18,12 @@
 
             q_tables = 's';
             var q_name = "fixa";
-            var decbbs = ['price','mount'];
-            var decbbm = ['wmoney', 'imoney', 'money','total','tax'];
+            var decbbs = ['mount', 'price'];
+            var decbbm = ['wmoney', 'imoney', 'total', 'money', 'tax', 'cmoney'];
             var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [['txtWmoney', 10, 0], ['txtImoney', 10, 0], ['txtTotal', 10, 0]];
-            var bbmNum_comma = [];
             var bbsNum = [['txtPrice', 10, 3],['txtMount', 10, 0]];
-            var bbsNum_comma = [];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -42,8 +40,7 @@
 
                 q_brwCount();
 
-                if(!q_gt(q_name, q_content, q_sqlCount, 1))
-                    return;
+                q_gt(q_name, q_content, q_sqlCount, 1)
 
             });
             //////////////////   end Ready
@@ -64,6 +61,7 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
                 q_mask(bbmMask);
+                fbbm[fbbm.length] = 'txtMemo'; 
             }
 
             function q_boxClose(s2) {
@@ -140,23 +138,11 @@
                 for(var j = 0; j < q_bbsCount; j++) {
 
                 }// j
-
-                format();
-            }
-
-            function format() {
-                var i;
-
-                q_format(bbmNum_comma, bbmNum);
-
-                q_formats(bbsNum_comma, bbsNum);
-                q_init = 0;
             }
 
             function refresh(recno) {
                 _refresh(recno);
 
-                format();
             }
 
             function readonly(t_para, empty) {
@@ -175,7 +161,7 @@
             }
 
             function q_appendData(t_Table) {
-                dataErr = !_q_appendData(t_Table);
+                return _q_appendData(t_Table);
             }
 
             function btnSeek() {
@@ -224,7 +210,7 @@
                 color: blue;
                 background: #FFCC00;
                 padding: 3px;
-                text-align: center
+                text-align: center;
             }
             .tbbm {
                 font-size: 12pt;
@@ -274,8 +260,8 @@
 		</style>
 	</head>
 	<body>
-		<form id="form1" runat="server" style="height: 98%">
 			<!--#include file="../inc/toolbar.inc"-->
+			<div id='dmain' >
 			<div class="dview" id="dview" style="float: left;  width:32%;"  >
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
@@ -353,17 +339,45 @@
 						<td class="td2">
 						<input id="txtWmoney" type="text" class="txt c1" style="text-align: right;"/>
 						</td>
-						<td class="td3"><a id="lblImoney" class="label"></a></td>
+						<td class="td3"><a id="lblCmoney" class="label"></a></td>
 						<td class="td4">
-						<input id="txtImoney" type="text" class="txt c1" style="text-align: right;"/>
+						<input id="txtCmoney" type="text" class="txt c1" style="text-align: right;"/>
 						</td>
-						<td class="td5"><a id="lblTotal" class="label"></a></td>
+						<td class="td5"><a id="lblMoney" class="label"></a></td>
 						<td class="td6">
-						<input id="txtTotal" type="text" class="txt c1" style="text-align: right;"/>
+						<input id="txtMoney" type="text" class="txt c1" style="text-align: right;"/>
 						</td>
 						<td class="td7"></td>
 						<td class="td8"></td>
 					</tr>
+					<tr class="tr5">
+                        <td class="td1"><a id="lblAcomp" class="label button"></a></td>
+                        <td class="td2">
+                        <input id="txtCno" type="text" class="txt c2" /> <input id="txtAcomp" type="text" class="txt c3" />                       
+                        </td>
+                        <td class="td3"><a id="lblTax" class="label"></a></td>
+                        <td class="td4">
+                        <input id="txtTax" type="text" class="txt c1" style="text-align: right;"/>
+                        </td>
+                        <td class="td5"><a id="lblTotal" class="label"></a></td>
+                        <td class="td6">
+                        <input id="txtTotal" type="text" class="txt c1" style="text-align: right;"/>
+                        </td>
+                        <td class="td7"></td>
+                        <td class="td8"></td>
+                    </tr>
+                    <tr class="tr6">
+                        <td class="td1"><a id="lblMemo" class="label"></a></td>
+                        <td class="td2" colspan="5">
+                        <textarea id="txtMemo" type="text" rows="5" cols="10" style="width: 98%; height: 127px;" ></textarea>           
+                        </td>
+                        <td class="td3"></td>
+                        <td class="td4"></td>
+                        <td class="td5"></td>
+                        <td class="td6"></td>
+                        <td class="td7"></td>
+                        <td class="td8"></td>
+                    </tr>
 				</table>
 			</div>
 			<div class='dbbs' >
@@ -378,38 +392,39 @@
 						<td align="center" style="width:7%;"><a id='lblSpec'></a></td>
 						<td align="center" style="width:7%;"><a id='lblMount'></a></td>
 						<td align="center" style="width:7%;"><a id='lblPrice'></a></td>
-						<td align="center" style="width:40%;"><a id='lblMemo'></a></td>
+						<td align="center" style="width:40%;"><a id='lblMemos'></a></td>
 					</tr>
 					<tr  style='background:#cad3ff;'>
 						<td align="center">
 						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						</td>
 						<td>
-						<input class="txt" id="txtWtype.*" type="text" style="width:95%;"/>
+						<input class="txt c1" id="txtWtype.*" type="text" />
 						</td>
 						<td>
 						<input class="txt" id="txtProductno.*" type="text" style="width:30%;"/>
-						<input class="txt" id="txtProduct.*"type="text" style="width:65%;"/>
+						<input class="txt" id="txtProduct.*"type="text" style="width:60%;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtUnit.*" type="text" style="width:95%;text-align: center;"/>
+						<input class="txt c1" id="txtUnit.*" type="text" style="text-align: center;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtSpec.*" type="text" style="width:95%;"/>
+						<input class="txt c1" id="txtSpec.*" type="text" />
 						</td>
 						<td>
-						<input class="txt" id="txtMount.*" type="text" style="width:95%; text-align: right;"/>
+						<input class="txt c1" id="txtMount.*" type="text" style=" text-align: right;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtPrice.*" type="text" style="width:95%; text-align: right;"/>
+						<input class="txt c1" id="txtPrice.*" type="text" style="text-align: right;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtMemo.*" type="text" style="width:95%;"/>
+						<input class="txt c1" id="txtMemo.*" type="text" />
+						<input id="txtNoq.*" type="hidden" />
 						</td>
 					</tr>
 				</table>
 			</div>
+			</div>
 			<input id="q_sys" type="hidden" />
-		</form>
 	</body>
 </html>

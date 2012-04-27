@@ -17,10 +17,10 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            var decbbm = ['labor','health','pensionfund','dependents','money'];
+            var decbbm = ['labor','health','pensionfund','money'];
             var q_name = "driver";
             var q_readonly = [];
-            var bbmNum = [['txtLabor',10,0],['txtHealth',10,0],['txtPensionfund',10,0],['txtDependents',2,0],['txtMoney',10,0]];
+            var bbmNum = [];
             var bbmMask = [['txtZip_home','999-99'],['txtZip_conn','999-99'],['txtBirthday','999/99/99'],['txtTakeofficedate','999/99/99'],['txtLeaveofficedate','999/99/99'],['txtStrdate','999/99/99'],['txtEnddate','999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
@@ -29,7 +29,7 @@
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
             //q_alias = 'a';
-            aPop = [];
+            aPop = new Array(['txtInsurerno', 'btnInsurer', 'insurer', 'noa,comp', 'txtInsurerno,txtInsurer', 'Insurer_b.aspx'])
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -248,11 +248,11 @@
                 float: left;
             }
             .txt.c4 {
-                width: 7%;
+                width: 20%;
                 float: left;
             }
             .txt.c5 {
-                width: 85%;
+                width: 78%;
                 float: left;
             }
 		</style>
@@ -327,7 +327,7 @@
 					</tr>
 					<tr class="tr5">
 						<td class="td1" ><a id="lblMemo" class="label"></a></td>
-						<td class="td2" colspan='7'><textarea id="txtMemo" style="width:95%; height: 127px;"></textarea></td>
+						<td class="td2" colspan='7'><textarea id="txtMemo" style="width:99%; height: 127px;"></textarea></td>
 					</tr>
 					<tr class="tr6">
 						<td class="td1"><a id="lblTakeofficedate" class="label"></a></td>
@@ -364,11 +364,11 @@
 					<tr class="tr8">
 						<td class="td1"><a id="lblStrdate" class="label"></a></td>
 						<td class="td2">
-						<input id="txtStrdate" type="text" class="txt c1" style="text-align: center;"/>
+						<input id="txtStrdate" type="text" class="txt c1"/>
 						</td>
 						<td class="td3"><a id="lblEnddate" class="label"></a></td>
 						<td class="td4">
-						<input id="txtEnddate" type="text" class="txt c1" style="text-align: center;"/>
+						<input id="txtEnddate" type="text" class="txt c1"/>
 						</td> 
 						<td class="td5"><a id="lblMoney" class="label"></a></td>
 						<td class="td6">
@@ -398,12 +398,11 @@
                         <td class="td2">
                         <input id="txtGuild" type="text" class="txt c1"/>
                         </td>
-                        <td class="td3"><input id="btnInsurer" type="button"/></td>
+                        <td class="td3"><input id="btnInsurer" type="button" style="width: auto; font-size: medium;"/></td>
                         <td class="td4">
                         <input id="txtInsurerno" type="text" class="txt c1"/>
                         </td> 
-                        <td class="td5" colspan="3"><input id="txtInsurer" type="text" class="txt c1"/></td>                     
-                        <td class="td8"></td>
+                        <td class="td5" colspan="4"><input id="txtInsurer" type="text" style=" width: 98%;"/></td>
                     </tr>
 				</table>
 			</div>
