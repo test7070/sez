@@ -27,7 +27,7 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         aPop = new Array(['txtCustno', 'btnCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],['txtProductno', 'btnProduct', 'ucc', 'noa,product', 'txtProductno,txtproduct', 'ucc_b.aspx'],
-        ['txtTggno', 'btnTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx']);
+        ['txtTggno', 'btnTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'],['txtMechno', 'btnMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
