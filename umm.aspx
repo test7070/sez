@@ -55,7 +55,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd]];
+                bbmMask = [['txtDatea', r_picd],['txtVbdate', r_picd],['txtVedate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbCoin", q_getPara('sys.coin'));
                 q_cmbParse("cmbTypea", q_getPara('umm.typea'));
@@ -332,7 +332,7 @@
                 width: 10%;
             }
             .tbbm .td2, .tbbm  .td4, .tbbm  .td6, .tbbm .td8 {
-                width: 12%;
+                width: 10%;
             }
             .dbbs .tbbs {
                 margin: 0;
@@ -477,15 +477,15 @@
 						<a style="float: left; display: block; width: 20px; text-align: center;">~</a>
 						<input id="txtVedate" type="text" class="txt c3"/>
 						</td>
-						<td class="td5"><a id="lblCno2" class="lbl"></a></td>
-						<td class="td6" >
+						<td class="td4"><a id="lblCno2" class="lbl"></a></td>
+						<td class="td5" >
 						<input id="txtCno2" type="text" class="txt c1"/>
 						</td>
-						<td class="td7">
+						<td class="td6">
 						<input id="txtAccno2" type="text"  class="txt c1"/>
 						</td>
-						<td class="td8"><a id="lblAccno" class="lbl"></a></td>
-						<td class="td9">
+						<td class="td7"><a id="lblAccno" class="lbl"></a></td>
+						<td class="td8">
 						<input id="txtAccno" type="text" class="txt c1"/>
 						</td>
 					</tr>
