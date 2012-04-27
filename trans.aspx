@@ -16,10 +16,10 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            var decbbm = ['mount', 'price', 'price2', 'price3', 'discount', 'miles', 'reserve', 'tolls', 'ticket', 'gross', 'weight', 'plus', 'minus', 'mount2', 'total', 'overw', 'overh', 'total2', 'commission', 'gps', 'pton', 'pton2', 'unpack', 'thirdprice'];
+            var decbbm = ['mount', 'price', 'price2', 'price3', 'discount', 'miles', 'reserve', 'tolls', 'gross', 'weight', 'plus', 'minus', 'mount2', 'total', 'overw', 'overh', 'total2', 'commission', 'gps', 'pton', 'pton2', 'unpack', 'thirdprice'];
             var q_name = "trans";
             var q_readonly = [];
-            var bbmNum = new Array(['txtUnpack', 10, 0], ['txtMount', 10, 0], ['txtPrice', 10, 2], ['txtPrice2', 10, 2], ['txtPrice3', 10, 2], ['txtDiscount', 10, 0], ['miles', 10, 2], ['txtReserve', 10, 0], ['tolls', 10, 0], ['txtTicket', 10, 0], ['txGross', 10, 2], ['txtWeight', 10, 2], ['txtPlus', 10, 0], ['txtMius', 10, 0], ['txtMount2', 10, 2], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtOverH', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2]);
+            var bbmNum = new Array(['txtUnpack', 10, 0], ['txtMount', 10, 0], ['txtPrice', 10, 2], ['txtPrice2', 10, 2], ['txtPrice3', 10, 2], ['txtDiscount', 10, 0], ['miles', 10, 2], ['txtReserve', 10, 0], ['tolls', 10, 0], ['txGross', 10, 2], ['txtWeight', 10, 2], ['txtPlus', 10, 0], ['txtMius', 10, 0], ['txtMount2', 10, 2], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtOverH', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2]);
             var bbmMask = new Array(['txtKdate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99']);
             q_sqlCount = 6;
             brwCount = 6;
@@ -446,13 +446,13 @@
 							<input id="txtUccno" type="text"  class="txt c2"/>
 							<input id="txtProduct" type="text"  class="txt c3"/>
 							</td>
-							<td class="td5"><a id="lblDhird" class="lbl"></a></td>
+							<td class="td5"><a id="lblThird" class="lbl"></a></td>
 							<td class="td6">
-							<input id="txtDhird" type="text" class="txt c1"/>
+							<input id="txtThird" type="text" class="txt c1"/>
 							</td>
-							<td class="td7"><a id="lblDhirdprice" class="lbl"></a></td>
+							<td class="td7"><a id="lblThirdprice" class="lbl"></a></td>
 							<td class="td8">
-							<input id="txtDhirdprice" type="text" class="txt c1" />
+							<input id="txtThirdprice" type="text" class="txt c1" />
 							</td>
 						</tr>
 						<tr class="tr9">
@@ -514,10 +514,8 @@
 							<td class="td6" >
 							<input id="txtTolls" type="text" class="txt num c1"/>
 							</td>
-							<td class="td7" ><a id="lblTicket" class="lbl"></a></td>
-							<td class="td8" >
-							<input id="txtTicket" type="text"  class="txt c1"/>
-							</td>
+							<td class="td7" ></td>
+							<td class="td8" ></td>
 						</tr>
 						<tr class="tr13">
 							<td class="td1" ><a id="lblPlus" class="lbl"></a></td>
