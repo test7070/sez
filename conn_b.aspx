@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title></title>
-<script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
+<script src="../script/jquery.min.js" type="text/javascript"></script>
 <script src='../script/qj2.js' type="text/javascript"></script>
     <script src='qset.js' type="text/javascript"></script>
 <script src='../script/qj_mess.js' type="text/javascript"></script>
@@ -21,9 +21,9 @@
     var q_readonly = [];
     var q_readonlys = [];
     var bbmNum = [];
-    var bbmNum_comma = [];
+//    var bbmNum_comma = [];
     var bbsNum = [];
-    var bbsNum_comma = [];
+//    var bbsNum_comma = [];
     var bbmMask = [];
     var bbsMask = [];
 
@@ -52,9 +52,9 @@
 
     function bbsAssign() {  /// 表身運算式
         _bbsAssign();
-        for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
-            $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
-        } //j
+//        for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
+//            $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
+//        } //j
     }
 
     function btnOk() {
@@ -94,12 +94,13 @@
 
     }
     function refresh() {
-        refresh2();
+//        refresh2();
+	 _refresh();
     }
     function sum() { }
 
     function q_gtPost(t_postname) {  /// 資料下載後 ...
-        q_gtPost2(t_postname);
+//        q_gtPost2(t_postname);
     }
 
     function readonly(t_para, empty) {

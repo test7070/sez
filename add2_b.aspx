@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
 <head> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 <meta http-equiv="Content-Language" content="en-us" /> 
@@ -8,8 +8,8 @@
     <script src='qset.js' type="text/javascript"></script>
 <script src="../script/qj_mess.js" type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = 'station', t_content = ' ', bbsKey = ['noa'], as; 
-    var isBott = false;  
+    var q_name = 'addr2', t_content = ' ', bbsKey = ['noa'], as; 
+    var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
     var i,s1;
         $(document).ready(function () {
@@ -17,7 +17,7 @@
         });         /// end ready
 
         function main() {
-            if (dataErr)  
+            if (dataErr)  /// 載入資料錯誤
             {
                 dataErr = false;
                 return;
@@ -42,13 +42,14 @@
             <tr>
                 <th align="center" > </th>
                 <th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblStation'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblPost'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblP_post'></a></th>
             </tr>
             <tr>
                 <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
                 <td style="width:20%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-                <td style="width:45%;"><input class="txt" id="txtStation.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-                
+                <td style="width:45%;"><input class="txt" id="txtPost.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:30%;"><input class="txt" id="txtP_post.*" type="text" style="width:98%;"  readonly="readonly" /></td>
             </tr>
         </table>
   <!--#include file="../inc/brow_ctrl.inc"--> 

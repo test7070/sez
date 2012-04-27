@@ -8,7 +8,7 @@
     <script src='qset.js' type="text/javascript"></script>
 <script src="../script/qj_mess.js" type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = 'station', t_content = ' ', bbsKey = ['noa'], as; 
+    var q_name = 'chgitem', t_content = ' ', bbsKey = ['noa'], as; 
     var isBott = false;  
     var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
     var i,s1;
@@ -42,12 +42,12 @@
             <tr>
                 <th align="center" > </th>
                 <th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblStation'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblItem'></a></th>
             </tr>
             <tr>
                 <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
                 <td style="width:20%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-                <td style="width:45%;"><input class="txt" id="txtStation.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:45%;"><input class="txt" id="txtItem.*" type="text" style="width:98%;"  readonly="readonly" /></td>
                 
             </tr>
         </table>
