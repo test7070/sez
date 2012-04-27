@@ -16,14 +16,14 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var decbbm = ['money'];
+        var decbbm = ['dime1', 'dime2'];
         var q_name="mech";
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-        aPop = new Array(['txtStoreno', 'btnStore', 'stoe', 'Storeno,Store', 'txtStoreno,txtStore', 'store_b.aspx']);
+        aPop = new Array(['txtStoreno', 'btnStore', 'stoe', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -351,9 +351,9 @@
                         </tr>
                         <tr>
                             <td class="label1" ><a id="lblDime"></a></td>
-                            <td class="column1"><input id="txtDime1"  type="text"  class="txt c1"/></td>
+                            <td class="column1"><input id="txtDime1"  type="text"  class="txt c1" style="text-align: right;"/></td>
                             <td align="center"><a id="lblSymbol" style="font-weight: bolder;font-size: 20px;"></a></td>
-                            <td class="column2"><input id="txtDime2"  type="text"  class="txt c1"/></td>
+                            <td class="column2"><input id="txtDime2"  type="text"  class="txt c1" style="text-align: right;/></td>
                             <td class="label3" ></td>
                             <td class="column3"></td>
                         </tr>
