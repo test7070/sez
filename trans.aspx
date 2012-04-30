@@ -450,13 +450,13 @@
 						<input id="txtUccno" type="text"  class="txt c2"/>
 						<input id="txtProduct" type="text"  class="txt c3"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblDhird" class="lbl"></a></td>
+						<td class="td5"><span> </span><a id="lblThird" class="lbl"></a></td>
 						<td class="td6">
-						<input id="txtDhird" type="text" class="txt c1"/>
+						<input id="txtThird" type="text" class="txt c1"/>
 						</td>
-						<td class="td7"><span> </span><a id="lblDhirdprice" class="lbl"></a></td>
+						<td class="td7"><span> </span><a id="lblThirdprice" class="lbl"></a></td>
 						<td class="td8">
-						<input id="txtDhirdprice" type="text" class="txt c1" />
+						<input id="txtThirdprice" type="text" class="txt c1" />
 						</td>
 					</tr>
 					<tr class="tr9">
