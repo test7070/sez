@@ -13,7 +13,7 @@
 
 		<script type="text/javascript">
             this.errorHandler = null;
- 
+
             q_tables = 's';
             var q_name = "borr";
             var decbbm = ['payc', 'taxrate', 'tax', 'cash', 'checka', 'money', 'rate', 'inteis', 'bwmoney', 'pay'];
@@ -251,17 +251,15 @@
             .dbbm {
                 float: left;
                 width: 73%;
-            }
-            .dbbm div {
-                border: 1px solid #000000;
+                margin: -1px;
+                border: 1px black solid;
                 border-radius: 5px;
             }
             .tbbm {
-                margin: 0;
-                padding: 2px;
-                border: 1px white double;
-                border-spacing: 0;
-                border-collapse: collapse;
+                padding: 0px;
+                /*border: 1px white double;
+                 border-spacing: 0;
+                 border-collapse: collapse;*/
                 font-size: 16px;
                 color: blue;
                 background: #cad3ff;
@@ -270,12 +268,49 @@
             .tbbm tr {
                 height: 35px;
             }
-            .tbbm .td1, .tbbm .td3, .tbbm .td5, .tbbm .td7 {
+            .tbbm tr .td1, .tbbm tr .td3, .tbbm tr .td5, .tbbm tr .td7 {
                 width: 10%;
             }
-            .tbbm .td2, .tbbm  .td4, .tbbm  .td6, .tbbm .td8 {
-                width: 12%;
+            .tbbm tr .td2, .tbbm tr .td4, .tbbm tr .td6, .tbbm tr .td8 {
+                width: 10%;
             }
+            .tbbm tr .td9 {
+                width: 10%;
+            }
+            .tbbm tr td span {
+                float: right;
+                display: block;
+                width: 5px;
+                height: 10px;
+            }
+            .tbbm tr td .lbl {
+                float: right;
+                color: blue;
+                font-size: 16px;
+            }
+            .tbbm tr td .lbl.btn {
+                color: #4297D7;
+                font-weight: bolder;
+            }
+            .tbbm tr td .lbl.btn:hover {
+                color: #FF8F19;
+            }
+            .tbbm tr td .txt.c1 {
+                width: 100%;
+                float: left;
+            }
+            .tbbm tr td .txt.c2 {
+                width: 45%;
+                float: left;
+            }
+            .tbbm tr td .txt.c3 {
+                width: 55%;
+                float: left;
+            }
+            .tbbm tr td .txt.num {
+                text-align: right;
+            }
+
             .dbbs .tbbs {
                 margin: 0;
                 padding: 2px;
@@ -290,35 +325,23 @@
             .dbbs .tbbs tr {
                 height: 35px;
             }
-            .lbl {
-                float: right;
-                color: blue;
-                font-size: 16px;
-            }
-            .lbl.btn {
-                color: #4297D7;
-                font-weight: bolder;
-            }
-            .lbl.btn:hover {
-                color: #FF8F19;
-            }
-            .txt.c1 {
-                width: 95%;
-                float: left;
-            }
-            .txt.c2 {
-                width: 40%;
-                float: left;
-            }
-            .txt.c3 {
-                width: 50%;
-                float: left;
-            }
-            .txt.num {
-                text-align: right;
-            }
+
             .dbbm input[type="button"] {
                 float: right;
+            }
+            td {
+                margin: 0px -1px;
+                padding: 0;
+            }
+            td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+            }
+            select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
             }
 		</style>
 	</head>
@@ -346,19 +369,20 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr1">
-						<td class="td1" ><a id="lblDatea" class="lbl"></a></td>
+						<td class="td1" ><span> </span><a id="lblDatea" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtDatea"  type="text"  class="txt c1"/>
 						</td>
-						<td class="td3" ><a id="lblNoa" class="lbl"></a></td>
+						<td class="td3" ><span> </span><a id="lblNoa" class="lbl"></a></td>
 						<td class="td4">
 						<input id="txtNoa"  type="text" class="txt c1"/>
 						</td>
 						<td class="td5"></td>
 						<td class="td6"></td>
+						<td class="td9"></td>
 					</tr>
 					<tr class="tr2">
-						<td class="td1" ><a id="lblCarno" class="lbl"></a></td>
+						<td class="td1" ><span> </span><a id="lblCarno" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtCarno"  type="text" class="txt c1"/>
 						</td>
@@ -378,53 +402,53 @@
 						</td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1" ><a id="lblPayc" class="lbl"></a></td>
+						<td class="td1" ><span> </span><a id="lblPayc" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtPayc"  type="text"  class="txt c1"/>
 						</td>
-						<td class="td3" ><a id="lblTaxtype" class="lbl"></a></td>
-						<td class="td4"><select id="cmbTaxtype"  class="txt c2"></select>
+						<td class="td3" ><span> </span><a id="lblTaxtype" class="lbl"></a></td>
+						<td class="td4"><a id="lblTaxrate" style="float: right; width:10%;"></a><select id="cmbTaxtype"  class="txt c2"></select>
 						<input id="txtTaxrate"  type="text"  class="txt c2 num"/>
-						<a id="lblTaxrate"></a></td>
-						<td class="td5" ><a id="lblTax" class="lbl"></a></td>
+						</td>
+						<td class="td5" ><span> </span><a id="lblTax" class="lbl"></a></td>
 						<td class="td6">
 						<input id="txtTax"  type="text"  class="txt c1 num"/>
 						</td>
 					</tr>
 					<tr class="tr4">
-						<td class="td1"><a id="lblCash" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblCash" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtCash"  type="text" class="txt c1 num" />
 						</td>
-						<td class="td3"><a id="lblChecka" class="lbl"></a></td>
+						<td class="td3"><span> </span><a id="lblChecka" class="lbl"></a></td>
 						<td class="td4">
 						<input id="txtChecka"  type="text" class="txt c1 num" />
 						</td>
-						<td class="td5" ><a id="lblMoney" class="lbl"></a></td>
+						<td class="td5" ><span> </span><a id="lblMoney" class="lbl"></a></td>
 						<td class="td6">
 						<input id="txtMoney" type="text" class="txt c1 num" />
 						</td>
 					</tr>
 					<tr class="tr5">
-						<td class="td1"><a id="lblBegindate" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblBegindate" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtBegindate" type="text" class="txt c1"/>
 						</td>
-						<td class="td3"><a id="lblEnddate" class="lbl"></a></td>
+						<td class="td3"><span> </span><a id="lblEnddate" class="lbl"></a></td>
 						<td class="td4">
 						<input id="txtEnddate" type="text" class="txt c1"/>
 						</td>
-						<td class="td5"><a id="lblRate" class="lbl"></a></td>
+						<td class="td5"><span> </span><a id="lblRate" class="lbl"></a></td>
 						<td class="td6">
 						<input id="txtRate" type="text" class="txt c1"/>
 						</td>
 					</tr>
 					<tr class="tr6">
-						<td class="td1"><a id="lblDays" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblDays" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtDays"  type="text" class="txt c1" />
 						</td>
-						<td class="td3" ><a id="lblInteis" class="lbl"></a></td>
+						<td class="td3" ><span> </span><a id="lblInteis" class="lbl"></a></td>
 						<td class="td4">
 						<input id="txtInteis" type="text" class="txt c1 num" />
 						</td>
@@ -433,22 +457,22 @@
 						</td>
 					</tr>
 					<tr class="tr7">
-						<td class="td1"><a id="lblBwmoney" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblBwmoney" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtBwmoney"  type="text" class="txt c1 num" />
 						</td>
-						<td class="td3"><a id="lblPaydate" class="lbl"></a></td>
+						<td class="td3"><span> </span><a id="lblPaydate" class="lbl"></a></td>
 						<td class="td4">
 						<input id="txtPaydate"  type="text" class="txt c1" />
 						</td>
-						<td class="td5"><a id="lblPay" class="lbl"></a></td>
+						<td class="td5"><span> </span><a id="lblPay" class="lbl"></a></td>
 						<td class="td6">
 						<input id="txtPay" type="text" class="txt c1 num" />
 						</td>
 					</tr>
 					<tr class="tr8">
-						<td class="td1" ><a id="lblMemo" class="lbl"></a></td>
-						<td class="column1" colspan="5">						<textarea id="txtMemo" rows="5" cols="10" style="width:95%; height: 127px;"></textarea></td>
+						<td class="td1" ><span> </span><a id="lblMemo" class="lbl"></a></td>
+						<td class="column1" colspan="5">						<textarea id="txtMemo" style="width:100%; height: 127px;"></textarea></td>
 					</tr>
 
 				</table>
