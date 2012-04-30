@@ -22,8 +22,8 @@
             var decbbm = ['wmoney', 'imoney', 'total', 'money', 'tax', 'cmoney'];
             var q_readonly = [];
             var q_readonlys = [];
-            var bbmNum = [['txtWmoney', 10, 0], ['txtImoney', 10, 0], ['txtTotal', 10, 0]];
-            var bbsNum = [['txtPrice', 10, 3],['txtMount', 10, 0]];
+            var bbmNum = [];
+            var bbsNum = [];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -32,14 +32,12 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             //ajaxPath = "";
-
-            aPop = [['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']];
+			aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],['txtProductno_', 'btnProductno_', 'ucc', 'noa,productno', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
+            
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
-
                 q_brwCount();
-
                 q_gt(q_name, q_content, q_sqlCount, 1)
 
             });
@@ -402,8 +400,9 @@
 						<input class="txt c1" id="txtWtype.*" type="text" />
 						</td>
 						<td>
-						<input class="txt" id="txtProductno.*" type="text" style="width:30%;"/>
-						<input class="txt" id="txtProduct.*"type="text" style="width:60%;"/>
+						<input class="txt" id="txtProductno.*" type="text" style="width:25%;"/>
+						<input class="txt" id="txtProduct.*"type="text" style="width:55%;"/>
+						<input id="btnProductno.*" type="button" value="..." style="width: 10%;" />
 						</td>
 						<td>
 						<input class="txt c1" id="txtUnit.*" type="text" style="text-align: center;"/>
