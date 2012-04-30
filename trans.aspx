@@ -450,6 +450,7 @@
 						<input id="txtUccno" type="text"  class="txt c2"/>
 						<input id="txtProduct" type="text"  class="txt c3"/>
 						</td>
+<<<<<<< HEAD
 						<td class="td5"><span> </span><a id="lblThird" class="lbl"></a></td>
 						<td class="td6">
 						<input id="txtThird" type="text" class="txt c1"/>
@@ -457,6 +458,15 @@
 						<td class="td7"><span> </span><a id="lblThirdprice" class="lbl"></a></td>
 						<td class="td8">
 						<input id="txtThirdprice" type="text" class="txt c1" />
+=======
+						<td class="td5"><span> </span><a id="lblDhird" class="lbl"></a></td>
+						<td class="td6">
+						<input id="txtDhird" type="text" class="txt c1"/>
+						</td>
+						<td class="td7"><span> </span><a id="lblDhirdprice" class="lbl"></a></td>
+						<td class="td8">
+						<input id="txtDhirdprice" type="text" class="txt c1" />
+>>>>>>> edit
 						</td>
 					</tr>
 					<tr class="tr9">
@@ -587,7 +597,11 @@
 					</tr>
 					<tr class="tr18">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
+<<<<<<< HEAD
 						<td class="td2" colspan='7'>						<textarea id="txtMemo" style="width:100%; height: 127px;"></textarea></td>
+=======
+						<td class="td2" colspan='7'>						<textarea id="txtMemo" rows="5" cols="10" style="width:98%; height: 127px;"></textarea></td>
+>>>>>>> edit
 					</tr>
 					<tr class="tr19">
 						<td class="td1"><span> </span><a id="lblLtime" class="lbl"></a></td>
