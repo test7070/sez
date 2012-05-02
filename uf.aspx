@@ -291,7 +291,7 @@
         .tbbm tr td span {
                 float: right;
                 display: block;
-                width: 5px;
+                width: 8px;
                 height: 10px;
             }
          td {
