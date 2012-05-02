@@ -22,7 +22,6 @@
                 dataErr = false;
                 return;
             }
-
             var s2 = q_getId();
             var s3 = (s2 && s2.length > 3 ? s2[3] : '');  //篩選科目
             var s1 = (s2 && s2.length > 3 ? s2[4] : '');  //年度
