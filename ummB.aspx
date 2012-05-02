@@ -26,7 +26,7 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        
+        aPop = new Array(['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],['txtCustno', 'btnCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],['txtPartno2', 'btnPart2', 'part', 'noa,part', 'txtPartno2,txtPart2', 'part_b.aspx'],['txtSalesno2', 'btnSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -46,9 +46,9 @@
             mainForm(1); 
         }  
 
-        aPop = [['txtStoreno', 'btnStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
+      /*  aPop = [['txtStoreno', 'btnStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
                 ['txtStoreno2', 'btnStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx', "60%", "650px", q_getMsg('popStore')],
-                ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']];
+                ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']];*/
 
         function mainPost() { 
             q_getFormat();
@@ -317,6 +317,10 @@
                 padding: 0px;
                 margin: -1px;
             }
+            td input[type="button"] {
+                width: auto;
+                font-size:medium;
+            }
             select {
                 border-width: 1px;
                 padding: 0px;
@@ -353,7 +357,7 @@
                <td class="column3"><input id="txtMon"  type="text"  class="txt c1"/></td> 
             </tr>   
             <tr>
-               <td class="label1" ><input id="btnAcomp" type="button" value='.' style='width: auto; font-size: medium;'  /></td>
+               <td class="label1" ><input id="btnAcomp" type="button" value='.' /></td>
                <td class="column1" ><input id="txtCno"  type="text"  class="txt c1"/></td>
                <td class="column1a" ><input id="txtAcomp"    type="text"  class="txt c1"/></td>               
                <td class="label2"><a id='lblWorker'></a></td>
@@ -361,7 +365,7 @@
             </tr>
 
            <tr>
-                <td class="label1"><input id="btnCust" type="button" value='.' style='width: auto; font-size: medium;'  /></td>
+                <td class="label1"><input id="btnCust" type="button" value='.' /></td>
                 <td class="column1"><input id="txtCustno" type="text" class="txt c1"/></td>
                 <td class="column1a"><input id="txtComp"  type="text" class="txt c1"/></td>
                 <td class="label2"><a id='lblPayc'></a></td>
@@ -377,17 +381,17 @@
                 <td class="column2"><input id="txtCno2"    type="text" style="width: 45%;"/>
                 <input id="txtAccno2" type="text" style="width: 45%;"/></td>
                 <td class="label3"><a id='lblTax'></a></td>
-                <td class="column3"><input id="txtTax" type="text" class="txt c1"/></td> 
+                <td class="column3"><input id="txtTax" type="text" class="txt num c1"/></td> 
              </tr>
             <tr>
-                <td class="label1"><input id="btnPart2" type="button" value='.' style='width: auto; font-size: medium;'  /></td>
+                <td class="label1"><input id="btnPart2" type="button" value='.' /></td>
                 <td class="column1"><input id="txtPartno2" type="text" class="txt c1"/></td> 
                 <td class="column1a"><input id="txtPart2" type="text" class="txt c1"/></td> 
-                <td class="label2"><input id="btnSales2" type="button" value='.' style='width: auto; font-size: medium;'  /></td>
+                <td class="label2"><input id="btnSales2" type="button" value='.'/></td>
                 <td class="column2"><input id="txtSalesno2" type="text"  style="width: 30%;"/>
                 <input id="txtSales2" type="text"  style="width: 59%;"/></td>
                 <td class="label3"><a id='lblTotal'></a></td>
-                <td class="column3"><input id="txtTotal"  type="text" class="txt c1"/></td> 
+                <td class="column3"><input id="txtTotal"  type="text" class="txt num c1"/></td> 
             </tr>
             <tr><td align="right"><a id='lblMemo'></a></td>
                 <td  colspan='7' ><input id="txtMemo"  type="text"  style="width: 98%;"/></td></tr>
@@ -410,14 +414,14 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input class="txt"  id="txtKind.*" type="text" class="txt c1" /></td>                
-                <td ><input  id="txtType.*" type="text"  class="txt c1"/></td>
+                <td ><input  id="txtKind.*" type="text" class="txt c1" /></td>                
+                <td ><input  id="txtTypea.*" type="text"  class="txt c1"/></td>
                 <td ><input  id="txtNoq.*" type="text"   class="txt c1"/>
                 <td ><input  id="txtInvono.*" type="text" class="txt c1"/>
                 <td ><input  id="txtPartno.*" type="text" style="width: 25%;"/><input class="txt" id="txtPart.*" type="text" style="width: 58%;"/></td>
-                <td ><input  id="txtMoney.*" type="text" class="txt c1"/></td>
-                <td ><input id="txtTax.*" type="text" class="txt c1"/></td>
-                <td ><input id="txtTotal.*" type="text" class="txt c1"/></td>
+                <td ><input  id="txtMoney.*" type="text" class="txt num c1"/></td>
+                <td ><input id="txtTax.*" type="text" class="txt num c1"/></td>
+                <td ><input id="txtTotal.*" type="text" class="txt num c1"/></td>
                 <td ><input id="txtProduct.*" type="text"  class="txt c1"/></td>
                 <td ><input id="txtMemo.*" type="text"  class="txt c1"/>
                 <input id="txtNoq.*" type="hidden" /></td>
