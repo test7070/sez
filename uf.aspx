@@ -21,8 +21,8 @@
         var decbbm = ['money'];
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [['txtPrice', 10, 3]];  
-        var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
+        var bbmNum = [];  
+        var bbsNum = [];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
@@ -31,11 +31,8 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
-            
             q_brwCount();   
-
            q_gt(q_name, q_content, q_sqlCount, 1)  
-
         });
 
         //////////////////   end Ready
@@ -49,9 +46,9 @@
             mainForm(1); 
         }  
 
-        aPop = [['txtStoreno', 'btnStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
+      /*  aPop = [['txtStoreno', 'btnStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
                 ['txtStoreno2', 'btnStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx', "60%", "650px", q_getMsg('popStore')],
-                ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']];
+                ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']];*/
 
         function mainPost() { 
             q_getFormat();
@@ -316,14 +313,14 @@
         <div class='dbbm' style="width: 73%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr>
-            <td class='label1'><a id="lblNoa" ></a></td><td class="column1"><input id="txtNoa"  type="text" class="txt c1"/></td>
-            <td class='label2'><a id="lblType" ></a></td><td class="column2"> <input id="txtType" type="text" class="txt c1"/></td>
-            <td class='label3'><a id="lblDatea" ></a></td><td class="column3"><input id="txtDatea"  type="text" class="txt c1"/></td>
-            <td class='label4'><a id="lblBankno" ></a></td><td class="column4"><input id="txtBankno"  type="text" class="txt c1"/></td></tr>
+            <td class='label1'><a id="lblNoa" ></a></td><td class="column1"><input id="txtNoa"  type="text" class="txt c1" /></td>
+            <td class='label2'><a id="lblType"></a></td><td class="column2"><select id="cmbTypea" class="txt c1"></select></td>
+            <td class='label3'><a id="lblDatea"></a></td><td class="column3"><input id="txtDatea" type="text" class="txt c1"/></td>
+            <td class='label4'><a id="lblBankno"></a></td><td class="column4"><input id="txtBankno" type="text" class="txt c1"/></td></tr>
         <tr>            
             <td class='label1'><a id="lblAccno" ></a></td><td class="column1"><input id="txtAccno"  type="text" class="txt c1"/></td>
             <td class='label2'><a id="lblAccount" ></a></td><td class="column2"><input id="txtAccount"  type="text" class="txt c1"/></td>
-            <td class='label3'><a id="lblMoney" style="font-size: 14px;"  ></a></td><td class="column3"><input id="txtMoney"  type="text" class="txt c1" /></td></tr>        
+            <td class='label3'><a id="lblMoney" style="font-size: 14px;"></a></td><td class="column3"><input id="txtMoney"  type="text" class="txt c1" style="text-align: right;" /></td></tr>        
         <tr>
             <td class='label1'><a id="lblWorker" ></a></td><td class="column1"><input id="txtWorker"  type="text"  class="txt c1"/></td></tr>        
         </table>
@@ -342,11 +339,11 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input class="txt c1" id="txtBankno.*" type="text" /></td>
+                <td ><input id="txtBankno.*" type="text" style="width: 80%;"/><input id="btnBankno" type="button" style="width: 15%;" value="..."/></td>
                 <td ><input class="txt c1" id="txtBank.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCheckno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtDatea.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtMoney.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtMoney.*" type="text" style="text-align: right;" /></td>
                 <td ><input class="txt c1" id="txtTaccl.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
             </tr>
         </table>
