@@ -58,6 +58,16 @@
                 fbbm[fbbm.length] = 'txtMemo';
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
                 q_cmbParse("cmbTypea", q_getPara('borr.typea'), 's');
+
+                $("#txtPayc").change(function() {
+                    sum();
+                });
+                $("#cmbTaxtype").change(function() {
+                    sum();
+                });
+                $("#txtTaxrate").change(function() {
+                    sum();
+                });
             }
 
             function pop(form, seq) {
@@ -187,9 +197,25 @@
             }
 
             function sum() {
+                switch($("#cmbTaxtype").val()) {
+                    case '1':
+                        //extra
+                        $("#txtTax").val(Math.round($("#txtPayc").val() * $("#txtTaxrate").val() / 100, 0));
+                        break;
+                    case '3':
+                        //include  
+                        $("#txtTax").val($("#txtPayc").val() - Math.round($("#txtPayc").val() / (1 + $("#txtTaxrate").val() / 100), 0));
+                        break;
+                    case '5':
+                        //custom
+                        $("#txtTaxrate").val(0);
+                        break;
+                    default:
+                        $("#txtTax").val(0);
+                }
+
                 var inMoney = 0;
                 var outMoney = 0;
-
                 for(var i = 0; i < q_bbsCount; i++) {
                     if($("#cmbTypea_" + i).val() == '1')
                         outMoney += $("#txtMoney_" + i).val();
@@ -426,7 +452,7 @@
 					<tr class="tr3">
 						<td class="td1" ><span> </span><a id="lblPayc" class="lbl"></a></td>
 						<td class="td2">
-						<input id="txtPayc"  type="text"  class="txt c1"/>
+						<input id="txtPayc"  type="text"  class="txt c1 num"/>
 						</td>
 						<td class="td3" ><span> </span><a id="lblTaxtype" class="lbl"></a></td>
 						<td class="td4"><a id="lblTaxrate" style="float: right; width:10%;"></a><select id="cmbTaxtype"  class="txt c2"></select>
