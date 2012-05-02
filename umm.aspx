@@ -23,9 +23,7 @@
             var q_readonly = ['txtComp', 'txtAcomp', 'txtTotal', 'txtTotalus'];
             var q_readonlys = [];
             var bbmNum = [['txtFloata', 7, 2], ['txtTotalus', 12, 2], ['txtPaysaleus', 12, 2], ['txtNextsaleus', 12, 2], ['txtTotal', 10, 0], ['txtPaysale', 10, 0], ['txtNextsale', 10, 0]];
-            var bbmNum_comma = [];
             var bbsNum = [];
-            var bbsNum_comma = [];
             bbmMask = [];
             bbsMask = [];
             q_sqlCount = 6;
@@ -40,10 +38,8 @@
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
-
                 q_brwCount();
-                if(!q_gt(q_name, q_content, q_sqlCount, 1))
-                    return;
+               q_gt(q_name, q_content, q_sqlCount, 1)
             });
             function main() {
                 if(dataErr) {
@@ -210,18 +206,9 @@
                 //   format();
             }
 
-            function format() {
-                var i;
-
-                q_format(bbmNum_comma, bbmNum);
-                q_formats(bbsNum_comma, bbsNum);
-                q_init = 0;
-            }
-
             function refresh(recno) {
                 _refresh(recno);
 
-                format();
             }
 
             function readonly(t_para, empty) {
@@ -451,7 +438,7 @@
 					</tr>
 					<tr class="tr2">
 						<td class="td1" >
-						<input id="btnAcomp" type="button"/>
+						<input id="btnAcomp" type="button" style="width: auto;font-size: medium;"/>
 						</td>
 						<td class="td2" colspan="3">
 						<input id="txtCno"  type="text" class="txt c5"/>
@@ -462,12 +449,12 @@
 						<input id="txtFloata" type="text" class="txt num c3" />
 						</td>
 						<td class="td5"><span> </span><a id="lblTypea" class="lbl"></a></td>
-						<td class="td6"><select id="cmbTypea"></select></td>
+						<td class="td6"><select id="cmbTypea" ></select></td>
 					</tr>
 
 					<tr class="tr3">
 						<td class="td1">
-						<input id="btnCust" type="button"/>
+						<input id="btnCust" type="button" style="width: auto;font-size: medium;"/>
 						</td>
 						<td class="td2" colspan="3">
 						<input id="txtCustno" type="text" class="txt c5"/>
@@ -528,7 +515,7 @@
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
 						<td class="td2" colspan='7' >
-						<input id="txtMemo"  type="text" maxlength='20' style="width:100%;"/>
+						<textarea  id="txtMemo" cols="10" rows="5" style="width: 100%; height: 127px;" ></textarea>
 						</td>
 					</tr>
 				</table>
@@ -558,38 +545,37 @@
 					</td>
 
 					<td style="width:6%;">
-					<input class="txt" id="txtMoney.*" type="text"  maxlength='20' style="width:96%; text-align:right;"/>
-					<input class="txt" id="txtMoneyus.*" type="text"  maxlength='20' style="width:96%; text-align:right;"/>
+					<input class="txt" id="txtMoney.*" type="text"  style="width:96%; text-align:right;"/>
+					<input class="txt" id="txtMoneyus.*" type="text"  style="width:96%; text-align:right;"/>
 					</td>
 					<td style="width:5%;">
-					<input class="txt" id="txtChgs.*" type="text"  maxlength='20' style="width:96%; text-align:right;"/>
-					<input class="txt" id="txtChgsus.*" type="text"  maxlength='20' style="width:96%; text-align:right;"/>
+					<input class="txt" id="txtChgs.*" type="text"  style="width:96%; text-align:right;"/>
+					<input class="txt" id="txtChgsus.*" type="text" style="width:96%; text-align:right;"/>
 					</td>
 					<td style="width:6%;">
-					<input class="txt" id="txtPaysale.*" type="text" maxlength='20' style="width:96%; text-align:right;"/>
-					<input class="txt" id="txtPaysaleus.*" type="text" maxlength='20' style="width:96%; text-align:right;"/>
+					<input class="txt" id="txtPaysale.*" type="text" style="width:96%; text-align:right;"/>
+					<input class="txt" id="txtPaysaleus.*" type="text" style="width:96%; text-align:right;"/>
 					</td>
-
 					<td style="width:5%;">
-					<input class="txt" id="txtMon.*" type="text" maxlength='20' style="width:96%; text-align:right;"/>
+					<input class="txt" id="txtMon.*" type="text" style="width:96%; text-align:right;"/>
 					</td>
 					<td style="width:8%;">
-					<input class="txt" id="txtCheckno.*" type="text" maxlength='90' style="width:98%;" />
+					<input class="txt" id="txtCheckno.*" type="text" style="width:98%;" />
 					</td>
 					<td style="width:8%;">
-					<input class="txt" id="txtAccount.*" type="text"  maxlength='20' style="width:98%;text-align:right;" />
+					<input class="txt" id="txtAccount.*" type="text" style="width:98%;text-align:right;" />
 					</td>
 					<td style="width:6%;">
-					<input class="txt" id="txtBankno.*" type="text" maxlength='20' style="width:98%;"/>
+					<input class="txt" id="txtBankno.*" type="text" style="width:98%;"/>
 					</td>
 					<td style="width:18%;">
-					<input class="txt" id="txtBank.*" type="text" maxlength='60' style="width:96%; text-align:right;"/>
+					<input class="txt" id="txtBank.*" type="text" style="width:96%; text-align:right;"/>
 					</td>
 					<td style="width:7%;">
-					<input class="txt" id="txtIndate.*" type="text" maxlength='20' style="width:98%; text-align:right;"/>
+					<input class="txt" id="txtIndate.*" type="text" style="width:98%; text-align:right;"/>
 					</td>
 					<td style="width:12%;">
-					<input class="txt" id="txtMemo.*" type="text" maxlength='90' style="width:98%;"/>
+					<input class="txt" id="txtMemo.*" type="text" style="width:98%;"/>
 					<input id="txtNoq.*" type="hidden" />
 					<input id="recno.*" type="hidden" />
 					</td>
