@@ -321,11 +321,6 @@
                 padding: 0px;
                 margin: -1px;
             }
-            select {
-                border-width: 1px;
-                padding: 0px;
-                margin: -1px;
-            }
 		</style>
 	</head>
 	<body>

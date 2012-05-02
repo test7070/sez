@@ -275,7 +275,7 @@
                 width: 10%;
             }
             .tbbm tr .td9 {
-                width: 10%;
+                width: 3%;
             }
             .tbbm tr td span {
                 float: right;
