@@ -79,7 +79,31 @@
                         $("#lblPrice2").show();
                         $("#txtPrice2").show();
                     }
+                    sum();
                 });
+                $("#txtMount").change(function() {
+                    sum();
+                });
+                $("txtPrice").change(function() {
+                    sum();
+                });
+                $("#txtMount2").change(function() {
+                    sum();
+                });
+                $("#txtPrice2").change(function() {
+                    sum();
+                });
+                $("#txtPrice3").change(function() {
+                    sum();
+                });
+                $("#txtDiscount").change(function() {
+                    sum();
+                });
+            }
+
+            function sum() {         	
+                $("#txtTotal").val($("#txtMount").val() * $("#txtPrice").val());
+                $("#txtTotal2").val($("#txtMount2").val() * (1 - $("#txtDiscount").val()) * ($("#cmbCalctype").val() == '6' ? $("#txtPrice3").val() : $("#txtPrice2").val()));
             }
 
             function txtCopy(dest, source) {
@@ -479,11 +503,11 @@
 						</td>
 						<td class="td5" ><span> </span><a id="lblMiles" class="lbl"></a></td>
 						<td class="td6" >
-						<input id="txtMiles" type="text"  class="txt c1"/>
+						<input id="txtMiles" type="text"  class="txt num c1"/>
 						</td>
 						<td class="td7" ><span> </span><a id="lblGps" class="lbl"></a></td>
 						<td class="td8" >
-						<input id="txtGps" type="text"  class="txt c1"/>
+						<input id="txtGps" type="text"  class="txt num c1"/>
 						</td>
 					</tr>
 					<tr class="tr8">
@@ -570,17 +594,14 @@
 						</td>
 					</tr>
 					<tr class="tr13">
-						<td class="td1" ><span> </span><a id="lblCaseuse" class="lbl"></a></td>
-						<td class="td2" >
-						<input id="txtCaseuse" type="text" class="txt c1"/>
+						<td class="td1" ><span> </span><a id="lblCaseno" class="lbl"></a></td>
+						<td class="td2" colspan="3">
+						<input id="txtCaseno" type="text"  style='width:50%; float:left;'/>
+						<input id="txtCaseno2" type="text"  style='width:50%; float:left;'/>
 						</td>
-						<td class="td3" ><span> </span><a id="lblPo" class="lbl"></a></td>
-						<td class="td4" >
-						<input id="txtPo" type="text"  class="txt c1"/>
-						</td>
-						<td class="td5" ><span> </span><a id="lblTraceno" class="lbl"></a></td>
+						<td class="td5" ><span> </span><a id="lblPo" class="lbl"></a></td>
 						<td class="td6" >
-						<input id="txtTraceno" type="text"  class="txt c1"/>
+						<input id="txtPo" type="text"  class="txt c1"/>
 						</td>
 						<td class="td7" ><span> </span><a id="lblSo" class="lbl"></a></td>
 						<td class="td8" >
@@ -588,10 +609,13 @@
 						</td>
 					</tr>
 					<tr class="tr14">
-						<td class="td1" ><span> </span><a id="lblCaseno" class="lbl"></a></td>
-						<td class="td2" colspan="3">
-						<input id="txtCaseno" type="text"  style='width:50%; float:left;'/>
-						<input id="txtCaseno2" type="text"  style='width:50%; float:left;'/>
+						<td class="td1" ><span> </span><a id="lblCaseuse" class="lbl"></a></td>
+						<td class="td2" >
+						<input id="txtCaseuse" type="text" class="txt c1"/>
+						</td>
+						<td class="td3" ><span> </span><a id="lblTraceno" class="lbl"></a></td>
+						<td class="td4" >
+						<input id="txtTraceno" type="text"  class="txt c1"/>
 						</td>
 						<td class="td5" ><span> </span><a id="lblCasetype" class="lbl"></a></td>
 						<td class="td6" ><select id="cmbCasetype" class="txt c1"></select></td>
@@ -621,7 +645,7 @@
 					<tr class="tr16">
 						<td class="td1"><span> </span><a id="lblUnpack" class="lbl"></a></td>
 						<td class="td2">
-						<input id="txtUnpack" type="text"  class="txt c1"/>
+						<input id="txtUnpack" type="text"  class="txt num c1"/>
 						</td>
 					</tr>
 					<tr class="tr17">
@@ -643,25 +667,25 @@
 						</td>
 						<td class="td7"><span> </span><a id="lblTotal" class="lbl"></a></td>
 						<td class="td8" >
-						<input id="txtTotal" type="text"  class="txt c1"/>
+						<input id="txtTotal" type="text"  class="txt num c1"/>
 						</td>
 					</tr>
 					<tr class="tr19">
 						<td class="td1"><span> </span><a id="lblOverw" class="lbl"></a></td>
 						<td class="td2" >
-						<input id="txtOverw" type="text"  class="txt c1"/>
+						<input id="txtOverw" type="text"  class="txt num c1"/>
 						</td>
 						<td class="td3"><span> </span><a id="lblOverh" class="lbl"></a></td>
 						<td class="td4" >
-						<input id="txtOverh" type="text"  class="txt c1"/>
+						<input id="txtOverh" type="text"  class="txt num c1"/>
 						</td>
 						<td class="td5"><span> </span><a id="lblTotal2" class="lbl"></a></td>
 						<td class="td6" >
-						<input id="txtTotal2" type="text"  class="txt c1"/>
+						<input id="txtTotal2" type="text"  class="txt num c1"/>
 						</td>
 						<td class="td7"><span> </span><a id="lblCommission" class="lbl"></a></td>
 						<td class="td8" >
-						<input id="txtCommission" type="text" class="txt c1"/>
+						<input id="txtCommission" type="text" class="txt num c1"/>
 						</td>
 					</tr>
 					<tr class="tr20">
