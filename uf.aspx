@@ -26,7 +26,7 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        
+        aPop = new Array(['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -288,6 +288,20 @@
         {
             width: 15%;
         }
+         td {
+                margin: 0px -1px;
+                padding: 0;
+            }
+            td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+            }
+            select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+            }
       
     </style>
 </head>
@@ -339,7 +353,7 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input id="txtBankno.*" type="text" style="width: 80%;"/><input id="btnBankno" type="button" style="width: 15%;" value="..."/></td>
+                <td ><input id="txtBankno.*" type="text" style="width: 80%;"/><input id="btnBankno.*" type="button" style="width: 15%;" value="..."/></td>
                 <td ><input class="txt c1" id="txtBank.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCheckno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtDatea.*" type="text" /></td>
