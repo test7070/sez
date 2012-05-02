@@ -185,9 +185,6 @@
                 $('#txtPay').val(cmb.value);
             cmb.value = '';
         }
-
-
-
         function bbsAssign() {  /// 表身運算式
             _bbsAssign();
             for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
