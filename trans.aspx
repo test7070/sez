@@ -66,6 +66,20 @@
                 q_cmbParse("cmbUnit", q_getPara('trans.unit'));
                 q_cmbParse("cmbUnit2", q_getPara('trans.unit'));
                 q_func('car2.getItem', '3,4,5');
+
+                $("#cmbCalctype").change(function() {
+                    if($("#cmbCalctype").val() == '6') {
+                        $("#lblPrice2").hide();
+                        $("#txtPrice2").hide();
+                        $("#lblPrice3").show();
+                        $("#txtPrice3").show();
+                    } else {
+                        $("#lblPrice3").hide();
+                        $("#txtPrice3").hide();
+                        $("#lblPrice2").show();
+                        $("#txtPrice2").show();
+                    }
+                });
             }
 
             function txtCopy(dest, source) {
@@ -170,6 +184,17 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                if($("#cmbCalctype").val() == '6') {
+                    $("#lblPrice2").hide();
+                    $("#txtPrice2").hide();
+                    $("#lblPrice3").show();
+                    $("#txtPrice3").show();
+                } else {
+                    $("#lblPrice3").hide();
+                    $("#txtPrice3").hide();
+                    $("#lblPrice2").show();
+                    $("#txtPrice2").show();
+                }
             }
 
             function readonly(t_para, empty) {
@@ -322,8 +347,8 @@
             .tbbm tr td .txt.num {
                 text-align: right;
             }
-            .txt.num{
-            	text-align: right;
+            .txt.num {
+                text-align: right;
             }
             td {
                 margin: 0px -1px;
@@ -511,16 +536,13 @@
 						<td class="td2" >
 						<input id="txtPrice" type="text"  class="txt num c1"/>
 						</td>
-						<td class="td3" ><span> </span><a id="lblPrice2" class="lbl"></a></td>
+						<td class="td3" ><span> </span><a id="lblPrice2" class="lbl"></a><span> </span><a id="lblPrice3" class="lbl"></a></td>
 						<td class="td4" >
 						<input id="txtPrice2" type="text"  class="txt num c1"/>
-						</td>
-						<td class="td5" ><span> </span><a id="lblPrice3" class="lbl"></a></td>
-						<td class="td6" >
 						<input id="txtPrice3" type="text"  class="txt num c1"/>
 						</td>
-						<td class="td7" ><span> </span><a id="lblDiscount" class="lbl"></a></td>
-						<td class="td8" >
+						<td class="td5" ><span> </span><a id="lblDiscount" class="lbl"></a></td>
+						<td class="td6" >
 						<input id="txtDiscount" type="text" class="txt num c1"/>
 						</td>
 					</tr>
