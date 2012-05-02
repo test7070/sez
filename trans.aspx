@@ -169,6 +169,11 @@
                 }
                 var t_noa = trim($('#txtNoa').val());
 
+                if($("#cmbCalctype").val() == '6')
+                    $("#txtPrice2").val(0);
+                else
+                    $("#txtPrice3").val(0);
+
                 if(t_noa.length == 0)
                     q_gtnoa(q_name, t_noa);
                 else
@@ -418,10 +423,8 @@
 						</td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1" ><span> </span><a id="lblCalctype" class="lbl"></a></td>
-						<td class="td2" ><select id="cmbCalctype" class="txt c1"></select></td>
-						<td class="td3" ><span> </span><a id="lblTtype" class="lbl"></a></td>
-						<td class="td4" ><select id="cmbTtype" class="txt c1"></select></td>
+						<td class="td1" ><span> </span><a id="lblTtype" class="lbl"></a></td>
+						<td class="td2" ><select id="cmbTtype" class="txt c1"></select></td>
 						<td class="td3" ><span> </span><a id="lblCarteam" class="lbl"></a></td>
 						<td class="td4" ><select id="cmbCarteamno" class="txt c1"></select></td>
 					</tr>
@@ -532,17 +535,19 @@
 						</td>
 					</tr>
 					<tr class="tr11">
-						<td class="td1" ><span> </span><a id="lblPrice" class="lbl"></a></td>
-						<td class="td2" >
+						<td class="td1" ><span> </span><a id="lblCalctype" class="lbl"></a></td>
+						<td class="td2" ><select id="cmbCalctype" class="txt c1"></select></td>
+						<td class="td3" ><span> </span><a id="lblPrice" class="lbl"></a></td>
+						<td class="td4" >
 						<input id="txtPrice" type="text"  class="txt num c1"/>
 						</td>
-						<td class="td3" ><span> </span><a id="lblPrice2" class="lbl"></a><span> </span><a id="lblPrice3" class="lbl"></a></td>
-						<td class="td4" >
+						<td class="td5" ><span> </span><a id="lblPrice2" class="lbl"></a><span> </span><a id="lblPrice3" class="lbl"></a></td>
+						<td class="td6" >
 						<input id="txtPrice2" type="text"  class="txt num c1"/>
 						<input id="txtPrice3" type="text"  class="txt num c1"/>
 						</td>
-						<td class="td5" ><span> </span><a id="lblDiscount" class="lbl"></a></td>
-						<td class="td6" >
+						<td class="td7" ><span> </span><a id="lblDiscount" class="lbl"></a></td>
+						<td class="td8" >
 						<input id="txtDiscount" type="text" class="txt num c1"/>
 						</td>
 					</tr>
