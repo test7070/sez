@@ -305,9 +305,9 @@
             }
             .tbbm {
                 padding: 0px;
-                /*border: 1px white double;
+                border: 1px white double;
                  border-spacing: 0;
-                 border-collapse: collapse;*/
+                 border-collapse: collapse;
                 font-size: 16px;
                 color: blue;
                 background: #cad3ff;
@@ -362,8 +362,8 @@
             .dbbs .tbbs {
                 margin: 0;
                 padding: 2px;
-                border: 1px white double;
-                border-spacing: 0;
+                border: 2px lightgrey double;
+                border-spacing: 1;
                 border-collapse: collapse;
                 font-size: 16px;
                 color: blue;
@@ -373,20 +373,24 @@
             .dbbs .tbbs tr {
                 height: 35px;
             }
+            .dbbs .tbbs tr td{
+            	text-align: center;
+                border: 2px lightgrey double;
+            }
 
             .dbbm input[type="button"] {
                 float: right;
             }
-            td {
+            .tbbm tr td {
                 margin: 0px -1px;
                 padding: 0;
             }
-            td input[type="text"] {
+            .tbbm tr td input[type="text"] {
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
             }
-            select {
+            .tbbm tr td select {
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
