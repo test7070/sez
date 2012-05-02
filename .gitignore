@@ -1,5 +1,7 @@
-*.project
-*.gitignore
 *.class
 *.pyc
 *.pyo
+.settings
+*.gitignore
+tmp
+*.project
