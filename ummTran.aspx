@@ -292,7 +292,7 @@
         }
         .txt.c2
         {
-            width: 90%;
+            width: 65%;
         }
         .td1
         {
@@ -306,6 +306,9 @@
         {
             width: 8%;
         }
+        .txt.num {
+                text-align: right;
+            }
         .tbbm tr {
                 height: 35px;
             }
@@ -391,15 +394,15 @@
              </tr>
             <tr>
                 <td class="label1"><a id='lblTotal'></a></td>
-                <td class="column1" colspan='2'><input id="txtTotal" type="text" class="txt c1"/></td> 
+                <td class="column1" colspan='2'><input id="txtTotal" type="text" class="txt num c1"/></td> 
                 <td class="label2"><a id='lblPaysale'></a></td>
-                <td class="column2" colspan='2'><input id="txtPaysale"  type="text" class="txt c1"/></td> 
+                <td class="column2" colspan='2'><input id="txtPaysale"  type="text" class="txt num c1"/></td> 
                 <td class="label3"><a id='lblNextsale'></a></td>
-                <td class="column3"><input id="txtNextsale"  type="text" class="txt c1"/></td> 
+                <td class="column3"><input id="txtNextsale"  type="text" class="txt num c1"/></td> 
             </tr>
             <tr>
                  <td class="label1"><a id='lblOutsource'></a></td>
-                <td class="column1" colspan="2"><input id="txtOutsource"  type="text" class="txt c1"/></td> 
+                <td class="column1" colspan="2"><input id="txtOutsource"  type="text" class="txt num c1"/></td> 
             </tr>
             <tr><td class="label1"><a id='lblMemo'></a></td>
                 <td class="column1" colspan='7' ><textarea id="txtMemo" cols="10" rows="5" style="width: 95%; height: 127px;" ></textarea></td>
@@ -421,7 +424,7 @@
                 <td align="center" class="td3"><a id='lblUmmb'></a></td>
                 <td align="center" class="td3"><a id='lblCheckno'></a></td>
                 <td align="center" class="td3"><a id='lblAccount'></a></td>
-                <td align="center" class="td2"><a id='lblBankno'></a></td>
+                <td align="center" class="td3"><a id='lblBankno'></a></td>
                 <td align="center" style="width: 12%;"><a id='lblBank'></a></td>
                 <td align="center" class="td2"><a id='lblIndate'></a></td>
                 <td align="center"><a id='lblMemos'></a></td>
@@ -429,9 +432,9 @@
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td><input class="txt c1"  id="txtTypea.*" type="text" /></td>
-                <td><input class="txt c1" id="txtMoney.*" type="text" /></td>
-                <td><input class="txt c1" id="txtChgs.*" type="text" /></td>
-                <td><input class="txt c1" id="txtPaysale.*" type="text" /></td>
+                <td><input class="txt num c1" id="txtMoney.*" type="text" /></td>
+                <td><input class="txt num c1" id="txtChgs.*" type="text" /></td>
+                <td><input class="txt num c1" id="txtPaysale.*" type="text" /></td>
                 <td><input class="txt c1" id="txtMon.*" type="text" /></td>
                 <td><input  id="txtPartno.*" type="text"  style="width: 30%;"/><input id="txtPart.*" type="text" style="width: 55%;"/></td>
                 <td><input class="txt c1" id="txtUmmbno.*" type="text" /></td>
