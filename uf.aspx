@@ -288,6 +288,12 @@
         {
             width: 15%;
         }
+        .tbbm tr td span {
+                float: right;
+                display: block;
+                width: 5px;
+                height: 10px;
+            }
          td {
                 margin: 0px -1px;
                 padding: 0;
@@ -327,16 +333,16 @@
         <div class='dbbm' style="width: 73%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr>
-            <td class='label1'><a id="lblNoa" ></a></td><td class="column1"><input id="txtNoa"  type="text" class="txt c1" /></td>
-            <td class='label2'><a id="lblType"></a></td><td class="column2"><select id="cmbTypea" class="txt c1"></select></td>
-            <td class='label3'><a id="lblDatea"></a></td><td class="column3"><input id="txtDatea" type="text" class="txt c1"/></td>
-            <td class='label4'><a id="lblBankno"></a></td><td class="column4"><input id="txtBankno" type="text" class="txt c1"/></td></tr>
+            <td class='label1'><span> </span><a id="lblNoa" ></a></td><td class="column1"><input id="txtNoa"  type="text" class="txt c1" /></td>
+            <td class='label2'><span> </span><a id="lblType"></a></td><td class="column2"><select id="cmbTypea" class="txt c1"></select></td>
+            <td class='label3'><span> </span><a id="lblDatea"></a></td><td class="column3"><input id="txtDatea" type="text" class="txt c1"/></td>
+            <td class='label4'><span> </span><a id="lblBankno"></a></td><td class="column4"><input id="txtBankno" type="text" class="txt c1"/></td></tr>
         <tr>            
-            <td class='label1'><a id="lblAccno" ></a></td><td class="column1"><input id="txtAccno"  type="text" class="txt c1"/></td>
-            <td class='label2'><a id="lblAccount" ></a></td><td class="column2"><input id="txtAccount"  type="text" class="txt c1"/></td>
-            <td class='label3'><a id="lblMoney" style="font-size: 14px;"></a></td><td class="column3"><input id="txtMoney"  type="text" class="txt c1" style="text-align: right;" /></td></tr>        
+            <td class='label1'><span> </span><a id="lblAccno" ></a></td><td class="column1"><input id="txtAccno"  type="text" class="txt c1"/></td>
+            <td class='label2'><span> </span><a id="lblAccount" ></a></td><td class="column2"><input id="txtAccount"  type="text" class="txt c1"/></td>
+            <td class='label3'><span> </span><a id="lblMoney" style="font-size: 14px;"></a></td><td class="column3"><input id="txtMoney"  type="text" class="txt c1" style="text-align: right;" /></td></tr>        
         <tr>
-            <td class='label1'><a id="lblWorker" ></a></td><td class="column1"><input id="txtWorker"  type="text"  class="txt c1"/></td></tr>        
+            <td class='label1'><span> </span><a id="lblWorker" ></a></td><td class="column1"><input id="txtWorker"  type="text"  class="txt c1"/></td></tr>        
         </table>
         </div>
 
