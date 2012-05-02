@@ -18,7 +18,7 @@
             var q_name = "borr";
             var decbbm = ['payc', 'taxrate', 'tax', 'cash', 'checka', 'money', 'rate', 'inteis', 'bwmoney', 'pay'];
             var decbbs = ['money'];
-            var q_readonly = [];
+            var q_readonly = ['txtBwmoney', 'txtPay'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [['money', 10, 0]];
@@ -32,7 +32,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
-            aPop = new Array(['txtDriverno', 'btnDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtSssno', 'btnSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'])
+            aPop = new Array(['txtDriverno', 'btnDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtCustno', 'btnCust', 'cust', 'noa,nick', 'txtCustno,txtCust', 'cust_b.aspx'])
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -57,7 +57,7 @@
             function mainPost() {
                 fbbm[fbbm.length] = 'txtMemo';
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-                q_cmbParse("cmbTypea", q_getPara('gqb.typea'), 's');
+                q_cmbParse("cmbTypea", q_getPara('borr.typea'), 's');
             }
 
             function pop(form, seq) {
@@ -158,6 +158,8 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                if(q_cur > 0 && q_cur < 4)
+                    sum();
             }
 
             function readonly(t_para, empty) {
@@ -176,6 +178,26 @@
 
             function bbsAssign() {
                 _bbsAssign();
+
+                for(var j = 0; j < q_bbsCount; j++) {
+                    $("#txtMoney_" + j).change(function(e) {
+                        sum();
+                    });
+                }
+            }
+
+            function sum() {
+                var inMoney = 0;
+                var outMoney = 0;
+
+                for(var i = 0; i < q_bbsCount; i++) {
+                    if($("#cmbTypea_" + i).val() == '1')
+                        outMoney += $("#txtMoney_" + i).val();
+                    else
+                        inMoney += $("#txtMoney_" + i).val();
+                }
+                $("#txtBwmoney").val(outMoney);
+                $("#txtPay").val(inMoney);
             }
 
             function q_appendData(t_Table) {
@@ -354,7 +376,7 @@
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:25%"><a id='vewDatea'></a></td>
 						<td align="center" style="width:25%"><a id='vewCarno'></a></td>
-						<td align="center" style="width:25%"><a id='vewNamea'></a></td>
+						<td align="center" style="width:25%"><a id='vewCust'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -362,7 +384,7 @@
 						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='carno'>~carno</td>
-						<td align="center" id='namea'>~namea</td>
+						<td align="center" id='cust'>~cust</td>
 					</tr>
 				</table>
 			</div>
@@ -394,11 +416,11 @@
 						<input id="txtDriver"  type="text"  class="txt c3"/>
 						</td>
 						<td class="td5" >
-						<input id="btnSss" type="button"/>
+						<input id="btnCust" type="button"/>
 						</td>
 						<td class="td6">
-						<input id="txtSssno"  type="text"  class="txt c2"/>
-						<input id="txtNamea"  type="text" class="txt c3"/>
+						<input id="txtCustno"  type="text"  class="txt c2"/>
+						<input id="txtCust"  type="text" class="txt c3"/>
 						</td>
 					</tr>
 					<tr class="tr3">
