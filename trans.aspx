@@ -63,6 +63,8 @@
                 q_cmbParse("cmbCalctype", q_getPara('trans.calctype'));
                 q_cmbParse("cmbTtype", q_getPara('trans.ttype'));
                 q_cmbParse("cmbCasetype", q_getPara('trans.casetype'));
+                q_cmbParse("cmbUnit", q_getPara('trans.unit'));
+                q_cmbParse("cmbUnit2", q_getPara('trans.unit'));
                 q_func('car2.getItem', '3,4,5');
             }
 
@@ -309,14 +311,30 @@
                 width: 55%;
                 float: left;
             }
+            .tbbm tr td .txt.c4 {
+                width: 60%;
+                float: left;
+            }
+            .tbbm tr td .txt.c5 {
+                width: 40%;
+                float: left;
+            }
             .tbbm tr td .txt.num {
                 text-align: right;
+            }
+            .txt.num{
+            	text-align: right;
             }
             td {
                 margin: 0px -1px;
                 padding: 0;
             }
             td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+            }
+            select {
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
@@ -452,76 +470,76 @@
 						</td>
 						<td class="td5"><span> </span><a id="lblThird" class="lbl"></a></td>
 						<td class="td6">
-						<input id="txtThird" type="text" class="txt c1"/>
+						<input id="txtThird" type="text" class="txt num c1"/>
 						</td>
 						<td class="td7"><span> </span><a id="lblThirdprice" class="lbl"></a></td>
 						<td class="td8">
-						<input id="txtThirdprice" type="text" class="txt c1" />
+						<input id="txtThirdprice" type="text" class="txt num c1" />
 						</td>
 					</tr>
 					<tr class="tr9">
 						<td class="td1" ><span> </span><a id="lblMount" class="lbl"></a></td>
 						<td class="td2" >
-						<input id="txtMount" type="text"  class="txt c1"/>
-						</td>
+						<input id="txtMount" type="text"  class="txt num c4"/>
+						<select id="cmbUnit" class="txt c5" style="margin: -1px -2px 0px 2px;"></select></td>
 						<td class="td3" ><span> </span><a id="lblMount2" class="lbl"></a></td>
 						<td class="td4" >
-						<input id="txtMount2" type="text"  class="txt c1"/>
-						</td>
+						<input id="txtMount2" type="text"  class="txt num c4"/>
+						<select id="cmbUnit2" class="txt c5"  style="margin: -1px -2px 0px 2px;"></select></td>
 						<td class="td5"><span> </span><a id="lblPton" class="lbl"></a></td>
 						<td class="td6" >
-						<input id="txtPton" type="text"  class="txt c1"/>
+						<input id="txtPton" type="text"  class="txt num c1"/>
 						</td>
 						<td class="td7"><span> </span><a id="lblPton2" class="lbl"></a></td>
 						<td class="td8" >
-						<input id="txtPton2" type="text"  class="txt c1"/>
+						<input id="txtPton2" type="text"  class="txt num c1"/>
 						</td>
 
 					</tr>
 					<tr class="tr10">
 						<td class="td1" ><span> </span><a id="lblGross" class="lbl"></a></td>
 						<td class="td2" >
-						<input id="txtGross" type="text"  class="txt c1"/>
+						<input id="txtGross" type="text"  class="txt num c1"/>
 						</td>
 						<td class="td3" ><span> </span><a id="lblWeight" class="lbl"></a></td>
 						<td class="td4" >
-						<input id="txtWeight" type="text"  class="txt c1"/>
+						<input id="txtWeight" type="text"  class="txt num c1"/>
 						</td>
 					</tr>
 					<tr class="tr11">
 						<td class="td1" ><span> </span><a id="lblPrice" class="lbl"></a></td>
 						<td class="td2" >
-						<input id="txtPrice" type="text"  class="txt c1"/>
+						<input id="txtPrice" type="text"  class="txt num c1"/>
 						</td>
 						<td class="td3" ><span> </span><a id="lblPrice2" class="lbl"></a></td>
 						<td class="td4" >
-						<input id="txtPrice2" type="text"  class="txt c1"/>
+						<input id="txtPrice2" type="text"  class="txt num c1"/>
 						</td>
 						<td class="td5" ><span> </span><a id="lblPrice3" class="lbl"></a></td>
 						<td class="td6" >
-						<input id="txtPrice3" type="text"  class="txt c1"/>
+						<input id="txtPrice3" type="text"  class="txt num c1"/>
 						</td>
 						<td class="td7" ><span> </span><a id="lblDiscount" class="lbl"></a></td>
 						<td class="td8" >
-						<input id="txtDiscount" type="text" class="txt c1"/>
+						<input id="txtDiscount" type="text" class="txt num c1"/>
 						</td>
 					</tr>
 					<tr class="tr12">
 						<td class="td1" ><span> </span><a id="lblMinus" class="lbl"></a></td>
 						<td class="td2" >
-						<input id="txtMinus" type="text"  class="txt c1"/>
+						<input id="txtMinus" type="text"  class="txt num c1"/>
 						</td>
 						<td class="td3" ><span> </span><a id="lblReserve" class="lbl"></a></td>
 						<td class="td4" >
-						<input id="txtReserve" type="text" class="txt c1"/>
+						<input id="txtReserve" type="text" class="txt num c1"/>
 						</td>
 						<td class="td5" ><span> </span><a id="lblTolls" class="lbl"></a></td>
 						<td class="td6" >
-						<input id="txtTolls" type="text" class="txt c1"/>
+						<input id="txtTolls" type="text" class="txt num c1"/>
 						</td>
 						<td class="td7" ><span> </span><a id="lblTicket" class="lbl"></a></td>
 						<td class="td8" >
-						<input id="txtTicket" type="text"  class="txt c1"/>
+						<input id="txtTicket" type="text"  class="txt num c1"/>
 						</td>
 					</tr>
 					<tr class="tr13">
@@ -608,17 +626,6 @@
 						</td>
 					</tr>
 					<tr class="tr20">
-						<td class="td1"><span> </span><a id="lblUnit" class="lbl"></a></td>
-						<td class="td2" >
-						<input id="txtUnit" type="text"  class="txt c1"/>
-						</td>
-						<td class="td3"><span> </span><a id="lblUnit2" class="lbl"></a></td>
-						<td class="td4" >
-						<input id="txtUnit2" type="text"  class="txt c1"/>
-						</td>
-
-					</tr>
-					<tr class="tr21">
 						<td class="td1"><span> </span><a id="lblOverw" class="lbl"></a></td>
 						<td class="td2" >
 						<input id="txtOverw" type="text"  class="txt c1"/>
@@ -636,7 +643,7 @@
 						<input id="txtCommission" type="text" class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr22">
+					<tr class="tr21">
 						<td class="td1"><span> </span><a id="lblUmmbno" class="lbl"></a></td>
 						<td class="td2" >
 						<input id="txtUmmbno" type="text" class="txt c1"/>
