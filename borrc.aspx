@@ -372,10 +372,6 @@
             	text-align: center;
                 border: 2px lightgrey double;
             }
-
-            .dbbm input[type="button"] {
-                float: right;
-            }
             .tbbm tr td {
                 margin: 0px -1px;
                 padding: 0;
@@ -388,6 +384,7 @@
             .tbbm tr td input[type="button"] {
                 width: auto;
                 font-size: medium;
+                float: right;
             }
             
             .tbbm tr td select {
