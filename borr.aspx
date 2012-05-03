@@ -22,10 +22,8 @@
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [['money', 10, 0]];
-            var bbsNum_comma = [];
             var bbmMask = [];
             var bbsMask = [];
-
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -37,9 +35,7 @@
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
-
                 q_brwCount();
-
                 q_gt(q_name, q_content, q_sqlCount, 1)
             });
 
@@ -390,6 +386,7 @@
                 padding: 0px;
                 margin: -1px;
             }
+            
             .tbbm tr td select {
                 border-width: 1px;
                 padding: 0px;
@@ -524,7 +521,7 @@
 					</tr>
 					<tr class="tr8">
 						<td class="td1" ><span> </span><a id="lblMemo" class="lbl"></a></td>
-						<td class="column1" colspan="5">						<textarea id="txtMemo" style="width:100%; height: 127px;"></textarea></td>
+						<td class="column1" colspan="5"><textarea id="txtMemo" style="width:100%; height: 127px;"></textarea></td>
 					</tr>
 
 				</table>

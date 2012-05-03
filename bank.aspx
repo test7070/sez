@@ -50,7 +50,7 @@
         function mainPost() {
           
 
-            $('#btnSales').click(function () { pop('sss'); });
+           /* $('#btnSales').click(function () { pop('sss'); });
             $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
             $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); });
 
@@ -67,11 +67,11 @@
 
             txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
             txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
-            txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');
+            txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');*/
             fbbm[fbbm.length] = 'txtMemo'; 
         }
 
-        function pop(form, seq) {
+       /* function pop(form, seq) {
             b_seq = (seq ? seq : '');
             b_pop = form;
             switch (form) {
@@ -79,7 +79,7 @@
                 case 'sss': q_pop('txtGrpno', 'sss_b.aspx', 'sss', 'noa', 'comp', "60%", "650px", q_getMsg('popsss')); break;
                 case 'conn': q_pop('txtNoa', "conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'conn', 'noa', 'namea', "60%", "650px", q_getMsg('popConn')); break;
             }
-        }
+        }*/
 
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -320,6 +320,28 @@
         {
             width: 95%;
         }
+        .txt.c2
+        {
+            width: 98%;
+        }
+        .tbbm tr {
+                height: 35px;
+            }
+        .tbbm tr td span {
+                float: right;
+                display: block;
+                width: 8px;
+                height: 10px;
+            }
+         td {
+                margin: 0px -1px;
+                padding: 0;
+            }
+            td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+            }
     </style>
 </head>
 <body>
@@ -343,31 +365,31 @@
         <div class='dbbm' style="width: 73%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
             <tr>
-               <td class="label1" ><a id='lblNoa'></a></td>
+               <td class="label1" ><span> </span><a id='lblNoa'></a></td>
                <td class="column1"><input id="txtNoa"  type="text" class="txt c1" /></td>
             </tr>
             <tr>   
-               <td class="label1"  ><a id='lblBank'></a></td>
-               <td class="column1" colspan='5'><input id="txtBank"  type="text" class="txt c1" /></td>
+               <td class="label1" ><span> </span><a id='lblBank'></a></td>
+               <td class="column1" colspan='5'><input id="txtBank"  type="text" class="txt c2" /></td>
             </tr>
             <tr>
-               <td class="label1" ><a id='lblConn'></a></td>
+               <td class="label1" ><span> </span><a id='lblConn'></a></td>
                <td class="column1"><input id="txtConn" type="text" class="txt c1" /></td>
-               <td class="label2" ><a id='lblTel'></a></td>
+               <td class="label2" ><span> </span><a id='lblTel'></a></td>
                <td class="column2"><input id="txtTel" type="text" class="txt c1" /></td>
             </tr>
             <tr>
-               <td class="label1" ><a id='lblAddr'></a></td>
-               <td class="column1" colspan='5'><input id="txtAddr"  type="text" class="txt c1" /></td>
+               <td class="label1" ><span> </span><a id='lblAddr'></a></td>
+               <td class="column1" colspan='5'><input id="txtAddr"  type="text" class="txt c2" /></td>
             </tr>            
             <tr>
-               <td class="label1" ><a id='lblAccount'></a></td>
+               <td class="label1" ><span> </span><a id='lblAccount'></a></td>
                <td class="column1"><input id="txtAccount"  type="text" class="txt c1" /></td>
-               <td class="label2" ><a id='lblAcc1'></a></td>
+               <td class="label2" ><span> </span><a id='lblAcc1'></a></td>
                <td class="column2"><input id="txtAcc1" type="text" class="txt c1" /></td>
             </tr>            
             <tr>
-                <td class="label1"><a id='lblMemo'></a></td>
+                <td class="label1"><span> </span><a id='lblMemo'></a></td>
                 <td colspan='5' ><textarea id="txtMemo"  rows='5' cols='10' style="width:98%; height: 127px;"></textarea></td> 
             </tr>
         </table>
