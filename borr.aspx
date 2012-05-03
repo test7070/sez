@@ -52,7 +52,6 @@
 
             function mainPost() {
                 fbbm[fbbm.length] = 'txtMemo';
-                q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
                 q_cmbParse("cmbTypea", q_getPara('borr.typea'), 's');
 
                 $("#txtPayc").change(function() {
@@ -386,7 +385,10 @@
                 padding: 0px;
                 margin: -1px;
             }
-            
+            .tbbm tr td input[type="button"] {
+                width: auto;
+                font-size: medium;
+            }
             .tbbm tr td select {
                 border-width: 1px;
                 padding: 0px;
@@ -451,20 +453,6 @@
 						</td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1" ><span> </span><a id="lblPayc" class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtPayc"  type="text"  class="txt c1 num"/>
-						</td>
-						<td class="td3" ><span> </span><a id="lblTaxtype" class="lbl"></a></td>
-						<td class="td4"><a id="lblTaxrate" style="float: right; width:10%;"></a><select id="cmbTaxtype"  class="txt c2"></select>
-						<input id="txtTaxrate"  type="text"  class="txt c2 num"/>
-						</td>
-						<td class="td5" ><span> </span><a id="lblTax" class="lbl"></a></td>
-						<td class="td6">
-						<input id="txtTax"  type="text"  class="txt c1 num"/>
-						</td>
-					</tr>
-					<tr class="tr4">
 						<td class="td1"><span> </span><a id="lblCash" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtCash"  type="text" class="txt c1 num" />
@@ -478,7 +466,7 @@
 						<input id="txtMoney" type="text" class="txt c1 num" />
 						</td>
 					</tr>
-					<tr class="tr5">
+					<tr class="tr4">
 						<td class="td1"><span> </span><a id="lblBegindate" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtBegindate" type="text" class="txt c1"/>
@@ -492,7 +480,7 @@
 						<input id="txtRate" type="text" class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr6">
+					<tr class="tr5">
 						<td class="td1"><span> </span><a id="lblDays" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtDays"  type="text" class="txt c1" />
@@ -505,21 +493,17 @@
 						<input id="btnBorrowt" type="button" class="btn"/>
 						</td>
 					</tr>
-					<tr class="tr7">
-						<td class="td1"><span> </span><a id="lblBwmoney" class="lbl"></a></td>
+					<tr class="tr6">
+						<td class="td1"><span> </span><a id="lblPaydate" class="lbl"></a></td>
 						<td class="td2">
-						<input id="txtBwmoney"  type="text" class="txt c1 num" />
-						</td>
-						<td class="td3"><span> </span><a id="lblPaydate" class="lbl"></a></td>
-						<td class="td4">
 						<input id="txtPaydate"  type="text" class="txt c1" />
 						</td>
-						<td class="td5"><span> </span><a id="lblPay" class="lbl"></a></td>
-						<td class="td6">
+						<td class="td3"><span> </span><a id="lblPay" class="lbl"></a></td>
+						<td class="td4">
 						<input id="txtPay" type="text" class="txt c1 num" />
 						</td>
 					</tr>
-					<tr class="tr8">
+					<tr class="tr7">
 						<td class="td1" ><span> </span><a id="lblMemo" class="lbl"></a></td>
 						<td class="column1" colspan="5"><textarea id="txtMemo" style="width:100%; height: 127px;"></textarea></td>
 					</tr>

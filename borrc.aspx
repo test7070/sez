@@ -15,7 +15,7 @@
             this.errorHandler = null;
 
             q_tables = 's';
-            var q_name = "borr";
+            var q_name = "borrc";
             var decbbm = ['payc', 'taxrate', 'tax', 'cash', 'checka', 'money', 'rate', 'inteis', 'bwmoney', 'pay'];
             var decbbs = ['money'];
             var q_readonly = ['txtBwmoney', 'txtPay'];
@@ -52,8 +52,7 @@
 
             function mainPost() {
                 fbbm[fbbm.length] = 'txtMemo';
-                q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-                q_cmbParse("cmbTypea", q_getPara('borr.typea'), 's');
+                q_cmbParse("cmbTypea", q_getPara('borrc.typea'), 's');
 
                 $("#txtPayc").change(function() {
                     sum();
@@ -149,10 +148,10 @@
                 _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
             }
 
-            function bbsSave(as) {/// 表身 寫入資料庫前，寫入需要欄位
-                if(!as['checkno']) {//不存檔條件
+            function bbsSave(as) {
+                if(!as['checkno']) {
                     as[bbsKey[1]] = '';
-                    /// noq 為空，不存檔
+                    /// noq 嚙踝蕭嚙褐，嚙踝蕭嚙編嚙踝蕭
                     return;
                 }
 
@@ -386,6 +385,10 @@
                 padding: 0px;
                 margin: -1px;
             }
+            .tbbm tr td input[type="button"] {
+                width: auto;
+                font-size: medium;
+            }
             
             .tbbm tr td select {
                 border-width: 1px;
@@ -455,14 +458,7 @@
 						<td class="td2">
 						<input id="txtPayc"  type="text"  class="txt c1 num"/>
 						</td>
-						<td class="td3" ><span> </span><a id="lblTaxtype" class="lbl"></a></td>
-						<td class="td4"><a id="lblTaxrate" style="float: right; width:10%;"></a><select id="cmbTaxtype"  class="txt c2"></select>
-						<input id="txtTaxrate"  type="text"  class="txt c2 num"/>
-						</td>
-						<td class="td5" ><span> </span><a id="lblTax" class="lbl"></a></td>
-						<td class="td6">
-						<input id="txtTax"  type="text"  class="txt c1 num"/>
-						</td>
+						
 					</tr>
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id="lblCash" class="lbl"></a></td>
