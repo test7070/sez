@@ -24,9 +24,7 @@
         var q_readonly = ['txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtOrdeno'];//, 'txtAccno','txtMon','txtSales']; 
         var q_readonlys= ['txtTotal','txtOrdeno','txtNo2'];
         var bbmNum = [['txtPrice', 10, 3], ['txtTranmoney', 11, 2], ['txtMoney', , , 1], ['txtTax', , , 1], ['txtTotal', , , 1]];  // 允許 key 小數
-        //var bbmNum_comma = ['txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight', 'txtTranmoney'];  ///  ,,,,,, 純粹 顯示 comma
         var bbsNum = [['txtPrice', 12, 3], ['txtWeight', 11, 2,1], ['txtMount', 9, 2,1]];
-        //var bbsNum_comma = ['txtTotal'];  // 該欄 不許再有運算式  ,,,,,, 純粹 顯示 comma
         var bbmMask = []; // post 後給值
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'datea';
@@ -50,12 +48,12 @@
             mainForm(1); // 1=最後一筆  0=第一筆
         }  ///  end Main()
 
-        aPop = [['txtCustno' , 'btnCust' , 'cust' , 'noa,comp,tel,zip_fact,addr_fact,pay,trantype', 'txtCustno,txtComp,txtTel,txtZipcode,txtAddr,txtPay,cmbTrantype','cust_b.aspx'],
+    /*    aPop = [['txtCustno' , 'btnCust' , 'cust' , 'noa,comp,tel,zip_fact,addr_fact,pay,trantype', 'txtCustno,txtComp,txtTel,txtZipcode,txtAddr,txtPay,cmbTrantype','cust_b.aspx'],
                 ['txtStoreno', 'btnStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
                 ['txtCarno'  , 'btnCar'  , 'car'  , 'noa,car'  , 'txtCarno,txtCar' , 'car_b.aspx'],
                 ['txtAcomp', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
                 ['txtSalesno', 'btnSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-                ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']];
+                ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']];*/
 
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
@@ -66,12 +64,10 @@
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));   
             q_cmbParse("combPay", q_getPara('vcc.pay'));  // comb 未連結資料庫
             q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
-
-            $('#btnOrdes').click(function () { btnOrdes(); });
-
-            $('#btnOrde').click(function () { q_pop('txtOrdeno', "orde.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtOrdeno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1024px", q_getMsg('popOrde'), true); }); 
-
-            $('#btnAccc').click(function () { q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true); }); 
+			$('#btnAccc').parent().click(function(e) {
+                    q_box("accc.aspx?" + $('#txtAccno').val() + "'", 'accc', "850px", "600px", q_getMsg("popAccc"));
+                });
+           
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、訂單視窗  關閉時執行
@@ -422,8 +418,8 @@
                <td class="label1"  align="right"><a id='lblType'></a></td>
                <td class="column1" >
                <%--<input id="txtType" type="text"  style='width:0%; visibility:collapse;'/>--%>
-               <select id="cmbType" style='width:100%;'/></td>
-               <td class="column2" align='right' ><a id='lblStype'></a><select id="cmbStype" style='width:70%;'/></td>
+               <select id="cmbType" style='width:100%;'></select></td>
+               <td class="column2" align='right' ><a id='lblStype'></a><select id="cmbStype" style='width:70%;'></select></td>
                <td class="label2" ><a id='lblDatea'></a></td>
                <td class="column3"><input id="txtDatea" type="text"  style='width:97%;'/></td>
                <td></td>
@@ -446,7 +442,7 @@
                 <td ><input id="txtComp"  type="text" class="txt c1"/></td>
                 <td align="right"><a id='lblPay'></a></td>
                 <td ><input id="txtPay" type="text" style='width:97%' /></td> 
-                <td> <select id="combPay" class="txt c1" /></td>
+                <td> <select id="combPay" class="txt c1" ></select></td>
                 <td align="right"><input id="btnAccc" type="button" value='.' style='width: auto; font-size: medium;'  /></td>
                 <td ><input id="txtAccno"  type="text" class="txt c2"/></td>  
             </tr>
@@ -454,7 +450,7 @@
                 <td align="right" class="style1" ><a id='lblTel'></a></td>
                 <td colspan='2' class="style1"><input id="txtTel" type="text" class="txt c1"/></td>
                 <td align="right" class="style1"><a id='lblTrantype'></a></td>
-                <td  colspan='2' class="style1"><select id="cmbTrantype" class="txt c1"/></td> 
+                <td  colspan='2' class="style1"><select id="cmbTrantype" class="txt c1"></select></td> 
                   <td align="right"><a id='lblWorker'></a></td>
                 <td ><input id="txtWorker"  type="text" class="txt c2" style='text-align:center;'/></td> 
             </tr>
@@ -490,7 +486,7 @@
                 <td colspan='2'><input id="txtMoney"    type="text" class="txt c1"style='text-align:center;'/></td> 
                 <td align="right" ><a id='lblTax'></a></td>
                 <td><input id="txtTax" type="text" class="txt c1" style=' text-align:center;'/></td>
-                <td><select id="cmbTaxtype" class="txt c1"/></td>
+                <td><select id="cmbTaxtype" class="txt c1"></select></td>
                 <td align="right"><a id='lblTotal'></a></td>
                 <td ><input id="txtTotal" type="text" class="txt c2" style='text-align:center;'/>
                 </td> 
@@ -515,13 +511,13 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td style="width:10%; text-align:center"><input  id="txtProductno.*"type="text" class="txt c2"/>
-                <td style="width:20%;"><input id="txtProduct.*" type="text" class="txt c2"/>
+                <td style="width:10%; text-align:center"><input  id="txtProductno.*"type="text" class="txt c2"/></td>
+                <td style="width:20%;"><input id="txtProduct.*" type="text" class="txt c2"/></td>
                 <td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c2"/></td>
                 <td style="width:5%;"><input id="txtMount.*" type="text" class="txt c2"/></td>
                 <td style="width:6%;"><input  id="txtPrice.*" type="text" class="txt c2"/></td>
-                <td style="width:8%;"><input  id="txtTotal.*" type="text" class="txt c2"/>
-                <td style="width:12%;"><input id="txtMemo.*" type="text" class="txt c2"/>
+                <td style="width:8%;"><input  id="txtTotal.*" type="text" class="txt c2"/></td>
+                <td style="width:12%;"><input id="txtMemo.*" type="text" class="txt c2"/></td>
             </tr>
         </table>
         </div>
