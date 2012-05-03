@@ -10,7 +10,6 @@
     <script src="../script/qbox.js" type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
-    
     <script type="text/javascript">
         this.errorHandler = null;
         function onPageError(error) {
@@ -47,6 +46,16 @@
         function mainPost() { 
         	 q_cmbParse("cmbTypea", q_getPara('sss.typea'));
         	  q_cmbParse("cmbSex", q_getPara('sss.sex'));
+        	  
+        	  $('#btnFamily').click(function(e) {
+                    q_box("family_b.aspx?;;;noa='" + $( ).val() + "'", 'family', "850px", "600px", q_getMsg("popFamily"));
+                });
+                $('#btnSaladjust').click(function(e) {
+                    q_box("salAdjust.aspx?;;;noa='" + $( ).val() + "'", 'saladjust', "850px", "600px", q_getMsg("popSaladjust"));
+                });
+                $('#btnSpass').parent().click(function(e) {
+                    q_box("spass.aspx" , 'spass', "850px", "600px", q_getMsg("popSpass"));
+                });
             /*$('#btnSales').click(function () { pop('sss'); });
             $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
             $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); });
@@ -407,7 +416,7 @@
                <td class="label1" ></td>
                <td class="column1"><input id='btnFamily' type="button" style='width: auto; font-size: medium;'/></td>
                <td class="label2" ></td>
-               <td class="column2"><input id='btnSalj' type="button" style='width: auto; font-size: medium;'/></td>
+               <td class="column2"><input id='btnSaladjust' type="button" style='width: auto; font-size: medium;'/></td>
                <td class="label3" ></td>
                <td class="column3"><input id='btnSpass' type="button" style='width: auto; font-size: medium;'/></td>
                <td class="label4"></td>
