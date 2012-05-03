@@ -146,6 +146,7 @@
                 <td align="center" class="td1"><a id='lblCh_health'></a></td>
                 <td align="center" class="td1"><a id='lblIndate'></a></td>
                 <td align="center" class="td1"><a id='lblOutdate'></a></td>
+                <td align="center" ><a id='lblMemo'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  /></td>
@@ -156,7 +157,8 @@
                 <td ><input class="txt c1" id="txtId.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCh_health.*" type="text" style="text-align: right;" /></td>
                 <td ><input class="txt c1" id="txtIndate.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtOutdate.*" type="text"/>
+                <td ><input class="txt c1" id="txtOutdate.*" type="text"/></td>
+                <td ><input class="txt c1" id="txtMemo.*" type="text"/>
                 <input id="txtNoa.*" type="hidden" /></td>
             </tr>
         </table>
