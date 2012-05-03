@@ -326,6 +326,11 @@
         {
             width: 93%;
         }
+        td input[type="button"] {
+                width: auto;
+                font-size: medium;
+                float: right;
+            }
     </style>
 </head>
 <body>
@@ -361,12 +366,12 @@
             <tr>
                <td class="label1" ><a id='lblAccount'></a></td>
                <td class="column1" colspan="2"><input id="txtAccount" type="text" class="txt c1" /></td>
-               <td class="label2" ><input id="btnAcomp" type="button" style="width: auto; font-size: medium;"/></td>
+               <td class="label2" ><input id="btnAcomp" type="button" /></td>
                <td class="column2"><input id="txtCno" type="text"  style="width: 20%;"/>              
                <input id="txtAcomp" type="text" style="width: 70%;"  /></td>                          
             </tr>
             <tr>
-               <td class="label1" ><input id="btnBank" type="button" style="width: auto; font-size: medium;" /></td>
+               <td class="label1" ><input id="btnBank" type="button" /></td>
                <td class="column1"><input id="txtBankno" type="text" class="txt c1"/></td>
                <td class="column1a"><input id="txtBank" type="text" class="txt c2"/></td>
                <td class="label2"></td>                                         
@@ -386,13 +391,13 @@
                           
             </tr>
             <tr>
-               <td class="label1"  ><input id="btnTcomp" type="button" style="width: auto; font-size: medium;"/></td>
+               <td class="label1"  ><input id="btnTcomp" type="button" /></td>
                <td class="column1" ><input id="txtTcompno"  type="text" class="txt c1" /></td>
                <td class="column1a" ><input id="txtTcomp"  type="text" class="txt c2" /></td>
                <td class="label2"></td>            
             </tr>
             <tr>
-               <td class="label1"  ><input id="btnComp" type="button" style="width: auto; font-size: medium;"/></td>
+               <td class="label1"  ><input id="btnComp" type="button" /></td>
                <td class="column1" ><input id="txtCompno"  type="text" class="txt c1" /></td>
                <td class="column1a" ><input id="txtComp"  type="text" class="txt c2" /></td>
                 <td class="label2"></td>             
