@@ -298,8 +298,6 @@
             .column2 {
                 width: 15%;
             }
-            
-           
             .label1 {
                 width: 15%;
                 text-align: right;
@@ -370,9 +368,9 @@
                             
                         </tr>
                         <tr>
-                            <td class="label1" ><a id="lblMoney"/></td>
+                            <td class="label1" ><a id="lblMoney"></a></td>
                             <td class="column1"colspan="2"><input id="txtMoney"  type="text" class="txt c1" style="text-align: right;"/></td>
-                            <td class="label2" ><a id="lblDc"/></td>
+                            <td class="label2" ><a id="lblDc"></a></td>
                             <td class="column2"><input id="txtDc"  type="text" class="txt c1" /></td>
                         </tr>
                         <tr>            
@@ -384,26 +382,26 @@
                             <td class="label1" ><input id="btnSss" type="button" style="width: auto;font-size: medium;"/></td>
                             <td class="column1"><input id="txtSssno"  type="text"  class="txt c1"/></td>
                             <td class="column1a"><input id="txtNamea" type="text"  class="txt c1"/></td>    
-                            <td class="label2" ><a id="lblWorker"/></td>
+                            <td class="label2" ><a id="lblWorker"></a></td>
                             <td class="column2"><input id="txtWorker"  type="text" class="txt c1"/></td>
                         </tr>
                         <tr>                          
-                            <td class="label1" ><a id="lblChecker"/></td>
-                            <td class="column1"colspan="2"><input id="txtchecker"  type="text" class="txt c1" /></td>
+                            <td class="label1" ><a id="lblChecker"></a></td>
+                            <td class="column1"colspan="2"><input id="txtChecker"  type="text" class="txt c1" /></td>
                             <td class="label2"colspan="2"><input id="txtCheckmemo"  type="text" class="txt c1"/></td>       
                         </tr> 
                         <tr>
-                            <td class="label1" ><a id="lblApprv"/></td>
+                            <td class="label1" ><a id="lblApprv"></a></td>
                             <td class="column1" colspan="2"><input id="txtApprv"  type="text" class="txt c1"/></td>  
                             <td class="label2" colspan="2"><input id="txtApprvmemo"  type="text" class="txt c1" /></td>            
                         </tr>
                         <tr>
-                            <td class="label1" ><a id="lblApprove"/></td>
+                            <td class="label1" ><a id="lblApprove"></a></td>
                             <td class="column1" colspan="2"><input id="txtApprove"  type="text" class="txt c1" /></td>  
                             <td class="label2" colspan="2"><input id="txtApprovememo"  type="text" class="txt c1" /></td>            
                         </tr>
                         <tr>
-                            <td class="label1" ><a id="lblMemo"/></td>
+                            <td class="label1" ><a id="lblMemo"></a></td>
                             <td class="column1" colspan="4"><textarea id="txtMemo"  type="text"  cols="10" rows="5" style='width:98%;height: 127px; '></textarea></td>
                         </tr>
                 </table>
