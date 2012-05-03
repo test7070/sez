@@ -17,7 +17,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var decbbm = ['day_meal', 'borrow', 'mi_oth'];
-        var q_name="salp";
+        var q_name="salchg";
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
@@ -313,6 +313,10 @@
         {
             width: 95%;
         }
+        .txt.num
+        {
+        	text-align: right;
+        }
     </style>
 </head>
 	<body>
@@ -370,7 +374,7 @@
                         </tr>
                         <tr>
                             <td class="label1" ><a id='lblDay_meal'></a></td>
-                            <td class="column1"><input id="txtDay_meal"  type="text" class="txt c1" style="text-align: right;"/></td>
+                            <td class="column1"><input id="txtDay_meal"  type="text" class="txt num c1" /></td>
                             <td class="label2" ></td>
                             <td class="column2"></td>
                             <td class="label3" ></td>
@@ -378,7 +382,7 @@
                         </tr>
                         <tr>
                             <td class="label1" ><a id='lblBorrow'></a></td>
-                            <td class="column1"><input id="txtBorrow"  type="text" class="txt c1" style="text-align: right;"/></td>
+                            <td class="column1"><input id="txtBorrow"  type="text" class="txt num c1" /></td>
                             <td class="label2" ></td>
                             <td class="column2"></td>
                             <td class="label3" ></td>
@@ -386,7 +390,7 @@
                         </tr>
                         <tr>
                             <td class="label1" ><a id='lblMi_oth'></a></td>
-                            <td class="column1"><input id="txtMi_oth"  type="text" class="txt c1" style="text-align: right;"/></td>
+                            <td class="column1"><input id="txtMi_oth"  type="text" class="txt num c1" /></td>
                             <td class="label2" ></td>
                             <td class="column2"></td>
                             <td class="label3" ></td>

@@ -10,8 +10,8 @@
 <script src='../script/mask.js' type="text/javascript"></script>
 
 <script type="text/javascript">
-    var q_name = 'salj', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
-    var t_sqlname = 'salj_load'; t_postname = q_name;
+    var q_name = 'saladjust', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
+    var t_sqlname = 'saladjust_load'; t_postname = q_name;
     var isBott = false;  /// 是否已按過 最後一頁
     var afield, t_htm;
     var i, s1;

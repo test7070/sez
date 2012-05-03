@@ -16,7 +16,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         q_tables = 's';
-        var q_name = "salq";
+        var q_name = "salexam";
         var decbbs = ['base', 'qpoint1', 'qpoint2', 'qpoint', 'point1', 'tot_person', 'tot_sick', 'tot_leave', 'tot_late', 'tot_forget', 'mi_person', 'mi_sick', 'mi_leave', 'mi_late', 'mi_forget', 'xpoint', 'point2', 'vcount1', 'vcount2', 'vcount3', 'vcount4', 'vcount5', 'vcount6', 'vcount7', 'vpoint', 'point', 'day1', 'day2', 'money1', 'day3', 'money2', 'money3', 'tax', 'total'];
         var decbbm = [];
         var q_readonly = [];
@@ -294,6 +294,10 @@
         {
             width: 95%;
         }
+        .txt.num
+        {
+        	text-align: right;
+        }
       
     </style>
 </head>
@@ -381,43 +385,43 @@
                 <td class="st1"><input  id="txtNamea.*" type="text" class="txt c1"/></td>
                 <td class="st1"><input  id="txtPart.*" type="text" class="txt c1" /></td>
                 <td class="st1"><input  id="txtMon.*" type="text" class="txt c1"/></td>
-                <td class="st1"><input  id="txtBase.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtQpoint1.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtQpoint2.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtQpoint.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtPoint1.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st1"><input  id="txtTot_person.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st1"><input  id="txtTot_sick.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st1"><input  id="txtTot_leave.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st1"><input  id="txtTot_late.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st1"><input  id="txtTot_forget.*" type="text" class="txt c1" style="text-align: right;"/></td>
+                <td class="st1"><input  id="txtBase.*" type="text" class="txt num c1" /></td>
+                <td class="st2"><input  id="txtQpoint1.*" type="text" class="txt num c1" /></td>
+                <td class="st2"><input  id="txtQpoint2.*" type="text" class="txt num c1" /></td>
+                <td class="st2"><input  id="txtQpoint.*" type="text" class="txt num c1" /></td>
+                <td class="st2"><input  id="txtPoint1.*" type="text" class="txt num c1" /></td>
+                <td class="st1"><input  id="txtTot_person.*" type="text" class="txt num c1" /></td>
+                <td class="st1"><input  id="txtTot_sick.*" type="text" class="txt num c1" /></td>
+                <td class="st1"><input  id="txtTot_leave.*" type="text" class="txt num c1" /></td>
+                <td class="st1"><input  id="txtTot_late.*" type="text" class="txt num c1" /></td>
+                <td class="st1"><input  id="txtTot_forget.*" type="text" class="txt num c1" /></td>
                 <td class="st2"><input  id="txtXcountx.*" type="text" class="txt c1"/></td>
-                <td class="st2"><input  id="txtMi_person.*" type="text" class="txt c1"style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtMi_sick.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtMi_leave.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtMi_late.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtMi_forget.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st1"><input  id="txtXpoint.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtPoint2.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtVcount1.*"type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtVcount2.*"type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtVcount3.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtVcount4.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtVcount5.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtVcount6.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtVcount7.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtVpoint.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtPoint.*" type="text" class="txt c1" style="text-align: right;"/></td>
+                <td class="st2"><input  id="txtMi_person.*" type="text" class="txt num c1"/></td>
+                <td class="st2"><input  id="txtMi_sick.*" type="text" class="txt num c1" /></td>
+                <td class="st2"><input  id="txtMi_leave.*" type="text" class="txt num c1" /></td>
+                <td class="st2"><input  id="txtMi_late.*" type="text" class="txt num c1" /></td>
+                <td class="st2"><input  id="txtMi_forget.*" type="text" class="txt num c1" /></td>
+                <td class="st1"><input  id="txtXpoint.*" type="text" class="txt num c1" /></td>
+                <td class="st2"><input  id="txtPoint2.*" type="text" class="txt num c1" /></td>
+                <td class="st2"><input  id="txtVcount1.*"type="text" class="txt num c1" /></td>
+                <td class="st2"><input  id="txtVcount2.*"type="text" class="txt num c1" /></td>
+                <td class="st2"><input  id="txtVcount3.*" type="text" class="txt num c1" /></td>
+                <td class="st2"><input  id="txtVcount4.*" type="text" class="txt num c1" /></td>
+                <td class="st2"><input  id="txtVcount5.*" type="text" class="txt num c1" /></td>
+                <td class="st2"><input  id="txtVcount6.*" type="text" class="txt num c1" /></td>
+                <td class="st2"><input  id="txtVcount7.*" type="text" class="txt num c1" /></td>
+                <td class="st2"><input  id="txtVpoint.*" type="text" class="txt num c1" /></td>
+                <td class="st2"><input  id="txtPoint.*" type="text" class="txt num c1" /></td>
                 <td class="st2"><input  id="txtClass.*" type="text" class="txt c1"/></td>
                 <td class="st1"><input  id="txtQclass.*"type="text" class="txt c1"/></td>
-                <td class="st1"><input  id="txtDay1.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st1"><input  id="txtDay2.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st1"><input  id="txtMoney1.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st1"><input  id="txtDay3.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st1"><input  id="txtMoney2.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st1"><input  id="txtMoney3.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st2"><input  id="txtTax.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td class="st1"><input  id="txtTotal.*" type="text" class="txt c1" style="text-align: right;"/><input id="txtNoq.*" type="hidden" /></td>               
+                <td class="st1"><input  id="txtDay1.*" type="text" class="txt num c1" /></td>
+                <td class="st1"><input  id="txtDay2.*" type="text" class="txt num c1" /></td>
+                <td class="st1"><input  id="txtMoney1.*" type="text" class="txt num c1" /></td>
+                <td class="st1"><input  id="txtDay3.*" type="text" class="txt num c1" /></td>
+                <td class="st1"><input  id="txtMoney2.*" type="text" class="txt num c1" /></td>
+                <td class="st1"><input  id="txtMoney3.*" type="text" class="txt num c1" /></td>
+                <td class="st2"><input  id="txtTax.*" type="text" class="txt num c1" /></td>
+                <td class="st1"><input  id="txtTotal.*" type="text" class="txt num c1" /><input id="txtNoq.*" type="hidden" /></td>               
             </tr>
         </table>
         </div>

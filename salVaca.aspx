@@ -16,7 +16,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         q_tables = 's';
-        var q_name = "salg";
+        var q_name = "salvaca";
         var decbbs = ['hr_special', 'hr_used', 'tot_special'];
         var decbbm = ['total'];
         var q_readonly = [];

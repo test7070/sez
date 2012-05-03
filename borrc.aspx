@@ -151,7 +151,7 @@
             function bbsSave(as) {
                 if(!as['checkno']) {
                     as[bbsKey[1]] = '';
-                    /// noq ���šA���s��
+                  
                     return;
                 }
 
@@ -435,14 +435,14 @@
 						<td class="td2">
 						<input id="txtCarno"  type="text" class="txt c1"/>
 						</td>
-						<td class="td3" >
+						<td class="td3" ><span> </span>
 						<input id="btnDriver" type="button"/>
 						</td>
 						<td class="td4">
 						<input id="txtDriverno"  type="text"  class="txt c2"/>
 						<input id="txtDriver"  type="text"  class="txt c3"/>
 						</td>
-						<td class="td5" >
+						<td class="td5" ><span> </span>
 						<input id="btnCust" type="button"/>
 						</td>
 						<td class="td6">

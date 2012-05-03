@@ -16,7 +16,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         q_tables = 's';
-        var q_name = "salo";
+        var q_name = "salrank";
         var decbbs = ['money'];
         var decbbm = ['money', 'bo_admin', 'bo_duty', 'bo_full', 'bo_over', 'bo_oth', 'diff'];
         var q_readonly = [];
@@ -281,6 +281,10 @@
        {
            width: 95%;
        }
+       .txt.num
+       {
+       	text-align: right;
+       }
       
     </style>
 </head>
@@ -311,18 +315,18 @@
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr>
             <td class='label1'><a id="lblNoa" ></a></td><td class="column1"><input id="txtNoa"  type="text" class="txt c1"/></td>
-            <td class='label2'><a id="lblBo_admin" ></a></td><td class="column2"><input id="txtBo_admin" type="text" class="txt c1" style="text-align: right;"/></td> 
-            <td class='label3'><a id="lblBo_duty" ></a></td><td class="column3"><input id="txtBo_duty" type="text"class="txt c1" style="text-align: right;"/></td> 
+            <td class='label2'><a id="lblBo_admin" ></a></td><td class="column2"><input id="txtBo_admin" type="text" class="txt num c1" /></td> 
+            <td class='label3'><a id="lblBo_duty" ></a></td><td class="column3"><input id="txtBo_duty" type="text"class="txt num c1" /></td> 
         </tr>
         <tr>            
-            <td class='label1'><a id="lblBo_full"></td><td class="column1"><input id="txtBo_full" type="text" class="txt c1" style="text-align: right;" /></td>
-            <td class='label2'><a id="lblBo_over" ></a></td><td class="column2"><input id="txtBo_over" type="text" class="txt c1" style="text-align: right;"/></td>
-            <td class='label3'><a id="lblBo_oth" ></a></td><td class="column3"><input id="txtBo_oth" type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class='label1'><a id="lblBo_full"></a></td><td class="column1"><input id="txtBo_full" type="text" class="txt num c1" /></td>
+            <td class='label2'><a id="lblBo_over" ></a></td><td class="column2"><input id="txtBo_over" type="text" class="txt num c1" /></td>
+            <td class='label3'><a id="lblBo_oth" ></a></td><td class="column3"><input id="txtBo_oth" type="text" class="txt num c1" /></td>
         </tr>        
         <tr>            
-            <td class='label1'><a id="lblMoney" ></a></td><td class="column1"><input id="txtMoney"  type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class='label1'><a id="lblMoney" ></a></td><td class="column1"><input id="txtMoney"  type="text" class="txt num c1" /></td>
             <td class='label2'><a id="lblLevel" ></a></td><td class="column2"><input id="txtLevel1" type="text"  style='width:45%;'/><input id="txtLevel2" type="text"  style='width:45%;'/></td>
-            <td class='label1'><a id="lblDiff" ></a></td><td class="column1"><input id="txtDiff"  type="text" class="txt c1" style="text-align: right;" /></td> 
+            <td class='label1'><a id="lblDiff" ></a></td><td class="column1"><input id="txtDiff"  type="text" class="txt num c1" /></td> 
         </tr>              
         </table>
         </div>
@@ -339,7 +343,7 @@
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input class="txt c1" id="txtLevel1.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtLevel2.*"type="text" /></td>
-                <td ><input class="txt c1" id="txtMoney.*" type="text" style="text-align: right;"/><input id="txtNoq.*" type="hidden" /></td>
+                <td ><input class="txt num c1" id="txtMoney.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
             </tr>
         </table>
         </div>

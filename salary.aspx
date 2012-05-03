@@ -16,7 +16,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         q_tables = 's';
-        var q_name = "saln";
+        var q_name = "salary";
         var decbbs = ['mmoney', 'bo_admin', 'bo_duty', 'bo_full', 'bo_over', 'bo_oth', 'hr_person', 'hr_sick', 'hr_nosalary', 'hr_leave', 'mi_person', 'mi_sick', 'mi_nosalary', 'mi_leave', 'mi_full',, 'mi_total', 'total2', 'day_meal', 'ch_lunch', 'ch_labor', 'ch_health', 'welfare', 'borrow', 'tax', 'mi_oth', 'mi_total2', 'total', 'retire', 'late', 'bo_born', 'bo_bornpoint', 'bo_trans', 'bo_exam', 'plus', 'saltype', 'ad_h1', 'ad_m1', 'ad_h133', 'ad_m133', 'ad_h2', 'ad_m2', 'ad_h166', 'ad_m166', 'ad_money', 'obonus', 'ototal'];
         var decbbm = ['hour', 'bo_born', 'money', 'bo_admin', 'bo_duty', 'bo_full', 'bo_over', 'bo_oth', 'mi_person', 'mi_full', 'ch_lunch', 'ch_labor', 'ch_health', 'welfare', 'borrow', 'tax', 'mi_oth', 'ptotal', 'mi_total2', 'total'];
         var q_readonly = [];
@@ -54,7 +54,7 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-             q_cmbParse("cmbTypea", q_getPara('saln.typea'));
+             q_cmbParse("cmbTypea", q_getPara('salary.typea'));
             
         }
 
@@ -316,7 +316,10 @@
         {
             width: 2%;
         }
-        
+        .txt.num
+        {
+        	text-align: right;
+        }
        
       
     </style>
@@ -342,62 +345,62 @@
             <td class="label1"><a id="lblMon"></a></td>
             <td class="column1"><input id="txtMon"  type="text" class="txt c1"/></td>
             <td class="label2"><a id="lblType"></a></td>
-            <td class="column2"><select id="cmbTypea" class="txt c1"/></td>
+            <td class="column2"><select id="cmbTypea" class="txt c1"></select></td>
             <td class="label3"><a id="lblNoa"></a></td>
             <td class="column3"><input id="txtNoa"  type="text" class="txt c1"/></td>
             <td class="label4"><a id="lblHour"></a></td>
-            <td class="column4"><input id="txtHour" type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column4"><input id="txtHour" type="text" class="txt num c1" /></td>
             <td class="label5"><a id="lblBo_born"></a></td>
-            <td class="column5"><input id="txtBo_born"  type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column5"><input id="txtBo_born"  type="text" class="txt num c1" /></td>
             <td class="label6"><input id="btnInput" type="button" style="width: auto;font-size: medium;"/></td>
         </tr>
         <tr>
             <td class="label1"><a id="lblMoney"></a></td>
-            <td class="column1"><input id="txtMoney"  type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column1"><input id="txtMoney"  type="text" class="txt num c1" /></td>
             <td class="label2"><a id="lblBo_admin"></a></td>
-            <td class="column2"><input id="txtBo_admin"  type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column2"><input id="txtBo_admin"  type="text" class="txt num c1" /></td>
             <td class="label3"><a id="lblBo_duty"></a></td>
-            <td class="column3"><input id="txtBo_duty"  type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column3"><input id="txtBo_duty"  type="text" class="txt num c1"/></td>
             <td class="label4"><a id="lblBo_full"></a></td>
-            <td class="column4"><input id="txtBo_full"  type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column4"><input id="txtBo_full"  type="text" class="txt num c1"/></td>
         </tr>
         <tr>
             <td class="label1"><a id="lblBo_over"></a></td>
-            <td class="column1"><input id="txtBo_over"  type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column1"><input id="txtBo_over"  type="text" class="txt num c1"/></td>
             <td class="label2"><a id="lblBo_oth"></a></td>
-            <td class="column2"><input id="txtBo_oth"  type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column2"><input id="txtBo_oth"  type="text" class="txt num c1"/></td>
             <td class="label3"><a id="lblMi_person"></a></td>
-            <td class="column3"><input id="txtMi_person"  type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column3"><input id="txtMi_person"  type="text" class="txt num c1"/></td>
             <td class="label4"><a id="lblMi_full"></a></td>
-            <td class="column4"><input id="txtMi_full"  type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column4"><input id="txtMi_full"  type="text" class="txt num c1"/></td>
         </tr>
         <tr>
             <td class="label1"><a id="lblCh_lunch"></a></td>
-            <td class="column1"><input id="txtCh_lunch"  type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column1"><input id="txtCh_lunch"  type="text" class="txt num c1"/></td>
             <td class="label2"><a id="lblCh_labor"></a></td>
-            <td class="column2"><input id="txtCh_labor"  type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column2"><input id="txtCh_labor"  type="text" class="txt num c1"/></td>
             <td class="label3"><a id="lblCh_health"></a></td>
-            <td class="column3"><input id="txtCh_health"  type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column3"><input id="txtCh_health"  type="text" class="txt num c1"/></td>
             <td class="label4"><a id="lblWelfare"></a></td>
-            <td class="column4"><input id="txtWelfare"  type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column4"><input id="txtWelfare"  type="text" class="txt num c1"/></td>
         </tr>
         <tr>
             <td class="label1"><a id="lblBorrow"></a></td>
-            <td class="column1"><input id="txtBorrow"  type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column1"><input id="txtBorrow"  type="text" class="txt num c1"/></td>
             <td class="label2"><a id="lblTax"></a></td>
-            <td class="column2"><input id="txtTax"  type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column2"><input id="txtTax"  type="text" class="txt num c1"/></td>
             <td class="label3"><a id="lblMi_oth"></a></td>
-            <td class="column3"><input id="txtMi_oth" type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column3"><input id="txtMi_oth" type="text" class="txt num c1"/></td>
             <td class="label4"><a id="lblTitle"></a></td>
-            <td class="column4"><input id="txtTitle"  type="text" class="txt c1"/></td>
+            <td class="column4"><input id="txtTitle"  type="text" class="txt num c1"/></td>
         </tr>
         <tr>
             <td class="label1"><a id="lblPtotal"></a></td>
-            <td class="column1"><input id="txtPtotal"  type="text" class="txt c1"style="text-align: right;"/></td>
+            <td class="column1"><input id="txtPtotal"  type="text" class="txt num c1"/></td>
             <td class="label2"><a id="lblMi_total2"></a></td>
-            <td class="column2"><input id="txtMi_total2"  type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column2"><input id="txtMi_total2"  type="text" class="txt num c1" /></td>
             <td class="label3"><a id="lblTotal"></a></td>
-            <td class="column3"><input id="txtTotal"  type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column3"><input id="txtTotal"  type="text" class="txt num c1"/></td>
             <td class="label4"><a id="lblWorker"></a></td>
             <td class="column4"><input id="txtWorker" type="text" class="txt c1"/></td>
         </tr>
@@ -422,7 +425,7 @@
                 <td align="center"colspan="2" ><a id='lblHr_person'></a></td>
                 <td align="center"colspan="2"><a id='lblHr_sick'></a></td>
                 <td align="center"colspan="2" ><a id='lblHr_nosalary'></a></td>
-                <td align="center"colspan="2"<a id='lblHr_leave'></a></td>
+                <td align="center"colspan="2"><a id='lblHr_leave'></a></td>
                 <td align="center" class="td3"><a id='lblMi_total'></a></td>
                 <td align="center" class="td3"><a id='lblTotal2'></a></td>
                 <td align="center" colspan="2" class="td3"><a id='lblCh_lunchs'></a></td>
@@ -460,55 +463,55 @@
                 <td ><input class="txt c1" id="txtLevel1.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtLevel2.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtLevel3.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtMoney.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtBo_admin.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtBo_duty.*" type="text" style="text-align: right;"/></td>
-                <td class="td2"><input class="txt c3" id="txtBo_full.*" type="text"style="text-align: right;" />HR</td>
-                <td class="td2">&#36; <input class="txt c2" id="txtMi_full.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtBo_over.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtBo_oth.*" type="text" style="text-align: right;"/></td>
-                <td class="td2"><input class="txt c3" id="txtHr_person.*" type="text" style="text-align: right;"/>HR</td>
-                <td class="td2">&#36; <input class="txt c2" id="txtMi_person.*" type="text" style="text-align: right;"/></td>
-                <td class="td2"><input class="txt c3" id="txtHr_sick.*" type="text" style="text-align: right;"/>HR</td> 
-                <td class="td2">&#36; <input class="txt c2" id="txtMi_sick.*" type="text" style="text-align: right;"/></td>
-                <td class="td2"><input class="txt c3" id="txtHr_nosalary.*" type="text" style="text-align: right;"/>HR</td>
-                <td class="td2">&#36;<input class="txt c2" id="txtMi_nosalary.*" type="text" style="text-align: right;"/></td>
-                <td class="td2"><input class="txt c3" id="txtHr_leave.*" type="text" style="text-align: right;"/>HR</td>
-                <td class="td2">&#36;<input class="txt c2" id="txtMi_leave.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtMi_total.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtTotal2.*" type="text" style="text-align: right;"/></td>
-                <td class="td2"><input class="txt c3" id="txtDay_meal.*" type="text" style="text-align: right;"/>HR</td>
-                <td class="td2">&#36;<input class="txt c2" id="txtCh_lunch.*" type="text" style="text-align: right;"/></td>               
-                <td class="td2">&#36;<input class="txt c2" id="txtCh_labor.*"type="text" style="text-align: right;"/></td>
-                <td class="td2">&#36;<input class="txt c2" id="txtCh_health.*" type="text" style="text-align: right;"/></td>
+                <td ><input class="txt num c1" id="txtMoney.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtBo_admin.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtBo_duty.*" type="text" /></td>
+                <td class="td2"><input class="txt num c3" id="txtBo_full.*" type="text" />HR</td>
+                <td class="td2">&#36; <input class="txt num c2" id="txtMi_full.*" type="text"/></td>
+                <td ><input class="txt num c1" id="txtBo_over.*" type="text"/></td>
+                <td ><input class="txt num c1" id="txtBo_oth.*" type="text" /></td>
+                <td class="td2"><input class="txt num c3" id="txtHr_person.*" type="text" />HR</td>
+                <td class="td2">&#36; <input class="txt num c2" id="txtMi_person.*" type="text"/></td>
+                <td class="td2"><input class="txt num c3" id="txtHr_sick.*" type="text" />HR</td> 
+                <td class="td2">&#36; <input class="txt num c2" id="txtMi_sick.*" type="text" /></td>
+                <td class="td2"><input class="txt num c3" id="txtHr_nosalary.*" type="text" />HR</td>
+                <td class="td2">&#36;<input class="txt num c2" id="txtMi_nosalary.*" type="text" /></td>
+                <td class="td2"><input class="txt num c3" id="txtHr_leave.*" type="text" />HR</td>
+                <td class="td2">&#36;<input class="txt c2" id="txtMi_leave.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtMi_total.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtTotal2.*" type="text" /></td>
+                <td class="td2"><input class="txt num c3" id="txtDay_meal.*" type="text" />HR</td>
+                <td class="td2">&#36;<input class="txt num c2" id="txtCh_lunch.*" type="text"/></td>               
+                <td class="td2">&#36;<input class="txt num c2" id="txtCh_labor.*"type="text" /></td>
+                <td class="td2">&#36;<input class="txt num c2" id="txtCh_health.*" type="text" /></td>
                 <td ><input id="chkIswelfare.*" type="checkbox" style=' '/></td>
-                <td class="td2">&#36;<input class="txt c2" id="txtWelfare.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtBorrow.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtTax.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtMi_oth.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtMi_total2.*"type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtTotal.*" type="text" style="text-align: right;"/></td>                
-                <td ><input class="txt c1" id="txtRetire.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtLate.*" type="text" style="text-align: right;"/></td>
+                <td class="td2">&#36;<input class="txt num c2" id="txtWelfare.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtBorrow.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtTax.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtMi_oth.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtMi_total2.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtTotal.*" type="text" /></td>                
+                <td ><input class="txt num c1" id="txtRetire.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtLate.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
-                <td class="td2">&#36;<input class="txt c2" id="txtBo_born.*" type="text" style="text-align: right;"/></td>
-                <td class="td2"><input class="txt c1" id="txtBo_bornpoint.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtBo_trans.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtBo_exam.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtPlus.*" type="text" style="text-align: right;"/></td>
+                <td class="td2">&#36;<input class="txt num c2" id="txtBo_born.*" type="text" /></td>
+                <td class="td2"><input class="txt num c1" id="txtBo_bornpoint.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtBo_trans.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtBo_exam.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtPlus.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtDays.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtSaltype.*" type="text" style="text-align: right;"/></td>
-                <td class="td2"><input class="txt c3" id="txtAd_h1.*" type="text" style="text-align: right;"/>HR</td>
-                <td class="td2">&#36;<input class="txt c2" id="txtAd_m1.*" type="text" style="text-align: right;"/></td>
-                <td class="td2"><input class="txt c3" id="txtAd_h133.*" type="text" style="text-align: right;"/>HR</td>
-                <td class="td2">&#36;<input class="txt c2" id="txtAd_m133.*" type="text" style="text-align: right;"/></td>
-                <td class="td2"><input class="txt c3" id="txtAd_h166.*" type="text" style="text-align: right;"/>HR</td>
-                <td class="td2">&#36;<input class="txt c2" id="txtAd_m166.*" type="text" style="text-align: right;"/></td>
-                <td class="td2"><input class="txt c3" id="txtAd_h2.*" type="text" style="text-align: right;"/>HR</td>
-                <td class="td2">&#36;<input class="txt c2" id="txtAd_m2.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtAd_money.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtObonus.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtOtotal.*" type="text" style="text-align: right;"/><input id="txtNoq.*" type="hidden" /></td>
+                <td ><input class="txt num c1" id="txtSaltype.*" type="text" /></td>
+                <td class="td2"><input class="txt num c3" id="txtAd_h1.*" type="text" />HR</td>
+                <td class="td2">&#36;<input class="txt num c2" id="txtAd_m1.*" type="text" /></td>
+                <td class="td2"><input class="txt num c3" id="txtAd_h133.*" type="text" />HR</td>
+                <td class="td2">&#36;<input class="txt num c2" id="txtAd_m133.*" type="text" /></td>
+                <td class="td2"><input class="txt num c3" id="txtAd_h166.*" type="text" />HR</td>
+                <td class="td2">&#36;<input class="txt num c2" id="txtAd_m166.*" type="text" /></td>
+                <td class="td2"><input class="txt num c3" id="txtAd_h2.*" type="text" />HR</td>
+                <td class="td2">&#36;<input class="txt num c2" id="txtAd_m2.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtAd_money.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtObonus.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtOtotal.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
            </tr>
         </table>
         </div>

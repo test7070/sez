@@ -17,7 +17,7 @@
             }
 
             var decbbm = ['hr_special', 'hr_person', 'hr_used', 'hr_sick', 'tot_special'];
-            var q_name = "sali";
+            var q_name = "salvacause";
             var q_readonly = [];
             var bbmNum = [];
             var bbmMask = [];
