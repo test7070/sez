@@ -55,7 +55,7 @@
             q_cmbParse("cmbTypea", q_getPara('rc2.typea'));   
             q_cmbParse("cmbStype", q_getPara('rc2.stype'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));   
-            q_cmbParse("cmbPaytype", q_getPara('rc2.pay'));  
+            q_cmbParse("combPay", q_getPara('rc2.pay'));  
             q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
             fbbm[fbbm.length] = 'txtMemo'; 
             $('#btnOrdes').click(function () { btnOrdes(); });
@@ -380,7 +380,15 @@
         {
             width: 94%;
         }
-       
+        td input[type="button"] {
+                width: auto;
+                font-size: medium;
+                float: right;
+            }
+        .txt.num
+        {
+        	text-align: right;
+        }
       
     </style>
 </head>
@@ -410,8 +418,8 @@
                <td class="label1"  align="right"><a id='lblType'></a></td>
                <td class="column1" >
                <%--<input id="txtType" type="text"  style='width:0%; visibility:collapse;'/>--%>
-               <select id="cmbTypea" style='width:100%;'/></td>
-               <td class="column2" align='right' ><a id='lblStype'></a><select id="cmbStype" style='width:70%;'/></td>
+               <select id="cmbTypea" style='width:100%;'></select></td>
+               <td class="column2" align='right' ><a id='lblStype'></a><select id="cmbStype" style='width:70%;'></select></td>
                <td class="label2" ><a id='lblDatea'></a></td>
                <td class="column3"><input id="txtDatea" type="text"  style='width:97%;'/></td>
                <td></td>
@@ -419,7 +427,7 @@
                <td class="column2" ><input id="txtNoa"   type="text" class="txt c2"/></td> 
             </tr> 
             <tr>
-               <td align="right" class="style2" ><input id="btnAcomp" type="button" value='.' style='width: auto; font-size: medium;'  /></td>
+               <td align="right" class="style2" ><input id="btnAcomp" type="button" value='.' /></td>
                <td class="column1" ><input id="txtCno"  type="text" class="txt c1" /></td>
                <td class="column2" ><input id="txtAcomp"    type="text" class="txt c1"/></td>
                 <td align="right" class="style2" ><a id='lblMon' ></a></td>
@@ -429,20 +437,20 @@
                 <td class="column2"><input id="txtInvono" type="text" class="txt c2"/></td> 
             </tr>
            <tr>
-                <td align="right"><input id="btnTgg" type="button" value='.' style='width: auto; font-size: medium;'  /></td>
+                <td align="right"><input id="btnTgg" type="button" value='.' /></td>
                 <td ><input id="txtTggno" type="text" class="txt c1"/></td>
                 <td ><input id="txtTgg"  type="text" class="txt c1"/></td>
                 <td align="right"><a id='lblPay'></a></td>
                 <td ><input id="txtPay" type="text" style='width:97%' /></td> 
-                <td> <select id="cmbPaytype" class="txt c1" /></td>
-                <td align="right"><input id="btnAccc" type="button" value='.' style='width: auto; font-size: medium;'  /></td>
+                <td> <select id="combPay" class="txt c1" ></select></td>
+                <td align="right"><input id="btnAccc" type="button" value='.' /></td>
                 <td ><input id="txtAccno"  type="text" class="txt c2"/></td>  
             </tr>
             <tr>
                 <td align="right" class="style1" ><a id='lblTel'></a></td>
                 <td colspan='2' class="style1"><input id="txtTel" type="text" class="txt c1"/></td>
                 <td align="right" class="style1"><a id='lblTrantype'></a></td>
-                <td  colspan='2' class="style1"><select id="cmbTrantype" class="txt c1"/></td> 
+                <td  colspan='2' class="style1"><select id="cmbTrantype" class="txt c1"></select></td> 
                   <td align="right"><a id='lblWorker'></a></td>
                 <td ><input id="txtWorker"  type="text" class="txt c2" style='text-align:center;'/></td> 
             </tr>
@@ -452,35 +460,35 @@
                 <td colspan='4' ><input id="txtAddr"  type="text" class="txt c1"/> </td>
             </tr>
             <tr>
-                <td align="right"  ><input id="btnPart" type="button" value='.' style='width: auto; font-size: medium;'  /></td>
+                <td align="right"  ><input id="btnPart" type="button" /></td>
                 <td  ><input id="txtPartno"    type="text" class="txt c1"/></td>
                 <td  ><input id="txtPart"    type="text" class="txt c1"/></td>
-                <td align="right"  ><input id="btnSales" type="button" value='.' style='width: auto; font-size: medium;'  /></td>
+                <td align="right"  ><input id="btnSales" type="button"/></td>
                 <td  ><input id="txtSalesno" type="text" class="txt c1"/></td>
                 <td  ><input id="txtSales"  type="text" class="txt c1"/></td>
                 <td align="right"><a id='lblTranmoney'></a></td>
-                <td><input id="txtTranmoney"  type="text" class="txt c2" style="text-align:right;"/></td> 
+                <td><input id="txtTranmoney"  type="text" class="txt num c2" /></td> 
             </tr>
 
             <tr>
-                <td align="right"><input id="btnPart2" type="button" value='.' style='width: auto; font-size: medium;'  /></td>
+                <td align="right"><input id="btnPart2" type="button" value='.' /></td>
                 <td><input id="txtPartno2"    type="text" class="txt c1"/></td> 
                 <td><input id="txtPart2"    type="text" class="txt c1"/></td> 
-                <td align="right"  ><input id="btnSales2" type="button" value='.' style='width: auto; font-size: medium;'  /></td>
+                <td align="right"  ><input id="btnSales2" type="button" value='.' /></td>
                 <td ><input id="txtSalesno2" type="text" class="txt c1"/></td>
                 <td><input id="txtSales2"    type="text" class="txt c1"/></td>
                 <td align="right"><a id='lblOutsource'></a></td>
-                <td ><input id="txtOutsource"  type="text" class="txt c2" style='text-align:right;'/>
+                <td ><input id="txtOutsource"  type="text" class="txt num c2" />
                 </td> 
             </tr>
             <tr>
                 <td align="right"><a id='lblMoney'></a></td>
-                <td colspan='2'><input id="txtMoney"    type="text" class="txt c1"style='text-align:right;'/></td> 
+                <td colspan='2'><input id="txtMoney"    type="text" class="txt num c1"/></td> 
                 <td align="right" ><a id='lblTax'></a></td>
-                <td><input id="txtTax" type="text" class="txt c1" style=' text-align:right;'/></td>
-                <td><select id="cmbTaxtype" class="txt c1"/></td>
+                <td><input id="txtTax" type="text" class="txt num c1"/></td>
+                <td><select id="cmbTaxtype" class="txt c1"></select></td>
                 <td align="right"><a id='lblTotal'></a></td>
-                <td ><input id="txtTotal" type="text" class="txt c2" style='text-align:right;'/>
+                <td ><input id="txtTotal" type="text" class="txt num c2" />
                 </td> 
             </tr>
             <tr>
@@ -506,9 +514,9 @@
                 <td style="width:10%;"><input id="txtProductno.*" type="text" style="width: 65%;"/><input id="btnProductno.*" type="button" value="..." style="width: auto;font-size: medium;" /></td>
                 <td style="width:20%;"><input  id="txtProduct.*" type="text" class="txt c2"/></td>
                 <td style="width:4%;"><input  id="txtUnit.*" type="text" class="txt c2"/></td>
-                <td style="width:5%;"><input  id="txtMount.*" type="text" class="txt c2" style="text-align: right;"/></td>
-                <td style="width:6%;"><input  id="txtPrice.*" type="text" class="txt c2" style="text-align: right;"/></td>
-                <td style="width:8%;"><input  id="txtTotal.*" type="text" class="txt c2" style="text-align: right;"/></td>
+                <td style="width:5%;"><input  id="txtMount.*" type="text" class="txt num c2" /></td>
+                <td style="width:6%;"><input  id="txtPrice.*" type="text" class="txt num c2" /></td>
+                <td style="width:8%;"><input  id="txtTotal.*" type="text" class="txt num c2" /></td>
                 <td style="width:12%;"><input  id="txtMemo.*" type="text" class="txt c2"/><input id="txtNoq.*" type="hidden" /></td>
             </tr>
         </table>

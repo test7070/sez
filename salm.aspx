@@ -9,27 +9,29 @@
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src="../script/qbox.js" type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
-    <link href="../qbox.css" rel="stylesheet" type="text/css" /> 
+    <link href="../qbox.css" rel="stylesheet" type="text/css" />
+    
     <script type="text/javascript">
         this.errorHandler = null;
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var decbbm = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10', 'total'];
-        var q_name="postout";
+        var decbbm = [];
+        var q_name="salm";
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		aPop = new Array(['txtPartno', 'btnPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],['txtSssno', 'btnSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],['txtSenderno', 'btnSend', 'sss', 'noa,namea','txtSenderno,txtSender', 'sss_b.aspx']);
+
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
            q_gt(q_name, q_content, q_sqlCount, 1)
             $('#txtNoa').focus
         });
- 
+
+        //////////////////   end Ready
        function main() {
            if (dataErr)   
            {
@@ -40,12 +42,13 @@
             q_mask(bbmMask);
 
             mainForm(0); // 1=Last  0=Top
-           
-        }  
+
+            $('#txtNoa').focus();
+            
+        }  ///  end Main()
 
 
         function mainPost() { 
-            fbbm[fbbm.length] = 'txtMemo'; 
            /* $('#btnSales').click(function () { pop('sss'); });
             $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
             $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); });
@@ -296,56 +299,24 @@
         .column3
         {
             width: 10%;
-        }
-		.column4
-        {
-            width: 10%;
-        }
-		.column5
-        {
-            width: 10%;
-        }   
+        }      
          .label1
         {
-            width: 8%;text-align:right;
+            width: 10%;text-align:right;
         }       
         .label2
         {
-            width: 8%;text-align:right;
+            width: 10%;text-align:right;
         }
         .label3
         {
-            width: 8%;text-align:right;
-        }
-		.label4
-        {
-            width: 8%;text-align:right;
-        }
-		.label5
-        {
-            width: 8%;text-align:right;
+            width: 10%;text-align:right;
         }
         .txt.c1
         {
-            width: 30%;
+            width: 95%;
         }
-        .txt.c2
-        {
-            width: 55%;
-        }
-        .txt.c3
-        {
-            width: 98%;
-        }
-         .tbbm tr td input[type="button"] {
-                width: auto;
-                font-size: medium;
-                float: right;
-            }
-            .txt .num
-            {
-            	text-align: right;
-            }
+      
     </style>
 </head>
 <body>
@@ -355,76 +326,64 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewDatea'></a></td>
-                <td align="center" style="width:40%"><a id='vewNamea'></a></td>
+                <td align="center" style="width:25%"><a id='vewJobno'></a></td>
+                <td align="center" style="width:40%"><a id='vewJob'></a></td>
             </tr>
              <tr>
-                   <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
-                   <td align="center" id='datea'>~datea</td>
-                   <td align="center" id='namea'>~namea</td>
+                   <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
+                   <td align="center" id='jobno'>~jobno</td>
+                   <td align="center" id='job'>~job</td>
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 70%;float: left;">
+        <div class='dbbm' style="width: 73%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
-          <tr>
-               <td class="label1" ><a id="lblDatea"></a></td>
-               <td class="column1" colspan="2"><input id="txtDatea" type="text" class="txt c3"/></td> 
-               <td class="label2" ><input id="btnPart" type="button" /></td>
-               <td class="column2"colspan="2"><input id="txtPartno"  type="text"  class="txt c1"/><input id="txtPart" type="text"  class="txt c2"/></td>                           
-            </tr>  
             <tr>
-               <td class="label1" ><input id="btnSss" type="button" /></td>
-               <td class="column1" colspan="2"><input id="txtSssno"  type="text"  class="txt c1"/><input id="txtNamea"  type="text"  class="txt c2"/></td>
-               <td class="label2" ><input id="btnSend" type="button"/></td>
-               <td class="column2"colspan="2"><input id="txtSenderno"  type="text"  class="txt c1"/><input id="txtSender" type="text"  class="txt c2"/></td>
-               <td class="label3" ><input id="btnReceive" type="button" /></td>
-               <td class="column3"colspan="2"><input id="txtReceiverno" type="text"  class="txt c1"/><input id="txtReceiver"  type="text"  class="txt c2"/></td>            
-            </tr> 
-           <tr>
-               <td class="label1" ><a id='lblMemo'></a></td>
-               <td class="column1" colspan="9"><textarea id="txtMemo" rows="5" cols="10" style="width: 98%; height: 127px;"></textarea></td>               
-            </tr> 
+               <td class="label1" ><a id='lblNoa'></a></td>
+               <td class="column1"><input id="txtNoa"  type="text" class="txt c1" /></td>
+               <td class="label2" ></td>
+               <td class="column2"></td>
+               <td class="label3" ></td>
+               <td class="column3"></td>
+            </tr>
             <tr>
-               <td class="label1" ><a id="lblPtype" ></a></td>
-               <td class="column1"><input type="radio" value="1" name="ptype"/><a id="lblPtype1"></a></td>
-               <td align="left"><input type="radio" value="2"name="ptype"/><a id="lblPtype2"></a></td>
-               <td class="column2"><input type="radio" value="3"name="ptype"/><a id="lblPtype3"></a></td>
-               <td align="left" ><input type="radio" value="4"name="ptype"/><a id="lblPtype4"></a></td>
-               <td class="column3"><input type="radio" value="5"name="ptype"/><a id="lblPtype5"></a></td>
-               <td class="label4"><input type="radio" value="6"name="ptype"/><a id="lblPtype6"></a></td>                
-            </tr> 
+               <td class="label1" ><a id='lblJobno'></a></td>
+               <td class="column1"><input id="txtJobno"  type="text" class="txt c1" /></td>
+               <td class="label2" ></td>
+               <td class="column2"></td>
+               <td class="label3" ></td>
+               <td class="column3"></td>
+            </tr>
             <tr>
-               <td class="label1" ><a id="lblP1"></a></td>
-               <td class="column1"><input id="txtP1" type="text"  class="txt num c3" /></td>
-               <td class="label2"><a id="lblP2"></a></td>
-               <td class="column2"><input id="txtP2" type="text" class="txt num c3" /></td>
-               <td class="label3" ><a id="lblP3"></a></td>
-               <td class="column3"><input id="txtP3" type="text" class="txt num c3" /></td>
-               <td class="label4"><a id="lblP4"></a></td>
-               <td class="column4"><input id="txtP4" type="text" class="txt num c3" /></td>
-               <td class="label5" ><a id="lblP5"></a></td>
-               <td class="column5"><input id="txtP5" type="text" class="txt num c3" /></td>                            
-            </tr>      
-             <tr>
-               <td class="label1" ><a id="lblP6"></a></td>
-               <td class="column1"><input id="txtP6" type="text" class="txt num c3" /></td>
-               <td class="label2"><a id="lblP7"></a></td>
-               <td class="column2"><input id="txtP7" type="text" class="txt num c3" /></td>
-               <td class="label3" ><a id="lblP8"></a></td>
-               <td class="column3"><input id="txtP8" type="hidden" class="txt num c3" /></td>
-               <td class="label4"><a id="lblP9"></a></td>
-               <td class="column4"><input id="txtP9" type="hidden" class="txt num c3" /></td>
-               <td class="label5" ><a id="lblP10" ></a></td>
-               <td class="column5"><input id="txtP10" type="hidden" class="txt num c3"/></td>                            
-            </tr> 
+               <td class="label1" ><a id='lblJob'></a></td>
+               <td class="column1"><input id="txtJob"  type="text" class="txt c1" /></td>
+               <td class="label2" ></td>
+               <td class="column2"></td> 
+               <td class="label3" ></td>            
+               <td class="column3"></td>
+            </tr>
             <tr>
-               <td class="label1" ><a id="lblTotal"></a></td>
-               <td class="column1" colspan="2"><input id="txtTotal" type="text" class="txt num c3" /></td>                            
-            </tr>          
-        </table>
+               <td class="label1" ><a id='lblLevel1'></a></td>
+               <td class="column1"><input id="txtLevel1"  type="text" class="txt c1" /></td>
+               <td class="label2" ></td>
+               <td class="column2"></td> 
+               <td class="label3" ></td>           
+               <td class="column3"></td>
+            </tr>
+            <tr>
+                <td class="label1"></td>
+               <td ><input id="chkBo_admin" type="checkbox" style=" "><a id='vewBo_admin'></a></td>
+               <td ><input id="chkBo_duty" type="checkbox" style=" "><a id='vewBo_duty'></a></td>
+               <td  ><input id="chkBo_full" type="checkbox" style=" "><a id='vewBo_full'></a></td>
+            </tr>
+            <tr>
+                <td class="label1"></td>
+               <td ><input id="chkBo_over" type="checkbox" style=" "><a id='vewBo_over'></a></td>
+               <td ><input id="chkBo_oth" type="checkbox" style=" "><a id='vewBo_oth'></a></td>
+            </tr>
         </div>
-        </div> 
-        <input id="q_sys" type="hidden" />
+        </div>
+         <input id="q_sys" type="hidden" />    
 </body>
 </html>
+            
