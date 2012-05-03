@@ -27,7 +27,7 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
         //ajaxPath = ""; 
-
+		aPop = new Array(['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -397,7 +397,15 @@
         {
             width: 6%;
         }
-
+		td input[type="button"] {
+                width: auto;
+                font-size: medium;
+                float: right;
+            }
+        .txt.num
+        {
+        	text-align: right;
+        }
       
     </style>
 </head>
@@ -424,12 +432,10 @@
         <tr>
             <td class='label1'><a id="lblNoa" ></a></td>
             <td class="column1"><input id="txtNoa"  type="text" class="txt c1"/></td>
-            <td class='label2'></td>
-            <td class="column2"></td>
-            <td class='label3'></td>
+            <td class='label2'><input id="btnAcomp" type="button"/></td>
+            <td class="column2"><input id="txtCno" type="text" class="txt c1" /></td>
+            <td class='label3'colspan="2" ><input id="txtComp2" type="text" class="txt c1" /></td>
             <td class="column3"></td>
-            <td class='label4'></td>
-            <td class="column4"></td>
         </tr>
         <tr>
             <td class='label1'><a id="lblMon" ></a></td>
@@ -438,16 +444,16 @@
             <td class="column2"><input id="txtDatea"  type="text" class="txt c1"/></td>
             <td class='label3'><a id="lblTitle"></a></td>
             <td class="column3"><input id="txtTitle" class="txt c1" type="text" /></td>
-            <td class='label4'><input id="btnIndata" type="button" style="width: auto;font-size: medium;" /></td>
+            <td class='label4'><input id="btnIndata" type="button"  /></td>
             <td class="column4"></td>
         </tr>
         <tr>            
             <td class='label1'></td>
-            <td class="column1"><input id="btnEnd" type="button" style="width: auto;font-size: medium;"/></td>
+            <td class="column1"><input id="btnEnd" type="button" /></td>
             <td class='label2'><a id="lblMoney"></a></td>
-            <td class="column2"><input id="txtMoney" type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column2"><input id="txtMoney" type="text" class="txt num c1" /></td>
             <td class='label3'><a id="lblMi_money"></a></td>
-            <td class="column3"><input id="txtMi_money" type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class="column3"><input id="txtMi_money" type="text" class="txt num c1" /></td>
         </tr>                        
         </table>
         </div>
@@ -475,11 +481,11 @@
                 <td><input id="txtNamea.*" type="text" class="txt c1"/></td>
                 <td><input id="txtId.*" type="text" class="txt c1"/></td>
                 <td><input id="chkIsclerk.*" type="checkbox" style=" "/></td>
-                <td><input id="txtMount.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td><input id="txtAd_money.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td><input id="txtCh_meal.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td><input id="txtMoney.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td><input id="txtMi_money.*" type="text" class="txt c1" style="text-align: right;"/></td>
+                <td><input id="txtMount.*" type="text" class="txt num c1" /></td>
+                <td><input id="txtAd_money.*" type="text" class="txt num c1" /></td>
+                <td><input id="txtCh_meal.*" type="text" class="txt num c1"/></td>
+                <td><input id="txtMoney.*" type="text" class="txt num c1" /></td>
+                <td><input id="txtMi_money.*" type="text" class="txt num c1"/></td>
                 <td><input id="txtSex.*" type="text" class="txt c1"/></td>
                 <td><input id="txtComp.*" type="text" class="txt c1"/></td>
                 <td><input id="txtAddr.*" type="text" class="txt c1"/><input id="txtNoq.*" type="hidden" /></td>
