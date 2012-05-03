@@ -335,6 +335,11 @@
         {
             width: 95%;
         }
+         td input[type="button"] {
+                width: auto;
+                font-size: medium;
+                float: right;
+            }
     </style>
 </head>
 <body>
@@ -393,7 +398,7 @@
                 <td class="column2"></td>
             </tr>
             <tr>   
-                <td class="label1" ><input id='btnTgg' type="button" style="width: auto;font-size: medium;" /></td>
+                <td class="label1" ><input id='btnTgg' type="button" /></td>
                 <td class="column1" colspan="3"><input id="txtTggno" type="text"  style='width:30%; '><input id="txtTgg" type="text"  style='width:66%; '/></td> 
                 <td class="label2" ></td>
                 <td class="column2"></td>
@@ -421,7 +426,7 @@
                 <td class="column1" colspan="5"><textarea id="txtMemo" rows="5" cols="10" style="width: 98%; height: 127px;"></textarea></td>
             </tr>
             <tr>   
-                <td class="label1" ><input id="btnCprice" type="button" style="width: auto;font-size: medium;"/></td>
+                <td class="label1" ><input id="btnCprice" type="button" /></td>
                 <td class="column1"></td> 
                 <td class="label2" ></td>
                 <td class="column2"></td>
