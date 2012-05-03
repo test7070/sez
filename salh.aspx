@@ -23,15 +23,11 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-
+		aPop = new Array(['txtSssno', 'btnSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
-
-
             q_brwCount();
-
             q_gt(q_name, q_content, q_sqlCount, 1)
-
             $('#txtNoa').focus
         });
 
@@ -54,7 +50,7 @@
 
         function mainPost() { 
             fbbm[fbbm.length] = 'txtMemo'; 
-            $('#btnSales').click(function () { pop('sss'); });
+            /*$('#btnSales').click(function () { pop('sss'); });
             $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
             $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); });
 
@@ -70,10 +66,10 @@
 
             txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
             txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
-            txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');
+            txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');*/
         }
 
-        function pop(form, seq) {
+      /*  function pop(form, seq) {
             b_seq = (seq ? seq : '');
             b_pop = form;
             switch (form) {
@@ -82,7 +78,7 @@
                 case 'conn': q_pop('txtNoa', "conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'conn', 'noa', 'namea', "60%", "650px", q_getMsg('popConn')); break;
             }
         }
-
+*/
         function txtCopy(dest, source) {
             var adest = dest.split(',');
             var asource = source.split(',');
@@ -323,6 +319,15 @@
         {
             width: 93%;
         }
+        .txt.num
+        {
+        text-align: right;
+        }
+         td input[type="button"] {
+                width: auto;
+                font-size: medium;
+                float: right;
+            }
     </style>
 </head>
 	<body>
@@ -378,7 +383,7 @@
                         </tr>
                         <tr>
                             <td class="label1" ><a id='lblX1'></a></td>
-                            <td class="column1"><input id="txtX1"  type="text" class="txt c1" /></td>
+                            <td class="column1"><input id="txtX1"  type="text" class="txt num c1" /></td>
                             <td class="label2" ></td>
                             <td class="column2"></td>
                             <td class="label3" ></td>
@@ -386,7 +391,7 @@
                         </tr>
                         <tr>
                             <td class="label1" ><a id='lblX33'></a></td>
-                            <td class="column1"><input id="txtX33"  type="text" class="txt c1" /></td>
+                            <td class="column1"><input id="txtX33"  type="text" class="txt num c1" /></td>
                             <td class="label2" ></td>
                             <td class="column2"></td>
                             <td class="label3" ></td>
@@ -394,7 +399,7 @@
                         </tr>
                         <tr>
                             <td class="label1" ><a id='lblX67'></a></td>
-                            <td class="column1"><input id="txtX67" type="text" class="txt c1" /></td>
+                            <td class="column1"><input id="txtX67" type="text" class="txt num c1" /></td>
                             <td class="label2" ></td>
                             <td class="column2"></td>
                             <td class="label3" ></td>
@@ -402,7 +407,7 @@
                         </tr>
                         <tr>
                             <td class="label1" ><a id='lblX2'></a></td>
-                            <td class="column1"><input id="txtX2"  type="text" class="txt c1" /></td>
+                            <td class="column1"><input id="txtX2"  type="text" class="txt num c1" /></td>
                             <td class="label2" ></td>
                             <td class="column2"></td>
                             <td class="label3" ></td>
@@ -410,7 +415,7 @@
                         </tr>
                         <tr>
                             <td class="label1" ><a id='lblX3'></a></td>
-                            <td class="column1"><input id="txtX3"  type="text" class="txt c1" /></td>
+                            <td class="column1"><input id="txtX3"  type="text" class="txt num c1" /></td>
                             <td class="label2" ></td>
                             <td class="column2"></td>
                             <td class="label3" ></td>
@@ -420,8 +425,10 @@
                             <td class="label1" ><a id='lblMemo'></a></td>
                             <td class="column1" colspan="5"><textarea id="txtMemo" rows="5" cols="10" type="text"  style='width:98%; height: 127px ;'></textarea></td>
                         </tr>
-				</div>
+			
 			</table>
+				</div>
+				</div>
 			<input id="q_sys" type="hidden" />
 	</body>
 </html>

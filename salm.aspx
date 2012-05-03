@@ -381,6 +381,7 @@
                <td ><input id="chkBo_over" type="checkbox" style=" "><a id='vewBo_over'></a></td>
                <td ><input id="chkBo_oth" type="checkbox" style=" "><a id='vewBo_oth'></a></td>
             </tr>
+        </table>
         </div>
         </div>
          <input id="q_sys" type="hidden" />    

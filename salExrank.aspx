@@ -5,7 +5,7 @@
     <title></title>
     <script src="../script/jquery.min.js" type="text/javascript"></script>
     <script src='../script/qj2.js' type="text/javascript"></script>
-            <script src='qset.js' type="text/javascript"></script>
+    <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src="../script/qbox.js" type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
@@ -16,25 +16,21 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var decbbm = ['point', 'unit'];
-        var q_name="salw";
+        var decbbm = ['point1', 'point2'];
+        var q_name="salexrank";
         var q_readonly = [];
-        var bbmNum = [];  
+        var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
 
         $(document).ready(function () {
             bbmKey = ['noa'];
-
-
+            brwCount2=10
             q_brwCount();
-
            q_gt(q_name, q_content, q_sqlCount, 1)
-
             $('#txtNoa').focus
         });
-
 
         //////////////////   end Ready
        function main() {
@@ -45,16 +41,12 @@
            }
 
             q_mask(bbmMask);
-
             mainForm(0); // 1=Last  0=Top
-
             $('#txtNoa').focus();
-            
         }  ///  end Main()
 
 
         function mainPost() { 
-           
            /* $('#btnSales').click(function () { pop('sss'); });
             $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
             $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); });
@@ -72,8 +64,9 @@
             txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
             txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
             txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');*/
-            }
-       /* function pop(form, seq) {
+        }
+
+      /*  function pop(form, seq) {
             b_seq = (seq ? seq : '');
             b_pop = form;
             switch (form) {
@@ -102,10 +95,9 @@
             });
         }
         
-        function q_boxClose( s2) { 
+        function q_boxClose( s2) {
             var ret; 
-            switch (b_pop) {  
-                case 'conn':
+            switch (b_pop) {                   case 'conn':
 
                     break;
 
@@ -128,7 +120,7 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case 'sss': 
+                case 'sss':  
                     q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
                     break;
 
@@ -216,10 +208,9 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
             _btnOk(key_value, bbmKey[0], '','',2);
         }
-
+       
         function refresh(recno) {
             _refresh(recno);
-
         }
 
         function readonly(t_para, empty) {
@@ -233,7 +224,7 @@
         function btnPlus(org_htm, dest_tag, afield) {
             _btnPlus(org_htm, dest_tag, afield);
             if (q_tables == 's')
-                bbsAssign(); 
+                bbsAssign();  
         }
 
         function q_appendData(t_Table) {
@@ -276,7 +267,7 @@
             _btnCancel();
         }
     </script>
-    <style type="text/css">
+  <style type="text/css">
         .tview
         {
             FONT-SIZE: 12pt;
@@ -297,27 +288,27 @@
        
         .column1
         {
-            width: 20%;
+            width: 10%;text-align: center;
         }
         .column2
         {
-            width: 10%;
+            width: 10%;text-align: center;
         }      
         .column3
         {
-            width: 10%;
-        }      
+            width: 10%;text-align: center;
+        }   
          .label1
         {
-            width: 10%;text-align:right;
+            width: 5%;text-align:center;
         }       
         .label2
         {
-            width: 10%;text-align:right;
+            width: 5%;text-align:center;
         }
         .label3
         {
-            width: 10%;text-align:right;
+            width: 5%;text-align:center;
         }
         .txt.c1
         {
@@ -332,22 +323,22 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewNamea'></a></td>
-                <td align="center" style="width:40%"><a id='vewPoint'></a></td>
-                <td align="center" style="width:40%"><a id='vewUnit'></a></td>
+                <td align="center" style="width:25%"><a id='vewClass'></a></td>
+                <td align="center" style="width:40%"><a id='vewPoint1'></a></td>
+                <td align="center" style="width:40%"><a id='vewPoint2'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
-                   <td align="center" id='namea'>~namea</td>
-                   <td align="center" id='point'>~point</td>
-                   <td align="center" id='unit'>~unit</td>
+                   <td align="center" id='class'>~class</td>
+                   <td align="center" id='point1'>~point1</td>
+                   <td align="center" id='point2'>~point2</td>
             </tr>
         </table>
         </div>
         <div class='dbbm' style="width: 73%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
             <tr>
-               <td class="label1" ><a id='lblNoa'></a></td>
+               <td class="label1" ><a id="lblNoa"></a></td>
                <td class="column1"><input id="txtNoa"  type="text" class="txt c1" /></td>
                <td class="label2" ></td>
                <td class="column2"></td>
@@ -355,28 +346,20 @@
                <td class="column3"></td>
             </tr>
             <tr>
-               <td class="label1" ><a id='lblNamea'></a></td>
-               <td class="column1"><input id="txtNamea"  type="text" class="txt c1"  /></td>
+               <td class="label1" ></td>
+               <td class="column1"><a id="lblPoint1"></a></td>
                <td class="label2" ></td>
-               <td class="column2"></td>
+               <td class="column2"><a id="lblClass"></a></td>
                <td class="label3" ></td>
-               <td class="column3"></td>
+               <td class="column3"><a id="lblPoint2"></a></td>
             </tr>
             <tr>
-               <td class="label1" ><a id="lblPoint" ></a></td>
-               <td class="column1"><input id="txtPoint"  type="text"  class="txt c1" style="text-align: right;"/></td>
-               <td class="label2" ></td>
-               <td class="column2"></td>
-               <td class="label3" ></td>
-               <td class="column3"></td>
-            </tr>
-            <tr>
-               <td class="label1" ><a id="lblUnit" ></a></td>
-               <td class="column1"><input id="txtUnit"  type="text" style="text-align: right;" /><a id="lblTimes"></a></td>
-               <td class="label2" ></td>
-               <td class="column2"></td>
-               <td class="label3" ></td>              
-               <td class="column3"></td>
+               <td class="label1" ></td>
+               <td class="column1"><input id="txtPoint1"  type="text"  class="txt c1" style="text-align: right;"/></td>
+               <td class="label2"><a id="lblDpoint" style="font-size: 24px;"></a></td>
+               <td class="column2"><input id="txtClass" type="text" class="txt c1" /></td>
+               <td class="label3" ><a id="lblCpoint" style="font-size: 20px;"></a></td>
+               <td class="column3"><input id="txtPoint2"  type="text" class="txt c1" style="text-align: right;" /></td>
             </tr>
         </table>
         </div>

@@ -8,7 +8,7 @@
     <script src='qset.js' type="text/javascript"></script>
 <script src="../script/qj_mess.js" type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = 'salw', t_content = ' ', bbsKey = ['noa'], as; 
+    var q_name = 'salexpo', t_content = ' ', bbsKey = ['noa'], as; 
     var isBott = false;  
     var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
     var i,s1;
