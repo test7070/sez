@@ -1,4 +1,4 @@
-ï»¿<%@ Page Language="C#" AutoEventWireup="true" %>
+?<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -21,46 +21,46 @@
         var decbbm = ['money', 'tax', 'total'];
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [['txtPrice', 10, 3]];  // å…è¨± key å°æ•¸
+        var bbmNum = [['txtPrice', 10, 3]];  // ¤¹³\ key ¤p¼Æ
         var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        //ajaxPath = ""; // åªåœ¨æ ¹ç›®éŒ„åŸ·è¡Œï¼Œæ‰éœ€è¨­å®š
+        //ajaxPath = ""; // ¥u¦b®Ú¥Ø¿ı°õ¦æ¡A¤~»İ³]©w
 		aPop = new Array(['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx'],['txtCustno', 'btnCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
-            q_brwCount();  // è¨ˆç®— åˆé©  brwCount 
-            q_gt(q_name, q_content, q_sqlCount, 1)  /// q_sqlCount=æœ€å‰é¢ top=ç­†æ•¸ï¼Œ q_init ç‚ºè¼‰å…¥ q_sys.xml èˆ‡ q_LIST
+            q_brwCount();  // ­pºâ ¦X¾A  brwCount 
+            q_gt(q_name, q_content, q_sqlCount, 1)  /// q_sqlCount=³Ì«e­± top=µ§¼Æ¡A q_init ¬°¸ü¤J q_sys.xml »P q_LIST
         });
 
         //////////////////   end Ready
         function main() {
-            if (dataErr)  /// è¼‰å…¥è³‡æ–™éŒ¯èª¤
+            if (dataErr)  /// ¸ü¤J¸ê®Æ¿ù»~
             {
                 dataErr = false;
                 return;
             }
 
-            mainForm(1); // 1=æœ€å¾Œä¸€ç­†  0=ç¬¬ä¸€ç­†
+            mainForm(1); // 1=³Ì«á¤@µ§  0=²Ä¤@µ§
         }  
 
        /* aPop = [['txtStoreno', 'btnStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
                 ['txtStoreno2', 'btnStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx', "60%", "650px", q_getMsg('popStore')],
                 ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']];*/
 
-        function mainPost() { // è¼‰å…¥è³‡æ–™å®Œï¼Œæœª refresh å‰
+        function mainPost() { // ¸ü¤J¸ê®Æ§¹¡A¥¼ refresh «e
             fbbm[fbbm.length] = 'txtMemo'; 
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-             // éœ€åœ¨ main_form() å¾ŒåŸ·è¡Œï¼Œæ‰æœƒè¼‰å…¥ ç³»çµ±åƒæ•¸
+             // »İ¦b main_form() «á°õ¦æ¡A¤~·|¸ü¤J ¨t²Î°Ñ¼Æ
         }
 
-        function q_boxClose(s2) { ///   q_boxClose 2/4 /// æŸ¥è©¢è¦–çª—ã€å®¢æˆ¶è¦–çª—ã€å ±åƒ¹è¦–çª—  é—œé–‰æ™‚åŸ·è¡Œ
+        function q_boxClose(s2) { ///   q_boxClose 2/4 /// ¬d¸ßµøµ¡¡B«È¤áµøµ¡¡B³ø»ùµøµ¡  Ãö³¬®É°õ¦æ
             var ret;
-            switch (b_pop) {   /// é‡è¦ï¼šä¸å¯ä»¥ç›´æ¥ return ï¼Œæœ€å¾Œéœ€åŸ·è¡Œ originalClose();
+            switch (b_pop) {   /// ­«­n¡G¤£¥i¥Hª½±µ return ¡A³Ì«á»İ°õ¦æ originalClose();
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -69,16 +69,16 @@
         }
 
 
-        function q_gtPost(t_name) {  /// è³‡æ–™ä¸‹è¼‰å¾Œ ...
+        function q_gtPost(t_name) {  /// ¸ê®Æ¤U¸ü«á ...
             switch (t_name) {
-                case q_name: if (q_cur == 4)   // æŸ¥è©¢
+                case q_name: if (q_cur == 4)   // ¬d¸ß
                         q_Seek_gtPost();
                     break;
             }  /// end switch
         }
 
         function btnOk() {
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // æª¢æŸ¥ç©ºç™½ 
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // ÀË¬dªÅ¥Õ 
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
@@ -88,7 +88,7 @@
             sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
-            if (s1.length == 0 || s1 == "AUTO")   /// è‡ªå‹•ç”¢ç”Ÿç·¨è™Ÿ
+            if (s1.length == 0 || s1 == "AUTO")   /// ¦Û°Ê²£¥Í½s¸¹
                 q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
             else
                 wrServer(s1);
@@ -101,10 +101,10 @@
             q_box('cng_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
         }
 
-        function combPay_chg() {   /// åªæœ‰ comb é–‹é ­ï¼Œæ‰éœ€è¦å¯« onChange()   ï¼Œå…¶é¤˜ cmb é€£çµè³‡æ–™åº«
+        function combPay_chg() {   /// ¥u¦³ comb ¶}ÀY¡A¤~»İ­n¼g onChange()   ¡A¨ä¾l cmb ³sµ²¸ê®Æ®w
         }
 
-        function bbsAssign() {  /// è¡¨èº«é‹ç®—å¼
+        function bbsAssign() {  /// ªí¨­¹Bºâ¦¡
             _bbsAssign();
         }
 
@@ -131,9 +131,9 @@
             _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
         }
 
-        function bbsSave(as) {   /// è¡¨èº« å¯«å…¥è³‡æ–™åº«å‰ï¼Œå¯«å…¥éœ€è¦æ¬„ä½
-            if (!as['productno'] && !as['product']) {  //ä¸å­˜æª”æ¢ä»¶
-                as[bbsKey[1]] = '';   /// no2 ç‚ºç©ºï¼Œä¸å­˜æª”
+        function bbsSave(as) {   /// ªí¨­ ¼g¤J¸ê®Æ®w«e¡A¼g¤J»İ­nÄæ¦ì
+            if (!as['productno'] && !as['product']) {  //¤£¦sÀÉ±ø¥ó
+                as[bbsKey[1]] = '';   /// no2 ¬°ªÅ¡A¤£¦sÀÉ
                 return;
             }
 
@@ -177,7 +177,7 @@
         function btnPlus(org_htm, dest_tag, afield) {
             _btnPlus(org_htm, dest_tag, afield);
             if (q_tables == 's')
-                bbsAssign();  /// è¡¨èº«é‹ç®—å¼ 
+                bbsAssign();  /// ªí¨­¹Bºâ¦¡ 
         }
 
         function q_appendData(t_Table) {

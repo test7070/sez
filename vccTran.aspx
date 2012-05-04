@@ -59,7 +59,7 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-            q_cmbParse("cmbType", q_getPara('vcc.type'));   // 需在 main_form() 後執行，才會載入 系統參數
+            q_cmbParse("cmbTypea", q_getPara('vcc.typea'));   // 需在 main_form() 後執行，才會載入 系統參數
             q_cmbParse("cmbStype", q_getPara('vcc.stype'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));   
             q_cmbParse("combPay", q_getPara('vcc.pay'));  // comb 未連結資料庫
@@ -381,7 +381,7 @@
                <td class="td1" ><span> </span><a id='lblType'></a></td>
                <td class="td2" >
                <%--<input id="txtType" type="text"  style='width:0%; visibility:collapse;'/>--%>
-               <select id="cmbType" class="txt c1"></select></td>
+               <select id="cmbTypea" class="txt c1"></select></td>
                <td class="td3"><span> </span><a id='lblStype'></a></td>
                <td class="td4"><select id="cmbStype" class="txt c1"></select></td>
                <td class="td5"><span> </span><a id='lblDatea'></a></td>
