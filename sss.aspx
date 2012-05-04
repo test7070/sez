@@ -402,15 +402,15 @@
             
             <tr>
                <td class="label1" ><input id='btnAcomp' type="button" style='width: auto; font-size: medium;'/></td>
-               <td class="column1" colspan="5"><input id="txtCno"type="text"  style='width:30%; '/><input id="txtComp"  type="text"  style='width:64%; '/></td>
+               <td class="column1" colspan="5"><input id="txtCno"type="text"  style='width:30%; '/><input id="txtComp"  type="text"  style='width:68%; '/></td>
             </tr>  
             <tr>
                <td class="label1" ><a id="lblAddr_home"></a></td>
-               <td class="column1" colspan="5"><input id="txtAddr_home"  type="text" class="txt c1"/></td>
+               <td class="column1" colspan="5"><input id="txtAddr_home"  type="text" style="width: 99%;"/></td>
             </tr>  
             <tr>
                <td class="label1" ><a id="lblAddr_conn"></a></td>
-               <td class="column1" colspan="5"><input id="txtAddr_conn"  type="text"  class="txt c1"/></td>
+               <td class="column1" colspan="5"><input id="txtAddr_conn"  type="text"  style="width: 99%;"/></td>
             </tr>         
             <tr>
                <td class="label1" ></td>
