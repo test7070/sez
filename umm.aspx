@@ -385,8 +385,8 @@
 						<td class="td3" align="center"><span> </span><a id="lblSymbol" style="font-weight: bolder;font-size: 20px;"></a></td>
 						<td class="td4"><input id="txtVedate" type="text" class="txt c1"/></td>
 						<td class="td5"><span> </span><a id="lblCno2" class="lbl"></a></td>
-						<td class="td6"><input id="txtCno2" type="text" class="txt c3"/>
-						<input id="txtAccno2" type="text"  class="txt c3"/></td>
+						<td class="td6"><input id="txtCno2" type="text" class="txt c2"/>
+						<input id="txtAccno2" type="text"  class="txt c2"/></td>
 						<td class="td7"><span> </span><a id="lblAccno" class="lbl"></a></td>
 						<td class="td8"><input id="txtAccno" type="text" class="txt c8"/></td>
 					</tr>
