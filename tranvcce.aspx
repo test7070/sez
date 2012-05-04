@@ -115,6 +115,7 @@
                             break;
                     }
                 });
+                
             }
 
             function sum() {
@@ -532,13 +533,13 @@
 				<td class="td4" id="lblCaseno_type2"></td>
 				<td class="td5" id="lblPo_type2"></td>
 				<td class="td6" id="lblTraceno_type2"></td>
-				<td class="td7" id="lblCaseno2_type2"></td>
-				<td class="td8" id="lblIsdisplay_type2" style="font-size: 14px;"></td>
-				<td class="td9" id="lblCarno_type2"></td>
-				<td class="tdA" id="lblDatea_type2"></td>
-				<td class="tdB" id="lblPlat_type2"></td>
-				<td class="tdC" id="lblIsempty_type2"></td>
-				<td class="tdD" id="lblOrdeno_type2"></td>
+				<td class="td7" id="lblIsdisplay_type2" style="font-size: 14px;"></td>
+				<td class="td8" id="lblCarno_type2"></td>
+				<td class="td9" id="lblDatea_type2"></td>
+				<td class="tdA" id="lblIspal_type2"></td>
+				<td class="tdB" id="lblEf_type2"></td>
+				<td class="tdC" id="lblOrdeno_type2"></td>
+				<td class="tdD" id="lblCaseno2_type2"></td>
 			</tr>
 			<tr name="data" class="type2">
 				<td class="td1">
@@ -563,25 +564,25 @@
 				<input type="text" style="width: 95%;" id="txtTraceno_type2"/>
 				</td>
 				<td class="td7">
-				<input type="text" style="width: 95%;" id="txtCaseno2_type2"/>
-				</td>
-				<td class="td8">
 				<input type="checkbox" id="txtIsdisplay_type2"/>
 				</td>
-				<td class="td9">
+				<td class="td8">
 				<input type="text" style="width: 95%;" id="txtCarno_type2"/>
 				</td>
-				<td class="tdA">
+				<td class="td9">
 				<input type="text" style="width: 95%;" id="txtDatea_type2"/>
 				</td>
 				<td class="tdB">
-				<input type="text" style="width: 95%;" id="txtPlat_type2"/>
+				<input type="checkbox" id="txtIspal_type2"/>
 				</td>
 				<td class="tdC">
-				<input type="checkbox" id="txtIsempty_type2"/>
+				<input type="text" style="width: 95%;" id="txtEf_type2"/>
+				</td>
+				<td class="tdC">
+				<input type="text" style="width: 95%;" id="txtOrdeno_type2"/>
 				</td>
 				<td class="tdD">
-				<input type="text" style="width: 95%;" id="txtOrdeno_type2"/>
+				<input type="text" style="width: 95%;" id="txtCaseno2_type2"/>
 				</td>
 			</tr>
 			<tr name="header" class="type3">
@@ -595,8 +596,8 @@
 				<td class="td8" id="lblIsdisplay_type3" style="font-size: 14px;"></td>
 				<td class="td9" id="lblCarno_type3"></td>
 				<td class="tdA" id="lblDatea_type3"></td>
-				<td class="tdB" id="lblPlat_type3"></td>
-				<td class="tdC" id="lblIsempty_type3"></td>
+				<td class="tdB" id="lblIspal_type3"></td>
+				<td class="tdC" id="lblEf_type3"></td>
 				<td class="tdD" id="lblOrdeno_type3"></td>
 			</tr>
 			<tr name="data" class="type3">
@@ -634,10 +635,10 @@
 				<input type="text" style="width: 95%;" id="txtDatea_type3"/>
 				</td>
 				<td class="tdB">
-				<input type="text" style="width: 95%;" id="txtPlat_type3"/>
+				<input type="checkbox" id="txtIspal_type3"/>
 				</td>
 				<td class="tdC">
-				<input type="checkbox" id="txtIsempty_type3"/>
+				<input type="text" style="width: 95%;" id="txtEf_type3"/>
 				</td>
 				<td class="tdD">
 				<input type="text" style="width: 95%;" id="txtOrdeno_type3"/>
@@ -674,7 +675,7 @@
 				<td class="td8" id="lblWeight_t1"></td>
 				<td class="td9" id="lblOrdeno_t1"></td>
 				<td class="tdA" id="lblNotv_t1"></td>
-				<td class="tdB" id="lblPlat_t1"></td>
+				<td class="tdB" id="lblPal_t1"></td>
 			</tr>
 			<tr name="template">
 				<td class="td1">
@@ -712,7 +713,7 @@
 				<input type="text" style="width: 95%;" value="notv"/>
 				</td>
 				<td class="tdB">
-				<input type="text" style="width: 95%;" value="plat"/>
+				<input type="text" style="width: 95%;" value="pal"/>
 				</td>
 			</tr>
 		</table>
@@ -734,19 +735,60 @@
 				<td class="tdE" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
 			</tr>
 			<tr name="header">
-				<td class="td1" id="lblChk_t1"></td>
-				<td class="td2" id="lblCust_t1"></td>
-				<td class="td3" id="lblCarno_t1"></td>
-				<td class="td4" id="lblDatea_t1"></td>
-				<td class="td5" id="lblProduct_t1"></td>
-				<td class="td6" id="lblStradd_t1"></td>
-				<td class="td7" id="lblEndadd_t1"></td>
-				<td class="td8" id="lblWeight_t1"></td>
-				<td class="td9" id="lblOrdeno_t1"></td>
-				<td class="tdA" id="lblNotv_t1"></td>
-				<td class="tdB" id="lblPlat_t1"></td>
+				<td class="td1" id="lblChk_t2"></td>
+				<td class="td2" id="lblCust_t2"></td>
+				<td class="td3" id="lblTraceno_t2"></td>
+				<td class="td4" id="lblCaseno_t2"></td>
+				<td class="td4" id="lblCaseno2_t2"></td>
+				<td class="td5" id="lblPo_t2"></td>
+				<td class="td6" id="lblCarno_t2"></td>
+				<td class="td7" id="lblDatea_t2"></td>
+				<td class="td8" id="lblIspal_t2"></td>
+				<td class="td9" id="lblEf_t2"></td>
+				<td class="tdA" id="lblStatus_t2"></td>
+				<td class="tdB" id="lblPal_t2"></td>
+				<td class="tdC" id="lblStradd_t2"></td>
+				<td class="tdD" id="lblEndadd_t2"></td>
+				<td class="tdE" id="lblOrdeno_t2"></td>
+				<td class="tdF" id="lblNotv_t2"></td>
 			</tr>
-
+			<tr name="template">
+				<td class="td1">
+				<input type="checkbox"/>
+				</td>
+				<td class="td2">
+				<input type="text" style="width: 35%;" value="custno"/>
+				<input type="text" style="width: 60%;" value="cust"/>
+				</td>
+				<td class="td3">
+				<input type="text" style="width: 95%;" value="traceno"/>
+				</td>
+				<td class="td4">
+				<input type="text" style="width: 95%;" value="caseno"/>
+				</td>
+				<td class="td5">
+				<input type="text" style="width: 95%;" value="caseno2"/>
+				</td>
+				<td class="td6">
+				<input type="text" style="width: 95%;" value="po"/>
+				</td>
+				<td class="td7">
+				<input type="text" style="width: 35%;" value="endaddno"/>
+				<input type="text" style="width: 60%;" value="endadd"/>
+				</td>
+				<td class="td8">
+				<input type="text" style="width: 95%;" value="weight"/>
+				</td>
+				<td class="td91">
+				<input type="text" style="width: 95%;" value="ordeno"/>
+				</td>
+				<td class="tdA">
+				<input type="text" style="width: 95%;" value="notv"/>
+				</td>
+				<td class="tdB">
+				<input type="text" style="width: 95%;" value="pal"/>
+				</td>
+			</tr>
 		</table>
 		<table id="t3"></table>
 
