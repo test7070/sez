@@ -42,6 +42,10 @@
                     $('#qReport').q_report({
                         fileName : 'z_car2',
                         options : [{
+                            type : '0',
+                            name : 'gqbTypea',
+                            value : q_getPara('gqb.typea')
+                        },{
                             type : '1',
                             name : 'mon'
                         }, {
