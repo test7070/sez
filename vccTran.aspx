@@ -29,7 +29,7 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
-		aPop = new Array(['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],['txtCustno', 'btnCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],['txtPartno2', 'btnPart2', 'part', 'noa,part', 'txtPartno2,txtPart2', 'part_b.aspx'],['txtSalesno2', 'btnSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],['txtPartno', 'btnPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],['txtSalesno', 'btnSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],['txtProductno_', 'btnProductno_', 'ucc', 'noa,productno', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
+		aPop = new Array(['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],['txtCustno', 'btnCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],['txtPartno2', 'btnPart2', 'part', 'noa,part', 'txtPartno2,txtPart2', 'part_b.aspx'],['txtSalesno2', 'btnSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],['txtPartno', 'btnPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],['txtSalesno', 'btnSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
