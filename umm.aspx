@@ -50,6 +50,7 @@
             }
 
             function mainPost() {
+            	fbbm[fbbm.length] = 'txtMemo';
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtVbdate', r_picd], ['txtVedate', r_picd]];
                 q_mask(bbmMask);
@@ -279,20 +280,22 @@
 		 .dbbm{float:left;width:73%;margin:-1px;border:1px black solid;border-radius:5px;}
 		 .tbbm{padding:0px;border:1px white double;border-spacing:0;border-collapse:collapse;font-size:16px;color:blue;background:#cad3ff;width:100%;}
 		 .tbbm tr{height:35px;}
-		 .tbbm tr td{width:10%;}
-		 .tbbm tr td span{float:right;display:block;width:5px;height:10px;}
+		 .td1{width: 11%;}
+		 .td3, .td5, .td7{width: 10%;}
+		 .td2, .td4, .td6, .td8{width: 10%;}
+		 .tbbm tr td span{float:right;display:block;width:8px;height:10px;}
 		 .tbbm tr td .lbl{float:right;color:blue;font-size:16px;}
 		 .tbbm tr td .lbl.btn{color:#4297D7;font-weight:bolder;}
 		 .tbbm tr td .lbl.btn:hover{color:#FF8F19;}
 		 .tbbm tr td .txt.c1{width:100%;float:left;}
 		 .tbbm tr td .txt.c2{width:50%;float:left;}
-		 .tbbm tr td .txt.c3{width:45%;float:left;}
-		 .tbbm tr td .txt.c4{width:55%;float:left;}
+		 .tbbm tr td .txt.c3{width:47%;float:left;}
+		 .tbbm tr td .txt.c4{width:53%;float:left;}
 		 .tbbm tr td .txt.c5{width:35%;float:left;}
-		 .tbbm tr td .txt.c6{width:65%;float:left;}
+		 .tbbm tr td .txt.c6{width:64%;float:left;}
 		 .tbbm tr td .txt.num{text-align:right;}
-		 .tbbs tr td .txt.c7{width:96%;text-align: right;}
-		 .tbbs tr td .txt.c8{width:98%;}
+		 .txt.c7{width:96%;text-align: right;}
+		 .txt.c8{width:98%;}
 		
 		 .dbbs .tbbs{margin:0;padding:2px;border:2px lightgrey double;border-spacing:1px;border-collapse:collapse;font-size:16px;color:blue;background:#cad3ff;width:100%;}
 		 .dbbs .tbbs tr{height:35px;}
@@ -301,7 +304,7 @@
 		 .dbbm input[type="button"]{float:right;width:auto;font-size: medium;}
 		 .tbbm tr td{margin:0px -1px;padding:0;}
 		 .tbbm tr td input[type="text"]{border-width:1px;padding:0px;margin:-1px;}
-		 .tbbm tr td select{border-width:1px;padding:0px;margin:-1px;}
+		 .tbbm tr td select{border-width:1px;padding:0px;margin:-1px;width: 98%;}
 		</style>
 	</head>
 	<body>
@@ -325,17 +328,7 @@
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
-					<tr class="tr0">
-						<td class="td1" ></td>
-						<td class="td2" ></td>
-						<td class="td3" ></td>
-						<td class="td4" ></td>
-						<td class="td5" ></td>
-						<td class="td6" ></td>
-						<td class="td7" ></td>
-						<td class="td8" ></td>
-						<td class="td9" ></td>
-					</tr>
+					
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
 						<td class="td2" >
@@ -351,12 +344,12 @@
 						</td>
 						<td class="td7"><span> </span><a id="lblWorker"  class="lbl"></a></td>
 						<td class="td8">
-						<input id="txtWorker" type="text" class="txt c1"/>
+						<input id="txtWorker" type="text" class="txt c8"/>
 						</td>
-						<td class="td9"></td>
+						
 					</tr>
 					<tr class="tr2">
-						<td class="td1" >
+						<td class="td1" ><span> </span>
 						<input id="btnAcomp" type="button" />
 						</td>
 						<td class="td2" colspan="3">
@@ -369,10 +362,11 @@
 						</td>
 						<td class="td7"><span> </span><a id="lblTypea" class="lbl"></a></td>
 						<td class="td8"><select id="cmbTypea" ></select></td>
+						
 					</tr>
 
 					<tr class="tr3">
-						<td class="td1">
+						<td class="td1"><span> </span>
 						<input id="btnCust" type="button" />
 						</td>
 						<td class="td2" colspan="3">
@@ -380,28 +374,21 @@
 						<input id="txtComp"  type="text" class="txt c6"/>
 						</td>
 						<td class="td5"><span> </span><a id='lblPayc' class="lbl"></a></td>
-						<td class="td6" colspan="2">
+						<td class="td6" >
 						<input id="txtPayc" type="text" class="txt c1"/>
 						</td>
+						
 					</tr>
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id="lblVdate" class="lbl"></a></td>
-						<td class="td2" colspan="2">
-						<input id="txtVbdate" type="text" class="txt c3"/>
-						<a style="float: left; display: block; width: 10%; text-align: center;">~</a>
-						<input id="txtVedate" type="text" class="txt c3"/>
-						</td>
-						<td class="td4"><span> </span><a id="lblCno2" class="lbl"></a></td>
-						<td class="td5" >
-						<input id="txtCno2" type="text" class="txt c1"/>
-						</td>
-						<td class="td6">
-						<input id="txtAccno2" type="text"  class="txt c1"/>
-						</td>
+						<td class="td2"><input id="txtVbdate" type="text" class="txt c1"/></td>
+						<td class="td3" align="center"><span> </span><a id="lblSymbol" style="font-weight: bolder;font-size: 20px;"></a></td>
+						<td class="td4"><input id="txtVedate" type="text" class="txt c1"/></td>
+						<td class="td5"><span> </span><a id="lblCno2" class="lbl"></a></td>
+						<td class="td6"><input id="txtCno2" type="text" class="txt c3"/>
+						<input id="txtAccno2" type="text"  class="txt c3"/></td>
 						<td class="td7"><span> </span><a id="lblAccno" class="lbl"></a></td>
-						<td class="td8">
-						<input id="txtAccno" type="text" class="txt c1"/>
-						</td>
+						<td class="td8"><input id="txtAccno" type="text" class="txt c8"/></td>
 					</tr>
 					<tr class="tr5">
 						<td class="td1"><span> </span><a id="lblTotalus" class="lbl"></a></td>
@@ -410,7 +397,7 @@
 						</td>
 						<td class="td3"><span> </span><a id="lblPaysaleus" class="lbl"></a></td>
 						<td class="td4">
-						<input id="txtPaysaleus" type="text" class="tx num c1t"/>
+						<input id="txtPaysaleus" type="text" class="txt num c1"/>
 						</td>
 						<td class="td5"><span> </span><a id="lblNextsaleus" class="lbl"></a></td>
 						<td class="td6">
@@ -474,22 +461,22 @@
 					<input class="txt c7" id="txtPaysaleus.*" type="text" />
 					</td>
 					<td style="width:5%;">
-					<input class="txt c7" id="txtMon.*" type="text" />
+					<input class="txt c8" id="txtMon.*" type="text" />
 					</td>
 					<td style="width:8%;">
 					<input class="txt c8" id="txtCheckno.*"  />
 					</td>
 					<td style="width:8%;">
-					<input class="txt c7" id="txtAccount.*" type="text" />
+					<input class="txt c8" id="txtAccount.*" type="text" />
 					</td>
 					<td style="width:6%;">
 					<input class="txt c8" id="txtBankno.*" type="text" />
 					</td>
 					<td style="width:18%;">
-					<input class="txt c7" id="txtBank.*" type="text" />
+					<input class="txt c8" id="txtBank.*" type="text" />
 					</td>
 					<td style="width:7%;">
-					<input class="txt c7" id="txtIndate.*" type="text" />
+					<input class="txt c8" id="txtIndate.*" type="text" />
 					</td>
 					<td style="width:12%;">
 					<input class="txt c8" id="txtMemo.*" type="text" />
