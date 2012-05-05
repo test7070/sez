@@ -349,7 +349,7 @@
             <td class='label1'><span> </span><a id="lblWorker" ></a></td><td class="column1"><input id="txtWorker"  type="text"  class="txt c1"/></td></tr>        
         </table>
         </div>
-
+		</div>
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
@@ -371,7 +371,6 @@
                 <td ><input class="txt c1" id="txtTaccl.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
             </tr>
         </table>
-        </div>
         </div>
         <input id="q_sys" type="hidden" />
 </body>

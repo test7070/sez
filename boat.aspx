@@ -267,20 +267,16 @@
         }
     </script>
     <style type="text/css">
-        .dview{float:left;width:25%;}
+         .dview{float:left;width:25%;}
 		 .tview{margin:0;padding:2px;border:1px black double;border-spacing:0;font-size:16px;background-color:#FFFF66;color:blue;}
 		 .tview td{padding:2px;text-align:center;border:1px black solid;}
 		 .dbbm{float:left;width:73%;margin:-1px;border:1px black solid;border-radius:5px;}
 		 .tbbm{padding:0px;border:1px white double;border-spacing:0;border-collapse:collapse;font-size:16px;color:blue;background:#cad3ff;width:100%;}
 		 .tbbm tr{height:35px;}
-		 .td1, .td3, .td5, .td7, .td9{width: 10%;text-align: right;}
-		 .td2, .td4, .td6, .td8, .td10{width: 10%;}
+		 .td1, .td3{width: 10%;text-align: right;}
+		 .td2, .td4{width: 10%;}
 		 .tbbm tr td span{float:right;display:block;width:8px;height:10px;}
-		 .tbbm tr td .txt.c1{width:35%;float:left;}
-		 .tbbm tr td .txt.c2{width:64%;float:left;}
-		 .tbbm tr td .txt.c3{width:100%;float:left;}
-		 .txt.num{text-align:right;}
-		 .dbbm input[type="button"]{float:right;width:auto;font-size: 14px;}
+		 .tbbm tr td .txt.c1{width:100%;float:left;}
 		 .tbbm tr td{margin:0px -1px;padding:0;}
 		 .tbbm tr td input[type="text"]{border-width:1px;padding:0px;margin:-1px;}
 		 .tbbm tr td select{border-width:1px;padding:0px;margin:-1px;width: 98%;}
@@ -307,31 +303,31 @@
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
           <tr class="tr1">
                <td class="td1"><span> </span><a id="lblNoa"></a></td>
-               <td class="td2"><input id="txtNoa" type="text" class="txt c3"/></td>
+               <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
                <td class="td3"></td>
                <td class="td4"></td> 
             </tr>
             <tr class="tr2">
                <td class="td1"><span> </span><a id="lblBoat"></a></td>
-               <td class="td2"><input id="txtBoat" type="text" class="txt c3"/></td>
+               <td class="td2"><input id="txtBoat" type="text" class="txt c1"/></td>
                <td class="td3"></td>
                <td class="td4"></td> 
             </tr>  
             <tr class="tr3">
                <td class="td1"><span> </span><a id="lblConn"></a></td>
-               <td class="td2"><input id="txtConn" type="text" class="txt c3"/></td>
+               <td class="td2"><input id="txtConn" type="text" class="txt c1"/></td>
                <td class="td3"></td>
                <td class="td4"></td> 
             </tr>      
             <tr class="tr4">
                <td class="td1"><span> </span><a id="lblTel"></a></td>
-               <td class="td2"><input id="txtTel" type="text" class="txt c3"/></td>
+               <td class="td2"><input id="txtTel" type="text" class="txt c1"/></td>
                <td class="td3"></td>
                <td class="td4"></td> 
             </tr>
             <tr class="tr5">
                <td class="td1"><span> </span><a id="lblAddr"></a></td>
-               <td class="td2" colspan="3"><input id="txtAddr" type="text" class="txt c3"/></td>
+               <td class="td2" colspan="3"><input id="txtAddr" type="text" class="txt c1"/></td>
             </tr>
         </table>
         </div>
