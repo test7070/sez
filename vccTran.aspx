@@ -351,7 +351,7 @@
 		 .tbbm tr td{margin:0px -1px;padding:0;}
 		 .tbbm tr td input[type="text"]{border-width:1px;padding:0px;margin:-1px;}
 		 .tbbm tr td select{border-width:1px;padding:0px;margin:-1px;width: 98%;}
-      	 .btnLbl.button {cursor: pointer;color: #4297D7;font-weight: bolder;float:right;}
+      	 .btnLbl.button {cursor: pointer;float:right;}
     </style>
 </head>
 <body>
