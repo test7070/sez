@@ -31,7 +31,8 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtAddno1', 'lblAdd1', 'addr', 'noa,addr', 'txtAddno1,txtAdd1', 'addr_b.aspx'], ['txtAddno2', 'lblAdd2', 'addr', 'noa,addr', 'txtAddno2,txtAdd2', 'addr_b.aspx'],['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'noa,namea', 'txtWorkerno,txtWorker', 'sss_b.aspx']);
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtAddno1', 'lblAdd1', 'addr', 'noa,addr', 'txtAddno1,txtAdd1', 'addr_b.aspx'],
+             ['txtAddno2', 'lblAdd2', 'addr', 'noa,addr', 'txtAddno2,txtAdd2', 'addr_b.aspx'],['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'noa,namea', 'txtWorkerno,txtWorker', 'sss_b.aspx'],['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtBoatno', 'lblBoat', 'boat', 'noa,boat', 'txtBoatno,txtBoat', 'boat_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -52,7 +53,9 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
-
+				$('#lblAccno').parent().click(function(e) {
+                    q_box("accc.aspx?" + $('#txtAccno').val() + "'", 'accc', "850px", "600px", q_getMsg("popAccc"));
+                });
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -298,7 +301,12 @@
             .lbl.btn:hover {
                 color: #FF8F19;
             }
-
+			.btnLbl.button {
+                cursor: pointer;
+                color: #4297D7;
+                font-weight: bolder;
+                float:right;
+            }
         </style>
     </head>
     <body>
@@ -395,7 +403,7 @@
                             <td class="td10" ><a id="lblReport" class="lbl btn"></a></td>
                         </tr>
                         <tr class="tr8">
-                            <td class="td1"><a id="lblAccno" class="lbl btn"></a></td>
+                            <td class="td1"><a id="lblAccno" class="btnLbl button"></a></td>
                             <td class="td2">
                             <input id="txtAccno" type="text"  class="txt c1"/>
                             </td>

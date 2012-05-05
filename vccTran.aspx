@@ -351,7 +351,7 @@
 		 .tbbm tr td{margin:0px -1px;padding:0;}
 		 .tbbm tr td input[type="text"]{border-width:1px;padding:0px;margin:-1px;}
 		 .tbbm tr td select{border-width:1px;padding:0px;margin:-1px;width: 98%;}
-      
+      	 .btnLbl.button {cursor: pointer;color: #4297D7;font-weight: bolder;float:right;}
     </style>
 </head>
 <body>
@@ -405,7 +405,7 @@
                 <td class="td3"><span> </span><a id='lblPay'></a></td>
                 <td class="td4"><input id="txtPay" type="text" class="txt c2"/> 
                 <select id="combPay" class="txt c2" ></select></td>
-                <td class="td5"><span> </span><input id="btnAccc" type="button" value='.' /></td>
+                <td class="td5"><span> </span><input id="btnAccc" type="button" value='.' class="btnLbl button"/></td>
                 <td class="td6"><input id="txtAccno"  type="text" class="txt c1"/></td>  
             </tr>
             <tr class="tr4">

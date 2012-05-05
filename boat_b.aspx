@@ -1,4 +1,4 @@
-?<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 <meta http-equiv="Content-Language" content="en-us" /> 
@@ -9,7 +9,7 @@
 <script src="../script/qj_mess.js" type="text/javascript"></script>
 <script type="text/javascript">
     var q_name = 'boat', t_content = ' ', bbsKey = ['noa'], as; 
-    var isBott = false;  /// 是否已按過 最後一頁
+    var isBott = false;  
     var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
     var i,s1;
         $(document).ready(function () {
@@ -17,7 +17,7 @@
         });         /// end ready
 
         function main() {
-            if (dataErr)  /// 載入資料錯誤
+            if (dataErr) 
             {
                 dataErr = false;
                 return;
@@ -45,10 +45,6 @@
         {
             width: 95%;
         }
-        .td1
-        {
-            width: 15%;
-        }
     </style>
 </head>
 
@@ -57,19 +53,13 @@
        <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
            <tr>
                 <th align="center" ></th>
-                <th align="center" style='color:Blue;' class="td1"><a id='lblNoa'></a></th>
-                <th align="center" style='color:Blue;' class="td1"><a id='lblDatea'></a></th>
-                <th align="center" style='color:Blue;' class="td1"><a id='lblInvestcomp'></a></th>
-                <th align="center" style='color:Blue;' class="td1"><a id='lblInvestname'></a></th>
-                <th align="center" style='color:Blue;'><a id='lblInvestmemo'></a></th>
+                <th align="center" style='color:Blue;width: 20%;' ><a id='lblNoa'></a></th>
+                <th align="center" style='color:Blue;width: 40%; '><a id='lblBoat'></a></th>
             </tr>
             <tr>
                 <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
                 <td ><input class="txt c1" id="txtNoa.*" type="text"   readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtDatea.*" type="text"   readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtInvestcomp.*" type="text"   readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtInvestname.*" type="text"   readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtInvestmemo.*" type="text"   readonly="readonly" /></td>
+                <td ><input class="txt c1" id="txtBoat.*" type="text"   readonly="readonly" /></td>
             </tr>
         </table>
   <!--#include file="../inc/brow_ctrl.inc"--> 
