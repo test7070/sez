@@ -15,7 +15,7 @@
     var isBott = false;  /// 是否已按過 最後一頁
     var afield, t_htm;
     var i, s1;
-    var decbbs = ['money', 'bo_admin', 'bo_duty', 'bo_full', 'bo_over', 'bo_oth', 'salary', 'unfix', 'sa_retire', 'rate', 'retire', 'sa_labor', 'sa_health', 'ch_labor','ch_health', 'mount'];
+    var decbbs = ['money', 'bo_admin', 'bo_duty', 'bo_full', 'bo_over', 'bo_oth', 'salary', 'unfix', 'sa_retire', 'rate', 'retire', 'sa_labor', 'sa_health', 'ch_labor','ch_health', 'mount','sal_retire'];
     var decbbm = [];
     var q_readonly = [];
     var q_readonlys = [];
@@ -151,9 +151,9 @@
         <table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:1500px;'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" class="td2"><a id='lblNoa'></a></td>
+                <td align="center" class="td1"><a id='lblNoa'></a></td>
                 <td align="center" class="td3"><a id='lblDatea'></a></td>
-                <td align="center" class="td3"><a id='lblJobno'></a></td>
+                <td align="center" class="td2"><a id='lblJobno'></a></td>
                 <td align="center" class="td4"><a id='lblJob'></a></td>
                 <td align="center" class="td1"><a id='lblLevel1'></a></td>
                 <td align="center" class="td1"><a id='lblLevel2'></a></td>
@@ -171,6 +171,7 @@
                 <td align="center" class="td3"><a id='lblRetire'></a></td>
                 <td align="center" class="td3"><a id='lblSa_labor'></a></td>
                 <td align="center" class="td3"><a id='lblSa_health'></a></td>
+                <td align="center" class="td3"><a id='lblSal_retire'></a></td>
                 <td align="center" class="td3"><a id='lblCh_labor'></a></td>
                 <td align="center" class="td3"><a id='lblCh_health'></a></td>
                 <td align="center" class="td3"><a id='lblMount'></a></td>
@@ -197,6 +198,7 @@
                 <td ><input class="txt c1" id="txtRetire.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtSa_labor.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtSa_health.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtSal_retire.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCh_labor.*" type="text"  /></td>
                 <td ><input class="txt c1" id="txtCh_health.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtMount.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
