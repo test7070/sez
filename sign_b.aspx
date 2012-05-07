@@ -163,7 +163,7 @@
              BORDER:1PX LIGHTGREY SOLID;
              width:100% ; height:100% ;  
         } 
-		.td1, .td3, .td5, .td6, .td8, .td10, .td12, .td14
+		.td1, .td3, .td5, .td6, .td8, .td12, .td14
 		{ 
 			width: 7%;
 			text-align:right;
@@ -172,6 +172,11 @@
 		{
 			width: 7%;
 		} 
+		.td10
+		{
+			width: 4%;
+			text-align: center;
+		}
 		 td input[type="button"] {
                 width: auto;
                 font-size: medium;
@@ -203,7 +208,7 @@
             <td class="td7"><input id="textMess" type="text" class="txt c1" /></td>
             <td class="td8"><a id="lblDate1"></a></td>
             <td class="td9"><input id="textDate1" type="text" class="txt c1" /></td>
-            <td align="center"><a id="lblSymbol" style="font-weight: bolder;font-size: 18px;"></a></td>
+            <td class="td10"><a id="lblSymbol" style="font-weight: bolder;font-size: 18px;"></a></td>
             <td class="td11"><input id="textDate2" type="text" class="txt c1" /></td>
             <td class="td12"><a id="lblCount"></a></td>
             <td class="td13"><input id="textCount" type="text" style="width: 99%;" /></td>
