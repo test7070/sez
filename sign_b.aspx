@@ -4,7 +4,7 @@
 <head>
 <title></title>
 <script src="../script/jquery.min.js" type="text/javascript"></script>
-<script src='../script/qj.js' type="text/javascript"></script>
+<script src='../script/qj2.js' type="text/javascript"></script>
     <script src='qset.js' type="text/javascript"></script>
 <script src='../script/qj_mess.js' type="text/javascript"></script>
 <script src='../script/mask.js' type="text/javascript"></script>
@@ -109,7 +109,7 @@
         $('.detail').siblings().css('background', 'gray');
 
         $('.chekSel').click(function () {
-            t_IdSeq = -1;  /// ­n¥ýµ¹  ¤~¯à¨Ï¥Î q_bodyId()
+            t_IdSeq = -1;  /// ï¿½nï¿½ï¿½  ï¿½~ï¿½ï¿½Ï¥ï¿½ q_bodyId()
             q_bodyId($(this).attr('id'));
             b_seq = t_IdSeq;
 
@@ -148,7 +148,7 @@
     {color:white; text-align:center; font-weight:bold;BACKGROUND-COLOR: #76a2fe}
     .tbbm
         {
-            FONT-SIZE: 12pt;
+            FONT-SIZE: 14pt;
             COLOR: blue;
             TEXT-ALIGN: left;
             border-color: white; 
@@ -163,42 +163,29 @@
              BORDER:1PX LIGHTGREY SOLID;
              width:100% ; height:100% ;  
         } 
-        
-       
-        .column1
-        {
-            width: 12%;
-        }
-        .column2
-        {
-            width: 10%;
-        }      
-        .column3
-        {
-            width: 15%;
-        }   
-              
-         .label1
-        {
-            width: 10%;text-align:right;
-        }       
-        .label2
-        {
-            width: 8%;text-align:right;
-        }
-        .label3
-        {
-            width: 15%;
-        }
+		.td1, .td3, .td5
+		{ 
+			width: 12%;
+			text-align:right;
+		}
+		.td2, .td4, .td6
+		{
+			width: 15%;
+		} 
+		 td input[type="button"] {
+                width: auto;
+                font-size: medium;
+                float: right;
+            }      
         .txt.c1
         {
             width: 98%;
         }
-        .td1
+        .th1
         {
             width: 8%;
         }
-        .td2
+        .th2
         {
            width: 6%;
         }
@@ -209,10 +196,24 @@
         <div class='dbbm' style="width: 68%;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr>
-            <td class="label1"><a id="lblMemo"></a></td>
-            <td colspan="3" align="left"><textarea id="textMemo" cols="10" rows="5" style="width: 95%; height: 50px;"></textarea></td>
-            <td class="label3"><input id="btnApproveb" type="button"/></td>
-            <td class="column3"></td>
+            <td class="td1"><a id="lblMess"></a></td>
+            <td class="td2"><input id="textMess" type="text" class="txt c1" /></td>
+            <td class="td3"><a id="lblDate1"></a></td>
+            <td class="td4"><input id="textDate1" type="text" class="txt c1" /></td>
+            <td align="center"><a id="lblSymbol" style="font-weight: bolder;font-size: 18px;"></a></td>
+            <td class="td6"><input id="textDate2" type="text" class="txt c1" /></td>
+        </tr>
+        <tr>
+            <td class="td1"><a id="lblCount"></a></td>
+            <td class="td2" colspan="3"><input id="textCount" type="text" style="width: 99%;" /></td>
+            <td class="td5"><input id="btnSeek" type="button" /></td>
+            <td class="td6"></td>
+            </tr>      
+        <tr>
+            <td class="td1"><a id="lblMemo"></a></td>
+            <td colspan="3" align="left"><textarea id="textMemo" cols="10" rows="5" style="width: 99%; height: 50px;"></textarea></td>
+            <td class="td5"><input id="btnApproveb" type="button"/></td>
+            <td class="td6"></td>
             </tr>                            
        </table>
         </div>
@@ -220,16 +221,16 @@
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
-                <td style="width: 4%;"><input id="chekIsall" type="checkbox" /><a id="lblIsall"></a></td>  
+                <td style="width: 5%;"><input id="chekIsall" type="checkbox" /><a id="lblIsall"></a></td>  
                 <td align="center" style="width: 3%;"><a id="lblDetail"></a></td>
-                <td align="center" class="td1"><a id='lblForm'></a></td>
-                <td align="center" class="td2"><a id='lblNoa'></a></td>
+                <td align="center" class="th1"><a id='lblForm'></a></td>
+                <td align="center" class="th2"><a id='lblNoa'></a></td>
                 <td align="center" style="width: 22%;"><a id='lblMemos'></a></td>
-                <td align="center" class="td2"><a id='lblWorker'></a></td>
-                <td align="center" class="td1"><a id='lblChecker'></a></td>
-                <td align="center" class="td1"><a id='lblApprov'></a></td>
-                <td align="center" class="td1"><a id='lblApprove'></a></td>
-                <td align="center" class="td1"><a id='lblApprove2'></a></td>
+                <td align="center" class="th2"><a id='lblWorker'></a></td>
+                <td align="center" class="th1"><a id='lblChecker'></a></td>
+                <td align="center" class="th1"><a id='lblApprov'></a></td>
+                <td align="center" class="th1"><a id='lblApprove'></a></td>
+                <td align="center" class="th1"><a id='lblApprove2'></a></td>
                             
             </tr>
             <tr class='detail' id='detail.*'>
