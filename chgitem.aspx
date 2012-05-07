@@ -16,7 +16,7 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var decbbm = [];
+        var decbbm = ['price','pricepay'];
         var q_name="chgitem";
         var q_readonly = [];
         var bbmNum = []; 
@@ -270,7 +270,7 @@
 		 .tbbm tr td .lbl.btn{color:#4297D7;font-weight:bolder;}
 		 .tbbm tr td .lbl.btn:hover{color:#FF8F19;}
 		 .tbbm tr td .txt.c1{width:100%;float:left;}
-		 .tbbm tr td .txt.c2{width:50%;float:left;}
+		 .tbbm tr td .txt.c2{width:94%;float:left;}
 		 .tbbm tr td .txt.c3{width:47%;float:left;}
 		 .tbbm tr td .txt.c4{width:53%;float:left;}
 		 .tbbm tr td .txt.c5{width:35%;float:left;}
@@ -289,45 +289,49 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>                
-                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:25%"><a id='vewItem'></a></td>                
+                <td align="center" style="width:15%"><a id='vewNoa'></a></td>
+                <td align="center" style="width:25%"><a id='vewItem'></a></td>
+                <td align="center" style="width:25%"><a id='vewPrice'></a></td>
+                <td align="center" style="width:25%"><a id='vewPricepay'></a></td>                
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
                    <td align="center" id='noa'>~noa</td>
                    <td align="center" id='item'>~item</td>
+                   <td align="center" id='price'>~price</td>
+                   <td align="center" id='pricepay'>~pricepay</td>
             </tr>
         </table>
         </div>
         <div class='dbbm' style="width: 73%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
            <tr>
-               <td class="td1"><a id='lblTypea'></a></td>
+               <td class="td1"><span> </span><a id='lblTypea'></a></td>
                <td class="td2"><select id="cmbTypea" class="txt c1"></select></td>
-               <td class="td3"><a id='lblNoa'></a></td>
+               <td class="td3"><span> </span><a id='lblNoa'></a></td>
                <td class="td4"><input id="txtNoa"  type="text"  class="txt c1"/></td>
                <td class="td5"></td>
                <td class="td6"></td>
             </tr>
             <tr>
-               <td class="td1"><a id='lblItem'></a></td>
+               <td class="td1"><span> </span><a id='lblItem'></a></td>
                <td class="td2"><input id="txtItem" type="text"  class="txt c1"/></td>
-               <td class="td3"><input id="btnAcc" type="button" /></td>
+               <td class="td3"><span> </span><input id="btnAcc" type="button" /></td>
                <td class="td4"><input id="txtAcc1" type="text"  class="txt c5"/>
                <input id="txtAcc2"  type="text"  class="txt c6"/></td>
                <td class="td5"></td>
                <td class="td6"></td>
             </tr>
             <tr>
-               <td class="td1"><a id='lblPrice'></a></td>
+               <td class="td1"><span> </span><a id='lblPrice'></a></td>
                <td class="td2"><input id="txtPrice" type="text"  class="txt c1"/></td>
-               <td class="td3"><a id="lblPricepay"></a></td>
+               <td class="td3"><span> </span><a id="lblPricepay"></a></td>
                <td class="td4"><input id="txtPricepay" type="text"  class="txt c1"/></td>
                <td class="td5"><input id="chkIsfix" type="checkbox" style=" "/></td>
-               <td class="td6"><a id="vewIsfix"></a></td>
+               <td class="td6"><span> </span><a id="vewIsfix"></a></td>
             </tr>
             <tr>
-                <td class="td1"><a id="lblMemo" ></a></td>
+                <td class="td1"><span> </span><a id="lblMemo" ></a></td>
                 <td class="td2" colspan='6'><textarea id="txtMemo"  cols="10" rows="5"  style='width:98%; height: 127px;'></textarea></td>
             </tr>
             <tr>
@@ -335,8 +339,8 @@
                <td class="td2"></td>
                <td class="td3"></td>
                <td class="td4"></td>
-               <td class="td5"><a id="lblWorker"></a></td>
-               <td class="td6"><input id="txtWorker" type="text" class="txt c1" /></td>
+               <td class="td5"><span> </span><a id="lblWorker"></a></td>
+               <td class="td6"><input id="txtWorker" type="text" class="txt c2" /></td>
             </tr>
         </table>
         </div>
