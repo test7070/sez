@@ -324,9 +324,9 @@
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblPrice'></a></td>
-               <td class="td2"><input id="txtPrice" type="text"  class="txt c1"/></td>
+               <td class="td2"><input id="txtPrice" type="text"  class="txt num c1"/></td>
                <td class="td3"><span> </span><a id="lblPricepay"></a></td>
-               <td class="td4"><input id="txtPricepay" type="text"  class="txt c1"/></td>
+               <td class="td4"><input id="txtPricepay" type="text"  class="txt num c1"/></td>
                <td class="td5"><input id="chkIsfix" type="checkbox" style=" "/></td>
                <td class="td6"><span> </span><a id="vewIsfix"></a></td>
             </tr>

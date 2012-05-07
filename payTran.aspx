@@ -32,7 +32,7 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             //ajaxPath = "";
-			aPop = new Array(['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],['txtTggno', 'btnTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
+			aPop = new Array(['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],['txtTggno', 'btnTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],['txtItemno_', 'btnItemno_', 'chgitem', 'noa,item', 'txtItemno_,txtItem_', 'chgitem_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -347,22 +347,22 @@
                 <td class="column1" colspan="2"><input id="txtOutsource" type="text" class="txt c1" style="text-align: right;"/></td> 
             </tr>
             <tr>                          
-                <td class="label1" ><a id="lblChecker"/></td>
+                <td class="label1" ><a id="lblChecker"></a></td>
                 <td class="column1"colspan="2"><input id="txtchecker" type="text" class="txt c1"/></td>
                 <td class="label2"colspan="5"><input id="txtCheckmemo"  type="text" class="txt c1"/></td>       
            </tr> 
            <tr>
-               <td class="label1" ><a id="lblApprv"/></td>
+               <td class="label1" ><a id="lblApprv"></a></td>
                <td class="column1" colspan="2"><input id="txtApprv"  type="text" class="txt c1"/></td>  
                <td class="label2" colspan="5"><input id="txtApprvmemo"  type="text" class="txt c1"/></td>            
           </tr>
           <tr>
-              <td class="label1" ><a id="lblApprove"/></td>
+              <td class="label1" ><a id="lblApprove"></a></td>
               <td class="column1" colspan="2"><input id="txtApprove"  type="text" class="txt c1"/></td>  
               <td class="label2" colspan="5"><input id="txtApprovememo"  type="text" class="txt c1"/></td>            
          </tr>
          <tr>
-               <td class="label1" ><a id="lblApprove2"/></td>
+               <td class="label1" ><a id="lblApprove2"></a></td>
                <td class="column1" colspan="2"><input id="txtApprove2"  type="text" class="txt c1"/></td>  
                <td class="label2" colspan="5"><input id="txtApprove2memo"  type="text" class="txt c1"/></td>            
           </tr>
@@ -381,8 +381,8 @@
                 <td align="center" class="td2"><a id='lblPaysales'></a></td>
                 <td align="center" class="td1"><a id='lblMons'></a></td>
                 <td align="center" class="td3"><a id='lblPart'></a></td>
-                <td align="center" class="td2"><a id='lblUmmbno'></a></td>
-                <td align="center" class="td3"><a id='lblUmmb'></a></td>
+                <td align="center" class="td3"><a id='lblItemno'></a></td>
+                <td align="center" class="td3"><a id='lblItem'></a></td>
                 <td align="center" class="td3"><a id='lblCheckno'></a></td>
                 <td align="center" class="td3"><a id='lblAccount'></a></td>
                 <td align="center" class="td2"><a id='lblBankno'></a></td>
@@ -397,9 +397,9 @@
                 <td ><input class="txt c1" id="txtChgs.*" type="text" style="text-align: right;" /></td>
                 <td ><input class="txt c1" id="txtPaysale.*" type="text" style="text-align: right;"/></td>     
                 <td ><input class="txt c1" id="txtMon.*" type="text" /></td>
-                <td ><input  id="txtPartno.*" type="text" style="width: 30%;" /><input id="txtPart.*" type="text" style="width: 55%;"/></td>
-                <td ><input class="txt c1" id="txtUmmbno.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtUmmb.*" type="text" /></td>
+                <td ><input id="txtPartno.*" type="text" style="width: 30%;" /><input id="txtPart.*" type="text" style="width: 55%;"/></td>
+                <td ><input id="txtItemno.*" type="text" style="width: 75%;"/><input id="btnItemno.*" type="button" value=".." style="width: 15%;"/></td>
+                <td ><input class="txt c1" id="txtItem.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCheckno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtAccount.*" type="text"  /></td>
                 <td ><input class="txt c1" id="txtBankno.*" type="text" /></td>
