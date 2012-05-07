@@ -148,7 +148,7 @@
     {color:white; text-align:center; font-weight:bold;BACKGROUND-COLOR: #76a2fe}
     .tbbm
         {
-            FONT-SIZE: 14pt;
+            FONT-SIZE: 12pt;
             COLOR: blue;
             TEXT-ALIGN: left;
             border-color: white; 
@@ -163,14 +163,14 @@
              BORDER:1PX LIGHTGREY SOLID;
              width:100% ; height:100% ;  
         } 
-		.td1, .td3, .td5
+		.td1, .td3, .td5, .td6, .td8, .td10, .td12, .td14
 		{ 
-			width: 12%;
+			width: 7%;
 			text-align:right;
 		}
-		.td2, .td4, .td6
+		.td2, .td4, .td7, .td9, .td11, .td13
 		{
-			width: 15%;
+			width: 7%;
 		} 
 		 td input[type="button"] {
                 width: auto;
@@ -193,27 +193,22 @@
 </style>
 </head>
 <body>
-        <div class='dbbm' style="width: 68%;">
+        <div class='dbbm' style="width:100%;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
-        <tr>
-            <td class="td1"><a id="lblMess"></a></td>
-            <td class="td2"><input id="textMess" type="text" class="txt c1" /></td>
-            <td class="td3"><a id="lblDate1"></a></td>
-            <td class="td4"><input id="textDate1" type="text" class="txt c1" /></td>
-            <td align="center"><a id="lblSymbol" style="font-weight: bolder;font-size: 18px;"></a></td>
-            <td class="td6"><input id="textDate2" type="text" class="txt c1" /></td>
-        </tr>
-        <tr>
-            <td class="td1"><a id="lblCount"></a></td>
-            <td class="td2" colspan="3"><input id="textCount" type="text" style="width: 99%;" /></td>
-            <td class="td5"><input id="btnSeek" type="button" /></td>
-            <td class="td6"></td>
-            </tr>      
         <tr>
             <td class="td1"><a id="lblMemo"></a></td>
             <td colspan="3" align="left"><textarea id="textMemo" cols="10" rows="5" style="width: 99%; height: 50px;"></textarea></td>
             <td class="td5"><input id="btnApproveb" type="button"/></td>
-            <td class="td6"></td>
+            <td class="td6"><a id="lblMess"></a></td>
+            <td class="td7"><input id="textMess" type="text" class="txt c1" /></td>
+            <td class="td8"><a id="lblDate1"></a></td>
+            <td class="td9"><input id="textDate1" type="text" class="txt c1" /></td>
+            <td align="center"><a id="lblSymbol" style="font-weight: bolder;font-size: 18px;"></a></td>
+            <td class="td11"><input id="textDate2" type="text" class="txt c1" /></td>
+            <td class="td12"><a id="lblCount"></a></td>
+            <td class="td13"><input id="textCount" type="text" style="width: 99%;" /></td>
+            <td class="td14"><input id="btnSeek" type="button" /></td>
+            </tr>  
             </tr>                            
        </table>
         </div>
