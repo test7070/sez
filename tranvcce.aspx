@@ -68,6 +68,7 @@
             }
 
             function mainPost() {
+            	q_cmbParse("cmbTypea", q_getPara('tranvcce.typea'));
                 var tmp = q_getPara('tranvcce.typea').split(',');
                 for( i = 0; i < tmp.length; i++) {
                     tmpStr = '<option><';
@@ -80,7 +81,7 @@
                     if($('#condition').children('tbody').length > 0)
                         obj = $('#condition').children('tbody').eq(0);
                     obj.children().hide();
-                    obj.children('tr[name="scheme"]').show();
+                    obj.children('tr[name="schema"]').show();
                     obj.children('tr[name="action"]').show();
 
                     switch($(this).val()) {
@@ -95,6 +96,7 @@
                             break;
                     }
                 });
+
                 $("#cmbTypea_condition").change();
                 $("#btnLookup_condition").click(function(e) {
                     $("#t1").hide();
@@ -102,7 +104,16 @@
                     $("#t3").hide();
                     switch($("#cmbTypea_condition").val()) {
                         case '1':
-                            q_func('tranvcce.getItem1', '1,2,3');
+                           // q_func('tranvcce.getItem1', '1,2');
+                           //alert($('#txtCustno_type1').val());   
+                           var t_para =
+                          //  q_func('tranvcce.getItem1', $('#txtCustno_type1').val());                                                                                                       
+                            q_func('tranvcce.getItem1', $('#txtCustno_type1').val()+','+$('#txtCust_type1').val()+','+
+                            							$('#txtStraddno_type1').val()+','+$('#txtStradd_type1').val()+','+
+                            							$('#txtEndaddno_type1').val()+','+$('#txtEndadd_type1').val()+','+
+                            							$('#txtProductno_type1').val()+','+$('#txtProduct_type1').val()+','+
+                            							$('#txtOrdeno_type1').val()+','+$('#txtMount_type1').val()+','+
+                            							$('#txtWeight_type1').val()+','+$('#txtTime_type1').val()+',empty');
                             $("#t1").show();
                             break;
                         case '2':
@@ -115,7 +126,7 @@
                             break;
                     }
                 });
-                
+
             }
 
             function sum() {
@@ -399,11 +410,27 @@
             #t1 tr[name="header"], #t2 tr[name="header"], #t3 tr[name="header"] {
                 background-color: #5CACEE;
             }
+            #t1 tr[name="header"] td,#t2 tr[name="header"] td, #t3 tr[name="header"] td{
+                font-size: 14px;
+            }
             #t1 tr[name="template"], #t2 tr[name="template"], #t3 tr[name="template"] {
                 display: none;
             }
             #condition tr td, #t1 tr td, #t2 tr td, #t3 tr td {
                 text-align: center;
+            }
+            #t1 tr.select, #t2 tr.select, #t3 tr.select {
+                background: #F0E68C;
+            }
+            #t1 input[readonly="readonly"], #t2 input[readonly="readonly"], #t3 input[readonly="readonly"] {
+                color: green;
+            }
+            #t1 tr.select input[type="text"], #t2 tr.select input[type="text"], #t3 tr.select input[type="text"] {
+                color: red;
+            }
+            #t1 td.focus, #t2 td.focus , #t3 td.focus {
+                cursor: pointer;
+                background: #F0E68C;
             }
 		</style>
 	</head>
@@ -435,33 +462,44 @@
 						<td class="td2" >
 						<input id="txtNoa" type="text"  class="txt c1"/>
 						</td>
-						<td class="td3" ><span> </span><a id="lblDatea" class="lbl"></a></td>
+						<td class="td3" ><span> </span><a id="lblTypea" class="lbl"></a></td>
 						<td class="td4" >
+						<select id="cmbTypea" class="txt c1"></select>
+						</td>
+						<td class="td5" ><span> </span><a id="lblDatea" class="lbl"></a></td>
+						<td class="td6" >
 						<input id="txtDatea" type="text"  class="txt c1"/>
 						</td>
-						<td class="td5" ></td>
-						<td class="td6" ></td>
-						<td class="td7" ></td>
-						<td class="td8" ></td>
+						<td class="td7" ><span> </span><a id="lblOrdeno" class="lbl"></a></td>
+						<td class="td8" >
+						<input id="txtOrdeno" type="text"  class="txt c1"/>
+						</td>
 						<td class="td9" ></td>
 					</tr>
 					<tr class="tr2">
-						<td class="td1"><span> </span><a id="lblCust" class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtCustno" type="text"  class="txt c1"/>
-						</td>
 						<td class="td1"><span> </span><a id="lblCarno" class="lbl"></a></td>
 						<td class="td2">
-						<input id="txtCustno" type="text"  class="txt c1"/>
+						<input id="txtCarno" type="text"  class="txt c1"/>
 						</td>
-
+						<td class="td3"><span> </span><a id="lblCaseno" class="lbl"></a></td>
+						<td class="td4">
+						<input id="txtCaseno" type="text"  class="txt c1"/>
+						</td>
+						<td class="td5"><span> </span><a id="lblMount" class="lbl"></a></td>
+						<td class="td6">
+						<input id="txtMount" type="text"  class="txt c1"/>
+						</td>
+						<td class="td7"><span> </span><a id="lblWeight" class="lbl"></a></td>
+						<td class="td8">
+						<input id="txtWeight" type="text"  class="txt c1"/>
+						</td>
 					</tr>
 
 				</table>
 			</div>
 		</div>
 		<table id="condition">
-			<tr name="scheme">
+			<tr name="schema">
 				<td class="td1" style="width:7%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td2" style="width:7%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td3" style="width:7%"><span style="display: block; width:95%; height:0px;"> </span></td>
@@ -651,8 +689,8 @@
 			</p>
 		</div>
 		<table id="t1">
-			<tr name="scheme">
-				<td class="td1" style="width:5%;"><span style="display: block; width:95%; height:0px;"> </span></td>
+			<tr name="schema">
+				<td class="td1" style="width:3%;"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td2" style="width:10%;"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td3" style="width:5%;"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td4" style="width:5%;"><span style="display: block; width:95%; height:0px;"> </span></td>
@@ -666,20 +704,20 @@
 			</tr>
 			<tr name="header">
 				<td class="td1" id="lblChk_t1"></td>
-				<td class="td2" id="lblCust_t1"></td>
-				<td class="td3" id="lblCarno_t1"></td>
-				<td class="td4" id="lblDatea_t1"></td>
-				<td class="td5" id="lblProduct_t1"></td>
-				<td class="td6" id="lblStradd_t1"></td>
-				<td class="td7" id="lblEndadd_t1"></td>
-				<td class="td8" id="lblWeight_t1"></td>
-				<td class="td9" id="lblOrdeno_t1"></td>
-				<td class="tdA" id="lblNotv_t1"></td>
-				<td class="tdB" id="lblPal_t1"></td>
+				<td class="td2" id="lblCust_t1" index="custno"></td>
+				<td class="td3" id="lblCarno_t1" index="carno"></td>
+				<td class="td4" id="lblDatea_t1" index="datea"></td>
+				<td class="td5" id="lblProduct_t1" index="productno"></td>
+				<td class="td6" id="lblStradd_t1" index="straddno"></td>
+				<td class="td7" id="lblEndadd_t1" index="endaddno"></td>
+				<td class="td8" id="lblWeight_t1" index="weight"></td>
+				<td class="td9" id="lblOrdeno_t1" index="ordeno"></td>
+				<td class="tdA" id="lblNotv_t1" index="notv"></td>
+				<td class="tdB" id="lblPal_t1" index="pal"></td>
 			</tr>
 			<tr name="template">
 				<td class="td1">
-				<input type="checkbox"/>
+				<input type="checkbox" src="option"/>
 				</td>
 				<td class="td2">
 				<input type="text" style="width: 35%;" value="custno"/>
@@ -704,13 +742,13 @@
 				<input type="text" style="width: 60%;" value="endadd"/>
 				</td>
 				<td class="td8">
-				<input type="text" style="width: 95%;" value="weight"/>
+				<input type="text" style="width: 95%; text-align: right;" value="weight"/>
 				</td>
-				<td class="td91">
+				<td class="td9">
 				<input type="text" style="width: 95%;" value="ordeno"/>
 				</td>
 				<td class="tdA">
-				<input type="text" style="width: 95%;" value="notv"/>
+				<input type="text" style="width: 95%; text-align: right;" value="notv"/>
 				</td>
 				<td class="tdB">
 				<input type="text" style="width: 95%;" value="pal"/>
@@ -718,47 +756,49 @@
 			</tr>
 		</table>
 		<table id="t2">
-			<tr name="scheme">
-				<td class="td1" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td2" style="width:10%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td3" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td4" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td5" style="width:15%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td6" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td7" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td8" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td9" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+			<tr name="schema">
+				<td class="td1" style="width:3%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td2" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td3" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td4" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td5" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td6" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td7" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td8" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td9" style="width:3%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="tdA" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdB" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="tdB" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="tdC" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="tdD" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="tdE" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="tdF" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="tdG" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
 			</tr>
 			<tr name="header">
 				<td class="td1" id="lblChk_t2"></td>
-				<td class="td2" id="lblCust_t2"></td>
-				<td class="td3" id="lblTraceno_t2"></td>
-				<td class="td4" id="lblCaseno_t2"></td>
-				<td class="td4" id="lblCaseno2_t2"></td>
-				<td class="td5" id="lblPo_t2"></td>
-				<td class="td6" id="lblCarno_t2"></td>
-				<td class="td7" id="lblDatea_t2"></td>
-				<td class="td8" id="lblIspal_t2"></td>
-				<td class="td9" id="lblEf_t2"></td>
-				<td class="tdA" id="lblStatus_t2"></td>
-				<td class="tdB" id="lblPal_t2"></td>
-				<td class="tdC" id="lblStradd_t2"></td>
-				<td class="tdD" id="lblEndadd_t2"></td>
-				<td class="tdE" id="lblOrdeno_t2"></td>
-				<td class="tdF" id="lblNotv_t2"></td>
+				<td class="td2" id="lblCust_t2" index="custno"></td>
+				<td class="td3" id="lblTraceno_t2" index="traceno"></td>
+				<td class="td4" id="lblCaseno_t2" index="caseno"></td>
+				<td class="td5" id="lblCaseno2_t2" index="caseno2"></td>
+				<td class="td6" id="lblPo_t2" index="po"></td>
+				<td class="td7" id="lblCarno_t2" index="carno"></td>
+				<td class="td8" id="lblDatea_t2" index="datea"></td>
+				<td class="td9" id="lblIspal_t2" index="ispal"></td>
+				<td class="tdA" id="lblEf_t2" index="ef"></td>
+				<td class="tdB" id="lblStatus_t2" index="status"></td>
+				<td class="tdC" id="lblPal_t2" index="pal"></td>
+				<td class="tdD" id="lblStradd_t2" index="straddno"></td>
+				<td class="tdE" id="lblEndadd_t2" index="endadd"></td>
+				<td class="tdF" id="lblOrdeno_t2" index="ordeno"></td>
+				<td class="tdG" id="lblNotv_t2" index="notv"></td>
 			</tr>
 			<tr name="template">
 				<td class="td1">
-				<input type="checkbox"/>
+				<input type="checkbox" src="option"/>
 				</td>
 				<td class="td2">
-				<input type="text" style="width: 35%;" value="custno"/>
-				<input type="text" style="width: 60%;" value="cust"/>
+				<input type="text" style="width: 35%; float: left;" value="custno"/>
+				<input type="text" style="width: 60%; float: left;" value="cust"/>
 				</td>
 				<td class="td3">
 				<input type="text" style="width: 95%;" value="traceno"/>
@@ -773,24 +813,130 @@
 				<input type="text" style="width: 95%;" value="po"/>
 				</td>
 				<td class="td7">
+				<input type="text" style="width: 95%;" value="carno"/>
+				</td>
+				<td class="td8">
+				<input type="text" style="width: 95%;" value="datea"/>
+				</td>
+				<td class="td9">
+				<input type="checkbox" value="ispal"/>
+				</td>
+				<td class="tdA">
+				<input type="text" style="width: 95%;" value="ef"/>
+				</td>
+				<td class="tdB">
+				<input type="text" style="width: 95%;" value="status"/>
+				</td>
+				<td class="tdC">
+				<input type="text" style="width: 95%;" value="pal"/>
+				</td>
+				<td class="tdD">
+				<input type="text" style="width: 35%;" value="straddno"/>
+				<input type="text" style="width: 60%;" value="stradd"/>
+				</td>
+				<td class="tdE">
 				<input type="text" style="width: 35%;" value="endaddno"/>
 				<input type="text" style="width: 60%;" value="endadd"/>
 				</td>
-				<td class="td8">
-				<input type="text" style="width: 95%;" value="weight"/>
-				</td>
-				<td class="td91">
+				<td class="tdF">
 				<input type="text" style="width: 95%;" value="ordeno"/>
 				</td>
-				<td class="tdA">
-				<input type="text" style="width: 95%;" value="notv"/>
-				</td>
-				<td class="tdB">
-				<input type="text" style="width: 95%;" value="pal"/>
+				<td class="tdG">
+				<input type="text" style="width: 95%; text-align: right;" value="notv"/>
 				</td>
 			</tr>
 		</table>
-		<table id="t3"></table>
+		<table id="t3">
+			<tr name="schema">
+				<td class="td1" style="width:3%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td2" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td3" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td4" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td5" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td6" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td7" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td8" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td9" style="width:3%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="tdA" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="tdB" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="tdC" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="tdD" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="tdE" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="tdF" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="tdG" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
+			</tr>
+			<tr name="header">
+				<td class="td1" id="lblChk_t3"></td>
+				<td class="td2" id="lblCust_t3" index="custno"></td>
+				<td class="td3" id="lblCldate_t3" index="cldate"></td>
+				<td class="td4" id="lblCaseno_t3" index="caseno"></td>
+				<td class="td5" id="lblCaseno2_t3" index="caseno2"></td>
+				<td class="td6" id="lblSo_t3" index="so"></td>
+				<td class="td7" id="lblCarno_t3" index="carno"></td>
+				<td class="td8" id="lblDatea_t3" index="datea"></td>
+				<td class="td9" id="lblIspal_t3" index="ispal"></td>
+				<td class="tdA" id="lblEf_t3" index="ef"></td>
+				<td class="tdB" id="lblStatus_t3" index="status"></td>
+				<td class="tdC" id="lblPal_t3" index="pal"></td>
+				<td class="tdD" id="lblStradd_t3" index="straddno"></td>
+				<td class="tdE" id="lblEndadd_t3" index="endadd"></td>
+				<td class="tdF" id="lblOrdeno_t3" index="ordeno"></td>
+				<td class="tdG" id="lblNotv_t3" index="notv"></td>
+			</tr>
+			<tr name="template">
+				<td class="td1">
+				<input type="checkbox" src="option"/>
+				</td>
+				<td class="td2">
+				<input type="text" style="width: 35%; float: left;" value="custno"/>
+				<input type="text" style="width: 60%; float: left;" value="cust"/>
+				</td>
+				<td class="td3">
+				<input type="text" style="width: 95%;" value="cldate"/>
+				</td>
+				<td class="td4">
+				<input type="text" style="width: 95%;" value="caseno"/>
+				</td>
+				<td class="td5">
+				<input type="text" style="width: 95%;" value="caseno2"/>
+				</td>
+				<td class="td6">
+				<input type="text" style="width: 95%;" value="so"/>
+				</td>
+				<td class="td7">
+				<input type="text" style="width: 95%;" value="carno"/>
+				</td>
+				<td class="td8">
+				<input type="text" style="width: 95%;" value="datea"/>
+				</td>
+				<td class="td9">
+				<input type="checkbox" value="ispal"/>
+				</td>
+				<td class="tdA">
+				<input type="text" style="width: 95%;" value="ef"/>
+				</td>
+				<td class="tdB">
+				<input type="text" style="width: 95%;" value="status"/>
+				</td>
+				<td class="tdC">
+				<input type="text" style="width: 95%;" value="pal"/>
+				</td>
+				<td class="tdD">
+				<input type="text" style="width: 35%;" value="straddno"/>
+				<input type="text" style="width: 60%;" value="stradd"/>
+				</td>
+				<td class="tdE">
+				<input type="text" style="width: 35%;" value="endaddno"/>
+				<input type="text" style="width: 60%;" value="endadd"/>
+				</td>
+				<td class="tdF">
+				<input type="text" style="width: 95%;" value="ordeno"/>
+				</td>
+				<td class="tdG">
+				<input type="text" style="width: 95%; text-align: right;" value="notv"/>
+				</td>
+			</tr>
+		</table>
 
 		<input id="q_sys" type="hidden" />
 	</body>
