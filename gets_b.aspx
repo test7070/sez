@@ -10,12 +10,12 @@
 <script src='../script/mask.js' type="text/javascript"></script>
 
 <script type="text/javascript">
-    var q_name = 'family', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
-    var t_sqlname = 'family_load'; t_postname = q_name;
-    var isBott = false;  /// 是否已按過 最後一頁
+    var q_name = 'get', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
+    var t_sqlname = 'get_load'; t_postname = q_name;
+    var isBott = false;  
     var afield, t_htm;
     var i, s1;
-    var decbbs = ['ch_health'];
+    var decbbs = [''];
     var decbbm = [];
     var q_readonly = [];
     var q_readonlys = [];
@@ -39,7 +39,7 @@
     });            /// end ready
 
     function main() {
-        if (dataErr)  /// 載入資料錯誤
+        if (dataErr)  
         {
             dataErr = false;
             return;
@@ -47,7 +47,7 @@
         mainBrow(6, t_content, t_sqlname, t_postname);
     }
 
-    function bbsAssign() {  /// 表身運算式
+    function bbsAssign() {  
         _bbsAssign();
  }
  
@@ -92,7 +92,7 @@
     }
     function sum() { }
 
-    function q_gtPost(t_postname) {  /// 資料下載後 ...
+    function q_gtPost(t_postname) {  
        
     }
 
@@ -108,7 +108,7 @@
     function btnPlus(org_htm, dest_tag, afield) {
         _btnPlus(org_htm, dest_tag, afield);
         if (q_tables == 's')
-            bbsAssign();  /// 表身運算式 
+            bbsAssign();  
     }
 
 </script>
@@ -129,7 +129,7 @@
         }
         .td1
         {
-            width: 10%;
+            width: 6%;
         }
 </style>
 </head>
@@ -138,27 +138,41 @@
         <table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style="width: 100%;" >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width: 5%;"><a id='lblNoq'></a></td>
-                <td align="center" class="td1"><a id='lblPrefix'></a></td>
-                <td align="center" class="td1"><a id='lblNamea'></a></td>
-                <td align="center" class="td1"><a id='lblBirthday'></a></td>
-                <td align="center" class="td1"><a id='lblId'></a></td>
-                <td align="center" class="td1"><a id='lblCh_health'></a></td>
-                <td align="center" class="td1"><a id='lblIndate'></a></td>
-                <td align="center" class="td1"><a id='lblOutdate'></a></td>
-                <td align="center" ><a id='lblMemo'></a></td>
+                <td align="center" class="td1"><a id='lblUno'></a></td>
+                <td align="center" class="td1"><a id='lblProductno'></a></td>
+                <td align="center" class="td1"><a id='lblProduct'></a></td>
+                <td align="center" class="td1"><a id='lblSpec'></a></td>
+                <td align="center" class="td1"><a id='lblDime'></a></td>
+                <td align="center" class="td1"><a id='lblWidth'></a></td>
+                <td align="center" class="td1"><a id='lblLength'></a></td>
+                <td align="center" class="td1"><a id='lblMount'></a></td>
+                <td align="center" class="td1"><a id='lblGweight'></a></td>
+                <td align="center" class="td1"><a id='lblInvono'></a></td>
+                <td align="center" class="td1"><a id='lblNo2'></a></td>
+                <td align="center" class="td1"><a id='lblEweight'></a></td>
+                <td align="center" class="td1"><a id='lblMweight'></a></td>
+                <td align="center" class="td1"><a id='lblMemo'></a></td>
+                <td align="center" class="td1"><a id='lblRadius'></a></td>
+                <td align="center" class="td1"><a id='lblSize'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  /></td>
-                <td ><input class="txt c1" id="txtNoq.*" type="text" /></td>
-                <td ><input class="txt c1"  id="txtPrefix.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtNamea.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtBirthday.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtId.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtCh_health.*" type="text" style="text-align: right;" /></td>
-                <td ><input class="txt c1" id="txtIndate.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtOutdate.*" type="text"/></td>
-                <td ><input class="txt c1" id="txtMemo.*" type="text"/>
+                <td ><input class="txt c1" id="txtUno.*" type="text" /></td>
+                <td ><input class="txt c1"  id="txtProductno.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtProduct.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtSpec.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtDime.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtWidth.*" type="text" style="text-align: right;" /></td>
+                <td ><input class="txt c1" id="txtLength.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtMount.*" type="text"/></td>
+                <td ><input class="txt c1" id="txtGweight.*" type="text"/></td>
+                <td ><input class="txt c1" id="txtInvono.*" type="text"/></td>
+                <td ><input class="txt c1" id="txtNo2.*" type="text"/></td>
+                <td ><input class="txt c1" id="txtEweight.*" type="text"/></td>
+                <td ><input class="txt c1" id="txtMweight.*" type="text"/></td>
+                <td ><input class="txt c1" id="txtMemo.*" type="text"/></td>
+                <td ><input class="txt c1" id="txtRadius.*" type="text"/></td>
+                <td ><input class="txt c1" id="txtSize.*" type="text"/>
                 <input id="txtNoa.*" type="hidden" /></td>
             </tr>
         </table>
