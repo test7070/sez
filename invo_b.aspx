@@ -1,4 +1,4 @@
-?<%@ Page Language="C#" AutoEventWireup="true" %>
+<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -17,7 +17,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var decbbm = [];
-        var q_name = "acomp";
+        var q_name = "invo";
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; //  [['txtUacc1', '9999.99999999'], ['txtUacc2', '9999.99999999'], ['txtUacc3', '9999.99999999']];
@@ -50,35 +50,7 @@
         function mainPost() {
         		fbbm[fbbm.length] = 'txtMemo';
             
-            /*$('#btnSales').click(function () { pop('sss'); });
-            $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); });
-
-            $('#btnsss').click(function () { pop('sss'); });
-            $('#btnsss').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtGrpno").change(function () {
-                q_change($(this), 'sss', 'noa', 'noa,comp');
-            });
-
-            $('#btnConn').click(function () { pop('conn') });
-            $('#btnConn').mouseenter(function () { $(this).css('cursor', 'pointer') });
-
-            $("#txtComp").change(function () { $("#txtNick").val($("#txtComp").val().substr(0, 2)); });
-
-            txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
-            txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
-            txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');*/
            } 
-
-       /* function pop(form, seq) {
-            b_seq = (seq ? seq : '');
-            b_pop = form;
-            switch (form) {
-                case 'sss': q_pop('txtSalesno', 'sss_b.aspx', 'sss', 'noa', 'namea', "60%", "650px", q_getMsg('popSss')); break;
-                case 'sss': q_pop('txtGrpno', 'sss_b.aspx', 'sss', 'noa', 'comp', "60%", "650px", q_getMsg('popsss')); break;
-                case 'conn': q_pop('txtNoa', "conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'conn', 'noa', 'namea', "60%", "650px", q_getMsg('popConn')); break;
-            }
-        }*/
 
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -273,70 +245,41 @@
         }
     </script>
     <style type="text/css">
-        .tview
-        {
-            FONT-SIZE: 12pt;
-            COLOR:  Blue ;
-            background:#FFCC00;
-            padding: 3px;
-            TEXT-ALIGN:  center;
-        }    
-        .tbbm
-        {
-            FONT-SIZE: 12pt;
-            COLOR: blue;
-            TEXT-ALIGN: left;
-            border-color: white; 
-            width:100%; border-collapse: collapse; background:#cad3ff;
-        } 
-        
-       
-        .column1
-        {
-            width: 11%;
-        }
-        .column2
-        {
-            width: 21%;
-        }      
-        .column3
-        {
-            width: 21%;
-        }   
-         .label1
-        {
-            width: 12%;text-align:right;
-        }       
-        .label2
-        {
-            width: 12%;text-align:right;
-        }
-        .label3
-        {
-            width: 14%;text-align:right;
-        }
-        .txt.c1
-        {
-            width: 95%;
-        }
-        .tbbm tr {
-                height: 35px;
-            }
-        .tbbm tr td span {
-                float: right;
-                display: block;
-                width: 8px;
-                height: 10px;
-            }
-         td {
-                margin: 0px -1px;
-                padding: 0;
-            }
-            td input[type="text"] {
-                border-width: 1px;
-                padding: 0px;
-                margin: -1px;
-            }
+        #dmain{overflow:hidden;}
+		 .dview{float:left;width:25%;}
+		 .tview{margin:0;padding:2px;border:1px black double;border-spacing:0;font-size:16px;background-color:#FFFF66;color:blue;}
+		 .tview td{padding:2px;text-align:center;border:1px black solid;}
+		 .dbbm{float:left;width:73%;margin:-1px;border:1px black solid;border-radius:5px;}
+		 .tbbm{padding:0px;border:1px white double;border-spacing:0;border-collapse:collapse;font-size:16px;color:blue;background:#cad3ff;width:100%;}
+		 .tbbm tr{height:35px;}
+		 
+		 .td1, .td3, .td5, .td7, .td9{width: 8%; text-align: right;}
+		 .td2, .td4, .td6, .td8, .tdA{width: 12%;}
+		 .tbbm tr td span{float:right;display:block;width:8px;height:10px;}
+		 .tbbm tr td .lbl{float:right;color:blue;font-size:16px;}
+		 .tbbm tr td .lbl.btn{color:#4297D7;font-weight:bolder;}
+		 .tbbm tr td .lbl.btn:hover{color:#FF8F19;}
+		 .tbbm tr td .txt.c1{width:98%;float:left;}
+		 .tbbm tr td .txt.c2{width:50%;float:left;}
+		 .tbbm tr td .txt.c3{width:47%;float:left;}
+		 .tbbm tr td .txt.c4{width:53%;float:left;}
+		 .tbbm tr td .txt.c5{width:35%;float:left;}
+		 .txt.c6{width:64%;float:left;}
+		 .tbbm tr td .txt.num{text-align:right;}
+		 .txt.c7{width:96%;text-align: right;}
+		 .txt.c8{width:98%;}
+		
+		 .dbbs .tbbs{margin:0;padding:2px;border:2px lightgrey double;border-spacing:1px;border-collapse:collapse;font-size:16px;color:blue;background:#cad3ff;width:100%;}
+		 .dbbs .tbbs tr{height:35px;}
+		 .dbbs .tbbs tr td{text-align:center;border:2px lightgrey double;}
+		
+		 .dbbm input[type="button"]{float:right;width:auto;font-size: medium;}
+		 .tbbm tr td{margin:0px -1px;padding:0;}
+		 .tbbm tr td input[type="text"]{border-width:1px;padding:0px;margin:-1px;}
+		 .tbbm tr td select{border-width:1px;padding:0px;margin:-1px;width: 98%;}
+      	 .tbbs .td1{width: 4%;}
+      	 .tbbs .td2{width: 6%;}
+      	 .tbbs .td3{width: 8%;}
     </style>
 </head>
 <body>
@@ -350,32 +293,58 @@
                 <td align="center" style="width:40%"><a id='vewAcomp'></a></td>
             </tr>
              <tr>
-                   <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
-                   <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='acomp'>~acomp</td>
+                <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
+                <td align="center" id='noa'>~noa</td>
+                <td align="center" id='acomp'>~acomp</td>
             </tr>
         </table>
         </div>
         <div class='dbbm' style="width: 73%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
         <tr>
-            <td class="label1" ><span> </span><a id='lblNoa'></a></td>
-            <td class="column1"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-            <td class="label2"></td>
-            <td class="column2"></td>
-        </tr>
+            <td class="td1" ><span> </span><a id='lblNoa'></a></td>
+            <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
+            <td class="td3"><span> </span><a id="lblOrdeno"></a></td>
+            <td class="td4"><input id="txtOrdeno" type="text" class="txt c1" /></td>
+            <td class="td5"><span> </span><a id="lblVccno"></a></td>
+            <td class="td6"><input id="txtVccno" type="text" class="txt c1" /></td>
+            <td class="td7"><span> </span><a id="lblDatea"></a></td>
+            <td class="td8"><input id="txtDatea" type="text" class="txt c1" /></td>
+            <td class="td9"><span> </span><a id="lbl"></a></td>
+            <td class="tdA"><input id="txt" type="text" class="txt c1" /></td>
+       </tr>
 	   <tr>
-		<td class="label1" ><span> </span><a id='lblAcomp'></a></td>
-        <td class="column1"><input id="txtAcomp"  type="text" class="txt c1" /></td>
-        <td class="label2"></td>
-        <td class="column2"></td>
+		<td class="td1"><span> </span><a id='lblShipped'></a></td>
+        <td class="td2" colspan="5"><input id="txtShipped"  type="text" class="txt c1" /></td>
+        <td class="td7"><span> </span><a id='lblUnit'></a></td>
+        <td class="td8"><input id="txtUnit"  type="text" class="txt c1" /></td>
 	   </tr>  
 	   <tr>
-		 <td class="label1"><span> </span><a id='lblEname'></a></td>
-         <td class="column1"><input id="txtEname"  type="text" class="txt c1" /></td>
-         <td class="label2"></td>
-         <td class="column2"></td>
-	   </tr>                               
+		 <td class="td1"><span> </span><a id='lblCommodity'></a></td>
+         <td class="td2" colspan="5"><input id="txtCommodity"  type="text" class="txt c1" /></td>
+         <td class="td7"><span> </span><a id='lblContract'></a></td>
+         <td class="td8"><input id="txtContract"  type="text" class="txt c1" /></td>
+	   </tr>
+	   <tr>
+            <td class="td1" ><span> </span><a id='lblFroma'></a></td>
+            <td class="td2" colspan="2"><input id="txtFroma"  type="text"  class="txt c1"/></td>
+            <td class="td4"></td>
+            <td class="td5"><span> </span><a id="lblToa"></a></td>
+            <td class="td6" colspan="2"><input id="txtToa" type="text" class="txt c1" /></td>
+            <td class="td8"></td>
+            <td class="td9"><span> </span><a id="lblLcno"></a></td>
+            <td class="tdA"><input id="txtLcno" type="text" class="txt c1" /></td>
+       </tr>
+       <tr>
+            <td class="td1" ><span> </span><a id='lblEtd'></a></td>
+            <td class="td2" colspan="2"><input id="txtEtd"  type="text"  class="txt c1"/></td>
+            <td class="td4"></td>
+            <td class="td5"><span> </span><a id="lblToa"></a></td>
+            <td class="td6" colspan="2"><input id="txtToa" type="text" class="txt c1" /></td>
+            <td class="td8"></td>
+            <td class="td9"><span> </span><a id="lblLcno"></a></td>
+            <td class="tdA"><input id="txtLcno" type="text" class="txt c1" /></td>
+       </tr>                               
        <tr>
 		 <td class="label1"><span> </span><a id='lblMemo'></a></td>
          <td class="column1" colspan="5"><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 127px;"></textarea></td>
@@ -383,7 +352,6 @@
         </table>
         </div>
         </div>
-  
         <input id="q_sys" type="hidden" />
 </body>
 </html>
