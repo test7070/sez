@@ -15,7 +15,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
+			var decbbs=['mount']
             var decbbm = ['mount', 'price', 'price2', 'price3', 'discount', 'miles', 'reserve', 'tolls', 'ticket', 'gross', 'weight', 'plus', 'minus', 'mount2', 'total', 'overw', 'overh', 'total2', 'commission', 'gps', 'pton', 'pton2', 'unpack', 'dhirdprice'];
             var q_name = "tranorde";
             var q_readonly = [];
@@ -389,7 +389,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
-            }
+           }
             .tbbm tr td input[type="button"] {
                 width: auto;
                 font-size: medium;
@@ -412,7 +412,8 @@
                 font-size: 16px;
                 color: blue;
                 background: #cad3ff;
-                width: 100%;
+                width: 98%;
+                height: 98%;
             }
             .dbbs .tbbs tr {
                 height: 35px;
@@ -652,7 +653,7 @@
 						<input id="txtAddr_placeno"  type="text" class="txt c2"/>
 						<input id="txtAddr_place"  type="text" class="txt c3"/>
 						</td>
-						<td calss="td9"></td>
+						<td class="td9"></td>
 					</tr>
 					<tr class="tr18">
 						<td class="td1"><span> </span><a id="lblPort" class="lbl"></a></td>
@@ -705,7 +706,7 @@
 			<div class='dbbs' >
 				<table id="tbbs" class='tbbs' >
 				<tr name="schema">
-				<td class="td0" style="width:1%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td0" style="width:2%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td1" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td2" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td3" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
@@ -716,7 +717,7 @@
 				<td class="td8" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td9" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
 			</tr>
-					<tr style='color:White; background:#003366;' >
+			<tr style='color:White; background:#003366;' >
 						<td align="center">
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 						</td>
@@ -729,25 +730,40 @@
 						<td align="center" ><a id='lblMemos'></a></td>
 						<td align="center" ><a id='lblMount_undo'></a></td>
 						<td align="center" ><a id='lblMount_unre'></a></td>
-					</tr>
-					<tr  style='background:#cad3ff;'>
-						<td >
-						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
-						</td>
-						<td >
-						<input class="txt c1" id="txtDodate" type="text" />
-						</td>
-						<td >
-						<input class="txt c1" id="txtAddr_do" type="text" />
-						</td>
-						<td >
-						<input class="txt c1" id="txtCasetype" type="text" />
-						</td>
-						<td >
-						<input class="txt c1" id="txtAddr_get" type="text" />
-						</td>
-					</tr>
-					
+			</tr>
+			<tr  style='background:#cad3ff;'>
+                        <td style="width:1%;">
+                        <input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+                        </td>
+                        <td >
+                        <input class="txt c1" id="txtDodate.*" type="text" />
+                        </td>
+                        <td >
+                        <input class="txt c1" id="txtAddr_do.*" type="text" />
+                        </td>
+                        <td >
+                        <input class="txt c1" id="txtCasetype.*" type="text" />
+                        </td>
+                        <td >
+                        <input class="txt c1" id="txtAddr_get.*" type="text" />
+                        </td>
+                        <td >
+                        <input class="txt c1" id="txtCaseno.*" type="text" />
+                        </td>
+                        <td >
+                        <input class="txt c1" id="txtMount.*" type="text" style="text-align: right;"/>
+                        </td>
+                        <td >
+                        <input class="txt c1" id="txtMemo.*" type="text" />
+                        </td>
+                        <td >
+                        <input class="txt c1" id="txtMount_undo.*" type="text" />
+                        </td>
+                        <td >
+                        <input class="txt c1" id="txtMount_unre.*" type="text" />
+                        <input id="txtNoq.*" type="hidden" />
+                        </td>
+             </tr>
 				</table>
 			</div>
 		<input id="q_sys" type="hidden" />
