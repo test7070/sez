@@ -290,18 +290,18 @@
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:40%"><a id='vewAcomp'></a></td>
+                <td align="center" style="width:40%"><a id='vewOrdeno'></a></td>
             </tr>
              <tr>
                 <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
                 <td align="center" id='noa'>~noa</td>
-                <td align="center" id='acomp'>~acomp</td>
+                <td align="center" id='ordeno'>~ordeno</td>
             </tr>
         </table>
         </div>
         <div class='dbbm' style="width: 73%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
-        <tr>
+        <tr class="tr1">
             <td class="td1" ><span> </span><a id='lblNoa'></a></td>
             <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
             <td class="td3"><span> </span><a id="lblOrdeno"></a></td>
@@ -313,19 +313,19 @@
             <td class="td9"><span> </span><a id="lbl"></a></td>
             <td class="tdA"><input id="txt" type="text" class="txt c1" /></td>
        </tr>
-	   <tr>
+	   <tr class="tr2">
 		<td class="td1"><span> </span><a id='lblShipped'></a></td>
         <td class="td2" colspan="5"><input id="txtShipped"  type="text" class="txt c1" /></td>
         <td class="td7"><span> </span><a id='lblUnit'></a></td>
         <td class="td8"><input id="txtUnit"  type="text" class="txt c1" /></td>
 	   </tr>  
-	   <tr>
+	   <tr class="tr3">
 		 <td class="td1"><span> </span><a id='lblCommodity'></a></td>
          <td class="td2" colspan="5"><input id="txtCommodity"  type="text" class="txt c1" /></td>
          <td class="td7"><span> </span><a id='lblContract'></a></td>
          <td class="td8"><input id="txtContract"  type="text" class="txt c1" /></td>
 	   </tr>
-	   <tr>
+	   <tr class="tr4">
             <td class="td1" ><span> </span><a id='lblFroma'></a></td>
             <td class="td2" colspan="2"><input id="txtFroma"  type="text"  class="txt c1"/></td>
             <td class="td4"></td>
@@ -335,20 +335,50 @@
             <td class="td9"><span> </span><a id="lblLcno"></a></td>
             <td class="tdA"><input id="txtLcno" type="text" class="txt c1" /></td>
        </tr>
-       <tr>
+       <tr class="tr5">
             <td class="td1" ><span> </span><a id='lblEtd'></a></td>
             <td class="td2" colspan="2"><input id="txtEtd"  type="text"  class="txt c1"/></td>
             <td class="td4"></td>
-            <td class="td5"><span> </span><a id="lblToa"></a></td>
-            <td class="td6" colspan="2"><input id="txtToa" type="text" class="txt c1" /></td>
+            <td class="td5"><span> </span><a id="lblEta"></a></td>
+            <td class="td6" colspan="2"><input id="txtEta" type="text" class="txt c1" /></td>
             <td class="td8"></td>
-            <td class="td9"><span> </span><a id="lblLcno"></a></td>
-            <td class="tdA"><input id="txtLcno" type="text" class="txt c1" /></td>
+            <td class="td9"><span> </span><a id="lblPacking"></a></td>
+            <td class="tdA"><input id="txtPacking" type="text" class="txt c1" /></td>
        </tr>                               
-       <tr>
-		 <td class="label1"><span> </span><a id='lblMemo'></a></td>
-         <td class="column1" colspan="5"><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 127px;"></textarea></td>
+       <tr class="tr6">
+		 <td class="td1"><span> </span><a id='lblMessrsm'></a></td>
+         <td class="td2" colspan="9"><textarea id="txtMessrsm" cols="10" rows="5" style="width: 99%;height: 50px;"></textarea></td>
+	   </tr>
+	   <tr class="tr7">
+		 <td class="td1"><span> </span><a id='lblInvo'></a></td>
+         <td class="td2" colspan="9"><textarea id="txtInvo" cols="10" rows="5" style="width: 99%;height: 50px;"></textarea></td>
 	   </tr>    
+	   <tr class="tr8">
+		 <td class="td1"><span> </span><a id='lblInvom'></a></td>
+         <td class="td2" colspan="9"><textarea id="txtInvom" cols="10" rows="5" style="width: 99%;height: 50px;"></textarea></td>
+	   </tr>
+	   <tr class="tr9">
+            <td class="td1" ><span> </span><a id='lblLcbauk'></a></td>
+            <td class="td2"><input id="txtLcbauk"  type="text"  class="txt c1"/></td>
+            <td class="td3"><span> </span><a id="lblShipmentdate"></a></td>
+            <td class="td4"><input id="txtShipmentdate" type="text" class="txt c1" /></td>
+            <td class="td5"><span> </span><a id="lblSaildate"></a></td>
+            <td class="td6"><input id="txtSaildate" type="text" class="txt c1" /></td>
+            <td class="td7"><span> </span><a id="lblAdvancesdate"></a></td>
+            <td class="td8"><input id="txtAdvancesdate" type="text" class="txt c1" /></td>
+            <td class="td9"><span> </span><input id="btnTgg" type="button" /></td>
+            <td class="tdA"><input id="txtTggno" type="text" class="txt c5" /><input id="txtTgg" type="text" class="txt c6" /></td>
+       </tr>
+       <tr class="tr10">
+            <td class="td1" ><span> </span><a id='lblLcdate'></a></td>
+            <td class="td2"><input id="txtLcdate"  type="text"  class="txt c1"/></td>
+            <td class="td3"><span> </span><a id="lblDodate"></a></td>
+            <td class="td4"><input id="txtDodate" type="text" class="txt c1" /></td>
+            <td class="td5"><span> </span><a id="lblPaydate"></a></td>
+            <td class="td6"><input id="txtPaydate" type="text" class="txt c1" /></td>
+            <td class="td7"><span> </span><a id="lblRedeemdate"></a></td>
+            <td class="td8"><input id="txtRedeemdate" type="text" class="txt c1" /></td>
+       </tr>        
         </table>
         </div>
         </div>
