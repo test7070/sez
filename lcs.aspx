@@ -15,14 +15,14 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var decbbm = ['money'];
-        var q_name="lcu";
+        var decbbm = ['money','lcmoney','rate','conrate1','conrate2','unpay','pay','lch','chgmoney'];
+        var q_name="lcs";
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		aPop = new Array(['txtCustno', 'btnCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],['txtAccno', 'btnAccno', 'acc', 'acc1', 'txtAccno', 'acc_b.aspx'],['txtAccno2', 'btnAccno2', 'acc', 'acc1', 'txtAccno', 'acc_b.aspx']);
+		aPop = new Array(['txtTggno', 'btnTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -44,7 +44,7 @@
         }  
 
         function mainPost() { 
-        	 q_cmbParse("cmbTypea", q_getPara('lcu.typea'));
+        	 q_cmbParse("cmbCoin", q_getPara('sys.coin'));
         }
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -244,8 +244,10 @@
 		 .dbbm{float:left;width:73%;margin:-1px;border:1px black solid;border-radius:5px;}
 		 .tbbm{padding:0px;border:1px white double;border-spacing:0;border-collapse:collapse;font-size:16px;color:blue;background:#cad3ff;width:100%;}
 		 .tbbm tr{height:35px;}
-		 .td1, .td3, .td5{width: 10%;text-align: right;}
-		 .td2, .td4, .td6{width: 10%;}
+		 .td1, .td3{width: 10%;text-align: right;}
+		 .td2{width: 10%;}
+		 .td4{color: #FFFF99;width: 10%;text-align: right;}
+		 .td5, .td6{color: #FFFF99;width: 10%}
 		 .num{text-align: right;}
 		 .tbbm tr td span{float:right;display:block;width:8px;height:10px;}
 		 .tbbm tr td .txt.c1{width:100%;float:left;}
@@ -262,13 +264,15 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewLcno'></a></td>
-                <td align="center" style="width:40%"><a id='vewMoney'></a></td>
+                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
+                <td align="center" style="width:40%"><a id='vewTgg'></a></td>
+                <td align="center" style="width:30%"><a id='vewDatea'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
-                   <td align="center" id='lcno'>~lcno</td>
-                   <td align="center" id='money'>~money</td>
+                   <td align="center" id='noa'>~noa</td>
+                   <td align="center" id='tgg,4'>~tgg,4</td>
+                   <td align="center" id='datea'>~datea</td>
             </tr>
         </table>
         </div>
@@ -371,7 +375,7 @@
             </tr>
             <tr class="tr13">
                <td class="td1"><span> </span><a id="lblCoin"></a></td>
-               <td class="td2"><input id="txtCoin" type="text" class="txt c1"/></td>
+               <td class="td2"><select id="cmbCoin" class="txt c1"></select></td>
                <td class="td3"></td>
                <td class="td4"><span> </span><a id="lblChgacc1"></a></td>
                <td class="td5"><input id="txtChgacc1" type="text" class="txt c1" /></td>
