@@ -21,7 +21,7 @@
             var q_name = "tranvcce";
             var q_readonly = ['txtNoa'];
             var bbmNum = new Array(['txtWeight,10,2']);
-            var bbmMask = new Array(['txtDatea','999/99/99']);
+            var bbmMask = new Array();
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -29,7 +29,7 @@
             brwKey = 'noa';
             q_alias = '';
             q_desc = 1;
-            aPop = new Array();
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'noa,cardeal', 'txtCarno', 'car2_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
 
@@ -41,7 +41,6 @@
                     dataErr = false;
                     return;
                 }
-                q_mask(bbmMask);
                 mainForm(0);
 
             }
@@ -54,7 +53,7 @@
                             if(tmp[0].value == '1') {
                                 var t_noa = trim($('#txtNoa').val());
                                 if(t_noa.length == 0 || t_noa == "AUTO")
-                                    q_gtnoa(q_name, replaceAll('T' + (trim($('#txtDatea').val()).length==0?q_date():trim($('#txtDatea').val())), '/', ''));
+                                    q_gtnoa(q_name, replaceAll('T' + (trim($('#txtDatea').val()).length == 0 ? q_date() : trim($('#txtDatea').val())), '/', ''));
                                 else
                                     wrServer(t_noa);
                             } else {
@@ -80,6 +79,8 @@
             }
 
             function mainPost() {
+                bbmMask = [['txtDatea', r_picd]];
+                q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('tranvcce.typea'));
                 var tmp = q_getPara('tranvcce.typea').split(',');
                 for( i = 0; i < tmp.length; i++) {
@@ -120,11 +121,13 @@
                             $("#t1").show();
                             break;
                         case '2':
-                            q_func('tranvcce.getItem2', '1,2,3');
+                            //custno,cust,straddno,stradd,endaddno,endadd,caseno,caseno2,po,traceno,isdisplay,carno,datea,ispal,ef,ordeno
+                            q_func('tranvcce.getItem2', $('#txtCustno_type2').val() + ',' + $('#txtCust_type2').val() + ',' + $('#txtStraddno_type2').val() + ',' + $('#txtStradd_type2').val() + ',' + $('#txtEndaddno_type2').val() + ',' + $('#txtEndadd_type2').val() + ',' + $('#txtCaseno_type2').val() + ',' + $('#txtCaseno2_type2').val() + ',' + $('#txtPo_type2').val() + ',' + $('#txtTraceno_type2').val() + ',' + ($('#chkIsdisplay_type2').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type2').val() + ',' + $('#txtDatea_type2').val() + ',' + ($('#chkIspal_type2').prop('checked') ? '1' : '0') + ',' + $('#txtEf_type2').val() + ',' + $('#txtOrdeno_type2').val() + ',empty');
                             $("#t2").show();
                             break;
                         case '3':
-                            q_func('tranvcce.getItem3', '1,2,3');
+                            //custno,cust,straddno,stradd,endaddno,endadd,shipno,so,cldate,caseno,isdisplay,carno,datea,ispal,ef,ordeno
+                            q_func('tranvcce.getItem3', $('#txtCustno_type2').val() + ',' + $('#txtCust_type2').val() + ',' + $('#txtStraddno_type2').val() + ',' + $('#txtStradd_type2').val() + ',' + $('#txtEndaddno_type2').val() + ',' + $('#txtEndadd_type2').val() + ',' + $('#txtShipno_type2').val() + ',' + $('#txtSo_type2').val() + ',' + $('#txtCldate_type2').val() + ',' + $('#txtCaseno_type2').val() + ',' + ($('#chkIsdisplay_type2').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type2').val() + ',' + $('#txtDatea_type2').val() + ',' + ($('#chkIspal_type2').prop('checked') ? '1' : '0') + ',' + $('#txtEf_type2').val() + ',' + $('#txtOrdeno_type2').val() + ',empty');
                             $("#t3").show();
                             break;
                     }
@@ -558,7 +561,9 @@
 						<input id="txtWeight" type="text"  class="txt num c1"/>
 						</td>
 					</tr>
-					<tr style="height: 300px;"><td></td></tr>
+					<tr style="height: 300px;">
+						<td></td>
+					</tr>
 				</table>
 			</div>
 		</div>
@@ -635,7 +640,7 @@
 				<td class="td4" id="lblCaseno_type2"></td>
 				<td class="td5" id="lblPo_type2"></td>
 				<td class="td6" id="lblTraceno_type2"></td>
-				<td class="td7" id="lblIsdisplay_type2" style="font-size: 14px;"></td>
+				<td class="td7" id="lblIsdisplay_type2"></td>
 				<td class="td8" id="lblCarno_type2"></td>
 				<td class="td9" id="lblDatea_type2"></td>
 				<td class="tdA" id="lblIspal_type2"></td>
@@ -653,8 +658,8 @@
 				<input type="text" style="width: 60%;" id="txtStradd_type2"/>
 				</td>
 				<td class="td3">
-				<input type="text" style="width: 35%;" id="txtEndaddno_type3"/>
-				<input type="text" style="width: 60%;" id="txtEndadd_type3"/>
+				<input type="text" style="width: 35%;" id="txtEndaddno_type2"/>
+				<input type="text" style="width: 60%;" id="txtEndadd_type2"/>
 				</td>
 				<td class="td4">
 				<input type="text" style="width: 95%;" id="txtCaseno_type2"/>
@@ -666,7 +671,7 @@
 				<input type="text" style="width: 95%;" id="txtTraceno_type2"/>
 				</td>
 				<td class="td7">
-				<input type="checkbox" id="txtIsdisplay_type2"/>
+				<input type="checkbox" id="chkIsdisplay_type2"/>
 				</td>
 				<td class="td8">
 				<input type="text" style="width: 95%;" id="txtCarno_type2"/>
@@ -674,10 +679,10 @@
 				<td class="td9">
 				<input type="text" style="width: 95%;" id="txtDatea_type2"/>
 				</td>
-				<td class="tdB">
-				<input type="checkbox" id="txtIspal_type2"/>
+				<td class="tdA">
+				<input type="checkbox" id="chkIspal_type2"/>
 				</td>
-				<td class="tdC">
+				<td class="tdB">
 				<input type="text" style="width: 95%;" id="txtEf_type2"/>
 				</td>
 				<td class="tdC">
@@ -695,7 +700,7 @@
 				<td class="td5" id="lblSo_type3"></td>
 				<td class="td6" id="lblCldate_type3"></td>
 				<td class="td7" id="lblCaseno_type3"></td>
-				<td class="td8" id="lblIsdisplay_type3" style="font-size: 14px;"></td>
+				<td class="td8" id="lblIsdisplay_type3"></td>
 				<td class="td9" id="lblCarno_type3"></td>
 				<td class="tdA" id="lblDatea_type3"></td>
 				<td class="tdB" id="lblIspal_type3"></td>
