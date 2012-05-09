@@ -551,11 +551,11 @@
 						</td>
 						<td class="td5"><span> </span><a id="lblMount" class="lbl"></a></td>
 						<td class="td6">
-						<input id="txtMount" type="text"  class="txt c1"/>
+						<input id="txtMount" type="text"  class="txt num c1"/>
 						</td>
 						<td class="td7"><span> </span><a id="lblWeight" class="lbl"></a></td>
 						<td class="td8">
-						<input id="txtWeight" type="text"  class="txt c1"/>
+						<input id="txtWeight" type="text"  class="txt num c1"/>
 						</td>
 					</tr>
 					<tr style="height: 300px;"><td></td></tr>

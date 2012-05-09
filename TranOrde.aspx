@@ -15,8 +15,9 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-			var decbbs=['mount']
-            var decbbm = ['mount', 'price', 'price2', 'price3', 'discount', 'miles', 'reserve', 'tolls', 'ticket', 'gross', 'weight', 'plus', 'minus', 'mount2', 'total', 'overw', 'overh', 'total2', 'commission', 'gps', 'pton', 'pton2', 'unpack', 'dhirdprice'];
+
+            var decbbs = ['mount']
+            var decbbm = ['mount', 'price', 'price2', 'price3', 'discount', 'reserve', 'gross', 'plus', 'minus', 'mount2', 'total', 'total2', 'commission', 'unpack', 'thirdprice'];
             var q_name = "tranorde";
             var q_readonly = ['txtNoa'];
             var q_readonlys = [];
@@ -173,14 +174,13 @@
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
+                $('#txtKdate').val(q_date());
             }
 
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
-
-                _btnModi();
-                $('#txtComp').focus();
+                _btnModi();     
             }
 
             function btnPrint() {
@@ -189,12 +189,12 @@
 
             function btnOk() {
                 var t_err = '';
-               /* t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
+                /* t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
 
-                if(t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }*/
+                 if(t_err.length > 0) {
+                 alert(t_err);
+                 return;
+                 }*/
                 var t_noa = trim($('#txtNoa').val());
 
                 if($("#cmbCalctype").val() == '6')
@@ -203,7 +203,7 @@
                     $("#txtPrice3").val(0);
 
                 if(t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll('T' + (trim($('#txtDatea').val()).length==0?q_date():trim($('#txtDatea').val())), '/', ''));
+                    q_gtnoa(q_name, replaceAll('T' + (trim($('#txtKdate').val()).length == 0 ? q_date() : trim($('#txtKdate').val())), '/', ''));
                 else
                     wrServer(t_noa);
             }
@@ -389,7 +389,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
-           }
+            }
             .tbbm tr td input[type="button"] {
                 width: auto;
                 font-size: medium;
@@ -400,10 +400,10 @@
                 padding: 0px;
                 margin: -1px;
             }
-            .tbbm .tr16,.tbbm .tr17,.tbbm .tr18,.tbbm .tr19,.tbbm .tr20{
-            	background-color: #FFEC8B;
+            .tbbm .tr16, .tbbm .tr17, .tbbm .tr18, .tbbm .tr19, .tbbm .tr20 {
+                background-color: #FFEC8B;
             }
-           .dbbs .tbbs {
+            .dbbs .tbbs {
                 margin: 0;
                 padding: 2px;
                 border: 2px lightgrey double;
@@ -439,7 +439,7 @@
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
-						<td align="center" id='datea'>~datea</td>
+						<td align="center" id='kdate'>~kdate</td>
 						<td align="center" id='ordeno'>~ordeno</td>
 						<td align="center" id='cust,4'>~cust,4</td>
 					</tr>
@@ -481,8 +481,12 @@
 						<td class="td3" ><span> </span><a id="lblCarteam" class="lbl"></a></td>
 						<td class="td4" ><select id="cmbCarteamno" class="txt c1"></select></td>
 						<td class="td5" ><span> </span><a id="lblPalno" class="lbl"></a></td>
-						<td class="td6" ><input id="txtPalno" type="text"  class="txt c1"/></td>
-						<td align="right"><input id="chkIspal" type="checkbox" style=" "/></td>
+						<td class="td6" >
+						<input id="txtPalno" type="text"  class="txt c1"/>
+						</td>
+						<td align="right">
+						<input id="chkIspal" type="checkbox" style=" "/>
+						</td>
 						<td class="td8"><span> </span><a id="lblIspal"></a></td>
 					</tr>
 					<tr class="tr4">
@@ -612,7 +616,7 @@
 					</tr>
 					<tr class="tr14">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
-						<td class="td2" colspan='7'><textarea id="txtMemo" style="width:100%; height: 127px;"></textarea></td>
+						<td class="td2" colspan='7'>						<textarea id="txtMemo" style="width:100%; height: 127px;"></textarea></td>
 					</tr>
 					<tr class="tr15">
 						<td class="td7"><span> </span><a id="lblTotal" class="lbl"></a></td>
@@ -702,70 +706,70 @@
 					</tr>
 				</table>
 			</div>
-			</div>
-			<div class='dbbs' >
-				<table id="tbbs" class='tbbs' >
+		</div>
+		<div class='dbbs' >
+			<table id="tbbs" class='tbbs' >
 				<tr name="schema">
-				<td class="td0" style="width:2%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td1" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td2" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td3" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td4" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td5" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td6" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td7" style="width:25%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td8" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td9" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-			</tr>
-			<tr style='color:White; background:#003366;' >
-						<td align="center">
-						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
-						</td>
-						<td align="center" ><a id='lblDodate'></a></td>
-						<td align="center" ><a id='lblAddr_do'></a></td>
-						<td align="center" ><a id='lblCasetypes'></a></td>
-						<td align="center" ><a id='lblAddr_get'></a></td>
-						<td align="center" ><a id='lblCasenos'></a></td>
-						<td align="center" ><a id='lblMounts'></a></td>
-						<td align="center" ><a id='lblMemos'></a></td>
-						<td align="center" ><a id='lblMount_undo'></a></td>
-						<td align="center" ><a id='lblMount_unre'></a></td>
-			</tr>
-			<tr  style='background:#cad3ff;'>
-                        <td style="width:1%;">
-                        <input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
-                        </td>
-                        <td >
-                        <input class="txt c1" id="txtDodate.*" type="text" />
-                        </td>
-                        <td >
-                        <input class="txt c1" id="txtAddr_do.*" type="text" />
-                        </td>
-                        <td >
-                        <input class="txt c1" id="txtCasetype.*" type="text" />
-                        </td>
-                        <td >
-                        <input class="txt c1" id="txtAddr_get.*" type="text" />
-                        </td>
-                        <td >
-                        <input class="txt c1" id="txtCaseno.*" type="text" />
-                        </td>
-                        <td >
-                        <input class="txt c1" id="txtMount.*" type="text" style="text-align: right;"/>
-                        </td>
-                        <td >
-                        <input class="txt c1" id="txtMemo.*" type="text" />
-                        </td>
-                        <td >
-                        <input class="txt c1" id="txtMount_undo.*" type="text" />
-                        </td>
-                        <td >
-                        <input class="txt c1" id="txtMount_unre.*" type="text" />
-                        <input id="txtNoq.*" type="hidden" />
-                        </td>
-             </tr>
-				</table>
-			</div>
+					<td class="td0" style="width:2%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					<td class="td1" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					<td class="td2" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					<td class="td3" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					<td class="td4" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					<td class="td5" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					<td class="td6" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					<td class="td7" style="width:25%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					<td class="td8" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					<td class="td9" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				</tr>
+				<tr style='color:White; background:#003366;' >
+					<td align="center">
+					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
+					</td>
+					<td align="center" ><a id='lblDodate'></a></td>
+					<td align="center" ><a id='lblAddr_do'></a></td>
+					<td align="center" ><a id='lblCasetypes'></a></td>
+					<td align="center" ><a id='lblAddr_get'></a></td>
+					<td align="center" ><a id='lblCasenos'></a></td>
+					<td align="center" ><a id='lblMounts'></a></td>
+					<td align="center" ><a id='lblMemos'></a></td>
+					<td align="center" ><a id='lblMount_undo'></a></td>
+					<td align="center" ><a id='lblMount_unre'></a></td>
+				</tr>
+				<tr  style='background:#cad3ff;'>
+					<td style="width:1%;">
+					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+					</td>
+					<td >
+					<input class="txt c1" id="txtDodate.*" type="text" />
+					</td>
+					<td >
+					<input class="txt c1" id="txtAddr_do.*" type="text" />
+					</td>
+					<td >
+					<input class="txt c1" id="txtCasetype.*" type="text" />
+					</td>
+					<td >
+					<input class="txt c1" id="txtAddr_get.*" type="text" />
+					</td>
+					<td >
+					<input class="txt c1" id="txtCaseno.*" type="text" />
+					</td>
+					<td >
+					<input class="txt c1" id="txtMount.*" type="text" style="text-align: right;"/>
+					</td>
+					<td >
+					<input class="txt c1" id="txtMemo.*" type="text" />
+					</td>
+					<td >
+					<input class="txt c1" id="txtMount_undo.*" type="text" />
+					</td>
+					<td >
+					<input class="txt c1" id="txtMount_unre.*" type="text" />
+					<input id="txtNoq.*" type="hidden" />
+					</td>
+				</tr>
+			</table>
+		</div>
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
