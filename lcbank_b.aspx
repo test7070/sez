@@ -8,7 +8,7 @@
     <script src='qset.js' type="text/javascript"></script>
 <script src="../script/qj_mess.js" type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = 'part', t_content = ' ', bbsKey = ['noa'], as; 
+    var q_name = 'lcbank', t_content = ' ', bbsKey = ['noa'], as; 
     var isBott = false;  
     var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
     var i,s1;
@@ -39,16 +39,19 @@
 <body> 
 <div  id="dbbs"  >
        <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
-            <tr>
+           <tr>
                 <th align="center" > </th>
                 <th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblPart'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblNamea'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblAccno3'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblAccname3'></a></th>
             </tr>
             <tr>
                 <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
-                <td style="width:20%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-                <td style="width:45%;"><input class="txt" id="txtPart.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-                
+                <td style="width:15%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:30%;"><input class="txt" id="txtNamea.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:15%;"><input class="txt" id="txtAccno3.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:30%;"><input class="txt" id="txtAccname3.*" type="text" style="width:98%;"  readonly="readonly" /></td>
             </tr>
         </table>
   <!--#include file="../inc/brow_ctrl.inc"--> 
