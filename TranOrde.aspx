@@ -18,7 +18,7 @@
 			var decbbs=['mount']
             var decbbm = ['mount', 'price', 'price2', 'price3', 'discount', 'miles', 'reserve', 'tolls', 'ticket', 'gross', 'weight', 'plus', 'minus', 'mount2', 'total', 'overw', 'overh', 'total2', 'commission', 'gps', 'pton', 'pton2', 'unpack', 'dhirdprice'];
             var q_name = "tranorde";
-            var q_readonly = [];
+            var q_readonly = ['txtNoa'];
             var q_readonlys = [];
             var bbsNum = [];
             var bbsMask = [];
@@ -172,7 +172,7 @@
 
             function btnIns() {
                 _btnIns();
-                $('#txtNoa').focus();
+                $('#txtNoa').val('AUTO');
             }
 
             function btnModi() {
@@ -189,12 +189,12 @@
 
             function btnOk() {
                 var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
+               /* t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
 
                 if(t_err.length > 0) {
                     alert(t_err);
                     return;
-                }
+                }*/
                 var t_noa = trim($('#txtNoa').val());
 
                 if($("#cmbCalctype").val() == '6')
@@ -202,7 +202,7 @@
                 else
                     $("#txtPrice3").val(0);
 
-                if(t_noa.length == 0)
+                if(t_noa.length == 0 || t_noa == "AUTO")
                     q_gtnoa(q_name, replaceAll('T' + (trim($('#txtDatea').val()).length==0?q_date():trim($('#txtDatea').val())), '/', ''));
                 else
                     wrServer(t_noa);
