@@ -203,7 +203,7 @@
                     $("#txtPrice3").val(0);
 
                 if(t_noa.length == 0)
-                    q_gtnoa(q_name, t_noa);
+                    q_gtnoa(q_name, replaceAll('T' + (trim($('#txtDatea').val()).length==0?q_date():trim($('#txtDatea').val())), '/', ''));
                 else
                     wrServer(t_noa);
             }
