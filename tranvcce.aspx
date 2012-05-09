@@ -21,7 +21,7 @@
             var q_name = "tranvcce";
             var q_readonly = ['txtNoa'];
             var bbmNum = new Array(['txtWeight,10,2']);
-            var bbmMask = new Array(['txtDatea','999/99/99']);
+            var bbmMask = new Array();
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -29,7 +29,7 @@
             brwKey = 'noa';
             q_alias = '';
             q_desc = 1;
-            aPop = new Array();
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'noa,cardeal', 'txtCarno', 'car2_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
 
@@ -41,7 +41,6 @@
                     dataErr = false;
                     return;
                 }
-                q_mask(bbmMask);
                 mainForm(0);
 
             }
@@ -80,6 +79,8 @@
             }
 
             function mainPost() {
+            	bbmMask = [['txtDatea', r_picd]];
+           		q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('tranvcce.typea'));
                 var tmp = q_getPara('tranvcce.typea').split(',');
                 for( i = 0; i < tmp.length; i++) {
