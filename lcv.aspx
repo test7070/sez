@@ -22,7 +22,7 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		aPop = new Array(['txtCustno', 'btnCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],['txtAccno', 'btnAccno', 'acc', 'acc1', 'txtAccno', 'acc_b.aspx'],['txtAccno2', 'btnAccno2', 'acc', 'acc1', 'txtAccno', 'acc_b.aspx']);
+		aPop = new Array(['txtCustno', 'btnCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],['txtAccno', 'btnAccno', 'acc', 'acc1', 'txtAccno', 'acc_b.aspx'],['txtBankno', 'btnBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -270,7 +270,7 @@
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                    <td align="center" id='lcno'>~lcno</td>
                    <td align="center" id='cust,4'>~cust,4</td>
-                   <td align="center" id='datea'>~datea,4</td>
+                   <td align="center" id='datea'>~datea</td>
             </tr>
         </table>
         </div>
