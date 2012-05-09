@@ -29,7 +29,7 @@
             brwKey = 'noa';
             q_alias = '';
             q_desc = 1;
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'noa,cardeal', 'txtCarno', 'car2_b.aspx']);
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,cardeal', 'txtCarno', 'car2_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
 
@@ -127,7 +127,7 @@
                             break;
                         case '3':
                             //custno,cust,straddno,stradd,endaddno,endadd,shipno,so,cldate,caseno,isdisplay,carno,datea,ispal,ef,ordeno
-                            q_func('tranvcce.getItem3', $('#txtCustno_type2').val() + ',' + $('#txtCust_type2').val() + ',' + $('#txtStraddno_type2').val() + ',' + $('#txtStradd_type2').val() + ',' + $('#txtEndaddno_type2').val() + ',' + $('#txtEndadd_type2').val() + ',' + $('#txtShipno_type2').val() + ',' + $('#txtSo_type2').val() + ',' + $('#txtCldate_type2').val() + ',' + $('#txtCaseno_type2').val() + ',' + ($('#chkIsdisplay_type2').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type2').val() + ',' + $('#txtDatea_type2').val() + ',' + ($('#chkIspal_type2').prop('checked') ? '1' : '0') + ',' + $('#txtEf_type2').val() + ',' + $('#txtOrdeno_type2').val() + ',empty');
+                            q_func('tranvcce.getItem3', $('#txtCustno_type3').val() + ',' + $('#txtCust_type3').val() + ',' + $('#txtStraddno_type3').val() + ',' + $('#txtStradd_type3').val() + ',' + $('#txtEndaddno_type3').val() + ',' + $('#txtEndadd_type3').val() + ',' + $('#txtShipno_type3').val() + ',' + $('#txtSo_type3').val() + ',' + $('#txtCldate_type3').val() + ',' + $('#txtCaseno_type3').val() + ',' + ($('#chkIsdisplay_type3').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type3').val() + ',' + $('#txtDatea_type3').val() + ',' + ($('#chkIspal_type3').prop('checked') ? '1' : '0') + ',' + $('#txtEf_type3').val() + ',' + $('#txtOrdeno_type3').val() + ',empty');
                             $("#t3").show();
                             break;
                     }
@@ -733,7 +733,7 @@
 				<input type="text" style="width: 95%;" id="txtCaseno_type3"/>
 				</td>
 				<td class="td8">
-				<input type="checkbox" id="txtIsdisplay_type3"/>
+				<input type="checkbox" id="chkIsdisplay_type3"/>
 				</td>
 				<td class="td9">
 				<input type="text" style="width: 95%;" id="txtCarno_type3"/>
@@ -742,7 +742,7 @@
 				<input type="text" style="width: 95%;" id="txtDatea_type3"/>
 				</td>
 				<td class="tdB">
-				<input type="checkbox" id="txtIspal_type3"/>
+				<input type="checkbox" id="chkIspal_type3"/>
 				</td>
 				<td class="tdC">
 				<input type="text" style="width: 95%;" id="txtEf_type3"/>
