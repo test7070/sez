@@ -10,8 +10,8 @@
 <script src='../script/mask.js' type="text/javascript"></script>
 
 <script type="text/javascript">
-    var q_name = 'get', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
-    var t_sqlname = 'get_load'; t_postname = q_name;
+    var q_name = 'gets', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
+    var t_sqlname = 'gets_load'; t_postname = q_name;
     var isBott = false;  
     var afield, t_htm;
     var i, s1;
@@ -34,7 +34,9 @@
         }
         if (!q_paraChk())
             return;
-
+            
+		 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+       
         main();
     });            /// end ready
 
@@ -127,9 +129,18 @@
         {
             width: 95%;
         }
+       
         .td1
         {
             width: 6%;
+        }
+        .td2
+        {
+            width: 8%;
+        }
+        .td3
+        {
+        	width: 4%;
         }
 </style>
 </head>
@@ -138,25 +149,27 @@
         <table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style="width: 100%;" >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" class="td1"><a id='lblUno'></a></td>
+                <td align="center" class="td3"><a id='lblNoa'></a></td>
+                <td align="center" class="td3"><a id='lblUno'></a></td>
                 <td align="center" class="td1"><a id='lblProductno'></a></td>
-                <td align="center" class="td1"><a id='lblProduct'></a></td>
-                <td align="center" class="td1"><a id='lblSpec'></a></td>
+                <td align="center" class="td2"><a id='lblProduct'></a></td>
+                <td align="center" class="td2"><a id='lblSpec'></a></td>
                 <td align="center" class="td1"><a id='lblDime'></a></td>
                 <td align="center" class="td1"><a id='lblWidth'></a></td>
                 <td align="center" class="td1"><a id='lblLength'></a></td>
-                <td align="center" class="td1"><a id='lblMount'></a></td>
+                <td align="center" class="td3"><a id='lblMount'></a></td>
                 <td align="center" class="td1"><a id='lblGweight'></a></td>
-                <td align="center" class="td1"><a id='lblInvono'></a></td>
-                <td align="center" class="td1"><a id='lblNo2'></a></td>
+                <td align="center" class="td3"><a id='lblInvono'></a></td>
+                <td align="center" class="td3"><a id='lblNo2'></a></td>
                 <td align="center" class="td1"><a id='lblEweight'></a></td>
                 <td align="center" class="td1"><a id='lblMweight'></a></td>
-                <td align="center" class="td1"><a id='lblMemo'></a></td>
+                <td align="center" class="td2"><a id='lblMemo'></a></td>
                 <td align="center" class="td1"><a id='lblRadius'></a></td>
                 <td align="center" class="td1"><a id='lblSize'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  /></td>
+                <td ><input class="txt c1" id="txtNoa.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtUno.*" type="text" /></td>
                 <td ><input class="txt c1"  id="txtProductno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtProduct.*" type="text" /></td>
@@ -173,7 +186,7 @@
                 <td ><input class="txt c1" id="txtMemo.*" type="text"/></td>
                 <td ><input class="txt c1" id="txtRadius.*" type="text"/></td>
                 <td ><input class="txt c1" id="txtSize.*" type="text"/>
-                <input id="txtNoa.*" type="hidden" /></td>
+                <input id="txtNoq.*" type="hidden" /></td>
             </tr>
         </table>
     <!--#include file="../inc/pop_save.inc"--> 

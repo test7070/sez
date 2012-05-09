@@ -22,7 +22,7 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		
+		aPop = new Array(['txtCustno', 'btnCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],['txtAccno', 'btnAccno', 'acc', 'acc1', 'txtAccno', 'acc_b.aspx'],['txtAccno2', 'btnAccno2', 'acc', 'acc1', 'txtAccno', 'acc_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -305,7 +305,7 @@
                <td class="td6"></td>  
             </tr>
             <tr class="tr5">
-               <td class="td1"><span> </span><input id="btnCustno" type="button" /></td>
+               <td class="td1"><span> </span><input id="btnCust" type="button" /></td>
                <td class="td2"><input id="txtCustno" type="text" class="txt c1"/></td>
                <td class="td3" colspan="3"><input id="txtCust" type="text" class="txt c1"/></td>
                <td class="td6"></td>  
@@ -347,7 +347,7 @@
                <td class="td2"><input id="txtAccno" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><input id="btnAccno" type="button" /></td>
                <td class="td4"></td>
-               <td class="td5"><span> </span><a id="lblEnd"></a></td>
+               <td class="td5"><span> </span><a id="lblEnds"></a></td>
                <td class="td6"><input id="txtEnds" type="text" class="txt c1" /></td>
             </tr>
             <tr class="tr12">

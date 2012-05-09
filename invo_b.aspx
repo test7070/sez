@@ -23,7 +23,7 @@
         var bbmMask = []; //  [['txtUacc1', '9999.99999999'], ['txtUacc2', '9999.99999999'], ['txtUacc3', '9999.99999999']];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-
+		aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -48,7 +48,9 @@
 
 
         function mainPost() {
-        		fbbm[fbbm.length] = 'txtMemo';
+        		fbbm[fbbm.length] = 'txtMessrsm';
+        		fbbm[fbbm.length] = 'txtInvo';
+        		fbbm[fbbm.length] = 'txtInvom';
             
            } 
 
@@ -253,17 +255,17 @@
 		 .tbbm{padding:0px;border:1px white double;border-spacing:0;border-collapse:collapse;font-size:16px;color:blue;background:#cad3ff;width:100%;}
 		 .tbbm tr{height:35px;}
 		 
-		 .td1, .td3, .td5, .td7, .td9{width: 8%; text-align: right;}
-		 .td2, .td4, .td6, .td8, .tdA{width: 12%;}
+		 .td1, .td3, .td5, .td7, .td9{width: 10%; text-align: right;}
+		 .td2, .td4, .td6, .td8, .tdA{width: 10%;}
 		 .tbbm tr td span{float:right;display:block;width:8px;height:10px;}
 		 .tbbm tr td .lbl{float:right;color:blue;font-size:16px;}
 		 .tbbm tr td .lbl.btn{color:#4297D7;font-weight:bolder;}
 		 .tbbm tr td .lbl.btn:hover{color:#FF8F19;}
 		 .tbbm tr td .txt.c1{width:98%;float:left;}
-		 .tbbm tr td .txt.c2{width:50%;float:left;}
-		 .tbbm tr td .txt.c3{width:47%;float:left;}
+		 .tbbm tr td .txt.c2{width:99%;float:left;}
+		 .tbbm tr td .txt.c3{width:95%;float:left;}
 		 .tbbm tr td .txt.c4{width:53%;float:left;}
-		 .tbbm tr td .txt.c5{width:35%;float:left;}
+		 .tbbm tr td .txt.c5{width:32%;float:left;}
 		 .txt.c6{width:64%;float:left;}
 		 .tbbm tr td .txt.num{text-align:right;}
 		 .txt.c7{width:96%;text-align: right;}
@@ -273,7 +275,7 @@
 		 .dbbs .tbbs tr{height:35px;}
 		 .dbbs .tbbs tr td{text-align:center;border:2px lightgrey double;}
 		
-		 .dbbm input[type="button"]{float:right;width:auto;font-size: medium;}
+		 .dbbm input[type="button"]{float:right;width:auto;font-size: 11px;}
 		 .tbbm tr td{margin:0px -1px;padding:0;}
 		 .tbbm tr td input[type="text"]{border-width:1px;padding:0px;margin:-1px;}
 		 .tbbm tr td select{border-width:1px;padding:0px;margin:-1px;width: 98%;}
@@ -304,24 +306,24 @@
         <tr class="tr1">
             <td class="td1" ><span> </span><a id='lblNoa'></a></td>
             <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-            <td class="td3"><span> </span><a id="lblOrdeno"></a></td>
+            <td class="td3"><span> </span><a id="lblOrdeno" style="font-size: 14px;"></a></td>
             <td class="td4"><input id="txtOrdeno" type="text" class="txt c1" /></td>
-            <td class="td5"><span> </span><a id="lblVccno"></a></td>
+            <td class="td5"><span> </span><a id="lblVccno" style="font-size: 14px;"></a></td>
             <td class="td6"><input id="txtVccno" type="text" class="txt c1" /></td>
             <td class="td7"><span> </span><a id="lblDatea"></a></td>
             <td class="td8"><input id="txtDatea" type="text" class="txt c1" /></td>
-            <td class="td9"><span> </span><a id="lbl"></a></td>
-            <td class="tdA"><input id="txt" type="text" class="txt c1" /></td>
+            <td class="td9"><span> </span><a id="lblCustomsdate"></a></td>
+            <td class="tdA"><input id="txtCustomsdate" type="text" class="txt c3" /></td>
        </tr>
 	   <tr class="tr2">
 		<td class="td1"><span> </span><a id='lblShipped'></a></td>
-        <td class="td2" colspan="5"><input id="txtShipped"  type="text" class="txt c1" /></td>
+        <td class="td2" colspan="5"><input id="txtShipped"  type="text" class="txt c2" /></td>
         <td class="td7"><span> </span><a id='lblUnit'></a></td>
         <td class="td8"><input id="txtUnit"  type="text" class="txt c1" /></td>
 	   </tr>  
 	   <tr class="tr3">
 		 <td class="td1"><span> </span><a id='lblCommodity'></a></td>
-         <td class="td2" colspan="5"><input id="txtCommodity"  type="text" class="txt c1" /></td>
+         <td class="td2" colspan="5"><input id="txtCommodity"  type="text" class="txt c2" /></td>
          <td class="td7"><span> </span><a id='lblContract'></a></td>
          <td class="td8"><input id="txtContract"  type="text" class="txt c1" /></td>
 	   </tr>
@@ -333,7 +335,7 @@
             <td class="td6" colspan="2"><input id="txtToa" type="text" class="txt c1" /></td>
             <td class="td8"></td>
             <td class="td9"><span> </span><a id="lblLcno"></a></td>
-            <td class="tdA"><input id="txtLcno" type="text" class="txt c1" /></td>
+            <td class="tdA"><input id="txtLcno" type="text" class="txt c3" /></td>
        </tr>
        <tr class="tr5">
             <td class="td1" ><span> </span><a id='lblEtd'></a></td>
@@ -343,19 +345,19 @@
             <td class="td6" colspan="2"><input id="txtEta" type="text" class="txt c1" /></td>
             <td class="td8"></td>
             <td class="td9"><span> </span><a id="lblPacking"></a></td>
-            <td class="tdA"><input id="txtPacking" type="text" class="txt c1" /></td>
+            <td class="tdA"><input id="txtPacking" type="text" class="txt c3" /></td>
        </tr>                               
        <tr class="tr6">
 		 <td class="td1"><span> </span><a id='lblMessrsm'></a></td>
-         <td class="td2" colspan="9"><textarea id="txtMessrsm" cols="10" rows="5" style="width: 99%;height: 50px;"></textarea></td>
+         <td class="td2" colspan="9"><textarea id="txtMessrsm" cols="10" rows="5" style="width: 98%;height: 50px;"></textarea></td>
 	   </tr>
 	   <tr class="tr7">
 		 <td class="td1"><span> </span><a id='lblInvo'></a></td>
-         <td class="td2" colspan="9"><textarea id="txtInvo" cols="10" rows="5" style="width: 99%;height: 50px;"></textarea></td>
+         <td class="td2" colspan="9"><textarea id="txtInvo" cols="10" rows="5" style="width: 98%;height: 50px;"></textarea></td>
 	   </tr>    
 	   <tr class="tr8">
 		 <td class="td1"><span> </span><a id='lblInvom'></a></td>
-         <td class="td2" colspan="9"><textarea id="txtInvom" cols="10" rows="5" style="width: 99%;height: 50px;"></textarea></td>
+         <td class="td2" colspan="9"><textarea id="txtInvom" cols="10" rows="5" style="width: 98%;height: 50px;"></textarea></td>
 	   </tr>
 	   <tr class="tr9">
             <td class="td1" ><span> </span><a id='lblLcbauk'></a></td>
@@ -366,7 +368,7 @@
             <td class="td6"><input id="txtSaildate" type="text" class="txt c1" /></td>
             <td class="td7"><span> </span><a id="lblAdvancesdate"></a></td>
             <td class="td8"><input id="txtAdvancesdate" type="text" class="txt c1" /></td>
-            <td class="td9"><span> </span><input id="btnTgg" type="button" /></td>
+            <td class="td9"><span> </span><a id="lblTgg" class="lbl btn"></a></td>
             <td class="tdA"><input id="txtTggno" type="text" class="txt c5" /><input id="txtTgg" type="text" class="txt c6" /></td>
        </tr>
        <tr class="tr10">
