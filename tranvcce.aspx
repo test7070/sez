@@ -19,10 +19,9 @@
 
             var decbbm = ['mount', 'weight'];
             var q_name = "tranvcce";
-            // var q_name = "trans";
-            var q_readonly = [];
-            var bbmNum = new Array();
-            var bbmMask = new Array();
+            var q_readonly = ['txtNoa'];
+            var bbmNum = new Array(['txtWeight,10,2']);
+            var bbmMask = new Array(['txtDatea','999/99/99']);
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -50,6 +49,19 @@
             function q_funcPost(t_func, result) {
                 if(result.substr(0, 5) == '<Data') {
                     switch(t_func) {
+                        case 'tranvcce.check':
+                            var tmp = _q_appendData('msg', '', true);
+                            if(tmp[0].value == '1') {
+                                var t_noa = trim($('#txtNoa').val());
+                                if(t_noa.length == 0 || t_noa == "AUTO")
+                                    q_gtnoa(q_name, replaceAll('T' + (trim($('#txtDatea').val()).length==0?q_date():trim($('#txtDatea').val())), '/', ''));
+                                else
+                                    wrServer(t_noa);
+                            } else {
+                                alert(tmp[0].memo);
+                            }
+                            $('#btnNo').removeAttr('disabled');
+                            break;
                         case 'tranvcce.getItem1':
                             var tmp = _q_appendData('tranvcce_t1', '', true);
                             $("#t1").refresh(tmp);
@@ -68,7 +80,7 @@
             }
 
             function mainPost() {
-            	q_cmbParse("cmbTypea", q_getPara('tranvcce.typea'));
+                q_cmbParse("cmbTypea", q_getPara('tranvcce.typea'));
                 var tmp = q_getPara('tranvcce.typea').split(',');
                 for( i = 0; i < tmp.length; i++) {
                     tmpStr = '<option><';
@@ -104,16 +116,7 @@
                     $("#t3").hide();
                     switch($("#cmbTypea_condition").val()) {
                         case '1':
-                           // q_func('tranvcce.getItem1', '1,2');
-                           //alert($('#txtCustno_type1').val());   
-                           var t_para =
-                          //  q_func('tranvcce.getItem1', $('#txtCustno_type1').val());                                                                                                       
-                            q_func('tranvcce.getItem1', $('#txtCustno_type1').val()+','+$('#txtCust_type1').val()+','+
-                            							$('#txtStraddno_type1').val()+','+$('#txtStradd_type1').val()+','+
-                            							$('#txtEndaddno_type1').val()+','+$('#txtEndadd_type1').val()+','+
-                            							$('#txtProductno_type1').val()+','+$('#txtProduct_type1').val()+','+
-                            							$('#txtOrdeno_type1').val()+','+$('#txtMount_type1').val()+','+
-                            							$('#txtWeight_type1').val()+','+$('#txtTime_type1').val()+',empty');
+                            var t_para = q_func('tranvcce.getItem1', $('#txtCustno_type1').val() + ',' + $('#txtCust_type1').val() + ',' + $('#txtStraddno_type1').val() + ',' + $('#txtStradd_type1').val() + ',' + $('#txtEndaddno_type1').val() + ',' + $('#txtEndadd_type1').val() + ',' + $('#txtProductno_type1').val() + ',' + $('#txtProduct_type1').val() + ',' + $('#txtOrdeno_type1').val() + ',' + $('#txtMount_type1').val() + ',' + $('#txtWeight_type1').val() + ',' + $('#txtTime_type1').val() + ',empty');
                             $("#t1").show();
                             break;
                         case '2':
@@ -126,7 +129,47 @@
                             break;
                     }
                 });
+                $('#btnVcce_condition').click(function(e) {
+                    var t_table = '';
+                    var t_typea = '';
+                    var t_ordeno = '';
+                    var t_notv = 0;
+                    var t_carno = '';
+                    var t_caseno = '';
+                    if($('#t1').css('display') != 'none') {
+                        t_table = 't1';
+                        t_typea = '1';
+                    } else if($('#t2').css('display') != 'none') {
+                        t_table = 't2';
+                        t_typea = '2';
+                    } else if($('#t3').css('display') != 'none') {
+                        t_table = 't3';
+                        t_typea = '3';
+                    }
 
+                    if($.type($('#' + t_table).data('info')) != "undefined") {
+                        for( i = 0; i < $('#' + t_table).data('info').value.length; i++) {
+                            if($('#'+t_table).data('info').value[i]._checked) {
+                                t_ordeno = $('#'+t_table).data('info').value[i].ordeno;
+                                t_notv = $('#'+t_table).data('info').value[i].notv;
+                                t_carno = $('#'+t_table).data('info').value[i].carno;
+                                t_caseno = $('#'+t_table).data('info').value[i].caseno;
+                                break;
+                            }
+                        }
+                    }
+                    if(t_ordeno.length == 0) {
+                        alert('Please Lookup first!');
+                        return 0;
+                    }
+                    $('#btnIns').click();
+                    $('#txtOrdeno').val(t_ordeno);
+                    $('#txtWeight').val(t_notv);
+                    $('#cmbTypea').val(t_typea);
+                    $('#txtCarno').val(t_carno);
+                    $('#txtCaseno').val(t_caseno);
+                    $('#txtDatea').val(q_date());
+                });
             }
 
             function sum() {
@@ -183,31 +226,46 @@
 
             function btnIns() {
                 _btnIns();
+                $('#txtNoa').val('AUTO');
+                if(q_cur == 1 || q_cur == 2) {
+                    $('#btnLookup_condition').attr('disabled', 'disabled');
+                    $('#btnVcce_condition').attr('disabled', 'disabled');
+                } else {
+                    $('#btnLookup_condition').removeAttr('disabled');
+                    $('#btnVcce_condition').removeAttr('disabled')
+                }
             }
 
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
                 _btnModi();
+                if(q_cur == 1 || q_cur == 2) {
+                    $('#btnLookup_condition').attr('disabled', 'disabled');
+                    $('#btnVcce_condition').attr('disabled', 'disabled');
+                } else {
+                    $('#btnLookup_condition').removeAttr('disabled');
+                    $('#btnVcce_condition').removeAttr('disabled')
+                }
             }
 
             function btnPrint() {
             }
 
             function btnOk() {
+                if($('#txtWeight').val() <= 0) {
+                    alert('Error: The Weight must more than zero!');
+                    return;
+                }
                 var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
-
                 if(t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
-                var t_noa = trim($('#txtNoa').val());
+                $('#btnNo').attr('disabled', 'disabled');
+                q_func('tranvcce.check', $('#txtOrdeno').val() + "," + $('#txtNoa').val() + "," + $('#txtWeight').val() + ",empty");
 
-                if(t_noa.length == 0)
-                    q_gtnoa(q_name, t_noa);
-                else
-                    wrServer(t_noa);
             }
 
             function wrServer(key_value) {
@@ -219,6 +277,13 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                if(q_cur == 1 || q_cur == 2) {
+                    $('#btnLookup_condition').attr('disabled', 'disabled');
+                    $('#btnVcce_condition').attr('disabled', 'disabled');
+                } else {
+                    $('#btnLookup_condition').removeAttr('disabled');
+                    $('#btnVcce_condition').removeAttr('disabled')
+                }
             }
 
             function readonly(t_para, empty) {
@@ -398,6 +463,7 @@
             #condition tr[name="header"] {
                 background-color: #EE9A00;
                 display: none;
+                font-size: 14px;
             }
             #condition tr[name="data"] {
                 display: none;
@@ -410,7 +476,7 @@
             #t1 tr[name="header"], #t2 tr[name="header"], #t3 tr[name="header"] {
                 background-color: #5CACEE;
             }
-            #t1 tr[name="header"] td,#t2 tr[name="header"] td, #t3 tr[name="header"] td{
+            #t1 tr[name="header"] td, #t2 tr[name="header"] td, #t3 tr[name="header"] td {
                 font-size: 14px;
             }
             #t1 tr[name="template"], #t2 tr[name="template"], #t3 tr[name="template"] {
@@ -428,7 +494,7 @@
             #t1 tr.select input[type="text"], #t2 tr.select input[type="text"], #t3 tr.select input[type="text"] {
                 color: red;
             }
-            #t1 td.focus, #t2 td.focus , #t3 td.focus {
+            #t1 td.focus, #t2 td.focus, #t3 td.focus {
                 cursor: pointer;
                 background: #F0E68C;
             }
@@ -441,16 +507,16 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%;"><a id='vewChk'></a></td>
-						<td align="center" style="width:20%;"><a id='vewNoa'></a></td>
-						<td align="center" style="width:20%;"><a id='vewComp'></a></td>
-						<td align="center" style="width:15%;"><a id='vewCarno'></a></td>
+						<td align="center" style="width:20%;"><a id='vewDatea'></a></td>
+						<td align="center" style="width:15%;"><a id='vewTypea'></a></td>
+						<td align="center" style="width:20%;"><a id='vewCarno'></a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
-						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='comp,4'>~comp,4</td>
+						<td align="center" id='datea'>~datea</td>
+						<td align="center" id='typea=tranvcce.typea'>~typea=tranvcce.typea</td>
 						<td align="center" id='carno'>~carno</td>
 					</tr>
 				</table>
@@ -463,9 +529,7 @@
 						<input id="txtNoa" type="text"  class="txt c1"/>
 						</td>
 						<td class="td3" ><span> </span><a id="lblTypea" class="lbl"></a></td>
-						<td class="td4" >
-						<select id="cmbTypea" class="txt c1"></select>
-						</td>
+						<td class="td4" ><select id="cmbTypea" class="txt c1"></select></td>
 						<td class="td5" ><span> </span><a id="lblDatea" class="lbl"></a></td>
 						<td class="td6" >
 						<input id="txtDatea" type="text"  class="txt c1"/>
@@ -487,14 +551,14 @@
 						</td>
 						<td class="td5"><span> </span><a id="lblMount" class="lbl"></a></td>
 						<td class="td6">
-						<input id="txtMount" type="text"  class="txt c1"/>
+						<input id="txtMount" type="text"  class="txt num c1"/>
 						</td>
 						<td class="td7"><span> </span><a id="lblWeight" class="lbl"></a></td>
 						<td class="td8">
-						<input id="txtWeight" type="text"  class="txt c1"/>
+						<input id="txtWeight" type="text"  class="txt num c1"/>
 						</td>
 					</tr>
-
+					<tr style="height: 300px;"><td></td></tr>
 				</table>
 			</div>
 		</div>
@@ -758,7 +822,7 @@
 		<table id="t2">
 			<tr name="schema">
 				<td class="td1" style="width:3%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td2" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td2" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td3" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td4" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td5" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
@@ -766,7 +830,7 @@
 				<td class="td7" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td8" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td9" style="width:3%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdA" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="tdA" style="width:3%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="tdB" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="tdC" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="tdD" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
@@ -849,7 +913,7 @@
 		<table id="t3">
 			<tr name="schema">
 				<td class="td1" style="width:3%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td2" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td2" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td3" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td4" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td5" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
@@ -857,7 +921,7 @@
 				<td class="td7" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td8" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="td9" style="width:3%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdA" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="tdA" style="width:3%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="tdB" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="tdC" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
 				<td class="tdD" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
