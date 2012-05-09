@@ -312,8 +312,8 @@
             <td class="td6"><input id="txtVccno" type="text" class="txt c1" /></td>
             <td class="td7"><span> </span><a id="lblDatea"></a></td>
             <td class="td8"><input id="txtDatea" type="text" class="txt c1" /></td>
-            <td class="td9"><span> </span><a id="lblCustomsdate"></a></td>
-            <td class="tdA"><input id="txtCustomsdate" type="text" class="txt c3" /></td>
+            <td class="td9"><span> </span><a id="lblDate_customs"></a></td>
+            <td class="tdA"><input id="txtDate_customs" type="text" class="txt c3" /></td>
        </tr>
 	   <tr class="tr2">
 		<td class="td1"><span> </span><a id='lblShipped'></a></td>
