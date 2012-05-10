@@ -22,8 +22,8 @@
             var decbbm = ['money', 'tax', 'total', 'weight', 'floata', 'mount', 'price','totalus','thirdprice','oil1','oil2'];
             var q_readonly = ['txtComp', 'txtAcomp','txtSales'];
             var q_readonlys = [];
-            var bbmNum = [['txtPrice', 11, 3]];
-            var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
+            var bbmNum = [];
+            var bbsNum = [];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -31,7 +31,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'], ['txtAddno1_', 'btnAdd1_', 'addr', 'noa,addr', 'txtAddno1_,txtAdd1_', 'addr_b.aspx'], ['txtAddno2_', 'btnAdd2_', 'addr', 'noa,addr', 'txtAddno2_,txtAdd2_', 'addr_b.aspx'],['txtCustno', 'btnCust', 'Cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],['txtSales', 'btnSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],['txtCno','btnAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']);
+            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'], ['txtAddno1_', 'btnAdd1_', 'addr', 'noa,addr', 'txtAddno1_,txtAdd1_', 'addr_b.aspx'], ['txtAddno2_', 'btnAdd2_', 'addr', 'noa,addr', 'txtAddno2_,txtAdd2_', 'addr_b.aspx'],['txtCustno', 'btnCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],['txtSales', 'btnSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],['txtCno','btnAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'no3'];
@@ -325,7 +325,7 @@
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
             <tr>
                <td class="label1" ><a id='lblStype'></a></td>
-               <td class="column1"><select id="cmbStype" class="txt c1"/></td>
+               <td class="column1"><select id="cmbStype" class="txt c1"></select></td>
                <td class="label2" ><a id='lblDatea'></a></td>
                <td class="column2"><input id="txtDatea" type="text"  class="txt c1"/></td>
                <td class="label3" ><a id='lblNoa'></a></td>
