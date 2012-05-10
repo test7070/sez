@@ -245,12 +245,14 @@
 		 .tbbm{padding:0px;border:1px white double;border-spacing:0;border-collapse:collapse;font-size:16px;color:blue;background:#cad3ff;width:100%;}
 		 .tbbm tr{height:35px;}
 		 .td1, .td3{width: 10%;text-align: right;}
-		 .td2, .td4{width: 10%;}
-		 .td5{background-color: #FFEC8B;width: 10%;text-align: right;}
-		 .td6, .td7{background-color: #FFEC8B;width: 10%}
+		 .td2{width: 10%;}
+		 .td4{background-color: #FFEC8B;width: 10%;text-align: right;}
+		 .td5, .td6{background-color: #FFEC8B;width: 10%}
 		 .num{text-align: right;}
 		 .tbbm tr td span{float:right;display:block;width:8px;height:10px;}
 		 .tbbm tr td .txt.c1{width:100%;float:left;}
+		 .tbbm tr td .txt.c2{width:35%;float:left;}
+		 .tbbm tr td .txt.c3{width:65%;float:left;}
 		 .tbbm tr td{margin:0px -1px;padding:0;}
 		 .tbbm tr td input[type="text"]{border-width:1px;padding:0px;margin:-1px;}
 		 .tbbm tr td input[type="button"]{font-size: medium;width: auto;float: right;}
@@ -260,27 +262,31 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
-        <div class="dview" id="dview" style="float: left;  width:25%;"  >
+        <div class="dview" id="dview" style="float: left;  width:50%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
-                <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewTgg'></a></td>
-                <td align="center" style="width:40%"><a id='vewDatea'></a></td>
-                <td align="center" style="width:30%"><a id='vewMoney'></a></td>
-                <td align="center" style="width:30%"><a id='vewLcodate'></a></td>
-                <td align="center" style="width:30%"><a id='vewLcmoney'></a></td>
-                <td align="center" style="width:30%"><a id='vewLcdate'></a></td>
-                <td align="center" style="width:30%"><a id='vewUnpay'></a></td>
+                <td align="center" style="width:3%"><a id='vewChk'></a></td>
+                <td align="center" style="width:15%"><a id='vewTgg'></a></td>
+                <td align="center" style="width:10%"><a id='vewDatea'></a></td>
+                <td align="center" style="width:15%"><a id='vewMoney'></a></td>
+                <td align="center" style="width:10%"><a id='vewLcodate'></a></td>
+                <td align="center" style="width:15%"><a id='vewLcmoney'></a></td>
+                <td align="center" style="width:10%"><a id='vewLcdate'></a></td>
+                <td align="center" style="width:15%"><a id='vewUnpay'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
-                   <td align="center" id='noa'>~noa</td>
                    <td align="center" id='tgg,4'>~tgg,4</td>
                    <td align="center" id='datea'>~datea</td>
+                   <td align="center" id='money'>~money</td>
+                   <td align="center" id='lcodate'>~lcodate</td>
+                   <td align="center" id='lcmoney'>~lcmoney</td>
+                   <td align="center" id='lcdate'>~lcdate</td>
+                   <td align="center" id='unpay'>~unpay</td>
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 70%;float: left;">
+        <div class='dbbm' style="width: 50%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
           <tr class="tr1">
                <td class="td1"><span> </span><a id="lblNoa"></a></td>
@@ -289,15 +295,14 @@
                <td class="td4"></td>
                <td class="td5"></td>
                <td class="td6"></td>
-               <td class="td7"></td>  
             </tr>
             <tr class="tr2">
                <td class="td1"><span> </span><input id="btnTgg" type="button" /></td>
-               <td class="td2"><input id="txtTggno" type="text" class="txt c1"/></td>
-               <td class="td3" colspan="2"><input id="txtTgg" type="text" class="txt c1" /></td>
+               <td class="td2" colspan="2"><input id="txtTggno" type="text" class="txt c2"/>
+               <input id="txtTgg" type="text" class="txt c3" /></td>
+               <td class="td4"></td>
                <td class="td5"></td>
                <td class="td6"></td>
-               <td class="td7"></td> 
             </tr>  
             <tr class="tr3">
                <td class="td1"><span> </span><a id="lblDatea"></a></td>
@@ -306,7 +311,6 @@
                <td class="td4"></td>
                <td class="td5"></td>
                <td class="td6"></td>
-               <td class="td7"></td>  
             </tr>      
             <tr class="tr4">
                <td class="td1"><span> </span><a id="lblMoney"></a></td>
@@ -315,97 +319,86 @@
                <td class="td4"></td>
                <td class="td5"></td>
                <td class="td6"></td>
-               <td class="td7"></td>  
             </tr>
             <tr class="tr5">
                <td class="td1"><span> </span><a id="lblPaydate"></a></td>
                <td class="td2"><input id="txtPaydate" type="text" class="txt c1"/></td>
                <td class="td3"></td>
-               <td class="td4"></td>
-               <td class="td5"><span> </span><a id="lblLch"></a></td>
-               <td class="td6"><input id="txtLch" type="text" class="txt num c1" /></td>
-               <td class="td7"></td>  
+               <td class="td4"><span> </span><a id="lblLch"></a></td>
+               <td class="td5"><input id="txtLch" type="text" class="txt num c1" /></td>
+               <td class="td6"></td>  
             </tr>
             <tr class="tr6">
                <td class="td1"><span> </span><a id="lblLcno"></a></td>
                <td class="td2"><input id="txtLcno" type="text" class="txt c1"/></td>
                <td class="td3"></td>
-               <td class="td4"></td>
-               <td class="td5"><span> </span><a id="lblLcaccno"></a></td>
-               <td class="td6"><input id="txtLcaccno" type="text" class="txt c1" /></td>
-               <td class="td7"></td>  
+               <td class="td4"><span> </span><a id="lblLcaccno"></a></td>
+               <td class="td5"><input id="txtLcaccno" type="text" class="txt c1" /></td>
+               <td class="td6"></td>  
             </tr>
             <tr class="tr7">
                <td class="td1"><span> </span><a id="lblLcodate"></a></td>
                <td class="td2"><input id="txtLcodate" type="text" class="txt c1"/></td>
                <td class="td3"></td>
-               <td class="td4"></td>
-               <td class="td5"><span> </span><a id="lblCno"></a></td>
-               <td class="td6"><input id="txtCno" type="text" class="txt c1" /></td>
-               <td class="td7"></td>
+               <td class="td4"><span> </span><a id="lblCno"></a></td>
+               <td class="td5"><input id="txtCno" type="text" class="txt c1" /></td>
+               <td class="td6"></td>
             </tr>
             <tr class="tr8">
                <td class="td1"><span> </span><a id="lblLcmoney"></a></td>
                <td class="td2"><input id="txtLcmoney" type="text" class="txt num c1"/></td>
                <td class="td3"></td>
-               <td class="td4"></td>
-               <td class="td5"><span> </span><a id="lblPaymonth"></a></td>
-               <td class="td6"><input id="txtPaymonth" type="text" class="txt c1" /></td>
-               <td class="td7"></td> 
+               <td class="td4"><span> </span><a id="lblPaymonth"></a></td>
+               <td class="td5"><input id="txtPaymonth" type="text" class="txt c1" /></td>
+               <td class="td6"></td> 
             </tr>
             <tr class="tr9">
                <td class="td1"><span> </span><a id="lblLcdate"></a></td>
                <td class="td2"><input id="txtLcdate" type="text" class="txt c1"/></td>
                <td class="td3"></td>
-               <td class="td4"></td>
-               <td class="td5"><span> </span><a id="lblPayno"></a></td>
-               <td class="td6"><input id="txtPayno" type="text" class="txt c1" /></td>
-               <td class="td7"></td> 
+               <td class="td4"><span> </span><a id="lblPayno"></a></td>
+               <td class="td5"><input id="txtPayno" type="text" class="txt c1" /></td>
+               <td class="td6"></td> 
             </tr>
             <tr class="tr10">
                <td class="td1"><span> </span><a id="lblRate"></a></td>
                <td class="td2"><input id="txtRate" type="text" class="txt num c1"/></td>
                <td class="td3"></td>
-               <td class="td4"></td>
-               <td class="td5"><span> </span><a id="lblAccno"></a></td>
-               <td class="td6"><input id="txtAccno" type="text" class="txt c1" /></td>
-               <td class="td7"></td> 
+               <td class="td4"><span> </span><a id="lblAccno"></a></td>
+               <td class="td5"><input id="txtAccno" type="text" class="txt c1" /></td>
+               <td class="td6"></td> 
             </tr>
             <tr class="tr11">
                <td class="td1"><span> </span><a id="lblConrate1"></a></td>
                <td class="td2"><input id="txtConrate1" type="text" class="txt num c1"/></td>
                <td class="td3"></td>
-               <td class="td4"></td>
-               <td class="td5"><span> </span><a id="lblChgdate"></a></td>
-               <td class="td6"><input id="txtChgdate" type="text" class="txt c1" /></td>
-               <td class="td7"></td>
+               <td class="td4"><span> </span><a id="lblChgdate"></a></td>
+               <td class="td5"><input id="txtChgdate" type="text" class="txt c1" /></td>
+               <td class="td6"></td>
             </tr>
             <tr class="tr12">
                <td class="td1"><span> </span><a id="lblConrate2"></a></td>
                <td class="td2"><input id="txtConrate2" type="text" class="txt num c1"/></td>
                <td class="td3"></td>
-               <td class="td4"></td>
-               <td class="td5"><span> </span><a id="lblChgaccno"></a></td>
-               <td class="td6"><input id="txtChgaccno" type="text" class="txt c1" /></td>
-               <td class="td7"></td>
+               <td class="td4"><span> </span><a id="lblChgaccno"></a></td>
+               <td class="td5"><input id="txtChgaccno" type="text" class="txt c1" /></td>
+               <td class="td6"></td>
             </tr>
             <tr class="tr13">
                <td class="td1"><span> </span><a id="lblCoin"></a></td>
                <td class="td2"><select id="cmbCoin" class="txt c1"></select></td>
                <td class="td3"></td>
-               <td class="td4"></td>
-               <td class="td5"><span> </span><a id="lblChgacc1"></a></td>
-               <td class="td6"><input id="txtChgacc1" type="text" class="txt c1" /></td>
-               <td class="td7"></td>
+               <td class="td4"><span> </span><a id="lblChgacc1"></a></td>
+               <td class="td5"><input id="txtChgacc1" type="text" class="txt c1" /></td>
+               <td class="td6"></td>
             </tr>
             <tr class="tr14">
                <td class="td1"><span> </span><a id="lblFloat"></a></td>
                <td class="td2"><input id="txtFloat" type="text" class="txt num c1"/></td>
                <td align="center"><a id="lblUseacc"></a></td>
-               <td class="td4"></td>
-               <td class="td5"><span> </span><a id="lblChgmoney"></a></td>
-               <td class="td6"><input id="txtChgmoney" type="text" class="txt num c1" /></td>
-               <td class="td7"></td>
+               <td class="td4"><span> </span><a id="lblChgmoney"></a></td>
+               <td class="td5"><input id="txtChgmoney" type="text" class="txt num c1" /></td>
+               <td class="td6"></td>
             </tr>
             <tr class="tr15">
                <td class="td1"><span> </span><a id="lblUnpay"></a></td>
@@ -414,7 +407,6 @@
                <td class="td4"></td>
                <td class="td5"></td>
                <td class="td6"></td>
-               <td class="td7"></td>
             </tr>
             <tr class="tr16">
                <td class="td1"><span> </span><a id="lblPay"></a></td>
@@ -423,7 +415,6 @@
                <td class="td4"></td>
                <td class="td5"></td>
                <td class="td6"></td>
-               <td class="td7"></td>
             </tr>
         </table>
         </div>

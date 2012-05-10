@@ -251,6 +251,7 @@
 		 .tbbm tr td .txt.c1{width:100%;float:left;}
 		 .tbbm tr td .txt.c2{width:75%;float:left;}
 		 .tbbm tr td .txt.c3{width:95%;float:left;}
+		 .tbbm .ch1, .tbbm .ch2, .tbbm .ch3, .tbbm .ch4 {background-color:  #FFEC8B; text-align: right;}
 		 .tbbm tr td{margin:0px -1px;padding:0;}
 		 .tbbm tr td input[type="text"]{border-width:1px;padding:0px;margin:-1px;}
 		 .tbbm tr td input[type="button"]{font-size: medium;width: auto;float: right;}
@@ -305,10 +306,10 @@
             	<td align="left"><a id="lblSet" style="color: #000066;font-size: 20px;"></a></td>
             </tr> 
             <tr class="tr4">
-               <td class="td1"><span> </span><a id="lblConrate2"></a></td>
-               <td class="td2"><input id="txtConrate2" type="text" class="txt num c2"/> <a id="lblSymbol" ></a></td>
-               <td class="td3"><span> </span><a id="lblConrate1"></a></td>
-               <td class="td4"><input id="txtConrate1" type="text" class="txt num c2"/> <a id="lblSymbol1"></a></td>
+               <td class="ch1"><span> </span><a id="lblConrate2" ></a></td>
+               <td class="ch2"><input id="txtConrate2" type="text" class="txt num c2"/> <a id="lblSymbol" ></a></td>
+               <td class="ch3"><span> </span><a id="lblConrate1" class="col"></a></td>
+               <td class="ch4"><input id="txtConrate1" type="text" class="txt num c2"/> <a id="lblSymbol1"></a></td>
                <td class="td5"><span> </span><a id="lblExpire"></a></td>
                <td class="td6"><input id="txtExpire" type="text" class="txt num c2"/> <a id="lblsymbol2"></a></td>
                <td class="td7"><span> </span><a id="lblRate"></a></td>
