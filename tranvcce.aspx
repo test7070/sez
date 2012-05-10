@@ -38,7 +38,17 @@
             brwKey = 'noa';
             q_alias = '';
             q_desc = 1;
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtCustno_type1', 'lblCust_type1', 'cust', 'noa,comp', 'txtCustno_type1,txtCust_type1', 'cust_b.aspx']);
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], 
+            ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
+            ['txtCustno_type1', 'lblCust_type1', 'cust', 'noa,comp', 'txtCustno_type1,txtCust_type1', 'cust_b.aspx'], 
+            ['txtCustno_type2', 'lblCust_type2', 'cust', 'noa,comp', 'txtCustno_type2,txtCust_type2', 'cust_b.aspx'], 
+            ['txtCustno_type3', 'lblCust_type3', 'cust', 'noa,comp', 'txtCustno_type3,txtCust_type3', 'cust_b.aspx'],
+            ['txtStraddno_type1', 'lblStradd_type1', 'addr', 'noa,addr', 'txtStraddno_type1,txtStradd_type1', 'addr_b.aspx'],
+            ['txtEndaddno_type1', 'lblEndadd_type1', 'addr', 'noa,addr', 'txtEndaddno_type1,txtEndadd_type1', 'addr_b.aspx'],
+            ['txtStraddno_type2', 'lblStradd_type2', 'addr', 'noa,addr', 'txtStraddno_type2,txtStradd_type2', 'addr_b.aspx'],
+            ['txtEndaddno_type2', 'lblEndadd_type2', 'addr', 'noa,addr', 'txtEndaddno_type2,txtEndadd_type2', 'addr_b.aspx'],
+            ['txtStraddno_type3', 'lblStradd_type3', 'addr', 'noa,addr', 'txtStraddno_type3,txtStradd_type3', 'addr_b.aspx'],
+            ['txtEndaddno_type3', 'lblEndadd_type3', 'addr', 'noa,addr', 'txtEndaddno_type3,txtEndadd_type3', 'addr_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
 
@@ -93,7 +103,37 @@
                 q_mask(bbmMask);
                 $('#txtOdate_type1').mask(r_picd);
                 q_cmbParse("cmbTypea", q_getPara('tranvcce.typea'));
-                var tmp = q_getPara('tranvcce.typea').split(',');
+                var tmp = q_getPara('tranvcce.ispal').split(',');
+                for( i = 0; i < tmp.length; i++) {
+                    tmpStr = '<option><';
+                    tmpStr += '/option>';
+                    $("#cmbIspal_type2").append(tmpStr);
+                    $("#cmbIspal_type2").children().last().val(tmp[i].split('@')[0]).text(tmp[i].split('@')[1]);
+                }
+                $("#cmbIspal_type2").val('0');
+                for( i = 0; i < tmp.length; i++) {
+                    tmpStr = '<option><';
+                    tmpStr += '/option>';
+                    $("#cmbIspal_type3").append(tmpStr);
+                    $("#cmbIspal_type3").children().last().val(tmp[i].split('@')[0]).text(tmp[i].split('@')[1]);
+                }
+                $("#cmbIspal_type3").val('0');
+                tmp = q_getPara('tranvcce.ef').split(',');
+                for( i = 0; i < tmp.length; i++) {
+                    tmpStr = '<option><';
+                    tmpStr += '/option>';
+                    $("#cmbEf_type2").append(tmpStr);
+                    $("#cmbEf_type2").children().last().val(tmp[i].split('@')[0]).text(tmp[i].split('@')[1]);
+                }
+                $("#cmbEf_type2").val('0');
+                for( i = 0; i < tmp.length; i++) {
+                    tmpStr = '<option><';
+                    tmpStr += '/option>';
+                    $("#cmbEf_type3").append(tmpStr);
+                    $("#cmbEf_type3").children().last().val(tmp[i].split('@')[0]).text(tmp[i].split('@')[1]);
+                }
+                $("#cmbEf_type3").val('0');
+                tmp = q_getPara('tranvcce.typea').split(',');
                 for( i = 0; i < tmp.length; i++) {
                     tmpStr = '<option><';
                     tmpStr += '/option>';
@@ -133,12 +173,12 @@
                             break;
                         case '2':
                             //custno,cust,straddno,stradd,endaddno,endadd,caseno,caseno2,po,traceno,isdisplay,carno,datea,ispal,ef,ordeno
-                            q_func('tranvcce.getItem2', $('#txtCustno_type2').val() + ',' + $('#txtCust_type2').val() + ',' + $('#txtStraddno_type2').val() + ',' + $('#txtStradd_type2').val() + ',' + $('#txtEndaddno_type2').val() + ',' + $('#txtEndadd_type2').val() + ',' + $('#txtCaseno_type2').val() + ',' + $('#txtCaseno2_type2').val() + ',' + $('#txtPo_type2').val() + ',' + $('#txtTraceno_type2').val() + ',' + ($('#chkIsdisplay_type2').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type2').val() + ',' + $('#txtDatea_type2').val() + ',' + ($('#chkIspal_type2').prop('checked') ? '1' : '0') + ',' + $('#txtEf_type2').val() + ',' + $('#txtOrdeno_type2').val() + ',empty');
+                            q_func('tranvcce.getItem2', $('#txtCustno_type2').val() + ',' + $('#txtCust_type2').val() + ',' + $('#txtStraddno_type2').val() + ',' + $('#txtStradd_type2').val() + ',' + $('#txtEndaddno_type2').val() + ',' + $('#txtEndadd_type2').val() + ',' + $('#txtCaseno_type2').val() + ',' + $('#txtCaseno2_type2').val() + ',' + $('#txtPo_type2').val() + ',' + $('#txtTraceno_type2').val() + ',' + ($('#chkIsdisplay_type2').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type2').val() + ',' + $('#txtOdate_type2').val() + ',' + $('#cmbIspal_type2').val() + ',' + $('#cmbEf_type2').val() + ',' + $('#txtOrdeno_type2').val() + ',empty');
                             $("#t2").show();
                             break;
                         case '3':
                             //custno,cust,straddno,stradd,endaddno,endadd,shipno,so,cldate,caseno,isdisplay,carno,datea,ispal,ef,ordeno
-                            q_func('tranvcce.getItem3', $('#txtCustno_type3').val() + ',' + $('#txtCust_type3').val() + ',' + $('#txtStraddno_type3').val() + ',' + $('#txtStradd_type3').val() + ',' + $('#txtEndaddno_type3').val() + ',' + $('#txtEndadd_type3').val() + ',' + $('#txtShipno_type3').val() + ',' + $('#txtSo_type3').val() + ',' + $('#txtCldate_type3').val() + ',' + $('#txtCaseno_type3').val() + ',' + ($('#chkIsdisplay_type3').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type3').val() + ',' + $('#txtDatea_type3').val() + ',' + ($('#chkIspal_type3').prop('checked') ? '1' : '0') + ',' + $('#txtEf_type3').val() + ',' + $('#txtOrdeno_type3').val() + ',empty');
+                            q_func('tranvcce.getItem3', $('#txtCustno_type3').val() + ',' + $('#txtCust_type3').val() + ',' + $('#txtStraddno_type3').val() + ',' + $('#txtStradd_type3').val() + ',' + $('#txtEndaddno_type3').val() + ',' + $('#txtEndadd_type3').val() + ',' + $('#txtShipno_type3').val() + ',' + $('#txtSo_type3').val() + ',' + $('#txtCldate_type3').val() + ',' + $('#txtCaseno_type3').val() + ',' + ($('#chkIsdisplay_type3').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type3').val() + ',' + $('#txtOdate_type3').val() + ',' + $('#cmbIspal_type3').val() + ',' + $('#cmbEf_type3').val() + ',' + $('#txtOrdeno_type3').val() + ',empty');
                             $("#t3").show();
                             break;
                     }
@@ -177,12 +217,17 @@
                         return 0;
                     }
                     $('#btnIns').click();
-                    $('#txtOrdeno').val(t_ordeno);
-                    $('#txtWeight').val(t_notv);
-                    $('#cmbTypea').val(t_typea);
-                    $('#txtCarno').val(t_carno);
-                    $('#txtCaseno').val(t_caseno);
-                    $('#txtDatea').val(q_date());
+                    if(q_cur == 1) {
+                        $('#txtOrdeno').val(t_ordeno);
+                        $('#txtWeight').val(t_notv);
+                        $('#cmbTypea').val(t_typea);
+                        $('#txtCarno').val(t_carno);
+                        $('#txtCaseno').val(t_caseno);
+                        $('#txtDatea').val(q_date());
+                        $('#txtWeight').focus();
+                        window.location.hash = "#tbbm";
+                        window.location.hash = "";
+                    }
                 });
             }
 
@@ -285,10 +330,10 @@
                 _refresh(recno);
                 if(q_cur == 1 || q_cur == 2) {
                     $('#btnLookup_condition').attr('disabled', 'disabled');
-                    $('#btnVcce_condition').attr('disabled', 'disabled');             
+                    $('#btnVcce_condition').attr('disabled', 'disabled');
                 } else {
                     $('#btnLookup_condition').removeAttr('disabled');
-                    $('#btnVcce_condition').removeAttr('disabled');                 
+                    $('#btnVcce_condition').removeAttr('disabled');
                 }
                 isEnabledChk();
             }
@@ -353,7 +398,7 @@
 
             /*Lookup*/
             function isEnabledChk() {
-            	var isEnabled = !(q_cur==1 || q_cur==2);
+                var isEnabled = !(q_cur == 1 || q_cur == 2);
                 if($('#t1').css('display') != 'none') {
                     var obj = $('#t1');
                     if(obj.children('tbody').length > 0)
@@ -433,10 +478,6 @@
                                     obj2.eq(j).children('[src="option"]').click(function(e) {
                                         if($(this).prop('checked')) {
                                             $('#btnVcce_condition').click();
-                                            isEnabledChk();
-                                            $('#txtWeight').focus();
-                                            window.location.hash = "#tbbm";
-                                            window.location.hash = "";
                                         }
                                     });
                                 }
@@ -503,7 +544,7 @@
             }
             .dview {
                 float: left;
-                width: 25%;
+                width: 23%;
             }
             .tview {
                 margin: 0;
@@ -521,7 +562,7 @@
             }
             .dbbm {
                 float: left;
-                width: 73%;
+                width: 75%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -566,40 +607,30 @@
             .tbbm tr td .lbl.btn:hover {
                 color: #FF8F19;
             }
-            .tbbm tr td .txt.c1 {
+            .txt.c1 {
                 width: 100%;
                 float: left;
             }
-            .tbbm tr td .txt.c2 {
-                width: 45%;
+            .txt.c2 {
+                width: 43%;
                 float: left;
             }
-            .tbbm tr td .txt.c3 {
-                width: 55%;
+            .txt.c3 {
+                width: 52%;
                 float: left;
-            }
-            .tbbm tr td .txt.c4 {
-                width: 35%;
-                float: left;
-            }
-            .tbbm tr td .txt.c5 {
-                width: 65%;
-                float: left;
-            }
-            .tbbm tr td .txt.num {
-                text-align: right;
             }
             .txt.num {
                 text-align: right;
             }
             td {
-                margin: 0px -1px;
+                margin: 0 -1px;
                 padding: 0;
             }
             td input[type="text"] {
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                float: left;
             }
             select {
                 border-width: 1px;
@@ -739,9 +770,9 @@
 		<table id="condition">
 			<tr name="schema">
 				<td class="td1" style="width:14%"><span class="schema"> </span></td>
-				<td class="td2" style="width:7%"><span class="schema"> </span></td>
-				<td class="td3" style="width:7%"><span class="schema"> </span></td>
-				<td class="td4" style="width:7%"><span class="schema"> </span></td>
+				<td class="td2" style="width:6%"><span class="schema"> </span></td>
+				<td class="td3" style="width:8%"><span class="schema"> </span></td>
+				<td class="td4" style="width:8%"><span class="schema"> </span></td>
 				<td class="td5" style="width:7%"><span class="schema"> </span></td>
 				<td class="td6" style="width:7%"><span class="schema"> </span></td>
 				<td class="td7" style="width:7%"><span class="schema"> </span></td>
@@ -796,14 +827,14 @@
 			</tr>
 			<tr name="header" class="type2">
 				<td class="td1" id='lblCust_type2'></td>
-				<td class="td2" id='lblStradd_type2'></td>
-				<td class="td3" id="lblEndadd_type2"></td>
-				<td class="td4" id="lblCaseno_type2"></td>
-				<td class="td5" id="lblPo_type2"></td>
-				<td class="td6" id="lblTraceno_type2"></td>
-				<td class="td7" id="lblIsdisplay_type2"></td>
-				<td class="td8" id="lblCarno_type2"></td>
-				<td class="td9" id="lblDatea_type2"></td>
+				<td class="td2" id="lblOdate_type2"></td>
+				<td class="td3"id='lblStradd_type2'></td>
+				<td class="td4" id="lblEndadd_type2"></td>
+				<td class="td5" id="lblCaseno_type2"></td>
+				<td class="td6" id="lblPo_type2"></td>
+				<td class="td7" id="lblTraceno_type2"></td>
+				<td class="td8" id="lblIsdisplay_type2"></td>
+				<td class="td9" id="lblCarno_type2"></td>		
 				<td class="tdA" id="lblIspal_type2"></td>
 				<td class="tdB" id="lblEf_type2"></td>
 				<td class="tdC" id="lblOrdeno_type2"></td>
@@ -815,37 +846,33 @@
 				<input type="text" style="width: 60%;" id="txtCust_type2"/>
 				</td>
 				<td class="td2">
+				<input type="text" style="width: 95%;" id="txtOdate_type2"/>
+				</td>
+				<td class="td3">
 				<input type="text" style="width: 35%;" id="txtStraddno_type2"/>
 				<input type="text" style="width: 60%;" id="txtStradd_type2"/>
 				</td>
-				<td class="td3">
+				<td class="td4">
 				<input type="text" style="width: 35%;" id="txtEndaddno_type2"/>
 				<input type="text" style="width: 60%;" id="txtEndadd_type2"/>
 				</td>
-				<td class="td4">
+				<td class="td5">
 				<input type="text" style="width: 95%;" id="txtCaseno_type2"/>
 				</td>
-				<td class="td5">
+				<td class="td6">
 				<input type="text" style="width: 95%;" id="txtPo_type2"/>
 				</td>
-				<td class="td6">
+				<td class="td7">
 				<input type="text" style="width: 95%;" id="txtTraceno_type2"/>
 				</td>
-				<td class="td7">
+				<td class="td8">
 				<input type="checkbox" id="chkIsdisplay_type2"/>
 				</td>
-				<td class="td8">
+				<td class="td9">
 				<input type="text" style="width: 95%;" id="txtCarno_type2"/>
 				</td>
-				<td class="td9">
-				<input type="text" style="width: 95%;" id="txtDatea_type2"/>
-				</td>
-				<td class="tdA">
-				<input type="checkbox" id="chkIspal_type2"/>
-				</td>
-				<td class="tdB">
-				<input type="text" style="width: 95%;" id="txtEf_type2"/>
-				</td>
+				<td class="tdA"><select id="cmbIspal_type2" style="width:100%;"></select></td>
+				<td class="tdB"><select id="cmbEf_type2" style="width:100%;"></select></td>
 				<td class="tdC">
 				<input type="text" style="width: 95%;" id="txtOrdeno_type2"/>
 				</td>
@@ -855,15 +882,15 @@
 			</tr>
 			<tr name="header" class="type3">
 				<td class="td1" id='lblCust_type3'></td>
-				<td class="td2" id='lblStradd_type3'></td>
-				<td class="td3" id="lblEndadd_type3"></td>
-				<td class="td4" id="lblShipno_type3"></td>
-				<td class="td5" id="lblSo_type3"></td>
-				<td class="td6" id="lblCldate_type3"></td>
-				<td class="td7" id="lblCaseno_type3"></td>
-				<td class="td8" id="lblIsdisplay_type3"></td>
-				<td class="td9" id="lblCarno_type3"></td>
-				<td class="tdA" id="lblDatea_type3"></td>
+				<td class="td2" id="lblOdate_type3"></td>
+				<td class="td3" id='lblStradd_type3'></td>
+				<td class="td4" id="lblEndadd_type3"></td>
+				<td class="td5" id="lblShipno_type3"></td>
+				<td class="td6" id="lblSo_type3"></td>
+				<td class="td7" id="lblCldate_type3"></td>
+				<td class="td8" id="lblCaseno_type3"></td>
+				<td class="td9" id="lblIsdisplay_type3"></td>
+				<td class="tdA" id="lblCarno_type3"></td>		
 				<td class="tdB" id="lblIspal_type3"></td>
 				<td class="tdC" id="lblEf_type3"></td>
 				<td class="tdD" id="lblOrdeno_type3"></td>
@@ -874,40 +901,36 @@
 				<input type="text" style="width: 60%;" id="txtCust_type3"/>
 				</td>
 				<td class="td2">
+				<input type="text" style="width: 95%;" id="txtOdate_type3"/>
+				</td>
+				<td class="td3">
 				<input type="text" style="width: 35%;" id="txtStraddno_type3"/>
 				<input type="text" style="width: 60%;" id="txtStradd_type3"/>
 				</td>
-				<td class="td3">
+				<td class="td4">
 				<input type="text" style="width: 35%;" id="txtEndaddno_type3"/>
 				<input type="text" style="width: 60%;" id="txtEndadd_type3"/>
 				</td>
-				<td class="td4">
+				<td class="td5">
 				<input type="text" style="width: 95%;" id="txtShipno_type3"/>
 				</td>
-				<td class="td5">
+				<td class="td6">
 				<input type="text" style="width: 95%;" id="txtSo_type3"/>
 				</td>
-				<td class="td6">
+				<td class="td7">
 				<input type="text" style="width: 95%;" id="txtCldate_type3"/>
 				</td>
-				<td class="td7">
+				<td class="td8">
 				<input type="text" style="width: 95%;" id="txtCaseno_type3"/>
 				</td>
-				<td class="td8">
+				<td class="td9">
 				<input type="checkbox" id="chkIsdisplay_type3"/>
 				</td>
-				<td class="td9">
+				<td class="tdA">
 				<input type="text" style="width: 95%;" id="txtCarno_type3"/>
 				</td>
-				<td class="tdA">
-				<input type="text" style="width: 95%;" id="txtDatea_type3"/>
-				</td>
-				<td class="tdB">
-				<input type="checkbox" id="chkIspal_type3"/>
-				</td>
-				<td class="tdC">
-				<input type="text" style="width: 95%;" id="txtEf_type3"/>
-				</td>
+				<td class="tdB"><select id="cmbIspal_type3" style="width:100%;"></select></td>
+				<td class="tdC"><select id="cmbEf_type3" style="width:100%;"></select></td>
 				<td class="tdD">
 				<input type="text" style="width: 95%;" id="txtOrdeno_type3"/>
 				</td>
@@ -936,7 +959,7 @@
 				<td class="td1" id="lblChk_t1"></td>
 				<td class="td2" id="lblCust_t1" index="custno"></td>
 				<td class="td3" id="lblCarno_t1" index="carno"></td>
-				<td class="td4" id="lblDatea_t1" index="datea"></td>
+				<td class="td4" id="lblOdate_t1" index="odate"></td>
 				<td class="td5" id="lblProduct_t1" index="productno"></td>
 				<td class="td6" id="lblStradd_t1" index="straddno"></td>
 				<td class="td7" id="lblEndadd_t1" index="endaddno"></td>
@@ -957,7 +980,7 @@
 				<input type="text" style="width: 95%;" value="carno"/>
 				</td>
 				<td class="td4">
-				<input type="text" style="width: 95%;" value="datea"/>
+				<input type="text" style="width: 95%;" value="odate"/>
 				</td>
 				<td class="td5">
 				<input type="text" style="width: 35%;" value="productno"/>
@@ -1012,7 +1035,7 @@
 				<td class="td5" id="lblCaseno2_t2" index="caseno2"></td>
 				<td class="td6" id="lblPo_t2" index="po"></td>
 				<td class="td7" id="lblCarno_t2" index="carno"></td>
-				<td class="td8" id="lblDatea_t2" index="datea"></td>
+				<td class="td8" id="lblOdate_t2" index="odate"></td>
 				<td class="td9" id="lblIspal_t2" index="ispal"></td>
 				<td class="tdA" id="lblEf_t2" index="ef"></td>
 				<td class="tdB" id="lblStatus_t2" index="status"></td>
@@ -1103,7 +1126,7 @@
 				<td class="td5" id="lblCaseno2_t3" index="caseno2"></td>
 				<td class="td6" id="lblSo_t3" index="so"></td>
 				<td class="td7" id="lblCarno_t3" index="carno"></td>
-				<td class="td8" id="lblDatea_t3" index="datea"></td>
+				<td class="td8" id="lblOdate_t3" index="odate"></td>
 				<td class="td9" id="lblIspal_t3" index="ispal"></td>
 				<td class="tdA" id="lblEf_t3" index="ef"></td>
 				<td class="tdB" id="lblStatus_t3" index="status"></td>
@@ -1137,7 +1160,7 @@
 				<input type="text" style="width: 95%;" value="carno"/>
 				</td>
 				<td class="td8">
-				<input type="text" style="width: 95%;" value="datea"/>
+				<input type="text" style="width: 95%;" value="odate"/>
 				</td>
 				<td class="td9">
 				<input type="checkbox" value="ispal"/>

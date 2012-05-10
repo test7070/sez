@@ -24,7 +24,7 @@
             var bbsNum = [];
             var bbsMask = [];
             var bbmNum = new Array(['txtUnpack', 10, 0], ['txtMount', 10, 0], ['txtPrice', 10, 2], ['txtPrice2', 10, 2], ['txtPrice3', 10, 2], ['txtDiscount', 10, 0], ['miles', 10, 2], ['txtReserve', 10, 0], ['tolls', 10, 0], ['txtTicket', 10, 0], ['txGross', 10, 2], ['txtWeight', 10, 2], ['txtPlus', 10, 0], ['txtMius', 10, 0], ['txtMount2', 10, 2], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtOverH', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2]);
-            var bbmMask = new Array(['txtKdate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99']);
+            var bbmMask = new Array(['txtKdate', '999/99/99'],['txtOdate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99']);
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -452,8 +452,10 @@
 						<td class="td2" >
 						<input id="txtNoa" type="text"  class="txt c1"/>
 						</td>
-						<td class="td3" ></td>
-						<td class="td4" ></td>
+						<td class="td3" ><span> </span><a id="lblOdate" class="lbl"></a></td>
+						<td class="td4" >
+						<input id="txtOdate" type="text"  class="txt c1"/>
+						</td>
 						<td class="td5" ></td>
 						<td class="td6" ></td>
 						<td class="td7" ></td>
