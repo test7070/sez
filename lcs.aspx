@@ -264,9 +264,13 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:40%"><a id='vewTgg'></a></td>
-                <td align="center" style="width:30%"><a id='vewDatea'></a></td>
+                <td align="center" style="width:25%"><a id='vewTgg'></a></td>
+                <td align="center" style="width:40%"><a id='vewDatea'></a></td>
+                <td align="center" style="width:30%"><a id='vewMoney'></a></td>
+                <td align="center" style="width:30%"><a id='vewLcodate'></a></td>
+                <td align="center" style="width:30%"><a id='vewLcmoney'></a></td>
+                <td align="center" style="width:30%"><a id='vewLcdate'></a></td>
+                <td align="center" style="width:30%"><a id='vewUnpay'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
