@@ -4,7 +4,7 @@
 <head>
 <title></title>
 <script src="../script/jquery.min.js" type="text/javascript"></script>
-<script src='../script/qj.js' type="text/javascript"></script>
+<script src='../script/qj2.js' type="text/javascript"></script>
     <script src='qset.js' type="text/javascript"></script>
 <script src='../script/qj_mess.js' type="text/javascript"></script>
 <script src='../script/mask.js' type="text/javascript"></script>
@@ -15,7 +15,7 @@
     var isBott = false;  
     var afield, t_htm;
     var i, s1;
-    var decbbs = [''];
+    var decbbs = ['mount','weight','dime','width','lengthb','gweight','eweight','mweight','radius'];
     var decbbm = [];
     var q_readonly = [];
     var q_readonlys = [];
@@ -59,7 +59,7 @@
     }
 
     function bbsSave(as) {
-        if (!as['product']) {  // Dont Save Condition
+        if (!as['noa']) {  // Dont Save Condition
             as[bbsKey[0]] = '';   /// noa  empty --> dont save
             return;
         }
