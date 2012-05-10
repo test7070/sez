@@ -436,6 +436,7 @@
                                             isEnabledChk();
                                             $('#txtWeight').focus();
                                             window.location.hash = "#tbbm";
+                                            window.location.hash = "";
                                         }
                                     });
                                 }
@@ -480,7 +481,6 @@
                                     }
                                     $(this).data('info').parent.data('info').isSort = false;
                                     $(this).data('info').parent.refresh($(this).data('info').parent.data('info').value);
-                                    window.location.hash = "#"+$(this).data('info').parent.attr('name');
                                 });
                                 tmp.eq(i).hover(function(e) {
                                     $(this).addClass('focus');
@@ -492,6 +492,7 @@
                     } else {
                         $(this).data('info').isSort = true;
                     }
+                    isEnabledChk();
                 }
             })($);
 
