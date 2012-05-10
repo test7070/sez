@@ -16,7 +16,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var decbbm = [];
-        var q_name="boat";
+        var q_name="color";
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
@@ -290,12 +290,12 @@
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:40%"><a id='vewBoat'></a></td>
+                <td align="center" style="width:40%"><a id='vewColor'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='boat'>~boat</td>
+                   <td align="center" id='color'>~color</td>
             </tr>
         </table>
         </div>
@@ -308,27 +308,12 @@
                <td class="td4"></td> 
             </tr>
             <tr class="tr2">
-               <td class="td1"><span> </span><a id="lblBoat"></a></td>
-               <td class="td2"><input id="txtBoat" type="text" class="txt c1"/></td>
-               <td class="td3"></td>
-               <td class="td4"></td> 
-            </tr>  
-            <tr class="tr3">
-               <td class="td1"><span> </span><a id="lblConn"></a></td>
-               <td class="td2"><input id="txtConn" type="text" class="txt c1"/></td>
-               <td class="td3"></td>
-               <td class="td4"></td> 
-            </tr>      
-            <tr class="tr4">
-               <td class="td1"><span> </span><a id="lblTel"></a></td>
-               <td class="td2"><input id="txtTel" type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id="lblColor"></a></td>
+               <td class="td2"><input id="txtColor" type="text" class="txt c1"/></td>
                <td class="td3"></td>
                <td class="td4"></td> 
             </tr>
-            <tr class="tr5">
-               <td class="td1"><span> </span><a id="lblAddr"></a></td>
-               <td class="td2" colspan="3"><input id="txtAddr" type="text" class="txt c1"/></td>
-            </tr>
+
         </table>
         </div>
         </div> 
