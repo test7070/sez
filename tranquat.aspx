@@ -421,8 +421,8 @@
                 <td style="width:10%; text-align:center"><input id="txtProductno.*" type="text"style="width: 60%;" />
                                        <input class="btn"  id="btnProduct.*" type="button" value='...' style=" font-weight: bold;" /></td>
                 <td style="width:20%;"><input id="txtProduct.*" type="text" class="txt c2"/></td>
-                <td style="width:14%;"><input id="txtAddno1.*" type="text" style="width: 25%;"/><input id="txtAdd1.*" type="text" style="width: 55%;"/><input id="btnAdd1.*" type="button" value=".." style="width: auto;" /></td>
-                <td style="width:14%;"><input id="txtAddno2.*" type="text" style="width: 25%;"/><input id="txtAdd2.*" type="text" style="width: 55%;"/><input id="btnAdd2.*" type="button" value=".." style="width: auto;" /></td>
+                <td style="width:14%;"><input id="txtAddno1.*" type="text" style="width: 22%;"/><input id="txtAdd1.*" type="text" style="width: 53%;"/><input id="btnAdd1.*" type="button" value=".." style="width: 15%;" /></td>
+                <td style="width:14%;"><input id="txtAddno2.*" type="text" style="width: 22%;"/><input id="txtAdd2.*" type="text" style="width: 53%;"/><input id="btnAdd2.*" type="button" value=".." style="width: 15%;" /></td>
                 <td style="width:5%;"><input id="txtMount.*" type="text"  class="txt c2" style="text-align:right;"/></td>
                 <td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c2"/></td>
                 <td style="width:6%;"><input id="txtPrice.*" type="text" class="txt c2" style="text-align:right;"/></td>
