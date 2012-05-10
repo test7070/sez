@@ -10,8 +10,17 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-		<script src="//59.125.143.170/jquery/js/qtran.js" type="text/javascript"></script>
 		<script type="text/javascript">
+            var scrollTimeout;
+            window.onscroll = function() {
+                // update current item display here
+                if(scrollTimeout)
+                    clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(function() {
+                    scrolTimeout = undefined;
+                    // update hash here
+                }, 100);
+            };
             this.errorHandler = null;
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
@@ -29,7 +38,7 @@
             brwKey = 'noa';
             q_alias = '';
             q_desc = 1;
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,cardeal', 'txtCarno', 'car2_b.aspx']);
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtCustno_type1', 'lblCust_type1', 'cust', 'noa,comp', 'txtCustno_type1,txtCust_type1', 'cust_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
 
@@ -60,6 +69,7 @@
                                 alert(tmp[0].memo);
                             }
                             $('#btnNo').removeAttr('disabled');
+                            isEnabledChk(true);
                             break;
                         case 'tranvcce.getItem1':
                             var tmp = _q_appendData('tranvcce_t1', '', true);
@@ -81,6 +91,7 @@
             function mainPost() {
                 bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
+                $('#txtOdate_type1').mask(r_picd);
                 q_cmbParse("cmbTypea", q_getPara('tranvcce.typea'));
                 var tmp = q_getPara('tranvcce.typea').split(',');
                 for( i = 0; i < tmp.length; i++) {
@@ -117,7 +128,7 @@
                     $("#t3").hide();
                     switch($("#cmbTypea_condition").val()) {
                         case '1':
-                            var t_para = q_func('tranvcce.getItem1', $('#txtCustno_type1').val() + ',' + $('#txtCust_type1').val() + ',' + $('#txtStraddno_type1').val() + ',' + $('#txtStradd_type1').val() + ',' + $('#txtEndaddno_type1').val() + ',' + $('#txtEndadd_type1').val() + ',' + $('#txtProductno_type1').val() + ',' + $('#txtProduct_type1').val() + ',' + $('#txtOrdeno_type1').val() + ',' + $('#txtMount_type1').val() + ',' + $('#txtWeight_type1').val() + ',' + $('#txtTime_type1').val() + ',empty');
+                            var t_para = q_func('tranvcce.getItem1', $('#txtCustno_type1').val() + ',' + $('#txtCust_type1').val() + ',' + $('#txtStraddno_type1').val() + ',' + $('#txtStradd_type1').val() + ',' + $('#txtEndaddno_type1').val() + ',' + $('#txtEndadd_type1').val() + ',' + $('#txtProductno_type1').val() + ',' + $('#txtProduct_type1').val() + ',' + $('#txtOrdeno_type1').val() + ',' + $('#txtOdate_type1').val() + ',empty');
                             $("#t1").show();
                             break;
                         case '2':
@@ -230,26 +241,19 @@
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
-                if(q_cur == 1 || q_cur == 2) {
-                    $('#btnLookup_condition').attr('disabled', 'disabled');
-                    $('#btnVcce_condition').attr('disabled', 'disabled');
-                } else {
-                    $('#btnLookup_condition').removeAttr('disabled');
-                    $('#btnVcce_condition').removeAttr('disabled')
-                }
+                $('#btnLookup_condition').attr('disabled', 'disabled');
+                $('#btnVcce_condition').attr('disabled', 'disabled');
+                isEnabledChk();
             }
 
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                if(q_cur == 1 || q_cur == 2) {
-                    $('#btnLookup_condition').attr('disabled', 'disabled');
-                    $('#btnVcce_condition').attr('disabled', 'disabled');
-                } else {
-                    $('#btnLookup_condition').removeAttr('disabled');
-                    $('#btnVcce_condition').removeAttr('disabled')
-                }
+
+                $('#btnLookup_condition').attr('disabled', 'disabled');
+                $('#btnVcce_condition').attr('disabled', 'disabled');
+                isEnabledChk();
             }
 
             function btnPrint() {
@@ -268,7 +272,6 @@
                 }
                 $('#btnNo').attr('disabled', 'disabled');
                 q_func('tranvcce.check', $('#txtOrdeno').val() + "," + $('#txtNoa').val() + "," + $('#txtWeight').val() + ",empty");
-
             }
 
             function wrServer(key_value) {
@@ -282,11 +285,12 @@
                 _refresh(recno);
                 if(q_cur == 1 || q_cur == 2) {
                     $('#btnLookup_condition').attr('disabled', 'disabled');
-                    $('#btnVcce_condition').attr('disabled', 'disabled');
+                    $('#btnVcce_condition').attr('disabled', 'disabled');             
                 } else {
                     $('#btnLookup_condition').removeAttr('disabled');
-                    $('#btnVcce_condition').removeAttr('disabled')
+                    $('#btnVcce_condition').removeAttr('disabled');                 
                 }
+                isEnabledChk();
             }
 
             function readonly(t_para, empty) {
@@ -346,6 +350,151 @@
             function btnCancel() {
                 _btnCancel();
             }
+
+            /*Lookup*/
+            function isEnabledChk() {
+            	var isEnabled = !(q_cur==1 || q_cur==2);
+                if($('#t1').css('display') != 'none') {
+                    var obj = $('#t1');
+                    if(obj.children('tbody').length > 0)
+                        obj = obj.children('tbody').eq(0);
+                    if(isEnabled)
+                        obj.children('tr[name="data"]').children().children('[src="option"]').removeAttr('disabled');
+                    else
+                        obj.children('tr[name="data"]').children().children('[src="option"]').attr('disabled', 'disabled');
+                }
+                if($('#t2').css('display') != 'none') {
+                    var obj = $('#t2');
+                    if(obj.children('tbody').length > 0)
+                        obj = obj.children('tbody').eq(0);
+                    if(isEnabled)
+                        obj.children('tr[name="data"]').children().children('[src="option"]').removeAttr('disabled');
+                    else
+                        obj.children('tr[name="data"]').children().children('[src="option"]').attr('disabled', 'disabled');
+                }
+                if($('#t3').css('display') != 'none') {
+                    var obj = $('#t3');
+                    if(obj.children('tbody').length > 0)
+                        obj = obj.children('tbody').eq(0);
+                    if(isEnabled)
+                        obj.children('tr[name="data"]').children().children('[src="option"]').removeAttr('disabled');
+                    else
+                        obj.children('tr[name="data"]').children().children('[src="option"]').attr('disabled', 'disabled');
+                }
+            }
+
+            ;(function($, undefined) {
+                $.fn.refresh = function(value) {
+                    if($.type($(this).data('info')) == "undefined") {
+                        $(this).data('info', {
+                            value : value,
+                            isSort : true,
+                            isAllowMutiple : false
+                        });
+                    } else {
+                        if($(this).data('info').isSort)
+                            $(this).data('info').value = value;
+                    }
+                    $(this).show();
+                    var obj = $(this), obj2, obj3;
+                    if($(this).children('tbody').length > 0)
+                        obj = $(this).children('tbody').eq(0);
+                    obj.children('tr').remove('[name="data"]');
+
+                    for( i = 0; i < $(this).data('info').value.length; i++) {
+                        obj.children('tr[name="template"]').clone().appendTo(obj);
+                        obj.children('tr').last().attr('name', 'data');
+                        obj.children('tr').last().show();
+                        obj2 = obj.children('tr').last().children();
+
+                        for( j = 0; j < obj2.length; j++) {
+                            /*checkbox*/
+                            if(obj2.eq(j).children('[src="option"]').length > 0) {
+                                obj2.eq(j).children('[src="option"]').data('info', {
+                                    index : i
+                                });
+                                obj2.eq(j).children('[src="option"]').change(function(e) {
+                                    var obj = $(this).parent().parent().parent().has('tbody') ? $(this).parent().parent().parent().parent() : $(this).parent().parent().parent();
+                                    /*control (tr background-color) & checked */
+                                    if($(this).prop('checked')) {
+                                        if(!obj.data('info').isAllowMutiple) {
+                                            $(this).parent().parent().parent().children('[name="data"]').removeClass('select');
+                                            $(this).parent().parent().parent().children('[name="data"]').children('td').children('[src="option"]').prop('checked', false);
+                                            for( k = 0; k < obj.data('info').value.length; k++)
+                                                obj.data('info').value[k]._checked = false;
+                                            $(this).prop('checked', true);
+                                        }
+                                        $(this).parent().parent().addClass('select');
+                                    } else
+                                        $(this).parent().parent().removeClass('select');
+                                    obj.data('info').value[$(this).data('info').index]._checked = $(this).prop('checked');
+                                });
+                                if(!$(this).data('info').isAllowMutiple) {
+                                    obj2.eq(j).children('[src="option"]').click(function(e) {
+                                        if($(this).prop('checked')) {
+                                            $('#btnVcce_condition').click();
+                                            isEnabledChk();
+                                            $('#txtWeight').focus();
+                                            window.location.hash = "#tbbm";
+                                        }
+                                    });
+                                }
+                                if($(this).data('info').value[i]._checked) {
+                                    obj2.eq(j).children('[src="option"]').prop('checked', true);
+                                }
+                                obj2.eq(j).children('[src="option"]').change();
+                            }
+                            /*data*/
+                            obj3 = obj2.eq(j).children('[type="text"]');
+                            for( k = 0; k < obj3.length; k++)
+                                if(obj3.eq(k).val().length > 0) {
+                                    obj3.eq(k).val(eval("$(this).data('info').value[i]." + obj3.eq(k).val()));
+                                    obj3.eq(k).attr('readonly', 'readonly');
+                                }
+                            obj3 = obj2.eq(j).children('[type="checkbox"]').not('[src="option"]');
+                            for( k = 0; k < obj3.length; k++)
+                                if(obj3.eq(k).val().length > 0) {
+                                    obj3.eq(k).prop('checked', eval("$(this).data('info').value[i]." + obj3.eq(k).val()) == 'true');
+                                    obj3.eq(k).attr('disabled', 'disabled');
+                                }
+                        }
+                    }
+                    /*Sort*/
+                    if($(this).data('info').isSort) {
+                        var tmp = obj.children('tr[name="header"]').eq(0).children();
+                        for( i = 0; i < tmp.length; i++) {
+                            index = tmp.eq(i).attr('index');
+                            if( typeof (tmp.eq(i).attr('index')) != "undefined") {
+                                tmp.eq(i).data('info', {
+                                    parent : $(this),
+                                    order : 'asc',
+                                    func_sort : new Function('a', 'b', "return a." + tmp.eq(i).attr('index') + ">=b." + tmp.eq(i).attr('index') + "?1:-1;")
+                                });
+                                tmp.eq(i).click(function(e) {
+                                    $(this).data('info').parent.data('info').value.sort($(this).data('info').func_sort);
+                                    if($(this).data('info').order == 'asc') {
+                                        $(this).data('info').order = 'desc';
+                                    } else {
+                                        $(this).data('info').parent.data('info').value.reverse();
+                                        $(this).data('info').order = 'asc';
+                                    }
+                                    $(this).data('info').parent.data('info').isSort = false;
+                                    $(this).data('info').parent.refresh($(this).data('info').parent.data('info').value);
+                                    window.location.hash = "#"+$(this).data('info').parent.attr('name');
+                                });
+                                tmp.eq(i).hover(function(e) {
+                                    $(this).addClass('focus');
+                                }, function(e) {
+                                    $(this).removeClass('focus');
+                                });
+                            }
+                        }
+                    } else {
+                        $(this).data('info').isSort = true;
+                    }
+                }
+            })($);
+
 		</script>
 		<style type="text/css">
             #dmain {
@@ -429,11 +578,11 @@
                 float: left;
             }
             .tbbm tr td .txt.c4 {
-                width: 60%;
+                width: 35%;
                 float: left;
             }
             .tbbm tr td .txt.c5 {
-                width: 40%;
+                width: 65%;
                 float: left;
             }
             .tbbm tr td .txt.num {
@@ -456,6 +605,11 @@
                 padding: 0px;
                 margin: -1px;
             }
+            td .schema {
+                display: block;
+                width: 95%;
+                height: 0px;
+            }
             #condition {
                 width: 100%;
                 background: #E0EEEE;
@@ -470,6 +624,13 @@
             }
             #condition tr[name="data"] {
                 display: none;
+            }
+            #condition .lbl.btn {
+                display: block;
+                width: 100%;
+            }
+            #condition .lbl.btn:hover {
+                color: red;
             }
             #t1, #t2, #t3 {
                 width: 100%;
@@ -525,7 +686,7 @@
 				</table>
 			</div>
 			<div class='dbbm' >
-				<table class="tbbm"  id="tbbm" >
+				<table class="tbbm"  id="tbbm" name="tbbm">
 					<tr class="tr1">
 						<td class="td1" ><span> </span><a id="lblNoa" class="lbl"></a></td>
 						<td class="td2" >
@@ -548,16 +709,23 @@
 						<td class="td2">
 						<input id="txtCarno" type="text"  class="txt c1"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblCaseno" class="lbl"></a></td>
+						<td class="td3"><span> </span><a id="lblDriver" class="lbl"></a></td>
 						<td class="td4">
+						<input id="txtDriverno" type="text"  class="txt c2"/>
+						<input id="txtDriver" type="text"  class="txt c3"/>
+						</td>
+					</tr>
+					<tr class="tr3">
+						<td class="td1"><span> </span><a id="lblCaseno" class="lbl"></a></td>
+						<td class="td2">
 						<input id="txtCaseno" type="text"  class="txt c1"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblMount" class="lbl"></a></td>
-						<td class="td6">
+						<td class="td3"><span> </span><a id="lblMount" class="lbl"></a></td>
+						<td class="td4">
 						<input id="txtMount" type="text"  class="txt num c1"/>
 						</td>
-						<td class="td7"><span> </span><a id="lblWeight" class="lbl"></a></td>
-						<td class="td8">
+						<td class="td5"><span> </span><a id="lblWeight" class="lbl"></a></td>
+						<td class="td6">
 						<input id="txtWeight" type="text"  class="txt num c1"/>
 						</td>
 					</tr>
@@ -569,19 +737,19 @@
 		</div>
 		<table id="condition">
 			<tr name="schema">
-				<td class="td1" style="width:7%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td2" style="width:7%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td3" style="width:7%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td4" style="width:7%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td5" style="width:7%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td6" style="width:7%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td7" style="width:7%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td8" style="width:7%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td9" style="width:7%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdA" style="width:7%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdB" style="width:7%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdC" style="width:7%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdD" style="width:7%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td1" style="width:14%"><span class="schema"> </span></td>
+				<td class="td2" style="width:7%"><span class="schema"> </span></td>
+				<td class="td3" style="width:7%"><span class="schema"> </span></td>
+				<td class="td4" style="width:7%"><span class="schema"> </span></td>
+				<td class="td5" style="width:7%"><span class="schema"> </span></td>
+				<td class="td6" style="width:7%"><span class="schema"> </span></td>
+				<td class="td7" style="width:7%"><span class="schema"> </span></td>
+				<td class="td8" style="width:7%"><span class="schema"> </span></td>
+				<td class="td9" style="width:7%"><span class="schema"> </span></td>
+				<td class="tdA" style="width:7%"><span class="schema"> </span></td>
+				<td class="tdB" style="width:7%"><span class="schema"> </span></td>
+				<td class="tdC" style="width:7%"><span class="schema"> </span></td>
+				<td class="tdD" style="width:7%"><span class="schema"> </span></td>
 			</tr>
 			<tr name="action">
 				<td class="td1" colspan="14" style="text-align: left;"><span style="display: block; width:20px; height:10px; float:left;"> </span><select id="cmbTypea_condition"  style="width:100px;"></select>
@@ -590,22 +758,23 @@
 				</td>
 			</tr>
 			<tr name="header" class="type1">
-				<td class="td1" id='lblCust_type1'></td>
+				<td class="td1"><a id="lblCust_type1" class="lbl btn"></a></td>
+				<td class="td9" id="lblOdate_type1"></td>
 				<td class="td2" id='lblStradd_type1'></td>
 				<td class="td3" id="lblEndadd_type1"></td>
 				<td class="td4" id="lblProduct_type1"></td>
 				<td class="td5" id="lblOrdeno_type1"></td>
 				<td class="td6" id="lblCarno_type1"></td>
-				<td class="td7" id="lblMount_type1"></td>
-				<td class="td8" id="lblWeight_type1"></td>
-				<td class="td9" id="lblTime_type1"></td>
 			</tr>
 			<tr name="data" class="type1">
 				<td class="td1">
-				<input type="text" style="width: 35%;" id="txtCustno_type1"/>
-				<input type="text" style="width: 60%;" id="txtCust_type1"/>
+				<input type="text" style="width: 30%;" id="txtCustno_type1"/>
+				<input type="text" style="width: 65%;" id="txtCust_type1"/>
 				</td>
 				<td class="td2">
+				<input type="text" style="width: 95%;" id="txtOdate_type1"/>
+				</td>
+				<td class="td3">
 				<input type="text" style="width: 35%;" id="txtStraddno_type1"/>
 				<input type="text" style="width: 60%;" id="txtStradd_type1"/>
 				</td>
@@ -622,15 +791,6 @@
 				</td>
 				<td class="td6">
 				<input type="text" style="width: 95%;" id="txtCarno_type1"/>
-				</td>
-				<td class="td7">
-				<input type="text" style="width: 95%;" id="txtMount_type1"/>
-				</td>
-				<td class="td8">
-				<input type="text" style="width: 95%;" id="txtWeight_type1"/>
-				</td>
-				<td class="td9">
-				<input type="text" style="width: 95%;" id="txtTime_type1"/>
 				</td>
 			</tr>
 			<tr name="header" class="type2">
@@ -757,19 +917,19 @@
 				&nbsp;
 			</p>
 		</div>
-		<table id="t1">
+		<table id="t1" name="t1">
 			<tr name="schema">
-				<td class="td1" style="width:3%;"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td2" style="width:10%;"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td3" style="width:5%;"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td4" style="width:5%;"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td5" style="width:15%;"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td6" style="width:8%;"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td7" style="width:8%;"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td8" style="width:5%;"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td9" style="width:8%;"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdA" style="width:5%;"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdB" style="width:8%;"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td1" style="width:3%;"><span class="schema"> </span></td>
+				<td class="td2" style="width:10%;"><span class="schema"> </span></td>
+				<td class="td3" style="width:5%;"><span class="schema"> </span></td>
+				<td class="td4" style="width:5%;"><span class="schema"> </span></td>
+				<td class="td5" style="width:15%;"><span class="schema"> </span></td>
+				<td class="td6" style="width:8%;"><span class="schema"> </span></td>
+				<td class="td7" style="width:8%;"><span class="schema"> </span></td>
+				<td class="td8" style="width:5%;"><span class="schema"> </span></td>
+				<td class="td9" style="width:8%;"><span class="schema"> </span></td>
+				<td class="tdA" style="width:5%;"><span class="schema"> </span></td>
+				<td class="tdB" style="width:8%;"><span class="schema"> </span></td>
 			</tr>
 			<tr name="header">
 				<td class="td1" id="lblChk_t1"></td>
@@ -824,24 +984,24 @@
 				</td>
 			</tr>
 		</table>
-		<table id="t2">
+		<table id="t2" name="t2">
 			<tr name="schema">
-				<td class="td1" style="width:3%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td2" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td3" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td4" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td5" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td6" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td7" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td8" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td9" style="width:3%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdA" style="width:3%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdB" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdC" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdD" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdE" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdF" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdG" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td1" style="width:3%"><span class="schema"> </span></td>
+				<td class="td2" style="width:8%"><span class="schema"> </span></td>
+				<td class="td3" style="width:6%"><span class="schema"> </span></td>
+				<td class="td4" style="width:6%"><span class="schema"> </span></td>
+				<td class="td5" style="width:6%"><span class="schema"> </span></td>
+				<td class="td6" style="width:5%"><span class="schema"> </span></td>
+				<td class="td7" style="width:5%"><span class="schema"> </span></td>
+				<td class="td8" style="width:6%"><span class="schema"> </span></td>
+				<td class="td9" style="width:3%"><span class="schema"> </span></td>
+				<td class="tdA" style="width:3%"><span class="schema"> </span></td>
+				<td class="tdB" style="width:5%"><span class="schema"> </span></td>
+				<td class="tdC" style="width:8%"><span class="schema"> </span></td>
+				<td class="tdD" style="width:8%"><span class="schema"> </span></td>
+				<td class="tdE" style="width:8%"><span class="schema"> </span></td>
+				<td class="tdF" style="width:8%"><span class="schema"> </span></td>
+				<td class="tdG" style="width:5%"><span class="schema"> </span></td>
 			</tr>
 			<tr name="header">
 				<td class="td1" id="lblChk_t2"></td>
@@ -915,24 +1075,24 @@
 				</td>
 			</tr>
 		</table>
-		<table id="t3">
+		<table id="t3" name="t3">
 			<tr name="schema">
-				<td class="td1" style="width:3%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td2" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td3" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td4" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td5" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td6" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td7" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td8" style="width:6%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="td9" style="width:3%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdA" style="width:3%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdB" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdC" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdD" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdE" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdF" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				<td class="tdG" style="width:5%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				<td class="td1" style="width:3%"><span class="schema"> </span></td>
+				<td class="td2" style="width:8%"><span class="schema"> </span></td>
+				<td class="td3" style="width:6%"><span class="schema"> </span></td>
+				<td class="td4" style="width:6%"><span class="schema"> </span></td>
+				<td class="td5" style="width:6%"><span class="schema"> </span></td>
+				<td class="td6" style="width:5%"><span class="schema"> </span></td>
+				<td class="td7" style="width:5%"><span class="schema"> </span></td>
+				<td class="td8" style="width:6%"><span class="schema"> </span></td>
+				<td class="td9" style="width:3%"><span class="schema"> </span></td>
+				<td class="tdA" style="width:3%"><span class="schema"> </span></td>
+				<td class="tdB" style="width:5%"><span class="schema"> </span></td>
+				<td class="tdC" style="width:8%"><span class="schema"> </span></td>
+				<td class="tdD" style="width:8%"><span class="schema"> </span></td>
+				<td class="tdE" style="width:8%"><span class="schema"> </span></td>
+				<td class="tdF" style="width:8%"><span class="schema"> </span></td>
+				<td class="tdG" style="width:5%"><span class="schema"> </span></td>
 			</tr>
 			<tr name="header">
 				<td class="td1" id="lblChk_t3"></td>
