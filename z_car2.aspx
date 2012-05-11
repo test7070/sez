@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title></title>
-		<script src="/../script/jquery.min.js" type="text/javascript"></script>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
@@ -42,10 +42,6 @@
                     $('#qReport').q_report({
                         fileName : 'z_car2',
                         options : [{
-                            type : '0',
-                            name : 'gqbTypea',
-                            value : q_getPara('gqb.typea')
-                        },{
                             type : '1',
                             name : 'mon'
                         }, {
@@ -69,7 +65,7 @@
                             dbf : 'driver',
                             index : 'noa,namea',
                             src : 'driver_b.aspx'
-                        },{
+                        }, {
                             type : '2',
                             name : 'sss',
                             dbf : 'sss',
@@ -99,7 +95,7 @@
                     $('#txtDate2').datepicker();
                     $('#txtEnddate').mask('999/99/99');
                     $('#txtEnddate').datepicker();
-                    
+
                 } else
                     alert('Error!' + '\r' + t_func + '\r' + result);
             }

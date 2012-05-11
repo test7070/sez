@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title></title>
-		<script src="/../script/jquery.min.js" type="text/javascript"></script>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>

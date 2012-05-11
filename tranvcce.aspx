@@ -169,12 +169,12 @@
                             $("#t1").show();
                             break;
                         case '2':
-                            //custno,cust,straddno,stradd,endaddno,endadd,caseno,caseno2,po,traceno,isdisplay,carno,datea,ispal,ef,ordeno
+                            //custno,straddno,stradd,endaddno,endadd,caseno,caseno2,po,traceno,isdisplay,carno,datea,ispal,ef,ordeno
                             q_func('tranvcce.getItem2', $('#cmbCust_type2').val() + ',' + $('#txtStraddno_type2').val() + ',' + $('#txtStradd_type2').val() + ',' + $('#txtEndaddno_type2').val() + ',' + $('#txtEndadd_type2').val() + ',' + $('#txtCaseno_type2').val() + ',' + $('#txtCaseno2_type2').val() + ',' + $('#txtPo_type2').val() + ',' + $('#txtTraceno_type2').val() + ',' + ($('#chkIsdisplay_type2').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type2').val() + ',' + $('#txtOdate_type2').val() + ',' + $('#cmbIspal_type2').val() + ',' + $('#cmbEf_type2').val() + ',' + $('#txtOrdeno_type2').val() + ',empty');
                             $("#t2").show();
                             break;
                         case '3':
-                            //custno,cust,straddno,stradd,endaddno,endadd,shipno,so,cldate,caseno,isdisplay,carno,datea,ispal,ef,ordeno
+                            //custno,straddno,stradd,endaddno,endadd,shipno,so,cldate,caseno,isdisplay,carno,datea,ispal,ef,ordeno
                             q_func('tranvcce.getItem3', $('#cmbCust_type3').val() + ',' + $('#txtStraddno_type3').val() + ',' + $('#txtStradd_type3').val() + ',' + $('#txtEndaddno_type3').val() + ',' + $('#txtEndadd_type3').val() + ',' + $('#txtShipno_type3').val() + ',' + $('#txtSo_type3').val() + ',' + $('#txtCldate_type3').val() + ',' + $('#txtCaseno_type3').val() + ',' + ($('#chkIsdisplay_type3').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type3').val() + ',' + $('#txtOdate_type3').val() + ',' + $('#cmbIspal_type3').val() + ',' + $('#cmbEf_type3').val() + ',' + $('#txtOrdeno_type3').val() + ',empty');
                             $("#t3").show();
                             break;
