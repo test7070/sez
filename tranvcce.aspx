@@ -28,7 +28,7 @@
             brwKey = 'noa';
             q_alias = '';
             q_desc = 1;
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],['txtStraddno_type1', 'lblStradd_type1', 'addr', 'noa,addr', 'txtStraddno_type1,txtStradd_type1', 'addr_b.aspx'], ['txtEndaddno_type1', 'lblEndadd_type1', 'addr', 'noa,addr', 'txtEndaddno_type1,txtEndadd_type1', 'addr_b.aspx'], ['txtStraddno_type2', 'lblStradd_type2', 'addr', 'noa,addr', 'txtStraddno_type2,txtStradd_type2', 'addr_b.aspx'], ['txtEndaddno_type2', 'lblEndadd_type2', 'addr', 'noa,addr', 'txtEndaddno_type2,txtEndadd_type2', 'addr_b.aspx'], ['txtStraddno_type3', 'lblStradd_type3', 'addr', 'noa,addr', 'txtStraddno_type3,txtStradd_type3', 'addr_b.aspx'], ['txtEndaddno_type3', 'lblEndadd_type3', 'addr', 'noa,addr', 'txtEndaddno_type3,txtEndadd_type3', 'addr_b.aspx']);
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtStraddno_type1', 'lblStradd_type1', 'addr', 'noa,addr', 'txtStraddno_type1,txtStradd_type1', 'addr_b.aspx'], ['txtEndaddno_type1', 'lblEndadd_type1', 'addr', 'noa,addr', 'txtEndaddno_type1,txtEndadd_type1', 'addr_b.aspx'], ['txtStraddno_type2', 'lblStradd_type2', 'addr', 'noa,addr', 'txtStraddno_type2,txtStradd_type2', 'addr_b.aspx'], ['txtEndaddno_type2', 'lblEndadd_type2', 'addr', 'noa,addr', 'txtEndaddno_type2,txtEndadd_type2', 'addr_b.aspx'], ['txtStraddno_type3', 'lblStradd_type3', 'addr', 'noa,addr', 'txtStraddno_type3,txtStradd_type3', 'addr_b.aspx'], ['txtEndaddno_type3', 'lblEndadd_type3', 'addr', 'noa,addr', 'txtEndaddno_type3,txtEndadd_type3', 'addr_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -57,17 +57,17 @@
                                 alert(tmp[0].memo);
                             }
                             $('#btnNo').removeAttr('disabled');
-                            isEnabled();                   
+                            isEnabled();
                             break;
                         case 'tranvcce.getCust':
                             var tmp = _q_appendData('tranvcce_cust', '', true);
-                            tmpStr = '<option value="">'+q_getPara('tranvcce.string_all')+'<';
+                            tmpStr = '<option value="">' + q_getPara('tranvcce.string_all') + '<';
                             tmpStr += '/option>';
                             $('#cmbCust_type1').append(tmpStr);
                             $('#cmbCust_type2').append(tmpStr);
                             $('#cmbCust_type3').append(tmpStr);
                             for( i = 0; i < tmp.length; i++) {
-                                tmpStr = '<option value="' + tmp[i].custno + '">'+tmp[i].nick+'<';
+                                tmpStr = '<option value="' + tmp[i].custno + '">' + tmp[i].nick + '<';
                                 tmpStr += '/option>';
                                 if(tmp[i].typea == '1')
                                     $('#cmbCust_type1').append(tmpStr);
@@ -416,27 +416,25 @@
                     $('#cmbTypea').val(t_typea);
                     $('#txtCarno').val(t_carno);
                     $('#txtCaseno').val(t_caseno);
-                    $('#txtDatea').val(q_date());                     
+                    $('#txtDatea').val(q_date());
                 }
             }
 
             ;(function($, undefined) {
                 $.fn.refresh = function(value) {
-                    if($.type($(this).data('info')) == "undefined") {
+                    if( typeof ($(this).data('info')) == "undefined") {
                         $(this).data('info', {
                             value : value,
-                            isSort : true
+                            isInit : true
                         });
                     } else {
-                        if($(this).data('info').isSort)
-                            $(this).data('info').value = value;
+                        $(this).data('info').value = value;
                     }
                     $(this).show();
                     var obj = $(this), obj2, obj3;
                     if($(this).children('tbody').length > 0)
                         obj = $(this).children('tbody').eq(0);
                     obj.children('tr').remove('[name="data"]');
-
                     for( i = 0; i < $(this).data('info').value.length; i++) {
                         obj.children('tr[name="template"]').clone().appendTo(obj);
                         obj.children('tr').last().attr('name', 'data');
@@ -480,7 +478,7 @@
                         }
                     }
                     /*Sort*/
-                    if($(this).data('info').isSort) {
+                    if($(this).data('info').isInit) {
                         var tmp = obj.children('tr[name="header"]').eq(0).children();
                         for( i = 0; i < tmp.length; i++) {
                             index = tmp.eq(i).attr('index');
@@ -498,7 +496,6 @@
                                         $(this).data('info').parent.data('info').value.reverse();
                                         $(this).data('info').order = 'asc';
                                     }
-                                    $(this).data('info').parent.data('info').isSort = false;
                                     $(this).data('info').parent.refresh($(this).data('info').parent.data('info').value);
                                 });
                                 tmp.eq(i).hover(function(e) {
@@ -508,9 +505,8 @@
                                 });
                             }
                         }
-                    } else {
-                        $(this).data('info').isSort = true;
                     }
+                    $(this).data('info').isInit = false;
                     isEnabled();
                 }
             })($);
@@ -766,8 +762,8 @@
 			<tr name="action">
 				<td class="td1" colspan="14" style="text-align: left;"><span style="display: block; width:20px; height:10px; float:left;"> </span><select id="cmbTypea_condition"  style="width:100px;"></select>
 				<input type="button" id="btnLookup_condition"/>
-				<input type="checkbox" id="chkIsdisplay"/><a id="lblIsdisplay"></a>
-				</td>
+				<input type="checkbox" id="chkIsdisplay"/>
+				<a id="lblIsdisplay"></a></td>
 			</tr>
 			<tr name="header" class="type1">
 				<td class="td1" id="lblCust_type1"></td>
