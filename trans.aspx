@@ -419,17 +419,21 @@
 			<div class='dbbm' >
 				<table class="tbbm"  id="tbbm" >
 					<tr class="tr1">
-						<td class="td1" ><span> </span><a id="lblNoa" class="lbl"></a></td>
+						<td class="td1" ><span> </span><a id="lblKdate" class="lbl"></a></td>
 						<td class="td2" >
+						<input id="txtKdate" type="text"  class="txt c1"/>
+						</td>
+						<td class="td3" ><span> </span><a id="lblDatea" class="lbl"></a></td>
+						<td class="td4" >
+						<input id="txtDatea" type="text"  class="txt c1"/>
+						</td>
+						<td class="td5"></td>
+						<td class="td6"></td>
+						<td class="td7" ><span> </span><a id="lblNoa" class="lbl"></a></td>
+						<td class="td8" >
 						<input id="txtNoa" type="text"  class="txt c1"/>
 						</td>
-						<td class="td3" ></td>
-						<td class="td4" ></td>
-						<td class="td5" ></td>
-						<td class="td6" ></td>
-						<td class="td7" ></td>
-						<td class="td8" ></td>
-						<td class="td9" ></td>
+						
 					</tr>
 					<tr class="tr2">
 						<td class="td1" ><span> </span><a id="lblCust" class="lbl btn"></a></td>
@@ -437,22 +441,12 @@
 						<input id="txtCustno" type="text"  style='width:25%; float:left;'/>
 						<input id="txtComp" type="text"  style='width:75%; float:left;'/>
 						</td>
-						<td class="td5" ><span> </span><a id="lblKdate" class="lbl"></a></td>
-						<td class="td6" >
-						<input id="txtKdate" type="text"  class="txt c1"/>
-						</td>
-						<td class="td7" ><span> </span><a id="lblDatea" class="lbl"></a></td>
-						<td class="td8" >
-						<input id="txtDatea" type="text"  class="txt c1"/>
-						</td>
+						<td class="td5" ><span> </span><a id="lblTtype" class="lbl"></a></td>
+						<td class="td6" ><select id="cmbTtype" class="txt c1"></select></td>
+						<td class="td7" ><span> </span><a id="lblCarteam" class="lbl"></a></td>
+						<td class="td8" ><select id="cmbCarteamno" class="txt c1"></select></td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1" ><span> </span><a id="lblTtype" class="lbl"></a></td>
-						<td class="td2" ><select id="cmbTtype" class="txt c1"></select></td>
-						<td class="td3" ><span> </span><a id="lblCarteam" class="lbl"></a></td>
-						<td class="td4" ><select id="cmbCarteamno" class="txt c1"></select></td>
-					</tr>
-					<tr class="tr4">
 						<td class="td1" ><span> </span><a id="lblCarno" class="lbl"></a></td>
 						<td class="td2" >
 						<input id="txtCarno" type="text"  class="txt c1"/>
@@ -468,7 +462,7 @@
 						<input id="txtCardeal" type="text"  style='width:75%; float:left;'/>
 						</td>
 					</tr>
-					<tr class="tr5">
+					<tr class="tr4">
 						<td class="td1" ><span> </span><a id="lblAdd1" class="lbl btn"></a></td>
 						<td class="td2">
 						<input id="txtAddno1" type="text"  class="txt c2"/>
@@ -490,7 +484,7 @@
 						<input id="txtAdd4" type="text"  class="txt c3"/>
 						</td>
 					</tr>
-					<tr class="tr6">
+					<tr class="tr5">
 						<td class="td1" ><span> </span><a id="lblSales" class="lbl btn"></a></td>
 						<td class="td2">
 						<input id="txtSalesno" type="text"  class="txt c2"/>
@@ -510,7 +504,7 @@
 						<input id="txtGps" type="text"  class="txt num c1"/>
 						</td>
 					</tr>
-					<tr class="tr8">
+					<tr class="tr6">
 						<td class="td1" ><span> </span><a id="lblOrdeno" class="lbl"></a></td>
 						<td class="td2" >
 						<input id="txtOrdeno" type="text"  class="txt c1"/>
@@ -529,7 +523,7 @@
 						<input id="txtThirdprice" type="text" class="txt num c1" />
 						</td>
 					</tr>
-					<tr class="tr9">
+					<tr class="tr7">
 						<td class="td1" ><span> </span><a id="lblMount" class="lbl"></a></td>
 						<td class="td2" >
 						<input id="txtMount" type="text"  class="txt num c4"/>
@@ -548,7 +542,7 @@
 						</td>
 
 					</tr>
-					<tr class="tr10">
+					<tr class="tr8">
 						<td class="td1" ><span> </span><a id="lblGross" class="lbl"></a></td>
 						<td class="td2" >
 						<input id="txtGross" type="text"  class="txt num c1"/>
@@ -557,8 +551,14 @@
 						<td class="td4" >
 						<input id="txtWeight" type="text"  class="txt num c1"/>
 						</td>
+						<td class="td5"></td>
+						<td class="td6"></td>
+						<td class="td7"><span> </span><a id="lblUnpack" class="lbl"></a></td>
+						<td class="td8">
+						<input id="txtUnpack" type="text"  class="txt num c1"/>
+						</td>
 					</tr>
-					<tr class="tr11">
+					<tr class="tr9">
 						<td class="td1" ><span> </span><a id="lblCalctype" class="lbl"></a></td>
 						<td class="td2" ><select id="cmbCalctype" class="txt c1"></select></td>
 						<td class="td3" ><span> </span><a id="lblPrice" class="lbl"></a></td>
@@ -575,7 +575,7 @@
 						<input id="txtDiscount" type="text" class="txt num c1"/>
 						</td>
 					</tr>
-					<tr class="tr12">
+					<tr class="tr10">
 						<td class="td1" ><span> </span><a id="lblPlus" class="lbl"></a></td>
 						<td class="td2" >
 						<input id="txtPlus" type="text"  class="txt c1"/>
@@ -593,7 +593,7 @@
 						<input id="txtTolls" type="text" class="txt num c1"/>
 						</td>
 					</tr>
-					<tr class="tr13">
+					<tr class="tr11">
 						<td class="td1" ><span> </span><a id="lblCaseno" class="lbl"></a></td>
 						<td class="td2" colspan="3">
 						<input id="txtCaseno" type="text"  style='width:50%; float:left;'/>
@@ -608,7 +608,7 @@
 						<input id="txtSo" type="text"  class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr14">
+					<tr class="tr12">
 						<td class="td1" ><span> </span><a id="lblCaseuse" class="lbl"></a></td>
 						<td class="td2" >
 						<input id="txtCaseuse" type="text" class="txt c1"/>
@@ -624,7 +624,7 @@
 						<input id="txtCldate" type="text" class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr15">
+					<tr class="tr13">
 						<td class="td1"><span> </span><a id="lblFill" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtFill" type="text"  class="txt c1"/>
@@ -642,17 +642,11 @@
 						<input id="txtBilldate" type="text"  class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr16">
-						<td class="td1"><span> </span><a id="lblUnpack" class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtUnpack" type="text"  class="txt num c1"/>
-						</td>
-					</tr>
-					<tr class="tr17">
+					<tr class="tr14">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
 						<td class="td2" colspan='7'>						<textarea id="txtMemo" style="width:100%; height: 127px;"></textarea></td>
 					</tr>
-					<tr class="tr18">
+					<tr class="tr15">
 						<td class="td1"><span> </span><a id="lblLtime" class="lbl"></a></td>
 						<td class="td2" >
 						<input id="txtLtime" type="text"  class="txt c1"/>
@@ -670,7 +664,7 @@
 						<input id="txtTotal" type="text"  class="txt num c1"/>
 						</td>
 					</tr>
-					<tr class="tr19">
+					<tr class="tr16">
 						<td class="td1"><span> </span><a id="lblOverw" class="lbl"></a></td>
 						<td class="td2" >
 						<input id="txtOverw" type="text"  class="txt num c1"/>
@@ -688,7 +682,7 @@
 						<input id="txtCommission" type="text" class="txt num c1"/>
 						</td>
 					</tr>
-					<tr class="tr20">
+					<tr class="tr17">
 						<td class="td1"><span> </span><a id="lblUmmbno" class="lbl"></a></td>
 						<td class="td2" >
 						<input id="txtUmmbno" type="text" class="txt c1"/>
