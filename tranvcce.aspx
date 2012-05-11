@@ -38,17 +38,7 @@
             brwKey = 'noa';
             q_alias = '';
             q_desc = 1;
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], 
-            ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
-            ['txtCustno_type1', 'lblCust_type1', 'cust', 'noa,comp', 'txtCustno_type1,txtCust_type1', 'cust_b.aspx'], 
-            ['txtCustno_type2', 'lblCust_type2', 'cust', 'noa,comp', 'txtCustno_type2,txtCust_type2', 'cust_b.aspx'], 
-            ['txtCustno_type3', 'lblCust_type3', 'cust', 'noa,comp', 'txtCustno_type3,txtCust_type3', 'cust_b.aspx'],
-            ['txtStraddno_type1', 'lblStradd_type1', 'addr', 'noa,addr', 'txtStraddno_type1,txtStradd_type1', 'addr_b.aspx'],
-            ['txtEndaddno_type1', 'lblEndadd_type1', 'addr', 'noa,addr', 'txtEndaddno_type1,txtEndadd_type1', 'addr_b.aspx'],
-            ['txtStraddno_type2', 'lblStradd_type2', 'addr', 'noa,addr', 'txtStraddno_type2,txtStradd_type2', 'addr_b.aspx'],
-            ['txtEndaddno_type2', 'lblEndadd_type2', 'addr', 'noa,addr', 'txtEndaddno_type2,txtEndadd_type2', 'addr_b.aspx'],
-            ['txtStraddno_type3', 'lblStradd_type3', 'addr', 'noa,addr', 'txtStraddno_type3,txtStradd_type3', 'addr_b.aspx'],
-            ['txtEndaddno_type3', 'lblEndadd_type3', 'addr', 'noa,addr', 'txtEndaddno_type3,txtEndadd_type3', 'addr_b.aspx']);
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtCustno_type1', 'lblCust_type1', 'cust', 'noa,comp', 'txtCustno_type1,txtCust_type1', 'cust_b.aspx'], ['txtCustno_type2', 'lblCust_type2', 'cust', 'noa,comp', 'txtCustno_type2,txtCust_type2', 'cust_b.aspx'], ['txtCustno_type3', 'lblCust_type3', 'cust', 'noa,comp', 'txtCustno_type3,txtCust_type3', 'cust_b.aspx'], ['txtStraddno_type1', 'lblStradd_type1', 'addr', 'noa,addr', 'txtStraddno_type1,txtStradd_type1', 'addr_b.aspx'], ['txtEndaddno_type1', 'lblEndadd_type1', 'addr', 'noa,addr', 'txtEndaddno_type1,txtEndadd_type1', 'addr_b.aspx'], ['txtStraddno_type2', 'lblStradd_type2', 'addr', 'noa,addr', 'txtStraddno_type2,txtStradd_type2', 'addr_b.aspx'], ['txtEndaddno_type2', 'lblEndadd_type2', 'addr', 'noa,addr', 'txtEndaddno_type2,txtEndadd_type2', 'addr_b.aspx'], ['txtStraddno_type3', 'lblStradd_type3', 'addr', 'noa,addr', 'txtStraddno_type3,txtStradd_type3', 'addr_b.aspx'], ['txtEndaddno_type3', 'lblEndadd_type3', 'addr', 'noa,addr', 'txtEndaddno_type3,txtEndadd_type3', 'addr_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
 
@@ -168,7 +158,7 @@
                     $("#t3").hide();
                     switch($("#cmbTypea_condition").val()) {
                         case '1':
-                            var t_para = q_func('tranvcce.getItem1', $('#txtCustno_type1').val() + ',' + $('#txtCust_type1').val() + ',' + $('#txtStraddno_type1').val() + ',' + $('#txtStradd_type1').val() + ',' + $('#txtEndaddno_type1').val() + ',' + $('#txtEndadd_type1').val() + ',' + $('#txtProductno_type1').val() + ',' + $('#txtProduct_type1').val() + ',' + $('#txtOrdeno_type1').val() + ',' + $('#txtOdate_type1').val() + ',empty');
+                            var t_para = q_func('tranvcce.getItem1', $('#txtCustno_type1').val() + ',' + $('#txtCust_type1').val() + ',' + $('#txtStraddno_type1').val() + ',' + $('#txtStradd_type1').val() + ',' + $('#txtEndaddno_type1').val() + ',' + $('#txtEndadd_type1').val() + ',' + $('#txtProductno_type1').val() + ',' + $('#txtProduct_type1').val() + ',' + $('#txtOrdeno_type1').val() + ',' + $('#txtOdate_type1').val() + ',' + ($('#chkIsdisplay_type1').prop('checked') ? '1' : '0') + ',empty');
                             $("#t1").show();
                             break;
                         case '2':
@@ -797,6 +787,7 @@
 				<td class="td4" id="lblProduct_type1"></td>
 				<td class="td5" id="lblOrdeno_type1"></td>
 				<td class="td6" id="lblCarno_type1"></td>
+				<td class="td6" id="lblIsdisplay_type1"></td>
 			</tr>
 			<tr name="data" class="type1">
 				<td class="td1">
@@ -824,6 +815,9 @@
 				<td class="td6">
 				<input type="text" style="width: 95%;" id="txtCarno_type1"/>
 				</td>
+				<td class="td7">
+				<input type="checkbox" id="chkIsdisplay_type1"/>
+				</td>
 			</tr>
 			<tr name="header" class="type2">
 				<td class="td1" id='lblCust_type2'></td>
@@ -834,7 +828,7 @@
 				<td class="td6" id="lblPo_type2"></td>
 				<td class="td7" id="lblTraceno_type2"></td>
 				<td class="td8" id="lblIsdisplay_type2"></td>
-				<td class="td9" id="lblCarno_type2"></td>		
+				<td class="td9" id="lblCarno_type2"></td>
 				<td class="tdA" id="lblIspal_type2"></td>
 				<td class="tdB" id="lblEf_type2"></td>
 				<td class="tdC" id="lblOrdeno_type2"></td>
@@ -890,7 +884,7 @@
 				<td class="td7" id="lblCldate_type3"></td>
 				<td class="td8" id="lblCaseno_type3"></td>
 				<td class="td9" id="lblIsdisplay_type3"></td>
-				<td class="tdA" id="lblCarno_type3"></td>		
+				<td class="tdA" id="lblCarno_type3"></td>
 				<td class="tdB" id="lblIspal_type3"></td>
 				<td class="tdC" id="lblEf_type3"></td>
 				<td class="tdD" id="lblOrdeno_type3"></td>
