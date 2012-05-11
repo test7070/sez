@@ -11,16 +11,6 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var scrollTimeout;
-            window.onscroll = function() {
-                // update current item display here
-                if(scrollTimeout)
-                    clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(function() {
-                    scrolTimeout = undefined;
-                    // update hash here
-                }, 100);
-            };
             this.errorHandler = null;
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
@@ -38,10 +28,9 @@
             brwKey = 'noa';
             q_alias = '';
             q_desc = 1;
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtCustno_type1', 'lblCust_type1', 'cust', 'noa,comp', 'txtCustno_type1,txtCust_type1', 'cust_b.aspx'], ['txtCustno_type2', 'lblCust_type2', 'cust', 'noa,comp', 'txtCustno_type2,txtCust_type2', 'cust_b.aspx'], ['txtCustno_type3', 'lblCust_type3', 'cust', 'noa,comp', 'txtCustno_type3,txtCust_type3', 'cust_b.aspx'], ['txtStraddno_type1', 'lblStradd_type1', 'addr', 'noa,addr', 'txtStraddno_type1,txtStradd_type1', 'addr_b.aspx'], ['txtEndaddno_type1', 'lblEndadd_type1', 'addr', 'noa,addr', 'txtEndaddno_type1,txtEndadd_type1', 'addr_b.aspx'], ['txtStraddno_type2', 'lblStradd_type2', 'addr', 'noa,addr', 'txtStraddno_type2,txtStradd_type2', 'addr_b.aspx'], ['txtEndaddno_type2', 'lblEndadd_type2', 'addr', 'noa,addr', 'txtEndaddno_type2,txtEndadd_type2', 'addr_b.aspx'], ['txtStraddno_type3', 'lblStradd_type3', 'addr', 'noa,addr', 'txtStraddno_type3,txtStradd_type3', 'addr_b.aspx'], ['txtEndaddno_type3', 'lblEndadd_type3', 'addr', 'noa,addr', 'txtEndaddno_type3,txtEndadd_type3', 'addr_b.aspx']);
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],['txtStraddno_type1', 'lblStradd_type1', 'addr', 'noa,addr', 'txtStraddno_type1,txtStradd_type1', 'addr_b.aspx'], ['txtEndaddno_type1', 'lblEndadd_type1', 'addr', 'noa,addr', 'txtEndaddno_type1,txtEndadd_type1', 'addr_b.aspx'], ['txtStraddno_type2', 'lblStradd_type2', 'addr', 'noa,addr', 'txtStraddno_type2,txtStradd_type2', 'addr_b.aspx'], ['txtEndaddno_type2', 'lblEndadd_type2', 'addr', 'noa,addr', 'txtEndaddno_type2,txtEndadd_type2', 'addr_b.aspx'], ['txtStraddno_type3', 'lblStradd_type3', 'addr', 'noa,addr', 'txtStraddno_type3,txtStradd_type3', 'addr_b.aspx'], ['txtEndaddno_type3', 'lblEndadd_type3', 'addr', 'noa,addr', 'txtEndaddno_type3,txtEndadd_type3', 'addr_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
-
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
             });
@@ -51,7 +40,6 @@
                     return;
                 }
                 mainForm(0);
-
             }
 
             function q_funcPost(t_func, result) {
@@ -69,7 +57,25 @@
                                 alert(tmp[0].memo);
                             }
                             $('#btnNo').removeAttr('disabled');
-                            isEnabledChk(true);
+                            isEnabled();
+                            break;
+                        case 'tranvcce.getCust':
+                            var tmp = _q_appendData('tranvcce_cust', '', true);
+                            tmpStr = '<option value="">'+q_getPara('tranvcce.string_all')+'<';
+                            tmpStr += '/option>';
+                            $('#cmbCust_type1').append(tmpStr);
+                            $('#cmbCust_type2').append(tmpStr);
+                            $('#cmbCust_type3').append(tmpStr);
+                            for( i = 0; i < tmp.length; i++) {
+                                tmpStr = '<option value="' + tmp[i].custno + '">'+tmp[i].nick+'<';
+                                tmpStr += '/option>';
+                                if(tmp[i].typea == '1')
+                                    $('#cmbCust_type1').append(tmpStr);
+                                else if(tmp[i].typea == '2')
+                                    $('#cmbCust_type2').append(tmpStr);
+                                else
+                                    $('#cmbCust_type3').append(tmpStr);
+                            }
                             break;
                         case 'tranvcce.getItem1':
                             var tmp = _q_appendData('tranvcce_t1', '', true);
@@ -89,6 +95,7 @@
             }
 
             function mainPost() {
+                q_func('tranvcce.getCust', 'empty');
                 bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
                 $('#txtOdate_type1').mask(r_picd);
@@ -158,65 +165,19 @@
                     $("#t3").hide();
                     switch($("#cmbTypea_condition").val()) {
                         case '1':
-                            var t_para = q_func('tranvcce.getItem1', $('#txtCustno_type1').val() + ',' + $('#txtCust_type1').val() + ',' + $('#txtStraddno_type1').val() + ',' + $('#txtStradd_type1').val() + ',' + $('#txtEndaddno_type1').val() + ',' + $('#txtEndadd_type1').val() + ',' + $('#txtProductno_type1').val() + ',' + $('#txtProduct_type1').val() + ',' + $('#txtOrdeno_type1').val() + ',' + $('#txtOdate_type1').val() + ',' + ($('#chkIsdisplay_type1').prop('checked') ? '1' : '0') + ',empty');
+                            var t_para = q_func('tranvcce.getItem1', $('#cmbCust_type1').val() + ',' + $('#txtStraddno_type1').val() + ',' + $('#txtStradd_type1').val() + ',' + $('#txtEndaddno_type1').val() + ',' + $('#txtEndadd_type1').val() + ',' + $('#txtProductno_type1').val() + ',' + $('#txtProduct_type1').val() + ',' + $('#txtOrdeno_type1').val() + ',' + $('#txtOdate_type1').val() + ',' + ($('#chkIsdisplay_type1').prop('checked') ? '1' : '0') + ',empty');
                             $("#t1").show();
                             break;
                         case '2':
                             //custno,cust,straddno,stradd,endaddno,endadd,caseno,caseno2,po,traceno,isdisplay,carno,datea,ispal,ef,ordeno
-                            q_func('tranvcce.getItem2', $('#txtCustno_type2').val() + ',' + $('#txtCust_type2').val() + ',' + $('#txtStraddno_type2').val() + ',' + $('#txtStradd_type2').val() + ',' + $('#txtEndaddno_type2').val() + ',' + $('#txtEndadd_type2').val() + ',' + $('#txtCaseno_type2').val() + ',' + $('#txtCaseno2_type2').val() + ',' + $('#txtPo_type2').val() + ',' + $('#txtTraceno_type2').val() + ',' + ($('#chkIsdisplay_type2').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type2').val() + ',' + $('#txtOdate_type2').val() + ',' + $('#cmbIspal_type2').val() + ',' + $('#cmbEf_type2').val() + ',' + $('#txtOrdeno_type2').val() + ',empty');
+                            q_func('tranvcce.getItem2', $('#cmbCust_type2').val() + ',' + $('#txtStraddno_type2').val() + ',' + $('#txtStradd_type2').val() + ',' + $('#txtEndaddno_type2').val() + ',' + $('#txtEndadd_type2').val() + ',' + $('#txtCaseno_type2').val() + ',' + $('#txtCaseno2_type2').val() + ',' + $('#txtPo_type2').val() + ',' + $('#txtTraceno_type2').val() + ',' + ($('#chkIsdisplay_type2').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type2').val() + ',' + $('#txtOdate_type2').val() + ',' + $('#cmbIspal_type2').val() + ',' + $('#cmbEf_type2').val() + ',' + $('#txtOrdeno_type2').val() + ',empty');
                             $("#t2").show();
                             break;
                         case '3':
                             //custno,cust,straddno,stradd,endaddno,endadd,shipno,so,cldate,caseno,isdisplay,carno,datea,ispal,ef,ordeno
-                            q_func('tranvcce.getItem3', $('#txtCustno_type3').val() + ',' + $('#txtCust_type3').val() + ',' + $('#txtStraddno_type3').val() + ',' + $('#txtStradd_type3').val() + ',' + $('#txtEndaddno_type3').val() + ',' + $('#txtEndadd_type3').val() + ',' + $('#txtShipno_type3').val() + ',' + $('#txtSo_type3').val() + ',' + $('#txtCldate_type3').val() + ',' + $('#txtCaseno_type3').val() + ',' + ($('#chkIsdisplay_type3').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type3').val() + ',' + $('#txtOdate_type3').val() + ',' + $('#cmbIspal_type3').val() + ',' + $('#cmbEf_type3').val() + ',' + $('#txtOrdeno_type3').val() + ',empty');
+                            q_func('tranvcce.getItem3', $('#cmbCust_type3').val() + ',' + $('#txtStraddno_type3').val() + ',' + $('#txtStradd_type3').val() + ',' + $('#txtEndaddno_type3').val() + ',' + $('#txtEndadd_type3').val() + ',' + $('#txtShipno_type3').val() + ',' + $('#txtSo_type3').val() + ',' + $('#txtCldate_type3').val() + ',' + $('#txtCaseno_type3').val() + ',' + ($('#chkIsdisplay_type3').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type3').val() + ',' + $('#txtOdate_type3').val() + ',' + $('#cmbIspal_type3').val() + ',' + $('#cmbEf_type3').val() + ',' + $('#txtOrdeno_type3').val() + ',empty');
                             $("#t3").show();
                             break;
-                    }
-                });
-                $('#btnVcce_condition').click(function(e) {
-                    var t_table = '';
-                    var t_typea = '';
-                    var t_ordeno = '';
-                    var t_notv = 0;
-                    var t_carno = '';
-                    var t_caseno = '';
-                    if($('#t1').css('display') != 'none') {
-                        t_table = 't1';
-                        t_typea = '1';
-                    } else if($('#t2').css('display') != 'none') {
-                        t_table = 't2';
-                        t_typea = '2';
-                    } else if($('#t3').css('display') != 'none') {
-                        t_table = 't3';
-                        t_typea = '3';
-                    }
-
-                    if($.type($('#' + t_table).data('info')) != "undefined") {
-                        for( i = 0; i < $('#' + t_table).data('info').value.length; i++) {
-                            if($('#'+t_table).data('info').value[i]._checked) {
-                                t_ordeno = $('#'+t_table).data('info').value[i].ordeno;
-                                t_notv = $('#'+t_table).data('info').value[i].notv;
-                                t_carno = $('#'+t_table).data('info').value[i].carno;
-                                t_caseno = $('#'+t_table).data('info').value[i].caseno;
-                                break;
-                            }
-                        }
-                    }
-                    if(t_ordeno.length == 0) {
-                        alert('Please Lookup first!');
-                        return 0;
-                    }
-                    $('#btnIns').click();
-                    if(q_cur == 1) {
-                        $('#txtOrdeno').val(t_ordeno);
-                        $('#txtWeight').val(t_notv);
-                        $('#cmbTypea').val(t_typea);
-                        $('#txtCarno').val(t_carno);
-                        $('#txtCaseno').val(t_caseno);
-                        $('#txtDatea').val(q_date());
-                        $('#txtWeight').focus();
-                        window.location.hash = "#tbbm";
-                        window.location.hash = "";
                     }
                 });
             }
@@ -277,8 +238,7 @@
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#btnLookup_condition').attr('disabled', 'disabled');
-                $('#btnVcce_condition').attr('disabled', 'disabled');
-                isEnabledChk();
+                isEnabled();
             }
 
             function btnModi() {
@@ -287,8 +247,7 @@
                 _btnModi();
 
                 $('#btnLookup_condition').attr('disabled', 'disabled');
-                $('#btnVcce_condition').attr('disabled', 'disabled');
-                isEnabledChk();
+                isEnabled();
             }
 
             function btnPrint() {
@@ -320,12 +279,10 @@
                 _refresh(recno);
                 if(q_cur == 1 || q_cur == 2) {
                     $('#btnLookup_condition').attr('disabled', 'disabled');
-                    $('#btnVcce_condition').attr('disabled', 'disabled');
                 } else {
                     $('#btnLookup_condition').removeAttr('disabled');
-                    $('#btnVcce_condition').removeAttr('disabled');
                 }
-                isEnabledChk();
+                isEnabled();
             }
 
             function readonly(t_para, empty) {
@@ -387,34 +344,76 @@
             }
 
             /*Lookup*/
-            function isEnabledChk() {
+            function isEnabled() {
                 var isEnabled = !(q_cur == 1 || q_cur == 2);
+                var tableId = ['t1', 't2', 't3'];
+                var obj;
+                for(var i = 0; i < tableId.length; i++) {
+                    if($('#' + tableId[i]).css('display') != 'none') {
+                        obj = $('#' + tableId[i]);
+                        if(obj.children('tbody').length > 0)
+                            obj = obj.children('tbody').eq(0);
+                        if(isEnabled) {
+                            obj.children('tr[name="data"]').children().children('[src="option"]').removeAttr('disabled');
+                            obj.children('[name="data"]').removeClass('select');
+                            obj.children('[name="data"]').removeClass('focus');
+                        } else {
+                            obj.children('tr[name="data"]').children().children('[src="option"]').attr('disabled', 'disabled');
+                            for(var j = 0; j < $('#' + tableId[i]).data('info').value.length; j++) {
+                                if(q_cur == 2)
+                                    $('#' + tableId[i]).data('info').value[j]._checked = false;
+                                else if($('#' + tableId[i]).data('info').value[j]._checked)
+                                    obj.children('tr[name="data"]').eq(j).addClass('select');
+                            }
+                        }
+                    }
+                }
+            }
+
+            function onclick_vcce() {
+                var t_table = '';
+                var t_typea = '';
+                var t_ordeno = '';
+                var t_notv = 0;
+                var t_carno = '';
+                var t_caseno = '';
                 if($('#t1').css('display') != 'none') {
-                    var obj = $('#t1');
-                    if(obj.children('tbody').length > 0)
-                        obj = obj.children('tbody').eq(0);
-                    if(isEnabled)
-                        obj.children('tr[name="data"]').children().children('[src="option"]').removeAttr('disabled');
-                    else
-                        obj.children('tr[name="data"]').children().children('[src="option"]').attr('disabled', 'disabled');
+                    t_table = 't1';
+                    t_typea = '1';
+                } else if($('#t2').css('display') != 'none') {
+                    t_table = 't2';
+                    t_typea = '2';
+                } else if($('#t3').css('display') != 'none') {
+                    t_table = 't3';
+                    t_typea = '3';
                 }
-                if($('#t2').css('display') != 'none') {
-                    var obj = $('#t2');
-                    if(obj.children('tbody').length > 0)
-                        obj = obj.children('tbody').eq(0);
-                    if(isEnabled)
-                        obj.children('tr[name="data"]').children().children('[src="option"]').removeAttr('disabled');
-                    else
-                        obj.children('tr[name="data"]').children().children('[src="option"]').attr('disabled', 'disabled');
+
+                if($.type($('#' + t_table).data('info')) != "undefined") {
+                    for( i = 0; i < $('#' + t_table).data('info').value.length; i++) {
+                        if($('#'+t_table).data('info').value[i]._checked) {
+                            t_ordeno = $('#'+t_table).data('info').value[i].ordeno;
+                            t_notv = $('#'+t_table).data('info').value[i].notv;
+                            t_carno = $('#'+t_table).data('info').value[i].carno;
+                            t_caseno = $('#'+t_table).data('info').value[i].caseno;
+                            break;
+                        }
+                    }
                 }
-                if($('#t3').css('display') != 'none') {
-                    var obj = $('#t3');
-                    if(obj.children('tbody').length > 0)
-                        obj = obj.children('tbody').eq(0);
-                    if(isEnabled)
-                        obj.children('tr[name="data"]').children().children('[src="option"]').removeAttr('disabled');
-                    else
-                        obj.children('tr[name="data"]').children().children('[src="option"]').attr('disabled', 'disabled');
+                if(t_ordeno.length == 0) {
+                    alert('Please Lookup first!');
+                    return 0;
+                }
+                $('#btnIns').click();
+                if(q_cur == 1) {
+                    $('#txtOrdeno').val(t_ordeno);
+                    $('#txtWeight').val(t_notv);
+                    $('#cmbTypea').val(t_typea);
+                    $('#txtCarno').val(t_carno);
+                    $('#txtCaseno').val(t_caseno);
+                    $('#txtDatea').val(q_date());
+                    $('#txtCarno').focus();
+                    window.location.hash = "#tbbm";
+                    window.location.hash = "";
                 }
             }
 
@@ -423,8 +422,7 @@
                     if($.type($(this).data('info')) == "undefined") {
                         $(this).data('info', {
                             value : value,
-                            isSort : true,
-                            isAllowMutiple : false
+                            isSort : true
                         });
                     } else {
                         if($(this).data('info').isSort)
@@ -443,38 +441,25 @@
                         obj2 = obj.children('tr').last().children();
 
                         for( j = 0; j < obj2.length; j++) {
-                            /*checkbox*/
+                            /*option*/
                             if(obj2.eq(j).children('[src="option"]').length > 0) {
                                 obj2.eq(j).children('[src="option"]').data('info', {
                                     index : i
                                 });
-                                obj2.eq(j).children('[src="option"]').change(function(e) {
+                                obj2.eq(j).children('[src="option"]').val(q_getPara('tranvcce.btnVcce'));
+                                obj2.eq(j).children('[src="option"]').click(function(e) {
                                     var obj = $(this).parent().parent().parent().has('tbody') ? $(this).parent().parent().parent().parent() : $(this).parent().parent().parent();
-                                    /*control (tr background-color) & checked */
-                                    if($(this).prop('checked')) {
-                                        if(!obj.data('info').isAllowMutiple) {
-                                            $(this).parent().parent().parent().children('[name="data"]').removeClass('select');
-                                            $(this).parent().parent().parent().children('[name="data"]').children('td').children('[src="option"]').prop('checked', false);
-                                            for( k = 0; k < obj.data('info').value.length; k++)
-                                                obj.data('info').value[k]._checked = false;
-                                            $(this).prop('checked', true);
-                                        }
-                                        $(this).parent().parent().addClass('select');
-                                    } else
-                                        $(this).parent().parent().removeClass('select');
-                                    obj.data('info').value[$(this).data('info').index]._checked = $(this).prop('checked');
+                                    for(var i = 0; i < obj.data('info').value.length; i++)
+                                        obj.data('info').value[i]._checked = false;
+                                    obj.data('info').value[$(this).data('info').index]._checked = true;
+                                    onclick_vcce();
                                 });
-                                if(!$(this).data('info').isAllowMutiple) {
-                                    obj2.eq(j).children('[src="option"]').click(function(e) {
-                                        if($(this).prop('checked')) {
-                                            $('#btnVcce_condition').click();
-                                        }
-                                    });
-                                }
-                                if($(this).data('info').value[i]._checked) {
-                                    obj2.eq(j).children('[src="option"]').prop('checked', true);
-                                }
-                                obj2.eq(j).children('[src="option"]').change();
+                                obj2.eq(j).children('[src="option"]').hover(function(e) {
+                                    if(!$(this).parent().parent().hasClass('select'))
+                                        $(this).parent().parent().addClass('focus');
+                                }, function(e) {
+                                    $(this).parent().parent().removeClass('focus');
+                                });
                             }
                             /*data*/
                             obj3 = obj2.eq(j).children('[type="text"]');
@@ -523,7 +508,7 @@
                     } else {
                         $(this).data('info').isSort = true;
                     }
-                    isEnabledChk();
+                    isEnabled();
                 }
             })($);
 
@@ -647,13 +632,6 @@
             #condition tr[name="data"] {
                 display: none;
             }
-            #condition .lbl.btn {
-                display: block;
-                width: 100%;
-            }
-            #condition .lbl.btn:hover {
-                color: red;
-            }
             #t1, #t2, #t3 {
                 width: 100%;
                 background: #DCDCDC;
@@ -673,6 +651,12 @@
             }
             #t1 tr.select, #t2 tr.select, #t3 tr.select {
                 background: #F0E68C;
+            }
+            #t1 tr.focus, #t2 tr.focus, #t3 tr.focus {
+                background: #F0E68C;
+            }
+            #t1 tr.focus input[type="text"], #t2 tr.focus input[type="text"], #t3 tr.focus input[type="text"] {
+                color: red;
             }
             #t1 input[readonly="readonly"], #t2 input[readonly="readonly"], #t3 input[readonly="readonly"] {
                 color: green;
@@ -751,15 +735,12 @@
 						<input id="txtWeight" type="text"  class="txt num c1"/>
 						</td>
 					</tr>
-					<tr style="height: 300px;">
-						<td></td>
-					</tr>
 				</table>
 			</div>
 		</div>
 		<table id="condition">
 			<tr name="schema">
-				<td class="td1" style="width:14%"><span class="schema"> </span></td>
+				<td class="td1" style="width:7%"><span class="schema"> </span></td>
 				<td class="td2" style="width:6%"><span class="schema"> </span></td>
 				<td class="td3" style="width:8%"><span class="schema"> </span></td>
 				<td class="td4" style="width:8%"><span class="schema"> </span></td>
@@ -776,11 +757,10 @@
 			<tr name="action">
 				<td class="td1" colspan="14" style="text-align: left;"><span style="display: block; width:20px; height:10px; float:left;"> </span><select id="cmbTypea_condition"  style="width:100px;"></select>
 				<input type="button" id="btnLookup_condition"/>
-				<input type="button" id="btnVcce_condition"/>
 				</td>
 			</tr>
 			<tr name="header" class="type1">
-				<td class="td1"><a id="lblCust_type1" class="lbl btn"></a></td>
+				<td class="td1" id="lblCust_type1"></td>
 				<td class="td9" id="lblOdate_type1"></td>
 				<td class="td2" id='lblStradd_type1'></td>
 				<td class="td3" id="lblEndadd_type1"></td>
@@ -790,10 +770,7 @@
 				<td class="td6" id="lblIsdisplay_type1"></td>
 			</tr>
 			<tr name="data" class="type1">
-				<td class="td1">
-				<input type="text" style="width: 30%;" id="txtCustno_type1"/>
-				<input type="text" style="width: 65%;" id="txtCust_type1"/>
-				</td>
+				<td class="td1"><select id="cmbCust_type1"  style="width:100%;"></select></td>
 				<td class="td2">
 				<input type="text" style="width: 95%;" id="txtOdate_type1"/>
 				</td>
@@ -835,10 +812,7 @@
 				<td class="tdD" id="lblCaseno2_type2"></td>
 			</tr>
 			<tr name="data" class="type2">
-				<td class="td1">
-				<input type="text" style="width: 35%;" id="txtCustno_type2"/>
-				<input type="text" style="width: 60%;" id="txtCust_type2"/>
-				</td>
+				<td class="td1"><select id="cmbCust_type2"  style="width:100%;"></select></td>
 				<td class="td2">
 				<input type="text" style="width: 95%;" id="txtOdate_type2"/>
 				</td>
@@ -890,10 +864,7 @@
 				<td class="tdD" id="lblOrdeno_type3"></td>
 			</tr>
 			<tr name="data" class="type3">
-				<td class="td1">
-				<input type="text" style="width: 35%;" id="txtCustno_type3"/>
-				<input type="text" style="width: 60%;" id="txtCust_type3"/>
-				</td>
+				<td class="td1"><select id="cmbCust_type3"  style="width:100%;"></select></td>
 				<td class="td2">
 				<input type="text" style="width: 95%;" id="txtOdate_type3"/>
 				</td>
@@ -964,7 +935,7 @@
 			</tr>
 			<tr name="template">
 				<td class="td1">
-				<input type="checkbox" src="option"/>
+				<input type="button" src="option"/>
 				</td>
 				<td class="td2">
 				<input type="text" style="width: 35%;" value="custno"/>
@@ -1041,7 +1012,7 @@
 			</tr>
 			<tr name="template">
 				<td class="td1">
-				<input type="checkbox" src="option"/>
+				<input type="button" src="option"/>
 				</td>
 				<td class="td2">
 				<input type="text" style="width: 35%; float: left;" value="custno"/>
@@ -1132,7 +1103,7 @@
 			</tr>
 			<tr name="template">
 				<td class="td1">
-				<input type="checkbox" src="option"/>
+				<input type="button" src="option"/>
 				</td>
 				<td class="td2">
 				<input type="text" style="width: 35%; float: left;" value="custno"/>
