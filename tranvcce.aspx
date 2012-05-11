@@ -486,7 +486,7 @@
                                 tmp.eq(i).data('info', {
                                     parent : $(this),
                                     order : 'asc',
-                                    func_sort : new Function('a', 'b', "return a." + tmp.eq(i).attr('index') + ">=b." + tmp.eq(i).attr('index') + "?1:-1;")
+                                    func_sort : new Function('a', 'b', "return a." + tmp.eq(i).attr('index') + ">b." + tmp.eq(i).attr('index') + "?1:-1;")
                                 });
                                 tmp.eq(i).click(function(e) {
                                     $(this).data('info').parent.data('info').value.sort($(this).data('info').func_sort);
