@@ -57,7 +57,7 @@
                                 alert(tmp[0].memo);
                             }
                             $('#btnNo').removeAttr('disabled');
-                            isEnabled();
+                            isEnabled();                   
                             break;
                         case 'tranvcce.getCust':
                             var tmp = _q_appendData('tranvcce_cust', '', true);
@@ -165,17 +165,17 @@
                     $("#t3").hide();
                     switch($("#cmbTypea_condition").val()) {
                         case '1':
-                            var t_para = q_func('tranvcce.getItem1', $('#cmbCust_type1').val() + ',' + $('#txtStraddno_type1').val() + ',' + $('#txtStradd_type1').val() + ',' + $('#txtEndaddno_type1').val() + ',' + $('#txtEndadd_type1').val() + ',' + $('#txtProductno_type1').val() + ',' + $('#txtProduct_type1').val() + ',' + $('#txtOrdeno_type1').val() + ',' + $('#txtOdate_type1').val() + ',' + ($('#chkIsdisplay_type1').prop('checked') ? '1' : '0') + ',empty');
+                            var t_para = q_func('tranvcce.getItem1', $('#cmbCust_type1').val() + ',' + $('#txtStraddno_type1').val() + ',' + $('#txtStradd_type1').val() + ',' + $('#txtEndaddno_type1').val() + ',' + $('#txtEndadd_type1').val() + ',' + $('#txtProductno_type1').val() + ',' + $('#txtProduct_type1').val() + ',' + $('#txtOrdeno_type1').val() + ',' + $('#txtOdate_type1').val() + ',' + ($('#chkIsdisplay').prop('checked') ? '1' : '0') + ',empty');
                             $("#t1").show();
                             break;
                         case '2':
                             //custno,straddno,stradd,endaddno,endadd,caseno,caseno2,po,traceno,isdisplay,carno,datea,ispal,ef,ordeno
-                            q_func('tranvcce.getItem2', $('#cmbCust_type2').val() + ',' + $('#txtStraddno_type2').val() + ',' + $('#txtStradd_type2').val() + ',' + $('#txtEndaddno_type2').val() + ',' + $('#txtEndadd_type2').val() + ',' + $('#txtCaseno_type2').val() + ',' + $('#txtCaseno2_type2').val() + ',' + $('#txtPo_type2').val() + ',' + $('#txtTraceno_type2').val() + ',' + ($('#chkIsdisplay_type2').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type2').val() + ',' + $('#txtOdate_type2').val() + ',' + $('#cmbIspal_type2').val() + ',' + $('#cmbEf_type2').val() + ',' + $('#txtOrdeno_type2').val() + ',empty');
+                            q_func('tranvcce.getItem2', $('#cmbCust_type2').val() + ',' + $('#txtStraddno_type2').val() + ',' + $('#txtStradd_type2').val() + ',' + $('#txtEndaddno_type2').val() + ',' + $('#txtEndadd_type2').val() + ',' + $('#txtCaseno_type2').val() + ',' + $('#txtCaseno2_type2').val() + ',' + $('#txtPo_type2').val() + ',' + $('#txtTraceno_type2').val() + ',' + ($('#chkIsdisplay').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type2').val() + ',' + $('#txtOdate_type2').val() + ',' + $('#cmbIspal_type2').val() + ',' + $('#cmbEf_type2').val() + ',' + $('#txtOrdeno_type2').val() + ',empty');
                             $("#t2").show();
                             break;
                         case '3':
                             //custno,straddno,stradd,endaddno,endadd,shipno,so,cldate,caseno,isdisplay,carno,datea,ispal,ef,ordeno
-                            q_func('tranvcce.getItem3', $('#cmbCust_type3').val() + ',' + $('#txtStraddno_type3').val() + ',' + $('#txtStradd_type3').val() + ',' + $('#txtEndaddno_type3').val() + ',' + $('#txtEndadd_type3').val() + ',' + $('#txtShipno_type3').val() + ',' + $('#txtSo_type3').val() + ',' + $('#txtCldate_type3').val() + ',' + $('#txtCaseno_type3').val() + ',' + ($('#chkIsdisplay_type3').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type3').val() + ',' + $('#txtOdate_type3').val() + ',' + $('#cmbIspal_type3').val() + ',' + $('#cmbEf_type3').val() + ',' + $('#txtOrdeno_type3').val() + ',empty');
+                            q_func('tranvcce.getItem3', $('#cmbCust_type3').val() + ',' + $('#txtStraddno_type3').val() + ',' + $('#txtStradd_type3').val() + ',' + $('#txtEndaddno_type3').val() + ',' + $('#txtEndadd_type3').val() + ',' + $('#txtShipno_type3').val() + ',' + $('#txtSo_type3').val() + ',' + $('#txtCldate_type3').val() + ',' + $('#txtCaseno_type3').val() + ',' + ($('#chkIsdisplay').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type3').val() + ',' + $('#txtOdate_type3').val() + ',' + $('#cmbIspal_type3').val() + ',' + $('#cmbEf_type3').val() + ',' + $('#txtOrdeno_type3').val() + ',empty');
                             $("#t3").show();
                             break;
                     }
@@ -239,6 +239,9 @@
                 $('#txtNoa').val('AUTO');
                 $('#btnLookup_condition').attr('disabled', 'disabled');
                 isEnabled();
+                window.location.hash = "#tbbm";
+                window.location.hash = "";
+                $('#txtCarno').focus();
             }
 
             function btnModi() {
@@ -248,6 +251,9 @@
 
                 $('#btnLookup_condition').attr('disabled', 'disabled');
                 isEnabled();
+                window.location.hash = "#tbbm";
+                window.location.hash = "";
+                $('#txtCarno').focus();
             }
 
             function btnPrint() {
@@ -410,10 +416,7 @@
                     $('#cmbTypea').val(t_typea);
                     $('#txtCarno').val(t_carno);
                     $('#txtCaseno').val(t_caseno);
-                    $('#txtDatea').val(q_date());
-                    $('#txtCarno').focus();
-                    window.location.hash = "#tbbm";
-                    window.location.hash = "";
+                    $('#txtDatea').val(q_date());                     
                 }
             }
 
@@ -658,10 +661,16 @@
             #t1 tr.focus input[type="text"], #t2 tr.focus input[type="text"], #t3 tr.focus input[type="text"] {
                 color: red;
             }
+            #t1 tr.focus input[type="button"], #t2 tr.focus input[type="button"], #t3 tr.focus input[type="button"] {
+                color: red;
+            }
             #t1 input[readonly="readonly"], #t2 input[readonly="readonly"], #t3 input[readonly="readonly"] {
                 color: green;
             }
             #t1 tr.select input[type="text"], #t2 tr.select input[type="text"], #t3 tr.select input[type="text"] {
+                color: red;
+            }
+            #t1 tr.select input[type="button"], #t2 tr.select input[type="button"], #t3 tr.select input[type="button"] {
                 color: red;
             }
             #t1 td.focus, #t2 td.focus, #t3 td.focus {
@@ -757,6 +766,7 @@
 			<tr name="action">
 				<td class="td1" colspan="14" style="text-align: left;"><span style="display: block; width:20px; height:10px; float:left;"> </span><select id="cmbTypea_condition"  style="width:100px;"></select>
 				<input type="button" id="btnLookup_condition"/>
+				<input type="checkbox" id="chkIsdisplay"/><a id="lblIsdisplay"></a>
 				</td>
 			</tr>
 			<tr name="header" class="type1">
@@ -767,7 +777,6 @@
 				<td class="td4" id="lblProduct_type1"></td>
 				<td class="td5" id="lblOrdeno_type1"></td>
 				<td class="td6" id="lblCarno_type1"></td>
-				<td class="td6" id="lblIsdisplay_type1"></td>
 			</tr>
 			<tr name="data" class="type1">
 				<td class="td1"><select id="cmbCust_type1"  style="width:100%;"></select></td>
@@ -792,9 +801,6 @@
 				<td class="td6">
 				<input type="text" style="width: 95%;" id="txtCarno_type1"/>
 				</td>
-				<td class="td7">
-				<input type="checkbox" id="chkIsdisplay_type1"/>
-				</td>
 			</tr>
 			<tr name="header" class="type2">
 				<td class="td1" id='lblCust_type2'></td>
@@ -804,7 +810,6 @@
 				<td class="td5" id="lblCaseno_type2"></td>
 				<td class="td6" id="lblPo_type2"></td>
 				<td class="td7" id="lblTraceno_type2"></td>
-				<td class="td8" id="lblIsdisplay_type2"></td>
 				<td class="td9" id="lblCarno_type2"></td>
 				<td class="tdA" id="lblIspal_type2"></td>
 				<td class="tdB" id="lblEf_type2"></td>
@@ -833,9 +838,6 @@
 				<td class="td7">
 				<input type="text" style="width: 95%;" id="txtTraceno_type2"/>
 				</td>
-				<td class="td8">
-				<input type="checkbox" id="chkIsdisplay_type2"/>
-				</td>
 				<td class="td9">
 				<input type="text" style="width: 95%;" id="txtCarno_type2"/>
 				</td>
@@ -857,7 +859,6 @@
 				<td class="td6" id="lblSo_type3"></td>
 				<td class="td7" id="lblCldate_type3"></td>
 				<td class="td8" id="lblCaseno_type3"></td>
-				<td class="td9" id="lblIsdisplay_type3"></td>
 				<td class="tdA" id="lblCarno_type3"></td>
 				<td class="tdB" id="lblIspal_type3"></td>
 				<td class="tdC" id="lblEf_type3"></td>
@@ -887,9 +888,6 @@
 				</td>
 				<td class="td8">
 				<input type="text" style="width: 95%;" id="txtCaseno_type3"/>
-				</td>
-				<td class="td9">
-				<input type="checkbox" id="chkIsdisplay_type3"/>
 				</td>
 				<td class="tdA">
 				<input type="text" style="width: 95%;" id="txtCarno_type3"/>
