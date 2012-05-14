@@ -47,26 +47,12 @@
                             type : '0',
                             name : 'accy',
                             value : q_getId()[4]
-                        },{ type : '1',
-                            name : 'date'
                         }, {
                             type : '2',
-                            name : 'cust',
-                            dbf : 'cust',
-                            index : 'noa,comp',
-                            src : 'cust_b.aspx'
-                        }, {
-                            type : '2',
-                            name : 'driver',
-                            dbf : 'driver',
-                            index : 'noa,namea',
-                            src : 'driver_b.aspx'
-                        }, {
-                            type : '2',
-                            name : 'sales',
-                            dbf : 'sss',
-                            index : 'noa,namea',
-                            src : 'sss_b.aspx'
+                            name : 'addr',
+                            dbf : 'addr',
+                            index : 'noa,addr',
+                            src : 'addr_b.aspx'
                         }]
                     });
                     q_getFormat();
