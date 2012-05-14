@@ -11,12 +11,13 @@
     <script src='../script/mask.js' type="text/javascript"></script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" /> 
     <script type="text/javascript">
+       
         this.errorHandler = null;
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
         var decbbm = [];
-        var q_name="boat";
+        var q_name="acc";
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
@@ -24,9 +25,9 @@
         //ajaxPath = ""; //  execute in Root
 		
         $(document).ready(function () {
-            bbmKey = ['noa'];
+            bbmKey = ['acc1'];
             q_brwCount();
-           q_gt(q_name, q_content, q_sqlCount, 1)
+           q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy+'_'+r_cno)
             $('#txtNoa').focus
         });
  
@@ -46,35 +47,10 @@
 
         function mainPost() { 
             
-           /* $('#btnSales').click(function () { pop('sss'); });
-            $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); });
-
-            $('#btnsss').click(function () { pop('sss'); });
-            $('#btnsss').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtGrpno").change(function () { 
-            q_change($(this), 'sss', 'noa', 'noa,comp'); });
-
-            $('#btnConn').click(function () { pop('conn') });  
-            $('#btnConn').mouseenter(function () { $(this).css('cursor', 'pointer') });
-
-            $("#txtComp").change(function () { $("#txtNick").val($("#txtComp").val().substr(0, 2)); });
-
-            txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
-            txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
-            txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');*/
+           
         }
 
-        /*function pop(form, seq) {
-            b_seq = (seq ? seq : '');
-            b_pop = form;
-            switch (form) {
-                case 'sss': q_pop('txtSalesno', 'sss_b.aspx', 'sss', 'noa', 'namea', "60%", "650px", q_getMsg('popSss')); break;
-                case 'sss': q_pop('txtGrpno', 'sss_b.aspx', 'sss', 'noa', 'comp', "60%", "650px", q_getMsg('popsss')); break;
-                case 'conn': q_pop('txtNoa', "conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'conn', 'noa', 'namea', "60%", "650px", q_getMsg('popConn')); break;
-            }
-        }*/
-
+      
         function txtCopy(dest, source) {
             var adest = dest.split(',');
             var asource = source.split(',');
@@ -289,45 +265,53 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:40%"><a id='vewBoat'></a></td>
+                <td align="center" style="width:25%"><a id='vewAcc1'></a></td>
+                <td align="center" style="width:40%"><a id='vewAcc2'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
-                   <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='boat'>~boat</td>
+                   <td align="center" id='acc1'>~acc1</td>
+                   <td align="center" id='acc2'>~acc2</td>
             </tr>
         </table>
         </div>
         <div class='dbbm' style="width: 70%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
           <tr class="tr1">
-               <td class="td1"><span> </span><a id="lblNoa"></a></td>
-               <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id="lblAcc1"></a></td>
+               <td class="td2"><input id="txtAcc1" type="text" class="txt c1"/></td>
                <td class="td3"></td>
                <td class="td4"></td> 
             </tr>
             <tr class="tr2">
-               <td class="td1"><span> </span><a id="lblBoat"></a></td>
-               <td class="td2"><input id="txtBoat" type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id="lblAcc2"></a></td>
+               <td class="td2"><input id="txtAcc2" type="text" class="txt c1"/></td>
                <td class="td3"></td>
                <td class="td4"></td> 
             </tr>  
             <tr class="tr3">
-               <td class="td1"><span> </span><a id="lblConn"></a></td>
-               <td class="td2"><input id="txtConn" type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id="lblAcc3"></a></td>
+               <td class="td2"><input id="txtAcc3" type="text" class="txt c1"/></td>
                <td class="td3"></td>
                <td class="td4"></td> 
             </tr>      
             <tr class="tr4">
-               <td class="td1"><span> </span><a id="lblTel"></a></td>
-               <td class="td2"><input id="txtTel" type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id="lblAcc4"></a></td>
+               <td class="td2"><input id="txtAcc4" type="text" class="txt c1"/></td>
                <td class="td3"></td>
                <td class="td4"></td> 
             </tr>
             <tr class="tr5">
-               <td class="td1"><span> </span><a id="lblAddr"></a></td>
-               <td class="td2" colspan="3"><input id="txtAddr" type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id="lblOacc"></a></td>
+               <td class="td2"><input id="txtOacc" type="text" class="txt c1"/></td>
+               <td class="td3"></td>
+               <td class="td4"></td> 
+            </tr>
+            <tr class="tr6">
+               <td class="td1"><span> </span><a id="lblLok"></a></td>
+               <td class="td2"><input id="txtLok" type="text" class="txt c1"/></td>
+               <td class="td3"></td>
+               <td class="td4"></td> 
             </tr>
         </table>
         </div>
