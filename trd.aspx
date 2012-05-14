@@ -266,7 +266,7 @@
                 float: left;
             }
             .txt.c3 {
-                width: 59%;
+                width: 55%;
                 float: left;
             }
             .ch1 {
@@ -274,6 +274,12 @@
             }
             .ch2 {
                 width: 8%;
+            }
+            .ch3 {
+                width: 2%;
+            }
+            .ch4 {
+                width: 6%;
             }
             .tbbm tr {
                 height: 35px;
@@ -348,7 +354,7 @@
                             <td class="td1" ><a id="lblCust" class="lbl btn"></a></td>
                             <td class="td2" colspan="3">
                             <input id="txtCustno" type="text"  style='width:20%; float:left;'/>
-                            <input id="txtCust" type="text"  style='width:76%; float:left;'/>
+                            <input id="txtCust" type="text"  style='width:74%; float:left;'/>
                             </td>
                             <td class="td5" ><a id="lblBoat" class="lbl btn"></a></td>
                             <td class="td6" ><input id="txtBoatno" type="text"  class="txt c2"/><input id="txtBoat" type="text"  class="txt c3"/></td>
@@ -425,19 +431,19 @@
                         </td>
                         <td align="center" class="ch1"><a id='lblDateas'></a></td>
                         <td align="center" class="ch1"><a id='lblCarno'></a></td>
-                        <td align="center" class="ch1"><a id='lblRs'></a></td>
+                        <td align="center" class="ch3"><a id='lblRs'></a></td>
                         <td align="center" class="ch1"><a id='lblAdd1s'></a></td>
                         <td align="center" class="ch1"><a id='lblAdd2s'></a></td>
                         <td align="center" class="ch1"><a id='lblTranmoney'></a></td>
                         <td align="center" class="ch2"><a id='lblPaymemo'></a></td>
-                        <td align="center" class="ch1"><a id='lblFill'></a></td>
+                        <td align="center" class="ch3"><a id='lblFill'></a></td>
                         <td align="center" class="ch1"><a id='lblCasetype'></a></td>
-                        <td align="center" class="ch1"><a id='lblCaseno1'></a></td>
-                        <td align="center" class="ch1"><a id='lblCaseno2'></a></td>
-                        <td align="center" class="ch1"><a id='lblTranno'></a></td>
+                        <td align="center" class="ch2"><a id='lblCaseno1'></a></td>
+                        <td align="center" class="ch2"><a id='lblCaseno2'></a></td>
+                        <td align="center" class="ch4"><a id='lblTranno'></a></td>
                         <td align="center" class="ch2"><a id='lblBoats'></a></td>
-                        <td align="center" class="ch2"><a id='lblBoatnames'></a></td>
-                        <td align="center" class="ch2"><a id='lblShips'></a></td>
+                        <td align="center" class="ch4"><a id='lblBoatnames'></a></td>
+                        <td align="center" class="ch4"><a id='lblShips'></a></td>
                         <td align="center" class="ch2"><a id='lblMemos'></a></td>
                         <td align="center" class="ch1"><a id='lblCh_oweight'></a></td>
                         <td align="center" class="ch1"><a id='lblCh_other'></a></td>

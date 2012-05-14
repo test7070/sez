@@ -245,10 +245,11 @@
 		 .tbbm tr td{margin:0px -1px;padding:0;}
 		 .tbbm tr td input[type="text"]{border-width:1px;padding:0px;margin:-1px;}
 		</style>
+		
 	</head>
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain' style="overflow:hidden;">
+		<div id='dmain' >
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>

@@ -5,7 +5,7 @@
     <title></title>
     <script src="../script/jquery.min.js" type="text/javascript"></script>
     <script src='../script/qj2.js' type="text/javascript"></script>
-            <script src='qset.js' type="text/javascript"></script>
+    <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src="../script/qbox.js" type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
@@ -16,18 +16,22 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var decbbm = ['inprice', 'outprice', 'mount'];
-        var q_name="fixucc";
+        var decbbm = [];
+        var q_name="addr2";
         var q_readonly = [];
-        var bbmNum = [];  
+        var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		 aPop = new Array(['txtTggno', 'btnTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
+
         $(document).ready(function () {
             bbmKey = ['noa'];
+
+            brwCount2 = 2;
             q_brwCount();
-           q_gt(q_name, q_content, q_sqlCount, 1)
+
+            q_gt(q_name, q_content, q_sqlCount, 1)
+
             $('#txtNoa').focus
         });
 
@@ -49,10 +53,7 @@
 
 
         function mainPost() { 
-           fbbm[fbbm.length] = 'txtMemo'; 
-           q_cmbParse("cmbTypea", q_getPara('fixucc.typea')); 
-           q_cmbParse("cmbCtype", q_getPara('fixucc.ctype'));
-           /* $('#btnSales').click(function () { pop('sss'); });
+            $('#btnSales').click(function () { pop('sss'); });
             $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
             $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); });
 
@@ -68,9 +69,10 @@
 
             txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
             txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
-            txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');*/
-            }
-       /* function pop(form, seq) {
+            txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');
+        }
+
+        function pop(form, seq) {
             b_seq = (seq ? seq : '');
             b_pop = form;
             switch (form) {
@@ -78,7 +80,7 @@
                 case 'sss': q_pop('txtGrpno', 'sss_b.aspx', 'sss', 'noa', 'comp', "60%", "650px", q_getMsg('popsss')); break;
                 case 'conn': q_pop('txtNoa', "conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'conn', 'noa', 'namea', "60%", "650px", q_getMsg('popConn')); break;
             }
-        }*/
+        }
 
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -101,7 +103,7 @@
         
         function q_boxClose( s2) { 
             var ret; 
-            switch (b_pop) {  
+            switch (b_pop) {   
                 case 'conn':
 
                     break;
@@ -125,11 +127,11 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case 'sss': 
+                case 'sss':  
                     q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
                     break;
 
-                case q_name: if (q_cur == 4)  
+                case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
 
                     if (q_cur == 1 || q_cur == 2) 
@@ -207,15 +209,18 @@
             var i;
 
             xmlSql = '';
-            if (q_cur == 2)   /// popSave
+            if (q_cur == 2)   
                 xmlSql = q_preXml();
 
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
             _btnOk(key_value, bbmKey[0], '','',2);
         }
+
+        
+        
         function refresh(recno) {
             _refresh(recno);
-
+           
         }
 
         function readonly(t_para, empty) {
@@ -233,7 +238,7 @@
         }
 
         function q_appendData(t_Table) {
-            return _q_appendData(t_Table);
+           return _q_appendData(t_Table);
         }
 
         function btnSeek(){
@@ -293,53 +298,24 @@
        
         .column1
         {
-            width: 10%;
+            width: 40%;
         }
         .column2
         {
-            width: 10%;
-        }      
-        .column3
-        {
-            width: 10%;
-        }  
-         .column4
-        {
-            width: 10%;
-        }    
-         .column5
-        {
-            width: 10%;
+            width: 20%;
         }    
          .label1
         {
-            width: 10%;text-align:right;
+            width: 20%;text-align:right;
         }       
         .label2
         {
-            width: 10%;text-align:right;
-        }
-        .label3
-        {
-            width: 10%;text-align:right;
-        }
-        .label4
-        {
-            width: 10%;text-align:right;
-        }
-        .label5
-        {
-            width: 10%;text-align:right;
+            width: 20%;text-align:right;
         }
         .txt.c1
         {
             width: 95%;
         }
-         td input[type="button"] {
-                width: auto;
-                font-size: medium;
-                float: right;
-            }
     </style>
 </head>
 <body>
@@ -348,94 +324,38 @@
         <div class="dview" id="dview" style="float: left;  width:25%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
-                <td align="center" style="width:5%"><a id='vewChk'></a></td>
+                <td align="center" style="width:5%"><a id='vewChk'></a></td>                
                 <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:40%"><a id='vewNamea'></a></td>
+                <td align="center" style="width:25%"><a id='vewPost'></a></td>
+                <td align="center" style="width:25%"><a id='vewP_post'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='namea'>~namea</td>
+                   <td align="center" id='post'>~post</td>
+                   <td align="center" id='p_post'>~p_post</td>                                     
             </tr>
         </table>
         </div>
         <div class='dbbm' style="width: 73%;float: left;">
-        <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
+        <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>            
             <tr>
                <td class="label1" ><a id='lblNoa'></a></td>
-               <td class="column1"><input id="txtNoa"  type="text" class="txt c1"/></td>
-               <td class="label2" ></td>
+               <td class="column1"><input id="txtNoa"  type="text"  class="txt c1"/></td>
+                <td class="label2"></td>
                <td class="column2"></td>
             </tr>
-	         <tr>   
-	            <td class="label1" ><a id='lblNamea'></a></td>
-                <td class="column1"><input id="txtNamea"  type="text" class="txt c1"/></td> 
-                <td class="label2" ></td>
-                <td class="column2"> </td>
-            </tr>
-            <tr>   
-                <td class="label1" ><a id='lblCtype'></a></td>
-                <td class="column1"><select id="cmbCtype" class="txt c1"></select></td> 
-                <td class="label2" ></td>
-                <td class="column2"> </td>
-            </tr>
-            <tr>   
-                <td class="label1" ><a id='lblUnit'></a></td>
-                <td class="column1"><input id="txtUnit"  type="text"  class="txt c1"/></td> 
-                <td class="label2" ></td>
-                <td class="column2"> </td>
-            </tr>
-            <tr>   
-                <td class="label1" ><a id='lblType'></a></td>
-                <td class="column1"><select id="cmbTypea" class="txt c1"></select></td> 
-                <td class="label2" ></td> 
-                <td class="column2"> </td>
-            </tr>
-            <tr>   
-                <td class="label1" ><a id='lblCno'></a></td>
-                <td class="column1"><input id="txtCno"  type="text"  class="txt c1"/></td> 
-                <td class="label2" ></td>
-                <td class="column2"></td>
-            </tr>
-            <tr>   
-                <td class="label1" ><input id='btnTgg' type="button" /></td>
-                <td class="column1" colspan="3"><input id="txtTggno" type="text"  style='width:30%; '><input id="txtTgg" type="text"  style='width:66%; '/></td> 
-                <td class="label2" ></td>
-                <td class="column2"></td>
-            </tr>
-            <tr>   
-                <td class="label1" ><a id='lblInprice'></a></td>
-                <td class="column1"><input id="txtInprice"  type="text" class="txt c1" style="text-align: right;"/></td> 
-                <td class="label2" ><a id="lblOutprice"></a></td>
-                <td class="column2"><input id="txtOutprice" type="text" class="txt c1" style="text-align: right;"/></td>
-            </tr>
-            <tr>   
-                <td class="label1" ><a id='lblDatea'></a></td>
-                <td class="column1"><input id="txtDatea"  type="text" class="txt c1"/></td> 
-                <td class="label2" ></td>
-                <td class="column2"></td>
-            </tr>
-            <tr>   
-                <td class="label1" ><a id='lblMount'></a></td>
-                <td class="column1"><input id="txtMount"  type="text"  class="txt c1" style="text-align: right;"/></td> 
-                <td class="label2" ></td>
-                <td class="column2"></td>
+            <tr>
+               <td class="label1" ><a id='lblPost'></a></td>
+               <td  class="column1" ><input id="txtPost"  type="text" class="txt c1"/></td>
             </tr>
             <tr>
-                <td class="label1"><a id='lblMemo'></a></td>
-                <td class="column1" colspan="5"><textarea id="txtMemo" rows="5" cols="10" style="width: 98%; height: 127px;"></textarea></td>
+               <td class="label1" ><a id='lblP_post'></a></td>
+               <td class="column1"><input id="txtP_post"  type="text" class="txt c1" /></td>
             </tr>
-            <tr>   
-                <td class="label1" ><input id="btnCprice" type="button" /></td>
-                <td class="column1"></td> 
-                <td class="label2" ></td>
-                <td class="column2"></td>
-            </tr>
-
         </table>
         </div>
-        </div>
-         <input id="q_sys" type="hidden" />    
+        </div> 
+        <input id="q_sys" type="hidden" />    
 </body>
 </html>
-            

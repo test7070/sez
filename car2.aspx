@@ -307,6 +307,7 @@
                 font-size: 16px;
                 background-color: #FFFF66;
                 color: blue;
+                float: left;
             }
             .tview td {
                 padding: 2px;
@@ -315,7 +316,7 @@
             }
             .dbbm {
                 float: left;
-                width: 73%;
+                width: 75%;
             }
             .tbbm {
                 margin: 0;
@@ -327,6 +328,7 @@
                 color: blue;
                 background: #cad3ff;
                 width: 100%;
+                float: left;
             }
             .tbbm tr {
                 height: 35px;
@@ -409,8 +411,8 @@
 		<form id="form1" style="height: 100%;" action="">
 			<!--#include file="../inc/toolbar.inc"-->
 			<div id='dmain' style="overflow:hidden;">
-				<div class="dview" id="dview">
-					<table class="tview" id="tview">
+				<div class="dview" id="dview" >
+					<table class="tview" id="tview" >
 						<tr>
 							<td class="td1" style="width:5%"><a id='vewChk'></a></td>
 							<td class="td2" style="width:25%"><a id='vewCarno'></a></td>
@@ -427,7 +429,7 @@
 				</div>
 				<div class='dbbm'>
 					<div style="border: 1px solid #000000;border-radius: 5px;">
-						<table class="tbbm"  id="tbbm">
+						<table class="tbbm"  id="tbbm" >
 							<tr class="tr0">
 								<td class="td1" >
 								<div class='btnLbl tb'>
