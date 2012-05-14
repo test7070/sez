@@ -10,7 +10,6 @@
     <script src="../script/qbox.js" type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
-    
     <script type="text/javascript">
         this.errorHandler = null;
 
@@ -332,7 +331,7 @@
 		 .tbbm tr td .lbl{float:right;color:blue;font-size:16px;}
 		 .tbbm tr td .lbl.btn{color:#4297D7;font-weight:bolder;}
 		 .tbbm tr td .lbl.btn:hover{color:#FF8F19;}
-		 .tbbm tr td .txt.c1{width:100%;float:left;}
+		 .tbbm tr td .txt.c1{width:98%;float:left;}
 		 .tbbm tr td .txt.c2{width:50%;float:left;}
 		 .tbbm tr td .txt.c3{width:47%;float:left;}
 		 .tbbm tr td .txt.c4{width:53%;float:left;}
@@ -377,27 +376,28 @@
         <div class='dbbm' style="width: 68%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
             <tr class="tr1">
-               <td class="td1" ><span> </span><a id='lblType'></a></td>
-               <td class="td2" >
-               <%--<input id="txtType" type="text"  style='width:0%; visibility:collapse;'/>--%>
-               <select id="cmbTypea" class="txt c1"></select></td>
-               <td class="td3"><span> </span><a id='lblStype'></a></td>
-               <td class="td4"><select id="cmbStype" class="txt c1"></select></td>
-               <td class="td5"><span> </span><a id='lblDatea'></a></td>
-               <td class="td6"><input id="txtDatea" type="text"  class="txt c1"/></td>
-               <td class="td7"><span> </span><a id='lblNoa'></a></td>
-               <td class="td8"><input id="txtNoa"   type="text" class="txt c1"/></td> 
+               <td class="td1" ><span> </span><a id='lblType' ></a><%--<input id="txtType" type="text"  style='width:0%; visibility:collapse;'/>--%></td>
+               <td class="td2"><select id="cmbTypea" style="width: 30%;"></select><a style="width: 5%;"></a><a id='lblStype' style="width: 20%; " ></a><select id="cmbStype" style="width: 40%;"></select></td>
+               <td class="td3"><span> </span><a id='lblDatea'></a></td>
+               <td class="td4"><input id="txtDatea" type="text"  class="txt c1"/></td>
+               <td class="td5"><span> </span><a id='lblNoa'></a></td>
+               <td class="td6"><input id="txtNoa"   type="text" class="txt c1"/></td> 
             </tr> 
             <tr class="tr2">
                <td class="td1"><span> </span><input id="btnAcomp" type="button" value='.' /></td>
                <td class="td2"><input id="txtCno"  type="text" class="txt c5" />
                <input id="txtAcomp"    type="text" class="txt c6"/></td>
-               <td class="td3"><span> </span><a id='lblMon' style="font-size: 14px;"></a></td>
+               <td class="td3"><span> </span><a id='lblMon' ></a></td>
                <td class="td4"><input id="txtMon"    type="text" class="txt c1"/></td>                 
                <td class="td5"><span> </span><a id='lblInvono'></a></td>
                <td class="td6"><input id="txtInvo" type="text" class="txt c1"/></td> 
             </tr>
-           <tr class="tr3">
+            <tr class="tr3">
+            	<td class="td1"><span> </span><a id="lblVbdate"></a></td>
+            	<td class="td2"><input id="txtVbdate" type="text" class="txt c1" /></td>
+            	<td class="td4"><input id="txtVedate" type="text" class="txt c1" /></td>
+            </tr>
+           <tr class="tr4">
                 <td class="td1"><span> </span><input id="btnCust" type="button" value='.' /></td>
                 <td class="td2"><input id="txtCustno" type="text" class="txt c5"/>
                <input id="txtComp"  type="text" class="txt c6"/></td>
@@ -407,7 +407,7 @@
                 <td class="td5"><span> </span><input id="btnAccc" type="button" value='.' class="btnLbl button"/></td>
                 <td class="td6"><input id="txtAccno"  type="text" class="txt c1"/></td>  
             </tr>
-            <tr class="tr4">
+            <tr class="tr5">
                 <td class="td1"><span> </span><a id='lblTel'></a></td>
                 <td class="td2"><input id="txtTel" type="text" class="txt c1"/></td>
                 <td class="td3"><span> </span><a id='lblTrantype'></a></td>
@@ -415,12 +415,12 @@
                 <td class="td5"><span> </span><a id='lblWorker'></a></td>
                 <td class="td6"><input id="txtWorker"  type="text" class="txt c1"/></td> 
             </tr>
-            <tr class="tr5">
+            <tr class="tr6">
                 <td class="td1"><span> </span><a id='lblAddr'></a></td>
                 <td class="td2"><input id="txtZipcode"  type="text" class="txt c1"/> </td>
                 <td class="td3" colspan='4' ><input id="txtAddr"  type="text" class="txt c1"/> </td>
             </tr>
-            <tr class="tr6">
+            <tr class="tr7">
                 <td class="td1"><span> </span><input id="btnPart" type="button" value='.' /></td>
                 <td class="td2"><input id="txtPartno"    type="text" class="txt c5"/>
                <input id="txtPart"    type="text" class="txt c6"/></td>
@@ -430,7 +430,7 @@
                 <td class="td5"><span> </span><a id='lblTranmoney'></a></td>
                 <td class="td6"><input id="txtTranmoney"  type="text" class="txt num c1" /></td> 
             </tr>
-            <tr class="tr7">
+            <tr class="tr8">
                 <td class="td1"><span> </span><input id="btnPart2" type="button" value='.' /></td>
                 <td class="td2"><input id="txtPartno2"    type="text" class="txt c5"/> 
                 <input id="txtPart2"    type="text" class="txt c6"/></td> 
@@ -441,7 +441,7 @@
                 <td class="td6" ><input id="txtOutsource"    type="text" class="txt num c1" />
                 </td> 
             </tr>
-            <tr class="tr8">
+            <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblMoney'></a></td>
                 <td class="td2"><input id="txtMoney"    type="text" class="txt num c1"/></td> 
                 <td class="td3"><span> </span><a id='lblTax'></a></td>
@@ -450,9 +450,9 @@
                 <td class="td5"><span> </span><a id='lblTotal'></a></td>
                 <td class="td6"><input id="txtTotal" type="text" class="txt num c1"/></td> 
             </tr>
-            <tr class="tr8">
+            <tr class="tr10">
                 <td class="td1"><span> </span><a id='lblMemo'></a></td>
-                <td  class="td2" colspan='7' ><input id="txtMemo"  type="text" class="txt c1"/></td> 
+                <td  class="td2" colspan='7' ><input id="txtMemo"  type="text" style="width: 99%;"/></td> 
             </tr>
         </table>
         </div>

@@ -396,7 +396,7 @@
                         </tr>
                         <tr class="tr6">
                             <td class="td1" ><a id="lblMemo" class="lbl"></a></td>
-                            <td class="td2" colspan="5"><textarea id="txtMemo" cols="10" rows="5" style="width: 98%;height: 50px;"></textarea>
+                            <td class="td2" colspan="5"><textarea id="txtMemo" cols="10" rows="5" style="width: 98%;height: 50px;"></textarea></td>
                             <td class="td7" ><a id="lblType" class="lbl"></a></td>
                             <td class="td8" ><input id="txtType" type="text"  class="txt c1"/></td>
                             <td class="td9" ></td>
@@ -416,27 +416,28 @@
                         </tr>
                 </table>
             </div>
+            </div>
             <div class='dbbs' >
-                <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
+                <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 2000px;"  >
                     <tr style='color:White; background:#003366;' >
                         <td align="center">
                         <input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
                         </td>
                         <td align="center" class="ch1"><a id='lblDateas'></a></td>
-                        <td align="center" class="ch2"><a id='lblBoats'></a></td>
                         <td align="center" class="ch1"><a id='lblCarno'></a></td>
                         <td align="center" class="ch1"><a id='lblRs'></a></td>
                         <td align="center" class="ch1"><a id='lblAdd1s'></a></td>
                         <td align="center" class="ch1"><a id='lblAdd2s'></a></td>
                         <td align="center" class="ch1"><a id='lblTranmoney'></a></td>
                         <td align="center" class="ch2"><a id='lblPaymemo'></a></td>
+                        <td align="center" class="ch1"><a id='lblFill'></a></td>
+                        <td align="center" class="ch1"><a id='lblCasetype'></a></td>
                         <td align="center" class="ch1"><a id='lblCaseno1'></a></td>
                         <td align="center" class="ch1"><a id='lblCaseno2'></a></td>
                         <td align="center" class="ch1"><a id='lblTranno'></a></td>
+                        <td align="center" class="ch2"><a id='lblBoats'></a></td>
                         <td align="center" class="ch2"><a id='lblBoatnames'></a></td>
                         <td align="center" class="ch2"><a id='lblShips'></a></td>
-                        <td align="center" class="ch1"><a id='lblFill'></a></td>
-                        <td align="center" class="ch1"><a id='lblCasetype'></a></td>
                         <td align="center" class="ch2"><a id='lblMemos'></a></td>
                         <td align="center" class="ch1"><a id='lblCh_oweight'></a></td>
                         <td align="center" class="ch1"><a id='lblCh_other'></a></td>
@@ -444,27 +445,26 @@
                     <tr  style='background:#cad3ff;'>
                         <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                         <td ><input class="txt c1" id="txtDatea.*" type="text" /></td>
-                        <td ><input class="txt c1" id="txtBoat.*" type="text" /></td>
                         <td ><input class="txt c1" id="txtCarno.*" type="text" /></td>
                         <td ><input class="txt c1" id="txtRs.*" type="text" /></td>
                         <td ><input class="txt c1" id="txtAdd1.*" type="text" /></td>
                         <td ><input class="txt c1" id="txtAdd2.*" type="text" /></td>
                         <td ><input class="txt c1" id="txtTranmoney.*" type="text" /></td>
                         <td ><input class="txt c1" id="txtPaymemo.*" type="text" /></td>
+                        <td ><input class="txt c1" id="txtFill.*" type="text" /></td>
+                        <td ><input class="txt c1" id="txtCasetype.*" type="text" /></td>
                         <td ><input class="txt c1" id="txtCaseno1.*" type="text" /></td>
                         <td ><input class="txt c1" id="txtCaseno2.*" type="text" /></td>
                         <td ><input class="txt c1" id="txtTranno.*" type="text" /></td>
+                         <td ><input class="txt c1" id="txtBoat.*" type="text" /></td>
                         <td ><input class="txt c1" id="txtBoatname.*" type="text" /></td>
                         <td ><input class="txt c1" id="txtShip.*" type="text" /></td>
-                        <td ><input class="txt c1" id="txtFill.*" type="text" /></td>
-                        <td ><input class="txt c1" id="txtCasetype.*" type="text" /></td>
                         <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
                         <td ><input class="txt c1" id="txtCh_oweight.*" type="text" /></td>
                         <td ><input class="txt c1" id="txtCh_other.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
                     </tr>
                 </table>
             </div>
-        </div>
         <input id="q_sys" type="hidden" />
     </body>
 </html>
