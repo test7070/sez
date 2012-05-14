@@ -2,14 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title></title>
-		<script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-		<script src="//59.125.143.170/jquery/js/qtran.js" type="text/javascript"></script>
 		<script type="text/javascript">
             var q_name = 'cartax', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
             var t_sqlname = 'cartax_load';
@@ -57,12 +56,6 @@
             function bbsAssign() {
                 _bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
                 for(var j = 0; j < q_bbsCount; j++) {
-                    $('#txtSheetyn_' + j).check({
-                        pattern : '^Y$|^N$'
-                    });
-                    $('#txtFareyn_' + j).check({
-                        pattern : '^Y$|^N$'
-                    });
                 }
             }
 
@@ -119,9 +112,8 @@
 					<td class="td2" align="center" style="width:7%;"><a id='lblMon'></a></td>
 					<td class="td3" align="center" style="width:10%;"><a id='lblMoney'></a></td>
 					<td class="td4" align="center" style="width:5%;"><a id='lblSheetyn'></a></td>
-					<td class="td5" align="center" style="width:5%;"><a id='lblFareyn'></a></td>
-					<td class="td6" align="center" style="width:10%;"><a id='lblPaydate'></a></td>
-					<td class="td7" align="center" style="width:40%;"><a id='lblMemo'></a></td>
+					<td class="td5" align="center" style="width:10%;"><a id='lblPaydate'></a></td>
+					<td class="td6" align="center" style="width:40%;"><a id='lblMemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td class="td1" align="center">
@@ -137,12 +129,9 @@
 					<input class="txt" id="txtSheetyn.*" type="text" style="width:95%; text-align: center;"  />
 					</td>
 					<td class="td5">
-					<input class="txt" id="txtFareyn.*" type="text" style="width:95%; text-align: center;"  />
-					</td>
-					<td class="td6">
 					<input class="txt" id="txtPaydate.*" type="text" style="width:95%; text-align: center;"  />
 					</td>
-					<td class="td7">
+					<td class="td6">
 					<input class="txt" id="txtMemo.*" type="text" style="width:95%;"   />
 					</td>
 				</tr>

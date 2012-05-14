@@ -458,8 +458,8 @@
 						</td>
 						<td class="td5" ></td>
 						<td class="td6" ></td>
-						<td class="td7" ></td>
-						<td class="td8" ></td>
+						<td class="td7" ><input type="button" id="btnTranquat" /></td>
+						<td class="td8" ><input type="input" id="txtTranquatno" class="txt c1" /></td>
 						<td class="td9" ></td>
 					</tr>
 					<tr class="tr2">
