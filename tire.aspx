@@ -277,15 +277,15 @@
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:20%"><a id='vewDatea'></a></td>
                 <td align="center" style="width:20%"><a id='vewNoa'></a></td>                
-                <td align="center" style="width:20%"><a id='vewCno'></a></td>
+                <td align="center" style="width:20%"><a id='vewCarno'></a></td>
                 <td align="center" style="width:20%"><a id='vewTgg'></a></td>                
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='datea'>~datea</td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='cno'>~cno</td>
-                   <td align="center" id='tgg'>~tgg</td>
+                   <td align="center" id='carno'>~carno</td>
+                   <td align="center" id='tgg,4'>~tgg,4</td>
             </tr>
         </table>
         </div>
@@ -296,8 +296,8 @@
             <td class="column1"><input id="txtDatea"  type="text" class="txt c1"/></td>
             <td class='label2'><a id="lblNoa" ></a></td>
             <td class="column2"><input id="txtNoa"type="text" class="txt c1"/></td>
-            <td class='label3'><a id="lblCno" ></a></td>
-            <td class="column3"><input id="txtCno"  type="text" class="txt c1"/></td>
+            <td class='label3'><a id="lblCarno" ></a></td>
+            <td class="column3"><input id="txtCarno"  type="text" class="txt c1"/></td>
             <td class="column4"><img  src="../image/car.jpg" class="txt c1"/></td>         
         </tr>      
         <tr>
