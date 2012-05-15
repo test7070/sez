@@ -324,7 +324,7 @@
                 <td align="center" class="td2"><a id='lblPrice'></a></td>
                 <td align="center" class="td2"><a id='lblMount'></a></td>
                 <td align="center" class="td2"><a id='lblTotal'></a></td>
-                <td align="center" class="td2"><a id='lblUno'></a></td>
+                <td align="center" class="td2"><a id='lblTyre'></a></td>
                 <td align="center"><a id='lblMemo'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -340,7 +340,7 @@
                 <td ><input  id="txtPrice.*"type="text" class="txt c1" style="text-align: right;"/></td>
                 <td ><input  id="txtMount.*"type="text" class="txt c1" style="text-align: right;"/></td>
                 <td ><input  id="txtTotal.*" type="text" class="txt c1" style="text-align: right;"/></td>
-                <td ><input  id="txtUno.*" type="text" class="txt c1"/></td>
+                <td ><input  id="txtTyre.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtMemo.*" type="text" class="txt c1"/><input id="txtNoq.*" type="hidden" /></td>
            </tr>
         </table>

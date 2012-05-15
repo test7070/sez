@@ -17,10 +17,10 @@
             }
 
             q_tables = 's';
-            var q_name = "quat";
-            var decbbs = ['price', 'weight', 'mount', 'total', 'c2', 'notv2', 'dime', 'width', 'lengthb', 'c1', 'notv', 'theory'];
-            var decbbm = ['money', 'tax', 'total', 'weight', 'floata', 'mount', 'price','totalus','thirdprice','oil1','oil2'];
-            var q_readonly = ['txtComp', 'txtAcomp','txtSales'];
+            var q_name = "tranquat";
+            var decbbs = ['mount','price'];
+            var decbbm = ['thirdprice','oil1','oil2'];
+            var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [];
@@ -31,12 +31,12 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'], ['txtAddno1_', 'btnAdd1_', 'addr', 'noa,addr', 'txtAddno1_,txtAdd1_', 'addr_b.aspx'], ['txtAddno2_', 'btnAdd2_', 'addr', 'noa,addr', 'txtAddno2_,txtAdd2_', 'addr_b.aspx'],['txtCustno', 'btnCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],['txtSales', 'btnSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],['txtCno','btnAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']);
+            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'], ['txtAddno1_', 'btnAdd1_', 'addr', 'noa,addr', 'txtAddno1_,txtAdd1_', 'addr_b.aspx'], ['txtAddno2_', 'btnAdd2_', 'addr', 'noa,addr', 'txtAddno2_,txtAdd2_', 'addr_b.aspx'],['txtCustno', 'btnCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],['txtSalesno', 'btnSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],['txtCno','btnAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'no3'];
                 q_brwCount();
-               q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+               q_gt(q_name, q_content, q_sqlCount, 1)
             });
             
             //////////////////   end Ready
