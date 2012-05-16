@@ -45,7 +45,7 @@
                         fileName : 'z_tranquat',
                         options : [ {
                         type : '6',
-                        name : 'T6'
+                        name : 'noa'
                     },{
                             type : '2',
                             name : 'addr',
