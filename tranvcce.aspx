@@ -45,6 +45,14 @@
             function q_funcPost(t_func, result) {
                 if(result.substr(0, 5) == '<Data') {
                     switch(t_func) {
+                        case 'tranvcce.genTrans':
+                            var tmp = _q_appendData('msg', '', true);
+                            if(tmp[0].value == '1') {
+                                //success
+                            } else {
+                                alert(tmp[0].memo);
+                            }
+                            break;
                         case 'tranvcce.check':
                             var tmp = _q_appendData('msg', '', true);
                             if(tmp[0].value == '1') {
@@ -53,6 +61,7 @@
                                     q_gtnoa(q_name, replaceAll('T' + (trim($('#txtDatea').val()).length == 0 ? q_date() : trim($('#txtDatea').val())), '/', ''));
                                 else
                                     wrServer(t_noa);
+                                q_func('tranvcce.genTrans', r_accy + ',' + $('#txtNoa').val() + ',empty');
                             } else {
                                 alert(tmp[0].memo);
                             }
@@ -95,7 +104,7 @@
             }
 
             function mainPost() {
-                q_func('tranvcce.getCust', 'empty');
+                q_func('tranvcce.getCust', r_accy + ',' + 'empty');
                 bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
                 $('#txtOdate_type1').mask(r_picd);
@@ -165,17 +174,15 @@
                     $("#t3").hide();
                     switch($("#cmbTypea_condition").val()) {
                         case '1':
-                            var t_para = q_func('tranvcce.getItem1', $('#cmbCust_type1').val() + ',' + $('#txtStraddno_type1').val() + ',' + $('#txtStradd_type1').val() + ',' + $('#txtEndaddno_type1').val() + ',' + $('#txtEndadd_type1').val() + ',' + $('#txtProductno_type1').val() + ',' + $('#txtProduct_type1').val() + ',' + $('#txtOrdeno_type1').val() + ',' + $('#txtOdate_type1').val() + ',' + ($('#chkIsdisplay').prop('checked') ? '1' : '0') + ',empty');
+                            q_func('tranvcce.getItem1', r_accy + ',' + $('#cmbCust_type1').val() + ',' + $('#txtStraddno_type1').val() + ',' + $('#txtStradd_type1').val() + ',' + $('#txtEndaddno_type1').val() + ',' + $('#txtEndadd_type1').val() + ',' + $('#txtProductno_type1').val() + ',' + $('#txtProduct_type1').val() + ',' + $('#txtOrdeno_type1').val() + ',' + $('#txtOdate_type1').val() + ',' + ($('#chkIsdisplay').prop('checked') ? '1' : '0') + ',empty');
                             $("#t1").show();
                             break;
                         case '2':
-                            //custno,straddno,stradd,endaddno,endadd,caseno,caseno2,po,traceno,isdisplay,carno,datea,ispal,ef,ordeno
-                            q_func('tranvcce.getItem2', $('#cmbCust_type2').val() + ',' + $('#txtStraddno_type2').val() + ',' + $('#txtStradd_type2').val() + ',' + $('#txtEndaddno_type2').val() + ',' + $('#txtEndadd_type2').val() + ',' + $('#txtCaseno_type2').val() + ',' + $('#txtCaseno2_type2').val() + ',' + $('#txtPo_type2').val() + ',' + $('#txtTraceno_type2').val() + ',' + ($('#chkIsdisplay').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type2').val() + ',' + $('#txtOdate_type2').val() + ',' + $('#cmbIspal_type2').val() + ',' + $('#cmbEf_type2').val() + ',' + $('#txtOrdeno_type2').val() + ',empty');
+                            q_func('tranvcce.getItem2', r_accy + ',' + $('#cmbCust_type2').val() + ',' + $('#txtStraddno_type2').val() + ',' + $('#txtStradd_type2').val() + ',' + $('#txtEndaddno_type2').val() + ',' + $('#txtEndadd_type2').val() + ',' + $('#txtCaseno_type2').val() + ',' + $('#txtCaseno2_type2').val() + ',' + $('#txtPo_type2').val() + ',' + $('#txtTraceno_type2').val() + ',' + ($('#chkIsdisplay').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type2').val() + ',' + $('#txtOdate_type2').val() + ',' + $('#cmbIspal_type2').val() + ',' + $('#cmbEf_type2').val() + ',' + $('#txtOrdeno_type2').val() + ',empty');
                             $("#t2").show();
                             break;
                         case '3':
-                            //custno,straddno,stradd,endaddno,endadd,shipno,so,cldate,caseno,isdisplay,carno,datea,ispal,ef,ordeno
-                            q_func('tranvcce.getItem3', $('#cmbCust_type3').val() + ',' + $('#txtStraddno_type3').val() + ',' + $('#txtStradd_type3').val() + ',' + $('#txtEndaddno_type3').val() + ',' + $('#txtEndadd_type3').val() + ',' + $('#txtShipno_type3').val() + ',' + $('#txtSo_type3').val() + ',' + $('#txtCldate_type3').val() + ',' + $('#txtCaseno_type3').val() + ',' + ($('#chkIsdisplay').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type3').val() + ',' + $('#txtOdate_type3').val() + ',' + $('#cmbIspal_type3').val() + ',' + $('#cmbEf_type3').val() + ',' + $('#txtOrdeno_type3').val() + ',empty');
+                            q_func('tranvcce.getItem3', r_accy + ',' + $('#cmbCust_type3').val() + ',' + $('#txtStraddno_type3').val() + ',' + $('#txtStradd_type3').val() + ',' + $('#txtEndaddno_type3').val() + ',' + $('#txtEndadd_type3').val() + ',' + $('#txtShipno_type3').val() + ',' + $('#txtSo_type3').val() + ',' + $('#txtCldate_type3').val() + ',' + $('#txtCaseno_type3').val() + ',' + ($('#chkIsdisplay').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type3').val() + ',' + $('#txtOdate_type3').val() + ',' + $('#cmbIspal_type3').val() + ',' + $('#cmbEf_type3').val() + ',' + $('#txtOrdeno_type3').val() + ',empty');
                             $("#t3").show();
                             break;
                     }
@@ -271,15 +278,15 @@
                     return;
                 }
                 $('#btnNo').attr('disabled', 'disabled');
-                q_func('tranvcce.check', $('#txtOrdeno').val() + "," + $('#txtNoa').val() + "," + $('#txtWeight').val() + ",empty");
+                q_func('tranvcce.check', r_accy + "," + $('#txtOrdeno').val() + "," + $('#txtNoa').val() + "," + $('#txtWeight').val() + ",empty");
             }
 
             function wrServer(key_value) {
                 var i;
 
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-               _btnOk(key_value, bbmKey[0], '', '', 2);
-               
+                _btnOk(key_value, bbmKey[0], '', '', 2);
+
             }
 
             function refresh(recno) {
