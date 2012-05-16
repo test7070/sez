@@ -71,6 +71,10 @@
                 q_cmbParse("cmbUnit", q_getPara('trans.unit'));
                 q_cmbParse("cmbUnit2", q_getPara('trans.unit'));
                 q_func('car2.getItem', '3,4,5');
+                
+                $('#btnTranquat').click(function(e){
+                	
+                });
 
                 $("#cmbCalctype").change(function() {
                     if($("#cmbCalctype").val() == '6') {
