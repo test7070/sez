@@ -43,13 +43,18 @@
                     }
                     $('#qReport').q_report({
                         fileName : 'z_tranquat',
-                        options : [{
-                            type : '0',
-                            name : 'accy',
-                            value : q_getId()[4]
-                        }, {
+                        options : [ {
+                        type : '6',
+                        name : 'T6'
+                    },{
                             type : '2',
                             name : 'addr',
+                            dbf : 'addr',
+                            index : 'noa,addr',
+                            src : 'addr_b.aspx'
+                    }, {
+                            type : '2',
+                            name : 'addr2',
                             dbf : 'addr',
                             index : 'noa,addr',
                             src : 'addr_b.aspx'
