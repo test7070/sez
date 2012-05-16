@@ -4,7 +4,7 @@
 <head>
     <title></title>
     <script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
-    <script src='../script/qj.js' type="text/javascript"></script>
+    <script src='../script/qj2.js' type="text/javascript"></script>
     <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src="../script/qbox.js" type="text/javascript"></script>
@@ -75,8 +75,9 @@
                 q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true); 
                 //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
             });
-            $('#btnFunc').click(function () { 
-                q_func( 't3.func1',"3,4,5")
+            $('#btnFunc').click(function () {
+                //q_func('t3.func1', "3,4,5")
+                q_func('t4.func1', "3,4,5")
              });
         }
 
@@ -185,6 +186,9 @@
                 $('#txtPay').val(cmb.value);
             cmb.value = '';
         }
+
+
+
         function bbsAssign() {  /// 表身運算式
             _bbsAssign();
             for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
@@ -274,6 +278,10 @@
             calTax();
         }
 
+        function q_stPost() {
+            abbm[q_recno]['accno'] = xmlString;
+            $('#txtAccno').val(xmlString);
+        }
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);

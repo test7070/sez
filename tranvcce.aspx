@@ -43,17 +43,14 @@
             }
 
             function q_funcPost(t_func, result) {
-                if(result.substr(0, 5) == '<Data') {
-                    switch(t_func) {
-                        case 'tranvcce.genTrans':
-                            var tmp = _q_appendData('msg', '', true);
-                            if(tmp[0].value == '1') {
-                                //success
-                            } else {
-                                alert(tmp[0].memo);
-                            }
-                            break;
-                        case 'tranvcce.check':
+
+                switch(t_func) {
+                    case 'tranvcce.genTrans':
+                       	if(result.substring(0,1)!='1')
+                        	alert(result);
+                        break;
+                    case 'tranvcce.check':
+                        if(result.substr(0, 5) == '<Data') {
                             var tmp = _q_appendData('msg', '', true);
                             if(tmp[0].value == '1') {
                                 var t_noa = trim($('#txtNoa').val());
@@ -67,8 +64,12 @@
                             }
                             $('#btnNo').removeAttr('disabled');
                             isEnabled();
-                            break;
-                        case 'tranvcce.getCust':
+                        } else
+                            alert('Error!' + '\r' + t_func + '\r' + result);
+                        break;
+
+                    case 'tranvcce.getCust':
+                        if(result.substr(0, 5) == '<Data') {
                             var tmp = _q_appendData('tranvcce_cust', '', true);
                             tmpStr = '<option value="">' + q_getPara('tranvcce.string_all') + '<';
                             tmpStr += '/option>';
@@ -85,22 +86,32 @@
                                 else
                                     $('#cmbCust_type3').append(tmpStr);
                             }
-                            break;
-                        case 'tranvcce.getItem1':
+                        } else
+                            alert('Error!' + '\r' + t_func + '\r' + result);
+                        break;
+                    case 'tranvcce.getItem1':
+                        if(result.substr(0, 5) == '<Data') {
                             var tmp = _q_appendData('tranvcce_t1', '', true);
                             $("#t1").refresh(tmp);
-                            break;
-                        case 'tranvcce.getItem2':
+                        } else
+                            alert('Error!' + '\r' + t_func + '\r' + result);
+                        break;
+                    case 'tranvcce.getItem2':
+                        if(result.substr(0, 5) == '<Data') {
                             var tmp = _q_appendData('tranvcce_t2', '', true);
                             $("#t2").refresh(tmp);
-                            break;
-                        case 'tranvcce.getItem3':
+                        } else
+                            alert('Error!' + '\r' + t_func + '\r' + result);
+                        break;
+                    case 'tranvcce.getItem3':
+                        if(result.substr(0, 5) == '<Data') {
                             var tmp = _q_appendData('tranvcce_t3', '', true);
                             $("#t3").refresh(tmp);
-                            break;
-                    }
-                } else
-                    alert('Error!' + '\r' + t_func + '\r' + result);
+                        } else
+                            alert('Error!' + '\r' + t_func + '\r' + result);
+                        break;
+                }
+
             }
 
             function mainPost() {

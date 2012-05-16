@@ -16,6 +16,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
+            q_tables = 's';
             var decbbs = ['mount']
             var decbbm = ['mount', 'price', 'price2', 'price3', 'discount', 'reserve', 'gross', 'plus', 'minus', 'mount2', 'total', 'total2', 'commission', 'unpack', 'thirdprice'];
             var q_name = "tranorde";
@@ -24,7 +25,7 @@
             var bbsNum = [];
             var bbsMask = [];
             var bbmNum = new Array(['txtUnpack', 10, 0], ['txtMount', 10, 0], ['txtPrice', 10, 2], ['txtPrice2', 10, 2], ['txtPrice3', 10, 2], ['txtDiscount', 10, 0], ['miles', 10, 2], ['txtReserve', 10, 0], ['tolls', 10, 0], ['txtTicket', 10, 0], ['txGross', 10, 2], ['txtWeight', 10, 2], ['txtPlus', 10, 0], ['txtMius', 10, 0], ['txtMount2', 10, 2], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtOverH', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2]);
-            var bbmMask = new Array(['txtKdate', '999/99/99'],['txtOdate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99']);
+            var bbmMask = new Array(['txtKdate', '999/99/99'], ['txtOdate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99']);
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -71,9 +72,9 @@
                 q_cmbParse("cmbUnit", q_getPara('trans.unit'));
                 q_cmbParse("cmbUnit2", q_getPara('trans.unit'));
                 q_func('car2.getItem', '3,4,5');
-                
-                $('#btnTranquat').click(function(e){
-                	
+
+                $('#btnTranquat').click(function(e) {
+
                 });
 
                 $("#cmbCalctype").change(function() {
@@ -184,7 +185,7 @@
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
-                _btnModi();     
+                _btnModi();
             }
 
             function btnPrint() {
@@ -290,6 +291,25 @@
 
             function btnCancel() {
                 _btnCancel();
+            }
+
+            function bbsSave(as) {
+                if(!as['dodate']) {
+                    as[bbsKey[1]] = '';
+                    return;
+                }
+
+                q_nowf();
+                as['noa'] = abbm2['noa'];
+
+                return true;
+            }
+
+            function bbsAssign() {/// 表身運算式
+                _bbsAssign();
+                for(var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
+
+                } //j
             }
 		</script>
 		<style type="text/css">
@@ -462,8 +482,12 @@
 						</td>
 						<td class="td5" ></td>
 						<td class="td6" ></td>
-						<td class="td7" ><input type="button" id="btnTranquat" /></td>
-						<td class="td8" ><input type="input" id="txtTranquatno" class="txt c1" /></td>
+						<td class="td7" >
+						<input type="button" id="btnTranquat" />
+						</td>
+						<td class="td8" >
+						<input type="input" id="txtTranquatno" class="txt c1" />
+						</td>
 						<td class="td9" ></td>
 					</tr>
 					<tr class="tr2">
@@ -715,19 +739,8 @@
 		</div>
 		<div class='dbbs' >
 			<table id="tbbs" class='tbbs' >
-				<tr name="schema">
-					<td class="td0" style="width:2%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td1" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td2" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td3" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td4" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td5" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td6" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td7" style="width:25%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td8" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td9" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				</tr>
-				<tr style='color:White; background:#003366;' >
+				
+				<tr style='color:white; background:#003366;' >
 					<td align="center">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>

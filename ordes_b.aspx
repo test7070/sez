@@ -1,6 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title></title>
 <script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
@@ -28,7 +26,7 @@
             dataErr = false;
             return;
         }
-        mainBrow(6, t_content, t_sqlname, t_postname);
+        mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
     }
 
     function bbsAssign() { 
