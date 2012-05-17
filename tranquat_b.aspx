@@ -44,10 +44,7 @@
                 for(var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
                     $('#chkSel_' + j).change(function(e) {
                         if($(this).prop('checked')){
-                        	var obj = $(this).parent().parent().parent().children().children().children('[name="g1"]');
-                        	for(k=0;k<obj.length;k++){
-                        		obj.eq(k).parent().parent().removeClass('select');
-                        	}
+                        	$(this).parent().parent().siblings().has('td [name="g1"]').removeClass('select');
                         	$(this).parent().parent().addClass('select');
                         }else{
                         	$(this).parent().parent().removeClass('select');
