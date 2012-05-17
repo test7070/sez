@@ -38,8 +38,7 @@
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1)
-            });
-            //////////////////   end Ready
+            });         
             function main() {
                 if(dataErr) {
                     dataErr = false;
@@ -56,17 +55,20 @@
 				$('#lblAccno').parent().click(function(e) {
                     q_box("accc.aspx?" + $('#txtAccno').val() + "'", 'accc', "850px", "600px", q_getMsg("popAccc"));
                 });
+                
+                $('lblImport').click(function (e) {
+                	//q_func();  
+                });
             }
 
-            function q_boxClose(s2) {///   q_boxClose 2/4
+            function q_boxClose(s2) {
                 var
                 ret;
                 switch (b_pop) {
                     case q_name + '_s':
-                        q_boxClose2(s2);
-                        ///   q_boxClose 3/4
+                        q_boxClose2(s2);                   
                         break;
-                }/// end Switch
+                }
                 b_pop = '';
             }
 
@@ -76,7 +78,7 @@
                         if(q_cur == 4)
                             q_Seek_gtPost();
                         break;
-                }  /// end switch
+                } 
             }
 
             function btnOk() {
@@ -93,7 +95,7 @@
             }
 
             function _btnSeek() {
-                if(q_cur > 0 && q_cur < 4)// 1-3
+                if(q_cur > 0 && q_cur < 4)
                     return;
 
                 q_box('cng_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
@@ -140,16 +142,6 @@
                 q_nowf();
                 as['date'] = abbm2['date'];
 
-                //            t_err ='';
-                //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-                //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-                //
-                //            if (t_err) {
-                //                alert(t_err)
-                //                return false;
-                //            }
-                //
                 return true;
             }
 
@@ -406,7 +398,7 @@
                             <td class="td7" ><a id="lblType" class="lbl"></a></td>
                             <td class="td8" ><input id="txtType" type="text"  class="txt c1"/></td>
                             <td class="td9" ></td>
-                            <td class="td10" ><a id="lblReport" class="lbl btn"></a></td>
+                            <td class="td10" ><a id="lblImport" class="lbl btn"></a></td>
                         </tr>
                         <tr class="tr8">
                             <td class="td1"><a id="lblAccno" class="btnLbl button"></a></td>
