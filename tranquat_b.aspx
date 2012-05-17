@@ -79,7 +79,7 @@
 					<td class="tdC" align="center" style="width:10%;"><a id='lblMemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
-					<td class="td1"><input class="chk"  id="chkSel.*" type="checkbox"/></td>
+					<td class="td1"><input type="radio" id="chkSel.*" name="g1" /></td>
 					<td class="td2"><input class="txt"  id="txtNoa.*" type="text" style="width:80%;" /><input class="txt"  id="txtNoq.*" type="text" style="width:15%;" /></td>
 					<td class="td3"><select id="cmbStype.*" style="width:95%;"></select></td>
 					<td class="td4"><input class="txt"  id="txtDatea.*" type="text" style="width:95%;" /></td>

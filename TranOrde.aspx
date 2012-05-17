@@ -50,16 +50,31 @@
             }
 
             function q_funcPost(t_func, result) {
-                if(result.substr(0, 5) == '<Data') {
-                    var tmp = _q_appendData('carteam', '', true);
-                    var value = '';
-                    for(var z = 0; z < tmp.length; z++) {
-                        value = value + (value.length > 0 ? ',' : '') + tmp[z].noa + '@' + tmp[z].team;
-                    }
-                    q_cmbParse("cmbCarteamno", value);
-                    refresh(q_recno);
-                } else
-                    alert('Error!' + '\r' + t_func + '\r' + result);
+                switch(t_func) {
+                    case 'tranorde.check':
+                        if(result.substring(0, 1) != '1')
+                            alert(result);
+                        else {
+                            var t_noa = trim($('#txtNoa').val());
+                            if(t_noa.length == 0 || t_noa == "AUTO")
+                                q_gtnoa(q_name, replaceAll('T' + (trim($('#txtKdate').val()).length == 0 ? q_date() : trim($('#txtKdate').val())), '/', ''));
+                            else
+                                wrServer(t_noa);
+                        }
+                        break;
+                    case 'car2.getItem':
+                        if(result.substr(0, 5) == '<Data') {
+                            var tmp = _q_appendData('carteam', '', true);
+                            var value = '';
+                            for(var z = 0; z < tmp.length; z++) {
+                                value = value + (value.length > 0 ? ',' : '') + tmp[z].noa + '@' + tmp[z].team;
+                            }
+                            q_cmbParse("cmbCarteamno", value);
+                            refresh(q_recno);
+                        } else
+                            alert('Error!' + '\r' + t_func + '\r' + result);
+                        break;
+                }
             }
 
             function mainPost() {
@@ -104,7 +119,7 @@
                     sum();
                 });
                 $("#btnTranquat").click(function(e) {
-                    t_where = "b.custno='" + $('#txtCustno').val() + "' and not exists(select * from tranorde"+r_accy+" c where a.noa = c.tranquatno and a.no3 = c.tranquatnoq and not c.noa='"+$('#txtNoa').val()+"')";  
+                    t_where = "b.custno='" + $('#txtCustno').val() + "' and not exists(select * from tranorde" + r_accy + " c where a.noa = c.tranquatno and a.no3 = c.tranquatnoq and not c.noa='" + $('#txtNoa').val() + "')";
                     q_box("tranquat_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranquats', "95%", "650px", q_getMsg('popTranquat'));
                 });
             }
@@ -141,21 +156,20 @@
                     case 'tranquats':
                         if(q_cur > 0 && q_cur < 4) {
                             b_ret = getb_ret();
-                            if(b_ret.length == 0)
-                                return;
-                            var i, j = 0;
-                            $('#txtTranquatno').val(b_ret[0].noa);
-                            $('#txtTranquatnoq').val(b_ret[0].noq);
-                            $('#txtUccno').val(b_ret[0].productno);
-                            $('#txtProduct').val(b_ret[0].product);
-                            $('#txtMount').val(b_ret[0].mount);
-                            $('#txtPrice').val(b_ret[0].price);
-                            $('#txtUnit').val(b_ret[0].unit);
-                            $('#txtAddno1').val(b_ret[0].straddrno);
-                            $('#txtAdd1').val(b_ret[0].straddr);
-                            $('#txtAddno2').val(b_ret[0].endaddrno);
-                            $('#txtAdd2').val(b_ret[0].endaddr);
-                            $('#txtMemo').val(b_ret[0].memo);
+                            if(!(!b_ret || b_ret.length == 0)) {
+                                $('#txtTranquatno').val(b_ret[0].noa);
+                                $('#txtTranquatnoq').val(b_ret[0].noq);
+                                $('#txtUccno').val(b_ret[0].productno);
+                                $('#txtProduct').val(b_ret[0].product);
+                                $('#txtMount').val(b_ret[0].mount);
+                                $('#txtPrice').val(b_ret[0].price);
+                                $('#txtUnit').val(b_ret[0].unit);
+                                $('#txtAddno1').val(b_ret[0].straddrno);
+                                $('#txtAdd1').val(b_ret[0].straddr);
+                                $('#txtAddno2').val(b_ret[0].endaddrno);
+                                $('#txtAdd2').val(b_ret[0].endaddr);
+                                $('#txtMemo').val(b_ret[0].memo);
+                            }
                         }
                         break;
                     case q_name + '_s':
@@ -211,24 +225,12 @@
             }
 
             function btnOk() {
-                var t_err = '';
-                /* t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
-
-                 if(t_err.length > 0) {
-                 alert(t_err);
-                 return;
-                 }*/
-                var t_noa = trim($('#txtNoa').val());
-
                 if($("#cmbCalctype").val() == '6')
                     $("#txtPrice2").val(0);
                 else
                     $("#txtPrice3").val(0);
 
-                if(t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll('T' + (trim($('#txtKdate').val()).length == 0 ? q_date() : trim($('#txtKdate').val())), '/', ''));
-                else
-                    wrServer(t_noa);
+                q_func('tranorde.check', r_accy + "," + $('#txtNoa').val() + ",empty");
             }
 
             function wrServer(key_value) {
