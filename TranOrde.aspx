@@ -16,11 +16,10 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            q_tables = 's';
             var decbbs = ['mount']
             var decbbm = ['mount', 'price', 'price2', 'price3', 'discount', 'reserve', 'gross', 'plus', 'minus', 'mount2', 'total', 'total2', 'commission', 'unpack', 'thirdprice'];
             var q_name = "tranorde";
-            var q_readonly = ['txtNoa'];
+            var q_readonly = ['txtNoa', 'txtTranquatno', 'txtTranquatnoq'];
             var q_readonlys = [];
             var bbsNum = [];
             var bbsMask = [];
@@ -48,20 +47,34 @@
                 }
                 q_mask(bbmMask);
                 mainForm(0);
-
             }
 
             function q_funcPost(t_func, result) {
-                if(result.substr(0, 5) == '<Data') {
-                    var tmp = _q_appendData('carteam', '', true);
-                    var value = '';
-                    for(var z = 0; z < tmp.length; z++) {
-                        value = value + (value.length > 0 ? ',' : '') + tmp[z].noa + '@' + tmp[z].team;
-                    }
-                    q_cmbParse("cmbCarteamno", value);
-                    refresh(q_recno);
-                } else
-                    alert('Error!' + '\r' + t_func + '\r' + result);
+                switch(t_func) {
+                    case 'tranorde.check':
+                        if(result.substring(0, 1) != '1')
+                            alert(result);
+                        else {
+                            var t_noa = trim($('#txtNoa').val());
+                            if(t_noa.length == 0 || t_noa == "AUTO")
+                                q_gtnoa(q_name, replaceAll('T' + (trim($('#txtKdate').val()).length == 0 ? q_date() : trim($('#txtKdate').val())), '/', ''));
+                            else
+                                wrServer(t_noa);
+                        }
+                        break;
+                    case 'car2.getItem':
+                        if(result.substr(0, 5) == '<Data') {
+                            var tmp = _q_appendData('carteam', '', true);
+                            var value = '';
+                            for(var z = 0; z < tmp.length; z++) {
+                                value = value + (value.length > 0 ? ',' : '') + tmp[z].noa + '@' + tmp[z].team;
+                            }
+                            q_cmbParse("cmbCarteamno", value);
+                            refresh(q_recno);
+                        } else
+                            alert('Error!' + '\r' + t_func + '\r' + result);
+                        break;
+                }
             }
 
             function mainPost() {
@@ -72,10 +85,6 @@
                 q_cmbParse("cmbUnit", q_getPara('trans.unit'));
                 q_cmbParse("cmbUnit2", q_getPara('trans.unit'));
                 q_func('car2.getItem', '3,4,5');
-
-                $('#btnTranquat').click(function(e) {
-
-                });
 
                 $("#cmbCalctype").change(function() {
                     if($("#cmbCalctype").val() == '6') {
@@ -109,6 +118,10 @@
                 $("#txtDiscount").change(function() {
                     sum();
                 });
+                $("#btnTranquat").click(function(e) {
+                    t_where = "b.custno='" + $('#txtCustno').val() + "' and not exists(select * from tranorde" + r_accy + " c where a.noa = c.tranquatno and a.no3 = c.tranquatnoq and not c.noa='" + $('#txtNoa').val() + "')";
+                    q_box("tranquat_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranquats', "95%", "650px", q_getMsg('popTranquat'));
+                });
             }
 
             function sum() {
@@ -140,6 +153,25 @@
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
+                    case 'tranquats':
+                        if(q_cur > 0 && q_cur < 4) {
+                            b_ret = getb_ret();
+                            if(!(!b_ret || b_ret.length == 0)) {
+                                $('#txtTranquatno').val(b_ret[0].noa);
+                                $('#txtTranquatnoq').val(b_ret[0].noq);
+                                $('#txtUccno').val(b_ret[0].productno);
+                                $('#txtProduct').val(b_ret[0].product);
+                                $('#txtMount').val(b_ret[0].mount);
+                                $('#txtPrice').val(b_ret[0].price);
+                                $('#txtUnit').val(b_ret[0].unit);
+                                $('#txtAddno1').val(b_ret[0].straddrno);
+                                $('#txtAdd1').val(b_ret[0].straddr);
+                                $('#txtAddno2').val(b_ret[0].endaddrno);
+                                $('#txtAdd2').val(b_ret[0].endaddr);
+                                $('#txtMemo').val(b_ret[0].memo);
+                            }
+                        }
+                        break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         break;
@@ -193,24 +225,12 @@
             }
 
             function btnOk() {
-                var t_err = '';
-                /* t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
-
-                 if(t_err.length > 0) {
-                 alert(t_err);
-                 return;
-                 }*/
-                var t_noa = trim($('#txtNoa').val());
-
                 if($("#cmbCalctype").val() == '6')
                     $("#txtPrice2").val(0);
                 else
                     $("#txtPrice3").val(0);
 
-                if(t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll('T' + (trim($('#txtKdate').val()).length == 0 ? q_date() : trim($('#txtKdate').val())), '/', ''));
-                else
-                    wrServer(t_noa);
+                q_func('tranorde.check', r_accy + "," + $('#txtNoa').val() + ",empty");
             }
 
             function wrServer(key_value) {
@@ -291,25 +311,6 @@
 
             function btnCancel() {
                 _btnCancel();
-            }
-
-            function bbsSave(as) {
-                if(!as['dodate']) {
-                    as[bbsKey[1]] = '';
-                    return;
-                }
-
-                q_nowf();
-                as['noa'] = abbm2['noa'];
-
-                return true;
-            }
-
-            function bbsAssign() {/// 表身運算式
-                _bbsAssign();
-                for(var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
-
-                } //j
             }
 		</script>
 		<style type="text/css">
@@ -486,7 +487,8 @@
 						<input type="button" id="btnTranquat" />
 						</td>
 						<td class="td8" >
-						<input type="input" id="txtTranquatno" class="txt c1" />
+						<input type="text" id="txtTranquatno" style="width:75%;float: left; " />
+						<input type="text" id="txtTranquatnoq" style="width:25%;float: left; " />
 						</td>
 						<td class="td9" ></td>
 					</tr>
@@ -739,8 +741,19 @@
 		</div>
 		<div class='dbbs' >
 			<table id="tbbs" class='tbbs' >
-				
-				<tr style='color:white; background:#003366;' >
+				<tr name="schema">
+					<td class="td0" style="width:2%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					<td class="td1" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					<td class="td2" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					<td class="td3" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					<td class="td4" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					<td class="td5" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					<td class="td6" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					<td class="td7" style="width:25%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					<td class="td8" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					<td class="td9" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+				</tr>
+				<tr style='color:White; background:#003366;' >
 					<td align="center">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>

@@ -43,7 +43,6 @@
             }
 
             function q_funcPost(t_func, result) {
-
                 switch(t_func) {
                     case 'tranvcce.genTrans':
                        	if(result.substring(0,1)!='1')
