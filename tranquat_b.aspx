@@ -10,8 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'tranquats', t_bbsTag = 'tbbs', 
-                t_content = " field=noa,noq,stype,datea,cno,acomp,custno,cust,productno,product,straddrno,straddr,endaddrno,endaddr,mount,unit,price,memo  order=b.datea,a.noa,a.noq ", afilter = [], bbsKey = ['noa', 'noq'], as;
+            var q_name = 'tranquats', t_bbsTag = 'tbbs', t_content = " field=noa,noq,stype,datea,cno,acomp,custno,cust,productno,product,straddrno,straddr,endaddrno,endaddr,mount,unit,price,memo  order=b.datea,a.noa,a.noq ", afilter = [], bbsKey = ['noa', 'noq'], as;
             //, t_where = '';
             var t_sqlname = 'tranquat_load2';
             t_postname = q_name;
@@ -33,18 +32,32 @@
                     return;
                 }
                 mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
-         
+
             }
+
             function mainPost() {
                 q_cmbParse("cmbStype", q_getPara('vcc.stype'), 's');
             }
 
             function bbsAssign() {
                 _bbsAssign();
+                for(var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
+                    $('#chkSel_' + j).change(function(e) {
+                        if($(this).prop('checked')){
+                        	var obj = $(this).parent().parent().parent().children().children().children('[name="g1"]');
+                        	for(k=0;k<obj.length;k++){
+                        		obj.eq(k).parent().parent().removeClass('select');
+                        	}
+                        	$(this).parent().parent().addClass('select');
+                        }else{
+                        	$(this).parent().parent().removeClass('select');
+                        }
+                    });
+                }
             }
 
             function q_gtPost() {
-            	
+
             }
 
             function refresh() {
@@ -57,8 +70,10 @@
                 color: white;
                 text-align: center;
                 font-weight: bold;
-                background-color:  #76a2fe;
-            }
+                background-color: #76a2fe;
+            }			tr.select input[type="text"]{
+				color:red;
+			}
 		</style>
 	</head>
 	<body>
@@ -79,18 +94,42 @@
 					<td class="tdC" align="center" style="width:10%;"><a id='lblMemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
-					<td class="td1"><input type="radio" id="chkSel.*" name="g1" /></td>
-					<td class="td2"><input class="txt"  id="txtNoa.*" type="text" style="width:80%;" /><input class="txt"  id="txtNoq.*" type="text" style="width:15%;" /></td>
+					<td class="td1">
+					<input type="radio" id="chkSel.*" name="g1" />
+					</td>
+					<td class="td2">
+					<input class="txt"  id="txtNoa.*" type="text" style="width:75%;" />
+					<input class="txt"  id="txtNoq.*" type="text" style="width:15%;" />
+					</td>
 					<td class="td3"><select id="cmbStype.*" style="width:95%;"></select></td>
-					<td class="td4"><input class="txt"  id="txtDatea.*" type="text" style="width:95%;" /></td>
-					<td class="td5"><input class="txt"  id="txtAcomp.*" type="text" style="width:95%;" /></td>
-					<td class="td6"><input class="txt"  id="txtProductno.*" type="text" style="width:25%;" /><input class="txt"  id="txtProduct.*" type="text" style="width:70%;" /></td>
-					<td class="td7"><input class="txt"  id="txtStraddr.*" type="text" style="width:95%;" /></td>
-					<td class="td8"><input class="txt"  id="txtEndaddr.*" type="text" style="width:95%;" /></td>
-					<td class="td9"><input class="txt"  id="txtMount.*" type="text" style="width:95%;" /></td>
-					<td class="tdA"><input class="txt"  id="txtUnit.*" type="text" style="width:95%;" /></td>
-					<td class="tdB"><input class="txt"  id="txtPrice.*" type="text" style="width:95%;" /></td>
-					<td class="tdC"><input class="txt"  id="txtMemo.*" type="text" style="width:95%;" /></td>
+					<td class="td4">
+					<input class="txt"  id="txtDatea.*" type="text" style="width:95%;" />
+					</td>
+					<td class="td5">
+					<input class="txt"  id="txtAcomp.*" type="text" style="width:95%;" />
+					</td>
+					<td class="td6">
+					<input class="txt"  id="txtProductno.*" type="text" style="width:25%;" />
+					<input class="txt"  id="txtProduct.*" type="text" style="width:65%;" />
+					</td>
+					<td class="td7">
+					<input class="txt"  id="txtStraddr.*" type="text" style="width:95%;" />
+					</td>
+					<td class="td8">
+					<input class="txt"  id="txtEndaddr.*" type="text" style="width:95%;" />
+					</td>
+					<td class="td9">
+					<input class="txt"  id="txtMount.*" type="text" style="width:95%;" />
+					</td>
+					<td class="tdA">
+					<input class="txt"  id="txtUnit.*" type="text" style="width:95%;" />
+					</td>
+					<td class="tdB">
+					<input class="txt"  id="txtPrice.*" type="text" style="width:95%;" />
+					</td>
+					<td class="tdC">
+					<input class="txt"  id="txtMemo.*" type="text" style="width:95%;" />
+					</td>
 				</tr>
 			</table>
 			<!--#include file="../inc/pop_ctrl.inc"-->
