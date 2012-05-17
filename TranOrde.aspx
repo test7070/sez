@@ -648,7 +648,7 @@
 					</tr>
 					<tr class="tr14">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
-						<td class="td2" colspan='7'>						<textarea id="txtMemo" style="width:100%; height: 127px;"></textarea></td>
+						<td class="td2" colspan='7'><textarea id="txtMemo" style="width:99%; height: 35px;"></textarea></td>
 					</tr>
 					<tr class="tr15">
 						<td class="td7"><span> </span><a id="lblTotal" class="lbl"></a></td>
