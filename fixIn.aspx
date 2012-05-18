@@ -321,7 +321,7 @@
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr>
             <td class='label1'><a id="lblTypea" ></a></td>
-            <td class="column1"><select id="cmbTypea" class="txt c1"/></td>
+            <td class="column1"><select id="cmbTypea" class="txt c1"></select></td>
             <td class='label2'><a id="lblDatea" ></a></td>
             <td class="column2"><input id="txtDatea"type="text" class="txt c1"/></td>
             <td class='label3'><a id="lblNoa" ></a></td>
@@ -355,7 +355,7 @@
                 <td align="center" style="width: 3%;"><a id='lblUnit'></a></td>
                 <td align="center" class="td1"><a id='lblMount'></a></td>
                 <td align="center" class="td1"><a id='lblPrice'></a></td>
-                <td align="center" class="td1"><a id='lblMoneys'></a></td>
+                <td align="center" class="td1"><a id='lblTotals'></a></td>
                 <td align="center" class="td1"><a id='lblUno'></a></td>
                 <td align="center" class="td1"><a id='lblMemos'></a></td>
             </tr>
@@ -366,7 +366,7 @@
                 <td ><input class="txt c1" id="txtUnit.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtMount.*" type="text" style="text-align: right;"/></td>
                 <td ><input class="txt c1" id="txtPrice.*" type="text" style="text-align: right;" /></td>
-                <td ><input class="txt c1" id="txtMoney.*" type="text" style="text-align: right;" /></td>
+                <td ><input class="txt c1" id="txtTotal.*" type="text" style="text-align: right;" /></td>
                 <td ><input class="txt c1" id="txtUno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
             </tr>
