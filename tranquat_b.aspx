@@ -22,7 +22,6 @@
             $(document).ready(function() {
                 if(!q_paraChk())
                     return;
-
                 main();
             });
 
@@ -37,19 +36,35 @@
 
             function mainPost() {
                 q_cmbParse("cmbStype", q_getPara('vcc.stype'), 's');
+                var tmp = location.href.split(';');
+                for(x in tmp)
+                if(tmp[x].substring(0, 11).toUpperCase() == 'TRANQUATNO=') {
+                    var tmp1 = tmp[x].substring(11).split('_');
+                    $('#tbbs').data('info', {
+                        tranquatno : tmp1[0],
+                        tranquatnoq : tmp1[1]
+                    });
+                }
             }
 
             function bbsAssign() {
                 _bbsAssign();
                 for(var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
                     $('#chkSel_' + j).change(function(e) {
-                        if($(this).prop('checked')){
-                        	$(this).parent().parent().siblings().has('td [name="g1"]').removeClass('select');
-                        	$(this).parent().parent().addClass('select');
-                        }else{
-                        	$(this).parent().parent().removeClass('select');
-                        }
+                        if($(this).prop('checked')) {
+                            $(this).parent().parent().siblings().removeClass('select');
+                            $(this).parent().parent().addClass('select');
+                        } else
+                            $(this).parent().parent().removeClass('select');
+
                     });
+                    if( typeof ($('#tbbs').data('info')) != 'undefined')
+                        if($('#txtNoa_' + j).val() == $('#tbbs').data('info').tranquatno && $('#txtNoq_' + j).val() == $('#tbbs').data('info').tranquatnoq) {
+                            $('#chkSel_' + j).prop('checked', true);
+                            $('#chkSel_' + j).change();
+                            $('#tbbs').data('info').tranquatno = "";
+                            $('#tbbs').data('info').tranquatnoq = "";
+                        }
                 }
             }
 
@@ -68,9 +83,9 @@
                 text-align: center;
                 font-weight: bold;
                 background-color: #76a2fe;
-            }			tr.select input[type="text"]{
-				color:red;
-			}
+            }            tr.select input[type="text"] {
+                color: red;
+            }
 		</style>
 	</head>
 	<body>

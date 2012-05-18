@@ -120,7 +120,7 @@
                 });
                 $("#btnTranquat").click(function(e) {
                     t_where = "b.custno='" + $('#txtCustno').val() + "' and not exists(select * from tranorde" + r_accy + " c where a.noa = c.tranquatno and a.no3 = c.tranquatnoq and not c.noa='" + $('#txtNoa').val() + "')";
-                    q_box("tranquat_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranquats', "95%", "650px", q_getMsg('popTranquat'));
+                    q_box("tranquat_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";;tranquatno="+$('#txtTranquatno').val()+'_'+$('#txtTranquatnoq').val()+";", 'tranquats', "95%", "650px", q_getMsg('popTranquat'));
                 });
             }
 
