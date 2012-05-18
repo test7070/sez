@@ -457,7 +457,7 @@
 						<input id="txtStraddrno" type="text"  class="txt c2"/>
 						<input id="txtStraddr" type="text"  class="txt c3"/>
 						</td>
-						<td class="td3" ><span> </span><a id="lblEndaddrno" class="lbl btn"></a></td>
+						<td class="td3" ><span> </span><a id="lblEndaddr" class="lbl btn"></a></td>
 						<td class="td4">
 						<input id="txtEndaddrno" type="text" class="txt c2"/>
 						<input id="txtEndaddr" type="text"  class="txt c3"/>
