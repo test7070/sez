@@ -32,7 +32,7 @@
             brwKey = 'noa';
             q_alias = '';
             q_desc = 1;
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtAddno1', 'lblAdd1', 'addr', 'noa,addr', 'txtAddno1,txtAdd1', 'addr_b.aspx'], ['txtAddno2', 'lblAdd2', 'addr', 'noa,addr', 'txtAddno2,txtAdd2', 'addr_b.aspx'], ['txtAddr_placeno', 'lblAddr_place', 'addr', 'noa,addr', 'txtAddr_placeno,txtAddr_place', 'addr_b.aspx'], ['txtAddr_transno', 'lblAddr_trans', 'addr', 'noa,addr', 'txtAddr_transno,txtAddr_trans', 'addr_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'noa,name', 'txtWorkerno,txtWorker', 'sss_b.aspx']);
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b.aspx'], ['txtEndaddrno', 'lblEndaddr', 'addr', 'noa,addr', 'txtEndaddrno,txtEndaddr', 'addr_b.aspx'], ['txtAddr_placeno', 'lblAddr_place', 'addr', 'noa,addr', 'txtAddr_placeno,txtAddr_place', 'addr_b.aspx'], ['txtAddr_transno', 'lblAddr_trans', 'addr', 'noa,addr', 'txtAddr_transno,txtAddr_trans', 'addr_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'noa,name', 'txtWorkerno,txtWorker', 'sss_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -164,10 +164,10 @@
                                 $('#txtMount').val(b_ret[0].mount);
                                 $('#txtPrice').val(b_ret[0].price);
                                 $('#txtUnit').val(b_ret[0].unit);
-                                $('#txtAddno1').val(b_ret[0].straddrno);
-                                $('#txtAdd1').val(b_ret[0].straddr);
-                                $('#txtAddno2').val(b_ret[0].endaddrno);
-                                $('#txtAdd2').val(b_ret[0].endaddr);
+                                $('#txtStraddrno').val(b_ret[0].straddrno);
+                                $('#txtStraddr').val(b_ret[0].straddr);
+                                $('#txtEndaddrno').val(b_ret[0].endaddrno);
+                                $('#txtEndaddr').val(b_ret[0].endaddr);
                                 $('#txtMemo').val(b_ret[0].memo);
                             }
                         }
@@ -522,15 +522,15 @@
 						<td class="td8"><span> </span><a id="lblIspal"></a></td>
 					</tr>
 					<tr class="tr4">
-						<td class="td1" ><span> </span><a id="lblAdd1" class="lbl btn"></a></td>
+						<td class="td1" ><span> </span><a id="lblStraddr" class="lbl btn"></a></td>
 						<td class="td2" colspan="3">
-						<input id="txtAddno1" type="text"  class="txt c2"/>
-						<input id="txtAdd1" type="text"  class="txt c3"/>
+						<input id="txtStraddrno" type="text"  class="txt c2"/>
+						<input id="txtStraddr" type="text"  class="txt c3"/>
 						</td>
-						<td class="td3" ><span> </span><a id="lblAdd2" class="lbl btn"></a></td>
+						<td class="td3" ><span> </span><a id="lblEndaddr" class="lbl btn"></a></td>
 						<td class="td4" colspan="3">
-						<input id="txtAddno2" type="text" class="txt c2"/>
-						<input id="txtAdd2" type="text"  class="txt c3"/>
+						<input id="txtEndaddrno" type="text" class="txt c2"/>
+						<input id="txtEndaddr" type="text"  class="txt c3"/>
 						</td>
 					</tr>
 					<tr class="tr5">
