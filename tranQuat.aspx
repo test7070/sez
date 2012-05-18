@@ -31,7 +31,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'], ['txtAddno1_', 'btnAdd1_', 'addr', 'noa,addr', 'txtAddno1_,txtAdd1_', 'addr_b.aspx'], ['txtAddno2_', 'btnAdd2_', 'addr', 'noa,addr', 'txtAddno2_,txtAdd2_', 'addr_b.aspx'],['txtCustno', 'btnCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],['txtSalesno', 'btnSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],['txtCno','btnAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']);
+            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'], ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b.aspx'], ['txtEndaddrno_', 'btnEndaddr_', 'addr', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr_b.aspx'],['txtCustno', 'btnCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],['txtSalesno', 'btnSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],['txtCno','btnAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'no3'];
@@ -408,8 +408,8 @@
                 <td align="center"><a id="lblNo3"></a></td>
                 <td align="center"><a id='lblProductno'></a></td>
                 <td align="center"><a id='lblProduct'></a></td>
-                <td align="center"><a id="lblAdd1"></a></td>
-                <td align="center"><a id="lblAdd2"></a></td>
+                <td align="center"><a id="lblStraddr"></a></td>
+                <td align="center"><a id="lblEndaddr"></a></td>
                 <td align="center"><a id='lblMount'></a></td>
                 <td align="center"><a id='lblUnit'></a></td>
                 <td align="center"><a id='lblPrices'></a></td>        
@@ -421,8 +421,8 @@
                 <td style="width:10%; text-align:center"><input id="txtProductno.*" type="text"style="width: 60%;" />
                                        <input class="btn"  id="btnProduct.*" type="button" value='...' style=" font-weight: bold;" /></td>
                 <td style="width:20%;"><input id="txtProduct.*" type="text" class="txt c2"/></td>
-                <td style="width:14%;"><input id="txtAddno1.*" type="text" style="width: 22%;"/><input id="txtAdd1.*" type="text" style="width: 53%;"/><input id="btnAdd1.*" type="button" value=".." style="width: 15%;" /></td>
-                <td style="width:14%;"><input id="txtAddno2.*" type="text" style="width: 22%;"/><input id="txtAdd2.*" type="text" style="width: 53%;"/><input id="btnAdd2.*" type="button" value=".." style="width: 15%;" /></td>
+                <td style="width:14%;"><input id="txtStraddrno.*" type="text" style="width: 22%;"/><input id="txtStraddr.*" type="text" style="width: 53%;"/><input id="btnStraddr.*" type="button" value=".." style="width: 15%;" /></td>
+                <td style="width:14%;"><input id="txtEndaddrno.*" type="text" style="width: 22%;"/><input id="txtEndaddr.*" type="text" style="width: 53%;"/><input id="btnEndaddr.*" type="button" value=".." style="width: 15%;" /></td>
                 <td style="width:5%;"><input id="txtMount.*" type="text"  class="txt c2" style="text-align:right;"/></td>
                 <td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c2"/></td>
                 <td style="width:6%;"><input id="txtPrice.*" type="text" class="txt c2" style="text-align:right;"/></td>
