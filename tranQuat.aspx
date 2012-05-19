@@ -15,7 +15,6 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
             q_tables = 's';
             var q_name = "tranquat";
             var decbbs = ['mount', 'price'];
