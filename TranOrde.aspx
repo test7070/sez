@@ -15,11 +15,11 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-            var decbbs = ['mount']
-            var decbbm = ['mount', 'price', 'price2', 'price3', 'discount', 'reserve', 'weight', 'plus', 'minus', 'mount2', 'total', 'total2', 'commission', 'unpack', 'thirdprice'];
+         //   var decbbs = ['mount']
+         //   var decbbm = ['mount', 'price', 'price2', 'price3', 'discount', 'reserve', 'weight', 'plus', 'minus', 'mount2', 'total', 'total2', 'commission', 'unpack', 'thirdprice'];
             var q_name = "tranorde";
-            var q_readonly = ['txtNoa', 'txtTranquatno', 'txtTranquatnoq'];
-            var q_readonlys = [];
+            var q_readonly = ['txtNoa'];
+            var q_readonlys = ['txtOrdeno_','txtTranquatno_', 'txtTranquatnoq_'];
             var bbsNum = [];
             var bbsMask = [];
             var bbmNum = new Array(['txtUnpack', 10, 0], ['txtMount', 10, 0], ['txtPrice', 10, 2], ['txtPrice2', 10, 2], ['txtPrice3', 10, 2], ['txtDiscount', 10, 0], ['miles', 10, 2], ['txtReserve', 10, 0], ['tolls', 10, 0], ['txtTicket', 10, 0], ['txGross', 10, 2], ['txtWeight', 10, 2], ['txtPlus', 10, 0], ['txtMius', 10, 0], ['txtMount2', 10, 2], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtOverH', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2]);

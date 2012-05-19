@@ -16,7 +16,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            var decbbm = ['mount', 'weight'];
+           // var decbbm = ['mount', 'weight'];
             var q_name = "tranvcce";
             var q_readonly = ['txtNoa'];
             var bbmNum = new Array(['txtWeight,10,2']);

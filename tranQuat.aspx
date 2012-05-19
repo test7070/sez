@@ -17,8 +17,8 @@
             }
             q_tables = 's';
             var q_name = "tranquat";
-            var decbbs = ['mount', 'price'];
-            var decbbm = ['thirdprice', 'oil1', 'oil2'];
+         //   var decbbs = ['mount', 'price'];
+          //  var decbbm = ['thirdprice', 'oil1', 'oil2'];
             var q_readonly = ['txtNoa'];
             var q_readonlys = [];
             var bbmNum = [];
