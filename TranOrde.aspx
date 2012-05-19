@@ -16,7 +16,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
             var decbbs = ['mount']
-            var decbbm = ['mount', 'price', 'price2', 'price3', 'discount', 'reserve', 'gross', 'plus', 'minus', 'mount2', 'total', 'total2', 'commission', 'unpack', 'thirdprice'];
+            var decbbm = ['mount', 'price', 'price2', 'price3', 'discount', 'reserve', 'weight', 'plus', 'minus', 'mount2', 'total', 'total2', 'commission', 'unpack', 'thirdprice'];
             var q_name = "tranorde";
             var q_readonly = ['txtNoa', 'txtTranquatno', 'txtTranquatnoq'];
             var q_readonlys = [];
@@ -571,9 +571,9 @@
 						<td class="td4" >
 						<input id="txtMount2" type="text"  class="txt num c4"/>
 						<select id="cmbUnit2" class="txt c5"  style="margin: -1px -2px 0px 2px;"></select></td>
-						<td class="td5" ><span> </span><a id="lblGross" class="lbl"></a></td>
+						<td class="td5" ><span> </span><a id="lblWeight" class="lbl"></a></td>
 						<td class="td6" >
-						<input id="txtGross" type="text"  class="txt num c1"/>
+						<input id="txtWeight" type="text"  class="txt num c1"/>
 						</td>
 					</tr>
 					<tr class="tr9">
