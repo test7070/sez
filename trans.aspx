@@ -168,7 +168,8 @@
 
             function btnIns() {
                 _btnIns();
-                $('#txtNoa').focus();
+                $('#txtNoa').val('AUTO');
+                $('#txtDatea').val(q_date());
             }
 
             function btnModi() {
@@ -198,8 +199,10 @@
                 else
                     $("#txtPrice3").val(0);
 
-                if(t_noa.length == 0)
-                    q_gtnoa(q_name, t_noa);
+                var t_noa = trim($('#txtNoa').val());
+                var t_date = trim($('#txtDatea').val());
+                if(t_noa.length == 0 || t_noa == "AUTO")
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_trans') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
             }

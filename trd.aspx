@@ -63,8 +63,24 @@
                 });
 
                 $('#lblImport').parent().click(function(e) {
-                    if(q_cur == 1 || q_cur == 2)
-                        q_gt('trans', "where=^^datea='100/01/03'^^", 0, 0, 0, "", r_accy);
+                    if(q_cur == 1 || q_cur == 2) {
+                        var t_btrandate = "'" + $.trim($('#txtBtrandate').val()) + "'";
+                        var t_etrandate = $.trim($('#txtEtrandate').val());
+                        t_etrandate = t_etrandate.length == 0 ? "char(255)" : "'" + t_etrandate + "'";
+                        var t_bodate = "'" + $.trim($('#txtBodate').val()) + "'";
+                        var t_eodate = $.trim($('#txtEodate').val());
+                        t_eodate = t_eodate.length == 0 ? "char(255)" : "'" + t_eodate + "'";
+                        var t_bstraddrno = "'" + $.trim($('#txtBstraddrno').val()) + "'";
+                        var t_estraddrno = $.trim($('#txtEstraddrno').val());
+                        t_estraddrno = t_estraddrno.length == 0 ? "char(255)" : "'" + t_estraddrno + "'";
+                        var t_bendaddrno = "'" + $.trim($('#txtBendaddrno').val()) + "'";
+                        var t_eendaddrno = $.trim($('#txtEendaddrno').val());
+                        t_eendaddrno = t_eendaddrno.length == 0 ? "char(255)" : "'" + t_eendaddrno + "'";
+                        var t_tranordeno = "'" + $.trim($('#txtOrdeno').val()) + "'";
+                        t_where = "where=^^(isnull(datea,'') between " + t_btrandate + " and " + t_etrandate + ") and" + " exists(select noa from tranorde" + r_accy + " where tranorde" + r_accy + ".noa=trans" + r_accy + ".ordeno and (isnull(odate,'') between " + t_bodate + " and " + t_eodate + ")) and" + " (isnull(straddrno,'') between " + t_bstraddrno + " and " + t_estraddrno + ") and" + " (isnull(endaddrno,'') between " + t_bendaddrno + " and " + t_eendaddrno + ") and" + " (len(" + t_tranordeno + ")=0 or ordeno=" + t_tranordeno + ")^^";
+                        q_gt('trans', t_where, 0, 0, 0, "", r_accy);
+                        //q_gt('trans', "where=^^datea='100/01/03'^^", 0, 0, 0, "", r_accy);
+                    }
                 });
             }
 
@@ -81,17 +97,16 @@
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'trans':
-                        var as = _q_appendData("trans");
+                        var as = _q_appendData("trans","",true);
                         while(as.length > q_bbsCount) {
                             $('#btnPlus').click();
                         }
                         for( i = 0; i < q_bbsCount; i++) {
-                            _btnMinus("btnMinus_" + i);
+                            _btnMinus("btnMinus_" + i);                            
                             if(i < as.length) {
                                 $('#txtDatea_' + i).val(as[i].noa);
                             }
                         }
-
                         break;
                     case q_name:
                         if(q_cur == 4)
@@ -106,11 +121,12 @@
                     alert(t_err);
                     return;
                 }
-                var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
-                if(s1.length == 0 || s1 == "AUTO")
-                    q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
+                var t_noa = trim($('#txtNoa').val());
+                var t_date = trim($('#txtDatea').val());
+                if(t_noa.length == 0 || t_noa == "AUTO")
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_trd') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
-                    wrServer(s1);
+                    wrServer(t_noa);
             }
 
             function _btnSeek() {
@@ -129,9 +145,8 @@
 
             function btnIns() {
                 _btnIns();
-                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+                $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
             }
 
             function btnModi() {
@@ -278,13 +293,13 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 10%;
+                width: 9%;
             }
             .tbbm .tr6, .tbbm .tr7, .tbbm .tr8 {
                 background-color: #FFEC8B;
             }
-            .tbbm tr td.tdZ {
-                width: 1%;
+            .tbbm .tdZ {
+                width: 2%;
             }
             .tbbm tr td span {
                 float: right;
@@ -334,11 +349,11 @@
                 padding: 0px;
                 margin: -1px;
             }
-            .tbbs input[type="text"]{
-            	width:95%;
+            .tbbs input[type="text"] {
+                width: 95%;
             }
-            .num{
-            	text-align: right;
+            .num {
+                text-align: right;
             }
 		</style>
 	</head>

@@ -24,7 +24,7 @@
             var bbsNum = [];
             var bbsMask = [];
             var bbmNum = new Array(['txtUnpack', 10, 0], ['txtMount', 10, 0], ['txtPrice', 10, 2], ['txtPrice2', 10, 2], ['txtPrice3', 10, 2], ['txtDiscount', 10, 0], ['miles', 10, 2], ['txtReserve', 10, 0], ['tolls', 10, 0], ['txtTicket', 10, 0], ['txGross', 10, 2], ['txtWeight', 10, 2], ['txtPlus', 10, 0], ['txtMius', 10, 0], ['txtMount2', 10, 2], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtOverH', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2]);
-            var bbmMask = new Array(['txtKdate', '999/99/99'], ['txtOdate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99']);
+            var bbmMask = new Array(['txtTrandate', '999/99/99'], ['txtOdate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99']);
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -56,8 +56,9 @@
                             alert(result);
                         else {
                             var t_noa = trim($('#txtNoa').val());
+                            var t_date = trim($('#txtDatea').val());
                             if(t_noa.length == 0 || t_noa == "AUTO")
-                                q_gtnoa(q_name, replaceAll('T' + (trim($('#txtKdate').val()).length == 0 ? q_date() : trim($('#txtKdate').val())), '/', ''));
+                                q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tranorde') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                             else
                                 wrServer(t_noa);
                         }
@@ -120,7 +121,7 @@
                 });
                 $("#btnTranquat").click(function(e) {
                     t_where = "b.custno='" + $('#txtCustno').val() + "' and not exists(select * from tranorde" + r_accy + " c where a.noa = c.tranquatno and a.no3 = c.tranquatnoq and not c.noa='" + $('#txtNoa').val() + "')";
-                    q_box("tranquat_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";;tranquatno="+$('#txtTranquatno').val()+'_'+$('#txtTranquatnoq').val()+";", 'tranquats', "95%", "650px", q_getMsg('popTranquat'));
+                    q_box("tranquat_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;tranquatno=" + $('#txtTranquatno').val() + '_' + $('#txtTranquatnoq').val() + ";", 'tranquats', "95%", "650px", q_getMsg('popTranquat'));
                 });
             }
 
@@ -211,7 +212,7 @@
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
-                $('#txtKdate').val(q_date());
+                $('#txtDatea').val(q_date());
             }
 
             function btnModi() {
@@ -230,7 +231,13 @@
                 else
                     $("#txtPrice3").val(0);
 
-                q_func('tranorde.check', r_accy + "," + $('#txtNoa').val() + ",empty");
+                //q_func('tranorde.check', r_accy + "," + $('#txtNoa').val() + ",empty");
+                var t_noa = trim($('#txtNoa').val());
+                var t_date = trim($('#txtDatea').val());
+                if(t_noa.length == 0 || t_noa == "AUTO")
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tranorde') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                else
+                    wrServer(t_noa);
             }
 
             function wrServer(key_value) {
@@ -464,7 +471,7 @@
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
-						<td align="center" id='kdate'>~kdate</td>
+						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='ordeno'>~ordeno</td>
 						<td align="center" id='cust,4'>~cust,4</td>
 					</tr>
@@ -477,9 +484,9 @@
 						<td class="td2" >
 						<input id="txtNoa" type="text"  class="txt c1"/>
 						</td>
-						<td class="td3" ><span> </span><a id="lblOdate" class="lbl"></a></td>
+						<td class="td3" ><span> </span><a id="lblDatea" class="lbl"></a></td>
 						<td class="td4" >
-						<input id="txtOdate" type="text"  class="txt c1"/>
+						<input id="txtDatea" type="text"  class="txt c1"/>
 						</td>
 						<td class="td5" ></td>
 						<td class="td6" ></td>
@@ -498,13 +505,13 @@
 						<input id="txtCustno" type="text"  style='width:25%; float:left;'/>
 						<input id="txtComp" type="text"  style='width:75%; float:left;'/>
 						</td>
-						<td class="td5" ><span> </span><a id="lblKdate" class="lbl"></a></td>
+						<td class="td5" ><span> </span><a id="lblOdate" class="lbl"></a></td>
 						<td class="td6" >
-						<input id="txtKdate" type="text"  class="txt c1"/>
+						<input id="txtOdate" type="text"  class="txt c1"/>
 						</td>
-						<td class="td7" ><span> </span><a id="lblDatea" class="lbl"></a></td>
+						<td class="td7" ><span> </span><a id="lblTrandate" class="lbl"></a></td>
 						<td class="td8" >
-						<input id="txtDatea" type="text"  class="txt c1"/>
+						<input id="txtTrandate" type="text"  class="txt c1"/>
 						</td>
 					</tr>
 					<tr class="tr3">
@@ -648,7 +655,7 @@
 					</tr>
 					<tr class="tr14">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
-						<td class="td2" colspan='7'><textarea id="txtMemo" style="width:99%; height: 35px;"></textarea></td>
+						<td class="td2" colspan='7'>						<textarea id="txtMemo" style="width:99%; height: 35px;"></textarea></td>
 					</tr>
 					<tr class="tr15">
 						<td class="td7"><span> </span><a id="lblTotal" class="lbl"></a></td>

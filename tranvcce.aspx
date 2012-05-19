@@ -45,19 +45,20 @@
             function q_funcPost(t_func, result) {
                 switch(t_func) {
                     case 'tranvcce.genTrans':
-                       	if(result.substring(0,1)!='1')
-                        	alert(result);
+                        if(result.substring(0, 1) != '1')
+                            alert(result);
                         break;
                     case 'tranvcce.check':
                         if(result.substr(0, 5) == '<Data') {
                             var tmp = _q_appendData('msg', '', true);
                             if(tmp[0].value == '1') {
                                 var t_noa = trim($('#txtNoa').val());
+                                var t_date = trim($('#txtDatea').val());
                                 if(t_noa.length == 0 || t_noa == "AUTO")
-                                    q_gtnoa(q_name, replaceAll('T' + (trim($('#txtDatea').val()).length == 0 ? q_date() : trim($('#txtDatea').val())), '/', ''));
+                                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tranvcce') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                                 else
                                     wrServer(t_noa);
-                                
+
                             } else {
                                 alert(tmp[0].memo);
                             }
@@ -254,6 +255,7 @@
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
+                $('#txtDatea').val(q_date());
                 $('#btnLookup_condition').attr('disabled', 'disabled');
                 isEnabled();
                 window.location.hash = "#tbbm";
@@ -296,7 +298,7 @@
 
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], '', '', 2);
-				q_func('tranvcce.genTrans', r_accy + ',' + key_value + ',empty');
+                q_func('tranvcce.genTrans', r_accy + ',' + key_value + ',empty');
             }
 
             function refresh(recno) {
