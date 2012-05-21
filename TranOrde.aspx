@@ -15,8 +15,6 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-         //   var decbbs = ['mount']
-         //   var decbbm = ['mount', 'price', 'price2', 'price3', 'discount', 'reserve', 'weight', 'plus', 'minus', 'mount2', 'total', 'total2', 'commission', 'unpack', 'thirdprice'];
             var q_name = "tranorde";
             var q_readonly = ['txtNoa'];
             var q_readonlys = ['txtOrdeno_','txtTranquatno_', 'txtTranquatnoq_'];

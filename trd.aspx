@@ -18,8 +18,6 @@
 
             q_tables = 's';
             var q_name = "trd";
-            //var decbbs = ['tranmoney', 'overweightcost', 'othercost'];
-            //var decbbm = ['taxrate', 'money', 'tax', 'total'];
             var q_readonly = ['txtNoa'];
             var q_readonlys = ['txtOrdeno_','txtTransno_','txtTransnoq_'];
             var bbmNum = [['txtPrice', 11, 3]];
@@ -44,7 +42,7 @@
                     return;
                 }
 
-                mainForm(1);
+                mainForm(0);
             }
 
             function mainPost() {
@@ -83,8 +81,7 @@
                         t_eendaddrno = t_eendaddrno.length == 0 ? "char(255)" : "'" + t_eendaddrno + "'";
                         var t_tranordeno = "'" + $.trim($('#txtOrdeno').val()) + "'";
                         t_where = "where=^^(custno=" + t_custno + ") and (isnull(datea,'') between " + t_btrandate + " and " + t_etrandate + ") and" + " exists(select noa from tranorde" + r_accy + " where tranorde" + r_accy + ".noa=trans" + r_accy + ".ordeno and (isnull(odate,'') between " + t_bodate + " and " + t_eodate + ")) and" + " (isnull(straddrno,'') between " + t_bstraddrno + " and " + t_estraddrno + ") and" + " (isnull(endaddrno,'') between " + t_bendaddrno + " and " + t_eendaddrno + ") and" + " (len(" + t_tranordeno + ")=0 or ordeno=" + t_tranordeno + ")^^";
-                        q_gt('trans', t_where, 0, 0, 0, "", r_accy);
-                        //q_gt('trans', "where=^^datea='100/01/03'^^", 0, 0, 0, "", r_accy);
+                        q_gt('trans', t_where, 0, 0, 0, "", r_accy);                     
                     }
                 });
             }
@@ -389,16 +386,16 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr1">
-						<td class="td1"><span> </span><a id="lblTrtype" class="lbl"></a></td>
-						<td class="td2"><select id="cmbTrtype"></select></td>
+						<td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
+						<td class="td2">
+						<input id="txtNoa" type="text" class="txt c1"/>
+						</td>
 						<td class="td3"><span> </span><a id="lblDatea" class="lbl"></a></td>
 						<td class="td4">
 						<input id="txtDatea" type="text"  class="txt c1"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblNoa" class="lbl"></a></td>
-						<td class="td6">
-						<input id="txtNoa" type="text" class="txt c1"/>
-						</td>
+						<td class="td5"><span> </span><a id="lblTrtype" class="lbl"></a></td>
+						<td class="td6"><select id="cmbTrtype"></select></td>
 						<td class="td7"><span> </span><a id="lblTypea" class="lbl"></a></td>
 						<td class="td8"><select id="cmbTypea"></select></td>
 						<td class="td9"></td>
