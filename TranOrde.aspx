@@ -15,9 +15,10 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
+
             var q_name = "tranorde";
             var q_readonly = ['txtNoa'];
-            var q_readonlys = ['txtOrdeno_','txtTranquatno_', 'txtTranquatnoq_'];
+            var q_readonlys = ['txtOrdeno_', 'txtTranquatno_', 'txtTranquatnoq_'];
             var bbsNum = [];
             var bbsMask = [];
             var bbmNum = new Array(['txtUnpack', 10, 0], ['txtMount', 10, 0], ['txtPrice', 10, 2], ['txtPrice2', 10, 2], ['txtPrice3', 10, 2], ['txtDiscount', 10, 0], ['miles', 10, 2], ['txtReserve', 10, 0], ['tolls', 10, 0], ['txtTicket', 10, 0], ['txGross', 10, 2], ['txtWeight', 10, 2], ['txtPlus', 10, 0], ['txtMius', 10, 0], ['txtMount2', 10, 2], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtOverH', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2]);
@@ -117,7 +118,7 @@
                     sum();
                 });
                 $("#btnTranquat").click(function(e) {
-                    t_where = "b.custno='" + $('#txtCustno').val() + "' and not exists(select * from tranorde" + r_accy + " c where a.noa = c.tranquatno and a.no3 = c.tranquatnoq and not c.noa='" + $('#txtNoa').val() + "')";
+                    t_where = "b.custno='" + $('#txtCustno').val() + "' and not exists(select * from tranorde" + r_accy + " c where a.noa = c.tranquatno and a.noq = c.tranquatnoq and not c.noa='" + $('#txtNoa').val() + "')";
                     q_box("tranquat_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;tranquatno=" + $('#txtTranquatno').val() + '_' + $('#txtTranquatnoq').val() + ";", 'tranquats', "95%", "650px", q_getMsg('popTranquat'));
                 });
             }
@@ -432,6 +433,9 @@
             .tbbm .tr16, .tbbm .tr17, .tbbm .tr18, .tbbm .tr19, .tbbm .tr20 {
                 background-color: #FFEC8B;
             }
+            .dbbs{
+            	width:100%;
+            }
             .dbbs .tbbs {
                 margin: 0;
                 padding: 2px;
@@ -742,70 +746,71 @@
 					</tr>
 				</table>
 			</div>
+			<div class='dbbs' >
+				<table id="tbbs" class='tbbs' >
+					<tr name="schema">
+						<td class="td0" style="width:2%"><span style="display: block; width:95%; height:0px;"> </span></td>
+						<td class="td1" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+						<td class="td2" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
+						<td class="td3" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+						<td class="td4" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
+						<td class="td5" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
+						<td class="td6" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+						<td class="td7" style="width:25%"><span style="display: block; width:95%; height:0px;"> </span></td>
+						<td class="td8" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+						<td class="td9" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
+					</tr>
+					<tr style='color:White; background:#003366;' >
+						<td align="center">
+						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
+						</td>
+						<td align="center" ><a id='lblDodate'></a></td>
+						<td align="center" ><a id='lblAddr_do'></a></td>
+						<td align="center" ><a id='lblCasetypes'></a></td>
+						<td align="center" ><a id='lblAddr_get'></a></td>
+						<td align="center" ><a id='lblCasenos'></a></td>
+						<td align="center" ><a id='lblMounts'></a></td>
+						<td align="center" ><a id='lblMemos'></a></td>
+						<td align="center" ><a id='lblMount_undo'></a></td>
+						<td align="center" ><a id='lblMount_unre'></a></td>
+					</tr>
+					<tr  style='background:#cad3ff;'>
+						<td style="width:1%;">
+						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+						</td>
+						<td >
+						<input class="txt c1" id="txtDodate.*" type="text" />
+						</td>
+						<td >
+						<input class="txt c1" id="txtAddr_do.*" type="text" />
+						</td>
+						<td >
+						<input class="txt c1" id="txtCasetype.*" type="text" />
+						</td>
+						<td >
+						<input class="txt c1" id="txtAddr_get.*" type="text" />
+						</td>
+						<td >
+						<input class="txt c1" id="txtCaseno.*" type="text" />
+						</td>
+						<td >
+						<input class="txt c1" id="txtMount.*" type="text" style="text-align: right;"/>
+						</td>
+						<td >
+						<input class="txt c1" id="txtMemo.*" type="text" />
+						</td>
+						<td >
+						<input class="txt c1" id="txtMount_undo.*" type="text" />
+						</td>
+						<td >
+						<input class="txt c1" id="txtMount_unre.*" type="text" />
+						<input id="txtNoq.*" type="hidden" />
+						</td>
+					</tr>
+				</table>
+			</div>
 		</div>
-		<div class='dbbs' >
-			<table id="tbbs" class='tbbs' >
-				<tr name="schema">
-					<td class="td0" style="width:2%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td1" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td2" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td3" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td4" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td5" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td6" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td7" style="width:25%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td8" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td9" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				</tr>
-				<tr style='color:White; background:#003366;' >
-					<td align="center">
-					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
-					</td>
-					<td align="center" ><a id='lblDodate'></a></td>
-					<td align="center" ><a id='lblAddr_do'></a></td>
-					<td align="center" ><a id='lblCasetypes'></a></td>
-					<td align="center" ><a id='lblAddr_get'></a></td>
-					<td align="center" ><a id='lblCasenos'></a></td>
-					<td align="center" ><a id='lblMounts'></a></td>
-					<td align="center" ><a id='lblMemos'></a></td>
-					<td align="center" ><a id='lblMount_undo'></a></td>
-					<td align="center" ><a id='lblMount_unre'></a></td>
-				</tr>
-				<tr  style='background:#cad3ff;'>
-					<td style="width:1%;">
-					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
-					</td>
-					<td >
-					<input class="txt c1" id="txtDodate.*" type="text" />
-					</td>
-					<td >
-					<input class="txt c1" id="txtAddr_do.*" type="text" />
-					</td>
-					<td >
-					<input class="txt c1" id="txtCasetype.*" type="text" />
-					</td>
-					<td >
-					<input class="txt c1" id="txtAddr_get.*" type="text" />
-					</td>
-					<td >
-					<input class="txt c1" id="txtCaseno.*" type="text" />
-					</td>
-					<td >
-					<input class="txt c1" id="txtMount.*" type="text" style="text-align: right;"/>
-					</td>
-					<td >
-					<input class="txt c1" id="txtMemo.*" type="text" />
-					</td>
-					<td >
-					<input class="txt c1" id="txtMount_undo.*" type="text" />
-					</td>
-					<td >
-					<input class="txt c1" id="txtMount_unre.*" type="text" />
-					<input id="txtNoq.*" type="hidden" />
-					</td>
-				</tr>
-			</table>
-		</div>
+
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
