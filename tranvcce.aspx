@@ -296,7 +296,6 @@
 
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], '', '', 2);
-                q_func('tranvcce.genTrans', r_accy + ',' + key_value + ',empty');
             }
 
             function refresh(recno) {

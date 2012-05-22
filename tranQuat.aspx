@@ -19,7 +19,7 @@
             q_tables = 's';
             var q_name = "tranquat";
             var q_readonly = ['txtNoa'];
-            var q_readonlys = [];
+            var q_readonlys = ['txtNoq'];
             var bbmNum = [];
             var bbsNum = [];
             var bbmMask = [];
@@ -103,7 +103,6 @@
             function bbsAssign() {
                 _bbsAssign();
                 for(var j = 0; j < q_bbsCount; j++) {
-                    $('#txtNoq_' + j).attr('readonly', 'readonly');
                 }
             }
 
@@ -139,17 +138,6 @@
 
                 q_nowf();
                 as['date'] = abbm2['date'];
-
-                //            t_err ='';
-                //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-                //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-                //
-                //            if (t_err) {
-                //                alert(t_err)
-                //                return false;
-                //            }
-                //
                 return true;
             }
 
