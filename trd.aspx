@@ -18,10 +18,10 @@
 
             q_tables = 's';
             var q_name = "trd";
-            var q_readonly = ['txtNoa'];
+            var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
             var bbmNum = [['txtPrice', 11, 3]];
-            var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
+            var bbsNum = [['txtTranmoney', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -49,6 +49,7 @@
                 fbbm[fbbm.length] = 'txtMemo';
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd]];
+                bbmMask = [['txtMon', r_picm]];
                 q_mask(bbmMask);
 
                 q_cmbParse("cmbTrtype", q_getPara('trd.trtype'));
@@ -58,6 +59,16 @@
 
                 $('#lblAccno').parent().click(function(e) {
                     q_box("accc.aspx?" + $('#txtAccno').val() + "'", 'accc', "850px", "600px", q_getMsg("popAccc"));
+                });
+
+                $('#cmbTaxtype').change(function(e) {
+                    sum();
+                });
+                $('#txtTaxrate').change(function(e) {
+                    sum();
+                });
+                $('#txtTax').change(function(e) {
+                    sum();
                 });
 
                 $('#btnTran').click(function(e) {
@@ -82,10 +93,11 @@
                         var t_eendaddrno = $.trim($('#txtEendaddrno').val());
                         t_eendaddrno = t_eendaddrno.length == 0 ? "char(255)" : "'" + t_eendaddrno + "'";
                         var t_tranordeno = "'" + $.trim($('#txtOrdeno').val()) + "'";
+
                         t_where = "where=^^(custno=" + t_custno + ") and (isnull(datea,'') between " + t_btrandate + " and " + t_etrandate + ") and ";
-                        if(!(t_bodate=="''" && t_eodate=="char(255)" && t_ordeno=="''"))
-                       		t_where +=" exists(select * from tranorde" + r_accy + " where noa=trans" + r_accy + ".ordeno and (odate between " + t_bodate + " and " + t_eodate + ")) and "; 
-                        t_where +=" not exists(select * from trds" + r_accy + " where not(noa=" + t_curno + ") and tranno=trans" + r_accy + ".noa and trannoq=trans" + r_accy + ".noq and (straddrno between " + t_bstraddrno + " and " + t_estraddrno + ") and (endaddrno between " + t_bendaddrno + " and " + t_eendaddrno + "))^^";
+                        if(!(t_bodate == "''" && t_eodate == "char(255)" && t_ordeno == "''"))
+                            t_where += " exists(select * from tranorde" + r_accy + " where noa=trans" + r_accy + ".ordeno and (odate between " + t_bodate + " and " + t_eodate + ")) and ";
+                        t_where += " not exists(select * from trds" + r_accy + " where not(noa=" + t_curno + ") and tranno=trans" + r_accy + ".noa and trannoq=trans" + r_accy + ".noq and (straddrno between " + t_bstraddrno + " and " + t_estraddrno + ") and (endaddrno between " + t_bendaddrno + " and " + t_eendaddrno + "))^^";
                         q_gt('trans', t_where, 0, 0, 0, "", r_accy);
                     }
                 });
@@ -123,8 +135,8 @@
                                 $('#txtPaymemo_' + i).val();
                                 $('#txtFill_' + i).val();
                                 $('#txtCasetype_' + i).val();
-                                $('#txtCaseno1_' + i).val();
-                                $('#txtCaseno2_' + i).val();
+                                $('#txtCaseno_' + i).val(as[i].caseno);
+                                $('#txtCaseno2_' + i).val(as[i].caseno2);
                                 $('#txtBoat_' + i).val();
                                 $('#txtBoatname_' + i).val();
                                 $('#txtMemo_' + i).val();
@@ -146,6 +158,7 @@
                     alert(t_err);
                     return;
                 }
+                sum();
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if(t_noa.length == 0 || t_noa == "AUTO")
@@ -166,6 +179,23 @@
 
             function bbsAssign() {
                 _bbsAssign();
+                for(var i = 0; i < q_bbsCount; i++) {
+                    if( typeof ($('#txtTranmoney_' + i).data('info')) == 'undefined')
+                        $('#txtTranmoney_' + i).data('info', {
+                            isSetChange : false
+                        });
+
+                    if( typeof ($('#txtTranmoney_' + i).data('info').isSetChange) == 'undefined') {
+                        $('#txtTranmoney_' + i).data('info').isSetChange = false;
+
+                    }
+                    if(!$('#txtTranmoney_' + i).data('info').isSetChange) {
+                        $('#txtTranmoney_' + i).data('info').isSetChange = true;
+                        $('#txtTranmoney_' + i).change(function(e) {
+                            sum();
+                        });
+                    }
+                }
             }
 
             function btnIns() {
@@ -205,8 +235,32 @@
             }
 
             function sum() {
-				for( i = 0; i < q_bbsCount; i++) {
-				}
+                var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0;
+                for( i = 0; i < q_bbsCount; i++) {
+                    if($.trim($('#txtTranmoney_' + i).val()).length != 0)
+                        t_money += parseInt($('#txtTranmoney_' + i).val(), 10);
+                }
+                t_rate = $.trim($('#txtTaxrate').val()).length != 0 ? parseInt($('#txtTaxrate').val(), 10) : 0;
+                switch($('#cmbTaxtype').val()) {
+                    case '1':
+                        t_tax = Math.round(t_money * t_rate / 100);
+                        t_total = t_money + t_tax;
+                        break;
+                    case '3':
+                        t_total = t_money;
+                        t_money = Math.round(t_total / (1 + t_rate / 100), 0);
+                        t_tax = t_total - t_money;
+                        break;
+                    case '5':
+                        t_tax = $.trim($('#txtTax').val()).length != 0 ? parseInt($('#txtTax').val(), 10) : 0;
+                        t_total = t_money + t_tax;
+                        break;
+                    default:
+                        t_total = t_money;
+                }
+                $('#txtMoney').val(t_money);
+                $('#txtTax').val(t_tax);
+                $('#txtTotal').val(t_total);
             }
 
             function refresh(recno) {
@@ -371,8 +425,8 @@
                 padding: 0px;
                 margin: -1px;
             }
-            .dbbs{
-            	width:150%;
+            .dbbs {
+                width: 150%;
             }
             .tbbs a {
                 font-size: 14px;
@@ -500,7 +554,7 @@
 						<td class="td7"></td>
 						<td class="td8"></td>
 						<td class="td9"></td>
-						<td class="tdZ"></td>	
+						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblStraddr" class="lbl btn"></a></td>
@@ -559,7 +613,7 @@
 					<td align="center" style="width:5%;"><a id='lblPaymemo_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblFill_s'></a></td>
 					<td align="center" style="width:2%;"><a id='lblCasetype_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblCaseno1_s'></a></td>
+					<td align="center" style="width:3%;"><a id='lblCaseno_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblCaseno2_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblBoat_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblBoatname_s'></a></td>
@@ -596,7 +650,7 @@
 					<input type="text" id="txtEndaddr.*" style="width:95%;" />
 					</td>
 					<td >
-					<input type="text" id="txtTranmoney.*" style="width:95%;float: right;" />
+					<input type="text" id="txtTranmoney.*" style="width:95%;text-align: right;" />
 					</td>
 					<td >
 					<input type="text" id="txtPaymemo.*" style="width:95%;" />
@@ -608,7 +662,7 @@
 					<input type="text" id="txtCasetype.*" style="width:95%;" />
 					</td>
 					<td >
-					<input type="text" id="txtCaseno1.*" style="width:95%;" />
+					<input type="text" id="txtCaseno.*" style="width:95%;" />
 					</td>
 					<td >
 					<input type="text" id="txtCaseno2.*" style="width:95%;" />
@@ -626,10 +680,10 @@
 					<input type="text" id="txtMemo.*" style="width:95%;" />
 					</td>
 					<td >
-					<input type="text" id="txtOverweightcost.*" style="width:95%;float:right;"/>
+					<input type="text" id="txtOverweightcost.*" style="width:95%;text-align: right;"/>
 					</td>
 					<td >
-					<input type="text" id="txtOthercost.*" style="width:95%;float:right;" />
+					<input type="text" id="txtOthercost.*" style="width:95%;text-align: right;" />
 					</td>
 				</tr>
 			</table>
