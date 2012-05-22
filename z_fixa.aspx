@@ -48,10 +48,19 @@
                         name : 'wtype'
                     },{
                         type : '1',
+                        name : 'noa'
+                    },{
+                        type : '1',
                         name : 'date'
                     },{
                         type : '1',
+                        name : 'mon'
+                    },{
+                        type : '1',
                         name : 'carno'
+                    },{
+                        type : '1',
+                        name : 'palno'
                     },{
                             type : '2',
                             name : 'tgg',
