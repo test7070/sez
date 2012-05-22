@@ -25,7 +25,7 @@
                 q_gf('', 'z_fixa');
             });
             function q_gfPost() {
-                q_func('car2.getItem', '3,4,5');
+               q_func('car2.getItem', '3,4,5');
             }
 
             function q_boxClose(t_name) {
