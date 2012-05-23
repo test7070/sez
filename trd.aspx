@@ -48,7 +48,7 @@
             function mainPost() {
                 fbbm[fbbm.length] = 'txtMemo';
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
+                bbmMask = [['txtDatea', r_picd],['txtMon', r_picm],['txtBtrandate', r_picd],['txtEtrandate', r_picd]];
                 q_mask(bbmMask);
 
                 q_cmbParse("cmbTrtype", q_getPara('trd.trtype'));
@@ -116,33 +116,36 @@
                 switch (t_name) {
                     case 'trans':
                         var as = _q_appendData("trans", "", true);
-                        while(as.length > q_bbsCount) {
-                            $('#btnPlus').click();
-                        }
-                        for( i = 0; i < q_bbsCount; i++) {
-                            _btnMinus("btnMinus_" + i);
-                            if(i < as.length) {
-                                $('#txtOrdeno_' + i).val(as[i].ordeno);
-                                $('#txtTranno_' + i).val(as[i].noa);
-                                $('#txtTrannoq_' + i).val(as[i].noq);
-                                $('#txtTrandate_' + i).val(as[i].trandate);
-                                $('#txtCarno_' + i).val(as[i].carno);
-                                $('#txtRs_' + i).val();
-                                $('#txtStraddr_' + i).val();
-                                $('#txtEndaddr_' + i).val();
-                                $('#txtTranmoney_' + i).val();
-                                $('#txtPaymemo_' + i).val();
-                                $('#txtFill_' + i).val();
-                                $('#txtCasetype_' + i).val();
-                                $('#txtCaseno_' + i).val(as[i].caseno);
-                                $('#txtCaseno2_' + i).val(as[i].caseno2);
-                                $('#txtBoat_' + i).val();
-                                $('#txtBoatname_' + i).val();
-                                $('#txtMemo_' + i).val();
-                                $('#txtOverweightcost_' + i).val();
-                                $('#txtOthercost_' + i).val();
-                            }
-                        }
+                        alert('a');
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtTranno,txtOrdeno,txtTrandate', as.length, as, 'tranno,ordeno,trandate', '', '');
+                        alert('b');
+                        //                        while(as.length > q_bbsCount) {
+                        //                            $('#btnPlus').click();
+                        //                        }
+                        //                        for( i = 0; i < q_bbsCount; i++) {
+                        //                            _btnMinus("btnMinus_" + i);
+                        //                            if(i < as.length) {
+                        //                                $('#txtOrdeno_' + i).val(as[i].ordeno);
+                        //                                $('#txtTranno_' + i).val(as[i].noa);
+                        //                                $('#txtTrannoq_' + i).val(as[i].noq);
+                        //                                $('#txtTrandate_' + i).val(as[i].trandate);
+                        //                                $('#txtCarno_' + i).val(as[i].carno);
+                        //                                $('#txtRs_' + i).val();
+                        //                                $('#txtStraddr_' + i).val(as[i].straddr);
+                        //                                $('#txtEndaddr_' + i).val(as[i.endaddr]);
+                        //                                $('#txtTranmoney_' + i).val(as[i].total);
+                        //                                $('#txtPaymemo_' + i).val();
+                        //                                $('#txtFill_' + i).val(as[i].fill);
+                        //                                $('#txtCasetype_' + i).val(as[i].csetype);
+                        //                                $('#txtCaseno_' + i).val(as[i].caseno);
+                        //                                $('#txtCaseno2_' + i).val(as[i].caseno2);
+                        //                                $('#txtBoat_' + i).val();
+                        //                                $('#txtBoatname_' + i).val();
+                        //                                $('#txtMemo_' + i).val();
+                        //                                $('#txtOverweightcost_' + i).val();
+                        //                                $('#txtOthercost_' + i).val();
+                        //                            }
+                        //                        }
                         break;
                     case q_name:
                         if(q_cur == 4)

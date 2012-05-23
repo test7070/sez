@@ -457,18 +457,19 @@
                         $(this).data('info').value = value;
                     }
                     $(this).show();
+                    var strDate = new Date();
+                    
                     var obj = $(this), obj2, obj3;
                     if($(this).children('tbody').length > 0)
                         obj = $(this).children('tbody').eq(0);
                     obj.children('tr').remove('[name="data"]');
+                    var template = obj.children('tr[name="template"]').clone();        
+                    template.attr('name', 'data');
+                    template.show();	
                     for( i = 0; i < $(this).data('info').value.length; i++) {
-                        obj.children('tr[name="template"]').clone().appendTo(obj);
-                        obj.children('tr').last().attr('name', 'data');
-                        obj.children('tr').last().show();
+                        template.clone().appendTo(obj);  
                         obj2 = obj.children('tr').last().children();
-
-                        for( j = 0; j < obj2.length; j++) {
-                            /*option*/
+                        for( j = 0; j < obj2.length; j++) {                       
                             if(obj2.eq(j).children('[src="option"]').length > 0) {
                                 obj2.eq(j).children('[src="option"]').data('info', {
                                     index : i
@@ -488,7 +489,7 @@
                                     $(this).parent().parent().removeClass('focus');
                                 });
                             }
-                            /*data*/
+                          
                             obj3 = obj2.eq(j).children('[type="text"]');
                             for( k = 0; k < obj3.length; k++)
                                 if(obj3.eq(k).val().length > 0) {
@@ -503,7 +504,7 @@
                                 }
                         }
                     }
-                    /*Sort*/
+                    
                     if($(this).data('info').isInit) {
                         var tmp = obj.children('tr[name="header"]').eq(0).children();
                         for( i = 0; i < tmp.length; i++) {
@@ -534,6 +535,8 @@
                     }
                     $(this).data('info').isInit = false;
                     isEnabled();
+                    var endDate = new Date();
+                    alert('Str:'+strDate.getHours()+':'+strDate.getMinutes()+':'+strDate.getSeconds()+'\r\nEnd:'+endDate.getHours()+':'+endDate.getMinutes()+':'+endDate.getSeconds());
                 }
             })($);
 
