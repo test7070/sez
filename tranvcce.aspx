@@ -15,8 +15,9 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
+
             var q_name = "tranvcce";
-            var q_readonly = ['txtNoa'];
+            var q_readonly = ['txtNoa','txtTranno'];
             var bbmNum = new Array(['txtWeight,10,2']);
             var bbmMask = new Array();
             q_sqlCount = 6;
@@ -42,10 +43,10 @@
 
             function q_funcPost(t_func, result) {
                 switch(t_func) {
-                    case 'tranvcce.genTrans':
-                        if(result.substring(0, 1) != '1')
-                            alert(result);
-                        break;
+                    //                    case 'tranvcce.genTrans':
+                    //                        if(result.substring(0, 1) != '1')
+                    //                            alert(result);
+                    //                        break;
                     case 'tranvcce.check':
                         if(result.substr(0, 5) == '<Data') {
                             var tmp = _q_appendData('msg', '', true);
@@ -296,6 +297,14 @@
 
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], '', '', 2);
+            }
+
+            function q_stPost() {
+                key_value = $('#txtNoa').val();
+                // alert(xmlString);
+                $('#txtTranno').val(xmlString);
+                //                if( q_cur ==1 || q_cur ==2)
+                //                    q_func('tranvcce.genTrans', r_accy + ',' + key_value + ',empty');
             }
 
             function refresh(recno) {
@@ -755,6 +764,10 @@
 						<td class="td5"><span> </span><a id="lblWeight" class="lbl"></a></td>
 						<td class="td6">
 						<input id="txtWeight" type="text"  class="txt num c1"/>
+						</td>
+						<td class="td7"><span> </span><a id="lblTranno" class="lbl"></a></td>
+						<td class="td8">
+						<input id="txtTranno" type="text"  class="txt c1"/>
 						</td>
 					</tr>
 				</table>

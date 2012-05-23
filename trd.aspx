@@ -48,8 +48,7 @@
             function mainPost() {
                 fbbm[fbbm.length] = 'txtMemo';
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd]];
-                bbmMask = [['txtMon', r_picm]];
+                bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
                 q_mask(bbmMask);
 
                 q_cmbParse("cmbTrtype", q_getPara('trd.trtype'));
@@ -96,8 +95,8 @@
 
                         t_where = "where=^^(custno=" + t_custno + ") and (isnull(datea,'') between " + t_btrandate + " and " + t_etrandate + ") and ";
                         if(!(t_bodate == "''" && t_eodate == "char(255)" && t_ordeno == "''"))
-                            t_where += " exists(select * from tranorde" + r_accy + " where noa=trans" + r_accy + ".ordeno and (odate between " + t_bodate + " and " + t_eodate + ")) and ";
-                        t_where += " not exists(select * from trds" + r_accy + " where not(noa=" + t_curno + ") and tranno=trans" + r_accy + ".noa and trannoq=trans" + r_accy + ".noq and (straddrno between " + t_bstraddrno + " and " + t_estraddrno + ") and (endaddrno between " + t_bendaddrno + " and " + t_eendaddrno + "))^^";
+                            t_where += " exists(select * from tranorde" + r_accy + " where noa=a.ordeno and (odate between " + t_bodate + " and " + t_eodate + ")) and ";
+                        t_where += " not exists(select * from trds" + r_accy + " where not(noa=" + t_curno + ") and tranno=a.noa and trannoq=a.noq and (straddrno between " + t_bstraddrno + " and " + t_estraddrno + ") and (endaddrno between " + t_bendaddrno + " and " + t_eendaddrno + "))^^";
                         q_gt('trans', t_where, 0, 0, 0, "", r_accy);
                     }
                 });

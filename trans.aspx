@@ -16,15 +16,15 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
             var q_name = "trans";
-            var q_readonly = ['txtNoa'];
+            var q_readonly = ['txtNoa','txtTotal','txtTrdno'];
             var bbmNum = new Array(['txtUnpack', 10, 0], ['txtMount', 10, 0], ['txtPrice', 10, 2], ['txtPrice2', 10, 2], ['txtPrice3', 10, 2], ['txtDiscount', 10, 0], ['miles', 10, 2], ['txtReserve', 10, 0], ['tolls', 10, 0], ['txtTicket', 10, 0], ['txGross', 10, 2], ['txtWeight', 10, 2], ['txtPlus', 10, 0], ['txtMius', 10, 0], ['txtMount2', 10, 2], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtOverH', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2]);
-            var bbmMask = new Array(['txtTrandate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99']);
+            var bbmMask = new Array(['txtTrandate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99'],['txtCldate', '999/99/99']);
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            q_alias = '';
+            q_alias = 'a';
             q_desc = 1;
             aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b.aspx'], ['txtEndaddrno', 'lblEndaddr', 'addr', 'noa,addr', 'txtEndaddrno,txtEndaddr', 'addr_b.aspx'], ['txtAddno3', 'lblAdd3', 'addr', 'noa,addr', 'txtAddno3,txtAdd3', 'addr_b.aspx'], ['txtAddno4', 'lblAdd4', 'addr', 'noa,addr', 'txtAddno4,txtAdd4', 'addr_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'noa,name', 'txtWorkerno,txtWorker', 'sss_b.aspx']);
             $(document).ready(function() {
@@ -681,9 +681,9 @@
 						</td>
 					</tr>
 					<tr class="tr20">
-						<td class="td1"><span> </span><a id="lblUmmbno" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblTrdno" class="lbl"></a></td>
 						<td class="td2" >
-						<input id="txtUmmbno" type="text" class="txt c1"/>
+						<input id="txtTrdno" type="text" class="txt c1"/>
 						</td>
 						<td class="td3"><span> </span><a id="lblUmmno" class="lbl"></a></td>
 						<td class="td4" >
