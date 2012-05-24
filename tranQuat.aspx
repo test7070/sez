@@ -29,7 +29,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'], ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b.aspx'], ['txtEndaddrno_', 'btnEndaddr_', 'addr', 'noa,addr', 'txtEndaddrno_,txtEndaddr_', 'addr_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
+            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'], ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b2.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -424,12 +424,12 @@
 							<input id="txtComp"  type="text" class="txt c1"/>
 							</td>
 							<td class="td4"><span> </span><a id='lblConn_cust'  class="lbl"></a></td>
-							<td >
-							<input id="td5"  type="text"  class="txt c1"/>
+							<td class="td5">
+							<input id="txtConn_cust"  type="text"  class="txt c1"/>
 							</td>
 							<td class="td6"><span> </span><a id='lblTel_cust'  class="lbl"></a></td>
 							<td >
-							<input id="txtTel_cust"    type="text"  class="txt c2"/>
+							<input id="txtTel_cust"  type="text"  class="txt c2"/>
 							</td>
 						</tr>
 						<tr class="tr7">
@@ -454,8 +454,8 @@
 							<input id="txtAddr_car" type="text"  class="txt c1" />
 							</td>
 							<td class="td4"><span> </span><a id='lblConn_car' class="lbl"></a></td>
-							<td >
-							<input id="td5"  type="text"  class="txt c1"/>
+							<td class="td5">
+							<input id="txtConn_car"  type="text"  class="txt c1"/>
 							</td>
 
 						</tr>
@@ -491,7 +491,6 @@
 						<td align="center" style="width:3%;"><a id="lblNoq_s"></a></td>
 						<td align="center" style="width:20%;"><a id='lblProduct_s'></a></td>
 						<td align="center" style="width:15%;"><a id="lblStraddr_s"></a></td>
-						<td align="center" style="width:15%;"><a id="lblEndaddr_s"></a></td>
 						<td align="center" style="width:5%;"><a id='lblMount_s'></a></td>
 						<td align="center" style="width:3%;"><a id='lblUnit_s'></a></td>
 						<td align="center" style="width:5%;"><a id='lblPrice_s'></a></td>
@@ -510,12 +509,8 @@
 						</td>
 						<td>
 						<input id="txtStraddrno.*" type="text" style="width: 30%; float: left;"/>
-						<input id="txtStraddr.*" type="text" style="width: 65%; float: left;"/>
-						</td>
-						<td>
-						<input id="txtEndaddrno.*" type="text" style="width: 30%; float: left;"/>
-						<input id="txtEndaddr.*" type="text" style="width: 65%; float: left;"/>
-						</td>
+						<input id="txtStraddr.*" type="text" style="width: 60%; float: left;"/>
+						</td>						
 						<td>
 						<input id="txtMount.*" type="text" style="width: 95%;text-align:right;"/>
 						</td>

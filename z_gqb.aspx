@@ -15,8 +15,6 @@
 		<script src="css/jquery/ui/jquery.ui.core.js"></script>
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
-		<link rel="stylesheet" href="//59.125.143.170/jquery/css/qreport.css" />
-		<script src="//59.125.143.170/jquery/js/qset.js" type="text/javascript"></script>
 		<script type="text/javascript">
             $(document).ready(function() {
                 q_gf('', 'z_gqb');

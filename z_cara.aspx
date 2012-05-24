@@ -3,11 +3,10 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title></title>
-		<script src="//59.125.143.170/jquery/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src='../script/z_report.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
@@ -15,15 +14,14 @@
 		<script src="css/jquery/ui/jquery.ui.core.js"></script>
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
-		<link rel="stylesheet" href="//59.125.143.170/jquery/css/qreport.css" />
-		<script src="//59.125.143.170/jquery/js/qset.js" type="text/javascript"></script>
 		<script type="text/javascript">
             $(document).ready(function() {
                 _q_boxClose();
                 q_gf('', 'z_cara');
             });
             function q_gfPost() {
-                $('#qReport').qReport({
+            	
+                $('#qReport').q_report({
                         fileName : 'z_cara',
                         options : [{
                             type : '1',
@@ -57,13 +55,11 @@
                     $('#qReport_txtDate2').mask('999/99/99');
                     $('#qReport_txtDate2').datepicker();
             }
-
-            function q_boxClose(t_name) {
+			function q_boxClose(t_name) {
             }
 
             function q_gtPost(t_name) {
             }
-
 
 		</script>
 	</head>

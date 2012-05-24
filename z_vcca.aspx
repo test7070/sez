@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title></title>
-		<script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
@@ -14,14 +14,12 @@
 		<script src="css/jquery/ui/jquery.ui.core.js"></script>
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
-		<link rel="stylesheet" href="//59.125.143.170/jquery/css/qreport.css" />
-		<script src="//59.125.143.170/jquery/js/qset.js" type="text/javascript"></script>
 		<script type="text/javascript">
             $(document).ready(function() {
                 q_gf('', 'z_vcca');
             });
             function q_gfPost() {
-                $('#qReport').qReport({
+                $('#qReport').q_report({
                     fileName : 'z_vcca',
                     options : [{
                         type : '1',

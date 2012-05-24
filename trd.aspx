@@ -497,7 +497,9 @@
 						<td class="tdA">
 						<input type="button" id="btnTrans" class="txt c1"/>
 						</td>
-						<td class="tdZ"></td>
+						<td class="td7"></td>
+						<td class="td8"></td>
+						<td class="td9"></td>
 						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr3">
@@ -591,7 +593,6 @@
 					<td align="center" style="width:3%;"><a id='lblCarno_s'></a></td>
 					<td align="center" style="width:1%;"><a id='lblRs_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblStraddr_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblEndaddr_s'></a></td>
 					<td align="center" style="width:4%;"><a id='lblTranmoney_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblPaymemo_s'></a></td>
 					<td align="center" style="width:1%;"><a id='lblFill_s'></a></td>
@@ -627,9 +628,6 @@
 					</td>
 					<td >
 					<input type="text" id="txtStraddr.*" style="width:95%;" />
-					</td>
-					<td >
-					<input type="text" id="txtEndaddr.*" style="width:95%;" />
 					</td>
 					<td >
 					<input type="text" id="txtTranmoney.*" style="width:95%;text-align: right;" />
