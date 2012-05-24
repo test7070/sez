@@ -590,23 +590,23 @@
 					<td  align="center" style="width:2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:5%;"><a id='lblOrdeno_s'></a></td>
-					<td align="center" style="width:7%;"><a id='lblTranno_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblTrandate_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblCarno_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblRs_s'></a></td>
+					<td align="center" style="width:4%;"><a id='lblOrdeno_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblTranno_s'></a></td>
+					<td align="center" style="width:3%;"><a id='lblTrandate_s'></a></td>
+					<td align="center" style="width:3%;"><a id='lblCarno_s'></a></td>
+					<td align="center" style="width:1%;"><a id='lblRs_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblStraddr_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblEndaddr_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblTranmoney_s'></a></td>
+					<td align="center" style="width:4%;"><a id='lblTranmoney_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblPaymemo_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblFill_s'></a></td>
+					<td align="center" style="width:1%;"><a id='lblFill_s'></a></td>
 					<td align="center" style="width:2%;"><a id='lblCasetype_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblCaseno_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblCaseno2_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblBoat_s'></a></td>
+					<td align="center" style="width:4%;"><a id='lblCaseno_s'></a></td>
+					<td align="center" style="width:4%;"><a id='lblCaseno2_s'></a></td>
+					<td align="center" style="width:4%;"><a id='lblBoat_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblBoatname_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblShip_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblMemo_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblMemo_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblOverweightcost_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblOthercost_s'></a></td>
 				</tr>
