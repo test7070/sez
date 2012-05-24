@@ -15,7 +15,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
+            q_tables = 's';
             var q_name = "tranorde";
             var q_readonly = ['txtNoa'];
             var q_readonlys = ['txtOrdeno_', 'txtTranquatno_', 'txtTranquatnoq_'];
@@ -121,6 +121,28 @@
                     t_where = "b.custno='" + $('#txtCustno').val() + "' and not exists(select * from tranorde" + r_accy + " c where a.noa = c.tranquatno and a.noq = c.tranquatnoq and not c.noa='" + $('#txtNoa').val() + "')";
                     q_box("tranquat_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;tranquatno=" + $('#txtTranquatno').val() + '_' + $('#txtTranquatnoq').val() + ";", 'tranquats', "95%", "650px", q_getMsg('popTranquat'));
                 });
+            }
+
+            function bbsAssign() {  
+                _bbsAssign();
+            }
+
+            function bbsSave(as) {    
+                if (!as['caseno'] ) {   
+                    as[bbsKey[1]] = '';   
+                    return;
+                }
+
+                q_nowf();
+
+                t_err = '';
+
+                if (t_err) {
+                    alert(t_err)
+                    return false;
+                }
+
+                return true;
             }
 
             function sum() {
@@ -748,7 +770,7 @@
 			</div>
 			<div class='dbbs' >
 				<table id="tbbs" class='tbbs' >
-					<tr name="schema">
+<%--					<tr name="schema">
 						<td class="td0" style="width:2%"><span style="display: block; width:95%; height:0px;"> </span></td>
 						<td class="td1" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
 						<td class="td2" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
@@ -759,7 +781,7 @@
 						<td class="td7" style="width:25%"><span style="display: block; width:95%; height:0px;"> </span></td>
 						<td class="td8" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
 						<td class="td9" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					</tr>
+					</tr>--%>
 					<tr style='color:White; background:#003366;' >
 						<td align="center">
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
