@@ -344,141 +344,137 @@
 				<div class='dbbm'>
 					<table class="tbbm"  id="tbbm">
 						<tr class="tr1">
-							<td class="td1" ><a id='lblNoa' class="lbl"></a></td>
+							<td class="td1" ><span> </span></span><a id='lblNoa' class="lbl"></a></td>
 							<td class="td2" >
 							<input id="txtNoa" type="text" class="txt c1"/>
 							</td>
-							<td class="td3" ><a id='lblDatea' class="lbl"></a></td>
+							<td class="td3" ><span> </span><a id='lblDatea' class="lbl"></a></td>
 							<td class="td4">
 							<input id="txtDatea" type="text"  class="txt c1"/>
 							</td>
-							<td class="td5" ><a id="lblStype" class="lbl"></a></td>
+							<td class="td5" ><span> </span><a id="lblStype" class="lbl"></a></td>
 							<td class="td6"><select id="cmbStype" class="txt c1"></select></td>
-							<td class="td7"><a id='lblContract' class="lbl"></a></td>
+							<td class="td7"><span> </span><a id='lblContract' class="lbl"></a></td>
 							<td class="td8">
 							<input id="txtContract"  type="text"  class="txt c1"/>
 							</td>
 							<td class="tdZ"></td>
 						</tr>
 						<tr class="tr2">
-							<td class="td1" ><a id='lblThirdprice' class="lbl"></a></td>
+							<td class="td1" ><span> </span><a id='lblThirdprice' class="lbl"></a></td>
 							<td class="td2">
 							<input id="txtThirdprice" type="text"  class="txt c1 num"/>
 							</td>
-							<td class="td3" ><a id='lblOil1' class="lbl"></a></td>
-							<td class="td4">
-							<input id="txtOil1" type="text"  class="txt c1 num"/>
-							</td>
-							<td align="td5"><a id="lblOil2" class="lbl"></a></td>
-							<td class="td6">
-							<input id="txtOil2" type="text"  class="txt c1 num"/>
+							<td class="td3" ><span> </span><a id='lblOil1' class="lbl"></a></td>
+							<td class="td4" colspan="2">
+							<input id="txtOil1" type="text"  class="txt c2 num"/>
+							<a id="lblOil2" style="float:left;width:25px;height:25px;text-align: center;"></a>
+							<input id="txtOil2" type="text"  class="txt c2 num"/>
 							</td>
 						</tr>
 						<tr class="tr3">
-							<td class="td1"><a id="lblAcomp" class="lbl btn"></a></td>
+							<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"></a></td>
 							<td class="td2">
 							<input id="txtCno"  type="text"  class="txt c1"/>
 							</td>
 							<td class="td3" colspan="2">
 							<input id="txtAcomp"  type="text" class="txt c1"/>
 							</td>
-							<td class="td5"><a id="lblConn_acomp" class="lbl"></a></td>
+							<td class="td5"><span> </span><a id="lblConn_acomp" class="lbl"></a></td>
 							<td class="td6" >
 							<input id="txtConn_acomp"  type="text"  class="txt c1"/>
 							</td>
-							<td class="td7"><a id="lblAssistant"></a></td>
+							<td class="td7"><span> </span><a id="lblAssistant" class="lbl"></a></td>
 							<td class="td8" >
 							<input id="txtAssistant"  type="text"  class="txt c1"/>
 							</td>
 						</tr>
 						<tr class="tr4">
-							<td class="td1"><a id='lblAddr_acomp' class="lbl btn"></a></td>
+							<td class="td1"><span> </span><a id='lblAddr_acomp' class="lbl btn"></a></td>
 							<td >
 							<input id="txtZip_acomp" type="text"  class="txt c1"/>
 							</td>
 							<td class='td2' colspan="2">
 							<input id="txtAddr_acomp" type="text"  class="txt c1" />
 							</td>
-							<td class="td4"><a id="lblTel_acomp"  class="lbl"></a></td>
+							<td class="td4"><span> </span><a id="lblTel_acomp"  class="lbl"></a></td>
 							<td class="td8">
 							<input id="txtTe5_acomp"  type="text"  class="txt c1"/>
 							</td>
-							<td class="td5"><a id='lblFax_acomp'></a></td>
+							<td class="td5"><span> </span><a id='lblFax_acomp' class="lbl"></a></td>
 							<td class="td6">
 							<input id="txtFax_acomp"  type="text"  class="txt c1"/>
 							</td>
 						</tr>
 						<tr  class="tr5">
-							<td class="td1"><a id='lblSales' class="lbl btn"></a></td>
+							<td class="td1"><span> </span><a id='lblSales' class="lbl btn"></a></td>
 							<td class="td2">
 							<input id="txtSalesno" type="text" class="txt c1"/>
 							</td>
-							<td class="td3" colspan="2">
+							<td class="td3">
 							<input id="txtSales" type="text" class="txt c1"/>
 							</td>
 						</tr>
 						<tr class="tr6">
-							<td class="td1">
-							<input id="btnCust" type="button" value='.' style='width: auto; font-size: medium;'  />
-							</td>
+							<td class="td1"><span> </span><a id='lblCust' class="lbl btn"></a></td>
 							<td class="td2">
 							<input id="txtCustno" type="text" class="txt c1"/>
 							</td>
 							<td class="td3" colspan="2">
 							<input id="txtComp"  type="text" class="txt c1"/>
 							</td>
-							<td class="td4"><a id='lblConn_cust'  class="lbl"></a></td>
+							<td class="td4"><span> </span><a id='lblConn_cust'  class="lbl"></a></td>
 							<td >
 							<input id="td5"  type="text"  class="txt c1"/>
 							</td>
-							<td class="td6"><a id='lblTel_cust'  class="lbl"></a></td>
+							<td class="td6"><span> </span><a id='lblTel_cust'  class="lbl"></a></td>
 							<td >
 							<input id="txtTel_cust"    type="text"  class="txt c2"/>
 							</td>
 						</tr>
 						<tr class="tr7">
-							<td class="td1"><a id='lblAddr_cust'></a></td>
+							<td class="td1"><span> </span><a id='lblAddr_cust' class="lbl"></a></td>
 							<td >
 							<input id="txtZip_cust" type="text"  class="txt c1">
 							</td>
 							<td class="td2" colspan='2' >
 							<input id="txtAddr_cust" type="text"  class="txt c1" />
 							</td>
-							<td class="td4"><a id='lblFax_cust'  class="lbl"></a></td>
+							<td class="td4"><span> </span><a id='lblFax_cust'  class="lbl"></a></td>
 							<td >
 							<input id="txtFax_cust"  type="text"  class="txt c1"/>
 							</td>
 						</tr>
 						<tr class="tr8">
-							<td class="td1"><a id='lblAddr_car'  class="lbl"></a></td>
+							<td class="td1"><span> </span><a id='lblAddr_car'  class="lbl"></a></td>
 							<td >
 							<input id="txtZip_car" type="text"  class="txt c1">
 							</td>
 							<td class="td2" colspan='2'>
 							<input id="txtAddr_car" type="text"  class="txt c1" />
 							</td>
-							<td class="td4"><a id='lblConn_car' class="lbl"></a></td>
+							<td class="td4"><span> </span><a id='lblConn_car' class="lbl"></a></td>
 							<td >
 							<input id="td5"  type="text"  class="txt c1"/>
 							</td>
 
 						</tr>
 						<tr class="tr9">
-							<td class="td1"><a id='lblArrange_car'  class="lbl"></a></td>
+							<td class="td1"><span> </span><a id='lblArrange_car'  class="lbl"></a></td>
 							<td class="td2">
 							<input id="txtArrange_car"  type="text"  class="txt c1"/>
 							</td>
-							<td class="td3"><a id='lblTel_car' class="lbl"></a></td>
+							<td class="td3"><span> </span><a id='lblTel_car' class="lbl"></a></td>
 							<td class="td4">
 							<input id="txtTel_car"  type="text"  class="txt c1"/>
 							</td>
-							<td class="td5"><a id='lblWorker'></a></td>
+							<td class="td5"><span> </span><a id='lblWorker' class="lbl"></a></td>
 							<td >
 							<input id="txtWorker"  type="text" class="txt c1" />
 							</td>
 						</tr>
 						<tr class="tr10">
-							<td class="td1"><a id='lblMemo' class="lbl"></a></td>
+							<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
 							<td class="td2" colspan='7' >
 							<input id="txtMemo"  type="text" class="txt c1"/>
 							</td>

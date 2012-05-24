@@ -457,7 +457,7 @@
                         $(this).data('info').value = value;
                     }
                     $(this).show();
-                    var strDate = new Date();
+                    //var strDate = new Date();
                     
                     var obj = $(this), obj2, obj3;
                     if($(this).children('tbody').length > 0)
@@ -535,8 +535,8 @@
                     }
                     $(this).data('info').isInit = false;
                     isEnabled();
-                    var endDate = new Date();
-                    alert('Str:'+strDate.getHours()+':'+strDate.getMinutes()+':'+strDate.getSeconds()+'\r\nEnd:'+endDate.getHours()+':'+endDate.getMinutes()+':'+endDate.getSeconds());
+                  //  var endDate = new Date();
+                  //  alert('Str:'+strDate.getHours()+':'+strDate.getMinutes()+':'+strDate.getSeconds()+'\r\nEnd:'+endDate.getHours()+':'+endDate.getMinutes()+':'+endDate.getSeconds());
                 }
             })($);
 
