@@ -455,6 +455,10 @@
                 text-align: center;
                 border: 2px lightgrey double;
             }
+            .dbbs .tbbs tr td .txt.c1
+            {
+            	width: 95%;
+            }
 		</style>
 	</head>
 	<body>
@@ -639,6 +643,8 @@
 						</td>
 						<td class="td5" ><span> </span><a id="lblCasetype" class="lbl"></a></td>
 						<td class="td6" ><select id="cmbCasetype" class="txt c1"></select></td>
+						<td class="td7" ><span> </span><a id="lblInstrument" class="lbl"></a></td>
+						<td class="td8" ><input id="txtInstrument" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr13">
 						<td class="td1"><span> </span><a id="lblFill" class="lbl"></a></td>
@@ -649,10 +655,12 @@
 						<td class="td4">
 						<input id="txtCaseend" type="text" class="txt c1"/>
 						</td>
-						<td class="td7"><span> </span><a id="lblBilldate" class="lbl"></a></td>
-						<td class="td8">
+						<td class="td5"><span> </span><a id="lblBilldate" class="lbl"></a></td>
+						<td class="td6">
 						<input id="txtBilldate" type="text"  class="txt c1"/>
 						</td>
+						<td class="td7" ><span> </span><a id="lblSelfchk" class="lbl"></a></td>
+						<td class="td8" ><input id="txtSelfchk" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr14">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
@@ -746,6 +754,7 @@
 					</tr>
 				</table>
 			</div>
+			</div>
 			<div class='dbbs' >
 				<table id="tbbs" class='tbbs' >
 					<tr name="schema">
@@ -756,7 +765,7 @@
 						<td class="td4" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
 						<td class="td5" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
 						<td class="td6" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-						<td class="td7" style="width:25%"><span style="display: block; width:95%; height:0px;"> </span></td>
+						<td class="td7" style="width:20%"><span style="display: block; width:95%; height:0px;"> </span></td>
 						<td class="td8" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
 						<td class="td9" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
 					</tr>
@@ -809,8 +818,6 @@
 					</tr>
 				</table>
 			</div>
-		</div>
-
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
