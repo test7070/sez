@@ -22,7 +22,7 @@
         var q_readonly = [];
         var q_readonlys = [];
         var bbmNum = [['txtPrice', 10, 3]];  
-        var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
+        var bbsNum = [];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
@@ -491,7 +491,7 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input id="txtBccno.*" type="text" style="width: 65%;" /><input id="btnBccno.*" type="button" value="..." style="width: auto; font-size: medium;"/></td>
+                <td ><input id="txtBccno.*" type="text" style="width: 55%;" /><input id="btnBccno.*" type="button" value="." style="width: 12%;"/></td>
                 <td ><input class="txt c1" id="txtBccname.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtMount.*" type="text" style="text-align: right;"/></td>
                 <td ><input class="txt c1" id="txtWeight.*" type="text" style="text-align: right;" /></td>

@@ -30,7 +30,7 @@
             brwKey = 'noa';
             q_alias = '';
             q_desc = 1;
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b.aspx'], ['txtEndaddrno', 'lblEndaddr', 'addr', 'noa,addr', 'txtEndaddrno,txtEndaddr', 'addr_b.aspx'], ['txtAddr_placeno', 'lblAddr_place', 'addr', 'noa,addr', 'txtAddr_placeno,txtAddr_place', 'addr_b.aspx'], ['txtAddr_transno', 'lblAddr_trans', 'addr', 'noa,addr', 'txtAddr_transno,txtAddr_trans', 'addr_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'noa,name', 'txtWorkerno,txtWorker', 'sss_b.aspx']);
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b2.aspx'], ['txtAddr_placeno', 'lblAddr_place', 'addr', 'noa,addr', 'txtAddr_placeno,txtAddr_place', 'addr_b.aspx'], ['txtAddr_transno', 'lblAddr_trans', 'addr', 'noa,addr', 'txtAddr_transno,txtAddr_trans', 'addr_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'noa,name', 'txtWorkerno,txtWorker', 'sss_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -445,7 +445,7 @@
                 font-size: 16px;
                 color: blue;
                 background: #cad3ff;
-                width: 98%;
+                width: 100%;
                 height: 98%;
             }
             .dbbs .tbbs tr {
@@ -538,11 +538,6 @@
 						<td class="td2" colspan="3">
 						<input id="txtStraddrno" type="text"  class="txt c2"/>
 						<input id="txtStraddr" type="text"  class="txt c3"/>
-						</td>
-						<td class="td3" ><span> </span><a id="lblEndaddr" class="lbl btn"></a></td>
-						<td class="td4" colspan="3">
-						<input id="txtEndaddrno" type="text" class="txt c2"/>
-						<input id="txtEndaddr" type="text"  class="txt c3"/>
 						</td>
 					</tr>
 					<tr class="tr5">

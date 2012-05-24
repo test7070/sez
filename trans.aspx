@@ -26,7 +26,7 @@
             brwKey = 'noa';
             q_alias = 'a';
             q_desc = 1;
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b.aspx'], ['txtEndaddrno', 'lblEndaddr', 'addr', 'noa,addr', 'txtEndaddrno,txtEndaddr', 'addr_b.aspx'], ['txtAddno3', 'lblAdd3', 'addr', 'noa,addr', 'txtAddno3,txtAdd3', 'addr_b.aspx'], ['txtAddno4', 'lblAdd4', 'addr', 'noa,addr', 'txtAddno4,txtAdd4', 'addr_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'noa,name', 'txtWorkerno,txtWorker', 'sss_b.aspx']);
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b2.aspx'], ['txtAddno3', 'lblAdd3', 'addr', 'noa,addr', 'txtAddno3,txtAdd3', 'addr_b2.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'noa,name', 'txtWorkerno,txtWorker', 'sss_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
 
@@ -448,10 +448,10 @@
 						<input id="txtStraddrno" type="text"  class="txt c2"/>
 						<input id="txtStraddr" type="text"  class="txt c3"/>
 						</td>
-						<td class="td3" ><span> </span><a id="lblEndaddr" class="lbl btn"></a></td>
+						<td class="td3" ><span> </span><a id="lblAdd3" class="lbl btn"></a></td>
 						<td class="td4">
-						<input id="txtEndaddrno" type="text" class="txt c2"/>
-						<input id="txtEndaddr" type="text"  class="txt c3"/>
+						<input id="txtAddno3" type="text" class="txt c2"/>
+						<input id="txtAdd3" type="text"  class="txt c3"/>
 						</td>
 						<td class="td5" ><span> </span><a id="lblUcc" class="lbl btn"></a></td>
 						<td class="td6" >
@@ -488,23 +488,16 @@
 						<input id="txtPrice2" type="text"  class="txt num c1"/>
 						<input id="txtPrice3" type="text"  class="txt num c1"/>
 						</td>
-						<td class="td5" ><span> </span><a id="lblAdd3" class="lbl btn"></a></td>
-						<td class="td6">
-						<input id="txtAddno3" type="text" class="txt c2"/>
-						<input id="txtAdd3" type="text"  class="txt c3"/>
-						</td>
-						<td class="td7" ><span> </span><a id="lblAdd4" class="lbl btn"></a></td>
-						<td class="td8">
-						<input id="txtAddno4" type="text"  class="txt c2"/>
-						<input id="txtAdd4" type="text"  class="txt c3"/>
-						</td>
+						
+						
 					</tr>
 					<tr class="tr6">
 						<td class="td1" ><span> </span><a id="lblCaseno" class="lbl"></a></td>
 						<td class="td2" colspan="3">
 						<input id="txtCaseno" type="text"  style='width:50%; float:left;'/>
-						<input id="txtCaseno2" type="text"  style='width:50%; float:left;'/>
-						<td class="td5" ><span> </span><a id="lblTtype" class="lbl"></a></td><td class="td6" ><select id="cmbTtype" class="txt c1"></select></td></td>
+						<input id="txtCaseno2" type="text"  style='width:50%; float:left;'/></td>
+						<td class="td5" ><span> </span><a id="lblTtype" class="lbl"></a></td><td class="td6" ><select id="cmbTtype" class="txt c1"></select></td>
+					
 					</tr>
 					<tr class="tr7">
 						<td class="td1" ><span> </span><a id="lblPo" class="lbl"></a></td>

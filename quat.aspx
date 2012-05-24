@@ -320,7 +320,7 @@
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
             <tr>
                <td class="label1" ><a id='lblStype'></a></td>
-               <td class="column1"><select id="cmbStype" class="txt c1"/></td>
+               <td class="column1"><select id="cmbStype" class="txt c1"></select></td>
                <td class="column2"></td>
               <td class="label2" ><a id='lblDatea'></a></td>
                <td class="column3"><input id="txtDatea" type="text"  class="txt c1"/></td>
@@ -333,7 +333,7 @@
                <td class="column1" ><input id="txtCno"  type="text"  class="txt c1"/></td>
                <td class="column2" ><input id="txtAcomp"  type="text" class="txt c1"/></td>
                 <td class="label2"><a id='lblFloata'></a></td>
-                <td class="column3" ><select id="cmbCoin" class="txt c1" /></td>                 
+                <td class="column3" ><select id="cmbCoin" class="txt c1" ></select></td>                 
                 <td class="column4" ><input id="txtFloata"  type="text"  class="txt c1" style="text-align: right;"/></td>                 
                 <td class="label3"><a id='lblContract'></a></td>
                 <td class="column2"><input id="txtContract"  type="text"  class="txt c2"/></td> 
@@ -344,9 +344,9 @@
                 <td ><input id="txtComp"  type="text" class="txt c1"/></td>
                 <td class="label2"><a id='lblPay'></a></td>
                 <td ><input id="txtPay" type="text" class="txt c1" /></td> 
-                <td> <select id="cmbPaytype" class="txt c1"/></td> 
+                <td> <select id="cmbPaytype" class="txt c1"></select></td> 
                 <td class="label3"><a id='lblTrantype'></a></td>
-                <td><select id="cmbTrantype" class="txt c1" name="D1" /></td> 
+                <td><select id="cmbTrantype" class="txt c1" name="D1" ></select></td> 
             </tr>
             <tr>
                 <td class="label1"><input id="btnSales" type="button" value='.' style='width: auto; font-size: medium;'  /></td>
@@ -376,7 +376,7 @@
                 <td colspan='2'><input id="txtMoney" type="text" class="txt c1" style="text-align: right;" /></td> 
                 <td class="label2"><a id='lblTax'></a></td>
                 <td><input id="txtTax" type="text"  class="txt c1" style="text-align: right;" /></td>
-                <td><select id="cmbTaxtype" class="txt c1"/></td>
+                <td><select id="cmbTaxtype" class="txt c1"></select></td>
                 <td class="label3"><a id='lblTotal'></a></td>
                 <td ><input id="txtTotal" type="text"  class="txt c2" style='text-align:right;'/>
                 </td> 
