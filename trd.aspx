@@ -590,7 +590,6 @@
 					<td  align="center" style="width:2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:4%;"><a id='lblOrdeno_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblTranno_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblTrandate_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblCarno_s'></a></td>
@@ -609,15 +608,14 @@
 					<td align="center" style="width:5%;"><a id='lblMemo_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblOverweightcost_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblOthercost_s'></a></td>
+					<td align="center" style="width:4%;"><a id='lblOrdeno_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
-					<td >
-					<input type="text" id="txtOrdeno.*" style="width:95%;" />
-					</td>
+					
 					<td >
 					<input type="text" id="txtTranno.*" style="float:left; width: 70%;"/>
 					<input type="text" id="txtTrannoq.*" style="float:left; width: 20%;"/>
@@ -672,6 +670,9 @@
 					</td>
 					<td >
 					<input type="text" id="txtOthercost.*" style="width:95%;text-align: right;" />
+					</td>
+					<td >
+					<input type="text" id="txtOrdeno.*" style="width:95%;" />
 					</td>
 				</tr>
 			</table>
