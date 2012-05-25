@@ -105,7 +105,7 @@
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if(t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_trans') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_ummtran') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
             }
@@ -490,8 +490,6 @@
 					</td>
 					<td>
 					<input type="text" id="txtUmmbno.*" style="width:95%;" />
-					<input type="text" id="txtTrdno.*"  style="display:none;"/>
-					<input type="text" id="txtVcctran.*" style="display:none;" />
 					</td>
 					<td>
 					<input type="text" id="txtUmmb.*"  style="width:95%;" />
