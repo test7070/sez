@@ -19,9 +19,9 @@
             q_tables = 's';
             var q_name = "umm";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtAcccno', 'txtCno', 'txtAcomp'];
-            var q_readonlys = ['txtUmmbno'];
+            var q_readonlys = ['txtUmmbno','txtPart','txtPartno'];
             var bbmNum = [['txtTotal', 10, 0]];
-            var bbsNum = [];
+            var bbsNum = [['txtMoney', 10, 0],['txtChgs', 10, 0],['txtPaysale', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -50,6 +50,7 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
                 q_mask(bbmMask);
+                bbsMask = [['txtIndate', r_picd], ['txtMon', r_picm]];
 
                 $('#btnTrd').click(function(e) {
                     if(q_cur == 1 || q_cur == 2) {
@@ -91,25 +92,11 @@
                 switch (t_name) {
                     case 'trd':
                         var as = _q_appendData("trd", "", true);
-                        q_gridAddRow(bbsHtm, 'tbbs', '', as.length, as, '', '', '');
-                        for( i = 0; i < q_bbsCount; i++) {
-                            _btnMinus("btnMinus_" + i);
-                            if(i < as.length) {
-                                $('#txtUmmbno_' + i).val(as[i].noa);
-                                $('#txtMoney_' + i).val(as[i].total);
-                            }
-                        }
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtUmmbno,txtMoney', as.length, as, 'noa,total', '', '');
                         break;
                     case 'vcc':
                         var as = _q_appendData("vcc", "", true);
-                        q_gridAddRow(bbsHtm, 'tbbs', '', as.length, as, '', '', '');
-                        for( i = 0; i < q_bbsCount; i++) {
-                            _btnMinus("btnMinus_" + i);
-                            if(i < as.length) {
-                                $('#txtUmmbno_' + i).val(as[i].noa);
-                                $('#txtMoney_' + i).val(as[i].total);
-                            }
-                        }
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtUmmbno,txtMoney', as.length, as, 'noa,total', '', '');
                         break;
                     case q_name:
                         if(q_cur == 4)
@@ -392,7 +379,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 150%;
+                width: 100%;
             }
             .tbbs a {
                 font-size: 14px;
@@ -512,42 +499,43 @@
 					<td align="center" style="width:1%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:3%;"><a id='lblTypea'></a></td>
-					<td align="center" style="width:4%;"><a id='lblMoney'></a></td>
-					<td align="center" style="width:4%;"><a id='lblChgs'></a></td>
-					<td align="center" style="width:4%;"><a id='lblPaysales'></a></td>
-					<td align="center" style="width:3%;"><a id='lblMons'></a></td>
-					<td align="center" style="width:8%;"><a id='lblPart'></a></td>
+					<td align="center" style="width:2%;"><a id='lblTypea'></a></td>
+					<td align="center" style="width:3%;"><a id='lblMoney'></a></td>
+					<td align="center" style="width:3%;"><a id='lblChgs'></a></td>
+					<td align="center" style="width:3%;"><a id='lblPaysales'></a></td>
+					<td align="center" style="width:2%;"><a id='lblMons'></a></td>
+					<td align="center" style="width:3%;"><a id='lblPart'></a></td>
 					<td align="center" style="width:4%;"><a id='lblUmmbno'></a></td>
 					<td align="center" style="width:5%;"><a id='lblUmmb'></a></td>
 					<td align="center" style="width:5%;"><a id='lblCheckno'></a></td>
 					<td align="center" style="width:5%;"><a id='lblAccount'></a></td>
-					<td align="center" style="width:5%;"><a id='lblBank'></a></td>
-					<td align="center" style="width:4%;"><a id='lblIndate'></a></td>
+					<td align="center" style="width:7%;"><a id='lblBank'></a></td>
+					<td align="center" style="width:3%;"><a id='lblIndate'></a></td>
 					<td align="center" style="width:4%;"><a id='lblMemos'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
 					<input type="button" id="btnMinus.*"  value='-' style=" font-weight: bold;" />
+					<input type="text" id="txtNoq.*" style="display:none;" />
 					</td>
 					<td>
 					<input type="text" id="txtTypea.*"  style="width:95%;"/>
 					</td>
 					<td>
-					<input type="text" id="txtMoney.*" style="width:95%;"/>
+					<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
 					</td>
 					<td>
-					<input type="text" id="txtChgs.*" style="width:95%;"/>
+					<input type="text" id="txtChgs.*" style="text-align:right;width:95%;"/>
 					</td>
 					<td>
-					<input type="text" id="txtPaysale.*" style="width:95%;"/>
+					<input type="text" id="txtPaysale.*" style="text-align:right;width:95%;"/>
 					</td>
 					<td>
 					<input type="text" id="txtMon.*" style="width:95%;"/>
 					</td>
 					<td>
-					<input type="text" id="txtPartno.*" style="float:left;width: 30%;"/>
-					<input type="text" id="txtPart.*"  style="float:left;width: 65%;"/>
+					<input type="text" id="txtPartno.*" style="float:left; display: none;"/>
+					<input type="text" id="txtPart.*"  style="float:left;width: 95%;"/>
 					</td>
 					<td>
 					<input type="text" id="txtUmmbno.*" style="width:95%;" />
@@ -564,14 +552,13 @@
 					<td>
 					<input type="button" id="btnBankno.*"  style="float:left;width:5%;" value="."/>
 					<input type="text" id="txtBankno.*"  style="float:left;width:40%;" />
-					<input type="text" id="txtBank.*" style="width:50%;"/>
+					<input type="text" id="txtBank.*" style="float:left;width:40%;"/>
 					</td>
 					<td>
 					<input type="text" id="txtIndate.*" style="width:95%;" />
 					</td>
 					<td>
-					<input type="text" id="txtMemo.*" style="width:95%;"/>
-					<input type="text" id="txtNoq.*" style="display:none;" />
+					<input type="text" id="txtMemo.*" style="width:95%;"/>	
 					</td>
 				</tr>
 			</table>
