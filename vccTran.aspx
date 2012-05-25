@@ -18,6 +18,7 @@
             }
 
             q_tables = 's';
+            q_desc = 1;
             var q_name = "vcc";
             var q_readonly = ['txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtOrdeno'];
             var q_readonlys = [];
@@ -37,7 +38,7 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1);
+                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
             });
 
             function main() {
@@ -166,11 +167,8 @@
                     /*Mount*/
                     if( typeof ($('#txtMount_' + i).data('info')) == 'undefined')
                         $('#txtMount_' + i).data('info', {
-                            index : i,
                             isSetChange : false
                         });
-                    if( typeof ($('#txtMount_' + i).data('info').index) == 'undefined')
-                        $('#txtMount_' + i).data('info').index = i;
                     if( typeof ($('#txtMount_' + i).data('info').isSetChange) == 'undefined')
                         $('#txtMount_' + i).data('info').isSetChange = false;
                     if(!$('#txtMount_' + i).data('info').isSetChange) {
@@ -182,11 +180,8 @@
                     /*Price*/
                     if( typeof ($('#txtPrice_' + i).data('info')) == 'undefined')
                         $('#txtPrice_' + i).data('info', {
-                            index : i,
                             isSetChange : false
                         });
-                    if( typeof ($('#txtPrice_' + i).data('info').index) == 'undefined')
-                        $('#txtPrice_' + i).data('info').index = i;
                     if( typeof ($('#txtPrice_' + i).data('info').isSetChange) == 'undefined')
                         $('#txtPrice_' + i).data('info').isSetChange = false;
                     if(!$('#txtPrice_' + i).data('info').isSetChange) {
@@ -259,7 +254,7 @@
             }
 
             function bbsSave(as) {
-                if(!as['total']) {
+                if(!as['item']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -277,14 +272,14 @@
                 var t1, t2;
                 for( i = 0; i < q_bbsCount; i++) {
                     if($.trim($('#txtMemo_' + i).val()).substring(0, 1) != '.') {
-                        t1 = parseInt($('#txtMount_' + i).val().length == 0 ? '0' : $('#txtMount_' + i).val(), 10);
-                        t2 = parseInt($('#txtPrice_' + i).val().length == 0 ? '0' : $('#txtPrice_' + i).val(), 10);
+                        t1 = parseInt($.trim($('#txtMount_' + i).val()).length == 0 ? '0' : $('#txtMount_' + i).val(), 10);
+                        t2 = parseInt($.trim($('#txtPrice_' + i).val()).length == 0 ? '0' : $('#txtPrice_' + i).val(), 10);
                         $('#txtTotal_' + i).val(Math.round(t1 * t2, 0));
                     }
                     if($.trim($('#txtTotal_' + i).val()).length != 0)
                         t_money += parseInt($('#txtTotal_' + i).val(), 10);
                 }
-                t_rate = $.trim($('#txtTaxrate').val()).length != 0 ? parseInt($('#txtTaxrate').val(), 10) : 0;
+                t_rate = parseInt($.trim($('#txtTaxrate').val()).length == 0 ? '0' : $('#txtTaxrate').val(), 10);
                 switch($('#cmbTaxtype').val()) {
                     case '1':
                         t_tax = Math.round(t_money * t_rate / 100);
@@ -296,7 +291,7 @@
                         t_tax = t_total - t_money;
                         break;
                     case '5':
-                        t_tax = $.trim($('#txtTax').val()).length != 0 ? parseInt($('#txtTax').val(), 10) : 0;
+                        t_tax = parseInt($.trim($('#txtTax').val()).length == 0 ? '0' : $('#txtTax').val(), 10);
                         t_total = t_money + t_tax;
                         break;
                     default:
@@ -482,8 +477,8 @@
             .num {
                 text-align: right;
             }
-			.tbbs input[readonly="readonly"] {
-                color:green;
+            .tbbs input[readonly="readonly"] {
+                color: green;
             }
 		</style>
 	</head>

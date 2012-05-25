@@ -4,7 +4,7 @@
 <head>
     <title></title>
     <script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
-    <script src='../script/qj2.js' type="text/javascript"></script>
+    <script src='../script/qj.js' type="text/javascript"></script>
     <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src="../script/qbox.js" type="text/javascript"></script>
@@ -19,8 +19,8 @@
         }
         q_tables = 's';
         var q_name = "vcc";
-        var decbbs = [ 'money','total', 'weight', 'mount', 'price', 'sprice', 'dime', 'width', 'lengthb', 'gweight'];
-        var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney'];
+        //var decbbs = [ 'money','total', 'weight', 'mount', 'price', 'sprice', 'dime', 'width', 'lengthb', 'gweight'];
+        //var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney'];
         var q_readonly = ['txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight', 'txtOrdeno'];//, 'txtAccno','txtMon','txtSales']; 
         var q_readonlys= ['txtTotal','txtOrdeno','txtNo2'];
         var bbmNum = [['txtPrice', 10, 3], ['txtTranmoney', 11, 2], ['txtMoney', , , 1], ['txtTax', , , 1], ['txtTotal', , , 1], ['txtTotalus', , , 1], ['txtWeight', , , 1]];  // 允許 key 小數
@@ -77,8 +77,9 @@
             });
             $('#btnFunc').click(function () {
                 //q_func('t3.func1', "3,4,5")
-                q_func('t4.func1', "3,4,5")
-             });
+                //q_func('t4.func1', "3,4,5")
+                q_gt('trans', "where=^^datea='100/01/03'^^", 0, 0,0,"",r_accy);
+            });
         }
 
         function q_funcPost(t_func, result) {
@@ -130,9 +131,10 @@
         }
 
 
-
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
+                case 'trans':
+                    var as = _q_appendData("trans");
                 case q_name: if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
@@ -412,7 +414,6 @@
 <body>
     <form id="form1" runat="server" style="height: 100%">
         <!--#include file="../inc/toolbar.inc"-->
-
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>

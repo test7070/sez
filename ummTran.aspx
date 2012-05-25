@@ -48,7 +48,7 @@
             function mainPost() {
                 fbbm[fbbm.length] = 'txtMemo';
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd]];
+                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
                 q_mask(bbmMask);
 
                 $('#btnTrd').click(function(e) {
@@ -59,11 +59,22 @@
                         }
                         var t_curno = "'" + $.trim($('#txtNoa').val()) + "'";
                         var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
-                        t_where = "where=^^isnull(trd" + r_accy + ".custno,'')=" + t_custno + " and not exists(select * from umms left join umm on umms.noa=umm.noa where not(umms.noa=" + t_curno + ") and isnull(umm.custno,'')=" + t_custno + " and isnull(umms.trdno,'')=trd" + r_accy + ".noa)";
+                        t_where = "where=^^isnull(trd" + r_accy + ".custno,'')=" + t_custno + " and not exists(select * from umms left join umm on umms.noa=umm.noa where not(umms.noa=" + t_curno + ") and isnull(umm.custno,'')=" + t_custno + " and isnull(umms.ummbno,'')=trd" + r_accy + ".noa)";
                         q_gt('trd', t_where, 0, 0, 0, "", r_accy);
                     }
                 });
-
+                $('#btnVcctran').click(function(e) {
+                    if(q_cur == 1 || q_cur == 2) {
+                        if($.trim($('#txtCustno').val()) == 0) {
+                            alert('Please enter the customer no.');
+                            return false;
+                        }
+                        var t_curno = "'" + $.trim($('#txtNoa').val()) + "'";
+                        var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
+                        t_where = "where=^^isnull(vcc" + r_accy + ".custno,'')=" + t_custno + " and not exists(select * from umms left join umm on umms.noa=umm.noa where not(umms.noa=" + t_curno + ") and isnull(umm.custno,'')=" + t_custno + " and isnull(umms.ummbno,'')=vcc" + r_accy + ".noa)";
+                        q_gt('vcc', t_where, 0, 0, 0, "", r_accy);
+                    }
+                });
             }
 
             function q_boxClose(s2) {
@@ -85,17 +96,33 @@
                             _btnMinus("btnMinus_" + i);
                             if(i < as.length) {
                                 $('#txtUmmbno_' + i).val(as[i].noa);
-                                $('#txtTrdno_' + i).val(as[i].noa);
                                 $('#txtMoney_' + i).val(as[i].total);
                             }
                         }
-
+                        break;
+                    case 'vcc':
+                        var as = _q_appendData("vcc", "", true);
+                        q_gridAddRow(bbsHtm, 'tbbs', '', as.length, as, '', '', '');
+                        for( i = 0; i < q_bbsCount; i++) {
+                            _btnMinus("btnMinus_" + i);
+                            if(i < as.length) {
+                                $('#txtUmmbno_' + i).val(as[i].noa);
+                                $('#txtMoney_' + i).val(as[i].total);
+                            }
+                        }
                         break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
                         break;
                 }
+            }
+
+            function q_stPost() {
+                if(!(q_cur == 1 || q_cur == 2))
+                    return false;
+                abbm[q_recno]['accno'] = xmlString;
+                $('#txtAccno').val(xmlString);
             }
 
             function btnOk() {
@@ -122,6 +149,34 @@
 
             function bbsAssign() {
                 _bbsAssign();
+                for(var i = 0; i < q_bbsCount; i++) {
+                    /*Money*/
+                    if( typeof ($('#txtMoney_' + i).data('info')) == 'undefined')
+                        $('#txtMoney_' + i).data('info', {
+                            isSetChange : false
+                        });
+                    if( typeof ($('#txtMoney_' + i).data('info').isSetChange) == 'undefined')
+                        $('#txtMoney_' + i).data('info').isSetChange = false;
+                    if(!$('#txtMoney_' + i).data('info').isSetChange) {
+                        $('#txtMoney_' + i).data('info').isSetChange = true;
+                        $('#txtMoney_' + i).change(function(e) {
+                            sum();
+                        });
+                    }
+                    /*Paysale*/
+                    if( typeof ($('#txtPaysale_' + i).data('info')) == 'undefined')
+                        $('#txtPaysale_' + i).data('info', {
+                            isSetChange : false
+                        });
+                    if( typeof ($('#txtPaysale_' + i).data('info').isSetChange) == 'undefined')
+                        $('#txtPaysale_' + i).data('info').isSetChange = false;
+                    if(!$('#txtPaysale_' + i).data('info').isSetChange) {
+                        $('#txtPaysale_' + i).data('info').isSetChange = true;
+                        $('#txtPaysale_' + i).change(function(e) {
+                            sum();
+                        });
+                    }
+                }
             }
 
             function btnIns() {
@@ -159,11 +214,14 @@
             }
 
             function sum() {
-                var t1 = 0, t_unit, t_mount, t_weight = 0;
+                var t_money = 0, t_pay = 0;
                 for(var j = 0; j < q_bbsCount; j++) {
-
+                    t_money += parseInt($.trim($('#txtMoney_' + j).val()).length == 0 ? '0' : $('#txtMoney_' + j).val(), 10);
+                    t_pay += parseInt($.trim($('#txtPaysale_' + j).val()).length == 0 ? '0' : $('#txtPaysale_' + j).val(), 10);
                 }
-
+                $('#txtTotal').val(t_money);
+                $('#txtPaysale').val(t_pay);
+                $('#txtNextsale').val(t_money - t_pay);
             }
 
             function refresh(recno) {
@@ -400,6 +458,9 @@
 						</td>
 						<td class="7">
 						<input type="button" id="btnTrd" class="txt c1" />
+						</td>
+						<td class="8">
+						<input type="button" id="btnVcctran" class="txt c1" />
 						</td>
 					</tr>
 					<tr class="tr3">
