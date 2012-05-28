@@ -16,6 +16,9 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+            if(location.href.indexOf('?') < 0) {
+                location.href = location.href + "?;;;;100_1";
+            }
             $(document).ready(function() {
                 q_gf('', 'z_ordc');
                
@@ -24,6 +27,10 @@
                 $('#qReport').q_report({
                     fileName : 'z_ordc',
                     options : [{
+                        type : '0',
+                        name : 'accy',
+                        value : q_getId()[4]
+                    },{
                         type : '1',
                         name : 'date'
                     },{

@@ -7,57 +7,46 @@
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src='../script/z_report.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		
 		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
 		<script src="css/jquery/ui/jquery.ui.core.js"></script>
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             $(document).ready(function() {
-                q_gf('', 'z_chgcash');
+                _q_boxClose();
+                q_gf('', 'z_cust');
             });
             function q_gfPost() {
-               $('#qReport').q_report({
-                        fileName : 'z_chgcash',
-                        options : [{
-                        type : '1',
-                        name : 'date'
+                var t_qtype = [q_getPara('report.all')].concat(q_getPara('cust.qtype').split(','));
+                $('#qReport').q_report({
+                    fileName : 'z_cust',
+                    options : [{
+                        type : 'date'
                     },{
-                        type : '1',
-                        name : 'mon'
+                        type : 'mon'
                     },{
-                        type : '2',
-                        name : 'part',
-                        dbf : 'part',
-                        index : 'noa,part',
-                        src : 'part_b.aspx'
-                        },{
-                        type : '2',
-                        name : 'sss',
-                        dbf : 'sss',
-                        index : 'noa,namea',
-                        src : 'sss_b.aspx'
-                        }]
-                    });
-                q_popAssign();
+                        type : 'cust'
+                    }, {
+                        type : 'tgg'
+                    },{
+                        type : 'sss'
+                    },{
+                        type : 'select',
+                        name : 'qtype',
+                        value : t_qtype
+                    }]
+                });
                 q_getFormat();
                 q_langShow();
-                
-                $('#qReport_txtDate1').mask('999/99/99');
-                $('#qReport_txtDate1').datepicker();
-                $('#qReport_txtDate2').mask('999/99/99');
-                $('#qReport_txtDate2').datepicker();
-                $('#qReport_txtMon1').mask('999/99');
-                $('#qReport_txtMon1').mask('999/99');
-                $('#qReport_txtMon2').mask('999/99');
-                $('#qReport_txtMon2').mask('999/99');
             }
 
             function q_boxClose(s2) {
-            }
-            function q_gtPost(s2) {
+                $('#qReport').data('info').q_boxClose(s2,$('#qReport'));
             }
 		</script>
 	</head>
@@ -70,5 +59,3 @@
 		</div>
 	</body>
 </html>
-           
-          
