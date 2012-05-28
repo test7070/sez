@@ -19,9 +19,9 @@
             q_tables = 's';
             var q_name = "umm";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtAcccno', 'txtCno', 'txtAcomp'];
-            var q_readonlys = ['txtVccno','txtPart','txtPartno'];
-            var bbmNum = [['txtTotal', 10, 0,1]];
-            var bbsNum = [['txtMoney', 10, 0,1],['txtChgs', 10, 0],['txtPaysale', 10, 0]];
+            var q_readonlys = ['txtVccno', 'txtPart', 'txtPartno'];
+            var bbmNum = [['txtTotal', 10, 0, 1]];
+            var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0], ['txtPaysale', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -59,11 +59,12 @@
                             return false;
                         }
                         //var t_curno = "'" + $.trim($('#txtNoa').val()) + "'";
-                        //var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
+                        var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
                         //t_where = "where=^^isnull(trd" + r_accy + ".custno,'')=" + t_custno + " and not exists(select * from umms left join umm on umms.noa=umm.noa where not(umms.noa=" + t_curno + ") and isnull(umm.custno,'')=" + t_custno + " and isnull(umms.vccno,'')=trd" + r_accy + ".noa)";
-                        t_where = "where=^^ unpay!=0 ";
-                        for (var i = 0; i < q_bbsCount; i++) {
-                            t_where = t_where + "or noa='" + $('#txtVccno_'+i).val() +"'";
+                        t_where = "where=^^ custno="+t_custno+" and unpay!=0 ";
+                        for(var i = 0; i < q_bbsCount; i++) {
+                            if($.trim($('#txtVccno_' + i).val()).length > 0)
+                                t_where = t_where + "or noa='" + $('#txtVccno_' + i).val() + "'";
                         }
                         q_gt('trd', t_where, 0, 0, 0, "", r_accy);
                     }
@@ -75,11 +76,12 @@
                             return false;
                         }
                         //var t_curno = "'" + $.trim($('#txtNoa').val()) + "'";
-                        //var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
+                        var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
                         //t_where = "where=^^isnull(vcc" + r_accy + ".custno,'')=" + t_custno + " and not exists(select * from umms left join umm on umms.noa=umm.noa where not(umms.noa=" + t_curno + ") and isnull(umm.custno,'')=" + t_custno + " and isnull(umms.vccno,'')=vcc" + r_accy + ".noa)";
-                        t_where = "where=^^ unpay!=0 ";
-                        for (var i = 0; i < q_bbsCount; i++) {
-                            t_where = t_where + "or noa='" + $('#txtVccno_'+i).val() +"'";
+                        t_where = "where=^^ custno="+t_custno+" and unpay!=0 ";
+                        for(var i = 0; i < q_bbsCount; i++) {
+                            if($.trim($('#txtVccno_' + i).val()).length > 0)
+                                t_where = t_where + "or noa='" + $('#txtVccno_' + i).val() + "'";
                         }
                         q_gt('vcc', t_where, 0, 0, 0, "", r_accy);
                     }
@@ -97,6 +99,7 @@
             }
 
             function q_gtPost(t_name) {
+            	//var strDate = new Date();
                 switch (t_name) {
                     case 'trd':
                         var as = _q_appendData("trd", "", true);
@@ -111,6 +114,8 @@
                             q_Seek_gtPost();
                         break;
                 }
+                //var endDate = new Date();
+                //alert('Str:'+strDate.getHours()+':'+strDate.getMinutes()+':'+strDate.getSeconds()+'\r\nEnd:'+endDate.getHours()+':'+endDate.getMinutes()+':'+endDate.getSeconds());
             }
 
             function q_stPost() {
@@ -121,24 +126,24 @@
             }
 
             function btnOk() {
-            	var isError = false;
-            	for(var i = 0; i < q_bbsCount; i++) {
-            		$('#txtTypea_'+i).parent().parent().removeClass('error');
-            		if($.trim($('#txtTypea_'+i).val()).length==0){
-            			if(!(parseInt($.trim($('#txtMoney_' + j).val()).length == 0 ? '0' : $('#txtMoney_' + j).val(), 10)==0 && parseInt($.trim($('#txtPaysale_' + j).val()).length == 0 ? '0' : $('#txtPaysale_' + j).val(), 10)==0)){
-            				isError = true;
-            				$('#txtTypea_'+i).parent().parent().addClass('error');
-            			}	
-            		}
-            	}
-            	if(isError){
-            		alert('Please enter the type!');
-            		return false;
-            	}
+                var isError = false;
+                for(var i = 0; i < q_bbsCount; i++) {
+                    $('#txtTypea_' + i).parent().parent().removeClass('error');
+                    if($.trim($('#txtTypea_' + i).val()).length == 0) {
+                        if(!(parseInt($.trim($('#txtMoney_' + j).val()).length == 0 ? '0' : $('#txtMoney_' + j).val(), 10) == 0 && parseInt($.trim($('#txtPaysale_' + j).val()).length == 0 ? '0' : $('#txtPaysale_' + j).val(), 10) == 0)) {
+                            isError = true;
+                            $('#txtTypea_' + i).parent().parent().addClass('error');
+                        }
+                    }
+                }
+                if(isError) {
+                    alert('Please enter the type!');
+                    return false;
+                }
 
                 $('#txtWorker').val(r_name);
                 sum();
-                
+
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if(t_noa.length == 0 || t_noa == "AUTO")
@@ -207,10 +212,10 @@
 
             function wrServer(key_value) {
                 var i;
-			
+
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
-        
+
             }
 
             function bbsSave(as) {
@@ -220,7 +225,7 @@
                 }
 
                 q_nowf();
-			
+
                 return true;
             }
 
@@ -415,7 +420,7 @@
                 text-align: right;
             }
             .tbbs tr.error input[type="text"] {
-                color:red;
+                color: red;
             }
 		</style>
 	</head>
@@ -585,7 +590,7 @@
 					<input type="text" id="txtIndate.*" style="width:95%;" />
 					</td>
 					<td>
-					<input type="text" id="txtMemo.*" style="width:95%;"/>	
+					<input type="text" id="txtMemo.*" style="width:95%;"/>
 					</td>
 				</tr>
 			</table>
