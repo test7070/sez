@@ -16,7 +16,7 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
              if(location.href.indexOf('?') < 0) {
-                location.href = location.href + "?;;;;100_1";
+                location.href = location.href + "?;;;;101";
             }
             $(document).ready(function() {
                 q_gf('', 'z_orde');

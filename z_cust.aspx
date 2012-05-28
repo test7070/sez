@@ -26,20 +26,37 @@
                 $('#qReport').q_report({
                     fileName : 'z_cust',
                     options : [{
-                        type : 'date'
+                        type : '1',
+                        name : 'date'
                     },{
-                        type : 'mon'
+                        type : '1',
+                        name : 'mon'
                     },{
-                        type : 'cust'
-                    }, {
-                        type : 'tgg'
-                    },{
-                        type : 'sss'
-                    },{
-                        type : 'select',
+                        type : '2',
+                        name : 'cust',
+                        dbf : 'cust',
+                        index : 'noa,comp',
+                        src : 'cust_b.aspx'
+                        },{
+                        type : '2',
+                        name : 'tgg',
+                        dbf : 'tgg',
+                        index : 'noa,comp',
+                        src : 'tgg_b.aspx'
+                        },{
+                        type : '2',
+                        name : 'sss',
+                        dbf : 'sss',
+                        index : 'noa,namea',
+                        src : 'sss_b.aspx'
+                        },{
+                        type : '5',
                         name : 'qtype',
                         value : t_qtype
-                    }]
+                    },{
+                    	type : '0',
+                    	name : 'allq',
+                    	value : $('#Qtype').text() }]
                 });
                 q_getFormat();
                 q_langShow();
