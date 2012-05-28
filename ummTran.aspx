@@ -19,9 +19,9 @@
             q_tables = 's';
             var q_name = "umm";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtAcccno', 'txtCno', 'txtAcomp'];
-            var q_readonlys = ['txtUmmbno','txtPart','txtPartno'];
-            var bbmNum = [['txtTotal', 10, 0]];
-            var bbsNum = [['txtMoney', 10, 0],['txtChgs', 10, 0],['txtPaysale', 10, 0]];
+            var q_readonlys = ['txtVccno','txtPart','txtPartno'];
+            var bbmNum = [['txtTotal', 10, 0,1]];
+            var bbsNum = [['txtMoney', 10, 0,1],['txtChgs', 10, 0],['txtPaysale', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -58,9 +58,13 @@
                             alert('Please enter the customer no.');
                             return false;
                         }
-                        var t_curno = "'" + $.trim($('#txtNoa').val()) + "'";
-                        var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
-                        t_where = "where=^^isnull(trd" + r_accy + ".custno,'')=" + t_custno + " and not exists(select * from umms left join umm on umms.noa=umm.noa where not(umms.noa=" + t_curno + ") and isnull(umm.custno,'')=" + t_custno + " and isnull(umms.ummbno,'')=trd" + r_accy + ".noa)";
+                        //var t_curno = "'" + $.trim($('#txtNoa').val()) + "'";
+                        //var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
+                        //t_where = "where=^^isnull(trd" + r_accy + ".custno,'')=" + t_custno + " and not exists(select * from umms left join umm on umms.noa=umm.noa where not(umms.noa=" + t_curno + ") and isnull(umm.custno,'')=" + t_custno + " and isnull(umms.vccno,'')=trd" + r_accy + ".noa)";
+                        t_where = "where=^^ unpay!=0 ";
+                        for (var i = 0; i < q_bbsCount; i++) {
+                            t_where = t_where + "or noa='" + $('#txtVccno_'+i).val() +"'";
+                        }
                         q_gt('trd', t_where, 0, 0, 0, "", r_accy);
                     }
                 });
@@ -70,9 +74,13 @@
                             alert('Please enter the customer no.');
                             return false;
                         }
-                        var t_curno = "'" + $.trim($('#txtNoa').val()) + "'";
-                        var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
-                        t_where = "where=^^isnull(vcc" + r_accy + ".custno,'')=" + t_custno + " and not exists(select * from umms left join umm on umms.noa=umm.noa where not(umms.noa=" + t_curno + ") and isnull(umm.custno,'')=" + t_custno + " and isnull(umms.ummbno,'')=vcc" + r_accy + ".noa)";
+                        //var t_curno = "'" + $.trim($('#txtNoa').val()) + "'";
+                        //var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
+                        //t_where = "where=^^isnull(vcc" + r_accy + ".custno,'')=" + t_custno + " and not exists(select * from umms left join umm on umms.noa=umm.noa where not(umms.noa=" + t_curno + ") and isnull(umm.custno,'')=" + t_custno + " and isnull(umms.vccno,'')=vcc" + r_accy + ".noa)";
+                        t_where = "where=^^ unpay!=0 ";
+                        for (var i = 0; i < q_bbsCount; i++) {
+                            t_where = t_where + "or noa='" + $('#txtVccno_'+i).val() +"'";
+                        }
                         q_gt('vcc', t_where, 0, 0, 0, "", r_accy);
                     }
                 });
@@ -92,11 +100,11 @@
                 switch (t_name) {
                     case 'trd':
                         var as = _q_appendData("trd", "", true);
-                        q_gridAddRow(bbsHtm, 'tbbs', 'txtUmmbno,txtMoney', as.length, as, 'noa,total', '', '');
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtMoney', as.length, as, 'noa,total', '', '');
                         break;
                     case 'vcc':
                         var as = _q_appendData("vcc", "", true);
-                        q_gridAddRow(bbsHtm, 'tbbs', 'txtUmmbno,txtMoney', as.length, as, 'noa,total', '', '');
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtMoney', as.length, as, 'noa,total', '', '');
                         break;
                     case q_name:
                         if(q_cur == 4)
@@ -113,9 +121,24 @@
             }
 
             function btnOk() {
+            	var isError = false;
+            	for(var i = 0; i < q_bbsCount; i++) {
+            		$('#txtTypea_'+i).parent().parent().removeClass('error');
+            		if($.trim($('#txtTypea_'+i).val()).length==0){
+            			if(!(parseInt($.trim($('#txtMoney_' + j).val()).length == 0 ? '0' : $('#txtMoney_' + j).val(), 10)==0 && parseInt($.trim($('#txtPaysale_' + j).val()).length == 0 ? '0' : $('#txtPaysale_' + j).val(), 10)==0)){
+            				isError = true;
+            				$('#txtTypea_'+i).parent().parent().addClass('error');
+            			}	
+            		}
+            	}
+            	if(isError){
+            		alert('Please enter the type!');
+            		return false;
+            	}
+
                 $('#txtWorker').val(r_name);
                 sum();
-
+                
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if(t_noa.length == 0 || t_noa == "AUTO")
@@ -184,9 +207,10 @@
 
             function wrServer(key_value) {
                 var i;
-
+			
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
+        
             }
 
             function bbsSave(as) {
@@ -196,7 +220,7 @@
                 }
 
                 q_nowf();
-
+			
                 return true;
             }
 
@@ -390,6 +414,9 @@
             .num {
                 text-align: right;
             }
+            .tbbs tr.error input[type="text"] {
+                color:red;
+            }
 		</style>
 	</head>
 	<body>
@@ -407,7 +434,7 @@
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='comp'>~comp</td>
+						<td align="center" id='comp,4'>~comp,4</td>
 					</tr>
 				</table>
 			</div>
@@ -505,7 +532,7 @@
 					<td align="center" style="width:3%;"><a id='lblPaysales'></a></td>
 					<td align="center" style="width:2%;"><a id='lblMons'></a></td>
 					<td align="center" style="width:3%;"><a id='lblPart'></a></td>
-					<td align="center" style="width:4%;"><a id='lblUmmbno'></a></td>
+					<td align="center" style="width:4%;"><a id='lblvccno'></a></td>
 					<td align="center" style="width:5%;"><a id='lblUmmb'></a></td>
 					<td align="center" style="width:5%;"><a id='lblCheckno'></a></td>
 					<td align="center" style="width:5%;"><a id='lblAccount'></a></td>
@@ -538,7 +565,7 @@
 					<input type="text" id="txtPart.*"  style="float:left;width: 95%;"/>
 					</td>
 					<td>
-					<input type="text" id="txtUmmbno.*" style="width:95%;" />
+					<input type="text" id="txtVccno.*" style="width:95%;" />
 					</td>
 					<td>
 					<input type="text" id="txtUmmb.*"  style="width:95%;" />
