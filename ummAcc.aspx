@@ -9,8 +9,7 @@
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src="../script/qbox.js" type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
-    <link href="../qbox.css" rel="stylesheet" type="text/css" />
-    
+    <link href="../qbox.css" rel="stylesheet" type="text/css" />  
     <script type="text/javascript">
         this.errorHandler = null;
         function onPageError(error) {
@@ -20,9 +19,11 @@
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
-        q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
+        q_sqlCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-        aPop = new Array(['txtRacc1', 'lblRacc1','acc','acc1,acc2', 'txtRacc1,txtRacc2', 'acc_b.aspx'],['txtRacc3', 'lblRacc3','acc','acc1,acc2', 'txtRacc3,txtRacc4', 'acc_b.aspx'],['txtPacc1', 'lblPacc1','acc','acc1,acc2', 'txtPacc1,txtPacc2', 'acc_b.aspx'],['txtPacc3', 'lblPacc3','acc','acc1,acc2', 'txtPacc3,txtPacc4', 'acc_b.aspx']);
+        aPop = new Array(['txtRacc1', 'lblRacc1','acc','acc1,acc2', 'txtRacc1,txtRacc2',"acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],['txtRacc3', 'lblRacc3','acc','acc1,acc2', 'txtRacc3,txtRacc4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],['txtPacc1', 'lblPacc1','acc','acc1,acc2', 'txtPacc1,txtPacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],['txtPacc3', 'lblPacc3','acc','acc1,acc2', 'txtPacc3,txtPacc4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+       
+      
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -253,7 +254,7 @@
             }
             .dview {
                 float: left;
-                width: 45%;
+                width: 98%;
             }
             .tview {
                 margin: 0;
@@ -271,7 +272,7 @@
             }
             .dbbm {
                 float: left;
-                width: 50%;
+                width: 98%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -402,31 +403,19 @@
             </tr>
             <tr class="tr2">
                <td class="td1"><span> </span><a id='lblRacc1' class="lbl btn"></a></td>
-               <td class="td2"><input id="txtRacc1"  type="text" class="txt c1" /></td>
-               <td class="td3"><input id="txtRacc2" type="text" class="txt c1" /></td>
-               <td class="td4"></td>
-              
-            </tr>
-            <tr class="tr3">
-               <td class="td1"><span> </span><a id='lblRacc3' class="lbl btn"></a></td>
-               <td class="td2"><input id="txtRacc3"  type="text" class="txt c1" /></td>
-               <td class="td3"><input id="txtRacc4" type="text" class="txt c1" /></td>
-               <td class="td4"></td>
-              
+               <td class="td2"><input id="txtRacc1"  type="text" class="txt c2" />
+               <input id="txtRacc2" type="text" class="txt c3" /></td>
+               <td class="td3"><span> </span><a id='lblRacc3' class="lbl btn"></a></td>
+               <td class="td4"><input id="txtRacc3"  type="text" class="txt c2" />
+               <input id="txtRacc4" type="text" class="txt c3" /></td>  
             </tr>
             <tr class="tr4">
                <td class="td1"><span> </span><a id='lblPacc1' class="lbl btn"></a></td>
-               <td class="td2"><input id="txtPacc1"  type="text" class="txt c1" /></td>
-               <td class="td3"><input id="txtPacc2" type="text" class="txt c1" /></td>
-               <td class="td4"></td>
-             
-            </tr>
-            <tr class="tr5">
+               <td class="td2"><input id="txtPacc1"  type="text" class="txt c2" />
+               <input id="txtPacc2" type="text" class="txt c3" /></td>
                <td class="td1"><span> </span><a id='lblPacc3' class="lbl btn"></a></td>
-               <td class="td2"><input id="txtPacc3"  type="text" class="txt c1" /></td>
-               <td class="td3"><input id="txtPacc4" type="text" class="txt c1" /></td>
-               <td class="td4"></td>
-             
+               <td class="td2"><input id="txtPacc3"  type="text" class="txt c2" />
+               <input id="txtPacc4" type="text" class="txt c3" /></td>
             </tr>
             <tr class="tr6">
                <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
