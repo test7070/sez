@@ -17,11 +17,11 @@
             }
 
             q_tables = 's';
-            var q_name = "trd";
+            var q_name = "tre";
             var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
             var bbmNum = [['txtPrice', 11, 3]];
-            var bbsNum = [['txtTranmoney', 10, 0]];
+            var bbsNum = [['txtMoney', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -29,7 +29,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b2.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'noa,namea', 'txtWorkerno,txtWorker', 'sss_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtBoatno', 'lblBoat', 'boat', 'noa,boat', 'txtBoatno,txtBoat', 'boat_b.aspx']);
+            aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -47,55 +47,24 @@
             function mainPost() {
                 fbbm[fbbm.length] = 'txtMemo';
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBtrandate', r_picd], ['txtEtrandate', r_picd]];
+                bbmMask = [['txtDatea', r_picd], ['txtBtrandate', r_picd], ['txtEtrandate', r_picd], ['txtPaydate', r_picd]];
                 q_mask(bbmMask);
 
-                q_cmbParse("cmbTrtype", q_getPara('trd.trtype'));
-                q_cmbParse("cmbTypea", q_getPara('sys.yn'));
-                q_cmbParse("cmbTovcca", q_getPara('sys.yn'));
-                q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-
-                $('#lblAccno').parent().click(function(e) {
-                    q_box("accc.aspx?" + $('#txtAccno').val() + "'", 'accc', "850px", "600px", q_getMsg("popAccc"));
-                });
-
-                $('#cmbTaxtype').change(function(e) {
-                    sum();
-                });
-                $('#txtTaxrate').change(function(e) {
-                    sum();
-                });
-                $('#txtTax').change(function(e) {
-                    sum();
-                });
 
                 $('#btnTrans').click(function(e) {
                     if(q_cur == 1 || q_cur == 2) {
-                        if($.trim($('#txtCustno').val()) == 0) {
-                            alert('Please enter the customer no.');
+                        if($.trim($('#txtDriverno').val()) == 0) {
+                            alert('Please enter the driver no.');
                             return false;
                         }
-                        var t_ordeno = "'" + $.trim($('#txtOrdeno').val()) + "'";
+                        var t_driverno = "'" + $.trim($('#txtDriverno').val()) + "'";
                         var t_curno = "'" + $.trim($('#txtNoa').val()) + "'";
-                        var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
                         var t_btrandate = "'" + $.trim($('#txtBtrandate').val()) + "'";
                         var t_etrandate = $.trim($('#txtEtrandate').val());
-                        t_etrandate = t_etrandate.length == 0 ? "char(255)" : "'" + t_etrandate + "'";
-                        var t_bodate = "'" + $.trim($('#txtBodate').val()) + "'";
-                        var t_eodate = $.trim($('#txtEodate').val());
-                        t_eodate = t_eodate.length == 0 ? "char(255)" : "'" + t_eodate + "'";
-                        var t_bstraddrno = "'" + $.trim($('#txtBstraddrno').val()) + "'";
-                        var t_estraddrno = $.trim($('#txtEstraddrno').val());
-                        t_estraddrno = t_estraddrno.length == 0 ? "char(255)" : "'" + t_estraddrno + "'";
-                        var t_bendaddrno = "'" + $.trim($('#txtBendaddrno').val()) + "'";
-                        var t_eendaddrno = $.trim($('#txtEendaddrno').val());
-                        t_eendaddrno = t_eendaddrno.length == 0 ? "char(255)" : "'" + t_eendaddrno + "'";
-                        var t_tranordeno = "'" + $.trim($('#txtOrdeno').val()) + "'";
+                        t_etrandate = t_etrandate.length == 0 ? "char(255)" : "'" + t_etrandate + "'";                     
 
-                        t_where = "where=^^(custno=" + t_custno + ") and (isnull(datea,'') between " + t_btrandate + " and " + t_etrandate + ") and ";
-                        if(!(t_bodate == "''" && t_eodate == "char(255)" && t_ordeno == "''"))
-                            t_where += " exists(select * from tranorde" + r_accy + " where noa=a.ordeno and (odate between " + t_bodate + " and " + t_eodate + ")) and ";
-                        t_where += " not exists(select * from trds" + r_accy + " where not(noa=" + t_curno + ") and tranno=a.noa and trannoq=a.noq and (straddrno between " + t_bstraddrno + " and " + t_estraddrno + ") and (endaddrno between " + t_bendaddrno + " and " + t_eendaddrno + "))^^";
+                        t_where = "where=^^(driverno=" + t_driverno + ") and (isnull(datea,'') between " + t_btrandate + " and " + t_etrandate + ") and ";                 
+                        t_where += " not exists(select * from tres" + r_accy + " where not(noa=" + t_curno + ") and tranno=a.noa and trannoq=a.noq )^^";
                         q_gt('trans', t_where, 0, 0, 0, "", r_accy);
                     }
                 });
@@ -132,7 +101,7 @@
                                 $('#txtRs_' + i).val();
                                 $('#txtStraddr_' + i).val(as[i].straddr);
                                 $('#txtEndaddr_' + i).val(as[i.endaddr]);
-                                $('#txtTranmoney_' + i).val(as[i].total);
+                                $('#txtMoney_' + i).val(as[i].total2);
                                 $('#txtPaymemo_' + i).val();
                                 $('#txtFill_' + i).val(as[i].fill);
                                 $('#txtCasetype_' + i).val(as[i].csetype);
@@ -163,7 +132,7 @@
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if(t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_trd') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tre') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
             }
@@ -181,18 +150,18 @@
             function bbsAssign() {
                 _bbsAssign();
                 for(var i = 0; i < q_bbsCount; i++) {
-                    if( typeof ($('#txtTranmoney_' + i).data('info')) == 'undefined')
-                        $('#txtTranmoney_' + i).data('info', {
+                    if( typeof ($('#txtMoney_' + i).data('info')) == 'undefined')
+                        $('#txtMoney_' + i).data('info', {
                             isSetChange : false
                         });
 
-                    if( typeof ($('#txtTranmoney_' + i).data('info').isSetChange) == 'undefined') {
-                        $('#txtTranmoney_' + i).data('info').isSetChange = false;
+                    if( typeof ($('#txtMoney_' + i).data('info').isSetChange) == 'undefined') {
+                        $('#txtMoney_' + i).data('info').isSetChange = false;
 
                     }
-                    if(!$('#txtTranmoney_' + i).data('info').isSetChange) {
-                        $('#txtTranmoney_' + i).data('info').isSetChange = true;
-                        $('#txtTranmoney_' + i).change(function(e) {
+                    if(!$('#txtMoney_' + i).data('info').isSetChange) {
+                        $('#txtMoney_' + i).data('info').isSetChange = true;
+                        $('#txtMoney_' + i).change(function(e) {
                             sum();
                         });
                     }
@@ -229,19 +198,16 @@
                 }
 
                 q_nowf();
-                as['noa'] = abbm2['noa'];
-                as['date'] = abbm2['date'];
-
                 return true;
             }
 
             function sum() {
-                var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0;
+               var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0;
                 for( i = 0; i < q_bbsCount; i++) {
-                    if($.trim($('#txtTranmoney_' + i).val()).length != 0)
-                        t_money += parseInt($('#txtTranmoney_' + i).val(), 10);
+                    if($.trim($('#txtMoney_' + i).val()).length != 0)
+                        t_money += parseInt($('#txtMoney_' + i).val(), 10);
                 }
-                t_rate = $.trim($('#txtTaxrate').val()).length != 0 ? parseInt($('#txtTaxrate').val(), 10) : 0;
+               /* t_rate = $.trim($('#txtTaxrate').val()).length != 0 ? parseInt($('#txtTaxrate').val(), 10) : 0;
                 switch($('#cmbTaxtype').val()) {
                     case '1':
                         t_tax = Math.round(t_money * t_rate / 100);
@@ -258,10 +224,10 @@
                         break;
                     default:
                         t_total = t_money;
-                }
+                }*/
                 $('#txtMoney').val(t_money);
-                $('#txtTax').val(t_tax);
-                $('#txtTotal').val(t_total);
+                //$('#txtTax').val(t_tax);
+                //$('#txtTotal').val(t_total);
             }
 
             function refresh(recno) {
@@ -432,13 +398,13 @@
             .tbbs a {
                 font-size: 14px;
             }
-            input[type="text"],input[type="button"] {
-                font-size:medium;
-            }
+            
             .num {
                 text-align: right;
             }
-
+			input[type="text"],input[type="button"] {
+                font-size:medium;
+            }
 		</style>
 	</head>
 	<body>
@@ -449,16 +415,16 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:15%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:20%"><a id='vewOrdeno'></a></td>
-						<td align="center" style="width:20%"><a id='vewCust'></a></td>
+						<td align="center" style="width:20%"><a id='vewDriverno'></a></td>
+						<td align="center" style="width:20%"><a id='vewDriver'></a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='ordeno'>~ordeno</td>
-						<td align="center" id='cust,4'>~cust,4</td>
+						<td align="center" id='driverno'>~driverno</td>
+						<td align="center" id='driver'>~driver</td>
 					</tr>
 				</table>
 			</div>
@@ -473,11 +439,13 @@
 						<td class="td4">
 						<input id="txtDatea" type="text"  class="txt c1"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblCust" class="lbl btn"></a></td>
-						<td class="td6" colspan="3">
-						<input id="txtCustno" type="text"  style='width:20%; float:left;'/>
-						<input id="txtCust" type="text"  style='width:80%; float:left;'/>
+						<td class="td5"><span> </span><a id="lblDriver" class="lbl btn"></a></td>
+						<td class="td6">
+						<input id="txtDriverno" type="text"  class="txt c2"/>
+						<input id="txtDriver" type="text"  class="txt c3"/>
 						</td>
+						<td class="td7"></td>
+						<td class="td8"></td>
 						<td class="td9"></td>
 						<td class="tdA"></td>
 						<td class="tdZ"></td>
@@ -489,12 +457,10 @@
 						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
 						<input id="txtEtrandate" type="text"  class="txt c2"/>
 						</td>
-						<td class="td4"><span> </span><a id="lblStraddr" class="lbl btn"></a></td>
-						<td class="td5" colspan="2">
-						<input id="txtStraddrno" type="text"  class="txt c2"/>
-						<input id="txtStraddr" type="text"  class="txt c3"/>
-						</td>
-						<td class="tdA">
+						<td class="td3"></td>
+						<td class="td4"></td>
+						<td class="td5"></td>
+						<td class="td6">
 						<input type="button" id="btnTrans" class="txt c1"/>
 						</td>
 						<td class="td7"></td>
@@ -502,78 +468,15 @@
 						<td class="td9"></td>
 						<td class="tdZ"></td>
 					</tr>
-					<tr class="tr3">
-						<td class="td1"><span> </span><a id="lblOdate" class="lbl"></a></td>
-						<td class="td2" colspan="2">
-						<input id="txtBodate" type="text"  class="txt c2"/>
-						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
-						<input id="txtEodate" type="text"  class="txt c2"/>
-						</td>
-						<td class="td3"><span> </span><a id="lblOrdeno" class="lbl"></a></td>
-						<td class="td4">
-						<input id="txtOrdeno" type="text" class="txt c1" />
-						</td>
-						<td class="td5"></td>
-						<td class="td6"></td>
-						<td class="td7"></td>
-						<td class="td8"></td>
-						<td class="td9"></td>
-						<td class="tdZ"></td>
-					</tr>
 					<tr class="tr4">
-						<td class="td1"><span> </span><a id="lblVccadate" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblPaydate" class="lbl"></a></td>
 						<td class="td2">
-						<input id="txtVccadate" type="text" class="txt c1" />
+						<input id="txtPaydate" type="text" class="txt c1" />
 						</td>
-						<td class="td3"><span> </span><a id="lblVccano" class="lbl"></a></td>
+						<td class="td3"><span> </span><a id="lblMoney" class="lbl"></a></td>
 						<td class="td4">
-						<input id="txtVccano" type="text" class="txt c1" />
-						</td>
-						<td class="td5"><span> </span><a id="lblTovcca" class="lbl"></a></td>
-						<td class="td6"><select id="cmbTovcca" class="txt c2"></select>
-						<input id="txtMon" type="text"  class="txt c3"/>
-						</td>
-						<td class="td7"><span> </span><a id="lblTrtype" class="lbl"></a></td>
-						<td class="td8"><select id="cmbTrtype"></select></td>
-						<td class="td9"><span> </span><a id="lblTypea" class="lbl"></a></td>
-						<td class="tdA"><select id="cmbTypea"></select></td>
-					</tr>
-					<tr class="tr5">
-						<td class="td1"><span> </span><a id="lblBoat" class="lbl btn"></a></td>
-						<td class="td2" colspan="3">
-						<input id="txtBoatno" type="text"  style='width:20%; float:left;'/>
-						<input id="txtBoat" type="text"  style='width:80%; float:left;'/>
-						</td>
-						<td class="td5" ><span> </span><a id="lblBoatname" class="lbl"></a></td>
-						<td class="td6" colspan="2">
-						<input id="txtBoatname" type="text" style="width: 100%;" />
-						</td>
-						<td class="td8" colspan="3">
-						<input id="txtShip" type="text" style="width: 100%;" />
-						</td>
-					</tr>
-					<tr class="tr6">
-						<td class="td1"><span> </span><a id="lblMoney" class="lbl"></a></td>
-						<td class="td2">
 						<input id="txtMoney" type="text"  class="txt c1 num"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblTaxrate" class="lbl"></a></td>
-						<td class="td4"><select id="cmbTaxtype" class="txt c3"></select>
-						<input id="txtTaxrate" type="text"  class="txt c2 num"/>
-						</td>
-						<td class="td5"><span> </span><a id="lblTax" class="lbl"></a></td>
-						<td class="td6">
-						<input id="txtTax" type="text" class="txt c1 num"/>
-						</td>
-						<td class="td7"><span> </span><a id="lblTotal" class="lbl"></a></td>
-						<td class="td8">
-						<input id="txtTotal" type="text" class="txt c1 num" />
-						</td>
-						<td class="td9"><span> </span><a id="lblAcccno" class="lbl btn"></a></td>
-						<td class="tdA">
-						<input id="txtAcccno" type="text"  class="txt c1"/>
-						</td>
-						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
@@ -593,7 +496,7 @@
 					<td align="center" style="width:3%;"><a id='lblCarno_s'></a></td>
 					<td align="center" style="width:1%;"><a id='lblRs_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblStraddr_s'></a></td>
-					<td align="center" style="width:4%;"><a id='lblTranmoney_s'></a></td>
+					<td align="center" style="width:4%;"><a id='lblMoney_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblPaymemo_s'></a></td>
 					<td align="center" style="width:1%;"><a id='lblFill_s'></a></td>
 					<td align="center" style="width:2%;"><a id='lblCasetype_s'></a></td>
@@ -630,7 +533,7 @@
 					<input type="text" id="txtStraddr.*" style="width:95%;" />
 					</td>
 					<td >
-					<input type="text" id="txtTranmoney.*" style="width:95%;text-align: right;" />
+					<input type="text" id="txtMoney.*" style="width:95%;text-align: right;" />
 					</td>
 					<td >
 					<input type="text" id="txtPaymemo.*" style="width:95%;" />
