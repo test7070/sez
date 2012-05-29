@@ -432,8 +432,8 @@
             .tbbs a {
                 font-size: 14px;
             }
-            .tbbs input[type="text"] {
-                font-size: 14px;
+            input[type="text"],input[type="button"] {
+                font-size:medium;
             }
             .num {
                 text-align: right;
