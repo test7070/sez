@@ -518,9 +518,9 @@
 						<td class="td6">
 						<input id="txtTextopay"  type="text" class="txt c1"/>
 						</td>
-						<td class="td7"><span> </span><a id='lblAcccno' class="lbl"></a></td>
+						<td class="td7"><span> </span><a id='lblAccno' class="lbl"></a></td>
 						<td class="td8">
-						<input id="txtAcccno"  type="text" class="txt c1"/>
+						<input id="txtAccno"  type="text" class="txt c1"/>
 						</td>
 						
 					</tr>
