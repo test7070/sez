@@ -34,14 +34,14 @@
         t_noa = $('#txtNoa').val();
         t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();
-        t_custno = $('#txtTggno').val();
+        t_tggno = $('#txtTggno').val();
         t_salesno = $('#txtSalesno').val();
-        t_comp = $('#txtComp').val();
+        t_tgg = $('#txtTgg').val();
 
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("comp", t_comp) + q_sqlPara2("datea", t_bdate, t_edate) +
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("tgg", t_tgg) + q_sqlPara2("datea", t_bdate, t_edate) +
                            q_sqlPara2("salesno", t_salesno) + q_sqlPara2("tggno", t_tggno);
 
         t_where = ' where=^^' + t_where + '^^ ';

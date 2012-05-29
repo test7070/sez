@@ -18,7 +18,7 @@
 
             q_tables = 's';
             var q_name = "umm";
-            var q_readonly = ['txtNoa', 'txtWorker', 'txtAcccno', 'txtCno', 'txtAcomp'];
+            var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno', 'txtCno', 'txtAcomp'];
             var q_readonlys = ['txtVccno', 'txtPart', 'txtPartno'];
             var bbmNum = [['txtTotal', 10, 0, 1]];
             var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0], ['txtPaysale', 10, 0]];
@@ -518,9 +518,9 @@
 						<td class="td6">
 						<input id="txtTextopay"  type="text" class="txt c1"/>
 						</td>
-						<td class="td7"><span> </span><a id='lblAcccno' class="lbl"></a></td>
+						<td class="td7"><span> </span><a id='lblAccno' class="lbl"></a></td>
 						<td class="td8">
-						<input id="txtAcccno"  type="text" class="txt c1"/>
+						<input id="txtAccno"  type="text" class="txt c1"/>
 						</td>
 						
 					</tr>
