@@ -411,10 +411,10 @@
                 width: 100%;
             }
             .tbbs a {
-                font-size: 14px;
+                font-size: 16px;
             }
             .tbbs input[type="text"] {
-                font-size: 14px;
+                font-size: 16px;
             }
             .num {
                 text-align: right;
@@ -466,12 +466,12 @@
 					</tr>
 					<tr class="tr2">
 						<td class="td1" ><span> </span><a id='lblAcomp' class="lbl btn"></a></td>
-						<td class="td2" colspan="2">
+						<td class="td2" >
 						<input id="txtCno"  type="text" class="txt c4"/>
 						<input id="txtAcomp"    type="text" class="txt c5"/>
 						</td>
-						<td class="td4"><span> </span><a id='lblCust' class="lbl btn"></a></td>
-						<td class="td5" colspan="2">
+						<td class="td3"><span> </span><a id='lblCust' class="lbl btn"></a></td>
+						<td class="td4" colspan="2">
 						<input id="txtCustno" type="text" class="txt c4"/>
 						<input id="txtComp"  type="text" class="txt c5"/>
 						</td>
@@ -509,18 +509,23 @@
 						<td class="td4">
 						<input id="txtUnopay"  type="text" class="txt num c1"/>
 						</td>
-						<td class="td5"><span> </span><a id='lblAcccno' class="lbl"></a></td>
+						<td class="td5"><span> </span><a id='lblTextopay' class="lbl"></a></td>
 						<td class="td6">
+						<input id="txtTextopay"  type="text" class="txt c1"/>
+						</td>
+						<td class="td7"><span> </span><a id='lblAcccno' class="lbl"></a></td>
+						<td class="td8">
 						<input id="txtAcccno"  type="text" class="txt c1"/>
 						</td>
+						
+					</tr>
+					<tr class="tr5">
+						<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
+						<td class="td2" colspan='5' >						<textarea id="txtMemo" style="width: 99%; height: 50px;" ></textarea></td>
 						<td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
 						<td class="td8" >
 						<input id="txtWorker"  type="text" class="txt c1"/>
 						</td>
-					</tr>
-					<tr class="tr5">
-						<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-						<td class="td2" colspan='6' >						<textarea id="txtMemo" style="width: 99%; height: 50px;" ></textarea></td>
 					</tr>
 				</table>
 			</div>
