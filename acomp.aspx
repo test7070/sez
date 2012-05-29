@@ -16,7 +16,6 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var decbbm = [];
         var q_name = "acomp";
         var q_readonly = [];
         var bbmNum = []; 
@@ -143,7 +142,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('sss_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('acomp_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   
