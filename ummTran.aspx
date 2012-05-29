@@ -532,6 +532,20 @@
 						<input id="txtWorker"  type="text" class="txt c1"/>
 						</td>
 					</tr>
+					<tr>                          
+             		   <td class="td1"><span> </span><a id="lblChecker" class="lbl"></a></td>
+                	   <td class="td2"><input id="txtchecker" type="text" class="txt c2"/>
+               		   <input id="txtCheckmemo"  type="text" class="txt c3"/></td>
+               		   <td class="td3"><span> </span><a id="lblApprv" class="lbl"></a></td>
+               		   <td class="td4"><input id="txtApprv"  type="text" class="txt c2"/>  
+               		   <input id="txtApprvmemo"  type="text" class="txt c3"/></td>            
+              		   <td class="td5"><span> </span><a id="lblApprove"class="lbl"></a></td>
+              		   <td class="td6"><input id="txtApprove"  type="text" class="txt c2"/>  
+              		   <input id="txtApprovememo"  type="text" class="txt c3"/></td>
+               		   <td class="td7"><span> </span><a id="lblApprove2"class="lbl"></a></td>
+               		   <td class="td8"><input id="txtApprove2"  type="text" class="txt c2"/>  
+               		   <input id="txtApprove2memo"  type="text" class="txt c3"/></td>            
+          			</tr>
 				</table>
 			</div>
 		</div>
