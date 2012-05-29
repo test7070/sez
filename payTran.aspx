@@ -403,34 +403,38 @@
 						<input id="txtNextsale"  type="text" class="txt num c1"/>
 						</td>
 					</tr>
-					<tr class="4">
-						<td class="td7"><span> </span><a id='lblAccno' class="lbl"></a></td>
-						<td class="td8">
+					<tr class="tr4">
+						<td class="td1"><span> </span><a id='lblAccno' class="lbl"></a></td>
+						<td class="td2">
 						<input id="txtAccno"  type="text" class="txt c1"/>
 						</td>
+						<td class="td3"><span> </span><a id='lblPayc' class="lbl"></a></td>
+						<td class="td4">
+						<input id="txtPayc"  type="text" class="txt c1"/>
+						</td>
 					</tr>
-					<tr class="5">
+					<tr class="tr5">
 						<td class="td1" ><span> </span><a id="lblApprv" class="lbl"></a></td>
 						<td class="td2" colspan="2">
 							<input id="txtApprv"  type="text" style="float: left; width:30%;"/>
 							<input id="txtApprvmemo"  type="text" style="float: left; width:50%;"/>
 						</td>
 					</tr>
-					<tr class="6">
+					<tr class="tr6">
 						<td class="td1" ><span> </span><a id="lblChecker" class="lbl"></a></td>
 						<td class="td2" colspan="2">
 							<input id="txtChecker"  type="text" style="float: left; width:30%;"/>
 							<input id="txtCheckermemo"  type="text" style="float: left; width:50%;"/>
 						</td>
 					</tr>
-					<tr class="7">
+					<tr class="tr7">
 						<td class="td1" ><span> </span><a id="lblApprove" class="lbl"></a></td>
 						<td class="td2" colspan="2">
 							<input id="txtApprove"  type="text" style="float: left; width:30%;"/>
 							<input id="txtApprovememo"  type="text" style="float: left; width:50%;"/>
 						</td>
 					</tr>
-					<tr class="8">
+					<tr class="tr8">
 						<td class="td1" ><span> </span><a id="lblApprove2" class="lbl"></a></td>
 						<td class="td2" colspan="2">
 							<input id="txtApprove2"  type="text" style="float: left; width:30%;"/>
@@ -438,13 +442,6 @@
 						</td>
 					</tr>
 					<tr class="tr9">
-
-						<td class="label2"><a id='lblPayc'></a></td>
-						<td class="column2" colspan='2'>
-						<input id="txtPayc" type="text" class="txt c1" />
-						</td>
-					</tr>
-					<tr class="trA">
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
 						<td class="td2" colspan='5' >						<textarea id="txtMemo" style="width: 99%; height: 50px;" ></textarea></td>
 						<td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
