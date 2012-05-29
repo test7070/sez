@@ -32,7 +32,9 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             //ajaxPath = "";
-            aPop = new Array(['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtTggno', 'btnTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], ['txtItemno_', 'btnItemno_', 'chgitem', 'noa,item', 'txtItemno_,txtItem_', 'chgitem_b.aspx']);
+            aPop = new Array(['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], 
+            ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
+            ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -107,7 +109,6 @@
                 if(emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtProductno').focus();
             }
 
             function btnPrint() {
@@ -373,16 +374,15 @@
 						<input id="txtCno"  type="text" class="txt c4"/>
 						<input id="txtAcomp"    type="text" class="txt c5"/>
 						</td>
-						<td class="td3"><span> </span><a id='lblTgg' class="lbl btn"></a></td>
+						<td class="td3"><span> </span><a id='lblCardeal' class="lbl btn"></a></td>
 						<td class="td4" colspan="2">
-						<input id="txtTggno" type="text" class="txt c4"/>
-						<input id="txtComp"  type="text" class="txt c5"/>
+						<input id="txtCardealno" type="text" class="txt c4"/>
+						<input id="txtCardeal"  type="text" class="txt c5"/>
 						</td>
-						<td class="7">
-						<input type="button" id="btnTre" class="txt c1 " />
-						</td>
-						<td class="8">
-						<input type="button" id="btnRc2tran" class="txt c1 " />
+						<td class="td6" ><span> </span><a id='lblDriver' class="lbl btn"></a></td>
+						<td class="td7" colspan="2">
+						<input id="txtDriverno"  type="text" class="txt c4"/>
+						<input id="txtDriver"    type="text" class="txt c5"/>
 						</td>
 					</tr>
 					<tr class="tr3">
@@ -408,9 +408,15 @@
 						<td class="td2">
 						<input id="txtAccno"  type="text" class="txt c1"/>
 						</td>
-						<td class="td3"><span> </span><a id='lblPayc' class="lbl"></a></td>
-						<td class="td4">
-						<input id="txtPayc"  type="text" class="txt c1"/>
+						<td class="td3"></td>
+						<td class="td4"></td>
+						<td class="td5"></td>
+						<td class="td6"></td>
+						<td class="td7">
+						<input type="button" id="btnTre" class="txt c1 " />
+						</td>
+						<td class="td8">
+						<input type="button" id="btnRc2tran" class="txt c1 " />
 						</td>
 					</tr>
 					<tr class="tr5">

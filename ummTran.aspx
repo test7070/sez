@@ -78,12 +78,26 @@
                         //var t_curno = "'" + $.trim($('#txtNoa').val()) + "'";
                         var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
                         //t_where = "where=^^isnull(vcc" + r_accy + ".custno,'')=" + t_custno + " and not exists(select * from umms left join umm on umms.noa=umm.noa where not(umms.noa=" + t_curno + ") and isnull(umm.custno,'')=" + t_custno + " and isnull(umms.vccno,'')=vcc" + r_accy + ".noa)";
-                        t_where = "where=^^ custno="+t_custno+" and unpay!=0 ";
+                      /*  t_where = "where=^^ custno="+t_custno+" and unpay!=0 ";
                         for(var i = 0; i < q_bbsCount; i++) {
                             if($.trim($('#txtVccno_' + i).val()).length > 0)
                                 t_where = t_where + "or noa='" + $('#txtVccno_' + i).val() + "'";
                         }
-                        q_gt('vcc', t_where, 0, 0, 0, "", r_accy);
+                        q_gt('vcc', t_where, 0, 0, 0, "", r_accy);*/
+                        
+                        
+                        t_where = "where=^^ custno=" + t_custno + " and unpay!=0 ";
+                        t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "' and ( 1=1 ";
+                        for (var i = 0; i < q_bbsCount; i++) {
+                            if ($.trim($('#txtVccno_' + i).val()).length > 0) {
+                                t_where = t_where + "or noa='" + $('#txtVccno_' + i).val() + "'";
+                                t_where1 = t_where1 + "or vccno='" + $('#txtVccno_' + i).val() + "'";
+                            }
+                        }
+
+                        t_where = t_where + "^^";
+                        t_where1 = t_where1 + ")^^";
+                        q_gt('vcc_umm', t_where+t_where1, 0, 0, 0, "", r_accy);
                     }
                 });
             }
@@ -105,7 +119,7 @@
                         var as = _q_appendData("trd", "", true);
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtMoney', as.length, as, 'noa,total', '', '');
                         break;
-                    case 'vcc':
+                    case 'vcc_umm':
                         var as = _q_appendData("vcc", "", true);
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtMoney', as.length, as, 'noa,total', '', '');
                         break;
