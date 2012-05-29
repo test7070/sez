@@ -59,7 +59,7 @@
             <tr class='seek_tr'>
                 <td   style="width:35%;" ><a id='lblDatea'></a></td>
                 <td style="width:65%;  "><input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
-                <span style="display:inline-block; vertical-align:middle">&#126</span>
+                <span style="display:inline-block; vertical-align:middle">～</span>
                 <input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" /></td>
             </tr>
              <tr class='seek_tr'>

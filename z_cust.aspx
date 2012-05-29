@@ -11,19 +11,16 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-		
 		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
 		<script src="css/jquery/ui/jquery.ui.core.js"></script>
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             $(document).ready(function() {
-                _q_boxClose();
                 q_gf('', 'z_cust');
             });
             function q_gfPost() {
-                var t_qtype = [q_getPara('report.all')].concat(q_getPara('cust.qtype').split(','));
-                $('#qReport').q_report({
+               $('#qReport').q_report({
                     fileName : 'z_cust',
                     options : [{
                         type : '1',
@@ -52,18 +49,24 @@
                         },{
                         type : '5',
                         name : 'qtype',
-                        value : t_qtype
-                    },{
-                    	type : '0',
-                    	name : 'allq',
-                    	value : $('#Qtype').text() }]
+                        value : [q_getPara('report.all')].concat(q_getPara('cust.qtype').split(','))
+                    }]
                 });
+                q_popAssign();
                 q_getFormat();
                 q_langShow();
+                
+                $('#qReport_txtDate1').mask('999/99/99');
+                $('#qReport_txtDate1').datepicker();
+                $('#qReport_txtDate2').mask('999/99/99');
+                $('#qReport_txtDate2').datepicker();
+                $('#qReport_txtMon1').mask('999/99');
+                $('#qReport_txtMon1').mask('999/99');
             }
 
-            function q_boxClose(s2) {
-                $('#qReport').data('info').q_boxClose(s2,$('#qReport'));
+           function q_boxClose(s2) {
+            }
+            function q_gtPost(s2) {
             }
 		</script>
 	</head>
@@ -75,4 +78,5 @@
 			<!--#include file="../inc/print_ctrl.inc"-->
 		</div>
 	</body>
-</html>
+</html> 
+          
