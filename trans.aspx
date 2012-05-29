@@ -179,7 +179,7 @@
                 $('#txtComp').focus();
             }
 
-            function btnPrint() {
+            function btnPrint() { 
 
             }
 
@@ -188,7 +188,7 @@
                     $("#txtPrice2").val(0);
                 else
                     $("#txtPrice3").val(0);
-
+				sum();
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if(t_noa.length == 0 || t_noa == "AUTO")
@@ -382,6 +382,9 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+            }
+            input[type="text"],input[type="button"] {
+                font-size:medium;
             }
 		</style>
 	</head>
