@@ -1,4 +1,4 @@
-?<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -34,7 +34,7 @@
         t_noa = $('#txtNoa').val();
         t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();
-        t_custno = $('#txtCustno').val();
+        t_custno = $('#txtTggno').val();
         t_salesno = $('#txtSalesno').val();
         t_comp = $('#txtComp').val();
 
@@ -42,7 +42,7 @@
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
         var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("comp", t_comp) + q_sqlPara2("datea", t_bdate, t_edate) +
-                           q_sqlPara2("salesno", t_salesno) + q_sqlPara2("custno", t_custno);
+                           q_sqlPara2("salesno", t_salesno) + q_sqlPara2("tggno", t_tggno);
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -59,7 +59,7 @@
             <tr class='seek_tr'>
                 <td   style="width:35%;" ><a id='lblDatea'></a></td>
                 <td style="width:65%;  "><input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
-                <span style="display:inline-block; vertical-align:middle">��</span>
+                <span style="display:inline-block; vertical-align:middle">&#126</span>
                 <input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" /></td>
             </tr>
              <tr class='seek_tr'>
