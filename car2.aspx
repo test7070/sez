@@ -187,7 +187,7 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
-              q_box('car2_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+                q_box('car2_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -305,7 +305,7 @@
                 width: 23%;
             }
             .tview {
-            	width:100%;
+                width: 100%;
                 margin: 0;
                 padding: 2px;
                 border: 1px black double;
@@ -414,17 +414,6 @@
 		</style>
 	</head>
 	<body>
-<<<<<<< HEAD
-		<form id="form1" style="height: 100%;" action="">
-			<!--#include file="../inc/toolbar.inc"-->
-			<div id='dmain' style="overflow:hidden;">
-				<div class="dview" id="dview" >
-					<table class="tview" id="tview" >
-						<tr>
-							<td class="td1" style="width:5%"><a id='vewChk'></a></td>
-							<td class="td2" style="width:25%"><a id='vewCarno'></a></td>
-							<td class="td3" style="width:25%"><a id='vewCarowner'></a></td>
-=======
 
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain'>
@@ -639,7 +628,6 @@
 							<td class="td8" >
 							<input id="txtCaryeartw"  type="text"  style='width:95%; max-width: 200px; '/>
 							</td>
->>>>>>> 4430867a4f69a8d4b819842ac6bdf77c47a90e81
 						</tr>
 						<tr class="tr9">
 							<td class="td1" >
@@ -808,7 +796,7 @@
 						</tr>
 					</table>
 				</div>
-<<<<<<< HEAD
+
 				<div class='dbbm'>
 					<div style="border: 1px solid #000000;border-radius: 5px;">
 						<table class="tbbm"  id="tbbm" >
@@ -1194,36 +1182,35 @@
 						<div class='btnLbl button'>
 							<a id='lblCartax'></a>
 						</div>
-=======
-				<div style="border: 1px solid #000000;border-radius: 5px; height:30px; padding: 5px 0 0 5px; ">
-					<div class='btnLbl button'>
-						<a id='lblCarexpense'></a>
-					</div>
-					<div class='btnLbl button'>
-						<a id='lblCarinsurance'></a>
-					</div>
-					<div class='btnLbl button'>
-						<a id='lblCarlender'></a>
-					</div>
-					<div class='btnLbl button'>
-						<a id='lblCaraccident'></a>
-					</div>
-					<div class='btnLbl button'>
-						<a id='lblCarchange'></a>
-					</div>
-					<div class='btnLbl button'>
-						<a id='lblOil'></a>
-					</div>
-					<div class='btnLbl button'>
-						<a id='lblCartax'></a>
->>>>>>> 4430867a4f69a8d4b819842ac6bdf77c47a90e81
+						<div style="border: 1px solid #000000;border-radius: 5px; height:30px; padding: 5px 0 0 5px; ">
+							<div class='btnLbl button'>
+								<a id='lblCarexpense'></a>
+							</div>
+							<div class='btnLbl button'>
+								<a id='lblCarinsurance'></a>
+							</div>
+							<div class='btnLbl button'>
+								<a id='lblCarlender'></a>
+							</div>
+							<div class='btnLbl button'>
+								<a id='lblCaraccident'></a>
+							</div>
+							<div class='btnLbl button'>
+								<a id='lblCarchange'></a>
+							</div>
+							<div class='btnLbl button'>
+								<a id='lblOil'></a>
+							</div>
+							<div class='btnLbl button'>
+								<a id='lblCartax'></a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
+			<input id="q_sys" type="hidden" />
 		</div>
-		<input id="q_sys" type="hidden" />
-
-		<div id="divCarexpense" class='popDiv'>
+		<div id="divCarexpense" class='popDiv' style="display: none;">
 			<div class="block">
 				<div class="col">
 					<div class='btnLbl'>
@@ -1386,5 +1373,6 @@
 				</div>
 			</div>
 		</div>
+
 	</body>
 </html>

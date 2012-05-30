@@ -242,10 +242,9 @@
             function sum() {
                 var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0;
                 for( i = 0; i < q_bbsCount; i++) {
-                    if($.trim($('#txtTranmoney_' + i).val()).length != 0)
-                        t_money += parseInt($('#txtTranmoney_' + i).val().replace(/,/g,''), 10);
+                	t_money += parseInt($.trim($('#txtTranmoney_' + i).val()).length == 0 ? '0' : $('#txtTranmoney_' + i).val().replace(/,/g,''), 10);
                 }
-                t_rate = $.trim($('#txtTaxrate').val()).length != 0 ? parseInt($('#txtTaxrate').val().replace(/,/g,''), 10) : 0;
+                t_rate = parseInt($.trim($('#txtTaxrate').val()).length == 0 ? '0' : $('#txtTaxrate').val().replace(/,/g,''), 10);
                 switch($('#cmbTaxtype').val()) {
                     case '1':
                         t_tax = Math.round(t_money * t_rate / 100);
@@ -257,7 +256,7 @@
                         t_tax = t_total - t_money;
                         break;
                     case '5':
-                        t_tax = $.trim($('#txtTax').val()).length != 0 ? parseInt($('#txtTax').val().replace(/,/g,''), 10) : 0;
+                        t_tax = parseInt($.trim($('#txtTax').val()).length == 0 ? '0' : $('#txtTax').val().replace(/,/g,''), 10);
                         t_total = t_money + t_tax;
                         break;
                     default:
@@ -575,9 +574,9 @@
 						<td class="td8">
 						<input id="txtTotal" type="text" class="txt c1 num" />
 						</td>
-						<td class="td9"><span> </span><a id="lblAcccno" class="lbl btn"></a></td>
+						<td class="td9"><span> </span><a id="lblAccno" class="lbl btn"></a></td>
 						<td class="tdA">
-						<input id="txtAcccno" type="text"  class="txt c1"/>
+						<input id="txtAccno" type="text"  class="txt c1"/>
 						</td>
 						<td class="tdZ"></td>
 					</tr>
