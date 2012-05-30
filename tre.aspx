@@ -49,8 +49,20 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtBtrandate', r_picd], ['txtEtrandate', r_picd], ['txtPaydate', r_picd]];
                 q_mask(bbmMask);
+				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+				$('#lblAccno').parent().click(function(e) {
+                    q_box("accc.aspx?" + $('#txtAccno').val() + "'", 'accc', "850px", "600px", q_getMsg("popAccc"));
+                });
 
-
+                $('#cmbTaxtype').change(function(e) {
+                    sum();
+                });
+                $('#txtTaxrate').change(function(e) {
+                    sum();
+                });
+                $('#txtTax').change(function(e) {
+                    sum();
+                });
                 $('#btnTrans').click(function(e) {
                     if(q_cur == 1 || q_cur == 2) {
                         if($.trim($('#txtDriverno').val()) == 0) {
@@ -64,10 +76,11 @@
                         t_etrandate = t_etrandate.length == 0 ? "char(255)" : "'" + t_etrandate + "'";                     
 
                         t_where = "where=^^(driverno=" + t_driverno + ") and (isnull(datea,'') between " + t_btrandate + " and " + t_etrandate + ") and ";                 
-                        t_where += " not exists(select * from tres" + r_accy + " where not(noa=" + t_curno + ") and tranno=a.noa and trannoq=a.noq )^^";
+                        t_where += " not exists(select * from tres" + r_accy + " where not(noa=" + t_curno + ") and tranno=trans"+r_accy+".noa and trannoq=trans"+r_accy+".noq )^^";
                         q_gt('trans', t_where, 0, 0, 0, "", r_accy);
                     }
                 });
+                
             }
 
             function q_boxClose(s2) {
@@ -114,6 +127,7 @@
                                 $('#txtOthercost_' + i).val();
                             }
                         }
+                        sum();
                         break;
                     case q_name:
                         if(q_cur == 4)
@@ -202,12 +216,11 @@
             }
 
             function sum() {
-               var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0;
+                var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0;
                 for( i = 0; i < q_bbsCount; i++) {
-                    if($.trim($('#txtMoney_' + i).val()).length != 0)
-                        t_money += parseInt($('#txtMoney_' + i).val(), 10);
+                	t_money += parseInt($.trim($('#txtMoney_' + i).val()).length == 0 ? '0' : $('#txtMoney_' + i).val().replace(/,/g,''), 10);
                 }
-               /* t_rate = $.trim($('#txtTaxrate').val()).length != 0 ? parseInt($('#txtTaxrate').val(), 10) : 0;
+                t_rate = parseInt($.trim($('#txtTaxrate').val()).length == 0 ? '0' : $('#txtTaxrate').val().replace(/,/g,''), 10);
                 switch($('#cmbTaxtype').val()) {
                     case '1':
                         t_tax = Math.round(t_money * t_rate / 100);
@@ -219,15 +232,15 @@
                         t_tax = t_total - t_money;
                         break;
                     case '5':
-                        t_tax = $.trim($('#txtTax').val()).length != 0 ? parseInt($('#txtTax').val(), 10) : 0;
+                        t_tax = parseInt($.trim($('#txtTax').val()).length == 0 ? '0' : $('#txtTax').val().replace(/,/g,''), 10);
                         t_total = t_money + t_tax;
                         break;
                     default:
                         t_total = t_money;
-                }*/
+                }
                 $('#txtMoney').val(t_money);
-                //$('#txtTax').val(t_tax);
-                //$('#txtTotal').val(t_total);
+                $('#txtTax').val(t_tax);
+                $('#txtTotal').val(t_total);
             }
 
             function refresh(recno) {
@@ -476,10 +489,29 @@
 						<td class="td2">
 						<input id="txtPaydate" type="text" class="txt c1" />
 						</td>
-						<td class="td3"><span> </span><a id="lblMoney" class="lbl"></a></td>
-						<td class="td4">
+					</tr>
+					<tr class="tr5">
+						<td class="td1"><span> </span><a id="lblMoney" class="lbl"></a></td>
+						<td class="td2">
 						<input id="txtMoney" type="text"  class="txt c1 num"/>
 						</td>
+						<td class="td3"><span> </span><a id="lblTaxrate" class="lbl"></a></td>
+						<td class="td4"><select id="cmbTaxtype" class="txt c3"></select>
+						<input id="txtTaxrate" type="text"  class="txt c2 num"/>
+						</td>
+						<td class="td5"><span> </span><a id="lblTax" class="lbl"></a></td>
+						<td class="td6">
+						<input id="txtTax" type="text" class="txt c1 num"/>
+						</td>
+						<td class="td7"><span> </span><a id="lblTotal" class="lbl"></a></td>
+						<td class="td8">
+						<input id="txtTotal" type="text" class="txt c1 num" />
+						</td>
+						<td class="td9"><span> </span><a id="lblAccno" class="lbl btn"></a></td>
+						<td class="tdA">
+						<input id="txtAccno" type="text"  class="txt c1"/>
+						</td>
+						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
