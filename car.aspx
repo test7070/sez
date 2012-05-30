@@ -19,20 +19,15 @@
         var q_name="car";
         var q_readonly = [];
         var bbmNum = []; 
-        var bbmNum_comma = [];  ///  ,,,,,, disp comma
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
 
         $(document).ready(function () {
             bbmKey = ['noa'];
-
-
             q_brwCount();
-
             if (!q_gt(q_name, q_content, q_sqlCount, 1))
                 return;
-
             $('#txtNoa').focus
         });
 
@@ -191,7 +186,7 @@
                 alert(t_err);
                 return;
             }
-            var t_noa = $('#txtNoa').val();
+            var t_noa = trim($('#txtNoa').val());
             if (emp($('#txtUacc1').val()))
                 $('#txtUacc1').val('1123.' + t_noa);
             if (emp($('#txtUacc2').val()))
@@ -200,7 +195,7 @@
                 $('#txtUacc3').val( '2131.'+t_noa);
 
 
-            if ( t_noa.length==1 )   /// �۰ʲ��ͽs��
+            if ( t_noa.length==0 )  
                 q_gtnoa(q_name, t_noa);
             else
                 wrServer(  t_noa);
@@ -217,18 +212,8 @@
             _btnOk(key_value, bbmKey[0], '','',2);
         }
 
-        function format() {  
-            var i;
-
-            q_format(bbmNum_comma, bbmNum);  
-
-            q_init = 0;
-        }
-        
         function refresh(recno) {
             _refresh(recno);
-
-            format();
         }
 
         function readonly(t_para, empty) {
@@ -242,7 +227,7 @@
         function btnPlus(org_htm, dest_tag, afield) {
             _btnPlus(org_htm, dest_tag, afield);
             if (q_tables == 's')
-                bbsAssign();  /// �?�B�⦡ 
+                bbsAssign();  
         }
 
         function q_appendData(t_Table) {

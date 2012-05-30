@@ -18,8 +18,6 @@
 
             q_tables = 's';
             var q_name = "cara";
-            var decbbs = ['outmoney', 'inmoney', 'pay'];
-            var decbbm = ['iprev', 'iset', 'bprev', 'interest', 'bin', 'itotal', 'btotal', 'total'];
             var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [['txtPrice', 10, 3]];
@@ -100,7 +98,7 @@
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('cng_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('cara_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
             }
 
             function combPay_chg() {

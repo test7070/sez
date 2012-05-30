@@ -678,17 +678,9 @@
 						<td class="td2" >
 						<input id="txtTrdno" type="text" class="txt c1"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblUmmno" class="lbl"></a></td>
+						<td class="td3"><span> </span><a id="lblTreno" class="lbl" style="font-size: 12px;"></a></td>
 						<td class="td4" >
-						<input id="txtUmmno" type="text"  class="txt c1"/>
-						</td>
-						<td class="td5"><span> </span><a id="lblTreno" class="lbl" style="font-size: 12px;"></a></td>
-						<td class="td6" >
 						<input id="txtTreno" type="text"  class="txt c1"/>
-						</td>
-						<td class="td7"><span> </span><a id="lblPayno" class="lbl"></a></td>
-						<td class="td8" >
-						<input id="txtPayno" type="text"  class="txt c1"/>
 						</td>
 					</tr>
 				</table>
