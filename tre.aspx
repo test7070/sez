@@ -453,17 +453,15 @@
 						<input id="txtDatea" type="text"  class="txt c1"/>
 						</td>
 						<td class="td5"><span> </span><a id="lblDriver" class="lbl btn"></a></td>
-						<td class="td6">
+						<td class="td6" colspan="2">
 						<input id="txtDriverno" type="text"  class="txt c2"/>
 						<input id="txtDriver" type="text"  class="txt c3"/>
 						</td>
-						<td class="td7"><span> </span><a id="lblDeal" class="lbl btn"></a></td>
-						<td class="td8">
+						<td class="td8"><span> </span><a id="lblDeal" class="lbl btn"></a></td>
+						<td class="td9" colspan="2">
 						<input id="txtDealno" type="text"  class="txt c2"/>
 						<input id="txtDeal" type="text"  class="txt c3"/>
 						</td>
-						<td class="td9"></td>
-						<td class="tdA"></td>
 						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr2">
@@ -488,6 +486,10 @@
 						<td class="td1"><span> </span><a id="lblPaydate" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtPaydate" type="text" class="txt c1" />
+						</td>
+						<td class="td3"><span> </span><a id="lblRc2ano" class="lbl"></a></td>
+						<td class="td4">
+						<input id="txtRc2ano" type="text" class="txt c1" />
 						</td>
 					</tr>
 					<tr class="tr5">
