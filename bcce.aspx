@@ -17,8 +17,6 @@
         }
         q_tables = 's';
         var q_name = "bcce";
-        var decbbs = ['mount', 'weight','price', 'total'];
-        var decbbm = ['total'];
         var q_readonly = [];
         var q_readonlys = [];
         var bbmNum = [['txtPrice', 10, 3]];  
@@ -188,7 +186,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('worka_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('bcce_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   
