@@ -16,12 +16,9 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
-            var decbbm = [];
             var q_name = "cardeal";
             var q_readonly = [];
             var bbmNum = [];
-            var bbmNum_comma = [];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -33,8 +30,7 @@
                 bbmKey = ['noa'];
                 q_brwCount();
 
-                if(!q_gt(q_name, q_content, q_sqlCount, 1))
-                    return;
+             q_gt(q_name, q_content, q_sqlCount, 1)
             });
             //////////////////   end Ready
             function main() {
@@ -115,17 +111,10 @@
                 _btnOk(key_value, bbmKey[0], '', '', 2);
             }
 
-            function format() {
-                var i;
-
-                q_format(bbmNum_comma, bbmNum);
-                q_init = 0;
-            }
-
+            
             function refresh(recno) {
                 _refresh(recno);
 
-                format();
             }
 
             function readonly(t_para, empty) {
@@ -143,7 +132,7 @@
             }
 
             function q_appendData(t_Table) {
-                dataErr = !_q_appendData(t_Table);
+                return _q_appendData(t_Table);
             }
 
             function btnSeek() {
@@ -289,18 +278,24 @@
 							<td class="td2" >
 							<input id="txtBoss"  type="text" class="txt"/>
 							</td>
+							<td class="td3" ><a id='lblUacc1' class="label"></a></td>
+               				<td class="td4"><input id="txtUacc1"   type="text" class="txt"/></td>
 						</tr>
 						<tr class="tr5">
 							<td class="td1" ><a id='lblTel1' class="label"></a></td>
 							<td class="td2" >
 							<input id="txtTel1"  type="text" class="txt"/>
 							</td>
+							<td class="td3" ><a id='lblUacc2' class="label"></a></td>
+               				<td class="td4"><input id="txtUacc2"    type="text"  class="txt"/></td>
 						</tr>
 						<tr class="tr6">
 							<td class="td1" ><a id='lblSerial' class="label"></a></td>
 							<td class="td2" >
 							<input id="txtSerial"  type="text" class="txt"/>
 							</td>
+							<td class="td3" ><a id='lblUacc3' class="label"></a></td>
+               				<td class="td4"><input id="txtUacc3"   type="text"  class="txt "/></td>
 						</tr>
 					</table>
 				</div>

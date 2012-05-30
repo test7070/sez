@@ -325,7 +325,7 @@
         }
         .txt.c4
         {
-            width: 99%;
+            width: 98%;
         }
     </style>
 </head>
@@ -425,8 +425,10 @@
             </tr>
 
             <tr>
-                <td align="right"><a id='lblChkstatus'></a></td>
-                <td  colspan='5' ><input id="txtChkstatus"  type="text"  class="txt c4"/></td> 
+                <td align="right"><a id='lblService'></a></td>
+                <td  colspan='3' ><input id="txtService"  type="text"  class="txt c4"/></td>
+                <td class="label3" ><a id='lblUacc4'></a></td>
+                <td><input id="txtUacc4"    type="text" class="txt c1"/></td>  
             </tr>
 
             <tr>

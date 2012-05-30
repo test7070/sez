@@ -3,25 +3,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title></title>
-		<script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-		<script src="//59.125.143.170/jquery/js/qtran.js" type="text/javascript"></script>
+		
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
-            var decbbm = [];
             var q_name = "carbrand";
             var q_readonly = [];
             var bbmNum = [];
-            var bbmNum_comma = [];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -35,8 +32,8 @@
 
                 q_brwCount();
 
-                if(!q_gt(q_name, q_content, q_sqlCount, 1))
-                    return;
+                q_gt(q_name, q_content, q_sqlCount, 1)
+                    
             });
             //////////////////   end Ready
             function main() {
@@ -82,6 +79,7 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
+               q_box('carbrand_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
             }
 
             function btnIns() {
@@ -116,17 +114,8 @@
                 _btnOk(key_value, bbmKey[0], '', '', 2);
             }
 
-            function format() {
-                var i;
-
-                q_format(bbmNum_comma, bbmNum);
-                q_init = 0;
-            }
-
             function refresh(recno) {
                 _refresh(recno);
-
-                format();
             }
 
             function readonly(t_para, empty) {
@@ -144,7 +133,7 @@
             }
 
             function q_appendData(t_Table) {
-                dataErr = !_q_appendData(t_Table);
+                return _q_appendData(t_Table);
             }
 
             function btnSeek() {

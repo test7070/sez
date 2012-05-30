@@ -16,8 +16,6 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
-            var decbbm = ['labor','health','pensionfund','money'];
             var q_name = "driver";
             var q_readonly = [];
             var bbmNum = [];
@@ -205,14 +203,14 @@
 		</script>
 		<style type="text/css">
             .tview {
-                font-size: 12pt;
+                font-size: medium;
                 color: blue;
                 background: #FFCC00;
                 padding: 3px;
                 text-align: center;
             }
             .tbbm {
-                font-size: 12pt;
+                font-size: medium;
                 color: blue;
                 text-align: left;
                 border-color: white;
@@ -221,10 +219,10 @@
                 background: #cad3ff;
             }
             .td1, .td3, .td5, .td7 {
-                width: 10%;
+                width: 12%;
             }
             .td2, .td4, .td6, .td8 {
-                width: 15%;
+                width: 13%;
             }
             td a.label {
                 float: right;
@@ -393,7 +391,7 @@
 						<td class="td7"></td>
 						<td class="td8"></td>
 					</tr>
-					<tr class="tr9">
+					<tr class="tr10">
                         <td class="td1"><a id="lblGuild" class="label"></a></td>
                         <td class="td2">
                         <input id="txtGuild" type="text" class="txt c1"/>
@@ -404,6 +402,22 @@
                         </td> 
                         <td class="td5" colspan="4"><input id="txtInsurer" type="text" style=" width: 98%;"/></td>
                     </tr>
+                    <tr class="tr11">
+						<td class="td1"><a id="lblUacc1" class="label" style="font-size: 14px;"></a></td>
+						<td class="td2">
+						<input id="txtUacc1" type="text" class="txt c1"/>
+						</td>
+						<td class="td3"><a id="lblUacc2" class="label" style="font-size: 14px;"></a></td>
+						<td class="td4">
+						<input id="txtUacc2" type="text" class="txt c1"/>
+						</td> 
+						<td class="td5"><a id="lblUacc3" class="label" style="font-size: 14px;"></a></td>
+						<td class="td6">
+						<input id="txtUacc3" type="text" class="txt" />
+						</td>
+						<td class="td7"></td>
+						<td class="td8"></td>
+					</tr>
 				</table>
 			</div>
 			<input id="q_sys" type="hidden" />
