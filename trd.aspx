@@ -99,6 +99,7 @@
                         if(!(t_bodate == "''" && t_eodate == "char(255)" && t_ordeno == "''"))
                             t_where += " exists(select * from tranorde" + r_accy + " where noa=trans" + r_accy + ".ordeno and (odate between " + t_bodate + " and " + t_eodate + ")) and ";
                         t_where += " not exists(select * from trds" + r_accy + " where not(noa=" + t_curno + ") and tranno=trans" + r_accy + ".noa and trannoq=trans" + r_accy + ".noq and (straddrno between " + t_bstraddrno + " and " + t_estraddrno + ") and (endaddrno between " + t_bendaddrno + " and " + t_eendaddrno + "))^^";
+                        t_where += "order=^^datea,noa^^";
                         q_gt('trans', t_where, 0, 0, 0, "", r_accy);
                     }
                 });

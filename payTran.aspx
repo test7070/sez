@@ -18,12 +18,10 @@
 
             q_tables = 's';
             var q_name = "pay";
-            var decbbs = ['money', 'paysale', 'chgs', 'moneyus', 'paysaleus', 'chgsus'];
-            var decbbm = ['sale', 'paysale', 'nextsale', 'total', 'floata', 'opay', 'unopay', 'totalus', 'paysaleus', 'nextsaleus', 'outsource'];
-            var q_readonly = [];
-            var q_readonlys = [];
-            var bbmNum = [];
-            var bbsNum = [];
+            var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno', 'txtCno', 'txtAcomp'];
+            var q_readonlys = ['txtRc2no', 'txtPart', 'txtPartno'];
+            var bbmNum = [['txtTotal', 10, 0, 1]];
+            var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0], ['txtPaysale', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -32,9 +30,7 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             //ajaxPath = "";
-            aPop = new Array(['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], 
-            ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
-            ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
+            aPop = new Array(['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -60,7 +56,29 @@
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
                 q_mask(bbmMask);
                 fbbm[fbbm.length] = 'txtMemo';
-
+                bbsMask = [['txtIndate', r_picd], ['txtMon', r_picm]];
+                
+				$('#btnTre').click(function(e) {
+                    if(q_cur == 1 || q_cur == 2) {
+                        if($.trim($('#txtCardealno').val()) == 0 && $.trim($('#txtCarno').val()) == 0) {
+                            alert('Please enter the carno or cardealno.');
+                            return false;
+                        }
+                        var t_cardealno = "'" + $.trim($('#txtCardealno').val()) + "'";
+                        var t_carno = "'" + $.trim($('#txtCarno').val()) + "'";
+                        t_where = "where=^^ custno=" + t_custno + " and unpay!=0 ";
+                        t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "' and ( 1=1 ";
+                        for(var i = 0; i < q_bbsCount; i++) {
+                            if($.trim($('#txtVccno_' + i).val()).length > 0) {
+                                t_where = t_where + "or noa='" + $('#txtVccno_' + i).val() + "'";
+                                t_where1 = t_where1 + "or vccno='" + $('#txtVccno_' + i).val() + "'";
+                            }
+                        }
+                        t_where = t_where + "^^";
+                        t_where1 = t_where1 + ")^^";
+                        q_gt('trd_umm', t_where + t_where1, 0, 0, 0, "", r_accy);
+                    }
+                });
             }
 
             function q_boxClose(s2) {
@@ -70,18 +88,33 @@
             }
 
             function btnOk() {
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-                if(t_err.length > 0) {
-                    alert(t_err);
-                    return;
+                var isError = false, t_money, t_chgs, t_paysale;
+                for(var i = 0; i < q_bbsCount; i++) {
+                    $('#txtTypea_' + i).parent().parent().removeClass('error');
+                    if($.trim($('#txtTypea_' + i).val()).length == 0) {
+                        t_money = parseInt($.trim($('#txtMoney_' + i).val()).length == 0 ? '0' : $('#txtMoney_' + i).val().replace(/,/g,''), 10);
+                        t_chgs = parseInt($.trim($('#txtChgs_' + i).val()).length == 0 ? '0' : $('#txtChgs' + i).val().replace(/,/g,''), 10);
+                        t_paysale = parseInt($.trim($('#txtPaysale_' + i).val()).length == 0 ? '0' : $('#txtPaysale_' + i).val().replace(/,/g,''), 10);
+                        if(t_money != 0 || t_chgs != 0 || t_paysale != 0) {
+                            isError = true;
+                            $('#txtTypea_' + i).parent().parent().addClass('error');
+                        }
+                    }
                 }
+                if(isError) {
+                    alert('Please enter the type!');
+                    return false;
+                }
+
+                $('#txtWorker').val(r_name);
                 sum();
 
-                var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
-                if(s1.length == 0 || s1 == "AUTO")
-                    q_gtnoa(q_name, replaceAll('A' + $('#txtDatea').val(), '/', ''));
+                var t_noa = trim($('#txtNoa').val());
+                var t_date = trim($('#txtDatea').val());
+                if(t_noa.length == 0 || t_noa == "AUTO")
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_paytran') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
-                    wrServer(s1);
+                    wrServer(t_noa);
             }
 
             function _btnSeek() {
@@ -96,13 +129,53 @@
 
             function bbsAssign() {
                 _bbsAssign();
+                for(var i = 0; i < q_bbsCount; i++) {
+                    /*Money*/
+                    if( typeof ($('#txtMoney_' + i).data('info')) == 'undefined')
+                        $('#txtMoney_' + i).data('info', {
+                            isSetChange : false
+                        });
+                    if( typeof ($('#txtMoney_' + i).data('info').isSetChange) == 'undefined')
+                        $('#txtMoney_' + i).data('info').isSetChange = false;
+                    if(!$('#txtMoney_' + i).data('info').isSetChange) {
+                        $('#txtMoney_' + i).data('info').isSetChange = true;
+                        $('#txtMoney_' + i).change(function(e) {
+                            sum();
+                        });
+                    }
+                    /*Chgs*/
+                    if( typeof ($('#txtChgs_' + i).data('info')) == 'undefined')
+                        $('#txtChgs_' + i).data('info', {
+                            isSetChange : false
+                        });
+                    if( typeof ($('#txtChgs_' + i).data('info').isSetChange) == 'undefined')
+                        $('#txtChgs_' + i).data('info').isSetChange = false;
+                    if(!$('#txtChgs_' + i).data('info').isSetChange) {
+                        $('#txtChgs_' + i).data('info').isSetChange = true;
+                        $('#txtChgs_' + i).change(function(e) {
+                            sum();
+                        });
+                    }
+                    /*Paysale*/
+                    if( typeof ($('#txtPaysale_' + i).data('info')) == 'undefined')
+                        $('#txtPaysale_' + i).data('info', {
+                            isSetChange : false
+                        });
+                    if( typeof ($('#txtPaysale_' + i).data('info').isSetChange) == 'undefined')
+                        $('#txtPaysale_' + i).data('info').isSetChange = false;
+                    if(!$('#txtPaysale_' + i).data('info').isSetChange) {
+                        $('#txtPaysale_' + i).data('info').isSetChange = true;
+                        $('#txtPaysale_' + i).change(function(e) {
+                            sum();
+                        });
+                    }
+                }
             }
 
             function btnIns() {
                 _btnIns();
-                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+                $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
             }
 
             function btnModi() {
@@ -132,10 +205,15 @@
             }
 
             function sum() {
-                var t1 = 0, t_unit, t_mount, t_weight = 0;
+                var t_money = 0, t_pay = 0;
                 for(var j = 0; j < q_bbsCount; j++) {
-
-                }// j
+                    t_money += parseInt($.trim($('#txtMoney_' + j).val()).length == 0 ? '0' : $('#txtMoney_' + j).val().replace(/,/g,''), 10);
+                    t_money += parseInt($.trim($('#txtChgs_' + j).val()).length == 0 ? '0' : $('#txtChgs_' + j).val().replace(/,/g,''), 10);
+                    t_pay += parseInt($.trim($('#txtPaysale_' + j).val()).length == 0 ? '0' : $('#txtPaysale_' + j).val().replace(/,/g,''), 10);
+                }
+                $('#txtTotal').val(t_money);
+                $('#txtPaysale').val(t_pay);
+                $('#txtNextsale').val(t_money - t_pay);
             }
 
             function refresh(recno) {
@@ -422,29 +500,29 @@
 					<tr class="tr5">
 						<td class="td1" ><span> </span><a id="lblApprv" class="lbl"></a></td>
 						<td class="td2" colspan="2">
-							<input id="txtApprv"  type="text" style="float: left; width:30%;"/>
-							<input id="txtApprvmemo"  type="text" style="float: left; width:50%;"/>
+						<input id="txtApprv"  type="text" style="float: left; width:30%;"/>
+						<input id="txtApprvmemo"  type="text" style="float: left; width:50%;"/>
 						</td>
 					</tr>
 					<tr class="tr6">
 						<td class="td1" ><span> </span><a id="lblChecker" class="lbl"></a></td>
 						<td class="td2" colspan="2">
-							<input id="txtChecker"  type="text" style="float: left; width:30%;"/>
-							<input id="txtCheckermemo"  type="text" style="float: left; width:50%;"/>
+						<input id="txtChecker"  type="text" style="float: left; width:30%;"/>
+						<input id="txtCheckermemo"  type="text" style="float: left; width:50%;"/>
 						</td>
 					</tr>
 					<tr class="tr7">
 						<td class="td1" ><span> </span><a id="lblApprove" class="lbl"></a></td>
 						<td class="td2" colspan="2">
-							<input id="txtApprove"  type="text" style="float: left; width:30%;"/>
-							<input id="txtApprovememo"  type="text" style="float: left; width:50%;"/>
+						<input id="txtApprove"  type="text" style="float: left; width:30%;"/>
+						<input id="txtApprovememo"  type="text" style="float: left; width:50%;"/>
 						</td>
 					</tr>
 					<tr class="tr8">
 						<td class="td1" ><span> </span><a id="lblApprove2" class="lbl"></a></td>
 						<td class="td2" colspan="2">
-							<input id="txtApprove2"  type="text" style="float: left; width:30%;"/>
-							<input id="txtApprove2memo"  type="text" style="float: left; width:50%;"/>
+						<input id="txtApprove2"  type="text" style="float: left; width:30%;"/>
+						<input id="txtApprove2memo"  type="text" style="float: left; width:50%;"/>
 						</td>
 					</tr>
 					<tr class="tr9">
@@ -458,75 +536,70 @@
 				</table>
 			</div>
 			<div class='dbbs' >
-				<%--style="overflow-x:  hidden; overflow-y: scroll; height:200px;"  --%>
-				<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 100%;">
-					<tr style='color:White; background:#003366;' >
-						<td align="center">
+				<table id="tbbs" class='tbbs'>
+					<tr style='color:white; background:#003366;' >
+						<td align="center" style="width:1%;">
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 						</td>
-						<td align="center" class="td1"><a id='lblType'></a></td>
-						<td align="center" class="td2"><a id='lblMoney'></a></td>
-						<td align="center" class="td2"><a id='lblChgs'></a></td>
-						<td align="center" class="td2"><a id='lblPaysales'></a></td>
-						<td align="center" class="td1"><a id='lblMons'></a></td>
-						<td align="center" class="td3"><a id='lblPart'></a></td>
-						<td align="center" class="td3"><a id='lblItemno'></a></td>
-						<td align="center" class="td3"><a id='lblItem'></a></td>
-						<td align="center" class="td3"><a id='lblCheckno'></a></td>
-						<td align="center" class="td3"><a id='lblAccount'></a></td>
-						<td align="center" class="td2"><a id='lblBankno'></a></td>
-						<td align="center" style="width:12%;"><a id='lblBank'></a></td>
-						<td align="center" style="width:7%;"><a id='lblIndate'></a></td>
-						<td align="center"><a id='lblMemos'></a></td>
+						<td align="center" style="width:2%;"><a id='lblTypea_s'></a></td>
+						<td align="center" style="width:3%;"><a id='lblMoney_s'></a></td>
+						<td align="center" style="width:3%;"><a id='lblChgs_s'></a></td>
+						<td align="center" style="width:3%;"><a id='lblPaysale_s'></a></td>
+						<td align="center" style="width:3%;"><a id='lblMon_s'></a></td>
+						<td align="center" style="width:5%;"><a id='lblPart_s'></a></td>
+						<td align="center" style="width:6%;"><a id='lblItem_s'></a></td>
+						<td align="center" style="width:3%;"><a id='lblCheckno_s'></a></td>
+						<td align="center" style="width:3%;"><a id='lblAccount_s'></a></td>
+						<td align="center" style="width:3%;"><a id='lblBankno_s'></a></td>
+						<td align="center" style="width:3%;"><a id='lblBank_s'></a></td>
+						<td align="center" style="width:3%;"><a id='lblIndate_s'></a></td>
+						<td align="center" style="width:5%;"><a id='lblMemo_s'></a></td>
 					</tr>
 					<tr  style='background:#cad3ff;'>
-						<td style="width:1%;">
-						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+						<td align="center">
+						<input class="btn" type="button" id="btnMinus.*"  value='-' style=" font-weight: bold;" />
+						<input type="text" id="txtNoq.*" style="display:none;" />
 						</td>
 						<td >
-						<input class="txt c1"  id="txtTypea.*" type="text" />
+						<input type="text" id="txtTypea.*" style="width:95%;"/>
 						</td>
 						<td >
-						<input class="txt c1" id="txtMoney.*" type="text" style="text-align: right;" />
+						<input type="text" id="txtMoney.*" style="width:95%;text-align:right;"/>
 						</td>
 						<td >
-						<input class="txt c1" id="txtChgs.*" type="text" style="text-align: right;" />
+						<input type="text" id="txtChgs.*" style="width:95%;text-align:right;"/>
 						</td>
 						<td >
-						<input class="txt c1" id="txtPaysale.*" type="text" style="text-align: right;"/>
+						<input type="text" id="txtPaysale.*" style="width:95%;text-align:right;"/>
 						</td>
 						<td >
-						<input class="txt c1" id="txtMon.*" type="text" />
+						<input type="text" id="txtMon.*" style="width:95%;"/>
 						</td>
 						<td >
-						<input id="txtPartno.*" type="text" style="width: 30%;" />
-						<input id="txtPart.*" type="text" style="width: 55%;"/>
+						<input type="text" id="txtPartno.*" style="width:35%;float: left;"/>
+						<input type="text" id="txtPart.*" style="width:55%;float: left;"/>
 						</td>
 						<td >
-						<input id="txtItemno.*" type="text" style="width: 75%;"/>
-						<input id="btnItemno.*" type="button" value=".." style="width: 15%;"/>
+						<input type="text" id="txtItemno.*" style="width:35%;float:left;"/>
+						<input type="text" id="txtItem.*" style="width:55%;float:left;"/>
 						</td>
 						<td >
-						<input class="txt c1" id="txtItem.*" type="text" />
+						<input type="text" id="txtCheckno.*" style="width:95%;"/>
 						</td>
 						<td >
-						<input class="txt c1" id="txtCheckno.*" type="text" />
+						<input type="text" id="txtAccount.*" style="width:95%;"/>
 						</td>
 						<td >
-						<input class="txt c1" id="txtAccount.*" type="text"  />
+						<input type="text" id="txtBankno.*" style="width:95%;"/>
 						</td>
 						<td >
-						<input class="txt c1" id="txtBankno.*" type="text" />
+						<input type="text" id="txtBank.*" style="width:95%;"/>
 						</td>
 						<td >
-						<input class="txt c1" id="txtBank.*" type="text" />
+						<input type="text" id="txtIndate.*" style="width:95%;"/>
 						</td>
 						<td >
-						<input class="txt c1" id="txtIndate.*" type="text" />
-						</td>
-						<td >
-						<input class="txt c1" id="txtMemo.*" type="text" />
-						<input id="txtNoq.*" type="hidden" />
+						<input type="text" id="txtMemo.*" style="width:95%;"/>
 						</td>
 					</tr>
 				</table>
