@@ -91,11 +91,14 @@
                         var t_eendaddrno = $.trim($('#txtEendaddrno').val());
                         t_eendaddrno = t_eendaddrno.length == 0 ? "char(255)" : "'" + t_eendaddrno + "'";
                         var t_tranordeno = "'" + $.trim($('#txtOrdeno').val()) + "'";
+                        var t_po = "'" + $.trim($('#txtPo').val()) + "'";
 
                         t_where = "where=^^(custno=" + t_custno + ") and (isnull(datea,'') between " + t_btrandate + " and " + t_etrandate + ") and ";
+                        if(!(t_po=="''"))
+                        	t_where += " (trans" + r_accy + ".po=" + t_po + ") and";
                         if(!(t_bodate == "''" && t_eodate == "char(255)" && t_ordeno == "''"))
-                            t_where += " exists(select * from tranorde" + r_accy + " where noa=a.ordeno and (odate between " + t_bodate + " and " + t_eodate + ")) and ";
-                        t_where += " not exists(select * from trds" + r_accy + " where not(noa=" + t_curno + ") and tranno=a.noa and trannoq=a.noq and (straddrno between " + t_bstraddrno + " and " + t_estraddrno + ") and (endaddrno between " + t_bendaddrno + " and " + t_eendaddrno + "))^^";
+                            t_where += " exists(select * from tranorde" + r_accy + " where noa=trans" + r_accy + ".ordeno and (odate between " + t_bodate + " and " + t_eodate + ")) and ";
+                        t_where += " not exists(select * from trds" + r_accy + " where not(noa=" + t_curno + ") and tranno=trans" + r_accy + ".noa and trannoq=trans" + r_accy + ".noq and (straddrno between " + t_bstraddrno + " and " + t_estraddrno + ") and (endaddrno between " + t_bendaddrno + " and " + t_eendaddrno + "))^^";
                         q_gt('trans', t_where, 0, 0, 0, "", r_accy);
                     }
                 });
@@ -145,6 +148,7 @@
                                 $('#txtOthercost_' + i).val();
                             }
                         }
+                        sum();
                         break;
                     case q_name:
                         if(q_cur == 4)
@@ -239,9 +243,9 @@
                 var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0;
                 for( i = 0; i < q_bbsCount; i++) {
                     if($.trim($('#txtTranmoney_' + i).val()).length != 0)
-                        t_money += parseInt($('#txtTranmoney_' + i).val(), 10);
+                        t_money += parseInt($('#txtTranmoney_' + i).val().replace(/,/g,''), 10);
                 }
-                t_rate = $.trim($('#txtTaxrate').val()).length != 0 ? parseInt($('#txtTaxrate').val(), 10) : 0;
+                t_rate = $.trim($('#txtTaxrate').val()).length != 0 ? parseInt($('#txtTaxrate').val().replace(/,/g,''), 10) : 0;
                 switch($('#cmbTaxtype').val()) {
                     case '1':
                         t_tax = Math.round(t_money * t_rate / 100);
@@ -253,7 +257,7 @@
                         t_tax = t_total - t_money;
                         break;
                     case '5':
-                        t_tax = $.trim($('#txtTax').val()).length != 0 ? parseInt($('#txtTax').val(), 10) : 0;
+                        t_tax = $.trim($('#txtTax').val()).length != 0 ? parseInt($('#txtTax').val().replace(/,/g,''), 10) : 0;
                         t_total = t_money + t_tax;
                         break;
                     default:
@@ -494,12 +498,14 @@
 						<input id="txtStraddrno" type="text"  class="txt c2"/>
 						<input id="txtStraddr" type="text"  class="txt c3"/>
 						</td>
-						<td class="tdA">
+						<td class="td6"><span> </span><a id="lblPo" class="lbl"></a></td>
+						<td class="td7">
+						<input id="txtPo" type="text"  class="txt c1"/>
+						</td>
+						<td class="td8"></td>
+						<td class="td9">
 						<input type="button" id="btnTrans" class="txt c1"/>
 						</td>
-						<td class="td7"></td>
-						<td class="td8"></td>
-						<td class="td9"></td>
 						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr3">
@@ -593,7 +599,7 @@
 					<td  align="center" style="width:2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:5%;"><a id='lblTranno_s'></a></td>
+					<td align="center" style="width:4%;"><a id='lblTranno_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblTrandate_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblCarno_s'></a></td>
 					<td align="center" style="width:1%;"><a id='lblRs_s'></a></td>
@@ -617,10 +623,9 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
-					
 					<td >
-					<input type="text" id="txtTranno.*" style="float:left; width: 70%;"/>
-					<input type="text" id="txtTrannoq.*" style="float:left; width: 20%;"/>
+					<input type="text" id="txtTranno.*" style="float:left; width: 95%;"/>
+					<input type="text" id="txtTrannoq.*" style="display:none;"/>
 					</td>
 					<td >
 					<input type="text" id="txtTrandate.*" style="width:95%;" />

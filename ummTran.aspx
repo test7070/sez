@@ -19,9 +19,9 @@
             q_tables = 's';
             var q_name = "umm";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno', 'txtCno', 'txtAcomp'];
-            var q_readonlys = ['txtVccno', 'txtPart', 'txtPartno'];
+            var q_readonlys = ['txtVccno', 'txtPart', 'txtPartno','txtUnpay'];
             var bbmNum = [['txtTotal', 10, 0, 1]];
-            var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0], ['txtPaysale', 10, 0]];
+            var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0], ['txtPaysale', 10, 0], ['txtUnpay', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -58,15 +58,18 @@
                             alert('Please enter the customer no.');
                             return false;
                         }
-                        //var t_curno = "'" + $.trim($('#txtNoa').val()) + "'";
                         var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
-                        //t_where = "where=^^isnull(trd" + r_accy + ".custno,'')=" + t_custno + " and not exists(select * from umms left join umm on umms.noa=umm.noa where not(umms.noa=" + t_curno + ") and isnull(umm.custno,'')=" + t_custno + " and isnull(umms.vccno,'')=trd" + r_accy + ".noa)";
-                        t_where = "where=^^ custno="+t_custno+" and unpay!=0 ";
+                        t_where = "where=^^ custno=" + t_custno + " and unpay!=0 ";
+                        t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "' and ( 1=1 ";
                         for(var i = 0; i < q_bbsCount; i++) {
-                            if($.trim($('#txtVccno_' + i).val()).length > 0)
+                            if($.trim($('#txtVccno_' + i).val()).length > 0) {
                                 t_where = t_where + "or noa='" + $('#txtVccno_' + i).val() + "'";
+                                t_where1 = t_where1 + "or vccno='" + $('#txtVccno_' + i).val() + "'";
+                            }
                         }
-                        q_gt('trd', t_where, 0, 0, 0, "", r_accy);
+                        t_where = t_where + "^^";
+                        t_where1 = t_where1 + ")^^";
+                        q_gt('trd_umm', t_where + t_where1, 0, 0, 0, "", r_accy);
                     }
                 });
                 $('#btnVcctran').click(function(e) {
@@ -75,29 +78,18 @@
                             alert('Please enter the customer no.');
                             return false;
                         }
-                        //var t_curno = "'" + $.trim($('#txtNoa').val()) + "'";
                         var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
-                        //t_where = "where=^^isnull(vcc" + r_accy + ".custno,'')=" + t_custno + " and not exists(select * from umms left join umm on umms.noa=umm.noa where not(umms.noa=" + t_curno + ") and isnull(umm.custno,'')=" + t_custno + " and isnull(umms.vccno,'')=vcc" + r_accy + ".noa)";
-                      /*  t_where = "where=^^ custno="+t_custno+" and unpay!=0 ";
-                        for(var i = 0; i < q_bbsCount; i++) {
-                            if($.trim($('#txtVccno_' + i).val()).length > 0)
-                                t_where = t_where + "or noa='" + $('#txtVccno_' + i).val() + "'";
-                        }
-                        q_gt('vcc', t_where, 0, 0, 0, "", r_accy);*/
-                        
-                        
                         t_where = "where=^^ custno=" + t_custno + " and unpay!=0 ";
                         t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "' and ( 1=1 ";
-                        for (var i = 0; i < q_bbsCount; i++) {
-                            if ($.trim($('#txtVccno_' + i).val()).length > 0) {
+                        for(var i = 0; i < q_bbsCount; i++) {
+                            if($.trim($('#txtVccno_' + i).val()).length > 0) {
                                 t_where = t_where + "or noa='" + $('#txtVccno_' + i).val() + "'";
                                 t_where1 = t_where1 + "or vccno='" + $('#txtVccno_' + i).val() + "'";
                             }
                         }
-
                         t_where = t_where + "^^";
                         t_where1 = t_where1 + ")^^";
-                        q_gt('vcc_umm', t_where+t_where1, 0, 0, 0, "", r_accy);
+                        q_gt('vcc_umm', t_where + t_where1, 0, 0, 0, "", r_accy);
                     }
                 });
             }
@@ -113,23 +105,76 @@
             }
 
             function q_gtPost(t_name) {
-            	//var strDate = new Date();
                 switch (t_name) {
-                    case 'trd':
+                    case 'trd_umm':
+                        var curData = new Array();
+                        for(var i = 0; i < q_bbsCount; i++) {
+                            if($('#txtVccno_' + i).val().length > 0) {
+                                curData.push({
+                                    index : i,
+                                    vccno : $('#txtVccno_' + i).val(),
+                                    paysale : parseInt($.trim($('#txtPaysale_' + i).val()).length == 0 ? '0' : $('#txtPaysale_' + i).val().replace(/,/g,''), 10)
+                                });
+                            }
+                        }
                         var as = _q_appendData("trd", "", true);
-                        q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtMoney', as.length, as, 'noa,total', '', '');
+                        for(var i = 0; i < as.length; i++) {
+                            as[i].total = parseInt($.trim(as[i].total).length == 0 ? '0' : as[i].total, 10);
+                            as[i].paysale = parseInt($.trim(as[i].paysale).length == 0 ? '0' : as[i].paysale, 10);
+                            for(var j = 0; j < curData.length; j++) {
+                                if(as[i].noa == curData[j].vccno) {
+                                    as[i].paysale += curData[j].paysale;
+                                }
+                            }
+                            if(as[i].total - as[i].paysale == 0) {
+                                as.splice(i, 1);
+                                i--;
+                            } else {
+                                as[i]._unpay = (as[i].total - as[i].paysale).toString();
+                                as[i].total = as[i].total.toString();
+                                as[i].paysale = as[i].paysale.toString();
+                            }
+                        }
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay', as.length, as, 'noa,_unpay,_unpay', 'txtVccno', '');
+                       	sum();
                         break;
                     case 'vcc_umm':
+                        var curData = new Array();
+                        for(var i = 0; i < q_bbsCount; i++) {
+                            if($('#txtVccno_' + i).val().length > 0) {
+                                curData.push({
+                                    index : i,
+                                    vccno : $('#txtVccno_' + i).val(),
+                                    paysale : parseInt($.trim($('#txtPaysale_' + i).val()).length == 0 ? '0' : $('#txtPaysale_' + i).val().replace(/,/g,''), 10)
+                                });
+                            }
+                        }
                         var as = _q_appendData("vcc", "", true);
-                        q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtMoney', as.length, as, 'noa,total', '', '');
+                        for(var i = 0; i < as.length; i++) {
+                            as[i].total = parseInt($.trim(as[i].total).length == 0 ? '0' : as[i].total, 10);
+                            as[i].paysale = parseInt($.trim(as[i].paysale).length == 0 ? '0' : as[i].paysale, 10);
+                            for(var j = 0; j < curData.length; j++) {
+                                if(as[i].noa == curData[j].vccno) {
+                                    as[i].paysale += curData[j].paysale;
+                                }
+                            }
+                            if(as[i].total - as[i].paysale == 0) {
+                                as.splice(i, 1);
+                                i--;
+                            } else {
+                                as[i]._unpay = (as[i].total - as[i].paysale).toString();
+                                as[i].total = as[i].total.toString();
+                                as[i].paysale = as[i].paysale.toString();
+                            }
+                        }
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay', as.length, as, 'noa,_unpay,_unpay', 'txtVccno', '');
+                        sum();
                         break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
                         break;
                 }
-                //var endDate = new Date();
-                //alert('Str:'+strDate.getHours()+':'+strDate.getMinutes()+':'+strDate.getSeconds()+'\r\nEnd:'+endDate.getHours()+':'+endDate.getMinutes()+':'+endDate.getSeconds());
             }
 
             function q_stPost() {
@@ -140,11 +185,14 @@
             }
 
             function btnOk() {
-                var isError = false;
+                var isError = false, t_money, t_chgs, t_paysale;
                 for(var i = 0; i < q_bbsCount; i++) {
                     $('#txtTypea_' + i).parent().parent().removeClass('error');
                     if($.trim($('#txtTypea_' + i).val()).length == 0) {
-                        if(!(parseInt($.trim($('#txtMoney_' + j).val()).length == 0 ? '0' : $('#txtMoney_' + j).val(), 10) == 0 && parseInt($.trim($('#txtPaysale_' + j).val()).length == 0 ? '0' : $('#txtPaysale_' + j).val(), 10) == 0)) {
+                        t_money = parseInt($.trim($('#txtMoney_' + i).val()).length == 0 ? '0' : $('#txtMoney_' + i).val().replace(/,/g,''), 10);
+                        t_chgs = parseInt($.trim($('#txtChgs_' + i).val()).length == 0 ? '0' : $('#txtChgs' + i).val().replace(/,/g,''), 10);
+                        t_paysale = parseInt($.trim($('#txtPaysale_' + i).val()).length == 0 ? '0' : $('#txtPaysale_' + i).val().replace(/,/g,''), 10);
+                        if(t_money != 0 || t_chgs != 0 || t_paysale != 0) {
                             isError = true;
                             $('#txtTypea_' + i).parent().parent().addClass('error');
                         }
@@ -189,6 +237,19 @@
                     if(!$('#txtMoney_' + i).data('info').isSetChange) {
                         $('#txtMoney_' + i).data('info').isSetChange = true;
                         $('#txtMoney_' + i).change(function(e) {
+                            sum();
+                        });
+                    }
+                    /*Chgs*/
+                    if( typeof ($('#txtChgs_' + i).data('info')) == 'undefined')
+                        $('#txtChgs_' + i).data('info', {
+                            isSetChange : false
+                        });
+                    if( typeof ($('#txtChgs_' + i).data('info').isSetChange) == 'undefined')
+                        $('#txtChgs_' + i).data('info').isSetChange = false;
+                    if(!$('#txtChgs_' + i).data('info').isSetChange) {
+                        $('#txtChgs_' + i).data('info').isSetChange = true;
+                        $('#txtChgs_' + i).change(function(e) {
                             sum();
                         });
                     }
@@ -246,8 +307,9 @@
             function sum() {
                 var t_money = 0, t_pay = 0;
                 for(var j = 0; j < q_bbsCount; j++) {
-                    t_money += parseInt($.trim($('#txtMoney_' + j).val()).length == 0 ? '0' : $('#txtMoney_' + j).val(), 10);
-                    t_pay += parseInt($.trim($('#txtPaysale_' + j).val()).length == 0 ? '0' : $('#txtPaysale_' + j).val(), 10);
+                    t_money += parseInt($.trim($('#txtMoney_' + j).val()).length == 0 ? '0' : $('#txtMoney_' + j).val().replace(/,/g,''), 10);
+                    t_money += parseInt($.trim($('#txtChgs_' + j).val()).length == 0 ? '0' : $('#txtChgs_' + j).val().replace(/,/g,''), 10);
+                    t_pay += parseInt($.trim($('#txtPaysale_' + j).val()).length == 0 ? '0' : $('#txtPaysale_' + j).val().replace(/,/g,''), 10);
                 }
                 $('#txtTotal').val(t_money);
                 $('#txtPaysale').val(t_pay);
@@ -417,7 +479,7 @@
                 margin: -1px;
                 float: left;
             }
-            .tbbm td input[type="button"] {     
+            .tbbm td input[type="button"] {
                 float: left;
             }
             .tbbm select {
@@ -431,14 +493,14 @@
             .tbbs a {
                 font-size: medium;
             }
-           
+
             .num {
                 text-align: right;
             }
             .tbbs tr.error input[type="text"] {
                 color: red;
             }
-             input[type="text"],input[type="button"] {     
+            input[type="text"], input[type="button"] {
                 font-size: medium;
             }
 		</style>
@@ -536,7 +598,7 @@
 						<td class="td8">
 						<input id="txtAccno"  type="text" class="txt c1"/>
 						</td>
-						
+
 					</tr>
 					<tr class="tr5">
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
@@ -546,20 +608,28 @@
 						<input id="txtWorker"  type="text" class="txt c1"/>
 						</td>
 					</tr>
-					<tr>                          
-             		   <td class="td1"><span> </span><a id="lblChecker" class="lbl"></a></td>
-                	   <td class="td2"><input id="txtchecker" type="text" class="txt c2"/>
-               		   <input id="txtCheckmemo"  type="text" class="txt c3"/></td>
-               		   <td class="td3"><span> </span><a id="lblApprv" class="lbl"></a></td>
-               		   <td class="td4"><input id="txtApprv"  type="text" class="txt c2"/>  
-               		   <input id="txtApprvmemo"  type="text" class="txt c3"/></td>            
-              		   <td class="td5"><span> </span><a id="lblApprove"class="lbl"></a></td>
-              		   <td class="td6"><input id="txtApprove"  type="text" class="txt c2"/>  
-              		   <input id="txtApprovememo"  type="text" class="txt c3"/></td>
-               		   <td class="td7"><span> </span><a id="lblApprove2"class="lbl"></a></td>
-               		   <td class="td8"><input id="txtApprove2"  type="text" class="txt c2"/>  
-               		   <input id="txtApprove2memo"  type="text" class="txt c3"/></td>            
-          			</tr>
+					<tr>
+						<td class="td1"><span> </span><a id="lblChecker" class="lbl"></a></td>
+						<td class="td2">
+						<input id="txtchecker" type="text" class="txt c2"/>
+						<input id="txtCheckmemo"  type="text" class="txt c3"/>
+						</td>
+						<td class="td3"><span> </span><a id="lblApprv" class="lbl"></a></td>
+						<td class="td4">
+						<input id="txtApprv"  type="text" class="txt c2"/>
+						<input id="txtApprvmemo"  type="text" class="txt c3"/>
+						</td>
+						<td class="td5"><span> </span><a id="lblApprove"class="lbl"></a></td>
+						<td class="td6">
+						<input id="txtApprove"  type="text" class="txt c2"/>
+						<input id="txtApprovememo"  type="text" class="txt c3"/>
+						</td>
+						<td class="td7"><span> </span><a id="lblApprove2"class="lbl"></a></td>
+						<td class="td8">
+						<input id="txtApprove2"  type="text" class="txt c2"/>
+						<input id="txtApprove2memo"  type="text" class="txt c3"/>
+						</td>
+					</tr>
 				</table>
 			</div>
 		</div>
@@ -573,10 +643,10 @@
 					<td align="center" style="width:3%;"><a id='lblMoney'></a></td>
 					<td align="center" style="width:3%;"><a id='lblChgs'></a></td>
 					<td align="center" style="width:3%;"><a id='lblPaysales'></a></td>
-					<td align="center" style="width:2%;"><a id='lblMons'></a></td>
+					<td align="center" style="width:3%;"><a id='lblMons'></a></td>
 					<td align="center" style="width:3%;"><a id='lblPart'></a></td>
-					<td align="center" style="width:4%;"><a id='lblVccno'></a></td>
-					<td align="center" style="width:5%;"><a id='lblUmmb'></a></td>
+					<td align="center" style="width:5%;"><a id='lblVccno'></a></td>
+					<td align="center" style="width:3%;"><a id='lblUnpay'></a></td>
 					<td align="center" style="width:5%;"><a id='lblCheckno'></a></td>
 					<td align="center" style="width:5%;"><a id='lblAccount'></a></td>
 					<td align="center" style="width:7%;"><a id='lblBank'></a></td>
@@ -611,7 +681,7 @@
 					<input type="text" id="txtVccno.*" style="width:95%;" />
 					</td>
 					<td>
-					<input type="text" id="txtUmmb.*"  style="width:95%;" />
+					<input type="text" id="txtUnpay.*"  style="width:95%; text-align: right;" />
 					</td>
 					<td>
 					<input type="text" id="txtCheckno.*"  style="width:95%;" />
