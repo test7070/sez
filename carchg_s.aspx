@@ -1,4 +1,4 @@
-?<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -30,12 +30,12 @@
         $('#txtBdate').focus();
     }
 
-    function q_seekStr() {   ///  ·j´M«ö¤U®É¡A°õ¦æ
+    function q_seekStr() {   
         t_noa = $('#txtNoa').val();
         t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();
-        t_custno = $('#txtCustno').val();
-        t_salesno = $('#txtSalesno').val();
+        t_carno = $('#txtCarno').val();
+        t_no = $('#txtDriverno').val();
         t_comp = $('#txtComp').val();
 
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
@@ -59,7 +59,7 @@
             <tr class='seek_tr'>
                 <td   style="width:35%;" ><a id='lblDatea'></a></td>
                 <td style="width:65%;  "><input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
-                <span style="display:inline-block; vertical-align:middle">¡ã</span>
+                <span style="display:inline-block; vertical-align:middle">&sim;</span>
                 <input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" /></td>
             </tr>
              <tr class='seek_tr'>
