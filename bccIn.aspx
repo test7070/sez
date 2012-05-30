@@ -17,8 +17,6 @@
         }
         q_tables = 's';
         var q_name = "bccin";
-        var decbbs = ['mount', 'weight', 'mount2', 'price', 'total'];
-        var decbbm = ['total', 'tax'];
         var q_readonly = [];
         var q_readonlys = [];
         var bbmNum = [['txtPrice', 10, 3]];  
@@ -49,14 +47,14 @@
             
         }  ///  end Main()
 
-        function pop(form) {
+        /*function pop(form) {
             b_pop = form;
             switch (form) {
                 case 'ucc': q_pop('txtProductno_' + b_seq, 'ucc_b.aspx', 'ucc', 'noa', 'product', "70%", "650px", q_getMsg('popUcc')); break;
                 case 'store': q_pop('txtStoreno', 'store_b.aspx', 'store', 'noa', 'store', "60%", "650px", q_getMsg('popStore')); break;
                 case 'station': q_pop('txtStationno', 'station_b.aspx', 'station', 'noa', 'station', "60%", "650px", q_getMsg('popStation')); break;
             }
-        }
+        }*/
 
         function mainPost() { 
             q_getFormat();
@@ -65,7 +63,7 @@
 
             fbbm[fbbm.length] = 'txtMemo';   
 
-            $('#btnStore').click(function () { pop('store'); }); 
+           /* $('#btnStore').click(function () { pop('store'); }); 
             $('#btnStore').mouseenter(function () { $(this).css('cursor', 'pointer') });
             $("#txtStoreno").change(function () { q_change($(this), 'store', 'noa', 'noa,store'); }); 
 
@@ -73,7 +71,7 @@
             $('#btnStation').mouseenter(function () { $(this).css('cursor', 'pointer') });
             $("#txtStationno").change(function () { q_change($(this), 'station', 'noa', 'noa,station'); }); 
 
-            $('#btnquat').click(function () { btnquat(); });
+            $('#btnquat').click(function () { btnquat(); });*/
         }
 
         function q_boxClose( s2) { 

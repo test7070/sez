@@ -16,8 +16,6 @@
 
             q_tables = 's';
             var q_name = "borr";
-            var decbbm = ['payc', 'taxrate', 'tax', 'cash', 'checka', 'money', 'rate', 'inteis', 'bwmoney', 'pay'];
-            var decbbs = ['money'];
             var q_readonly = ['txtBwmoney', 'txtPay'];
             var q_readonlys = [];
             var bbmNum = [];
@@ -114,6 +112,7 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
+               q_box('borr_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
             }
 
             function btnIns() {

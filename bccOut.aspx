@@ -17,8 +17,6 @@
         }
         q_tables = 's';
         var q_name = "bccout";
-        var decbbs = ['mount', 'bkbcc', 'total'];
-        var decbbm = ['total'];
         var q_readonly = [];
         var q_readonlys = [];
         var bbmNum = [];  
@@ -188,7 +186,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('worka_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('bccout_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   

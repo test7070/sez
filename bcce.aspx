@@ -325,10 +325,10 @@
     <style type="text/css">
         #dmain{overflow:hidden;}
 		 .dview{float:left;width:25%;}
-		 .tview{margin:0;padding:2px;border:1px black double;border-spacing:0;font-size:16px;background-color:#FFFF66;color:blue;}
+		 .tview{margin:0;padding:2px;border:1px black double;border-spacing:0;font-size:medium;background-color:#FFFF66;color:blue;}
 		 .tview td{padding:2px;text-align:center;border:1px black solid;}
 		 .dbbm{float:left;width:73%;margin:-1px;border:1px black solid;border-radius:5px;}
-		 .tbbm{padding:0px;border:1px white double;border-spacing:0;border-collapse:collapse;font-size:16px;color:blue;background:#cad3ff;width:100%;}
+		 .tbbm{padding:0px;border:1px white double;border-spacing:0;border-collapse:collapse;font-size:medium;color:blue;background:#cad3ff;width:100%;}
 		 .tbbm tr{height:35px;}
 		 
 		 .tbbm .td1,.tbbm .td3,.tbbm .td5,.tbbm .td7{width: 10%; text-align: right;}
@@ -347,13 +347,13 @@
 		 .txt.c7{width:96%;text-align: right;}
 		 .txt.c8{width:98%;}
 		
-		 .dbbs .tbbs{margin:0;padding:2px;border:2px lightgrey double;border-spacing:1px;border-collapse:collapse;font-size:16px;color:blue;background:#cad3ff;width:100%;}
+		 .dbbs .tbbs{margin:0;padding:2px;border:2px lightgrey double;border-spacing:1px;border-collapse:collapse;font-size:medium;color:blue;background:#cad3ff;width:100%;}
 		 .dbbs .tbbs tr{height:35px;}
 		 .dbbs .tbbs tr td{text-align:center;border:2px lightgrey double;}
 		
 		 .dbbm input[type="button"]{float:right;width:auto;font-size: medium;}
 		 .tbbm tr td{margin:0px -1px;padding:0;}
-		 .tbbm tr td input[type="text"]{border-width:1px;padding:0px;margin:-1px;}
+		 .tbbm tr td input[type="text"]{border-width:1px;padding:0px;margin:-1px;font-size: medium;}
 		 .tbbm tr td select{border-width:1px;padding:0px;margin:-1px;width: 98%;}
       	 .tbbs .td1{width: 6%;}
       	 .tbbs .td2{width: 10%;}
@@ -381,25 +381,25 @@
         <div class='dbbm' style="width: 74%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='1'  cellspacing='0'>
         <tr class="tr1">
-               <td class="td1" ><a id='lblDatea'></a></td>
+               <td class="td1"><span> </span><a id='lblDatea'></a></td>
                <td class="td2"><input id="txtDatea"  type="text" class="txt c1"/></td>
-               <td class="td3" ><a id='lblNoa'></a></td>
+               <td class="td3"><span> </span><a id='lblNoa'></a></td>
                <td class="td4"><input id="txtNoa" type="text" class="txt c1" /></td>               
-               <td class="td5" ><a id='lblSname'> </a></td>
+               <td class="td5"><span> </span><a id='lblSname'> </a></td>
                <td class="td6"><input id="txtSname"  type="text" class="txt c1" /></td> 
-               <td class="td7" ><input id="btnPart" type="button" /></td>               
+               <td class="td7"><span> </span><input id="btnPart" type="button" /></td>               
                <td class="td8"><input id="txtPartno"  type="text"  class="txt c5"/><input id="txtPart"  type="text"  class="txt c6"/></td>
         </tr>
         <tr class="tr2">
             <td class="td1"></td>
             <td class="td2"></td>
-            <td class="td3" ><a id='lblTotal'> </a></td>
+            <td class="td3"><span> </span><a id='lblTotal'> </a></td>
             <td class="td4"><input id="txtTotal"  type="text" class="txt num c1"/></td>
-            <td class="td5" ><a id='lblApprover'> </a></td>
+            <td class="td5"><span> </span><a id='lblApprover'> </a></td>
             <td class="td6"><input id="txtApprover"  type="text" class="txt c1"/></td>  
         </tr>  
         <tr class="tr3">
-            <td class="td1"><a id="lblMemo"></a></td>
+            <td class="td1"><span> </span><a id="lblMemo"></a></td>
             <td class="td2" colspan="7"><textarea id="txtMemo" cols="10" rows="5" style="width: 95%; height: 127px;"></textarea></td>
             
         </tr>       
