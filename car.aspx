@@ -1,22 +1,21 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
+<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
-<head>
-    <title></title>
-    <script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
-    <script src='../script/qj2.js' type="text/javascript"></script>
-            <script src='qset.js' type="text/javascript"></script>
-    <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src="../script/qbox.js" type="text/javascript"></script>
-    <script src='../script/mask.js' type="text/javascript"></script>
-    <link href="../qbox.css" rel="stylesheet" type="text/css" />
-    
-    <script type="text/javascript">
+	<head>
+		<title></title>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
+		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+
+		<script type="text/javascript">
         this.errorHandler = null;
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var decbbm = [];
         var q_name="car";
         var q_readonly = [];
         var bbmNum = []; 
@@ -54,8 +53,8 @@
         }  ///  end Main()
 
 
-        function mainPost() { // ��J��Ƨ��A�� refresh �e
-            $('#btnSales').click(function () { pop('sss'); });
+        function mainPost() { 
+            /*$('#btnSales').click(function () { pop('sss'); });
             $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
             $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); });
 
@@ -71,10 +70,10 @@
 
             txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
             txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
-            txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');
+            txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');*/
         }
 
-        function pop(form, seq) {
+        /*function pop(form, seq) {
             b_seq = (seq ? seq : '');
             b_pop = form;
             switch (form) {
@@ -82,7 +81,7 @@
                 case 'sss': q_pop('txtGrpno', 'sss_b.aspx', 'sss', 'noa', 'comp', "60%", "650px", q_getMsg('popsss')); break;
                 case 'conn': q_pop('txtNoa', "conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'conn', 'noa', 'namea', "60%", "650px", q_getMsg('popConn')); break;
             }
-        }
+        }*/
 
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -103,9 +102,9 @@
             });
         }
         
-        function q_boxClose( s2) { ///   q_boxClose 2/4 /// �d�ߵ�B�Ȥ��B�q���  �����ɰ���
+        function q_boxClose( s2) { ///   q_boxClose 2/4 
             var ret; 
-            switch (b_pop) {   /// ���n�G���i�H���� return �A�̫�ݰ��� originalClose();
+            switch (b_pop) {   
                 case 'conn':
 
                     break;
@@ -127,16 +126,16 @@
         }
 
 
-        function q_gtPost(t_name) {  /// ��ƤU��� ...
+        function q_gtPost(t_name) {  
             switch (t_name) {
-                case 'sss':  ////  ���� key in �s���A�a�J form
+                case 'sss':  
                     q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
                     break;
 
-                case q_name: if (q_cur == 4)   // �d��
+                case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
 
-                    if (q_cur == 1 || q_cur == 2) // ����
+                    if (q_cur == 1 || q_cur == 2) 
                         q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 
                     break;
@@ -147,10 +146,10 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('sss_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+            q_box('car_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
         }
 
-        function combPay_chg() {   /// �u�� comb �}�Y�A�~�ݭn�g onChange()   �A��l cmb �s����Ʈw
+        function combPay_chg() {   
             var cmb = document.getElementById("combPay")
             if (!q_cur) 
                 cmb.value = '';
@@ -218,14 +217,14 @@
             _btnOk(key_value, bbmKey[0], '','',2);
         }
 
-        function format() {  ////  �D�n���Ʀr comma
+        function format() {  
             var i;
 
-            q_format(bbmNum_comma, bbmNum);   /// ��� , keyin �u���F�p���I���
+            q_format(bbmNum_comma, bbmNum);  
 
             q_init = 0;
         }
-        ///////////////////////////////////////////////////  �H�U���Ѩƥ�{���A���ݭn�ɭק�
+        
         function refresh(recno) {
             _refresh(recno);
 
@@ -332,9 +331,8 @@
     </style>
 </head>
 <body>
-    <form id="form1" runat="server" style="height: 100%">
 <!--#include file="../inc/toolbar.inc"-->
-        <div id='dmain' style="overflow:hidden;">
+       <div id='dmain' style="overflow:hidden;">
         <div class="dview" id="dview" style="float: left;  width:25%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
@@ -363,7 +361,7 @@
                <td class="label1" align="right" ><a id='lblTel'></a></td>
                <td class="column1"colspan='3'><input id="txtTel" maxlength='20' type="text"  style='width:100%;'/></td>
 	           <td class="label2" align="right" ><a id='lblConn'></a></td>
-               <td class="column2"'><input id="txtConn" maxlength='10' type="text"  style='width:98%;'/></td>
+               <td class="column2"><input id="txtConn" maxlength='10' type="text"  style='width:98%;'/></td>
             </tr>
 	    <tr>   
 		<td class="label1" align="right" ><a id='lblAddr'></a></td>
@@ -371,9 +369,7 @@
 	   </tr>        
         </table>
         </div>
-        </div> 
+       </div>
         <input id="q_sys" type="hidden" />
-    
-    </form>
 </body>
 </html>

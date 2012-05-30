@@ -29,7 +29,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']);
+            aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],['txtDealno', 'lblDeal', 'cardeal', 'noa,comp', 'txtDealno,txtDeal', 'cardeal_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -141,7 +141,7 @@
                 if(q_cur > 0 && q_cur < 4)
                     return;
 
-                q_box('cng_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('tre_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
             }
 
             function combPay_chg() {
@@ -444,8 +444,11 @@
 						<input id="txtDriverno" type="text"  class="txt c2"/>
 						<input id="txtDriver" type="text"  class="txt c3"/>
 						</td>
-						<td class="td7"></td>
-						<td class="td8"></td>
+						<td class="td7"><span> </span><a id="lblDeal" class="lbl btn"></a></td>
+						<td class="td8">
+						<input id="txtDealno" type="text"  class="txt c2"/>
+						<input id="txtDeal" type="text"  class="txt c3"/>
+						</td>
 						<td class="td9"></td>
 						<td class="tdA"></td>
 						<td class="tdZ"></td>
@@ -480,7 +483,10 @@
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
-						<td class="td2" colspan="6">						<textarea id="txtMemo" cols="10" rows="5" style="width: 98%;height: 50px;"></textarea></td>
+						<td class="td2" colspan="6"><textarea id="txtMemo" cols="10" rows="5" style="width: 98%;height: 50px;"></textarea></td>
+						<td class="td8"></td>
+						<td class="td9"><span> </span><a id="lblWorker" class="lbl"></a></td>
+						<td class="tdA"><input id="txtWorker" type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>

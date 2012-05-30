@@ -682,9 +682,9 @@
 						<td class="td4" >
 						<input id="txtUmmno" type="text"  class="txt c1"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblPaybno" class="lbl" style="font-size: 12px;"></a></td>
+						<td class="td5"><span> </span><a id="lblTreno" class="lbl" style="font-size: 12px;"></a></td>
 						<td class="td6" >
-						<input id="txtPaybno" type="text"  class="txt c1"/>
+						<input id="txtTreno" type="text"  class="txt c1"/>
 						</td>
 						<td class="td7"><span> </span><a id="lblPayno" class="lbl"></a></td>
 						<td class="td8" >
