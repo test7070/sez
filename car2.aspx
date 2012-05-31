@@ -17,7 +17,6 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            var decbbm = ["inmoney", "outmoney", "irange", "manage", "guile", "labor", "health", "reserve", "help", "vrate", "rrate", "orate", "irate", "prate", "ulicense", "dlicense", "spring", "summer", "falla", "winter", "cylinder", "salemoney", "amortization"];
             var q_name = "car2";
             var q_readonly = ['txtCardeal', 'txtCarowner', 'cmbSex', 'txtIdno', 'txtBirthday', 'txtTel1', 'txtTel2', 'txtMobile', 'txtFax', 'txtAddr_conn', 'txtAddr_home', 'txtDriver'];
             var bbmNum = [['txtInmoney', 10, 0], ['txtOutmoney', 10, 0], ['txtIrange', 10, 0], ["txtManage", 10, 0], ["txtGuile", 10, 0], ["txtLabor", 10, 0], ["txtHealth", 10, 0], ["txtReserve", 10, 0], ["txtHelp", 10, 0], ["txtVrate", 5, 2], ["txtRrate", 5, 2], ["txtOrate", 5, 2], ["txtIrate", 5, 2], ["txtPrate", 5, 2], ["txtUlicense", 10, 0], ["txtDlicense", 10, 0], ["txtSpring", 10, 0], ["txtSummer", 10, 0], ["txtFalla", 10, 0], ["txtWinter", 10, 0], ["txtCylinder", 2, 0], ["txtSalemoney", 10, 0], ["txtAmortization", 10, 0]];
@@ -170,7 +169,7 @@
             function q_boxClose(s2) {
 
                 var ret;
-                switch (b_pop) {             
+                switch (b_pop) {
                     case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
@@ -179,11 +178,11 @@
             }
 
             function q_gfPost() {
-            	
+
             }
 
             function q_gtPost(t_name) {
-            	
+
             }
 
             function _btnSeek() {
@@ -191,7 +190,7 @@
                     return;
                 q_box('car2_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
             }
-			  
+
             function btnIns() {
                 _btnIns();
                 $('#txtCarno').focus();
@@ -352,7 +351,7 @@
             }
             .popDiv {
                 position: absolute;
-                z-index: 3;
+                z-index: 99;
                 background: #4297D7;
                 height: 370px;
                 width: 500px;
@@ -797,371 +796,6 @@
 							</td>
 						</tr>
 					</table>
-				</div>
-
-				<div class='dbbm'>
-					<div style="border: 1px solid #000000;border-radius: 5px;">
-						<table class="tbbm"  id="tbbm" >
-							<tr class="tr0">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblNoa'></a>
-								</div></td>
-								<td class="td2" >
-								<input id="txtNoa"  type="text"  style='width:95%; max-width: 200px; float:left;'/>
-								</td>
-								<td class="td3" >
-								<div class='btnLbl tb'>
-									<a id='lblCarteam'></a>
-								</div></td>
-								<td class="td4" ><select id="cmbCarteamno" style="width:95%;"></select></td>
-								<td class="td5" ></td>
-								<td class="td6" ></td>
-								<td class="td7" ></td>
-								<td class="td8" ></td>
-							</tr>
-							<tr class="tr1">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblCarno'></a>
-								</div></td>
-								<td class="td2">
-								<input id="txtCarno" maxlength='20' type="text"  style='width:95%; '/>
-								</td>
-								<td class="td3">
-								<div class='btnLbl tb button'>
-									<a id='lblCardeal'></a>
-								</div></td>
-								<td class="td4" colspan="3">
-								<input id="txtCardealno" type="text"  style='width:20%; float:left;'/>
-								<input id="txtCardeal" type="text"  style='width:73%; float:left;'/>
-								</td>
-								<td class="td7">
-								<div class='btnLbl tb button'>
-									<a id='lblDriver'></a>
-								</div></td>
-								<td class="td8">
-								<input id="txtDriverno" type="text"  style='width:40%; float:left;'/>
-								<input id="txtDriver" type="text"  style='width:53%; float:left;'/>
-								</td>
-							</tr>
-							<tr class="tr2">
-								<td class="td1" >
-								<div class='btnLbl tb button'>
-									<a id='lblCarowner'></a>
-								</div></td><td class="td2" >
-								<input id="txtCarownerno" type="text"  style='width:40%; max-width:200px; float:left;'/>
-								<input id="txtCarowner" type="text"  style='width:50%; max-width:200px; float:left;'/>
-								</td><td class="td3" >
-								<div class='btnLbl tb'>
-									<a id='lblSex'></a>
-								</div></td><td class="td4" ><select id="cmbSex" style="width:95%;"></select></td><td class="td5" >
-								<div class='btnLbl tb'>
-									<a id='lblIdno'></a>
-								</div></td><td class="td6" >
-								<input id="txtIdno" type="text"  style='width:95%; max-width:200px; float:left;'/>
-								</td><td class="td7" >
-								<div class='btnLbl tb'>
-									<a id='lblBirthday'></a>
-								</div></td><td class="td8">
-								<input id="txtBirthday" type="text"  style='width:95%; max-width:200px; float:left;'/>
-								</td>
-							</tr>
-							<tr class="tr3">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblTel1'></a>
-								</div></td>
-								<td class="td2">
-								<input id="txtTel1" type="text"  style='width:95%; '/>
-								</td>
-								<td class="td3">
-								<div class='btnLbl tb'>
-									<a id='lblTel2'></a>
-								</div></td>
-								<td class="td4">
-								<input id="txtTel2" type="text"  style='width:95%; '/>
-								</td>
-								<td class="td5">
-								<div class='btnLbl tb'>
-									<a id='lblMobile'></a>
-								</div></td>
-								<td class="td6">
-								<input id="txtMobile" type="text"  style='width:95%; '/>
-								</td>
-								<td class="td7">
-								<div class='btnLbl tb'>
-									<a id='lblFax'></a>
-								</div></td>
-								<td class="td8">
-								<input id="txtFax" type="text"  style='width:95%; '/>
-								</td>
-							</tr>
-							<tr class="tr4">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblAddr_conn'></a>
-								</div></td>
-								<td class="td2" colspan="7">
-								<input id="txtAddr_conn" type="text"  style='width:95%; '/>
-								</td>
-							</tr>
-							<tr class="tr5">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblAddr_home'></a>
-								</div></td>
-								<td class="td2" colspan="7">
-								<input id="txtAddr_home" type="text"  style='width:95%; '/>
-								</td>
-							</tr>
-							<tr class="tr6">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblIndate'></a>
-								</div></td>
-								<td class="td2" >
-								<input id="txtIndate"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td3" >
-								<div class='btnLbl tb'>
-									<a id='lblInmoney'></a>
-								</div></td>
-								<td class="td4" >
-								<input id="txtInmoney"  type="text"  style='width:95%; max-width: 200px; text-align: right;'/>
-								</td>
-								<td class="td5" >
-								<div class='btnLbl tb'>
-									<a id='lblInplace'></a>
-								</div></td>
-								<td class="td6" >
-								<input id="txtInplace"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td7" ></td>
-								<td class="td8" ></td>
-							</tr>
-							<tr class="tr7">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblOutdate'></a>
-								</div></td>
-								<td class="td2" >
-								<input id="txtOutdate"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td3" >
-								<div class='btnLbl tb'>
-									<a id='lblOutmoney'></a>
-								</div></td>
-								<td class="td4" >
-								<input id="txtOutmoney"  type="text"  style='width:95%; max-width: 200px; text-align: right;'/>
-								</td>
-								<td class="td5" >
-								<div class='btnLbl tb'>
-									<a id='lblOutplace'></a>
-								</div></td>
-								<td class="td6" >
-								<input id="txtOutplace"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td7" ></td>
-								<td class="td8" ></td>
-							</tr>
-							<tr class="tr8">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblPassdate'></a>
-								</div></td>
-								<td class="td2" >
-								<input id="txtPassdate"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td3" >
-								<div class='btnLbl tb'>
-									<a id='lblLimitdate'></a>
-								</div></td>
-								<td class="td4" >
-								<input id="txtLimitdate"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td5" >
-								<div class='btnLbl tb'>
-									<a id='lblCaryear'></a>
-								</div></td>
-								<td class="td6" >
-								<input id="txtCaryear"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td7" >
-								<div class='btnLbl tb'>
-									<a id='lblCaryeartw'></a>
-								</div></td>
-								<td class="td8" >
-								<input id="txtCaryeartw"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-							</tr>
-							<tr class="tr9">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblCheckdate'></a>
-								</div></td>
-								<td class="td2" >
-								<input id="txtCheckdate"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td3" >
-								<div class='btnLbl tb'>
-									<a id='lblCarbrand'></a>
-								</div></td>
-								<td class="td4" ><select id="cmbCarbrandno" style="width:95%;"></select></td>
-								<td class="td5" >
-								<div class='btnLbl tb'>
-									<a id='lblTon'></a>
-								</div></td>
-								<td class="td6" >
-								<input id="txtTon"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td7" >
-								<div class='btnLbl tb'>
-									<a id='lblEngineno'></a>
-								</div></td>
-								<td class="td8" >
-								<input id="txtEngineno"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-							</tr>
-							<tr class="tr10">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblPassno'></a>
-								</div></td>
-								<td class="td2" >
-								<input id="txtPassno"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td3" >
-								<div class='btnLbl tb'>
-									<a id='lblCarmode'></a>
-								</div></td>
-								<td class="td4" >
-								<input id="txtCarmode"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td5" >
-								<div class='btnLbl tb'>
-									<a id='lblCarkind'></a>
-								</div></td>
-								<td class="td6" ><select id="cmbCarkindno" style="width:95%;"></select></td>
-								<td class="td7" >
-								<div class='btnLbl tb'>
-									<a id='lblChecktype'></a>
-								</div></td>
-								<td class="td8" ><select id="cmbChecktype" style="width:95%;"></select></td>
-							</tr>
-							<tr class="tr11">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblWeight1'></a>
-								</div></td>
-								<td class="td2" >
-								<input id="txtWeight1"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td3" >
-								<div class='btnLbl tb'>
-									<a id='lblWeight2'></a>
-								</div></td>
-								<td class="td4" >
-								<input id="txtWeight2"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td5" >
-								<div class='btnLbl tb'>
-									<a id='lblCylinder'></a>
-								</div></td>
-								<td class="td6" >
-								<input id="txtCylinder"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td7" ></td>
-								<td class="td8" ></td>
-							</tr>
-							<tr class="tr12">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblLengthb'></a>
-								</div></td>
-								<td class="td2" >
-								<input id="txtLengthb"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td3" >
-								<div class='btnLbl tb'>
-									<a id='lblWidth'></a>
-								</div></td>
-								<td class="td4" >
-								<input id="txtWidth"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td5" >
-								<div class='btnLbl tb'>
-									<a id='lblHeight'></a>
-								</div></td>
-								<td class="td6" >
-								<input id="txtHeight"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td7" >
-								<div class='btnLbl tb'>
-									<a id='lblWheelbase'></a>
-								</div></td>
-								<td class="td8" >
-								<input id="txtWheelbase"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-							</tr>
-							<tr class="tr13">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblReferee'></a>
-								</div></td>
-								<td class="td2" >
-								<input id="txtReferee"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td3" >
-								<div class='btnLbl tb'>
-									<a id='lblSaledate'></a>
-								</div></td>
-								<td class="td4" >
-								<input id="txtSaledate"  type="text"  style='width:95%; max-width: 200px; '/>
-								</td>
-								<td class="td5" >
-								<div class='btnLbl tb'>
-									<a id='lblSalemoney'></a>
-								</div></td>
-								<td class="td6" >
-								<input id="txtSalemoney"  type="text"  style='width:95%; text-align: right;'/>
-								</td>
-								<td class="td7" >
-								<div class='btnLbl tb'>
-									<a id='lblAmortization'></a>
-								</div></td>
-								<td class="td8" >
-								<input id="txtAmortization"  type="text"  style='width:95%; text-align: right;'/>
-								</td>
-							</tr>
-							<tr class="tr14">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblMemo'></a>
-								</div></td>
-								<td class="td2" colspan='7'>								<textarea id="txtMemo" rows="5" cols="10" style="width:95%; height: 127px;"></textarea></td>
-							</tr>
-							<tr class="tr15">
-								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblCartype'></a>
-								</div></td>
-								<td class="td2" ><select id="cmbCartype" style="width:95%;"></select></td>
-								<td class="td3" >
-								<div class='btnLbl tb'>
-									<a id='lblIsprint'></a>
-								</div></td>
-								<td class="td4" ><select id="cmbIsprint" style="width:95%;"></select></td>
-								<td class="td5" >
-								<div class='btnLbl tb button'>
-									<a id='lblSss'></a>
-								</div></td>
-								<td class="td6" >
-								<input id="txtSssno"  type="text"  style='width:95%; max-width: 200px; float:left;'/>
-								</td>
-							</tr>
-						</table>
-					</div>
 					<div style="border: 1px solid #000000;border-radius: 5px; height:30px; padding: 5px 0 0 5px; ">
 						<div class='btnLbl button'>
 							<a id='lblCarexpense'></a>
@@ -1184,35 +818,13 @@
 						<div class='btnLbl button'>
 							<a id='lblCartax'></a>
 						</div>
-						<div style="border: 1px solid #000000;border-radius: 5px; height:30px; padding: 5px 0 0 5px; ">
-							<div class='btnLbl button'>
-								<a id='lblCarexpense'></a>
-							</div>
-							<div class='btnLbl button'>
-								<a id='lblCarinsurance'></a>
-							</div>
-							<div class='btnLbl button'>
-								<a id='lblCarlender'></a>
-							</div>
-							<div class='btnLbl button'>
-								<a id='lblCaraccident'></a>
-							</div>
-							<div class='btnLbl button'>
-								<a id='lblCarchange'></a>
-							</div>
-							<div class='btnLbl button'>
-								<a id='lblOil'></a>
-							</div>
-							<div class='btnLbl button'>
-								<a id='lblCartax'></a>
-							</div>
-						</div>
 					</div>
 				</div>
+
 			</div>
 			<input id="q_sys" type="hidden" />
 		</div>
-		<div id="divCarexpense" class='popDiv' style="display: none;">
+		<div id="divCarexpense" class='popDiv'>
 			<div class="block">
 				<div class="col">
 					<div class='btnLbl'>
