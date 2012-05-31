@@ -20,7 +20,7 @@
             q_tables = 's';
             q_desc = 1;
             var q_name = "vcc";
-            var q_readonly = ['txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtOrdeno'];
+            var q_readonly = ['txtNoa','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtOrdeno'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]];
             var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2], ['txtTotal', 10, 0]];
@@ -161,6 +161,30 @@
                 cmb.value = '';
             }
 
+            function btnIns() {
+                _btnIns();
+                $('#txtNoa').val('AUTO');
+                $('#txtDatea').val(q_date());
+            }
+
+            function btnModi() {
+                if(emp($('#txtNoa').val()))
+                    return;
+                _btnModi();
+                ;
+            }
+
+            function btnPrint() {
+
+            }
+
+            function wrServer(key_value) {
+                var i;
+
+                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+                _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
+            }
+
             function bbsAssign() {
                 _bbsAssign();
                 for(var i = 0; i < q_bbsCount; i++) {
@@ -204,7 +228,6 @@
                             sum();
                         });
                     }
-
                     /*Memo*/
                     if( typeof ($('#txtMemo_' + i).data('info')) == 'undefined')
                         $('#txtMemo_' + i).data('info', {
@@ -227,30 +250,6 @@
                     }
                     $('#txtMemo_' + i).change();
                 }
-            }
-
-            function btnIns() {
-                _btnIns();
-                $('#txtNoa').val('AUTO');
-                $('#txtDatea').val(q_date());
-            }
-
-            function btnModi() {
-                if(emp($('#txtNoa').val()))
-                    return;
-                _btnModi();
-                ;
-            }
-
-            function btnPrint() {
-
-            }
-
-            function wrServer(key_value) {
-                var i;
-
-                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-                _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
             }
 
             function bbsSave(as) {
@@ -548,9 +547,9 @@
 						<td class="td4">
 						<input id="txtPay" type="text" class="txt c2"/>
 						<select id="combPay" class="txt c2" ></select></td>
-						<td class="td5"><span> </span><a id='lblAccc' class="lbl btn"></a></td>
+						<td class="td5"><span> </span><a id='lblAccno' class="lbl btn"></a></td>
 						<td class="td6">
-						<input type="text" id="txtAcccno" class="txt c1"/>
+						<input type="text" id="txtAccno" class="txt c1"/>
 						</td>
 					</tr>
 					<tr class="tr5">
