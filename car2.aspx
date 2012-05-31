@@ -170,7 +170,7 @@
             function q_boxClose(s2) {
 
                 var ret;
-                switch (b_pop) {
+                switch (b_pop) {             
                     case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
@@ -179,9 +179,11 @@
             }
 
             function q_gfPost() {
+            	
             }
 
             function q_gtPost(t_name) {
+            	
             }
 
             function _btnSeek() {
@@ -189,7 +191,7 @@
                     return;
                 q_box('car2_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
             }
-
+			  
             function btnIns() {
                 _btnIns();
                 $('#txtCarno').focus();
