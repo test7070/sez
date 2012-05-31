@@ -19,7 +19,7 @@
             q_tables = 's';
             var q_name = "pay";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno', 'txtCno', 'txtAcomp'];
-            var q_readonlys = ['txtVccno', 'txtPart', 'txtPartno','txtUnpay'];
+            var q_readonlys = ['txtRc2no', 'txtPart', 'txtPartno','txtUnpay'];
             var bbmNum = [['txtTotal', 10, 0, 1]];
             var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0], ['txtPaysale', 10, 0], ['txtUnpay', 10, 0]];
             var bbmMask = [];
@@ -30,7 +30,7 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             //ajaxPath = "";
-            aPop = new Array(['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
+            aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -66,17 +66,42 @@
                         }
                         var t_cardealno = "'" + $.trim($('#txtCardealno').val()) + "'";
                         var t_driverno = "'" + $.trim($('#txtDriverno').val()) + "'";
-                        t_where = "where=^^ driverno=" + t_driverno + " and unpay!=0 ";
+                        t_where = "where=^^ unpay!=0 ";
+                        if(t_cardealno!="''")
+                        	t_where += " and cardealno="+t_cardealno;
+                        if(t_driverno!="''")
+                        	t_where += " and driverno="+t_driverno;
                         t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "' and ( 1=1 ";
                         for(var i = 0; i < q_bbsCount; i++) {
                             if($.trim($('#txtRc2no_' + i).val()).length > 0) {
                                 t_where = t_where + "or noa='" + $('#txtRc2no_' + i).val() + "'";
-                                t_where1 = t_where1 + "or vccno='" + $('#txtRc2no_' + i).val() + "'";
+                                t_where1 = t_where1 + "or rc2no='" + $('#txtRc2no_' + i).val() + "'";
                             }
                         }
                         t_where = t_where + "^^";
                         t_where1 = t_where1 + ")^^";
                         q_gt('tre_pay', t_where + t_where1, 0, 0, 0, "", r_accy);
+                    }
+                });
+                $('#btnRc2tran').click(function(e) {
+                    if(q_cur == 1 || q_cur == 2) {
+                        if($.trim($('#txtTggno').val()) == 0) {
+                            alert('Please enter the Tggno.');
+                            return false;
+                        }
+                        var t_tggno = "'" + $.trim($('#txtTggno').val()) + "'";
+
+                        t_where = "where=^^ tggno=" + t_tggno + " and unpay!=0 ";
+                        t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "' and ( 1=1 ";
+                        for(var i = 0; i < q_bbsCount; i++) {
+                            if($.trim($('#txtRc2no_' + i).val()).length > 0) {
+                                t_where = t_where + "or noa='" + $('#txtRc2no_' + i).val() + "'";
+                                t_where1 = t_where1 + "or rc2no='" + $('#txtRc2no_' + i).val() + "'";
+                            }
+                        }
+                        t_where = t_where + "^^";
+                        t_where1 = t_where1 + ")^^";
+                        q_gt('rc2_pay', t_where + t_where1, 0, 0, 0, "", r_accy);
                     }
                 });
             }
@@ -92,7 +117,7 @@
                             if($('#txtRc2no_' + i).val().length > 0) {
                                 curData.push({
                                     index : i,
-                                    vccno : $('#txtRc2no_' + i).val(),
+                                    rc2no : $('#txtRc2no_' + i).val(),
                                     paysale : parseInt($.trim($('#txtPaysale_' + i).val()).length == 0 ? '0' : $('#txtPaysale_' + i).val().replace(/,/g, ''), 10)
                                 });
                             }
@@ -102,7 +127,7 @@
                             as[i].total = parseInt($.trim(as[i].total).length == 0 ? '0' : as[i].total, 10);
                             as[i].paysale = parseInt($.trim(as[i].paysale).length == 0 ? '0' : as[i].paysale, 10);
                             for(var j = 0; j < curData.length; j++) {
-                                if(as[i].noa == curData[j].vccno) {
+                                if(as[i].noa == curData[j].rc2no) {
                                     as[i].paysale += curData[j].paysale;
                                 }
                             }
@@ -118,7 +143,38 @@
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay', as.length, as, 'noa,_unpay,_unpay', 'txtRc2no', '');
                         sum();
                         break;
-
+					case 'rc2_pay':
+                        var curData = new Array();
+                        for(var i = 0; i < q_bbsCount; i++) {
+                            if($('#txtRc2no_' + i).val().length > 0) {
+                                curData.push({
+                                    index : i,
+                                    rc2no : $('#txtRc2no_' + i).val(),
+                                    paysale : parseInt($.trim($('#txtPaysale_' + i).val()).length == 0 ? '0' : $('#txtPaysale_' + i).val().replace(/,/g,''), 10)
+                                });
+                            }
+                        }
+                        var as = _q_appendData("rc2", "", true);
+                        for(var i = 0; i < as.length; i++) {
+                            as[i].total = parseInt($.trim(as[i].total).length == 0 ? '0' : as[i].total, 10);
+                            as[i].paysale = parseInt($.trim(as[i].paysale).length == 0 ? '0' : as[i].paysale, 10);
+                            for(var j = 0; j < curData.length; j++) {
+                                if(as[i].noa == curData[j].rc2no) {
+                                    as[i].paysale += curData[j].paysale;
+                                }
+                            }
+                            if(as[i].total - as[i].paysale == 0) {
+                                as.splice(i, 1);
+                                i--;
+                            } else {
+                                as[i]._unpay = (as[i].total - as[i].paysale).toString();
+                                as[i].total = as[i].total.toString();
+                                as[i].paysale = as[i].paysale.toString();
+                            }
+                        }
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay', as.length, as, 'noa,_unpay,_unpay', 'txtRc2no', '');
+                        sum();
+                        break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -525,9 +581,11 @@
 						<td class="td2">
 						<input id="txtAccno"  type="text" class="txt c1"/>
 						</td>
-						<td class="td3"></td>
-						<td class="td4"></td>
-						<td class="td5"></td>
+						<td class="td3"><span> </span><a id='lblTgg' class="lbl btn"></a></td>
+						<td class="td4" colspan="2">
+						<input id="txtTggno" type="text" class="txt c4"/>
+						<input id="txtTgg"  type="text" class="txt c5"/>
+						</td>
 						<td class="td6"></td>
 						<td class="td7">
 						<input type="button" id="btnTre" class="txt c1 " />
@@ -537,39 +595,33 @@
 						</td>
 					</tr>
 					<tr class="tr5">
-						<td class="td1" ><span> </span><a id="lblApprv" class="lbl"></a></td>
-						<td class="td2" colspan="2">
-						<input id="txtApprv"  type="text" style="float: left; width:30%;"/>
-						<input id="txtApprvmemo"  type="text" style="float: left; width:50%;"/>
-						</td>
-					</tr>
-					<tr class="tr6">
-						<td class="td1" ><span> </span><a id="lblChecker" class="lbl"></a></td>
-						<td class="td2" colspan="2">
-						<input id="txtChecker"  type="text" style="float: left; width:30%;"/>
-						<input id="txtCheckermemo"  type="text" style="float: left; width:50%;"/>
-						</td>
-					</tr>
-					<tr class="tr7">
-						<td class="td1" ><span> </span><a id="lblApprove" class="lbl"></a></td>
-						<td class="td2" colspan="2">
-						<input id="txtApprove"  type="text" style="float: left; width:30%;"/>
-						<input id="txtApprovememo"  type="text" style="float: left; width:50%;"/>
-						</td>
-					</tr>
-					<tr class="tr8">
-						<td class="td1" ><span> </span><a id="lblApprove2" class="lbl"></a></td>
-						<td class="td2" colspan="2">
-						<input id="txtApprove2"  type="text" style="float: left; width:30%;"/>
-						<input id="txtApprove2memo"  type="text" style="float: left; width:50%;"/>
-						</td>
-					</tr>
-					<tr class="tr9">
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
 						<td class="td2" colspan='5' >						<textarea id="txtMemo" style="width: 99%; height: 50px;" ></textarea></td>
 						<td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
 						<td class="td8" >
 						<input id="txtWorker"  type="text" class="txt c1"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id="lblChecker" class="lbl"></a></td>
+						<td class="td2">
+						<input id="txtchecker" type="text" class="txt c2"/>
+						<input id="txtCheckmemo"  type="text" class="txt c3"/>
+						</td>
+						<td class="td3"><span> </span><a id="lblApprv" class="lbl"></a></td>
+						<td class="td4">
+						<input id="txtApprv"  type="text" class="txt c2"/>
+						<input id="txtApprvmemo"  type="text" class="txt c3"/>
+						</td>
+						<td class="td5"><span> </span><a id="lblApprove"class="lbl"></a></td>
+						<td class="td6">
+						<input id="txtApprove"  type="text" class="txt c2"/>
+						<input id="txtApprovememo"  type="text" class="txt c3"/>
+						</td>
+						<td class="td7"><span> </span><a id="lblApprove2"class="lbl"></a></td>
+						<td class="td8">
+						<input id="txtApprove2"  type="text" class="txt c2"/>
+						<input id="txtApprove2memo"  type="text" class="txt c3"/>
 						</td>
 					</tr>
 				</table>

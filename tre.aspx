@@ -29,7 +29,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],['txtDealno', 'lblDeal', 'cardeal', 'noa,comp', 'txtDealno,txtDeal', 'cardeal_b.aspx']);
+            aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -457,10 +457,10 @@
 						<input id="txtDriverno" type="text"  class="txt c2"/>
 						<input id="txtDriver" type="text"  class="txt c3"/>
 						</td>
-						<td class="td8"><span> </span><a id="lblDeal" class="lbl btn"></a></td>
+						<td class="td8"><span> </span><a id="lblCardeal" class="lbl btn"></a></td>
 						<td class="td9" colspan="2">
-						<input id="txtDealno" type="text"  class="txt c2"/>
-						<input id="txtDeal" type="text"  class="txt c3"/>
+						<input id="txtCardealno" type="text"  class="txt c2"/>
+						<input id="txtCardeal" type="text"  class="txt c3"/>
 						</td>
 						<td class="tdZ"></td>
 					</tr>
