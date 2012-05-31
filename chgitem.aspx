@@ -23,7 +23,7 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-        aPop = new Array(['txtAcc1', 'btnAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', 'acc_b.aspx']);
+        aPop = new Array(['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2',"acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno ]);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -126,7 +126,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('sss_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+            q_box('chgitem_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
         }
 
         function combPay_chg() {  
@@ -257,16 +257,16 @@
     <style type="text/css">
 	#dmain{overflow:hidden;}
 		 .dview{float:left;width:25%;}
-		 .tview{margin:0;padding:2px;border:1px black double;border-spacing:0;font-size:16px;background-color:#FFFF66;color:blue;}
+		 .tview{margin:0;padding:2px;border:1px black double;border-spacing:0;font-size:medium;background-color:#FFFF66;color:blue;}
 		 .tview td{padding:2px;text-align:center;border:1px black solid;}
 		 .dbbm{float:left;width:73%;margin:-1px;border:1px black solid;border-radius:5px;}
-		 .tbbm{padding:0px;border:1px white double;border-spacing:0;border-collapse:collapse;font-size:16px;color:blue;background:#cad3ff;width:100%;}
+		 .tbbm{padding:0px;border:1px white double;border-spacing:0;border-collapse:collapse;font-size:medium;color:blue;background:#cad3ff;width:100%;}
 		 .tbbm tr{height:35px;}
 		 
 		 .td1, .td3, .td5, .td7{width: 11%; text-align: right;}
 		 .td2, .td4, .td6, .td8{width: 14%;}
 		 .tbbm tr td span{float:right;display:block;width:8px;height:10px;}
-		 .tbbm tr td .lbl{float:right;color:blue;font-size:16px;}
+		 .tbbm tr td .lbl{float:right;color:blue;font-size:medium;}
 		 .tbbm tr td .lbl.btn{color:#4297D7;font-weight:bolder;}
 		 .tbbm tr td .lbl.btn:hover{color:#FF8F19;}
 		 .tbbm tr td .txt.c1{width:100%;float:left;}
@@ -276,7 +276,6 @@
 		 .tbbm tr td .txt.c5{width:35%;float:left;}
 		 .tbbm tr td .txt.c6{width:64%;float:left;}
 		 .tbbm tr td .txt.num{text-align:right;}
-		 .dbbm input[type="button"]{float:right;width:auto;font-size: medium;}
 		 .tbbm tr td{margin:0px -1px;padding:0;}
 		 .tbbm tr td input[type="text"]{border-width:1px;padding:0px;margin:-1px;}
 		 .tbbm tr td select{border-width:1px;padding:0px;margin:-1px;width: 98%;}
@@ -306,32 +305,32 @@
         <div class='dbbm' style="width: 73%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
            <tr>
-               <td class="td1"><span> </span><a id='lblTypea'></a></td>
+               <td class="td1"><span> </span><a id='lblTypea' class="lbl"></a></td>
                <td class="td2"><select id="cmbTypea" class="txt c1"></select></td>
-               <td class="td3"><span> </span><a id='lblNoa'></a></td>
+               <td class="td3"><span> </span><a id='lblNoa' class="lbl"></a></td>
                <td class="td4"><input id="txtNoa"  type="text"  class="txt c1"/></td>
                <td class="td5"></td>
                <td class="td6"></td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblItem'></a></td>
+               <td class="td1"><span> </span><a id='lblItem' class="lbl"></a></td>
                <td class="td2"><input id="txtItem" type="text"  class="txt c1"/></td>
-               <td class="td3"><span> </span><input id="btnAcc" type="button" /></td>
+               <td class="td3"><span> </span><a id="lblAcc" class="lbl btn" ></a></td>
                <td class="td4"><input id="txtAcc1" type="text"  class="txt c5"/>
                <input id="txtAcc2"  type="text"  class="txt c6"/></td>
                <td class="td5"></td>
                <td class="td6"></td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblPrice'></a></td>
+               <td class="td1"><span> </span><a id='lblPrice' class="lbl"></a></td>
                <td class="td2"><input id="txtPrice" type="text"  class="txt num c1"/></td>
-               <td class="td3"><span> </span><a id="lblPricepay"></a></td>
+               <td class="td3"><span> </span><a id="lblPricepay" class="lbl"></a></td>
                <td class="td4"><input id="txtPricepay" type="text"  class="txt num c1"/></td>
                <td class="td5"><input id="chkIsfix" type="checkbox" style=" "/></td>
                <td class="td6"><span> </span><a id="vewIsfix"></a></td>
             </tr>
             <tr>
-                <td class="td1"><span> </span><a id="lblMemo" ></a></td>
+                <td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
                 <td class="td2" colspan='6'><textarea id="txtMemo"  cols="10" rows="5"  style='width:98%; height: 127px;'></textarea></td>
             </tr>
             <tr>
@@ -339,7 +338,7 @@
                <td class="td2"></td>
                <td class="td3"></td>
                <td class="td4"></td>
-               <td class="td5"><span> </span><a id="lblWorker"></a></td>
+               <td class="td5"><span> </span><a id="lblWorker" class="lbl"></a></td>
                <td class="td6"><input id="txtWorker" type="text" class="txt c2" /></td>
             </tr>
         </table>

@@ -17,9 +17,6 @@
 
             var afield, t_htm;
             var i, s1;
-
-            var decbbs = ['money'];
-            var decbbm = [];
             var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [];

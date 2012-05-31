@@ -32,6 +32,7 @@
 
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();
+        t_carno = $('#txtCarno').val();
         t_bindate = $('#txtBindate').val();
         t_eindate = $('#txtEindate').val();
         t_driverno = $('#txtDriverno').val();
@@ -43,7 +44,7 @@
         t_bindate = t_bindate.length > 0 && t_bindate.indexOf("_") > -1 ? t_bindate.substr(0, t_bindate.indexOf("_")) : t_bindate;  /// 100.  .
         t_eindate = t_eindate.length > 0 && t_eindate.indexOf("_") > -1 ? t_eindate.substr(0, t_eindate.indexOf("_")) : t_eindate;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("indate", t_bindate, t_eindate)+q_sqlPara2("driverno", t_driverno)
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +q_sqlPara2("carno", t_carno) + q_sqlPara2("indate", t_bindate, t_eindate)+q_sqlPara2("driverno", t_driverno)
         +q_sqlPara2("driver", t_driver)+q_sqlPara2("cardealno", t_cardealno)+q_sqlPara2("cardeal", t_cardeal)+q_sqlPara2("carownerno", t_carownerno)+q_sqlPara2("carowner", t_carowner);
 
         t_where = ' where=^^' + t_where + '^^ ';
@@ -67,6 +68,10 @@
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblCarno'></a></td>
+                <td><input class="txt" id="txtCarno" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblCardeal'></a></td>

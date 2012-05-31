@@ -612,7 +612,7 @@
 						<td class="td1"><span> </span><a id="lblChecker" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtchecker" type="text" class="txt c2"/>
-						<input id="txtCheckmemo"  type="text" class="txt c3"/>
+						<input id="txtCheckermemo"  type="text" class="txt c3"/>
 						</td>
 						<td class="td3"><span> </span><a id="lblApprv" class="lbl"></a></td>
 						<td class="td4">

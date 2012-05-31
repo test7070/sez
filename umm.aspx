@@ -18,8 +18,8 @@
 
             q_tables = 's';
             var q_name = "umm";
-            var decbbs = ['money', 'paysale', 'chgs', 'moneyus', 'paysaleus', 'chgsus'];
-            var decbbm = ['sale', 'paysale', 'nextsale', 'total', 'floata', 'opay', 'unopay', 'totalus', 'paysaleus', 'nextsaleus', 'outsource'];
+            
+            
             var q_readonly = ['txtComp', 'txtAcomp', 'txtTotal', 'txtTotalus'];
             var q_readonlys = [];
             var bbmNum = [['txtFloata', 7, 2], ['txtTotalus', 12, 2], ['txtPaysaleus', 12, 2], ['txtNextsaleus', 12, 2], ['txtTotal', 10, 0], ['txtPaysale', 10, 0], ['txtNextsale', 10, 0]];

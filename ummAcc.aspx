@@ -291,7 +291,7 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 9%;
+                width: 10%;
             }
             .tbbm .tdZ {
                 width: 2%;
@@ -399,7 +399,9 @@
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
                <td class="td2"><input id="txtNoa" type="text"  class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblTypea" class="lbl"></a></td>
-               <td class="td4"><input id="txtTypea" type="text"  class="txt c1"/></td>           
+               <td class="td4"><input id="txtTypea" type="text"  class="txt c1"/></td>
+               <td class="td5"></td>
+               <td class="td6"></td>           
             </tr>
             <tr class="tr2">
                <td class="td1"><span> </span><a id='lblRacc1' class="lbl btn"></a></td>
@@ -407,19 +409,25 @@
                <input id="txtRacc2" type="text" class="txt c3" /></td>
                <td class="td3"><span> </span><a id='lblRacc3' class="lbl btn"></a></td>
                <td class="td4"><input id="txtRacc3"  type="text" class="txt c2" />
-               <input id="txtRacc4" type="text" class="txt c3" /></td>  
+               <input id="txtRacc4" type="text" class="txt c3" /></td>
+               <td class="td5"></td>
+               <td class="td6"></td>  
             </tr>
-            <tr class="tr4">
+            <tr class="tr3">
                <td class="td1"><span> </span><a id='lblPacc1' class="lbl btn"></a></td>
                <td class="td2"><input id="txtPacc1"  type="text" class="txt c2" />
                <input id="txtPacc2" type="text" class="txt c3" /></td>
-               <td class="td1"><span> </span><a id='lblPacc3' class="lbl btn"></a></td>
-               <td class="td2"><input id="txtPacc3"  type="text" class="txt c2" />
+               <td class="td3"><span> </span><a id='lblPacc3' class="lbl btn"></a></td>
+               <td class="td4"><input id="txtPacc3"  type="text" class="txt c2" />
                <input id="txtPacc4" type="text" class="txt c3" /></td>
+               <td class="td5"></td>
+               <td class="td6"></td>
             </tr>
             <tr class="tr6">
                <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-               <td class="td2" colspan="3"><textarea id="txtMemo" cols="10" rows="5" style="width: 98%;height: 127px;"></textarea></td>              
+               <td class="td2" colspan="3"><textarea id="txtMemo" cols="10" rows="5" style="width: 98%;height: 50px;"></textarea></td>
+               <td class="td5"></td>
+               <td class="td6"></td>              
             </tr>
         </table>
         </div>
