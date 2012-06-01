@@ -15,13 +15,11 @@
         this.errorHandler = null;
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
-        }
-        var decbbm = ['start', 'startn', 'credit'];   
+        }   
         var q_name="cust";  
         var q_readonly = ['txtSales', 'txtGrpname', 'txtUacc1', 'txtUacc2', 'txtUacc3'];   
-        var bbmNum = [['txtStartn', 2, 0], ['txtGetdate', 2, 0], ['txtPaydate', 2, 0]];  // allow precesion
-        var bbmNum_comma = ['txtCredit'];  ///  ,,,,,, disp comma
-        var bbmMask = []; //  [['txtUacc1', '9999.99999999'], ['txtUacc2', '9999.99999999'], ['txtUacc3', '9999.99999999']];
+        var bbmNum = [];
+        var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
 
@@ -31,12 +29,9 @@
             xmlTable = 'conn';
             xmlKey = [['noa', 'noq']];
             xmlDec = [];
-            q_popSave( xmlTable);  // for conn_b.aspx  
-
+            q_popSave( xmlTable);  // for conn_b.aspx
             q_brwCount();
-
-            if (!q_gt(q_name, q_content, q_sqlCount, 1))
-                return;
+            q_gt(q_name, q_content, q_sqlCount, 1)
 
             $('#txtNoa').focus
         });
@@ -60,7 +55,7 @@
             q_cmbParse("combPay", q_getPara('vcc.pay'));  
             q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
 
-            $('#btnSales').click(function () { pop('sss'); });
+           $('#btnSales').click(function () { pop('sss'); });
             $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
             $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); });
 
@@ -456,10 +451,10 @@
             </tr>
             <tr>
                <td class="label1"  align="right"><a id='lblTrantype'></a></td>
-               <td class="column1" ><select id="cmbTrantype" style='width:100%' />              </td>
+               <td class="column1" ><select id="cmbTrantype" style='width:100%'></select>              </td>
                <td class="label2" align="right" ><a id='lblPay'></a></td>
-                <td > <input id="txtPay" type="text" maxlength='20' style='width:45%' />
-                                      <select id="combPay" style='width:45%' onchange='combPay_chg()' /> </td>
+               <td > <input id="txtPay" type="text" maxlength='20' style='width:45%' />
+               <select id="combPay" style='width:45%' onchange='combPay_chg()'></select></td>
                <td class="label3" align="right" ><a id='lblUacc3'></a></td>
                <td><input id="txtUacc3"    type="text"  maxlength='20' style="width:98%"/></td>
             </tr>

@@ -389,7 +389,7 @@
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:10%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:15%"><a id='vewTablea'></a></td>
+                <td align="center" style="width:15%"><a id='vewFormname'></a></td>
                 <td align="center" style="width:10%"><a id='vewPart'></a></td>
                 <td align="center" style="width:10%"><a id='vewChecker'></a></td>
                 <td align="center" style="width:10%"><a id='vewApprov'></a></td>
@@ -400,7 +400,7 @@
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='tablea'>~tablea</td>
+                   <td align="center" id='formname'>~formname</td>
                    <td align="center" id='part'>~part</td>
                    <td align="center" id='checker'>~checker</td>
                    <td align="center" id='approv'>~approv</td>
@@ -415,8 +415,8 @@
             <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
                <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblTablea" class="lbl"></a></td>
-               <td class="td4"><input id="txtTablea" type="text" class="txt c1" /></td>
+               <td class="td3"><span> </span><a id="lblFormname" class="lbl"></a></td>
+               <td class="td4"><input id="txtFormname" type="text" class="txt c1" /></td>
                <td class="td5"><span> </span><a id="lblPart" class="lbl btn"></a></td>
                <td class="td6"><input id="txtPartno" type="text" class="txt c2" />
                	<input id="txtPart" type="text" class="txt c3" /></td>
@@ -424,10 +424,10 @@
             <tr>
                <td class="td1"><span> </span><a id='lblChecker' class="lbl"></a></td>
                <td class="td2"><input id="txtChecker"  type="text" class="txt c1"/></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-               <td class="td5"><span> </span><a id="lblForm" class="lbl"></a></td>
-               <td class="td6"><input id="txtForm" type="text" class="txt c1" /></td>
+               <td class="td3"><span> </span><a id="lblForm" class="lbl"></a></td>
+               <td class="td4"><input id="txtForm" type="text" class="txt c1" /></td>
+               <td class="td5"><span> </span><a id="lblYears" class="lbl"></a></td>
+               <td class="td6"><input id="txtYears" type="text" class="txt c2" /><a id="lblYears_yn" class="txt c3"></a></td>
             </tr>
             <tr>
             	<td class="td1"><span> </span><a id="lblApprov" class="lbl"></a></td>

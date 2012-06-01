@@ -17,8 +17,6 @@
         }
         q_tables = 's';
         var q_name = "cut";
-        var decbbs = ['dime', 'width', 'lengthb', 'mount', 'divide', 'theory', 'hweight', 'weight', 'wprice', 'radius', 'mweight'];
-        var decbbm = ['dime', 'width', 'lengthb', 'oweight', 'eweight', 'gweight', 'lengthb2', 'theyout', 'totalout', 'price', 'tranmoney'];
         var q_readonly = [];
         var q_readonlys = [];
         var bbmNum = [];  
@@ -26,8 +24,8 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtCustno', 'btnCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],['txtProductno', 'btnProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
-        ['txtTggno', 'btnTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'],['txtMechno', 'btnMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx']);
+        aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
+        ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'],['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -99,7 +97,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('cng_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('cut_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   
@@ -223,89 +221,129 @@
         }
     </script>
     <style type="text/css">
-        .tview
-        {
-            FONT-SIZE: 12pt;
-            COLOR:  Blue ;
-            background:#FFCC00;
-            padding: 3px;
-            TEXT-ALIGN:  center;
-        }    
-        .tbbm
-        {
-            FONT-SIZE: 12pt;
-            COLOR: blue;
-            TEXT-ALIGN: left;
-            border-color: white; 
-            width:98%; border-collapse: collapse; background:#cad3ff;
-        } 
-        
-        .tbbs
-        {
-            FONT-SIZE: 12pt;
-            COLOR: blue ;
-            TEXT-ALIGN: left;
-             BORDER:1PX LIGHTGREY SOLID;
-             width:98% ; height:98% ;  
-        } 
-        
-       
-        .column1
-        {
-            width: 15%;
-        }
-        .column2
-        {
-            width: 15%;
-        }      
-        .column3
-        {
-            width: 12%;
-        }   
-        .column4
-        {
-            width: 12%;
-        }           
-         .label1
-        {
-            width: 10%; text-align:right;
-        }       
-        .label2
-        {
-            width: 10%; text-align:right;
-        }
-        .label3
-        {
-            width: 12%; text-align:right;
-        }
-	    .label4
-        {
-            width: 10%; text-align:right;
-        }
-        .txt.c1
-        {
-            width: 95%;
-        }
-        .txt.c2
-        {
-            width: 90%;
-        }
-        .txt.c3
-        {
-            width: 30%;
-            float: left;
-        }
-        .txt.c4
-        {
-            width: 59%;
-            float: left;
-        }
-        .txt.c5
-        {
-            width: 45%;
-            float: left;
-        }
-       
+        #dmain {
+                overflow: hidden;
+            }
+            .dview {
+                float: left;
+                width: 18%;
+            }
+            .tview {
+                margin: 0;
+                padding: 2px;
+                border: 1px black double;
+                border-spacing: 0;
+                font-size: medium;
+                background-color: #FFFF66;
+                color: blue;
+            }
+            .tview td {
+                padding: 2px;
+                text-align: center;
+                border: 1px black solid;
+            }
+            .dbbm {
+                float: left;
+                width: 80%;
+                margin: -1px;
+                border: 1px black solid;
+                border-radius: 5px;
+            }
+            .tbbm {
+                padding: 0px;
+                border: 1px white double;
+                border-spacing: 0;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                background: #cad3ff;
+                width: 100%;
+            }
+            .tbbm tr {
+                height: 35px;
+            }
+            .tbbm tr td {
+                width: 9%;
+            }
+            .tbbm .tdZ {
+                width: 2%;
+            }
+            .tbbm tr td span {
+                float: right;
+                display: block;
+                width: 5px;
+                height: 10px;
+            }
+            .tbbm tr td .lbl {
+                float: right;
+                color: blue;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn {
+                color: #4297D7;
+                font-weight: bolder;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn:hover {
+                color: #FF8F19;
+            }
+            .txt.c1 {
+                width: 98%;
+                float: left;
+            }
+            .txt.c2 {
+                width: 98%;
+                float: left;
+            }
+            .txt.c3 {
+                width: 38%;
+                float: left;
+            }
+            .txt.c4 {
+                width: 60%;
+                float: left;
+            }
+            .txt.c5 {
+                width: 80%;
+                float: left;
+            }
+            .txt.num {
+                text-align: right;
+            }
+            .tbbm td {
+                margin: 0 -1px;
+                padding: 0;
+            }
+            .tbbm td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                float: left;
+            }
+            .tbbm td input[type="button"] {
+                float: left;
+            }
+            .tbbm select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+            }
+            .dbbs {
+                width: 100%;
+            }
+            .tbbs a {
+                font-size: medium;
+            }
+
+            .num {
+                text-align: right;
+            }
+            .tbbs tr.error input[type="text"] {
+                color: red;
+            }
+            input[type="text"], input[type="button"] {
+                font-size: medium;
+            }
       
     </style>
 </head>
@@ -331,101 +369,102 @@
         <div class='dbbm' style="width: 68%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr>
-            <td class='label1'><a id="lblDatea" ></a></td>
-            <td class="column1"><input id="txtDatea" type="text" class="txt c1"/></td>
-            <td class='label2'><a id="lblNoa" ></a></td>
-            <td class="column2"><input id="txtNoa" type="text" class="txt c1"/></td>
-            <td class='label3'><a id="lblType" ></a></td>
-            <td class="column3"><select id="cmbTypea" class="txt c1"></select></td> 
-            <td class='label4'><a id="lblOrdeno" ></a></td>
-            <td class="column4"><input id="txtOrdeno" type="text" class="txt c2"/></td>
+            <td class='td1'><span> </span><a id="lblDatea" class="lbl" ></a></td>
+            <td class="td2"><input id="txtDatea" type="text" class="txt c1"/></td>
+            <td class='td3'><span> </span><a id="lblNoa" class="lbl"></a></td>
+            <td class="td4"><input id="txtNoa" type="text" class="txt c1"/></td>
+            <td class='td5'><span> </span><a id="lblType"class="lbl" ></a></td>
+            <td class="td6"><select id="cmbTypea" class="txt c1"></select></td> 
+            <td class='td7'><span> </span><a id="lblOrdeno" class="lbl"></a></td>
+            <td class="td8"><input id="txtOrdeno" type="text" class="txt c2"/></td>
         </tr>
         <tr>
-            <td class='label1'><input id="btnMech" type="button" style="width: auto;font-size: medium;"/></td>
-            <td class="column1"><input id="txtMechno" type="text" class="txt c3" />
-                <input id="txtMech"  type="text"  class="txt c4"/></td>
-            <td class='label2'><a id="lblType2" ></a></td>
-            <td class="column2"><input id="txtType2" type="text" class="txt c1" /></td>
-            <td class='label3'><input id="btnCust" type="button" style="width: auto;font-size: medium;" /></td>
-            <td class="column3"><input id="txtCustno" type="text"  class="txt c1"/></td>
-            <td colspan="2"><input id="txtCust" type="text"  class="txt c1"/></td>
+            <td class='td1'><span> </span><a id="lblMech" class="lbl btn" ></a></td>
+            <td class="td2"><input id="txtMechno" type="text" class="txt c3" />
+            <input id="txtMech"  type="text"  class="txt c4"/></td>
+            <td class='td3'><span> </span><a id="lblType2"class="lbl" ></a></td>
+            <td class="td4"><input id="txtType2" type="text" class="txt c1" /></td>
+            <td class='td5'><span> </span><a id="lblCust" class="lbl btn" ></a></td>
+            <td class="td6"><input id="txtCustno" type="text"  class="txt c1"/></td>
+            <td class="td7" colspan="2"><input id="txtCust" type="text"  class="txt c1"/></td>
         </tr>
         <tr>
-            <td class='label1'><a id="lblUno" ></a></td>
-            <td class="column1"><input id="txtUno" type="text" class="txt c1"/></td>
-            <td class='label2'><input id="btnProduct" type="button" style="width: auto;font-size: medium;" /></td>
-            <td class="column2"><input id="txtProductno" type="text" class="txt c3"/>
+            <td class='td1'><span> </span><a id="lblUno" class="lbl"></a></td>
+            <td class="td2"><input id="txtUno" type="text" class="txt c1"/></td>
+            <td class='td3'><span> </span><a id="lblProduct" class="lbl btn"></a></td>
+            <td class="td4"><input id="txtProductno" type="text" class="txt c3"/>
                 <input id="txtProduct" type="text" class="txt c4"/></td>
-            <td class='label3'><a id="lblSpec" ></a></td>
-            <td class="column3"><input id="txtSpec" type="text" class="txt c1"/></td> 
-            <td class='label4'><a id="lblCuano" ></a></td>
-            <td class="column4"><input id="txtCuano" type="text" class="txt c2"/></td>
+            <td class='td5'><span> </span><a id="lblSpec" class="lbl"></a></td>
+            <td class="td6"><input id="txtSpec" type="text" class="txt c1"/></td> 
+            <td class='td7'><span> </span><a id="lblCuano" class="lbl"></a></td>
+            <td class="td8"><input id="txtCuano" type="text" class="txt c2"/></td>
         </tr> 
         <tr>
-            <td class='label1'><a id="lblDime" ></a></td>
-            <td class="column1"><input id="txtDime" type="text" class="txt c1" style="text-align: right;"/></td>
-            <td class='label2'><a id="lblWidth" ></a></td>
-            <td class="column2"><input id="txtWidth" type="text" class="txt c1" style="text-align: right;" /></td>
-            <td class='label3'><a id="lblLengthb" ></a></td>
-            <td class="column3"><input id="txtLengthb" type="text" class="txt c1" style="text-align: right;" /></td> 
-            <td class='label4'><a id="lblLengthb2"></a></td>
-            <td class="column4"><input id="txtLengthb2" type="text" class="txt c2" style="text-align: right;" /></td>
+            <td class='td1'><span> </span><a id="lblDime" class="lbl"></a></td>
+            <td class="td2"><input id="txtDime" type="text" class="txt num c1" /></td>
+            <td class='td3'><span> </span><a id="lblWidth" class="lbl" ></a></td>
+            <td class="td4"><input id="txtWidth" type="text" class="txt num c1" /></td>
+            <td class='td5'><span> </span><a id="lblLengthb" class="lbl"></a></td>
+            <td class="td6"><input id="txtLengthb" type="text" class="txt num c1"  /></td> 
+            <td class='td7'><span> </span><a id="lblLengthb2" class="lbl"></a></td>
+            <td class="td8"><input id="txtLengthb2" type="text" class="txt num c2" /></td>
         </tr>  
         <tr>
-            <td class='label1'><a id="lblOweight" ></a></td>
-            <td class="column1"><input id="txtOweight" type="text" class="txt c1" style="text-align: right;"/></td>
-            <td class='label2'><a id="lblEweight" ></a></td>
-            <td class="column2"><input id="txtEweight" type="text" class="txt c1" style="text-align: right;"/></td>           
+            <td class='td1'><span> </span><a id="lblOweight" class="lbl" ></a></td>
+            <td class="td2"><input id="txtOweight" type="text" class="txt num c1" /></td>
+            <td class='td3'><span> </span><a id="lblEweight" class="lbl"></a></td>
+            <td class="td4"><input id="txtEweight" type="text" class="txt num c1" /></td>           
         </tr>     
         <tr>
-            <td class='label1'><a id="lblGweight" ></a></td>
-            <td class="column1"><input id="txtGweight" type="text" class="txt c1" style="text-align: right;"/></td> 
-            <td class='label2'><a id="lblGtime"></a></td>
-            <td class="column2"><input id="txtGtime" type="text" class="txt c1"/></td>
-            <td class='label3'><a id="lblMount"></a></td>
-            <td class="column3"><input id="txtMount" type="text" class="txt c1" style="text-align: right;"/></td>
+            <td class='td1'><span> </span><a id="lblGweight" class="lbl" ></a></td>
+            <td class="td2"><input id="txtGweight" type="text" class="txt num c1" /></td> 
+            <td class='td3'><span> </span><a id="lblGtime" class="lbl"></a></td>
+            <td class="td4"><input id="txtGtime" type="text" class="txt c1"/></td>
+            <td class='td5'><span> </span><a id="lblMount" class="lbl"></a></td>
+            <td class="td6"><input id="txtMount" type="text" class="txt num c1" /></td>
         </tr>
          <tr>
-             <td class='label1'><a id="lblMon"></a></td>
-            <td class="column1"><input id="txtMon" type="text" class="txt c1"/></td>
-            <td class='label2'><input id="btnTgg" type="button" style="width: auto;font-size: medium;"/></td>
-            <td class="column2" ><input id="txtTggno" type="text" class="txt c1"/></td> 
-            <td colspan="4"><input id="txtTgg" type="text"  style="width: 98%;"/></td>           
+            <td class='td1'><span> </span><a id="lblMon" class="lbl"></a></td>
+            <td class="td2"><input id="txtMon" type="text" class="txt c1"/></td>
+            <td class='td3'><span> </span><a id="lblTgg" class="lbl btn"></a></td>
+            <td class="td4" ><input id="txtTggno" type="text" class="txt c1"/></td> 
+            <td class="td5" colspan="4"><input id="txtTgg" type="text"  class="txt c2"/></td>           
         </tr> 
         <tr>
-            <td class='label1'><a id="lblLoss" ></a></td>
-            <td class="column1"><input id="txtLoss" type="text" class="txt c1"/></td> 
-            <td class='label2'><a id="lblTheyout" style="font-size: 14px;"></a></td>
-            <td class="column2"><input id="txtTheyout" type="text" class="txt c1" style="text-align: right;"/></td>
-            <td class='label3'><a id="lblTotalout" style="font-size: 14px;"></a></td>
-            <td class="column3"><input id="txtTotalout" type="text"class="txt c1" style="text-align: right;"/></td>
+            <td class='td1'><span> </span><a id="lblLoss" class="lbl"></a></td>
+            <td class="td2"><input id="txtLoss" type="text" class="txt c1"/></td> 
+            <td class='td3'><span> </span><a id="lblTheyout" class="lbl" style="font-size: 14px;"></a></td>
+            <td class="td4"><input id="txtTheyout" type="text" class="txt num c1" /></td>
+            <td class='td5'><span> </span><a id="lblTotalout" class="lbl" style="font-size: 14px;"></a></td>
+            <td class="td6"><input id="txtTotalout" type="text"class="txt num c1" /></td>
         </tr> 
         <tr>
-        <td class='label1'><a id="lblMemo" ></a></td>
-        <td colspan='7'><textarea id="txtMemo" rows="5" cols="10" style="width: 98%; height: 127px;"></textarea></td>
+        <td class='td1'><span> </span><a id="lblMemo" class="lbl" ></a></td>
+        <td class="td2" colspan='7'><textarea id="txtMemo" rows="5" cols="10" style="width: 98%; height: 50px;"></textarea></td>
         </tr>
         <tr>
-            <td class='label1'><a id="lblComp"></td>
-            <td class="column1"><input id="txtComp" type="text" class="txt c1"/></td>
-            <td class='label2'><a id="lblCarno" ></a></td>
-            <td class="column2"><input id="txtCarno" type="text" class="txt c1"/></td>
-            <td class='label3'><a id="lblPrice" ></a></td>
-            <td class="column3"><input id="txtPrice" type="text" class="txt c1" style="text-align: right;"/></td> 
-            <td class='label4'><a id="lblTranmoney" ></a></td>
-            <td class="column4"><input id="txtTranmoney" type="text" class="txt c2" style="text-align: right;"/></td>
+            <td class='td1'><span> </span><a id="lblComp" class="lbl"></a></td>
+            <td class="td2"><input id="txtComp" type="text" class="txt c1"/></td>
+            <td class='td3'><span> </span><a id="lblCarno"  class="lbl"></a></td>
+            <td class="td4"><input id="txtCarno" type="text" class="txt c1"/></td>
+            <td class='td5'><span> </span><a id="lblPrice" class="lbl" ></a></td>
+            <td class="td6"><input id="txtPrice" type="text" class="txt num c1" /></td> 
+            <td class='td7'><span> </span><a id="lblTranmoney" class="lbl" ></a></td>
+            <td class="td8"><input id="txtTranmoney" type="text" class="txt num c2" /></td>
         </tr>
         <tr>
-            <td class="label1"></td>
-            <td class="column1"></td>
-            <td class="label2"></td>
-            <td class="column2"></td>
-            <td class="label3"></td>
-            <td class="column3"></td>
-            <td class='label4'><a id="lblWorker" ></a></td>
-            <td class="column4"><input id="txtWorker" type="text" class="txt c2"/></td>
+            <td class="td1"></td>
+            <td class="td2"></td>
+            <td class="td3"></td>
+            <td class="td4"></td>
+            <td class="td5"></td>
+            <td class="td6"></td>
+            <td class='td7'><span> </span><a id="lblWorker" class="lbl" ></a></td>
+            <td class="td8"><input id="txtWorker" type="text" class="txt c2"/></td>
         </tr>                   
         </table>
         </div>
+       </div>
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 2000px;"  >
             <tr style='color:White; background:#003366;' >
@@ -460,16 +499,16 @@
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input id="txtCustno.*" type="text" style="width: 80%;"/><input id="btnCust.*" type="button" value="..." style="width: 14%;"/></td>
-                <td ><input class="txt c1" id="txtCust.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtCust.*" type="text" /></td>
                 <td style="width: 2%;"><input class="txt c1" id="txtStyle.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtDime.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtWidth.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtLengthb.*" type="text" style="text-align: right;"/></td>
-                <td style="width: 2%;"><input class="txt c1" id="txtMount.*" type="text" style="text-align: right;"/></td>
-                <td style="width: 2%;"><input class="txt c1" id="txtDivide.*" type="text" style="text-align: right;"/></td>
-                <td style="width: 2%;"><input class="txt c1" id="txtTheory.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtHweight.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtWeight.*" type="text"  style="text-align: right;"/></td>
+                <td ><input class="txt num c1" id="txtDime.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtWidth.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtLengthb.*" type="text" /></td>
+                <td style="width: 2%;"><input class="txt num c1" id="txtMount.*" type="text" /></td>
+                <td style="width: 2%;"><input class="txt num c1" id="txtDivide.*" type="text" /></td>
+                <td style="width: 2%;"><input class="txt num c1" id="txtTheory.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtHweight.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtWeight.*" type="text"  /></td>
                 <td ><input class="txt c1" id="txtXbutt.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtBno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtStoreno.*" type="text" /></td>
@@ -477,17 +516,16 @@
                 <td style="width: 2%;"><input class="txt c1" id="txtTime.*" type="text" /></td>
                 <td style="width: 2%;"><input class="txt c1" id="txtProductno.*" type="text" /></td>
                 <td style="width: 2%;"><input class="txt c1" id="txtSpec.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtWprice.*" type="text" style="text-align: right;"/></td>
+                <td ><input class="txt num c1" id="txtWprice.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtSize.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtRadius.*" type="text" style="text-align: right;"/></td>
-                <td ><input class="txt c1" id="txtMweight.*" type="text" style="text-align: right;"/></td>
+                <td ><input class="txt num c1" id="txtRadius.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtMweight.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtOrdeno.*" type="text" /></td>
                 <td style="width: 2%;"><input class="txt c1" id="txtNo2.*" type="text" /></td>
                 <td style="width: 2%;"><input class="txt c1" id="txtSpecial.*" type="text" /></td>
                 <td style="width: 2%;"><input class="txt c1" id="txtCname.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
             </tr>
         </table>
-        </div>
         </div>
         <input id="q_sys" type="hidden" />
 </body>
