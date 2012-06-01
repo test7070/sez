@@ -23,7 +23,8 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
 		aPop = new Array(['txtPartno', 'lblPart','part','noa,part', 'txtPartno,txtPart','part_b.aspx'],['txtApprovpartno', 'lblApprovpart','part','noa,part', 'txtApprovpartno,txtApprovpart','part_b.aspx'],
-		['txtApprovepartno', 'lblApprovepart','part','noa,part', 'txtApprovepartno,txtApprovepart','part_b.aspx'],['txtApprovepartno2', 'lblApprovepart2','part','noa,part', 'txtApprovepartno2,txtApprovepart2','part_b.aspx']);
+		['txtApprovepartno', 'lblApprovepart','part','noa,part', 'txtApprovepartno,txtApprovepart','part_b.aspx'],['txtApprovepartno2', 'lblApprovepart2','part','noa,part', 'txtApprovepartno2,txtApprovepart2','part_b.aspx'],
+		['txtApproveno2', 'lblApprove2','sss','noa,namea', 'txtApproveno2,txtApprove2','sss_b.aspx'],['txtApproveno', 'lblApprove','sss','noa,namea', 'txtApproveno,txtApprove','sss_b.aspx'],['txtApprovno', 'lblApprov','sss','noa,namea', 'txtApprovno,txtApprov','sss_b.aspx'],['txtCheckerno', 'lblChecker','sss','noa,namea', 'txtCheckerno,txtChecker','sss_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -422,16 +423,20 @@
                	<input id="txtPart" type="text" class="txt c3" /></td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblChecker' class="lbl"></a></td>
-               <td class="td2"><input id="txtChecker"  type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id='lblChecker' class="lbl btn"></a></td>
+               <td class="td2"><input id="txtCheckerno"  type="text" class="txt c2"/>
+               	<input id="txtChecker"  type="text" class="txt c3"/>
+               </td>
                <td class="td3"><span> </span><a id="lblForm" class="lbl"></a></td>
                <td class="td4"><input id="txtForm" type="text" class="txt c1" /></td>
                <td class="td5"><span> </span><a id="lblYears" class="lbl"></a></td>
                <td class="td6"><input id="txtYears" type="text" class="txt c2" /><a id="lblYears_yn" class="txt c3"></a></td>
             </tr>
             <tr>
-            	<td class="td1"><span> </span><a id="lblApprov" class="lbl"></a></td>
-               <td class="td2"><input id="txtApprov" type="text" class="txt c1" /></td>
+            	<td class="td1"><span> </span><a id="lblApprov" class="lbl btn"></a></td>
+               <td class="td2"><input id="txtApprovno" type="text" class="txt c2" />
+               	<input id="txtApprov" type="text" class="txt c3" />
+               </td>
                <td class="td3"><span> </span><a id="lblApprovpart" class="lbl btn"></a></td>
                <td class="td4"><input id="txtApprovpartno" type="text" class="txt c2" />
                	<input id="txtApprovpart" type="text" class="txt c3" /></td>
@@ -439,8 +444,10 @@
                <td class="td6"><input id="txtApprovcon" type="text" class="txt c1" /></td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblApprove' class="lbl"></a></td>
-               <td class="td2"><input id="txtApprove"  type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id='lblApprove' class="lbl btn"></a></td>
+               <td class="td2"><input id="txtApproveno"  type="text" class="txt c2"/>
+               	<input id="txtApprove"  type="text" class="txt c3"/>
+               </td>
                <td class="td3"><span> </span><a id='lblApprovepart' class="lbl btn"></a></td>
                <td class="td4"><input id="txtApprovepartno"  type="text" class="txt c2"/>
                	<input id="txtApprovepart"  type="text" class="txt c3"/>
@@ -449,8 +456,10 @@
                <td class="td6"><input id="txtApprovecon"  type="text" class="txt c1"/></td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblApprove2' class="lbl"></a></td>
-               <td class="td2"><input id="txtApprove2"  type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id='lblApprove2' class="lbl btn"></a></td>
+               <td class="td2"><input id="txtApproveno2"  type="text" class="txt c2"/>
+               	<input id="txtApprove2"  type="text" class="txt c3"/>
+               </td>
                <td class="td3"><span> </span><a id='lblApprovepart2' class="lbl btn"></a></td>
                <td class="td4"><input id="txtApprovepartno2"  type="text" class="txt c2"/>
                	<input id="txtApprovepart2"  type="text" class="txt c3"/>
