@@ -16,16 +16,16 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             if(location.href.indexOf('?') < 0) {
-                location.href = location.href + "?;;;;100_1";
+                location.href = location.href + "?;;;;101";
             }
             $(document).ready(function() {
                 _q_boxClose();
-                q_gf('', 'report_demo');
+                q_gf('', 'z_ummtran');
             });
             function q_gfPost() {
             	
                 $('#qReport').q_report({
-                    fileName : 'report_demo',
+                    fileName : 'z_ummtran',
                     options : [{
                         type : '0',
                         name : 'accy',
@@ -39,23 +39,9 @@
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
-                    }, {
-                        type : '3',
-                        name : 'carno',
-                        dbf : 'car2',
-                        index : 'noa',
-                        src : 'car2_b.aspx'
-                    }, {
-                        type : '4', //radio
-                        name : 'r1',
-                        group : 'g1'
-                    }, {
-                        type : '5', //select
-                        name : 's1',
-                        value : [q_getPara('report.all')].concat(q_getPara('trans.calctype').split(','))
-                    }, {
+                    },{
                         type : '6',
-                        name : 'T6'
+                        name : 'vccno'
                     }]
                 });
                 q_getFormat();
