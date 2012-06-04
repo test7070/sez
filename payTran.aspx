@@ -308,7 +308,7 @@
                 }
                 $('#txtTotal').val(t_money);
                 $('#txtPaysale').val(t_pay);
-                $('#txtNextsale').val(t_money - t_pay);
+                $('#txtUnpay').val(t_money - t_pay);
             }
 
             function refresh(recno) {
@@ -571,9 +571,9 @@
 						<td class="td6">
 						<input id="txtPaysale"  type="text" class="txt num c1"/>
 						</td>
-						<td class="td7"><span> </span><a id='lblNextsale' class="lbl"></a></td>
+						<td class="td7"><span> </span><a id='lblUnpay' class="lbl"></a></td>
 						<td class="td8">
-						<input id="txtNextsale"  type="text" class="txt num c1"/>
+						<input id="txtUnpay"  type="text" class="txt num c1"/>
 						</td>
 					</tr>
 					<tr class="tr4">
@@ -596,7 +596,7 @@
 					</tr>
 					<tr class="tr5">
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-						<td class="td2" colspan='5' >						<textarea id="txtMemo" style="width: 99%; height: 50px;" ></textarea></td>
+						<td class="td2" colspan='5' ><textarea id="txtMemo" style="width: 99%; height: 50px;" ></textarea></td>
 						<td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
 						<td class="td8" >
 						<input id="txtWorker"  type="text" class="txt c1"/>

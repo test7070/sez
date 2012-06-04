@@ -21,7 +21,7 @@
             var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno', 'txtCno', 'txtAcomp'];
             var q_readonlys = ['txtVccno', 'txtPart', 'txtPartno','txtUnpay'];
             var bbmNum = [['txtTotal', 10, 0, 1]];
-            var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0], ['txtPaysale', 10, 0], ['txtUnpay', 10, 0]];
+            var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0], ['txtPaysale', 10, 0], ['txtUpay', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -313,7 +313,7 @@
                 }
                 $('#txtTotal').val(t_money);
                 $('#txtPaysale').val(t_pay);
-                $('#txtNextsale').val(t_money - t_pay);
+                $('#txtUnpay').val(t_money - t_pay);
             }
 
             function refresh(recno) {
@@ -576,9 +576,9 @@
 						<td class="td6">
 						<input id="txtPaysale"  type="text" class="txt num c1"/>
 						</td>
-						<td class="td7"><span> </span><a id='lblNextsale' class="lbl"></a></td>
+						<td class="td7"><span> </span><a id='lblUnpay' class="lbl"></a></td>
 						<td class="td8">
-						<input id="txtNextsale"  type="text" class="txt num c1"/>
+						<input id="txtUnpay"  type="text" class="txt num c1"/>
 						</td>
 					</tr>
 					<tr class="tr4">
@@ -646,7 +646,7 @@
 					<td align="center" style="width:3%;"><a id='lblMons'></a></td>
 					<td align="center" style="width:3%;"><a id='lblPart'></a></td>
 					<td align="center" style="width:5%;"><a id='lblVccno'></a></td>
-					<td align="center" style="width:3%;"><a id='lblUnpay'></a></td>
+					<td align="center" style="width:3%;"><a id='lblUnpay_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblCheckno'></a></td>
 					<td align="center" style="width:5%;"><a id='lblAccount'></a></td>
 					<td align="center" style="width:7%;"><a id='lblBank'></a></td>

@@ -22,7 +22,7 @@
             
             var q_readonly = ['txtComp', 'txtAcomp', 'txtTotal', 'txtTotalus'];
             var q_readonlys = [];
-            var bbmNum = [['txtFloata', 7, 2], ['txtTotalus', 12, 2], ['txtPaysaleus', 12, 2], ['txtNextsaleus', 12, 2], ['txtTotal', 10, 0], ['txtPaysale', 10, 0], ['txtNextsale', 10, 0]];
+            var bbmNum = [['txtFloata', 7, 2], ['txtTotalus', 12, 2], ['txtPaysaleus', 12, 2], ['txtUnpayus', 12, 2], ['txtTotal', 10, 0], ['txtPaysale', 10, 0], ['txtUnpay', 10, 0]];
             var bbsNum = [];
             bbmMask = [];
             bbsMask = [];
@@ -33,7 +33,7 @@
             brwKey = 'Datea';
             //ajaxPath = "";
 
-            aPop = (['txtCustno', 'btnCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtAcomp', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
+            aPop = new Array (['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtAcomp', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -285,8 +285,14 @@
 		 .td2, .td4, .td6, .td8{width: 10%;}
 		 .tbbm tr td span{float:right;display:block;width:8px;height:10px;}
 		 .tbbm tr td .lbl{float:right;color:blue;font-size:16px;}
-		 .tbbm tr td .lbl.btn{color:#4297D7;font-weight:bolder;}
-		 .tbbm tr td .lbl.btn:hover{color:#FF8F19;}
+		 .tbbm tr td .lbl.btn {
+                color: #4297D7;
+                font-weight: bolder;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn:hover {
+                color: #FF8F19;
+            }
 		 .tbbm tr td .txt.c1{width:100%;float:left;}
 		 .tbbm tr td .txt.c2{width:50%;float:left;}
 		 .tbbm tr td .txt.c3{width:47%;float:left;}
@@ -350,7 +356,7 @@
 					</tr>
 					<tr class="tr2">
 						<td class="td1" ><span> </span>
-						<input id="btnAcomp" type="button" />
+						<a id="lblAcomp" class="lbl btn" ></a>
 						</td>
 						<td class="td2" colspan="3">
 						<input id="txtCno"  type="text" class="txt c5"/>
@@ -367,7 +373,7 @@
 
 					<tr class="tr3">
 						<td class="td1"><span> </span>
-						<input id="btnCust" type="button" />
+						<a id="lblCust" class="lbl btn" ></a>
 						</td>
 						<td class="td2" colspan="3">
 						<input id="txtCustno" type="text" class="txt c5"/>
@@ -399,9 +405,9 @@
 						<td class="td4">
 						<input id="txtPaysaleus" type="text" class="txt num c1"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblNextsaleus" class="lbl"></a></td>
+						<td class="td5"><span> </span><a id="lblUnpayus" class="lbl"></a></td>
 						<td class="td6">
-						<input id="txtNextsaleus" type="text" class="txt num c1"/>
+						<input id="txtUnpayus" type="text" class="txt num c1"/>
 						</td>
 					</tr>
 					<tr class="tr6">
@@ -413,9 +419,9 @@
 						<td  class="td4">
 						<input id="txtPaysale" type="text" class="txt num c1"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblNextsale" class="lbl"></a></td>
+						<td class="td5"><span> </span><a id="lblUnpay" class="lbl"></a></td>
 						<td class="td6">
-						<input id="txtNextsale"  type="text"  class="txt num c1"/>
+						<input id="txtUnpay"  type="text"  class="txt num c1"/>
 						</td>
 					</tr>
 					<tr class="tr7">
