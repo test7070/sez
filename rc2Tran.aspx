@@ -20,7 +20,7 @@
             q_tables = 's';
             q_desc = 1;
             var q_name = "rc2";
-            var q_readonly = ['txtNoa','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtOrdeno'];
+            var q_readonly = ['txtNoa','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtOrdeno','txtWorker'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]];
             var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2], ['txtTotal', 10, 0]];
@@ -32,7 +32,7 @@
             brwNowPage = 0;
             brwKey = 'datea';
 
-            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'cust_b.aspx'], ['txtPartno2', 'lblPart2', 'part', 'noa,part', 'txtPartno2,txtPart2', 'part_b.aspx'], ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'], ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtItemno_', 'btnItemno_', 'chgitem', 'noa,item', 'txtItemno_,txtItem_', 'chgitem_b.aspx']);
+            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'cust_b.aspx'], ['txtPartno2', 'lblPart2', 'part', 'noa,part', 'txtPartno2,txtPart2', 'part_b.aspx'], ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'], ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtProductno_', 'btnProductno_', 'chgitem', 'noa,item', 'txtProductno_,txtProduct_', 'chgitem_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -253,7 +253,7 @@
             }
 
             function bbsSave(as) {
-                if(!as['item']) {
+                if(!as['product']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -636,7 +636,7 @@
 					<td align="center" style="width: 1%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:30%;"><a id='lblItem_s'></a></td>
+					<td align="center" style="width:30%;"><a id='lblProduct_s'></a></td>
 					<td align="center" style="width: 5%;"><a id='lblUnit_s'></a></td>
 					<td align="center" style="width: 8%;"><a id='lblMount_s'></a></td>
 					<td align="center" style="width: 8%;"><a id='lblPrice_s'></a></td>
@@ -646,11 +646,11 @@
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
-					<input id="txtNoq.*" type="texr" style="display: none;" />
+					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
 					<td>
-					<input  id="txtItemno.*"type="text" style="float:left;width: 20%;"/>
-					<input id="txtItem.*" type="text" style="float:left;width: 75%;"/>
+					<input  id="txtProductno.*"type="text" style="float:left;width: 20%;"/>
+					<input id="txtProduct.*" type="text" style="float:left;width: 75%;"/>
 					</td>
 					<td>
 					<input id="txtUnit.*" type="text" style="width: 95%;"/>
