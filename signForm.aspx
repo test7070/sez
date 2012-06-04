@@ -50,7 +50,8 @@
 
 
         function mainPost() { 
-           fbbm[fbbm.length] = 'txtEssential'; 
+           fbbm[fbbm.length] = 'txtEssential';
+           fbbm[fbbm.length] = 'txtMemo'; 
           /*  $('#btnSales').click(function () { pop('sss'); });
             $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
             $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); });
@@ -466,6 +467,10 @@
                </td>
                <td class="td5"><span> </span><a id='lblApprovecon2' class="lbl"></a></td>
                <td class="td6"><input id="txtApprovecon2"  type="text" class="txt c1"/></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
+               <td class="td2" colspan="5"><textarea id="txtMemo" cols="10" rows="5" style="width: 99%; height: 50px;"></textarea></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblEssential' class="lbl"></a></td>
