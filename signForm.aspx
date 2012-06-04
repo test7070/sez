@@ -23,8 +23,8 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
 		aPop = new Array(['txtPartno', 'lblPart','part','noa,part', 'txtPartno,txtPart','part_b.aspx'],['txtApprovpartno', 'lblApprovpart','part','noa,part', 'txtApprovpartno,txtApprovpart','part_b.aspx'],
-		['txtApprovepartno', 'lblApprovepart','part','noa,part', 'txtApprovepartno,txtApprovepart','part_b.aspx'],['txtApprovepartno2', 'lblApprovepart2','part','noa,part', 'txtApprovepartno2,txtApprovepart2','part_b.aspx'],
-		['txtApproveno2', 'lblApprove2','sss','noa,namea', 'txtApproveno2,txtApprove2','sss_b.aspx'],['txtApproveno', 'lblApprove','sss','noa,namea', 'txtApproveno,txtApprove','sss_b.aspx'],['txtApprovno', 'lblApprov','sss','noa,namea', 'txtApprovno,txtApprov','sss_b.aspx'],['txtCheckerno', 'lblChecker','sss','noa,namea', 'txtCheckerno,txtChecker','sss_b.aspx']);
+		['txtApprovepartno', 'lblApprovepart','part','noa,part', 'txtApprovepartno,txtApprovepart','part_b.aspx'],['txtApprove2partno', 'lblApprove2part','part','noa,part', 'txtApprove2partno,txtApprove2part','part_b.aspx'],
+		['txtApprove2no', 'lblApprove2','sss','noa,namea', 'txtApprove2no,txtApprove2','sss_b.aspx'],['txtApproveno', 'lblApprove','sss','noa,namea', 'txtApproveno,txtApprove','sss_b.aspx'],['txtApprovno', 'lblApprov','sss','noa,namea', 'txtApprovno,txtApprov','sss_b.aspx'],['txtCheckerno', 'lblChecker','sss','noa,namea', 'txtCheckerno,txtChecker','sss_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -287,6 +287,7 @@
                 font-size: medium;
                 background-color: #FFFF66;
                 color: blue;
+                width: 100%;
             }
             .tview td {
                 padding: 2px;
@@ -385,7 +386,7 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
-        <div class="dview" id="dview" style="float: left;  width:35%;"  >
+        <div class="dview" id="dview" style="float: left;  width:98%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
@@ -396,7 +397,7 @@
                 <td align="center" style="width:10%"><a id='vewApprov'></a></td>
                 <td align="center" style="width:10%"><a id='vewApprove'></a></td>
                 <td align="center" style="width:10%"><a id='vewApprove2'></a></td>
-                <td align="center" style="width:20%"><a id='vewEssential'></a></td>
+                <td align="center" style="width:20%"><a id='vewMemo'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
@@ -407,11 +408,11 @@
                    <td align="center" id='approv'>~approv</td>
                    <td align="center" id='approve'>~approve</td>
                    <td align="center" id='approve2'>~approve2</td>
-                   <td align="center" id='essential'>~essential</td>
+                   <td align="center" id='memo'>~memo</td>
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 60%;float: left;">
+        <div class='dbbm' style="width: 98%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
             <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
@@ -457,15 +458,15 @@
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblApprove2' class="lbl btn"></a></td>
-               <td class="td2"><input id="txtApproveno2"  type="text" class="txt c2"/>
+               <td class="td2"><input id="txtApprove2no"  type="text" class="txt c2"/>
                	<input id="txtApprove2"  type="text" class="txt c3"/>
                </td>
-               <td class="td3"><span> </span><a id='lblApprovepart2' class="lbl btn"></a></td>
-               <td class="td4"><input id="txtApprovepartno2"  type="text" class="txt c2"/>
-               	<input id="txtApprovepart2"  type="text" class="txt c3"/>
+               <td class="td3"><span> </span><a id='lblApprove2part' class="lbl btn"></a></td>
+               <td class="td4"><input id="txtApprove2partno"  type="text" class="txt c2"/>
+               	<input id="txtApprove2part"  type="text" class="txt c3"/>
                </td>
-               <td class="td5"><span> </span><a id='lblApprovecon2' class="lbl"></a></td>
-               <td class="td6"><input id="txtApprovecon2"  type="text" class="txt c1"/></td>
+               <td class="td5"><span> </span><a id='lblApprove2con' class="lbl"></a></td>
+               <td class="td6"><input id="txtApprove2con"  type="text" class="txt c1"/></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
