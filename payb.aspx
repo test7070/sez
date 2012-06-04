@@ -15,7 +15,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
+			q_desc = 1
             q_tables = 's';
             var q_name = "payb";
             var decbbs = ['money', 'tax', 'total'];

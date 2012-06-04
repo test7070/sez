@@ -15,11 +15,9 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
+			q_desc = 1
             q_tables = 's';
             var q_name = "umm";
-            
-            
             var q_readonly = ['txtComp', 'txtAcomp', 'txtTotal', 'txtTotalus'];
             var q_readonlys = [];
             var bbmNum = [['txtFloata', 7, 2], ['txtTotalus', 12, 2], ['txtPaysaleus', 12, 2], ['txtUnpayus', 12, 2], ['txtTotal', 10, 0], ['txtPaysale', 10, 0], ['txtUnpay', 10, 0]];
