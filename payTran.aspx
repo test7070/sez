@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -19,7 +18,7 @@
             q_tables = 's';
             var q_name = "pay";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno', 'txtCno', 'txtAcomp'];
-            var q_readonlys = ['txtRc2no', 'txtPart', 'txtPartno','txtUnpay'];
+            var q_readonlys = ['txtRc2no', 'txtPart', 'txtPartno', 'txtUnpay'];
             var bbmNum = [['txtTotal', 10, 0, 1]];
             var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0], ['txtPaysale', 10, 0], ['txtUnpay', 10, 0]];
             var bbmMask = [];
@@ -30,7 +29,7 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             //ajaxPath = "";
-            aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
+            aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'cust_b.aspx'], ['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -39,7 +38,7 @@
             });
             //////////////////   end Ready
             function main() {
-                if(dataErr) {
+                if (dataErr) {
                     dataErr = false;
                     return;
                 }
@@ -59,21 +58,21 @@
                 bbsMask = [['txtIndate', r_picd], ['txtMon', r_picm]];
 
                 $('#btnTre').click(function(e) {
-                    if(q_cur == 1 || q_cur == 2) {
-                        if($.trim($('#txtCardealno').val()) == 0 && $.trim($('#txtDriverno').val()) == 0) {
+                    if (q_cur == 1 || q_cur == 2) {
+                        if ($.trim($('#txtCardealno').val()) == 0 && $.trim($('#txtDriverno').val()) == 0) {
                             alert('Please enter the driver or cardeal.');
                             return false;
                         }
                         var t_cardealno = "'" + $.trim($('#txtCardealno').val()) + "'";
                         var t_driverno = "'" + $.trim($('#txtDriverno').val()) + "'";
                         t_where = "where=^^ unpay!=0 ";
-                        if(t_cardealno!="''")
-                        	t_where += " and cardealno="+t_cardealno;
-                        if(t_driverno!="''")
-                        	t_where += " and driverno="+t_driverno;
+                        if (t_cardealno != "''")
+                            t_where += " and cardealno=" + t_cardealno;
+                        if (t_driverno != "''")
+                            t_where += " and driverno=" + t_driverno;
                         t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "' and ( 1=1 ";
-                        for(var i = 0; i < q_bbsCount; i++) {
-                            if($.trim($('#txtRc2no_' + i).val()).length > 0) {
+                        for (var i = 0; i < q_bbsCount; i++) {
+                            if ($.trim($('#txtRc2no_' + i).val()).length > 0) {
                                 t_where = t_where + "or noa='" + $('#txtRc2no_' + i).val() + "'";
                                 t_where1 = t_where1 + "or rc2no='" + $('#txtRc2no_' + i).val() + "'";
                             }
@@ -83,25 +82,24 @@
                         q_gt('tre_pay', t_where + t_where1, 0, 0, 0, "", r_accy);
                     }
                 });
-                $('#btnRc2tran').click(function(e) {
+                $('#btnVcctran').click(function(e) {
                     if(q_cur == 1 || q_cur == 2) {
                         if($.trim($('#txtTggno').val()) == 0) {
-                            alert('Please enter the Tggno.');
+                            alert('Please enter the customer no.');
                             return false;
                         }
-                        var t_tggno = "'" + $.trim($('#txtTggno').val()) + "'";
-
-                        t_where = "where=^^ tggno=" + t_tggno + " and unpay!=0 ";
+                        var t_custno = "'" + $.trim($('#txtTggno').val()) + "'";
+                        t_where = "where=^^ custno=" + t_custno + " and unpay!=0 ";
                         t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "' and ( 1=1 ";
                         for(var i = 0; i < q_bbsCount; i++) {
-                            if($.trim($('#txtRc2no_' + i).val()).length > 0) {
-                                t_where = t_where + "or noa='" + $('#txtRc2no_' + i).val() + "'";
-                                t_where1 = t_where1 + "or rc2no='" + $('#txtRc2no_' + i).val() + "'";
+                            if($.trim($('#txtVccno_' + i).val()).length > 0) {
+                                t_where = t_where + "or noa='" + $('#txtVccno_' + i).val() + "'";
+                                t_where1 = t_where1 + "or vccno='" + $('#txtVccno_' + i).val() + "'";
                             }
                         }
                         t_where = t_where + "^^";
                         t_where1 = t_where1 + ")^^";
-                        q_gt('rc2_pay', t_where + t_where1, 0, 0, 0, "", r_accy);
+                        q_gt('vcc_umm', t_where + t_where1, 0, 0, 0, "", r_accy);
                     }
                 });
             }
@@ -113,8 +111,8 @@
                 switch (t_name) {
                     case 'tre_pay':
                         var curData = new Array();
-                        for(var i = 0; i < q_bbsCount; i++) {
-                            if($('#txtRc2no_' + i).val().length > 0) {
+                        for (var i = 0; i < q_bbsCount; i++) {
+                            if ($('#txtRc2no_' + i).val().length > 0) {
                                 curData.push({
                                     index : i,
                                     rc2no : $('#txtRc2no_' + i).val(),
@@ -123,15 +121,15 @@
                             }
                         }
                         var as = _q_appendData("tre", "", true);
-                        for(var i = 0; i < as.length; i++) {
+                        for (var i = 0; i < as.length; i++) {
                             as[i].total = parseInt($.trim(as[i].total).length == 0 ? '0' : as[i].total, 10);
                             as[i].paysale = parseInt($.trim(as[i].paysale).length == 0 ? '0' : as[i].paysale, 10);
-                            for(var j = 0; j < curData.length; j++) {
-                                if(as[i].noa == curData[j].rc2no) {
+                            for (var j = 0; j < curData.length; j++) {
+                                if (as[i].noa == curData[j].rc2no) {
                                     as[i].paysale += curData[j].paysale;
                                 }
                             }
-                            if(as[i].total - as[i].paysale == 0) {
+                            if (as[i].total - as[i].paysale == 0) {
                                 as.splice(i, 1);
                                 i--;
                             } else {
@@ -143,27 +141,27 @@
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay', as.length, as, 'noa,_unpay,_unpay', 'txtRc2no', '');
                         sum();
                         break;
-					case 'rc2_pay':
+                    case 'vcc_umm':
                         var curData = new Array();
-                        for(var i = 0; i < q_bbsCount; i++) {
-                            if($('#txtRc2no_' + i).val().length > 0) {
+                        for (var i = 0; i < q_bbsCount; i++) {
+                            if ($('#txtRc2no_' + i).val().length > 0) {
                                 curData.push({
                                     index : i,
                                     rc2no : $('#txtRc2no_' + i).val(),
-                                    paysale : parseInt($.trim($('#txtPaysale_' + i).val()).length == 0 ? '0' : $('#txtPaysale_' + i).val().replace(/,/g,''), 10)
+                                    paysale : parseInt($.trim($('#txtPaysale_' + i).val()).length == 0 ? '0' : $('#txtPaysale_' + i).val().replace(/,/g, ''), 10)
                                 });
                             }
                         }
-                        var as = _q_appendData("rc2", "", true);
-                        for(var i = 0; i < as.length; i++) {
+                        var as = _q_appendData("vcc", "", true);
+                        for (var i = 0; i < as.length; i++) {
                             as[i].total = parseInt($.trim(as[i].total).length == 0 ? '0' : as[i].total, 10);
                             as[i].paysale = parseInt($.trim(as[i].paysale).length == 0 ? '0' : as[i].paysale, 10);
-                            for(var j = 0; j < curData.length; j++) {
-                                if(as[i].noa == curData[j].rc2no) {
+                            for (var j = 0; j < curData.length; j++) {
+                                if (as[i].noa == curData[j].rc2no) {
                                     as[i].paysale += curData[j].paysale;
                                 }
                             }
-                            if(as[i].total - as[i].paysale == 0) {
+                            if (as[i].total - as[i].paysale == 0) {
                                 as.splice(i, 1);
                                 i--;
                             } else {
@@ -176,7 +174,7 @@
                         sum();
                         break;
                     case q_name:
-                        if(q_cur == 4)
+                        if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
                 }
@@ -184,19 +182,19 @@
 
             function btnOk() {
                 var isError = false, t_money, t_chgs, t_paysale;
-                for(var i = 0; i < q_bbsCount; i++) {
+                for (var i = 0; i < q_bbsCount; i++) {
                     $('#txtTypea_' + i).parent().parent().removeClass('error');
-                    if($.trim($('#txtTypea_' + i).val()).length == 0) {
+                    if ($.trim($('#txtTypea_' + i).val()).length == 0) {
                         t_money = parseInt($.trim($('#txtMoney_' + i).val()).length == 0 ? '0' : $('#txtMoney_' + i).val().replace(/,/g, ''), 10);
                         t_chgs = parseInt($.trim($('#txtChgs_' + i).val()).length == 0 ? '0' : $('#txtChgs' + i).val().replace(/,/g, ''), 10);
                         t_paysale = parseInt($.trim($('#txtPaysale_' + i).val()).length == 0 ? '0' : $('#txtPaysale_' + i).val().replace(/,/g, ''), 10);
-                        if(t_money != 0 || t_chgs != 0 || t_paysale != 0) {
+                        if (t_money != 0 || t_chgs != 0 || t_paysale != 0) {
                             isError = true;
                             $('#txtTypea_' + i).parent().parent().addClass('error');
                         }
                     }
                 }
-                if(isError) {
+                if (isError) {
                     alert('Please enter the type!');
                     return false;
                 }
@@ -206,14 +204,14 @@
 
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
-                if(t_noa.length == 0 || t_noa == "AUTO")
+                if (t_noa.length == 0 || t_noa == "AUTO")
                     q_gtnoa(q_name, replaceAll(q_getPara('sys.key_paytran') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
             }
 
             function _btnSeek() {
-                if(q_cur > 0 && q_cur < 4)// 1-3
+                if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
                 q_box('worka_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
@@ -224,41 +222,41 @@
 
             function bbsAssign() {
                 _bbsAssign();
-                for(var i = 0; i < q_bbsCount; i++) {
+                for (var i = 0; i < q_bbsCount; i++) {
                     /*Money*/
-                    if( typeof ($('#txtMoney_' + i).data('info')) == 'undefined')
+                    if ( typeof ($('#txtMoney_' + i).data('info')) == 'undefined')
                         $('#txtMoney_' + i).data('info', {
                             isSetChange : false
                         });
-                    if( typeof ($('#txtMoney_' + i).data('info').isSetChange) == 'undefined')
+                    if ( typeof ($('#txtMoney_' + i).data('info').isSetChange) == 'undefined')
                         $('#txtMoney_' + i).data('info').isSetChange = false;
-                    if(!$('#txtMoney_' + i).data('info').isSetChange) {
+                    if (!$('#txtMoney_' + i).data('info').isSetChange) {
                         $('#txtMoney_' + i).data('info').isSetChange = true;
                         $('#txtMoney_' + i).change(function(e) {
                             sum();
                         });
                     }
                     /*Chgs*/
-                    if( typeof ($('#txtChgs_' + i).data('info')) == 'undefined')
+                    if ( typeof ($('#txtChgs_' + i).data('info')) == 'undefined')
                         $('#txtChgs_' + i).data('info', {
                             isSetChange : false
                         });
-                    if( typeof ($('#txtChgs_' + i).data('info').isSetChange) == 'undefined')
+                    if ( typeof ($('#txtChgs_' + i).data('info').isSetChange) == 'undefined')
                         $('#txtChgs_' + i).data('info').isSetChange = false;
-                    if(!$('#txtChgs_' + i).data('info').isSetChange) {
+                    if (!$('#txtChgs_' + i).data('info').isSetChange) {
                         $('#txtChgs_' + i).data('info').isSetChange = true;
                         $('#txtChgs_' + i).change(function(e) {
                             sum();
                         });
                     }
                     /*Paysale*/
-                    if( typeof ($('#txtPaysale_' + i).data('info')) == 'undefined')
+                    if ( typeof ($('#txtPaysale_' + i).data('info')) == 'undefined')
                         $('#txtPaysale_' + i).data('info', {
                             isSetChange : false
                         });
-                    if( typeof ($('#txtPaysale_' + i).data('info').isSetChange) == 'undefined')
+                    if ( typeof ($('#txtPaysale_' + i).data('info').isSetChange) == 'undefined')
                         $('#txtPaysale_' + i).data('info').isSetChange = false;
-                    if(!$('#txtPaysale_' + i).data('info').isSetChange) {
+                    if (!$('#txtPaysale_' + i).data('info').isSetChange) {
                         $('#txtPaysale_' + i).data('info').isSetChange = true;
                         $('#txtPaysale_' + i).change(function(e) {
                             sum();
@@ -274,7 +272,7 @@
             }
 
             function btnModi() {
-                if(emp($('#txtNoa').val()))
+                if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
             }
@@ -290,7 +288,7 @@
             }
 
             function bbsSave(as) {
-                if(!as['typea']) {
+                if (!as['typea']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -301,7 +299,7 @@
 
             function sum() {
                 var t_money = 0, t_pay = 0;
-                for(var j = 0; j < q_bbsCount; j++) {
+                for (var j = 0; j < q_bbsCount; j++) {
                     t_money += parseInt($.trim($('#txtMoney_' + j).val()).length == 0 ? '0' : $('#txtMoney_' + j).val().replace(/,/g, ''), 10);
                     t_money += parseInt($.trim($('#txtChgs_' + j).val()).length == 0 ? '0' : $('#txtChgs_' + j).val().replace(/,/g, ''), 10);
                     t_pay += parseInt($.trim($('#txtPaysale_' + j).val()).length == 0 ? '0' : $('#txtPaysale_' + j).val().replace(/,/g, ''), 10);
@@ -327,7 +325,7 @@
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
-                if(q_tables == 's')
+                if (q_tables == 's')
                     bbsAssign();
             }
 
@@ -547,18 +545,31 @@
 						<input id="txtCno"  type="text" class="txt c4"/>
 						<input id="txtAcomp"    type="text" class="txt c5"/>
 						</td>
-						<td class="td3"><span> </span><a id='lblCardeal' class="lbl btn"></a></td>
-						<td class="td4" colspan="2">
+						<td class="td3"><span> </span><a id='lblTgg' class="lbl btn"></a></td>
+						<td class="td4" colspan="3">
+						<input id="txtTggno" type="text" class="txt c4"/>
+						<input id="txtTgg"  type="text" class="txt c5"/>
+						</td>
+						<td class="td7">
+						<input type="button" id="btnVcctran" class="txt c1 " />
+						</td>				
+					</tr>
+					<tr class="tr3">
+						<td class="td1"><span> </span><a id='lblCardeal' class="lbl btn"></a></td>
+						<td class="td2" colspan="2">
 						<input id="txtCardealno" type="text" class="txt c4"/>
 						<input id="txtCardeal"  type="text" class="txt c5"/>
 						</td>
-						<td class="td6" ><span> </span><a id='lblDriver' class="lbl btn"></a></td>
-						<td class="td7" colspan="2">
+						<td class="td4" ><span> </span><a id='lblDriver' class="lbl btn"></a></td>
+						<td class="td5" colspan="2">
 						<input id="txtDriverno"  type="text" class="txt c4"/>
 						<input id="txtDriver"    type="text" class="txt c5"/>
 						</td>
+						<td class="td7">
+						<input type="button" id="btnTre" class="txt c1 " />
+						</td>
 					</tr>
-					<tr class="tr3">
+					<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblOutsource' class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtOutsource"  type="text" class="txt num c1"/>
@@ -576,25 +587,13 @@
 						<input id="txtUnpay"  type="text" class="txt num c1"/>
 						</td>
 					</tr>
-					<tr class="tr4">
+					<tr class="tr5">
 						<td class="td1"><span> </span><a id='lblAccno' class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtAccno"  type="text" class="txt c1"/>
 						</td>
-						<td class="td3"><span> </span><a id='lblTgg' class="lbl btn"></a></td>
-						<td class="td4" colspan="2">
-						<input id="txtTggno" type="text" class="txt c4"/>
-						<input id="txtTgg"  type="text" class="txt c5"/>
-						</td>
-						<td class="td6"></td>
-						<td class="td7">
-						<input type="button" id="btnTre" class="txt c1 " />
-						</td>
-						<td class="td8">
-						<input type="button" id="btnRc2tran" class="txt c1 " />
-						</td>
 					</tr>
-					<tr class="tr5">
+					<tr class="tr6">
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
 						<td class="td2" colspan='5' ><textarea id="txtMemo" style="width: 99%; height: 50px;" ></textarea></td>
 						<td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
@@ -602,7 +601,7 @@
 						<input id="txtWorker"  type="text" class="txt c1"/>
 						</td>
 					</tr>
-					<tr>
+					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblChecker" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtchecker" type="text" class="txt c2"/>
