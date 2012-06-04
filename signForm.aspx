@@ -50,7 +50,6 @@
 
 
         function mainPost() { 
-           fbbm[fbbm.length] = 'txtEssential';
            fbbm[fbbm.length] = 'txtMemo'; 
           /*  $('#btnSales').click(function () { pop('sss'); });
             $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
@@ -471,10 +470,6 @@
             <tr>
                <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
                <td class="td2" colspan="5"><textarea id="txtMemo" cols="10" rows="5" style="width: 99%; height: 50px;"></textarea></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblEssential' class="lbl"></a></td>
-               <td class="td2" colspan="5"><textarea id="txtEssential" cols="10" rows="5" style="width: 99%; height: 50px;"></textarea></td>
             </tr>
         </table>
         </div>
