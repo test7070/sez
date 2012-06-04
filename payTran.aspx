@@ -89,7 +89,7 @@
                             return false;
                         }
                         var t_custno = "'" + $.trim($('#txtTggno').val()) + "'";
-                        t_where = "where=^^ custno=" + t_custno + " and unpay!=0 ";
+                        t_where = "where=^^ custno=" + t_custno + " and unpay2!=0 ";
                         t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "' and ( 1=1 ";
                         for(var i = 0; i < q_bbsCount; i++) {
                             if($.trim($('#txtVccno_' + i).val()).length > 0) {
@@ -99,7 +99,7 @@
                         }
                         t_where = t_where + "^^";
                         t_where1 = t_where1 + ")^^";
-                        q_gt('vcc_umm', t_where + t_where1, 0, 0, 0, "", r_accy);
+                        q_gt('vcc_pay', t_where + t_where1, 0, 0, 0, "", r_accy);
                     }
                 });
             }
@@ -141,7 +141,7 @@
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay', as.length, as, 'noa,_unpay,_unpay', 'txtRc2no', '');
                         sum();
                         break;
-                    case 'vcc_umm':
+                    case 'vcc_pay':
                         var curData = new Array();
                         for (var i = 0; i < q_bbsCount; i++) {
                             if ($('#txtRc2no_' + i).val().length > 0) {
