@@ -352,7 +352,7 @@
                 padding: 2px;
                 border: 1px black double;
                 border-spacing: 0;
-                font-size: 16px;
+                font-size: medium;
                 background-color: #FFFF66;
                 color: blue;
             }
@@ -370,7 +370,7 @@
             }
             .tbbm {
                 padding: 0px;
-                font-size: 16px;
+                font-size: medium;
                 color: blue;
                 background: #cad3ff;
                 width: 100%;
@@ -463,7 +463,7 @@
                 border: 2px lightgrey double;
                 border-spacing: 1;
                 border-collapse: collapse;
-                font-size: 16px;
+                font-size: medium;
                 color: blue;
                 background: #cad3ff;
                 width: 100%;
@@ -480,6 +480,10 @@
             {
             	width: 95%;
             }
+            input [type="text"],[type="button"]
+            {
+            	font-size:medium;	
+            } 
 		</style>
 	</head>
 	<body>
@@ -490,7 +494,7 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:15%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:20%"><a id='vewOrdeno'></a></td>
+						<td align="center" style="width:20%"><a id='vewNoa'></a></td>
 						<td align="center" style="width:20%"><a id='vewCust'></a></td>
 					</tr>
 					<tr>
@@ -498,7 +502,7 @@
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='ordeno'>~ordeno</td>
+						<td align="center" id='noa'>~noa</td>
 						<td align="center" id='cust,4'>~cust,4</td>
 					</tr>
 				</table>
@@ -697,7 +701,7 @@
 						</td>
 						<td class="td7"><span> </span><a id="lblApv" class="lbl"></a></td>
 						<td class="td8" >
-						<input id="txtApv" type="text" class="txt c1"/>
+						<input id="txtApv" type="text" class="txt c1" disabled="disabled"/>
 						</td>
 					</tr>
 					<tr class="tr16">
