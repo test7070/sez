@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
     <title></title>
-    <script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>    
+    <script src="../script/jquery.min.js" type="text/javascript"></script>    
     <script src='../script/qj.js' type="text/javascript"></script>
     <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
@@ -17,14 +17,10 @@
         }
         q_tables = 's';
         var q_name = "orde";
-        var decbbs = ['money', 'total', 'weight', 'mount', 'price', 'sprice', 'dime', 'width', 'lengthb', 'theory', 'c1', 'notv', 'c2', 'notv2', 'cuamount'];
-        var decbbm = [ 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price'];
         var q_readonly = ['txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales'];
         var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtTheory']; 
         var bbmNum = [['txtPrice', 10, 3], ['txtTranmoney', 11, 2]];  // 允許 key 小數
-        var bbmNum_comma = ['txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight'];  ///  ,,,,,, 純粹 顯示 comma
         var bbsNum = [['txtPrice', 12, 3], ['txtWeight', 11, 2], ['txtMount', 9, 2]];
-        var bbsNum_comma = ['txtTotal'];  // 該欄 不許再有運算式  ,,,,,, 純粹 顯示 comma
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'odate';
@@ -41,8 +37,8 @@
 
             q_brwCount();  // 計算 合適  brwCount 
 
-            if (!q_gt(q_name, q_content, q_sqlCount, 1))  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
-                return;
+            q_gt(q_name, q_content, q_sqlCount, 1)  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
+                
 
             $('#txtOdate').focus
         });
@@ -54,13 +50,7 @@
                dataErr = false;
                return;
            }
-
-            q_mask(bbmMask);
-
             mainForm(1); // 1=最後一筆  0=第一筆
-
-            $('#txtOdate').focus();
-            
         }  ///  end Main()
 
         function pop(form) {
@@ -79,7 +69,7 @@
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
             bbmMask = [['txtDatea', r_picd], ['txtOdate', r_picd ]];  
-            
+            q_mask(bbmMask);            
             q_cmbParse("cmbStype", q_getPara('orde.stype')); // 需在 main_form() 後執行，才會載入 系統參數  
             q_cmbParse("cmbCoin", q_getPara('sys.coin'));      /// q_cmbParse 會加入 fbbm
             q_cmbParse("combPay", q_getPara('vcc.pay'));  // comb 未連結資料庫
@@ -369,23 +359,11 @@
             //$('#txtTotal').val(t1 + dec($('#txtTax').val()));
 
             calTax();
-
-            format();
-        }
-
-        function format() {  ////  主要為數字 comma
-            var i;
-
-            q_format(bbmNum_comma, bbmNum);   /// 顯示 , keyin 只為了小數點顯示
-
-            q_formats(bbsNum_comma, bbsNum);   /// 顯示 , keyin 只為了小數點顯示
-            q_init = 0;
         }
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
 
-            format();
         }
 
         function readonly(t_para, empty) {
@@ -399,12 +377,11 @@
 
         function btnPlus(org_htm, dest_tag, afield) {
             _btnPlus(org_htm, dest_tag, afield);
-            if (q_tables == 's')
-                bbsAssign();  /// 表身運算式 
+            
         }
 
         function q_appendData(t_Table) {
-            dataErr = !_q_appendData(t_Table);
+            return _q_appendData(t_Table);
         }
 
         function btnSeek(){
@@ -444,62 +421,138 @@
         }
     </script>
     <style type="text/css">
-        .tview
-        {
-            FONT-SIZE: 12pt;
-            COLOR:  Blue ;
-            background:#FFCC00;
-            padding: 3px;
-            TEXT-ALIGN:  center
-        }    
-        .tbbm
-        {
-            FONT-SIZE: 12pt;
-            COLOR: blue;
-            TEXT-ALIGN: left;
-            border-color: white; 
-            width:100%; border-collapse: collapse; background:#cad3ff;
-        } 
-        
-        .tbbs
-        {
-            FONT-SIZE: 12pt;
-            COLOR: blue ;
-            TEXT-ALIGN: left;
-             BORDER:1PX LIGHTGREY SOLID;
-             width:100% ; height:100% ;  
-        } 
-        
-       
-        .column1
-        {
-            width: 8%;
-        }
-        .column2
-        {
-            width: 10%;
-        }      
-        .column3
-        {
-            width: 8%;
-        }   
-        .column4
-        {
-            width: 8%;
-        }           
-         .label1
-        {
-            width: 8%;text-align:right;
-        }       
-        .label2
-        {
-            width: 8%;text-align:right;
-        }
-        .label3
-        {
-            width: 8%;text-align:right;
-        }
-       
+         #dmain {
+                overflow: hidden;
+            }
+            .dview {
+                float: left;
+                width: 28%;
+            }
+            .tview {
+                margin: 0;
+                padding: 2px;
+                border: 1px black double;
+                border-spacing: 0;
+                font-size: medium;
+                background-color: #FFFF66;
+                color: blue;
+                width: 100%;
+            }
+            .tview td {
+                padding: 2px;
+                text-align: center;
+                border: 1px black solid;
+            }
+            .dbbm {
+                float: left;
+                width: 70%;
+                margin: -1px;
+                border: 1px black solid;
+                border-radius: 5px;
+            }
+            .tbbm {
+                padding: 0px;
+                border: 1px white double;
+                border-spacing: 0;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                background: #cad3ff;
+                width: 100%;
+            }
+            .tbbm tr {
+                height: 35px;
+            }
+            .tbbm tr td {
+                width: 9%;
+            }
+            .tbbm .tdZ {
+                width: 2%;
+            }
+            .tbbm tr td span {
+                float: right;
+                display: block;
+                width: 5px;
+                height: 10px;
+            }
+            .tbbm tr td .lbl {
+                float: right;
+                color: blue;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn {
+                color: #4297D7;
+                font-weight: bolder;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn:hover {
+                color: #FF8F19;
+            }
+            .txt.c1 {
+                width: 98%;
+                float: left;
+            }
+            .txt.c2 {
+                width: 48%;
+                float: left;
+            }
+            .txt.c3 {
+                width: 50%;
+                float: left;
+            }
+            .txt.c4 {
+                width: 18%;
+                float: left;
+            }
+            .txt.c5 {
+                width: 80%;
+                float: left;
+            }
+            .txt.c6 {
+                width: 25%;
+                
+            }
+            .txt.c7 {
+                width: 95%;
+                float: left;
+            }
+            .txt.num {
+                text-align: right;
+            }
+            .tbbm td {
+                margin: 0 -1px;
+                padding: 0;
+            }
+            .tbbm td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                float: left;
+            }
+            .tbbm td input[type="button"] {
+                float: left;
+            }
+            .tbbm select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+            }
+            .dbbs {
+                width: 100%;
+            }
+            .tbbs a {
+                font-size: medium;
+            }
+
+            .num {
+                text-align: right;
+            }
+            .tbbs tr.error input[type="text"] {
+                color: red;
+            }
+            input[type="text"], input[type="button"] {
+                font-size: medium;
+            }
       
     </style>
 </head>
@@ -525,29 +578,27 @@
         </div>
         <div class='dbbm' style="width: 68%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
-            <tr>
-               <td class="label1"  align="right"><a id='lblStype'></a></td>
-               <td class="column1" ><select id="cmbStype" style='width:100%;'/></td>
-               <td class="column2" align='right' ></td>
-              <td class="label2" align="right" ><a id='lblDatea'></a></td>
-               <td class="column3"><input id="txtDatea" maxlength='10' type="text"  style='width:100%;'/></td>
-               <td class="column4" ></td>
-               <td class="label3" align="right"><a id='lblNoa'></a></td>
-               <td class="column2" ><input id="txtNoa"   type="text"  maxlength='30'   style='width:94%;'/></td> 
+            <tr class="tr1">
+               <td class="td1"><span> </span><a id='lblStype' class="lbl"></a></td>
+               <td class="td2"><select id="cmbStype" class="txt c1"></select></td>
+               <td class="td3"></td>
+               <td class="td4"><span> </span><a id='lblDatea' class="lbl"></a></td>
+               <td class="td5"><input id="txtDatea"  type="text"  class="txt c1"/></td>
+               <td class="td6"></td>
+               <td class="td7"><span> </span><a id='lblNoa' class="lbl"></a></td>
+               <td class="td8"><input id="txtNoa"   type="text" class="txt c1"/></td> 
             </tr>
-     
-            <tr>
-               <td align="right" class="style2" ><input id="btnAcomp" type="button" value='公 司' style='width: auto; font-size: medium;'  /></td>
+            <tr class="tr2">
+               <td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"></a></td>
                <td class="column1" ><input id="txtCno"  type="text" maxlength='10' style='width:100%;' /></td>
                <td class="column2" ><input id="txtAcomp"    type="text" maxlength='90'  style='width:100%;'/></td>
-                <td align="right" class="style2" ><a id='lblFloata'></a></td>
-                <td class="column3" ><select id="cmbCoin" style='width:100%'  /> </td>                 
-                <td class="column4" ><input id="txtFloata"    type="text"  maxlength='10' style='width:100%' /></td>                 
-                <td align="right" class="style2"><input id="btnQuat" type="button" value='.' style='width: auto; font-size:  medium;'  /></td>
-                <td class="column2"><input id="txtInvo"    type="text"  maxlength='10' style='width:94%;'/></td> 
+               <td align="right" class="style2" ><a id='lblFloata'></a></td>
+               <td class="column3" ><select id="cmbCoin" style='width:100%'  /> </td>                 
+               <td class="column4" ><input id="txtFloata"    type="text"  maxlength='10' style='width:100%' /></td>                 
+               <td align="right" class="style2"><input id="btnQuat" type="button" value='.' style='width: auto; font-size:  medium;'  /></td>
+               <td class="column2"><input id="txtInvo"    type="text"  maxlength='10' style='width:94%;'/></td> 
             </tr>
-
-           <tr>
+           <tr class="tr3">
                 <td align="right"><input id="btnCust" type="button" value='.' style='width: auto; font-size: medium;'  /></td>
                 <td ><input id="txtCustno" type="text" maxlength='10' style='width:100%;'  /></td>
                 <td ><input id="txtComp"  type="text" maxlength='90'  style='width:100%;'/></td>
@@ -557,8 +608,7 @@
                 <td align="right"><a id='lblContract'></a></td>
                 <td><input id="txtContract"  type="text"  maxlength='20' style='width:94%' /></td> 
             </tr>
-
-            <tr>
+            <tr class="tr4">
                 <td align="right"><input id="btnSales" type="button" value='.' style='width: auto; font-size: medium;'  /></td>
                 <td ><input id="txtSalesno" type="text" maxlength='12' style="width:100%"/></td> 
                 <td ><input id="txtSales" type="text" maxlength='12' style="width:100%"/></td> 
@@ -567,22 +617,21 @@
                 <td align="right" ><a id='lblFax'></a></td>
                 <td ><input id="txtFax"    type="text"  maxlength='90' style='width:98%;'/></td>
             </tr>
-
-            <tr>
+            <tr class="tr5">
                 <td align="right" ><a id='lblAddr'></a></td>
                 <td ><input id="txtPost"  type="text"   maxlength='10'  style='width:100%;'/> </td>
                 <td colspan='4' ><input id="txtAddr"  type="text"  maxlength='90'  style='width:100%;'/> </td>
                 <td align="right" ><a id='lblTrantype'></a></td>
                 <td ><select id="cmbTrantype" style='width:100%' name="D1" /></td> 
             </tr>
-            <tr>
+            <tr class="tr6">
                 <td align="right" ><a id='lblAddr2'></a></td>
                 <td ><input id="txtPost2"  type="text"   maxlength='10'  style='width:100%;'/> </td>
                 <td colspan='4' ><input id="txtAddr2"  type="text"  maxlength='90'  style='width:100%;'/> </td>
                 <td align="right" >&nbsp;</td>
                 <td ><input id="btnOrdem" type="button" value='' style='width: auto; font-size: medium;'  /></td> 
             </tr>
-            <tr>
+            <tr class="tr7">
                 <td align="right"><a id='lblMoney'></a></td>
                 <td colspan='2'><input id="txtMoney"    type="text"  maxlength='20'style='width:100%; text-align:center;'/></td> 
                 <td align="right" ><a id='lblTax'></a></td>
@@ -592,7 +641,7 @@
                 <td ><input id="txtTotal"    type="text" maxlength='20' style='width:94%; text-align:center;'/>
                 </td> 
             </tr>
-            <tr>
+            <tr class="tr7">
                 <td align="right"><a id='lblTotalus'></a></td>
                 <td colspan='2'><input id="txtTotalus"    type="text"  maxlength='20'style='width:100%; text-align:center;'/></td> 
                 <td align="right" ><a id='lblWeight'></a></td>
@@ -600,7 +649,7 @@
                 <td align="right"><a id='lblWorker'></a></td>
                 <td ><input id="txtWorker"  type="text"  maxlength='20'style='width:94%; text-align:center;'/></td> 
             </tr>
-            <tr>
+            <tr class="tr8">
                 <td align="right"><a id='lblMemo'></a></td>
                 <td  colspan='7' ><input id="txtMemo"  type="text" maxlength='20' style="width:100%;"/></td> 
             </tr>
