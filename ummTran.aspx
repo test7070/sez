@@ -451,11 +451,11 @@
                 float: left;
             }
             .txt.c2 {
-                width: 38%;
+                width: 48%;
                 float: left;
             }
             .txt.c3 {
-                width: 60%;
+                width: 50%;
                 float: left;
             }
             .txt.c4 {
@@ -602,10 +602,14 @@
 					</tr>
 					<tr class="tr5">
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-						<td class="td2" colspan='5' >						<textarea id="txtMemo" style="width: 99%; height: 50px;" ></textarea></td>
-						<td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
-						<td class="td8" >
+						<td class="td2" colspan='3' >						<textarea id="txtMemo" style="width: 99%; height: 50px;" ></textarea></td>
+						<td class="td5"><span> </span><a id='lblWorker' class="lbl"></a></td>
+						<td class="td6" >
 						<input id="txtWorker"  type="text" class="txt c1"/>
+						</td>
+						<td class="td7"><span> </span><a id='lblApv' class="lbl"></a></td>
+						<td class="td8" >
+						<input id="txtApv"  type="text" class="txt c1" disabled = "disabled"/>
 						</td>
 					</tr>
 					<tr>

@@ -421,6 +421,8 @@
 						<td class="td6">
 						<input id="txtUnpay"  type="text"  class="txt num c1"/>
 						</td>
+						<td class="td7"><span> </span><a id="lblApv" class="lbl"></a></td>
+						<td class="td8"><input id="txtApv" type="text" class="txt c2" disabled = disabled/></td>
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>

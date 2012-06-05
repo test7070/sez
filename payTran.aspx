@@ -592,6 +592,14 @@
 						<td class="td2">
 						<input id="txtAccno"  type="text" class="txt c1"/>
 						</td>
+						<td class="td3"></td>
+						<td class="td4"></td>
+						<td class="td5"></td>
+						<td class="td6"></td>
+						<td class="td7"><span> </span><a id='lblApv' class="lbl"></a></td>
+						<td class="td8" >
+						<input id="txtApv"  type="text" class="txt c1" disabled="disabled"/>
+						</td>
 					</tr>
 					<tr class="tr6">
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
