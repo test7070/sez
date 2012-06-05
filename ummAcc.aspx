@@ -4,7 +4,7 @@
 <head>
     <title></title>
     <script src="../script/jquery.min.js" type="text/javascript"></script>
-    <script src='../script/qj2.js' type="text/javascript"></script>
+    <script src='../script/qj.js' type="text/javascript"></script>
             <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src="../script/qbox.js" type="text/javascript"></script>
@@ -38,19 +38,29 @@
                dataErr = false;
                return;
            }
-
-            q_mask(bbmMask);
-
             mainForm(0); // 1=Last  0=Top
-
-            $('#txtNoa').focus();
-            
         }  ///  end Main()
 
 
-        function mainPost() { 
-           
-            fbbm[fbbm.length] = 'txtMemo'; 
+        function mainPost() {
+            q_mask(bbmMask);
+            fbbm[fbbm.length] = 'txtMemo';
+
+            $('#txtRacc1').change(function () {
+                var s1 = trim($(this).val());
+                if (s1.length > 4 && s1.indexOf('.') < 0)
+                    $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
+                if (s1.length == 4)
+                    $(this).val(s1 + '.');
+            });
+
+            $('#txtRacc2').change(function () {
+                var s1 = trim($(this).val());
+                if (s1.length > 4 && s1.indexOf('.') < 0)
+                    $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
+                if (s1.length == 4)
+                    $(this).val(s1 + '.');
+            });
         }
 
       
@@ -204,8 +214,6 @@
 
         function btnPlus(org_htm, dest_tag, afield) {
             _btnPlus(org_htm, dest_tag, afield);
-            if (q_tables == 's')
-                bbsAssign();  
         }
 
         function q_appendData(t_Table) {
