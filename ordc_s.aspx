@@ -9,7 +9,7 @@
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = "ordb_s";
+    var q_name = "ordc_s";
 
     $(document).ready(function () {
         main();
@@ -30,7 +30,7 @@
         $('#txtBdate').focus();
     }
 
-    function q_seekStr() {   ///  �j�M���U�ɡA����
+    function q_seekStr() {   ///  ?j?M???U??A????
         t_noa = $('#txtNoa').val();
         t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();

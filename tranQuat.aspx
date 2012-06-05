@@ -94,7 +94,7 @@
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('cng_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('tranquat_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
             }
 
             function combPay_chg() {
@@ -164,8 +164,7 @@
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
-                if(q_tables == 's')
-                    bbsAssign();
+                
             }
 
             function q_appendData(t_Table) {
@@ -225,7 +224,7 @@
                 padding: 2px;
                 border: 1px black double;
                 border-spacing: 0;
-                font-size: 16px;
+                font-size: medium;
                 background-color: #FFFF66;
                 color: blue;
             }
@@ -246,7 +245,7 @@
                 border: 1px white double;
                 border-spacing: 0;
                 border-collapse: collapse;
-                font-size: 16px;
+                font-size: medium;
                 color: blue;
                 background: #cad3ff;
                 width: 100%;
@@ -269,7 +268,7 @@
             .tbbm tr td .lbl {
                 float: right;
                 color: blue;
-                font-size: 16px;
+                font-size: medium;
             }
             .tbbm tr td .lbl.btn {
                 color: #4297D7;
@@ -311,12 +310,19 @@
             .tbbs input[type="text"] {
                 width: 95%;
             }
+            .tbbs a {
+                font-size: medium;
+            }
             .num {
                 text-align: right;
             }
             .bbs{
             	float:left;
             }
+            input[type="text"], input[type="button"] {
+                font-size: medium;
+            }
+      
 		</style>
 	</head>
 	<body>
@@ -411,7 +417,7 @@
 							<td class="td2">
 							<input id="txtSalesno" type="text" class="txt c1"/>
 							</td>
-							<td class="td3">
+							<td class="td3" colspan='2'>
 							<input id="txtSales" type="text" class="txt c1"/>
 							</td>
 						</tr>
@@ -429,7 +435,7 @@
 							</td>
 							<td class="td6"><span> </span><a id='lblTel_cust'  class="lbl"></a></td>
 							<td >
-							<input id="txtTel_cust"  type="text"  class="txt c2"/>
+							<input id="txtTel_cust"  type="text"  class="txt c1"/>
 							</td>
 						</tr>
 						<tr class="tr7">
@@ -469,8 +475,12 @@
 							<input id="txtTel_car"  type="text"  class="txt c1"/>
 							</td>
 							<td class="td5"><span> </span><a id='lblWorker' class="lbl"></a></td>
-							<td >
+							<td class="td6">
 							<input id="txtWorker"  type="text" class="txt c1" />
+							</td>
+							<td class="td7"><span> </span><a id='lblApv' class="lbl"></a></td>
+							<td class="td8">
+							<input id="txtApv"  type="text" class="txt c1" />
 							</td>
 						</tr>
 						<tr class="tr10">
@@ -481,6 +491,7 @@
 						</tr>
 					</table>
 				</div>
+			</div>
 			</div>
 			<div class='dbbs'>
 				<table id="tbbs" class='tbbs'>
@@ -527,7 +538,6 @@
 					</tr>
 				</table>
 			</div>
-		</div>
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>

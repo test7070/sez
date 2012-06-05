@@ -450,8 +450,7 @@
             </tr>
         </table>
         </div>
-
-
+		</div>
         <div class='dbbs' > <%--style="overflow-x: hidden; overflow-y: scroll; height:200px"  --%>
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
@@ -489,7 +488,6 @@
                 <input id="recno.*" type="hidden" /></td>
             </tr>
         </table>
-        </div>
         </div>
         <input id="q_sys" type="hidden" />
 </body>

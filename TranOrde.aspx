@@ -43,7 +43,7 @@
                     dataErr = false;
                     return;
                 }
-                q_mask(bbmMask);
+               
                 mainForm(0);
             }
 
@@ -84,7 +84,7 @@
                 q_cmbParse("cmbUnit", q_getPara('trans.unit'));
                 q_cmbParse("cmbUnit2", q_getPara('trans.unit'));
                 q_func('car2.getItem', '3,4,5');
-
+				 q_mask(bbmMask);
                 $("#cmbCalctype").change(function() {
                     if($("#cmbCalctype").val() == '6') {
                         $("#lblPrice2").hide();
@@ -217,7 +217,7 @@
                 if(q_cur > 0 && q_cur < 4)
                     return;
 
-                q_box('cust_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('tranorde_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
             }
 
             function combPay_chg() {
@@ -292,8 +292,7 @@
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
-                if(q_tables == 's')
-                    bbsAssign();
+                
             }
 
             function q_appendData(t_Table) {
@@ -684,17 +683,21 @@
 						<td class="td2" colspan='7'>						<textarea id="txtMemo" style="width:99%; height: 35px;"></textarea></td>
 					</tr>
 					<tr class="tr15">
-						<td class="td7"><span> </span><a id="lblTotal" class="lbl"></a></td>
-						<td class="td8" >
+						<td class="td1"><span> </span><a id="lblTotal" class="lbl"></a></td>
+						<td class="td2" >
 						<input id="txtTotal" type="text"  class="txt num c1"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblTotal2" class="lbl"></a></td>
-						<td class="td6" >
+						<td class="td3"><span> </span><a id="lblTotal2" class="lbl"></a></td>
+						<td class="td4" >
 						<input id="txtTotal2" type="text"  class="txt num c1"/>
 						</td>
-						<td class="td7"><span> </span><a id="lblCommission" class="lbl"></a></td>
-						<td class="td8" >
+						<td class="td5"><span> </span><a id="lblCommission" class="lbl"></a></td>
+						<td class="td6" >
 						<input id="txtCommission" type="text" class="txt num c1"/>
+						</td>
+						<td class="td7"><span> </span><a id="lblApv" class="lbl"></a></td>
+						<td class="td8" >
+						<input id="txtApv" type="text" class="txt c1"/>
 						</td>
 					</tr>
 					<tr class="tr16">
