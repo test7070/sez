@@ -3,10 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title></title>
+    <script src="../script/jquery.min.js" type="text/javascript"></script>
     <script src='../script/qj2.js' type="text/javascript"></script>
     <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
     var q_name = "orde_s";
@@ -24,8 +24,8 @@
         q_getFormat();
         q_langShow();
 
-        .* = [['txtBdate', r_picd], ['txtEdate', r_picd]];
-        q_mask(.*);
+        bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+        q_mask(bbmMask);
 
         $('#txtBdate').focus();
     }
@@ -38,15 +38,11 @@
         t_salesno = $('#txtSalesno').val();
         t_comp = $('#txtComp').val();
 
-        t_bdate = t_bdate.length > 0 && t_bdate.indexOf(" ") > -1 ? t_bdate.substr(0, t_bdate.indexOf(" ")) : t_bdate;  /// 100.  .
-        t_edate = t_edate.length > 0 && t_edate.indexOf(" ") > -1 ? t_edate.substr(0, t_edate.indexOf(" ")) : t_edate;  /// 100.  .
-        t_edate = t_edate.length == 0 ? "z" : t_edate;
+        t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
+        t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
-        var t_where = " 1=1 " + (t_noa.length > 0 ? " and " + q_sqlPara("noa", t_noa) : "") +
-                           (t_comp.length > 0 ? " and " + q_sqlPara("comp", t_comp) : "") +
-                           (t_bdate.length > 0 || t_edate.length > 0 ? " and " + q_sqlPara("odate", t_bdate + "," + t_edate) : "") +
-                           (t_salesno.length > 0 ? " and " + q_sqlPara("salesno", t_salesno) : "") +
-                           (t_custno.length > 0 ? " and " + q_sqlPara("custno", t_custno) : "");
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("comp", t_comp) + q_sqlPara2("datea", t_bdate, t_edate) +
+                           q_sqlPara2("salesno", t_salesno) + q_sqlPara2("custno", t_custno);
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
