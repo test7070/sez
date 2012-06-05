@@ -16,13 +16,13 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var q_name="carchg";
+        var q_name="custchg";
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-        aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],['txtCaritemno','lblCaritem','caritem','noa,item','txtCaritemno,txtCaritem','Caritem_b.aspx'],['txtCaritemno2','lblCaritem2','caritem','noa,item','txtCaritemno2,txtCaritem2','Caritem_b.aspx']);
+        aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],['txtCaritemno','lblCaritem','caritem','noa,item','txtCaritemno,txtCaritem','Caritem_b.aspx'],['txtCaritemno2','lblCaritem2','caritem','noa,item','txtCaritemno2,txtCaritem2','Caritem_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -137,7 +137,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('carchg_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+            q_box('custchg_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
         }
 
         function combPay_chg() {  
@@ -385,13 +385,13 @@
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>                
                 <td align="center" style="width:25%"><a id='vewDatea'></a></td>
                 <td align="center" style="width:25%"><a id='vewCarno'></a></td>
-                <td align="center" style="width:25%"><a id='vewDriver'></a></td>                
+                <td align="center" style="width:25%"><a id='vewComp'></a></td>                
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
                    <td align="center" id='datea'>~datea</td>
                    <td align="center" id='carno'>~carno</td>
-                   <td align="center" id='driver'>~driver</td>
+                   <td align="center" id='comp,4'>~comp,4</td>
             </tr>
         </table>
         </div>
@@ -409,9 +409,9 @@
                <td class="td1"><span> </span><a id="lblAcomp" class="lbl btn" ></a></td>
                <td class="td2"><input id="txtCno"  type="text"  class="txt c2"/>
                <input id="txtAcomp"  type="text"  class="txt c3"/></td>
-               <td class="td3"><span> </span><a id="lblDriver" class="lbl btn" ></a></td>
-               <td class="td4"><input id="txtDriverno"  type="text"  class="txt c2"/>
-                   <input id="txtDriver"  type="text"  class="txt c3"/></td>
+               <td class="td3"><span> </span><a id="lblCust" class="lbl btn" ></a></td>
+               <td class="td4"><input id="txtCustno"  type="text"  class="txt c2"/>
+                   <input id="txtComp"  type="text"  class="txt c3"/></td>
                <td class="td5"><span> </span><a id="lblOrdeno" class="lbl"></a></td>
                <td class="td6"><input id="txtOrdeno" type="text" class="txt c1" /></td>
             </tr>
