@@ -40,20 +40,15 @@
                     dataErr = false;
                     return;
                 }
-
-                q_mask(bbmMask);
-
                 mainForm(0);
                 // 1=Last  0=Top
-
-                $('#txtCarno').focus();
-
             }///  end Main()
 
             function mainPost() {
             	q_cmbParse("cmbSex",q_getPara('sys.sex'));
             	q_cmbParse("cmbCartype",q_getPara('driver.cartype'));
                 fbbm[fbbm.length] = 'txtMemo';
+                q_mask(bbmMask);
             }
 
             function txtCopy(dest, source) {
@@ -102,7 +97,7 @@
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('sss_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('driver_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -153,8 +148,6 @@
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
-                if(q_tables == 's')
-                    bbsAssign();
             }
 
             function q_appendData(t_Table) {
@@ -325,7 +318,7 @@
 					</tr>
 					<tr class="tr5">
 						<td class="td1" ><a id="lblMemo" class="label"></a></td>
-						<td class="td2" colspan='7'><textarea id="txtMemo" style="width:99%; height: 127px;"></textarea></td>
+						<td class="td2" colspan='7'><textarea id="txtMemo" style="width:99%; height: 50px;"></textarea></td>
 					</tr>
 					<tr class="tr6">
 						<td class="td1"><a id="lblTakeofficedate" class="label"></a></td>

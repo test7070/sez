@@ -272,16 +272,16 @@
 		<style type="text/css">
 		 #dmain{overflow:hidden;}
 		 .dview{float:left;width:25%;}
-		 .tview{margin:0;padding:2px;border:1px black double;border-spacing:0;font-size:16px;background-color:#FFFF66;color:blue;}
+		 .tview{margin:0;padding:2px;border:1px black double;border-spacing:0;font-size:medium;background-color:#FFFF66;color:blue;}
 		 .tview td{padding:2px;text-align:center;border:1px black solid;}
 		 .dbbm{float:left;width:73%;margin:-1px;border:1px black solid;border-radius:5px;}
-		 .tbbm{padding:0px;border:1px white double;border-spacing:0;border-collapse:collapse;font-size:16px;color:blue;background:#cad3ff;width:100%;}
+		 .tbbm{padding:0px;border:1px white double;border-spacing:0;border-collapse:collapse;font-size:medium;color:blue;background:#cad3ff;width:100%;}
 		 .tbbm tr{height:35px;}
 		 .td1{width: 11%;}
 		 .td3, .td5, .td7{width: 10%;}
 		 .td2, .td4, .td6, .td8{width: 10%;}
 		 .tbbm tr td span{float:right;display:block;width:8px;height:10px;}
-		 .tbbm tr td .lbl{float:right;color:blue;font-size:16px;}
+		 .tbbm tr td .lbl{float:right;color:blue;font-size:medium;}
 		 .tbbm tr td .lbl.btn {
                 color: #4297D7;
                 font-weight: bolder;
@@ -300,13 +300,13 @@
 		 .txt.c7{width:96%;text-align: right;}
 		 .txt.c8{width:98%;}
 		
-		 .dbbs .tbbs{margin:0;padding:2px;border:2px lightgrey double;border-spacing:1px;border-collapse:collapse;font-size:16px;color:blue;background:#cad3ff;width:100%;}
+		 .dbbs .tbbs{margin:0;padding:2px;border:2px lightgrey double;border-spacing:1px;border-collapse:collapse;font-size:medium;color:blue;background:#cad3ff;width:100%;}
 		 .dbbs .tbbs tr{height:35px;}
 		 .dbbs .tbbs tr td{text-align:center;border:2px lightgrey double;}
 		
 		 .dbbm input[type="button"]{float:right;width:auto;font-size: medium;}
 		 .tbbm tr td{margin:0px -1px;padding:0;}
-		 .tbbm tr td input[type="text"]{border-width:1px;padding:0px;margin:-1px;}
+		 .tbbm tr td input[type="text"]{border-width:1px;padding:0px;margin:-1px;font-size: medium;}
 		 .tbbm tr td select{border-width:1px;padding:0px;margin:-1px;width: 98%;}
 		</style>
 	</head>
@@ -421,7 +421,7 @@
 						<input id="txtUnpay"  type="text"  class="txt num c1"/>
 						</td>
 						<td class="td7"><span> </span><a id="lblApv" class="lbl"></a></td>
-						<td class="td8"><input id="txtApv" type="text" class="txt c2" disabled = "disabled"/></td>
+						<td class="td8"><input id="txtApv" type="text" class="txt c1" disabled = "disabled"/></td>
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
