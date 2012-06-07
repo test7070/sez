@@ -42,14 +42,12 @@
                     dataErr = false;
                     return;
                 }
-
-                q_mask(bbmMask);
-
                 mainForm(0);
             }///  end Main()
 
             function mainPost() {
                 fbbm[fbbm.length] = 'txtMemo';
+                q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('borr.typea'), 's');
 
                 $("#txtPayc").change(function() {
@@ -176,8 +174,6 @@
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
-                if(q_tables == 's')
-                    bbsAssign();
             }
 
             function bbsAssign() {
@@ -281,7 +277,7 @@
                 padding: 2px;
                 border: 1px black double;
                 border-spacing: 0;
-                font-size: 16px;
+                font-size: medium;
                 background-color: #FFFF66;
                 color: blue;
             }
@@ -302,7 +298,7 @@
                 border: 1px white double;
                  border-spacing: 0;
                  border-collapse: collapse;
-                font-size: 16px;
+                font-size: medium;
                 color: blue;
                 background: #cad3ff;
                 width: 100%;
@@ -328,7 +324,7 @@
             .tbbm tr td .lbl {
                 float: right;
                 color: blue;
-                font-size: 16px;
+                font-size: medium;
             }
             .tbbm tr td .lbl.btn {
                 color: #4297D7;
@@ -359,7 +355,7 @@
                 border: 2px lightgrey double;
                 border-spacing: 1;
                 border-collapse: collapse;
-                font-size: 16px;
+                font-size: medium;
                 color: blue;
                 background: #cad3ff;
                 width: 100%;
@@ -379,6 +375,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+               
             }
             .tbbm tr td input[type="button"] {
                 width: auto;
@@ -389,6 +386,10 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+            }
+            input [type="text"]
+            {
+            	font-size:medium;
             }
 		</style>
 	</head>

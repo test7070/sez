@@ -40,11 +40,7 @@
                dataErr = false;
                return;
            }
-
-            mainForm(1); 
-
-            $('#txtDatea').focus();
-            
+            mainForm(1);
         }  ///  end Main()
 
        /* function pop(form) {
@@ -278,8 +274,6 @@
 
         function btnPlus(org_htm, dest_tag, afield) {
             _btnPlus(org_htm, dest_tag, afield);
-            if (q_tables == 's')
-                bbsAssign();  
         }
 
         function q_appendData(t_Table) {

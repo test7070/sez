@@ -16,9 +16,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         q_tables = 's';
-        var q_name = "bcce";
-        var decbbs = ['mount', 'weight','price', 'total'];
-        var decbbm = ['total'];
+        var q_name = "fixe";
         var q_readonly = [];
         var q_readonlys = [];
         var bbmNum = [['txtPrice', 10, 3]];  
@@ -26,7 +24,7 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
-        aPop = new Array(['txtPartno','btnPart','part','noa,part','txtPartno,txtPart','part_b.aspx'],['txtBccno_', 'btnBccno_', 'fixucc', 'noa,namea', 'txtBccno_,txtBccname_', 'fixucc_b.aspx']);
+        aPop = new Array(['txtPartno','lblPart','part','noa,part','txtPartno,txtPart','part_b.aspx'],['txtBccno_', 'btnBccno_', 'fixucc', 'noa,namea', 'txtBccno_,txtBccname_', 'fixucc_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -188,7 +186,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('worka_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('fixe_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   
@@ -279,9 +277,7 @@
         }
 
         function btnPlus(org_htm, dest_tag, afield) {
-            _btnPlus(org_htm, dest_tag, afield);
-            if (q_tables == 's')
-                bbsAssign();  
+            _btnPlus(org_htm, dest_tag, afield); 
         }
 
         function q_appendData(t_Table) {
@@ -327,16 +323,16 @@
     <style type="text/css">
         #dmain{overflow:hidden;}
 		 .dview{float:left;width:25%;}
-		 .tview{margin:0;padding:2px;border:1px black double;border-spacing:0;font-size:16px;background-color:#FFFF66;color:blue;}
+		 .tview{margin:0;padding:2px;border:1px black double;border-spacing:0;font-size:medium;background-color:#FFFF66;color:blue;}
 		 .tview td{padding:2px;text-align:center;border:1px black solid;}
 		 .dbbm{float:left;width:73%;margin:-1px;border:1px black solid;border-radius:5px;}
-		 .tbbm{padding:0px;border:1px white double;border-spacing:0;border-collapse:collapse;font-size:16px;color:blue;background:#cad3ff;width:100%;}
+		 .tbbm{padding:0px;border:1px white double;border-spacing:0;border-collapse:collapse;font-size:medium;color:blue;background:#cad3ff;width:100%;}
 		 .tbbm tr{height:35px;}
 		 
 		 .tbbm .td1,.tbbm .td3,.tbbm .td5,.tbbm .td7{width: 10%; text-align: right;}
 		 .tbbm .td2,.tbbm .td4,.tbbm .td6,.tbbm .td8{width: 15%;}
 		 .tbbm tr td span{float:right;display:block;width:8px;height:10px;}
-		 .tbbm tr td .lbl{float:right;color:blue;font-size:16px;}
+		 .tbbm tr td .lbl{float:right;color:blue;font-size:medium;}
 		 .tbbm tr td .lbl.btn{color:#4297D7;font-weight:bolder;}
 		 .tbbm tr td .lbl.btn:hover{color:#FF8F19;}
 		 .tbbm tr td .txt.c1{width:98%;float:left;}
@@ -349,7 +345,7 @@
 		 .txt.c7{width:96%;text-align: right;}
 		 .txt.c8{width:98%;}
 		
-		 .dbbs .tbbs{margin:0;padding:2px;border:2px lightgrey double;border-spacing:1px;border-collapse:collapse;font-size:16px;color:blue;background:#cad3ff;width:100%;}
+		 .dbbs .tbbs{margin:0;padding:2px;border:2px lightgrey double;border-spacing:1px;border-collapse:collapse;font-size:medium;color:blue;background:#cad3ff;width:100%;}
 		 .dbbs .tbbs tr{height:35px;}
 		 .dbbs .tbbs tr td{text-align:center;border:2px lightgrey double;}
 		
@@ -360,6 +356,7 @@
       	 .tbbs .td1{width: 6%;}
       	 .tbbs .td2{width: 10%;}
       	 .tbbs .td3{width: 17%;}
+      	 input[typea = "text"]{font-size: medium;}
       
     </style>
 </head>
@@ -383,27 +380,26 @@
         <div class='dbbm' style="width: 74%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='1'  cellspacing='0'>
         <tr class="tr1">
-               <td class="td1" ><a id='lblDatea'></a></td>
+               <td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
                <td class="td2"><input id="txtDatea"  type="text" class="txt c1"/></td>
-               <td class="td3" ><a id='lblNoa'></a></td>
+               <td class="td3"><span> </span><a id='lblNoa' class="lbl"></a></td>
                <td class="td4"><input id="txtNoa" type="text" class="txt c1" /></td>               
-               <td class="td5" ><a id='lblSname'> </a></td>
+               <td class="td5"><span> </span><a id='lblSname' class="lbl"></a></td>
                <td class="td6"><input id="txtSname"  type="text" class="txt c1" /></td> 
-               <td class="td7" ><input id="btnPart" type="button" /></td>               
+               <td class="td7"><span> </span><a id="lblPart" class="lbl btn"></a></td>               
                <td class="td8"><input id="txtPartno"  type="text"  class="txt c5"/><input id="txtPart"  type="text"  class="txt c6"/></td>
         </tr>
         <tr class="tr2">
             <td class="td1"></td>
             <td class="td2"></td>
-            <td class="td3" ><a id='lblTotal'> </a></td>
+            <td class="td3"><span> </span><a id='lblTotal' class="lbl"></a></td>
             <td class="td4"><input id="txtTotal"  type="text" class="txt num c1"/></td>
-            <td class="td5" ><a id='lblApprover'> </a></td>
+            <td class="td5"><span> </span><a id='lblApprover' class="lbl"></a></td>
             <td class="td6"><input id="txtApprover"  type="text" class="txt c1"/></td>  
         </tr>  
         <tr class="tr3">
-            <td class="td1"><a id="lblMemo"></a></td>
+            <td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
             <td class="td2" colspan="7"><textarea id="txtMemo" cols="10" rows="5" style="width: 95%; height: 127px;"></textarea></td>
-            
         </tr>       
         </table>
         </div>
@@ -419,7 +415,6 @@
                 <td align="center" class='td2'><a id='lblPrice'></a></td>
                 <td align="center" class='td3'><a id='lblTotals'></a></td>
                 <td align="center"><a id='lblMemos'></a></td>
-              
             </tr>
             <tr  style='background:#cad3ff;'> 
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>              
