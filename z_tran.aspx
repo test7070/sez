@@ -79,6 +79,9 @@
                         }, {
                             type : '6',
                             name : 'xcarno'
+                        }, {
+                            type : '6',
+                            name : 'xpo'
                         }]
                     });
                     q_getFormat();
