@@ -21,7 +21,11 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		
+		 aPop = new Array(['txtNoa', 'lblNamea','acc','acc1,acc2', 'txtNoa,txtNamea', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+		 				  ['txtAccno', 'lblAccno','acc','acc1,acc2', 'txtAccno', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+		 				  ['txtAccno2', 'lblAccno2','acc','acc1,acc2', 'txtAccno2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+		 				  ['txtAccno4', 'lblAccno4','acc','acc1,acc2', 'txtAccno4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+		 				  ['txtAccno6', 'lblAccno6','acc','acc1,acc2', 'txtAccno6', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -322,6 +326,10 @@
                 width: 50%;
                 float: left;
             }
+            .txt.c7 {
+                width: 70%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -348,7 +356,7 @@
              input[type="text"],input[type="button"] {     
                 font-size: medium;
             }
-            .tbbm .ch1, .tbbm .ch2, .tbbm .ch3, .tbbm .ch4 {background-color:  #FFEC8B; text-align: right;}
+            .tbbm .ch1, .tbbm .ch2, .tbbm .ch3, .tbbm .ch4 {background-color:  #FFEC8B; text-align: right;font-size: medium;}
     </style>
 </head>
 <body>
@@ -375,7 +383,7 @@
         <div class='dbbm' style="width: 70%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
           <tr class="tr1">
-               <td class="td1"><span> </span><a id="lblNamea" class="lbl"></a></td>
+               <td class="td1"><span> </span><a id="lblNamea" class="lbl btn"></a></td>
                <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
                <td class="td4" colspan="2"><input id="txtNamea" type="text" class="txt c1" /></td>
                <td class="td5"><span> </span><a id="lblCredit" class="lbl"></a></td>
@@ -384,31 +392,31 @@
                <td class="td8"><input id="txtDatea" type="text" class="txt c1" /></td>  
             </tr>
             <tr class="tr2">
-               <td class="td1"><span> </span><a id="lblAccno" class="lbl"></a></td>
+               <td class="td1"><span> </span><a id="lblAccno" class="lbl btn"></a></td>
                <td class="td2"><input id="txtAccno" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblAccno2" class="lbl"></a></td>
+               <td class="td3"><span> </span><a id="lblAccno2" class="lbl btn"></a></td>
                <td class="td4"><input id="txtAccno2" type="text" class="txt c1" /></td>
-               <td class="td5"><span> </span><a id="lblAccno4" class="lbl"></a></td>
+               <td class="td5"><span> </span><a id="lblAccno4" class="lbl btn"></a></td>
                <td class="td6"><input id="txtAccno4" type="text" class="txt c1" /></td>
-               <td class="td7"><span> </span><a id="lblAccno6" class="lbl"></a></td>
+               <td class="td7"><span> </span><a id="lblAccno6" class="lbl btn"></a></td>
                <td class="td8"><input id="txtAccno6" type="text" class="txt c1" /></td>
                <td class="td9"><span> </span><a id="lblAccno5" class="lbl"></a></td>
-               <td class="tdA"><input id="txtAccno5" type="text" class="txt c3" /></td> 
+               <td class="tdA"><input id="txtAccno5" type="text" class="txt c1" /></td> 
             </tr> 
             <tr class="tr3">
             	<td align="left"><a id="lblSet" style="color: #000066;font-size: 20px;"></a></td>
             </tr> 
             <tr class="tr4">
                <td class="ch1"><span> </span><a id="lblConrate2" class="lbl"></a></td>
-               <td class="ch2"><input id="txtConrate2" type="text" class="txt num c2"/> <a id="lblSymbol" ></a></td>
+               <td class="ch2"><input id="txtConrate2" type="text" class="txt num c7"/> <a id="lblSymbol" ></a></td>
                <td class="ch3"><span> </span><a id="lblConrate1" class="lbl"></a></td>
-               <td class="ch4"><input id="txtConrate1" type="text" class="txt num c2"/> <a id="lblSymbol1"></a></td>
+               <td class="ch4"><input id="txtConrate1" type="text" class="txt num c7"/> <a id="lblSymbol1"></a></td>
                <td class="td5"><span> </span><a id="lblExpire" class="lbl"></a></td>
                <td class="td6"><input id="txtExpire" type="text" class="txt num c2"/> <a id="lblsymbol2"></a></td>
                <td class="td7"><span> </span><a id="lblRate" class="lbl"></a></td>
                <td class="td8"><input id="txtRate" type="text" class="txt num c1"/></td>
                <td class="td9"><span> </span><a id="lblCoin" class="lbl"></a></td>
-               <td class="tdA"><select id="cmbCoin" class="txt c3"></select></td>  
+               <td class="tdA"><select id="cmbCoin" class="txt c1"></select></td>  
             </tr>
             <tr class="tr5">
                <td class="td1"><span> </span><a id="lblAccname3" class="lbl"></a></td>
@@ -418,7 +426,7 @@
                <td class="td6"><input id="txtUnpay" type="text" class="txt num c1"/></td>
                <td class="td8" colspan="2"><input id="txtUnpayus" type="text" class="txt num c1"/></td>
                <td class="td9"><span> </span><a id="lblTotal" class="lbl"></a></td>
-               <td class="tdA"><input id="txtTotal" type="text" class="txt num c3"/></td>  
+               <td class="tdA"><input id="txtTotal" type="text" class="txt num c1"/></td>  
             </tr>
         </table>
         </div>
