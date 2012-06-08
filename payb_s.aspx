@@ -70,6 +70,7 @@
                 <td><input class="txt" id="txtTggno" type="text" style="width:90px; font-size:medium;" />&nbsp;
                 	<input class="txt" id="txtTgg" type="text" style="width:115px; font-size:medium;" />
                 	</td>
+             </tr>
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblSalesno2'></a></td>
                 <td><input class="txt" id="txtSalesno2" type="text" style="width:90px; font-size:medium;" />&nbsp;
