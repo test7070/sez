@@ -68,14 +68,47 @@
             }
 
             function q_boxClose(s2) {
+            	var ret; 
+            switch (b_pop) {                   case 'conn':
+
+                    break;
+
+                case 'sss':
+                    ret = getb_ret();
+                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
+                    break;
+
+                case 'sss':
+                    ret = getb_ret();
+                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
+                    break;
+                
+                case q_name + '_s':
+                    q_boxClose2(s2); ///   q_boxClose 3/4
+                    break;
+            }   /// end Switch
             }
 
             function q_gtPost(t_name) {
+            	    switch (t_name) {
+            	    case 'sss':  
+                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
+                    break;
+
+                case q_name: if (q_cur == 4)  
+                        q_Seek_gtPost();
+
+                    if (q_cur == 1 || q_cur == 2) 
+                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
+
+                    break;
+            }  /// end switch
             }
 
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
+            q_box('lender_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
             }
 
             function btnIns() {
