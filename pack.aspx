@@ -5,7 +5,7 @@
     <title></title>
     <script src="../script/jquery.min.js" type="text/javascript"></script>
     <script src='../script/qj2.js' type="text/javascript"></script>
-            <script src='qset.js' type="text/javascript"></script>
+    <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src="../script/qbox.js" type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
@@ -16,7 +16,7 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var q_name="oilstation";
+        var q_name="pack";
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
@@ -43,10 +43,7 @@
 
         function mainPost() { 
         	q_mask(bbmMask);
-
         }
-
-
         function txtCopy(dest, source) {
             var adest = dest.split(',');
             var asource = source.split(',');
@@ -68,7 +65,7 @@
         
         function q_boxClose( s2) { 
             var ret; 
-            switch (b_pop) {  
+            switch (b_pop) {   
                 case 'conn':
 
                     break;
@@ -109,8 +106,7 @@
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
-
-            q_box('oilstation_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+            q_box('pack_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
         }
 
         function combPay_chg() {   
@@ -174,14 +170,18 @@
             var i;
 
             xmlSql = '';
-            if (q_cur == 2)   /// popSave
+            if (q_cur == 2)   
                 xmlSql = q_preXml();
 
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
             _btnOk(key_value, bbmKey[0], '','',2);
         }
+
+        
+        
         function refresh(recno) {
             _refresh(recno);
+           
         }
 
         function readonly(t_para, empty) {
@@ -193,11 +193,11 @@
         }
 
         function btnPlus(org_htm, dest_tag, afield) {
-            _btnPlus(org_htm, dest_tag, afield);
+            _btnPlus(org_htm, dest_tag, afield); 
         }
 
         function q_appendData(t_Table) {
-            return _q_appendData(t_Table);
+           return _q_appendData(t_Table);
         }
 
         function btnSeek(){
@@ -237,12 +237,12 @@
         }
     </script>
     <style type="text/css">
-                  #dmain {
+         #dmain {
                 overflow: hidden;
             }
             .dview {
                 float: left;
-                width: 98%;
+                width: 25%;
             }
             .tview {
                 margin: 0;
@@ -260,7 +260,7 @@
             }
             .dbbm {
                 float: left;
-                width: 98%;
+                width: 73%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -352,55 +352,51 @@
             
              input[type="text"],input[type="button"] {     
                 font-size: medium;
-            }  
+            }
     </style>
 </head>
 <body>
 <!--#include file="../inc/toolbar.inc"-->
-        <div id='dmain' >
+        <div id='dmain' style="overflow:hidden;">
         <div class="dview" id="dview" style="float: left;  width:25%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
-                <td align="center" style="width:5%"><a id='vewChk'></a></td>
+                <td align="center" style="width:5%"><a id='vewChk'></a></td>                
                 <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:40%"><a id='vewStation'></a></td>
+                <td align="center" style="width:25%"><a id='vewPack'></a></td>
+                <td align="center" style="width:25%"><a id='vewPrice'></a></td>                                
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='station'>~station</td>
+                   <td align="center" id='pack'>~pack</td>
+                   <td align="center" id='price'>~price</td>
             </tr>
         </table>
         </div>
         <div class='dbbm' style="width: 73%;float: left;">
-        <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
-         <tr>
+        <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>            
+            <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-               <td class="td2"><input id="txtNoa" type="text"  class="txt c1"/></td>
+               <td class="td2"><input id="txtNoa"  type="text" class="txt c1" /></td>
                <td class="td3"></td>
                <td class="td4"></td>
-        </tr>
-	     <tr>
-               <td class="td1"><span> </span><a id='lblStation' class="lbl"></a></td>
-               <td class="td2"><input id="txtStation" type="text" class="txt c1"/></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblPack' class="lbl"></a></td>
+               <td class="td2"><input id="txtPack"  type="text" class="txt c1"/></td>
                <td class="td3"></td>
                <td class="td4"></td>
-        </tr>
-         <tr>
-              <td class="td1"><span> </span><a id='lblMount' class="lbl"></a></td>
-              <td class="td2"><input id="txtMount" type="text" class="txt num c1" /></td>
-              <td class="td3"></td>
-              <td class="td4"></td> 
-         </tr>
-	   <tr>   
-		     <td class="td1"><span> </span><a id='lblWorker' class="lbl"></a></td>
-             <td class="td2"><input id="txtWorker"  type="text" class="txt c1"/></td>
-	         <td class="td3"></td>
-             <td class="td4"></td>
-	   </tr>        
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblPrice' class="lbl"></a></td>
+               <td class="td2"><input id="txtPrice"  type="text" class="txt num c1"/></td>
+               <td class="td3"></td>
+               <td class="td4"></td>
+            </tr>      
         </table>
         </div>
         </div> 
-        <input id="q_sys" type="hidden" />
+        <input id="q_sys" type="hidden" />    
 </body>
 </html>

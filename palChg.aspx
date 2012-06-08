@@ -5,7 +5,7 @@
     <title></title>
     <script src="../script/jquery.min.js" type="text/javascript"></script>
     <script src='../script/qj2.js' type="text/javascript"></script>
-            <script src='qset.js' type="text/javascript"></script>
+    <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src="../script/qbox.js" type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
@@ -16,13 +16,13 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var q_name="oilstation";
+        var q_name="palchg";
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-
+		aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -37,15 +37,13 @@
                dataErr = false;
                return;
            }
-            mainForm(0); // 1=Last  0=Top
+            mainForm(0); // 1=Last  0=Top            
         }  ///  end Main()
 
 
         function mainPost() { 
-        	q_mask(bbmMask);
-
+				q_mask(bbmMask);
         }
-
 
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -110,7 +108,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('oilstation_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+            q_box('palchg_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
         }
 
         function combPay_chg() {   
@@ -180,6 +178,7 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
             _btnOk(key_value, bbmKey[0], '','',2);
         }
+        
         function refresh(recno) {
             _refresh(recno);
         }
@@ -193,11 +192,11 @@
         }
 
         function btnPlus(org_htm, dest_tag, afield) {
-            _btnPlus(org_htm, dest_tag, afield);
+            _btnPlus(org_htm, dest_tag, afield);  
         }
 
         function q_appendData(t_Table) {
-            return _q_appendData(t_Table);
+           return _q_appendData(t_Table);
         }
 
         function btnSeek(){
@@ -237,7 +236,7 @@
         }
     </script>
     <style type="text/css">
-                  #dmain {
+         #dmain {
                 overflow: hidden;
             }
             .dview {
@@ -352,23 +351,23 @@
             
              input[type="text"],input[type="button"] {     
                 font-size: medium;
-            }  
+            }
     </style>
 </head>
 <body>
 <!--#include file="../inc/toolbar.inc"-->
-        <div id='dmain' >
+        <div id='dmain' style="overflow:hidden;">
         <div class="dview" id="dview" style="float: left;  width:25%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:40%"><a id='vewStation'></a></td>
+                <td align="center" style="width:25%"><a id='vewDatea'></a></td>
+                <td align="center" style="width:40%"><a id='vewPalno'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
-                   <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='station'>~station</td>
+                   <td align="center" id='datea'>~datea</td>
+                   <td align="center" id='palno'>~palno</td>
             </tr>
         </table>
         </div>
@@ -376,27 +375,35 @@
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
          <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-               <td class="td2"><input id="txtNoa" type="text"  class="txt c1"/></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-        </tr>
-	     <tr>
-               <td class="td1"><span> </span><a id='lblStation' class="lbl"></a></td>
-               <td class="td2"><input id="txtStation" type="text" class="txt c1"/></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-        </tr>
+               <td class="td2" colspan="2"><input id="txtNoa" type="text" class="txt c1"/></td>
+               <td class="td4"><span> </span><a id='lblDatea' class="lbl"></a></td>
+               <td class="td5"><input id="txtDatea" type="text"  class="txt c1"/></td>
+               <td class="td6"><span> </span><a id='lblType' class="lbl"></a></td>
+               <td class="td7"><input id="txtTypea" type="text" class="txt c1"/></td>
+               <td class="td8" align="left"><a id="lblType2"></a></td>
+	    </tr>
+	    <tr>
+               <td class="td1"><span> </span><a id="lblSss" class="lbl btn"></a></td>
+               <td class="td2" colspan="2"><input id="txtSssno"  type="text" class="txt c2"/>
+               <input id="txtNamea"  type="text"  class="txt c3"/></td>
+	    </tr>
+ 	    <tr>
+               <td class="td1"><span> </span><a id='lblPalno' class="lbl"></a></td>
+               <td class="td2" colspan="2"><input id="txtPalno"  type="text"  class="txt c1"/></td>
+	           <td class="td3"><span> </span><a id='lblCarno' class="lbl"></a></td>
+               <td class="td4"><input id="txtCarno"  type="text"  class="txt c1"/></td>
+       </tr>
          <tr>
-              <td class="td1"><span> </span><a id='lblMount' class="lbl"></a></td>
-              <td class="td2"><input id="txtMount" type="text" class="txt num c1" /></td>
-              <td class="td3"></td>
-              <td class="td4"></td> 
-         </tr>
+               <td class="td1"><span> </span><a id='lblComp' class="lbl"></a></td>
+               <td class="td2" colspan="2"><input id="txtComp"  type="text"  class="txt c1"/></td>             
+       </tr>
+       <tr>
+               <td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
+               <td class="td2" colspan="6"><input id="txtAddr"  type="text"  class="txt c1"/></td>             
+       </tr>
 	   <tr>   
 		     <td class="td1"><span> </span><a id='lblWorker' class="lbl"></a></td>
-             <td class="td2"><input id="txtWorker"  type="text" class="txt c1"/></td>
-	         <td class="td3"></td>
-             <td class="td4"></td>
+             <td class="td2" colspan="2"><input id="txtWorker" type="text"  class="txt c1"/></td>
 	   </tr>        
         </table>
         </div>

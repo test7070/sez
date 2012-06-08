@@ -416,6 +416,7 @@
                 <td align="center" class="td1"><a id='lblHang'></a></td>
                 <td align="center" class="td1"><a id='lblErele'></a></td>
                 <td align="center" class="td1"><a id='lblDocn2'></a></td>
+                <td align="center" class="td1"><a id='lblCommission'></a></td>
                 <td align="center" class="td1"><a id='lblTax'></a></td>
                 <td align="center" class="td2"><a id='lblTotal'></a></td>
                 <td align="center" class="td2"><a id='lblInvono'></a></td>
@@ -438,6 +439,7 @@
                 <td ><input class="txt num c1" id="txtHang.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtErele.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtDocn2.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtCommission.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtTax.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtTotal.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtInvono.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>

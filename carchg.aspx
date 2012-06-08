@@ -22,7 +22,11 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-        aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],['txtCaritemno','lblCaritem','caritem','noa,item','txtCaritemno,txtCaritem','Caritem_b.aspx'],['txtCaritemno2','lblCaritem2','caritem','noa,item','txtCaritemno2,txtCaritem2','Caritem_b.aspx']);
+        aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
+        ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
+        ['txtCaritemno','lblCaritem','caritem','noa,item','txtCaritemno,txtCaritem','Caritem_b.aspx'],
+        ['txtCaritemno2','lblCaritem2','caritem','noa,item','txtCaritemno2,txtCaritem2','Caritem_b.aspx'],
+        ['txtCardealno','lblCardeal','cardeal','noa,comp','txtCardealno,txtCardeal','Cardeal_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -43,37 +47,8 @@
 
         function mainPost() { 
         	fbbm[fbbm.length] = 'txtMemo'; 
-        	q_mask(bbmMask);
-          /*  $('#btnSales').click(function () { pop('sss'); });
-            $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); });
-
-            $('#btnsss').click(function () { pop('sss'); });
-            $('#btnsss').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtGrpno").change(function () { 
-            q_change($(this), 'sss', 'noa', 'noa,comp'); });
-
-            $('#btnConn').click(function () { pop('conn') });  
-            $('#btnConn').mouseenter(function () { $(this).css('cursor', 'pointer') });
-
-            $("#txtComp").change(function () { $("#txtNick").val($("#txtComp").val().substr(0, 2)); });
-
-            txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
-            txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
-            txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');
-            fbbm[fbbm.length] = 'txtMemo';*/ 
+        	q_mask(bbmMask); 
         }
-
-       /* function pop(form, seq) {
-            b_seq = (seq ? seq : '');
-            b_pop = form;
-            switch (form) {
-                case 'sss': q_pop('txtSalesno', 'sss_b.aspx', 'sss', 'noa', 'namea', "60%", "650px", q_getMsg('popSss')); break;
-                case 'sss': q_pop('txtGrpno', 'sss_b.aspx', 'sss', 'noa', 'comp', "60%", "650px", q_getMsg('popsss')); break;
-                case 'conn': q_pop('txtNoa', "conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'conn', 'noa', 'namea', "60%", "650px", q_getMsg('popConn')); break;
-            }
-        }*/
-
         function txtCopy(dest, source) {
             var adest = dest.split(',');
             var asource = source.split(',');
@@ -412,8 +387,9 @@
                <td class="td3"><span> </span><a id="lblDriver" class="lbl btn" ></a></td>
                <td class="td4"><input id="txtDriverno"  type="text"  class="txt c2"/>
                    <input id="txtDriver"  type="text"  class="txt c3"/></td>
-               <td class="td5"><span> </span><a id="lblOrdeno" class="lbl"></a></td>
-               <td class="td6"><input id="txtOrdeno" type="text" class="txt c1" /></td>
+               <td class="td3"><span> </span><a id="lblCardeal" class="lbl btn" ></a></td>
+               <td class="td4"><input id="txtCardealno"  type="text"  class="txt c2"/>
+                   <input id="txtCardeal"  type="text"  class="txt c3"/></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id="lblCaritem" class="lbl btn"></a></td>
@@ -421,8 +397,8 @@
                <input id="txtCaritem"  type="text"  class="txt c3"/></td>
                <td class="td3"><span> </span><a id="lblOutmoney" class="lbl"></a></td>
                <td class="td4"><input id="txtOutmoney"  type="text" class="txt num c1"/></td>
-               <td class="td5"><span> </span><a id="lblPo" class="lbl"></a></td>
-               <td class="td6"><input id="txtPo" type="text" class="txt c1" /></td>
+               <td class="td5"><span> </span><a id="lblOrdeno" class="lbl"></a></td>
+               <td class="td6"><input id="txtOrdeno" type="text" class="txt c1" /></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id="lblCaritem2" class="lbl btn"></a></td>
@@ -430,8 +406,8 @@
                    <input id="txtCaritem2"  type="text"  class="txt c3"/></td>
                <td class="td3"><span> </span><a id="lblInmoney" class="lbl"></a></td>
                <td class="td4"><input id="txtInmoney"  type="text" class="txt num c1" /></td>
-               <td class="td5" ></td>
-               <td class="td6" ></td>
+               <td class="td5"><span> </span><a id="lblPo" class="lbl"></a></td>
+               <td class="td6"><input id="txtPo" type="text" class="txt c1" /></td>
             </tr>
                 <tr>
                 <td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>

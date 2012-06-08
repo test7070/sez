@@ -510,16 +510,18 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr1">
-						<td class="td1" ><span> </span><a id="lblNoa" class="lbl"></a></td>
-						<td class="td2" >
+						<td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
+						<td class="td2">
 						<input id="txtNoa" type="text"  class="txt c1"/>
 						</td>
-						<td class="td3" ><span> </span><a id="lblDatea" class="lbl"></a></td>
-						<td class="td4" >
+						<td class="td3"><span> </span><a id="lblDatea" class="lbl"></a></td>
+						<td class="td4">
 						<input id="txtDatea" type="text"  class="txt c1"/>
 						</td>
-						<td class="td5" ></td>
-						<td class="td6" ></td>
+						<td class="td3"><span> </span><a id="lblContract" class="lbl"></a></td>
+						<td class="td4">
+						<input id="txtContract" type="text"  class="txt c1"/>
+						</td>
 						<td class="td7" >
 						<input type="button" id="btnTranquat" />
 						</td>
