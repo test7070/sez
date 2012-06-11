@@ -9,7 +9,7 @@
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = "tranorde_s";
+    var q_name = "trans_s";
 
     $(document).ready(function () {
         main();
@@ -24,26 +24,26 @@
         q_getFormat();
         q_langShow();
 
-        bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
-        
-		q_mask(bbmMask);
-        $('#txtBdate').focus();
+        bbmMask = [['txtBtrandate', r_picd], ['txtEtrandate', r_picd]];
+        q_mask(bbmMask);
+
+        $('#txtBtrandate').focus();
     }
 
-    function q_seekStr() {   ///  ?j?M???U??A????
+    function q_seekStr() {   
         t_noa = $('#txtNoa').val();
-        t_bdate = $('#txtBdate').val();
-        t_edate = $('#txtEdate').val();
+        t_driverno = $('#txtDriverno').val();
+        t_driver = $('#txtDriver').val();
         t_custno = $('#txtCustno').val();
-        t_salesno = $('#txtSalesno').val();
-        t_sales = $('#txtSales').val();
         t_comp = $('#txtComp').val();
+        
+		t_btrandate = $('#txtBtrandate').val();
+        t_etrandate = $('#txtEtrandate').val();
+        t_btrandate = t_btrandate.length > 0 && t_btrandate.indexOf("_") > -1 ? t_btrandate.substr(0, t_btrandate.indexOf("_")) : t_btrandate;  /// 100.  .
+        t_etrandate = t_etrandate.length > 0 && t_etrandate.indexOf("_") > -1 ? t_etrandate.substr(0, t_etrandate.indexOf("_")) : t_etrandate;  /// 100.  .
 
-        t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
-        t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
-
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("comp", t_comp) + q_sqlPara2("datea", t_bdate, t_edate) +
-                           q_sqlPara2("salesno", t_salesno) + q_sqlPara2("custno", t_custno)+q_sqlPara2("sales", t_sales);
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("trandate", t_btrandate, t_etrandate) +
+                            q_sqlPara2("driverno", t_driverno)+ q_sqlPara2("driver", t_driver)+ q_sqlPara2("custno", t_custno)+ q_sqlPara2("comp", t_comp) ;
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -59,21 +59,21 @@
        <table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
             <tr class='seek_tr'>
                 <td   style="width:35%;" ><a id='lblDatea'></a></td>
-                <td style="width:65%;  "><input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
+                <td style="width:65%;  "><input class="txt" id="txtBtrandate" type="text" style="width:90px; font-size:medium;" />
                 <span style="display:inline-block; vertical-align:middle">&sim;</span>
-                <input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" /></td>
+                <input class="txt" id="txtEtrandate" type="text" style="width:93px; font-size:medium;" /></td>
             </tr>
-             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblCustno'></a></td>
-                <td><input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" />&nbsp;<input class="txt" id="txtComp" type="text" style="width:115px;font-size:medium;" /></td>
-             </tr>
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
-            </tr>
+            </tr> 
              <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblSales'></a></td>
-                <td><input class="txt" id="txtSalesno" type="text" style="width:90px; font-size:medium;" />&nbsp;<input class="txt" id="txtSales" type="text" style="width:115px; font-size:medium;" /></td>
+                <td class='seek'  style="width:20%;"><a id='lblDriverno'></a></td>
+                <td><input class="txt" id="txtDriverno" type="text" style="width:90px; font-size:medium;" />&nbsp;<input class="txt" id="txtDriver" type="text" style="width:115px;font-size:medium;" /></td>
+             </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblCustno'></a></td>
+                <td><input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" />&nbsp;<input class="txt" id="txtComp" type="text" style="width:115px;font-size:medium;" /></td>
              </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
