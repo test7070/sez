@@ -17,8 +17,6 @@
         }
         q_tables = 's';
         var q_name = "salary";
-        var decbbs = ['mmoney', 'bo_admin', 'bo_duty', 'bo_full', 'bo_over', 'bo_oth', 'hr_person', 'hr_sick', 'hr_nosalary', 'hr_leave', 'mi_person', 'mi_sick', 'mi_nosalary', 'mi_leave', 'mi_full',, 'mi_total', 'total2', 'day_meal', 'ch_lunch', 'ch_labor', 'ch_health', 'welfare', 'borrow', 'tax', 'mi_oth', 'mi_total2', 'total', 'retire', 'late', 'bo_born', 'bo_bornpoint', 'bo_trans', 'bo_exam', 'plus', 'saltype', 'ad_h1', 'ad_m1', 'ad_h133', 'ad_m133', 'ad_h2', 'ad_m2', 'ad_h166', 'ad_m166', 'ad_money', 'obonus', 'ototal'];
-        var decbbm = ['hour', 'bo_born', 'money', 'bo_admin', 'bo_duty', 'bo_full', 'bo_over', 'bo_oth', 'mi_person', 'mi_full', 'ch_lunch', 'ch_labor', 'ch_health', 'welfare', 'borrow', 'tax', 'mi_oth', 'ptotal', 'mi_total2', 'total'];
         var q_readonly = [];
         var q_readonlys = [];
         var bbmNum = [];  
@@ -45,10 +43,6 @@
 
             mainForm(1); 
         }  
-
-/*        aPop = [['txtStoreno', 'btnStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
-                ['txtStoreno2', 'btnStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx', "60%", "650px", q_getMsg('popStore')],
-                ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']];*/
 
         function mainPost() {
             q_getFormat();
@@ -98,7 +92,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('cng_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('salary_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {  
@@ -174,9 +168,7 @@
         }
 
         function btnPlus(org_htm, dest_tag, afield) {
-            _btnPlus(org_htm, dest_tag, afield);
-            if (q_tables == 's')
-                bbsAssign();  
+            _btnPlus(org_htm, dest_tag, afield); 
         }
 
         function q_appendData(t_Table) {
