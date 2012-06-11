@@ -29,7 +29,11 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             //ajaxPath = "";
-            aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'cust_b.aspx'], ['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
+            aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+             ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
+              ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
+              ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
+              ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -105,6 +109,26 @@
             }
 
             function q_boxClose(s2) {
+            var ret; 
+            switch (b_pop) {  
+                case 'conn':
+
+                    break;
+
+                case 'sss':
+                    ret = getb_ret();
+                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
+                    break;
+
+                case 'sss':
+                    ret = getb_ret();
+                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
+                    break;
+                
+                case q_name + '_s':
+                    q_boxClose2(s2); ///   q_boxClose 3/4
+                    break;
+            }   /// end Switch
             }
 
             function q_gtPost(t_name) {
@@ -214,7 +238,7 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('worka_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('pay_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
             }
 
             function combPay_chg() {
@@ -325,8 +349,6 @@
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
-                if (q_tables == 's')
-                    bbsAssign();
             }
 
             function q_appendData(t_Table) {
@@ -460,6 +482,10 @@
                 width: 80%;
                 float: left;
             }
+            .txt.c6 {
+                width: 95%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -542,29 +568,30 @@
 					<tr class="tr2">
 						<td class="td1" ><span> </span><a id='lblAcomp' class="lbl btn"></a></td>
 						<td class="td2" >
-						<input id="txtCno"  type="text" class="txt c4"/>
-						<input id="txtAcomp"    type="text" class="txt c5"/>
+						<input id="txtCno"  type="text" class="txt c2"/>
+						<input id="txtAcomp"    type="text" class="txt c3"/>
 						</td>
-						<td class="td3"><span> </span><a id='lblTgg' class="lbl btn"></a></td>
+						<td class="td3"><span> </span><a id='lblCustno' class="lbl btn"></a></td>
 						<td class="td4" colspan="3">
-						<input id="txtTggno" type="text" class="txt c4"/>
-						<input id="txtTgg"  type="text" class="txt c5"/>
+						<input id="txtCustno" type="text" class="txt c4"/>
+						<input id="txtComp"  type="text" class="txt c5"/>
 						</td>
 						<td class="td7">
 						<input type="button" id="btnVcctran" class="txt c1 " />
 						</td>				
 					</tr>
 					<tr class="tr3">
-						<td class="td1"><span> </span><a id='lblCardeal' class="lbl btn"></a></td>
-						<td class="td2" colspan="2">
+						<td class="td1"><span> </span><a id='lblDriver' class="lbl btn"></a></td>
+						<td class="td2">
+						<input id="txtDriverno"  type="text" class="txt c2"/>
+						<input id="txtDriver"    type="text" class="txt c3"/>
+						</td>
+						<td class="td4"><span> </span><a id='lblCardeal' class="lbl btn"></a></td>
+						<td class="td5" colspan="3">
 						<input id="txtCardealno" type="text" class="txt c4"/>
 						<input id="txtCardeal"  type="text" class="txt c5"/>
 						</td>
-						<td class="td4" ><span> </span><a id='lblDriver' class="lbl btn"></a></td>
-						<td class="td5" colspan="2">
-						<input id="txtDriverno"  type="text" class="txt c4"/>
-						<input id="txtDriver"    type="text" class="txt c5"/>
-						</td>
+						
 						<td class="td7">
 						<input type="button" id="btnTre" class="txt c1 " />
 						</td>
@@ -660,35 +687,35 @@
 					<input type="text" id="txtNoq.*" style="display:none;" />
 					</td>
 					<td>
-					<input type="text" id="txtTypea.*"  style="width:95%;"/>
+					<input type="text" id="txtTypea.*"  class="txt c6"/>
 					</td>
 					<td>
-					<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
+					<input type="text" id="txtMoney.*" class="txt num c6"/>
 					</td>
 					<td>
-					<input type="text" id="txtChgs.*" style="text-align:right;width:95%;"/>
+					<input type="text" id="txtChgs.*" class="txt num c6"/>
 					</td>
 					<td>
-					<input type="text" id="txtPaysale.*" style="text-align:right;width:95%;"/>
+					<input type="text" id="txtPaysale.*" class="txt num c6"/>
 					</td>
 					<td>
-					<input type="text" id="txtMon.*" style="width:95%;"/>
+					<input type="text" id="txtMon.*" class="txt c6"/>
 					</td>
 					<td>
 					<input type="text" id="txtPartno.*" style="float:left; display: none;"/>
-					<input type="text" id="txtPart.*"  style="float:left;width: 95%;"/>
+					<input type="text" id="txtPart.*"  class="txt c6"/>
 					</td>
 					<td>
-					<input type="text" id="txtRc2no.*" style="width:95%;" />
+					<input type="text" id="txtRc2no.*" class="txt c6" />
 					</td>
 					<td>
-					<input type="text" id="txtUnpay.*"  style="width:95%; text-align: right;" />
+					<input type="text" id="txtUnpay.*"  class="txt num c6"/>
 					</td>
 					<td>
-					<input type="text" id="txtCheckno.*"  style="width:95%;" />
+					<input type="text" id="txtCheckno.*"  class="txt c6"/>
 					</td>
 					<td>
-					<input type="text" id="txtAccount.*"  style="width:95%;" />
+					<input type="text" id="txtAccount.*"  class="txt c6" />
 					</td>
 					<td>
 					<input type="button" id="btnBankno.*"  style="float:left;width:7%;" value="."/>
@@ -696,10 +723,10 @@
 					<input type="text" id="txtBank.*" style="float:left;width:40%;"/>
 					</td>
 					<td>
-					<input type="text" id="txtIndate.*" style="width:95%;" />
+					<input type="text" id="txtIndate.*" class="txt c6" />
 					</td>
 					<td>
-					<input type="text" id="txtMemo.*" style="width:95%;"/>
+					<input type="text" id="txtMemo.*" class="txt c6"/>
 					</td>
 				</tr>
 			</table>
