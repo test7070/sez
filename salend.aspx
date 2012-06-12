@@ -383,6 +383,14 @@
 				<div class='dbbm' style="width: 73%;float: left;">
 					<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
 						<tr>
+							<td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
+							<td class="td2"><input id="txtNoa"  type="text"  /></td>
+							<td class="td3"></td>
+							<td class="td4"></td>
+							<td class="td5"></td>
+							<td class="td6"></td>
+						</tr>
+						<tr>
 							<td class="td1"><span> </span><a id='lblYear' class="lbl"></a></td>
 							<td class="td2"><input id="txtYear"  type="text"  /></td>
 							<td class="td3"></td>
