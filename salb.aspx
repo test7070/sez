@@ -17,8 +17,6 @@
         }
         q_tables = 's';
         var q_name = "salb";
-        var decbbs = ['mount', 'ad_money', 'ch_meal', 'money', 'mi_money'];
-        var decbbm = ['money', 'mi_money'];
         var q_readonly = [];
         var q_readonlys = [];
         var bbmNum = [];  
@@ -27,7 +25,7 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
         //ajaxPath = ""; 
-		aPop = new Array(['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx']);
+		aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -42,36 +40,13 @@
                dataErr = false;
                return;
            }
-
-            mainForm(1); 
-
-            $('#txtDatea').focus();
-            
+            mainForm(1);
         }  ///  end Main()
-
-     /*   function pop(form) {
-            b_pop = form;
-            switch (form) {
-                case 'ucc': q_pop('txtProductno_' + b_seq, 'ucc_b.aspx', 'ucc', 'noa', 'product', "70%", "650px", q_getMsg('popUcc')); break;
-                case 'store': q_pop('txtStoreno', 'store_b.aspx', 'store', 'noa', 'store', "60%", "650px", q_getMsg('popStore')); break;
-                case 'station': q_pop('txtStationno', 'station_b.aspx', 'station', 'noa', 'station', "60%", "650px", q_getMsg('popStation')); break;
-            }
-        }*/
 
         function mainPost() { 
             q_getFormat();
             bbmMask = [['txtDatea', r_picd], ['txtCucdate', r_picd]];
             q_mask(bbmMask);
-
-          /*  $('#btnStore').click(function () { pop('store'); }); 
-            $('#btnStore').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtStoreno").change(function () { q_change($(this), 'store', 'noa', 'noa,store'); }); 
-
-            $('#btnStation').click(function () { pop('station'); });
-            $('#btnStation').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtStationno").change(function () { q_change($(this), 'station', 'noa', 'noa,station'); }); 
-
-            $('#btnquat').click(function () { btnquat(); });*/
         }
 
         function q_boxClose( s2) { 
@@ -186,7 +161,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('worka_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('salb_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   
@@ -281,8 +256,6 @@
 
         function btnPlus(org_htm, dest_tag, afield) {
             _btnPlus(org_htm, dest_tag, afield);
-            if (q_tables == 's')
-                bbsAssign(); 
         }
 
         function q_appendData(t_Table) {
@@ -326,91 +299,161 @@
         }
     </script>
     <style type="text/css">
-        .tview
-        {
-            FONT-SIZE: 12pt;
-            COLOR:  Blue ;
-            background:#FFCC00;
-            padding: 3px;
-            TEXT-ALIGN:  center;
-        }    
-        .tbbm
-        {
-            FONT-SIZE: 12pt;
-            COLOR: blue;
-            TEXT-ALIGN: left;
-            border-color: white; 
-            width:98%; border-collapse: collapse; background:#cad3ff;
-        } 
-        
+       #dmain {
+                overflow: hidden;
+            }
+            .dview {
+                float: left;
+                width: 28%;
+            }
+            .tview {
+                margin: 0;
+                padding: 2px;
+                border: 1px black double;
+                border-spacing: 0;
+                font-size: medium;
+                background-color: #FFFF66;
+                color: blue;
+                width: 100%;
+            }
+            .tview td {
+                padding: 2px;
+                text-align: center;
+                border: 1px black solid;
+            }
+            .dbbm {
+                float: left;
+                width: 70%;
+                margin: -1px;
+                border: 1px black solid;
+                border-radius: 5px;
+            }
+            .tbbm {
+                padding: 0px;
+                border: 1px white double;
+                border-spacing: 0;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                background: #cad3ff;
+                width: 100%;
+            }
+            .tbbm tr {
+                height: 35px;
+            }
+            .tbbm tr td {
+                width: 9%;
+            }
+            .tbbm .tdZ {
+                width: 2%;
+            }
+            .tbbm tr td span {
+                float: right;
+                display: block;
+                width: 5px;
+                height: 10px;
+            }
+            .tbbm tr td .lbl {
+                float: right;
+                color: blue;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn {
+                color: #4297D7;
+                font-weight: bolder;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn:hover {
+                color: #FF8F19;
+            }
+            .txt.c1 {
+                width: 98%;
+                float: left;
+            }
+            .txt.c2 {
+                width: 70%;
+                float: right;
+            }
+            .txt.c3 {
+                width: 50%;
+                float: left;
+            }
+            .txt.c4 {
+                width: 18%;
+                float: left;
+            }
+            .txt.c5 {
+                width: 80%;
+                float: left;
+            }
+            .txt.c6 {
+                width: 25%;
+                
+            }
+            .txt.c7 {
+                width: 95%;
+                float: left;
+            }
+            .txt.num {
+                text-align: right;
+            }
+            .tbbm td {
+                margin: 0 -1px;
+                padding: 0;
+            }
+            .tbbm td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                float: left;
+            }
+            .tbbm td input[type="button"] {
+                float: left;
+                width: auto;
+            }
+            .tbbm select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+            }
+            .dbbs {
+                width: 100%;
+            }
+            .tbbs a {
+                font-size: medium;
+            }
+
+            .num {
+                text-align: right;
+            }
+            .tbbs tr.error input[type="text"] {
+                color: red;
+            }
+            input[type="text"], input[type="button"] {
+                font-size: medium;
+            }
         .tbbs
         {
-            FONT-SIZE: 12pt;
+            FONT-SIZE: medium;
             COLOR: blue ;
             TEXT-ALIGN: left;
              BORDER:1PX LIGHTGREY SOLID;
-             width:98% ; height:98% ;  
-        } 
-        
-       
-        .column1
-        {
-            width: 15%;
-        }
-        .column2
-        {
-            width: 15%;
-        }      
-        .column3
-        {
-            width: 15%;
-        }   
-        .column4
-        {
-            width: 5%;
-        }           
-         .label1
-        {
-            width: 10%; text-align:right;
+             width:100% ; height:98% ;  
         }       
-        .label2
-        {
-            width: 10%; text-align:right;
-        }
-        .label3
-        {
-            width: 10%; text-align:right;
-        }
-       .label4
-        {
-            width: 15%; text-align:right;
-        }
-        .txt.c1
-        {
-            width: 95%;
-        }
-        .td1
+        .tbbs .td1
         {
             width: 10%;
         }
-        .td2
+        .tbbs .td2
         {
             width: 6%;
         }
-		td input[type="button"] {
-                width: auto;
-                font-size: medium;
-                float: right;
-            }
-        .txt.num
-        {
-        	text-align: right;
-        }
-      
+		
     </style>
 </head>
 <body>
 <!--#include file="../inc/toolbar.inc"-->
+		<div id="dmain">
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
@@ -430,34 +473,34 @@
         <div class='dbbm' style="width: 68%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr>
-            <td class='label1'><a id="lblNoa" ></a></td>
-            <td class="column1"><input id="txtNoa"  type="text" class="txt c1"/></td>
-            <td class='label2'><input id="btnAcomp" type="button"/></td>
-            <td class="column2"><input id="txtCno" type="text" class="txt c1" /></td>
-            <td class='label3'colspan="2" ><input id="txtComp2" type="text" class="txt c1" /></td>
-            <td class="column3"></td>
+            <td class='td1'><span> </span><a id="lblNoa" class="lbl" ></a></td>
+            <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
+            <td class='td3'><span> </span><a id="lblAcomp" class="lbl btn"></a></td>
+            <td class="td4"><input id="txtCno" type="text" class="txt c1" /></td>
+            <td class='td5'colspan="2" ><input id="txtComp2" type="text" class="txt c1" /></td>
+            <td class="td6"></td>
         </tr>
         <tr>
-            <td class='label1'><a id="lblMon" ></a></td>
-            <td class="column1"><input id="txtMon"  type="text" class="txt c1"/></td>
-            <td class='label2'><a id="lblDatea"></a></td>
-            <td class="column2"><input id="txtDatea"  type="text" class="txt c1"/></td>
-            <td class='label3'><a id="lblTitle"></a></td>
-            <td class="column3"><input id="txtTitle" class="txt c1" type="text" /></td>
-            <td class='label4'><input id="btnIndata" type="button"  /></td>
-            <td class="column4"></td>
+            <td class='td1'><span> </span><a id="lblMon" class="lbl"></a></td>
+            <td class="td2"><input id="txtMon"  type="text" class="txt c1"/></td>
+            <td class='td3'><span> </span><a id="lblDatea" class="lbl"></a></td>
+            <td class="td4"><input id="txtDatea"  type="text" class="txt c1"/></td>
+            <td class='td5'><span> </span><a id="lblTitle" class="lbl"></a></td>
+            <td class="td6"><input id="txtTitle" class="txt c1" type="text" /></td>
+            <td class='td7'><input id="btnIndata" type="button"  /></td>
+            <td class="td8"></td>
         </tr>
         <tr>            
-            <td class='label1'></td>
-            <td class="column1"><input id="btnEnd" type="button" /></td>
-            <td class='label2'><a id="lblMoney"></a></td>
-            <td class="column2"><input id="txtMoney" type="text" class="txt num c1" /></td>
-            <td class='label3'><a id="lblMi_money"></a></td>
-            <td class="column3"><input id="txtMi_money" type="text" class="txt num c1" /></td>
+            <td class='td1'></td>
+            <td class="td2"><input id="btnEnd" type="button" /></td>
+            <td class='td3'><span> </span><a id="lblMoney" class="lbl"></a></td>
+            <td class="td4"><input id="txtMoney" type="text" class="txt num c1" /></td>
+            <td class='td5'><span> </span><a id="lblMi_money" class="lbl"></a></td>
+            <td class="td6"><input id="txtMi_money" type="text" class="txt num c1" /></td>
         </tr>                        
         </table>
         </div>
-
+		</div>
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
