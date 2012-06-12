@@ -110,7 +110,7 @@
 
             function sum() {
                 $("#txtTotal").val($("#txtMount").val() * $("#txtPrice").val());
-                $("#txtTotal2").val($("#txtMount2").val() * (1 - $("#txtDiscount").val()) * ($("#cmbCalctype").val() == '6' ? $("#txtPrice3").val() : $("#txtPrice2").val()));
+                $("#txtTotal2").val($("#txtMount2").val() * $("#txtDiscount").val() * ($("#cmbCalctype").val() == '6' ? $("#txtPrice3").val() : $("#txtPrice2").val()));
             }
 
             function txtCopy(dest, source) {
