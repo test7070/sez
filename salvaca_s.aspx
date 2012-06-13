@@ -9,7 +9,7 @@
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = "salm_s";
+    var q_name = "salvaca_s";
 
     $(document).ready(function () {
         main();
@@ -32,16 +32,16 @@
 
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();
-        t_jobno = $('#txtJobno').val();
-        t_job = $('#txtJob').val();
-        t_level1 = $('#txtLevel1').val(); 
-        
+        t_btotal = $('#txtBtotal').val();
+        t_etotal = $('#txtEtotal').val();
         /*t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .*/
+		t_btotal = t_btotal.length > 0 && t_btotal.indexOf("_") > -1 ? t_btotal.substr(0, t_btotal.indexOf("_")) : t_btotal;  /// 100.  .
+        t_etotal = t_etotal.length > 0 && t_etotal.indexOf("_") > -1 ? t_etotal.substr(0, t_etotal.indexOf("_")) : t_etotal;  /// 100.  .*/
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("jobno", t_jobno)+ q_sqlPara2("job", t_job)+ q_sqlPara2("level1", t_level1);
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("total", t_btotal, t_etotal);
         
 
         t_where = ' where=^^' + t_where + '^^ ';
@@ -61,16 +61,10 @@
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblJobno'></a></td>
-                <td><input class="txt" id="txtJobno" type="text" style="width:215px; font-size:medium;" /></td>
-            </tr>
-            <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblJob'></a></td>
-                <td><input class="txt" id="txtJob" type="text" style="width:215px; font-size:medium;" /></td>
-            </tr>
-            <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblLevel1'></a></td>
-                <td><input class="txt" id="txtLevel1" type="text" style="width:215px; font-size:medium;" /></td>
+                <td   style="width:35%;" ><a id='lblTotal'></a></td>
+                <td style="width:65%;  "><input class="txt" id="txtBtotal" type="text" style="width:90px; font-size:medium;" />
+                <span style="display:inline-block; vertical-align:middle">&sim;</span>
+                <input class="txt" id="txtEtotal" type="text" style="width:93px; font-size:medium;" /></td>
             </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 

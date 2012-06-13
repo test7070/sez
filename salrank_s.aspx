@@ -9,7 +9,7 @@
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = "salm_s";
+    var q_name = "salrank_s";
 
     $(document).ready(function () {
         main();
@@ -32,16 +32,19 @@
 
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();
-        t_jobno = $('#txtJobno').val();
-        t_job = $('#txtJob').val();
+        t_bmoney = $('#txtBmoney').val();
+        t_emoney = $('#txtEmoney').val();
         t_level1 = $('#txtLevel1').val(); 
-        
+        t_level2 = $('#txtLevel2').val();
         /*t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .*/
+        t_bmoney = t_bmoney.length > 0 && t_bmoney.indexOf("_") > -1 ? t_bmoney.substr(0, t_bmoney.indexOf("_")) : t_bmoney;  /// 100.  .
+        t_emoney = t_emoney.length > 0 && t_emoney.indexOf("_") > -1 ? t_emoney.substr(0, t_emoney.indexOf("_")) : t_emoney;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("jobno", t_jobno)+ q_sqlPara2("job", t_job)+ q_sqlPara2("level1", t_level1);
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("level1", t_level1)
+        + q_sqlPara2("level2", t_level2)+ q_sqlPara2("money", t_bmoney,t_emoney);
         
 
         t_where = ' where=^^' + t_where + '^^ ';
@@ -61,16 +64,18 @@
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblJobno'></a></td>
-                <td><input class="txt" id="txtJobno" type="text" style="width:215px; font-size:medium;" /></td>
-            </tr>
-            <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblJob'></a></td>
-                <td><input class="txt" id="txtJob" type="text" style="width:215px; font-size:medium;" /></td>
+                <td   style="width:35%;" ><a id='lblMoney'></a></td>
+                <td style="width:65%;  "><input class="txt" id="txtBmoney" type="text" style="width:90px; font-size:medium;" />
+                <span style="display:inline-block; vertical-align:middle">&sim;</span>
+                <input class="txt" id="txtEmoney" type="text" style="width:93px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblLevel1'></a></td>
                 <td><input class="txt" id="txtLevel1" type="text" style="width:215px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblLevel2'></a></td>
+                <td><input class="txt" id="txtLevel2" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
