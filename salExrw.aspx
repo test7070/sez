@@ -21,7 +21,8 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-	aPop = new Array(['txtSssno', 'btnSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],['txtSalexpono', 'btnSalexpo', 'salexpo', 'noa,namea', 'txtSalexpono,txtSalexpo', 'salexpo_b.aspx']);
+	aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],
+	['txtSalexpono', 'lblSalexpo', 'salexpo', 'noa,namea', 'txtSalexpono,txtSalexpo', 'salexpo_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -107,7 +108,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('sss_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+            q_box('salexrw_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
         }
 
         function combPay_chg() {   
@@ -308,11 +309,11 @@
                 float: left;
             }
             .txt.c2 {
-                width: 70%;
+                width: 36%;
                 float: right;
             }
             .txt.c3 {
-                width: 50%;
+                width: 62%;
                 float: left;
             }
             .txt.c4 {
@@ -382,48 +383,48 @@
         <div class='dbbm' style="width: 73%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
             <tr>
-               <td class="label1" ><a id='lblNoa'></a></td>
-               <td class="column1"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-               <td class="label2" ></td>
-               <td class="column2"></td>
-               <td class="label3" ></td>
-               <td class="column3"></td>
+               <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
+               <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
+               <td class="td3"></td>
+               <td class="td4"></td>
+               <td class="td5"></td>
+               <td class="td6"></td>
             </tr>
             <tr>
-               <td class="label1" ><a id='lblDatea'></a></td>
-               <td class="column1"><input id="txtDatea"  type="text" class="txt c1" /></td>
-               <td class="label2" ></td>
-               <td class="column2"></td>
-               <td class="label3" ></td>
-               <td class="column3"></td>
+               <td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
+               <td class="td2"><input id="txtDatea"  type="text" class="txt c1" /></td>
+               <td class="td3"></td>
+               <td class="td4"></td>
+               <td class="td5"></td>
+               <td class="td6"></td>
             </tr>
             <tr>
-               <td class="label1" ><input id='btnSss' type="button" style="width: auto;font-size: medium;"/></td>
-               <td class="column1"><input id="txtSssno" type="text"  class="txt c2"/><input id="txtNamea"  type="text" class="txt c3" /></td>
-               <td class="label2" ></td>
-               <td class="column2"></td>
-               <td class="label3" ></td>
-               <td class="column3"></td>
+               <td class="td1"><span> </span><a id='lblSss' class="lbl btn" ></a></td>
+               <td class="td2"><input id="txtSssno" type="text"  class="txt c2"/><input id="txtNamea"  type="text" class="txt c3" /></td>
+               <td class="td3"></td>
+               <td class="td4"></td>
+               <td class="td5"></td>
+               <td class="td6"></td>
             </tr>
             <tr>
-               <td class="label1" ><input id="btnSalexpo" type="button" style="width: auto;font-size: medium;"/></td>
-               <td class="column1"><input id="txtSalexpono"  type="text" class="txt c2"/><input id="txtSalexpo" type="text" class="txt c3" /></td>
-               <td class="label2" ></td>
-               <td class="column2"></td>
-               <td class="label3" ></td>              
-               <td class="column3"></td>
+               <td class="td1"><span> </span><a id="lblSalexpo" class="lbl btn" ></a></td>
+               <td class="td2"><input id="txtSalexpono"  type="text" class="txt c2"/><input id="txtSalexpo" type="text" class="txt c3" /></td>
+               <td class="td3"></td>
+               <td class="td4"></td>
+               <td class="td5"></td>              
+               <td class="td6"></td>
             </tr>
             <tr>
-               <td class="label1" ><a id='lblMount'></a></td>
-               <td class="column1"><input id="txtMount" type="text"  class="txt c1" style="text-align: right;"/></td>
-               <td class="label2" ></td>
-               <td class="column2"></td>
-               <td class="label3" ></td>           
-               <td class="column3"></td>
+               <td class="td1"><span> </span><a id='lblMount' class="lbl"></a></td>
+               <td class="td2"><input id="txtMount" type="text"  class="txt num c1" /></td>
+               <td class="td3"></td>
+               <td class="td4"></td>
+               <td class="td5"></td>           
+               <td class="td6"></td>
             </tr>
             <tr>
-               <td class="label1" ><a id='lblReason'></a></td>
-               <td class="column1" colspan="5"><textarea id="txtReason" rows="5" cols="10" type="text"  style='width:98%; height: 127px; '></textarea></td>
+               <td class="td1"><span> </span><a id='lblReason' class="lbl"></a></td>
+               <td class="td2" colspan="5"><textarea id="txtReason" rows="5" cols="10" type="text"  style='width:98%; height: 50px; '></textarea></td>
             </tr>
         </table>
         </div>

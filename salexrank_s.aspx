@@ -9,7 +9,7 @@
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = "salexam_s";
+    var q_name = "salexrank_s";
 
     $(document).ready(function () {
         main();
@@ -32,9 +32,16 @@
 
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();
-        t_year = $('#txtYear').val();
-
-        var t_where = " 1=1 "  + q_sqlPara2("noa", t_noa) + q_sqlPara2("year", t_year);
+        t_class = $('#txtClass').val();
+        
+        /*t_point1 = $('#txtPoint1').val();
+        t_point2 = $('#txtPoint2').val();*/
+		
+		/*t_point1 = t_point1.length > 0 && t_point1.indexOf("_") > -1 ? t_point1.substr(0, t_point1.indexOf("_")) : t_point1;  /// 100.  .
+        t_point2 = t_point2.length > 0 && t_point2.indexOf("_") > -1 ? t_point2.substr(0, t_point2.indexOf("_")) : t_point2;  /// 100.  .*/
+       
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("class", t_class);
+        
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -53,8 +60,8 @@
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblYear'></a></td>
-                <td><input class="txt" id="txtYear" type="text" style="width:215px; font-size:medium;" /></td>
+                <td class='seek'  style="width:20%;"><a id='lblClass'></a></td>
+                <td><input class="txt" id="txtClass" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 

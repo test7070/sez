@@ -60,10 +60,6 @@
                 <td><input class="txt" id="txtNamea" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblNamea'></a></td>
-                <td><input class="txt" id="txtNamea" type="text" style="width:215px; font-size:medium;" /></td>
-            </tr>
-            <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblPoint'></a></td>
                 <td><input class="txt" id="txtPoint" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
