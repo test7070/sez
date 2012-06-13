@@ -473,7 +473,7 @@
         <div class='dbbm' style="width: 68%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr>
-            <td class='td1'><span> </span><a id="lblNoa" class="lbl" ></a></td>
+            <td class='td1'><span> </span><a id="lblNoa" class="lbl"></a></td>
             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
             <td class='td3'><span> </span><a id="lblAcomp" class="lbl btn"></a></td>
             <td class="td4"><input id="txtCno" type="text" class="txt c1" /></td>
@@ -506,17 +506,17 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center" class="td1"><a id='lblSssno'></a></td>
-                <td align="center"class="td1"><a id='lblNamea'></a></td>
-                <td align="center"class="td1"><a id='lblId'></a></td>
+                <td align="center" class="td1"><a id='lblNamea'></a></td>
+                <td align="center" class="td1"><a id='lblId'></a></td>
                 <td align="center" style="width: 2%;"><a id='vewIsclerk'></a></td>
-                <td align="center"class="td2"><a id='lblMount'></a></td>
-                <td align="center"class="td2"><a id='lblAd_money'></a></td>
-                <td align="center"class="td2"><a id='lblCh_meal'></a></td>
-                <td align="center"class="td2"><a id='lblMoneys'></a></td>
-                <td align="center"class="td2"><a id='lblMi_moneys'></a></td>
-                <td align="center"class="td2"><a id='lblSex'></a></td>
-                <td align="center"class="td1"><a id='lblComp'></a></td>
-                <td align="center"><a id='lblAddr'></a></td>
+                <td align="center" class="td2"><a id='lblMount'></a></td>
+                <td align="center" class="td2"><a id='lblAd_money'></a></td>
+                <td align="center" class="td2"><a id='lblCh_meal'></a></td>
+                <td align="center" class="td2"><a id='lblMoneys'></a></td>
+                <td align="center" class="td2"><a id='lblMi_moneys'></a></td>
+                <td align="center" class="td2"><a id='lblSex'></a></td>
+                <td align="center" class="td1"><a id='lblComp'></a></td>
+                <td align="center" ><a id='lblAddr'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
