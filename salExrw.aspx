@@ -408,7 +408,8 @@
             </tr>
             <tr>
                <td class="td1"><span> </span><a id="lblSalexpo" class="lbl btn" ></a></td>
-               <td class="td2"><input id="txtSalexpono"  type="text" class="txt c2"/><input id="txtSalexpo" type="text" class="txt c3" /></td>
+               <td class="td2"><input id="txtSalexpono"  type="text" class="txt c2"/>
+               	<input id="txtSalexpo" type="text" class="txt c3" /></td>
                <td class="td3"></td>
                <td class="td4"></td>
                <td class="td5"></td>              

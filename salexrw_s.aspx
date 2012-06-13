@@ -9,7 +9,7 @@
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = "salexrank_s";
+    var q_name = "salexrw_s";
 
     $(document).ready(function () {
         main();
@@ -24,23 +24,26 @@
         q_getFormat();
         q_langShow();
 
-      /*  bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+        bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
         q_mask(bbmMask);
-        $('#txtBdate').focus();*/
+        $('#txtBdate').focus();
          
     }
 
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();
-        t_class = $('#txtClass').val();
-        
-        /*t_point1 = $('#txtPoint1').val();
-        t_point2 = $('#txtPoint2').val();*/
-		
-		/*t_point1 = t_point1.length > 0 && t_point1.indexOf("_") > -1 ? t_point1.substr(0, t_point1.indexOf("_")) : t_point1;  /// 100.  .
-        t_point2 = t_point2.length > 0 && t_point2.indexOf("_") > -1 ? t_point2.substr(0, t_point2.indexOf("_")) : t_point2;  /// 100.  .*/
+        t_sssno = $('#txtSssno').val();
+        t_namea = $('#txtNamea').val();
+        t_salexpono = $('#txtSalexpono').val();
+        t_salexpo = $('#txtSalexpo').val(); 
+        t_bdate = $('#txtBdate').val();
+        t_edate = $('#txtEdate').val();
        
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("class", t_class);
+        t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
+        t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
+
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("datea", t_bdate,t_edate)+ q_sqlPara2("sssno", t_sssno)
+        + q_sqlPara2("namea", t_namea)+ q_sqlPara2("salexpono", t_salexpono)+ q_sqlPara2("salexpo", t_salexpo);
         
 
         t_where = ' where=^^' + t_where + '^^ ';
@@ -56,12 +59,26 @@
 <div style='width:400px; text-align:center;padding:15px;' >
        <table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
              <tr class='seek_tr'>
+                <td   style="width:35%;" ><a id='lblDatea'></a></td>
+                <td style="width:65%;  "><input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
+                <span style="display:inline-block; vertical-align:middle">&sim;</span>
+                <input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" /></td>
+            </tr>
+             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblClass'></a></td>
-                <td><input class="txt" id="txtClass" type="text" style="width:215px; font-size:medium;" /></td>
+                <td class='seek'  style="width:20%;"><a id='lblSssno'></a></td>
+                <td><input class="txt" id="txtSssno" type="text" style="width:90px; font-size:medium;" />&nbsp;
+                	<input class="txt" id="txtNamea" type="text" style="width:115px; font-size:medium;" />
+                </td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblSalexpono'></a></td>
+                <td><input class="txt" id="txtSalexpono" type="text" style="width:90px; font-size:medium;" />&nbsp;
+                	<input class="txt" id="txtSalexpo" type="text" style="width:115px; font-size:medium;" />
+                </td>
             </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
