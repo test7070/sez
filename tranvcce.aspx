@@ -257,6 +257,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
+               q_box('tranvcce_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -326,8 +327,6 @@
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
-                if (q_tables == 's')
-                    bbsAssign();
             }
 
             function q_appendData(t_Table) {
@@ -553,7 +552,7 @@
                 padding: 2px;
                 border: 1px black double;
                 border-spacing: 0;
-                font-size: 16px;
+                font-size: medium;
                 background-color: #FFFF66;
                 color: blue;
             }
@@ -574,7 +573,7 @@
                 /*border: 1px white double;
                  border-spacing: 0;
                  border-collapse: collapse;*/
-                font-size: 16px;
+                font-size: medium;
                 color: blue;
                 background: #cad3ff;
                 width: 100%;
@@ -600,7 +599,7 @@
             .tbbm tr td .lbl {
                 float: right;
                 color: blue;
-                font-size: 16px;
+                font-size: medium;
             }
             .tbbm tr td .lbl.btn {
                 color: #4297D7;
