@@ -18,8 +18,6 @@
 
             q_tables = 's';
             var q_name = "tire";
-            var decbbs = ['kcount', 'price', 'mount', 'total'];
-            var decbbm = ['kcount'];
             var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [];
@@ -32,7 +30,7 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             //ajaxPath = "";
-             aPop = new Array(['txtTggno', 'btnTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
+             aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -81,7 +79,7 @@
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('worka_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('tire_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
             }
 
             function combPay_chg() {
@@ -148,8 +146,6 @@
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
-                if(q_tables == 's')
-                    bbsAssign();
             }
 
             function q_appendData(t_Table) {
@@ -197,74 +193,147 @@
             }
         </script>
     <style type="text/css">
-        .tview
-        {
-            FONT-SIZE: 12pt;
-            COLOR:  Blue ;
-            background:#FFCC00;
-            padding: 3px;
-            TEXT-ALIGN:  center;
-        }    
-        .tbbm
-        {
-            FONT-SIZE: 12pt;
-            COLOR: blue;
-            TEXT-ALIGN: left;
-            border-color: white; 
-            width:98%; border-collapse: collapse; background:#cad3ff;
-        } 
+                              #dmain {
+                overflow: hidden;
+            }
+            .dview {
+                float: left;
+                width: 28%;
+            }
+            .tview {
+                margin: 0;
+                padding: 2px;
+                border: 1px black double;
+                border-spacing: 0;
+                font-size: medium;
+                background-color: #FFFF66;
+                color: blue;
+                width: 100%;
+            }
+            .tview td {
+                padding: 2px;
+                text-align: center;
+                border: 1px black solid;
+            }
+            .dbbm {
+                float: left;
+                width: 70%;
+                margin: -1px;
+                border: 1px black solid;
+                border-radius: 5px;
+            }
+            .tbbm {
+                padding: 0px;
+                border: 1px white double;
+                border-spacing: 0;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                background: #cad3ff;
+                width: 100%;
+            }
+            .tbbm tr {
+                height: 35px;
+            }
+            .tbbm tr td {
+                width: 9%;
+            }
+            .tbbm .tdZ {
+                width: 2%;
+            }
+            .tbbm tr td span {
+                float: right;
+                display: block;
+                width: 5px;
+                height: 10px;
+            }
+            .tbbm tr td .lbl {
+                float: right;
+                color: blue;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn {
+                color: #4297D7;
+                font-weight: bolder;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn:hover {
+                color: #FF8F19;
+            }
+            .txt.c1 {
+                width: 90%;
+                float: left;
+            }
+            .txt.c2 {
+                width: 36%;
+                float: right;
+            }
+            .txt.c3 {
+                width: 62%;
+                float: left;
+            }
+            .txt.c4 {
+                width: 18%;
+                float: left;
+            }
+            .txt.c5 {
+                width: 80%;
+                float: left;
+            }
+            .txt.c6 {
+                width: 25%;
+                
+            }
+            .txt.c7 {
+                width: 95%;
+                float: left;
+            }
+            .txt.num {
+                text-align: right;
+            }
+            .tbbm td {
+                margin: 0 -1px;
+                padding: 0;
+            }
+            .tbbm td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                float: left;
+            }
+            .tbbm td input[type="button"] {
+                float: left;
+                width: auto;
+            }
+            .tbbm select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+            }
+            .dbbs {
+                width: 100%;
+            }
+            .tbbs a {
+                font-size: medium;
+            }
+
+            .num {
+                text-align: right;
+            }
+            .tbbs tr.error input[type="text"] {
+                color: red;
+            }
+            input[type="text"], input[type="button"] {
+                font-size: medium;
+            }
         .tbbs
         {
-            FONT-SIZE: 12pt;
+            FONT-SIZE: medium;
             COLOR: blue ;
             TEXT-ALIGN: left;
              BORDER:1PX LIGHTGREY SOLID;
-             width:98% ; height:98% ;  
-        } 
-        .column1
-        {
-            width: 10%;
-        }
-        .column2
-        {
-            width: 10%;
-        }      
-        .column3
-        {
-            width: 10%;
-        }   
-        .column4
-        {
-            width: 10%;
-        }           
-         .label1
-        {
-            width: 10%; text-align:right;
-        }       
-        .label2
-        {
-            width: 10%; text-align:right;
-        }
-        .label3
-        {
-            width: 10%; text-align:right;
-        }
-        .label4
-        {
-            width: 10%; text-align:right;
-        }
-       .txt.c1
-       {
-           width: 95%;
-       }
-       .td1
-       {
-           width: 7%;
-       }
-       .td2
-       {
-           width: 8%;
-       }
+             width:100% ; height:98% ;  
+        }  
       
     </style>
 </head>
@@ -292,20 +361,20 @@
         <div class='dbbm' style="width: 65%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr>
-            <td class='label1'><a id="lblDatea" ></a></td>
-            <td class="column1"><input id="txtDatea"  type="text" class="txt c1"/></td>
-            <td class='label2'><a id="lblNoa" ></a></td>
-            <td class="column2"><input id="txtNoa"type="text" class="txt c1"/></td>
-            <td class='label3'><a id="lblCarno" ></a></td>
-            <td class="column3"><input id="txtCarno"  type="text" class="txt c1"/></td>
-            <td class="column4"><img  src="../image/car.jpg" class="txt c1"/></td>         
+            <td class='td1'><span> </span><a id="lblDatea" class="lbl"></a></td>
+            <td class="td2"><input id="txtDatea"  type="text" class="txt c1"/></td>
+            <td class='td3'><span> </span><a id="lblNoa" class="lbl" ></a></td>
+            <td class="td4"><input id="txtNoa"type="text" class="txt c1"/></td>
+            <td class='td5'><span> </span><a id="lblCarno" class="lbl"></a></td>
+            <td class="td6"><input id="txtCarno"  type="text" class="txt c1"/></td>
+            <td class="td7"><img  src="../image/car.jpg" class="txt c1"/></td>         
         </tr>      
         <tr>
-            <td class='label1'><input id="btnTgg"  type="button" style='width: auto; font-size: medium;'/></td>
-            <td class="column1" colspan="3"><input id="txtTggno" type="text" style='width:30%;'/><input id="txtTgg" type="text" style='width:55%;'/></td>
-            <td class='label2'><a id="lblKcount" ></a></td>
-            <td class="column2"><input id="txtKcount"type="text" class="txt c1" style="text-align: right;"/></td>
-            <td class="column3"><img src="../image/ben.jpg" class="txt c1"/></td>
+            <td class='td1'><span> </span><a id="lblTgg" class="lbl" ></a></td>
+            <td class="td2" colspan="3"><input id="txtTggno" type="text" class="txt c2"/><input id="txtTgg" type="text" class="txt c3"/></td>
+            <td class='td3'><span> </span><a id="lblKcount" class="lbl"></a></td>
+            <td class="td4"><input id="txtKcount"type="text" class="txt num c1"/></td>
+            <td class="td5"><img src="../image/ben.jpg" class="txt c1"/></td>
         </tr>      
         </table>
         </div>
@@ -337,9 +406,9 @@
                 <td ><input  id="txtTno3.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtPosition.*"type="text" class="txt c1"/></td>
                 <td ><input  id="txtSpec.*" type="text" class="txt c1"/></td>
-                <td ><input  id="txtPrice.*"type="text" class="txt c1" style="text-align: right;"/></td>
-                <td ><input  id="txtMount.*"type="text" class="txt c1" style="text-align: right;"/></td>
-                <td ><input  id="txtTotal.*" type="text" class="txt c1" style="text-align: right;"/></td>
+                <td ><input  id="txtPrice.*"type="text" class="txt num c1" /></td>
+                <td ><input  id="txtMount.*"type="text" class="txt num c1" /></td>
+                <td ><input  id="txtTotal.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtTyre.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtMemo.*" type="text" class="txt c1"/><input id="txtNoq.*" type="hidden" /></td>
            </tr>

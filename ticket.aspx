@@ -3,27 +3,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title></title>
-		<script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-		<script src="//59.125.143.170/jquery/js/qtran.js" type="text/javascript"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
-            var decbbm = ["money", "comppay", "driverpay", "installment"];
             var q_name = "ticket";
             var q_readonly = [];
             var bbmNum = [['txtMoney', 10, 0], ['txtComppay', 10, 0], ['txtDriverpay', 10, 0], ['txtInstallment', 10, 0]];
-            var bbmNum_comma = [];
-
-            ///  ,,,,,, disp comma
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -42,8 +36,7 @@
 
                 q_brwCount();
 
-                if(!q_gt(q_name, q_content, q_sqlCount, 1))
-                    return;
+                q_gt(q_name, q_content, q_sqlCount, 1)
 
                 // $('.tr0').hide();
                 $('#txtDatea').mask('999/99/99');
@@ -56,17 +49,11 @@
                     dataErr = false;
                     return;
                 }
-
-                q_mask(bbmMask);
-
                 mainForm(0);
-                // 1=Last  0=Top
-
-                $('#txtNoa').focus();
-
             }///  end Main()
 
             function mainPost() {
+            	q_mask(bbmMask);
             	fbbm[fbbm.length] = 'txtIrregularities';
                 /*when the data is changed*/
                 $('#txtDriverno').change(function(e) {
@@ -134,7 +121,7 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('sss_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('ticket_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -191,18 +178,8 @@
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], '', '', 2);
             }
-
-            function format() {
-                var i;
-
-                q_format(bbmNum_comma, bbmNum);
-                q_init = 0;
-            }
-
             function refresh(recno) {
                 _refresh(recno);
-
-                format();
             }
 
             function readonly(t_para, empty) {
@@ -215,12 +192,10 @@
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
-                if(q_tables == 's')
-                    bbsAssign();
             }
 
             function q_appendData(t_Table) {
-                dataErr = !_q_appendData(t_Table);
+              return _q_appendData(t_Table);
             }
 
             function btnSeek() {
@@ -265,14 +240,14 @@
 		</script>
 		<style type="text/css">
             .tview {
-                font-size: 16px;
+                font-size: medium;
                 color: blue;
                 background: #FFCC00;
                 padding: 3px;
                 text-align: center;
             }
             .tbbm {
-                font-size: 16px;
+                font-size: medium;
                 color: blue;
                 text-align: left;
                 border-color: white;
@@ -284,11 +259,12 @@
                 height: 35px;
             }
             .td1, .td3, .td5, .td7 {
-                width: 9%;
+                width: 13%;
             }
             .td2, .td4, .td6, .td8 {
-                width: 11%;
+                width: 9%;
             }
+            
             .label {
                 float: right;
             }
@@ -331,8 +307,16 @@
                 /*border: 1px #EEEEEE solid;*/
                 cursor: default;
             }
-            .btnLbl.tb {
+           .tbbm tr td span {
                 float: right;
+                display: block;
+                width: 5px;
+                height: 10px;
+            }
+            .tbbm tr td .lbl {
+                float: right;
+                color: blue;
+                font-size: medium;
             }
             .btnLbl.button {
                 cursor: pointer;
@@ -346,7 +330,7 @@
             }
             .btnLbl a {
                 color: blue;
-                font-size: 16px;
+                font-size: medium;
                 height: 25px;
                 line-height: 25px;
                 display: block;
@@ -357,23 +341,35 @@
             }
             .btnLbl.close a {
                 color: red;
-                font-size: 16px;
+                font-size: medium;
                 height: 25px;
                 line-height: 25px;
                 display: block;
                 text-align: center;
             }
+            .txt .c1
+            {
+            	width: 95%;
+            }
+            .txt .c2
+            {
+            	width: 90%;
+            }
+            .txt .num
+            {
+            	text-align:right;
+            	}
 		</style>
 	</head>
 	<body>
-		<form id="form1" style="height: 100%;" action="">
 			<!--#include file="../inc/toolbar.inc"-->
 			<div id='dmain' style="overflow:hidden;">
 				<div class="dview" id="dview" style="float: left;  width:25%;"  >
 					<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 						<tr>
 							<td align="center" style="width:5%"><a id='vewChk'></a></td>
-							<td align="center" style="width:25%"><a id='vewNoa'></a></td>
+							<td align="center" style="width:20%"><a id='vewNoa'></a></td>
+							<td align="center" style="width:25%"><a id='vewTicketno'></a></td>
 							<td align="center" style="width:25%"><a id='vewDatea'></a></td>
 							<td align="center" style="width:25%"><a id='vewCarno'></a></td>
 						</tr>
@@ -382,35 +378,42 @@
 							<input id="chkBrow.*" type="checkbox" style=''/>
 							</td>
 							<td align="center" id='noa'>~noa</td>
+							<td align="center" id='ticketno'>~ticketno</td>
 							<td align="center" id='datea'>~datea</td>
 							<td align="center" id='carno'>~carno</td>
 						</tr>
 					</table>
 				</div>
 				<div class='dbbm' style="width: 75%;float: left;">
-					<div style="border: 1px solid #000000;border-radius: 5px;">
 						<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
 							<tr class="tr1">
 								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblNoa'></a>
-								</div></td>
+								<span> </span>
+									<a id='lblTicketno' class="lbl"></a>
+								</td>
 								<td class="td2">
-								<input id="txtNoa" maxlength='20' type="text"  style='width:95%; '/>
+								<input id="txtTicketno" type="text"  class="txt c1"/>
 								</td>
 								<td class="td3" >
-								<div class='btnLbl tb'>
-									<a id='lblDatea'></a>
-								</div></td>
+								<span> </span>
+									<a id='lblDatea' class="lbl"></a>
+								</td>
 								<td class="td4">
-								<input id="txtDatea" maxlength='20' type="text"  style='width:95%; '/>
+								<input id="txtDatea" type="text"   class="txt c1"/>
 								</td>
 								<td class="td5" >
-								<div class='btnLbl tb'>
-									<a id='lblCarno'></a>
-								</div></td>
+								<span> </span>
+									<a id='lblCarno' class="lbl"></a>
+								</td>
 								<td class="td6">
-								<input id="txtCarno" maxlength='20' type="text"  style='width:95%; '/>
+								<input id="txtCarno" type="text"   class="txt c1"/>
+								</td>
+								<td class="td7" >
+								<span> </span>
+									<a id='lblNoa' class="lbl"></a>
+								</td>
+								<td class="td8">
+								<input id="txtNoa"  type="text"   class="txt c2"/>
 								</td>
 							</tr>
 							<tr class="tr2">
@@ -418,68 +421,66 @@
 								<div class='btnLbl tb button'>
 									<a id='lblDriver'></a>
 								</div></td>
-								<td class="td2" colspan='3'>
+								<td class="td2" colspan="3">
 								<input id="txtDriverno" type="text"  style='width:20%; float:left;'/>
 								<input id="txtDriver" type="text"  style='width:73%; float:left;'/>
 								</td>
 								<td class="td5" >
-								<div class='btnLbl tb'>
-									<a id='lblAppeardate'></a>
-								</div></td>
+								<span> </span>
+									<a id='lblAppeardate' class="lbl"></a>
+								</td>
 								<td class="td6">
-								<input id="txtAppeardate" maxlength='20' type="text"  style='width:95%; '/>
+								<input id="txtAppeardate" type="text"  class="txt c1"/>
 								</td>
 								<td class="td7" >
-								<div class='btnLbl tb'>
-									<a id='lblPaydate'></a>
-								</div></td>
+								<span> </span>
+									<a id='lblPaydate' class="lbl"></a>
+								</td>
 								<td class="td8">
-								<input id="txtPaydate" maxlength='20' type="text"  style='width:95%; '/>
+								<input id="txtPaydate"  type="text"   class="txt c2"/>
 								</td>
 							</tr>
 							<tr class="tr3">
 								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblIrregularities'></a>
-								</div></td>
-								<td class="td2" colspan='7'>	<textarea id="txtIrregularities" rows="5" cols="10" style="width:95%; height: 127px;">
+								<span> </span>
+									<a id='lblIrregularities' class="lbl"></a>
+								</td>
+								<td class="td2" colspan='7'><textarea id="txtIrregularities" rows="5" cols="10" style="width:98%; height: 50px;">
 									</textarea></td>
 							</tr>
 							<tr class="tr4">
 								<td class="td1" >
-								<div class='btnLbl tb'>
-									<a id='lblMoney'></a>
-								</div></td>
+								<span> </span>
+									<a id='lblMoney' class="lbl"></a>
+								</td>
 								<td class="td2">
-								<input id="txtMoney" maxlength='20' type="text"  style='width:95%; text-align: right;'/>
+								<input id="txtMoney"  type="text"   class="txt num c1"/>
 								</td>
 								<td class="td3" >
-								<div class='btnLbl tb'>
-									<a id='lblComppay'></a>
-								</div></td>
+								<span> </span>
+									<a id='lblComppay' class="lbl"></a>
+								</td>
 								<td class="td4">
-								<input id="txtComppay" maxlength='20' type="text"  style='width:95%; text-align: right;'/>
+								<input id="txtComppay"  type="text"   class="txt num c1"/>
 								</td>
 								<td class="td5" >
-								<div class='btnLbl tb'>
-									<a id='lblDriverpay'></a>
-								</div></td>
+								<span> </span>
+									<a id='lblDriverpay' class="lbl"></a>
+								</td>
 								<td class="td6">
-								<input id="txtDriverpay" maxlength='20' type="text"  style='width:95%; text-align: right;'/>
+								<input id="txtDriverpay"  type="text"   class="txt num c1"/>
 								</td>
 								<td class="td7" >
-								<div class='btnLbl tb'>
-									<a id='lblInstallment'></a>
-								</div></td>
+								<span> </span>
+									<a id='lblInstallment' class="lbl"></a>
+								</td>
 								<td class="td8">
-								<input id="txtInstallment" maxlength='20' type="text"  style='width:95%; text-align: right;'/>
+								<input id="txtInstallment" type="text"  class="txt num c2"/>
 								</td>
 							</tr>
 						</table>
 					</div>
 				</div>
-			</div>
 			<input id="q_sys" type="hidden" />
-		</form>
 	</body>
 </html>
