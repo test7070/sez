@@ -27,7 +27,7 @@
             brwKey = 'noa';
             q_alias = '';
             q_desc = 1;
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtStraddrno_type1', 'lblStraddr_type1', 'addr', 'noa,addr', 'txtStraddrno_type1,txtStraddr_type1', 'addr_b.aspx'], ['txtEndaddno_type1', 'lblEndadd_type1', 'addr', 'noa,addr', 'txtEndaddno_type1,txtEndadd_type1', 'addr_b.aspx'], ['txtStraddrno_type2', 'lblStraddr_type2', 'addr', 'noa,addr', 'txtStraddrno_type2,txtStraddr_type2', 'addr_b.aspx'], ['txtEndaddrno_type2', 'lblEndaddr_type2', 'addr', 'noa,addr', 'txtEndaddrno_type2,txtEndaddr_type2', 'addr_b.aspx'], ['txtStraddrno_type3', 'lblStraddr_type3', 'addr', 'noa,addr', 'txtStraddrno_type3,txtStraddr_type3', 'addr_b.aspx'], ['txtEndaddrno_type3', 'lblEndaddr_type3', 'addr', 'noa,addr', 'txtEndaddrno_type3,txtEndaddr_type3', 'addr_b.aspx']);
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtStraddrno_type1', 'lblStraddr_type1', 'addr', 'noa,addr', 'txtStraddrno_type1,txtStraddr_type1', 'addr_b.aspx'], ['txtStraddrno_type2', 'lblStraddr_type2', 'addr', 'noa,addr', 'txtStraddrno_type2,txtStraddr_type2', 'addr_b.aspx'],  ['txtStraddrno_type3', 'lblStraddr_type3', 'addr', 'noa,addr', 'txtStraddrno_type3,txtStraddr_type3', 'addr_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -184,15 +184,15 @@
                     $("#t3").hide();
                     switch($("#cmbTypea_condition").val()) {
                         case '1':
-                            q_func('tranvcce.getItem1', r_accy + ',' + $('#cmbCust_type1').val() + ',' + $('#txtStraddrno_type1').val() + ',' + $('#txtStraddr_type1').val() + ',' + $('#txtEndaddrno_type1').val() + ',' + $('#txtEndaddr_type1').val() + ',' + $('#txtProductno_type1').val() + ',' + $('#txtProduct_type1').val() + ',' + $('#txtOrdeno_type1').val() + ',' + $('#txtOdate_type1').val() + ',' + ($('#chkIsdisplay').prop('checked') ? '1' : '0') + ',empty');
+                            q_func('tranvcce.getItem1', r_accy + ',' + $('#cmbCust_type1').val() + ',' + $('#txtStraddrno_type1').val() + ',' + $('#txtStraddr_type1').val() + ',,,' + $('#txtProductno_type1').val() + ',' + $('#txtProduct_type1').val() + ',' + $('#txtOrdeno_type1').val() + ',' + $('#txtOdate_type1').val() + ',' + ($('#chkIsdisplay').prop('checked') ? '1' : '0') + ',empty');
                             $("#t1").show();
                             break;
                         case '2':
-                            q_func('tranvcce.getItem2', r_accy + ',' + $('#cmbCust_type2').val() + ',' + $('#txtStraddrno_type2').val() + ',' + $('#txtStraddr_type2').val() + ',' + $('#txtEndaddrno_type2').val() + ',' + $('#txtEndaddr_type2').val() + ',' + $('#txtCaseno_type2').val() + ',' + $('#txtCaseno2_type2').val() + ',' + $('#txtPo_type2').val() + ',' + $('#txtTraceno_type2').val() + ',' + ($('#chkIsdisplay').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type2').val() + ',' + $('#txtOdate_type2').val() + ',' + $('#cmbIspal_type2').val() + ',' + $('#cmbEf_type2').val() + ',' + $('#txtOrdeno_type2').val() + ',empty');
+                            q_func('tranvcce.getItem2', r_accy + ',' + $('#cmbCust_type2').val() + ',' + $('#txtStraddrno_type2').val() + ',' + $('#txtStraddr_type2').val() + ',,,' + $('#txtCaseno_type2').val() + ',' + $('#txtCaseno2_type2').val() + ',' + $('#txtPo_type2').val() + ',' + $('#txtTraceno_type2').val() + ',' + ($('#chkIsdisplay').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type2').val() + ',' + $('#txtOdate_type2').val() + ',' + $('#cmbIspal_type2').val() + ',' + $('#cmbEf_type2').val() + ',' + $('#txtOrdeno_type2').val() + ',empty');
                             $("#t2").show();
                             break;
                         case '3':
-                            q_func('tranvcce.getItem3', r_accy + ',' + $('#cmbCust_type3').val() + ',' + $('#txtStraddrno_type3').val() + ',' + $('#txtStraddr_type3').val() + ',' + $('#txtEndaddrno_type3').val() + ',' + $('#txtEndaddr_type3').val() + ',' + $('#txtShipno_type3').val() + ',' + $('#txtSo_type3').val() + ',' + $('#txtCldate_type3').val() + ',' + $('#txtCaseno_type3').val() + ',' + ($('#chkIsdisplay').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type3').val() + ',' + $('#txtOdate_type3').val() + ',' + $('#cmbIspal_type3').val() + ',' + $('#cmbEf_type3').val() + ',' + $('#txtOrdeno_type3').val() + ',empty');
+                            q_func('tranvcce.getItem3', r_accy + ',' + $('#cmbCust_type3').val() + ',' + $('#txtStraddrno_type3').val() + ',' + $('#txtStraddr_type3').val() + ',,,' + $('#txtShipno_type3').val() + ',' + $('#txtSo_type3').val() + ',' + $('#txtCldate_type3').val() + ',' + $('#txtCaseno_type3').val() + ',' + ($('#chkIsdisplay').prop('checked') ? '1' : '0') + ',' + $('#txtCarno_type3').val() + ',' + $('#txtOdate_type3').val() + ',' + $('#cmbIspal_type3').val() + ',' + $('#cmbEf_type3').val() + ',' + $('#txtOrdeno_type3').val() + ',empty');
                             $("#t3").show();
                             break;
                     }
@@ -781,7 +781,6 @@
 				<td class="td1" style="width:7%"><span class="schema"> </span></td>
 				<td class="td2" style="width:6%"><span class="schema"> </span></td>
 				<td class="td3" style="width:8%"><span class="schema"> </span></td>
-				<td class="td4" style="width:8%"><span class="schema"> </span></td>
 				<td class="td5" style="width:7%"><span class="schema"> </span></td>
 				<td class="td6" style="width:7%"><span class="schema"> </span></td>
 				<td class="td7" style="width:7%"><span class="schema"> </span></td>
@@ -802,7 +801,6 @@
 				<td class="td1" id="lblCust_type1"></td>
 				<td class="td9" id="lblOdate_type1"></td>
 				<td class="td2" id='lblStraddr_type1'></td>
-				<td class="td3" id="lblEndaddr_type1"></td>
 				<td class="td4" id="lblProduct_type1"></td>
 				<td class="td5" id="lblOrdeno_type1"></td>
 				<td class="td6" id="lblCarno_type1"></td>
@@ -815,10 +813,6 @@
 				<td class="td3">
 				<input type="text" style="width: 35%;" id="txtStraddrno_type1"/>
 				<input type="text" style="width: 60%;" id="txtStraddr_type1"/>
-				</td>
-				<td class="td3">
-				<input type="text" style="width: 35%;" id="txtEndaddrno_type1"/>
-				<input type="text" style="width: 60%;" id="txtEndaddr_type1"/>
 				</td>
 				<td class="td4">
 				<input type="text" style="width: 35%;" id="txtProductno_type1"/>
@@ -835,7 +829,6 @@
 				<td class="td1" id='lblCust_type2'></td>
 				<td class="td2" id="lblOdate_type2"></td>
 				<td class="td3" id='lblStraddr_type2'></td>
-				<td class="td4" id="lblEndaddr_type2"></td>
 				<td class="td5" id="lblCaseno_type2"></td>
 				<td class="td6" id="lblPo_type2"></td>
 				<td class="td7" id="lblTraceno_type2"></td>
@@ -853,10 +846,6 @@
 				<td class="td3">
 				<input type="text" style="width: 35%;" id="txtStraddrno_type2"/>
 				<input type="text" style="width: 60%;" id="txtStraddr_type2"/>
-				</td>
-				<td class="td4">
-				<input type="text" style="width: 35%;" id="txtEndaddrno_type2"/>
-				<input type="text" style="width: 60%;" id="txtEndaddr_type2"/>
 				</td>
 				<td class="td5">
 				<input type="text" style="width: 95%;" id="txtCaseno_type2"/>
@@ -883,7 +872,6 @@
 				<td class="td1" id='lblCust_type3'></td>
 				<td class="td2" id="lblOdate_type3"></td>
 				<td class="td3" id='lblStraddr_type3'></td>
-				<td class="td4" id="lblEndaddr_type3"></td>
 				<td class="td5" id="lblShipno_type3"></td>
 				<td class="td6" id="lblSo_type3"></td>
 				<td class="td7" id="lblCldate_type3"></td>
@@ -901,10 +889,6 @@
 				<td class="td3">
 				<input type="text" style="width: 35%;" id="txtStraddrno_type3"/>
 				<input type="text" style="width: 60%;" id="txtStraddr_type3"/>
-				</td>
-				<td class="td4">
-				<input type="text" style="width: 35%;" id="txtEndaddrno_type3"/>
-				<input type="text" style="width: 60%;" id="txtEndaddr_type3"/>
 				</td>
 				<td class="td5">
 				<input type="text" style="width: 95%;" id="txtShipno_type3"/>
@@ -941,7 +925,6 @@
 				<td class="td4" style="width:5%;"><span class="schema"> </span></td>
 				<td class="td5" style="width:15%;"><span class="schema"> </span></td>
 				<td class="td6" style="width:8%;"><span class="schema"> </span></td>
-				<td class="td7" style="width:8%;"><span class="schema"> </span></td>
 				<td class="td8" style="width:5%;"><span class="schema"> </span></td>
 				<td class="td9" style="width:8%;"><span class="schema"> </span></td>
 				<td class="tdA" style="width:5%;"><span class="schema"> </span></td>
@@ -954,7 +937,6 @@
 				<td class="td4" id="lblOdate_t1" index="odate"></td>
 				<td class="td5" id="lblProduct_t1" index="productno"></td>
 				<td class="td6" id="lblStraddr_t1" index="straddrno"></td>
-				<td class="td7" id="lblEndaddr_t1" index="endaddrno"></td>
 				<td class="td8" id="lblWeight_t1" index="weight"></td>
 				<td class="td9" id="lblOrdeno_t1" index="ordeno"></td>
 				<td class="tdA" id="lblNotv_t1" index="notv"></td>
@@ -982,10 +964,6 @@
 				<input type="text" style="width: 35%;" value="straddrno"/>
 				<input type="text" style="width: 60%;" value="straddr"/>
 				</td>
-				<td class="td7">
-				<input type="text" style="width: 35%;" value="endaddrno"/>
-				<input type="text" style="width: 60%;" value="endaddr"/>
-				</td>
 				<td class="td8">
 				<input type="text" style="width: 95%; text-align: right;" value="weight"/>
 				</td>
@@ -1008,14 +986,12 @@
 				<td class="td4" style="width:6%"><span class="schema"> </span></td>
 				<td class="td5" style="width:6%"><span class="schema"> </span></td>
 				<td class="td6" style="width:5%"><span class="schema"> </span></td>
-				<td class="td7" style="width:5%"><span class="schema"> </span></td>
 				<td class="td8" style="width:6%"><span class="schema"> </span></td>
 				<td class="td9" style="width:3%"><span class="schema"> </span></td>
 				<td class="tdA" style="width:3%"><span class="schema"> </span></td>
 				<td class="tdB" style="width:5%"><span class="schema"> </span></td>
 				<td class="tdC" style="width:8%"><span class="schema"> </span></td>
 				<td class="tdD" style="width:8%"><span class="schema"> </span></td>
-				<td class="tdE" style="width:8%"><span class="schema"> </span></td>
 				<td class="tdF" style="width:8%"><span class="schema"> </span></td>
 				<td class="tdG" style="width:5%"><span class="schema"> </span></td>
 			</tr>
@@ -1033,7 +1009,6 @@
 				<td class="tdB" id="lblStatus_t2" index="status"></td>
 				<td class="tdC" id="lblPal_t2" index="pal"></td>
 				<td class="tdD" id="lblStraddr_t2" index="straddrno"></td>
-				<td class="tdE" id="lblEndaddr_t2" index="endaddr"></td>
 				<td class="tdF" id="lblOrdeno_t2" index="ordeno"></td>
 				<td class="tdG" id="lblNotv_t2" index="notv"></td>
 			</tr>
@@ -1079,10 +1054,6 @@
 				<input type="text" style="width: 35%;" value="straddrno"/>
 				<input type="text" style="width: 60%;" value="straddr"/>
 				</td>
-				<td class="tdE">
-				<input type="text" style="width: 35%;" value="endaddrno"/>
-				<input type="text" style="width: 60%;" value="endaddr"/>
-				</td>
 				<td class="tdF">
 				<input type="text" style="width: 95%;" value="ordeno"/>
 				</td>
@@ -1106,7 +1077,6 @@
 				<td class="tdB" style="width:5%"><span class="schema"> </span></td>
 				<td class="tdC" style="width:8%"><span class="schema"> </span></td>
 				<td class="tdD" style="width:8%"><span class="schema"> </span></td>
-				<td class="tdE" style="width:8%"><span class="schema"> </span></td>
 				<td class="tdF" style="width:8%"><span class="schema"> </span></td>
 				<td class="tdG" style="width:5%"><span class="schema"> </span></td>
 			</tr>
@@ -1124,7 +1094,6 @@
 				<td class="tdB" id="lblStatus_t3" index="status"></td>
 				<td class="tdC" id="lblPal_t3" index="pal"></td>
 				<td class="tdD" id="lblStraddr_t3" index="straddrno"></td>
-				<td class="tdE" id="lblEndaddr_t3" index="endaddr"></td>
 				<td class="tdF" id="lblOrdeno_t3" index="ordeno"></td>
 				<td class="tdG" id="lblNotv_t3" index="notv"></td>
 			</tr>
@@ -1169,10 +1138,6 @@
 				<td class="tdD">
 				<input type="text" style="width: 35%;" value="straddrno"/>
 				<input type="text" style="width: 60%;" value="straddr"/>
-				</td>
-				<td class="tdE">
-				<input type="text" style="width: 35%;" value="endaddrno"/>
-				<input type="text" style="width: 60%;" value="endaddr"/>
 				</td>
 				<td class="tdF">
 				<input type="text" style="width: 95%;" value="ordeno"/>

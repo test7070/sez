@@ -17,7 +17,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name = "gps";
-        var q_readonly = [];
+        var q_readonly = ['txtNoa'];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
@@ -26,8 +26,7 @@
        $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
-           q_gt(q_name, q_content, q_sqlCount, 1)
-            $('#txtNoa').focus
+          	q_gt(q_name, q_content, q_sqlCount, 1)
         });
 
         //////////////////   end Ready
@@ -60,7 +59,7 @@
             txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
             txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
             txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');*/
-           
+            
         }
 
       /*  function pop(form, seq) {
@@ -150,7 +149,9 @@
 
         function btnIns() {
             _btnIns();
-            $('#txtNoa').focus();
+            $('#txtNoa').val('AUTO');
+            $('#txtNoq').val('001');
+            $('#txtDatea').val(q_date());
         }
 
         function btnModi() {
@@ -189,9 +190,10 @@
             if (emp($('#txtUacc3').val()))
                 $('#txtUacc3').val('2131.' + t_noa);
 
-
-            if (t_noa.length ==0)  
-                q_gtnoa(q_name, t_noa);
+			var t_noa = trim($('#txtNoa').val());
+            var t_date = trim($('#txtDatea').val());
+            if(t_noa.length == 0 || t_noa == "AUTO")
+                q_gtnoa(q_name, replaceAll(q_getPara('sys.key_gps') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
             else
                 wrServer(t_noa);
         }
@@ -405,10 +407,10 @@
             <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
                <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-               <td class="td3"><span> </span><a id='lblCarno' class="lbl"></a></td>
-               <td class="td4"><input id="txtCarno"  type="text"  class="txt c1"/></td>
-               <td class="td5"><span> </span><a id='lblDatea' class="lbl"></a></td>
-               <td class="td6"><input id="txtDatea"  type="text"  class="txt c1"/></td>                             
+               <td class="td3"><span> </span><a id='lblDatea' class="lbl"></a></td>
+               <td class="td4"><input id="txtDatea"  type="text"  class="txt c1"/></td> 
+               <td class="td5"><span> </span><a id='lblCarno' class="lbl"></a></td>
+               <td class="td6"><input id="txtCarno"  type="text"  class="txt c1"/></td>                         
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblBegintime' class="lbl"></a></td>
