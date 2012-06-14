@@ -17,7 +17,7 @@
             }
 
             var q_name = "tranvcce";
-            var q_readonly = ['txtNoa','txtTranno'];
+            var q_readonly = ['txtNoa', 'txtTranno'];
             var bbmNum = new Array(['txtWeight,10,2']);
             var bbmMask = new Array();
             q_sqlCount = 6;
@@ -27,14 +27,14 @@
             brwKey = 'noa';
             q_alias = '';
             q_desc = 1;
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtStraddrno_type1', 'lblStraddr_type1', 'addr', 'noa,addr', 'txtStraddrno_type1,txtStraddr_type1', 'addr_b.aspx'], ['txtStraddrno_type2', 'lblStraddr_type2', 'addr', 'noa,addr', 'txtStraddrno_type2,txtStraddr_type2', 'addr_b.aspx'],  ['txtStraddrno_type3', 'lblStraddr_type3', 'addr', 'noa,addr', 'txtStraddrno_type3,txtStraddr_type3', 'addr_b.aspx']);
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtStraddrno_type1', 'lblStraddr_type1', 'addr', 'noa,addr', 'txtStraddrno_type1,txtStraddr_type1', 'addr_b.aspx'], ['txtStraddrno_type2', 'lblStraddr_type2', 'addr', 'noa,addr', 'txtStraddrno_type2,txtStraddr_type2', 'addr_b.aspx'], ['txtStraddrno_type3', 'lblStraddr_type3', 'addr', 'noa,addr', 'txtStraddrno_type3,txtStraddr_type3', 'addr_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
             });
             function main() {
-                if(dataErr) {
+                if (dataErr) {
                     dataErr = false;
                     return;
                 }
@@ -48,12 +48,12 @@
                     //                            alert(result);
                     //                        break;
                     case 'tranvcce.check':
-                        if(result.substr(0, 5) == '<Data') {
+                        if (result.substr(0, 5) == '<Data') {
                             var tmp = _q_appendData('msg', '', true);
-                            if(tmp[0].value == '1') {
+                            if (tmp[0].value == '1') {
                                 var t_noa = trim($('#txtNoa').val());
                                 var t_date = trim($('#txtDatea').val());
-                                if(t_noa.length == 0 || t_noa == "AUTO")
+                                if (t_noa.length == 0 || t_noa == "AUTO")
                                     q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tranvcce') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                                 else
                                     wrServer(t_noa);
@@ -68,19 +68,19 @@
                         break;
 
                     case 'tranvcce.getCust':
-                        if(result.substr(0, 5) == '<Data') {
+                        if (result.substr(0, 5) == '<Data') {
                             var tmp = _q_appendData('tranvcce_cust', '', true);
                             tmpStr = '<option value="">' + q_getPara('tranvcce.string_all') + '<';
                             tmpStr += '/option>';
                             $('#cmbCust_type1').append(tmpStr);
                             $('#cmbCust_type2').append(tmpStr);
                             $('#cmbCust_type3').append(tmpStr);
-                            for( i = 0; i < tmp.length; i++) {
+                            for ( i = 0; i < tmp.length; i++) {
                                 tmpStr = '<option value="' + tmp[i].custno + '">' + tmp[i].nick + '<';
                                 tmpStr += '/option>';
-                                if(tmp[i].typea == '1')
+                                if (tmp[i].typea == '1')
                                     $('#cmbCust_type1').append(tmpStr);
-                                else if(tmp[i].typea == '2')
+                                else if (tmp[i].typea == '2')
                                     $('#cmbCust_type2').append(tmpStr);
                                 else
                                     $('#cmbCust_type3').append(tmpStr);
@@ -89,21 +89,21 @@
                             alert('Error!' + '\r' + t_func + '\r' + result);
                         break;
                     case 'tranvcce.getItem1':
-                        if(result.substr(0, 5) == '<Data') {
+                        if (result.substr(0, 5) == '<Data') {
                             var tmp = _q_appendData('tranvcce_t1', '', true);
                             $("#t1").refresh(tmp);
                         } else
                             alert('Error!' + '\r' + t_func + '\r' + result);
                         break;
                     case 'tranvcce.getItem2':
-                        if(result.substr(0, 5) == '<Data') {
+                        if (result.substr(0, 5) == '<Data') {
                             var tmp = _q_appendData('tranvcce_t2', '', true);
                             $("#t2").refresh(tmp);
                         } else
                             alert('Error!' + '\r' + t_func + '\r' + result);
                         break;
                     case 'tranvcce.getItem3':
-                        if(result.substr(0, 5) == '<Data') {
+                        if (result.substr(0, 5) == '<Data') {
                             var tmp = _q_appendData('tranvcce_t3', '', true);
                             $("#t3").refresh(tmp);
                         } else
@@ -120,14 +120,14 @@
                 $('#txtOdate_type1').mask(r_picd);
                 q_cmbParse("cmbTypea", q_getPara('tranvcce.typea'));
                 var tmp = q_getPara('tranvcce.ispal').split(',');
-                for( i = 0; i < tmp.length; i++) {
+                for ( i = 0; i < tmp.length; i++) {
                     tmpStr = '<option><';
                     tmpStr += '/option>';
                     $("#cmbIspal_type2").append(tmpStr);
                     $("#cmbIspal_type2").children().last().val(tmp[i].split('@')[0]).text(tmp[i].split('@')[1]);
                 }
                 $("#cmbIspal_type2").val('0');
-                for( i = 0; i < tmp.length; i++) {
+                for ( i = 0; i < tmp.length; i++) {
                     tmpStr = '<option><';
                     tmpStr += '/option>';
                     $("#cmbIspal_type3").append(tmpStr);
@@ -135,14 +135,14 @@
                 }
                 $("#cmbIspal_type3").val('0');
                 tmp = q_getPara('tranvcce.ef').split(',');
-                for( i = 0; i < tmp.length; i++) {
+                for ( i = 0; i < tmp.length; i++) {
                     tmpStr = '<option><';
                     tmpStr += '/option>';
                     $("#cmbEf_type2").append(tmpStr);
                     $("#cmbEf_type2").children().last().val(tmp[i].split('@')[0]).text(tmp[i].split('@')[1]);
                 }
                 $("#cmbEf_type2").val('0');
-                for( i = 0; i < tmp.length; i++) {
+                for ( i = 0; i < tmp.length; i++) {
                     tmpStr = '<option><';
                     tmpStr += '/option>';
                     $("#cmbEf_type3").append(tmpStr);
@@ -150,7 +150,7 @@
                 }
                 $("#cmbEf_type3").val('0');
                 tmp = q_getPara('tranvcce.typea').split(',');
-                for( i = 0; i < tmp.length; i++) {
+                for ( i = 0; i < tmp.length; i++) {
                     tmpStr = '<option><';
                     tmpStr += '/option>';
                     $("#cmbTypea_condition").append(tmpStr);
@@ -158,7 +158,7 @@
                 }
                 $("#cmbTypea_condition").change(function() {
                     var obj = $('#condition')
-                    if($('#condition').children('tbody').length > 0)
+                    if ($('#condition').children('tbody').length > 0)
                         obj = $('#condition').children('tbody').eq(0);
                     obj.children().hide();
                     obj.children('tr[name="schema"]').show();
@@ -199,6 +199,14 @@
                 });
             }
 
+            function q_stPost() {
+                alert('a'+q_cur);
+                if (q_cur == 1 || q_cur == 2) {
+                    abbm[q_recno]['tranno'] = xmlString;
+                    $('#txtTranno').val(xmlString);
+                }
+            }
+
             function sum() {
             }
 
@@ -206,17 +214,17 @@
                 var adest = dest.split(',');
                 var asource = source.split(',');
                 $('#' + adest[0]).focus(function() {
-                    if(trim($(this).val()).length == 0)
+                    if (trim($(this).val()).length == 0)
                         $(this).val(q_getMsg('msgCopy'));
                 });
                 $('#' + adest[0]).focusout(function() {
                     var t_copy = ($(this).val().substr(0, 1) == '=');
                     var t_clear = ($(this).val().substr(0, 2) == ' =');
-                    for(var i = 0; i < adest.length; i++) { {
-                            if(t_copy)
+                    for (var i = 0; i < adest.length; i++) { {
+                            if (t_copy)
                                 $('#' + adest[i]).val($('#' + asource[i]).val());
 
-                            if(t_clear)
+                            if (t_clear)
                                 $('#' + adest[i]).val('');
                         }
                     }
@@ -236,10 +244,10 @@
 
                 switch (t_name) {
                     case q_name:
-                        if(q_cur == 4)
+                        if (q_cur == 4)
                             q_Seek_gtPost();
 
-                        if(q_cur == 1 || q_cur == 2)
+                        if (q_cur == 1 || q_cur == 2)
                             q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 
                         break;
@@ -247,7 +255,7 @@
             }
 
             function _btnSeek() {
-                if(q_cur > 0 && q_cur < 4)
+                if (q_cur > 0 && q_cur < 4)
                     return;
             }
 
@@ -263,7 +271,7 @@
             }
 
             function btnModi() {
-                if(emp($('#txtNoa').val()))
+                if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
 
@@ -278,13 +286,13 @@
             }
 
             function btnOk() {
-                if($('#txtWeight').val() <= 0) {
+                if ($('#txtWeight').val() <= 0) {
                     alert('Error: The Weight must more than zero!');
                     return;
                 }
                 var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
-                if(t_err.length > 0) {
+                if (t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
@@ -294,22 +302,13 @@
 
             function wrServer(key_value) {
                 var i;
-
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], '', '', 2);
             }
 
-            function q_stPost() {
-                key_value = $('#txtNoa').val();
-                // alert(xmlString);
-                $('#txtTranno').val(xmlString);
-                //                if( q_cur ==1 || q_cur ==2)
-                //                    q_func('tranvcce.genTrans', r_accy + ',' + key_value + ',empty');
-            }
-
             function refresh(recno) {
                 _refresh(recno);
-                if(q_cur == 1 || q_cur == 2) {
+                if (q_cur == 1 || q_cur == 2) {
                     $('#btnLookup_condition').attr('disabled', 'disabled');
                 } else {
                     $('#btnLookup_condition').removeAttr('disabled');
@@ -327,7 +326,7 @@
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
-                if(q_tables == 's')
+                if (q_tables == 's')
                     bbsAssign();
             }
 
@@ -380,21 +379,21 @@
                 var isEnabled = !(q_cur == 1 || q_cur == 2);
                 var tableId = ['t1', 't2', 't3'];
                 var obj;
-                for(var i = 0; i < tableId.length; i++) {
-                    if($('#' + tableId[i]).css('display') != 'none') {
+                for (var i = 0; i < tableId.length; i++) {
+                    if ($('#' + tableId[i]).css('display') != 'none') {
                         obj = $('#' + tableId[i]);
-                        if(obj.children('tbody').length > 0)
+                        if (obj.children('tbody').length > 0)
                             obj = obj.children('tbody').eq(0);
-                        if(isEnabled) {
+                        if (isEnabled) {
                             obj.children('tr[name="data"]').children().children('[src="option"]').removeAttr('disabled');
                             obj.children('[name="data"]').removeClass('select');
                             obj.children('[name="data"]').removeClass('focus');
                         } else {
                             obj.children('tr[name="data"]').children().children('[src="option"]').attr('disabled', 'disabled');
-                            for(var j = 0; j < $('#' + tableId[i]).data('info').value.length; j++) {
-                                if(q_cur == 2)
+                            for (var j = 0; j < $('#' + tableId[i]).data('info').value.length; j++) {
+                                if (q_cur == 2)
                                     $('#' + tableId[i]).data('info').value[j]._checked = false;
-                                else if($('#' + tableId[i]).data('info').value[j]._checked)
+                                else if ($('#' + tableId[i]).data('info').value[j]._checked)
                                     obj.children('tr[name="data"]').eq(j).addClass('select');
                             }
                         }
@@ -409,20 +408,20 @@
                 var t_notv = 0;
                 var t_carno = '';
                 var t_caseno = '';
-                if($('#t1').css('display') != 'none') {
+                if ($('#t1').css('display') != 'none') {
                     t_table = 't1';
                     t_typea = '1';
-                } else if($('#t2').css('display') != 'none') {
+                } else if ($('#t2').css('display') != 'none') {
                     t_table = 't2';
                     t_typea = '2';
-                } else if($('#t3').css('display') != 'none') {
+                } else if ($('#t3').css('display') != 'none') {
                     t_table = 't3';
                     t_typea = '3';
                 }
 
-                if($.type($('#' + t_table).data('info')) != "undefined") {
-                    for( i = 0; i < $('#' + t_table).data('info').value.length; i++) {
-                        if($('#'+t_table).data('info').value[i]._checked) {
+                if ($.type($('#' + t_table).data('info')) != "undefined") {
+                    for ( i = 0; i < $('#' + t_table).data('info').value.length; i++) {
+                        if ($('#'+t_table).data('info').value[i]._checked) {
                             t_ordeno = $('#'+t_table).data('info').value[i].ordeno;
                             t_notv = $('#'+t_table).data('info').value[i].notv;
                             t_carno = $('#'+t_table).data('info').value[i].carno;
@@ -431,12 +430,12 @@
                         }
                     }
                 }
-                if(t_ordeno.length == 0) {
+                if (t_ordeno.length == 0) {
                     alert('Please Lookup first!');
                     return 0;
                 }
                 $('#btnIns').click();
-                if(q_cur == 1) {
+                if (q_cur == 1) {
                     $('#txtOrdeno').val(t_ordeno);
                     $('#txtWeight').val(t_notv);
                     $('#cmbTypea').val(t_typea);
@@ -448,7 +447,7 @@
 
             ;(function($, undefined) {
                 $.fn.refresh = function(value) {
-                    if( typeof ($(this).data('info')) == "undefined") {
+                    if ( typeof ($(this).data('info')) == "undefined") {
                         $(this).data('info', {
                             value : value,
                             isInit : true
@@ -458,58 +457,58 @@
                     }
                     $(this).show();
                     //var strDate = new Date();
-                    
+
                     var obj = $(this), obj2, obj3;
-                    if($(this).children('tbody').length > 0)
+                    if ($(this).children('tbody').length > 0)
                         obj = $(this).children('tbody').eq(0);
                     obj.children('tr').remove('[name="data"]');
-                    var template = obj.children('tr[name="template"]').clone();        
+                    var template = obj.children('tr[name="template"]').clone();
                     template.attr('name', 'data');
-                    template.show();	
-                    for( i = 0; i < $(this).data('info').value.length; i++) {
-                        template.clone().appendTo(obj);  
+                    template.show();
+                    for ( i = 0; i < $(this).data('info').value.length; i++) {
+                        template.clone().appendTo(obj);
                         obj2 = obj.children('tr').last().children();
-                        for( j = 0; j < obj2.length; j++) {                       
-                            if(obj2.eq(j).children('[src="option"]').length > 0) {
+                        for ( j = 0; j < obj2.length; j++) {
+                            if (obj2.eq(j).children('[src="option"]').length > 0) {
                                 obj2.eq(j).children('[src="option"]').data('info', {
                                     index : i
                                 });
                                 obj2.eq(j).children('[src="option"]').val(q_getPara('tranvcce.btnVcce'));
                                 obj2.eq(j).children('[src="option"]').click(function(e) {
                                     var obj = $(this).parent().parent().parent().has('tbody') ? $(this).parent().parent().parent().parent() : $(this).parent().parent().parent();
-                                    for(var i = 0; i < obj.data('info').value.length; i++)
+                                    for (var i = 0; i < obj.data('info').value.length; i++)
                                         obj.data('info').value[i]._checked = false;
                                     obj.data('info').value[$(this).data('info').index]._checked = true;
                                     onclick_vcce();
                                 });
                                 obj2.eq(j).children('[src="option"]').hover(function(e) {
-                                    if(!$(this).parent().parent().hasClass('select'))
+                                    if (!$(this).parent().parent().hasClass('select'))
                                         $(this).parent().parent().addClass('focus');
                                 }, function(e) {
                                     $(this).parent().parent().removeClass('focus');
                                 });
                             }
-                          
+
                             obj3 = obj2.eq(j).children('[type="text"]');
-                            for( k = 0; k < obj3.length; k++)
-                                if(obj3.eq(k).val().length > 0) {
+                            for ( k = 0; k < obj3.length; k++)
+                                if (obj3.eq(k).val().length > 0) {
                                     obj3.eq(k).val(eval("$(this).data('info').value[i]." + obj3.eq(k).val()));
                                     obj3.eq(k).attr('readonly', 'readonly');
                                 }
                             obj3 = obj2.eq(j).children('[type="checkbox"]').not('[src="option"]');
-                            for( k = 0; k < obj3.length; k++)
-                                if(obj3.eq(k).val().length > 0) {
+                            for ( k = 0; k < obj3.length; k++)
+                                if (obj3.eq(k).val().length > 0) {
                                     obj3.eq(k).prop('checked', eval("$(this).data('info').value[i]." + obj3.eq(k).val()) == 'true');
                                     obj3.eq(k).attr('disabled', 'disabled');
                                 }
                         }
                     }
-                    
-                    if($(this).data('info').isInit) {
+
+                    if ($(this).data('info').isInit) {
                         var tmp = obj.children('tr[name="header"]').eq(0).children();
-                        for( i = 0; i < tmp.length; i++) {
+                        for ( i = 0; i < tmp.length; i++) {
                             index = tmp.eq(i).attr('index');
-                            if( typeof (tmp.eq(i).attr('index')) != "undefined") {
+                            if ( typeof (tmp.eq(i).attr('index')) != "undefined") {
                                 tmp.eq(i).data('info', {
                                     parent : $(this),
                                     order : 'asc',
@@ -517,7 +516,7 @@
                                 });
                                 tmp.eq(i).click(function(e) {
                                     $(this).data('info').parent.data('info').value.sort($(this).data('info').func_sort);
-                                    if($(this).data('info').order == 'asc') {
+                                    if ($(this).data('info').order == 'asc') {
                                         $(this).data('info').order = 'desc';
                                     } else {
                                         $(this).data('info').parent.data('info').value.reverse();
@@ -535,8 +534,8 @@
                     }
                     $(this).data('info').isInit = false;
                     isEnabled();
-                  //  var endDate = new Date();
-                  //  alert('Str:'+strDate.getHours()+':'+strDate.getMinutes()+':'+strDate.getSeconds()+'\r\nEnd:'+endDate.getHours()+':'+endDate.getMinutes()+':'+endDate.getSeconds());
+                    //  var endDate = new Date();
+                    //  alert('Str:'+strDate.getHours()+':'+strDate.getMinutes()+':'+strDate.getSeconds()+'\r\nEnd:'+endDate.getHours()+':'+endDate.getMinutes()+':'+endDate.getSeconds());
                 }
             })($);
 
