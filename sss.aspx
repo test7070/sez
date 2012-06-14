@@ -77,9 +77,9 @@
         }
         
         function q_boxClose( s2) {
-            var ret; 
-            switch (b_pop) {                
-                   case 'conn':
+             var ret; 
+            switch (b_pop) {  
+                case 'conn':
 
                     break;
 
@@ -101,8 +101,8 @@
 
 
         function q_gtPost(t_name) {  
-            switch (t_name) {
-                case 'sss':  
+           switch (t_name) {
+                case 'sss': 
                     q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
                     break;
 

@@ -283,8 +283,6 @@
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
-                if(q_tables == 's')
-                    bbsAssign();
             }
 
             function q_appendData(t_Table) {
@@ -454,7 +452,7 @@
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:15%"><a id='vewDatea'></a></td>
 						<td align="center" style="width:20%"><a id='vewOrdeno'></a></td>
-						<td align="center" style="width:20%"><a id='vewCust'></a></td>
+						<td align="center" style="width:20%"><a id='vewComp'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -462,7 +460,7 @@
 						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='ordeno'>~ordeno</td>
-						<td align="center" id='cust,4'>~cust,4</td>
+						<td align="center" id='comp,4'>~comp,4</td>
 					</tr>
 				</table>
 			</div>

@@ -15,6 +15,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
+             q_desc = 1;
             var q_name = "ticket";
             var q_readonly = [];
             var bbmNum = [['txtMoney', 10, 0], ['txtComppay', 10, 0], ['txtDriverpay', 10, 0], ['txtInstallment', 10, 0]];
@@ -25,7 +26,8 @@
             brwNowPage = 0;
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
-       
+           aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']);
+           
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 /*xmlTable = 'conn';
@@ -100,24 +102,51 @@
             }
 
             function q_boxClose(s2) {
-                var ret;
-                switch (b_pop) {
-                    case 'driver':
+                var ret; 
+            switch (b_pop) {  
+                case 'conn':
+
+                    break;
+
+                case 'sss':
+                    ret = getb_ret();
+                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
+                    break;
+
+                case 'sss':
+                    ret = getb_ret();
+                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
+                    break;
+                 case 'driver':
                         ret = getb_ret();
                         if(q_cur > 0 && q_cur < 4)
                             q_browFill('txtDriverno,txtDriver', ret, 'noa,namea');
                         break;
-                }
+                
+                case q_name + '_s':
+                    q_boxClose2(s2); ///   q_boxClose 3/4
+                    break;
+            }   /// end Switch
             }
 
             function q_gtPost(t_name) {
-                switch (t_name) {
-                    case 'driver':
+            	
+            	switch (t_name) {
+                case 'sss': 
+                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
+                    break;
+				 case 'driver':
                         q_changeFill(t_name, ['txtDriverno', 'txtDriver'], ['noa', 'namea']);
                         break;
-                }
-            }
+                case q_name: if (q_cur == 4)  
+                        q_Seek_gtPost();
 
+                    if (q_cur == 1 || q_cur == 2) 
+                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
+
+                    break;
+            }  /// end switch
+			}
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
@@ -239,75 +268,55 @@
             }
 		</script>
 		<style type="text/css">
+            #dmain {
+                overflow: hidden;
+            }
+            .dview {
+                float: left;
+                width: 28%;
+            }
             .tview {
+                margin: 0;
+                padding: 2px;
+                border: 1px black double;
+                border-spacing: 0;
                 font-size: medium;
+                background-color: #FFFF66;
                 color: blue;
-                background: #FFCC00;
-                padding: 3px;
+                width: 100%;
+            }
+            .tview td {
+                padding: 2px;
                 text-align: center;
+                border: 1px black solid;
+            }
+            .dbbm {
+                float: left;
+                width: 70%;
+                margin: -1px;
+                border: 1px black solid;
+                border-radius: 5px;
             }
             .tbbm {
+                padding: 0px;
+                border: 1px white double;
+                border-spacing: 0;
+                border-collapse: collapse;
                 font-size: medium;
                 color: blue;
-                text-align: left;
-                border-color: white;
-                width: 100%;
-                border-collapse: collapse;
                 background: #cad3ff;
+                width: 100%;
             }
             .tbbm tr {
                 height: 35px;
             }
-            .td1, .td3, .td5, .td7 {
-                width: 13%;
-            }
-            .td2, .td4, .td6, .td8 {
+            .tbbm tr td {
                 width: 9%;
             }
-            
-            .label {
-                float: right;
+            .tbbm .tdZ {
+                width: 2%;
             }
-            .lookup {
-                text-decoration: underline;
-            }
-            .lookup:hover {
-                color: red;
-                font-weight: bolder;
-                cursor: pointer;
-            }
-            .popDiv {
-                position: absolute;
-                z-index: 3;
-                background: #4297D7;
-                height: 400px;
-                width: 500px;
-                border: 2px #EEEEEE solid;
-                border-radius: 5px;
-                padding-top: 10px;
-            }
-            .popDiv .block {
-                border: 1px #CCD9F2 solid;
-                border-radius: 5px;
-            }
-            .popDiv .block .col {
-                display: block;
-                width: 600px;
-                height: 30px;
-                margin-top: 5px;
-                margin-left: 5px;
-            }
-            .btnLbl {
-                background: #cad3ff;
-                border-radius: 5px;
-                display: block;
-                width: 90px;
-                height: 25px;
-                float: left;
-                /*border: 1px #EEEEEE solid;*/
-                cursor: default;
-            }
-           .tbbm tr td span {
+            .tbbm tr td span {
                 float: right;
                 display: block;
                 width: 5px;
@@ -318,47 +327,71 @@
                 color: blue;
                 font-size: medium;
             }
-            .btnLbl.button {
-                cursor: pointer;
-                background: #76A2FE;
-            }
-            .btnLbl.button.close {
-                background: #cad3ff;
-            }
-            .btnLbl.button:hover {
-                background: #FF8F19;
-            }
-            .btnLbl a {
-                color: blue;
+            .tbbm tr td .lbl.btn {
+                color: #4297D7;
+                font-weight: bolder;
                 font-size: medium;
-                height: 25px;
-                line-height: 25px;
-                display: block;
-                text-align: center;
             }
-            .btnLbl.button a {
-                color: #000000;
+            .tbbm tr td .lbl.btn:hover {
+                color: #FF8F19;
             }
-            .btnLbl.close a {
-                color: red;
+            .txt.c1 {
+                width: 95%;
+                float: left;
+            }
+            .txt.c2 {
+                width: 36%;
+                float: right;
+            }
+            .txt.c3 {
+                width: 62%;
+                float: left;
+            }
+            .txt.c4 {
+                width: 18%;
+                float: left;
+            }
+            .txt.c5 {
+                width: 80%;
+                float: left;
+            }
+            .txt.c6 {
+                width: 25%;
+                
+            }
+            .txt.c7 {
+                width: 95%;
+                float: left;
+            }
+            .txt.num {
+                text-align: right;
+            }
+            .tbbm td {
+                margin: 0 -1px;
+                padding: 0;
+            }
+            .tbbm td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                float: left;
+            }
+            .tbbm td input[type="button"] {
+                float: left;
+                width: auto;
+            }
+            .tbbm select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+            }
+            .num {
+                text-align: right;
+            }
+            input[type="text"], input[type="button"] {
                 font-size: medium;
-                height: 25px;
-                line-height: 25px;
-                display: block;
-                text-align: center;
             }
-            .txt .c1
-            {
-            	width: 95%;
-            }
-            .txt .c2
-            {
-            	width: 90%;
-            }
-            .txt .num
-            {
-            	text-align:right;
-            	}
+      
 		</style>
 	</head>
 	<body>
@@ -413,17 +446,44 @@
 									<a id='lblNoa' class="lbl"></a>
 								</td>
 								<td class="td8">
-								<input id="txtNoa"  type="text"   class="txt c2"/>
+								<input id="txtNoa"  type="text"   class="txt c1"/>
 								</td>
 							</tr>
 							<tr class="tr2">
 								<td class="td1">
-								<div class='btnLbl tb button'>
-									<a id='lblDriver'></a>
-								</div></td>
+								<span> </span>
+									<a id='lblBmon' class="lbl" ></a>
+								</td>
+								<td class="td2" >
+									<input id="txtBmon" type="text"  class="txt c1"/>
+								</td>
+								<td class="td3" align="center">
+									<a id='lblEmon' style="font-weight: bolder;font-size: 20px;" ></a>
+								</td>
+								<td class="td4" >
+									<input id="txtEmon" type="text"  class="txt c1"/>
+								</td>
+								<td class="td5" >
+								<span> </span>
+									<a id='lblCourt' class="lbl"></a>
+								</td>
+								<td class="td6">
+								<input id="txtCourt" type="text"  class="txt c1"/>
+								</td>
+								<td class="td7" >
+									<a id='lblCourtyn'></a>
+								</td>
+								<td class="td8">
+								</td>
+							</tr>
+							<tr class="tr3">
+								<td class="td1">
+								<span> </span>
+									<a id='lblDriver' class="lbl btn" ></a>
+								</td>
 								<td class="td2" colspan="3">
-								<input id="txtDriverno" type="text"  style='width:20%; float:left;'/>
-								<input id="txtDriver" type="text"  style='width:73%; float:left;'/>
+								<input id="txtDriverno" type="text"  class="txt c4"/>
+								<input id="txtDriver" type="text"  class="txt c5"/>
 								</td>
 								<td class="td5" >
 								<span> </span>
@@ -437,10 +497,10 @@
 									<a id='lblPaydate' class="lbl"></a>
 								</td>
 								<td class="td8">
-								<input id="txtPaydate"  type="text"   class="txt c2"/>
+								<input id="txtPaydate"  type="text"   class="txt c1"/>
 								</td>
 							</tr>
-							<tr class="tr3">
+							<tr class="tr4">
 								<td class="td1" >
 								<span> </span>
 									<a id='lblIrregularities' class="lbl"></a>
@@ -448,7 +508,7 @@
 								<td class="td2" colspan='7'><textarea id="txtIrregularities" rows="5" cols="10" style="width:98%; height: 50px;">
 									</textarea></td>
 							</tr>
-							<tr class="tr4">
+							<tr class="tr5">
 								<td class="td1" >
 								<span> </span>
 									<a id='lblMoney' class="lbl"></a>
@@ -475,7 +535,7 @@
 									<a id='lblInstallment' class="lbl"></a>
 								</td>
 								<td class="td8">
-								<input id="txtInstallment" type="text"  class="txt num c2"/>
+								<input id="txtInstallment" type="text"  class="txt num c1"/>
 								</td>
 							</tr>
 						</table>
