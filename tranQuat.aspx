@@ -20,7 +20,7 @@
             var q_name = "tranquat";
             var q_readonly = ['txtNoa'];
             var q_readonlys = ['txtNoq'];
-            var bbmNum = [];
+            var bbmNum = new Array(['txtThirdprice',10,3]);
             var bbsNum = [];
             var bbmMask = [];
             var bbsMask = [];
