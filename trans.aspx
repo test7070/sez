@@ -457,15 +457,11 @@
 					</tr>
 					<tr class="tr3">
 						<td class="td1" ><span> </span><a id="lblStraddr" class="lbl btn"></a></td>
-						<td class="td2">
+						<td class="td2" colspan="3">
 						<input id="txtStraddrno" type="text"  class="txt c2"/>
 						<input id="txtStraddr" type="text"  class="txt c3"/>
 						</td>
-						<td class="td3" ><span> </span><a id="lblAdd3" class="lbl btn"></a></td>
-						<td class="td4">
-						<input id="txtAddno3" type="text" class="txt c2"/>
-						<input id="txtAdd3" type="text"  class="txt c3"/>
-						</td>
+						
 						<td class="td5" ><span> </span><a id="lblUcc" class="lbl btn"></a></td>
 						<td class="td6" >
 						<input id="txtUccno" type="text"  class="txt c2"/>
@@ -500,6 +496,11 @@
 						<td class="td4" >
 						<input id="txtPrice2" type="text"  class="txt num c1"/>
 						<input id="txtPrice3" type="text"  class="txt num c1"/>
+						</td>
+						<td class="td5" ><span> </span><a id="lblAdd3" class="lbl btn"></a></td>
+						<td class="td6" colspan="3">
+						<input id="txtAddno3" type="text" class="txt c2"/>
+						<input id="txtAdd3" type="text"  class="txt c3"/>
 						</td>
 						
 						
