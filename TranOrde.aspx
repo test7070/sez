@@ -194,6 +194,7 @@
                                 $('#txtEndaddrno').val(b_ret[0].endaddrno);
                                 $('#txtEndaddr').val(b_ret[0].endaddr);
                                 $('#txtMemo').val(b_ret[0].memo);
+                                $('#txtThirdprice').val(b_ret[0].thirdprice);
                             }
                         }
                         break;
