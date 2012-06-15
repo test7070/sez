@@ -196,6 +196,7 @@
             }
 
             function btnOk() {
+            	 $('#txtWorker').val(r_name);
                 if($("#cmbCalctype").val() == '6')
                     $("#txtPrice2").val(0);
                 else
