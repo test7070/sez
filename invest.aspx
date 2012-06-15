@@ -15,8 +15,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-            var q_name = "oil";
-            q_alias = 'a';
+            var q_name = "invest";
             var q_readonly = [];
             var bbmNum = [];
             var bbmMask = [];
@@ -26,8 +25,6 @@
             brwNowPage = 0;
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
-			aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
-			['txtOilstationno', 'lblOilstation', 'oilstation', 'noa,station', 'txtOilstationno,txtOilstation', 'oilstation_b.aspx']);
             $(document).ready(function() {
                bbmKey = ['noa'];
             q_brwCount();
@@ -46,7 +43,7 @@
             }///  end Main()
             function mainPost() {
                 q_mask(bbmMask);
-
+                fbbm[fbbm.length] = 'txtInvestmemo';
             }
             function txtCopy(dest, source) {
                 var adest = dest.split(',');
@@ -114,7 +111,7 @@
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('oil_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('invest_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
             }
 
             function combPay_chg() {
@@ -368,71 +365,45 @@
 					<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 						<tr>
 							<td align="center" style="width:5%"><a id='vewChk'></a></td>
-							<td align="center" style="width:15%"><a id='vewDatea'></a></td>
-							<td align="center" style="width:25%"><a id='vewCarno'></a></td>
-							<td align="center" style="width:25%"><a id='vewDriver'></a></td>
-							<td align="center" style="width:25%"><a id='vewOilstation'></a></td>
+							<td align="center" style="width:15%"><a id='vewNoa'></a></td>
+							<td align="center" style="width:25%"><a id='vewDatea'></a></td>
+							<td align="center" style="width:25%"><a id='vewInvestcomp'></a></td>
+							<td align="center" style="width:25%"><a id='vewInvestname'></a></td>
 						</tr>
 						<tr>
 							<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
-							
+							<td align="center" id='noa'>~noa</td>
 							<td align="center" id='datea'>~datea</td>
-							<td align="center" id='carno'>~carno</td>
-							<td align="center" id='driver'>~driver</td>
-							<td align="center" id='oilstation'>~oilstation</td>
+							<td align="center" id='investcomp,4'>~investcomp,4</td>
+							<td align="center" id='investname'>~investname</td>
 						</tr>
 					</table>
 				</div>
-				<div class='dbbm' style="width: 35%;float: left;">
+				<div class='dbbm' style="width: 50%;float: left;">
 					<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
 						<tr>
                             <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-                            <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
+                            <td class="td2"><input id="txtNoa"  type="text"  class="txt  c1"/></td>
                             <td class="td3"></td>
                        </tr>
-						<tr>
-                            <td class="td1"><span> </span><a id='lblCarno' class="lbl"></a></td>
-                            <td class="td2"><input id="txtCarno"  type="text"  class="txt c1"/></td>
-                            <td class="td3"></td>
-                       </tr>
-						<tr>
-							<td class="td1"><span> </span><a id='lblDriver' class="lbl btn"></a></td>
-							<td class="td2" ><input id="txtDriverno"  type="text"  class="txt c2"/>
-								<input id="txtDriver"  type="text"  class="txt c3"/>
-							</td>	
-							<td class="td3"></td>
-						</tr>
-						<tr>
-                            <td class="td1"><span> </span><a id='lblOilstation' class="lbl btn"></a></td>
-                            <td class="td2"><input id="txtOilstationno"  type="text"  class="txt c2"/>
-                            	<input id="txtOilstation"  type="text"  class="txt c3"/>
-                            </td>
-                            <td class="td3"></td>
-                        </tr>
                         <tr>
                             <td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
-                            <td class="td2"><input id="txtDatea"  type="text"  class="txt c1"/></td>
+                            <td class="td2"><input id="txtDatea"  type="text"  class="txt  c1"/></td>
                             <td class="td3"></td>
                         </tr>
                         <tr>
-                            <td class="td1"><span> </span><a id='lblProduct' class="lbl"></a></td>
-                            <td class="td2"><input id="txtProduct"  type="text"  class="txt c1"/></td>
+                            <td class="td1"><span> </span><a id='lblInvestcomp' class="lbl"></a></td>
+                            <td class="td2"><input id="txtInvestcomp"  type="text"  class="txt c1"/></td>
                             <td class="td3"></td>
                         </tr>
                         <tr>
-                            <td class="td1"><span> </span><a id='lblPrice' class="lbl"></a></td>
-                            <td class="td2"><input id="txtPrice"  type="text"  class="txt num c1"/></td>
+                            <td class="td1"><span> </span><a id='lblInvestname' class="lbl"></a></td>
+                            <td class="td2"><input id="txtInvestname"  type="text"  class="txt c1"/></td>
                             <td class="td3"></td>
                         </tr>
                         <tr>
-                            <td class="td1"><span> </span><a id='lblMount' class="lbl"></a></td>
-                            <td class="td2"><input id="txtMount"  type="text"  class="txt num c1"/></td>
-                            <td class="td3"></td>
-                        </tr>
-                        <tr>
-                            <td class="td1"><span> </span><a id='lblMoney' class="lbl"></a></td>
-                            <td class="td2"><input id="txtMoney"  type="text"  class="txt num c1"/></td>
-                            <td class="td3"></td>
+                            <td class="td1"><span> </span><a id='lblInvestmemo' class="lbl"></a></td>
+                            <td class="td2" colspan="2"><textarea id="txtInvestmemo" cols="10" rows="5" style="width: 98%;height: 50px;"></textarea></td>
                         </tr>
 				</table>
 				</div>
