@@ -17,7 +17,7 @@
             }
             var q_name = "trans";
             var q_readonly = ['txtNoa','txtTotal','txtTrdno'];
-            var bbmNum = new Array(['txtUnpack', 10, 0], ['txtMount', 10, 2], ['txtPrice', 10, 2], ['txtPrice2', 10, 2], ['txtTolls', 10, 0], ['txtPrice3', 10, 2], ['txtDiscount', 10, 3], ['miles', 10, 2], ['txtReserve', 10, 0], ['tolls', 10, 0], ['txtTicket', 10, 0], ['txGross', 10, 2], ['txtWeight', 10, 2], ['txtPlus', 10, 0], ['txtMius', 10, 0], ['txtMount2', 10, 2], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtOverH', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2]);
+            var bbmNum = new Array(['txtUnpack', 10, 0], ['txtMount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3], ['txtTolls', 10, 0], ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['miles', 10, 2], ['txtReserve', 10, 0], ['tolls', 10, 0], ['txtTicket', 10, 0], ['txGross', 10, 2], ['txtWeight', 10, 2], ['txtPlus', 10, 0], ['txtMius', 10, 0], ['txtMount2', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtOverH', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2]);
             var bbmMask = new Array(['txtTrandate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99'],['txtCldate', '999/99/99']);
             q_sqlCount = 6;
             brwCount = 6;
