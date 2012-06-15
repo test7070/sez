@@ -206,6 +206,7 @@
             }
 
             function btnOk() {
+            	 $('#txtWorker').val(r_name);
                 var isError = false, t_money, t_chgs, t_paysale;
                 for (var i = 0; i < q_bbsCount; i++) {
                     $('#txtTypea_' + i).parent().parent().removeClass('error');
