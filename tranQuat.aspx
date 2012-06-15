@@ -29,7 +29,11 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'], ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b2.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp,conn,tel,fax,zip_comp,addr_comp', 'txtCustno,txtComp,txtConn_cust,txtTel_cust,txtFax_cust,txtZip_cust,txtAddr_cust', 'cust_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
+            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'], 
+            ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b2.aspx'], 
+            ['txtCustno', 'lblCust', 'cust', 'noa,comp,conn,tel,fax,zip_comp,addr_comp', 'txtCustno,txtComp,txtConn_cust,txtTel_cust,txtFax_cust,txtZip_cust,txtAddr_cust', 'cust_b.aspx'], 
+            ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+             ['txtCno', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -289,6 +293,14 @@
                 width: 60%;
                 float: left;
             }
+            .txt.c4 {
+                width: 20%;
+                float: left;
+            }
+            .txt.c5 {
+                width: 80%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -367,22 +379,10 @@
 							<td class="tdZ"></td>
 						</tr>
 						<tr class="tr2">
-							<td class="td1" ><span> </span><a id='lblThirdprice' class="lbl"></a></td>
-							<td class="td2">
-							<input id="txtThirdprice" type="text"  class="txt c1 num"/>
-							</td>
-							<td class="td3" ><span> </span><a id='lblOil1' class="lbl"></a></td>
-							<td class="td4" colspan="2">
-							<input id="txtOil1" type="text"  class="txt c2 num"/>
-							<a id="lblOil2" style="float:left;width:25px;height:25px;text-align: center;"></a>
-							<input id="txtOil2" type="text"  class="txt c2 num"/>
-							</td>
-						</tr>
-						<tr class="tr3">
 							<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"></a></td>
 							<td class='td2' colspan="3">
-							<input id="txtCno"  type="text" style="float:left;width:20%;"/>
-							<input id="txtAcomp"  type="text" style="float:left;width:80%;"/>
+							<input id="txtCno"  type="text" class="txt c4"/>
+							<input id="txtAcomp"  type="text" class="txt c5"/>
 							</td>
 							<td class="td5"><span> </span><a id="lblConn_acomp" class="lbl"></a></td>
 							<td class="td6" >
@@ -393,11 +393,11 @@
 							<input id="txtAssistant"  type="text"  class="txt c1"/>
 							</td>
 						</tr>
-						<tr class="tr4">
+						<tr class="tr3">
 							<td class="td1"><span> </span><a id='lblAddr_acomp' class="lbl btn"></a></td>
 							<td class='td2' colspan="3">
-							<input id="txtZip_acomp" type="text"  style="float:left;width:20%;"/>
-							<input id="txtAddr_acomp" type="text" style="float:left;width:80%;" />
+							<input id="txtZip_acomp" type="text" class="txt c4"/>
+							<input id="txtAddr_acomp" type="text" class="txt c5"/>
 							</td>
 							<td class="td4"><span> </span><a id="lblTel_acomp"  class="lbl"></a></td>
 							<td class="td8">
@@ -408,14 +408,18 @@
 							<input id="txtFax_acomp"  type="text"  class="txt c1"/>
 							</td>
 						</tr>
-						<tr  class="tr5">
+						<tr  class="tr4">
 							<td class="td1"><span> </span><a id='lblSales' class="lbl btn"></a></td>
-							<td class="td2" colspan="2">
-								<input id="txtSalesno" type="text" class="txt c2"/>
-								<input id="txtSales" type="text" class="txt c3"/>
+							<td class="td2" colspan="3">
+								<input id="txtSalesno" type="text" class="txt c4"/>
+								<input id="txtSales" type="text" class="txt c5"/>
+							</td>
+							<td class="td5" ><span> </span><a id='lblThirdprice' class="lbl"></a></td>
+							<td class="td6">
+							<input id="txtThirdprice" type="text"  class="txt c1 num"/>
 							</td>
 						</tr>
-						<tr class="tr6">
+						<tr class="tr5">
 							<td class="td1"><span> </span><a id='lblCust' class="lbl btn"></a></td>
 							<td class="td2">
 							<input id="txtCustno" type="text" class="txt c1"/>
@@ -432,30 +436,38 @@
 							<input id="txtTel_cust"  type="text"  class="txt c1"/>
 							</td>
 						</tr>
-						<tr class="tr7">
+						<tr class="tr6">
 							<td class="td1"><span> </span><a id='lblAddr_cust' class="lbl"></a></td>
-							<td class="td2" colspan="2">
-							<input id="txtZip_cust" type="text"  style="float:left;width:20%;">
-							<input id="txtAddr_cust" type="text"  style="float:left;width:80%;" />
+							<td class="td2" colspan="3" >
+							<input id="txtZip_cust" type="text"  class="txt c4"/>
+							<input id="txtAddr_cust" type="text"  class="txt c5"/>
 							</td>
-							<td class="td4"><span> </span><a id='lblFax_cust'  class="lbl"></a></td>
-							<td >
+							<td class="td5"><span> </span><a id='lblFax_cust'  class="lbl"></a></td>
+							<td class="td6">
 							<input id="txtFax_cust"  type="text"  class="txt c1"/>
 							</td>
-						</tr>
-						<tr class="tr8">
-							<td class="td1"><span> </span><a id='lblAddr_car'  class="lbl"></a></td>
-							<td class="td2" colspan="2">
-							<input id="txtZip_car" type="text"  style="float:left;width:20%;">
-							<input id="txtAddr_car" type="text"  style="float:left;width:80%;" />
+							<td class="td7"><span> </span><a id='lblApv' class="lbl"></a></td>
+							<td class="td8">
+							<input id="txtApv"  type="text" class="txt c1" />
 							</td>
-							<td class="td4"><span> </span><a id='lblConn_car' class="lbl"></a></td>
-							<td class="td5">
+						</tr>
+						<tr class="tr7">
+							<td class="td1"><span> </span><a id='lblAddr_car'  class="lbl"></a></td>
+							<td class="td2" colspan="3">
+							<input id="txtZip_car" type="text"  class="txt c4"/>
+							<input id="txtAddr_car" type="text"  class="txt c5"/>
+							</td>
+							<td class="td5"><span> </span><a id='lblConn_car' class="lbl"></a></td>
+							<td class="td6">
 							<input id="txtConn_car"  type="text"  class="txt c1"/>
+							</td>
+							<td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
+							<td class="td8">
+							<input id="txtWorker"  type="text" class="txt c1" />
 							</td>
 
 						</tr>
-						<tr class="tr9">
+						<tr class="tr8">
 							<td class="td1"><span> </span><a id='lblArrange_car'  class="lbl"></a></td>
 							<td class="td2">
 							<input id="txtArrange_car"  type="text"  class="txt c1"/>
@@ -464,16 +476,15 @@
 							<td class="td4">
 							<input id="txtTel_car"  type="text"  class="txt c1"/>
 							</td>
-							<td class="td5"><span> </span><a id='lblWorker' class="lbl"></a></td>
-							<td class="td6">
-							<input id="txtWorker"  type="text" class="txt c1" />
+							<td class="td5" ><span> </span><a id='lblOil1' class="lbl"></a></td>
+							<td class="td6" colspan="2">
+							<input id="txtOil1" type="text"  class="txt c2 num"/>
+							<a id="lblOil2" style="float:left;width:25px;height:25px;text-align: center;"></a>
+							<input id="txtOil2" type="text"  class="txt c2 num"/>
 							</td>
-							<td class="td7"><span> </span><a id='lblApv' class="lbl"></a></td>
-							<td class="td8">
-							<input id="txtApv"  type="text" class="txt c1" />
-							</td>
+							
 						</tr>
-						<tr class="tr10">
+						<tr class="tr9">
 							<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
 							<td class="td2" colspan='7' >
 							<input id="txtMemo"  type="text" class="txt c1"/>

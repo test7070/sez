@@ -405,7 +405,7 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%;"><a id='vewChk'></a></td>
-						<td align="center" style="width:20%;"><a id='vewNoa'></a></td>
+						<td align="center" style="width:20%;"><a id='vewDatea'></a></td>
 						<td align="center" style="width:20%;"><a id='vewComp'></a></td>
 						<td align="center" style="width:15%;"><a id='vewCarno'></a></td>
 					</tr>
@@ -413,7 +413,7 @@
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
-						<td align="center" id='noa'>~noa</td>
+						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='comp,4'>~comp,4</td>
 						<td align="center" id='carno'>~carno</td>
 					</tr>

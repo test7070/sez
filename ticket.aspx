@@ -356,7 +356,7 @@
                 float: left;
             }
             .txt.c6 {
-                width: 25%;
+                width: 50%;
                 
             }
             .txt.c7 {
@@ -449,34 +449,8 @@
 								<input id="txtNoa"  type="text"   class="txt c1"/>
 								</td>
 							</tr>
-							<tr class="tr2">
-								<td class="td1">
-								<span> </span>
-									<a id='lblBmon' class="lbl" ></a>
-								</td>
-								<td class="td2" >
-									<input id="txtBmon" type="text"  class="txt c1"/>
-								</td>
-								<td class="td3" align="center">
-									<a id='lblEmon' style="font-weight: bolder;font-size: 20px;" ></a>
-								</td>
-								<td class="td4" >
-									<input id="txtEmon" type="text"  class="txt c1"/>
-								</td>
-								<td class="td5" >
-								<span> </span>
-									<a id='lblCourt' class="lbl"></a>
-								</td>
-								<td class="td6">
-								<input id="txtCourt" type="text"  class="txt c1"/>
-								</td>
-								<td class="td7" >
-									<a id='lblCourtyn'></a>
-								</td>
-								<td class="td8">
-								</td>
 							</tr>
-							<tr class="tr3">
+							<tr class="tr2">
 								<td class="td1">
 								<span> </span>
 									<a id='lblDriver' class="lbl btn" ></a>
@@ -500,7 +474,7 @@
 								<input id="txtPaydate"  type="text"   class="txt c1"/>
 								</td>
 							</tr>
-							<tr class="tr4">
+							<tr class="tr3">
 								<td class="td1" >
 								<span> </span>
 									<a id='lblIrregularities' class="lbl"></a>
@@ -508,7 +482,7 @@
 								<td class="td2" colspan='7'><textarea id="txtIrregularities" rows="5" cols="10" style="width:98%; height: 50px;">
 									</textarea></td>
 							</tr>
-							<tr class="tr5">
+							<tr class="tr4">
 								<td class="td1" >
 								<span> </span>
 									<a id='lblMoney' class="lbl"></a>
@@ -538,6 +512,34 @@
 								<input id="txtInstallment" type="text"  class="txt num c1"/>
 								</td>
 							</tr>
+							<tr class="tr5">
+								<td class="td1">
+								<span> </span>
+									<a id='lblBmon' class="lbl" ></a>
+								</td>
+								<td class="td2" >
+									<input id="txtBmon" type="text"  class="txt c1"/>
+								</td>
+								<td class="td3" align="center">
+									<a id='lblEmon' style="font-weight: bolder;font-size: 20px;" ></a>
+								</td>
+								<td class="td4" >
+									<input id="txtEmon" type="text"  class="txt c1"/>
+								</td>
+								<td class="td5" >
+								<span> </span>
+									<a id='lblCourt' class="lbl"></a>
+								</td>
+								<td class="td6">
+								<input id="txtCourt" type="text"  class="txt c6"/><a id='lblCourtyn'></a>
+								</td>
+								<td class="td7" >
+									<span> </span>
+									<a id='lblWorker' class="lbl" ></a>
+								</td>
+								<td class="td8">
+										<input id="txtWorker" type="text"  class="txt c1"/>
+								</td>
 						</table>
 					</div>
 				</div>

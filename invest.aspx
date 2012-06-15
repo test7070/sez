@@ -25,6 +25,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
+            aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
             $(document).ready(function() {
                bbmKey = ['noa'];
             q_brwCount();
@@ -385,6 +386,12 @@
                             <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
                             <td class="td2"><input id="txtNoa"  type="text"  class="txt  c1"/></td>
                             <td class="td3"></td>
+                       </tr>
+                       <tr>
+                            <td class="td1"><span> </span><a id='lblCustno' class="lbl btn"></a></td>
+                            <td class="td2" colspan="2"><input id="txtCustno"  type="text"  class="txt  c4"/>
+                            	<input id="txtComp"  type="text"  class="txt  c5"/>
+                            </td>
                        </tr>
                         <tr>
                             <td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
