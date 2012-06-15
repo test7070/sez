@@ -15,7 +15,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-            var q_name = "oil";
+            var q_name = "oiltype";
             var q_readonly = [];
             var bbmNum = [];
             var bbmMask = [];
@@ -25,8 +25,6 @@
             brwNowPage = 0;
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
-			aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
-			['txtOilstationno', 'lblOilstation', 'oilstation', 'noa,station', 'txtOilstationno,txtOilstation', 'oilstation_b.aspx']);
             $(document).ready(function() {
                bbmKey = ['noa'];
             q_brwCount();
@@ -390,61 +388,10 @@
                             <td class="td4"></td>
                             <td class="td5"></td>
                             <td class="td6"></td>
-                        </tr
-						<tr>
-							<td class="td1"><span> </span><a id='lblDriver' class="lbl btn"></a></td>
-							<td class="td2" ><input id="txtDriverno"  type="text"  class="txt c2"/>
-								<input id="txtDriver"  type="text"  class="txt c3"/>
-							</td>	
-							<td class="td4"></td>
-							<td class="td5"></td>
-							<td class="td6"></td>
-						</tr>
-						<tr>
-                            <td class="td1"><span> </span><a id='lblOilstation' class="lbl btn"></a></td>
-                            <td class="td2"><input id="txtOilstationno"  type="text"  class="txt c2"/>
-                            	<input id="txtOilstation"  type="text"  class="txt c3"/>
-                            </td>
-                            <td class="td3"></td>
-                            <td class="td4"></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
-                        </tr>
+                       </tr>
                         <tr>
-                            <td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
+                            <td class="td1"><span> </span><a id='lblOiltype' class="lbl"></a></td>
                             <td class="td2"><input id="txtDatea"  type="text"  class="txt num c1"/></td>
-                            <td class="td3"></td>
-                            <td class="td4"></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
-                        </tr>
-                        <tr>
-                            <td class="td1"><span> </span><a id='lblProduct' class="lbl"></a></td>
-                            <td class="td2"><input id="txtProduct"  type="text"  class="txt num c1"/></td>
-                            <td class="td3"></td>
-                            <td class="td4"></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
-                        </tr>
-                        <tr>
-                            <td class="td1"><span> </span><a id='lblPrice' class="lbl"></a></td>
-                            <td class="td2"><input id="txtPrice"  type="text"  class="txt num c1"/></td>
-                            <td class="td3"></td>
-                            <td class="td4"></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
-                        </tr>
-                        <tr>
-                            <td class="td1"><span> </span><a id='lblMount' class="lbl"></a></td>
-                            <td class="td2"><input id="txtMount"  type="text"  class="txt num c1"/></td>
-                            <td class="td3"></td>
-                            <td class="td4"></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
-                        </tr>
-                        <tr>
-                            <td class="td1"><span> </span><a id='lblMoney' class="lbl"></a></td>
-                            <td class="td2"><input id="txtMoney"  type="text"  class="txt num c1"/></td>
                             <td class="td3"></td>
                             <td class="td4"></td>
                             <td class="td5"></td>
