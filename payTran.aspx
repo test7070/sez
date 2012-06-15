@@ -18,7 +18,7 @@
             q_tables = 's';
             var q_name = "pay";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno', 'txtCno', 'txtAcomp'];
-            var q_readonlys = ['txtRc2no', 'txtPart', 'txtPartno', 'txtUnpay'];
+            var q_readonlys = ['txtRc2no', 'txtPart', 'txtPartno', 'txtUnpay','txtTypea'];
             var bbmNum = [['txtTotal', 10, 0, 1]];
             var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0], ['txtPaysale', 10, 0], ['txtUnpay', 10, 0]];
             var bbmMask = [];
@@ -33,7 +33,8 @@
              ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
               ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
               ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
-              ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']);
+              ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
+              ['txtUmmaccno_', '', 'ummacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'ummacc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -667,7 +668,7 @@
 					<td align="center" style="width:1%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:2%;"><a id='lblTypea_s'></a></td>
+					<td align="center" style="width:3%;"><a id='lblTypea_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblMoney_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblChgs_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblPaysale_s'></a></td>
@@ -687,7 +688,8 @@
 					<input type="text" id="txtNoq.*" style="display:none;" />
 					</td>
 					<td>
-					<input type="text" id="txtTypea.*"  class="txt c6"/>
+						<input type="text" id="txtUmmaccno.*"  style="float:left;width:30%;"/>
+						<input type="text" id="txtTypea.*"  style="float:left;width:60%;"/>
 					</td>
 					<td>
 					<input type="text" id="txtMoney.*" class="txt num c6"/>

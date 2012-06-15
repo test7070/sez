@@ -19,7 +19,7 @@
             q_tables = 's';
             var q_name = "umm";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno', 'txtCno', 'txtAcomp'];
-            var q_readonlys = ['txtVccno', 'txtPart', 'txtPartno','txtUnpay'];
+            var q_readonlys = ['txtVccno', 'txtPart', 'txtPartno','txtUnpay','txtTypea'];
             var bbmNum = new Array(['txtOutsource', 10, 0],['txtTotal', 10, 0],['txtPaysale', 10, 0],['txtUnpay', 10, 0],['txtOpay', 10, 0],['txtUnopay', 10, 0],['txtTextopay', 10, 0]);
             var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0], ['txtPaysale', 10, 0], ['txtUpay', 10, 0]];
             var bbmMask = [];
@@ -30,7 +30,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']);
+            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],['txtUmmaccno_', '', 'ummacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'ummacc_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -642,7 +642,7 @@
 					<td align="center" style="width:1%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:2%;"><a id='lblTypea'></a></td>
+					<td align="center" style="width:3%;"><a id='lblTypea'></a></td>
 					<td align="center" style="width:3%;"><a id='lblMoney'></a></td>
 					<td align="center" style="width:3%;"><a id='lblChgs'></a></td>
 					<td align="center" style="width:3%;"><a id='lblPaysales'></a></td>
@@ -662,7 +662,8 @@
 					<input type="text" id="txtNoq.*" style="display:none;" />
 					</td>
 					<td>
-					<input type="text" id="txtTypea.*"  style="width:95%;"/>
+						<input type="text" id="txtUmmaccno.*"  style="float:left;width:30%;"/>
+						<input type="text" id="txtTypea.*"  style="float:left;width:60%;"/>
 					</td>
 					<td>
 					<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
