@@ -287,6 +287,7 @@
             }
 
             function btnOk() {
+            	 $('#txtWorker').val(r_name);
                 if ($('#txtWeight').val() <= 0) {
                     alert('Error: The Weight must more than zero!');
                     return;
