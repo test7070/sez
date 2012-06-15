@@ -99,7 +99,7 @@
 					<td class="td5" align="center" style="width:5%;"><a id='lblAcomp'></a></td>
 					<td class="td6" align="center" style="width:10%;"><a id='lblProduct'></a></td>
 					<td class="td7" align="center" style="width:7%;"><a id='lblStraddr'></a></td>
-					<td class="td8" align="center" style="width:7%;"><a id='lblEndaddr'></a></td>
+		
 					<td class="td9" align="center" style="width:5%;"><a id='lblMount'></a></td>
 					<td class="tdA" align="center" style="width:3%;"><a id='lblUnit'></a></td>
 					<td class="tdB" align="center" style="width:5%;"><a id='lblPrice'></a></td>
@@ -127,9 +127,7 @@
 					<td class="td7">
 					<input class="txt"  id="txtStraddr.*" type="text" style="width:95%;" />
 					</td>
-					<td class="td8">
-					<input class="txt"  id="txtEndaddr.*" type="text" style="width:95%;" />
-					</td>
+
 					<td class="td9">
 					<input class="txt"  id="txtMount.*" type="text" style="width:95%;" />
 					</td>
