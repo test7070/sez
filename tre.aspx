@@ -188,12 +188,14 @@
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
+                $('#txtDatea').focus();
             }
 
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
                 _btnModi();
+                $('#txtDatea').focus();
             }
 
             function btnPrint() {

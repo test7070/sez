@@ -268,7 +268,7 @@
                 isEnabled();
                 window.location.hash = "#tbbm";
                 window.location.hash = "";
-                $('#txtCarno').focus();
+                $('#txtDatea').focus();
             }
 
             function btnModi() {
@@ -280,7 +280,7 @@
                 isEnabled();
                 window.location.hash = "#tbbm";
                 window.location.hash = "";
-                $('#txtCarno').focus();
+                $('#txtDatea').focus();
             }
 
             function btnPrint() {
