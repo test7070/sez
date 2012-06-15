@@ -688,8 +688,8 @@
 					<input type="text" id="txtNoq.*" style="display:none;" />
 					</td>
 					<td>
-						<input type="text" id="txtUmmaccno.*"  style="float:left;width:30%;"/>
-						<input type="text" id="txtTypea.*"  style="float:left;width:60%;"/>
+						<input type="text" id="txtUmmaccno.*"  style="float:left;width:25%;"/>
+						<input type="text" id="txtTypea.*"  style="float:left;width:55%;"/>
 					</td>
 					<td>
 					<input type="text" id="txtMoney.*" class="txt num c6"/>
