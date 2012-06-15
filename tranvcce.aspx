@@ -753,6 +753,12 @@
 						<input id="txtDriverno" type="text"  class="txt c2"/>
 						<input id="txtDriver" type="text"  class="txt c3"/>
 						</td>
+						<td class="td5"></td>
+						<td class="td6"></td>
+						<td class="td7"><span> </span><a id="lblWorker" class="lbl"></a></td>
+						<td class="td8">
+						<input id="txtWorker" type="text"  class="txt c1"/>
+						</td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id="lblCaseno" class="lbl"></a></td>
