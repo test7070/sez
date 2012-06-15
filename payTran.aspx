@@ -682,6 +682,7 @@
 					<td align="center" style="width:7%;"><a id='lblBank_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblIndate_s'></a></td>
 					<td align="center" style="width:4%;"><a id='lblMemo_s'></a></td>
+					<td align="center" style="width:4%;"><a id='lblComp2_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -730,6 +731,9 @@
 					</td>
 					<td>
 					<input type="text" id="txtMemo.*" class="txt c6"/>
+					</td>
+					<td>
+					<input type="text" id="txtComp2.*" class="txt c6"/>
 					</td>
 				</tr>
 			</table>
