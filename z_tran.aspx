@@ -20,6 +20,7 @@
             }
             $(document).ready(function() {
                 _q_boxClose();
+                q_getId();
                 q_gf('', 'z_tran');
             });
             function q_gfPost() {

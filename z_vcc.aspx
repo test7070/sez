@@ -19,6 +19,7 @@
                 location.href = location.href + "?;;;;100";
             }
             $(document).ready(function() {
+            	q_getId();
                 q_gf('', 'z_vcc');
             });
             function q_gfPost() {

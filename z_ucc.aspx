@@ -19,6 +19,7 @@
 		<script type="text/javascript">
             $(document).ready(function() {
                 _q_boxClose();
+                q_getId();
                 q_gf('', 'z_ucc');
             });
             function q_gfPost() {

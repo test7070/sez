@@ -19,6 +19,7 @@
                 location.href = location.href + "?;;;;101";
             }
             $(document).ready(function() {
+            	q_getId();
                 q_gf('', 'z_orde');
                
             });

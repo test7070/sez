@@ -16,6 +16,7 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             $(document).ready(function() {
+            	q_getId();
                 q_gf('', 'z_chgcash');
             });
             function q_gfPost() {

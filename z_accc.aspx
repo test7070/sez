@@ -20,6 +20,7 @@
             }
             $(document).ready(function() {
                 q_gf('', 'z_accc');
+                q_getId();
             });
             function q_gfPost() {
                 $('#qReport').q_report({

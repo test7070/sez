@@ -17,6 +17,7 @@
 		<script type="text/javascript">
             $(document).ready(function() {
                 _q_boxClose();
+                q_getId();
                 q_gf('', 'z_cara');
             });
             function q_gfPost() {
