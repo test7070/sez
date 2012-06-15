@@ -181,6 +181,7 @@
                 $('#txtNoq').val('001');
                 $('#txtDatea').val(q_date());
                 sum();
+                $('#txtDatea').focus();
             }
 
             function btnModi() {
@@ -189,6 +190,7 @@
 
                 _btnModi();
                 sum();
+                $('#txtDatea').focus();
             }
 
             function btnPrint() { 
