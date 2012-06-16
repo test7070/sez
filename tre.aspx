@@ -533,12 +533,16 @@
 					<td  align="center" style="width:2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:5%;"><a id='lblTranno_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblTrandate_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblCarno_s'></a></td>
-					<td align="center" style="width:1%;"><a id='lblRs_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblStraddr_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblMount_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblPrice_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblDiscount_s'></a></td>
 					<td align="center" style="width:4%;"><a id='lblMoney_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblMemo_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblTranno_s'></a></td>
+					<td align="center" style="width:1%;"><a id='lblRs_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblPaymemo_s'></a></td>
 					<td align="center" style="width:1%;"><a id='lblFill_s'></a></td>
 					<td align="center" style="width:2%;"><a id='lblCasetype_s'></a></td>
@@ -547,7 +551,6 @@
 					<td align="center" style="width:4%;"><a id='lblBoat_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblBoatname_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblShip_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblMemo_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblOverweightcost_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblOthercost_s'></a></td>
 					<td align="center" style="width:4%;"><a id='lblOrdeno_s'></a></td>
@@ -557,11 +560,6 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
-					
-					<td >
-					<input type="text" id="txtTranno.*" style="float:left; width: 70%;"/>
-					<input type="text" id="txtTrannoq.*" style="float:left; width: 20%;"/>
-					</td>
 					<td >
 					<input type="text" id="txtTrandate.*" style="width:95%;" />
 					</td>
@@ -569,13 +567,29 @@
 					<input type="text" id="txtCarno.*" style="width:95%;" />
 					</td>
 					<td >
-					<input type="text" id="txtRs.*" style="width:95%;" />
-					</td>
-					<td >
 					<input type="text" id="txtStraddr.*" style="width:95%;" />
 					</td>
 					<td >
+					<input type="text" id="txtMount.*" style="width:95%;text-align: right;" />
+					</td>
+					<td >
+					<input type="text" id="txtPrice.*" style="width:95%;text-align: right;" />
+					</td>
+					<td >
+					<input type="text" id="txtDiscount.*" style="width:95%;text-align: right;" />
+					</td>
+					<td >
 					<input type="text" id="txtMoney.*" style="width:95%;text-align: right;" />
+					</td>
+					<td >
+					<input type="text" id="txtMemo.*" style="width:95%;" />
+					</td>
+					<td >
+					<input type="text" id="txtTranno.*" style="float:left; width: 70%;"/>
+					<input type="text" id="txtTrannoq.*" style="float:left; width: 20%;"/>
+					</td>
+					<td >
+					<input type="text" id="txtRs.*" style="width:95%;" />
 					</td>
 					<td >
 					<input type="text" id="txtPaymemo.*" style="width:95%;" />
@@ -600,9 +614,6 @@
 					</td>
 					<td >
 					<input type="text" id="txtShip.*" style="width:95%;" />
-					</td>
-					<td >
-					<input type="text" id="txtMemo.*" style="width:95%;" />
 					</td>
 					<td >
 					<input type="text" id="txtOverweightcost.*" style="width:95%;text-align: right;"/>
