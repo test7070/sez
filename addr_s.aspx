@@ -32,20 +32,12 @@
 
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();
-      /*  t_bdate = $('#txtBdate').val();
-        t_edate = $('#txtEdate').val();*/
-        t_zip = $('#txtZip').val();
-        t_add3 = $('#txtAdd3').val();
-        t_add2 = $('#txtAdd2').val();
-        t_post1 = $('#txtPost1').val();
-		t_post2 = $('#txtPost2').val();
-       /* t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
-        t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .*/
+        t_addr = $('#txtAddr').val();
+        t_productno = $('#txtProductno').val();
+        t_product = $('#txtProduct').val();
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("zip", t_zip) +
-                           q_sqlPara2("add3", t_add3) + q_sqlPara2("add2", t_add2)+q_sqlPara2("post1", t_post1)+q_sqlPara2("post2", t_post2);
-
-        t_where = ' where=^^' + t_where + '^^ ';
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("addr", t_addr) + q_sqlPara2("productno", t_productno) + q_sqlPara2("product", t_product);
+        t_where = ' where=^^' + t_where + '^^ '; 
         return t_where;
     }
 </script>
@@ -62,20 +54,14 @@
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblZip'></a></td>
-                <td><input class="txt" id="txtZip" type="text" style="width:215px; font-size:medium;" /></td>
+                <td class='seek'  style="width:20%;"><a id='lblAddr'></a></td>
+                <td><input class="txt" id="txtAddr" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
              <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblAdd3'></a></td>
-                <td><input class="txt" id="txtAdd3" type="text" style="width:215px; font-size:medium;" /></td>
-             </tr>
-             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblAdd2'></a></td>
-                <td><input class="txt" id="txtAdd2" type="text" style="width:215px; font-size:medium;" /></td>
-             </tr>
-             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblPost'></a></td>
-                <td><input class="txt" id="txtPost1" type="text" style="width:90px; font-size:medium;" />&nbsp;<input class="txt" id="txtPost2" type="text" style="width:115px;font-size:medium;" /></td>
+                <td class='seek'  style="width:20%;"><a id='lblProductno'></a></td>
+                <td><input class="txt" id="txtProductno" type="text" style="width:90px; font-size:medium;" />&nbsp;
+                	<input class="txt" id="txtProduct" type="text" style="width:115px; font-size:medium;" />
+                </td>
              </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 

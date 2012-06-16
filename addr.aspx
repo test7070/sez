@@ -22,7 +22,7 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-        aPop = new Array(['txtPost1', 'lblPost', 'addr2', 'noa,post', 'txtPost1,txtPost2', 'add2_b.aspx']);
+        aPop = new Array(['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -43,35 +43,7 @@
 
         function mainPost() {
         	q_mask(bbmMask);
-          /*  $('#btnSales').click(function () { pop('sss'); });
-            $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); });
-
-            $('#btnsss').click(function () { pop('sss'); });
-            $('#btnsss').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtGrpno").change(function () { 
-            q_change($(this), 'sss', 'noa', 'noa,comp'); });
-
-            $('#btnConn').click(function () { pop('conn') });  
-            $('#btnConn').mouseenter(function () { $(this).css('cursor', 'pointer') });
-
-            $("#txtComp").change(function () { $("#txtNick").val($("#txtComp").val().substr(0, 2)); });
-
-            txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
-            txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
-            txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');*/
         }
-
-      /*  function pop(form, seq) {
-            b_seq = (seq ? seq : '');
-            b_pop = form;
-            switch (form) {
-                case 'sss': q_pop('txtSalesno', 'sss_b.aspx', 'sss', 'noa', 'namea', "60%", "650px", q_getMsg('popSss')); break;
-                case 'sss': q_pop('txtGrpno', 'sss_b.aspx', 'sss', 'noa', 'comp', "60%", "650px", q_getMsg('popsss')); break;
-                case 'conn': q_pop('txtNoa', "conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'conn', 'noa', 'namea', "60%", "650px", q_getMsg('popConn')); break;
-            }
-        }*/
-
         function txtCopy(dest, source) {
             var adest = dest.split(',');
             var asource = source.split(',');
@@ -268,7 +240,7 @@
             }
             .dview {
                 float: left;
-                width: 38%;
+                width: 40%;
             }
             .tview {
                 margin: 0;
@@ -278,15 +250,17 @@
                 font-size: medium;
                 background-color: #FFFF66;
                 color: blue;
+                width: 100%;
             }
             .tview td {
                 padding: 2px;
                 text-align: center;
                 border: 1px black solid;
+                
             }
             .dbbm {
                 float: left;
-                width: 60%;
+                width: 50%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -381,18 +355,14 @@
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>                
                 <td align="center" style="width:15%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:20%"><a id='vewZip'></a></td>
-                <td align="center" style="width:20%"><a id='vewAdd3'></a></td>
-                <td align="center" style="width:20%"><a id='vewAdd2'></a></td>
-                <td align="center" style="width:20%"><a id='vewPost'></a></td>                                
+                <td align="center" style="width:30%"><a id='vewAddr'></a></td>
+                <td align="center" style="width:40%"><a id='vewProductno'></a></td>                                
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='zip'>~zip</td>
-                   <td align="center" id='add3'>~add3</td>
-                   <td align="center" id='add2'>~add2</td>
-                   <td align="center" id='post2'>~post2</td>                  
+                   <td align="center" id='addr'>~addr</td>
+                   <td align="center" id='productno product'>~productno ~product</td>                  
             </tr>
         </table>
         </div>
@@ -402,29 +372,32 @@
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
                <td class="td2"><input id="txtNoa" type="text" class="txt c1" /></td>
                <td class="td3"></td>
-               <td class="td4"></td>
-               <td class="td5"></td>
-               <td class="td6"></td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblZip' class="lbl"></a></td>
-               <td class="td2"><input id="txtZip" type="text" class="txt c1" /></td>
+               <td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
+               <td class="td2"><input id="txtAddr" type="text" class="txt c1" /></td>
                <td class="td3"></td>
-               <td class="td4"></td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblAdd3' class="lbl"></a></td>
-               <td class="td2"><input id="txtAdd3" type="text"  class="txt c1"/></td>
+               <td class="td1"><span> </span><a id='lblProductno' class="lbl btn"></a></td>
+               <td class="td2"><input id="txtProductno" type="text"  class="txt c2"/>
+               				   <input id="txtProduct" type="text"  class="txt c3"/>
+               </td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblAdd2' class="lbl"></a></td>
-               <td class="td2"><input id="txtAdd2" type="text"  class="txt c1"/></td>
+               <td class="td1"><span> </span><a id='lblCustprice' class="lbl"></a></td>
+               <td class="td2"><input id="txtCustprice" type="text"  class="txt num c1"/></td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id="lblPost" class="lbl btn"></a></td>
-               <td class="td2"><input id="txtPost1" type="text" class="txt c1"  /></td>
-               <td class="td3" colspan="3"><input id="txtPost2" type="text" class="txt c1"  /></td>
-            </tr>     
+               <td class="td1"><span> </span><a id="lblDriverprice" class="lbl"></a></td>
+               <td class="td2"><input id="txtDriverprice" type="text" class="txt num c1"  /></td>
+               <td class="td3"></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id="lblDiscount" class="lbl"></a></td>
+               <td class="td2"><input id="txtDiscount" type="text" class="txt num c1"  /></td>
+               <td class="td3"></td>
+            </tr>          
         </table>
         </div>
         </div> 
