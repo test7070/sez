@@ -15,54 +15,55 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+            if(location.href.indexOf('?') < 0) {
+                location.href = location.href + "?;;;;101";
+            }
             $(document).ready(function() {
-            	q_getId();
-                q_gf('', 'z_chgcash');
+                q_gf('', 'z_trd');
+                q_getId();
             });
             function q_gfPost() {
-               $('#qReport').q_report({
-                        fileName : 'z_chgcash',
-                        options : [{
-                        type : '1',
-                        name : 'date'
-                    },{
-                        type : '1',
-                        name : 'mon'
-                    },{
+                $('#qReport').q_report({
+                    fileName : 'z_trd',
+                    options : [{
+                        type : '0',
+                        name : 'accy',
+                        value : q_getId()[4]
+                    }, {
                         type : '2',
-                        name : 'part',
-                        dbf : 'part',
-                        index : 'noa,part',
-                        src : 'part_b.aspx'
-                        },{
+                        name : 'cust',
+                        dbf : 'cust',
+                        index : 'noa,comp',
+                        src : 'cust_b.aspx'
+                    }, {
+                        type : '1',
+                        name : 'trandate'
+                    }, {
                         type : '2',
-                        name : 'sss',
-                        dbf : 'sss',
-                        index : 'noa,namea',
-                        src : 'sss_b.aspx'
-                        }]
-                    });
-                q_popAssign();
+                        name : 'straddr',
+                        dbf : 'straddr',
+                        index : 'noa,addr',
+                        src : 'addr_b.aspx'
+                    }, {
+                        type : '1',
+                        name : 'po'
+                    }, {
+                        type : '1',
+                        name : 'ordeno'
+                    }]
+                });
                 q_getFormat();
-                q_langShow();
-                
-                $('#qReport_txtDate1').mask('999/99/99');
-                $('#qReport_txtDate1').datepicker();
-                $('#qReport_txtDate2').mask('999/99/99');
-                $('#qReport_txtDate2').datepicker();
-                $('#qReport_txtMon1').mask('999/99');
-                $('#qReport_txtMon1').mask('999/99');
-                $('#qReport_txtMon2').mask('999/99');
-                $('#qReport_txtMon2').mask('999/99');
-            }
-
-            function q_boxClose(s2) {
-            }
-            function q_gtPost(s2) {
+                    q_langShow();
+                    q_popAssign();
+                    
+                $('#txtTrandate1').mask('999/99/99');
+                $('#txtTrandate1').datepicker();
+                $('#txtTrandate2').mask('999/99/99');
+                $('#txtTrandate2').datepicker();
             }
 		</script>
 	</head>
-	<body>
+	<body id="z_accc">
 		<div id="container">
 			<div id="qReport"></div>
 		</div>
@@ -71,5 +72,3 @@
 		</div>
 	</body>
 </html>
-           
-          
