@@ -15,172 +15,38 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-            var q_name = "trans";
-            var q_readonly = ['txtNoa','txtTotal','txtTotal2','txtTrdno','txtWorkerno','txtWorker'];
-            var bbmNum = new Array(['txtUnpack', 10, 0], ['txtMount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3], ['txtTolls', 10, 0], ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['txtMiles', 10, 2], ['txtReserve', 10, 0], ['txtWeight', 10, 2], ['txtPlus', 10, 0], ['txtMinus', 10, 0], ['txtMount2', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2], ['txtOverh', 10, 0], ['txtOverw', 10, 0]);
-            var bbmMask = new Array(['txtTrandate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99'],['txtCldate', '999/99/99']);
+            var q_name = "calctype";
+            var q_readonly = [];
+            var bbmNum = new Array();
+            var bbmMask = new Array();
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-          //  q_alias = 'a';
-            q_desc = 1;
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal','txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'], 
-            ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
-            ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
-            ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'],
-            ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr,productno,product,custprice,driverprice,driverprice2,discount', 'txtStraddrno,txtStraddr,txtUccno,txtProduct,txtPrice,txtPrice2,txtPrice3,txtDiscount', 'addr_b2.aspx'],
-            ['txtAddno3', 'lblAdd3', 'addr', 'noa,addr', 'txtAddno3,txtAdd3', 'addr_b2.aspx'],
-            ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
-            ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
+            aPop = new Array();
             $(document).ready(function() {
                 bbmKey = ['noa'];
 
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+                q_gt(q_name, q_content, q_sqlCount, 1)
             });
             function main() {
                 if(dataErr) {
                     dataErr = false;
                     return;
-                }
-                
+                }          
                 mainForm(0);
-
             }
 
             function q_funcPost(t_func, result) {
                 if(result.substr(0, 5) == '<Data') {
-                    var tmp = _q_appendData('carteam', '', true);
-                    var value = '';
-                    for(var z = 0; z < tmp.length; z++) {
-                        value = value + (value.length > 0 ? ',' : '') + tmp[z].noa + '@' + tmp[z].team;
-                    }
-                    q_cmbParse("cmbCarteamno", value);
-                    refresh(q_recno);
                 } else
                     alert('Error!' + '\r' + t_func + '\r' + result);
             }
 		
             function mainPost() {
             	q_mask(bbmMask);
-                q_cmbParse("cmbCalctype", q_getPara('trans.calctype'));
-                //q_cmbParse("cmbCasetype", q_getPara('trans.casetype'));
-                q_cmbParse("cmbCasetype", "20'',40''");
-                //q_cmbParse("cmbUnit", q_getPara('trans.unit'));
-                //q_cmbParse("cmbUnit2", q_getPara('trans.unit'));
-                q_func('car2.getItem', '3,4,5');
-
-                $("#cmbCalctype").change(function() {
-                    if($("#cmbCalctype").val() == '6') {
-                        $("#lblPrice2").hide();
-                        $("#txtPrice2").hide();
-                        $("#lblPrice3").show();
-                        $("#txtPrice3").show();
-                    } else {
-                        $("#lblPrice3").hide();
-                        $("#txtPrice3").hide();
-                        $("#lblPrice2").show();
-                        $("#txtPrice2").show();
-                    }
-                    sum();
-                });
-                $("#txtMount").change(function() {
-                    sum();
-                });
-                $("#txtPrice").change(function() {
-                    sum();
-                });
-                $("#txtMount2").change(function() {
-                    sum();
-                });
-                $("#txtPrice2").change(function() {
-                    sum();
-                });
-                $("#txtPrice3").change(function() {
-                    sum();
-                });
-                $("#txtDiscount").change(function() {
-                    sum();
-                });
-                $("#cmbCalctype").focus(function(){
-                	var len = $("#cmbCalctype").children().length>0?$("#cmbCalctype").children().length:1;
-                	$("#cmbCalctype").attr('size',len+"");
-                });
-                $("#cmbCalctype").blur(function(){
-                	$("#cmbCalctype").attr('size','1');
-                });
-                $("#cmbCarteamno").focus(function(){
-                	var len = $("#cmbCarteamno").children().length>0?$("#cmbCarteamno").children().length:1;
-                	$("#cmbCarteamno").attr('size',len+"");
-                });
-                $("#cmbCarteamno").blur(function(){
-                	$("#cmbCarteamno").attr('size','1');
-                });
-                $("#cmbCasetype").focus(function(){
-                	var len = $("#cmbCasetype").children().length>0?$("#cmbCasetype").children().length:1;
-                	$("#cmbCasetype").attr('size',len+"");
-                });
-                $("#cmbCasetype").blur(function(){
-                	$("#cmbCasetype").attr('size','1');
-                }); 
-                
-                $('#txtBmiles').change(function(){
-                	var bmiles = $.trim($('#txtBmiles').val()).length==0?0:parseInt($.trim($('#txtBmiles').val()),10);
-					var emiles = $.trim($('#txtEmiles').val()).length==0?0:parseInt($.trim($('#txtEmiles').val()),10);
-					if( bmiles==0 && emiles==0){
-						$('#txtMiles').removeAttr('readonly');
-					}else{
-						$('#txtMiles').attr('readonly', 'readonly');
-					}
-					sum();
-                });
-                $('#txtEmiles').change(function(){
-                	var bmiles = $.trim($('#txtBmiles').val()).length==0?0:parseInt($.trim($('#txtBmiles').val()),10);
-					var emiles = $.trim($('#txtEmiles').val()).length==0?0:parseInt($.trim($('#txtEmiles').val()),10);
-					if( bmiles==0 && emiles==0){
-						$('#txtMiles').removeAttr('readonly');
-					}else{
-						$('#txtMiles').attr('readonly', 'readonly');
-					}
-					sum();
-                });
-                
-            }
-
-            function sum() {
-            	if($('#txtDiscount').val().length==0)
-            		$('#txtDiscount').val('1');
-                $("#txtTotal").val(round($("#txtMount").val() * $("#txtPrice").val(),0));
-                $("#txtTotal2").val(round($("#txtMount2").val() * $("#txtDiscount").val() * ($("#cmbCalctype").val() == '6' ? $("#txtPrice3").val() : $("#txtPrice2").val()),0));
-            
-            	
-            	var bmiles = $.trim($('#txtBmiles').val()).length==0?0:parseInt($.trim($('#txtBmiles').val()),10);
-				var emiles = $.trim($('#txtEmiles').val()).length==0?0:parseInt($.trim($('#txtEmiles').val()),10);
-				if(bmiles!=0 && emiles!=0)
-					$('#txtMiles').val(emiles-bmiles);
-            }
-
-            function txtCopy(dest, source) {
-                var adest = dest.split(',');
-                var asource = source.split(',');
-                $('#' + adest[0]).focus(function() {
-                    if(trim($(this).val()).length == 0)
-                        $(this).val(q_getMsg('msgCopy'));
-                });
-                $('#' + adest[0]).focusout(function() {
-                    var t_copy = ($(this).val().substr(0, 1) == '=');
-                    var t_clear = ($(this).val().substr(0, 2) == ' =');
-                    for(var i = 0; i < adest.length; i++) { {
-                            if(t_copy)
-                                $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                            if(t_clear)
-                                $('#' + adest[i]).val('');
-                        }
-                    }
-                });
             }
 
             function q_boxClose(s2) {
@@ -212,51 +78,23 @@
 
                 q_box('trans_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
             }
-
-            function combPay_chg() {
-                var cmb = document.getElementById("combPay");
-                if(!q_cur)
-                    cmb.value = '';
-                else
-                    $('#txtPay').val(cmb.value);
-                cmb.value = '';
-            }
-
             function btnIns() {
                 _btnIns();
-                $('#txtNoa').val('AUTO');
-                $('#txtNoq').val('001');
-                $('#txtDatea').val(q_date());
-                sum();
-                $('#txtDatea').focus();
             }
-
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
-
                 _btnModi();
-                sum();
-                $('#txtDatea').focus();
             }
-
             function btnPrint() { 
-
             }
 
             function btnOk() {
-            	 $('#txtWorker').val(r_name);
-                if($("#cmbCalctype").val() == '6')
-                    $("#txtPrice2").val(0);
-                else
-                    $("#txtPrice3").val(0);
-				sum();
-                var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtDatea').val());
-                if(t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_trans') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-                else
-                    wrServer(t_noa);
+            	if(emp($('#txtNoa').val())){
+            		alert('Empty NO!');
+            		return;
+            	}
+                wrServer(t_noa);
             }
 
             function wrServer(key_value) {
@@ -749,11 +587,12 @@
 						<td class="tdB" colspan="2">
 						<input id="txtStatus" type="text" class="txt c1"/>
 						</td>
+						
 					</tr>
 					<tr class="trG">
 						<td class="td1" colspan="2"><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td class="td2" colspan="14">						
-							<input id="txtMemo" type="text" class="txt c1"/> 
+							<textarea id="txtMemo" style="width:99%; height: 35px;"> </textarea>
 						</td>
 					</tr>
 					<tr class="trH">

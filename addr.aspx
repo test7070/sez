@@ -394,6 +394,11 @@
                <td class="td3"></td>
             </tr>
             <tr>
+               <td class="td1"><span> </span><a id="lblDriverprice2" class="lbl"></a></td>
+               <td class="td2"><input id="txtDriverprice2" type="text" class="txt num c1"  /></td>
+               <td class="td3"></td>
+            </tr>
+            <tr>
                <td class="td1"><span> </span><a id="lblDiscount" class="lbl"></a></td>
                <td class="td2"><input id="txtDiscount" type="text" class="txt num c1"  /></td>
                <td class="td3"></td>
