@@ -38,18 +38,6 @@
                     }, {
                         type : '1',
                         name : 'trandate'
-                    }, {
-                        type : '2',
-                        name : 'straddr',
-                        dbf : 'straddr',
-                        index : 'noa,addr',
-                        src : 'addr_b.aspx'
-                    }, {
-                        type : '1',
-                        name : 'po'
-                    }, {
-                        type : '1',
-                        name : 'ordeno'
                     }]
                 });
                 q_getFormat();
