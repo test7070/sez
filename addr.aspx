@@ -402,7 +402,12 @@
                <td class="td1"><span> </span><a id="lblDiscount" class="lbl"></a></td>
                <td class="td2"><input id="txtDiscount" type="text" class="txt num c1"  /></td>
                <td class="td3"></td>
-            </tr>          
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id="lblCommission" class="lbl"></a></td>
+               <td class="td2"><input id="txtCommission" type="text" class="txt num c1"  /></td>
+               <td class="td3"></td>
+            </tr>           
         </table>
         </div>
         </div> 
