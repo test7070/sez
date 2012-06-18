@@ -2,13 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
-		<script src="../script/jquery.min.js" type="text/javascript"></script>
-		<script src='../script/qj2.js' type="text/javascript"></script>
-		<script src='qset.js' type="text/javascript"></script>
-		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src='../script/mask.js' type="text/javascript"></script>
-		<script src="../script/qbox.js" type="text/javascript"></script>
+		<title> </title>
+		<script src="../script/jquery.min.js" type="text/javascript"> </script>
+		<script src='../script/qj2.js' type="text/javascript"> </script>
+		<script src='qset.js' type="text/javascript"> </script>
+		<script src='../script/qj_mess.js' type="text/javascript"> </script>
+		<script src='../script/mask.js' type="text/javascript"> </script>
+		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             this.errorHandler = null;
@@ -16,8 +16,8 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
             var q_name = "trans";
-            var q_readonly = ['txtNoa','txtTotal','txtTotal2','txtTrdno'];
-            var bbmNum = new Array(['txtUnpack', 10, 0], ['txtMount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3], ['txtTolls', 10, 0], ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['txtBmiles', 10, 2], ['txtEmiles', 10, 2], ['txtMiles', 10, 2], ['txtReserve', 10, 0], ['tolls', 10, 0], ['txtTicket', 10, 0], ['txGross', 10, 2], ['txtWeight', 10, 2], ['txtPlus', 10, 0], ['txtMius', 10, 0], ['txtMount2', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtOverH', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2]);
+            var q_readonly = ['txtNoa','txtTotal','txtTotal2','txtTrdno','txtWorkerno','txtWorker'];
+            var bbmNum = new Array(['txtUnpack', 10, 0], ['txtMount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3], ['txtTolls', 10, 0], ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['txtMiles', 10, 2], ['txtReserve', 10, 0], ['txtWeight', 10, 2], ['txtPlus', 10, 0], ['txtMinus', 10, 0], ['txtMount2', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2], ['txtOverh', 10, 0], ['txtOverw', 10, 0]);
             var bbmMask = new Array(['txtTrandate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99'],['txtCldate', '999/99/99']);
             q_sqlCount = 6;
             brwCount = 6;
@@ -30,11 +30,10 @@
             ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
             ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
             ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'],
-            ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b2.aspx'],
+            ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr,productno,product,custprice,driverprice,driverprice2,discount', 'txtStraddrno,txtStraddr,txtUccno,txtProduct,txtPrice,txtPrice2,txtPrice3,txtDiscount', 'addr_b2.aspx'],
             ['txtAddno3', 'lblAdd3', 'addr', 'noa,addr', 'txtAddno3,txtAdd3', 'addr_b2.aspx'],
             ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
-            ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-            ['txtWorker', 'lblWorker', 'sss', 'noa,name', 'txtWorkerno,txtWorker', 'sss_b.aspx']);
+            ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
 
@@ -66,7 +65,6 @@
 		
             function mainPost() {
             	q_mask(bbmMask);
-                fbbm[fbbm.length] = 'txtMemo';
                 q_cmbParse("cmbCalctype", q_getPara('trans.calctype'));
                 //q_cmbParse("cmbCasetype", q_getPara('trans.casetype'));
                 q_cmbParse("cmbCasetype", "20'',40''");
@@ -473,10 +471,10 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:5%;"><a id='vewChk'></a></td>
-						<td align="center" style="width:17%;"><a id='vewDatea'></a></td>
-						<td align="center" style="width:10%;"><a id='vewComp'></a></td>
-						<td align="center" style="width:15%;"><a id='vewCarno'></a></td>
+						<td align="center" style="width:5%;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:17%;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:10%;"><a id='vewComp'> </a></td>
+						<td align="center" style="width:15%;"><a id='vewCarno'> </a></td>
 					</tr>
 					<tr>
 						<td >
@@ -518,7 +516,7 @@
 						<td class="td7" colspan="2">
 						<input id="txtTrandate" type="text"  class="txt c1"/>
 						</td>
-						<td class="td9" colspan="2"><span> </span><a id="lblCarno" class="lbl"> </a></td>
+						<td class="td9" colspan="2"><span> </span><a id="lblCarno" class="lbl btn"> </a></td>
 						<td class="tdB" colspan="2">
 						<input id="txtCarno" type="text"  class="txt c1"/>
 						</td>
@@ -697,21 +695,16 @@
 					</tr>
 					<tr class="trC">
 						<td class="td1" colspan="2"><span> </span><a id="lblSales" class="lbl btn"> </a></td>
-						<td class="td2" colspan="2">
+						<td class="td3" colspan="2">
 						<input id="txtSalesno" type="text"  class="txt c2"/>
 						<input id="txtSales" type="text"  class="txt c3"/>
 						</td>
-						<td class="td3" colspan="2"><span> </span><a id="lblWorker" class="lbl btn"> </a></td>
-						<td class="td4" colspan="2">
-						<input id="txtWorkerno" type="text"  class="txt c2"/>
-						<input id="txtWorker" type="text"  class="txt c3"/>
-						</td>
-						<td class="td5" colspan="2"><span> </span><a id="lblThird" class="lbl"></a> </td>
-						<td class="td6" colspan="2">
+						<td class="td5" colspan="2"><span> </span><a id="lblThird" class="lbl"> </a> </td>
+						<td class="td7" colspan="2">
 						<input id="txtThird" type="text" class="txt num c1"/>
 						</td>
-						<td class="td7" colspan="2"><span> </span><a id="lblThirdprice" class="lbl"> </a></td>
-						<td class="td8" colspan="2">
+						<td class="td9" colspan="2"><span> </span><a id="lblThirdprice" class="lbl"> </a></td>
+						<td class="tdB" colspan="2">
 						<input id="txtThirdprice" type="text" class="txt num c1" />
 						</td>
 					</tr>	
@@ -756,12 +749,11 @@
 						<td class="tdB" colspan="2">
 						<input id="txtStatus" type="text" class="txt c1"/>
 						</td>
-						
 					</tr>
 					<tr class="trG">
-						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td class="td2" colspan='15'>						
-							<textarea id="txtMemo" style="width:99%; height: 35px;"> </textarea>
+						<td class="td1" colspan="2"><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td class="td2" colspan="14">						
+							<input id="txtMemo" type="text" class="txt c1"/> 
 						</td>
 					</tr>
 					<tr class="trH">
@@ -786,6 +778,11 @@
 						<td class="td5" colspan="2"><span> </span><a id="lblTreno" class="lbl" style="font-size: 12px;"> </a></td>
 						<td class="td7" colspan="2">
 						<input id="txtTreno" type="text"  class="txt c1"/>
+						</td>
+						<td class="td9" colspan="4"> </td>
+						<td class="tdD" colspan="2"><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td class="tdF" colspan="2">
+						<input id="txtWorker" type="text"  class="txt c1"/>
 						</td>
 					</tr>
 				</table>
