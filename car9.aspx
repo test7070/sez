@@ -20,7 +20,6 @@
         var q_name = "car9";
         var q_readonly = [];
         var bbmNum = [];  
-        var bbmNum_comma = [];  ///  ,,,,,, disp comma
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
@@ -35,8 +34,7 @@
 
             q_brwCount();
 
-            if (!q_gt(q_name, q_content, q_sqlCount, 1))
-                return;
+            q_gt(q_name, q_content, q_sqlCount, 1)
 
             $('#txtNoa').focus
         });
@@ -47,18 +45,12 @@
                 dataErr = false;
                 return;
             }
-
-            q_mask(bbmMask);
-
             mainForm(0); // 1=Last  0=Top
-
-            $('#txtNoa').focus();
-
         }  ///  end Main()
 
 
         function mainPost() { // 載入資料完，未 refresh 前
-           
+           q_mask(bbmMask);
             $('#btnSales').click(function () { pop('sss'); });
             $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
             $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); });
@@ -152,7 +144,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('sss_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('car9_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
@@ -197,7 +189,7 @@
                 alert(t_err);
                 return;
             }
-            var t_noa = $('#txtNoa').val();
+            var t_noa = trim($('#txtNoa').val());
             if (emp($('#txtUacc1').val()))
                 $('#txtUacc1').val('1123.' + t_noa);
             if (emp($('#txtUacc2').val()))
@@ -206,7 +198,7 @@
                 $('#txtUacc3').val('2131.' + t_noa);
 
 
-            if (t_noa.length == 1)   /// 自動產生編號
+            if (t_noa.length == 0)   /// 自動產生編號
                 q_gtnoa(q_name, t_noa);
             else
                 wrServer(t_noa);
@@ -223,18 +215,9 @@
             _btnOk(key_value, bbmKey[0], '', '', 2);
         }
 
-        function format() {  ////  主要為數字 comma
-            var i;
-
-            q_format(bbmNum_comma, bbmNum);   /// 顯示 , keyin 只為了小數點顯示
-
-            q_init = 0;
-        }
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
-
-            format();
         }
 
         function readonly(t_para, empty) {
@@ -246,13 +229,11 @@
         }
 
         function btnPlus(org_htm, dest_tag, afield) {
-            _btnPlus(org_htm, dest_tag, afield);
-            if (q_tables == 's')
-                bbsAssign();  /// 表身運算式 
+            _btnPlus(org_htm, dest_tag, afield); 
         }
 
         function q_appendData(t_Table) {
-            dataErr = !_q_appendData(t_Table);
+            return _q_appendData(t_Table);
         }
 
         function btnSeek() {

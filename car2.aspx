@@ -20,7 +20,6 @@
             var q_name = "car2";
             var q_readonly = ['txtCardeal', 'txtCarowner', 'cmbSex', 'txtIdno', 'txtBirthday', 'txtTel1', 'txtTel2', 'txtMobile', 'txtFax', 'txtAddr_conn', 'txtAddr_home', 'txtDriver'];
             var bbmNum = [['txtInmoney', 10, 0], ['txtOutmoney', 10, 0], ['txtIrange', 10, 0], ["txtManage", 10, 0], ["txtGuile", 10, 0], ["txtLabor", 10, 0], ["txtHealth", 10, 0], ["txtReserve", 10, 0], ["txtHelp", 10, 0], ["txtVrate", 5, 2], ["txtRrate", 5, 2], ["txtOrate", 5, 2], ["txtIrate", 5, 2], ["txtPrate", 5, 2], ["txtUlicense", 10, 0], ["txtDlicense", 10, 0], ["txtSpring", 10, 0], ["txtSummer", 10, 0], ["txtFalla", 10, 0], ["txtWinter", 10, 0], ["txtCylinder", 2, 0], ["txtSalemoney", 10, 0], ["txtAmortization", 10, 0]];
-            var bbmNum_comma = [];
             var bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"], ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999"], ["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"]];
             q_sqlCount = 6;
             brwCount = 6;
@@ -29,13 +28,15 @@
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
             q_alias = 'a';
-            aPop = [['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtCarownerno', 'lblCarowner', 'carowner', 'noa,namea,sex,idno,birthday,tel1,tel2,mobile,fax,addr_conn,addr_home', 'txtCarownerno,txtCarowner,cmbSex,txtIdno,txtBirthday,txtTel1,txtTel2,txtMobile,txtFax,txtAddr_conn,txtAddr_home', 'carowner_b.aspx'], ['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno', 'sss_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']];
+            aPop = [['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
+             ['txtCarownerno', 'lblCarowner', 'carowner', 'noa,namea,sex,idno,birthday,tel1,tel2,mobile,fax,addr_conn,addr_home', 'txtCarownerno,txtCarowner,cmbSex,txtIdno,txtBirthday,txtTel1,txtTel2,txtMobile,txtFax,txtAddr_conn,txtAddr_home', 'carowner_b.aspx'], 
+             ['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno', 'sss_b.aspx'],
+              ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']];
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
-                if(!q_gt(q_name, q_content, q_sqlCount, 1))
-                    return;
+                q_gt(q_name, q_content, q_sqlCount, 1)
 
             });
             function main() {
@@ -43,7 +44,7 @@
                     dataErr = false;
                     return;
                 }
-                q_mask(bbmMask);
+                
                 mainForm(0);
             }
 
@@ -73,6 +74,7 @@
             }
 
             function mainPost() {
+            	q_mask(bbmMask);
                 q_func('car2.getItem', '3,4,5');
                 q_cmbParse("cmbSex", q_getPara('sys.sex'));
                 q_cmbParse("cmbChecktype", q_getPara('car2.checktype'));
@@ -80,7 +82,7 @@
                 q_cmbParse("cmbIsprint", q_getPara('car2.isprint'));
                 q_cmbParse("cmbAuto", q_getPara('car2.auto'));
 
-                fbbm[fbbm.length] = 'txtMemo';
+                
                 fbbm[fbbm.length] = 'cmbAuto';
                 fbbm[fbbm.length] = 'txtIrange';
                 fbbm[fbbm.length] = 'txtManage';
@@ -214,7 +216,7 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('car2_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('car2_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -252,17 +254,10 @@
                 _btnOk(key_value, bbmKey[0], '', '', 2);
             }
 
-            function format() {
-                var i;
-
-                q_format(bbmNum_comma, bbmNum);
-                q_init = 0;
-            }
-
             function refresh(recno) {
                 _refresh(recno);
 
-                format();
+
             }
 
             function readonly(t_para, empty) {
@@ -275,8 +270,6 @@
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
-                if(q_tables == 's')
-                    bbsAssign();
             }
 
             function q_appendData(t_Table) {
@@ -337,7 +330,7 @@
                 padding: 2px;
                 border: 1px black double;
                 border-spacing: 0;
-                font-size: 16px;
+                font-size: medium;
                 background-color: #FFFF66;
                 color: blue;
                 float: left;
@@ -357,7 +350,7 @@
                 border: 1px white double;
                 border-spacing: 0;
                 border-collapse: collapse;
-                font-size: 16px;
+                font-size: medium;
                 color: blue;
                 background: #cad3ff;
                 width: 100%;
@@ -421,7 +414,7 @@
             }
             .btnLbl a {
                 color: blue;
-                font-size: 16px;
+                font-size: medium;
                 height: 25px;
                 line-height: 25px;
                 display: block;

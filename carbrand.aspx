@@ -29,9 +29,7 @@
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
-
                 q_brwCount();
-
                 q_gt(q_name, q_content, q_sqlCount, 1)
                     
             });
@@ -41,12 +39,11 @@
                     dataErr = false;
                     return;
                 }
-                q_mask(bbmMask);
                 mainForm(0);
-
             }///  end Main()
 
             function mainPost() {
+            	q_mask(bbmMask);
             }
 
             function txtCopy(dest, source) {
@@ -171,8 +168,6 @@
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
-                if(q_tables == 's')
-                    bbsAssign();
             }
 
             function q_appendData(t_Table) {

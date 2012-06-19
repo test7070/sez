@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
     <title></title>
-    <script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
+    <script src="../script/jquery.min.js" type="text/javascript"></script>
     <script src='../script/qj2.js' type="text/javascript"></script>
     <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
@@ -17,14 +17,10 @@
         }
         q_tables = 's';
         var q_name = "car6";
-        var decbbs = ['weight', 'mount', 'gmount', 'emount'];
-        var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
         var q_readonly = ['txtComp'];
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq'];
         var bbmNum = [['txtPrice', 10, 3]];  // 允許 key 小數
-        var bbmNum_comma = [];
         var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
-        var bbsNum_comma = []; 
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
@@ -33,12 +29,8 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
-
-            q_brwCount();  // 計算 合適  brwCount 
-
-            if (!q_gt(q_name, q_content, q_sqlCount, 1))  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
-                return;
-
+            q_brwCount();  // 計算 合適  brwCount
+            q_gt(q_name, q_content, q_sqlCount, 1)  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
         });
 
         //////////////////   end Ready
@@ -48,11 +40,7 @@
                dataErr = false;
                return;
            }
-
             mainForm(1); // 1=最後一筆  0=第一筆
-
-            $('#txtDatea').focus();
-            
         }  ///  end Main()
 
         function pop(form) {
@@ -194,7 +182,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('worka_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('car6_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
@@ -270,23 +258,10 @@
             for (var j = 0; j < q_bbsCount; j++) {
 
             }  // j
-
-            format();
-        }
-
-        function format() {  ////  主要為數字 comma
-            var i;
-
-            q_format(bbmNum_comma, bbmNum);   /// 顯示 , keyin 只為了小數點顯示
-
-            q_formats(bbsNum_comma, bbsNum);   /// 顯示 , keyin 只為了小數點顯示
-            q_init = 0;
         }
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
-
-            format();
         }
 
         function readonly(t_para, empty) {
@@ -299,13 +274,11 @@
         }
 
         function btnPlus(org_htm, dest_tag, afield) {
-            _btnPlus(org_htm, dest_tag, afield);
-            if (q_tables == 's')
-                bbsAssign();  /// 表身運算式 
+            _btnPlus(org_htm, dest_tag, afield); 
         }
 
         function q_appendData(t_Table) {
-            dataErr = !_q_appendData(t_Table);
+            return _q_appendData(t_Table);
         }
 
         function btnSeek(){

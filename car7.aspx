@@ -20,7 +20,6 @@
         var q_name = "car7";
         var q_readonly = [];
         var bbmNum = [];  
-        var bbmNum_comma = [];  ///  ,,,,,, disp comma
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
@@ -31,13 +30,9 @@
             xmlTable = 'conn';
             xmlKey = [['noa', 'noq']];
             xmlDec = [];
-            q_popSave(xmlTable);  // for conn_b.aspx  
-
+            q_popSave(xmlTable);  // for conn_b.aspx
             q_brwCount();
-
-            if (!q_gt(q_name, q_content, q_sqlCount, 1))
-                return;
-
+            q_gt(q_name, q_content, q_sqlCount, 1)
             $('#txtNoa').focus
         });
 
@@ -47,18 +42,12 @@
                 dataErr = false;
                 return;
             }
-
-            q_mask(bbmMask);
-
             mainForm(0); // 1=Last  0=Top
-
-            $('#txtNoa').focus();
-
         }  ///  end Main()
 
 
         function mainPost() { // 載入資料完，未 refresh 前
-           
+           q_mask(bbmMask);
             $('#btnSales').click(function () { pop('sss'); });
             $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
             $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); });
@@ -151,7 +140,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('sss_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('car7_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
@@ -404,7 +393,7 @@
             </tr>
             <tr>
                <td align="right"><a id='lblMemo'></a></td>
-               <td  colspan='5' ><textarea id="txtMemo"  rows='5' cols='10' style="width:98%; height: 127px;"></textarea></td> 
+               <td  colspan='5' ><textarea id="txtMemo"  rows='5' cols='10' style="width:98%; height: 50px;"></textarea></td> 
             </tr>
         </table>
         </div>

@@ -37,7 +37,6 @@
                 }
                 bbmKey = ['noa'];
                 q_brwCount();
-
                 q_gt(q_name, q_content, q_sqlCount, 1)
             });
             //////////////////   end Ready
@@ -46,12 +45,11 @@
                     dataErr = false;
                     return;
                 }
-                q_mask(bbmMask);
                 mainForm(0);
             }///  end Main()
 
             function mainPost() {
-                fbbm[fbbm.length] = 'txtMemo';
+            	q_mask(bbmMask);
             }
 
             function txtCopy(dest, source) {
@@ -100,7 +98,7 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('caraccident_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('caraccident_s.aspx', q_name + '_s', "500px", "340px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -163,8 +161,6 @@
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
-                if(q_tables == 's')
-                    bbsAssign();
             }
 
             function q_appendData(t_Table) {

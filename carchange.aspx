@@ -20,14 +20,10 @@
             var afield, t_htm;
             var i, s1;
 
-            var decbbs = [];
-            var decbbm = [];
             var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [];
-            //var bbmNum_comma = [];
             var bbsNum = [];
-            //var bbsNum_comma = [];
             var bbmMask = [];
             var bbsMask = [['txtChgdate', '999/99/99'],['txtStopdate', '999/99/99'],['txtEnddate', '999/99/99'],['txtDatea', '999/99/99'],['txtWastedate','999/99/99'],['txtCanceldate','999/99/99']];
 		

@@ -20,7 +20,7 @@
             var q_name = "cara";
             var q_readonly = [];
             var q_readonlys = [];
-            var bbmNum = [['txtPrice', 10, 3]];
+            var bbmNum = [];
             var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
             var bbmMask = [];
             var bbsMask = [];
@@ -168,8 +168,6 @@
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
-                if(q_tables == 's')
-                    bbsAssign();
                 /// 表身運算式
             }
 
