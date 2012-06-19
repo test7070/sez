@@ -36,10 +36,54 @@
             ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
-
+				
+				$("#cmbCalctype").data('info',{item:new Array()});
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
             });
+            
+            function currentData(){
+            	var exclude = new Array('txtNoa','txtNoq','txtWorker','txtTrdno','txtTreno');
+            	var data = new Array();
+            }
+            currentData.prototype = {
+            	copy : function(){
+            		curData.data = new Array();
+            		for( var i in fbbm){
+            			var isExclude = false;
+            			for(var j in curData.exclude){
+            				if(fbbm[i]==curData.exclude[j]){
+            					isExclude = true;
+            					break;	
+            				}
+            			}
+            			if(!isExclude){
+            				curData.data.push({
+            					field : fbbm[i],
+            					value : $('#'+fbbm[i]).val()
+            				});
+            			}
+            		}
+        		},
+            	paste : function(){
+            		for(var i in curData.data){
+            			$('#'+curData.data[i].field).val(curData.data[i].value);
+            		}
+            	},
+            	isOutside : function(){
+            		var t_noa = $("#cmbCalctype").val();
+					var t_isOutside = 0;
+					for(var i in $("#cmbCalctype").data('info').item){				
+						if($("#cmbCalctype").data('info').item[i].noa == t_noa){		
+							t_isOutside = $("#cmbCalctype").data('info').item[i].isOutside;
+							break;	
+						}
+					}
+					return t_isOutside;
+            	}
+        	};
+            var curData = new currentData();
+
             function main() {
                 if(dataErr) {
                     dataErr = false;
@@ -49,31 +93,14 @@
                 mainForm(0);
 
             }
-
-            function q_funcPost(t_func, result) {
-                if(result.substr(0, 5) == '<Data') {
-                    var tmp = _q_appendData('carteam', '', true);
-                    var value = '';
-                    for(var z = 0; z < tmp.length; z++) {
-                        value = value + (value.length > 0 ? ',' : '') + tmp[z].noa + '@' + tmp[z].team;
-                    }
-                    q_cmbParse("cmbCarteamno", value);
-                    refresh(q_recno);
-                } else
-                    alert('Error!' + '\r' + t_func + '\r' + result);
-            }
 		
             function mainPost() {
             	q_mask(bbmMask);
-                q_cmbParse("cmbCalctype", q_getPara('trans.calctype'));
-                //q_cmbParse("cmbCasetype", q_getPara('trans.casetype'));
+                q_gt('calctype', '', 0, 0, 0, "");
+                q_gt('carteam', '', 0, 0, 0, "");
                 q_cmbParse("cmbCasetype", "20'',40''");
-                //q_cmbParse("cmbUnit", q_getPara('trans.unit'));
-                //q_cmbParse("cmbUnit2", q_getPara('trans.unit'));
-                q_func('car2.getItem', '3,4,5');
-
-                $("#cmbCalctype").change(function() {
-                    if($("#cmbCalctype").val() == '6') {
+				$("#cmbCalctype").change(function() {
+                    if(curData.isOutside()) {
                         $("#lblPrice2").hide();
                         $("#txtPrice2").hide();
                         $("#lblPrice3").show();
@@ -85,44 +112,36 @@
                         $("#txtPrice2").show();
                     }
                     sum();
-                });
-                $("#txtMount").change(function() {
+                }).click(function() {
+                    if(curData.isOutside()) {
+                        $("#lblPrice2").hide();
+                        $("#txtPrice2").hide();
+                        $("#lblPrice3").show();
+                        $("#txtPrice3").show();
+                    } else {
+                        $("#lblPrice3").hide();
+                        $("#txtPrice3").hide();
+                        $("#lblPrice2").show();
+                        $("#txtPrice2").show();
+                    }
                     sum();
-                });
-                $("#txtPrice").change(function() {
-                    sum();
-                });
-                $("#txtMount2").change(function() {
-                    sum();
-                });
-                $("#txtPrice2").change(function() {
-                    sum();
-                });
-                $("#txtPrice3").change(function() {
-                    sum();
-                });
-                $("#txtDiscount").change(function() {
-                    sum();
-                });
+                }); 
                 $("#cmbCalctype").focus(function(){
                 	var len = $("#cmbCalctype").children().length>0?$("#cmbCalctype").children().length:1;
                 	$("#cmbCalctype").attr('size',len+"");
-                });
-                $("#cmbCalctype").blur(function(){
+                }).blur(function(){
                 	$("#cmbCalctype").attr('size','1');
-                });
+                });              
                 $("#cmbCarteamno").focus(function(){
                 	var len = $("#cmbCarteamno").children().length>0?$("#cmbCarteamno").children().length:1;
                 	$("#cmbCarteamno").attr('size',len+"");
-                });
-                $("#cmbCarteamno").blur(function(){
+                }).blur(function(){
                 	$("#cmbCarteamno").attr('size','1');
                 });
                 $("#cmbCasetype").focus(function(){
                 	var len = $("#cmbCasetype").children().length>0?$("#cmbCasetype").children().length:1;
                 	$("#cmbCasetype").attr('size',len+"");
-                });
-                $("#cmbCasetype").blur(function(){
+                }).blur(function(){
                 	$("#cmbCasetype").attr('size','1');
                 }); 
                 
@@ -145,19 +164,45 @@
 						$('#txtMiles').attr('readonly', 'readonly');
 					}
 					sum();
+                }); 
+                $("#txtMount").change(function() {
+                    sum();
                 });
-                
+                $("#txtPrice").change(function() {
+                    sum();
+                });
+                $("#txtMount2").change(function() {
+                    sum();
+                });
+                $("#txtPrice2").change(function() {
+                    sum();
+                });
+                $("#txtPrice3").change(function() {
+                    sum();
+                });
+                $("#txtDiscount").change(function() {
+                    sum();
+                });              
             }
 
             function sum() {
-            	if($('#txtDiscount').val().length==0)
+            	if($('#txtDiscount').val().length==0){
             		$('#txtDiscount').val('1');
-                $("#txtTotal").val(round($("#txtMount").val() * $("#txtPrice").val(),0));
-                $("#txtTotal2").val(round($("#txtMount2").val() * $("#txtDiscount").val() * ($("#cmbCalctype").val() == '6' ? $("#txtPrice3").val() : $("#txtPrice2").val()),0));
-            
-            	
-            	var bmiles = $.trim($('#txtBmiles').val()).length==0?0:parseInt($.trim($('#txtBmiles').val()),10);
-				var emiles = $.trim($('#txtEmiles').val()).length==0?0:parseInt($.trim($('#txtEmiles').val()),10);
+            	}
+            	var t_mount = $.trim($('#txtMount').val()).length==0?0:parseFloat($.trim($('#txtMount').val().replace(/,/g,'')),10);
+            	var t_price = $.trim($('#txtPrice').val()).length==0?0:parseFloat($.trim($('#txtPrice').val().replace(/,/g,'')),10);
+            	$("#txtTotal").val(round(t_mount * t_price,0));
+                
+                var t_discount = $.trim($('#txtDiscount').val()).length==0?0:parseFloat($.trim($('#txtDiscount').val().replace(/,/g,'')),10);
+				t_mount = $.trim($('#txtMount2').val()).length==0?0:parseFloat($.trim($('#txtMount2').val().replace(/,/g,'')),10);
+				if(curData.isOutside())
+					t_price = $.trim($('#txtPrice3').val()).length==0?0:parseFloat($.trim($('#txtPrice3').val().replace(/,/g,'')),10);      
+				else
+            		t_price = $.trim($('#txtPrice2').val()).length==0?0:parseFloat($.trim($('#txtPrice2').val().replace(/,/g,'')),10);            
+                $("#txtTotal2").val(round(t_mount * t_price * t_discount,0));
+                
+            	var bmiles = $.trim($('#txtBmiles').val()).length==0?0:parseInt($.trim($('#txtBmiles').val().replace(/,/g,'')),10);
+				var emiles = $.trim($('#txtEmiles').val()).length==0?0:parseInt($.trim($('#txtEmiles').val().replace(/,/g,'')),10);
 				if(bmiles!=0 && emiles!=0)
 					$('#txtMiles').val(emiles-bmiles);
             }
@@ -195,6 +240,30 @@
             function q_gtPost(t_name) {
 
                 switch (t_name) {
+                	case 'calctype':
+                        var as = _q_appendData("calctype", "", true);
+						var t_item = "";
+                        var item = new Array();
+                        for( i = 0; i < as.length; i++) {
+                            t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].typea;
+                        	item.push({
+                        		noa : as[i].noa,
+                        		typea : as[i].typea,
+                        		isOutside : as[i].isoutside.length==0?false:(as[i].isoutside=="false" || as[i].isoutside=="0" || as[i].isoutside=="undefined"?false:true)
+                        	});
+                        }
+                        q_cmbParse("cmbCalctype", t_item);                   
+
+                        $("#cmbCalctype").data("info").item = item;
+                        break;
+                    case 'carteam':
+                        var as = _q_appendData("carteam", "", true);
+						var t_item = "";
+                        for( i = 0; i < as.length; i++) {
+                            t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;
+                        }
+                        q_cmbParse("cmbCarteamno", t_item);                   
+                        break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -213,21 +282,15 @@
                 q_box('trans_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
             }
 
-            function combPay_chg() {
-                var cmb = document.getElementById("combPay");
-                if(!q_cur)
-                    cmb.value = '';
-                else
-                    $('#txtPay').val(cmb.value);
-                cmb.value = '';
-            }
-
             function btnIns() {
+                curData.copy();
                 _btnIns();
+                curData.paste();
                 $('#txtNoa').val('AUTO');
                 $('#txtNoq').val('001');
                 $('#txtDatea').val(q_date());
                 sum();
+               
                 $('#txtDatea').focus();
             }
 
@@ -245,8 +308,8 @@
             }
 
             function btnOk() {
-            	 $('#txtWorker').val(r_name);
-                if($("#cmbCalctype").val() == '6')
+				$('#txtWorker').val(r_name);			
+                if(curData.isOutside())
                     $("#txtPrice2").val(0);
                 else
                     $("#txtPrice3").val(0);
@@ -268,7 +331,8 @@
 
             function refresh(recno) {
                 _refresh(recno);
-                if($("#cmbCalctype").val() == '6') {
+
+                if(curData.isOutside()) {
                     $("#lblPrice2").hide();
                     $("#txtPrice2").hide();
                     $("#lblPrice3").show();
@@ -278,7 +342,7 @@
                     $("#txtPrice3").hide();
                     $("#lblPrice2").show();
                     $("#txtPrice2").show();
-                }
+                }       
             }
 
             function readonly(t_para, empty) {
@@ -343,6 +407,8 @@
             function btnCancel() {
                 _btnCancel();
             }
+            
+            
 		</script>
 		<style type="text/css">
             #dmain {
@@ -570,7 +636,7 @@
 						</td>
 						<td class="td5" colspan="2">
 							<span> </span><a id="lblPrice2" class="lbl"> </a>
-							<span> </span><a id="lblPrice3" class="lbl"> </a>
+							<a id="lblPrice3" class="lbl"> </a>
 						</td>
 						<td class="td7" colspan="2">
 						<input id="txtPrice2" type="text"  class="txt num c1"/>
