@@ -20,7 +20,7 @@
         var q_name = "bccin";
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [['txtPrice', 10, 3]];  
+        var bbmNum = [];  
         var bbsNum = [];
         var bbmMask = [];
         var bbsMask = [];
@@ -165,7 +165,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('bccin_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('bccin_s.aspx', q_name + '_s', "500px", "340px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   
@@ -468,7 +468,7 @@
         </tr>
         <tr>
             <td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
-            <td class="td2" colspan="10"><textarea id="txtMemo" rows="5" cols="10" style="width: 98%; height: 127px;" ></textarea></td>
+            <td class="td2" colspan="10"><textarea id="txtMemo" rows="5" cols="10" style="width: 98%; height: 50px;" ></textarea></td>
         </tr>       
         </table>
         </div>

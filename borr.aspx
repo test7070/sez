@@ -28,7 +28,8 @@
             brwNowPage = 0;
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
-            aPop = new Array(['txtDriverno', 'btnDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtCustno', 'btnCust', 'cust', 'noa,nick', 'txtCustno,txtCust', 'cust_b.aspx'])
+            aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
+            ['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno,txtCust', 'cust_b.aspx'])
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -46,7 +47,6 @@
             }///  end Main()
 
             function mainPost() {
-                fbbm[fbbm.length] = 'txtMemo';
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('borr.typea'), 's');
 
@@ -110,7 +110,7 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
-               q_box('borr_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+               q_box('borr_s.aspx', q_name + '_s', "500px", "340px", q_getMsg( "popSeek"));
             }
 
             function btnIns() {
@@ -265,12 +265,12 @@
             }
 		</script>
 		<style type="text/css">
-            #dmain {
+           #dmain {
                 overflow: hidden;
             }
             .dview {
                 float: left;
-                width: 25%;
+                width: 29%;
             }
             .tview {
                 margin: 0;
@@ -288,7 +288,7 @@
             }
             .dbbm {
                 float: left;
-                width: 73%;
+                width: 69%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -296,8 +296,8 @@
             .tbbm {
                 padding: 0px;
                 border: 1px white double;
-                 border-spacing: 0;
-                 border-collapse: collapse;
+                border-spacing: 0;
+                border-collapse: collapse;
                 font-size: medium;
                 color: blue;
                 background: #cad3ff;
@@ -306,14 +306,11 @@
             .tbbm tr {
                 height: 35px;
             }
-            .tbbm tr .td1, .tbbm tr .td3, .tbbm tr .td5, .tbbm tr .td7 {
-                width: 10%;
+            .tbbm tr td {
+                width: 9%;
             }
-            .tbbm tr .td2, .tbbm tr .td4, .tbbm tr .td6, .tbbm tr .td8 {
-                width: 10%;
-            }
-            .tbbm tr .td9 {
-                width: 3%;
+            .tbbm .tdZ {
+                width: 2%;
             }
             .tbbm tr td span {
                 float: right;
@@ -329,27 +326,59 @@
             .tbbm tr td .lbl.btn {
                 color: #4297D7;
                 font-weight: bolder;
+                font-size: medium;
             }
             .tbbm tr td .lbl.btn:hover {
                 color: #FF8F19;
             }
-            .tbbm tr td .txt.c1 {
-                width: 100%;
+            .txt.c1 {
+                width: 98%;
                 float: left;
             }
-            .tbbm tr td .txt.c2 {
-                width: 45%;
+            .txt.c2 {
+                width: 38%;
                 float: left;
             }
-            .tbbm tr td .txt.c3 {
-                width: 55%;
+            .txt.c3 {
+                width: 60%;
                 float: left;
             }
-            .tbbm tr td .txt.num {
+            .txt.c4 {
+                width: 18%;
+                float: left;
+            }
+            .txt.c5 {
+                width: 80%;
+                float: left;
+            }
+            .txt.c6 {
+                width: 99%;
+                float: left;
+            }
+            .txt.num {
                 text-align: right;
             }
-
-            .dbbs .tbbs {
+            .tbbm td {
+                margin: 0 -1px;
+                padding: 0;
+            }
+            .tbbm td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                float: left;
+            }
+            .tbbs select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                font-size:medium;
+            }
+            
+             input[type="text"],input[type="button"] {     
+                font-size: medium;
+            }
+             .dbbs .tbbs {
                 margin: 0;
                 padding: 2px;
                 border: 2px lightgrey double;
@@ -367,30 +396,7 @@
             	text-align: center;
                 border: 2px lightgrey double;
             }
-            .tbbm tr td {
-                margin: 0px -1px;
-                padding: 0;
-            }
-            .tbbm tr td input[type="text"] {
-                border-width: 1px;
-                padding: 0px;
-                margin: -1px;
-               
-            }
-            .tbbm tr td input[type="button"] {
-                width: auto;
-                font-size: medium;
-                float: right;
-            }
-            .tbbm tr td select {
-                border-width: 1px;
-                padding: 0px;
-                margin: -1px;
-            }
-            input [type="text"]
-            {
-            	font-size:medium;
-            }
+            
 		</style>
 	</head>
 	<body>
@@ -434,15 +440,15 @@
 						<td class="td2">
 						<input id="txtCarno"  type="text" class="txt c1"/>
 						</td>
-						<td class="td3" >
-						<input id="btnDriver" type="button"/>
+						<td class="td3" ><span> </span>
+						<a id="lblDriver" class="lbl btn"></a>
 						</td>
 						<td class="td4">
 						<input id="txtDriverno"  type="text"  class="txt c2"/>
 						<input id="txtDriver"  type="text"  class="txt c3"/>
 						</td>
-						<td class="td5" >
-						<input id="btnCust" type="button"/>
+						<td class="td5" ><span> </span>
+						<a id="lblCust" class="lbl btn" ></a>
 						</td>
 						<td class="td6">
 						<input id="txtCustno"  type="text"  class="txt c2"/>
@@ -502,7 +508,7 @@
 					</tr>
 					<tr class="tr7">
 						<td class="td1" ><span> </span><a id="lblMemo" class="lbl"></a></td>
-						<td class="column1" colspan="5"><textarea id="txtMemo" style="width:100%; height: 127px;"></textarea></td>
+						<td class="column1" colspan="5"><textarea id="txtMemo" style="width:100%; height: 50px;"></textarea></td>
 					</tr>
 
 				</table>

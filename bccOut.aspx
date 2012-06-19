@@ -24,7 +24,8 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
-        aPop = new Array(['txtPartno','lblPart','part','noa,part','txtPartno,txtPart','part_b.aspx'],['txtBccno_', 'btnBccno_', 'bcc', 'noa,product', 'txtBccno_,txtBccname_', 'bcc_b.aspx']);
+        aPop = new Array(['txtPartno','lblPart','part','noa,part','txtPartno,txtPart','part_b.aspx'],
+        ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product', 'txtBccno_,txtBccname_', 'bcc_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -42,32 +43,11 @@
            }
             mainForm(1);
         }  ///  end Main()
-
-       /* function pop(form) {
-            b_pop = form;
-            switch (form) {
-                case 'ucc': q_pop('txtProductno_' + b_seq, 'ucc_b.aspx', 'ucc', 'noa', 'product', "70%", "650px", q_getMsg('popUcc')); break;
-                case 'store': q_pop('txtStoreno', 'store_b.aspx', 'store', 'noa', 'store', "60%", "650px", q_getMsg('popStore')); break;
-                case 'station': q_pop('txtStationno', 'station_b.aspx', 'station', 'noa', 'station', "60%", "650px", q_getMsg('popStation')); break;
-            }
-        }*/
-
         function mainPost() { 
             q_getFormat();
             bbmMask = [['txtDatea', r_picd], ['txtCucdate', r_picd]];
             q_mask(bbmMask);
-            fbbm[fbbm.length] = 'txtMemo'; 
-              
 
-           /* $('#btnStore').click(function () { pop('store'); }); 
-            $('#btnStore').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtStoreno").change(function () { q_change($(this), 'store', 'noa', 'noa,store'); }); 
-
-            $('#btnStation').click(function () { pop('station'); }); 
-            $('#btnStation').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtStationno").change(function () { q_change($(this), 'station', 'noa', 'noa,station'); }); 
-
-            $('#btnquat').click(function () { btnquat(); });*/
         }
 
         function q_boxClose( s2) { 
@@ -182,7 +162,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('bccout_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('bccout_s.aspx', q_name + '_s', "500px", "340px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   
@@ -471,7 +451,7 @@
         </tr>  
         <tr>
             <td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
-            <td class="td2" colspan="7"><textarea id="txtMemo" cols="10" rows="5" style="width: 99%; height: 127px;"></textarea></td>
+            <td class="td2" colspan="7"><textarea id="txtMemo" cols="10" rows="5" style="width: 99%; height: 50px;"></textarea></td>
             
         </tr>       
         </table>
