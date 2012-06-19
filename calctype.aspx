@@ -75,13 +75,17 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)
                     return;
+<<<<<<< HEAD
 
                 q_box('caltype_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
+=======
+>>>>>>> dfe392ab290a7269430a8c99714b90e80db30c7c
             }
             function btnIns() {
                 _btnIns();
             }
             function btnModi() {
+            	
                 if(emp($('#txtNoa').val()))
                     return;
                 _btnModi();
@@ -94,6 +98,7 @@
             		alert('Empty NO!');
             		return;
             	}
+            	var t_noa = $('#txtNoa').val();
                 wrServer(t_noa);
             }
 
@@ -207,7 +212,7 @@
                 height: 35px;
             }
             .tbbm td {
-                width: 5%;
+                width: 8%;
             }
             .tbbm .tdZ {
                 width: 2%;
@@ -315,36 +320,35 @@
 						<td class="td6"><span class="schema"> </span></td>
 						<td class="td7"><span class="schema"> </span></td>
 						<td class="td8"><span class="schema"> </span></td>
-						<td class="td9"><span class="schema"> </span></td>
-						<td class="tdA"><span class="schema"> </span></td>
-						<td class="tdB"><span class="schema"> </span></td>
-						<td class="tdC"><span class="schema"> </span></td>
-						<td class="tdD"><span class="schema"> </span></td>
-						<td class="tdE"><span class="schema"> </span></td>
-						<td class="tdF"><span class="schema"> </span></td>
-						<td class="tdG"><span class="schema"> </span></td>
 						<td class="tdZ"><span class="schema"> </span></td>
 					</tr>
 					<tr class="tr1">
-						<td class="td1" colspan="2"><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td class="td3" colspan="2">
-						<input id="txtDatea" type="text"  class="txt c1"/>
-						</td>
-						<td class="td5" colspan="2"><span> </span><a id="lblTrandate" class="lbl"> </a></td>
-						<td class="td7" colspan="2">
-						<input id="txtTrandate" type="text"  class="txt c1"/>
-						</td>
-						<td class="td9" colspan="2"><span> </span><a id="lblCarno" class="lbl btn"> </a></td>
-						<td class="tdB" colspan="2">
-						<input id="txtCarno" type="text"  class="txt c1"/>
-						</td>
-						<td class="tdD" colspan="2"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
-						<td class="tdF" colspan="2">
-						<input id="txtDriverno" type="text"  style='width:35%; float:left;'/>
-						<input id="txtDriver" type="text"  style='width:65%; float:left;'/>
+						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtNoa" type="text"  class="txt c1"/>
 						</td>
 					</tr>
-					
+					<tr class="tr2">
+						<td class="td1"><span> </span><a id="lblTypea" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtTypea" type="text"  class="txt c1"/>
+						</td>
+					</tr>
+					<tr class="tr3">
+						<td class="td1"><span> </span><a id="lblIsoutside" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="chkIsoutside" type="checkbox"/>
+						</td>
+					</tr>
+					<tr> </tr>
+					<tr> </tr>
+					<tr> </tr>
+					<tr> </tr>
+					<tr> </tr>
+					<tr> </tr>
+					<tr> </tr>
+					<tr> </tr>
+					<tr> </tr>
 				</table>
 			</div>
 		</div>
