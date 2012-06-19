@@ -322,6 +322,10 @@
                 width: 80%;
                 float: left;
             }
+            .txt.c6 {
+                width: 99%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -364,35 +368,42 @@
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 73%;float: left;">
+        <div class='dbbm' style="width: 65%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
             <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
                <td class="td2"><input id="txtNoa"  type="text" class="txt c1" /></td>
+               <td class="td3"></td>
+               <td class="td4"></td>
+               <td class="td5"></td>
             </tr>
             <tr>   
                <td class="td1" ><span> </span><a id='lblBank' class="lbl"></a></td>
-               <td class="td2" colspan='5'><input id="txtBank"  type="text" class="txt c2" /></td>
+               <td class="td2" colspan='3'><input id="txtBank"  type="text" class="txt c6" /></td>
             </tr>
             <tr>
                <td class="td1" ><span> </span><a id='lblConn' class="lbl"></a></td>
                <td class="td2"><input id="txtConn" type="text" class="txt c1" /></td>
                <td class="td3" ><span> </span><a id='lblTel' class="lbl"></a></td>
                <td class="td4"><input id="txtTel" type="text" class="txt c1" /></td>
+               <td class="td5"></td>
             </tr>
             <tr>
                <td class="td1" ><span> </span><a id='lblAddr' class="lbl"></a></td>
-               <td class="td2" colspan='5'><input id="txtAddr"  type="text" class="txt c2" /></td>
+               <td class="td2" colspan='3'><input id="txtAddr"  type="text" class="txt c6" /></td>
+               <td class="td5"></td>
             </tr>            
             <tr>
                <td class="td1" ><span> </span><a id='lblAccount' class="lbl"></a></td>
                <td class="td2"><input id="txtAccount"  type="text" class="txt c1" /></td>
                <td class="td3" ><span> </span><a id='lblAcc1' class="lbl"></a></td>
                <td class="td4"><input id="txtAcc1" type="text" class="txt c1" /></td>
+               <td class="td5"></td>
             </tr>            
             <tr>
                 <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-                <td class="td2" colspan='5' ><textarea id="txtMemo"  rows='5' cols='10' style="width:98%; height: 127px;"></textarea></td> 
+                <td class="td2" colspan='3' ><textarea id="txtMemo"  rows='5' cols='10' style="width:98%; height: 50px;"></textarea></td> 
+                <td class="td5"></td>
             </tr>
         </table>
         </div>
