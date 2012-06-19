@@ -2,13 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
-		<script src="../script/jquery.min.js" type="text/javascript"></script>
-		<script src='../script/qj2.js' type="text/javascript"></script>
-		<script src='qset.js' type="text/javascript"></script>
-		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src="../script/qbox.js" type="text/javascript"></script>
-		<script src='../script/mask.js' type="text/javascript"></script>
+		<title> </title>
+		<script src="../script/jquery.min.js" type="text/javascript"> </script>
+		<script src='../script/qj2.js' type="text/javascript"> </script>
+		<script src='qset.js' type="text/javascript"> </script>
+		<script src='../script/qj_mess.js' type="text/javascript"> </script>
+		<script src='../script/mask.js' type="text/javascript"> </script>
+		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             this.errorHandler = null;
@@ -20,8 +20,8 @@
             var q_name = "tre";
             var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
-            var bbmNum = [['txtPrice', 11, 3]];
-            var bbsNum = [['txtMoney', 10, 0]];
+            var bbmNum = [['txtMoney', 10, 0],['txtTaxrate', 10, 1],['txtTax', 10, 0],['txtTotal', 10, 0]];
+            var bbsNum = [['txtMount', 10, 3],['txtPrice', 10, 3],['txtDiscount', 10, 3],['txtMoney', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -353,11 +353,16 @@
             .tbbm tr td {
                 width: 9%;
             }
-            .tbbm .tr2, .tbbm .tr3 {
+            .tbbm .tr1{
                 background-color: #FFEC8B;
             }
             .tbbm .tdZ {
                 width: 2%;
+            }
+            td .schema {
+                display: block;
+                width: 95%;
+                height: 0px;
             }
             .tbbm tr td span {
                 float: right;
@@ -445,7 +450,34 @@
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
+					<tr name="schema" style="height:0px;">
+						<td class="td1"><span class="schema"> </span></td>
+						<td class="td2"><span class="schema"> </span></td>
+						<td class="td3"><span class="schema"> </span></td>
+						<td class="td4"><span class="schema"> </span></td>
+						<td class="td5"><span class="schema"> </span></td>
+						<td class="td6"><span class="schema"> </span></td>
+						<td class="td7"><span class="schema"> </span></td>
+						<td class="td8"><span class="schema"> </span></td>
+						<td class="td9"><span class="schema"> </span></td>
+						<td class="tdA"><span class="schema"> </span></td>
+						<td class="tdZ"><span class="schema"> </span></td>
+					</tr>
 					<tr class="tr1">
+						<td class="td1"><span> </span><a id="lblTrandate" class="lbl"> </a></td>
+						<td class="td2" colspan="2">
+						<input id="txtBtrandate" type="text"  class="txt c2"/>
+						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
+						<input id="txtEtrandate" type="text"  class="txt c2"/>
+						</td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
+						<td class="td5"> </td>
+						<td class="td6">
+						<input type="button" id="btnTrans" class="txt c1"/>
+						</td>
+					</tr>
+					<tr class="tr2">
 						<td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtNoa" type="text" class="txt c1"/>
@@ -466,24 +498,7 @@
 						</td>
 						<td class="tdZ"></td>
 					</tr>
-					<tr class="tr2">
-						<td class="td1"><span> </span><a id="lblTrandate" class="lbl"></a></td>
-						<td class="td2" colspan="2">
-						<input id="txtBtrandate" type="text"  class="txt c2"/>
-						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
-						<input id="txtEtrandate" type="text"  class="txt c2"/>
-						</td>
-						<td class="td3"></td>
-						<td class="td4"></td>
-						<td class="td5"></td>
-						<td class="td6">
-						<input type="button" id="btnTrans" class="txt c1"/>
-						</td>
-						<td class="td7"></td>
-						<td class="td8"></td>
-						<td class="td9"></td>
-						<td class="tdZ"></td>
-					</tr>
+					
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id="lblPaydate" class="lbl"></a></td>
 						<td class="td2">
