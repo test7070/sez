@@ -30,7 +30,7 @@
             ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
             ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
             ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'],
-            ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr,productno,product,custprice,driverprice,driverprice2,discount', 'txtStraddrno,txtStraddr,txtUccno,txtProduct,txtPrice,txtPrice2,txtPrice3,txtDiscount', 'addr_b2.aspx'],
+            ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr,productno,product,custprice,driverprice,driverprice2,discount,commission', 'txtStraddrno,txtStraddr,txtUccno,txtProduct,txtPrice,txtPrice2,txtPrice3,txtDiscount,txtCommission', 'addr_b2.aspx'],
             ['txtAddno3', 'lblAdd3', 'addr', 'noa,addr', 'txtAddno3,txtAdd3', 'addr_b2.aspx'],
             ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
             ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
@@ -191,7 +191,7 @@
             	}
             	var t_mount = $.trim($('#txtMount').val()).length==0?0:parseFloat($.trim($('#txtMount').val().replace(/,/g,'')),10);
             	var t_price = $.trim($('#txtPrice').val()).length==0?0:parseFloat($.trim($('#txtPrice').val().replace(/,/g,'')),10);
-            	$("#txtTotal").val(round(t_mount * t_price,0));
+            	$("#txtTotal").val(Math.round(t_mount * t_price,0));
                 
                 var t_discount = $.trim($('#txtDiscount').val()).length==0?0:parseFloat($.trim($('#txtDiscount').val().replace(/,/g,'')),10);
 				t_mount = $.trim($('#txtMount2').val()).length==0?0:parseFloat($.trim($('#txtMount2').val().replace(/,/g,'')),10);
@@ -199,7 +199,7 @@
 					t_price = $.trim($('#txtPrice3').val()).length==0?0:parseFloat($.trim($('#txtPrice3').val().replace(/,/g,'')),10);      
 				else
             		t_price = $.trim($('#txtPrice2').val()).length==0?0:parseFloat($.trim($('#txtPrice2').val().replace(/,/g,'')),10);            
-                $("#txtTotal2").val(round(t_mount * t_price * t_discount,0));
+                $("#txtTotal2").val(Math.round(t_mount * t_price * t_discount,0));
                 
             	var bmiles = $.trim($('#txtBmiles').val()).length==0?0:parseInt($.trim($('#txtBmiles').val().replace(/,/g,'')),10);
 				var emiles = $.trim($('#txtEmiles').val()).length==0?0:parseInt($.trim($('#txtEmiles').val().replace(/,/g,'')),10);
