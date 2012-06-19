@@ -42,17 +42,11 @@
             }
 
             mainForm(1); 
-        }  
-
-     /*   aPop = [['txtStoreno', 'btnStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
-                ['txtStoreno2', 'btnStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx', "60%", "650px", q_getMsg('popStore')],
-                ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']];*/
-
+        }
         function mainPost() { 
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
-            q_mask(bbmMask);
-             fbbm[fbbm.length] = 'txtMemo'; 
+            q_mask(bbmMask); 
              q_cmbParse("cmbTypea", q_getPara('cut.typea'));
              
         }
@@ -97,7 +91,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('cut_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('cut_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   
@@ -176,8 +170,6 @@
 
         function btnPlus(org_htm, dest_tag, afield) {
             _btnPlus(org_htm, dest_tag, afield);
-            if (q_tables == 's')
-                bbsAssign();  
         }
 
         function q_appendData(t_Table) {
@@ -433,9 +425,9 @@
         <tr>
             <td class='td1'><span> </span><a id="lblLoss" class="lbl"></a></td>
             <td class="td2"><input id="txtLoss" type="text" class="txt c1"/></td> 
-            <td class='td3'><span> </span><a id="lblTheyout" class="lbl" style="font-size: 14px;"></a></td>
+            <td class='td3'><span> </span><a id="lblTheyout" class="lbl" ></a></td>
             <td class="td4"><input id="txtTheyout" type="text" class="txt num c1" /></td>
-            <td class='td5'><span> </span><a id="lblTotalout" class="lbl" style="font-size: 14px;"></a></td>
+            <td class='td5'><span> </span><a id="lblTotalout" class="lbl" ></a></td>
             <td class="td6"><input id="txtTotalout" type="text"class="txt num c1" /></td>
         </tr> 
         <tr>

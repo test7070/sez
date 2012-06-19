@@ -16,7 +16,6 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var decbbm = ['price','pricepay'];
         var q_name="chgitem";
         var q_readonly = [];
         var bbmNum = []; 
@@ -38,31 +37,14 @@
                dataErr = false;
                return;
            }
-
-            q_mask(bbmMask);
-
-            mainForm(0); // 1=Last  0=Top
-
-            $('#txtNoa').focus();
-            
+            mainForm(0); // 1=Last  0=Top   
         }  ///  end Main()
 
 
         function mainPost() {
-           q_cmbParse("cmbTypea", q_getPara('chgitem.typea'));
-            fbbm[fbbm.length] = 'txtMemo'; 
+        	q_mask(bbmMask);
+           q_cmbParse("cmbTypea", q_getPara('chgitem.typea')); 
         }
-
-     /*   function pop(form, seq) {
-            b_seq = (seq ? seq : '');
-            b_pop = form;
-            switch (form) {
-                case 'sss': q_pop('txtSalesno', 'sss_b.aspx', 'sss', 'noa', 'namea', "60%", "650px", q_getMsg('popSss')); break;
-                case 'sss': q_pop('txtGrpno', 'sss_b.aspx', 'sss', 'noa', 'comp', "60%", "650px", q_getMsg('popsss')); break;
-                case 'conn': q_pop('txtNoa', "conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'conn', 'noa', 'namea', "60%", "650px", q_getMsg('popConn')); break;
-            }
-        }
-*/
         function txtCopy(dest, source) {
             var adest = dest.split(',');
             var asource = source.split(',');
@@ -210,8 +192,6 @@
 
         function btnPlus(org_htm, dest_tag, afield) {
             _btnPlus(org_htm, dest_tag, afield);
-            if (q_tables == 's')
-                bbsAssign();  /// ???B?? 
         }
 
         function q_appendData(t_Table) {
@@ -331,7 +311,7 @@
             </tr>
             <tr>
                 <td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
-                <td class="td2" colspan='6'><textarea id="txtMemo"  cols="10" rows="5"  style='width:98%; height: 127px;'></textarea></td>
+                <td class="td2" colspan='6'><textarea id="txtMemo"  cols="10" rows="5"  style='width:98%; height: 50px;'></textarea></td>
             </tr>
             <tr>
                <td class="td1"></td>

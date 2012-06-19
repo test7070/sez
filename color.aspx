@@ -35,45 +35,14 @@
                dataErr = false;
                return;
            }
-
-            q_mask(bbmMask);
-
-            mainForm(0); // 1=Last  0=Top
-           
+            mainForm(0); // 1=Last  0=Top           
         }  
 
 
         function mainPost() { 
-            
-           /* $('#btnSales').click(function () { pop('sss'); });
-            $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); });
+            q_mask(bbmMask);
 
-            $('#btnsss').click(function () { pop('sss'); });
-            $('#btnsss').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtGrpno").change(function () { 
-            q_change($(this), 'sss', 'noa', 'noa,comp'); });
-
-            $('#btnConn').click(function () { pop('conn') });  
-            $('#btnConn').mouseenter(function () { $(this).css('cursor', 'pointer') });
-
-            $("#txtComp").change(function () { $("#txtNick").val($("#txtComp").val().substr(0, 2)); });
-
-            txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
-            txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
-            txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');*/
         }
-
-        /*function pop(form, seq) {
-            b_seq = (seq ? seq : '');
-            b_pop = form;
-            switch (form) {
-                case 'sss': q_pop('txtSalesno', 'sss_b.aspx', 'sss', 'noa', 'namea', "60%", "650px", q_getMsg('popSss')); break;
-                case 'sss': q_pop('txtGrpno', 'sss_b.aspx', 'sss', 'noa', 'comp', "60%", "650px", q_getMsg('popsss')); break;
-                case 'conn': q_pop('txtNoa', "conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'conn', 'noa', 'namea', "60%", "650px", q_getMsg('popConn')); break;
-            }
-        }*/
-
         function txtCopy(dest, source) {
             var adest = dest.split(',');
             var asource = source.split(',');
@@ -221,8 +190,6 @@
 
         function btnPlus(org_htm, dest_tag, afield) {
             _btnPlus(org_htm, dest_tag, afield);
-            if (q_tables == 's')
-                bbsAssign();  
         }
 
         function q_appendData(t_Table) {
@@ -266,19 +233,118 @@
         }
     </script>
     <style type="text/css">
-         .dview{float:left;width:25%;}
-		 .tview{margin:0;padding:2px;border:1px black double;border-spacing:0;font-size:16px;background-color:#FFFF66;color:blue;}
-		 .tview td{padding:2px;text-align:center;border:1px black solid;}
-		 .dbbm{float:left;width:73%;margin:-1px;border:1px black solid;border-radius:5px;}
-		 .tbbm{padding:0px;border:1px white double;border-spacing:0;border-collapse:collapse;font-size:16px;color:blue;background:#cad3ff;width:100%;}
-		 .tbbm tr{height:35px;}
-		 .td1, .td3{width: 10%;text-align: right;}
-		 .td2, .td4{width: 10%;}
-		 .tbbm tr td span{float:right;display:block;width:8px;height:10px;}
-		 .tbbm tr td .txt.c1{width:100%;float:left;}
-		 .tbbm tr td{margin:0px -1px;padding:0;}
-		 .tbbm tr td input[type="text"]{border-width:1px;padding:0px;margin:-1px;}
-		 .tbbm tr td select{border-width:1px;padding:0px;margin:-1px;width: 98%;}
+         #dmain {
+                overflow: hidden;
+            }
+            .dview {
+                float: left;
+                width: 38%;
+            }
+            .tview {
+                margin: 0;
+                padding: 2px;
+                border: 1px black double;
+                border-spacing: 0;
+                font-size: medium;
+                background-color: #FFFF66;
+                color: blue;
+            }
+            .tview td {
+                padding: 2px;
+                text-align: center;
+                border: 1px black solid;
+            }
+            .dbbm {
+                float: left;
+                width: 60%;
+                margin: -1px;
+                border: 1px black solid;
+                border-radius: 5px;
+            }
+            .tbbm {
+                padding: 0px;
+                border: 1px white double;
+                border-spacing: 0;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                background: #cad3ff;
+                width: 100%;
+            }
+            .tbbm tr {
+                height: 35px;
+            }
+            .tbbm tr td {
+                width: 9%;
+            }
+            .tbbm .tdZ {
+                width: 2%;
+            }
+            .tbbm tr td span {
+                float: right;
+                display: block;
+                width: 5px;
+                height: 10px;
+            }
+            .tbbm tr td .lbl {
+                float: right;
+                color: blue;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn {
+                color: #4297D7;
+                font-weight: bolder;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn:hover {
+                color: #FF8F19;
+            }
+            .txt.c1 {
+                width: 98%;
+                float: left;
+            }
+            .txt.c2 {
+                width: 38%;
+                float: left;
+            }
+            .txt.c3 {
+                width: 60%;
+                float: left;
+            }
+            .txt.c4 {
+                width: 18%;
+                float: left;
+            }
+            .txt.c5 {
+                width: 80%;
+                float: left;
+            }
+            .txt.c6 {
+                width: 99%;
+                float: left;
+            }
+            .txt.num {
+                text-align: right;
+            }
+            .tbbm td {
+                margin: 0 -1px;
+                padding: 0;
+            }
+            .tbbm td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                float: left;
+            }
+            .tbbm select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+            }
+            
+             input[type="text"],input[type="button"] {     
+                font-size: medium;
+            }
     </style>
 </head>
 <body>
@@ -301,13 +367,13 @@
         <div class='dbbm' style="width: 70%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
           <tr class="tr1">
-               <td class="td1"><span> </span><a id="lblNoa"></a></td>
+               <td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
                <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
                <td class="td3"></td>
                <td class="td4"></td> 
             </tr>
             <tr class="tr2">
-               <td class="td1"><span> </span><a id="lblColor"></a></td>
+               <td class="td1"><span> </span><a id="lblColor" class="lbl"></a></td>
                <td class="td2"><input id="txtColor" type="text" class="txt c1"/></td>
                <td class="td3"></td>
                <td class="td4"></td> 
