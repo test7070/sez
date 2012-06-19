@@ -57,7 +57,6 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
                 q_mask(bbmMask);
-                fbbm[fbbm.length] = 'txtMemo'; 
             }
 
            function q_boxClose( s2) { 
@@ -119,7 +118,7 @@
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('fixa_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('fixa_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
 
             function combPay_chg() {

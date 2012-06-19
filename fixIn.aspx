@@ -50,7 +50,6 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-            fbbm[fbbm.length] = 'txtMemo';
             q_cmbParse("cmbTypea", q_getPara('fixin.typea'));
         }
 
@@ -370,7 +369,7 @@
         </tr> 
         <tr>
             <td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
-            <td class="td2" colspan="7"><textarea id="txtMemo" rows="5" cols="10" style="width:98%; height: 127px;"></textarea></td>
+            <td class="td2" colspan="7"><textarea id="txtMemo" rows="5" cols="10" style="width:98%; height: 50px;"></textarea></td>
         </tr>     
         </table>
         </div>
