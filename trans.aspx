@@ -588,8 +588,8 @@
 						</td>
 						<td class="tdD" colspan="2"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
 						<td class="tdF" colspan="2">
-						<input id="txtDriverno" type="text"  style='width:35%; float:left;'/>
-						<input id="txtDriver" type="text"  style='width:65%; float:left;'/>
+						<input id="txtDriverno" type="text"  class="txt c2"/>
+						<input id="txtDriver" type="text"  class="txt c3"/>
 						</td>
 					</tr>
 					<tr class="tr2">
