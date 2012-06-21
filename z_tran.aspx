@@ -24,80 +24,77 @@
                 q_gf('', 'z_tran');
             });
             function q_gfPost() {
-                q_func('car2.getItem', '3,4,5');
+                q_gt('carteam', '', 0, 0, 0, "");
             }
 
             function q_boxClose(t_name) {
             }
-
             function q_gtPost(t_name) {
-            }
+            	var t_item = "";
+            	switch (t_name) {
+                    case 'carteam':
+                        var as = _q_appendData("carteam", "", true);
+                        for( i = 0; i < as.length; i++) {
+                            t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;
+                        }    
+                        break;
+                }
+                $('#qReport').q_report({
+                    fileName : 'z_tran',
+                    options : [{
+                        type : '0',
+                        name : 'accy',
+                        value : q_getId()[4]
+                    }, {
+                        type : '6',
+                        name : 'month'
+                    }, {
+                        type : '1',
+                        name : 'mon'
+                    }, {
+                        type : '1',
+                        name : 'trandate'
+                    }, {
+                        type : '2',
+                        name : 'cust',
+                        dbf : 'cust',
+                        index : 'noa,comp',
+                        src : 'cust_b.aspx'
+                    }, {
+                        type : '2',
+                        name : 'driver',
+                        dbf : 'driver',
+                        index : 'noa,namea',
+                        src : 'driver_b.aspx'
+                    }, {
+                        type : '2',
+                        name : 'sales',
+                        dbf : 'sss',
+                        index : 'noa,namea',
+                        src : 'sss_b.aspx'
+                    }, {
+                        type : '5', //select
+                        name : 'xcarteamno',
+                        value : [q_getPara('report.all')].concat(t_item.split(','))
+                    }, {
+                        type : '6',
+                        name : 'xcarno'
+                    }, {
+                        type : '6',
+                        name : 'xpo'
+                    }]
+                });
+                q_getFormat();
+                q_langShow();
+                q_popAssign();
 
-            function q_funcPost(t_func, result) {
-                if(result.substr(0, 5) == '<Data') {
-                    var tmp = _q_appendData('carteam', '', true);
-                    var t_carteam = '';
-                    for(var z = 0; z < tmp.length; z++) {
-                        t_carteam = t_carteam + (t_carteam.length > 0 ? ',' : '') + tmp[z].noa + '@' + tmp[z].team;
-                    }
-                    $('#qReport').q_report({
-                        fileName : 'z_tran',
-                        options : [{
-                            type : '0',
-                            name : 'accy',
-                            value : q_getId()[4]
-                        }, {
-                            type : '6',
-                            name : 'month'
-                        }, {
-                            type : '1',
-                            name : 'mon'
-                        }, {
-                            type : '1',
-                            name : 'trandate'
-                        }, {
-                            type : '2',
-                            name : 'cust',
-                            dbf : 'cust',
-                            index : 'noa,comp',
-                            src : 'cust_b.aspx'
-                        }, {
-                            type : '2',
-                            name : 'driver',
-                            dbf : 'driver',
-                            index : 'noa,namea',
-                            src : 'driver_b.aspx'
-                        }, {
-                            type : '2',
-                            name : 'sales',
-                            dbf : 'sss',
-                            index : 'noa,namea',
-                            src : 'sss_b.aspx'
-                        }, {
-                            type : '5', //select
-                            name : 'xcarteamno',
-                            value : [q_getPara('report.all')].concat(t_carteam.split(','))
-                        }, {
-                            type : '6',
-                            name : 'xcarno'
-                        }, {
-                            type : '6',
-                            name : 'xpo'
-                        }]
-                    });
-                    q_getFormat();
-                    q_langShow();
-                    q_popAssign();
-
-                    $('#txtMonth').mask('999/99');
-                    $('#txtMon1').mask('999/99');
-                    $('#txtMon2').mask('999/99');
-                    $('#txtTrandate1').mask('999/99/99');
-                    $('#txtTrandate1').datepicker();
-                    $('#txtTrandate2').mask('999/99/99');
-                    $('#txtTrandate2').datepicker();
-                } else
-                    alert('Error!' + '\r' + t_func + '\r' + result);
+                $('#txtMonth').mask('999/99');
+                $('#txtMon1').mask('999/99');
+                $('#txtMon2').mask('999/99');
+                $('#txtTrandate1').mask('999/99/99');
+                $('#txtTrandate1').datepicker();
+                $('#txtTrandate2').mask('999/99/99');
+                $('#txtTrandate2').datepicker();  
             }
 		</script>
 	</head>
