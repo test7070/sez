@@ -19,7 +19,7 @@
         var q_name = "vccb";
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [['txtPrice', 10, 3]];  
+        var bbmNum = [];  
         var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
         var bbmMask = [];
         var bbsMask = [];
@@ -50,7 +50,6 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-            fbbm[fbbm.length] = 'txtMemo'; 
             q_cmbParse("cmbTypea", q_getPara('vccb.typea'));
              
         }
@@ -95,7 +94,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('vccb_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('vccb_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   

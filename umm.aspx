@@ -48,7 +48,6 @@
             }
 
             function mainPost() {
-            	fbbm[fbbm.length] = 'txtMemo';
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtVbdate', r_picd], ['txtVedate', r_picd]];
                 q_mask(bbmMask);
@@ -121,7 +120,7 @@
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('umm_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('umm_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
@@ -225,7 +224,7 @@
             }
 
             function q_appendData(t_Table) {
-                dataErr = !_q_appendData(t_Table);
+                return _q_appendData(t_Table);
             }
 
             function btnSeek() {
@@ -290,11 +289,11 @@
             .tbbm tr td .lbl.btn:hover {
                 color: #FF8F19;
             }
-		 .tbbm tr td .txt.c1{width:100%;float:left;}
-		 .tbbm tr td .txt.c2{width:50%;float:left;}
-		 .tbbm tr td .txt.c3{width:47%;float:left;}
-		 .tbbm tr td .txt.c4{width:53%;float:left;}
-		 .tbbm tr td .txt.c5{width:35%;float:left;}
+		 .tbbm tr td .txt.c1{width:98%;float:left;}
+		 .tbbm tr td .txt.c2{width:48%;float:left;}
+		 .tbbm tr td .txt.c3{width:46%;float:left;}
+		 .tbbm tr td .txt.c4{width:52%;float:left;}
+		 .tbbm tr td .txt.c5{width:32%;float:left;}
 		 .tbbm tr td .txt.c6{width:64%;float:left;}
 		 .tbbm tr td .txt.num{text-align:right;}
 		 .txt.c7{width:96%;text-align: right;}
@@ -304,10 +303,24 @@
 		 .dbbs .tbbs tr{height:35px;}
 		 .dbbs .tbbs tr td{text-align:center;border:2px lightgrey double;}
 		
-		 .dbbm input[type="button"]{float:right;width:auto;font-size: medium;}
+		 
 		 .tbbm tr td{margin:0px -1px;padding:0;}
-		 .tbbm tr td input[type="text"]{border-width:1px;padding:0px;margin:-1px;font-size: medium;}
-		 .tbbm tr td select{border-width:1px;padding:0px;margin:-1px;width: 98%;}
+		  input[type="text"], input[type="button"] {
+                font-size: medium;
+            }
+             .tbbm td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                float: left;
+            }
+            .tbbm select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                font-size: medium;
+            }
+		 
 		</style>
 	</head>
 	<body>
@@ -425,7 +438,7 @@
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
-						<td class="td2" colspan='7' ><textarea  id="txtMemo" cols="10" rows="5" style="width: 99%; height: 127px;" ></textarea></td>
+						<td class="td2" colspan='7' ><textarea  id="txtMemo" cols="10" rows="5" style="width: 99%; height: 50px;" ></textarea></td>
 					</tr>
 				</table>
 			</div>

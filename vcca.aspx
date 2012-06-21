@@ -19,7 +19,7 @@
         var q_name = "vcca";
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [['txtPrice', 10, 3]];  // 允許 key 小數
+        var bbmNum = [];  // 允許 key 小數
         var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
         var bbmMask = [];
         var bbsMask = [];
@@ -47,7 +47,6 @@
         }  
 
              function mainPost() { // 載入資料完，未 refresh 前
-            fbbm[fbbm.length] = 'txtMemo'; 
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
@@ -94,7 +93,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('vcca_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('vcca_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫

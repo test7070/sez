@@ -149,7 +149,7 @@
                 if(q_cur > 0 && q_cur < 4)
                     return;
 
-                q_box('vcc_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('vcc_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
 
             function combPay_chg() {
@@ -385,7 +385,7 @@
                 padding: 2px;
                 border: 1px black double;
                 border-spacing: 0;
-                font-size: 16px;
+                font-size: medium;
                 background-color: #FFFF66;
                 color: blue;
             }
@@ -406,7 +406,7 @@
                 border: 1px white double;
                 border-spacing: 0;
                 border-collapse: collapse;
-                font-size: 16px;
+                font-size: medium;
                 color: blue;
                 background: #cad3ff;
                 width: 100%;
@@ -429,7 +429,7 @@
             .tbbm tr td .lbl {
                 float: right;
                 color: blue;
-                font-size: 16px;
+                font-size: medium;
             }
             .tbbm tr td .lbl.btn {
                 color: #4297D7;
@@ -462,23 +462,28 @@
                 padding: 0px;
                 margin: -1px;
                 float: left;
+                font-size: medium;
             }
             .tbbm select {
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size: medium;
             }
             .tbbs a {
-                font-size: 14px;
+                font-size: medium;
             }
             .tbbs input[type="text"] {
-                font-size: 14px;
+                font-size: medium;
             }
             .num {
                 text-align: right;
             }
             .tbbs input[readonly="readonly"] {
                 color: green;
+            }
+             input[type="text"], input[type="button"] {
+                font-size: medium;
             }
 		</style>
 	</head>
