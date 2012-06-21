@@ -9,7 +9,7 @@
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = "signagent_s";
+    var q_name = "signagentdate_s";
 
     $(document).ready(function () {
         main();
@@ -23,7 +23,9 @@
     function q_gfPost() {
         q_getFormat();
         q_langShow();
-
+		 bbmMask = [['txtDatea', r_picd]];
+        q_mask(bbmMask);
+        $('#txtDatea').focus();
     }
 
     function q_seekStr() {   
@@ -33,8 +35,9 @@
         t_checker = $('#txtChecker').val();
         t_agentno = $('#txtAgentno').val();
         t_agent = $('#txtAgent').val();
-
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("part", t_part)  +
+		t_datea = $('#txtDatea').val();
+        
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("part", t_part)  + q_sqlPara_or(["bdate","edate"], t_datea)  +
                            q_sqlPara2("checkerno", t_checkerno) + q_sqlPara2("checker", t_checker)+q_sqlPara_or(["agentno","agentno2","agentno3"], t_agentno) +
                            q_sqlPara_or(["agent","agent2","agent3"], t_agent);
 
@@ -50,6 +53,10 @@
 <body>
 <div style='width:400px; text-align:center;padding:15px;' >
        <table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
+             <tr class='seek_tr'>
+                <td   style="width:35%;" ><a id='lblDatea'></a></td>
+                <td><input class="txt" id="txtDatea" type="text" style="width:215px; font-size:medium;" /></td>
+            </tr>
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>

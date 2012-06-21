@@ -16,7 +16,7 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var q_name="signagent";
+        var q_name="signagentdate";
         var q_readonly = [];
         var bbmNum = [];  
         var bbmMask = []; 
@@ -112,7 +112,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('signagent_s.aspx', q_name + '_s', "500px", "330px", q_getMsg( "popSeek"));
+            q_box('signagentdate_s.aspx', q_name + '_s', "500px", "380px", q_getMsg( "popSeek"));
         }
 
         function combPay_chg() {   
@@ -326,12 +326,28 @@
                 width: 80%;
                 float: left;
             }
+            .txt.c6 {
+                width: 40%;
+                float: left;
+            }
+            .txt.c7 {
+                width: 35%;
+                float: left;
+            }
+            .txt.c8 {
+                width: 5%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
             .tbbm td {
                 margin: 0 -1px;
                 padding: 0;
+            }
+            .tbbm .cen{
+            	text-align: center;
+            	font-weight: bold;
             }
             .tbbm td input[type="text"] {
                 border-width: 1px;
@@ -357,20 +373,36 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:10%"><a id='vewPart'></a></td>
-                <td align="center" style="width:15%"><a id='vewChecker'></a></td>
-                <td align="center" style="width:10%"><a id='vewAgent'></a></td>
+                <td align="center" style="width:10%"><a id='vewDatea'></a></td>
+                <td align="center" style="width:15%"><a id='vewPart'></a></td>
+                <td align="center" style="width:10%"><a id='vewChecker'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
+                   <td align="center" id='datea'>~datea</td>
                    <td align="center" id='part'>~part</td>
                    <td align="center" id='checker'>~checker</td>
-                   <td align="center" id='agent'>~agent</td>
             </tr>
         </table>
         </div>
         <div class='dbbm' style="width: 60%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
+             <tr>
+               <td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
+               <td class="td2"><input id="txtBdate"  type="text" class="txt c6"/>
+               <a id='lblSymbol' class="txt cen c4" ></a>
+               	<input id="txtEdate"  type="text" class="txt c6"/>
+               </td>
+               <td class="td3"></td>
+            </tr>
+             <tr>
+               <td class="td1"><span> </span><a id='lblTime' class="lbl"></a></td>
+               <td class="td2"><input id="txtBtime"  type="text" class="txt c7"/><a id="lblBtime" class="txt c8"></a>
+               	<a id='lblSymbols' class="txt cen c4" ></a>
+               	<input id="txtEtime"  type="text" class="txt c7"/><a id="lblEtime" class="txt c8"></a>
+               </td>
+               <td class="td3"></td>
+            </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
                <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>

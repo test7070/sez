@@ -46,7 +46,6 @@
                 <th align="center" style='color:Blue;' ><a id='lblAction'></a></th>
                 <th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
                 <th align="center" style='color:Blue;' ><a id='lblTablea'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblAccno'></a></th>
                 <th align="center" style='color:Blue;' ><a id='lblTitle'></a></th>
                 <th align="center" style='color:Blue;' ><a id='lblMemo'></a></th>
             </tr>
@@ -57,7 +56,6 @@
                 <td style="width:10%;"><input class="txt" id="txtAction.*" type="text" style="width:98%;"  readonly="readonly" /></td>
                 <td style="width:10%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
                 <td style="width:10%;"><input class="txt" id="txtTablea.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-                <td style="width:10%;"><input class="txt" id="txtAccno.*" type="text" style="width:98%;"  readonly="readonly" /></td>
                 <td style="width:10%;"><input class="txt" id="txtTitle.*" type="text" style="width:98%;"  readonly="readonly" /></td>
                 <td style="width:20%;"><input class="txt" id="txtMemo.*" type="text" style="width:98%;"  readonly="readonly" /></td>
             </tr>
