@@ -2,13 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
-		<script src="../script/jquery.min.js" type="text/javascript"></script>
-		<script src='../script/qj2.js' type="text/javascript"></script>
-		<script src='qset.js' type="text/javascript"></script>
-		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src="../script/qbox.js" type="text/javascript"></script>
-		<script src='../script/mask.js' type="text/javascript"></script>
+		<title> </title>
+		<script src="../script/jquery.min.js" type="text/javascript"> </script>
+		<script src='../script/qj2.js' type="text/javascript"> </script>
+		<script src='qset.js' type="text/javascript"> </script>
+		<script src='../script/qj_mess.js' type="text/javascript"> </script>
+		<script src='../script/mask.js' type="text/javascript"> </script>
+		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             this.errorHandler = null;
@@ -18,10 +18,15 @@
 
             q_tables = 's';
             var q_name = "trd";
-            var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal'];
+            var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal','txtWorker'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
+<<<<<<< HEAD
             var bbmNum = [];
             var bbsNum = [['txtTranmoney', 10, 0]];
+=======
+            var bbmNum = [['txtMoney', 10, 0],['txtTaxrate', 10, 1],['txtTax', 10, 0],['txtTotal', 10, 0]];
+            var bbsNum = [['txtTranmoney', 10, 0],['txtOverweightcost', 10, 0],['txtOthercost', 10, 0]];
+>>>>>>> a1
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -31,6 +36,7 @@
             brwKey = 'Datea';
             aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b2.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'noa,namea', 'txtWorkerno,txtWorker', 'sss_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtBoatno', 'lblBoat', 'boat', 'noa,boat', 'txtBoatno,txtBoat', 'boat_b.aspx']);
             $(document).ready(function() {
+            	q_desc = 1;
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
@@ -57,9 +63,32 @@
                 $('#lblAccno').parent().click(function(e) {
                     q_box("accc.aspx?" + $('#txtAccno').val() + "'", 'accc', "850px", "600px", q_getMsg("popAccc"));
                 });
-
+				
+				$('#cmbTrtype').focus(function(){
+                	var len = $("#cmbTrtype").children().length>0?$("#cmbTrtype").children().length:1;
+                	$("#cmbTrtype").attr('size',len+"");
+                }).blur(function(){
+                	$("#cmbTrtype").attr('size','1');
+                });
+                $('#cmbTypea').focus(function(){
+                	var len = $("#cmbTypea").children().length>0?$("#cmbTypea").children().length:1;
+                	$("#cmbTypea").attr('size',len+"");
+                }).blur(function(){
+                	$("#cmbTypea").attr('size','1');
+                });
+                $('#cmbTovcca').focus(function(){
+                	var len = $("#cmbTovcca").children().length>0?$("#cmbTovcca").children().length:1;
+                	$("#cmbTovcca").attr('size',len+"");
+                }).blur(function(){
+                	$("#cmbTovcca").attr('size','1');
+                });
                 $('#cmbTaxtype').change(function(e) {
                     sum();
+                }).focus(function(){
+                	var len = $("#cmbTaxtype").children().length>0?$("#cmbTaxtype").children().length:1;
+                	$("#cmbTaxtype").attr('size',len+"");
+                }).blur(function(){
+                	$("#cmbTaxtype").attr('size','1');
                 });
                 $('#txtTaxrate').change(function(e) {
                     sum();
@@ -134,7 +163,6 @@
                                 $('#txtCarno_' + i).val(as[i].carno);
                                 $('#txtRs_' + i).val();
                                 $('#txtStraddr_' + i).val(as[i].straddr);
-                                $('#txtEndaddr_' + i).val(as[i.endaddr]);
                                 $('#txtTranmoney_' + i).val(as[i].total);
                                 $('#txtPaymemo_' + i).val();
                                 $('#txtFill_' + i).val(as[i].fill);
@@ -431,7 +459,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 150%;
+                width: 1860px;
             }
             .tbbs a {
                 font-size: medium;
@@ -474,19 +502,18 @@
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
-						<td class="td2">
+						<td class="td2" colspan="2">
 						<input id="txtNoa" type="text" class="txt c1"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblDatea" class="lbl"></a></td>
-						<td class="td4">
+						<td class="td4"><span> </span><a id="lblDatea" class="lbl"></a></td>
+						<td class="td5">
 						<input id="txtDatea" type="text"  class="txt c1"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblCust" class="lbl btn"></a></td>
-						<td class="td6" colspan="3">
+						<td class="td6"><span> </span><a id="lblCust" class="lbl btn"></a></td>
+						<td class="td7" colspan="3">
 						<input id="txtCustno" type="text"  style='width:20%; float:left;'/>
 						<input id="txtComp" type="text"  style='width:80%; float:left;'/>
 						</td>
-						<td class="td9"></td>
 						<td class="tdA"></td>
 						<td class="tdZ"></td>
 					</tr>
@@ -498,7 +525,7 @@
 						<input id="txtEtrandate" type="text"  class="txt c2"/>
 						</td>
 						<td class="td4"><span> </span><a id="lblStraddr" class="lbl btn"></a></td>
-						<td class="td5" colspan="2">
+						<td class="td5" colspan="3">
 						<input id="txtStraddrno" type="text"  class="txt c2"/>
 						<input id="txtStraddr" type="text"  class="txt c3"/>
 						</td>
@@ -506,20 +533,19 @@
 						<td class="td7">
 						<input id="txtPo" type="text"  class="txt c1"/>
 						</td>
-						<td class="td8"></td>
 						<td class="td9">
 						<input type="button" id="btnTrans" class="txt c1"/>
 						</td>
 						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1"><span> </span><a id="lblOdate" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblOdate" class="lbl"> </a></td>
 						<td class="td2" colspan="2">
 						<input id="txtBodate" type="text"  class="txt c2"/>
 						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
 						<input id="txtEodate" type="text"  class="txt c2"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblOrdeno" class="lbl"></a></td>
+						<td class="td3"><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
 						<td class="td4">
 						<input id="txtOrdeno" type="text" class="txt c1" />
 						</td>
@@ -583,13 +609,13 @@
 						<td class="tdA">
 						<input id="txtAccno" type="text"  class="txt c1"/>
 						</td>
-						<td class="tdZ"></td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr class="tr7">
-						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
-						<td class="td2" colspan="6">		<textarea id="txtMemo" cols="10" rows="5" style="width: 98%;height: 50px;"></textarea></td>
-						<td class="td8"></td>
-						<td class="td9"><span> </span><a id="lblWorker" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td class="td2" colspan="6"><input id="txtMemo" type="text"  class="txt c1"/></td>
+						<td class="td8"> </td>
+						<td class="td9"><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td class="tdA">
 						<input id="txtWorker" type="text"  class="txt c1"/>
 						</td>
@@ -600,27 +626,27 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
-					<td  align="center" style="width:2%;">
+					<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:4%;"><a id='lblTranno_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblTrandate_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblCarno_s'></a></td>
-					<td align="center" style="width:1%;"><a id='lblRs_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblStraddr_s'></a></td>
-					<td align="center" style="width:4%;"><a id='lblTranmoney_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblPaymemo_s'></a></td>
-					<td align="center" style="width:1%;"><a id='lblFill_s'></a></td>
-					<td align="center" style="width:2%;"><a id='lblCasetype_s'></a></td>
-					<td align="center" style="width:4%;"><a id='lblCaseno_s'></a></td>
-					<td align="center" style="width:4%;"><a id='lblCaseno2_s'></a></td>
-					<td align="center" style="width:4%;"><a id='lblBoat_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblBoatname_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblShip_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblMemo_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblOverweightcost_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblOthercost_s'></a></td>
-					<td align="center" style="width:4%;"><a id='lblOrdeno_s'></a></td>
+					<td align="center" style="width:120px;"><a id='lblTranno_s'></a></td>
+					<td align="center" style="width:90px;"><a id='lblTrandate_s'></a></td>
+					<td align="center" style="width:70px;"><a id='lblCarno_s'></a></td>
+					<td align="center" style="width:30px;"><a id='lblRs_s'></a></td>
+					<td align="center" style="width:200px;"><a id='lblStraddr_s'></a></td>
+					<td align="center" style="width:100px;"><a id='lblTranmoney_s'></a></td>
+					<td align="center" style="width:100px;"><a id='lblPaymemo_s'></a></td>
+					<td align="center" style="width:50px;"><a id='lblFill_s'></a></td>
+					<td align="center" style="width:50px;"><a id='lblCasetype_s'></a></td>
+					<td align="center" style="width:150px;"><a id='lblCaseno_s'></a></td>
+					<td align="center" style="width:150px;"><a id='lblCaseno2_s'></a></td>
+					<td align="center" style="width:100px;"><a id='lblBoat_s'></a></td>
+					<td align="center" style="width:100px;"><a id='lblBoatname_s'></a></td>
+					<td align="center" style="width:100px;"><a id='lblShip_s'></a></td>
+					<td align="center" style="width:100px;"><a id='lblMemo_s'></a></td>
+					<td align="center" style="width:100px;"><a id='lblOverweightcost_s'></a></td>
+					<td align="center" style="width:100px;"><a id='lblOthercost_s'></a></td>
+					<td align="center" style="width:120px;"><a id='lblOrdeno_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">

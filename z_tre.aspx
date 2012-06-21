@@ -33,13 +33,13 @@
                         type : '2',
                         name : 'driver',
                         dbf : 'driver',
-                        index : 'noa,driver',
+                        index : 'noa,namea',
                         src : 'driver_b.aspx'
                     }, {
                         type : '2',
                         name : 'cardeal',
                         dbf : 'cardeal',
-                        index : 'noa,cardeal',
+                        index : 'noa,comp',
                         src : 'cardeal_b.aspx'
                     }, {
                         type : '1',
@@ -54,6 +54,8 @@
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
+            }
+            function q_gtPost(t_name) {
             }
 		</script>
 	</head>

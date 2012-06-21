@@ -18,7 +18,7 @@
 
             q_tables = 's';
             var q_name = "tre";
-            var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal'];
+            var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal','txtWorker'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
             var bbmNum = [['txtMoney', 10, 0],['txtTaxrate', 10, 1],['txtTax', 10, 0],['txtTotal', 10, 0]];
             var bbsNum = [['txtMount', 10, 3],['txtPrice', 10, 3],['txtDiscount', 10, 3],['txtMoney', 10, 0]];
@@ -32,6 +32,7 @@
             aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
             ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
             $(document).ready(function() {
+            	q_desc = 1;
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
@@ -56,7 +57,12 @@
 
                 $('#cmbTaxtype').change(function(e) {
                     sum();
-                });
+                }).focus(function(){
+                	var len = $("#cmbTaxtype").children().length>0?$("#cmbTaxtype").children().length:1;
+                	$("#cmbTaxtype").attr('size',len+"");
+                }).blur(function(){
+                	$("#cmbTaxtype").attr('size','1');
+                }); 
                 $('#txtTaxrate').change(function(e) {
                     sum();
                 });
@@ -493,33 +499,32 @@
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
-						<td class="td2">
+						<td class="td2" colspan="2">
 						<input id="txtNoa" type="text" class="txt c1"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td class="td4">
+						<td class="td4"><span> </span><a id="lblDatea" class="lbl"> </a></td>
+						<td class="td5">
 						<input id="txtDatea" type="text"  class="txt c1"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblDriver" class="lbl btn"></a></td>
-						<td class="td6" colspan="2">
+						<td class="td6"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
+						<td class="td7" colspan="2">
 						<input id="txtDriverno" type="text"  class="txt c2"/>
 						<input id="txtDriver" type="text"  class="txt c3"/>
 						</td>
-						<td class="td8"><span> </span><a id="lblCardeal" class="lbl btn"></a></td>
-						<td class="td9" colspan="2">
-						<input id="txtCardealno" type="text"  class="txt c2"/>
-						<input id="txtCardeal" type="text"  class="txt c3"/>
-						</td>
-						<td class="tdZ"></td>
 					</tr>
 					
 					<tr class="tr4">
-						<td class="td1"><span> </span><a id="lblPaydate" class="lbl"></a></td>
-						<td class="td2">
+						<td class="td1"><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
+						<td class="td2" colspan="2">
+						<input id="txtCardealno" type="text"  class="txt c2"/>
+						<input id="txtCardeal" type="text"  class="txt c3"/>
+						</td>
+						<td class="td4"><span> </span><a id="lblPaydate" class="lbl"> </a></td>
+						<td class="td5">
 						<input id="txtPaydate" type="text" class="txt c1" />
 						</td>
-						<td class="td3"><span> </span><a id="lblRc2ano" class="lbl"></a></td>
-						<td class="td4">
+						<td class="td6"><span> </span><a id="lblRc2ano" class="lbl"> </a></td>
+						<td class="td7">
 						<input id="txtRc2ano" type="text" class="txt c1" />
 						</td>
 					</tr>
@@ -547,10 +552,10 @@
 						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr7">
-						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
-						<td class="td2" colspan="6"><textarea id="txtMemo" cols="10" rows="5" style="width: 98%;height: 50px;"></textarea></td>
-						<td class="td8"></td>
-						<td class="td9"><span> </span><a id="lblWorker" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td class="td2" colspan="6"><input id="txtMemo" type="text" class="txt c1" /></td>
+						<td class="td8"> </td>
+						<td class="td9"><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td class="tdA"><input id="txtWorker" type="text" class="txt c1" /></td>
 					</tr>
 				</table>

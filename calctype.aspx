@@ -75,11 +75,7 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)
                     return;
-<<<<<<< HEAD
-
                 q_box('caltype_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
-=======
->>>>>>> dfe392ab290a7269430a8c99714b90e80db30c7c
             }
             function btnIns() {
                 _btnIns();
@@ -175,7 +171,7 @@
             }
             .dview {
                 float: left;
-                width: 20%;
+                width: 30%;
             }
             .tview {
                 margin: 0;
@@ -193,7 +189,7 @@
             }
             .dbbm {
                 float: left;
-                width: 78%;
+                width: 65%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -297,15 +293,16 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:10%;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:20%;"><a id='vewTypea'> </a></td>
+						<td align="center" style="width:5%;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:10%;"><a id='vewTypea'> </a></td>
+						<td align="center" style="width:10%;" colspan="2"><a id='vewGroup'> </a></td>
 					</tr>
 					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox"/>
-						</td>
+						<td ><input id="chkBrow.*" type="checkbox"/></td>
 						<td align="center" id='noa'>~noa</td>
 						<td align="center" id='typea'>~typea</td>
+						<td align="center" id='gkey'>~gkey</td>
+						<td align="center" id='gname'>~gname</td>
 					</tr>
 				</table>
 			</div>
@@ -340,7 +337,15 @@
 						<input id="chkIsoutside" type="checkbox"/>
 						</td>
 					</tr>
-					<tr> </tr>
+					<tr class="tr4"> 
+						<td class="td1"><span> </span><a id="lblGroup" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtGkey" type="text"  class="txt c1"/>
+						</td>
+						<td class="td3">
+						<input id="txtGname" type="text"  class="txt c1"/>
+						</td>
+					</tr>
 					<tr> </tr>
 					<tr> </tr>
 					<tr> </tr>
