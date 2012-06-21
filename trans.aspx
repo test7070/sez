@@ -521,6 +521,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size:medium;
             }
             input[type="text"],input[type="button"] {
                 font-size:medium;

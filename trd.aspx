@@ -20,7 +20,7 @@
             var q_name = "trd";
             var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
-            var bbmNum = [['txtPrice', 11, 3]];
+            var bbmNum = [];
             var bbsNum = [['txtTranmoney', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
@@ -45,7 +45,6 @@
             }
 
             function mainPost() {
-                fbbm[fbbm.length] = 'txtMemo';
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBtrandate', r_picd], ['txtEtrandate', r_picd]];
                 q_mask(bbmMask);
@@ -178,7 +177,7 @@
                 if(q_cur > 0 && q_cur < 4)
                     return;
 
-                q_box('trd_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('trd_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
 
             function combPay_chg() {
@@ -345,7 +344,7 @@
                 padding: 2px;
                 border: 1px black double;
                 border-spacing: 0;
-                font-size: 16px;
+                font-size: medium;
                 background-color: #FFFF66;
                 color: blue;
             }
@@ -366,7 +365,7 @@
                 border: 1px white double;
                 border-spacing: 0;
                 border-collapse: collapse;
-                font-size: 16px;
+                font-size: medium;
                 color: blue;
                 background: #cad3ff;
                 width: 100%;
@@ -392,7 +391,7 @@
             .tbbm tr td .lbl {
                 float: right;
                 color: blue;
-                font-size: 16px;
+                font-size: medium;
             }
             .tbbm tr td .lbl.btn {
                 color: #4297D7;
@@ -435,13 +434,17 @@
                 width: 150%;
             }
             .tbbs a {
-                font-size: 14px;
+                font-size: medium;
             }
             input[type="text"],input[type="button"] {
                 font-size:medium;
             }
             .num {
                 text-align: right;
+            }
+            select
+            {
+            	font-size:medium;
             }
 
 		</style>

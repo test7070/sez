@@ -21,7 +21,7 @@
             var q_readonlys = ['txtOrdeno_', 'txtTranquatno_', 'txtTranquatnoq_'];
             var bbsNum = [];
             var bbsMask = [];
-            var bbmNum = new Array(['txtUnpack', 10, 0], ['txtMount', 10, 0], ['txtPrice', 10, 2], ['txtPrice2', 10, 2], ['txtPrice3', 10, 2], ['txtDiscount', 10, 0], ['miles', 10, 2], ['txtReserve', 10, 0], ['tolls', 10, 0], ['txtTicket', 10, 0], ['txGross', 10, 2], ['txtWeight', 10, 2], ['txtPlus', 10, 0], ['txtMius', 10, 0], ['txtMount2', 10, 2], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtOverH', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2],['txtThirdprice',10,3]);
+            var bbmNum = new Array(['txtUnpack', 10, 0], ['txtMount', 10, 0], ['txtPrice', 10, 2], ['txtPrice2', 10, 2], ['txtPrice3', 10, 2], ['txtDiscount', 10, 0], ['txtMiles', 10, 2], ['txtReserve', 10, 0], ['txtTolls', 10, 0], ['txtTicket', 10, 0], ['txtGross', 10, 2], ['txtWeight', 10, 2], ['txtPlus', 10, 0], ['txtMius', 10, 0], ['txtMount2', 10, 2], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtOverH', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2],['txtThirdprice',10,3]);
             var bbmMask = new Array(['txtTrandate', '999/99/99'], ['txtOdate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99'], ['txtCldate', '999/99/99'], ['txtNodate', '999/99/99'], ['txtMadate', '999/99/99'], ['txtRedate', '999/99/99']);
             q_sqlCount = 6;
             brwCount = 6;
@@ -77,7 +77,6 @@
             }
 
             function mainPost() {
-                fbbm[fbbm.length] = 'txtMemo';
                 q_cmbParse("cmbCalctype", q_getPara('trans.calctype'));
                 q_cmbParse("cmbTtype", q_getPara('trans.ttype'));
                 q_cmbParse("cmbCasetype", q_getPara('trans.casetype'));
@@ -222,7 +221,7 @@
                 if(q_cur > 0 && q_cur < 4)
                     return;
 
-                q_box('tranorde_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('tranorde_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
 
             function combPay_chg() {
