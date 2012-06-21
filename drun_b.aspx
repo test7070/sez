@@ -56,8 +56,8 @@
                 <td style="width:10%;"><input class="txt" id="txtUsera.*" type="text" style="width:98%;"  readonly="readonly" /></td>
                 <td style="width:10%;"><input class="txt" id="txtAction.*" type="text" style="width:98%;"  readonly="readonly" /></td>
                 <td style="width:10%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-                <td style="width:10%;"><input class="txt" id="txTablea.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-                <td style="width:10%;"><input class="txt" id="txAccno.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:10%;"><input class="txt" id="txtTablea.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:10%;"><input class="txt" id="txtAccno.*" type="text" style="width:98%;"  readonly="readonly" /></td>
                 <td style="width:10%;"><input class="txt" id="txtTitle.*" type="text" style="width:98%;"  readonly="readonly" /></td>
                 <td style="width:20%;"><input class="txt" id="txtMemo.*" type="text" style="width:98%;"  readonly="readonly" /></td>
             </tr>
