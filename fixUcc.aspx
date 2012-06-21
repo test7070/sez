@@ -42,37 +42,10 @@
 
 
         function mainPost() { 
-            q_mask(bbmMask);
-           fbbm[fbbm.length] = 'txtMemo'; 
+            q_mask(bbmMask); 
            q_cmbParse("cmbTypea", q_getPara('fixucc.typea')); 
            q_cmbParse("cmbCtype", q_getPara('fixucc.ctype'));
-           /* $('#btnSales').click(function () { pop('sss'); });
-            $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); });
-
-            $('#btnsss').click(function () { pop('sss'); });
-            $('#btnsss').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtGrpno").change(function () { 
-            q_change($(this), 'sss', 'noa', 'noa,comp'); });
-
-            $('#btnConn').click(function () { pop('conn') });  
-            $('#btnConn').mouseenter(function () { $(this).css('cursor', 'pointer') });
-
-            $("#txtComp").change(function () { $("#txtNick").val($("#txtComp").val().substr(0, 2)); });
-
-            txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
-            txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
-            txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');*/
             }
-       /* function pop(form, seq) {
-            b_seq = (seq ? seq : '');
-            b_pop = form;
-            switch (form) {
-                case 'sss': q_pop('txtSalesno', 'sss_b.aspx', 'sss', 'noa', 'namea', "60%", "650px", q_getMsg('popSss')); break;
-                case 'sss': q_pop('txtGrpno', 'sss_b.aspx', 'sss', 'noa', 'comp', "60%", "650px", q_getMsg('popsss')); break;
-                case 'conn': q_pop('txtNoa', "conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'conn', 'noa', 'namea', "60%", "650px", q_getMsg('popConn')); break;
-            }
-        }*/
 
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -137,7 +110,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('fixucc_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+            q_box('fixucc_s.aspx', q_name + '_s', "500px", "330px", q_getMsg( "popSeek"));
         }
 
         function combPay_chg() {   

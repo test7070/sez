@@ -43,14 +43,8 @@
             }
 
             mainForm(1); 
-        }  
-
-    /*    aPop = [['txtStoreno', 'btnStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
-                ['txtStoreno2', 'btnStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx', "60%", "650px", q_getMsg('popStore')],
-                ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']];*/
-
-        function mainPost() { 
-            fbbm[fbbm.length] = 'txtMemo'; 
+        }
+        function mainPost() {  
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
@@ -97,7 +91,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('inchg_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('inchg_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   

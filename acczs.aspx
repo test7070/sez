@@ -16,18 +16,19 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var q_name="manu";
+        
+        var q_name="acczs";
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		 aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
+
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
-            q_gt(q_name, q_content, q_sqlCount, 1)
-            $('#txtNoa').focus
+            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy + "_" + r_cno)
+
         });
 
         //////////////////   end Ready
@@ -37,14 +38,14 @@
                dataErr = false;
                return;
            }
-            mainForm(0); // 1=Last  0=Top   
+            mainForm(0); // 1=Last  0=Top
         }  ///  end Main()
 
 
         function mainPost() { 
-        	q_mask(bbmMask);
-        }
+            q_mask(bbmMask);            
 
+        }
         function txtCopy(dest, source) {
             var adest = dest.split(',');
             var asource = source.split(',');
@@ -64,10 +65,9 @@
             });
         }
         
-        function q_boxClose( s2) { 
+        function q_boxClose( s2) {
             var ret; 
-            switch (b_pop) {   
-                case 'conn':
+            switch (b_pop) {                   case 'conn':
 
                     break;
 
@@ -94,7 +94,7 @@
                     q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
                     break;
 
-                case q_name: if (q_cur == 4)   
+                case q_name: if (q_cur == 4)  
                         q_Seek_gtPost();
 
                     if (q_cur == 1 || q_cur == 2) 
@@ -108,7 +108,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('manu_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+            q_box('acczs_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
         }
 
         function combPay_chg() {   
@@ -172,18 +172,15 @@
             var i;
 
             xmlSql = '';
-            if (q_cur == 2)   
+            if (q_cur == 2)   /// popSave
                 xmlSql = q_preXml();
 
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
             _btnOk(key_value, bbmKey[0], '','',2);
         }
-
-        
-        
+       
         function refresh(recno) {
             _refresh(recno);
-           
         }
 
         function readonly(t_para, empty) {
@@ -195,11 +192,11 @@
         }
 
         function btnPlus(org_htm, dest_tag, afield) {
-            _btnPlus(org_htm, dest_tag, afield); 
+            _btnPlus(org_htm, dest_tag, afield);
         }
 
         function q_appendData(t_Table) {
-           return _q_appendData(t_Table);
+            return _q_appendData(t_Table);
         }
 
         function btnSeek(){
@@ -239,12 +236,12 @@
         }
     </script>
     <style type="text/css">
-         #dmain {
+               #dmain {
                 overflow: hidden;
             }
             .dview {
                 float: left;
-                width: 98%;
+                width: 38%;
             }
             .tview {
                 margin: 0;
@@ -262,7 +259,7 @@
             }
             .dbbm {
                 float: left;
-                width: 98%;
+                width: 60%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -286,6 +283,7 @@
             .tbbm .tdZ {
                 width: 2%;
             }
+            
             .tbbm tr td span {
                 float: right;
                 display: block;
@@ -325,10 +323,6 @@
                 width: 80%;
                 float: left;
             }
-            .txt.c6 {
-                width: 50%;
-                float: left;
-            }
             .txt.num {
                 text-align: right;
             }
@@ -346,10 +340,6 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
-                font-size:medium;
-            }
-            .tbbm textarea {
-            	font-size: medium;
             }
             
              input[type="text"],input[type="button"] {     
@@ -360,73 +350,66 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
-        <div class="dview" id="dview" style="float: left;  width:30%;"  >
+        <div class="dview" id="dview" style="float: left;  width:25%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
-                <td align="center" style="width:5%"><a id='vewChk'></a></td>                
-                <td align="center" style="width:15%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:20%"><a id='vewManu'></a></td>
-                <td align="center" style="width:20%"><a id='vewPrice'></a></td>
-                <td align="center" style="width:20%"><a id='vewDime1'></a></td>
-                <td align="center" style="width:20%"><a id='vewDime2'></a></td>                
+                <td align="center" style="width:5%"><a id='vewChk'></a></td>
+                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
+                <td align="center" style="width:40%"><a id='vewNamea'></a></td>
+                <td align="center" style="width:40%"><a id='vewSale_date'></a></td>
             </tr>
              <tr>
-                   <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
+                   <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='manu'>~manu</td>
-                   <td align="center" id='price'>~price</td>
-                   <td align="center" id='dime1'>~dime1</td>
-                   <td align="center" id='dime2'>~dime2</td>
+                   <td align="center" id='namea'>~namea</td>
+                   <td align="center" id='sale_date'>~sale_date</td>
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 65%;float: left;">
-        <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>            
+        <div class='dbbm' style="width: 73%;float: left;">
+        <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
             <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-               <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
+               <td class="td2"><input id="txtNoa" type="text"  class="txt c1"/></td>
+               <td class="td3"><span> </span><a id="lblNamea" class="lbl"></a></td>
+               <td class="td4"><input id="txtNamea"  type="text" class="txt c1" /></td>
                <td class="td5"></td>
+               <td class="td6"></td>             
+            </tr> 
+            <tr>
+               <td class="td1"><span> </span><a id="lblSale_date" class="lbl"></a></td>
+               <td class="td2"><input id="txtSale_date"  type="text" class="txt c1" /></td> 
+               <td class="td3"><span> </span><a id='lblMount' class="lbl"></a></td>
+               <td class="td4"><input id="txtMount" type="text" class="txt num c1" /></td>
+               <td class="td5"><span> </span><a id="lblSale_money" class="lbl"></a></td>
+               <td class="td6"><input id="txtSale_money"  type="text" class="txt num c1" /></td>
+                            
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblManu' class="lbl"></a></td>
-               <td class="td2" colspan="2"><input id="txtManu"  type="text"  class="txt c1"/></td>
-               <td class="td4"></td>
-               <td class="td5"></td>
-            
-            </tr>
+               <td class="td1"><span> </span><a id="lblBuy_money" class="lbl"></a></td>
+               <td class="td2"><input id="txtBuy_money"  type="text" class="txt num c1" /></td> 
+               <td class="td3"><span> </span><a id='lblDepl' class="lbl"></a></td>
+               <td class="td4"><input id="txtDepl"  type="text" class="txt num c1" /></td>
+               <td class="td5"><span> </span><a id="lblAccumulat" class="lbl"></a></td>
+               <td class="td6"><input id="txtAccumulat" type="text" class="txt num c1" /></td>
+                        
+            </tr>  
             <tr>
-               <td class="td1"><span> </span><a id='lblPrice' class="lbl"></a></td>
-               <td class="td2"><input id="txtPrice"  type="text" class="txt num c1" /></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
+               <td class="td1"><span> </span><a id="lblC4" class="lbl"></a></td>
+               <td class="td2"><input id="txtC4"  type="text" class="txt num c1" /></td>
+               <td class="td3"><span> </span><a id="lblC5" class="lbl"></a></td>
+               <td class="td4"><input id="txtC5"  type="text" class="txt num c1" /></td>
                <td class="td5"></td>
-            </tr>
+               <td class="td6"></td>              
+            </tr>                                             
             <tr>
-               <td class="td1"><span> </span><a id='lblDime1' class="lbl"></a></td>
-               <td class="td2"><input id="txtDime1" type="text" class="txt num c1" /></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-               <td class="td5"></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblDime2' class="lbl"></a></td>
-               <td class="td2"><input id="txtDime2"  type="text" class="txt num c1" /></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-               <td class="td5"></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id="lblCust" class="lbl btn" ></a></td>
-               <td class="td2"><input id="txtCustno"  type="text" class="txt c1" /></td>
-               <td class="td3" colspan="2"><input id="txtComp" type="text" class="txt c1"/></td>
-               <td class="td4"></td>
-               <td class="td5"></td>
-            </tr>    
+               <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
+               <td class="td2" colspan="5"><textarea id="txtMemo" rows="5" cols="10" style="width: 98%; height: 50px;"></textarea></td>               
+            </tr>                                                                     
         </table>
         </div>
-        </div> 
-        <input id="q_sys" type="hidden" />    
+        </div>
+         <input id="q_sys" type="hidden" />    
 </body>
 </html>
+            

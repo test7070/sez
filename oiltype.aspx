@@ -111,7 +111,7 @@
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('oil_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('oiltype_s.aspx', q_name + '_s', "500px", "200px", q_getMsg("popSeek"));
             }
 
             function combPay_chg() {
@@ -245,7 +245,7 @@
             }
             .dview {
                 float: left;
-                width: 98%;
+                width: 25%;
             }
             .tview {
                 margin: 0;
@@ -255,6 +255,7 @@
                 font-size: medium;
                 background-color: #FFFF66;
                 color: blue;
+                width: 100%;
             }
             .tview td {
                 padding: 2px;
@@ -263,7 +264,7 @@
             }
             .dbbm {
                 float: left;
-                width: 98%;
+                width: 60%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -366,36 +367,28 @@
 						<tr>
 							<td align="center" style="width:5%"><a id='vewChk'></a></td>
 							<td align="center" style="width:15%"><a id='vewNoa'></a></td>
-							<td align="center" style="width:25%"><a id='vewDatea'></a></td>
-							<td align="center" style="width:25%"><a id='vewDriver'></a></td>
-							<td align="center" style="width:25%"><a id='vewOilstation'></a></td>
+							<td align="center" style="width:25%"><a id='vewOiltype'></a></td>
 						</tr>
 						<tr>
 							<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
 							<td align="center" id='noa'>~noa</td>
-							<td align="center" id='datea'>~datea</td>
-							<td align="center" id='driver'>~driver</td>
-							<td align="center" id='driver'>~driver</td>
+							<td align="center" id='oiltype'>~oiltype</td>
 						</tr>
 					</table>
 				</div>
-				<div class='dbbm' style="width: 73%;float: left;">
+				<div class='dbbm' style="width: 60%;float: left;">
 					<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
 						<tr>
                             <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-                            <td class="td2"><input id="txtNoa"  type="text"  class="txt num c1"/></td>
+                            <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
                             <td class="td3"></td>
                             <td class="td4"></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
                        </tr>
                         <tr>
                             <td class="td1"><span> </span><a id='lblOiltype' class="lbl"></a></td>
-                            <td class="td2"><input id="txtDatea"  type="text"  class="txt num c1"/></td>
+                            <td class="td2"><input id="txtOiltype"  type="text"  class="txt c1"/></td>
                             <td class="td3"></td>
                             <td class="td4"></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
                         </tr>
 				</table>
 				</div>

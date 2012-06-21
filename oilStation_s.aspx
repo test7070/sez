@@ -24,23 +24,15 @@
         q_getFormat();
         q_langShow();
 
-        /*bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
-        q_mask(bbmMask);
-        $('#txtBdate').focus();*/
     }
 
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();
         t_worker = $('#txtWorker').val();
         t_station = $('#txtStation').val();
-        t_mount = $('#txtMount').val();
-		/*t_bdate = $('#txtBdate').val();
-        t_edate = $('#txtEdate').val();
-        t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
-        t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .*/
 
         var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)  + q_sqlPara2("worker", t_worker)  +
-                             q_sqlPara2("station", t_station)+ q_sqlPara2("mount", t_mount);
+                             q_sqlPara2("station", t_station);
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -62,10 +54,6 @@
                 <td class='seek'  style="width:20%;"><a id='lblStation'></a></td>
                 <td><input class="txt" id="txtStation" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
-            <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblMount'></a></td>
-                <td><input class="txt" id="txtMount" type="text" style="width:215px; font-size:medium;" /></td>
-            </tr> 
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblWorker'></a></td>
                 <td><input class="txt" id="txtWorker" type="text" style="width:215px; font-size:medium;" /></td>

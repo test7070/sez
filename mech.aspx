@@ -37,17 +37,12 @@
                dataErr = false;
                return;
            }
-
-            q_mask(bbmMask);
-
             mainForm(0); // 1=Last  0=Top
-
-            $('#txtNoa').focus();
-            
         }  ///  end Main()
 
 
         function mainPost() { 
+           q_mask(bbmMask);
            q_cmbParse("cmbTypea", q_getPara('mech.typea'));
         }
 

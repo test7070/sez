@@ -45,32 +45,15 @@
             mainForm(1); // 1=最後一筆  0=第一筆
         }  ///  end Main()
 
-       /* function pop(form) {
-            b_pop = form;
-            switch (form) {
-                case 'ucc': q_pop('txtProductno_' + b_seq, 'ucc_b.aspx', 'ucc', 'noa', 'product', "70%", "650px", q_getMsg('popUcc')); break;
-                case 'store': q_pop('txtStoreno', 'store_b.aspx', 'store', 'noa', 'store', "60%", "650px", q_getMsg('popStore')); break;
-                case 'station': q_pop('txtStationno', 'station_b.aspx', 'station', 'noa', 'station', "60%", "650px", q_getMsg('popStation')); break;
-            }
-        }*/
+       
 
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
             bbmMask = [['txtDatea', r_picd], ['txtCucdate', r_picd]];
             q_mask(bbmMask);
-            q_cmbParse("cmbTypea", q_getPara('get.typea')); 
-            fbbm[fbbm.length] = 'txtMemo';
+            q_cmbParse("cmbTypea", q_getPara('get.typea'));
             // 需在 main_form() 後執行，才會載入 系統參數
 
-           /* $('#btnStore').click(function () { pop('store'); }); /// 接 q_browFill()
-            $('#btnStore').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtStoreno").change(function () { q_change($(this), 'store', 'noa', 'noa,store'); }); /// 接 q_gtPost()
-
-            $('#btnStation').click(function () { pop('station'); }); /// 接 q_browFill()
-            $('#btnStation').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtStationno").change(function () { q_change($(this), 'station', 'noa', 'noa,station'); }); /// 接 q_gtPost()
-
-            $('#btnquat').click(function () { btnquat(); });*/
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -185,7 +168,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('get_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('get_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
@@ -475,7 +458,7 @@
        
         <tr>
         <td class='td1'><span> </span><a id="lblMemo" class="lbl" ></a></td>
-        <td class="td2" colspan='5'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%; height: 127px;" ></textarea></td></tr>
+        <td class="td2" colspan='5'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%; height: 50px;" ></textarea></td></tr>
         </table>
         </div>
 		</div>
