@@ -48,7 +48,7 @@
             function mainPost() {
                 fbbm[fbbm.length] = 'txtMemo';
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtBtrandate', r_picd], ['txtEtrandate', r_picd], ['txtPaydate', r_picd]];
+                bbmMask = [['txtDatea', r_picd],['txtDate2', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtPaydate', r_picd]];
                 q_mask(bbmMask);
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 				$('#lblAccno').parent().click(function(e) {
@@ -65,23 +65,21 @@
                     sum();
                 });
                 $('#btnTrans').click(function(e) {
-                    if(q_cur == 1 || q_cur == 2) {
-                        if($.trim($('#txtDriverno').val()) == 0) {
-                            alert('Please enter the driver no.');
-                            return false;
-                        }
-                        var t_driverno = "'" + $.trim($('#txtDriverno').val()) + "'";
-                        var t_curno = "'" + $.trim($('#txtNoa').val()) + "'";
-                        var t_btrandate = "'" + $.trim($('#txtBtrandate').val()) + "'";
-                        var t_etrandate = $.trim($('#txtEtrandate').val());
-                        t_etrandate = t_etrandate.length == 0 ? "char(255)" : "'" + t_etrandate + "'";                     
-
-                        t_where = "where=^^(driverno=" + t_driverno + ") and (isnull(datea,'') between " + t_btrandate + " and " + t_etrandate + ") and ";                 
-                        t_where += " not exists(select * from tres" + r_accy + " where not(noa=" + t_curno + ") and tranno=trans"+r_accy+".noa and trannoq=trans"+r_accy+".noq )^^";
-                        q_gt('trans', t_where, 0, 0, 0, "", r_accy);
-                    }
+                	q_func('tre.import',r_accy+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
                 });
                 
+            }
+            
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'tre.import':
+						if(result.length==0)
+							alert('No data!');
+						else
+							location.reload();
+                        break;
+                }
+
             }
 
             function q_boxClose(s2) {
@@ -253,6 +251,17 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(q_cur == 1 || q_cur == 2) {
+                	$('#txtDate2').attr('readonly','readonly');
+                	$('#txtBdate').attr('readonly','readonly');
+                	$('#txtEdate').attr('readonly','readonly');
+                	$('.tr1').hide();
+                }else{
+                	$('#txtDate2').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
+                	$('#txtBdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
+                	$('#txtEdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
+                	$('.tr1').show();
+                }
             }
 
             function btnMinus(id) {
@@ -413,7 +422,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 150%;
+                width: 2400px;
             }
             .tbbs a {
                 font-size: 14px;
@@ -433,10 +442,10 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:15%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:20%"><a id='vewDriverno'></a></td>
-						<td align="center" style="width:20%"><a id='vewDriver'></a></td>
+						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
+						<td align="center" style="width:15%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:20%"><a id='vewDriverno'> </a></td>
+						<td align="center" style="width:20%"><a id='vewDriver'> </a></td>
 					</tr>
 					<tr>
 						<td >
@@ -464,25 +473,30 @@
 						<td class="tdZ"><span class="schema"> </span></td>
 					</tr>
 					<tr class="tr1">
-						<td class="td1"><span> </span><a id="lblTrandate" class="lbl"> </a></td>
-						<td class="td2" colspan="2">
-						<input id="txtBtrandate" type="text"  class="txt c2"/>
-						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
-						<input id="txtEtrandate" type="text"  class="txt c2"/>
+						<td class="td1"><span> </span><a id="lblDate2" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtDate2" type="text"  class="txt c1" />
 						</td>
-						<td class="td3"> </td>
-						<td class="td4"> </td>
-						<td class="td5"> </td>
-						<td class="td6">
+						<td class="td3"><span> </span><a id="lblDate3" class="lbl"> </a></td>
+						<td class="td4" colspan="2">
+						<input id="txtBdate" type="text"  class="txt c2"/>
+						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
+						<input id="txtEdate" type="text"  class="txt c2"/>
+						</td>
+						<td class="td6"> </td>
+						<td class="td7"> </td>
+						<td class="td8"> </td>
+						<td class="tdA">
 						<input type="button" id="btnTrans" class="txt c1"/>
 						</td>
+						<td class="tdz"> </td>
 					</tr>
 					<tr class="tr2">
-						<td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtNoa" type="text" class="txt c1"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblDatea" class="lbl"></a></td>
+						<td class="td3"><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td class="td4">
 						<input id="txtDatea" type="text"  class="txt c1"/>
 						</td>
@@ -545,30 +559,30 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
-					<td  align="center" style="width:2%;">
+					<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:3%;"><a id='lblTrandate_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblCarno_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblStraddr_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblMount_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblPrice_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblDiscount_s'></a></td>
-					<td align="center" style="width:4%;"><a id='lblMoney_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblMemo_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblTranno_s'></a></td>
-					<td align="center" style="width:1%;"><a id='lblRs_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblPaymemo_s'></a></td>
-					<td align="center" style="width:1%;"><a id='lblFill_s'></a></td>
-					<td align="center" style="width:2%;"><a id='lblCasetype_s'></a></td>
-					<td align="center" style="width:4%;"><a id='lblCaseno_s'></a></td>
-					<td align="center" style="width:4%;"><a id='lblCaseno2_s'></a></td>
-					<td align="center" style="width:4%;"><a id='lblBoat_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblBoatname_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblShip_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblOverweightcost_s'></a></td>
-					<td align="center" style="width:3%;"><a id='lblOthercost_s'></a></td>
-					<td align="center" style="width:4%;"><a id='lblOrdeno_s'></a></td>
+					<td align="center" style="width:100px;"><a id='lblTrandate_s'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblCarno_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblStraddr_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblDiscount_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblMoney_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:170px;"><a id='lblTranno_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblRs_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblPaymemo_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblFill_s'> </a></td>
+					<td align="center" style="width:100px"><a id='lblCasetype_s'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblCaseno_s'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblCaseno2_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblBoat_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblBoatname_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblShip_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblOverweightcost_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblOthercost_s'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblOrdeno_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
