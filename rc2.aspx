@@ -48,18 +48,6 @@
 
         }  ///  end Main()
 
-       /* function pop(form) {
-            b_pop = form;
-            switch (form) {
-                case 'tgg': q_pop('txtTggno', 'tgg_b.aspx', 'tgg', 'noa', 'comp', "60%", "650px", q_getMsg('popTgg')); break;
-                case 'store': q_pop('txtStoreno', 'store_b.aspx', 'store', 'noa', 'store', "60%", "650px", q_getMsg('popStore')); break;
-                case 'car': q_pop('txtCarno', 'car_b.aspx', 'car', 'noa', 'car', "60%", "650px", q_getMsg('popCar')); break;
-                case 'acomp': q_pop('txtCno', 'acomp_b.aspx', 'acomp', 'noa', 'acomp', "60%", "650px", q_getMsg('popAcomp')); break;
-                case 'sss': q_pop('txtSalesno', 'sss_b.aspx', 'sss', 'noa', 'namea', "60%", "650px", q_getMsg('popSss')); break;
-                case 'ucc': q_pop('txtProductno_' + b_seq, 'ucc_b.aspx', 'ucc', 'noa', 'product', "70%", "650px", q_getMsg('popUcc')); break;
-            }
-        }*/
-
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
             bbmMask = [['txtDatea', r_picd ]];
@@ -71,27 +59,6 @@
             q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
 
-            /*$('#btnOrdc').click(function () { btnOrdc(); });  
-
-            $('#btnTgg').click(function () { pop('tgg'); });   /// 接 q_browFill()
-            $('#btnTgg').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtTggno").change(function () { q_change($(this), 'tgg', 'noa', 'noa,comp,tel,post_fact,addr_fact,pay,trantype'); }); /// 接 q_gtPost()
-
-            $('#btnStore').click(function () { pop('store'); }); /// 接 q_browFill()
-            $('#btnStore').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtStoreno").change(function () { q_change($(this), 'store', 'noa', 'noa,store'); }); /// 接 q_gtPost()
-
-            $('#btnCar').click(function () { pop('car'); }); /// 接 q_browFill()
-            $('#btnCar').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtCarno").change(function () { q_change($(this), 'car', 'noa', 'noa,car'); }); /// 接 q_gtPost()
-
-            $('#btnAcomp').click(function () { pop('acomp'); }); /// 接 q_browFill()
-            $('#btnAcomp').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtCno").change(function () { q_change($(this), 'acomp', 'noa', 'noa,acomp'); }); /// 接 q_gtPost()
-
-            $('#btnSales').click(function () { pop('sss'); }); /// 接 q_browFill()
-            $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); }); /// 接 q_gtPost()*/
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、廠商視窗、訂單視窗  關閉時執行
@@ -228,7 +195,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('rc2_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('rc2_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫

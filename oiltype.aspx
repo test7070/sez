@@ -111,7 +111,7 @@
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('oiltype_s.aspx', q_name + '_s', "500px", "200px", q_getMsg("popSeek"));
+                q_box('oiltype_s.aspx', q_name + '_s', "500px", "250px", q_getMsg("popSeek"));
             }
 
             function combPay_chg() {
@@ -264,7 +264,7 @@
             }
             .dbbm {
                 float: left;
-                width: 60%;
+                width: 30%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -362,7 +362,7 @@
 	<body>
 			<!--#include file="../inc/toolbar.inc"-->
 			<div id='dmain' >
-				<div class="dview" id="dview" style="float: left;  width:25%;"  >
+				<div class="dview" id="dview">
 					<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 						<tr>
 							<td align="center" style="width:5%"><a id='vewChk'></a></td>
@@ -376,19 +376,15 @@
 						</tr>
 					</table>
 				</div>
-				<div class='dbbm' style="width: 60%;float: left;">
+				<div class='dbbm' >
 					<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
 						<tr>
                             <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
                             <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-                            <td class="td3"></td>
-                            <td class="td4"></td>
                        </tr>
                         <tr>
                             <td class="td1"><span> </span><a id='lblOiltype' class="lbl"></a></td>
                             <td class="td2"><input id="txtOiltype"  type="text"  class="txt c1"/></td>
-                            <td class="td3"></td>
-                            <td class="td4"></td>
                         </tr>
 				</table>
 				</div>

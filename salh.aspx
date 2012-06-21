@@ -43,7 +43,6 @@
 
         function mainPost() { 
             q_mask(bbmMask);
-            fbbm[fbbm.length] = 'txtMemo';
         }
         function txtCopy(dest, source) {
             var adest = dest.split(',');

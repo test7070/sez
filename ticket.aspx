@@ -30,11 +30,6 @@
            
             $(document).ready(function() {
                 bbmKey = ['noa'];
-                /*xmlTable = 'conn';
-                xmlKey = [['noa', 'noq']];
-                xmlDec = [];
-                q_popSave(xmlTable);*/
-                // for conn_b.aspx
 
                 q_brwCount();
 
@@ -56,7 +51,6 @@
 
             function mainPost() {
             	q_mask(bbmMask);
-            	fbbm[fbbm.length] = 'txtIrregularities';
                 /*when the data is changed*/
                 $('#txtDriverno').change(function(e) {
                     q_change($(this), 'driver', 'noa', 'noa,namea');
@@ -65,9 +59,6 @@
                 $('#lblDriver').click(function(e) {
                     pop('driver');
                 });
-                /*  txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
-                 txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
-                 txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');*/
             }
 
             function txtCopy(dest, source) {
@@ -150,7 +141,7 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('ticket_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('ticket_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
 
             function btnIns() {

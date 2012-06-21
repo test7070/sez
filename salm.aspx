@@ -108,7 +108,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('salm_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+            q_box('salm_s.aspx', q_name + '_s', "500px", "330px", q_getMsg( "popSeek"));
         }
 
         function combPay_chg() {   
@@ -378,39 +378,31 @@
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 73%;float: left;">
+        <div class='dbbm' style="width: 60%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
             <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
                <td class="td2"><input id="txtNoa"  type="text" class="txt c1" /></td>
                <td class="td3"></td>
                <td class="td4"></td>
-               <td class="td5"></td>
-               <td class="td6"></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblJobno' class="lbl"></a></td>
                <td class="td2"><input id="txtJobno"  type="text" class="txt c1" /></td>
                <td class="td3"></td>
                <td class="td4"></td>
-               <td class="td5"></td>
-               <td class="td6"></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblJob' class="lbl"></a></td>
                <td class="td2"><input id="txtJob"  type="text" class="txt c1" /></td>
                <td class="td3"></td>
-               <td class="td4"></td> 
-               <td class="td5"></td>            
-               <td class="td6"></td>
+               <td class="td4"></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblLevel1' class="lbl"></a></td>
                <td class="td2"><input id="txtLevel1"  type="text" class="txt c1" /></td>
                <td class="td3"></td>
-               <td class="td4"></td> 
-               <td class="td5"></td>           
-               <td class="td6"></td>
+               <td class="td4"></td>
             </tr>
             <tr>
                 <td class="td1"></td>

@@ -268,7 +268,7 @@
             }
             .dbbm {
                 float: left;
-                width: 70%;
+                width: 30%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -386,23 +386,15 @@
 						</tr>
 					</table>
 				</div>
-				<div class='dbbm' style="width: 73%;float: left;">
+				<div class='dbbm' >
 					<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
 						<tr>
 							<td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
 							<td class="td2"><input id="txtNoa"  type="text" class="txt c1" /></td>
-							<td class="td3"></td>
-							<td class="td4"></td>
-							<td class="td5"></td>
-							<td class="td6"></td>
 						</tr>
 						<tr>
                             <td class="td1"><span> </span><a id='lblNamea' class="lbl"></a></td>
                             <td class="td2"><input id="txtNamea"  type="text"  class="txt c1"/></td>
-                            <td class="td3"></td>
-                            <td class="td4"></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
                         </tr>
 			</table>
 			</div>

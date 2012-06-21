@@ -20,7 +20,7 @@
             var q_name = "ordc";
             var q_readonly = ['txtTgg', 'txtAcomp','txtSales'];
             var q_readonlys = [];
-            var bbmNum = [['txtPrice', 11, 3]];
+            var bbmNum = [];
             var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
             var bbmMask = [];
             var bbsMask = [];
@@ -29,7 +29,11 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'namea', 'txtWorker', 'sss_b.aspx'],['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],['txtTggno','lblTgg','tgg','noa,comp','txtTggno,txtTgg','tgg_b.aspx']);
+            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
+            ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+             ['txtWorker', 'lblWorker', 'sss', 'namea', 'txtWorker', 'sss_b.aspx'],
+             ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
+             ['txtTggno','lblTgg','tgg','noa,comp','txtTggno,txtTgg','tgg_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'no3'];
@@ -48,7 +52,6 @@
             }
             function mainPost() {
                 q_getFormat();
-                fbbm[fbbm.length] = 'txtMemo';
                 bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbStype", q_getPara('rc2.stype')); 
@@ -96,7 +99,7 @@
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('ordc_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('ordc_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
 
             function combPay_chg() {

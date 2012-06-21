@@ -44,7 +44,6 @@
             mainForm(1); // 1=最後一筆  0=第一筆
         }
         function mainPost() { // 載入資料完，未 refresh 前
-            fbbm[fbbm.length] = 'txtMemo'; 
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
@@ -91,7 +90,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('salexam_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('salexam_s.aspx', q_name + '_s', "500px", "250px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫

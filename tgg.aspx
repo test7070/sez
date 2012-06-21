@@ -53,7 +53,6 @@
             txtCopy('txtZip_comp,txtAddr_comp', 'txtZip_fact,txtAddr_fact');
             txtCopy('txtZip_invo,txtAddr_invo', 'txtZip_comp,txtAddr_comp');
             txtCopy('txtZip_home,txtAddr_home', 'txtZip_invo,txtAddr_invo');
-            fbbm[fbbm.length] = 'txtMemo';  ///  textArea 需手動加入 fbbm
         }
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -114,7 +113,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('tgg_s.aspx', q_name + '_s', "500px", "310px",q_getMsg( "popSeek"));
+            q_box('tgg_s.aspx', q_name + '_s', "500px", "330px",q_getMsg( "popSeek"));
         }
 
         function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫

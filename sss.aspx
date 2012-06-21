@@ -120,7 +120,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('sss_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+            q_box('sss_s.aspx', q_name + '_s', "500px", "330px", q_getMsg( "popSeek"));
         }
 
         function combPay_chg() {   
@@ -370,6 +370,9 @@
             }
             input[type="text"], input[type="button"] {
                 font-size: medium;
+            }
+            .tbbm select{
+            	font-size:medium;
             }
     </style>
 </head>

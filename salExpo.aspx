@@ -108,7 +108,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('salexpo_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+            q_box('salexpo_s.aspx', q_name + '_s', "500px", "330px", q_getMsg( "popSeek"));
         }
 
         function combPay_chg() {   
@@ -409,7 +409,7 @@
                <td class="td6"></td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id="lblUnit" ></a></td>
+               <td class="td1"><span> </span><a id="lblUnit" class="lbl" ></a></td>
                <td class="td2"><input id="txtUnit"  type="text" class="txt num c5" /><a id="lblTimes"></a></td>
                <td class="td3"></td>
                <td class="td4"></td>

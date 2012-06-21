@@ -19,7 +19,7 @@
         var q_name = "orde";
         var q_readonly = ['txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales'];
         var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtTheory']; 
-        var bbmNum = [['txtPrice', 10, 3], ['txtTranmoney', 11, 2]];  // 允許 key 小數
+        var bbmNum = [];  // 允許 key 小數
         var bbsNum = [['txtPrice', 12, 3], ['txtWeight', 11, 2], ['txtMount', 9, 2]];
         var bbmMask = [];
         var bbsMask = [];
@@ -53,22 +53,8 @@
             mainForm(1); // 1=最後一筆  0=第一筆
         }  ///  end Main()
 
-       /* function pop(form) {
-            b_pop = form;
-            switch (form) {
-                case 'cust': q_pop('txtCustno', 'cust_b.aspx', 'cust', 'noa', 'comp', "60%", "650px", q_getMsg('popCust')); break;
-                case 'store': q_pop('txtStoreno', 'store_b.aspx', 'store', 'noa', 'store', "60%", "650px", q_getMsg('popStore')); break;
-                case 'car': q_pop('txtCarno', 'car_b.aspx', 'car', 'noa', 'car', "60%", "650px", q_getMsg('popCar')); break;
-                case 'acomp': q_pop('txtCno', 'acomp_b.aspx', 'acomp', 'noa', 'acomp', "60%", "650px", q_getMsg('popAcomp')); break;
-                case 'sss': q_pop('txtSalesno', 'sss_b.aspx', 'sss', 'noa', 'namea', "60%", "650px", q_getMsg('popSss')); break;
-                case 'ucc': q_pop('txtProductno_' + b_seq, 'ucc_b.aspx', 'ucc', 'noa', 'product', "70%", "650px", q_getMsg('popUcc')); break;
-
-            }
-        }*/
-
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
-            fbbm[fbbm.length] = 'txtMemo';
             bbmMask = [['txtDatea', r_picd], ['txtOdate', r_picd ]];  
             q_mask(bbmMask);            
             q_cmbParse("cmbStype", q_getPara('orde.stype')); // 需在 main_form() 後執行，才會載入 系統參數  
@@ -79,25 +65,6 @@
 
             $('#lblQuat').click(function () { btnQuat(); });
 
-            /*$('#btnCust').click(function () { pop('cust'); });   /// 接 q_browFill()
-            $('#btnCust').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtCustno").change(function () { q_change($(this), 'cust', 'noa', 'noa,comp,tel,post_fact,addr_fact,pay,trantype'); }); /// 接 q_gtPost()
-
-            $('#btnStore').click(function () { pop('store'); }); /// 接 q_browFill()
-            $('#btnStore').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtStoreno").change(function () { q_change($(this), 'store', 'noa', 'noa,store'); }); /// 接 q_gtPost()
-
-            $('#btnCar').click(function () { pop('car'); }); /// 接 q_browFill()
-            $('#btnCar').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtCarno").change(function () { q_change($(this), 'car', 'noa', 'noa,car'); }); /// 接 q_gtPost()
-
-            $('#btnAcomp').click(function () { pop('acomp'); }); /// 接 q_browFill()
-            $('#btnAcomp').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtCno").change(function () { q_change($(this), 'acomp', 'noa', 'noa,acomp'); }); /// 接 q_gtPost()
-
-            $('#btnSales').click(function () { pop('sss'); }); /// 接 q_browFill()
-            $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); }); /// 接 q_gtPost()*/
 
             $('#btnOrdem').click(function () { q_pop('txtNoa', "ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'ordem', 'noa', 'comp', "90%", "800px", q_getMsg('popOrdem')); });
 
@@ -238,7 +205,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('orde_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('orde_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
@@ -502,11 +469,11 @@
                 float: left;
             }
             .txt.c4 {
-                width: 18%;
+                width: 25%;
                 float: left;
             }
             .txt.c5 {
-                width: 80%;
+                width: 72%;
                 float: left;
             }
             .txt.c6 {
@@ -572,7 +539,7 @@
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
-                   <td align="center" id='odate'>~odate</td>
+                   <td align="center" id='datea'>~datea</td>
                    <td align="center" id='noa'>~noa</td>
                    <td align="center" id='custno comp,4'>~custno ~comp,4</td>
             </tr>
