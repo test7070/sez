@@ -29,10 +29,10 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
+            q_desc = 1;
             aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
             ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
             $(document).ready(function() {
-            	q_desc = 1;
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
@@ -62,6 +62,7 @@
                 	$("#cmbTaxtype").attr('size',len+"");
                 }).blur(function(){
                 	$("#cmbTaxtype").attr('size','1');
+                	sum();
                 }); 
                 $('#txtTaxrate').change(function(e) {
                     sum();
@@ -72,7 +73,14 @@
                 $('#btnTrans').click(function(e) {
                 	q_func('tre.import',r_accy+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
                 });
-                
+                $('#txtMemo').change(function(){
+                	if($.trim($('#txtMemo').val()).substring(0, 1) == '.'){
+	                	$('#txtTotal').removeAttr('readonly').css('background-color','white').css('color','black');
+                	}else{
+                		$('#txtTotal').attr('readonly','readonly').css('background-color','rgb(237, 237, 238)').css('color','green');
+                		sum();
+                	}
+                });
             }
             
             function q_funcPost(t_func, result) {
@@ -223,6 +231,8 @@
             }
 
             function sum() {
+            	if($.trim($('#txtMemo').val()).substring(0, 1) == '.')
+            		return;
                 var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0;
                 for( i = 0; i < q_bbsCount; i++) {
                 	t_money += parseInt($.trim($('#txtMoney_' + i).val()).length == 0 ? '0' : $('#txtMoney_' + i).val().replace(/,/g,''), 10);
@@ -252,6 +262,9 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                if((q_cur==1 || q_cur==2) && $.trim($('#txtMemo').val()).substring(0, 1) == '.'){
+                	$('#txtTotal').removeAttr('readonly').css('background-color','white').css('color','black');
+                }
             }
 
             function readonly(t_para, empty) {
@@ -506,25 +519,25 @@
 						<td class="td5">
 						<input id="txtDatea" type="text"  class="txt c1"/>
 						</td>
-						<td class="td6"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
-						<td class="td7" colspan="2">
-						<input id="txtDriverno" type="text"  class="txt c2"/>
-						<input id="txtDriver" type="text"  class="txt c3"/>
-						</td>
 					</tr>
 					
 					<tr class="tr4">
-						<td class="td1"><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
+						<td class="td1"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
 						<td class="td2" colspan="2">
+						<input id="txtDriverno" type="text"  class="txt c2"/>
+						<input id="txtDriver" type="text"  class="txt c3"/>
+						</td>
+						<td class="td4"><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
+						<td class="td5" colspan="2">
 						<input id="txtCardealno" type="text"  class="txt c2"/>
 						<input id="txtCardeal" type="text"  class="txt c3"/>
 						</td>
-						<td class="td4"><span> </span><a id="lblPaydate" class="lbl"> </a></td>
-						<td class="td5">
+						<td class="td7"><span> </span><a id="lblPaydate" class="lbl"> </a></td>
+						<td class="td8">
 						<input id="txtPaydate" type="text" class="txt c1" />
 						</td>
-						<td class="td6"><span> </span><a id="lblRc2ano" class="lbl"> </a></td>
-						<td class="td7">
+						<td class="td9"><span> </span><a id="lblRc2ano" class="lbl"> </a></td>
+						<td class="tdA">
 						<input id="txtRc2ano" type="text" class="txt c1" />
 						</td>
 					</tr>
