@@ -15,7 +15,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
+			isEditTotal = false;
             q_tables = 's';
             var q_name = "tre";
             var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal','txtWorker'];
@@ -74,7 +74,7 @@
                 	q_func('tre.import',r_accy+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
                 });
                 $('#txtMemo').change(function(){
-                	if($.trim($('#txtMemo').val()).substring(0, 1) == '.'){
+                	if(isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.'){
 	                	$('#txtTotal').removeAttr('readonly').css('background-color','white').css('color','black');
                 	}else{
                 		$('#txtTotal').attr('readonly','readonly').css('background-color','rgb(237, 237, 238)').css('color','green');
@@ -231,7 +231,7 @@
             }
 
             function sum() {
-            	if($.trim($('#txtMemo').val()).substring(0, 1) == '.')
+            	if(isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.')
             		return;
                 var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0;
                 for( i = 0; i < q_bbsCount; i++) {
@@ -244,7 +244,7 @@
                         t_total = t_money + t_tax;
                         break;
                     case '3':
-                        t_total = Math.round(t_total / (1 + t_rate / 100), 0);
+                        t_total = Math.round(t_money / (1 + t_rate / 100), 0);
                         t_tax = t_money - t_total;
                         break;
                     case '5':
@@ -261,7 +261,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
-                if((q_cur==1 || q_cur==2) && $.trim($('#txtMemo').val()).substring(0, 1) == '.'){
+                if(isEditTotal && (q_cur==1 || q_cur==2) && $.trim($('#txtMemo').val()).substring(0, 1) == '.'){
                 	$('#txtTotal').removeAttr('readonly').css('background-color','white').css('color','black');
                 }
             }

@@ -15,7 +15,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
+			isEditTotal = false;
             q_tables = 's';
             var q_name = "trd";
             var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal','txtWorker'];
@@ -47,7 +47,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBtrandate', r_picd], ['txtEtrandate', r_picd]];
+                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtBtrandate', r_picd], ['txtEtrandate', r_picd]];
                 q_mask(bbmMask);
 
                 q_cmbParse("cmbTrtype", q_getPara('trd.trtype'));
@@ -102,6 +102,9 @@
                         var t_ordeno = "'" + $.trim($('#txtOrdeno').val()) + "'";
                         var t_curno = "'" + $.trim($('#txtNoa').val()) + "'";
                         var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
+                        var t_bdate = "'" + $.trim($('#txtBdate').val()) + "'";
+                        var t_edate = $.trim($('#txtEdate').val());
+                        t_edate = t_edate.length == 0 ? "char(255)" : "'" + t_edate + "'";
                         var t_btrandate = "'" + $.trim($('#txtBtrandate').val()) + "'";
                         var t_etrandate = $.trim($('#txtEtrandate').val());
                         t_etrandate = t_etrandate.length == 0 ? "char(255)" : "'" + t_etrandate + "'";
@@ -117,7 +120,7 @@
                         var t_tranordeno = "'" + $.trim($('#txtOrdeno').val()) + "'";
                         var t_po = "'" + $.trim($('#txtPo').val()) + "'";
 
-                        t_where = "where=^^(custno=" + t_custno + ") and (isnull(datea,'') between " + t_btrandate + " and " + t_etrandate + ") and ";
+                        t_where = "where=^^(custno=" + t_custno + ") and (isnull(trandate,'') between " + t_btrandate + " and " + t_etrandate + ") and (isnull(datea,'') between " + t_bdate + " and " + t_edate + ") and ";
                         if(!(t_po=="''"))
                         	t_where += " (trans" + r_accy + ".po=" + t_po + ") and";
                         if(!(t_bodate == "''" && t_eodate == "char(255)" && t_ordeno == "''"))
@@ -128,7 +131,7 @@
                     }
                 });
                 $('#txtMemo').change(function(){
-                	if($.trim($('#txtMemo').val()).substring(0, 1) == '.'){
+                	if(isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.'){
 	                	$('#txtTotal').removeAttr('readonly').css('background-color','white').css('color','black');
                 	}else{
                 		$('#txtTotal').attr('readonly','readonly').css('background-color','rgb(237, 237, 238)').css('color','green');
@@ -275,7 +278,7 @@
             }
 
             function sum() {
-            	if($.trim($('#txtMemo').val()).substring(0, 1) == '.')
+            	if(isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.')
             		return;
                 var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0;
                 for( i = 0; i < q_bbsCount; i++) {
@@ -288,7 +291,7 @@
                         t_total = t_money + t_tax;
                         break;
                     case '3':
-                        t_total = Math.round(t_total / (1 + t_rate / 100), 0);
+                        t_total = Math.round(t_money / (1 + t_rate / 100), 0);
                         t_tax = t_money - t_total;
                         break;
                     case '5':
@@ -309,7 +312,7 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                if((q_cur==1 || q_cur==2) && $.trim($('#txtMemo').val()).substring(0, 1) == '.'){
+                if(isEditTotal && (q_cur==1 || q_cur==2) && $.trim($('#txtMemo').val()).substring(0, 1) == '.'){
                 	$('#txtTotal').removeAttr('readonly').css('background-color','white').css('color','black');
                 }
             }
@@ -412,7 +415,7 @@
             .tbbm tr td {
                 width: 9%;
             }
-            .tbbm .tr2, .tbbm .tr3 {
+            .tbbm .tr2, .tbbm .tr3, .tbbm .tr4 {
                 background-color: #FFEC8B;
             }
             .tbbm .tdZ {
@@ -509,41 +512,56 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr1">
-						<td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class="td2" colspan="2">
 						<input id="txtNoa" type="text" class="txt c1"/>
 						</td>
-						<td class="td4"><span> </span><a id="lblDatea" class="lbl"></a></td>
+						<td class="td4"><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td class="td5">
 						<input id="txtDatea" type="text"  class="txt c1"/>
 						</td>
-						<td class="td6"><span> </span><a id="lblCust" class="lbl btn"></a></td>
+						<td class="td6"><span> </span><a id="lblCust" class="lbl btn"> /a></td>
 						<td class="td7" colspan="3">
 						<input id="txtCustno" type="text"  style='width:20%; float:left;'/>
 						<input id="txtComp" type="text"  style='width:80%; float:left;'/>
 						</td>
-						<td class="tdA"></td>
-						<td class="tdZ"></td>
+						<td class="tdA"> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr class="tr2">
-						<td class="td1"><span> </span><a id="lblTrandate" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblDate2" class="lbl"> </a></td>
+						<td class="td2" colspan="2">
+						<input id="txtBdate" type="text"  class="txt c2"/>
+						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
+						<input id="txtEdate" type="text"  class="txt c2"/>
+						</td>
+						<td class="td4"><span> </span><a id="lblStraddr" class="lbl btn"> </a></td>
+						<td class="td5" colspan="3">
+						<input id="txtStraddrno" type="text"  class="txt c2"/>
+						<input id="txtStraddr" type="text"  class="txt c3"/>
+						</td>
+						<td class="td8"> </td>
+						<td class="td9"> </td>
+						<td class="tdA"> </td>
+						<td class="tdZ"> </td>
+					</tr>
+					<tr class="tr3">
+						<td class="td1"><span> </span><a id="lblTrandate" class="lbl"> </a></td>
 						<td class="td2" colspan="2">
 						<input id="txtBtrandate" type="text"  class="txt c2"/>
 						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
 						<input id="txtEtrandate" type="text"  class="txt c2"/>
 						</td>
-						<td class="td4"><span> </span><a id="lblStraddr" class="lbl btn"></a></td>
+						<td class="td4"><span> </span><a id="lblPo" class="lbl"> </a></td>
 						<td class="td5" colspan="3">
-						<input id="txtStraddrno" type="text"  class="txt c2"/>
-						<input id="txtStraddr" type="text"  class="txt c3"/>
-						</td>
-						<td class="td6"><span> </span><a id="lblPo" class="lbl"></a></td>
-						<td class="td7" colspan="2">
 						<input id="txtPo" type="text"  class="txt c1"/>
 						</td>
+						<td class="td8"> </td>
+						<td class="td9"> </td>
+						<td class="tdA"> </td>
 						<td class="tdZ"> </td>
 					</tr>
-					<tr class="tr3">
+					<tr class="tr4">
 						<td class="td1"><span> </span><a id="lblOdate" class="lbl"> </a></td>
 						<td class="td2" colspan="2">
 						<input id="txtBodate" type="text"  class="txt c2"/>
@@ -562,7 +580,7 @@
 						</td>
 						<td class="tdZ"> </td>
 					</tr>
-					<tr class="tr4">
+					<tr class="tr5">
 						<td class="td1"><span> </span><a id="lblVccadate" class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtVccadate" type="text" class="txt c1" />
@@ -580,7 +598,7 @@
 						<td class="td9"><span> </span><a id="lblTypea" class="lbl"> </a></td>
 						<td class="tdA"><select id="cmbTypea" class="txt c1"> </select></td>
 					</tr>
-					<tr class="tr5">
+					<tr class="tr6">
 						<td class="td1"><span> </span><a id="lblBoat" class="lbl btn"> </a></td>
 						<td class="td2" colspan="3">
 						<input id="txtBoatno" type="text"  style='width:20%; float:left;'/>
@@ -594,7 +612,7 @@
 						<input id="txtShip" type="text" class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr6">
+					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMoney" class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtMoney" type="text"  class="txt c1 num"/>
@@ -617,7 +635,7 @@
 						</td>
 						<td class="tdZ"> </td>
 					</tr>
-					<tr class="tr7">
+					<tr class="tr8">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td class="td2" colspan="6"><input id="txtMemo" type="text"  class="txt c1"/></td>
 						<td class="td8"> </td>
