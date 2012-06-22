@@ -37,9 +37,9 @@
         t_agent = $('#txtAgent').val();
 		t_datea = $('#txtDatea').val();
         
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("part", t_part)  + q_sqlPara_or(["bdate","edate"], t_datea)  +
-                           q_sqlPara2("checkerno", t_checkerno) + q_sqlPara2("checker", t_checker)+q_sqlPara_or(["agentno","agentno2","agentno3"], t_agentno) +
-                           q_sqlPara_or(["agent","agent2","agent3"], t_agent);
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("part", t_part)  + q_sqlPara_between("bdate" , "edate" , t_datea)  +
+                           q_sqlPara2("checkerno", t_checkerno) + q_sqlPara2("checker", t_checker)+q_sqlPara_or("agentno", t_agentno) +
+                           q_sqlPara_or("agent", t_agent);
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;

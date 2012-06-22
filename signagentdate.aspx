@@ -23,9 +23,7 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
 		aPop = new Array(['txtCheckerno', 'lblChecker','sss','noa,namea', 'txtCheckerno,txtChecker','sss_b.aspx'],
-		['txtAgentno', 'lblAgent','sss','noa,namea', 'txtAgentno,txtAgent','sss_b.aspx'],
-		['txtAgentno2', 'lblAgent2','sss','noa,namea', 'txtAgentno2,txtAgent2','sss_b.aspx'],
-		['txtAgentno3', 'lblAgent3','sss','noa,namea', 'txtAgentno3,txtAgent3','sss_b.aspx']);
+		['txtAgentno', 'lblAgent','sss','noa,namea', 'txtAgentno,txtAgent','sss_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -373,13 +371,13 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:10%"><a id='vewDatea'></a></td>
+                <td align="center" style="width:15%"><a id='vewNoa'></a></td>
                 <td align="center" style="width:15%"><a id='vewPart'></a></td>
                 <td align="center" style="width:10%"><a id='vewChecker'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
-                   <td align="center" id='datea'>~datea</td>
+                   <td align="center" id='noa'>~noa</td>
                    <td align="center" id='part'>~part</td>
                    <td align="center" id='checker'>~checker</td>
             </tr>
@@ -427,22 +425,6 @@
                <td class="td1"><span> </span><a id='lblAgent' class="lbl btn"></a></td>
                <td class="td2"><input id="txtAgentno"  type="text" class="txt c2"/>
                	<input id="txtAgent"  type="text" class="txt c3"/>
-               </td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblAgent2' class="lbl btn"></a></td>
-               <td class="td2"><input id="txtAgentno2"  type="text" class="txt c2"/>
-               	<input id="txtAgent2"  type="text" class="txt c3"/>
-               </td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblAgent3' class="lbl btn"></a></td>
-               <td class="td2"><input id="txtAgentno3"  type="text" class="txt c2"/>
-               	<input id="txtAgent3"  type="text" class="txt c3"/>
                </td>
                <td class="td3"></td>
                <td class="td4"></td>
