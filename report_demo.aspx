@@ -14,6 +14,7 @@
 		<script src="css/jquery/ui/jquery.ui.core.js"></script>
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
+		<script src="//59.125.143.170/jquery/js/qset.js"></script>
 		<script type="text/javascript">
             if(location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;100_1";
@@ -52,10 +53,14 @@
                     }, {
                         type : '5', //select
                         name : 's1',
-                        value : [q_getPara('report.all')].concat(q_getPara('trans.calctype').split(','))
+                        value : [q_getPara('report.all')].concat(q_getPara('oil.product').split(','))
                     }, {
                         type : '6',
                         name : 'T6'
+                    }, {
+                        type : '7', //select
+                        name : 's2',
+                        value : [q_getPara('report.all')].concat(q_getPara('oil.product').split(','))
                     }]
                 });
                 q_getFormat();
