@@ -140,7 +140,7 @@
                     q_box("carchange.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'carchange', "800px", "600px", q_getMsg("popCarchange"));
                 });
                 $('#lblOil').parent().click(function(e) {
-                    q_box("oil.aspx?;;;a.noa='" + $('#txtCarno').val() + "'", 'oil', "800px", "600px", q_getMsg("popOil"));
+                    q_box("oil.aspx?;;;carno='" + $('#txtCarno').val() + "'", 'oil', "800px", "600px", q_getMsg("popOil"));
                 });
                 $('#lblCartax').parent().click(function(e) {
                     q_box("cartax.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'cartax', "800px", "600px", q_getMsg("popCartax"));
