@@ -82,6 +82,9 @@
                     }, {
                         type : '6',
                         name : 'xpo'
+                    }, {
+                        type : '1',
+                        name : 'datea'
                     }]
                 });
                 q_getFormat();
@@ -94,7 +97,11 @@
                 $('#txtTrandate1').mask('999/99/99');
                 $('#txtTrandate1').datepicker();
                 $('#txtTrandate2').mask('999/99/99');
-                $('#txtTrandate2').datepicker();  
+                $('#txtTrandate2').datepicker();
+                $('#txtDate1').mask('999/99/99');
+                $('#txtDate1').datepicker();
+                $('#txtDate2').mask('999/99/99');
+                $('#txtDate2').datepicker();  
             }
 		</script>
 	</head>
