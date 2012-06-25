@@ -53,7 +53,7 @@
                         name : 'mon'
                     }, {
                         type : '1',
-                        name : 'trandate'
+                        name : 'datea'
                     }, {
                         type : '2',
                         name : 'cust',
@@ -82,9 +82,6 @@
                     }, {
                         type : '6',
                         name : 'xpo'
-                    }, {
-                        type : '1',
-                        name : 'datea'
                     }]
                 });
                 q_getFormat();
@@ -94,14 +91,10 @@
                 $('#txtMonth').mask('999/99');
                 $('#txtMon1').mask('999/99');
                 $('#txtMon2').mask('999/99');
-                $('#txtTrandate1').mask('999/99/99');
-                $('#txtTrandate1').datepicker();
-                $('#txtTrandate2').mask('999/99/99');
-                $('#txtTrandate2').datepicker();
-                $('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();  
+                $('#txtDatea1').mask('999/99/99');
+                $('#txtDatea1').datepicker();
+                $('#txtDatea2').mask('999/99/99');
+                $('#txtDatea2').datepicker();  
             }
 		</script>
 	</head>
