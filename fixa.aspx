@@ -182,8 +182,8 @@
                 	}else{
                 		t_money = parseFloat($.trim($('#txtMoney_' + j).val()).length == 0 ? '0' : $('#txtMoney_' + j).val());
                 	}
-                	t_wmoney = t_wmoney + ($('#cmbWtype_'+j).val()=='A'?t_money:0);
-                	t_cmoney = t_cmoney + ($('#cmbWtype_'+j).val()=='B'?t_money:0);
+                	t_wmoney = t_wmoney + ($('#cmbWtype_'+j).val()=='1'?t_money:0);
+                	t_cmoney = t_cmoney + ($('#cmbWtype_'+j).val()=='2'?t_money:0);
                 }
                 t_tax = parseFloat($.trim($('#txtTax').val()).length == 0 ? '0' : $('#txtTax').val());
                 $('#txtWmoney').val(t_wmoney);
