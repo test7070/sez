@@ -34,12 +34,12 @@
                 q_getFormat();
                 q_langShow();
                 
-                $('#qReport_txtDate1').mask('999/99/99');
-                $('#qReport_txtDate1').datepicker();
-                $('#qReport_txtDate2').mask('999/99/99');
-                $('#qReport_txtDate2').datepicker();
-                $('#qReport_txtMon1').mask('999/99');
-                $('#qReport_txtMon1').mask('999/99');
+                $('#txtDate1').mask('999/99/99');
+                $('#txtDate1').datepicker();
+                $('#txtDate2').mask('999/99/99');
+                $('#txtDate2').datepicker();
+                $('#txtMon1').mask('999/99');
+                $('#txtMon2').mask('999/99');
             }
 
             function q_boxClose(s2) {

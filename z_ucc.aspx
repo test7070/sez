@@ -40,10 +40,10 @@
                 q_getFormat();
                 q_langShow();
 
-                $('#qReport_txtDate1').mask('999/99/99');
-                $('#qReport_txtDate1').datepicker();
-                $('#qReport_txtDate2').mask('999/99/99');
-                $('#qReport_txtDate2').datepicker();
+                $('#txtDate1').mask('999/99/99');
+                $('#txtDate1').datepicker();
+                $('#txtDate2').mask('999/99/99');
+                $('#txtDate2').datepicker();
             }
 
             function q_boxClose(s2) {

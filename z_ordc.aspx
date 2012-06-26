@@ -77,14 +77,14 @@
                 q_getFormat();
                 q_langShow();
                 
-                $('#qReport_txtDate1').mask('999/99/99');
-                $('#qReport_txtDate1').datepicker();
-                $('#qReport_txtDate2').mask('999/99/99');
-                $('#qReport_txtDate2').datepicker();
- 				$('#qReport_txtOdate1').mask('999/99/99');
-                $('#qReport_txtOdate1').datepicker();
-                $('#qReport_txtOdate2').mask('999/99/99');
-                $('#qReport_txtOdate2').datepicker();
+                $('#txtDate1').mask('999/99/99');
+                $('#txtDate1').datepicker();
+                $('#txtDate2').mask('999/99/99');
+                $('#txtDate2').datepicker();
+ 				$('#txtOdate1').mask('999/99/99');
+                $('#txtOdate1').datepicker();
+                $('#txtOdate2').mask('999/99/99');
+                $('#txtOdate2').datepicker();
             }
 
             function q_boxClose(s2) {
