@@ -43,10 +43,10 @@
             });
             
             function currentData(){
-            	var exclude = new Array('txtNoa','txtNoq','txtWorker','txtTrdno','txtTreno');
-            	var data = new Array();
             }
             currentData.prototype = {
+            	data : [],
+            	exclude : ['txtNoa','txtNoq','txtWorker','txtTrdno','txtTreno'],
             	copy : function(){
             		curData.data = new Array();
             		for( var i in fbbm){
@@ -182,7 +182,16 @@
                 });
                 $("#txtDiscount").change(function() {
                     sum();
-                });              
+                }); 
+                $("#txtMount").change(function() {
+                    $("#txtMount2").val($("#txtMount").val());
+                });
+                $("#txtCustno").change(function() {
+                    if($("#txtCustno").val().length>0){
+                    	$("#txtStraddrno").val($("#txtCustno").val());
+                    	$("#txtStraddr").val("");
+                    }
+                });             
             }
 
             function sum() {
