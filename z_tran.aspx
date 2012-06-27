@@ -53,7 +53,7 @@
                         name : 'mon'
                     }, {
                         type : '1',
-                        name : 'datea'
+                        name : 'date'
                     }, {
                         type : '2',
                         name : 'cust',
@@ -91,10 +91,10 @@
                 $('#txtMonth').mask('999/99');
                 $('#txtMon1').mask('999/99');
                 $('#txtMon2').mask('999/99');
-                $('#txtDatea1').mask('999/99/99');
-                $('#txtDatea1').datepicker();
-                $('#txtDatea2').mask('999/99/99');
-                $('#txtDatea2').datepicker();  
+                $('#txtDate1').mask('999/99/99');
+                $('#txtDate1').datepicker();
+                $('#txtDate2').mask('999/99/99');
+                $('#txtDate2').datepicker();  
             }
 		</script>
 	</head>
