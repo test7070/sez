@@ -17,7 +17,7 @@
             }
             var q_name = "calctype";
             var q_readonly = [];
-            var bbmNum = new Array();
+            var bbmNum = new Array(['txtDiscount',10,3]);
             var bbmMask = new Array();
             q_sqlCount = 6;
             brwCount = 6;
@@ -337,7 +337,13 @@
 						<input id="chkIsoutside" type="checkbox"/>
 						</td>
 					</tr>
-					<tr class="tr4"> 
+					<tr class="tr4">
+						<td class="td1"><span> </span><a id="lblDiscount" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtDiscount" type="text"  class="txt c1 num"/>
+						</td>
+					</tr>
+					<tr class="tr5"> 
 						<td class="td1"><span> </span><a id="lblGroup" class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtGkey" type="text"  class="txt c1"/>
