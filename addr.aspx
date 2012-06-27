@@ -66,20 +66,6 @@
         function q_boxClose( s2) { 
             var ret; 
             switch (b_pop) {   
-                case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-                
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -89,10 +75,6 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case 'sss':  
-                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                    break;
-
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
 
@@ -109,16 +91,6 @@
 
             q_box('addr_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
         }
-
-        function combPay_chg() {  
-            var cmb = document.getElementById("combPay")
-            if (!q_cur) 
-                cmb.value = '';
-            else
-                $('#txtPay').val(cmb.value);
-            cmb.value = '';
-        }
-
         function btnIns() {
             _btnIns();
             $('#txtNoa').focus();
@@ -129,38 +101,13 @@
                 return;
 
             _btnModi();
-            $('#txtComp').focus();
+            $('#txtAddr').focus();
         }
 
         function btnPrint() {
  
         }
         function btnOk() {
-            var t_err = '';
-
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
-
-            if ( dec( $('#txtCredit').val()) > 9999999999)
-                t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
-
-            if ( dec( $('#txtStartn').val()) > 31)
-                t_err = t_err + q_getMsg( "lblStartn")+q_getMsg( "msgErr")+'\r';
-            if (dec( $('#txtGetdate').val()) > 31)
-                t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
-
-            if( t_err.length > 0) {
-                alert(t_err);
-                return;
-            }
-            var t_noa = trim($('#txtNoa').val());
-            if (emp($('#txtUacc1').val()))
-                $('#txtUacc1').val('1123.' + t_noa);
-            if (emp($('#txtUacc2').val()))
-                $('#txtUacc2').val('1121.' + t_noa);
-            if (emp($('#txtUacc3').val()))
-                $('#txtUacc3').val( '2131.'+t_noa);
-
-
             if ( t_noa.length==0 )   
                 q_gtnoa(q_name, t_noa);
             else
@@ -396,11 +343,6 @@
             <tr>
                <td class="td1"><span> </span><a id="lblDriverprice2" class="lbl"></a></td>
                <td class="td2"><input id="txtDriverprice2" type="text" class="txt num c1"  /></td>
-               <td class="td3"></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id="lblDiscount" class="lbl"></a></td>
-               <td class="td2"><input id="txtDiscount" type="text" class="txt num c1"  /></td>
                <td class="td3"></td>
             </tr>
             <tr>

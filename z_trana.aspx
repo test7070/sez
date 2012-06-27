@@ -26,8 +26,10 @@
                 q_gf('', 'z_trana');
             });
             function q_gfPost() {
+            	 alert('gfpost');
                 q_gt('carteam', '', 0, 0, 0, "");
                 q_gt('calctype', '', 0, 0, 0, "");
+               
             }
 
             function q_boxClose(t_name) {
@@ -47,6 +49,7 @@
                         }    
                         break;
                 }
+                alert('gtpost  '+t_item.length+'  '+t_item2.length);
                 if(t_item.length>0 && t_item2.length>0){
 	                $('#qReport').q_report({
 	                    fileName : 'z_trana',
@@ -103,6 +106,6 @@
 			<div class="prt" >
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
-		</div>
+		</div>	
 	</body>
 </html>

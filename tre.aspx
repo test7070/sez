@@ -31,7 +31,9 @@
             brwKey = 'Datea';
             q_desc = 1;
             aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
-            ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
+            ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
+            ['txtBdriverno', '', 'driver', 'noa,namea', 'txtBdriverno', 'driver_b.aspx'],
+            ['txtEdriverno', '', 'driver', 'noa,namea', 'txtEdriverno', 'driver_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -71,7 +73,7 @@
                     sum();
                 });
                 $('#btnTrans').click(function(e) {
-                	q_func('tre.import',r_accy+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
+                	q_func('tre.import',r_accy+','+$('#txtBdriverno').val()+','+$('#txtEdriverno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
                 });
                 $('#txtMemo').change(function(){
                 	if(isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.'){
@@ -272,11 +274,15 @@
                 	$('#txtDate2').attr('readonly','readonly');
                 	$('#txtBdate').attr('readonly','readonly');
                 	$('#txtEdate').attr('readonly','readonly');
+                	$('#txtBdriverno').attr('readonly','readonly');
+                	$('#txtEdriverno').attr('readonly','readonly');
                 	$('.tr1').hide();
                 }else{
                 	$('#txtDate2').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
                 	$('#txtBdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
                 	$('#txtEdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
+                	$('#txtBdriverno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
+                	$('#txtEdriverno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
                 	$('.tr1').show();
                 }
             }
@@ -501,9 +507,12 @@
 						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
 						<input id="txtEdate" type="text"  class="txt c2"/>
 						</td>
-						<td class="td6"> </td>
-						<td class="td7"> </td>
-						<td class="td8"> </td>
+						<td class="td6"><span> </span><a id="lblDriver2" class="lbl"> </a></td>
+						<td class="td7" colspan="2">
+						<input id="txtBdriverno" type="text"  class="txt c2"/>
+						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
+						<input id="txtEdriverno" type="text"  class="txt c2"/>
+						</td>
 						<td class="tdA">
 						<input type="button" id="btnTrans" class="txt c1"/>
 						</td>

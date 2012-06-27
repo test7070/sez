@@ -99,11 +99,13 @@
 		</script>
 	</head>
 	<body>
-		<div id="container">
-			<div id="qReport"></div>
-		</div>
-		<div class="prt" >
-			<!--#include file="../inc/print_ctrl.inc"-->
-		</div>
+	
+			<div id="container">
+				<div id="qReport"> </div>
+			</div>
+			<div class="prt" >
+				<!--#include file="../inc/print_ctrl.inc"-->
+			</div>
+	
 	</body>
 </html>

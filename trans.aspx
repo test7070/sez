@@ -30,7 +30,7 @@
             ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
             ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
             ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'],
-            ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr,productno,product,custprice,driverprice,driverprice2,discount,commission', 'txtStraddrno,txtStraddr,txtUccno,txtProduct,txtPrice,txtPrice2,txtPrice3,txtDiscount,txtCommission', 'addr_b2.aspx'],
+            ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr,productno,product,custprice,driverprice,driverprice2,commission', 'txtStraddrno,txtStraddr,txtUccno,txtProduct,txtPrice,txtPrice2,txtPrice3,txtCommission', 'addr_b2.aspx'],
             ['txtAddno3', 'lblAdd3', 'addr', 'noa,addr', 'txtAddno3,txtAdd3', 'addr_b2.aspx'],
             ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
             ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
@@ -80,6 +80,17 @@
 						}
 					}
 					return t_isOutside;
+            	},
+            	chgDiscount : function(){
+            		var t_noa = $("#cmbCalctype").val();
+					var t_isOutside = 0;
+					for(var i in $("#cmbCalctype").data('info').item){				
+						if($("#cmbCalctype").data('info').item[i].noa == t_noa){
+							if(!$("#cmbCalctype").data('info').item[i].isOutside)		
+								$('#txtDiscount').val($("#cmbCalctype").data('info').item[i].discount);
+							break;	
+						}
+					}
             	}
         	};
             var curData = new currentData();
@@ -110,6 +121,7 @@
                         $("#txtPrice3").hide();
                         $("#lblPrice2").show();
                         $("#txtPrice2").show();
+                        curData.chgDiscount();
                     }
                     sum();
                 }).click(function() {
@@ -258,6 +270,7 @@
                         	item.push({
                         		noa : as[i].noa,
                         		typea : as[i].typea,
+                        		discount : as[i].discount,
                         		isOutside : as[i].isoutside.length==0?false:(as[i].isoutside=="false" || as[i].isoutside=="0" || as[i].isoutside=="undefined"?false:true)
                         	});
                         }
