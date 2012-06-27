@@ -16,13 +16,13 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
             q_tables = 's';
-            var q_name = "calctype";
+            var q_name = "bonus";
             var q_readonly = [];
-            var q_readonlys = new Array();
+            var q_readonlys = new Array(['txtStrvalue',10,0],['txtEndvalue',10,0],['txtBonus',10,0]);
             var bbmNum = [];
             var bbsNum = [];
             var bbmMask = [];
-            var bbsMask = new Array(['txtBdate','999/99/99'],['txtEdate','999/99/99']);
+            var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -81,7 +81,7 @@
                 var t_noa = trim($('#txtNoa').val());
                 if(t_noa.length == 0 || t_noa == "AUTO"){
                 	var t_date = trim($('#txtDatea').val());
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_calctype') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_bonus') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 }
                 else
                     wrServer(t_noa);
@@ -122,7 +122,7 @@
             }
 
             function bbsSave(as) {
-                if(!as['bdate'] && !as['edate'] && !as['bonusno']) {
+                if(!as['strvalue'] && !as['endvalue'] && !as['bonus']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -157,7 +157,6 @@
 
             function btnSeek() {
                 _btnSeek();
-                q_box('caltype_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
             }
 
             function btnTop() {
@@ -202,7 +201,7 @@
             }
             .dview {
                 float: left;
-                width: 25%;
+                width: 45%;
             }
             .tview {
                 margin: 0;
@@ -220,7 +219,7 @@
             }
             .dbbm {
                 float: left;
-                width: 70%;
+                width: 45%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -319,22 +318,21 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:5%;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:5%;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:10%;"><a id='vewTypea'> </a></td>
-						<td align="center" style="width:10%;" colspan="2"><a id='vewGroup'> </a></td>
+						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
+						<td align="center" style="width:15%"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:40%"><a id='vewMemo'> </a></td>
 					</tr>
 					<tr>
-						<td ><input id="chkBrow.*" type="checkbox"/></td>
+						<td >
+						<input id="chkBrow.*" type="checkbox" style=' '/>
+						</td>
 						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='typea'>~typea</td>
-						<td align="center" id='gkey'>~gkey</td>
-						<td align="center" id='gname'>~gname</td>
+						<td align="center" id='memo'>~memo</td>
 					</tr>
 				</table>
 			</div>
 			<div class='dbbm'>
-				<table class="tbbm"  id="tbbm" >
+				<table class="tbbm"  id="tbbm">
 					<tr name="schema" style="height:0px;">
 						<td class="td1"><span class="schema"> </span></td>
 						<td class="td2"><span class="schema"> </span></td>
@@ -342,47 +340,20 @@
 						<td class="td4"><span class="schema"> </span></td>
 						<td class="td5"><span class="schema"> </span></td>
 						<td class="td6"><span class="schema"> </span></td>
-						<td class="td7"><span class="schema"> </span></td>
-						<td class="td8"><span class="schema"> </span></td>
 						<td class="tdZ"><span class="schema"> </span></td>
 					</tr>
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class="td2">
-						<input id="txtNoa" type="text"  class="txt c1"/>
+						<input id="txtNoa" type="text"  class="txt c1" />
 						</td>
 					</tr>
 					<tr class="tr2">
-						<td class="td1"><span> </span><a id="lblTypea" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtTypea" type="text"  class="txt c1"/>
+						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td class="td2" colspan="5">
+						<input id="txtMemo" type="text"  class="txt c1" />
 						</td>
 					</tr>
-					<tr class="tr3">
-						<td class="td1"><span> </span><a id="lblIsoutside" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="chkIsoutside" type="checkbox"/>
-						</td>
-					</tr>
-					<tr class="tr4">
-						<td class="td1"><span> </span><a id="lblDiscount" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtDiscount" type="text"  class="txt c1 num"/>
-						</td>
-					</tr>
-					<tr class="tr5"> 
-						<td class="td1"><span> </span><a id="lblGroup" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtGkey" type="text"  class="txt c1"/>
-						</td>
-						<td class="td3">
-						<input id="txtGname" type="text"  class="txt c1"/>
-						</td>
-					</tr>
-					<tr> </tr>
-					<tr> </tr>
-					<tr> </tr>
-					<tr> </tr>
 					<tr> </tr>
 					<tr> </tr>
 					<tr> </tr>
@@ -393,20 +364,21 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
-					<td  align="center" >
+					<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center"  colspan="2"><a id='lblDate_s'> </a></td>
-					<td align="center" style="width:30%x;"><a id='lblBonusno_s'> </a></td>
+					<td align="center" style="width:30%;"><a id='lblStrvalue_s'> </a></td>
+					<td align="center" style="width:30%;"><a id='lblEndvalue_s'> </a></td>
+					<td align="center" style="width:30%x;"><a id='lblBonus_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
-					<td align="center" style="width:30px;">
+					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
-					<td style="width:30%;"><input type="text" id="txtBdate.*" style="width:95%;" /></td>
-					<td style="width:30%;"><input type="text" id="txtEdate.*" style="width:95%;" /></td>
-					<td style="width:30%;"><input type="text" id="txtBonusno.*" style="width:95%;" /></td>
+					<td><input type="text" id="txtStrvalue.*" style="width:95%; text-align: right;" /></td>
+					<td><input type="text" id="txtEndvalue.*" style="width:95%; text-align: right;" /></td>
+					<td><input type="text" id="txtBonus.*" style="width:95%; text-align: right;" /></td>
 				</tr>
 			</table>
 		</div>

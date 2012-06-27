@@ -417,7 +417,7 @@
 						</td>
 						<td class="td7"><span> </span><a id="lblDependents" class="lbl"></a></td>
 						<td class="td8">
-						<input id="txtDependents" type="text" class="txt num c4"/>
+						<input id="txtDependents" type="text" class="txt num c1"/>
 						</td>
 					</tr>
 					<tr class="tr8">
