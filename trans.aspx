@@ -106,6 +106,8 @@
             }
 		
             function mainPost() {
+            	$('#btnIns').val($('#btnIns').val()+"(F8)");
+            	$('#btnOk').val($('#btnOk').val()+"(F9)");
             	q_mask(bbmMask);
                 q_gt('calctype', '', 0, 0, 0, "");
                 q_gt('carteam', '', 0, 0, 0, "");
