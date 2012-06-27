@@ -17,24 +17,23 @@
 		<script type="text/javascript">
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_fixa');
+                q_gf('', 'z_tire');
             });
             function q_gfPost() {
                $('#qReport').q_report({
-                        fileName : 'z_fixa',
+                        fileName : 'z_tire',
                         options : [ {
-                        type : '5',
-                        name : 'xwtype',
-                        value : [q_getPara('report.all')].concat(q_getPara('fixa.wtype').split(','))
+                        type : '1',
+                        name : 'noa'
                     },{
                         type : '1',
                         name : 'date'
                     },{
                         type : '1',
-                        name : 'carno'
+                        name : 'mon'
                     },{
                         type : '1',
-                        name : 'palno'
+                        name : 'carno'
                     },{
                             type : '2',
                             name : 'tgg',
@@ -53,6 +52,8 @@
                 q_getFormat();
                 q_langShow();
                 
+                $('#txtMon1').mask('999/99');
+                $('#txtMon2').mask('999/99');
                 $('#txtDate1').mask('999/99/99');
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
