@@ -29,7 +29,7 @@
             brwNowPage = 0;
             brwKey = 'Noa';
             q_desc = 1;
-            aPop = new Array();
+            aPop = new Array(['txtBonusno_', '', 'bonus', 'noa,memo', 'txtBonusno_', 'bonus_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];

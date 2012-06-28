@@ -4,262 +4,264 @@
 	<head>
 		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"> </script>
-		<script src='../script/qj2.js' type="text/javascript"> </script>
+		<script src='../script/qj.js' type="text/javascript"> </script>
 		<script src='qset.js' type="text/javascript"> </script>
 		<script src='../script/qj_mess.js' type="text/javascript"> </script>
 		<script src='../script/mask.js' type="text/javascript"> </script>
 		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            this.errorHandler = null;
-            function onPageError(error) {
-                alert("An error occurred:\r\n" + error.Message);
-            }
+		    this.errorHandler = null;
+		    function onPageError(error) {
+		        alert("An error occurred:\r\n" + error.Message);
+		    }
 
-            q_tables = 's';
-            var q_name = "fixa";
-            var q_readonly = ['txtNoa','txtMoney','txtTotal'];
-            var q_readonlys = [];
-            var bbmNum = new Array(['txtOdometer',10,0],['txtWmoney',10,0],['txtCmoney',10,0],['txtMoney',10,0],['txtTax',10,0],['txtTotal',10,0]);
-            var bbsNum = new Array(['txtPrice',10,0],['txtMount',10,0],['txtMoney',10,0]);
-            var bbmMask = [];
-            var bbsMask = [];
-            q_sqlCount = 6;
-            brwCount = 6;
-            brwList = [];
-            brwNowPage = 0;
-            brwKey = 'Datea';
-            //ajaxPath = "";
-            aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea', 'txtProductno_,txtProduct_', 'fixucc_b.aspx']);
-            q_desc = 1;
- 			wtype = "";
-            $(document).ready(function() {
-                bbmKey = ['noa'];
-                bbsKey = ['noa', 'noq'];
-                q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1);
-            });
-            //////////////////   end Ready
-            function main() {
-                if (dataErr) {
-                    dataErr = false;
-                    return;
-                }
-                mainForm(1);
+		    q_tables = 's';
+		    var q_name = "fixa";
+		    var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal'];
+		    var q_readonlys = [];
+		    var bbmNum = new Array(['txtOdometer', 10, 0], ['txtWmoney', 10, 0], ['txtCmoney', 10, 0], ['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]);
+		    var bbsNum = new Array(['txtPrice', 10, 0], ['txtMount', 10, 0], ['txtMoney', 10, 0]);
+		    var bbmMask = [];
+		    var bbsMask = [];
+		    q_sqlCount = 6;
+		    brwCount = 6;
+		    brwList = [];
+		    brwNowPage = 0;
+		    brwKey = 'Datea';
+		    //ajaxPath = "";
+		    aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea', 'txtProductno_,txtProduct_', 'fixucc_b.aspx']);
+		    q_desc = 1;
+		    wtype = "";
+		    $(document).ready(function () {
+		        bbmKey = ['noa'];
+		        bbsKey = ['noa', 'noq'];
+		        q_brwCount();
+		        q_gt(q_name, q_content, q_sqlCount, 1);
+		    });
+		    //////////////////   end Ready
+		    function main() {
+		        if (dataErr) {
+		            dataErr = false;
+		            return;
+		        }
+		        mainForm(1);
 
-            }///  end Main()
+		    } ///  end Main()
 
-            function pop(form) {
-                b_pop = form;
-            }
+		    function pop(form) {
+		        b_pop = form;
+		    }
 
-            function mainPost() {
-                q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
-                q_mask(bbmMask);
-                wtype=q_getPara('fixa.wtype');
-                $('#txtTax').change(function() {
-                    sum();
-                });
-            }
+		    function mainPost() {
+		        q_getFormat();
+		        bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
+		        q_mask(bbmMask);
+		        wtype = q_getPara('fixa.wtype');
+		        $('#txtTax').change(function () {
+		            sum();
+		        });
+		    }
 
-            function q_boxClose(s2) {
-                var ret;
-                switch (b_pop) {
-                    case q_name + '_s':
-                        q_boxClose2(s2);
-                        ///   q_boxClose 3/4
-                        break;
-                }   /// end Switch
-            }
+		    function q_boxClose(s2) {
+		        var ret;
+		        switch (b_pop) {
+		            case q_name + '_s':
+		                q_boxClose2(s2);
+		                ///   q_boxClose 3/4
+		                break;
+		        }   /// end Switch
+		    }
 
-            function q_gtPost(t_name) {
-                switch (t_name) {
-                    case q_name:
-                        if (q_cur == 4)
-                            q_Seek_gtPost();
+		    function q_gtPost(t_name) {
+		        switch (t_name) {
+		            case q_name:
+		                if (q_cur == 4)
+		                    q_Seek_gtPost();
 
-                        if (q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-                        break;
-                }  /// end switch
-            }
+		                if (q_cur == 1 || q_cur == 2)
+		                    q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
+		                break;
+		        }  /// end switch
+		    }
 
-            function btnOk() {
-                $('#txtWorker').val(r_name);
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-                if(t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }
-                sum();
-                var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtDatea').val());
-                if(t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_fixa') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-                else
-                    wrServer(t_noa);
-            }
+		    function btnOk() {
+		        $('#txtWorker').val(r_name);
+		        t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
+		        if (t_err.length > 0) {
+		            alert(t_err);
+		            return;
+		        }
+		        sum();
+		        var t_noa = trim($('#txtNoa').val());
+		        var t_date = trim($('#txtDatea').val());
+		        if (t_noa.length == 0 || t_noa == "AUTO")
+		            q_gtnoa(q_name, replaceAll(q_getPara('sys.key_fixa') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+		        else
+		            wrServer(t_noa);
+		    }
 
-            function _btnSeek() {
-                if (q_cur > 0 && q_cur < 4)// 1-3
-                    return;
+		    function _btnSeek() {
+		        if (q_cur > 0 && q_cur < 4)// 1-3
+		            return;
 
-                q_box('fixa_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
-            }
+		        q_box('fixa_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+		    }
 
-            function bbsAssign() {
-                _bbsAssign();
-                for(var i = 0; i < q_bbsCount; i++) {
-                	q_cmbParse("cmbWtype_"+i, wtype);
-                	$('#cmbWtype_' + i).change(function(e) {
-                        sum();
-                    });
-                	$('#txtMount_' + i).change(function(e) {
-                        sum();
-                    });
-                    $('#txtPrice_' + i).change(function(e) {
-                        sum();
-                    });
-                    $('#txtMoney_' + i).change(function(e) {
-                        sum();
-                    });
-                    $('#txtMemo_' + i).data('info',{index : i});
-                    $('#txtMemo_' + i).change(function(e) {
-                        if($.trim($(this).val()).substring(0, 1) == '.')
-                            $('#txtMoney_' + $(this).data('info').index).removeAttr('readonly');
-                        else
-                            $('#txtMoney_' + $(this).data('info').index).attr('readonly', 'readonly');
-                        sum();
-                    });
-                    $('#txtMemo_' + i).change();
-            	}
-            }
+		    function bbsAssign() {
+		        for (var i = 0; i < q_bbsCount; i++) {
+		            if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+		                q_cmbParse("cmbWtype_" + i, wtype);
+		                $('#cmbWtype_' + i).change(function (e) {
+		                    sum();
+		                });
+		                $('#txtMount_' + i).change(function (e) {
+		                    sum();
+		                });
+		                $('#txtPrice_' + i).change(function (e) {
+		                    sum();
+		                });
+		                $('#txtMoney_' + i).change(function (e) {
+		                    sum();
+		                });
+		                //$('#txtMemo_' + i).data('info', { index: i });
+		                $('#txtMemo_' + i).change(function (e) {
+		                    if ($.trim($(this).val()).substring(0, 1) == '.')
+		                        $('#txtMoney_' + i).removeAttr('readonly');
+		                    else
+		                        $('#txtMoney_' + i).attr('readonly', 'readonly');
+		                    sum();
+		                });
+		                $('#txtMemo_' + i).change();
+		            }
+		        }
+		        _bbsAssign();
+		    }
 
-            function btnIns() {
-                _btnIns();
-                $('#txtNoa').val('AUTO');
-                $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
-            }
+		    function btnIns() {
+		        _btnIns();
+		        $('#txtNoa').val('AUTO');
+		        $('#txtDatea').val(q_date());
+		        $('#txtDatea').focus();
+		    }
 
-            function btnModi() {
-                if (emp($('#txtNoa').val()))
-                    return;
-                _btnModi();
-                $('#txtDatea').focus();
-                sum();
-            }
+		    function btnModi() {
+		        if (emp($('#txtNoa').val()))
+		            return;
+		        _btnModi();
+		        $('#txtDatea').focus();
+		        sum();
+		    }
 
-            function btnPrint() {
+		    function btnPrint() {
 
-            }
+		    }
 
-            function wrServer(key_value) {
-                var i;
-                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-                _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
-            }
+		    function wrServer(key_value) {
+		        var i;
+		        $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+		        _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
+		    }
 
-            function bbsSave(as) {
-                if (!as['productno'] && !as['product']) {
-                    as[bbsKey[1]] = '';
-                    return;
-                }
-                q_nowf();
-                as['date'] = abbm2['date'];
-                return true;
-            }
+		    function bbsSave(as) {
+		        if (!as['productno'] && !as['product']) {
+		            as[bbsKey[1]] = '';
+		            return;
+		        }
+		        q_nowf();
+		        as['date'] = abbm2['date'];
+		        return true;
+		    }
 
-            function sum() {
-                var t_mount,t_price,t_money = 0,t_wmoney=0,t_cmoney=0,t_tax;
-                for (var j = 0; j < q_bbsCount; j++) {
-                	if($.trim($('#txtMemo_' + j).val()).substring(0, 1) != '.'){
-						t_mount = parseFloat($.trim($('#txtMount_' + j).val()).length == 0 ? '0' : $('#txtMount_' + j).val());
-	                	t_price = parseFloat($.trim($('#txtPrice_' + j).val()).length == 0 ? '0' : $('#txtPrice_' + j).val());
-	                	t_money = Math.round(t_mount*t_price,0);
-	                	$('#txtMoney_'+j).val(t_money);
-                	}else{
-                		t_money = parseFloat($.trim($('#txtMoney_' + j).val()).length == 0 ? '0' : $('#txtMoney_' + j).val());
-                	}
-                	t_wmoney = t_wmoney + ($('#cmbWtype_'+j).val()=='1'?t_money:0);
-                	t_cmoney = t_cmoney + ($('#cmbWtype_'+j).val()=='2'?t_money:0);
-                }
-                t_tax = parseFloat($.trim($('#txtTax').val()).length == 0 ? '0' : $('#txtTax').val());
-                $('#txtWmoney').val(t_wmoney);
-                $('#txtCmoney').val(t_cmoney);
-                $('#txtMoney').val(t_wmoney+t_cmoney);
-                $('#txtTax').val(t_tax);
-                $('#txtTotal').val(Math.round(t_wmoney+t_cmoney+t_tax,0));
-            }
+		    function sum() {
+		        var t_mount, t_price, t_money = 0, t_wmoney = 0, t_cmoney = 0, t_tax;
+		        for (var j = 0; j < q_bbsCount; j++) {
+		            if ($.trim($('#txtMemo_' + j).val()).substring(0, 1) != '.') {
+		                t_mount = parseFloat($.trim($('#txtMount_' + j).val()).length == 0 ? '0' : $('#txtMount_' + j).val());
+		                t_price = parseFloat($.trim($('#txtPrice_' + j).val()).length == 0 ? '0' : $('#txtPrice_' + j).val());
+		                t_money = Math.round(t_mount * t_price, 0);
+		                $('#txtMoney_' + j).val(t_money);
+		            } else {
+		                t_money = parseFloat($.trim($('#txtMoney_' + j).val()).length == 0 ? '0' : $('#txtMoney_' + j).val());
+		            }
+		            t_wmoney = t_wmoney + ($('#cmbWtype_' + j).val() == '1' ? t_money : 0);
+		            t_cmoney = t_cmoney + ($('#cmbWtype_' + j).val() == '2' ? t_money : 0);
+		        }
+		        t_tax = parseFloat($.trim($('#txtTax').val()).length == 0 ? '0' : $('#txtTax').val());
+		        $('#txtWmoney').val(t_wmoney);
+		        $('#txtCmoney').val(t_cmoney);
+		        $('#txtMoney').val(t_wmoney + t_cmoney);
+		        $('#txtTax').val(t_tax);
+		        $('#txtTotal').val(Math.round(t_wmoney + t_cmoney + t_tax, 0));
+		    }
 
-            function refresh(recno) {
-                _refresh(recno);
+		    function refresh(recno) {
+		        _refresh(recno);
 
-            }
+		    }
 
-            function readonly(t_para, empty) {
-                _readonly(t_para, empty);
-                for(var i = 0; i < q_bbsCount; i++) {
-                    if($.trim($('#txtMemo_' + i).val()).substring(0, 1) == '.')
-                        $('#txtMoney_' + $('#txtMemo_' + i).data('info').index).removeAttr('readonly');
-                    else
-                        $('#txtMoney_' + $('#txtMemo_' + i).data('info').index).attr('readonly', 'readonly');
-                }
-            }
+		    function readonly(t_para, empty) {
+		        _readonly(t_para, empty);
+		        for (var i = 0; i < q_bbsCount; i++) {
+		            if ($.trim($('#txtMemo_' + i).val()).substring(0, 1) == '.')
+		                $('#txtMoney_' + i).removeAttr('readonly');
+		            else
+		                $('#txtMoney_' + i).attr('readonly', 'readonly');
+		        }
+		    }
 
-            function btnMinus(id) {
-                _btnMinus(id);
-                sum();
-            }
+		    function btnMinus(id) {
+		        _btnMinus(id);
+		        sum();
+		    }
 
-            function btnPlus(org_htm, dest_tag, afield) {
-                _btnPlus(org_htm, dest_tag, afield);
-            }
+		    function btnPlus(org_htm, dest_tag, afield) {
+		        _btnPlus(org_htm, dest_tag, afield);
+		    }
 
-            function q_appendData(t_Table) {
-                return _q_appendData(t_Table);
-            }
+		    function q_appendData(t_Table) {
+		        return _q_appendData(t_Table);
+		    }
 
-            function btnSeek() {
-                _btnSeek();
-            }
+		    function btnSeek() {
+		        _btnSeek();
+		    }
 
-            function btnTop() {
-                _btnTop();
-            }
+		    function btnTop() {
+		        _btnTop();
+		    }
 
-            function btnPrev() {
-                _btnPrev();
-            }
+		    function btnPrev() {
+		        _btnPrev();
+		    }
 
-            function btnPrevPage() {
-                _btnPrevPage();
-            }
+		    function btnPrevPage() {
+		        _btnPrevPage();
+		    }
 
-            function btnNext() {
-                _btnNext();
-            }
+		    function btnNext() {
+		        _btnNext();
+		    }
 
-            function btnNextPage() {
-                _btnNextPage();
-            }
+		    function btnNextPage() {
+		        _btnNextPage();
+		    }
 
-            function btnBott() {
-                _btnBott();
-            }
+		    function btnBott() {
+		        _btnBott();
+		    }
 
-            function q_brwAssign(s1) {
-                _q_brwAssign(s1);              
-            }
+		    function q_brwAssign(s1) {
+		        _q_brwAssign(s1);
+		    }
 
-            function btnDele() {
-                _btnDele();
-            }
+		    function btnDele() {
+		        _btnDele();
+		    }
 
-            function btnCancel() {
-                _btnCancel();
-            }
+		    function btnCancel() {
+		        _btnCancel();
+		    }
 		</script>
 		<style type="text/css">
             #dmain {

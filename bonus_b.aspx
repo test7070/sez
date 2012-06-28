@@ -9,7 +9,7 @@
 		<script src='qset.js' type="text/javascript"> </script>
 		<script src="../script/qj_mess.js" type="text/javascript"> </script>
 		<script type="text/javascript">
-            var q_name = 'addr', t_content = ' field=noa,addr', bbsKey = ['noa'], as;
+            var q_name = 'bonus', t_content = ' field=noa,memo', bbsKey = ['noa'], as;
             var isBott = false;
             /// 是否已按過 最後一頁
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
@@ -44,7 +44,7 @@
 				<tr>
 					<th align="center" > </th>
 					<th align="center" style='color:blue;' ><a id='lblNoa'> </a></th>
-					<th align="center" style='color:blue;' ><a id='lblAddr'> </a></th>
+					<th align="center" style='color:blue;' ><a id='lblMemo'> </a></th>
 				</tr>
 				<tr>
 					<td style="width:2%;">
@@ -54,7 +54,7 @@
 					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
 					<td style="width:75%;">
-					<input class="txt" id="txtAddr.*" type="text" style="width:98%;"  readonly="readonly" />
+					<input class="txt" id="txtMemo.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
 				</tr>
 			</table>
