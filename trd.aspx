@@ -215,9 +215,6 @@
                 q_box('trd_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
 
-            function combPay_chg() {
-            }
-
             function bbsAssign() {
                 _bbsAssign();
                 for(var i = 0; i < q_bbsCount; i++) {
@@ -254,7 +251,7 @@
             }
 
             function btnPrint() {
-
+				q_box('z_trd.aspx'+ "?;;;;"+r_accy, '', "800px", "600px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {

@@ -83,6 +83,7 @@
                 		sum();
                 	}
                 });
+
             }
             
             function q_funcPost(t_func, result) {
@@ -212,7 +213,7 @@
             }
 
             function btnPrint() {
-
+            	q_box('z_tre.aspx'+ "?;;;;"+r_accy, '', "800px", "600px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -223,7 +224,7 @@
             }
 
             function bbsSave(as) {
-                if(!as['ordeno'] && !as['tranno'] && !as['trannoq']) {
+                if(!as['trandate'] && !as['carno'] && !as['straddr']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
