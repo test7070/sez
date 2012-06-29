@@ -93,6 +93,8 @@
 	                $('#txtDate1').datepicker();
 	                $('#txtDate2').mask('999/99/99');
 	                $('#txtDate2').datepicker();  
+	                t_item = "";
+	                t_item2 = "";
                 }
             }
 		</script>

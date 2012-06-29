@@ -4,7 +4,7 @@
 	<head>
 		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"> </script>
-		<script src='../script/qj.js' type="text/javascript"> </script>
+		<script src='../script/qj2.js' type="text/javascript"> </script>
 		<script src='qset.js' type="text/javascript"> </script>
 		<script src='../script/qj_mess.js' type="text/javascript"> </script>
 		<script src='../script/mask.js' type="text/javascript"> </script>
@@ -32,7 +32,6 @@
 		    //ajaxPath = "";
 		    aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea', 'txtProductno_,txtProduct_', 'fixucc_b.aspx']);
 		    q_desc = 1;
-		    wtype = "";
 		    $(document).ready(function () {
 		        bbmKey = ['noa'];
 		        bbsKey = ['noa', 'noq'];
@@ -57,7 +56,7 @@
 		        q_getFormat();
 		        bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 		        q_mask(bbmMask);
-		        wtype = q_getPara('fixa.wtype');
+		        q_cmbParse("cmbWtype", q_getPara('fixa.wtype'),'s');
 		        $('#txtTax').change(function () {
 		            sum();
 		        });
@@ -111,7 +110,6 @@
 		    function bbsAssign() {
 		        for (var i = 0; i < q_bbsCount; i++) {
 		            if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-		                q_cmbParse("cmbWtype_" + i, wtype);
 		                $('#cmbWtype_' + i).change(function (e) {
 		                    sum();
 		                });

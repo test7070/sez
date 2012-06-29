@@ -15,6 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+			t_item = "";
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
@@ -30,7 +31,7 @@
             function q_boxClose(t_name) {
             }
             function q_gtPost(t_name) {
-            	var t_item = "";
+            	
             	switch (t_name) {
                     case 'carteam':
                         var as = _q_appendData("carteam", "", true);
@@ -39,62 +40,65 @@
                         }    
                         break;
                 }
-                $('#qReport').q_report({
-                    fileName : 'z_tran',
-                    options : [{
-                        type : '0',
-                        name : 'accy',
-                        value : q_getId()[4]
-                    }, {
-                        type : '6',
-                        name : 'month'
-                    }, {
-                        type : '1',
-                        name : 'mon'
-                    }, {
-                        type : '1',
-                        name : 'date'
-                    }, {
-                        type : '2',
-                        name : 'cust',
-                        dbf : 'cust',
-                        index : 'noa,comp',
-                        src : 'cust_b.aspx'
-                    }, {
-                        type : '2',
-                        name : 'driver',
-                        dbf : 'driver',
-                        index : 'noa,namea',
-                        src : 'driver_b.aspx'
-                    }, {
-                        type : '2',
-                        name : 'sales',
-                        dbf : 'sss',
-                        index : 'noa,namea',
-                        src : 'sss_b.aspx'
-                    }, {
-                        type : '5', //select
-                        name : 'xcarteamno',
-                        value : [q_getPara('report.all')].concat(t_item.split(','))
-                    }, {
-                        type : '6',
-                        name : 'xcarno'
-                    }, {
-                        type : '6',
-                        name : 'xpo'
-                    }]
-                });
-                q_getFormat();
-                q_langShow();
-                q_popAssign();
-
-                $('#txtMonth').mask('999/99');
-                $('#txtMon1').mask('999/99');
-                $('#txtMon2').mask('999/99');
-                $('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();  
+                if(t_item.length>0){
+	                $('#qReport').q_report({
+	                    fileName : 'z_tran',
+	                    options : [{
+	                        type : '0',
+	                        name : 'accy',
+	                        value : q_getId()[4]
+	                    }, {
+	                        type : '6',
+	                        name : 'month'
+	                    }, {
+	                        type : '1',
+	                        name : 'mon'
+	                    }, {
+	                        type : '1',
+	                        name : 'date'
+	                    }, {
+	                        type : '2',
+	                        name : 'cust',
+	                        dbf : 'cust',
+	                        index : 'noa,comp',
+	                        src : 'cust_b.aspx'
+	                    }, {
+	                        type : '2',
+	                        name : 'driver',
+	                        dbf : 'driver',
+	                        index : 'noa,namea',
+	                        src : 'driver_b.aspx'
+	                    }, {
+	                        type : '2',
+	                        name : 'sales',
+	                        dbf : 'sss',
+	                        index : 'noa,namea',
+	                        src : 'sss_b.aspx'
+	                    }, {
+	                        type : '5', //select
+	                        name : 'xcarteamno',
+	                        value : [q_getPara('report.all')].concat(t_item.split(','))
+	                    }, {
+	                        type : '6',
+	                        name : 'xcarno'
+	                    }, {
+	                        type : '6',
+	                        name : 'xpo'
+	                    }]
+	                });
+	                q_getFormat();
+	                q_langShow();
+	                q_popAssign();
+	
+	                $('#txtMonth').mask('999/99');
+	                $('#txtMon1').mask('999/99');
+	                $('#txtMon2').mask('999/99');
+	                $('#txtDate1').mask('999/99/99');
+	                $('#txtDate1').datepicker();
+	                $('#txtDate2').mask('999/99/99');
+	                $('#txtDate2').datepicker();  
+	                t_item="";
+                }
             }
 		</script>
 	</head>

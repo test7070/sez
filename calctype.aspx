@@ -47,6 +47,7 @@
             function mainPost() {
                 q_getFormat();
                 q_mask(bbmMask);
+                q_cmbParse("cmbFormula", q_getPara('calctype.formula'));
             }
             
             function q_funcPost(t_func, result) {
@@ -379,7 +380,12 @@
 						<input id="txtGname" type="text"  class="txt c1"/>
 						</td>
 					</tr>
-					<tr> </tr>
+					<tr class="tr1">
+						<td class="td1"><span> </span><a id="lblFormula" class="lbl"> </a></td>
+						<td class="td2" colspan="3">
+						<select id="cmbFormula" class="txt c1"> </select>
+						</td>
+					</tr>
 					<tr> </tr>
 					<tr> </tr>
 					<tr> </tr>
