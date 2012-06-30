@@ -181,6 +181,11 @@
                                 $('#txtMemo_' + i).val();
                                 $('#txtOverweightcost_' + i).val();
                                 $('#txtOthercost_' + i).val();
+                                $('#txtMount_' + i).val(as[i].mount);
+                                $('#txtPrice_' + i).val(as[i].price);
+                                $('#txtTotal_' + i).val(as[i].total);
+                                $('#txtCustorde_' + i).val(as[i].custorde);
+                                $('#txtProduct_' + i).val(as[i].product);
                             }
                         }
                         sum();
