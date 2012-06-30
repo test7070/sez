@@ -139,8 +139,6 @@
 		            wrServer(t_noa);
             }
             function sum(){
-            	
-            
             }
 
             function wrServer(key_value) {
