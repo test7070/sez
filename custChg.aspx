@@ -369,9 +369,9 @@
 						<input id="txtAcomp"  type="text"  class="txt c3"/>
 						</td>
 						<td class="td3"><span> </span><a id="lblCust" class="lbl btn" > </a></td>
-						<td class="td4" colspan="3">
-						<input id="txtCustno"  type="text"  class="txt c2"/>
-						<input id="txtComp"  type="text"  class="txt c3"/>
+						<td class="td4" colspan="4">
+						<input id="txtCustno"  type="text"  class="txt c4"/>
+						<input id="txtComp"  type="text"  class="txt c5"/>
 						</td>
 					</tr>
 					<tr>
