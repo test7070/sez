@@ -875,6 +875,20 @@
 						<input id="txtWorker" type="text"  class="txt c1"/>
 						</td>
 					</tr>
+					<tr class="trJ">
+						<td class="td1" colspan="2"><span> </span><a id="lblBoat" class="lbl "> </a></td>
+						<td class="td3" colspan="2">
+						<input id="txtBoat" type="text" class="txt c1"/>
+						</td>
+						<td class="td5" colspan="2"><span> </span><a id="lblBoatname" class="lbl"></a></td>
+						<td class="td7" colspan="2">
+						<input id="txtBoatname" type="text"  class="txt c1"/>
+						</td>
+						<td class="tdB" colspan="2"><span> </span><a id="lblShip" class="lbl"> </a></td>
+						<td class="tdD" colspan="2">
+						<input id="txtShip" type="text"  class="txt c1"/>
+						</td>
+					</tr>
 				</table>
 			</div>
 		</div>
