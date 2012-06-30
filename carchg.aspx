@@ -332,7 +332,6 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 						<td align="center" style="width:25%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:25%"><a id='vewCarno'> </a></td>
 						<td align="center" style="width:25%"><a id='vewDriver'> </a></td>
 					</tr>
 					<tr>
@@ -340,7 +339,6 @@
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='carno'>~carno</td>
 						<td align="center" id='driver'>~driver</td>
 					</tr>
 				</table>
