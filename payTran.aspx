@@ -1,24 +1,25 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
-		<script src="../script/jquery.min.js" type="text/javascript"></script>
-		<script src='../script/qj2.js' type="text/javascript"></script>
-		<script src='qset.js' type="text/javascript"></script>
-		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src="../script/qbox.js" type="text/javascript"></script>
-		<script src='../script/mask.js' type="text/javascript"></script>
+		<title> </title>
+		<script src="../script/jquery.min.js" type="text/javascript"> </script>
+		<script src='../script/qj2.js' type="text/javascript"> </script>
+		<script src='qset.js' type="text/javascript"> </script>
+		<script src='../script/qj_mess.js' type="text/javascript"> </script>
+		<script src='../script/mask.js' type="text/javascript"> </script>
+		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-			q_desc = 1 
+
+            q_desc = 1
             q_tables = 's';
             var q_name = "pay";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno', 'txtCno', 'txtAcomp'];
-            var q_readonlys = ['txtRc2no', 'txtPart', 'txtPartno', 'txtUnpay','txtTypea'];
+            var q_readonlys = ['txtRc2no', 'txtPart', 'txtPartno', 'txtUnpay', 'txtTypea'];
             var bbmNum = [['txtTotal', 10, 0, 1]];
             var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0], ['txtPaysale', 10, 0], ['txtUnpay', 10, 0]];
             var bbmMask = [];
@@ -29,12 +30,7 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             //ajaxPath = "";
-            aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
-             ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
-              ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
-              ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
-              ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
-              ['txtUmmaccno_', '', 'ummacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'ummacc_b.aspx']);
+            aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'], ['txtUmmaccno_', '', 'ummacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'ummacc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -50,11 +46,6 @@
                 mainForm(1);
 
             }///  end Main()
-
-            function pop(form) {
-                b_pop = form;
-            }
-
             function mainPost() {
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
@@ -87,16 +78,16 @@
                     }
                 });
                 $('#btnVcctran').click(function(e) {
-                    if(q_cur == 1 || q_cur == 2) {
-                        if($.trim($('#txtTggno').val()) == 0) {
+                    if (q_cur == 1 || q_cur == 2) {
+                        if ($.trim($('#txtTggno').val()) == 0) {
                             alert('Please enter the customer no.');
                             return false;
                         }
                         var t_custno = "'" + $.trim($('#txtTggno').val()) + "'";
                         t_where = "where=^^ custno=" + t_custno + " and unpay2!=0 ";
                         t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "' and ( 1=1 ";
-                        for(var i = 0; i < q_bbsCount; i++) {
-                            if($.trim($('#txtVccno_' + i).val()).length > 0) {
+                        for (var i = 0; i < q_bbsCount; i++) {
+                            if ($.trim($('#txtVccno_' + i).val()).length > 0) {
                                 t_where = t_where + "or noa='" + $('#txtVccno_' + i).val() + "'";
                                 t_where1 = t_where1 + "or vccno='" + $('#txtVccno_' + i).val() + "'";
                             }
@@ -109,26 +100,13 @@
             }
 
             function q_boxClose(s2) {
-            var ret; 
-            switch (b_pop) {  
-                case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-                
-                case q_name + '_s':
-                    q_boxClose2(s2); ///   q_boxClose 3/4
-                    break;
-            }   /// end Switch
+                var ret;
+                switch (b_pop) {
+                    case q_name + '_s':
+                        q_boxClose2(s2);
+                        ///   q_boxClose 3/4
+                        break;
+                }   /// end Switch
             }
 
             function q_gtPost(t_name) {
@@ -205,7 +183,7 @@
             }
 
             function btnOk() {
-            	 $('#txtWorker').val(r_name);
+                $('#txtWorker').val(r_name);
                 var isError = false, t_money, t_chgs, t_paysale;
                 for (var i = 0; i < q_bbsCount; i++) {
                     $('#txtTypea_' + i).parent().parent().removeClass('error');
@@ -241,10 +219,6 @@
 
                 q_box('pay_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
-
-            function combPay_chg() {
-            }
-
             function bbsAssign() {
                 _bbsAssign();
                 for (var i = 0; i < q_bbsCount; i++) {
@@ -579,7 +553,7 @@
 						</td>
 						<td class="td7">
 						<input type="button" id="btnVcctran" class="txt c1 " />
-						</td>				
+						</td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblDriver' class="lbl btn"></a></td>
@@ -592,7 +566,7 @@
 						<input id="txtCardealno" type="text" class="txt c4"/>
 						<input id="txtCardeal"  type="text" class="txt c5"/>
 						</td>
-						
+
 						<td class="td7">
 						<input type="button" id="btnTre" class="txt c1 " />
 						</td>
@@ -631,7 +605,7 @@
 					</tr>
 					<tr class="tr6">
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-						<td class="td2" colspan='5' ><textarea id="txtMemo" style="width: 99%; height: 50px;" ></textarea></td>
+						<td class="td2" colspan='5' >						<textarea id="txtMemo" style="width: 99%; height: 50px;" ></textarea></td>
 						<td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
 						<td class="td8" >
 						<input id="txtWorker"  type="text" class="txt c1"/>
@@ -689,8 +663,8 @@
 					<input type="text" id="txtNoq.*" style="display:none;" />
 					</td>
 					<td>
-						<input type="text" id="txtUmmaccno.*"  style="float:left;width:25%;"/>
-						<input type="text" id="txtTypea.*"  style="float:left;width:55%;"/>
+					<input type="text" id="txtUmmaccno.*"  style="float:left;width:25%;"/>
+					<input type="text" id="txtTypea.*"  style="float:left;width:55%;"/>
 					</td>
 					<td>
 					<input type="text" id="txtMoney.*" class="txt num c6"/>

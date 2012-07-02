@@ -365,8 +365,21 @@
                     $("#txtPrice3").hide();
                     $("#lblPrice2").show();
                     $("#txtPrice2").show();
-                }       
-            }
+                }
+                
+               	
+                alert(q_cur);
+                var treno = $('#txtTreno').val();	
+				var trdno = $('#txtTrdno').val();	
+				if(treno.length==0 && trdno.length==0){	
+					if(q_cur!=1 && q_cur!=2){							
+						$('#btnDele').remove('disabled');
+					}
+				}
+				else
+					$('#btnDele').attr('disabled', 'disabled');
+			}
+            
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
@@ -377,8 +390,24 @@
 				}else{
 					$('#txtMiles').attr('readonly', 'readonly');
 				}
+				var treno = $('#txtTreno').val();
+				if(treno.length>0){
+					$('#txtMount2').attr('readonly', 'readonly');
+					$('#txtMount3').attr('readonly', 'readonly');
+					$('#txtPrice2').attr('readonly', 'readonly');
+					$('#txtDiscount').attr('readonly', 'readonly');
+					$('#cmbCalctype').attr('disabled', 'disabled');
+				}else{
+					$('#cmbCalctype').remove('disabled');
+				}
+				var trdno = $('#txtTrdno').val();
+				if(trdno.length>0){
+					$('#txtMount').attr('readonly', 'readonly');
+					$('#txtPrice').attr('readonly', 'readonly');
+				}	
+				
             }
-
+            
             function btnMinus(id) {
                 _btnMinus(id);
             }
@@ -424,7 +453,7 @@
             }
 
             function btnDele() {
-                _btnDele();
+                _btnDele();    
             }
 
             function btnCancel() {
