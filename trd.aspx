@@ -472,7 +472,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1860px;
+                width: 2000px;
             }
             .tbbs a {
                 font-size: medium;
@@ -655,15 +655,15 @@
 					<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:90px;"><a id='lblTrandate_s'></a></td>
+					<td align="center" style="width:100px;"><a id='lblTrandate_s'></a></td>
 					<td align="center" style="width:200px;"><a id='lblStraddr_s'></a></td>
 					<td align="center" style="width:120px;"><a id='lblProduct_s'></a></td>
 					<td align="center" style="width:120px;"><a id='lblMount_s'></a></td>
 					<td align="center" style="width:120px;"><a id='lblPrice_s'></a></td>
 					<td align="center" style="width:120px;"><a id='lblTotal_s'></a></td>
-					<td align="center" style="width:70px;"><a id='lblCarno_s'></a></td>
+					<td align="center" style="width:100px;"><a id='lblCarno_s'></a></td>
 					<td align="center" style="width:70px;"><a id='lblCustorde_s'></a></td>
-					<td align="center" style="width:150px;"><a id='lblCaseno_s'></a></td>
+					<td align="center" style="width:170px;"><a id='lblCaseno_s'></a></td>
 					<td align="center" style="width:120px;"><a id='lblTranno_s'></a></td>
 					<td align="center" style="width:30px;"><a id='lblRs_s'></a></td>
 					<td align="center" style="width:100px;"><a id='lblTranmoney_s'></a></td>

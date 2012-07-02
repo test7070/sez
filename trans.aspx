@@ -366,9 +366,7 @@
                     $("#lblPrice2").show();
                     $("#txtPrice2").show();
                 }
-                
-               	
-                alert(q_cur);
+
                 var treno = $('#txtTreno').val();	
 				var trdno = $('#txtTrdno').val();	
 				if(treno.length==0 && trdno.length==0){	
