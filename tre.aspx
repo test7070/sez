@@ -127,6 +127,7 @@
                                 $('#txtTrandate_' + i).val(as[i].trandate);
                                 $('#txtCarno_' + i).val(as[i].carno);
                                 $('#txtRs_' + i).val();
+                                $('#txtProduct_' + i).val(as[i].product);
                                 $('#txtStraddr_' + i).val(as[i].straddr);
                                 $('#txtEndaddr_' + i).val(as[i.endaddr]);
                                 $('#txtMoney_' + i).val(as[i].total2);
@@ -592,6 +593,7 @@
 					<td align="center" style="width:100px;"><a id='lblTrandate_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblCarno_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblStraddr_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPrice_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblDiscount_s'> </a></td>
@@ -624,6 +626,9 @@
 					</td>
 					<td >
 					<input type="text" id="txtStraddr.*" style="width:95%;" />
+					</td>
+					<td >
+					<input type="text" id="txtProduct.*" style="width:95%;" />
 					</td>
 					<td >
 					<input type="text" id="txtMount.*" style="width:95%;text-align: right;" />
