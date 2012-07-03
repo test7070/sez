@@ -18,7 +18,7 @@
 			isEditTotal = false;
             q_tables = 's';
             var q_name = "tre";
-            var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal','txtWorker'];
+            var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal','txtWorker','txtRc2ano','txtPaydate'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
             var bbmNum = [['txtMoney', 10, 0],['txtTaxrate', 10, 1],['txtTax', 10, 0],['txtTotal', 10, 0]];
             var bbsNum = [['txtMount', 10, 3],['txtPrice', 10, 3],['txtDiscount', 10, 3],['txtMoney', 10, 0]];
@@ -30,8 +30,7 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             q_desc = 1;
-            aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
-            ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
+            aPop = new Array(
             ['txtBdriverno', '', 'driver', 'noa,namea', 'txtBdriverno', 'driver_b.aspx'],
             ['txtEdriverno', '', 'driver', 'noa,namea', 'txtEdriverno', 'driver_b.aspx']);
             $(document).ready(function() {
@@ -46,6 +45,8 @@
                     return;
                 }
                 mainForm(0);
+                $('#txtBcarno').val('0');
+				$('#txtEcarno').val('zz');
             }
 
             function mainPost() {
@@ -71,9 +72,9 @@
                 });
                 $('#txtTax').change(function(e) {
                     sum();
-                });
+                });//','+$('#txtBcarno').val()+
                 $('#btnTrans').click(function(e) {
-                	q_func('tre.import',r_accy+','+$('#txtBdriverno').val()+','+$('#txtEdriverno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
+                	q_func('tre.import',r_accy+','+$('#txtBcarno').val()+','+$('#txtEdcarno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
                 });
                 $('#txtMemo').change(function(){
                 	if(isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.'){
@@ -83,7 +84,7 @@
                 		sum();
                 	}
                 });
-
+               
             }
             
             function q_funcPost(t_func, result) {
@@ -277,6 +278,8 @@
                 	$('#txtEdate').attr('readonly','readonly');
                 	$('#txtBdriverno').attr('readonly','readonly');
                 	$('#txtEdriverno').attr('readonly','readonly');
+                	$('#txtBcarno').attr('readonly','readonly');
+                	$('#txtEcarno').attr('readonly','readonly');
                 	$('.tr1').hide();
                 }else{
                 	$('#txtDate2').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
@@ -284,6 +287,8 @@
                 	$('#txtEdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
                 	$('#txtBdriverno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
                 	$('#txtEdriverno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
+                	$('#txtBcarno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
+                	$('#txtEcarno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
                 	$('.tr1').show();
                 }
             }
@@ -469,16 +474,14 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 						<td align="center" style="width:15%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:20%"><a id='vewDriverno'> </a></td>
-						<td align="center" style="width:20%"><a id='vewDriver'> </a></td>
+						<td align="center" style="width:20%"><a id='vewCarno'> </a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='driverno'>~driverno</td>
-						<td align="center" id='driver'>~driver</td>
+						<td align="center" id='carno'>~carno</td>
 					</tr>
 				</table>
 			</div>
@@ -508,11 +511,11 @@
 						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
 						<input id="txtEdate" type="text"  class="txt c2"/>
 						</td>
-						<td class="td6"><span> </span><a id="lblDriver2" class="lbl"> </a></td>
+						<td class="td6"><span> </span><a id="lblCarno2" class="lbl"> </a></td>
 						<td class="td7" colspan="2">
-						<input id="txtBdriverno" type="text"  class="txt c2"/>
+						<input id="txtBcarno" type="text"  class="txt c2"/>
 						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
-						<input id="txtEdriverno" type="text"  class="txt c2"/>
+						<input id="txtEcarno" type="text"  class="txt c2"/>
 						</td>
 						<td class="tdA">
 						<input type="button" id="btnTrans" class="txt c1"/>
@@ -528,26 +531,19 @@
 						<td class="td5">
 						<input id="txtDatea" type="text"  class="txt c1"/>
 						</td>
-					</tr>
-					
+						<td class="td6"><span> </span><a id="lblCarno" class="lbl"> </a></td>
+						<td class="td7">
+						<input id="txtCarno" type="text"  class="txt c1"/>
+						</td>
+					</tr>			
 					<tr class="tr4">
-						<td class="td1"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
-						<td class="td2" colspan="2">
-						<input id="txtDriverno" type="text"  class="txt c2"/>
-						<input id="txtDriver" type="text"  class="txt c3"/>
-						</td>
-						<td class="td4"><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
-						<td class="td5" colspan="2">
-						<input id="txtCardealno" type="text"  class="txt c2"/>
-						<input id="txtCardeal" type="text"  class="txt c3"/>
-						</td>
-						<td class="td7"><span> </span><a id="lblPaydate" class="lbl"> </a></td>
-						<td class="td8">
-						<input id="txtPaydate" type="text" class="txt c1" />
-						</td>
-						<td class="td9"><span> </span><a id="lblRc2ano" class="lbl"> </a></td>
-						<td class="tdA">
+						<td class="td1"><span> </span><a id="lblRc2ano" class="lbl"> </a></td>
+						<td class="td2"  colspan="2">
 						<input id="txtRc2ano" type="text" class="txt c1" />
+						</td>
+						<td class="td4"><span> </span><a id="lblPaydate" class="lbl"> </a></td>
+						<td class="td5">
+						<input id="txtPaydate" type="text" class="txt c1" />
 						</td>
 					</tr>
 					<tr class="tr5">
@@ -590,7 +586,7 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:100px;"><a id='lblTrandate_s'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblCarno_s'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblDriver_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblStraddr_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPrice_s'> </a></td>
@@ -620,7 +616,7 @@
 					<input type="text" id="txtTrandate.*" style="width:95%;" />
 					</td>
 					<td >
-					<input type="text" id="txtCarno.*" style="width:95%;" />
+					<input type="text" id="txtDriver.*" style="width:95%;" />
 					</td>
 					<td >
 					<input type="text" id="txtStraddr.*" style="width:95%;" />
