@@ -588,11 +588,10 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:100px;"><a id='lblTrandate_s'> </a></td>
-<<<<<<< HEAD
+
 					<td align="center" style="width:80px;"><a id='lblCustno_s'> </a></td>
-=======
 					<td align="center" style="width:80px;"><a id='lblDriver_s'> </a></td>
->>>>>>> f4c67339caeea28647bf85d1eae12062af399aa4
+
 					<td align="center" style="width:200px;"><a id='lblStraddr_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
@@ -624,11 +623,11 @@
 					<input type="text" id="txtTrandate.*" style="width:95%;" />
 					</td>
 					<td >
-<<<<<<< HEAD
+
 					<input type="text" id="txtCustno.*" style="width:95%;" />
-=======
+
 					<input type="text" id="txtDriver.*" style="width:95%;" />
->>>>>>> f4c67339caeea28647bf85d1eae12062af399aa4
+
 					</td>
 					<td >
 					<input type="text" id="txtStraddr.*" style="width:95%;" />
