@@ -44,6 +44,9 @@
                         dbf : 'part',
                         index : 'noa,part',
                         src : 'part_b.aspx'
+                    },{
+                        type : '1',
+                        name : 'xaccc3'
                     }]
                 });
                 q_getFormat();
