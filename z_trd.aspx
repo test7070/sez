@@ -31,13 +31,16 @@
                         value : q_getId()[4]
                     }, {
                         type : '2',
-                        name : 'cust',
+                        name : 'cust', 
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
                     }, {
                         type : '1',
                         name : 'date'
+                    },{
+                        type : '6',
+                        name : 'xvccano'
                     }]
                 });
                 q_getFormat();

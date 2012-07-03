@@ -20,7 +20,7 @@
             var q_name = "trd";
             var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal','txtWorker'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
-            var bbmNum = [['txtMoney', 10, 0],['txtTaxrate', 10, 1],['txtTax', 10, 0],['txtTotal', 10, 0]];
+            var bbmNum = [['txtMoney', 10, 0],['txtTaxrate', 10, 1],['txtTax', 10, 0],['txtTotal', 10, 0],['txtDiscount', 10, 0]];
             var bbsNum = [['txtTranmoney', 10, 0],['txtOverweightcost', 10, 0],['txtOthercost', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
@@ -47,7 +47,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtBtrandate', r_picd], ['txtEtrandate', r_picd]];
+                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtBtrandate', r_picd], ['txtEtrandate', r_picd], ['txtVccadate', r_picd]];
                 q_mask(bbmMask);
 
                 q_cmbParse("cmbTrtype", q_getPara('trd.trtype'));
@@ -90,6 +90,9 @@
                     sum();
                 });
                 $('#txtTax').change(function(e) {
+                    sum();
+                });
+                $('#txtDiscount').change(function(e) {
                     sum();
                 });
 
@@ -286,24 +289,27 @@
                 for( i = 0; i < q_bbsCount; i++) {
                 	t_money += parseInt($.trim($('#txtTranmoney_' + i).val()).length == 0 ? '0' : $('#txtTranmoney_' + i).val().replace(/,/g,''), 10);
                 }
-                t_rate = parseInt($.trim($('#txtTaxrate').val()).length == 0 ? '0' : $('#txtTaxrate').val().replace(/,/g,''), 10);
+                t_discount = parseInt($.trim($('#txtDiscount').val()).length == 0 ? '0' : $('#txtDiscount').val().replace(/,/g,''), 10);
+                t_rate = parseInt($.trim($('#txtTaxrate').val()).length == 0 ? '0' : $('#txtTaxrate').val().replace(/,/g,''), 10);            
                 switch($('#cmbTaxtype').val()) {
                     case '1':
-                        t_tax = Math.round(t_money * t_rate / 100);
-                        t_total = t_money + t_tax;
+                        t_tax = Math.round((t_money-t_discount) * t_rate / 100);
+                        t_total = (t_money-t_discount) + t_tax ;
                         break;
                     case '3':
-                        t_total = Math.round(t_money / (1 + t_rate / 100), 0);
-                        t_tax = t_money - t_total;
+                        t_total = Math.round((t_money-t_discount) / (1 + t_rate / 100), 0);
+                        t_tax = (t_money-t_discount) - t_total;
                         break;
                     case '5':
                         t_tax = parseInt($.trim($('#txtTax').val()).length == 0 ? '0' : $('#txtTax').val().replace(/,/g,''), 10);
-                        t_total = t_money + t_tax;
+                        t_total = (t_money-t_discount)+ t_tax;
                         break;
                     default:
-                        t_total = t_money;
+                        t_total = (t_money-t_discount);
                 }
+                
                 $('#txtMoney').val(t_money);
+                $('#txtDiscount').val(t_discount);
                 $('#txtTax').val(t_tax);
                 $('#txtTotal').val(t_total);
             }
@@ -619,6 +625,10 @@
 						<td class="td2">
 						<input id="txtMoney" type="text"  class="txt c1 num"/>
 						</td>
+						<td class="td1"><span> </span><a id="lblDiscount" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtDiscount" type="text"  class="txt c1 num"/>
+						</td>
 						<td class="td3"><span> </span><a id="lblTaxrate" class="lbl"> </a></td>
 						<td class="td4"><select id="cmbTaxtype" class="txt c3"> </select>
 						<input id="txtTaxrate" type="text"  class="txt c2 num"/>
@@ -631,6 +641,9 @@
 						<td class="td8">
 						<input id="txtTotal" type="text" class="txt c1 num" />
 						</td>
+					</tr>
+					<tr class="tr7">
+						
 						<td class="td9"><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
 						<td class="tdA">
 						<input id="txtAccno" type="text"  class="txt c1"/>
