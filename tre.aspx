@@ -127,6 +127,7 @@
                                 $('#txtTrandate_' + i).val(as[i].trandate);
                                 $('#txtCarno_' + i).val(as[i].carno);
                                 $('#txtRs_' + i).val();
+                                $('#txtCustno_' + i).val(as[i].custno);
                                 $('#txtProduct_' + i).val(as[i].product);
                                 $('#txtStraddr_' + i).val(as[i].straddr);
                                 $('#txtEndaddr_' + i).val(as[i.endaddr]);
@@ -591,7 +592,7 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:100px;"><a id='lblTrandate_s'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblCarno_s'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblCustno_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblStraddr_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMount_s'> </a></td>
@@ -599,6 +600,7 @@
 					<td align="center" style="width:100px;"><a id='lblDiscount_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMoney_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblCarno_s'> </a></td>
 					<td align="center" style="width:170px;"><a id='lblTranno_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblRs_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPaymemo_s'> </a></td>
@@ -622,7 +624,7 @@
 					<input type="text" id="txtTrandate.*" style="width:95%;" />
 					</td>
 					<td >
-					<input type="text" id="txtCarno.*" style="width:95%;" />
+					<input type="text" id="txtCustno.*" style="width:95%;" />
 					</td>
 					<td >
 					<input type="text" id="txtStraddr.*" style="width:95%;" />
@@ -644,6 +646,9 @@
 					</td>
 					<td >
 					<input type="text" id="txtMemo.*" style="width:95%;" />
+					</td>
+					<td >
+					<input type="text" id="txtCarno.*" style="width:95%;" />
 					</td>
 					<td >
 					<input type="text" id="txtTranno.*" style="float:left; width: 70%;"/>
