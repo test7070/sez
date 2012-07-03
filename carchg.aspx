@@ -52,6 +52,7 @@
             }///  end Main()
 
             function mainPost() {
+            	 bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
             }
 
