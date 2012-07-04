@@ -15,47 +15,75 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+			t_item = "";
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
             $(document).ready(function() {
-                q_gf('', 'z_tre');
+                _q_boxClose();
                 q_getId();
+                q_gf('', 'z_tre');
             });
             function q_gfPost() {
-                $('#qReport').q_report({
-                    fileName : 'z_tre',
-                    options : [{
-                        type : '0',
-                        name : 'accy',
-                        value : q_getId()[4]
-                    },  {
-                        type : '1',
-                        name : 'date'
-                    },  {
-                        type : '6',
-                        name : 'xcarno'
-                    }]
-                });
-                q_getFormat();
-                    q_langShow();
-                    q_popAssign();
-                    
-                $('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();
+                q_gt('carteam', '', 0, 0, 0, "");
+            }
+
+            function q_boxClose(t_name) {
             }
             function q_gtPost(t_name) {
+            	switch (t_name) {
+                    case 'carteam':
+                        var as = _q_appendData("carteam", "", true);
+                        for( i = 0; i < as.length; i++) {
+                            t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;
+                        }    
+                        break;
+                }
+      
+                if(t_item.length>0){
+                	 $('#qReport').q_report({
+	                    fileName : 'z_tre',
+	                    options : [{
+	                        type : '0',
+	                        name : 'accy',
+	                        value : q_getId()[4]
+	                    },  {
+	                        type : '1',
+	                        name : 'date'
+	                    },  {
+	                        type : '6',
+	                        name : 'xcarno'
+	                    }, {
+	                        type : '5', //select
+	                        name : 'xcarteamno',
+	                        value : [q_getPara('report.all')].concat(t_item.split(','))
+	                    }]
+	                });
+	                
+	                q_getFormat();
+	                q_langShow();
+	                q_popAssign();
+	
+	                $('#txtDate1').mask('999/99/99');
+	                $('#txtDate1').datepicker();
+	                $('#txtDate2').mask('999/99/99');
+	                $('#txtDate2').datepicker();  
+	                t_item = "";
+                }
             }
 		</script>
 	</head>
-	<body id="z_accc">
-		<div id="container">
-			<div id="qReport"> </div>
+	<body>
+		
+			<div id="q_menu"> </div>
+		<div style="position: absolute;top: 40px;z-index: 1;">
+			<div id="container">
+				<div id="qReport"> </div>
+			</div>
+			<div class="prt" >
+				<!--#include file="../inc/print_ctrl.inc"-->
+			</div>
 		</div>
-		<div class="prt" >
-			<!--#include file="../inc/print_ctrl.inc"-->
-		</div>
+	
 	</body>
 </html>

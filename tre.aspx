@@ -85,11 +85,11 @@
                 		sum();
                 	}
                 });
-               	$("#cmbCarteamno").focus(function(){
-                	var len = $("#cmbCarteamno").children().length>0?$("#cmbCarteamno").children().length:1;
-                	$("#cmbCarteamno").attr('size',len+"");
+               	$("#cmbXcarteamno").focus(function(){
+                	var len = $("#cmbXcarteamno").children().length>0?$("#cmbXcarteamno").children().length:1;
+                	$("#cmbXcarteamno").attr('size',len+"");
                 }).blur(function(){
-                	$("#cmbCarteamno").attr('size','1');
+                	$("#cmbXcarteamno").attr('size','1');
                 });
             }
             
@@ -123,8 +123,8 @@
                         for( i = 0; i < as.length; i++) {
                             t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;
                         }
-                        q_cmbParse("cmbCarteamno", t_item);  
-                        $('#cmbCarteamno').removeAttr('disabled');                 
+                        q_cmbParse("cmbXcarteamno", t_item);  
+                        $('#cmbXcarteamno').removeAttr('disabled');                 
                         break;
                     case 'trans':
                         var as = _q_appendData("trans", "", true);
@@ -297,7 +297,7 @@
                 	$('#txtEdriverno').attr('readonly','readonly');
                 	$('#txtBcarno').attr('readonly','readonly');
                 	$('#txtEcarno').attr('readonly','readonly');
-                	$('#cmbCarteamno').attr('disabled','disabled');
+                	$('#cmbXcarteamno').attr('disabled','disabled');
                 	$('.tr1').hide();
                 }else{
                 	$('#txtDate2').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
@@ -307,7 +307,7 @@
                 	$('#txtEdriverno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
                 	$('#txtBcarno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
                 	$('#txtEcarno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
-                	$('#cmbCarteamno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
+                	$('#cmbXcarteamno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
                 	$('.tr1').show();
                 }
             }
@@ -530,7 +530,7 @@
 						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
 						<input id="txtEdate" type="text"  class="txt c2"/>
 						</td>
-						<td class="td6"><select id="cmbCarteamno" class="txt c1"> </select></td>
+						<td class="td6"><select id="cmbXcarteamno" class="txt c1"> </select></td>
 						<td class="td7"><span> </span><a id="lblCarno2" class="lbl"> </a></td>
 						<td class="td8" colspan="2">
 						<input id="txtBcarno" type="text"  class="txt c2"/>
@@ -635,16 +635,9 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
-					<td >
-					<input type="text" id="txtTrandate.*" style="width:95%;" />
-					</td>
-					<td >
-
-					<input type="text" id="txtCustno.*" style="width:95%;" />
-
-					<input type="text" id="txtDriver.*" style="width:95%;" />
-
-					</td>
+					<td ><input type="text" id="txtTrandate.*" style="width:95%;" /></td>
+					<td ><input type="text" id="txtCustno.*" style="width:95%;" /></td >
+					<td><input type="text" id="txtDriver.*" style="width:95%;" /></td>
 					<td >
 					<input type="text" id="txtStraddr.*" style="width:95%;" />
 					</td>

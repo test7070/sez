@@ -73,12 +73,12 @@
 	                        index : 'noa,namea',
 	                        src : 'driver_b.aspx'
 	                    }, {
-	                        type : '5', //select
-	                        name : 'xcarteamno',
-	                        value : [q_getPara('report.all')].concat(t_item.split(','))
-	                    }, {
 	                        type : '6',
 	                        name : 'xcarno'
+	                    }, {
+	                        type : '7', //select
+	                        name : 'xcarteamno',
+	                        value : t_item.split(',')
 	                    }, {
 	                        type : '7', //mutiple select
 	                        name : 'xcalctype',
@@ -102,7 +102,7 @@
 	<body>
 		
 			<div id="q_menu"> </div>
-		<div style="position: absolute;top: 40px;z-index: 1;">
+			<div style="position: absolute;top: 40px;z-index: 1;width:2000px;">
 			<div id="container">
 				<div id="qReport"> </div>
 			</div>
