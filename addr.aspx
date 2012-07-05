@@ -30,6 +30,7 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             q_desc = 1;
+            
             aPop =  new Array(['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -90,6 +91,7 @@
                     alert(t_err);
                     return;
                 }
+                var t_noa = trim($('#txtNoa').val());
                 wrServer(t_noa);
             }
 
@@ -97,7 +99,7 @@
                 if(q_cur > 0 && q_cur < 4)
                     return;
 
-                q_box('tre_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+                q_box('addr_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
 
             function combPay_chg() {
@@ -388,10 +390,10 @@
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
 					<td ><input type="text" id="txtDatea.*" style="width:95%;" />  </td>
-					<td ><input type="text" id="txtCustprice.*" style="width:95%;" />  </td>
-					<td ><input type="text" id="txtDriverprice.*" style="width:95%;" />  </td>
-					<td ><input type="text" id="txtDriverprice2.*" style="width:95%;" />  </td>
-					<td ><input type="text" id="txtCommission.*" style="width:95%;" />  </td>
+					<td ><input type="text" id="txtCustprice.*" style="width:95%;text-align:right;" />  </td>
+					<td ><input type="text" id="txtDriverprice.*" style="width:95%;text-align:right;" />  </td>
+					<td ><input type="text" id="txtDriverprice2.*" style="width:95%;text-align:right;" />  </td>
+					<td ><input type="text" id="txtCommission.*" style="width:95%;text-align:right;" />  </td>
 					<td ><input type="text" id="txtMemo.*" style="width:95%;" />  </td>
 				</tr>
 			</table>

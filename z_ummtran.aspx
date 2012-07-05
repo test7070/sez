@@ -72,11 +72,14 @@
 	</head>
 	<body>
 
-		<div id="container">
-			<div id="qReport"></div>
-		</div>
-		<div class="prt" >
-			<!--#include file="../inc/print_ctrl.inc"-->
+		<div id="q_menu"> </div>
+			<div style="position: absolute;top: 40px;z-index: 1;width:2000px;">
+			<div id="container">
+				<div id="qReport"> </div>
+			</div>
+			<div class="prt" >
+				<!--#include file="../inc/print_ctrl.inc"-->
+			</div>
 		</div>
 	</body>
 </html>
