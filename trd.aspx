@@ -102,6 +102,7 @@
                             alert('Please enter the customer no.');
                             return false;
                         }
+                        var  t_noa = "'" + $.trim($('#txtOrdeno').val()) + "'";
                         var t_ordeno = "'" + $.trim($('#txtOrdeno').val()) + "'";
                         var t_curno = "'" + $.trim($('#txtNoa').val()) + "'";
                         var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
@@ -114,21 +115,21 @@
                         var t_bodate = "'" + $.trim($('#txtBodate').val()) + "'";
                         var t_eodate = $.trim($('#txtEodate').val());
                         t_eodate = t_eodate.length == 0 ? "char(255)" : "'" + t_eodate + "'";
-                        var t_bstraddrno = "'" + $.trim($('#txtBstraddrno').val()) + "'";
-                        var t_estraddrno = $.trim($('#txtEstraddrno').val());
-                        t_estraddrno = t_estraddrno.length == 0 ? "char(255)" : "'" + t_estraddrno + "'";
-                        var t_bendaddrno = "'" + $.trim($('#txtBendaddrno').val()) + "'";
-                        var t_eendaddrno = $.trim($('#txtEendaddrno').val());
-                        t_eendaddrno = t_eendaddrno.length == 0 ? "char(255)" : "'" + t_eendaddrno + "'";
+                        var t_straddrno = "'" + $.trim($('#txtStraddrno').val()) + "'";
+            
                         var t_tranordeno = "'" + $.trim($('#txtOrdeno').val()) + "'";
                         var t_po = "'" + $.trim($('#txtPo').val()) + "'";
 
-                        t_where = "where=^^(custno=" + t_custno + ") and (isnull(trandate,'') between " + t_btrandate + " and " + t_etrandate + ") and (isnull(datea,'') between " + t_bdate + " and " + t_edate + ") and ";
+                        t_where = "where=^^(custno=" + t_custno + ") and (isnull(trandate,'') between " + t_btrandate + " and " + t_etrandate + ") and (isnull(datea,'') between " + t_bdate + " and " + t_edate + ") ";
+                         t_where +=" and ( len(isnull(trdno,''))=0  or  trdno="+t_noa+")";
+                        if(!(t_straddrno=="''"))
+                        	t_where += " and (straddrno=" + t_straddrno + ")";
                         if(!(t_po=="''"))
-                        	t_where += " (trans" + r_accy + ".po=" + t_po + ") and";
+                        	t_where += " and (trans" + r_accy + ".po=" + t_po + ")";
                         if(!(t_bodate == "''" && t_eodate == "char(255)" && t_ordeno == "''"))
-                            t_where += " exists(select * from tranorde" + r_accy + " where noa=trans" + r_accy + ".ordeno and (odate between " + t_bodate + " and " + t_eodate + ")) and ";
-                        t_where += " not exists(select * from trds" + r_accy + " where not(noa=" + t_curno + ") and tranno=trans" + r_accy + ".noa and trannoq=trans" + r_accy + ".noq and (straddrno between " + t_bstraddrno + " and " + t_estraddrno + ") and (endaddrno between " + t_bendaddrno + " and " + t_eendaddrno + "))^^";
+                            t_where += "and exists(select * from tranorde" + r_accy + " where noa=trans" + r_accy + ".ordeno and (odate between " + t_bodate + " and " + t_eodate + ")) and ";
+                       // t_where += " not exists(select * from trds" + r_accy + " where not(noa=" + t_curno + ") and tranno=trans" + r_accy + ".noa and trannoq=trans" + r_accy + ".noq and (straddrno between " + t_bstraddrno + " and " + t_estraddrno + ") and (endaddrno between " + t_bendaddrno + " and " + t_eendaddrno + "))^^";
+                       
                         t_where += "order=^^datea,noa^^";
                         q_gt('trans', t_where, 0, 0, 0, "", r_accy);
                     }

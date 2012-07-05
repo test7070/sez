@@ -17,7 +17,7 @@
             }
             var q_name = "trans";
             var q_readonly = ['txtNoa','txtTotal','txtTotal2','txtTrdno','txtWorkerno','txtWorker'];
-            var bbmNum = new Array(['txtUnpack', 10, 0], ['txtMount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3], ['txtTolls', 10, 0], ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['txtMiles', 10, 2], ['txtReserve', 10, 0], ['txtWeight', 10, 2], ['txtPlus', 10, 0], ['txtMinus', 10, 0], ['txtMount2', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2], ['txtOverh', 10, 0], ['txtOverw', 10, 0]);
+            var bbmNum = new Array(['txtUnpack', 10, 0], ['txtMount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3],  ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['txtMiles', 10, 2],  ['txtWeight', 10, 2], ['txtMount2', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2], ['txtOverh', 10, 0], ['txtOverw', 10, 0]);
             var bbmMask = new Array(['txtTrandate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99'],['txtCldate', '999/99/99']);
             q_sqlCount = 6;
             brwCount = 6;
@@ -746,24 +746,6 @@
 						<td class="tdE" colspan="3">
 						<input id="txtNoa" type="text"  class="txt c1"/>
 						<input id="txtNoq" type="text"  style="display: none;"/>
-						</td>
-					</tr>
-					<tr class="tr8">
-						<td class="td1" colspan="2"><span> </span><a id="lblTolls" class="lbl"> </a></td>
-						<td class="td3" colspan="2">
-						<input id="txtTolls" type="text" class="txt num c1"/>
-						</td>
-						<td class="td5" colspan="2"><span> </span><a id="lblReserve" class="lbl"> </a></td>
-						<td class="td7" colspan="2">
-						<input id="txtReserve" type="text" class="txt num c1"/>
-						</td>
-						<td class="td9" colspan="2"><span> </span><a id="lblPlus" class="lbl"> </a></td>
-						<td class="tdB" colspan="2">
-						<input id="txtPlus" type="text"  class="txt c1 num"/>
-						</td>
-						<td class="tdD" colspan="2"><span> </span><a id="lblMinus" class="lbl"> </a></td>
-						<td class="tdF" colspan="2">
-						<input id="txtMinus" type="text"  class="txt c1 num"/>
 						</td>
 					</tr>
 					<tr class="tr9">
