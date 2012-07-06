@@ -43,7 +43,7 @@
                     }, {
                         type : '3',
                         name : 'carno',
-                        dbf : 'car2',
+                        dbf : 'car2', 
                         index : 'noa',
                         src : 'car2_b.aspx'
                     }, {
@@ -60,7 +60,11 @@
                     }, {
                         type : '7', //select
                         name : 's2',
-                        value : [q_getPara('report.all')].concat(q_getPara('oil.product').split(','))
+                        value : q_getPara('oil.product').split(',')
+                    }, {
+                        type : '8', //checkbox
+                        name : 'c1',
+                        value : q_getPara('oil.product').split(',')
                     }]
                 });
                 q_getFormat();
@@ -88,5 +92,6 @@
 		<div class="prt" >
 			<!--#include file="../inc/print_ctrl.inc"-->
 		</div>
+		
 	</body>
 </html>
