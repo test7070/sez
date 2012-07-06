@@ -17,6 +17,8 @@
 		<script type="text/javascript">
 			t_item = "";
            	t_item2 = "";
+           	aPop  =  new Array(['txtXcarno', 'lblXcarno', 'car2', 'a.noa,driverno,driver','txtXcarno', 'car2_b.aspx'],
+           		['txtXaddr', 'lblXaddr', 'addr2', 'noa,addr','txtXaddr', 'addr_b.aspx']);
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
@@ -76,11 +78,17 @@
 	                        type : '6',
 	                        name : 'xcarno'
 	                    }, {
-	                        type : '7', //select
+	                        type : '6',
+	                        name : 'xpo'
+	                    }, {
+	                        type : '6',
+	                        name : 'xaddr'
+	                    }, {
+	                        type : '8', //select
 	                        name : 'xcarteamno',
 	                        value : t_item.split(',')
 	                    }, {
-	                        type : '7', //mutiple select
+	                        type : '8', //mutiple select
 	                        name : 'xcalctype',
 	                        value : t_item2.split(',')
 	                    }]
@@ -102,7 +110,7 @@
 	<body>
 		
 			<div id="q_menu"> </div>
-			<div style="position: absolute;top: 40px;z-index: 1;width:2000px;">
+			<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
 				<div id="qReport"> </div>
 			</div>
