@@ -145,10 +145,10 @@
                 _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
             }
 
-            function bbsSave(as) {/// 表身 寫入資料庫前，寫入需要欄位
-                if(!as['checkno']) {//不存檔條件
+            function bbsSave(as) {/// �? �g�J��Ʈw�e�A�g�J�ݭn���
+                if(!as['checkno']) {//���s�ɱ��
                     as[bbsKey[1]] = '';
-                    /// noq 為空，不存檔
+                    /// noq ���šA���s��
                     return;
                 }
 
