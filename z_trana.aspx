@@ -108,9 +108,8 @@
 		</script>
 	</head>
 	<body>
-		
-			<div id="q_menu"> </div>
-			<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
+		<div id="q_menu"> </div>
+		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
 				<div id="qReport"> </div>
 			</div>
@@ -118,6 +117,5 @@
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
 		</div>
-	
 	</body>
 </html>
