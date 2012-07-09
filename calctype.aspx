@@ -20,16 +20,16 @@
             var q_readonly = [];
             var q_readonlys = new Array();
             var bbmNum = [];
-            var bbsNum = [];
+            var bbsNum = [['txtDiscount',10,3]];
             var bbmMask = [];
-            var bbsMask = new Array(['txtBdate','999/99/99'],['txtEdate','999/99/99']);
+            var bbsMask = new Array();
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Noa';
             q_desc = 1;
-            aPop = new Array(['txtBonusno_', '', 'bonus', 'noa,memo', 'txtBonusno_', 'bonus_b.aspx']);
+            aPop = new Array();
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -122,7 +122,7 @@
             }
 
             function bbsSave(as) {
-                if(!as['bdate'] && !as['edate'] && !as['bonusno']) {
+                if(!as['typea']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -321,15 +321,12 @@
 					<tr>
 						<td align="center" style="width:5%;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:5%;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:10%;"><a id='vewTypea'> </a></td>
-						<td align="center" style="width:10%;" colspan="2"><a id='vewGroup'> </a></td>
+						<td align="center" style="width:10%;"><a id='vewNamea'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox"/></td>
 						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='typea'>~typea</td>
-						<td align="center" id='gkey'>~gkey</td>
-						<td align="center" id='gname'>~gname</td>
+						<td align="center" id='namea'>~namea</td>
 					</tr>
 				</table>
 			</div>
@@ -353,30 +350,9 @@
 						</td>
 					</tr>
 					<tr class="tr2">
-						<td class="td1"><span> </span><a id="lblTypea" class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id="lblNamea" class="lbl"> </a></td>
 						<td class="td2">
-						<input id="txtTypea" type="text"  class="txt c1"/>
-						</td>
-					</tr>
-					<tr class="tr3">
-						<td class="td1"><span> </span><a id="lblIsoutside" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="chkIsoutside" type="checkbox"/>
-						</td>
-					</tr>
-					<tr class="tr4">
-						<td class="td1"><span> </span><a id="lblDiscount" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtDiscount" type="text"  class="txt c1 num"/>
-						</td>
-					</tr>
-					<tr class="tr5"> 
-						<td class="td1"><span> </span><a id="lblGroup" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtGkey" type="text"  class="txt c1"/>
-						</td>
-						<td class="td3">
-						<input id="txtGname" type="text"  class="txt c1"/>
+						<input id="txtNamea" type="text"  class="txt c1"/>
 						</td>
 					</tr>
 					<tr> </tr>
@@ -392,20 +368,23 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
-					<td  align="center" >
+					<td  align="center"  style="width:40px;" >
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center"  colspan="2"><a id='lblDate_s'> </a></td>
-					<td align="center" style="width:30%x;"><a id='lblBonusno_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblTypea_s'> </a></td>
+					<td align="center" style="width:50px;"><a id='lblIsoutside_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblDiscount_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblBonusno_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
-					<td align="center" style="width:30px;">
+					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
-					<td style="width:30%;"><input type="text" id="txtBdate.*" style="width:95%;" /></td>
-					<td style="width:30%;"><input type="text" id="txtEdate.*" style="width:95%;" /></td>
-					<td style="width:30%;"><input type="text" id="txtBonusno.*" style="width:95%;" /></td>
+					<td><input type="text" id="txtTypea.*" style="width:95%;" /></td>
+					<td  align="center"><input type="checkbox" id="chkIsoutside.*" /></td>
+					<td><input type="text" id="txtDiscount.*" style="width:95%;text-align: right;" /></td>
+					<td><input type="text" id="txtBonusno.*" style="width:95%;" /></td>
 				</tr>
 			</table>
 		</div>

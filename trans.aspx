@@ -109,7 +109,7 @@
             	$('#btnIns').val($('#btnIns').val()+"(F8)");
             	$('#btnOk').val($('#btnOk').val()+"(F9)");
             	q_mask(bbmMask);
-                q_gt('calctype', '', 0, 0, 0, "");
+                q_gt('calctype2', '', 0, 0, 0, "calctypes");
                 q_gt('carteam', '', 0, 0, 0, "");
                 q_cmbParse("cmbCasetype", "20'',40''");
 				$("#cmbCalctype").change(function() {
@@ -261,16 +261,15 @@
             }
 
             function q_gtPost(t_name) {
-
                 switch (t_name) {
-                	case 'calctype':
-                        var as = _q_appendData("calctype", "", true);
+                	case 'calctypes':
+                        var as = _q_appendData("calctypes", "", true);
 						var t_item = "";
                         var item = new Array();
                         for( i = 0; i < as.length; i++) {
-                            t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].typea;
+                            t_item = t_item + (t_item.length>0?',':'') + as[i].noa+as[i].noq +'@' + as[i].typea;
                         	item.push({
-                        		noa : as[i].noa,
+                        		noa : as[i].noa+as[i].noq,
                         		typea : as[i].typea,
                         		discount : as[i].discount,
                         		isOutside : as[i].isoutside.length==0?false:(as[i].isoutside=="false" || as[i].isoutside=="0" || as[i].isoutside=="undefined"?false:true)

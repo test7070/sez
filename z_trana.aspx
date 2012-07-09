@@ -30,7 +30,7 @@
             function q_gfPost() {
             
                 q_gt('carteam', '', 0, 0, 0, "");
-                q_gt('calctype', '', 0, 0, 0, "");
+                q_gt('calctype2', '', 0, 0, 0, "calctypes");
                
             }
 
@@ -44,10 +44,10 @@
                             t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;
                         }    
                         break;
-                    case 'calctype':
-                        var as = _q_appendData("calctype", "", true);
+                    case 'calctypes':
+                        var as = _q_appendData("calctypes", "", true);
                         for( i = 0; i < as.length; i++) {
-                            t_item2 = t_item2 + (t_item2.length>0?',':'') + as[i].noa +'@' + as[i].typea;
+                            t_item2 = t_item2 + (t_item2.length>0?',':'') + as[i].noa+as[i].noq +'@' + as[i].typea;
                         }    
                         break;
                 }
@@ -103,6 +103,8 @@
 	                $('#txtDate2').datepicker();  
 	                t_item = "";
 	                t_item2 = "";
+	                $('#chkXcarteamno').children('input').attr('checked','checked');
+	                $('#chkXcalctype').children('input').attr('checked','checked');
 	                
 	                var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
