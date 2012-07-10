@@ -28,7 +28,7 @@
                 q_gf('', 'z_trana');
             });
             function q_gfPost() {
-            
+            	
                 q_gt('carteam', '', 0, 0, 0, "");
                 q_gt('calctype2', '', 0, 0, 0, "calctypes");
                
@@ -37,6 +37,7 @@
             function q_boxClose(t_name) {
             }
             function q_gtPost(t_name) {
+            	
             	switch (t_name) {
                     case 'carteam':
                         var as = _q_appendData("carteam", "", true);
@@ -91,6 +92,14 @@
 	                        type : '8', //mutiple select
 	                        name : 'xcalctype',
 	                        value : t_item2.split(',')
+	                    }, {
+	                        type : '8', //select
+	                        name : 'xoption1',
+	                        value : q_getPara('z_trana.option1').split(',')
+	                    }, {
+	                        type : '5', //select
+	                        name : 'xoption2',
+	                        value : q_getPara('z_trana.option2').split(',')
 	                    }]
 	                });
 	                q_getFormat();

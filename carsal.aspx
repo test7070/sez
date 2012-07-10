@@ -19,10 +19,11 @@
 			isEditTotal = false;
 			q_tables = 's';
 			var q_name = "carsal";
-			var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal', 'txtWorker'];
+			var q_readonly = ['txtNoa','txtWorker'];
 			var q_readonlys = [];
-			var bbmNum = [['txtMoney', 10, 0], ['txtTotal', 10, 0]];
-			var bbsNum = [];
+			var bbmNum = [];
+			var bbsNum = [['txtTranmoney', 10, 0],['txtBonus', 10, 0],['txtPlus', 10, 0],['txtMoney', 10, 0],['txtTicket', 10, 0],
+						  ['txtLabor', 10, 0],['txtHealth', 10, 0],['txtMinus', 10, 0],['txtTotal', 10, 0]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -31,7 +32,7 @@
 			brwNowPage = 0;
 			brwKey = 'Datea';
 			q_desc = 1;
-			aPop = new Array();
+			aPop = new Array(['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
@@ -48,9 +49,12 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
+				bbmMask = [['txtDatea', r_picd], ['txtNoa', r_picm], ['txtMon', r_picm]];
 				q_mask(bbmMask);
-
+				 $('#btnCarsal').click(function(e) {
+				 	alert(r_accy+','+$('#txtMon').val()+','+$('#txtBdriverno').val()+','+$('#txtEdriverno').val());
+                		q_func('carsal.import',r_accy+','+$('#txtMon').val()+','+$('#txtBdriverno').val()+','+$('#txtEdriverno').val()+','+r_name);
+                });
 			}
 
 			function q_boxClose(s2) {
@@ -62,7 +66,17 @@
 				}
 				b_pop = '';
 			}
+			function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'carsal.import':
+						if(result.length==0)
+							alert('No data!');
+						else
+							location.reload();
+                        break;
+                }
 
+            }
 			function q_gtPost(t_name) {
 				switch (t_name) {
 
@@ -81,7 +95,7 @@
 					return;
 				}
 				sum();
-				wrServer(t_noa);
+				wrServer($('#txtNoa').val());
 			}
 
 			function _btnSeek() {
@@ -103,6 +117,7 @@
 				$('#txtDatea').val(q_date());
 				$('#txtNoa').focus();
 				$('#txtNoa').removeAttr('readonly');
+				
 			}
 
 			function btnModi() {
@@ -172,9 +187,14 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
-				if (isEditTotal && (q_cur == 1 || q_cur == 2) && $.trim($('#txtMemo').val()).substring(0, 1) == '.') {
-					$('#txtTotal').removeAttr('readonly').css('background-color', 'white').css('color', 'black');
-				}
+				if(q_cur == 1 || q_cur == 2) {
+                	$('.tr1').hide();
+                }else{
+                	$('#txtBdriverno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
+                	$('#txtEdriverno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
+                	$('#txtMon').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
+                	$('.tr1').show();
+                }
 			}
 
 			function btnMinus(id) {
@@ -275,7 +295,7 @@
 			.tbbm tr td {
 				width: 9%;
 			}
-			.tbbm .tr2, .tbbm .tr3, .tbbm .tr4 {
+			.tbbm .tr1{
 				background-color: #FFEC8B;
 			}
 			.tbbm .tdZ {
@@ -367,6 +387,26 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr1">
+						<td class="td1"><span> </span><a id="lblMon" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtMon" type="text" class="txt c1"/>
+						</td>
+						<td class="td3"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
+						<td class="td4">
+						<input id="txtBdriverno" type="text"  class="txt c2"/>
+						<input id="txtBdriver" type="text"  class="txt c3"/>
+						</td>
+						<td id="tdSign" style="width:1%; text-align: center;">~</td>
+						<td class="td5">
+						<input id="txtEdriverno" type="text"  class="txt c2"/>
+						<input id="txtEdriver" type="text"  class="txt c3"/>
+						</td>
+						<td class="td6"> </td>
+						<td class="td7"> </td>
+						<td class="td8"> <input type="button"  id="btnCarsal" class="txt  c1"/></td>
+						<td class="tdZ"> </td>
+					</tr>
+					<tr class="tr2">
 						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtNoa" type="text" class="txt c1"/>
@@ -375,13 +415,12 @@
 						<td class="td4">
 						<input id="txtDatea" type="text"  class="txt c1"/>
 						</td>
-						<td class="td5"></td>
-						<td class="td6"></td>
-						<td class="td7"></td>
-						<td class="td8"></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
-					<tr class="tr2"></tr>
 					<tr class="tr3"></tr>
 					<tr class="tr4"></tr>
 					<tr class="tr5"></tr>
@@ -397,18 +436,18 @@
 					<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:200px;"  colspan="2"><a id='lblDriver_s'></a></td>
-					<td align="center" style="width:100px;"><a id='lbltranmoney_s'></a></td>
-					<td align="center" style="width:100px;"><a id='lblDrivermoney_s'></a></td>
-					<td align="center" style="width:100px;"><a id='lblBonus_s'></a></td>
-					<td align="center" style="width:100px;"><a id='lblPlus_s'></a></td>
-					<td align="center" style="width:100px;"><a id='lblMoney_s'></a></td>
-					<td align="center" style="width:100px;"><a id='lblTicket_s'></a></td>
-					<td align="center" style="width:100px;"><a id='lblLabor_s'></a></td>
-					<td align="center" style="width:100px;"><a id='lblHealth_s'></a></td>
-					<td align="center" style="width:100px;"><a id='lblMinus_s'></a></td>
-					<td align="center" style="width:100px;"><a id='lblCarborr_s'></a></td>
-					<td align="center" style="width:100px;"><a id='lblTotal_s'></a></td>
+					<td align="center" style="width:150px;"><a id='lblDriver_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblTranmoney_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblDrivermoney_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblBonus_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblPlus_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblMoney_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblTicket_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblLabor_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblHealth_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblMinus_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblCarborr_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblTotal_s'></a></td>
 					<td align="center" style="width:250px;"><a id='lblMemo_s'></a></td>
 					
 				</tr>
@@ -417,7 +456,9 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
-					<td ><input type="text" id="txtDriverno.*" style="width:95%;" /></td>
+					<td  align="center"><input type="text" id="txtDriverno.*" style="width:40%;" />
+						<input type="text" id="txtDriver.*" style="width:50%;" />
+					</td>
 					<td ><input type="text" id="txtTranmoney.*" style="width:95%; text-align: right;" /></td>
 					<td ><input type="text" id="txtDrivermoney.*" style="width:95%; text-align: right;" /></td>
 					<td ><input type="text" id="txtBonus.*" style="width:95%; text-align: right;" /></td>
