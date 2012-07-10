@@ -52,8 +52,7 @@
 				bbmMask = [['txtDatea', r_picd], ['txtNoa', r_picm], ['txtMon', r_picm]];
 				q_mask(bbmMask);
 				 $('#btnCarsal').click(function(e) {
-				 	alert(r_accy+','+$('#txtMon').val()+','+$('#txtBdriverno').val()+','+$('#txtEdriverno').val());
-                		q_func('carsal.import',r_accy+','+$('#txtMon').val()+','+$('#txtBdriverno').val()+','+$('#txtEdriverno').val()+','+r_name);
+                	q_func('carsal.import',r_accy+','+$('#txtMon').val()+','+$('#txtBdriverno').val()+','+$('#txtEdriverno').val()+','+r_name);
                 });
 			}
 
@@ -69,10 +68,7 @@
 			function q_funcPost(t_func, result) {
                 switch(t_func) {
                     case 'carsal.import':
-						if(result.length==0)
-							alert('No data!');
-						else
-							location.reload();
+						location.reload();
                         break;
                 }
 
