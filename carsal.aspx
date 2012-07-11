@@ -346,7 +346,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 2000px;
+				width: 1200px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -432,19 +432,19 @@
 					<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:150px;"><a id='lblDriver_s'></a></td>
-					<td align="center" style="width:80px;"><a id='lblTranmoney_s'></a></td>
-					<td align="center" style="width:80px;"><a id='lblDrivermoney_s'></a></td>
-					<td align="center" style="width:80px;"><a id='lblBonus_s'></a></td>
-					<td align="center" style="width:80px;"><a id='lblPlus_s'></a></td>
-					<td align="center" style="width:80px;"><a id='lblMoney_s'></a></td>
-					<td align="center" style="width:80px;"><a id='lblTicket_s'></a></td>
-					<td align="center" style="width:80px;"><a id='lblLabor_s'></a></td>
-					<td align="center" style="width:80px;"><a id='lblHealth_s'></a></td>
-					<td align="center" style="width:80px;"><a id='lblMinus_s'></a></td>
-					<td align="center" style="width:80px;"><a id='lblCarborr_s'></a></td>
-					<td align="center" style="width:80px;"><a id='lblTotal_s'></a></td>
-					<td align="center" style="width:250px;"><a id='lblMemo_s'></a></td>
+					<td align="center" style="width:120px;"><a id='lblDriver_s'></a></td>
+					<td align="center" style="width:60px;"><a id='lblTranmoney_s'></a></td>
+					<td align="center" style="width:60px;"><a id='lblDrivermoney_s'></a></td>
+					<td align="center" style="width:60px;"><a id='lblBonus_s'></a></td>
+					<td align="center" style="width:60px;"><a id='lblPlus_s'></a></td>
+					<td align="center" style="width:60px;"><a id='lblMoney_s'></a></td>
+					<td align="center" style="width:60px;"><a id='lblTicket_s'></a></td>
+					<td align="center" style="width:60px;"><a id='lblLabor_s'></a></td>
+					<td align="center" style="width:60px;"><a id='lblHealth_s'></a></td>
+					<td align="center" style="width:60px;"><a id='lblMinus_s'></a></td>
+					<td align="center" style="width:60px;"><a id='lblCarborr_s'></a></td>
+					<td align="center" style="width:60px;"><a id='lblTotal_s'></a></td>
+					<td align="center" style="width:150px;"><a id='lblMemo_s'></a></td>
 					
 				</tr>
 				<tr  style='background:#cad3ff;'>

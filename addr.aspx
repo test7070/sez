@@ -18,9 +18,9 @@
 			isEditTotal = false;
             q_tables = 's';
             var q_name = "addr";
-            var q_readonly = ['txtNoa'];
+            var q_readonly = ['txtNoa','txtCustprice','txtDriverprice','txtDriverprice2','txtCommission'];
             var q_readonlys = [];
-            var bbmNum = [];
+            var bbmNum = [['txtCustprice', 10, 3],['txtDriverprice', 10, 3],['txtDriverprice2', 10, 3],['txtCommission', 10, 3]];
             var bbsNum = [['txtCustprice', 10, 3],['txtDriverprice', 10, 3],['txtDriverprice2', 10, 3],['txtCommission', 10, 3]];
             var bbmMask = [];
             var bbsMask = [];
@@ -86,6 +86,16 @@
             }
 
             function btnOk() {
+            	var t_date=''
+                for(var i = 0; i < q_bbsCount; i++) {
+                	if($('#txtDatea_'+i).val()>=t_date){
+                		t_date = $('#txtDatea_'+i).val();
+                		$('#txtCustprice').val($('#txtCustprice_'+i).val());
+                		$('#txtDriverprice').val($('#txtDriverprice_'+i).val());
+                		$('#txtDriverprice2').val($('#txtDriverprice2_'+i).val());
+                		$('#txtCommission').val($('#txtCommission_'+i).val());
+                	}
+                }
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if(t_err.length > 0) {
                     alert(t_err);
@@ -369,12 +379,26 @@
                				   <input id="txtProduct" type="text"  class="txt c3"/>
                </td>
             </tr>  
-			<tr> </tr>
-			<tr> </tr>
-			<tr> </tr>
-			<tr> </tr>
-			<tr> </tr>
-    
+			<tr>
+               <td class="td1"><span> </span><a id='lblCurrent' class="lbl"></a></td>
+            </tr> 
+			<tr>
+               <td class="td1"><span> </span><a id='lblCustprice' class="lbl"></a></td>
+               <td class="td2"><input id="txtCustprice" type="text"  class="txt c1  num"/></td>
+            </tr> 
+    		<tr>
+               <td class="td1"><span> </span><a id='lblDriverprice' class="lbl"></a></td>
+               <td class="td2"><input id="txtDriverprice" type="text"  class="txt c1  num"/></td>
+            </tr> 
+            <tr>
+               <td class="td1"><span> </span><a id='lblDriverprice2' class="lbl"></a></td>
+               <td class="td2"><input id="txtDriverprice2" type="text"  class="txt c1  num"/></td>
+            </tr> 
+            <tr>
+               <td class="td1"><span> </span><a id='lblCommission' class="lbl"></a></td>
+               <td class="td2"><input id="txtCommission" type="text"  class="txt c1  num"/></td>
+            </tr>
+            <tr> </tr>
         </table>
         </div>
         </div>

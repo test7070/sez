@@ -329,7 +329,12 @@
 						<input id="txtTeam" type="text"  class="txt c1"/>
 						</td>
 					</tr>
-					<tr> </tr>
+					<tr class="tr3">
+						<td class="td1"><span> </span><a id="lblUnit" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtUnit" type="text"  class="txt c1"/>
+						</td>
+					</tr>
 					<tr> </tr>
 					<tr> </tr>
 					<tr> </tr>

@@ -9,13 +9,13 @@
 		<script src='qset.js' type="text/javascript"> </script>
 		<script src="../script/qj_mess.js" type="text/javascript"> </script>
 		<script type="text/javascript">
-			//select b.*  from(select  noa ,  MAX(datea)  datea  from  addrs  group  by  noa)  as  a  left  join  addrs  b  on  a.noa=b.noa  and  a.datea=b.datea
-            var q_name = 'addr', t_content = ' field=noa,addr', bbsKey = ['noa'], as;
+			//custprice,driverprice,driverprice2,commission
+            var q_name = 'addr', t_content = 'field=noa,addr', bbsKey = ['noa'], as  ,  t_sqlname='addr2';
             var isBott = false;
             /// 是否已按過 最後一頁
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
             var i, s1;
-            q_alias = 'b';
+         
             $(document).ready(function() {
                 main();
             });

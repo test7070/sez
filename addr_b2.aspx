@@ -9,18 +9,19 @@
 		<script src='qset.js' type="text/javascript"></script>
 		<script src="../script/qj_mess.js" type="text/javascript"></script>
 		<script type="text/javascript">
-            var q_name = 'addr', t_content = ' field=noa,addr', bbsKey = ['noa'], as;
+            var q_name = 'addr', t_content = ' field=noa,addr,custprice,driverprice,driverprice2,commission', bbsKey = ['noa'], as;
             var isBott = false;
-            /// ¬O§_¤w«ö¹L ³Ì«á¤@­¶
+            /// ï¿½Oï¿½_ï¿½wï¿½ï¿½ï¿½L ï¿½Ì«ï¿½@ï¿½ï¿½
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
             var i, s1;
+            
             $(document).ready(function() {
                 main();
             });
             // end ready
 
             function main() {
-                if(dataErr)// ¸ü¤J¸ê®Æ¿ù»~
+                if(dataErr)// ï¿½ï¿½Jï¿½ï¿½Æ¿ï¿½~
                 {
                     dataErr = false;
                     return;
