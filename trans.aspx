@@ -286,7 +286,7 @@
                         	});
                         }
                         q_cmbParse("cmbCalctype", t_item);                   
-
+						$("#cmbCalctype").val( abbm[q_recno].calctype);
                         $("#cmbCalctype").data("info").item = item;
                         break;
                     case 'carteam':
@@ -295,7 +295,8 @@
                         for( i = 0; i < as.length; i++) {
                             t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;
                         }
-                        q_cmbParse("cmbCarteamno", t_item);                   
+                        q_cmbParse("cmbCarteamno", t_item); 
+                        $("#cmbCarteamno").val( abbm[q_recno].carteamno);                  
                         break;
                     case q_name:
                         if(q_cur == 4)

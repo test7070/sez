@@ -46,7 +46,7 @@
 					dataErr = false;
 					return;
 				}
-				mainForm(0);
+				mainForm(1);
 			}
 
 			function mainPost() {
@@ -488,6 +488,7 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:120px;"><a id='lblDriver_s'></a></td>
+					<td align="center" style="width:30px;"><a id='lblDay_s'></a></td>
 					<td align="center" style="width:60px;"><a id='lblTranmoney_s'></a></td>
 					<td align="center" style="width:60px;"><a id='lblDrivermoney_s'></a></td>
 					<td align="center" style="width:60px;"><a id='lblBonus_s'></a></td>
@@ -510,6 +511,7 @@
 					<td  align="center"><input type="text" id="txtDriverno.*" style="width:40%;" />
 						<input type="text" id="txtDriver.*" style="width:50%;" />
 					</td>
+					<td ><input type="text" id="txtDay.*" style="width:95%; text-align: right;" /></td>
 					<td ><input type="text" id="txtTranmoney.*" style="width:95%; text-align: right;" /></td>
 					<td ><input type="text" id="txtDrivermoney.*" style="width:95%; text-align: right;" /></td>
 					<td ><input type="text" id="txtBonus.*" style="width:95%; text-align: right;" /></td>
