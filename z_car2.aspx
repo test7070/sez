@@ -16,32 +16,31 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
             t_item = "";
-           	t_item2 = "";
            	
-            if (location.href.indexOf('?') < 0) {
-                location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
-            }
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
                 q_gf('', 'z_car2');
             });
             function q_gfPost() {
-                q_func('car2.getItem', '3,4,5');
+                 q_gt('carteam', '', 0, 0, 0, "");
             }
 
             function q_boxClose(t_name) {
             }
 
             function q_gtPost(t_name) {
-            	  if(result.substr(0, 5) == '<Data') {
-                    var tmp = _q_appendData('carteam', '', true);
-                    var t_carteam = '';
-                    for(var z = 0; z < tmp.length; z++) {
-                        t_carteam = t_carteam + (t_carteam.length > 0 ? ',' : '') + tmp[z].noa + '@' + tmp[z].team;
-                    }
-                    $('#qReport').q_report({
-                        fileName : 'z_car2',
+            	  switch (t_name) {
+                    case 'carteam':
+                        var as = _q_appendData("carteam", "", true);
+                        for( i = 0; i < as.length; i++) {
+                            t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;
+                        }    
+                        break;
+                       }
+                     if(t_item.length>0 ){
+	                $('#qReport').q_report({
+	                    fileName : 'z_car2',
                         options : [{
                             type : '1',
                             name : 'mon'
@@ -73,10 +72,10 @@
                             index : 'noa,namea',
                             src : 'sss_b.aspx'
                         }, {
-                            type : '5', //select
-                            name : 'xcarteamno',
-                            value : [q_getPara('report.all')].concat(t_carteam.split(','))
-                        }, {
+	                        type : '8', //select
+	                        name : 'xcarteamno',
+	                        value : t_item.split(',')
+	                    }, {
                             type : '6',
                             name : 'xcarno'
                         }, {
@@ -84,18 +83,22 @@
                             name : 'enddate'
                         }, {
                             type : '1',
-                            name : 'dcarno'
+                            name : 'Tcarno'
                         }]
                     });
                     q_getFormat();
 	                q_langShow();
 	                q_popAssign();
-	
-	                
+					$('#txtMon1').mask('999/99');
+	                $('#txtMon1').datepicker();
+	                $('#txtMon2').mask('999/99');
+	                $('#txtMon2').datepicker(); 
+	                $('#txtDate1').mask('999/99/99');
+	                $('#txtDate1').datepicker();
+	                $('#txtDate2').mask('999/99/99');
+	                $('#txtDate2').datepicker(); 
 	                t_item = "";
-	                t_item2 = "";
-	                $('#chkXcarteamno').children('input').attr('checked','checked');
-	                $('#chkXcalctype').children('input').attr('checked','checked');
+	                $('#chkXcarteamno').children('input').attr('checked','checked')
 	                
 	                
 	                
