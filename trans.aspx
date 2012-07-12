@@ -17,7 +17,7 @@
             }
             var q_name = "trans";
             var q_readonly = ['txtNoa','txtTotal','txtTotal2','txtTrdno','txtWorkerno','txtWorker'];
-            var bbmNum = new Array(['txtUnpack', 10, 0], ['txtMount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3],  ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['txtMiles', 10, 2],  ['txtWeight', 10, 2], ['txtMount2', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2], ['txtOverh', 10, 0], ['txtOverw', 10, 0]);
+            var bbmNum = new Array(['txtUnpack', 10, 0], ['txtInmount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3],  ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['txtMiles', 10, 2],  ['txtWeight', 10, 2], ['txtOutmount', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2], ['txtOverh', 10, 0], ['txtOverw', 10, 0]);
             var bbmMask = new Array(['txtTrandate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99'],['txtCldate', '999/99/99']);
             q_sqlCount = 6;
             brwCount = 6;
@@ -30,7 +30,7 @@
             ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
             ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
             ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'],
-            ['txtStraddrno', 'lblStraddr', 'addr2', 'noa,addr,productno,product,custprice,driverprice,driverprice2,commission', 'txtStraddrno,txtStraddr,txtUccno,txtProduct,txtPrice,txtPrice2,txtPrice3,txtCommission', 'addr_b.aspx'],
+            ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr,productno,product,custprice,driverprice,driverprice2,commission', 'txtStraddrno,txtStraddr,txtUccno,txtProduct,txtPrice,txtPrice2,txtPrice3,txtCommission', 'addr_b.aspx'],
             ['txtAddno3', 'lblAdd3', 'addr', 'noa,addr', 'txtAddno3,txtAdd3', 'addr_b.aspx'],
             ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
             ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
@@ -179,13 +179,19 @@
 					}
 					sum();
                 }); 
-                $("#txtMount").change(function() {
+                $("#txtInmount").change(function() {
+                    sum();
+                });
+                $("#txtPton").change(function() {
                     sum();
                 });
                 $("#txtPrice").change(function() {
                     sum();
                 });
-                $("#txtMount2").change(function() {
+                $("#txtOutmount").change(function() {
+                    sum();
+                });
+                $("#txtPton2").change(function() {
                     sum();
                 });
                 $("#txtPrice2").change(function() {
@@ -212,12 +218,16 @@
             	if($('#txtDiscount').val().length==0){
             		$('#txtDiscount').val('1');
             	}
-            	var t_mount = $.trim($('#txtMount').val()).length==0?0:parseFloat($.trim($('#txtMount').val().replace(/,/g,'')),10);
+            	var t_mount = $.trim($('#txtInmount').val()).length==0?0:parseFloat($.trim($('#txtInmount').val().replace(/,/g,'')),10);
+            	t_mount  =  t_mount + ($.trim($('#txtPton').val()).length==0?0:parseFloat($.trim($('#txtPton').val().replace(/,/g,'')),10));
+            	$('#txtMount').val(t_mount);
             	var t_price = $.trim($('#txtPrice').val()).length==0?0:parseFloat($.trim($('#txtPrice').val().replace(/,/g,'')),10);
             	$("#txtTotal").val(Math.round(t_mount * t_price,0));
                 
                 var t_discount = $.trim($('#txtDiscount').val()).length==0?0:parseFloat($.trim($('#txtDiscount').val().replace(/,/g,'')),10);
-				t_mount = $.trim($('#txtMount2').val()).length==0?0:parseFloat($.trim($('#txtMount2').val().replace(/,/g,'')),10);
+				t_mount = $.trim($('#txtOutmount').val()).length==0?0:parseFloat($.trim($('#txtOutmount').val().replace(/,/g,'')),10);
+				t_mount  =  t_mount + ($.trim($('#txtPton2').val()).length==0?0:parseFloat($.trim($('#txtPton2').val().replace(/,/g,'')),10));
+				$('#txtMount2').val(t_mount);
 				if(curData.isOutside())
 					t_price = $.trim($('#txtPrice3').val()).length==0?0:parseFloat($.trim($('#txtPrice3').val().replace(/,/g,'')),10);      
 				else
@@ -276,7 +286,7 @@
                         	});
                         }
                         q_cmbParse("cmbCalctype", t_item);                   
-
+						$("#cmbCalctype").val( abbm[q_recno].calctype);
                         $("#cmbCalctype").data("info").item = item;
                         break;
                     case 'carteam':
@@ -285,7 +295,8 @@
                         for( i = 0; i < as.length; i++) {
                             t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;
                         }
-                        q_cmbParse("cmbCarteamno", t_item);                   
+                        q_cmbParse("cmbCarteamno", t_item); 
+                        $("#cmbCarteamno").val( abbm[q_recno].carteamno);                  
                         break;
                     case q_name:
                         if(q_cur == 4)
@@ -328,7 +339,7 @@
             }
 
             function btnPrint() { 
-
+				q_box('z_trans.aspx'+ "?;;;;"+r_accy, '', "800px", "600px", q_getMsg("popPrint"));
             }
 
             function btnOk() {
@@ -390,9 +401,11 @@
 				}
 				var treno = $('#txtTreno').val();
 				if(treno.length>0){
+					$('#txtOutmount').attr('readonly', 'readonly');
+					$('#txtPton2').attr('readonly', 'readonly');
 					$('#txtMount2').attr('readonly', 'readonly');
-					$('#txtMount3').attr('readonly', 'readonly');
 					$('#txtPrice2').attr('readonly', 'readonly');
+					$('#txtPrice3').attr('readonly', 'readonly');
 					$('#txtDiscount').attr('readonly', 'readonly');
 					$('#cmbCalctype').attr('disabled', 'disabled');
 				}else{
@@ -400,6 +413,8 @@
 				}
 				var trdno = $('#txtTrdno').val();
 				if(trdno.length>0){
+					$('#txtInmount').attr('readonly', 'readonly');
+					$('#txtPton').attr('readonly', 'readonly');
 					$('#txtMount').attr('readonly', 'readonly');
 					$('#txtPrice').attr('readonly', 'readonly');
 				}	
@@ -669,7 +684,8 @@
 					<tr class="tr4">
 						<td class="td1" colspan="2"><span> </span><a id="lblMount" class="lbl"> </a></td>
 						<td class="td3" colspan="2">
-						<input id="txtMount" type="text"  class="txt num c1"/>
+						<input id="txtInmount" type="text"  class="txt num c1"/>
+						<input id="txtMount" type="text" style="display:none;"/>
 						</td>
 						<td class="td5" colspan="2"><span> </span><a id="lblPrice" class="lbl"> </a></td>
 						<td class="td7" colspan="2">
@@ -683,7 +699,8 @@
 					<tr class="tr5">
 						<td class="td1" colspan="2"><span> </span><a id="lblMount2" class="lbl"> </a></td>
 						<td class="td3" colspan="2">
-						<input id="txtMount2" type="text"  class="txt num c1"/>
+						<input id="txtOutmount" type="text"  class="txt num c1"/>
+						<input id="txtMount2" type="text" style="display:none;"/>
 						</td>
 						<td class="td5" colspan="2">
 							<span> </span><a id="lblPrice2" class="lbl"> </a>

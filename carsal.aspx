@@ -19,11 +19,13 @@
 			isEditTotal = false;
 			q_tables = 's';
 			var q_name = "carsal";
-			var q_readonly = ['txtNoa','txtWorker'];
+			var q_readonly = ['txtNoa','txtWorker','txtTranmoney','txtDrivermoney','txtBonus','txtPlus','txtMoney',
+							  'txtTicket','txtLabor','txtHealth','txtMinus','txtCarborr','txtTotal'];
 			var q_readonlys = [];
-			var bbmNum = [];
-			var bbsNum = [['txtTranmoney', 10, 0],['txtBonus', 10, 0],['txtPlus', 10, 0],['txtMoney', 10, 0],['txtTicket', 10, 0],
-						  ['txtLabor', 10, 0],['txtHealth', 10, 0],['txtMinus', 10, 0],['txtTotal', 10, 0]];
+			var bbmNum = [['txtTranmoney', 10, 0],['txtDrivermoney', 10, 0],['txtBonus', 10, 0],['txtPlus', 10, 0],['txtMoney', 10, 0],['txtTicket', 10, 0],
+						  ['txtLabor', 10, 0],['txtHealth', 10, 0],['txtMinus', 10, 0],['txtCarborr', 10, 0],['txtTotal', 10, 0]];
+			var bbsNum = [['txtTranmoney', 10, 0],['txtDrivermoney', 10, 0],['txtBonus', 10, 0],['txtPlus', 10, 0],['txtMoney', 10, 0],['txtTicket', 10, 0],
+						  ['txtLabor', 10, 0],['txtHealth', 10, 0],['txtMinus', 10, 0],['txtCarborr', 10, 0],['txtTotal', 10, 0]];
 			var bbmMask = [];
 			var bbsMask = [];
 			q_sqlCount = 6;
@@ -44,7 +46,7 @@
 					dataErr = false;
 					return;
 				}
-				mainForm(0);
+				mainForm(1);
 			}
 
 			function mainPost() {
@@ -121,6 +123,7 @@
 					return;
 				_btnModi();
 				$('#txtDatea').focus();
+				sum();
 			}
 
 			function btnPrint() {
@@ -146,35 +149,37 @@
 			}
 
 			function sum() {
-				/*if(isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.')
-				 return;
-				 var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0;
+				var t_tranmoney=0,t_drivermoney=0,t_bonus=0,t_plus=0,t_money=0;
+				var t_ticket=0,t_labor=0,t_health=0,t_minus=0,t_carborr=0,t_total=0;		
+		
 				 for( i = 0; i < q_bbsCount; i++) {
-				 t_money += parseInt($.trim($('#txtTranmoney_' + i).val()).length == 0 ? '0' : $('#txtTranmoney_' + i).val().replace(/,/g,''), 10);
+					 t_tranmoney += parseInt($.trim($('#txtTranmoney_' + i).val()).length == 0 ? '0' : $('#txtTranmoney_' + i).val().replace(/,/g,''), 10);
+					 t_drivermoney += parseInt($.trim($('#txtDrivermoney_' + i).val()).length == 0 ? '0' : $('#txtDrivermoney_' + i).val().replace(/,/g,''), 10);
+					 t_bonus += parseInt($.trim($('#txtBonus_' + i).val()).length == 0 ? '0' : $('#txtBonus_' + i).val().replace(/,/g,''), 10);
+					 t_plus += parseInt($.trim($('#txtPlus_' + i).val()).length == 0 ? '0' : $('#txtPlus_' + i).val().replace(/,/g,''), 10);
+					 t_money += parseInt($.trim($('#txtMoney_' + i).val()).length == 0 ? '0' : $('#txtMoney_' + i).val().replace(/,/g,''), 10);
+					 
+					 t_ticket += parseInt($.trim($('#txtTicket_' + i).val()).length == 0 ? '0' : $('#txtTicket_' + i).val().replace(/,/g,''), 10);
+					 t_labor += parseInt($.trim($('#txtLabor_' + i).val()).length == 0 ? '0' : $('#txtLabor_' + i).val().replace(/,/g,''), 10);
+					 t_health += parseInt($.trim($('#txtHealth_' + i).val()).length == 0 ? '0' : $('#txtHealth_' + i).val().replace(/,/g,''), 10);
+					 t_minus += parseInt($.trim($('#txtMinus_' + i).val()).length == 0 ? '0' : $('#txtMinus_' + i).val().replace(/,/g,''), 10);
+					 t_carborr += parseInt($.trim($('#txtCarborr_' + i).val()).length == 0 ? '0' : $('#txtCarborr_' + i).val().replace(/,/g,''), 10);
+					 t_total += parseInt($.trim($('#txtTotal_' + i).val()).length == 0 ? '0' : $('#txtTotal_' + i).val().replace(/,/g,''), 10);
 				 }
-				 t_discount = parseInt($.trim($('#txtDiscount').val()).length == 0 ? '0' : $('#txtDiscount').val().replace(/,/g,''), 10);
-				 t_rate = parseInt($.trim($('#txtTaxrate').val()).length == 0 ? '0' : $('#txtTaxrate').val().replace(/,/g,''), 10);
-				 switch($('#cmbTaxtype').val()) {
-				 case '1':
-				 t_tax = Math.round((t_money-t_discount) * t_rate / 100);
-				 t_total = (t_money-t_discount) + t_tax ;
-				 break;
-				 case '3':
-				 t_total = Math.round((t_money-t_discount) / (1 + t_rate / 100), 0);
-				 t_tax = (t_money-t_discount) - t_total;
-				 break;
-				 case '5':
-				 t_tax = parseInt($.trim($('#txtTax').val()).length == 0 ? '0' : $('#txtTax').val().replace(/,/g,''), 10);
-				 t_total = (t_money-t_discount)+ t_tax;
-				 break;
-				 default:
-				 t_total = (t_money-t_discount);
-				 }
+				 
 
+				 $('#txtTranmoney').val(t_tranmoney);
+				 $('#txtDrivermoney').val(t_drivermoney);
+				 $('#txtBonus').val(t_bonus);
+				 $('#txtPlus').val(t_plus);
 				 $('#txtMoney').val(t_money);
-				 $('#txtDiscount').val(t_discount);
-				 $('#txtTax').val(t_tax);
-				 $('#txtTotal').val(t_total);*/
+				 
+				 $('#txtTicket').val(t_ticket);
+				 $('#txtLabor').val(t_labor);
+				 $('#txtHealth').val(t_health);
+				 $('#txtMinus').val(t_minus);
+				 $('#txtCarborr').val(t_carborr);
+				 $('#txtTotal').val(t_total);
 			}
 
 			function refresh(recno) {
@@ -417,10 +422,60 @@
 						<td> </td>
 						<td class="tdZ"> </td>
 					</tr>
-					<tr class="tr3"></tr>
-					<tr class="tr4"></tr>
-					<tr class="tr5"></tr>
-					<tr class="tr6"></tr>
+					<tr class="tr3">
+						<td class="td1"><span> </span><a id="lblTranmoney" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtTranmoney" type="text" class="txt c1  num"/>
+						</td>
+						<td class="td3"><span> </span><a id="lblDrivermoney" class="lbl"> </a></td>
+						<td class="td4">
+						<input id="txtDrivermoney" type="text" class="txt c1  num"/>
+						</td>
+						<td class="td5"><span> </span><a id="lblBonus" class="lbl"> </a></td>
+						<td class="td6">
+						<input id="txtBonus" type="text" class="txt c1  num"/>
+						</td>
+					</tr>
+					<tr class="tr4">
+						<td class="td1"><span> </span><a id="lblPlus" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtPlus" type="text" class="txt c1  num"/>
+						</td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
+						<td class="td5"><span> </span><a id="lblMoney" class="lbl"> </a></td>
+						<td class="td6">
+						<input id="txtMoney" type="text" class="txt c1  num"/>
+						</td>
+					</tr>
+					<tr class="tr5">
+						<td class="td1"><span> </span><a id="lblTicket" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtTicket" type="text" class="txt c1  num"/>
+						</td>
+						<td class="td3"><span> </span><a id="lblLabor" class="lbl"> </a></td>
+						<td class="td4">
+						<input id="txtLabor" type="text" class="txt c1  num"/>
+						</td>
+						<td class="td5"><span> </span><a id="lblHealth" class="lbl"> </a></td>
+						<td class="td6">
+						<input id="txtHealth" type="text" class="txt c1  num"/>
+						</td>
+					</tr>
+					<tr class="tr6">
+						<td class="td1"><span> </span><a id="lblMinus" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtMinus" type="text" class="txt c1  num"/>
+						</td>
+						<td class="td3"><span> </span><a id="lblCarborr" class="lbl"> </a></td>
+						<td class="td4">
+						<input id="txtCarborr" type="text" class="txt c1  num"/>
+						</td>
+						<td class="td5"><span> </span><a id="lblTotal" class="lbl"> </a></td>
+						<td class="td6">
+						<input id="txtTotal" type="text" class="txt c1  num"/>
+						</td>
+					</tr>
 					<tr class="tr7"></tr>
 					<tr class="tr8"></tr>
 				</table>
@@ -433,6 +488,7 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:120px;"><a id='lblDriver_s'></a></td>
+					<td align="center" style="width:30px;"><a id='lblDay_s'></a></td>
 					<td align="center" style="width:60px;"><a id='lblTranmoney_s'></a></td>
 					<td align="center" style="width:60px;"><a id='lblDrivermoney_s'></a></td>
 					<td align="center" style="width:60px;"><a id='lblBonus_s'></a></td>
@@ -455,6 +511,7 @@
 					<td  align="center"><input type="text" id="txtDriverno.*" style="width:40%;" />
 						<input type="text" id="txtDriver.*" style="width:50%;" />
 					</td>
+					<td ><input type="text" id="txtDay.*" style="width:95%; text-align: right;" /></td>
 					<td ><input type="text" id="txtTranmoney.*" style="width:95%; text-align: right;" /></td>
 					<td ><input type="text" id="txtDrivermoney.*" style="width:95%; text-align: right;" /></td>
 					<td ><input type="text" id="txtBonus.*" style="width:95%; text-align: right;" /></td>
