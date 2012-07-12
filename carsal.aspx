@@ -34,7 +34,9 @@
 			brwNowPage = 0;
 			brwKey = 'Datea';
 			q_desc = 1;
-			aPop = new Array(['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']);
+			aPop = new Array(['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'],
+							 ['txtBdriverno', '', 'driver', 'noa,namea', 'txtBdriverno,txtBdriver', 'driver_b.aspx'],
+							 ['txtDdriverno', '', 'driver', 'noa,namea', 'txtDdriverno,txtDdriver', 'driver_b.aspx']);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];

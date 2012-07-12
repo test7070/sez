@@ -203,8 +203,8 @@
                 $("#txtDiscount").change(function() {
                     sum();
                 }); 
-                $("#txtMount").change(function() {
-                    $("#txtMount2").val($("#txtMount").val());
+                $("#txtInmount").change(function() {
+                    $("#txtOutmount").val($("#txtInmount").val());
                 });
                 $("#txtCustno").change(function() {
                     if($("#txtCustno").val().length>0){
@@ -288,6 +288,17 @@
                         q_cmbParse("cmbCalctype", t_item);                   
 						$("#cmbCalctype").val( abbm[q_recno].calctype);
                         $("#cmbCalctype").data("info").item = item;
+                        if(curData.isOutside()) {
+		                    $("#lblPrice2").hide();
+		                    $("#txtPrice2").hide();
+		                    $("#lblPrice3").show();
+		                    $("#txtPrice3").show();
+		                } else {
+		                    $("#lblPrice3").hide();
+		                    $("#txtPrice3").hide();
+		                    $("#lblPrice2").show();
+		                    $("#txtPrice2").show();
+		                }
                         break;
                     case 'carteam':
                         var as = _q_appendData("carteam", "", true);
