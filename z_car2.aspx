@@ -79,32 +79,59 @@
                         }, {
                             type : '6',
                             name : 'enddate'
+                        }, {
+                            type : '1',
+                            name : 'dcarno'
                         }]
                     });
                     q_getFormat();
-                    q_langShow();
-                    q_popAssign();
+	                q_langShow();
+	                q_popAssign();
+	
+	                $('#txtDate1').mask('999/99/99');
+	                $('#txtDate1').datepicker();
+	                $('#txtDate2').mask('999/99/99');
+	                $('#txtDate2').datepicker();  
+	                t_item = "";
+	                t_item2 = "";
+	                $('#chkXcarteamno').children('input').attr('checked','checked');
+	                $('#chkXcalctype').children('input').attr('checked','checked');
+	                
+	                var t_date,t_year,t_month,t_day;
+	                t_date = new Date();
+	                t_date.setDate(1);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                t_day = t_date.getUTCDate();
+	                t_day = t_day>9?t_day+'':'0'+t_day;
+	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
+	                
+	                t_date = new Date();
+	                t_date.setDate(35);
+	                t_date.setDate(0);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                t_day = t_date.getUTCDate();
+	                t_day = t_day>9?t_day+'':'0'+t_day;
+	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
 
-                    $('#txtMon1').mask('999/99');
-                    $('#txtMon2').mask('999/99');
-                    $('#txtDate1').mask('999/99/99');
-                    $('#txtDate1').datepicker();
-                    $('#txtDate2').mask('999/99/99');
-                    $('#txtDate2').datepicker();
-                    $('#txtEnddate').mask('999/99/99');
-                    $('#txtEnddate').datepicker();
-
-                } else
-                    alert('Error!' + '\r' + t_func + '\r' + result);
+                }
             }
 		</script>
 	</head>
 	<body>
-		<div id="container">
-			<div id="qReport"></div>
-		</div>
-		<div class="prt" >
-			<!--#include file="../inc/print_ctrl.inc"-->
+		<div id="q_menu"> </div>
+		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
+			<div id="container">
+				<div id="qReport"> </div>
+			</div>
+			<div class="prt" style="margin-left: -40px;">
+				<!--#include file="../inc/print_ctrl.inc"-->
+			</div>
 		</div>
 	</body>
 </html>
