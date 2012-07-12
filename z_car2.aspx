@@ -2,19 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title></title>
-		<script src="../script/jquery.min.js" type="text/javascript"></script>
-		<script src='../script/qj2.js' type="text/javascript"></script>
-		<script src='qset.js' type="text/javascript"></script>
-		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src="../script/qbox.js" type="text/javascript"></script>
-		<script src='../script/mask.js' type="text/javascript"></script>
+		<title> </title>
+		<script src="../script/jquery.min.js" type="text/javascript"> </script>
+		<script src='../script/qj2.js' type="text/javascript"> </script>
+		<script src='qset.js' type="text/javascript"> </script>
+		<script src='../script/qj_mess.js' type="text/javascript"> </script>
+		<script src="../script/qbox.js" type="text/javascript"> </script>
+		<script src='../script/mask.js' type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
-		<script src="css/jquery/ui/jquery.ui.core.js"></script>
-		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
-		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
+		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+            t_item = "";
+           	t_item2 = "";
+           	
+            if (location.href.indexOf('?') < 0) {
+                location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
+            }
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
@@ -28,10 +34,7 @@
             }
 
             function q_gtPost(t_name) {
-            }
-
-            function q_funcPost(t_func, result) {
-                if(result.substr(0, 5) == '<Data') {
+            	  if(result.substr(0, 5) == '<Data') {
                     var tmp = _q_appendData('carteam', '', true);
                     var t_carteam = '';
                     for(var z = 0; z < tmp.length; z++) {
@@ -88,14 +91,32 @@
 	                q_langShow();
 	                q_popAssign();
 	
-	                $('#txtDate1').mask('999/99/99');
-	                $('#txtDate1').datepicker();
-	                $('#txtDate2').mask('999/99/99');
-	                $('#txtDate2').datepicker();  
+	                
 	                t_item = "";
 	                t_item2 = "";
 	                $('#chkXcarteamno').children('input').attr('checked','checked');
 	                $('#chkXcalctype').children('input').attr('checked','checked');
+	                
+	                
+	                
+	                var t_date,t_year,t_month,t_day;
+	                t_date = new Date();
+	                t_date.setDate(1);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                $('#txtMon1').val(t_year+'/'+t_month);
+	                
+	                t_date = new Date();
+	                t_date.setDate(35);
+	                t_date.setDate(0);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                $('#txtMon2').val(t_year+'/'+t_month);
+	                
 	                
 	                var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
@@ -119,7 +140,7 @@
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
 
-                }
+            }
             }
 		</script>
 	</head>
