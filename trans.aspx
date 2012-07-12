@@ -203,8 +203,8 @@
                 $("#txtDiscount").change(function() {
                     sum();
                 }); 
-                $("#txtMount").change(function() {
-                    $("#txtMount2").val($("#txtMount").val());
+                $("#txtInmount").change(function() {
+                    $("#txtOutmount").val($("#txtInmount").val());
                 });
                 $("#txtCustno").change(function() {
                     if($("#txtCustno").val().length>0){
