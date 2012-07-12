@@ -29,8 +29,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            q_desc = 1;
-            
+                   
             aPop =  new Array(['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
