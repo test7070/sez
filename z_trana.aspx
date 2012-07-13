@@ -100,6 +100,10 @@
 	                        type : '5', //select
 	                        name : 'xoption2',
 	                        value : q_getPara('z_trana.option2').split(',')
+	                    }, {
+	                        type : '5', //select
+	                        name : 'xoption3',
+	                        value : q_getPara('z_trana.option3').split(',')
 	                    }]
 	                });
 	                q_getFormat();
