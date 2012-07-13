@@ -49,7 +49,7 @@
                             q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver) + q_sqlPara2("custno", t_custno) + q_sqlPara2("comp", t_comp)
                             + q_sqlPara2("carno", t_carno) + q_sqlPara2("po", t_po) ;
 
-
+		alert(t_where);
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
     }
