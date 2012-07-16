@@ -75,7 +75,7 @@
                     sum();
                 });//','+$('#txtBcarno').val()+
                 $('#btnTrans').click(function(e) {
-                	q_func('tre.import',r_accy+','+$('#txtBcarno').val()+','+$('#txtEdcarno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
+                	q_func('tre.import',r_accy+','+$('#txtBdriverno').val()+','+$('#txtEdriverno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
                 });
                 $('#txtMemo').change(function(){
                 	if(isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.'){
@@ -84,12 +84,6 @@
                 		$('#txtTotal').attr('readonly','readonly').css('background-color','rgb(237, 237, 238)').css('color','green');
                 		sum();
                 	}
-                });
-               	$("#cmbXcarteamno").focus(function(){
-                	var len = $("#cmbXcarteamno").children().length>0?$("#cmbXcarteamno").children().length:1;
-                	$("#cmbXcarteamno").attr('size',len+"");
-                }).blur(function(){
-                	$("#cmbXcarteamno").attr('size','1');
                 });
             }
             
@@ -117,15 +111,6 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'carteam':
-                        var as = _q_appendData("carteam", "", true);
-						var t_item = "";
-                        for( i = 0; i < as.length; i++) {
-                            t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;
-                        }
-                        q_cmbParse("cmbXcarteamno", t_item);  
-                        $('#cmbXcarteamno').removeAttr('disabled');                 
-                        break;
                     case 'trans':
                         var as = _q_appendData("trans", "", true);
 
@@ -295,9 +280,6 @@
                 	$('#txtEdate').attr('readonly','readonly');
                 	$('#txtBdriverno').attr('readonly','readonly');
                 	$('#txtEdriverno').attr('readonly','readonly');
-                	$('#txtBcarno').attr('readonly','readonly');
-                	$('#txtEcarno').attr('readonly','readonly');
-                	$('#cmbXcarteamno').attr('disabled','disabled');
                 	$('.tr1').hide();
                 }else{
                 	$('#txtDate2').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
@@ -305,9 +287,6 @@
                 	$('#txtEdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
                 	$('#txtBdriverno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
                 	$('#txtEdriverno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
-                	$('#txtBcarno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
-                	$('#txtEcarno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
-                	$('#cmbXcarteamno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
                 	$('.tr1').show();
                 }
             }
@@ -524,18 +503,17 @@
 						<td class="td2">
 						<input id="txtDate2" type="text"  class="txt c1" />
 						</td>
-						<td class="td3"><span> </span><a id="lblDate3" class="lbl"> </a></td>
-						<td class="td4" colspan="2">
+						<td class="td3" colspan="2"><span> </span><a id="lblDate3" class="lbl"> </a></td>
+						<td class="td5" colspan="2">
 						<input id="txtBdate" type="text"  class="txt c2"/>
 						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
 						<input id="txtEdate" type="text"  class="txt c2"/>
 						</td>
-						<td class="td6"><select id="cmbXcarteamno" class="txt c1"> </select></td>
-						<td class="td7"><span> </span><a id="lblCarno2" class="lbl"> </a></td>
+						<td class="td7"><span> </span><a id="lblDriver2" class="lbl"> </a></td>
 						<td class="td8" colspan="2">
-						<input id="txtBcarno" type="text"  class="txt c2"/>
+						<input id="txtBdriver" type="text"  class="txt c2"/>
 						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
-						<input id="txtEcarno" type="text"  class="txt c2"/>
+						<input id="txtEdriver" type="text"  class="txt c2"/>
 						</td>
 						<td><input type="button" id="btnTrans" class="txt c1"/></td>
 						<td class="tdZ"> </td>
@@ -552,6 +530,11 @@
 						<td class="td6"><span> </span><a id="lblCarno" class="lbl"> </a></td>
 						<td class="td7">
 						<input id="txtCarno" type="text"  class="txt c1"/>
+						</td>
+						<td class="td8"><span> </span><a id="lblDriver" class="lbl"> </a></td>
+						<td class="td9">
+						<input id="txtDriverno" type="text"  class="txt c2"/>
+						<input id="txtDriver" type="text"  class="txt c2"/>
 						</td>
 					</tr>			
 					<tr class="tr4">
