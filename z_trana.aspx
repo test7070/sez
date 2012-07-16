@@ -112,6 +112,12 @@
 	                        type : '5', //select
 	                        name : 'xoption5',
 	                        value : q_getPara('z_trana.option5').split(',')
+	                    }, {
+	                        type : '2',
+	                        name : 'sales',
+	                        dbf : 'sss',
+	                        index : 'noa,namea',
+	                        src : 'sss_b.aspx'
 	                    }]
 	                });
 	                q_getFormat();
