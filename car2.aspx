@@ -28,10 +28,7 @@
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
             q_alias = 'a';
-            aPop = [['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
-             ['txtCarownerno', 'lblCarowner', 'carowner', 'noa,namea,sex,idno,birthday,tel1,tel2,mobile,fax,addr_conn,addr_home', 'txtCarownerno,txtCarowner,cmbSex,txtIdno,txtBirthday,txtTel1,txtTel2,txtMobile,txtFax,txtAddr_conn,txtAddr_home', 'carowner_b.aspx'], 
-             ['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno', 'sss_b.aspx'],
-              ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']];
+            aPop = [['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtCarownerno', 'lblCarowner', 'carowner', 'noa,namea,sex,idno,birthday,tel1,tel2,mobile,fax,addr_conn,addr_home', 'txtCarownerno,txtCarowner,cmbSex,txtIdno,txtBirthday,txtTel1,txtTel2,txtMobile,txtFax,txtAddr_conn,txtAddr_home', 'carowner_b.aspx'], ['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno', 'sss_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']];
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -40,31 +37,31 @@
 
             });
             function main() {
-                if(dataErr) {
+                if (dataErr) {
                     dataErr = false;
                     return;
                 }
-                
+
                 mainForm(0);
             }
 
             function q_funcPost(t_func, result) {
-                if(result.substr(0, 5) == '<Data') {
+                if (result.substr(0, 5) == '<Data') {
                     var tmp = _q_appendData('carteam', '', true);
                     var value = '';
-                    for(var z = 0; z < tmp.length; z++) {
+                    for (var z = 0; z < tmp.length; z++) {
                         value = value + (value.length > 0 ? ',' : '') + tmp[z].noa + '@' + tmp[z].team;
                     }
                     q_cmbParse("cmbCarteamno", value);
                     tmp = _q_appendData('carbrand', '', true);
                     value = '';
-                    for(var z = 0; z < tmp.length; z++) {
+                    for (var z = 0; z < tmp.length; z++) {
                         value = value + (value.length > 0 ? ',' : '') + tmp[z].noa + '@' + tmp[z].brand;
                     }
                     q_cmbParse("cmbCarbrandno", value);
                     tmp = _q_appendData('carkind', '', true);
                     value = '';
-                    for(var z = 0; z < tmp.length; z++) {
+                    for (var z = 0; z < tmp.length; z++) {
                         value = value + (value.length > 0 ? ',' : '') + tmp[z].noa + '@' + tmp[z].kind;
                     }
                     q_cmbParse("cmbCarkindno", value);
@@ -74,7 +71,7 @@
             }
 
             function mainPost() {
-            	q_mask(bbmMask);
+                q_mask(bbmMask);
                 q_func('car2.getItem', '3,4,5');
                 q_cmbParse("cmbSex", q_getPara('sys.sex'));
                 q_cmbParse("cmbChecktype", q_getPara('car2.checktype'));
@@ -82,7 +79,6 @@
                 q_cmbParse("cmbIsprint", q_getPara('car2.isprint'));
                 q_cmbParse("cmbAuto", q_getPara('car2.auto'));
 
-                
                 fbbm[fbbm.length] = 'cmbAuto';
                 fbbm[fbbm.length] = 'txtIrange';
                 fbbm[fbbm.length] = 'txtManage';
@@ -118,7 +114,7 @@
                     left : $('.tbbm').eq(0).offset().left + 10
                 });
                 $('#lblCarexpense').parent().click(function(e) {
-                    if($('#divCarexpense').is(":hidden")) {
+                    if ($('#divCarexpense').is(":hidden")) {
                         $('#divCarexpense').show();
                         $('#cmbAuto').focus();
                     } else
@@ -151,17 +147,17 @@
                 var adest = dest.split(',');
                 var asource = source.split(',');
                 $('#' + adest[0]).focus(function() {
-                    if(trim($(this).val()).length == 0)
+                    if (trim($(this).val()).length == 0)
                         $(this).val(q_getMsg('msgCopy'));
                 });
                 $('#' + adest[0]).focusout(function() {
                     var t_copy = ($(this).val().substr(0, 1) == '=');
                     var t_clear = ($(this).val().substr(0, 2) == ' =');
-                    for(var i = 0; i < adest.length; i++) { {
-                            if(t_copy)
+                    for (var i = 0; i < adest.length; i++) { {
+                            if (t_copy)
                                 $('#' + adest[i]).val($('#' + asource[i]).val());
 
-                            if(t_clear)
+                            if (t_clear)
                                 $('#' + adest[i]).val('');
                         }
                     }
@@ -171,26 +167,14 @@
             function q_boxClose(s2) {
 
                 var ret;
-                 switch (b_pop) {                   
-                 	case 'conn':
+                switch (b_pop) {
 
-                    break;
+                    case q_name + '_s':
+                        q_boxClose2(s2);
+                        ///   q_boxClose 3/4
+                        break;
+                }   /// end Switch
 
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-                
-                case q_name + '_s':
-                    q_boxClose2(s2); ///   q_boxClose 3/4
-                    break;
-            }   /// end Switch
-                
             }
 
             function q_gfPost() {
@@ -198,38 +182,35 @@
             }
 
             function q_gtPost(t_name) {
-				switch (t_name) {
-                case 'sss':  
-                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                    break;
+                switch (t_name) {
+                    case q_name:
+                        if (q_cur == 4)
+                            q_Seek_gtPost();
 
-                case q_name: if (q_cur == 4)  
-                        q_Seek_gtPost();
+                        if (q_cur == 1 || q_cur == 2)
+                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
-                    break;
-            }  /// end switch
+                        break;
+                }  /// end switch
             }
 
             function _btnSeek() {
-                if(q_cur > 0 && q_cur < 4)// 1-3
+                if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
                 q_box('car2_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
                 _btnIns();
-                $('#txtCarno').focus();
+                $('#txtNoa').focus();
             }
 
             function btnModi() {
-                if(emp($('#txtNoa').val()))
+                if (emp($('#txtNoa').val()))
                     return;
 
                 _btnModi();
-                $('#txtCarno').focus();
+                $('#txtNoa').focus();
             }
 
             function btnPrint() {
@@ -241,14 +222,14 @@
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
 
                 var t_noa = $('#txtNoa').val();
-
+				$('#txtCarno').val(t_noa);
                 wrServer(t_noa);
             }
 
             function wrServer(key_value) {
                 var i;
                 xmlSql = '';
-                if(q_cur == 2)/// popSave
+                if (q_cur == 2)/// popSave
                     xmlSql = q_preXml();
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], '', '', 2);
@@ -256,7 +237,6 @@
 
             function refresh(recno) {
                 _refresh(recno);
-
 
             }
 
@@ -463,6 +443,7 @@
 							</div></td>
 							<td class="td2" >
 							<input id="txtNoa"  type="text"  style='width:95%; max-width: 200px; float:left;'/>
+							<input id="txtCarno" type="text"  style='display:none;'/>
 							</td>
 							<td class="td3" >
 							<div class='btnLbl tb'>
@@ -475,13 +456,6 @@
 							<td class="td8" ></td>
 						</tr>
 						<tr class="tr1">
-							<td class="td1" >
-							<div class='btnLbl tb'>
-								<a id='lblCarno'></a>
-							</div></td>
-							<td class="td2">
-							<input id="txtCarno" maxlength='20' type="text"  style='width:95%; '/>
-							</td>
 							<td class="td3">
 							<div class='btnLbl tb button'>
 								<a id='lblCardeal'></a>
