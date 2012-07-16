@@ -77,11 +77,11 @@
 	<body>
 
 		<div id="q_menu"> </div>
-			<div style="position: absolute;top: 40px;z-index: 1;width:2000px;">
+		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
 				<div id="qReport"> </div>
 			</div>
-			<div class="prt" >
+			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
 		</div>
