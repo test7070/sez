@@ -511,9 +511,9 @@
 						</td>
 						<td class="td7"><span> </span><a id="lblDriver2" class="lbl"> </a></td>
 						<td class="td8" colspan="2">
-						<input id="txtBdriver" type="text"  class="txt c2"/>
+						<input id="txtBdriverno" type="text"  class="txt c2"/>
 						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
-						<input id="txtEdriver" type="text"  class="txt c2"/>
+						<input id="txtEdriverno" type="text"  class="txt c2"/>
 						</td>
 						<td><input type="button" id="btnTrans" class="txt c1"/></td>
 						<td class="tdZ"> </td>
@@ -532,7 +532,7 @@
 						<input id="txtCarno" type="text"  class="txt c1"/>
 						</td>
 						<td class="td8"><span> </span><a id="lblDriver" class="lbl"> </a></td>
-						<td class="td9">
+						<td class="td9" colspan="2">
 						<input id="txtDriverno" type="text"  class="txt c2"/>
 						<input id="txtDriver" type="text"  class="txt c2"/>
 						</td>
