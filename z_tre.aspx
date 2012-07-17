@@ -50,15 +50,15 @@
 	                    },  {
 	                        type : '1',
 	                        name : 'date'
-	                    },  {
-	                        type : '6',
-	                        name : 'xcarno'
 	                    }, {
 	                        type : '2',
 	                        name : 'driver',
 	                        dbf : 'driver',
 	                        index : 'noa,namea',
 	                        src : 'driver_b.aspx'
+	                    },  {
+	                        type : '6',
+	                        name : 'xcarno'
 	                    }]
 	                });
 	                
