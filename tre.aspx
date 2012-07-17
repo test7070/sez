@@ -75,6 +75,8 @@
                     sum();
                 });//','+$('#txtBcarno').val()+
                 $('#btnTrans').click(function(e) {
+					$(this).attr('disabled','disabled');
+					$(this).val('Watting...');
                 	q_func('tre.import',r_accy+','+$('#txtBdriverno').val()+','+$('#txtEdriverno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
                 });
                 $('#txtMemo').change(function(){
@@ -503,17 +505,17 @@
 						<td class="td2">
 						<input id="txtDate2" type="text"  class="txt c1" />
 						</td>
-						<td class="td3" colspan="2"><span> </span><a id="lblDate3" class="lbl"> </a></td>
-						<td class="td5" colspan="2">
-						<input id="txtBdate" type="text"  class="txt c2"/>
-						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
-						<input id="txtEdate" type="text"  class="txt c2"/>
-						</td>
 						<td class="td7"><span> </span><a id="lblDriver2" class="lbl"> </a></td>
 						<td class="td8" colspan="2">
 						<input id="txtBdriverno" type="text"  class="txt c2"/>
 						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
 						<input id="txtEdriverno" type="text"  class="txt c2"/>
+						</td>
+						<td class="td3" colspan="2"><span> </span><a id="lblDate3" class="lbl"> </a></td>
+						<td class="td5" colspan="2">
+						<input id="txtBdate" type="text"  class="txt c2"/>
+						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
+						<input id="txtEdate" type="text"  class="txt c2"/>
 						</td>
 						<td><input type="button" id="btnTrans" class="txt c1"/></td>
 						<td class="tdZ"> </td>
@@ -617,7 +619,7 @@
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
 					<td ><input type="text" id="txtTrandate.*" style="width:95%;" /></td>
-					<td ><input type="text" id="txtCustno.*" style="width:95%;" /></td >
+					<td ><input type="text" id="txtComp.*" style="width:95%;" /></td >
 					<td >
 					<input type="text" id="txtStraddr.*" style="width:95%;" />
 					</td>

@@ -118,6 +118,10 @@
 	                        dbf : 'sss',
 	                        index : 'noa,namea',
 	                        src : 'sss_b.aspx'
+	                    }, {
+	                        type : '5', //select
+	                        name : 'xoption6',
+	                        value : q_getPara('z_trana.option6').split(',')
 	                    }]
 	                });
 	                q_getFormat();
