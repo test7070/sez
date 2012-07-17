@@ -119,7 +119,7 @@
 	                        index : 'noa,namea',
 	                        src : 'sss_b.aspx'
 	                    }, {
-	                        type : '5', //select
+	                        type : '8', //select
 	                        name : 'xoption6',
 	                        value : q_getPara('z_trana.option6').split(',')
 	                    }]
@@ -136,6 +136,7 @@
 	                t_item2 = "";
 	                $('#chkXcarteamno').children('input').attr('checked','checked');
 	                $('#chkXcalctype').children('input').attr('checked','checked');
+	                $('#chkXoption6').children('input').attr('checked','checked');
 	                
 	                var t_date,t_year,t_month,t_day;
 	                t_date = new Date();

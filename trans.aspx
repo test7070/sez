@@ -781,6 +781,11 @@
 						</td>
 					</tr>
 					<tr class="tr9">
+						<td class="td1" colspan="2"><span> </span><a id="lblSales" class="lbl btn"> </a></td>
+						<td class="td3" colspan="2">
+						<input id="txtSalesno" type="text"  class="txt c2"/>
+						<input id="txtSales" type="text"  class="txt c3"/>
+						</td>
 						<td class="td1" colspan="2"><span> </span><a id="lblBmiles" class="lbl"> </a></td>
 						<td class="td3" colspan="2">
 						<input id="txtBmiles" type="text"  class="txt num c1"/>
@@ -825,11 +830,7 @@
 						</td>
 					</tr>
 					<tr class="trC">
-						<td class="td1" colspan="2"><span> </span><a id="lblSales" class="lbl btn"> </a></td>
-						<td class="td3" colspan="2">
-						<input id="txtSalesno" type="text"  class="txt c2"/>
-						<input id="txtSales" type="text"  class="txt c3"/>
-						</td>
+						
 						<td class="td5" colspan="2"><span> </span><a id="lblThird" class="lbl"> </a> </td>
 						<td class="td7" colspan="2">
 						<input id="txtThird" type="text" class="txt num c1"/>

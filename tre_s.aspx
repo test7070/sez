@@ -10,7 +10,6 @@
     <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
     var q_name = "tre_s";
-
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -34,8 +33,7 @@
         t_noa = $('#txtNoa').val();
         t_driverno = $('#txtDriverno').val();
         t_driver = $('#txtDriver').val();
-        t_cardealno = $('#txtCardealno').val();
-        t_cardeal = $('#txtCardeal').val();
+        t_carno = $('#txtCarno').val();
         t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
@@ -43,7 +41,7 @@
 		
 
         var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver)
-        + q_sqlPara2("cardeal", t_cardeal)+ q_sqlPara2("cardealno", t_cardealno)+ q_sqlPara2("datea", t_bdate, t_edate);
+        + q_sqlPara2("carno", t_carno)+ q_sqlPara2("datea", t_bdate, t_edate);
         
 
         t_where = ' where=^^' + t_where + '^^ ';
@@ -74,9 +72,8 @@
                 	<input class="txt" id="txtDriver" type="text" style="width:115px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblCardealno'></a></td>
-                <td><input class="txt" id="txtCardealno" type="text" style="width:90px; font-size:medium;" />&nbsp;
-                	<input class="txt" id="txtCardeal" type="text" style="width:115px; font-size:medium;" /></td>
+                <td class='seek'  style="width:20%;"><a id='lblCarno'></a></td>
+                <td><input class="txt" id="txtCarno" type="text" style="width:90px; font-size:medium;" /></td>
             </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 

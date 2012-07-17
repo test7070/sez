@@ -58,11 +58,11 @@
                             alert('Please enter the driver or cardeal.');
                             return false;
                         }
-                        var t_cardealno = "'" + $.trim($('#txtCardealno').val()) + "'";
+                       // var t_cardealno = "'" + $.trim($('#txtCardealno').val()) + "'";
                         var t_driverno = "'" + $.trim($('#txtDriverno').val()) + "'";
                         t_where = "where=^^ unpay!=0 ";
-                        if (t_cardealno != "''")
-                            t_where += " and cardealno=" + t_cardealno;
+                        /*if (t_cardealno != "''")
+                            t_where += " and cardealno=" + t_cardealno;*/
                         if (t_driverno != "''")
                             t_where += " and driverno=" + t_driverno;
                         t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "' and ( 1=1 ";
