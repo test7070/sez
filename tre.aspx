@@ -589,7 +589,6 @@
 					<td align="center" style="width:100px;"><a id='lblTrandate_s'> </a></td>
 
 					<td align="center" style="width:80px;"><a id='lblCustno_s'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblDriver_s'> </a></td>
 
 					<td align="center" style="width:200px;"><a id='lblStraddr_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
@@ -598,7 +597,6 @@
 					<td align="center" style="width:100px;"><a id='lblDiscount_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMoney_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMemo_s'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblCarno_s'> </a></td>
 					<td align="center" style="width:170px;"><a id='lblTranno_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblRs_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblPaymemo_s'> </a></td>
@@ -620,7 +618,6 @@
 					</td>
 					<td ><input type="text" id="txtTrandate.*" style="width:95%;" /></td>
 					<td ><input type="text" id="txtCustno.*" style="width:95%;" /></td >
-					<td><input type="text" id="txtDriver.*" style="width:95%;" /></td>
 					<td >
 					<input type="text" id="txtStraddr.*" style="width:95%;" />
 					</td>
@@ -641,9 +638,6 @@
 					</td>
 					<td >
 					<input type="text" id="txtMemo.*" style="width:95%;" />
-					</td>
-					<td >
-					<input type="text" id="txtCarno.*" style="width:95%;" />
 					</td>
 					<td >
 					<input type="text" id="txtTranno.*" style="float:left; width: 70%;"/>
