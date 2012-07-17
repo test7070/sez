@@ -54,9 +54,11 @@
 	                        type : '6',
 	                        name : 'xcarno'
 	                    }, {
-	                        type : '5', //select
-	                        name : 'xcarteamno',
-	                        value : [q_getPara('report.all')].concat(t_item.split(','))
+	                        type : '2',
+	                        name : 'driver',
+	                        dbf : 'driver',
+	                        index : 'noa,namea',
+	                        src : 'driver_b.aspx'
 	                    }]
 	                });
 	                
