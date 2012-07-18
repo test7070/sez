@@ -401,18 +401,20 @@
 			<div class='dbbm' style="width: 68%;float:left">
 				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 					<tr class="tr1">
-						<td class="td1"><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtDatea" type="text" class="txt c1"/>
-						</td>
 						<td class="td3"><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class="td4">
 						<input id="txtNoa" type="text" class="txt c1"/>
 						</td>
+						<td class="td1"><span> </span><a id="lblDatea" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtDatea" type="text" class="txt c1"/>
+						</td>
+						
 						<td class="td5"><span> </span><a id="lblCarno" class="lbl"> </a></td>
 						<td class="td6">
 						<input id="txtCarno" type="text" class="txt c1"/>
 						</td>
+						<td class="tdZ"> </td>  
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id="lblPalno" class="lbl"> </a></td>
