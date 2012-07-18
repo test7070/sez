@@ -122,6 +122,15 @@
 	                        type : '8', //select
 	                        name : 'xoption6',
 	                        value : q_getPara('z_trana.option6').split(',')
+	                    }, {
+	                        type : '6', 
+	                        name : 'yproduct'
+	                    }, {
+	                        type : '6', 
+	                        name : 'yaddr'
+	                    }, {
+	                        type : '6', 
+	                        name : 'yboatname'
 	                    }]
 	                });
 	                q_getFormat();
