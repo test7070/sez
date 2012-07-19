@@ -20,7 +20,7 @@
 		    var q_name = "fixa";
 		    var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal'];
 		    var q_readonlys = [];
-		    var bbmNum = new Array(['txtOdometer', 10, 0], ['txtWmoney', 10, 0], ['txtCmoney', 10, 0], ['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]);
+		    var bbmNum = new Array(['txtMiles', 10, 0], ['txtWmoney', 10, 0], ['txtCmoney', 10, 0], ['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]);
 		    var bbsNum = new Array(['txtPrice', 10, 0], ['txtMount', 10, 0], ['txtMoney', 10, 0]);
 		    var bbmMask = [];
 		    var bbsMask = [];
@@ -378,8 +378,8 @@
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
-			<div class="dview" id="dview" style="float: left;  width:32%;"  >
-				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+			<div class="dview" id="dview" >
+				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 						<td align="center" style="width:20%"><a id='vewDatea'> </a></td>
@@ -398,52 +398,58 @@
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 68%;float:left">
-				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+			<div class='dbbm'>
+				<table class="tbbm"  id="tbbm" >
 					<tr class="tr1">
-						<td class="td3"><span> </span><a id="lblNoa" class="lbl"> </a></td>
-						<td class="td4">
+						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
+						<td class="td2">
 						<input id="txtNoa" type="text" class="txt c1"/>
 						</td>
-						<td class="td1"><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td class="td2">
+						<td class="td3"><span> </span><a id="lblDatea" class="lbl"> </a></td>
+						<td class="td4">
 						<input id="txtDatea" type="text" class="txt c1"/>
 						</td>
-						
-						<td class="td5"><span> </span><a id="lblCarno" class="lbl"> </a></td>
+						<td class="td5"><span> </span><a id="lblMon" class="lbl"> </a></td>
 						<td class="td6">
-						<input id="txtCarno" type="text" class="txt c1"/>
+						<input id="txtMon" type="text" class="txt c1"/>
 						</td>
+						<td> </td>
+						<td> </td>
 						<td class="tdZ"> </td>  
 					</tr>
 					<tr class="tr2">
-						<td class="td1"><span> </span><a id="lblPalno" class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id="lblCarno" class="lbl"> </a></td>
 						<td class="td2">
-						<input id="txtPalno" type="text" class="txt c1"/>
+						<input id="txtCarno" type="text" class="txt c1"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblOdometer" class="lbl"> </a></td>
+						<td class="td3"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
 						<td class="td4">
-						<input id="txtOdometer" type="text" class="txt c1 num"/>
-						</td>
-						<td class="td5"><span> </span><a id="lblCartype" class="lbl"> </a></td>
-						<td class="td6">
-						<input id="txtCartype" type="text" class="txt c1"/>
+						<input id="txtDriverno" type="text" class="txt c2"/>
+						<input id="txtDriver" type="text" class="txt c3"/>
+						</td> 
+						<td class="td3"><span> </span><a id="lblMiles" class="lbl"> </a></td>
+						<td class="td4">
+						<input id="txtMiles" type="text" class="txt c1 num"/>
 						</td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
+						<td class="td1"><span> </span><a id="lblCarplateno" class="lbl"> </a></td>
 						<td class="td2">
-						<input id="txtDriverno" type="text" class="txt c2"/>
-						<input id="txtDriver" type="text" class="txt c3"/>
+						<input id="txtCarplateno" type="text" class="txt c1"/>
 						</td>
+					</tr>
+					<tr class="tr3">
 						<td class="td3"><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
 						<td class="td4">
 						<input id="txtTggno" type="text" class="txt c2"/>
 						<input id="txtTgg" type="text" class="txt c3"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblMon" class="lbl"> </a></td>
-						<td class="td6">
-						<input id="txtMon" type="text" class="txt c1"/>
+					</tr>
+					<tr class="tr3">
+						<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
+						<td class="td2">
+						<input id="txtCno" type="text" class="txt c2" />
+						<input id="txtAcomp" type="text" class="txt c3" />
 						</td>
 					</tr>
 					<tr class="tr4">
@@ -461,14 +467,14 @@
 						</td>
 					</tr>
 					<tr class="tr5">
-						<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
-						<td class="td2">
-						<input id="txtCno" type="text" class="txt c2" />
-						<input id="txtAcomp" type="text" class="txt c3" />
-						</td>
+						
 						<td class="td3"><span> </span><a id="lblTax" class="lbl"> </a></td>
 						<td class="td4">
 						<input id="txtTax" type="text" class="txt num c1" />
+						</td>
+						<td class="td5"><span> </span><a id="lblDiscount" class="lbl"> </a></td>
+						<td class="td6">
+						<input id="txtDiscount" type="text" class="txt num c1" />
 						</td>
 						<td class="td5"><span> </span><a id="lblTotal" class="lbl"> </a></td>
 						<td class="td6">
