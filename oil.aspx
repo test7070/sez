@@ -135,6 +135,9 @@
                     alert(t_err);
                     return;
                 }
+                if($.trim($('#txtMemo').val()).substring(0, 1) != '.'){
+                	sum();
+                }
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if(t_noa.length == 0 || t_noa == "AUTO")
