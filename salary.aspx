@@ -532,7 +532,7 @@
                 <td ><input class="txt num c1" id="txtBo_admin.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtBo_duty.*" type="text" /></td>
                 <td class="td2"><input class="txt num c3" id="txtHr_full.*" type="text" />HR</td>
-                <td class="td2">&#36; <input class="txt num c2" id="txtMi_full.*" type="text"/></td>
+                <td class="td2">&#36; <input class="txt num c2" id="txtBo_full.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtBo_over.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtBo_oth.*" type="text" /></td>
                 <td class="td2"><input class="txt num c3" id="txtHr_person.*" type="text" />HR</td>
