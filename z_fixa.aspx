@@ -48,7 +48,11 @@
                             dbf : 'fixucc',
                             index : 'noa,namea',
                             src : 'fixucc_b.aspx'
-                        }]
+                    }, {
+	                        type : '5', //select
+	                        name : 'xoption1',
+	                        value : q_getPara('z_fixa.option1').split(',')
+	                    }]
                     });
                 q_popAssign();
                 q_getFormat();
