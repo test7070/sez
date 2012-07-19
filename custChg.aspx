@@ -31,8 +31,8 @@
             aPop = new Array(
             	['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], 
             	['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], 
-            	['txtMinusitemno', 'lblMinusitem', 'caritem', 'noa,item', 'txtMinusitemno,txtMinusitem', 'caritem_b.aspx'], 
-            	['txtPlusitemno', 'lblPlusitem', 'caritem', 'noa,item', 'txtPlusitemno,txtPlusitem', 'caritem_b.aspx']);
+            	['txtMinusitemno', 'lblMinusitem', 'chgitem', 'noa,item', 'txtMinusitemno,txtMinusitem', 'caritem_b.aspx'], 
+            	['txtPlusitemno', 'lblPlusitem', 'chgitem', 'noa,item', 'txtPlusitemno,txtPlusitem', 'caritem_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -328,12 +328,11 @@
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' style="overflow:hidden;">
-			<div class="dview" id="dview" style="float: left;  width:25%;"  >
-				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+			<div class="dview" id="dview"  >
+				<table class="tview" id="tview"  >
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 						<td align="center" style="width:25%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:25%"><a id='vewCarno'> </a></td>
 						<td align="center" style="width:25%"><a id='vewComp'> </a></td>
 					</tr>
 					<tr>
@@ -341,13 +340,12 @@
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='carno'>~carno</td>
 						<td align="center" id='comp,4'>~comp,4</td>
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 70%;float: left;">
-				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
+			<div class='dbbm' >
+				<table class="tbbm"  id="tbbm"  >
 					<tr>
 						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td2" colspan="2">
