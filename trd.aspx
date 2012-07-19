@@ -207,8 +207,11 @@
                 if(t_err.length > 0) {
                     alert(t_err);
                     return;
-                }
+                }   
                 sum();
+                if($('#txtMon').val().length==0){
+                	$('#txtMon').val($('#txtDatea').val().substring(0,6));
+                }
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if(t_noa.length == 0 || t_noa == "AUTO")
