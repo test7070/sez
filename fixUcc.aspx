@@ -19,7 +19,7 @@
 
             var q_name = "fixucc";
             var q_readonly = [];
-            var bbmNum = [];
+            var bbmNum = [['txtInprice',10,2],['txtOutprice',10,2],['txtMount',10,0]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -46,6 +46,7 @@
             }///  end Main()
 
             function mainPost() {
+            	bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
             }
 

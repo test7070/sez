@@ -18,9 +18,9 @@
 
 		    q_tables = 's';
 		    var q_name = "fixa";
-		    var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal'];
+		    var q_readonly = ['txtNoa', 'txtWmoney', 'txtCmoney','txtMoney', 'txtTotal'];
 		    var q_readonlys = [];
-		    var bbmNum = new Array(['txtOdometer', 10, 0], ['txtWmoney', 10, 0], ['txtCmoney', 10, 0], ['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]);
+		    var bbmNum = new Array(['txtMiles', 10, 0],['txtDiscount', 10, 0], ['txtWmoney', 10, 0], ['txtCmoney', 10, 0], ['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]);
 		    var bbsNum = new Array(['txtPrice', 10, 0], ['txtMount', 10, 0], ['txtMoney', 10, 0]);
 		    var bbmMask = [];
 		    var bbsMask = [];
@@ -30,7 +30,10 @@
 		    brwNowPage = 0;
 		    brwKey = 'Datea';
 		    //ajaxPath = "";
-		    aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea', 'txtProductno_,txtProduct_', 'fixucc_b.aspx']);
+		    aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
+		    	['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtNick', 'tgg_b.aspx'], 
+		    	['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], 
+		    	['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,unit', 'txtProductno_,txtProduct_,txtUnit_', 'fixucc_b.aspx']);
 		    q_desc = 1;
 		    $(document).ready(function () {
 		        bbmKey = ['noa'];
@@ -58,6 +61,9 @@
 		        q_mask(bbmMask);
 		        q_cmbParse("cmbWtype", q_getPara('fixa.wtype'),'s');
 		        $('#txtTax').change(function () {
+		            sum();
+		        });
+		        $('#txtDiscount').change(function () {
 		            sum();
 		        });
 		    }
@@ -92,6 +98,8 @@
 		            return;
 		        }
 		        sum();
+		        if($('#txtMon').val().length==0)
+		        	$('#txtMon').val($('#txtDatea').val().substring(0,6));
 		        var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
@@ -172,7 +180,7 @@
 		    }
 
 		    function sum() {
-		        var t_mount, t_price, t_money = 0, t_wmoney = 0, t_cmoney = 0, t_tax;
+		        var t_mount, t_price, t_money = 0, t_wmoney = 0, t_cmoney = 0, t_tax,t_discount;
 		        for (var j = 0; j < q_bbsCount; j++) {
 		            if ($.trim($('#txtMemo_' + j).val()).substring(0, 1) != '.') {
 		                t_mount = parseFloat($.trim($('#txtMount_' + j).val()).length == 0 ? '0' : $('#txtMount_' + j).val());
@@ -186,11 +194,12 @@
 		            t_cmoney = t_cmoney + ($('#cmbWtype_' + j).val() == '2' ? t_money : 0);
 		        }
 		        t_tax = parseFloat($.trim($('#txtTax').val()).length == 0 ? '0' : $('#txtTax').val());
+		        t_discount = parseFloat($.trim($('#txtDiscount').val()).length == 0 ? '0' : $('#txtDiscount').val());
 		        $('#txtWmoney').val(t_wmoney);
 		        $('#txtCmoney').val(t_cmoney);
 		        $('#txtMoney').val(t_wmoney + t_cmoney);
 		        $('#txtTax').val(t_tax);
-		        $('#txtTotal').val(Math.round(t_wmoney + t_cmoney + t_tax, 0));
+		        $('#txtTotal').val(Math.round(t_wmoney + t_cmoney + t_tax - t_discount, 0));
 		    }
 
 		    function refresh(recno) {
@@ -378,8 +387,8 @@
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
-			<div class="dview" id="dview" style="float: left;  width:32%;"  >
-				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+			<div class="dview" id="dview" >
+				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 						<td align="center" style="width:20%"><a id='vewDatea'> </a></td>
@@ -394,56 +403,63 @@
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='carno'>~carno</td>
 						<td align="center" id='driver'>~driver</td>
-						<td align="center" id='tgg'>~tgg</td>
+						<td align="center" id='nick'>~nick</td>
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 68%;float:left">
-				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+			<div class='dbbm'>
+				<table class="tbbm"  id="tbbm" >
 					<tr class="tr1">
-						<td class="td3"><span> </span><a id="lblNoa" class="lbl"> </a></td>
-						<td class="td4">
+						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
+						<td class="td2">
 						<input id="txtNoa" type="text" class="txt c1"/>
 						</td>
-						<td class="td1"><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td class="td2">
+						<td class="td3"><span> </span><a id="lblDatea" class="lbl"> </a></td>
+						<td class="td4">
 						<input id="txtDatea" type="text" class="txt c1"/>
-						</td>
-						
-						<td class="td5"><span> </span><a id="lblCarno" class="lbl"> </a></td>
-						<td class="td6">
-						<input id="txtCarno" type="text" class="txt c1"/>
-						</td>
-						<td class="tdZ"> </td>  
-					</tr>
-					<tr class="tr2">
-						<td class="td1"><span> </span><a id="lblPalno" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtPalno" type="text" class="txt c1"/>
-						</td>
-						<td class="td3"><span> </span><a id="lblOdometer" class="lbl"> </a></td>
-						<td class="td4">
-						<input id="txtOdometer" type="text" class="txt c1 num"/>
-						</td>
-						<td class="td5"><span> </span><a id="lblCartype" class="lbl"> </a></td>
-						<td class="td6">
-						<input id="txtCartype" type="text" class="txt c1"/>
-						</td>
-					</tr>
-					<tr class="tr3">
-						<td class="td1"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
-						<td class="td2">
-						<input id="txtDriverno" type="text" class="txt c2"/>
-						<input id="txtDriver" type="text" class="txt c3"/>
-						</td>
-						<td class="td3"><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
-						<td class="td4">
-						<input id="txtTggno" type="text" class="txt c2"/>
-						<input id="txtTgg" type="text" class="txt c3"/>
 						</td>
 						<td class="td5"><span> </span><a id="lblMon" class="lbl"> </a></td>
 						<td class="td6">
 						<input id="txtMon" type="text" class="txt c1"/>
+						</td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>  
+					</tr>
+					<tr class="tr2">
+						<td class="td1"><span> </span><a id="lblCarno" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtCarno" type="text" class="txt c1"/>
+						</td>
+						<td class="td3"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
+						<td class="td4">
+						<input id="txtDriverno" type="text" class="txt c2"/>
+						<input id="txtDriver" type="text" class="txt c3"/>
+						</td> 
+						<td class="td3"><span> </span><a id="lblMiles" class="lbl"> </a></td>
+						<td class="td4">
+						<input id="txtMiles" type="text" class="txt c1 num"/>
+						</td>
+					</tr>
+					<tr class="tr3">
+						<td class="td1"><span> </span><a id="lblCarplateno" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtCarplateno" type="text" class="txt c1"/>
+						</td>
+					</tr>
+					<tr class="tr3">
+						<td class="td3"><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
+						<td class="td4" colspan="3">
+						<input id="txtTggno" type="text" class="txt"  style="width:25%;"/>
+						<input id="txtTgg" type="text" class="txt" style="width:75%;"/>
+						<input id="txtNick" type="text" class="txt" style="display: none;"/>
+						</td>
+					</tr>
+					<tr class="tr3">
+						<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
+						<td class="td2" colspan="3">
+						<input id="txtCno" type="text" class="txt" style="width:25%;"/>
+						<input id="txtAcomp" type="text" class="txt" style="width:75%;"/>
 						</td>
 					</tr>
 					<tr class="tr4">
@@ -461,14 +477,14 @@
 						</td>
 					</tr>
 					<tr class="tr5">
-						<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
-						<td class="td2">
-						<input id="txtCno" type="text" class="txt c2" />
-						<input id="txtAcomp" type="text" class="txt c3" />
-						</td>
+						
 						<td class="td3"><span> </span><a id="lblTax" class="lbl"> </a></td>
 						<td class="td4">
 						<input id="txtTax" type="text" class="txt num c1" />
+						</td>
+						<td class="td5"><span> </span><a id="lblDiscount" class="lbl"> </a></td>
+						<td class="td6">
+						<input id="txtDiscount" type="text" class="txt num c1" />
 						</td>
 						<td class="td5"><span> </span><a id="lblTotal" class="lbl"> </a></td>
 						<td class="td6">
@@ -478,6 +494,12 @@
 					<tr class="tr6">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td class="td2" colspan="5"><input id="txtMemo" type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtWorker" type="text" class="txt c1" />
+						</td>
 					</tr>
 				</table>
 			</div>
@@ -491,7 +513,6 @@
 					<td align="center" style="width:5%;"><a id='lblWtype_s'> </a></td>
 					<td align="center" style="width:25%;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:5%;"><a id='lblUnit_s'> </a></td>
-					<td align="center" style="width:7%;"><a id='lblSpec_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblPrice_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblMoney_s'> </a></td>
@@ -513,9 +534,6 @@
 					<input class="txt c1" id="txtUnit.*" type="text" style="text-align: center;"/>
 					</td>
 					<td>
-					<input class="txt c1" id="txtSpec.*" type="text" />
-					</td>
-					<td>
 					<input class="txt num c1" id="txtMount.*" type="text" />
 					</td>
 					<td>
@@ -529,6 +547,7 @@
 					<input id="txtNoq.*" type="hidden" />
 					</td>
 				</tr>
+				
 			</table>
 		</div>
 		<input id="q_sys" type="hidden" />
