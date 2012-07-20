@@ -146,7 +146,7 @@
         }
 
         function bbsSave(as) {   
-            if (!as['namea']) {  
+            if (!as['sno']) {  
                 as[bbsKey[1]] = '';  
                 return;
             }
