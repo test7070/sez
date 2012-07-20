@@ -276,7 +276,7 @@
             }
             .dview {
                 float: left;
-                width: 23%;
+                width: 35%;
             }
             .tview {
                 margin: 0;
@@ -294,7 +294,7 @@
             }
             .dbbm {
                 float: left;
-                width: 75%;
+                width: 60%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -422,8 +422,6 @@
 						<td class="td6">
 						<input id="txtMon" type="text" class="txt c1"/>
 						</td>
-						<td> </td>
-						<td> </td>
 						<td class="tdZ"> </td>  
 					</tr>
 					<tr class="tr2">
