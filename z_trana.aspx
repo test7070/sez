@@ -17,6 +17,7 @@
 		<script type="text/javascript">
 			t_item = "";
            	t_item2 = "";
+           	t_item3 = "";
            	aPop  =  new Array(['txtXcarno', 'lblXcarno', 'car2', 'a.noa,driverno,driver','txtXcarno', 'car2_b.aspx'],
            		['txtXaddr', 'lblXaddr', 'addr2', 'noa,addr','txtXaddr', 'addr_b.aspx']);
             if (location.href.indexOf('?') < 0) {
@@ -31,6 +32,7 @@
             	
                 q_gt('carteam', '', 0, 0, 0, "");
                 q_gt('calctype2', '', 0, 0, 0, "calctypes");
+                q_gt('carkind', '', 0, 0, 0, "");
                
             }
 
@@ -39,6 +41,12 @@
             function q_gtPost(t_name) {
             	
             	switch (t_name) {
+            		case 'carkind':
+                        var as = _q_appendData("carkind", "", true);
+                        for( i = 0; i < as.length; i++) {
+                            t_item3 = t_item3 + (t_item3.length>0?',':'') + as[i].noa +'@' + as[i].kind;
+                        }  
+                        break;
                     case 'carteam':
                         var as = _q_appendData("carteam", "", true);
                         for( i = 0; i < as.length; i++) {
@@ -53,7 +61,7 @@
                         break;
                 }
       
-                if(t_item.length>0 && t_item2.length>0){
+                if(t_item.length>0 && t_item2.length>0 && t_item3.length>0){
 	                $('#qReport').q_report({
 	                    fileName : 'z_trana',
 	                    options : [{
@@ -131,6 +139,14 @@
 	                    }, {
 	                        type : '6', 
 	                        name : 'yboatname'
+	                    }, {
+	                        type : '5', //select
+	                        name : 'xoption7',
+	                        value :  t_item.split(',')
+	                    }, {
+	                        type : '8', //select
+	                        name : 'xoption8',
+	                        value : t_item3.split(',')
 	                    }]
 	                });
 	                q_getFormat();
@@ -143,10 +159,11 @@
 	                $('#txtDate2').datepicker();  
 	                t_item = "";
 	                t_item2 = "";
+	                t_item3 = "";
 	                $('#chkXcarteamno').children('input').attr('checked','checked');
 	                $('#chkXcalctype').children('input').attr('checked','checked');
 	                $('#chkXoption6').children('input').attr('checked','checked');
-	                
+	                $('#chkXoption8').children('input').attr('checked','checked');
 	                var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
