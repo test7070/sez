@@ -47,22 +47,22 @@
 
             function q_funcPost(t_func, result) {
                 if (result.substr(0, 5) == '<Data') {
-                    var tmp = _q_appendData('carteam', '', true);
+                   /*var tmp = _q_appendData('carteam', '', true);
                     var value = '';
                     for (var z = 0; z < tmp.length; z++) {
                         value = value + (value.length > 0 ? ',' : '') + tmp[z].noa + '@' + tmp[z].team;
                     }
-                    q_cmbParse("cmbCarteamno", value);
+                    q_cmbParse("cmbCarteamno", value);*/
                     tmp = _q_appendData('carbrand', '', true);
                     value = '';
                     for (var z = 0; z < tmp.length; z++) {
-                        value = value + (value.length > 0 ? ',' : '') + tmp[z].noa + '@' + tmp[z].brand;
+                        value = value + (value.length > 0 ? ',' : '') + $.trim(tmp[z].noa) + '@' + $.trim(tmp[z].brand);
                     }
                     q_cmbParse("cmbCarbrandno", value);
                     tmp = _q_appendData('carkind', '', true);
-                    value = '';
+                    value = ' @ ';
                     for (var z = 0; z < tmp.length; z++) {
-                        value = value + (value.length > 0 ? ',' : '') + tmp[z].noa + '@' + tmp[z].kind;
+                        value = value + (value.length > 0 ? ',' : '') + $.trim(tmp[z].noa) + '@' + $.trim(tmp[z].kind);
                     }
                     q_cmbParse("cmbCarkindno", value);
                     refresh(q_recno);
@@ -447,9 +447,9 @@
 							</td>
 							<td class="td3" >
 							<div class='btnLbl tb'>
-								<a id='lblCarteam'></a>
+								<a id='lblCarkind'></a>
 							</div></td>
-							<td class="td4" ><select id="cmbCarteamno" style="width:95%;"></select></td>
+							<td class="td4" ><select id="cmbCarkindno" style="width:95%;"></select></td>
 							<td class="td5" ></td>
 							<td class="td6" ></td>
 							<td class="td7" ></td>
@@ -666,11 +666,7 @@
 							<td class="td4" >
 							<input id="txtCarmode"  type="text"  style='width:95%; max-width: 200px; '/>
 							</td>
-							<td class="td5" >
-							<div class='btnLbl tb'>
-								<a id='lblCarkind'></a>
-							</div></td>
-							<td class="td6" ><select id="cmbCarkindno" style="width:95%;"></select></td>
+							
 							<td class="td7" >
 							<div class='btnLbl tb'>
 								<a id='lblChecktype'></a>
