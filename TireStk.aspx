@@ -112,7 +112,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('tirestk_s.aspx', q_name + '_s', "500px", "330px", q_getMsg( "popSeek"));
+            q_box('tirestk_s.aspx', q_name + '_s', "500px", "380px", q_getMsg( "popSeek"));
         }
 
         function combPay_chg() {  
@@ -387,8 +387,7 @@
             </tr>
           <tr class="tr2">
                <td class="td1"><span> </span><a id='lblBrand' class="lbl btn"></a></td>
-               <td class="td2" colspan="2"><input id="txtBrandno"  type="text"  class="txt c4"/><input id="txtBrand"  type="text"  class="txt c5"/></td>
-               <td class="td4"></td>
+               <td class="td2" colspan="3"><input id="txtBrandno"  type="text"  class="txt c4"/><input id="txtBrand"  type="text"  class="txt c5"/></td>
                <td class="td5"></td>
             </tr>
             <tr class="tr3">
@@ -406,14 +405,14 @@
             </tr>  
             <tr class="tr5">
                <td class="td1"><span> </span><a id='lblTgg' class="lbl btn"></a></td>
-               <td class="td2" colspan="2"><input id="txtTggno"  type="text"  class="txt c4"/><input id="txtTgg"  type="text"  class="txt c5"/></td>
-               <td class="td4"></td>
+               <td class="td2" colspan="3"><input id="txtTggno"  type="text"  class="txt c4"/><input id="txtTgg"  type="text"  class="txt c5"/></td>
+               
                <td class="td5"></td>
             </tr>
             <tr class="tr6">
                <td class="td1"><span> </span><a id='lblFixtgg' class="lbl btn"></a></td>
-               <td class="td2" colspan="2"><input id="txtFixtggno"  type="text"  class="txt c4"/><input id="txtFixtgg"  type="text"  class="txt c5"/></td>
-               <td class="td4"></td>
+               <td class="td2" colspan="3"><input id="txtFixtggno"  type="text"  class="txt c4"/><input id="txtFixtgg"  type="text"  class="txt c5"/></td>
+               
                <td class="td5"></td>
             </tr>     
         </table>
