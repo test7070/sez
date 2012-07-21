@@ -25,14 +25,13 @@
                 q_getFormat();
                 q_langShow();
 
-                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
-        
+                 bbmMask1 = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+        		 bbmMask = [['txtBtrandate', r_picd], ['txtEtrandate', r_picd]];
+				q_mask(bbmMask1);
 				q_mask(bbmMask);
         		$('#txtBdate').focus();
-                bbmMask = [['txtBtrandate', r_picd], ['txtEtrandate', r_picd]];
-                q_mask(bbmMask);
-
-                $('#txtBtrandate').focus();
+               
+              
             }
 
             function q_seekStr() {
