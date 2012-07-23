@@ -18,6 +18,7 @@
 			t_item = "";
            	t_item2 = "";
            	t_item3 = "";
+           	t_item4 = "";
            	aPop  =  new Array(['txtXcarno', 'lblXcarno', 'car2', 'a.noa,driverno,driver','txtXcarno', 'car2_b.aspx'],
            		['txtXaddr', 'lblXaddr', 'addr2', 'noa,addr','txtXaddr', 'addr_b.aspx']);
             if (location.href.indexOf('?') < 0) {
@@ -33,7 +34,7 @@
                 q_gt('carteam', '', 0, 0, 0, "");
                 q_gt('calctype2', '', 0, 0, 0, "calctypes");
                 q_gt('carkind', '', 0, 0, 0, "");
-               
+                q_gt('calctype', '', 0, 0, 0);
             }
 
             function q_boxClose(t_name) {
@@ -59,9 +60,15 @@
                             t_item2 = t_item2 + (t_item2.length>0?',':'') + as[i].noa+as[i].noq +'@' + as[i].typea;
                         }    
                         break;
+                    case 'calctype':
+                        var as = _q_appendData("calctype", "", true);
+                        for( i = 0; i < as.length; i++) {
+                            t_item4 = t_item4 + (t_item4.length>0?',':'') + 'calctype_' + as[i].noa +'@' + as[i].namea;
+                        }    
+                        break;
                 }
       
-                if(t_item.length>0 && t_item2.length>0 && t_item3.length>0){
+                if(t_item.length>0 && t_item2.length>0 && t_item3.length>0 && t_item4.length>0){
 	                $('#q_report').q_report({
 	                    fileName : 'z_trana',
 	                    options : [{
@@ -147,6 +154,10 @@
 	                        type : '8', //select
 	                        name : 'xoption8',
 	                        value : t_item3.split(',')
+	                    }, {
+	                        type : '5', //select
+	                        name : 'xsort5',
+	                        value : t_item4.split(',').concat(q_getPara('z_trana.sort5').split(','))
 	                    }]
 	                });
 	                q_getFormat();
@@ -160,6 +171,7 @@
 	                t_item = "";
 	                t_item2 = "";
 	                t_item3 = "";
+	                t_item4 = "";
 	                $('#chkXcarteamno').children('input').attr('checked','checked');
 	                $('#chkXcalctype').children('input').attr('checked','checked');
 	                $('#chkXoption6').children('input').attr('checked','checked');
