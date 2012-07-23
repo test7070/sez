@@ -37,6 +37,7 @@
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
+                $('#txtMon').mask('999/99');
                 
                  var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
