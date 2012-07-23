@@ -15,36 +15,46 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
-            if (location.href.indexOf('?') < 0) {
-                location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911)+"_1";
-            }
             $(document).ready(function() {
-                q_gf('', 'z_accc1');
-                q_getId();
+            	 _q_boxClose();
+            	q_getId();
+                q_gf('', 'z_saln');
             });
             function q_gfPost() {
-                $('#q_report').q_report({
-                    fileName : 'z_accc1',
-                    options : [{
-                        type : '0',
-                        name : 'accy',
-                        value : q_getId()[4]
-                    }, {
+               $('#q_report').q_report({
+                        fileName : 'z_saln',
+                        options : [ {
+                        type : '6',
+                        name : 'mon'
+                    },{
+                        type : '6',
+                        name : 'year'
+                    },{
                         type : '1',
-                        name : 'xaccc3'
+                        name : 'sno'
                     }]
-                });
+                    });
+                q_popAssign();
                 q_getFormat();
-                    q_langShow();
-                    q_popAssign();
+                q_langShow();
+                
+                 var t_date,t_year,t_month,t_day;
+	                t_date = new Date();
+	                t_date.setDate(1);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                $('#txtMon').val(t_year+'/'+t_month);
+            }
 
-                $('#txtDate1').mask('99/99');
-                $('#txtDate2').mask('99/99');
-   
+            function q_boxClose(s2) {
+            }
+            function q_gtPost(s2) {
             }
 		</script>
 	</head>
-	<body id="z_accc">
+	<body>
 		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
@@ -56,3 +66,5 @@
 		</div>
 	</body>
 </html>
+           
+          

@@ -10,179 +10,152 @@
     <script src="../script/qbox.js" type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
-    
     <script type="text/javascript">
         this.errorHandler = null;
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var q_name="part";
+        q_tables = 's';
+        var q_name = "acuser";
         var q_readonly = [];
-        var bbmNum = []; 
-        var bbmMask = []; 
-        q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
-        //ajaxPath = ""; //  execute in Root
+        var q_readonlys = [];
+        var bbmNum = [];  
+        var bbsNum = [];
+        var bbmMask = [];
+        var bbsMask = [];
+        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
+		aPop = new Array(['txtAccno_', 'btnAccno_', 'acc', 'acc1,acc2', 'txtAccno_,txtAcc_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);        
 
         $(document).ready(function () {
             bbmKey = ['noa'];
-            q_brwCount();
-            q_gt(q_name, q_content, q_sqlCount, 1)
-            $('#txtNoa').focus
+            bbsKey = ['noa', 'noq'];
+            q_brwCount();   
+           q_gt(q_name, q_content, q_sqlCount, 1)  
         });
 
         //////////////////   end Ready
-       function main() {
-           if (dataErr)   
-           {
-               dataErr = false;
-               return;
-           }
-            mainForm(0); // 1=Last  0=Top
-        }  ///  end Main()
+        function main() {
+            if (dataErr)  
+            {
+                dataErr = false;
+                return;
+            }
 
-
-        function mainPost() { 
-        	q_mask(bbmMask);
+            mainForm(1); 
         }
-        function txtCopy(dest, source) {
-            var adest = dest.split(',');
-            var asource = source.split(',');
-            $('#' + adest[0]).focus(function () { if (trim($(this).val()).length == 0) $(this).val( q_getMsg('msgCopy')); });
-            $('#' + adest[0]).focusout(function () {
-                var t_copy = ($(this).val().substr(0, 1) == '=');
-                var t_clear = ($(this).val().substr(0, 2) == ' =') ;
-                for (var i = 0; i < adest.length; i++) {
-                    {
-                        if (t_copy)
-                            $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                        if( t_clear)
-                            $('#' + adest[i]).val('');
-                    }
-                }
-            });
+        function mainPost() {  
+            q_getFormat();
+            bbmMask = [['txtDatea', r_picd]];
+            q_mask(bbmMask);
+             
         }
-        
-        function q_boxClose( s2) { 
-            var ret; 
+
+        function q_boxClose(s2) { ///   q_boxClose 2/4 
+            var ret;
             switch (b_pop) {   
-                case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-                
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
             }   /// end Switch
+            b_pop = '';
         }
 
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case 'sss':  
-                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                    break;
-
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
-
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                     break;
             }  /// end switch
         }
-        
+
+        function btnOk() {
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  
+            if (t_err.length > 0) {
+                alert(t_err);
+                return;
+            }
+
+            $('#txtWorker').val(r_name)
+            sum();
+
+            var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+            if (s1.length == 0 || s1 == "AUTO")   
+                q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
+            else
+                wrServer(s1);
+        }
+
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
-            q_box('part_s.aspx', q_name + '_s', "500px", "300px", q_getMsg( "popSeek"));
+
+            q_box('acuser_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   
-            var cmb = document.getElementById("combPay")
-            if (!q_cur) 
-                cmb.value = '';
-            else
-                $('#txtPay').val(cmb.value);
-            cmb.value = '';
+        }
+
+        function bbsAssign() {  
+            _bbsAssign();
         }
 
         function btnIns() {
             _btnIns();
-            $('#txtNoa').focus();
+            $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+            $('#txtDatea').val(q_date());
+            $('#txtDatea').focus();
         }
-
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
-
             _btnModi();
-            $('#txtComp').focus();
+            $('#txtProduct').focus();
         }
-
         function btnPrint() {
- 
-        }
-        function btnOk() {
-            var t_err = '';
 
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
-
-            if ( dec( $('#txtCredit').val()) > 9999999999)
-                t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
-
-            if ( dec( $('#txtStartn').val()) > 31)
-                t_err = t_err + q_getMsg( "lblStartn")+q_getMsg( "msgErr")+'\r';
-            if (dec( $('#txtGetdate').val()) > 31)
-                t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
-
-            if( t_err.length > 0) {
-                alert(t_err);
-                return;
-            }
-            var t_noa = trim($('#txtNoa').val());
-            if (emp($('#txtUacc1').val()))
-                $('#txtUacc1').val('1123.' + t_noa);
-            if (emp($('#txtUacc2').val()))
-                $('#txtUacc2').val('1121.' + t_noa);
-            if (emp($('#txtUacc3').val()))
-                $('#txtUacc3').val( '2131.'+t_noa);
-
-
-            if ( t_noa.length==0 )  
-                q_gtnoa(q_name, t_noa);
-            else
-                wrServer(  t_noa);
         }
 
-        function wrServer( key_value) {
+        function wrServer(key_value) {
             var i;
 
-            xmlSql = '';
-            if (q_cur == 2)   
-                xmlSql = q_preXml();
-
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-            _btnOk(key_value, bbmKey[0], '','',2);
+            _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
         }
 
-        
-        
+        function bbsSave(as) {
+            if (!as['accno'] ) {  
+                as[bbsKey[1]] = '';   
+                return;
+            }
+
+            q_nowf();
+            as['date'] = abbm2['date'];
+
+            //            t_err ='';
+            //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
+            //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
+
+            //            
+            //            if (t_err) {
+            //                alert(t_err)
+            //                return false;
+            //            }
+            //            
+            return true;
+        }
+
+        function sum() {
+            var t1 = 0, t_unit, t_mount, t_weight = 0;
+            for (var j = 0; j < q_bbsCount; j++) {
+
+            }  // j
+
+        }
+
         function refresh(recno) {
             _refresh(recno);
-           
-        }
+       }
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
@@ -190,17 +163,18 @@
 
         function btnMinus(id) {
             _btnMinus(id);
+            sum();
         }
 
         function btnPlus(org_htm, dest_tag, afield) {
-            _btnPlus(org_htm, dest_tag, afield); 
+            _btnPlus(org_htm, dest_tag, afield);
         }
 
         function q_appendData(t_Table) {
-           return _q_appendData(t_Table);
+            return _q_appendData(t_Table);
         }
 
-        function btnSeek(){
+        function btnSeek() {
             _btnSeek();
         }
 
@@ -237,12 +211,12 @@
         }
     </script>
     <style type="text/css">
-         #dmain {
+     #dmain {
                 overflow: hidden;
             }
             .dview {
                 float: left;
-                width: 25%;
+                width: 98%;
             }
             .tview {
                 margin: 0;
@@ -260,7 +234,7 @@
             }
             .dbbm {
                 float: left;
-                width: 73%;
+                width: 98%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -353,50 +327,68 @@
              input[type="text"],input[type="button"] {     
                 font-size: medium;
             }
+         .dbbs .tbbs{margin:0;padding:2px;border:2px lightgrey double;border-spacing:1px;border-collapse:collapse;font-size:medium;color:blue;background:#cad3ff;width:98%;}
+		 .dbbs .tbbs tr{height:35px;}
+		 .dbbs .tbbs tr td{text-align:center;border:2px lightgrey double;}
+		 .tbbs .td1
+        {
+            width: 4%;
+        }
+        .tbbs .td2
+        {
+            width: 9%;
+        }
     </style>
 </head>
 <body>
 <!--#include file="../inc/toolbar.inc"-->
-        <div id='dmain' style="overflow:hidden;">
+        <div id='dmain' >
         <div class="dview" id="dview" style="float: left;  width:25%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
-                <td align="center" style="width:5%"><a id='vewChk'></a></td>                
-                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:25%"><a id='vewPart'></a></td>
-                <td align="center" style="width:25%"><a id='vewNick'></a></td>                                
+                <td align="center" style="width:5%"><a id='vewChk'></a></td>  
+                <td align="center" style="width:20%"><a id='vewNoa'></a></td>
+                <td align="center" style="width:20%"><a id='vewNamea'></a></td>        
             </tr>
              <tr>
-                   <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
+                   <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='part'>~part</td>
-                   <td align="center" id='nick'>~nick</td>
+                   <td align="center" id='namea'>~namea</td>
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 73%;float: left;">
-        <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>            
-            <tr>
-               <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-               <td class="td2"><input id="txtNoa"  type="text" class="txt c1" /></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblPart' class="lbl"></a></td>
-               <td class="td2"><input id="txtPart"  type="text" class="txt c1"/></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblNick' class="lbl"></a></td>
-               <td class="td2"><input id="txtNick"  type="text" class="txt c1"/></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-            </tr>      
+        <div class='dbbm' style="width: 73%;float:left">
+        <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+       <tr>
+            <td class='td1'><span> </span><a id="lblNoa" class="lbl"></a></td>
+            <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
+            <td class='td3'><span> </span><a id="lblNamea" class="lbl"></a></td>
+            <td class="td4"><input id="txtNamea" type="text" class="txt c1"/></td> 
+            <td class="td5"></td>
+        </tr>          
         </table>
         </div>
-        </div> 
-        <input id="q_sys" type="hidden" />    
+        <div class='dbbs' > 
+        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
+            <tr style='color:White; background:#003366;' >
+                <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
+                <td align="center" class="td1"><a id='lblDc'></a></td>
+                <td align="center" class="td1"><a id='lblAccno'></a></td>
+                <td align="center" class="td2"><a id='lblAcc'></a></td>
+                <td align="center" class="td2"><a id='lblAccc7'></a></td>
+                <td align="center" class="td1"><a id='lblAccc8'></a></td>
+            </tr>
+            <tr  style='background:#cad3ff;'>
+                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
+                <td ><input class="txt c1" id="txtDc.*" type="text" /></td>
+                <td ><input class="txt c3" id="txtAccno.*" type="text" /><input class="txt c4" id="btnAccno.*" type="button" value="..."/></td>
+                <td ><input class="txt c1" id="txtAcc.*"type="text"  /></td>
+                <td ><input class="txt c1" id="txtAccc7.*"type="text"  /></td>
+                <td ><input class="txt c1" id="txtAccc8.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
+            </tr>
+        </table>
+        </div>
+        </div>
+        <input id="q_sys" type="hidden" />
 </body>
 </html>
