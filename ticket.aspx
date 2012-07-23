@@ -15,8 +15,6 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
-            q_desc = 1;
             var q_name = "ticket";
             var q_readonly = ['txtNoa','txtWorker'];
             var bbmNum = [['txtMoney', 10, 0], ['txtComppay', 10, 0], ['txtDriverpay', 10, 0]];
@@ -46,7 +44,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtAppeardate', r_picd], ['txtPaydate', r_picd],['txtBmon',r_picm],['txtEmon',r_picm]];
+                bbmMask = [['txtDatea', r_picd],['txtTicketdate', r_picd], ['txtAppeardate', r_picd], ['txtPaydate', r_picd],['txtBmon',r_picm],['txtEmon',r_picm]];
                 q_mask(bbmMask);
             }
 
@@ -332,18 +330,16 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:20%"><a id='vewNoa'></a></td>
+						<td align="center" style="width:20%"><a id='vewDatea'></a></td>
 						<td align="center" style="width:25%"><a id='vewTicketno'></a></td>
-						<td align="center" style="width:25%"><a id='vewDatea'></a></td>
 						<td align="center" style="width:25%"><a id='vewCarno'></a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
-						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='ticketno'>~ticketno</td>
 						<td align="center" id='datea'>~datea</td>
+						<td align="center" id='ticketno'>~ticketno</td>
 						<td align="center" id='carno'>~carno</td>
 					</tr>
 				</table>
@@ -352,36 +348,45 @@
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr1">
 						<td class="td1" ><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td class="td2">
+						<td class="td2" colspan="2">
 						<input id="txtNoa"  type="text"   class="txt c1"/>
 						</td>
-						<td class="td3" ><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td4">
+						<td class="td4" ><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td class="td5">
 						<input id="txtDatea" type="text"   class="txt c1"/>
 						</td>
-						<td class="td5" ><span> </span><a id='lblTicketno' class="lbl"> </a></td>
-						<td class="td6">
-						<input id="txtTicketno" type="text"  class="txt c1"/>
-						</td>
-						<td class="td7" ><span> </span><a id='lblCarno' class="lbl"> </a></td>
-						<td class="td8">
-						<input id="txtCarno" type="text"   class="txt c1"/>
-						</td>
+						<td>  </td>
+						<td>  </td>
+						<td>  </td>
 						<td  class="tdZ">  </td>
 					</tr>
-					</tr>
 					<tr class="tr2">
-						<td class="td1"><span> </span><a id='lblDriver' class="lbl btn" ></a></td>
-						<td class="td2" colspan="3">
-						<input id="txtDriverno" type="text"  class="txt c4"/>
-						<input id="txtDriver" type="text"  class="txt c5"/>
+						<td class="td1" ><span> </span><a id='lblTicketno' class="lbl"> </a></td>
+						<td class="td2"><input id="txtTicketno" type="text"  class="txt c1"/></td>
+						<td class="td3" ><span> </span><a id='lblTicketdate' class="lbl"> </a></td>
+						<td class="td4"><input id="txtTicketdate" type="text"  class="txt c1"/></td>
+						<td>  </td>
+						<td>  </td>
+						<td>  </td>
+						<td>  </td>
+						<td  class="tdZ">  </td>
+					</tr>
+					<tr class="tr3">
+						<td class="td1" ><span> </span><a id='lblCarno' class="lbl"> </a></td>
+						<td class="td2"><input id="txtCarno" type="text"   class="txt c1"/></td>
+						<td class="td3"><span> </span><a id='lblDriver' class="lbl btn" > </a></td>
+						<td class="td4" colspan="2">
+							<input id="txtDriverno" type="text"  class="txt c2"/>
+							<input id="txtDriver" type="text"  class="txt c3"/>
 						</td>
-						<td class="td5" ><span> </span><a id='lblAppeardate' class="lbl"></a></td>
-						<td class="td6">
+					</tr>
+					<tr class="tr4">
+						<td class="td1" ><span> </span><a id='lblAppeardate' class="lbl"> </a></td>
+						<td class="td2">
 						<input id="txtAppeardate" type="text"  class="txt c1"/>
 						</td>
-						<td class="td7" ><span> </span><a id='lblPaydate' class="lbl"></a></td>
-						<td class="td8">
+						<td class="td3" ><span> </span><a id='lblPaydate' class="lbl"> </a></td>
+						<td class="td4">
 						<input id="txtPaydate"  type="text"   class="txt c1"/>
 						</td>
 					</tr>
