@@ -356,6 +356,17 @@
 			</div>
 			<div class='dbbm' >
 				<table class="tbbm"  id="tbbm"  >
+					<tr style="height:1px;">
+						<td>  </td>
+						<td>  </td>
+						<td>  </td>
+						<td>  </td>
+						<td>  </td>
+						<td>  </td>
+						<td>  </td>
+						<td>  </td>
+						<td class="tdZ"> </td>
+					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td2" colspan="2">
@@ -380,8 +391,8 @@
 					<tr>
 						<td class="td3"><span> </span><a id="lblCust" class="lbl btn" > </a></td>
 						<td class="td4" colspan="4">
-						<input id="txtCustno"  type="text"  class="txt c2"/>
-						<input id="txtComp"  type="text"  class="txt c3"/>
+						<input id="txtCustno"  type="text"  class="txt" style="width:20%;"/>
+						<input id="txtComp"  type="text"  class="txt" style="width:75%;"/>
 						</td>
 					</tr>
 					<tr>
