@@ -41,7 +41,7 @@
                 }
       
                 if(t_item.length>0){
-                	 $('#qReport').q_report({
+                	 $('#q_report').q_report({
 	                    fileName : 'z_tre',
 	                    options : [{
 	                        type : '0',
@@ -59,6 +59,10 @@
 	                    },  {
 	                        type : '6',
 	                        name : 'xcarno'
+	                    }, {
+	                        type : '5', //select
+	                        name : 'xsort1',
+	                        value : q_getPara('z_tre.sort1').split(',')
 	                    }]
 	                });
 	                
@@ -102,7 +106,7 @@
 		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
-				<div id="qReport"> </div>
+				<div id="q_report"> </div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
