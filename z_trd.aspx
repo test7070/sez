@@ -41,6 +41,10 @@
                     },{
                         type : '6',
                         name : 'xvccano'
+                    }, {
+                        type : '5', //select
+                        name : 'xsort1',
+                        value : q_getPara('z_trd.sort1').split(',')
                     }]
                 });
                 q_getFormat();
