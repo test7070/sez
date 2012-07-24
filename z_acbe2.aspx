@@ -16,35 +16,12 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
             $(document).ready(function() {
+            	 
             	q_getId();
-                q_gf('', 'z_saln');
+                q_gf('', 'z_acbe2');
             });
             function q_gfPost() {
-               $('#q_report').q_report({
-                        fileName : 'z_saln',
-                        options : [ {
-                        type : '6',
-                        name : 'mon'
-                    },{
-                        type : '6',
-                        name : 'year'
-                    },{
-                        type : '1',
-                        name : 'sno'
-                    }]
-                    });
-                q_popAssign();
-                
-                $('#txtMon').mask('999/99');
-                
-                 var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                $('#txtMon').val(t_year+'/'+t_month);
+              
             }
 
             function q_boxClose(s2) {
@@ -59,6 +36,28 @@
 			<div id="container">
 				<div id="q_report"> </div>
 			</div>
+			<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+			 <tr>
+               <td class="td1"><a id="lblByear"></a></td>
+               <td class="td2"><input id="txtByear"   type="text" /></td>
+               <td class="td3"><a id="lblBmon1"></a></td>
+               <td class="td4"><input id="txtBMon1"   type="text" style='width: 30%;'/><a id="lblSymbol1" style="width: 8%;"></a>
+               	<input id="txtEMon1"   type="text" style='width: 30%;'/>
+               </td>
+               <td class="td5"><a id='lblPart1'></a></td>
+               <td class="td6"><select id="combPart1" style="width: 100%;" value=" "></select></td> 
+            </tr> 
+           <tr>
+               <td class="td1"><a id="lblEyear"></a></td>
+               <td class="td2"><input id="txtEyear"   type="text" /></td>
+               <td class="td3"><a id="lblBmon2"></a></td>
+               <td class="td4"><input id="txtBMon2"   type="text" style='width: 30%;'/><a id="lblSymbol2" style="width: 8%;"></a>
+               	<input id="txtEMon2"   type="text" style='width: 30%;'/>
+               </td>
+               <td class="td5"><a id='lblPart2'></a></td>
+               <td class="td6"><select id="combPart2" style="width: 100%;" value=" "></select></td> 
+            </tr>  
+            </table>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>

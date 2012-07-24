@@ -16,35 +16,12 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
             $(document).ready(function() {
+            
             	q_getId();
-                q_gf('', 'z_saln');
+                q_gf('', 'z_acbe');
             });
             function q_gfPost() {
-               $('#q_report').q_report({
-                        fileName : 'z_saln',
-                        options : [ {
-                        type : '6',
-                        name : 'mon'
-                    },{
-                        type : '6',
-                        name : 'year'
-                    },{
-                        type : '1',
-                        name : 'sno'
-                    }]
-                    });
-                q_popAssign();
-                
-                $('#txtMon').mask('999/99');
-                
-                 var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                $('#txtMon').val(t_year+'/'+t_month);
+               
             }
 
             function q_boxClose(s2) {
@@ -59,6 +36,21 @@
 			<div id="container">
 				<div id="q_report"> </div>
 			</div>
+			<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+			 <tr>
+               <td class="td1"><a id="lblBmon"></a></td>
+               <td class="td2"><input id="txtBMon"   type="text" style='width: 35%;'/><a id="lblSymbol" style="width: 10%;"></a>
+               	<input id="txtEMon"   type="text" style='width: 35%;'/>
+               </td>
+               <td class="td3"><a id='lblYear'></a></td>
+               <td class="td4"><input id="chkYear" type="checkbox" style=" "></td> 
+           <tr>
+               <td class="td1"><a id='lblPart'></a></td>
+               <td class="td2"><select id="combPart" style="width: 60%;" value=" "></select></td>
+               <td class="td3"><a id='lblDetail'></a></td>
+               <td class="td4"><input id="chkDetail" type="checkbox" style=" "></td>  
+            </tr>  
+            </table>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
