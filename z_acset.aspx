@@ -21,7 +21,7 @@
                 q_gf('', 'z_acset');
             });
             function q_gfPost() {
-               
+                q_popAssign();  
             }
 
             function q_boxClose(s2) {
@@ -37,11 +37,17 @@
 			  <div id="container">
             <div id="q_report"> </div>    
 			</div>
-			
+			<div class="dview" id="dview" style="float: left;  width:15%; "  >
+			 	<table class="tview" id="tview"   border="0" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+			 	<tr>
+			 		 <td class="td1"><a id='lblAcset' class="lbl" style="font-size: xx-large;"></a></td>
+			 	</tr>
+			 </table>
+			 </div>
 			<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 			 <tr>
-               <td class="td1"><a id="lblMon"></a></td>
-               <td class="td2"><input id="txtMon"   type="text" class="txt c1"/></td> 
+               <td class="td1"><a id="lblDatea"></a></td>
+               <td class="td2"><input id="txtDatea"   type="text" class="txt c1"/></td> 
             </tr>
             <tr>
                <td class="td1"><a id='lblYear'></a></td>
@@ -51,6 +57,10 @@
                <td class="td1"><a id='lblDetail'></a></td>
                <td class="td2"><input id="chkDetial" type="checkbox" style=" "></td> 
             </tr> 
+            <tr>
+            <td class="td1"><a id='lblPart'></a></td>
+               <td class="td2"><select id="combPart" style="width: 60%;" value=" "></select></td>
+            </tr>
             </table>
           
 			<div class="prt" style="margin-left: -40px;">

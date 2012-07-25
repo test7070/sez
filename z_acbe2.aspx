@@ -21,7 +21,7 @@
                 q_gf('', 'z_acbe2');
             });
             function q_gfPost() {
-              
+               q_popAssign();  
             }
 
             function q_boxClose(s2) {
@@ -36,10 +36,17 @@
 			<div id="container">
 				<div id="q_report"> </div>
 			</div>
+			<div class="dview" id="dview" style="float: left;  width:15%; "  >
+			 	<table class="tview" id="tview"   border="0" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+			 	<tr>
+			 		 <td class="td1"><a id='lblAcbe2' class="lbl" style="font-size: xx-large;"></a></td>
+			 	</tr>
+			 </table>
+			 </div>
 			<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 			 <tr>
                <td class="td1"><a id="lblByear"></a></td>
-               <td class="td2"><input id="txtByear"   type="text" /></td>
+               <td class="td2"><input id="txtByear"   type="text"/></td>
                <td class="td3"><a id="lblBmon1"></a></td>
                <td class="td4"><input id="txtBMon1"   type="text" style='width: 30%;'/><a id="lblSymbol1" style="width: 8%;"></a>
                	<input id="txtEMon1"   type="text" style='width: 30%;'/>

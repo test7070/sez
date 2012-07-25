@@ -24,13 +24,13 @@
                         fileName : 'z_saln',
                         options : [ {
                         type : '6',
-                        name : 'mon'
+                        name : 'xmon'
                     },{
                         type : '6',
-                        name : 'year'
+                        name : 'xyear'
                     },{
                         type : '1',
-                        name : 'sno'
+                        name : 'xsno'
                     }]
                     });
                 q_popAssign();
