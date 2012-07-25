@@ -19,8 +19,8 @@
             q_desc = 1;
             q_tables = 's';
             var q_name = "tire";
-            var q_readonly = ['txtNoa'];
-            var q_readonlys = ['txtBtireno'];
+            var q_readonly = ['txtNoa','txtWorker'];
+            var q_readonlys = [];
             var bbmNum = [['txtMiles',10,0]];
             var bbsNum = [];
             var bbmMask = [];
@@ -418,8 +418,12 @@
 						<td rowspan="3"><img src="../image/ben.jpg" class="txt c1"/></td>
 					</tr>
 					<tr>
+						<td class='td1'><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td class="td2" colspan="5"><input id="txtMemo"type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
+						<td class='td1'><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td class="td2"><input id="txtWorker"type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
