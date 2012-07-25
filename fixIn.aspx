@@ -177,10 +177,10 @@
 		            if ($.trim($('#txtMemo_' + j).val()).substring(0, 1) != '.') {
 		                t_mount = parseFloat($.trim($('#txtMount_' + j).val()).length == 0 ? '0' : $('#txtMount_' + j).val());
 		                t_price = parseFloat($.trim($('#txtPrice_' + j).val()).length == 0 ? '0' : $('#txtPrice_' + j).val());
-		                t_money = Math.round(t_mount * t_price, 0);
-		                $('#txtMoney_' + j).val(t_money);
+		                $('#txtMoney_' + j).val(Math.round(t_mount * t_price, 0));
+		                t_money = t_money + Math.round(t_mount * t_price, 0);
 		            } else {
-		                t_money = parseFloat($.trim($('#txtMoney_' + j).val()).length == 0 ? '0' : $('#txtMoney_' + j).val());
+		                t_money = t_money + parseFloat($.trim($('#txtMoney_' + j).val()).length == 0 ? '0' : $('#txtMoney_' + j).val());
 		            }
 		        }
 		        t_tax = parseFloat($.trim($('#txtTax').val()).length == 0 ? '0' : $('#txtTax').val());
@@ -395,7 +395,7 @@
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm" id="tbbm">
-					<tr>
+					<tr style="height:1px;">
 						<td> </td>
 						<td> </td>
 						<td> </td>
