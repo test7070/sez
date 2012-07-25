@@ -59,6 +59,15 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbPosition", q_getPara('tire.position'),'s');
                 q_cmbParse("cmbAction", q_getPara('tire.action'),'s');
+                
+                $('#txtCarno').change(function(){
+                	
+                	if(q_cur == 1 || q_cur == 2) {
+                        var  t_carno = "'" + $.trim($('#txtCarno').val()) + "'";
+                        var t_where = "where=^^carno="+t_carno+"^^order=^^position^^";
+                        q_gt('tirestk', t_where, 0, 0, 0, "");
+                    }
+                });
             }
 
             function q_boxClose(s2) {
@@ -73,6 +82,20 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'tirestk':
+                        var as = _q_appendData("tirestk", "", true);
+
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtBtireno,txtPosition', as.length, as, 'btireno,position', '', '');
+
+                        /*for( i = 0; i < q_bbsCount; i++) {
+                            _btnMinus("btnMinus_" + i);
+                            if(i < as.length) {
+                                $('#txtOrdeno_' + i).val(as[i].ordeno);
+                               
+                            }
+                        }*/
+                        break;
+                        
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
