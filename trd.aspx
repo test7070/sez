@@ -303,6 +303,7 @@
                     case '3':
                         t_total = Math.round((t_money-t_discount) / (1 + t_rate / 100), 0);
                         t_tax = (t_money-t_discount) - t_total;
+                        t_total = t_money - t_discount;
                         break;
                     case '5':
                         t_tax = parseInt($.trim($('#txtTax').val()).length == 0 ? '0' : $('#txtTax').val().replace(/,/g,''), 10);

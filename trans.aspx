@@ -180,6 +180,7 @@
 					sum();
                 }); 
                 $("#txtInmount").change(function() {
+                	$("#txtOutmount").val($("#txtInmount").val());
                     sum();
                 });
                 $("#txtPton").change(function() {
@@ -203,9 +204,6 @@
                 $("#txtDiscount").change(function() {
                     sum();
                 }); 
-                $("#txtInmount").change(function() {
-                    $("#txtOutmount").val($("#txtInmount").val());
-                });
                 $("#txtCustno").change(function() {
                     if($("#txtCustno").val().length>0){
                     	$("#txtStraddrno").val($("#txtCustno").val());
