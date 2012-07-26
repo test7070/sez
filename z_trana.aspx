@@ -135,8 +135,8 @@
 	                        src : 'sss_b.aspx'
 	                    }, {
 	                        type : '8', //select
-	                        name : 'xoption6',
-	                        value : q_getPara('z_trana.option6').split(',')
+	                        name : 'xfield5',
+	                        value : q_getPara('z_trana.field5').split(',')
 	                    }, {
 	                        type : '6', 
 	                        name : 'yproduct'
@@ -157,7 +157,23 @@
 	                    }, {
 	                        type : '5', //select
 	                        name : 'xsort5',
-	                        value : t_item4.split(',').concat(q_getPara('z_trana.sort5').split(','))
+	                        value : q_getPara('z_trana.sort5').split(',').concat(t_item4.split(','))
+	                    }, {
+	                        type : '8', //select
+	                        name : 'xfield13',
+	                        value : q_getPara('z_trana.field13').split(',')
+	                    }, {
+	                        type : '5', //select
+	                        name : 'xsort13',
+	                        value : q_getPara('z_trana.sort13').split(',').concat(t_item4.split(','))
+	                    }, {
+	                        type : '8', //select
+	                        name : 'xfield1',
+	                        value : q_getPara('z_trana.field1').split(',')
+	                    }, {
+	                        type : '5', //select
+	                        name : 'xsort1',
+	                        value : q_getPara('z_trana.sort1').split(',').concat(t_item4.split(','))
 	                    }]
 	                });
 	                q_getFormat();
@@ -174,8 +190,10 @@
 	                t_item4 = "";
 	                $('#chkXcarteamno').children('input').attr('checked','checked');
 	                $('#chkXcalctype').children('input').attr('checked','checked');
-	                $('#chkXoption6').children('input').attr('checked','checked');
+	                $('#chkXfield5').children('input').attr('checked','checked');
 	                $('#chkXoption8').children('input').attr('checked','checked');
+	                $('#chkXfield13').children('input').attr('checked','checked');
+	                $('#chkXfield1').children('input').attr('checked','checked');
 	                var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);

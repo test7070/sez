@@ -18,7 +18,7 @@
 
 		    q_tables = 's';
 		    var q_name = "fixa";
-		    var q_readonly = ['txtNoa', 'txtWmoney', 'txtCmoney','txtMoney', 'txtTotal'];
+		    var q_readonly = ['txtNoa', 'txtWmoney', 'txtCmoney','txtMoney', 'txtTotal','txtWorker'];
 		    var q_readonlys = [];
 		    var bbmNum = new Array(['txtMiles', 10, 0],['txtDiscount', 10, 0], ['txtWmoney', 10, 0], ['txtCmoney', 10, 0], ['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]);
 		    var bbsNum = new Array(['txtPrice', 10, 0], ['txtMount', 10, 0], ['txtMoney', 10, 0]);
@@ -495,9 +495,7 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblWorker" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtWorker" type="text" class="txt c1" />
-						</td>
+						<td class="td2"><input id="txtWorker" type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
