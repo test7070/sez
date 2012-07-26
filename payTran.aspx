@@ -30,7 +30,12 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             //ajaxPath = "";
-            aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'], ['txtUmmaccno_', '', 'ummacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'ummacc_b.aspx']);
+            aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+             ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
+              ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
+               ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
+                ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
+                 ['txtUmmaccno_', '', 'ummacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'ummacc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -590,6 +595,22 @@
 						</td>
 					</tr>
 					<tr class="tr5">
+						<td class="td1"><span> </span><a id='lblOpay' class="lbl"></a></td>
+						<td class="td2">
+						<input id="txtOpay"  type="text" class="txt num c1"/>
+						</td>
+						<td class="td3"><span> </span><a id='lblUnopay' class="lbl"></a></td>
+						<td class="td4">
+						<input id="txtUnopay" type="text" class="txt num c1"/>
+						</td>
+						<td class="td5"><span> </span><a id='lblTextopay' class="lbl"></a></td>
+						<td class="td6">
+						<input id="textOpay"  type="text" class="txt num c1"/>
+						</td>
+						<td class="td7"></td>
+						<td class="td8"></td>
+					</tr>
+					<tr class="tr6">
 						<td class="td1"><span> </span><a id='lblAccno' class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtAccno"  type="text" class="txt c1"/>
@@ -603,15 +624,15 @@
 						<input id="txtApv"  type="text" class="txt c1" disabled="disabled"/>
 						</td>
 					</tr>
-					<tr class="tr6">
+					<tr class="tr7">
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-						<td class="td2" colspan='5' >						<textarea id="txtMemo" style="width: 99%; height: 50px;" ></textarea></td>
+						<td class="td2" colspan='5' ><textarea id="txtMemo" style="width: 99%; height: 50px;" ></textarea></td>
 						<td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
 						<td class="td8" >
 						<input id="txtWorker"  type="text" class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr7">
+					<tr class="tr8">
 						<td class="td1"><span> </span><a id="lblChecker" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtchecker" type="text" class="txt c2"/>
