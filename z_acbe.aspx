@@ -37,9 +37,9 @@
 				<div id="q_report"> </div>
 			</div>
 			 <div class="dview" id="dview" style="float: left;  width:15%; "  >
-			 	<table class="tview" id="tview"   border="0" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+			 	<table class="tview" id="tview"   border="0" cellpadding='2'  cellspacing='0' >
 			 	<tr>
-			 		 <td class="td1"><a id='lblAcbe' class="lbl" style="font-size: xx-large;"></a></td>
+			 		 <td class="td1"><a id='lblAcbe' class="lbl" style="font-size: xx-large;font-family:dfkai-sb;"></a></td>
 			 	</tr>
 			 </table>
 			 </div>

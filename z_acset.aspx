@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -18,7 +18,15 @@
             $(document).ready(function() {
             	 _q_boxClose();
             	q_getId();
-                q_gf('', 'z_acset');
+            	q_gf('', 'z_acset');
+
+            	$('#btnOk').click(function () {
+            	    var t_edate = $('#txtEdate').val();
+            	    var t_where = r_accy+';'+t_edate;
+            	    var t_para = "r_comp=" + q_getPara('sys.comp')+",edate="+t_edate;
+
+            	    q_gtx("z_acset1", t_where + ";;" + t_para + ";;z_acset;;" + q_getMsg('qTitle'));
+            	});
             });
             function q_gfPost() {
                 q_popAssign();  
@@ -38,28 +46,28 @@
             <div id="q_report"> </div>    
 			</div>
 			<div class="dview" id="dview" style="float: left;  width:15%; "  >
-			 	<table class="tview" id="tview"   border="0" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+			 	<table class="tview" id="tview"   border="0" cellpadding='2'  cellspacing='0' >
 			 	<tr>
-			 		 <td class="td1"><a id='lblAcset' class="lbl" style="font-size: xx-large;"></a></td>
+			 		<td class="td1"><a id='lblAcset' class="lbl" style="font-size: xx-large;font-family: dfkai-sb;" ></a></td>
 			 	</tr>
 			 </table>
 			 </div>
 			<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 			 <tr>
-               <td class="td1"><a id="lblDatea"></a></td>
-               <td class="td2"><input id="txtDatea"   type="text" class="txt c1"/></td> 
+               <td class="td1"><a id="lblEdate"></a></td>
+               <td class="td2"><input id="txtEdate"   type="text" class="txt c1" /></td> 
             </tr>
             <tr>
                <td class="td1"><a id='lblYear'></a></td>
-               <td class="td2"><input id="chkYear" type="checkbox" style=" "></td> 
+               <td class="td2"><input id="chkYear" type="checkbox" style=" "/></td> 
             </tr> 
             <tr>
                <td class="td1"><a id='lblDetail'></a></td>
-               <td class="td2"><input id="chkDetial" type="checkbox" style=" "></td> 
+               <td class="td2"><input id="chkDetial" type="checkbox" style=" "/></td> 
             </tr> 
             <tr>
             <td class="td1"><a id='lblPart'></a></td>
-               <td class="td2"><select id="combPart" style="width: 60%;" value=" "></select></td>
+               <td class="td2"><select id="combPart" style="width: 60%;"></select></td>
             </tr>
             </table>
           

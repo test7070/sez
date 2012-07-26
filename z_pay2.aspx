@@ -31,6 +31,12 @@
                     }, {
                         type : '1',
                         name : 'date'
+                    }, {
+                        type : '2',
+                        name : 'xcust',
+                        dbf : 'cust',
+                        index : 'noa,comp',
+                        src : 'cust_b.aspx'
                     }]
                     });
                 q_popAssign();
