@@ -14,7 +14,7 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		
 		<script type="text/javascript">
-            var q_name = 'car2', t_content = ' field=noa,driverno,driver', bbsKey = ['noa'], as, t_where = '';
+            var q_name = 'tirestk', t_content = ' field=noa,namea,typea,carno,carplateno,position', bbsKey = ['noa'], as, t_where = '';
             var isBott = false;
             /// 是否已按過 最後一頁
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
@@ -31,6 +31,7 @@
             }
 
             function q_gtPost() {
+            	q_cmbParse("cmbTypea", q_getPara('tire.typea'),'s');
             }
             function refresh(){
             	_refresh();
@@ -42,8 +43,9 @@
 			<table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
 				<tr>
 					<th align="center" ></th>
-					<th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
-					<th align="center" style='color:Blue;' ><a id='lblDriver'></a></th>
+					<th align="center" style='color:Blue;' ><a id='lblNoa'> </a></th>
+					<th align="center" style='color:Blue;' ><a id='lblNamea'> </a></th>
+					<th align="center" style='color:Blue;' ><a id='lblTypea'> </a></th>
 				</tr>
 				<tr>
 					<td style="width:2%;">
@@ -52,8 +54,11 @@
 					<td style="width:20%;">
 					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
-					<td style="width:75%;">
-					<input class="txt" id="txtDriver.*" type="text" style="width:98%;"  readonly="readonly" />
+					<td style="width:60%;">
+					<input class="txt" id="txtNamea.*" type="text" style="width:98%;"  readonly="readonly" />
+					</td>
+					<td style="width:15%;">
+					<select class="txt" id="cmbTypea.*" style="width:98%;"  readonly="readonly"> </select>
 					</td>
 				</tr>
 			</table>

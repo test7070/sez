@@ -2,13 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
-		<script src="../script/jquery.min.js" type="text/javascript"></script>
-		<script src='../script/qj2.js' type="text/javascript"></script>
-		<script src='qset.js' type="text/javascript"></script>
-		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src="../script/qbox.js" type="text/javascript"></script>
-		<script src='../script/mask.js' type="text/javascript"></script>
+		<title> </title>
+		<script src="../script/jquery.min.js" type="text/javascript"> </script>
+		<script src='../script/qj2.js' type="text/javascript"> </script>
+		<script src='qset.js' type="text/javascript"> </script>
+		<script src='../script/qj_mess.js' type="text/javascript"> </script>
+		<script src="../script/qbox.js" type="text/javascript"> </script>
+		<script src='../script/mask.js' type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             this.errorHandler = null;
@@ -32,7 +32,8 @@
             brwKey = 'Datea';
             //ajaxPath = "";
             aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa','txtCarno', 'car2_b.aspx'],
-            		['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtNick', 'tgg_b.aspx']);
+            		['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtNick', 'tgg_b.aspx'],
+            		['txtEtireno_', '', 'tirestk', 'noa,namea,typea','txtEtireno_', 'tirestk_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -59,17 +60,15 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbPosition", q_getPara('tire.position'),'s');
                 q_cmbParse("cmbAction", q_getPara('tire.action'),'s');
-                
-                $('#txtCarno').change(function(){
-                	
-                	if(q_cur == 1 || q_cur == 2) {
-                        var  t_carno = "'" + $.trim($('#txtCarno').val()) + "'";
-                        var t_where = "where=^^carno="+t_carno+"^^order=^^position^^";
-                        q_gt('tirestk', t_where, 0, 0, 0, "");
-                    }
-                });
             }
-
+			function q_popFunc(id,key_value){
+            	switch(id) {
+                    case 'txtCarno':
+                    	var t_where = "where=^^carno='"+key_value+"'^^order=^^position^^";
+                    	q_gt('tirestk', t_where, 0, 0, 0, "");
+                    	break;
+                }
+			}
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -85,7 +84,7 @@
                 	case 'tirestk':
                         var as = _q_appendData("tirestk", "", true);
 
-                        q_gridAddRow(bbsHtm, 'tbbs', 'txtBtireno,txtPosition', as.length, as, 'btireno,position', '', '');
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtBtireno,cmbPosition', as.length, as, 'noa,position', '', '');
 
                         /*for( i = 0; i < q_bbsCount; i++) {
                             _btnMinus("btnMinus_" + i);
