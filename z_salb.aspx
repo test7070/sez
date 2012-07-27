@@ -34,15 +34,18 @@
                         dbf : 'sss',
                         index : 'noa,namea',
                         src : 'sss_b.aspx'
+                    }, {
+                        type : '6',
+                        name : 'xyears'
                     }]
                     });
                 q_popAssign();
                 
-                $('#txtMon').mask('999/99');
-                $('#txtDate1').mask('999/99/99');
-	            $('#txtDate1').datepicker();
-	            $('#txtDate2').mask('999/99/99');
-	            $('#txtDate2').datepicker();
+                $('#txtXmon').mask('999/99');
+                $('#txtXdate1').mask('999/99/99');
+	            $('#txtXdate1').datepicker();
+	            $('#txtXdate2').mask('999/99/99');
+	            $('#txtXdate2').datepicker();
                 
                  var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
@@ -51,7 +54,7 @@
 	                t_year = t_year>99?t_year+'':'0'+t_year;
 	                t_month = t_date.getUTCMonth()+1;
 	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                $('#txtMon').val(t_year+'/'+t_month);
+	                $('#txtXmon').val(t_year+'/'+t_month);
 	                
 	             var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
@@ -62,7 +65,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtXdate1').val(t_year+'/'+t_month+'/'+t_day);
 	                
 	                t_date = new Date();
 	                t_date.setDate(35);
@@ -73,7 +76,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtXdate2').val(t_year+'/'+t_month+'/'+t_day);
             }
 
             function q_boxClose(s2) {
