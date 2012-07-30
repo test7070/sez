@@ -364,25 +364,49 @@
         </div>
         <div class='dbbm' style="width: 73%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
-        <tr>
+        <tr class="tr1">
            <td class="td1" ><span> </span><a id='lblNoa' class="lbl"></a></td>
            <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
            <td class="td3"></td>
            <td class="td4"></td>
         </tr>
-	   <tr>
+	   <tr class="tr2">
 		<td class="td1" ><span> </span><a id='lblAcomp' class="lbl"></a></td>
         <td class="td2"><input id="txtAcomp"  type="text" class="txt c1" /></td>
         <td class="td3"></td>
         <td class="td4"></td>
 	   </tr>  
-	   <tr>
+	   <tr class="tr3">
+		 <td class="td1" ><span> </span><a id='lblNick' class="lbl"></a></td>
+         <td class="td2"><input id="txtNick"  type="text" class="txt c1" /></td>
+         <td class="td3"></td>
+         <td class="td4"></td>
+	   </tr>  
+	   <tr class="tr3">
 		 <td class="td1"><span> </span><a id='lblEname' class="lbl"></a></td>
          <td class="td2"><input id="txtEname"  type="text" class="txt c1" /></td>
          <td class="td3"></td>
          <td class="td4"></td>
 	   </tr>                               
-       <tr>
+       <tr class="tr4">
+		 <td class="td1"><span> </span><a id='lblBoss' class="lbl"></a></td>
+         <td class="td2"><input id="txtBoss"  type="text" class="txt c1" /></td>
+         <td class="td3"></td>
+         <td class="td4"></td>
+	   </tr>                               
+       <tr class="tr5">
+		 <td class="td1"><span> </span><a id='lblSerial' class="lbl"></a></td>
+         <td class="td2"><input id="txtSerial"  type="text" class="txt c1" /></td>
+         <td class="td3"></td>
+         <td class="td4"></td>
+	   </tr> 
+       <tr class="tr6">
+		 <td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
+         <td class="td2"><input id="txtAddr"  type="text" class="txt c1" /></td>
+         <td class="td3"></td>
+         <td class="td4"></td>
+	   </tr> 
+       <tr class="tr7">
 		 <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
          <td class="td2" colspan="5"><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 127px;"></textarea></td>
 	   </tr>    
