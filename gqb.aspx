@@ -18,12 +18,15 @@
         }
         var q_name = "gqb";
         var q_readonly = [];
-        var bbmNum = []; 
-        var bbmMask = []; 
+        var bbmNum = [['txtMoney',10,0]]; 
+        var bbmMask = [['txtDatea','999/99/99'],['txtIndate','999/99/99'],['txtTdate','999/99/99']]; 
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-        aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],['txtTcompno', 'lblTcomp', 'tgg', 'noa,comp', 'txtTcompno,txtTcomp', 'Tgg_b.aspx'],
-        ['txtCompno', 'lblComp', 'tgg', 'noa,comp', 'txtCompno,txtComp', 'tgg_b.aspx'],['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx'],['txtTbankno', 'lblTbank', 'bank', 'noa,bank', 'txtTbankno,txtTbank', 'bank_b.aspx']);
+        aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
+        ['txtTcompno', 'lblTcomp', 'tgg', 'noa,comp', 'txtTcompno,txtTcomp', 'Tgg_b.aspx'],
+        ['txtCompno', 'lblComp', 'tgg', 'noa,comp', 'txtCompno,txtComp', 'tgg_b.aspx'],
+        ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx'],
+        ['txtTbankno', 'lblTbank', 'bank', 'noa,bank', 'txtTbankno,txtTbank', 'bank_b.aspx']);
        $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -44,7 +47,13 @@
 
         function mainPost() { 
         	q_mask(bbmMask);
-             q_cmbParse("cmbTypea", q_getPara('gqb.typea'));           
+             q_cmbParse("cmbTypea", q_getPara('gqb.typea')); 
+             $("#cmbTypea").focus(function(){
+            	var len = $("#cmbTypea").children().length>0?$("#cmbTypea").children().length:1;
+            	$("#cmbTypea").attr('size',len+"");
+            }).blur(function(){
+            	$("#cmbTypea").attr('size','1');
+            });           
         }
 
         function txtCopy(dest, source) {
@@ -69,20 +78,6 @@
         function q_boxClose(s2) { 
             var ret;
             switch (b_pop) {  
-                case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -92,10 +87,6 @@
 
         function q_gtPost(t_name) { 
             switch (t_name) {
-                case 'sss':  
-                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                    break;
-
                 case q_name: if (q_cur == 4)  
                         q_Seek_gtPost();
 
@@ -132,37 +123,15 @@
                 return;
 
             _btnModi();
-            $('#txtComp').focus();
+            $('#txtNoa').focus();
         }
 
         function btnPrint() {
-
+			q_box('z_gqba.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()),  '', "800px", "600px", q_getMsg("popPrint"));
         }
         function btnOk() {
-            var t_err = '';
-
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
-
-            if (dec($('#txtCredit').val()) > 9999999999)
-                t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
-
-            if (dec($('#txtStartn').val()) > 31)
-                t_err = t_err + q_getMsg("lblStartn") + q_getMsg("msgErr") + '\r';
-            if (dec($('#txtGetdate').val()) > 31)
-                t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
-
-            if (t_err.length > 0) {
-                alert(t_err);
-                return;
-            }
+            
             var t_noa = trim($('#txtNoa').val());
-            if (emp($('#txtUacc1').val()))
-                $('#txtUacc1').val('1123.' + t_noa);
-            if (emp($('#txtUacc2').val()))
-                $('#txtUacc2').val('1121.' + t_noa);
-            if (emp($('#txtUacc3').val()))
-                $('#txtUacc3').val('2131.' + t_noa);
-
 
             if (t_noa.length ==0)  
                 q_gtnoa(q_name, t_noa);
