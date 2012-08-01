@@ -20,8 +20,8 @@
             var q_name = "pay";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno', 'txtCno', 'txtAcomp'];
             var q_readonlys = ['txtRc2no', 'txtPart', 'txtPartno', 'txtUnpay', 'txtTypea'];
-            var bbmNum = [['txtTotal', 10, 0, 1]];
-            var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0], ['txtPaysale', 10, 0], ['txtUnpay', 10, 0],['textOpay', 10, 0]];
+            var bbmNum = [['txtTotal', 10, 0, 1],['textOpay', 10, 0, 1]];
+            var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0], ['txtPaysale', 10, 0], ['txtUnpay', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -663,7 +663,7 @@
 					<td align="center" style="width:1%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:3%;"><a id='lblTypea_s'></a></td>
+					<td align="center" style="width:3%;"><a id='lblAcc1_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblMoney_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblChgs_s'></a></td>
 					<td align="center" style="width:3%;"><a id='lblPaysale_s'></a></td>
@@ -684,8 +684,8 @@
 					<input type="text" id="txtNoq.*" style="display:none;" />
 					</td>
 					<td>
-					<input type="text" id="txtUmmaccno.*"  style="float:left;width:25%;"/>
-					<input type="text" id="txtTypea.*"  style="float:left;width:55%;"/>
+					<input type="text" id="txtAcc1.*"  style="float:left;width:25%;"/>
+					<input type="text" id="txtAcc2.*"  style="float:left;width:55%;"/>
 					</td>
 					<td>
 					<input type="text" id="txtMoney.*" class="txt num c6"/>

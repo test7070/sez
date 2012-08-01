@@ -15,19 +15,23 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+          if (location.href.indexOf('?') < 0) {
+                location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
+            }
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_salh');
+                q_gf('', 'z_trancommi');
             });
             function q_gfPost() {
                $('#q_report').q_report({
-                        fileName : 'z_salh',
+                        fileName : 'z_trancommi',
                         options : [ {
-                        type : '6',
-                        name : 'xyears'
+                        type : '0',
+                        name : 'accy',
+                        value : q_getId()[4]
                     },{
                         type : '3',
-                        name : 'xsno',
+                        name : 'sno',
                         dbf : 'sss', 
                         index : 'noa',
                         src : 'sss_b.aspx'
