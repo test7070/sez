@@ -680,9 +680,9 @@
 					<td align="center" style="width:120px;"><a id='lblPrice_s'></a></td>
 					<td align="center" style="width:120px;"><a id='lblTotal_s'></a></td>
 					<td align="center" style="width:100px;"><a id='lblCarno_s'></a></td>
-					<td align="center" style="width:70px;"><a id='lblCustorde_s'></a></td>
+					<td align="center" style="width:150px;"><a id='lblCustorde_s'></a></td>
 					<td align="center" style="width:170px;"><a id='lblCaseno_s'></a></td>
-					<td align="center" style="width:120px;"><a id='lblTranno_s'></a></td>
+					<td align="center" style="width:160px;"><a id='lblTranno_s'></a></td>
 					<td align="center" style="width:30px;"><a id='lblRs_s'></a></td>
 					<td align="center" style="width:100px;"><a id='lblTranmoney_s'></a></td>
 					<td align="center" style="width:100px;"><a id='lblPaymemo_s'></a></td>
