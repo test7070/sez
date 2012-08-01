@@ -21,7 +21,7 @@
             var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno', 'txtCno', 'txtAcomp'];
             var q_readonlys = ['txtRc2no', 'txtPart', 'txtPartno', 'txtUnpay', 'txtTypea'];
             var bbmNum = [['txtTotal', 10, 0, 1]];
-            var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0], ['txtPaysale', 10, 0], ['txtUnpay', 10, 0]];
+            var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0], ['txtPaysale', 10, 0], ['txtUnpay', 10, 0],['textOpay', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;

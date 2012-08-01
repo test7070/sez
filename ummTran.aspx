@@ -20,7 +20,7 @@
             var q_name = "umm";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno', 'txtCno', 'txtAcomp'];
             var q_readonlys = ['txtVccno', 'txtPart', 'txtPartno','txtUnpay','txtTypea'];
-            var bbmNum = new Array(['txtOutsource', 10, 0],['txtTotal', 10, 0],['txtPaysale', 10, 0],['txtUnpay', 10, 0],['txtOpay', 10, 0],['txtUnopay', 10, 0],['txtTextopay', 10, 0]);
+            var bbmNum = new Array(['txtOutsource', 10, 0],['txtTotal', 10, 0],['txtPaysale', 10, 0],['txtUnpay', 10, 0],['txtOpay', 10, 0],['txtUnopay', 10, 0],['textOpay', 10, 0]);
             var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0], ['txtPaysale', 10, 0], ['txtUpay', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
@@ -594,7 +594,7 @@
 						</td>
 						<td class="td5"><span> </span><a id='lblTextopay' class="lbl"></a></td>
 						<td class="td6">
-						<input id="txtTextopay"  type="text" class="txt num c1"/>
+						<input id="textOpay"  type="text" class="txt num c1"/>
 						</td>
 						<td class="td7"><span> </span><a id='lblAccno' class="lbl"></a></td>
 						<td class="td8">
