@@ -32,7 +32,14 @@
             brwNowPage = 0;
             brwKey = 'datea';
 
-            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtPartno2', 'lblPart2', 'part', 'noa,part', 'txtPartno2,txtPart2', 'part_b.aspx'], ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'], ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtItemno_', 'btnItemno_', 'chgitem', 'noa,item', 'txtItemno_,txtItem_', 'chgitem_b.aspx']);
+            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], 
+            ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+            ['txtPartno2', 'lblPart2', 'part', 'noa,part', 'txtPartno2,txtPart2', 'part_b.aspx'], 
+            ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
+            ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
+            ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+            ['txtItemno_', 'btnItemno_', 'chgitem', 'noa,item', 'txtItemno_,txtItem_', 'chgitem_b.aspx'],
+            ['txtStoreno_', '', 'acomp', 'noa,acomp', 'txtStoreno_,txtStore_', 'acomp_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -642,12 +649,14 @@
 					<td align="center" style="width: 1%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:30%;"><a id='lblItem_s'></a></td>
+					<td align="center" style="width:25%;"><a id='lblItem_s'></a></td>
 					<td align="center" style="width: 5%;"><a id='lblUnit_s'></a></td>
 					<td align="center" style="width: 8%;"><a id='lblMount_s'></a></td>
 					<td align="center" style="width: 8%;"><a id='lblPrice_s'></a></td>
 					<td align="center" style="width: 8%;"><a id='lblTotal_s'></a></td>
-					<td align="center" style="width:30%;"><a id='lblMemo_s'></a></td>
+					<td align="center" style="width: 13%;"><a id='lblStoreno_s'></a></td>
+					<td align="center" style="width: 8%;"><a id='lblDime3_s'></a></td>
+					<td align="center" style="width:12%;"><a id='lblMemo_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -664,13 +673,21 @@
 					<td>
 					<input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/>
 					</td>
-					<td style="width:6%;">
+					<td >
 					<input  id="txtPrice.*" type="text" style="width: 95%;text-align: right;"/>
 					</td>
-					<td style="width:8%;">
+					<td >
 					<input  id="txtTotal.*" type="text" style="width: 95%;text-align: right;"/>
 					</td>
-					<td style="width:12%;">
+					</td>
+					<td >
+					<input  id="txtStoreno.*" type="text" style="width: 20%;"/><input  id="txtStore.*" type="text" style="width: 70%;"/>
+					</td>
+					</td>
+					<td >
+					<input  id="txtDime.*" type="text" style="width: 95%;"/>
+					</td>
+					<td >
 					<input id="txtMemo.*" type="text" style="width: 95%;"/>
 					</td>
 				</tr>
