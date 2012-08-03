@@ -17,8 +17,8 @@
             }
 
             var q_name = "oil";
-            var q_readonly = ['txtNoa','txtWorker','txtMoney'];
-            var bbmNum = new Array(['txtMount',10,2],['txtPrice',10,2],['txtMoney',10,0]);
+            var q_readonly = ['txtNoa','txtWorker','txtMoney','txtCurmount'];
+            var bbmNum = new Array(['txtMount',10,2],['txtPrice',10,2],['txtMoney',10,0],['txtCurmount',10,2]);
             var bbmMask = [['txtDatea','999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
@@ -30,7 +30,7 @@
             aPop = new Array(
             	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver','txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
             	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
-            	['txtOilstationno', 'lblOilstation', 'oilstation', 'noa,station', 'txtOilstationno,txtOilstation', 'oilstation_b.aspx']);
+            	['txtOilstationno', 'lblOilstation', 'oilstation', 'noa,station,mount', 'txtOilstationno,txtOilstation,txtCurmount', 'oilstation_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -414,7 +414,8 @@
 						<input id="txtOilstationno"  type="text"  class="txt c2"/>
 						<input id="txtOilstation"  type="text"  class="txt c3"/>
 						</td>
-						<td class="td3"> </td>
+						<td class="td3"><span> </span><a id='lblCurmount' class="lbl"> </td>
+						<td class="td4"><input id="txtCurmount"  type="text"  class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblProduct' class="lbl"> </a></td>
@@ -422,9 +423,7 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblPrice' class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtPrice"  type="text"  class="txt num c1"/>
-						</td>
+						<td class="td2"><input id="txtPrice"  type="text"  class="txt num c1"/></td>
 						<td class="td3"> </td>
 					</tr>
 					<tr>

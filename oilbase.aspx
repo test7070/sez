@@ -117,15 +117,16 @@
 
 			function btnOk() {
 				var t_n=0,t_price1=0,t_price2=0,t_price3=0,t_price4=0,t_price5=0,t_price=0;
-				t_price1 = parseFloat($.trim($('#txtPrice1').val()).length == 0 ? '0' : $('#txtPrice1').val().replace(/,/g,''), 10);
-				t_price2 = parseFloat($.trim($('#txtPrice2').val()).length == 0 ? '0' : $('#txtPrice2').val().replace(/,/g,''), 10);
-				t_price3 = parseFloat($.trim($('#txtPrice3').val()).length == 0 ? '0' : $('#txtPrice3').val().replace(/,/g,''), 10);
-				t_price4 = parseFloat($.trim($('#txtPrice4').val()).length == 0 ? '0' : $('#txtPrice4').val().replace(/,/g,''), 10);
-				t_price5 = parseFloat($.trim($('#txtPrice5').val()).length == 0 ? '0' : $('#txtPrice5').val().replace(/,/g,''), 10);
+				t_price1 = parseFloat($.trim($('#txtPrice1').val()).length == 0 ? '0' : $('#txtPrice1').val().replace(/,/g,''));
+				t_price2 = parseFloat($.trim($('#txtPrice2').val()).length == 0 ? '0' : $('#txtPrice2').val().replace(/,/g,''));
+				t_price3 = parseFloat($.trim($('#txtPrice3').val()).length == 0 ? '0' : $('#txtPrice3').val().replace(/,/g,''));
+				t_price4 = parseFloat($.trim($('#txtPrice4').val()).length == 0 ? '0' : $('#txtPrice4').val().replace(/,/g,''));
+				t_price5 = parseFloat($.trim($('#txtPrice5').val()).length == 0 ? '0' : $('#txtPrice5').val().replace(/,/g,''));
 				
 				t_n =  (t_price1==0?0:1)+(t_price2==0?0:1)+(t_price3==0?0:1)+(t_price4==0?0:1)+(t_price5==0?0:1)
 				if(t_n>0)
-					t_price=Math.round((t_price1+t_price2+t_price3+t_price4+t_price5)/t_n,3);
+					t_price=((t_price1+t_price2+t_price3+t_price4+t_price5)/t_n).toFixed(3);
+	
 				$('#txtPrice').val(t_price);
 				
 				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
