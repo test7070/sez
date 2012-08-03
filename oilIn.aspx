@@ -218,7 +218,7 @@
             	var t_price = $.trim($('#txtPrice').val()).length==0?0:parseFloat($.trim($('#txtPrice').val().replace(/,/g,'')),10);
             	$("#txtMoney").val(Math.round(t_mount * t_price,0));
             }
-            
+
 		</script>
 		<style type="text/css">
             #dmain {

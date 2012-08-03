@@ -56,7 +56,6 @@
                 /// 100.  .
 
                 var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("datea", t_bdate, t_edate)  + q_sqlPara2("Trandate", t_btrandate, t_etrandate) + q_sqlPara_or(["caseno", "caseno2"], t_caseno)+q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver) + q_sqlPara2("custno", t_custno) + q_sqlPara2("comp", t_comp) + q_sqlPara2("carno", t_carno) + q_sqlPara2("po", t_po);
-				
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
