@@ -437,13 +437,13 @@
             <tr>
                <td class="label1"  align="right"><a id='lblType'></a></td>
                <td class="column1" >
-               <select id="cmbTypea" style='width:100%;'/></td>
-               <td class="column2" align='right' ><a id='lblStype'></a><select id="cmbStype" style='width:70%;'/></td>
+               <select id="cmbTypea" style='width:100%;'></select></td>
+               <td class="column2" align='right' ><a id='lblStype'></a><select id="cmbStype" style='width:70%;'></select></td>
                <td class="label2" align="right" ><a id='lblDatea'></a></td>
                <td class="column3"><input id="txtDatea" maxlength='10' type="text"  style='width:97%;'/></td>
                <td class="column4" ><input id="btnOrde" type="button" value='.' style='width: auto; font-size:  medium;'  /></td>
                <td class="label3" align="right"><a id='lblNoa'></a></td>
-               <td class="column2" ><input id="txtNoa"   type="text"  maxlength='30'   style='width:94%;' class='inputbox'  "/></td> 
+               <td class="column2" ><input id="txtNoa"   type="text"  maxlength='30'   style='width:94%;' class='inputbox' /></td> 
             </tr>
      
             <tr>
@@ -451,7 +451,7 @@
                <td class="column1" ><input id="txtCno"  type="text" maxlength='10' style='width:100%;' /></td>
                <td class="column2" ><input id="txtAcomp"    type="text" maxlength='90'  style='width:100%;'/></td>
                 <td align="right" class="style2" ><a id='lblFloata'></a></td>
-                <td class="column3" ><select id="cmbCoin" style='width:100%'  /> </td>                 
+                <td class="column3" ><select id="cmbCoin" style='width:100%' ></select></td>                 
                 <td class="column4" ><input id="txtFloata"    type="text"  maxlength='10' style='width:100%' /></td>                 
                 <td align="right" class="style2"><a id='lblInvono'></a></td>
                 <td class="column2"><input id="txtInvo"    type="text"  maxlength='10' style='width:94%;'/></td> 
@@ -463,7 +463,7 @@
                 <td ><input id="txtComp"  type="text" maxlength='90'  style='width:100%;'/></td>
                 <td align="right"><a id='lblPay'></a></td>
                 <td ><input id="txtPay" type="text" maxlength='10' style='width:97%' /></td> 
-                <td> <select id="combPay" style='width:100%' onchange='combPay_chg()' /></td> 
+                <td> <select id="combPay" style='width:100%' onchange='combPay_chg()'></select></td> 
                 <td align="right"><input id="btnOrdes" type="button" value='.' style='width: auto; font-size:  medium;'  /></td>
                 <td><input id="txtOrdeno"  type="text"  maxlength='20' style='width:94%' /></td> 
             </tr>
@@ -472,7 +472,7 @@
                 <td align="right" class="style1" ><a id='lblTel'></a></td>
                 <td colspan='2' class="style1"><input id="txtTel"    type="text"  maxlength='90' style='width:100%;'/></td>
                 <td align="right" class="style1"><a id='lblTrantype'></a></td>
-                <td  colspan='2' class="style1"><select id="cmbTrantype" style='width:100%' /></td> 
+                <td  colspan='2' class="style1"><select id="cmbTrantype" style='width:100%' ></select></td> 
                 <td align="right" class="style1" ><a id='lblMon'></a></td>
                 <td class="style1"><input id="txtMon"    type="text" maxlength='10'  style='width:94%;'/></td> 
             </tr>
@@ -510,7 +510,7 @@
                 <td colspan='2'><input id="txtMoney"    type="text"  maxlength='20'style='width:100%; text-align:center;'/></td> 
                 <td align="right" ><a id='lblTax'></a></td>
                 <td><input id="txtTax"    type="text" maxlength='20' style='width:100%; text-align:center;'/></td>
-                <td><select id="cmbTaxtype" style='width:100%'  onchange='calTax()' /></td>
+                <td><select id="cmbTaxtype" style='width:100%'  onchange='calTax()' ></select></td>
                 <td align="right"><a id='lblTotal'></a></td>
                 <td ><input id="txtTotal"    type="text" maxlength='20' style='width:94%; text-align:center;'/>
                 </td> 
