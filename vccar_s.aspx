@@ -40,8 +40,8 @@
                 t_invono = $('#txtInvono').val();
                 t_noa = $('#txtNoa').val();
 
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2(["bdate","edate"], t_datea) 
-                +q_sqlPara2(["binvono","einvono"], t_invono) + q_sqlPara2("acomp", t_acomp) + q_sqlPara2("cno", t_cno);
+                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlRange(t_datea,"bdate","edate") 
+                +q_sqlRange( t_invono,"binvono",'einvono') + q_sqlPara2("acomp", t_acomp) + q_sqlPara2("cno", t_cno);
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
