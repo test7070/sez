@@ -49,6 +49,13 @@
                     },{
                         type : '6',
                         name : 'zrc2no'
+                    },  {
+                        type : '6',
+                        name : 'xcarno'
+                    }, {
+                        type : '5', //select
+                        name : 'xsort1',
+                        value : q_getPara('z_tre.sort1').split(',')
                     }]
                 });
                 q_getFormat();
