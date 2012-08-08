@@ -648,17 +648,12 @@
 						</td>
 					</tr>
 					<tr class="tr7">
-						
-						<td class="td9"><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
-						<td class="tdA">
+						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td class="td2" colspan="5"><input id="txtMemo" type="text"  class="txt c1"/></td>
+						<td class="td7"><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
+						<td class="td8">
 						<input id="txtAccno" type="text"  class="txt c1"/>
 						</td>
-						<td class="tdZ"> </td>
-					</tr>
-					<tr class="tr8">
-						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td class="td2" colspan="6"><input id="txtMemo" type="text"  class="txt c1"/></td>
-						<td class="td8"> </td>
 						<td class="td9"><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td class="tdA">
 						<input id="txtWorker" type="text"  class="txt c1"/>

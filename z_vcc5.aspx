@@ -18,8 +18,10 @@
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
+            var para;
             $(document).ready(function() {
             	q_getId();
+            	 para = q_getId2();
                 q_gf('', 'z_vcc5');
             });
             function q_gfPost() {
@@ -77,8 +79,14 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+	                
+	                if (para.length > 0) {
+                     $('#txtXnoa1').val(para[0]);
+                     $('#txtXnoa1').css('width', '90px');
+                     $('#txtXnoa2').val(para[0]);
+                     $('#txtXnoa2').css('width', '90px');
             }
-
+}
             function q_boxClose(s2) {
             }
             function q_gtPost(s2) {
