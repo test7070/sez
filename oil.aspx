@@ -18,7 +18,7 @@
 
             var q_name = "oil";
             var q_readonly = ['txtNoa','txtWorker','txtMoney','txtCurmount'];
-            var bbmNum = new Array(['txtMount',10,2],['txtPrice',10,2],['txtMoney',10,0],['txtCurmount',10,2]);
+            var bbmNum = new Array(['txtMount',10,2],['txtPrice',10,2],['txtMoney',10,0]);
             var bbmMask = [['txtDatea','999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
