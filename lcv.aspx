@@ -22,7 +22,7 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
 		aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
-		['txtAccno', 'lblAccno', 'acc', 'acc1,acc2', 'txtAccno', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+		
 		['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -42,6 +42,9 @@
 
         function mainPost() { 
         	q_mask(bbmMask);
+        	 $('#btnAccc').click(function () {
+		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('btnAccc'), true);
+		        });
         }
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -443,9 +446,9 @@
                <td class="td5"></td> 
             </tr>
             <tr class="tr11">
-               <td class="td1"><span> </span><a id="lblAccno" class="lbl btn"></a></td>
+               <td class="td1"><span> </span><a id="lblAccno" class="lbl"></a></td>
                <td class="td2"><input id="txtAccno" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><input id="btnAccno" type="button" /></td>
+               <td class="td3"><span> </span><input id="btnAccc" type="button" /></td>
                <td class="td4"><span> </span><input id="btnZlcu" type="button" /></td>
                <td class="td5"></td>
             </tr>

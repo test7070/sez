@@ -21,9 +21,7 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
-						 ['txtAccno', 'btnAccno', 'acc', 'acc1,acc2', 'txtAccno', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
-						 ['txtAccno2', 'btnAccno2', 'acc', 'acc1,acc2', 'txtAccno2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+		aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -43,6 +41,12 @@
         function mainPost() { 
         	    q_mask(bbmMask);
         	 q_cmbParse("cmbTypea", q_getPara('lcu.typea'));
+        	  $('#btnAccc').click(function () {
+		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('btnAccc'), true);
+		        });
+		        $('#btnAccc2').click(function () {
+		            q_pop('txtAccno2', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('btnAccc'), true);
+		        });
         }
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -444,14 +448,14 @@
             <tr class="tr11">
                <td class="td1"><span> </span><a id="lblAccno" class="lbl"></a></td>
                <td class="td2"><input id="txtAccno" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><input id="btnAccno" type="button" /></td>
+               <td class="td3"><span> </span><input id="btnAccc" type="button" /></td>
                <td class="td4"><span> </span><a id="lblEnds" class="lbl"></a></td>
                <td class="td5"><input id="txtEnds" type="text" class="txt c1" /></td>
             </tr>
             <tr class="tr12">
                <td class="td1"><span> </span><a id="lblAccno2" class="lbl"></a></td>
                <td class="td2"><input id="txtAccno2" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><input id="btnAccno2" type="button" /></td>
+               <td class="td3"><span> </span><input id="btnAccc2" type="button" /></td>
                <td class="td4"></td>
                <td class="td5"></td>
             </tr>
