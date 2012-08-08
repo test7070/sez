@@ -44,7 +44,7 @@
                         type : '3',
                         name : 'carno',
                         dbf : 'car2', 
-                        index : 'noa',
+                        index : 'a.noa',
                         src : 'car2_b.aspx'
                     }, {
                         type : '4', //radio
