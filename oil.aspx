@@ -30,7 +30,7 @@
             aPop = new Array(
             	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver','txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
             	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
-            	['txtOilstationno', 'lblOilstation', 'oilstation', 'noa,station,mount', 'txtOilstationno,txtOilstation,txtCurmount', 'oilstation_b.aspx']);
+            	['txtOilstationno', 'lblOilstation', 'oilstation', 'noa,station', 'txtOilstationno,txtOilstation', 'oilstation_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -101,6 +101,26 @@
             }
 
             function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'oilorg':
+                        var as = _q_appendData("oilorg", "", true);
+						var t_mount = 0;
+                        for( i = 0; i < as.length; i++) {
+                            t_mount = as[i].mount;
+                        }
+                       	
+                        $("#txtCurmount").val( t_mount);     
+                        sum();             
+                        break;
+                    case q_name:
+                        if(q_cur == 4)
+                            q_Seek_gtPost();
+
+                        if(q_cur == 1 || q_cur == 2)
+                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
+
+                        break;
+                }
             }
 
             function _btnSeek() {
@@ -114,7 +134,8 @@
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
+                $('#txtDatea').focus(); 
+                $('#txtOrgmount').val($('#txtMount').val());
                 sum();
             }
 
@@ -124,6 +145,7 @@
 
                 _btnModi();
                 $('#txtDatea').focus();
+                $('#txtOrgmount').val($('#txtMount').val());
                 sum();
             }
 
@@ -161,6 +183,8 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                if($('#txtOilstationno').val().length>0)
+                	q_gt('oilorg', "where=^^oilstationno='"+$.trim($('#txtOilstationno').val())+"'^^", 0, 0, 0, "");
             }
 
             function readonly(t_para, empty) {
@@ -225,9 +249,21 @@
             	if($.trim($('#txtMemo').val()).substring(0, 1) == '.')
             		return;
             	var t_mount = $.trim($('#txtMount').val()).length==0?0:parseFloat($.trim($('#txtMount').val().replace(/,/g,'')),10);
+            	var t_orgmount = $.trim($('#txtOrgmount').val()).length==0?0:parseFloat($.trim($('#txtOrgmount').val().replace(/,/g,'')),10);
+            	var t_curmount = $.trim($('#txtCurmount').val()).length==0?0:parseFloat($.trim($('#txtCurmount').val().replace(/,/g,'')),10);
             	var t_price = $.trim($('#txtPrice').val()).length==0?0:parseFloat($.trim($('#txtPrice').val().replace(/,/g,'')),10);
             	$("#txtMoney").val(Math.round(t_mount * t_price,0));
+            	$('#txtCurmount').val(t_curmount+t_orgmount-t_orgmount);
             }
+            function q_popFunc(id,key_value){
+            	switch(id) {
+                    case 'txtOilstationno':
+                    	if(key_value.length>0)
+                			q_gt('oilorg', "where=^^oilstationno='"+$.trim(key_value)+"'^^", 0, 0, 0, "");
+       
+                    	break;
+                }
+			}
             
 		</script>
 		<style type="text/css">
@@ -413,9 +449,7 @@
 						<td class="td2">
 						<input id="txtOilstationno"  type="text"  class="txt c2"/>
 						<input id="txtOilstation"  type="text"  class="txt c3"/>
-						</td>
-						<td class="td3"><span> </span><a id='lblCurmount' class="lbl"> </td>
-						<td class="td4"><input id="txtCurmount"  type="text"  class="txt num c1"/></td>
+						</td>					
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblProduct' class="lbl"> </a></td>
@@ -430,8 +464,10 @@
 						<td class="td1"><span> </span><a id='lblMount' class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtMount"  type="text"  class="txt num c1"/>
+						<input id="txtOrgmount"  type="text"  style="display: none;"/>
 						</td>
-						<td class="td3"> </td>
+						<td class="td3"><span> </span><a id='lblCurmount' class="lbl"> </a></td>
+						<td class="td4"><input id="txtCurmount"  type="text"  class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
