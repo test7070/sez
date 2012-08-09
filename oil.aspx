@@ -108,8 +108,9 @@
                         for( i = 0; i < as.length; i++) {
                             t_mount = as[i].mount;
                         }
-                       	
-                        $("#txtCurmount").val( t_mount);     
+                        $("#txtCurmount").addClass('finish');
+                        $("#txtCurmount").val( t_mount); 
+                        alert(t_mount);    
                         sum();             
                         break;
                     case q_name:
@@ -183,6 +184,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                $("#txtCurmount").removeClass('finish');
                 if($('#txtOilstationno').val().length>0)
                 	q_gt('oilorg', "where=^^oilstationno='"+$.trim($('#txtOilstationno').val())+"'^^", 0, 0, 0, "");
             }
@@ -253,7 +255,8 @@
             	var t_curmount = $.trim($('#txtCurmount').val()).length==0?0:parseFloat($.trim($('#txtCurmount').val().replace(/,/g,'')),10);
             	var t_price = $.trim($('#txtPrice').val()).length==0?0:parseFloat($.trim($('#txtPrice').val().replace(/,/g,'')),10);
             	$("#txtMoney").val(Math.round(t_mount * t_price,0));
-            	$('#txtCurmount').val(t_curmount+t_orgmount-t_orgmount);
+            	if($("#txtCurmount").hasClass('finish'))
+            		$('#txtCurmount').val(t_curmount+t_orgmount-t_curmount);
             }
             function q_popFunc(id,key_value){
             	switch(id) {

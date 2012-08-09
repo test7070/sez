@@ -18,7 +18,7 @@
 			isEditTotal = false;
             q_tables = 's';
             var q_name = "addr";
-            var q_readonly = ['txtNoa','txtCustprice','txtDriverprice','txtDriverprice2','txtCommission'];
+            var q_readonly = ['txtCustprice','txtDriverprice','txtDriverprice2','txtCommission'];
             var q_readonlys = [];
             var bbmNum = [['txtCustprice', 10, 3],['txtDriverprice', 10, 3],['txtDriverprice2', 10, 3],['txtCommission', 10, 3]];
             var bbsNum = [['txtCustprice', 10, 3],['txtDriverprice', 10, 3],['txtDriverprice2', 10, 3],['txtCommission', 10, 3]];
@@ -369,7 +369,7 @@
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
-               <td class="td2"><input id="txtAddr" type="text" class="txt c1" /></td>
+               <td class="td2" colspan="3"><input id="txtAddr" type="text" class="txt c1" /></td>
                <td class="td3"></td>
             </tr>
             <tr>
