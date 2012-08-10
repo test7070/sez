@@ -358,7 +358,7 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblItem' class="lbl">  </a></td>
-						<td class="td2"><input id="txtItem" type="text"  class="txt c1"/></td>
+						<td class="td2"  colspan="2"><input id="txtItem" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td class="td3"><span> </span><a id="lblAcc" class="lbl btn" >  </a></td>
