@@ -109,8 +109,7 @@
                             t_mount = as[i].mount;
                         }
                         $("#txtCurmount").addClass('finish');
-                        $("#txtCurmount").val( t_mount); 
-                        alert(t_mount);    
+                        $("#txtCurmount").val( t_mount);   
                         sum();             
                         break;
                     case q_name:
@@ -247,16 +246,18 @@
             function btnCancel() {
                 _btnCancel();
             }
-            function sum(){
-            	if($.trim($('#txtMemo').val()).substring(0, 1) == '.')
-            		return;
+            function sum(){       	
             	var t_mount = $.trim($('#txtMount').val()).length==0?0:parseFloat($.trim($('#txtMount').val().replace(/,/g,'')),10);
             	var t_orgmount = $.trim($('#txtOrgmount').val()).length==0?0:parseFloat($.trim($('#txtOrgmount').val().replace(/,/g,'')),10);
             	var t_curmount = $.trim($('#txtCurmount').val()).length==0?0:parseFloat($.trim($('#txtCurmount').val().replace(/,/g,'')),10);
             	var t_price = $.trim($('#txtPrice').val()).length==0?0:parseFloat($.trim($('#txtPrice').val().replace(/,/g,'')),10);
+            	
+            	if($("#txtCurmount").hasClass('finish')  &&  (q_cur==1 || q_cur==2)){
+            		$('#txtCurmount').val(t_curmount+t_orgmount-t_mount);
+            	}
+            	if($.trim($('#txtMemo').val()).substring(0, 1) == '.')
+            		return;
             	$("#txtMoney").val(Math.round(t_mount * t_price,0));
-            	if($("#txtCurmount").hasClass('finish'))
-            		$('#txtCurmount').val(t_curmount+t_orgmount-t_curmount);
             }
             function q_popFunc(id,key_value){
             	switch(id) {
