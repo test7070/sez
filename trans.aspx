@@ -46,7 +46,7 @@
             }
             currentData.prototype = {
             	data : [],
-            	exclude : ['txtNoa','txtNoq','txtWorker','txtTrdno','txtTreno'],
+            	exclude : ['txtNoa','txtNoq','txtWorker','txtTrdno','txtTreno','txtPton','txtPton2','txtGross','txtWeight','txtLtime','txtStime','txtDtime','txtBmiles','txtEmiles','txtMiles'],
             	copy : function(){
             		curData.data = new Array();
             		for( var i in fbbm){
