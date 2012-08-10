@@ -419,7 +419,7 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td class="td2" colspan='5'>						<textarea id="txtMemo"  cols="10" rows="5"  style='width:98%; height: 50px;'></textarea></td>
+						<td class="td2" colspan='5'><input id="txtMemo"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
