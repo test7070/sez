@@ -109,6 +109,17 @@
             	$('#btnIns').val($('#btnIns').val()+"(F8)");
             	$('#btnOk').val($('#btnOk').val()+"(F9)");
             	q_mask(bbmMask);
+            	
+            	$('input[type="text"]').focus(
+                	function(){
+                		$(this).addClass('focus_b');
+                	}
+                ).blur(
+                	function(){
+                		$(this).removeClass('focus_b');
+                	}
+                );
+                
                 q_gt('calctype2', '', 0, 0, 0, "calctypes");
                 q_gt('carteam', '', 0, 0, 0, "");
                 q_cmbParse("cmbCasetype", "20'',40''");
@@ -603,7 +614,11 @@
             input[readonly="readonly"]#txtMiles{
             	color:green;
             }
-            
+            .focus_b{
+            	border-width:3px;
+            	border-color:#FF7F24; 
+            	border-style: double;
+            }
 		</style>
 	</head>
 	<body>
