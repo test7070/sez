@@ -193,6 +193,21 @@
 				t_Mi_oth += dec($('#txtMi_oth_' + j).val());		//其他扣款
 				$('#txtMi_total2_' + j).val(dec($('#txtCh_lunch_' + j).val())+ dec($('#txtCh_labor_' + j).val())+dec($('#txtCh_health_' + j).val())+t_Welfare_temp+dec($('#txtBorrow_' + j).val())+dec($('#txtTax_' + j).val())+dec($('#txtMi_oth_' + j).val()));	//代扣合計							
 				$('#txtTotal_' + j).val(dec($('#txtTotal2_' + j).val())-dec($('#txtMi_total2_' + j).val()));	//實發金額
+				
+				//----------------------------------------------------------------------------------------------------------------------
+				//正常工作時數
+				$('#txtAd_h1_' + j).val(dec($('#txtDays_' + j).val())*8);
+				//正常工作時薪
+				$('#txtAd_m1_' + j).val(dec($('#txtAd_h1_' + j).val())*dec($('#txtSaltype_' + j).val()));
+				//加班費合計
+				$('#txtAd_m133_' + j).val(dec($('#txtAd_h133_' + j).val())*1.33*dec($('#txtSaltype_' + j).val()));
+				$('#txtAd_m166_' + j).val(dec($('#txtAd_h166_' + j).val())*1.66*dec($('#txtSaltype_' + j).val()));
+				$('#txtAd_m2_' + j).val(dec($('#txtAd_h2_' + j).val())*2.0*dec($('#txtSaltype_' + j).val()));
+				$('#txtAd_money_' + j).val(dec($('#txtAd_m133_' + j).val())+dec($('#txtAd_m166_' + j).val())+dec($('#txtAd_m2_' + j).val()));
+				
+				//合計(生產獎金+交通津貼+考績獎金+時薪+加班費+津貼)
+				$('#txtOtotal_' + j).val(dec($('#txtBo_born_' + j).val())+dec($('#txtBo_trans_' + j).val())+dec($('#txtBo_exam_' + j).val())+dec($('#txtAd_m1_' + j).val())+dec($('#txtAd_money_' + j).val())+dec($('#txtObonus_' + j).val()));
+				//-------------------------------------------------------------------------------------------------------------------------
             }  
             $('#txtMoney').val(t_Money);
             $('#txtBo_admin').val(t_Bo_admin);
