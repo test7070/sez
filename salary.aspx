@@ -31,7 +31,6 @@
             bbsKey = ['noa', 'noq'];
             q_brwCount();  
             q_gt(q_name, q_content, q_sqlCount, 1)
-            $('#txtPtotal').val($('#txtMoney')+$('#txtBo_admin'))
         });
         //////////////////   end Ready
         function main() {
