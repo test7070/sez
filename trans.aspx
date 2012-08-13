@@ -252,7 +252,6 @@
 				if(bmiles!=0 && emiles!=0)
 					$('#txtMiles').val(emiles-bmiles);
             }
-
             function txtCopy(dest, source) {
                 var adest = dest.split(',');
                 var asource = source.split(',');
