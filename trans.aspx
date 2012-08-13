@@ -660,7 +660,7 @@
 						<td align="center" style="width:10%;"><a id='vewCaseno'> </a></td>
 						<td align="center" style="width:10%;"><a id='vewCustorde'> </a></td>
 					</tr>
-					<tr>
+					<tr>  
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
