@@ -35,6 +35,10 @@
             ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
             ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
             $(document).ready(function() {
+            	$('#dview').css('width','100%');
+                $('#dview').css('display','');
+            	$('#dbbm').css('width','0%');
+            	
                 bbmKey = ['noa'];
 				
 				$("#cmbCalctype").data('info',{item:new Array()});
@@ -94,7 +98,7 @@
             	}
         	};
             var curData = new currentData();
-
+			
             function main() {
                 if(dataErr) {
                     dataErr = false;
@@ -345,8 +349,11 @@
                 if($('#txtDatea').val().length==0)
                		$('#txtDatea').val(q_date());
                 sum();
-               
+               	$('#dview').css('width','0%');
+                $('#dview').css('display','none');
+            	$('#dbbm').css('width','100%');
                 $('#txtDatea').focus();
+                
             }
 
             function btnModi() {
@@ -355,7 +362,12 @@
 
                 _btnModi();
                 sum();
+                $('#dview').css('width','0%');
+                $('#dview').css('display','none');
+            	$('#dbbm').css('width','100%');
+          
                 $('#txtDatea').focus();
+                
             }
 
             function btnPrint() { 
@@ -375,6 +387,9 @@
                     q_gtnoa(q_name, replaceAll(q_getPara('sys.key_trans') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
+                $('#dview').css('width','100%');
+                $('#dview').css('display','');
+            	$('#dbbm').css('width','0%');
             }
 
             function wrServer(key_value) {
@@ -491,6 +506,9 @@
 
             function btnCancel() {
                 _btnCancel();
+                $('#dview').css('width','100%');
+                $('#dview').css('display','');
+            	$('#dbbm').css('width','0%');
             }
             
             
@@ -501,7 +519,6 @@
             }
             .dview {
                 float: left;
-                width: 20%;
             }
             .tview {
                 margin: 0;
@@ -519,7 +536,6 @@
             }
             .dbbm {
                 float: left;
-                width: 78%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -627,22 +643,46 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:5%;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:17%;"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:10%;"><a id='vewComp'> </a></td>
-						<td align="center" style="width:15%;"><a id='vewCarno'> </a></td>
+						<td align="center" style="width:1%;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:10%;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:7%;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:7%;"><a id='vewComp'> </a></td>
+						<td align="center" style="width:7%;"><a id='vewDriver'> </a></td>
+						<td align="center" style="width:7%;"><a id='vewCarno'> </a></td>
+						<td align="center" style="width:7%;"><a id='vewAddr'> </a></td>
+						<td align="center" style="width:7%;"><a id='vewInmount'> </a></td>
+						<td align="center" style="width:7%;"><a id='vewPrice'> </a></td>
+						<td align="center" style="width:7%;"><a id='vewOutmount'> </a></td>
+						<td align="center" style="width:7%;"><a id='vewPrice2'> </a></td>
+						<td align="center" style="width:7%;"><a id='vewPrice3'> </a></td>
+						<td align="center" style="width:7%;"><a id='vewDiscount'> </a></td>
+						<td align="center" style="width:10%;"><a id='vewPo'> </a></td>
+						<td align="center" style="width:10%;"><a id='vewCaseno'> </a></td>
+						<td align="center" style="width:10%;"><a id='vewCustorde'> </a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
+						<td align="center" id='noa'>~noa</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='comp,2'>~comp,2</td>
+						<td align="center" id='driver'>~driver</td>
 						<td align="center" id='carno'>~carno</td>
+						<td align="center" id='straddrno'>~straddrno</td>
+						<td align="center" id='inmount'>~inmount</td>
+						<td align="center" id='price'>~price</td>
+						<td align="center" id='outmount'>~outmount</td>
+						<td align="center" id='price2'>~price2</td>
+						<td align="center" id='price3'>~price3</td>
+						<td align="center" id='discount'>~discount</td>
+						<td align="center" id='po'>~po</td>
+						<td align="center" id='caseno'>~caseno</td>
+						<td align="center" id='custorde'>~custorde</td>
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' >
+			<div class='dbbm' id='dbbm'>
 				<table class="tbbm"  id="tbbm" >
 					<tr name="schema" style="height:0px;">
 						<td class="td1"><span class="schema"> </span></td>
