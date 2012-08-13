@@ -168,7 +168,7 @@
         }
 
         function sum() {
-            var t1 = 0,t_Money, t_unit, t_mount, t_weight = 0;
+            var t1 = 0, t_Money=0, t_unit, t_mount, t_weight = 0;
             for (var j = 0; j < q_bbsCount; j++) {
 				//本俸計算
 				t_Money += $('#txtMoney_' + j).val();
