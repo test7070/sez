@@ -29,9 +29,9 @@
             q_desc = 1;
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(
-            	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'],
+            	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
             	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
-            	['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], 
+            	['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],
             	['txtMinusitemno', 'lblMinusitem', 'chgitem', 'noa,item', 'txtMinusitemno,txtMinusitem', 'chgitem_b.aspx'], 
             	['txtPlusitemno', 'lblPlusitem', 'chgitem', 'noa,item', 'txtPlusitemno,txtPlusitem', 'chgitem_b.aspx']);
             $(document).ready(function() {
@@ -53,6 +53,15 @@
             function mainPost() {
             	 bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
+                $('input[type="text"]').focus(
+                	function(){
+                		$(this).addClass('focus_b');
+                	}
+                ).blur(
+                	function(){
+                		$(this).removeClass('focus_b');
+                	}
+                );
             }
 			
             function txtCopy(dest, source) {
@@ -332,6 +341,11 @@
             input[readonly="readonly"]#txtMiles{
             	color:green;
             }
+            .focus_b{
+            	border-width:3px;
+            	border-color:#FF7F24; 
+            	border-style: double;
+            }
 		</style>
 	</head>
 	<body>
@@ -370,10 +384,10 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn" > </a></td>
+						<td class="td1"><span> </span><a id="lblCust" class="lbl btn" > </a></td>
 						<td class="td2" colspan="2">
-						<input id="txtCno"  type="text"  class="txt c2"/>
-						<input id="txtAcomp"  type="text"  class="txt c3"/>
+						<input id="txtCustno"  type="text"  class="txt" style="width:30%; float: left;"/>
+						<input id="txtCust"  type="text"  class="txt" style="width:70%;  float: left;"/>
 						</td>
 					</tr>
 					<tr>
@@ -382,9 +396,9 @@
 						<input id="txtCarno"  type="text" class="txt c1"/>
 						</td>
 						<td class="td5"><span> </span><a id="lblDriver" class="lbl btn" > </a></td>
-						<td class="td6" colspan="2">
-						<input id="txtDriverno"  type="text"  class="txt c2"/>
-						<input id="txtDriver"  type="text"  class="txt c3"/>
+						<td class="td6" colspan="3">
+						<input id="txtDriverno"  type="text" class="txt c2" />
+						<input id="txtDriver"  type="text" class="txt  c3"  />
 						</td>
 					</tr>
 					<tr>

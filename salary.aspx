@@ -168,13 +168,66 @@
         }
 
         function sum() {
-            var t1 = 0,t_Money, t_unit, t_mount, t_weight = 0;
+            var t_Money=0, t_Bo_admin=0, t_Bo_duty=0, t_Bo_full=0, t_Bo_over=0, t_Bo_oth=0, t_Mi_person=0, t_Ch_lunch=0, t_Ch_labor=0, t_Ch_health=0, t_Welfare=0,t_Welfare_temp=0, t_Borrow=0, t_Tax=0, t_Mi_oth=0, t_Mi_full=0;
             for (var j = 0; j < q_bbsCount; j++) {
-				//本俸計算
-				t_Money += $('#txtMoney_' + j).val();
+				t_Money += dec($('#txtMoney_' + j).val());			//本俸
+				t_Bo_admin += dec($('#txtBo_admin_' + j).val());	//主管加給
+				t_Bo_duty += dec($('#txtBo_duty_' + j).val());		//職務津貼
+				t_Bo_full += dec($('#txtBo_full_' + j).val());		//全勤津貼
+				t_Bo_over += dec($('#txtBo_over_' + j).val());		//超時津貼	
+				t_Bo_oth += dec($('#txtBo_oth_' + j).val());		//其他津貼
+				$('#txtMi_total_' + j).val(dec($('#txtMi_person_' + j).val())+dec($('#txtMi_sick_' + j).val())+dec($('#txtMi_nosalary_' + j).val())+dec($('#txtMi_leave_' + j).val()));//扣款合計(事假+病假+無薪+曠工)
+				t_Mi_person +=dec($('#txtMi_total_' + j).val());	//請假扣款(事假+病假+無薪+曠工=扣款合計)
+				//t_Mi_full += dec($('#txtMi_full_' + j).val());		//全勤扣款
+				$('#txtTotal2_' + j).val(dec($('#txtMoney_' + j).val())+ dec($('#txtBo_admin_' + j).val())+dec($('#txtBo_duty_' + j).val())+dec($('#txtBo_full_' + j).val())+dec($('#txtBo_over_' + j).val())+dec($('#txtBo_oth_' + j).val()) - dec($('#txtMi_total_' + j).val())); //應發金額
+				t_Ch_lunch += dec($('#txtCh_lunch_' + j).val());		//午餐費		
+				t_Ch_labor += dec($('#txtCh_labor_' + j).val());		//勞保費		
+				t_Ch_health += dec($('#txtCh_health_' + j).val());		//健保費	
+				//福利金判斷
+				if($('#chkIswelfare_' + j).checked = true){
+					t_Welfare_temp += dec($('#txtWelfare_' + j).val());
+				}
+				t_Welfare+=t_Welfare_temp;//福利金
+				t_Borrow += dec($('#txtBorrow_' + j).val());		//借支		
+				t_Tax+= dec($('#txtTax_' + j).val());		//所得稅		
+				t_Mi_oth += dec($('#txtMi_oth_' + j).val());		//其他扣款
+				$('#txtMi_total2_' + j).val(dec($('#txtCh_lunch_' + j).val())+ dec($('#txtCh_labor_' + j).val())+dec($('#txtCh_health_' + j).val())+t_Welfare_temp+dec($('#txtBorrow_' + j).val())+dec($('#txtTax_' + j).val())+dec($('#txtMi_oth_' + j).val()));	//代扣合計							
+				$('#txtTotal_' + j).val(dec($('#txtTotal2_' + j).val())-dec($('#txtMi_total2_' + j).val()));	//實發金額
 				
+				//----------------------------------------------------------------------------------------------------------------------
+				//正常工作時數
+				$('#txtAd_h1_' + j).val(dec($('#txtDays_' + j).val())*8);
+				//正常工作時薪
+				$('#txtAd_m1_' + j).val(dec($('#txtAd_h1_' + j).val())*dec($('#txtSaltype_' + j).val()));
+				//加班費合計
+				$('#txtAd_m133_' + j).val(dec($('#txtAd_h133_' + j).val())*1.33*dec($('#txtSaltype_' + j).val()));
+				$('#txtAd_m166_' + j).val(dec($('#txtAd_h166_' + j).val())*1.66*dec($('#txtSaltype_' + j).val()));
+				$('#txtAd_m2_' + j).val(dec($('#txtAd_h2_' + j).val())*2.0*dec($('#txtSaltype_' + j).val()));
+				$('#txtAd_money_' + j).val(dec($('#txtAd_m133_' + j).val())+dec($('#txtAd_m166_' + j).val())+dec($('#txtAd_m2_' + j).val()));
+				
+				//合計(生產獎金+交通津貼+考績獎金+時薪+加班費+津貼)
+				$('#txtOtotal_' + j).val(dec($('#txtBo_born_' + j).val())+dec($('#txtBo_trans_' + j).val())+dec($('#txtBo_exam_' + j).val())+dec($('#txtAd_m1_' + j).val())+dec($('#txtAd_money_' + j).val())+dec($('#txtObonus_' + j).val()));
+				//-------------------------------------------------------------------------------------------------------------------------
             }  
             $('#txtMoney').val(t_Money);
+            $('#txtBo_admin').val(t_Bo_admin);
+            $('#txtBo_duty').val(t_Bo_duty);
+            $('#txtBo_full').val(t_Bo_full);
+            $('#txtBo_over').val(t_Bo_over);
+            $('#txtBo_oth').val(t_Bo_oth);
+            $('#txtMi_person').val(t_Mi_person);
+            //$('#txtMi_full').val(t_Mi_full);
+            t_Mi_full=dec($('#txtMi_full').val());	//全勤扣款
+            $('#txtCh_lunch').val(t_Ch_lunch);
+            $('#txtCh_labor').val(t_Ch_labor);
+            $('#txtCh_health').val(t_Ch_health);
+            $('#txtWelfare').val(t_Welfare);
+            $('#txtBorrow').val(t_Borrow);
+            $('#txtTax').val(t_Tax);
+            $('#txtMi_oth').val(t_Mi_oth);
+            $('#txtPtotal').val(t_Money+t_Bo_admin+t_Bo_duty+t_Bo_full+t_Bo_over+t_Bo_oth);		//應付合計
+            $('#txtMi_total2').val(t_Mi_person+t_Mi_full+t_Ch_lunch+t_Ch_labor+t_Ch_health+t_Welfare+t_Borrow+t_Tax+t_Mi_oth);		//代扣合計
+            $('#txtTotal').val(dec($('#txtPtotal').val()) - dec($('#txtMi_total2').val()));	//實際給付	
         }
         
         function refresh(recno) {

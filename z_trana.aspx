@@ -21,7 +21,7 @@
            	t_item4 = "";
            	t_item5 = "";
            	aPop  =  new Array(['txtXcarno', 'lblXcarno', 'car2', 'a.noa,driverno,driver','txtXcarno', 'car2_b.aspx'],
-           		['txtXaddr', 'lblXaddr', 'addr2', 'noa,addr','txtXaddr', 'addr_b.aspx']);
+           		['txtXaddr', 'lblXaddr', 'addr', 'noa,addr','txtXaddr', 'addr_b.aspx']);
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
