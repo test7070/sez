@@ -172,9 +172,9 @@
             for (var j = 0; j < q_bbsCount; j++) {
 				//本俸計算
 				t_Money += $('#txtMoney_' + j).val();
-				$('#txtMoney').val(t_Money);
 				
             }  
+            $('#txtMoney').val(t_Money);
         }
         
         function refresh(recno) {
