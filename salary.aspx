@@ -32,7 +32,7 @@
             q_brwCount();  
             q_gt(q_name, q_content, q_sqlCount, 1)
         });
-
+		//........
         //////////////////   end Ready
         function main() {
             if (dataErr) 
