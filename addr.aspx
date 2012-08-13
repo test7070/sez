@@ -368,9 +368,8 @@
                <td class="tdZ">  </td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
+               <td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
                <td class="td2" colspan="3"><input id="txtAddr" type="text" class="txt c1" /></td>
-               <td class="td3"></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblProductno' class="lbl btn"></a></td>
