@@ -190,7 +190,7 @@
 	                        type : '5', //select
 	                        name : 'xsort14',
 	                        value : q_getPara('z_trana.sort14').split(',')
-	                    },]
+	                    }]
 	                });
 	                q_getFormat();
 	                q_langShow();

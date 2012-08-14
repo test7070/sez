@@ -160,6 +160,7 @@
                         $("#txtPrice3").hide();
                         $("#lblPrice2").show();
                         $("#txtPrice2").show();
+                        curData.chgDiscount();
                     }
                     sum();
                 }); 

@@ -18,10 +18,10 @@
 			isEditTotal = false;
             q_tables = 's';
             var q_name = "trd";
-            var q_readonly = ['txtNoa','txtDatea', 'txtMoney', 'txtTotal','txtWorker'];
+            var q_readonly = ['txtNoa','txtDatea', 'txtMoney', 'txtTotal','txtWorker','txtMount'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
-            var bbmNum = [['txtMoney', 10, 0],['txtTaxrate', 10, 1],['txtTax', 10, 0],['txtTotal', 10, 0],['txtDiscount', 10, 0]];
-            var bbsNum = [['txtTranmoney', 10, 0],['txtOverweightcost', 10, 0],['txtOthercost', 10, 0]];
+            var bbmNum = [['txtMoney', 10, 0],['txtTaxrate', 10, 1],['txtTax', 10, 0],['txtTotal', 10, 0],['txtDiscount', 10, 0],['txtMount', 10, 3]];
+            var bbsNum = [['txtTranmoney', 10, 0],['txtOverweightcost', 10, 0],['txtOthercost', 10, 0],['txtmount',10,3],['txtPrice',10,3]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -30,7 +30,16 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             q_desc = 1;
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b2.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'noa,namea', 'txtWorkerno,txtWorker', 'sss_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtBoatno', 'lblBoat', 'boat', 'noa,boat', 'txtBoatno,txtBoat', 'boat_b.aspx']);
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 
+            'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], 
+            ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], 
+            ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
+            ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], 
+            ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b2.aspx'], 
+            ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], 
+            ['txtWorker', 'lblWorker', 'sss', 'noa,namea', 'txtWorkerno,txtWorker', 'sss_b.aspx'], 
+            ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], 
+            ['txtBoatno', 'lblBoat', 'boat', 'noa,boat', 'txtBoatno,txtBoat', 'boat_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -268,7 +277,6 @@
 
             function wrServer(key_value) {
                 var i;
-
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
             }
@@ -289,9 +297,10 @@
             function sum() {
             	if(isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.')
             		return;
-                var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0;
+                var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0,t_mount=0;
                 for( i = 0; i < q_bbsCount; i++) {
                 	t_money += parseInt($.trim($('#txtTranmoney_' + i).val()).length == 0 ? '0' : $('#txtTranmoney_' + i).val().replace(/,/g,''), 10);
+              		t_mount +=  q_float('txtMount_'+i);
                 }
                 t_discount = parseInt($.trim($('#txtDiscount').val()).length == 0 ? '0' : $('#txtDiscount').val().replace(/,/g,''), 10);
                 t_rate = parseInt($.trim($('#txtTaxrate').val()).length == 0 ? '0' : $('#txtTaxrate').val().replace(/,/g,''), 10);            
@@ -317,6 +326,7 @@
                 $('#txtDiscount').val(t_discount);
                 $('#txtTax').val(t_tax);
                 $('#txtTotal').val(t_total);
+                $('#txtMount').val(t_mount);
             }
 
             function refresh(recno) {
@@ -533,7 +543,7 @@
 						<td class="td5">
 						<input id="txtDatea" type="text"  class="txt c1"/>
 						</td>
-						<td class="td6"><span> </span><a id="lblCust" class="lbl btn"> /a></td>
+						<td class="td6"><span> </span><a id="lblCust" class="lbl btn"> </a></td>
 						<td class="td7" colspan="3">
 						<input id="txtCustno" type="text"  style='width:20%; float:left;'/>
 						<input id="txtComp" type="text"  style='width:80%; float:left;'/>
@@ -594,6 +604,13 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr class="tr5">
+						<td class="td1"><span> </span><a id="lblAcomp" class="lbl"> </a></td>
+						<td class="td2" colspan="3">
+						<input id="txtCno" type="text"  class="txt" style="float: left; width:25%;"/>
+						<input id="txtAcomp" type="text"  class="txt"  style="float: left; width:75%;"/>
+						</td>
+					</tr>
+					<tr class="tr5">
 						<td class="td1"><span> </span><a id="lblVccadate" class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtVccadate" type="text" class="txt c1" />
@@ -647,6 +664,12 @@
 						<input id="txtTotal" type="text" class="txt c1 num" />
 						</td>
 					</tr>
+					<tr class="tr5">
+						<td class="td1"><span> </span><a id="lblMount" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtMount" type="text"  class="txt c1 num"/>
+						</td>
+					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td class="td2" colspan="5"><input id="txtMemo" type="text"  class="txt c1"/></td>
@@ -668,7 +691,7 @@
 					<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:100px;"><a id='lblTrandate_s'></a></td>
+					<td align="center" style="width:120px;"><a id='lblTrandate_s'></a></td>
 					<td align="center" style="width:200px;"><a id='lblStraddr_s'></a></td>
 					<td align="center" style="width:120px;"><a id='lblProduct_s'></a></td>
 					<td align="center" style="width:120px;"><a id='lblMount_s'></a></td>
