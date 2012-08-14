@@ -20,7 +20,7 @@
             var q_name = "custchg";
             var q_readonly = ['txtNoa','txtWorker'];
             var bbmNum = new Array(['txtMinusmoney',10,0],['txtPlusmoney',10,0]);
-            var bbmMask = [];
+            var bbmMask = [['txtDatea','999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -383,16 +383,16 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn" > </a></td>
-						<td class="td2">
-						<input id="txtCno"  type="text"  class="txt c2"/>
-						<input id="txtAcomp"  type="text"  class="txt c3"/>
+						<td class="td2"  colspan="4">
+						<input id="txtCno"  type="text"  class="txt"  style="float:left;width:25%;"/>
+						<input id="txtAcomp"  type="text"  class="txt" style="float:left;width:75%;"/>
 						</td>
 					</tr>
 					<tr>
 						<td class="td3"><span> </span><a id="lblCust" class="lbl btn" > </a></td>
 						<td class="td4" colspan="4">
-						<input id="txtCustno"  type="text"  class="txt" style="width:20%;"/>
-						<input id="txtComp"  type="text"  class="txt" style="width:75%;"/>
+						<input id="txtCustno"  type="text"  class="txt" style="float:left;width:25%;"/>
+						<input id="txtComp"  type="text"  class="txt" style="float:left;width:75%;"/>
 						</td>
 					</tr>
 					<tr>

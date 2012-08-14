@@ -15,54 +15,61 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-            if(location.href.indexOf('?') < 0) {
-                location.href = location.href + "?;;;;101";
-            }
-            $(document).ready(function() {
-                q_gf('', 'z_trd');
-                q_getId();
-            });
-            function q_gfPost() {
-                $('#q_report').q_report({
-                    fileName : 'z_trd',
-                    options : [{
-                        type : '0',
-                        name : 'accy',
-                        value : q_getId()[4]
-                    }, {
-                        type : '2',
-                        name : 'cust', 
-                        dbf : 'cust',
-                        index : 'noa,comp',
-                        src : 'cust_b.aspx'
-                    }, {
-                        type : '1',
-                        name : 'date'
-                    },{
-                        type : '6',
-                        name : 'xvccano'
-                    }, {
-                        type : '5', //select
-                        name : 'xsort1',
-                        value : q_getPara('z_trd.sort1').split(',')
-                    }]
-                });
-                q_getFormat();
-                    q_langShow();
-                    q_popAssign();
-                    
-                $('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();
-            }
+			if (location.href.indexOf('?') < 0) {
+				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
+			}
+			$(document).ready(function() {
+				q_gf('', 'z_trd');
+				q_getId();
+			});
+			function q_gfPost() {
+				$('#q_report').q_report({
+					fileName : 'z_trd',
+					options : [{
+						type : '0',
+						name : 'accy',
+						value : q_getId()[4]
+					}, {
+						type : '2',
+						name : 'cust',
+						dbf : 'cust',
+						index : 'noa,comp',
+						src : 'cust_b.aspx'
+					}, {
+						type : '1',
+						name : 'date'
+					}, {
+						type : '6',
+						name : 'xvccano'
+					}, {
+						type : '5', //select
+						name : 'xsort1',
+						value : q_getPara('z_trd.sort1').split(',')
+					}, {
+						type : '6', 
+						name : 'xnoa'
+					}]
+				});
+				q_getFormat();
+				q_langShow();
+				q_popAssign();
+
+				$('#txtDate1').mask('999/99/99');
+				$('#txtDate1').datepicker();
+				$('#txtDate2').mask('999/99/99');
+				$('#txtDate2').datepicker();
+				
+				var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
+                t_noa  =  t_noa.replace('noa=','');
+                $('#txtXnoa').val(t_noa);
+			}
 		</script>
 	</head>
 	<body>
-		<div id="q_menu"> </div>
+		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
-				<div id="q_report"> </div>
+				<div id="q_report"></div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
