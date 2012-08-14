@@ -345,7 +345,7 @@
                 if(q_cur > 0 && q_cur < 4)
                     return;
 
-                q_box('trans_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
+                q_box('trans_s.aspx', q_name + '_s', "550px", "500px", q_getMsg("popSeek"));
                 $('#dview').css('width','100%');
                 $('#dview').css('display','');
             	$('#dbbm').css('width','0%');
@@ -539,17 +539,17 @@
                 border-spacing: 0;
                 font-size: 16px;
                 /*background-color: #FFFF66;*/
-                background-color: #191970;
+                background-color: #cad3ff;
                 color: blue;
             }
             .tview td {
                 padding: 2px;
                 text-align: center;
-                border: 1px black solid;
-                color: white;
+                border: 1px white solid;
+                color: blue;
             }
             .tview .th1 td{
-            	color: #FF7F24;
+            	color: black;
             	font-weight: bold;
             }
             .dbbm {
