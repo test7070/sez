@@ -36,7 +36,7 @@
 			q_desc = 1;
 			aPop = new Array(['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'],
 							 ['txtBdriverno', '', 'driver', 'noa,namea', 'txtBdriverno,txtBdriver', 'driver_b.aspx'],
-							 ['txtDdriverno', '', 'driver', 'noa,namea', 'txtDdriverno,txtDdriver', 'driver_b.aspx']);
+							 ['txtEdriverno', '', 'driver', 'noa,namea', 'txtEdriverno,txtEdriver', 'driver_b.aspx']);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
