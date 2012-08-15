@@ -17,7 +17,7 @@
 				alert("An error occurred:\r\n" + error.Message);
 			}
 
-			var q_name = "traneprice";
+			var q_name = "tre_accc";
 			var q_readonly = ['txtNoa','txtWorker'];
 			var bbmNum = [['txtMoney',10,0]];
 			var bbmMask = [];
@@ -27,9 +27,9 @@
 			brwNowPage = 0;
 			brwKey = 'noa';
 			//ajaxPath = ""; //  execute in Root
-			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
-			['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
-			['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b.aspx']);
+			//aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+			//['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
+			//['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b.aspx']);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				q_brwCount();
@@ -350,14 +350,10 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 						<td align="center" style="width:25%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:25%"><a id='vewComp'> </a></td>
-						<td align="center" style="width:20%"><a id='vewOutprice'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox"/></td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='comp'>~comp</td>
-						<td align="center" id='outprice'>~outprice</td>
 					</tr>
 				</table>
 			</div>
@@ -384,45 +380,13 @@
 						<td class="td4"><input id="txtEdate" type="text"  class="txt c1"/> </td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id="lblCust" class="lbl btn" >  </a></td>
-						<td class="td2"  colspan="3">
-						<input id="txtCustno" type="text"  class="txt c4"/>
-						<input id="txtComp"  type="text"  class="txt c5"/>
-						</td>
+						<td class="td1"><span> </span><a id="lblCarteam" class="lbl"> </a></td>
+						<td class="td2"><select id="cmbCarteamno" class="txt c1"> </select></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id="lblDriver" class="lbl btn" >  </a></td>
-						<td class="td2"  colspan="3">
-						<input id="txtDriverno" type="text"  class="txt c4"/>
-						<input id="txtDriver"  type="text"  class="txt c5"/>
-						</td>
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id='lblCarno' class="lbl">  </a></td>
-						<td class="td2"><input id="txtCarno" type="text"  class="txt c1"/></td>
-						<td class="td3"><span> </span><a id="lblCarteam" class="lbl"> </a></td>
-						<td class="td4"><select id="cmbCarteamno" class="txt c1"> </select></td>
-					</tr>
-					<tr>
-						<td class="td1" ><span> </span><a id="lblStraddr" class="lbl btn"> </a></td>
-						<td class="td2" colspan="3">
-						<input id="txtStraddrno" type="text"  class="txt c4"/>
-						<input id="txtStraddr" type="text"  class="txt c5"/>
-						</td>
-					</tr>
-					<tr>
-						<td class="td1" ><span> </span><a id="lblInprice" class="lbl"> </a></td>
-						<td class="td2" ><input id="txtInprice" type="text"  class="txt c1"/></td>
-						<td class="td3" ><input id="btnChinprice" type="button" /></td>
-					</tr>
-					<tr>
-						<td class="td1" ><span> </span><a id="lblOutprice" class="lbl"> </a></td>
-						<td class="td2" ><input id="txtOutprice" type="text"  class="txt c1"/></td>
-						<td class="td3" ><input id="btnChoutprice" type="button" /></td>
-					</tr>
-					<tr>
-						<td class="td1" ><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td class="td2"colspan="3"><textarea id="txtMemo" cols="10" rows="5" style="width: 98%; height: 50px;"> </textarea></td>
+						<td class="td1" ><span> </span><a id="lblAccno" class="lbl"> </a></td>
+						<td class="td2" ><input id="txtAccno" type="text"  class="txt c1"/></td>
+						<td class="td3" ><input id="btnAccc" type="button" /></td>
 					</tr>
 				</table>
 			</div>
