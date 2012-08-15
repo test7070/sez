@@ -326,6 +326,9 @@
 			.tbbs a {
 				font-size: medium;
 			}
+			.tbbs input[type="text"] {
+				font-family: Arial, sans-serif;
+			}
 			input[type="text"], input[type="button"] {
 				font-size: medium;
 			}
@@ -355,7 +358,7 @@
 						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='po'>~po</td>
-						<td align="center" id='delivery'>~delivery</td>
+						<td align="center" id='deliveryno'>~deliveryno</td>
 					</tr>
 				</table>
 			</div>
