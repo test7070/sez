@@ -190,12 +190,14 @@
 	                        type : '5', //select
 	                        name : 'xsort14',
 	                        value : q_getPara('z_trana.sort14').split(',')
+	                    }, {
+	                        type : '6', 
+	                        name : 'xtrandono'
 	                    }]
 	                });
-	                q_getFormat();
-	                q_langShow();
 	                q_popAssign();
-	
+	                q_langShow();
+	                
 	                $('#txtDate1').mask('999/99/99');
 	                $('#txtDate1').datepicker();
 	                $('#txtDate2').mask('999/99/99');

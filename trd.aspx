@@ -20,7 +20,7 @@
             var q_name = "trd";
             var q_readonly = ['txtNoa','txtDatea', 'txtMoney', 'txtTotal','txtWorker','txtMount'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
-            var bbmNum = [['txtMoney', 10, 0],['txtTaxrate', 10, 1],['txtTax', 10, 0],['txtTotal', 10, 0],['txtDiscount', 10, 0],['txtMount', 10, 3]];
+            var bbmNum = [['txtMoney', 10, 0],['txtTaxrate', 10, 1],['txtTax', 10, 0],['txtTotal', 10, 0],['txtDiscount', 10, 0],['txtMount', 10, 3],['txtPlus',10,0]];
             var bbsNum = [['txtTranmoney', 10, 0],['txtOverweightcost', 10, 0],['txtOthercost', 10, 0],['txtmount',10,3],['txtPrice',10,3]];
             var bbmMask = [];
             var bbsMask = [];
@@ -104,7 +104,9 @@
                 $('#txtDiscount').change(function(e) {
                     sum();
                 });
-
+				$('#txtPlus').change(function(e) {
+                    sum();
+                });
                 $('#btnTrans').click(function(e) {
                     if(q_cur == 1 || q_cur == 2) {
                         if($.trim($('#txtCustno').val()) == 0) {
@@ -297,33 +299,35 @@
             function sum() {
             	if(isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.')
             		return;
-                var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0,t_mount=0;
+                var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0,t_mount=0,t_plus=0;
                 for( i = 0; i < q_bbsCount; i++) {
                 	t_money += parseInt($.trim($('#txtTranmoney_' + i).val()).length == 0 ? '0' : $('#txtTranmoney_' + i).val().replace(/,/g,''), 10);
               		t_mount +=  q_float('txtMount_'+i);
                 }
                 t_discount = parseInt($.trim($('#txtDiscount').val()).length == 0 ? '0' : $('#txtDiscount').val().replace(/,/g,''), 10);
+                t_plus =  q_float('txtPlus');
                 t_rate = parseInt($.trim($('#txtTaxrate').val()).length == 0 ? '0' : $('#txtTaxrate').val().replace(/,/g,''), 10);            
                 switch($('#cmbTaxtype').val()) {
                     case '1':
-                        t_tax = Math.round((t_money-t_discount) * t_rate / 100);
-                        t_total = (t_money-t_discount) + t_tax ;
+                        t_tax = Math.round((t_money-t_discount+t_plus) * t_rate / 100);
+                        t_total = (t_money-t_discount+t_plus) + t_tax ;
                         break;
                     case '3':
-                        t_total = Math.round((t_money-t_discount) / (1 + t_rate / 100), 0);
-                        t_tax = (t_money-t_discount) - t_total;
-                        t_total = t_money - t_discount;
+                        t_total = Math.round((t_money-t_discount+t_plus) / (1 + t_rate / 100), 0);
+                        t_tax = (t_money-t_discount+t_plus) - t_total;
+                        t_total = t_money - t_discount+t_plus;
                         break;
                     case '5':
                         t_tax = parseInt($.trim($('#txtTax').val()).length == 0 ? '0' : $('#txtTax').val().replace(/,/g,''), 10);
-                        t_total = (t_money-t_discount)+ t_tax;
+                        t_total = (t_money-t_discount+t_plus)+ t_tax;
                         break;
                     default:
-                        t_total = (t_money-t_discount);
+                        t_total = (t_money-t_discount+t_plus);
                 }
                 
                 $('#txtMoney').val(t_money);
                 $('#txtDiscount').val(t_discount);
+                $('#txtPlus').val(t_plus);
                 $('#txtTax').val(t_tax);
                 $('#txtTotal').val(t_total);
                 $('#txtMount').val(t_mount);
@@ -668,6 +672,10 @@
 						<td class="td1"><span> </span><a id="lblMount" class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtMount" type="text"  class="txt c1 num"/>
+						</td>
+						<td class="td1"><span> </span><a id="lblPlus" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtPlus" type="text"  class="txt c1 num"/>
 						</td>
 					</tr>
 					<tr class="tr7">

@@ -69,10 +69,8 @@
 							name : 'xnoa'
 						}]
 					});
-
-					q_getFormat();
-					q_langShow();
 					q_popAssign();
+	                q_langShow();
 
 					$('#txtDate1').mask('999/99/99');
 					$('#txtDate1').datepicker();

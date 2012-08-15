@@ -34,6 +34,7 @@
 	                    }]
                     });
                 q_popAssign();
+	                q_langShow();
                  $('#txtDate1').mask('999/99/99');
 	                $('#txtDate1').datepicker();
 	                $('#txtDate2').mask('999/99/99');
