@@ -218,7 +218,7 @@
             }
 
             function btnPrint() {
-            	q_box('z_tre.aspx'+ "?;;;;"+r_accy, '', "800px", "600px", q_getMsg("popPrint"));
+            	q_box('z_tre.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()), '', "800px", "600px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -547,6 +547,10 @@
 						<td class="td4"><span> </span><a id="lblPaydate" class="lbl"> </a></td>
 						<td class="td5">
 						<input id="txtPaydate" type="text" class="txt c1" />
+						</td>
+						<td class="td6"><span> </span><a id="lblCheckno" class="lbl"> </a></td>
+						<td class="td7" colspan="2">
+						<input id="txtCheckno" type="text" class="txt c1" />
 						</td>
 					</tr>
 					<tr class="tr5">

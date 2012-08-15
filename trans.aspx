@@ -204,7 +204,8 @@
 					sum();
                 }); 
                 $("#txtInmount").change(function() {
-                	$("#txtOutmount").val($("#txtInmount").val());
+                	if($('#txtTreno').val().length==0)
+                		$("#txtOutmount").val($("#txtInmount").val());
                     sum();
                 });
                 $("#txtPton").change(function() {
