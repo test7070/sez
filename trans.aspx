@@ -388,6 +388,16 @@
             }
 
             function btnOk() {
+            	var  t_custno  =  $.trim($('#txtCustno').val());
+            	var  t_addrno  =  $.trim($('#txtStraddrno').val());
+            	if(t_custno.length>0  &&  t_addrno.length>0){
+            		t_addrno =  t_addrno.substring(0,t_custno.length);
+            		if(t_addrno!=t_custno){
+            			alert('addr error!');
+            			return;
+            		}
+            	}
+            	
 				$('#txtWorker').val(r_name);			
                 if(curData.isOutside())
                     $("#txtPrice2").val(0);
@@ -456,8 +466,20 @@
 					$('#txtPrice3').attr('readonly', 'readonly');
 					$('#txtDiscount').attr('readonly', 'readonly');
 					$('#cmbCalctype').attr('disabled', 'disabled');
+					
+					/*$('#txtDatea').attr('disabled', 'disabled');
+					$('#txtTrandate').attr('disabled', 'disabled');
+					$('#txtDriverno').attr('disabled', 'disabled');
+					$('#txtDriver').attr('disabled', 'disabled');
+					$('#txtCarno').attr('disabled', 'disabled');*/
 				}else{
 					$('#cmbCalctype').remove('disabled');
+					
+					/*$('#txtDatea').remove('disabled');
+					$('#txtTrandate').remove('disabled');
+					$('#txtDriverno').remove('disabled');
+					$('#txtDriver').remove('disabled');
+					$('#txtCarno').remove('disabled');*/
 				}
 				var trdno = $('#txtTrdno').val();
 				if(trdno.length>0){
@@ -465,7 +487,21 @@
 					$('#txtPton').attr('readonly', 'readonly');
 					$('#txtMount').attr('readonly', 'readonly');
 					$('#txtPrice').attr('readonly', 'readonly');
-				}	
+					
+					/*$('#txtDatea').attr('disabled', 'disabled');
+					$('#txtTrandate').attr('disabled', 'disabled');
+					$('#txtCustno').attr('disabled', 'disabled');
+					$('#txtComp').attr('disabled', 'disabled');
+					$('#txtStraddrno').attr('disabled', 'disabled');
+					$('#txtStraddr').attr('disabled', 'disabled');*/
+				}else{
+					/*$('#txtDatea').remove('disabled');
+					$('#txtTrandate').remove('disabled');
+					$('#txtCustno').remove('disabled');
+					$('#txtComp').remove('disabled');
+					$('#txtStraddrno').remove('disabled');
+					$('#txtStraddr').remove('disabled');*/
+				}
 				
             }
             
