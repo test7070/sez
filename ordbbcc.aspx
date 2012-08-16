@@ -453,15 +453,15 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center"><a id='lblProductno'></a></td>
-                <td align="center"><a id='lblUno'></a></td>
-                <td align="center"><a id='lblSize'></a></td>
-                <td align="center"><a id='lblUnit'></a></td>
-                <td align="center"><a id='lblMount'></a></td>
-                <td align="center"><a id='lblWeights'></a></td>
-                <td align="center"><a id='lblPrices'></a></td>
-                <td align="center"><a id='lblTotals'></a></td>
-                <td align="center"><a id='lblMemos'></a></td>
+                <td align="center"><a id='lblProductno'> </a></td>
+                <td align="center"><a id='lblUno'> </a></td>
+                <td align="center"><a id='lblSize'> </a></td>
+                <td align="center"><a id='lblUnit'> </a></td>
+                <td align="center"><a id='lblMount'> </a></td>
+                <td align="center"><a id='lblWeights'> </a></td>
+                <td align="center"><a id='lblPrices'> </a></td>
+                <td align="center"><a id='lblTotals'> </a></td>
+                <td align="center"><a id='lblMemos'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
