@@ -118,6 +118,7 @@
 		    function bbsAssign() {
 		        for (var i = 0; i < q_bbsCount; i++) {
 		            if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+		            	$('#lblNo_'+i).text(i+1);
 		                $('#cmbWtype_' + i).change(function (e) {
 		                    sum();
 		                });
@@ -506,6 +507,7 @@
 					<td align="center" style="width:3%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
+					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:5%;"><a id='lblWtype_s'> </a></td>
 					<td align="center" style="width:25%;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:5%;"><a id='lblUnit_s'> </a></td>
@@ -518,9 +520,8 @@
 					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					</td>
-					<td>
-					<select id="cmbWtype.*" class="txt c1"> </select>
-					</td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+					<td><select id="cmbWtype.*" class="txt c1"> </select></td>
 					<td>
 					<input class="txt" id="txtProductno.*" type="text" style="width:25%;"/>
 					<input class="txt" id="txtProduct.*"type="text" style="width:55%;"/>
