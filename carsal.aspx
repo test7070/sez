@@ -108,7 +108,7 @@
 			function bbsAssign() {
 				_bbsAssign();
 				for (var i = 0; i < q_bbsCount; i++) {
-
+					$('#lblNo_'+i).text(i+1);
 				}
 			}
 
@@ -489,6 +489,7 @@
 					<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
+					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:120px;"><a id='lblDriver_s'></a></td>
 					<td align="center" style="width:30px;"><a id='lblDay_s'></a></td>
 					<td align="center" style="width:60px;"><a id='lblTranmoney_s'></a></td>
@@ -510,6 +511,7 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td  align="center"><input type="text" id="txtDriverno.*" style="width:40%;" />
 						<input type="text" id="txtDriver.*" style="width:50%;" />
 					</td>

@@ -185,6 +185,7 @@
             function bbsAssign() {
                 _bbsAssign();
                 for(var i = 0; i < q_bbsCount; i++) {
+                	$('#lblNo_'+i).text(i+1);	
                     if( typeof ($('#txtMoney_' + i).data('info')) == 'undefined')
                         $('#txtMoney_' + i).data('info', {
                             isSetChange : false
@@ -592,6 +593,7 @@
 					<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
+					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:100px;"><a id='lblTrandate_s'> </a></td>
 
 					<td align="center" style="width:80px;"><a id='lblCustno_s'> </a></td>
@@ -622,6 +624,7 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td ><input type="text" id="txtTrandate.*" style="width:95%;" /></td>
 					<td ><input type="text" id="txtComp.*" style="width:95%;" /></td >
 					<td >
