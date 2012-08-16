@@ -523,7 +523,7 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:15%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:20%"><a id='vewOrdeno'></a></td>
+						<td align="center" style="width:20%"><a id='vewVccano'></a></td>
 						<td align="center" style="width:20%"><a id='vewComp'></a></td>
 					</tr>
 					<tr>
@@ -531,7 +531,7 @@
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='ordeno'>~ordeno</td>
+						<td align="center" id='vccano'>~vccano</td>
 						<td align="center" id='comp,4'>~comp,4</td>
 					</tr>
 				</table>

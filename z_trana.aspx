@@ -193,6 +193,10 @@
 	                    }, {
 	                        type : '6', 
 	                        name : 'xtrandono'
+	                    },{
+	                        type : '8', //select
+	                        name : 'xoption14',
+	                        value : q_getPara('z_trana.option14').split(',')
 	                    }]
 	                });
 	                q_popAssign();

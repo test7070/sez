@@ -327,7 +327,7 @@
 				font-size: medium;
 			}
 			.tbbs input[type="text"] {
-				font-family: Arial, sans-serif;
+				font-family: "細明體",Arial, sans-serif;
 			}
 			input[type="text"], input[type="button"] {
 				font-size: medium;
