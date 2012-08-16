@@ -241,6 +241,7 @@
             function bbsAssign() {
                 _bbsAssign();
                 for(var i = 0; i < q_bbsCount; i++) {
+                	$('#lblNo_'+i).text(i+1);
                     if( typeof ($('#txtTranmoney_' + i).data('info')) == 'undefined')
                         $('#txtTranmoney_' + i).data('info', {
                             isSetChange : false
@@ -523,7 +524,7 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:15%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:20%"><a id='vewOrdeno'></a></td>
+						<td align="center" style="width:20%"><a id='vewVccano'></a></td>
 						<td align="center" style="width:20%"><a id='vewComp'></a></td>
 					</tr>
 					<tr>
@@ -531,7 +532,7 @@
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='ordeno'>~ordeno</td>
+						<td align="center" id='vccano'>~vccano</td>
 						<td align="center" id='comp,4'>~comp,4</td>
 					</tr>
 				</table>
@@ -613,16 +614,16 @@
 						<input id="txtCno" type="text"  class="txt" style="float: left; width:25%;"/>
 						<input id="txtAcomp" type="text"  class="txt"  style="float: left; width:75%;"/>
 						</td>
-					</tr>
-					<tr class="tr5">
 						<td class="td1"><span> </span><a id="lblVccadate" class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtVccadate" type="text" class="txt c1" />
 						</td>
 						<td class="td3"><span> </span><a id="lblVccano" class="lbl"> </a></td>
-						<td class="td4">
+						<td class="td4"  colspan="2">
 						<input id="txtVccano" type="text" class="txt c1" />
 						</td>
+					</tr>
+					<tr class="tr5">
 						<td class="td5"><span> </span><a id="lblTovcca" class="lbl"> </a></td>
 						<td class="td6"><select id="cmbTovcca" class="txt c2"> </select>
 						<input id="txtMon" type="text"  class="txt c3"/>
@@ -699,6 +700,7 @@
 					<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
+					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:120px;"><a id='lblTrandate_s'></a></td>
 					<td align="center" style="width:200px;"><a id='lblStraddr_s'></a></td>
 					<td align="center" style="width:120px;"><a id='lblProduct_s'></a></td>
@@ -728,6 +730,7 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td >
 					<input type="text" id="txtTrandate.*" style="width:95%;" />
 					</td>

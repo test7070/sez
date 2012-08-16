@@ -16,7 +16,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
             var q_name = "trans";
-            var q_readonly = ['txtNoa','txtTotal','txtTotal2','txtTrdno','txtWorkerno','txtWorker'];
+            var q_readonly = ['txtNoa','txtTotal','txtTotal2','txtTrdno','txtTreno','txtWorkerno','txtWorker'];
             var bbmNum = new Array(['txtUnpack', 10, 0], ['txtInmount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3],  ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['txtMiles', 10, 2],  ['txtWeight', 10, 2], ['txtOutmount', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 2], ['txtPton2', 10, 2], ['txtOverh', 10, 0], ['txtOverw', 10, 0]);
             var bbmMask = new Array(['txtTrandate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99'],['txtCldate', '999/99/99'],['txtLtime','99:99'],['txtStime','99:99'],['txtDtime','99:99']);
             q_sqlCount = 6;
@@ -467,42 +467,43 @@
 					$('#txtDiscount').attr('readonly', 'readonly');
 					$('#cmbCalctype').attr('disabled', 'disabled');
 					
-					/*$('#txtDatea').attr('disabled', 'disabled');
-					$('#txtTrandate').attr('disabled', 'disabled');
-					$('#txtDriverno').attr('disabled', 'disabled');
-					$('#txtDriver').attr('disabled', 'disabled');
-					$('#txtCarno').attr('disabled', 'disabled');*/
+					$('#txtDriverno').attr('readonly', 'readonly');
+					$('#txtDriver').attr('readonly', 'readonly');
+					$('#txtCarno').attr('readonly', 'readonly');
+					
+					$('#lblCarno').attr('id', 'lblCarno_zzzz');
+					$('#lblDriver').attr('id', 'lblDriverno_zzzz');
 				}else{
 					$('#cmbCalctype').remove('disabled');
-					
-					/*$('#txtDatea').remove('disabled');
-					$('#txtTrandate').remove('disabled');
-					$('#txtDriverno').remove('disabled');
-					$('#txtDriver').remove('disabled');
-					$('#txtCarno').remove('disabled');*/
+					$('#lblCarno_zzzz').attr('id', 'lblCarno');
+					$('#lblDriver_zzzz').attr('id', 'lblDriverno');
 				}
 				var trdno = $('#txtTrdno').val();
 				if(trdno.length>0){
 					$('#txtInmount').attr('readonly', 'readonly');
 					$('#txtPton').attr('readonly', 'readonly');
 					$('#txtMount').attr('readonly', 'readonly');
-					$('#txtPrice').attr('readonly', 'readonly');
+					$('#txtPrice').attr('readonly', 'readonly');	
+
+					$('#txtCustno').attr('readonly', 'readonly');
+					$('#txtComp').attr('readonly', 'readonly');
+					$('#txtStraddrno').attr('readonly', 'readonly');
+					$('#txtStraddr').attr('readonly', 'readonly');
 					
-					/*$('#txtDatea').attr('disabled', 'disabled');
-					$('#txtTrandate').attr('disabled', 'disabled');
-					$('#txtCustno').attr('disabled', 'disabled');
-					$('#txtComp').attr('disabled', 'disabled');
-					$('#txtStraddrno').attr('disabled', 'disabled');
-					$('#txtStraddr').attr('disabled', 'disabled');*/
+					$('#lblCust').attr('id', 'lblCust_zzzz');
+					$('#lblStraddr').attr('id', 'lblStraddr_zzzz');
 				}else{
-					/*$('#txtDatea').remove('disabled');
-					$('#txtTrandate').remove('disabled');
-					$('#txtCustno').remove('disabled');
-					$('#txtComp').remove('disabled');
-					$('#txtStraddrno').remove('disabled');
-					$('#txtStraddr').remove('disabled');*/
+					$('#lblCust_zzzz').attr('id', 'lblCust');
+					$('#lblStraddr_zzzz').attr('id', 'lblStraddr');
 				}
 				
+				if(treno.length>0 || trdno.length>0){
+					$('#txtDatea').attr('disabled', 'disabled');
+					$('#txtTrandate').attr('disabled', 'disabled');
+				}else{
+					$('#txtDatea').remove('disabled');
+					$('#txtTrandate').remove('disabled');
+				}
             }
             
             function btnMinus(id) {

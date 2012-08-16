@@ -123,6 +123,7 @@
 			function bbsAssign() {
 				_bbsAssign();
 				for (var i = 0; i < q_bbsCount; i++) {
+					$('#lblNo_'+i).text(i+1);
 				}
 			}
 
@@ -230,7 +231,7 @@
 			}
 			.dview {
 				float: left;
-				width: 23%;
+				width: 40%;
 			}
 			.tview {
 				margin: 0;
@@ -248,7 +249,7 @@
 			}
 			.dbbm {
 				float: left;
-				width: 75%;
+				width: 55%;
 				margin: -1px;
 				border: 1px black solid;
 				border-radius: 5px;
@@ -327,7 +328,7 @@
 				font-size: medium;
 			}
 			.tbbs input[type="text"] {
-				font-family: Arial, sans-serif;
+				font-family: "細明體",Arial, sans-serif;
 			}
 			input[type="text"], input[type="button"] {
 				font-size: medium;
@@ -365,8 +366,6 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td> </td>
-						<td> </td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
@@ -431,6 +430,7 @@
 					<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
+					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:150px;"><a id='lblCaseno_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblTranno_s'> </a></td>
 					<td align="center" style="width:70px;"><a id='lblTrandate_s'> </a></td>
@@ -444,6 +444,7 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td ><input type="text" id="txtCaseno.*" style="width:95%;" /></td>
 					<td ><input type="text" id="txtTranno.*" style="width:95%;" /><input type="text" id="txtTrannoq.*" style="display: none;" /></td>
 					<td ><input type="text" id="txtTrandate.*" style="width:95%;" /></td>
