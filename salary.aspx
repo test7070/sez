@@ -200,13 +200,13 @@
 				//正常工作時薪
 				$('#txtAd_m1_' + j).val(dec($('#txtAd_h1_' + j).val())*dec($('#txtSaltype_' + j).val()));
 				//加班費合計
-				$('#txtAd_m133_' + j).val(dec($('#txtAd_h133_' + j).val())*1.33*dec($('#txtSaltype_' + j).val()));
-				$('#txtAd_m166_' + j).val(dec($('#txtAd_h166_' + j).val())*1.66*dec($('#txtSaltype_' + j).val()));
-				$('#txtAd_m2_' + j).val(dec($('#txtAd_h2_' + j).val())*2.0*dec($('#txtSaltype_' + j).val()));
-				$('#txtAd_money_' + j).val(dec($('#txtAd_m133_' + j).val())+dec($('#txtAd_m166_' + j).val())+dec($('#txtAd_m2_' + j).val()));
+				//$('#txtAd_m133_' + j).val(dec($('#txtAd_h133_' + j).val())*1.33*dec($('#txtSaltype_' + j).val()));
+				//$('#txtAd_m166_' + j).val(dec($('#txtAd_h166_' + j).val())*1.66*dec($('#txtSaltype_' + j).val()));
+				//$('#txtAd_m2_' + j).val(dec($('#txtAd_h2_' + j).val())*2.0*dec($('#txtSaltype_' + j).val()));
+				//$('#txtAd_money_' + j).val(dec($('#txtAd_m133_' + j).val())+dec($('#txtAd_m166_' + j).val())+dec($('#txtAd_m2_' + j).val()));
 				
 				//合計(生產獎金+交通津貼+考績獎金+時薪+加班費+津貼)
-				$('#txtOtotal_' + j).val(dec($('#txtBo_born_' + j).val())+dec($('#txtBo_trans_' + j).val())+dec($('#txtBo_exam_' + j).val())+dec($('#txtAd_m1_' + j).val())+dec($('#txtAd_money_' + j).val())+dec($('#txtObonus_' + j).val()));
+				//$('#txtOtotal_' + j).val(dec($('#txtBo_born_' + j).val())+dec($('#txtBo_trans_' + j).val())+dec($('#txtBo_exam_' + j).val())+dec($('#txtAd_m1_' + j).val())+dec($('#txtAd_money_' + j).val())+dec($('#txtObonus_' + j).val()));
 				//-------------------------------------------------------------------------------------------------------------------------
             }  
             $('#txtMoney').val(t_Money);

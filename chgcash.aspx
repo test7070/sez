@@ -22,7 +22,9 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
+        
         aPop = new Array(['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],['txtPartno', 'lblPart', 'Part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],['txtChgitemno', 'lblChgitem', 'chgitem', 'noa,item', 'txtChgitemno,txtChgitem', 'chgitem_b.aspx']);
+        
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -42,7 +44,28 @@
 
 
         function mainPost() {  
-        q_mask(bbmMask);
+        	bbmMask = [['txtTime', '99:99']];
+        	q_mask(bbmMask);
+        	//------------------------------------------------
+        	//零用金下拉式與TXT輸入
+        	q_cmbParse("combDc", q_getPara('chgcash.typea'));
+        	$('#combDc').attr('disabled', 'disabled');
+        	$('#combDc').css('background', t_background2);
+        	
+        	$('#txtDc').change(function () {
+                    var i = $('#txtDc').val();
+                    $('#combDc').val(i);
+                    if (i < '0' || i > '3') {
+                        $('#txtDc').val('3');
+                        $('#combDc').val('3');
+                    }
+            });
+            $('#combDc').change(function () {
+                    var i = parseInt($('#combDc').val(), 0);
+                    $('#txtDc').val(i);
+             });
+        
+        	//-------------------------------------------------
         }
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -100,6 +123,24 @@
                         q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 
                     break;
+                case 'chgcashorg':
+                	var cash_sum=0;
+                	var as = _q_appendData("org", "", true);
+                	for (var i = 0; i < as.length; i++) {
+                		switch (as[i].dc){
+                			case 1:
+                				cash_sum -= as[i].money;
+                			break;
+                			case 2:
+                				cash_sum += as[i].money;
+                			break;
+                			case 3:
+                				cash_sum -= as[i].money;
+                			break;
+                		}
+                	}
+                	$('#txtOrg').val(sum);
+                 	break;
             }  /// end switch
         }
         
@@ -122,11 +163,21 @@
         function btnIns() {
             _btnIns();
             $('#txtNoa').focus();
+            
+            $('#combDc').val(3);
+            $('#combDc').removeAttr('disabled');
+            $('#combDc').css('background', t_background);
+            
+            $('#txtDc').focus();
+            $('#txtDc').val(3);
         }
 
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
+			
+			$('#combDc').removeAttr('disabled');
+            $('#combDc').css('background', t_background);
 
             _btnModi();
             $('#txtComp').focus();
@@ -159,12 +210,15 @@
                 $('#txtUacc2').val('1121.' + t_noa);
             if (emp($('#txtUacc3').val()))
                 $('#txtUacc3').val( '2131.'+t_noa);
-
-
+                 
+			var i = parseInt($('#combDc').val(), 0);
+         	var s1 = $('#combDc')[0][i - 1].innerText.substr(0, 1);
+         
             if ( t_noa.length==0 )   /// ??????s??
                 q_gtnoa(q_name, t_noa);
             else
                 wrServer(  t_noa);
+
         }
 
         function wrServer( key_value) {
@@ -180,7 +234,13 @@
       
         function refresh(recno) {
             _refresh(recno);
-
+            	
+           	$('#combDc').val($('#txtDc').val());
+            $('#combDc').attr('disabled', 'disabled');
+            $('#combDc').css('background', t_background2);
+			
+			cashorg();
+			
         }
 
         function readonly(t_para, empty) {
@@ -236,6 +296,13 @@
         function btnCancel() {
             _btnCancel();
         }
+        
+        //...........................................零用金餘額查詢
+        function cashorg() {
+			var t_where ="where=^^ part='"+$('#txtPart').val()+"'"; 
+			q_gt('chgcashorg', t_where  , 0, 0, 0, "", r_accy);	
+        }
+        //..........................................................
     </script>
 <style type="text/css">
             #dmain {
@@ -408,7 +475,9 @@
                             <td class="td1"><span> </span><a id="lblMoney" class="lbl"></a></td>
                             <td class="td2"><input id="txtMoney"  type="text" class="txt num c1" /></td>
                             <td class="td3"><span ></span><a id="lblDc" class="lbl"></a></td>
-                            <td class="td4"><input id="txtDc"  type="text" class="txt c1" /></td>
+                            <td class="td4"><input id="txtDc"  type="text" maxlength="20" style="width:10%;">
+                            	<select id="combDc" style="width:88%;font-size: medium;"></select>
+                            </td>
                             <td class="td5"></td>
                             <td class="td6"></td>
                         </tr>
@@ -416,8 +485,8 @@
                             <td class="td1"><span> </span><a id="lblPart" class="lbl btn"></a></td>
                             <td class="td2"><input id="txtPartno"  type="text"  class="txt c2"/>
                             <input id="txtPart"  type="text"  class="txt c3"/></td>
-                            <td class="td3"></td>
-                            <td class="td4"></td>
+                            <td class="td3"><span> </span><a id="lblOrg" class="lbl"></a></td>
+                            <td class="td4"><input id="txtOrg"  type="text" class="txt num c1" /></td>
                             <td class="td5"></td>
                             <td class="td6"></td>                                                        
                         </tr>
