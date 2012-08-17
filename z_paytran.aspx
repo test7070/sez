@@ -15,6 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+			t_carkind="";
 			if (location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
 			}
@@ -24,8 +25,24 @@
 				q_gf('', 'z_paytran');
 			});
 			function q_gfPost() {
+				q_gt('carkind', '', 0, 0, 0, "");
+			}
 
-				$('#qReport').q_report({
+			function q_boxClose(t_name) {
+			}
+
+			function q_gtPost(t_name) {
+            	
+            	switch (t_name) {
+            		case 'carkind':
+                        var as = _q_appendData("carkind", "", true);
+                        for( i = 0; i < as.length; i++) {
+                            t_carkind = t_carkind + (t_carkind.length>0?',':'') + as[i].noa +'@' + as[i].kind;
+                        }  
+                        break;
+             	}
+             	
+             	$('#qReport').q_report({
 					fileName : 'z_paytran',
 					options : [{
 						type : '0',
@@ -59,6 +76,10 @@
 					}, {
 						type : '6',
 						name : 'xnoa'
+					}, {
+						type : '5', //select
+						name : 'xcarkind',
+						value : t_carkind.split(',')
 					}]
 				});
 				q_popAssign();
@@ -90,13 +111,7 @@
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
 				$('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
-			}
-
-			function q_boxClose(t_name) {
-			}
-
-			function q_gtPost(t_name) {
-			}
+         	}
 		</script>
 	</head>
 	<body>
