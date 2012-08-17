@@ -19,7 +19,7 @@
 
 			var q_name = "traneprice";
 			var q_readonly = ['txtNoa','txtWorker'];
-			var bbmNum = [['txtInprice', 12, 3],['txtOutprice', 12, 3]];
+			var bbmNum = [['txtInprice', 11, 2, 1],['txtOutprice', 11, 2, 1]];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -128,6 +128,10 @@
 				$('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
+                
+            var newtime=new Date();
+			$('#txtDatea').val(q_date());
+            $('#txtTimea').val(newtime.format('hh:mm'));
 			}
 
 			function btnModi() {
@@ -221,6 +225,24 @@
 			function btnCancel() {
 				_btnCancel();
 			}
+			//................................................時間格式
+		Date.prototype.format = function(format)
+		{
+			var o = {
+			"h+" : this.getHours(),   //hour
+		 	"m+" : this.getMinutes(), //minute
+			"s+" : this.getSeconds(), //second
+			}
+		
+		 	for(var k in o)
+			{
+				if(new RegExp("("+ k +")").test(format))
+				{
+		 			format = format.replace(RegExp.$1,RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+				}
+			}
+			return format;
+		}
 		</script>
 		<style type="text/css">
 			#dmain {
