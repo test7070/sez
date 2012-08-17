@@ -52,7 +52,6 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-            
 
         }
 
@@ -69,11 +68,26 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'gqb':
+            	
+            		break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
             }  /// end switch
         }
+        
+        
+        //........................票據匯入
+        $('#btnGqb')click(function (e) {
+        	t_where = "where=^^ typea='2' and tbankno='"+$('#txtBankno').val()+"' ^^";
+            q_gt('gqb', t_where, 0, 0);
+        });
+        
+        
+        
+        
+        //.........................
 
         function btnOk() {
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  
@@ -115,11 +129,13 @@
                     q_bodyId($(this).attr('id'));
                     b_seq = t_IdSeq;
                     $('#trSel_' + b_seq).removeClass('sel');
+				 if($('#chkSel_' +b_seq)[0].checked){	//判斷是否被選取並變色
+                	$('#trSel_'+ b_seq).addClass('chksel');
+                }else{
+                	$('#trSel_'+b_seq).removeClass('chksel');
+                }
                 });
-
-                t_where = "where=^^   ^^";
-                q_gt('gqb', t_where, 0, 0)
-            }
+            }//end for
             _bbsAssign();
         }
 
@@ -128,6 +144,16 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
+            
+            //取消變色
+            for (var i = 0; i < q_bbsCount; i++) {
+            	$('#trSel_'+i).removeClass('chksel');
+            }
+            //bbs序號
+            for (var i = 0; i < q_bbsCount; i++) {
+            	$('#trseq_'+i).empty();
+            	$('#trseq_'+i).append(i+1);
+            }
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -179,6 +205,11 @@
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
+            
+            //bbs序號
+            for (var i = 0; i < q_bbsCount; i++) {
+            	$('#trseq_'+i).append(i+1);
+            }
        }
 
         function readonly(t_para, empty) {
@@ -235,6 +266,7 @@
         function btnCancel() {
             _btnCancel();
         }
+        
     </script>
     <style type="text/css">
         #dmain {
@@ -344,6 +376,7 @@
            
            .tbbs tr { background:gray;} 
            .tbbs tr.sel { background:yellow;} 
+           .tbbs tr.chksel { background:red;} 
            
              .dbbs .tbbs{margin:0;padding:2px;border:2px lightgrey double;border-spacing:1px;border-collapse:collapse;font-size:medium;color:blue;background:#cad3ff;width:100%;}
 			 .dbbs .tbbs tr{height:35px;}
@@ -393,7 +426,8 @@
             <td class="td4"><input id="txtAccl"  type="text" class="txt num c1" /></td></tr>        
         <tr>
             <td class='td1'><span> </span><a id="lblWorker" class="lbl" ></a></td>
-            <td class="td2"><input id="txtWorker"  type="text" class="txt c1" /></td></tr>        
+            <td class="td2"><input id="txtWorker"  type="text" class="txt c1" /></td>
+            <td class='td3'><input type="button" id="btnGqb" class="txt c1 " value="票據匯入"></td></tr> 
         </table>
         </div>
 
@@ -402,6 +436,7 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center" class="td0"><a id='A1'></a></td>
+                <td align="center" class="td0"><a id='lblchk'></a></td>
                 <td align="center" class="td1"><a id='lblNoas'></a></td>
                 <td align="center" class="td2"><a id='lblCheckno'></a></td>
                 <td align="center" class="td2"><a id='lblBanks'></a></td>
@@ -412,7 +447,8 @@
             </tr>
             <tr id="trSel.*">
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input id="chkSel.*" type="checkbox" /></td>
+                <td  id="trseq.*"></td>
+                <td ><input id="chkSel.*" type="checkbox"/></td>
                 <td ><input class="txt c1" id="txtNoq.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCheckno.*" type="text" /></td>
                 <td ><input id="txtBank.*" type="text" style="width: 80%;"/><input id="btnBank.*" type="button" value="..." style="width: 16%;"/></td>
