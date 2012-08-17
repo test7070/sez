@@ -117,7 +117,6 @@
                     break;
 				case 'chgcashorg':
                 	var as = _q_appendData("chgcash", "", true);
-                	var temp= as[0].total;
                 	$('#txtOrg').val(as[0].total);
                  	break;
                 case q_name: if (q_cur == 4)   
@@ -152,9 +151,9 @@
             $('#txtNoa').val(dec($('#pageAll').val())+1);
             
             //申請日期與時間
-            var newtime=new Date();
+            var now =new Date();
 			$('#txtDatea').val(q_date());
-            $('#txtTime').val(newtime.format('hh:mm'));
+            $('#txtTime').val( now.getHours()+':'+now.getMinutes());
             
             //申請金額初始
              $('#txtMoney').val(0);
@@ -299,25 +298,7 @@
 			q_gt('chgcashorg', t_where  , 0, 0, 0, "", r_accy);	
         }
         //..........................................................
-        //................................................時間格式
-		Date.prototype.format = function(format)
-		{
-			var o = {
-			"h+" : this.getHours(),   //hour
-		 	"m+" : this.getMinutes(), //minute
-			"s+" : this.getSeconds(), //second
-			}
-		
-		 	for(var k in o)
-			{
-				if(new RegExp("("+ k +")").test(format))
-				{
-		 			format = format.replace(RegExp.$1,RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
-				}
-			}
-			return format;
-		}
-        //.............................................................
+        
     </script>
 <style type="text/css">
             #dmain {
