@@ -18,7 +18,7 @@
 			}
 
 			var q_name = "tre_accc";
-			var q_readonly = ['txtNoa','txtWorker'];
+			var q_readonly = ['txtNoa','txtWorker','txtPaybno','txtPayeno','txtChkeno'];
 			var bbmNum = [['txtMoney',10,0]];
 			var bbmMask = [];
 			q_sqlCount = 6;
@@ -53,13 +53,13 @@
 				bbmMask2 = new Array(['txtBdate',r_picd],['txtEdate',r_picd]);
 				q_mask(bbmMask2);
 				q_cmbParse("cmbCarteamno", q_getPara('.taxtype'));
-				q_gt('carteam', '', 0, 0, 0, "");
-				$("#cmbCarteamno").focus(function(){
-                	var len = $("#cmbCarteamno").children().length>0?$("#cmbCarteamno").children().length:1;
-                	$("#cmbCarteamno").attr('size',len+"");
-                }).blur(function(){
-                	$("#cmbCarteamno").attr('size','1');
-                });
+				//q_gt('carteam', '', 0, 0, 0, "");
+				//$("#cmbCarteamno").focus(function(){
+                //	var len = $("#cmbCarteamno").children().length>0?$("#cmbCarteamno").children().length:1;
+                //	$("#cmbCarteamno").attr('size',len+"");
+               // }).blur(function(){
+               // 	$("#cmbCarteamno").attr('size','1');
+                //});
 			}
 
 			function txtCopy(dest, source) {
@@ -95,15 +95,15 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
-					case 'carteam':
-                        var as = _q_appendData("carteam", "", true);
-						var t_item = "";
-                        for( i = 0; i < as.length; i++) {
-                            t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;
-                        }
-                        q_cmbParse("cmbCarteamno", t_item); 
-                        $("#cmbCarteamno").val( abbm[q_recno].carteamno);                  
-                        break;
+					//case 'carteam':
+                      //  var as = _q_appendData("carteam", "", true);
+					//	var t_item = "";
+                     //   for( i = 0; i < as.length; i++) {
+                      //      t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;
+                       // }
+                        //q_cmbParse("cmbCarteamno", t_item); 
+                        //$("#cmbCarteamno").val( abbm[q_recno].carteamno);                  
+                       // break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -365,6 +365,7 @@
 						<td class="td3"> </td>
 						<td class="td4"> </td>
 						<td class="td5"> </td>
+						<td class="td6"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDatea' class="lbl">  </a></td>
@@ -378,15 +379,20 @@
 						<td class="td2"><input id="txtBdate" type="text"  class="txt c1"/></td>
 						<td align="center"><a id="lblSymbol"  style="font-weight: bold;font-size: 24px;"> </a></td>
 						<td class="td4"><input id="txtEdate" type="text"  class="txt c1"/> </td>
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id="lblCarteam" class="lbl"> </a></td>
-						<td class="td2"><select id="cmbCarteamno" class="txt c1"> </select></td>
+						<td class="td5"> </td>
 					</tr>
 					<tr>
 						<td class="td1" ><span> </span><a id="lblAccno" class="lbl"> </a></td>
 						<td class="td2" ><input id="txtAccno" type="text"  class="txt c1"/></td>
 						<td class="td3" ><input id="btnAccc" type="button" /></td>
+						<td class="td4"><span> </span><a id="lblPaybno" class="lbl"> </a></td>
+						<td class="td5" colspan="2"><input id="txtPaybno" type="text"  class="txt c2"/><a id="lblPayeno" style="width: 14%;float: left;"> </a><input id="txtPayeno" type="text"  class="txt c2"/></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblChkbno' class="lbl">  </a></td>
+						<td class="td2"><input id="txtChkbno" type="text"  class="txt c1"/></td>
+						<td align="center"><a id="lblChkeno"  style="font-weight: bold;font-size: 24px;"> </a></td>
+						<td class="td4"><input id="txtChkeno" type="text"  class="txt c1"/> </td>
 					</tr>
 				</table>
 			</div>

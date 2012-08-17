@@ -19,7 +19,7 @@
 
 			var q_name = "traneprice";
 			var q_readonly = ['txtNoa','txtWorker'];
-			var bbmNum = [['txtMoney',10,0]];
+			var bbmNum = [];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -102,6 +102,7 @@
                             t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;
                         }
                         q_cmbParse("cmbCarteamno", t_item); 
+                         if (abbm.length > 0)
                         $("#cmbCarteamno").val( abbm[q_recno].carteamno);                  
                         break;
 					case q_name:
