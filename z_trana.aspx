@@ -197,6 +197,12 @@
 	                        type : '8', //select
 	                        name : 'xoption14',
 	                        value : q_getPara('z_trana.option14').split(',')
+	                    }, {
+	                        type : '2',
+	                        name : 'addr',
+	                        dbf : 'addr',
+	                        index : 'noa,addr',
+	                        src : 'addr_b.aspx'
 	                    }]
 	                });
 	                q_popAssign();
