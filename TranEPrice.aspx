@@ -19,7 +19,7 @@
 
 			var q_name = "traneprice";
 			var q_readonly = ['txtNoa','txtWorker'];
-			var bbmNum = [];
+			var bbmNum = [['txtInprice', 12, 3],['txtOutprice', 12, 3]];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -357,7 +357,7 @@
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox"/></td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='comp'>~comp</td>
+						<td align="center" id='comp,4'>~comp,4</td>
 						<td align="center" id='outprice'>~outprice</td>
 					</tr>
 				</table>
@@ -413,12 +413,12 @@
 					</tr>
 					<tr>
 						<td class="td1" ><span> </span><a id="lblInprice" class="lbl"> </a></td>
-						<td class="td2" ><input id="txtInprice" type="text"  class="txt c1"/></td>
+						<td class="td2" ><input id="txtInprice" type="text"  class="txt num c1"/></td>
 						<td class="td3" ><input id="btnChinprice" type="button" /></td>
 					</tr>
 					<tr>
 						<td class="td1" ><span> </span><a id="lblOutprice" class="lbl"> </a></td>
-						<td class="td2" ><input id="txtOutprice" type="text"  class="txt c1"/></td>
+						<td class="td2" ><input id="txtOutprice" type="text"  class="txt num c1"/></td>
 						<td class="td3" ><input id="btnChoutprice" type="button" /></td>
 					</tr>
 					<tr>

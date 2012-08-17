@@ -16,7 +16,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         q_tables = 's';
-        var q_name = "in";
+        var q_name = "uccb";
         var q_readonly = [];
         var q_readonlys = [];
         var bbmNum = [];  
@@ -32,7 +32,7 @@
             bbsKey = ['noa', 'noq'];
             brwCount2=5
             q_brwCount();   
-            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+            q_gt(q_name, q_content, q_sqlCount, 1)
 
         });
 
@@ -393,31 +393,33 @@
         <div class='dbbm' style="width: 68%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr class="tr1">
-            <td class='td1'><span> </span><a id="lblDatea" class="lbl"> </a></td>
-            <td class="td2"><input id="txtDatea"  type="text" class="txt c1"/></td>
-            <td class='td3'><span> </span><a id="lblNoa" class="lbl"> </a></td>
-            <td class="td4"><input id="txtNoa"  type="text" class="txt c1"/> </td>
-            <td class='td5'><span> </span><a id="lblOrdcno" class="lbl"> </a></td>
-            <td class="td6"><input id="txtOrdcno"  type="text" class="txt c1"/> </td>
-            <td class='td7'><span> </span><a id="lblItypea" class="lbl"> </a></td>
-            <td class="td8"><select id="txtItypea" class="txt c1"> </select></td>
+            <td class='td1'><span> </span><a id="lblNoa" class="lbl"> </a></td>
+            <td class="td2" colspan="3"><input id="txtNoa"  type="text" class="txt c1"/></td>
+            <td class='td5'><span> </span><a id="lblItype" class="lbl"> </a></td>
+            <td class="td6"><select id="txtItypea" class="txt c1"> </select></td>
+            <td class='td7'><span> </span><a id="lblPrice" class="lbl"> </a></td>
+            <td class="td8"><input id="txtPrice"  type="text" class="txt c1"/> </td>
+            <td class='td9'><span> </span><a id="lblSprice" class="lbl"> </a></td>
+            <td class="tdA"><input id="txtSprice"  type="text" class="txt c1"/> </td>
         </tr>
         <tr class="tr2">
-            <td class='td1'><span> </span><a id="lblTggno" class="lbl btn"> </a></td>
-            <td class="td2" colspan="3"><input id="txtTggno"  type="text" class="txt c4"/><input id="txtComp"  type="text" class="txt c5"/> </td>
-            <td class='td5'><span> </span><a id="lblCno" class="lbl"> </a></td>
-            <td class="td6"><input id="txtCno"  type="text" class="txt c1"/> </td>
-            <td class='td7'><span> </span><a id="lblTypea" class="lbl"> </a></td>
-            <td class="td8"><select id="txtTypea"  class="txt c1"> </select></td>
+            <td class='td1'><span> </span><a id="lblProductno" class="lbl btn"> </a></td>
+            <td class="td2" colspan="3"><input id="txtProductno"  type="text" class="txt c4"/><input id="txtProduct"  type="text" class="txt c5"/> </td>
+            <td class='td5'><span> </span><a id="lblUnit" class="lbl"> </a></td>
+            <td class="td6"><input id="txtUnit"  type="text" class="txt c1"/> </td>
+            <td class='td7'><span> </span><a id="lblPlace" class="lbl"> </a></td>
+            <td class="td8"><select id="txtPlace"  class="txt c1"> </select></td>
+            <td class='td9'><span> </span><a id="lblSource" class="lbl"> </a></td>
+            <td class="tdA"><input id="txtSource" type="text" class="txt c1"> </select></td>
         </tr>
         <tr class="tr3">
-            <td class='td1'><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
-            <td class="td2"><input id="txtCardealno"  type="text" class="txt c4"/><input id="txtCardeal"  type="text" class="txt c5"/></td>
-            <td class='td3'><span> </span><a id="lblCarno" class="lbl"> </a></td>
-            <td class="td4"><input id="txtCarno" type="text" class="txt c1" /></td>
-            <td class='td5'><span> </span><a id="lblTran" class="lbl"> </a></td>
-            <td class="td6"><select id="txtTran"  class="txt c1"> </select></td>
-            <td class='td7'><span> </span><a id="lblPrice" class="lbl"> </a></td>
+            <td class='td1'><span> </span><a id="lblDime" class="lbl btn"> </a></td>
+            <td class="td2"><input id="txtDime"  type="text" class="txt c1"/></td>
+            <td class='td3'><span> </span><a id="lblWidth" class="lbl"> </a></td>
+            <td class="td4"><input id="txtWidth" type="text" class="txt c1" /></td>
+            <td class='td5'><span> </span><a id="lblLength" class="lbl"> </a></td>
+            <td class="td6"><select id="txtLength"  class="txt c1"> </select></td>
+            <td class='td7'><span> </span><a id="lblS" class="lbl"> </a></td>
             <td class="td8"><input id="txtPrice" type="text" class="txt c1" /></td>
         </tr>
         <tr class="tr4">            
