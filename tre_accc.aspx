@@ -382,11 +382,17 @@
 						<td class="td5"> </td>
 					</tr>
 					<tr>
+						<td class="td1"><span> </span><a id='lblPaybno' class="lbl">  </a></td>
+						<td class="td2"><input id="txtPaybno" type="text"  class="txt c1"/></td>
+						<td align="center"><a id="lblPayeno"  style="font-weight: bold;font-size: 24px;"> </a></td>
+						<td class="td4"><input id="txtPayeno" type="text"  class="txt c1"/> </td>
+						<td class="td5"> </td>
+					</tr>
+					<tr>
 						<td class="td1" ><span> </span><a id="lblAccno" class="lbl"> </a></td>
 						<td class="td2" ><input id="txtAccno" type="text"  class="txt c1"/></td>
 						<td class="td3" ><input id="btnAccc" type="button" /></td>
-						<td class="td4"><span> </span><a id="lblPaybno" class="lbl"> </a></td>
-						<td class="td5" colspan="2"><input id="txtPaybno" type="text"  class="txt c2"/><a id="lblPayeno" style="width: 14%;float: left;"> </a><input id="txtPayeno" type="text"  class="txt c2"/></td>
+						
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblChkbno' class="lbl">  </a></td>
