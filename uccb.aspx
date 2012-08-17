@@ -24,8 +24,8 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
-        ['txtStoreno2', 'lblStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx']);
+        aPop = new Array(['txtProductno', 'lblProduct', 'ucc', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit', 'ucc_b.aspx'],
+        ['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -93,7 +93,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('ucce_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('uccb_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   
@@ -385,7 +385,7 @@
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='product'>~product</td>
+                   <td align="center" id='product,4'>~product,4</td>
                   
             </tr>
         </table>
@@ -468,7 +468,7 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center" class="td1"><a id='lblCoilno_s'> </a></td>
-                <td align="center" class="td1"><a id='lblUdatea_s'> </a></td>
+                <td align="center" class="td1"><a id='lblOdatea_s'> </a></td>
                 <td align="center" class="td1"><a id='lblProduct_s'> </a></td>
                 <td align="center" class="td1"><a id='lblSpec_s'> </a></td>
                 <td align="center" class="td1"><a id='lblMount_s'> </a></td>
@@ -482,7 +482,7 @@
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input class="txt c1" id="txtCoilno.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtUdatea.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtOdatea.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtProduct.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtSpec.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtMount.*"type="text" /></td>
