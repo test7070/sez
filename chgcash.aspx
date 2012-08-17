@@ -17,8 +17,8 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="chgcash";
-        var q_readonly = [];
-        var bbmNum = []; 
+        var q_readonly = ['txtAcc2','txtChgitem','txtPart','txtOrg','txtNamea'];
+        var bbmNum = [['txtMoney',12 , , 1],['txtOrg',12 , , 1]];  // master 允許 key 小數  [物件,整數位數,小數位數, comma Display]
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
@@ -64,8 +64,8 @@
                     var i = parseInt($('#combDc').val(), 0);
                     $('#txtDc').val(i);
              });
-        
         	//-------------------------------------------------
+        	
         }
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -115,7 +115,11 @@
                 case 'sss': 
                     q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
                     break;
-
+				case 'chgcashorg':
+                	var as = _q_appendData("chgcash", "", true);
+                	var temp= as[0].total;
+                	$('#txtOrg').val(as[0].total);
+                 	break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
 
@@ -123,24 +127,6 @@
                         q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 
                     break;
-                case 'chgcashorg':
-                	var cash_sum=0;
-                	var as = _q_appendData("org", "", true);
-                	for (var i = 0; i < as.length; i++) {
-                		switch (as[i].dc){
-                			case 1:
-                				cash_sum -= as[i].money;
-                			break;
-                			case 2:
-                				cash_sum += as[i].money;
-                			break;
-                			case 3:
-                				cash_sum -= as[i].money;
-                			break;
-                		}
-                	}
-                	$('#txtOrg').val(sum);
-                 	break;
             }  /// end switch
         }
         
@@ -163,13 +149,23 @@
         function btnIns() {
             _btnIns();
             $('#txtNoa').focus();
+            $('#txtNoa').val(dec($('#pageAll').val())+1);
             
-            $('#combDc').val(3);
+            //申請日期與時間
+            var newtime=new Date();
+			$('#txtDatea').val(q_date());
+            $('#txtTime').val(newtime.format('hh:mm'));
+            
+            //申請金額初始
+             $('#txtMoney').val(0);
+            
+            //申請零用金類別初始
+            $('#combDc').val(1);
             $('#combDc').removeAttr('disabled');
             $('#combDc').css('background', t_background);
             
             $('#txtDc').focus();
-            $('#txtDc').val(3);
+            $('#txtDc').val(1);
         }
 
         function btnModi() {
@@ -238,8 +234,8 @@
            	$('#combDc').val($('#txtDc').val());
             $('#combDc').attr('disabled', 'disabled');
             $('#combDc').css('background', t_background2);
-			
-			cashorg();
+            
+            cashorg();
 			
         }
 
@@ -299,10 +295,29 @@
         
         //...........................................零用金餘額查詢
         function cashorg() {
-			var t_where ="where=^^ part='"+$('#txtPart').val()+"'"; 
+			var t_where ="where=^^ partno='"+$('#txtPartno').val()+"'^^"; 
 			q_gt('chgcashorg', t_where  , 0, 0, 0, "", r_accy);	
         }
         //..........................................................
+        //................................................時間格式
+		Date.prototype.format = function(format)
+		{
+			var o = {
+			"h+" : this.getHours(),   //hour
+		 	"m+" : this.getMinutes(), //minute
+			"s+" : this.getSeconds(), //second
+			}
+		
+		 	for(var k in o)
+			{
+				if(new RegExp("("+ k +")").test(format))
+				{
+		 			format = format.replace(RegExp.$1,RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+				}
+			}
+			return format;
+		}
+        //.............................................................
     </script>
 <style type="text/css">
             #dmain {
