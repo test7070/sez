@@ -58,13 +58,15 @@
                     for (var z = 0; z < tmp.length; z++) {
                         value = value + (value.length > 0 ? ',' : '') + $.trim(tmp[z].noa) + '@' + $.trim(tmp[z].brand);
                     }
-                    q_cmbParse("cmbCarbrandno", value);
+                    if(len(value)>0)
+                    	q_cmbParse("cmbCarbrandno", value);
                     tmp = _q_appendData('carkind', '', true);
                     value = ' @ ';
                     for (var z = 0; z < tmp.length; z++) {
                         value = value + (value.length > 0 ? ',' : '') + $.trim(tmp[z].noa) + '@' + $.trim(tmp[z].kind);
                     }
-                    q_cmbParse("cmbCarkindno", value);
+                    if(len(value)>0)
+                   		q_cmbParse("cmbCarkindno", value);
                     refresh(q_recno);
                 } else
                     alert('Error!' + '\r' + t_func + '\r' + result);
