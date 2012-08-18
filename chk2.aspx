@@ -52,6 +52,13 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
+            
+            //........................票據匯入
+        $('#btnGqb').click(function () {
+        	var t_where = "where=^^ typea='2' and tbankno='"+$('#txtBankno').val()+"' ^^";
+            q_gt('gqb', t_where, 0, 0);	//查詢資料
+        });
+        //.........................
 
         }
 
@@ -69,25 +76,25 @@
         function q_gtPost(t_name) {  
             switch (t_name) {
             	case 'gqb':
-            	
+            		var as = _q_appendData("gqb", "", true);
+            		var total=0;	//託收金額總計
+            		for (var i = 0; i < as.length; i++) {
+            			$('#txtNoq_' + i).val(i+1);
+						$('#txtCheckno_' + i).val(as[i].noa);
+						$('#txtBank_' + i).val(as[i].bank);
+						$('#txtBankno_' + i).val(as[i].bankno);
+						$('#txtAccount_' + i).val(as[i].account);
+						$('#txtDatea_' + i).val(as[i].indate);
+						$('#txtMoney_' + i).val(as[i].money);
+						total+=dec($('#txtMoney_' + i).val());
+		             }
+		             $('#txtMoney').val(total);
             		break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
             }  /// end switch
         }
-        
-        
-        //........................票據匯入
-        $('#btnGqb')click(function (e) {
-        	t_where = "where=^^ typea='2' and tbankno='"+$('#txtBankno').val()+"' ^^";
-            q_gt('gqb', t_where, 0, 0);
-        });
-        
-        
-        
-        
-        //.........................
 
         function btnOk() {
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  
@@ -129,10 +136,12 @@
                     q_bodyId($(this).attr('id'));
                     b_seq = t_IdSeq;
                     $('#trSel_' + b_seq).removeClass('sel');
-				 if($('#chkSel_' +b_seq)[0].checked){	//判斷是否被選取並變色
-                	$('#trSel_'+ b_seq).addClass('chksel');
+				 if($('#chkSel_' +b_seq)[0].checked){	//判斷是否被選取
+                	$('#trSel_'+ b_seq).addClass('chksel');//變色
+					sum();
                 }else{
-                	$('#trSel_'+b_seq).removeClass('chksel');
+                	$('#trSel_'+b_seq).removeClass('chksel');//取消變色
+                	sum();
                 }
                 });
             }//end for
@@ -149,11 +158,7 @@
             for (var i = 0; i < q_bbsCount; i++) {
             	$('#trSel_'+i).removeClass('chksel');
             }
-            //bbs序號
-            for (var i = 0; i < q_bbsCount; i++) {
-            	$('#trseq_'+i).empty();
-            	$('#trseq_'+i).append(i+1);
-            }
+            
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -195,21 +200,24 @@
         }
 
         function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0;
+            var t1 = 0, t_unit, t_mount, t_weight = 0,chksum=0;
             for (var j = 0; j < q_bbsCount; j++) {
-
+            	if($('#chkSel_' +j)[0].checked)
+					chksum+=dec($('#txtMoney_'+j).val());
             }  // j
-
+            if(chksum==0){
+				for (var j = 0; j < q_bbsCount; j++) {
+					chksum+=dec($('#txtMoney_'+j).val());
+            	}  // j
+			}
+			$('#txtMoney').val(chksum);
         }
 
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
             
-            //bbs序號
-            for (var i = 0; i < q_bbsCount; i++) {
-            	$('#trseq_'+i).append(i+1);
-            }
+            
        }
 
         function readonly(t_para, empty) {
@@ -374,9 +382,9 @@
                 margin: -1px;
             }
            
-           .tbbs tr { background:gray;} 
+           
            .tbbs tr.sel { background:yellow;} 
-           .tbbs tr.chksel { background:red;} 
+           .tbbs tr.chksel { background:bisque;} 
            
              .dbbs .tbbs{margin:0;padding:2px;border:2px lightgrey double;border-spacing:1px;border-collapse:collapse;font-size:medium;color:blue;background:#cad3ff;width:100%;}
 			 .dbbs .tbbs tr{height:35px;}
@@ -435,11 +443,10 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" class="td0"><a id='A1'></a></td>
                 <td align="center" class="td0"><a id='lblchk'></a></td>
-                <td align="center" class="td1"><a id='lblNoas'></a></td>
+                <td align="center" style="width:5%"><a id='lblNoas'></a></td>
                 <td align="center" class="td2"><a id='lblCheckno'></a></td>
-                <td align="center" class="td2"><a id='lblBanks'></a></td>
+                <td align="center" style="width:20%"><a id='lblBanks'></a></td>
                 <td align="center" class="td3"><a id='lblBankno'></a></td>
                 <td align="center" class="td2"><a id='lblAccounts'></a></td>
                 <td align="center" class="td3"><a id='lblDateas'></a></td>
@@ -447,7 +454,6 @@
             </tr>
             <tr id="trSel.*">
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td  id="trseq.*"></td>
                 <td ><input id="chkSel.*" type="checkbox"/></td>
                 <td ><input class="txt c1" id="txtNoq.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCheckno.*" type="text" /></td>
