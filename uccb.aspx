@@ -128,7 +128,7 @@
         }
 
         function bbsSave(as) {
-            if (!as['namea'] ) {  
+            if (!as['product'] ) {  
                 as[bbsKey[1]] = '';   
                 return;
             }
@@ -419,7 +419,7 @@
             <td class='td3'><span> </span><a id="lblWidth" class="lbl"> </a></td>
             <td class="td4"><input id="txtWidth" type="text" class="txt c1" /></td>
             <td class='td5'><span> </span><a id="lblLength" class="lbl"> </a></td>
-            <td class="td6"><select id="txtLength"  class="txt c1"> </select></td>
+            <td class="td6"><input id="txtLength" type="text" class="txt c1" /></td>
             <td class='td7'><span> </span><a id="lblStoreno" class="lbl btn"> </a></td>
             <td class="td8" colspan="3"><input id="txtStoreno" type="text" class="txt c4" />
             	<input id="txtStore" type="text" class="txt c5" /></td>
