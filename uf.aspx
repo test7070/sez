@@ -49,6 +49,13 @@
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
              q_cmbParse("cmbTypea", q_getPara('uf.typea')); 
+             
+	        //........................託收匯入
+	        $('#btnChk2').click(function () {
+	        	var t_where = "where=^^ bankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' ^^";
+	            q_gt('chk2', t_where, 0, 0);	//查詢資料
+	        });
+	        //......................... 
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -64,6 +71,19 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'chk2':
+            		var as = _q_appendData("chk2", "", true);
+            		for (var i = 0; i < as.length; i++) {
+						$('#txtBankno_' + i).val(as[i].bankno);
+						$('#txtBank_' + i).val(as[i].bank);
+						$('#txtCheckno_' + i).val(as[i].noa);
+						$('#txtDatea_' + i).val(as[i].datea);
+						$('#txtMoney_' + i).val(as[i].money);
+						$('#txtTaccl_' + i).val(as[i].accl);
+						
+		             }
+            		
+            		break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
@@ -98,6 +118,7 @@
         }
 
         function bbsAssign() {  
+        	
             _bbsAssign();
         }
 
@@ -106,6 +127,12 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
+            
+            //自動產生序號
+            for (var j = 0; j < q_bbsCount; j++) {
+            	$('#ufseq_'+j).empty();
+				$('#ufseq_'+j).append(j+1);
+            }  // j
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -157,6 +184,12 @@
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
+            
+            //自動產生序號
+            for (var j = 0; j < q_bbsCount; j++) {
+            	$('#ufseq_'+j).empty();
+				$('#ufseq_'+j).append(j+1);
+            }  // j
        }
 
         function readonly(t_para, empty) {
@@ -365,7 +398,8 @@
             <td class="td6"><input id="txtMoney"  type="text" class="txt num c1" /></td></tr>        
         <tr>
             <td class='td1'><span> </span><a id="lblWorker" class="lbl"></a></td>
-            <td class="td2"><input id="txtWorker"  type="text"  class="txt c1"/></td></tr>        
+            <td class="td2"><input id="txtWorker"  type="text"  class="txt c1"/></td>
+            <td class="td3"><input type="button" id="btnChk2" class="txt c1 " value="託收匯入"></tr>        
         </table>
         </div>
 		</div>
@@ -373,6 +407,7 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
+                <td align="center" class="td1"></td>
                 <td align="center" class="td1"><a id='lblBanknos'></a></td>
                 <td align="center"><a id='lblBank'></a></td>
                 <td align="center" class="td1"><a id='lblCheckno'></a></td>
@@ -382,6 +417,7 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
+                <td id="ufseq.*" style="width:1%;"></td >
                 <td ><input id="txtBankno.*" type="text" style="width: 80%;"/><input id="btnBankno.*" type="button" style="width: 15%;" value="..."/></td>
                 <td ><input class="txt c1" id="txtBank.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCheckno.*" type="text" /></td>

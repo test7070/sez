@@ -77,7 +77,6 @@
             switch (t_name) {
             	case 'gqb':
             		var as = _q_appendData("gqb", "", true);
-            		var total=0;	//託收金額總計
             		for (var i = 0; i < as.length; i++) {
             			$('#txtNoq_' + i).val(i+1);
 						$('#txtCheckno_' + i).val(as[i].noa);
@@ -86,9 +85,7 @@
 						$('#txtAccount_' + i).val(as[i].account);
 						$('#txtDatea_' + i).val(as[i].indate);
 						$('#txtMoney_' + i).val(as[i].money);
-						total+=dec($('#txtMoney_' + i).val());
 		             }
-		             $('#txtMoney').val(total);
             		break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
@@ -153,6 +150,7 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
+            $('#txtMoney').val(0);
             
             //取消變色
             for (var i = 0; i < q_bbsCount; i++) {
@@ -205,11 +203,6 @@
             	if($('#chkSel_' +j)[0].checked)
 					chksum+=dec($('#txtMoney_'+j).val());
             }  // j
-            if(chksum==0){
-				for (var j = 0; j < q_bbsCount; j++) {
-					chksum+=dec($('#txtMoney_'+j).val());
-            	}  // j
-			}
 			$('#txtMoney').val(chksum);
         }
 
