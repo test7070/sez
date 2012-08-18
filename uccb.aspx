@@ -2,13 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-    <title></title>
-    <script src="../script/jquery.min.js" type="text/javascript"></script>
-    <script src='../script/qj2.js' type="text/javascript"></script>
-    <script src='qset.js' type="text/javascript"></script>
-    <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src="../script/qbox.js" type="text/javascript"></script>
-    <script src='../script/mask.js' type="text/javascript"></script>
+    <title> </title>
+    <script src="../script/jquery.min.js" type="text/javascript"> </script>
+    <script src='../script/qj2.js' type="text/javascript"> </script>
+    <script src='qset.js' type="text/javascript"> </script>
+    <script src='../script/qj_mess.js' type="text/javascript"> </script>
+    <script src="../script/qbox.js" type="text/javascript"> </script>
+    <script src='../script/mask.js' type="text/javascript"> </script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         this.errorHandler = null;
@@ -24,8 +24,9 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtProductno', 'lblProduct', 'ucc', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit', 'ucc_b.aspx'],
-        ['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx']);
+        aPop = new Array(['txtProductno', 'lblProductno', 'ucc', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit', 'ucc_b.aspx'],
+        ['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
+        ['txtUseno', 'lblUseno', 'cust', 'noa,comp', 'txtUseno,txtUse', 'cust_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -410,10 +411,10 @@
             <td class='td7'><span> </span><a id="lblPlace" class="lbl"> </a></td>
             <td class="td8"><select id="txtPlace"  class="txt c1"> </select></td>
             <td class='td9'><span> </span><a id="lblSource" class="lbl"> </a></td>
-            <td class="tdA"><input id="txtSource" type="text" class="txt c1"> </select></td>
+            <td class="tdA"><input id="txtSource" type="text" class="txt c1"/> </td>
         </tr>
         <tr class="tr3">
-            <td class='td1'><span> </span><a id="lblDime" class="lbl btn"> </a></td>
+            <td class='td1'><span> </span><a id="lblDime" class="lbl "> </a></td>
             <td class="td2"><input id="txtDime"  type="text" class="txt c1"/></td>
             <td class='td3'><span> </span><a id="lblWidth" class="lbl"> </a></td>
             <td class="td4"><input id="txtWidth" type="text" class="txt c1" /></td>
@@ -458,7 +459,7 @@
             <td class="td4"><input id="txtOdate"  type="text" class="txt  c1"/> </td>
             <td class='td5'><span> </span><a id="lblGmount" class="lbl"> </a></td>
             <td class="td6"><input id="txtGmount"  type="text" class="txt num c1"/> </td>
-            <td class='td7'><span> </span><a id="lblUseno" class="lbl"> </a></td>
+            <td class='td7'><span> </span><a id="lblUseno" class="lbl btn"> </a></td>
             <td class="td8" colspan="3"><input id="txtUseno"  type="text" class="txt c4"/><input id="txtUse"  type="text" class="txt c5"/> </td>
         </tr>                                                
         </table>
