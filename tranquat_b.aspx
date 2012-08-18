@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'tranquats', t_bbsTag = 'tbbs', t_content = " field=noa,noq,stype,datea,cno,acomp,custno,cust,productno,product,straddrno,straddr,endaddrno,endaddr,mount,unit,price,memo  order=b.datea,a.noa,a.noq ", afilter = [], bbsKey = ['noa', 'noq'], as;
+            var q_name = 'tranquats', t_bbsTag = 'tbbs', t_content = " field=noa,noq,stype,contract,datea,cno,acomp,custno,cust,productno,product,straddrno,straddr,mount,price,thirdprice,memo  order=b.datea,a.noa,a.noq ", afilter = [], bbsKey = ['noa', 'noq'], as;
             //, t_where = '';
             var t_sqlname = 'tranquat_load2';
             t_postname = q_name;
@@ -95,13 +95,12 @@
 					<td class="td1" align="center" style="width:1%;">&nbsp;</td>
 					<td class="td2" align="center" style="width:10%;"><a id='lblNoa'></a></td>
 					<td class="td3" align="center" style="width:4%;"><a id='lblStype'></a></td>
+					<td class="td2" align="center" style="width:10%;"><a id='lblContract'></a></td>
 					<td class="td4" align="center" style="width:5%;"><a id='lblDatea'></a></td>
 					<td class="td5" align="center" style="width:5%;"><a id='lblAcomp'></a></td>
 					<td class="td6" align="center" style="width:10%;"><a id='lblProduct'></a></td>
 					<td class="td7" align="center" style="width:7%;"><a id='lblStraddr'></a></td>
-		
 					<td class="td9" align="center" style="width:5%;"><a id='lblMount'></a></td>
-					<td class="tdA" align="center" style="width:3%;"><a id='lblUnit'></a></td>
 					<td class="tdB" align="center" style="width:5%;"><a id='lblPrice'></a></td>
 					<td class="tdC" align="center" style="width:10%;"><a id='lblMemo'></a></td>
 				</tr>
@@ -113,7 +112,10 @@
 					<input class="txt"  id="txtNoa.*" type="text" style="width:75%;" />
 					<input class="txt"  id="txtNoq.*" type="text" style="width:15%;" />
 					</td>
-					<td class="td3"><select id="cmbStype.*" style="width:95%;"></select></td>
+					<td class="td3"><select id="cmbStype.*" style="width:95%;"> </select></td>
+					<td class="td4">
+					<input class="txt"  id="txtContract.*" type="text" style="width:95%;" />
+					</td>
 					<td class="td4">
 					<input class="txt"  id="txtDatea.*" type="text" style="width:95%;" />
 					</td>
@@ -130,9 +132,6 @@
 
 					<td class="td9">
 					<input class="txt"  id="txtMount.*" type="text" style="width:95%;" />
-					</td>
-					<td class="tdA">
-					<input class="txt"  id="txtUnit.*" type="text" style="width:95%;" />
 					</td>
 					<td class="tdB">
 					<input class="txt"  id="txtPrice.*" type="text" style="width:95%;" />
