@@ -24,9 +24,9 @@
         q_getFormat();
         q_langShow();
 
-        bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+        /*bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
         q_mask(bbmMask);
-        $('#txtBdate').focus();
+        $('#txtBdate').focus();*/
          
     }
 

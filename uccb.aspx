@@ -2,13 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-    <title> </title>
-    <script src="../script/jquery.min.js" type="text/javascript"> </script>
-    <script src='../script/qj2.js' type="text/javascript"> </script>
-    <script src='qset.js' type="text/javascript"> </script>
-    <script src='../script/qj_mess.js' type="text/javascript"> </script>
-    <script src="../script/qbox.js" type="text/javascript"> </script>
-    <script src='../script/mask.js' type="text/javascript"> </script>
+    <title></title>
+    <script src="../script/jquery.min.js" type="text/javascript"></script>
+    <script src='../script/qj2.js' type="text/javascript"></script>
+    <script src='qset.js' type="text/javascript"></script>
+    <script src='../script/qj_mess.js' type="text/javascript"></script>
+    <script src="../script/qbox.js" type="text/javascript"></script>
+    <script src='../script/mask.js' type="text/javascript"></script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         this.errorHandler = null;
@@ -19,22 +19,20 @@
         var q_name = "uccb";
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [];  
-        var bbsNum = [];
+        var bbmNum = [['txtPrice', 11, 3, 1],['txtSprice', 11, 3, 1]];  
+        var bbsNum = [['txtMount', 11, 3, 1], ['txtPrice', 11, 3, 1], ['txtWeight', 11, 3, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtProductno', 'lblProductno', 'ucc', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit', 'ucc_b.aspx'],
+       aPop = new Array(['txtProductno', 'lblProductno', 'ucc', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit', 'ucc_b.aspx'],
         ['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
         ['txtUseno', 'lblUseno', 'cust', 'noa,comp', 'txtUseno,txtUse', 'cust_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
-            brwCount2=5
             q_brwCount();   
-            q_gt(q_name, q_content, q_sqlCount, 1)
-
+           q_gt(q_name, q_content, q_sqlCount, 1)  
         });
 
         //////////////////   end Ready
@@ -44,9 +42,8 @@
                 dataErr = false;
                 return;
             }
-
             mainForm(1); 
-        }  
+        }
         function mainPost() { 
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
@@ -94,7 +91,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('uccb_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('uccb_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   
@@ -128,7 +125,7 @@
         }
 
         function bbsSave(as) {
-            if (!as['product'] ) {  
+            if (!as['coilno'] ) {  
                 as[bbsKey[1]] = '';   
                 return;
             }
@@ -157,7 +154,7 @@
 
         }
 
-        ///////////////////////////////////////////////////  
+        ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
        }
@@ -296,7 +293,7 @@
                 float: left;
             }
             .txt.c4 {
-                width: 28%;
+                width: 27%;
                 float: left;
             }
             .txt.c5 {
@@ -378,9 +375,9 @@
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
-                <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:20%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:25%"><a id='vewProduct'></a></td>
+                <td align="center" style="width:5%"><a id='vewChk'> </a></td>
+                <td align="center" style="width:20%"><a id='vewNoa'> </a></td>
+                <td align="center" style="width:25%"><a id='vewProduct'> </a></td>
                 
             </tr>
              <tr>
@@ -395,9 +392,9 @@
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr class="tr1">
             <td class='td1'><span> </span><a id="lblNoa" class="lbl"> </a></td>
-            <td class="td2" colspan="3"><input id="txtNoa"  type="text" class="txt c1"/></td>
+            <td class="td2" colspan="3"><input id="txtNoa"  type="text" class="txt c7"/></td>
             <td class='td5'><span> </span><a id="lblItypea" class="lbl"> </a></td>
-            <td class="td6"><select id="txtItypea" class="txt c1"> </select></td>
+            <td class="td6"><input id="txtItypea" type="text" class="txt c1" /> </td>
             <td class='td7'><span> </span><a id="lblPrice" class="lbl"> </a></td>
             <td class="td8"><input id="txtPrice"  type="text" class="txt num c1"/> </td>
             <td class='td9'><span> </span><a id="lblSprice" class="lbl"> </a></td>
@@ -409,7 +406,7 @@
             <td class='td5'><span> </span><a id="lblUnit" class="lbl"> </a></td>
             <td class="td6"><input id="txtUnit"  type="text" class="txt c1"/> </td>
             <td class='td7'><span> </span><a id="lblPlace" class="lbl"> </a></td>
-            <td class="td8"><select id="txtPlace"  class="txt c1"> </select></td>
+            <td class="td8"><input id="txtPlace" type="text"  class="txt c1"/></td>
             <td class='td9'><span> </span><a id="lblSource" class="lbl"> </a></td>
             <td class="tdA"><input id="txtSource" type="text" class="txt c1"/> </td>
         </tr>
@@ -426,11 +423,11 @@
         </tr>
         <tr class="tr4">            
             <td class='td1'><span> </span><a id="lblSpec" class="lbl"> </a></td>
-            <td class="td2" colspan="3"><input id="txtSpec" type="text" class="txt c1"/> </td>
+            <td class="td2" colspan="3"><input id="txtSpec" type="text" class="txt c7"/> </td>
             <td class='td5'><span> </span><a id="lblClass" class="lbl"> </a></td>
             <td class="td6"><input id="txtClass" type="text" class="txt c1" /></td>
             <td class='td7'><span> </span><a id="lblSize" class="lbl"> </a></td>
-            <td class="td8" colspan="3"><input id="txtSize" type="text" class="txt c1"/> </td>
+            <td class="td8" colspan="3"><input id="txtSize" type="text" class="txt c7"/> </td>
         </tr>
         <tr class="tr5">
             <td class='td1'><span> </span><a id="lblWeight" class="lbl"> </a></td>
@@ -440,7 +437,7 @@
             <td class='td5'><span> </span><a id="lblHard" class="lbl"> </a></td>
             <td class="td6"><input id="txtHard"  type="text" class="txt num c1"/> </td>
             <td class='td7'><span> </span><a id="lblDescr" class="lbl"> </a></td>
-            <td class="td8" colspan="3"><input id="txtDescr"  type="text" class="txt c1"/> </td>
+            <td class="td8" colspan="3"><input id="txtDescr"  type="text" class="txt c7"/> </td>
         </tr>
         <tr class="tr6">
             <td class='td1'><span> </span><a id="lblGweight" class="lbl"> </a></td>
@@ -450,7 +447,7 @@
             <td class='td5'><span> </span><a id="lblZinc" class="lbl"> </a></td>
             <td class="td6"><input id="txtZinc"  type="text" class="txt  c1"/> </td>
             <td class='td7'><span> </span><a id="lblMemo" class="lbl"> </a></td>
-            <td class="td8" colspan="3"><input id="txtMemo"  type="text" class="txt c1"/> </td>
+            <td class="td8" colspan="3"><input id="txtMemo"  type="text" class="txt c7"/> </td>
         </tr>
         <tr class="tr7">
             <td class='td1'><span> </span><a id="lblEweight" class="lbl"> </a></td>

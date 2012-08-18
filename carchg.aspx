@@ -33,7 +33,8 @@
             	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
             	['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],
             	['txtMinusitemno', 'lblMinusitem', 'chgitem', 'noa,item', 'txtMinusitemno,txtMinusitem', 'chgitem_b.aspx'], 
-            	['txtPlusitemno', 'lblPlusitem', 'chgitem', 'noa,item', 'txtPlusitemno,txtPlusitem', 'chgitem_b.aspx']);
+            	['txtPlusitemno', 'lblPlusitem', 'chgitem', 'noa,item', 'txtPlusitemno,txtPlusitem', 'chgitem_b.aspx'],
+            	['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -421,6 +422,13 @@
 						<td class="td3"><span> </span><a id="lblPlusmoney" class="lbl"> </a></td>
 						<td class="td4">
 						<input id="txtPlusmoney"  type="text" class="txt num c1" />
+						</td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id="lblAcc1" class="lbl btn"> </a></td>
+						<td class="td2" colspan="2">
+						<input id="txtAcc1"  type="text" class="txt c2"/>
+						<input id="txtAcc2"  type="text"  class="txt c3"/>
 						</td>
 					</tr>
 					<tr>

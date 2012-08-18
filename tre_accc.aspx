@@ -421,7 +421,10 @@
 						<td class="td5"><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td class="td6"><input id="txtWorker" type="text" class="txt c5"></td>
 					</tr>
-					
+					<tr>
+						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td class="td2" colspan="5"><textarea id="txtMemo" cols="5" rows="10" style="width: 98%;height: 50px;"> </textarea></td>
+					</tr>
 				</table>
 			</div>
 		</div>

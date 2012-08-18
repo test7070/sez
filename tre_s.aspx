@@ -2,12 +2,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title></title>
-    <script src="../script/jquery.min.js" type="text/javascript"></script>
-    <script src='../script/qj2.js' type="text/javascript"></script>
-    <script src='qset.js' type="text/javascript"></script>
-    <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src='../script/mask.js' type="text/javascript"></script>
+<title> </title>
+    <script src="../script/jquery.min.js" type="text/javascript"> </script>
+    <script src='../script/qj2.js' type="text/javascript"> </script>
+    <script src='qset.js' type="text/javascript"> </script>
+    <script src='../script/qj_mess.js' type="text/javascript"> </script>
+    <script src='../script/mask.js' type="text/javascript"> </script>
 <script type="text/javascript">
     var q_name = "tre_s";
     $(document).ready(function () {
