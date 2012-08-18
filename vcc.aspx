@@ -19,8 +19,8 @@
         }
         q_tables = 's';
         var q_name = "vcc";
-        //var decbbs = [ 'money','total', 'weight', 'mount', 'price', 'sprice', 'dime', 'width', 'lengthb', 'gweight'];
-        //var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney'];
+        var decbbs = [ 'money','total', 'weight', 'mount', 'price', 'sprice', 'dime', 'width', 'lengthb', 'gweight'];
+        var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney'];
         var q_readonly = ['txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight', 'txtOrdeno'];//, 'txtAccno','txtMon','txtSales']; 
         var q_readonlys= ['txtTotal','txtOrdeno','txtNo2'];
         var bbmNum = [['txtPrice', 10, 3], ['txtTranmoney', 11, 2], ['txtMoney', , , 1], ['txtTax', , , 1], ['txtTotal', , , 1], ['txtTotalus', , , 1], ['txtWeight', , , 1]];  // 允許 key 小數
@@ -75,11 +75,9 @@
                 q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true); 
                 //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
             });
-            $('#btnFunc').click(function () {
-                //q_func('t3.func1', "3,4,5")
-                //q_func('t4.func1', "3,4,5")
-                q_gt('trans', "where=^^datea='100/01/03'^^", 0, 0,0,"",r_accy);
-            });
+            $('#btnFunc').click(function () { 
+                q_func( 't3.func1',"3,4,5")
+             });
         }
 
         function q_funcPost(t_func, result) {
@@ -131,10 +129,9 @@
         }
 
 
+
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
-                case 'trans':
-                    var as = _q_appendData("trans");
                 case q_name: if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
@@ -280,10 +277,6 @@
             calTax();
         }
 
-        function q_stPost() {
-            abbm[q_recno]['accno'] = xmlString;
-            $('#txtAccno').val(xmlString);
-        }
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
@@ -414,6 +407,7 @@
 <body>
     <form id="form1" runat="server" style="height: 100%">
         <!--#include file="../inc/toolbar.inc"-->
+
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
@@ -437,13 +431,13 @@
             <tr>
                <td class="label1"  align="right"><a id='lblType'></a></td>
                <td class="column1" >
-               <select id="cmbTypea" style='width:100%;'></select></td>
-               <td class="column2" align='right' ><a id='lblStype'></a><select id="cmbStype" style='width:70%;'></select></td>
+               <select id="cmbTypea" style='width:100%;'/></td>
+               <td class="column2" align='right' ><a id='lblStype'></a><select id="cmbStype" style='width:70%;'/></td>
                <td class="label2" align="right" ><a id='lblDatea'></a></td>
                <td class="column3"><input id="txtDatea" maxlength='10' type="text"  style='width:97%;'/></td>
                <td class="column4" ><input id="btnOrde" type="button" value='.' style='width: auto; font-size:  medium;'  /></td>
                <td class="label3" align="right"><a id='lblNoa'></a></td>
-               <td class="column2" ><input id="txtNoa"   type="text"  maxlength='30'   style='width:94%;' class='inputbox' /></td> 
+               <td class="column2" ><input id="txtNoa"   type="text"  maxlength='30'   style='width:94%;' class='inputbox'  "/></td> 
             </tr>
      
             <tr>
@@ -451,7 +445,7 @@
                <td class="column1" ><input id="txtCno"  type="text" maxlength='10' style='width:100%;' /></td>
                <td class="column2" ><input id="txtAcomp"    type="text" maxlength='90'  style='width:100%;'/></td>
                 <td align="right" class="style2" ><a id='lblFloata'></a></td>
-                <td class="column3" ><select id="cmbCoin" style='width:100%' ></select></td>                 
+                <td class="column3" ><select id="cmbCoin" style='width:100%'  /> </td>                 
                 <td class="column4" ><input id="txtFloata"    type="text"  maxlength='10' style='width:100%' /></td>                 
                 <td align="right" class="style2"><a id='lblInvono'></a></td>
                 <td class="column2"><input id="txtInvo"    type="text"  maxlength='10' style='width:94%;'/></td> 
@@ -463,7 +457,7 @@
                 <td ><input id="txtComp"  type="text" maxlength='90'  style='width:100%;'/></td>
                 <td align="right"><a id='lblPay'></a></td>
                 <td ><input id="txtPay" type="text" maxlength='10' style='width:97%' /></td> 
-                <td> <select id="combPay" style='width:100%' onchange='combPay_chg()'></select></td> 
+                <td> <select id="combPay" style='width:100%' onchange='combPay_chg()' /></td> 
                 <td align="right"><input id="btnOrdes" type="button" value='.' style='width: auto; font-size:  medium;'  /></td>
                 <td><input id="txtOrdeno"  type="text"  maxlength='20' style='width:94%' /></td> 
             </tr>
@@ -472,7 +466,7 @@
                 <td align="right" class="style1" ><a id='lblTel'></a></td>
                 <td colspan='2' class="style1"><input id="txtTel"    type="text"  maxlength='90' style='width:100%;'/></td>
                 <td align="right" class="style1"><a id='lblTrantype'></a></td>
-                <td  colspan='2' class="style1"><select id="cmbTrantype" style='width:100%' ></select></td> 
+                <td  colspan='2' class="style1"><select id="cmbTrantype" style='width:100%' /></td> 
                 <td align="right" class="style1" ><a id='lblMon'></a></td>
                 <td class="style1"><input id="txtMon"    type="text" maxlength='10'  style='width:94%;'/></td> 
             </tr>
@@ -510,7 +504,7 @@
                 <td colspan='2'><input id="txtMoney"    type="text"  maxlength='20'style='width:100%; text-align:center;'/></td> 
                 <td align="right" ><a id='lblTax'></a></td>
                 <td><input id="txtTax"    type="text" maxlength='20' style='width:100%; text-align:center;'/></td>
-                <td><select id="cmbTaxtype" style='width:100%'  onchange='calTax()' ></select></td>
+                <td><select id="cmbTaxtype" style='width:100%'  onchange='calTax()' /></td>
                 <td align="right"><a id='lblTotal'></a></td>
                 <td ><input id="txtTotal"    type="text" maxlength='20' style='width:94%; text-align:center;'/>
                 </td> 
