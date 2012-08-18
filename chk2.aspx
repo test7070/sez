@@ -24,8 +24,8 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx'],['txtBank_', 'btnBank_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']);        
-
+        aPop = new Array(['txtBankno', 'lblBank', 'bank', 'noa,bank,account,acc1', 'txtBankno,txtBank,txtAccount,txtAccl', 'bank_b.aspx']);        
+		//aPop = new Array(['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx'],['txtBank_', 'btnBank_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -457,7 +457,7 @@
                 <td ><input id="chkSel.*" type="checkbox"/></td>
                 <td ><input class="txt c1" id="txtNoq.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCheckno.*" type="text" /></td>
-                <td ><input id="txtBank.*" type="text" style="width: 80%;"/><input id="btnBank.*" type="button" value="..." style="width: 16%;"/></td>
+                <td ><input id="txtBank.*" type="text" style="width: 100%;"/><!--<input id="btnBank.*" type="button" value="..." style="width: 16%;"/></td>-->
                 <td ><input class="txt c1" id="txtBankno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtAccount.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtDatea.*" type="text" /></td>
