@@ -2,13 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-    <title></title>
-    <script src="../script/jquery.min.js" type="text/javascript"></script>
-    <script src='../script/qj2.js' type="text/javascript"></script>
-    <script src='qset.js' type="text/javascript"></script>
-    <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src="../script/qbox.js" type="text/javascript"></script>
-    <script src='../script/mask.js' type="text/javascript"></script>
+    <title> </title>
+    <script src="../script/jquery.min.js" type="text/javascript"> </script>
+    <script src='../script/qj2.js' type="text/javascript"> </script>
+    <script src='qset.js' type="text/javascript"> </script>
+    <script src='../script/qj_mess.js' type="text/javascript"> </script>
+    <script src="../script/qbox.js" type="text/javascript"> </script>
+    <script src='../script/mask.js' type="text/javascript"> </script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         this.errorHandler = null;
@@ -257,7 +257,7 @@
             .tbbm tr {
                 height: 35px;
             }
-            .tbbm tr td1, {
+            .tbbm tr .td1, .td2, .td3, .td4, .td5, .td6{
                 width: 9%;
             }
             .tbbm .tdZ {
@@ -287,11 +287,11 @@
                 float: left;
             }
             .txt.c2 {
-                width: 70%;
-                float: right;
+                width: 14%;
+                float: left;
             }
             .txt.c3 {
-                width: 47%;
+                width: 26%;
                 float: left;
             }
             .txt.c4 {
@@ -377,9 +377,9 @@
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
-                <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:20%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:25%"><a id='vewDatea'></a></td>
+                <td align="center" style="width:5%"><a id='vewChk'> </a></td>
+                <td align="center" style="width:20%"><a id='vewNoa'> </a></td>
+                <td align="center" style="width:25%"><a id='vewDatea'> </a></td>
                 
             </tr>
              <tr>
@@ -395,7 +395,6 @@
         <tr class="tr1">
             <td class='td1'><span> </span><a id="lblNoa" class="lbl"> </a></td>
             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-            <td class="tdZ"></td>
             <td class='td3'> </td>
             <td class="td4"> </td>
             <td class="td5"> </td>
@@ -403,23 +402,21 @@
         <tr class="tr2">
             <td class='td1'><span> </span><a id="lblDatea" class="lbl"> </a></td>
             <td class="td2"><input id="txtDatea"  type="text" class="txt c1"/></td>
-            <td class="tdZ"></td>
             <td class='td3'><span> </span><a id="lblTypea" class="lbl"> </a></td>
             <td class="td4"><select id="cmbTypea" class="txt c1"> </select></td>
             <td class="td5"> </td>
         </tr>
         <tr class="tr3">            
             <td class='td1'><span> </span><a id="lblStore" class="lbl btn"> </a></td>
-            <td class="td2"><input id="txtStoreno" type="text" class="txt c4"/><input id="txtStore" type="text" class="txt c5"/></td>
-            <td class='tdZ'><a id="lblSymbol" class="lbl" style="font-weight: bold;font-size: 24px;float: center;"> </a></td>
-           	<td class="td3"><span> </span><a id="lblStore2" class="lbl btn"> </a></td>
-            <td class="td4"><input id="txtStoreno2" type="text" class="txt c4"/><input id="txtStore2" type="text" class="txt c5"/></td>
+            <td class="td2" colspan="3"><input id="txtStoreno" type="text" class="txt c2"/><input id="txtStore" type="text" class="txt c3"/>
+            <a id="lblSymbol" class="lbl" style="font-weight: bold;font-size: 24px;width: 6%;float: left;"> </a>
+           	<a id="lblStore2" class="lbl btn" style="width: 8%;float: left;"> </a>
+            <input id="txtStoreno2" type="text" class="txt c2"/><input id="txtStore2" type="text" class="txt c3"/></td>
         	<td class="td5"> </td>
         </tr>
         <tr class="tr4">
             <td class='td1'><span> </span><a id="lblWaste" class="lbl"> </a></td>
             <td class="td2"><input id="txtWaste"  type="text" class="txt c1"/> </td>
-            <td class="tdZ"></td>
             <td class='td3'> </td>
             <td class="td4"> </td>
             <td class="td5"> </td>
@@ -430,23 +427,23 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" class="td1"><a id='lblStoreno_s'></a></td>
-                <td align="center" class="td1"><a id='lblUno_s'></a></td>
-                <td align="center" class="td1"><a id='lblProductno_s'></a></td>
-                <td align="center" class="td1"><a id='lblSpec_s'></a></td>
-                <td align="center" class="td1"><a id='lblDime_s'></a></td>
-                <td align="center" class="td1"><a id='lblWidth_s'></a></td>
-                <td align="center" class="td1"><a id='lblLength_s'></a></td>
-                <td align="center" class="td1"><a id='lblMount_s'></a></td>
-                <td align="center" class="td2"><a id='lblEweight_s'></a></td>
-                <td align="center" class="td2"><a id='lblMemo_s'></a></td>
-                <td align="center" class="td2"><a id='lblAdjweight_s'></a></td>
-                <td align="center" class="td2"><a id='lblPrice_s'></a></td>
-                <td align="center" class="td2"><a id='lblEweight2_s'></a></td>
-                <td align="center" class="td2"><a id='lblTotal_s'></a></td>
-                <td align="center" class="td2"><a id='lblStore_s'></a></td>
-                <td align="center" class="td1"><a id='lblRadiu_s'></a></td>
-                <td align="center" class="td3"><a id='lblProduct_s'></a></td>
+                <td align="center" class="td1"><a id='lblStoreno_s'> </a></td>
+                <td align="center" class="td1"><a id='lblUno_s'> </a></td>
+                <td align="center" class="td1"><a id='lblProductno_s'> </a></td>
+                <td align="center" class="td1"><a id='lblSpec_s'> </a></td>
+                <td align="center" class="td1"><a id='lblDime_s'> </a></td>
+                <td align="center" class="td1"><a id='lblWidth_s'> </a></td>
+                <td align="center" class="td1"><a id='lblLength_s'> </a></td>
+                <td align="center" class="td1"><a id='lblMount_s'> </a></td>
+                <td align="center" class="td2"><a id='lblEweight_s'> </a></td>
+                <td align="center" class="td2"><a id='lblMemo_s'> </a></td>
+                <td align="center" class="td2"><a id='lblAdjweight_s'> </a></td>
+                <td align="center" class="td2"><a id='lblPrice_s'> </a></td>
+                <td align="center" class="td2"><a id='lblEweight2_s'> </a></td>
+                <td align="center" class="td2"><a id='lblTotal_s'> </a></td>
+                <td align="center" class="td2"><a id='lblStore_s'> </a></td>
+                <td align="center" class="td1"><a id='lblRadiu_s'> </a></td>
+                <td align="center" class="td3"><a id='lblProduct_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
@@ -474,3 +471,4 @@
         <input id="q_sys" type="hidden" />
 </body>
 </html>
+ 

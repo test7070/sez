@@ -9,7 +9,7 @@
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = "uccc_s";
+    var q_name = "uccb_s";
 
     $(document).ready(function () {
         main();

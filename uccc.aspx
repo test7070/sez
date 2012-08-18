@@ -26,7 +26,7 @@
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         aPop = new Array(['txtProductno', 'lblProduct', 'ucc', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit', 'ucc_b.aspx'],
         ['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
-        ['txtUseno', 'lblUseno', 'cust', 'noa,comp', 'txtUseno,txtUse', 'cust_b.aspx'],
+        ['txtUseno', 'lblUseno', 'cust', 'noa,comp', 'txtUseno,txtUsea', 'cust_b.aspx'],
         ['txtProductno_', '', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
         ['txtStoreno_', '', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']);
 
@@ -421,7 +421,7 @@
             <td class='td3'><span> </span><a id="lblWidth" class="lbl"> </a></td>
             <td class="td4"><input id="txtWidth" type="text" class="txt c1" /></td>
             <td class='td5'><span> </span><a id="lblLength" class="lbl"> </a></td>
-            <td class="td6"><input id="txtLength" type="text"  class="txt c1" /></td>
+            <td class="td6"><input id="txtLengthb" type="text"  class="txt c1" /></td>
             <td class='td7'><span> </span><a id="lblStoreno" class="lbl btn"> </a></td>
             <td class="td8" colspan="3"><input id="txtStoreno" type="text" class="txt c4" />
             	<input id="txtStore" type="text" class="txt c5" /></td>
@@ -462,7 +462,7 @@
             <td class='td5'><span> </span><a id="lblGmount" class="lbl"> </a></td>
             <td class="td6"><input id="txtGmount"  type="text" class="txt num c1"/> </td>
             <td class='td7'><span> </span><a id="lblUseno" class="lbl btn"> </a></td>
-            <td class="td8" colspan="3"><input id="txtUseno"  type="text" class="txt c4"/><input id="txtUse"  type="text" class="txt c5"/> </td>
+            <td class="td8" colspan="3"><input id="txtUseno"  type="text" class="txt c4"/><input id="txtUsea"  type="text" class="txt c5"/> </td>
         </tr>                                                
         </table>
         </div>
@@ -488,7 +488,7 @@
                 <td ><input class="txt c1" id="txtSpec.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtDime.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtWidth.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtLength.*" type="text"/></td>
+                <td ><input class="txt num c1" id="txtLengthb.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtMount.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtWeight.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtPrice.*" type="text" /></td>
