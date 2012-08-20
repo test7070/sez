@@ -404,6 +404,14 @@
 						<td class="td4"><input id="txtChkeno" type="text"  class="txt c1"/> </td>
 					</tr>
 					<tr>
+						<td class="td1"><span> </span><a id='lblAccount' class="lbl">  </a></td>
+						<td class="td2"><input id="txtAccount"  type="text"  class="txt c1"/></td>
+						<td class="td3"> </td>
+						<td class="td4"> </td>
+						<td class="td5"> </td>
+						<td class="td6"> </td>
+					</tr>
+					<tr>
 						<td class="td1" ><span> </span><a id="lblAccno1" class="lbl btn"> </a></td>
 						<td class="td2" ><input id="txtAccno1" type="text"  class="txt c1"/></td>
 						<td class="td3" ><span> </span><a id="lblAccno2" class="lbl btn"> </a></td>
