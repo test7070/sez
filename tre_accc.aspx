@@ -19,7 +19,7 @@
 
 			var q_name = "tre_accc";
 			var q_readonly = ['txtNoa','txtWorker','txtPaybno','txtPayeno','txtChkeno','txtAccno1','txtAccno2','txtAccno3'];
-			var bbmNum = [];
+			var bbmNum = [['txtOpay', 11, 0, 1],['txtUnopay', 11, 0, 1]];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -27,7 +27,7 @@
 			brwNowPage = 0;
 			brwKey = 'noa';
 			//ajaxPath = ""; //  execute in Root
-			//aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+			aPop = new Array(['txtDriverno', 'lblDriverno', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']);
 			//['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
 			//['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b.aspx']);
 			$(document).ready(function() {
@@ -135,7 +135,7 @@
 				if (q_cur > 0 && q_cur < 4)// 1-3
 					return;
 
-				q_box('traneprice_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+				q_box('tre_accc_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
 			}
 
 			function btnIns() {
@@ -261,7 +261,7 @@
             }
             .dbbm {
                 float: left;
-                width: 65%;
+                width: 80%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -321,11 +321,11 @@
                 float: left;
             }
             .tbbm tr td .txt.c4 {
-                width: 19%;
+                width:30%;
                 float: left;
             }
             .tbbm tr td .txt.c5 {
-                width: 95%;
+                width: 70%;
                 float: left;
             }
             .tbbm tr td .txt.num {
@@ -365,11 +365,13 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:25%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:40%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:25%"><a id='vewDriver'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox"/></td>
-						<td align="center" id='datea'>~datea</td>
+						<td align="center" id='bdate edate'>~bdate ~edate</td>
+						<td align="center" id='driver'>~driver</td>
 					</tr>
 				</table>
 			</div>
@@ -396,6 +398,17 @@
 						<td align="center"><a id="lblSymbol"  style="font-weight: bold;font-size: 24px;"> </a></td>
 						<td class="td4"><input id="txtEdate" type="text"  class="txt c1"/> </td>
 						<td class="td5"> </td>
+					</tr>
+					<tr>
+					<div _opay>
+						<td class="td1"><span> </span><a id='lblDriverno' class="lbl btn">  </a></td>
+						<td class="td2"><input id="txtDriverno"  type="text"  class="txt c2"/>
+										<input id="txtDriver"  type="text"  class="txt c3"/> </td>
+						<td class="td3"><span> </span><a id='lblOpay' class="lbl">  </a></td>
+						<td class="td4"><input id="txtOpay"  type="text"  class="txt num c1"/> </td>
+						<td class="td5"><span> </span><a id='lblUnopay' class="lbl">  </a> </td>
+						<td class="td6"><input id="txtUnopay"  type="text"  class="txt num c1"/> </td>
+					</div _opay>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblChkbno' class="lbl">  </a></td>
@@ -427,7 +440,7 @@
 						<td align="center"><a id="lblPayeno"  style="font-weight: bold;font-size: 24px;"> </a></td>
 						<td class="td4"><input id="txtPayeno" type="text"  class="txt c1"/> </td>
 						<td class="td5"><span> </span><a id="lblWorker" class="lbl"> </a></td>
-						<td class="td6"><input id="txtWorker" type="text" class="txt c5"></td>
+						<td class="td6"><input id="txtWorker" type="text" class="txt c1"></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>

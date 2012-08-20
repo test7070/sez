@@ -2,13 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-    <title></title>
-     <script src="../script/jquery.min.js" type="text/javascript"></script>
-    <script src='../script/qj2.js' type="text/javascript"></script>
-    <script src='qset.js' type="text/javascript"></script>
-    <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src="../script/qbox.js" type="text/javascript"></script>
-    <script src='../script/mask.js' type="text/javascript"></script>
+    <title> </title>
+     <script src="../script/jquery.min.js" type="text/javascript"> </script>
+    <script src='../script/qj2.js' type="text/javascript"> </script>
+    <script src='qset.js' type="text/javascript"> </script>
+    <script src='../script/qj_mess.js' type="text/javascript"> </script>
+    <script src="../script/qbox.js" type="text/javascript"> </script>
+    <script src='../script/mask.js' type="text/javascript"> </script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
     
@@ -20,46 +20,46 @@
         var q_name = "get";
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [];  // ¤¹³\ key ¤p¼Æ
+        var bbmNum = [];  // ï¿½ï¿½ï¿½\ key ï¿½pï¿½ï¿½
         var bbsNum = [];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
-        //ajaxPath = ""; // ¥u¦b®Ú¥Ø¿ý°õ¦æ¡A¤~»Ý³]©w
+        //ajaxPath = ""; // ï¿½uï¿½bï¿½Ú¥Ø¿ï¿½ï¿½ï¿½ï¿½Aï¿½~ï¿½Ý³]ï¿½w
         aPop = new Array(['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
-            q_brwCount();  // ­pºâ ¦X¾A  brwCount 
-             q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)  /// q_sqlCount=³Ì«e­± top=µ§¼Æ¡A q_init ¬°¸ü¤J q_sys.xml »P q_LIST
+            q_brwCount();  // ï¿½pï¿½ï¿½ ï¿½Xï¿½A  brwCount 
+             q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)  /// q_sqlCount=ï¿½Ì«eï¿½ï¿½ top=ï¿½ï¿½ï¿½Æ¡A q_init ï¿½ï¿½ï¿½ï¿½J q_sys.xml ï¿½P q_LIST
 
         });
 
         //////////////////   end Ready
        function main() {
-           if (dataErr)  /// ¸ü¤J¸ê®Æ¿ù»~
+           if (dataErr)  /// ï¿½ï¿½Jï¿½ï¿½Æ¿ï¿½~
            {
                dataErr = false;
                return;
            }
-            mainForm(1); // 1=³Ì«á¤@µ§  0=²Ä¤@µ§
+            mainForm(1); // 1=ï¿½Ì«ï¿½@ï¿½ï¿½  0=ï¿½Ä¤@ï¿½ï¿½
         }  ///  end Main()
 
        
 
-        function mainPost() { // ¸ü¤J¸ê®Æ§¹¡A¥¼ refresh «e
+        function mainPost() { // ï¿½ï¿½Jï¿½ï¿½Æ§ï¿½ï¿½Aï¿½ï¿½ refresh ï¿½e
             q_getFormat();
             bbmMask = [['txtDatea', r_picd], ['txtCucdate', r_picd]];
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('get.typea'));
-            // »Ý¦b main_form() «á°õ¦æ¡A¤~·|¸ü¤J ¨t²Î°Ñ¼Æ
+            // ï¿½Ý¦b main_form() ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½~ï¿½|ï¿½ï¿½J ï¿½tï¿½Î°Ñ¼ï¿½
 
         }
 
-        function q_boxClose( s2) { ///   q_boxClose 2/4 /// ¬d¸ßµøµ¡¡B«È¤áµøµ¡¡B³ø»ùµøµ¡  Ãö³¬®É°õ¦æ
+        function q_boxClose( s2) { ///   q_boxClose 2/4 /// ï¿½dï¿½ßµï¿½Bï¿½È¤ï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½É°ï¿½ï¿½ï¿½
             var ret; 
-            switch (b_pop) {   /// ­«­n¡G¤£¥i¥Hª½±µ return ¡A³Ì«á»Ý°õ¦æ originalClose();
-                case 'tgg':  ////  ª½±µ key in ½s¸¹¡A±a¤J form
+            switch (b_pop) {   /// ï¿½ï¿½ï¿½nï¿½Gï¿½ï¿½ï¿½iï¿½Hï¿½ï¿½ï¿½ï¿½ return ï¿½Aï¿½Ì«ï¿½Ý°ï¿½ï¿½ï¿½ originalClose();
+                case 'tgg':  ////  ï¿½ï¿½ï¿½ï¿½ key in ï¿½sï¿½ï¿½ï¿½Aï¿½aï¿½J form
                     q_changeFill(t_name, 'txtTggno,txtComp,txtTel,txtPost,txtAddr,txtPay,cmbTrantype', 'noa,comp,tel,post_fact,addr_fact,pay,trantype');
                     break;
 
@@ -86,11 +86,11 @@
                         var i, j = 0;
                         ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2', b_ret.length, b_ret
                                                            , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2'
-                                                           , 'txtProductno,txtProduct,txtSpec');   /// ³Ì«á aEmpField ¤£¥i¥H¦³¡i¼Æ¦rÄæ¦ì¡j
+                                                           , 'txtProductno,txtProduct,txtSpec');   /// ï¿½Ì«ï¿½ aEmpField ï¿½ï¿½ï¿½iï¿½Hï¿½ï¿½ï¿½iï¿½Æ¦rï¿½ï¿½ï¿½j
                         bbsAssign();
 
                         for (i = 0; i < ret.length; i++) {
-                            k = ret[i];  ///ret[i]  Àx¦s tbbs «ü¼Ð
+                            k = ret[i];  ///ret[i]  ï¿½xï¿½s tbbs ï¿½ï¿½ï¿½
                             if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
                                 $('#txtMount_' + k).val(b_ret[i]['notv']);
                                 $('#txtWeight_' + k).val(divide0(b_ret[i]['weight'] * b_ret[i]['notv'], b_ret[i]['mount']));
@@ -112,21 +112,21 @@
         }
 
 
-        function q_gtPost(t_name) {  /// ¸ê®Æ¤U¸ü«á ...
+        function q_gtPost(t_name) {  /// ï¿½ï¿½Æ¤Uï¿½ï¿½ï¿½ ...
             switch (t_name) {
-                case 'ucc':  ////  ª½±µ key in ½s¸¹¡A±a¤J form
+                case 'ucc':  ////  ï¿½ï¿½ï¿½ï¿½ key in ï¿½sï¿½ï¿½ï¿½Aï¿½aï¿½J form
                     q_changeFill(t_name, 'txtProductno_' + b_seq + ',txtProduct_' + b_seq + ',txtUnit_' + b_seq, 'noa,product,unit');
                     break;
 
-                case 'store':  ////  ª½±µ key in ½s¸¹¡A±a¤J form
+                case 'store':  ////  ï¿½ï¿½ï¿½ï¿½ key in ï¿½sï¿½ï¿½ï¿½Aï¿½aï¿½J form
                     q_changeFill(t_name, 'txtStoreno,txtStore', 'noa,store');
                     break;
 
-                case 'station':  ////  ª½±µ key in ½s¸¹¡A±a¤J form
+                case 'station':  ////  ï¿½ï¿½ï¿½ï¿½ key in ï¿½sï¿½ï¿½ï¿½Aï¿½aï¿½J form
                     q_changeFill(t_name, 'txtStationno,txtStation', 'noa,station');
                     break;
 
-                case q_name: if (q_cur == 4)   // ¬d¸ß
+                case q_name: if (q_cur == 4)   // ï¿½dï¿½ï¿½
                         q_Seek_gtPost();
                     break;
             }  /// end switch
@@ -136,7 +136,7 @@
 //            var t_custno = trim($('#txtCustno').val());
 //            var t_where='';
 //            if (t_custno.length > 0) {
-//                t_where = "enda='N' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");  ////  sql AND »yªk¡A½Ð¥Î &&  
+//                t_where = "enda='N' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");  ////  sql AND ï¿½yï¿½kï¿½Aï¿½Ð¥ï¿½ &&  
 //                t_where =  t_where ;
 //            }
 //            else {
@@ -144,11 +144,11 @@
 //                return;
 //            }
 
-//            q_box('ordes_b.aspx', 'ordes;' + t_where , "95%", "650px", "³ø»ùµøµ¡");
+//            q_box('ordes_b.aspx', 'ordes;' + t_where , "95%", "650px", "ï¿½ï¿½ï¿½ï¿½");
 //        }
 
         function btnOk() {
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // ÀË¬dªÅ¥Õ 
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // ï¿½Ë¬dï¿½Å¥ï¿½ 
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
@@ -158,7 +158,7 @@
             sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
-            if (s1.length == 0 || s1 == "AUTO")   /// ¦Û°Ê²£¥Í½s¸¹
+            if (s1.length == 0 || s1 == "AUTO")   /// ï¿½Û°Ê²ï¿½ï¿½Í½sï¿½ï¿½
                 q_gtnoa(q_name, replaceAll('A' + $('#txtDatea').val(), '/', ''));
             else
                 wrServer(s1);
@@ -171,24 +171,24 @@
             q_box('get_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
-        function combPay_chg() {   /// ¥u¦³ comb ¶}ÀY¡A¤~»Ý­n¼g onChange()   ¡A¨ä¾l cmb ³sµ²¸ê®Æ®w
+        function combPay_chg() {   /// ï¿½uï¿½ï¿½ comb ï¿½}ï¿½Yï¿½Aï¿½~ï¿½Ý­nï¿½g onChange()   ï¿½Aï¿½ï¿½l cmb ï¿½sï¿½ï¿½ï¿½ï¿½Æ®w
         }
 
-        function bbsAssign() {  /// ªí¨­¹Bºâ¦¡
+        function bbsAssign() {  /// ï¿½?ï¿½Bï¿½â¦¡
             _bbsAssign();
             for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
                 $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
                 $('#btnProductno_' + j).click(function () {
-                    t_IdSeq = -1;  /// ­n¥ýµ¹  ¤~¯à¨Ï¥Î q_bodyId()
+                    t_IdSeq = -1;  /// ï¿½nï¿½ï¿½  ï¿½~ï¿½ï¿½Ï¥ï¿½ q_bodyId()
                     q_bodyId($(this).attr('id'));
                     b_seq = t_IdSeq;
                     pop('ucc');
                  });
                  $('#txtProductno_' + j).change(function () {
-                     t_IdSeq = -1;  /// ­n¥ýµ¹  ¤~¯à¨Ï¥Î q_bodyId()
+                     t_IdSeq = -1;  /// ï¿½nï¿½ï¿½  ï¿½~ï¿½ï¿½Ï¥ï¿½ q_bodyId()
                      q_bodyId($(this).attr('id'));
                      b_seq = t_IdSeq;
-                     q_change($(this), 'ucc', 'noa', 'noa,product,unit');  /// ±µ q_gtPost()
+                     q_change($(this), 'ucc', 'noa', 'noa,product,unit');  /// ï¿½ï¿½ q_gtPost()
                  });
 
             } //j
@@ -217,9 +217,9 @@
             _btnOk(key_value, bbmKey[0],bbsKey[1],'',2);
         }
 
-        function bbsSave(as) {   /// ªí¨­ ¼g¤J¸ê®Æ®w«e¡A¼g¤J»Ý­nÄæ¦ì
-            if (!as['productno']) {  //¤£¦sÀÉ±ø¥ó
-                as[bbsKey[1]] = '';   /// no2 ¬°ªÅ¡A¤£¦sÀÉ
+        function bbsSave(as) {   /// ï¿½? ï¿½gï¿½Jï¿½ï¿½Æ®wï¿½eï¿½Aï¿½gï¿½Jï¿½Ý­nï¿½ï¿½ï¿½
+            if (!as['productno']) {  //ï¿½ï¿½ï¿½sï¿½É±ï¿½ï¿½
+                as[bbsKey[1]] = '';   /// no2 ï¿½ï¿½ï¿½Å¡Aï¿½ï¿½ï¿½sï¿½ï¿½
                 return;
             }
 

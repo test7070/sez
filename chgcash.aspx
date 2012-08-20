@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -63,7 +63,16 @@
             $('#combDc').change(function () {
                     var i = parseInt($('#combDc').val(), 0);
                     $('#txtDc').val(i);
-             });
+                });
+
+                $('#txtAcc1').change(function () {
+                    var s1 = trim($(this).val());
+                    if (s1.length > 4 && s1.indexOf('.') < 0)
+                        $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
+                    if (s1.length == 4)
+                        $(this).val(s1 + '.');
+                });
+
         	//-------------------------------------------------
         	
         }
