@@ -407,11 +407,11 @@
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
                 <td style="width:10%;"><input  id="txtProductno.*" type="text" style="width:80%;" /><input class="btn"  id="btnProductno.*" type="button" value='...' style="width:16%;"  /></td>
-                <td style="width:15%;"><input class="txt c1" id="txtProduct.*" type="text" /></td>
+                <td style="width:15%;"><input class="txt c1" id="txtProduct.*" type="text" /> </td>
                 <td style="width:4%;"><input class="txt c1" id="txtUnit.*" type="text"/></td>
                 <td style="width:18%;"><input class="txt num c7" id="txtDime.*" type="text" /> x
                                     <input class="txt num c7" id="txtWidth.*" type="text" /> x
-                                    <input class="txt num c7" id="txtLengthb.*" type="text" />
+                                    <input class="txt num c7" id="txtLengthb.*" type="text" /> 
                                     <input class="txt c1" id="txtSpec.*" type="text"/> </td>
                 <td style="width:8%;"><input class="txt num c1" id="txtMount.*" type="text"  /></td>
                 <td style="width:8%;"><input class="txt num c1" id="txtGweight.*" type="text"/></td>
