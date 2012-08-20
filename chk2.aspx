@@ -19,8 +19,8 @@
         var q_name = "chk2";
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [];  
-        var bbsNum = [];
+        var bbmNum = [['txtMoney',12 , , 1]];  
+        var bbsNum = [['txtMoney',12 , , 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
