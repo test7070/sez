@@ -19,8 +19,8 @@
         var q_name = "uf";
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [];  
-        var bbsNum = [];
+        var bbmNum = [['txtMoney',12 , , 1]];  
+        var bbsNum = [['txtMoney',12 , , 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
@@ -51,16 +51,7 @@
             q_mask(bbmMask);
              q_cmbParse("cmbTypea", q_getPara('uf.typea')); 
              
-	        //........................託收匯入
-	        $('#btnChk2s').click(function () {
-	        	var t_where="";
-	        	if($('#txtBankno').val()=="" || $('#txtBankno').val()==" " )	//到期日之前的資料全部匯入
-	        		t_where = "where=^^ datea <='"+$('#txtDatea').val()+"' sel='1' ^^";
-	        	else	//到期日的銀行代號匯入
-	        		t_where = "where=^^ bankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' and sel='1' ^^";
-	            q_gt('chk2s', t_where, 0, 0);	//查詢資料
-	        });
-	        //......................... 
+	        
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -76,8 +67,8 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-            	case 'chk2s':
-            		var as = _q_appendData("chk2s", "", true);
+            	case 'chk2':
+            		var as = _q_appendData("chk2", "", true);
             		if(as.length>q_bbsCount){
             			q_gridAddRow(bbsHtm, 'tbbs', '', as.length-1, as, '', '');
             			//自動產生序號
@@ -151,6 +142,17 @@
                 return;
             _btnModi();
             $('#txtProduct').focus();
+            
+            //........................託收匯入
+	        $('#btnGqb').click(function () {
+	        	var t_where="";
+	        	if($('#txtBankno').val()=="" || $('#txtBankno').val()==" " )	//到期日之前的資料全部匯入
+	        		t_where = "where=^^ datea <='"+$('#txtDatea').val()+"' ^^";//t_where = "where=^^ datea <='"+$('#txtDatea').val()+"' sel='1' ^^";
+	        	else	//到期日的銀行代號匯入
+	        		t_where = "where=^^ bankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' ^^";//t_where = "where=^^ bankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' and sel='1' ^^";
+	        	q_gt('chk2', t_where, 0, 0);	//查詢資料,暫時用chk2的資料後面要帶gqb&chk2s
+	        });
+	        //......................... 
         }
         function btnPrint() {
 
@@ -418,7 +420,7 @@
         <tr>
             <td class='td1'><span> </span><a id="lblWorker" class="lbl"></a></td>
             <td class="td2"><input id="txtWorker"  type="text"  class="txt c1"/></td>
-            <td class="td3"><input type="button" id="btnChk2s" class="txt c1 " value="託收匯入"></tr>        
+            <td class="td3"><input type="button" id="btnGqb" class="txt c1 " value="託收匯入"></tr>        
         </table>
         </div>
 		</div>

@@ -19,8 +19,8 @@
         var q_name = "chk2";
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [];  
-        var bbsNum = [];
+        var bbmNum = [['txtMoney',12 , , 1]];  
+        var bbsNum = [['txtMoney',12 , , 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
@@ -436,7 +436,7 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" class="td0"><a id='lblchk'></a></td>
+                <td align="center" class="td0"><a id='vewChks'></a></td>
                 <td align="center" style="width:5%"><a id='lblNoas'></a></td>
                 <td align="center" class="td2"><a id='lblCheckno'></a></td>
                 <td align="center" style="width:20%"><a id='lblBanks'></a></td>
