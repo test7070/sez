@@ -436,7 +436,7 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" class="td0"><a id='lblchk'></a></td>
+                <td align="center" class="td0"><a id='vewChks'></a></td>
                 <td align="center" style="width:5%"><a id='lblNoas'></a></td>
                 <td align="center" class="td2"><a id='lblCheckno'></a></td>
                 <td align="center" style="width:20%"><a id='lblBanks'></a></td>
