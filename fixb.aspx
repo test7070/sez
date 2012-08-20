@@ -19,14 +19,15 @@
 
 			var q_name = "fixb";
 			var q_readonly = ['txtNoa','txtWorker'];
-			var bbmNum = [];
-			var bbmMask = [['txtDatea','999/99/99']];
+			var bbmNum = [['txtMile',10,0],['txtLmile',10,0],['txtNmile',10,0]];
+			var bbmMask = [['txtDatea','999/99/99'],['txtLdate','999/99/99'],['txtNdate','999/99/99']];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'noa';
 			q_desc=1;
+			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa', 'txtCarno', 'car2_b.aspx']);
 
 			$(document).ready(function() {
 				bbmKey = ['noa'];

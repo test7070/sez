@@ -172,7 +172,7 @@
 
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtTranno,txtOrdeno,txtTrandate', as.length, as, 'tranno,ordeno,trandate', '', '');
 
-                        /*while(as.length > q_bbsCount) {
+                      /*  while(as.length > q_bbsCount) {
                          $('#btnPlus').click();
                          }*/
                         for( i = 0; i < q_bbsCount; i++) {
@@ -240,23 +240,26 @@
 
             function bbsAssign() {
                 _bbsAssign();
-                for(var i = 0; i < q_bbsCount; i++) {
-                	$('#lblNo_'+i).text(i+1);
-                    if( typeof ($('#txtTranmoney_' + i).data('info')) == 'undefined')
-                        $('#txtTranmoney_' + i).data('info', {
+                for(var ix = 0; ix < q_bbsCount; ix++) {
+                	$('#lblNo_'+ix).text(ix+1);
+                	
+                	
+                	
+                    /*if( typeof ($('#txtTranmoney_' + ix).data('info')) == 'undefined')
+                        $('#txtTranmoney_' + ix).data('info', {
                             isSetChange : false
                         });
-
-                    if( typeof ($('#txtTranmoney_' + i).data('info').isSetChange) == 'undefined') {
-                        $('#txtTranmoney_' + i).data('info').isSetChange = false;
+                    if( typeof ($('#txtTranmoney_' + ix).data('info').isSetChange) == 'undefined') {
+                        $('#txtTranmoney_' + ix).data('info').isSetChange = false;
 
                     }
-                    if(!$('#txtTranmoney_' + i).data('info').isSetChange) {
-                        $('#txtTranmoney_' + i).data('info').isSetChange = true;
-                        $('#txtTranmoney_' + i).change(function(e) {
+                    if(!$('#txtTranmoney_' + ix).data('info').isSetChange) {
+                        $('#txtTranmoney_' + ix).data('info').isSetChange = true;
+                        $('#txtTranmoney_' + ix).change(function(e) {
                             sum();
                         });
-                    }
+                    }*/
+                    
                 }
             }
 
@@ -302,12 +305,12 @@
             		return;
                 var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0,t_mount=0,t_plus=0;
                 for( i = 0; i < q_bbsCount; i++) {
-                	t_money += parseInt($.trim($('#txtTranmoney_' + i).val()).length == 0 ? '0' : $('#txtTranmoney_' + i).val().replace(/,/g,''), 10);
+                	t_money += q_float('txtTranmoney_'+i);
               		t_mount +=  q_float('txtMount_'+i);
                 }
-                t_discount = parseInt($.trim($('#txtDiscount').val()).length == 0 ? '0' : $('#txtDiscount').val().replace(/,/g,''), 10);
+                t_discount = q_float('txtDiscount');
                 t_plus =  q_float('txtPlus');
-                t_rate = parseInt($.trim($('#txtTaxrate').val()).length == 0 ? '0' : $('#txtTaxrate').val().replace(/,/g,''), 10);            
+                t_rate = q_float('txtRate');       
                 switch($('#cmbTaxtype').val()) {
                     case '1':
                         t_tax = Math.round((t_money-t_discount+t_plus) * t_rate / 100);
@@ -319,13 +322,13 @@
                         t_total = t_money - t_discount+t_plus;
                         break;
                     case '5':
-                        t_tax = parseInt($.trim($('#txtTax').val()).length == 0 ? '0' : $('#txtTax').val().replace(/,/g,''), 10);
+                        t_tax = q_float('txtTax');
                         t_total = (t_money-t_discount+t_plus)+ t_tax;
                         break;
                     default:
                         t_total = (t_money-t_discount+t_plus);
                 }
-                
+    
                 $('#txtMoney').val(t_money);
                 $('#txtDiscount').val(t_discount);
                 $('#txtPlus').val(t_plus);
