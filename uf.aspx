@@ -52,13 +52,13 @@
              q_cmbParse("cmbTypea", q_getPara('uf.typea')); 
              
 	        //........................託收匯入
-	        $('#btnChk2').click(function () {
+	        $('#btnChk2s').click(function () {
 	        	var t_where="";
 	        	if($('#txtBankno').val()=="" || $('#txtBankno').val()==" " )	//到期日之前的資料全部匯入
-	        		t_where = "where=^^ datea <='"+$('#txtDatea').val()+"' ^^";
+	        		t_where = "where=^^ datea <='"+$('#txtDatea').val()+"' sel='1' ^^";
 	        	else	//到期日的銀行代號匯入
-	        		t_where = "where=^^ bankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' ^^";
-	            q_gt('chk2', t_where, 0, 0);	//查詢資料
+	        		t_where = "where=^^ bankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' and sel='1' ^^";
+	            q_gt('chk2s', t_where, 0, 0);	//查詢資料
 	        });
 	        //......................... 
         }
@@ -76,11 +76,10 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-            	case 'chk2':
-            		var as = _q_appendData("chk2", "", true);
+            	case 'chk2s':
+            		var as = _q_appendData("chk2s", "", true);
             		if(as.length>q_bbsCount){
             			q_gridAddRow(bbsHtm, 'tbbs', '', as.length-1, as, '', '');
-            			//window.document.getElementById('btnPlus').click();
             			//自動產生序號
 			            for (var j = 0; j <= q_bbsCount; j++) {
 			            	$('#ufseq_'+j).empty();
@@ -419,7 +418,7 @@
         <tr>
             <td class='td1'><span> </span><a id="lblWorker" class="lbl"></a></td>
             <td class="td2"><input id="txtWorker"  type="text"  class="txt c1"/></td>
-            <td class="td3"><input type="button" id="btnChk2" class="txt c1 " value="託收匯入"></tr>        
+            <td class="td3"><input type="button" id="btnChk2s" class="txt c1 " value="託收匯入"></tr>        
         </table>
         </div>
 		</div>
