@@ -184,9 +184,13 @@
 
             function bbsAssign() {
                 _bbsAssign();
-                for(var i = 0; i < q_bbsCount; i++) {
-                	$('#lblNo_'+i).text(i+1);	
-                    if( typeof ($('#txtMoney_' + i).data('info')) == 'undefined')
+                for(var ix = 0; ix < q_bbsCount; ix++) {
+                	$('#lblNo_'+ix).text(ix+1);	
+                	
+                		
+                	
+                	
+                    /*if( typeof ($('#txtMoney_' + i).data('info')) == 'undefined')
                         $('#txtMoney_' + i).data('info', {
                             isSetChange : false
                         });
@@ -200,7 +204,7 @@
                         $('#txtMoney_' + i).change(function(e) {
                             sum();
                         });
-                    }
+                    }*/
                 }
             }
 
