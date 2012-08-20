@@ -24,7 +24,8 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']);
+        aPop = new Array(['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
+        							['txtBankno', 'lblBankno', 'bank', 'noa,acc1,account', 'txtBankno,txtAccno,txtAccount', 'bank_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -51,9 +52,13 @@
              q_cmbParse("cmbTypea", q_getPara('uf.typea')); 
              
 	        //........................託收匯入
-	        $('#btnChk2').click(function () {
-	        	var t_where = "where=^^ bankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' ^^";
-	            q_gt('chk2', t_where, 0, 0);	//查詢資料
+	        $('#btnChk2s').click(function () {
+	        	var t_where="";
+	        	if($('#txtBankno').val()=="" || $('#txtBankno').val()==" " )	//到期日之前的資料全部匯入
+	        		t_where = "where=^^ datea <='"+$('#txtDatea').val()+"' sel='1' ^^";
+	        	else	//到期日的銀行代號匯入
+	        		t_where = "where=^^ bankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' and sel='1' ^^";
+	            q_gt('chk2s', t_where, 0, 0);	//查詢資料
 	        });
 	        //......................... 
         }
@@ -71,8 +76,16 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-            	case 'chk2':
-            		var as = _q_appendData("chk2", "", true);
+            	case 'chk2s':
+            		var as = _q_appendData("chk2s", "", true);
+            		if(as.length>q_bbsCount){
+            			q_gridAddRow(bbsHtm, 'tbbs', '', as.length-1, as, '', '');
+            			//自動產生序號
+			            for (var j = 0; j <= q_bbsCount; j++) {
+			            	$('#ufseq_'+j).empty();
+							$('#ufseq_'+j).append(j+1);
+			            }  // j
+			        }
             		for (var i = 0; i < as.length; i++) {
 						$('#txtBankno_' + i).val(as[i].bankno);
 						$('#txtBank_' + i).val(as[i].bank);
@@ -80,9 +93,8 @@
 						$('#txtDatea_' + i).val(as[i].datea);
 						$('#txtMoney_' + i).val(as[i].money);
 						$('#txtTaccl_' + i).val(as[i].accl);
-						
 		             }
-            		
+		             sum();
             		break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
@@ -174,11 +186,18 @@
         }
 
         function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0;
+            var t1 = 0, t_unit, t_mount, t_weight = 0,money_total=0;
             for (var j = 0; j < q_bbsCount; j++) {
-
+				money_total+=dec($('#txtMoney_' + i).val());//兌現金額總計
             }  // j
-
+			$('#txtMoney').val(money_total);
+        }
+        
+        function q_stPost() {
+            if (q_cur == 1 || q_cur == 2) {
+                abbm[q_recno]['noa'] = xmlString;   /// 存檔後， server 傳回 xmlString 
+                $('#txtNoa').val(xmlString);   /// 顯示 server 端，產生之傳票號碼
+            }
         }
 
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
@@ -387,7 +406,7 @@
             <td class="td4"><select id="cmbTypea" class="txt c1"></select></td>
             <td class='td5'><span> </span><a id="lblDatea" class="lbl"></a></td>
             <td class="td6"><input id="txtDatea" type="text" class="txt c1"/></td>
-            <td class='td7'><span> </span><a id="lblBankno" class="lbl"></a></td>
+            <td class='td7'><span> </span><a id="lblBankno" class="lbl btn"></a></td>
             <td class="td8"><input id="txtBankno" type="text" class="txt c1"/></td></tr>
         <tr>            
             <td class='td1'><span> </span><a id="lblAccno" class="lbl"></a></td>
@@ -399,7 +418,7 @@
         <tr>
             <td class='td1'><span> </span><a id="lblWorker" class="lbl"></a></td>
             <td class="td2"><input id="txtWorker"  type="text"  class="txt c1"/></td>
-            <td class="td3"><input type="button" id="btnChk2" class="txt c1 " value="託收匯入"></tr>        
+            <td class="td3"><input type="button" id="btnChk2s" class="txt c1 " value="託收匯入"></tr>        
         </table>
         </div>
 		</div>
@@ -417,7 +436,7 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td id="ufseq.*" style="width:1%;"></td >
+                <td id="ufseq.*" style="width:1%;"></td ><!--序號欄位-->
                 <td ><input id="txtBankno.*" type="text" style="width: 80%;"/><input id="btnBankno.*" type="button" style="width: 15%;" value="..."/></td>
                 <td ><input class="txt c1" id="txtBank.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCheckno.*" type="text" /></td>
