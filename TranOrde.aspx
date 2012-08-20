@@ -79,6 +79,9 @@
 
             function bbsAssign() {
                 _bbsAssign();
+                for(var i = 0; i < q_bbsCount; i++) {
+                	$('#lblNo_'+i).text(i+1);
+                }
             }
 
             function bbsSave(as) {
@@ -331,7 +334,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 2000px;
+                width: 1000px;
             }
             .tbbs a {
                 font-size: medium;
@@ -509,39 +512,27 @@
 		</div>
 		<div class='dbbs' >
 			<table id="tbbs" class='tbbs' >
-				<tr name="schema">
-					<td class="td0" style="width:2%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td1" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td2" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td3" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td4" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td5" style="width:11%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td6" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td7" style="width:20%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td8" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-					<td class="td9" style="width:8%"><span style="display: block; width:95%; height:0px;"> </span></td>
-				</tr>
 				<tr style='color:white; background:#003366;' >
-					<td align="center">
-					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
-					</td>
-					<td align="center" ><a id='lblDodate'></a></td>
-					<td align="center" ><a id='lblAddr_do'></a></td>
-					<td align="center" ><a id='lblCasetypes'></a></td>
-					<td align="center" ><a id='lblAddr_get'></a></td>
-					<td align="center" ><a id='lblCasenos'></a></td>
-					<td align="center" ><a id='lblMounts'></a></td>
-					<td align="center" ><a id='lblMemos'></a></td>
-					<td align="center" ><a id='lblMount_undo'></a></td>
-					<td align="center" ><a id='lblMount_unre'></a></td>
+					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
+					<td align="center" style="width:20px;"> </td>
+					<td align="center" style="width:100px"><a id='lblCaseno_s'></a></td>
+					<td align="center" style="width:70px"><a id='lblDodate'></a></td>
+					<td align="center" style="width:100px"><a id='lblAddr_do'></a></td>
+					<td align="center" style="width:50px"><a id='lblCasetypes'></a></td>
+					<td align="center" style="width:100px"><a id='lblAddr_get'></a></td>
+					<td align="center" style="width:50px"><a id='lblMounts'></a></td>
+					<td align="center" style="width:100px"><a id='lblMemos'></a></td>
+					<td align="center" style="width:50px"><a id='lblMount_undo'></a></td>
+					<td align="center" style="width:50px"><a id='lblMount_unre'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
-					<td style="width:1%;">
+					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					</td>
-					<td >
-					<input class="txt c1" id="txtDodate.*" type="text" />
-					</td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+					<td ><input class="txt c1" id="txtCaseno.*" type="text" /></td>
+					<td ><input class="txt c1" id="txtDodate.*" type="text" /></td>
+					
 					<td >
 					<input class="txt c1" id="txtAddr_do.*" type="text" />
 					</td>
@@ -551,9 +542,7 @@
 					<td >
 					<input class="txt c1" id="txtAddr_get.*" type="text" />
 					</td>
-					<td >
-					<input class="txt c1" id="txtCaseno.*" type="text" />
-					</td>
+					
 					<td >
 					<input class="txt c1" id="txtMount.*" type="text" style="text-align: right;"/>
 					</td>
