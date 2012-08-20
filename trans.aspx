@@ -33,7 +33,8 @@
             ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr,productno,product,custprice,driverprice,driverprice2,commission', 'txtStraddrno,txtStraddr,txtUccno,txtProduct,txtPrice,txtPrice2,txtPrice3,txtCommission', 'addr_b.aspx'],
             ['txtAddno3', 'lblAdd3', 'addr', 'noa,addr', 'txtAddno3,txtAdd3', 'addr_b.aspx'],
             ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
-            ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
+            ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+            ['txtCaseuseno', 'lblCaseuse', 'cust', 'noa,comp', 'txtCaseuseno,txtCaseuse', 'cust_b.aspx']);
           
           	var t_height=25;
             $(document).ready(function() {
@@ -870,10 +871,13 @@
 						<input id="txtCaseno2" type="text"  style='width:50%; float:left;'/>
 						</td>
 						<td class="td9" colspan="2"><span> </span><a id="lblCaseuse" class="lbl"> </a></td>
+						<td class="tdB">
+						<input id="txtCaseuseno" type="text" class="txt c1"/>
+						</td>
 						<td class="tdB" colspan="2">
 						<input id="txtCaseuse" type="text" class="txt c1"/>
 						</td>
-						<td class="tdD" colspan="2"><span> </span><a id="lblCasetype" class="lbl"> </a></td>
+						<td class="tdD"><span> </span><a id="lblCasetype" class="lbl"> </a></td>
 						<td class="tdF" colspan="2"><select id="cmbCasetype" class="txt c1"> </select></td>
 					</tr>
 					<tr class="tr8 m">

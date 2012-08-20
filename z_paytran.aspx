@@ -15,7 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-			t_carkind="";
+			t_carkind = "";
 			if (location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
 			}
@@ -32,86 +32,89 @@
 			}
 
 			function q_gtPost(t_name) {
-            	
-            	switch (t_name) {
-            		case 'carkind':
-                        var as = _q_appendData("carkind", "", true);
-                        for( i = 0; i < as.length; i++) {
-                            t_carkind = t_carkind + (t_carkind.length>0?',':'') + as[i].noa +'@' + as[i].kind;
-                        }  
-                        break;
-             	}
-             	
-             	$('#qReport').q_report({
-					fileName : 'z_paytran',
-					options : [{
-						type : '0',
-						name : 'accy',
-						value : q_getId()[4]
-					}, {
-						type : '1',
-						name : 'date'
-					}, {
-						type : '2',
-						name : 'tgg',
-						dbf : 'tgg',
-						index : 'noa,comp',
-						src : 'tgg_b.aspx'
-					}, {
-						type : '2',
-						name : 'driver',
-						dbf : 'driver',
-						index : 'noa,namea',
-						src : 'driver_b.aspx'
-					}, {
-						type : '6',
-						name : 'zrc2no'
-					}, {
-						type : '6',
-						name : 'xcarno'
-					}, {
-						type : '5', //select
-						name : 'xsort1',
-						value : q_getPara('z_tre.sort1').split(',')
-					}, {
-						type : '6',
-						name : 'xnoa'
-					}, {
-						type : '5', //select
-						name : 'xcarkind',
-						value : t_carkind.split(',')
-					}]
-				});
-				q_popAssign();
-	                q_langShow();
 
-				$('#txtDate1').mask('999/99/99');
-				$('#txtDate1').datepicker();
-				$('#txtDate2').mask('999/99/99');
-				$('#txtDate2').datepicker();
+				switch (t_name) {
+					case 'carkind':
+						var as = _q_appendData("carkind", "", true);
+						for ( i = 0; i < as.length; i++) {
+							t_carkind = t_carkind + (t_carkind.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].kind;
+						}
+						break;
+				}
+				if (t_carkind .length > 0) {
+					$('#qReport').q_report({
+						fileName : 'z_paytran',
+						options : [{
+							type : '0',
+							name : 'accy',
+							value : q_getId()[4]
+						}, {
+							type : '1',
+							name : 'date'
+						}, {
+							type : '2',
+							name : 'tgg',
+							dbf : 'tgg',
+							index : 'noa,comp',
+							src : 'tgg_b.aspx'
+						}, {
+							type : '2',
+							name : 'driver',
+							dbf : 'driver',
+							index : 'noa,namea',
+							src : 'driver_b.aspx'
+						}, {
+							type : '6',
+							name : 'zrc2no'
+						}, {
+							type : '6',
+							name : 'xcarno'
+						}, {
+							type : '5', //select
+							name : 'xsort1',
+							value : q_getPara('z_tre.sort1').split(',')
+						}, {
+							type : '6',
+							name : 'xnoa'
+						}, {
+							type : '5', //select
+							name : 'xcarkind',
+							value : t_carkind.split(',')
+						}]
+					});
+					q_popAssign();
+					q_langShow();
 
-				var t_date, t_year, t_month, t_day;
-				t_date = new Date();
-				t_date.setDate(1);
-				t_year = t_date.getUTCFullYear() - 1911;
-				t_year = t_year > 99 ? t_year + '' : '0' + t_year;
-				t_month = t_date.getUTCMonth() + 1;
-				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
-				t_day = t_date.getUTCDate();
-				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-				$('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
+					$('#txtDate1').mask('999/99/99');
+					$('#txtDate1').datepicker();
+					$('#txtDate2').mask('999/99/99');
+					$('#txtDate2').datepicker();
 
-				t_date = new Date();
-				t_date.setDate(35);
-				t_date.setDate(0);
-				t_year = t_date.getUTCFullYear() - 1911;
-				t_year = t_year > 99 ? t_year + '' : '0' + t_year;
-				t_month = t_date.getUTCMonth() + 1;
-				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
-				t_day = t_date.getUTCDate();
-				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-				$('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
-         	}
+					var t_date, t_year, t_month, t_day;
+					t_date = new Date();
+					t_date.setDate(1);
+					t_year = t_date.getUTCFullYear() - 1911;
+					t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+					t_month = t_date.getUTCMonth() + 1;
+					t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+					t_day = t_date.getUTCDate();
+					t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+					$('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
+
+					t_date = new Date();
+					t_date.setDate(35);
+					t_date.setDate(0);
+					t_year = t_date.getUTCFullYear() - 1911;
+					t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+					t_month = t_date.getUTCMonth() + 1;
+					t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+					t_day = t_date.getUTCDate();
+					t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+					$('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
+
+					t_carkind  = '';
+				}
+			}
 		</script>
 	</head>
 	<body>
