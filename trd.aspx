@@ -170,9 +170,9 @@
                     case 'trans':
                         var as = _q_appendData("trans", "", true);
 
-                        q_gridAddRow(bbsHtm, 'tbbs', 'txtTranno,txtOrdeno,txtTrandate', as.length, as, 'tranno,ordeno,trandate', '', '');
+                       q_gridAddRow(bbsHtm, 'tbbs', 'txtTranno,txtOrdeno,txtTrandate', as.length, as, 'tranno,ordeno,trandate', '', '');
 
-                      /*  while(as.length > q_bbsCount) {
+                       /* while(as.length > q_bbsCount) {
                          $('#btnPlus').click();
                          }*/
                         for( i = 0; i < q_bbsCount; i++) {
@@ -304,14 +304,17 @@
             	if(isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.')
             		return;
                 var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0,t_mount=0,t_plus=0;
-                for( i = 0; i < q_bbsCount; i++) {
-                	t_money += q_float('txtTranmoney_'+i);
-              		t_mount +=  q_float('txtMount_'+i);
+                for( iz = 0; iz < q_bbsCount; iz++) {
+                	t_money += q_float('txtTranmoney_'+iz);
+              		t_mount +=  q_float('txtMount_'+iz);
                 }
+              
                 t_discount = q_float('txtDiscount');
                 t_plus =  q_float('txtPlus');
-                t_rate = q_float('txtRate');       
-                switch($('#cmbTaxtype').val()) {
+                t_rate = q_float('txtTaxrate'); 
+				
+				//alert(($('#cmbTaxtype').val()=='1')+'_'+t_money+'_'+t_discount+'_'+t_plus+'_'+t_rate);
+                switch($('#cmbTaxtype').val()+'') {
                     case '1':
                         t_tax = Math.round((t_money-t_discount+t_plus) * t_rate / 100);
                         t_total = (t_money-t_discount+t_plus) + t_tax ;
