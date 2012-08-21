@@ -70,19 +70,11 @@
             	case 'chk2':
             		var as = _q_appendData("chk2", "", true);
             		if(as.length>q_bbsCount)
-            			q_gridAddRow(bbsHtm, 'tbbs', '', as.length-1, as, '', '');
+            			q_gridAddRow(bbsHtm, 'tbbs', 'txtBankno,txtBank,txtCheckno,txtDatea,txtMoney,txtTaccl', as.length, as, 'bankno,bank,noa,datea,money,accl', '');
             		//自動產生序號
 			        for (var j = 0; j <= q_bbsCount; j++) {
 			            	$('#ufseq_'+j).text(j+1);
 			        }  // j
-            		for (var i = 0; i < as.length; i++) {
-						$('#txtBankno_' + i).val(as[i].bankno);
-						$('#txtBank_' + i).val(as[i].bank);
-						$('#txtCheckno_' + i).val(as[i].noa);
-						$('#txtDatea_' + i).val(as[i].datea);
-						$('#txtMoney_' + i).val(as[i].money);
-						$('#txtTaccl_' + i).val(as[i].accl);
-		             }
 		             sum();
             		break;
                 case q_name: if (q_cur == 4)   
