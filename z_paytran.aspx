@@ -77,7 +77,7 @@
 							type : '6',
 							name : 'xnoa'
 						}, {
-							type : '5', //select
+							type : '8', //select
 							name : 'xcarkind',
 							value : t_carkind.split(',')
 						}]

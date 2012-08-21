@@ -18,7 +18,7 @@
             }
 
             var q_name = "custchg";
-            var q_readonly = ['txtNoa','txtWorker'];
+            var q_readonly = ['txtNoa','txtWorker','txtTrdno'];
             var bbmNum = new Array(['txtMinusmoney',10,0],['txtPlusmoney',10,0]);
             var bbmMask = [['txtDatea','999/99/99']];
             q_sqlCount = 6;
@@ -438,9 +438,9 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtWorker"  type="text" class="txt c1" />
-						</td>
+						<td class="td2"><input id="txtWorker"  type="text" class="txt c1" /></td>
+						<td class="td1"><span> </span><a id='lblTrdno' class="lbl"> </a></td>
+						<td class="td2" colspan="2"><input id="txtTrdno"  type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>

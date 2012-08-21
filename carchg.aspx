@@ -18,7 +18,7 @@
             }
 
             var q_name = "carchg";
-            var q_readonly = ['txtNoa', 'txtWorker'];
+            var q_readonly = ['txtNoa', 'txtWorker','txtTreno'];
             var bbmNum = new Array(['txtMinusmoney',10,0],['txtPlusmoney',10,0]);
             var bbmMask = [];
             q_sqlCount = 6;
@@ -445,9 +445,9 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtWorker"  type="text" class="txt c1" />
-						</td>
+						<td class="td2"><input id="txtWorker"  type="text" class="txt c1" /></td>
+						<td class="td1"><span> </span><a id='lblTreno' class="lbl"> </a></td>
+						<td class="td2" colspan="2"><input id="txtTreno"  type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
