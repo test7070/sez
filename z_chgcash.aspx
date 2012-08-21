@@ -17,7 +17,7 @@
 		<script type="text/javascript">
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_chgcash');
+            	q_gf('', 'z_chgcash');
             });
             function q_gfPost() {
                $('#qReport').q_report({
@@ -45,7 +45,7 @@
                         name : 'acc',
                         dbf : 'acc',
                         index : 'acc1,acc2',
-                        src : 'acc_b.aspx'
+                        src : 'acc_b.aspx?'+ r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_1' 
                         }]
                     });
                 q_popAssign();
