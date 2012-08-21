@@ -69,8 +69,8 @@
             switch (t_name) {
             	case 'chk2':
             		var as = _q_appendData("chk2", "", true);
-            		if(as.length>q_bbsCount)
-            			q_gridAddRow(bbsHtm, 'tbbs', 'txtBankno,txtBank,txtCheckno,txtDatea,txtMoney,txtTaccl', as.length, as, 'bankno,bank,noa,datea,money,accl', '');
+            		//if(as.length>q_bbsCount)
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtBankno,txtBank,txtCheckno,txtDatea,txtMoney,txtTaccl', as.length, as, 'bankno,bank,noa,datea,money,accl', '');
             		//自動產生序號
 			        for (var j = 0; j <= q_bbsCount; j++) {
 			            	$('#ufseq_'+j).text(j+1);
@@ -125,6 +125,17 @@
 			for (var j = 0; j <= q_bbsCount; j++) {
 			      $('#ufseq_'+j).text(j+1);
 			 }  // j
+			 
+			  //........................託收匯入
+	        $('#btnGqb').click(function () {
+	        	var t_where="";
+	        	if($('#txtBankno').val()=="" || $('#txtBankno').val()==" " )	//到期日之前的資料全部匯入
+	        		t_where = "where=^^ datea <='"+$('#txtDatea').val()+"' ^^";//t_where = "where=^^ datea <='"+$('#txtDatea').val()+"' sel='1' ^^";
+	        	else	//到期日的銀行代號匯入
+	        		t_where = "where=^^ bankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' ^^";//t_where = "where=^^ bankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' and sel='1' ^^";
+	        	q_gt('chk2', t_where, 0, 0);	//查詢資料,暫時用chk2的資料後面要帶gqb&chk2s
+	        });
+	        //......................... 
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))

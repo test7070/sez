@@ -52,13 +52,6 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-            
-            //........................票據匯入
-        $('#btnGqb').click(function () {
-        	var t_where = "where=^^ typea='2' and tbankno='"+$('#txtBankno').val()+"' ^^";
-            q_gt('gqb', t_where, 0, 0);	//查詢資料
-        });
-        //.........................
 
         }
 
@@ -77,14 +70,10 @@
             switch (t_name) {
             	case 'gqb':
             		var as = _q_appendData("gqb", "", true);
+            		//if(as.length>q_bbsCount)
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtCheckno,txtBank,txtBankno,txtAccount,txtDatea,txtMoney', as.length, as, 'noa,bank,bankno,account,indate,money', '');
             		for (var i = 0; i < as.length; i++) {
-            			$('#txtNoq_' + i).val(i+1);
-						$('#txtCheckno_' + i).val(as[i].noa);
-						$('#txtBank_' + i).val(as[i].bank);
-						$('#txtBankno_' + i).val(as[i].bankno);
-						$('#txtAccount_' + i).val(as[i].account);
-						$('#txtDatea_' + i).val(as[i].indate);
-						$('#txtMoney_' + i).val(as[i].money);
+            			$('#txtNoq_' + i).val(i+1);	//自動產生NO
 		             }
             		break;
                 case q_name: if (q_cur == 4)   
@@ -157,12 +146,31 @@
             	$('#trSel_'+i).removeClass('chksel');
             }
             
+         	//........................票據匯入
+	        $('#btnGqb').click(function () {
+	        	if($('#txtBankno').val()=="" || $('#txtBankno').val()==" " )
+	        		var t_where = "where=^^ typea='2' ^^";
+	        	else
+	        		var t_where = "where=^^ typea='2' and tbankno='"+$('#txtBankno').val()+"' ^^";
+	            q_gt('gqb', t_where, 0, 0);	//查詢資料
+	        });
+	        //.........................
+            
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
             $('#txtProduct').focus();
+            //........................票據匯入
+	        $('#btnGqb').click(function () {
+	        	if($('#txtBankno').val()=="" || $('#txtBankno').val()==" " )
+	        		var t_where = "where=^^ typea='2' ^^";
+	        	else
+	        		var t_where = "where=^^ typea='2' and tbankno='"+$('#txtBankno').val()+"' ^^";
+	            q_gt('gqb', t_where, 0, 0);	//查詢資料
+	        });
+	        //.........................
         }
         function btnPrint() {
 
