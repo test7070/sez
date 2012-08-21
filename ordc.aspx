@@ -471,6 +471,7 @@
                 <td align="center"><a id='lblMount'> </a></td>
                 <td align="center"><a id='lblWeights'> </a></td>
                 <td align="center"><a id='lblPrices'> </a></td>
+                <td align="center"><a id='lblRadius'> </a></td>
                 <td align="center"><a id='lblTotals'> </a></td>
                 <td align="center"><a id='lblMemos'> </a></td>
             </tr>
@@ -489,6 +490,7 @@
                 <td style="width:5%;"><input id="txtMount.*" type="text" class="txt num c7" /></td>
                 <td style="width:6%;"><input id="txtWeight.*" type="text" class="txt num c7" /></td>
                 <td style="width:6%;"><input id="txtPrice.*" type="text" class="txt num c7" /></td>
+                <td style="width:6%;"><input id="txtRadius.*" type="text" class="txt num c7"  /></td>
                 <td style="width:8%;"><input id="txtTotal.*" type="text"class="txt num c7"/>
                                       <input id="txtTheory.*" type="text" class="txt num c7"/></td>
                 <td style="width:15%;"><input  id="txtMemo.*" type="text" class="txt c7"/>
