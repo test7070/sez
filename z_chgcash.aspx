@@ -40,6 +40,12 @@
                         dbf : 'sss',
                         index : 'noa,namea',
                         src : 'sss_b.aspx'
+                        },{
+                        type : '2',
+                        name : 'acc',
+                        dbf : 'acc',
+                        index : 'acc1,acc2',
+                        src : 'acc_b.aspx'
                         }]
                     });
                 q_popAssign();
