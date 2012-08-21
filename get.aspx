@@ -476,8 +476,8 @@
                 <td align="center"><a id='lblSize_s'> </a></td>
                 <td align="center"><a id='lblMount_s'> </a></td>
                 <td align="center"><a id='lblGweight_s'> </a></td>
-                <td align="center"><a id='lblPrice_s'> </a></td>
                 <td align="center"><a id='lblNetweight_s'> </a></td>
+                <td align="center"><a id='lblRadius_s'> </a></td>
                 <td align="center"><a id='lblType_s'> </a></td>
                 <td align="center"><a id='lblMemo_s'> </a></td>
             </tr>
@@ -492,9 +492,8 @@
                                     <input class="txt c1" id="txtSpec.*" type="text"/> </td>
                 <td style="width:8%;"><input class="txt num c1" id="txtMount.*" type="text"/></td>
                 <td style="width:8%;"><input class="txt num c1" id="txtGweight.*" type="text"/></td>
-                <td style="width:6%;"><input class="txt num c1" id="txtPrice.*" type="text" /></td>
-                <td style="width:10%;"><input class="txt num c1" id="txtTotal.*" type="text" />
-                                      <input class="txt num c1" id="txtWeight.*" type="text" /></td>
+                <td style="width:8%;"><input class="txt num c1" id="txtWeight.*" type="text" /></td>
+                <td style="width:8%;"><input class="txt num c1" id="txtRadius.*" type="text" /></td>
                 <td style="width:4%;"><input class="txt c1" id="txtTypea.*" type="text" /></td>
                 <td style="width:12%;"><input class="txt c1" id="txtMemo.*" type="text" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>

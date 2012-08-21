@@ -1,14 +1,14 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
+<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
     <head>
-        <title> </title>
-        <script src="../script/jquery.min.js" type="text/javascript"> </script>
-        <script src='../script/qj2.js' type="text/javascript"> </script>
-        <script src='qset.js' type="text/javascript"> </script>
-        <script src='../script/qj_mess.js' type="text/javascript"> </script>
-        <script src="../script/qbox.js" type="text/javascript"> </script>
-        <script src='../script/mask.js' type="text/javascript"> </script>
+        <title></title>
+        <script src="../script/jquery.min.js" type="text/javascript"></script>
+        <script src='../script/qj2.js' type="text/javascript"></script>
+        <script src='qset.js' type="text/javascript"></script>
+        <script src='../script/qj_mess.js' type="text/javascript"></script>
+        <script src="../script/qbox.js" type="text/javascript"></script>
+        <script src='../script/mask.js' type="text/javascript"></script>
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript">
             this.errorHandler = null;
@@ -464,15 +464,15 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center"><a id='lblProductno'> </a></td>
-                <td align="center"><a id='lblUno'> </a></td>
-                <td align="center"><a id='lblSize'> </a></td>
-                <td align="center"><a id='lblUnit'> </a></td>
-                <td align="center"><a id='lblMount'> </a></td>
-                <td align="center"><a id='lblWeights'> </a></td>
-                <td align="center"><a id='lblPrices'> </a></td>
-                <td align="center"><a id='lblTotals'> </a></td>
-                <td align="center"><a id='lblMemos'> </a></td>
+                <td align="center"><a id='lblProductno'></a></td>
+                <td align="center"><a id='lblUno'></a></td>
+                <td align="center"><a id='lblSize'></a></td>
+                <td align="center"><a id='lblUnit'></a></td>
+                <td align="center"><a id='lblMount'></a></td>
+                <td align="center"><a id='lblWeights'></a></td>
+                <td align="center"><a id='lblPrices'></a></td>
+                <td align="center"><a id='lblTotals'></a></td>
+                <td align="center"><a id='lblMemos'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
