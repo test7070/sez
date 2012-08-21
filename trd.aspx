@@ -311,8 +311,10 @@
               
                 t_discount = q_float('txtDiscount');
                 t_plus =  q_float('txtPlus');
-                t_rate = q_float('txtRate');       
-                switch($('#cmbTaxtype').val()) {
+                t_rate = q_float('txtTaxrate'); 
+				
+				//alert(($('#cmbTaxtype').val()=='1')+'_'+t_money+'_'+t_discount+'_'+t_plus+'_'+t_rate);
+                switch($('#cmbTaxtype').val()+'') {
                     case '1':
                         t_tax = Math.round((t_money-t_discount+t_plus) * t_rate / 100);
                         t_total = (t_money-t_discount+t_plus) + t_tax ;
