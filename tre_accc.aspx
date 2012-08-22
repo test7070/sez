@@ -1,5 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title></title>
@@ -12,230 +11,248 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 
 		<script type="text/javascript">
-			this.errorHandler = null;
-			function onPageError(error) {
-				alert("An error occurred:\r\n" + error.Message);
-			}
+		    this.errorHandler = null;
+		    function onPageError(error) {
+		        alert("An error occurred:\r\n" + error.Message);
+		    }
 
-			var q_name = "tre_accc";
-			var q_readonly = ['txtNoa','txtWorker','txtPaybno','txtPayeno','txtChkeno','txtAccno1','txtAccno2','txtAccno3','txtBdriver','txtEdriver'];
-			var bbmNum = [['txtOpay', 11, 0, 1],['txtUnopay', 11, 0, 1]];
-			var bbmMask = [];
-			q_sqlCount = 6;
-			brwCount = 6;
-			brwList = [];
-			brwNowPage = 0;
-			brwKey = 'noa';
-			//ajaxPath = ""; //  execute in Root
-			aPop = new Array(['txtBdriverno', 'lblBdriver', 'driver', 'noa,namea', 'txtBdriverno,txtBdriver', 'driver_b.aspx'],
+		    var q_name = "tre_accc";
+		    var q_readonly = ['txtNoa', 'txtWorker', 'txtPaybno', 'txtPayeno', 'txtChkeno', 'txtAccno1', 'txtAccno2', 'txtAccno3', 'txtBdriver', 'txtEdriver'];
+		    var bbmNum = [['txtOpay', 11, 0, 1], ['txtUnopay', 11, 0, 1]];
+		    var bbmMask = [];
+		    q_sqlCount = 6;
+		    brwCount = 6;
+		    brwList = [];
+		    brwNowPage = 0;
+		    brwKey = 'noa';
+		    //ajaxPath = ""; //  execute in Root
+		    aPop = new Array(['txtBdriverno', 'lblBdriver', 'driver', 'noa,namea', 'txtBdriverno,txtBdriver', 'driver_b.aspx'],
 			['txtEdriverno', 'lblEdriver', 'driver', 'noa,namea', 'txtEdriverno,txtEdriver', 'driver_b.aspx']);
-			
-			$(document).ready(function() {
-				bbmKey = ['noa'];
-				q_brwCount();
-				q_gt(q_name, q_content, q_sqlCount, 1)
-				$('#txtNoa').focus
-			});
 
-			//////////////////   end Ready
-			function main() {
-				if (dataErr) {
-					dataErr = false;
-					return;
-				}
-				mainForm(0);
-				// 1=Last  0=Top
-			}///  end Main()
+		    $(document).ready(function () {
+		        bbmKey = ['noa'];
+		        q_brwCount();
+		        q_gt(q_name, q_content, q_sqlCount, 1)
+		        $('#txtNoa').focus
+		    });
 
-			function mainPost() {
-				bbmMask = new Array(['txtDatea',r_picd],['txtMon',r_picm]);
-				q_mask(bbmMask);
-				bbmMask2 = new Array(['txtBdate',r_picd],['txtEdate',r_picd]);
-				q_mask(bbmMask2);
-				q_cmbParse("cmbCarteamno", q_getPara('.taxtype'));
-				$('#lblAccno1').click(function () {
-                q_pop('txtAccno1', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno1').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true); 
-                //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
-            });
-            $('#lblAccno2').click(function () {
-                q_pop('txtAccno2', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true); 
-                //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
-            });
-            $('#lblAccno3').click(function () {
-                q_pop('txtAccno3', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno3').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true); 
-                //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
-            });
-				
-				
-				
-				
-				//q_gt('carteam', '', 0, 0, 0, "");
-				//$("#cmbCarteamno").focus(function(){
-                //	var len = $("#cmbCarteamno").children().length>0?$("#cmbCarteamno").children().length:1;
-                //	$("#cmbCarteamno").attr('size',len+"");
-               // }).blur(function(){
-               // 	$("#cmbCarteamno").attr('size','1');
-                //});
-			}
+		    //////////////////   end Ready
+		    function main() {
+		        if (dataErr) {
+		            dataErr = false;
+		            return;
+		        }
+		        mainForm(0);
+		        // 1=Last  0=Top
+		    } ///  end Main()
 
-			function txtCopy(dest, source) {
-				var adest = dest.split(',');
-				var asource = source.split(',');
-				$('#' + adest[0]).focus(function() {
-					if (trim($(this).val()).length == 0)
-						$(this).val(q_getMsg('msgCopy'));
-				});
-				$('#' + adest[0]).focusout(function() {
-					var t_copy = ($(this).val().substr(0, 1) == '=');
-					var t_clear = ($(this).val().substr(0, 2) == ' =');
-					for (var i = 0; i < adest.length; i++) { {
-							if (t_copy)
-								$('#' + adest[i]).val($('#' + asource[i]).val());
+		    function mainPost() {
+		        bbmMask = new Array(['txtDatea', r_picd], ['txtMon', r_picm]);
+		        q_mask(bbmMask);
+		        bbmMask2 = new Array(['txtBdate', r_picd], ['txtEdate', r_picd]);
+		        q_mask(bbmMask2);
+		        q_cmbParse("cmbCarteamno", q_getPara('.taxtype'));
+		        $('#lblAccno1').click(function () {
+		            q_pop('txtAccno1', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno1').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+		            //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
+		        });
+		        $('#lblAccno2').click(function () {
+		            q_pop('txtAccno2', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+		            //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
+		        });
+		        $('#lblAccno3').click(function () {
+		            q_pop('txtAccno3', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno3').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+		            //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
+		        });
 
-							if (t_clear)
-								$('#' + adest[i]).val('');
-						}
-					}
-				});
-			}
-
-			function q_boxClose(s2) {
-				var ret;
-				switch (b_pop) {
-					case q_name + '_s':
-						q_boxClose2(s2);
-						///   q_boxClose 3/4
-						break;
-				}   /// end Switch
-			}
-
-			function q_gtPost(t_name) {
-				switch (t_name) {
-					//case 'carteam':
-                      //  var as = _q_appendData("carteam", "", true);
-					//	var t_item = "";
-                     //   for( i = 0; i < as.length; i++) {
-                      //      t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;
-                       // }
-                        //q_cmbParse("cmbCarteamno", t_item); 
-                        //$("#cmbCarteamno").val( abbm[q_recno].carteamno);                  
-                       // break;
-					case q_name:
-						if (q_cur == 4)
-							q_Seek_gtPost();
-
-						if (q_cur == 1 || q_cur == 2)
-							q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
+		        $('#btnAccc').click(function () {
+		            if ($('#txtNoa').val().length > 0)
+		                q_func('tre_accc.gen', r_accy + ',' + $('#txtNoa').val());
+		        });
+				$('#btnGqb').click(function () {
 					
-						break;
-				}  /// end switch
-			}
+		        });
+		        $('#btnBank').click(function () {
+		        	
+		        });
 
-			function _btnSeek() {
-				if (q_cur > 0 && q_cur < 4)// 1-3
-					return;
+		        //q_gt('carteam', '', 0, 0, 0, "");
+		        //$("#cmbCarteamno").focus(function(){
+		        //	var len = $("#cmbCarteamno").children().length>0?$("#cmbCarteamno").children().length:1;
+		        //	$("#cmbCarteamno").attr('size',len+"");
+		        // }).blur(function(){
+		        // 	$("#cmbCarteamno").attr('size','1');
+		        //});
+		    }
 
-				q_box('tre_accc_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
-			}
+		    function q_funcPost(t_func, result) {
+		        if (result.length > 0) {
+		            var s2 = result.split(';');
 
-			function btnIns() {
-				_btnIns();
-				$('#txtNoa').val('AUTO');
-                $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
-			}
+		        }
 
-			function btnModi() {
-				if (emp($('#txtNoa').val()))
-					return;
-				_btnModi();
-				$('#txtDatea').focus();
-			}
+		    }
 
-			function btnPrint() {
+		    function txtCopy(dest, source) {
+		        var adest = dest.split(',');
+		        var asource = source.split(',');
+		        $('#' + adest[0]).focus(function () {
+		            if (trim($(this).val()).length == 0)
+		                $(this).val(q_getMsg('msgCopy'));
+		        });
+		        $('#' + adest[0]).focusout(function () {
+		            var t_copy = ($(this).val().substr(0, 1) == '=');
+		            var t_clear = ($(this).val().substr(0, 2) == ' =');
+		            for (var i = 0; i < adest.length; i++) {
 
-			}
+		                {
+		                    if (t_copy)
+		                        $('#' + adest[i]).val($('#' + asource[i]).val());
 
-			function btnOk() {
-				$('#txtWorker').val(r_name);			
-                var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtDatea').val());
-                if(t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_carborr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-                else
-                    wrServer(t_noa);
-			}
+		                    if (t_clear)
+		                        $('#' + adest[i]).val('');
+		                }
+		            }
+		        });
+		    }
 
-			function wrServer(key_value) {
-				var i;
+		    function q_boxClose(s2) {
+		        var ret;
+		        switch (b_pop) {
+		            case q_name + '_s':
+		                q_boxClose2(s2);
+		                ///   q_boxClose 3/4
+		                break;
+		        }   /// end Switch
+		    }
 
-				xmlSql = '';
-				if (q_cur == 2)/// popSave
-					xmlSql = q_preXml();
+		    function q_gtPost(t_name) {
+		        switch (t_name) {
+		            //case 'carteam':  
+		            //  var as = _q_appendData("carteam", "", true);  
+		            //	var t_item = "";  
+		            //   for( i = 0; i < as.length; i++) {  
+		            //      t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;  
+		            // }  
+		            //q_cmbParse("cmbCarteamno", t_item);   
+		            //$("#cmbCarteamno").val( abbm[q_recno].carteamno);                    
+		            // break;  
+		            case q_name:
+		                if (q_cur == 4)
+		                    q_Seek_gtPost();
 
-				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-				_btnOk(key_value, bbmKey[0], '', '', 2);
-			}
+		                if (q_cur == 1 || q_cur == 2)
+		                    q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 
-			function refresh(recno) {
-				_refresh(recno);
-			}
+		                break;
+		        }  /// end switch
+		    }
 
-			function readonly(t_para, empty) {
-				_readonly(t_para, empty);
-			}
+		    function _btnSeek() {
+		        if (q_cur > 0 && q_cur < 4)// 1-3
+		            return;
 
-			function btnMinus(id) {
-				_btnMinus(id);
-			}
+		        q_box('tre_accc_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+		    }
 
-			function btnPlus(org_htm, dest_tag, afield) {
-				_btnPlus(org_htm, dest_tag, afield);
-			}
+		    function btnIns() {
+		        _btnIns();
+		        $('#txtNoa').val('AUTO');
+		        $('#txtDatea').val(q_date());
+		        $('#txtDatea').focus();
+		    }
 
-			function q_appendData(t_Table) {
-				return _q_appendData(t_Table);
-			}
+		    function btnModi() {
+		        if (emp($('#txtNoa').val()))
+		            return;
+		        _btnModi();
+		        $('#txtDatea').focus();
+		    }
 
-			function btnSeek() {
-				_btnSeek();
-			}
+		    function btnPrint() {
 
-			function btnTop() {
-				_btnTop();
-			}
+		    }
 
-			function btnPrev() {
-				_btnPrev();
-			}
+		    function btnOk() {
+		        $('#txtWorker').val(r_name);
+		        var t_noa = trim($('#txtNoa').val());
+		        var t_date = trim($('#txtDatea').val());
+		        if (t_noa.length == 0 || t_noa == "AUTO")
+		            q_gtnoa(q_name, replaceAll(q_getPara('sys.key_carborr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+		        else
+		            wrServer(t_noa);
+		    }
 
-			function btnPrevPage() {
-				_btnPrevPage();
-			}
+		    function wrServer(key_value) {
+		        var i;
 
-			function btnNext() {
-				_btnNext();
-			}
+		        xmlSql = '';
+		        if (q_cur == 2)/// popSave
+		            xmlSql = q_preXml();
 
-			function btnNextPage() {
-				_btnNextPage();
-			}
+		        $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+		        _btnOk(key_value, bbmKey[0], '', '', 2);
+		    }
 
-			function btnBott() {
-				_btnBott();
-			}
+		    function refresh(recno) {
+		        _refresh(recno);
+		    }
 
-			function q_brwAssign(s1) {
-				_q_brwAssign(s1);
-			}
+		    function readonly(t_para, empty) {
+		        _readonly(t_para, empty);
+		    }
 
-			function btnDele() {
-				_btnDele();
-			}
+		    function btnMinus(id) {
+		        _btnMinus(id);
+		    }
 
-			function btnCancel() {
-				_btnCancel();
-			}
+		    function btnPlus(org_htm, dest_tag, afield) {
+		        _btnPlus(org_htm, dest_tag, afield);
+		    }
+
+		    function q_appendData(t_Table) {
+		        return _q_appendData(t_Table);
+		    }
+
+		    function btnSeek() {
+		        _btnSeek();
+		    }
+
+		    function btnTop() {
+		        _btnTop();
+		    }
+
+		    function btnPrev() {
+		        _btnPrev();
+		    }
+
+		    function btnPrevPage() {
+		        _btnPrevPage();
+		    }
+
+		    function btnNext() {
+		        _btnNext();
+		    }
+
+		    function btnNextPage() {
+		        _btnNextPage();
+		    }
+
+		    function btnBott() {
+		        _btnBott();
+		    }
+
+		    function q_brwAssign(s1) {
+		        _q_brwAssign(s1);
+		    }
+
+		    function btnDele() {
+		        _btnDele();
+		    }
+
+		    function btnCancel() {
+		        _btnCancel();
+		    }
 		</script>
 		<style type="text/css">
 			#dmain {
