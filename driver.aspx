@@ -349,25 +349,27 @@
 						<td class="td6">
 						<select id="cmbSex" class="txt c6"></select>
 						</td>
-						<td class="td7"><span> </span><a id="lblIdno" class="lbl"></a></td>
-						<td class="td8">
-						<input id="txtIdno" type="text" class="txt c1"/>
-						</td>
+						
 					</tr>
 					<tr class="tr2">
-						<td class="td1"><span> </span><a id="lblBirthday" class="lbl"></a></td>
-						<td class="td2">
+						<td class="td1"><span> </span><a id="lblIdno" class="lbl"></a></td>
+						<td class="td2"  colspan="3">
+						<input id="txtIdno" type="text" class="txt c1"/>
+						</td>
+						<td class="td5"><span> </span><a id="lblBirthday" class="lbl"></a></td>
+						<td class="td6">
 						<input id="txtBirthday" type="text" class="txt c1"/>
 						</td>
-						<td class="td3" ><span> </span><a id="lblTel" class="lbl"></a></td>
-						<td class="td4" colspan="5">
-						<input id="txtTel" type="text" class="txt c1"/>
-						</td>
+						
 						
 					</tr>
 					<tr  class="tr3">
-						<td class="td1"><span> </span><a id="lblMobile" class="lbl"></a></td>
-						<td class="td2"  colspan="7">
+						<td class="td1" ><span> </span><a id="lblTel" class="lbl"></a></td>
+						<td class="td2" colspan="3">
+						<input id="txtTel" type="text" class="txt c1"/>
+						</td>
+						<td class="td5"><span> </span><a id="lblMobile" class="lbl"></a></td>
+						<td class="td6"  colspan="3">
 						<input id="txtMobile" type="text" class="txt c1"/>
 						</td>
 					</tr>
