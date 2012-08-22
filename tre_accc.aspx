@@ -33,7 +33,8 @@
 		        bbmKey = ['noa'];
 		        q_brwCount();
 		        q_gt(q_name, q_content, q_sqlCount, 1)
-		        $('#txtNoa').focus
+		        $('#txtNoa').focus();
+				btnclickoff();      
 		    });
 
 		    //////////////////   end Ready
@@ -75,6 +76,7 @@
 		        $('#btnBank').click(function () {
 		        	
 		        });
+		        
 
 		        //q_gt('carteam', '', 0, 0, 0, "");
 		        //$("#cmbCarteamno").focus(function(){
@@ -160,6 +162,8 @@
 		        $('#txtNoa').val('AUTO');
 		        $('#txtDatea').val(q_date());
 		        $('#txtDatea').focus();
+		        
+		        btnclickok();
 		    }
 
 		    function btnModi() {
@@ -167,6 +171,8 @@
 		            return;
 		        _btnModi();
 		        $('#txtDatea').focus();
+		        
+		        btnclickok();
 		    }
 
 		    function btnPrint() {
@@ -181,6 +187,8 @@
 		            q_gtnoa(q_name, replaceAll(q_getPara('sys.key_carborr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 		        else
 		            wrServer(t_noa);
+		            
+		      	btnclickoff();
 		    }
 
 		    function wrServer(key_value) {
@@ -251,8 +259,23 @@
 		    }
 
 		    function btnCancel() {
+		    	btnclickoff();
 		        _btnCancel();
 		    }
+		    
+		    
+		    function btnclickok() {
+		    	$('#btnAccc')[0].disabled=false;
+		    	$('#btnGqb')[0].disabled=false;
+		    	$('#btnBank')[0].disabled=false;
+		    }
+		    function btnclickoff() {
+		    	$('#btnAccc')[0].disabled=true;
+		    	$('#btnGqb')[0].disabled=true;
+		    	$('#btnBank')[0].disabled=true;
+		    }
+		    
+		    
 		</script>
 		<style type="text/css">
 			#dmain {
