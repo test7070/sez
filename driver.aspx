@@ -277,11 +277,11 @@
                 float: left;
             }
             .txt.c4 {
-                width: 18%;
+                width: 15%;
                 float: left;
             }
             .txt.c5 {
-                width: 80%;
+                width: 85%;
                 float: left;
             }
             .txt.c6 {
@@ -359,36 +359,37 @@
 						<td class="td2">
 						<input id="txtBirthday" type="text" class="txt c1"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblTel" class="lbl"></a></td>
-						<td class="td4">
+						<td class="td3" ><span> </span><a id="lblTel" class="lbl"></a></td>
+						<td class="td4" colspan="5">
 						<input id="txtTel" type="text" class="txt c1"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblMobile" class="lbl"></a></td>
-						<td class="td6">
+						
+					</tr>
+					<tr  class="tr3">
+						<td class="td1"><span> </span><a id="lblMobile" class="lbl"></a></td>
+						<td class="td2"  colspan="7">
 						<input id="txtMobile" type="text" class="txt c1"/>
 						</td>
-						<td class="td7"></td>
-						<td class="td8"></td>
 					</tr>
-					<tr class="tr3">
+					<tr class="tr4">
 						<td class="td1"><span> </span><a id="lblAddr_home" class="lbl"></a></td>
 						<td class="td2" colspan="7">
 							<input id="txtZip_home" type="text" class="txt c4"/>
 							<input id="txtAddr_home" type="text" class="txt c5"/>
 						</td>
 					</tr>
-					<tr class="tr4">
+					<tr class="tr5">
 						<td class="td1"><span> </span><a id="lblAddr_conn" class="lbl"></a></td>
 						<td class="td2" colspan="7">
 							<input id="txtZip_conn" type="text" class="txt c4"/>
 							<input id="txtAddr_conn" type="text" class="txt c5"/>
 						</td>
 					</tr>
-					<tr class="tr5">
+					<tr class="tr6">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
 						<td class="td2" colspan='7'><textarea id="txtMemo" style="width:99%; height: 50px;"></textarea></td>
 					</tr>
-					<tr class="tr6">
+					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblTakeofficedate" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtTakeofficedate" type="text" class="txt c1"/>
@@ -402,7 +403,7 @@
 						<td class="td7"></td>
 						<td class="td8"></td>
 					</tr>
-					<tr class="tr7">
+					<tr class="tr8">
 						<td class="td1"><span> </span><a id="lblLabor" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtLabor" type="text" class="txt num c1" />
@@ -420,7 +421,7 @@
 						<input id="txtDependents" type="text" class="txt num c1"/>
 						</td>
 					</tr>
-					<tr class="tr8">
+					<tr class="tr9">
 						<td class="td1"><span> </span><a id="lblStrdate" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtStrdate" type="text" class="txt c1"/>
@@ -436,7 +437,7 @@
 						<td class="td7"></td>
 						<td class="td8"></td>
 					</tr>
-					<tr class="tr9">
+					<tr class="tr10">
 						<td class="td1"><span> </span><a id="lblAccount" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtAccount" type="text" class="txt c1"/>
@@ -452,7 +453,7 @@
 						<td class="td7"></td>
 						<td class="td8"></td>
 					</tr>
-					<tr class="tr10">
+					<tr class="tr11">
                         <td class="td1"><span> </span><a id="lblGuild" class="lbl"></a></td>
                         <td class="td2">
                         <input id="txtGuild" type="text" class="txt c1"/>
@@ -463,7 +464,7 @@
                         </td> 
                         <td class="td5" colspan="4"><input id="txtInsurer" type="text" class="txt c1"/></td>
                     </tr>
-                    <tr class="tr11">
+                    <tr class="tr12">
 						<td class="td1"><span> </span><a id="lblUacc1" class="lbl" style="font-size: 14px;"></a></td>
 						<td class="td2">
 						<input id="txtUacc1" type="text" class="txt c1"/>
