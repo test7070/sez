@@ -69,7 +69,12 @@
 		            if ($('#txtNoa').val().length > 0)
 		                q_func('tre_accc.gen', r_accy + ',' + $('#txtNoa').val());
 		        });
-
+				$('#btnGqb').click(function () {
+					
+		        });
+		        $('#btnBank').click(function () {
+		        	
+		        });
 
 		        //q_gt('carteam', '', 0, 0, 0, "");
 		        //$("#cmbCarteamno").focus(function(){
