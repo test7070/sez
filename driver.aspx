@@ -438,19 +438,17 @@
 					</tr>
 					<tr class="tr9">
 						<td class="td1"><span> </span><a id="lblAccount" class="lbl"></a></td>
-						<td class="td2">
+						<td class="td2" colspan="3">
 						<input id="txtAccount" type="text" class="txt c1"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblAccountname" class="lbl"></a></td>
-						<td class="td4">
+						<td class="td5"><span> </span><a id="lblAccountname" class="lbl"></a></td>
+						<td class="td6">
 						<input id="txtAccountname" type="text" class="txt c1"/>
 						</td> 
-						<td class="td5"><span> </span><a id="lblMark" class="lbl"></a></td>
-						<td class="td6">
+						<td class="td7"><span> </span><a id="lblMark" class="lbl"></a></td>
+						<td class="td8">
 						<input id="txtMark" type="text" class="txt cen c4" />
 						</td>
-						<td class="td7"></td>
-						<td class="td8"></td>
 					</tr>
 					<tr class="tr10">
                         <td class="td1"><span> </span><a id="lblGuild" class="lbl"></a></td>
