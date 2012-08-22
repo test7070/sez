@@ -328,6 +328,10 @@
                 width: 70%;
                 float: left;
             }
+            .tbbm tr td .txt.c6 {
+                width: 40%;
+                float: left;
+            }
             .tbbm tr td .txt.num {
                 text-align: right;
             }
@@ -424,8 +428,8 @@
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id='lblAccount' class="lbl">  </a></td>
 						<td class="td2"><input id="txtAccount"  type="text"  class="txt c1"/></td>
-						<td class="td3"> </td>
-						<td class="td4"> </td>
+						<td class="td3" colspan="2"><input id="txtAtype"  type="text"  class="txt c6"/>
+						<a id="lblAtype" > </a></td>
 						<td class="td5"><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td class="td6"><input id="txtWorker" type="text" class="txt c1"></td>
 					</tr>
