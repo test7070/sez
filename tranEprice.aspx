@@ -190,6 +190,7 @@
 		    $('#txtNoa').val('AUTO');
 		    $('#txtDatea').val(q_date());
 		    $('#txtDatea').focus();
+		    $('#cmbCalctype').val(2);
 		}
 
 		function btnModi() {
@@ -437,7 +438,7 @@
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox"/></td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='comp'>~comp</td>
+						<td align="center" id='comp,4'>~comp,4</td>
 						<td align="center" id='outprice'>~outprice</td>
 					</tr>
 				</table>
@@ -481,8 +482,11 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblCarno' class="lbl">  </a></td>
 						<td class="td2"><input id="txtCarno" type="text"  class="txt c1"/></td>
-						<td class="td3"><span> </span><a id="lblCarteam" class="lbl"> </a></td>
-						<td class="td4"><select id="cmbCarteamno" class="txt c1"> </select></td>
+						<td class="td3"><span> </span><a id="lblCalctype" class="lbl"> </a></td>
+						<td class="td4" ><select id="cmbCalctype" class="txt c1">
+							<option value="1">公司車</option>
+							<option value="2">外車</option>
+						</select></td>
 					</tr>
 					<tr>
 						<td class="td1" ><span> </span><a id="lblStraddr" class="lbl btn"> </a></td>
@@ -499,11 +503,8 @@
 					<tr>
 						<td class="td1" ><span> </span><a id="lblOutprice" class="lbl"> </a></td>
 						<td class="td2" ><input id="txtOutprice" type="text"  class="txt c1"/></td>
-						<td class="td3" ><input id="btnChoutprice" type="button" class="txt c5"/><span> </span><a id="lblCalctype" class="txt c6"> </a></td>
-						<td class="td4" ><select id="cmbCalctype" class="txt c1">
-							<option value="1">公司車</option>
-							<option value="1">外車</option>
-						</select></td>
+						<td class="td3" ><input id="btnChoutprice" type="button" /></td>
+						
 					</tr>
 					<tr>
 						<td class="td1" ><span> </span><a id="lblMemo" class="lbl"> </a></td>
