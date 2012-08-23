@@ -86,13 +86,13 @@
 					case 'trans':
 						var as = _q_appendData("trans", "", true);
 						for (var i = 0; i < as.length; i++) {
-                			trans_total2+=as[i].total2;
+                			trans_total2+=dec(as[i].total2);
                 		}
 						break;
 					case 'carchg':
 						var as = _q_appendData("carchg", "", true);
 						for (var i = 0; i < as.length; i++) {
-							 pm_money+=(as[i].plusmoney-as[i].minusmoney);
+							 carchg_pm_money+=(dec(as[i].plusmoney)-dec(as[i].minusmoney));
 						}
 						break;
 					case q_name:
@@ -102,10 +102,15 @@
 						if (q_cur == 1 || q_cur == 2)
 							q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 							
-							
 							var as = _q_appendData(q_name, "", true);
+							
+							
+							
+							
 						break;
 				}  /// end switch
+				//可借支金額計算
+				$('#txtMoney2').val(trans_total2+carchg_pm_money);
 			}
 
 			function _btnSeek() {
@@ -217,18 +222,18 @@
 			
 			var trans_total2=0;
 			var carchg_pm_money=0;
+			var carborr_money=0;
 			function money2(){
 				//可借支金額查詢----------------
 				trans_total2=0;
 				carchg_pm_money=0;
-				var t_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '"+$('#txtDatea').val().substr(0,6)+"/01' and '"+$('#txtDatea').val().substr(0,6)+"/31' ^^"; 
+				carborr_money=0;
+				var t_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '101/06/01' and '101/06/31' ^^"; 
+				//var t_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '"+$('#txtDatea').val().substr(0,6)+"/01' and '"+$('#txtDatea').val().substr(0,6)+"/31' ^^"; 
 				q_gt('trans', t_where  , 0, 0, 0, "", r_accy);	
-				t_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '"+$('#txtDatea').val().substr(0,6)+"/01' and '"+$('#txtDatea').val().substr(0,6)+"/31' ^^"; 
 				q_gt('carchg', t_where  , 0, 0, 0, "", r_accy);	
-
-				$('#txtMoney2').val(trans_total2+carchg_pm_money);
+				q_gt('carchg', t_where  , 0, 0, 0, "", r_accy);	
 				//---------------------------------
-				
 			}
 			
 		</script>
