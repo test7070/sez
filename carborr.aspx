@@ -102,15 +102,14 @@
 						if (q_cur == 1 || q_cur == 2)
 							q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 							
-							var as = _q_appendData(q_name, "", true);
-							
-							
-							
-							
+						var as = _q_appendData(q_name, "", true);
+						for (var i = 0; i < as.length; i++) {
+							carborr_money+=dec(as[i].money);
+						}
 						break;
 				}  /// end switch
 				//可借支金額計算
-				$('#txtMoney2').val(trans_total2+carchg_pm_money);
+				$('#txtMoney2').val(trans_total2+carchg_pm_money-carborr_money);
 			}
 
 			function _btnSeek() {
@@ -228,11 +227,17 @@
 				trans_total2=0;
 				carchg_pm_money=0;
 				carborr_money=0;
-				var t_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '101/06/01' and '101/06/31' ^^"; 
-				//var t_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '"+$('#txtDatea').val().substr(0,6)+"/01' and '"+$('#txtDatea').val().substr(0,6)+"/31' ^^"; 
+				//var t_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '101/06/01' and '101/06/31' ^^"; 
+				var t_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '"+$('#txtDatea').val().substr(0,6)+"/01' and '"+$('#txtDatea').val().substr(0,6)+"/31' ^^"; 
 				q_gt('trans', t_where  , 0, 0, 0, "", r_accy);	
 				q_gt('carchg', t_where  , 0, 0, 0, "", r_accy);	
-				q_gt('carchg', t_where  , 0, 0, 0, "", r_accy);	
+				var s_where="";
+				if(dec($('#txtDatea').val().substr(7,2))==15)
+					s_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '"+$('#txtDatea').val().substr(0,6)+"/01' and '"+$('#txtDatea').val().substr(0,6)+"/10' ^^";
+				if(dec($('#txtDatea').val().substr(7,2))==25)
+					s_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '"+$('#txtDatea').val().substr(0,6)+"/01' and '"+$('#txtDatea').val().substr(0,6)+"/20' ^^";
+				if(s_where!="")	
+					q_gt(q_name, s_where  , 0, 0, 0, "", r_accy);	
 				//---------------------------------
 			}
 			
