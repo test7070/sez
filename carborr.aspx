@@ -19,7 +19,7 @@
 
 			var q_name = "carborr";
 			var q_readonly = ['txtNoa','txtWorker'];
-			var bbmNum = [['txtMoney',10,0]];
+			var bbmNum = [['txtMoney',10,0],['txtMoney2',10,0]];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
