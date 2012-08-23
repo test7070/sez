@@ -86,7 +86,7 @@
 					case 'trans':
 						var as = _q_appendData("trans", "", true);
 						for (var i = 0; i < as.length; i++) {
-                			total2+=as[i].total2;
+                			trans_total2+=as[i].total2;
                 		}
 						break;
 					case 'carchg':
@@ -219,12 +219,14 @@
 			var carchg_pm_money=0;
 			function money2(){
 				//可借支金額查詢----------------
+				trans_total2=0;
+				carchg_pm_money=0;
 				var t_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '"+$('#txtDatea').val().substr(0,6)+"/01' and '"+$('#txtDatea').val().substr(0,6)+"/31' ^^"; 
 				q_gt('trans', t_where  , 0, 0, 0, "", r_accy);	
 				t_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '"+$('#txtDatea').val().substr(0,6)+"/01' and '"+$('#txtDatea').val().substr(0,6)+"/31' ^^"; 
 				q_gt('carchg', t_where  , 0, 0, 0, "", r_accy);	
 
-				$('#txtDriverno').val(trans_total2+carchg_pm_money);
+				$('#txtMoney2').val(trans_total2+carchg_pm_money);
 				//---------------------------------
 				
 			}
