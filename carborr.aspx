@@ -219,26 +219,28 @@
 				_btnCancel();
 			}
 			
+			//可借支金額-------------------
 			var trans_total2=0;
 			var carchg_pm_money=0;
 			var carborr_money=0;
+			
 			function money2(){
-				//可借支金額查詢----------------
 				trans_total2=0;
 				carchg_pm_money=0;
 				carborr_money=0;
-				//var t_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '101/06/01' and '101/06/31' ^^"; 
+				//查詢可借支金額查詢----------------
 				var t_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '"+$('#txtDatea').val().substr(0,6)+"/01' and '"+$('#txtDatea').val().substr(0,6)+"/31' ^^"; 
 				q_gt('trans', t_where  , 0, 0, 0, "", r_accy);	
 				q_gt('carchg', t_where  , 0, 0, 0, "", r_accy);	
+				
+				//查詢當月已借支金額-----------------------
 				var s_where="";
-				if(dec($('#txtDatea').val().substr(7,2))==15)
+				if(dec($('#txtDatea').val().substr(7,2))==15)	//當月15日計算當月1~10日的已借支
 					s_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '"+$('#txtDatea').val().substr(0,6)+"/01' and '"+$('#txtDatea').val().substr(0,6)+"/10' ^^";
-				if(dec($('#txtDatea').val().substr(7,2))==25)
+				if(dec($('#txtDatea').val().substr(7,2))==25)	//當月25日計算當月1~20日的已借支
 					s_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '"+$('#txtDatea').val().substr(0,6)+"/01' and '"+$('#txtDatea').val().substr(0,6)+"/20' ^^";
 				if(s_where!="")	
 					q_gt(q_name, s_where  , 0, 0, 0, "", r_accy);	
-				//---------------------------------
 			}
 			
 		</script>
