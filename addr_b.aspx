@@ -47,6 +47,7 @@
 					<th align="center" > </th>
 					<th align="center" style='color:blue;' ><a id='lblNoa'> </a></th>
 					<th align="center" style='color:blue;' ><a id='lblAddr'> </a></th>
+					<th align="center" style='color:blue;' ><a id='lblProductno'> </a></th>
 				</tr>
 				<tr>
 					<td style="width:2%;">
@@ -55,8 +56,11 @@
 					<td style="width:20%;">
 					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
-					<td style="width:75%;">
+					<td style="width:40%;">
 					<input class="txt" id="txtAddr.*" type="text" style="width:98%;"  readonly="readonly" />
+					</td>
+					<td style="width:40%;">
+					<input class="txt" id="txtProduct.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
 				</tr>
 			</table>

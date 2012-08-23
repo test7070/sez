@@ -19,7 +19,7 @@
 
 			var q_name = "carborr";
 			var q_readonly = ['txtNoa','txtWorker'];
-			var bbmNum = [['txtMoney',10,0]];
+			var bbmNum = [['txtMoney',10,0],['txtMoney2',10,0]];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -83,15 +83,33 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
+					case 'trans':
+						var as = _q_appendData("trans", "", true);
+						for (var i = 0; i < as.length; i++) {
+                			trans_total2+=dec(as[i].total2);
+                		}
+						break;
+					case 'carchg':
+						var as = _q_appendData("carchg", "", true);
+						for (var i = 0; i < as.length; i++) {
+							 carchg_pm_money+=(dec(as[i].plusmoney)-dec(as[i].minusmoney));
+						}
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
 
 						if (q_cur == 1 || q_cur == 2)
 							q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
+							
+						var as = _q_appendData(q_name, "", true);
+						for (var i = 0; i < as.length; i++) {
+							carborr_money+=dec(as[i].money);
+						}
 						break;
 				}  /// end switch
+				//可借支金額計算
+				$('#txtMoney2').val(trans_total2+carchg_pm_money-carborr_money);
 			}
 
 			function _btnSeek() {
@@ -142,6 +160,7 @@
 
 			function refresh(recno) {
 				_refresh(recno);
+				money2();
 			}
 
 			function readonly(t_para, empty) {
@@ -199,6 +218,31 @@
 			function btnCancel() {
 				_btnCancel();
 			}
+			
+			//可借支金額-------------------
+			var trans_total2=0;
+			var carchg_pm_money=0;
+			var carborr_money=0;
+			
+			function money2(){
+				trans_total2=0;
+				carchg_pm_money=0;
+				carborr_money=0;
+				//查詢可借支金額查詢----------------
+				var t_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '"+$('#txtDatea').val().substr(0,6)+"/01' and '"+$('#txtDatea').val().substr(0,6)+"/31' ^^"; 
+				q_gt('trans', t_where  , 0, 0, 0, "", r_accy);	
+				q_gt('carchg', t_where  , 0, 0, 0, "", r_accy);	
+				
+				//查詢當月已借支金額-----------------------
+				var s_where="";
+				if(dec($('#txtDatea').val().substr(7,2))==15)	//當月15日計算當月1~10日的已借支
+					s_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '"+$('#txtDatea').val().substr(0,6)+"/01' and '"+$('#txtDatea').val().substr(0,6)+"/10' ^^";
+				if(dec($('#txtDatea').val().substr(7,2))==25)	//當月25日計算當月1~20日的已借支
+					s_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '"+$('#txtDatea').val().substr(0,6)+"/01' and '"+$('#txtDatea').val().substr(0,6)+"/20' ^^";
+				if(s_where!="")	
+					q_gt(q_name, s_where  , 0, 0, 0, "", r_accy);	
+			}
+			
 		</script>
 		<style type="text/css">
 			#dmain {
@@ -367,6 +411,8 @@
 					<tr>
 						<td class="td1"><span> </span><a id="lblMoney" class="lbl">  </a></td>
 						<td class="td2"><input id="txtMoney" type="text"  class="txt num c1"/></td>
+						<td class="td3"><span> </span><a id="lblMoney2" class="lbl">  </a></td>
+						<td class="td4"><input id="txtMoney2" type="text"  class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl">  </a></td>
