@@ -2,13 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-    <title></title>
-     <script src="../script/jquery.min.js" type="text/javascript"></script>
-    <script src='../script/qj2.js' type="text/javascript"></script>
-    <script src='qset.js' type="text/javascript"></script>
-    <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src="../script/qbox.js" type="text/javascript"></script>
-    <script src='../script/mask.js' type="text/javascript"></script>
+    <title> </title>
+     <script src="../script/jquery.min.js" type="text/javascript"> </script>
+    <script src='../script/qj2.js' type="text/javascript"> </script>
+    <script src='qset.js' type="text/javascript"> </script>
+    <script src='../script/qj_mess.js' type="text/javascript"> </script>
+    <script src="../script/qbox.js" type="text/javascript"> </script>
+    <script src='../script/mask.js' type="text/javascript"> </script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
     
@@ -17,13 +17,15 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="chgcash";
-        var q_readonly = ['txtAcc2','txtChgitem','txtPart','txtOrg','txtNamea'];
+        var q_readonly = ['txtAcc2','txtChgitem','txtPart','txtOrg','txtNamea','txtComp'];
         var bbmNum = [['txtMoney',12 , , 1],['txtOrg',12 , , 1]];  // master 允許 key 小數  [物件,整數位數,小數位數, comma Display]
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
         
-        aPop = new Array(['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],['txtPartno', 'lblPart', 'Part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],['txtChgitemno', 'lblChgitem', 'chgitem', 'noa,item', 'txtChgitemno,txtChgitem', 'chgitem_b.aspx']);
+        aPop = new Array(['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],['txtPartno', 'lblPart', 'Part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],
+        ['txtChgitemno', 'lblChgitem', 'chgitem', 'noa,item', 'txtChgitemno,txtChgitem', 'chgitem_b.aspx'],
+        ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
         
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -450,7 +452,7 @@
                 </div>
                 <div class='dbbm' style="float: left;">
                     <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
-                        <tr>
+                        <tr class="tr1">
                             <td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
                             <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
                             <td class="td3"></td>
@@ -458,7 +460,7 @@
                             <td class="td5"></td>
                             <td class="td6"></td>
                         </tr>
-                        <tr>
+                        <tr class="tr2">
                             <td class="td1"><span> </span><a id="lblDatea" class="lbl"></a></td>
                             <td class="td2"><input id="txtDatea"  type="text"  class="txt c1"/></td>
                             <td class="td3"><span> </span><a id="lblTime" class="lbl"></a></td>
@@ -466,7 +468,7 @@
                             <td class="td5"></td>
                             <td class="td6"></td>
                         </tr>
-                        <tr>
+                        <tr class="tr3">
                             <td class="td1"><span> </span><a id="lblChgitem" class="lbl btn"></a></td>
                             <td class="td2"><input id="txtChgitemno"  type="text"  class="txt c2"/>
                             <input id="txtChgitem"  type="text"  class="txt c3"/></td>
@@ -476,7 +478,7 @@
                             <td class="td5"></td>
                             <td class="td6"></td>
                         </tr>
-                        <tr>
+                        <tr class="tr4">
                             <td class="td1"><span> </span><a id="lblMoney" class="lbl"></a></td>
                             <td class="td2"><input id="txtMoney"  type="text" class="txt num c1" /></td>
                             <td class="td3"><span ></span><a id="lblDc" class="lbl"></a></td>
@@ -486,7 +488,17 @@
                             <td class="td5"></td>
                             <td class="td6"></td>
                         </tr>
-                        <tr>            
+                        <tr class="tr5">            
+                            <td class="td1"><span> </span><a id="lblCustno" class="lbl btn"></a></td>
+                            <td class="td2"><input id="txtCustno"  type="text"  class="txt c1"/></td>
+                            <td class="td3" colspan="2"><input id="txtComp"  type="text"  class="txt c1"/></td>
+                            <td class="td4"></td>                                                        
+                        </tr>
+                        <tr class="tr6">
+                        	<td class="td1"><span> </span><a id="lblPo" class="lbl"></a></td>
+                            <td class="td2"><input id="txtPo"  type="text" class="txt num c1" /></td>
+                        </tr>
+                        <tr class="tr7">            
                             <td class="td1"><span> </span><a id="lblPart" class="lbl btn"></a></td>
                             <td class="td2"><input id="txtPartno"  type="text"  class="txt c2"/>
                             <input id="txtPart"  type="text"  class="txt c3"/></td>
@@ -495,7 +507,7 @@
                             <td class="td5"></td>
                             <td class="td6"></td>                                                        
                         </tr>
-                        <tr>
+                        <tr class="tr8">
                             <td class="td1"><span> </span><a id="lblSss" class="lbl btn"></a></td>
                             <td class="td2"><input id="txtSssno"  type="text"  class="txt c2"/>
                             <input id="txtNamea" type="text"  class="txt c3"/></td>    
@@ -504,28 +516,28 @@
                             <td class="td5"></td>
                             <td class="td6"></td>  
                         </tr>
-                        <tr>                          
+                        <tr class="tr9">                          
                             <td class="td1"><span> </span><a id="lblChecker" class="lbl"></a></td>
                             <td class="td2"><input id="txtChecker"  type="text" class="txt c1" /></td>
                             <td class="td3"colspan="2"><input id="txtCheckmemo"  type="text" class="txt c1"/></td>
                             <td class="td5"></td>
                             <td class="td6"></td>       
                         </tr> 
-                        <tr>
+                        <tr class="tr10">
                             <td class="td1"><span> </span><a id="lblApprv" class="lbl"></a></td>
                             <td class="td2"><input id="txtApprv"  type="text" class="txt c1"/></td>  
                             <td class="td3" colspan="2"><input id="txtApprvmemo"  type="text" class="txt c1" /></td>
                             <td class="td5"></td>
                             <td class="td6"></td>            
                         </tr>
-                        <tr>
+                        <tr class="tr11">
                             <td class="td1"><span> </span><a id="lblApprove" class="lbl"></a></td>
                             <td class="td2"><input id="txtApprove"  type="text" class="txt c1" /></td>  
                             <td class="td3" colspan="2"><input id="txtApprovememo"  type="text" class="txt c1" /></td>
                             <td class="td5"></td>
                             <td class="td6"></td>            
                         </tr>
-                        <tr>
+                        <tr class="tr12">
                             <td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
                             <td class="td2" colspan="3"><textarea id="txtMemo" cols="10" rows="5" style='width:98%;height: 50px; '></textarea></td>
                         </tr>

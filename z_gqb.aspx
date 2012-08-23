@@ -7,7 +7,6 @@
 		<script src='../script/qj2.js' type="text/javascript"> </script>
 		<script src='qset.js' type="text/javascript"> </script>
 		<script src='../script/qj_mess.js' type="text/javascript"> </script>
-		<script src='../script/z_report.js' type="text/javascript"> </script>
 		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<script src='../script/mask.js' type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
@@ -22,7 +21,7 @@
 
             });
             function q_gfPost() {
-                $('#qReport').q_report({
+                $('#q_report').q_report({
                     fileName : 'z_gqb',
                     options : [{
                         type : '5',
@@ -47,8 +46,6 @@
                     }]
                 });
                 q_popAssign();
-                q_getFormat();
-                q_langShow();
 
                 $('#txtDate1').mask('999/99/99');
                 $('#txtDate1').datepicker();
@@ -63,11 +60,14 @@
 		</script>
 	</head>
 	<body>
-		<div id="container">
-			<div id="qReport"></div>
-		</div>
-		<div class="prt" >
-			<!--#include file="../inc/print_ctrl.inc"-->
+		<div id="q_menu"> </div>
+		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
+			<div id="container">
+				<div id="q_report"> </div>
+			</div>
+			<div class="prt" style="margin-left: -40px;">
+				<!--#include file="../inc/print_ctrl.inc"-->
+			</div>
 		</div>
 	</body>
 </html>
