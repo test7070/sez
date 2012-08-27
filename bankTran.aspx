@@ -135,7 +135,6 @@
         function btnIns() {
             _btnIns();
             $('#txtNoa').focus();
-            $('#btnGen').attr('disabled', 'disabled');
         }
 
         function btnModi() {
@@ -144,7 +143,6 @@
 
             _btnModi();
             $('#txtComp').focus();
-            $('#btnGen').attr('disabled', 'disabled');
         }
 
         function btnPrint() {
@@ -191,7 +189,6 @@
 
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
             _btnOk(key_value, bbmKey[0], '', '', 2);
-            $('#btnGen').removeAttr('disabled');
         }
        
         function refresh(recno) {
@@ -200,6 +197,13 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            
+            if (t_para) {
+		            $('#btnGen').removeAttr('disabled');
+		        }
+		        else {
+		            $('#btnGen').attr('disabled', 'disabled');
+		        }
         }
 
         function btnMinus(id) {
@@ -248,7 +252,6 @@
 
         function btnCancel() {
             _btnCancel();
-            $('#btnGen').removeAttr('disabled');
         }
     </script>
     <style type="text/css">
