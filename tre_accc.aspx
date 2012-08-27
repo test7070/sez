@@ -27,7 +27,8 @@
 		    brwKey = 'noa';
 		    //ajaxPath = ""; //  execute in Root
 		    aPop = new Array(['txtBdriverno', 'lblBdriver', 'driver', 'noa,namea', 'txtBdriverno,txtBdriver', 'driver_b.aspx'],
-			['txtEdriverno', 'lblEdriver', 'driver', 'noa,namea', 'txtEdriverno,txtEdriver', 'driver_b.aspx']);
+			['txtEdriverno', 'lblEdriver', 'driver', 'noa,namea', 'txtEdriverno,txtEdriver', 'driver_b.aspx'],
+			['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 
 		    $(document).ready(function () {
 		        bbmKey = ['noa'];
@@ -464,6 +465,8 @@
 						<td class="td2"><input id="txtChkbno" type="text"  class="txt c1"/></td>
 						<td align="center"><a id="lblChkeno"  style="font-weight: bold;font-size: 24px;"> </a></td>
 						<td class="td4"><input id="txtChkeno" type="text"  class="txt c1"/> </td>
+						<td class="td5"><span> </span><a id='lblAcc1' class="lbl btn">  </a> </td>
+						<td class="td6"><input id="txtAcc1"  type="text"  class="txt c2"/><input id="txtAcc2"  type="text"  class="txt c3"/> </td>
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id='lblAccount' class="lbl">  </a></td>

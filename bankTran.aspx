@@ -42,7 +42,9 @@
 
 
         function mainPost() { 
+        	bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd]];
         	q_mask(bbmMask);
+     
         	 q_cmbParse("cmbTypea", q_getPara('sss.typea'));
         	  q_cmbParse("cmbSex", q_getPara('sss.sex'));
         	  
