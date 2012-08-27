@@ -35,7 +35,7 @@
 		        q_brwCount();
 		        q_gt(q_name, q_content, q_sqlCount, 1)
 		        $('#txtNoa').focus();
-				btnclickoff();      
+		        
 		    });
 
 		    //////////////////   end Ready
@@ -71,13 +71,13 @@
 		            if ($('#txtNoa').val().length > 0)
 		                q_func('tre_accc.gen', r_accy + ',' + $('#txtNoa').val());
 		        });
-				$('#btnGqb').click(function () {
-					
+		        $('#btnGqb').click(function () {
+
 		        });
 		        $('#btnBank').click(function () {
-		        	
+
 		        });
-		        
+
 
 		        //q_gt('carteam', '', 0, 0, 0, "");
 		        //$("#cmbCarteamno").focus(function(){
@@ -91,9 +91,33 @@
 		    function q_funcPost(t_func, result) {
 		        if (result.length > 0) {
 		            var s2 = result.split(';');
+		            for (var i = 0; i < s2.length; i++) {
+		                switch (i) {
+		                    case 0:
+		                        $('#txtAccno1').val(s2[i]);
+		                        break;
+		                    case 1:
+		                        $('#txtAccno2').val(s2[i]);
+		                        break;
+		                    case 2:
+		                        $('#txtAccno3').val(s2[i]);
+		                        break;
+		                    case 3:
+		                        $('#txtChkeno').val(s2[i]);
+		                        break;
+		                    case 4:
+		                        $('#txtMemo').val(s2[i]);
+		                        break;
+		                } //end switch
+		            } //end for
 
-		        }
+		        } //end  if
 
+		    } //endfunction
+
+		    function q_stPost() {
+		        if (!(q_cur == 1 || q_cur == 2))
+		            return false;
 		    }
 
 		    function txtCopy(dest, source) {
@@ -131,15 +155,15 @@
 
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
-		            //case 'carteam':  
-		            //  var as = _q_appendData("carteam", "", true);  
-		            //	var t_item = "";  
-		            //   for( i = 0; i < as.length; i++) {  
-		            //      t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;  
-		            // }  
-		            //q_cmbParse("cmbCarteamno", t_item);   
-		            //$("#cmbCarteamno").val( abbm[q_recno].carteamno);                    
-		            // break;  
+		            //case 'carteam':   
+		            //  var as = _q_appendData("carteam", "", true);   
+		            //	var t_item = "";   
+		            //   for( i = 0; i < as.length; i++) {   
+		            //      t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;   
+		            // }   
+		            //q_cmbParse("cmbCarteamno", t_item);    
+		            //$("#cmbCarteamno").val( abbm[q_recno].carteamno);                     
+		            // break;   
 		            case q_name:
 		                if (q_cur == 4)
 		                    q_Seek_gtPost();
@@ -163,8 +187,6 @@
 		        $('#txtNoa').val('AUTO');
 		        $('#txtDatea').val(q_date());
 		        $('#txtDatea').focus();
-		        
-		        btnclickok();
 		    }
 
 		    function btnModi() {
@@ -172,8 +194,6 @@
 		            return;
 		        _btnModi();
 		        $('#txtDatea').focus();
-		        
-		        btnclickok();
 		    }
 
 		    function btnPrint() {
@@ -188,8 +208,7 @@
 		            q_gtnoa(q_name, replaceAll(q_getPara('sys.key_carborr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 		        else
 		            wrServer(t_noa);
-		            
-		      	btnclickoff();
+
 		    }
 
 		    function wrServer(key_value) {
@@ -209,7 +228,18 @@
 
 		    function readonly(t_para, empty) {
 		        _readonly(t_para, empty);
-		    }
+
+		        if (t_para) {
+		            $('#btnAccc').removeAttr('disabled');
+		            $('#btnGqb').removeAttr('disabled');
+		            $('#btnBank').removeAttr('disabled');
+		        }
+		        else {
+		            $('#btnAccc').attr('disabled', 'disabled');
+		            $('#btnGqb').attr('disabled', 'disabled');
+		            $('#btnBank').attr('disabled', 'disabled');
+		        }
+           }
 
 		    function btnMinus(id) {
 		        _btnMinus(id);
@@ -260,23 +290,11 @@
 		    }
 
 		    function btnCancel() {
-		    	btnclickoff();
 		        _btnCancel();
 		    }
-		    
-		    
-		    function btnclickok() {
-		    	$('#btnAccc')[0].disabled=false;
-		    	$('#btnGqb')[0].disabled=false;
-		    	$('#btnBank')[0].disabled=false;
-		    }
-		    function btnclickoff() {
-		    	$('#btnAccc')[0].disabled=true;
-		    	$('#btnGqb')[0].disabled=true;
-		    	$('#btnBank')[0].disabled=true;
-		    }
-		    
-		    
+
+
+	    
 		</script>
 		<style type="text/css">
 			#dmain {
