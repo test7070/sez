@@ -15,7 +15,7 @@
 		    function onPageError(error) {
 		        alert("An error occurred:\r\n" + error.Message);
 		    }
-
+			q_desc=1
 		    var q_name = "tre_accc";
 		    var q_readonly = ['txtNoa', 'txtWorker', 'txtPaybno', 'txtPayeno', 'txtChkeno', 'txtAccno1', 'txtAccno2', 'txtAccno3', 'txtBdriver', 'txtEdriver'];
 		    var bbmNum = [['txtOpay', 11, 0, 1], ['txtUnopay', 11, 0, 1]];
@@ -484,7 +484,7 @@
 						<td align="center"><a id="lblChkeno"  style="font-weight: bold;font-size: 24px;"> </a></td>
 						<td class="td4"><input id="txtChkeno" type="text"  class="txt c1"/> </td>
 						<td class="td5"><span> </span><a id='lblAcc1' class="lbl btn">  </a> </td>
-						<td class="td6"><input id="txtAcc1"  type="text"  class="txt c2"/><input id="txtAcc2"  type="text"  class="txt c3"/> </td>
+						<td class="td6"><input id="txtAcc1"  type="text"  class="txt c4"/><input id="txtAcc2"  type="text"  class="txt c5"/> </td>
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id='lblAccount' class="lbl">  </a></td>
