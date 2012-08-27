@@ -17,7 +17,7 @@
             }
             var q_name = "trans";
             var q_readonly = ['txtNoa','txtTotal','txtTotal2','txtTrdno','txtTreno','txtWorkerno','txtWorker'];
-            var bbmNum = new Array(['txtUnpack', 10, 0], ['txtInmount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3],  ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['txtMiles', 10, 2],  ['txtWeight', 10, 2], ['txtOutmount', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 3], ['txtPton2', 10, 3], ['txtOverh', 10, 0], ['txtOverw', 10, 0]);
+            var bbmNum = new Array(['txtUnpack', 10, 0], ['txtInmount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3],  ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['txtMiles', 10, 2],  ['txtWeight', 10, 3], ['txtOutmount', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 3], ['txtPton2', 10, 3], ['txtOverh', 10, 0], ['txtOverw', 10, 0]);
             var bbmMask = new Array(['txtTrandate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99'],['txtCldate', '999/99/99'],['txtLtime','99:99'],['txtStime','99:99'],['txtDtime','99:99']);
             q_sqlCount = 6;
             brwCount = 6;
