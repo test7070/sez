@@ -66,7 +66,7 @@
 		            //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
 		        });
 
-		        $('#btnAccc').click(function () {
+		        $('#btnAccc').click(function () { 
 		            if ($('#txtNoa').val().length > 0)
 		                q_func('tre_accc.gen', r_accy + ',' + $('#txtNoa').val());
 		        });
@@ -90,9 +90,33 @@
 		    function q_funcPost(t_func, result) {
 		        if (result.length > 0) {
 		            var s2 = result.split(';');
+		            for(var i=0;i <s2.length;i++){
+		            	switch (i){
+		            		case 0:
+		            			$('#txtAccno1').val(s2[i]);
+		            		break;
+		            		case 1:
+		            			$('#txtAccno2').val(s2[i]);
+		            		break;
+		            		case 2:
+		            			$('#txtAccno3').val(s2[i]);
+		            		break;
+		            		case 3:
+		            			$('#txtChkeno').val(s2[i]);
+		            		break;
+		            		case 4:
+		            			$('#txtMemo').val(s2[i]);
+		            		break;
+		            	}//end switch
+		            }//end for
 
-		        }
+		        }//end  if
 
+		    }//endfunction
+		    
+		    function q_stPost() {
+		        if (!(q_cur == 1 || q_cur == 2))
+		            return false;
 		    }
 
 		    function txtCopy(dest, source) {
@@ -265,14 +289,14 @@
 		    
 		    
 		    function btnclickok() {
-		    	$('#btnAccc')[0].disabled=false;
-		    	$('#btnGqb')[0].disabled=false;
-		    	$('#btnBank')[0].disabled=false;
-		    }
-		    function btnclickoff() {
 		    	$('#btnAccc')[0].disabled=true;
 		    	$('#btnGqb')[0].disabled=true;
 		    	$('#btnBank')[0].disabled=true;
+		    }
+		    function btnclickoff() {
+		    	$('#btnAccc')[0].disabled=false;
+		    	$('#btnGqb')[0].disabled=false;
+		    	$('#btnBank')[0].disabled=false;
 		    }
 		    
 		    
