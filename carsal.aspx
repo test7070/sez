@@ -353,7 +353,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 1200px;
+				width: 1400px;
 			}
 			.tbbs a {
 				font-size: medium;
@@ -492,17 +492,17 @@
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:120px;"><a id='lblDriver_s'></a></td>
 					<td align="center" style="width:30px;"><a id='lblDay_s'></a></td>
-					<td align="center" style="width:60px;"><a id='lblTranmoney_s'></a></td>
-					<td align="center" style="width:60px;"><a id='lblDrivermoney_s'></a></td>
-					<td align="center" style="width:60px;"><a id='lblBonus_s'></a></td>
-					<td align="center" style="width:60px;"><a id='lblPlus_s'></a></td>
-					<td align="center" style="width:60px;"><a id='lblMoney_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblTranmoney_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblDrivermoney_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblBonus_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblPlus_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblMoney_s'></a></td>
 					<td align="center" style="width:60px;"><a id='lblTicket_s'></a></td>
 					<td align="center" style="width:60px;"><a id='lblLabor_s'></a></td>
 					<td align="center" style="width:60px;"><a id='lblHealth_s'></a></td>
-					<td align="center" style="width:60px;"><a id='lblMinus_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblMinus_s'></a></td>
 					<td align="center" style="width:60px;"><a id='lblCarborr_s'></a></td>
-					<td align="center" style="width:60px;"><a id='lblTotal_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblTotal_s'></a></td>
 					<td align="center" style="width:150px;"><a id='lblMemo_s'></a></td>
 					
 				</tr>
@@ -512,8 +512,8 @@
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td  align="center"><input type="text" id="txtDriverno.*" style="width:40%;" />
-						<input type="text" id="txtDriver.*" style="width:50%;" />
+					<td  align="center"><input type="text" id="txtDriverno.*" style="width:40%; float:left;" />
+						<input type="text" id="txtDriver.*" style="width:50%; float:left;" />
 					</td>
 					<td ><input type="text" id="txtDay.*" style="width:95%; text-align: right;" /></td>
 					<td ><input type="text" id="txtTranmoney.*" style="width:95%; text-align: right;" /></td>
