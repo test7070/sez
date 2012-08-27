@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -135,6 +135,7 @@
         function btnIns() {
             _btnIns();
             $('#txtNoa').focus();
+            $('#btnGen').attr('disabled', 'disabled');
         }
 
         function btnModi() {
@@ -143,6 +144,7 @@
 
             _btnModi();
             $('#txtComp').focus();
+            $('#btnGen').attr('disabled', 'disabled');
         }
 
         function btnPrint() {
@@ -188,7 +190,8 @@
                 xmlSql = q_preXml();
 
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-            _btnOk(key_value, bbmKey[0], '','',2);
+            _btnOk(key_value, bbmKey[0], '', '', 2);
+            $('#btnGen').removeAttr('disabled');
         }
        
         function refresh(recno) {
@@ -245,6 +248,7 @@
 
         function btnCancel() {
             _btnCancel();
+            $('#btnGen').removeAttr('disabled');
         }
     </script>
     <style type="text/css">
@@ -415,7 +419,7 @@
             </tr>
             <tr>
             	<td> </td>
-               <td class="td2"><input id="btnGentxt"  type="button"  /></td>
+               <td class="td2"><input id="btnGen"  type="button"  /></td>
             </tr>
             <tr>
 				<td class="td1" ><span> </span><a id="lblMemo" class="lbl"> </a></td>
