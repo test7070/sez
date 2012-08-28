@@ -17,11 +17,11 @@
 		<script type="text/javascript">
             $(document).ready(function() {
             	q_getId();
-            	q_gf('', 'z_bcc');
+            	q_gf('', 'z_bcc2');
             });
             function q_gfPost() {
                $('#qReport').q_report({
-                        fileName : 'z_bcc',
+                        fileName : 'z_bcc2',
                         options : [{
                         type : '1',
                         name : 'date'
