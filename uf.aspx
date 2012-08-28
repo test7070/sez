@@ -50,7 +50,10 @@
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
              q_cmbParse("cmbTypea", q_getPara('uf.typea')); 
-             
+             $('#lblAccno').click(function () {
+		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+		            //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
+		        });
 	        
         }
 
@@ -410,12 +413,12 @@
             <td class='td7'><span> </span><a id="lblBankno" class="lbl btn"></a></td>
             <td class="td8"><input id="txtBankno" type="text" class="txt c1"/></td></tr>
         <tr>            
-            <td class='td1'><span> </span><a id="lblAccno" class="lbl"></a></td>
-            <td class="td2"><input id="txtAccno"  type="text" class="txt c1"/></td>
-            <td class='td3'><span> </span><a id="lblAccount" class="lbl" ></a></td>
-            <td class="td4"><input id="txtAccount"  type="text" class="txt c1"/></td>
-            <td class='td5'><span> </span><a id="lblMoney" class="lbl"></a></td>
-            <td class="td6"><input id="txtMoney"  type="text" class="txt num c1" /></td></tr>        
+            <td class='td1'><span> </span><a id="lblAccount" class="lbl" ></a></td>
+            <td class="td2"><input id="txtAccount"  type="text" class="txt c1"/></td>
+            <td class='td3'><span> </span><a id="lblMoney" class="lbl"></a></td>
+            <td class="td4"><input id="txtMoney"  type="text" class="txt num c1" /></td>
+            <td class='td5'><span> </span><a id="lblAccno" class="lbl btn"></a></td>
+            <td class="td6"><input id="txtAccno"  type="text" class="txt c1"/></td></tr>        
         <tr>
             <td class='td1'><span> </span><a id="lblWorker" class="lbl"></a></td>
             <td class="td2"><input id="txtWorker"  type="text"  class="txt c1"/></td>
