@@ -146,7 +146,7 @@
                        t_where +=  "^^";
                       
                         t_where += "order=^^datea,noa^^";
-                        $(this).val('靖稍後');
+                        $(this).val('請稍後');
                         q_gt('trans', t_where, 0, 0, 0, "", r_accy);
                     }
                 });
@@ -312,8 +312,9 @@
                 var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0,t_mount=0,t_plus=0;
                 for( iz = 0; iz < q_bbsCount; iz++) {
                 	t_money += q_float('txtTranmoney_'+iz);
-              		t_mount +=  q_float('txtMount_'+iz);
+              		t_mount +=  Math.round(q_float('txtMount_'+iz)*1000); 
                 }
+                t_mount  =  t_mount/1000;
               
                 t_discount = q_float('txtDiscount');
                 t_plus =  q_float('txtPlus');
@@ -322,6 +323,8 @@
 				//alert(($('#cmbTaxtype').val()=='1')+'_'+t_money+'_'+t_discount+'_'+t_plus+'_'+t_rate);
                 switch($('#cmbTaxtype').val()+'') {
                     case '1':
+                    	$('#txtTaxrate').val(q_getPara('sys.taxrate'));
+                    	t_rate = q_float('txtTaxrate'); 
                         t_tax = Math.round((t_money-t_discount+t_plus) * t_rate / 100);
                         t_total = (t_money-t_discount+t_plus) + t_tax ;
                         break;
