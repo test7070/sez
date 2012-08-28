@@ -27,8 +27,8 @@
 		
         $(document).ready(function () {
             bbmKey = ['acc1'];
-            q_brwCount();
             brwCount2=20
+            q_brwCount();
            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy+'_'+r_cno)
             $('#txtAcc1').focus
         });
