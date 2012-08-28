@@ -137,11 +137,12 @@
         function btnIns() {
             _btnIns();
             $('#txtNoa').focus();
-<<<<<<< HEAD
+
+			$('#txtBdate').val(q_date());
+		    $('#txtBdate').focus();
+		    $('#txtEdate').val(q_date());
+		    $('#txtDatea').val(q_date());
             $('#txtNoa').val('AUTO');
-            $('#btnGen').attr('disabled', 'disabled');
-=======
->>>>>>> e7b23ef5153fdb22bad335af9e35620fb17cea40
         }
 
         function btnModi() {

@@ -497,12 +497,12 @@
 					</tr>
 					<tr>
 						<td class="td1" ><span> </span><a id="lblInprice" class="lbl"> </a></td>
-						<td class="td2" ><input id="txtInprice" type="text"  class="txt c1"/></td>
+						<td class="td2" ><input id="txtInprice" type="text"  class="txt num c1"/></td>
 						<td class="td3" ><input id="btnChinprice" type="button" /></td>
 					</tr>
 					<tr>
 						<td class="td1" ><span> </span><a id="lblOutprice" class="lbl"> </a></td>
-						<td class="td2" ><input id="txtOutprice" type="text"  class="txt c1"/></td>
+						<td class="td2" ><input id="txtOutprice" type="text"  class="txt num c1"/></td>
 						<td class="td3" ><input id="btnChoutprice" type="button" /></td>
 						
 					</tr>
