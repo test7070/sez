@@ -15,7 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-			t_carkind = "";
+			t_carteam = "";
 			if (location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
 			}
@@ -25,7 +25,7 @@
 				q_gf('', 'z_paytran');
 			});
 			function q_gfPost() {
-				q_gt('carkind', '', 0, 0, 0, "");
+				q_gt('carteam', '', 0, 0, 0, "");
 			}
 
 			function q_boxClose(t_name) {
@@ -34,14 +34,14 @@
 			function q_gtPost(t_name) {
 
 				switch (t_name) {
-					case 'carkind':
-						var as = _q_appendData("carkind", "", true);
+					case 'carteam':
+						var as = _q_appendData("carteam", "", true);
 						for ( i = 0; i < as.length; i++) {
-							t_carkind = t_carkind + (t_carkind.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].kind;
+							t_carteam = t_carteam + (t_carteam.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
 						}
 						break;
 				}
-				if (t_carkind .length > 0) {
+				if (t_carteam.length > 0) {
 					$('#qReport').q_report({
 						fileName : 'z_paytran',
 						options : [{
@@ -78,8 +78,8 @@
 							name : 'xnoa'
 						}, {
 							type : '8', //select
-							name : 'xcarkind',
-							value : t_carkind.split(',')
+							name : 'xcarteam',
+							value : t_carteam.split(',')
 						}]
 					});
 					q_popAssign();
@@ -112,7 +112,7 @@
 					t_day = t_day > 9 ? t_day + '' : '0' + t_day;
 					$('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
 
-					t_carkind  = '';
+					t_carteam  = '';
 				}
 			}
 		</script>
