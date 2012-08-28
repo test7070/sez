@@ -18,7 +18,7 @@
 			isEditTotal = false;
             q_tables = 's';
             var q_name = "trd";
-            var q_readonly = ['txtNoa','txtDatea', 'txtMoney', 'txtTotal','txtWorker','txtMount'];
+            var q_readonly = ['txtNoa','txtDatea', 'txtMoney', 'txtTotal','txtWorker','txtMount','txtStraddr','txtEndaddr'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
             var bbmNum = [['txtMoney', 10, 0],['txtTaxrate', 10, 1],['txtTax', 10, 0],['txtTotal', 10, 0],['txtDiscount', 10, 0],['txtMount', 10, 3],['txtPlus',10,0]];
             var bbsNum = [['txtTranmoney', 10, 0],['txtOverweightcost', 10, 0],['txtOthercost', 10, 0],['txtmount',10,3],['txtPrice',10,3]];
@@ -35,7 +35,8 @@
             ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], 
             ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
             ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], 
-            ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b2.aspx'], 
+            ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b2.aspx'],
+            ['txtEndaddrno', '', 'addr', 'noa,addr', 'txtEndaddrno,txtEndaddr', 'addr_b2.aspx'], 
             ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], 
             ['txtWorker', 'lblWorker', 'sss', 'noa,namea', 'txtWorkerno,txtWorker', 'sss_b.aspx'], 
             ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], 
@@ -110,7 +111,7 @@
                 $('#btnTrans').click(function(e) {
                     if(q_cur == 1 || q_cur == 2) {
                         if($.trim($('#txtCustno').val()) == 0) {
-                            alert('Please enter the customer no.');
+                            alert('請輸入客戶');
                             return false;
                         }
                         var  t_noa = "'" + $.trim($('#txtOrdeno').val()) + "'";
@@ -127,21 +128,25 @@
                         var t_eodate = $.trim($('#txtEodate').val());
                         t_eodate = t_eodate.length == 0 ? "char(255)" : "'" + t_eodate + "'";
                         var t_straddrno = "'" + $.trim($('#txtStraddrno').val()) + "'";
-            
+                        var t_endaddrno = $.trim($('#txtEndaddrno').val());
+            			t_endaddrno = t_endaddrno.length == 0 ? "char(255)" : "'" + t_endaddrno + "'";
+ 						
                         var t_tranordeno = "'" + $.trim($('#txtOrdeno').val()) + "'";
                         var t_po = "'" + $.trim($('#txtPo').val()) + "'";
 
-                        t_where = "where=^^(custno=" + t_custno + ") and (isnull(trandate,'') between " + t_btrandate + " and " + t_etrandate + ") and (isnull(datea,'') between " + t_bdate + " and " + t_edate + ") ";
-                         t_where +=" and ( len(isnull(trdno,''))=0  or  trdno="+t_noa+")";
-                        if(!(t_straddrno=="''"))
-                        	t_where += " and (straddrno=" + t_straddrno + ")";
+                        t_where = "where=^^(custno=" + t_custno + ") and (isnull(trandate,'') between " + t_btrandate + " and " + t_etrandate + ") and (isnull(datea,'') between " + t_bdate + " and " + t_edate  + " ) ";
+                        t_where +=" and ( len(isnull(trdno,''))=0  or  trdno="+t_noa+")";
+     					
+                        t_where += " and (straddrno  between " + t_straddrno + " and "+t_endaddrno+")";
                         if(!(t_po=="''"))
                         	t_where += " and (trans" + r_accy + ".po=" + t_po + ")";
                         if(!(t_bodate == "''" && t_eodate == "char(255)" && t_ordeno == "''"))
-                            t_where += "and exists(select * from tranorde" + r_accy + " where noa=trans" + r_accy + ".ordeno and (odate between " + t_bodate + " and " + t_eodate + ")) and ";
+                            t_where += "and exists(select * from tranorde" + r_accy + " where noa=trans" + r_accy + ".ordeno and (odate between " + t_bodate + " and " + t_eodate + "))";
                        // t_where += " not exists(select * from trds" + r_accy + " where not(noa=" + t_curno + ") and tranno=trans" + r_accy + ".noa and trannoq=trans" + r_accy + ".noq and (straddrno between " + t_bstraddrno + " and " + t_estraddrno + ") and (endaddrno between " + t_bendaddrno + " and " + t_eendaddrno + "))^^";
-                       
+                       t_where +=  "^^";
+                      
                         t_where += "order=^^datea,noa^^";
+                        $(this).val('靖稍後');
                         q_gt('trans', t_where, 0, 0, 0, "", r_accy);
                     }
                 });
@@ -170,7 +175,7 @@
                     case 'trans':
                         var as = _q_appendData("trans", "", true);
 
-                       q_gridAddRow(bbsHtm, 'tbbs', 'txtTranno,txtOrdeno,txtTrandate', as.length, as, 'tranno,ordeno,trandate', '', '');
+                      	q_gridAddRow(bbsHtm, 'tbbs', 'txtTranno,txtOrdeno,txtTrandate', as.length, as, 'tranno,ordeno,trandate', '', '');
 
                        /* while(as.length > q_bbsCount) {
                          $('#btnPlus').click();
@@ -204,6 +209,7 @@
                             }
                         }
                         sum();
+                        $('#btnTrans').val("重新匯入");
                         break;
                     case q_name:
                         if(q_cur == 4)
@@ -570,13 +576,13 @@
 						<input id="txtEdate" type="text"  class="txt c2"/>
 						</td>
 						<td class="td4"><span> </span><a id="lblStraddr" class="lbl btn"> </a></td>
-						<td class="td5" colspan="3">
-						<input id="txtStraddrno" type="text"  class="txt c2"/>
-						<input id="txtStraddr" type="text"  class="txt c3"/>
+						<td class="td5" colspan="6">
+						<input id="txtStraddrno" type="text"  class="txt" style="float:left;width:15%;"/>
+						<input id="txtStraddr" type="text"  class="txt" style="float:left;width:30%;"/>
+						<span style="float:left; display:block; width:20px;">~</span>
+						<input id="txtEndaddrno" type="text"  class="txt" style="float:left;width:15%;"/>
+						<input id="txtEndaddr" type="text"  class="txt" style="float:left;width:30%;"/>
 						</td>
-						<td class="td8"> </td>
-						<td class="td9"> </td>
-						<td class="tdA"> </td>
 						<td class="tdZ"> </td>
 					</tr>
 					<tr class="tr3">
