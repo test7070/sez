@@ -50,7 +50,20 @@
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
              q_cmbParse("cmbTypea", q_getPara('uf.typea')); 
-             
+             $('#lblAccno').click(function () {
+		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+		            //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
+		        });
+		       //........................託收匯入
+	        $('#btnGqb').click(function () {
+	        	var t_where="";
+	        	if($('#txtBankno').val()=="" || $('#txtBankno').val()==" " )	//到期日之前的資料全部匯入
+	        		t_where = "where=^^ datea <='"+$('#txtDatea').val()+"' ^^";//t_where = "where=^^ datea <='"+$('#txtDatea').val()+"' sel='1' ^^";
+	        	else	//到期日的銀行代號匯入
+	        		t_where = "where=^^ bankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' ^^";//t_where = "where=^^ bankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' and sel='1' ^^";
+	        	q_gt('chk2', t_where, 0, 0);	//查詢資料,暫時用chk2的資料後面要帶gqb&chk2s
+	        });
+	        //......................... 
 	        
         }
 
@@ -126,16 +139,7 @@
 			      $('#ufseq_'+j).text(j+1);
 			 }  // j
 			 
-			  //........................託收匯入
-	        $('#btnGqb').click(function () {
-	        	var t_where="";
-	        	if($('#txtBankno').val()=="" || $('#txtBankno').val()==" " )	//到期日之前的資料全部匯入
-	        		t_where = "where=^^ datea <='"+$('#txtDatea').val()+"' ^^";//t_where = "where=^^ datea <='"+$('#txtDatea').val()+"' sel='1' ^^";
-	        	else	//到期日的銀行代號匯入
-	        		t_where = "where=^^ bankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' ^^";//t_where = "where=^^ bankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' and sel='1' ^^";
-	        	q_gt('chk2', t_where, 0, 0);	//查詢資料,暫時用chk2的資料後面要帶gqb&chk2s
-	        });
-	        //......................... 
+			 
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -143,16 +147,7 @@
             _btnModi();
             $('#txtProduct').focus();
             
-            //........................託收匯入
-	        $('#btnGqb').click(function () {
-	        	var t_where="";
-	        	if($('#txtBankno').val()=="" || $('#txtBankno').val()==" " )	//到期日之前的資料全部匯入
-	        		t_where = "where=^^ datea <='"+$('#txtDatea').val()+"' ^^";//t_where = "where=^^ datea <='"+$('#txtDatea').val()+"' sel='1' ^^";
-	        	else	//到期日的銀行代號匯入
-	        		t_where = "where=^^ bankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' ^^";//t_where = "where=^^ bankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' and sel='1' ^^";
-	        	q_gt('chk2', t_where, 0, 0);	//查詢資料,暫時用chk2的資料後面要帶gqb&chk2s
-	        });
-	        //......................... 
+           
         }
         function btnPrint() {
 
@@ -410,12 +405,12 @@
             <td class='td7'><span> </span><a id="lblBankno" class="lbl btn"></a></td>
             <td class="td8"><input id="txtBankno" type="text" class="txt c1"/></td></tr>
         <tr>            
-            <td class='td1'><span> </span><a id="lblAccno" class="lbl"></a></td>
-            <td class="td2"><input id="txtAccno"  type="text" class="txt c1"/></td>
-            <td class='td3'><span> </span><a id="lblAccount" class="lbl" ></a></td>
-            <td class="td4"><input id="txtAccount"  type="text" class="txt c1"/></td>
-            <td class='td5'><span> </span><a id="lblMoney" class="lbl"></a></td>
-            <td class="td6"><input id="txtMoney"  type="text" class="txt num c1" /></td></tr>        
+            <td class='td1'><span> </span><a id="lblAccount" class="lbl" ></a></td>
+            <td class="td2"><input id="txtAccount"  type="text" class="txt c1"/></td>
+            <td class='td3'><span> </span><a id="lblMoney" class="lbl"></a></td>
+            <td class="td4"><input id="txtMoney"  type="text" class="txt num c1" /></td>
+            <td class='td5'><span> </span><a id="lblAccno" class="lbl btn"></a></td>
+            <td class="td6"><input id="txtAccno"  type="text" class="txt c1"/></td></tr>        
         <tr>
             <td class='td1'><span> </span><a id="lblWorker" class="lbl"></a></td>
             <td class="td2"><input id="txtWorker"  type="text"  class="txt c1"/></td>

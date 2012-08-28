@@ -53,7 +53,39 @@
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
 
+			//........................票據匯入
+	        $('#btnGqb').click(function () {
+	        	/*if($('#txtBankno').val()=="" || $('#txtBankno').val()==" " )
+	        		var t_where = "where=^^ typea='1' ^^";
+	        	else
+	        		var t_where = "where=^^ typea='1' and tbankno='"+$('#txtBankno').val()+"' ^^";
+	            q_gt('gqb', t_where, 0, 0);	//查詢資料
+	            */
+	           chk2_gqb();
+	           
+	           
+	        });
+	        //.........................
+
         }
+
+        function chk2_gqb() {
+            t_where = "where=^^ tbankno='' and a.typea='1'";
+            t_where=t_where +(emp($('#txtBankno').val())?" ^^" : "and tbankno='"+$('#txtBankno').val()+"' ^^");
+            t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "'";//不包含本身的單據
+
+            var j = 0, s1 = '';
+            for (var i = 0; i < q_bbsCount; i++) {
+                if ($.trim($('#txtCheckno_' + i).val()).length > 0 && $('#txtCheckno_' + i)[0].checked ) {
+                    s1 = s1 + (j == 0 ? "" : " or ") + " noa='" + $('#txtCheckno_' + i).val() + "'";
+                    j++;
+                }
+            }//判斷BBS是否有資料且被選取
+
+            t_where1 = t_where1 + (s1.length > 0 ? " or (" + s1 + ")" : '') + "^^";
+            q_gt('chk2_gqb', t_where + t_where1, 0, 0, 0, "", r_accy);
+        }
+
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
             var ret;
@@ -68,8 +100,8 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-            	case 'gqb':
-            		var as = _q_appendData("gqb", "", true);
+            	case 'chk2_gqb':
+            		var as = _q_appendData("chk2_gqb", "", true);
             		//if(as.length>q_bbsCount)
             		q_gridAddRow(bbsHtm, 'tbbs', 'txtCheckno,txtBank,txtBankno,txtAccount,txtDatea,txtMoney', as.length, as, 'noa,bank,bankno,account,indate,money', '');
             		for (var i = 0; i < as.length; i++) {
@@ -145,16 +177,7 @@
             for (var i = 0; i < q_bbsCount; i++) {
             	$('#trSel_'+i).removeClass('chksel');
             }
-            
-         	//........................票據匯入
-	        $('#btnGqb').click(function () {
-	        	if($('#txtBankno').val()=="" || $('#txtBankno').val()==" " )
-	        		var t_where = "where=^^ typea='2' ^^";
-	        	else
-	        		var t_where = "where=^^ typea='2' and tbankno='"+$('#txtBankno').val()+"' ^^";
-	            q_gt('gqb', t_where, 0, 0);	//查詢資料
-	        });
-	        //.........................
+
             
         }
         function btnModi() {
@@ -162,15 +185,7 @@
                 return;
             _btnModi();
             $('#txtProduct').focus();
-            //........................票據匯入
-	        $('#btnGqb').click(function () {
-	        	if($('#txtBankno').val()=="" || $('#txtBankno').val()==" " )
-	        		var t_where = "where=^^ typea='2' ^^";
-	        	else
-	        		var t_where = "where=^^ typea='2' and tbankno='"+$('#txtBankno').val()+"' ^^";
-	            q_gt('gqb', t_where, 0, 0);	//查詢資料
-	        });
-	        //.........................
+
         }
         function btnPrint() {
 
