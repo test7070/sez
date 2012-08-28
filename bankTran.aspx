@@ -57,6 +57,10 @@
                 $('#btnSpass').parent().click(function(e) {
                     q_box("spass.aspx" , 'spass', "850px", "600px", q_getMsg("popSpass"));
                 });
+                $('#lblAccno').click(function () {
+		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+		            //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
+		        });
 
         }
         function txtCopy(dest, source) {
@@ -432,8 +436,8 @@
             <tr>
                <td class="td1"><span> </span><a id='lblCode' class="lbl"> </a></td>
                <td class="td2"><input id="txtCode"  type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id='lblCode2' class="lbl"> </a></td>
-               <td class="td4"><input id="txtCode2" type="text"  class="txt c1"/> </td>
+               <td class="td3"><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
+               <td class="td4"><input id="txtAccno" type="text"  class="txt c1"/> </td>
             </tr>
             <tr>
             	<td> </td>
