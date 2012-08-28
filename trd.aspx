@@ -545,7 +545,7 @@
 						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='vccano'>~vccano</td>
-						<td align="center" id='comp,4'>~comp,4</td>
+						<td align="center" id='comp,2'>~comp,2</td>
 					</tr>
 				</table>
 			</div>
