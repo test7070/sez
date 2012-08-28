@@ -17,13 +17,13 @@
 		<script type="text/javascript">
             $(document).ready(function() {
             	q_getId();
-            	q_gf('', 'z_bcc5');
+            	q_gf('', 'z_bcc2');
             });
             function q_gfPost() {
                $('#qReport').q_report({
-                        fileName : 'z_bcc5',
+                        fileName : 'z_bcc2',
                         options : [{
-                        type : '6',
+                        type : '1',
                         name : 'date'
                     },{
                         type : '2',
@@ -37,9 +37,10 @@
                 q_getFormat();
                 q_langShow();
                 
-                $('#txtDate').val(q_date());
-                $('#txtDate').mask('999/99/99');
-                $('#txtDate').datepicker();
+                $('#txtDate1').mask('999/99/99');
+                $('#txtDate1').datepicker();
+                $('#txtDate2').mask('999/99/99');
+                $('#txtDate2').datepicker();
                 
             }
 
