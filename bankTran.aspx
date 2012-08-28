@@ -16,7 +16,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="banktran";
-        var q_readonly = [];
+        var q_readonly = ['txtNoa'];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -137,6 +137,11 @@
         function btnIns() {
             _btnIns();
             $('#txtNoa').focus();
+<<<<<<< HEAD
+            $('#txtNoa').val('AUTO');
+            $('#btnGen').attr('disabled', 'disabled');
+=======
+>>>>>>> e7b23ef5153fdb22bad335af9e35620fb17cea40
         }
 
         function btnModi() {
@@ -151,8 +156,10 @@
  
         }
         function btnOk() {
-            var t_err = '';
+    	
 
+            var t_err = '';
+	
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
 
             if ( dec( $('#txtCredit').val()) > 9999999999)
@@ -175,11 +182,16 @@
             if (emp($('#txtUacc3').val()))
                 $('#txtUacc3').val( '2131.'+t_noa);
 
-
-            if ( t_noa.length==0 )  
-                q_gtnoa(q_name, t_noa);
-            else
-                wrServer(  t_noa);
+			var t_noa = trim($('#txtNoa').val());
+			 var t_date = trim($('#txtDatea').val());
+    		 if (t_noa.length == 0 || t_noa == "AUTO")
+		            q_gtnoa(q_name, replaceAll(q_getPara('sys.key_carborr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+		        else
+		            wrServer(t_noa);
+         //   if ( t_noa.length==0 )  
+           //     q_gtnoa(q_name, t_noa);
+            //else
+              //  wrServer(  t_noa);
         }
 
         function wrServer( key_value) {
