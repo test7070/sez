@@ -23,7 +23,7 @@
             var bbsNum = [];
             var bbsMask = [];
             var bbmNum = new Array();
-            var bbmMask = new Array();
+            var bbmMask = new Array(['txtDatea','999/99/99']);
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -31,7 +31,8 @@
             brwKey = 'noa';
             q_alias = '';
             q_desc = 1;
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
+            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+            ['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -152,6 +153,7 @@
             }
 
             function btnOk() {
+            	$('#txtWorker').val(r_name);
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
@@ -367,7 +369,7 @@
 						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='cust,4'>~cust,4</td>
+						<td align="center" id='comp,4'>~comp,4</td>
 					</tr>
 				</table>
 			</div>
@@ -426,11 +428,13 @@
 						<td><select id="cmbStype" class="txt c1"></select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblProduct" class="lbl"> </a></td>
-						<td colspan="3">
-						<input type="text" id="txtProductno" class="txt" style="width:30%;float: left; " />
-						<input type="text" id="txtProduct" class="txt" style="width:70%;float: left; " />
+						<td><span> </span><a id="lblProduct" class="lbl btn"> </a></td>
+						<td colspan="2">
+						<input type="text" id="txtProductno" class="txt" style="width:40%;float: left; " />
+						<input type="text" id="txtProduct" class="txt" style="width:60%;float: left; " />
 						</td>
+						<td><span> </span><a id="lblPo" class="lbl"> </a></td>
+						<td colspan="2"><input type="text" id="txtPo" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
@@ -506,7 +510,10 @@
 						</td>
 						<td></td>
 					</tr>
-
+					<tr>
+						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td><input id="txtWorker" type="text"  class="txt c1"/>	</td>
+					</tr>
 				</table>
 			</div>
 		</div>
@@ -557,6 +564,7 @@
 					<input id="txtNoq.*" type="hidden" />
 					</td>
 				</tr>
+				
 			</table>
 		</div>
 		<input id="q_sys" type="hidden" />

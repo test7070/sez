@@ -1,14 +1,14 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-    <title></title>
-    <script src="../script/jquery.min.js" type="text/javascript"></script>
-    <script src='../script/qj2.js' type="text/javascript"></script>
-            <script src='qset.js' type="text/javascript"></script>
-    <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src="../script/qbox.js" type="text/javascript"></script>
-    <script src='../script/mask.js' type="text/javascript"></script>
+    <title> </title>
+    <script src="../script/jquery.min.js" type="text/javascript"> </script>
+    <script src='../script/qj2.js' type="text/javascript"> </script>
+            <script src='qset.js' type="text/javascript"> </script>
+    <script src='../script/qj_mess.js' type="text/javascript"> </script>
+    <script src="../script/qbox.js" type="text/javascript"> </script>
+    <script src='../script/mask.js' type="text/javascript"> </script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
     
     <script type="text/javascript">
@@ -25,6 +25,7 @@
 
         $(document).ready(function () {
           bbmKey = ['noa'];
+            brwCount2=20
             q_brwCount();
             q_gt(q_name, q_content, q_sqlCount, 1)
             $('#txtNoa').focus
@@ -357,9 +358,9 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 
-                <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:98%"><a id='vewBank'></a></td>                
+                <td align="center" style="width:5%"><a id='vewChk'> </a></td>
+                <td align="center" style="width:25%"><a id='vewNoa'> </a></td>
+                <td align="center" style="width:98%"><a id='vewBank'> </a></td>                
             </tr>
              <tr>
                   <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
@@ -371,39 +372,42 @@
         <div class='dbbm' style="width: 65%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
             <tr>
-               <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-               <td class="td2"><input id="txtNoa"  type="text" class="txt c1" /></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-               <td class="td5"></td>
+               <td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
+               <td class="td2"><input id="txtNoa"  type="text" class="txt c1" /> </td>
+               <td class="td3"> </td>
+               <td class="td4"> </td>
+               <td class="td5"> </td>
             </tr>
             <tr>   
-               <td class="td1" ><span> </span><a id='lblBank' class="lbl"></a></td>
+               <td class="td1" ><span> </span><a id='lblBank' class="lbl"> </a></td>
                <td class="td2" colspan='3'><input id="txtBank"  type="text" class="txt c6" /></td>
             </tr>
             <tr>
-               <td class="td1" ><span> </span><a id='lblConn' class="lbl"></a></td>
-               <td class="td2"><input id="txtConn" type="text" class="txt c1" /></td>
-               <td class="td3" ><span> </span><a id='lblTel' class="lbl"></a></td>
-               <td class="td4"><input id="txtTel" type="text" class="txt c1" /></td>
-               <td class="td5"></td>
+               <td class="td1" ><span> </span><a id='lblConn' class="lbl"> </a></td>
+               <td class="td2" colspan="3"><input id="txtConn" type="text" class="txt c6" /></td>
+               
             </tr>
             <tr>
-               <td class="td1" ><span> </span><a id='lblAddr' class="lbl"></a></td>
+            	<td class="td1" ><span> </span><a id='lblTel' class="lbl"> </a></td>
+               <td class="td2" colspan="3"><input id="txtTel" type="text" class="txt c6" /></td>
+            </tr>
+            <tr>
+               <td class="td1" ><span> </span><a id='lblAddr' class="lbl"> </a></td>
                <td class="td2" colspan='3'><input id="txtAddr"  type="text" class="txt c6" /></td>
-               <td class="td5"></td>
+               <td class="td5"> </td>
             </tr>            
             <tr>
-               <td class="td1" ><span> </span><a id='lblAccount' class="lbl"></a></td>
-               <td class="td2"><input id="txtAccount"  type="text" class="txt c1" /></td>
-               <td class="td3" ><span> </span><a id='lblAcc1' class="lbl"></a></td>
-               <td class="td4"><input id="txtAcc1" type="text" class="txt c1" /></td>
-               <td class="td5"></td>
+               <td class="td1" ><span> </span><a id='lblAccount' class="lbl"> </a></td>
+               <td class="td2" colspan="3"><input id="txtAccount"  type="text" class="txt c6" /></td>
+            </tr>
+            <tr>
+            	<td class="td1" ><span> </span><a id='lblAcc1' class="lbl"> </a></td>
+               <td class="td2"><input id="txtAcc1" type="text" class="txt c1" /></td>
             </tr>            
             <tr>
-                <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-                <td class="td2" colspan='3' ><textarea id="txtMemo"  rows='5' cols='10' style="width:98%; height: 50px;"></textarea></td> 
-                <td class="td5"></td>
+                <td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
+                <td class="td2" colspan='3' ><textarea id="txtMemo"  rows='5' cols='10' style="width:98%; height: 50px;"> </textarea></td> 
+                <td class="td5"> </td>
             </tr>
         </table>
         </div>

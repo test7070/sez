@@ -257,7 +257,7 @@
             .tbbm tr {
                 height: 35px;
             }
-            .tbbm tr .td1, .td2, .td3, .td4, .td5, .td6{
+            .tbbm tr td{
                 width: 9%;
             }
             .tbbm .tdZ {
@@ -295,11 +295,11 @@
                 float: left;
             }
             .txt.c4 {
-                width: 28%;
+                width: 25%;
                 float: left;
             }
             .txt.c5 {
-                width: 70%;
+                width: 65%;
                 float: left;
             }
             .txt.c6 {
@@ -307,7 +307,7 @@
                 
             }
             .txt.c7 {
-                width: 95%;
+                width: 98%;
                 float: left;
             }
             .txt.num {
@@ -402,26 +402,26 @@
         <tr class="tr2">
             <td class='td1'><span> </span><a id="lblCustno" class="lbl"> </a></td>
             <td class="td2"><input id="txtCustno"  type="text" class="txt c1"/></td>
-            <td class='td3' colspan="3"><input id="txtComp"  type="text" class="txt c1"/></td>
+            <td class='td3' colspan="3"><input id="txtComp"  type="text" class="txt c7"/></td>
             <td class="td6"><span> </span><a id="lblCaseno" class="lbl"> </a></td>
             <td class="td7"><input id="txtCaseno"  type="text" class="txt c1"/> </td>
             <td class="td8"><input id="txtCaseno2"  type="text" class="txt c1"/> </td>
         </tr>
         <tr class="tr3">
         	<td class='td1'><span> </span><a id="lblTel" class="lbl"> </a></td>
-            <td class="td2" colspan="4"><input id="txtTel"  type="text" class="txt c1"/></td>
+            <td class="td2" colspan="4"><input id="txtTel"  type="text" class="txt c7"/></td>
             <td class="td6"><span> </span><a id="lblTrantype" class="lbl"> </a></td>
             <td class="td7"><input id="txtTrantype"  type="text" class="txt c1"/> </td>
         </tr>
         <tr class="tr4">
             <td class='td1'><span> </span><a id="lblAddr_post" class="lbl"> </a></td>
-            <td class="td2" colspan="4"><input id="txtAddr_post"  type="text" class="txt c1"/> </td>
+            <td class="td2" colspan="4"><input id="txtAddr_post"  type="text" class="txt c7"/> </td>
             <td class='td6'><span> </span><a id="lblStype" class="lbl"> </a> </td>
             <td class="td7"><input id="txtStype"  type="text" class="txt c1"/> </td>
         </tr>
         <tr class="tr5">
             <td class='td1'><span> </span><a id="lblDeivery_addr" class="lbl"> </a></td>
-            <td class="td2" colspan="4"><input id="txtDeivery_addr"  type="text" class="txt c1"/> </td>
+            <td class="td2" colspan="4"><input id="txtDeivery_addr"  type="text" class="txt c7"/> </td>
             <td class='td6'><span> </span><a id="lblOrdeno" class="lbl"> </a> </td>
             <td class="td7"><input id="txtOrdeno"  type="text" class="txt c1"/> </td>
         </tr>   
@@ -438,7 +438,7 @@
         </tr> 
         <tr class="tr7">
         	<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-        	<td class="td2"><textarea id="txtMemo" cols="5" rows="10" style="width: 99%;height: 50px;"> </textarea></td>
+        	<td class="td2" colspan="8"><textarea id="txtMemo" cols="5" rows="10" style="width: 99%;height: 50px;"> </textarea></td>
         </tr>                          
         </table>
         </div>
@@ -450,6 +450,7 @@
                 <td align="center" class="td1"><a id='lblUno_s'> </a></td>
                 <td align="center" class="td1"><a id='lblProductno_s'> </a></td>
                 <td align="center" class="td1"><a id='lblSpec_s'> </a></td>
+                <td align="center" class="td1"><a id='lblRadius_s'> </a></td>
                 <td align="center" class="td1"><a id='lblMount_s'> </a></td>
                 <td align="center" class="td2"><a id='lblWeight_s'> </a></td>
                 <td align="center" class="td2"><a id='lblPrice_s'> </a></td>
@@ -464,12 +465,13 @@
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input class="txt c1" id="txtNoq.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtUno.*" type="text" /></td>
-                <td ><input class="txt c4" id="txtProductno.*" type="text" />
+                <td style="width:8%;"><input class="txt c4" id="txtProductno.*" type="text" />
                 	 <input class="txt c5" id="txtProduct.*" type="text" /></td>
-                <td style="width:18%;"><input class="txt num c6" id="txtDime.*" type="text"/>x
+                <td style="width:15%;"><input class="txt num c6" id="txtDime.*" type="text"/>x
                                     <input class="txt num c6" id="txtWidth.*" type="text"  />x
                                     <input class="txt num c6" id="txtLengthb.*" type="text" />
                                     <input class="txt num c1" id="txtSpec.*" type="text" /> </td>
+                <td ><input class="txt num c1" id="txtRadius.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtWeight.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtPrice.*" type="text" /></td>
