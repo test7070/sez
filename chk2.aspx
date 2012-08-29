@@ -61,7 +61,7 @@
         }
 
         function chk2_gqb() {
-            t_where = "where=^^ (tbankno='' or  tbankno=null) and a.typea='1' and b.sel < 1 ^^";
+            t_where = "where=^^ (tbankno='' or  tbankno is null) and a.typea='1' and (b.sel < 1 or b.sel is null) ^^";
             t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "' group by checkno ^^";//不包含本身的單據
 
            /* var j = 0, s1 = '';
