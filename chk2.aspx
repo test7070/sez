@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -138,6 +137,9 @@
 
         function bbsAssign() {
             for (var i = 0; i < q_bbsCount; i++) {
+            	$('#chkSel_'+i).click(function() {
+        			sum();
+        		})
                 $('#chkSel_' + i).hover(function () {
                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
                     q_bodyId($(this).attr('id'));
@@ -151,10 +153,8 @@
                     $('#trSel_' + b_seq).removeClass('sel');
 				 if($('#chkSel_' +b_seq)[0].checked){	//判斷是否被選取
                 	$('#trSel_'+ b_seq).addClass('chksel');//變色
-					sum();
                 }else{
                 	$('#trSel_'+b_seq).removeClass('chksel');//取消變色
-                	sum();
                 }
                 });
             }//end for
@@ -227,7 +227,13 @@
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
-            
+            for (var j = 0; j < q_bbsCount; j++) {
+			 if($('#chkSel_' + j )[0].checked){	//判斷是否被選取
+                	$('#trSel_'+  j ).addClass('chksel');//變色
+                }else{
+                	$('#trSel_'+ j ).removeClass('chksel');//取消變色
+                }
+			} 
             
        }
 
