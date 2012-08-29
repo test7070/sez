@@ -225,7 +225,7 @@
             	if($('#chkSel_' +j)[0].checked)
 				money_total+=dec($('#txtMoney_' + j).val());//兌現金額總計
             }  // j
-			$('#txtMoney').val(money_total);
+			q_tr('txtMoney',money_total , 2)
         }
         
         function q_stPost() {

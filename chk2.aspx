@@ -221,7 +221,7 @@
             	if($('#chkSel_' +j)[0].checked)
 					chksum+=dec($('#txtMoney_'+j).val());
             }  // j
-			$('#txtMoney').val(chksum);
+            q_tr('txtMoney',chksum , 2)
         }
 
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
