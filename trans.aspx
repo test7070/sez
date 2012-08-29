@@ -47,7 +47,7 @@
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 
 				$('#btnSwitch').click(function() {
-					if ($('#dview').css('display')=='none') {
+					if ($('#dview').css('display') == 'none') {
 						$('#dview').css('width', '100%');
 						$('#dview').css('display', '');
 						$('#dbbm').css('width', '0%');
@@ -564,6 +564,15 @@
 				$('#dview').css('width', '0%');
 				$('#dview').css('display', 'none');
 				$('#dbbm').css('width', '100%');
+			}
+
+			function q_popFunc(id, key_value) {
+				/*switch(id) {
+				 case 'txtStraddrno':
+				 alert($('#txtStraddrno').data('price3'));
+
+				 break;
+				 }*/
 			}
 
 		</script>
