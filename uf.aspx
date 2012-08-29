@@ -50,6 +50,13 @@
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
              q_cmbParse("cmbTypea", q_getPara('uf.typea')); 
+             $("#cmbTypea").focus(function(){
+            	var len = $("#cmbTypea").children().length>0?$("#cmbTypea").children().length:1;
+            	$("#cmbTypea").attr('size',len+"");
+            }).blur(function(){
+            	$("#cmbTypea").attr('size','1');
+            });           
+
              $('#lblAccno').click(function () {
 		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 		            //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
@@ -57,11 +64,16 @@
 		       //........................託收匯入
 	        $('#btnGqb').click(function () {
 	        	var t_where="";
-	        	if($('#txtBankno').val()=="" || $('#txtBankno').val()==" " )	//到期日之前的資料全部匯入
-	        		t_where = "where=^^ datea <='"+$('#txtDatea').val()+"' ^^";//t_where = "where=^^ datea <='"+$('#txtDatea').val()+"' sel='1' ^^";
-	        	else	//到期日的銀行代號匯入
-	        		t_where = "where=^^ bankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' ^^";//t_where = "where=^^ bankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' and sel='1' ^^";
-	        	q_gt('chk2', t_where, 0, 0);	//查詢資料,暫時用chk2的資料後面要帶gqb&chk2s
+	        	if(emp($('#txtBankno').val())){
+	        		t_where="where=^^ tbankno !='' and datea <='"+$('#txtDatea').val()+"' and (enda!='Y' or enda is null) ^^";
+	        	}else{
+	        		t_where="where=^^ tbankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' and (enda!='Y' or enda is null) ^^";
+	        	}
+	        	//tbankno把已託收的票據匯入或根據託收銀行將票據匯入
+	        	//datea到期日之前的票據匯入
+	        	//enda!='Y' or is null表示未兌現 ='Y'表示已兌現
+	        	q_gt('gqb', t_where, 0, 0);
+	        	
 	        });
 	        //......................... 
 	        
@@ -80,10 +92,10 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-            	case 'chk2':
-            		var as = _q_appendData("chk2", "", true);
+            	case 'gqb':
+            		var as = _q_appendData("gqb", "", true);
             		//if(as.length>q_bbsCount)
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtBankno,txtBank,txtCheckno,txtDatea,txtMoney,txtTaccl', as.length, as, 'bankno,bank,noa,datea,money,accl', '');
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtBankno,txtBank,txtCheckno,txtDatea,txtMoney,txtTaccl', as.length, as, 'bankno,bank,noa,indate,money,accl', '');
             		//自動產生序號
 			        for (var j = 0; j <= q_bbsCount; j++) {
 			            	$('#ufseq_'+j).text(j+1);
@@ -124,7 +136,27 @@
         }
 
         function bbsAssign() {  
-        	
+        	for (var i = 0; i < q_bbsCount; i++) {
+                $('#chkSel_' + i).hover(function () {
+                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+                    q_bodyId($(this).attr('id'));
+                    b_seq = t_IdSeq;
+                    $('#trSel_'+b_seq).addClass('sel');
+                },
+                function () {
+                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+                    q_bodyId($(this).attr('id'));
+                    b_seq = t_IdSeq;
+                    $('#trSel_' + b_seq).removeClass('sel');
+				 if($('#chkSel_' +b_seq)[0].checked){	//判斷是否被選取
+                	$('#trSel_'+ b_seq).addClass('chksel');//變色
+					sum();
+                }else{
+                	$('#trSel_'+b_seq).removeClass('chksel');//取消變色
+                	sum();
+                }
+                });
+            }//end for
             _bbsAssign();
         }
 
@@ -139,7 +171,10 @@
 			      $('#ufseq_'+j).text(j+1);
 			 }  // j
 			 
-			 
+			 //取消變色
+            for (var i = 0; i < q_bbsCount; i++) {
+            	$('#trSel_'+i).removeClass('chksel');
+            }
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -185,7 +220,8 @@
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0,money_total=0;
             for (var j = 0; j < q_bbsCount; j++) {
-				money_total+=dec($('#txtMoney_' + i).val());//兌現金額總計
+            	if($('#chkSel_' +j)[0].checked)
+				money_total+=dec($('#txtMoney_' + j).val());//兌現金額總計
             }  // j
 			$('#txtMoney').val(money_total);
         }
@@ -209,6 +245,12 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            if (t_para) {
+		            $('#btnGqb').attr('disabled', 'disabled');	          
+		        }
+		        else {
+		        	$('#btnGqb').removeAttr('disabled');	 
+		        }
         }
 
         function btnMinus(id) {
@@ -362,6 +404,11 @@
             .tbbs a {
                 font-size: medium;
             }
+            .tbbs tr.sel { background:yellow;} 
+           .tbbs tr.chksel { background:bisque;} 
+            .dbbs .tbbs{margin:0;padding:2px;border:2px lightgrey double;border-spacing:1px;border-collapse:collapse;font-size:medium;color:blue;background:#cad3ff;width:100%;}
+			 .dbbs .tbbs tr{height:35px;}
+			 .dbbs .tbbs tr td{text-align:center;border:2px lightgrey double;}
             .num {
                 text-align: right;
             }
@@ -371,7 +418,6 @@
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
-      
     </style>
 </head>
 <body>
@@ -422,16 +468,18 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
+                <td align="center" class="td0"><a id='vewChks'></a></td>
                 <td align="center" class="td1"></td>
-                <td align="center" class="td1"><a id='lblBanknos'></a></td>
-                <td align="center"><a id='lblBank'></a></td>
+                <td align="center" class="td1" style="width:20%"><a id='lblBanknos'></a></td>
+                <td align="center" style="width:15%"><a id='lblBank'></a></td>
                 <td align="center" class="td1"><a id='lblCheckno'></a></td>
-                <td align="center" class="td1"><a id='lblDateas'></a></td>
+                <td align="center" class="td1" style="width:10%"><a id='lblDateas'></a></td>
                 <td align="center" class="td1"><a id='lblMoneys'></a></td>
-                <td align="center" class="td1"><a id='lblTaccl'></a></td>
+                <td align="center" class="td1" style="width:15%"><a id='lblTaccl'></a></td>
             </tr>
-            <tr  style='background:#cad3ff;'>
+            <tr  id="trSel.*" >
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
+                <td ><input id="chkSel.*" type="checkbox"/></td>
                 <td id="ufseq.*" style="width:1%;"></td ><!--序號欄位-->
                 <td ><input id="txtBankno.*" type="text" style="width: 80%;"/><input id="btnBankno.*" type="button" style="width: 15%;" value="..."/></td>
                 <td ><input class="txt c1" id="txtBank.*" type="text" /></td>

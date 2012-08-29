@@ -55,26 +55,17 @@
 
 			//........................票據匯入
 	        $('#btnGqb').click(function () {
-	        	/*if($('#txtBankno').val()=="" || $('#txtBankno').val()==" " )
-	        		var t_where = "where=^^ typea='1' ^^";
-	        	else
-	        		var t_where = "where=^^ typea='1' and tbankno='"+$('#txtBankno').val()+"' ^^";
-	            q_gt('gqb', t_where, 0, 0);	//查詢資料
-	            */
 	           chk2_gqb();
-	           
-	           
 	        });
 	        //.........................
 
         }
 
         function chk2_gqb() {
-            t_where = "where=^^ tbankno='' and a.typea='1'";
-            t_where=t_where +(emp($('#txtBankno').val())?" ^^" : "and tbankno='"+$('#txtBankno').val()+"' ^^");
-            t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "'";//不包含本身的單據
+            t_where = "where=^^ (tbankno='' or  tbankno=null) and a.typea='1' and b.sel < 1 ^^";
+            t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "' group by checkno ^^";//不包含本身的單據
 
-            var j = 0, s1 = '';
+           /* var j = 0, s1 = '';
             for (var i = 0; i < q_bbsCount; i++) {
                 if ($.trim($('#txtCheckno_' + i).val()).length > 0 && $('#txtCheckno_' + i)[0].checked ) {
                     s1 = s1 + (j == 0 ? "" : " or ") + " noa='" + $('#txtCheckno_' + i).val() + "'";
@@ -82,7 +73,7 @@
                 }
             }//判斷BBS是否有資料且被選取
 
-            t_where1 = t_where1 + (s1.length > 0 ? " or (" + s1 + ")" : '') + "^^";
+            t_where1 = t_where1 + (s1.length > 0 ? " or (" + s1 + ")" : '') + "^^";*/
             q_gt('chk2_gqb', t_where + t_where1, 0, 0, 0, "", r_accy);
         }
 
@@ -101,7 +92,7 @@
         function q_gtPost(t_name) {  
             switch (t_name) {
             	case 'chk2_gqb':
-            		var as = _q_appendData("chk2_gqb", "", true);
+            		var as = _q_appendData("gqb", "", true);
             		//if(as.length>q_bbsCount)
             		q_gridAddRow(bbsHtm, 'tbbs', 'txtCheckno,txtBank,txtBankno,txtAccount,txtDatea,txtMoney', as.length, as, 'noa,bank,bankno,account,indate,money', '');
             		for (var i = 0; i < as.length; i++) {
@@ -120,7 +111,11 @@
                 alert(t_err);
                 return;
             }
-
+			
+			if(emp($('#txtBankno').val())){
+             	alert("託收銀行未輸入");
+             	return;
+             }
             $('#txtWorker').val(r_name)
             sum();
 
@@ -238,6 +233,13 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+             if (t_para) {
+		            $('#btnGqb').attr('disabled', 'disabled');	          
+		        }
+		        else {
+		        	$('#btnGqb').removeAttr('disabled');	 
+		        }
+            
         }
 
         function btnMinus(id) {
