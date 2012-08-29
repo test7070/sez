@@ -16,7 +16,7 @@
         }
         q_tables = 's';
         var q_name = "uf";
-        var q_readonly = [];
+        var q_readonly = ['txtAccno'];
         var q_readonlys = [];
         var bbmNum = [['txtMoney',12 , , 1]];  
         var bbsNum = [['txtMoney',12 , , 1]];
@@ -167,6 +167,7 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
+            $('#cmbTypea').val(2);
             
            //自動產生序號
 			for (var j = 0; j <= q_bbsCount; j++) {
@@ -380,7 +381,6 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 100%;
                 float: left;
             }
             .txt.c2 {
@@ -450,7 +450,7 @@
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 73%;float:left">
+        <div class='dbbm' style="width: 74%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr>
             <td class='td1'><span> </span><a id="lblNoa" class="lbl"></a></td>
@@ -459,19 +459,21 @@
             <td class="td4" ><select id="cmbTypea" class="txt c1" style="font-size: medium;"></select></td>
             <td class='td5'><span> </span><a id="lblDatea" class="lbl"></a></td>
             <td class="td6"><input id="txtDatea" type="text" class="txt c1"/></td>
-            <td class='td7'><span> </span><a id="lblBankno" class="lbl btn"></a></td>
-            <td class="td8"><input id="txtBankno" type="text" class="txt c1"/></td></tr>
-        <tr>            
-            <td class='td1'><span> </span><a id="lblAccount" class="lbl" ></a></td>
-            <td class="td2"><input id="txtAccount"  type="text" class="txt c1"/></td>
-            <td class='td3'><span> </span><a id="lblMoney" class="lbl"></a></td>
-            <td class="td4"><input id="txtMoney"  type="text" class="txt num c1" /></td>
-            <td class='td5'><span> </span><a id="lblAccno" class="lbl btn"></a></td>
-            <td class="td6"><input id="txtAccno"  type="text" class="txt c1"/></td></tr>        
+            </tr>
         <tr>
-            <td class='td1'><span> </span><a id="lblWorker" class="lbl"></a></td>
-            <td class="td2"><input id="txtWorker"  type="text"  class="txt c1"/></td>
-            <td class="td3"><input type="button" id="btnGqb" class="txt c1 " value="託收匯入"></tr>        
+        	<td class='td1' ><span> </span><a id="lblBankno" class="lbl btn"></a></td>
+            <td class="td2"><input id="txtBankno" type="text" class="txt c2"/><input  id="txtBank"  type="text"  class="txt c3" /></td>            
+            <td class='td3'><span> </span><a id="lblAccount" class="lbl" ></a></td>
+            <td class="td4"><input id="txtAccount"  type="text" class="txt c1"/></td>
+            <td class='td5'><span> </span><a id="lblMoney" class="lbl"></a></td>
+            <td class="td6"><input id="txtMoney"  type="text" class="txt num c1" /></td>
+            </tr>        
+        <tr>
+            <td class='td1'><span> </span><a id="lblAccno" class="lbl btn"></a></td>
+            <td class="td2"><input id="txtAccno"  type="text" class="txt c1"/></td>
+            <td class='td3'><span> </span><a id="lblWorker" class="lbl"></a></td>
+            <td class="td4"><input id="txtWorker"  type="text"  class="txt c1"/></td>
+            <td class="td5"><span> </span><input type="button" id="btnGqb" class="txt c1 " value="託收匯入" style="width:80%;"></tr>        
         </table>
         </div>
 		</div>
@@ -493,7 +495,7 @@
                 <td ><input id="chkSel.*" type="checkbox"/></td>
                 <td id="ufseq.*" style="width:1%;"></td ><!--序號欄位-->
                 <td ><input class="txt c1" id="txtCheckno.*" type="text" /></td>
-                <td ><input id="txtBankno.*" type="text" style="width: 80%;"/><input id="btnBankno.*" type="button" style="width: 15%;" value="..."/></td>
+                <td ><input id="txtBankno.*" type="text" style="width: 80%;"/></td>
                 <td ><input class="txt c1" id="txtBank.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtDatea.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtMoney.*" type="text" /></td>
