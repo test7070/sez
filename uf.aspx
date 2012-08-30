@@ -63,15 +63,28 @@
 		       //........................託收匯入
 	        $('#btnGqb').click(function () {
 	        	var t_where="";
-	        	if(emp($('#txtBankno').val())){
-	        		t_where="where=^^ tbankno !='' and datea <='"+$('#txtDatea').val()+"' and (enda!='Y' or enda is null) ^^";
-	        	}else{
-	        		t_where="where=^^ tbankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' and (enda!='Y' or enda is null) ^^";
+	        	var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+	        	//判斷不是新增的狀態
+	        	if(s1.length>0 && s1!="AUTO"){	
+	        		//清除單據內的資料
+	        		 for (var j = 0; j < q_bbsCount; j++) {
+	        		 	btnMinus('chkSel_'+j);
+	        		 }
+	        		t_where="where=^^ b.noa ='"+s1+"' or (tbankno!='' and a.datea <='"+$('#txtDatea').val()+"' and (enda!='Y' or enda is null)) ^^";
+	        		q_gt('uf_gqb', t_where, 0, 0);
+	        	}
+	        	else//新增的狀態
+	        	{
+	        		if(emp($('#txtBankno').val())){
+	        			t_where="where=^^ tbankno !='' and datea <='"+$('#txtDatea').val()+"' and (enda!='Y' or enda is null) ^^";
+		        	}else{
+		        		t_where="where=^^ tbankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' and (enda!='Y' or enda is null) ^^";
+		        	}
+		        	q_gt('gqb', t_where, 0, 0);
 	        	}
 	        	//tbankno把已託收的票據匯入或根據託收銀行將票據匯入
 	        	//datea到期日之前的票據匯入
 	        	//enda!='Y' or is null表示未兌現 ='Y'表示已兌現
-	        	q_gt('gqb', t_where, 0, 0);
 	        });
 	        //......................... 
 	        
@@ -93,6 +106,19 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'uf_gqb':
+            		var as = _q_appendData("gqb", "", true);
+            		//if(as.length>q_bbsCount)
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtBankno,txtBank,txtCheckno,txtDatea,txtMoney,txtTaccl', as.length, as, 'bankno,bank,noa,indate,money,accl', '');
+            		
+			        for (var j = 0; j < q_bbsCount; j++) {
+			            	$('#ufseq_'+j).text(j+1);//自動產生序號
+			            	$('#trSel_'+j).removeClass('chksel');//取消變色
+			            	$('#chkSel_'+j).removeAttr("checked");//將單據內的票據取消
+			        }  // j
+
+		             sum();
+            		break;
             	case 'gqb':
             		var as = _q_appendData("gqb", "", true);
             		//if(as.length>q_bbsCount)
