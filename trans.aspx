@@ -33,7 +33,7 @@
 			$(document).ready(function() {
 				$('#dview').css('width', '1%');
 				$('#dbbm').css('width', '98%');
-
+				
 				var tmp = $('tr.m').height();
 				$('tr.m').height(t_height);
 				t_height = tmp;
