@@ -17,7 +17,7 @@
         }
         q_tables = 's';
         var q_name = "vcce";
-        var q_readonly = [];
+        var q_readonly = ['txtNoa'];
         var q_readonlys = [];
         var bbmNum = [];  
         var bbsNum = [];
@@ -30,9 +30,9 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
-            brwCount2=5
+          
             q_brwCount();   
-            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+            q_gt(q_name, q_content, q_sqlCount, 1)
 
         });
 
