@@ -15,6 +15,7 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
+        q_desc = 1;
         q_tables = 's';
         var q_name = "rc2e";
         var q_readonly = ['txtNoa'];
@@ -24,7 +25,7 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+         aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
         ['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
         ['txtProductno_', ' ', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']);
 
@@ -53,7 +54,6 @@
             q_mask(bbmMask);
              
         }
-
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
             var ret;
@@ -95,7 +95,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('rc2e_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('rc2e_s.aspx', q_name + '_s', "500px", "360px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   
@@ -129,7 +129,7 @@
         }
 
         function bbsSave(as) {
-            if (!as['Product'] ) {  
+            if (!as['product'] ) {  
                 as[bbsKey[1]] = '';   
                 return;
             }
@@ -289,11 +289,11 @@
                 float: left;
             }
             .txt.c2 {
-                width: 25%;
+                width: 14%;
                 float: left;
             }
             .txt.c3 {
-                width: 73%;
+                width: 26%;
                 float: left;
             }
             .txt.c4 {
@@ -375,7 +375,7 @@
 </head>
 <body>
 <!--#include file="../inc/toolbar.inc"-->
-    <div id='dmain' >
+  <div id='dmain' >
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>

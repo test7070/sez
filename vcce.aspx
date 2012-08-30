@@ -15,6 +15,7 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
+        q_desc = 1;
         q_tables = 's';
         var q_name = "vcce";
         var q_readonly = ['txtNoa'];
@@ -93,7 +94,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('vcce_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('vcce_s.aspx', q_name + '_s', "500px", "360px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   
