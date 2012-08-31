@@ -203,6 +203,9 @@
 	                        dbf : 'addr',
 	                        index : 'noa,addr',
 	                        src : 'addr_b.aspx'
+	                    },{
+	                        type : '1',
+	                        name : 'trandate'
 	                    }]
 	                });
 	                q_popAssign();
@@ -211,7 +214,17 @@
 	                $('#txtDate1').mask('999/99/99');
 	                $('#txtDate1').datepicker();
 	                $('#txtDate2').mask('999/99/99');
-	                $('#txtDate2').datepicker();  
+	                $('#txtDate2').datepicker(); 
+	                $('#txtTrandate1').mask('999/99/99');
+	                $('#txtTrandate1').datepicker();
+	                $('#txtTrandate2').mask('999/99/99');
+	                $('#txtTrandate2').datepicker();   
+	                
+	                $('#txtAddr1a').width(70);
+	                $('#txtAddr1b').width(50);
+	                $('#txtAddr2a').width(70);
+	                $('#txtAddr2b').width(50);
+	                
 	                t_item = "";
 	                t_item2 = "";
 	                t_item3 = "";
