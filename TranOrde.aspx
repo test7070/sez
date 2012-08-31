@@ -39,7 +39,8 @@
             ['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
             ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'],
             ['txtCarno_', '', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx'],
-            ['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']);
+            ['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'],
+            ['txtDeliveryno', 'lblDeliveryno', 'trando', 'deliveryno,po', 'txtDeliveryno,txtPo', 'trando_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -78,13 +79,21 @@
                 q_cmbParse("cmbStype", q_getPara('vcc.stype'));
                 $("#btnTranquat").click(function(e) {
                     if ($('#txtCustno').val().length == 0) {
-                        alert('Empty Custno!');
+                        alert('請輸入客戶編號!');
                         return;
                     }
                     t_where = "b.custno='" + $('#txtCustno').val() + "' and not exists(select * from tranorde" + r_accy + " c where a.noa = c.tranquatno and a.noq = c.tranquatnoq and not c.noa='" + $('#txtNoa').val() + "')";
                     q_box("tranquat_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;tranquatno=" + $('#txtTranquatno').val() + '_' + $('#txtTranquatnoq').val() + ";", 'tranquats', "95%", "650px", q_getMsg('popTranquat'));
                 });
-                
+                $('#btnDeliveryno').click(function(e){
+                	if ($('#txtDeliveryno').val().length == 0) {
+                        alert('請輸入提單編號!');
+                        return;
+                    }	
+                    $(this).val('請稍後');
+                    t_where =  "where=^^b.deliveryno='"+$('#txtDeliveryno').val()+"'  and  (c.tranno is  null)^^";
+                    q_gt('trando3', t_where, 0, 0, 0, "", r_accy);
+                });
                 $('#txtDatea').datepicker(); 
                 $('#txtCldate').datepicker();
                 $('#txtNodate').datepicker();
@@ -142,6 +151,27 @@
             }
 
             function q_gtPost(t_name) {
+            	switch (t_name) {
+                    case 'trando3':
+                
+                        var as = _q_appendData("trando3", "", true);
+
+                      	q_gridAddRow(bbsHtm, 'tbbs', 'txtCaseno,txtTranno,txtTrannoq', as.length, as, 'caseno,tranno,trannoq', '', '');
+     
+                       /* for( i = 0; i < q_bbsCount; i++) {
+                            _btnMinus("btnMinus_" + i);
+                            if(i < as.length) {
+                                
+                            }
+                        }*/
+                    
+                        $('#btnDeliveryno').val("匯入櫃號 ");
+                        break;
+                    case q_name:
+                        if(q_cur == 4)
+                            q_Seek_gtPost();
+                        break;
+                }
             }
 
             function _btnSeek() {

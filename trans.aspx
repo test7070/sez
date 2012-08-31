@@ -565,18 +565,19 @@
 				$('#dview').css('display', 'none');
 				$('#dbbm').css('width', '100%');
 			}
-
 			function q_popFunc(id, key_value) {
+			}
+			function q_popPost(id) {
 				switch(id) {
 					case 'txtStraddrno':
-						if(q_cur==2 && $('#txtTrdno').length>0){
+						if(q_cur==2 && $.trim($('#txtTrdno').val()).length>0){
 							for (var i in curData.data) {
 								if(curData.data[i].field=='txtPrice'){
 									$('#' + curData.data[i].field).val(curData.data[i].value);
 								}
 							}
 						}
-						if(q_cur==2 && $('#txtTreno').length>0){
+						if(q_cur==2 && $.trim($('#txtTreno').val()).length>0){
 							for (var i in curData.data) {
 								if(curData.data[i].field=='txtPrice2' || curData.data[i].field=='txtPrice3'){
 									$('#' + curData.data[i].field).val(curData.data[i].value);
