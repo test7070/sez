@@ -44,7 +44,7 @@
                 q_langShow();
                 
                 $('#txtYear').mask('999');
-                
+                $('#txtYear').val(q_date().substring(0,3));
             }
 
             function q_boxClose(s2) {
