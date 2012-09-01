@@ -154,7 +154,7 @@
             	switch (t_name) {
                     case 'trando3':
                 
-                        var as = _q_appendData("trando3", "", true);
+                        var as = _q_appendData("trandos", "", true);
 
                       	q_gridAddRow(bbsHtm, 'tbbs', 'txtCaseno,txtTranno,txtTrannoq', as.length, as, 'caseno,tranno,trannoq', '', '');
      
@@ -399,6 +399,9 @@
             select {
                 font-size: medium;
             }
+            .font1{
+				font-family: "細明體",Arial, sans-serif;
+			}
 		</style>
 	</head>
 	<body>
@@ -574,8 +577,8 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:100px"><a id='lblCaseno_s'> </a></td>
-					<td align="center" style="width:70px"><a id='lblTrandate_s'></a></td>
+					<td align="center" style="width:120px"><a id='lblCaseno_s'> </a></td>
+					<td align="center" style="width:100px"><a id='lblTrandate_s'></a></td>
 					<td align="center" style="width:70px"><a id='lblCarno_s'></a></td>
 					<td align="center" style="width:70px"><a id='lblDriverno_s'></a></td>
 					<td align="center" style="width:70px"><a id='lblDriver_s'></a></td>
@@ -589,7 +592,7 @@
 						<input type="text" id="txtTranno.*" style="display:none;"/>
 						<input type="text" id="txtTrannoq.*" style="display:none;"/>
 					</td>
-					<td ><input type="text" class="txt c1" id="txtCaseno.*"  /></td>
+					<td ><input type="text" class="txt c1 font1" id="txtCaseno.*"  /></td>
 					<td ><input type="text" class="txt c1" id="txtTrandate.*"  /></td>
 					<td ><input type="text" class="txt c1" id="txtCarno.*"  /></td>
 					<td ><input type="text" class="txt c1" id="txtDriverno.*"  /></td>
