@@ -23,7 +23,7 @@
             q_tables = 's';
             var q_name = "tranorde";
             var q_readonly = ['txtNoa', 'txtTranquatno', 'txtTranquatnoq', 'txtContract', 'txtCno', 'txtAcomp'];
-            var q_readonlys = ['txtTranno_', 'txtTrannoq_'];
+            var q_readonlys = ['txtTranno', 'txtTrannoq'];
             var bbsNum = [];
             var bbsMask = new Array(['txtTrandate','999/99/99']);
             var bbmNum = new Array();
@@ -91,7 +91,7 @@
                         return;
                     }	
                     $(this).val('請稍後');
-                    t_where =  "where=^^b.deliveryno='"+$('#txtDeliveryno').val()+"'  and  (c.tranno is  null)^^";
+                    t_where =  "where=^^b.deliveryno='"+$('#txtDeliveryno').val()+"'  and  (c.tranno is null or c.noa='"+$('#txtNoa').val()+"')^^";
                     q_gt('trando3', t_where, 0, 0, 0, "", r_accy);
                 });
                 $('#txtDatea').datepicker(); 
@@ -583,14 +583,13 @@
 					<td align="center" style="width:70px"><a id='lblDriverno_s'></a></td>
 					<td align="center" style="width:70px"><a id='lblDriver_s'></a></td>
 					<td align="center" style="width:100px"><a id='lblMemo_s'></a></td>
+					<td align="center" style="width:120px"><a id='lblTranno_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
 					<td>
 						<a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a>
 						<input type="text" id="txtNoq.*" style="display:none;"/>
-						<input type="text" id="txtTranno.*" style="display:none;"/>
-						<input type="text" id="txtTrannoq.*" style="display:none;"/>
 					</td>
 					<td ><input type="text" class="txt c1 font1" id="txtCaseno.*"  /></td>
 					<td ><input type="text" class="txt c1" id="txtTrandate.*"  /></td>
@@ -598,6 +597,10 @@
 					<td ><input type="text" class="txt c1" id="txtDriverno.*"  /></td>
 					<td ><input type="text" class="txt c1" id="txtDriver.*"  /></td>
 					<td ><input type="text" class="txt c1" id="txtMemo.*"  /></td>
+					<td>
+						<input type="text" id="txtTranno.*" class="txt c1"/>
+						<input type="text" id="txtTrannoq.*" style="display:none;"/>
+					</td>
 				</tr>
 				
 			</table>
