@@ -40,6 +40,9 @@
                         dbf : 'driver',
                         index : 'noa,namea',
                         src : 'driver_b.aspx'
+                    },{
+                        type : '1',
+                        name : 'mon'
                     }]
                 });
                 q_getFormat();
@@ -47,6 +50,8 @@
                 q_popAssign();
 
                 $('#txtXmon').mask('999/99');
+                $('#txtMon1').mask('999/99');
+                $('#txtMon2').mask('999/99');
                 
                 var t_date,t_year,t_month,t_day;
                 t_date = new Date();
@@ -57,7 +62,9 @@
                 t_month = t_month>9?t_month+'':'0'+t_month;
                 t_day = t_date.getUTCDate();
                 t_day = t_day>9?t_day+'':'0'+t_day;
-                $('#txtXmon').val(t_year+'/'+t_month);             
+                $('#txtXmon').val(t_year+'/'+t_month);
+                $('#txtMon1').val(t_year+'/'+t_month);
+                $('#txtMon2').val(t_year+'/'+t_month);             
             }
 
             function q_boxClose(t_name) {}

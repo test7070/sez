@@ -404,8 +404,6 @@
 						<input id="txtEdriverno" type="text"  class="txt c2"/>
 						<input id="txtEdriver" type="text"  class="txt c3"/>
 						</td>
-						<td class="td6"> </td>
-						<td class="td7"> </td>
 						<td class="td8"> <input type="button"  id="btnCarsal" class="txt  c1"/></td>
 						<td class="tdZ"> </td>
 					</tr>
@@ -418,11 +416,6 @@
 						<td class="td4">
 						<input id="txtDatea" type="text"  class="txt c1"/>
 						</td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td class="tdZ"> </td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id="lblTranmoney" class="lbl"> </a></td>

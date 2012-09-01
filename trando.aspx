@@ -171,6 +171,11 @@
 
 			function readonly(t_para, empty) {
 				_readonly(t_para, empty);
+				if (q_cur != 1 && q_cur != 2){
+                    $('#btnImport').attr('disabled', 'disabled');
+                }else{
+                    $('#btnImport').removeAttr('disabled');
+                }
 			}
 
 			function btnMinus(id) {
@@ -433,7 +438,7 @@
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:150px;"><a id='lblCaseno_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblTranno_s'> </a></td>
-					<td align="center" style="width:70px;"><a id='lblTrandate_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblTrandate_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblCustorde_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMoney_s'> </a></td>
 					<td align="center" style="width:120px;"><a id='lblAddr_s'> </a></td>
