@@ -351,10 +351,17 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                
             }
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(q_cur==1 || q_cur==2){
+                	$('#btnTrans').removeAttr('disabled');
+                }
+                else{
+                	$('#btnTrans').attr('disabled','disabled');
+                }
                 if(isEditTotal && (q_cur==1 || q_cur==2) && $.trim($('#txtMemo').val()).substring(0, 1) == '.'){
                 	$('#txtTotal').removeAttr('readonly').css('background-color','white').css('color','black');
                 }
