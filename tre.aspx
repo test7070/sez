@@ -10,6 +10,10 @@
 		<script src='../script/mask.js' type="text/javascript"> </script>
 		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -75,9 +79,11 @@
                     sum();
                 });//','+$('#txtBcarno').val()+
                 $('#btnTrans').click(function(e) {
-					$(this).attr('disabled','disabled');
-					$(this).val('Watting...');
-                	q_func('tre.import',r_accy+','+$('#txtBdriverno').val()+','+$('#txtEdriverno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
+                	if(q_cur != 1 && q_cur != 2){
+						$(this).attr('disabled','disabled');
+						$(this).val('Watting...');
+	                	q_func('tre.import',r_accy+','+$('#txtBdriverno').val()+','+$('#txtEdriverno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
+                	}
                 });
                 $('#txtMemo').change(function(){
                 	if(isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.'){
@@ -87,6 +93,11 @@
                 		sum();
                 	}
                 });
+                
+                $('#txtDatea').datepicker(); 
+                $('#txtDate2').datepicker();
+                $('#txtBdate').datepicker(); 
+                $('#txtEdate').datepicker();  
             }
             
             function q_funcPost(t_func, result) {
@@ -248,11 +259,13 @@
             		return;
                 var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0;
                 for( i = 0; i < q_bbsCount; i++) {
-                	t_money += parseInt($.trim($('#txtMoney_' + i).val()).length == 0 ? '0' : $('#txtMoney_' + i).val().replace(/,/g,''), 10);
+                	t_money += q_float('txtMoney_'+i);
                 }
-                t_rate = parseInt($.trim($('#txtTaxrate').val()).length == 0 ? '0' : $('#txtTaxrate').val().replace(/,/g,''), 10);
+                //t_rate = parseInt($.trim($('#txtTaxrate').val()).length == 0 ? '0' : $('#txtTaxrate').val().replace(/,/g,''), 10);
                 switch($('#cmbTaxtype').val()) {
                     case '1':
+                    	$('#txtTaxrate').val(q_getPara('sys.taxrate'));
+                    	t_rate = q_float('txtTaxrate');
                         t_tax = Math.round(t_money * t_rate / 100);
                         t_total = t_money + t_tax;
                         break;
@@ -281,21 +294,29 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                
                 if(q_cur == 1 || q_cur == 2) {
-                	$('#txtDate2').attr('readonly','readonly');
-                	$('#txtBdate').attr('readonly','readonly');
-                	$('#txtEdate').attr('readonly','readonly');
-                	$('#txtBdriverno').attr('readonly','readonly');
-                	$('#txtEdriverno').attr('readonly','readonly');
-                	$('.tr1').hide();
+                	$('#lblDate2').hide();
+                	$('#txtDate2').hide();
+                	$('#lblDriver2').hide();
+                	$('#txtBdriverno').hide();
+                	$('#sign_1').hide();
+                	$('#txtEdriverno').hide();
+                	$('#btnTrans').hide();
                 }else{
-                	$('#txtDate2').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
-                	$('#txtBdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
-                	$('#txtEdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
-                	$('#txtBdriverno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
-                	$('#txtEdriverno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
-                	$('.tr1').show();
+                	$('#lblDate2').show();
+                	$('#txtDate2').show();
+                	$('#lblDriver2').show();
+                	$('#txtBdriverno').show();
+                	$('#sign_1').show();
+                	$('#txtEdriverno').show();
+                	$('#btnTrans').show();
                 }
+                $('#txtDate2').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
+            	$('#txtBdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
+            	$('#txtEdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
+            	$('#txtBdriverno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
+            	$('#txtEdriverno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
             }
 
             function btnMinus(id) {
@@ -513,13 +534,13 @@
 						<td class="td7"><span> </span><a id="lblDriver2" class="lbl"> </a></td>
 						<td class="td8" colspan="2">
 						<input id="txtBdriverno" type="text"  class="txt c2"/>
-						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
+						<span id="sign_1" style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
 						<input id="txtEdriverno" type="text"  class="txt c2"/>
 						</td>
 						<td class="td3" colspan="2"><span> </span><a id="lblDate3" class="lbl"> </a></td>
 						<td class="td5" colspan="2">
 						<input id="txtBdate" type="text"  class="txt c2"/>
-						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
+						<span id="sign_2" style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
 						<input id="txtEdate" type="text"  class="txt c2"/>
 						</td>
 						<td><input type="button" id="btnTrans" class="txt c1"/></td>
