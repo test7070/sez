@@ -31,7 +31,9 @@
             brwKey = 'noa';
             q_desc = 1;
             //ajaxPath = ""; //  execute in Root
-            aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']);
+            aPop = new Array(
+            	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
+            	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -232,7 +234,7 @@
             }
             .dview {
                 float: left;
-                width: 20%;
+                width: 30%;
             }
             .tview {
                 margin: 0;
@@ -250,7 +252,7 @@
             }
             .dbbm {
                 float: left;
-                width: 78%;
+                width: 65%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -372,16 +374,20 @@
 				<table class="tbbm"  id="tbbm">
 					<tr>
 						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtNoa"  type="text"  class="txt c1"/>
-						</td>
-						<td class="td3"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td4">
-						<input id="txtDatea"  type="text"  class="txt c1"/>
-						</td>
-						<td class="td5"></td>
-						<td class="td6"></td>
-						<td class="tdZ"></td>
+						<td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td><input id="txtDatea"  type="text"  class="txt c1"/>	</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblCarno' class="lbl btn"> </a></td>
+						<td><input id="txtCarno"  type="text"  class="txt c1"/>	</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblDriver" class="lbl btn" > </a></td>
