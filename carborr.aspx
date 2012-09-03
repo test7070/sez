@@ -21,7 +21,9 @@
             var q_readonly = ['txtNoa', 'txtWorker', 'txtMoney2'];
             var bbmNum = [['txtMoney', 10, 0], ['txtMoney2', 10, 0]];
             var bbmMask = [];
-            var curMoney = 0;
+            curMoney = 0;
+            curMon='';
+            curDriverno='';
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -87,7 +89,10 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
-                curMoney = q_float($('#txtMoney').val());
+                curMoney = q_float('txtMoney');
+                curMon=$('#txtMon').val();
+                curDriverno=$('#txtDriverno').val();
+                money2();
             }
 
             function btnModi() {
@@ -95,7 +100,10 @@
                     return;
                 _btnModi();
                 $('#txtDatea').focus();
-                curMoney = q_float($('#txtMoney').val());
+                curMoney = q_float('txtMoney');
+                curMon=$('#txtMon').val();
+                curDriverno=$('#txtDriverno').val();
+                money2();
             }
 
             function btnPrint() {
@@ -110,6 +118,9 @@
                     q_gtnoa(q_name, replaceAll(q_getPara('sys.key_carborr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
+                curMoney=0;
+                curMon='';
+                curDriverno='';
             }
 
             function wrServer(key_value) {
@@ -182,6 +193,9 @@
 
             function btnCancel() {
                 _btnCancel();
+                curMoney=0;
+                curMon='';
+                curDriverno='';
             }
             function q_popPost(id) {
 				switch(id) {
@@ -199,7 +213,10 @@
                 if (result.substr(0, 5) == '<Data') {/// 如果傳回  table[]
                     var as = _q_appendData('carsal2', '', true);
                     if(as.length>0){
-                    	$('#txtMoney2').val(parseFloat(as[0].total)+curMoney);
+                    	if(curMon==$('#txtMon').val()  &&  curDriverno==$('#txtDriverno').val())
+                    		$('#txtMoney2').val(parseFloat(as[0].total)+curMoney);
+                    	else
+                    		$('#txtMoney2').val(parseFloat(as[0].total));
                     }
                     else
                     	$('#txtMoney2').val('');              
@@ -364,8 +381,6 @@
 						</td>
 						<td class="td5"></td>
 						<td class="td6"></td>
-						<td class="td7"></td>
-						<td class="td8"></td>
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
@@ -393,7 +408,7 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td class="td2" colspan="7">
+						<td class="td2" colspan="5">
 						<input id="txtMemo" type="text"  class="txt c1"/>
 						</td>
 					</tr>
@@ -403,6 +418,10 @@
 						<input id="txtWorker" type="text" class="txt c1" />
 						</td>
 					</tr>
+					<tr></tr>
+					<tr></tr>
+					<tr></tr>
+					<tr></tr>
 					<tr></tr>
 				</table>
 			</div>
