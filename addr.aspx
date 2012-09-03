@@ -117,6 +117,7 @@
             function bbsAssign() {
                 _bbsAssign();
                 for(var i = 0; i < q_bbsCount; i++) {
+                	
                 }
             }
 
