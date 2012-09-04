@@ -206,11 +206,16 @@
 	                    },{
 	                        type : '1',
 	                        name : 'trandate'
+	                    }, {
+	                        type : '1',
+	                        name : 'xmoney'
 	                    }]
 	                });
 	                q_popAssign();
 	                q_langShow();
 	                
+	                $('#txtXmoney1').width(100);
+	                $('#txtXmoney2').width(100);
 	                $('#txtDate1').mask('999/99/99');
 	                $('#txtDate1').datepicker();
 	                $('#txtDate2').mask('999/99/99');
