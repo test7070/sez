@@ -18,9 +18,9 @@
 			isEditTotal = false;
             q_tables = 's';
             var q_name = "trd";
-            var q_readonly = ['txtNoa','txtDatea', 'txtMoney', 'txtTotal','txtWorker','txtMount','txtStraddr','txtEndaddr'];
+            var q_readonly = ['txtNoa','txtDatea', 'txtMoney', 'txtTotal','txtWorker','txtMount','txtStraddr','txtEndaddr','txtPlusmoney','txtMinusmoney'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
-            var bbmNum = [['txtMoney', 10, 0],['txtTaxrate', 10, 1],['txtTax', 10, 0],['txtTotal', 10, 0],['txtDiscount', 10, 0],['txtMount', 10, 3],['txtPlus',10,0]];
+            var bbmNum = [['txtMoney', 10, 0],['txtTaxrate', 10, 1],['txtTax', 10, 0],['txtTotal', 10, 0],['txtDiscount', 10, 0],['txtMount', 10, 3],['txtPlus',10,0],['txtPlusmoney',10,0],['txtMinusmoney',10,0]];
             var bbsNum = [['txtTranmoney', 10, 0],['txtOverweightcost', 10, 0],['txtOthercost', 10, 0],['txtmount',10,3],['txtPrice',10,3]];
             var bbmMask = [];
             var bbsMask = [];
@@ -108,6 +108,12 @@
 				$('#txtPlus').change(function(e) {
                     sum();
                 });
+                $('#txtPlusmoney').change(function(e) {
+                    sum();
+                });
+                $('#txtMinusmoney').change(function(e) {
+                    sum();
+                });
                 $('#btnTrans').click(function(e) {
                     if(q_cur == 1 || q_cur == 2) {
                         if($.trim($('#txtCustno').val()) == 0) {
@@ -150,6 +156,14 @@
                         q_gt('trans', t_where, 0, 0, 0, "", r_accy);
                     }
                 });
+                $("#btnCustchg").click(function(e) {
+                    if ($('#txtCustno').val().length == 0) {
+                        alert('請輸入客戶編號!');
+                        return;
+                    }
+                    t_where = "  custno='"+$('#txtCustno').val()+"' and  (trdno='"+$('#txtNoa').val()+"' or len(isnull(trdno,''))=0) ";
+                    q_box("custchg_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;trdno=" + $('#txtNoa').val() + ";", 'custchg', "95%", "650px", q_getMsg('popTranquat'));
+                });
                 $('#txtMemo').change(function(){
                 	if(isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.'){
 	                	$('#txtTotal').removeAttr('readonly').css('background-color','white').css('color','black');
@@ -163,6 +177,12 @@
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
+                	case 'custchg':
+                		//s2 = parent.document.getElementById("cboxClose").title.split(';');
+                		alert(typeof(s2)+'__'+s2);
+                		//if(s2.substring(0,2)=='Y,')
+                			//alert(s2.substring(2));
+                		break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         break;
@@ -309,7 +329,7 @@
             function sum() {
             	if(isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.')
             		return;
-                var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0,t_mount=0,t_plus=0;
+                var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0,t_mount=0,t_plus=0,t_plusmoney=0,t_minusmoney=0;
                 for( iz = 0; iz < q_bbsCount; iz++) {
                 	t_money += q_float('txtTranmoney_'+iz);
               		t_mount +=  Math.round(q_float('txtMount_'+iz)*1000); 
@@ -319,26 +339,26 @@
                 t_discount = q_float('txtDiscount');
                 t_plus =  q_float('txtPlus');
                 t_rate = q_float('txtTaxrate'); 
-				
-				//alert(($('#cmbTaxtype').val()=='1')+'_'+t_money+'_'+t_discount+'_'+t_plus+'_'+t_rate);
+				t_plusmoney = q_float('txtPlusmoney');
+				t_minusmoney = q_float('txtMinusmoney');
                 switch($('#cmbTaxtype').val()+'') {
                     case '1':
                     	$('#txtTaxrate').val(q_getPara('sys.taxrate'));
                     	t_rate = q_float('txtTaxrate'); 
                         t_tax = Math.round((t_money-t_discount+t_plus) * t_rate / 100);
-                        t_total = (t_money-t_discount+t_plus) + t_tax ;
+                        t_total = (t_money-t_discount+t_plus+t_plusmoney-t_minusmoney) + t_tax ;
                         break;
                     case '3':
                         t_total = Math.round((t_money-t_discount+t_plus) / (1 + t_rate / 100), 0);
                         t_tax = (t_money-t_discount+t_plus) - t_total;
-                        t_total = t_money - t_discount+t_plus;
+                        t_total = t_money+t_plusmoney-t_minusmoney;
                         break;
                     case '5':
                         t_tax = q_float('txtTax');
-                        t_total = (t_money-t_discount+t_plus)+ t_tax;
+                        t_total = (t_money-t_discount+t_plus+t_plusmoney-t_minusmoney)+ t_tax;
                         break;
                     default:
-                        t_total = (t_money-t_discount+t_plus);
+                        t_total = (t_money-t_discount+t_plus+t_plusmoney-t_minusmoney);
                 }
     
                 $('#txtMoney').val(t_money);
@@ -358,9 +378,11 @@
                 _readonly(t_para, empty);
                 if(q_cur==1 || q_cur==2){
                 	$('#btnTrans').removeAttr('disabled');
+                	$('#btnCustchg').removeAttr('disabled');
                 }
                 else{
                 	$('#btnTrans').attr('disabled','disabled');
+                	$('#btnCustchg').attr('disabled','disabled');
                 }
                 if(isEditTotal && (q_cur==1 || q_cur==2) && $.trim($('#txtMemo').val()).substring(0, 1) == '.'){
                 	$('#txtTotal').removeAttr('readonly').css('background-color','white').css('color','black');
@@ -467,6 +489,9 @@
             }
             .tbbm .tr2, .tbbm .tr3, .tbbm .tr4 {
                 background-color: #FFEC8B;
+            }
+            .tbbm  .tr_custchg{
+            	background-color:#DAA520;
             }
             .tbbm .tdZ {
                 width: 2%;
@@ -625,9 +650,20 @@
 						<td class="td6"> </td>
 						<td class="td7"> </td>
 						<td class="td8"> </td>
-						<td class="td9">
-						<input type="button" id="btnTrans" class="txt c1"/>
-						</td>
+						<td class="td9"><input type="button" id="btnTrans" class="txt c1"/></td>
+						<td class="tdZ"> </td>
+					</tr>
+					<tr class="tr_custchg">
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td><input type="button" id="btnCustchg" class="txt c1"/></td>
 						<td class="tdZ"> </td>
 					</tr>
 					<tr class="tr5">
@@ -669,37 +705,30 @@
 						<input id="txtShip" type="text" class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr7">
-						<td class="td1"><span> </span><a id="lblMoney" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtMoney" type="text"  class="txt c1 num"/>
-						</td>
-						<td class="td1"><span> </span><a id="lblDiscount" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtDiscount" type="text"  class="txt c1 num"/>
-						</td>
-						<td class="td3"><span> </span><a id="lblTaxrate" class="lbl"> </a></td>
-						<td class="td4"><select id="cmbTaxtype" class="txt c3"> </select>
+					<tr>
+						
+						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
+						<td><input id="txtMoney" type="text"  class="txt c1 num"/></td>
+						<td><span> </span><a id="lblDiscount" class="lbl"> </a></td>
+						<td><input id="txtDiscount" type="text"  class="txt c1 num"/></td>
+						<td><span> </span><a id="lblPlus" class="lbl"> </a></td>
+						<td><input id="txtPlus" type="text"  class="txt c1 num"/></td>
+						<td><span> </span><a id="lblTaxrate" class="lbl"> </a></td>
+						<td><select id="cmbTaxtype" class="txt c3"> </select>
 						<input id="txtTaxrate" type="text"  class="txt c2 num"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblTax" class="lbl"> </a></td>
-						<td class="td6">
-						<input id="txtTax" type="text" class="txt c1 num"/>
-						</td>
-						<td class="td7"><span> </span><a id="lblTotal" class="lbl"> </a></td>
-						<td class="td8">
-						<input id="txtTotal" type="text" class="txt c1 num" />
-						</td>
+						<td><span> </span><a id="lblTax" class="lbl"> </a></td>
+						<td><input id="txtTax" type="text"  class="txt c1 num"/></td>
 					</tr>
-					<tr class="tr5">
-						<td class="td1"><span> </span><a id="lblMount" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtMount" type="text"  class="txt c1 num"/>
-						</td>
-						<td class="td1"><span> </span><a id="lblPlus" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtPlus" type="text"  class="txt c1 num"/>
-						</td>
+					<tr>
+						<td><span> </span><a id="lblPlusmoney" class="lbl"> </a></td>
+						<td><input id="txtPlusmoney" type="text"  class="txt c1 num"/></td>
+						<td><span> </span><a id="lblMinusmoney" class="lbl"> </a></td>
+						<td><input id="txtMinusmoney" type="text"  class="txt c1 num"/></td>
+						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
+						<td><input id="txtTotal" type="text"  class="txt c1 num"/></td>
+						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
+						<td><input id="txtMount" type="text"  class="txt c1 num"/></td>
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
