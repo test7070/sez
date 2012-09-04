@@ -27,7 +27,7 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
         //ajaxPath = ""; 
-		aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
+		aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
         ['txtBccno','lblBcc','bcc','noa,product','txtBccno,txtBccname','bcc_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -506,7 +506,8 @@
         </tr>
         <tr class="tr2">            
             <td class='td1'><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
-            <td class="td2" colspan="2"><input id="txtTggno" type="text" class="txt c4"/><input id="txtTgg"type="text" class="txt c5"/></td>
+            <td class="td2" colspan="2"><input id="txtTggno" type="text" class="txt c4"/>
+            	<input id="txtTgg"type="text" class="txt c5"/></td>
             <td class='td4'><span> </span><a id="lblBcc" class="lbl btn"> </a></td>
             <td class="td5" colspan="2"><input id="txtBccno" type="text"  class="txt c4"/><input  id="txtBccname" type="text" class="txt c5"/></td>            
             
