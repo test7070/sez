@@ -2,11 +2,11 @@
 <head> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 <meta http-equiv="Content-Language" content="en-us" /> 
-<title></title> 
-<script src="../script/jquery.min.js" type="text/javascript"></script>
-<script src="../script/qj2.js" type="text/javascript"></script>
-    <script src='qset.js' type="text/javascript"></script>
-<script src="../script/qj_mess.js" type="text/javascript"></script>
+<title> </title> 
+<script src="../script/jquery.min.js" type="text/javascript"> </script>
+<script src="../script/qj2.js" type="text/javascript"> </script>
+    <script src='qset.js' type="text/javascript"> </script>
+<script src="../script/qj_mess.js" type="text/javascript"> </script>
 <script type="text/javascript">
     var q_name = 'bank', t_content = ' ', bbsKey = ['noa'], as; 
     var isBott = false;  
@@ -41,8 +41,8 @@
        <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
             <tr>
                 <th align="center" > </th>
-                <th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblBank'></a></th>
+                <th align="center" style='color:Blue;'><a id='lblNoa'> </a></th>
+                <th align="center" style='color:Blue;'><a id='lblBank'> </a></th>
             </tr>
             <tr>
                 <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>

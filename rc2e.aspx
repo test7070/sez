@@ -27,7 +27,7 @@
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
          aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
         ['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
-        ['txtProductno_', ' ', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']);
+        ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -464,7 +464,7 @@
                 <td ><input class="txt c1" id="txtStoreno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtUno.*" type="text" /></td>
                 <td style="width:10%;"><input class="txt c4" id="txtProductno.*" type="text" />
-                	 <input class="txt c5" id="txtProduct.*" type="text" /></td>
+                	 <input class="txt c5" id="txtProduct.*" type="text" /><input id="btnProduct.*" type="button" value="..." /></td>
                 <td style="width:15%;"><input class="txt num c6" id="txtDime.*" type="text"/>x
                                     <input class="txt num c6" id="txtWidth.*" type="text"  />x
                                     <input class="txt num c6" id="txtLengthb.*" type="text" />
