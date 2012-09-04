@@ -3,254 +3,238 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title></title>
-		<script src="../script/jquery.min.js" type="text/javascript"> </script>
-		<script src='../script/qj2.js' type="text/javascript"> </script>
-		<script src='qset.js' type="text/javascript"> </script>
-		<script src='../script/qj_mess.js' type="text/javascript"> </script>
-		<script src='../script/mask.js' type="text/javascript"> </script>
-		<script src="../script/qbox.js" type="text/javascript"> </script>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 
 		<script type="text/javascript">
-			this.errorHandler = null;
-			function onPageError(error) {
-				alert("An error occurred:\r\n" + error.Message);
-			}
+            this.errorHandler = null;
+            function onPageError(error) {
+                alert("An error occurred:\r\n" + error.Message);
+            }
 
-			var q_name = "carborr";
-			var q_readonly = ['txtNoa','txtWorker'];
-			var bbmNum = [['txtMoney',10,0],['txtMoney2',10,0]];
-			var bbmMask = [];
-			q_sqlCount = 6;
-			brwCount = 6;
-			brwList = [];
-			brwNowPage = 0;
-			brwKey = 'noa';
-			//ajaxPath = ""; //  execute in Root
-			aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']);
-			$(document).ready(function() {
-				bbmKey = ['noa'];
-				q_brwCount();
-				q_gt(q_name, q_content, q_sqlCount, 1)
-				$('#txtNoa').focus
-			});
+            var q_name = "carborr";
+            var q_readonly = ['txtNoa', 'txtWorker', 'txtMoney2'];
+            var bbmNum = [['txtMoney', 10, 0], ['txtMoney2', 10, 0]];
+            var bbmMask = [];
+            curMoney = 0;
+            curMon='';
+            curDriverno='';
+            q_sqlCount = 6;
+            brwCount = 6;
+            brwList = [];
+            brwNowPage = 0;
+            brwKey = 'noa';
+            q_desc = 1;
+            //ajaxPath = ""; //  execute in Root
+            aPop = new Array(
+            	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
+            	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']);
+            $(document).ready(function() {
+                bbmKey = ['noa'];
+                q_brwCount();
+                q_gt(q_name, q_content, q_sqlCount, 1);
+            });
 
-			//////////////////   end Ready
-			function main() {
-				if (dataErr) {
-					dataErr = false;
-					return;
-				}
-				mainForm(0);
-				// 1=Last  0=Top
-			}///  end Main()
+            function main() {
+                if (dataErr) {
+                    dataErr = false;
+                    return;
+                }
+                mainForm(0);
+                // 1=Last  0=Top
+            }///  end Main()
 
-			function mainPost() {
-				bbmMask = new Array(['txtDatea',r_picd],['txtMon',r_picm]);
-				q_mask(bbmMask);
-			}
+            function mainPost() {
+                bbmMask = new Array(['txtDatea', r_picd], ['txtMon', r_picm]);
+                q_mask(bbmMask);
+                $('#txtMon').change(function() {
+                    money2();
+                });
+            }
 
-			function txtCopy(dest, source) {
-				var adest = dest.split(',');
-				var asource = source.split(',');
-				$('#' + adest[0]).focus(function() {
-					if (trim($(this).val()).length == 0)
-						$(this).val(q_getMsg('msgCopy'));
-				});
-				$('#' + adest[0]).focusout(function() {
-					var t_copy = ($(this).val().substr(0, 1) == '=');
-					var t_clear = ($(this).val().substr(0, 2) == ' =');
-					for (var i = 0; i < adest.length; i++) { {
-							if (t_copy)
-								$('#' + adest[i]).val($('#' + asource[i]).val());
+            function q_boxClose(s2) {
+                var ret;
+                switch (b_pop) {
+                    case q_name + '_s':
+                        q_boxClose2(s2);
+                        ///   q_boxClose 3/4
+                        break;
+                }   /// end Switch
+            }
 
-							if (t_clear)
-								$('#' + adest[i]).val('');
-						}
-					}
-				});
-			}
+            function q_gtPost(t_name) {
+                switch (t_name) {
+                    case q_name:
+                        if (q_cur == 4)
+                            q_Seek_gtPost();
 
-			function q_boxClose(s2) {
-				var ret;
-				switch (b_pop) {
-					case q_name + '_s':
-						q_boxClose2(s2);
-						///   q_boxClose 3/4
-						break;
-				}   /// end Switch
-			}
+                        if (q_cur == 1 || q_cur == 2)
+                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
+                        break;
+                }/// end switch
+            }
 
-			function q_gtPost(t_name) {
-				switch (t_name) {
-					case 'trans':
-						var as = _q_appendData("trans", "", true);
-						for (var i = 0; i < as.length; i++) {
-                			trans_total2+=dec(as[i].total2);
-                		}
-						break;
-					case 'carchg':
-						var as = _q_appendData("carchg", "", true);
-						for (var i = 0; i < as.length; i++) {
-							 carchg_pm_money+=(dec(as[i].plusmoney)-dec(as[i].minusmoney));
-						}
-						break;
-					case q_name:
-						if (q_cur == 4)
-							q_Seek_gtPost();
+            function _btnSeek() {
+                if (q_cur > 0 && q_cur < 4)// 1-3
+                    return;
 
-						if (q_cur == 1 || q_cur == 2)
-							q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-							
-						var as = _q_appendData(q_name, "", true);
-						for (var i = 0; i < as.length; i++) {
-							carborr_money+=dec(as[i].money);
-						}
-						break;
-				}  /// end switch
-				//可借支金額計算
-				$('#txtMoney2').val(trans_total2+carchg_pm_money-carborr_money);
-			}
+                q_box('carborr_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            }
 
-			function _btnSeek() {
-				if (q_cur > 0 && q_cur < 4)// 1-3
-					return;
-
-				q_box('carborr_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
-			}
-
-			function btnIns() {
-				_btnIns();
-				$('#txtNoa').val('AUTO');
+            function btnIns() {
+                _btnIns();
+                $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
-			}
+                curMoney = q_float('txtMoney');
+                curMon=$('#txtMon').val();
+                curDriverno=$('#txtDriverno').val();
+                money2();
+            }
 
-			function btnModi() {
-				if (emp($('#txtNoa').val()))
-					return;
-				_btnModi();
-				$('#txtDatea').focus();
-			}
+            function btnModi() {
+                if (emp($('#txtNoa').val()))
+                    return;
+                _btnModi();
+                $('#txtDatea').focus();
+                curMoney = q_float('txtMoney');
+                curMon=$('#txtMon').val();
+                curDriverno=$('#txtDriverno').val();
+                money2();
+            }
 
-			function btnPrint() {
+            function btnPrint() {
 
-			}
+            }
 
-			function btnOk() {
-				$('#txtWorker').val(r_name);			
+            function btnOk() {
+                $('#txtWorker').val(r_name);
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
-                if(t_noa.length == 0 || t_noa == "AUTO")
+                if (t_noa.length == 0 || t_noa == "AUTO")
                     q_gtnoa(q_name, replaceAll(q_getPara('sys.key_carborr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
-			}
+                curMoney=0;
+                curMon='';
+                curDriverno='';
+            }
 
-			function wrServer(key_value) {
-				var i;
+            function wrServer(key_value) {
+                var i;
 
-				xmlSql = '';
-				if (q_cur == 2)/// popSave
-					xmlSql = q_preXml();
+                xmlSql = '';
+                if (q_cur == 2)/// popSave
+                    xmlSql = q_preXml();
 
-				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-				_btnOk(key_value, bbmKey[0], '', '', 2);
-			}
+                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+                _btnOk(key_value, bbmKey[0], '', '', 2);
+            }
 
-			function refresh(recno) {
-				_refresh(recno);
-				money2();
-			}
+            function refresh(recno) {
+                _refresh(recno);
+                money2();
+            }
 
-			function readonly(t_para, empty) {
-				_readonly(t_para, empty);
-			}
+            function readonly(t_para, empty) {
+                _readonly(t_para, empty);
+            }
 
-			function btnMinus(id) {
-				_btnMinus(id);
-			}
+            function btnMinus(id) {
+                _btnMinus(id);
+            }
 
-			function btnPlus(org_htm, dest_tag, afield) {
-				_btnPlus(org_htm, dest_tag, afield);
-			}
+            function btnPlus(org_htm, dest_tag, afield) {
+                _btnPlus(org_htm, dest_tag, afield);
+            }
 
-			function q_appendData(t_Table) {
-				return _q_appendData(t_Table);
-			}
+            function q_appendData(t_Table) {
+                return _q_appendData(t_Table);
+            }
 
-			function btnSeek() {
-				_btnSeek();
-			}
+            function btnSeek() {
+                _btnSeek();
+            }
 
-			function btnTop() {
-				_btnTop();
-			}
+            function btnTop() {
+                _btnTop();
+            }
 
-			function btnPrev() {
-				_btnPrev();
-			}
+            function btnPrev() {
+                _btnPrev();
+            }
 
-			function btnPrevPage() {
-				_btnPrevPage();
-			}
+            function btnPrevPage() {
+                _btnPrevPage();
+            }
 
-			function btnNext() {
-				_btnNext();
-			}
+            function btnNext() {
+                _btnNext();
+            }
 
-			function btnNextPage() {
-				_btnNextPage();
-			}
+            function btnNextPage() {
+                _btnNextPage();
+            }
 
-			function btnBott() {
-				_btnBott();
-			}
+            function btnBott() {
+                _btnBott();
+            }
 
-			function q_brwAssign(s1) {
-				_q_brwAssign(s1);
-			}
+            function q_brwAssign(s1) {
+                _q_brwAssign(s1);
+            }
 
-			function btnDele() {
-				_btnDele();
-			}
+            function btnDele() {
+                _btnDele();
+            }
 
-			function btnCancel() {
-				_btnCancel();
+            function btnCancel() {
+                _btnCancel();
+                curMoney=0;
+                curMon='';
+                curDriverno='';
+            }
+            function q_popPost(id) {
+				switch(id) {
+					case 'txtDriverno':
+						money2();
+						break;
+				}
 			}
-			
-			//可借支金額-------------------
-			var trans_total2=0;
-			var carchg_pm_money=0;
-			var carborr_money=0;
-			
-			function money2(){
-				trans_total2=0;
-				carchg_pm_money=0;
-				carborr_money=0;
-				//查詢可借支金額查詢----------------
-				var t_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '"+$('#txtDatea').val().substr(0,6)+"/01' and '"+$('#txtDatea').val().substr(0,6)+"/31' ^^"; 
-				q_gt('trans', t_where  , 0, 0, 0, "", r_accy);	
-				q_gt('carchg', t_where  , 0, 0, 0, "", r_accy);	
-				
-				//查詢當月已借支金額-----------------------
-				var s_where="";
-				if(dec($('#txtDatea').val().substr(7,2))==15)	//當月15日計算當月1~10日的已借支
-					s_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '"+$('#txtDatea').val().substr(0,6)+"/01' and '"+$('#txtDatea').val().substr(0,6)+"/10' ^^";
-				if(dec($('#txtDatea').val().substr(7,2))==25)	//當月25日計算當月1~20日的已借支
-					s_where ="where=^^ driverno='"+$('#txtDriverno').val()+"' and datea between '"+$('#txtDatea').val().substr(0,6)+"/01' and '"+$('#txtDatea').val().substr(0,6)+"/20' ^^";
-				if(s_where!="")	
-					q_gt(q_name, s_where  , 0, 0, 0, "", r_accy);	
-			}
-			
+            function money2(){
+            	if($('#txtMon').val().length>0 && $('#txtDriverno').val().length>0 )
+                	q_func('carsal2.import',r_accy+','+$('#txtMon').val()+','+$('#txtDriverno').val()+','+$('#txtDriverno').val());
+            }
+
+            function q_funcPost(t_func, result) {/// 執行 q_exec() 呼叫 server 端 function 後， client 端所要執行的程式
+                if (result.substr(0, 5) == '<Data') {/// 如果傳回  table[]
+                    var as = _q_appendData('carsal2', '', true);
+                    if(as.length>0){
+                    	if(curMon==$('#txtMon').val()  &&  curDriverno==$('#txtDriverno').val())
+                    		$('#txtMoney2').val(parseFloat(as[0].total)+curMoney);
+                    	else
+                    		$('#txtMoney2').val(parseFloat(as[0].total));
+                    }
+                    else
+                    	$('#txtMoney2').val('');              
+                } else
+                    alert(t_func + '\r' + result);
+            }
+            
+
 		</script>
 		<style type="text/css">
-			#dmain {
+            #dmain {
                 overflow: hidden;
             }
             .dview {
                 float: left;
-                width: 20%;
+                width: 30%;
             }
             .tview {
                 margin: 0;
@@ -268,7 +252,7 @@
             }
             .dbbm {
                 float: left;
-                width: 78%;
+                width: 65%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -338,7 +322,7 @@
             .tbbm tr td .txt.num {
                 text-align: right;
             }
-          	
+
             .txt.num {
                 text-align: right;
             }
@@ -355,13 +339,13 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
-                font-size:medium;
+                font-size: medium;
             }
-            input[type="text"],input[type="button"] {
-                font-size:medium;
+            input[type="text"], input[type="button"] {
+                font-size: medium;
             }
-            input[readonly="readonly"]#txtMiles{
-            	color:green;
+            input[readonly="readonly"]#txtMiles {
+                color: green;
             }
 		</style>
 	</head>
@@ -377,7 +361,9 @@
 						<td align="center" style="width:20%"><a id='vewMon'> </a></td>
 					</tr>
 					<tr>
-						<td><input id="chkBrow.*" type="checkbox"/></td>
+						<td>
+						<input id="chkBrow.*" type="checkbox"/>
+						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='driver'>~driver</td>
 						<td align="center" id='mon'>~mon</td>
@@ -387,42 +373,62 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr>
-						<td class="td1"><span> </span><a id='lblNoa' class="lbl">  </a></td>
+						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-						<td class="td3"><span> </span><a id='lblDatea' class="lbl">  </a></td>
-						<td class="td4"><input id="txtDatea"  type="text"  class="txt c1"/></td>
-						<td class="td5"> </td>
-						<td class="td6"> </td>
-						<td class="td7"> </td>
-						<td class="td8"> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id="lblDriver" class="lbl btn" >  </a></td>
+						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td><input id="txtDatea"  type="text"  class="txt c1"/>	</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblCarno' class="lbl btn"> </a></td>
+						<td><input id="txtCarno"  type="text"  class="txt c1"/>	</td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id="lblDriver" class="lbl btn" > </a></td>
 						<td class="td2"  colspan="2">
 						<input id="txtDriverno" type="text"  class="txt c2"/>
 						<input id="txtDriver"  type="text"  class="txt c3"/>
 						</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblMon' class="lbl">  </a></td>
-						<td class="td2"><input id="txtMon" type="text"  class="txt c1"/></td>
+						<td class="td1"><span> </span><a id='lblMon' class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtMon" type="text"  class="txt c1"/>
+						</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id="lblMoney" class="lbl">  </a></td>
-						<td class="td2"><input id="txtMoney" type="text"  class="txt num c1"/></td>
-						<td class="td3"><span> </span><a id="lblMoney2" class="lbl">  </a></td>
-						<td class="td4"><input id="txtMoney2" type="text"  class="txt num c1"/></td>
+						<td class="td1"><span> </span><a id="lblMoney" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtMoney" type="text"  class="txt num c1"/>
+						</td>
+						<td class="td3"><span> </span><a id="lblMoney2" class="lbl"> </a></td>
+						<td class="td4">
+						<input id="txtMoney2" type="text"  class="txt num c1"/>
+						</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblMemo' class="lbl">  </a></td>
-						<td class="td2" colspan="7"><input id="txtMemo" type="text"  class="txt c1"/></td>
+						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
+						<td class="td2" colspan="5">
+						<input id="txtMemo" type="text"  class="txt c1"/>
+						</td>
 					</tr>
-					<tr> 
+					<tr>
 						<td class="td1"><span> </span><a id="lblWorker" class="lbl"> </a></td>
-						<td class="td2"><input id="txtWorker" type="text" class="txt c1" /></td>
+						<td class="td2">
+						<input id="txtWorker" type="text" class="txt c1" />
+						</td>
 					</tr>
-					<tr> </tr>
+					<tr></tr>
+					<tr></tr>
+					<tr></tr>
+					<tr></tr>
+					<tr></tr>
 				</table>
 			</div>
 		</div>

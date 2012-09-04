@@ -18,6 +18,7 @@
     function main() {
         mainSeek();
         q_gf('', q_name);
+        $('#txtNoa').focus();
     }
 
     function q_gfPost() {

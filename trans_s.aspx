@@ -42,7 +42,8 @@
 				t_carno = $('#txtCarno').val();
 				t_po = $('#txtPo').val();
 				t_caseno = $('#txtCaseno').val();
-
+				t_straddrno = $('#txtStraddrno').val();
+				
 				t_bdate = $('#txtBdate').val();
 				t_edate = $('#txtEdate').val();
 				;
@@ -57,7 +58,7 @@
 				t_etrandate = t_etrandate.length > 0 && t_etrandate.indexOf("_") > -1 ? t_etrandate.substr(0, t_etrandate.indexOf("_")) : t_etrandate;
 				/// 100.  .
 
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("Trandate", t_btrandate, t_etrandate) + q_sqlPara_or(["caseno", "caseno2"], t_caseno) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver) + q_sqlPara2("custno", t_custno) + q_sqlPara2("comp", t_comp) + q_sqlPara2("carno", t_carno) + q_sqlPara2("po", t_po);
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("Trandate", t_btrandate, t_etrandate) + q_sqlPara_or(["caseno", "caseno2"], t_caseno) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver) + q_sqlPara2("custno", t_custno)+ q_sqlPara2("straddrno", t_straddrno)  + q_sqlPara2("comp", t_comp) + q_sqlPara2("carno", t_carno) + q_sqlPara2("po", t_po);
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -128,6 +129,12 @@
 					<td class='seek'  style="width:20%;"><a id='lblCarno'></a></td>
 					<td>
 					<input class="txt" id="txtCarno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblStraddr'></a></td>
+					<td>
+					<input class="txt" id="txtStraddrno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
