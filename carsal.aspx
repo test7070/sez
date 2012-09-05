@@ -525,7 +525,7 @@
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/>	</td>
 						<td><span> </span><a id="lblLock" class="lbl"> </a></td>
-						<td><input id="txtLock" type="checkbox" style="float:left;"/>	</td>
+						<td><input id="chkLock" type="checkbox" style="float:left;"/>	</td>
 					</tr>
 					<tr class="tr8"></tr>
 				</table>

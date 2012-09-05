@@ -289,6 +289,13 @@
             function btnCancel() {
                 _btnCancel();
             }
+            function q_popPost(id) {
+				switch(id) {
+					case 'txtCustno':
+						$('#txtAddrno').val($('#txtCustno').val());
+						break;
+				}
+			}
 		</script>
 		<style type="text/css">
             #dmain {

@@ -38,7 +38,7 @@
                         type : '2',
                         name : 'oilstation',
                         dbf : 'oilstation',
-                        index : 'noa,oilstation',
+                        index : 'noa,station',
                         src : 'oilstation_b.aspx'
                         }, {
                         type : '5', //select
