@@ -59,13 +59,12 @@
 				});
 			});
 
-			function currentData() {
-			}
-
-
+			function currentData() {}
 			currentData.prototype = {
 				data : [],
+				/*排除的欄位,新增時不複製*/
 				exclude : ['txtNoa', 'txtNoq', 'txtWorker', 'txtTrdno', 'txtTreno', 'txtPton', 'txtPton2', 'txtGross', 'txtWeight', 'txtLtime', 'txtStime', 'txtDtime', 'txtBmiles', 'txtEmiles', 'txtMiles'],
+				/*記錄當前的資料*/
 				copy : function() {
 					curData.data = new Array();
 					for (var i in fbbm) {
@@ -84,11 +83,13 @@
 						}
 					}
 				},
+				/*貼上資料*/
 				paste : function() {
 					for (var i in curData.data) {
 						$('#' + curData.data[i].field).val(curData.data[i].value);
 					}
 				},
+				/*判斷是否為外車*/
 				isOutside : function() {
 					var t_noa = $("#cmbCalctype").val();
 					var t_isOutside = 0;
@@ -100,6 +101,7 @@
 					}
 					return t_isOutside;
 				},
+				/*計算類別變動時,折扣亦變動,外車除外*/
 				chgDiscount : function() {
 					var t_noa = $("#cmbCalctype").val();
 					var t_isOutside = 0;
@@ -364,6 +366,7 @@
 				curData.copy();
 				_btnIns();
 				curData.paste();
+				curData.chgDiscount();//新增時,折扣為原先預設值
 				$('#txtNoa').val('AUTO');
 				$('#txtNoq').val('001');
 				if ($('#txtDatea').val().length == 0)
