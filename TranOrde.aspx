@@ -27,7 +27,7 @@
             var bbsNum = [];
             var bbsMask = new Array(['txtTrandate','999/99/99']);
             var bbmNum = new Array();
-            var bbmMask = new Array(['txtDatea','999/99/99'],['txtCldate','999/99/99'],['txtNodate','999/99/99'],['txtMadate','999/99/99'],['txtRedate','999/99/99']);
+            var bbmMask = new Array(['txtDatea','999/99/99'],['txtDldate','999/99/99'],['txtCldate','999/99/99'],['txtNodate','999/99/99'],['txtMadate','999/99/99'],['txtRedate','999/99/99']);
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -77,6 +77,13 @@
             function mainPost() {
             	q_mask(bbmMask);
                 q_cmbParse("cmbStype", q_getPara('vcc.stype'));
+                q_cmbParse("cmbUnit", q_getPara('sys.unit'));
+                $("#cmbUnit").focus(function() {
+					var len = $("#cmbUnit").children().length > 0 ? $("#cmbUnit").children().length : 1;
+					$("#cmbUnit").attr('size', len + "");
+				}).blur(function() {
+					$("#cmbUnit").attr('size', '1');
+				});
                 $("#btnTranquat").click(function(e) {
                     if ($('#txtCustno').val().length == 0) {
                         alert('請輸入客戶編號!');
@@ -98,7 +105,8 @@
                 $('#txtCldate').datepicker();
                 $('#txtNodate').datepicker();
                 $('#txtMadate').datepicker();
-                $('#txtRedate').datepicker();  
+                $('#txtRedate').datepicker(); 
+                $('#txtDldate').datepicker(); 
             }
 
             function bbsAssign() {
@@ -447,6 +455,10 @@
 						<td>
 						<input type="text" id="txtDatea" class="txt c1"/>
 						</td>
+						<td><span> </span><a id="lblDldate" class="lbl"> </a></td>
+						<td>
+						<input type="text" id="txtDldate" class="txt c1"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCust" class="lbl"> </a></td>
@@ -492,6 +504,7 @@
 						<input type="text" id="txtProductno" class="txt" style="width:40%;float: left; " />
 						<input type="text" id="txtProduct" class="txt" style="width:60%;float: left; " />
 						</td>
+						
 						<td><span> </span><a id="lblPo" class="lbl"> </a></td>
 						<td colspan="2"><input type="text" id="txtPo" class="txt c1"/></td>
 					</tr>
@@ -500,6 +513,8 @@
 						<td>
 						<input type="text" id="txtMount" class="txt c1 num"/>
 						</td>
+						<td><span> </span><a id="lblUnit" class="lbl"> </a></td>
+						<td><select id="cmbUnit" class="txt c1"> </select></td>
 						<td><span> </span><a id="lblAddr" class="lbl btn"> </a></td>
 						<td colspan="3"><input type="text" id="txtAddrno" class="txt c2"/>
 							<input type="text" id="txtAddr" class="txt c3"/>

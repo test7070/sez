@@ -27,7 +27,7 @@
 			brwKey = 'noa';
 			//  q_alias = 'a';
 			q_desc = 1;
-			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr,productno,product,custprice,driverprice,driverprice2,commission', 'txtStraddrno,txtStraddr,txtUccno,txtProduct,txtPrice,txtPrice2,txtPrice3,txtCommission', 'addr_b.aspx'], ['txtAddno3', 'lblAdd3', 'addr', 'noa,addr', 'txtAddno3,txtAdd3', 'addr_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtCaseuseno', 'lblCaseuse', 'cust', 'noa,comp', 'txtCaseuseno,txtCaseuse', 'cust_b.aspx']);
+			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr,productno,product,custprice,driverprice,driverprice2,commission,commission2', 'txtStraddrno,txtStraddr,txtUccno,txtProduct,txtPrice,txtPrice2,txtPrice3,txtCommission,txtCommission', 'addr_b.aspx'], ['txtAddno3', 'lblAdd3', 'addr', 'noa,addr', 'txtAddno3,txtAdd3', 'addr_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtCaseuseno', 'lblCaseuse', 'cust', 'noa,comp', 'txtCaseuseno,txtCaseuse', 'cust_b.aspx']);
 
 			var t_height = 25;
 			$(document).ready(function() {
@@ -149,13 +149,21 @@
 						$("#txtPrice2").hide();
 						$("#lblPrice3").show();
 						$("#txtPrice3").show();
+						$("#lblCommission").hide();
+						$("#txtCommission").hide();
+						$("#lblCommission2").show();
+						$("#txtCommission2").show();
 					} else {
 						$("#lblPrice3").hide();
 						$("#txtPrice3").hide();
 						$("#lblPrice2").show();
 						$("#txtPrice2").show();
-						curData.chgDiscount();
+						$("#lblCommission2").hide();
+						$("#txtCommission2").hide();
+						$("#lblCommission").show();
+						$("#txtCommission").show();	
 					}
+					curData.chgDiscount();
 					sum();
 				}).click(function() {
 					if (curData.isOutside()) {
@@ -163,13 +171,21 @@
 						$("#txtPrice2").hide();
 						$("#lblPrice3").show();
 						$("#txtPrice3").show();
+						$("#lblCommission").hide();
+						$("#txtCommission").hide();
+						$("#lblCommission2").show();
+						$("#txtCommission2").show();
 					} else {
 						$("#lblPrice3").hide();
 						$("#txtPrice3").hide();
 						$("#lblPrice2").show();
 						$("#txtPrice2").show();
-						curData.chgDiscount();
+						$("#lblCommission2").hide();
+						$("#txtCommission2").hide();
+						$("#lblCommission").show();
+						$("#txtCommission").show();
 					}
+					curData.chgDiscount();
 					sum();
 				});
 				$("#cmbCalctype").focus(function() {
@@ -325,11 +341,19 @@
 							$("#txtPrice2").hide();
 							$("#lblPrice3").show();
 							$("#txtPrice3").show();
+							$("#lblCommission").hide();
+							$("#txtCommission").hide();
+							$("#lblCommission2").show();
+							$("#txtCommission2").show();
 						} else {
 							$("#lblPrice3").hide();
 							$("#txtPrice3").hide();
 							$("#lblPrice2").show();
 							$("#txtPrice2").show();
+							$("#lblCommission2").hide();
+							$("#txtCommission2").hide();
+							$("#lblCommission").show();
+							$("#txtCommission").show();
 						}
 						break;
 					case 'carteam':
@@ -409,10 +433,13 @@
 				}
 
 				$('#txtWorker').val(r_name);
-				if (curData.isOutside())
+				if (curData.isOutside()){
 					$("#txtPrice2").val(0);
-				else
+					$("#txtCommission").val(0);
+				}else{
 					$("#txtPrice3").val(0);
+					$("#txtCommission2").val(0);
+				}
 				sum();
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
@@ -439,11 +466,19 @@
 					$("#txtPrice2").hide();
 					$("#lblPrice3").show();
 					$("#txtPrice3").show();
+					$("#lblCommission").hide();
+					$("#txtCommission").hide();
+					$("#lblCommission2").show();
+					$("#txtCommission2").show();
 				} else {
 					$("#lblPrice3").hide();
 					$("#txtPrice3").hide();
 					$("#lblPrice2").show();
 					$("#txtPrice2").show();
+					$("#lblCommission2").hide();
+					$("#txtCommission2").hide();
+					$("#lblCommission").show();
+					$("#txtCommission").show();
 				}
 
 				var treno = $('#txtTreno').val();
@@ -847,9 +882,10 @@
 						<td class="tdB" colspan="2">
 						<input id="txtTotal" type="text"  class="txt num c1"/>
 						</td>
-						<td class="td9" colspan="2"><span> </span><a id="lblCommission" class="lbl"> </a></td>
+						<td class="td9" colspan="2"><span> </span><a id="lblCommission" class="lbl"> </a><a id="lblCommission2" class="lbl"> </a></td>
 						<td class="tdB" colspan="2">
 						<input id="txtCommission" type="text" class="txt num c1"/>
+						<input id="txtCommission2" type="text" class="txt num c1"/>
 						</td>
 					</tr>
 					<tr class="tr5 m">
