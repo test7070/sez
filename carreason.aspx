@@ -42,7 +42,8 @@
 
 
         function mainPost() { 
-          q_mask(bbmMask);
+        bbmMask = [['txtDatea', r_picd]];
+        q_mask(bbmMask);
                   }
         function txtCopy(dest, source) {
             var adest = dest.split(',');

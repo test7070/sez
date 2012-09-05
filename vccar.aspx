@@ -42,7 +42,9 @@
 
 
         function mainPost() { 
-           q_mask(bbmMask);
+         
+        bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+        q_mask(bbmMask);
         }
 
         function txtCopy(dest, source) {
@@ -366,13 +368,13 @@
                     <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
                         <tr>
                             <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                            <td align="center" style="width:5%"><a id='vewAcomp'></a></td>
+                            <td align="center" style="width:25%"><a id='vewAcomp'></a></td>
                             <td align="center" style="width:25%"><a id='vewBdate'></a></td>
                             <td align="center" style="width:25%"><a id='vewBinvono'></a></td>
                         </tr>
                         <tr>
                             <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
-                            <td align="center" id='acomp'>~acomp</td>
+                            <td align="center" id='acomp,4'>~acomp,4</td>
                             <td align="center" id='bdate'>~bdate</td>
                             <td align="center" id='binvono'>~binvono</td>
                         </tr>
@@ -381,36 +383,36 @@
                 <div class='dbbm' style="width: 68%;float:left">
                     <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
                         <tr class="tr1">
-                            <td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
+                            <td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
                             <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-                            <td class="td3"></td>
-                            <td class="td4"></td>
+                            <td class="td3"> </td>
+                            <td class="td4"> </td>
                         </tr>
                         <tr class="tr1">
-                            <td class="td1"><span> </span><a id="lblCno" class="lbl btn"></a></td>
+                            <td class="td1"><span> </span><a id="lblCno" class="lbl btn"> </a></td>
                             <td class="td2"><input id="txtCno"  type="text"  class="txt c4"/>
                             	<input id="txtAcomp"  type="text"  class="txt c5"/>
                             </td>
-                            <td class="td3"></td>
-                            <td class="td4"></td>
+                            <td class="td3"> </td>
+                            <td class="td4"> </td>
                         </tr>
                         <tr class="tr2">
-                            <td class="td1"><span> </span><a id="lblBdate" class="lbl"></a></td>
+                            <td class="td1"><span> </span><a id="lblBdate" class="lbl"> </a></td>
                             <td class="td2"><input id="txtBdate"  type="text"  class="txt c2"/>
-                            	<a id="lblSymbol1" class="txt c7"></a>
+                            	<a id="lblSymbol1" class="txt c7"> </a>
                             	<input id="txtEdate"  type="text"  class="txt c2"/>
                             </td>
-                            <td class="td3"></td>
-                            <td class="td4"></td>
+                            <td class="td3"> </td>
+                            <td class="td4"> </td>
                         </tr>
                         <tr>
-                            <td class="td1"><span> </span><a id="lblInvono" class="lbl"></a></td>
+                            <td class="td1"><span> </span><a id="lblInvono" class="lbl"> </a></td>
                             <td class="td2"><input id="txtBinvono"  type="text"  class="txt c2"/>
-                            	<a id="lblSymbol2" class="txt c7"></a>
+                            	<a id="lblSymbol2" class="txt c7"> </a>
                             	<input id="txtEinvono"  type="text"  class="txt c2"/>
                             </td>
-                            <td class="td3"></td>
-                            <td class="td4"></td>
+                            <td class="td3"> </td>
+                            <td class="td4"> </td>
                         </tr>
                         <tr>
                            <td class="td1"><span> </span><a id="lblRev1" class="lbl"></a></td>
