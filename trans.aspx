@@ -397,10 +397,10 @@
 			function btnOk() {
 				var t_custno = $.trim($('#txtCustno').val());
 				var t_addrno = $.trim($('#txtStraddrno').val());
-				if (t_custno.length > 0 && t_addrno.length > 0) {
+				if (t_custno.length > 0 || t_addrno.length > 0) {
 					t_addrno = t_addrno.substring(0, t_custno.length);
 					if (t_addrno != t_custno) {
-						alert('addr error!');
+						alert('起迄地點異常!');
 						return;
 					}
 				}
