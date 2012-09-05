@@ -18,7 +18,7 @@
             }
 
             var q_name = "custchg";
-            var q_readonly = ['txtNoa','txtWorker','txtTrdno'];
+            var q_readonly = ['txtNoa','txtWorker'/*,'txtTrdno'*/];
             var bbmNum = new Array(['txtMinusmoney',10,0],['txtPlusmoney',10,0]);
             var bbmMask = [['txtDatea','999/99/99']];
             q_sqlCount = 6;
