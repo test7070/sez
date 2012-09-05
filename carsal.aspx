@@ -453,9 +453,7 @@
 						<input id="txtLabor" type="text" class="txt c1  num"/>
 						</td>
 						<td class="td5"><span> </span><a id="lblHealth" class="lbl"> </a></td>
-						<td class="td6">
-						<input id="txtHealth" type="text" class="txt c1  num"/>
-						</td>
+						<td class="td6"><input id="txtHealth" type="text" class="txt c1  num"/>	</td>
 					</tr>
 					<tr class="tr6">
 						<td class="td1"><span> </span><a id="lblMinus" class="lbl"> </a></td>
@@ -471,7 +469,12 @@
 						<input id="txtTotal" type="text" class="txt c1  num"/>
 						</td>
 					</tr>
-					<tr class="tr7"></tr>
+					<tr class="tr7">
+						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td><input id="txtWorker" type="text" class="txt c1"/>	</td>
+						<td><span> </span><a id="lblLock" class="lbl"> </a></td>
+						<td><input id="txtLock" type="checkbox" style="float:left;"/>	</td>
+					</tr>
 					<tr class="tr8"></tr>
 				</table>
 			</div>
