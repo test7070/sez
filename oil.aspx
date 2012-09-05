@@ -257,6 +257,7 @@
             	var t_price = q_float('txtPrice');
             	if($("#txtCurmount").hasClass('finish')  &&  (q_cur==1 || q_cur==2)){
             		$('#txtCurmount').val((t_curmount*1000+t_orgmount*1000-t_mount*1000)/1000);
+            		$('#txtOrgmount').val(t_mount);
             	}
             	if($.trim($('#txtMemo').val()).substring(0, 1) == '.'){
             		
@@ -268,6 +269,7 @@
 	            var t_curmoney = q_float('txtCurmoney');
 	            if($("#txtCurmoney").hasClass('finish')  &&  (q_cur==1 || q_cur==2)){
             		$('#txtCurmoney').val(t_curmoney+t_orgmoney-t_money);
+            		$('#txtOrgmoney').val(t_money);
             	}
             }
             function q_popFunc(id,key_value){
