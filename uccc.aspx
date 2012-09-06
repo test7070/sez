@@ -51,7 +51,7 @@
         }  
         function mainPost() { 
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd]];
+            bbmMask = [['txtSdate', r_picd],['txtOdate', r_picd]];
             q_mask(bbmMask);
              
         }
@@ -130,7 +130,7 @@
         }
 
         function bbsSave(as) {
-            if (!as['namea'] ) {  
+            if (!as['coilno'] ) {  
                 as[bbsKey[1]] = '';   
                 return;
             }
@@ -417,11 +417,11 @@
         </tr>
         <tr class="tr3">
             <td class='td1'><span> </span><a id="lblDime" class="lbl"> </a></td>
-            <td class="td2"><input id="txtDime"  type="text" class="txt c1"/></td>
+            <td class="td2"><input id="txtDime"  type="text" class="txt num c1"/></td>
             <td class='td3'><span> </span><a id="lblWidth" class="lbl"> </a></td>
-            <td class="td4"><input id="txtWidth" type="text" class="txt c1" /></td>
+            <td class="td4"><input id="txtWidth" type="text" class="txt num c1" /></td>
             <td class='td5'><span> </span><a id="lblLength" class="lbl"> </a></td>
-            <td class="td6"><input id="txtLengthb" type="text"  class="txt c1" /></td>
+            <td class="td6"><input id="txtLengthb" type="text"  class="txt num c1" /></td>
             <td class='td7'><span> </span><a id="lblStoreno" class="lbl btn"> </a></td>
             <td class="td8" colspan="3"><input id="txtStoreno" type="text" class="txt c4" />
             	<input id="txtStore" type="text" class="txt c5" /></td>

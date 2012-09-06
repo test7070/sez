@@ -19,12 +19,12 @@
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911)+"_1";
             }
             $(document).ready(function() {
-                q_gf('', 'z_accc1');
+                q_gf('', 'z_acccp');
                 q_getId();
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_accc1',
+                    fileName : 'z_acccp',
                     options : [{
                         type : '0',
                         name : 'accy',
@@ -34,8 +34,6 @@
                         name : 'xaccc3'
                     }]
                 });
-                q_getFormat();
-                    q_langShow();
                     q_popAssign();
 
                 $('#txtDate1').mask('99/99');

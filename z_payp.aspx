@@ -17,11 +17,11 @@
 		<script type="text/javascript">
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_pay');
+                q_gf('', 'z_payb');
             });
             function q_gfPost() {
                $('#q_report').q_report({
-                        fileName : 'z_pay',
+                        fileName : 'z_payb',
                         options : [ {
                         type : '1',
                         name : 'xnoa'

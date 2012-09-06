@@ -17,47 +17,18 @@
 		<script type="text/javascript">
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_stk');
+                q_gf('', 'z_ummp');
             });
             function q_gfPost() {
                $('#q_report').q_report({
-                        fileName : 'z_stk',
+                        fileName : 'z_ummp',
                         options : [ {
-                        type : '6',
-                        name : 'itype'
-                    },{
                         type : '1',
-                        name : 'source'
-                    },{
-                        type : '2',
-                        name : 'ucc',
-                        dbf : 'ucc',
-                        index : 'noa,product',
-                        src : 'ucc_b.aspx'
-                        },{
-                        type : '1',
-                        name : 'spec'
-                    },{
-                        type : '1',
-                        name : 'dime'
-                    },{
-                        type : '1',
-                        name : 'width'
-                    },{
-                        type : '1',
-                        name : 'lengthb'
-                    },{
-                        type : '1',
-                        name : 'radius'
-                    },{
-                        type : '2',
-                        name : 'storeno',
-                        dbf : 'storeno',
-                        index : 'noa,store',
-                        src : 'store_b.aspx'
+                        name : 'xnoa'
                     }]
                     });
                 q_popAssign();
+	            
             }
 
             function q_boxClose(s2) {
@@ -78,3 +49,5 @@
 		</div>
 	</body>
 </html>
+           
+          
