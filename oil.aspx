@@ -31,6 +31,40 @@
             	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver','txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
             	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
             	['txtOilstationno', 'lblOilstation', 'oilstation', 'noa,station', 'txtOilstationno,txtOilstation', 'oilstation_b.aspx']);
+            
+            function currentData() {}
+			currentData.prototype = {
+				data : [],
+				/*新增時複製的欄位*/
+				include : ['txtDatea','txtPrice','txtOilstationno','txtOilstation','cmbProduct','txtPrice'],
+				/*記錄當前的資料*/
+				copy : function() {
+					curData.data = new Array();
+					for (var i in fbbm) {
+						var isInclude = false;
+						for (var j in curData.include) {
+							if (fbbm[i] == curData.include[j]) {
+								isInclude = true;
+								break;
+							}
+						}
+						if (isInclude) {
+							curData.data.push({
+								field : fbbm[i],
+								value : $('#' + fbbm[i]).val()
+							});
+						}
+					}
+				},
+				/*貼上資料*/
+				paste : function() {
+					for (var i in curData.data) {
+						$('#' + curData.data[i].field).val(curData.data[i].value);
+					}
+				}
+			};
+			var curData = new currentData();
+            
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -135,11 +169,14 @@
             }
 
             function btnIns() {
+                curData.copy();
                 _btnIns();
+                curData.paste();
                 $('#txtNoa').val('AUTO');
-                $('#txtDatea').val(q_date());
                 $('#txtDatea').focus(); 
                 $('#txtOrgmount').val($('#txtMount').val());
+                if($('#txtOilstationno').val().length>0)
+                	q_gt('oilorg', "where=^^oilstationno='"+$.trim($('#txtOilstationno').val())+"'^^", 0, 0, 0, "");
                 sum();
             }
 
