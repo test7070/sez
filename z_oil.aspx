@@ -15,73 +15,70 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-            $(document).ready(function() {
-            	q_getId();
-                q_gf('', 'z_oil');
-            });
-            function q_gfPost() {
-               $('#qReport').q_report({
-                        fileName : 'z_oil',
-                        options : [{
-                        type : '1',
-                        name : 'date'
-                    }, {
-                        type : '6',
-                        name : 'xcarno'
-                    }, {
-                        type : '2',
-                        name : 'driver',
-                        dbf : 'driver',
-                        index : 'noa,namea',
-                        src : 'driver_b.aspx'
-                    },{
-                        type : '2',
-                        name : 'oilstation',
-                        dbf : 'oilstation',
-                        index : 'noa,station',
-                        src : 'oilstation_b.aspx'
-                        }, {
-                        type : '5', //select
-                        name : 'xproduct',
-                        value : [q_getPara('report.all')].concat(q_getPara('oil.product').split(','))
-                    }]
-                    });
-                q_popAssign();
-                q_getFormat();
-                q_langShow();
-                
-                $('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker(); 
-                
-                var t_date,t_year,t_month,t_day;
-                t_date = new Date();
-                t_date.setDate(1);
-                t_year = t_date.getUTCFullYear()-1911;
-                t_year = t_year>99?t_year+'':'0'+t_year;
-                t_month = t_date.getUTCMonth()+1;
-                t_month = t_month>9?t_month+'':'0'+t_month;
-                t_day = t_date.getUTCDate();
-                t_day = t_day>9?t_day+'':'0'+t_day;
-                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
-                
-                t_date = new Date();
-                t_date.setDate(35);
-                t_date.setDate(0);
-                t_year = t_date.getUTCFullYear()-1911;
-                t_year = t_year>99?t_year+'':'0'+t_year;
-                t_month = t_date.getUTCMonth()+1;
-                t_month = t_month>9?t_month+'':'0'+t_month;
-                t_day = t_date.getUTCDate();
-                t_day = t_day>9?t_day+'':'0'+t_day;
-                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
-            }
+			$(document).ready(function() {
+				q_getId();
+				q_gf('', 'z_oil');
+			});
+			function q_gfPost() {
+				$('#qReport').q_report({
+					fileName : 'z_oil',
+					options : [{
+						type : '1',
+						name : 'date'
+					}, {
+						type : '6',
+						name : 'xcarno'
+					}, {
+						type : '2',
+						name : 'driver',
+						dbf : 'driver',
+						index : 'noa,namea',
+						src : 'driver_b.aspx'
+					}, {
+						type : '2',
+						name : 'oilstation',
+						dbf : 'oilstation',
+						index : 'noa,station',
+						src : 'oilstation_b.aspx'
+					}]
+				});
+				q_popAssign();
+				q_getFormat();
+				q_langShow();
 
-            function q_boxClose(s2) {
-            }
-            function q_gtPost(s2) {
-            }
+				$('#txtDate1').mask('999/99/99');
+				$('#txtDate1').datepicker();
+				$('#txtDate2').mask('999/99/99');
+				$('#txtDate2').datepicker();
+
+				var t_date, t_year, t_month, t_day;
+				t_date = new Date();
+				t_date.setDate(1);
+				t_year = t_date.getUTCFullYear() - 1911;
+				t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+				t_month = t_date.getUTCMonth() + 1;
+				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+				t_day = t_date.getUTCDate();
+				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+				$('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
+
+				t_date = new Date();
+				t_date.setDate(35);
+				t_date.setDate(0);
+				t_year = t_date.getUTCFullYear() - 1911;
+				t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+				t_month = t_date.getUTCMonth() + 1;
+				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+				t_day = t_date.getUTCDate();
+				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+				$('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
+			}
+
+			function q_boxClose(s2) {
+			}
+
+			function q_gtPost(s2) {
+			}
 		</script>
 	</head>
 	<body>
@@ -93,5 +90,4 @@
 		</div>
 	</body>
 </html>
-           
-          
+
