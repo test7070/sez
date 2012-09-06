@@ -17,8 +17,8 @@
             }
 
             var q_name = "oil";
-            var q_readonly = ['txtNoa','txtWorker','txtMoney','txtCurmount'];
-            var bbmNum = new Array(['txtMount',10,2],['txtPrice',10,2],['txtMoney',10,0]);
+            var q_readonly = ['txtNoa','txtWorker','txtMoney','txtCurmount','txtCurmoney'];
+            var bbmNum = new Array(['txtMount',10,2],['txtPrice',10,2],['txtMoney',10,0],['txtCurmount',10,2],['txtCurmoney',10,2]);
             var bbmMask = [['txtDatea','999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
@@ -104,12 +104,16 @@
                 switch (t_name) {
                     case 'oilorg':
                         var as = _q_appendData("oilorg", "", true);
-						var t_mount = 0;
+						var t_mount = 0,t_money=0;
                         for( i = 0; i < as.length; i++) {
-                            t_mount = as[i].mount;
+                            t_mount += parseFloat(as[i].mount)*1000;
+                            t_money += parseFloat(as[i].money);
                         }
+                        t_mount = t_mount/1000;
                         $("#txtCurmount").addClass('finish');
                         $("#txtCurmount").val( t_mount);   
+                        $("#txtCurmoney").addClass('finish');
+                        $("#txtCurmoney").val( t_money); 
                         sum();             
                         break;
                     case q_name:
@@ -247,17 +251,26 @@
                 _btnCancel();
             }
             function sum(){       	
-            	var t_mount = $.trim($('#txtMount').val()).length==0?0:parseFloat($.trim($('#txtMount').val().replace(/,/g,'')),10);
-            	var t_orgmount = $.trim($('#txtOrgmount').val()).length==0?0:parseFloat($.trim($('#txtOrgmount').val().replace(/,/g,'')),10);
-            	var t_curmount = $.trim($('#txtCurmount').val()).length==0?0:parseFloat($.trim($('#txtCurmount').val().replace(/,/g,'')),10);
-            	var t_price = $.trim($('#txtPrice').val()).length==0?0:parseFloat($.trim($('#txtPrice').val().replace(/,/g,'')),10);
-            	
+            	var t_mount = q_float('txtMount');
+            	var t_orgmount = q_float('txtOrgmount');
+            	var t_curmount = q_float('txtCurmount');
+            	var t_price = q_float('txtPrice');
             	if($("#txtCurmount").hasClass('finish')  &&  (q_cur==1 || q_cur==2)){
-            		$('#txtCurmount').val(t_curmount+t_orgmount-t_mount);
+            		$('#txtCurmount').val((t_curmount*1000+t_orgmount*1000-t_mount*1000)/1000);
+            		$('#txtOrgmount').val(t_mount);
             	}
-            	if($.trim($('#txtMemo').val()).substring(0, 1) == '.')
-            		return;
-            	$("#txtMoney").val(Math.round(t_mount * t_price,0));
+            	if($.trim($('#txtMemo').val()).substring(0, 1) == '.'){
+            		
+            	}else{         		
+	            	$("#txtMoney").val(Math.round(t_mount * t_price,0));
+            	}
+            	var t_money = q_float('txtMoney');
+	            var t_orgmoney = q_float('txtOrgmoney');
+	            var t_curmoney = q_float('txtCurmoney');
+	            if($("#txtCurmoney").hasClass('finish')  &&  (q_cur==1 || q_cur==2)){
+            		$('#txtCurmoney').val(t_curmoney+t_orgmoney-t_money);
+            		$('#txtOrgmoney').val(t_money);
+            	}
             }
             function q_popFunc(id,key_value){
             	switch(id) {
@@ -477,8 +490,10 @@
 						<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtMoney"  type="text"  class="txt num c1"/>
+						<input id="txtOrgmoney"  type="text"  style="display: none;"/>
 						</td>
-						<td class="td3"> </td>
+						<td class="td3"><span> </span><a id='lblCurmoney' class="lbl"> </a></td>
+						<td class="td4"><input id="txtCurmoney"  type="text"  class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>

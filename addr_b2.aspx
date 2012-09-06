@@ -9,7 +9,7 @@
 		<script src='qset.js' type="text/javascript"></script>
 		<script src="../script/qj_mess.js" type="text/javascript"></script>
 		<script type="text/javascript">
-            var q_name = 'addr', t_content = ' field=noa,addr,custprice,driverprice,driverprice2,commission', bbsKey = ['noa'], as;
+            var q_name = 'addr', t_content = ' field=noa,addr,custprice,driverprice,driverprice2,commission,commission2', bbsKey = ['noa'], as;
             var isBott = false;
             /// �O�_�w���L �̫�@��
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';

@@ -21,7 +21,7 @@
 			var q_name = "carsal";
 			var q_readonly = ['txtNoa','txtWorker','txtTranmoney','txtDrivermoney','txtBonus','txtPlus','txtMoney',
 							  'txtTicket','txtLabor','txtHealth','txtMinus','txtCarborr','txtTotal'];
-			var q_readonlys = [];
+			var q_readonlys = ['txtMoney','txtTotal'];
 			var bbmNum = [['txtTranmoney', 10, 0],['txtDrivermoney', 10, 0],['txtBonus', 10, 0],['txtPlus', 10, 0],['txtMoney', 10, 0],['txtTicket', 10, 0],
 						  ['txtLabor', 10, 0],['txtHealth', 10, 0],['txtMinus', 10, 0],['txtCarborr', 10, 0],['txtTotal', 10, 0]];
 			var bbsNum = [['txtTranmoney', 10, 0],['txtDrivermoney', 10, 0],['txtBonus', 10, 0],['txtPlus', 10, 0],['txtMoney', 10, 0],['txtTicket', 10, 0],
@@ -109,6 +109,56 @@
 				_bbsAssign();
 				for (var i = 0; i < q_bbsCount; i++) {
 					$('#lblNo_'+i).text(i+1);
+					
+					if(!$('#txtDrivermoney_'+i).hasClass('isAssign')){
+						$('#txtDrivermoney_'+i).addClass('isAssign');
+						$('#txtDrivermoney_'+i).change(function(){
+							sum();
+						});
+					}
+					if(!$('#txtBonus_'+i).hasClass('isAssign')){
+						$('#txtBonus_'+i).addClass('isAssign');
+						$('#txtBonus_'+i).change(function(){
+							sum();
+						});
+					}
+					if(!$('#txtPlus_'+i).hasClass('isAssign')){
+						$('#txtPlus_'+i).addClass('isAssign');
+						$('#txtPlus_'+i).change(function(){
+							sum();
+						});
+					}
+					
+					if(!$('#txtTicket_'+i).hasClass('isAssign')){
+						$('#txtTicket_'+i).addClass('isAssign');
+						$('#txtTicket_'+i).change(function(){
+							sum();
+						});
+					}
+					if(!$('#txtLabor_'+i).hasClass('isAssign')){
+						$('#txtLabor_'+i).addClass('isAssign');
+						$('#txtLabor_'+i).change(function(){
+							sum();
+						});
+					}
+					if(!$('#txtHealth_'+i).hasClass('isAssign')){
+						$('#txtHealth_'+i).addClass('isAssign');
+						$('#txtHealth_'+i).change(function(){
+							sum();
+						});
+					}
+					if(!$('#txtMinus_'+i).hasClass('isAssign')){
+						$('#txtMinus_'+i).addClass('isAssign');
+						$('#txtMinus_'+i).change(function(){
+							sum();
+						});
+					}
+					if(!$('#txtCarborr_'+i).hasClass('isAssign')){
+						$('#txtCarborr_'+i).addClass('isAssign');
+						$('#txtCarborr_'+i).change(function(){
+							sum();
+						});
+					}
 				}
 			}
 
@@ -155,18 +205,20 @@
 				var t_ticket=0,t_labor=0,t_health=0,t_minus=0,t_carborr=0,t_total=0;		
 		
 				 for( i = 0; i < q_bbsCount; i++) {
-					 t_tranmoney += parseInt($.trim($('#txtTranmoney_' + i).val()).length == 0 ? '0' : $('#txtTranmoney_' + i).val().replace(/,/g,''), 10);
-					 t_drivermoney += parseInt($.trim($('#txtDrivermoney_' + i).val()).length == 0 ? '0' : $('#txtDrivermoney_' + i).val().replace(/,/g,''), 10);
-					 t_bonus += parseInt($.trim($('#txtBonus_' + i).val()).length == 0 ? '0' : $('#txtBonus_' + i).val().replace(/,/g,''), 10);
-					 t_plus += parseInt($.trim($('#txtPlus_' + i).val()).length == 0 ? '0' : $('#txtPlus_' + i).val().replace(/,/g,''), 10);
-					 t_money += parseInt($.trim($('#txtMoney_' + i).val()).length == 0 ? '0' : $('#txtMoney_' + i).val().replace(/,/g,''), 10);
-					 
-					 t_ticket += parseInt($.trim($('#txtTicket_' + i).val()).length == 0 ? '0' : $('#txtTicket_' + i).val().replace(/,/g,''), 10);
-					 t_labor += parseInt($.trim($('#txtLabor_' + i).val()).length == 0 ? '0' : $('#txtLabor_' + i).val().replace(/,/g,''), 10);
-					 t_health += parseInt($.trim($('#txtHealth_' + i).val()).length == 0 ? '0' : $('#txtHealth_' + i).val().replace(/,/g,''), 10);
-					 t_minus += parseInt($.trim($('#txtMinus_' + i).val()).length == 0 ? '0' : $('#txtMinus_' + i).val().replace(/,/g,''), 10);
-					 t_carborr += parseInt($.trim($('#txtCarborr_' + i).val()).length == 0 ? '0' : $('#txtCarborr_' + i).val().replace(/,/g,''), 10);
-					 t_total += parseInt($.trim($('#txtTotal_' + i).val()).length == 0 ? '0' : $('#txtTotal_' + i).val().replace(/,/g,''), 10);
+					 t_tranmoney += q_float('txtTranmoney_'+i);					 
+					 t_drivermoney += q_float('txtDrivermoney_'+i);
+					 t_bonus += q_float('txtBonus_'+i);
+					 t_plus += q_float('txtPlus_'+i);					 
+					 t_money += q_float('txtDrivermoney_'+i)+q_float('txtBonus_'+i)+q_float('txtPlus_'+i);
+					 $('#txtMoney_' + i).val(q_float('txtDrivermoney_'+i)+q_float('txtBonus_'+i)+q_float('txtPlus_'+i));
+					 t_ticket += q_float('txtTicket_'+i);
+					 t_labor += q_float('txtLabor_'+i);
+					 t_health += q_float('txtHealth_'+i);
+					 t_minus += q_float('txtMinus_'+i);
+					 t_carborr += q_float('txtCarborr_'+i);
+				     t_total +=  q_float('txtMoney_'+i)-q_float('txtTicket_'+i)-q_float('txtLabor_'+i)-q_float('txtHealth_'+i)-q_float('txtMinus_'+i)-q_float('txtCarborr_'+i);
+					 $('#txtTotal_' + i).val(q_float('txtMoney_'+i)-q_float('txtTicket_'+i)-q_float('txtLabor_'+i)-q_float('txtHealth_'+i)-q_float('txtMinus_'+i)-q_float('txtCarborr_'+i));
+					// t_total += parseInt($.trim($('#txtTotal_' + i).val()).length == 0 ? '0' : $('#txtTotal_' + i).val().replace(/,/g,''), 10);				
 				 }
 				 
 
@@ -473,7 +525,7 @@
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/>	</td>
 						<td><span> </span><a id="lblLock" class="lbl"> </a></td>
-						<td><input id="txtLock" type="checkbox" style="float:left;"/>	</td>
+						<td><input id="chkLock" type="checkbox" style="float:left;"/>	</td>
 					</tr>
 					<tr class="tr8"></tr>
 				</table>

@@ -18,10 +18,10 @@
 			isEditTotal = false;
             q_tables = 's';
             var q_name = "addr";
-            var q_readonly = ['txtCustprice','txtDriverprice','txtDriverprice2','txtCommission'];
+            var q_readonly = ['txtCustprice','txtDriverprice','txtDriverprice2','txtCommission','txtCommission2'];
             var q_readonlys = [];
-            var bbmNum = [['txtCustprice', 10, 3],['txtDriverprice', 10, 3],['txtDriverprice2', 10, 3],['txtCommission', 10, 3]];
-            var bbsNum = [['txtCustprice', 10, 3],['txtDriverprice', 10, 3],['txtDriverprice2', 10, 3],['txtCommission', 10, 3]];
+            var bbmNum = [['txtCustprice', 10, 3],['txtDriverprice', 10, 3],['txtDriverprice2', 10, 3],['txtCommission', 10, 3],['txtCommission2', 10, 3]];
+            var bbsNum = [['txtCustprice', 10, 3],['txtDriverprice', 10, 3],['txtDriverprice2', 10, 3],['txtCommission', 10, 3],['txtCommission2', 10, 3]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -93,6 +93,7 @@
                 		$('#txtDriverprice').val($('#txtDriverprice_'+i).val());
                 		$('#txtDriverprice2').val($('#txtDriverprice2_'+i).val());
                 		$('#txtCommission').val($('#txtCommission_'+i).val());
+                		$('#txtCommission2').val($('#txtCommission2_'+i).val());
                 	}
                 }
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
@@ -397,6 +398,10 @@
                <td class="td1"><span> </span><a id='lblCommission' class="lbl"></a></td>
                <td class="td2"><input id="txtCommission" type="text"  class="txt c1  num"/></td>
             </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblCommission2' class="lbl"></a></td>
+               <td class="td2"><input id="txtCommission2" type="text"  class="txt c1  num"/></td>
+            </tr>
             <tr> </tr>
         </table>
         </div>
@@ -412,7 +417,8 @@
 					<td align="center" style="width:100px;"><a id='lblDriverprice_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblDriverprice2_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblCommission_s'> </a></td>
-					<td align="center" style="width:300px;"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblCommission2_s'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -424,6 +430,7 @@
 					<td ><input type="text" id="txtDriverprice.*" style="width:95%;text-align:right;" />  </td>
 					<td ><input type="text" id="txtDriverprice2.*" style="width:95%;text-align:right;" />  </td>
 					<td ><input type="text" id="txtCommission.*" style="width:95%;text-align:right;" />  </td>
+					<td ><input type="text" id="txtCommission2.*" style="width:95%;text-align:right;" />  </td>
 					<td ><input type="text" id="txtMemo.*" style="width:95%;" />  </td>
 				</tr>
 			</table>

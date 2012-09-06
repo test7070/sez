@@ -46,6 +46,10 @@
                     }, {
                         type : '6',
                         name : 'zvccno'
+                    }, {
+                        type : '5', //select
+                        name : 'xsort2',
+                        value : q_getPara('z_ummtran.sort2').split(',')
                     }]
                 });
                 q_getFormat();
