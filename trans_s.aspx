@@ -4,64 +4,66 @@
 	<head>
 		<title></title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
-		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='../script/qj.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
+        		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = "trans_s";
-			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']);
-			$(document).ready(function() {
-				main();
-			});
-			/// end ready
+		    var q_name = "trans_s";
+		    aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+             ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']);
+		    $(document).ready(function () {
+		        main();
+		    });
+		    /// end ready
 
-			function main() {
-				mainSeek();
-				q_gf('', q_name);
-			}
+		    function main() {
+		        mainSeek();
+		        q_gf('', q_name);
+		    }
 
-			function q_gfPost() {
-				q_getFormat();
-				q_langShow();
+		    function q_gfPost() {
+		        q_getFormat();
+		        q_langShow();
 
-				bbmMask1 = [['txtBdate', r_picd], ['txtEdate', r_picd]];
-				bbmMask = [['txtBtrandate', r_picd], ['txtEtrandate', r_picd]];
-				q_mask(bbmMask1);
-				q_mask(bbmMask);
-				$('#txtBdate').focus();
+		        bbmMask1 = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+		        bbmMask = [['txtBtrandate', r_picd], ['txtEtrandate', r_picd]];
+		        q_mask(bbmMask1);
+		        q_mask(bbmMask);
+		        $('#txtBdate').focus();
 
-			}
+		    }
 
-			function q_seekStr() {
-				t_noa = $('#txtNoa').val();
-				t_driverno = $('#txtDriverno').val();
-				t_driver = $('#txtDriver').val();
-				t_custno = $('#txtCustno').val();
-				t_comp = $('#txtComp').val();
-				t_carno = $('#txtCarno').val();
-				t_po = $('#txtPo').val();
-				t_caseno = $('#txtCaseno').val();
-				t_straddrno = $('#txtStraddrno').val();
-				
-				t_bdate = $('#txtBdate').val();
-				t_edate = $('#txtEdate').val();
-				;
-				t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
-				/// 100.  .
-				t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
-				/// 100.  .
-				t_btrandate = $('#txtBtrandate').val();
-				t_etrandate = $('#txtEtrandate').val();
-				t_btrandate = t_btrandate.length > 0 && t_btrandate.indexOf("_") > -1 ? t_btrandate.substr(0, t_btrandate.indexOf("_")) : t_btrandate;
-				/// 100.  .
-				t_etrandate = t_etrandate.length > 0 && t_etrandate.indexOf("_") > -1 ? t_etrandate.substr(0, t_etrandate.indexOf("_")) : t_etrandate;
-				/// 100.  .
+		    function q_seekStr() {
+		        t_noa = $('#txtNoa').val();
+		        t_driverno = $('#txtDriverno').val();
+		        t_driver = $('#txtDriver').val();
+		        t_custno = $('#txtCustno').val();
+		        t_comp = $('#txtComp').val();
+		        t_carno = $('#txtCarno').val();
+		        t_po = $('#txtPo').val();
+		        t_caseno = $('#txtCaseno').val();
+		        t_straddrno = $('#txtStraddrno').val();
 
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("Trandate", t_btrandate, t_etrandate) + q_sqlPara_or(["caseno", "caseno2"], t_caseno) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver) + q_sqlPara2("custno", t_custno)+ q_sqlPara2("straddrno", t_straddrno)  + q_sqlPara2("comp", t_comp) + q_sqlPara2("carno", t_carno) + q_sqlPara2("po", t_po);
-				t_where = ' where=^^' + t_where + '^^ ';
-				return t_where;
-			}
+		        t_bdate = $('#txtBdate').val();
+		        t_edate = $('#txtEdate').val();
+		        ;
+		        t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
+		        /// 100.  .
+		        t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
+		        /// 100.  .
+		        t_btrandate = $('#txtBtrandate').val();
+		        t_etrandate = $('#txtEtrandate').val();
+		        t_btrandate = t_btrandate.length > 0 && t_btrandate.indexOf("_") > -1 ? t_btrandate.substr(0, t_btrandate.indexOf("_")) : t_btrandate;
+		        /// 100.  .
+		        t_etrandate = t_etrandate.length > 0 && t_etrandate.indexOf("_") > -1 ? t_etrandate.substr(0, t_etrandate.indexOf("_")) : t_etrandate;
+		        /// 100.  .
+
+		        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("Trandate", t_btrandate, t_etrandate) + q_sqlPara_or(["caseno", "caseno2"], t_caseno) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver) + q_sqlPara2("custno", t_custno) + q_sqlPara2("straddrno", t_straddrno) + q_sqlPara2("comp", t_comp) + q_sqlPara2("carno", t_carno) + q_sqlPara2("po", t_po);
+		        t_where = ' where=^^' + t_where + '^^ ';
+		        return t_where;
+		    }
 		</script>
 		<style type="text/css">
 			.seek_tr {
