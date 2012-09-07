@@ -44,13 +44,12 @@
 
             function mainPost() {
                 var tmp = location.href.split(';');
-                alert(tmp);
+               
                 for(x in tmp)
-	                if(tmp[x].substring(0, 10).toUpperCase() == 'CUSTCHGNO='){                   
+	                if(tmp[x].substring(0, 10).toUpperCase() == 'CUSTCHGNO='){ 
 	                  	curCustchg_b.isData=true;
 	                  	curCustchg_b.noa = tmp[x].substring(10).split(',');
 	                }
-	                     
             }
 
             function bbsAssign() {

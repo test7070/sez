@@ -167,7 +167,6 @@
 						t_custchgno='custchgno='+t_custchgno;
 					}
 					t_where = "  custno='" + $('#txtCustno').val() + "' and  (trdno='" + $('#txtNoa').val() + "' or len(isnull(trdno,''))=0) ";
-					alert(t_custchgno);
 					q_box("custchg_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_custchgno + ";", 'custchg', "95%", "650px", q_getMsg('popTranquat'));
 				});
 				$('#txtMemo').change(function() {
