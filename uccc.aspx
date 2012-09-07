@@ -24,8 +24,8 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtProductno', 'lblProduct', 'ucc', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit', 'ucc_b.aspx'],
-        ['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
+        aPop = new Array(['txtProductno', 'lblProductno', 'ucc', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit', 'ucc_b.aspx'],
+        ['txtStoreno', 'lblStoreno', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
         ['txtUseno', 'lblUseno', 'cust', 'noa,comp', 'txtUseno,txtUsea', 'cust_b.aspx'],
         ['txtProductno_', '', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
         ['txtStoreno_', '', 'store', 'noa,store', 'txtStoreno_,txtStore_', 'store_b.aspx']);
@@ -130,7 +130,7 @@
         }
 
         function bbsSave(as) {
-            if (!as['coilno'] ) {  
+            if (!as['productno'] ) {  
                 as[bbsKey[1]] = '';   
                 return;
             }
