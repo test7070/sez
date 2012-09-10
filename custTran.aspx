@@ -403,7 +403,7 @@
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='comp,4'>~comp,4</td>
+                   <td align="center" id='nick'>~nick</td>
             </tr>
         </table>
         </div>

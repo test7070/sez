@@ -212,6 +212,7 @@
 						}
 						$('#txtPlusmoney').val(t_plusmoney);
 						$('#txtMinusmoney').val(t_minusmoney);
+						sum();
 						break;
 					case 'trans':
 						var as = _q_appendData("trans", "", true);
@@ -262,12 +263,15 @@
 					alert(t_err);
 					return;
 				}
+				//-------------------------------------------------
+				//回寫CUSTCHG
 				if(curData.isLoad){
 					var t_custchgno='';
 					for(var i=0;i<curData.custchgno.length;i++)
 						t_custchgno+=(t_custchgno.length>0?',':'')+curData.custchgno[i];
-					$('#txtMemo').val(t_custchgno);
+					$('#txtCustchgno').val(t_custchgno);
 				}
+				//-------------------------------------------------
 				
 				sum();
 				if ($('#txtMon').val().length == 0) {
@@ -292,22 +296,6 @@
 				_bbsAssign();
 				for (var ix = 0; ix < q_bbsCount; ix++) {
 					$('#lblNo_' + ix).text(ix + 1);
-
-					/*if( typeof ($('#txtTranmoney_' + ix).data('info')) == 'undefined')
-					 $('#txtTranmoney_' + ix).data('info', {
-					 isSetChange : false
-					 });
-					 if( typeof ($('#txtTranmoney_' + ix).data('info').isSetChange) == 'undefined') {
-					 $('#txtTranmoney_' + ix).data('info').isSetChange = false;
-
-					 }
-					 if(!$('#txtTranmoney_' + ix).data('info').isSetChange) {
-					 $('#txtTranmoney_' + ix).data('info').isSetChange = true;
-					 $('#txtTranmoney_' + ix).change(function(e) {
-					 sum();
-					 });
-					 }*/
-
 				}
 			}
 
@@ -679,15 +667,7 @@
 						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr_custchg">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td colspan="9"><input id="txtCustchgno" type="text" class="txt c1" style="display:none;"/></td>
 						<td>
 						<input type="button" id="btnCustchg" class="txt c1"/>
 						</td>
