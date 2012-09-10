@@ -51,6 +51,7 @@
         }  
         function mainPost() { 
             q_getFormat();
+            q_cmbParse("cmbItype", q_getPara('uccc.itype'));
             bbmMask = [['txtSdate', r_picd],['txtOdate', r_picd]];
             q_mask(bbmMask);
              
@@ -84,12 +85,12 @@
 
             $('#txtWorker').val(r_name)
             sum();
-
-            var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
-            if (s1.length == 0 || s1 == "AUTO")   
-                q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
-            else
-                wrServer(s1);
+			 var t_noa = trim($('#txtNoa').val());
+				var t_date = trim($('#txtDatea').val());
+				if (t_noa.length == 0 || t_noa == "AUTO")
+					q_gtnoa(q_name, replaceAll( (t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(t_noa);
         }
 
         function _btnSeek() {
@@ -108,6 +109,7 @@
 
         function btnIns() {
             _btnIns();
+            $('#txtNoa').val('AUTO');
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
@@ -334,6 +336,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size: medium;
             }
             .dbbs {
                 width: 100%;
@@ -399,7 +402,7 @@
             <td class='td1'><span> </span><a id="lblNoa" class="lbl"> </a></td>
             <td class="td2" colspan="3"><input id="txtNoa"  type="text" class="txt c7"/></td>
             <td class='td5'><span> </span><a id="lblItypea" class="lbl"> </a></td>
-            <td class="td6"><input id="txtItype" type="text" class="txt c1"/></td>
+            <td class="td6"><select id="cmbItype"  class="txt c1"> </select></td>
             <td class='td7'><span> </span><a id="lblPrice" class="lbl"> </a></td>
             <td class="td8"><input id="txtPrice"  type="text" class="txt num c1"/> </td>
             <td class='td9'><span> </span><a id="lblSprice" class="lbl"> </a></td>

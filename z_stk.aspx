@@ -23,8 +23,9 @@
                $('#q_report').q_report({
                         fileName : 'z_stk',
                         options : [ {
-                        type : '6',
-                        name : 'itype'
+                        type : '5',
+                        name : 'itype',
+                        value : [q_getPara('report.all')].concat(q_getPara('uccc.itype').split(','))
                     },{
                         type : '1',
                         name : 'source'
