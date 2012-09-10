@@ -104,26 +104,6 @@
                 });
             }
 
-            function txtCopy(dest, source) {
-                var adest = dest.split(',');
-                var asource = source.split(',');
-                $('#' + adest[0]).focus(function() {
-                    if (trim($(this).val()).length == 0)
-                        $(this).val(q_getMsg('msgCopy'));
-                });
-                $('#' + adest[0]).focusout(function() {
-                    var t_copy = ($(this).val().substr(0, 1) == '=');
-                    var t_clear = ($(this).val().substr(0, 2) == ' =');
-                    for ( i = 0; i < adest.length; i++) {
-                        if (t_copy)
-                            $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                        if (t_clear)
-                            $('#' + adest[i]).val('');
-                    }
-                });
-            }
-
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -175,6 +155,7 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').focus(); 
                 $('#txtOrgmount').val($('#txtMount').val());
+                $('#txtOrgmoney').val($('#txtMoney').val());
                 if($('#txtOilstationno').val().length>0)
                 	q_gt('oilorg', "where=^^oilstationno='"+$.trim($('#txtOilstationno').val())+"'^^", 0, 0, 0, "");
                 sum();
@@ -187,6 +168,7 @@
                 _btnModi();
                 $('#txtDatea').focus();
                 $('#txtOrgmount').val($('#txtMount').val());
+                 $('#txtOrgmoney').val($('#txtMoney').val());
                 sum();
             }
 
@@ -225,6 +207,7 @@
             function refresh(recno) {
                 _refresh(recno);
                 $("#txtCurmount").removeClass('finish');
+                $("#txtCurmoney").removeClass('finish');
                 if($('#txtOilstationno').val().length>0)
                 	q_gt('oilorg', "where=^^oilstationno='"+$.trim($('#txtOilstationno').val())+"'^^", 0, 0, 0, "");
             }

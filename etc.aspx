@@ -16,9 +16,9 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            var q_name = "oil";
-            var q_readonly = ['txtNoa','txtWorker','txtMoney','txtCurmount','txtCurmoney'];
-            var bbmNum = new Array(['txtMount',10,2],['txtPrice',10,2],['txtMoney',10,0],['txtCurmount',10,2],['txtCurmoney',10,2]);
+            var q_name = "etc";
+            var q_readonly = ['txtNoa','txtWorker','txtMoney','txtCurmoney'];
+            var bbmNum = new Array(['txtMoney',10,0],['txtCurmoney',10,2]);
             var bbmMask = [['txtDatea','999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
@@ -29,42 +29,8 @@
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(
             	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver','txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
-            	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
-            	['txtOilstationno', 'lblOilstation', 'oilstation', 'noa,station', 'txtOilstationno,txtOilstation', 'oilstation_b.aspx']);
-            
-            function currentData() {}
-			currentData.prototype = {
-				data : [],
-				/*新增時複製的欄位*/
-				include : ['txtDatea','txtPrice','txtOilstationno','txtOilstation','cmbProduct','txtPrice'],
-				/*記錄當前的資料*/
-				copy : function() {
-					curData.data = new Array();
-					for (var i in fbbm) {
-						var isInclude = false;
-						for (var j in curData.include) {
-							if (fbbm[i] == curData.include[j]) {
-								isInclude = true;
-								break;
-							}
-						}
-						if (isInclude) {
-							curData.data.push({
-								field : fbbm[i],
-								value : $('#' + fbbm[i]).val()
-							});
-						}
-					}
-				},
-				/*貼上資料*/
-				paste : function() {
-					for (var i in curData.data) {
-						$('#' + curData.data[i].field).val(curData.data[i].value);
-					}
-				}
-			};
-			var curData = new currentData();
-            
+            	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']);
+
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -81,49 +47,22 @@
 
             function mainPost() {
                 q_mask(bbmMask);
-				q_cmbParse("cmbProduct", q_getPara('oil.product'));
-				$('#cmbProduct').focus(function(){
-                	var len = $("#cmbProduct").children().length>0?$("#cmbProduct").children().length:1;
-                	$("#cmbProduct").attr('size',len+"");
+				q_cmbParse("cmbTypea", q_getPara('etc.typea'));
+				$('#cmbTypea').focus(function(){
+                	var len = $("#cmbTypea").children().length>0?$("#cmbTypea").children().length:1;
+                	$("#cmbTypea").attr('size',len+"");
                 }).blur(function(){
-                	$("#cmbProduct").attr('size','1');
+                	$("#cmbTypea").attr('size','1');
                 });
-                $('#txtMount').change(function(){
-                	sum();
-                });
-                $('#txtPrice').change(function(){
-                	sum();
-                });
-                $('#txtMemo').change(function(){
-                	if($.trim($('#txtMemo').val()).substring(0, 1) == '.'){
-	                	$('#txtMoney').removeAttr('readonly').css('background-color','white').css('color','black');
-                	}else{
-                		$('#txtMoney').attr('readonly','readonly').css('background-color','rgb(237, 237, 238)').css('color','green');
-                		sum();
-                	}
+                
+                q_cmbParse("cmbArrow", q_getPara('etc.arrow'));
+				$('#cmbArrow').focus(function(){
+                	var len = $("#cmbArrow").children().length>0?$("#cmbArrow").children().length:1;
+                	$("#cmbArrow").attr('size',len+"");
+                }).blur(function(){
+                	$("#cmbArrow").attr('size','1');
                 });
             }
-
-            function txtCopy(dest, source) {
-                var adest = dest.split(',');
-                var asource = source.split(',');
-                $('#' + adest[0]).focus(function() {
-                    if (trim($(this).val()).length == 0)
-                        $(this).val(q_getMsg('msgCopy'));
-                });
-                $('#' + adest[0]).focusout(function() {
-                    var t_copy = ($(this).val().substr(0, 1) == '=');
-                    var t_clear = ($(this).val().substr(0, 2) == ' =');
-                    for ( i = 0; i < adest.length; i++) {
-                        if (t_copy)
-                            $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                        if (t_clear)
-                            $('#' + adest[i]).val('');
-                    }
-                });
-            }
-
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -165,18 +104,17 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('oil_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+                q_box('etc_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
-                curData.copy();
                 _btnIns();
-                curData.paste();
                 $('#txtNoa').val('AUTO');
+                $('#txtDatea').val(q_date());
                 $('#txtDatea').focus(); 
-                $('#txtOrgmount').val($('#txtMount').val());
-                if($('#txtOilstationno').val().length>0)
-                	q_gt('oilorg', "where=^^oilstationno='"+$.trim($('#txtOilstationno').val())+"'^^", 0, 0, 0, "");
+                $('#txtOrgmoney').val($('#txtMoney').val());
+                //if($('#txtOilstationno').val().length>0)
+                	//q_gt('oilorg', "where=^^oilstationno='"+$.trim($('#txtOilstationno').val())+"'^^", 0, 0, 0, "");
                 sum();
             }
 
@@ -186,12 +124,12 @@
 
                 _btnModi();
                 $('#txtDatea').focus();
-                $('#txtOrgmount').val($('#txtMount').val());
+                $('#txtOrgmoney').val($('#txtMoney').val());
                 sum();
             }
 
             function btnPrint() {
-				q_box('z_oil.aspx'+ "?;;;;"+r_accy,  '', "800px", "600px", q_getMsg("popPrint"));
+				q_box('z_etc.aspx'+ "?;;;;"+r_accy,  '', "800px", "600px", q_getMsg("popPrint"));
             }
 
             function btnOk() {
@@ -200,14 +138,13 @@
                 if(t_err.length > 0) {
                     alert(t_err);
                     return;
-                }
-                if($.trim($('#txtMemo').val()).substring(0, 1) != '.'){
-                	sum();
-                }
+                }         
+                sum();
+                
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if(t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_oil') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
             }
@@ -224,16 +161,12 @@
 
             function refresh(recno) {
                 _refresh(recno);
-                $("#txtCurmount").removeClass('finish');
-                if($('#txtOilstationno').val().length>0)
-                	q_gt('oilorg', "where=^^oilstationno='"+$.trim($('#txtOilstationno').val())+"'^^", 0, 0, 0, "");
+               // if($('#txtOilstationno').val().length>0)
+                //	q_gt('oilorg', "where=^^oilstationno='"+$.trim($('#txtOilstationno').val())+"'^^", 0, 0, 0, "");
             }
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                if((q_cur==1 || q_cur==2) && $.trim($('#txtMemo').val()).substring(0, 1) == '.'){
-                	$('#txtMoney').removeAttr('readonly').css('background-color','white').css('color','black');
-                }
             }
 
             function btnMinus(id) {
@@ -287,20 +220,7 @@
             function btnCancel() {
                 _btnCancel();
             }
-            function sum(){       	
-            	var t_mount = q_float('txtMount');
-            	var t_orgmount = q_float('txtOrgmount');
-            	var t_curmount = q_float('txtCurmount');
-            	var t_price = q_float('txtPrice');
-            	if($("#txtCurmount").hasClass('finish')  &&  (q_cur==1 || q_cur==2)){
-            		$('#txtCurmount').val((t_curmount*1000+t_orgmount*1000-t_mount*1000)/1000);
-            		$('#txtOrgmount').val(t_mount);
-            	}
-            	if($.trim($('#txtMemo').val()).substring(0, 1) == '.'){
-            		
-            	}else{         		
-	            	$("#txtMoney").val(Math.round(t_mount * t_price,0));
-            	}
+            function sum(){       	            	
             	var t_money = q_float('txtMoney');
 	            var t_orgmoney = q_float('txtOrgmoney');
 	            var t_curmoney = q_float('txtCurmoney');
@@ -313,7 +233,7 @@
             	switch(id) {
                     case 'txtOilstationno':
                     	if(key_value.length>0)
-                			q_gt('oilorg', "where=^^oilstationno='"+$.trim(key_value)+"'^^", 0, 0, 0, "");
+                			//q_gt('oilorg', "where=^^oilstationno='"+$.trim(key_value)+"'^^", 0, 0, 0, "");
        
                     	break;
                 }
@@ -442,14 +362,14 @@
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
-			<div class="dview" id="dview" style="float: left;  width:25%;"  >
+			<div class="dview" id="dview" style="float: left;  width:40%;"  >
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:15%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:25%"><a id='vewCarno'> </a></td>
-						<td align="center" style="width:25%"><a id='vewDriver'> </a></td>
-						<td align="center" style="width:25%"><a id='vewOilstation'> </a></td>
+						<td align="center" style="width:25%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:20%"><a id='vewCarno'> </a></td>
+						<td align="center" style="width:20%"><a id='vewDriver'> </a></td>
+						<td align="center" style="width:25%"><a id='vewStation'> </a></td>
 					</tr>
 					<tr>
 						<td >
@@ -459,11 +379,11 @@
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='carno'>~carno</td>
 						<td align="center" id='driver'>~driver</td>
-						<td align="center" id='oilstation'>~oilstation</td>
+						<td align="center" id='station'>~station</td>
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 70%;float: left;">
+			<div class='dbbm' style="width: 55%;float: left;">
 				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
 					<tr>
 						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
@@ -472,9 +392,7 @@
 						</td>
 						<td class="td3"> </td>
 						<td class="td4"> </td>
-						<td class="td5"> </td>
-						<td class="td6"> </td>
-						<td class="td7"> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
@@ -496,32 +414,18 @@
 						<input id="txtDriverno"  type="text"  class="txt c2"/>
 						<input id="txtDriver"  type="text"  class="txt c3"/>
 						</td>
-						<td class="td3"> </td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblOilstation' class="lbl btn"> </a></td>
-						<td class="td2">
-						<input id="txtOilstationno"  type="text"  class="txt c2"/>
-						<input id="txtOilstation"  type="text"  class="txt c3"/>
-						</td>					
+						<td class="td1"><span> </span><a id='lblStation' class="lbl btn"> </a></td>
+						<td class="td2"><input id="txtStation"  type="text"  class="txt c1"/></td>					
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblProduct' class="lbl"> </a></td>
-						<td class="td2"><select id="cmbProduct" class="txt c1"> </select></td>
+						<td class="td1"><span> </span><a id='lblArrow' class="lbl"> </a></td>
+						<td class="td2"><select id="cmbArrow" class="txt c1"> </select></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblPrice' class="lbl"> </a></td>
-						<td class="td2"><input id="txtPrice"  type="text"  class="txt num c1"/></td>
-						<td class="td3"> </td>
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id='lblMount' class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtMount"  type="text"  class="txt num c1"/>
-						<input id="txtOrgmount"  type="text"  style="display: none;"/>
-						</td>
-						<td class="td3"><span> </span><a id='lblCurmount' class="lbl"> </a></td>
-						<td class="td4"><input id="txtCurmount"  type="text"  class="txt num c1"/></td>
+						<td class="td1"><span> </span><a id='lblTypea' class="lbl"> </a></td>
+						<td class="td2"><select id="cmbTypea" class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
@@ -534,16 +438,11 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td class="td2" colspan="5">
-						<input id="txtMemo"  type="text"  class="txt c1"/>
-						</td>
+						<td class="td2" colspan="3"><input id="txtMemo"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtWorker"  type="text"  class="txt c1"/>
-						</td>
-						<td class="td3"> </td>
+						<td class="td2"><input id="txtWorker"  type="text"  class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
