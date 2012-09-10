@@ -123,6 +123,7 @@
 
         function btnIns() {
             _btnIns();
+            $('#txtNoa').val('AUTO');
             $('#txtNoa').focus();
         }
 
@@ -140,7 +141,7 @@
         function btnOk() {
             var t_err = '';
 
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
 
             if ( dec( $('#txtCredit').val()) > 9999999999)
                 t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
@@ -154,19 +155,18 @@
                 alert(t_err);
                 return;
             }
-            var t_noa = trim($('#txtNoa').val());
-            if (emp($('#txtUacc1').val()))
-                $('#txtUacc1').val('1123.' + t_noa);
-            if (emp($('#txtUacc2').val()))
-                $('#txtUacc2').val('1121.' + t_noa);
-            if (emp($('#txtUacc3').val()))
-                $('#txtUacc3').val( '2131.'+t_noa);
+          
 
-
-            if ( t_noa.length==0 )  
+			    var t_noa = trim($('#txtNoa').val());
+				var t_date = trim($('#txtDatea').val());
+				if (t_noa.length == 0 || t_noa == "AUTO")
+					q_gtnoa(q_name, replaceAll( (t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(t_noa);
+           /* if ( t_noa.length==0 )  
                 q_gtnoa(q_name, t_noa);
             else
-                wrServer(  t_noa);
+                wrServer(  t_noa);*/
         }
 
         function wrServer( key_value) {

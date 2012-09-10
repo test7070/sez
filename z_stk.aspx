@@ -52,9 +52,15 @@
                     },{
                         type : '2',
                         name : 'storeno',
-                        dbf : 'storeno',
+                        dbf : 'store',
                         index : 'noa,store',
                         src : 'store_b.aspx'
+                    },{
+                        type : '2',
+                        name : 'tggno',
+                        dbf : 'tgg',
+                        index : 'noa,comp',
+                        src : 'tgg_b.aspx'
                     }]
                     });
                 q_popAssign();
