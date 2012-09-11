@@ -18,7 +18,7 @@
 
 			var q_name = "trans";
 			var q_readonly = ['txtNoa', 'txtTotal', 'txtTotal2', 'txtTrdno', 'txtTreno', 'txtWorkerno', 'txtWorker'];
-			var bbmNum = new Array(['txtUnpack', 10, 0], ['txtInmount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3], ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['txtMiles', 10, 0], ['txtBmiles', 10,0], ['txtEmiles', 10,0], ['txtGross', 10, 3], ['txtWeight', 10, 3], ['txtOutmount', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 3], ['txtPton2', 10, 3], ['txtOverh', 10, 0], ['txtOverw', 10, 0]);
+			var bbmNum = new Array(['txtUnpack', 10, 0], ['txtInmount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3], ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['txtMiles', 10, 0], ['txtBmiles', 10,0], ['txtEmiles', 10,0], ['txtGross', 10, 3], ['txtWeight', 10, 3], ['txtOutmount', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 3], ['txtPton2', 10, 3], ['txtOverh', 10, 0], ['txtOverw', 10, 0], ['txtTolls', 10, 0]);
 			var bbmMask = new Array(['txtTrandate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99'], ['txtCldate', '999/99/99'], ['txtLtime', '99:99'], ['txtStime', '99:99'], ['txtDtime', '99:99']);
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -113,6 +113,27 @@
 							break;
 						}
 					}
+				},
+				display : function(){
+					if (curData.isOutside()) {
+						$("#lblPrice2").hide();
+						$("#txtPrice2").hide();
+						$("#lblPrice3").show();
+						$("#txtPrice3").show();
+						$("#lblCommission").hide();
+						$("#txtCommission").hide();
+						$("#lblCommission2").show();
+						$("#txtCommission2").show();
+					} else {
+						$("#lblPrice3").hide();
+						$("#txtPrice3").hide();
+						$("#lblPrice2").show();
+						$("#txtPrice2").show();
+						$("#lblCommission2").hide();
+						$("#txtCommission2").hide();
+						$("#lblCommission").show();
+						$("#txtCommission").show();	
+					}
 				}
 			};
 			var curData = new currentData();
@@ -145,47 +166,11 @@
 				q_gt('carteam', '', 0, 0, 0, "");
 				q_cmbParse("cmbCasetype", "20'',40''");
 				$("#cmbCalctype").change(function() {
-					if (curData.isOutside()) {
-						$("#lblPrice2").hide();
-						$("#txtPrice2").hide();
-						$("#lblPrice3").show();
-						$("#txtPrice3").show();
-						$("#lblCommission").hide();
-						$("#txtCommission").hide();
-						$("#lblCommission2").show();
-						$("#txtCommission2").show();
-					} else {
-						$("#lblPrice3").hide();
-						$("#txtPrice3").hide();
-						$("#lblPrice2").show();
-						$("#txtPrice2").show();
-						$("#lblCommission2").hide();
-						$("#txtCommission2").hide();
-						$("#lblCommission").show();
-						$("#txtCommission").show();	
-					}
+					curData.display();
 					curData.chgDiscount();
 					sum();
 				}).click(function() {
-					if (curData.isOutside()) {
-						$("#lblPrice2").hide();
-						$("#txtPrice2").hide();
-						$("#lblPrice3").show();
-						$("#txtPrice3").show();
-						$("#lblCommission").hide();
-						$("#txtCommission").hide();
-						$("#lblCommission2").show();
-						$("#txtCommission2").show();
-					} else {
-						$("#lblPrice3").hide();
-						$("#txtPrice3").hide();
-						$("#lblPrice2").show();
-						$("#txtPrice2").show();
-						$("#lblCommission2").hide();
-						$("#txtCommission2").hide();
-						$("#lblCommission").show();
-						$("#txtCommission").show();
-					}
+					curData.display();
 					curData.chgDiscount();
 					sum();
 				});
@@ -288,28 +273,6 @@
 				if (bmiles != 0 && emiles != 0)
 					$('#txtMiles').val(emiles - bmiles);
 			}
-
-			function txtCopy(dest, source) {
-				var adest = dest.split(',');
-				var asource = source.split(',');
-				$('#' + adest[0]).focus(function() {
-					if (trim($(this).val()).length == 0)
-						$(this).val(q_getMsg('msgCopy'));
-				});
-				$('#' + adest[0]).focusout(function() {
-					var t_copy = ($(this).val().substr(0, 1) == '=');
-					var t_clear = ($(this).val().substr(0, 2) == ' =');
-					for (var i = 0; i < adest.length; i++) { {
-							if (t_copy)
-								$('#' + adest[i]).val($('#' + asource[i]).val());
-
-							if (t_clear)
-								$('#' + adest[i]).val('');
-						}
-					}
-				});
-			}
-
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
@@ -337,25 +300,7 @@
 						q_cmbParse("cmbCalctype", t_item);
 						$("#cmbCalctype").val(abbm[q_recno].calctype);
 						$("#cmbCalctype").data("info").item = item;
-						if (curData.isOutside()) {
-							$("#lblPrice2").hide();
-							$("#txtPrice2").hide();
-							$("#lblPrice3").show();
-							$("#txtPrice3").show();
-							$("#lblCommission").hide();
-							$("#txtCommission").hide();
-							$("#lblCommission2").show();
-							$("#txtCommission2").show();
-						} else {
-							$("#lblPrice3").hide();
-							$("#txtPrice3").hide();
-							$("#lblPrice2").show();
-							$("#txtPrice2").show();
-							$("#lblCommission2").hide();
-							$("#txtCommission2").hide();
-							$("#lblCommission").show();
-							$("#txtCommission").show();
-						}
+						curData.display();
 						break;
 					case 'carteam':
 						var as = _q_appendData("carteam", "", true);
@@ -462,25 +407,7 @@
 			function refresh(recno) {
 				_refresh(recno);
 
-				if (curData.isOutside()) {
-					$("#lblPrice2").hide();
-					$("#txtPrice2").hide();
-					$("#lblPrice3").show();
-					$("#txtPrice3").show();
-					$("#lblCommission").hide();
-					$("#txtCommission").hide();
-					$("#lblCommission2").show();
-					$("#txtCommission2").show();
-				} else {
-					$("#lblPrice3").hide();
-					$("#txtPrice3").hide();
-					$("#lblPrice2").show();
-					$("#txtPrice2").show();
-					$("#lblCommission2").hide();
-					$("#txtCommission2").hide();
-					$("#lblCommission").show();
-					$("#txtCommission").show();
-				}
+				curData.display();
 
 				var treno = $('#txtTreno').val();
 				var trdno = $('#txtTrdno').val();
@@ -510,7 +437,8 @@
 					$('#txtPrice3').attr('readonly', 'readonly');
 					$('#txtDiscount').attr('readonly', 'readonly');
 					$('#cmbCalctype').attr('disabled', 'disabled');
-
+					$('#txtTolls').attr('readonly', 'readonly');
+					
 					$('#txtDriverno').attr('readonly', 'readonly');
 					$('#txtDriver').attr('readonly', 'readonly');
 					$('#txtCarno').attr('readonly', 'readonly');
@@ -919,6 +847,10 @@
 						<td class="td7" colspan="2">
 						<input id="txtPton2" type="text"  class="txt num c1"/>
 						</td>
+						<td colspan="2"><span> </span><a id="lblTolls" class="lbl"> </a></td>
+						<td colspan="2"><input id="txtTolls" type="text"  class="txt num c1"/></td>
+					</tr>
+					<tr>
 						<td class="td9" colspan="2"><span> </span><a id="lblGross" class="lbl"> </a></td>
 						<td class="tdB" colspan="2">
 						<input id="txtGross" type="text"  class="txt num c1"/>

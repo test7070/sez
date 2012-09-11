@@ -24,8 +24,8 @@
             var q_name = "tre";
             var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal','txtWorker','txtRc2ano','txtPaydate'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
-            var bbmNum = [['txtMoney', 10, 0],['txtTaxrate', 10, 1],['txtTax', 10, 0],['txtTotal', 10, 0]];
-            var bbsNum = [['txtMount', 10, 3],['txtPrice', 10, 3],['txtDiscount', 10, 3],['txtMoney', 10, 0]];
+            var bbmNum = [['txtMoney', 10, 0],['txtTaxrate', 10, 1],['txtTax', 10, 0],['txtTolls', 10, 0],['txtTotal', 10, 0]];
+            var bbsNum = [['txtMount', 10, 3],['txtPrice', 10, 3],['txtDiscount', 10, 3],['txtMoney', 10, 0],['txtTolls', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -78,6 +78,9 @@
                 $('#txtTax').change(function(e) {
                     sum();
                 });//','+$('#txtBcarno').val()+
+                $('#txtTolls').change(function(e) {
+                    sum();
+                });
                 $('#btnTrans').click(function(e) {
                 	if(q_cur != 1 && q_cur != 2){
 						$(this).attr('disabled','disabled');
@@ -124,42 +127,6 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                    case 'trans':
-                        var as = _q_appendData("trans", "", true);
-
-                        q_gridAddRow(bbsHtm, 'tbbs', 'txtTranno,txtOrdeno,txtTrandate', as.length, as, 'tranno,ordeno,trandate', '', '');
-
-                        /*while(as.length > q_bbsCount) {
-                         $('#btnPlus').click();
-                         }*/
-                        for( i = 0; i < q_bbsCount; i++) {
-                            _btnMinus("btnMinus_" + i);
-                            if(i < as.length) {
-                                $('#txtOrdeno_' + i).val(as[i].ordeno);
-                                $('#txtTranno_' + i).val(as[i].noa);
-                                $('#txtTrannoq_' + i).val(as[i].noq);
-                                $('#txtTrandate_' + i).val(as[i].trandate);
-                                $('#txtCarno_' + i).val(as[i].carno);
-                                $('#txtRs_' + i).val();
-                                $('#txtCustno_' + i).val(as[i].custno);
-                                $('#txtProduct_' + i).val(as[i].product);
-                                $('#txtStraddr_' + i).val(as[i].straddr);
-                                $('#txtEndaddr_' + i).val(as[i.endaddr]);
-                                $('#txtMoney_' + i).val(as[i].total2);
-                                $('#txtPaymemo_' + i).val();
-                                $('#txtFill_' + i).val(as[i].fill);
-                                $('#txtCasetype_' + i).val(as[i].csetype);
-                                $('#txtCaseno_' + i).val(as[i].caseno);
-                                $('#txtCaseno2_' + i).val(as[i].caseno2);
-                                $('#txtBoat_' + i).val();
-                                $('#txtBoatname_' + i).val();
-                                $('#txtMemo_' + i).val();
-                                $('#txtOverweightcost_' + i).val();
-                                $('#txtOthercost_' + i).val();
-                            }
-                        }
-                        sum();
-                        break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -197,25 +164,6 @@
                 _bbsAssign();
                 for(var ix = 0; ix < q_bbsCount; ix++) {
                 	$('#lblNo_'+ix).text(ix+1);	
-                	
-                		
-                	
-                	
-                    /*if( typeof ($('#txtMoney_' + i).data('info')) == 'undefined')
-                        $('#txtMoney_' + i).data('info', {
-                            isSetChange : false
-                        });
-
-                    if( typeof ($('#txtMoney_' + i).data('info').isSetChange) == 'undefined') {
-                        $('#txtMoney_' + i).data('info').isSetChange = false;
-
-                    }
-                    if(!$('#txtMoney_' + i).data('info').isSetChange) {
-                        $('#txtMoney_' + i).data('info').isSetChange = true;
-                        $('#txtMoney_' + i).change(function(e) {
-                            sum();
-                        });
-                    }*/
                 }
             }
 
@@ -257,11 +205,11 @@
             function sum() {
             	if(isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.')
             		return;
-                var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0;
+                var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0, t_tolls = 0;
                 for( i = 0; i < q_bbsCount; i++) {
                 	t_money += q_float('txtMoney_'+i);
                 }
-                //t_rate = parseInt($.trim($('#txtTaxrate').val()).length == 0 ? '0' : $('#txtTaxrate').val().replace(/,/g,''), 10);
+                t_tolls  =  q_float('txtTolls');
                 switch($('#cmbTaxtype').val()) {
                     case '1':
                     	$('#txtTaxrate').val(q_getPara('sys.taxrate'));
@@ -280,6 +228,7 @@
                     default:
                         t_total = t_money;
                 }
+                t_total += t_tolls;
                 $('#txtMoney').val(t_money);
                 $('#txtTax').val(t_tax);
                 $('#txtTotal').val(t_total);
@@ -588,19 +537,18 @@
 						<td class="td4"><select id="cmbTaxtype" class="txt c3"></select>
 						<input id="txtTaxrate" type="text"  class="txt c2 num"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblTax" class="lbl"></a></td>
-						<td class="td6">
-						<input id="txtTax" type="text" class="txt c1 num"/>
-						</td>
-						<td class="td7"><span> </span><a id="lblTotal" class="lbl"></a></td>
-						<td class="td8">
-						<input id="txtTotal" type="text" class="txt c1 num" />
-						</td>
+						<td class="td5"><span> </span><a id="lblTax" class="lbl"> </a></td>
+						<td class="td6"><input id="txtTax" type="text" class="txt c1 num"/></td>
+						<td><span> </span><a id="lblTolls" class="lbl"> </a></td>
+						<td><input id="txtTolls" type="text" class="txt c1 num"/></td>
+						<td class="td7"><span> </span><a id="lblTotal" class="lbl"> </a></td>
+						<td class="td8"><input id="txtTotal" type="text" class="txt c1 num" /></td>
+					</tr>
+					<tr>
 						<td class="td9"><span> </span><a id="lblAccno" class="lbl btn"></a></td>
 						<td class="tdA">
 						<input id="txtAccno" type="text"  class="txt c1"/>
 						</td>
-						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -629,6 +577,7 @@
 					<td align="center" style="width:100px;"><a id='lblPrice_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblDiscount_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMoney_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblTolls_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width:170px;"><a id='lblTranno_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblRs_s'> </a></td>
@@ -671,11 +620,14 @@
 					<input type="text" id="txtMoney.*" style="width:95%;text-align: right;" />
 					</td>
 					<td >
+					<input type="text" id="txtTolls.*" style="width:95%;text-align: right;" />
+					</td>
+					<td >
 					<input type="text" id="txtMemo.*" style="width:95%;" />
 					</td>
 					<td >
-					<input type="text" id="txtTranno.*" style="float:left; width: 70%;"/>
-					<input type="text" id="txtTrannoq.*" style="float:left; width: 20%;"/>
+					<input type="text" id="txtTranno.*" style="float:left; width: 95%;"/>
+					<input type="text" id="txtTrannoq.*" style="display:none;"/>
 					</td>
 					<td >
 					<input type="text" id="txtRs.*" style="width:95%;" />
