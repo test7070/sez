@@ -425,14 +425,15 @@
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
-			<div class="dview" id="dview" style="float: left;  width:25%;"  >
+			<div class="dview" id="dview" style="float: left;  width:40%;"  >
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 						<td align="center" style="width:15%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:25%"><a id='vewCarno'> </a></td>
-						<td align="center" style="width:25%"><a id='vewDriver'> </a></td>
-						<td align="center" style="width:25%"><a id='vewOilstation'> </a></td>
+						<td align="center" style="width:15%"><a id='vewCarno'> </a></td>
+						<td align="center" style="width:15%"><a id='vewDriver'> </a></td>
+						<td align="center" style="width:10%"><a id='vewPrice'> </a></td>
+						<td align="center" style="width:10%"><a id='vewMount'> </a></td>
 					</tr>
 					<tr>
 						<td >
@@ -442,11 +443,12 @@
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='carno'>~carno</td>
 						<td align="center" id='driver'>~driver</td>
-						<td align="center" id='oilstation'>~oilstation</td>
+						<td id='price' style="text-align: right;">~price</td>
+						<td id='mount' style="text-align: right;">~mount</td>
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 70%;float: left;">
+			<div class='dbbm' style="width: 55%;float: left;">
 				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
 					<tr>
 						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
@@ -455,9 +457,7 @@
 						</td>
 						<td class="td3"> </td>
 						<td class="td4"> </td>
-						<td class="td5"> </td>
-						<td class="td6"> </td>
-						<td class="td7"> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
@@ -517,7 +517,7 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td class="td2" colspan="5">
+						<td class="td2" colspan="3">
 						<input id="txtMemo"  type="text"  class="txt c1"/>
 						</td>
 					</tr>
@@ -528,6 +528,10 @@
 						</td>
 						<td class="td3"> </td>
 					</tr>
+					<tr> </tr>
+					<tr> </tr>
+					<tr> </tr>
+					<tr> </tr>
 				</table>
 			</div>
 		</div>
