@@ -35,7 +35,7 @@
             brwKey = 'noa';
             q_alias = '';
             q_desc = 1;
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'],
             ['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
             ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'],
             ['txtCarno_', '', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx'],
@@ -436,7 +436,7 @@
 						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='comp,4'>~comp,4</td>
+						<td align="center" id='nick'>~nick</td>
 					</tr>
 				</table>
 			</div>
@@ -494,6 +494,7 @@
 						<td colspan="5">
 						<input type="text" id="txtCno" class="txt" style="width:15%;float: left; " />
 						<input type="text" id="txtAcomp" class="txt" style="width:85%;float: left; " />
+						<input type="text" id="txtNick" class="txt" style="display:none; " />
 						</td>
 					</tr>
 					<tr>					
