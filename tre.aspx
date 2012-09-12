@@ -22,9 +22,9 @@
 			isEditTotal = false;
             q_tables = 's';
             var q_name = "tre";
-            var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal','txtWorker','txtRc2ano','txtPaydate'];
+            var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal','txtWorker','txtRc2ano','txtPaydate','txtPlusmoney','txtMinusmoney'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
-            var bbmNum = [['txtMoney', 10, 0],['txtTaxrate', 10, 1],['txtTax', 10, 0],['txtTolls', 10, 0],['txtTotal', 10, 0]];
+            var bbmNum = [['txtMoney', 10, 0],['txtTaxrate', 10, 1],['txtTax', 10, 0],['txtTolls', 10, 0],['txtTotal', 10, 0],['txtPlusmoney', 10, 0],['txtMinusmoney', 10, 0]];
             var bbsNum = [['txtMount', 10, 3],['txtPrice', 10, 3],['txtDiscount', 10, 3],['txtMoney', 10, 0],['txtTolls', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
@@ -35,8 +35,17 @@
             brwKey = 'Datea';
             q_desc = 1;
             aPop = new Array(
-            ['txtBdriverno', '', 'driver', 'noa,namea', 'txtBdriverno', 'driver_b.aspx'],
-            ['txtEdriverno', '', 'driver', 'noa,namea', 'txtEdriverno', 'driver_b.aspx']);
+            	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver','txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
+            	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
+            	['txtBdriverno', '', 'driver', 'noa,namea', 'txtBdriverno', 'driver_b.aspx'],
+          	  ['txtEdriverno', '', 'driver', 'noa,namea', 'txtEdriverno', 'driver_b.aspx']);
+            
+            function tre() {}
+			tre.prototype = {
+				isLoad: false,
+				carchgno : new  Array()
+			}
+            
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -81,6 +90,12 @@
                 $('#txtTolls').change(function(e) {
                     sum();
                 });
+                $('#txtPlusmoney').change(function(e) {
+					sum();
+				});
+				$('#txtMinusmoney').change(function(e) {
+					sum();
+				});
                 $('#btnTrans').click(function(e) {
                 	if(q_cur != 1 && q_cur != 2){
 						$(this).attr('disabled','disabled');
@@ -88,6 +103,26 @@
 	                	q_func('tre.import',r_accy+','+$('#txtBdriverno').val()+','+$('#txtEdriverno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
                 	}
                 });
+                $("#btnCarchg").click(function(e) {
+					if ($('#txtCarno').val().length == 0) {
+						alert('請輸入車牌!');
+						return;
+					}
+					if ($('#txtDriverno').val().length == 0) {
+						alert('請輸入司機!');
+						return;
+					}
+					var t_carchgno='';
+					if(curData.isLoad){
+						for(var i=0;i<curData.carchgno.length;i++)
+							t_carchgno += (t_carchgno.length>0?',':'')+curData.carchgno[i];
+						t_carchgno='carchgno='+t_carchgno;
+					}
+					
+					t_where = "  carno='" + $('#txtCarno').val() + "' and driverno='"+ $('#txtDriverno').val() +"' and  (treno='" + $('#txtNoa').val() + "' or len(isnull(treno,''))=0) ";
+					q_box("carchg_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_carchgno + ";", 'carchg', "95%", "650px", q_getMsg('popCarchg'));
+					
+				});
                 $('#txtMemo').change(function(){
                 	if(isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.'){
 	                	$('#txtTotal').removeAttr('readonly').css('background-color','white').css('color','black');
@@ -115,18 +150,41 @@
 
             }
 
-            function q_boxClose(s2) {
-                var ret;
-                switch (b_pop) {
-                    case q_name + '_s':
-                        q_boxClose2(s2);
-                        break;
-                }
-                b_pop = '';
-            }
+           function q_boxClose(s2) {
+				var ret;
+				switch (b_pop) {
+					case 'carchg':
+						if (b_ret != null) {
+							var t_where='1!=1';
+							curData.isLoad = true;
+							curData.carchgno = new Array();
+							for (var i = 0; i < b_ret.length; i++) {
+								curData.carchgno.push(b_ret[i].noa);
+								t_where +=" or noa='"+b_ret[i].noa+"'";
+							}
+							q_gt('carchg', "where=^^"+t_where+"^^", 0, 0, 0, "");
+						}
+						break;
+					case q_name + '_s':
+						q_boxClose2(s2);
+						break;
+				}
+				b_pop = '';
+			}
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'carchg':
+						var as = _q_appendData("carchg", "", true);
+						var t_plusmoney=0,t_minusmoney=0;
+						for ( i = 0; i < as.length; i++) {
+							t_plusmoney+=parseFloat(as[i].plusmoney);
+							t_minusmoney+=parseFloat(as[i].minusmoney);
+						}
+						$('#txtPlusmoney').val(t_plusmoney);
+						$('#txtMinusmoney').val(t_minusmoney);
+						sum();
+						break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -141,6 +199,15 @@
                     alert(t_err);
                     return;
                 }
+                //-------------------------------------------------
+				//回寫CARCHG
+				if(curData.isLoad){
+					var t_carchgno='';
+					for(var i=0;i<curData.carchgno.length;i++)
+						t_carchgno+=(t_carchgno.length>0?',':'')+curData.carchgno[i];
+					$('#txtCarchgno').val(t_carchgno);
+				}
+				//-------------------------------------------------
                 sum();
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
@@ -172,6 +239,7 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
+                curData = new tre();
             }
 
             function btnModi() {
@@ -179,6 +247,7 @@
                     return;
                 _btnModi();
                 $('#txtDatea').focus();
+                curData = new tre();
             }
 
             function btnPrint() {
@@ -210,6 +279,8 @@
                 	t_money += q_float('txtMoney_'+i);
                 }
                 t_tolls  =  q_float('txtTolls');
+                t_plusmoney = q_float('txtPlusmoney');
+				t_minusmoney = q_float('txtMinusmoney');
                 switch($('#cmbTaxtype').val()) {
                     case '1':
                     	$('#txtTaxrate').val(q_getPara('sys.taxrate'));
@@ -222,13 +293,13 @@
                         t_tax = t_money - t_total;
                         break;
                     case '5':
-                        t_tax = parseInt($.trim($('#txtTax').val()).length == 0 ? '0' : $('#txtTax').val().replace(/,/g,''), 10);
+                        t_tax = q_float('txtTax');
                         t_total = t_money + t_tax;
                         break;
                     default:
                         t_total = t_money;
                 }
-                t_total += t_tolls;
+                t_total += t_tolls + t_plusmoney - t_minusmoney;
                 $('#txtMoney').val(t_money);
                 $('#txtTax').val(t_tax);
                 $('#txtTotal').val(t_total);
@@ -252,6 +323,7 @@
                 	$('#sign_1').hide();
                 	$('#txtEdriverno').hide();
                 	$('#btnTrans').hide();
+                	$('#btnCarchg').removeAttr('disabled');
                 }else{
                 	$('#lblDate2').show();
                 	$('#txtDate2').show();
@@ -260,6 +332,7 @@
                 	$('#sign_1').show();
                 	$('#txtEdriverno').show();
                 	$('#btnTrans').show();
+                	$('#btnCarchg').attr('disabled', 'disabled');
                 }
                 $('#txtDate2').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
             	$('#txtBdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
@@ -369,6 +442,9 @@
             .tbbm .tr1{
                 background-color: #FFEC8B;
             }
+            .tbbm  .tr_carchg {
+				background-color: #DAA520;
+			}
             .tbbm .tdZ {
                 width: 2%;
             }
@@ -462,7 +538,7 @@
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
-					<tr name="schema" style="height:0px;">
+					<tr name="schema" style="height:1px;">
 						<td class="td1"><span class="schema"> </span></td>
 						<td class="td2"><span class="schema"> </span></td>
 						<td class="td3"><span class="schema"> </span></td>
@@ -494,6 +570,13 @@
 						</td>
 						<td><input type="button" id="btnTrans" class="txt c1"/></td>
 						<td class="tdZ"> </td>
+					</tr>
+					<tr class="tr_carchg">
+						<td colspan="9"><input id="txtCarchgno" type="text" class="txt c1" style="display:none;"/></td>
+						<td>
+						<input type="button" id="btnCarchg" class="txt c1"/>
+						</td>
+						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
@@ -541,14 +624,16 @@
 						<td class="td6"><input id="txtTax" type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblTolls" class="lbl"> </a></td>
 						<td><input id="txtTolls" type="text" class="txt c1 num"/></td>
-						<td class="td7"><span> </span><a id="lblTotal" class="lbl"> </a></td>
-						<td class="td8"><input id="txtTotal" type="text" class="txt c1 num" /></td>
 					</tr>
 					<tr>
-						<td class="td9"><span> </span><a id="lblAccno" class="lbl btn"></a></td>
-						<td class="tdA">
-						<input id="txtAccno" type="text"  class="txt c1"/>
-						</td>
+						<td><span> </span><a id="lblPlusmoney" class="lbl"> </a></td>
+						<td><input id="txtPlusmoney" type="text" class="txt c1 num" /></td>
+						<td><span> </span><a id="lblMinusmoney" class="lbl"> </a></td>
+						<td><input id="txtMinusmoney" type="text" class="txt c1 num" /></td>
+						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
+						<td><input id="txtTotal" type="text" class="txt c1 num" /></td>
+						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
+						<td><input id="txtAccno" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>

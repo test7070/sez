@@ -10,9 +10,9 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'custchg', t_bbsTag = 'tbbs', t_content = " field=noa,datea,plusitem,plusmoney,minusitem,minusmoney,trdno ", afilter = [], bbsKey = ['noa'], as;
+            var q_name = 'carchg', t_bbsTag = 'tbbs', t_content = " field=noa,datea,plusitem,plusmoney,minusitem,minusmoney,treno ", afilter = [], bbsKey = ['noa'], as;
             //, t_where = '';
-            var t_sqlname = 'custchg';
+            var t_sqlname = 'carchg';
             t_postname = q_name;
             brwCount2 = 50;
 			q_bbsFit = 1;
@@ -20,12 +20,12 @@
             var txtfield = [], afield, t_data, t_htm;
             var i, s1;
             
-            function custchg_b() {}
-			custchg_b.prototype = {
+            function carchg_b() {}
+			carchg_b.prototype = {
 				isData : false,
 				noa : null
 			}
-            curCustchg_b = new  custchg_b();
+            curCarchg_b = new carchg_b();
 
             $(document).ready(function() {
                 if(!q_paraChk())
@@ -46,9 +46,9 @@
                 var tmp = location.href.split(';');
                
                 for(x in tmp)
-	                if(tmp[x].substring(0, 10).toUpperCase() == 'CUSTCHGNO='){ 
-	                  	curCustchg_b.isData=true;
-	                  	curCustchg_b.noa = tmp[x].substring(10).split(',');
+	                if(tmp[x].substring(0, 9).toUpperCase() == 'CARCHGNO='){ 
+	                  	curCarchg_b.isData=true;
+	                  	curCarchg_b.noa = tmp[x].substring(9).split(',');
 	                }
             }
 
@@ -57,11 +57,11 @@
 
                 var isCheck = false;
                 for(var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {      		
-                    $('#chkSel_'+j).prop('checked',$('#txtTrdno_'+j).val().length>0);
-                    if(curCustchg_b.isData){
+                    $('#chkSel_'+j).prop('checked',$('#txtTreno_'+j).val().length>0);
+                    if(curCarchg_b.isData){
                     	isCheck = false;
-                    	for(var k=0;k<curCustchg_b.noa.length;k++){
-                    		if($('#txtNoa_'+j).val()==curCustchg_b.noa[k])
+                    	for(var k=0;k<curCarchg_b.noa.length;k++){
+                    		if($('#txtNoa_'+j).val()==curCarchg_b.noa[k])
                     			isCheck = true;
                     	}
                     	$('#chkSel_'+j).prop('checked',isCheck);
@@ -106,7 +106,7 @@
 				<tr  style='background:#cad3ff;'>
 					<td>
 						<input type="checkbox" id="chkSel.*"/>
-						<input type="text" id="txtTrdno.*" style="display:none;"/>
+						<input type="text" id="txtTreno.*" style="display:none;"/>
 					</td>
 					<td><input type="text" id="txtNoa.*" class="txt" style="width:95%;"/></td>
 					<td><input type="text" id="txtDatea.*" class="txt" style="width:95%;"/></td>
