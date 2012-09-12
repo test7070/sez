@@ -346,15 +346,15 @@
            <table class="tview" id="tview">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>                
-                <td align="center" style="width:15%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:30%"><a id='vewAddr'></a></td>
-                <td align="center" style="width:40%"><a id='vewProductno'></a></td>                                
+                <td style="width:15%; text-align: center;"><a id='vewNoa'></a></td>
+                <td style="width:30%; text-align: center;"><a id='vewAddr'></a></td>
+                <td style="width:30%; text-align: center;"><a id='vewProductno'></a></td>                                
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
-                   <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='addr'>~addr</td>
-                   <td align="center" id='productno product'>~productno ~product</td>                  
+                   <td style="text-align: center;" id='noa'>~noa</td>
+                   <td style="text-align: left;" id='addr'>~addr</td>
+                   <td style="text-align: left;" id='productno product'>~productno ~product</td>                  
             </tr>
         </table>
         </div>
