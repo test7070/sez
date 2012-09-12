@@ -2,13 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-    <title></title>
-     <script src="../script/jquery.min.js" type="text/javascript"></script>
-    <script src='../script/qj2.js' type="text/javascript"></script>
-    <script src='qset.js' type="text/javascript"></script>
-    <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src="../script/qbox.js" type="text/javascript"></script>
-    <script src='../script/mask.js' type="text/javascript"></script>
+    <title> </title>
+     <script src="../script/jquery.min.js" type="text/javascript"> </script>
+    <script src='../script/qj2.js' type="text/javascript"> </script>
+    <script src='qset.js' type="text/javascript"> </script>
+    <script src='../script/qj_mess.js' type="text/javascript"> </script>
+    <script src="../script/qbox.js" type="text/javascript"> </script>
+    <script src='../script/mask.js' type="text/javascript"> </script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
     
@@ -26,7 +26,11 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
-        aPop = new Array(['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
+        aPop = new Array(['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
+        ['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
+        ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
+        ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+        ['txtCardeal', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -445,22 +449,56 @@
         </div>
         <div class='dbbm' style="width: 68%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
-        <tr><td class='td1'><span> </span><a id="lblType" class="lbl"> </a></td>
+        <tr class="tr1">
+        	<td class='td1'><span> </span><a id="lblType" class="lbl"> </a></td>
             <td class="td2"><select id="cmbTypea" class="txt c6"> </select></td>
             <td class='td3'><span> </span><a id="lblDatea" class="lbl" > </a></td>
             <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
             <td class='td5'><span> </span><a id="lblNoa" class="lbl" > </a></td>
-            <td class="td6"><input id="txtNoa" type="text"  class="txt c1"/></td></tr>
-        <tr>
+            <td class="td6"><input id="txtNoa" type="text"  class="txt c1"/></td>
+        </tr>
+        <tr class="tr2"> 
             <td class='td1'><span> </span><a id="lblStation" class="lbl btn" > </a></td>
-            <td class="td2" colspan="3"><input id="txtStationno" type="text" class="txt c2"/><input id="txtStation" type="text"  class="txt c3"/></td></tr>
-        <tr>        
+            <td class="td2" colspan="3"><input id="txtStationno" type="text" class="txt c2"/><input id="txtStation" type="text"  class="txt c3"/></td>
+       		
+       </tr>
+       <tr class="tr3">
+            <td class='td1'><span> </span><a id="lblCustno" class="lbl btn" > </a></td>
+            <td class="td2" colspan="3"><input id="txtCustno" type="text" class="txt c2"/><input id="txtComp" type="text"  class="txt c3"/></td>
+       		<td class='td3'><span> </span><a id="lblVno" class="lbl"> </a></td>
+            <td class="td4"><input id="txtVno" type="text" class="txt c1"/></td>
+            <td class="td5"><input id="btnStk" type="button" /></td>
+       </tr>
+        <tr class="tr4">        
             <td class="td1"><span> </span><a id="lblStore" class="lbl btn"> </a></td>
             <td class="td2" colspan="3"><input id="txtStoreno" type="text" class="txt c2" /><input id="txtStore" type="text" class="txt c3"/></td> 
-            <td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
-            <td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td></tr>
-       
-        <tr>
+            <td class='td3'><span> </span><a id="lblWaste" class="lbl"> </a></td>
+            <td class="td4"><input id="txtWaste" type="text" class="txt c6"/>
+            				<input id="btnWaste" type="button" class="txt c6"/>
+            				</td>
+        </tr>
+        <tr class="tr5">
+        	<td class="td1"><span> </span><a id="lblCardeal" class="lbl"> </a></td>
+        	<td class="td2" colspan="3"><input id="txtCardealno" class="txt c2"/>
+        		<input id="txtCardeal" type="text" class="txt c3"/></td>
+        	<td class="td3"><span> </span><a id="lblCarno" class="lbl"> </a></td>
+        	<td class="td4"><input id="txtCarno" type="text" class="txt c1" /></td>
+        </tr>
+        <tr class="tr6">
+        	<td class="td1"><span> </span><a id="lblTrantype" class="lbl"> </a></td>
+        	<td class="td2"><select id="cmbTrantype" class="txt c1"> </select></td>
+        	<td class="td3"><span> </span><a id="lblPrice" class="lbl"> </a></td>
+        	<td class="td4"><input id="txtPrice" type="text" class="txt c1" /></td>
+        	<td class="td5"><span> </span><a id="lblTranmoney" class="lbl"> </a></td>
+        	<td class="td6"><input id="txtTranmoney" type="text" class="txt c1" /></td>
+        </tr>
+        <tr class="tr7"> 
+        	<td class="td1"><span> </span><a id="lblTotal" class="lbl"> </a></td>
+        	<td class="td2"><input id="txtTotal" type="text" class="txt c1" /></td>
+        	<td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
+            <td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
+        </tr>
+        <tr class="tr8">
         <td class='td1'><span> </span><a id="lblMemo" class="lbl" > </a></td>
         <td class="td2" colspan='5'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%; height: 50px;" > </textarea></td></tr>
         </table>
