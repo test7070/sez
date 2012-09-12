@@ -30,7 +30,7 @@
         ['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
         ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
         ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
-        ['txtCardeal', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
+        ['txtCardeal', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -478,9 +478,8 @@
             				</td>
         </tr>
         <tr class="tr5">
-        	<td class="td1"><span> </span><a id="lblCardeal" class="lbl"> </a></td>
-        	<td class="td2" colspan="3"><input id="txtCardealno" class="txt c2"/>
-        		<input id="txtCardeal" type="text" class="txt c3"/></td>
+        	<td class="td1"><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
+        	<td class="td2" colspan="3"><input id="txtCardealno" class="txt c2"/><input id="txtCardeal" type="text" class="txt c3"/></td>
         	<td class="td3"><span> </span><a id="lblCarno" class="lbl"> </a></td>
         	<td class="td4"><input id="txtCarno" type="text" class="txt c1" /></td>
         </tr>

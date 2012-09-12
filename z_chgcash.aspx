@@ -55,6 +55,12 @@
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
+                    }, {
+                        type : '2',
+                        name : 'chgitem',
+                        dbf : 'chgitem',
+                        index : 'noa,item',
+                        src : 'chgitem_b.aspx'
                     }]
                     });
                 q_popAssign();
