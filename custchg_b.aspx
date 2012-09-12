@@ -25,7 +25,7 @@
 				isData : false,
 				noa : null
 			}
-            curCustchg_b = new  Array();
+            curCustchg_b = new  custchg_b();
 
             $(document).ready(function() {
                 if(!q_paraChk())
