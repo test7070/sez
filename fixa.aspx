@@ -444,8 +444,10 @@
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id="lblCarplateno" class="lbl"> </a></td>
 						<td class="td2">
-						<input id="txtCarplateno" type="text" class="txt c1"/>
-						</td>
+						<input id="txtCarplateno" type="text" class="txt c1"/></td>
+						<td class="td1"><span> </span><a id="lblInvono" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtInvono" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr3">
 						<td class="td3"><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
@@ -478,12 +480,12 @@
 					</tr>
 					<tr class="tr5">
 						
-						<td class="td3"><span> </span><a id="lblTax" class="lbl"> </a></td>
-						<td class="td4">
+						<td class="td1"><span> </span><a id="lblTax" class="lbl"> </a></td>
+						<td class="td2">
 						<input id="txtTax" type="text" class="txt num c1" />
 						</td>
-						<td class="td5"><span> </span><a id="lblDiscount" class="lbl"> </a></td>
-						<td class="td6">
+						<td class="td3"><span> </span><a id="lblDiscount" class="lbl"> </a></td>
+						<td class="td4">
 						<input id="txtDiscount" type="text" class="txt num c1" />
 						</td>
 						<td class="td5"><span> </span><a id="lblTotal" class="lbl"> </a></td>
@@ -493,11 +495,9 @@
 					</tr>
 					<tr class="tr6">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td class="td2" colspan="5"><input id="txtMemo" type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id="lblWorker" class="lbl"> </a></td>
-						<td class="td2"><input id="txtWorker" type="text" class="txt c1" /></td>
+						<td class="td2" colspan="3"><input id="txtMemo" type="text" class="txt c1" /></td>
+						<td class="td3"><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td class="td4"><input id="txtWorker" type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>

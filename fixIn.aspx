@@ -30,7 +30,10 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtNick', 'tgg_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,unit', 'txtProductno_,txtProduct_,txtUnit_', 'fixucc_b.aspx']);
+            aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtNick', 'tgg_b.aspx'],
+             ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
+             ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2',  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], 
+             ['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,unit', 'txtProductno_,txtProduct_,txtUnit_', 'fixucc_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -352,6 +355,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size: medium;
             }
             .tbbs input[type="text"] {
                 width: 95%;
@@ -409,10 +413,21 @@
 					<tr>
 						<td class='td1'><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class="td2" colspan="2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-						<td class='td3'><span> </span><a id="lblDatea" class="lbl" > </a></td>
-						<td class="td4"><input id="txtDatea"type="text" class="txt c1"/></td>
-						<td class='td5'><span> </span><a id="lblTypea" class="lbl"> </a></td>
-						<td class="td6"><select id="cmbTypea" class="txt c1"> </select></td>
+						<td class="td3"> </td>
+						<td class='td4'><span> </span><a id="lblDatea" class="lbl" > </a></td>
+						<td class="td5"><input id="txtDatea"type="text" class="txt c1"/></td>
+						<td class='td6'><span> </span><a id="lblTypea" class="lbl"> </a></td>
+						<td class="td7"><select id="cmbTypea" class="txt c1"> </select></td>
+						
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id="lblAcc1" class="lbl btn"> </a></td>
+						<td class="td2" colspan="3">
+						<input id="txtAcc1" type="text" class="txt"  style="width:25%;"/>
+						<input id="txtAcc2" type="text" class="txt" style="width:75%;"/></td>
+						<td class='td3'><span> </span><a id="lblInvono" class="lbl"> </a></td>
+						<td class="td4"><input id="txtInvono"type="text" class="txt c1"/></td>
+						
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
@@ -450,10 +465,8 @@
 					<tr>
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td class="td2" colspan="5"><input id="txtMemo" type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id="lblWorker" class="lbl"> </a></td>
-						<td class="td2"><input id="txtWorker" type="text" class="txt c1" /></td>
+						<td class="td7"><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td class="td8"><input id="txtWorker" type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
