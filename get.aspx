@@ -478,7 +478,7 @@
         </tr>
         <tr class="tr5">
         	<td class="td1"><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
-        	<td class="td2" colspan="3"><input id="txtCardealno" class="txt c2"/><input id="txtCardeal" type="text" class="txt c3"/></td>
+        	<td class="td2" colspan="3"><input id="txtCardealno" type="text" class="txt c2"/><input id="txtCardeal" type="text" class="txt c3"/></td>
         	<td class="td3"><span> </span><a id="lblCarno" class="lbl"> </a></td>
         	<td class="td4"><input id="txtCarno" type="text" class="txt c1" /></td>
         </tr>
