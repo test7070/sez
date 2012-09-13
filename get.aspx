@@ -473,9 +473,8 @@
             <td class="td1"><span> </span><a id="lblStore" class="lbl btn"> </a></td>
             <td class="td2" colspan="3"><input id="txtStoreno" type="text" class="txt c2" /><input id="txtStore" type="text" class="txt c3"/></td> 
             <td class='td3'><span> </span><a id="lblWaste" class="lbl"> </a></td>
-            <td class="td4"><input id="txtWaste" type="text" class="txt c6"/>
-            				<input id="btnWaste" type="button" class="txt c6"/>
-            				</td>
+            <td class="td4"><input id="txtWaste" type="text" class="txt c1"/></td>
+            <td class="td5"><input id="btnWaste" type="button" /> </td>
         </tr>
         <tr class="tr5">
         	<td class="td1"><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
