@@ -15,6 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+            
             $(document).ready(function() {
             	q_getId();
             	q_gf('', 'z_carborr');
@@ -23,22 +24,26 @@
                $('#q_report').q_report({
                         fileName : 'z_carborr',
                         options : [{
-                        type : '0',
-	                    name : 'accy',
-	                    value : q_getId()[4]
-                    },{
                         type : '1',
-                        name : 'mon'
-                    }]
+                        name : 'date'
+                    }, {
+	                        type : '2',
+	                        name : 'driverno',
+	                        dbf : 'driverno',
+	                        index : 'noa,namea',
+	                        src : 'driver_b.aspx'
+	                    }]
                     });
                 q_popAssign();
                 
                 
-                $('#txtMon1').mask('999/99');
-                $('#txtMon2').mask('999/99');
+               		$('#txtDate1').mask('999/99/99');
+	                $('#txtDate1').datepicker();
+	                $('#txtDate2').mask('999/99/99');
+	                $('#txtDate2').datepicker(); 
                 
                 
-	                var t_date,t_year,t_month,t_day;
+	                 var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
 	                t_year = t_date.getUTCFullYear()-1911;
@@ -47,7 +52,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtMon1').val(t_year+'/'+t_month);
+	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
 	                
 	                t_date = new Date();
 	                t_date.setDate(35);
@@ -58,7 +63,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtMon2').val(t_year+'/'+t_month);
+	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
             }
 
             function q_boxClose(s2) {

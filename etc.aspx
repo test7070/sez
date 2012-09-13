@@ -98,8 +98,6 @@
 
                         break;
                 }
-<<<<<<< HEAD
-            });
         }
         
         function q_boxClose( s2) {
@@ -142,82 +140,10 @@
             }  /// end switch
         }
         
-        function _btnSeek() {
-            if (q_cur > 0 && q_cur < 4)  // 1-3
-                return;
 
-            q_box('etc_s.aspx', q_name + '_s', "500px", "330px", q_getMsg( "popSeek"));
-        }
+        
 
-        function combPay_chg() {   
-            var cmb = document.getElementById("combPay")
-            if (!q_cur) 
-                cmb.value = '';
-            else
-                $('#txtPay').val(cmb.value);
-            cmb.value = '';
-        }
-
-        function btnIns() {
-            _btnIns();
-            $('#txtNoa').val('AUTO');
-            $('#txtNoa').focus();
-        }
-
-        function btnModi() {
-            if (emp($('#txtNoa').val()))
-                return;
-
-            _btnModi();
-            $('#txtComp').focus();
-        }
-
-        function btnPrint() {
- 
-        }
-        function btnOk() {
-            var t_err = '';
-
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-
-            if ( dec( $('#txtCredit').val()) > 9999999999)
-                t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
-
-            if ( dec( $('#txtStartn').val()) > 31)
-                t_err = t_err + q_getMsg( "lblStartn")+q_getMsg( "msgErr")+'\r';
-            if (dec( $('#txtGetdate').val()) > 31)
-                t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
-
-            if( t_err.length > 0) {
-                alert(t_err);
-                return;
-            }
-          
-
-			    var t_noa = trim($('#txtNoa').val());
-				var t_date = trim($('#txtDatea').val());
-				if (t_noa.length == 0 || t_noa == "AUTO")
-					q_gtnoa(q_name, replaceAll( (t_date.length == 0 ? q_date() : t_date), '/', ''));
-				else
-					wrServer(t_noa);
-           /* if ( t_noa.length==0 )  
-                q_gtnoa(q_name, t_noa);
-            else
-                wrServer(  t_noa);*/
-        }
-
-        function wrServer( key_value) {
-            var i;
-
-            xmlSql = '';
-            if (q_cur == 2)   /// popSave
-                xmlSql = q_preXml();
-
-            $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-            _btnOk(key_value, bbmKey[0], '','',2);
-        }
-=======
-            }
+            
 
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
@@ -352,13 +278,7 @@
             	switch(id) {
                     case 'txtOilstationno':
                     	if(key_value.length>0)
-<<<<<<< HEAD
-                			q_gt('oilorg', "where=^^oilstationno='"+$.trim(key_value)+"'^^", 0, 0, 0, "");
->>>>>>> 73408e51bb8e1fb777c2abeeebd172527937a210
-=======
                 			//q_gt('oilorg', "where=^^oilstationno='"+$.trim(key_value)+"'^^", 0, 0, 0, "");
->>>>>>> a1
-       
                     	break;
                 }
 			}
@@ -490,10 +410,12 @@
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:25%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:20%"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:20%"><a id='vewCarno'> </a></td>
 						<td align="center" style="width:20%"><a id='vewDriver'> </a></td>
-						<td align="center" style="width:25%"><a id='vewStation'> </a></td>
+						<td align="center" style="width:15%"><a id='vewStation'> </a></td>
+						<td align="center" style="width:10%"><a id='vewArrow'> </a></td>
+						<td align="center" style="width:10%"><a id='vewTypea'> </a></td>
 					</tr>
 					<tr>
 						<td >
@@ -504,6 +426,8 @@
 						<td align="center" id='carno'>~carno</td>
 						<td align="center" id='driver'>~driver</td>
 						<td align="center" id='station'>~station</td>
+						<td align="center" id='arrow'>~arrow</td>
+						<td align="center" id='typea'>~typea</td>
 					</tr>
 				</table>
 			</div>
