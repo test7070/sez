@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title> </title>
+		<title></title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -21,6 +21,8 @@
 			}
 			function z_tran() {
 			}
+
+
 			z_tran.prototype = {
 				data : {
 					carteam : null,
@@ -29,10 +31,10 @@
 					carkind : null,
 					acomp : null
 				},
-				isLoad : function(){
+				isLoad : function() {
 					var isLoad = true;
-					for(var x in this.data){
-						isLoad = isLoad && (this.data[x]!=null);
+					for (var x in this.data) {
+						isLoad = isLoad && (this.data[x] != null);
 					}
 					return isLoad;
 				}
@@ -54,7 +56,7 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
-					case 'carkind':						
+					case 'carkind':
 						t_data.data['carkind'] = '';
 						var as = _q_appendData("carkind", "", true);
 						for ( i = 0; i < as.length; i++) {
@@ -72,7 +74,7 @@
 						t_data.data['calctype'] = '';
 						var as = _q_appendData("calctype", "", true);
 						for ( i = 0; i < as.length; i++) {
-							t_data.data['calctype'] += (t_data.data['calctype'].length > 0 ? ',' : '') + 'calctype_' + as[i].noa +'@' + as[i].namea;
+							t_data.data['calctype'] += (t_data.data['calctype'].length > 0 ? ',' : '') + 'calctype_' + as[i].noa + '@' + as[i].namea;
 						}
 						break;
 					case 'calctypes':
@@ -90,110 +92,192 @@
 						}
 						break;
 				}
-				if(t_data.isLoad()){
+				if (t_data.isLoad()) {
 					$('#q_report').q_report({
-	                    fileName : 'z_trana',
-	                    options : [{
-	                        type : '0',
-	                        name : 'accy',
-	                        value : q_getId()[4]
-	                    }, {
-	                        type : '1',
-	                        name : 'date'
-	                    }, {
-	                        type : '1',
-	                        name : 'trandate'
-	                    }, {
-	                        type : '2',
-	                        name : 'cust',
-	                        dbf : 'cust',
-	                        index : 'noa,comp',
-	                        src : 'cust_b.aspx'
-	                    }, {
-	                        type : '2',
-	                        name : 'driver',
-	                        dbf : 'driver',
-	                        index : 'noa,namea',
-	                        src : 'driver_b.aspx'
-	                    }, {
-	                        type : '6',
-	                        name : 'xcarno'
-	                    }, {
-	                        type : '6',
-	                        name : 'xpo'
-	                    }, {
-	                        type : '2',
-	                        name : 'addr',
-	                        dbf : 'addr',
-	                        index : 'noa,addr',
-	                        src : 'addr_b.aspx'
-	                    }, {
-	                        type : '5', 
-	                        name : 'xacomp',
-	                        value : t_data.data['acomp'].split(',')
-	                    }, {
-	                        type : '5', 
-	                        name : 'xoption1',
-	                        value : q_getMsg('toption1').split('&')
-	                    } , {
-	                        type : '5', 
-	                        name : 'xsort1',
-	                        value : q_getMsg('tsort1').split('&').concat(t_data.data['calctype'].split(','))
-	                    } , {
-	                        type : '8', 
-	                        name : 'xcarteam',
-	                        value : t_data.data['carteam'].split(',')
-	                    },{
-	                        type : '8',
-	                        name : 'xcarkind',
-	                        value : t_data.data['carkind'].split(',')
-	                    },{
-	                        type : '8', 
-	                        name : 'xcalctypes',
-	                        value : t_data.data['calctypes'].split(',')
-	                    }, {
-	                        type : '8', 
-	                        name : 'xfield1',
-	                        value : q_getMsg('tfield1').split('&')
-	                    }, {
-	                        type : '8', 
-	                        name : 'xfield3',
-	                        value : q_getMsg('tfield3').split('&')
-	                    }]
-	                });
-	                q_popAssign();
-	                q_langShow();
-	                
-	                $('#txtDate1').mask('999/99/99');
-	                $('#txtDate1').datepicker();
-	                $('#txtDate2').mask('999/99/99');
-	                $('#txtDate2').datepicker(); 
-	                $('#txtTrandate1').mask('999/99/99');
-	                $('#txtTrandate1').datepicker();
-	                $('#txtTrandate2').mask('999/99/99');
-	                $('#txtTrandate2').datepicker();
-	                
-	                var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
-	                
-	                t_date = new Date();
-	                t_date.setDate(35);
-	                t_date.setDate(0);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+						fileName : 'z_trana',
+						options : [{
+							type : '0',
+							name : 'accy',
+							value : q_getId()[4]
+						}, {
+							type : '1',
+							name : 'date'
+						}, {
+							type : '1',
+							name : 'trandate'
+						}, {
+							type : '2',
+							name : 'cust',
+							dbf : 'cust',
+							index : 'noa,comp',
+							src : 'cust_b.aspx'
+						}, {
+							type : '2',
+							name : 'driver',
+							dbf : 'driver',
+							index : 'noa,namea',
+							src : 'driver_b.aspx'
+						}, {
+							type : '6',
+							name : 'xcarno'
+						}, {
+							type : '6',
+							name : 'xpo'
+						}, {
+							type : '2',
+							name : 'addr',
+							dbf : 'addr',
+							index : 'noa,addr',
+							src : 'addr_b.aspx'
+						}, {
+							type : '5',
+							name : 'xacomp',
+							value : t_data.data['acomp'].split(',')
+						}, {
+							type : '5',
+							name : 'xoption1',
+							value : q_getMsg('toption1').split('&')
+						}, {
+							type : '8',
+							name : 'xoption2',
+							value : q_getMsg('toption2').split('&')
+						}, {
+							type : '8',
+							name : 'xoption3',
+							value : q_getMsg('toption3').split('&')
+						}, {
+							type : '5',
+							name : 'xsort1',
+							value : q_getMsg('tsort1').split('&').concat(t_data.data['calctype'].split(','))
+						}, {
+							type : '5',
+							name : 'xsort2',
+							value : {}
+						}, {
+							type : '5',
+							name : 'xsort3',
+							value : {}
+						}, {
+							type : '5',
+							name : 'xsort4',
+							value : {}
+						}, {
+							type : '5',
+							name : 'xsort5',
+							value : {}
+						}, {
+							type : '5',
+							name : 'xsort6',
+							value : {}
+						}, {
+							type : '5',
+							name : 'xsort7',
+							value : {}
+						}, {
+							type : '5',
+							name : 'xsort8',
+							value : {}
+						}, {
+							type : '5',
+							name : 'xsort9',
+							value : {}
+						}, {
+							type : '5',
+							name : 'xsort10',
+							value : {}
+						}, {
+							type : '5',
+							name : 'xsort11',
+							value : {}
+						}, {
+							type : '5',
+							name : 'xsort12',
+							value : {}
+						}, {
+							type : '5',
+							name : 'xsort13',
+							value : {}
+						}, {
+							type : '5',
+							name : 'xsort14',
+							value : {}
+						}, {
+							type : '5',
+							name : 'xsort15',
+							value : {}
+						}, {
+							type : '8',
+							name : 'xcarteam',
+							value : t_data.data['carteam'].split(',')
+						}, {
+							type : '8',
+							name : 'xcarkind',
+							value : t_data.data['carkind'].split(',')
+						}, {
+							type : '8',
+							name : 'xcalctypes',
+							value : t_data.data['calctypes'].split(',')
+						}, {
+							type : '8',
+							name : 'xfield1',
+							value : q_getMsg('tfield1').split('&')
+						}, {
+							type : '8',
+							name : 'xfield3',
+							value : q_getMsg('tfield3').split('&')
+						}, {
+							type : '6',
+							name : 'zproduct'
+						}, {
+							type : '6',
+							name : 'zaddr'
+						}, {
+							type : '6',
+							name : 'zboatname'
+						}, {
+							type : '6',
+							name : 'zdelivery'
+						}, {
+							type : '6',
+							name : 'zplusmoney'
+						}, {
+							type : '6',
+							name : 'zminusmoney'
+						}]
+					});
+					q_popAssign();
+					q_langShow();
+
+					$('#txtDate1').mask('999/99/99');
+					$('#txtDate1').datepicker();
+					$('#txtDate2').mask('999/99/99');
+					$('#txtDate2').datepicker();
+					$('#txtTrandate1').mask('999/99/99');
+					$('#txtTrandate1').datepicker();
+					$('#txtTrandate2').mask('999/99/99');
+					$('#txtTrandate2').datepicker();
+
+					var t_date, t_year, t_month, t_day;
+					t_date = new Date();
+					t_date.setDate(1);
+					t_year = t_date.getUTCFullYear() - 1911;
+					t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+					t_month = t_date.getUTCMonth() + 1;
+					t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+					t_day = t_date.getUTCDate();
+					t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+					$('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
+
+					t_date = new Date();
+					t_date.setDate(35);
+					t_date.setDate(0);
+					t_year = t_date.getUTCFullYear() - 1911;
+					t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+					t_month = t_date.getUTCMonth() + 1;
+					t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+					t_day = t_date.getUTCDate();
+					t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+					$('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
 				}
 
 			}
