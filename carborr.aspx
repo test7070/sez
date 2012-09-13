@@ -109,7 +109,7 @@
             }
 
             function btnPrint() {
-				q_box('z_carborr.aspx' + "?;;;;" + r_accy, '', "800px", "850px", q_getMsg("popPrint"));
+				q_box('z_carborr.aspx' + "?;;;;" + r_accy, '', "90%", "850px", q_getMsg("popPrint"));
             }
 
             function btnOk() {
