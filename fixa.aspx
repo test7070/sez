@@ -33,6 +33,7 @@
 		    aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
 		    	['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtNick', 'tgg_b.aspx'], 
 		    	['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
+		    	['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2',  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
 		    	['txtCarplateno', 'lblCarplateno', 'carplate', 'noa,carplate', 'txtCarplateno', 'carplate_b.aspx'], 
 		    	['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,unit', 'txtProductno_,txtProduct_,txtUnit_', 'fixucc_b.aspx']);
 		    q_desc = 1;
@@ -431,8 +432,14 @@
 						<td class="td2">
 						<input id="txtCarno" type="text" class="txt c1"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
+						<td class="td3"><span> </span><a id="lblCarplateno" class="lbl"> </a></td>
 						<td class="td4">
+						<input id="txtCarplateno" type="text" class="txt c1"/></td>
+						
+					</tr>
+					<tr class="tr3">
+						<td class="td1"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
+						<td class="td2">
 						<input id="txtDriverno" type="text" class="txt c2"/>
 						<input id="txtDriver" type="text" class="txt c3"/>
 						</td> 
@@ -440,13 +447,15 @@
 						<td class="td4">
 						<input id="txtMiles" type="text" class="txt c1 num"/>
 						</td>
+						
 					</tr>
-					<tr class="tr3">
-						<td class="td1"><span> </span><a id="lblCarplateno" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtCarplateno" type="text" class="txt c1"/></td>
-						<td class="td1"><span> </span><a id="lblInvono" class="lbl"> </a></td>
-						<td class="td2">
+					<tr>
+						<td class="td1"><span> </span><a id="lblAcc1" class="lbl btn"> </a></td>
+						<td class="td2" colspan="3">
+						<input id="txtAcc1" type="text" class="txt"  style="width:25%;"/>
+						<input id="txtAcc2" type="text" class="txt" style="width:75%;"/></td>
+						<td class="td3"><span> </span><a id="lblInvono" class="lbl"> </a></td>
+						<td class="td4">
 						<input id="txtInvono" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr3">
