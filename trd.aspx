@@ -247,7 +247,7 @@
 							}
 						}
 						sum();
-						$('#btnTrans').val("重新匯入");
+						$('#btnTrans').val("出車單匯入");
 						$('#btnTrans').removeAttr('disabled');
 						break;
 					case q_name:

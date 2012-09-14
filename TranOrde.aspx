@@ -571,22 +571,14 @@
 					</tr>
 					<tr class="trX">
 						<td><span> </span><a id="lblCldate" class="lbl"> </a></td>
-						<td>
-						<input type="text" id="txtCldate" class="txt c1"/>
-						</td>
-						<td><span> </span><a id="lblNodate" class="lbl"> </a></td>
-						<td>
-						<input type="text" id="txtNodate" class="txt c1"/>
-						</td>
+						<td><input type="text" id="txtCldate" class="txt c1"/></td>
+						<td>  </td>
+						<td>  </td>
 						<td><span> </span><a id="lblMadate" class="lbl"> </a></td>
-						<td>
-						<input type="text" id="txtMadate" class="txt c1"/>
-						</td>
-						<td><span> </span><a id="lblRedate" class="lbl"> </a></td>
-						<td>
-						<input type="text" id="txtRedate" class="txt c1"/>
-						</td>
-						<td></td>
+						<td><input type="text" id="txtMadate" class="txt c1"/></td>
+						<td>  </td>
+						<td>  </td>
+						<td>  </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
