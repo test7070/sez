@@ -45,12 +45,13 @@
 				q_getFormat();
 				q_langShow();
 
-
+				$('#chkXtypea').children('input').attr('checked','checked');
+				
 				$('#txtDate1').mask('999/99/99');
 				$('#txtDate1').datepicker();
 				$('#txtDate2').mask('999/99/99');
 				$('#txtDate2').datepicker();
-
+	
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setDate(1);
@@ -91,4 +92,3 @@
 	</body>
 </html>
 
->>>>>>> a1
