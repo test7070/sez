@@ -17,7 +17,7 @@
             }
 
             var q_name = "etc";
-            var q_readonly = ['txtNoa','txtWorker','txtMoney','txtCurmoney'];
+            var q_readonly = ['txtNoa','txtWorker','txtCurmoney'];
             var bbmNum = new Array(['txtMoney',10,0],['txtCurmoney',10,2]);
             var bbmMask = [['txtDatea','999/99/99']];
             q_sqlCount = 6;
@@ -27,6 +27,40 @@
             brwKey = 'noa';
             q_desc = 1;
             //ajaxPath = ""; //  execute in Root
+            
+            function currentData() {}
+			currentData.prototype = {
+				data : [],
+				/*新增時複製的欄位*/
+				include : ['txtDatea','txtCarno','txtDriverno','txtDriver','txtStation','txtArrow','cmbTypea','txtMoney'],
+				/*記錄當前的資料*/
+				copy : function() {
+					curData.data = new Array();
+					for (var i in fbbm) {
+						var isInclude = false;
+						for (var j in curData.include) {
+							if (fbbm[i] == curData.include[j]) {
+								isInclude = true;
+								break;
+							}
+						}
+						if (isInclude) {
+							curData.data.push({
+								field : fbbm[i],
+								value : $('#' + fbbm[i]).val()
+							});
+						}
+					}
+				},
+				/*貼上資料*/
+				paste : function() {
+					for (var i in curData.data) {
+						$('#' + curData.data[i].field).val(curData.data[i].value);
+					}
+				}
+			};
+			var curData = new currentData();
+			
             aPop = new Array(
             	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver','txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
             	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
@@ -154,9 +188,12 @@
             }
 
             function btnIns() {
+                curData.copy();
                 _btnIns();
+                curData.paste();
                 $('#txtNoa').val('AUTO');
-                $('#txtDatea').val(q_date());
+                if($('#txtDatea').val().length==0)
+               		$('#txtDatea').val(q_date());
                 $('#txtDatea').focus(); 
                 $('#txtOrgmoney').val($('#txtMoney').val());
                 //if($('#txtOilstationno').val().length>0)
@@ -175,7 +212,7 @@
             }
 
             function btnPrint() {
-				q_box('z_etc.aspx'+ "?;;;;"+r_accy,  '', "800px", "600px", q_getMsg("popPrint"));
+				q_box('z_etc.aspx'+ "?;;;;"+r_accy,  '', "90%", "600px", q_getMsg("popPrint"));
             }
 
             function btnOk() {
@@ -472,7 +509,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblStation' class="lbl btn"> </a></td>
+						<td class="td1"><span> </span><a id='lblStation' class="lbl"> </a></td>
 						<td class="td2"><input id="txtStation"  type="text"  class="txt c1"/></td>					
 					</tr>
 					<tr>

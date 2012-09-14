@@ -27,6 +27,9 @@
             brwNowPage = 0;
             brwKey = 'noa';
             q_desc = 1;
+            
+            
+			
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(
             	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
