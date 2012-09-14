@@ -17,10 +17,10 @@
 			q_desc = 1
             q_tables = 's';
             var q_name = "payb";
-            var q_readonly = [];
+            var q_readonly = ['txtMoney','txtTax','txtTotal'];
             var q_readonlys = [];
-            var bbmNum = [];
-            var bbsNum = [];
+            var bbmNum = [['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]];
+            var bbsNum = [['txtPrice', 10, 0],['txtDiscount', 10, 0], ['txtMount', 10, 0], ['txtMoney', 10, 0],['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -31,8 +31,8 @@
             //ajaxPath = "";
 			aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
 			 ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
-			 ['txtProduct_', 'btnchgitem_', 'chgitem', 'item,acc1,acc2', 'txtProduct_,txtAcc1_,txtAcc2_', 'chgitem_b.aspx'],
-			['txtPartno_', 'btnpart_', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
+			 ['txtProductno_', 'btnchgitem_', 'chgitem', 'noa,item,acc1,acc2', 'txtProductno_,txtProduct_,txtAcc1_,txtAcc2_', 'chgitem_b.aspx'],
+			['txtPartno_', 'btnpart_', 'part', 'noa,part', 'txtPartno_,txtPart_', 'part_b.aspx'],
 			['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
 			['txtPartno2', 'lblPart2', 'part', 'noa,part', 'txtPartno2,txtPart2', 'part_b.aspx'],
 			['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx']);
@@ -110,7 +110,15 @@
             	switch (t_name) {
             	case 'payb_fix':
             			var as = _q_appendData("fixin", "", true);
-            			q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,cmbKind,cmbTypea,txtInvono,txtTax,txtDiscount,txtMoney,txtTotal,txtPartno,txtPart,txtMemo,txtAcc1,txtAcc2', as.length, as, 'noa,kind,typea,invono,tax,discount,money,total,partno,part,memo,acc1,acc2', '');
+            			
+            			//判斷是否是匯入的資料
+            			for (var j = 0; j < q_bbsCount; j++) {
+			                if(($('#txtMemo_'+j).val()).substr(0,1)=='.')
+			                {
+				                btnMinus("btnMinus_"+j);
+			             	}
+		             	}
+            			q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,cmbKind,cmbTypea,txtInvono,txtTax,txtDiscount,txtMoney,txtTotal,txtPartno,txtPart,txtMemo,txtAcc1,txtAcc2', as.length, as, 'noa,kind,typea,invono,tax,discount,money,total,partno,part,memo,acc1,acc2', 'txtProductno');
             		break;
                 case 'sss': 
                     q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
@@ -130,8 +138,8 @@
             	for (var j = 0; j < q_bbsCount; j++) {
 	                if(!(($('#txtMemo_'+j).val()).substr(0,1)=='.'))
 	                {
-		                if(!emp($('#txtMoney_'+j).val())){
-		                	if(emp($('#txtProduct_'+j).val()) || emp($('#txtAcc1_'+j).val())){
+		                if(dec($('#txtMoney_'+j).val())!=0){
+		                	if(emp($('#txtProduct_'+j).val()) || emp($('#txtAcc1_'+j).val()) || emp($('#txtAcc2_'+j).val())){
 		             			alert("品名或會計科目未輸入");
 		             			return;
 		             		}
@@ -168,24 +176,62 @@
             function bbsAssign() {
             	for (var j = 0; j < q_bbsCount; j++) {
             		
+            		//----------------數量和單價計算
+            		$('#txtMount_'+j).change(function () {
+		            		 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                    q_bodyId($(this).attr('id'));
+		                    b_seq = t_IdSeq;
+		                	$('#txtMoney_'+b_seq).val(dec($('#txtMount_'+b_seq).val())*dec($('#txtPrice_'+b_seq).val()));
+		                	$('#txtTotal_'+b_seq).val(dec($('#txtMoney_'+b_seq).val())+dec($('#txtTax_'+b_seq).val())-dec($('#txtDiscount_'+b_seq).val()));
+		                	
+		                	if($('#txtPrice_'+b_seq).val()=='0' &&$('#txtMount_'+b_seq).val()=='0')
+		                		$('#txtMoney_'+b_seq).removeAttr('disabled');
+		                	else
+		                		$('#txtMoney_'+b_seq).attr('disabled', 'disabled');
+		                		
+		                	sum();
+		                });
+		                
+	            		$('#txtPrice_'+j).change(function () {
+		            		 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                    q_bodyId($(this).attr('id'));
+		                    b_seq = t_IdSeq;
+		                	$('#txtMoney_'+b_seq).val(dec($('#txtMount_'+b_seq).val())*dec($('#txtPrice_'+b_seq).val()));
+		                	$('#txtTotal_'+b_seq).val(dec($('#txtMoney_'+b_seq).val())+dec($('#txtTax_'+b_seq).val())-dec($('#txtDiscount_'+b_seq).val()));
+		                	
+		                	if($('#txtPrice_'+b_seq).val()=='0' &&$('#txtMount_'+b_seq).val()=='0')
+		                		$('#txtMoney_'+b_seq).removeAttr('disabled');
+		                	else
+		                		$('#txtMoney_'+b_seq).attr('disabled', 'disabled');
+		                		
+		                	sum();
+		                });
+		                //-----------------
+            		
             		//----------------產品小計、折讓與營業稅變動重新計算合計
 	            	$('#txtMoney_'+j).change(function () {
 	            		 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 	                    q_bodyId($(this).attr('id'));
 	                    b_seq = t_IdSeq;
 	                	$('#txtTotal_'+b_seq).val(dec($('#txtMoney_'+b_seq).val())+dec($('#txtTax_'+b_seq).val())-dec($('#txtDiscount_'+b_seq).val()));
+	                	
+	                	sum();
 	                });
 	                $('#txtTax_'+j).change(function () {
 	                	 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 	                    q_bodyId($(this).attr('id'));
 	                    b_seq = t_IdSeq;
 	                	$('#txtTotal_'+b_seq).val(dec($('#txtMoney_'+b_seq).val())+dec($('#txtTax_'+b_seq).val())-dec($('#txtDiscount_'+b_seq).val()));
+	                	
+	                	sum();
 	                });
 	                $('#txtDiscount_'+j).change(function () {
 	                	 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 	                    q_bodyId($(this).attr('id'));
 	                    b_seq = t_IdSeq;
 	                	$('#txtTotal_'+b_seq).val(dec($('#txtMoney_'+b_seq).val())+dec($('#txtTax_'+b_seq).val())-dec($('#txtDiscount_'+b_seq).val()));
+	                	
+	                	sum();
 	                });
 	                //----------------
             	}
@@ -239,9 +285,18 @@
 
             function sum() {
                 var t1 = 0, t_unit, t_mount, t_weight = 0;
+                var t_tax=0,t_money=0,t_discount=0;
                 for(var j = 0; j < q_bbsCount; j++) {
-
+					
+					t_tax+=dec($('#txtTax_'+j).val());//稅合計
+					t_money+=dec($('#txtMoney_'+j).val());//產品小計合計
+					t_discount+=dec($('#txtDiscount_'+j).val());//折讓合計
+					
                 }// j
+                
+                $('#txtTax').val(t_tax);
+                $('#txtMoney').val(t_money-t_discount);
+                $('#txtTotal').val(t_money-t_discount+t_tax);
             }
 
             function refresh(recno) {
@@ -313,6 +368,13 @@
             function btnCancel() {
                 _btnCancel();
             }
+            
+            function q_stPost() {
+		        if (!(q_cur == 1 || q_cur == 2))
+		            return false;
+		        abbm[q_recno]['accno'] = xmlString;
+		        $('#txtAccno').val(xmlString);
+		    }
         </script>
     <style type="text/css">
   			#dmain 
@@ -500,8 +562,9 @@
                 <td class="td1"><span> </span><a id="lblTgg"  class="lbl btn"></a></td>
                 <td class="td2" colspan="2"><input id="txtTggno" type="text" class="txt c4"/>
                 <input id="txtComp"  type="text" class="txt c5"/></td>
-                <td class="td4"><span> </span><a id='lblPayc' class="lbl"></a></td>
-                <td class="td5"  colspan='2'><input id="txtPayc" type="text" class="txt c1"/></td> 
+                 <td class="td4" ><input type="button" id="btnFix"  value="單據匯入"></td>
+                 <td class="td5" colspan='2'><span> </span><a id='lblPayc' class="lbl"></a></td>
+                <td class="td7"  colspan='2'><input id="txtPayc" type="text" class="txt c1"/></td> 
                <!-- <td class="td7"><span> </span><a id='lblInvono' class="lbl"></a></td>
                 <td class="td8"><input id="txtInvono" type="text" class="txt c1"/></td>--> 
             </tr>
@@ -509,11 +572,11 @@
                 <td class="td1"><span> </span><a id='lblVdate'class="lbl" ></a></td>
                 <td class="td2"><input id="txtVbdate" type="text"  class="txt c1"/></td> 
                 <td class="td3"><input id="txtVedate" type="text"  class="txt c1"/></td> 
-                <td class="td4"><span> </span><a id='lblCno2' class="lbl"></a></td>
+                <!--<td class="td4"><span> </span><a id='lblCno2' class="lbl"></a></td>
                 <td class="td5"><input id="txtCno2"    type="text"  class="txt c1" /></td>
-                <td class="td6"><input id="txtAccno2"    type="text"  class="txt c1"/></td>
-                <td class="td7"><a id="lblAccno" class="lbl btn"></a></td>
-                <td class="td8"><input id="txtAccno"  type="text" class="txt c1"/></td>
+                <td class="td6"><input id="txtAccno2"    type="text"  class="txt c1"/></td>-->
+                <td class="td4"><span> </span><a id="lblAccno" class="lbl btn"></a></td>
+                <td class="td5"  colspan="2"><input id="txtAccno"  type="text" class="txt c1"/></td>
              </tr>
             <tr>
                 <td class="td1"><span> </span><a id="lblPart2" class="lbl btn" ></a></td>
@@ -522,6 +585,8 @@
                 <td class="td4"><span> </span><a id="lblSales2" class="lbl btn" ></a></td>
                 <td class="td5" colspan="2"><input id="txtSalesno2" type="text" class="txt c4"/>
                 <input id="txtSales2"    type="text" class="txt c5"/></td>
+                <td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
+                <td class="td8"><input id="txtWorker"  type="text" class="txt c1"/></td> 
             </tr>
             <tr>
                 <td class="td1"><span> </span><a id='lblMoney' class="lbl"></a></td>
@@ -534,14 +599,6 @@
             <tr><td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
                 <td class="td2" colspan='7' ><textarea id="txtMemo" cols="10" rows="5" style="width: 99%; height:50px;"></textarea></td>
                 </tr>
-            <tr>
-                <td class="td1"></td>
-                <td class="td2" colspan="2"><input type="button" id="btnFix" class="txt c2 " value="單據匯入"></td>
-                <td class="td4"></td>
-                <td class="td5" colspan="2"></td>
-                <td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
-                <td class="td8"><input id="txtWorker"  type="text" class="txt c1"/></td> 
-            </tr>
         </table>
         </div>
         </div>
@@ -575,7 +632,7 @@
                 <td><input id="txtMoney.*" type="text" class="txt num c1"/></td>
                 <td><input id="txtTotal.*" type="text"  class="txt num c1" /></td>
                 <td><input class="btn"  id="btnchgitem.*" type="button" value='.' style="float: left;font-weight: bold;width:1%;" />
-                		<input id="txtProduct.*" type="text" style=" width: 83%;"/>
+                		<input id="txtProductno.*" type="text" style=" width: 85%;"/><br><input id="txtProduct.*" type="text" style=" width: 98%;"/>
                 </td>
                 <td ><input id="txtMemo.*" type="text" class="txt c1"/></br>
                 		<input class="btn"  id="btnAcc.*" type="button" value='.' style="float: left; font-weight: bold;width:1%;" />
