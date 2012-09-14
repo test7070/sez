@@ -41,20 +41,27 @@
 			<table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
 				<tr>
 					<th align="center" ></th>
-					<th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
-					<th align="center" style='color:Blue;' ><a id='lblItem'></a></th>
+					<th align="center" style='color:blue;' ><a id='lblNoa'></a></th>
+					<th align="center" style='color:blue;' ><a id='lblItem'></a></th>
+					<th align="center" style='color:blue;' ><a id='lblAcc1'></a></th>
+					<th align="center" style='color:blue;' ><a id='lblAcc2'></a></th>
 				</tr>
 				<tr>
 					<td style="width:2%;">
 					<input name="sel"  id="radSel.*" type="radio" />
 					</td>
-					<td style="width:20%;">
+					<td style="width:10%;">
 					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
-					<td style="width:45%;">
+					<td style="width:20%;">
 					<input class="txt" id="txtItem.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
-
+					<td style="width:20%;">
+					<input class="txt" id="txtAcc1.*" type="text" style="width:98%;"  readonly="readonly" />
+					</td>
+					<td style="width:20%;">
+					<input class="txt" id="txtAcc2.*" type="text" style="width:98%;"  readonly="readonly" />
+					</td>
 				</tr>
 			</table>
 			<!--#include file="../inc/brow_ctrl.inc"-->
