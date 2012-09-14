@@ -29,7 +29,8 @@
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(
             	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver','txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
-            	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']);
+            	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
+            	['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -448,6 +449,13 @@
 						<input id="txtDatea"  type="text"  class="txt c1"/>
 						</td>
 						<td class="td3"> </td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblCno' class="lbl btn"> </a></td>
+						<td class="td2" colspan="2">
+						<input id="txtCno"  type="text"  class="txt c4"/>
+						<input id="txtAcomp"  type="text"  class="txt c5"/>
+						</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCarno' class="lbl"> </a></td>
