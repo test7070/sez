@@ -59,7 +59,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
+                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm],['txtVbdate',r_picd],['txtVedate',r_picd]];
                 q_mask(bbmMask);
                  //........................下拉選單
                 q_cmbParse("cmbKind", q_getPara('payb.kind'),'s');
@@ -184,11 +184,11 @@
 		                	$('#txtMoney_'+b_seq).val(dec($('#txtMount_'+b_seq).val())*dec($('#txtPrice_'+b_seq).val()));
 		                	$('#txtTotal_'+b_seq).val(dec($('#txtMoney_'+b_seq).val())+dec($('#txtTax_'+b_seq).val())-dec($('#txtDiscount_'+b_seq).val()));
 		                	
-		                	if($('#txtPrice_'+b_seq).val()=='0' &&$('#txtMount_'+b_seq).val()=='0')
+		                	/*if($('#txtPrice_'+b_seq).val()=='0' &&$('#txtMount_'+b_seq).val()=='0')
 		                		$('#txtMoney_'+b_seq).removeAttr('disabled');
 		                	else
 		                		$('#txtMoney_'+b_seq).attr('disabled', 'disabled');
-		                		
+		                	*/	
 		                	sum();
 		                });
 		                
@@ -198,12 +198,12 @@
 		                    b_seq = t_IdSeq;
 		                	$('#txtMoney_'+b_seq).val(dec($('#txtMount_'+b_seq).val())*dec($('#txtPrice_'+b_seq).val()));
 		                	$('#txtTotal_'+b_seq).val(dec($('#txtMoney_'+b_seq).val())+dec($('#txtTax_'+b_seq).val())-dec($('#txtDiscount_'+b_seq).val()));
-		                	
+		                	/*
 		                	if($('#txtPrice_'+b_seq).val()=='0' &&$('#txtMount_'+b_seq).val()=='0')
 		                		$('#txtMoney_'+b_seq).removeAttr('disabled');
 		                	else
 		                		$('#txtMoney_'+b_seq).attr('disabled', 'disabled');
-		                		
+		                	*/	
 		                	sum();
 		                });
 		                //-----------------
@@ -525,12 +525,12 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' >
-        <div class="dview" id="dview" style="float: left;  width:32%;"  >
+        <div class="dview" id="dview" style="float: left;  width:26%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewDatea'></a></td>
-                <td align="center" style="width:40%"><a id='vewComp'></a></td>
+                <td align="center" style="width:10%"><a id='vewDatea'></a></td>
+                <td align="center" style="width:30%"><a id='vewComp'></a></td>
             </tr>
              <tr>
                 <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -539,7 +539,7 @@
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 68%;float: left;">
+        <div class='dbbm' style="width: 74%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
             <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
@@ -563,8 +563,9 @@
                 <td class="td2" colspan="2"><input id="txtTggno" type="text" class="txt c4"/>
                 <input id="txtComp"  type="text" class="txt c5"/></td>
                  <td class="td4" ><input type="button" id="btnFix"  value="單據匯入"></td>
-                 <td class="td5" colspan='2'><span> </span><a id='lblPayc' class="lbl"></a></td>
-                <td class="td7"  colspan='2'><input id="txtPayc" type="text" class="txt c1"/></td> 
+                 <td class="td5" colspan='2'><span> </span></td>
+                 <td class="td7" ><span> </span><a id='lblPayc' class="lbl"></a></td>
+                <td class="td8" ><input id="txtPayc" type="text" class="txt c1"/></td> 
                <!-- <td class="td7"><span> </span><a id='lblInvono' class="lbl"></a></td>
                 <td class="td8"><input id="txtInvono" type="text" class="txt c1"/></td>--> 
             </tr>
