@@ -590,6 +590,7 @@
                 		<input class="btn"  id="btnAcc.*" type="button" value='.' style="float: left; font-weight: bold;width:1%;" />
                         <input type="text" id="txtAcc1.*"  style="width:35%;"/>
 						<input type="text" id="txtAcc2.*"  style="width:45%;"/>
+						<input type="hidden" id="txtNoq.*"  style="width:45%;"/>
                 </td>
             </tr>
         </table>
