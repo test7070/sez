@@ -18,7 +18,7 @@
         }
         var q_name="etcstation";
         var q_readonly = [];
-        var bbmNum = [['txtMount',10,2]]; 
+        var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
