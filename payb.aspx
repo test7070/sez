@@ -67,15 +67,12 @@
                 //.........................
 	             //........................單據匯入
 		        $('#btnFix').click(function () {
-		           if($('#txtCompno').val()!=""){
-		           		var t_where = "where=^^ tggno='"+$('#txtTggno').val()+"' and datea > '101/01/01' ^^";
-		           		var t_where1 = "where[1]=^^ tggno='"+$('#txtTggno').val()+"' and datea > '101/01/01' ^^";
-		           }else{
-		           		var t_where = "where=^^ datea>'101/01/01' ^^";
-		           		var t_where1 = "where[1]=^^ datea>'101/01/01' ^^";
+		           if(!emp($('#txtTggno').val())){
+		           		//暫定用9月份之後的資料
+		           		var t_where = "where=^^ tggno='"+$('#txtTggno').val()+"' and datea > '101/09/01' ^^";
+		           		var t_where1 = "where[1]=^^ tggno='"+$('#txtTggno').val()+"' and datea > '101/09/01' ^^";
+		           		q_gt('payb_fix', t_where+t_where1 , 0, 0, 0, "", r_accy);
 		           }
-		           
-		         	q_gt('payb_fix', t_where+t_where1 , 0, 0, 0, "", r_accy);
 
 		        });
 		        //.........................
@@ -113,7 +110,7 @@
             	switch (t_name) {
             	case 'payb_fix':
             			var as = _q_appendData("fixin", "", true);
-            			q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,cmbKind,cmbTypea,txtInvono,txtTax,txtDiscount,txtMoney,txtTotal,txtPartno,txtPart,txtMemo,txtAcc1,txtAcc2', as.length, as, 'noa,kind,typea,invono,tax,discount,money,total,partno,part,memo,memo,acc1,acc2', '');
+            			q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,cmbKind,cmbTypea,txtInvono,txtTax,txtDiscount,txtMoney,txtTotal,txtPartno,txtPart,txtMemo,txtAcc1,txtAcc2', as.length, as, 'noa,kind,typea,invono,tax,discount,money,total,partno,part,memo,acc1,acc2', '');
             		break;
                 case 'sss': 
                     q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
@@ -131,11 +128,14 @@
 
             function btnOk() {
             	for (var j = 0; j < q_bbsCount; j++) {
-	                if(!emp($('#txtMoney_'+j).val())){
-	                	if(emp($('#txtProduct_'+j).val()) || emp($('#txtAcc1_'+j).val())){
-	             			alert("品名或會計科目未輸入");
-	             			return;
-	             		}
+	                if(!(($('#txtMemo_'+j).val()).substr(0,1)=='.'))
+	                {
+		                if(!emp($('#txtMoney_'+j).val())){
+		                	if(emp($('#txtProduct_'+j).val()) || emp($('#txtAcc1_'+j).val())){
+		             			alert("品名或會計科目未輸入");
+		             			return;
+		             		}
+		             	}
 	             	}
              	}
                 
@@ -218,13 +218,23 @@
             }
 
             function bbsSave(as) {
-            	
-                if(!as['invono']){
+            	            	
+            	if(!as['invono'] && !as['rc2no']&&!as['product'])
+            	{
+            		as=[];
+            		/*as['kind']='';
+            		as['typea']='';
+            		as['money']=null;
+            		as['tax']=null;
+            		as['[total]']=null;
+            		*/
+            	}else if(!as['invono']){
 	                if(!as['rc2no'] || !as['kind'] || !as['typea']) {
 	                    as[bbsKey[1]] = '';
 	                    return;
 	                }
-                }
+                } 
+                
                 /*if(!as['invono']) {
                     as[bbsKey[1]] = '';
                     return;
@@ -250,6 +260,14 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                
+                if (t_para) {
+		            $('#btnFix').attr('disabled', 'disabled');	          
+		        }
+		        else {
+		        	$('#btnFix').removeAttr('disabled');	 
+		        }
+                
             }
 
             function btnMinus(id) {
