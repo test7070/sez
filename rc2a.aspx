@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -19,10 +18,10 @@
         var q_name = "rc2a";
         var decbbs = ['mount', 'price', 'money', 'tax'];
         var decbbm = ['total', 'money', 'tax'];
-        var q_readonly = [];
+        var q_readonly = ['txtMoney','txtTotal'];
         var q_readonlys = [];
-        var bbmNum = [];  
-        var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
+        var bbmNum = [['txtMoney', 15, 0], ['txtTax', 15, 0], ['txtTotal', 15, 0]];  
+        var bbsNum = [['txtMount', 15, 3], ['txtPrice', 15, 3], ['txtMoney', 15, 0]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
@@ -56,6 +55,7 @@
             q_mask(bbmMask);
             fbbm[fbbm.length] = 'txtMemo'; 
              q_cmbParse("cmbTypea", q_getPara('vcc.typea')); 
+             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
              
         }
 
@@ -295,7 +295,7 @@
                 float: left;
             }
             .txt.c2 {
-                width: 95%;
+                width: 98%;
                 float: left;
             }
             .txt.c3 {
@@ -432,7 +432,7 @@
         </tr>
         <tr class="tr6">
             <td class="td1"><span> </span><a id='lblTaxtype' class="lbl"> </a></td>
-            <td class="td2"><input id="txtTaxtype"  type="text" class="txt c1" /></td>
+            <td class="td2"><select id="cmbTaxtype" style='width:100%'  onchange='calTax()' / ></select></td>
             <td class="td3"><span> </span><a id='lblMoney' class="lbl"> </a></td>
             <td class="td4"><input id="txtMoney" type="text" class="txt num c1" /></td>                                         
         </tr>
@@ -444,7 +444,7 @@
         </tr>
         <tr class="tr8">
             <td class="td1"><span> </span><a id="lblMemo" class="lbl" > </a></td>
-            <td class="td2" colspan='5'><textarea id="txtMemo" cols="10" rows="5" style='width: 99%; height: 127px;'> </textarea></td>
+            <td class="td2" colspan='5'><textarea id="txtMemo" cols="10" rows="3" style='width: 99%;'> </textarea></td>
         </tr>
          <tr class="tr9">
             <td class="td1"><span> </span><a id='lblAccno' class="lbl"> </a></td>
@@ -467,25 +467,25 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center"><a id='lblNoq'> </a></td>
-                <td align="center"><a id='lblProductno'> </a></td>
-                <td align="center"><a id='lblProduct'> </a></td>
-                <td align="center"><a id='lblUnit'> </a></td>
-                <td align="center"><a id='lblMount'> </a></td>
-                <td align="center"><a id='lblPrice'> </a></td>
-                <td align="center"><a id='lblMoneys'> </a></td>
+                <td align="center" style="width: 5%;"><a id='lblNoq'> </a></td>
+                <td align="center" style="width: 15%;"><a id='lblProductno'> </a></td>
+                <td align="center" style="width: 20%;"><a id='lblProduct'> </a></td>
+                <td align="center" style="width: 5%;"><a id='lblUnit'> </a></td>
+                <td align="center" style="width: 8%;"><a id='lblMount'> </a></td>
+                <td align="center" style="width: 8%;"><a id='lblPrice'> </a></td>
+                <td align="center" style="width: 14%;"><a id='lblMoneys'> </a></td>
                 <td align="center"><a id='lblMemos'> </a></td>              
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td ><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td style="width: 5%;"><input id="txtNoq.*" type="text" class="txt c2" /></td>
-                <td ><input id="txtProductno.*" type="text" style="width: 65%;"/><input id="btnProductno.*" type="button" value="..." /></td>
-                <td style="width: 25%;"><input id="txtProduct.*"type="text" class="txt c2"/></td>
-                <td style="width: 5%;"><input id="txtUnit.*" type="text" class="txt c2"/></td>
-                <td style="width: 8%;"><input id="txtMount.*" type="text" class="txt num c2" /></td>
-                <td style="width: 8%;"><input id="txtPrice.*" type="text" class="txt num c2" /></td>
-                <td ><input id="txtMoney.*" type="text" class="txt num c2" /></td>
-                <td ><input id="txtMemo.*" type="text" class="txt c2"/></td>
+                <td><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
+                <td><input id="txtNoq.*" type="text" class="txt c2" /></td>
+                <td><input id="txtProductno.*" type="text" style="width: 78%;"/><input id="btnProductno.*" type="button" value="..." /></td>
+                <td><input id="txtProduct.*"type="text" class="txt c2"/></td>
+                <td><input id="txtUnit.*" type="text" class="txt c2"/></td>
+                <td><input id="txtMount.*" type="text" class="txt num c2" /></td>
+                <td><input id="txtPrice.*" type="text" class="txt num c2" /></td>
+                <td><input id="txtMoney.*" type="text" class="txt num c2" /></td>
+                <td><input id="txtMemo.*" type="text" class="txt c2"/></td>
            </tr>
         </table>
         </div>

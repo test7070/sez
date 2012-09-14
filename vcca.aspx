@@ -1,4 +1,3 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -17,16 +16,17 @@
         }
         q_tables = 's';
         var q_name = "vcca";
-        var q_readonly = [];
+        var q_readonly = ['txtMoney','txtTotal'];
         var q_readonlys = [];
-        var bbmNum = [];  // 允許 key 小數
-        var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
+        var bbmNum = [['txtMoney', 15, 0], ['txtTax', 15, 0], ['txtTotal', 15, 0]];  // 允許 key 小數
+        var bbsNum = [['txtMount', 15, 3], ['txtGmount', 15, 4], ['txtEmount', 15, 4], ['txtPrice', 15, 3], ['txtTotal', 15, 0]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
 		aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx'],
 		['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+		['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx'],
 		['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -48,9 +48,11 @@
 
              function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd]];
+            bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
             q_mask(bbmMask);
              // 需在 main_form() 後執行，才會載入 系統參數
+             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+             
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -100,6 +102,42 @@
         }
 
         function bbsAssign() {  /// 表身運算式
+        	for (var j = 0; j < q_bbsCount; j++) {
+        		//----------------數量和單價計算
+            		$('#txtMount_'+j).change(function () {
+		            		 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                    q_bodyId($(this).attr('id'));
+		                    b_seq = t_IdSeq;
+		                	$('#txtTotal_'+b_seq).val(dec($('#txtMount_'+b_seq).val())*dec($('#txtPrice_'+b_seq).val()));
+		                	
+		                	sum();
+		                });
+		                
+	            		$('#txtPrice_'+j).change(function () {
+		            		 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                    q_bodyId($(this).attr('id'));
+		                    b_seq = t_IdSeq;
+		                	$('#txtTotal_'+b_seq).val(dec($('#txtMount_'+b_seq).val())*dec($('#txtPrice_'+b_seq).val()));
+		                	
+		                	sum();
+		                });
+		                
+        			$('#txtTotal_'+j).change(function () {
+	            		 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+	                	sum();
+	                });
+	                
+	                $('#txtTax_'+j).change(function () {
+	                	 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;              	
+	                	sum();
+	                });
+
+        	}
+        	
             _bbsAssign();
         }
 
@@ -150,10 +188,15 @@
 
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0;
+             var t_tax=0,t_money=0;
             for (var j = 0; j < q_bbsCount; j++) {
-
+				t_tax+=dec($('#txtTax_'+j).val());//營業稅合計
+				t_money+=dec($('#txtTotal_'+j).val());//產品金額合計
+				
             }  // j
-
+			$('#txtTax').val(t_tax);
+            $('#txtMoney').val(t_money);
+            $('#txtTotal').val(t_money+t_tax);
         }
         function refresh(recno) {
             _refresh(recno);
@@ -310,7 +353,7 @@
                 margin: -1px;
             }
             .tbbs input[type="text"] {
-                width: 95%;
+                width: 98%;
             }
             .tbbs a {
                 font-size: medium;
@@ -351,26 +394,26 @@
         <tr class="tr1">
                <td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
                <td class="td2"><input id="txtDatea"  type="text"  class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblCust" class="lbl btn" ></td>
-               <td class="td4" colspan="3"><input id="txtCustno"  type="text"  class="txt c2"/>             
-             <input id="txtComp" type="text"  class="txt c3"/></td>
+               <td class="td3"><span> </span><a id="lblAcomp" class="lbl btn"></a></td>
+            	<td class="td4" colspan="3"><input id="txtCno" type="text" class="txt c2"/>
+            	<input id="txtComp2" type="text"  class="txt c3"/></td> 
         </tr>
         <tr class="tr2">
             <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-            <td class="td3"><span> </span><a id='lblAddress' class="lbl"></a></td>
-            <td class="td4" colspan="3"><input id="txtAddress"  type="text" class="txt c1"/></td>  
+            <td class="td3"><span> </span><a id="lblCust" class="lbl btn" ></td>
+            <td class="td4" colspan="3"><input id="txtCustno"  type="text"  class="txt c2"/>             
+             <input id="txtComp" type="text"  class="txt c3"/></td>
         </tr>
         <tr class="tr3">
             <td class="td1"><span> </span><a id='lblSeria' class="lbl"></a></td>
             <td class="td2"><input id="txtSeria" type="text" class="txt c1"/></td>
-            <td class="td3"><span> </span><a id='lblMon' class="lbl"></a></td>
-            <td class="td4"><input id="txtMon"  type="text" class="txt c1"/></td>                                
+            <td class="td3"><span> </span><a id='lblAddress' class="lbl"></a></td>
+            <td class="td4" colspan="3"><input id="txtAddress"  type="text" class="txt c1"/></td>                                
         </tr>
         <tr class="tr4">
-            <td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"></a></td>
-            <td class="td2" colspan="3"><input id="txtCno" type="text" class="txt c2"/>
-            <input id="txtComp2" type="text"  class="txt c3"/></td> 
+        	<td class="td1"><span> </span><a id='lblMon' class="lbl"></a></td>
+            <td class="td2"><input id="txtMon"  type="text" class="txt c1"/></td>
         </tr>
         <tr class="tr5">
             <td class="td1"><span> </span><a id='lblChkno' class="lbl"></a></td>
@@ -382,9 +425,11 @@
         </tr>
         <tr class="tr6">
             <td class="td1"><span> </span><a id='lblTaxtype' class="lbl"></a></td>
-            <td class="td2"><input id="txtTaxtype"  type="text"  class="txt c1"/></td>
+            <td class="td2"><select id="cmbTaxtype" style='width:100%'  onchange='calTax()' / ></select></td>
              <td class="td3"><span> </span><a id='lblTotal' class="lbl"></a></td>
-            <td class="td4"><input id="txtTotal"  type="text"  class="txt num c1"/></td>      
+            <td class="td4"><input id="txtTotal"  type="text"  class="txt num c1"/></td>     
+            <td class="td5"><span> </span><a id='lblWorker' class="lbl"></a></td>
+            <td class="td6"><input id="txtWorker"  type="text"  class="txt c1"/></td> 
         </tr>
         <tr class="tr7">
             <td class="td1"><span> </span><a id="lblMemo" class="lbl" ></a></td>
@@ -393,16 +438,11 @@
          <tr class="tr8">
             <td class="td1"><span> </span><a id='lblAccno' class="lbl"></a></td>
             <td class="td2"><input id="txtAccno"  type="text" class="txt c1"/></td>
-            <td class="td3"><span> </span><a id='lblBuyer' class="lbl"></a></td>
-            <td class="td4"><input id="txtBuyer"  type="text"  class="txt c1"/></td>
-        </tr>
-        <tr class="tr9">
-            <td class="td1"></td>
-            <td class="td2"></td>
-            <td class="td3"></td>
-            <td class="td4"></td>
-            <td class="td5"><span> </span><a id='lblWorker' class="lbl"></a></td>
-            <td class="td6"><input id="txtWorker"  type="text"  class="txt c1"/></td>
+            <td class="td3"><span> </span><a id='lblBuyer' class="lbl btn"></a></td>
+            <td class="td4" colspan="3">
+            	<input id="txtBuyerno"  type="text"  class="txt c2"/>
+            	<input id="txtBuyer" type="text"  class="txt c3"/>
+            </td>
         </tr>
         </table>
         </div>
@@ -411,13 +451,13 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" class="ch1"><a id='lblProductno'></a></td>
+                <td align="center" style="width: 15%;"><a id='lblProductno'></a></td>
                 <td align="center" style="width: 20%;"><a id='lblProduct'></a></td>
-                <td align="center" class="ch1"><a id='lblUnit'></a></td>
-                <td align="center" class="ch1"><a id='lblMount'></a></td>
-                <td align="center" class="ch1"><a id='lblPrice'></a></td>
-                <td align="center" class="ch1"><a id='lblTotals'></a></td>
-                <td align="center" class="ch1"><a id='lblTaxs'></a></td>
+                <td align="center" style="width: 5%;"><a id='lblUnit'></a></td>
+                <td align="center" style="width: 10%;"><a id='lblMount'></a></td>
+                <td align="center" style="width: 10%;"><a id='lblPrice'></a></td>
+                <td align="center" style="width: 13%;"><a id='lblTotals'></a></td>
+                <td align="center" ><a id='lblMemos'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
@@ -427,7 +467,7 @@
                 <td ><input class="txt num c1" id="txtMount.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtPrice.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtTotal.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtTax.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
+                <td ><input class="txt num c1" id="txtMemo.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
             </tr>
         </table>
         </div>
