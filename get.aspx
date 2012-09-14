@@ -56,6 +56,7 @@
             bbmMask = [['txtDatea', r_picd], ['txtCucdate', r_picd]];
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('get.typea'));
+            q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
             // 需在 main_form() 後執行，才會載入 系統參數
 
         }
@@ -418,6 +419,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size: medium;
             }
             
              input[type="text"],input[type="button"] {     
@@ -451,7 +453,7 @@
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr class="tr1">
         	<td class='td1'><span> </span><a id="lblType" class="lbl"> </a></td>
-            <td class="td2"><select id="cmbTypea" class="txt c6"> </select></td>
+            <td class="td2"><select id="cmbTypea" class="txt c1"> </select></td>
             <td class='td3'><span> </span><a id="lblDatea" class="lbl" > </a></td>
             <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
             <td class='td5'><span> </span><a id="lblNoa" class="lbl" > </a></td>
@@ -506,6 +508,7 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
+                <td align="center"><a id='lblUno_s'> </a></td>
                 <td align="center"><a id='lblProductno_s'> </a></td>
                 <td align="center"><a id='lblProduct_s'> </a></td>
                 <td align="center"><a id='lblUnit_s'> </a></td>
@@ -519,8 +522,9 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
+                <td style="width:8%;"><input id="txtUno.*" type="text" class="txt c1"/> </td>
                 <td style="width:10%;"><input id="txtProductno.*" type="text" style="width:80%;" /><input class="btn"  id="btnProductno.*" type="button" value='...' style="width:15%;"  /></td>
-                <td style="width:15%;"><input class="txt c1" id="txtProduct.*" type="text" /></td>
+                <td style="width:12%;"><input class="txt c1" id="txtProduct.*" type="text" /></td>
                 <td style="width:4%;"><input class="txt c1" id="txtUnit.*" type="text"/></td>
                 <td style="width:16%;"><input class="txt num c7" id="txtDime.*" type="text"/> x
                                     <input class="txt num c7" id="txtWidth.*" type="text"/> x
