@@ -472,7 +472,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblStation' class="lbl btn"> </a></td>
+						<td class="td1"><span> </span><a id='lblStation' class="lbl"> </a></td>
 						<td class="td2"><input id="txtStation"  type="text"  class="txt c1"/></td>					
 					</tr>
 					<tr>
