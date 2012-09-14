@@ -219,16 +219,7 @@
 
             function bbsSave(as) {
             	            	
-            	if(!as['invono'] && !as['rc2no']&&!as['product'])
-            	{
-            		as=[];
-            		/*as['kind']='';
-            		as['typea']='';
-            		as['money']=null;
-            		as['tax']=null;
-            		as['[total]']=null;
-            		*/
-            	}else if(!as['invono']){
+            	if(!as['invono']){
 	                if(!as['rc2no'] || !as['kind'] || !as['typea']) {
 	                    as[bbsKey[1]] = '';
 	                    return;
