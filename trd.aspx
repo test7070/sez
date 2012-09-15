@@ -716,12 +716,12 @@
 						</td>
 						<td class="tdZ"></td>
 					</tr>
-					<tr class=".tr_import">
+					<tr class="tr_import">
 						<td colspan="9"><input id="txtCustchgno" type="text" class="txt c1" style="display:none;"/></td>
 						<td><input type="button" id="btnCustchg" class="txt c1"/></td>
 						<td class="tdZ"> </td>
 					</tr>
-					<tr class=".tr_import">
+					<tr class="tr_import">
 						<td><span> </span><a id="lblVccamoney" class="lbl"> </a></td>
 						<td><input id="txtVccamoney" type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblVccatax" class="lbl"> </a></td>
