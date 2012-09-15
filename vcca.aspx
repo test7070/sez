@@ -65,14 +65,37 @@
             b_pop = '';
         }
 
-
+		var ins = false;//判斷是否在新增狀態
+		var noaerror =false; //判斷發票號碼是否有錯誤
+		
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
-                case q_name: if (q_cur == 4)   // 查詢
-                        q_Seek_gtPost();
-                    break;
+            	case 'vccar':
+            		var as = _q_appendData("vccar", "", true);
+            		if(as[0]==undefined)
+            		{
+            			 noaerror=true;
+            			 alert("發票號碼不在範圍內或已輸入過");
+                	}else {
+                		noaerror=false;
+                		ins=false;
+						btnOk();
+                	}
+            		break;
+            	case 'vcca1':
+            			var as = _q_appendData("vcca", "", true);
+                		if(!(as[0]==undefined))
+            				$('#txtNoa').val((as[0].noa).substr(0,as[0].noa.length-2));
+                		break;
+                case q_name: 
+                	if (q_cur == 4)   // 查詢
+                   		q_Seek_gtPost();
+                    	break;
             }  /// end switch
-        }
+            
+	            if(noaerror==true)
+					return;
+        	}
 
         function btnOk() {
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // 檢查空白 
@@ -80,15 +103,27 @@
                 alert(t_err);
                 return;
             }
-
-            $('#txtWorker').val(r_name)
-            sum();
-
-            var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
-            if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-                q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
-            else
-                wrServer(s1);
+			if(ins==true)
+			{
+				//判斷發票號碼是否存在或超過
+				var t_where = "where=^^ cno = '"+ $('#txtCno').val()+"' and bdate<='"+$('#txtDatea').val()+"' and edate>='"+$('#txtDatea').val()
+										+"' and binvono<='"+$('#txtNoa').val()+"' and einvono>='"+$('#txtNoa').val()+"' and '"+$('#txtNoa').val()+"' not in (select noa from vcca ) ^^"; 
+	            q_gt('vccar', t_where , 0, 0, 0, "", r_accy);
+			}
+			else{
+	            $('#txtWorker').val(r_name)
+	            sum();
+	
+	            var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+	            if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
+	           {
+	                alert("請輸入發票號碼");
+	                return;
+	                //q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
+	           }
+	            else
+	                wrServer(s1);
+           }
         }
 
         function _btnSeek() {
@@ -143,7 +178,13 @@
 
         function btnIns() {
             _btnIns();
-            $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+            //$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+            //取上個發票號碼並將後兩個數字拿掉
+            //後面再寫判斷時間之間差12天
+			var t_where = "where=^^ datea between '"+q_date().substr(0,6)+"' and '"+q_date()+"' and noa not like '%退貨%' ^^"; 
+            ins=true;
+            q_gt('vcca1', t_where , 0, 0, 0, "", r_accy);
+            
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
         }
@@ -384,7 +425,7 @@
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
-                   <td align="center" id='noa'>~noa</td>
+                   <td align="center" id='noa'>~noa<input id="txtnick"  type="hidden"/></td>
                    <td align="center" id='datea'>~datea</td>
             </tr>
         </table>
@@ -396,7 +437,7 @@
                <td class="td2"><input id="txtDatea"  type="text"  class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblAcomp" class="lbl btn"></a></td>
             	<td class="td4" colspan="3"><input id="txtCno" type="text" class="txt c2"/>
-            	<input id="txtComp2" type="text"  class="txt c3"/></td> 
+            	<input id="txtComp2" type="text"  class="txt c3"/><input id="txtnick"  type="hidden"/></td> 
         </tr>
         <tr class="tr2">
             <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
