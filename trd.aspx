@@ -36,8 +36,10 @@
 			
 			function trd() {}
 			trd.prototype = {
-				isLoad: false,
-				custchgno : new  Array()
+				isLoadCustchgno: false,
+				custchgno : new  Array(),
+				isLoadVccano : false,
+				vccano : new Array()
 			}
 			
 			$(document).ready(function() {
@@ -162,14 +164,29 @@
 						return;
 					}
 					var t_custchgno='';
-					if(curData.isLoad){
+					if(curData.isLoadCustchgno){
 						for(var i=0;i<curData.custchgno.length;i++)
 							t_custchgno += (t_custchgno.length>0?',':'')+curData.custchgno[i];
 						t_custchgno='custchgno='+t_custchgno;
 					}
 					t_where = "  custno='" + $('#txtCustno').val() + "' and  (trdno='" + $('#txtNoa').val() + "' or len(isnull(trdno,''))=0) ";
-					q_box("custchg_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_custchgno + ";", 'custchg', "95%", "650px", q_getMsg('popTranquat'));
+					q_box("custchg_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_custchgno + ";", 'custchg', "95%", "650px", q_getMsg('popCustchg'));
 				});
+				$("#btnVcca").click(function(e) {
+					if ($('#txtCustno').val().length == 0) {
+						alert('請輸入客戶編號!');
+						return;
+					}
+					var t_vccano='';
+					if(curData.isLoadVccano){
+						for(var i=0;i<curData.vccano.length;i++)
+							t_vccano += (t_vccano.length>0?',':'')+curData.vccano[i];
+						t_vccano='vccano='+t_vccano;
+					}
+					t_where = "  custno='" + $('#txtCustno').val() + "' and  (trdno='" + $('#txtNoa').val() + "' or len(isnull(trdno,''))=0) ";
+					q_box("vcca_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_vccano + ";", 'vcca', "95%", "650px", q_getMsg('popVcca'));
+				});
+				
 				$('#txtMemo').change(function() {
 					if (isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.') {
 						$('#txtTotal').removeAttr('readonly').css('background-color', 'white').css('color', 'black');
@@ -186,13 +203,25 @@
 					case 'custchg':
 						if (b_ret != null) {
 							var t_where='1!=1';
-							curData.isLoad = true;
+							curData.isLoadCustchgno = true;
 							curData.custchgno = new Array();
 							for (var i = 0; i < b_ret.length; i++) {
 								curData.custchgno.push(b_ret[i].noa);
 								t_where +=" or noa='"+b_ret[i].noa+"'";
 							}
 							q_gt('custchg', "where=^^"+t_where+"^^", 0, 0, 0, "");
+						}
+						break;
+					case 'vcca':
+						if (b_ret != null) {
+							var t_where='1!=1';
+							curData.isLoadVccano = true;
+							curData.vccano = new Array();
+							for (var i = 0; i < b_ret.length; i++) {
+								curData.vccano.push(b_ret[i].noa);
+								t_where +=" or noa='"+b_ret[i].noa+"'";
+							}
+							q_gt('vcca1', "where=^^"+t_where+"^^", 0, 0, 0, "");
 						}
 						break;
 					case q_name + '_s':
@@ -214,6 +243,18 @@
 						$('#txtPlusmoney').val(t_plusmoney);
 						$('#txtMinusmoney').val(t_minusmoney);
 						sum();
+						break;
+					case 'vcca':
+						var as = _q_appendData("vcca", "", true);
+						var t_money=0,t_tax=0,t_total=0;
+						for ( i = 0; i < as.length; i++) {
+							t_money+=parseFloat(as[i].money);
+							t_tax+=parseFloat(as[i].tax);
+							t_tax+=parseFloat(as[i].tatol);
+						}
+						$('#txtVccamoney').val(t_money);
+						$('#txtVccatax').val(t_tax);
+						$('#txtVccatax').val(t_tatol);
 						break;
 					case 'trans':
 						var as = _q_appendData("trans", "", true);
@@ -266,14 +307,21 @@
 				}
 				//-------------------------------------------------
 				//回寫CUSTCHG
-				if(curData.isLoad){
+				if(curData.isLoadCustchgno){
 					var t_custchgno='';
 					for(var i=0;i<curData.custchgno.length;i++)
 						t_custchgno+=(t_custchgno.length>0?',':'')+curData.custchgno[i];
 					$('#txtCustchgno').val(t_custchgno);
 				}
 				//-------------------------------------------------
-				
+				//回寫VCCA
+				if(curData.isLoadVccano){
+					var t_vccano='';
+					for(var i=0;i<curData.vccano.length;i++)
+						t_vccano+=(t_vccano.length>0?',':'')+curData.vccano[i];
+					$('#txtVccano').val(t_vccano);
+				}
+				//-------------------------------------------------
 				sum();
 				if ($('#txtMon').val().length == 0) {
 					$('#txtMon').val($('#txtDatea').val().substring(0, 6));
@@ -393,9 +441,11 @@
 				if (q_cur == 1 || q_cur == 2) {
 					$('#btnTrans').removeAttr('disabled');
 					$('#btnCustchg').removeAttr('disabled');
+					$('#btnVcca').removeAttr('disabled');
 				} else {
 					$('#btnTrans').attr('disabled', 'disabled');
 					$('#btnCustchg').attr('disabled', 'disabled');
+					$('#btnVcca').attr('disabled', 'disabled');
 				}
 				if (isEditTotal && (q_cur == 1 || q_cur == 2) && $.trim($('#txtMemo').val()).substring(0, 1) == '.') {
 					$('#txtTotal').removeAttr('readonly').css('background-color', 'white').css('color', 'black');
@@ -503,7 +553,7 @@
 			.tbbm .tr2, .tbbm .tr3, .tbbm .tr4 {
 				background-color: #FFEC8B;
 			}
-			.tbbm  .tr_custchg {
+			.tbbm  .tr_import {
 				background-color: #DAA520;
 			}
 			.tbbm .tdZ {
@@ -587,9 +637,7 @@
 						<td align="center" style="width:20%"><a id='vewComp'></a></td>
 					</tr>
 					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox" style=' '/>
-						</td>
+						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='vccano'>~vccano</td>
 						<td id='nick' style="text-align: center;">~nick</td>
@@ -668,26 +716,30 @@
 						</td>
 						<td class="tdZ"></td>
 					</tr>
-					<tr class="tr_custchg">
+					<tr class=".tr_import">
 						<td colspan="9"><input id="txtCustchgno" type="text" class="txt c1" style="display:none;"/></td>
+						<td><input type="button" id="btnCustchg" class="txt c1"/></td>
+						<td class="tdZ"> </td>
+					</tr>
+					<tr class=".tr_import">
+						<td><span> </span><a id="lblVccamoney" class="lbl"> </a></td>
+						<td><input id="txtVccamoney" type="text" class="txt c1 num"/></td>
+						<td><span> </span><a id="lblVccatax" class="lbl"> </a></td>
+						<td><input id="txtVccatax" type="text" class="txt c1 num"/></td>
+						<td><span> </span><a id="lblVccatotal" class="lbl"> </a></td>
+						<td><input id="txtVccatotal" type="text" class="txt c1 num"/></td>
+						<td colspan="2"> </td>
 						<td>
-						<input type="button" id="btnCustchg" class="txt c1"/>
+							<input id="txtVccano" type="text" class="txt c1" style="display:none;"/>
+							<input type="button" id="btnVcca" class="txt c1"/>
 						</td>
-						<td class="tdZ"></td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr class="tr5">
 						<td class="td1"><span> </span><a id="lblAcomp" class="lbl"> </a></td>
 						<td class="td2" colspan="3">
 						<input id="txtCno" type="text"  class="txt" style="float: left; width:25%;"/>
 						<input id="txtAcomp" type="text"  class="txt"  style="float: left; width:75%;"/>
-						</td>
-						<td class="td1"><span> </span><a id="lblVccadate" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtVccadate" type="text" class="txt c1" />
-						</td>
-						<td class="td3"><span> </span><a id="lblVccano" class="lbl"> </a></td>
-						<td class="td4"  colspan="2">
-						<input id="txtVccano" type="text" class="txt c1" />
 						</td>
 					</tr>
 					<tr class="tr5">
