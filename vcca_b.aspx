@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'vcca', t_bbsTag = 'tbbs', t_content = " field=noa,datea,mon,custno,comp,money,tax,total,memo,trdno ", afilter = [], bbsKey = ['noa'], as;
+            var q_name = 'vcca', t_bbsTag = 'tbbs', t_content = " field=noa,datea,mon,buyer,money,tax,total,memo,trdno ", afilter = [], bbsKey = ['noa'], as;
             //, t_where = '';
             var t_sqlname = 'vcca1';
             t_postname = q_name;
@@ -99,11 +99,11 @@
 					<td class="td2" align="center" style="width:120px;"><a id='lblNoa'> </a></td>
 					<td class="td3" align="center" style="width:80px;"><a id='lblDatea'> </a></td>
 					<td class="td2" align="center" style="width:50px;"><a id='lblMon'> </a></td>
-					<td class="td4" align="center" style="width:80px;"><a id='lblCustno'></a></td>
-					<td class="td5" align="center" style="width:100px;"><a id='lblComp'></a></td>
+					<td class="td4" align="center" style="width:120px;"><a id='lblBuyer'></a></td>
 					<td class="td6" align="center" style="width:100px;"><a id='lblMoney'></a></td>
 					<td class="td6" align="center" style="width:100px;"><a id='lblTax'></a></td>
 					<td class="td6" align="center" style="width:100px;"><a id='lblTotal'></a></td>
+					<td class="td6" align="center" style="width:100px;"><a id='lblMemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td>
@@ -113,8 +113,7 @@
 					<td><input type="text" id="txtNoa.*" class="txt" style="width:95%;"/></td>
 					<td><input type="text" id="txtDatea.*" class="txt" style="width:95%;"/></td>
 					<td><input type="text" id="txtMon.*" class="txt" style="width:95%;"/></td>
-					<td><input type="text" id="txtCustno.*" class="txt" style="width:95%;"/></td>
-					<td><input type="text" id="txtComp.*" class="txt" style="width:95%;"/></td>
+					<td><input type="text" id="txtBuyer.*" class="txt" style="width:95%;"/></td>
 					<td><input type="text" id="txtMoney.*" class="txt" style="width:95%; text-align: right;"/></td>
 					<td><input type="text" id="txtTax.*" class="txt" style="width:95%; text-align: right;"/></td>
 					<td><input type="text" id="txtTotal.*" class="txt" style="width:95%; text-align: right;"/></td>

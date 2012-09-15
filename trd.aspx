@@ -19,9 +19,10 @@
 			isEditTotal = false;
 			q_tables = 's';
 			var q_name = "trd";
-			var q_readonly = ['txtNoa', 'txtDatea', 'txtMoney', 'txtTotal', 'txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney'];
+			var q_readonly = ['txtNoa', 'txtDatea', 'txtMoney', 'txtTotal', 'txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney','txtVccamoney','txtVccatax','txtVccatotal'];
 			var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
-			var bbmNum = [['txtMoney', 10, 0], ['txtTaxrate', 10, 1], ['txtTax', 10, 0], ['txtTotal', 10, 0], ['txtDiscount', 10, 0], ['txtMount', 10, 3], ['txtPlus', 10, 0], ['txtPlusmoney', 10, 0], ['txtMinusmoney', 10, 0]];
+			var bbmNum = [['txtMoney', 10, 0], ['txtTaxrate', 10, 1], ['txtTax', 10, 0], ['txtTotal', 10, 0], ['txtDiscount', 10, 0], ['txtMount', 10, 3], ['txtPlus', 10, 0], ['txtPlusmoney', 10, 0], ['txtMinusmoney', 10, 0]
+			, ['txtVccamoney', 10, 0], ['txtVccatax', 10, 0], ['txtVccatotal', 10, 0]];
 			var bbsNum = [['txtTranmoney', 10, 0], ['txtOverweightcost', 10, 0], ['txtOthercost', 10, 0], ['txtmount', 10, 3], ['txtPrice', 10, 3]];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -184,7 +185,7 @@
 						t_vccano='vccano='+t_vccano;
 					}
 					t_where = "  custno='" + $('#txtCustno').val() + "' and  (trdno='" + $('#txtNoa').val() + "' or len(isnull(trdno,''))=0) ";
-					q_box("vcca_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_vccano + ";", 'vcca', "95%", "650px", q_getMsg('popVcca'));
+					q_box("vcca_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_vccano + ";", 'vcca1', "95%", "650px", q_getMsg('popVcca'));
 				});
 				
 				$('#txtMemo').change(function() {
@@ -212,7 +213,7 @@
 							q_gt('custchg', "where=^^"+t_where+"^^", 0, 0, 0, "");
 						}
 						break;
-					case 'vcca':
+					case 'vcca1':
 						if (b_ret != null) {
 							var t_where='1!=1';
 							curData.isLoadVccano = true;
@@ -244,17 +245,17 @@
 						$('#txtMinusmoney').val(t_minusmoney);
 						sum();
 						break;
-					case 'vcca':
+					case 'vcca1':
 						var as = _q_appendData("vcca", "", true);
 						var t_money=0,t_tax=0,t_total=0;
 						for ( i = 0; i < as.length; i++) {
 							t_money+=parseFloat(as[i].money);
 							t_tax+=parseFloat(as[i].tax);
-							t_tax+=parseFloat(as[i].tatol);
+							t_total+=parseFloat(as[i].total);
 						}
 						$('#txtVccamoney').val(t_money);
 						$('#txtVccatax').val(t_tax);
-						$('#txtVccatax').val(t_tatol);
+						$('#txtVccatax').val(t_total);
 						break;
 					case 'trans':
 						var as = _q_appendData("trans", "", true);
@@ -646,6 +647,19 @@
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
+					<tr class="tr0" style="height:1px;">
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"></td>
+					</tr>	
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class="td2" colspan="2">
@@ -728,7 +742,7 @@
 						<td><input id="txtVccatax" type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblVccatotal" class="lbl"> </a></td>
 						<td><input id="txtVccatotal" type="text" class="txt c1 num"/></td>
-						<td colspan="2"> </td>
+						<td colspan="3"> </td>
 						<td>
 							<input id="txtVccano" type="text" class="txt c1" style="display:none;"/>
 							<input type="button" id="btnVcca" class="txt c1"/>
