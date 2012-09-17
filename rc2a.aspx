@@ -394,8 +394,8 @@
             </tr>
              <tr>
                 <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
-                <td align="center" id='noa'>~noa</td>
-                <td align="center" id='datea'>~datea</td>
+                <td align="center" id='noa'>~noa<input id="txtnick"  type="hidden"/></td>
+                <td align="center" id='datea'>~datea</td> 
             </tr>
         </table>
         </div>
@@ -409,7 +409,8 @@
         <tr class="tr2">
                <td class="td1"><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
                <td class="td2"><input id="txtTggno"  type="text" class="txt c1" /></td>               
-               <td class="td3" colspan="4"><input id="txtComp"  type="text" style="width: 98%;" /></td>
+               <td class="td3" colspan="4"><input id="txtComp"  type="text" style="width: 98%;" /><input id="txtnick"  type="hidden"/></td>
+                
         </tr>
         <tr class="tr3">
             <td class="td1"><span> </span><a id='lblSeria' class="lbl"> </a></td>
