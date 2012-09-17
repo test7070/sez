@@ -686,7 +686,7 @@
                 <td><input class="txt num c1" id="txtTotal.*" type="text" />
                        <input class="txt num c1" id="txtTheory.*" type="text" /></td>
                 <td><input class="txt c1" id="txtMemo.*" type="text" />
-                <input class="txt c3" id="txtOrdbno.*" type="text" />
+                <input class="txt c3" id="txtOrdeno.*" type="text" />
                 <input class="txt c2" id="txtNo3.*" type="text" />
                 <input id="recno.*" type="hidden" /></td>
             </tr>
