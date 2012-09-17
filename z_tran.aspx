@@ -94,7 +94,7 @@
 				}
 				if (t_data.isLoad()) {
 					$('#q_report').q_report({
-						fileName : 'z_trana',
+						fileName : 'z_tran',
 						options : [{
 							type : '0',
 							name : 'accy',
@@ -146,66 +146,6 @@
 							name : 'xoption3',
 							value : q_getMsg('toption3').split('&')
 						}, {
-							type : '5',
-							name : 'xsort1',
-							value : q_getMsg('tsort1').split('&').concat(t_data.data['calctype'].split(','))
-						}, {
-							type : '5',
-							name : 'xsort2',
-							value : {}
-						}, {
-							type : '5',
-							name : 'xsort3',
-							value : {}
-						}, {
-							type : '5',
-							name : 'xsort4',
-							value : {}
-						}, {
-							type : '5',
-							name : 'xsort5',
-							value : {}
-						}, {
-							type : '5',
-							name : 'xsort6',
-							value : {}
-						}, {
-							type : '5',
-							name : 'xsort7',
-							value : {}
-						}, {
-							type : '5',
-							name : 'xsort8',
-							value : {}
-						}, {
-							type : '5',
-							name : 'xsort9',
-							value : {}
-						}, {
-							type : '5',
-							name : 'xsort10',
-							value : {}
-						}, {
-							type : '5',
-							name : 'xsort11',
-							value : {}
-						}, {
-							type : '5',
-							name : 'xsort12',
-							value : {}
-						}, {
-							type : '5',
-							name : 'xsort13',
-							value : {}
-						}, {
-							type : '5',
-							name : 'xsort14',
-							value : {}
-						}, {
-							type : '5',
-							name : 'xsort15',
-							value : {}
-						}, {
 							type : '8',
 							name : 'xcarteam',
 							value : t_data.data['carteam'].split(',')
@@ -217,15 +157,7 @@
 							type : '8',
 							name : 'xcalctypes',
 							value : t_data.data['calctypes'].split(',')
-						}, {
-							type : '8',
-							name : 'xfield1',
-							value : q_getMsg('tfield1').split('&')
-						}, {
-							type : '8',
-							name : 'xfield3',
-							value : q_getMsg('tfield3').split('&')
-						}, {
+						},{
 							type : '6',
 							name : 'zproduct'
 						}, {
