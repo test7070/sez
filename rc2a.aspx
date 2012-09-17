@@ -52,7 +52,7 @@
 
         function mainPost() { 
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd]];
+            bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
             q_mask(bbmMask);
             fbbm[fbbm.length] = 'txtMemo'; 
              q_cmbParse("cmbTypea", q_getPara('vcc.typea')); 
