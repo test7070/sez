@@ -49,7 +49,7 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbStype", q_getPara('vcc.stype')); 
+                q_cmbParse("cmbStype", q_getPara('orde.stype')); 
                 q_cmbParse("cmbCoin", q_getPara('sys.coin'));     
                 q_cmbParse("cmbPaytype", q_getPara('vcc.pay'));  
                 q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));

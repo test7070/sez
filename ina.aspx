@@ -394,29 +394,32 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
+                <td align="center"><a id="lblUno_s" > </a></td>
                 <td align="center"><a id='lblProductno_s'> </a></td>
                 <td align="center"><a id='lblProduct_s'> </a></td>
                 <td align="center"><a id='lblUnit_s'> </a></td>
+                <td align="center"><a id='lblRadius_s'> </a></td>
                 <td align="center"><a id='lblSize_s'> </a></td>
                 <td align="center"><a id='lblMount_s'> </a></td>
                 <td align="center"><a id='lblGweight_s'> </a></td>
                 <td align="center"><a id='lblNetweight_s'> </a></td>
-                <td align="center"><a id='lblRadius_s'> </a></td>
                 <td align="center"><a id='lblMemo_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td style="width:10%;"><input  id="txtProductno.*" type="text" style="width:80%;" /><input class="btn"  id="btnProductno.*" type="button" value='...' style="width:16%;"  /></td>
-                <td style="width:15%;"><input class="txt c1" id="txtProduct.*" type="text" /> </td>
+                <td style="width:7%;"><input  id="txtUno.*" type="text" class="txt c1"/></td>
+                <td style="width:7%;"><input  id="txtProductno.*" type="text" style="width:80%;" /><input class="btn"  id="btnProductno.*" type="button" value='...' style="width:16%;"  /></td>
+                <td style="width:13%;"><input class="txt c1" id="txtProduct.*" type="text" /> </td>
                 <td style="width:4%;"><input class="txt c1" id="txtUnit.*" type="text"/></td>
-                <td style="width:18%;"><input class="txt num c7" id="txtDime.*" type="text" /> x
+                <td style="width:7%;"><input class="txt num c1" id="txtSradius.*" type="text" />
+                					  <input class="txt num c1" id="txtLradius.*" type="text" /></td>
+                <td style="width:15%;"><input class="txt num c7" id="txtDime.*" type="text" /> x
                                     <input class="txt num c7" id="txtWidth.*" type="text" /> x
                                     <input class="txt num c7" id="txtLengthb.*" type="text" /> 
                                     <input class="txt c1" id="txtSpec.*" type="text"/> </td>
                 <td style="width:7%;"><input class="txt num c1" id="txtMount.*" type="text"  /></td>
                 <td style="width:7%;"><input class="txt num c1" id="txtGweight.*" type="text"/></td>
                 <td style="width:7%;"><input class="txt num c1" id="txtMweight.*" type="text" /></td>
-                <td style="width:7%;"><input class="txt num c1" id="txtRadius.*" type="text" /></td>
                 <td style="width:12%;"><input class="txt c1" id="txtMemo.*" type="text" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
             </tr>
