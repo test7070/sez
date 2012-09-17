@@ -16,7 +16,7 @@
         }
         q_tables = 's';
         var q_name = "vcca";
-        var q_readonly = ['txtMoney','txtTotal','txtNoa'];
+        var q_readonly = ['txtMoney','txtTotal'];
         var q_readonlys = [];
         var bbmNum = [['txtMoney', 15, 0], ['txtTax', 15, 0], ['txtTotal', 15, 0]];  // 允許 key 小數
         var bbsNum = [['txtMount', 15, 3], ['txtGmount', 15, 4], ['txtEmount', 15, 4], ['txtPrice', 15, 3], ['txtTotal', 15, 0]];
@@ -52,7 +52,10 @@
             q_mask(bbmMask);
              // 需在 main_form() 後執行，才會載入 系統參數
              q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-             
+
+             $('#ttxtTax').change(function () {
+	              sum();
+	         });
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -121,7 +124,7 @@
 			else{
 	            $('#txtWorker').val(r_name)
 	            sum();
-	            q_readonly = ['txtMoney','txtTotal','txtNoa'];//讓發票號碼不可修改
+	            $('#txtNoa').attr('readonly', true);
 	            wrServer(s1);
            }
         }
@@ -158,9 +161,6 @@
 		                });
 		                
         			$('#txtTotal_'+j).change(function () {
-	            		 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-	                    q_bodyId($(this).attr('id'));
-	                    b_seq = t_IdSeq;
 	                	sum();
 	                });
         	}
@@ -169,8 +169,6 @@
         }
 
         function btnIns() {
-        	q_readonly = ['txtMoney','txtTotal'];	//讓發票號碼可以新增
-        	
             _btnIns();
             
             //$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
@@ -184,12 +182,11 @@
             $('#txtDatea').focus();
         }
         function btnModi() {
-        	q_readonly = ['txtMoney','txtTotal','txtNoa'];//讓發票號碼不可修改
-        	
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
             $('#txtProduct').focus();
+            $('#txtNoa').attr('readonly', true); //讓發票號碼不可修改
         }
         function btnPrint() {
 
@@ -226,15 +223,14 @@
 
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0;
-             var t_tax=0,t_money=0;
+             var t_money=0;
             for (var j = 0; j < q_bbsCount; j++) {
-				t_tax+=dec($('#txtTax_'+j).val());//營業稅合計
 				t_money+=dec($('#txtTotal_'+j).val());//產品金額合計
 				
             }  // j
-			$('#txtTax').val(t_tax);
             $('#txtMoney').val(t_money);
-            $('#txtTotal').val(t_money+t_tax);
+            //$('#txtTotal').val(t_money+t_tax);
+            calTax();
         }
         function refresh(recno) {
             _refresh(recno);
@@ -369,7 +365,7 @@
                 float: left;
             }
             .txt.c3 {
-                width: 60%;
+                width: 61%;
                 float: left;
             }
             .txt.num {
@@ -405,9 +401,9 @@
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
-      
-       
-      
+            select{
+      			font-size: medium;
+      		}
     </style>
     </head>
 <body>
@@ -447,7 +443,7 @@
             <td class="td1"><span> </span><a id='lblSeria' class="lbl"></a></td>
             <td class="td2"><input id="txtSeria" type="text" class="txt c1"/></td>
             <td class="td3"><span> </span><a id='lblAddress' class="lbl"></a></td>
-            <td class="td4" colspan="3"><input id="txtAddress"  type="text" class="txt c1"/></td>                                
+            <td class="td4" colspan="3"><input id="txtAddress"  type="text" style="width: 99%;float: left;"/></td>                                
         </tr>
         <tr class="tr4">
         	<td class="td1"><span> </span><a id='lblMon' class="lbl"></a></td>
@@ -470,10 +466,6 @@
             <td class="td6"><input id="txtWorker"  type="text"  class="txt c1"/></td> 
         </tr>
         <tr class="tr7">
-            <td class="td1"><span> </span><a id="lblMemo" class="lbl" ></a></td>
-            <td class="td2" colspan='5'><textarea id="txtMemo" rows="5" cols="10" style="width: 98%;height: 30px;"></textarea></td>
-        </tr>
-         <tr class="tr8">
             <td class="td1"><span> </span><a id='lblAccno' class="lbl"></a></td>
             <td class="td2"><input id="txtAccno"  type="text" class="txt c1"/></td>
             <td class="td3"><span> </span><a id='lblBuyer' class="lbl btn"></a></td>
@@ -482,13 +474,17 @@
             	<input id="txtBuyer" type="text"  class="txt c3"/>
             </td>
         </tr>
+        <tr class="tr8">
+            <td class="td1"><span> </span><a id="lblMemo" class="lbl" ></a></td>
+            <td class="td2" colspan='5'><textarea id="txtMemo" rows="3" cols="10" style="width: 99%;"></textarea></td>
+        </tr>
         </table>
         </div>
 </div>
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
-                <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
+                <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width: 15%;"><a id='lblProductno'></a></td>
                 <td align="center" style="width: 20%;"><a id='lblProduct'></a></td>
                 <td align="center" style="width: 5%;"><a id='lblUnit'></a></td>
@@ -498,7 +494,7 @@
                 <td align="center" ><a id='lblMemos'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
+                <td ><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input style="width: 80%;" id="txtProductno.*" type="text" /><input id="btnProductno.*" type="button" value=".." style="width: 15%;" /></td>
                 <td ><input class="txt c1" id="txtProduct.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtUnit.*" type="text" /></td>
