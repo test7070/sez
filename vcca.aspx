@@ -98,7 +98,7 @@
         	}
 
         function btnOk() {
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // 檢查空白 
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtCno', q_getMsg('lblAcomp')]]);  // 檢查空白 
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
@@ -108,12 +108,14 @@
 	        {
 	              q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
 	         }*/
-
+			
+			
 			if(ins==true)
 			{
 				//判斷發票號碼是否存在或超過
-				var t_where = "where=^^ cno = '"+ $('#txtCno').val()+"' and bdate<='"+$('#txtDatea').val()+"' and edate>='"+$('#txtDatea').val()
-										+"' and binvono<='"+$('#txtNoa').val()+"' and einvono>='"+$('#txtNoa').val()+"' and '"+$('#txtNoa').val()+"' not in (select noa from vcca ) ^^"; 
+				var t_where = "where=^^ cno = '"+ $('#txtCno').val()+"' and bdate<='"+$('#txtDatea').val()+"' and edate>='"+$('#txtDatea').val()		//判斷發票的日期
+										+"' and binvono<='"+$('#txtNoa').val()+"' and einvono>='"+$('#txtNoa').val()			//判斷發票的範圍
+										+"' and '"+$('#txtNoa').val()+"' not in (select noa from vcca ) and len(binvono)=len('"+$('#txtNoa').val()+"') ^^"; 	//判斷是否已存在與長度是否正確
 	            q_gt('vccar', t_where , 0, 0, 0, "", r_accy);
 			}
 			else{
@@ -161,14 +163,6 @@
 	                    b_seq = t_IdSeq;
 	                	sum();
 	                });
-	                
-	                $('#txtTax_'+j).change(function () {
-	                	 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-	                    q_bodyId($(this).attr('id'));
-	                    b_seq = t_IdSeq;              	
-	                	sum();
-	                });
-
         	}
         	
             _bbsAssign();

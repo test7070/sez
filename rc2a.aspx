@@ -106,6 +106,31 @@
         }
 
         function bbsAssign() {  
+        	for (var j = 0; j < q_bbsCount; j++) {
+        	//----------------數量和單價計算
+            	$('#txtMount_'+j).change(function () {
+		            t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		            q_bodyId($(this).attr('id'));
+		            b_seq = t_IdSeq;
+		            $('#txtMoney_'+b_seq).val(dec($('#txtMount_'+b_seq).val())*dec($('#txtPrice_'+b_seq).val()));
+		                	
+		            sum();
+				});
+		                
+	            $('#txtPrice_'+j).change(function () {
+					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					$('#txtMoney_'+b_seq).val(dec($('#txtMount_'+b_seq).val())*dec($('#txtPrice_'+b_seq).val()));
+		                	
+					sum();
+				});
+		    }
+        	
+        	
+        	
+        	
+        	
             _bbsAssign();
         }
 
