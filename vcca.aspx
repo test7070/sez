@@ -16,7 +16,7 @@
         }
         q_tables = 's';
         var q_name = "vcca";
-        var q_readonly = ['txtMoney','txtTotal'];
+        var q_readonly = ['txtMoney','txtTotal','txtNoa'];
         var q_readonlys = [];
         var bbmNum = [['txtMoney', 15, 0], ['txtTax', 15, 0], ['txtTotal', 15, 0]];  // 允許 key 小數
         var bbsNum = [['txtMount', 15, 3], ['txtGmount', 15, 4], ['txtEmount', 15, 4], ['txtPrice', 15, 3], ['txtTotal', 15, 0]];
@@ -103,6 +103,12 @@
                 alert(t_err);
                 return;
             }
+            var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+	        /*if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
+	        {
+	              q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
+	         }*/
+
 			if(ins==true)
 			{
 				//判斷發票號碼是否存在或超過
@@ -113,16 +119,8 @@
 			else{
 	            $('#txtWorker').val(r_name)
 	            sum();
-	
-	            var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
-	            if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-	           {
-	                alert("請輸入發票號碼");
-	                return;
-	                //q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
-	           }
-	            else
-	                wrServer(s1);
+	            q_readonly = ['txtMoney','txtTotal','txtNoa'];//讓發票號碼不可修改
+	            wrServer(s1);
            }
         }
 
@@ -177,7 +175,10 @@
         }
 
         function btnIns() {
+        	q_readonly = ['txtMoney','txtTotal'];	//讓發票號碼可以新增
+        	
             _btnIns();
+            
             //$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             //取上個發票號碼並將後兩個數字拿掉
             //後面再寫判斷時間之間差12天
@@ -189,6 +190,8 @@
             $('#txtDatea').focus();
         }
         function btnModi() {
+        	q_readonly = ['txtMoney','txtTotal','txtNoa'];//讓發票號碼不可修改
+        	
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
