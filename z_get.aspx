@@ -29,9 +29,19 @@
 							type : '0',
 							name : 'accy',
 							value : r_accy
-						},{
+					},{
                         type : '1',
                         name : 'noa'
+                    },{
+                        type : '5',
+                        name : 'itype',
+                        value : [q_getPara('report.all')].concat(q_getPara('get.typea').split(','))
+                    },{
+						type : '1',
+						name : 'date'
+					},{
+                        type : '1',
+                        name : 'dime'
                     }]
                     });
                 q_popAssign();
