@@ -33,7 +33,7 @@
             aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtNick', 'tgg_b.aspx'],
              ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
              ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2',  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], 
-             ['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,unit', 'txtProductno_,txtProduct_,txtUnit_', 'fixucc_b.aspx']);
+             ['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,unit,inprice', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'fixucc_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -173,7 +173,11 @@
                 q_nowf();
                 return true;
             }
-
+			function q_popPost(t_id) {
+		    	if((q_cur==1  ||  q_cur==2) && t_id.substring(0,13).toUpperCase()=='TXTPRODUCTNO_'){
+		    		sum();
+		    	}
+            }
             function sum() {
                 var t_mount, t_price, t_money = 0,t_tax,t_discount;
 		        for (var j = 0; j < q_bbsCount; j++) {

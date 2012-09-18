@@ -18,11 +18,11 @@
 
             q_tables = 's';
             var q_name = "carborr";
-            var q_readonly = [];
+            var q_readonly = ['txtNoa','txtWorker','txtMoney2','txtTotal'];
             var q_readonlys = [];
-            var bbmNum = [];
+            var bbmNum = [['txtMoney',10,0],['txtComppay',10,0],['txtMount',10,0]];
             var bbsNum = [];
-            var bbmMask = [];
+            var bbmMask = [['txtMon','999/99']];
             var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -38,6 +38,11 @@
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
             });
+            
+            t_curMoney = 0;
+            t_curMon='';
+            t_curDriverno='';
+            
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -57,11 +62,20 @@
 				}
 				q_cmbParse("cmbTypea", t_string);
 				
-                /*q_cmbParse("cmbTrtype", q_getPara('trd.trtype'));
-                 q_cmbParse("cmbTypea", q_getPara('sys.yn'));
-                 q_cmbParse("cmbTovcca", q_getPara('sys.yn'));
-                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));*/
-
+                $('#txtDatea').change(function() {
+                    money2();
+                });
+                $('#txtComppay').change(function() {
+                    sum();
+                });
+				$('#txtMoney').change(function() {
+                    sum();
+                });
+				$('#btnAction').click(function(){
+					
+					
+					
+				});
             }
 
             function q_boxClose(s2) {
@@ -96,6 +110,10 @@
                     q_gtnoa(q_name, replaceAll(q_getPara('sys.key_carborr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
+                    
+                t_curMoney=0;
+                t_curMon='';
+                t_curDriverno='';
             }
 
             function _btnSeek() {
@@ -110,12 +128,46 @@
                     $('#lblNo_' + ix).text(ix + 1);
                 }
             }
-
+            
+            function sum(){
+            	var t_total=0;
+            	
+            	$('#txtTotal').val(q_float('txtComppay')+q_float('txtMoney'));
+            }
+			function money2(){
+            	if($('#txtDatea').val().length>0 && $('#txtDriverno').val().length>0 )
+                	q_func('carsal2.import',r_accy+','+$('#txtDatea').val().substring(0,6)+','+$('#txtDriverno').val()+','+$('#txtDriverno').val());
+            }
+            function q_funcPost(t_func, result) {/// 執行 q_exec() 呼叫 server 端 function 後， client 端所要執行的程式
+                if (result.substr(0, 5) == '<Data') {/// 如果傳回  table[]
+                    var as = _q_appendData('carsal2', '', true);
+                    if(as.length>0){
+                    	if(t_curMon==$('#txtDatea').val().substring(0,6)  &&  t_curDriverno==$('#txtDriverno').val())
+                    		$('#txtMoney2').val(parseFloat(as[0].total)+t_curMoney);
+                    	else
+                    		$('#txtMoney2').val(parseFloat(as[0].total));
+                    }
+                    else
+                    	$('#txtMoney2').val('');              
+                } else
+                    alert(t_func + '\r' + result);
+            }
+            function q_popPost(id) {
+				switch(id) {
+					case 'txtDriverno':
+						money2();
+						break;
+				}
+			}
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
+                t_curMoney = q_float('txtMoney');
+                t_curMon=$('#txtDatea').val().substring(0,6);
+                t_curDriverno=$('#txtDriverno').val();
+                money2();
             }
 
             function btnModi() {
@@ -123,6 +175,10 @@
                     return;
                 _btnModi();
                 $('#txtDatea').focus();
+                t_curMoney = q_float('txtMoney');
+                t_curMon=$('#txtDatea').val().substring(0,6);
+                t_curDriverno=$('#txtDriverno').val();
+                money2();
             }
 
             function btnPrint() {
@@ -147,7 +203,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
-
+				money2();
             }
 
             function readonly(t_para, empty) {
@@ -210,6 +266,9 @@
 
             function btnCancel() {
                 _btnCancel();
+                t_curMoney=0;
+                t_curMon='';
+                t_curDriverno='';
             }
 		</script>
 		<style type="text/css">
@@ -411,11 +470,9 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
-						<td colspan="3">
-						<input id="txtBmon" type="text"  class="txt" style="width: 40%;"/>
-						<span style="display:block; float:left; width:20px;">~</span>
-						<input id="txtEmon" type="text"  class="txt" style="width: 40%;"/>
-						</td>
+						<td><input id="txtMon" type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
+						<td><input id="txtMount" type="text"  class="txt c1 num"/></td>
 						<td>
 						<input id="btnAction" type="button"  class="txt c1"/>
 						</td>

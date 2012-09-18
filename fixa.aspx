@@ -30,12 +30,14 @@
 		    brwNowPage = 0;
 		    brwKey = 'Datea';
 		    //ajaxPath = "";
-		    aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
+		    aPop = new Array(
+		    	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
+		    	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
 		    	['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtNick', 'tgg_b.aspx'], 
 		    	['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
 		    	['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2',  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
 		    	['txtCarplateno', 'lblCarplateno', 'carplate', 'noa,carplate', 'txtCarplateno', 'carplate_b.aspx'], 
-		    	['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,unit', 'txtProductno_,txtProduct_,txtUnit_', 'fixucc_b.aspx']);
+		    	['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,unit,inprice', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'fixucc_b.aspx']);
 		    q_desc = 1;
 		    $(document).ready(function () {
 		        bbmKey = ['noa'];
@@ -181,17 +183,22 @@
 		        as['date'] = abbm2['date'];
 		        return true;
 		    }
+		    function q_popPost(t_id) {
+		    	if((q_cur==1  ||  q_cur==2) && t_id.substring(0,13).toUpperCase()=='TXTPRODUCTNO_'){
+		    		sum();
+		    	}
+            }
 
 		    function sum() {
 		        var t_mount, t_price, t_money = 0, t_wmoney = 0, t_cmoney = 0, t_tax,t_discount;
 		        for (var j = 0; j < q_bbsCount; j++) {
 		            if ($.trim($('#txtMemo_' + j).val()).substring(0, 1) != '.') {
-		                t_mount = parseFloat($.trim($('#txtMount_' + j).val()).length == 0 ? '0' : $('#txtMount_' + j).val());
-		                t_price = parseFloat($.trim($('#txtPrice_' + j).val()).length == 0 ? '0' : $('#txtPrice_' + j).val());
-		                t_money = Math.round(t_mount * t_price, 0);
+						t_mount = q_float('txtMount_' + j);
+						t_price = q_float('txtPrice_' + j);
+						t_money = Math.round(t_mount * t_price, 0);
 		                $('#txtMoney_' + j).val(t_money);
 		            } else {
-		                t_money = parseFloat($.trim($('#txtMoney_' + j).val()).length == 0 ? '0' : $('#txtMoney_' + j).val());
+		                t_money = q_float('txtMoney_' + j);
 		            }
 		            t_wmoney = t_wmoney + ($('#cmbWtype_' + j).val() == 'A' ? t_money : 0);
 		            t_cmoney = t_cmoney + ($('#cmbWtype_' + j).val() == 'B' ? t_money : 0);
