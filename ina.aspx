@@ -56,10 +56,34 @@
                 bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbItype", q_getPara('ina.typea'));
-                q_cmbParse("cmbTypea", q_getPara('get.kind'));
+                q_cmbParse("cmbTypea", q_getPara('uccc.itype'));
+                q_cmbParse("cmbKind", q_getPara('get.kind'));
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
+                
+                //變動尺寸欄位
+            $('#cmbKind').change(function () {
+            	size_change();
+		     });
             }
-
+		function size_change () {
+		  if( $('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+            	{
+            		$('#lblSize_help').text("寬度x厚度x長度");
+	            	for (var j = 0; j < q_bbsCount; j++) {
+			           $('#txtRadius_'+j).attr('hidden', 'true');
+			           $('#x1_'+j).attr('hidden', 'true');
+			         }
+			     }
+		         else
+		         {
+		         	$('#lblSize_help').text("短徑x長徑x厚度x長度");
+			         for (var j = 0; j < q_bbsCount; j++) {
+			         	$('#txtRadius_'+j).removeAttr('hidden');
+			         	$('#x1_'+j).removeAttr('hidden');
+			         }
+			     }
+		}
+		
             function q_boxClose(s2) {///   q_boxClose 2/4
                 var
                 ret;
@@ -370,13 +394,15 @@
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr class="tr1">
         	<td class='td1'><span> </span><a id="lblItype" class="lbl"> </a></td>
-            <td class="td2"><select id="cmb" class="txt c1"> </select></td>
+            <td class="td2"><select id="cmbItype" class="txt c1"> </select></td>
+        	<td class='td1'><span> </span><a id="lblType" class="lbl"> </a></td>
+            <td class="td2"><select id="cmbTypea" class="txt c1"> </select></td>
         	<td class='td3'><span> </span><a id="lblDatea" class="lbl"> </a></td>
             <td class="td4"><input id="txtDatea" type="text" class="txt c3"/></td>
         </tr>
         <tr class="tr2">
-            <td class='td1'><span> </span><a id="lblType" class="lbl"> </a></td>
-            <td class="td2"><select id="cmbTypea" class="txt c1"> </select></td>
+            <td class='td1'><span> </span><a id="lblKind" class="lbl"> </a></td>
+            <td class="td2"><select id="cmbKind" class="txt c1"> </select></td>
             <td class='td3'><span> </span><a id="lblNoa" class="lbl" > </a></td>
             <td class="td4"><input id="txtNoa" type="text" class="txt c1"/></td>
         	<td class='td5'><span> </span><a id="lblOrdeno" class="lbl" > </a></td>
@@ -434,14 +460,12 @@
                 <td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
                 <td align="center" style="width:2%;"><a id='lblStyle_s'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblClass_s'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblHard_s'> </a></td>
-                <td align="center" style="width:16%;"><a id='lblSize_s'> </a></td>
+                <td align="center"><a id='lblSize_s'> </a><BR><a id='lblSize_help'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblMount_s'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblGweight_s'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblNetweight_s'> </a></td>
+                <td align="center" style="width:6%;"><a id='lblEweight_s'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblPrice_s'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblPlace_s'> </a></td>
-                <td align="center" style="width:5%;"><a id='lblWaste_s'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblSource_s'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblMemo_s'> </a></td>
             </tr>
@@ -454,18 +478,17 @@
                 <td ><input class="txt c1" id="txtUnit.*" type="text"/></td>
                 <td ><input id="txtStyle.*" type="text" class="txt c1" /></td>
                 <td ><input id="txtClass.*" type="text" class="txt c1" /></td>
-                <td ><input id="txtHard.*" type="text" class="txt c1" /></td>
-                <td ><input class="txt num c7" id="txtRadius.*" type="text" /> x
-                	 <input class="txt num c7" id="txtWidth.*" type="text" /> x
-                	 <input class="txt num c7" id="txtDime.*" type="text" /> x               
-                     <input class="txt num c7" id="txtLengthb.*" type="text" /> 
-                     <input class="txt c1" id="txtSpec.*" type="text"/> </td>
+                <td><input class="txt num c7" id="txtRadius.*" type="text"/><div id="x1.*" style="float: left"> x</div>
+                					<input class="txt num c7" id="txtWidth.*" type="text"/><div id="x2" style="float: left"> x</div>
+                                    <input class="txt num c7" id="txtDime.*" type="text"/><div id="x3" style="float: left"> x</div>
+                                    <input class="txt num c7" id="txtLengthb.*" type="text"/>
+                <BR><input class="txt c1" id="txtSpec.*" type="text"/>
+                </td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text"  /></td>
                 <td ><input class="txt num c1" id="txtGweight.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtMweight.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtPrice.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtPlace.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtWaste.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtSource.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
