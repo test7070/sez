@@ -45,41 +45,17 @@
                 mainForm(0);
             }
 
-            function q_funcPost(t_func, result) {
-                if (result.substr(0, 5) == '<Data') {
-                   /*var tmp = _q_appendData('carteam', '', true);
-                    var value = '';
-                    for (var z = 0; z < tmp.length; z++) {
-                        value = value + (value.length > 0 ? ',' : '') + tmp[z].noa + '@' + tmp[z].team;
-                    }
-                    q_cmbParse("cmbCarteamno", value);*/
-                    tmp = _q_appendData('carbrand', '', true);
-                    value = '';
-                    for (var z = 0; z < tmp.length; z++) {
-                        value = value + (value.length > 0 ? ',' : '') + $.trim(tmp[z].noa) + '@' + $.trim(tmp[z].brand);
-                    }
-                    if(len(value)>0)
-                    	q_cmbParse("cmbCarbrandno", value);
-                    tmp = _q_appendData('carkind', '', true);
-                    value = ' @ ';
-                    for (var z = 0; z < tmp.length; z++) {
-                        value = value + (value.length > 0 ? ',' : '') + $.trim(tmp[z].noa) + '@' + $.trim(tmp[z].kind);
-                    }
-                    if(len(value)>0)
-                   		q_cmbParse("cmbCarkindno", value);
-                    refresh(q_recno);
-                } else
-                    alert('Error!' + '\r' + t_func + '\r' + result);
-            }
-
+    
             function mainPost() {
                 q_mask(bbmMask);
-                q_func('car2.getItem', '3,4,5');
                 q_cmbParse("cmbSex", q_getPara('sys.sex'));
                 q_cmbParse("cmbChecktype", q_getPara('car2.checktype'));
                 q_cmbParse("cmbCartype", q_getPara('car2.cartype'));
                 q_cmbParse("cmbIsprint", q_getPara('car2.isprint'));
                 q_cmbParse("cmbAuto", q_getPara('car2.auto'));
+                
+                q_gt('carbrand', '', 0, 0, 0, "");
+                q_gt('carkind', '', 0, 0, 0, "");
 
                 fbbm[fbbm.length] = 'cmbAuto';
                 fbbm[fbbm.length] = 'txtIrange';
@@ -144,28 +120,6 @@
                     q_box("cartax.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'cartax', "800px", "600px", q_getMsg("popCartax"));
                 });
             }
-
-            function txtCopy(dest, source) {
-                var adest = dest.split(',');
-                var asource = source.split(',');
-                $('#' + adest[0]).focus(function() {
-                    if (trim($(this).val()).length == 0)
-                        $(this).val(q_getMsg('msgCopy'));
-                });
-                $('#' + adest[0]).focusout(function() {
-                    var t_copy = ($(this).val().substr(0, 1) == '=');
-                    var t_clear = ($(this).val().substr(0, 2) == ' =');
-                    for (var i = 0; i < adest.length; i++) { {
-                            if (t_copy)
-                                $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                            if (t_clear)
-                                $('#' + adest[i]).val('');
-                        }
-                    }
-                });
-            }
-
             function q_boxClose(s2) {
 
                 var ret;
@@ -184,17 +138,35 @@
             }
 
             function q_gtPost(t_name) {
-                switch (t_name) {
-                    case q_name:
-                        if (q_cur == 4)
-                            q_Seek_gtPost();
+				switch (t_name) {
+					case 'carbrand':
+						var as = _q_appendData("carbrand", "", true);
+						var t_item = " @ ";
+						for ( i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].brand;
+						}
+						q_cmbParse("cmbCarbrandno", t_item);
+						$("#cmbCarbrandno").val(abbm[q_recno].carbrandno);
+						break;
+					case 'carkind':
+						var as = _q_appendData("carkind", "", true);
+						var t_item = " @ ";
+						for ( i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].kind;
+						}
+						q_cmbParse("cmbCarkindno", t_item);
+						$("#cmbCarkindno").val(abbm[q_recno].carkindno);
+						break;
+					case q_name:
+						if (q_cur == 4)
+							q_Seek_gtPost();
 
-                        if (q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
+						if (q_cur == 1 || q_cur == 2)
+							q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 
-                        break;
-                }  /// end switch
-            }
+						break;
+				}
+			}
 
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
