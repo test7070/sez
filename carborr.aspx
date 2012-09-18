@@ -21,9 +21,9 @@
             var q_readonly = ['txtNoa','txtWorker','txtMoney2','txtTotal'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney',10,0],['txtComppay',10,0],['txtMount',10,0]];
-            var bbsNum = [];
+            var bbsNum = [['txtMoney',10,0]];
             var bbmMask = [['txtMon','999/99']];
-            var bbsMask = [];
+            var bbsMask = [['txtMon','999/99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -72,9 +72,32 @@
                     sum();
                 });
 				$('#btnAction').click(function(){
+					var t_y,t_m,t_money,t_mon=$.trim($('#txtMon').val());
+					if(t_mon.length==0)
+						return;
+					var n = q_int('txtMount');
+					if(n==0){
+						$('#txtMount').val('1');
+						n=1;
+					}
+					var as  =  new  Array();
+					t_money  =  Math.floor(q_int('txtMoney')/n);
+					as.push({mon:t_mon,money:t_money});
+					t_y=parseFloat(t_mon.substring(0,3));
+					t_m= parseFloat(t_mon.substring(4));
+					for(var  i=0;i<n-1;i++){
+						t_m+=1;
+						if(t_m>12){
+							t_m=1;
+							t_y+=1;	
+						}
+						if(i==n-2){
+							t_money  =  q_int('txtMoney')-t_money*(n-1);
+						}
+						as.push({mon:(t_y+'/'+(t_m<10?'0':'')+t_m),money:t_money});
+					}
 					
-					
-					
+					q_gridAddRow(bbsHtm, 'tbbs', 'txtMon,txtMoney', as.length, as, 'mon,money', '', '');
 				});
             }
 
@@ -98,6 +121,15 @@
             }
 
             function btnOk() {
+            	var  t_money  =  0;
+            	for (var i = 0; i< q_bbsCount; i++) {
+                   	t_money  +=  q_float('txtMoney_'+i);
+                }
+                if(q_float('txtMoney')!=t_money){
+                	alert('分期金額異常');
+                	return;
+                }
+            	
                 $('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
@@ -277,7 +309,7 @@
             }
             .dview {
                 float: left;
-                width: 23%;
+                width: 30%;
             }
             .tview {
                 margin: 0;
@@ -295,7 +327,7 @@
             }
             .dbbm {
                 float: left;
-                width: 75%;
+                width: 65%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -401,6 +433,7 @@
 						<td align="center" style="width:15%"><a id='vewDatea'></a></td>
 						<td align="center" style="width:20%"><a id='vewCarno'></a></td>
 						<td align="center" style="width:20%"><a id='vewDriver'></a></td>
+						<td align="center" style="width:20%"><a id='vewTypea'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -409,6 +442,7 @@
 						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='carno' style="text-align: center;">~carno</td>
 						<td id='driver' style="text-align: center;">~driver</td>
+						<td id='typea' style="text-align: center;">~typea</td>
 					</tr>
 				</table>
 			</div>
@@ -507,7 +541,6 @@
 					<td align="center" style="width:20px;"></td>
 					<td align="center" style="width:120px;"><a id='lblMon_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblMoney_s'> </a></td>
-
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -519,7 +552,7 @@
 					<input type="text" id="txtMon.*" style="width:95%;" />
 					</td>
 					<td>
-					<input type="text" id="txtMoney.*" style="width:95%;" />
+					<input type="text" id="txtMoney.*" style="width:95%; text-align: right;" />
 					</td>
 				</tr>
 			</table>
