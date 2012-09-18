@@ -340,7 +340,8 @@
                 float: left;
             }
             .txt.c7 {
-                width: 19%;
+            	float:left;
+                width: 22%;
                 
             }
             .txt.num {
@@ -478,9 +479,9 @@
                 <td ><input class="txt c1" id="txtUnit.*" type="text"/></td>
                 <td ><input id="txtStyle.*" type="text" class="txt c1" /></td>
                 <td ><input id="txtClass.*" type="text" class="txt c1" /></td>
-                <td><input class="txt num c7" id="txtRadius.*" type="text"/><div id="x1.*" style="float: left"> x</div>
-                					<input class="txt num c7" id="txtWidth.*" type="text"/><div id="x2" style="float: left"> x</div>
-                                    <input class="txt num c7" id="txtDime.*" type="text"/><div id="x3" style="float: left"> x</div>
+                <td><input class="txt num c7" id="txtRadius.*" type="text"/><div id="x1.*" style="float: left">x</div>
+                					<input class="txt num c7" id="txtWidth.*" type="text"/><div id="x2" style="float: left">x</div>
+                                    <input class="txt num c7" id="txtDime.*" type="text"/><div id="x3" style="float: left">x</div>
                                     <input class="txt num c7" id="txtLengthb.*" type="text"/>
                 <BR><input class="txt c1" id="txtSpec.*" type="text"/>
                 </td>
