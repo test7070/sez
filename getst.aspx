@@ -27,6 +27,7 @@
         //ajaxPath = ""; // 只在根目錄執行，才需設定
         aPop = new Array(['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
         ['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
+        ['txtUno_', 'btnUno_', 'uccc', 'noa', 'txtUno_', 'uccc_b.aspx'],
         ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
         ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
         ['txtCardeal', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
@@ -73,6 +74,10 @@
 	            	for (var j = 0; j < q_bbsCount; j++) {
 			           $('#txtSize4_'+j).attr('hidden', 'true');
 			           $('#x3_'+j).attr('hidden', 'true');
+			           $('#txtSize1_'+j).css('width','30%');
+			         	$('#txtSize2_'+j).css('width','30%');
+			         	$('#txtSize3_'+j).css('width','30%');
+			         	$('#Memo').css('width','20%');
 			           $('#txtSize1_'+j).val($('#txtDime_'+j).val());
 			         	$('#txtSize2_'+j).val($('#txtWidth_'+j).val());
 			         	$('#txtSize3_'+j).val($('#txtLengthb_'+j).val());
@@ -86,6 +91,10 @@
 			         for (var j = 0; j < q_bbsCount; j++) {
 			         	$('#txtSize4_'+j).removeAttr('hidden');
 			         	$('#x3_'+j).removeAttr('hidden');
+			         	$('#txtSize1_'+j).css('width','22%');
+			         	$('#txtSize2_'+j).css('width','22%');
+			         	$('#txtSize3_'+j).css('width','22%');
+			         	$('#Memo').css('width','16%');
 			         	$('#txtSize1_'+j).val($('#txtRadius_'+j).val());
 			         	$('#txtSize2_'+j).val($('#txtWidth_'+j).val());
 			         	$('#txtSize3_'+j).val($('#txtDime_'+j).val());
@@ -217,93 +226,94 @@
         }
 
         function bbsAssign() {  /// 表身運算式
-            _bbsAssign();
             for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
-                $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
-                $('#btnProductno_' + j).click(function () {
-                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                    q_bodyId($(this).attr('id'));
-                    b_seq = t_IdSeq;
-                    pop('ucc');
-                 });
-                 $('#txtProductno_' + j).change(function () {
-                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                     q_bodyId($(this).attr('id'));
-                     b_seq = t_IdSeq;
-                     q_change($(this), 'ucc', 'noa', 'noa,product,unit');  /// 接 q_gtPost()
-                 });
-                 
-                 //將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
-                 $('#txtSize1_' + j).change(function () {
-                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                     q_bodyId($(this).attr('id'));
-                     b_seq = t_IdSeq;
-                     
-                    if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
-            		{	
-            			$('#txtDime_'+b_seq).val($('#txtSize1_' + b_seq).val());	//厚度
-            		}else{
-            			$('#txtRadius_'+b_seq).val($('#txtSize1_' + b_seq).val());	//短徑
-            		}
-            		
-                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
-					q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
-                 });
-                 $('#txtSize2_' + j).change(function () {
-                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                     q_bodyId($(this).attr('id'));
-                     b_seq = t_IdSeq;
-                     
-                    if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
-            		{	
-            			$('#txtWidth_'+b_seq).val($('#txtSize2_' + b_seq).val());	//寬度
-            		}else{
-            			$('#txtWidth_'+b_seq).val($('#txtSize2_' + b_seq).val());	//長徑
-            		}
-                     
-                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
-					q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
-                 });
-                 $('#txtSize3_' + j).change(function () {
-                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                     q_bodyId($(this).attr('id'));
-                     b_seq = t_IdSeq;
-			         	
-                     if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
-            		{	
-            			$('#txtLengthb_'+b_seq).val($('#txtSize3_' + b_seq).val());	//長度
-            		}else{
-            			$('#txtDime_'+b_seq).val($('#txtSize3_' + b_seq).val());		//厚度
-            		}
-                     
-                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
-					q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
-                 });
-                 $('#txtSize4_' + j).change(function () {
-                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                     q_bodyId($(this).attr('id'));
-                     b_seq = t_IdSeq;
-                     
-                     if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
-            		{	
-            			$('#txtRadius_'+b_seq).val($('#txtSize4_' + b_seq).val());	//短徑為0
-            		}else{
-            			$('#txtLengthb_'+b_seq).val($('#txtSize4_' + b_seq).val());	//長度
-            		}
-            		
-                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
-					q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
-                 });
-                 $('#txtMount_' + j).change(function () {
-                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                     q_bodyId($(this).attr('id'));
-                     b_seq = t_IdSeq;
-                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
-					q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
-                 });
-                 
-				//-------------------------------------------------------------------------------------
+            	if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+	                $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
+	                $('#btnProductno_' + j).click(function () {
+	                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+	                    pop('ucc');
+	                 });
+	                 $('#txtProductno_' + j).change(function () {
+	                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                     q_bodyId($(this).attr('id'));
+	                     b_seq = t_IdSeq;
+	                     q_change($(this), 'ucc', 'noa', 'noa,product,unit');  /// 接 q_gtPost()
+	                 });
+	                 
+	                 //將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
+	                 $('#txtSize1_' + j).change(function () {
+	                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                     q_bodyId($(this).attr('id'));
+	                     b_seq = t_IdSeq;
+	                     
+	                    if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+	            		{	
+	            			$('#txtDime_'+b_seq).val($('#txtSize1_' + b_seq).val());	//厚度
+	            		}else{
+	            			$('#txtRadius_'+b_seq).val($('#txtSize1_' + b_seq).val());	//短徑
+	            		}
+	            		
+	                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+						q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+	                 });
+	                 $('#txtSize2_' + j).change(function () {
+	                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                     q_bodyId($(this).attr('id'));
+	                     b_seq = t_IdSeq;
+	                     
+	                    if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+	            		{	
+	            			$('#txtWidth_'+b_seq).val($('#txtSize2_' + b_seq).val());	//寬度
+	            		}else{
+	            			$('#txtWidth_'+b_seq).val($('#txtSize2_' + b_seq).val());	//長徑
+	            		}
+	                     
+	                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+						q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+	                 });
+	                 $('#txtSize3_' + j).change(function () {
+	                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                     q_bodyId($(this).attr('id'));
+	                     b_seq = t_IdSeq;
+				         	
+	                     if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+	            		{	
+	            			$('#txtLengthb_'+b_seq).val($('#txtSize3_' + b_seq).val());	//長度
+	            		}else{
+	            			$('#txtDime_'+b_seq).val($('#txtSize3_' + b_seq).val());		//厚度
+	            		}
+	                     
+	                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+						q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+	                 });
+	                 $('#txtSize4_' + j).change(function () {
+	                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                     q_bodyId($(this).attr('id'));
+	                     b_seq = t_IdSeq;
+	                     
+	                     if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+	            		{	
+	            			$('#txtRadius_'+b_seq).val($('#txtSize4_' + b_seq).val());	//短徑為0
+	            		}else{
+	            			$('#txtLengthb_'+b_seq).val($('#txtSize4_' + b_seq).val());	//長度
+	            		}
+	            		
+	                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+						q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+	                 });
+	                 $('#txtMount_' + j).change(function () {
+	                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                     q_bodyId($(this).attr('id'));
+	                     b_seq = t_IdSeq;
+	                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+						q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+	                 });
+					//-------------------------------------------------------------------------------------
+				}
             } //j
+            _bbsAssign();
         }
 
         function btnIns() {
@@ -670,21 +680,21 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <!--<td align="center" style="width:8%;"><a id='lblUno_s'> </a></td>-->
+                <td align="center" style="width:10%;"><a id='lblUno_st'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblProductno_st'> </a></td>
-                <td align="center" style="width:12%;"><a id='lblProduct_st'> </a></td>
-                <td align="center" style="width:12%;"><a id='lblSpec_st'> </a></td>
+                <td align="center" style="width:10%;"><a id='lblProduct_st'> </a></td>
+                <td align="center" style="width:10%;"><a id='lblSpec_st'> </a></td>
                 <!--<td align="center"><a id='lblRadius_s'> </a></td>-->
                 <td align="center"><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblMount_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblGweight_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblWeight_st'> </a></td>
                 <!--<td align="center" style="width:4%;"><a id='lblType_s'> </a></td>-->
-                <td align="center" style="width:22%;"><a id='lblMemo_st'> </a></td>
+                <td align="center" id='Memo'><a id='lblMemo_st'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <!--<td><input id="txtUno.*" type="text" class="txt c1"/> </td>-->
+                <td><input id="txtUno.*" type="text" style="width:75%;"/><input class="btn"  id="btnUno.*" type="button" value='...' style="width:15%;"  /></td>
                 <td><input id="txtProductno.*" type="text" style="width:75%;" /><input class="btn"  id="btnProductno.*" type="button" value='...' style="width:15%;"  /></td>
                 <td><input class="txt c1" id="txtProduct.*" type="text" /></td>
                 <td><input class="txt c1" id="txtSpec.*" type="text"/></td>

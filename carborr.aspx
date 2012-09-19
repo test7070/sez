@@ -18,12 +18,12 @@
 
             q_tables = 's';
             var q_name = "carborr";
-            var q_readonly = [];
+            var q_readonly = ['txtNoa','txtWorker','txtMoney2','txtTotal'];
             var q_readonlys = [];
-            var bbmNum = [];
-            var bbsNum = [];
-            var bbmMask = [];
-            var bbsMask = [];
+            var bbmNum = [['txtMoney',10,0],['txtComppay',10,0],['txtMount',10,0]];
+            var bbsNum = [['txtMoney',10,0]];
+            var bbmMask = [['txtMon','999/99'],['txtDatea','999/99/99'],['txtTicketdate','999/99/99']];
+            var bbsMask = [['txtMon','999/99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -38,6 +38,11 @@
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
             });
+            
+            t_curMoney = 0;
+            t_curMon='';
+            t_curDriverno='';
+            
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -50,18 +55,50 @@
                 q_getFormat();
                 q_mask(bbmMask);
 				
-				var tmp = q_getMsg('typea').split('&');
+				var tmp = q_getMsg('carborr.typea').split('&');
 				var t_string = '';
 				for(var x in tmp){
 					t_string += (t_string.length>0?',':'')+tmp[x];
 				}
 				q_cmbParse("cmbTypea", t_string);
 				
-                /*q_cmbParse("cmbTrtype", q_getPara('trd.trtype'));
-                 q_cmbParse("cmbTypea", q_getPara('sys.yn'));
-                 q_cmbParse("cmbTovcca", q_getPara('sys.yn'));
-                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));*/
-
+                $('#txtDatea').change(function() {
+                    money2();
+                });
+                $('#txtComppay').change(function() {
+                    sum();
+                });
+				$('#txtMoney').change(function() {
+                    sum();
+                });
+				$('#btnAction').click(function(){
+					var t_y,t_m,t_money,t_mon=$.trim($('#txtMon').val());
+					if(t_mon.length==0)
+						return;
+					var n = q_int('txtMount');
+					if(n==0){
+						$('#txtMount').val('1');
+						n=1;
+					}
+					var as  =  new  Array();
+					t_money  =  Math.floor(q_int('txtMoney')/n);
+					as.push({mon:t_mon,money:t_money});
+					t_y=parseFloat(t_mon.substring(0,3));
+					t_m= parseFloat(t_mon.substring(4));
+					for(var  i=0;i<n-1;i++){
+						t_m+=1;
+						if(t_m>12){
+							t_m=1;
+							t_y+=1;	
+						}
+						if(i==n-2){
+							t_money  =  q_int('txtMoney')-t_money*(n-1);
+						}
+						as.push({mon:(t_y+'/'+(t_m<10?'0':'')+t_m),money:t_money});
+					}
+					
+					q_gridAddRow(bbsHtm, 'tbbs', 'txtMon,txtMoney', as.length, as, 'mon,money', '', '');
+				});
             }
 
             function q_boxClose(s2) {
@@ -84,6 +121,15 @@
             }
 
             function btnOk() {
+            	var  t_money  =  0;
+            	for (var i = 0; i< q_bbsCount; i++) {
+                   	t_money  +=  q_float('txtMoney_'+i);
+                }
+                if(q_float('txtMoney')!=t_money){
+                	alert('分期金額異常');
+                	return;
+                }
+            	
                 $('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
@@ -96,6 +142,10 @@
                     q_gtnoa(q_name, replaceAll(q_getPara('sys.key_carborr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
+                    
+                t_curMoney=0;
+                t_curMon='';
+                t_curDriverno='';
             }
 
             function _btnSeek() {
@@ -110,12 +160,46 @@
                     $('#lblNo_' + ix).text(ix + 1);
                 }
             }
-
+            
+            function sum(){
+            	var t_total=0;
+            	
+            	$('#txtTotal').val(q_float('txtComppay')+q_float('txtMoney'));
+            }
+			function money2(){
+            	if($('#txtDatea').val().length>0 && $('#txtDriverno').val().length>0 )
+                	q_func('carsal2.import',r_accy+','+$('#txtDatea').val().substring(0,6)+','+$('#txtDriverno').val()+','+$('#txtDriverno').val());
+            }
+            function q_funcPost(t_func, result) {/// 執行 q_exec() 呼叫 server 端 function 後， client 端所要執行的程式
+                if (result.substr(0, 5) == '<Data') {/// 如果傳回  table[]
+                    var as = _q_appendData('carsal2', '', true);
+                    if(as.length>0){
+                    	if(t_curMon==$('#txtDatea').val().substring(0,6)  &&  t_curDriverno==$('#txtDriverno').val())
+                    		$('#txtMoney2').val(parseFloat(as[0].total)+t_curMoney);
+                    	else
+                    		$('#txtMoney2').val(parseFloat(as[0].total));
+                    }
+                    else
+                    	$('#txtMoney2').val('');              
+                } else
+                    alert(t_func + '\r' + result);
+            }
+            function q_popPost(id) {
+				switch(id) {
+					case 'txtDriverno':
+						money2();
+						break;
+				}
+			}
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
+                t_curMoney = q_float('txtMoney');
+                t_curMon=$('#txtDatea').val().substring(0,6);
+                t_curDriverno=$('#txtDriverno').val();
+                money2();
             }
 
             function btnModi() {
@@ -123,6 +207,10 @@
                     return;
                 _btnModi();
                 $('#txtDatea').focus();
+                t_curMoney = q_float('txtMoney');
+                t_curMon=$('#txtDatea').val().substring(0,6);
+                t_curDriverno=$('#txtDriverno').val();
+                money2();
             }
 
             function btnPrint() {
@@ -147,7 +235,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
-
+				money2();
             }
 
             function readonly(t_para, empty) {
@@ -210,6 +298,9 @@
 
             function btnCancel() {
                 _btnCancel();
+                t_curMoney=0;
+                t_curMon='';
+                t_curDriverno='';
             }
 		</script>
 		<style type="text/css">
@@ -218,7 +309,7 @@
             }
             .dview {
                 float: left;
-                width: 23%;
+                width: 30%;
             }
             .tview {
                 margin: 0;
@@ -236,7 +327,7 @@
             }
             .dbbm {
                 float: left;
-                width: 75%;
+                width: 65%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -342,6 +433,7 @@
 						<td align="center" style="width:15%"><a id='vewDatea'></a></td>
 						<td align="center" style="width:20%"><a id='vewCarno'></a></td>
 						<td align="center" style="width:20%"><a id='vewDriver'></a></td>
+						<td align="center" style="width:20%"><a id='vewTypea'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -350,6 +442,7 @@
 						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='carno' style="text-align: center;">~carno</td>
 						<td id='driver' style="text-align: center;">~driver</td>
+						<td id='typea' style="text-align: center;">~typea</td>
 					</tr>
 				</table>
 			</div>
@@ -372,9 +465,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td>
-						<input id="txtDatea" type="text"  class="txt c1"/>
-						</td>
+						<td><input id="txtDatea" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCarno" class="lbl"> </a></td>
@@ -389,9 +480,11 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblTypea" class="lbl"> </a></td>
-						<td>
-						<select id="cmbTypea" class="txt c1"></select>
-						</td>
+						<td><select id="cmbTypea" class="txt c1"></select></td>
+						<td><span> </span><a id="lblTicketno" class="lbl"> </a></td>
+						<td><input id="txtTicketno" type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblTicketdate" class="lbl"> </a></td>
+						<td><input id="txtTicketdate" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblComppay" class="lbl"> </a></td>
@@ -411,11 +504,9 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
-						<td colspan="3">
-						<input id="txtBmon" type="text"  class="txt" style="width: 40%;"/>
-						<span style="display:block; float:left; width:20px;">~</span>
-						<input id="txtEmon" type="text"  class="txt" style="width: 40%;"/>
-						</td>
+						<td><input id="txtMon" type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
+						<td><input id="txtMount" type="text"  class="txt c1 num"/></td>
 						<td>
 						<input id="btnAction" type="button"  class="txt c1"/>
 						</td>
@@ -429,13 +520,13 @@
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td colspan="4">
-						<input id="txtMemo" type="text"  class="txt c1 num"/>
+						<input id="txtMemo" type="text"  class="txt c1"/>
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td>
-						<input id="txtWorker" type="text"  class="txt c1 num"/>
+						<input id="txtWorker" type="text"  class="txt c1"/>
 						</td>
 					</tr>
 				</table>
@@ -450,7 +541,6 @@
 					<td align="center" style="width:20px;"></td>
 					<td align="center" style="width:120px;"><a id='lblMon_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblMoney_s'> </a></td>
-
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -462,7 +552,7 @@
 					<input type="text" id="txtMon.*" style="width:95%;" />
 					</td>
 					<td>
-					<input type="text" id="txtMoney.*" style="width:95%;" />
+					<input type="text" id="txtMoney.*" style="width:95%; text-align: right;" />
 					</td>
 				</tr>
 			</table>

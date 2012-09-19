@@ -23,7 +23,8 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtBankno', 'lblBank', 'bank', 'noa,bank,account,acc1', 'txtBankno,txtBank,txtAccount,txtAccl', 'bank_b.aspx']);        
+        aPop = new Array(['txtBankno', 'lblBank', 'bank', 'noa,bank,account,acc1', 'txtBankno,txtBank,txtAccount,txtAccl', 'bank_b.aspx']
+        								,['txtTcompno_', 'btnTcomp_', 'tgg', 'noa,comp', 'txtTcompno_,txtTcomp_', 'Tgg_b.aspx']);        
 		//aPop = new Array(['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx'],['txtBank_', 'btnBank_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -61,8 +62,7 @@
         }
 
         function chk2_gqb() {
-            t_where = "where=^^ (tbankno='' or  tbankno is null) and a.typea='1' and (b.sel < 1 or b.sel is null) ^^";
-            t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "' group by checkno ^^";//不包含本身的單據
+            t_where = "where=^^ (tbankno='' or  tbankno is null) and a.typea='1' and (b.sel = 0 or b.sel is null) ^^";
 
            /* var j = 0, s1 = '';
             for (var i = 0; i < q_bbsCount; i++) {
@@ -73,7 +73,7 @@
             }//判斷BBS是否有資料且被選取
 
             t_where1 = t_where1 + (s1.length > 0 ? " or (" + s1 + ")" : '') + "^^";*/
-            q_gt('chk2_gqb', t_where + t_where1, 0, 0, 0, "", r_accy);
+            q_gt('chk2_gqb', t_where , 0, 0, 0, "", r_accy);
         }
 
 
@@ -93,7 +93,7 @@
             	case 'chk2_gqb':
             		var as = _q_appendData("gqb", "", true);
             		//if(as.length>q_bbsCount)
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtCheckno,txtBank,txtBankno,txtAccount,txtDatea,txtMoney', as.length, as, 'noa,bank,bankno,account,indate,money', '');
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtCheckno,txtBank,txtBankno,txtAccount,txtDatea,txtMoney,txtTcompno,txtTcomp', as.length, as, 'gqbno,bank,bankno,account,indate,money,tcompno,tcomp', '');
             		for (var i = 0; i < as.length; i++) {
             			$('#txtNoq_' + i).val(i+1);	//自動產生NO
 		             }
@@ -475,17 +475,19 @@
                 <td align="center" class="td2"><a id='lblAccounts'></a></td>
                 <td align="center" class="td3"><a id='lblDateas'></a></td>
                 <td align="center" class="td3"><a id='lblMoneys'></a></td>
+                <td align="center" class="td3"><a id='lblTcomps'></a></td>
             </tr>
             <tr id="trSel.*">
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input id="chkSel.*" type="checkbox"/></td>
                 <td ><input class="txt c1" id="txtNoq.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCheckno.*" type="text" /></td>
-                <td ><input id="txtBank.*" type="text" style="width: 100%;"/><!--<input id="btnBank.*" type="button" value="..." style="width: 16%;"/></td>-->
+                <td ><input id="txtBank.*" type="text" style="width: 100%;"/></td><!--<input id="btnBank.*" type="button" value="..." style="width: 16%;"/>-->
                 <td ><input class="txt c1" id="txtBankno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtAccount.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtDatea.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtMoney.*" type="text" /></td>
+                <td ><input id="btnTcomp.*" type="button" value="." style="float:left;width: 1%;"/><input id="txtTcompno.*" type="text" style="width: 30%;float: left;"/><input id="txtTcomp.*" type="text" style="width: 60%;float: left;"/></td>
             </tr>
         </table>
         </div>
