@@ -333,13 +333,13 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>   
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>             
-                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
+                <td align="center" style="width:25%"><a id='vewGqbno'></a></td>
                 <td align="center" style="width:40%"><a id='vewIndate'></a></td>
                 <td align="center" style="width:25%"><a id='vewType'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
-                   <td align="center" id='noa'>~noa</td>
+                   <td align="center" id='gqbno'>~gqbno</td>
                    <td align="center" id='indate'>~indate</td>
                    <td align="center" id='typea=gqb.typea'>~typea=gqb.typea</td>
             </tr>
