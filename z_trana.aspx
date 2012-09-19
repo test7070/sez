@@ -170,40 +170,40 @@
 	                        type : '8', //select
 	                        name : 'xfield13',
 	                        value : q_getPara('z_trana.field13').split(',')
-	                    }, {
+	                    }, {/*23*/
 	                        type : '5', //select
 	                        name : 'xsort13',
 	                        value : q_getPara('z_trana.sort13').split(',').concat(t_item4.split(','))
-	                    }, {
+	                    }, {/*24*/
 	                        type : '8', //select
 	                        name : 'xfield1',
 	                        value : q_getPara('z_trana.field1').split(',')
-	                    }, {
+	                    }, {/*25*/
 	                        type : '5', //select
 	                        name : 'xsort1',
 	                        value : q_getPara('z_trana.sort1').split(',').concat(t_item4.split(','))
-	                    }, {
+	                    }, {/*26*/
 	                        type : '5', //select
 	                        name : 'xacomp',
 	                        value : t_item5.split(',')
-	                    }, {
+	                    }, {/*27*/
 	                        type : '5', //select
 	                        name : 'xsort14',
 	                        value : q_getPara('z_trana.sort14').split(',')
-	                    }, {
+	                    }, {/*28*/
 	                        type : '6', 
 	                        name : 'xtrandono'
-	                    },{
+	                    },{/*29*/
 	                        type : '8', //select
 	                        name : 'xoption14',
 	                        value : q_getPara('z_trana.option14').split(',')
-	                    }, {
+	                    }, {/*30*/
 	                        type : '2',
 	                        name : 'addr',
 	                        dbf : 'addr',
 	                        index : 'noa,addr',
 	                        src : 'addr_b.aspx'
-	                    },{
+	                    },{/*31*/
 	                        type : '1',
 	                        name : 'trandate'
 	                    }, {
@@ -251,7 +251,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
-	                
+	                $('#txtTrandate1').val(t_year+'/'+t_month+'/'+t_day);
 	                t_date = new Date();
 	                t_date.setDate(35);
 	                t_date.setDate(0);
@@ -262,6 +262,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtTrandate2').val(t_year+'/'+t_month+'/'+t_day);
                 }
             }
 		</script>
