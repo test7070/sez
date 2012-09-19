@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -211,6 +210,47 @@
         function btnCancel() {
             _btnCancel();
         }
+        
+        
+        function theory(id) {	
+        	var t_density=7.85;//預設
+            if(dec($('#txtRadius_'+id).val())==0 &&$('#cmbTypea').val()=='3')	//非管類
+            {
+            	if($('#txtType2').val().indexOf('條')>-1 || $('#txtType2').val().indexOf('貼膜')>-1 || $('#cmbTypea').find("option:selected").text().indexOf('條')>-1)
+            	{
+            		if(dec($('#txtWidth').val())>0)
+            		{
+            			if(dec($('#txtGweight').val())>0)
+            			{
+            				if(dec($('#txtDivide_'+id).val())>0)
+            					$('#txtTheory_'+id).val(dec($('#txtGweight').val())/dec($('#txtWidth').val())*dec($('#txtWidth_'+id).val())*dec($('#txtMount_'+id).val())*dec($('#txtDivide_'+id).val()));
+            				else
+            					$('#txtTheory_'+id).val(dec($('#txtGweight').val())/dec($('#txtWidth').val())*dec($('#txtWidth_'+id).val())*dec($('#txtMount_'+id).val())*1);
+            			}else{
+            				if(dec($('#txtDivide_'+id).val())>0)
+            					$('#txtTheory_'+id).val(dec($('#txtEweight').val())/dec($('#txtWidth').val())*dec($('#txtWidth_'+id).val())*dec($('#txtMount_'+id).val())*dec($('#txtDivide_'+id).val()));
+            				else
+            					$('#txtTheory_'+id).val(dec($('#txtEweight').val())/dec($('#txtWidth').val())*dec($('#txtWidth_'+id).val())*dec($('#txtMount_'+id).val())*1);
+            			}
+            		}
+            	}else{
+            		//根據BBM的品名NO找UCC的密度
+            		//後補齊t_density
+            		
+            		if(dec($('#txtDivide_'+id).val())>0)
+            			$('#txtTheory_'+id).val(t_density*dec($('#txtDime_'+id).val())*(dec($('#txtWidth_'+id).val())/1000)*(dec($('#txtLengthb_'+id).val()) /1000)*dec($('#txtMount_'+id).val())*dec($('#txtDivide_'+id).val()));
+            		else
+            			$('#txtTheory_'+id).val(t_density*dec($('#txtDime_'+id).val())*(dec($('#txtWidth_'+id).val())/1000)*(dec($('#txtLengthb_'+id).val()) /1000)*dec($('#txtMount_'+id).val())*1);
+            	}
+            	
+            	
+            	
+            	
+            	
+            	
+            }
+        }
+
     </script>
     <style type="text/css">
         #dmain {
