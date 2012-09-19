@@ -83,90 +83,90 @@
 	                        type : '0',
 	                        name : 'accy',
 	                        value : q_getId()[4]
-	                    }, {
+	                    }, {/*1*/
 	                        type : '1',
 	                        name : 'date'
-	                    }, {
+	                    }, {/*2*/
 	                        type : '2',
 	                        name : 'cust',
 	                        dbf : 'cust',
 	                        index : 'noa,comp',
 	                        src : 'cust_b.aspx'
-	                    }, {
+	                    }, {/*3*/
 	                        type : '2',
 	                        name : 'driver',
 	                        dbf : 'driver',
 	                        index : 'noa,namea',
 	                        src : 'driver_b.aspx'
-	                    }, {
+	                    }, {/*4*/
 	                        type : '6',
 	                        name : 'xcarno'
-	                    }, {
+	                    }, {/*5*/
 	                        type : '6',
 	                        name : 'xpo'
-	                    }, {
+	                    }, {/*6*/
 	                        type : '6',
 	                        name : 'xaddr'
-	                    }, {
+	                    }, {/*7*/
 	                        type : '8', //select
 	                        name : 'xcarteamno',
 	                        value : t_item.split(',')
-	                    }, {
+	                    }, {/*8*/
 	                        type : '8', //mutiple select
 	                        name : 'xcalctype',
 	                        value : t_item2.split(',')
-	                    }, {
+	                    }, {/*9*/
 	                        type : '8', //select
 	                        name : 'xoption1',
 	                        value : q_getPara('z_trana.option1').split(',')
-	                    }, {
+	                    }, {/*10*/
 	                        type : '5', //select
 	                        name : 'xoption2',
 	                        value : q_getPara('z_trana.option2').split(',')
-	                    }, {
+	                    }, {/*11*/
 	                        type : '5', //select
 	                        name : 'xoption3',
 	                        value : q_getPara('z_trana.option3').split(',')
-	                    }, {
+	                    }, {/*12*/
 	                        type : '5', //select
 	                        name : 'xoption4',
 	                        value : q_getPara('z_trana.option4').split(',')
-	                    }, {
+	                    }, {/*13*/
 	                        type : '5', //select
 	                        name : 'xoption5',
 	                        value : q_getPara('z_trana.option5').split(',')
-	                    }, {
+	                    }, {/*14*/
 	                        type : '2',
 	                        name : 'sales',
 	                        dbf : 'sss',
 	                        index : 'noa,namea',
 	                        src : 'sss_b.aspx'
-	                    }, {
+	                    }, {/*15*/
 	                        type : '8', //select
 	                        name : 'xfield5',
 	                        value : q_getPara('z_trana.field5').split(',')
-	                    }, {
+	                    }, {/*16*/
 	                        type : '6', 
 	                        name : 'yproduct'
-	                    }, {
+	                    }, {/*17*/
 	                        type : '6', 
 	                        name : 'yaddr'
-	                    }, {
+	                    }, {/*18*/
 	                        type : '6', 
 	                        name : 'yboatname'
-	                    }, {
+	                    }, {/*19*/
 	                        type : '5', //select
 	                        name : 'xoption7',
 	                        value :  t_item.split(',')
-	                    }, {
+	                    }, {/*20*/
 	                        type : '8', //select
 	                        name : 'xoption8',
 	                        value : t_item3.split(',')
-	                    }, {
+	                    }, {/*21*/
 	                        type : '5', //select
 	                        name : 'xsort5',
 	                        value : q_getPara('z_trana.sort5').split(',').concat(t_item4.split(','))
-	                    }, {
+	                    }, {/*22*/
 	                        type : '8', //select
 	                        name : 'xfield13',
 	                        value : q_getPara('z_trana.field13').split(',')
