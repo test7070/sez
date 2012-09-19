@@ -27,6 +27,7 @@
         //ajaxPath = ""; // 只在根目錄執行，才需設定
         aPop = new Array(['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
         ['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
+        ['txtUno_', 'btnUno_', 'uccb', 'noa', 'txtUno_', 'uccb_b.aspx'],
         ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
         ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
         ['txtCardeal', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
@@ -670,21 +671,21 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <!--<td align="center" style="width:8%;"><a id='lblUno_s'> </a></td>-->
+                <td align="center" style="width:10%;"><a id='lblUno_st'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblProductno_st'> </a></td>
-                <td align="center" style="width:12%;"><a id='lblProduct_st'> </a></td>
-                <td align="center" style="width:12%;"><a id='lblSpec_st'> </a></td>
+                <td align="center" style="width:10%;"><a id='lblProduct_st'> </a></td>
+                <td align="center" style="width:10%;"><a id='lblSpec_st'> </a></td>
                 <!--<td align="center"><a id='lblRadius_s'> </a></td>-->
                 <td align="center"><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblMount_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblGweight_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblWeight_st'> </a></td>
                 <!--<td align="center" style="width:4%;"><a id='lblType_s'> </a></td>-->
-                <td align="center" style="width:22%;"><a id='lblMemo_st'> </a></td>
+                <td align="center" style="width:16%;"><a id='lblMemo_st'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <!--<td><input id="txtUno.*" type="text" class="txt c1"/> </td>-->
+                <td><input id="txtUno.*" type="text" style="width:75%;"/><input class="btn"  id="btnUno.*" type="button" value='...' style="width:15%;"  /></td>
                 <td><input id="txtProductno.*" type="text" style="width:75%;" /><input class="btn"  id="btnProductno.*" type="button" value='...' style="width:15%;"  /></td>
                 <td><input class="txt c1" id="txtProduct.*" type="text" /></td>
                 <td><input class="txt c1" id="txtSpec.*" type="text"/></td>
