@@ -20,8 +20,8 @@
             var q_name = "ina";
             var q_readonly = [];
             var q_readonlys = [];
-            var bbmNum = [];
-            var bbsNum = [];
+            var bbmNum = [['txtTotal', 10, 1]];
+            var bbsNum = [['txtSize1', 10, 3],['txtSize2', 10, 2],['txtSize3', 10, 3],['txtSize4', 10, 2],['txtRadius', 10, 3],['txtWidth', 10, 2],['txtDime', 10, 3],['txtLengthb', 10, 2],['txtMount', 10, 2],['txtWeight', 10, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -107,7 +107,7 @@
             function q_gtPost(t_name) {
                 switch (t_name) {
                 	case 'ucc_style':
-            			theory_st(q_name,b_seq,'txtGweight');
+            			theory_st(q_name,b_seq,'txtWeight');
             		break;
                     case q_name:
                         if(q_cur == 4)
@@ -275,6 +275,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                size_change();
             }
 
             function readonly(t_para, empty) {
