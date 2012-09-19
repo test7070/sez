@@ -61,7 +61,7 @@
 
 		    function mainPost() {
 		        q_getFormat();
-		        bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
+		        bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtFixadate', r_picd]];
 		        q_mask(bbmMask);
 		        q_cmbParse("cmbWtype", q_getPara('fixa.wtype'),'s');
 		        $('#txtTax').change(function () {
@@ -442,7 +442,10 @@
 						<td class="td3"><span> </span><a id="lblCarplateno" class="lbl"> </a></td>
 						<td class="td4">
 						<input id="txtCarplateno" type="text" class="txt c1"/></td>
-						
+						<td class="td5"><span> </span><a id="lblFixadate" class="lbl"> </a></td>
+						<td class="td6">
+						<input id="txtFixadate" type="text" class="txt c1"/>
+						</td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>

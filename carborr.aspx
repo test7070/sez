@@ -22,7 +22,7 @@
             var q_readonlys = [];
             var bbmNum = [['txtMoney',10,0],['txtComppay',10,0],['txtMount',10,0]];
             var bbsNum = [['txtMoney',10,0]];
-            var bbmMask = [['txtMon','999/99']];
+            var bbmMask = [['txtMon','999/99'],['txtDatea','999/99/99'],['txtTicketdate','999/99/99']];
             var bbsMask = [['txtMon','999/99']];
             q_sqlCount = 6;
             brwCount = 6;
@@ -55,7 +55,7 @@
                 q_getFormat();
                 q_mask(bbmMask);
 				
-				var tmp = q_getMsg('typea').split('&');
+				var tmp = q_getMsg('carborr.typea').split('&');
 				var t_string = '';
 				for(var x in tmp){
 					t_string += (t_string.length>0?',':'')+tmp[x];
@@ -465,9 +465,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td>
-						<input id="txtDatea" type="text"  class="txt c1"/>
-						</td>
+						<td><input id="txtDatea" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCarno" class="lbl"> </a></td>
@@ -482,9 +480,11 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblTypea" class="lbl"> </a></td>
-						<td>
-						<select id="cmbTypea" class="txt c1"></select>
-						</td>
+						<td><select id="cmbTypea" class="txt c1"></select></td>
+						<td><span> </span><a id="lblTicketno" class="lbl"> </a></td>
+						<td><input id="txtTicketno" type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblTicketdate" class="lbl"> </a></td>
+						<td><input id="txtTicketdate" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblComppay" class="lbl"> </a></td>
@@ -520,13 +520,13 @@
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td colspan="4">
-						<input id="txtMemo" type="text"  class="txt c1 num"/>
+						<input id="txtMemo" type="text"  class="txt c1"/>
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td>
-						<input id="txtWorker" type="text"  class="txt c1 num"/>
+						<input id="txtWorker" type="text"  class="txt c1"/>
 						</td>
 					</tr>
 				</table>

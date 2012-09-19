@@ -53,7 +53,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd]];
+                bbmMask = [['txtDatea', r_picd],['txtOutdate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('fixout.typea'));
             }
@@ -415,6 +415,8 @@
 						<input id="txtDriverno" type="text" class="txt c2"/>
 						<input id="txtDriver" type="text" class="txt c3"/>
 						</td>
+						<td><span> </span><a id="lblOutdate" class="lbl"> </a></td>
+						<td><input id="txtOutdate"type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id="lblCarno" class="lbl btn"> </a></td>

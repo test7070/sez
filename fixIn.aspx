@@ -54,7 +54,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd]];
+                bbmMask = [['txtDatea', r_picd],['txtIndate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('fixin.typea'));
                 $('#txtTax').change(function () {
@@ -431,7 +431,8 @@
 						<input id="txtAcc2" type="text" class="txt" style="width:75%;"/></td>
 						<td class='td3'><span> </span><a id="lblInvono" class="lbl"> </a></td>
 						<td class="td4"><input id="txtInvono"type="text" class="txt c1"/></td>
-						
+						<td><span> </span><a id="lblIndate" class="lbl"> </a></td>
+						<td><input id="txtIndate"type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
