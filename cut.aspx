@@ -16,15 +16,16 @@
         }
         q_tables = 's';
         var q_name = "cut";
-        var q_readonly = [];
+        var q_readonly = ['txtProductno','txtProduct','txtSpec','txtDime','txtWidth','txtLengthb','txtRadius','txtOweight','txtEweight'];
         var q_readonlys = [];
         var bbmNum = [];  
         var bbsNum = [];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
+        aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],['txtUno', 'lblUno', 'uccc', 'noa,productno,product,spec,dime,width,lengthb,radius,weight,eweight', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight', 'ucc_b.aspx'],
         ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'],['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx']);
+        //['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -48,42 +49,25 @@
             q_mask(bbmMask); 
              q_cmbParse("cmbTypea", q_getPara('cut.typea'));
              q_cmbParse("cmbType2", q_getPara('cut.type2'));
-             //重新計算理論重
-             $('#txtProductno').change(function () {
-             	//取得品名的密度-計算理論重
-             	var t_where = "where=^^ noa = '"+ $('#txtProductno').val()+"' ^^"; 
-				q_gt('ucc', t_where , 0, 0, 0, "", r_accy);
-				/*for(var j = 0; j < q_bbsCount; j++) {
-		                     theory(j);
-		                     btnMinus('btnMinus_'+j);
-		        }*/
-		     });
+             //重新計算理論重 
             $('#cmbTypea').change(function () {
 				for(var j = 0; j < q_bbsCount; j++) {
 		                     theory(j);
 		        }
+		        cut_save_db();
 		     });
 		     $('#cmbType2').change(function () {
 				for(var j = 0; j < q_bbsCount; j++) {
 		                     theory(j);
 		        }
-		     });
-		     $('#txtWidth').change(function () {
-				for(var j = 0; j < q_bbsCount; j++) {
-		                     theory(j);
-		        }
+		        cut_save_db();
 		     });
 		     $('#txtGweight').change(function () {
 				for(var j = 0; j < q_bbsCount; j++) {
 		                     theory(j);
 		        }
+		        cut_save_db();
 		     });
-		     $('#txtEweight').change(function () {
-				for(var j = 0; j < q_bbsCount; j++) {
-		                     theory(j);
-		        }
-		     });
-             
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -100,22 +84,111 @@
         function q_gtPost(t_name) {  
             switch (t_name) {
             	case 'ucc':
-            		var ucc= _q_appendData("ucc", "", true);;
+            		var ucc= _q_appendData("ucc", "", true);
+            		break;
+            	case 'uccb':
+            		var uccb= _q_appendData("uccb", "", true);
+            		if(uccb[uccb.length-1]!=undefined)
+            		{
+            			if(uccb[uccb.length-1].noa.indexOf('-')>-1)	//取-之後的數字
+            			{
+            				i_uno=parseInt(uccb[uccb.length-1].noa.slice(uccb[uccb.length-1].noa.indexOf('-')+1).toString(10))+1;
+            			}	
+            		}
             		break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
             }  /// end switch
         }
-
+		var i_uno=1;	//餘料編號初始值
         function btnOk() {
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
             }
-
-            $('#txtWorker').val(r_name)
+            
+            //參考cut_save
+            if(emp($('#txtUno').val())&&dec($('#txtGweight').val())>0)
+            {
+            	alert("批號不可為空白");
+                return;
+            }
+            
+            if(dec($('#txtTheyout').val())>dec($('#txtGweight').val()))
+            {
+            	alert("產出實際重 > 領料重");
+                return;
+            }
+            
+            if(	dec($('#txtTheyout').val())>0 && dec($('#txtGweight').val())>0
+            	&&((Math.abs(dec($('#txtTheyout').val())-dec($('#txtGweight').val())))/dec($('#txtGweight').val()))>0.05)
+            {
+            	alert("產出實際重、領料重，差異過大");
+                return;
+            }
+            
+            if(emp($('#txtTggno').val())&&$('#cmbTypea').find("option:selected").text().indexOf('委')>-1)
+            {
+            	alert("委外廠商不可為空白");
+                return;
+            }else{
+            	 if(emp($('#txtMechno').val())&&!($('#cmbTypea').find("option:selected").text().indexOf('委')>-1||!emp($('#txtTggno').val())))
+            	{
+            		alert("機台不可為空白");
+                	return;
+            	}
+            }
+            
+            if(q_cur >0 &&dec($('#txtPrice').val())>0)
+            	$('#txtTranmoney').val(dec($('#txtPrice').val())*dec($('#txtTheyout').val()))
+            
+            if($('#cmbTypea').find("option:selected").text().indexOf('條')>-1)
+            {
+				//待補不可重覆分條
+            }
+            
+            if(dec($('#txtTheyout').val())!=0&&dec($('#txtGweight').val())==0)
+            {
+            	alert("領料重為零");
+                return;
+            }
+            
+            if(dec($('#txtTheyout').val())!=0&&dec($('#txtMount').val())==0)
+            {
+            	alert("領料數為零");
+                return;
+            }
+            if($('#cmbTypea').find("option:selected").text()=='分條')//cut_save為切條
+            {
+            	var t_weight=0;
+				for(var j = 0; j < q_bbsCount; j++) {
+					t_weight+=dec($('#txtWeight_'+j).val())
+				}
+				if(t_weight!=dec($('#txtGweight').val()))
+				{
+					alert("領料重量不等於入庫總重量");
+                	return;
+				}	
+            }
+            
+            //------------參考cut_save
+            //自動產生餘料編號
+			for(var j = 0; j < q_bbsCount; j++) {
+				
+				var tmp_uno=trim($('#txtUno').val());
+				if(!($('#txtUno').val().indexOf('-')>-1))
+					tmp_uno=tmp_uno+'-';
+					
+				if(!emp($('#txtWeight_'+j).val())&&emp($('#txtBno_'+j).val())) //有入庫重自動產生餘料編號
+				{
+					$('#txtBno_'+j).val(tmp_uno+i_uno.toString(16).toUpperCase());
+					i_uno++;
+				}
+			}
+			
+            $('#txtWorker').val(r_name);
             sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -144,36 +217,42 @@
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
 		                     theory(b_seq);
+		                     cut_save_db();
 		              });
 		              $('#txtDivide_' + j).change(function () {
 		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
 		                     theory(b_seq);
+		                     cut_save_db();
 		              });
 		              $('#txtWidth_' + j).change(function () {
 		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
 		                     theory(b_seq);
+		                     cut_save_db();
 		              });
 		              $('#txtMount_' + j).change(function () {
 		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
 		                     theory(b_seq);
+		                     cut_save_db();
 		              });
 		              $('#txtDime_' + j).change(function () {
 		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
 		                     theory(b_seq);
+		                     cut_save_db();
 		              });
 		              $('#txtLengthb_' + j).change(function () {
 		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
 		                     theory(b_seq);
+		                     cut_save_db();
 		              });
         		}
         	}
@@ -185,9 +264,6 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
-            //取得品名的密度-計算理論重
-            var t_where = "where=^^ noa = '"+ $('#txtProductno').val()+"' ^^"; 
-			q_gt('ucc', t_where , 0, 0, 0, "", r_accy);
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -197,6 +273,9 @@
             //取得品名的密度-計算理論重
             var t_where = "where=^^ noa = '"+ $('#txtProductno').val()+"' ^^"; 
 			q_gt('ucc', t_where , 0, 0, 0, "", r_accy);
+			//取得餘料編號
+			var t_where = "where=^^ noa like '%"+ $('#txtUno').val()+"%' ^^"; 
+			q_gt('uccb', t_where , 0, 0, 0, "", r_accy);
         }
         function btnPrint() {
 
@@ -334,11 +413,19 @@
             }
             if(dec($('#txtRadius_'+id).val())!=0)
             {
-            	$('#txtTheory_'+id).val($('#txtTheory_'+id).val());
             	$('#txtWeight_'+id).val($('#txtTheory_'+id).val());
             }
             
         }
+        function cut_save_db() {	
+       			//取得品名的密度-計算理論重
+	            var t_where = "where=^^ noa = '"+ $('#txtProductno').val()+"' ^^"; 
+				q_gt('ucc', t_where , 0, 0, 0, "", r_accy);
+				//取得餘料編號
+				t_where = "where=^^ noa like '%"+ $('#txtUno').val()+"%' ^^"; 
+				q_gt('uccb', t_where , 0, 0, 0, "", r_accy);
+		}
+        
 
     </script>
     <style type="text/css">
@@ -510,9 +597,9 @@
             <td class="td7" colspan="2"><input id="txtCust" type="text"  class="txt c1"/></td>
         </tr>
         <tr>
-            <td class='td1'><span> </span><a id="lblUno" class="lbl"></a></td>
+            <td class='td1'><span> </span><a id="lblUno" class="lbl btn"></a></td>
             <td class="td2"><input id="txtUno" type="text" class="txt c1"/></td>
-            <td class='td3'><span> </span><a id="lblProduct" class="lbl btn"></a></td>
+            <td class='td3'><span> </span><a id="lblProduct" class="lbl"></a></td>
             <td class="td4"><input id="txtProductno" type="text" class="txt c3"/>
                 <input id="txtProduct" type="text" class="txt c4"/></td>
             <td class='td5'><span> </span><a id="lblSpec" class="lbl"></a></td>
@@ -527,8 +614,8 @@
             <td class="td4"><input id="txtWidth" type="text" class="txt num c1" /></td>
             <td class='td5'><span> </span><a id="lblLengthb" class="lbl"></a></td>
             <td class="td6"><input id="txtLengthb" type="text" class="txt num c1"  /></td> 
-            <td class='td7'><span> </span><a id="lblLengthb2" class="lbl"></a></td>
-            <td class="td8"><input id="txtLengthb2" type="text" class="txt num c2" /></td>
+            <td class='td7'><span> </span><a id="lblRadius" class="lbl"></a></td>
+            <td class="td8"><input id="txtRadius" type="text" class="txt num c2" /></td>
         </tr>  
         <tr>
             <td class='td1'><span> </span><a id="lblOweight" class="lbl" ></a></td>
@@ -610,7 +697,7 @@
                 <td align="center" ><a id='lblSpecs'></a></td>
                 <td align="center"><a id='lblWprice'></a></td>
                 <td align="center"><a id='lblSize'></a></td>
-                <td align="center"><a id='lblRadius'></a></td>
+                <td align="center"><a id='lblRadiuss'></a></td>
                 <td align="center"><a id='lblMweight'></a></td>
                 <td align="center"><a id='lblOrdenos'></a></td>
                 <td align="center" ><a id='lblNo2'></a></td>
