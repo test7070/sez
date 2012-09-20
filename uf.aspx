@@ -24,7 +24,7 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         aPop = new Array(['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
-        							['txtBankno', 'lblBankno', 'bank', 'noa,acc1,account', 'txtBankno,txtAccno,txtAccount', 'bank_b.aspx']);
+        							['txtBankno', 'lblBankno', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -63,34 +63,15 @@
 		       //........................託收匯入
 	        $('#btnGqb').click(function () {
 	        	var t_where="";
-	        	var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
-	        	//判斷不是新增的狀態
-	        	if(s1.length>0 && s1!="AUTO"){	
-	        		//清除單據內的資料
-	        		 for (var j = 0; j < q_bbsCount; j++) {
-	        		 	btnMinus('chkSel_'+j);
-	        		 }
-	        		t_where="where=^^ b.noa ='"+s1+"' or (tbankno!='' and a.datea <='"+$('#txtDatea').val()+"' and (enda!='Y' or enda is null)) ^^";
-	        		q_gt('uf_gqb', t_where, 0, 0);
-	        	}
-	        	else//新增的狀態
-	        	{
-	        		if(emp($('#txtBankno').val())){
-	        			t_where="where=^^ tbankno !='' and datea <='"+$('#txtDatea').val()+"' and (enda!='Y' or enda is null) ^^";
-		        	}else{
-		        		t_where="where=^^ tbankno='"+$('#txtBankno').val()+"' and datea <='"+$('#txtDatea').val()+"' and (enda!='Y' or enda is null) ^^";
-		        	}
-		        	q_gt('gqb', t_where, 0, 0);
-	        	}
-	        	//tbankno把已託收的票據匯入或根據託收銀行將票據匯入
-	        	//datea到期日之前的票據匯入
-	        	//enda!='Y' or is null表示未兌現 ='Y'表示已兌現
+	        	
+	        	if(emp($('#txtBankno').val())){
+	        		t_where="where=^^ (a.tbankno=''or a.tbankno is null) and (a.enda!='Y' or a.enda is null)and (b.sel = 0 or b.sel is null) ^^";
+		        }else{
+		        	t_where="where=^^ a.tbankno='"+$('#txtBankno').val()+"' and (a.enda!='Y' or a.enda is null)and (b.sel = 0 or b.sel is null)  ^^";
+		        }
+		        q_gt('uf_gqb', t_where, 0, 0);
 	        });
 	        //......................... 
-	        
-	        
-	        
-	        
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -109,7 +90,7 @@
             	case 'uf_gqb':
             		var as = _q_appendData("gqb", "", true);
             		//if(as.length>q_bbsCount)
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtBankno,txtBank,txtCheckno,txtDatea,txtMoney,txtTaccl', as.length, as, 'bankno,bank,noa,indate,money,accl', '');
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtCheckno,txtBankno,txtBank,txtDatea,txtMoney,txtTaccl', as.length, as, 'gqbno,bankno,bank,indate,money,accl', '');
             		
 			        for (var j = 0; j < q_bbsCount; j++) {
 			            	$('#ufseq_'+j).text(j+1);//自動產生序號
@@ -117,16 +98,6 @@
 			            	$('#chkSel_'+j).removeAttr("checked");//將單據內的票據取消
 			        }  // j
 
-		             sum();
-            		break;
-            	case 'gqb':
-            		var as = _q_appendData("gqb", "", true);
-            		//if(as.length>q_bbsCount)
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtBankno,txtBank,txtCheckno,txtDatea,txtMoney,txtTaccl', as.length, as, 'bankno,bank,noa,indate,money,accl', '');
-            		//自動產生序號
-			        for (var j = 0; j <= q_bbsCount; j++) {
-			            	$('#ufseq_'+j).text(j+1);
-			        }  // j
 		             sum();
             		break;
                 case q_name: if (q_cur == 4)   

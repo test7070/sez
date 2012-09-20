@@ -47,6 +47,42 @@
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask); 
              q_cmbParse("cmbTypea", q_getPara('cut.typea'));
+             q_cmbParse("cmbType2", q_getPara('cut.type2'));
+             //重新計算理論重
+             $('#txtProductno').change(function () {
+             	//取得品名的密度-計算理論重
+             	var t_where = "where=^^ noa = '"+ $('#txtProductno').val()+"' ^^"; 
+				q_gt('ucc', t_where , 0, 0, 0, "", r_accy);
+				/*for(var j = 0; j < q_bbsCount; j++) {
+		                     theory(j);
+		                     btnMinus('btnMinus_'+j);
+		        }*/
+		     });
+            $('#cmbTypea').change(function () {
+				for(var j = 0; j < q_bbsCount; j++) {
+		                     theory(j);
+		        }
+		     });
+		     $('#cmbType2').change(function () {
+				for(var j = 0; j < q_bbsCount; j++) {
+		                     theory(j);
+		        }
+		     });
+		     $('#txtWidth').change(function () {
+				for(var j = 0; j < q_bbsCount; j++) {
+		                     theory(j);
+		        }
+		     });
+		     $('#txtGweight').change(function () {
+				for(var j = 0; j < q_bbsCount; j++) {
+		                     theory(j);
+		        }
+		     });
+		     $('#txtEweight').change(function () {
+				for(var j = 0; j < q_bbsCount; j++) {
+		                     theory(j);
+		        }
+		     });
              
         }
 
@@ -63,6 +99,9 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'ucc':
+            		var ucc= _q_appendData("ucc", "", true);;
+            		break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
@@ -97,6 +136,47 @@
         }
 
         function bbsAssign() {  
+        	for(var j = 0; j < q_bbsCount; j++) {
+            	if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+            		//計算理論重
+            		$('#txtRadius_' + j).change(function () {
+		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                     q_bodyId($(this).attr('id'));
+		                     b_seq = t_IdSeq;
+		                     theory(b_seq);
+		              });
+		              $('#txtDivide_' + j).change(function () {
+		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                     q_bodyId($(this).attr('id'));
+		                     b_seq = t_IdSeq;
+		                     theory(b_seq);
+		              });
+		              $('#txtWidth_' + j).change(function () {
+		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                     q_bodyId($(this).attr('id'));
+		                     b_seq = t_IdSeq;
+		                     theory(b_seq);
+		              });
+		              $('#txtMount_' + j).change(function () {
+		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                     q_bodyId($(this).attr('id'));
+		                     b_seq = t_IdSeq;
+		                     theory(b_seq);
+		              });
+		              $('#txtDime_' + j).change(function () {
+		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                     q_bodyId($(this).attr('id'));
+		                     b_seq = t_IdSeq;
+		                     theory(b_seq);
+		              });
+		              $('#txtLengthb_' + j).change(function () {
+		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                     q_bodyId($(this).attr('id'));
+		                     b_seq = t_IdSeq;
+		                     theory(b_seq);
+		              });
+        		}
+        	}
             _bbsAssign();
         }
 
@@ -105,12 +185,18 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
+            //取得品名的密度-計算理論重
+            var t_where = "where=^^ noa = '"+ $('#txtProductno').val()+"' ^^"; 
+			q_gt('ucc', t_where , 0, 0, 0, "", r_accy);
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
             $('#txtProduct').focus();
+            //取得品名的密度-計算理論重
+            var t_where = "where=^^ noa = '"+ $('#txtProductno').val()+"' ^^"; 
+			q_gt('ucc', t_where , 0, 0, 0, "", r_accy);
         }
         function btnPrint() {
 
@@ -153,7 +239,6 @@
 
         }
 
-        
         function refresh(recno) {
             _refresh(recno);
        }
@@ -216,12 +301,12 @@
         	var t_density=7.85;//預設
             if(dec($('#txtRadius_'+id).val())==0 &&$('#cmbTypea').val()=='3')	//非管類
             {
-            	if($('#txtType2').val().indexOf('條')>-1 || $('#txtType2').val().indexOf('貼膜')>-1 || $('#cmbTypea').find("option:selected").text().indexOf('條')>-1)
+            	if($('#cmbType2').find("option:selected").text().indexOf('條')>-1 || $('#cmbType2').find("option:selected").text().indexOf('貼膜')>-1 || $('#cmbTypea').find("option:selected").text().indexOf('條')>-1)
             	{
             		if(dec($('#txtWidth').val())>0)
             		{
             			if(dec($('#txtGweight').val())>0)
-            			{
+            			{//加工重量=原重量/原寬度*加寬*數量
             				if(dec($('#txtDivide_'+id).val())>0)
             					$('#txtTheory_'+id).val(dec($('#txtGweight').val())/dec($('#txtWidth').val())*dec($('#txtWidth_'+id).val())*dec($('#txtMount_'+id).val())*dec($('#txtDivide_'+id).val()));
             				else
@@ -235,20 +320,24 @@
             		}
             	}else{
             		//根據BBM的品名NO找UCC的密度
-            		//後補齊t_density
-            		
+            		if(ucc[0]!=undefined)
+            		{
+            			t_density=ucc[0].density;
+            		}
+
+            		//標準重量=比重*原厚度*原寬度/1000*原長度/1000 &&加工重量=標準重量*數量
             		if(dec($('#txtDivide_'+id).val())>0)
             			$('#txtTheory_'+id).val(t_density*dec($('#txtDime_'+id).val())*(dec($('#txtWidth_'+id).val())/1000)*(dec($('#txtLengthb_'+id).val()) /1000)*dec($('#txtMount_'+id).val())*dec($('#txtDivide_'+id).val()));
             		else
             			$('#txtTheory_'+id).val(t_density*dec($('#txtDime_'+id).val())*(dec($('#txtWidth_'+id).val())/1000)*(dec($('#txtLengthb_'+id).val()) /1000)*dec($('#txtMount_'+id).val())*1);
             	}
-            	
-            	
-            	
-            	
-            	
-            	
             }
+            if(dec($('#txtRadius_'+id).val())!=0)
+            {
+            	$('#txtTheory_'+id).val($('#txtTheory_'+id).val());
+            	$('#txtWeight_'+id).val($('#txtTheory_'+id).val());
+            }
+            
         }
 
     </script>
@@ -415,7 +504,7 @@
             <td class="td2"><input id="txtMechno" type="text" class="txt c3" />
             <input id="txtMech"  type="text"  class="txt c4"/></td>
             <td class='td3'><span> </span><a id="lblType2"class="lbl" ></a></td>
-            <td class="td4"><input id="txtType2" type="text" class="txt c1" /></td>
+            <td class="td4"><select id="cmbType2" class="txt c1"></select></td><!--<input id="txtType2" type="text" class="txt c1" />-->
             <td class='td5'><span> </span><a id="lblCust" class="lbl btn" ></a></td>
             <td class="td6"><input id="txtCustno" type="text"  class="txt c1"/></td>
             <td class="td7" colspan="2"><input id="txtCust" type="text"  class="txt c1"/></td>
