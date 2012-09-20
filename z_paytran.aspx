@@ -16,6 +16,7 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 			t_carteam = "";
+			t_calctype  =  "";
 			if (location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
 			}
@@ -48,38 +49,34 @@
 							type : '0',
 							name : 'accy',
 							value : q_getId()[4]
-						}, {
+						}, {/*1*/
 							type : '1',
 							name : 'date'
-						}, {
+						}, {/*2*/
 							type : '2',
 							name : 'tgg',
 							dbf : 'tgg',
 							index : 'noa,comp',
 							src : 'tgg_b.aspx'
-						}, {
+						}, {/*3*/
 							type : '2',
 							name : 'driver',
 							dbf : 'driver',
 							index : 'noa,namea',
 							src : 'driver_b.aspx'
-						}, {
+						}, {/*4*/
 							type : '6',
 							name : 'zrc2no'
-						}, {
+						}, {/*5*/
 							type : '6',
 							name : 'xcarno'
-						}, {
+						}, {/*6*/
 							type : '5', //select
 							name : 'xsort1',
 							value : q_getPara('z_tre.sort1').split(',')
-						}, {
+						}, {/*7*/
 							type : '6',
 							name : 'xnoa'
-						}, {
-							type : '8', //select
-							name : 'xcarteam',
-							value : t_carteam.split(',')
 						}]
 					});
 					q_popAssign();
