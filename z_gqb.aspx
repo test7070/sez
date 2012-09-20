@@ -42,7 +42,7 @@
                         src : 'bank_b.aspx'
                     }, {
                         type : '1',
-                        name : 'chkno'
+                        name : 'gqbno'
                     }]
                 });
                 q_popAssign();
