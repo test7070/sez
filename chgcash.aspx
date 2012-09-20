@@ -227,7 +227,7 @@
                  
 			var i = parseInt($('#combDc').val(), 0);
          	var s1 = $('#combDc')[0][i - 1].innerText.substr(0, 1);
-         
+         	$('#txtWorker').val(r_name);
             if ( t_noa.length==0 )   /// ??????s??
                 q_gtnoa(q_name, t_noa);
             else
