@@ -182,6 +182,10 @@
 							type : '5',
 							name : 'xsort8',
 							value : q_getMsg('tsort8').split('&')
+						}, {/*22*/
+							type : '8',
+							name : 'xfield05',
+							value : q_getMsg('tfield05').split('&')
 						}]
 					});
 					q_popAssign();
@@ -199,6 +203,7 @@
 					$('#chkXcarteam').children('input').attr('checked','checked');
 					$('#chkXcarkind').children('input').attr('checked','checked');
 	                $('#chkXcalctypes').children('input').attr('checked','checked');
+	                $('#chkXfield05').children('input').attr('checked','checked');
 	                
 					var t_date, t_year, t_month, t_day;
 					t_date = new Date();
