@@ -153,14 +153,14 @@
 		        _btnIns();
 		        $('#txtNoa').val('AUTO');
 		        $('#txtDatea').val(q_date());
-		        $('#txtDatea').focus();
+		        $('#txtFixdate').focus();
 		    }
 
 		    function btnModi() {
 		        if (emp($('#txtNoa').val()))
 		            return;
 		        _btnModi();
-		        $('#txtDatea').focus();
+		        $('#txtFixdate').focus();
 		        sum();
 		    }
 
@@ -420,9 +420,10 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm" >
 					<tr class="tr1">
-						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtNoa" type="text" class="txt c1"/>
+						
+						<td class="td5"><span> </span><a id="lblFixadate" class="lbl"> </a></td>
+						<td class="td6">
+						<input id="txtFixadate" type="text" class="txt c1"/>
 						</td>
 						<td class="td3"><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td class="td4">
@@ -442,9 +443,9 @@
 						<td class="td3"><span> </span><a id="lblCarplateno" class="lbl"> </a></td>
 						<td class="td4">
 						<input id="txtCarplateno" type="text" class="txt c1"/></td>
-						<td class="td5"><span> </span><a id="lblFixadate" class="lbl"> </a></td>
-						<td class="td6">
-						<input id="txtFixadate" type="text" class="txt c1"/>
+						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtNoa" type="text" class="txt c1"/>
 						</td>
 					</tr>
 					<tr class="tr3">

@@ -31,7 +31,8 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
-        					['txtCarno', 'lblCarno', 'car2', 'a.noa','txtCarno', 'car2_b.aspx'],
+        					['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
+        					['txtCarplateno', 'lblCarplateno', 'carplate', 'noa,carplate', 'txtCarplateno', 'carplate_b.aspx'],
         					['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,unit', 'txtProductno_,txtProduct_,txtUnit_', 'fixucc_b.aspx']);
 
             $(document).ready(function() {
@@ -410,6 +411,8 @@
 						<td class="td6"><select id="cmbTypea" class="txt c1"> </select></td>
 					</tr>
 					<tr>
+						<td class="td1"><span> </span><a id="lblCarno" class="lbl btn"> </a></td>
+						<td class="td2"><input id="txtCarno" type="text" class="txt c1"/></td>
 						<td class="td1"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
 						<td class="td2" colspan="2">
 						<input id="txtDriverno" type="text" class="txt c2"/>
@@ -419,8 +422,7 @@
 						<td><input id="txtOutdate"type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1"><span> </span><a id="lblCarno" class="lbl btn"> </a></td>
-						<td class="td2"><input id="txtCarno" type="text" class="txt c1"/></td>
+						
 						<td class="td3"><span> </span><a id="lblCarplate" class="lbl btn"> </a></td>
 						<td class="td4"><input id="txtCarplateno" type="text" class="txt c1"/></td>
 					</tr>
