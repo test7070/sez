@@ -39,6 +39,40 @@
 		    	['txtCarplateno', 'lblCarplateno', 'carplate', 'noa,carplate', 'txtCarplateno', 'carplate_b.aspx'], 
 		    	['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,unit,inprice', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'fixucc_b.aspx']);
 		    q_desc = 1;
+		    
+		    function currentData() {}
+			currentData.prototype = {
+				data : [],
+				/*新增時複製的欄位*/
+				include : ['txtDatea','txtFixadate','txtTggno','txtTgg','txtNick'],
+				/*記錄當前的資料*/
+				copy : function() {
+					curData.data = new Array();
+					for (var i in fbbm) {
+						var isInclude = false;
+						for (var j in curData.include) {
+							if (fbbm[i] == curData.include[j]) {
+								isInclude = true;
+								break;
+							}
+						}
+						if (isInclude) {
+							curData.data.push({
+								field : fbbm[i],
+								value : $('#' + fbbm[i]).val()
+							});
+						}
+					}
+				},
+				/*貼上資料*/
+				paste : function() {
+					for (var i in curData.data) {
+						$('#' + curData.data[i].field).val(curData.data[i].value);
+					}
+				}
+			};
+			var curData = new currentData();
+			
 		    $(document).ready(function () {
 		        bbmKey = ['noa'];
 		        bbsKey = ['noa', 'noq'];
@@ -150,17 +184,20 @@
 		    }
 
 		    function btnIns() {
-		        _btnIns();
-		        $('#txtNoa').val('AUTO');
-		        $('#txtDatea').val(q_date());
-		        $('#txtFixdate').focus();
+		        curData.copy();
+                _btnIns();
+                curData.paste();
+                $('#txtNoa').val('AUTO');
+                if($('#txtDatea').val().length==0)
+               		$('#txtDatea').val(q_date());
+		        $('#txtFixadate').focus();
 		    }
 
 		    function btnModi() {
 		        if (emp($('#txtNoa').val()))
 		            return;
 		        _btnModi();
-		        $('#txtFixdate').focus();
+		        $('#txtFixadate').focus();
 		        sum();
 		    }
 
@@ -401,18 +438,22 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:20%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:20%"><a id='vewCarno'> </a></td>
-						<td align="center" style="width:20%"><a id='vewDriver'> </a></td>
-						<td align="center" style="width:20%"><a id='vewTgg'> </a></td>
+						<td align="center" style="width:15%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:15%"><a id='vewFixadate'> </a></td>
+						<td align="center" style="width:15%"><a id='vewCarno'> </a></td>
+						<td align="center" style="width:15%"><a id='vewDriver'> </a></td>
+						<td align="center" style="width:15%"><a id='vewCarplateno'> </a></td>
+						<td align="center" style="width:15%"><a id='vewTgg'> </a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
 						<td align="center" id='datea'>~datea</td>
+						<td align="center" id='fixadate'>~fixadate</td>
 						<td align="center" id='carno'>~carno</td>
 						<td align="center" id='driver'>~driver</td>
+						<td align="center" id='carplateno'>~carplateno</td>
 						<td align="center" id='nick'>~nick</td>
 					</tr>
 				</table>
