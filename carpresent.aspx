@@ -15,11 +15,11 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         q_tables = 's';
-        var q_name = "chk2";
+        var q_name = "carpresent";
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [['txtMoney',12 , , 1]];  
-        var bbsNum = [['txtMoney',12 , , 1]];
+        var bbmNum = [];  
+        var bbsNum = [];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
@@ -53,29 +53,7 @@
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
 
-			//........................票據匯入
-	        $('#btnGqb').click(function () {
-	           chk2_gqb();
-	        });
-	        //.........................
-
         }
-
-        function chk2_gqb() {
-            t_where = "where=^^ (tbankno='' or  tbankno is null) and a.typea='1' and (b.sel = 0 or b.sel is null) ^^";
-
-           /* var j = 0, s1 = '';
-            for (var i = 0; i < q_bbsCount; i++) {
-                if ($.trim($('#txtCheckno_' + i).val()).length > 0 && $('#txtCheckno_' + i)[0].checked ) {
-                    s1 = s1 + (j == 0 ? "" : " or ") + " noa='" + $('#txtCheckno_' + i).val() + "'";
-                    j++;
-                }
-            }//判斷BBS是否有資料且被選取
-
-            t_where1 = t_where1 + (s1.length > 0 ? " or (" + s1 + ")" : '') + "^^";*/
-            q_gt('chk2_gqb', t_where , 0, 0, 0, "", r_accy);
-        }
-
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
             var ret;
@@ -90,14 +68,6 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-            	case 'chk2_gqb':
-            		var as = _q_appendData("gqb", "", true);
-            		//if(as.length>q_bbsCount)
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtCheckno,txtBank,txtBankno,txtAccount,txtDatea,txtMoney,txtTcompno,txtTcomp', as.length, as, 'gqbno,bank,bankno,account,indate,money,tcompno,tcomp', '');
-            		for (var i = 0; i < as.length; i++) {
-            			$('#txtNoq_' + i).val(i+1);	//自動產生NO
-		             }
-            		break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
@@ -111,10 +81,6 @@
                 return;
             }
 			
-			if(emp($('#txtBankno').val())){
-             	alert("託收銀行未輸入");
-             	return;
-             }
             $('#txtWorker').val(r_name)
             sum();
 
@@ -227,25 +193,10 @@
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
-            for (var j = 0; j < q_bbsCount; j++) {
-			 if($('#chkSel_' + j )[0].checked){	//判斷是否被選取
-                	$('#trSel_'+  j ).addClass('chksel');//變色
-                }else{
-                	$('#trSel_'+ j ).removeClass('chksel');//取消變色
-                }
-			} 
-            
        }
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
-             if (t_para) {
-		            $('#btnGqb').attr('disabled', 'disabled');	          
-		        }
-		        else {
-		        	$('#btnGqb').removeAttr('disabled');	 
-		        }
-            
         }
 
         function btnMinus(id) {
@@ -423,43 +374,25 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain'>
-        <div class="dview" id="dview" style="float: left;  width:32%;"  >
+        <div class="dview" id="dview" style="float: left;  width:99%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:20%"><a id='vewDatea'></a></td>
-                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-                
+                <td align="center" style="width:10%"><a id='vewDatea'></a></td>
+                <td align="center" style="width:10%"><a id='vewWeek'></a></td>
+                <td align="center" style="width:10%"><a id='vewUnpresent'></a></td>
+                <td align="center" style="width:50%"><a id='vewCarno'></a></td>
+                <td align="center" style="width:15%"><a id='vewMemo'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='datea'>~datea</td>
-                   <td align="center" id='noa'>~noa</td>
+                   <td align="center" id='week'>~week</td>
+                   <td align="center" id='unpresent'>~unpresent</td>
+                   <td align="center" id='carno'>~carno</td>
+                   <td align="center" id='memo'>~memo</td>
                   
             </tr>
-        </table>
-        </div>
-        <div class='dbbm' style="width: 68%;float:left">
-        <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
-        <tr>
-            <td class='td1'><span> </span><a id="lblDatea" class="lbl"></a></td>
-            <td class="td2"><input id="txtDatea"  type="text" class="txt c1"/></td>
-            <td class='td3'><span> </span><a id="lblNoa" class="lbl" ></a></td>
-            <td class="td4"><input id="txtNoa"type="text" class="txt c1"/></td> </tr>
-        <tr>            
-            <td class='td1'><span> </span><a id="lblBank" class="lbl btn" ></a></td>
-            <td class="td2"><input id="txtBankno" type="text"  class="txt c2"/><input  id="txtBank"  type="text"  class="txt c3"/></td>
-            <td class='td3'><span> </span><a id="lblAccount" class="lbl" ></a></td>
-            <td class="td4"><input id="txtAccount" type="text" class="txt c1" /></td></tr>        
-        <tr>            
-            <td class='td1'><span> </span><a id="lblMoney" class="lbl"></a></td>
-            <td class="td2"><input id="txtMoney"  type="text" class="txt num c1" /></td>
-            <td class='td3'><span> </span><a id="lblAccl"  class="lbl"></a></td>
-            <td class="td4"><input id="txtAccl"  type="text" class="txt num c1" /></td></tr>        
-        <tr>
-            <td class='td1'><span> </span><a id="lblWorker" class="lbl" ></a></td>
-            <td class="td2"><input id="txtWorker"  type="text" class="txt c1" /></td>
-            <td class='td3'><input type="button" id="btnGqb" class="txt c1 " value="票據匯入"></td></tr> 
         </table>
         </div>
 
@@ -467,27 +400,21 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" class="td0"><a id='vewChks'></a></td>
-                <td align="center" style="width:5%"><a id='lblNoas'></a></td>
-                <td align="center" class="td2"><a id='lblCheckno'></a></td>
-                <td align="center" style="width:20%"><a id='lblBanks'></a></td>
-                <td align="center" class="td3"><a id='lblBankno'></a></td>
-                <td align="center" class="td2"><a id='lblAccounts'></a></td>
-                <td align="center" class="td3"><a id='lblDateas'></a></td>
-                <td align="center" class="td3"><a id='lblMoneys'></a></td>
-                <td align="center" class="td3"><a id='lblTcomps'></a></td>
+                <td align="center" style="width:5%"><a id='lblNoqs'></a></td>
+                <td align="center" class="td2"><a id='lblDateas'></a></td>
+                <td align="center" style="width:20%"><a id='lblWeeks'></a></td>
+                <td align="center" class="td3"><a id='lblCarno'></a></td>
+                <td align="center" class="td2"><a id='lblCarteam'></a></td>
+                <td align="center" class="td3"><a id='lblMemo'></a></td>
             </tr>
             <tr id="trSel.*">
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input id="chkSel.*" type="checkbox"/></td>
                 <td ><input class="txt c1" id="txtNoq.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtCheckno.*" type="text" /></td>
-                <td ><input id="txtBank.*" type="text" style="width: 100%;"/></td><!--<input id="btnBank.*" type="button" value="..." style="width: 16%;"/>-->
-                <td ><input class="txt c1" id="txtBankno.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtAccount.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtDatea.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtMoney.*" type="text" /></td>
-                <td ><input id="btnTcomp.*" type="button" value="." style="float:left;width: 1%;"/><input id="txtTcompno.*" type="text" style="width: 30%;float: left;"/><input id="txtTcomp.*" type="text" style="width: 60%;float: left;"/></td>
+                <td ><input class="txt c1" id="txtWeek.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtCarno.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtCarteam.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
             </tr>
         </table>
         </div>
