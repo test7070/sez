@@ -58,6 +58,10 @@
 						$('#dbbm').css('width', '100%');
 					}
 				});
+				$('#btnUnpresent').click(function() {
+					q_pop('', "carpresent.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy + '_' + r_cno, '', '', '', "92%", "1054px", q_getMsg('popCarpresent'), true);
+					
+				});
 			});
 
 			function currentData() {}
@@ -692,6 +696,7 @@
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain'>
 			<input type="button" id="btnSwitch" value="切換"/>
+			<input type="button" id="btnUnpresent" value="未出車"/>
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr class="th1">
