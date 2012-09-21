@@ -22,7 +22,7 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
         
-        aPop = new Array(['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],['txtPartno', 'lblPart', 'Part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],
+        aPop = new Array(['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],
         ['txtChgitemno', 'lblChgitem', 'chgitem', 'noa,item', 'txtChgitemno,txtChgitem', 'chgitem_b.aspx'],
         ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
         
@@ -135,7 +135,12 @@
 
                     if (q_cur == 1 || q_cur == 2) 
                         q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
+					if(ins==true)
+					{
+						var as = _q_appendData("chgcash", "", true);
+						$('#txtNoa').val(dec(as[as.length-1].noa)+1);
+						ins=false;
+					}
                     break;
             }  /// end switch
         }
@@ -155,11 +160,14 @@
                 $('#txtPay').val(cmb.value);
             cmb.value = '';
         }
-
+		var ins =false;
         function btnIns() {
             _btnIns();
             $('#txtNoa').focus();
-            $('#txtNoa').val(dec($('#pageAll').val())+1);
+            
+            var t_where ="where=^^ noa!='' ^^"; 
+			q_gt('chgcash', t_where  , 0, 0, 0, "", r_accy);	
+            ins=true;
             
             //申請日期與時間
             var now =new Date();
@@ -219,7 +227,7 @@
                  
 			var i = parseInt($('#combDc').val(), 0);
          	var s1 = $('#combDc')[0][i - 1].innerText.substr(0, 1);
-         
+         	$('#txtWorker').val(r_name);
             if ( t_noa.length==0 )   /// ??????s??
                 q_gtnoa(q_name, t_noa);
             else
