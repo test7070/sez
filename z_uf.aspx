@@ -17,45 +17,26 @@
 		<script type="text/javascript">
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_gqb');
-
+                q_gf('', 'z_uf');
             });
             function q_gfPost() {
-                $('#q_report').q_report({
-                    fileName : 'z_gqb',
-                    options : [{
-                        type : '5',
-                        name : 'stype',
-                        value : [q_getPara('report.all')].concat(q_getPara('gqb.type').split(','))
-                    }, {
-                        type : '5',
-                        name : 'status',
-                        value : [q_getPara('report.all')].concat(new Array('Y', 'N'))
-                    }, {
-                        type : '1',
-                        name : 'date'
-                    }, {
-                        type : '2',
-                        name : 'bank',
-                        dbf : 'bank',
-                        index : 'noa,bank',
-                        src : 'bank_b.aspx'
-                    }, {
-                        type : '1',
-                        name : 'gqbno'
+               $('#q_report').q_report({
+                        fileName : 'z_uf',
+                        options : [ {
+                        type : '6',
+                        name : 'xdate'
                     }]
-                });
+                    });
                 q_popAssign();
-
-                $('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();
-            }
-            function q_boxClose(t_name) {
+                 $('#txtXdate').mask('999/99/99');
+                $('#txtXdate').datepicker();
+                $('#txtXdate').val(q_date());
+                
             }
 
-            function q_gtPost(t_name) {
+            function q_boxClose(s2) {
+            }
+            function q_gtPost(s2) {
             }
 		</script>
 	</head>
