@@ -181,12 +181,26 @@
 						}, {/*21*/
 							type : '5',
 							name : 'xsort8',
-							value : q_getMsg('tsort8').split('&')
+							value : q_getMsg('tsort08').split('&')
 						}, {/*22*/
 							type : '8',
 							name : 'xfield05',
 							value : q_getMsg('tfield05').split('&')
-						}]
+						}, {/*23*/
+							type : '5',
+							name : 'xsort03',
+							value : q_getMsg('tsort03').split('&')
+						}, {/*24*/
+							type : '5',
+							name : 'xsort14',
+							value : q_getMsg('tsort14').split('&')
+						},{/*25*/
+	                        type : '2',
+	                        name : 'sales',
+	                        dbf : 'sss',
+	                        index : 'noa,namea',
+	                        src : 'sss_b.aspx'
+	                    }]
 					});
 					q_popAssign();
 					q_langShow();
