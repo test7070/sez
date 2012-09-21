@@ -16,14 +16,14 @@
         }
         q_tables = 's';
         var q_name = "cut";
-        var q_readonly = ['txtProductno','txtProduct','txtSpec','txtDime','txtWidth','txtLengthb','txtRadius','txtOweight','txtEweight'];
+        var q_readonly = ['txtProductno','txtProduct','txtSpec','txtDime','txtWidth','txtLengthb','txtRadius','txtOweight','txtEweight','txtTotalout','txtTheyout'];
         var q_readonlys = [];
         var bbmNum = [];  
         var bbsNum = [];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],['txtUno', 'lblUno', 'uccc', 'noa,productno,product,spec,dime,width,lengthb,radius,weight,eweight', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight', 'ucc_b.aspx'],
+        aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],['txtUno', 'lblUno', 'uccc', 'noa,productno,product,spec,dime,width,lengthb,radius,weight,eweight', 'txtUno,txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOweight,txtEweight', 'uccc_b.aspx'],
         ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtCust_', 'cust_b.aspx'],['txtMechno', 'lblMech', 'mech', 'noa,mech', 'txtMechno,txtMech', 'mech_b.aspx']);
         //['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
         $(document).ready(function () {
@@ -83,11 +83,18 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'ordes':
+            		ordes=_q_appendData("ordes", "", true);
+            		if(ordes[0]==undefined)
+            			alert("訂單不存在");
+            		break;
             	case 'ucc':
-            		var ucc= _q_appendData("ucc", "", true);
+            		ucc= _q_appendData("ucc", "", true);
             		break;
             	case 'uccb':
-            		var uccb= _q_appendData("uccb", "", true);
+            		i_uno=1;
+            		uccb= _q_appendData("uccb", "", true);
+            		//取得餘料編號
             		if(uccb[uccb.length-1]!=undefined)
             		{
             			if(uccb[uccb.length-1].noa.indexOf('-')>-1)	//取-之後的數字
@@ -95,9 +102,24 @@
             				i_uno=parseInt(uccb[uccb.length-1].noa.slice(uccb[uccb.length-1].noa.indexOf('-')+1).toString(10))+1;
             			}	
             		}
+            		//判斷已有領用
+            		if(uccb[0]!=undefined)
+            		{
+            			for(var i=0;i<uccb.length;i++)
+	            		{
+	            			if($('#txtUno').val()==uccb[i].noa)
+	            			{
+	            				uccb_gweight=uccb[i].gweight;
+	            			}
+	            		}
+            		}
+            		
             		break;
-                case q_name: if (q_cur == 4)   
-                        q_Seek_gtPost();
+                case q_name: 
+	                if(q_cur == 1)
+	                	cuts= _q_appendData("cut", "", true);
+	                if (q_cur == 4)   
+	                        q_Seek_gtPost();
                     break;
             }  /// end switch
         }
@@ -146,7 +168,11 @@
             
             if($('#cmbTypea').find("option:selected").text().indexOf('條')>-1)
             {
-				//待補不可重覆分條
+            	if(cuts[0]!=undefined && cuts[0].typea==$('#cmbTypea').val()&&dec($('#txtTheyout').val())==0)
+            	{
+	            	alert("不可重覆分條");
+	                return;
+	            }
             }
             
             if(dec($('#txtTheyout').val())!=0&&dec($('#txtGweight').val())==0)
@@ -160,6 +186,7 @@
             	alert("領料數為零");
                 return;
             }
+            
             if($('#cmbTypea').find("option:selected").text()=='分條')//cut_save為切條
             {
             	var t_weight=0;
@@ -172,11 +199,63 @@
                 	return;
 				}	
             }
+            if($('#cmbTypea').find("option:selected").text().indexOf('委')==-1)
+            {
+	            for(var j = 0; j < q_bbsCount; j++) {
+	            	if(emp($('#txtBno_'+j).val())&&$('#txtXbutt_'+j).val()>='X')
+	            	{
+	            		$('#txtBno_'+j).val($('#txtXbutt_'+j).val()+'001');
+	            	}
+	            	if(emp($('#txtStyle_'+j).val()))
+	            	{
+	            		alert("無型別,請檢查");
+	                	return;
+	            	}
+	            	if($('#txtStyle_'+j).val()=='c'&&trim($('#txtBno_'+j).val()).length>12)
+	            	{
+	            		alert("批號異常，清空批號再重新產生，並確認是否已有領料");
+	                	return;
+	            	}
+	            }
+            }
             
+            for(var j = 0; j < q_bbsCount; j++) {
+            	if(!emp($('#txtOrdeno_'+j).val())&&emp($('#txtNo2_'+j).val()))
+	            {
+	            	alert("訂序為空");
+	                return;
+	            }
+				if(dec($('#txtWeight_'+j).val())>0 && emp($('#txtDatea').val()))
+				{
+					alert("表身有重量,日期為空");
+	                return;
+				}
+				if(dec($('#txtWeight_'+j).val())>0 && emp($('#txtWidth_'+j).val()))
+				{
+					alert("表身重量或寬度小於零");
+	                return;
+				}
+				if($('#cmbTypea').find("option:selected").text().indexOf('委')>-1&&$('#txtXbutt_'+j).val()>='X')
+				{
+					$('#txtBno_'+j).val($('#txtXbutt_'+j).val()+'001');
+				}
+				if(dec($('#txtDime_'+j).val())==dec($('#txtWidth_'+j).val())&&dec($('#txtWidth_'+j).val())>0)
+				{
+					alert("表身尺寸異常");
+	                return;
+				}
+            }
+            //判斷已領用
+			if(dec($('#txtGweight').val())>uccb_gweight)
+	       	{
+	           	alert("已有領用");
+	        	return;
+	        }
+			
             //------------參考cut_save
-            //自動產生餘料編號
+            
+            //--------------自動產生餘料編號
 			for(var j = 0; j < q_bbsCount; j++) {
-				
 				var tmp_uno=trim($('#txtUno').val());
 				if(!($('#txtUno').val().indexOf('-')>-1))
 					tmp_uno=tmp_uno+'-';
@@ -187,7 +266,18 @@
 					i_uno++;
 				}
 			}
-			
+            //------------------------------------------
+			//判斷餘料編號是否重複
+			for(var i = 0; i < q_bbsCount; i++) {
+				for(var j = 0; j < q_bbsCount; j++) {
+					if(i!=j&&$('#txtBno_'+i).val()==$('#txtBno_'+j).val())
+					{
+						alert("表身餘料編號重複");
+	                	return;
+					}
+				}
+			}
+			//----------------------------
             $('#txtWorker').val(r_name);
             sum();
 
@@ -218,6 +308,7 @@
 		                     b_seq = t_IdSeq;
 		                     theory(b_seq);
 		                     cut_save_db();
+		                     sum();
 		              });
 		              $('#txtDivide_' + j).change(function () {
 		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -225,6 +316,7 @@
 		                     b_seq = t_IdSeq;
 		                     theory(b_seq);
 		                     cut_save_db();
+		                     sum();
 		              });
 		              $('#txtWidth_' + j).change(function () {
 		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -232,6 +324,7 @@
 		                     b_seq = t_IdSeq;
 		                     theory(b_seq);
 		                     cut_save_db();
+		                     sum();
 		              });
 		              $('#txtMount_' + j).change(function () {
 		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -239,6 +332,7 @@
 		                     b_seq = t_IdSeq;
 		                     theory(b_seq);
 		                     cut_save_db();
+		                     sum();
 		              });
 		              $('#txtDime_' + j).change(function () {
 		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -246,6 +340,7 @@
 		                     b_seq = t_IdSeq;
 		                     theory(b_seq);
 		                     cut_save_db();
+		                     sum();
 		              });
 		              $('#txtLengthb_' + j).change(function () {
 		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -253,6 +348,28 @@
 		                     b_seq = t_IdSeq;
 		                     theory(b_seq);
 		                     cut_save_db();
+		                     sum();
+		              });
+		              //判斷訂單是否存在
+		              $('#txtOrdeno_' + j).change(function () {
+		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                     q_bodyId($(this).attr('id'));
+		                     b_seq = t_IdSeq;
+		                     if(!emp($('#txtOrdeno_' + b_seq))&&!emp($('#txtOrdeno_' + b_seq)))
+		                     {
+		                     	var t_where = "where=^^ noa = '"+ $('#txtOrdeno_'+b_seq).val()+"' and no2 = '"+$('#txtNo2_'+b_seq).val()+"' ^^"; 
+								q_gt('ordes', t_where , 0, 0, 0, "", r_accy);
+							}
+		              });
+		              $('#txtNo2_' + j).change(function () {
+		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                     q_bodyId($(this).attr('id'));
+		                     b_seq = t_IdSeq;
+		                     if(!emp($('#txtOrdeno_' + b_seq))&&!emp($('#txtOrdeno_' + b_seq)))
+		                     {
+		                     	var t_where = "where=^^ noa = '"+ $('#txtOrdeno_'+b_seq).val()+"' and no2 = '"+$('#txtNo2_'+b_seq).val()+"' ^^"; 
+								q_gt('ordes', t_where , 0, 0, 0, "", r_accy);
+							}
 		              });
         		}
         	}
@@ -274,7 +391,7 @@
             var t_where = "where=^^ noa = '"+ $('#txtProductno').val()+"' ^^"; 
 			q_gt('ucc', t_where , 0, 0, 0, "", r_accy);
 			//取得餘料編號
-			var t_where = "where=^^ noa like '%"+ $('#txtUno').val()+"%' ^^"; 
+			t_where = "where=^^ noa like '%"+ $('#txtUno').val()+"%' ^^"; 
 			q_gt('uccb', t_where , 0, 0, 0, "", r_accy);
         }
         function btnPrint() {
@@ -312,10 +429,11 @@
 
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0;
+            var t_totalout=0;
             for (var j = 0; j < q_bbsCount; j++) {
-
+				t_totalout+=dec($('#txtTheory_'+j).val());
             }  // j
-
+			$('#txtTotalout').val(t_totalout);
         }
 
         function refresh(recno) {
@@ -368,6 +486,11 @@
         }
 
         function btnDele() {
+        	if (dec($('#txtGweight').val())>0)
+        	{
+        		alert("已有領料禁止刪除");
+                return;
+             }
             _btnDele();
         }
 
@@ -417,6 +540,11 @@
             }
             
         }
+        var ordes=[];//ordes資料內容
+        var ucc=[];	//ucc資料內容
+        var uccb=[];	//uccb資料內容
+        var uccb_gweight=0;
+        var cuts=[];	//cut資料內容
         function cut_save_db() {	
        			//取得品名的密度-計算理論重
 	            var t_where = "where=^^ noa = '"+ $('#txtProductno').val()+"' ^^"; 
@@ -424,6 +552,14 @@
 				//取得餘料編號
 				t_where = "where=^^ noa like '%"+ $('#txtUno').val()+"%' ^^"; 
 				q_gt('uccb', t_where , 0, 0, 0, "", r_accy);
+				if(q_cur == 1)
+				{
+					//取得是否重複分條
+					t_where = "where=^^ uno = '"+ $('#txtUno').val()+"' ^^"; 
+					q_gt('cut', t_where , 0, 0, 0, "", r_accy);
+				}else{
+					cuts=[];
+				}
 		}
         
 
