@@ -19,7 +19,7 @@
         var decbbm = [];
         var q_name="acc";
         var q_readonly = [];
-        var bbmNum = []; 
+        var bbmNum = new Array(['txtBeginmoney', 16, 2, 1]); 
         var bbmMask = []; 
         
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'acc1';
@@ -39,12 +39,12 @@
                dataErr = false;
                return;
            }
-            q_mask(bbmMask);
+            
             mainForm(0); // 1=Last  0=Top  
         }
         function mainPost() { 
-            
-           
+           bbmMask = [['txtAcc1','9999.********']];
+           q_mask(bbmMask);
         }
 
       
@@ -69,7 +69,8 @@
         
         function q_boxClose( s2) {
             var ret; 
-            switch (b_pop) {                   case 'conn':
+            switch (b_pop) {                   
+            	case 'conn':
 
                     break;
 
@@ -99,7 +100,7 @@
                 case q_name: if (q_cur == 4)  
                         q_Seek_gtPost();
 
-                    if (q_cur == 1 || q_cur == 2) 
+                   if (q_cur == 1 || q_cur == 2) 
                         q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 
                     break;
@@ -132,7 +133,6 @@
                 return;
 
             _btnModi();
-            $('#txtAcc2').focus();
         }
 
         function btnPrint() {
@@ -140,14 +140,14 @@
         }
         function btnOk() {
             var t_err = '';
+            t_err = q_chkEmpField(['txtAcc1', q_getMsg('lblAcc1')]);
+            
+			var t_acc1 = trim($('#txtAcc1').val());
 
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblAcc1')], ['txtComp', q_getMsg('lblAcc2')] ]);
-
-
-            /*if ( t_noa.length==0 )  
-                q_gtnoa(q_name, t_noa);
+            if ( t_acc1.length==0 )  
+                q_gtacc1(q_name, t_acc1);
             else
-                wrServer(  t_noa);*/
+                wrServer( t_acc1);
         }
 
         function wrServer( key_value) {
