@@ -18,14 +18,14 @@
         var q_name = "rc2a";
         var decbbs = ['mount', 'price', 'money', 'tax'];
         var decbbm = ['total', 'money', 'tax'];
-        var q_readonly = ['txtMoney','txtTotal'];
+        var q_readonly = ['txtMoney','txtTotal','txtTax','txtWorker','txtAccno'];
         var q_readonlys = [];
         var bbmNum = [['txtMoney', 15, 0], ['txtTax', 15, 0], ['txtTotal', 15, 0]];  
         var bbsNum = [['txtMount', 15, 3], ['txtPrice', 15, 3], ['txtMoney', 15, 0]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
+        aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,serial,addr_invo', 'txtTggno,txtComp,txtSeria,txtAddress', 'tgg_b.aspx'],
         ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
         ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx'],
         ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
@@ -145,12 +145,14 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
+            $('#cmbTaxtype').val(1);
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            $('#txtProduct').focus();
+             $('#txtDatea').val(q_date());
+            $('#txtDatea').focus();
         }
         function btnPrint() {
 
@@ -191,7 +193,7 @@
             for (var j = 0; j < q_bbsCount; j++) {
 				t_money+=dec($('#txtMoney_'+j).val());//金額合計
             }  // j
-			$('#txtMoney').val(t_money);
+			q_tr('txtMoney' ,t_money,0);
             //$('#txtTotal').val(t_money+t_tax);
             calTax();
         }
@@ -453,16 +455,16 @@
             <td class="td4"><select id="cmbTypea" class="txt c1"> </select></td>                           
         </tr>
         <tr class="tr5">
-            <td class="td1"><span> </span><a id='lblTaxtype' class="lbl"> </a></td>
-            <td class="td2"><select id="cmbTaxtype" style='width:100%'  onchange='calTax()' / ></select></td>
-            <td class="td3"><span> </span><a id='lblMoney' class="lbl"> </a></td>
-            <td class="td4"><input id="txtMoney" type="text" class="txt num c1" /></td>    
-            <td class="td5"><span> </span><a id='lblTax' class="lbl"> </a></td>
-            <td class="td6"><input id="txtTax"  type="text" class="txt num c1" /></td>                     
+            <td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
+            <td class="td2"><input id="txtMoney" type="text" class="txt num c1" /></td>    
+            <td class="td3"><span> </span><a id='lblTax' class="lbl"> </a></td>
+            <td class="td4"><input id="txtTax"  type="text" class="txt num c1" /></td> 
+            <td class="td5"><span> </span><a id='lblTotal' class="lbl"> </a></td>
+            <td class="td6"><input id="txtTotal" type="text" class="txt num c1" /></td>                    
         </tr>
         <tr class="tr6">
-            <td class="td1"><span> </span><a id='lblTotal' class="lbl"> </a></td>
-            <td class="td2"><input id="txtTotal" type="text" class="txt num c1" /></td>
+            <td class="td1"><span> </span><a id='lblTaxtype' class="lbl"> </a></td>
+            <td class="td2"><select id="cmbTaxtype" style='width:100%'  onchange='calTax()' / ></select></td>
             <td class="td3"><span> </span><a id='lblWorker' class="lbl"> </a></td>
             <td class="td4"><input id="txtWorker" type="text" class="txt c1" /></td>
         </tr>

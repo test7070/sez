@@ -16,7 +16,7 @@
         }
         q_tables = 's';
         var q_name = "vcca";
-        var q_readonly = ['txtMoney','txtTotal'];
+        var q_readonly = ['txtMoney','txtTotal','txtChkno','txtTax','txtAccno','txtWorker'];
         var q_readonlys = [];
         var bbmNum = [['txtMoney', 15, 0], ['txtTax', 15, 0], ['txtTotal', 15, 0]];  // 允許 key 小數
         var bbsNum = [['txtMount', 15, 3], ['txtGmount', 15, 4], ['txtEmount', 15, 4], ['txtPrice', 15, 3], ['txtTotal', 15, 0]];
@@ -25,7 +25,7 @@
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
 		aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx'],
-		['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+		['txtCustno', 'lblCust', 'cust', 'noa,comp,serial,addr_invo', 'txtCustno,txtComp,txtSeria,txtAddress', 'cust_b.aspx'],
 		['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx'],
 		['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
         $(document).ready(function () {
@@ -177,7 +177,7 @@
 			var t_where = "where=^^ datea between '"+q_date().substr(0,6)+"' and '"+q_date()+"' and noa not like '%退貨%' ^^"; 
             ins=true;
             q_gt('vcca1', t_where , 0, 0, 0, "", r_accy);
-            
+            $('#cmbTaxtype').val(1);
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
         }
@@ -185,8 +185,10 @@
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            $('#txtProduct').focus();
+            $('#txtDatea').val(q_date());
+            $('#txtDatea').focus();
             $('#txtNoa').attr('readonly', true); //讓發票號碼不可修改
+            
         }
         function btnPrint() {
 
@@ -228,7 +230,7 @@
 				t_money+=dec($('#txtTotal_'+j).val());//產品金額合計
 				
             }  // j
-            $('#txtMoney').val(t_money);
+            q_tr('txtMoney' ,t_money,0);
             //$('#txtTotal').val(t_money+t_tax);
             calTax();
         }
@@ -450,18 +452,18 @@
             <td class="td2"><input id="txtMon"  type="text" class="txt c1"/></td>
         </tr>
         <tr class="tr5">
-            <td class="td1"><span> </span><a id='lblChkno' class="lbl"></a></td>
-            <td class="td2"><input id="txtChkno"  type="text" class="txt c1" /></td>
-            <td class="td3"><span> </span><a id='lblMoney' class="lbl"></a></td>
-            <td class="td4"><input id="txtMoney"  type="text"  class="txt num c1"/></td>            
-            <td class="td5"><span> </span><a id='lblTax' class="lbl"></a></td>
-            <td class="td6"><input id="txtTax"  type="text"  class="txt num c1"/></td>                                   
+            <td class="td1"><span> </span><a id='lblMoney' class="lbl"></a></td>
+            <td class="td2"><input id="txtMoney"  type="text"  class="txt num c1"/></td>            
+            <td class="td3"><span> </span><a id='lblTax' class="lbl"></a></td>
+            <td class="td4"><input id="txtTax"  type="text"  class="txt num c1"/></td>
+            <td class="td5"><span> </span><a id='lblTotal' class="lbl"></a></td>
+            <td class="td6"><input id="txtTotal"  type="text"  class="txt num c1"/></td>                                   
         </tr>
         <tr class="tr6">
             <td class="td1"><span> </span><a id='lblTaxtype' class="lbl"></a></td>
             <td class="td2"><select id="cmbTaxtype" style='width:100%'  onchange='calTax()' / ></select></td>
-             <td class="td3"><span> </span><a id='lblTotal' class="lbl"></a></td>
-            <td class="td4"><input id="txtTotal"  type="text"  class="txt num c1"/></td>     
+            <td class="td3"><span> </span><a id='lblChkno' class="lbl"></a></td>
+            <td class="td4"><input id="txtChkno"  type="text" class="txt c1" /></td>     
             <td class="td5"><span> </span><a id='lblWorker' class="lbl"></a></td>
             <td class="td6"><input id="txtWorker"  type="text"  class="txt c1"/></td> 
         </tr>

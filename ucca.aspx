@@ -25,6 +25,7 @@
 
         $(document).ready(function () {
             bbmKey = ['noa'];
+            brwCount2 = 10;
             q_brwCount();
            q_gt(q_name, q_content, q_sqlCount, 1)
             $('#txtNoa').focus
@@ -240,7 +241,7 @@
             }
             .dview {
                 float: left;
-                width: 28%;
+                width: 98%;
             }
             .tview {
                 margin: 0;
@@ -259,7 +260,7 @@
             }
             .dbbm {
                 float: left;
-                width: 70%;
+                width: 98%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -363,7 +364,7 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
-        <div class="dview" id="dview" style="float: left;  width:25%;"  >
+        <div class="dview" id="dview" style="float: left; "  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>                
@@ -381,7 +382,7 @@
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 70%;float: left;">
+        <div class='dbbm' style="float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>                        
             <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>

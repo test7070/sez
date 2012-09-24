@@ -186,6 +186,9 @@
             }
             function q_popPost(id) {
 				switch(id) {
+					case 'txtCarno':
+						money2();
+						break;
 					case 'txtDriverno':
 						money2();
 						break;
@@ -196,6 +199,7 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
+                $('#txtMon').val($('#txtDatea').val().substring(0,6));
                 t_curMoney = q_float('txtMoney');
                 t_curMon=$('#txtDatea').val().substring(0,6);
                 t_curDriverno=$('#txtDriverno').val();
@@ -503,7 +507,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
+						<td><span> </span><a id="lblXmon" class="lbl"> </a></td>
 						<td><input id="txtMon" type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
 						<td><input id="txtMount" type="text"  class="txt c1 num"/></td>
