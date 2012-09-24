@@ -8,7 +8,7 @@
 		<script src='qset.js' type="text/javascript"></script>
 		<script src="../script/qj_mess.js" type="text/javascript"></script>
 		<script type="text/javascript">
-			var q_name = 'carplate', t_content = 'noa,carplate', bbsKey = ['noa'], as;
+			var q_name = 'carplate', t_content = 'noa,carplate,driverno,driver', bbsKey = ['noa'], as;
 			var isBott = false;
 			var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
 			var i, s1;
@@ -43,6 +43,7 @@
 					<th align="center" ></th>
 					<th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
 					<th align="center" style='color:Blue;' ><a id='lblCarplate'></a></th>
+					<th align="center" style='color:Blue;' ><a id='lblDriver'></a></th>
 				</tr>
 				<tr>
 					<td style="width:2%;">
@@ -51,8 +52,11 @@
 					<td style="width:20%;">
 					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
-					<td style="width:45%;">
+					<td style="width:30%;">
 					<input class="txt" id="txtCarplate.*" type="text" style="width:98%;"  readonly="readonly" />
+					</td>
+					<td style="width:30%;">
+					<input class="txt" id="txtDriver.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
 
 				</tr>
