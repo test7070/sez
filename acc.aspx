@@ -45,6 +45,12 @@
         function mainPost() { 
            bbmMask = [['txtAcc1','9999.********']];
            q_mask(bbmMask);
+           
+           $('#txtAcc1').change(function () {
+           		$('#txtAcc1').val($('#txtAcc1').val().replace(/_/g,''));
+				 var t_where = "where=^^ acc1='"+$('#txtAcc1').val()+"' ^^";
+				q_gt(q_name, t_where , 0, 1, 0, "",  r_accy+'_'+r_cno);
+		     });
         }
 
       
@@ -101,8 +107,12 @@
                         q_Seek_gtPost();
 
                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
+                   {
+                   		acc1 = _q_appendData(t_name, "", true);
+                   		if(acc1[0]!=undefined)
+							alert("科目編號重複");
+  						q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
+					}
                     break;
             }  /// end switch
         }
@@ -138,9 +148,16 @@
         function btnPrint() {
  
         }
+        var acc1=[];
         function btnOk() {
             var t_err = '';
             t_err = q_chkEmpField(['txtAcc1', q_getMsg('lblAcc1')]);
+            
+            if(acc1[0]!=undefined)
+			{
+				alert("科目編號重複");
+	            return;
+			}
             
 			var t_acc1 = trim($('#txtAcc1').val());
 
