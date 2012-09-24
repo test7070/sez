@@ -110,7 +110,10 @@
                    {
                    		acc1 = _q_appendData(t_name, "", true);
                    		if(acc1[0]!=undefined)
+                   		{
 							alert("科目編號重複");
+							$('#txtAcc1').focus();
+						}
   						q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 					}
                     break;
