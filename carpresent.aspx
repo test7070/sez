@@ -22,14 +22,16 @@
         var bbsNum = [];
         var bbmMask = [];
         var bbsMask = [];
-        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
+        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
+       
         aPop = new Array();        
-        var todayisadd=false;//判斷是否要新增未出車
         var today = new Date();//取得今天日期與時間
 		//aPop = new Array(['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx'],['txtBank_', 'btnBank_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
+            brwCount2 = 10;
+            q_desc=1;
             q_brwCount();
             q_gt(q_name, q_content, q_sqlCount, 1);
           });
@@ -49,7 +51,13 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-            $('#tbbm').attr('hidden', 'true');//BBM隱藏
+            //工具隱藏
+            $('#btnIns').attr('hidden', 'true');//新增
+            $('#btnSeek').attr('hidden', 'true');//查詢
+            $('#btnPrint').attr('hidden', 'true');//列印
+            $('#btnAuthority').attr('hidden', 'true');//權限
+            $('#btnSign').attr('hidden', 'true');//簽核
+            //$('#tbbm').attr('hidden', 'true');//BBM隱藏
             //讀取今天是否以新增過未出車
             var t_where = "where=^^ datea='"+q_date()+"' ^^";
             q_gt(q_name, t_where , 0, 0, 0, "", r_accy);
@@ -80,14 +88,16 @@
             			chkshow(i);
             		}
             	}
-            	todayisadd=false;
+            	
             	break;
                 case q_name: 
                 	var as = _q_appendData(q_name, "", true);
                 	if(as[0]==undefined)
-                		todayisadd=true;
-                	else
-                		todayisadd=false;
+                	{		
+		           	 	btnIns();      
+		            	var t_where = "where=^^ a.cartype='2' and a.carno not in (select carno from trans101 where carno in(select noa from car2 where cartype='2') and datea='"+q_date()+"' group by carno) ^^";
+            			q_gt('car2_carteam', t_where , 0, 0, 0, "", r_accy);    
+					}
                 	
                 	if (q_cur == 4)   
                         q_Seek_gtPost();
@@ -102,18 +112,19 @@
                 return;
             }
             sum();
-			
-			$('#txtWeek').val(weekday(today.getDay()));
-			$('#txtUnpresent').val(q_bbsCount);
+
+			//$('#txtUnpresent').val(q_bbsCount);
 			var t_carnos='';
 			for (var i = 0; i < 5; i++) {
-				t_carnos=t_carnos+$('#txtCarno_'+i).val()+',';
+				if(!emp($('#txtCarno_'+i).val()))
+					t_carnos=t_carnos+$('#txtCarno_'+i).val()+',';
 			}
 			$('#txtCarno').val(t_carnos+"...");
 			
 			var t_memos='';
 			for (var i = 0; i < 5; i++) {
-				t_memos=t_memos+$('#txtMemo_'+i).val()+',';
+				if(!emp($('#txtMemo_'+i).val()))
+					t_memos=t_memos+$('#txtMemo_'+i).val()+',';
 			}
 			$('#txtMemo').val(t_memos+"...");
 			
@@ -245,11 +256,6 @@
 		
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
-            if (t_para&&todayisadd) {            		
-		            btnIns();      
-		            var t_where = "where=^^ a.cartype='2' and a.carno not in (select carno from trans101 where carno in(select noa from car2 where cartype='2') and datea='"+q_date()+"' group by carno) ^^";
-            		q_gt('car2_carteam', t_where , 0, 0, 0, "", r_accy);    
-		        }
         }
 
         function btnMinus(id) {
@@ -471,8 +477,8 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain'>
-        <div class="dview" id="dview" style="float: left;  width:99%;"  >
-           <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+        <div class="dview" id="dview" style="float: left;  width:100%;"  >
+           <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66; width:100%;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:10%"><a id='vewDatea'></a></td>
