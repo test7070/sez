@@ -24,6 +24,8 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         aPop = new Array();        
+        var todayisadd=false;//判斷是否要新增未出車
+        var today = new Date();//取得今天日期與時間
 		//aPop = new Array(['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx'],['txtBank_', 'btnBank_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -47,6 +49,10 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
+            $('#tbbm').attr('hidden', 'true');//BBM隱藏
+            //讀取今天是否以新增過未出車
+            var t_where = "where=^^ datea='"+q_date()+"' ^^";
+            q_gt(q_name, t_where , 0, 0, 0, "", r_accy);
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -65,17 +71,25 @@
             	case 'car2_carteam':
             	var as = _q_appendData("car2", "", true);
             	q_gridAddRow(bbsHtm, 'tbbs', 'txtCarno,txtCarteam', as.length, as, 'carno,team', '');
+            	$('#txtUnpresent').val(as.length);
             	for (var i = 0; i < q_bbsCount; i++) {
             		if(!emp($('#txtCarno_'+i).val()))
             		{
             			$('#txtDatea_'+i).val(q_date());
-            			var today = new Date();
             			$('#txtWeek_'+i).val(weekday(today.getDay()));
+            			chkshow(i);
             		}
             	}
-            	
+            	todayisadd=false;
             	break;
-                case q_name: if (q_cur == 4)   
+                case q_name: 
+                	var as = _q_appendData(q_name, "", true);
+                	if(as[0]==undefined)
+                		todayisadd=true;
+                	else
+                		todayisadd=false;
+                	
+                	if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
             }  /// end switch
@@ -88,7 +102,21 @@
                 return;
             }
             sum();
-
+			
+			$('#txtWeek').val(weekday(today.getDay()));
+			$('#txtUnpresent').val(q_bbsCount);
+			var t_carnos='';
+			for (var i = 0; i < 5; i++) {
+				t_carnos=t_carnos+$('#txtCarno_'+i).val()+',';
+			}
+			$('#txtCarno').val(t_carnos+"...");
+			
+			var t_memos='';
+			for (var i = 0; i < 5; i++) {
+				t_memos=t_memos+$('#txtMemo_'+i).val()+',';
+			}
+			$('#txtMemo').val(t_memos+"...");
+			
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   
                 q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
@@ -106,6 +134,57 @@
 
         function bbsAssign() {
             for (var i = 0; i < q_bbsCount; i++) {
+            	$('#txtMemo_' + i).change(function () {
+            		t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+                    q_bodyId($(this).attr('id'));
+                    b_seq = t_IdSeq;
+            		if(emp($('#txtMemo_' + b_seq).val()))
+            			chkshow(b_seq);
+            		else
+            			chkhidden(b_seq);
+            	});
+            	$('#chkMemo1_'+i).click(function() {
+        			 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+                    q_bodyId($(this).attr('id'));
+                    b_seq = t_IdSeq;
+        			$('#txtMemo_'+b_seq).val("司機請假");        			
+        			chkhidden(b_seq);
+        		});
+        		$('#chkMemo2_'+i).click(function() {
+        			 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+                    q_bodyId($(this).attr('id'));
+                    b_seq = t_IdSeq;
+        			$('#txtMemo_'+b_seq).val("本日無工作");        			
+        			chkhidden(b_seq);
+        		});
+        		$('#chkMemo3_'+i).click(function() {
+        			 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+                    q_bodyId($(this).attr('id'));
+                    b_seq = t_IdSeq;
+        			$('#txtMemo_'+b_seq).val("車輛維修");        			
+        			chkhidden(b_seq);
+        		});
+        		$('#chkMemo4_'+i).click(function() {
+        			 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+                    q_bodyId($(this).attr('id'));
+                    b_seq = t_IdSeq;
+        			$('#txtMemo_'+b_seq).val("檢驗車輛");        			
+        			chkhidden(b_seq);
+        		});
+        		$('#chkMemo5_'+i).click(function() {
+        			 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+                    q_bodyId($(this).attr('id'));
+                    b_seq = t_IdSeq;
+        			$('#txtMemo_'+b_seq).val("無司機");        			
+        			chkhidden(b_seq);
+        		});
+        		$('#chkMemo6_'+i).click(function() {
+        			 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+                    q_bodyId($(this).attr('id'));
+                    b_seq = t_IdSeq;
+        			$('#txtMemo_'+b_seq).val("其他,請註明");        			
+        			chkhidden(b_seq);
+        		});
             }//end for
             _bbsAssign();
         }
@@ -114,6 +193,7 @@
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
+            $('#txtWeek').val(weekday(today.getDay()));
             $('#txtDatea').focus();
 
         }
@@ -121,8 +201,13 @@
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            $('#txtProduct').focus();
 
+	            for (var j = 0; j < q_bbsCount; j++) {
+	            	if(!emp($('#txtMemo_'+j).val()))
+	            		chkhidden(j);
+	            	else
+	            		chkshow(j);
+	            }
         }
         function btnPrint() {
 
@@ -136,24 +221,13 @@
         }
 
         function bbsSave(as) {
-            if (!as['checkno'] ) {  
+            if (!as['carno'] ) {  
                 as[bbsKey[1]] = '';   
                 return;
             }
 
             q_nowf();
             as['date'] = abbm2['date'];
-
-            //            t_err ='';
-            //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-            //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-            //            
-            //            if (t_err) {
-            //                alert(t_err)
-            //                return false;
-            //            }
-            //            
             return true;
         }
 
@@ -168,10 +242,10 @@
         function refresh(recno) {
             _refresh(recno);
        }
-
+		
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
-            if (t_para) {            		
+            if (t_para&&todayisadd) {            		
 		            btnIns();      
 		            var t_where = "where=^^ a.cartype='2' and a.carno not in (select carno from trans101 where carno in(select noa from car2 where cartype='2') and datea='"+q_date()+"' group by carno) ^^";
             		q_gt('car2_carteam', t_where , 0, 0, 0, "", r_accy);    
@@ -229,6 +303,36 @@
             _btnCancel();
         }
         
+        function chkhidden(id)
+        {
+        	$('#chkMemo1_'+id).attr('hidden', 'true');
+        	$('#chkMemo2_'+id).attr('hidden', 'true');
+        	$('#chkMemo3_'+id).attr('hidden', 'true');
+        	$('#chkMemo4_'+id).attr('hidden', 'true');
+        	$('#chkMemo5_'+id).attr('hidden', 'true');
+        	$('#chkMemo6_'+id).attr('hidden', 'true');
+        	$('#labmemo1_'+id).attr('hidden', 'true');
+        	$('#labmemo2_'+id).attr('hidden', 'true');
+        	$('#labmemo3_'+id).attr('hidden', 'true');
+        	$('#labmemo4_'+id).attr('hidden', 'true');
+        	$('#labmemo5_'+id).attr('hidden', 'true');
+        	$('#labmemo6_'+id).attr('hidden', 'true');
+        }
+        function chkshow(id)
+        {
+        	$('#chkMemo1_'+id).removeAttr('hidden');
+        	$('#chkMemo2_'+id).removeAttr('hidden');
+        	$('#chkMemo3_'+id).removeAttr('hidden');
+        	$('#chkMemo4_'+id).removeAttr('hidden');
+        	$('#chkMemo5_'+id).removeAttr('hidden');
+        	$('#chkMemo6_'+id).removeAttr('hidden');
+        	$('#labmemo1_'+id).removeAttr('hidden');
+        	$('#labmemo2_'+id).removeAttr('hidden');
+        	$('#labmemo3_'+id).removeAttr('hidden');
+        	$('#labmemo4_'+id).removeAttr('hidden');
+        	$('#labmemo5_'+id).removeAttr('hidden');
+        	$('#labmemo6_'+id).removeAttr('hidden');
+        }
         function weekday(wd)
 		{
 		   switch(wd)
@@ -374,8 +478,8 @@
                 <td align="center" style="width:10%"><a id='vewDatea'></a></td>
                 <td align="center" style="width:10%"><a id='vewWeek'></a></td>
                 <td align="center" style="width:10%"><a id='vewUnpresent'></a></td>
-                <td align="center" style="width:50%"><a id='vewCarno'></a></td>
-                <td align="center" style="width:15%"><a id='vewMemo'></a></td>
+                <td align="center"><a id='vewCarno'></a></td>
+                <td align="left"><a id='vewMemo'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
@@ -384,13 +488,12 @@
                    <td align="center" id='unpresent'>~unpresent</td>
                    <td align="center" id='carno'>~carno</td>
                    <td align="center" id='memo'>~memo</td>
-                  
             </tr>
         </table>
         </div>
         
-		<div class='dbbm' style="float:left;"><!--hidden="true"-->
-        <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+		<div class='dbbm' style="float:left;">
+        <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0' >
         <tr>
             <td class='td1'><span> </span><a id="lblNoa" class="lbl" ></a></td>
             <td class="td2"><input id="txtNoa"type="text" class="txt c1"/></td>
@@ -414,10 +517,10 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" class="td2"><a id='lblDateas'></a></td>
-                <td align="center" style="width:20%"><a id='lblWeeks'></a></td>
-                <td align="center" class="td3"><a id='lblCarnos'></a></td>
-                <td align="center" class="td2"><a id='lblCarteams'></a></td>
+                <td align="center" class="td2" style="width:10%;"><a id='lblDateas'></a></td>
+                <td align="center" style="width:10%;"><a id='lblWeeks'></a></td>
+                <td align="center" class="td3" style="width:10%;"><a id='lblCarnos'></a></td>
+                <td align="center" class="td2" style="width:10%;"><a id='lblCarteams'></a></td>
                 <td align="center" class="td3"><a id='lblMemos'></a></td>
             </tr>
             <tr>
@@ -427,12 +530,12 @@
                 <td ><input class="txt c1" id="txtCarno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCarteam.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" />
-                		<input id="chkMemo1.*" type="checkbox" value="司機請假" text='111'/>
-                		<input id="chkMemo2.*" type="checkbox" value="本日無工作"/>
-                		<input id="chkMemo3.*" type="checkbox" value="車輛維修"/>
-                		<input id="chkMemo4.*" type="checkbox" value="檢驗車輛"/>
-                		<input id="chkMemo5.*" type="checkbox" value="無司機"/>
-                		<input id="chkMemo6.*" type="checkbox" value="其他,請註明"/>
+                		<input id="chkMemo1.*" type="checkbox" hidden="true"/><label id="labmemo1.*" hidden="true">司機請假</label>
+                		<input id="chkMemo2.*" type="checkbox" hidden="true"/><label id="labmemo2.*" hidden="true">本日無工作</label>
+                		<input id="chkMemo3.*" type="checkbox" hidden="true"/><label id="labmemo3.*" hidden="true">車輛維修</label>
+                		<input id="chkMemo4.*" type="checkbox" hidden="true"/><label id="labmemo4.*" hidden="true">檢驗車輛</label>
+                		<input id="chkMemo5.*" type="checkbox" hidden="true"/><label id="labmemo5.*" hidden="true">無司機</label>
+                		<input id="chkMemo6.*" type="checkbox" hidden="true"/><label id="labmemo6.*" hidden="true">其他,請註明</label>
                 </td>
             </tr>
         </table>
