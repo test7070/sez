@@ -52,7 +52,13 @@
 	                        type : '5', //select
 	                        name : 'xoption1',
 	                        value : q_getPara('z_fixa.option1').split(',')
-	                    }]
+	                    },{
+                            type : '2',
+                            name : 'driverno',
+                            dbf : 'driver',
+                            index : 'noa,namea',
+                            src : 'driver_b.aspx'
+                    }]
                     });
                 q_popAssign();
                 q_getFormat();
