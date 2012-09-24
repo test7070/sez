@@ -23,14 +23,13 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtBankno', 'lblBank', 'bank', 'noa,bank,account,acc1', 'txtBankno,txtBank,txtAccount,txtAccl', 'bank_b.aspx']
-        								,['txtTcompno_', 'btnTcomp_', 'tgg', 'noa,comp', 'txtTcompno_,txtTcomp_', 'Tgg_b.aspx']);        
+        aPop = new Array();        
 		//aPop = new Array(['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx'],['txtBank_', 'btnBank_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
             q_brwCount();
-            q_gt(q_name, q_content, q_sqlCount, 1)  
+            q_gt(q_name, q_content, q_sqlCount, 1);
           });
 
         //////////////////   end Ready
@@ -44,15 +43,10 @@
             mainForm(1); 
         }  
 
-     /*   aPop = [['txtStoreno', 'btnStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
-                ['txtStoreno2', 'btnStore2', 'store', 'noa,store', 'txtStoreno2,txtStore2', 'store_b.aspx', "60%", "650px", q_getMsg('popStore')],
-                ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']];*/
-
         function mainPost() { 
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -68,6 +62,19 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'car2_carteam':
+            	var as = _q_appendData("car2", "", true);
+            	q_gridAddRow(bbsHtm, 'tbbs', 'txtCarno,txtCarteam', as.length, as, 'carno,team', '');
+            	for (var i = 0; i < q_bbsCount; i++) {
+            		if(!emp($('#txtCarno_'+i).val()))
+            		{
+            			$('#txtDatea_'+i).val(q_date());
+            			var today = new Date();
+            			$('#txtWeek_'+i).val(weekday(today.getDay()));
+            		}
+            	}
+            	
+            	break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
@@ -80,8 +87,6 @@
                 alert(t_err);
                 return;
             }
-			
-            $('#txtWorker').val(r_name)
             sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -94,8 +99,6 @@
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
-
-            q_box('chk2_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   
@@ -103,26 +106,6 @@
 
         function bbsAssign() {
             for (var i = 0; i < q_bbsCount; i++) {
-            	$('#chkSel_'+i).click(function() {
-        			sum();
-        		})
-                $('#chkSel_' + i).hover(function () {
-                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                    q_bodyId($(this).attr('id'));
-                    b_seq = t_IdSeq;
-                    $('#trSel_'+b_seq).addClass('sel');
-                },
-                function () {
-                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                    q_bodyId($(this).attr('id'));
-                    b_seq = t_IdSeq;
-                    $('#trSel_' + b_seq).removeClass('sel');
-				 if($('#chkSel_' +b_seq)[0].checked){	//判斷是否被選取
-                	$('#trSel_'+ b_seq).addClass('chksel');//變色
-                }else{
-                	$('#trSel_'+b_seq).removeClass('chksel');//取消變色
-                }
-                });
             }//end for
             _bbsAssign();
         }
@@ -132,14 +115,7 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
-            $('#txtMoney').val(0);
-            
-            //取消變色
-            for (var i = 0; i < q_bbsCount; i++) {
-            	$('#trSel_'+i).removeClass('chksel');
-            }
 
-            
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -184,10 +160,8 @@
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0,chksum=0;
             for (var j = 0; j < q_bbsCount; j++) {
-            	if($('#chkSel_' +j)[0].checked)
-					chksum+=dec($('#txtMoney_'+j).val());
+
             }  // j
-            q_tr('txtMoney',chksum , 2)
         }
 
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
@@ -197,6 +171,11 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            if (t_para) {            		
+		            btnIns();      
+		            var t_where = "where=^^ a.cartype='2' and a.carno not in (select carno from trans101 where carno in(select noa from car2 where cartype='2') and datea='"+q_date()+"' group by carno) ^^";
+            		q_gt('car2_carteam', t_where , 0, 0, 0, "", r_accy);    
+		        }
         }
 
         function btnMinus(id) {
@@ -249,6 +228,20 @@
         function btnCancel() {
             _btnCancel();
         }
+        
+        function weekday(wd)
+		{
+		   switch(wd)
+		   {
+		      case 1: return("一"); break;
+		      case 2: return("二"); break;
+		      case 3: return("三"); break;
+		      case 4: return("四"); break;
+		      case 5: return("五"); break;
+		      case 6: return("六"); break;
+		      case 0: return("日"); break;
+		   }
+		}
         
     </script>
     <style type="text/css">
@@ -395,26 +388,52 @@
             </tr>
         </table>
         </div>
+        
+		<div class='dbbm' style="float:left;"><!--hidden="true"-->
+        <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+        <tr>
+            <td class='td1'><span> </span><a id="lblNoa" class="lbl" ></a></td>
+            <td class="td2"><input id="txtNoa"type="text" class="txt c1"/></td>
+            <td class='td3'><span> </span><a id="lblDatea" class="lbl"></a></td>
+            <td class="td4"><input id="txtDatea"  type="text" class="txt c1"/></td>
+            <td class='td5'><span> </span><a id="lblWeek" class="lbl" ></a></td>
+            <td class="td6"><input id="txtWeek" type="text"  class="txt c2"/></td>
+        </tr>
+        <tr>            
+            <td class='td1'><span> </span><a id="lblUnpresent" class="lbl" ></a></td>
+            <td class="td2"><input id="txtUnpresent" type="text"  class="txt c1"/></td>
+            <td class='td3'><span> </span><a id="lblCarno" class="lbl" ></a></td>
+            <td class="td4"><input id="txtCarno" type="text" class="txt c1" /></td>
+            <td class='td5'><span> </span><a id="lblMemo" class="lbl" ></a></td>
+            <td class="td6"><input id="txtMemo" type="text" class="txt c1" /></td>
+            </tr>             
+        </table>
+        </div>
 
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:5%"><a id='lblNoqs'></a></td>
                 <td align="center" class="td2"><a id='lblDateas'></a></td>
                 <td align="center" style="width:20%"><a id='lblWeeks'></a></td>
-                <td align="center" class="td3"><a id='lblCarno'></a></td>
-                <td align="center" class="td2"><a id='lblCarteam'></a></td>
-                <td align="center" class="td3"><a id='lblMemo'></a></td>
+                <td align="center" class="td3"><a id='lblCarnos'></a></td>
+                <td align="center" class="td2"><a id='lblCarteams'></a></td>
+                <td align="center" class="td3"><a id='lblMemos'></a></td>
             </tr>
-            <tr id="trSel.*">
+            <tr>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input class="txt c1" id="txtNoq.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtDatea.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtWeek.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCarno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCarteam.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtMemo.*" type="text" />
+                		<input id="chkMemo1.*" type="checkbox" value="司機請假" text='111'/>
+                		<input id="chkMemo2.*" type="checkbox" value="本日無工作"/>
+                		<input id="chkMemo3.*" type="checkbox" value="車輛維修"/>
+                		<input id="chkMemo4.*" type="checkbox" value="檢驗車輛"/>
+                		<input id="chkMemo5.*" type="checkbox" value="無司機"/>
+                		<input id="chkMemo6.*" type="checkbox" value="其他,請註明"/>
+                </td>
             </tr>
         </table>
         </div>

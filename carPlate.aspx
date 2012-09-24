@@ -27,7 +27,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
-
+			 aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -203,7 +203,7 @@
             }
             .dview {
                 float: left;
-                width: 25%;
+                width: 40%;
             }
             .tview {
                 margin: 0;
@@ -222,7 +222,7 @@
             }
             .dbbm {
                 float: left;
-                width: 60%;
+                width: 50%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -318,6 +318,7 @@
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:15%"><a id='vewNoa'></a></td>
 						<td align="center" style="width:15%"><a id='vewCarplate'></a></td>
+						<td align="center" style="width:15%"><a id='vewDriver'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -325,6 +326,7 @@
 						</td>
 						<td align="center" id='noa'>~noa</td>
 						<td align="center" id='carplate'>~carplate</td>
+						<td align="center" id='driver'>~driver</td>
 					</tr>
 				</table>
 			</div>
@@ -346,7 +348,13 @@
 						<td class="td4"></td>
 						<td class="td5"></td>
 					</tr>
-					<tr> </tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblDriver' class="lbl btn"></a></td>
+						<td class="td2" colspan="2">
+						<input id="txtDriverno"  type="text"  class="txt c2"/>
+						<input id="txtDriver"  type="text"  class="txt c3"/>
+						</td>
+					</tr>
 					<tr> </tr>
 					<tr> </tr>
 					<tr> </tr>
