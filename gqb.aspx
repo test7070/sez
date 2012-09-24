@@ -154,6 +154,14 @@
 			q_box('z_gqbp.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()),  '', "800px", "600px", q_getMsg("popPrint"));
         }
         function btnOk() {
+        	if(emp($('#txtGqbno').val()))
+           {
+           		alert("請輸入票據號碼");
+           		$('#txtGqbno').focus();
+           		return;
+           }
+        	
+        	
         	if (q_cur == 1)
         	{
 	        	if(gqbno[0]!=undefined)
