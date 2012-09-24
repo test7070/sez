@@ -67,9 +67,10 @@
 				q_cmbParse("cmbTovcca", q_getPara('sys.yn'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 
-				$('#lblAccno').parent().click(function(e) {
-					q_box("accc.aspx?" + $('#txtAccno').val() + "'", 'accc', "850px", "600px", q_getMsg("popAccc"));
-				});
+				 $('#lblAccno').click(function () {
+		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+		            //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
+		        });
 
 				$('#cmbTrtype').focus(function() {
 					var len = $("#cmbTrtype").children().length > 0 ? $("#cmbTrtype").children().length : 1;

@@ -76,6 +76,8 @@
 
             function mainPost() {
             	q_mask(bbmMask);
+            	q_cmbParse("cmbCasetype", "20'',40'',超重櫃,HQ,OP,太空包");
+            	q_cmbParse("cmbCasetype2", "20'',40''");
                 q_cmbParse("cmbStype", q_getPara('vcc.stype'));
                 q_cmbParse("cmbUnit", q_getPara('sys.unit'));
                 $("#cmbUnit").focus(function() {
@@ -101,6 +103,19 @@
                     t_where =  "where=^^b.deliveryno='"+$('#txtDeliveryno').val()+"'  and  (c.tranno is null or c.noa='"+$('#txtNoa').val()+"')^^";
                     q_gt('trando3', t_where, 0, 0, 0, "", r_accy);
                 });
+                $("#cmbCasetype").focus(function() {
+					var len = $("#cmbCasetype").children().length > 0 ? $("#cmbCasetype").children().length : 1;
+					$("#cmbCasetype").attr('size', len + "");
+				}).blur(function() {
+					$("#cmbCasetype").attr('size', '1');
+				});
+				$("#cmbCasetype2").focus(function() {
+					var len = $("#cmbCasetype2").children().length > 0 ? $("#cmbCasetype2").children().length : 1;
+					$("#cmbCasetype2").attr('size', len + "");
+				}).blur(function() {
+					$("#cmbCasetype2").attr('size', '1');
+				});
+
                 $('#txtDatea').datepicker(); 
                 $('#txtCldate').datepicker();
                 $('#txtNodate').datepicker();
@@ -530,8 +545,12 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td colspan="7">
+						<td colspan="5">
 						<input type="text" id="txtMemo" class="txt c1"/>
+						</td>
+						<td><span> </span><a id="lblCancel" class="lbl"> </a></td>
+						<td>
+						<input type="text" id="txtCancel" class="txt c1"/>
 						</td>
 					</tr>
 					<tr class="trX">
@@ -541,43 +560,78 @@
 						<td colspan="4"></td>
 					</tr>
 					<tr class="trX">
-						<td><span> </span><a id="lblBoatname" class="lbl"> </a></td>
+						<td><span> </span><a id="lblBoat" class="lbl"> </a></td>
 						<td colspan="3">
-						<input type="text" id="txtBoatname" class="txt c1"/>
+						<input type="text" id="txtBoat" class="txt c1"/>
 						</td>
 						<td><span> </span><a id="lblTakeno" class="lbl"> </a></td>
-						<td colspan="3">
+						<td>
 						<input type="text" id="txtTakeno" class="txt c1"/>
 						</td>
-						<td></td>
-					</tr>
-					<tr class="trX">
-						<td><span> </span><a id="lblShip" class="lbl"> </a></td>
-						<td colspan="3">
-						<input type="text" id="txtShip" class="txt c1"/>
-						</td>
 						<td><span> </span><a id="lblTrackno" class="lbl"> </a></td>
-						<td colspan="3">
+						<td>
 						<input type="text" id="txtTrackno" class="txt c1"/>
 						</td>
 						<td></td>
 					</tr>
 					<tr class="trX">
-						<td><span> </span><a id="lblPort" class="lbl"> </a></td>
-						<td colspan="3">
-						<input type="text" id="txtPort" class="txt c1"/>
+						<td><span> </span><a id="lblShip" class="lbl"> </a></td>
+						<td >
+						<input type="text" id="txtBoatname" class="txt c1"/>
 						</td>
-						<td colspan="5"></td>
+						<td colspan="2">
+						<input type="text" id="txtShip" class="txt c1"/>
+						</td>
+						<td><span> </span><a id="lblCasePresent" class="lbl"> </a></td>
+						<td>
+						<input type="text" id="txtCasePresent" class="txt c1"/>
+						</td>
+						<td><span> </span><a id="lblCaseAssign" class="lbl"> </a></td>
+						<td>
+						<input type="text" id="txtCaseAssign" class="txt c1"/>
+						</td>
+						<td> </td>
+					</tr>
+					<tr class="trX">
+						<td><span> </span><a id="lblDo1" class="lbl"> </a></td>
+						<td colspan="2"><input type="text" id="txtDo1" class="txt c1"/></td>
+						<td> </td>
+						<td><span> </span><a id="lblDo2" class="lbl"> </a></td>
+						<td colspan="2"><input type="text" id="txtDo2" class="txt c1"/></td>
+						<td> </td>
+						<td> </td>
+					</tr>
+					<tr class="trX">
+						<td><span> </span><a id="lblSo" class="lbl"> </a></td>
+						<td><input type="text" id="txtSo" class="txt c1"/></td>
+						<td><span> </span><a id="lblCasetype" class="lbl"> </a></td>
+						<td><select id="cmbCasetype" class="txt c1"> </select></td>
+						<td><span> </span><a id="lblCheckself" class="lbl"> </a></td>
+						<td><input type="text" id="txtCheckself" class="txt c1"/></td>
+						<td><span> </span><a id="lblCasetype2" class="lbl"> </a></td>
+						<td><select id="cmbCasetype2" class="txt c1"> </select></td>
+					    <td> </td>
+					</tr>
+					<tr class="trX">
+						<td><span> </span><a id="lblPort" class="lbl"> </a></td>
+						<td><input type="text" id="txtPort" class="txt c1"/></td>
+						<td><span> </span><a id="lblDock" class="lbl"> </a></td>
+						<td><input type="text" id="txtDock" class="txt c1"/></td>
+						<td><span> </span><a id="lblCheckInstru" class="lbl"> </a></td>
+						<td><input type="text" id="txtCheckInstru" class="txt c1"/></td>
+						<td><span> </span><a id="lblCasedo" class="lbl"> </a></td>
+						<td><input type="text" id="txtCasedo" class="txt c1"/></td>
+						<td> </td>
 					</tr>
 					<tr class="trX">
 						<td><span> </span><a id="lblCldate" class="lbl"> </a></td>
 						<td><input type="text" id="txtCldate" class="txt c1"/></td>
-						<td>  </td>
-						<td>  </td>
+						<td><span> </span><a id="lblNodate" class="lbl"> </a></td>
+						<td><input type="text" id="txtNodate" class="txt c1"/></td>
 						<td><span> </span><a id="lblMadate" class="lbl"> </a></td>
 						<td><input type="text" id="txtMadate" class="txt c1"/></td>
-						<td>  </td>
-						<td>  </td>
+						<td><span> </span><a id="lblRedate" class="lbl"> </a></td>
+						<td><input type="text" id="txtRedate" class="txt c1"/></td>
 						<td>  </td>
 					</tr>
 					<tr>

@@ -130,13 +130,13 @@
 			q_box('z_gqbp.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()),  '', "800px", "600px", q_getMsg("popPrint"));
         }
         function btnOk() {
-            
-            var t_noa = trim($('#txtNoa').val());
-
-            if (t_noa.length ==0)  
-                q_gtnoa(q_name, t_noa);
-            else
-                wrServer(t_noa);
+           
+			 var t_noa = trim($('#txtNoa').val());
+				var t_date = trim($('#txtDatea').val());
+				if (t_noa.length == 0 || t_noa == "AUTO")
+					q_gtnoa(q_name, replaceAll( (t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(t_noa);
         }
 
         function wrServer(key_value) {
@@ -351,12 +351,8 @@
                 <td><a id="lblGqb"  style="color: #104E8B ;font-weight:bolder;font-size: 18px; text-align: left;"></a></td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-               <td class="td2" colspan="2"><input id="txtNoa"  type="text"  class="txt c1"/></td>                           
-            </tr>
-            <tr>
                <td class="td1"><span> </span><a id='lblGqbno' class="lbl"></a></td>
-               <td class="td2" colspan="2"><input id="txtGqbno"  type="text"  class="txt c1"/></td>
+               <td class="td2" colspan="2"><input id="txtNoa"  type="hidden"  class="txt c1"/><input id="txtGqbno"  type="text"  class="txt c1"/></td>
                <td class="td4"><span> </span><a id='lblType' class="lbl"></a></td>
                <td class="td5"><select id="cmbTypea" class="txt c1"></select></td>                           
             </tr>

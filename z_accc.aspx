@@ -16,7 +16,7 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
             if (location.href.indexOf('?') < 0) {
-                location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911)+"_1";
+                location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
             $(document).ready(function() {
                 q_gf('', 'z_accc');
@@ -28,7 +28,7 @@
                     options : [{
                         type : '0',
                         name : 'accy',
-                        value : q_getId()[4]
+                        value : r_accy+"_"+r_cno
                     }, {
                         type : '1',
                         name : 'date'
