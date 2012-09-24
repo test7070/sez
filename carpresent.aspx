@@ -62,9 +62,18 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-            	case 'car2':
+            	case 'car2_carteam':
             	var as = _q_appendData("car2", "", true);
-            	q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtBank,txtBankno,txtAccount,txtDatea,txtMoney,txtTcompno,txtTcomp', as.length, as, 'gqbno,bank,bankno,account,indate,money,tcompno,tcomp', '');
+            	q_gridAddRow(bbsHtm, 'tbbs', 'txtCarno,txtCarteam', as.length, as, 'carno,team', '');
+            	for (var i = 0; i < q_bbsCount; i++) {
+            		if(!emp($('#txtCarno_'+i).val()))
+            		{
+            			$('#txtDatea_'+i).val(q_date());
+            			var today = new Date();
+            			$('#txtWeek_'+i).val(weekday(today.getDay()));
+            		}
+            	}
+            	
             	break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
@@ -164,8 +173,8 @@
             _readonly(t_para, empty);
             if (t_para) {            		
 		            btnIns();      
-		            var t_where = "where=^^ cartype='2' and carno not in (select carno from trans101 where carno in(select noa from car2 where cartype='2') and datea='101/09/07' group by carno) ^^";
-            		q_gt('car2', t_where , 0, 0, 0, "", r_accy);    
+		            var t_where = "where=^^ a.cartype='2' and a.carno not in (select carno from trans101 where carno in(select noa from car2 where cartype='2') and datea='"+q_date()+"' group by carno) ^^";
+            		q_gt('car2_carteam', t_where , 0, 0, 0, "", r_accy);    
 		        }
         }
 
@@ -219,6 +228,20 @@
         function btnCancel() {
             _btnCancel();
         }
+        
+        function weekday(wd)
+		{
+		   switch(wd)
+		   {
+		      case 1: return("一"); break;
+		      case 2: return("二"); break;
+		      case 3: return("三"); break;
+		      case 4: return("四"); break;
+		      case 5: return("五"); break;
+		      case 6: return("六"); break;
+		      case 0: return("日"); break;
+		   }
+		}
         
     </script>
     <style type="text/css">
@@ -403,7 +426,14 @@
                 <td ><input class="txt c1" id="txtWeek.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCarno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCarteam.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtMemo.*" type="text" />
+                		<input id="chkMemo1.*" type="checkbox" value="司機請假" text='111'/>
+                		<input id="chkMemo2.*" type="checkbox" value="本日無工作"/>
+                		<input id="chkMemo3.*" type="checkbox" value="車輛維修"/>
+                		<input id="chkMemo4.*" type="checkbox" value="檢驗車輛"/>
+                		<input id="chkMemo5.*" type="checkbox" value="無司機"/>
+                		<input id="chkMemo6.*" type="checkbox" value="其他,請註明"/>
+                </td>
             </tr>
         </table>
         </div>
