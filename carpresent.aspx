@@ -54,7 +54,7 @@
             //工具隱藏
             $('#btnIns').attr('hidden', 'true');//新增
             $('#btnSeek').attr('hidden', 'true');//查詢
-            $('#btnPrint').attr('hidden', 'true');//列印
+            //$('#btnPrint').attr('hidden', 'true');//列印
             $('#btnAuthority').attr('hidden', 'true');//權限
             $('#btnSign').attr('hidden', 'true');//簽核
             $('#tbbm').attr('hidden', 'true');//BBM隱藏
