@@ -732,8 +732,14 @@
 						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr_import">
-						<td colspan="9"><input id="txtCustchgno" type="text" class="txt c1" style="display:none;"/></td>
-						<td><input type="button" id="btnCustchg" class="txt c1"/></td>
+						<td><span> </span><a id="lblVccano" class="lbl"> </a></td>
+						<td colspan="7">
+							<input id="txtVccano" type="text" class="txt c1"/>
+						</td>
+						<td> </td>
+						<td>
+							<input id="txtCustchgno" type="text" class="txt c1" style="display:none;"/>
+							<input type="button" id="btnCustchg" class="txt c1"/></td>
 						<td class="tdZ"> </td>
 					</tr>
 					<tr class="tr_import">
@@ -743,9 +749,8 @@
 						<td><input id="txtVccatax" type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblVccatotal" class="lbl"> </a></td>
 						<td><input id="txtVccatotal" type="text" class="txt c1 num"/></td>
-						<td colspan="3"> </td>
+						<td colspan="3"></td>
 						<td>
-							<input id="txtVccano" type="text" class="txt c1" style="display:none;"/>
 							<input type="button" id="btnVcca" class="txt c1"/>
 						</td>
 						<td class="tdZ"> </td>
