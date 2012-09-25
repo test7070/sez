@@ -78,6 +78,10 @@
 		        $('#btnVcc').click(function (e) {
 		            pay_tre();
 		        });
+		        $('#btnRc2no').click(function (e) {
+		            var t_where = "where=^^ unpay<0 ^^"; 
+		            q_gt('payb', t_where, 0, 0, 0, "", r_accy);
+		        });
 		    }
 
 		    function pay_tre() {
@@ -88,7 +92,7 @@
 		            }
 		            var t_tggno = $.trim($('#txtTggno').val());
 		            var t_driverno = ""; 
-		            var t_where = "where=^^ tggno='" + t_tggno + "'" + (t_tggno.length == 0 ? " and 1=0 " : "") + " and unpay!=0 ";   /// for payb
+		            var t_where = "where=^^ tggno='" + t_tggno + "'" + (t_tggno.length == 0 ? " and 1=0 " : "") + " and unpay>0 ";   /// for payb
 		            var t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "'";  // for pays
 		            var t_where2 = " where[2]=^^ 1=0 and  driverno='" + t_driverno + "'" + (t_driverno.length == 0 ? " and 1=0 " : "") + " and unpay!=0 ";  // for tre
 		            var j = 0, s2 = '', s1 = '';
@@ -125,6 +129,11 @@
 
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
+		        	case 'payb':
+		        		var as = _q_appendData('paybs', '', true);
+		        		if(as[0]!=undefined)
+		        			$('#txtRc2no').val(as[0].rc2no+';'+as[0].total);
+		        	break;
 		            case 'pay_opay':
 		                var as = _q_appendData('pay', '', true);
 		                var s1 = q_trv((as.length > 0 ? round(as[0].total, 0) : 0));
@@ -233,7 +242,17 @@
 		            alert(t_err);
 		            return;
 		        }
-
+		        
+		        var t_money=0;
+		        for (var j = 0; j < q_bbsCount; j++) {
+		        	t_money+=q_float('txtMoney_' + j);
+		        }
+		        if((Math.abs(q_float('txtOpay')-t_money)/t_money)>0.05)
+		        {
+		        	alert('預付與付款金額總額差異過大');
+		            return;
+		        }
+		        
 		        if ($.trim($('#txtTggno').val()) == 0) {
 		            alert(m_empty + q_getMsg('lblTgg'));
 		            return false;
@@ -457,7 +476,7 @@
             }
             .dbbm {
                 float: left;
-                width: 75%;
+                width: 80%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -609,6 +628,7 @@
 						</td>
 						<td class="td3" colspan="2"><input id="txtComp"  type="text" class="txt" style="width:100%" /></td>
 						<td class="td4">
+							<input type="button" id="btnRc2no" class="txt c1 " />
 						</td>
 						<td class="6">
 						<input type="button" id="btnVcc" class="txt c1 " />
@@ -659,9 +679,15 @@
 					<tr class="tr5">
 						<td class="td1"> <a id='lblMemo' class="lbl"></a></td>
 						<td class="td2" colspan='3' ><textarea id="txtMemo"  rows='3' cols='3' style="width: 99%; height: 50px;" ></textarea></td>
-						<td class="td5"><a id='lblWorker' class="lbl"></a></td>
+						<td class="td5" >
+							<a id='lblRc2no' class="lbl"></a>
+							<p style="height:1%;"></p>
+							<a id='lblWorker' class="lbl"></a>
+						</td>
 						<td class="td6" >
-						<input id="txtWorker"  type="text" class="txt c1"/>
+							<input id="txtRc2no"  type="text" class="txt c1"/>
+							<p style="height:1%;"></p>
+							<input id="txtWorker"  type="text" class="txt c1"/>
 						</td>
 						<td class="td7"><input type="button" id="btnAuto" class="txt c1 "  style="color:Red"/>
                         <input type="button" id="btnGqbPrint" class="txt c1 "/></td>
@@ -703,7 +729,7 @@
 					<td align="center" style="width:3%;"><a id='lblChgsTran'></a></td>
 					<td align="center" style="width:4%;"><a id='lblCheckno'></a></td>
 					<td align="center" style="width:4%;"><a id='lblAccount'></a></td>
--					<td align="center" style="width:8%;"><a id='lblBank'></a></td>
+					<td align="center" style="width:8%;"><a id='lblBank'></a></td>
 					<td align="center" style="width:3%;"><a id='lblIndate'></a></td>
 					<td align="center" style="width:5%;"><a id='lblMemos'></a></td>
 					<td align="center" style="width:3%;"><a id='lblPaysales'></a></td>
