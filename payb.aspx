@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
     <head>
         <title></title>
@@ -19,8 +19,8 @@
             var q_name = "payb";
             var q_readonly = ['txtMoney','txtTax','txtTotal'];
             var q_readonlys = [];
-            var bbmNum = [['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]];
-            var bbsNum = [['txtPrice', 10, 0],['txtDiscount', 10, 0], ['txtMount', 10, 0], ['txtMoney', 10, 0],['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]];
+            var bbmNum = [['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1],['txtUnpay', 10, 0, 1]];
+            var bbsNum = [['txtPrice', 10, 0, 1],['txtDiscount', 10, 0, 1], ['txtMount', 10, 0, 1], ['txtMoney', 10, 0, 1],['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -289,7 +289,11 @@
                 for(var j = 0; j < q_bbsCount; j++) {
 					
 					t_tax+=dec($('#txtTax_'+j).val());//稅合計
-					t_money+=dec($('#txtMoney_'+j).val());//產品小計合計
+					if($('#cmbKind_0').val()=='預付')
+							t_money-=dec($('#txtMoney_'+j).val());//產品小計合計
+					else
+							t_money+=dec($('#txtMoney_'+j).val());//產品小計合計
+							
 					t_discount+=dec($('#txtDiscount_'+j).val());//折讓合計
 					
                 }// j
@@ -577,7 +581,10 @@
                 <td class="td5"><input id="txtCno2"    type="text"  class="txt c1" /></td>
                 <td class="td6"><input id="txtAccno2"    type="text"  class="txt c1"/></td>-->
                 <td class="td4"><span> </span><a id="lblAccno" class="lbl btn"></a></td>
-                <td class="td5"  colspan="2"><input id="txtAccno"  type="text" class="txt c1"/></td>
+                <td class="td5"  colspan="2"><input id="txtAccno"  type="text" class="txt c1"/>
+                <td class="td6"><span> </span><a id="lblUnpay" class="lbl"></a></td>
+                <td class="td7"  colspan="2"><input id="txtUnpay"  type="text" class="txt c1"/>
+                </td>
              </tr>
             <tr>
                 <td class="td1"><span> </span><a id="lblPart2" class="lbl btn" ></a></td>
