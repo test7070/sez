@@ -19,10 +19,10 @@
 			isEditTotal = false;
 			q_tables = 's';
 			var q_name = "trd";
-			var q_readonly = ['txtNoa', 'txtDatea', 'txtMoney', 'txtTotal', 'txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney','txtVccamoney','txtVccatax','txtVccatotal'];
+			var q_readonly = ['txtNoa', 'txtDatea', 'txtMoney', 'txtTotal', 'txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney','txtVccano'];
 			var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
 			var bbmNum = [['txtMoney', 10, 0], ['txtTaxrate', 10, 1], ['txtTax', 10, 0], ['txtTotal', 10, 0], ['txtDiscount', 10, 0], ['txtMount', 10, 3], ['txtPlus', 10, 0], ['txtPlusmoney', 10, 0], ['txtMinusmoney', 10, 0]
-			, ['txtVccamoney', 10, 0], ['txtVccatax', 10, 0], ['txtVccatotal', 10, 0]];
+			];
 			var bbsNum = [['txtTranmoney', 10, 0], ['txtOverweightcost', 10, 0], ['txtOthercost', 10, 0], ['txtmount', 10, 3], ['txtPrice', 10, 3]];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -254,9 +254,9 @@
 							t_tax+=parseFloat(as[i].tax);
 							t_total+=parseFloat(as[i].total);
 						}
-						$('#txtVccamoney').val(t_money);
-						$('#txtVccatax').val(t_tax);
-						$('#txtVccatax').val(t_total);
+						$('#cmbTaxtype').val(5);//custom
+						$('#txtTax').val(t_tax);
+						sum();
 						break;
 					case 'trans':
 						var as = _q_appendData("trans", "", true);
@@ -732,24 +732,18 @@
 						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr_import">
-						<td><span> </span><a id="lblVccano" class="lbl"> </a></td>
-						<td colspan="7">
-							<input id="txtVccano" type="text" class="txt c1"/>
-						</td>
-						<td> </td>
+						<td colspan="9"></td>
 						<td>
 							<input id="txtCustchgno" type="text" class="txt c1" style="display:none;"/>
 							<input type="button" id="btnCustchg" class="txt c1"/></td>
 						<td class="tdZ"> </td>
 					</tr>
 					<tr class="tr_import">
-						<td><span> </span><a id="lblVccamoney" class="lbl"> </a></td>
-						<td><input id="txtVccamoney" type="text" class="txt c1 num"/></td>
-						<td><span> </span><a id="lblVccatax" class="lbl"> </a></td>
-						<td><input id="txtVccatax" type="text" class="txt c1 num"/></td>
-						<td><span> </span><a id="lblVccatotal" class="lbl"> </a></td>
-						<td><input id="txtVccatotal" type="text" class="txt c1 num"/></td>
-						<td colspan="3"></td>
+						<td><span> </span><a id="lblVccano" class="lbl"> </a></td>
+						<td colspan="7">
+							<input id="txtVccano" type="text" class="txt c1"/>
+						</td>
+						<td> </td>
 						<td>
 							<input type="button" id="btnVcca" class="txt c1"/>
 						</td>
