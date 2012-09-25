@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -30,6 +29,7 @@
        $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
+            q_desc=1;
             q_gt(q_name, q_content, q_sqlCount, 1)
             $('#txtNoa').focus
         });
@@ -41,10 +41,11 @@
                 dataErr = false;
                 return;
             }
-            mainForm(0); // 1=Last  0=Top
+            mainForm(1); // 1=Last  0=Top
         }  ///  end Main()
 
-
+		var gqbno=[];
+		var t_gqbno='';
         function mainPost() { 
         	q_mask(bbmMask);
              q_cmbParse("cmbTypea", q_getPara('gqb.typea')); 
@@ -53,7 +54,13 @@
             	$("#cmbTypea").attr('size',len+"");
             }).blur(function(){
             	$("#cmbTypea").attr('size','1');
-            });           
+            });
+            //判斷支票編號是否重複
+            $('#txtGqbno').change(function () {
+				var t_where = "where=^^ gqbno = '"+ $('#txtGqbno').val()+"' ^^"; 
+				q_gt('gqb', t_where , 0, 0, 0, "", r_accy);
+		     });
+                       
         }
 
         function txtCopy(dest, source) {
@@ -90,9 +97,25 @@
                 case q_name: if (q_cur == 4)  
                         q_Seek_gtPost();
 
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
+                    gqbno= _q_appendData("gqb", "", true);
+                     if (q_cur == 1) 
+                    {
+                    	if(gqbno[0]!=undefined)
+            			{
+            				alert("票據號碼已重複輸入");
+            				$('#txtGqbno').focus();
+            			}
+                        //q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
+					}
+                    if (q_cur == 2) 
+                    {
+                    	if(gqbno[0]!=undefined&&t_gqbno!=$('#txtGqbno').val())
+            			{
+            				alert("票據號碼已重複輸入");
+            				$('#txtGqbno').focus();
+            			}
+                        //q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
+					}
                     break;
             }  /// end switch
         }
@@ -124,17 +147,43 @@
 
             _btnModi();
             $('#txtNoa').focus();
+            t_gqbno= $('#txtGqbno').val();
         }
 
         function btnPrint() {
 			q_box('z_gqbp.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()),  '', "800px", "600px", q_getMsg("popPrint"));
         }
         function btnOk() {
+        	if (q_cur == 1)
+        	{
+	        	if(gqbno[0]!=undefined)
+	            {
+	            	alert("票據號碼已重複輸入");
+	            	$('#txtGqbno').focus();
+	            	return;
+	            }
+           }
+        	if (q_cur == 2)
+        	{
+	        	if(gqbno[0]!=undefined&&t_gqbno!=$('#txtGqbno').val())
+	            {
+	            	alert("票據號碼已重複輸入");
+	            	$('#txtGqbno').focus();
+	            	return;
+	            }
+           }
+           if(emp($('#txtIndate').val()))
+           {
+           		alert("請輸入到期日");
+           		$('#txtIndate').focus();
+           		return;
+           }
+           
            
 			 var t_noa = trim($('#txtNoa').val());
-				var t_date = trim($('#txtDatea').val());
+				var t_date = trim($('#txtIndate').val());
 				if (t_noa.length == 0 || t_noa == "AUTO")
-					q_gtnoa(q_name, replaceAll( (t_date.length == 0 ? q_date() : t_date), '/', ''));
+					q_gtnoa(q_name, replaceAll( t_date+(9-dec($('#cmbTypea').val())).toString(), '/', ''));
 				else
 					wrServer(t_noa);
         }
@@ -152,7 +201,6 @@
         
         function refresh(recno) {
             _refresh(recno);
-
         }
 
         function readonly(t_para, empty) {

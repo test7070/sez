@@ -57,7 +57,7 @@
             $('#btnPrint').attr('hidden', 'true');//列印
             $('#btnAuthority').attr('hidden', 'true');//權限
             $('#btnSign').attr('hidden', 'true');//簽核
-            //$('#tbbm').attr('hidden', 'true');//BBM隱藏
+            $('#tbbm').attr('hidden', 'true');//BBM隱藏
             //讀取今天是否以新增過未出車
             var t_where = "where=^^ datea='"+q_date()+"' ^^";
             q_gt(q_name, t_where , 0, 0, 0, "", r_accy);
