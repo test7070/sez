@@ -78,9 +78,12 @@
 			         	//$('#txtSize2_'+j).css('width','30%');
 			         	//$('#txtSize3_'+j).css('width','30%');
 			         	$('#Size').css('width','222px');
-			           $('#txtSize1_'+j).val($('#txtDime_'+j).val());
-			         	$('#txtSize2_'+j).val($('#txtWidth_'+j).val());
-			         	$('#txtSize3_'+j).val($('#txtLengthb_'+j).val());
+			         	q_tr('txtSize1_'+ j ,q_float('txtDime_'+j));
+			         	q_tr('txtSize2_'+ j ,q_float('txtWidth_'+j));
+			         	q_tr('txtSize3_'+ j ,q_float('txtLengthb_'+j));
+			           //$('#txtSize1_'+j).val($('#txtDime_'+j).val());
+			         	//$('#txtSize2_'+j).val($('#txtWidth_'+j).val());
+			         	//$('#txtSize3_'+j).val($('#txtLengthb_'+j).val());
 			         	$('#txtSize4_'+j).val(0);
 			         	$('#txtRadius_'+j).val(0)
 			         }
@@ -95,10 +98,14 @@
 			         	//$('#txtSize2_'+j).css('width','22%');
 			         	//$('#txtSize3_'+j).css('width','22%');
 			         	$('#Size').css('width','297px');
-			         	$('#txtSize1_'+j).val($('#txtRadius_'+j).val());
-			         	$('#txtSize2_'+j).val($('#txtWidth_'+j).val());
-			         	$('#txtSize3_'+j).val($('#txtDime_'+j).val());
-			         	$('#txtSize4_'+j).val($('#txtLengthb_'+j).val());
+			         	q_tr('txtSize1_'+ j ,q_float('txtRadius_'+j));
+			         	q_tr('txtSize2_'+ j ,q_float('txtWidth_'+j));
+			         	q_tr('txtSize3_'+ j ,q_float('txtDime_'+j));
+			         	q_tr('txtSize4_'+ j ,q_float('txtLengthb_'+j));
+			         	//$('#txtSize1_'+j).val($('#txtRadius_'+j).val());
+			         	//$('#txtSize2_'+j).val($('#txtWidth_'+j).val());
+			         	//$('#txtSize3_'+j).val($('#txtDime_'+j).val());
+			         	//$('#txtSize4_'+j).val($('#txtLengthb_'+j).val());
 			         }
 			     }
 		}
