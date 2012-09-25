@@ -134,7 +134,9 @@
 
             function btnIns() {
                 _btnIns();
+                
                 $('#txtNoa').val('AUTO');
+                $('#cmbTypea').val('01');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
             }
@@ -345,6 +347,7 @@
             }
             .tbbm select {
                 border-width: 1px;
+                font-size: medium;
                 padding: 0px;
                 margin: -1px;
             }

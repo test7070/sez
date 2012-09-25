@@ -19,7 +19,7 @@
 
             var q_name = "fixucc";
             var q_readonly = [];
-            var bbmNum = [['txtInprice',10,2],['txtOutprice',10,2],['txtMount',10,0]];
+            var bbmNum = [['txtInprice',10,2],['txtOutprice',10,2],['txtBeginmount',10,0]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -46,7 +46,7 @@
             }///  end Main()
 
             function mainPost() {
-            	bbmMask = [['txtDatea', r_picd]];
+            	bbmMask = [['txtBegindatea', r_picd],['txtIndate', r_picd],['txtOutdate', r_picd]];
                 q_mask(bbmMask);
             }
 
@@ -375,30 +375,42 @@
 						<td class="td4"></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblInprice' class="lbl"></a></td>
+						<td class="td1"><span> </span><a id='lblIndate' class="lbl"></a></td>
 						<td class="td2">
+						<input id="txtIndate"  type="text" class="txt c1"/>
+						</td>
+						<td class="td3"><span> </span><a id='lblInprice' class="lbl"></a></td>
+						<td class="td4">
 						<input id="txtInprice"  type="text" class="txt num c1"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblOutprice" class="lbl"></a></td>
-						<td class="td4">
+						<td class="td5"><span> </span><a id="lblOutprice" class="lbl"></a></td>
+						<td class="td6">
 						<input id="txtOutprice" type="text" class="txt num c1"/>
 						</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
+						<td class="td1"><span> </span><a id='lblBegindatea' class="lbl"></a></td>
 						<td class="td2">
-						<input id="txtDatea"  type="text" class="txt c1"/>
+						<input id="txtBegindatea"  type="text" class="txt c1"/>
 						</td>
-						<td class="td3"></td>
-						<td class="td4"></td>
+						<td class="td3"><span> </span><a id='lblBeginmount' class="lbl"></a></td>
+						<td class="td4">
+						<input id="txtBeginmount"  type="text"  class="txt num c1" />
+						</td>
+						<td class="td5"><span> </span><a id='lblBeginmoney' class="lbl"></a></td>
+						<td class="td6">
+						<input id="txtBeginmoney"  type="text"  class="txt num c1" />
+						</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblMount' class="lbl"></a></td>
+						<td class="td1"><span> </span><a id='lblOutdate' class="lbl"></a></td>
 						<td class="td2">
-						<input id="txtMount"  type="text"  class="txt num c1" />
+						<input id="txtOutdate"  type="text" class="txt c1"/>
 						</td>
-						<td class="td3"></td>
-						<td class="td4"></td>
+						<td class="td3"><span> </span><a id='lblStkmount' class="lbl"></a></td>
+						<td class="td4">
+						<input id="txtStkmount"  type="text"  class="txt num c1" />
+						</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>

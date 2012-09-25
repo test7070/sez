@@ -47,8 +47,8 @@
 			}///  end Main()
 
 			function mainPost() {
+				bbmMask = [['txtDatea', r_picd],['txtLdate', r_picd],['txtNdate', r_picd]];
 				q_mask(bbmMask);
-
 			}
 
 			function q_boxClose(s2) {

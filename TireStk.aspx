@@ -49,6 +49,7 @@
             }///  end Main()
 
             function mainPost() {
+            	bbmMask = [['txtIndate', r_picd],['txtOutdate', r_picd],['txtDeldate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbPosition", q_getPara('tire.position'));
                 q_cmbParse("cmbTypea", q_getPara('tire.typea'));
@@ -293,6 +294,7 @@
             }
             .tbbm select {
                 border-width: 1px;
+                font-size: medium;
                 padding: 0px;
                 margin: -1px;
             }
@@ -343,8 +345,6 @@
 						<td> </td>
 						<td> </td>
 						<td> </td>
-						<td> </td>
-						<td> </td>
 						<td class="tdZ"> </td>
 					</tr>
 					<tr class="tr1">
@@ -384,6 +384,20 @@
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblPosition' class="lbl"> </a></td>
 						<td class="td2"><select id="cmbPosition" class="txt c1"> </select></td>
+					</tr>
+					<tr class="tr3">
+						<td class="td1"><span> </span><a id='lblIndate' class="lbl"> </a></td>
+						<td class="td2" >
+						<input id="txtIndate"  type="text"  class="txt c1"/>
+						</td>
+						<td class="td3"><span> </span><a id='lblOutdate' class="lbl"> </a></td>
+						<td class="td4">
+						<input id="txtOutdate"  type="text"  class="txt c1"/>
+						</td>
+						<td class="td5"><span> </span><a id='lblDeldate' class="lbl"> </a></td>
+						<td class="td6">
+						<input id="txtDeldate"  type="text"  class="txt c1"/>
+						</td>
 					</tr>
 					<tr class="tr5">
 						<td class="td1"><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
