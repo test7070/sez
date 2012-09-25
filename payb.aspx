@@ -213,7 +213,7 @@
 	            		 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 	                    q_bodyId($(this).attr('id'));
 	                    b_seq = t_IdSeq;
-	                	$('#txtTotal_'+b_seq).val(dec($('#txtMoney_'+b_seq).val())+dec($('#txtTax_'+b_seq).val())-dec($('#txtDiscount_'+b_seq).val()));
+	                	q_tr('txtTotal_'+b_seq, q_float('txtMoney_'+b_seq)+q_float('txtTax_'+b_seq)-q_float('txtDiscount_'+b_seq));
 	                	
 	                	sum();
 	                });
@@ -221,7 +221,7 @@
 	                	 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 	                    q_bodyId($(this).attr('id'));
 	                    b_seq = t_IdSeq;
-	                	$('#txtTotal_'+b_seq).val(dec($('#txtMoney_'+b_seq).val())+dec($('#txtTax_'+b_seq).val())-dec($('#txtDiscount_'+b_seq).val()));
+	                	q_tr('txtTotal_'+b_seq, q_float('txtMoney_'+b_seq)+q_float('txtTax_'+b_seq)-q_float('txtDiscount_'+b_seq));
 	                	
 	                	sum();
 	                });
@@ -229,7 +229,7 @@
 	                	 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 	                    q_bodyId($(this).attr('id'));
 	                    b_seq = t_IdSeq;
-	                	$('#txtTotal_'+b_seq).val(dec($('#txtMoney_'+b_seq).val())+dec($('#txtTax_'+b_seq).val())-dec($('#txtDiscount_'+b_seq).val()));
+	                    q_tr('txtTotal_'+b_seq, q_float('txtMoney_'+b_seq)+q_float('txtTax_'+b_seq)-q_float('txtDiscount_'+b_seq));
 	                	
 	                	sum();
 	                });
@@ -288,19 +288,20 @@
                 var t_tax=0,t_money=0,t_discount=0;
                 for(var j = 0; j < q_bbsCount; j++) {
 					
-					t_tax+=dec($('#txtTax_'+j).val());//稅合計
+					t_tax+=q_float('txtTax_'+j);//稅合計
+					
 					if($('#cmbKind_0').val()=='預付')
-							t_money-=dec($('#txtMoney_'+j).val());//產品小計合計
+							t_money-=q_float('txtMoney_'+j);//產品小計合計
 					else
-							t_money+=dec($('#txtMoney_'+j).val());//產品小計合計
+							t_money+=q_float('txtMoney_'+j);//產品小計合計
 							
-					t_discount+=dec($('#txtDiscount_'+j).val());//折讓合計
+					t_discount+=q_float('txtDiscount_'+j);//折讓合計
 					
                 }// j
-                
-                $('#txtTax').val(t_tax);
-                $('#txtMoney').val(t_money-t_discount);
-                $('#txtTotal').val(t_money-t_discount+t_tax);
+                q_tr('txtTax', t_tax);
+                q_tr('txtMoney', t_money-t_discount);
+                q_tr('txtTotal', t_money-t_discount+t_tax);
+                q_tr('txtUnpay', q_float('txtTotal')-q_float('txtPayed'));
             }
 
             function refresh(recno) {
@@ -584,6 +585,7 @@
                 <td class="td5"  colspan="2"><input id="txtAccno"  type="text" class="txt c1"/>
                 <td class="td6"><span> </span><a id="lblUnpay" class="lbl"></a></td>
                 <td class="td7"  colspan="2"><input id="txtUnpay"  type="text" class="txt c1"/>
+                	<input id="txtPayed"  type="hidden"/>
                 </td>
              </tr>
             <tr>
