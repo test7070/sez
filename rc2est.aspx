@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -312,6 +311,10 @@
                 width: 98%;
                 float: left;
             }
+            .txt.c8 {
+            	float:left;
+                width: 65px;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -444,32 +447,39 @@
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
-                <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" class="td1"><a id='lblStoreno_s'> </a></td>
-                <td align="center" class="td1"><a id='lblUno_s'> </a></td>
-                <td align="center" class="td1"><a id='lblProductno_s'> </a></td>
-                <td align="center" class="td1"><a id='lblSpec_s'> </a></td>
-                <td align="center" class="td1"><a id='lblRadius_s'> </a></td>
-                <td align="center" class="td1"><a id='lblMount_s'> </a></td>
-                <td align="center" class="td2"><a id='lblWeight_s'> </a></td>
-                <td align="center" class="td2"><a id='lblPrice_s'> </a></td>
-                <td align="center" class="td2"><a id='lblClass_s'> </a></td>
-                <td align="center" class="td2"><a id='lblHand_s'> </a></td>
-                <td align="center" class="td2"><a id='lblEnds_s'> </a></td>
-                <td align="center" class="td2"><a id='lblMemo_s'> </a></td>
-                <td align="center" class="td2"><a id='lblDescr_s'> </a></td>
+                <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
+                <td align="center" class="td1"><a id='lblStoreno_st'> </a></td>
+                <td align="center" class="td1"><a id='lblUno_st'> </a></td>
+                <td align="center" class="td1"><a id='lblProduct_st'> </a></td>
+                <td align="center" class="td1"><a id='lblSpec_st'> </a></td>
+                <td align="center" class="td1"><a id='lblSize_st'> </a></td>
+                <td align="center" class="td1"><a id='lblMount_st'> </a></td>
+                <td align="center" class="td2"><a id='lblWeight_st'> </a></td>
+                <td align="center" class="td2"><a id='lblPrice_st'> </a></td>
+                <td align="center" class="td2"><a id='lblClass_st'> </a></td>
+                <td align="center" class="td2"><a id='lblHand_st'> </a></td>
+                <td align="center" class="td2"><a id='lblEnds_st'> </a></td>
+                <td align="center" class="td2"><a id='lblMemo_st'> </a></td>
+                <td align="center" class="td2"><a id='lblDescr_st'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
+                <td ><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input class="txt c1" id="txtStoreno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtUno.*" type="text" /></td>
-                <td style="width:10%;"><input class="txt c4" id="txtProductno.*" type="text" />
+                <td ><input class="txt c4" id="txtProductno.*" type="text" />
                 	 <input class="txt c5" id="txtProduct.*" type="text" /></td>
-                <td style="width:15%;"><input class="txt num c6" id="txtDime.*" type="text"/>x
-                                    <input class="txt num c6" id="txtWidth.*" type="text"  />x
-                                    <input class="txt num c6" id="txtLengthb.*" type="text" />
-                                    <input class="txt num c1" id="txtSpec.*" type="text" /> </td>
-                <td ><input class="txt num c1" id="txtRadius.*" type="text"/></td>
+                <td ><input class="txt num c1" id="txtSpec.*" type="text" /> </td>
+                <td >
+                		<input class="txt num c8" id="txtSize1.*" type="text"/><div id="x1" style="float: left"> x</div>
+                		<input class="txt num c8" id="txtSize2.*" type="text"/><div id="x2" style="float: left"> x</div>
+                        <input class="txt num c8" id="txtSize3.*" type="text"/><div id="x3.*" style="float: left"> x</div>
+                         <input class="txt num c8" id="txtSize4.*" type="text"/>
+                         <!--上為虛擬下為實際-->
+                         <input id="txtRadius.*" type="hidden"/>
+                		<input  id="txtWidth.*" type="hidden"/>
+                        <input  id="txtDime.*" type="hidden"/>
+                         <input id="txtLengthb.*" type="hidden"/>
+				</td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtWeight.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtPrice.*" type="text" /></td>

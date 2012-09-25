@@ -74,13 +74,16 @@
 	            	for (var j = 0; j < q_bbsCount; j++) {
 			           $('#txtSize4_'+j).attr('hidden', 'true');
 			           $('#x3_'+j).attr('hidden', 'true');
-			           $('#txtSize1_'+j).css('width','30%');
-			         	$('#txtSize2_'+j).css('width','30%');
-			         	$('#txtSize3_'+j).css('width','30%');
-			         	$('#Memo').css('width','20%');
-			           $('#txtSize1_'+j).val($('#txtDime_'+j).val());
-			         	$('#txtSize2_'+j).val($('#txtWidth_'+j).val());
-			         	$('#txtSize3_'+j).val($('#txtLengthb_'+j).val());
+			           //$('#txtSize1_'+j).css('width','30%');
+			         	//$('#txtSize2_'+j).css('width','30%');
+			         	//$('#txtSize3_'+j).css('width','30%');
+			         	$('#Size').css('width','222px');
+			         	q_tr('txtSize1_'+ j ,q_float('txtDime_'+j));
+			         	q_tr('txtSize2_'+ j ,q_float('txtWidth_'+j));
+			         	q_tr('txtSize3_'+ j ,q_float('txtLengthb_'+j));
+			           //$('#txtSize1_'+j).val($('#txtDime_'+j).val());
+			         	//$('#txtSize2_'+j).val($('#txtWidth_'+j).val());
+			         	//$('#txtSize3_'+j).val($('#txtLengthb_'+j).val());
 			         	$('#txtSize4_'+j).val(0);
 			         	$('#txtRadius_'+j).val(0)
 			         }
@@ -91,14 +94,18 @@
 			         for (var j = 0; j < q_bbsCount; j++) {
 			         	$('#txtSize4_'+j).removeAttr('hidden');
 			         	$('#x3_'+j).removeAttr('hidden');
-			         	$('#txtSize1_'+j).css('width','22%');
-			         	$('#txtSize2_'+j).css('width','22%');
-			         	$('#txtSize3_'+j).css('width','22%');
-			         	$('#Memo').css('width','16%');
-			         	$('#txtSize1_'+j).val($('#txtRadius_'+j).val());
-			         	$('#txtSize2_'+j).val($('#txtWidth_'+j).val());
-			         	$('#txtSize3_'+j).val($('#txtDime_'+j).val());
-			         	$('#txtSize4_'+j).val($('#txtLengthb_'+j).val());
+			         	//$('#txtSize1_'+j).css('width','22%');
+			         	//$('#txtSize2_'+j).css('width','22%');
+			         	//$('#txtSize3_'+j).css('width','22%');
+			         	$('#Size').css('width','297px');
+			         	q_tr('txtSize1_'+ j ,q_float('txtRadius_'+j));
+			         	q_tr('txtSize2_'+ j ,q_float('txtWidth_'+j));
+			         	q_tr('txtSize3_'+ j ,q_float('txtDime_'+j));
+			         	q_tr('txtSize4_'+ j ,q_float('txtLengthb_'+j));
+			         	//$('#txtSize1_'+j).val($('#txtRadius_'+j).val());
+			         	//$('#txtSize2_'+j).val($('#txtWidth_'+j).val());
+			         	//$('#txtSize3_'+j).val($('#txtDime_'+j).val());
+			         	//$('#txtSize4_'+j).val($('#txtLengthb_'+j).val());
 			         }
 			     }
 		}
@@ -573,6 +580,11 @@
                 width: 22%;
                 
             }
+            .txt.c8 {
+            	float:left;
+                width: 65px;
+                
+            }
             .txt.num {
                 text-align: right;
             }
@@ -676,7 +688,7 @@
         </table>
         </div>
 		</div>
-        <div class='dbbs' > <%--style="overflow-x: hidden; overflow-y: scroll;" --%>
+        <div class='dbbs' >
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
@@ -685,12 +697,12 @@
                 <td align="center" style="width:10%;"><a id='lblProduct_st'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblSpec_st'> </a></td>
                 <!--<td align="center"><a id='lblRadius_s'> </a></td>-->
-                <td align="center"><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
+                <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblMount_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblGweight_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblWeight_st'> </a></td>
                 <!--<td align="center" style="width:4%;"><a id='lblType_s'> </a></td>-->
-                <td align="center" id='Memo'><a id='lblMemo_st'> </a></td>
+                <td align="center"><a id='lblMemo_st'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
@@ -704,10 +716,10 @@
                                     <input class="txt num c7" id="txtWidth.*" type="text"/> x
                                     <input class="txt num c7" id="txtLengthb.*" type="text"/> 
                 </td>-->
-                <td><input class="txt num c7" id="txtSize1.*" type="text"/><div id="x1" style="float: left"> x</div>
-                		<input class="txt num c7" id="txtSize2.*" type="text"/><div id="x2" style="float: left"> x</div>
-                        <input class="txt num c7" id="txtSize3.*" type="text"/><div id="x3.*" style="float: left"> x</div>
-                         <input class="txt num c7" id="txtSize4.*" type="text"/>
+                <td><input class="txt num c8" id="txtSize1.*" type="text"/><div id="x1" style="float: left"> x</div>
+                		<input class="txt num c8" id="txtSize2.*" type="text"/><div id="x2" style="float: left"> x</div>
+                        <input class="txt num c8" id="txtSize3.*" type="text"/><div id="x3.*" style="float: left"> x</div>
+                         <input class="txt num c8" id="txtSize4.*" type="text"/>
                          <!--上為虛擬下為實際-->
                          <input id="txtRadius.*" type="hidden"/>
                 		<input  id="txtWidth.*" type="hidden"/>
