@@ -19,8 +19,8 @@
             var q_name = "payb";
             var q_readonly = ['txtMoney','txtTax','txtTotal'];
             var q_readonlys = [];
-            var bbmNum = [['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]];
-            var bbsNum = [['txtPrice', 10, 0],['txtDiscount', 10, 0], ['txtMount', 10, 0], ['txtMoney', 10, 0],['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]];
+            var bbmNum = [['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1],['txtUnpay', 10, 0, 1]];
+            var bbsNum = [['txtPrice', 10, 0, 1],['txtDiscount', 10, 0, 1], ['txtMount', 10, 0, 1], ['txtMoney', 10, 0, 1],['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
