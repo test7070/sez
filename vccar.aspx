@@ -17,7 +17,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="vccar";
-        var q_readonly = [];
+        var q_readonly = ['txtNoa'];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -124,6 +124,7 @@
 
         function btnIns() {
             _btnIns();
+            $('#txtNoa').val('AUTO');
             $('#txtNoa').focus();
         }
 
@@ -141,7 +142,7 @@
         function btnOk() {
             var t_err = '';
 
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
+           t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
 
             if ( dec( $('#txtCredit').val()) > 9999999999)
                 t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
@@ -155,19 +156,21 @@
                 alert(t_err);
                 return;
             }
-            var t_noa = trim($('#txtNoa').val());
+          
             if (emp($('#txtUacc1').val()))
                 $('#txtUacc1').val('1123.' + t_noa);
             if (emp($('#txtUacc2').val()))
                 $('#txtUacc2').val('1121.' + t_noa);
             if (emp($('#txtUacc3').val()))
                 $('#txtUacc3').val( '2131.'+t_noa);
+				var t_noa = trim($('#txtNoa').val());
+				var t_bdate = trim($('#txtBdate').val());
+				if (t_noa.length == 0 || t_noa == "AUTO")
+					q_gtnoa(q_name, replaceAll( (t_bdate.length == 0 ? q_bdate() : t_bdate), '/', ''));
+				else
+					wrServer(t_noa);
 
-
-            if ( t_noa.length==0 )   /// ??????s??
-                q_gtnoa(q_name, t_noa);
-            else
-                wrServer(  t_noa);
+            
         }
 
         function wrServer( key_value) {
@@ -416,9 +419,7 @@
                         </tr>
                         <tr>
                            <td class="td1"><span> </span><a id="lblRev1" class="lbl"></a></td>
-                            <td class="td2"><input id="txtRev1"  type="text"  class="txt c2"/>
-                            	<a id="lblSymbol3" class="txt c7"></a>
-                            	<input id="txtRev2"  type="text"  class="txt c2"/>
+                            <td class="td2"><input id="txtRev"  type="text"  class="txt c1"/>
                             </td>
                             <td class="td3"></td>
                             <td class="td4"></td>
