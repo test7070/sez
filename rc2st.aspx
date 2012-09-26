@@ -54,12 +54,15 @@
             q_cmbParse("cmbTypea", q_getPara('rc2.typea'));   // 需在 main_form() 後執行，才會載入 系統參數
             q_cmbParse("cmbStype", q_getPara('rc2.stype'));   
             q_cmbParse("cmbCoin", q_getPara('sys.coin'));      /// q_cmbParse 會加入 fbbm
-            q_cmbParse("combPay", q_getPara('rc2.pay'));  // comb 未連結資料庫
+            q_cmbParse("cmbPay", q_getPara('rc2.pay'));  // comb 未連結資料庫
             q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
             q_cmbParse("cmbKind", q_getPara('get.kind')); 
-             $('#btnAccc').click(function () {
+             $('#lblAccc').click(function () {
 		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('btnAccc'), true);
+		        });
+		        $('#lblOrdc').click(function () {
+		            lblOrdc();
 		        });
 		       $('#cmbKind').change(function () {
             	size_change();
@@ -160,14 +163,16 @@
                 case 'ucc':  ////  直接 key in 編號，帶入 form
                     q_changeFill(t_name, 'txtProductno_' + b_seq+ ',txtProduct_' + b_seq+ ',txtUnit_' + b_seq, 'noa,product,unit');
                     break;
-
+				case 'ucc_style':
+            			theory_st(q_name,b_seq,'txtWeight');
+            		break;
                 case q_name: if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
             }  /// end switch
         }
         
-        function btnOrdc() {
+        function lblOrdc() {
             var t_tggno = trim($('#txtTggno').val());
             var t_where='';
             if (t_tggno.length > 0) {
@@ -204,8 +209,8 @@
             q_box('rc2_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
-        function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
-            var cmb = document.getElementById("combPay")
+        function cmbPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
+            var cmb = document.getElementById("cmbPay")
             if (!q_cur) 
                 cmb.value = '';
             else
@@ -242,7 +247,69 @@
                      b_seq = t_IdSeq;
                      q_change($(this), 'store', 'noa', 'noa,store');  /// 接 q_gtPost()
                  });
-                
+                 
+                 //將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
+		                 $('#txtSize1_' + j).change(function () {
+		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                     q_bodyId($(this).attr('id'));
+		                     b_seq = t_IdSeq;
+		                     
+		                    if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+		            		{	
+		            			q_tr('txtDime_'+b_seq ,q_float('txtSize1_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#txtSize1_' + b_seq).val());
+		            		}else{
+		            			q_tr('txtRadius_'+b_seq ,q_float('txtSize1_'+b_seq));//短徑$('#txtRadius_'+b_seq).val($('#txtSize1_' + b_seq).val());	
+		            		}
+		            		
+		                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+		                 });
+		                 $('#txtSize2_' + j).change(function () {
+		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                     q_bodyId($(this).attr('id'));
+		                     b_seq = t_IdSeq;
+		                     
+		                    if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+		            		{	
+		            			q_tr('txtWidth_'+b_seq ,q_float('txtSize2_'+b_seq));//寬度$('#txtWidth_'+b_seq).val($('#txtSize2_' + b_seq).val());	
+		            		}else{
+		            			q_tr('txtWidth_'+b_seq ,q_float('txtSize2_'+b_seq));//長徑$('#txtWidth_'+b_seq).val($('#txtSize2_' + b_seq).val());	
+		            		}
+		                     
+		                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+		                 });
+		                 $('#txtSize3_' + j).change(function () {
+		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                     q_bodyId($(this).attr('id'));
+		                     b_seq = t_IdSeq;
+					         	
+		                     if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+		            		{	
+		            			q_tr('txtLengthb_'+b_seq ,q_float('txtSize3_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#txtSize3_' + b_seq).val());	
+		            		}else{
+		            			q_tr('txtDime_'+b_seq ,q_float('txtSize3_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#txtSize3_' + b_seq).val());		
+		            		}
+		                     
+		                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+		                 });
+		                 $('#txtSize4_' + j).change(function () {
+		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                     q_bodyId($(this).attr('id'));
+		                     b_seq = t_IdSeq;
+		                     
+		                     if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+		            		{	
+		            			q_tr('txtRadius_'+b_seq ,q_float('txtSize4_'+b_seq));//短徑為0 $('#txtRadius_'+b_seq).val($('#txtSize4_' + b_seq).val());	
+		            		}else{
+		            			q_tr('txtLengthb_'+b_seq ,q_float('txtSize4_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#txtSize4_' + b_seq).val());	
+		            		}
+		            		
+		                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+		                 });
+                //-------------------------------------------------
                 $('#txtUnit_' + j).focusout(function () { sum(); });
                 $('#txtWeight_' + j).focusout(function () { sum(); });
                 $('#txtPrice_' + j).focusout(function () { sum(); });
@@ -424,6 +491,55 @@
 			         }
 			     }
 		}
+		function theory_st(q_name,id,txtweight) { //id 為BBS的id,txtweight為要bbs寫入的欄位
+			var calc="";
+			var as = _q_appendData("ucc", "", true);
+			if(as[0]==undefined)
+			{
+				alert('請輸入正確材質');
+				return;
+			}
+			//判斷表身參考theory:40
+			if(q_name=='uccb'||q_name=='uccc'||q_name=='cubu'||q_name=='ins'||q_name=='rc2s'||
+				q_name=='ina'||q_name=='cut'||q_name=='cnn'||q_name=='cng'||q_name=='vccd'||
+				q_name=='rc2'||q_name=='ordc'||q_name=='ordb'||q_name=='get') 
+			{
+		        calc=as[0].calc3;//庫存
+			}else{//內外銷與其他
+				var cmb = document.getElementById("cmbStype");
+				if (!cmb) {
+					alert('cmbStype 不存在');
+					return;
+				}
+				//qsys....orde.stype
+				if($('#cmbStype').val()==3)
+				    calc=as[0].calc2;	//外銷
+				else
+					calc=as[0].calc;	//內銷與其他
+		
+			}
+			//空值判斷
+			if(emp($('#txtDime_'+id).val()))
+				$('#txtDime_'+id).val(0);
+			if(emp($('#txtWidth_'+id).val()))
+				$('#txtWidth_'+id).val(0);
+			if(emp($('#txtLengthb_'+id).val()))
+				$('#txtLengthb_'+id).val(0);
+			if(emp($('#txtRadius_'+id).val()))
+				$('#txtRadius_'+id).val(0);
+			if(emp($('#txtMount_'+id).val()))
+				$('#txtMount_'+id).val(0);
+
+			eval('var result=' +calc.replace(/DIME/g,$('#txtDime_'+id).val()).replace(/WIDTH/g,$('#txtWidth_'+id).val()).replace(/LENGTH/g,$('#txtLengthb_'+id).val()).replace(/RADIUS/g,$('#txtRadius_'+id).val()));
+		    //厚度=DIME 寬度=WIDTH 長度=LENGTH 外徑 =RADIUS
+			$('#'+txtweight+'_'+id).val(result*dec($('#txtMount_'+id).val()));
+			
+			var weight_total=0;
+			for (var j = 0; j < q_bbsCount; j++) {
+				weight_total+=dec($('#'+txtweight+'_'+j).val());
+            }
+			$('#txtWeight').val(weight_total);
+		}
         
     </script>
     <style type="text/css">
@@ -585,8 +701,8 @@
                 <td class="td1"><span> </span><a id='lblTgg' class="lbl btn"></td>
                 <td class="td2" colspan='2'><input id="txtTggno" type="text" class="txt c2" /><input id="txtTgg"  type="text" class="txt c3"/></td>
                 <td class="td4"><span> </span><a id='lblPay' class="lbl"></a></td>
-                <td class="td5" colspan='2'><input id="txtPay" type="text" class="txt c2"/> <select id="combPay" class="txt c3"></select></td> 
-                <td class="td7"><input id="btnOrdc" type="button" value='.' style="float: right;" /></td>
+                <td class="td5" colspan='2'><input id="txtPay" type="hidden"/> <select id="cmbPay" class="txt c3"></select></td> 
+                <td class="td7"><span> </span><a id='lblOrdc' class="lbl btn"></td>
                 <td class="td8"><input id="txtOrdeno"  type="text"  class="txt c1"/></td> 
             </tr>
             <tr class="tr2">
@@ -647,7 +763,7 @@
                 <td class="td2" colspan='2'><input id="txtTotalus" type="text" class="txt num c1" /></td> 
                 <td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
                 <td class="td5" colspan='2' ><input id="txtWeight" type="text" class="txt num c1" /></td>
-                <td class="td7"><input id='btnAccc' type="button" style="float: right;"/></td>
+                <td class="td7"><span> </span><a id='lblAccc' class="lbl btn"></a></td>
                 <td class="td8"><input id="txtAccno" type="text" class="txt c1"/></td> 
             </tr>
             <tr class="tr9">
@@ -697,7 +813,7 @@
                         <input id="txtGweight.*" type="text" class="txt num c1" /></td>
                 <td><input id="txtMemo.*" type="text" class="txt c1"/>
 	                <input id="txtOrdeno.*" type="text" style="width:65%;" />
-	                <input id="txtNo2.*" type="text" style="width:27%;" />
+	                <input id="txtNo2.*" type="text" style="width:26%;" />
 	                <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
                 </td>
             </tr>
