@@ -532,13 +532,13 @@
 
 			eval('var result=' +calc.replace(/DIME/g,$('#txtDime_'+id).val()).replace(/WIDTH/g,$('#txtWidth_'+id).val()).replace(/LENGTH/g,$('#txtLengthb_'+id).val()).replace(/RADIUS/g,$('#txtRadius_'+id).val()));
 		    //厚度=DIME 寬度=WIDTH 長度=LENGTH 外徑 =RADIUS
-			$('#'+txtweight+'_'+id).val(result*dec($('#txtMount_'+id).val()));
+			q_tr(txtweight+'_'+id ,result*q_float('txtMount_'+id));//$('#'+txtweight+'_'+id).val(result*dec($('#txtMount_'+id).val()));
 			
 			var weight_total=0;
 			for (var j = 0; j < q_bbsCount; j++) {
 				weight_total+=dec($('#'+txtweight+'_'+j).val());
             }
-			$('#txtWeight').val(weight_total);
+			q_tr('txtWeight',weight_total);//$('#txtWeight').val(weight_total);
 		}
         
     </script>

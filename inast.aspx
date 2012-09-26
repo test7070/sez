@@ -192,9 +192,9 @@
 		                     
 		                    if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
 		            		{	
-		            			$('#txtDime_'+b_seq).val($('#txtSize1_' + b_seq).val());	//厚度
+		            			q_tr('txtDime_'+b_seq ,q_float('txtSize1_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#txtSize1_' + b_seq).val());
 		            		}else{
-		            			$('#txtRadius_'+b_seq).val($('#txtSize1_' + b_seq).val());	//短徑
+		            			q_tr('txtRadius_'+b_seq ,q_float('txtSize1_'+b_seq));//短徑$('#txtRadius_'+b_seq).val($('#txtSize1_' + b_seq).val());	
 		            		}
 		            		
 		                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
@@ -207,9 +207,9 @@
 		                     
 		                    if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
 		            		{	
-		            			$('#txtWidth_'+b_seq).val($('#txtSize2_' + b_seq).val());	//寬度
+		            			q_tr('txtWidth_'+b_seq ,q_float('txtSize2_'+b_seq));//寬度$('#txtWidth_'+b_seq).val($('#txtSize2_' + b_seq).val());	
 		            		}else{
-		            			$('#txtWidth_'+b_seq).val($('#txtSize2_' + b_seq).val());	//長徑
+		            			q_tr('txtWidth_'+b_seq ,q_float('txtSize2_'+b_seq));//長徑$('#txtWidth_'+b_seq).val($('#txtSize2_' + b_seq).val());	
 		            		}
 		                     
 		                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
@@ -222,9 +222,9 @@
 					         	
 		                     if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
 		            		{	
-		            			$('#txtLengthb_'+b_seq).val($('#txtSize3_' + b_seq).val());	//長度
+		            			q_tr('txtLengthb_'+b_seq ,q_float('txtSize3_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#txtSize3_' + b_seq).val());	
 		            		}else{
-		            			$('#txtDime_'+b_seq).val($('#txtSize3_' + b_seq).val());		//厚度
+		            			q_tr('txtDime_'+b_seq ,q_float('txtSize3_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#txtSize3_' + b_seq).val());		
 		            		}
 		                     
 		                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
@@ -237,9 +237,9 @@
 		                     
 		                     if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
 		            		{	
-		            			$('#txtRadius_'+b_seq).val($('#txtSize4_' + b_seq).val());	//短徑為0
+		            			q_tr('txtRadius_'+b_seq ,q_float('txtSize4_'+b_seq));//短徑為0 $('#txtRadius_'+b_seq).val($('#txtSize4_' + b_seq).val());	
 		            		}else{
-		            			$('#txtLengthb_'+b_seq).val($('#txtSize4_' + b_seq).val());	//長度
+		            			q_tr('txtLengthb_'+b_seq ,q_float('txtSize4_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#txtSize4_' + b_seq).val());	
 		            		}
 		            		
 		                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
@@ -420,13 +420,13 @@
 
 			eval('var result=' +calc.replace(/DIME/g,$('#txtDime_'+id).val()).replace(/WIDTH/g,$('#txtWidth_'+id).val()).replace(/LENGTH/g,$('#txtLengthb_'+id).val()).replace(/RADIUS/g,$('#txtRadius_'+id).val()));
 		    //厚度=DIME 寬度=WIDTH 長度=LENGTH 外徑 =RADIUS
-			$('#'+txtweight+'_'+id).val(result*dec($('#txtMount_'+id).val()));
+			q_tr(txtweight+'_'+id ,result*q_float('txtMount_'+id));//$('#'+txtweight+'_'+id).val(result*dec($('#txtMount_'+id).val()));
 			
 			var weight_total=0;
 			for (var j = 0; j < q_bbsCount; j++) {
 				weight_total+=dec($('#'+txtweight+'_'+j).val());
             }
-			$('#txtTotal').val(weight_total);
+			q_tr('txtTotal',weight_total);//$('#txtTotal').val(weight_total);
 		}
         </script> 
     <style type="text/css">
