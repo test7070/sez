@@ -573,12 +573,10 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:3%;"><a id='lblNoq'> </a></td>
-                <td align="center" style="width:3%; text-align:center"><a id='lblAccc4'> </a></td>
                 <td align="center" style="width:7%;"><a id='lblPart'> </a></td>
                 <td align="center" style="width:13%;"><a id='lblAccc5'> </a></td>
                 <td align="center" style="width:20%;"><a id='lblAccc6'> </a></td>
                 <td align="center" style="width:30%;"><a id='lblAccc7'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblAccc8'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblDmoney_s'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblCmoney_s'> </a></td>
 <%--                <td align="center" style="width:6%;"><a id='lblCoin'> </a></td>
@@ -587,7 +585,6 @@
             <tr  style='background:#cad3ff;'>
               <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
               <td ><input class="txt" id="txtNoq.*" type="text" maxlength='5' style="width:90%;" /></td>
-              <td  style="text-align:center"><input class="txt"  id="txtAccc4.*" maxlength='30'type="text" style="width:90%; visibility = hidden;" /></td>
               <td><input class="txt" id="txtPart.*" type="text" maxlength='90' style="width:55%; " />
                                     <input class="btn"  id="btnPart.*" type="button" value='.' style=" font-weight: bold; " /></td>
               <td ><input class="txt" id="txtAccc5.*" type="text" maxlength='90' style="width:75%;" />
@@ -595,7 +592,6 @@
                 <td ><input class="txt" id="txtAccc6.*" type="text" maxlength='10' style="width:97%;"/></td>
                 <td > <input class="btn"  id="btnQphr.*" type="button" value='.'  />
                                        <input class="txt" id="txtAccc7.*" type="text" maxlength='20' style="width:90%;"/></td>
-                <td ><input class="txt" id="txtAccc8.*" type="text" maxlength='20' style="width:97%; text-align:right;visibility = hidden;"/></td>
                 <td ><input class="txt" id="txtDmoney.*" type="text" maxlength='20' style="width:97%; text-align:right;"/></td>
                 <td ><input class="txt" id="txtCmoney.*" type="text" maxlength='20' style="width:97%; text-align:right;"/><input id="recno.*" type="hidden" /></td>
 <%--                <td ><input class="txt" id="txtCoin.*" type="text" maxlength='90' style="width:97%;"/></td>
