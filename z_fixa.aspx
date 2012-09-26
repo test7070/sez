@@ -27,18 +27,30 @@
 						type : '0',
 						name : 'accy',
 						value : q_getId()[4]
-					}, {
+					}, {/*1*/
 						type : '1',
 						name : 'date'
-					}, {/*6*/
+					}, {/*2*/
 						type : '6',
 						name : 'xcarno'
-					}, {/*6*/
+					}, {/*3*/
 						type : '6',
 						name : 'xcarplateno'
-					}, {/*6*/
+					}, {/*4*/
+						type : '2',
+						name : 'driver',
+						dbf : 'driver',
+						index : 'noa,namea',
+						src : 'driver_b.aspx'
+					}, {/*5*/
 						type : '6',
 						name : 'xmoney'
+					}, {/*6*/
+						type : '2',
+						name : 'tgg',
+						dbf : 'tgg',
+						index : 'noa,nick',
+						src : 'tgg_b.aspx'
 					}]
 				});
 				q_popAssign();
