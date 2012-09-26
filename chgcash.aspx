@@ -57,9 +57,9 @@
         	$('#txtDc').change(function () {
                     var i = $('#txtDc').val();
                     $('#combDc').val(i);
-                    if (i < '0' || i > '3') {
-                        $('#txtDc').val('3');
-                        $('#combDc').val('3');
+                    if (i < '0' || i > '4') {
+                        $('#txtDc').val('4');
+                        $('#combDc').val('4');
                     }
             });
             $('#combDc').change(function () {

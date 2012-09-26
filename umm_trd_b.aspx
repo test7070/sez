@@ -7,8 +7,8 @@
 <script src='../script/qj_mess.js' type="text/javascript"></script>
 <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = 'umm_trd', t_bbsTag = 'tbbs', t_content = " field=noa,paysale,unpay,unpayorg,part2  order=odate ", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
-    var t_sqlname = 'umm_trd_load2'; t_postname = q_name; brwCount2 = 12;
+    var q_name = 'trd', t_bbsTag = 'tbbs', t_content = " field=noa,paysale,total,part2  order=odate ", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
+    var t_sqlname = 'umm_trd_load'; t_postname = q_name; brwCount2 = 12;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm;
     var i, s1;
@@ -53,16 +53,14 @@
                 <td align="center">&nbsp;</td>
                 <td align="center"><a id='lblVccno'></a></td>
                 <td align="center"><a id='lblPaysale'></a></td>
-                <td align="center"><a id='lblUnpay'></a></td>
-                <td align="center"><a id='lblUnpayorg'></a></td>
+                <td align="center"><a id='lblTotal'></a></td>
                 <td align="center"><a id='lblPart2'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="chk"  id="chkSel.*" type="checkbox"/></td>
-                <td><input class="txt"  id="txtVccno.*" type="text"  /></td>
+                <td><input class="txt"  id="txtNoa.*" type="text"  /></td>
                 <td><input class="txt" id="txtPaysale.*" type="text"  /></td>
-                <td><input class="txt" id="txtUnpay.*" type="text" /></td>
-                <td><input class="txt" id="txtUnpayorg.*" type="text" /></td>
+                <td><input class="txt" id="txtTotal.*" type="text" /></td>
                 <td><input class="txt" id="txtPart2.*" type="text" /></td>
             </tr>
         </table>

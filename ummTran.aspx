@@ -96,7 +96,7 @@
 		                }
 		                //umm_trd();
 		                var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
-			            t_where = "where=^^ custno=" + t_custno + " and unpay!=0 ";
+			            t_where = "^^ custno=" + t_custno + " and unpay!=0 ";
 			            t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "'";
 	
 			            var j = 0, s2 = '', s1 = '';
@@ -144,6 +144,66 @@
 		    function q_boxClose(s2) {
 		        var ret;
 		        switch (b_pop) {
+		        	case 'umm_trd':
+                    if (q_cur > 0 && q_cur < 4) {   //  q_cur： 0 = 瀏覽狀態  1=新增  2=修改 3=刪除  4=查詢
+                        b_ret = getb_ret();         ///  q_box() 執行後，選取的資料
+                        if (!b_ret || b_ret.length == 0)
+                            return;
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2', b_ret.length, b_ret
+                                                           , 'noa,paysale,unpay,unpayorg,part2'
+                                                           , '');   /// 最後 aEmpField 不可以有【數字欄位】
+                        for (var i = 0; i < b_ret.length; i++) {
+		                    if (b_ret[i].total - b_ret[i].paysale == 0) {
+		                        b_ret.splice(i, 1);
+		                        i--;
+		                    } else {
+		                        b_ret[i]._unpay = (b_ret[i].total - b_ret[i].paysale).toString();
+		                        b_ret[i].paysale = 0;
+		                    }
+		                }
+		                //if (!t_Saving)
+		                //    q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'noa,paysale,_unpay,_unpay,part2', 'txtVccno', '');
+		                
+                        $('#txtOpay').val(0);
+		                $('#txtUnopay').val(0);
+		                var t_money = 0;
+		                for (var i = 0; i < q_bbsCount; i++) {
+		                    t_money += q_float('txtMoney_' + i) + q_float('txtChgs_' + i);
+		                }
+                        
+                        var t_money = 0;
+		                for (var i = 0; i < q_bbsCount; i++) {
+		                        t_money += q_float('txtMoney_' + i) + q_float('txtChgs_' + i);
+		                }
+                        var t_unpay, t_pay;
+                        for (var i = 0; i < ret.length; i++) {
+                            k = ret[i];  ///ret[i]  儲存 tbbs 指標
+								if (i < ret.length && b_ret[i].total - b_ret[i].paysale != 0) {
+		                            $('#txtVccno_' + k).val(b_ret[i].noa);
+		                            $('#txtPart2_' + k).val(b_ret[i].part2);
+		                            t_unpay = b_ret[i]._unpay;
+
+		                            q_tr('txtUnpayorg_' + k, t_unpay);
+
+		                          	if (t_money >= t_unpay) {
+		                                q_tr('txtPaysale_' + k, t_unpay);
+		                                $('#txtUnpay_' + k).val(0);
+		                                t_money = t_money - t_unpay;
+		                            }
+		                           	else {
+		                                q_tr('txtPaysale_' + k, t_money);
+		                                q_tr('txtUnpay_' + k, t_unpay - t_money);
+		                                t_money = 0;
+		                            }
+		                        }
+		                        else {
+		                            $('#txtVccno_' + k).val('');
+		                            $('#txtPaysale_' + k).val('');
+		                            $('#txtUnpay_' + k).val('');
+		                        }
+                        }  /// for i
+                    }
+                    break;
 		            case q_name + '_s':
 		                q_boxClose2(s2);
 		                break;
