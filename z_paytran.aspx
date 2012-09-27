@@ -77,6 +77,10 @@
 						}, {/*7*/
 							type : '6',
 							name : 'xnoa'
+						},{/*8*/
+							type : '8',
+							name : 'xcarteam',
+							value : t_carteam.split(',')
 						}]
 					});
 					q_popAssign();
