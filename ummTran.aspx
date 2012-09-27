@@ -87,7 +87,7 @@
 
 		        $('#txtOpay').change(function () { sum(); });
 		        $('#txtUnopay').change(function () { sum(); });
-
+				//0926改為開啟視窗
 		        $('#btnVcc').click(function (e) {
 		            if (q_cur >=0) {//q_cur == 1 || q_cur == 2
 		                if ($.trim($('#txtCustno').val()) == 0) {
@@ -96,7 +96,7 @@
 		                }
 		                //umm_trd();
 		                var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
-			            t_where = "^^ custno=" + t_custno + " and unpay!=0 ";
+			            t_where = "custno=" + t_custno + " and unpay!=0 ";
 			            t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "'";
 	
 			            var j = 0, s2 = '', s1 = '';
@@ -160,7 +160,7 @@
 		                    }
 		                }
 		                if (!t_Saving)
-		                    ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2', b_ret.length, b_ret, 'noa,paysale,unpay,unpayorg,part2', 'txtVccno');   /// 最後 aEmpField 不可以有【數字欄位】
+		                    ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2', 'txtVccno');   /// 最後 aEmpField 不可以有【數字欄位】
 		                else{/// 自動沖帳
 	                        $('#txtOpay').val(0);
 			                $('#txtUnopay').val(0);
