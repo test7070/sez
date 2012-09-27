@@ -20,7 +20,7 @@
 			q_tables = 's';
 			var q_name = "carsal";
 			var q_readonly = ['txtNoa','txtWorker','txtTranmoney','txtDrivermoney','txtBonus','txtPlus','txtMoney',
-							  'txtTicket','txtLabor','txtHealth','txtMinus','txtCarborr','txtTotal'];
+							  'txtTicket','txtLabor','txtHealth','txtMinus','txtCarborr','txtTotal','txtUnpay'];
 			var q_readonlys = ['txtMoney','txtTotal'];
 			var bbmNum = [['txtTranmoney', 10, 0],['txtDrivermoney', 10, 0],['txtBonus', 10, 0],['txtPlus', 10, 0],['txtMoney', 10, 0],['txtTicket', 10, 0],
 						  ['txtLabor', 10, 0],['txtHealth', 10, 0],['txtMinus', 10, 0],['txtCarborr', 10, 0],['txtTotal', 10, 0]];
@@ -179,7 +179,7 @@
 			}
 
 			function btnPrint() {
-				q_box('z_carsal.aspx' + "?;;;;" + r_accy, '', "800px", "600px", q_getMsg("popPrint"));
+				q_box('z_carsal.aspx' + "?;;;;" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
 			}
 
 			function wrServer(key_value) {
@@ -551,6 +551,7 @@
 					<td align="center" style="width:80px;"><a id='lblMinus_s'></a></td>
 					<td align="center" style="width:60px;"><a id='lblCarborr_s'></a></td>
 					<td align="center" style="width:80px;"><a id='lblTotal_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblUnpay_s'></a></td>
 					<td align="center" style="width:150px;"><a id='lblMemo_s'></a></td>
 					
 				</tr>
@@ -575,6 +576,7 @@
 					<td ><input type="text" id="txtMinus.*" style="width:95%; text-align: right;" /></td>
 					<td ><input type="text" id="txtCarborr.*" style="width:95%; text-align: right;" /></td>
 					<td ><input type="text" id="txtTotal.*" style="width:95%; text-align: right;" /></td>
+					<td ><input type="text" id="txtUnpay.*" style="width:95%; text-align: right;" /></td>
 					<td ><input type="text" id="txtMemo.*" style="width:95%; text-align: right;" /></td>
 				</tr>
 			</table>
