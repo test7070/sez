@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -188,6 +187,10 @@
 					t_where = "  custno='" + $('#txtCustno').val() + "' and  (trdno='" + $('#txtNoa').val() + "' or len(isnull(trdno,''))=0) ";
 					q_box("vcca_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_vccano + ";", 'vcca1', "95%", "650px", q_getMsg('popVcca'));
 				});
+				$("#btnChgcash").click(function(e) {
+					t_where = "sssno='" + r_userno + "'";
+					q_box("chgcash_acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'chgcash_acc', "95%", "650px", q_getMsg('popChgcash_acc'));
+				});
 				
 				$('#txtMemo').change(function() {
 					if (isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.') {
@@ -224,6 +227,21 @@
 								t_where +=" or noa='"+b_ret[i].noa+"'";
 							}
 							q_gt('vcca1', "where=^^"+t_where+"^^", 0, 0, 0, "");
+						}
+						break;
+					case 'chgcash_acc':
+						b_ret = getb_ret();
+						if (b_ret != null) {
+							//計算加減項金額
+							var t_plusmoney=0,t_minusmoney=0;
+							for (var i = 0; i < b_ret.length; i++) {
+								if(b_ret[i].dc==1)
+									t_minusmoney+=dec(b_ret[i].money);
+								else
+									t_plusmoney+=dec(b_ret[i].money);
+							}
+							q_tr('txtPlusmoney',t_plusmoney);
+							q_tr('txtMinusmoney',t_minusmoney);
 						}
 						break;
 					case q_name + '_s':
@@ -444,10 +462,12 @@
 					$('#btnTrans').removeAttr('disabled');
 					$('#btnCustchg').removeAttr('disabled');
 					$('#btnVcca').removeAttr('disabled');
+					$('#btnChgcash').removeAttr('disabled');
 				} else {
 					$('#btnTrans').attr('disabled', 'disabled');
 					$('#btnCustchg').attr('disabled', 'disabled');
 					$('#btnVcca').attr('disabled', 'disabled');
+					$('#btnChgcash').attr('disabled', 'disabled');
 				}
 				if (isEditTotal && (q_cur == 1 || q_cur == 2) && $.trim($('#txtMemo').val()).substring(0, 1) == '.') {
 					$('#txtTotal').removeAttr('readonly').css('background-color', 'white').css('color', 'black');
@@ -755,6 +775,12 @@
 						<input id="txtCno" type="text"  class="txt" style="float: left; width:25%;"/>
 						<input id="txtAcomp" type="text"  class="txt"  style="float: left; width:75%;"/>
 						</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td><input type="button" id="btnChgcash" class="txt c1"/></td>
 					</tr>
 					<tr class="tr5">
 						<td class="td5"><span> </span><a id="lblTovcca" class="lbl"> </a></td>

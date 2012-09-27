@@ -68,13 +68,13 @@
         <table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:5%">&nbsp;</td>
-                <td align="center" style="width:10%"><a id='lblNoa'></a></td>
-                <td align="center" style="width:10%"><a id='lblDatea'></a></td>
+                <td align="center" style="width:8%"><a id='lblNoa'></a></td>
+                <td align="center" style="width:7%"><a id='lblDatea'></a></td>
                 <td align="center" style="width:10%"><a id='lblDc'></a></td>
-                <td align="center" style="width:15%"><a id='lblMoney'></a></td>
-                <td align="center" style="width:20%"><a id='lblChgitem'></a></td>
-                <td align="center" style="width:20%"><a id='lblAcc'></a></td>
-                <td align="center" style="width:10%"><a id='lblCustno'></a></td>
+                <td align="center" style="width:7%"><a id='lblMoney'></a></td>
+                <td align="center" style="width:15%"><a id='lblChgitem'></a></td>
+                <td align="center" style="width:15%"><a id='lblAcc'></a></td>
+                <td align="center" style="width:20%"><a id='lblCustno'></a></td>
                 <td align="center" style="width:10%"><a id='lblPart'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -83,10 +83,10 @@
                 <td><input class="txt"  id="txtDatea.*" type="text"  style="width:100%"/></td>
                 <td><input class="txt"  id="txtDc.*" type="hidden" /><select id="combDc.*" style="width:100%;font-size: medium;"></select></td>
                 <td><input class="txt" id="txtMoney.*" type="text"  style="width:100%"/></td>
-                <td><input class="txt" id="txtChgitemno.*" type="text" style="width:20%"/><input class="txt" id="txtChgitem.*" type="text" style="width:77%"/></td>
-                <td><input class="txt" id="txtAcc1.*" type="text" style="width:20%"/><input class="txt" id="txtAcc2.*" type="text" style="width:77%"/></td>
-                <td><input class="txt" id="txtCustno.*" type="text" style="width:20%"/><input class="txt" id="txtComp.*" type="text" style="width:77%"/></td>
-                <td><input class="txt" id="txtPartno.*" type="text" style="width:20%"/><input class="txt" id="txtPart.*" type="text" style="width:77%"/></td>
+                <td><input class="txt" id="txtChgitemno.*" type="text" style="width:20%"/><input class="txt" id="txtChgitem.*" type="text" style="width:75%"/></td>
+                <td><input class="txt" id="txtAcc1.*" type="text" style="width:20%"/><input class="txt" id="txtAcc2.*" type="text" style="width:75%"/></td>
+                <td><input class="txt" id="txtCustno.*" type="text" style="width:20%"/><input class="txt" id="txtComp.*" type="text" style="width:75%"/></td>
+                <td><input class="txt" id="txtPartno.*" type="text" style="width:30%"/><input class="txt" id="txtPart.*" type="text" style="width:60%"/></td>
             </tr>
         </table>
   <!--#include file="../inc/pop_ctrl.inc"--> 

@@ -87,36 +87,29 @@
 
 		        $('#txtOpay').change(function () { sum(); });
 		        $('#txtUnopay').change(function () { sum(); });
-				//0926改為開啟視窗
+
 		        $('#btnVcc').click(function (e) {
-		            if (q_cur >=0) {//q_cur == 1 || q_cur == 2
+		            if (q_cur == 1 || q_cur == 2) {
 		                if ($.trim($('#txtCustno').val()) == 0) {
 		                    alert('Empty=' + q_getMsg('lblCust'));
 		                    return false;
 		                }
-		                //umm_trd();
-		                var t_custno = "'" + $.trim($('#txtCustno').val()) + "'"; 
-		                if(q_cur == 1 || q_cur == 2)
-		                {
-				            t_where = "custno=" + t_custno + " and unpay!=0 ";
-				            t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "'";
-	
-				            var j = 0, s2 = '', s1 = '';
-				            for (var i = 0; i < q_bbsCount; i++) {
-				                if ($.trim($('#txtVccno_' + i).val()).length > 0) {
-				                    s2 = s2 + (j == 0 ? "" : " or ") + " noa='" + $('#txtVccno_' + i).val() + "'";
-				                    s1 = s1 + (j == 0 ? "" : " or ") + " vccno='" + $('#txtVccno_' + i).val() + "'";
-				                    j++;
-				                }
-				            }
-		
-				            t_where = t_where + (s2.length > 0 ? " or (" + s2 + ")" : '') + "^^";
-				            t_where1 = t_where1 + (s1.length > 0 ? " or (" + s2 + ")" : '') + "^^";
-			            }else{
-			            	t_where = "^^1=0^^";
-				            t_where1 = " where[1]=^^1=0^^";
-			            }
-		                q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+t_where1, 'umm_trd', "95%", "650px", q_getMsg('popUmm_trd'));
+		                umm_trd();
+
+		                //		                var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
+		                //		                t_where = "where=^^ custno=" + t_custno + " and unpay!=0 ";
+		                //		                t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "' and ( 1=1 ";
+		                //		                var j = 0;
+		                //		                for (var i = 0; i < q_bbsCount; i++) {
+		                //		                    if ($.trim($('#txtVccno_' + i).val()).length > 0) {
+		                //		                        t_where = t_where + (j==0 ? "":" or " )+" noa='" + $('#txtVccno_' + i).val() + "'";
+		                //		                        t_where1 = t_where1 + (j == 0 ? "" : " or ") + " vccno='" + $('#txtVccno_' + i).val() + "'";
+		                //		                        j++;
+		                //		                    }
+		                //		                }
+		                //		                t_where = t_where + "^^";
+		                //		                t_where1 = t_where1 + ")^^";
+		                //		                q_gt('umm_trd', t_where + t_where1, 0, 0, 0, "", r_accy);
 		            }
 		        });
 		    }
@@ -132,70 +125,6 @@
 		    function q_boxClose(s2) {
 		        var ret;
 		        switch (b_pop) {
-		        	case 'umm_trd':
-                    if (q_cur > 0 && q_cur < 4) {   //  q_cur： 0 = 瀏覽狀態  1=新增  2=修改 3=刪除  4=查詢
-                        b_ret = getb_ret();         ///  q_box() 執行後，選取的資料
-                        if (!b_ret || b_ret.length == 0)
-                            return;
-                            
-                        for (var i = 0; i < b_ret.length; i++) {
-		                    if (b_ret[i].total - b_ret[i].paysale == 0) {
-		                        b_ret.splice(i, 1);
-		                        i--;
-		                    } else {
-		                        b_ret[i]._unpay = (b_ret[i].total - b_ret[i].paysale).toString();
-		                        b_ret[i].paysale = 0;
-		                    }
-		                }
-		                //清除有相同單據bbs
-		                for (var i = 0; i < q_bbsCount; i++) {
-			                 for (var j = 0; j < b_ret.length; j++) {
-			                 	if(b_ret[j].noa==$('#txtVccno_'+i).val())
-			                 		btnMinus("btnMinus_"+i);
-			                 }
-			            }
-		                
-		                if (!t_Saving)
-		                    ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2', 'txtVccno');   /// 最後 aEmpField 不可以有【數字欄位】
-		                else{/// 自動沖帳
-	                        $('#txtOpay').val(0);
-			                $('#txtUnopay').val(0);
-			                var t_money = 0;
-			                for (var i = 0; i < q_bbsCount; i++) {
-			                    t_money += q_float('txtMoney_' + i) + q_float('txtChgs_' + i);
-			                }
-	                        var t_unpay, t_pay;
-	                        for (var i = 0; i < q_bbsCount; i++) {
-	                            k = b_ret[i];  ///ret[i]  儲存 tbbs 指標
-									if (i < b_ret.length && b_ret[i].total - b_ret[i].paysale != 0) {
-			                            $('#txtVccno_' + k).val(b_ret[i].noa);
-			                            $('#txtPart2_' + k).val(b_ret[i].part2);
-			                            t_unpay = b_ret[i]._unpay;
-	
-			                            q_tr('txtUnpayorg_' + k, t_unpay);
-	
-			                          	if (t_money >= t_unpay) {
-			                                q_tr('txtPaysale_' + k, t_unpay);
-			                                $('#txtUnpay_' + k).val(0);
-			                                t_money = t_money - t_unpay;
-			                            }
-			                           	else {
-			                                q_tr('txtPaysale_' + k, t_money);
-			                                q_tr('txtUnpay_' + k, t_unpay - t_money);
-			                                t_money = 0;
-			                            }
-			                        }
-			                        else {
-			                            $('#txtVccno_' + k).val('');
-			                            $('#txtPaysale_' + k).val('');
-			                            $('#txtUnpay_' + k).val('');
-			                        }
-	                        }  /// for i
-	                        if (t_money > 0)
-		                        q_tr('txtOpay', t_money);
-                        }
-                    }
-                    break;
 		            case q_name + '_s':
 		                q_boxClose2(s2);
 		                break;
