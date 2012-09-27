@@ -95,40 +95,28 @@
 		                    return false;
 		                }
 		                //umm_trd();
-		                var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
-			            t_where = "custno=" + t_custno + " and unpay!=0 ";
-			            t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "'";
+		                var t_custno = "'" + $.trim($('#txtCustno').val()) + "'"; 
+		                if(q_cur == 1 || q_cur == 2)
+		                {
+				            t_where = "custno=" + t_custno + " and unpay!=0 ";
+				            t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "'";
 	
-			            var j = 0, s2 = '', s1 = '';
-			            for (var i = 0; i < q_bbsCount; i++) {
-			                if ($.trim($('#txtVccno_' + i).val()).length > 0) {
-			                    s2 = s2 + (j == 0 ? "" : " or ") + " noa='" + $('#txtVccno_' + i).val() + "'";
-			                    s1 = s1 + (j == 0 ? "" : " or ") + " vccno='" + $('#txtVccno_' + i).val() + "'";
-			                    j++;
-			                }
+				            var j = 0, s2 = '', s1 = '';
+				            for (var i = 0; i < q_bbsCount; i++) {
+				                if ($.trim($('#txtVccno_' + i).val()).length > 0) {
+				                    s2 = s2 + (j == 0 ? "" : " or ") + " noa='" + $('#txtVccno_' + i).val() + "'";
+				                    s1 = s1 + (j == 0 ? "" : " or ") + " vccno='" + $('#txtVccno_' + i).val() + "'";
+				                    j++;
+				                }
+				            }
+		
+				            t_where = t_where + (s2.length > 0 ? " or (" + s2 + ")" : '') + "^^";
+				            t_where1 = t_where1 + (s1.length > 0 ? " or (" + s2 + ")" : '') + "^^";
+			            }else{
+			            	t_where = "^^1=0^^";
+				            t_where1 = " where[1]=^^1=0^^";
 			            }
-	
-			            t_where = t_where + (s2.length > 0 ? " or (" + s2 + ")" : '') + "^^";
-			            t_where1 = t_where1 + (s1.length > 0 ? " or (" + s2 + ")" : '') + "^^";
 		                q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+t_where1, 'umm_trd', "95%", "650px", q_getMsg('popUmm_trd'));
-		                
-		                
-		                
-
-		                //		                var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
-		                //		                t_where = "where=^^ custno=" + t_custno + " and unpay!=0 ";
-		                //		                t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "' and ( 1=1 ";
-		                //		                var j = 0;
-		                //		                for (var i = 0; i < q_bbsCount; i++) {
-		                //		                    if ($.trim($('#txtVccno_' + i).val()).length > 0) {
-		                //		                        t_where = t_where + (j==0 ? "":" or " )+" noa='" + $('#txtVccno_' + i).val() + "'";
-		                //		                        t_where1 = t_where1 + (j == 0 ? "" : " or ") + " vccno='" + $('#txtVccno_' + i).val() + "'";
-		                //		                        j++;
-		                //		                    }
-		                //		                }
-		                //		                t_where = t_where + "^^";
-		                //		                t_where1 = t_where1 + ")^^";
-		                //		                q_gt('umm_trd', t_where + t_where1, 0, 0, 0, "", r_accy);
 		            }
 		        });
 		    }
@@ -159,6 +147,14 @@
 		                        b_ret[i].paysale = 0;
 		                    }
 		                }
+		                //清除有相同單據bbs
+		                for (var i = 0; i < q_bbsCount; i++) {
+			                 for (var j = 0; j < b_ret.length; j++) {
+			                 	if(b_ret[j].noa==$('#txtVccno_'+i).val())
+			                 		btnMinus("btnMinus_"+i);
+			                 }
+			            }
+		                
 		                if (!t_Saving)
 		                    ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2', 'txtVccno');   /// 最後 aEmpField 不可以有【數字欄位】
 		                else{/// 自動沖帳

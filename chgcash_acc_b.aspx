@@ -7,7 +7,7 @@
 <script src='../script/qj_mess.js' type="text/javascript"></script>
 <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = 'chgcash', t_bbsTag = 'tbbs', t_content = " field=noa,money,chgitemno,chgitem,acc1,acc2  order=odate ", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
+    var q_name = 'chgcash', t_bbsTag = 'tbbs', t_content = " field=noa,datea,money,chgitemno,chgitem,acc1,acc2  order=odate ", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
     var t_sqlname = 'chgcash_load'; t_postname = q_name; brwCount2 = 12;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm;
@@ -57,18 +57,22 @@
 <div  id="dbbs"  >
         <table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
             <tr style='color:White; background:#003366;' >
-                <td align="center">&nbsp;</td>
-                <td align="center"><a id='lblNoa'></a></td>
-                <td align="center"><a id='lblMoney'></a></td>
-                <td align="center"><a id='lblChgitem'></a></td>
-                <td align="center"><a id='lblAcc'></a></td>
+                <td align="center" style="width:5%">&nbsp;</td>
+                <td align="center" style="width:10%"><a id='lblNoa'></a></td>
+                <td align="center" style="width:10%"><a id='lblDatea'></a></td>
+                <td align="center" style="width:10%"><a id='lblDc'></a></td>
+                <td align="center" style="width:15%"><a id='lblMoney'></a></td>
+                <td align="center" style="width:30%"><a id='lblChgitem'></a></td>
+                <td align="center" style="width:30%"><a id='lblAcc'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td><input class="chk"  id="chkSel.*" type="checkbox"/></td>
-                <td><input class="txt"  id="txtNoa.*" type="text"  /></td>
-                <td><input class="txt" id="txtMoney.*" type="text"  /></td>
-                <td><input class="txt" id="txtChgitemno.*" type="text" /><input class="txt" id="txtChgitem.*" type="text" /></td>
-                <td><input class="txt" id="txtAcc1.*" type="text" /><input class="txt" id="txtAcc2.*" type="text" /></td>
+                <td><input class="chk"  id="chkSel.*" type="checkbox"style="width:100%"/></td>
+                <td><input class="txt"  id="txtNoa.*" type="text"  style="width:100%"/></td>
+                <td><input class="txt"  id="txtDatea.*" type="text"  style="width:100%"/></td>
+                <td><input class="txt"  id="txtDatea.*" type="text"  style="width:100%"/></td>
+                <td><input class="txt" id="txtMoney.*" type="text"  style="width:100%"/></td>
+                <td><input class="txt" id="txtChgitemno.*" type="text" style="width:20%"/><input class="txt" id="txtChgitem.*" type="text" style="width:77%"/></td>
+                <td><input class="txt" id="txtAcc1.*" type="text" style="width:20%"/><input class="txt" id="txtAcc2.*" type="text" style="width:77%"/></td>
             </tr>
         </table>
   <!--#include file="../inc/pop_ctrl.inc"--> 
