@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title></title>
-<script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
+<script src="../script/jquery.min.js" type="text/javascript"></script>
 <script src='../script/qj2.js' type="text/javascript"></script>
         <script src='qset.js' type="text/javascript"></script>
 <script src='../script/qj_mess.js' type="text/javascript"></script>
@@ -12,8 +12,17 @@
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm;
     var i, s1;
+	/*說明---開始載入資料時會抓umm_trd_load的內容，且load的第一個資料表為trd，因此q_name為trd，
+	 * 而q_lang為umm_trd(網頁_b之前的值)*/
 
     $(document).ready(function () {
+    	//當沒有網址參數
+    	if (location.href.indexOf('?') < 0)   // debug
+        {
+            location.href = location.href + "?;;;^^1=0^^where[1]=^^1=0^^";
+            return;
+        }
+        //^^custno='A023' and unpay!='0'^^where[1]=^^noa!='J1010925001'^^
         if (!q_paraChk())
             return;
 
