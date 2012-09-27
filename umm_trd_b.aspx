@@ -37,25 +37,19 @@
         }
         mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
         $('#chkAll').click(function () {
-        	if(q_bbsCount > brwCount2)
-		    {
-				for (var j = 0; j < brwCount2; j++) {
-					if(!emp($('#txtNoa_'+j).val()))
-						$('#chkSel_'+j)[0].checked="true";
-				}
+			for (var j = 0; j < brwCount2; j++) {
+				if(!emp($('#txtNoa_'+j).val()))
+					$('#chkSel_'+j)[0].checked="true";
 			}
         });
     }
 
     function bbsAssign() { 
         _bbsAssign();
-        if(q_bbsCount > brwCount2)
-        {
-	        for (var j = 0; j < brwCount2; j++) {
-	        	if(!emp($('#txtNoa_'+j).val()))
-	        		q_tr('txtOpay_'+ j ,q_float('txtTotal_'+j)-q_float('txtPaysale_'+j));
-	        }
-        }
+	   	for (var j = 0; j < brwCount2; j++) {
+	        if(!emp($('#txtNoa_'+j).val()))
+	        	q_tr('txtOpay_'+ j ,q_float('txtTotal_'+j)-q_float('txtPaysale_'+j));
+	   }
     }
 
     function q_gtPost() {  
