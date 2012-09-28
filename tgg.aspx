@@ -144,7 +144,7 @@
         function btnOk() {
             var t_err = '';
 
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')], ['txtCredit', q_getMsg('msgCreditErr'), 1]]);
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
 
 
             if (dec($('#txtCredit').val()) > 9999999999)

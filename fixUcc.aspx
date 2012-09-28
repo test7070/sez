@@ -358,12 +358,14 @@
 						<td class="td4"></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblCno' class="lbl"></a></td>
+						<td class="td1"><span> </span><a id='lblCarbrand' class="lbl"></a></td>
 						<td class="td2">
-						<input id="txtCno"  type="text"  class="txt c1"/>
+						<input id="txtCarbrand"  type="text"  class="txt c1"/>
 						</td>
-						<td class="td3"></td>
-						<td class="td4"></td>
+						<td class="td3"><span> </span><a id='lblBrand' class="lbl"></a></td>
+						<td class="td4">
+						<input id="txtBrand"  type="text"  class="txt c1"/>
+						</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblTgg' class="lbl btn"></a></td>

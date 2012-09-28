@@ -116,7 +116,7 @@
 			            	t_where = "^^1=0^^";
 				            t_where1 = " where[1]=^^1=0^^";
 			            }
-		                q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+t_where1, 'umm_trd', "95%", "650px", q_getMsg('popUmm_trd'));
+		                q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+t_where1, 'umm_trd', "55%", "500px", q_getMsg('popUmm_trd'));
 		            }
 		        });
 		    }
@@ -151,7 +151,11 @@
 		                for (var i = 0; i < q_bbsCount; i++) {
 			                 for (var j = 0; j < b_ret.length; j++) {
 			                 	if(b_ret[j].noa==$('#txtVccno_'+i).val())
-			                 		btnMinus("btnMinus_"+i);
+			                 		$('#txtVccno_'+i).val('');
+			                 		$('#txtPaysale_'+i).val('');
+			                 		$('#txtUnpayorg_'+i).val('');
+			                 		$('#txtUnpay_'+i).val('');
+			                 		$('#txtPart2_'+i).val('');
 			                 }
 			            }
 		                
