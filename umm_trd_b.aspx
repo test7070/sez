@@ -86,11 +86,11 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="chk"  id="chkSel.*" type="checkbox" name="chkSel"/></td>
-                <td><input class="txt"  id="txtNoa.*" type="text"  /></td>
-                <td><input class="txt" id="txtTotal.*" type="text" /></td>
-                <td><input class="txt" id="txtPaysale.*" type="text"  /></td>
-                <td><input class="txt" id="txtOpay.*" type="text"  /></td>
-                <td><input class="txt" id="txtPart2.*" type="text" /></td>
+                <td><input class="txt"  id="txtNoa.*" type="text" style="width:99%;" /></td>
+                <td><input class="txt" id="txtTotal.*" type="text" style="text-align: right;width:99%;"/></td>
+                <td><input class="txt" id="txtPaysale.*" type="text" style="text-align: right;width:99%;"/></td>
+                <td><input class="txt" id="txtOpay.*" type="text" style="text-align: right;width:99%;" /></td>
+                <td><input class="txt" id="txtPart2.*" type="text" style="width:99%;"/></td>
             </tr>
         </table>
         <input type="button"  id="chkAll" value="全選" onclick="checkall();" />
