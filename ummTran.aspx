@@ -89,15 +89,10 @@
 		        $('#txtUnopay').change(function () { sum(); });
 				//0926改為開啟視窗
 		        $('#btnVcc').click(function (e) {
-		            if (q_cur >=0) {//q_cur == 1 || q_cur == 2
-		                if ($.trim($('#txtCustno').val()) == 0) {
-		                    alert('Empty=' + q_getMsg('lblCust'));
-		                    return false;
-		                }
 		                //umm_trd();
-		                var t_custno = "'" + $.trim($('#txtCustno').val()) + "'"; 
-		                if(q_cur == 1 || q_cur == 2)
+		                if(!emp($('#txtCustno').val()))
 		                {
+		                	 var t_custno = "'" + $.trim($('#txtCustno').val()) + "'"; 
 				            t_where = "custno=" + t_custno + " and unpay!=0 ";
 				            t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "'";
 	
@@ -117,7 +112,6 @@
 				            t_where1 = " where[1]=^^1=0^^";
 			            }
 		                q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+t_where1, 'umm_trd', "55%", "500px", q_getMsg('popUmm_trd'));
-		            }
 		        });
 		    }
 
