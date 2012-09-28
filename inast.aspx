@@ -125,6 +125,11 @@
                 switch (t_name) {
                 	case'uccb':
                 		var as = _q_appendData("uccb", "", true);
+                		if(uccb_readonly){
+                			
+                			
+                			
+                		}
                 		if(as[0] != undefined){
                 			alert("批號已存在!!");
                 			$('#txtUno_' +b_seq).val('');
@@ -162,7 +167,7 @@
 
             function combPay_chg() {
             }
-
+			
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
             		  if (!$('#btnMinus_' + i).hasClass('isAssign')) {
@@ -266,13 +271,19 @@
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
             }
-
+			var uccb_readonly=false;
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
                 _btnModi();
                 $('#txtProduct').focus();
                 size_change();
+                for(var j = 0; j < q_bbsCount; j++) {
+                	//判斷是否被領用，被領用則不能修改
+                	uccb_readonly=true;
+	                var t_where = "where=^^ noa='"+$('#txtUno_' +b_seq).val()+"' and gweight>0 ^^"; 
+					q_gt('uccb', t_where , 0, 0, 0, "", r_accy);
+                }
             }
 
             function btnPrint() {

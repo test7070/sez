@@ -53,20 +53,14 @@
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
             //工具隱藏
-            $('#btnIns').attr('hidden', 'true');//新增
+            //$('#btnIns').attr('hidden', 'true');//新增
+            $('#btnIns').val("未出車匯入");
             $('#btnSeek').attr('hidden', 'true');//查詢
             $('#btnPrint').attr('hidden', 'true');//列印
             $('#btnAuthority').attr('hidden', 'true');//權限
             $('#btnSign').attr('hidden', 'true');//簽核
             $('#tbbm').attr('hidden', 'true');//BBM隱藏
-
-             $('#btnUnpresent').click(function (e) {
-             	today = new Date();//防止更改日期
-             	//讀取今天是否以新增過未出車
-            	var t_where = "where=^^ datea='"+q_date()+"' ^^";
-            	q_gt(q_name, t_where , 0, 0, 0, "", r_accy);
-            	Unbtn=true;
-		     });
+				
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -100,13 +94,13 @@
                 	if(Unbtn){
 	                	today_unpresent = _q_appendData(q_name, "", true);
 	                	if(today_unpresent[0]==undefined)
-	                	{		
-			           	 	btnIns();      
+	                	{		     
 			            	var t_where = "where=^^ a.cartype='2' and len( carno)=6 AND CHARINDEX( '-',carno) > 0 and (len(outdate)=0 OR outdate is null) and carno not in (select noa from carChange where len(enddate)>0 or len(wastedate)>0 or len(canceldate)>0) ";
 			            	t_where=t_where+"and a.carno not in (select carno from trans101 where carno in(select noa from car2 where cartype='2') and datea='"+q_date()+"' group by carno) ^^";
 	            			q_gt('car2_carteam', t_where , 0, 0, 0, "", r_accy);    
 						}else{
 							alert("今天已匯入未出車資料");
+							btnCancel();
 	                		return;
 						}
 					}
@@ -213,6 +207,13 @@
         }
 
         function btnIns() {
+        		today = new Date();//防止更改日期
+             	//讀取今天是否以新增過未出車
+            	var t_where = "where=^^ datea='"+q_date()+"' ^^";
+            	q_gt(q_name, t_where , 0, 0, 0, "", r_accy);
+            	Unbtn=true;
+        	
+        	
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
@@ -488,7 +489,6 @@
 </head>
 <body>
 <!--#include file="../inc/toolbar.inc"-->
-		<input type="button" id="btnUnpresent" />
         <div id='dmain'>
         <div class="dview" id="dview" style="float: left;  width:100%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66; width:100%;">
