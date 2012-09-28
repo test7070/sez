@@ -100,7 +100,7 @@
                 	if(q_cur != 1 && q_cur != 2){
 						$(this).attr('disabled','disabled');
 						$(this).val('Watting...');
-	                	q_func('tre.import',r_accy+','+$('#txtBdriverno').val()+','+$('#txtEdriverno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
+	                	q_func('tre.import',r_accy+','+$('#cmbCarteamno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
                 	}
                 });
                 $("#btnCarchg").click(function(e) {
@@ -174,6 +174,15 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'carteam':
+						var as = _q_appendData("carteam", "", true);
+						var t_item = "@";
+						for ( i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+						}
+						q_cmbParse("cmbCarteamno", t_item);
+						$("#cmbCarteamno").val(abbm[q_recno].carteamno);
+						break;
                 	case 'carchg':
 						var as = _q_appendData("carchg", "", true);
 						var t_plusmoney=0,t_minusmoney=0;
@@ -556,14 +565,13 @@
 						<td class="td2">
 						<input id="txtDate2" type="text"  class="txt c1" />
 						</td>
-						<td class="td7"><span> </span><a id="lblDriver2" class="lbl"> </a></td>
-						<td class="td8" colspan="2">
-						<input id="txtBdriverno" type="text"  class="txt c2"/>
-						<span id="sign_1" style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
-						<input id="txtEdriverno" type="text"  class="txt c2"/>
-						</td>
+						
+						<td><span> </span><a id="lblCarteam" class="lbl"> </a></td>
+						<td><select id="cmbCarteamno" class="txt c1">  </select></td>
+						
+						
 						<td class="td3" colspan="2"><span> </span><a id="lblDate3" class="lbl"> </a></td>
-						<td class="td5" colspan="2">
+						<td class="td5" colspan="3">
 						<input id="txtBdate" type="text"  class="txt c2"/>
 						<span id="sign_2" style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
 						<input id="txtEdate" type="text"  class="txt c2"/>
