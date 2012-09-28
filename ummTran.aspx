@@ -151,7 +151,11 @@
 		                for (var i = 0; i < q_bbsCount; i++) {
 			                 for (var j = 0; j < b_ret.length; j++) {
 			                 	if(b_ret[j].noa==$('#txtVccno_'+i).val())
-			                 		btnMinus("btnMinus_"+i);
+			                 		$('#txtVccno_'+i).val('');
+			                 		$('#txtPaysale_'+i).val('');
+			                 		$('#txtUnpayorg_'+i).val('');
+			                 		$('#txtUnpay_'+i).val('');
+			                 		$('#txtPart2_'+i).val('');
 			                 }
 			            }
 		                
