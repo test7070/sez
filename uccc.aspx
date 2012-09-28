@@ -140,7 +140,7 @@
         }
 
         function btnPrint() {
- 
+ 		q_box('z_stk.aspx', '', "800px", "600px", q_getMsg("popPrint"));
         }
         function btnOk() {
             var t_err = '';

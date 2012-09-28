@@ -57,6 +57,7 @@
                 bbmMask = [['txtDatea', r_picd],['txtIndate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('fixin.typea'));
+                q_cmbParse("cmbTiretype", q_getPara('tire.typea'),'s');
                 $('#txtTax').change(function () {
 		            sum();
 		        });
@@ -493,6 +494,7 @@
 					<td align="center" class="td1"><a id='lblMoney_s'> </a></td>
 					<td align="center" class="td1"><a id='lblTireno_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
+					<td align="center" class="td1"><a id='lblTiretype_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td style="width:1%;">
@@ -526,7 +528,9 @@
 					</td>
 					<td >
 					<input class="txt c1" id="txtMemo.*" type="text" />
-					
+					</td>
+					<td >
+					<select id="cmbTiretype.*" class="txt c1"> </select>
 					</td>
 				</tr>
 			</table>

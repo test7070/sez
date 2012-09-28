@@ -57,6 +57,7 @@
                 bbmMask = [['txtDatea', r_picd],['txtOutdate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('fixout.typea'));
+                q_cmbParse("cmbPosition", q_getPara('tire.position'),'s');
             }
 
             function q_boxClose(s2) {
@@ -150,7 +151,7 @@
             }
 
             function btnPrint() {
-
+			q_box('z_fixout.aspx', '', "800px", "600px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -463,6 +464,7 @@
 					<td align="center" class="td1"><a id='lblMoney_s'> </a></td>
 					<td align="center" class="td1"><a id='lblTireno_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
+					<td align="center" class="td1"><a id='lblPosition_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td style="width:1%;">
@@ -496,7 +498,9 @@
 					</td>
 					<td >
 					<input class="txt c1" id="txtMemo.*" type="text" />
-					
+					</td>
+					<td >
+					<select id="cmbPosition.*" class="txt c1"> </select>
 					</td>
 				</tr>
 			</table>

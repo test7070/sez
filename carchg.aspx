@@ -57,6 +57,8 @@
             function mainPost() {
             	 bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
+                q_gt('carteam', '', 0, 0, 0, "");
+                
                 $('input[type="text"]').focus(
                 	function(){
                 		$(this).addClass('focus_b');
@@ -109,6 +111,15 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'carteam':
+						var as = _q_appendData("carteam", "", true);
+						var t_item = "@";
+						for ( i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+						}
+						q_cmbParse("cmbCarteamno", t_item);
+						$("#cmbCarteamno").val(abbm[q_recno].carteamno);
+						break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -401,6 +412,8 @@
 						<input id="txtCustno"  type="text"  class="txt" style="width:30%; float: left;"/>
 						<input id="txtCust"  type="text"  class="txt" style="width:70%;  float: left;"/>
 						</td>
+						<td><span> </span><a id="lblCarteam" class="lbl"> </a></td>
+						<td><select id="cmbCarteamno" class="txt c1">  </select></td>
 					</tr>
 					<tr>
 						<td class="td3"><span> </span><a id='lblCarno' class="lbl"> </a></td>
