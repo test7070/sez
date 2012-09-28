@@ -57,7 +57,7 @@
             </tr>
             <tr>
                 <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
-                <td ><input id="txtUno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
+                <td ><input id="txtNoa.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
                 <td ><input id="txtProductno.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
                 <td ><input id="txtProduct.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
                 <td ><input id="txtSpec.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
@@ -66,7 +66,7 @@
                 	 <input id="txtDime.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>x
                 	 <input id="txtLengthb.*" type="text" style=" width: 21%;text-align: right;" readonly="readonly"/>
                 </td>
-                <td ><input id="txtMount.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
+                <td ><input id="txtEmount.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
                 <td ><input id="txtGweight.*" type="text" style=" width: 95%;text-align: right;" readonly="readonly"/></td>
                 <td ><input id="txtInvono.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
                 <td ><input id="txtNo2.*" type="text" style=" width: 95%;" readonly="readonly"/></td>
