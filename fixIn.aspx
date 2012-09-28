@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -78,6 +77,30 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'tirestk':
+                		var as = _q_appendData("tirestk", "", true);
+                		if(as[0]!=undefined)
+                		{
+                			alert("該胎號已存在");
+                			if(q_cur==2)
+                				$('#txtTireno_' + b_seq).val(bbs_tireno[b_seq]);
+                			else
+                				$('#txtTireno_' + b_seq).val('');
+                			return;
+                		}
+                	break;
+                	case 'fixouts':
+                		var as = _q_appendData("fixouts", "", true);
+                		if(as[0]!=undefined)
+                		{
+                			if(q_cur==2)
+                				$('#txtTireno_' + b_seq).val(bbs_tireno[b_seq]);
+                			else
+                				$('#txtTireno_' + b_seq).val('');
+                			alert("該胎號已領料");
+                			return;
+                		}
+                	break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -112,10 +135,25 @@
 
             function combPay_chg() {
             }
-
+			//儲存bbs的胎號
+			var bbs_tireno=[];
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
 		            if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+		            	bbs_tireno[i]=$('#txtTireno_' + i).val();
+		            	//判斷胎號是否已領料
+		            	 $('#txtTireno_' + i).change(function (e) {
+		            	 	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                    q_bodyId($(this).attr('id'));
+		                    b_seq = t_IdSeq;
+		                    if(q_cur == 2)
+		                    	var t_where = "where=^^ tireno='"+bbs_tireno[b_seq]+"' ^^";
+		                    else
+		                    	var t_where = "where=^^ tireno='"+$('#txtTireno_' + b_seq).val()+"' ^^";
+	            			q_gt('fixouts', t_where , 0, 0, 0, "", r_accy);
+	            			var t_where2 = "where=^^ noa='"+$('#txtTireno_' + b_seq).val()+"' ^^";
+	            			q_gt('tirestk', t_where2 , 0, 0, 0, "", r_accy);
+		                });
 		                $('#txtMount_' + i).change(function (e) {
 		                    sum();
 		                });
