@@ -46,7 +46,8 @@
 
             mainForm(1); 
         }  
-
+		var today_unpresent=[];
+		var Unbtn=false;//讓開始匯入資料時不判斷今天是否已匯入未出車
         function mainPost() { 
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
@@ -58,9 +59,14 @@
             $('#btnAuthority').attr('hidden', 'true');//權限
             $('#btnSign').attr('hidden', 'true');//簽核
             $('#tbbm').attr('hidden', 'true');//BBM隱藏
-            //讀取今天是否以新增過未出車
-            var t_where = "where=^^ datea='"+q_date()+"' ^^";
-            q_gt(q_name, t_where , 0, 0, 0, "", r_accy);
+
+             $('#btnUnpresent').click(function (e) {
+             	today = new Date();//防止更改日期
+             	//讀取今天是否以新增過未出車
+            	var t_where = "where=^^ datea='"+q_date()+"' ^^";
+            	q_gt(q_name, t_where , 0, 0, 0, "", r_accy);
+            	Unbtn=true;
+		     });
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -91,12 +97,17 @@
             	
             	break;
                 case q_name: 
-                	var as = _q_appendData(q_name, "", true);
-                	if(as[0]==undefined)
-                	{		
-		           	 	btnIns();      
-		            	var t_where = "where=^^ a.cartype='2' and a.carno not in (select carno from trans101 where carno in(select noa from car2 where cartype='2') and datea='"+q_date()+"' group by carno) ^^";
-            			q_gt('car2_carteam', t_where , 0, 0, 0, "", r_accy);    
+                	if(Unbtn){
+	                	today_unpresent = _q_appendData(q_name, "", true);
+	                	if(today_unpresent[0]==undefined)
+	                	{		
+			           	 	btnIns();      
+			            	var t_where = "where=^^ a.cartype='2' and a.carno not in (select carno from trans101 where carno in(select noa from car2 where cartype='2') and datea='"+q_date()+"' group by carno) ^^";
+	            			q_gt('car2_carteam', t_where , 0, 0, 0, "", r_accy);    
+						}else{
+							alert("今天已匯入未出車資料");
+	                		return;
+						}
 					}
                 	
                 	if (q_cur == 4)   
@@ -476,6 +487,7 @@
 </head>
 <body>
 <!--#include file="../inc/toolbar.inc"-->
+		<input type="button" id="btnUnpresent" />
         <div id='dmain'>
         <div class="dview" id="dview" style="float: left;  width:100%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66; width:100%;">
