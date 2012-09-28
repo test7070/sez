@@ -69,6 +69,129 @@
 	}
 </script>
 <style type="text/css">
+	#dmain {
+                overflow: hidden;
+            }
+            .dview {
+                float: left;
+                width: 18%;
+            }
+            .tview {
+                margin: 0;
+                padding: 2px;
+                border: 1px black double;
+                border-spacing: 0;
+                font-size: medium;
+                background-color: #FFFF66;
+                color: blue;
+            }
+            .tview td {
+                padding: 2px;
+                text-align: center;
+                border: 1px black solid;
+            }
+            .dbbm {
+                float: left;
+                width: 80%;
+                margin: -1px;
+                border: 1px black solid;
+                border-radius: 5px;
+            }
+            .tbbm {
+                padding: 0px;
+                border: 1px white double;
+                border-spacing: 0;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                background: #cad3ff;
+                width: 100%;
+            }
+            .tbbm tr {
+                height: 35px;
+            }
+            .tbbm tr td {
+                width: 9%;
+            }
+            .tbbm .tdZ {
+                width: 2%;
+            }
+            .tbbm tr td span {
+                float: right;
+                display: block;
+                width: 5px;
+                height: 10px;
+            }
+            .tbbm tr td .lbl {
+                float: right;
+                color: blue;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn {
+                color: #4297D7;
+                font-weight: bolder;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn:hover {
+                color: #FF8F19;
+            }
+            .txt.c1 {
+                width: 98%;
+                float: left;
+            }
+            .txt.c2 {
+                width: 48%;
+                float: left;
+            }
+            .txt.c3 {
+                width: 50%;
+                float: left;
+            }
+            .txt.c4 {
+                width: 18%;
+                float: left;
+            }
+            .txt.c5 {
+                width: 80%;
+                float: left;
+            }
+            .txt.num {
+                text-align: right;
+            }
+            .tbbm td {
+                margin: 0 -1px;
+                padding: 0;
+            }
+            .tbbm td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                float: left;
+            }
+            .tbbm td input[type="button"] {
+                float: left;
+            }
+            .tbbm select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+            }
+            .dbbs {
+                width: 100%;
+            }
+            .tbbs a {
+                font-size: medium;
+            }
+
+            .num {
+                text-align: right;
+            }
+            .tbbs tr.error input[type="text"] {
+                color: red;
+            }
+            input[type="text"], input[type="button"] {
+                font-size: medium;
+            }
     .seek_tr
     {color:white; text-align:center; font-weight:bold;BACKGROUND-COLOR: #76a2fe}
 </style>
@@ -86,11 +209,11 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="chk"  id="chkSel.*" type="checkbox" name="chkSel"/></td>
-                <td><input class="txt"  id="txtNoa.*" type="text" style="width:99%;" /></td>
-                <td><input class="txt" id="txtTotal.*" type="text" style="text-align: right;width:99%;"/></td>
-                <td><input class="txt" id="txtPaysale.*" type="text" style="text-align: right;width:99%;"/></td>
-                <td><input class="txt" id="txtOpay.*" type="text" style="text-align: right;width:99%;" /></td>
-                <td><input class="txt" id="txtPart2.*" type="text" style="width:99%;"/></td>
+                <td><input id="txtNoa.*" type="text" class="txt c1" /></td>
+                <td><input id="txtTotal.*" type="text" class="txt num c1"/></td>
+                <td><input id="txtPaysale.*" type="text" class="txt num c1"/></td>
+                <td><input id="txtOpay.*" type="text" class="txt num c1" /></td>
+                <td><input id="txtPart2.*" type="text" class="txt c1"/></td>
             </tr>
         </table>
         <input type="button"  id="chkAll" value="全選" onclick="checkall();" />
