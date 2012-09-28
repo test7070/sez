@@ -33,7 +33,7 @@
             aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
         					['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
         					['txtCarplateno', 'lblCarplateno', 'carplate', 'noa,carplate', 'txtCarplateno', 'carplate_b.aspx'],
-        					['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,unit', 'txtProductno_,txtProduct_,txtUnit_', 'fixucc_b.aspx']);
+        					['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,brand,unit', 'txtProductno_,txtProduct_,txtBrand_,txtUnit_', 'fixucc_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -366,7 +366,9 @@
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
-
+			.tbbs .td1{
+				width: 9%;
+			}
 		</style>
 	</head>
 	<body>
@@ -453,13 +455,14 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" class="td1"><a id='lblProductno_s'> </a></td>
-					<td align="center" style="width: 15%;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width: 20%;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width: 12%;"><a id='lblBrand_s'> </a></td>
 					<td align="center" style="width: 3%;"><a id='lblUnit_s'> </a></td>
 					<td align="center" class="td1"><a id='lblMount_s'> </a></td>
 					<td align="center" class="td1"><a id='lblPrice_s'> </a></td>
 					<td align="center" class="td1"><a id='lblMoney_s'> </a></td>
 					<td align="center" class="td1"><a id='lblTireno_s'> </a></td>
-					<td align="center" class="td1"><a id='lblMemo_s'> </a></td>
+					<td align="center" ><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td style="width:1%;">
@@ -467,11 +470,14 @@
 					<input id="txtNoq.*" style="display: none;" />
 					</td>
 					<td >
-					<input id="txtProductno.*" type="text" style="width: 80%;" />
-					<input id="btnProductno.*" type="button" value="..." style="width: 15%;font-size: medium;"/>
+					<input id="txtProductno.*" type="text" style="width: 75%;" />
+					<input id="btnProductno.*" type="button" value=".." style="width: 15%;font-size: medium;"/>
 					</td>
 					<td >
 					<input class="txt c1" id="txtProduct.*" type="text" />
+					</td>
+					<td >
+					<input class="txt c1" id="txtBrand.*" type="text" />
 					</td>
 					<td >
 					<input class="txt c1" id="txtUnit.*" type="text" />
