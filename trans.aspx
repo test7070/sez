@@ -381,7 +381,7 @@
 						return;
 					}
 				}
-
+				$('#btnOk').attr('disabled', 'disabled');
 				$('#txtWorker').val(r_name);
 				if (curData.isOutside()){
 					$("#txtPrice2").val(0);
@@ -400,6 +400,7 @@
 				$('#dview').css('width', '0%');
 				$('#dview').css('display', 'none');
 				$('#dbbm').css('width', '100%');
+				$('#btnOk').removeAttr('disabled');
 			}
 
 			function wrServer(key_value) {
@@ -417,7 +418,7 @@
 				var trdno = $('#txtTrdno').val();
 				if (treno.length == 0 && trdno.length == 0) {
 					if (q_cur != 1 && q_cur != 2) {
-						$('#btnDele').remove('disabled');
+						$('#btnDele').removeAttr('disabled');
 					}
 				} else
 					$('#btnDele').attr('disabled', 'disabled');
