@@ -102,7 +102,8 @@
 	                	if(today_unpresent[0]==undefined)
 	                	{		
 			           	 	btnIns();      
-			            	var t_where = "where=^^ a.cartype='2' and a.carno not in (select carno from trans101 where carno in(select noa from car2 where cartype='2') and datea='"+q_date()+"' group by carno) ^^";
+			            	var t_where = "where=^^ a.cartype='2' and len( carno)=6 AND CHARINDEX( '-',carno) > 0 and (len(outdate)=0 OR outdate is null) and carno not in (select noa from carChange where len(enddate)>0 or len(wastedate)>0 or len(canceldate)>0) ";
+			            	t_where=t_where+"and a.carno not in (select carno from trans101 where carno in(select noa from car2 where cartype='2') and datea='"+q_date()+"' group by carno) ^^";
 	            			q_gt('car2_carteam', t_where , 0, 0, 0, "", r_accy);    
 						}else{
 							alert("今天已匯入未出車資料");

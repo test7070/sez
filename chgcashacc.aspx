@@ -16,16 +16,16 @@
         }
         q_tables = 's';
         var q_name = "chgcashacc";
-        var q_readonly = ['txtAccno'];
+        var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [['txtMoney',12 , , 1]];  
-        var bbsNum = [['txtMoney',12 , , 1]];
+        var bbmNum = [];  
+        var bbsNum = [];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
-        							['txtBankno', 'lblBankno', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);
-
+        aPop = new Array();
+		//aPop = new Array(['txtBankno', 'lblBankno', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);
+		
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -48,35 +48,23 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-             q_cmbParse("cmbTypea", q_getPara('uf.typea')); 
-             $("#cmbTypea").focus(function(){
-            	var len = $("#cmbTypea").children().length>0?$("#cmbTypea").children().length:1;
-            	$("#cmbTypea").attr('size',len+"");
-            }).blur(function(){
-            	$("#cmbTypea").attr('size','1');
-            });           
-
-             $('#lblAccno').click(function () {
-		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
-		            //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
-		        });
-		       //........................託收匯入
-	        $('#btnGqb').click(function () {
-	        	var t_where="";
-	        	
-	        	if(emp($('#txtBankno').val())){
-	        		t_where="where=^^ (a.tbankno=''or a.tbankno is null) and (a.enda!='Y' or a.enda is null)and (b.sel = 0 or b.sel is null) ^^";
-		        }else{
-		        	t_where="where=^^ a.tbankno='"+$('#txtBankno').val()+"' and (a.enda!='Y' or a.enda is null)and (b.sel = 0 or b.sel is null)  ^^";
-		        }
-		        q_gt('uf_gqb', t_where, 0, 0);
-	        });
-	        //......................... 
+            
+            $("#btnChgcashacc").click(function(e) {
+					t_where = "sssno='"+r_userno+"'";
+					q_box("chgcash_acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where , 'chgcash_acc', "95%", "650px", q_getMsg('popChgcash_acc'));
+			});
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
             var ret;
             switch (b_pop) {   
+            	case 'chgcash_acc':
+            		b_ret = getb_ret();         ///  q_box() 執行後，選取的資料
+            		if (!b_ret || b_ret.length == 0)
+                        return;
+                    if (!t_Saving)
+		                q_gridAddRow(bbsHtm, 'tbbs', 'txtChgcashno,txtDatea,txtDc,txtMoney,txtChgitemno,txtChgitem,txtAcc1,txtAcc2,txtCustno,txtComp,txtPartno,txtPart', b_ret.length, b_ret, 'noa,datea,dc,money,chgitemno,chgitem,acc1,acc2,custno,comp,partno,part', ''); 
+            		break;
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -87,19 +75,6 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-            	case 'uf_gqb':
-            		var as = _q_appendData("gqb", "", true);
-            		//if(as.length>q_bbsCount)
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtCheckno,txtBankno,txtBank,txtDatea,txtMoney,txtTaccl', as.length, as, 'gqbno,bankno,bank,indate,money,accl', '');
-            		
-			        for (var j = 0; j < q_bbsCount; j++) {
-			            	$('#ufseq_'+j).text(j+1);//自動產生序號
-			            	$('#trSel_'+j).removeClass('chksel');//取消變色
-			            	$('#chkSel_'+j).removeAttr("checked");//將單據內的票據取消
-			        }  // j
-
-		             sum();
-            		break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
@@ -135,26 +110,11 @@
 
         function bbsAssign() {  
         	for (var i = 0; i < q_bbsCount; i++) {
-        		$('#chkSel_'+i).click(function() {
-        			sum();
-        		})
-                $('#chkSel_' + i).hover(function () {
-                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                    q_bodyId($(this).attr('id'));
-                    b_seq = t_IdSeq;
-                    $('#trSel_'+b_seq).addClass('sel');
-                },
-                function () {
-                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                    q_bodyId($(this).attr('id'));
-                    b_seq = t_IdSeq;
-                    $('#trSel_' + b_seq).removeClass('sel');
-				 if($('#chkSel_' +b_seq)[0].checked){	//判斷是否被選取
-                	$('#trSel_'+ b_seq).addClass('chksel');//變色
-                }else{
-                	$('#trSel_'+b_seq).removeClass('chksel');//取消變色
-                }
-                });
+        		q_cmbParse("combDc_"+j, q_getPara('chgcash.typea'));
+		        if(!emp($('#txtDc_'+j).val()))
+		        	$('#combDc_'+j).val($('#txtDc_'+j).val());
+		        else
+		        	$('#combDc_'+j).text('');
             }//end for
             _bbsAssign();
         }
@@ -164,17 +124,6 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
-            $('#cmbTypea').val(2);
-            
-           //自動產生序號
-			for (var j = 0; j <= q_bbsCount; j++) {
-			      $('#ufseq_'+j).text(j+1);
-			 }  // j
-			 
-			 //取消變色
-            for (var i = 0; i < q_bbsCount; i++) {
-            	$('#trSel_'+i).removeClass('chksel');
-            }
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -203,27 +152,14 @@
 
             q_nowf();
             as['date'] = abbm2['date'];
-
-            //            t_err ='';
-            //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-            //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-            //            
-            //            if (t_err) {
-            //                alert(t_err)
-            //                return false;
-            //            }
-            //            
             return true;
         }
 
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0,money_total=0;
             for (var j = 0; j < q_bbsCount; j++) {
-            	if($('#chkSel_' +j)[0].checked)
-				money_total+=dec($('#txtMoney_' + j).val());//兌現金額總計
+            	
             }  // j
-			q_tr('txtMoney',money_total , 2)
         }
         
         function q_stPost() {
@@ -236,30 +172,10 @@
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
-            
-           //自動產生序號
-			for (var j = 0; j <= q_bbsCount; j++) {
-			       $('#ufseq_'+j).text(j+1);
-			}  // j
-			
-			for (var j = 0; j < q_bbsCount; j++) {
-			 if($('#chkSel_' + j )[0].checked){	//判斷是否被選取
-                	$('#trSel_'+  j ).addClass('chksel');//變色
-                }else{
-                	$('#trSel_'+ j ).removeClass('chksel');//取消變色
-                }
-			} 
-			
        }
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
-            if (t_para) {
-		            $('#btnGqb').attr('disabled', 'disabled');	          
-		        }
-		        else {
-		        	$('#btnGqb').removeAttr('disabled');	 
-		        }
         }
 
         function btnMinus(id) {
@@ -378,14 +294,15 @@
                 color: #FF8F19;
             }
             .txt.c1 {
+            	width: 100%;
                 float: left;
             }
             .txt.c2 {
-                width: 40%;
+                width: 25%;
                 float: left;
             }
             .txt.c3 {
-                width: 60%;
+                width: 68%;
                 float: left;
             }
             .txt.num {
@@ -435,15 +352,14 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:20%"><a id='vewDatea'></a></td>
                 <td align="center" style="width:25%"><a id='vewNoa'></a></td>
+                <td align="center" style="width:20%"><a id='vewDatea'></a></td>
                
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
-                   <td align="center" id='datea'>~datea</td>
                    <td align="center" id='noa'>~noa</td>
-                   
+                   <td align="center" id='datea'>~datea</td>
             </tr>
         </table>
         </div>
@@ -452,25 +368,25 @@
         <tr>
             <td class='td1'><span> </span><a id="lblNoa" class="lbl"></a></td>
             <td class="td2"><input id="txtNoa"  type="text" class="txt c1" /></td>
-            <td class='td3'><span> </span><a id="lblType" class="lbl"></a></td>
-            <td class="td4" ><select id="cmbTypea" class="txt c1" style="font-size: medium;"></select></td>
-            <td class='td5'><span> </span><a id="lblDatea" class="lbl"></a></td>
-            <td class="td6"><input id="txtDatea" type="text" class="txt c1"/></td>
-            </tr>
+            <td class='td3'><span> </span><a id="lblDatea" class="lbl"></a></td>
+            <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
+            <td class="td5"></td>
+            <td class='td6'><input type="button" id="btnChgcashacc" class="txt c1"/></td>
+       </tr>
         <tr>
-        	<td class='td1' ><span> </span><a id="lblBankno" class="lbl btn"></a></td>
-            <td class="td2"><input id="txtBankno" type="text" class="txt c2"/><input  id="txtBank"  type="text"  class="txt c3" /></td>            
-            <td class='td3'><span> </span><a id="lblAccount" class="lbl" ></a></td>
-            <td class="td4"><input id="txtAccount"  type="text" class="txt c1"/></td>
-            <td class='td5'><span> </span><a id="lblMoney" class="lbl"></a></td>
-            <td class="td6"><input id="txtMoney"  type="text" class="txt num c1" /></td>
-            </tr>        
+        	<td class='td1' ><span> </span><a id="lblPlusmoney" class="lbl"></a></td>
+            <td class="td2"><input id="txtPlusmoney" type="text" class="txt num c1"/></td>            
+            <td class='td3'><span> </span><a id="lblMinusmoney" class="lbl" ></a></td>
+            <td class="td4"><input id="txtMinusmoney"  type="text" class="txt num c1"/></td>
+            <td class='td5'><span> </span><a id="lblAccno" class="lbl"></a></td>
+            <td class="td6"><input id="txtAccno"  type="text" class="txt c1" /></td>
+        </tr>
         <tr>
-            <td class='td1'><span> </span><a id="lblAccno" class="lbl btn"></a></td>
-            <td class="td2"><input id="txtAccno"  type="text" class="txt c1"/></td>
-            <td class='td3'><span> </span><a id="lblWorker" class="lbl"></a></td>
-            <td class="td4"><input id="txtWorker"  type="text"  class="txt c1"/></td>
-            <td class="td5"><span> </span><input type="button" id="btnGqb" class="txt c1 " value="託收匯入" style="width:80%;"></tr>        
+        	<td class='td1' ><span> </span><a id="lblWorker" class="lbl"></a></td>
+            <td class="td2"><input id="txtWorker" type="text" class="txt num c1"/></td>        
+        	<td class="td3"><span> </span><a id='lblMemo' class="lbl"></a></td>
+            <td class="td4" colspan='3' ><input id="txtMemo"  type="text" class="txt c1"/></td> 
+        </tr>
         </table>
         </div>
 		</div>
@@ -478,25 +394,29 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
-                <td align="center" class="td0"><a id='vewChks'></a></td>
-                <td align="center" class="td1"></td>
-                <td align="center" class="td1"><a id='lblCheckno'></a></td>
-                <td align="center" class="td1" style="width:20%"><a id='lblBanknos'></a></td>
-                <td align="center" style="width:15%"><a id='lblBank'></a></td>
-                <td align="center" class="td1" style="width:10%"><a id='lblDateas'></a></td>
-                <td align="center" class="td1"><a id='lblMoneys'></a></td>
-                <td align="center" class="td1" style="width:15%"><a id='lblTaccl'></a></td>
+                <td align="center"></td>
+                <td align="center"><a id='lblChgcashnos'></a></td>
+                <td align="center"><a id='lblDateas'></a></td>
+                <td align="center"><a id='lblDcs'></a></td>
+                <td align="center"><a id='lblMoneys'></a></td>
+                <td align="center"><a id='lblChgitems'></a></td>
+                <td align="center"><a id='lblAccs'></a></td>
+                <td align="center"><a id='lblCusts'></a></td>
+                <td align="center"><a id='lblParts'></a></td>
+                <td align="center"><a id='lblMemos'></a></td>
             </tr>
-            <tr  id="trSel.*" >
+            <tr>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input id="chkSel.*" type="checkbox"/></td>
-                <td id="ufseq.*" style="width:1%;"></td ><!--序號欄位-->
-                <td ><input class="txt c1" id="txtCheckno.*" type="text" /></td>
-                <td ><input id="txtBankno.*" type="text" style="width: 80%;"/></td>
-                <td ><input class="txt c1" id="txtBank.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtChgcashno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtDatea.*" type="text" /></td>
+                <td ><input class="txt"  id="txtDc.*" type="hidden" /><select id="combDc.*" class="txt c3"></select></td>
                 <td ><input class="txt num c1" id="txtMoney.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtTaccl.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
+                <td ><input class="txt c2" id="txtChgitemno.*" type="text" /><input class="txt c3" id="txtChgitem.*" type="text" /></td>
+                <td ><input class="txt c2" id="txtAcc1.*" type="text" /><input class="txt c3" id="txtAcc2.*" type="text" /></td>
+                <td ><input class="txt c2" id="txtCustno.*" type="text" /><input class="txt c3" id="txtComp.*" type="text" /></td>
+                <td ><input class="txt c2" id="txtPartno.*" type="text" /><input class="txt c3" id="txtPart.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtMemo.*" type="text" /><input id="txtNoa.*" type="hidden" /><input id="txtNoq.*" type="hidden" /></td>
             </tr>
         </table>
         </div>
