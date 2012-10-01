@@ -85,8 +85,14 @@
                 			if(q_cur==2)
                 				$('#txtTireno_' + b_seq).val(bbs_tireno[b_seq]);
                 			else
-                				$('#txtTireno_' + b_seq).val('');
+                			{
+                				$('#txtTireno_' + b_seq).focus();
+                				tmp_tireno_modi=true;
+                			}
                 			return;
+                		}else
+                		{
+                			tmp_tireno_modi=false;
                 		}
                 	break;
                 	case 'fixouts':
@@ -96,9 +102,15 @@
                 			if(q_cur==2)
                 				$('#txtTireno_' + b_seq).val(bbs_tireno[b_seq]);
                 			else
-                				$('#txtTireno_' + b_seq).val('');
+                			{
+                				$('#txtTireno_' + b_seq).focus();
+                				tmp_tireno_modi=true;
+                			}
                 			alert("該胎號已領料");
                 			return;
+                		}
+                		else{
+                			tmp_tireno_modi=false;
                 		}
                 	break;
                     case q_name:
@@ -137,15 +149,24 @@
             }
 			//儲存bbs的胎號
 			var bbs_tireno=[];
+			//儲存新增時的胎號
+			var tmp_tireno='';
+			var tmp_tireno_modi=false;
+			
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
 		            if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+		            	//修改前先將bbs的胎號先儲存，來方便還原
 		            	bbs_tireno[i]=$('#txtTireno_' + i).val();
 		            	//判斷胎號是否已領料
 		            	 $('#txtTireno_' + i).change(function (e) {
 		            	 	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                    q_bodyId($(this).attr('id'));
 		                    b_seq = t_IdSeq;
+		                    //新增時儲存bbs的胎號，後面判斷是否有focus的問題
+		                    if(!tmp_tireno_modi)
+		                    	tmp_tireno=$('#txtTireno_' + b_seq).val();
+		                    
 		                    if(q_cur == 2)
 		                    	var t_where = "where=^^ tireno='"+bbs_tireno[b_seq]+"' ^^";
 		                    else
@@ -154,6 +175,7 @@
 	            			var t_where2 = "where=^^ noa='"+$('#txtTireno_' + b_seq).val()+"' ^^";
 	            			q_gt('tirestk', t_where2 , 0, 0, 0, "", r_accy);
 		                });
+         
 		                $('#txtMount_' + i).change(function (e) {
 		                    sum();
 		                });
@@ -301,6 +323,15 @@
 
             function btnCancel() {
                 _btnCancel();
+            }
+            function checktireno(id) {
+		           //新增時儲存bbs的胎號，後面判斷是否有focus的問題
+		           if(tmp_tireno==$('#'+id).val() &&tmp_tireno!=''&&q_cur==1&&tmp_tireno_modi)
+		          {
+		            	alert("請修改胎號");
+		            	$('#' +id).focus();
+                		return;
+		           }
             }
 		</script>
 		<style type="text/css">
@@ -562,7 +593,7 @@
 					<input class="txt num c1" id="txtMoney.*" type="text" />
 					</td>
 					<td >
-					<input class="txt c1" id="txtTireno.*" type="text" />
+					<input class="txt c1" id="txtTireno.*" type="text" onblur="checktireno(id);" />
 					</td>
 					<td >
 					<input class="txt c1" id="txtMemo.*" type="text" />
