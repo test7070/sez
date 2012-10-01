@@ -19,7 +19,7 @@
         var q_readonly = ['txtNoa','txtPlusmoney','txtMinusmoney'];
         var q_readonlys = [];
         var bbmNum = [['txtPlusmoney', 10, 0, 1],['txtMinusmoney', 10, 0, 1]];  
-        var bbsNum = [];
+        var bbsNum = [['txtMoney', 10, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
@@ -144,13 +144,14 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
+            for (var j = 0; j < q_bbsCount; j++) {
+            	$('#combDc_'+j).val('1');
+            }
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            
-           
         }
         function btnPrint() {
 
@@ -199,6 +200,13 @@
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
+            if(q_cur!=1&&q_cur!=2)
+            {
+            	for (var j = 0; j < q_bbsCount; j++) {
+			            $('#combDc_'+j).attr('disabled', 'disabled');
+	        			$('#combDc_'+j).css('background', t_background2);
+        			}
+            }
        }
 
         function readonly(t_para, empty) {
@@ -436,7 +444,6 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
-                <td align="center"></td>
                 <td align="center" style="width:10%"><a id='lblChgcashnos'></a></td>
                 <td align="center"style="width:7%"><a id='lblDateas'></a></td>
                 <td align="center" style="width:8%"><a id='lblDcs'></a></td>
@@ -449,7 +456,6 @@
             </tr>
             <tr>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input id="chkSel.*" type="checkbox"/></td>
                 <td ><input class="txt c1" id="txtChgcashno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtDatea.*" type="text" /></td>
                 <td ><input class="txt"  id="txtDc.*" type="text" /><select id="combDc.*" class="txt c1" style="font-size: medium;"></select></td>

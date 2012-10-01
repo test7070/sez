@@ -662,11 +662,15 @@
         <td class='td1'><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
         <td class="td2" colspan="3"><input id="txtTggno" type="text"  class="txt c2"/>
             <input id="txtComp" type="text"  class="txt c3"/></td>
+            <td class="td5"><span> </span><a id="lblTotal" class="lbl"> </a></td>
+        	<td class="td6"><input id="txtTotal" type="text" class="txt c1" /></td>
         </tr>
         <tr class="tr5">        
             <td class="td1"><span> </span><a id="lblStore" class="lbl btn" > </a></td>
             <td class="td2" colspan="3"><input id="txtStoreno"  type="text"  class="txt c2"/>
                 <input id="txtStore"  type="text" class="txt c3"/></td> 
+                <td class='td5'><span> </span><a id="lblWorker" class="lbl"> </a></td>
+            <td class="td6"><input id="txtWorker" type="text" class="txt c1"/></td>
         </tr>
          <tr class="tr6">
         	<td class="td1"><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
@@ -682,13 +686,7 @@
         	<td class="td5"><span> </span><a id="lblTranmoney" class="lbl"> </a></td>
         	<td class="td6"><input id="txtTranmoney" type="text" class="txt c1" /></td>
         </tr>
-        <tr class="tr8"> 
-        	<td class="td1"><span> </span><a id="lblTotal" class="lbl"> </a></td>
-        	<td class="td2"><input id="txtTotal" type="text" class="txt c1" /></td>
-        	<td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
-            <td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
-        </tr>
-        <tr class="tr9">
+        <tr class="tr8">
         <td class='td1'><span> </span><a id="lblMemo" class="lbl"> </a></td>
         <td class="td2" colspan='5'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea></td>
         </tr>
