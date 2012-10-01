@@ -125,9 +125,47 @@
                 switch (t_name) {
                 	case'uccb':
                 		var as = _q_appendData("uccb", "", true);
-                		if(as[0] != undefined){
-                			alert("該批號已領料!!");
-                			$('#txtUno_' +b_seq).val('');
+                		
+                		if(uccb_readonly){
+                			if(as[0] != undefined){
+                				$('#btnMinus_'+bbs_id).attr('disabled', 'disabled');
+                				$('#btnProductno_'+bbs_id).attr('disabled', 'disabled');
+                				$('#txtUno_'+bbs_id).attr('disabled', 'disabled');
+                				$('#txtUno_'+bbs_id).css('background', t_background2);
+                				$('#txtProductno_'+bbs_id).attr('disabled', 'disabled');
+                				$('#txtProductno_'+bbs_id).css('background', t_background2);
+                				$('#txtProduct_'+bbs_id).attr('disabled', 'disabled');
+                				$('#txtProduct_'+bbs_id).css('background', t_background2);
+                				$('#txtSpec_'+bbs_id).attr('disabled', 'disabled');
+                				$('#txtSpec_'+bbs_id).css('background', t_background2);
+                				$('#txtSize1_'+bbs_id).attr('disabled', 'disabled');
+                				$('#txtSize1_'+bbs_id).css('background', t_background2);
+                				$('#txtSize2_'+bbs_id).attr('disabled', 'disabled');
+                				$('#txtSize2_'+bbs_id).css('background', t_background2);
+                				$('#txtSize3_'+bbs_id).attr('disabled', 'disabled');
+                				$('#txtSize3_'+bbs_id).css('background', t_background2);
+                				$('#txtSize4_'+bbs_id).attr('disabled', 'disabled');
+                				$('#txtSize4_'+bbs_id).css('background', t_background2);
+                				$('#txtMount_'+bbs_id).attr('disabled', 'disabled');
+                				$('#txtMount_'+bbs_id).css('background', t_background2);
+                				$('#txtWeight_'+bbs_id).attr('disabled', 'disabled');
+                				$('#txtWeight_'+bbs_id).css('background', t_background2);
+                				$('#txtMemo_'+bbs_id).attr('disabled', 'disabled');
+                				$('#txtMemo_'+bbs_id).css('background', t_background2);
+                			}
+                			if((dec(bbs_id)+1)<q_bbsCount){
+                				bbs_id=dec(bbs_id)+1;
+                				bbs_readonly(bbs_id);
+                			}else{
+                				uccb_readonly=false;
+                			}
+                			
+                		}else{
+	                		if(as[0] != undefined){
+	                			alert("批號已存在!!");
+	                			$('#txtUno_' +b_seq).val('');
+	                			$('#txtUno_' +b_seq).focus();
+	                		}
                 		}
                 	break;
                 	case 'ucc_style':
@@ -176,10 +214,11 @@
 		                     	if(k!=b_seq && $('#txtUno_' +b_seq).val()==$('#txtUno_' +k).val() && !emp($('#txtUno_' +k).val())){
 		                     		alert("批號重複輸入!!");
 		                     		$('#txtUno_' +b_seq).val('');
+		                     		$('#txtUno_' +b_seq).focus();
 		                     	}
 		                     }
-		                     //判斷是否已存過入庫與領料
-		                     var t_where = "where=^^ noa='"+$('#txtUno_' +b_seq).val()+"' and gweight>0 ^^"; 
+		                     //判斷是否已存過入庫
+		                     var t_where = "where=^^ noa='"+$('#txtUno_' +b_seq).val()+"' ^^"; 
 				        	q_gt('uccb', t_where , 0, 0, 0, "", r_accy);
 		                 });
 	                	//-------------------------------------------
@@ -256,6 +295,13 @@
 						}
                 }
                 _bbsAssign();
+                size_change();
+                if(q_cur==2)
+                {
+	                //判斷哪些資料不能修改
+	                uccb_readonly=true;
+	                bbs_readonly(0);
+                }
             }
 
             function btnIns() {
@@ -272,6 +318,9 @@
                 _btnModi();
                 $('#txtProduct').focus();
                 size_change();
+                //判斷哪些資料不能修改
+                uccb_readonly=true;
+                bbs_readonly(0);
             }
 
             function btnPrint() {
@@ -376,6 +425,15 @@
             function btnCancel() {
                 _btnCancel();
             }
+            
+            var uccb_readonly=false;
+            var bbs_id='';
+            function bbs_readonly(id) {
+            	bbs_id=id;
+                var t_where = "where=^^ noa='"+$('#txtUno_' +bbs_id).val()+"' and gweight>0 ^^"; 
+				q_gt('uccb', t_where , 0, 0, 0, "", r_accy);
+            }
+            
             function theory_st(q_name,id,txtweight) { //id 為BBS的id,txtweight為要bbs寫入的欄位
 			var calc="";
 			//var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+id).val()+"' ^^"; 

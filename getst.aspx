@@ -321,6 +321,7 @@
 				}
             } //j
             _bbsAssign();
+            size_change();
         }
 
         function btnIns() {
