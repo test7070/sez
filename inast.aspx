@@ -128,6 +128,7 @@
                 		
                 		if(uccb_readonly){
                 			if(as[0] != undefined){
+                				//已領用的物品不能再變動與刪除
                 				$('#btnMinus_'+bbs_id).attr('disabled', 'disabled');
                 				$('#btnProductno_'+bbs_id).attr('disabled', 'disabled');
                 				$('#txtUno_'+bbs_id).attr('disabled', 'disabled');
