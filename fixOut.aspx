@@ -276,8 +276,10 @@
             function show_stkmount(id) {
             	bbs_id=id.substring(9);
             	if((q_cur==1||q_cur==2)&&$('#txtProductno_' + bbs_id).val()!='')
-                var t_where = "where=^^ noa='"+$('#txtProductno_' + bbs_id).val()+"' ^^";
-                q_gt('fixucc', t_where , 0, 0, 0, "", r_accy);
+            	{
+                	var t_where = "where=^^ noa='"+$('#txtProductno_' + bbs_id).val()+"' ^^";
+                	q_gt('fixucc', t_where , 0, 0, 0, "", r_accy);
+               }
             }
 		</script>
 		<style type="text/css">
