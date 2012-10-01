@@ -19,9 +19,9 @@
             q_tables = 's';
             var q_name = "fixout";
             var q_readonly = ['txtNoa','txtMoney','txtWorker'];
-            var q_readonlys = [];
-             var bbmNum = new Array(['txtMoney', 10, 0]);
-		    var bbsNum = new Array(['txtPrice', 10, 0], ['txtMount', 10, 0], ['txtMoney', 10, 0]);
+            var q_readonlys = ['txtStkmount'];
+             var bbmNum = new Array(['txtMoney', 10, 0,1]);
+		    var bbsNum = new Array(['txtPrice', 10, 0,1], ['txtMount', 10, 0,1], ['txtMoney', 10, 0,1], ['txtStkmount', 10, 0,1]);
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -68,9 +68,23 @@
                 }/// end Switch
                 b_pop = '';
             }
-
+			
+			var init_stkmount=0;
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'fixucc':
+                		var as = _q_appendData("fixucc", "", true);
+                		if(as[0]!=undefined){
+                			if(as[0].stkmount=='')
+                				q_tr('txtStkmount_'+bbs_id,0);
+                			else
+                				init_stkmount=as[0].stkmount;
+                				q_tr('txtStkmount_'+bbs_id,as[0].stkmount);
+                		}else{
+                			q_tr('txtStkmount_'+bbs_id,0);
+                		}
+                		
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -110,6 +124,10 @@
                 for (var i = 0; i < q_bbsCount; i++) {
 		            if (!$('#btnMinus_' + i).hasClass('isAssign')) {
 		                $('#txtMount_' + i).change(function (e) {
+		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                     q_bodyId($(this).attr('id'));
+		                     b_seq = t_IdSeq;
+		                	q_tr('txtStkmount_'+b_seq,init_stkmount-q_float('txtMount_'+b_seq));
 		                    sum();
 		                });
 		                $('#txtPrice_' + i).change(function (e) {
@@ -252,6 +270,14 @@
 
             function btnCancel() {
                 _btnCancel();
+            }
+            
+            var bbs_id='';
+            function show_stkmount(id) {
+            	bbs_id=id.substring(9);
+            	if((q_cur==1||q_cur==2)&&$('#txtProductno_' + bbs_id).val()!='')
+                var t_where = "where=^^ noa='"+$('#txtProductno_' + bbs_id).val()+"' ^^";
+                q_gt('fixucc', t_where , 0, 0, 0, "", r_accy);
             }
 		</script>
 		<style type="text/css">
@@ -485,7 +511,7 @@
 					<input class="txt c1" id="txtUnit.*" type="text" />
 					</td>
 					<td >
-					<input class="txt num c1" id="txtMount.*" type="text" />
+					<input class="txt num c1" id="txtMount.*" type="text" onfocus='show_stkmount(id);'/>
 					</td>
 					<td >
 					<input class="txt num c1" id="txtPrice.*" type="text" />
