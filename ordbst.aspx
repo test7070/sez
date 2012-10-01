@@ -17,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "ordb";
-            var q_readonly = ['txtTgg', 'txtAcomp','txtSales'];
+            var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
@@ -54,6 +54,11 @@
                 q_cmbParse("cmbPaytype", q_getPara('rc2.pay'));  
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
+                
+                
+                $('#cmbPaytype').change(function () {
+	            	$('#txtPay').val($('#cmbPaytype').find("option:selected").text())
+			     });
                 
 	            //變動尺寸欄位
 	            $('#cmbKind').change(function () {
@@ -448,8 +453,8 @@
                 <td class="td2" colspan="2"><input id="txtTggno" type="text" class="txt c4"/>
                 <input id="txtTgg"  type="text" class="txt c5"/></td>
                 <td class="td4"><span> </span><a id='lblPay' class="lbl"></a></td>
-                <td class="td5"><input id="txtPay" type="text" class="txt c1"/></td> 
-                <td class="td6"><select id="cmbPaytype" class="txt c1" ></select></td> 
+                <td class="td5"><select id="cmbPaytype" class="txt c1" ></select></td> 
+                <td class="td6"><input id="txtPay" type="hidden" class="txt c1"/></td> 
                 <td class="td7"><span> </span><a id='lblTrantype' class="lbl"></a></td>
                 <td class="td8"><select id="cmbTrantype" class="txt c1" name="D1" ></select></td> 
             </tr>
@@ -474,7 +479,7 @@
                 <td class="td2" colspan='2'><input id="txtMoney" type="text" class="txt num c1" /></td> 
                 <td class="td4"><span> </span><a id='lblTax' class="lbl"></a></td>
                 <td class="td5"><input id="txtTax"  type="text" class="txt num c1" /></td>
-                <td class="td6"><select id="cmbTaxtype" class="txt c1" ></select></td>
+                <td class="td6"><select id="cmbTaxtype" class="txt c1" onchange="calTax()"></select></td>
                 <td class="td7"><span> </span><a id='lblTotal' class="lbl"></a></td>
                 <td class="td8"><input id="txtTotal" type="text" class="txt num c1" />
                 </td> 
@@ -495,7 +500,7 @@
                 <td class="td1"><span> </span><a id='lblAeno' class="lbl"></a></td>
                 <td class="td2"><input id="chkAeno" type="checkbox"/></td>
                 <td class="td3"><span> </span><a id='lblEnd' class="lbl"></a></td>
-                <td class="td4"><input id="txtEnd"  type="text" class="txt c1" /></td> 
+                <td class="td4"><input id="txtEnda"  type="text" class="txt c1" /></td> 
             </tr>
         </table>
         </div>
