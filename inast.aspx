@@ -58,7 +58,7 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbItype", q_getPara('ina.typea'));
                 q_cmbParse("cmbTypea", q_getPara('uccc.itype'));
-                q_cmbParse("cmbKind", q_getPara('get.kind'));
+                q_cmbParse("cmbKind", q_getPara('ina.kind'));
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
                 
                 //變動尺寸欄位
@@ -67,7 +67,7 @@
 		     });
             }
 		function size_change () {
-		  if( $('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+		  if( $('#cmbKind').find("option:selected").text().indexOf('板')>-1)
             	{
             		$('#lblSize_help').text("厚度x寬度x長度");
 	            	for (var j = 0; j < q_bbsCount; j++) {

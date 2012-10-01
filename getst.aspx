@@ -68,7 +68,7 @@
         }
 		
 		function size_change () {
-		  if( $('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+		  if($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
             	{
             		$('#lblSize_help').text("厚度x寬度x長度");
 	            	for (var j = 0; j < q_bbsCount; j++) {
