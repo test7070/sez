@@ -391,9 +391,9 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblBegindatea' class="lbl"></a></td>
+						<td class="td1"><span> </span><a id='lblBegindate' class="lbl"></a></td>
 						<td class="td2">
-						<input id="txtBegindatea"  type="text" class="txt c1"/>
+						<input id="txtBegindate"  type="text" class="txt c1"/>
 						</td>
 						<td class="td3"><span> </span><a id='lblBeginmount' class="lbl"></a></td>
 						<td class="td4">
