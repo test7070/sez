@@ -478,7 +478,8 @@
 					<input class="txt c1" id="txtProduct.*" type="text" />
 					</td>
 					<td >
-					<input class="txt c1" id="txtBrand.*" type="text" />
+					<input  id="txtBrandno.*" type="text" style="width: 25%;"/>
+					<input  id="txtBrand.*" type="text" style="width: 65%;"/>
 					</td>
 					<td >
 					<input class="txt c1" id="txtUnit.*" type="text" />
