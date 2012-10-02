@@ -316,9 +316,11 @@
 				<table class="tview" id="tview" >
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:15%"><a id='vewNoa'></a></td>
-						<td align="center" style="width:15%"><a id='vewCarplate'></a></td>
-						<td align="center" style="width:15%"><a id='vewDriver'></a></td>
+						<td align="center" style="width:10%"><a id='vewNoa'></a></td>
+						<td align="center" style="width:10%"><a id='vewCarplate'></a></td>
+						<td align="center" style="width:10%"><a id='vewDriver'></a></td>
+						<td align="center" style="width:10%"><a id='vewCardno'></a></td>
+						<td align="center" style="width:30%"><a id='vewMemo'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -327,6 +329,8 @@
 						<td align="center" id='noa'>~noa</td>
 						<td align="center" id='carplate'>~carplate</td>
 						<td align="center" id='driver'>~driver</td>
+						<td align="center" id='cardno'>~cardno</td>
+						<td align="center" id='memo,10'>~memo,10</td>
 					</tr>
 				</table>
 			</div>
@@ -355,8 +359,14 @@
 						<input id="txtDriver"  type="text"  class="txt c3"/>
 						</td>
 					</tr>
-					<tr> </tr>
-					<tr> </tr>
+					<tr>
+						<td><span> </span><a id='lblCardno' class="lbl btn"></a></td>
+						<td><input id="txtCardno"  type="text"  class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblMemo' class="lbl btn"></a></td>
+						<td colspan="3"><input id="txtMemo"  type="text"  class="txt c1"/></td>
+					</tr>
 					<tr> </tr>
 					<tr> </tr>
 					<tr> </tr>
