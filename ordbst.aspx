@@ -26,11 +26,11 @@
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'Datea';
+            brwKey = 'Odate';
             aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'namea', 'txtWorker', 'sss_b.aspx'],['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],['txtTggno','lblTgg','tgg','noa,comp','txtTggno,txtTgg','tgg_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
-                bbsKey = ['noa', 'no2'];
+                bbsKey = ['noa', 'no3'];
                 q_brwCount();
                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
             });
@@ -48,7 +48,7 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd],['txtOdate', r_picd]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbKind", q_getPara('ordb.kind')); 
+                q_cmbParse("cmbKind", q_getPara('ordbst.kind')); 
                 q_cmbParse("cmbCoin", q_getPara('sys.coin'));      
                 q_cmbParse("cmbPaytype", q_getPara('rc2.pay'));  
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
@@ -97,7 +97,7 @@
                 }
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if(s1.length == 0 || s1 == "AUTO")
-                    q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
+                    q_gtnoa(q_name, replaceAll('G' + $('#txtOdate').val(), '/', ''));
                 else
                     wrServer(s1);
             }
@@ -202,8 +202,8 @@
             function btnIns() {
                 _btnIns();
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-                $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
+                $('#txtOdate').val(q_date());
+                $('#txtOdate').focus();
                 size_change();
             }
 
@@ -255,7 +255,7 @@
                 	t_money+=q_float('txtTotal_'+j);
 					t_weight+=q_float('txtWeight_'+j);
                 }  // j
-                q_tr('txtMoney' ,t_total);
+                q_tr('txtMoney' ,t_money);
 				q_tr('txtWeight' ,t_weight);
 				q_tr('txtTotal' ,q_float('txtMoney')+q_float('txtTax'));
             }
@@ -528,6 +528,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size: medium;
             }
             .dbbs {
                 width: 100%;
@@ -585,7 +586,7 @@
                <td class="td4"><span> </span><a id='lblFloata' class="lbl"></a></td>
                 <td class="td5"><select id="cmbCoin" class="txt c1"></select></td>                 
                 <td class="td6"><input id="txtFloata"  type="text"  class="txt num c1" /></td>                 
-                <td class="td7"><span> </span><a id='lblContract' class="lbl"></a></td>
+                <td class="td7"><span> </span><a id='lblContract_st' class="lbl"></a></td>
                 <td class="td8"><input id="txtContract"  type="text" class="txt c1"/></td> 
             </tr>
            <tr class="tr3">
@@ -593,8 +594,7 @@
                 <td class="td2" colspan="2"><input id="txtTggno" type="text" class="txt c4"/>
                 <input id="txtTgg"  type="text" class="txt c5"/></td>
                 <td class="td4"><span> </span><a id='lblPay' class="lbl"></a></td>
-                <td class="td5"><select id="cmbPaytype" class="txt c1" ></select></td> 
-                <td class="td6"><input id="txtPay" type="hidden" class="txt c1"/></td> 
+                <td class="td5"  colspan='2'><select id="cmbPaytype" class="txt c1" ></select><input id="txtPay" type="hidden" class="txt c1"/></td> 
                 <td class="td7"><span> </span><a id='lblTrantype' class="lbl"></a></td>
                 <td class="td8"><select id="cmbTrantype" class="txt c1" name="D1" ></select></td> 
             </tr>
@@ -664,7 +664,7 @@
             <tr  style='background:#cad3ff;'>
               	<td><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
               	<td><input class="txt c1"  id="txtProductno.*" type="text" />
-                       <input class="txt c3" id="txtNo2.*" type="text" />
+                       <input class="txt c3" id="txtNo3.*" type="text" />
                        <input class="btn"  id="btnProduct.*" type="button" value='...' style=" font-weight: bold;" /></td>
                 <td><input class="txt c1" id="txtProduct.*" type="text" />
               			<input class="txt c1" id="txtUno.*" type="text" /></td>
@@ -687,7 +687,7 @@
                        <input class="txt num c1" id="txtTheory.*" type="text" /></td>
                 <td><input class="txt c1" id="txtMemo.*" type="text" />
                 <input class="txt c3" id="txtOrdeno.*" type="text" />
-                <input class="txt c2" id="txtNo3.*" type="text" />
+                <input class="txt c2" id="txtNo2.*" type="text" />
                 <input id="recno.*" type="hidden" /></td>
             </tr>
         </table>
