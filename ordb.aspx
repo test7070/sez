@@ -29,8 +29,8 @@
             brwNowPage = 0;
             brwKey = 'Odate';
             aPop = new Array(['txtProductno_', 'btnProduct1_', 'bcc', 'noa,product,unit,price', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'bcc_b.aspx']
-							            ,['txtProductno_', 'btnProduct2_', 'fixucc', 'noa,namea', 'txtProductno_,txtProduct_', 'fixucc_b.aspx']
-							            ,['txtProductno_', 'btnProduct3_', 'uccc', 'productno,product', 'txtProductno_,txtProduct_', 'uccc_b.aspx']
+							            ,['txtProductno_', 'btnProduct2_', 'fixucc', 'noa,namea,unit,inprice', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'fixucc_b.aspx']
+							            ,['txtProductno_', 'btnProduct3_', 'uccc', 'productno,product,unit,price', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'uccc_b.aspx']
 							            ,['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
 							            , ['txtWorker', 'lblWorker', 'sss', 'namea', 'txtWorker', 'sss_b.aspx']
 							            ,['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']
@@ -494,7 +494,7 @@
                 <td class="td5"><select id="cmbTaxtype" class="txt c1" onchange="calTax()" ></select></td>
                 <td class="td6"><span> </span><a id='lblTotal' class="lbl"></a></td>
                 <td class="td7"><input id="txtTotal" type="text" class="txt num c1" /></td>
-                <td class="td8"><input id="btnorde" type="button" /></td>
+                <td class="td8"><input id="btnOrde" type="button" /></td>
             </tr>
             <tr class="tr7">
             	<td class="td1"><span> </span><a id='lblTotalus' class="lbl"></a></td>

@@ -1,4 +1,3 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
     <head>
@@ -401,8 +400,8 @@
                 <td class="td4"><span> </span><a id='lblFloata' class="lbl"></a></td>
                 <td class="td5"><select id="cmbCoin" class="txt c1"></select></td>                 
                 <td class="td6"><input id="txtFloata" type="text"  class="txt num c1" /></td>                 
-                <td class="td7"><span> </span><a id="lblOrdb" class="lbl btn" ></a></td>
-                <td class="td8"><input id="txtOrdeno"  type="text" class="txt c1"/></td> 
+                <td class="td7"><span> </span><a id='lblContract' class="lbl"></a></td>
+                <td class="td8"><input id="txtContract"  type="text" class="txt c1"/></td> 
             </tr>
            <tr class="tr3">
                 <td class="td1"><span> </span><a id="lblTgg" class="lbl btn"></a></td>
@@ -411,8 +410,8 @@
                 <td class="td4"><span> </span><a id='lblPay' class="lbl"></a></td>
                 <td class="td5"><input id="txtPay" type="text" class="txt c1"/></td> 
                 <td class="td6"><select id="cmbPaytype" class="txt c1"></select></td> 
-                <td class="td7"><span> </span><a id='lblContract' class="lbl"></a></td>
-                <td class="td8"><input id="txtContract"  type="text" class="txt c1"/></td> 
+                <td class="td7"></td>
+                <td class="td8"></td> 
             </tr>
             <tr class="tr4">
                 <td class="td1"><span> </span><a id="lblSales" class="lbl btn"></a></td>
@@ -451,6 +450,7 @@
             <tr class="tr8">
             	<td class="td1"><span> </span><a id="lblApv" class="lbl"></a></td>
             	<td class="td2"><input id="txtApv" type="text" class="txt" disabled="disabled" /></td>
+            	<td class="td3"><input id="btnOrdb" type="button" /></td>
             </tr>
             <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>

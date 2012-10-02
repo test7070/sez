@@ -642,7 +642,7 @@
                 <td class="td3"><span> </span><a id='lblEnd' class="lbl"></a></td>
                 <td class="td4"><input id="txtEnda"  type="text" class="txt c1" /></td>
                 <td class="td5"></td>  
-                <td class="td6"><input id="btnorde" type="button" /></td>
+                <td class="td6"><input id="btnOrde" type="button" /></td>
             </tr>
         </table>
         </div>
