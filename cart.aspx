@@ -112,7 +112,7 @@
 			}
 
 			function btnPrint() {
-				q_box('z_carno.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
+				q_box('z_cart.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
 			}
 
 			function wrServer(key_value) {
@@ -323,15 +323,11 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:15%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:20%"><a id='vewVccano'></a></td>
-						<td align="center" style="width:20%"><a id='vewComp'></a></td>
+						<td align="center" style="width:15%"><a id='vewCarno'></a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
-						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='vccano,10'>~vccano,10</td>
-						<td id='nick' style="text-align: center;">~nick</td>
+						<td align="center" id='carno'>~carno</td>
 					</tr>
 				</table>
 			</div>
@@ -352,6 +348,16 @@
 						<td><input id="txtNoa" type="text" class="txt c1" style="display:none;"/></td>
 						</td>
 					</tr>
+					<tr>  </tr>
+					<tr>  </tr>
+					<tr>  </tr>
+					<tr>  </tr>
+					<tr>  </tr>
+					<tr>  </tr>
+					<tr>  </tr>
+					<tr>  </tr>
+					<tr>  </tr>
+					<tr>  </tr>
 				</table>
 			</div>
 		</div>

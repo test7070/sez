@@ -19,8 +19,13 @@
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
             $(document).ready(function() {
-                q_gf('', 'z_accc');
                 q_getId();
+<<<<<<< HEAD
+                q_gf('', 'z_accc');
+                
+=======
+                q_gf('', 'z_accc');                
+>>>>>>> 8835b267a7f6c9c41cd2d08bff14d943f7a3d4b4
             });
             function q_gfPost() {
                 $('#q_report').q_report({
