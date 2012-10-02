@@ -327,27 +327,18 @@
                 if(q_cur == 1 || q_cur == 2) {
                 	$('#lblDate2').hide();
                 	$('#txtDate2').hide();
-                	$('#lblDriver2').hide();
-                	$('#txtBdriverno').hide();
-                	$('#sign_1').hide();
-                	$('#txtEdriverno').hide();
                 	$('#btnTrans').hide();
                 	$('#btnCarchg').removeAttr('disabled');
                 }else{
                 	$('#lblDate2').show();
                 	$('#txtDate2').show();
-                	$('#lblDriver2').show();
-                	$('#txtBdriverno').show();
-                	$('#sign_1').show();
-                	$('#txtEdriverno').show();
                 	$('#btnTrans').show();
                 	$('#btnCarchg').attr('disabled', 'disabled');
                 }
                 $('#txtDate2').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
             	$('#txtBdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
             	$('#txtEdate').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
-            	$('#txtBdriverno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
-            	$('#txtEdriverno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
+            	$('#cmbCarteamno').removeAttr('readonly').removeAttr('disabled').css('background-color','white');
             }
 
             function btnMinus(id) {
