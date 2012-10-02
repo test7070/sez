@@ -31,21 +31,24 @@
 						type : '1',
 						name : 'date'
 					}, {/*2*/
-						type : '6',
-						name : 'xcarno'
+						type : '1',
+						name : 'fixadate'
 					}, {/*3*/
 						type : '6',
-						name : 'xcarplateno'
+						name : 'xcarno'
 					}, {/*4*/
+						type : '6',
+						name : 'xcarplateno'
+					}, {/*5*/
 						type : '2',
 						name : 'driver',
 						dbf : 'driver',
 						index : 'noa,namea',
 						src : 'driver_b.aspx'
-					}, {/*5*/
+					}, {/*6*/
 						type : '6',
 						name : 'xmoney'
-					}, {/*6*/
+					}, {/*7*/
 						type : '2',
 						name : 'tgg',
 						dbf : 'tgg',
@@ -61,6 +64,10 @@
 				$('#txtDate1').datepicker();
 				$('#txtDate2').mask('999/99/99');
 				$('#txtDate2').datepicker();
+				$('#txtFixadate1').mask('999/99/99');
+				$('#txtFixadate1').datepicker();
+				$('#txtFixadate2').mask('999/99/99');
+				$('#txtFixadate2').datepicker();
 
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();

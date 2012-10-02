@@ -19,8 +19,8 @@
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911)+"_1";
             }
             $(document).ready(function() {
-                q_gf('', 'z_acccp');
                 q_getId();
+                q_gf('', 'z_acccp');
             });
             function q_gfPost() {
                 $('#q_report').q_report({
