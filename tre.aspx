@@ -68,9 +68,9 @@
                 q_mask(bbmMask);
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 				q_gt('carteam', '', 0, 0, 0, "");
-				$('#lblAccno').parent().click(function(e) {
-                    q_box("accc.aspx?" + $('#txtAccno').val() + "'", 'accc', "850px", "600px", q_getMsg("popAccc"));
-                });
+				$('#lblAccno').click(function () {
+		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+		        });
 
                 $('#cmbTaxtype').change(function(e) {
                     sum();
