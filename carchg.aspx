@@ -68,7 +68,7 @@
                 		$(this).removeClass('focus_b');
                 	}
                 );
-
+			
               $('#txtAcc1').change(function () {
                   var s1 = trim($(this).val());
                   if (s1.length > 4 && s1.indexOf('.') < 0)
@@ -76,6 +76,13 @@
                   if (s1.length == 4)
                       $(this).val(s1 + '.');
               });
+              
+              $("#cmbCarteamno").focus(function() {
+					var len = $("#cmbCarteamno").children().length > 0 ? $("#cmbCarteamno").children().length : 1;
+					$("#cmbCarteamno").attr('size', len + "");
+				}).blur(function() {
+					$("#cmbCarteamno").attr('size', '1');
+				});
             }
 			
             function txtCopy(dest, source) {

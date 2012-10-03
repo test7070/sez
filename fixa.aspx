@@ -19,7 +19,7 @@
 		    q_tables = 's';
 		    var q_name = "fixa";
 		    var q_readonly = ['txtNoa', 'txtWmoney', 'txtCmoney','txtMoney', 'txtTotal','txtWorker'];
-		    var q_readonlys = [];
+		    var q_readonlys = ['txtMemo2'];
 		    var bbmNum = new Array(['txtMiles', 10, 0],['txtDiscount', 10, 0], ['txtWmoney', 10, 0], ['txtCmoney', 10, 0], ['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]);
 		    var bbsNum = new Array(['txtPrice', 10, 0], ['txtMount', 10, 0], ['txtMoney', 10, 0]);
 		    var bbmMask = [];
@@ -223,6 +223,7 @@
 		    function q_popPost(t_id) {
 		    	if((q_cur==1  ||  q_cur==2) && t_id.substring(0,13).toUpperCase()=='TXTPRODUCTNO_'){
 		    		sum();
+		    		
 		    	}
             }
 
@@ -570,13 +571,14 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:5%;"><a id='lblWtype_s'> </a></td>
-					<td align="center" style="width:25%;"><a id='lblProduct_s'> </a></td>
-					<td align="center" style="width:5%;"><a id='lblUnit_s'> </a></td>
-					<td align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
-					<td align="center" style="width:7%;"><a id='lblPrice_s'> </a></td>
-					<td align="center" style="width:7%;"><a id='lblMoney_s'> </a></td>
-					<td align="center" style="width:40%;"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:50px;"><a id='lblWtype_s'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblUnit_s'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblMount_s'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblMoney_s'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblMemo2_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -604,6 +606,9 @@
 					<td>
 					<input class="txt c1" id="txtMemo.*" type="text" />
 					<input id="txtNoq.*" type="hidden" />
+					</td>
+					<td>
+					<input class="txt c1" id="txtMemo2.*" type="text" />
 					</td>
 				</tr>
 				
