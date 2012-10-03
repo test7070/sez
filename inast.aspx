@@ -445,7 +445,7 @@
 				alert('請輸入正確材質');
 				return;
 			}else{
-				if(as[0].style=='')
+				if(as[0].styleno=='')
 				{
 					alert('該品號尚未輸入樣式');
 					return;
