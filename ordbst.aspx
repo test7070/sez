@@ -363,6 +363,12 @@
 				{
 					alert('請輸入正確材質');
 					return;
+				}else{
+					if(as[0].style=='')
+					{
+						alert('該品號尚未輸入樣式');
+						return;
+					}
 				}
 				//判斷表身參考theory:40
 				if(q_name=='uccb'||q_name=='uccc'||q_name=='cubu'||q_name=='ins'||q_name=='rc2s'||
@@ -633,16 +639,16 @@
                 <td class="td8"><input id="txtWorker"  type="text" class="txt c1" /></td> 
             </tr>
             <tr class="tr8">
-                <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-                <td class="td2" colspan='7'><textarea id="txtMemo" rows="5" cols="10" style="width: 99%; height: 50px;"></textarea></td> 
-            </tr>
-            <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblAeno' class="lbl"></a></td>
                 <td class="td2"><input id="chkAeno" type="checkbox"/></td>
                 <td class="td3"><span> </span><a id='lblEnd' class="lbl"></a></td>
                 <td class="td4"><input id="txtEnda"  type="text" class="txt c1" /></td>
                 <td class="td5"></td>  
                 <td class="td6"><input id="btnOrde" type="button" /></td>
+            </tr>
+            <tr class="tr9">
+                <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
+                <td class="td2" colspan='7'><textarea id="txtMemo" rows="5" cols="10" style="width: 99%; height: 50px;"></textarea></td> 
             </tr>
         </table>
         </div>
