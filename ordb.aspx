@@ -28,9 +28,9 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Odate';
-            aPop = new Array(['txtProductno_', 'btnProduct1_', 'bcc', 'noa,product,unit,price', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'bcc_b.aspx']
-							            ,['txtProductno_', 'btnProduct2_', 'fixucc', 'noa,namea,unit,inprice', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'fixucc_b.aspx']
-							            ,['txtProductno_', 'btnProduct3_', 'uccc', 'productno,product,unit,price', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'uccc_b.aspx']
+            aPop = new Array(['txtProductno1_', 'btnProduct1_', 'bcc', 'noa,product,unit,price', 'txtProductno1_,txtProduct_,txtUnit_,txtPrice_', 'bcc_b.aspx']
+							            ,['txtProductno2_', 'btnProduct2_', 'fixucc', 'noa,namea,unit,inprice', 'txtProductno2_,txtProduct_,txtUnit_,txtPrice_', 'fixucc_b.aspx']
+							            ,['txtProductno3_', 'btnProduct3_', 'ucc', 'noa,product,unit,inprice', 'txtProductno3_,txtProduct_,txtUnit_,txtPrice_', 'ucc_b.aspx']
 							            ,['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
 							            , ['txtWorker', 'lblWorker', 'sss', 'namea', 'txtWorker', 'sss_b.aspx']
 							            ,['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']
@@ -66,7 +66,10 @@
 			     });
 			     //變動按鈕
                 $('#cmbKind').change(function () {
-	            	btn_change();
+                	for (var j = 0; j < q_bbsCount; j++) {
+						btnMinus('btnMinus_'+j);
+			         }
+	            	product_change();
 			     });
                 
             }
@@ -98,6 +101,22 @@
                     alert(t_err);
                     return;
                 }
+                
+                if($('#cmbKind').find("option:selected").text().indexOf('物料')>-1){
+                	for (var j = 0; j < q_bbsCount; j++) {
+                		$('#txtProductno_'+j).val($('#txtProductno1_'+j).val());
+			         }
+              	}else if($('#cmbKind').find("option:selected").text().indexOf('零件')>-1){
+              		for (var j = 0; j < q_bbsCount; j++) {
+						$('#txtProductno_'+j).val($('#txtProductno2_'+j).val());
+			         }
+              	}else{
+              		for (var j = 0; j < q_bbsCount; j++) {
+              			$('#txtProductno_'+j).val($('#txtProductno3_'+j).val());
+			         }
+              	}
+                
+                
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if(s1.length == 0 || s1 == "AUTO")
                     q_gtnoa(q_name, replaceAll('G' + $('#txtOdate').val(), '/', ''));
@@ -135,7 +154,7 @@
             		  }
             	}
                 _bbsAssign();
-                btn_change();
+                product_change();
             }
 
             function btnIns() {
@@ -143,7 +162,7 @@
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
                 $('#txtOdate').val(q_date());
                 $('#txtOdate').focus();
-                btn_change();
+                product_change();
             }
 
             function btnModi() {
@@ -151,7 +170,7 @@
                     return;
                 _btnModi();
                 $('#txtProduct').focus();
-                btn_change();
+                product_change();
             }
 
             function btnPrint() {
@@ -199,7 +218,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
-                btn_change();
+                product_change();
             }
 
             function readonly(t_para, empty) {
@@ -261,24 +280,36 @@
                 _btnCancel();
             }
             
-            function btn_change() {
+            function product_change() {
                 if($('#cmbKind').find("option:selected").text().indexOf('物料')>-1){
                 	for (var j = 0; j < q_bbsCount; j++) {
                 		$('#btnProduct1_'+j).removeAttr('hidden');
 			           	$('#btnProduct2_'+j).attr('hidden', 'true');
 			           	$('#btnProduct3_'+j).attr('hidden', 'true');
+			           	$('#txtProductno1_'+j).removeAttr('hidden');
+			           	$('#txtProductno2_'+j).attr('hidden', 'true');
+			           	$('#txtProductno3_'+j).attr('hidden', 'true');
+			           	$('#txtProductno1_'+j).val($('#txtProductno_'+j).val());
 			         }
               	}else if($('#cmbKind').find("option:selected").text().indexOf('零件')>-1){
               		for (var j = 0; j < q_bbsCount; j++) {
               			$('#btnProduct1_'+j).attr('hidden', 'true');
 			           	$('#btnProduct2_'+j).removeAttr('hidden');
 			           	$('#btnProduct3_'+j).attr('hidden', 'true');
+			           	$('#txtProductno1_'+j).attr('hidden', 'true');
+			           	$('#txtProductno2_'+j).removeAttr('hidden');
+			           	$('#txtProductno3_'+j).attr('hidden', 'true');
+			           	$('#txtProductno2_'+j).val($('#txtProductno_'+j).val());
 			         }
               	}else{
               		for (var j = 0; j < q_bbsCount; j++) {
               			$('#btnProduct1_'+j).attr('hidden', 'true');
 			           	$('#btnProduct2_'+j).attr('hidden', 'true');
 			           	$('#btnProduct3_'+j).removeAttr('hidden');
+			           	$('#txtProductno1_'+j).attr('hidden', 'true');
+			           	$('#txtProductno2_'+j).attr('hidden', 'true');
+			           	$('#txtProductno3_'+j).removeAttr('hidden');
+			           	$('#txtProductno3_'+j).val($('#txtProductno_'+j).val());
 			         }
               	}
             }
@@ -532,7 +563,10 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-              	<td><input class="txt c1"  id="txtProductno.*" type="text" />
+              	<td><input class="txt c1"  id="txtProductno1.*" type="text" />
+              			<input class="txt c1"  id="txtProductno2.*" type="text" />
+              			<input class="txt c1"  id="txtProductno3.*" type="text" />
+              			<input class="txt c1"  id="txtProductno.*" type="hidden" />
                         <input class="txt c3" id="txtNo3.*" type="text" />
                         <input class="btn"  id="btnProduct1.*" type="button" value='...' style=" font-weight: bold;" />
                         <input class="btn"  id="btnProduct2.*" type="button" value='...' style=" font-weight: bold;" />

@@ -360,9 +360,12 @@
             function sum() {
                 var t1 = 0, t_unit, t_mount, t_weight = 0;
                 for(var j = 0; j < q_bbsCount; j++) {
-
+					t_weight+=dec($('#txtWeight_' + j).val()); // 重量合計
                 }  // j
-
+                
+                $('#txtTotal').val(round(t_weight, 0));
+				if( !emp( $('#txtPrice' ).val()))
+                	$('#txtTranmoney').val(round(t_weight * dec($('#txtPrice').val()), 0));
             }
 
             function refresh(recno) {
@@ -444,6 +447,12 @@
 			{
 				alert('請輸入正確材質');
 				return;
+			}else{
+				if(as[0].styleno=='')
+				{
+					alert('該品號尚未輸入樣式');
+					return;
+				}
 			}
 			//判斷表身參考theory:40
 			if(q_name=='uccb'||q_name=='uccc'||q_name=='cubu'||q_name=='ins'||q_name=='rc2s'||
