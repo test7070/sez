@@ -360,9 +360,12 @@
             function sum() {
                 var t1 = 0, t_unit, t_mount, t_weight = 0;
                 for(var j = 0; j < q_bbsCount; j++) {
-
+					t_weight+=dec($('#txtWeight_' + j).val()); // 重量合計
                 }  // j
-
+                
+                $('#txtTotal').val(round(t_weight, 0));
+				if( !emp( $('#txtPrice' ).val()))
+                	$('#txtTranmoney').val(round(t_weight * dec($('#txtPrice').val()), 0));
             }
 
             function refresh(recno) {
