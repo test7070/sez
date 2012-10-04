@@ -15,7 +15,7 @@
 		    var q_name = "umm";
 		    var q_readonly = ['txtNoa', 'txtWorker', 'txtCno', 'txtAcomp'];
 		    var q_readonlys = ['txtVccno', 'txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2'];
-		    var bbmNum = new Array(['txtOutsource', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]);
+		    var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]);
 		    var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUpay', 10, 0, 1], ['txtUnpayorg', 10, 0, 1]];
 		    var bbmMask = [];
 		    var bbsMask = [];
@@ -197,18 +197,20 @@
 		    }
 
 		    function sum() {
-		        var t_money = 0, t_pay = 0;
+		        var t_money = 0, t_pay = 0,t_sale=0;
 		        for (var j = 0; j < q_bbsCount; j++) {
 		        	if($('#txtAcc2_'+j).val().indexOf('其他收入') == 0 || $('#txtAcc2_'+j).val().indexOf('應付票據') == 0)
 		               	t_money -= q_float('txtMoney_' + j);
 		            else
 		               	t_money += q_float('txtMoney_' + j);
-		               			
+		            
+		            t_sale += q_float('txtUnpayorg_' + j);
 		            t_pay += q_float('txtPaysale_' + j);
 		        }
+		        q_tr('txtSale', t_sale);
 		        q_tr('txtTotal', t_money);
 		        q_tr('txtPaysale', t_pay + q_float('txtUnopay'));
-		        q_tr('txtUnpay', t_money - t_pay);
+		        q_tr('txtUnpay', q_float('txtSale') - q_float('txtPaysale'));
 		        q_tr('textOpay', q_float('textOpayOrg') + q_float('txtOpay') - q_float('txtUnopay'));
 		    }
 
@@ -695,9 +697,9 @@
 						</td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1"><span> </span><a id='lblOutsource' class="lbl"></a></td>
+						<td class="td1"><span> </span><a id='lblSale' class="lbl"></a></td>
 						<td class="td2">
-						<input id="txtOutsource"  type="text" class="txt num c1"/>
+						<input id="txtSale"  type="text" class="txt num c1"/>
 						</td>
 						<td class="td3"><span> </span><a id='lblTotal' class="lbl"></a></td>
 						<td class="td4">

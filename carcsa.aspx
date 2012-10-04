@@ -14,17 +14,19 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
+        q_desc=1;
         q_tables = 's';
         var q_name = "carcsa";
         var q_readonly = ['txtNoa'];
         var q_readonlys = [];
         var bbmNum = [['txtWeight',14, 3, 1],['txtMount',10, 0, 1],['txtAddmoney',14, 0, 1],['txtMoney',18, 0, 1]];  
-        var bbsNum = [['txtMoney',12 , , 1]];
+        var bbsNum = [['txtWeight',14, 3, 1],['txtInprice',14, 3, 1],['txtInmount',14, 3, 1],['txtInmoney',14, 3, 1],['txtOutprice',14, 3, 1],['txtOutmount',14, 3, 1],['txtOutmoney',14, 3, 1]];
         var bbmMask = [];
-        var bbsMask = [['txtDatea', r_picd]];
+        var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
-        							['txtBankno', 'lblBankno', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);
+        aPop = new Array(['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'],
+        							['txtCardealno_', 'btnCardeal_', 'cardeal', 'noa,comp', 'txtCardealno_,txtCardeal_', 'cardeal_b.aspx'],
+        							['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno_,txtDriverno_,txtDriver_,txtCardealno_,txtCardeal_', 'car2_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -47,8 +49,9 @@
         
             q_getFormat();
             bbmMask = [['txtDatea', r_picd],['txtBtime', '99:99'],['txtEtime', '99:99']];
+            bbsMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-             
+             q_mask(bbsMask);
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -284,15 +287,15 @@
                 float: left;
             }
             .txt.c2 {
-                width: 30%;
+                width: 10%;
                 float: left;
             }
             .txt.c3 {
-                width: 65%;
+                width: 79%;
                 float: left;
             }
             .txt.c4 {
-                width: 30%;
+                width: 47%;
                 float: left;
             }
             .txt.num {
@@ -396,31 +399,42 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
                 <td align="center" style="width:8%"><a id='lblDateas'></a></td>
-                <td align="center" style="width:10%"><a id='lblCarnos'></a></td>
-                <td align="center" style="width:15%"><a id='lblDrivers'></a></td>
-                <td align="center" style="width:10%"><a id='lblAddrs'></a></td>
-                <td align="center" style="width:15%"><a id='lblCardeals'></a></td>
+                <td align="center" style="width:8%"><a id='lblCarnos'></a></td>
+                <td align="center" style="width:8%"><a id='lblDrivers'></a></td>
+                <td align="center" style="width:18%"><a id='lblAddrs'></a></td>
+                <td align="center" style="width:18%"><a id='lblCardeals'></a></td>
                 <td align="center" style="width:8%"><a id='lblWeights'></a></td>
-                <td align="center" style="width:15%"><a id='lblIns'></a></td>
-                <td align="center" style="width:15%"><a id='lblOuts'></a></td>
+                <td align="center" style="width:14%"><a id='lblIns'></a></td>
+                <td align="center" style="width:14%"><a id='lblOuts'></a></td>
             </tr>
             <tr >
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input class="txt c1" id="txtDatea.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtCarno.*" type="text" /></td>
-                <td ><input class="txt c2" id="txtDriverno.*" type="text" /><input class="txt c3" id="txtDriver.*" type="text" /></td>
+                <td >
+                		<input class="txt c3" id="txtCarno.*" type="text" />
+                		<input class="btn"  id="btnCarno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+                </td>
+                <td >
+                	<input class="txt c3" id="txtDriverno.*" type="text" />
+                	<input class="btn"  id="btnDriver.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+                	<input class="txt c1" id="txtDriver.*" type="text" />
+                </td>
                 <td ><input class="txt c1" id="txtAddr.*" type="text" /></td>
-                <td ><input class="txt c2" id="txtCardealno.*" type="text" /><input class="txt c3" id="txtCardeal.*" type="text" /></td>
+                <td >
+                		<input class="txt c3" id="txtCardealno.*" type="text" />
+                		<input class="btn"  id="btnCardeal.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+                		<input class="txt c1" id="txtCardeal.*" type="text" />
+                </td>
                 <td ><input class="txt num c1" id="txtWeight.*" type="text" /></td>
                 <td >
                 	<input class="txt num c4" id="txtInprice.*" type="text" />
-                	<input class="txt num c4" id="txtInmount.*" type="text" />
-                	<input class="txt num c4" id="txtInmoney.*" type="text" />
+                	<input class="txt num c4" id="txtInmount.*" type="text" /><BR>
+                	<input class="txt num c1" id="txtInmoney.*" type="text" />
                 </td>
                 <td >
                 	<input class="txt num c4" id="txtOutprice.*" type="text" />
-                	<input class="txt num c4" id="txtOutmount.*" type="text" />
-                	<input class="txt num c4" id="txtOutmoney.*" type="text" />
+                	<input class="txt num c4" id="txtOutmount.*" type="text" /><BR>
+                	<input class="txt num c1" id="txtOutmoney.*" type="text" />
                 	<input id="txtNoq.*" type="hidden" />
                 </td>
             </tr>

@@ -17,7 +17,7 @@
 			q_desc = 1
             q_tables = 's';
             var q_name = "payb";
-            var q_readonly = ['txtMoney','txtTax','txtTotal'];
+            var q_readonly = ['txtMoney','txtTax','txtTotal','txtPayed'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1],['txtUnpay', 10, 0, 1]];
             var bbsNum = [['txtPrice', 10, 0, 1],['txtDiscount', 10, 0, 1], ['txtMount', 10, 0, 1], ['txtMoney', 10, 0, 1],['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1]];
@@ -566,11 +566,12 @@
            <tr>
                 <td class="td1"><span> </span><a id="lblTgg"  class="lbl btn"></a></td>
                 <td class="td2" colspan="2"><input id="txtTggno" type="text" class="txt c4"/>
-                <input id="txtComp"  type="text" class="txt c5"/></td>
+                											<input id="txtComp"  type="text" class="txt c5"/></td>
                  <td class="td4" ><input type="button" id="btnFix"  value="單據匯入"></td>
-                 <td class="td5" colspan='2'><span> </span></td>
-                 <td class="td7" ><span> </span><a id='lblPayc' class="lbl"></a></td>
-                <td class="td8" ><input id="txtPayc" type="text" class="txt c1"/></td> 
+                 <td class="td5" ><span> </span><a id='lblPayc' class="lbl"></a></td>
+                <td class="td6" ><input id="txtPayc" type="text" class="txt c1"/></td> 
+                <td class="td7" ><span> </span><a id='lblPayed' class="lbl"></a></td>
+                <td class="td8" ><input id="txtPayed" type="text" class="txt c1"/></td> 
                <!-- <td class="td7"><span> </span><a id='lblInvono' class="lbl"></a></td>
                 <td class="td8"><input id="txtInvono" type="text" class="txt c1"/></td>--> 
             </tr>
@@ -612,7 +613,7 @@
         </table>
         </div>
         </div>
-        <div class='dbbs' > <%--style="overflow-x: hidden; overflow-y: scroll; height:200px"  --%>
+        <div class='dbbs' >
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
               <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
