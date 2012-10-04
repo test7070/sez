@@ -26,6 +26,10 @@
                $('#q_report').q_report({
                         fileName : 'z_cut',
                         options : [{
+	                    type : '0',
+	                    name : 'r_tel',
+	                    value : q_getPara('sys.tel')
+	                    },{
 	                        type : '0',
 	                        name : 'accy',
 	                        value : r_accy
@@ -35,7 +39,13 @@
 					},{
 						type : '1',
 						name : 'date'
-					}]
+					},{
+                        type : '2',
+                        name : 'tggno',
+                        dbf : 'tgg',
+                        index : 'noa,comp',
+                        src : 'tgg_b.aspx'
+                    }]
                     });
                 q_popAssign();
                  $('#txtDate1').mask('999/99/99');
