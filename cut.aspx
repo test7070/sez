@@ -206,7 +206,7 @@
 	            	{
 	            		$('#txtBno_'+j).val($('#txtXbutt_'+j).val()+'001');
 	            	}
-	            	if(emp($('#txtStyle_'+j).val()))
+	            	if(emp($('#txtStyle_'+j).val())&&!emp($('#txtBno_'+j).val()))
 	            	{
 	            		alert("無型別,請檢查");
 	                	return;
