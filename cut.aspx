@@ -246,7 +246,7 @@
 				}
             }
             //判斷已領用
-			if(dec($('#txtGweight').val())>uccb_gweight)
+			if(uccb_gweight>0)//dec($('#txtGweight').val())>uccb_gweight
 	       	{
 	           	alert("已有領用");
 	        	return;
