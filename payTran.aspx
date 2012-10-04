@@ -381,8 +381,8 @@
 		                q_bodyId($(this).attr('id'));
 		                b_seq = t_IdSeq;
 
-		                var t_unpay = $('#txtUnpayorg_' + b_seq).val() - $('#txtPaysale_' + b_seq).val();
-		                $('#txtnpay_' + b_seq).val(t_unpay);
+		                var t_unpay = dec($('#txtUnpayorg_' + b_seq).val()) - dec($('#txtPaysale_' + b_seq).val());
+		                q_tr('txtUnpay_' + b_seq, t_unpay);
 		                sum();
 		            });
 		        }
