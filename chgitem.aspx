@@ -216,7 +216,7 @@
             }
             .dview {
                 float: left;
-                width: 20%;
+                width: 35%;
             }
             .tview {
                 margin: 0;
@@ -234,7 +234,7 @@
             }
             .dbbm {
                 float: left;
-                width: 78%;
+                width: 60%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -338,15 +338,15 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:15%"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:7%"><a id='vewNoa'> </a></td>
 						<td align="center" style="width:25%"><a id='vewItem'> </a></td>
 						<td align="center" style="width:25%"><a id='vewAcc2'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox"/></td>
 						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='item'>~item</td>
-						<td align="center" id='acc2'>~acc2</td>
+						<td id='item' style="text-align:left;">~item</td>
+						<td id='acc2' style="text-align:left;">~acc2</td>
 					</tr>
 				</table>
 			</div>
@@ -360,7 +360,6 @@
 						<td class="td5"> </td>
 						<td class="td6"> </td>
 						<td class="td7"> </td>
-						<td class="td8"> </td>
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>

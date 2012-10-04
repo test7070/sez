@@ -507,7 +507,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblXmon" class="lbl"> </a></td>
+						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
 						<td><input id="txtMon" type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblMount" class="lbl"> </a></td>
 						<td><input id="txtMount" type="text"  class="txt c1 num"/></td>
