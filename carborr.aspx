@@ -62,7 +62,7 @@
 				}
 				q_cmbParse("cmbTypea", t_string);
 				
-                $('#txtDatea').change(function() {
+                $('#txtMon').change(function() {
                     money2();
                 });
                 $('#txtComppay').change(function() {
@@ -167,14 +167,15 @@
             	$('#txtTotal').val(q_float('txtComppay')+q_float('txtMoney'));
             }
 			function money2(){
-            	if($('#txtDatea').val().length>0 && $('#txtDriverno').val().length>0 )
-                	q_func('carsal2.import',r_accy+','+$('#txtDatea').val().substring(0,6)+','+$('#txtDriverno').val()+','+$('#txtDriverno').val());
+				
+            	if($('#txtMon').val().length>0 && $('#txtDriverno').val().length>0 )
+                	q_func('carsal2.import',r_accy+','+$('#txtMon').val()+','+$('#txtDriverno').val()+','+$('#txtDriverno').val());
             }
             function q_funcPost(t_func, result) {/// 執行 q_exec() 呼叫 server 端 function 後， client 端所要執行的程式
                 if (result.substr(0, 5) == '<Data') {/// 如果傳回  table[]
                     var as = _q_appendData('carsal2', '', true);
                     if(as.length>0){
-                    	if(t_curMon==$('#txtDatea').val().substring(0,6)  &&  t_curDriverno==$('#txtDriverno').val())
+                    	if(t_curMon==$('#txtMon').val() &&  t_curDriverno==$('#txtDriverno').val())
                     		$('#txtMoney2').val(parseFloat(as[0].total)+t_curMoney);
                     	else
                     		$('#txtMoney2').val(parseFloat(as[0].total));
@@ -200,9 +201,13 @@
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
                 $('#txtMon').val($('#txtDatea').val().substring(0,6));
-                t_curMoney = q_float('txtMoney');
-                t_curMon=$('#txtDatea').val().substring(0,6);
+                t_curMoney = 0;
+                t_curMon=$('#txtMon').val();
                 t_curDriverno=$('#txtDriverno').val();
+                for (var iy = 0; iy < q_bbsCount; iy++) {
+                	if(t_curMon==$('#txtMon_'+iy).val())
+                    	t_curMoney+=q_float('txtMoney_'+iy);
+                }
                 money2();
             }
 
@@ -211,9 +216,13 @@
                     return;
                 _btnModi();
                 $('#txtDatea').focus();
-                t_curMoney = q_float('txtMoney');
-                t_curMon=$('#txtDatea').val().substring(0,6);
+                t_curMoney = 0;
+                t_curMon=$('#txtMon').val();
                 t_curDriverno=$('#txtDriverno').val();
+                for (var iy = 0; iy < q_bbsCount; iy++) {
+                	if(t_curMon==$('#txtMon_'+iy).val())
+                    	t_curMoney+=q_float('txtMoney_'+iy);
+                }
                 money2();
             }
 
