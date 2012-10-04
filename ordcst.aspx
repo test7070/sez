@@ -67,6 +67,11 @@
 	            $('#cmbKind').change(function () {
 	            	size_change();
 			     });
+			     
+			     $('#btnOrdb').click(function () {
+	            	var t_where = "where=^^ tggno='"+$('#txtTggno').val()+"' and datea > '"+q_date()+"' and kind='"+$('#cmbKind').val()+"' ^^";
+	            	q_gt('ordb', t_where , 0, 0, 0, "", r_accy);
+			     });
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -83,6 +88,21 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'ordb':
+                		var ordb = _q_appendData("ordb", "", true);
+                		if(ordb[0]!=undefined)
+                		{
+                			$('#cmbPaytype').val(ordb[0].paytype);
+                			$('#txtPay').val(ordb[0].pay);
+                			$('#txtPost').val(ordb[0].post);
+                			$('#txtAddr').val(ordb[0].addr);
+                			var ordbs = _q_appendData("ordbs", "", true);
+	                		if(ordbs[0]!=undefined)
+	                		{
+	                			q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtWeight,txtPrice,txtTotal,txtTheory,txtMemo,txtOrdbno,txtNo3', ordbs.length, ordbs, 'productno,product,spec,radius,width,dime,lengthb,mount,weight,price,total,theory,memo,noa,no3', '');
+	                		}
+                		}
+                		break;
                 	case 'ucc_style':
             			theory_st(q_name,b_seq,'txtTheory');
             			break;
@@ -270,6 +290,13 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                
+                 if (t_para) {
+		            $('#btnOrdb').attr('disabled', 'disabled');	          
+		        }
+		        else {
+		        	$('#btnOrdb').removeAttr('disabled');	 
+		        }
             }
 
             function btnMinus(id) {

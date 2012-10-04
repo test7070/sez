@@ -206,7 +206,7 @@
 	            	{
 	            		$('#txtBno_'+j).val($('#txtXbutt_'+j).val()+'001');
 	            	}
-	            	if(emp($('#txtStyle_'+j).val()))
+	            	if(emp($('#txtStyle_'+j).val())&&!emp($('#txtBno_'+j).val()))
 	            	{
 	            		alert("無型別,請檢查");
 	                	return;
@@ -246,7 +246,7 @@
 				}
             }
             //判斷已領用
-			if(dec($('#txtGweight').val())>uccb_gweight)
+			if(uccb_gweight>0)//dec($('#txtGweight').val())>uccb_gweight
 	       	{
 	           	alert("已有領用");
 	        	return;

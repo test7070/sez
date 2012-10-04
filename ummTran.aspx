@@ -15,7 +15,7 @@
 		    var q_name = "umm";
 		    var q_readonly = ['txtNoa', 'txtWorker', 'txtCno', 'txtAcomp'];
 		    var q_readonlys = ['txtVccno', 'txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2'];
-		    var bbmNum = new Array(['txtOutsource', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]);
+		    var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]);
 		    var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUpay', 10, 0, 1], ['txtUnpayorg', 10, 0, 1]];
 		    var bbmMask = [];
 		    var bbsMask = [];
@@ -54,12 +54,6 @@
 		        q_mask(bbmMask);
 		        bbsMask = [['txtIndate', r_picd], ['txtMon', r_picm]];
 
-		        $('#btnAuto').click(function (e) {
-		            t_Saving = true;
-		            umm_trd();
-
-		        });
-
 		        function umm_trd() {
 		            var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
 		            t_where = "where=^^ custno=" + t_custno + " and unpay!=0 ";
@@ -87,6 +81,47 @@
 
 		        $('#txtOpay').change(function () { sum(); });
 		        $('#txtUnopay').change(function () { sum(); });
+		        
+		        //1003將請款單匯入與自動沖帳分開
+		         /*$('#btnAuto').click(function (e) {
+		            t_Saving = true;
+		            umm_trd();
+
+		        });*/
+		        
+		         $('#btnAuto').click(function (e) {
+		         		t_Saving = true;
+		        		/// 自動沖帳
+		               $('#txtOpay').val(0);
+		               $('#txtUnopay').val(0);
+		               var t_money = 0;
+		               for (var i = 0; i < q_bbsCount; i++) {
+		               		if($('#txtAcc2_'+i).val().indexOf('其他收入') == 0 || $('#txtAcc2_'+i).val().indexOf('應付票據') == 0)
+		               			t_money -= q_float('txtMoney_' + i);
+		               		else
+		               			t_money += q_float('txtMoney_' + i);
+		               }
+
+		               var t_unpay, t_pay=0;
+		               for (var i = 0; i < q_bbsCount; i++) {
+		               		if (q_float('txtUnpay_' + i) != 0) {
+								t_unpay=q_float('txtUnpayorg_' + i)
+		                        if (t_money >= t_unpay) {
+		                            q_tr('txtPaysale_' + i, t_unpay);
+		                            $('#txtUnpay_' + i).val(0);
+		                            t_money = t_money - t_unpay;
+		                        }
+		                        else {
+		                            q_tr('txtPaysale_' + i, t_money);
+		                            q_tr('txtUnpay_' + i, t_unpay - t_money);
+		                             t_money = 0;
+		                        }
+		                    }
+		                }
+		                if (t_money > 0)
+		                    q_tr('txtOpay', t_money);
+		                sum();      
+		        });
 				//0926改為開啟視窗
 		        $('#btnVcc').click(function (e) {
 		                //umm_trd();
@@ -141,57 +176,17 @@
 		                        b_ret[i].paysale = 0;
 		                    }
 		                }
-		                //清除有相同單據bbs
+		                //清除單據bbs
 		                for (var i = 0; i < q_bbsCount; i++) {
-			                 for (var j = 0; j < b_ret.length; j++) {
-			                 	if(b_ret[j].noa==$('#txtVccno_'+i).val())
-			                 		$('#txtVccno_'+i).val('');
-			                 		$('#txtPaysale_'+i).val('');
-			                 		$('#txtUnpayorg_'+i).val('');
-			                 		$('#txtUnpay_'+i).val('');
-			                 		$('#txtPart2_'+i).val('');
-			                 }
+			                 $('#txtVccno_'+i).val('');
+			                 $('#txtPaysale_'+i).val('');
+			                 $('#txtUnpayorg_'+i).val('');
+			                 $('#txtUnpay_'+i).val('');
+			                 $('#txtPart2_'+i).val('');
 			            }
 		                
-		                if (!t_Saving)
-		                    ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2', 'txtVccno');   /// 最後 aEmpField 不可以有【數字欄位】
-		                else{/// 自動沖帳
-	                        $('#txtOpay').val(0);
-			                $('#txtUnopay').val(0);
-			                var t_money = 0;
-			                for (var i = 0; i < q_bbsCount; i++) {
-			                    t_money += q_float('txtMoney_' + i) + q_float('txtChgs_' + i);
-			                }
-	                        var t_unpay, t_pay;
-	                        for (var i = 0; i < q_bbsCount; i++) {
-	                            k = b_ret[i];  ///ret[i]  儲存 tbbs 指標
-									if (i < b_ret.length && b_ret[i].total - b_ret[i].paysale != 0) {
-			                            $('#txtVccno_' + k).val(b_ret[i].noa);
-			                            $('#txtPart2_' + k).val(b_ret[i].part2);
-			                            t_unpay = b_ret[i]._unpay;
-	
-			                            q_tr('txtUnpayorg_' + k, t_unpay);
-	
-			                          	if (t_money >= t_unpay) {
-			                                q_tr('txtPaysale_' + k, t_unpay);
-			                                $('#txtUnpay_' + k).val(0);
-			                                t_money = t_money - t_unpay;
-			                            }
-			                           	else {
-			                                q_tr('txtPaysale_' + k, t_money);
-			                                q_tr('txtUnpay_' + k, t_unpay - t_money);
-			                                t_money = 0;
-			                            }
-			                        }
-			                        else {
-			                            $('#txtVccno_' + k).val('');
-			                            $('#txtPaysale_' + k).val('');
-			                            $('#txtUnpay_' + k).val('');
-			                        }
-	                        }  /// for i
-	                        if (t_money > 0)
-		                        q_tr('txtOpay', t_money);
-                        }
+		                /*if (!t_Saving)*/
+		                    ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2', '');   /// 最後 aEmpField 不可以有【數字欄位】
                     }
                     break;
 		            case q_name + '_s':
@@ -202,14 +197,20 @@
 		    }
 
 		    function sum() {
-		        var t_money = 0, t_pay = 0;
+		        var t_money = 0, t_pay = 0,t_sale=0;
 		        for (var j = 0; j < q_bbsCount; j++) {
-		            t_money += q_float('txtMoney_' + j) + q_float('txtChgs_' + j);
+		        	if($('#txtAcc2_'+j).val().indexOf('其他收入') == 0 || $('#txtAcc2_'+j).val().indexOf('應付票據') == 0)
+		               	t_money -= q_float('txtMoney_' + j);
+		            else
+		               	t_money += q_float('txtMoney_' + j);
+		            
+		            t_sale += q_float('txtUnpayorg_' + j);
 		            t_pay += q_float('txtPaysale_' + j);
 		        }
+		        q_tr('txtSale', t_sale);
 		        q_tr('txtTotal', t_money);
 		        q_tr('txtPaysale', t_pay + q_float('txtUnopay'));
-		        q_tr('txtUnpay', t_money - t_pay);
+		        q_tr('txtUnpay', q_float('txtSale') - q_float('txtPaysale'));
 		        q_tr('textOpay', q_float('textOpayOrg') + q_float('txtOpay') - q_float('txtUnopay'));
 		    }
 
@@ -246,8 +247,8 @@
 
 		                if (!t_Saving)
 		                    q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'noa,paysale,_unpay,_unpay,part2', 'txtVccno', '');
-		                else {/// 自動沖帳
-		                    $('#txtOpay').val(0);
+		                else{/// 自動沖帳
+		                	/*$('#txtOpay').val(0);
 		                    $('#txtUnopay').val(0);
 		                    var t_money = 0;
 		                    for (var i = 0; i < q_bbsCount; i++) {
@@ -283,7 +284,7 @@
 
 		                    if (t_money > 0)
 		                        q_tr('txtOpay', t_money);
-
+		                	*/
 		                }
 
 		                t_Saving = false;
@@ -400,8 +401,8 @@
 		                q_bodyId($(this).attr('id'));
 		                b_seq = t_IdSeq;
 
-		                var t_unpay = $('#txtUnpayorg_' + b_seq).val() - $('#txtPaysale_' + b_seq).val();
-		                $('#txtnpay_' + b_seq).val(t_unpay);
+		                var t_unpay = dec($('#txtUnpayorg_' + b_seq).val()) - dec($('#txtPaysale_' + b_seq).val());
+		                q_tr('txtUnpay_' + b_seq, t_unpay);
 		                sum();
 		            });
 		        }
@@ -696,9 +697,9 @@
 						</td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1"><span> </span><a id='lblOutsource' class="lbl"></a></td>
+						<td class="td1"><span> </span><a id='lblSale' class="lbl"></a></td>
 						<td class="td2">
-						<input id="txtOutsource"  type="text" class="txt num c1"/>
+						<input id="txtSale"  type="text" class="txt num c1"/>
 						</td>
 						<td class="td3"><span> </span><a id='lblTotal' class="lbl"></a></td>
 						<td class="td4">

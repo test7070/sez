@@ -94,10 +94,9 @@
             }
 
             function _btnSeek() {
-                if (q_cur > 0 && q_cur < 4)// 1-3
-                    return;
-
-                q_box('oil_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+                 if (q_cur > 0 && q_cur < 4)  // 1-3
+                return;
+                q_box('oilin_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -118,7 +117,7 @@
             }
 
             function btnPrint() {
-				q_box('z_oil.aspx'+ "?;;;;"+r_accy,  '', "800px", "600px", q_getMsg("popPrint"));
+				q_box('z_oilin.aspx'+ "?;;;;"+r_accy,  '', "90%", "600px", q_getMsg("popPrint"));
             }
 
             function btnOk() {
