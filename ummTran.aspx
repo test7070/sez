@@ -198,7 +198,7 @@
 		        for (var j = 0; j < q_bbsCount; j++) {
 		            t_money += q_float('txtMoney_' + j) + q_float('txtChgs_' + j);
 		            //1004會計科目有'其他'則沖帳金額部計算
-		            if($('#txtAcc2_'+j).indexOf('其他') < 0)
+		            if($('#txtAcc2_'+j).val().indexOf('其他') < 0)
 		            	t_pay += q_float('txtPaysale_' + j);
 		        }
 		        q_tr('txtTotal', t_money);
