@@ -319,15 +319,17 @@
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:25%"><a id='vewNoa'></a></td>
-						<td align="center" style="width:40%"><a id='vewNamea'></a></td>
+						<td align="center" style="width:15%"><a id='vewNoa'></a></td>
+						<td align="center" style="width:30%"><a id='vewNamea'></a></td>
+						<td align="center" style="width:15%"><a id='vewInprice'></a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
 						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='namea'>~namea</td>
+						<td id='namea' style="text-align: left;">~namea</td>
+						<td id='inprice' style="text-align: right;">~inprice</td>
 					</tr>
 				</table>
 			</div>
