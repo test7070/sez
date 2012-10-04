@@ -19,7 +19,7 @@
             var q_name = "payb";
             var q_readonly = ['txtMoney','txtTax','txtTotal','txtPayed'];
             var q_readonlys = [];
-            var bbmNum = [['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1],['txtUnpay', 10, 0, 1]];
+            var bbmNum = [['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1],['txtUnpay', 10, 0, 1],['txtPayed', 10, 0, 1]];
             var bbsNum = [['txtPrice', 10, 0, 1],['txtDiscount', 10, 0, 1], ['txtMount', 10, 0, 1], ['txtMoney', 10, 0, 1],['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
@@ -571,7 +571,7 @@
                  <td class="td5" ><span> </span><a id='lblPayc' class="lbl"></a></td>
                 <td class="td6" ><input id="txtPayc" type="text" class="txt c1"/></td> 
                 <td class="td7" ><span> </span><a id='lblPayed' class="lbl"></a></td>
-                <td class="td8" ><input id="txtPayed" type="text" class="txt c1"/></td> 
+                <td class="td8" ><input id="txtPayed" type="text" class="txt num c1"/></td> 
                <!-- <td class="td7"><span> </span><a id='lblInvono' class="lbl"></a></td>
                 <td class="td8"><input id="txtInvono" type="text" class="txt c1"/></td>--> 
             </tr>
@@ -585,7 +585,7 @@
                 <td class="td4"><span> </span><a id="lblAccno" class="lbl btn"></a></td>
                 <td class="td5"  colspan="2"><input id="txtAccno"  type="text" class="txt c1"/>
                 <td class="td6"><span> </span><a id="lblUnpay" class="lbl"></a></td>
-                <td class="td7"  colspan="2"><input id="txtUnpay"  type="text" class="txt c1"/>
+                <td class="td7"  colspan="2"><input id="txtUnpay"  type="text" class="txt num c1"/>
                 	<input id="txtPayed"  type="hidden"/>
                 </td>
              </tr>

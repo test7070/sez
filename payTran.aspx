@@ -294,11 +294,11 @@
 		        for (var j = 0; j < q_bbsCount; j++) {
 		        	t_money+=q_float('txtMoney_' + j);
 		        }
-		        if((Math.abs(q_float('txtOpay')-t_money)/t_money)>0.05)
+		        /*if((Math.abs(q_float('txtOpay')-t_money)/t_money)>0.05)
 		        {
 		        	alert('預付與付款金額總額差異過大');
 		            return;
-		        }
+		        }*/
 		        
 		        if ($.trim($('#txtTggno').val()) == 0) {
 		            alert(m_empty + q_getMsg('lblTgg'));
