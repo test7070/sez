@@ -18,10 +18,10 @@
         var q_name = "carcsa";
         var q_readonly = ['txtNoa'];
         var q_readonlys = [];
-        var bbmNum = [['txtWeight',14,3,1]];  
+        var bbmNum = [['txtWeight',14, 3, 1],['txtMount',10, 0, 1],['txtAddmoney',14, 0, 1],['txtMoney',18, 0, 1]];  
         var bbsNum = [['txtMoney',12 , , 1]];
         var bbmMask = [];
-        var bbsMask = [];
+        var bbsMask = [['txtDatea', r_picd]];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         aPop = new Array(['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
         							['txtBankno', 'lblBankno', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);

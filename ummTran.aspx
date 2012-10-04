@@ -96,7 +96,10 @@
 		               $('#txtUnopay').val(0);
 		               var t_money = 0;
 		               for (var i = 0; i < q_bbsCount; i++) {
-		               		t_money += q_float('txtMoney_' + i) + q_float('txtChgs_' + i);
+		               		if($('#txtAcc2_'+i).val().indexOf('其他收入') == 0 || $('#txtAcc2_'+i).val().indexOf('應付票據') == 0)
+		               			t_money -= q_float('txtMoney_' + i);
+		               		else
+		               			t_money += q_float('txtMoney_' + i);
 		               }
 
 		               var t_unpay, t_pay=0;
@@ -196,10 +199,12 @@
 		    function sum() {
 		        var t_money = 0, t_pay = 0;
 		        for (var j = 0; j < q_bbsCount; j++) {
-		            t_money += q_float('txtMoney_' + j) + q_float('txtChgs_' + j);
-		            //1004會計科目有'其他'則沖帳金額部計算
-		            if($('#txtAcc2_'+j).val().indexOf('其他') < 0)
-		            	t_pay += q_float('txtPaysale_' + j);
+		        	if($('#txtAcc2_'+j).val().indexOf('其他收入') == 0 || $('#txtAcc2_'+j).val().indexOf('應付票據') == 0)
+		               	t_money -= q_float('txtMoney_' + j);
+		            else
+		               	t_money += q_float('txtMoney_' + j);
+		               			
+		            t_pay += q_float('txtPaysale_' + j);
 		        }
 		        q_tr('txtTotal', t_money);
 		        q_tr('txtPaysale', t_pay + q_float('txtUnopay'));
