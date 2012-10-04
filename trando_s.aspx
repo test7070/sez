@@ -9,7 +9,7 @@
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<script type="text/javascript">
-			var q_name = "cust_s";
+			var q_name = "trando_s";
 
 			$(document).ready(function() {
 				main();
@@ -24,16 +24,13 @@
 			function q_gfPost() {
 				q_getFormat();
 				q_langShow();
-
-				$('#txtNoa').focus();
 			}
 
 			function q_seekStr() {
-				t_noa = $('#txtNoa').val();
-				t_comp = $('#txtComp').val();
-				t_serial = $('#txtSerial').val();
+				t_deliveryno = $('#txtDeliveryno').val();
+				t_po = $('#txtPo').val();
 
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("comp", t_comp) + q_sqlPara2("serial", t_serial);
+				var t_where = " 1=1 " + q_sqlPara2("deliveryno", t_deliveryno) + q_sqlPara2("po", t_po);
 
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
@@ -52,21 +49,15 @@
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblDeliveryno'></a></td>
 					<td>
-					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
+					<input class="txt" id="txtDeliveryno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblComp'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblPo'></a></td>
 					<td>
-					<input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblSerial'></a></td>
-					<td>
-					<input class="txt" id="txtSerial" type="text" style="width:215px; font-size:medium;" />
+					<input class="txt" id="txtPo" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>

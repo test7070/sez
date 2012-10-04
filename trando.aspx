@@ -117,7 +117,7 @@
 				if (q_cur > 0 && q_cur < 4)
 					return;
 
-				q_box('delivery_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+				q_box('trando_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
 			}
 
 			function bbsAssign() {
@@ -142,7 +142,7 @@
 			}
 
 			function btnPrint() {
-				q_box('z_delivery.aspx' + "?;;;;" + r_accy, '', "800px", "600px", q_getMsg("popPrint"));
+				q_box('z_trando.aspx' + "?;;;;" +r_accy+";noa="+trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
 			}
 
 			function wrServer(key_value) {
