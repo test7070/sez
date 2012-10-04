@@ -139,7 +139,7 @@
         }
 
         function btnPrint() {
-
+			q_box('z_tgg.aspx' + "?;;;;" +r_accy+";noa="+trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
         }
         function btnOk() {
             var t_err = '';
