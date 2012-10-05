@@ -13,7 +13,7 @@
 		    q_desc = 1
 		    q_tables = 's';
 		    var q_name = "pay";
-		    var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno'];
+		    var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno','txtSale','txtTotal','txtPaysale','txtUnpay','txtOpay','textOpay'];
 		    var q_readonlys = ['txtRc2no', 'txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2'];
 		    var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]);
 		    var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtUnpayorg', 10, 0, 1]];
@@ -91,7 +91,7 @@
 		               $('#txtUnopay').val(0);
 		               var t_money = 0;
 		               for (var i = 0; i < q_bbsCount; i++) {
-		               		if($('#txtAcc2_'+i).val().indexOf('其他收入') == 0 || $('#txtAcc2_'+i).val().indexOf('應付票據') == 0)
+		               		if($('#txtAcc1_'+i).val().indexOf('1121') == 0 || $('#txtAcc1_'+i).val().indexOf('7149') == 0 || $('#txtAcc1_'+i).val().indexOf('7044') == 0)
 		               			t_money -= q_float('txtMoney_' + i);
 		               		else
 		               			t_money += q_float('txtMoney_' + i);
@@ -167,7 +167,15 @@
 		        }
 		        b_pop = '';
 		    }
-
+			
+			function q_popPost(s1) {
+		    	switch (s1) {
+		    		case 'txtAcc1_':
+		                sum();
+		                break;
+		    	}
+		    }
+			
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
 		        	case 'payb':
@@ -268,7 +276,7 @@
 		    function sum() {
 		        var t_money = 0, t_pay = 0,t_sale=0;
 		        for (var j = 0; j < q_bbsCount; j++) {
-		            if($('#txtAcc2_'+j).val().indexOf('其他收入') == 0 || $('#txtAcc2_'+j).val().indexOf('應收票據') == 0)
+		            if($('#txtAcc1_'+j).val().indexOf('1121') == 0 || $('#txtAcc1_'+j).val().indexOf('7149') == 0 || $('#txtAcc1_'+j).val().indexOf('7044') == 0)
 		               	t_money -= q_float('txtMoney_' + j);
 		            else
 		               	t_money += q_float('txtMoney_' + j);
@@ -276,11 +284,14 @@
 		            t_sale += q_float('txtUnpayorg_' + j);
 		            t_pay += q_float('txtPaysale_' + j);
 		        }
+
 		        q_tr('txtSale', t_sale);
 		        q_tr('txtTotal', t_money);
 		        q_tr('txtPaysale', t_pay + q_float('txtUnopay'));
 		        q_tr('txtUnpay', q_float('txtSale') - q_float('txtPaysale'));
+		        q_tr('txtOpay', q_float('txtTotal') - q_float('txtPaysale'));
 		        q_tr('textOpay', q_float('textOpayOrg') + q_float('txtOpay') - q_float('txtUnopay'));
+		        
 		    }
 
 		    function btnOk() {
@@ -381,6 +392,7 @@
 		                    $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
 		                if (s1.length == 4)
 		                    $(this).val(s1 + '.');
+		                sum();
 		            });
 
 		            $('#txtPaysale_' + i).change(function (e) {
@@ -773,11 +785,11 @@
 					</td>
 					<td align="center" style="width:8%;"><a id='lblAcc1'></a></td>
 					<td align="center" style="width:3%;"><a id='lblMoney'></a></td>
-					<td align="center" style="width:3%;"><a id='lblChgsTran'></a></td>
 					<td align="center" style="width:4%;"><a id='lblCheckno'></a></td>
 					<td align="center" style="width:4%;"><a id='lblAccount'></a></td>
 					<td align="center" style="width:8%;"><a id='lblBank'></a></td>
 					<td align="center" style="width:3%;"><a id='lblIndate'></a></td>
+					<td align="center" style="width:3%;"><a id='lblChgsTran'></a></td>
 					<td align="center" style="width:5%;"><a id='lblMemos'></a></td>
 					<td align="center" style="width:3%;"><a id='lblPaysales'></a></td>
 					<td align="center" style="width:3%;"><a id='lblUnpay_s'></a></td>
@@ -796,10 +808,6 @@
 					<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
 					</td>
 					<td>
-					<input type="text" id="txtChgs.*" style="text-align:right;width:95%;"/>
-					<input type="text" id="txtPartno.*"  style="float:left;width:25%;" /><input type="text" id="txtPart.*" style="float:left;width:57%;"/>
-					</td>
-					<td>
 					<input type="text" id="txtCheckno.*"  style="width:95%;" />
 					</td>
 					<td>
@@ -812,6 +820,10 @@
 					</td>
 					<td>
 					<input type="text" id="txtIndate.*" style="width:95%;" />
+					</td>
+					<td>
+						<input type="text" id="txtChgs.*" style="text-align:right;width:95%;"/>
+						<input type="text" id="txtPartno.*"  style="float:left;width:25%;" /><input type="text" id="txtPart.*" style="float:left;width:57%;"/>
 					</td>
 					<td>
 					<input type="text" id="txtMemo.*" style="width:95%;"/>
