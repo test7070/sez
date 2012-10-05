@@ -19,7 +19,7 @@
 			var q_name = "trans";
 			var q_readonly = ['txtNoa', 'txtTotal', 'txtTotal2', 'txtTrdno', 'txtTreno', 'txtWorkerno', 'txtWorker'];
 			var bbmNum = new Array(['txtUnpack', 10, 0], ['txtInmount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3], ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['txtMiles', 10, 0], ['txtBmiles', 10,0], ['txtEmiles', 10,0], ['txtGross', 10, 3], ['txtWeight', 10, 3], ['txtOutmount', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 3], ['txtPton2', 10, 3], ['txtOverh', 10, 0], ['txtOverw', 10, 0], ['txtTolls', 10, 0], ['txtReserve', 10, 0]);
-			var bbmMask = new Array(['txtTrandate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99'], ['txtCldate', '999/99/99'], ['txtLtime', '99:99'], ['txtStime', '99:99'], ['txtDtime', '99:99']);
+			var bbmMask = new Array(['txtTrandate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99'], ['txtCldate', '999/99/99'], ['txtLtime', '99:99'], ['txtStime', '99:99'], ['txtDtime', '99:99'],['txtMon','999/99']);
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
@@ -343,14 +343,15 @@
 				curData.chgDiscount();//新增時,折扣為原先預設值
 				$('#txtNoa').val('AUTO');
 				$('#txtNoq').val('001');
-				if ($('#txtDatea').val().length == 0)
+				if ($('#txtDatea').val().length == 0){
 					$('#txtDatea').val(q_date());
+					$('#txtMon').val(q_date().substring(0,6));
+				}
 				sum();
 				$('#dview').css('width', '0%');
 				$('#dview').css('display', 'none');
 				$('#dbbm').css('width', '100%');
 				$('#txtDatea').focus();
-
 			}
 
 			function btnModi() {
@@ -476,9 +477,11 @@
 
 				if (treno.length > 0 || trdno.length > 0) {
 					$('#txtDatea').attr('disabled', 'disabled');
+					$('#txtMon').attr('disabled', 'disabled');
 					$('#txtTrandate').attr('disabled', 'disabled');
 				} else {
 					$('#txtDatea').remove('disabled');
+					$('#txtMon').remove('disabled');
 					$('#txtTrandate').remove('disabled');
 				}
 			}
@@ -770,6 +773,13 @@
 						<td class="td7" colspan="2">
 						<input id="txtTrandate" type="text"  class="txt c1"/>
 						</td>
+						<td colspan="2"><span> </span><a id="lblMon" class="lbl"> </a></td>
+						<td colspan="2">
+						<input id="txtMon" type="text"  class="txt c1"/>
+						</td>
+							
+					</tr>
+					<tr>
 						<td class="td9" colspan="2"><span> </span><a id="lblCarno" class="lbl btn"> </a></td>
 						<td class="tdB" colspan="2">
 						<input id="txtCarno" type="text"  class="txt c1"/>

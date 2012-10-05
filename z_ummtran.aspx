@@ -33,38 +33,43 @@
                         value : q_getId()[4]
                     }, {
                         type : '1',
-                        name : 'date'
-                    }, {
-                        type : '1',
-                        name : 'trandate'
+                        name : 'mon'
                     }, {
                         type : '2',
                         name : 'cust',
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
-                    }, {
-                        type : '6',
-                        name : 'zvccno'
-                    }, {
-                        type : '5', //select
-                        name : 'xsort2',
-                        value : q_getPara('z_ummtran.sort2').split(',')
                     }]
                 });
                 q_getFormat();
                 q_langShow();
                 q_popAssign();
 
-                $('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();
+                $('#txtMon1').mask('999/99');
+                $('#txtMon2').mask('999/99');
                 
-                $('#txtTrandate1').mask('999/99/99');
-                $('#txtTrandate1').datepicker();
-                $('#txtTrandate2').mask('999/99/99');
-                $('#txtTrandate2').datepicker();
+                var t_date, t_year, t_month, t_day;
+				t_date = new Date();
+				t_date.setDate(1);
+				t_year = t_date.getUTCFullYear() - 1911;
+				t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+				t_month = t_date.getUTCMonth() + 1;
+				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+				t_day = t_date.getUTCDate();
+				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+				$('#txtMon1').val(t_year + '/' + t_month );
+
+				t_date = new Date();
+				t_date.setDate(35);
+				t_date.setDate(0);
+				t_year = t_date.getUTCFullYear() - 1911;
+				t_year = t_year > 99 ? t_year + '' : '0' + t_year;
+				t_month = t_date.getUTCMonth() + 1;
+				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
+				t_day = t_date.getUTCDate();
+				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
+				$('#txtMon2').val(t_year + '/' + t_month);
             }
 
             function q_boxClose(t_name) {
