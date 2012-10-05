@@ -43,7 +43,7 @@
 						break;
 				}
 				if (t_carteam.length > 0) {
-					$('#qReport').q_report({
+					$('#q_report').q_report({
 						fileName : 'z_carchg',
 						options : [{
 							type : '0',
