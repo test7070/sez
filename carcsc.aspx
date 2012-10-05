@@ -15,7 +15,7 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var q_name="carcsb";
+        var q_name="carcsc";
         var q_readonly = ['txtNoa'];
         var bbmNum = [['txtWeight',14, 3, 1],['txtInprice',14, 3, 1],['txtInmount',14, 3, 1],['txtInmoney',14, 3, 1],['txtOutprice',14, 3, 1],['txtOutmount',14, 3, 1],['txtOutmoney',14, 3, 1]];  // master 允許 key 小數  [物件,整數位數,小數位數, comma Display]
         var bbmMask = []; 
@@ -24,7 +24,8 @@
         
         aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
         							['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
-        							['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx']);
+        							['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'],
+        							['txtBoatno', 'lblBoatno', 'boat', 'noa,boat', 'txtBoatno,txtBoat', 'boat_b.aspx']);
         
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -61,7 +62,6 @@
         	$('#txtOutmount').change(function () {
         		q_tr('txtOutmoney',q_float('txtOutprice')*q_float('txtOutmount'));
         	});
-        	
         }
 
         function q_boxClose( s2) { 
@@ -317,6 +317,7 @@
                             <td align="center" style="width:15%"><a id='vewDriver'></a></td>
                             <td align="center" style="width:20%"><a id='vewAddr'></a></td>
                             <td align="center" style="width:15%"><a id='vewCardeal'></a></td>
+                            <td align="center" style="width:15%"><a id='vewBoat'></a></td>
                         </tr>
                         <tr>
                             <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -325,6 +326,7 @@
                             <td align="center" id='driver'>~driver</td>
                             <td align="center" id='addr'>~addr</td>
                             <td align="center" id='cardeal'>~cardeal</td>
+                            <td align="center" id='boat'>~boat</td>
                         </tr>
                     </table>
                 </div>
@@ -335,38 +337,47 @@
                             <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
                             <td class="td3"><span> </span><a id="lblDatea" class="lbl"></a></td>
                             <td class="td4"><input id="txtDatea"  type="text"  class="txt c1"/></td>
-                            <td class="td5"><span> </span><a id="lblCarno" class="lbl btn"></a></td>
-                            <td class="td6"><input id="txtCarno"  type="text"  class="txt c1"/></td>
+                            <td class="td5"></td>
+                            <td class="td6"></td>
                             <td class="td7"></td>
                             <td class="td8"></td>
                         </tr>
                         <tr class="tr2">
-                            <td class="td1"><span> </span><a id="lblDriver" class="lbl btn"></a></td>
-                            <td class="td2" colspan='2'><input id="txtDriverno"  type="text"  class="txt c2"/><input id="txtDriver"  type="text"  class="txt c3"/></td>
-                            <td class="td4"><span> </span><a id="lblCardeal" class="lbl btn"></a></td>
-                            <td class="td5" colspan='2'><input id="txtCardealno"  type="text"  class="txt c2"/><input id="txtCardeal"  type="text"  class="txt c3"/></td>
-                            <td class="td7"><span> </span><a id="lblAddr" class="lbl"></a></td>
-                            <td class="td8"><input id="txtAddr"  type="text"  class="txt c1"/></td>
+                            <td class="td1"><span> </span><a id="lblCarno" class="lbl btn"></a></td>
+                            <td class="td2"><input id="txtCarno"  type="text"  class="txt c1"/></td>
+                            <td class="td3"><span> </span><a id="lblDriver" class="lbl btn"></a></td>
+                            <td class="td4" colspan='2'><input id="txtDriverno"  type="text"  class="txt c2"/><input id="txtDriver"  type="text"  class="txt c3"/></td>
+                            <td class="td6"><span> </span><a id="lblCardeal" class="lbl btn"></a></td>
+                            <td class="td7" colspan='2'><input id="txtCardealno"  type="text"  class="txt c2"/><input id="txtCardeal"  type="text"  class="txt c3"/></td>
                         </tr>
                         <tr class="tr3">
-                        	<td class="td1"><span> </span><a id="lblWeight" class="lbl"></a></td>
-                            <td class="td2"><input id="txtWeight"  type="text"  class="txt num c1"/></td>
-                            <td class="td3"><span> </span><a id="lblInprice" class="lbl"></a></td>
-                            <td class="td4"><input id="txtInprice"  type="text"  class="txt num c1"/></td>
-                            <td class="td5"><span> </span><a id="lblInmount" class="lbl"></a></td>
-                            <td class="td6"><input id="txtInmount"  type="text"  class="txt num c1"/></td>
-                            <td class="td7"><span> </span><a id="lblInmoney" class="lbl"></a></td>
-                            <td class="td8"><input id="txtInmoney"  type="text"  class="txt num c1"/></td>
+                            <td class="td1"><span> </span><a id="lblAddr" class="lbl"></a></td>
+                            <td class="td2" ><input id="txtAddr"  type="text"  class="txt c1"/></td>
+                            <td class="td3"><span> </span><a id="lblBoatno" class="lbl btn"></a></td>
+                            <td class="td4" colspan='2'><input id="txtBoatno"  type="text"  class="txt c2"/><input id="txtBoat"  type="text"  class="txt c3"/></td>
+                            <td class="td6"><span> </span><a id="lblWeight" class="lbl"></a></td>
+                            <td class="td7"><input id="txtWeight"  type="text"  class="txt num c1"/></td>
+                            <td class="td8"></td>
                         </tr>
                         <tr class="tr4">
-                        	<td class="td1"></td>
-                            <td class="td2"></td>
-                            <td class="td3"><span> </span><a id="lblOutprice" class="lbl"></a></td>
-                            <td class="td4"><input id="txtOutprice"  type="text"  class="txt num c1"/></td>
-                            <td class="td5"><span> </span><a id="lblOutmount" class="lbl"></a></td>
-                            <td class="td6"><input id="txtOutmount"  type="text"  class="txt num c1"/></td>
-                            <td class="td7"><span> </span><a id="lblOutmoney" class="lbl"></a></td>
-                            <td class="td8"><input id="txtOutmoney"  type="text"  class="txt num c1"/></td> 
+                            <td class="td1"><span> </span><a id="lblInprice" class="lbl"></a></td>
+                            <td class="td2"><input id="txtInprice"  type="text"  class="txt num c1"/></td>
+                            <td class="td3"><span> </span><a id="lblInmount" class="lbl"></a></td>
+                            <td class="td4"><input id="txtInmount"  type="text"  class="txt num c1"/></td>
+                            <td class="td5"><span> </span><a id="lblInmoney" class="lbl"></a></td>
+                            <td class="td6"><input id="txtInmoney"  type="text"  class="txt num c1"/></td>
+                            <td class="td7"></td>
+                            <td class="td8"></td>
+                        </tr>
+                        <tr class="tr5">
+                            <td class="td1"><span> </span><a id="lblOutprice" class="lbl"></a></td>
+                            <td class="td2"><input id="txtOutprice"  type="text"  class="txt num c1"/></td>
+                            <td class="td3"><span> </span><a id="lblOutmount" class="lbl"></a></td>
+                            <td class="td4"><input id="txtOutmount"  type="text"  class="txt num c1"/></td>
+                            <td class="td5"><span> </span><a id="lblOutmoney" class="lbl"></a></td>
+                            <td class="td6"><input id="txtOutmoney"  type="text"  class="txt num c1"/></td>
+                            <td class="td7"></td>
+                            <td class="td8"></td>
                         </tr>
                 </table>
             </div>
