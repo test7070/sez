@@ -69,7 +69,7 @@
 			     });
 			     
 			     $('#btnOrdb').click(function () {
-	            	var t_where = "where=^^ tggno='"+$('#txtTggno').val()+"' and datea > '"+q_date()+"' and kind='"+$('#cmbKind').val()+"' ^^";
+	            	var t_where = "where=^^ tggno='"+$('#txtTggno').val()+"' and datea > '"+q_date()+"' and kind='"+$('#cmbKind').val()+"' and enda!='Y' ^^";
 	            	q_gt('ordb', t_where , 0, 0, 0, "", r_accy);
 			     });
             }
