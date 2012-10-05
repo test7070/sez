@@ -9,7 +9,7 @@
 <script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
 <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = 'ordcs', t_bbsTag = 'tbbs', t_content = " field=productno,product,size,dime,width,lengthb,mount,weight,noa,no2,price  order=odate ", afilter = [], bbsKey = ['noa', 'no2'], t_count = 0, as;
+    var q_name = 'ordcs', t_bbsTag = 'tbbs', t_content = " field=productno,product,size,dime,width,lengthb,radius,mount,weight,noa,no2,price  order=odate ", afilter = [], bbsKey = ['noa', 'no2'], t_count = 0, as;
     var t_sqlname = 'ordcs_load2'; t_postname = q_name; brwCount2 = 12;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm;
@@ -26,13 +26,15 @@
             return;
         }
         mainBrow(6, t_content, t_sqlname, t_postname);
+        //q_gt('ordc', '' , 0, 0, 0, "", r_accy);
     }
     function bbsAssign() {  /// checked 
         _bbsAssign();
     }
 
     function q_gtPost() { 
-        
+        var ordc = _q_appendData("ordc", "", true);
+        q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtWeight,txtPrice,txtTotal,txtTheory,txtMemo,txtOrdbno,txtNo3', ordc.length, ordc, 'productno,product,spec,radius,width,dime,lengthb,mount,weight,price,total,theory,memo,noa,no3', '');
     }
     function refresh() {
         _refresh();

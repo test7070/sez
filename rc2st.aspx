@@ -183,7 +183,7 @@
                 alert(q_getMsg('msgTggEmp'));
                 return;
             }
-            q_box('ordcs_b.aspx', 'ordcs;' + t_where, "95%", "650px", q_getMsg('popOrdc'));
+            q_box('ordcsst_b.aspx', 'ordcs;' + t_where, "95%", "650px", q_getMsg('popOrdc'));
         }
 
         function btnOk() {
