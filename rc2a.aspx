@@ -55,7 +55,7 @@
             bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
             q_mask(bbmMask);
             fbbm[fbbm.length] = 'txtMemo'; 
-             q_cmbParse("cmbTypea", q_getPara('vcc.typea')); 
+             q_cmbParse("cmbTypea", q_getPara('rc2.typea')); 
              q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
              
         }

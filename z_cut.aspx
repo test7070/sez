@@ -45,6 +45,12 @@
                         dbf : 'tgg',
                         index : 'noa,comp',
                         src : 'tgg_b.aspx'
+                    },{
+                        type : '2',
+                        name : 'mechno',
+                        dbf : 'mech',
+                        index : 'noa,mech',
+                        src : 'mech_b.aspx'
                     }]
                     });
                 q_popAssign();
