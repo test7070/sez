@@ -215,6 +215,14 @@
 		            t_sale += q_float('txtUnpayorg_' + j);
 		            t_pay += q_float('txtPaysale_' + j);
 		        }
+		        
+		        //bbm收款金額(total)=bbs收款金額總額(money)
+		        //bbm應收金額(sale)=bbs應收金額總額(Unpayorg)
+				//bbm本次沖帳(paysale)=bbs沖帳金額(paysale)+bbm預收沖帳(unopay)
+				//bbm未收金額(unpay)=bbm應收金額(sale)-bbm本次沖帳(paysale)
+				//bbm預收(opay)=bbm收款金額(total)-bbm本次沖帳(paysale)
+				//bbm預收餘額=應收餘額+預收-預收沖帳
+		        
 		        q_tr('txtSale', t_sale);
 		        q_tr('txtTotal', t_money);
 		        q_tr('txtPaysale', t_pay + q_float('txtUnopay'));

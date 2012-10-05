@@ -96,7 +96,7 @@
 		               		else
 		               			t_money += q_float('txtMoney_' + i);
 		               }
-
+						
 		               var t_unpay, t_pay=0;
 		               for (var i = 0; i < q_bbsCount; i++) {
 		               		if (q_float('txtUnpay_' + i) != 0) {
@@ -284,7 +284,13 @@
 		            t_sale += q_float('txtUnpayorg_' + j);
 		            t_pay += q_float('txtPaysale_' + j);
 		        }
-
+		        //bbm付款金額(total)=bbs付款金額總額(money)
+		        //bbm應付金額(sale)=bbs應付金額總額(Unpayorg)
+				//bbm本次沖帳(paysale)=bbs沖帳金額(paysale)+bbm預付沖帳(unopay)
+				//bbm未付金額(unpay)=bbm應付金額(sale)-bbm本次沖帳(paysale)
+				//bbm預付(opay)=bbm付款金額(total)-bbm本次沖帳(paysale)
+				//bbm預付餘額=應付餘額+預付-預付沖帳
+				
 		        q_tr('txtSale', t_sale);
 		        q_tr('txtTotal', t_money);
 		        q_tr('txtPaysale', t_pay + q_float('txtUnopay'));
