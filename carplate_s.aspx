@@ -9,45 +9,45 @@
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<script type="text/javascript">
-            var q_name = "carplate_s";
+			var q_name = "carplate_s";
 
-            $(document).ready(function() {
-                main();
-            });
-            /// end ready
+			$(document).ready(function() {
+				main();
+			});
+			/// end ready
 
-            function main() {
-                mainSeek();
-                q_gf('', q_name);
-            }
+			function main() {
+				mainSeek();
+				q_gf('', q_name);
+			}
 
-            function q_gfPost() {
-                q_getFormat();
-                q_langShow();
+			function q_gfPost() {
+				q_getFormat();
+				q_langShow();
 
-                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];        
+				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
 				q_mask(bbmMask);
-        		$('#txtBdate').focus();
+				$('#txtBdate').focus();
 
-            }
+			}
 
-            function q_seekStr() {
-                t_noa = $('#txtNoa').val();
-                t_carplate = $('#txtCarplate').val();
+			function q_seekStr() {
+				t_noa = $('#txtNoa').val();
+				t_carplate = $('#txtCarplate').val();
 
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("carplate", t_carplate);
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("carplate", t_carplate);
 
-                t_where = ' where=^^' + t_where + '^^ ';
-                return t_where;
-            }
+				t_where = ' where=^^' + t_where + '^^ ';
+				return t_where;
+			}
 		</script>
 		<style type="text/css">
-            .seek_tr {
-                color: white;
-                text-align: center;
-                font-weight: bold;
-                BACKGROUND-COLOR: #76a2fe
-            }
+			.seek_tr {
+				color: white;
+				text-align: center;
+				font-weight: bold;
+				background-color: #76a2fe
+			}
 		</style>
 	</head>
 	<body>
@@ -65,7 +65,7 @@
 					<input class="txt" id="txtCarplate" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
-				
+
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
 		</div>
