@@ -60,12 +60,7 @@
                 q_cmbParse("cmbTypea", q_getPara('uccc.itype'));
                 q_cmbParse("cmbKind", q_getPara('ina.kind'));
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
-               
-                $('#btnOrdc').click(function () {
-            		t_where="where=^^ tggno='"+$('#txtTggno').val()+"' and kind='"+$('#cmbKind').val()+"' and datea >'"+$('#txtDatea').val()+"' ^^";
-            		q_gt('ordc', t_where , 0, 0, 0, "", r_accy);
-		     	});
-		     	
+                
                 //變動尺寸欄位
             $('#cmbKind').change(function () {
             	size_change();
@@ -78,10 +73,16 @@
 	            	for (var j = 0; j < q_bbsCount; j++) {
 			           $('#txtSize4_'+j).attr('hidden', 'true');
 			           $('#x3_'+j).attr('hidden', 'true');
+			           //$('#txtSize1_'+j).css('width','30%');
+			         	//$('#txtSize2_'+j).css('width','30%');
+			         	//$('#txtSize3_'+j).css('width','30%');
 			         	$('#Size').css('width','222px');
 			         	q_tr('txtSize1_'+ j ,q_float('txtDime_'+j));
 			         	q_tr('txtSize2_'+ j ,q_float('txtWidth_'+j));
 			         	q_tr('txtSize3_'+ j ,q_float('txtLengthb_'+j));
+			           	//$('#txtSize1_'+j).val($('#txtDime_'+j).val());
+			         	//$('#txtSize2_'+j).val($('#txtWidth_'+j).val());
+			         	//$('#txtSize3_'+j).val($('#txtLengthb_'+j).val());
 			         	$('#txtSize4_'+j).val(0);
 			         	$('#txtRadius_'+j).val(0)
 			         }
@@ -92,11 +93,18 @@
 			         for (var j = 0; j < q_bbsCount; j++) {
 			         	$('#txtSize4_'+j).removeAttr('hidden');
 			         	$('#x3_'+j).removeAttr('hidden');
+			         	//$('#txtSize1_'+j).css('width','22%');
+			         	//$('#txtSize2_'+j).css('width','22%');
+			         	//$('#txtSize3_'+j).css('width','22%');
 			         	$('#Size').css('width','297px');
 			         	q_tr('txtSize1_'+ j ,q_float('txtRadius_'+j));
 			         	q_tr('txtSize2_'+ j ,q_float('txtWidth_'+j));
 			         	q_tr('txtSize3_'+ j ,q_float('txtDime_'+j));
 			         	q_tr('txtSize4_'+ j ,q_float('txtLengthb_'+j));
+			         	//$('#txtSize1_'+j).val($('#txtRadius_'+j).val());
+			         	//$('#txtSize2_'+j).val($('#txtWidth_'+j).val());
+			         	//$('#txtSize3_'+j).val($('#txtDime_'+j).val());
+			         	//$('#txtSize4_'+j).val($('#txtLengthb_'+j).val());
 			         }
 			     }
 		}
@@ -115,14 +123,6 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'ordc':
-            			var ordc = _q_appendData("ordc", "", true);
-            			var ordcs = _q_appendData("ordcs", "", true);
-                		if(ordc[0]!=undefined && ordcs[0]!=undefined)
-                		{
-	                		q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtWeight,txtMemo,txtOrdcno,txtNo2', ordcs.length, ordcs, 'productno,product,spec,radius,width,dime,lengthb,mount,weight,memo,noa,no2', 'txtProductno');
-                		}
-            		break;
                 	case'uccb':
                 		var as = _q_appendData("uccb", "", true);
                 		
@@ -153,10 +153,6 @@
                 				$('#txtWeight_'+bbs_id).css('background', t_background2);
                 				$('#txtMemo_'+bbs_id).attr('disabled', 'disabled');
                 				$('#txtMemo_'+bbs_id).css('background', t_background2);
-                				$('#txtOrdcno_'+bbs_id).attr('disabled', 'disabled');
-                				$('#txtOrdcno_'+bbs_id).css('background', t_background2);
-                				$('#txtNo2_'+bbs_id).attr('disabled', 'disabled');
-                				$('#txtNo2_'+bbs_id).css('background', t_background2);
                 			}
                 			if((dec(bbs_id)+1)<q_bbsCount){
                 				bbs_id=dec(bbs_id)+1;
@@ -670,7 +666,6 @@
         <td class='td1'><span> </span><a id="lblStation" class="lbl btn" > </a></td>
         <td class="td2" colspan="3"><input id="txtStationno" type="text"  class="txt c2"/>
             <input id="txtStation" type="text"  class="txt c3"/></td>
-        <td class='td6'><input type="button" id="btnOrdc" class="txt c1" style="width:80%;"></td>
         </tr>
         <tr class="tr4">
         <td class='td1'><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
@@ -756,8 +751,6 @@
                 <td ><input class="txt c1" id="txtPlace.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtSource.*" type="text" /></td>-->
                 <td ><input class="txt c1" id="txtMemo.*" type="text" />
-                		<input class="txt" id="txtOrdcno.*" type="text" style="width:74%"/>
-                		<input class="txt" id="txtNo2.*" type="text" style="width:20%"/>
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
             </tr>
         </table>
