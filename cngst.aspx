@@ -1,4 +1,4 @@
-?<%@ Page Language="C#" AutoEventWireup="true" %>
+<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -69,9 +69,9 @@
 	            	for (var j = 0; j < q_bbsCount; j++) {
 			           $('#txtSize4_'+j).attr('hidden', 'true');
 			           $('#x3_'+j).attr('hidden', 'true');
-			           $('#txtSize1_'+j).css('width','30%');
-			         	$('#txtSize2_'+j).css('width','30%');
-			         	$('#txtSize3_'+j).css('width','30%');
+			           $('#txtSize1_'+j).css('width','27%');
+			         	$('#txtSize2_'+j).css('width','27%');
+			         	$('#txtSize3_'+j).css('width','27%');
 			         	$('#Memo').css('width','20%');
 			           $('#txtSize1_'+j).val($('#txtDime_'+j).val());
 			         	$('#txtSize2_'+j).val($('#txtWidth_'+j).val());
@@ -86,9 +86,9 @@
 			         for (var j = 0; j < q_bbsCount; j++) {
 			         	$('#txtSize4_'+j).removeAttr('hidden');
 			         	$('#x3_'+j).removeAttr('hidden');
-			         	$('#txtSize1_'+j).css('width','22%');
-			         	$('#txtSize2_'+j).css('width','22%');
-			         	$('#txtSize3_'+j).css('width','22%');
+			         	$('#txtSize1_'+j).css('width','20%');
+			         	$('#txtSize2_'+j).css('width','20%');
+			         	$('#txtSize3_'+j).css('width','20%');
 			         	$('#Memo').css('width','16%');
 			         	$('#txtSize1_'+j).val($('#txtRadius_'+j).val());
 			         	$('#txtSize2_'+j).val($('#txtWidth_'+j).val());
@@ -160,7 +160,7 @@
             $('#txtProduct').focus();
         }
         function btnPrint() {
-		q_box('z_cng.aspx', '', "800px", "600px", q_getMsg("popPrint"));
+		q_box('z_cngst.aspx', '', "800px", "600px", q_getMsg("popPrint"));
         }
 
         function wrServer(key_value) {
@@ -352,6 +352,11 @@
                 width: 49%;
                 float: left;
             }
+            .txt.c7 {
+            	float:left;
+                width: 20%;
+                
+            }
             .txt.num {
                 text-align: right;
             }
@@ -456,22 +461,21 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:10%;"><a id='lblUno_st'> </a></td>
-                <td align="center"><a id='lblProductno_st'> </a></td>
-                <td align="center"><a id='lblProduct_st'> </a></td>
-                <td align="center"><a id='lblUnit_st'> </a></td>
-                <td align="center" style="width:10%;"><a id='lblSpec_st'> </a></td>
-                <td align="center"><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
-                <td align="center"><a id='lblMount_st'> </a></td>
-                <td align="center" style="width:6%;"><a id='lblWeight_st'> </a></td>
-                <td align="center"><a id='lblStoreno_st'> </a></td>
-                <td align="center"><a id='lblMemo_st'> </a></td>
+                <td align="center" style="width: 8%;"><a id='lblUno_st'> </a></td>
+                <td align="center" style="width: 6%;"><a id='lblProductno_st'> </a></td>
+                <td align="center" style="width: 8%;"><a id='lblProduct_st'> </a></td>
+                <td align="center" style="width: 4%;"><a id='lblUnit_st'> </a></td>
+                <td align="center" style="width: 6%;"><a id='lblSpec_st'> </a></td>
+                <td align="center" style="width: 20%;"><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
+                <td align="center" style="width: 9%;"><a id='lblMount_st'> </a></td>
+                <td align="center" style="width: 9%;"><a id='lblWeight_st'> </a></td>
+                <td align="center" style="width: 6%;"><a id='lblStoreno_st'> </a></td>
+                <td align="center" ><a id='lblMemo_st'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='��' style=" font-weight: bold;" /></td>
+                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
                 <td><input id="txtUno.*" type="text" style="width:75%;"/><input class="btn"  id="btnUno.*" type="button" value='...' style="width:15%;"  /></td>
-                <td ><input id="txtProductno.*" type="text" style="width:80%;" />
-                	<input class="btn"  id="btnProductno.*" type="button" value='...' style="width:15%;"  /></td>
+                <td ><input id="txtProductno.*" type="text" style="width:70%;" /><input class="btn"  id="btnProductno.*" type="button" value='.' style="width:10%;"  /></td>
                 <td ><input class="txt c1" id="txtProduct.*" type="text"/></td>
                 <td><input class="txt c1" id="txtUnit.*" type="text" /></td>
                 <td><input class="txt c1" id="txtSpec.*" type="text"/></td>
