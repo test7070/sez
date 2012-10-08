@@ -18,8 +18,8 @@
 
 			var q_name = "trans";
 			var q_readonly = ['txtNoa', 'txtTotal', 'txtTotal2', 'txtTrdno', 'txtTreno', 'txtWorkerno', 'txtWorker'];
-			var bbmNum = new Array(['txtUnpack', 10, 0], ['txtInmount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3], ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['txtMiles', 10, 0], ['txtBmiles', 10,0], ['txtEmiles', 10,0], ['txtGross', 10, 3], ['txtWeight', 10, 3], ['txtOutmount', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 3], ['txtPton2', 10, 3], ['txtOverh', 10, 0], ['txtOverw', 10, 0], ['txtTolls', 10, 0], ['txtReserve', 10, 0]);
-			var bbmMask = new Array(['txtTrandate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99'], ['txtCldate', '999/99/99'], ['txtLtime', '99:99'], ['txtStime', '99:99'], ['txtDtime', '99:99'],['txtMon','999/99']);
+			var bbmNum = new Array(['txtUnpack', 10, 0], ['txtInmount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3], ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['txtMiles', 10, 0], ['txtBmiles', 10, 0], ['txtEmiles', 10, 0], ['txtGross', 10, 3], ['txtWeight', 10, 3], ['txtOutmount', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 3], ['txtPton2', 10, 3], ['txtOverh', 10, 0], ['txtOverw', 10, 0], ['txtTolls', 10, 0], ['txtReserve', 10, 0]);
+			var bbmMask = new Array(['txtTrandate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99'], ['txtCldate', '999/99/99'], ['txtLtime', '99:99'], ['txtStime', '99:99'], ['txtDtime', '99:99'], ['txtMon', '999/99']);
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
@@ -27,8 +27,7 @@
 			brwKey = 'noa';
 			//  q_alias = 'a';
 			q_desc = 1;
-			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'],
-			 ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr,productno,product,custprice,driverprice,driverprice2,commission,commission2', 'txtStraddrno,txtStraddr,txtUccno,txtProduct,txtPrice,txtPrice2,txtPrice3,txtCommission,txtCommission', 'addr_b.aspx'], ['txtAddno3', 'lblAdd3', 'addr', 'noa,addr', 'txtAddno3,txtAdd3', 'addr_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtCaseuseno', 'lblCaseuse', 'cust', 'noa,comp', 'txtCaseuseno,txtCaseuse', 'cust_b.aspx']);
+			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr,productno,product,custprice,driverprice,driverprice2,commission,commission2', 'txtStraddrno,txtStraddr,txtUccno,txtProduct,txtPrice,txtPrice2,txtPrice3,txtCommission,txtCommission', 'addr_b.aspx'], ['txtAddno3', 'lblAdd3', 'addr', 'noa,addr', 'txtAddno3,txtAdd3', 'addr_b.aspx'], ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtCaseuseno', 'lblCaseuse', 'cust', 'noa,comp', 'txtCaseuseno,txtCaseuse', 'cust_b.aspx']);
 
 			var t_height = 25;
 			$(document).ready(function() {
@@ -60,11 +59,14 @@
 				});
 				$('#btnUnpresent').click(function() {
 					q_pop('', "carpresent.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy + '_' + r_cno, '', '', '', "92%", "1054px", q_getMsg('popCarpresent'), true);
-					
+
 				});
 			});
 
-			function currentData() {}
+			function currentData() {
+			}
+
+
 			currentData.prototype = {
 				data : [],
 				/*排除的欄位,新增時不複製*/
@@ -118,7 +120,7 @@
 						}
 					}
 				},
-				display : function(){
+				display : function() {
 					if (curData.isOutside()) {
 						$("#lblPrice2").hide();
 						$("#txtPrice2").hide();
@@ -136,7 +138,7 @@
 						$("#lblCommission2").hide();
 						$("#txtCommission2").hide();
 						$("#lblCommission").show();
-						$("#txtCommission").show();	
+						$("#txtCommission").show();
 					}
 				}
 			};
@@ -277,6 +279,7 @@
 				if (bmiles != 0 && emiles != 0)
 					$('#txtMiles').val(emiles - bmiles);
 			}
+
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
@@ -340,12 +343,13 @@
 				curData.copy();
 				_btnIns();
 				curData.paste();
-				curData.chgDiscount();//新增時,折扣為原先預設值
+				curData.chgDiscount();
+				//新增時,折扣為原先預設值
 				$('#txtNoa').val('AUTO');
 				$('#txtNoq').val('001');
-				if ($('#txtDatea').val().length == 0){
+				if ($('#txtDatea').val().length == 0) {
 					$('#txtDatea').val(q_date());
-					$('#txtMon').val(q_date().substring(0,6));
+					$('#txtMon').val(q_date().substring(0, 6));
 				}
 				sum();
 				$('#dview').css('width', '0%');
@@ -365,7 +369,8 @@
 				$('#dbbm').css('width', '100%');
 
 				$('#txtDatea').focus();
-				curData.copy();//remember
+				curData.copy();
+				//remember
 			}
 
 			function btnPrint() {
@@ -384,10 +389,10 @@
 				}
 				$('#btnOk').attr('disabled', 'disabled');
 				$('#txtWorker').val(r_name);
-				if (curData.isOutside()){
+				if (curData.isOutside()) {
 					$("#txtPrice2").val(0);
 					$("#txtCommission").val(0);
-				}else{
+				} else {
 					$("#txtPrice3").val(0);
 					$("#txtCommission2").val(0);
 				}
@@ -444,7 +449,7 @@
 					$('#txtDiscount').attr('readonly', 'readonly');
 					$('#cmbCalctype').attr('disabled', 'disabled');
 					$('#txtTolls').attr('readonly', 'readonly');
-					
+
 					$('#txtDriverno').attr('readonly', 'readonly');
 					$('#txtDriver').attr('readonly', 'readonly');
 					$('#txtCarno').attr('readonly', 'readonly');
@@ -540,25 +545,29 @@
 				$('#dview').css('display', 'none');
 				$('#dbbm').css('width', '100%');
 			}
+
 			function q_popFunc(id, key_value) {
 			}
+
 			function q_popPost(id) {
 				switch(id) {
 					case 'txtStraddrno':
-						if(q_cur==2 && $.trim($('#txtTrdno').val()).length>0){
+
+						if (q_cur == 2 && $.trim($('#txtTrdno').val()).length > 0) {
 							for (var i in curData.data) {
-								if(curData.data[i].field=='txtPrice'){
+								if (curData.data[i].field == 'txtPrice') {
 									$('#' + curData.data[i].field).val(curData.data[i].value);
 								}
 							}
 						}
-						if(q_cur==2 && $.trim($('#txtTreno').val()).length>0){
+						if (q_cur == 2 && $.trim($('#txtTreno').val()).length > 0) {
 							for (var i in curData.data) {
-								if(curData.data[i].field=='txtPrice2' || curData.data[i].field=='txtPrice3'){
+								if (curData.data[i].field == 'txtPrice2' || curData.data[i].field == 'txtPrice3') {
 									$('#' + curData.data[i].field).val(curData.data[i].value);
 								}
 							}
 						}
+				
 						break;
 				}
 			}
@@ -777,7 +786,7 @@
 						<td colspan="2">
 						<input id="txtMon" type="text"  class="txt c1"/>
 						</td>
-							
+
 					</tr>
 					<tr>
 						<td class="td9" colspan="2"><span> </span><a id="lblCarno" class="lbl btn"> </a></td>
@@ -864,9 +873,13 @@
 						<input id="txtPton2" type="text"  class="txt num c1"/>
 						</td>
 						<td colspan="2"><span> </span><a id="lblTolls" class="lbl"> </a></td>
-						<td colspan="2"><input id="txtTolls" type="text"  class="txt num c1"/></td>
+						<td colspan="2">
+						<input id="txtTolls" type="text"  class="txt num c1"/>
+						</td>
 						<td colspan="2"><span> </span><a id="lblReserve" class="lbl"> </a></td>
-						<td colspan="2"><input id="txtReserve" type="text"  class="txt num c1"/></td>
+						<td colspan="2">
+						<input id="txtReserve" type="text"  class="txt num c1"/>
+						</td>
 					</tr>
 					<tr>
 						<td class="td9" colspan="2"><span> </span><a id="lblGross" class="lbl"> </a></td>

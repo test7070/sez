@@ -17,7 +17,7 @@
         q_tables = 's';
         var q_name = "chgcashacc";
         var q_readonly = ['txtNoa','txtPlusmoney','txtMinusmoney'];
-        var q_readonlys = [];
+        var q_readonlys = ['txtChgcashno','txtDatea','combDc','txtMoney','txtChgitemno','txtChgitem','txtAcc1','txtAcc2','txtCustno','txtComp','txtPartno','txtPart','txtMemo'];
         var bbmNum = [['txtPlusmoney', 10, 0, 1],['txtMinusmoney', 10, 0, 1]];  
         var bbsNum = [['txtMoney', 10, 0, 1]];
         var bbmMask = [];
@@ -48,11 +48,17 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
+            if (r_rank < 7)
+		            q_readonly[q_readonly.length] = 'txtAccno';
             
             $("#btnChgcashacc").click(function(e) {
-					t_where = "sssno='"+r_userno+"'";
+					t_where = "sssno='"+r_userno+"' And (chgaccno='' OR chgaccno is null)";
 					q_box("chgcash_acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where , 'chgcash_acc', "95%", "650px", q_getMsg('popChgcash_acc'));
 			});
+			$('#lblAccno').click(function () {
+		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "97%", "1054px", q_getMsg('btnAccc'), true);
+		     });
+			
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -192,8 +198,10 @@
         
         function q_stPost() {
             if (q_cur == 1 || q_cur == 2) {
-                abbm[q_recno]['noa'] = xmlString;   /// 存檔後， server 傳回 xmlString 
-                $('#txtNoa').val(xmlString);   /// 顯示 server 端，產生之傳票號碼
+                //abbm[q_recno]['noa'] = xmlString;   /// 存檔後， server 傳回 xmlString 
+                //$('#txtNoa').val(xmlString);   /// 顯示 server 端，產生之傳票號碼
+                abbm[q_recno]['accno'] = xmlString;
+		        $('#txtAccno').val(xmlString);
             }
         }
 
@@ -213,18 +221,9 @@
             _readonly(t_para, empty);
             if (t_para) {
 		            $('#btnChgcashacc').attr('disabled', 'disabled');
-		            for (var j = 0; j < q_bbsCount; j++) {
-			            $('#combDc_'+j).attr('disabled', 'disabled');
-	        			$('#combDc_'+j).css('background', t_background2);
-        			}	   
-		                   
 		        }
 		        else {
 		        	$('#btnChgcashacc').removeAttr('disabled');
-		        	for (var j = 0; j < q_bbsCount; j++) {
-		        		$('#combDc_'+j).removeAttr('disabled');
-            			$('#combDc_'+j).css('background', t_background);
-            		}	 
 		        }
         }
 
@@ -428,7 +427,7 @@
             <td class="td2"><input id="txtPlusmoney" type="text" class="txt num c1"/></td>            
             <td class='td3'><span> </span><a id="lblMinusmoney" class="lbl" ></a></td>
             <td class="td4"><input id="txtMinusmoney"  type="text" class="txt num c1"/></td>
-            <td class='td5'><span> </span><a id="lblAccno" class="lbl"></a></td>
+            <td class='td5'><span> </span><a id="lblAccno" class="lbl btn"></a></td>
             <td class="td6"><input id="txtAccno"  type="text" class="txt c1" /></td>
         </tr>
         <tr>
@@ -458,7 +457,7 @@
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input class="txt c1" id="txtChgcashno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtDatea.*" type="text" /></td>
-                <td ><input class="txt"  id="txtDc.*" type="text" /><select id="combDc.*" class="txt c1" style="font-size: medium;"></select></td>
+                <td ><input class="txt"  id="txtDc.*" type="hidden" /><select id="combDc.*" class="txt c1" style="font-size: medium;"></select></td>
                 <td ><input class="txt num c1" id="txtMoney.*" type="text" /></td>
                 <td ><input class="txt c2" id="txtChgitemno.*" type="text" /><input class="txt c3" id="txtChgitem.*" type="text" /></td>
                 <td ><input class="txt c2" id="txtAcc1.*" type="text" /><input class="txt c3" id="txtAcc2.*" type="text" /></td>

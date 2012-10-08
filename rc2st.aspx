@@ -18,7 +18,7 @@
         var q_name = "rc2";
         var decbbs = [ 'money','total', 'weight', 'mount', 'price', 'sprice', 'dime', 'width', 'lengthb', 'weight2'];
         var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney','totalus'];
-        var q_readonly = []; 
+        var q_readonly = ['txtNoa']; 
         var q_readonlys= [];
         var bbmNum = [['txtTotalus', 10, 4, 1],['txtPrice', 10, 3, 1],['txtTranmoney', 10, 0, 1],['txtMoney', 10, 0, 1],['txtTotal', 10, 0, 1],['txtWeight', 10, 0, 1]];  // 允許 key 小數
         var bbsNum = [['txtSize1', 10, 3, 1],['txtSize2', 10, 2, 1],['txtSize3', 10, 3, 1],['txtSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtWeight', 10, 1, 1],['txtPrice', 10, 2, 1],['txtTotal', 10, 0, 1],['txtGweight', 10, 1, 1]];
@@ -52,12 +52,12 @@
             bbmMask = [['txtDatea', r_picd ]];
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('rc2.typea'));   // 需在 main_form() 後執行，才會載入 系統參數
-            q_cmbParse("cmbStype", q_getPara('rc2.stype'));   
+            //q_cmbParse("cmbStype", q_getPara('rc2.stype'));   
             q_cmbParse("cmbCoin", q_getPara('sys.coin'));      /// q_cmbParse 會加入 fbbm
             q_cmbParse("cmbPay", q_getPara('rc2.pay'));  // comb 未連結資料庫
             q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-            q_cmbParse("cmbKind", q_getPara('get.kind')); 
+            q_cmbParse("cmbKind", q_getPara('rc2st.kind')); 
              $('#lblAccc').click(function () {
 		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('btnAccc'), true);
 		        });
@@ -109,12 +109,12 @@
                         if (!b_ret || b_ret.length == 0)
                             return;
                         var i, j = 0;
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2,txtPrice', b_ret.length, b_ret
-                                                           , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2,price'
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtRadius,txtOrdeno,txtNo2,txtPrice,txtMount,txtWeight,txtTotal,txtMemo', b_ret.length, b_ret
+                                                           , 'productno,product,spec,size,dime,width,lengthb,radius,noa,no2,price,mount,weight,total,memo'
                                                            , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
-
-                        for (i = 0; i < ret.length; i++) {
+						size_change();
+                        /*for (i = 0; i < ret.length; i++) {
                             k = ret[i];  ///ret[i]  儲存 tbbs 指標
                             if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
                                 $('#txtMount_' + k).val(b_ret[i]['notv']);
@@ -125,7 +125,7 @@
                                 $('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv'], b_ret[i]['weight']));
                             }
 
-                        }  /// for i
+                        }*/  /// for i
                     }
                     break;
                 
@@ -174,16 +174,28 @@
         
         function lblOrdc() {
             var t_tggno = trim($('#txtTggno').val());
+            var t_ordeno = trim($('#txtOrdeno').val());
             var t_where='';
+            var where1='';
             if (t_tggno.length > 0) {
-                t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");  ////  sql AND 語法，請用 &&  
+            	if($('#cmbKind').find("option:selected").text().indexOf('板')>-1){
+            		 if (t_ordeno.length > 0) 
+            			t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "")+" && radius=0";  ////  sql AND 語法，請用 &&
+            		else
+                		t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+" && radius=0";  ////  sql AND 語法，請用 &&
+                }else{
+                	if (t_ordeno.length > 0) 
+                		t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "")+" && radius>0";  ////  sql AND 語法，請用 &&
+                	else
+                		t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+" && radius>0";  ////  sql AND 語法，請用 &&
+                }
                 t_where = t_where;
             }
             else {
                 alert(q_getMsg('msgTggEmp'));
                 return;
             }
-            q_box('ordcsst_b.aspx', 'ordcs;' + t_where, "95%", "650px", q_getMsg('popOrdc'));
+            q_box('ordcsst_b.aspx', 'ordcs;' + t_where, "95%", "650px", q_getMsg('popOrdcs'));
         }
 
         function btnOk() {
@@ -226,7 +238,7 @@
                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
                     q_bodyId($(this).attr('id'));
                     b_seq = t_IdSeq;
-                    pop('ucc', '_'+t_IdSeq);
+                    pop('ucc', '_'+b_seq);
                  });
                  $('#txtProductno_' + j).change(function () {
                      t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -239,7 +251,7 @@
                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
                     q_bodyId($(this).attr('id'));
                     b_seq = t_IdSeq;
-                    pop('store', '_'+t_IdSeq);
+                    pop('store', '_'+b_seq);
                  });
                  $('#txtStoreno_' + j).change(function () {
                      t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -254,7 +266,7 @@
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
 		                     
-		                    if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+		                    if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
 		            		{	
 		            			q_tr('txtDime_'+b_seq ,q_float('txtSize1_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#txtSize1_' + b_seq).val());
 		            		}else{
@@ -269,7 +281,7 @@
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
 		                     
-		                    if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+		                    if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
 		            		{	
 		            			q_tr('txtWidth_'+b_seq ,q_float('txtSize2_'+b_seq));//寬度$('#txtWidth_'+b_seq).val($('#txtSize2_' + b_seq).val());	
 		            		}else{
@@ -284,7 +296,7 @@
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
 					         	
-		                     if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+		                     if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
 		            		{	
 		            			q_tr('txtLengthb_'+b_seq ,q_float('txtSize3_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#txtSize3_' + b_seq).val());	
 		            		}else{
@@ -299,7 +311,7 @@
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
 		                     
-		                     if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+		                     if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
 		            		{	
 		            			q_tr('txtRadius_'+b_seq ,q_float('txtSize4_'+b_seq));//短徑為0 $('#txtRadius_'+b_seq).val($('#txtSize4_' + b_seq).val());	
 		            		}else{
@@ -463,7 +475,7 @@
         }
         
         function size_change () {
-		  if( $('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+		  if($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
             	{
             		$('#lblSize_help').text("厚度x寬度x長度");
 	            	for (var j = 0; j < q_bbsCount; j++) {
@@ -698,11 +710,16 @@
         <div class='dbbm' style="width: 68%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 			<tr class="tr1">
-                <td class="td1"><span> </span><a id='lblTgg' class="lbl btn"></td>
-                <td class="td2" colspan='2'><input id="txtTggno" type="text" class="txt c2" /><input id="txtTgg"  type="text" class="txt c3"/></td>
-                <td class="td4"><span> </span><a id='lblPay' class="lbl"></a></td>
-                <td class="td5" colspan='2'><input id="txtPay" type="hidden"/> <select id="cmbPay" class="txt c3"></select></td> 
-                <td class="td7"><span> </span><a id='lblOrdc' class="lbl btn"></td>
+               <td class='td1' ><span> </span><a id='lblType' class="lbl"></a></td>
+               <td class='td2' ><input id="txtType" type="text"  style='width:0%;'/>
+               							<select id="cmbTypea" class="txt c3"></select></td>
+               <td class="td3" ><span> </span><a id='lblStype' class="lbl"></a></td>
+               <!--<td class="td4"><select id="cmbStype" class="txt c3"></select></td>
+               <td class='td5'><span> </span><a id="lblKind" class="lbl"> </a></td>-->
+            	<td class="td4"><select id="cmbKind" class="txt c1"> </select></td>
+               <td class="td5" ><span> </span><a id='lblNoa' class="lbl"></a></td>
+               <td class="td6" ><input id="txtNoa" type="text"class="txt c1"/></td> 
+               <td class="td7"><span> </span><a id='lblOrdc' class="lbl btn"></td>
                 <td class="td8"><input id="txtOrdeno"  type="text"  class="txt c1"/></td> 
             </tr>
             <tr class="tr2">
@@ -714,15 +731,10 @@
                 <td class="td8"><input id="txtInvono"  type="text" class="txt c1"/></td> 
             </tr>
 			<tr class="tr3">
-               <td class='td1' ><span> </span><a id='lblType' class="lbl"></a></td>
-               <td class='td2' ><input id="txtType" type="text"  style='width:0%;'/>
-               							<select id="cmbTypea" class="txt c3"></select></td>
-               <td class="td3" ><span> </span><a id='lblStype' class="lbl"></a></td>
-               <td class="td4"><select id="cmbStype" class="txt c3"></select></td>
-               <td class='td5'><span> </span><a id="lblKind" class="lbl"> </a></td>
-            	<td class="td6"><select id="cmbKind" class="txt c1"> </select></td>
-               <td class="td7" ><span> </span><a id='lblNoa' class="lbl"></a></td>
-               <td class="td8" ><input id="txtNoa" type="text"class="txt c1"/></td> 
+                <td class="td1"><span> </span><a id='lblTgg' class="lbl btn"></td>
+                <td class="td2" colspan='2'><input id="txtTggno" type="text" class="txt c2" /><input id="txtTgg"  type="text" class="txt c3"/></td>
+                <td class="td4"><span> </span><a id='lblPay' class="lbl"></a></td>
+                <td class="td5" colspan='2'><input id="txtPay" type="hidden"/> <select id="cmbPay" class="txt c3"></select></td> 
             </tr>
             <tr class="tr4">
                 <td class="td1"><span> </span><a id='lblTel' class="lbl"></a></td>
@@ -753,7 +765,7 @@
                 <td class="td2" colspan='2'><input id="txtMoney" type="text" class="txt num c1" /></td> 
                 <td class="td4" ><span> </span><a id='lblTax' class="lbl"></a></td>
                 <td class="td5"><input id="txtTax" type="text" class="txt num c1" /></td>
-                <td class="td6"><select id="cmbTaxtype" class="txt c1"></select></td>
+                <td class="td6"><select id="cmbTaxtype" class="txt c1" onchange="calTax()"></select></td>
                 <td class="td7"><span> </span><a id='lblTotal' class="lbl"></a></td>
                 <td class="td8"><input id="txtTotal" type="text" class="txt num c1" />
                 </td> 

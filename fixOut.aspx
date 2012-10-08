@@ -32,7 +32,8 @@
             aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
         					['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
         					['txtCarplateno', 'lblCarplateno', 'carplate', 'noa,carplate', 'txtCarplateno', 'carplate_b.aspx'],
-        					['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,brand,unit', 'txtProductno_,txtProduct_,txtBrand_,txtUnit_', 'fixucc_b.aspx']);
+        					['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,brand,unit', 'txtProductno_,txtProduct_,txtBrand_,txtUnit_', 'fixucc_b.aspx'],
+        					['txtTireno_', 'btnTirestk_', 'tirestk', 'noa,productno,product,brandno,brand,price', 'txtTireno_,txtProductno_,txtProduct_,txtBrandno_,txtBrand_,txtPrice_', 'tirestk_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -98,7 +99,15 @@
                     alert(t_err);
                     return;
                 }
-
+				for (var i = 0; i < q_bbsCount; i++) {
+                	for (var j = 0; j < q_bbsCount; j++) {
+                		if(i!=j&&$('#txtTireno_' + i).val()==$('#txtTireno_' + j).val()&&$('#txtTireno_' + i).val()!=''&&$('#txtTireno_' + j).val()){
+                			alert('胎號重複，請修改');
+                    		return;
+                		}
+                	}
+                }
+				
                 $('#txtWorker').val(r_name)
                 sum();
 
@@ -119,10 +128,33 @@
 
             function combPay_chg() {
             }
-
+			
+			function q_popPost(s1) {
+		    	switch (s1) {
+		    		case 'txtTireno_':
+		    			q_tr('txtMount_'+ b_seq,1);
+		                q_tr('txtMoney_'+ b_seq,q_float('txtPrice_' + b_seq)*1);
+		                break;
+		    	}
+		    }
+			
+			
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
 		            if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+		            	$('#txtTireno_' + i).change(function (e) {
+				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+				                q_bodyId($(this).attr('id'));
+				                b_seq = t_IdSeq;
+				                for (var j = 0; j < q_bbsCount; j++) {
+                					if($('#txtTireno_' + b_seq).val()==$('#txtTireno_' + j).val()&&!emp($('#txtTireno_' + j).val())&&b_seq!=j){
+                						alert('胎號重複!!');
+                						$('#txtTireno_' + b_seq).val('');
+                					}
+                				}
+				                
+				           	});
+		            	
 		                $('#txtMount_' + i).change(function (e) {
 		                	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                     q_bodyId($(this).attr('id'));
@@ -486,7 +518,7 @@
 					<td align="center" style="width: 20%;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width: 12%;"><a id='lblBrand_s'> </a></td>
 					<td align="center" style="width: 3%;"><a id='lblUnit_s'> </a></td>
-					<td align="center" class="td1"><a id='lblMount_s'> </a></td>
+					<td align="center" class="td1" style="width: 5%;"><a id='lblMount_s'> </a></td>
 					<td align="center" class="td1"><a id='lblPrice_s'> </a></td>
 					<td align="center" class="td1"><a id='lblMoney_s'> </a></td>
 					<td align="center" class="td1"><a id='lblTireno_s'> </a></td>
@@ -523,7 +555,7 @@
 					<input class="txt num c1" id="txtStkmount.*" type="text" />
 					</td>
 					<td >
-					<input class="txt c1" id="txtTireno.*" type="text" />
+					<input class="txt" id="txtTireno.*" type="text" style="width:80%" /><input id="btnTirestk.*" type="button" value=".." style="width: 15%;font-size: medium;"/>
 					</td>
 					<td >
 					<input class="txt c1" id="txtMemo.*" type="text" />

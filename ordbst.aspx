@@ -121,7 +121,7 @@
 				            	q_bodyId($(this).attr('id'));
 				            	b_seq = t_IdSeq;
 				                     
-				            	if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+				            	if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
 				            	{	
 				            		q_tr('txtDime_'+b_seq ,q_float('txtSize1_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#txtSize1_' + b_seq).val());
 				            	}else{
@@ -136,7 +136,7 @@
 				                q_bodyId($(this).attr('id'));
 				                b_seq = t_IdSeq;
 				                     
-				                if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+				                if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
 				            	{	
 				            		q_tr('txtWidth_'+b_seq ,q_float('txtSize2_'+b_seq));//寬度$('#txtWidth_'+b_seq).val($('#txtSize2_' + b_seq).val());	
 				            	}else{
@@ -151,7 +151,7 @@
 				          		q_bodyId($(this).attr('id'));
 				           		b_seq = t_IdSeq;
 							         	
-				                if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+				                if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
 				            	{	
 				            		q_tr('txtLengthb_'+b_seq ,q_float('txtSize3_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#txtSize3_' + b_seq).val());	
 				            	}else{
@@ -166,7 +166,7 @@
 				                q_bodyId($(this).attr('id'));
 				                b_seq = t_IdSeq;
 				                     
-				                if ($('#cmbKind').val()=='1' || $('#cmbKind').val()=='4')
+				                if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
 				            	{	
 				            		q_tr('txtRadius_'+b_seq ,q_float('txtSize4_'+b_seq));//短徑為0 $('#txtRadius_'+b_seq).val($('#txtSize4_' + b_seq).val());	
 				            	}else{
@@ -182,14 +182,21 @@
 				                b_seq = t_IdSeq;
 				                var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
 								q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
-								q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq));
+								q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq)*q_float('txtWeight_'+b_seq));
 								sum();
 				            });
 				            $('#txtPrice_' + j).change(function () {
 				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 				                q_bodyId($(this).attr('id'));
 				                b_seq = t_IdSeq;
-				                q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq));
+				                q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq)*q_float('txtWeight_'+b_seq));
+				                sum();
+				            });
+				            $('#txtWeight_' + j).change(function () {
+				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+				                q_bodyId($(this).attr('id'));
+				                b_seq = t_IdSeq;
+				                q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq)*q_float('txtWeight_'+b_seq));
 				                sum();
 				            });
             		  }
