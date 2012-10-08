@@ -17,7 +17,7 @@
         q_tables = 's';
         var q_name = "chgcashacc";
         var q_readonly = ['txtNoa','txtPlusmoney','txtMinusmoney'];
-        var q_readonlys = [];
+        var q_readonlys = ['txtChgcashno','txtDatea','combDc','txtMoney','txtChgitemno','txtChgitem','txtAcc1','txtAcc2','txtCustno','txtComp','txtPartno','txtPart','txtMemo'];
         var bbmNum = [['txtPlusmoney', 10, 0, 1],['txtMinusmoney', 10, 0, 1]];  
         var bbsNum = [['txtMoney', 10, 0, 1]];
         var bbmMask = [];
@@ -50,7 +50,7 @@
             q_mask(bbmMask);
             
             $("#btnChgcashacc").click(function(e) {
-					t_where = "sssno='"+r_userno+"'";
+					t_where = "sssno='"+r_userno+"' And (chgaccno='' OR chgaccno is null)";
 					q_box("chgcash_acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where , 'chgcash_acc', "95%", "650px", q_getMsg('popChgcash_acc'));
 			});
         }
@@ -213,18 +213,9 @@
             _readonly(t_para, empty);
             if (t_para) {
 		            $('#btnChgcashacc').attr('disabled', 'disabled');
-		            for (var j = 0; j < q_bbsCount; j++) {
-			            $('#combDc_'+j).attr('disabled', 'disabled');
-	        			$('#combDc_'+j).css('background', t_background2);
-        			}	   
-		                   
 		        }
 		        else {
 		        	$('#btnChgcashacc').removeAttr('disabled');
-		        	for (var j = 0; j < q_bbsCount; j++) {
-		        		$('#combDc_'+j).removeAttr('disabled');
-            			$('#combDc_'+j).css('background', t_background);
-            		}	 
 		        }
         }
 
@@ -458,7 +449,7 @@
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input class="txt c1" id="txtChgcashno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtDatea.*" type="text" /></td>
-                <td ><input class="txt"  id="txtDc.*" type="text" /><select id="combDc.*" class="txt c1" style="font-size: medium;"></select></td>
+                <td ><input class="txt"  id="txtDc.*" type="hidden" /><select id="combDc.*" class="txt c1" style="font-size: medium;"></select></td>
                 <td ><input class="txt num c1" id="txtMoney.*" type="text" /></td>
                 <td ><input class="txt c2" id="txtChgitemno.*" type="text" /><input class="txt c3" id="txtChgitem.*" type="text" /></td>
                 <td ><input class="txt c2" id="txtAcc1.*" type="text" /><input class="txt c3" id="txtAcc2.*" type="text" /></td>

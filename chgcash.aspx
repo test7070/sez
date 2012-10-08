@@ -16,7 +16,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="chgcash";
-        var q_readonly = ['txtAcc2','txtChgitem','txtPart','txtOrg','txtNamea','txtComp'];
+        var q_readonly = ['txtAcc2','txtChgitem','txtPart','txtOrg','txtNamea','txtComp','txtChgaccno'];
         var bbmNum = [['txtMoney',12 , , 1],['txtOrg',12 , , 1]];  // master 允許 key 小數  [物件,整數位數,小數位數, comma Display]
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -463,8 +463,8 @@
                         <tr class="tr1">
                             <td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
                             <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-                            <td class="td3"></td>
-                            <td class="td4"></td>
+                            <td class="td3"><span> </span><a id="lblChgaccno" class="lbl"></a></td>
+                            <td class="td4"><input id="txtChgaccno"  type="text"  class="txt c1"/></td>
                             <td class="td5"></td>
                             <td class="td6"></td>
                             <td class="td7"></td>
