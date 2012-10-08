@@ -19,7 +19,7 @@
 			var q_name = "etc";
 			var q_readonly = ['txtNoa', 'txtWorker', 'txtCurmoney'];
 			var bbmNum = new Array(['txtMoney', 10, 0], ['txtCurmoney', 10, 2]);
-			var bbmMask = [['txtDatea', '999/99/99'], ['txtMon', '999/99']];
+			var bbmMask = [['txtDatea', '999/99/99'], ['txtMon', '999/99'],['txtTimea','99:99:99']];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
@@ -449,10 +449,11 @@
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:20%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:20%"><a id='vewCarno'> </a></td>
-						<td align="center" style="width:20%"><a id='vewDriver'> </a></td>
-						<td align="center" style="width:15%"><a id='vewStation'> </a></td>
+						<td align="center" style="width:15%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:15%"><a id='vewTimea'> </a></td>
+						<td align="center" style="width:10%"><a id='vewCarno'> </a></td>
+						<td align="center" style="width:15%"><a id='vewDriver'> </a></td>
+						<td align="center" style="width:10%"><a id='vewStation'> </a></td>
 						<td align="center" style="width:10%"><a id='vewArrow'> </a></td>
 						<td align="center" style="width:10%"><a id='vewTypea'> </a></td>
 					</tr>
@@ -461,12 +462,13 @@
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
 
-						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='carno'>~carno</td>
-						<td align="center" id='driver'>~driver</td>
-						<td align="center" id='station'>~station</td>
-						<td align="center" id='arrow'>~arrow</td>
-						<td align="center" id='typea'>~typea</td>
+						<td id='datea' style="text-align: center;">~datea</td>
+						<td id='timea' style="text-align: center;">~timea</td>
+						<td id='carno' style="text-align: left;">~carno</td>
+						<td id='driver' style="text-align: center;">~driver</td>
+						<td id='station' style="text-align: center;">~station</td>
+						<td id='arrow' style="text-align: center;">~arrow</td>
+						<td id='typea' style="text-align: center;">~typea</td>
 					</tr>
 				</table>
 			</div>
@@ -486,8 +488,8 @@
 						<td class="td2">
 						<input id="txtDatea"  type="text"  class="txt c1"/>
 						</td>
-						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
-						<td><input id="txtMon"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id='lblTimea' class="lbl"> </a></td>
+						<td><input id="txtTimea"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCno' class="lbl btn"> </a></td>
@@ -523,6 +525,8 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblTypea' class="lbl"> </a></td>
 						<td class="td2"><select id="cmbTypea" class="txt c1"></select></td>
+						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
+						<td><input id="txtMon"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
