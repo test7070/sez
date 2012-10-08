@@ -26,21 +26,189 @@
             return;
         }
         mainBrow(6, t_content, t_sqlname, t_postname);
-        //q_gt('ordc', '' , 0, 0, 0, "", r_accy);
+        /*var t_where='';
+        if (location.href.indexOf('?') > -1)   // debug
+        {
+            t_where=location.href.substr(location.href.indexOf('where'));
+            t_where="^^"+t_where.substr(0,t_where.indexOf(';'));
+        }
+        q_gt('ordc', t_where , 0, 0, 0, "", r_accy);*/
     }
     function bbsAssign() {  /// checked 
         _bbsAssign();
     }
 
     function q_gtPost() { 
+    	/*for (var j = 0; j < q_bbsCount; j++) {
+    		btnMinus('btnMinus_'+j);
+    	}
         var ordc = _q_appendData("ordc", "", true);
-        q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtWeight,txtPrice,txtTotal,txtTheory,txtMemo,txtOrdbno,txtNo3', ordc.length, ordc, 'productno,product,spec,radius,width,dime,lengthb,mount,weight,price,total,theory,memo,noa,no3', '');
+        q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtWeight,txtPrice,txtTotal,txtTheory,txtMemo,txtOrdbno,txtNo3', ordc.length, ordc, 'productno,product,spec,radius,width,dime,lengthb,mount,weight,price,total,theory,memo,noa,no3', '');*/
     }
     function refresh() {
         _refresh();
+        size_change();
     }
+    function size_change () {
+		  if($('#txtRadius_0').val()=='0')	//根據第一筆資料判斷是鋼捲還是鋼管，鋼捲沒有Radius
+            	{
+            		$('#lblSize_help').text("厚度x寬度x長度");
+	            	for (var j = 0; j < q_bbsCount; j++) {
+			           $('#txtSize4_'+j).attr('hidden', 'true');
+			           $('#x3_'+j).attr('hidden', 'true');
+			         	$('#Size').css('width','222px');
+			         	q_tr('txtSize1_'+ j ,q_float('txtDime_'+j));
+			         	q_tr('txtSize2_'+ j ,q_float('txtWidth_'+j));
+			         	q_tr('txtSize3_'+ j ,q_float('txtLengthb_'+j));
+			         	$('#txtSize4_'+j).val(0);
+			         	$('#txtRadius_'+j).val(0)
+			         }
+			     }
+		         else
+		         {
+		         	$('#lblSize_help').text("短徑x長徑x厚度x長度");
+			         for (var j = 0; j < q_bbsCount; j++) {
+			         	$('#txtSize4_'+j).removeAttr('hidden');
+			         	$('#x3_'+j).removeAttr('hidden');
+			         	$('#Size').css('width','297px');
+			         	q_tr('txtSize1_'+ j ,q_float('txtRadius_'+j));
+			         	q_tr('txtSize2_'+ j ,q_float('txtWidth_'+j));
+			         	q_tr('txtSize3_'+ j ,q_float('txtDime_'+j));
+			         	q_tr('txtSize4_'+ j ,q_float('txtLengthb_'+j));
+			         }
+			     }
+		}
 </script>
 <style type="text/css">
+#dmain {
+                overflow: hidden;
+            }
+            .dview {
+                float: left;
+                width: 98%;
+            }
+            .tview {
+                margin: 0;
+                padding: 2px;
+                border: 1px black double;
+                border-spacing: 0;
+                font-size: medium;
+                background-color: #FFFF66;
+                color: blue;
+            }
+            .tview td {
+                padding: 2px;
+                text-align: center;
+                border: 1px black solid;
+            }
+            .dbbm {
+                float: left;
+                width: 98%;
+                margin: -1px;
+                border: 1px black solid;
+                border-radius: 5px;
+            }
+            .tbbm {
+                padding: 0px;
+                border: 1px white double;
+                border-spacing: 0;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                background: #cad3ff;
+                width: 100%;
+            }
+            .tbbm tr {
+                height: 35px;
+            }
+            .tbbm tr td {
+                width: 9%;
+            }
+            .tbbm .tdZ {
+                width: 2%;
+            }
+            .tbbm tr td span {
+                float: right;
+                display: block;
+                width: 5px;
+                height: 10px;
+            }
+            .tbbm tr td .lbl {
+                float: right;
+                color: blue;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn {
+                color: #4297D7;
+                font-weight: bolder;
+                font-size: medium;
+            }
+            .tbbm tr td .lbl.btn:hover {
+                color: #FF8F19;
+            }
+            .txt.c1 {
+                width: 98%;
+                float: left;
+            }
+            .txt.c2 {
+                width: 38%;
+                float: left;
+            }
+            .txt.c3 {
+                width: 60%;
+                float: left;
+            }
+            .txt.c4 {
+                width: 15%;
+                float: left;
+            }
+            .txt.c5 {
+                width: 85%;
+                float: left;
+            }
+            .txt.c6 {
+                width: 100%;
+                float: left;
+            }
+            .txt.c7 {
+            	float:left;
+                width: 22%;
+                
+            }
+            .txt.c8 {
+            	float:left;
+                width: 65px;
+                
+            }
+            .txt.num {
+                text-align: right;
+            }
+            .tbbm td {
+                margin: 0 -1px;
+                padding: 0;
+            }
+            .tbbm td input[type="text"] {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                float: left;
+            }
+            .tbbm select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                font-size:medium;
+            }
+            .tbbm textarea {
+            	font-size: medium;
+            }
+            
+             input[type="text"],input[type="button"] {     
+                font-size: medium;
+            }
+         .dbbs .tbbs{margin:0;padding:2px;border:2px lightgrey double;border-spacing:1px;border-collapse:collapse;font-size:medium;color:blue;background:#cad3ff;width: 100%;}
+		 .dbbs .tbbs tr{height:35px;}
+		 .dbbs .tbbs tr td{text-align:center;border:2px lightgrey double;}
     .seek_tr
     {color:white; text-align:center; font-weight:bold;BACKGROUND-COLOR: #76a2fe}
 </style>
