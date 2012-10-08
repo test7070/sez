@@ -81,36 +81,34 @@
                 		var as = _q_appendData("tirestk", "", true);
                 		if(as[0]!=undefined)
                 		{
-                			alert("該胎號已存在");
-                			if(q_cur==2)
+                			if(q_cur==2){
+                				alert("該胎號已存在");
                 				$('#txtTireno_' + b_seq).val(bbs_tireno[b_seq]);
-                			else
-                			{
+                			}else if(q_cur==1){
+                				alert("該胎號已存在");
                 				$('#txtTireno_' + b_seq).focus();
-                				tmp_tireno_modi=true;
                 			}
-                			return;
+                			tmp_tireno_modi1=true;
                 		}else
                 		{
-                			tmp_tireno_modi=false;
+                			tmp_tireno_modi1=false;
                 		}
                 	break;
                 	case 'fixouts':
                 		var as = _q_appendData("fixouts", "", true);
                 		if(as[0]!=undefined)
                 		{
-                			if(q_cur==2)
+                			if(q_cur==2){
+                				alert("該胎號已領料");
                 				$('#txtTireno_' + b_seq).val(bbs_tireno[b_seq]);
-                			else
-                			{
+                			}else if(q_cur==1){
+                				alert("該胎號已領料");
                 				$('#txtTireno_' + b_seq).focus();
-                				tmp_tireno_modi=true;
                 			}
-                			alert("該胎號已領料");
-                			return;
+                			tmp_tireno_modi2=true;
                 		}
                 		else{
-                			tmp_tireno_modi=false;
+                			tmp_tireno_modi2=false;
                 		}
                 	break;
                     case q_name:
@@ -125,6 +123,15 @@
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
+                }
+                
+                for (var i = 0; i < q_bbsCount; i++) {
+                	for (var j = 0; j < q_bbsCount; j++) {
+                		if(i!=j&&$('#txtTireno_' + i).val()==$('#txtTireno_' + j).val()&&$('#txtTireno_' + i).val()!=''&&$('#txtTireno_' + j).val()){
+                			alert('胎號重複，請修改');
+                    		return;
+                		}
+                	}
                 }
 
                 $('#txtWorker').val(r_name)
@@ -151,7 +158,8 @@
 			var bbs_tireno=[];
 			//儲存新增時的胎號
 			var tmp_tireno='';
-			var tmp_tireno_modi=false;
+			var tmp_tireno_modi1=false;
+			var tmp_tireno_modi2=false;
 			
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
@@ -163,17 +171,28 @@
 		            	 	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                    q_bodyId($(this).attr('id'));
 		                    b_seq = t_IdSeq;
+		                    //表身胎號重複
+		                    for (var j = 0; j < q_bbsCount; j++) {
+                					if($('#txtTireno_' + b_seq).val()==$('#txtTireno_' + j).val()&&!emp($('#txtTireno_' + j).val())&&b_seq!=j){
+                						alert('胎號重複!!');
+                						$('#txtTireno_' + b_seq).val('');
+                					}
+                				}
 		                    //新增時儲存bbs的胎號，後面判斷是否有focus的問題
-		                    if(!tmp_tireno_modi)
+		                    if(!tmp_tireno_modi1||tmp_tireno_modi2)
 		                    	tmp_tireno=$('#txtTireno_' + b_seq).val();
-		                    
-		                    if(q_cur == 2)
-		                    	var t_where = "where=^^ tireno='"+bbs_tireno[b_seq]+"' ^^";
-		                    else
-		                    	var t_where = "where=^^ tireno='"+$('#txtTireno_' + b_seq).val()+"' ^^";
-	            			q_gt('fixouts', t_where , 0, 0, 0, "", r_accy);
-	            			var t_where2 = "where=^^ noa='"+$('#txtTireno_' + b_seq).val()+"' ^^";
-	            			q_gt('tirestk', t_where2 , 0, 0, 0, "", r_accy);
+		                    if(!emp($('#txtTireno_' + b_seq).val()))
+		                    {
+		                    	if(q_cur == 2&&!emp(bbs_tireno[b_seq])){
+			                    	var t_where = "where=^^ tireno='"+bbs_tireno[b_seq]+"' ^^";
+			                    	q_gt('fixouts', t_where , 0, 0, 0, "", r_accy);
+			                    }else if(q_cur == 1){
+			                    	var t_where = "where=^^ tireno='"+$('#txtTireno_' + b_seq).val()+"' ^^";
+		            				q_gt('fixouts', t_where , 0, 0, 0, "", r_accy);
+		            			}
+		            			var t_where2 = "where=^^ noa='"+$('#txtTireno_' + b_seq).val()+"' ^^";
+		            			q_gt('tirestk', t_where2 , 0, 0, 0, "", r_accy);
+	            			}
 		                });
          
 		                $('#txtMount_' + i).change(function (e) {
@@ -323,10 +342,12 @@
 
             function btnCancel() {
                 _btnCancel();
+                tmp_tireno_modi1=false;
+                tmp_tireno_modi2=false;
             }
             function checktireno(id) {
 		           //新增時儲存bbs的胎號，後面判斷是否有focus的問題
-		           if(tmp_tireno==$('#'+id).val() &&tmp_tireno!=''&&q_cur==1&&tmp_tireno_modi)
+		           if(tmp_tireno==$('#'+id).val() &&tmp_tireno!=''&&q_cur==1&&(tmp_tireno_modi1||tmp_tireno_modi2))
 		          {
 		            	alert("請修改胎號");
 		            	$('#' +id).focus();

@@ -353,25 +353,25 @@
 						<input id="txtNoa"  type="text"  class="txt c1"/>
 						</td>
 					</tr>
-					<tr>
+					<tr class="tr2">
 						<td class="td1"><span> </span><a id='lblTypea' class="lbl"> </a></td>
 						<td class="td2"><select id="cmbTypea" class="txt c1"> </select></td>
 					</tr>
-					<tr class="tr1">
+					<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblNamea' class="lbl"> </a></td>
 						<td class="td2" colspan="2">
-						<input id="txtNamea"  type="text"  class="txt c1"/>
+						<input id="txtProductno"  type="text"  class="txt" style="width: 25%;"/>
+						<input id="txtProduct"  type="text"  class="txt" style="width: 75%;"/>
 						</td>
 					</tr>
-					<tr class="tr2">
+					<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblBrand' class="lbl btn"> </a></td>
 						<td class="td2" colspan="3">
 						<input id="txtBrandno"  type="text"  class="txt" style="width: 25%;"/>
 						<input id="txtBrand"  type="text"  class="txt" style="width: 75%;"/>
 						</td>
-						<td class="td5"> </td>
 					</tr>
-					<tr class="tr3">
+					<tr class="tr5">
 						<td class="td1"><span> </span><a id='lblCarno' class="lbl"> </a></td>
 						<td class="td2" >
 						<input id="txtCarno"  type="text"  class="txt c1"/>
@@ -381,11 +381,13 @@
 						<input id="txtCarplateno"  type="text"  class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr4">
+					<tr class="tr6">
 						<td class="td1"><span> </span><a id='lblPosition' class="lbl"> </a></td>
 						<td class="td2"><select id="cmbPosition" class="txt c1"> </select></td>
+						<td class="td3"><span> </span><a id='lblPrice' class="lbl"> </a></td>
+						<td class="td4"><input id="txtPrice"  type="text"  class="txt c1"/></td>
 					</tr>
-					<tr class="tr3">
+					<tr class="tr7">
 						<td class="td1"><span> </span><a id='lblIndate' class="lbl"> </a></td>
 						<td class="td2" >
 						<input id="txtIndate"  type="text"  class="txt c1"/>
@@ -399,14 +401,14 @@
 						<input id="txtDeldate"  type="text"  class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr5">
+					<tr class="tr8">
 						<td class="td1"><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
 						<td class="td2" colspan="3">
 						<input id="txtTggno"  type="text"  class="txt" style="width: 25%;"/>
 						<input id="txtTgg"  type="text"  class="txt" style="width: 75%;"/>
 						</td>
 					</tr>
-					<tr class="tr6">
+					<tr class="tr9">
 						<td class="td1"><span> </span><a id='lblFixtgg' class="lbl btn"> </a></td>
 						<td class="td2" colspan="3">
 						<input id="txtFixtggno"  type="text"  class="txt" style="width: 25%;"/>

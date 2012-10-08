@@ -14,7 +14,7 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		
 		<script type="text/javascript">
-            var q_name = 'tirestk', t_content = ' field=noa,namea,typea,carno,carplateno,position', bbsKey = ['noa'], as, t_where = '';
+            var q_name = 'tirestk', t_content = ' field=noa,product,typea,carno,carplateno,position', bbsKey = ['noa'], as, t_where = '';
             var isBott = false;
             /// 是否已按過 最後一頁
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
@@ -55,7 +55,7 @@
 					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
 					<td style="width:60%;">
-					<input class="txt" id="txtNamea.*" type="text" style="width:98%;"  readonly="readonly" />
+					<input class="txt" id="txtProduct.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
 					<td style="width:15%;">
 					<select class="txt" id="cmbTypea.*" style="width:98%;"  readonly="readonly"> </select>

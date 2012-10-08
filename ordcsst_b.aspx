@@ -9,7 +9,7 @@
 <script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
 <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = 'ordcs', t_bbsTag = 'tbbs', t_content = " field=productno,product,size,dime,width,lengthb,radius,mount,weight,noa,no2,price  order=odate ", afilter = [], bbsKey = ['noa', 'no2'], t_count = 0, as;
+    var q_name = 'ordcs', t_bbsTag = 'tbbs', t_content = " field=productno,product,spec,dime,width,lengthb,radius,mount,weight,noa,no2,price,total,theory,memo  order=odate ", afilter = [], bbsKey = ['noa', 'no2'], t_count = 0, as;
     var t_sqlname = 'ordcs_load2'; t_postname = q_name; brwCount2 = 12;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm;
@@ -50,10 +50,10 @@
         size_change();
     }
     function size_change () {
-		  if($('#txtRadius_0').val()=='0')	//根據第一筆資料判斷是鋼捲還是鋼管，鋼捲沒有Radius
+		  if(dec($('#txtRadius_0').val())==0)	//根據第一筆資料判斷是鋼捲還是鋼管，鋼捲沒有Radius
             	{
             		$('#lblSize_help').text("厚度x寬度x長度");
-	            	for (var j = 0; j < q_bbsCount; j++) {
+	            	for (var j = 0; j < brwCount2 ; j++) {
 			           $('#txtSize4_'+j).attr('hidden', 'true');
 			           $('#x3_'+j).attr('hidden', 'true');
 			         	$('#Size').css('width','222px');
@@ -67,7 +67,7 @@
 		         else
 		         {
 		         	$('#lblSize_help').text("短徑x長徑x厚度x長度");
-			         for (var j = 0; j < q_bbsCount; j++) {
+			         for (var j = 0; j < brwCount2 ; j++) {
 			         	$('#txtSize4_'+j).removeAttr('hidden');
 			         	$('#x3_'+j).removeAttr('hidden');
 			         	$('#Size').css('width','297px');
@@ -217,23 +217,23 @@
 <div  id="dbbs"  >
         <table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
             <tr style='color:White; background:#003366;' >
-                <td align="center">&nbsp;</td>
-                <td align="center"><a id='lblProductno_st'></a></td>
-                <td align="center"><a id='lblProduct'></a></td>
-                <td align="center"><a id='lblSpec'></a></td>
-                <td align="center"><a id='lblSize'></a></td>
-                <td align="center"><a id='lblMount'></a></td>
-                <td align="center"><a id='lblWeight'></a></td>
-                <td align="center"><a id='lblPrice'></a></td>
-                <td align="center"><a id='lblNoa'></a></td>
+                <td align="center" style="width:1%;">&nbsp;</td>
+                <td align="center" style="width:8%;"><a id='lblProductno_st'></a></td>
+                <td align="center" style="width:10%;"><a id='lblProduct'></a></td>
+                <td align="center" style="width:10%;"><a id='lblSpec'></a></td>
+                <td align="center" id='Size'><a id='lblSize'></a><BR><a id='lblSize_help'> </a></td>
+                <td align="center" style="width:7%;"><a id='lblMount'></a></td>
+                <td align="center" style="width:7%;"><a id='lblWeight'></a></td>
+                <td align="center" style="width:7%;"><a id='lblPrice'></a></td>
+                <td align="center" style="width:10%;"><a id='lblNoa'></a></td>
                 <td align="center"><a id='lblMemo'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td style="width:1%;"><input class="btn"  id="chkSel.*" type="checkbox"  /></td>
-                <td style="width:10%;"><input class="txt"  id="txtProductno.*" type="text" style="width:98%;" /></td>
-                <td style="width:15%;"><input class="txt" id="txtProduct.*" type="text" style="width:98%;" /></td>
-                 <td style="width:15%;"><input class="txt" id="txtSpec.*" type="text"  style="width:98%;" /></td>
-                <td style="width:18%;">
+                <td><input class="btn"  id="chkSel.*" type="checkbox"  /></td>
+                <td><input class="txt c1"  id="txtProductno.*" type="text" /></td>
+                <td><input class="txt c1" id="txtProduct.*" type="text"/></td>
+                 <td><input class="txt c1" id="txtSpec.*" type="text" /></td>
+                <td>
                        	<input class="txt num c8" id="txtSize1.*" type="text"/><div id="x1" style="float: left"> x</div>
                 		<input class="txt num c8" id="txtSize2.*" type="text"/><div id="x2" style="float: left"> x</div>
                         <input class="txt num c8" id="txtSize3.*" type="text"/><div id="x3.*" style="float: left"> x</div>
@@ -244,11 +244,11 @@
                         <input  id="txtDime.*" type="hidden"/>
                          <input id="txtLengthb.*" type="hidden"/>
                 </td>
-                <td style="width:5%;"><input class="txt" id="txtMount.*" type="text" style="width:94%; text-align:right;"/></td>
-                <td style="width:8%;"><input class="txt" id="txtWeight.*" type="text" style="width:96%; text-align:right;"/></td>
-                <td style="width:8%;"><input class="txt" id="txtPrice.*" type="text" style="width:96%; text-align:right;"/></td>
-                <td style="width:5%;"><input class="txt" id="txtNoa.*" type="text" style="width:96%;"/><input class="txt" id="txtno2.*" type="text" /></td>
-                <td style="width:8%;"><input class="txt" id="txtMemo.*" type="text" style="width:98%;"/><input id="recno.*" type="hidden" /></td>
+                <td><input class="txt num c1" id="txtMount.*" type="text"/></td>
+                <td><input class="txt num c1" id="txtWeight.*" type="text" /></td>
+                <td><input class="txt num c1" id="txtPrice.*" type="text"/></td>
+                <td><input class="txt c1" id="txtNoa.*" type="text"/><input class="txt c1" id="txtno2.*" type="text" /></td>
+                <td><input class="txt c1" id="txtMemo.*" type="text"/><input id="recno.*" type="hidden" /></td>
             </tr>
         </table>
   <!--#include file="../inc/pop_ctrl.inc"--> 
