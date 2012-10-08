@@ -12,132 +12,132 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 
 		<script type="text/javascript">
-            this.errorHandler = null;
-            function onPageError(error) {
-                alert("An error occurred:\r\n" + error.Message);
-            }
+			this.errorHandler = null;
+			function onPageError(error) {
+				alert("An error occurred:\r\n" + error.Message);
+			}
 
-            var q_name = "car2";
-            var q_readonly = ['txtCardeal', 'txtCarowner', 'cmbSex', 'txtIdno', 'txtBirthday', 'txtTel1', 'txtTel2', 'txtMobile', 'txtFax', 'txtAddr_conn', 'txtAddr_home', 'txtDriver'];
-            var bbmNum = [['txtInmoney', 10, 0], ['txtOutmoney', 10, 0], ['txtIrange', 10, 0], ["txtManage", 10, 0], ["txtGuile", 10, 0], ["txtLabor", 10, 0], ["txtHealth", 10, 0], ["txtReserve", 10, 0], ["txtHelp", 10, 0], ["txtVrate", 5, 2], ["txtRrate", 5, 2], ["txtOrate", 5, 2], ["txtIrate", 5, 2], ["txtPrate", 5, 2], ["txtUlicense", 10, 0], ["txtDlicense", 10, 0], ["txtSpring", 10, 0], ["txtSummer", 10, 0], ["txtFalla", 10, 0], ["txtWinter", 10, 0], ["txtCylinder", 2, 0], ["txtSalemoney", 10, 0]];
-            var bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"], ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999"], ["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"]];
-            q_sqlCount = 6;
-            brwCount = 6;
-            brwList = [];
-            brwNowPage = 0;
-            brwKey = 'noa';
-            //ajaxPath = ""; //  execute in Root
-            q_alias = 'a';
-            aPop = [['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtCarownerno', 'lblCarowner', 'carowner', 'noa,namea,sex,idno,birthday,tel1,tel2,mobile,fax,addr_conn,addr_home', 'txtCarownerno,txtCarowner,cmbSex,txtIdno,txtBirthday,txtTel1,txtTel2,txtMobile,txtFax,txtAddr_conn,txtAddr_home', 'carowner_b.aspx'], ['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno', 'sss_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']];
+			var q_name = "car2";
+			var q_readonly = ['txtCardeal', 'txtCarowner', 'cmbSex', 'txtIdno', 'txtBirthday', 'txtTel1', 'txtTel2', 'txtMobile', 'txtFax', 'txtAddr_conn', 'txtAddr_home', 'txtDriver'];
+			var bbmNum = [['txtInmoney', 10, 0], ['txtOutmoney', 10, 0], ['txtIrange', 10, 0], ["txtManage", 10, 0], ["txtGuile", 10, 0], ["txtLabor", 10, 0], ["txtHealth", 10, 0], ["txtReserve", 10, 0], ["txtHelp", 10, 0], ["txtVrate", 5, 2], ["txtRrate", 5, 2], ["txtOrate", 5, 2], ["txtIrate", 5, 2], ["txtPrate", 5, 2], ["txtUlicense", 10, 0], ["txtDlicense", 10, 0], ["txtSpring", 10, 0], ["txtSummer", 10, 0], ["txtFalla", 10, 0], ["txtWinter", 10, 0], ["txtCylinder", 2, 0], ["txtSalemoney", 10, 0]];
+			var bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"], ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999"], ["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"]];
+			q_sqlCount = 6;
+			brwCount = 6;
+			brwList = [];
+			brwNowPage = 0;
+			brwKey = 'noa';
+			//ajaxPath = ""; //  execute in Root
+			q_alias = 'a';
+			aPop = [['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], ['txtCarownerno', 'lblCarowner', 'carowner', 'noa,namea,sex,idno,birthday,tel1,tel2,mobile,fax,addr_conn,addr_home', 'txtCarownerno,txtCarowner,cmbSex,txtIdno,txtBirthday,txtTel1,txtTel2,txtMobile,txtFax,txtAddr_conn,txtAddr_home', 'carowner_b.aspx'], ['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno', 'sss_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']];
 
-            $(document).ready(function() {
-                bbmKey = ['noa'];
-                q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+			$(document).ready(function() {
+				bbmKey = ['noa'];
+				q_brwCount();
+				q_gt(q_name, q_content, q_sqlCount, 1)
 
-            });
-            function main() {
-                if (dataErr) {
-                    dataErr = false;
-                    return;
-                }
+			});
+			function main() {
+				if (dataErr) {
+					dataErr = false;
+					return;
+				}
 
-                mainForm(0);
-            }
+				mainForm(0);
+			}
 
-    
-            function mainPost() {
-                q_mask(bbmMask);
-                q_cmbParse("cmbSex", q_getPara('sys.sex'));
-                q_cmbParse("cmbChecktype", q_getPara('car2.checktype'));
-                q_cmbParse("cmbCartype", q_getPara('car2.cartype'));
-                q_cmbParse("cmbIsprint", q_getPara('car2.isprint'));
-                q_cmbParse("cmbAuto", q_getPara('car2.auto'));
-                
-                q_gt('carbrand', '', 0, 0, 0, "");
-                q_gt('carkind', '', 0, 0, 0, "");
+			function mainPost() {
+				q_mask(bbmMask);
+				q_cmbParse("cmbSex", q_getPara('sys.sex'));
+				q_cmbParse("cmbChecktype", q_getPara('car2.checktype'));
+				q_cmbParse("cmbCartype", q_getPara('car2.cartype'));
+				q_cmbParse("cmbIsprint", q_getPara('car2.isprint'));
+				q_cmbParse("cmbAuto", q_getPara('car2.auto'));
 
-                fbbm[fbbm.length] = 'cmbAuto';
-                fbbm[fbbm.length] = 'txtIrange';
-                fbbm[fbbm.length] = 'txtManage';
-                fbbm[fbbm.length] = 'txtGuile';
-                fbbm[fbbm.length] = 'txtLabor';
-                fbbm[fbbm.length] = 'txtHealth';
-                fbbm[fbbm.length] = 'txtReserve';
-                fbbm[fbbm.length] = 'txtHelp';
-                fbbm[fbbm.length] = 'txtVrate';
-                fbbm[fbbm.length] = 'txtRrate';
-                fbbm[fbbm.length] = 'txtOrate';
-                fbbm[fbbm.length] = 'txtIrate';
-                fbbm[fbbm.length] = 'txtPrate';
-                fbbm[fbbm.length] = 'txtUlicense';
-                fbbm[fbbm.length] = 'txtDlicense';
-                fbbm[fbbm.length] = 'txtSpring';
-                fbbm[fbbm.length] = 'txtSummer';
-                fbbm[fbbm.length] = 'txtFalla';
-                fbbm[fbbm.length] = 'txtWinter';
-                fbbm[fbbm.length] = 'txtUlicensemon';
-                fbbm[fbbm.length] = 'txtDlicensemon';
-                fbbm[fbbm.length] = 'txtSpringmon';
-                fbbm[fbbm.length] = 'txtSummermon';
-                fbbm[fbbm.length] = 'txtFallamon';
-                fbbm[fbbm.length] = 'txtWintermon';
+				q_gt('carbrand', '', 0, 0, 0, "");
+				q_gt('carkind', '', 0, 0, 0, "");
 
-                $('#divCarexpense').find("input:text").bind('keydown', function(event) {
-                    keypress_bbm(event, $(this), fbbm, 'lblClose_DivCarexpense', bbmNum);
-                });
+				fbbm[fbbm.length] = 'cmbAuto';
+				fbbm[fbbm.length] = 'txtIrange';
+				fbbm[fbbm.length] = 'txtManage';
+				fbbm[fbbm.length] = 'txtGuile';
+				fbbm[fbbm.length] = 'txtLabor';
+				fbbm[fbbm.length] = 'txtHealth';
+				fbbm[fbbm.length] = 'txtReserve';
+				fbbm[fbbm.length] = 'txtHelp';
+				fbbm[fbbm.length] = 'txtVrate';
+				fbbm[fbbm.length] = 'txtRrate';
+				fbbm[fbbm.length] = 'txtOrate';
+				fbbm[fbbm.length] = 'txtIrate';
+				fbbm[fbbm.length] = 'txtPrate';
+				fbbm[fbbm.length] = 'txtUlicense';
+				fbbm[fbbm.length] = 'txtDlicense';
+				fbbm[fbbm.length] = 'txtSpring';
+				fbbm[fbbm.length] = 'txtSummer';
+				fbbm[fbbm.length] = 'txtFalla';
+				fbbm[fbbm.length] = 'txtWinter';
+				fbbm[fbbm.length] = 'txtUlicensemon';
+				fbbm[fbbm.length] = 'txtDlicensemon';
+				fbbm[fbbm.length] = 'txtSpringmon';
+				fbbm[fbbm.length] = 'txtSummermon';
+				fbbm[fbbm.length] = 'txtFallamon';
+				fbbm[fbbm.length] = 'txtWintermon';
 
-                $('#divCarexpense').offset({
-                    top : $('.tr3').eq(0).offset().top,
-                    left : $('.tbbm').eq(0).offset().left + 10
-                });
-                $('#lblCarexpense').parent().click(function(e) {
-                    if ($('#divCarexpense').is(":hidden")) {
-                        $('#divCarexpense').show();
-                        $('#cmbAuto').focus();
-                    } else
-                        $('#divCarexpense').hide();
-                });
-                $('#lblClose_DivCarexpense').parent().click(function(e) {
-                    $('#lblCarexpense').parent().click();
-                });
-                $('#lblCarinsurance').parent().click(function(e) {
-                    q_box("carinsure.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'carinsure', "800px", "600px", q_getMsg("popCarinsure"));
-                });
-                $('#lblCarlender').parent().click(function(e) {
-                    q_box("carlender.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'carlender', "800px", "600px", q_getMsg("popCarlender"));
-                });
-                $('#lblCaraccident').parent().click(function(e) {
-                    q_box("caraccident.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'caraccident', "850px", "600px", q_getMsg("popCaraccident"));
-                });
-                $('#lblCarchange').parent().click(function(e) {
-                    q_box("carchange.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'carchange', "800px", "600px", q_getMsg("popCarchange"));
-                });
-                $('#lblOil').parent().click(function(e) {
-                    q_box("oil.aspx?;;;carno='" + $('#txtCarno').val() + "'", 'oil', "800px", "600px", q_getMsg("popOil"));
-                });
-                $('#lblCartax').parent().click(function(e) {
-                    q_box("cartax.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'cartax', "800px", "600px", q_getMsg("popCartax"));
-                });
-            }
-            function q_boxClose(s2) {
+				$('#divCarexpense').find("input:text").bind('keydown', function(event) {
+					keypress_bbm(event, $(this), fbbm, 'lblClose_DivCarexpense', bbmNum);
+				});
 
-                var ret;
-                switch (b_pop) {
+				$('#divCarexpense').offset({
+					top : $('.tr3').eq(0).offset().top,
+					left : $('.tbbm').eq(0).offset().left + 10
+				});
+				$('#lblCarexpense').parent().click(function(e) {
+					if ($('#divCarexpense').is(":hidden")) {
+						$('#divCarexpense').show();
+						$('#cmbAuto').focus();
+					} else
+						$('#divCarexpense').hide();
+				});
+				$('#lblClose_DivCarexpense').parent().click(function(e) {
+					$('#lblCarexpense').parent().click();
+				});
+				$('#lblCarinsurance').parent().click(function(e) {
+					q_box("carinsure.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'carinsure', "800px", "600px", q_getMsg("popCarinsure"));
+				});
+				$('#lblCarlender').parent().click(function(e) {
+					q_box("carlender.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'carlender', "800px", "600px", q_getMsg("popCarlender"));
+				});
+				$('#lblCaraccident').parent().click(function(e) {
+					q_box("caraccident.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'caraccident', "850px", "600px", q_getMsg("popCaraccident"));
+				});
+				$('#lblCarchange').parent().click(function(e) {
+					q_box("carchange.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'carchange', "800px", "600px", q_getMsg("popCarchange"));
+				});
+				$('#lblOil').parent().click(function(e) {
+					q_box("oil.aspx?;;;carno='" + $('#txtCarno').val() + "'", 'oil', "800px", "600px", q_getMsg("popOil"));
+				});
+				$('#lblCartax').parent().click(function(e) {
+					q_box("cartax.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'cartax', "800px", "600px", q_getMsg("popCartax"));
+				});
+			}
 
-                    case q_name + '_s':
-                        q_boxClose2(s2);
-                        ///   q_boxClose 3/4
-                        break;
-                }   /// end Switch
+			function q_boxClose(s2) {
 
-            }
+				var ret;
+				switch (b_pop) {
 
-            function q_gfPost() {
+					case q_name + '_s':
+						q_boxClose2(s2);
+						///   q_boxClose 3/4
+						break;
+				}   /// end Switch
 
-            }
+			}
 
-            function q_gtPost(t_name) {
+			function q_gfPost() {
+
+			}
+
+			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'carbrand':
 						var as = _q_appendData("carbrand", "", true);
@@ -168,223 +168,223 @@
 				}
 			}
 
-            function _btnSeek() {
-                if (q_cur > 0 && q_cur < 4)// 1-3
-                    return;
-                q_box('car2_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
-            }
+			function _btnSeek() {
+				if (q_cur > 0 && q_cur < 4)// 1-3
+					return;
+				q_box('car2_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
+			}
 
-            function btnIns() {
-                _btnIns();
-                $('#txtNoa').focus();
-            }
+			function btnIns() {
+				_btnIns();
+				$('#txtNoa').focus();
+			}
 
-            function btnModi() {
-                if (emp($('#txtNoa').val()))
-                    return;
+			function btnModi() {
+				if (emp($('#txtNoa').val()))
+					return;
 
-                _btnModi();
-                $('#txtNoa').focus();
-            }
+				_btnModi();
+				$('#txtNoa').focus();
+			}
 
-            function btnPrint() {
+			function btnPrint() {
 
-            }
+			}
 
-            function btnOk() {
-                var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
+			function btnOk() {
+				var t_err = '';
+				t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
 
-                var t_noa = $('#txtNoa').val();
+				var t_noa = $('#txtNoa').val();
 				$('#txtCarno').val(t_noa);
-                wrServer(t_noa);
-            }
+				wrServer(t_noa);
+			}
 
-            function wrServer(key_value) {
-                var i;
-                xmlSql = '';
-                if (q_cur == 2)/// popSave
-                    xmlSql = q_preXml();
-                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-                _btnOk(key_value, bbmKey[0], '', '', 2);
-            }
+			function wrServer(key_value) {
+				var i;
+				xmlSql = '';
+				if (q_cur == 2)/// popSave
+					xmlSql = q_preXml();
+				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+				_btnOk(key_value, bbmKey[0], '', '', 2);
+			}
 
-            function refresh(recno) {
-                _refresh(recno);
+			function refresh(recno) {
+				_refresh(recno);
 
-            }
+			}
 
-            function readonly(t_para, empty) {
-                _readonly(t_para, empty);
-            }
+			function readonly(t_para, empty) {
+				_readonly(t_para, empty);
+			}
 
-            function btnMinus(id) {
-                _btnMinus(id);
-            }
+			function btnMinus(id) {
+				_btnMinus(id);
+			}
 
-            function btnPlus(org_htm, dest_tag, afield) {
-                _btnPlus(org_htm, dest_tag, afield);
-            }
+			function btnPlus(org_htm, dest_tag, afield) {
+				_btnPlus(org_htm, dest_tag, afield);
+			}
 
-            function q_appendData(t_Table) {
-                dataErr = !_q_appendData(t_Table);
-            }
+			function q_appendData(t_Table) {
+				dataErr = !_q_appendData(t_Table);
+			}
 
-            function btnSeek() {
-                _btnSeek();
-            }
+			function btnSeek() {
+				_btnSeek();
+			}
 
-            function btnTop() {
-                _btnTop();
-            }
+			function btnTop() {
+				_btnTop();
+			}
 
-            function btnPrev() {
-                _btnPrev();
-            }
+			function btnPrev() {
+				_btnPrev();
+			}
 
-            function btnPrevPage() {
-                _btnPrevPage();
-            }
+			function btnPrevPage() {
+				_btnPrevPage();
+			}
 
-            function btnNext() {
-                _btnNext();
-            }
+			function btnNext() {
+				_btnNext();
+			}
 
-            function btnNextPage() {
-                _btnNextPage();
-            }
+			function btnNextPage() {
+				_btnNextPage();
+			}
 
-            function btnBott() {
-                _btnBott();
-            }
+			function btnBott() {
+				_btnBott();
+			}
 
-            function q_brwAssign(s1) {
-                _q_brwAssign(s1);
-            }
+			function q_brwAssign(s1) {
+				_q_brwAssign(s1);
+			}
 
-            function btnDele() {
-                _btnDele();
-            }
+			function btnDele() {
+				_btnDele();
+			}
 
-            function btnCancel() {
-                _btnCancel();
-            }
+			function btnCancel() {
+				_btnCancel();
+			}
 		</script>
 		<style type="text/css">
-            #dmain {
-                overflow: hidden;
-            }
-            .dview {
-                float: left;
-                width: 23%;
-            }
-            .tview {
-                width: 100%;
-                margin: 0;
-                padding: 2px;
-                border: 1px black double;
-                border-spacing: 0;
-                font-size: medium;
-                background-color: #FFFF66;
-                color: blue;
-                float: left;
-            }
-            .tview td {
-                padding: 2px;
-                text-align: center;
-                border: 1px black solid;
-            }
-            .dbbm {
-                float: left;
-                width: 75%;
-            }
-            .tbbm {
-                margin: 0;
-                padding: 2px;
-                border: 1px white double;
-                border-spacing: 0;
-                border-collapse: collapse;
-                font-size: medium;
-                color: blue;
-                background: #cad3ff;
-                width: 100%;
-                float: left;
-            }
-            .tbbm tr {
-                height: 35px;
-            }
-            .td1, .td3, .td5, .td7 {
-                width: 9%;
-            }
-            .td2, .td4, .td6, .td8 {
-                width: 11%;
-            }
-            .label {
-                float: right;
-            }
-            .popDiv {
-                position: absolute;
-                z-index: 99;
-                background: #4297D7;
-                height: 370px;
-                width: 500px;
-                border: 2px #EEEEEE solid;
-                border-radius: 5px;
-                padding-top: 10px;
-                display: none;/*default*/
-            }
-            .popDiv .block {
-                border: 1px #CCD9F2 solid;
-                border-radius: 5px;
-            }
-            .popDiv .block .col {
-                display: block;
-                width: 600px;
-                height: 30px;
-                margin-top: 5px;
-                margin-left: 5px;
-            }
-            .btnLbl {
-                background: #cad3ff;
-                border-radius: 5px;
-                display: block;
-                width: 95px;
-                height: 25px;
-                float: left;
-                cursor: default;
-            }
-            .btnLbl.tb {
-                float: right;
-            }
-            .btnLbl.button {
-                cursor: pointer;
-                background: #76A2FE;
-            }
-            .btnLbl.button.close {
-                background: #cad3ff;
-            }
-            .btnLbl.button:hover {
-                background: #FF8F19;
-            }
-            .btnLbl a {
-                color: blue;
-                font-size: medium;
-                height: 25px;
-                line-height: 25px;
-                display: block;
-                text-align: center;
-            }
-            .btnLbl.button a {
-                color: #000000;
-            }
-            .btnLbl.close a {
-                color: red;
-                font-size: 16px;
-                height: 25px;
-                line-height: 25px;
-                display: block;
-                text-align: center;
-            }
+			#dmain {
+				overflow: hidden;
+			}
+			.dview {
+				float: left;
+				width: 23%;
+			}
+			.tview {
+				width: 100%;
+				margin: 0;
+				padding: 2px;
+				border: 1px black double;
+				border-spacing: 0;
+				font-size: medium;
+				background-color: #FFFF66;
+				color: blue;
+				float: left;
+			}
+			.tview td {
+				padding: 2px;
+				text-align: center;
+				border: 1px black solid;
+			}
+			.dbbm {
+				float: left;
+				width: 75%;
+			}
+			.tbbm {
+				margin: 0;
+				padding: 2px;
+				border: 1px white double;
+				border-spacing: 0;
+				border-collapse: collapse;
+				font-size: medium;
+				color: blue;
+				background: #cad3ff;
+				width: 100%;
+				float: left;
+			}
+			.tbbm tr {
+				height: 35px;
+			}
+			.td1, .td3, .td5, .td7 {
+				width: 9%;
+			}
+			.td2, .td4, .td6, .td8 {
+				width: 11%;
+			}
+			.label {
+				float: right;
+			}
+			.popDiv {
+				position: absolute;
+				z-index: 99;
+				background: #4297D7;
+				height: 370px;
+				width: 500px;
+				border: 2px #EEEEEE solid;
+				border-radius: 5px;
+				padding-top: 10px;
+				display: none;/*default*/
+			}
+			.popDiv .block {
+				border: 1px #CCD9F2 solid;
+				border-radius: 5px;
+			}
+			.popDiv .block .col {
+				display: block;
+				width: 600px;
+				height: 30px;
+				margin-top: 5px;
+				margin-left: 5px;
+			}
+			.btnLbl {
+				background: #cad3ff;
+				border-radius: 5px;
+				display: block;
+				width: 95px;
+				height: 25px;
+				float: left;
+				cursor: default;
+			}
+			.btnLbl.tb {
+				float: right;
+			}
+			.btnLbl.button {
+				cursor: pointer;
+				background: #76A2FE;
+			}
+			.btnLbl.button.close {
+				background: #cad3ff;
+			}
+			.btnLbl.button:hover {
+				background: #FF8F19;
+			}
+			.btnLbl a {
+				color: blue;
+				font-size: medium;
+				height: 25px;
+				line-height: 25px;
+				display: block;
+				text-align: center;
+			}
+			.btnLbl.button a {
+				color: #000000;
+			}
+			.btnLbl.close a {
+				color: red;
+				font-size: 16px;
+				height: 25px;
+				line-height: 25px;
+				display: block;
+				text-align: center;
+			}
 		</style>
 	</head>
 	<body>
@@ -396,14 +396,14 @@
 					<tr>
 						<td class="td1" style="width:10%"><a id='vewChk'></a></td>
 						<td class="td2" style="width:45%"><a id='vewCarno'></a></td>
-						<td class="td3" style="width:45%"><a id='vewCarowner'></a></td>
+						<td class="td3" style="width:45%"><a id='vewDriver'></a></td>
 					</tr>
 					<tr>
 						<td class="td1">
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
 						<td class="td2" id='carno'>~carno</td>
-						<td class="td3" id='carowner'>~carowner</td>
+						<td class="td3" id='driver'>~driver</td>
 					</tr>
 				</table>
 			</div>
@@ -539,7 +539,7 @@
 							<td class="td6" >
 							<input id="txtInplace"  type="text"  style='width:95%; max-width: 200px; '/>
 							</td>
-						
+
 						</tr>
 						<tr class="tr7">
 							<td class="td1" >
@@ -563,7 +563,7 @@
 							<td class="td6" >
 							<input id="txtOutplace"  type="text"  style='width:95%; max-width: 200px; '/>
 							</td>
-						
+
 						</tr>
 						<tr class="tr8">
 							<td class="td1" >
@@ -638,7 +638,7 @@
 							<td class="td4" >
 							<input id="txtCarmode"  type="text"  style='width:95%; max-width: 200px; '/>
 							</td>
-							
+
 							<td class="td7" >
 							<div class='btnLbl tb'>
 								<a id='lblChecktype'></a>
