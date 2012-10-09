@@ -222,6 +222,13 @@
 								curData.vccano.push(b_ret[i].noa);
 								t_where +=" or noa='"+b_ret[i].noa+"'";
 							}
+							//回寫VCCA
+							if(curData.isLoadVccano){
+								var t_vccano='';
+								for(var i=0;i<curData.vccano.length;i++)
+									t_vccano+=(t_vccano.length>0?',':'')+curData.vccano[i];
+								$('#txtVccano').val(t_vccano);
+							}
 							q_gt('vcca1', "where=^^"+t_where+"^^", 0, 0, 0, "");
 						}
 						break;
