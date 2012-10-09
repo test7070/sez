@@ -9,8 +9,8 @@
 <script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
 <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = 'ordcs', t_bbsTag = 'tbbs', t_content = " field=productno,product,spec,dime,width,lengthb,radius,mount,weight,noa,no2,price,total,theory,memo  order=odate ", afilter = [], bbsKey = ['noa', 'no2'], t_count = 0, as;
-    var t_sqlname = 'ordcs_load2'; t_postname = q_name; brwCount2 = 12;
+    var q_name = 'ordbs', t_bbsTag = 'tbbs', t_content = " field=productno,product,spec,dime,width,lengthb,radius,mount,weight,noa,no3,price,total,theory,memo,kind  order=odate ", afilter = [], bbsKey = ['noa', 'no3'], t_count = 0, as;
+    var t_sqlname = 'ordbs_load2'; t_postname = q_name; brwCount2 = 12;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm;
     var i, s1;
@@ -26,14 +26,13 @@
             return;
         }
         mainBrow(6, t_content, t_sqlname, t_postname);
-       
     }
     function bbsAssign() {  /// checked 
         _bbsAssign();
     }
 
     function q_gtPost() { 
-    	
+
     }
     function refresh() {
         _refresh();
@@ -237,7 +236,7 @@
                 <td><input class="txt num c1" id="txtMount.*" type="text"/></td>
                 <td><input class="txt num c1" id="txtWeight.*" type="text" /></td>
                 <td><input class="txt num c1" id="txtPrice.*" type="text"/></td>
-                <td><input class="txt c1" id="txtNoa.*" type="text"/><input class="txt c1" id="txtNo2.*" type="text" /></td>
+                <td><input class="txt c1" id="txtNoa.*" type="text"/><input class="txt c1" id="txtNo3.*" type="text" /></td>
                 <td><input class="txt c1" id="txtMemo.*" type="text"/><input id="txtKind.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
             </tr>
         </table>

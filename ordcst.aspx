@@ -68,9 +68,22 @@
 	            	size_change();
 			     });
 			     
-			     $('#btnOrdb').click(function () {
-	            	var t_where = "where=^^ tggno='"+$('#txtTggno').val()+"' and datea > '"+q_date()+"' and kind='"+$('#cmbKind').val()+"' and enda!='Y' ^^";
-	            	q_gt('ordb', t_where , 0, 0, 0, "", r_accy);
+			     $('#lblOrdb').click(function () {
+	            	var t_tggno = trim($('#txtTggno').val());
+		            var t_ordbno = trim($('#txtOrdbno').val());
+		            var t_where='';
+		            if (t_tggno.length > 0) {
+		            	if (t_ordbno.length > 0) 
+		            		t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordbno.length > 0 ? q_sqlPara("noa", t_ordbno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
+		            	else
+		                	t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
+		                t_where = t_where;
+		            }
+		            else {
+		                alert(q_getMsg('msgTggEmp'));
+		                return;
+		            }
+		            q_box('ordbsst_b.aspx', 'ordbs;' + t_where, "95%", "650px", q_getMsg('popOrdbs'));
 			     });
             }
 
@@ -78,6 +91,18 @@
                 var
                 ret;
                 switch (b_pop) {
+                	case 'ordbs':
+                    if (q_cur > 0 && q_cur < 4) {
+                        b_ret = getb_ret();
+                        if (!b_ret || b_ret.length == 0)
+                            return;
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtRadius,txtOrdeno,txtNo3,txtPrice,txtMount,txtWeight,txtTotal,txtMemo,txtTheory', b_ret.length, b_ret
+                                                           , 'productno,product,spec,size,dime,width,lengthb,radius,noa,no3,price,mount,weight,total,memo,theory'
+                                                           , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
+                        bbsAssign();
+						size_change();
+						}
+                    break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
@@ -684,8 +709,8 @@
                 <td class="td2"><input id="chkAeno" type="checkbox"/></td>
                 <td class="td3"><span> </span><a id='lblEnd' class="lbl"></a></td>
                 <td class="td4"><input id="txtEnda"  type="text" class="txt c1" /></td>
-                <td class="td5"></td>
-            	<td class="td6"><input id="btnOrdb" type="button" /></td>
+                <td class="td5"><span> </span><a id='lblOrdb' class="lbl btn"></a></td>
+            	<td class="td6"><input id="txtOrdbno"  type="text" class="txt c1" /></td>
             </tr>
             <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
