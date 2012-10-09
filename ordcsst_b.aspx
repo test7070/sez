@@ -26,24 +26,14 @@
             return;
         }
         mainBrow(6, t_content, t_sqlname, t_postname);
-        /*var t_where='';
-        if (location.href.indexOf('?') > -1)   // debug
-        {
-            t_where=location.href.substr(location.href.indexOf('where'));
-            t_where="^^"+t_where.substr(0,t_where.indexOf(';'));
-        }
-        q_gt('ordc', t_where , 0, 0, 0, "", r_accy);*/
+       
     }
     function bbsAssign() {  /// checked 
         _bbsAssign();
     }
 
     function q_gtPost() { 
-    	/*for (var j = 0; j < q_bbsCount; j++) {
-    		btnMinus('btnMinus_'+j);
-    	}
-        var ordc = _q_appendData("ordc", "", true);
-        q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtWeight,txtPrice,txtTotal,txtTheory,txtMemo,txtOrdbno,txtNo3', ordc.length, ordc, 'productno,product,spec,radius,width,dime,lengthb,mount,weight,price,total,theory,memo,noa,no3', '');*/
+    	
     }
     function refresh() {
         _refresh();
@@ -80,7 +70,7 @@
 		}
 </script>
 <style type="text/css">
-#dmain {
+	#dmain {
                 overflow: hidden;
             }
             .dview {
