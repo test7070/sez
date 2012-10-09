@@ -96,8 +96,8 @@
                         b_ret = getb_ret();
                         if (!b_ret || b_ret.length == 0)
                             return;
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtRadius,txtOrdeno,txtNo3,txtPrice,txtMount,txtWeight,txtTotal,txtMemo,txtTheory', b_ret.length, b_ret
-                                                           , 'productno,product,spec,size,dime,width,lengthb,radius,noa,no3,price,mount,weight,total,memo,theory'
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOrdbno,txtNo3,txtPrice,txtMount,txtWeight,txtTotal,txtMemo,txtTheory', b_ret.length, b_ret
+                                                           , 'productno,product,spec,dime,width,lengthb,radius,noa,no3,price,mount,weight,total,memo,theory'
                                                            , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
 						size_change();

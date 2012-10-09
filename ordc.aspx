@@ -72,9 +72,22 @@
 	            	product_change();
 			     });
 			     
-			     $('#btnOrdb').click(function () {
-	            	var t_where = "where=^^ tggno='"+$('#txtTggno').val()+"' and datea > '"+q_date()+"' and kind='"+$('#cmbKind').val()+"' and enda!='Y' ^^";
-	            	q_gt('ordb', t_where , 0, 0, 0, "", r_accy);
+			     $('#lblOrdb').click(function () {
+	            	var t_tggno = trim($('#txtTggno').val());
+		            var t_ordbno = trim($('#txtOrdbno').val());
+		            var t_where='';
+		            if (t_tggno.length > 0) {
+		            	if (t_ordbno.length > 0) 
+		            		t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordbno.length > 0 ? q_sqlPara("noa", t_ordbno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
+		            	else
+		                	t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
+		                t_where = t_where;
+		            }
+		            else {
+		                alert(q_getMsg('msgTggEmp'));
+		                return;
+		            }
+		            q_box('ordbs_b.aspx', 'ordbs;' + t_where, "95%", "650px", q_getMsg('popOrdbs'));
 			     });
             }
 
@@ -82,6 +95,18 @@
                 var
                 ret;
                 switch (b_pop) {
+                	case 'ordbs':
+                    if (q_cur > 0 && q_cur < 4) {
+                        b_ret = getb_ret();
+                        if (!b_ret || b_ret.length == 0)
+                            return;
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtOrdbno,txtNo3,txtPrice,txtMount,txtTotal,txtMemo,txtUnit', b_ret.length, b_ret
+                                                           , 'productno,product,noa,no3,price,mount,total,memo,unit'
+                                                           , 'txtProductno,txtProduct');   /// 最後 aEmpField 不可以有【數字欄位】
+                        bbsAssign();
+						
+						}
+                    break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
@@ -552,21 +577,26 @@
                 <td class="td5"><select id="cmbTaxtype" class="txt c1" onchange="calTax()" ></select></td>
                 <td class="td6"><span> </span><a id='lblTotal' class="lbl"></a></td>
                 <td class="td7"><input id="txtTotal" type="text" class="txt num c1" /></td>
-                <td class="td8"><input id="btnOrdb" type="button" /></td>
+                <td class="td8"></td>
             </tr>
             <tr class="tr7">
-                <td class="td1"><span> </span><a id='lblTotalus' class="lbl"></a></td>
-                <td class="td2"><input id="txtTotalus"  type="text" class="txt num c1" /></td> 
-                <td class="td3"><span> </span><a id='lblWorker' class="lbl btn"></a></td>
-                <td class="td4"><input id="txtWorker"  type="text" class="txt c1" /></td> 
-                <!--<td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
-                <td class="td5" colspan='2'><input id="txtWeight"  type="text" class="txt num c1" /></td>--> 
-                <td class="td5"><span> </span><a id='lblAeno' class="lbl"></a></td>
-                <td class="td6"><input id="chkAeno" type="checkbox"/></td>
-                <td class="td7"><span> </span><a id='lblEnd' class="lbl"></a></td>
-                <td class="td8"><input id="txtEnda"  type="text" class="txt c1" /></td>
+                <td class="td1"><span> </span><a id='lblOrdb' class="lbl btn"></a></td>
+            	<td class="td2"><input id="txtOrdbno"  type="text" class="txt c1" /></td>
+            	<td class="td3"><span> </span><a id='lblTotalus' class="lbl"></a></td>
+                <td class="td4"><input id="txtTotalus"  type="text" class="txt num c1" /></td> 
+                <td class="td5"><span> </span><a id='lblWorker' class="lbl btn"></a></td>
+                <td class="td6"><input id="txtWorker"  type="text" class="txt c1" /></td> 
+            	
             </tr>
             <tr class="tr8">
+                <td class="td1"><span> </span><a id='lblAeno' class="lbl"></a></td>
+                <td class="td2"><input id="chkAeno" type="checkbox"/></td>
+                <td class="td3"><span> </span><a id='lblEnd' class="lbl"></a></td>
+                <td class="td4"><input id="txtEnda"  type="text" class="txt c1" /></td> 
+                <!--<td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
+                <td class="td5" colspan='2'><input id="txtWeight"  type="text" class="txt num c1" /></td>--> 
+            </tr>
+            <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
                 <td class="td2" colspan='7'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"></textarea></td> 
             </tr>

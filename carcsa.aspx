@@ -26,7 +26,8 @@
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         aPop = new Array(['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'],
         							['txtCardealno_', 'btnCardeal_', 'cardeal', 'noa,comp', 'txtCardealno_,txtCardeal_', 'cardeal_b.aspx'],
-        							['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno_,txtDriverno_,txtDriver_,txtCardealno_,txtCardeal_', 'car2_b.aspx']);
+        							['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno_,txtDriverno_,txtDriver_,txtCardealno_,txtCardeal_', 'car2_b.aspx'],
+        							['txtCno','lblComp','acomp','noa,acomp','txtCno,txtComp2','acomp_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -306,11 +307,11 @@
                 float: left;
             }
             .txt.c2 {
-                width: 10%;
+                width: 25%;
                 float: left;
             }
             .txt.c3 {
-                width: 79%;
+                width: 75%;
                 float: left;
             }
             .txt.c4 {
@@ -409,7 +410,11 @@
             <td class='td2'><input id="txtAddmoney" type="text" class="txt c1"/></td>
             <td class='td3'><span> </span><a id="lblMoney" class="lbl"></a></td>
             <td class='td4'><input id="txtMoney" type="text" class="txt c1"/></td>
-        </tr>    
+        </tr>
+        <tr>
+            <td class='td1'><span> </span><a id="lblComp" class="lbl btn"></a></td>
+            <td class='td2' colspan='2'><input id="txtCno"  type="text"  class="txt c2"/><input id="txtComp2"  type="text"  class="txt c3"/></td>
+        </tr> 
         </table>
         </div>
 		</div>
