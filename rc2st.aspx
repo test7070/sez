@@ -88,15 +88,15 @@
                     if (q_cur > 0 && q_cur < 4)  q_browFill('txtCno,txtAcomp' , ret , 'noa,acomp'); 
                     break;
 
-                case 'store':
+                /*case 'store':
                     ret = getb_ret();
                     if (q_cur > 0 && q_cur < 4) q_browFill( 'txtStoreno_' + b_seq+',txtStore_' + b_seq , ret, 'noa,store'); 
-                    break;
+                    break;*/
 
-                case 'sss':
+                /*case 'sss':
                     ret = getb_ret();
                     if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
+                    break;*/
 
                 case 'car':
                     ret = getb_ret();
@@ -147,18 +147,18 @@
                     q_changeFill(t_name, 'txtCno,txtAcomp', 'noa,acomp');
                     break;
 
-                case 'store':  ////  直接 key in 編號，帶入 form
+                /*case 'store':  ////  直接 key in 編號，帶入 form
                     //q_changeFill(t_name, 'txtStoreno,txtStore', 'noa,store');
                     q_changeFill(t_name, 'txtStoreno_' + b_seq + ',txtStore_' + b_seq, 'noa,store');
-                    break;
+                    break;*/
 
                 case 'car':  ////  直接 key in 編號，帶入 form
                     q_changeFill(t_name, 'txtCarno,txtCar', 'noa,car');
                     break;
 
-                case 'sss':  ////  直接 key in 編號，帶入 form
+                /*case 'sss':  ////  直接 key in 編號，帶入 form
                     q_changeFill(t_name, 'txtSalesno,txtSales', 'noa,namea');
-                    break;
+                    break;*/
 
                 case 'ucc':  ////  直接 key in 編號，帶入 form
                     q_changeFill(t_name, 'txtProductno_' + b_seq+ ',txtProduct_' + b_seq+ ',txtUnit_' + b_seq, 'noa,product,unit');
@@ -213,7 +213,14 @@
             else
                 wrServer(s1);
         }
-
+		
+		function q_stPost() {
+		        if (!(q_cur == 1 || q_cur == 2))
+		            return false;
+		        abbm[q_recno]['accno'] = xmlString;
+		        $('#txtAccno').val(xmlString);
+		    }
+		
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
