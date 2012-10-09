@@ -101,35 +101,22 @@
         function bbsAssign() {  
         	for (var j = 0; j < q_bbsCount; j++) {
         		$('#txtInprice_'+j).change(function () {
-		            t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-		            q_bodyId($(this).attr('id'));
-		            b_seq = t_IdSeq;
-		            	
-		            q_tr('txtInmoney_'+b_seq,q_float('txtInprice_'+b_seq)*q_float('txtInmount_'+b_seq));
 		            sum();
 		          });
 		          $('#txtInmount_'+j).change(function () {
 		            t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		            q_bodyId($(this).attr('id'));
 		            b_seq = t_IdSeq;
-		            	
-		            q_tr('txtInmoney_'+b_seq,q_float('txtInprice_'+b_seq)*q_float('txtInmount_'+b_seq));
+					q_tr('txtOutmount_'+b_seq,q_float('txtInmount_'+b_seq));
 		            sum();
 		          });
 		          $('#txtOutprice_'+j).change(function () {
-		            t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-		            q_bodyId($(this).attr('id'));
-		            b_seq = t_IdSeq;
-		            	
-		            q_tr('txtOutmoney_'+b_seq,q_float('txtOutprice_'+b_seq)*q_float('txtOutmount_'+b_seq));
 		            sum();
 		          });
 		          $('#txtOutmount_'+j).change(function () {
-		            t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-		            q_bodyId($(this).attr('id'));
-		            b_seq = t_IdSeq;
-		            	
-		            q_tr('txtOutmoney_'+b_seq,q_float('txtOutprice_'+b_seq)*q_float('txtOutmount_'+b_seq));
+		            sum();
+		          });
+		          $('#txtDiscount_'+j).change(function () {
 		            sum();
 		          });
             }//end for
@@ -177,7 +164,8 @@
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0,money_total=0;
             for (var j = 0; j < q_bbsCount; j++) {
-            	
+            	 q_tr('txtInmoney_'+j ,q_float('txtInprice_'+j)*q_float('txtDiscount_'+j)*q_float('txtInmount_'+j));
+            	 q_tr('txtOutmoney_'+j ,q_float('txtOutprice_'+j)*q_float('txtDiscount_'+j)*q_float('txtOutmount_'+j));
             }  // j
         }
         
@@ -464,7 +452,8 @@
                 </td>
                 <td >
                 	<input class="txt num c4" id="txtOutprice.*" type="text" />
-                	<input class="txt num c4" id="txtOutmount.*" type="text" /><BR>
+                	<input class="txt num c4" id="txtDiscount.*" type="text" />
+                	<input class="txt num c4" id="txtOutmount.*" type="hidden" /><BR>
                 	<input class="txt num c1" id="txtOutmoney.*" type="text" />
                 	<input id="txtNoq.*" type="hidden" />
                 </td>

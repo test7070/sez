@@ -51,17 +51,24 @@
         	q_mask(bbmMask);
         	
         	$('#txtInprice').change(function () {
-        		q_tr('txtInmoney',q_float('txtInprice')*q_float('txtInmount'));
+        		sum();
         	});
         	$('#txtInmount').change(function () {
-        		q_tr('txtInmoney',q_float('txtInprice')*q_float('txtInmount'));
+        		sum();
         	});
         	$('#txtOutprice').change(function () {
-        		q_tr('txtOutmoney',q_float('txtOutprice')*q_float('txtOutmount'));
+        		sum();
         	});
         	$('#txtOutmount').change(function () {
-        		q_tr('txtOutmoney',q_float('txtOutprice')*q_float('txtOutmount'));
+        		sum();
         	});
+        	$('#txtDiscount').change(function () {
+        		sum();
+        	});
+        }
+        function sum() {
+        	q_tr('txtInmoney' ,q_float('txtInprice')*q_float('txtDiscount')*q_float('txtInmount'));
+        	q_tr('txtOutmoney' ,q_float('txtOutprice')*q_float('txtDiscount')*q_float('txtOutmount'));
         }
 
         function q_boxClose( s2) { 
@@ -355,29 +362,29 @@
                             <td class="td2" ><input id="txtAddr"  type="text"  class="txt c1"/></td>
                             <td class="td3"><span> </span><a id="lblBoatno" class="lbl btn"></a></td>
                             <td class="td4" colspan='2'><input id="txtBoatno"  type="text"  class="txt c2"/><input id="txtBoat"  type="text"  class="txt c3"/></td>
-                            <td class="td6"><span> </span><a id="lblWeight" class="lbl"></a></td>
-                            <td class="td7"><input id="txtWeight"  type="text"  class="txt num c1"/></td>
+                            <td class="td6"></td>
+                            <td class="td7"></td>
                             <td class="td8"></td>
                         </tr>
                         <tr class="tr4">
-                            <td class="td1"><span> </span><a id="lblInprice" class="lbl"></a></td>
-                            <td class="td2"><input id="txtInprice"  type="text"  class="txt num c1"/></td>
-                            <td class="td3"><span> </span><a id="lblInmount" class="lbl"></a></td>
-                            <td class="td4"><input id="txtInmount"  type="text"  class="txt num c1"/></td>
-                            <td class="td5"><span> </span><a id="lblInmoney" class="lbl"></a></td>
-                            <td class="td6"><input id="txtInmoney"  type="text"  class="txt num c1"/></td>
-                            <td class="td7"></td>
-                            <td class="td8"></td>
+                        	<td class="td1"><span> </span><a id="lblWeight" class="lbl"></a></td>
+                            <td class="td2"><input id="txtWeight"  type="text"  class="txt num c1"/></td>
+                            <td class="td3"><span> </span><a id="lblInprice" class="lbl"></a></td>
+                            <td class="td4"><input id="txtInprice"  type="text"  class="txt num c1"/></td>
+                            <td class="td5"><span> </span><a id="lblInmount" class="lbl"></a></td>
+                            <td class="td6"><input id="txtInmount"  type="text"  class="txt num c1"/></td>
+                            <td class="td7"><span> </span><a id="lblInmoney" class="lbl"></a></td>
+                            <td class="td8"><input id="txtInmoney"  type="text"  class="txt num c1"/></td>
                         </tr>
                         <tr class="tr5">
-                            <td class="td1"><span> </span><a id="lblOutprice" class="lbl"></a></td>
-                            <td class="td2"><input id="txtOutprice"  type="text"  class="txt num c1"/></td>
-                            <td class="td3"><span> </span><a id="lblOutmount" class="lbl"></a></td>
-                            <td class="td4"><input id="txtOutmount"  type="text"  class="txt num c1"/></td>
-                            <td class="td5"><span> </span><a id="lblOutmoney" class="lbl"></a></td>
-                            <td class="td6"><input id="txtOutmoney"  type="text"  class="txt num c1"/></td>
-                            <td class="td7"></td>
-                            <td class="td8"></td>
+                        	<td class="td1"><span> </span><a id="lblDiscount" class="lbl"></a></td>
+                            <td class="td2"><input id="txtDiscount"  type="text"  class="txt num c1"/></td>
+                            <td class="td3"><span> </span><a id="lblOutprice" class="lbl"></a></td>
+                            <td class="td4"><input id="txtOutprice"  type="text"  class="txt num c1"/></td>
+                            <td class="td5"><span> </span><a id="lblOutmount" class="lbl"></a></td>
+                            <td class="td6"><input id="txtOutmount"  type="text"  class="txt num c1"/></td>
+                            <td class="td7"><span> </span><a id="lblOutmoney" class="lbl"></a></td>
+                            <td class="td8"><input id="txtOutmoney"  type="text"  class="txt num c1"/></td>
                         </tr>
                 </table>
             </div>
