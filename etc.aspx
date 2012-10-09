@@ -492,6 +492,12 @@
 						<td><input id="txtTimea"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
+						<td class="td1"><span> </span><a id='lblTimea' class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtTimea"  type="text"  class="txt c1"/>
+						</td>
+					</tr>
+					<tr>
 						<td class="td1"><span> </span><a id='lblCno' class="lbl btn"> </a></td>
 						<td class="td2" colspan="2">
 						<input id="txtCno"  type="text"  class="txt c4"/>
