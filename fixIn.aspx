@@ -164,6 +164,7 @@
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
 		            if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+		            	$('#lblNo_'+i).text(i+1);
 		            	//修改前先將bbs的胎號先儲存，來方便還原
 		            	bbs_tireno[i]=$('#txtTireno_' + i).val();
 		            	//判斷胎號是否已領料
@@ -575,6 +576,7 @@
 					<td align="center">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
+					<td align="center" style="width:20px;"> </td>
 					<td align="center" class="td1"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:12%;"><a id='lblBrand_s'> </a></td>
@@ -591,6 +593,7 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" style="display: none;" />
 					</td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td >
 					<input id="txtProductno.*" type="text" style="width: 75%;" />
 					<input id="btnProductno.*" type="button" value=".." style="width: 15%;font-size: medium;"/>

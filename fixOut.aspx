@@ -73,6 +73,13 @@
 			var init_stkmount=0;
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'fixouts':
+                		var as = _q_appendData("fixouts", "", true);
+                		if(as[0]!=undefined){
+                			alert('胎號已領用，請重新輸入');
+                			btnMinus('btnMinus_'+b_seq);
+                		}
+                		break;
                 	case 'fixucc':
                 		var as = _q_appendData("fixucc", "", true);
                 		if(as[0]!=undefined){
@@ -134,6 +141,12 @@
 		    		case 'txtTireno_':
 		    			q_tr('txtMount_'+ b_seq,1);
 		                q_tr('txtMoney_'+ b_seq,q_float('txtPrice_' + b_seq)*1);
+		                
+		                if(!emp($('#txtTireno_' + b_seq).val())){
+				           	var t_where = "where=^^ tireno='"+$('#txtTireno_' + b_seq).val()+"' ^^";
+	            			q_gt('fixouts', t_where , 0, 0, 0, "", r_accy);
+				        }
+		                
 		                break;
 		    	}
 		    }
@@ -152,7 +165,10 @@
                 						$('#txtTireno_' + b_seq).val('');
                 					}
                 				}
-				                
+                				if(!emp($('#txtTireno_' + b_seq).val())){
+				           			var t_where = "where=^^ tireno='"+$('#txtTireno_' + b_seq).val()+"' ^^";
+	            					q_gt('fixouts', t_where , 0, 0, 0, "", r_accy);
+				        		}
 				           	});
 		            	
 		                $('#txtMount_' + i).change(function (e) {

@@ -26,7 +26,8 @@
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         aPop = new Array(['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'],
         							['txtCardealno_', 'btnCardeal_', 'cardeal', 'noa,comp', 'txtCardealno_,txtCardeal_', 'cardeal_b.aspx'],
-        							['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno_,txtDriverno_,txtDriver_,txtCardealno_,txtCardeal_', 'car2_b.aspx']);
+        							['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno_,txtDriverno_,txtDriver_,txtCardealno_,txtCardeal_', 'car2_b.aspx'],
+        							['txtCno','lblComp','acomp','noa,acomp','txtCno,txtComp2','acomp_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -101,35 +102,22 @@
         function bbsAssign() {  
         	for (var j = 0; j < q_bbsCount; j++) {
         		$('#txtInprice_'+j).change(function () {
-		            t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-		            q_bodyId($(this).attr('id'));
-		            b_seq = t_IdSeq;
-		            	
-		            q_tr('txtInmoney_'+b_seq,q_float('txtInprice_'+b_seq)*q_float('txtInmount_'+b_seq));
 		            sum();
 		          });
 		          $('#txtInmount_'+j).change(function () {
 		            t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		            q_bodyId($(this).attr('id'));
 		            b_seq = t_IdSeq;
-		            	
-		            q_tr('txtInmoney_'+b_seq,q_float('txtInprice_'+b_seq)*q_float('txtInmount_'+b_seq));
+					q_tr('txtOutmount_'+b_seq,q_float('txtInmount_'+b_seq));
 		            sum();
 		          });
 		          $('#txtOutprice_'+j).change(function () {
-		            t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-		            q_bodyId($(this).attr('id'));
-		            b_seq = t_IdSeq;
-		            	
-		            q_tr('txtOutmoney_'+b_seq,q_float('txtOutprice_'+b_seq)*q_float('txtOutmount_'+b_seq));
 		            sum();
 		          });
 		          $('#txtOutmount_'+j).change(function () {
-		            t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-		            q_bodyId($(this).attr('id'));
-		            b_seq = t_IdSeq;
-		            	
-		            q_tr('txtOutmoney_'+b_seq,q_float('txtOutprice_'+b_seq)*q_float('txtOutmount_'+b_seq));
+		            sum();
+		          });
+		          $('#txtDiscount_'+j).change(function () {
 		            sum();
 		          });
             }//end for
@@ -177,7 +165,8 @@
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0,money_total=0;
             for (var j = 0; j < q_bbsCount; j++) {
-            	
+            	 q_tr('txtInmoney_'+j ,q_float('txtInprice_'+j)*q_float('txtDiscount_'+j)*q_float('txtInmount_'+j));
+            	 q_tr('txtOutmoney_'+j ,q_float('txtOutprice_'+j)*q_float('txtDiscount_'+j)*q_float('txtOutmount_'+j));
             }  // j
         }
         
@@ -318,11 +307,11 @@
                 float: left;
             }
             .txt.c2 {
-                width: 10%;
+                width: 25%;
                 float: left;
             }
             .txt.c3 {
-                width: 79%;
+                width: 75%;
                 float: left;
             }
             .txt.c4 {
@@ -421,7 +410,11 @@
             <td class='td2'><input id="txtAddmoney" type="text" class="txt c1"/></td>
             <td class='td3'><span> </span><a id="lblMoney" class="lbl"></a></td>
             <td class='td4'><input id="txtMoney" type="text" class="txt c1"/></td>
-        </tr>    
+        </tr>
+        <tr>
+            <td class='td1'><span> </span><a id="lblComp" class="lbl btn"></a></td>
+            <td class='td2' colspan='2'><input id="txtCno"  type="text"  class="txt c2"/><input id="txtComp2"  type="text"  class="txt c3"/></td>
+        </tr> 
         </table>
         </div>
 		</div>
@@ -464,7 +457,8 @@
                 </td>
                 <td >
                 	<input class="txt num c4" id="txtOutprice.*" type="text" />
-                	<input class="txt num c4" id="txtOutmount.*" type="text" /><BR>
+                	<input class="txt num c4" id="txtDiscount.*" type="text" />
+                	<input class="txt num c4" id="txtOutmount.*" type="hidden" /><BR>
                 	<input class="txt num c1" id="txtOutmoney.*" type="text" />
                 	<input id="txtNoq.*" type="hidden" />
                 </td>

@@ -26,31 +26,21 @@
             return;
         }
         mainBrow(6, t_content, t_sqlname, t_postname);
-        /*var t_where='';
-        if (location.href.indexOf('?') > -1)   // debug
-        {
-            t_where=location.href.substr(location.href.indexOf('where'));
-            t_where="^^"+t_where.substr(0,t_where.indexOf(';'));
-        }
-        q_gt('ordc', t_where , 0, 0, 0, "", r_accy);*/
+       
     }
     function bbsAssign() {  /// checked 
         _bbsAssign();
     }
 
     function q_gtPost() { 
-    	/*for (var j = 0; j < q_bbsCount; j++) {
-    		btnMinus('btnMinus_'+j);
-    	}
-        var ordc = _q_appendData("ordc", "", true);
-        q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtRadius,txtWidth,txtDime,txtLengthb,txtMount,txtWeight,txtPrice,txtTotal,txtTheory,txtMemo,txtOrdbno,txtNo3', ordc.length, ordc, 'productno,product,spec,radius,width,dime,lengthb,mount,weight,price,total,theory,memo,noa,no3', '');*/
+    	
     }
     function refresh() {
         _refresh();
         size_change();
     }
     function size_change () {
-		  if(dec($('#txtRadius_0').val())==0)	//根據第一筆資料判斷是鋼捲還是鋼管，鋼捲沒有Radius
+		  if(dec($('#txtKind_0').val())==1||dec($('#txtKind_0').val())==4)	//根據第一筆資料判斷是鋼捲還是鋼管，鋼捲沒有Radius
             	{
             		$('#lblSize_help').text("厚度x寬度x長度");
 	            	for (var j = 0; j < brwCount2 ; j++) {
@@ -80,7 +70,7 @@
 		}
 </script>
 <style type="text/css">
-#dmain {
+	#dmain {
                 overflow: hidden;
             }
             .dview {
@@ -247,8 +237,8 @@
                 <td><input class="txt num c1" id="txtMount.*" type="text"/></td>
                 <td><input class="txt num c1" id="txtWeight.*" type="text" /></td>
                 <td><input class="txt num c1" id="txtPrice.*" type="text"/></td>
-                <td><input class="txt c1" id="txtNoa.*" type="text"/><input class="txt c1" id="txtno2.*" type="text" /></td>
-                <td><input class="txt c1" id="txtMemo.*" type="text"/><input id="recno.*" type="hidden" /></td>
+                <td><input class="txt c1" id="txtNoa.*" type="text"/><input class="txt c1" id="txtNo2.*" type="text" /></td>
+                <td><input class="txt c1" id="txtMemo.*" type="text"/><input id="txtKind.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
             </tr>
         </table>
   <!--#include file="../inc/pop_ctrl.inc"--> 

@@ -192,7 +192,10 @@
 
                 q_nowf();
                 as['date'] = abbm2['date'];
-
+				as['kind'] = abbm2['kind'];
+                as['tggno'] = abbm2['tggno'];
+                as['odate'] = abbm2['kind'];
+                as['enda'] = abbm2['enda'];
                 //            t_err ='';
                 //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
                 //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';

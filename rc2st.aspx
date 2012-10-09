@@ -176,19 +176,11 @@
             var t_tggno = trim($('#txtTggno').val());
             var t_ordeno = trim($('#txtOrdeno').val());
             var t_where='';
-            var where1='';
             if (t_tggno.length > 0) {
-            	if($('#cmbKind').find("option:selected").text().indexOf('板')>-1){
-            		 if (t_ordeno.length > 0) 
-            			t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "")+" && radius=0";  ////  sql AND 語法，請用 &&
-            		else
-                		t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+" && radius=0";  ////  sql AND 語法，請用 &&
-                }else{
-                	if (t_ordeno.length > 0) 
-                		t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "")+" && radius>0";  ////  sql AND 語法，請用 &&
-                	else
-                		t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+" && radius>0";  ////  sql AND 語法，請用 &&
-                }
+            	if (t_ordeno.length > 0) 
+            		t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
+            	else
+                	t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
                 t_where = t_where;
             }
             else {
@@ -381,6 +373,7 @@
             as['noa'] = abbm2['noa'];
             as['datea'] = abbm2['datea'];
             as['tggno'] = abbm2['tggno'];
+            as['kind'] = abbm2['kind'];
             if (abbm2['storeno'])
                 as['storeno'] = abbm2['storeno'];
 
@@ -562,7 +555,7 @@
         
     </script>
     <style type="text/css">
-#dmain {
+		#dmain {
                 overflow: hidden;
             }
             .dview {
