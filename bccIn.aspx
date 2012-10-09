@@ -50,12 +50,21 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd], ['txtCucdate', r_picd]];
             q_mask(bbmMask);
-
+			
+			$('#lblOrdeno').click(function () {
+		            lblOrdeno();
+		     });
         }
 
         function q_boxClose( s2) { 
             var ret; 
-            switch (b_pop) {   
+            switch (b_pop) {
+            	case 'ordcs':
+            		b_ret = getb_ret();
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtBccno,txtBccname,txtUnit,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo,txtMount', b_ret.length, b_ret
+                                                           , 'productno,product,unit,noa,no2,price,total,memo,mount'
+                                                           , 'txtProductno,txtProduct');
+            		break;   
                 case 'tgg':  
                     q_changeFill(t_name, 'txtTggno,txtComp,txtTel,txtPost,txtAddr,txtPay,cmbTrantype', 'noa,comp,tel,post_fact,addr_fact,pay,trantype');
                     break;
@@ -301,6 +310,24 @@
         function btnCancel() {
             _btnCancel();
         }
+        
+        function lblOrdeno() {
+            var t_tggno = trim($('#txtTggno').val());
+            var t_ordeno = trim($('#txtOrdeno').val());
+            var t_where='';
+            if (t_tggno.length > 0) {
+            	if (t_ordeno.length > 0) 
+            		t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "")+" && kind='1'";  ////  sql AND 語法，請用 &&
+            	else
+                	t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+" && kind='1'";  ////  sql AND 語法，請用 &&
+                t_where = t_where;
+            }
+            else {
+                alert(q_getMsg('msgTggEmp'));
+                return;
+            }
+            q_box('ordcs_b.aspx', 'ordcs;' + t_where, "95%", "650px", q_getMsg('popOrdcs'));
+        }
     </script>
     <style type="text/css">
          #dmain {
@@ -461,7 +488,7 @@
             <td class="td10"><input id="txtTotal"  type="text" class="txt num c2"/></td>         
         </tr> 
         <tr>
-        	<td class="td1"><span> </span><a id="lblOrdeno" class="lbl"></a></td>
+        	<td class="td1"><span> </span><a id="lblOrdeno" class="lbl btn"></a></td>
             <td class="td2"><input id="txtOrdeno"  type="text" class="txt c1"/></td>
             <td class='td3'><span> </span><a id="lblAcomp" class="lbl btn" style="font-size: 14px;"></a></td>
             <td class="td4" colspan="3"><input id="txtCno" type="text" class="txt c2"/><input id="txtAcomp" type="text" class="txt c3"/></td>

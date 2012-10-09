@@ -61,10 +61,15 @@
                 q_cmbParse("cmbKind", q_getPara('inast.kind'));
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
                 
+                $('#btnRc2st').click(function () {
+		            var t_where = "where=^^ kind='"+ $('#cmbKind').val()+"' and tggno='"+$('#txtTggno').val()+"' and (storeno ='' OR storeno is null ) ^^"; 
+					q_gt('rc2', t_where , 0, 0, 0, "", r_accy);
+		        });
+                
                 //變動尺寸欄位
-            $('#cmbKind').change(function () {
-            	size_change();
-		     });
+	            $('#cmbKind').change(function () {
+	            	size_change();
+			     });
             }
 		function size_change () {
 		  if( $('#cmbKind').find("option:selected").text().indexOf('板')>-1)
@@ -123,7 +128,17 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case'uccb':
+                	case 'rc2':
+                		var rc2 = _q_appendData("rc2", "", true);
+                		if(rc2[0] != undefined){
+                			var rc2s = _q_appendData("rc2s", "", true);
+                			q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtRadius,txtRc2no,txtMount,txtWeight,txtMemo', rc2s.length, rc2s
+                                                           , 'productno,product,spec,size,dime,width,lengthb,radius,noa,mount,weight,memo'
+                                                           , 'txtProductno,txtProduct,');
+                            size_change();
+                		}
+                		break;
+                	case 'uccb':
                 		var as = _q_appendData("uccb", "", true);
                 		
                 		if(uccb_readonly){
@@ -666,6 +681,7 @@
         <td class='td1'><span> </span><a id="lblStation" class="lbl btn" > </a></td>
         <td class="td2" colspan="3"><input id="txtStationno" type="text"  class="txt c2"/>
             <input id="txtStation" type="text"  class="txt c3"/></td>
+        <td class='td5'><input type="button" id="btnRc2st" class="txt c1 "></td>
         </tr>
         <tr class="tr4">
         <td class='td1'><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
@@ -751,6 +767,7 @@
                 <td ><input class="txt c1" id="txtPlace.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtSource.*" type="text" /></td>-->
                 <td ><input class="txt c1" id="txtMemo.*" type="text" />
+                		<input class="txt c1" id="txtRc2no.*" type="text" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
             </tr>
         </table>

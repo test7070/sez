@@ -301,6 +301,7 @@
             as['noa'] = abbm2['noa'];
             as['datea'] = abbm2['datea'];
             as['tggno'] = abbm2['tggno'];
+            as['kind'] = abbm2['kind'];
             if (abbm2['storeno'])
                 as['storeno'] = abbm2['storeno'];
 
