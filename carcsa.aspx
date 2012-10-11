@@ -27,7 +27,8 @@
         aPop = new Array(['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'],
         							['txtCardealno_', 'btnCardeal_', 'cardeal', 'noa,comp', 'txtCardealno_,txtCardeal_', 'cardeal_b.aspx'],
         							['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno_,txtDriverno_,txtDriver_,txtCardealno_,txtCardeal_', 'car2_b.aspx'],
-        							['txtCno','lblComp','acomp','noa,acomp','txtCno,txtComp2','acomp_b.aspx']);
+        							['txtCardedno','lblComp','acomp','noa,acomp','txtCardedno,txtCarded','acomp_b.aspx'],
+        							['txtCardedno_','btnCarded_','acomp','noa,acomp','txtCardedno_,txtCarded_','acomp_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -413,7 +414,7 @@
         </tr>
         <tr>
             <td class='td1'><span> </span><a id="lblComp" class="lbl btn"></a></td>
-            <td class='td2' colspan='2'><input id="txtCno"  type="text"  class="txt c2"/><input id="txtComp2"  type="text"  class="txt c3"/></td>
+            <td class='td2' colspan='2'><input id="txtCardedno"  type="text"  class="txt c2"/><input id="txtCarded"  type="text"  class="txt c3"/></td>
         </tr> 
         </table>
         </div>
@@ -425,8 +426,9 @@
                 <td align="center" style="width:8%"><a id='lblDateas'></a></td>
                 <td align="center" style="width:8%"><a id='lblCarnos'></a></td>
                 <td align="center" style="width:8%"><a id='lblDrivers'></a></td>
-                <td align="center" style="width:18%"><a id='lblAddrs'></a></td>
-                <td align="center" style="width:18%"><a id='lblCardeals'></a></td>
+                <td align="center" style="width:12%"><a id='lblAddrs'></a></td>
+                <td align="center" style="width:14%"><a id='lblCardeals'></a></td>
+                <td align="center" style="width:14%"><a id='lblCardeds'></a></td>
                 <td align="center" style="width:8%"><a id='lblWeights'></a></td>
                 <td align="center" style="width:14%"><a id='lblIns'></a></td>
                 <td align="center" style="width:14%"><a id='lblOuts'></a></td>
@@ -448,6 +450,11 @@
                 		<input class="txt c3" id="txtCardealno.*" type="text" />
                 		<input class="btn"  id="btnCardeal.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
                 		<input class="txt c1" id="txtCardeal.*" type="text" />
+                </td>
+                <td >
+                		<input class="txt c3" id="txtCardedno.*" type="text" />
+                		<input class="btn"  id="btnCarded.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+                		<input class="txt c1" id="txtCarded.*" type="text" />
                 </td>
                 <td ><input class="txt num c1" id="txtWeight.*" type="text" /></td>
                 <td >
