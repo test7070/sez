@@ -58,7 +58,7 @@
                     }, {
                         type : '5', 
                         name : 'stype',
-                        value : [q_getPara('report.all')].concat(q_getPara('ordc.stype').split(','))
+                        value : [q_getPara('report.all')].concat(q_getPara('ordc.kind').split(','))
                     }, {
                         type : '5', 
                         name : 'tran',
