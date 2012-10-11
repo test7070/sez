@@ -350,6 +350,7 @@
 				if ($('#txtDatea').val().length == 0) {
 					$('#txtDatea').val(q_date());
 					$('#txtMon').val(q_date().substring(0, 6));
+					$('#txtMon2').val(q_date().substring(0, 6));
 				}
 				sum();
 				$('#dview').css('width', '0%');
@@ -786,7 +787,10 @@
 						<td colspan="2">
 						<input id="txtMon" type="text"  class="txt c1"/>
 						</td>
-
+						<td colspan="2"><span> </span><a id="lblMon2" class="lbl"> </a></td>
+						<td colspan="2">
+						<input id="txtMon2" type="text"  class="txt c1"/>
+						</td>
 					</tr>
 					<tr>
 						<td class="td9" colspan="2"><span> </span><a id="lblCarno" class="lbl btn"> </a></td>

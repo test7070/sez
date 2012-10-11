@@ -54,7 +54,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd],['txtOutdate', r_picd]];
+                bbmMask = [['txtDatea', r_picd],['txtOutdate', r_picd],['txtMon', r_picm]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('fixout.typea'));
                 q_cmbParse("cmbPosition", q_getPara('tire.position'),'s');
@@ -204,14 +204,15 @@
                 $('#txtNoa').val('AUTO');
                 $('#cmbTypea').val('01');
                 $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
+                $('#txtMon').val(q_date().substring(0,6));
+                $('#txtOutdate').focus();
             }
 
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtDatea').focus();
+                $('#txtOutdate').focus();
                 sum();
             }
 
@@ -484,10 +485,17 @@
 						<td class="trZ"> </td>
 					</tr>	
 					<tr>
+						<td><span> </span><a id="lblOutdate" class="lbl"> </a></td>
+						<td><input id="txtOutdate"type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblDatea" class="lbl" > </a></td>
+						<td><input id="txtDatea"type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblMon" class="lbl" > </a></td>
+						<td><input id="txtMon"type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
 						<td class='td1'><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class="td2" colspan="2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-						<td class='td3'><span> </span><a id="lblDatea" class="lbl" > </a></td>
-						<td class="td4"><input id="txtDatea"type="text" class="txt c1"/></td>
+						
 						<td class='td5'><span> </span><a id="lblTypea" class="lbl"> </a></td>
 						<td class="td6"><select id="cmbTypea" class="txt c1"> </select></td>
 					</tr>
@@ -499,8 +507,7 @@
 						<input id="txtDriverno" type="text" class="txt c2"/>
 						<input id="txtDriver" type="text" class="txt c3"/>
 						</td>
-						<td><span> </span><a id="lblOutdate" class="lbl"> </a></td>
-						<td><input id="txtOutdate"type="text" class="txt c1"/></td>
+						
 					</tr>
 					<tr class="tr3">
 						
