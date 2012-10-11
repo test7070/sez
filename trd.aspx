@@ -222,6 +222,13 @@
 								curData.vccano.push(b_ret[i].noa);
 								t_where +=" or noa='"+b_ret[i].noa+"'";
 							}
+							//回寫VCCA
+							if(curData.isLoadVccano){
+								var t_vccano='';
+								for(var i=0;i<curData.vccano.length;i++)
+									t_vccano+=(t_vccano.length>0?',':'')+curData.vccano[i];
+								$('#txtVccano').val(t_vccano);
+							}
 							q_gt('vcca1', "where=^^"+t_where+"^^", 0, 0, 0, "");
 						}
 						break;
@@ -634,14 +641,14 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:15%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:20%"><a id='vewVccano'></a></td>
 						<td align="center" style="width:20%"><a id='vewComp'></a></td>
+						<td align="center" style="width:20%"><a id='vewTotal'></a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='vccano,10'>~vccano,10</td>
 						<td id='nick' style="text-align: center;">~nick</td>
+						<td id='total' style="text-align: right;">~total</td>
 					</tr>
 				</table>
 			</div>
