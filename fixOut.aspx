@@ -217,7 +217,7 @@
             }
 
             function btnPrint() {
-			q_box('z_fixout.aspx', '', "800px", "600px", q_getMsg("popPrint"));
+			q_box('z_fixoutp.aspx', '', "800px", "600px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
