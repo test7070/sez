@@ -27,7 +27,7 @@
 		aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx'],
 		['txtCustno', 'lblCust', 'cust', 'noa,comp,serial,addr_invo', 'txtCustno,txtComp,txtSeria,txtAddress', 'cust_b.aspx'],
 		['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx'],
-		['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
+		['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -478,7 +478,7 @@
         </tr>
         <tr class="tr8">
             <td class="td1"><span> </span><a id="lblMemo" class="lbl" ></a></td>
-            <td class="td2" colspan='5'><textarea id="txtMemo" rows="3" cols="10" style="width: 99%;"></textarea></td>
+            <td class="td2" colspan='5'><input id="txtMemo"  type="text"  class="txt c1"/></td>
         </tr>
         </table>
         </div>

@@ -28,7 +28,7 @@
         aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,serial,addr_invo', 'txtTggno,txtComp,txtSeria,txtAddress', 'tgg_b.aspx'],
         ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
         ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx'],
-        ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
+        ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -54,7 +54,6 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
             q_mask(bbmMask);
-            fbbm[fbbm.length] = 'txtMemo'; 
              q_cmbParse("cmbTypea", q_getPara('rc2.typea')); 
              q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
              
@@ -477,7 +476,7 @@
         </tr>
         <tr class="tr8">
             <td class="td1"><span> </span><a id="lblMemo" class="lbl" > </a></td>
-            <td class="td2" colspan='5'><textarea id="txtMemo" cols="10" rows="3" style='width: 99%;'> </textarea></td>
+            <td class="td2" colspan='5'><input id="txtMemo" type="text" class="txt c1" /></td>
         </tr>
         </table>
         </div>
@@ -498,7 +497,7 @@
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <!--<td><input id="txtNoq.*" type="text" class="txt c2" /></td>-->
-                <td><input id="txtProductno.*" type="text" style="width: 78%;"/><input id="btnProductno.*" type="button" value="..." /></td>
+                <td><input id="txtProductno.*" type="text" style="width: 80%;"/><input id="btnProductno.*" type="button" value="..."style="width: 15%;" /></td>
                 <td><input id="txtProduct.*"type="text" class="txt c1"/></td>
                 <td><input id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td><input id="txtMount.*" type="text" class="txt num c1" /></td>
