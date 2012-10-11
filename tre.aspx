@@ -64,7 +64,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd],['txtDate2', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtPaydate', r_picd]];
+                bbmMask = [['txtDatea', r_picd],['txtDate2', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtPaydate', r_picd], ['txtMon', r_picm]];
                 q_mask(bbmMask);
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 				q_gt('carteam', '', 0, 0, 0, "");
@@ -582,10 +582,7 @@
 						<td class="td2" colspan="2">
 						<input id="txtNoa" type="text" class="txt c1"/>
 						</td>
-						<td class="td4"><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td class="td5">
-						<input id="txtDatea" type="text"  class="txt c1"/>
-						</td>
+						
 						<td class="td6"><span> </span><a id="lblCarno" class="lbl"> </a></td>
 						<td class="td7">
 						<input id="txtCarno" type="text"  class="txt c1"/>
@@ -595,7 +592,13 @@
 						<input id="txtDriverno" type="text"  class="txt c2"/>
 						<input id="txtDriver" type="text"  class="txt c2"/>
 						</td>
-					</tr>			
+					</tr>	
+					<tr>
+						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
+						<td><input id="txtDatea" type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
+						<td><input id="txtMon" type="text"  class="txt c1"/></td>
+					</tr>		
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id="lblRc2ano" class="lbl"> </a></td>
 						<td class="td2"  colspan="2">
