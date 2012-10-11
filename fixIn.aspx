@@ -523,7 +523,7 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 						<td align="center" style="width:20%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:20%"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:20%"><a id='vewIndate'> </a></td>
 						<td align="center" style="width:20%"><a id='vewTgg'> </a></td>
 					</tr>
 					<tr>
@@ -531,7 +531,7 @@
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='noa'>~noa</td>
+						<td align="center" id='indate'>~indate</td>
 						<td align="center" id='nick'>~nick</td>
 
 					</tr>
