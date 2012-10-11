@@ -31,7 +31,7 @@
             brwKey = 'Datea';
             aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
         					['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
-        					['txtCarplateno', 'lblCarplateno', 'carplate', 'noa,carplate', 'txtCarplateno', 'carplate_b.aspx'],
+        					['txtCarplateno', 'lblCarplateno', 'carplate', 'noa,carplate,driver', 'txtCarplateno', 'carplate_b.aspx'], 
         					['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,brand,unit', 'txtProductno_,txtProduct_,txtBrand_,txtUnit_', 'fixucc_b.aspx'],
         					['txtTireno_', 'btnTirestk_', 'tirestk', 'noa,productno,product,brandno,brand,price', 'txtTireno_,txtProductno_,txtProduct_,txtBrandno_,txtBrand_,txtPrice_', 'tirestk_b.aspx']);
 
@@ -337,7 +337,7 @@
             }
             .dview {
                 float: left;
-                width: 30%;
+                width: 40%;
             }
             .tview {
                 margin: 0;
@@ -355,7 +355,7 @@
             }
             .dbbm {
                 float: left;
-                width: 65%;
+                width: 55%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -456,6 +456,7 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 						<td align="center" style="width:20%"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:20%"><a id='vewOutdate'> </a></td>
 						<td align="center" style="width:20%"><a id='vewCarno'> </a></td>
 						<td align="center" style="width:20%"><a id='vewDriver'> </a></td>
 						<td align="center" style="width:20%"><a id='vewCarplate'> </a></td>
@@ -465,6 +466,7 @@
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
 						<td align="center" id='datea'>~datea</td>
+						<td align="center" id='outdate'>~outdate</td>
 						<td align="center" id='carno'>~carno</td>
 						<td align="center" id='driver'>~driver</td>
 						<td align="center" id='carplateno'>~carplateno</td>
@@ -474,8 +476,6 @@
 			<div class='dbbm'>
 				<table class="tbbm" id="tbbm">
 					<tr style="height:1px;">
-						<td> </td>
-						<td> </td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
