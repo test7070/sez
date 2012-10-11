@@ -24,8 +24,7 @@
         
         aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
         							['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
-        							['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'],
-        							['txtCardedno','lblComp','acomp','noa,acomp','txtCardedno,txtCarded','acomp_b.aspx']);
+        							['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx']);
         
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -354,17 +353,13 @@
                             <td class="td2"><input id="txtCarno"  type="text"  class="txt c1"/></td>
                             <td class="td3"><span> </span><a id="lblDriver" class="lbl btn"></a></td>
                             <td class="td4" colspan='2'><input id="txtDriverno"  type="text"  class="txt c2"/><input id="txtDriver"  type="text"  class="txt c3"/></td>
-                            <td class="td6"><span> </span><a id="lblCardeal" class="lbl btn"></a></td>
-                            <td class="td7" colspan='2'><input id="txtCardealno"  type="text"  class="txt c2"/><input id="txtCardeal"  type="text"  class="txt c3"/></td>
+                            
                         </tr>
                         <tr class="tr3">
                             <td class="td1"><span> </span><a id="lblAddr" class="lbl"></a></td>
                             <td class="td2"><input id="txtAddr"  type="text"  class="txt c1"/></td>
-                            <td class="td3"><span> </span><a id="lblComp" class="lbl btn"></a></td>
-                            <td class="td4" colspan='2'><input id="txtCardedno"  type="text"  class="txt c2"/><input id="txtCarded"  type="text"  class="txt c3"/></td>
-                            <td class="td6"></td>
-                            <td class="td7"></td>
-                            <td class="td8"></td>
+                            <td class="td3"><span> </span><a id="lblCardeal" class="lbl btn"></a></td>
+                            <td class="td4" colspan='2'><input id="txtCardealno"  type="text"  class="txt c2"/><input id="txtCardeal"  type="text"  class="txt c3"/></td>
                         </tr>
                         <tr class="tr3">
                         	<td class="td1"><span> </span><a id="lblWeight" class="lbl"></a></td>
