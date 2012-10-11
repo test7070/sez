@@ -63,11 +63,58 @@
 		        $('#txtDiscount').change(function () {
 		            sum();
 		        });
+		        $('#lblOrdc').click(function () {
+		            lblOrdc();
+		        });
             }
+            
+            function lblOrdc() {
+            var t_tggno = trim($('#txtTggno').val());
+            var t_ordeno = trim($('#txtOrdeno').val());
+            var t_where='';
+            if (t_tggno.length > 0) {
+            	if (t_ordeno.length > 0) 
+            		t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "")+"&& kind='2'";  ////  sql AND 語法，請用 &&
+            	else
+                	t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& kind='2'";  ////  sql AND 語法，請用 &&
+                t_where = t_where;
+            }
+            else {
+                alert(q_getMsg('msgTggEmp'));
+                return;
+            }
+            q_box('ordcs_b.aspx', 'ordcs;' + t_where, "95%", "650px", q_getMsg('popOrdc'));
+        }
 
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
+                	case 'ordcs':
+                    if (q_cur > 0 && q_cur < 4) {
+                        b_ret = getb_ret();
+                        if (!b_ret || b_ret.length == 0)
+                            return;
+                        var i, j = 0;
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdcno,txtNo2,txtPrice,txtMoney,txtMemo,txtMount', b_ret.length, b_ret
+                                                           , 'productno,product,unit,noa,no2,price,total,memo,mount'
+                                                           , 'txtProductno,txtProduct');   /// 最後 aEmpField 不可以有【數字欄位】
+                        bbsAssign();
+
+                        /*for (i = 0; i < ret.length; i++) {
+                            k = ret[i];  ///ret[i]  儲存 tbbs 指標
+                            if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
+                                $('#txtMount_' + k).val(b_ret[i]['notv']);
+                                $('#txtWeight_' + k).val(divide0(b_ret[i]['weight'] * b_ret[i]['notv'], b_ret[i]['mount']));
+                            }
+                            else {
+                                $('#txtWeight_' + k).val(b_ret[i]['notv']);
+                                $('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv'], b_ret[i]['weight']));
+                            }
+
+                        }  /// for i*/
+                    }
+                    break;
+                    
                     case q_name + '_s':
                         q_boxClose2(s2);
                         break;
@@ -423,15 +470,15 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 100%;
+                width: 98%;
                 float: left;
             }
             .txt.c2 {
-                width: 40%;
+                width: 26%;
                 float: left;
             }
             .txt.c3 {
-                width: 60%;
+                width: 70%;
                 float: left;
             }
             .txt.num {
@@ -453,9 +500,7 @@
                 margin: -1px;
                 font-size: medium;
             }
-            .tbbs input[type="text"] {
-                width: 95%;
-            }
+            
             .tbbs a {
                 font-size: medium;
             }
@@ -531,9 +576,13 @@
 					<tr>
 						<td class="td1"><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
 						<td class="td2" colspan="3">
-						<input id="txtTggno" type="text" class="txt"  style="width:25%;"/>
-						<input id="txtTgg" type="text" class="txt" style="width:75%;"/>
-						<input id="txtNick" type="text" class="txt" style="display: none;"/>
+							<input id="txtTggno" type="text" class="txt"  style="width:25%;"/>
+							<input id="txtTgg" type="text" class="txt" style="width:75%;"/>
+							<input id="txtNick" type="text" class="txt" style="display: none;"/>
+						<td class="td5"><span> </span><a id='lblOrdc' class="lbl btn"></a></td>
+						<td class="td6">
+							<input id="txtOrdcno"  type="text"  class="txt c1"/>
+						</td>
 						</td>
 					</tr>
 					<tr class="tr3">
@@ -577,16 +626,16 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" class="td1"><a id='lblProductno_s'> </a></td>
-					<td align="center" style="width:20%;"><a id='lblProduct_s'> </a></td>
-					<td align="center" style="width:12%;"><a id='lblBrand_s'> </a></td>
-					<td align="center" style="width: 3%;"><a id='lblUnit_s'> </a></td>
-					<td align="center" class="td1"><a id='lblMount_s'> </a></td>
-					<td align="center" class="td1"><a id='lblPrice_s'> </a></td>
-					<td align="center" class="td1"><a id='lblMoney_s'> </a></td>
-					<td align="center" class="td1"><a id='lblTireno_s'> </a></td>
+					<td align="center" style="width:10%;"><a id='lblProductno_s'> </a></td>
+					<td align="center" style="width:15%;"><a id='lblProduct_s'> </a></td>
+					<td align="center" style="width:10%;"><a id='lblBrand_s'> </a></td>
+					<td align="center" style="width: 4%;"><a id='lblUnit_s'> </a></td>
+					<td align="center" style="width: 7%;"><a id='lblMount_s'> </a></td>
+					<td align="center" style="width: 7%;"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width: 7%;"><a id='lblMoney_s'> </a></td>
+					<td align="center" style="width: 8%;"><a id='lblTireno_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
-					<td align="center" class="td1"><a id='lblTiretype_s'> </a></td>
+					<td align="center" style="width: 10%;"><a id='lblTiretype_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td style="width:1%;">
@@ -621,6 +670,7 @@
 					</td>
 					<td >
 					<input class="txt c1" id="txtMemo.*" type="text" />
+					<input id="txtOrdcno.*" type="text" class="txt c3"/><input id="txtNo2.*" type="text" class="txt c2"/>
 					</td>
 					<td >
 					<select id="cmbTiretype.*" class="txt c1"> </select>
