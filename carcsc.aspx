@@ -26,7 +26,7 @@
         							['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
         							['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'],
         							['txtBoatno', 'lblBoatno', 'boat', 'noa,boat', 'txtBoatno,txtBoat', 'boat_b.aspx'],
-        							['txtCno','lblComp','acomp','noa,acomp','txtCno,txtComp2','acomp_b.aspx']);
+        							['txtCardedno','lblComp','acomp','noa,acomp','txtCardedno,txtCarded','acomp_b.aspx']);
         
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -362,7 +362,7 @@
                             <td class="td1"><span> </span><a id="lblAddr" class="lbl"></a></td>
                             <td class="td2" ><input id="txtAddr"  type="text"  class="txt c1"/></td>
                             <td class="td3"><span> </span><a id="lblComp" class="lbl btn"></a></td>
-                            <td class="td4" colspan='2'><input id="txtCno"  type="text"  class="txt c2"/><input id="txtComp2"  type="text"  class="txt c3"/></td>
+                            <td class="td4" colspan='2'><input id="txtCardedno"  type="text"  class="txt c2"/><input id="txtCarded"  type="text"  class="txt c3"/></td>
                             <td class="td6"><span> </span><a id="lblBoatno" class="lbl btn"></a></td>
                             <td class="td7" colspan='2'><input id="txtBoatno"  type="text"  class="txt c2"/><input id="txtBoat"  type="text"  class="txt c3"/></td>
                         </tr>
