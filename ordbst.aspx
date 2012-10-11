@@ -223,7 +223,7 @@
             }
 
             function btnPrint() {
-
+				q_box('z_ordbstp.aspx', '', "800px", "600px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
