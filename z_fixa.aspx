@@ -19,7 +19,7 @@
 				_q_boxClose();
 				q_getId();
 				q_gf('', 'z_fixa');
-			});
+			});  
 			function q_gfPost() {
 				$('#q_report').q_report({
 					fileName : 'z_fixa',
@@ -29,26 +29,23 @@
 						value : q_getId()[4]
 					}, {/*1*/
 						type : '1',
-						name : 'date'
+						name : 'mon'
 					}, {/*2*/
-						type : '1',
-						name : 'fixadate'
-					}, {/*3*/
 						type : '6',
 						name : 'xcarno'
-					}, {/*4*/
+					}, {/*3*/
 						type : '6',
 						name : 'xcarplateno'
-					}, {/*5*/
+					}, {/*4*/
 						type : '2',
 						name : 'driver',
 						dbf : 'driver',
 						index : 'noa,namea',
 						src : 'driver_b.aspx'
-					}, {/*6*/
+					}, {/*5*/
 						type : '6',
 						name : 'xmoney'
-					}, {/*7*/
+					}, {/*6*/
 						type : '2',
 						name : 'tgg',
 						dbf : 'tgg',
@@ -60,14 +57,8 @@
 				q_getFormat();
 				q_langShow();
 
-				$('#txtDate1').mask('999/99/99');
-				$('#txtDate1').datepicker();
-				$('#txtDate2').mask('999/99/99');
-				$('#txtDate2').datepicker();
-				$('#txtFixadate1').mask('999/99/99');
-				$('#txtFixadate1').datepicker();
-				$('#txtFixadate2').mask('999/99/99');
-				$('#txtFixadate2').datepicker();
+				$('#txtMon1').mask('999/99');
+				$('#txtMon2').mask('999/99');
 
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
@@ -78,7 +69,7 @@
 				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-				$('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
+				$('#txtMon1').val(t_year + '/' + t_month);
 
 				t_date = new Date();
 				t_date.setDate(35);
@@ -89,7 +80,7 @@
 				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-				$('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
+				$('#txtMon2').val(t_year + '/' + t_month);
 			}
 
 			function q_boxClose(s2) {
