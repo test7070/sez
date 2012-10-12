@@ -212,7 +212,7 @@
             $('#txtProduct').focus();
         }
         function btnPrint() {
- 			q_box('z_bccinp.aspx', '', "800px", "600px", q_getMsg("popPrint"));
+ 			q_box('z_bccinp.aspx', '', "95%", "650px", q_getMsg("popPrint"));
         }
 
         function wrServer( key_value) {
