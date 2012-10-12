@@ -67,7 +67,7 @@
         	});
         }
         function sum() {
-        	q_tr('txtInmoney' ,q_float('txtInprice')*q_float('txtDiscount')*q_float('txtInmount'));
+        	q_tr('txtInmoney' ,q_float('txtInprice')*q_float('txtInmount'));
         	q_tr('txtOutmoney' ,q_float('txtOutprice')*q_float('txtDiscount')*q_float('txtOutmount'));
         }
 

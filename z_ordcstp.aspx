@@ -21,7 +21,7 @@
             }
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_ordc');
+                q_gf('', 'z_ordcst');
                
             });
             function q_gfPost() {
@@ -57,15 +57,15 @@
                         src : 'ucc_b.aspx'
                     }, {
                         type : '5', 
-                        name : 'stype',
-                        value : [q_getPara('report.all')].concat(q_getPara('ordc.kind').split(','))
+                        name : 'kind',
+                        value : [q_getPara('report.all')].concat(q_getPara('ordcst.kind').split(','))
                     }, {
                         type : '5', 
                         name : 'tran',
                         value : [q_getPara('report.all')].concat(q_getPara('sys.tran').split(','))
                     }, {
                         type : '5', 
-                        name : 'cancel',
+                        name : 'aeno',
                         value : [q_getPara('report.all')].concat(new Array('Y', 'N'))
                     }, {
                         type : '5', 

@@ -166,17 +166,12 @@
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0,money_total=0;
             for (var j = 0; j < q_bbsCount; j++) {
-            	 q_tr('txtInmoney_'+j ,q_float('txtInprice_'+j)*q_float('txtDiscount_'+j)*q_float('txtInmount_'+j));
+            	 q_tr('txtInmoney_'+j ,q_float('txtInprice_'+j)*q_float('txtInmount_'+j));
             	 q_tr('txtOutmoney_'+j ,q_float('txtOutprice_'+j)*q_float('txtDiscount_'+j)*q_float('txtOutmount_'+j));
             }  // j
         }
         
-        function q_stPost() {
-            if (q_cur == 1 || q_cur == 2) {
-                abbm[q_recno]['noa'] = xmlString;   /// 存檔後， server 傳回 xmlString 
-                $('#txtNoa').val(xmlString);   /// 顯示 server 端，產生之傳票號碼
-            }
-        }
+       
 
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
