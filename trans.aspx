@@ -400,6 +400,10 @@
 				sum();
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
+				if($.trim($('#txtMon').val()).length==0)
+					$('#txtMon').val(t_date.substring(0,6));
+				if($.trim($('#txtMon2').val()).length==0)
+					$('#txtMon2').val(t_date.substring(0,6));
 				if (t_noa.length == 0 || t_noa == "AUTO")
 					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_trans') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 				else

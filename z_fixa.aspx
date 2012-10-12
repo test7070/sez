@@ -27,6 +27,10 @@
 						type : '0',
 						name : 'accy',
 						value : q_getId()[4]
+					},{
+						type : '0',
+						name : 'namea',
+						value : r_name
 					}, {/*1*/
 						type : '1',
 						name : 'mon'
