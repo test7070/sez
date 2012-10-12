@@ -237,16 +237,16 @@
                 var t_mount, t_price, t_money = 0,t_tax,t_discount;
 		        for (var j = 0; j < q_bbsCount; j++) {
 		            if ($.trim($('#txtMemo_' + j).val()).substring(0, 1) != '.') {
-		                t_mount = parseFloat($.trim($('#txtMount_' + j).val()).length == 0 ? '0' : $('#txtMount_' + j).val());
-		                t_price = parseFloat($.trim($('#txtPrice_' + j).val()).length == 0 ? '0' : $('#txtPrice_' + j).val());
+		                t_mount = q_float('txtMount_' + j);
+		                t_price = q_float('txtPrice_' + j);
 		                $('#txtMoney_' + j).val(Math.round(t_mount * t_price, 0));
 		                t_money = t_money + Math.round(t_mount * t_price, 0);
 		            } else {
-		                t_money = t_money + parseFloat($.trim($('#txtMoney_' + j).val()).length == 0 ? '0' : $('#txtMoney_' + j).val());
+		                t_money = t_money + q_float('txtMoney_' + j);
 		            }
 		        }
-		        t_tax = parseFloat($.trim($('#txtTax').val()).length == 0 ? '0' : $('#txtTax').val());
-		        t_discount = parseFloat($.trim($('#txtDiscount').val()).length == 0 ? '0' : $('#txtDiscount').val());
+		        t_tax = q_float('txtTax_' + j);
+		        t_discount = q_float('txtDiscount_' + j);
 		        $('#txtMoney').val(t_money);
             }
 
