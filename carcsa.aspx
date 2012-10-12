@@ -20,7 +20,7 @@
         var q_readonly = ['txtNoa'];
         var q_readonlys = [];
         var bbmNum = [['txtWeight',14, 3, 1],['txtMount',10, 0, 1],['txtAddmoney',14, 0, 1],['txtMoney',18, 0, 1]];  
-        var bbsNum = [['txtWeight',14, 3, 1],['txtInprice',14, 3, 1],['txtInmount',14, 3, 1],['txtInmoney',14, 3, 1],['txtOutprice',14, 3, 1],['txtOutmount',14, 3, 1],['txtOutmoney',14, 3, 1]];
+        var bbsNum = [['txtWeight',14, 3, 1],['txtInprice',14, 0, 1],['txtInmount',14, 3, 1],['txtInmoney',14, 0, 1],['txtOutprice',14, 0, 1],['txtOutmount',14, 3, 1],['txtOutmoney',14, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
@@ -166,17 +166,12 @@
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0,money_total=0;
             for (var j = 0; j < q_bbsCount; j++) {
-            	 q_tr('txtInmoney_'+j ,q_float('txtInprice_'+j)*q_float('txtDiscount_'+j)*q_float('txtInmount_'+j));
+            	 q_tr('txtInmoney_'+j ,q_float('txtInprice_'+j)*q_float('txtInmount_'+j));
             	 q_tr('txtOutmoney_'+j ,q_float('txtOutprice_'+j)*q_float('txtDiscount_'+j)*q_float('txtOutmount_'+j));
             }  // j
         }
         
-        function q_stPost() {
-            if (q_cur == 1 || q_cur == 2) {
-                abbm[q_recno]['noa'] = xmlString;   /// 存檔後， server 傳回 xmlString 
-                $('#txtNoa').val(xmlString);   /// 顯示 server 端，產生之傳票號碼
-            }
-        }
+       
 
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {

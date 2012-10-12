@@ -140,18 +140,24 @@
 						t_endaddrno = t_endaddrno.length == 0 ? "char(255)" : "'" + t_endaddrno + "'";
 
 						var t_tranordeno = "'" + $.trim($('#txtOrdeno').val()) + "'";
-						var t_po = "'" + $.trim($('#txtPo').val()) + "'";
-
+						var t_po = '';
+						if($.trim($('#txtPo').val()).length>0){
+							var tmp = $.trim($('#txtPo').val()).split(',');
+							t_po = ' and (';
+							for(var i in tmp)
+								t_po+= (i==0?'':' or ')+"trans" + r_accy + ".po='"+tmp[i]+"'"
+							t_po+=')';
+						}
+						
 						t_where = "where=^^(custno=" + t_custno + ") and (isnull(trandate,'') between " + t_btrandate + " and " + t_etrandate + ") and (isnull(datea,'') between " + t_bdate + " and " + t_edate + " ) ";
 						t_where += " and ( len(isnull(trdno,''))=0  or  trdno=" + t_noa + ")";
-
+						t_where += t_po;
 						t_where += " and (straddrno  between " + t_straddrno + " and " + t_endaddrno + ")";
-						if (!(t_po == "''"))
-							t_where += " and (trans" + r_accy + ".po=" + t_po + ")";
 						if (!(t_bodate == "''" && t_eodate == "char(255)" && t_ordeno == "''"))
 							t_where += "and exists(select * from tranorde" + r_accy + " where noa=trans" + r_accy + ".ordeno and (odate between " + t_bodate + " and " + t_eodate + "))";
 						// t_where += " not exists(select * from trds" + r_accy + " where not(noa=" + t_curno + ") and tranno=trans" + r_accy + ".noa and trannoq=trans" + r_accy + ".noq and (straddrno between " + t_bstraddrno + " and " + t_estraddrno + ") and (endaddrno between " + t_bendaddrno + " and " + t_eendaddrno + "))^^";
 						t_where += "^^";
+						
 
 						t_where += "order=^^datea,noa^^";
 						$(this).val('請稍後');
@@ -687,40 +693,37 @@
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id="lblDate2" class="lbl"> </a></td>
-						<td class="td2" colspan="2">
+						<td class="td2" colspan="4">
 						<input id="txtBdate" type="text"  class="txt c2"/>
 						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
 						<input id="txtEdate" type="text"  class="txt c2"/>
 						</td>
 						<td class="td4"><span> </span><a id="lblStraddr" class="lbl btn"> </a></td>
-						<td class="td5" colspan="6">
-						<input id="txtStraddrno" type="text"  class="txt" style="float:left;width:15%;"/>
-						<input id="txtStraddr" type="text"  class="txt" style="float:left;width:30%;"/>
+						<td class="td5" colspan="4">
+						<input id="txtStraddrno" type="text"  class="txt" style="float:left;width:25%;"/>
+						<input id="txtStraddr" type="text"  class="txt" style="float:left;width:20%;"/>
 						<span style="float:left; display:block; width:20px;">~</span>
-						<input id="txtEndaddrno" type="text"  class="txt" style="float:left;width:15%;"/>
-						<input id="txtEndaddr" type="text"  class="txt" style="float:left;width:30%;"/>
+						<input id="txtEndaddrno" type="text"  class="txt" style="float:left;width:25%;"/>
+						<input id="txtEndaddr" type="text"  class="txt" style="float:left;width:20%;"/>
 						</td>
 						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id="lblTrandate" class="lbl"> </a></td>
-						<td class="td2" colspan="2">
+						<td class="td2" colspan="4">
 						<input id="txtBtrandate" type="text"  class="txt c2"/>
 						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
 						<input id="txtEtrandate" type="text"  class="txt c2"/>
 						</td>
 						<td class="td4"><span> </span><a id="lblPo" class="lbl"> </a></td>
-						<td class="td5" colspan="3">
+						<td class="td5" colspan="4">
 						<input id="txtPo" type="text"  class="txt c1"/>
 						</td>
-						<td class="td8"></td>
-						<td class="td9"></td>
-						<td class="tdA"></td>
 						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id="lblOdate" class="lbl"> </a></td>
-						<td class="td2" colspan="2">
+						<td class="td2" colspan="4">
 						<input id="txtBodate" type="text"  class="txt c2"/>
 						<span style="float:left;display: block;width:20px;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
 						<input id="txtEodate" type="text"  class="txt c2"/>
@@ -729,8 +732,6 @@
 						<td class="td4" colspan="2">
 						<input id="txtOrdeno" type="text" class="txt c1" />
 						</td>
-						<td class="td6"></td>
-						<td class="td7"></td>
 						<td class="td8"></td>
 						<td class="td9">
 						<input type="button" id="btnTrans" class="txt c1"/>

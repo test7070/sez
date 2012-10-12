@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -7,6 +7,7 @@
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src='../script/z_report.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
@@ -15,19 +16,27 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+            if(location.href.indexOf('?') < 0) {
+                location.href = location.href + "?;;;;101";
+            }
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_rc2');
+                q_gf('', 'z_ordcst');
+               
             });
             function q_gfPost() {
                 $('#qReport').q_report({
-                    fileName : 'z_rc2',
+                    fileName : 'z_ordc',
                     options : [{
+                        type : '0',
+                        name : 'accy',
+                        value : q_getId()[4]
+                    },{
                         type : '1',
                         name : 'date'
-                    }, {
+                    },{
                         type : '1',
-                        name : 'mon'
+                        name : 'odate'
                     }, {
                         type : '2',
                         name : 'tgg',
@@ -46,6 +55,22 @@
                         dbf : 'ucc',
                         index : 'noa,product',
                         src : 'ucc_b.aspx'
+                    }, {
+                        type : '5', 
+                        name : 'kind',
+                        value : [q_getPara('report.all')].concat(q_getPara('ordcst.kind').split(','))
+                    }, {
+                        type : '5', 
+                        name : 'tran',
+                        value : [q_getPara('report.all')].concat(q_getPara('sys.tran').split(','))
+                    }, {
+                        type : '5', 
+                        name : 'aeno',
+                        value : [q_getPara('report.all')].concat(new Array('Y', 'N'))
+                    }, {
+                        type : '5', 
+                        name : 'end',
+                        value : [q_getPara('report.all')].concat(new Array('Y', 'N'))
                     }]
                 });
                 q_popAssign();
@@ -56,8 +81,10 @@
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
-                $('#txtMon1').mask('999/99');
-                $('#txtMon2').mask('999/99');
+ 				$('#txtOdate1').mask('999/99/99');
+                $('#txtOdate1').datepicker();
+                $('#txtOdate2').mask('999/99/99');
+                $('#txtOdate2').datepicker();
             }
 
             function q_boxClose(s2) {
