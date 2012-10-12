@@ -20,7 +20,7 @@
         var q_readonly = ['txtNoa'];
         var q_readonlys = [];
         var bbmNum = [['txtWeight',14, 3, 1],['txtMount',10, 0, 1],['txtAddmoney',14, 0, 1],['txtMoney',18, 0, 1]];  
-        var bbsNum = [['txtWeight',14, 3, 1],['txtInprice',14, 3, 1],['txtInmount',14, 3, 1],['txtInmoney',14, 3, 1],['txtOutprice',14, 3, 1],['txtOutmount',14, 3, 1],['txtOutmoney',14, 3, 1]];
+        var bbsNum = [['txtWeight',14, 3, 1],['txtInprice',14, 0, 1],['txtInmount',14, 3, 1],['txtInmoney',14, 0, 1],['txtOutprice',14, 0, 1],['txtOutmount',14, 3, 1],['txtOutmoney',14, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';

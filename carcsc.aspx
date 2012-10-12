@@ -17,7 +17,7 @@
         }
         var q_name="carcsc";
         var q_readonly = ['txtNoa'];
-        var bbmNum = [['txtWeight',14, 3, 1],['txtInprice',14, 3, 1],['txtInmount',14, 3, 1],['txtInmoney',14, 3, 1],['txtOutprice',14, 3, 1],['txtOutmount',14, 3, 1],['txtOutmoney',14, 3, 1]];  // master 允許 key 小數  [物件,整數位數,小數位數, comma Display]
+        var bbmNum = [['txtWeight',14, 3, 1],['txtInprice',14, 0, 1],['txtInmount',14, 3, 1],['txtInmoney',14, 0, 1],['txtOutprice',14, 0, 1],['txtOutmount',14, 3, 1],['txtOutmoney',14, 0, 1]];  // master 允許 key 小數  [物件,整數位數,小數位數, comma Display]
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
