@@ -26,7 +26,7 @@
             });
             function q_gfPost() {
                 $('#qReport').q_report({
-                    fileName : 'z_ordc',
+                    fileName : 'z_ordcst',
                     options : [{
                         type : '0',
                         name : 'accy',

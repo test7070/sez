@@ -19,8 +19,8 @@
         var q_name = "carcsa";
         var q_readonly = ['txtNoa'];
         var q_readonlys = [];
-        var bbmNum = [['txtWeight',14, 3, 1],['txtMount',10, 0, 1],['txtAddmoney',14, 0, 1],['txtMoney',18, 0, 1]];  
-        var bbsNum = [['txtWeight',14, 3, 1],['txtInprice',14, 0, 1],['txtInmount',14, 3, 1],['txtInmoney',14, 0, 1],['txtOutprice',14, 0, 1],['txtOutmount',14, 3, 1],['txtOutmoney',14, 0, 1]];
+        var bbmNum = [['txtWeight',14, 3, 1],['txtMount',10, 0, 1],['txtAddmoney',14, 0, 1],['txtMoney',18, 0, 1],['txtPrice',18, 0, 1]];  
+        var bbsNum = [['txtWeight',14, 3, 1],['txtInprice',14, 0, 1],['txtInmount',14, 3, 1],['txtInmoney',14, 0, 1],['txtOutprice',14, 0, 1],['txtOutmount',14, 3, 1],['txtOutmoney',14, 0, 1],['txtMount',14, 3, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
@@ -49,9 +49,60 @@
         
             q_getFormat();
             bbmMask = [['txtDatea', r_picd],['txtBtime', '99:99'],['txtEtime', '99:99']];
-            bbsMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-             q_mask(bbsMask);
+            
+            q_cmbParse("cmbType", ('').concat(new Array('','1@TR00 中鴻 全拖 4712', '2@TR00 中鴻 半拖 2480', '3@TR00 廠內 半拖 605', '4@TR35 廠內 605', '5@TR35 廠外 570', '6@TR13 大寮 1600')));
+            
+            $('#cmbType').change(function () {
+            	var i = $('#cmbType').val();
+            	switch (i) {   
+                case '1':
+                    $('#txtCartype').val('TR00');
+                    $('#txtAddr').val('中鴻');
+                    $('#txtTypea').val('全拖');
+                    q_tr('txtPrice',4712);
+                    sum();
+                    break;
+                case '2':
+                    $('#txtCartype').val('TR00');
+                    $('#txtAddr').val('中鴻');
+                    $('#txtTypea').val('半拖');
+                    q_tr('txtPrice',2480);
+                    sum();
+                    break;
+                case '3':
+                    $('#txtCartype').val('TR00');
+                    $('#txtAddr').val('廠內');
+                    $('#txtTypea').val('半拖');
+                    q_tr('txtPrice',605);
+                    sum();
+                    break;
+                case '4':
+                    $('#txtCartype').val('TR35');
+                    $('#txtAddr').val('廠內');
+                    $('#txtTypea').val('');
+                    q_tr('txtPrice',605);
+                    sum();
+                    break;
+                case '5':
+                    $('#txtCartype').val('TR35');
+                    $('#txtAddr').val('廠外');
+                    $('#txtTypea').val('');
+                    q_tr('txtPrice',570);
+                    sum();
+                    break;
+                case '6':
+                    $('#txtCartype').val('TR13');
+                    $('#txtAddr').val('大寮');
+                    $('#txtTypea').val('');
+                    q_tr('txtPrice',1600);
+                    sum();
+                    break;
+            	}   /// end Switch
+            });
+            $('#txtPrice').change(function () {
+            	sum();
+            });
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -100,20 +151,12 @@
 
         function bbsAssign() {  
         	for (var j = 0; j < q_bbsCount; j++) {
-        		$('#txtInprice_'+j).change(function () {
-		            sum();
-		          });
-		          $('#txtInmount_'+j).change(function () {
-		            t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-		            q_bodyId($(this).attr('id'));
-		            b_seq = t_IdSeq;
-					q_tr('txtOutmount_'+b_seq,q_float('txtInmount_'+b_seq));
-		            sum();
-		          });
-		          $('#txtOutprice_'+j).change(function () {
-		            sum();
-		          });
-		          $('#txtOutmount_'+j).change(function () {
+		          $('#txtMount_'+j).change(function () {
+		          	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+                    q_bodyId($(this).attr('id'));
+                    b_seq = t_IdSeq;
+		          	$('#txtInmount_'+b_seq).val($('#txtMount_'+b_seq).val());
+		          	$('#txtOutmount_'+b_seq).val($('#txtMount_'+b_seq).val());
 		            sum();
 		          });
 		          $('#txtDiscount_'+j).change(function () {
@@ -156,9 +199,12 @@
             }
 
             q_nowf();
-            as['date'] = abbm2['date'];
+            as['datea'] = abbm2['datea'];
             as['cardealno'] = abbm2['cardealno'];
             as['cardeal'] = abbm2['cardeal'];
+            as['addr'] = abbm2['addr'];
+            as['inprice'] = abbm2['price'];
+            as['outprice'] = abbm2['price'];
 
             return true;
         }
@@ -166,8 +212,8 @@
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0,money_total=0;
             for (var j = 0; j < q_bbsCount; j++) {
-            	 q_tr('txtInmoney_'+j ,q_float('txtInprice_'+j)*q_float('txtInmount_'+j));
-            	 q_tr('txtOutmoney_'+j ,q_float('txtOutprice_'+j)*q_float('txtDiscount_'+j)*q_float('txtOutmount_'+j));
+            	 q_tr('txtInmoney_'+j ,Math.round(q_float('txtPrice')*q_float('txtInmount_'+j)));
+            	 q_tr('txtOutmoney_'+j ,Math.round(q_float('txtPrice')*q_float('txtDiscount_'+j)*q_float('txtOutmount_'+j)));
             }  // j
         }
         
@@ -176,6 +222,9 @@
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
+            for (var j = 0; j < q_bbsCount; j++) {
+            	$('#txtMount_'+j).val($('#txtOutmount_'+j).val());
+            }
        }
 
         function readonly(t_para, empty) {
@@ -379,11 +428,17 @@
             <td class='td5'><span> </span><a id="lblOrdeno" class="lbl"></a></td>
             <td class='td6'><input id="txtOrdeno" type="text" class="txt c1"/></td>
        </tr>
+       <tr>
+       		<td class='td1'><span> </span><a id="lblType" class="lbl"></a></td>
+      		<td class='td2'  colspan='2'><select id="cmbType" style="width:70%;font-size: medium;"></select></td>
+       </tr>
        <tr>           
 			<td class='td1'><span> </span><a id="lblCartype" class="lbl"></a></td>
             <td class='td2'><input id="txtCartype" type="text" class="txt c1"/></td>
-            <td class='td3'><span> </span><a id="lblTypea" class="lbl"></a></td>
-            <td class='td4'><input id="txtTypea" type="text" class="txt c1"/></td>
+            <td class='td3'><span> </span><a id="lblAddr" class="lbl"></a></td>
+            <td class='td4'><input id="txtAddr"  type="text"  class="txt c1"/></td>
+            <td class='td5'><span> </span><a id="lblTypea" class="lbl"></a></td>
+            <td class='td6'><input id="txtTypea" type="text" class="txt c1"/></td>
        </tr>        
         <tr>           
 			<td class='td1'><span> </span><a id="lblBtime" class="lbl"></a></td>
@@ -402,6 +457,8 @@
             <td class='td6'><input id="txtCarno" type="text" class="txt c1"/></td>
        </tr>
        <tr>
+       		<td class='td1'><span> </span><a id="lblPrice" class="lbl"></a></td>
+            <td class='td2'><input id="txtPrice" type="text" class="txt c1"/></td>
             <td class='td1'><span> </span><a id="lblAddmoney" class="lbl"></a></td>
             <td class='td2'><input id="txtAddmoney" type="text" class="txt c1"/></td>
             <td class='td3'><span> </span><a id="lblMoney" class="lbl"></a></td>
@@ -418,18 +475,19 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
-                <td align="center" style="width:8%"><a id='lblDateas'></a></td>
+                <!--<td align="center" style="width:8%"><a id='lblDateas'></a></td>-->
                 <td align="center" style="width:8%"><a id='lblCarnos'></a></td>
                 <td align="center" style="width:8%"><a id='lblDrivers'></a></td>
-                <td align="center" style="width:12%"><a id='lblAddrs'></a></td>
                 <!--<td align="center" style="width:14%"><a id='lblCardeals'></a></td>-->
                 <td align="center" style="width:8%"><a id='lblWeights'></a></td>
+                <td align="center" style="width:12%"><a id='lblMounts'></a></td>
+                <td align="center" style="width:12%"><a id='lblDiscounts'></a></td>
                 <td align="center" style="width:14%"><a id='lblIns'></a></td>
                 <td align="center" style="width:14%"><a id='lblOuts'></a></td>
             </tr>
             <tr >
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input class="txt c1" id="txtDatea.*" type="text" /></td>
+                <!--<td ><input class="txt c1" id="txtDatea.*" type="text" /></td>-->
                 <td >
                 		<input class="txt c3" id="txtCarno.*" type="text" />
                 		<input class="btn"  id="btnCarno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
@@ -439,22 +497,24 @@
                 	<input class="btn"  id="btnDriver.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
                 	<input class="txt c1" id="txtDriver.*" type="text" />
                 </td>
-                <td ><input class="txt c1" id="txtAddr.*" type="text" /></td>
                 <!--<td >
                 		<input class="txt c3" id="txtCardealno.*" type="text" />
                 		<input class="btn"  id="btnCardeal.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
                 		<input class="txt c1" id="txtCardeal.*" type="text" />
                 </td>-->
                 <td ><input class="txt num c1" id="txtWeight.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtMount.*" type="text" /></td>
                 <td >
-                	<input class="txt num c4" id="txtInprice.*" type="text" />
-                	<input class="txt num c4" id="txtInmount.*" type="text" /><BR>
+                	<input class="txt num c1" id="txtDiscount.*" type="text" />
+                </td>
+                <td >
+                	<!--<input class="txt num c1" id="txtInprice.*" type="text" />-->
+                	<input class="txt num c4" id="txtInmount.*" type="hidden" />
                 	<input class="txt num c1" id="txtInmoney.*" type="text" />
                 </td>
                 <td >
-                	<input class="txt num c4" id="txtOutprice.*" type="text" />
-                	<input class="txt num c4" id="txtDiscount.*" type="text" />
-                	<input class="txt num c4" id="txtOutmount.*" type="hidden" /><BR>
+                	<!--<input class="txt num c4" id="txtOutprice.*" type="text" />-->
+                	<input class="txt num c4" id="txtOutmount.*" type="hidden" />
                 	<input class="txt num c1" id="txtOutmoney.*" type="text" />
                 	<input id="txtNoq.*" type="hidden" />
                 </td>
