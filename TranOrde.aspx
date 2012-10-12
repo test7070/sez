@@ -130,7 +130,7 @@
                 	$('#lblNo_'+i).text(i+1);
                 	if(!$('#txtTrandate_'+i).hasClass('isAssign')){
                 		$('#txtTrandate_'+i).addClass('isAssign');
-                		$('#txtTrandate_'+i).datepicker();  
+                		  
                 	}	
                 }
             }
