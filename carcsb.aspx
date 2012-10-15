@@ -46,7 +46,7 @@
 
 
         function mainPost() {  
-        	bbmMask = [['txtDatea', r_picd]];
+        	bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
         	q_mask(bbmMask);
         	
         	$('#txtInprice').change(function () {
@@ -343,8 +343,8 @@
                             <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
                             <td class="td3"><span> </span><a id="lblDatea" class="lbl"></a></td>
                             <td class="td4"><input id="txtDatea"  type="text"  class="txt c1"/></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
+                            <td class="td5"><span> </span><a id="lblMon" class="lbl"></a></td>
+                            <td class="td6"><input id="txtMon"  type="text"  class="txt c1"/></td>
                             <td class="td7"></td>
                             <td class="td8"></td>
                         </tr>

@@ -47,8 +47,10 @@
 
 
         function mainPost() {  
-        	bbmMask = [['txtDatea', r_picd]];
+        	bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
         	q_mask(bbmMask);
+        	
+        	q_cmbParse("cmbAddr", ('').concat(new Array('','中鋼', '外港', '台中港')));
         	
         	$('#txtInprice').change(function () {
         		sum();
@@ -97,9 +99,25 @@
         }
 
         function btnIns() {
+        	//複製目前頁面資料
+        	var t_datea=$('#txtDatea').val();
+        	var t_boatno=$('#txtBoatno').val();
+        	var t_boat=$('#txtBoat').val();
+        	var t_inprice=$('#txtInprice').val();
+        	var t_outprice=$('#txtOutprice').val();
+        	
             _btnIns();
+            //貼上資料
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-            $('#txtDatea').val(q_date());
+            $('#txtDatea').val(t_datea);
+            $('#txtBoatno').val(t_boatno);
+            $('#txtBoat').val(t_boat);
+            $('#txtInprice').val(t_inprice);
+            $('#txtOutprice').val(t_outprice);
+            
+            if ($('#txtDatea').val().length == 0) 
+            	$('#txtDatea').val(q_date());
+            	
             $('#txtDatea').focus();
         }
 
@@ -344,8 +362,8 @@
                             <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
                             <td class="td3"><span> </span><a id="lblDatea" class="lbl"></a></td>
                             <td class="td4"><input id="txtDatea"  type="text"  class="txt c1"/></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
+                            <td class="td5"><span> </span><a id="lblMon" class="lbl"></a></td>
+                            <td class="td6"><input id="txtMon"  type="text"  class="txt c1"/></td>
                             <td class="td7"></td>
                             <td class="td8"></td>
                         </tr>
@@ -359,7 +377,7 @@
                         </tr>
                         <tr class="tr3">
                             <td class="td1"><span> </span><a id="lblAddr" class="lbl"></a></td>
-                            <td class="td2" ><input id="txtAddr"  type="text"  class="txt c1"/></td>
+                            <td class="td2" ><select id="cmbAddr" class="txt c1" style="font-size: medium;"></td><!--<input id="txtAddr"  type="text"  class="txt c1"/>-->
                             <td class="td6"><span> </span><a id="lblBoatno" class="lbl btn"></a></td>
                             <td class="td7" colspan='2'><input id="txtBoatno"  type="text"  class="txt c2"/><input id="txtBoat"  type="text"  class="txt c3"/></td>
                         </tr>

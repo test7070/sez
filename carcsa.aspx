@@ -48,10 +48,11 @@
         function mainPost() { 
         
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd],['txtBtime', '99:99'],['txtEtime', '99:99']];
+            bbmMask = [['txtDatea', r_picd],['txtBtime', '99:99'],['txtEtime', '99:99'],['txtMon', r_picm]];
             q_mask(bbmMask);
             
             q_cmbParse("cmbType", ('').concat(new Array('','1@TR00 中鴻 全拖 4712', '2@TR00 中鴻 半拖 2480', '3@TR00 廠內 半拖 605', '4@TR35 廠內 605', '5@TR35 廠外 570', '6@TR13 大寮 1600')));
+            q_cmbParse("cmbTypea2", ('').concat(new Array('','全拖', '半拖', '小時', '塊')));
             
             $('#cmbType').change(function () {
             	var i = $('#cmbType').val();
@@ -59,42 +60,42 @@
                 case '1':
                     $('#txtCartype').val('TR00');
                     $('#txtAddr').val('中鴻');
-                    $('#txtTypea').val('全拖');
+                    $('#cmbTypea2').val('全拖');
                     q_tr('txtPrice',4712);
                     sum();
                     break;
                 case '2':
                     $('#txtCartype').val('TR00');
                     $('#txtAddr').val('中鴻');
-                    $('#txtTypea').val('半拖');
+                    $('#cmbTypea2').val('半拖');
                     q_tr('txtPrice',2480);
                     sum();
                     break;
                 case '3':
                     $('#txtCartype').val('TR00');
                     $('#txtAddr').val('廠內');
-                    $('#txtTypea').val('半拖');
+                    $('#cmbTypea2').val('半拖');
                     q_tr('txtPrice',605);
                     sum();
                     break;
                 case '4':
                     $('#txtCartype').val('TR35');
                     $('#txtAddr').val('廠內');
-                    $('#txtTypea').val('');
+                    $('#cmbTypea2').val('');
                     q_tr('txtPrice',605);
                     sum();
                     break;
                 case '5':
                     $('#txtCartype').val('TR35');
                     $('#txtAddr').val('廠外');
-                    $('#txtTypea').val('');
+                    $('#cmbTypea2').val('');
                     q_tr('txtPrice',570);
                     sum();
                     break;
                 case '6':
                     $('#txtCartype').val('TR13');
                     $('#txtAddr').val('大寮');
-                    $('#txtTypea').val('');
+                    $('#cmbTypea2').val('');
                     q_tr('txtPrice',1600);
                     sum();
                     break;
@@ -200,11 +201,13 @@
 
             q_nowf();
             as['datea'] = abbm2['datea'];
+            as['mon'] = abbm2['mon'];
             as['cardealno'] = abbm2['cardealno'];
             as['cardeal'] = abbm2['cardeal'];
             as['addr'] = abbm2['addr'];
             as['inprice'] = abbm2['price'];
             as['outprice'] = abbm2['price'];
+            as['ordeno'] = abbm2['ordeno'];
 
             return true;
         }
@@ -406,15 +409,15 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:20%"><a id='vewDatea'></a></td>
-                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-               
+                <td align="center" style="width:25%"><a id='vewDatea'></a></td>
+                <td align="center"><a id='vewOrdeno'></a></td>
+               <td align="center" style="width:25%"><a id='vewPrice'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='datea'>~datea</td>
-                   <td align="center" id='noa'>~noa</td>
-                   
+                   <td align="center" id='ordeno'>~ordeno</td>
+                   <td align="center" id='price'>~price</td>              
             </tr>
         </table>
         </div>
@@ -430,7 +433,9 @@
        </tr>
        <tr>
        		<td class='td1'><span> </span><a id="lblType" class="lbl"></a></td>
-      		<td class='td2'  colspan='2'><select id="cmbType" style="width:70%;font-size: medium;"></select></td>
+      		<td class='td2'><select id="cmbType" class="txt c1" style="font-size: medium;"></select></td>
+      		<td class='td3'><span> </span><a id="lblMon" class="lbl"></a></td>
+      		<td class='td4'><input id="txtMon" type="text" class="txt c1"/></td>
        </tr>
        <tr>           
 			<td class='td1'><span> </span><a id="lblCartype" class="lbl"></a></td>
@@ -438,7 +443,10 @@
             <td class='td3'><span> </span><a id="lblAddr" class="lbl"></a></td>
             <td class='td4'><input id="txtAddr"  type="text"  class="txt c1"/></td>
             <td class='td5'><span> </span><a id="lblTypea" class="lbl"></a></td>
-            <td class='td6'><input id="txtTypea" type="text" class="txt c1"/></td>
+            <td class='td6'>
+            	<input id="txtTypea" type="text" class="txt c2"/>
+            	<select id="cmbTypea2" style="width:70%;font-size: medium;"></select>
+            </td>
        </tr>        
         <tr>           
 			<td class='td1'><span> </span><a id="lblBtime" class="lbl"></a></td>
