@@ -23,8 +23,7 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array();
-		//aPop = new Array(['txtBankno', 'lblBankno', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);
+        aPop = new Array(['txtPartno', 'lblPartno', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
 		
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -52,7 +51,7 @@
 		            q_readonly[q_readonly.length] = 'txtAccno';
             
             $("#btnChgcashacc").click(function(e) {
-					t_where = "sssno='"+r_userno+"' And (chgaccno='' OR chgaccno is null)";
+					t_where = "partno='"+$('#txtPartno').val()+"' And (chgaccno='' OR chgaccno is null)";
 					q_box("chgcash_acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where , 'chgcash_acc', "95%", "650px", q_getMsg('popChgcash_acc'));
 			});
 			$('#lblAccno').click(function () {
@@ -69,7 +68,7 @@
             		if (!b_ret || b_ret.length == 0)
                         return;
                     
-		            q_gridAddRow(bbsHtm, 'tbbs', 'txtChgcashno,txtDatea,txtDc,txtMoney,txtChgitemno,txtChgitem,txtAcc1,txtAcc2,txtCustno,txtComp,txtPartno,txtPart', b_ret.length, b_ret, 'noa,datea,dc,money,chgitemno,chgitem,acc1,acc2,custno,comp,partno,part', '');
+		            q_gridAddRow(bbsHtm, 'tbbs', 'txtChgcashno,txtDatea,txtDc,txtMoney,txtChgitemno,txtChgitem,txtAcc1,txtAcc2,txtCustno,txtComp,txtPartno,txtPart,txtMemo', b_ret.length, b_ret, 'noa,datea,dc,money,chgitemno,chgitem,acc1,acc2,custno,comp,partno,part,memo', '');
 		            for (var j = 0; j < q_bbsCount; j++) {
 				        if(!emp($('#txtDc_'+j).val()))
 				        	$('#combDc_'+j).val($('#txtDc_'+j).val());
@@ -420,7 +419,17 @@
             <td class='td3'><span> </span><a id="lblDatea" class="lbl"></a></td>
             <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
             <td class="td5"></td>
-            <td class='td6'><input type="button" id="btnChgcashacc" class="txt c1"/></td>
+            <td class='td6'></td>
+       </tr>
+       <tr>
+            <td class='td1'><span> </span><a id="lblPartno" class="lbl btn"></a></td>
+            <td class="td2" colspan='2'>
+            	<input id="txtPartno"  type="text" class="txt c2" />
+            	<input id="txtPart" type="text" class="txt c3"/>
+            </td>
+            <td class="td4"><input type="button" id="btnChgcashacc" class="txt c1"/></td>
+            <td class="td5"></td>
+            <td class='td6'></td>
        </tr>
         <tr>
         	<td class='td1' ><span> </span><a id="lblPlusmoney" class="lbl"></a></td>

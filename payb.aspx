@@ -68,9 +68,8 @@
 	             //........................單據匯入
 		        $('#btnFix').click(function () {
 		           if(!emp($('#txtTggno').val())){
-		           		//暫定用9月份之後的資料
-		           		var t_where = "where=^^ tggno='"+$('#txtTggno').val()+"' and datea > '101/09/01' ^^";
-		           		var t_where1 = "where[1]=^^ tggno='"+$('#txtTggno').val()+"' and datea > '101/09/01' ^^";
+		           		var t_where = "where=^^ tggno='"+$('#txtTggno').val()+"' and datea between '"+$('#txtMon').val()+"/01' and '"+$('#txtMon').val()+"/31' ^^";
+		           		var t_where1 = "where[1]=^^ tggno='"+$('#txtTggno').val()+"' and datea between '"+$('#txtMon').val()+"/01' and '"+$('#txtMon').val()+"/31' ^^";
 		           		q_gt('payb_fix', t_where+t_where1 , 0, 0, 0, "", r_accy);
 		           }
 
@@ -119,6 +118,7 @@
 			             	}
 		             	}
             			q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,cmbKind,cmbTypea,txtInvono,txtTax,txtDiscount,txtMoney,txtTotal,txtPartno,txtPart,txtMemo,txtAcc1,txtAcc2', as.length, as, 'noa,kind,typea,invono,tax,discount,money,total,partno,part,memo,acc1,acc2', 'txtProductno');
+            			sum();
             		break;
                 case 'sss': 
                     q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);

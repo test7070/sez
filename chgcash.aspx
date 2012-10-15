@@ -46,7 +46,7 @@
 
 
         function mainPost() {  
-        	bbmMask = [['txtTime', '99:99']];
+        	bbmMask = [['txtTime', '99:99'],['txtDatea', r_picd]];
         	q_mask(bbmMask);
         	//------------------------------------------------
         	//零用金下拉式與TXT輸入
@@ -449,8 +449,8 @@
                         <tr>
                             <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                             <td align="center" id='datea'>~datea</td>
-                            <td align="center" id='chgitem'>~chgitem</td>
-                            <td align="center" id='money'>~money</td>
+                            <td id='chgitem' style="text-align: left;">~chgitem</td>
+                            <td id='money' style="text-align: right;">~money</td>
                             <td align="center" id='namea'>~namea</td>
                             <td align="center" id='checker'>~checker</td>
                             <td align="center" id='apprv'>~apprv</td>
