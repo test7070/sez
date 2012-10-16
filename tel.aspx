@@ -18,7 +18,7 @@
             var decbbm = [];
             var q_name = "tel";
             var q_readonly = [];
-            var bbmNum = [];
+            var bbmNum = [['txtFeerate',12 , 0, 1],['txtNetfee',12 , 0, 1],['txtTotal',14 , 0, 1],['txtYears',2 , 0, 0]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -50,8 +50,40 @@
             }///  end Main()
 
             function mainPost() {
+            	bbmMask = [['txtBegindate', r_picd],['txtCondate', r_picd],['txtEnddate', r_picd],['txtMobile', '9999-999-999']];
+            	q_mask(bbmMask);
                 fbbm[fbbm.length] = 'txtMemo'; 
 				 q_cmbParse("cmbTypea", q_getPara('tel.typea'));
+				 
+				 $('#txtFeerate').change(function () {
+				 	sum();
+			     });
+			     $('#txtNetfee').change(function () {
+				 	sum();
+			     });
+			     $('#chkNet').click(function() {
+        			sum();
+        		})
+        		$('#txtYears').change(function () {
+        			var t_enddate='';
+        			if(emp($('#txtBegindate').val())){
+        				$('#txtBegindate').val(q_date());
+        				t_enddate=q_date().substring(0,3);
+        			}else{
+        				t_enddate=(trim($('#txtBegindate').val())).substring(0,3);
+        			}
+        			t_enddate=dec(t_enddate)+dec(trim($('#txtYears').val()));
+        			$('#txtCondate').val(t_enddate+(trim($('#txtBegindate').val())).substring(3));
+        			$('#txtEnddate').val(t_enddate+(trim($('#txtBegindate').val())).substring(3));
+			     });
+			     $('#txtBegindate').change(function () {
+        			var t_enddate=(trim($('#txtBegindate').val())).substring(0,3);
+        			t_enddate=dec(t_enddate)+dec(trim($('#txtYears').val()));
+        			$('#txtCondate').val(t_enddate+(trim($('#txtBegindate').val())).substring(3));
+        			$('#txtEnddate').val(t_enddate+(trim($('#txtBegindate').val())).substring(3));
+			     });
+        		
+				 
               /*  $('#btnSales').click(function() {
                     pop('sss');
                 });
@@ -158,17 +190,9 @@
                 q_box('sss_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
             }
 
-            function combPay_chg() {
-                var cmb = document.getElementById("combPay")
-                if(!q_cur)
-                    cmb.value = '';
-                else
-                    $('#txtPay').val(cmb.value);
-                cmb.value = '';
-            }
-
             function btnIns() {
                 _btnIns();
+                //$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
                 $('#txtNoa').focus();
             }
 
@@ -177,35 +201,34 @@
                     return;
 
                 _btnModi();
-                $('#txtComp').focus();
+                $('#txtMobile').focus();
             }
 
             function btnPrint() {
-
+				q_box('z_telp.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+            }
+            
+            function sum() {
+            	if ($('#chkNet')[0].checked)
+            	{
+					q_tr('txtTotal' ,q_float('txtFeerate')+q_float('txtNetfee'));
+				}
+				else
+				{
+					q_tr('txtTotal' ,q_float('txtFeerate'));
+					q_tr('txtNetfee' ,0);
+				}
             }
 
             function btnOk() {
                 var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
+                t_err = q_chkEmpField([['txtMobile', q_getMsg('lblMobile')]]);
 
-                if(dec($('#txtCredit').val()) > 9999999999)
-                    t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
-
-                if(dec($('#txtStartn').val()) > 31)
-                    t_err = t_err + q_getMsg("lblStartn") + q_getMsg("msgErr") + '\r';
-                if(dec($('#txtGetdate').val()) > 31)
-                    t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
                 if(t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
                 var t_noa = trim($('#txtNoa').val());
-                if(emp($('#txtUacc1').val()))
-                    $('#txtUacc1').val('1123.' + t_noa);
-                if(emp($('#txtUacc2').val()))
-                    $('#txtUacc2').val('1121.' + t_noa);
-                if(emp($('#txtUacc3').val()))
-                    $('#txtUacc3').val('2131.' + t_noa);
 
                 if(t_noa.length ==0)
                     q_gtnoa(q_name, t_noa);
@@ -357,11 +380,11 @@
                 float: left;
             }
             .txt.c2 {
-                width: 38%;
+                width: 35%;
                 float: left;
             }
             .txt.c3 {
-                width: 60%;
+                width: 63%;
                 float: left;
             }
             .txt.c4 {
@@ -405,7 +428,7 @@
                             <td align="center" style="width:5%"><a id='vewChk'></a></td>
                             <td align="center" style="width:25%"><a id='vewPart'></a></td>
                             <td align="center" style="width:25%"><a id='vewNamea'></a></td>
-                            <td align="center" style="width:25%"><a id='vewMobile'></a></td>
+                            <td align="center" style="width:30%"><a id='vewMobile'></a></td>
                         </tr>
                         <tr>
                             <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -429,17 +452,16 @@
                             <td class="td1"><span> </span><a id='lblMobile' class="lbl"></a></td>
                             <td class="td2"><input id="txtMobile"  type="text" class="txt c1"/></td>
                             <td class="td3"><span> </span><a id='lblAcomp' class="lbl btn"></a></td><!--<input id="btnAcomp" type="button"  style="width: auto;font-size: medium;"/>-->
-                            <td class="td4"><input id="txtCno" type="text"  class="txt c2"/><input id="txtComp2" type="text" class="txt c3"/></td>
-                            <td class="td5"><span> </span><a id='lblYears' class="lbl"></a></td>
-                            <td class="td6"><input id="txtYears" type="text" class="txt c1"/></td>
+                            <td class="td4" colspan="2"><input id="txtCno" type="text"  class="txt c4"/><input id="txtComp2" type="text" class="txt c5"/></td>
+                            <td class="td6"></td>
                         </tr>
                         <tr class="tr3">
                             <td class="td1"><span> </span><a id='lblType' class="lbl"></a></td>
-                            <td class="td2"><select id="txtTypea" class="txt c1"></select></td>
+                            <td class="td2"><select id="cmbTypea" class="txt c1"></select></td>
                             <td class="td3"><span> </span><a id='lblFeerate' class="lbl"></a></td>
                             <td class="td4"><input id="txtFeerate"  type="text" class="txt num c1" /></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
+                            <td class="td5"><span> </span><a id='lblYears' class="lbl"></a></td>
+                            <td class="td6"><input id="txtYears" type="text" class="txt c1"/></td>
                         </tr>
                         <tr class="tr4">
                             <td class="td1"><span> </span><a id='lblNet' class="lbl"></a></td>
