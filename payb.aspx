@@ -285,7 +285,7 @@
 
             function sum() {
                 var t1 = 0, t_unit, t_mount, t_weight = 0;
-                var t_tax=0,t_money=0,t_discount=0;
+                var t_tax=0,t_money=0,t_discount=0,t_total=0;
                 for(var j = 0; j < q_bbsCount; j++) {
 					
 					t_tax+=q_float('txtTax_'+j);//稅合計
@@ -296,11 +296,17 @@
 							t_money+=q_float('txtMoney_'+j);//產品小計合計
 							
 					t_discount+=q_float('txtDiscount_'+j);//折讓合計
+					t_total+=q_float('txtTotal_'+j);
 					
                 }// j
                 q_tr('txtTax', t_tax);
                 q_tr('txtMoney', t_money-t_discount);
-                q_tr('txtTotal', t_money-t_discount+t_tax);
+                
+                if(t_money==0&&t_tax==0)
+                	q_tr('txtTotal', t_total-t_discount);
+                else
+                	q_tr('txtTotal', t_money-t_discount+t_tax);
+                
                 q_tr('txtUnpay', q_float('txtTotal')-q_float('txtPayed'));
             }
 

@@ -16,7 +16,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="chgcash";
-        var q_readonly = ['txtAcc2','txtChgitem','txtPart','txtOrg','txtNamea','txtComp','txtChgaccno'];
+        var q_readonly = ['txtAcc2','txtChgitem','txtPart','txtOrg','txtNamea','txtComp','txtChgaccno','txtNoa'];
         var bbmNum = [['txtMoney',12 , , 1],['txtOrg',12 , , 1]];  // master 允許 key 小數  [物件,整數位數,小數位數, comma Display]
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -461,16 +461,6 @@
                 <div class='dbbm' style="float: left;">
                     <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
                         <tr class="tr1">
-                            <td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
-                            <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-                            <td class="td3"><span> </span><a id="lblChgaccno" class="lbl"></a></td>
-                            <td class="td4"><input id="txtChgaccno"  type="text"  class="txt c1"/></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
-                            <td class="td7"></td>
-                            <td class="td8"></td>
-                        </tr>
-                        <tr class="tr2">
                             <td class="td1"><span> </span><a id="lblDatea" class="lbl"></a></td>
                             <td class="td2"><input id="txtDatea"  type="text"  class="txt c1"/></td>
                             <td class="td3"><span> </span><a id="lblTime" class="lbl"></a></td>
@@ -480,13 +470,25 @@
                             <td class="td7"></td>
                             <td class="td8"></td>
                         </tr>
-                        <tr class="tr3">
+                        <tr class="tr2">
                             <td class="td1"><span> </span><a id="lblChgitem" class="lbl btn"></a></td>
                             <td class="td2"><input id="txtChgitemno"  type="text"  class="txt c2"/>
                             <input id="txtChgitem"  type="text"  class="txt c3"/></td>
                             <td class="td3"><span> </span><a id="lblAcc" class="lbl btn" ></a></td>
                             <td class="td4"><input id="txtAcc1"  type="text"  class="txt c2"/>
                             <input id="txtAcc2"  type="text"  class="txt c3"/></td>                           
+                            <td class="td5"></td>
+                            <td class="td6"></td>
+                            <td class="td7"></td>
+                            <td class="td8"></td>
+                        </tr>
+                        <tr class="tr3">
+                            <td class="td1"><span> </span><a id="lblPart" class="lbl btn"></a></td>
+                            <td class="td2"><input id="txtPartno"  type="text"  class="txt c2"/>
+                            <input id="txtPart"  type="text"  class="txt c3"/></td>
+                            <td class="td3"><span> </span><a id="lblSss" class="lbl btn"></a></td>
+                            <td class="td4"><input id="txtSssno"  type="text"  class="txt c2"/>
+                            <input id="txtNamea" type="text"  class="txt c3"/></td>  
                             <td class="td5"></td>
                             <td class="td6"></td>
                             <td class="td7"></td>
@@ -516,28 +518,34 @@
                         <tr class="tr6">
                         	<td class="td1"><span> </span><a id="lblPo" class="lbl"></a></td>
                             <td class="td2"><input id="txtPo"  type="text" class="txt num c1" /></td>
-                            <td class="td3"> </td>
-                            <td class="td4"> </td>
+                            <td class="td3">
+                            	<span> </span><a id="lblCustchgno" class="lbl"></a>
+                            	<input id="chkCustchg" type="checkbox" style="float: right;"/>
+                            	<input id="txtCustchgno"  type="hidden" />
+                            </td>
+                            <td class="td4">
+                            	<span> </span><a id="lblCarchgno" class="lbl"></a>
+                            	<input id="chkCarchg" type="checkbox" style="float: right;"/>
+                            	<input id="txtCarchgno"  type="hidden" />
+                           	</td>
                             <td class="td5"><span> </span><a id="lblChecker" class="lbl"></a></td>
                             <td class="td6"><input id="txtChecker"  type="text" class="txt c1" /></td>
                             <td class="td7" colspan="2"><input id="txtCheckmemo"  type="text" class="txt c1"/></td>
                         </tr>
                         <tr class="tr7">            
-                            <td class="td1"><span> </span><a id="lblPart" class="lbl btn"></a></td>
-                            <td class="td2"><input id="txtPartno"  type="text"  class="txt c2"/>
-                            <input id="txtPart"  type="text"  class="txt c3"/></td>
-                            <td class="td3"><span> </span><a id="lblOrg" class="lbl"></a></td>
-                            <td class="td4"><input id="txtOrg"  type="text" class="txt num c1" /></td>
+                            <td class="td1"><span> </span><a id="lblOrg" class="lbl"></a></td>
+                            <td class="td2"><input id="txtOrg"  type="text" class="txt num c1" /></td>
+                            <td class="td3"><span> </span><a id="lblNoa" class="lbl"></a></td>
+                            <td class="td4"><input id="txtNoa"  type="text"  class="txt c1"/></td>
                             <td class="td5"><span> </span><a id="lblApprv" class="lbl"></a></td>
                             <td class="td6"><input id="txtApprv"  type="text" class="txt c1"/></td>  
                             <td class="td7"colspan="2"><input id="txtApprvmemo"  type="text" class="txt c1" /></td>                                                      
                         </tr>
                         <tr class="tr8">
-                            <td class="td1"><span> </span><a id="lblSss" class="lbl btn"></a></td>
-                            <td class="td2"><input id="txtSssno"  type="text"  class="txt c2"/>
-                            <input id="txtNamea" type="text"  class="txt c3"/></td>    
-                            <td class="td3"><span> </span><a id="lblWorker" class="lbl"></a></td>
-                            <td class="td4"><input id="txtWorker"  type="text" class="txt c1"/></td>
+                            <td class="td1"><span> </span><a id="lblWorker" class="lbl"></a></td>
+                            <td class="td2"><input id="txtWorker"  type="text" class="txt c1"/></td>    
+                            <td class="td3"><span> </span><a id="lblChgaccno" class="lbl"></a></td>
+                            <td class="td4"><input id="txtChgaccno"  type="text"  class="txt c1"/></td>
                             <td class="td5"><span> </span><a id="lblApprove" class="lbl"></a></td>
                             <td class="td6"><input id="txtApprove"  type="text" class="txt c1" /></td>  
                             <td class="td7" colspan="2"><input id="txtApprovememo"  type="text" class="txt c1" /></td>  

@@ -15,7 +15,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         q_tables = 's';
-        var q_name = "telpart";
+        var q_name = "telfee";
         var q_readonly = [];
         var q_readonlys = [];
         var bbmNum = []; 

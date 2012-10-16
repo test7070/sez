@@ -46,7 +46,7 @@
 		    var t_Saving;
 		    function mainPost() {
 		        q_getFormat();
-		        bbmMask = [['txtDatea', r_picd]];
+		        bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 		        q_mask(bbmMask);
 		        bbsMask = [['txtIndate', r_picd]];
 		        
