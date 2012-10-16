@@ -15,6 +15,9 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+           if (location.href.indexOf('?') < 0) {
+                location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
+            }
             $(document).ready(function() {
             	q_getId();
                 q_gf('', 'z_pay');
@@ -23,6 +26,10 @@
                $('#q_report').q_report({
                         fileName : 'z_pay',
                         options : [{
+                        type : '0',
+                        name : 'accy',
+                        value : r_accy+"_"+r_cno
+                    },{
                         type : '6',
                         name : 'xcno'
                     },{
