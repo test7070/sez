@@ -25,7 +25,32 @@
                         options : [{/*1*/
 							type : '1',
 							name : 'noa'
-						}]
+						},{
+                        type : '5',
+                        name : 'xkind',
+                        value : [q_getPara('report.all')].concat(q_getPara('ordb.kind').split(','))
+                    	},{/*1*/
+							type : '1',
+							name : 'date'
+						}, {
+                        type : '2',
+                        name : 'xcno',
+                        dbf : 'acomp',
+                        index : 'noa,acomp',
+                        src : 'acomp_b.aspx'
+                    }, {
+                        type : '2',
+                        name : 'xtggno',
+                        dbf : 'tgg',
+                        index : 'noa,comp',
+                        src : 'tgg_b.aspx'
+                    }, {
+                        type : '2',
+                        name : 'xproductno',
+                        dbf : 'bcc',
+                        index : 'noa,product',
+                        src : 'bcc_b.aspx'
+                    }]
                     });
                 q_popAssign();
                 

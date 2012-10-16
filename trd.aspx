@@ -42,12 +42,13 @@
 				isLoadVccano : false,
 				vccano : new Array()
 			}
-			
-			$(document).ready(function() {
-				bbmKey = ['noa'];
-				bbsKey = ['noa', 'noq'];
-				q_brwCount();
-				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+
+			$(document).ready(function () {
+			    q_bbsShow = -1;
+			    bbmKey = ['noa'];
+			    bbsKey = ['noa', 'noq'];
+			    q_brwCount();
+			    q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
 			});
 			function main() {
 				if (dataErr) {
@@ -846,7 +847,7 @@
 			</div>
 		</div>
 		<div class='dbbs'>
-			<table id="tbbs" class='tbbs'>
+			<table id="tbbs" class='tbbs' style=' text-align:center'>
 				<tr style='color:white; background:#003366;' >
 					<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
