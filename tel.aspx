@@ -55,6 +55,10 @@
                 fbbm[fbbm.length] = 'txtMemo'; 
 				 q_cmbParse("cmbTypea", q_getPara('tel.typea'));
 				 
+				 $('#txtMobile').change(function() {
+        			t_where = "where=^^ mobile = '"+$('#txtMobile').val()+"' ^^";
+					q_gt('tel', t_where , 0, 0, 0, "", r_accy);
+        		});
 				 $('#txtFeerate').change(function () {
 				 	sum();
 			     });
@@ -63,7 +67,7 @@
 			     });
 			     $('#chkNet').click(function() {
         			sum();
-        		})
+        		});
         		$('#txtYears').change(function () {
         			var t_enddate='';
         			if(emp($('#txtBegindate').val())){
@@ -176,8 +180,17 @@
                         if(q_cur == 4)
                             q_Seek_gtPost();
 
-                        if(q_cur == 1 || q_cur == 2)
+                        if(q_cur == 1 || q_cur == 2){
                             q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
+                            
+	                        var as = _q_appendData('tel', '', true);
+			        		if(as[0]!=undefined && t_mobile!=$('#txtMobile').val()){
+			        			alert('手機號碼重複輸入，請修改');
+			        			$('#txtMobile').focus();
+			        			var t_tel=$('#txtMobile').val().substring(0,9);
+			        			$('#txtMobile').val(t_tel);
+		        			}
+		        		}
 
                         break;
                 }  /// end switch
@@ -195,11 +208,12 @@
                 //$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
                 $('#txtNoa').focus();
             }
-
+			var t_mobile='';
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
-
+				
+				t_mobile=$('#txtMobile').val();
                 _btnModi();
                 $('#txtMobile').focus();
             }
@@ -245,9 +259,9 @@
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], '', '', 2);
             }
+            
             function refresh(recno) {
                 _refresh(recno);
-
             }
 
             function readonly(t_para, empty) {
@@ -481,7 +495,7 @@
                         </tr>
                         <tr class="tr6">
                             <td class="td1" ><span> </span><a id='lblMemo' class="lbl"></a></td>
-                            <td class="td2" colspan="5"><textarea id="txtMemo"  cols="10" rows="5" style='width:98%;height: 127px; '></textarea></td>
+                            <td class="td2" colspan="5"><input id="txtMemo" type="text" class="txt c1" style="width: 100%;"/></td>
                         </tr>
                 </table>
             </div>
