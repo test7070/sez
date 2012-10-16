@@ -28,37 +28,21 @@
 						value : q_getId()[4]
 					}, {/*1*/
 						type : '1',
-						name : 'date'
+						name : 'mon'
 					}, {/*2*/
-						type : '1',
-						name : 'indate'
-					}, {/*3*/
-						type : '1',
-						name : 'outdate'
-					}, {/*4*/
 						type : '2',
 						name : 'product',
 						dbf : 'fixucc',
 						index : 'noa,namea',
 						src : 'fixucc_b.aspx'
-					}, {/*5*/
+					}, {/*3*/
 						type : '6',
 						name : 'xtireno'
 					}]
 				});
 				q_popAssign();
-				$('#txtDate1').mask('999/99/99');
-				$('#txtDate1').datepicker();
-				$('#txtDate2').mask('999/99/99');
-				$('#txtDate2').datepicker();
-				$('#txtIndate1').mask('999/99/99');
-				$('#txtIndate1').datepicker();
-				$('#txtIndate2').mask('999/99/99');
-				$('#txtIndate2').datepicker();
-				$('#txtOutdate1').mask('999/99/99');
-				$('#txtOutdate1').datepicker();
-				$('#txtOutdate2').mask('999/99/99');
-				$('#txtOutdate2').datepicker();
+				$('#txtMon1').mask('999/99');
+				$('#txtMon2').mask('999/99');
 			
 			
 				var t_date, t_year, t_month, t_day;
@@ -70,7 +54,7 @@
 				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-				$('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
+				$('#txtMon1').val(t_year + '/' + t_month);
 
 				t_date = new Date();
 				t_date.setDate(35);
@@ -81,7 +65,7 @@
 				t_month = t_month > 9 ? t_month + '' : '0' + t_month;
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-				$('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
+				$('#txtMon2').val(t_year + '/' + t_month);
 			}
 
 			function q_boxClose(s2) {
