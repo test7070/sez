@@ -38,12 +38,15 @@
 					}, {/*3*/
 						type : '6',
 						name : 'xtireno'
+					}, {/*4*/
+						type : '6',
+						name : 'xmon'
 					}]
 				});
 				q_popAssign();
 				$('#txtMon1').mask('999/99');
 				$('#txtMon2').mask('999/99');
-			
+				$('#txtXmon').mask('999/99');
 			
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
@@ -55,7 +58,7 @@
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
 				$('#txtMon1').val(t_year + '/' + t_month);
-
+				$('#txtXmon').val(t_year + '/' + t_month);
 				t_date = new Date();
 				t_date.setDate(35);
 				t_date.setDate(0);

@@ -19,10 +19,9 @@
 			isEditTotal = false;
 			q_tables = 's';
 			var q_name = "trd";
-			var q_readonly = ['txtNoa', 'txtDatea', 'txtMoney', 'txtTotal', 'txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney','txtVccano'];
+			var q_readonly = ['txtNoa', 'txtDatea', 'txtMoney', 'txtTotal', 'txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney', 'txtVccano'];
 			var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
-			var bbmNum = [['txtMoney', 10, 0], ['txtTaxrate', 10, 1], ['txtTax', 10, 0], ['txtTotal', 10, 0], ['txtDiscount', 10, 0], ['txtMount', 10, 3], ['txtPlus', 10, 0], ['txtPlusmoney', 10, 0], ['txtMinusmoney', 10, 0]
-			];
+			var bbmNum = [['txtMoney', 10, 0], ['txtTaxrate', 10, 1], ['txtTax', 10, 0], ['txtTotal', 10, 0], ['txtDiscount', 10, 0], ['txtMount', 10, 3], ['txtPlus', 10, 0], ['txtPlusmoney', 10, 0], ['txtMinusmoney', 10, 0]];
 			var bbsNum = [['txtTranmoney', 10, 0], ['txtOverweightcost', 10, 0], ['txtOthercost', 10, 0], ['txtmount', 10, 3], ['txtPrice', 10, 3]];
 			var bbmMask = [];
 			var bbsMask = [];
@@ -32,23 +31,25 @@
 			brwNowPage = 0;
 			brwKey = 'Datea';
 			q_desc = 1;
-			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], 
-			['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b2.aspx'], ['txtEndaddrno', '', 'addr', 'noa,addr', 'txtEndaddrno,txtEndaddr', 'addr_b2.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'noa,namea', 'txtWorkerno,txtWorker', 'sss_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtBoatno', 'lblBoat', 'boat', 'noa,boat', 'txtBoatno,txtBoat', 'boat_b.aspx']);
-			
-			function trd() {}
+			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'], ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno,txtStraddr', 'addr_b2.aspx'], ['txtEndaddrno', '', 'addr', 'noa,addr', 'txtEndaddrno,txtEndaddr', 'addr_b2.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'noa,namea', 'txtWorkerno,txtWorker', 'sss_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtBoatno', 'lblBoat', 'boat', 'noa,boat', 'txtBoatno,txtBoat', 'boat_b.aspx']);
+
+			function trd() {
+			}
+
+
 			trd.prototype = {
-				isLoadCustchgno: false,
-				custchgno : new  Array(),
+				isLoadCustchgno : false,
+				custchgno : new Array(),
 				isLoadVccano : false,
 				vccano : new Array()
 			}
 
-			$(document).ready(function () {
-			    q_bbsShow = -1;
-			    bbmKey = ['noa'];
-			    bbsKey = ['noa', 'noq'];
-			    q_brwCount();
-			    q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+			$(document).ready(function() {
+				q_bbsShow = -1;
+				bbmKey = ['noa'];
+				bbsKey = ['noa', 'noq'];
+				q_brwCount();
+				q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
 			});
 			function main() {
 				if (dataErr) {
@@ -68,8 +69,16 @@
 				q_cmbParse("cmbTovcca", q_getPara('sys.yn'));
 				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 
-				 $('#lblAccno').click(function () {
-		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+				$('#lblAccno').click(function() {
+					q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+				});
+				
+				 $('#lblVccano').click(function () {
+				 	var t_where="";
+				 	var tmp = $('#txtVccano').val().split(',');
+				 	for(var i in tmp)
+				 			t_where += (t_where.length>0?' or ':'')+"noa='"+tmp[i]+"'";
+		            q_pop('txtVccano', "vcca.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+t_where+";" + r_accy + '_' + r_cno, 'vcca', 'noa', 'datea', "92%", "1054px", q_getMsg('popVcca'), true);
 		        });
 
 				$('#cmbTrtype').focus(function() {
@@ -142,14 +151,14 @@
 
 						var t_tranordeno = "'" + $.trim($('#txtOrdeno').val()) + "'";
 						var t_po = '';
-						if($.trim($('#txtPo').val()).length>0){
+						if ($.trim($('#txtPo').val()).length > 0) {
 							var tmp = $.trim($('#txtPo').val()).split(',');
 							t_po = ' and (';
-							for(var i in tmp)
-								t_po+= (i==0?'':' or ')+"trans" + r_accy + ".po='"+tmp[i]+"'"
-							t_po+=')';
+							for (var i in tmp)
+							t_po += (i == 0 ? '' : ' or ') + "trans" + r_accy + ".po='" + tmp[i] + "'"
+							t_po += ')';
 						}
-						
+
 						t_where = "where=^^(custno=" + t_custno + ") and (isnull(trandate,'') between " + t_btrandate + " and " + t_etrandate + ") and (isnull(datea,'') between " + t_bdate + " and " + t_edate + " ) ";
 						t_where += " and ( len(isnull(trdno,''))=0  or  trdno=" + t_noa + ")";
 						t_where += t_po;
@@ -158,7 +167,6 @@
 							t_where += "and exists(select * from tranorde" + r_accy + " where noa=trans" + r_accy + ".ordeno and (odate between " + t_bodate + " and " + t_eodate + "))";
 						// t_where += " not exists(select * from trds" + r_accy + " where not(noa=" + t_curno + ") and tranno=trans" + r_accy + ".noa and trannoq=trans" + r_accy + ".noq and (straddrno between " + t_bstraddrno + " and " + t_estraddrno + ") and (endaddrno between " + t_bendaddrno + " and " + t_eendaddrno + "))^^";
 						t_where += "^^";
-						
 
 						t_where += "order=^^datea,noa^^";
 						$(this).val('請稍後');
@@ -171,11 +179,11 @@
 						alert('請輸入客戶編號!');
 						return;
 					}
-					var t_custchgno='';
-					if(curData.isLoadCustchgno){
-						for(var i=0;i<curData.custchgno.length;i++)
-							t_custchgno += (t_custchgno.length>0?',':'')+curData.custchgno[i];
-						t_custchgno='custchgno='+t_custchgno;
+					var t_custchgno = '';
+					if (curData.isLoadCustchgno) {
+						for (var i = 0; i < curData.custchgno.length; i++)
+							t_custchgno += (t_custchgno.length > 0 ? ',' : '') + curData.custchgno[i];
+						t_custchgno = 'custchgno=' + t_custchgno;
 					}
 					t_where = "  custno='" + $('#txtCustno').val() + "' and  (trdno='" + $('#txtNoa').val() + "' or len(isnull(trdno,''))=0) ";
 					q_box("custchg_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_custchgno + ";", 'custchg', "95%", "650px", q_getMsg('popCustchg'));
@@ -185,16 +193,16 @@
 						alert('請輸入客戶編號!');
 						return;
 					}
-					var t_vccano='';
-					if(curData.isLoadVccano){
-						for(var i=0;i<curData.vccano.length;i++)
-							t_vccano += (t_vccano.length>0?',':'')+curData.vccano[i];
-						t_vccano='vccano='+t_vccano;
+					var t_vccano = '';
+					if (curData.isLoadVccano) {
+						for (var i = 0; i < curData.vccano.length; i++)
+							t_vccano += (t_vccano.length > 0 ? ',' : '') + curData.vccano[i];
+						t_vccano = 'vccano=' + t_vccano;
 					}
 					t_where = "  custno='" + $('#txtCustno').val() + "' and  (trdno='" + $('#txtNoa').val() + "' or len(isnull(trdno,''))=0) ";
 					q_box("vcca_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_vccano + ";", 'vcca1', "95%", "650px", q_getMsg('popVcca'));
 				});
-				
+
 				$('#txtMemo').change(function() {
 					if (isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.') {
 						$('#txtTotal').removeAttr('readonly').css('background-color', 'white').css('color', 'black');
@@ -210,33 +218,33 @@
 				switch (b_pop) {
 					case 'custchg':
 						if (b_ret != null) {
-							var t_where='1!=1';
+							var t_where = '1!=1';
 							curData.isLoadCustchgno = true;
 							curData.custchgno = new Array();
 							for (var i = 0; i < b_ret.length; i++) {
 								curData.custchgno.push(b_ret[i].noa);
-								t_where +=" or noa='"+b_ret[i].noa+"'";
+								t_where += " or noa='" + b_ret[i].noa + "'";
 							}
-							q_gt('custchg', "where=^^"+t_where+"^^", 0, 0, 0, "");
+							q_gt('custchg', "where=^^" + t_where + "^^", 0, 0, 0, "");
 						}
 						break;
 					case 'vcca1':
 						if (b_ret != null) {
-							var t_where='1!=1';
+							var t_where = '1!=1';
 							curData.isLoadVccano = true;
 							curData.vccano = new Array();
 							for (var i = 0; i < b_ret.length; i++) {
 								curData.vccano.push(b_ret[i].noa);
-								t_where +=" or noa='"+b_ret[i].noa+"'";
+								t_where += " or noa='" + b_ret[i].noa + "'";
 							}
 							//回寫VCCA
-							if(curData.isLoadVccano){
-								var t_vccano='';
-								for(var i=0;i<curData.vccano.length;i++)
-									t_vccano+=(t_vccano.length>0?',':'')+curData.vccano[i];
+							if (curData.isLoadVccano) {
+								var t_vccano = '';
+								for (var i = 0; i < curData.vccano.length; i++)
+									t_vccano += (t_vccano.length > 0 ? ',' : '') + curData.vccano[i];
 								$('#txtVccano').val(t_vccano);
 							}
-							q_gt('vcca1', "where=^^"+t_where+"^^", 0, 0, 0, "");
+							q_gt('vcca1', "where=^^" + t_where + "^^", 0, 0, 0, "");
 						}
 						break;
 					case q_name + '_s':
@@ -250,10 +258,10 @@
 				switch (t_name) {
 					case 'custchg':
 						var as = _q_appendData("custchg", "", true);
-						var t_plusmoney=0,t_minusmoney=0;
+						var t_plusmoney = 0, t_minusmoney = 0;
 						for ( i = 0; i < as.length; i++) {
-							t_plusmoney+=parseFloat(as[i].plusmoney);
-							t_minusmoney+=parseFloat(as[i].minusmoney);
+							t_plusmoney += parseFloat(as[i].plusmoney);
+							t_minusmoney += parseFloat(as[i].minusmoney);
 						}
 						$('#txtPlusmoney').val(t_plusmoney);
 						$('#txtMinusmoney').val(t_minusmoney);
@@ -261,13 +269,14 @@
 						break;
 					case 'vcca1':
 						var as = _q_appendData("vcca", "", true);
-						var t_money=0,t_tax=0,t_total=0;
+						var t_money = 0, t_tax = 0, t_total = 0;
 						for ( i = 0; i < as.length; i++) {
-							t_money+=parseFloat(as[i].money);
-							t_tax+=parseFloat(as[i].tax);
-							t_total+=parseFloat(as[i].total);
+							t_money += parseFloat(as[i].money);
+							t_tax += parseFloat(as[i].tax);
+							t_total += parseFloat(as[i].total);
 						}
-						$('#cmbTaxtype').val(5);//custom
+						$('#cmbTaxtype').val(5);
+						//custom
 						$('#txtTax').val(t_tax);
 						sum();
 						break;
@@ -322,18 +331,18 @@
 				}
 				//-------------------------------------------------
 				//回寫CUSTCHG
-				if(curData.isLoadCustchgno){
-					var t_custchgno='';
-					for(var i=0;i<curData.custchgno.length;i++)
-						t_custchgno+=(t_custchgno.length>0?',':'')+curData.custchgno[i];
+				if (curData.isLoadCustchgno) {
+					var t_custchgno = '';
+					for (var i = 0; i < curData.custchgno.length; i++)
+						t_custchgno += (t_custchgno.length > 0 ? ',' : '') + curData.custchgno[i];
 					$('#txtCustchgno').val(t_custchgno);
 				}
 				//-------------------------------------------------
 				//回寫VCCA
-				if(curData.isLoadVccano){
-					var t_vccano='';
-					for(var i=0;i<curData.vccano.length;i++)
-						t_vccano+=(t_vccano.length>0?',':'')+curData.vccano[i];
+				if (curData.isLoadVccano) {
+					var t_vccano = '';
+					for (var i = 0; i < curData.vccano.length; i++)
+						t_vccano += (t_vccano.length > 0 ? ',' : '') + curData.vccano[i];
 					$('#txtVccano').val(t_vccano);
 				}
 				//-------------------------------------------------
@@ -652,7 +661,9 @@
 						<td align="center" style="width:20%"><a id='vewTotal'></a></td>
 					</tr>
 					<tr>
-						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
+						<td >
+						<input id="chkBrow.*" type="checkbox" style=' '/>
+						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td id='nick' style="text-align: center;">~nick</td>
 						<td id='total' style="text-align: right;">~total</td>
@@ -662,18 +673,18 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr0" style="height:1px;">
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
 						<td class="tdZ"></td>
-					</tr>	
+					</tr>
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class="td2" colspan="2">
@@ -742,20 +753,21 @@
 					<tr class="tr_import">
 						<td colspan="9"></td>
 						<td>
-							<input id="txtCustchgno" type="text" class="txt c1" style="display:none;"/>
-							<input type="button" id="btnCustchg" class="txt c1"/></td>
-						<td class="tdZ"> </td>
+						<input id="txtCustchgno" type="text" class="txt c1" style="display:none;"/>
+						<input type="button" id="btnCustchg" class="txt c1"/>
+						</td>
+						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr_import">
-						<td><span> </span><a id="lblVccano" class="lbl"> </a></td>
+						<td><span> </span><a id="lblVccano" class="lbl btn"> </a></td>
 						<td colspan="7">
-							<input id="txtVccano" type="text" class="txt c1"/>
+						<input id="txtVccano" type="text" class="txt c1"/>
 						</td>
-						<td> </td>
+						<td></td>
 						<td>
-							<input type="button" id="btnVcca" class="txt c1"/>
+						<input type="button" id="btnVcca" class="txt c1"/>
 						</td>
-						<td class="tdZ"> </td>
+						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr5">
 						<td class="td1"><span> </span><a id="lblAcomp" class="lbl"> </a></td>
