@@ -80,7 +80,25 @@
 	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtMobile,txtOfee,txtFee', as.length, as, 'mobile,total,total', 'txtMobile');
 	            	sum();
             	break;
-                case q_name: if (q_cur == 4)  
+                case q_name: 
+                	if(q_cur == 1 || q_cur == 2){
+                		var as = _q_appendData("telfee", "", true);
+	                	if(as[0]!=undefined){
+	            			var fees = _q_appendData("telfees", "", true);
+		            		for (var i = 0; i < fees.length; i++) {
+				                    if (fees[i].mobile == $('#txtMobile_'+b_seq).val()) {
+				                    	alert('本月份號碼重複輸入!!');
+				                    	if(q_cur==2)
+						    				$('#txtMobile_' + b_seq).val(t_mobile[b_seq]);
+						    			else
+						    				$('#txtMobile_' + b_seq).val('');
+						    			$('#txtMobile_' + b_seq).focus();
+						    			break;
+				                    }
+				             }
+			            }
+		            }
+                	if (q_cur == 4)  
                         q_Seek_gtPost();
                     break;
             }  /// end switch
@@ -112,23 +130,40 @@
 
         function combPay_chg() {  
         }
-
+		
+		
         function bbsAssign() {
         	for(var j = 0; j < q_bbsCount; j++) {
             	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
             		$('#txtFee_' + j).change(function () {
 						sum();
 				    });
+
 				    $('#txtMobile_' + j).change(function () {
-							t_IdSeq = -1;
+				    		t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
+				    		if(emp($('#txtMon').val())){
+				    			alert('請先輸入帳款月份!!');
+				    			$('#txtMobile_' + b_seq).val('');
+				    			$('#txtMon').focus();
+				    			return;
+				    		}
 							for (var i = 0; i < q_bbsCount; i++) {
 								if ($('#txtMobile_' + b_seq).val() == $('#txtMobile_' + i).val() && !emp($('#txtMobile_' + i).val()) && b_seq != i) {
 									alert('號碼重複!!');
-									$('#txtMobile_' + b_seq).val('');
+									if(q_cur==2)
+										$('#txtMobile_' + b_seq).val(t_mobile[b_seq]);
+									else
+										$('#txtMobile_' + b_seq).val('');
 									$('#txtMobile_' + b_seq).focus();
+									return;
 								}
+							}
+							if(t_mobile[b_seq]!=$('#txtMobile_' + b_seq).val()||q_cur==1){
+								//判斷當月號碼是否有輸入過
+								t_where = "where=^^ mon = '"+$('#txtMon').val()+"' ^^";
+								q_gt('telfee', t_where , 0, 0, 0, "", r_accy);
 							}
 				    });
 				}
@@ -143,9 +178,13 @@
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
         }
+        var t_mobile=[];//暫存BBS
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
+            for (var i = 0; i < q_bbsCount; i++) {
+            	t_mobile[i] = $('#txtMobile_' + i).val();
+            }
             _btnModi();
             
         }
