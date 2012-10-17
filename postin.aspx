@@ -16,7 +16,7 @@
         }
         var q_name="postin";
         var q_readonly = ['txtNoa'];
-        var bbmNum = []; 
+        var bbmNum = [['txtTotal',14 , 0, 1],['txtP35',14 , 0, 1],['txtP50',14 , 0, 1],['txtP100',14 , 0, 1],['txtP120',14 , 0, 1],['txtP200',14 , 0, 1],['txtP250',14 , 0, 1],['txtP320',14 , 0, 1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
@@ -189,7 +189,7 @@
         }
        
        function sum() {
-			q_tr('txtTotal',Math.round((q_float('txtP35')*3.5)+(q_float('txtP50')*5)+(q_float('txtP100')*10)+(q_float('txtP120')*12)+(q_float('txtP200')*20)+(q_float('txtP250')*25)+(q_float('txtP32')*32)));
+			q_tr('txtTotal',Math.round((q_float('txtP35')*3.5)+(q_float('txtP50')*5)+(q_float('txtP100')*10)+(q_float('txtP120')*12)+(q_float('txtP200')*20)+(q_float('txtP250')*25)+(q_float('txtP320')*32)));
         }
 
         function refresh(recno) {
@@ -328,11 +328,11 @@
                 float: left;
             }
             .txt.c4 {
-                width: 18%;
+                width: 25%;
                 float: left;
             }
             .txt.c5 {
-                width: 80%;
+                width: 75%;
                 float: left;
             }
             .txt.num {
@@ -376,42 +376,44 @@
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 70%;float: left;">
+        <div class='dbbm' style="width: 75%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
           <tr class="tr1">
-               <td class="td1"><span> </span><a id="lblDatea" class="lbl"></a></td>
-               <td class="td2"><input id="txtDatea" type="text" class="txt c1"/></td> 
-               <td class="td3" ><span> </span><a id="lblPart" class="lbl btn"></a></td>
-               <td class="td4" colspan="2"><input id="txtPartno"  type="text"  class="txt c4"/><input id="txtPart" type="text"  class="txt c5"/></td> 
-               <td class="td6"><span> </span><a id="lblSss" class="lbl btn" ></a></td>
-               <td class="td7" colspan="2"><input id="txtSssno"  type="text"  class="txt c4"/><input id="txtNamea"  type="text"  class="txt c5"/></td>                          
+          		<td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
+               <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td> 
+               <td class="td3"><span> </span><a id="lblDatea" class="lbl"></a></td>
+               <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>                     
             </tr>
             <tr class="tr2">
+               <td class="td1" ><span> </span><a id="lblPart" class="lbl btn"></a></td>
+               <td class="td2" colspan="2"><input id="txtPartno"  type="text"  class="txt c4"/><input id="txtPart" type="text"  class="txt c5"/></td> 
+               <td class="td4"><span> </span><a id="lblSss" class="lbl btn" ></a></td>
+               <td class="td5" colspan="2"><input id="txtSssno"  type="text"  class="txt c4"/><input id="txtNamea"  type="text"  class="txt c5"/></td>
+               <td class="td7"><span> </span><a id="lblChgcashno" class="lbl"></a></td>
+               <td class="td8"><input id="txtChgcashno" type="text" class="txt c1" /></td>                          
+            </tr>
+            <tr class="tr3">
             	<td class="td1"><span> </span><a id="lblPosts" class="lbl"></a></td>
-               	<td class="td2"></td>     
-               	<td class="td3"><span> </span><a id="lblP35" class="lbl"></a></td>
-               	<td class="td4"><input id="txtP35" type="text"  class="txt num c1" /></td>
-               	<td class="td5"><span> </span><a id="lblP50" class="lbl"></a></td>
-               	<td class="td6"><input id="txtP50" type="text" class="txt num c1" /></td>
-               	<td class="td7"><span> </span><a id="lblP100" class="lbl"></a></td>
-               	<td class="td8"><input id="txtP100" type="text" class="txt num c1" /></td>
+               	<td class="td2"><span> </span><a id="lblP35" class="lbl"></a></td>
+               	<td class="td3"><input id="txtP35" type="text"  class="txt num c3" /></td>
+               	<td class="td4"><span> </span><a id="lblP50" class="lbl"></a></td>
+               	<td class="td5"><input id="txtP50" type="text" class="txt num c3" /></td>
+               	<td class="td6"><span> </span><a id="lblP100" class="lbl"></a></td>
+               	<td class="td7"><input id="txtP100" type="text" class="txt num c3" /></td>
+               	<td class="td8"><span> </span><a id="lblP120" class="lbl"></a></td>
+               	<td class="td9"><input id="txtP120" type="text" class="txt num c3" /></td>
             </tr>      
-             <tr class="tr3">
-             	<td class="td1"><span> </span><a id="lblP120" class="lbl"></a></td>
-               	<td class="td2"><input id="txtP120" type="text" class="txt num c1" /></td>    
-             	<td class="td3"><span> </span><a id="lblP200" class="lbl"></a></td>
-               	<td class="td4"><input id="txtP200" type="text" class="txt num c1" /></td>  
-               	<td class="td5"><span> </span><a id="lblP250" class="lbl"></a></td>
-               	<td class="td6"><input id="txtP250" type="text" class="txt num c1" /></td>
-               	<td class="td7"><span> </span><a id="lblP320" class="lbl"></a></td>
-               	<td class="td8"><input id="txtP320" type="text" class="txt num c1" /></td>                        
+             <tr class="tr4">
+             	<td class="td1"></td>
+             	<td class="td2"><span> </span><a id="lblP200" class="lbl"></a></td>
+               	<td class="td3"><input id="txtP200" type="text" class="txt num c3" /></td>  
+               	<td class="td4"><span> </span><a id="lblP250" class="lbl"></a></td>
+               	<td class="td5"><input id="txtP250" type="text" class="txt num c3" /></td>
+               	<td class="td6"><span> </span><a id="lblP320" class="lbl"></a></td>
+               	<td class="td7"><input id="txtP320" type="text" class="txt num c3" /></td>
+               	<td class="td8"><span> </span><a id="lblTotal" class="lbl"></a></td>
+               	<td class="td9"><input id="txtTotal" type="text" class="txt num c1" /></td>                    
             </tr> 
-            <tr class="tr4">
-               <td class="td1"><span> </span><a id="lblTotal" class="lbl"></a></td>
-               <td class="td2" colspan="2"><input id="txtTotal" type="text" class="txt num c1" /></td>
-               <td class="td4"><span> </span><a id="lblChgcashno" class="lbl"></a></td>
-               <td class="td5"><input id="txtChgcashno" type="text" class="txt c1" /></td>                           
-            </tr>          
         </table>
         </div>
         </div> 
