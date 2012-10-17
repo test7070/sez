@@ -28,6 +28,7 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
+            brwCount2=2;
             q_brwCount();  
             q_gt(q_name, q_content, q_sqlCount, 1) 
         });
@@ -47,8 +48,15 @@
             bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
             q_mask(bbmMask);
             $('#btnTel').click(function () {
-	           //t_where = "where=^^ 1=0 ^^"
-	           q_gt('tel', '' , 0, 0, 0, "", r_accy);
+            	if(emp($('#txtMon').val())){
+            		alert('請先輸入帳款月份!!');
+            		return;
+            	}
+	           	t_where = "where=^^ mobile not in (select mobile from telfees where mon ='"+$('#txtMon').val()+"') ^^"
+	           	q_gt('tel', t_where , 0, 0, 0, "", r_accy);
+	        });
+	        $('#txtDatea').change(function () {
+	           $('#txtMon').val($('#txtDatea').val().substring(0,6));
 	        });
         }
 
@@ -125,7 +133,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            //q_box('telpart_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+           	q_box('telfee_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {  
@@ -236,6 +244,12 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            if (t_para) {
+		            $('#btnTel').attr('disabled', 'disabled');	          
+		        }
+		        else {
+		        	$('#btnTel').removeAttr('disabled');	 
+		        }
         }
 
         function btnMinus(id) {
@@ -433,7 +447,7 @@
         </table>
         </div>
         <div class='dbbs' > 
-        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
+        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  style="width:100%;">
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center"><a id='lblMobile'></a></td>
