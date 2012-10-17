@@ -50,7 +50,7 @@
             }///  end Main()
 
             function mainPost() {
-            	bbmMask = [['txtBegindate', r_picd],['txtCondate', r_picd],['txtEnddate', r_picd],['txtMobile', '9999-999-999']];
+            	bbmMask = [['txtBegindate', r_picd],['txtCondate', r_picd],['txtEnddate', r_picd]];
             	q_mask(bbmMask);
                 fbbm[fbbm.length] = 'txtMemo'; 
 				 q_cmbParse("cmbTypea", q_getPara('tel.typea'));
@@ -185,9 +185,9 @@
                             
 	                        var as = _q_appendData('tel', '', true);
 			        		if(as[0]!=undefined && t_mobile!=$('#txtMobile').val()){
-			        			alert('手機號碼重複輸入，請修改');
+			        			alert('電話或手機號碼重複輸入，請修改');
 			        			$('#txtMobile').focus();
-			        			var t_tel=$('#txtMobile').val().substring(0,9);
+			        			var t_tel=$('#txtMobile').val().substring(0,7);
 			        			$('#txtMobile').val(t_tel);
 		        			}
 		        		}

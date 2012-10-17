@@ -190,14 +190,25 @@
 					return;
 				}
 
-				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtIndate').val());
+				var tt_gqbno = trim($('#txtGqbno').val());
+				var t_noa = trim($('#txtNoa').val());
+				
 				if (t_noa.length == 0 || t_noa == "AUTO")
-					q_gtnoa(q_name, replaceAll(t_date + (9 - dec($('#cmbTypea').val())).toString(), '/', ''));
+					q_gtnoa(q_name, replaceAll(t_date.replace(/\//g, '') + (9 - dec( $('#cmbTypea').val() )) + (tt_gqbno.length > 4 ? tt_gqbno.substring(0, 2) + tt_gqbno.substring(tt_gqbno.length - 3, 3) : tt_gqbno), '/', ''));
 				else
 					wrServer(t_noa);
 			}
 
+			function q_stPost() {
+		        if (!(q_cur == 1 || q_cur == 2))
+		            return false;
+				var s2= xmlString.split(';');
+				abbm[q_recno]['noa'] = s2[0];
+		        abbm[q_recno]['accno'] = s2[1];
+		        $('#txtAccno').val(s2[0]);
+		    }
+			
 			function wrServer(key_value) {
 				var i;
 
