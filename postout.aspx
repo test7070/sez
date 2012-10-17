@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -16,8 +15,8 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="postout";
-        var q_readonly = [];
-        var bbmNum = []; 
+        var q_readonly = ['txtNoa'];
+        var bbmNum = [['txtTotal',14 , 0, 1],['txtP35',14 , 0, 1],['txtP50',14 , 0, 1],['txtP100',14 , 0, 1],['txtP120',14 , 0, 1],['txtP200',14 , 0, 1],['txtP250',14 , 0, 1],['txtP320',14 , 0, 1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
@@ -29,6 +28,7 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
+            q_desc = 1;
            q_gt(q_name, q_content, q_sqlCount, 1)
             $('#txtNoa').focus
         });
@@ -44,7 +44,37 @@
 
 
         function mainPost() { 
-            q_mask(bbmMask); 
+            q_getFormat();
+        	bbmMask = [['txtDatea', r_picd]];
+            q_mask(bbmMask);
+            q_cmbParse("cmbTypea", q_getPara('send.typea'));
+            $("#cmbTypea").focus(function() {
+				var len = $("#cmbTypea").children().length > 0 ? $("#cmbTypea").children().length : 1;
+				$("#cmbTypea").attr('size', len + "");
+			}).blur(function() {
+				$("#cmbTypea").attr('size', '1');
+			});
+			$('#txtP35').change(function () {
+	           sum();
+	        });
+	        $('#txtP50').change(function () {
+	           sum();
+	        });
+	        $('#txtP100').change(function () {
+	           sum();
+	        });
+	        $('#txtP120').change(function () {
+	           sum();
+	        });
+	        $('#txtP200').change(function () {
+	           sum();
+	        });
+	        $('#txtP250').change(function () {
+	           sum();
+	        });
+	        $('#txtP320').change(function () {
+	           sum();
+	        });
         }
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -122,7 +152,9 @@
 
         function btnIns() {
             _btnIns();
-            $('#txtNoa').focus();
+            $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+            $('#txtDatea').val(q_date());
+            $('#txtDatea').focus();
         }
 
         function btnModi() {
@@ -138,34 +170,21 @@
         }
         function btnOk() {
             var t_err = '';
-
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
-
-            if ( dec( $('#txtCredit').val()) > 9999999999)
-                t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
-
-            if ( dec( $('#txtStartn').val()) > 31)
-                t_err = t_err + q_getMsg( "lblStartn")+q_getMsg( "msgErr")+'\r';
-            if (dec( $('#txtGetdate').val()) > 31)
-                t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
 
             if( t_err.length > 0) {
                 alert(t_err);
                 return;
             }
-            var t_noa = trim($('#txtNoa').val());
-            if (emp($('#txtUacc1').val()))
-                $('#txtUacc1').val('1123.' + t_noa);
-            if (emp($('#txtUacc2').val()))
-                $('#txtUacc2').val('1121.' + t_noa);
-            if (emp($('#txtUacc3').val()))
-                $('#txtUacc3').val( '2131.'+t_noa);
+            
+            sum();
 
-
-            if ( t_noa.length==0 )  
-                q_gtnoa(q_name, t_noa);
+            var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+            if (s1.length == 0 || s1 == "AUTO")   
+                q_gtnoa(q_name, replaceAll('P' + $('#txtDatea').val(), '/', ''));
             else
-                wrServer(  t_noa);
+                wrServer(s1);
+
         }
 
         function wrServer( key_value) {
@@ -198,7 +217,11 @@
         function q_appendData(t_Table) {
             return _q_appendData(t_Table);
         }
-
+		
+		function sum() {
+			q_tr('txtTotal',Math.round((q_float('txtP35')*3.5)+(q_float('txtP50')*5)+(q_float('txtP100')*10)+(q_float('txtP120')*12)+(q_float('txtP200')*20)+(q_float('txtP250')*25)+(q_float('txtP320')*32)));
+        }
+		
         function btnSeek(){
             _btnSeek();
         }
@@ -303,7 +326,7 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 98%;
+                width: 100%;
                 float: left;
             }
             .txt.c2 {
@@ -315,7 +338,7 @@
                 float: left;
             }
             .txt.c4 {
-                width: 23%;
+                width: 25%;
                 float: left;
             }
             .txt.c5 {
@@ -370,65 +393,58 @@
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 70%;float: left;">
+        <div class='dbbm' style="width: 74%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
           <tr class="tr1">
-               <td class="td1"><span> </span><a id="lblDatea" class="lbl"></a></td>
-               <td class="td2" colspan="2"><input id="txtDatea" type="text" class="txt c1"/></td> 
-               <td class="td4" ><span> </span><a id="lblPart" class="lbl btn"></a></td>
-               <td class="td5" colspan="2"><input id="txtPartno"  type="text"  class="txt c4"/><input id="txtPart" type="text"  class="txt c5"/></td> 
-               <td class="td7"><span> </span><a id="lblSss" class="lbl btn" ></a></td>
-               <td class="td8" colspan="2"><input id="txtSssno"  type="text"  class="txt c4"/><input id="txtNamea"  type="text"  class="txt c5"/></td>                          
-            </tr>  
+          	   <td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
+               <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
+               <td class="td3"><span> </span><a id="lblDatea" class="lbl"></a></td>
+               <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td> 
+            </tr>
             <tr class="tr2">
+               <td class="td1" ><span> </span><a id="lblPart" class="lbl btn"></a></td>
+               <td class="td2" colspan="2"><input id="txtPartno"  type="text"  class="txt c4"/><input id="txtPart" type="text"  class="txt c5"/></td> 
+               <td class="td4"><span> </span><a id="lblSss" class="lbl btn" ></a></td>
+               <td class="td5" colspan="2"><input id="txtSssno"  type="text"  class="txt c4"/><input id="txtNamea"  type="text"  class="txt c5"/></td>                          
+            </tr>
+            <tr class="tr3">
                <td class="td1"><span> </span><a id="lblSend" class="lbl btn" ></a></td>
-               <td class="td2"colspan="2"><input id="txtSenderno"  type="text"  class="txt c4"/><input id="txtSender" type="text"  class="txt c5"/></td>
+               <td class="td2" colspan="2"><input id="txtSenderno"  type="text"  class="txt c4"/><input id="txtSender" type="text"  class="txt c5"/></td>
                <td class="td4"><span> </span><a id="lblReceiver_cust" class="lbl btn" style="font-size: 14px;"></a></td>
                <td class="td5"colspan="2"><input id="txtReceiverno_cust" type="text"  class="txt c4"/><input id="txtReceiver_cust"  type="text"  class="txt c5"/></td>
                <td class="td7"><span> </span><a id="lblReceiver_tgg" class="lbl btn" style="font-size: 14px;"></a></td>
                <td class="td8"colspan="2"><input id="txtReceiverno_tgg" type="text"  class="txt c4"/><input id="txtReceiver_tgg"  type="text"  class="txt c5"/></td>            
             </tr> 
-           <tr class="tr3">
+           <tr class="tr4">
                <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-               <td class="td2" colspan="9"><textarea id="txtMemo" rows="5" cols="10" style="width: 98%; height: 50px;"></textarea></td>               
-            </tr> 
-            <tr class="tr4">
-               <td class="td1" ><span> </span><a id="lblPtype" class="lbl"></a></td>
-               <td align="left"><input type="radio" value="1"name="ptype"/><a id="lblPtype1"></a></td>
-               <td align="left"><input type="radio" value="2"name="ptype"/><a id="lblPtype2"></a></td>
-               <td align="left"><input type="radio" value="3"name="ptype"/><a id="lblPtype3"></a></td>
-               <td align="left"><input type="radio" value="4"name="ptype"/><a id="lblPtype4"></a></td>
-               <td align="left"><input type="radio" value="5"name="ptype"/><a id="lblPtype5"></a></td>
-               <td align="left"><input type="radio" value="6"name="ptype"/><a id="lblPtype6"></a></td>                
+               <td class="td2" colspan="8"><input id="txtMemo" type="text" class="txt c1"/></td>               
             </tr> 
             <tr class="tr5">
-               <td class="td1"><span> </span><a id="lblP1" class="lbl"></a></td>
-               <td class="td2"><input id="txtP1" type="text"  class="txt num c3" /></td>
-               <td class="td3"><span> </span><a id="lblP2" class="lbl"></a></td>
-               <td class="td4"><input id="txtP2" type="text" class="txt num c3" /></td>
-               <td class="td5"><span> </span><a id="lblP3" class="lbl"></a></td>
-               <td class="td6"><input id="txtP3" type="text" class="txt num c3" /></td>
-               <td class="td7"><span> </span><a id="lblP4" class="lbl"></a></td>
-               <td class="td8"><input id="txtP4" type="text" class="txt num c3" /></td>
-               <td class="td9"><span> </span><a id="lblP5" class="lbl"></a></td>
-               <td class="td10"><input id="txtP5" type="text" class="txt num c3" /></td>                            
-            </tr>      
-             <tr class="tr6">
-               <td class="td1"><span> </span><a id="lblP6" class="lbl"></a></td>
-               <td class="td2"><input id="txtP6" type="text" class="txt num c3" /></td>
-               <td class="td3"><span> </span><a id="lblP7" class="lbl"></a></td>
-               <td class="td4"><input id="txtP7" type="text" class="txt num c3" /></td>
-               <td class="td5"><span> </span><a id="lblP8" class="lbl"></a></td>
-               <td class="td6"><input id="txtP8" type="hidden" class="txt num c3" /></td>
-               <td class="td7"><span> </span><a id="lblP9" class="lbl"></a></td>
-               <td class="td8"><input id="txtP9" type="hidden" class="txt num c3" /></td>
-               <td class="td9"><span> </span><a id="lblP10" class="lbl"></a></td>
-               <td class="td10"><input id="txtP10" type="hidden" class="txt num c3"/></td>                            
+               <td class="td1" ><span> </span><a id="lblPtype" class="lbl"></a></td>
+               <td class="td1" ><select id="cmbTypea" class="txt c1"></select></td>
             </tr> 
-            <tr class="tr7">
-               <td class="td1"><span> </span><a id="lblTotal" class="lbl"></a></td>
-               <td class="td2" colspan="2"><input id="txtTotal" type="text" class="txt num c3" /></td>                            
-            </tr>          
+            <tr class="tr6">
+               <td class="td1"><span> </span><a id="lblPosts" class="lbl"></a></td>
+               <td class="td2"><span> </span><a id="lblP35" class="lbl"></a></td>
+               <td class="td3"><input id="txtP35" type="text"  class="txt num c3" /></td>
+               <td class="td4"><span> </span><a id="lblP50" class="lbl"></a></td>
+               <td class="td5"><input id="txtP50" type="text" class="txt num c3" /></td>
+               <td class="td6"><span> </span><a id="lblP100" class="lbl"></a></td>
+               <td class="td7"><input id="txtP100" type="text" class="txt num c3" /></td>
+               <td class="td8"><span> </span><a id="lblP120" class="lbl"></a></td>
+               <td class="td9"><input id="txtP120" type="text" class="txt num c3" /></td>                          
+            </tr>      
+             <tr class="tr7">
+             	<td class="td1"></td>
+             	<td class="td2"><span> </span><a id="lblP200" class="lbl"></a></td>
+               <td class="td3"><input id="txtP200" type="text" class="txt num c3" /></td>
+               <td class="td4"><span> </span><a id="lblP250" class="lbl"></a></td>
+               <td class="td5"><input id="txtP250" type="text" class="txt num c3" /></td>
+               <td class="td6"><span> </span><a id="lblP320" class="lbl"></a></td>
+               <td class="td7"><input id="txtP320" type="text" class="txt num c3" /></td>
+               <td class="td8"><span> </span><a id="lblTotal" class="lbl"></a></td>
+               <td class="td9"><input id="txtTotal" type="text" class="txt num c1" /></td>                 
+            </tr>  
         </table>
         </div>
         </div> 
