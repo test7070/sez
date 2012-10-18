@@ -716,9 +716,8 @@
 						<td class="6">
 						<input type="button" id="btnVcc" class="txt c1 " />
 						</td>
-						<td class="td7"></td>
-						<td class="td8">
-						</td>
+						<td class="td7"><span> </span><a id='lblCust2' class="lbl"></a></td>
+						<td class="td8"><input id="txtCustno2" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblSale' class="lbl"></a></td>
