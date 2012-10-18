@@ -34,7 +34,8 @@
 			currentData.prototype = {
 				data : [],
 				/*新增時複製的欄位*/
-				include : ['txtDatea'],
+				include : ['txtDatea','txtCustno','txtCust','cmbCarteamno','txtMinusitemno','txtMinusitem','txtMinusmoney'
+					,'txtPlusitemno','txtPlusitem','txtPlusmoney','txtAcc1','txtAcc2','txtMemo'],
 				/*記錄當前的資料*/
 				copy : function() {
 					curData.data = new Array();
@@ -165,10 +166,12 @@
 			}
 
 			function btnIns() {
-				_btnIns();
+				curData.copy();
+                _btnIns();
+                curData.paste();
 				$('#txtNoa').val('AUTO');
 				$('#txtDatea').val(q_date());
-				$('#txtDatea').focus();
+				$('#txtCarno').focus();
 			}
 
 			function btnModi() {
