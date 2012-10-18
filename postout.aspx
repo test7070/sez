@@ -21,7 +21,7 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
 		aPop = new Array(['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
-		['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],
+		['txtSssno', 'lblSss', 'sss', 'noa,namea,partno,part', 'txtSssno,txtNamea,txtPartno,txtPart', 'sss_b.aspx'],
 		['txtSenderno', 'lblSend', 'sss', 'noa,namea','txtSenderno,txtSender', 'sss_b.aspx'],
 		['txtReceiverno_cust', 'lblReceiver_cust', 'cust', 'noa,comp','txtReceiverno_cust,txtReceiver_cust', 'cust_b.aspx'],
 		['txtReceiverno_tgg', 'lblReceiver_tgg', 'tgg', 'noa,comp','txtReceiverno_tgg,txtReceiver_tgg', 'tgg_b.aspx']);
@@ -166,7 +166,7 @@
         }
 
         function btnPrint() {
- 
+ 			q_box('z_postoutp.aspx', '', "95%", "650px", q_getMsg("popPrint"));
         }
         function btnOk() {
             var t_err = '';
@@ -402,10 +402,10 @@
                <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td> 
             </tr>
             <tr class="tr2">
-               <td class="td1" ><span> </span><a id="lblPart" class="lbl btn"></a></td>
-               <td class="td2" colspan="2"><input id="txtPartno"  type="text"  class="txt c4"/><input id="txtPart" type="text"  class="txt c5"/></td> 
-               <td class="td4"><span> </span><a id="lblSss" class="lbl btn" ></a></td>
-               <td class="td5" colspan="2"><input id="txtSssno"  type="text"  class="txt c4"/><input id="txtNamea"  type="text"  class="txt c5"/></td>                          
+               <td class="td1"><span> </span><a id="lblSss" class="lbl btn" ></a></td>
+               <td class="td2" colspan="2"><input id="txtSssno"  type="text"  class="txt c4"/><input id="txtNamea"  type="text"  class="txt c5"/></td>
+               <td class="td3" ><span> </span><a id="lblPart" class="lbl btn"></a></td>
+               <td class="td4" colspan="2"><input id="txtPartno"  type="text"  class="txt c4"/><input id="txtPart" type="text"  class="txt c5"/></td> 
             </tr>
             <tr class="tr3">
                <td class="td1"><span> </span><a id="lblSend" class="lbl btn" ></a></td>

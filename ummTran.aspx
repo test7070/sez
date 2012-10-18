@@ -220,14 +220,19 @@
 		        //bbm應收金額(sale)=bbs應收金額總額(Unpayorg)
 				//bbm本次沖帳(paysale)=bbs沖帳金額(paysale)+bbm預收沖帳(unopay)
 				//bbm未收金額(unpay)=bbm應收金額(sale)-bbm本次沖帳(paysale)
-				//bbm預收(opay)=bbm收款金額(total)-bbm本次沖帳(paysale)
+				//bbm預收(opay)=bbm應收金額(sale)-bbm本次沖帳(paysale)
 				//bbm預收餘額=應收餘額+預收-預收沖帳
 		        
 		        q_tr('txtSale', t_sale);
 		        q_tr('txtTotal', t_money);
 		        q_tr('txtPaysale', t_pay + q_float('txtUnopay'));
 		        q_tr('txtUnpay', q_float('txtSale') - q_float('txtPaysale'));
-		        q_tr('txtOpay', q_float('txtTotal') - q_float('txtPaysale'));
+		        if(q_float('txtUnpay')<0){
+		        	q_tr('txtOpay', q_float('txtUnpay'));
+		        	$('#txtUnpay').val(0);
+		        }else{
+		        	q_tr('txtOpay', q_float('txtSale') - q_float('txtPaysale'));
+		        }
 		        q_tr('textOpay', q_float('textOpayOrg') + q_float('txtOpay') - q_float('txtUnopay'));
 		    }
 
@@ -361,7 +366,7 @@
 		        var t_opay = q_float('txtOpay');
 		        var t_unopay = q_float('txtUnopay');
 		        var t1 = q_float('txtPaysale') + q_float('txtOpay') - q_float('txtUnopay');
-		        var t2 = q_float('txtTotal');
+		        var t2 = q_float('txtTotal')+t_chgs;
 		        if (t1 != t2) {
 		            alert('收款金額  ＋ 費用 ＝' + q_trv(t2) + '\r 【不等於】 沖帳金額 ＋ 預收 －　預收沖帳 ＝' + q_trv(t1) + '\r【差額】=' + Math.abs(t1 - t2));
 		            return false;
@@ -711,9 +716,8 @@
 						<td class="6">
 						<input type="button" id="btnVcc" class="txt c1 " />
 						</td>
-						<td class="td7"></td>
-						<td class="td8">
-						</td>
+						<td class="td7"><span> </span><a id='lblCust2' class="lbl"></a></td>
+						<td class="td8"><input id="txtCustno2" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblSale' class="lbl"></a></td>
