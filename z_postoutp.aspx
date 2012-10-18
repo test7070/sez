@@ -79,7 +79,7 @@
 	</head>
 	<body>
 		<div id="q_menu"> </div>
-		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
+		<div style="position: absolute;top: 10px;left:50px;z-index: 1;">
 			<div id="container">
 				<div id="q_report"> </div>
 			</div>
