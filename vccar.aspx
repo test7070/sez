@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -16,17 +15,23 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
+        q_tables = 's';
         var q_name="vccar";
         var q_readonly = ['txtNoa'];
-        var bbmNum = []; 
+        var q_readonlys = [];
+        var bbmNum = [];
+        var bbsNum = [];
         var bbmMask = []; 
+        var bbsMask = [];
+        
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
         aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
+            bbsKey = ['noa', 'noq'];
             q_brwCount();
-          q_gt(q_name, q_content, q_sqlCount, 1)
+          	q_gt(q_name, q_content, q_sqlCount, 1)
             $('#txtNoa').focus
         });
 
@@ -43,8 +48,8 @@
 
         function mainPost() { 
          
-        bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
-        q_mask(bbmMask);
+        	bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+        	q_mask(bbmMask);
         }
 
         function txtCopy(dest, source) {
@@ -434,6 +439,39 @@
                 </table>
             </div>
             </div>
+            <div class='dbbs' >
+			<table id="tbbs" class='tbbs'>
+				<tr style='color:white; background:#003366;' >
+					<td align="center" style="width:1%;">
+					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
+					</td>
+					<td align="center" style="width:8%;"><a id='lblAcc1'></a></td>
+					<td align="center" style="width:3%;"><a id='lblMoney'></a></td>
+					<td align="center" style="width:4%;"><a id='lblCheckno'></a></td>
+					<td align="center" style="width:4%;"><a id='lblAccount'></a></td>
+				</tr>
+				<tr  style='background:#cad3ff;'>
+					<td align="center">
+					<input type="button" id="btnMinus.*"  value='-' style=" font-weight: bold;" />
+					<input type="text" id="txtNoq.*" style="display:none;" />
+					</td>
+					<td>
+						<input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+                        <input type="text" id="txtAcc1.*"  style="width:35%;"/>
+						<input type="text" id="txtAcc2.*"  style="width:45%;"/>
+					</td>
+					<td>
+						<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
+					</td>
+					<td>
+						<input type="text" id="txtCheckno.*"  style="width:95%;" />
+					</td>
+					<td>
+						<input type="text" id="txtAccount.*"  style="width:95%;" />
+                     </td>
+				</tr>
+			</table>
+		</div>
             <input id="q_sys" type="hidden" />
     </body>
 </html>

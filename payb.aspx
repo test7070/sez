@@ -175,7 +175,14 @@
 
             function bbsAssign() {
             	for (var j = 0; j < q_bbsCount; j++) {
-            		
+            		$('#txtAcc1_'+j).change(function () {
+		            		 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                    q_bodyId($(this).attr('id'));
+		                    b_seq = t_IdSeq;
+		                	if($('#txtAcc1_'+b_seq).val().length ==4){
+		                		$('#txtAcc1_'+b_seq).val($('#txtAcc1_'+b_seq).val()+'.');
+		                	}
+		                });
             		//----------------數量和單價計算
             		$('#txtMount_'+j).change(function () {
 		            		 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
