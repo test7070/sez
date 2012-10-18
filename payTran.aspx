@@ -288,14 +288,19 @@
 		        //bbm應付金額(sale)=bbs應付金額總額(Unpayorg)
 				//bbm本次沖帳(paysale)=bbs沖帳金額(paysale)+bbm預付沖帳(unopay)
 				//bbm未付金額(unpay)=bbm應付金額(sale)-bbm本次沖帳(paysale)
-				//bbm預付(opay)=bbm付款金額(total)-bbm本次沖帳(paysale)
+				//bbm預付(opay)=bbm應付金額(sale)-bbm本次沖帳(paysale)
 				//bbm預付餘額=應付餘額+預付-預付沖帳
 				
 		        q_tr('txtSale', t_sale);
 		        q_tr('txtTotal', t_money);
 		        q_tr('txtPaysale', t_pay + q_float('txtUnopay'));
 		        q_tr('txtUnpay', q_float('txtSale') - q_float('txtPaysale'));
-		        q_tr('txtOpay', q_float('txtTotal') - q_float('txtPaysale'));
+		         if(q_float('txtUnpay')<0){
+		        	q_tr('txtOpay', q_float('txtUnpay'));
+		        	$('#txtUnpay').val(0);
+		        }else{
+		        	q_tr('txtOpay', q_float('txtSale') - q_float('txtPaysale'));
+		        }
 		        q_tr('textOpay', q_float('textOpayOrg') + q_float('txtOpay') - q_float('txtUnopay'));
 		        
 		    }
@@ -348,7 +353,7 @@
 		        var t_opay = q_float('txtOpay');
 		        var t_unopay = q_float('txtUnopay');
 		        var t1 = q_float('txtPaysale') + q_float('txtOpay') - q_float('txtUnopay');
-		        var t2 = q_float('txtTotal');
+		        var t2 = q_float('txtTotal')+t_chgs;
 		        if (t1 != t2) {
 		            alert('付款金額  ＋ 費用 ＝' + q_trv(t2) + '\r 【不等於】 沖帳金額 ＋ 預付 －　預付沖帳 ＝' + q_trv(t1) + '\r【差額】=' + Math.abs(t1 - t2));
 		            return false;
