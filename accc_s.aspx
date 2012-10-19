@@ -31,14 +31,15 @@
     }
 
     function q_seekStr() {   
-        t_accc3 = $('#txtAccc3').val();
+        t_baccc3 = $('#txtBaccc3').val();
+        t_eaccc3 = $('#txtEaccc3').val();
         t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();
 
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("accc3", t_accc3) + q_sqlPara2("accc2", t_bdate, t_edate) ;
+        var t_where = " 1=1 " + q_sqlPara2("accc3", t_baccc3, t_eaccc3) + q_sqlPara2("accc2", t_bdate, t_edate) ;
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -60,7 +61,9 @@
             </tr>
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
-                <td><input class="txt" id="txtAccc3" type="text" style="width:215px; font-size:medium;" /></td>
+                <td style="width:65%;  "><input class="txt" id="txtBaccc3" type="text" style="width:90px; font-size:medium;" />
+                <span style="display:inline-block; vertical-align:middle">&sim;</span>
+                <input class="txt" id="txtEaccc3" type="text" style="width:93px; font-size:medium;" /></td>
             </tr>
              
         </table>
