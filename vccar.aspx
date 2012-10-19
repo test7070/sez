@@ -57,6 +57,9 @@
 		    	{
 		    		alert("發票號碼請輸入");
                 	return;
+		    	}else if(($('#txtBinvono').val()).length!=10 ||($('#txtEinvono').val()).length!=10){
+		    		alert("發票號碼格式錯誤");
+                	return;
 		    	}else{
 		    		for (var i = 0; i < q_bbsCount; i++) {
 		    		 	$('#txtNoq_'+i).val('');
@@ -168,7 +171,7 @@
         function btnOk() {
             var t_err = '';
 
-           t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
+           t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtCno', q_getMsg('lblCno')],['txtBdate', q_getMsg('lblBdate')]]);
 
             if( t_err.length > 0) {
                 alert(t_err);

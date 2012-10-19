@@ -28,7 +28,7 @@
 						}]
                     });
                 q_popAssign();
-                $('#txtInvono1').change(function (e) {
+                $('#txtInvono1').change(function (e) {               	
 		    		$('#txtInvono2').val($('#txtInvono1').val().substr(0,6)+(dec($('#txtInvono1').val().substr(6))+199));
 		    	});
             }
