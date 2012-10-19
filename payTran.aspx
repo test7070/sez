@@ -89,12 +89,19 @@
 		        		/// 自動沖帳
 		               $('#txtOpay').val(0);
 		               $('#txtUnopay').val(0);
+		               for (var i = 0; i < q_bbsCount; i++) {
+		               		$('#txtPaysale_'+i).val(0);//歸零
+		               		$('#txtUnpay_'+i).val($('#txtUnpayorg_'+i).val());//歸零
+		               }
+		               
 		               var t_money = 0;
 		               for (var i = 0; i < q_bbsCount; i++) {
 		               		if($('#txtAcc1_'+i).val().indexOf('1121') == 0 || $('#txtAcc1_'+i).val().indexOf('7149') == 0 || $('#txtAcc1_'+i).val().indexOf('7044') == 0)
 		               			t_money -= q_float('txtMoney_' + i);
 		               		else
 		               			t_money += q_float('txtMoney_' + i);
+		               			
+		               			t_money+=q_float('txtChgs_' + i);
 		               }
 						
 		               var t_unpay, t_pay=0;
@@ -280,7 +287,7 @@
 		               	t_money -= q_float('txtMoney_' + j);
 		            else
 		               	t_money += q_float('txtMoney_' + j);
-		            
+		            	t_money+=q_float('txtChgs_' + j);
 		            t_sale += q_float('txtUnpayorg_' + j);
 		            t_pay += q_float('txtPaysale_' + j);
 		        }
@@ -295,11 +302,11 @@
 		        q_tr('txtTotal', t_money);
 		        q_tr('txtPaysale', t_pay + q_float('txtUnopay'));
 		        q_tr('txtUnpay', q_float('txtSale') - q_float('txtPaysale'));
-		         if(q_float('txtUnpay')<0){
-		        	q_tr('txtOpay', q_float('txtUnpay'));
-		        	$('#txtUnpay').val(0);
+		        if(q_float('txtTotal')-q_float('txtPaysale')>0)
+		        {
+		        	q_tr('txtOpay',  q_float('txtTotal')-q_float('txtPaysale'));
 		        }else{
-		        	q_tr('txtOpay', q_float('txtSale') - q_float('txtPaysale'));
+		        	q_tr('txtOpay', 0);
 		        }
 		        q_tr('textOpay', q_float('textOpayOrg') + q_float('txtOpay') - q_float('txtUnopay'));
 		        
@@ -392,6 +399,19 @@
 		            $('#txtChgs_' + i).change(function (e) {
 		                sum();
 		            });
+		            
+		            $('#txtCheckno_' + i).change(function (e) {
+		            	 t_IdSeq = -1;
+		                q_bodyId($(this).attr('id'));
+		                b_seq = t_IdSeq;
+		                for (var j = 0; j < q_bbsCount; j++) {
+		                	if($('#txtCheckno_' + b_seq).val()==$('#txtCheckno_' + j).val() && b_seq!=j && !emp($('#txtCheckno_' + j).val())){
+		                		alert('支票號碼重複輸入!!');
+		                		$('#txtCheckno_'+b_seq).val(($('#txtCheckno_'+b_seq).val()).substr(0,7));
+		               			$('#txtCheckno_'+b_seq).focus();
+		               		}
+		                }
+		            });
 
 		            $('#txtAcc1_' + i).change(function () {
 		                t_IdSeq = -1;
@@ -410,7 +430,14 @@
 		                t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                q_bodyId($(this).attr('id'));
 		                b_seq = t_IdSeq;
-
+						
+						if(q_float('txtPaysale_'+b_seq)>q_float('txtUnpayorg_'+b_seq))
+		                {
+		               		alert('請輸入正確沖帳金額!!');
+		               		$('#txtPaysale_'+b_seq).val(0);
+		               		$('#txtPaysale_'+b_seq).focus();
+						}
+						
 		                var t_unpay = dec($('#txtUnpayorg_' + b_seq).val()) - dec($('#txtPaysale_' + b_seq).val());
 		                q_tr('txtUnpay_' + b_seq, t_unpay);
 		                sum();

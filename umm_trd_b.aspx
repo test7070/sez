@@ -7,7 +7,7 @@
 <script src='../script/qj_mess.js' type="text/javascript"></script>
 <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = 'trd', t_bbsTag = 'tbbs', t_content = " field=noa,paysale,total,part2  order=odate ", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
+    var q_name = 'trd', t_bbsTag = 'tbbs', t_content = " field=noa,paysale,total,part2,comp  order=odate ", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
     var t_sqlname = 'umm_trd_load'; t_postname = q_name; brwCount2 = 12;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm;
@@ -200,12 +200,13 @@
 <div  id="dbbs"  >
         <table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
             <tr style='color:White; background:#003366;' >
-                <td align="center"></td>
-                <td align="center"><a id='lblVccno'></a></td>
-                <td align="center"><a id='lblTotal'></a></td>
-                <td align="center"><a id='lblPaysale'></a></td>
-                <td align="center"><a id='lblOpay'></a></td>
-                <td align="center"><a id='lblPart2'></a></td>
+                <td align="center" style="width: 3%;"></td>
+                <td align="center" style="width: 15%;"><a id='lblVccno'></a></td>
+                <td align="center" style="width: 15%;"><a id='lblTotal'></a></td>
+                <td align="center" style="width: 15%;"><a id='lblPaysale'></a></td>
+                <td align="center" style="width: 15%;"><a id='lblOpay'></a></td>
+                <td align="center" style="width: 10%;"><a id='lblPart2'></a></td>
+                <td align="center"><a id='lblComp'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="chk"  id="chkSel.*" type="checkbox" name="chkSel"/></td>
@@ -214,6 +215,7 @@
                 <td><input id="txtPaysale.*" type="text" class="txt num c1"/></td>
                 <td><input id="txtOpay.*" type="text" class="txt num c1" /></td>
                 <td><input id="txtPart2.*" type="text" class="txt c1"/></td>
+                <td><input id="txtComp.*" type="text" class="txt c1"/></td>
             </tr>
         </table>
         <input type="button"  id="chkAll" value="全選" onclick="checkall();" />
