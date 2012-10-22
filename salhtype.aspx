@@ -1,4 +1,3 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -116,18 +115,9 @@
             q_box('salhtype_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
         }
 
-        function combPay_chg() {   
-            var cmb = document.getElementById("combPay")
-            if (!q_cur) 
-                cmb.value = '';
-            else
-                $('#txtPay').val(cmb.value);
-            cmb.value = '';
-        }
-
         function btnIns() {
             _btnIns();
-            $('#txtNoa').focus();
+            $('#txtNamea').focus();
         }
 
         function btnModi() {
@@ -135,7 +125,7 @@
                 return;
 
             _btnModi();
-            $('#txtComp').focus();
+            $('#txtNamea').focus();
         }
 
         function btnPrint() {
@@ -144,28 +134,14 @@
         function btnOk() {
             var t_err = '';
 
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
+            t_err = q_chkEmpField([['txtNamea', q_getMsg('lblNamea')]]);
 
-            if ( dec( $('#txtCredit').val()) > 9999999999)
-                t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
-
-            if ( dec( $('#txtStartn').val()) > 31)
-                t_err = t_err + q_getMsg( "lblStartn")+q_getMsg( "msgErr")+'\r';
-            if (dec( $('#txtGetdate').val()) > 31)
-                t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
 
             if( t_err.length > 0) {
                 alert(t_err);
                 return;
             }
             var t_noa = trim($('#txtNoa').val());
-            if (emp($('#txtUacc1').val()))
-                $('#txtUacc1').val('1123.' + t_noa);
-            if (emp($('#txtUacc2').val()))
-                $('#txtUacc2').val('1121.' + t_noa);
-            if (emp($('#txtUacc3').val()))
-                $('#txtUacc3').val( '2131.'+t_noa);
-
 
             if ( t_noa.length==0 )  
                 q_gtnoa(q_name, t_noa);
