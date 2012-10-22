@@ -45,11 +45,17 @@
                         index : 'noa,comp',
                         src : 'tgg_b.aspx'
                     }, {
-                        type : '2',
-                        name : 'xproductno',
-                        dbf : 'bcc',
-                        index : 'noa,product',
-                        src : 'bcc_b.aspx'
+                        type : '5', 
+                        name : 'tran',
+                        value : [q_getPara('report.all')].concat(q_getPara('sys.tran').split(','))
+                    }, {
+                        type : '5', 
+                        name : 'aeno',
+                        value : [q_getPara('report.all')].concat(new Array('Y', 'N'))
+                    }, {
+                        type : '5', 
+                        name : 'end',
+                        value : [q_getPara('report.all')].concat(new Array('Y', 'N'))
                     }]
                     });
                 q_popAssign();
