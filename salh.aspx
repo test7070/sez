@@ -17,12 +17,12 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="salh";
-        var q_readonly = [];
-        var bbmNum = []; 
+        var q_readonly = ['txtNoa'];
+        var bbmNum = [['txtX1',10,1,1],['txtX33',10,1,1],['txtX67',10,1,1],['txtX2',10,1,1],['txtX3',10,1,1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']);
+		aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea,id', 'txtSssno,txtNamea,txtId', 'sss_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -42,6 +42,8 @@
 
 
         function mainPost() { 
+        	q_getFormat();
+            bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
         }
         function txtCopy(dest, source) {
@@ -110,18 +112,11 @@
             q_box('salh_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
         }
 
-        function combPay_chg() {   
-            var cmb = document.getElementById("combPay")
-            if (!q_cur) 
-                cmb.value = '';
-            else
-                $('#txtPay').val(cmb.value);
-            cmb.value = '';
-        }
-
         function btnIns() {
             _btnIns();
-            $('#txtNoa').focus();
+            $('#txtNoa').val('AUTO');
+            $('#txtDatea').val(q_date());
+           	$('#txtDatea').focus();
         }
 
         function btnModi() {
@@ -129,7 +124,7 @@
                 return;
 
             _btnModi();
-            $('#txtComp').focus();
+            $('#txtDatea').focus();
         }
 
         function btnPrint() {
@@ -138,33 +133,18 @@
         function btnOk() {
             var t_err = '';
 
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
-
-            if ( dec( $('#txtCredit').val()) > 9999999999)
-                t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
-
-            if ( dec( $('#txtStartn').val()) > 31)
-                t_err = t_err + q_getMsg( "lblStartn")+q_getMsg( "msgErr")+'\r';
-            if (dec( $('#txtGetdate').val()) > 31)
-                t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')] ]);
 
             if( t_err.length > 0) {
                 alert(t_err);
                 return;
             }
             var t_noa = trim($('#txtNoa').val());
-            if (emp($('#txtUacc1').val()))
-                $('#txtUacc1').val('1123.' + t_noa);
-            if (emp($('#txtUacc2').val()))
-                $('#txtUacc2').val('1121.' + t_noa);
-            if (emp($('#txtUacc3').val()))
-                $('#txtUacc3').val( '2131.'+t_noa);
-
-
-            if ( t_noa.length==0 )  
-                q_gtnoa(q_name, t_noa);
-            else
-                wrServer(  t_noa);
+            
+            if (t_noa.length == 0 || t_noa == "AUTO")
+				q_gtnoa(q_name, replaceAll( $('#txtDatea').val(), '/', ''));
+			else
+				wrServer(t_noa);
         }
 
         function wrServer( key_value) {
@@ -383,7 +363,7 @@
 						<tr>
 							<td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
 							<td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-							<td class="td3"><input id="btnAuto" type="button"/></td>
+							<td class="td3"><!--<input id="btnAuto" type="button"/>--></td>
 							<td class="td4"></td>
 							<td class="td5"></td>
 						</tr>

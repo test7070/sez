@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
     <title></title>
@@ -19,8 +18,8 @@
         var q_name = "salrank";
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [];  
-        var bbsNum = [];
+        var bbmNum = [['txtBo_admin',15,0,1],['txtBo_duty',15,0,1],['txtBo_full',15,0,1],['txtBo_over',15,0,1],['txtBo_oth',15,0,1],['txtMoney',15,0,1],['txtDiff',15,0,1]];  
+        var bbsNum = [['txtMoney',15,0,1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
@@ -52,6 +51,23 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
+            
+            $('#btnLevel').click(function () {
+            	if(dec($('#txtLevel1').val())>dec($('#txtLevel2').val()))
+            	{
+            		var t_level1=$('#txtLevel1').val();
+            		var t_level2=$('#txtLevel2').val();
+            		$('#txtLevel1').val(t_level2);
+            		$('#txtLevel2').val(t_level1);
+            	}
+	           	var t_level=dec($('#txtLevel2').val())-dec($('#txtLevel1').val());
+	           	if(q_bbsCount<t_level)
+		    			q_gridAddRow(bbsHtm, 'tbbs', 'txtLevel1', t_level-q_bbsCount+1, as, '');
+		    	for (var i = 0; i <= t_level; i++) {
+		    	 	$('#txtLevel1_'+i).val(dec($('#txtLevel1').val())+i);
+		    	 	$('#txtMoney_'+i).val(dec($('#txtMoney').val())+dec($('#txtDiff').val())*(i));
+		    	}
+	        });
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -84,10 +100,7 @@
             sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
-            if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-                q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
-            else
-                wrServer(s1);
+            wrServer(s1);
         }
 
         function _btnSeek() {
@@ -97,24 +110,23 @@
             q_box('salrank_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
-        function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
-        }
-
         function bbsAssign() {  /// 表身運算式
             _bbsAssign();
         }
 
         function btnIns() {
+        	var t_noa= dec($('#txtNoa').val());
             _btnIns();
-            $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-            $('#txtDatea').val(q_date());
-            $('#txtDatea').focus();
+            $('#txtNoa').val(t_noa+1);
+            $('#txtNoa').focus();
+            $('#txtLevel1').val('1');
+            $('#txtLevel2').val('31');
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            $('#txtProduct').focus();
+            $('#txtBo_admin').focus();
         }
         function btnPrint() {
 
@@ -128,7 +140,7 @@
         }
 
         function bbsSave(as) {   /// 表身 寫入資料庫前，寫入需要欄位
-            if (!as['money']) {  //不存檔條件
+            if (!as['level1']) {  //不存檔條件
                 as[bbsKey[1]] = '';   /// no2 為空，不存檔
                 return;
             }
@@ -283,7 +295,7 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 90%;
+                width: 98%;
                 float: left;
             }
             .txt.c2 {
@@ -321,7 +333,6 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
-                float: left;
             }
             .tbbm td input[type="button"] {
                 float: left;
@@ -404,10 +415,17 @@
             <td class='td1'><span> </span><a id="lblMoney" class="lbl" ></a></td>
             <td class="td2"><input id="txtMoney"  type="text" class="txt num c1" /></td>
             <td class='td3'><span> </span><a id="lblLevel" class="lbl" ></a></td>
-            <td class="td4"><input id="txtLevel1" type="text"  class="txt c3"/>
-            	<input id="txtLevel2" type="text"   class="txt c3"/></td>
+            <td class="td4"><input id="txtLevel1" type="text"  class="txt" style=" width: 43%;"/>~<input id="txtLevel2" type="text"   class="txt" style=" width: 43%;"/></td>
             <td class='td5'><span> </span><a id="lblDiff" class="lbl" ></a></td>
             <td class="td6"><input id="txtDiff"  type="text" class="txt num c1" /></td> 
+        </tr>
+        <tr>            
+            <td class='td1'></td>
+            <td class="td2"></td>
+            <td class='td3'></td>
+            <td class="td4"></td>
+            <td class='td5'></td>
+            <td class="td6"><input id="btnLevel" type="button"/></td> 
         </tr>              
         </table>
         </div>
@@ -417,13 +435,11 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center"><a id='lblLevel1s'></a></td>
-                <td align="center"><a id='lblLevel2s'></a></td>
                 <td align="center"><a id='lblMoneys'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input class="txt c1" id="txtLevel1.*"type="text" /></td>
-                <td ><input class="txt c1" id="txtLevel2.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtMoney.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
             </tr>
         </table>
