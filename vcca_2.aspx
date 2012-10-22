@@ -17,7 +17,7 @@
 
 			var q_name = "vcca";
 			var q_readonly = ['txtTotal', 'txtChkno', 'txtTax', 'txtAccno', 'txtWorker'];
-			var bbmNum = [['txtMoney', 15, 0], ['txtTax', 15, 0], ['txtTotal', 15, 0], ['txtMount', 15, 3]];
+			var bbmNum = [['txtMoney', 15, 1], ['txtTax', 15, 0], ['txtTotal', 15, 0], ['txtMount', 15, 3]];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -314,7 +314,7 @@
 			
 			    taxtype = trim(taxtype);
 			    var t_taxrate = dec(q_getPara('taxrate'))/100;
-			    var t_money = dec($('#txtMoney').val())*dec($('#txtMount').val()), t_tax = 0;
+			    var t_money = Math.round(q_float('txtMount')*q_float('txtMoney')), t_tax = 0;
 			    $('#txtTax').attr('readonly', true);
 			    $('#txtTax').css('background', t_background2);
 			
