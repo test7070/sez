@@ -17,7 +17,7 @@
         }
         var decbbm = [];
         var q_name="salhtype";
-        var q_readonly = ['txtNoa'];
+        var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -134,7 +134,8 @@
         function btnOk() {
             var t_err = '';
 
-            t_err = q_chkEmpField([['txtNamea', q_getMsg('lblNamea')] ]);
+            t_err = q_chkEmpField([['txtNamea', q_getMsg('lblNamea')]]);
+
 
             if( t_err.length > 0) {
                 alert(t_err);
