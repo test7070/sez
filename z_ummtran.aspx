@@ -35,6 +35,9 @@
                         type : '1',
                         name : 'mon'
                     }, {
+                        type : '1',
+                        name : 'ummmon'
+                    }, {
                         type : '2',
                         name : 'cust',
                         dbf : 'cust',
@@ -48,6 +51,8 @@
 
                 $('#txtMon1').mask('999/99');
                 $('#txtMon2').mask('999/99');
+                $('#txtUmmmon1').mask('999/99');
+                $('#txtUmmmon2').mask('999/99');
                 
                 var t_date, t_year, t_month, t_day;
 				t_date = new Date();
@@ -59,6 +64,7 @@
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
 				$('#txtMon1').val(t_year + '/' + t_month );
+				$('#txtUmmmon1').val(t_year + '/' + t_month );
 
 				t_date = new Date();
 				t_date.setDate(35);
@@ -70,6 +76,7 @@
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
 				$('#txtMon2').val(t_year + '/' + t_month);
+				$('#txtUmmmon2').val(t_year + '/' + t_month);
             }
 
             function q_boxClose(t_name) {
