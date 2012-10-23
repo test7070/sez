@@ -179,7 +179,7 @@
 
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
-            		  if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+            		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
             		  		$('#txtMount_' + j).change(function () {
 				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 				                q_bodyId($(this).attr('id'));

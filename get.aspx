@@ -188,7 +188,7 @@
 
         function bbsAssign() {  /// 表身運算式
             for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
-            	if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+            	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
 	                $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
 	                $('#btnProductno_' + j).click(function () {
 	                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
