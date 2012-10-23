@@ -17,9 +17,9 @@
         }
         q_tables = 's';
         var q_name="salh";
-        var q_readonly = ['txtNoa'];
+        var q_readonly = ['txtNoa','txtTotal'];
         var q_readonlys = [];
-        var bbmNum = []; 
+        var bbmNum = [['txtTotal',10,0,1]]; 
         var bbsNum = [];
         var bbmMask = []; 
         var bbsMask = [];
@@ -102,12 +102,26 @@
                     q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
                     break;
 
-                case q_name: if (q_cur == 4)   
+                case q_name: 
+                	if(q_cur == 1 ||q_cur == 2){
+	                	var as = _q_appendData("salh", "", true);
+	                	if(as[0]!=undefined){
+	                		var salhs = _q_appendData("salhs", "", true);
+	                		for (var i = 0; i < salhs.length; i++) {
+					        	if (salhs[i].sssno == $('#txtSssno_'+b_seq).val()) {
+					            	alert('當天該員工已加班!!');
+							    		$('#txtSssno_' + b_seq).val('');
+							    		$('#txtNamea_' + b_seq).val('');
+							    		$('#txtSssno_' + b_seq).focus();
+							    		sum();
+							    		break;
+					         	}
+					         }
+	                	}
+	                	sum();
+                	}
+                	if (q_cur == 4)   
                         q_Seek_gtPost();
-
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                     break;
             }  /// end switch
         }
@@ -128,8 +142,7 @@
 			 	 		alert('重複輸入員工');
 			 	 		$('#txtSssno_'+j).val('');
 			 	 		$('#txtNamea_'+j).val('');
-			 	 		$('#txtSssno_'+j).focus;
-			 	 		return;
+			 	 		$('#txtSssno_'+j).focus();
 			 	 	}
 			 	 }
 			 }
@@ -169,12 +182,22 @@
                 alert(t_err);
                 return;
             }
+            sum();
             var t_noa = trim($('#txtNoa').val());
             
             if (t_noa.length == 0 || t_noa == "AUTO")
 				q_gtnoa(q_name, replaceAll( $('#txtDatea').val(), '/', ''));
 			else
 				wrServer(t_noa);
+        }
+        
+        function sum(){
+        	var t_total=0;
+        	for(var j = 0; j < q_bbsCount; j++) {
+        		if(!emp($('#txtSssno_'+j).val()))
+        			t_total++;
+        	}
+        	$('#txtTotal').val(t_total);
         }
 
         function wrServer( key_value) {
@@ -205,7 +228,16 @@
         	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
        			$('#txtSssno_'+j).change(function () {
             		checksss();
-            	});
+            	}).blur(function(){
+            		t_IdSeq = -1;
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					if((q_cur==1 ||q_cur==2)&&!emp($('#txtSssno_'+b_seq).val()))
+					{
+	                	var t_where="where=^^ datea= '"+$('#txtDatea').val()+"' ^^";
+	                	q_gt(q_name, t_where, 0, 0, 0, "");
+                	}
+                });
         	}
         }
             _bbsAssign();
@@ -417,11 +449,12 @@
 							<td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
 							<td class="td3"><span> </span><a id='lblDatea' class="lbl"></a></td>
 							<td class="td4"><input id="txtDatea"  type="text"  class="txt c1"/></td>
-							<td class="td5"><!--<input id="btnAuto" type="button"/>--></td>
+							<td class="td3"><span> </span><a id='lblTotal' class="lbl"></a></td>
+							<td class="td4"><input id="txtTotal"  type="text"  class="txt num c1"/></td>
 						</tr>
 						<tr>
                             <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-                            <td class="td2" colspan="4"><input id="txtMemo"  type="text"  class="txt c1"/></td>
+                            <td class="td2" colspan="5"><input id="txtMemo"  type="text"  class="txt c1"/></td>
                         </tr>
                         <!--
                         <tr>

@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -74,6 +74,33 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_month+'/'+t_day);
+	                
+	                $('#txtAcc1a').change(function () {
+		                t_IdSeq = -1;
+		                q_bodyId($(this).attr('id'));
+		                b_seq = t_IdSeq;
+
+		                var s1 = trim($(this).val());
+		                if (s1.length > 4 && s1.indexOf('.') < 0)
+		                    $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
+		                if (s1.length == 4)
+		                    $(this).val(s1 + '.');
+		                    
+		                sum();
+		            });
+		            $('#txtAcc2a').change(function () {
+		                t_IdSeq = -1;
+		                q_bodyId($(this).attr('id'));
+		                b_seq = t_IdSeq;
+
+		                var s1 = trim($(this).val());
+		                if (s1.length > 4 && s1.indexOf('.') < 0)
+		                    $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
+		                if (s1.length == 4)
+		                    $(this).val(s1 + '.');
+		                    
+		                sum();
+		            });
    
             }
 		</script>
