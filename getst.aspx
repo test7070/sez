@@ -341,7 +341,7 @@
             size_change();
         }
         function btnPrint() {
- 			q_box('z_getstp.aspx', '', "800px", "600px", q_getMsg("popPrint"));
+ 			q_box('z_getstp.aspx'+ ";noa=" + trim($('#txtNoa').val()), '', "800px", "600px", q_getMsg("popPrint"));
         }
 
         function wrServer( key_value) {

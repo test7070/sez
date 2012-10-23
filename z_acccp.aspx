@@ -50,6 +50,11 @@
                 
                 $('#chkZno').children('input').attr('checked','checked');
                 
+                var t_accc3=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
+                t_accc3  =  t_accc3.replace('accc3=','');
+                $('#txtXaccc3').val(t_accc3);
+                
+                
                 var t_date, t_year, t_month, t_day;
 					t_date = new Date();
 					t_date.setDate(1);

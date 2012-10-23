@@ -32,7 +32,7 @@
 					},{
                         type : '5',
                         name : 'itype',
-                        value : [q_getPara('report.all')].concat(q_getPara('int.typea').split(','))
+                        value : [q_getPara('report.all')].concat(q_getPara('ina.typea').split(','))
                     },{
                         type : '5',
                         name : 'typea',
