@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -17,14 +16,14 @@
         }
         q_tables = 's';
         var q_name = "salvaca";
-        var q_readonly = [];
+        var q_readonly = ['txtNoa','txtTotal'];
         var q_readonlys = [];
         var bbmNum = [];  
-        var bbsNum = [];
+        var bbsNum = [['txtInday',10,1,1],['txtOutday',10,1,1],['txtTotal',10,1,1],['txtBoutday',10,1,1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        
+        aPop = new Array(['txtSssno_', 'btnSss_', 'sss', 'noa,namea,id,rank,indate,cno', 'txtSssno_,txtNamea_,txtId_,txtRank_,txtJobday_,txtCno_', 'sss_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -45,11 +44,23 @@
 
             mainForm(1); 
         }  
+        
+        var notins=false; //判斷今年是否已新增
+        
         function mainPost() { 
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd]];
-            q_mask(bbmMask);
-             
+            bbsMask = [['txtJobday', r_picd]];
+            q_mask(bbsMask);
+
+            $('#btnIndata').click(function () {
+		           if(!emp($('#txtNoa').val())){
+		           		var t_where = "where=^^ outdate is null OR outdate='' ^^";
+		           		q_gt('sss', t_where , 0, 0, 0, "", r_accy);
+		           }
+		    });
+            
+            var t_where = "where=^^ noa='"+q_date().substr(0,3)+"' ^^";
+		    q_gt('salvaca', t_where , 0, 0, 0, "", r_accy);
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -65,7 +76,51 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case q_name: if (q_cur == 4)   
+            	case 'sss':
+            		var as = _q_appendData("sss", "", true);
+	            	
+	            	for(var j = 0; j < q_bbsCount; j++){
+	            		for (var i = 0; i < as.length; i++) {
+		                    if (as[i].noa == $('#txtSssno_'+j).val() || dec($('#txtNoa').val())-dec(as[i].indate.substr(0,3)) < 0) {
+		                        as.splice(i, 1);
+		                        i--;
+		                    }
+		                }
+		            }
+		            //計算應休天數(特休)
+		            for (var i = 0; i < as.length; i++) {
+		            	//as._year年資
+		            	//as._day特休天數
+		            	as[i]._year = dec($('#txtNoa').val())-dec(as[i].indate.substr(0,3));
+		            	if (as[i]._year==0 && as[i].indate.substr(4)=='01/01') {
+		                	as[i]._year=1;
+		                }
+		                if(as[i]._year < 1)
+		                	as[i]._day=0;
+		                else if (as[i]._year < 3)
+		                	as[i]._day=7;
+		                else if (as[i]._year < 5)
+		                	as[i]._day=10;
+		                else if (as[i]._year < 10)
+		                	as[i]._day=14;
+		                else{
+		                	if(14+as[i]._year-9 > 30)
+		                		as[i]._day=30;
+		                	else
+		                		as[i]._day=14+as[i]._year-9;
+		                }
+		           }
+		            
+	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtId,txtRank,txtJobday,txtInday,txtTotal,txtCno', as.length, as, 'noa,namea,id,rank,indate,_day,_day,cno', 'txtMobile');
+	            	sum();
+            		break;
+                case q_name:
+                	var as = _q_appendData("salvaca", "", true);
+                	if(as[0]!=undefined)
+                 		notins=true;
+                 	else
+                 		notins=false;
+                	if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
             }  /// end switch
@@ -83,7 +138,7 @@
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   
-                q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
+                q_gtnoa(q_name, replaceAll( $('#txtNoa').val(), '/', ''));
             else
                 wrServer(s1);
         }
@@ -99,20 +154,39 @@
         }
 
         function bbsAssign() {  
+        	for(var j = 0; j < q_bbsCount; j++) {
+	        	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+	       			$('#txtOutday_'+j).change(function () {
+	       				t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+	       				q_tr('txtTotal_'+b_seq,q_float('txtInday_'+b_seq)-q_float('txtOutday_'+b_seq)-q_float('txtBoutday_'+b_seq));
+	            	});
+	            	$('#txtBoutday_'+j).change(function () {
+	            		t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+	            		q_tr('txtTotal_'+b_seq,q_float('txtInday_'+b_seq)-q_float('txtOutday_'+b_seq)-q_float('txtBoutday_'+b_seq));
+	            	});
+	            }
+           }
             _bbsAssign();
         }
 
         function btnIns() {
+        	if (notins){
+        		alert('今年度已新增!!');
+        		return;	
+        	}
             _btnIns();
-            $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-            $('#txtDatea').val(q_date());
-            $('#txtDatea').focus();
+            $('#txtNoa').val(q_date().substr(0,3));
+            $('#txtSssno_0').focus();
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            $('#txtProduct').focus();
+            $('#txtSssno_0').focus();
         }
         function btnPrint() {
 
@@ -126,33 +200,23 @@
         }
 
         function bbsSave(as) {
-            if (!as['namea'] ) {  
+            if (!as['sssno'] ) {  
                 as[bbsKey[1]] = '';   
                 return;
             }
 
             q_nowf();
-            as['date'] = abbm2['date'];
 
-            //            t_err ='';
-            //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-            //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-            //            
-            //            if (t_err) {
-            //                alert(t_err)
-            //                return false;
-            //            }
-            //            
             return true;
         }
 
         function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0;
-            for (var j = 0; j < q_bbsCount; j++) {
-
-            }  // j
-
+            var t_total=0;
+        	for(var j = 0; j < q_bbsCount; j++) {
+        		if(!emp($('#txtSssno_'+j).val()))
+        			t_total++;
+        	}
+        	$('#txtTotal').val(t_total);
         }
 
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
@@ -282,12 +346,12 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 90%;
+                width: 98%;
                 float: left;
             }
             .txt.c2 {
-                width: 70%;
-                float: right;
+                width: 75%;
+                float: left;
             }
             .txt.c3 {
                 width: 47%;
@@ -407,23 +471,25 @@
                 <td align="center" class="td1"><a id='lblNamea'></a></td>
                 <td align="center" style="width: 10%;"><a id='lblId'></a></td>
                 <td align="center" style="width: 5%;"><a id='lblRank'></a></td>
-                <td align="center" class="td1"><a id='lblIndate'></a></td>
-                <td align="center" class="td1"><a id='lblHr_special'></a></td>
-                <td align="center" class="td1"><a id='lblHr_used'></a></td>
-                <td align="center" class="td1"><a id='lblTot_special'></a></td>
+                <td align="center" class="td1"><a id='lblJobday'></a></td>
+                <td align="center" class="td1"><a id='lblInday'></a></td>
+                <td align="center" class="td1"><a id='lblOutday'></a></td>
+                <td align="center" class="td1"><a id='lblTotals'></a></td>
+                <td align="center" class="td1"><a id='lblBoutday'></a></td>
                 <td align="center" class="td1"><a id='lblCno'></a></td>
                 <td align="center"><a id='lblMemo'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input class="txt c1" id="txtSssno.*" type="text" /></td>
+                <td ><input class="txt c2" id="txtSssno.*" type="text" /><input id="btnSss.*" type="button" value="." style="width: 1%;float: right;"/></td>
                 <td ><input class="txt c1" id="txtNamea.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtId.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtRank.*"type="text" /></td>
-                <td ><input class="txt c1" id="txtIndate.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtHr_special.*" type="text"/></td>
-                <td ><input class="txt num c1" id="txtHr_used.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtTot_special.*" type="text"/></td>
+                <td ><input class="txt c1" id="txtJobday.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtInday.*" type="text"/></td>
+                <td ><input class="txt num c1" id="txtOutday.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtTotal.*" type="text"/></td>
+                <td ><input class="txt num c1" id="txtBoutday.*" type="text"/></td>
                 <td ><input class="txt c1" id="txtCno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*"type="text" /><input id="txtNoq.*" type="hidden" /></td>
             </tr>
