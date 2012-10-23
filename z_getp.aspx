@@ -58,6 +58,10 @@
 	             $('#txtDate2').mask('999/99/99');
 	             $('#txtDate2').datepicker();  
                 
+                var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
+                t_noa  =  t_noa.replace('noa=','');
+                $('#txtNoa1').val(t_noa);
+                $('#txtNoa2').val(t_noa);
                 
                  var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
