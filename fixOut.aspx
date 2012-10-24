@@ -333,7 +333,7 @@
 			}
 			.dview {
 				float: left;
-				width: 40%;
+				width: 35%;
 			}
 			.tview {
 				margin: 0;
@@ -351,7 +351,7 @@
 			}
 			.dbbm {
 				float: left;
-				width: 55%;
+				width: 63%;
 				margin: -1px;
 				border: 1px black solid;
 				border-radius: 5px;
@@ -478,6 +478,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
+						<td></td>
 						<td class="trZ"></td>
 					</tr>
 					<tr>
@@ -493,6 +494,7 @@
 						<td>
 						<input id="txtMon"type="text" class="txt c1"/>
 						</td>
+						<td rowspan="3"><img  src="../image/car.jpg" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td class='td1'><span> </span><a id="lblNoa" class="lbl"> </a></td>
@@ -502,6 +504,8 @@
 
 						<td class='td5'><span> </span><a id="lblTypea" class="lbl"> </a></td>
 						<td class="td6"><select id="cmbTypea" class="txt c1"></select></td>
+						<td></td>
+						<td></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblCarno" class="lbl btn"> </a></td>
@@ -513,7 +517,8 @@
 						<input id="txtDriverno" type="text" class="txt c2"/>
 						<input id="txtDriver" type="text" class="txt c3"/>
 						</td>
-
+						<td></td>
+						<td></td>
 					</tr>
 					<tr class="tr3">
 
@@ -521,6 +526,11 @@
 						<td class="td4">
 						<input id="txtCarplateno" type="text" class="txt c1"/>
 						</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td rowspan="3"><img src="../image/ben.jpg" class="txt c1"/></td>
 					</tr>
 					<tr class="tr5">
 						<td class="td1"><span> </span><a id="lblMoney" class="lbl"> </a></td>
