@@ -17,7 +17,7 @@
         }
         var q_name="salexpo";
         var q_readonly = ['txtNoa'];
-        var bbmNum = [['txtPoint',10,0],['txtUnit',10,0]];  
+        var bbmNum = [['txtPoint',10,1],['txtUnit',10,0]];  
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
@@ -101,6 +101,7 @@
         function btnIns() {
             _btnIns();
             $('#txtNamea').focus();
+            $('#txtUnit').val('1');
         }
 
         function btnModi() {

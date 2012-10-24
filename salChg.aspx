@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -17,8 +16,8 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="salchg";
-        var q_readonly = [];
-        var bbmNum = []; 
+        var q_readonly = ['txtNoa'];
+        var bbmNum = [['txtBorrow',15,0,1],['txtMi_oth',15,0,1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
@@ -41,8 +40,17 @@
         }  ///  end Main()
 
         function mainPost() { 
-            
+            q_getFormat();
+            bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
             q_mask(bbmMask);
+            
+            q_cmbParse("cmbTypea", q_getPara('salchg.typea'));
+            $("#cmbTypea").focus(function() {
+				var len = $("#cmbTypea").children().length > 0 ? $("#cmbTypea").children().length : 1;
+				$("#cmbTypea").attr('size', len + "");
+			}).blur(function() {
+				$("#cmbTypea").attr('size', '1');
+			});
 
         }
         function txtCopy(dest, source) {
@@ -122,7 +130,10 @@
 
         function btnIns() {
             _btnIns();
-            $('#txtNoa').focus();
+            $('#txtNoa').val('AUTO');
+            $('#txtDatea').val(q_date());
+            $('#txtMon').val(q_date().substr(0, 6));
+            $('#txtDatea').focus();
         }
 
         function btnModi() {
@@ -130,7 +141,7 @@
                 return;
 
             _btnModi();
-            $('#txtComp').focus();
+            $('#txtDatea').focus();
         }
 
         function btnPrint() {
@@ -139,33 +150,19 @@
         function btnOk() {
             var t_err = '';
 
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
+            t_err = q_chkEmpField([['txtMon', q_getMsg('lblMon')], ['txtSssno', q_getMsg('lblSss')] ]);
 
-            if ( dec( $('#txtCredit').val()) > 9999999999)
-                t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
-
-            if ( dec( $('#txtStartn').val()) > 31)
-                t_err = t_err + q_getMsg( "lblStartn")+q_getMsg( "msgErr")+'\r';
-            if (dec( $('#txtGetdate').val()) > 31)
-                t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
 
             if( t_err.length > 0) {
                 alert(t_err);
                 return;
             }
             var t_noa = trim($('#txtNoa').val());
-            if (emp($('#txtUacc1').val()))
-                $('#txtUacc1').val('1123.' + t_noa);
-            if (emp($('#txtUacc2').val()))
-                $('#txtUacc2').val('1121.' + t_noa);
-            if (emp($('#txtUacc3').val()))
-                $('#txtUacc3').val( '2131.'+t_noa);
 
-
-            if ( t_noa.length==0 )  
-                q_gtnoa(q_name, t_noa);
-            else
-                wrServer(  t_noa);
+            if (t_noa.length == 0 || t_noa == "AUTO")
+				q_gtnoa(q_name, replaceAll( $('#txtMon').val(), '/', ''));
+			else
+				wrServer(t_noa);
         }
 
         function wrServer( key_value) {
@@ -305,15 +302,15 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 98%;
+                width: 99%;
                 float: left;
             }
             .txt.c2 {
-                width: 32%;
+                width: 36%;
                 float: right;
             }
             .txt.c3 {
-                width: 65%;
+                width: 63%;
                 float: left;
             }
             .txt.c4 {
@@ -400,6 +397,22 @@
                             <td class="td6"></td>
                         </tr>			
                         <tr>
+                            <td class="td1"><span> </span><a id="lblSss" class="lbl btn" ></a></td>
+                            <td class="td2"><input id="txtSssno"  type="text"  class="txt c2"/><input id="txtNamea" type="text"  class="txt c3"/></td>
+                            <td class="td3"></td>
+                            <td class="td4"></td>
+                            <td class="td5"></td>
+                            <td class="td6"></td>
+                        </tr>
+                        <!--<tr>
+                            <td class="td1"><span> </span><a id='lblDay_meal' class="lbl"></a></td>
+                            <td class="td2"><input id="txtDay_meal"  type="text" class="txt num c1" /></td>
+                            <td class="td3"></td>
+                            <td class="td4"></td>
+                            <td class="td5"></td>
+                            <td class="td6"></td>
+                        </tr>-->
+                        <tr>
                             <td class="td1"><span> </span><a id='lblMon' class="lbl"></a></td>
                             <td class="td2"><input id="txtMon"  type="text" class="txt c1" /></td>
                             <td class="td3"></td>
@@ -408,16 +421,8 @@
                             <td class="td6"></td>
                         </tr>
                         <tr>
-                            <td class="td1"><span> </span><a id="lblSss" class="lbl btn" ></a></td>
-                            <td class="td2"><input id="txtSssno"  type="text"  class="txt c2"/><input id="txtNamea" type="text"  class="txt c3"/></td>
-                            <td class="td3"></td>
-                            <td class="td4"></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
-                        </tr>
-                        <tr>
-                            <td class="td1"><span> </span><a id='lblDay_meal' class="lbl"></a></td>
-                            <td class="td2"><input id="txtDay_meal"  type="text" class="txt num c1" /></td>
+                            <td class="td1"><span> </span><a id='lblTypea' class="lbl"></a></td>
+                            <td class="td2"><select id="cmbTypea" class="txt c1"></select></td>
                             <td class="td3"></td>
                             <td class="td4"></td>
                             <td class="td5"></td>

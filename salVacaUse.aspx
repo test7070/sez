@@ -15,8 +15,8 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
             var q_name = "salvacause";
-            var q_readonly = ['txtNoa'];
-            var bbmNum = [];
+            var q_readonly = ['txtNoa','txtHr_special','txtTot_special'];
+            var bbmNum = [['txtHr_used',10,1,1],['txtHr_special',10,1,1],['txtTot_special',10,1,1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -407,10 +407,12 @@
 							<td class="td1" ><span> </span>
 							<a id='lblSss' class="lbl btn"></a>
 							</td>
-							<td class="td2" colspan="3">
-							<input id="txtSssno"  type="text"  class="txt c2"/>
-							<input id="txtNamea"  type="text"  class="txt c3"/>
+							<td class="td2">
+								<input id="txtSssno"  type="text"  class="txt c2"/>
+								<input id="txtNamea"  type="text"  class="txt c3"/>
 							</td>
+							<td class="td3" ></td>
+							<td class="td4"></td>
 							<td class="td5"></td>
 							<td class="td6"></td>
 						</tr>
@@ -428,22 +430,12 @@
 							<td class="td1" ><span> </span>
 							<a id='lblHtype' class="lbl btn" ></a>
 							</td>
-							<td class="td2" colspan="3">
+							<td class="td2">
 							<input id="txtHtype"  type="text"  class="txt c2"/>
 							<input id="txtHname"  type="text"  class="txt c3"/>
 							</td>
-							<td class="td5"></td>
-							<td class="td6"></td>
-						</tr>
-						<tr>
-							<td class="td1"><span> </span><a id='lblHbtime' class="lbl"></a></td>
-							<td class="td2">
-							<input id="txtHbtime"  type="text"  class="txt c1"/>
-							</td>
-							<td class="td3"><span> </span><a id='lblHetime' class="lbl"></a></td>
-							<td class="td4">
-							<input id="txtHetime"  type="text" class="txt c1" />
-							</td>
+							<td class="td3" ></td>
+							<td class="td4"></td>
 							<td class="td5"></td>
 							<td class="td6"></td>
 						</tr>
@@ -459,32 +451,40 @@
 						</tr>
 						<tr>
 							<td class="td1"><span> </span><a id='lblHr_used' class="lbl"></a></td>
-							<td class="td2">
-							<input id="txtHr_used"  type="text" class="txt num c1"/>
-							</td>
-							<td class="td3"><span> </span><a id='lblHr_sick' class="lbl"></a></td>
-							<td class="td4">
-							<input id="txtHr_sick"  type="text" class="txt num c1"/>
-							</td>
+							<td class="td2"><input id="txtHr_used"  type="text" class="txt num c1"/></td>
+							<td class="td3"></td>
+							<td class="td4"></td>
 							<td class="td5" ></td>
 							<td class="td6"></td>
 						</tr>
 						<tr>
 							<td class="td1"><span> </span><a id='lblTot_special' class="lbl"></a></td>
-							<td class="td2">
-							<input id="txtTot_special"  type="text" class="txt num c1" />
-							</td>
-							<td class="td3"><span> </span><a id='lblHr_person' class="lbl"></a></td>
-							<td class="td4">
-							<input id="txtHr_person"  type="text" class="txt num c1"/>
-							</td>
+							<td class="td2"><input id="txtTot_special"  type="text" class="txt num c1" /></td>
+							<td class="td3"></td>
+							<td class="td4"></td>
 							<td class="td5" ></td>
 							<td class="td6"></td>
 						</tr>
 						<tr>
 							<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-							<td class="td2" colspan="5"><textarea id="txtMemo" cols="10" rows="5" type="text"  style='width:98%; height: 50px; '></textarea></td>
+							<td class="td2" colspan="5"><input id="txtMemo"  type="text" class="txt c1"/></td>
 						</tr>
+						<!--<tr>
+							<td class="td1"><span> </span><a id='lblHbtime' class="lbl"></a></td>
+							<td class="td2"><input id="txtHbtime"  type="text"  class="txt c1"/></td>
+							<td class="td3"><span> </span><a id='lblHetime' class="lbl"></a></td>
+							<td class="td4"><input id="txtHetime"  type="text" class="txt c1" /></td>
+							<td class="td5"></td>
+							<td class="td6"></td>
+						</tr>
+						<tr>
+							<td class="td1"><span> </span><a id='lblHr_sick' class="lbl"></a></td>
+							<td class="td2"><input id="txtHr_sick"  type="text" class="txt num c1"/></td>
+							<td class="td3"><span> </span><a id='lblHr_person' class="lbl"></a></td>
+							<td class="td4"><input id="txtHr_person"  type="text" class="txt num c1"/></td>
+							<td class="td5" ></td>
+							<td class="td6"></td>
+						</tr>-->
 			</table>
 			</div>
 			</div>

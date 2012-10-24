@@ -43,6 +43,28 @@
 
         function mainPost() { 
             q_mask(bbmMask);
+            
+            $('#txtClass').change(function () {
+		           	if(!emp($('#txtClass').val())){
+		           		var t_where = "where=^^ class ='"+$('#txtClass').val()+"' ^^";
+		           		q_gt('salexrank', t_where , 0, 0, 0, "", r_accy);
+		           	}
+		    });
+		    
+		    $('#txtPoint1').change(function () {
+		           	if(q_float('txtPoint1')>=q_float('txtPoint2')&&q_float('txtPoint2')!=0){
+		           		alert('分數區間錯誤!!');
+		           		$('#txtPoint1').focus();
+		           	}
+		    });
+		    
+		    $('#txtPoint2').change(function () {
+		           	if(q_float('txtPoint1')>=q_float('txtPoint2')&&q_float('txtPoint2')!=0){
+		           		alert('分數區間錯誤!!');
+		           		$('#txtPoint2').focus();
+		           	}
+		    });
+		    
         }
 
         function txtCopy(dest, source) {
@@ -90,16 +112,18 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case 'sss':  
-                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                    break;
-
-                case q_name: if (q_cur == 4)  
+                case q_name: 
+                	if (q_cur == 1 || q_cur == 2) {
+                		var as = _q_appendData("salexrank", "", true);
+                		if(as[0]!=undefined)
+                		{
+                			alert('等級重複輸入!!');
+                			$('#txtClass').val('');
+                		}
+                	}
+                	
+                	if (q_cur == 4)  
                         q_Seek_gtPost();
-
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                     break;
             }  /// end switch
         }
@@ -136,6 +160,13 @@
                 alert(t_err);
                 return;
             }
+            
+           	if(q_float('txtPoint1')>=q_float('txtPoint2')&&q_float('txtPoint2')!=0){
+		    	alert('分數區間錯誤!!');
+		        $('#txtPoint1').focus();
+		        return;
+		    }
+            
             var t_noa = trim($('#txtNoa').val());
 
             if ( t_noa.length==0 )  
@@ -360,15 +391,7 @@
         <div class='dbbm' style="width: 73%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
             <tr>
-               <td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
-               <td class="td2"><input id="txtNoa"  type="text" class="txt c1" /></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-               <td class="td5"></td>
-               <td class="td6"></td>
-            </tr>
-            <tr>
-               <td class="td1" ></td>
+               <td class="td1" ><input id="txtNoa"  type="hidden" class="txt c1" /></td>
                <td class="td2"><a id="lblPoint1"></a></td>
                <td class="td3" ></td>
                <td class="td4"><a id="lblClass"></a></td>
