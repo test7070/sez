@@ -41,12 +41,31 @@
                 }
                 mainForm(0);
             }///  end Main()
+            
+            var t_tot_special=0;//存放初始'特休假剩餘天數'
 
             function mainPost() {
             	q_getFormat();
             	bbmMask = [['txtDatea', r_picd]];
-				q_mask(bbmMask);               
-
+				q_mask(bbmMask);
+				
+				$('#txtSssno').change(function () {
+	            	if(!emp($('#txtSssno').val())){
+	            		//找員工的特休假可用天數和特休假剩餘天數
+			           		var t_where = "where=^^ noa ='"+$('#txtDatea').val().substr(0, 3)+"' ^^";
+			           		q_gt('salvaca', t_where , 0, 0, 0, "", r_accy);
+			        }
+	        	});
+				
+	        	$('#txtHr_used').change(function () {
+	        		if(emp($('#txtSssno').val()))
+	        		{
+	        			alert('請先填寫員工編號!!');
+	        			$('#txtHr_used').val('0');
+	        			return;
+	        		}
+	            	q_tr('txtTot_special',t_tot_special-q_float('txtHr_used'));
+	        	});
             }
 
             function txtCopy(dest, source) {
@@ -101,7 +120,23 @@
                     case 'sss':
                         q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
                         break;
-
+                        
+                   case 'salvaca':
+                   		if(q_cur == 1){
+                   			var as = _q_appendData("salvaca", "", true);	
+                   			if(as[0]!=undefined){
+                   				var salvacas = _q_appendData("salvacas", "", true);	
+                   				for (var i = 0; i < salvacas.length; i++) {
+                   					if(salvacas[i].sssno==$('#txtSssno').val()){
+                   						$('#txtHr_special').val(salvacas[i].inday);
+                   						t_tot_special=salvacas[i].total;
+                   						$('#txtTot_special').val(salvacas[i].total);
+                   						$('#txtHr_used').val('0.0');
+                   						break;
+                   					}
+                   				}
+                   			}
+                   		}
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -112,21 +147,24 @@
                         break;
                 }  /// end switch
             }
+            
+             function q_popPost(s1) {
+		    	switch (s1) {
+		    		case 'txtSssno':
+		                if(!emp($('#txtSssno').val())){
+	            		//找員工的特休假可用天數和特休假剩餘天數
+			           		var t_where = "where=^^ noa ='"+$('#txtDatea').val().substr(0, 3)+"' ^^";
+			           		q_gt('salvaca', t_where , 0, 0, 0, "", r_accy);
+			        	}
+		                break;
+		    	}
+			}
 
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
                 q_box('salvacause_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
-            }
-
-            function combPay_chg() {
-                var cmb = document.getElementById("combPay")
-                if(!q_cur)
-                    cmb.value = '';
-                else
-                    $('#txtPay').val(cmb.value);
-                cmb.value = '';
             }
 
             function btnIns() {
@@ -139,9 +177,12 @@
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
-
+				
+				t_tot_special=dec($('#txtTot_special').val())+dec($('#txtHr_used').val())
                 _btnModi();
                 $('#txtDatea').focus();
+                $('#txtSssno').attr('readonly', true);
+                $('#txtNamea').attr('readonly', true);
             }
 
             function btnPrint() {
