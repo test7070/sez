@@ -1,4 +1,3 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -48,7 +47,8 @@
 				q_mask(bbmMask);
 				q_cmbParse("cmbTypea", q_getPara('sss.typea'));
 				q_cmbParse("cmbSex", q_getPara('sss.sex'));
-
+				q_cmbParse("cmbPerson", q_getPara('person.typea'));
+				
 				$('#btnFamily').click(function(e) {
 					q_box("family_b.aspx?;;;noa='" + $().val() + "'", 'family', "850px", "600px", q_getMsg("popFamily"));
 				});
@@ -393,8 +393,8 @@
 						<td class="td4">
 						<input id="txtNamea" type="text" class="txt c1" />
 						</td>
-						<td class="td5"><span> </span><a id='lblTypea' class="lbl"></a></td>
-						<td class="td6"><select id="cmbTypea" class="txt c1"></select></td>
+						<td class="td5"><span> </span><a id="lblPerson" class="lbl"></a></td>
+            			<td class="td6"><select id="cmbPerson" class="txt c1"></select></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblId' class="lbl"></a></td>
@@ -405,11 +405,8 @@
 						<td class="td4">
 						<input id="txtBirthday"  type="text" class="txt c1"/>
 						</td>
-						<td class="td5 num">
-						<input id="chkIsclerk" type="checkbox" style=" "/>
-						</td>
-						<td class="td6"><a id='vewIsclerk' ></a></td>
-						<td class="td7"></td>
+						<td class="td5"><span> </span><a id='lblTypea' class="lbl"></a></td>
+						<td class="td6"><select id="cmbTypea" class="txt c1"></select></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblSex' class="lbl"></a></td>
@@ -419,10 +416,9 @@
 						<input id="txtTel" type="text"  class="txt c1"/>
 						</td>
 						<td class="td5 num">
-						<input id="chkIswelfare" type="checkbox" style=" "/>
+						<input id="chkIsclerk" type="checkbox" style=" "/>
 						</td>
-						<td class="td6"><a id='vewIswelfare'></a></td>
-						<td class="td7"></td>
+						<td class="td6"><a id='vewIsclerk' ></a></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMobile1' class="lbl"></a></td>
@@ -433,6 +429,10 @@
 						<td class="td4">
 						<input id="txtMobile2"  type="text"  class="txt c1"/>
 						</td>
+						<td class="td5 num">
+						<input id="chkIswelfare" type="checkbox" style=" "/>
+						</td>
+						<td class="td6"><a id='vewIswelfare'></a></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblIndate' class="lbl"></a></td>
