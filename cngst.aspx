@@ -56,7 +56,7 @@
             q_cmbParse("cmbTypea", q_getPara('cng.typea'));
             q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
             q_cmbParse("cmbKind", q_getPara('cng.kind')); 
-             //�ܰʤؤo���
+             
             $('#cmbKind').change(function () {
             	size_change();
 		     });
@@ -160,7 +160,7 @@
             $('#txtProduct').focus();
         }
         function btnPrint() {
-		q_box('z_cngst.aspx', '', "800px", "600px", q_getMsg("popPrint"));
+		q_box('z_cngst.aspx'+ "?;;;;" + r_accy+ ";noa=" + trim($('#txtNoa').val()), '', "1000px", "700px", q_getMsg("popPrint"));
         }
 
         function wrServer(key_value) {

@@ -15,6 +15,9 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+            if (location.href.indexOf('?') < 0) {
+				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
+			}
             $(document).ready(function() {
             	q_getId();
                 q_gf('', 'z_umm');
@@ -37,13 +40,24 @@
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
-                    }]
+                    },{
+                        type : '1',
+                        name : 'xdate'
+                    },{
+						type : '0',
+						name : 'accy',
+						value : r_accy+"_"+r_cno
+					}]
                     });
                 q_popAssign();
                  $('#txtDate1').mask('999/99/99');
 	             $('#txtDate1').datepicker();
 	             $('#txtDate2').mask('999/99/99');
-	             $('#txtDate2').datepicker();  
+	             $('#txtDate2').datepicker(); 
+	             $('#txtXdate1').mask('99/99');
+	             $('#txtXdate1').datepicker();
+	             $('#txtXdate2').mask('99/99');
+	             $('#txtXdate2').datepicker();   
                 
                 
                  var t_date,t_year,t_month,t_day;
@@ -67,7 +81,31 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+	                var t_date,t_year,t_month,t_day;
+	                t_date = new Date();
+	                t_date.setDate(1);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                t_day = t_date.getUTCDate();
+	                t_day = t_day>9?t_day+'':'0'+t_day;
+	                $('#txtXdate1').val(t_month+'/'+t_day);
+	                
+	                t_date = new Date();
+	                t_date.setDate(35);
+	                t_date.setDate(0);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                t_day = t_date.getUTCDate();
+	                t_day = t_day>9?t_day+'':'0'+t_day;
+	                $('#txtXdate2').val(t_month+'/'+t_day);
 	                }
+					
+					
+	                
 
             function q_boxClose(s2) {
             }

@@ -120,7 +120,7 @@
             $('#txtProduct').focus();
         }
         function btnPrint() {
-		q_box('z_cng.aspx', '', "800px", "600px", q_getMsg("popPrint"));
+		q_box('z_cng.aspx'+ "?;;;;" + r_accy+ ";noa=" + trim($('#txtNoa').val()), '', "1000px", "700px", q_getMsg("popPrint"));
         }
 
         function wrServer(key_value) {
@@ -359,7 +359,7 @@
         </div>
         <div class='dbbm' style="width: 68%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
-        <tr class="tr1">
+       <tr class="tr1">
         	<td class='td1'><span> </span><a id="lblType" class="lbl" > </a></td>
         	<td class="td2"><select id="cmbTypea" class="txt c1"> </select></td>
             <td class='td3'><span> </span><a id="lblDatea" class="lbl" > </a></td>
@@ -368,15 +368,41 @@
             <td class="td6"><input id="txtNoa"   type="text" class="txt c1"/></td>
         </tr>
         <tr class="tr2">
-            <td class='td1'><span> </span><a id="lblStore" class="lbl btn"> </a></td>
-            <td class="td2"><input id="txtStoreno" type="text"  class="txt c6"/><input id="txtStore" type="text" class="txt c6"/></td>
-        </tr>
-        <tr class="tr3">
-        	<td class="td3"><span> </span><a id="lblStorein" class="lbl btn"> </a></td>
-            <td class="td4"><input id="txtStorinno" type="text" class="txt c6"/>
+            <td class='td1'><span> </span><a id="lblTrantype" class="lbl" > </a></td>
+            <td class="td2"><select id="cmbTrantype" class="txt c1"> </select></td>
+            <td class='td3'><span> </span><a id="lblStore" class="lbl btn"> </a></td>
+            <td class="td4"><input id="txtStoreno" type="text"  class="txt c6"/><input id="txtStore" type="text" class="txt c6"/></td>       
+            <td class="td5"><span> </span><a id="lblStorein" class="lbl btn"> </a></td>
+            <td class="td6"><input id="txtStorinno" type="text" class="txt c6"/>
             	<input id="txtStorin" type="text" class="txt c6"/></td> 
         </tr>
+        <tr class="tr3">
+            <td class='td1'><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
+            <td class="td2" colspan="3"><input id="txtTggno" type="text"  class="txt c4"/>       
+            <input id="txtTgg" type="text"  class="txt c5"/></td>
+            
+        </tr>
         <tr class="tr4">
+        	<td class='td1'><span> </span><a id="lblCardeal" class="lbl btn"> </a></td>
+            <td class="td2" colspan="3"><input id="txtCardealno" type="text"  class="txt c4"/>      
+            <input id="txtCardeal" type="text"  class="txt c5"/></td>
+        	<td class='td5'><span> </span><a id="lblCarno" class="lbl" > </a></td>
+        	<td class="td6"><input id="txtCarno" type="text" class="txt c1"/></td> 
+        </tr>
+        <tr class="tr5">
+        	<td class='td1'><span> </span><a id="lblTax" class="lbl" > </a></td>
+        	<td class="td2"><input id="txtTax" type="text" class="txt c1"/></td>
+            <td class='td3'><span> </span><a id="lblMoney" class="lbl" > </a></td>
+            <td class="td4"><input id="txtMoney" type="text" class="txt c1"/></td>
+           
+        </tr>
+        <tr class="tr6">
+        	<td class='td1'><span> </span><a id="lblPrice" class="lbl" > </a></td>
+            <td class="td2"><input id="txtPrice"   type="text" class="txt c1"/></td>
+            <td class='td3'><span> </span><a id="lblTotal" class="lbl" > </a></td>
+            <td class="td4"><input id="txtTotal"   type="text" class="txt c1"/></td>
+        </tr>
+        <tr class="tr7">
         <td class='td1'><span> </span><a id="lblMemo" class="lbl"> </a></td>
         <td class="td2" colspan='3'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"> </textarea></td>
         <td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
