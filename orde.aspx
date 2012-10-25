@@ -30,11 +30,11 @@
             bbmKey = ['noa'];
             bbsKey = ['noa', 'no2'];
 
-            xmlTable = 'ordem,ordems,ordemt';
+           /* xmlTable = 'ordem,ordems,ordemt';
             xmlKey = [['noa'],['noa', 'noq'], ['noa', 'noq']];
             xmlDec = [ [],['price'],['price']];
             q_popSave(xmlTable);
-
+*/
             q_brwCount();  // 計算 合適  brwCount 
 
            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
