@@ -18,7 +18,7 @@
         var q_name = "salrank";
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [['txtBo_admin',15,0,1],['txtBo_duty',15,0,1],['txtBo_full',15,0,1],['txtBo_over',15,0,1],['txtBo_oth',15,0,1],['txtMoney',15,0,1],['txtDiff',15,0,1]];  
+        var bbmNum = [['txtBo_admin',15,0,1],['txtBo_traffic',15,0,1],['txtBo_full',15,0,1],['txtBo_special',15,0,1],['txtBo_oth',15,0,1],['txtMoney',15,0,1],['txtDiff',15,0,1]];  
         var bbsNum = [['txtMoney',15,0,1]];
         var bbmMask = [];
         var bbsMask = [];
@@ -68,6 +68,12 @@
 		    	 	$('#txtMoney_'+i).val(dec($('#txtMoney').val())+dec($('#txtDiff').val())*(i));
 		    	}
 	        });
+	        $('#txtNoa').change(function () {
+            	if(!emp($('#txtNoa').val())){
+		           		var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
+		           		q_gt('salrank', t_where , 0, 0, 0, "", r_accy);
+		        }
+	        });
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -83,7 +89,16 @@
 
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
-                case q_name: if (q_cur == 4)   // 查詢
+                case q_name: 
+                	if (q_cur == 1){
+                		var as = _q_appendData("salrank", "", true);
+                		if(as[0]!=undefined){
+                			alert('職等重複輸入!!');
+                			$('#txtNoa').val('');
+                			$('#txtNoa').focus();
+                		}
+                	}
+                	if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
             }  /// end switch
@@ -126,6 +141,7 @@
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
+            $('#txtNoa').attr('readonly', true);
             $('#txtBo_admin').focus();
         }
         function btnPrint() {
@@ -400,14 +416,14 @@
             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
             <td class='td3'><span> </span><a id="lblBo_admin" class="lbl" ></a></td>
             <td class="td4"><input id="txtBo_admin" type="text" class="txt num c1" /></td> 
-            <td class='td5'><span> </span><a id="lblBo_duty" class="lbl" ></a></td>
-            <td class="td6"><input id="txtBo_duty" type="text"class="txt num c1" /></td> 
+            <td class='td5'><span> </span><a id="lblBo_traffic" class="lbl" ></a></td>
+            <td class="td6"><input id="txtBo_traffic" type="text"class="txt num c1" /></td> 
         </tr>
         <tr>            
             <td class='td1'><span> </span><a id="lblBo_full" class="lbl"></a></td>
             <td class="td2"><input id="txtBo_full" type="text" class="txt num c1" /></td>
-            <td class='td3'><span> </span><a id="lblBo_over" class="lbl" ></a></td>
-            <td class="td4"><input id="txtBo_over" type="text" class="txt num c1" /></td>
+            <td class='td3'><span> </span><a id="lblBo_special" class="lbl" ></a></td>
+            <td class="td4"><input id="txtBo_special" type="text" class="txt num c1" /></td>
             <td class='td5'><span> </span><a id="lblBo_oth" class="lbl"></a></td>
             <td class="td6"><input id="txtBo_oth" type="text" class="txt num c1" /></td>
         </tr>        

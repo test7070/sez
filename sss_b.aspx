@@ -9,7 +9,7 @@
 		<script src='qset.js' type="text/javascript"></script>
 		<script src="../script/qj_mess.js" type="text/javascript"></script>
 		<script type="text/javascript">
-            var q_name = 'sss', t_content = ' field=noa,namea', bbsKey = ['noa'], as;
+            var q_name = 'sss', t_content = ' field=noa,namea,id,partno,part,cno,comp,indate', bbsKey = ['noa'], as;
             var isBott = false;
             /// 是否已按過 最後一頁
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';

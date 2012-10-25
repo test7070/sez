@@ -21,7 +21,7 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
 	aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],
-	['txtSalexpono', 'lblSalexpo', 'salexpo', 'noa,namea', 'txtSalexpono,txtSalexpo', 'salexpo_b.aspx']);
+	['txtSalexpono', 'lblSalexpo', 'salexpo', 'noa,namea,unit', 'txtSalexpono,txtSalexpo,txtMount', 'salexpo_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -113,9 +113,12 @@
 
 
         function btnIns() {
+        	var t_ponumber=$('#txtPonumber').val();
             _btnIns();
             $('#txtNoa').val('AUTO');
             $('#txtDatea').val(q_date());
+            if(t_ponumber.length>3)
+            	$('#txtPonumber').val(t_ponumber.substr(0, t_ponumber.length-2)+(dec(t_ponumber.substr(t_ponumber.length-2,t_ponumber.length-1))+1).toString()+t_ponumber.substr(t_ponumber.length-1));
            	$('#txtDatea').focus();
         }
 
@@ -285,15 +288,15 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 90%;
+                width: 98%;
                 float: left;
             }
             .txt.c2 {
-                width: 36%;
+                width: 30%;
                 float: right;
             }
             .txt.c3 {
-                width: 62%;
+                width: 68%;
                 float: left;
             }
             .txt.c4 {
@@ -371,6 +374,13 @@
                <td class="td6"></td>
             </tr>
             <tr>
+               <td class="td1"><span> </span><a id='lblPo' class="lbl"></a></td>
+               <td class="td2" colspan="2"><input id="txtPonumber"  type="text"  class="txt c1"/></td>
+               <td class="td4"></td>
+               <td class="td5"></td>
+               <td class="td6"></td>
+            </tr>
+            <tr>
                <td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
                <td class="td2"><input id="txtDatea"  type="text" class="txt c1" /></td>
                <td class="td3"></td>
@@ -380,7 +390,8 @@
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblSss' class="lbl btn" ></a></td>
-               <td class="td2"><input id="txtSssno" type="text"  class="txt c2"/><input id="txtNamea"  type="text" class="txt c3" /></td>
+               <td class="td2"><input id="txtSssno" type="text"  class="txt c2"/>
+               							<input id="txtNamea"  type="text" class="txt c3" /></td>
                <td class="td3"></td>
                <td class="td4"></td>
                <td class="td5"></td>
@@ -405,7 +416,7 @@
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblReason' class="lbl"></a></td>
-               <td class="td2" colspan="5"><textarea id="txtReason" rows="5" cols="10" type="text"  style='width:98%; height: 50px; '></textarea></td>
+               <td class="td2" colspan="5"><input id="txtReason" type="text"  class="txt c1" /></td>
             </tr>
         </table>
         </div>

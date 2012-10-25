@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -168,18 +167,18 @@
         }
 
         function sum() {
-            var t_Money=0, t_Bo_admin=0, t_Bo_duty=0, t_Bo_full=0, t_Bo_over=0, t_Bo_oth=0, t_Mi_person=0, t_Ch_lunch=0, t_Ch_labor=0, t_Ch_health=0, t_Welfare=0,t_Welfare_temp=0, t_Borrow=0, t_Tax=0, t_Mi_oth=0, t_Mi_full=0;
+            var t_Money=0, t_Bo_admin=0, t_Bo_traffic=0, t_Bo_full=0, t_Bo_special=0, t_Bo_oth=0, t_Mi_person=0, t_Ch_lunch=0, t_Ch_labor=0, t_Ch_health=0, t_Welfare=0,t_Welfare_temp=0, t_Borrow=0, t_Tax=0, t_Mi_oth=0, t_Mi_full=0;
             for (var j = 0; j < q_bbsCount; j++) {
 				t_Money += dec($('#txtMoney_' + j).val());			//本俸
 				t_Bo_admin += dec($('#txtBo_admin_' + j).val());	//主管加給
-				t_Bo_duty += dec($('#txtBo_duty_' + j).val());		//職務津貼
+				t_Bo_traffic += dec($('#txtBo_traffic_' + j).val());		//職務津貼
 				t_Bo_full += dec($('#txtBo_full_' + j).val());		//全勤津貼
-				t_Bo_over += dec($('#txtBo_over_' + j).val());		//超時津貼	
+				t_Bo_special += dec($('#txtBo_special_' + j).val());		//超時津貼	
 				t_Bo_oth += dec($('#txtBo_oth_' + j).val());		//其他津貼
 				$('#txtMi_total_' + j).val(dec($('#txtMi_person_' + j).val())+dec($('#txtMi_sick_' + j).val())+dec($('#txtMi_nosalary_' + j).val())+dec($('#txtMi_leave_' + j).val()));//扣款合計(事假+病假+無薪+曠工)
 				t_Mi_person +=dec($('#txtMi_total_' + j).val());	//請假扣款(事假+病假+無薪+曠工=扣款合計)
 				//t_Mi_full += dec($('#txtMi_full_' + j).val());		//全勤扣款
-				$('#txtTotal2_' + j).val(dec($('#txtMoney_' + j).val())+ dec($('#txtBo_admin_' + j).val())+dec($('#txtBo_duty_' + j).val())+dec($('#txtBo_full_' + j).val())+dec($('#txtBo_over_' + j).val())+dec($('#txtBo_oth_' + j).val()) - dec($('#txtMi_total_' + j).val())); //應發金額
+				$('#txtTotal2_' + j).val(dec($('#txtMoney_' + j).val())+ dec($('#txtBo_admin_' + j).val())+dec($('#txtBo_traffic_' + j).val())+dec($('#txtBo_full_' + j).val())+dec($('#txtBo_special_' + j).val())+dec($('#txtBo_oth_' + j).val()) - dec($('#txtMi_total_' + j).val())); //應發金額
 				t_Ch_lunch += dec($('#txtCh_lunch_' + j).val());		//午餐費		
 				t_Ch_labor += dec($('#txtCh_labor_' + j).val());		//勞保費		
 				t_Ch_health += dec($('#txtCh_health_' + j).val());		//健保費	
@@ -211,9 +210,9 @@
             }  
             $('#txtMoney').val(t_Money);
             $('#txtBo_admin').val(t_Bo_admin);
-            $('#txtBo_duty').val(t_Bo_duty);
+            $('#txtBo_traffic').val(t_Bo_traffic);
             $('#txtBo_full').val(t_Bo_full);
-            $('#txtBo_over').val(t_Bo_over);
+            $('#txtBo_special').val(t_Bo_special);
             $('#txtBo_oth').val(t_Bo_oth);
             $('#txtMi_person').val(t_Mi_person);
             //$('#txtMi_full').val(t_Mi_full);
@@ -225,7 +224,7 @@
             $('#txtBorrow').val(t_Borrow);
             $('#txtTax').val(t_Tax);
             $('#txtMi_oth').val(t_Mi_oth);
-            $('#txtPtotal').val(t_Money+t_Bo_admin+t_Bo_duty+t_Bo_full+t_Bo_over+t_Bo_oth);		//應付合計
+            $('#txtPtotal').val(t_Money+t_Bo_admin+t_Bo_traffic+t_Bo_full+t_Bo_special+t_Bo_oth);		//應付合計
             $('#txtMi_total2').val(t_Mi_person+t_Mi_full+t_Ch_lunch+t_Ch_labor+t_Ch_health+t_Welfare+t_Borrow+t_Tax+t_Mi_oth);		//代扣合計
             $('#txtTotal').val(dec($('#txtPtotal').val()) - dec($('#txtMi_total2').val()));	//實際給付	
         }
@@ -479,14 +478,14 @@
             <td class="td2"><input id="txtMoney"  type="text" class="txt num c1" /></td>
             <td class="td3"><span> </span><a id="lblBo_admin" class="lbl"></a></td>
             <td class="td4"><input id="txtBo_admin"  type="text" class="txt num c1" /></td>
-            <td class="td5"><span> </span><a id="lblBo_duty" class="lbl"></a></td>
-            <td class="td6"><input id="txtBo_duty"  type="text" class="txt num c1"/></td>
+            <td class="td5"><span> </span><a id="lblBo_traffic" class="lbl"></a></td>
+            <td class="td6"><input id="txtBo_traffic"  type="text" class="txt num c1"/></td>
             <td class="td7"><span> </span><a id="lblBo_full" class="lbl"></a></td>
             <td class="td8"><input id="txtBo_full"  type="text" class="txt num c1"/></td>
         </tr>
         <tr>
-            <td class="td1"><span> </span><a id="lblBo_over" class="lbl"></a></td>
-            <td class="td2"><input id="txtBo_over"  type="text" class="txt num c1"/></td>
+            <td class="td1"><span> </span><a id="lblBo_special" class="lbl"></a></td>
+            <td class="td2"><input id="txtBo_special"  type="text" class="txt num c1"/></td>
             <td class="td3"><span> </span><a id="lblBo_oth" class="lbl"></a></td>
             <td class="td4"><input id="txtBo_oth"  type="text" class="txt num c1"/></td>
             <td class="td5"><span> </span><a id="lblMi_person" class="lbl"></a></td>
@@ -533,106 +532,119 @@
                 <td align="center" class="td1"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;font-size: 16px;"  /> </td>
                 <td align="center" class="td1"><a id='lblSno'></a></td>
                 <td align="center" class="td2"><a id='lblNamea'></a></td>
-                <td align="center" class="td1"><a id='lblCno'></a></td>
-                <td align="center" class="td1"><a id='lblLevel1'></a></td>
-                <td align="center" class="td1"><a id='lblLevel2'></a></td>
-                <td align="center" class="td1"><a id='lblLevel3'></a></td>
                 <td align="center" class="td2"><a id='lblMoneys'></a></td>
+                <td align="center" class="td2"><a id='lblPubmoneys'></a></td>
                 <td align="center" class="td2"><a id='lblBo_admins'></a></td>
-                <td align="center" class="td2"><a id='lblBo_dutys'></a></td>
-                <td align="center"colspan="2" ><a id='lblBo_fulls'></a></td>
-                <td align="center" class="td2"><a id='lblBo_overs'></a></td>
+                <td align="center" class="td2"><a id='lblBo_traffics'></a></td>
+                <td align="center" class="td2"><a id='lblBo_specials'></a></td>
                 <td align="center" class="td2"><a id='lblBo_oths'></a></td>
-                <td align="center"colspan="2" ><a id='lblHr_person'></a></td>
+                <td align="center" class="td2"><a id='lblTotal1s'></a></td>
+                <td align="center" class="td2"><a id='lblCh_labor1s'></a></td>
+                <td align="center" class="td2"><a id='lblCh_labor2s'></a></td>
+                <td align="center" class="td2"><a id='lblCh_health_insures'></a></td>
+                <td align="center" class="td2"><a id='lblMsalidays'></a></td>
+                <td align="center" class="td2"><a id='lblMtotals'></a></td>
+                <td align="center" class="td2" ><a id='lblBo_fulls'></a></td>
+                <td align="center" class="td2" ><a id='lblTax_others'></a></td>
+                <td align="center" class="td2"><a id='lblTotal2s'></a></td>
+                <td align="center" class="td2"><a id='lblOstands'></a></td>
+                <td align="center" class="td2"><a id='lblAddh2_1s'></a></td>
+                <td align="center" class="td2"><a id='lblAddh2_2s'></a></td>
+                <td align="center" class="td2"><a id='lblAddmoneys'></a></td>
+                <td align="center" class="td2"><a id='lblAddh100s'></a></td>
+                <td align="center" class="td2"><a id='lblAddh46_1s'></a></td>
+                <td align="center" class="td2"><a id='lblAddh46_2s'></a></td>
+                <td align="center" class="td2" ><a id='lblTax_other2s'></a></td>
+                <td align="center" class="td2"><a id='lblTotal3s'></a></td>
+                <td align="center" class="td2"><a id='lblChgs'></a></td>
+                <td align="center" class="td2"><a id='lblCh_labors'></a></td>
+                <td align="center" class="td2"><a id='lblCh_labor_comps'></a></td>
+                <td align="center" class="td2"><a id='lblCh_labor_selfs'></a></td>
+                <td align="center" class="td2"><a id='lblLodging_power_fees'></a></td>
+                <td align="center" class="td1"><a id='lblTaxs'></a></td>
+                <td align="center" class="td1"><a id='lblTax5s'></a></td>
+                <td align="center" class="td1"><a id='lblWelfares'></a></td>
+                <td align="center" class="td1"><a id='vewIswelfare'></a></td>
+                <td align="center" class="td1"><a id='lblRaise_nums'></a></td>
+                <td align="center" class="td2"><a id='lblCh_healths'></a></td>
+                <td align="center" class="td2"><a id='lblTotal4s'></a></td>
+                <td align="center" class="td2"><a id='lblTotal5s'></a></td>
+                <td align="center" class="td2"><a id='lblLate'></a></td>
                 <td align="center"colspan="2"><a id='lblHr_sick'></a></td>
+                <td align="center"colspan="2" ><a id='lblHr_person'></a></td>
                 <td align="center"colspan="2" ><a id='lblHr_nosalary'></a></td>
                 <td align="center"colspan="2"><a id='lblHr_leave'></a></td>
-                <td align="center" class="td2"><a id='lblMi_total'></a></td>
-                <td align="center" class="td2"><a id='lblTotal2'></a></td>
-                <td align="center" colspan="2" class="td3"><a id='lblCh_lunchs'></a></td>
-                <td align="center" class="td1"><a id='lblCh_labors'></a></td>
-                <td align="center" class="td1"><a id='lblCh_healths'></a></td>
-                <td align="center" class="td1"><a id='vewIswelfare'></a></td>
-                <td align="center" class="td1"><a id='lblWelfares'></a></td>
-                <td align="center" class="td1"><a id='lblBorrows'></a></td>
-                <td align="center" class="td1"><a id='lblTaxs'></a></td>
-                <td align="center" class="td1"><a id='lblMi_oths'></a></td>
-                <td align="center" class="td1"><a id='lblMi_total2s'></a></td>
-                <td align="center" class="td2"><a id='lblTotals'></a></td>
-                <td align="center" class="td1"><a id='lblRetire' style="font-size: 14px;"></a></td>
-                <td align="center" class="td2"><a id='lblLate'></a></td>
-                <td align="center" class="td2"><a id='lblMemo'></a></td>
-                <td align="center" colspan="2" ><a id='lblBo_borns'></a></td>
-                <td align="center" class="td2"><a id='lblBo_trans'></a></td>
-                <td align="center" class="td2"><a id='lblBo_exam'></a></td>
-                <td align="center" class="td2"><a id='lblPlus'></a></td>
-                <td align="center" class="td2"><a id='lblDays'></a></td>
-                <td align="center" class="td2"><a id='lblSaltype'></a></td>
-                <td align="center"colspan="2" ><a id='lblAd_h1'></a></td>
-                <td align="center"colspan="2"><a id='lblAd_h133'></a></td>
-                <td align="center"colspan="2" ><a id='lblAd_h166'></a></td>
-                <td align="center"colspan="2" ><a id='lblAd_h2'></a></td>
-                <td align="center" class="td1"><a id='lblAd_money' style="font-size: 14px;"></a></td>
-                <td align="center" class="td1"><a id='lblObonus'></a></td>
-                <td align="center" class="td1"><a id='lblOtotal'></a></td>
+                
+                <!--<td align="center" class="td2"><a id='lblChgcashs'></a></td>
+                <td align="center" class="td2"><a id='lblStay_taxs'></a></td>
+                <td align="center" class="td2"><a id='lblTax12s'></a></td>
+                <td align="center" class="td2"><a id='lblTax18s'></a></td>
+                <td align="center" class="td2"><a id='lblStay_moneys'></a></td>
+                <td align="center" class="td2"><a id='lblBo_borns'></a></td>
+                <td align="center" class="td2"><a id='lblBo_nights'></a></td>
+				<td align="center" class="td2"><a id='lblBo_dutys'></a></td>-->
+                
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;font-size: 16px;float: center;" /></td>
-                <td ><input class="txt c1" id="txtSno.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtSno.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
                 <td ><input class="txt c1" id="txtNamea.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtCno.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtLevel1.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtLevel2.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtLevel3.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtMoney.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtPubmoney.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtBo_admin.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtBo_duty.*" type="text" /></td>
-                <td class="td2"><input class="txt num c3" id="txtHr_full.*" type="text" />HR</td>
-                <td class="td2">&#36; <input class="txt num c2" id="txtBo_full.*" type="text"/></td>
-                <td ><input class="txt num c1" id="txtBo_over.*" type="text"/></td>
+                <td ><input class="txt num c1" id="txtBo_traffic.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtBo_special.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtBo_oth.*" type="text" /></td>
-                <td class="td2"><input class="txt num c3" id="txtHr_person.*" type="text" />HR</td>
-                <td class="td2">&#36; <input class="txt num c2" id="txtMi_person.*" type="text"/></td>
+                <td ><input class="txt num c1" id="txtTotal1.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtCh_labor1.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtCh_labor2.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtCh_health_insure.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtMsaliday.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtMtotal.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtBo_full.*" type="text"/></td>
+                <td ><input class="txt num c1" id="txtTax_other.*" type="text"/></td>
+                <td ><input class="txt num c1" id="txtTotal2.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtOstand.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtAddh2_1.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtAddh2_2.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtAddmoney.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtAddh100.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtAddh46_1.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtAddh46_2.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtTax_other2.*" type="text"/></td>
+                <td ><input class="txt num c1" id="txtTotal3.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtChg.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtCh_labor.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtCh_labor_comp.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtCh_labor_self.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtLodging_power_fee.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtTax.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtTax5.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtWelfare.*" type="text" /></td>
+                <td ><input id="chkIswelfare.*" type="checkbox"/></td>
+                <td ><input class="txt num c1" id="txtRaise_num.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtCh_health.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtTotal4.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtTotal5.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtLate.*" type="text" /></td>
                 <td class="td2"><input class="txt num c3" id="txtHr_sick.*" type="text" />HR</td> 
                 <td class="td2">&#36; <input class="txt num c2" id="txtMi_sick.*" type="text" /></td>
+                <td class="td2"><input class="txt num c3" id="txtHr_person.*" type="text" />HR</td>
+                <td class="td2">&#36; <input class="txt num c2" id="txtMi_person.*" type="text"/></td>
                 <td class="td2"><input class="txt num c3" id="txtHr_nosalary.*" type="text" />HR</td>
                 <td class="td2">&#36;<input class="txt num c2" id="txtMi_nosalary.*" type="text" /></td>
                 <td class="td2"><input class="txt num c3" id="txtHr_leave.*" type="text" />HR</td>
                 <td class="td2">&#36;<input class="txt c2" id="txtMi_leave.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtMi_total.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtTotal2.*" type="text" /></td>
-                <td class="td2"><input class="txt num c3" id="txtDay_meal.*" type="text" />HR</td>
-                <td class="td2">&#36;<input class="txt num c2" id="txtCh_lunch.*" type="text"/></td>               
-                <td class="td2">&#36;<input class="txt num c2" id="txtCh_labor.*"type="text" /></td>
-                <td class="td2">&#36;<input class="txt num c2" id="txtCh_health.*" type="text" /></td>
-                <td ><input id="chkIswelfare.*" type="checkbox" style=' '/></td>
-                <td class="td2">&#36;<input class="txt num c2" id="txtWelfare.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtBorrow.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtTax.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtMi_oth.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtMi_total2.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtTotal.*" type="text" /></td>                
-                <td ><input class="txt num c1" id="txtRetire.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtLate.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
-                <td class="td2">&#36;<input class="txt num c2" id="txtBo_born.*" type="text" /></td>
-                <td class="td2"><input class="txt num c1" id="txtBo_bornpoint.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtBo_trans.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtBo_exam.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtPlus.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtDays.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtSaltype.*" type="text" /></td>
-                <td class="td2"><input class="txt num c3" id="txtAd_h1.*" type="text" />HR</td>
-                <td class="td2">&#36; <input class="txt num c2" id="txtAd_m1.*" type="text" /></td>
-                <td class="td2"><input class="txt num c3" id="txtAd_h133.*" type="text" />HR</td>
-                <td class="td2">&#36; <input class="txt num c2" id="txtAd_m133.*" type="text" /></td>
-                <td class="td2"><input class="txt num c3" id="txtAd_h166.*" type="text" />HR</td>
-                <td class="td2">&#36;<input class="txt num c2" id="txtAd_m166.*" type="text" /></td>
-                <td class="td2"><input class="txt num c3" id="txtAd_h2.*" type="text" />HR</td>
-                <td class="td2">&#36;<input class="txt num c2" id="txtAd_m2.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtAd_money.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtObonus.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtOtotal.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
+                
+                <!--<td ><input class="txt num c1" id="txtChgcash.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtStay_tax.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtTax12.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtTax18.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtStay_money.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtBo_born.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtBo_night.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtBo_duty.*" type="text" /></td>-->
+
            </tr>
         </table>
         </div>

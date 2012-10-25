@@ -344,12 +344,12 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewJobno'></a></td>
+                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
                 <td align="center" style="width:40%"><a id='vewJob'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
-                   <td align="center" id='jobno'>~jobno</td>
+                   <td align="center" id='noa'>~noa</td>
                    <td align="center" id='job'>~job</td>
             </tr>
         </table>
@@ -359,14 +359,8 @@
             <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
                <td class="td2"><input id="txtNoa"  type="text" class="txt c1" /></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblJobno' class="lbl"></a></td>
-               <td class="td2"><input id="txtJobno"  type="text" class="txt c1" /></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
+               <td class="td3"><!--<span> </span><a id='lblJobno' class="lbl"></a>--></td>
+               <td class="td4"><!--<input id="txtJobno"  type="text" class="txt c1" />--></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblJob' class="lbl"></a></td>
@@ -382,14 +376,14 @@
             </tr>
             <tr>
                 <td class="td1"></td>
-                <td><input id="chkBo_admin" type="checkbox" style=" "><a id='vewBo_admin'></a></td>
-                <td><input id="chkBo_duty" type="checkbox" style=" "><a id='vewBo_duty'></a></td>
-                <td><input id="chkBo_full" type="checkbox" style=" "><a id='vewBo_full'></a></td>
+                <td class="td2"><input id="chkBo_admin" type="checkbox" style=" "><a id='vewBo_admin'></a></td>
+                <td class="td3"><input id="chkBo_traffic" type="checkbox" style=" "><a id='vewBo_traffic'></a></td>
+                <td class="td4"><input id="chkBo_full" type="checkbox" style=" "><a id='vewBo_full'></a></td>
             </tr>
             <tr>
                 <td class="td1"></td>
-                <td><input id="chkBo_over" type="checkbox" style=" "><a id='vewBo_over'></a></td>
-                <td><input id="chkBo_oth" type="checkbox" style=" "><a id='vewBo_oth'></a></td>
+                <td class="td2"><input id="chkBo_special" type="checkbox" style=" "><a id='vewBo_special'></a></td>
+                <td class="td3"><input id="chkBo_oth" type="checkbox" style=" "><a id='vewBo_oth'></a></td>
             </tr>
         </table>
         </div>
