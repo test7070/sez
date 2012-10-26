@@ -93,9 +93,9 @@
 						}
 						break;
 				}
-		
+
 				if (t_data.isLoad() && !t_data.isInit) {
-					t_data.isInit  =  true;
+					t_data.isInit = true;
 					$('#q_report').q_report({
 						fileName : 'z_tran',
 						options : [{
@@ -160,7 +160,7 @@
 							type : '8',
 							name : 'xcalctypes',
 							value : t_data.data['calctypes'].split(',')
-						},{/*15*/
+						}, {/*15*/
 							type : '6',
 							name : 'zproduct'
 						}, {/*16*/
@@ -194,13 +194,13 @@
 							type : '5',
 							name : 'xsort14',
 							value : q_getMsg('tsort14').split('&')
-						},{/*25*/
-	                        type : '2',
-	                        name : 'sales',
-	                        dbf : 'sss',
-	                        index : 'noa,namea',
-	                        src : 'sss_b.aspx'
-	                    }]
+						}, {/*25*/
+							type : '2',
+							name : 'sales',
+							dbf : 'sss',
+							index : 'noa,namea',
+							src : 'sss_b.aspx'
+						}]
 					});
 					q_popAssign();
 					q_langShow();
@@ -213,12 +213,12 @@
 					$('#txtTrandate1').datepicker();
 					$('#txtTrandate2').mask('999/99/99');
 					$('#txtTrandate2').datepicker();
-					
-					$('#chkXcarteam').children('input').attr('checked','checked');
-					$('#chkXcarkind').children('input').attr('checked','checked');
-	                $('#chkXcalctypes').children('input').attr('checked','checked');
-	                $('#chkXfield05').children('input').attr('checked','checked');
-	                
+
+					$('#chkXcarteam').children('input').attr('checked', 'checked');
+					$('#chkXcarkind').children('input').attr('checked', 'checked');
+					$('#chkXcalctypes').children('input').attr('checked', 'checked');
+					$('#chkXfield05').children('input').attr('checked', 'checked');
+
 					var t_date, t_year, t_month, t_day;
 					t_date = new Date();
 					t_date.setDate(1);
@@ -250,7 +250,11 @@
 
 		</script>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">

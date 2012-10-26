@@ -496,6 +496,8 @@
 						</td>
 					</tr>
 					<tr class="tr5">
+						<td><span> </span><a id="lblEo" class="lbl"> </a></td>
+						<td><input id="txtEo" type="text" class="txt c1  num"/></td>
 						<td class="td1"><span> </span><a id="lblTicket" class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtTicket" type="text" class="txt c1  num"/>
@@ -504,30 +506,29 @@
 						<td class="td4">
 						<input id="txtLabor" type="text" class="txt c1  num"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblHealth" class="lbl"> </a></td>
-						<td class="td6"><input id="txtHealth" type="text" class="txt c1  num"/>	</td>
 					</tr>
 					<tr class="tr6">
-						<td class="td1"><span> </span><a id="lblMinus" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtMinus" type="text" class="txt c1  num"/>
-						</td>
-						<td class="td3"><span> </span><a id="lblCarborr" class="lbl"> </a></td>
-						<td class="td4">
-						<input id="txtCarborr" type="text" class="txt c1  num"/>
-						</td>
-						<td class="td5"><span> </span><a id="lblTotal" class="lbl"> </a></td>
-						<td class="td6">
-						<input id="txtTotal" type="text" class="txt c1  num"/>
-						</td>
+						<td><span> </span><a id="lblHealth" class="lbl"> </a></td>
+						<td><input id="txtHealth" type="text" class="txt c1  num"/>	</td>
+						<td><span> </span><a id="lblMinus" class="lbl"> </a></td>
+						<td><input id="txtMinus" type="text" class="txt c1  num"/></td>
+						<td><span> </span><a id="lblCarborr" class="lbl"> </a></td>
+						<td><input id="txtCarborr" type="text" class="txt c1  num"/></td>
 					</tr>
-					<tr class="tr7">
+					<tr>
+						<td>  </td>
+						<td>  </td>
+						<td>  </td>
+						<td>  </td>
+						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
+						<td><input id="txtTotal" type="text" class="txt c1  num"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/>	</td>
 						<td><span> </span><a id="lblLock" class="lbl"> </a></td>
 						<td><input id="chkLock" type="checkbox" style="float:left;"/>	</td>
 					</tr>
-					<tr class="tr8"></tr>
 				</table>
 			</div>
 		</div>
@@ -545,6 +546,7 @@
 					<td align="center" style="width:80px;"><a id='lblBonus_s'></a></td>
 					<td align="center" style="width:80px;"><a id='lblPlus_s'></a></td>
 					<td align="center" style="width:80px;"><a id='lblMoney_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblEo_s'></a></td>
 					<td align="center" style="width:60px;"><a id='lblTicket_s'></a></td>
 					<td align="center" style="width:60px;"><a id='lblLabor_s'></a></td>
 					<td align="center" style="width:60px;"><a id='lblHealth_s'></a></td>
@@ -570,6 +572,7 @@
 					<td ><input type="text" id="txtBonus.*" style="width:95%; text-align: right;" /></td>
 					<td ><input type="text" id="txtPlus.*" style="width:95%; text-align: right;" /></td>
 					<td ><input type="text" id="txtMoney.*" style="width:95%; text-align: right;" /></td>
+					<td ><input type="text" id="txtEo.*" style="width:95%; text-align: right;" /></td>
 					<td ><input type="text" id="txtTicket.*" style="width:95%; text-align: right;" /></td>
 					<td ><input type="text" id="txtLabor.*" style="width:95%; text-align: right;" /></td>
 					<td ><input type="text" id="txtHealth.*" style="width:95%; text-align: right;" /></td>
