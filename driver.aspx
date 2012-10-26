@@ -18,7 +18,7 @@
             }
             var q_name = "driver";
             var q_readonly = [];
-            var bbmNum = [['txtSalmoney',10,0]];
+            var bbmNum = [['txtSalmoney',10,0],['txtLabor',10,0],['txtHealth',10,0],['txtPensionfund',10,0],['txtDependents',10,0],['txtMoney',10,0],['txtEo',10,0]];
             var bbmMask = [['txtZip_home','999-99'],['txtZip_conn','999-99'],['txtBirthday','999/99/99'],['txtTakeofficedate','999/99/99'],['txtLeaveofficedate','999/99/99'],['txtStrdate','999/99/99'],['txtEnddate','999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
@@ -385,8 +385,10 @@
 						</td>
 						<td class="td5"><span> </span><a id="lblCartype" class="lbl"></a></td>
 						<td class="td6"><select id="cmbCartype" class="txt c1"></select></td>
-						<td class="td7"></td>
-						<td class="td8"></td>
+						<td><span> </span><a id="lblEo" class="lbl"></a></td>
+						<td>
+						<input id="txtEo" type="text" class="txt num c1" />
+						</td> 
 					</tr>
 					<tr class="tr8">
 						<td class="td1"><span> </span><a id="lblLabor" class="lbl"></a></td>
