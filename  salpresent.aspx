@@ -1,13 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-    <title></title>
-    <script src="../script/jquery.min.js" type="text/javascript"></script>
-    <script src='../script/qj2.js' type="text/javascript"></script>
-        <script src='qset.js' type="text/javascript"></script>
-    <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src="../script/qbox.js" type="text/javascript"></script>
-    <script src='../script/mask.js' type="text/javascript"></script>
+    <title> </title>
+    <script src="../script/jquery.min.js" type="text/javascript"> </script>
+    <script src='../script/qj2.js' type="text/javascript"> </script>
+        <script src='qset.js' type="text/javascript"> </script>
+    <script src='../script/qj_mess.js' type="text/javascript"> </script>
+    <script src="../script/qbox.js" type="text/javascript"> </script>
+    <script src='../script/mask.js' type="text/javascript"> </script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         this.errorHandler = null;
@@ -15,7 +15,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         q_tables = 's';
-        var q_name = "laboc";
+        var q_name = "salpresent";
         var q_readonly = [];
         var q_readonlys = [];
         var bbmNum = [['txtBo_admin',15,0,1],['txtBo_traffic',15,0,1],['txtBo_full',15,0,1],['txtBo_special',15,0,1],['txtBo_oth',15,0,1],['txtMoney',15,0,1],['txtDiff',15,0,1]];  
@@ -23,31 +23,31 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        //ajaxPath = ""; // �u�b�ڥؿ����A�~�ݳ]�w
+        
 
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
             
-            q_brwCount();  // �p�� �X�A  brwCount 
+            q_brwCount();   
 
-            q_gt(q_name, q_content, q_sqlCount, 1)  /// q_sqlCount=�̫e�� top=���ơA q_init ����J q_sys.xml �P q_LIST
+            q_gt(q_name, q_content, q_sqlCount, 1)  
 
         });
 
         //////////////////   end Ready
         function main() {
-            if (dataErr)  /// ��J��ƿ�~
+            if (dataErr) 
             {
                 dataErr = false;
                 return;
             }
 
-            mainForm(1); // 1=�̫�@��  0=�Ĥ@��
+            mainForm(1); 
         }  
 
        
-        function mainPost() { // ��J��Ƨ��A�� refresh �e
+        function mainPost() { 
             q_getFormat();
             bbmMask = [['txtNoa', r_picd]];
             q_mask(bbmMask);
@@ -55,9 +55,9 @@
             
         }
 
-        function q_boxClose(s2) { ///   q_boxClose 2/4 /// �d�ߵ�B�Ȥ��B����  �����ɰ���
+        function q_boxClose(s2) { 
             var ret;
-            switch (b_pop) {   /// ���n�G���i�H���� return �A�̫�ݰ��� originalClose();
+            switch (b_pop) {   
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -66,25 +66,25 @@
         }
 
 
-        function q_gtPost(t_name) {  /// ��ƤU��� ...
+        function q_gtPost(t_name) {  /// ???U??? ...
             switch (t_name) {
                 case q_name: 
                 	if (q_cur == 1){
                 		var as = _q_appendData("salrank", "", true);
                 		if(as[0]!=undefined){
-                			alert('¾�����ƿ�J!!');
+                			alert('????????J!!');
                 			$('#txtNoa').val('');
                 			$('#txtNoa').focus();
                 		}
                 	}
-                	if (q_cur == 4)   // �d��
+                	if (q_cur == 4)   // ?d??
                         q_Seek_gtPost();
                     break;
             }  /// end switch
         }
 
         function btnOk() {
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // �ˬd�ť� 
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // ??d??? 
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
@@ -104,7 +104,7 @@
             q_box('salrank_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
-        function bbsAssign() {  /// �?�B�⦡
+        function bbsAssign() {  /// ???B??
             _bbsAssign();
         }
 
@@ -134,9 +134,9 @@
             _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
         }
 
-        function bbsSave(as) {   /// �? �g�J��Ʈw�e�A�g�J�ݭn���
-            if (!as['class']) {  //���s�ɱ��
-                as[bbsKey[1]] = '';   /// no2 ���šA���s��
+        function bbsSave(as) {   /// ?? ?g?J???w?e?A?g?J??n???
+            if (!as['sssno']) {  //???s????
+                as[bbsKey[1]] = '';   /// no2 ????A???s??
                 return;
             }
 
@@ -162,7 +162,7 @@
 
             }  // j
         }
-        ///////////////////////////////////////////////////  �H�U���Ѩƥ�{���A���ݭn�ɭק�
+        ///////////////////////////////////////////////////  ?H?U??????{???A????n????
         function refresh(recno) {
             _refresh(recno);
 
@@ -371,36 +371,56 @@
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
-                <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:20%"><a id='vewNoa'></a></td>
+                <td align="center" style="width:5%"><a id='vewChk'> </a></td>
+                <td align="center" style="width:20%"><a id='vewNoa'> </a></td>
+                <td align="center" style="width:20%"><a id='vewData'> </a></td>
                 
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='noa'>~noa</td>
+                   <td align="center" id='data'>~data</td>
                   
             </tr>
         </table>
         </div>
         <div class='dbbm' style="width: 68%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
-        <tr>
+        <tr class="tr1">
             <td class='td1'><span> </span><a id="lblNoa" class="lbl" > </a></td>
             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-            <td class='td3'><span> </span><a id="lblInsur_accident" class="lbl" > </a></td>
-            <td class="td4"><input id="txtInsur_accident" type="text" class="txt num c1" /></td> 
-            <td class='td5'><span> </span><a id="lblInsur_job" class="lbl" > </a></td>
-            <td class="td6"><input id="txtInsur_job" type="text"class="txt num c1" /></td> 
-            <td class="td7"> </td>
+            <td class="td3"><input id="txtDay" type="text" class="txt c1" /></td> 
+            <td class='td4'><input id="txtRein" type="text" class="txt c1" /></td>
+            <td class="td5"><span> </span><a id="lblHours" class="lbl" > </a></td> 
+            <td class='td6'><input id="chkHoliday" type="checkbox" style=' '/><span> </span><a id="lblHoliday" > </a></td>
+            <td class="td7"> </td> 
+        </tr>             
+        <tr class="tr2">
+            <td class='td1'><span> </span><a id="lblData" class="lbl" > </a></td>
+            <td class="td2" colspan="3"><input id="txtData"  type="text" class="txt c1"/></td> 
+            <td class='td5'><input id="btnGlance" type="button" /></td>
+            <td class='td6'><input id="btnInput" type="button" /></td>
+        </tr>   
+        <tr class="tr3">
+            <td class='td1'><span> </span><a id="lblW100" class="lbl" > </a></td>
+            <td class="td2"><input id="txtW100"  type="text" class="txt num c1"/></td>
+            <td class='td3'><span> </span><a id="lblW133" class="lbl" > </a></td>
+            <td class="td4"><input id="txtW133"  type="text" class="txt num c1"/></td>
+            <td class='td5'><span> </span><a id="lblW166" class="lbl" > </a></td>
+            <td class="td6"><input id="txtW166"  type="text" class="txt num c1"/></td> 
         </tr>
-        <tr>            
-            <td class='td1'> </td>
-            <td class="td2"> </td>
-            <td class='td3'><span> </span><a id="lblInsur_person" class="lbl" > </a></td>
-            <td class="td4"><input id="txtInsur_person" type="text" class="txt num c1" /></td>
-            <td class='td5'><span> </span><a id="lblInsur_comp" class="lbl"> </a></td>
-            <td class="td6"><input id="txtInsur_comp" type="text" class="txt num c1" /></td>
-        </tr>              
+        <tr class="tr4">
+            <td class='td1'><span> </span><a id="lblW200" class="lbl" > </a></td>
+            <td class="td2"><input id="txtW200"  type="text" class="txt num c1"/></td>
+            <td class='td3'><span> </span><a id="lblW300" class="lbl" > </a></td>
+            <td class="td4"><input id="txtW300"  type="text" class="txt num c1"/></td>
+        </tr>
+        <tr class="tr5">
+            <td class='td1'><span> </span><a id="lblHr_special" class="lbl" > </a></td>
+            <td class="td2"><input id="txtHr_special"  type="text" class="txt num c1"/></td>
+            <td class='td3'><span> </span><a id="lblMount" class="lbl" > </a></td>
+            <td class="td4"><input id="txtMount"  type="text" class="txt num c1"/></td>
+        </tr>                                                                                                    
         </table>
         </div>
 
@@ -408,25 +428,37 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center"><a id='lblClass_s'> </a></td>
-                <td align="center"><a id='lblSalary1_s'> </a></td>
-                <td align="center"><a id='lblSalary2_s'> </a></td>
-                <td align="center"><a id='lblLmoney_s'> </a></td>
-                <td align="center"><a id='lblLself_s'> </a></td>
-                <td align="center"><a id='lblLcomp_s'> </a></td>
-                <td align="center"><a id='lblFlself_s'> </a></td>
-                <td align="center"><a id='lblFlcomp_s'> </a></td>
+                <td align="center"><a id='lblSssno_s'> </a></td>
+                <td align="center"><a id='lblNamea_s'> </a></td>
+                <td align="center"><a id='lblClockin_s'> </a></td>
+                <td align="center"><a id='lblClockout_s'> </a></td>
+                <td align="center"><a id='lblCardno_s'> </a></td>
+                <td align="center"><a id='lblW100_s'> </a></td>
+                <td align="center"><a id='lblW133_s'> </a></td>
+                <td align="center"><a id='lblW166_s'> </a></td>
+                <td align="center"><a id='lblW200_s'> </a></td>
+                <td align="center"><a id='lblW300_s'> </a></td>
+                <td align="center"><a id='lblHr_special_s'> </a></td>
+                <td align="center"><a id='lblMemo_s'> </a></td>
+                <td align="center"><a id='lblHour_s'> </a></td>
+                <td align="center"><a id='lblAddwork_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input class="txt c1" id="txtClass.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtSalary1.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtSalary2.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtLmoney.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtLself.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtLcomp.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtFlself.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtFlcomp.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
+                <td ><input class="txt c1" id="txtSssno.*"type="text" /></td>
+                <td ><input class="txt c1" id="txtNamea.*"type="text" /></td>
+                <td ><input class="txt c1" id="txtClockin.*"type="text" /></td>
+                <td ><input class="txt c1" id="txtClockout.*"type="text" /></td>
+                <td ><input class="txt c1" id="txtCardno.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtW100.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtW133.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtW166.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtW200.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtW300.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtHr_special.*"type="text" /></td>
+                <td ><input class="txt c1" id="txtMemo.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtHour.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtAddwork.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
             </tr>
         </table>
         </div>

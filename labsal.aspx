@@ -15,7 +15,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         q_tables = 's';
-        var q_name = "labo";
+        var q_name = "labsal";
         var q_readonly = [];
         var q_readonlys = [];
         var bbmNum = [['txtBo_admin',15,0,1],['txtBo_traffic',15,0,1],['txtBo_full',15,0,1],['txtBo_special',15,0,1],['txtBo_oth',15,0,1],['txtMoney',15,0,1],['txtDiff',15,0,1]];  
@@ -23,31 +23,31 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        
+        //ajaxPath = ""; // �u�b�ڥؿ����A�~�ݳ]�w
 
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
             
-            q_brwCount();   
+            q_brwCount();  // �p�� �X�A  brwCount 
 
-            q_gt(q_name, q_content, q_sqlCount, 1)  
+            q_gt(q_name, q_content, q_sqlCount, 1)  /// q_sqlCount=�̫e�� top=���ơA q_init ����J q_sys.xml �P q_LIST
 
         });
 
         //////////////////   end Ready
         function main() {
-            if (dataErr) 
+            if (dataErr)  /// ��J��ƿ�~
             {
                 dataErr = false;
                 return;
             }
 
-            mainForm(1); 
+            mainForm(1); // 1=�̫�@��  0=�Ĥ@��
         }  
 
        
-        function mainPost() { 
+        function mainPost() { // ��J��Ƨ��A�� refresh �e
             q_getFormat();
             bbmMask = [['txtNoa', r_picd]];
             q_mask(bbmMask);
@@ -55,9 +55,9 @@
             
         }
 
-        function q_boxClose(s2) { 
+        function q_boxClose(s2) { ///   q_boxClose 2/4 /// �d�ߵ�B�Ȥ��B����  �����ɰ���
             var ret;
-            switch (b_pop) {   
+            switch (b_pop) {   /// ���n�G���i�H���� return �A�̫�ݰ��� originalClose();
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -66,25 +66,25 @@
         }
 
 
-        function q_gtPost(t_name) {  /// ???U??? ...
+        function q_gtPost(t_name) {  /// ��ƤU��� ...
             switch (t_name) {
                 case q_name: 
                 	if (q_cur == 1){
                 		var as = _q_appendData("salrank", "", true);
                 		if(as[0]!=undefined){
-                			alert('????????J!!');
+                			alert('¾�����ƿ�J!!');
                 			$('#txtNoa').val('');
                 			$('#txtNoa').focus();
                 		}
                 	}
-                	if (q_cur == 4)   // ?d??
+                	if (q_cur == 4)   // �d��
                         q_Seek_gtPost();
                     break;
             }  /// end switch
         }
 
         function btnOk() {
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // ??d??? 
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // �ˬd�ť� 
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
@@ -104,7 +104,7 @@
             q_box('salrank_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
-        function bbsAssign() {  /// ???B??
+        function bbsAssign() {  /// �?�B�⦡
             _bbsAssign();
         }
 
@@ -134,9 +134,9 @@
             _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
         }
 
-        function bbsSave(as) {   /// ?? ?g?J???w?e?A?g?J??n???
-            if (!as['class']) {  //???s????
-                as[bbsKey[1]] = '';   /// no2 ????A???s??
+        function bbsSave(as) {   /// �? �g�J��Ʈw�e�A�g�J�ݭn���
+            if (!as['class']) {  //���s�ɱ��
+                as[bbsKey[1]] = '';   /// no2 ���šA���s��
                 return;
             }
 
@@ -162,7 +162,7 @@
 
             }  // j
         }
-        ///////////////////////////////////////////////////  ?H?U??????{???A????n????
+        ///////////////////////////////////////////////////  �H�U���Ѩƥ�{���A���ݭn�ɭק�
         function refresh(recno) {
             _refresh(recno);
 
@@ -373,74 +373,34 @@
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:20%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:20%"><a id='vewNamea'></a></td>
                 
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='namea'>~namea</td>
                   
             </tr>
         </table>
         </div>
         <div class='dbbm' style="width: 68%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
-        <tr class="tr1">
+        <tr>
             <td class='td1'><span> </span><a id="lblNoa" class="lbl" > </a></td>
             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-            <td class='td3'><span> </span><a id="lblNamea" class="lbl" > </a></td>
-            <td class="td4"><input id="txtNamea" type="text" class="txt c1" /></td> 
-            <td class='td5'><input id="chkForeign" type="checkbox" style=' '/></td>
-            <td class="td6"><span> </span><a id="lblForeign" class="lbl" > </a></td> 
+            <td class='td3'><span> </span><a id="lblInsur_accident" class="lbl" > </a></td>
+            <td class="td4"><input id="txtInsur_accident" type="text" class="txt num c1" /></td> 
+            <td class='td5'><span> </span><a id="lblInsur_job" class="lbl" > </a></td>
+            <td class="td6"><input id="txtInsur_job" type="text"class="txt num c1" /></td> 
             <td class="td7"> </td>
         </tr>
-        <tr class="tr2">
-            <td class='td1'><span> </span><a id="lblTypea" class="lbl" > </a></td>
-            <td class="td2"><input id="txtTypea" type="text" class="txt  c1" /></td>
-            <td class='td3'><span> </span><a id="lblDatea" class="lbl"> </a></td>
-            <td class="td4"><input id="txtDatea" type="text" class="txt  c1" /></td>
-            <td class='td5'><span> </span><a id="lblSalary" class="lbl"> </a></td>
-            <td class="td6"><input id="txtSalary" type="text" class="txt num c1" /></td>
-        </tr>
-        <tr class="tr3">
-            <td class='td1'><span> </span><a id="lblSa_retire" class="lbl" > </a></td>
-            <td class="td2"><input id="txtSa_retire" type="text" class="txt num c1" /></td>
-            <td class='td3'><span> </span><a id="lblRe_comp" class="lbl"> </a></td>
-            <td class="td4"><input id="txtRe_comp" type="text" class="txt num c1" /></td>
-            <td class='td5'><span> </span><a id="lblRe_person" class="lbl"> </a></td>
-            <td class="td6"><input id="txtRe_person" type="text" class="txt num c1" /></td>
-        </tr>
-        <tr class="tr4">
-            <td class='td1'><span> </span><a id="lblSa_labor" class="lbl" > </a></td>
-            <td class="td2"><input id="txtSa_labor" type="text" class="txt num c1" /></td>
-            <td class='td3'><span> </span><a id="lblAs_labor" class="lbl"> </a></td>
-            <td class="td4"><input id="txtAs_labor" type="text" class="txt num c1" /></td>
-            <td class='td5'><span> </span><a id="lblLa_person" class="lbl"> </a></td>
-            <td class="td6"><input id="txtLa_person" type="text" class="txt num c1" /></td>
-            <td class='td7'><span> </span><a id="lblLa_comp" class="lbl"> </a></td>
-            <td class="td8"><input id="txtLa_comp" type="text" class="txt num c1" /></td>
-        </tr>
-        <tr class="tr5">
-            <td class='td1'><span> </span><a id="lblSa_health" class="lbl" > </a></td>
-            <td class="td2"><input id="txtSa_health" type="text" class="txt num c1" /></td>
-            <td class='td3'><span> </span><a id="lblAs_health" class="lbl"> </a></td>
-            <td class="td4"><input id="txtAs_health" type="text" class="txt num c1" /></td>
-            <td class='td5'><span> </span><a id="lblHe_person" class="lbl"> </a></td>
-            <td class="td6"><input id="txtHe_person" type="text" class="txt num c1" /></td>
-            <td class='td7'><span> </span><a id="lblHe_comp" class="lbl"> </a></td>
-            <td class="td8"><input id="txtHe_comp" type="text" class="txt num c1" /></td>
-        </tr>                               
-        <tr class="tr6">
-            <td class='td1'><span> </span><a id="lblTax" class="lbl" > </a></td>
-            <td class="td2"><input id="txtTax" type="text" class="txt num c1" /></td>
-            <td class='td3'><span> </span><a id="lblMount" class="lbl"> </a></td>
-            <td class="td4"><input id="txtMount" type="text" class="txt num c1" /></td>
-            <td class='td5'> </td>
-            <td class="td6"> </td>
-            <td class='td7'><span> </span><a id="lblWorker" class="lbl"> </a></td>
-            <td class="td8"><input id="txtWorker" type="text" class="txt c1" /></td>
-        </tr>                                                           
+        <tr>            
+            <td class='td1'> </td>
+            <td class="td2"> </td>
+            <td class='td3'><span> </span><a id="lblInsur_person" class="lbl" > </a></td>
+            <td class="td4"><input id="txtInsur_person" type="text" class="txt num c1" /></td>
+            <td class='td5'><span> </span><a id="lblInsur_comp" class="lbl"> </a></td>
+            <td class="td6"><input id="txtInsur_comp" type="text" class="txt num c1" /></td>
+        </tr>              
         </table>
         </div>
 
@@ -448,25 +408,25 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center"><a id='lblPrefix_s'> </a></td>
-                <td align="center"><a id='lblNamea_s'> </a></td>
-                <td align="center"><a id='lblBirthday_s'> </a></td>
-                <td align="center"><a id='lblId_s'> </a></td>
-                <td align="center"><a id='lblCh_money_s'> </a></td>
-                <td align="center"><a id='lblAs_health_s'> </a></td>
-                <td align="center"><a id='lblIndate_s'> </a></td>
-                <td align="center"><a id='lblOutdate_s'> </a></td>
+                <td align="center"><a id='lblClass_s'> </a></td>
+                <td align="center"><a id='lblSalary1_s'> </a></td>
+                <td align="center"><a id='lblSalary2_s'> </a></td>
+                <td align="center"><a id='lblLmoney_s'> </a></td>
+                <td align="center"><a id='lblLself_s'> </a></td>
+                <td align="center"><a id='lblLcomp_s'> </a></td>
+                <td align="center"><a id='lblFlself_s'> </a></td>
+                <td align="center"><a id='lblFlcomp_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input class="txt c1" id="txtPrefix.*"type="text" /></td>
-                <td ><input class="txt c1" id="txtNamea.*"type="text" /></td>
-                <td ><input class="txt c1" id="txtBirthday.*"type="text" /></td>
-                <td ><input class="txt c1" id="txtId.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtCh_money.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtAs_health.*"type="text" /></td>
-                <td ><input class="txt c1" id="txtIdate.*"type="text" /></td>
-                <td ><input class="txt c1" id="txtOutdate.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
+                <td ><input class="txt c1" id="txtClass.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtSalary1.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtSalary2.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtLmoney.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtLself.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtLcomp.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtFlself.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtFlcomp.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
             </tr>
         </table>
         </div>
