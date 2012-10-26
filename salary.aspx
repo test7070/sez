@@ -331,7 +331,7 @@
 				t_total3+=dec($('#txtTotal3_'+j).val());//應領總額
 				t_total4+=dec($('#txtTotal4_'+j).val());//應扣總額
 				t_total5+=dec($('#txtTotal5_'+j).val());//實發金額
-            }
+            } 
             
             q_tr('txtMoney',t_money);//本俸
             q_tr('txtDaymoney',t_daymoney);//日薪
