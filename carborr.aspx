@@ -42,6 +42,7 @@
             t_curMoney = 0;
             t_curMon='';
             t_curDriverno='';
+            t_money2=0;
             
             function main() {
                 if (dataErr) {
@@ -113,6 +114,14 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'driver':
+                		var as = _q_appendData("driver", "", true);
+						var t_rate = 0;
+						for ( i = 0; i < as.length; i++) {
+							t_rate = parseFloat(as[i].rate);
+						}
+						$('#txtMoney2').val(Math.round(t_money2*t_rate/10));
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -129,7 +138,12 @@
                 	alert('分期金額異常');
                 	return;
                 }
-            	
+            	if($('#cmbTypea').val()=='借支'){
+            		if(q_float('txtMoney')>q_float('txtMoney2')){
+            			alert('超支!');
+            			return;
+            		}	
+            	}
                 $('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
@@ -175,10 +189,16 @@
                 if (result.substr(0, 5) == '<Data') {/// 如果傳回  table[]
                     var as = _q_appendData('carsal2', '', true);
                     if(as.length>0){
-                    	if(t_curMon==$('#txtMon').val() &&  t_curDriverno==$('#txtDriverno').val())
+                    	/*if(t_curMon==$('#txtMon').val() &&  t_curDriverno==$('#txtDriverno').val())
                     		$('#txtMoney2').val(parseFloat(as[0].total)+t_curMoney);
                     	else
-                    		$('#txtMoney2').val(parseFloat(as[0].total));
+                    		$('#txtMoney2').val(parseFloat(as[0].total));*/
+                    	if(t_curMon==$('#txtMon').val() &&  t_curDriverno==$('#txtDriverno').val())
+                    		t_money2=parseFloat(as[0].total)+t_curMoney;
+                    	else
+                    		t_money2=parseFloat(as[0].total);
+                    	q_gt('driver', "where=^^noa='"+$("#txtDriverno").val()+"'", 0, 0, 0, "", r_accy);	
+                    	
                     }
                     else
                     	$('#txtMoney2').val('');              
