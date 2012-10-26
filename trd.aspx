@@ -778,9 +778,10 @@
 					</tr>
 					<tr class="tr5">
 						<td class="td5"><span> </span><a id="lblTovcca" class="lbl"> </a></td>
-						<td class="td6"><select id="cmbTovcca" class="txt c2"></select>
+						<td class="td6" colspan="2"><select id="cmbTovcca" class="txt c2"></select>
 						<input id="txtMon" type="text"  class="txt c3"/>
 						</td>
+						<td> </td>
 						<td class="td7"><span> </span><a id="lblTrtype" class="lbl"> </a></td>
 						<td class="td8"><select id="cmbTrtype" class="txt c1"></select></td>
 						<td class="td9"><span> </span><a id="lblTypea" class="lbl"> </a></td>
@@ -815,7 +816,7 @@
 						<input id="txtPlus" type="text"  class="txt c1 num"/>
 						</td>
 						<td><span> </span><a id="lblTaxrate" class="lbl"> </a></td>
-						<td><select id="cmbTaxtype" class="txt c3"></select>
+						<td><select id="cmbTaxtype" class="txt c3"> </select>
 						<input id="txtTaxrate" type="text"  class="txt c2 num"/>
 						</td>
 						<td><span> </span><a id="lblTax" class="lbl"> </a></td>
