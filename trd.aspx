@@ -78,7 +78,7 @@
 				 	var tmp = $('#txtVccano').val().split(',');
 				 	for(var i in tmp)
 				 			t_where += (t_where.length>0?' or ':'')+"noa='"+tmp[i]+"'";
-		            q_pop('txtVccano', "vcca.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+t_where+";" + r_accy + '_' + r_cno, 'vcca', 'noa', 'datea', "92%", "1054px", q_getMsg('popVcca'), true);
+		            q_pop('txtVccano', "vcca_2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+t_where+";" + r_accy + '_' + r_cno, 'vcca', 'noa', 'datea', "92%", "1054px", q_getMsg('popVcca'), true);
 		        });
 
 				$('#cmbTrtype').focus(function() {

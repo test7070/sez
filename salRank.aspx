@@ -403,8 +403,8 @@
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='noa'>~noa</td>
                    <td align="center" id='money'>~money</td>
-                   <td align="center" id='level1'>~level1</td>
-                   <td align="center" id='level2'>~level2</td>
+                   <td align="center" id='level21'>~level21</td>
+                   <td align="center" id='level22'>~level22</td>
                   
             </tr>
         </table>
@@ -431,7 +431,7 @@
             <td class='td1'><span> </span><a id="lblMoney" class="lbl" ></a></td>
             <td class="td2"><input id="txtMoney"  type="text" class="txt num c1" /></td>
             <td class='td3'><span> </span><a id="lblLevel" class="lbl" ></a></td>
-            <td class="td4"><input id="txtLevel1" type="text"  class="txt" style=" width: 43%;"/>~<input id="txtLevel2" type="text"   class="txt" style=" width: 43%;"/></td>
+            <td class="td4"><input id="txtLevel21" type="text"  class="txt" style=" width: 43%;"/>~<input id="txtLevel22" type="text"   class="txt" style=" width: 43%;"/></td>
             <td class='td5'><span> </span><a id="lblDiff" class="lbl" ></a></td>
             <td class="td6"><input id="txtDiff"  type="text" class="txt num c1" /></td> 
         </tr>
@@ -455,7 +455,7 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input class="txt c1" id="txtLevel1.*"type="text" /></td>
+                <td ><input class="txt c1" id="txtLevel2.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtMoney.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
             </tr>
         </table>
