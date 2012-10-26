@@ -144,6 +144,7 @@
                 <td align="center" class="td1"><a id='lblBirthday'></a></td>
                 <td align="center" class="td1"><a id='lblId'></a></td>
                 <td align="center" class="td1"><a id='lblCh_health'></a></td>
+                <td align="center" class="td1"><a id='lblAs_health'></a></td>
                 <td align="center" class="td1"><a id='lblIndate'></a></td>
                 <td align="center" class="td1"><a id='lblOutdate'></a></td>
                 <td align="center" ><a id='lblMemo'></a></td>
@@ -156,6 +157,7 @@
                 <td ><input class="txt c1" id="txtBirthday.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtId.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCh_health.*" type="text" style="text-align: right;" /></td>
+                <td ><input class="txt c1" id="txtAs_health.*" type="text" style="text-align: right;" /></td>
                 <td ><input class="txt c1" id="txtIndate.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtOutdate.*" type="text"/></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text"/>
