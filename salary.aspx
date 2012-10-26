@@ -134,13 +134,49 @@
         function bbsAssign() {  
         	for(var j = 0; j < q_bbsCount; j++) {
            		if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-           			
-           			
-           			
-           			
-           			
-           			
-           			
+           			$('#txtMoney_'+j).change(function () {sum();});
+           			$('#txtPubmoney_'+j).change(function () {sum();});
+           			$('#txtBo_admin_'+j).change(function () {sum();});
+           			$('#txtBo_traffic_'+j).change(function () {sum();});
+           			$('#txtBo_special_'+j).change(function () {sum();});
+           			$('#txtBo_oth_'+j).change(function () {sum();});
+           			$('#txtTotal1_'+j).change(function () {sum();});
+           			$('#txtMi_total_'+j).change(function () {sum();});
+           			$('#txtMi_saliday_'+j).change(function () {sum();});
+           			$('#txtTotal2_'+j).change(function () {sum();});
+           			$('#txtBo_full_'+j).change(function () {sum();});
+           			$('#txtTax_other_'+j).change(function () {sum();});
+           			$('#txtOstand_'+j).change(function () {sum();});
+           			$('#txtAddmoney_'+j).change(function () {sum();});
+           			$('#txtAddh2_1_'+j).change(function () {sum();});
+           			$('#txtAddh2_2_'+j).change(function () {sum();});
+           			$('#txtTotal3_'+j).change(function () {sum();});
+           			$('#txtTax_other2_'+j).change(function () {sum();});
+           			$('#chkIswelfare_'+j).change(function () {sum();});
+           			$('#txtWelfare_'+j).change(function () {sum();});
+           			$('#txtDaymoney_'+j).change(function () {sum();});
+           			$('#txtMtotal_'+j).change(function () {sum();});
+           			$('#txtMsaliday_'+j).change(function () {sum();});
+           			$('#txtBo_born_'+j).change(function () {sum();});
+           			$('#txtBo_night_'+j).change(function () {sum();});
+           			$('#txtBo_duty_'+j).change(function () {sum();});
+           			$('#txtTax6_'+j).change(function () {sum();});
+           			$('#txtAddh46_1_'+j).change(function () {sum();});
+           			$('#txtAddh46_2_'+j).change(function () {sum();});
+           			$('#txtAddh100_'+j).change(function () {sum();});
+           			$('#txtTotal4_'+j).change(function () {sum();});
+           			$('#txtChg_'+j).change(function () {sum();});
+           			$('#txtCh_labor_'+j).change(function () {sum();});
+           			$('#txtChgcash_'+j).change(function () {sum();});
+           			$('#txtCh_labor_self_'+j).change(function () {sum();});
+           			$('#txtLodging_power_fee_'+j).change(function () {sum();});
+           			$('#txtTax_'+j).change(function () {sum();});
+           			$('#txtTax5_'+j).change(function () {sum();});
+           			$('#txtStay_tax_'+j).change(function () {sum();});
+           			$('#txtTax12_'+j).change(function () {sum();});
+           			$('#txtTax18_'+j).change(function () {sum();});
+           			$('#txtStay_money_'+j).change(function () {sum();});
+           			$('#txtCh_health_'+j).change(function () {sum();});
             	}
             }
             _bbsAssign();
@@ -150,6 +186,7 @@
         function btnIns() {
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+            $('#txtDatea').val(q_date());
             $('#txtMon').val(q_date().substr( 0,6));
             $('#txtMon').focus();
             table_change();
@@ -228,7 +265,7 @@
         			q_tr('txtTotal3_'+j,dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val()));//應領總額=給付總額+加班費+免稅其他
         			//福利金
         			if($('#chkIswelfare_'+j)[0].checked)
-		        		q_tr('txtWelfare_'+j,dec($('#txtDaymoney_'+j).val())*5/1000);
+		        		q_tr('txtWelfare_'+j,dec($('#txtMoney_'+j).val())*5/1000);
 		        	else
 		        		q_tr('txtWelfare_'+j,0);
         		}else if($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
@@ -252,7 +289,7 @@
         			q_tr('txtTotal3_'+j,dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh46_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.67*dec($('#txtAddh46_2_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val())));//應領總額
         			//福利金
         			if($('#chkIswelfare_'+j)[0].checked)
-		        		q_tr('txtWelfare_'+j,dec($('#txtDaymoney_'+j).val())*5/1000);
+		        		q_tr('txtWelfare_'+j,dec($('#txtMoney_'+j).val())*5/1000);
 		        	else
 		        		q_tr('txtWelfare_'+j,0);
         		}
@@ -263,7 +300,7 @@
         		
         	}
         	//bbm計算
-            var monkind=0,t_money=0,t_daymoney=0,t_pubmoney=0,t_bo_admin=0,t_bo_traffic=0,t_bo_full=0,t_tax_other=0
+            var monkind=0,t_money=0,t_daymoney=0,t_pubmoney=0,t_bo_admin=0,t_bo_traffic=0,t_bo_special=0,t_bo_oth=0,t_bo_full=0,t_tax_other=0
             ,t_mtotal=0,t_mitotal=0,t_addmoney=0,t_chg=0,t_ch_labor=0,t_ch_health=0,t_ch_labor_comp=0,t_ch_labor_self=0
             ,t_welfare=0,t_total3=0,t_total4=0,t_total5=0;
             //結算方式，因為外勞是以一個月結算，所以*1，大公司以上下期計算薪資，因此*0.5
@@ -305,18 +342,18 @@
             q_tr('txtBo_special',t_bo_special);//特別津貼
             q_tr('txtBo_oth',t_bo_oth);//其他津貼
             q_tr('txtTax_other',t_tax_other);//應稅其他         
-            q_tr('txtMtotal',t_mtotal);//給薪金額
-            q_tr('txtMi_total',t_mitotal);//扣薪金額
+            q_tr('txtMtotal',Math.round(t_mtotal));//給薪金額
+            q_tr('txtMi_total',Math.round(t_mitotal));//扣薪金額
             q_tr('txtAddmoney',t_addmoney);//加班費
             q_tr('txtChg',t_chg);//借支
             q_tr('txtCh_labor',t_ch_labor);//勞保費
             q_tr('txtCh_health',t_ch_health);//健保費
             q_tr('txtCh_labor_comp',t_ch_labor_comp);//勞退提繳
             q_tr('txtCh_labor_self',t_ch_labor_self);//勞退個人
-            q_tr('txtWelfare',t_welfare);//福利金
-            q_tr('txtTotal3',t_total3);//應領總額
-            q_tr('txtTotal4',t_total4);//應扣總額
-            q_tr('txtTotal5',t_total5);//實發金額
+            q_tr('txtWelfare',Math.round(t_welfare));//福利金
+            q_tr('txtTotal3',Math.round(t_total3));//應領總額
+            q_tr('txtTotal4',Math.round(t_total4));//應扣總額
+            q_tr('txtTotal5',Math.round(t_total5));//實發金額
         }
         
         function refresh(recno) {
