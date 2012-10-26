@@ -34,7 +34,7 @@
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1)
             });
-            //////////////////   end Ready
+           
             function main() {
                 if(dataErr) {
                     dataErr = false;
@@ -47,28 +47,8 @@
             function mainPost() {
             	q_cmbParse("cmbSex",q_getPara('sys.sex'));
             	q_cmbParse("cmbCartype",q_getPara('driver.cartype'));
+            	q_cmbParse("cmbRate",q_getPara('driver.rate'));
                 q_mask(bbmMask);
-            }
-
-            function txtCopy(dest, source) {
-                var adest = dest.split(',');
-                var asource = source.split(',');
-                $('#' + adest[0]).focus(function() {
-                    if(trim($(this).val()).length == 0)
-                        $(this).val(q_getMsg('msgCopy'));
-                });
-                $('#' + adest[0]).focusout(function() {
-                    var t_copy = ($(this).val().substr(0, 1) == '=');
-                    var t_clear = ($(this).val().substr(0, 2) == ' =');
-                    for(var i = 0; i < adest.length; i++) { {
-                            if(t_copy)
-                                $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                            if(t_clear)
-                                $('#' + adest[i]).val('');
-                        }
-                    }
-                });
             }
 
             function q_boxClose(s2) {
@@ -349,7 +329,10 @@
 						<td class="td6">
 						<select id="cmbSex" class="txt c6"></select>
 						</td>
-						
+						<td class="td5"><span> </span><a id="lblRate" class="lbl"></a></td>
+						<td class="td6">
+						<select id="cmbRate" class="txt c6"></select>
+						</td>
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id="lblIdno" class="lbl"></a></td>
