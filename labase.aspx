@@ -49,7 +49,6 @@
        
         function mainPost() { 
             q_getFormat();
-            bbmMask = [['txtNoa', r_picd]];
             q_mask(bbmMask);
             
             
@@ -66,25 +65,20 @@
         }
 
 
-        function q_gtPost(t_name) {  /// ???U??? ...
+        function q_gtPost(t_name) {
             switch (t_name) {
                 case q_name: 
                 	if (q_cur == 1){
-                		var as = _q_appendData("salrank", "", true);
-                		if(as[0]!=undefined){
-                			alert('????????J!!');
-                			$('#txtNoa').val('');
-                			$('#txtNoa').focus();
-                		}
+                		
                 	}
-                	if (q_cur == 4)   // ?d??
+                	if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
             }  /// end switch
         }
 
         function btnOk() {
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // ??d??? 
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
@@ -104,24 +98,17 @@
             q_box('salrank_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
-        function bbsAssign() {  /// ???B??
+        function bbsAssign() {  
             _bbsAssign();
         }
 
         function btnIns() {
-        	var t_noa= dec($('#txtNoa').val());
             _btnIns();
-            $('#txtNoa').val(t_noa+1);
-            $('#txtNoa').focus();
-            $('#txtLevel1').val('1');
-            $('#txtLevel2').val('31');
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            $('#txtNoa').attr('readonly', true);
-            $('#txtBo_admin').focus();
         }
         function btnPrint() {
 
@@ -134,9 +121,9 @@
             _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
         }
 
-        function bbsSave(as) {   /// ?? ?g?J???w?e?A?g?J??n???
-            if (!as['class']) {  //???s????
-                as[bbsKey[1]] = '';   /// no2 ????A???s??
+        function bbsSave(as) {  
+            if (!as['class']) {  
+                as[bbsKey[1]] = ''; 
                 return;
             }
 

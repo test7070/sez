@@ -22,7 +22,7 @@
         var bbsNum = [['txtMoney',15,0,1]];
         var bbmMask = [];
         var bbsMask = [];
-        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
+        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
         
 
         $(document).ready(function () {
@@ -66,16 +66,11 @@
         }
 
 
-        function q_gtPost(t_name) {  /// ???U??? ...
+        function q_gtPost(t_name) { 
             switch (t_name) {
                 case q_name: 
                 	if (q_cur == 1){
-                		var as = _q_appendData("salrank", "", true);
-                		if(as[0]!=undefined){
-                			alert('????????J!!');
-                			$('#txtNoa').val('');
-                			$('#txtNoa').focus();
-                		}
+                		
                 	}
                 	if (q_cur == 4)   // ?d??
                         q_Seek_gtPost();
@@ -109,19 +104,12 @@
         }
 
         function btnIns() {
-        	var t_noa= dec($('#txtNoa').val());
             _btnIns();
-            $('#txtNoa').val(t_noa+1);
-            $('#txtNoa').focus();
-            $('#txtLevel1').val('1');
-            $('#txtLevel2').val('31');
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            $('#txtNoa').attr('readonly', true);
-            $('#txtBo_admin').focus();
         }
         function btnPrint() {
 
@@ -134,9 +122,9 @@
             _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
         }
 
-        function bbsSave(as) {   /// ?? ?g?J???w?e?A?g?J??n???
-            if (!as['sssno']) {  //???s????
-                as[bbsKey[1]] = '';   /// no2 ????A???s??
+        function bbsSave(as) {   
+            if (!as['sssno']) {  
+                as[bbsKey[1]] = '';  
                 return;
             }
 
@@ -162,7 +150,6 @@
 
             }  // j
         }
-        ///////////////////////////////////////////////////  ?H?U??????{???A????n????
         function refresh(recno) {
             _refresh(recno);
 
@@ -409,13 +396,13 @@
             <td class='td5'><span> </span><a id="lblW166" class="lbl" > </a></td>
             <td class="td6"><input id="txtW166"  type="text" class="txt num c1"/></td> 
         </tr>
-        <tr class="tr4">
+        <!--<tr class="tr4">
             <td class='td1'><span> </span><a id="lblW200" class="lbl" > </a></td>
             <td class="td2"><input id="txtW200"  type="text" class="txt num c1"/></td>
             <td class='td3'><span> </span><a id="lblW300" class="lbl" > </a></td>
             <td class="td4"><input id="txtW300"  type="text" class="txt num c1"/></td>
-        </tr>
-        <tr class="tr5">
+        </tr>-->
+        <tr class="tr4">
             <td class='td1'><span> </span><a id="lblHr_special" class="lbl" > </a></td>
             <td class="td2"><input id="txtHr_special"  type="text" class="txt num c1"/></td>
             <td class='td3'><span> </span><a id="lblMount" class="lbl" > </a></td>
@@ -436,12 +423,12 @@
                 <td align="center"><a id='lblW100_s'> </a></td>
                 <td align="center"><a id='lblW133_s'> </a></td>
                 <td align="center"><a id='lblW166_s'> </a></td>
-                <td align="center"><a id='lblW200_s'> </a></td>
-                <td align="center"><a id='lblW300_s'> </a></td>
+                <!--<td align="center"><a id='lblW200_s'> </a></td>
+                <td align="center"><a id='lblW300_s'> </a></td>-->
                 <td align="center"><a id='lblHr_special_s'> </a></td>
                 <td align="center"><a id='lblMemo_s'> </a></td>
-                <td align="center"><a id='lblHour_s'> </a></td>
-                <td align="center"><a id='lblAddwork_s'> </a></td>
+                <!--<td align="center"><a id='lblHour_s'> </a></td>
+                <td align="center"><a id='lblAddwork_s'> </a></td>-->
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
@@ -453,12 +440,12 @@
                 <td ><input class="txt num c1" id="txtW100.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtW133.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtW166.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtW200.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtW300.*"type="text" /></td>
+                <!--<td ><input class="txt num c1" id="txtW200.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtW300.*"type="text" /></td>-->
                 <td ><input class="txt num c1" id="txtHr_special.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtHour.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtAddwork.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
+                <!--<td ><input class="txt num c1" id="txtHour.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtAddwork.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>-->
             </tr>
         </table>
         </div>

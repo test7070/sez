@@ -23,7 +23,7 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        
+        aPop = new Array(['txtSno_', 'lblSno', 'sss', 'noa,namea', 'txtSno_,txtNamea_', 'sss_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -59,17 +59,29 @@
             	 	q_cmbParse("cmbMonkind", ('').concat(new Array('上期', '下期')));
             	 }
             	 table_change();
+            	 check_insed();
             });
             
-            $('#btnInput').change(function () {
-            	
+            var date_1='',date_2='',dtmp=0;
+            
+            $('#cmbMonkind').change(function () {
+            	getdtmp();
+            	check_insed();
+            });
+            
+            $('#btnInput').click(function () {
+            	getdtmp();
+            	var t_where = "where=^^ person='"+$('#cmbPerson').find("option:selected").text()+"' ^^";
+            	var t_where1 = "where[1]=^^ datea between '"+date_1+"' and '"+date_2+"' ^^";
+		        q_gt('salary_input', t_where+t_where1 , 0, 0, 0, "", r_accy);
             });
             
         }
 
         function q_boxClose(s2) { 
            var ret; 
-            switch (b_pop) {                   case 'conn':
+            switch (b_pop) {                   
+            	case 'conn':
 
                     break;
 
@@ -92,11 +104,100 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case 'sss':  
-                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
+                case 'salary_input':  
+						var as = _q_appendData("family", "", true);
+						for (var i = 0; i < as.length; i++) {
+							//判斷是否哪些員工要計算薪水
+		                    if ((!emp(as[i].ft_date) && as[i].ft_date >date_1)||(!emp(as[i].outdate)&&as[i].outdate<date_1||as[i].indate>$('#txtMon').val())) {
+		                        as.splice(i, 1);
+		                        i--;
+		                    }else{
+		                    	//判斷勞健保(部份公式再load已計算)
+									//健保費：只要離職 就一整個月不算(除離職日=月底最後一天 要算) 新進人員 就整月算
+									//勞保費：只要當月新進 或當月離職 就依照在職日數/30 去算	通常都是下期收 除了有離職的
+									//福利金：下期收 但新進人員到職未滿90日 不收；離職人員 只要離職當月就不收
+		                    	if(as[i].indate>=$('#txtMon').val()+'/01'&&date_2>=as[i].indate){//新進日在薪資月份內
+		                    		if (($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1)||($('#cmbMonkind').find("option:selected").text().indexOf('本月')>-1)){
+		                    			//在職日數
+		                    			var indays=parseInt(Math.abs(Date.parse(as[i].indate) -Date.parse(date_2)) /1000/60/60/24);
+		                    			//as[i].ch_health//健保費
+		                    			as[i].ch_labor=Math.round(as[i].ch_labor*indays/30); //勞保費
+		                    			as[i].ch_labor_comp=Math.round(as[i].ch_labor_comp*indays/30);//勞退公司
+		                    			as[i].ch_labor_self=Math.round(as[i].ch_labor_self*indays/30);//勞退個人
+		                    			as[i].tax=Math.round(as[i].tax*indays/30);//所得稅
+		                    		}else{
+		                    			as[i].ch_health=0;//健保費
+		                    			as[i].ch_labor=0; //勞保費
+		                    			as[i].ch_labor_comp=0;//勞退公司
+		                    			as[i].ch_labor_self=0;//勞退個人
+		                    			as[i].tax=0;//所得稅
+		                    		}
+		                    	}else if(as[i].outdate>=date_1 && date_2>=as[i].outdate){//離職日在搜尋範圍內
+		                    		//在職日數
+		                    		var indays=parseInt(Math.abs(Date.parse($('#txtMon').val()+'/01') -Date.parse(as[i].outdate)) /1000/60/60/24);
+		                    		//勞保退保日數
+		                    		var labor1days=parseInt(Math.abs(Date.parse($('#txtMon').val()+'/01') -Date.parse(as[i].labor1_edate)) /1000/60/60/24);
+		                    		//勞退退保日數
+		                    		var labor2days=parseInt(Math.abs(Date.parse($('#txtMon').val()+'/01') -Date.parse(as[i].labor2_edate)) /1000/60/60/24);
+		                    			
+		                    		if(as[i].outdate==date_2)
+		                    			as[i].ch_health=Math.round(as[i].ch_health+as[i].as_health);	//健保費
+		                    		else
+		                    			as[i].ch_health=0;
+		                    		as[i].ch_labor=Math.round(as[i].ch_labor*labor1days/30);//勞保費
+		                    		as[i].ch_labor_comp=Math.round(as[i].ch_labor_comp*labor2days/30);//勞退公司
+		                    		as[i].ch_labor_self=Math.round(as[i].ch_labor_self*labor2days/30);//勞退個人
+		                    		as[i].tax=Math.round(as[i].tax*indays/30);//所得稅
+		                    	}else{
+		                    		if (($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1)||($('#cmbMonkind').find("option:selected").text().indexOf('本月')>-1)){
+		                    			//as[i].ch_health//健保費
+		                    			//as[i].ch_labor //勞保費
+		                    			//as[i].ch_labor_comp//勞退公司
+		                    			//as[i].ch_labor_self//勞退個人
+		                    			//as[i].tax//所得稅
+		                    		}else{
+		                    			as[i].ch_health=0;//健保費
+		                    			as[i].ch_labor=0; //勞保費
+		                    			as[i].ch_labor_comp=0;//勞退公司
+		                    			as[i].ch_labor_self=0;//勞退個人
+		                    			as[i].tax=0;//所得稅
+		                    		}
+		                    	}
+		                    //請假扣薪
+		                    	//as[i].msaliday 
+		                    //其他項目
+		                    	if($('#cmbPerson').find("option:selected").text().indexOf('外勞')==-1)
+		                    		as[i].tax_other=as[i].tax_other+as[i].bo_born+as[i].bo_night+as[i].bo_day;
+		                   	//加班時數
+		                   		var t_fir =46,bef_fir01,bef_fir02;
+		                    	if((as[i].addh1+as[i].addh2)>46){
+		                    		bef_fir01=Math.min(as[i].addh1,t_fir);
+		                    		as[i].addh1=bef_fir01;
+		                    		as[i].addh46_1=as[i].addh1-bef_fir01;
+		                    		
+		                    		bef_fir02=t_fir-bef_fir01;
+		                    		as[i].addh2=bef_fir02;
+		                    		as[i].addh46_2=as[i].addh2-bef_fir02;
+		                    	}
+		                    	
+		                    }
+						}//end for
+						
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtSno,txtNamea,txtMoney,txtPubmoney,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtCh_labor1,txtCh_labor2,txtCh_health_insure,txtMsaliday,txtMi_saliday,txtBo_born,txtBo_night,txtBo_full,txtBo_duty,txtTax_other,txtAddh2_1,txtAddh2_2,txtAddh100,txtAddh46_1,txtAddh46_2,txtTax_other2,txtChg,txtCh_labor,txtChgcash,txtCh_labor_comp,txtCh_labor_self,txtLodging_power_fee,txtTax,txtStay_money,txtRaise_num,txtCh_health,txtLate,txtHr_sick,txtHr_person,txtHr_nosalary,txtHr_leave'
+															, as.length, as
+                                                           , 'sssno,namea,salary,pubmoney,bo_admin,bo_traffic,bo_special,bo_oth,ch_labor1,ch_labor2,ch_health_insure,,,bo_born,bo_night,bo_full,bo_day,tax_other,addh1,addh2,addh100,addh46_1,addh46_2,tax_other2,chg,ch_labor,chgcash,ch_labor_comp,ch_labor_self,lodging_power_fee,tax,stay_money,raise_num,ch_health,late,hr_sick,hr_person,hr_nosalary,hr_leave'
+                                                           , '');
+                         sum();
                     break;
 
-                case q_name: if (q_cur == 4)  
+                case q_name:
+                	var as = _q_appendData("salary", "", true);
+                	if(as[0]!=undefined)
+                 		insed=true;
+                 	else
+                 		insed=false;
+                 		
+                	if (q_cur == 4)  
                         q_Seek_gtPost();
 
                     if (q_cur == 1 || q_cur == 2) 
@@ -110,6 +211,11 @@
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  
             if (t_err.length > 0) {
                 alert(t_err);
+                return;
+            }
+            
+            if(insed){
+            	alert('該薪資作業已做過!!!');
                 return;
             }
 
@@ -192,7 +298,16 @@
             $('#txtMon').val(q_date().substr( 0,6));
             $('#txtMon').focus();
             table_change();
+            check_insed();
         }
+        
+        var insed=false;
+        function check_insed() {
+        	 //判斷是否已新增過
+           var t_where = "where=^^ mon='"+$('#txtMon').val()+"' and person='"+$('#cmbPerson').find("option:selected").text()+"' and monkind='"+$('#cmbMonkind').find("option:selected").text()+"' ^^";
+		    q_gt('salary', t_where , 0, 0, 0, "", r_accy);
+        }
+        
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
@@ -235,26 +350,7 @@
 
         function sum() {
         	//bbs計算
-        	var date_1='',date_2='',dtmp=0;
-        	var myDate = new Date(dec($('#txtMon').val().substr( 0,3))+1911,dec($('#txtMon').val().substr( 4,5)),0);
-        	var lastday=myDate.getDate();	//取當月最後一天
-        	if($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1){
-        		date_1=replaceAll($('#txtMon'+j).val()+'/01','/','');
-        		date_2=replaceAll($('#txtMon'+j).val()+'/15','/','');
-        		dtmp=15;
-        	}else if($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1){
-        		date_1=replaceAll($('#txtMon'+j).val()+'/16','/','');
-        		date_2=replaceAll($('#txtMon'+j).val()+'/'+lastday,'/','');
-        		dtmp=lastday-16+1;
-        	}else{
-        		date_1=replaceAll($('#txtMon'+j).val()+'/01','/','');
-        		date_2=replaceAll($('#txtMon'+j).val()+'/'+lastday,'/','');
-        		if($('#txtMon').val().substr( 4,5)=="02")
-        			dtmp=lastday;
-        		else
-        			dtmp=30;
-        	}
-        	
+        	getdtmp();
         	for (var j = 0; j < q_bbsCount; j++) {
         		//小計=本俸+公費+主管津貼+交通津貼+特別津貼+其他津貼
         		q_tr('txtTotal1_'+j,dec($('#txtMoney_'+j).val())+dec($('#txtPubmoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val()));
@@ -416,7 +512,34 @@
             _btnCancel();
         }
         
+        function getdtmp() {
+        	var myDate = new Date(dec($('#txtMon').val().substr( 0,3))+1911,dec($('#txtMon').val().substr( 4,5)),0);
+        	var lastday=myDate.getDate();	//取當月最後一天
+        	if($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1){
+        		date_1=$('#txtMon'+j).val()+'/01';
+        		date_2=$('#txtMon'+j).val()+'/15';
+        		dtmp=15;
+        	}else if($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1){
+        		date_1=$('#txtMon'+j).val()+'/16';
+        		date_2=$('#txtMon'+j).val()+'/'+lastday;
+        		dtmp=lastday-16+1;
+        	}else{
+        		date_1=$('#txtMon'+j).val()+'/01';
+        		date_2=$('#txtMon'+j).val()+'/'+lastday;
+        		if($('#txtMon').val().substr( 4,5)=="02")
+        			dtmp=lastday;
+        		else
+        			dtmp=30;
+        	}
+        }
+        
         function table_change() {
+        	if ($('#cmbPerson').find("option:selected").text().indexOf('外勞')>-1){
+            	 q_cmbParse("cmbMonkind", ('').concat(new Array('本月')));
+            }else{
+             	q_cmbParse("cmbMonkind", ('').concat(new Array('上期', '下期')));
+            }
+        	
              if ($('#cmbPerson').find("option:selected").text().indexOf('本國')>-1){
              	//bbm
             	 $('#lblDaymoney').attr('hidden', 'true');
@@ -723,21 +846,13 @@
              BORDER:1PX LIGHTGREY SOLID;
              width:100% ; height:98% ;  
         } 
-         .tbbs .td1
-        {
-            width: 1%;
-        }
-        .tbbs .td2
-        {
-            width: 2%;
-        }
-        
-       
-        
-      
     </style>
 </head>
-<body>
+<body ondragstart="return false" draggable="false"
+        ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"  
+        ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"  
+        ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' >
         <div class="dview" id="dview" style="float: left;  width:20%;"  >
