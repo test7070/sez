@@ -20,7 +20,7 @@
 			q_tables = 's';
 			var q_name = "carsal";
 			var q_readonly = ['txtNoa','txtWorker','txtTranmoney','txtDrivermoney','txtBonus','txtPlus','txtMoney',
-							  'txtTicket','txtLabor','txtHealth','txtMinus','txtCarborr','txtTotal','txtUnpay'];
+							  'txtTicket','txtLabor','txtHealth','txtMinus','txtCarborr','txtTotal','txtUnpay','txtEo'];
 			var q_readonlys = ['txtMoney','txtTotal'];
 			var bbmNum = [['txtTranmoney', 10, 0],['txtDrivermoney', 10, 0],['txtBonus', 10, 0],['txtPlus', 10, 0],['txtMoney', 10, 0],['txtTicket', 10, 0],
 						  ['txtLabor', 10, 0],['txtHealth', 10, 0],['txtMinus', 10, 0],['txtCarborr', 10, 0],['txtTotal', 10, 0]];
