@@ -61,7 +61,9 @@
             	 table_change();
             });
             
-            
+            $('#btnInput').change(function () {
+            	
+            });
             
         }
 
