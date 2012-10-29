@@ -676,7 +676,9 @@
             </tr>
             <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblMemo' class='lbl'> </a></td>
-                <td class="td2" colspan='7'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"></textarea></td> 
+                <td class="td2" colspan='5'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"></textarea></td>
+                <td class="td5"><span> </span><a id='lblWorker' class="lbl"> </a></td>
+                <td class="td6"><input id="txtWorker"  type="text" class="txt c1" /></td> 
             </tr>
         </table>
         </div>
