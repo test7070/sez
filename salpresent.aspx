@@ -16,10 +16,10 @@
         }
         q_tables = 's';
         var q_name = "salpresent";
-        var q_readonly = [];
+        var q_readonly = ['txtMount'];
         var q_readonlys = [];
-        var bbmNum = [['txtBo_admin',15,0,1],['txtBo_traffic',15,0,1],['txtBo_full',15,0,1],['txtBo_special',15,0,1],['txtBo_oth',15,0,1],['txtMoney',15,0,1],['txtDiff',15,0,1]];  
-        var bbsNum = [['txtMoney',15,0,1]];
+        var bbmNum = [['txtW100', 10, 1, 1],['txtW133', 10, 1, 1],['txtW166', 10, 1, 1],['txtHr_special', 10, 1, 1],['txtMount', 10, 0, 1]];  
+        var bbsNum = [['txtW100', 10, 1, 1],['txtW133', 10, 1, 1],['txtW166', 10, 1, 1],['txtHr_special', 10, 1, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
@@ -51,8 +51,14 @@
             q_getFormat();
             bbmMask = [['txtNoa', r_picd]];
             q_mask(bbmMask);
+            bbsMask = [['txtClockin', '99:99'],['txtClockout', '99:99']];
+            q_mask(bbsMask);
             
             
+            $('#btnInput').click(function () {
+            	var t_where = "where=^^ (outdate is null or outdate='' or outdate >'"+$('#txtNoa').val()+"') and noa not in (select sssno from salvacause where datea='"+$('#txtNoa').val()+"') ^^";
+            	q_gt('sss', t_where, 0, 0, 0, "", r_accy);
+            });
         }
 
         function q_boxClose(s2) { 
@@ -68,9 +74,18 @@
 
         function q_gtPost(t_name) { 
             switch (t_name) {
+            	case 'sss':
+            		var as = _q_appendData("sss", "", true);
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea', as.length, as, 'noa,namea', '');
+            		
+            	break;
                 case q_name: 
                 	if (q_cur == 1){
-                		
+                		var as = _q_appendData("salpresent", "", true);
+	                	if(as[0]!=undefined)
+	                 		insed=true;
+	                 	else
+	                 		insed=false;
                 	}
                 	if (q_cur == 4)   // ?d??
                         q_Seek_gtPost();
@@ -82,6 +97,11 @@
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // ??d??? 
             if (t_err.length > 0) {
                 alert(t_err);
+                return;
+            }
+            
+            if(insed&&q_cur==1){
+            	alert('該出勤作業已做過!!!');
                 return;
             }
 
@@ -102,14 +122,23 @@
         function bbsAssign() {  /// ???B??
             _bbsAssign();
         }
-
+		
+		var insed=false;
         function btnIns() {
             _btnIns();
+            $('#txtNoa').val(q_date());
+            $('#txtNoa').focus();
+            
+            //判斷當天是否新增過
+            var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^";
+		    q_gt('salpresent', t_where , 0, 0, 0, "", r_accy);
+            
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
+            $('#txtNoa').attr('disabled', 'disabled');
         }
         function btnPrint() {
 
@@ -145,10 +174,23 @@
         }
 
         function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0;
+            var t1 = 0, t_unit, t_mount=0, t_weight = 0;
+            var t_w100=0,t_w133=0,t_w166=0,t_hr_special=0;
             for (var j = 0; j < q_bbsCount; j++) {
-
+            	if(!emp($('#txtSssno'+j).val()))
+            		t_mount++;
+				t_w100+=dec($('#txtW100_'+j).val());
+				t_w133+=dec($('#txtW133_'+j).val());
+				t_w166+=dec($('#txtW166_'+j).val());
+				t_hr_special+=dec($('#txtHr_special_'+j).val());
             }  // j
+            
+            $('#txtW100').val(t_w100);
+            $('#txtW133').val(t_w133);
+            $('#txtW166').val(t_w166);
+            $('#txtHr_special').val(t_hr_special);
+            
+            $('#txtMount').val(t_mount);
         }
         function refresh(recno) {
             _refresh(recno);
@@ -360,13 +402,13 @@
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'> </a></td>
                 <td align="center" style="width:20%"><a id='vewNoa'> </a></td>
-                <td align="center" style="width:20%"><a id='vewData'> </a></td>
+                <td align="center" style="width:20%"><a id='vewMount'> </a></td>
                 
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='data'>~data</td>
+                   <td align="center" id='mount'>~mount</td>
                   
             </tr>
         </table>
@@ -376,18 +418,17 @@
         <tr class="tr1">
             <td class='td1'><span> </span><a id="lblNoa" class="lbl" > </a></td>
             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-            <td class="td3"><input id="txtDay" type="text" class="txt c1" /></td> 
+            <!--<td class="td3"><input id="txtDay" type="text" class="txt c1" /></td> 
             <td class='td4'><input id="txtRein" type="text" class="txt c1" /></td>
-            <td class="td5"><span> </span><a id="lblHours" class="lbl" > </a></td> 
+            <td class="td5"><span> </span><a id="lblHours" class="lbl" > </a></td>--> 
             <td class='td6'><input id="chkHoliday" type="checkbox" style=' '/><span> </span><a id="lblHoliday" > </a></td>
-            <td class="td7"> </td> 
+            <td class="td7"><input id="btnInput" type="button" /></td> 
         </tr>             
-        <tr class="tr2">
+        <!--<tr class="tr2">
             <td class='td1'><span> </span><a id="lblData" class="lbl" > </a></td>
             <td class="td2" colspan="3"><input id="txtData"  type="text" class="txt c1"/></td> 
             <td class='td5'><input id="btnGlance" type="button" /></td>
-            <td class='td6'><input id="btnInput" type="button" /></td>
-        </tr>   
+        </tr>-->   
         <tr class="tr3">
             <td class='td1'><span> </span><a id="lblW100" class="lbl" > </a></td>
             <td class="td2"><input id="txtW100"  type="text" class="txt num c1"/></td>

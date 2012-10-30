@@ -18,8 +18,8 @@
         var q_name = "labase";
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [['txtBo_admin',15,0,1],['txtBo_traffic',15,0,1],['txtBo_full',15,0,1],['txtBo_special',15,0,1],['txtBo_oth',15,0,1],['txtMoney',15,0,1],['txtDiff',15,0,1]];  
-        var bbsNum = [['txtMoney',15,0,1]];
+        var bbmNum = [['txtSalary', 15, 0, 1],['txtSa_retire', 15, 0, 1],['txtRe_comp', 15, 0, 1],['txtRe_person', 15, 0, 1],['txtSa_labor', 15, 0, 1],['txtAs_labor', 15, 0, 1],['txtLa_person', 15, 0, 1],['txtLa_comp', 15, 0, 1],['txtSa_health', 15, 0, 1],['txtAs_health', 15, 0, 1],['txtHe_person', 15, 0, 1],['txtHe_comp', 15, 0, 1],['txtTax', 15, 0, 1],['txtMount', 15, 0, 1]];  
+        var bbsNum = [['txtCh_money', 15, 0, 1],['txtAs_health', 15, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
@@ -49,8 +49,10 @@
        
         function mainPost() { 
             q_getFormat();
+            bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-            
+            bbsMask = [['txtBirthday', r_picd],['txtIdate', r_picd],['txtOutdate', r_picd]];
+            q_mask(bbsMask);
             
         }
 
@@ -83,7 +85,9 @@
                 alert(t_err);
                 return;
             }
-
+			
+			$('#txtMount').val(r_name);
+			
             $('#txtWorker').val(r_name)
             sum();
 
@@ -122,7 +126,7 @@
         }
 
         function bbsSave(as) {  
-            if (!as['class']) {  
+            if (!as['namea']) {  
                 as[bbsKey[1]] = ''; 
                 return;
             }
@@ -144,10 +148,12 @@
         }
 
         function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0;
+            var t1 = 0, t_unit, t_mount=0, t_weight = 0;
             for (var j = 0; j < q_bbsCount; j++) {
-
+            	if(!emp($('#txtNamea_'+j).val()))
+					t_mount++;
             }  // j
+            $('#txtMount').val(t_mount);
         }
         ///////////////////////////////////////////////////  ?H?U??????{???A????n????
         function refresh(recno) {
@@ -456,7 +462,7 @@
                 <td ><input class="txt c1" id="txtId.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtCh_money.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtAs_health.*"type="text" /></td>
-                <td ><input class="txt c1" id="txtIdate.*"type="text" /></td>
+                <td ><input class="txt c1" id="txtIndate.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtOutdate.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
             </tr>
         </table>

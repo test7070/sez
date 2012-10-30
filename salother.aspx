@@ -16,7 +16,7 @@
         }
         q_tables = 's';
         var q_name = "salother";
-        var q_readonly = [];
+        var q_readonly = ['txtNoa'];
         var q_readonlys = [];
         var bbmNum = [['txtTotal',15,0,1]];  
         var bbsNum = [['txtBo_borns',15,0,1],['txtBo_night',15,0,1],['txtBo_day',15,0,1],['txtOth_dutyfree',15,0,1],['txtOth_tax',15,0,1],['txtBorr',15,0,1],['txtCh_power',15,0,1],['txtChgcash',15,0,1],['txtCh_stay',15,0,1],['txtTotal',15,0,1]];
@@ -52,7 +52,21 @@
             bbmMask = [['txtMon', r_picm]];
             q_mask(bbmMask);
             
+            q_cmbParse("cmbPerson", q_getPara('person.typea'));
+            q_cmbParse("cmbMonkind", ('').concat(new Array('上期', '下期', '本月')));
             
+            $('#cmbPerson').change(function () {
+            	 if ($('#cmbPerson').find("option:selected").text().indexOf('外勞')>-1){
+            	 	q_cmbParse("cmbMonkind", ('').concat(new Array('本月')));
+            	 }else{
+            	 	q_cmbParse("cmbMonkind", ('').concat(new Array('上期', '下期')));
+            	 }
+            });
+            
+            $('#btnInput').click(function () {
+            	var t_where = "where=^^ person='"+$('#cmbPerson').find("option:selected").text()+"' ^^";
+		        q_gt('sss', t_where , 0, 0, 0, "", r_accy);
+            });
         }
 
         function q_boxClose(s2) { 
@@ -68,6 +82,23 @@
 
         function q_gtPost(t_name) { 
             switch (t_name) {
+            	case 'sss':
+            			var date_1='';
+            			if($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1){
+        					date_1=$('#txtMon').val()+'/16';
+        				}else{
+        					date_1=$('#txtMon').val()+'/01';
+        				}
+            			var as = _q_appendData("sss", "", true);
+						for (var i = 0; i < as.length; i++) {
+							//判斷是否哪些員工要寫入
+		                    if ((!emp(as[i].ft_date) && as[i].ft_date >date_1)||(!emp(as[i].outdate)&&as[i].outdate<date_1||as[i].indate>$('#txtMon').val())) {
+		                        as.splice(i, 1);
+		                        i--;
+		                    }
+		                 }
+		                 q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea', as.length, as, 'noa,namea', '');
+            	break;
                 case q_name: 
 
                 	if (q_cur == 4)   
@@ -87,7 +118,10 @@
             sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
-            wrServer(s1);
+            if (s1.length == 0 || s1 == "AUTO")   
+                q_gtnoa(q_name, replaceAll('O' + $('#txtMon').val(), '/', ''));
+            else
+                wrServer(s1);
         }
 
         function _btnSeek() {
@@ -98,12 +132,27 @@
         }
 
         function bbsAssign() { 
+        	for(var j = 0; j < q_bbsCount; j++) {
+           		if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+           			$('#txtBo_borns_'+j).change(function () {sum();});
+           			$('#txtBo_night_'+j).change(function () {sum();});
+           			$('#txtBo_day_'+j).change(function () {sum();});
+           			$('#txtOth_dutyfree_'+j).change(function () {sum();});
+           			$('#txtOth_tax_'+j).change(function () {sum();});
+           			$('#txtBorr_'+j).change(function () {sum();});
+           			$('#txtCh_power_'+j).change(function () {sum();});
+           			$('#txtChgcash_'+j).change(function () {sum();});
+           			$('#txtCh_stay_'+j).change(function () {sum();});
+            	}
+            }
             _bbsAssign();
         }
 
         function btnIns() {
             _btnIns();
-            $('#txtNoa').focus();
+            $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+            $('#txtMon').val(q_date().substr( 0,6));
+            $('#txtMon').focus();
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -145,9 +194,12 @@
 
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0;
+            var t_total=0;
             for (var j = 0; j < q_bbsCount; j++) {
-
+				q_tr('txtTotal_'+j,q_float('txtBo_borns_'+j)+q_float('txtBo_night_'+j)+q_float('txtBo_day_'+j)+q_float('txtOth_dutyfree_'+j)+q_float('txtOth_tax_'+j)+q_float('txtBorr_'+j)+q_float('txtCh_power_'+j)+q_float('txtChgcash_'+j)+q_float('txtCh_stay_'+j));
+				t_total+=dec($('#txtTotal_'+j).val());
             }  // j
+            q_tr('txtTotal',t_total);
         }
 
         function refresh(recno) {
@@ -324,6 +376,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size: medium;
             }
             .dbbs {
                 width: 100%;
@@ -381,9 +434,9 @@
         </tr>             
         <tr class="tr2">
             <td class='td1'><span> </span><a id="lblPerson" class="lbl" > </a></td>
-            <td class="td2"><input id="txtPerson"  type="text" class="txt c1"/></td>
-            <td class="td3"><select id="cmbKind" class="txt c1"> </select></td>
-            <td class='td4'><span> </span><a id="lblTypea"> </a></td>
+            <td class="td2"><select id="cmbPerson" class="txt c1"> </select></td>
+            <td class="td3"><span> </span><a id="lblTypea" class="lbl"> </a></td>
+            <td class='td4'><select id="cmbMonkind" class="txt c1"> </select></td>
             <td class="td2"><input id="btnInput"  type="button" class="txt c1"/></td>
         </tr>   
         <tr class="tr3">
