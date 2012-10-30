@@ -47,7 +47,14 @@
                     },{
                         type : '1',
                         name : 'xaccc3'
-                    }]
+                    }, {
+							type : '6',
+							name : 'xbal'
+					}, {/*4*/
+							type : '8',
+							name : 'xaccc5',
+							value : q_getPara('acc.bal').split(',')
+						}]
                 });
                 
                 $('#txtAcc1a').change(function () {
