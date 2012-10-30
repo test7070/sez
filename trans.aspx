@@ -556,6 +556,12 @@
 
 			function q_popPost(id) {
 				switch(id) {
+					case 'txtCustno':
+						if(q_cur==1 || q_cur==2){
+							$('#txtCaseuseno').val($('#txtCustno').val());
+							$('#txtCaseuse').val($('#txtComp').val());
+						}
+						break;
 					case 'txtStraddrno':
 
 						if (q_cur == 2 && $.trim($('#txtTrdno').val()).length > 0) {
