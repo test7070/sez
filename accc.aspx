@@ -1,0 +1,610 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+<head>
+    <title></title>
+    <script src="../script/jquery.min.js" type="text/javascript"></script>
+    <script src='../script/qj2.js' type="text/javascript"></script>
+        <script src='qset.js' type="text/javascript"></script>
+    <script src='../script/qj_mess.js' type="text/javascript"></script>
+    <script src="../script/qbox.js" type="text/javascript"></script>
+    <script src='../script/mask.js' type="text/javascript"></script>
+    <link href="../qbox.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        this.errorHandler = null;
+        function onPageError(error) {
+            alert("An error occurred:\r\n" + error.Message);
+        }
+        q_tables = 's';
+        var q_name = "accc";
+        var q_readonly = ['txtAccc3', 'txtChecker', 'txtZno', 'txtCno', 'txtWorker', 'txtDmoney', 'txtCmoney'];
+        var q_readonlys = ['txtAccc6'];
+        var t_prec, bbmNum, bbsNum;
+
+        var bbmMask = [];
+        var bbsMask = [];
+        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Accc2';
+        //ajaxPath = ""; // 只在根目錄執行，才需設定
+
+        $(document).ready(function () {
+            q_desc = 1;
+            bbmKey = ['accc3'];
+            bbsKey = ['accc3', 'noq'];
+
+            q_brwCount();
+
+            $('#textYear').text(r_accy + ' ' + (r_cno == '1' ? '' : r_cno));
+
+            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy + "_" + r_cno)  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
+        });
+
+        //////////////////   end Ready
+        function main() {
+            mainForm(1); // 1=最後一筆  0=第一筆
+
+        }  ///  end Main()
+
+        aPop = [['txtPart_', 'btnPart_', 'part', 'noa,part', 'txtPart_', "acpart_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+                ['txtAccc5_', 'btnAcc_', 'acc', 'acc1,acc2,acc7', 'txtAccc5_,txtAccc6_,txtAccc7_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+                ['txtAccc7_', 'btnQphr_', 'qphr', 'code,phr', 'txtAccc7_,txtAccc7_', "qPhr_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno, 'txtAccc5_']];
+
+        var dcType;
+        function mainPost() { // 載入資料完，未 refresh 前
+            try {
+                bbmMask = [['txtAccc2', '99/99']];
+                q_mask(bbmMask);
+                q_cmbParse("combAccc1", q_getPara('acc.typea')); // 需在 main_form() 後執行，才會載入 系統參數
+
+                t_prec = q_getPara('accc.prec');
+                t_prec = q_trv(t_prec);
+
+                bbmNum = [['txtDmoney', 16, t_prec, 1], ['txtCmoney', 16, t_prec, 1]];  // 允許 key 小數
+                bbsNum = [['txtDmoney', 10, t_prec, 1], ['txtCmoney', 10, t_prec, 1]];
+
+                $('#combAccc1').attr('disabled', 'disabled');
+                $('#combAccc1').css('background', t_background2);
+
+                dcType = q_getPara2('acc.dc');
+
+                $('#txtAccc1').change(function () {
+                    var i = $('#txtAccc1').val();
+                    $('#combAccc1').val(i); //$('#combAccc1')[0][i].innerText);
+                    if (i < '0' || i > '3') {
+                        $('#txtAccc1').val('3');
+                        $('#combAccc1').val('3');
+                    }
+                });
+
+                $('#btnAcuser').click(function () {
+                    q_box('acUser.aspx', 'acuser', "99%", "99%", q_getMsg("popAcuser"));
+                });
+
+                $('#combAccc1').change(function () {
+                    var i = parseInt($('#combAccc1').val(), 0);
+                    $('#txtAccc1').val(i);
+                });
+
+                $('#combAcuser').change(function () {
+                    if (q_cur > 0 && q_cur < 4) {
+                        var t_noa = $('#combAcuser').val();
+                        $('#combAcuser').val('');
+                        q_gt('acuser', "_wnoa='" + t_noa + "'", 3);
+                    }
+                });
+
+                if (r_rank < 8)
+                    $('#chkLok').attr('disabled', 'disabled');
+
+                q_gt('acomp', "_wnoa='" + r_cno + "'", 3);
+            }  // try
+            catch (e)
+            { errout(e, 'accc.refresh()'); }
+        }
+
+        //        function q_popFunc(s1) {
+        //            if (s1.substr(0,9) == 'txtAccc5_') {
+        //                var t_dc = $('#txtAccc4_' + b_seq).val();
+        //                t_dc = (t_dc == '貸' ? '　　' : '');
+        //                $('#txtAccc6_' + b_seq).val(t_dc + $('#txtAccc6_' + b_seq).val());
+        //            }
+        //        }
+
+        function q_gtPost(t_name) {  /// 資料下載後 ...
+            switch (t_name) {
+                case 'accc':
+                    if (q_cur == 4)   // 查詢
+                        q_Seek_gtPost();
+                    else {
+                        var as = _q_appendData('acuser', '', true), aTmp = [];
+                        aTmp[0] = ['', '']
+                        for (var i = 0; i < as.length; i++)
+                            aTmp[aTmp.length] = [as[i].noa + as[i].namea, as[i].noa];
+
+                        q_cmbAdd('combAcuser', aTmp);
+                    }
+                    break;
+                case 'acuser':
+                    var as = _q_appendData('acusers', '', true);
+
+                    ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtAccc4,txtAccc5,txtPart,txtAccc6,txtAccc7,txtAccc8', as.length, as
+                                                           , 'accc4,accc5,part,accc6,accc7,accc8'
+                                                           , 'txtAccc5');   /// 最後 aEmpField 不可以有【數字欄位】
+
+                    break;
+                case 'acomp': var as = _q_appendData('acomp');
+                    if (as && as.length > 0)
+                        $('#textYear').html(r_accy + as[0]['acomp']);
+                    break;
+//                case 'qphr': var as = _q_appendData('qphr', '', true);
+//                    if (as && as.length > 0)
+//                        $('#txtAccc7_' + b_seq).val(as[0]['phr']);
+//                    break;
+
+            }  /// end switch
+        }
+
+        function sum() {
+            var td = 0, tc = 0, t_accc8;
+            var s1 = '';
+            for (var j = 0; j < q_bbsCount; j++) {
+                //s1 = $('#txtAccc4_' + j).val();
+                //t_accc8 = dec($('#txtAccc8_' + j).val());
+                td = td + dec($('#txtDmoney_' + j).val());
+                tc = tc + dec($('#txtCmoney_' + j).val());
+            }  // j
+
+            q_tr('txtDmoney', td, t_prec);
+            q_tr('txtCmoney', tc, t_prec);
+        }
+
+        function btnOk() {
+            t_err = q_chkEmpField([['txtAccc3', q_getMsg('lblAccc3')], ['txtAccc2', q_getMsg('lblAccc2')]]);  // 檢查空白 
+            if (t_err.length > 0) {
+                alert(t_err);
+                return;
+            }
+
+            sum();
+            t_err = "";
+            var td = q_tr('txtDmoney');
+            var tc = q_tr('txtCmoney');
+
+            if (td != tc)
+                t_err = t_err + q_getMsg("msgMoneyDC") + dcType[0] + '=' + td + '   ' + dcType[1] + '=' + tc + "\r";
+
+            if (t_err) {
+                alert(t_err);
+                return;
+            }
+
+            var i = parseInt($('#combAccc1').val(), 0);
+            var s1 = $('#combAccc1')[0][i - 1].innerText.substr(0, 1);
+            //            if (s1 < '1' || s1 > '3') {
+            //                alert('Error = '+$('#combAccc1')[0][0].innerText);
+            //                return;
+            //            }
+            //$('#txtAccc1').val( s1);
+
+            $('#txtWorker').val(r_name)
+
+            s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
+            if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
+                q_gtnoa(q_name, replaceAll('' + $('#txtAccc2').val(), '/', ''));
+            else
+                wrServer(s1);
+        }
+
+        function _btnSeek() {
+            if (q_cur > 0 && q_cur < 4)  // 1-3
+                return;
+
+            q_box('accc_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+        }
+
+        function changeDC() {
+            //var s1 = ($('#txtAccc4_' + b_seq).val() == dcType[0] ? '' : '　　') + $.trim($('#txtAccc6_' + b_seq).val());
+            //$('#txtAccc6_' + b_seq).val(s1);
+        }
+
+        function q_popPost(s2) {
+            if (s2 == 'txtAccc5_')    /// for body
+                changeDC();
+        }
+
+        function bbsAssign() {  /// 表身運算式
+
+            aPop[0][5] = "acpart_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno;
+            aPop[1][5] = "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno;
+
+            for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
+                $('#txtAccc5_' + j).change(function () {
+                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+                    q_bodyId($(this).attr('id'));
+                    b_seq = t_IdSeq;
+
+                    var s1 = trim($(this).val());
+                    if (s1.length > 4 && s1.indexOf('.') < 0)
+                        $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
+                    if (s1.length == 4)
+                        $(this).val(s1 + '.');
+                });
+
+                //                $('#txtAccc8_' + j).focusout(function () { sum(); });
+
+                //                $('#txtAccc4_' + j).focus(function () {
+                //                    var s1 = $.trim($(this).val());
+                //                    if (s1.length == 0) {
+                //                        $(this).val(dcType[0]);
+                //                        $(this).select(); // ionStart = 0;
+                //                    }
+                //                });
+                //                $('#txtAccc4_' + j).change(function () {
+                //                    var s1 = $(this).val();
+
+                //                    if (s1.toLowerCase() == 'd')
+                //                        $(this).val(dcType[0]);
+
+                //                    if (s1.toLowerCase() == 'c')
+                //                        $(this).val(dcType[1]);
+
+                //                    s1 = $(this).val();
+
+                //                    if (s1 != dcType[0] && s1 != dcType[1])
+                //                        $(this).val(dcType[0]);
+
+
+                //                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+                //                    q_bodyId($(this).attr('id'));
+                //                    b_seq = t_IdSeq;
+                //                    changeDC();
+
+                //                    sum();
+                //                });
+
+                $('#txtDmoney_' + j).focusout(function () { sum(); });
+                $('#txtCmoney_' + j).focusout(function () { sum(); });
+//                $('#txtAccc7_' + j).focusout(function () {
+//                    var s1 = $(this).val();
+//                    if (s1.length == 1 && s1 == "=") {
+//                        t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+//                        q_bodyId($(this).attr('id'));
+//                        b_seq = t_IdSeq;
+//                        if (b_seq > 0) {
+//                            var i = b_seq - 1;
+//                            var s1 = $('#txtAccc7_' + i).val();
+//                            $('#txtAccc7_' + b_seq).val(s1);
+//                        }
+//                    }
+
+//                    if (s1.length < 6 && s1.substr(0, 1) == "-") {
+//                        t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+//                        q_bodyId($(this).attr('id'));
+//                        b_seq = t_IdSeq;
+
+//                        q_gt('qphr', " where=^^noa='" + $.trim(s1.substr(1)) + "'^^", 0, 1, 0, '', '');
+//                    }
+//                });
+
+//                $('#btnQphr_' + j).click(function (e) {
+//                    t_IdSeq = -1;
+//                    q_bodyId($(this).attr('id'));
+//                    b_seq = t_IdSeq;
+
+//                    q_box('qPhr_b.aspx' + "?;;;;" + r_accy, 'qphr', "800px", "600px", m_qphr);
+//                });
+
+            } //j
+            _bbsAssign();
+        }
+
+        function q_boxClose(s2) { ///   q_boxClose 2/4 /// 查詢視窗、廠商視窗、採購視窗  關閉時執行
+            var ret;
+            switch (b_pop) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
+                case 'qphr':
+                    if (q_cur > 0 && q_cur < 4) {
+                        b_ret = getb_ret();
+                        if (!b_ret || b_ret.length == 0)
+                            return;
+
+                        if (b_seq < 0 || b_seq >= q_bbsCount);
+                        $('#txtAccc7_' + b_seq).val(b_ret[0].phr);
+                    }
+                    break;
+
+                case q_name + '_s':
+                    q_boxClose2(s2); ///   q_boxClose 3/4
+                    break;
+            }   /// end Switch
+            b_pop = '';
+        }
+
+
+        function btnIns() {
+            _btnIns();
+            $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+            $('#txtAccc2').val(q_date().substr(r_len + 1));
+
+            $('#combAccc1').val(3);
+            $('#combAccc1').removeAttr('disabled');
+            $('#combAccc1').css('background', t_background);
+
+            $('#txtAccc1').focus();
+            $('#txtAccc1').val(3);
+        }
+        function btnModi() {
+            if (emp($('#txtAccc3').val()))
+                return;
+            _btnModi();
+            $('#txtAccc2').focus();
+        }
+        function btnPrint() {
+            q_box("z_acccp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtAccc3').val() + ";" + r_accy + "_" + r_cno, 'z_accc1', "95%", "90%", q_getMsg('popZ_accc1'));
+        }
+
+        function wrServer(key_value) {
+            var i;
+
+            $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+            _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
+        }
+
+        function bbsSave(as) {   /// 表身 寫入資料庫前，寫入需要欄位
+            var t_dmoney = dec(as['dmoney']), t_cmoney = dec(as['cmoney']);
+
+            if (!as['accc5'] && !as['accc6'] && !t_dmoney == 0 && t_cmoney == 0) {  //不存檔條件
+                as[bbsKey[1]] = '';   /// no2 為空，不存檔
+                return;
+            }
+
+            q_nowf();
+
+            as['accc1'] = abbm2['accc1'];
+            as['accc2'] = abbm2['accc2'];
+            as['accc3'] = abbm2['accc3'];
+            as['accc4'] = t_dmoney > 0 ? dcType[0] : dcType[1];
+            as['dc'] = t_dmoney > 0 ? '1' : '2';
+            as['accc8'] = t_dmoney > 0 ? t_dmoney : t_cmoney;
+
+            t_err = '';
+
+            var s1 = as['accc5'] + as['accc6'] + as['accc7'] + as['accc8'] + '\n';
+
+            if (dec(as['accc8']) == 0)
+                t_err = t_err + q_getMsg('msgAccc8') + s1;
+
+            if (dec(as['dmoney']) + dec(as['cmoney']) == 0 || (t_dmoney > 0 && t_cmoney > 0))
+                t_err = t_err + q_getMsg('msgAccc8') + t_dmoney + ' ' + t_cmoney;
+
+            if (!as['accc4'])
+                t_err = t_err + q_getMsg('msgAccc4') + s1;
+            if (!as['accc5'])
+                t_err = t_err + q_getMsg('msgAccc5') + s1;
+            if (!as['accc6'])
+                t_err = t_err + q_getMsg('msgAccc5') + s1;
+            if (as['accc8'] != null && (dec(as['accc8']) > 99999999999 || dec(as['accc8']) < -99999999999))
+                t_err = t_err + q_getMsg('msgMoneyErr') + s1;
+
+
+            q_bbsErr = q_bbsErr + t_err;
+            return true;
+        }
+
+
+        ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
+        function refresh(recno) {
+            _refresh(recno);
+            $('#combAccc1').val($('#txtAccc1').val());
+            $('#combAccc1').attr('disabled', 'disabled');
+            $('#combAccc1').css('background', t_background2);
+        }
+
+        function readonly(t_para, empty) {
+            _readonly(t_para, empty);
+        }
+
+        function btnMinus(id) {
+            _btnMinus(id);
+            sum();
+        }
+
+        function btnPlus(org_htm, dest_tag, afield) {
+            _btnPlus(org_htm, dest_tag, afield);
+        }
+
+        function q_appendData(t_Table) {
+            dataErr = !_q_appendData(t_Table);
+        }
+
+        function btnSeek() {
+            _btnSeek();
+        }
+
+        function btnTop() {
+            _btnTop();
+        }
+        function btnPrev() {
+            _btnPrev();
+        }
+        function btnPrevPage() {
+            _btnPrevPage();
+        }
+
+        function btnNext() {
+            _btnNext();
+        }
+        function btnNextPage() {
+            _btnNextPage();
+        }
+
+        function btnBott() {
+            _btnBott();
+        }
+        function q_brwAssign(s1) {
+            _q_brwAssign(s1);
+        }
+
+        function btnDele() {
+            _btnDele();
+        }
+
+        function btnCancel() {
+            _btnCancel();
+        }
+    </script>
+    <style type="text/css">
+        .tview
+        {
+            FONT-SIZE: 12pt;
+            COLOR:  Blue ;
+            background:#FFCC00;
+            padding: 3px;
+            TEXT-ALIGN:  center
+        }    
+        .tbbm
+        {
+            FONT-SIZE: 12pt;
+            COLOR: blue;
+            TEXT-ALIGN: left;
+            border-color: white; 
+            width:100%; border-collapse: collapse; background:#cad3ff;
+        } 
+        
+        .tbbs
+        {
+            FONT-SIZE: 12pt;
+            COLOR: blue ;
+            TEXT-ALIGN: left;
+             BORDER:1PX LIGHTGREY SOLID;
+             width:100% ; height:100% ;  
+        } 
+        
+       
+        .column1
+        {
+            width: 8%;
+        }
+        .column2
+        {
+            width: 10%;
+        }      
+        .column3
+        {
+            width: 8%;
+        }   
+        .column4
+        {
+            width: 10%;
+        }           
+         .label1
+        {
+            width: 8%; text-align:right;
+        }       
+        .label2
+        {
+            width: 8%;text-align:right;
+        }
+        .label3
+        {
+            width: 8%;text-align:right;
+        }
+        input[type="text"], input[type="button"] {
+                font-size: medium;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server" style="height: 100%">
+            <!--#include file="../inc/toolbar.inc"-->
+        <div id='dmain' style="overflow:hidden;">
+        <div class="dview" id="dview" style="float: left;  width:30%;"  >
+           <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+            <tr>
+                <td align="center" style="width:5%"><a id='vewChk'></a></td>
+                <td align="center" style="width:25%"><a id='vewAccc2'></a></td>
+                <td align="center" style="width:25%"><a id='vewAccc3'></a></td>
+                <td align="center" style="width:40%"><a id='vewDmoney'></a></td>
+            </tr>
+             <tr>
+                   <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
+                   <td align="center" id='accc2'>~accc2</td>
+                   <td align="center" id='accc3'>~accc3</td>
+                   <td align="center" id='dmoney,0'>~dmoney,0</td>
+            </tr>
+        </table>
+        </div>
+        <div class='dbbm' style="width: 65%;float: left;">
+        <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+            <tr>
+               <td class="label1"  align="right"><a id='lblAccc1'> </a></td>
+               <td class="column1" ><input id="txtAccc1" maxlength='20' type="text"  style='width:7%;'/><select id="combAccc1" style='width:88%;font-size: medium;' /></td>
+               <td class="label2" align="right" ><a id='lblYear'> </a></td>
+               <td class="column2" align='left' ><a id='textYear'> </a></td>
+               <td class="label3" align="right"><a id='lblAcuser'> </a></td>
+               <td class="column3" > <select id="combAcuser" style='width:100%; font-size:medium'> </select></td> 
+           </tr>
+           <tr>
+               <td class="label1" align="right" ><a id='lblAccc2'> </a></td>
+               <td class="column2"><input id="txtAccc2" maxlength='10' type="text"  style='width:97%;'/></td>
+               <td class="label2" align="right"><a id='lblAccc3'> </a></td>
+               <td class="column2" ><input id="txtAccc3"   type="text"  maxlength='30'   style='width:97%;'/></td> 
+               <td class="label3" align="right"><a id='lblDmoney'> </a></td>
+               <td class="column3" ><input id="txtDmoney" type="text"  maxlength='30'   style='width:97%;text-align:right;'/></td> 
+            </tr>
+
+            <tr>
+                <td class="label1"><a id='lblWorker'> </a></td>
+                <td class="column1" ><input id="txtWorker"  type="text"  maxlength='20'style='width:97%; text-align:center;'/></td> 
+                <td class="label2"><a id='lblChecker'> </a></td>
+                <td class="column2"><input id="txtChecker"  type="text"  maxlength='20'style='width:97%; text-align:center;'/></td> 
+                <td class="label3"><a id='lblCmoney'> </a></td>
+                <td class="column3" ><input id="txtCmoney" type="text"  maxlength='30'   style='width:97%;text-align:right;'/></td> 
+            </tr>
+
+
+            <tr>
+                <td class="label1"><a id='lblZno'> </a></td>
+                <td class="column1" ><input id="txtZno"  type="text"  maxlength='20'style='width:97%; text-align:center;'/></td> 
+                <td class="label2"><a id='lblCno'> </a></td>
+                <td class="column2"><input id="txtCno"  type="text"  maxlength='20'style='width:97%; text-align:center;'/></td> 
+                <td class="label3"><a id='lblLok'> </a></td>
+                <td ><input id="chkLok" type="checkbox"  style='width:10%;float:left'/></td> 
+            </tr>
+
+             </table>
+        </div>
+        </div>
+
+        <div class='dbbs' > <%--style="overflow-x: hidden; overflow-y: scroll; height:200px"  --%>
+        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
+            <tr style='color:White; background:#003366;' >
+                <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
+                <td align="center" style="width:6%;"><a id='lblPart'> </a></td>
+                <td align="center" style="width:11%;"><a id='lblAccc5'> </a></td>
+                <td align="center" style="width:16%;"><a id='lblAccc6'> </a></td>
+                <td align="center" style="width:30%;"><a id='lblAccc7'> </a></td>
+                <td align="center" style="width:10%;"><a id='lblDmoney_s'> </a></td>
+                <td align="center" style="width:10%;"><a id='lblCmoney_s'> </a></td>
+<%--                <td align="center" style="width:6%;"><a id='lblCoin'> </a></td>
+                <td align="center" style="width:6%;"><a id='lblFloata'> </a></td>--%>
+            </tr>
+            <tr  style='background:#cad3ff;'>
+              <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+              <td><input class="txt" id="txtPart.*" type="text" maxlength='90' style="width:45%; " />
+                                    <input class="btn"  id="btnPart.*" type="button" value='.' style=" font-weight: bold; " /></td>
+              <td ><input class="txt" id="txtAccc5.*" type="text" maxlength='90' style="width:70%;" />
+                                    <input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;" /></td>
+                <td ><input class="txt" id="txtAccc6.*" type="text" style="width:97%;"/></td>
+                <td > <input class="btn"  id="btnQphr.*" type="button" value='.'  />
+                      <input class="txt" id="txtAccc7.*" type="text" style="width:90%;"/>
+                      <input class="txt" id="txtbal.*" type="text" style="width:97%;"/></td>
+                <td ><input class="txt" id="txtDmoney.*" type="text" maxlength='20' style="width:97%; text-align:right;"/></td>
+                <td ><input class="txt" id="txtCmoney.*" type="text" maxlength='20' style="width:97%; text-align:right;"/><input class="txt" id="txtNoq.*" type="hidden" style="width:90%;" /></td>
+<%--                <td ><input class="txt" id="txtCoin.*" type="text" maxlength='90' style="width:97%;"/></td>
+                <td ><input class="txt" id="txtFloata.*" type="text" maxlength='90' style="width:97%;text-align:right;"/></td>--%>
+            </tr>
+        </table>
+        </div>
+        <input id="q_sys" type="hidden" />
+    </form>
+</body>
+</html>
