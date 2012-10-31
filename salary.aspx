@@ -177,6 +177,7 @@
 		                    	as[i].bo_full=0;
 		                    
 		                    //其他項目
+		                    	//應稅其他=應稅其他+生產獎金+夜班津貼+值班津貼
 		                    	if($('#cmbPerson').find("option:selected").text().indexOf('外勞')==-1)
 		                    		as[i].tax_other=dec(as[i].tax_other)+dec(as[i].bo_born)+dec(as[i].bo_night)+dec(as[i].bo_day);
 		                   	//加班時數

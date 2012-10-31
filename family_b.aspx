@@ -10,7 +10,7 @@
 <script src='../script/mask.js' type="text/javascript"></script>
 
 <script type="text/javascript">
-    var q_name = 'family', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
+    var q_name = 'family', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
     var t_sqlname = 'family_load'; t_postname = q_name;
     var isBott = false;  /// 是否已按過 最後一頁
     var afield, t_htm;
@@ -138,7 +138,7 @@
         <table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style="width: 100%;" >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width: 5%;"><a id='lblNoq'></a></td>
+                <!--<td align="center" style="width: 5%;"><a id='lblNoq'></a></td>-->
                 <td align="center" class="td1"><a id='lblPrefix'></a></td>
                 <td align="center" class="td1"><a id='lblNamea'></a></td>
                 <td align="center" class="td1"><a id='lblBirthday'></a></td>
@@ -147,12 +147,11 @@
                 <td align="center" class="td1"><a id='lblAs_health'></a></td>
                 <td align="center" class="td1"><a id='lblIndate'></a></td>
                 <td align="center" class="td1"><a id='lblOutdate'></a></td>
-                <td align="center" ><a id='lblMemo'></a></td>
+                <!--<td align="center" ><a id='lblMemo'></a></td>-->
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  /></td>
-                <td ><input class="txt c1" id="txtNoq.*" type="text" /></td>
-                <td ><input class="txt c1"  id="txtPrefix.*" type="text" /></td>
+                <td ><input class="txt c1"  id="txtPrefix.*" type="text" /><input class="txt c1" id="txtNoq.*" type="hidden" /><input id="txtNoa.*" type="hidden" /></td>
                 <td ><input class="txt c1" id="txtNamea.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtBirthday.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtId.*" type="text" /></td>
@@ -160,8 +159,7 @@
                 <td ><input class="txt c1" id="txtAs_health.*" type="text" style="text-align: right;" /></td>
                 <td ><input class="txt c1" id="txtIndate.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtOutdate.*" type="text"/></td>
-                <td ><input class="txt c1" id="txtMemo.*" type="text"/>
-                <input id="txtNoa.*" type="hidden" /></td>
+                <!--<td ><input class="txt c1" id="txtMemo.*" type="text"/></td>-->
             </tr>
         </table>
     <!--#include file="../inc/pop_save.inc"--> 
