@@ -594,9 +594,8 @@
               <td ><input class="txt" id="txtAccc5.*" type="text" maxlength='90' style="width:70%;" />
                                     <input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;" /></td>
                 <td ><input class="txt" id="txtAccc6.*" type="text" style="width:97%;"/></td>
-                <td > <input class="btn"  id="btnQphr.*" type="button" value='.'  />
-                      <input class="txt" id="txtAccc7.*" type="text" style="width:90%;"/>
-                      <input class="txt" id="txtbal.*" type="text" style="width:97%;"/></td>
+                <td ><input class="txt" id="txtAccc7.*" type="text" style="width:97%;"/>
+                     <input class="txt" id="txtbal.*" type="text" style="width:97%;"/></td>
                 <td ><input class="txt" id="txtDmoney.*" type="text" maxlength='20' style="width:97%; text-align:right;"/></td>
                 <td ><input class="txt" id="txtCmoney.*" type="text" maxlength='20' style="width:97%; text-align:right;"/><input class="txt" id="txtNoq.*" type="hidden" style="width:90%;" /></td>
 <%--                <td ><input class="txt" id="txtCoin.*" type="text" maxlength='90' style="width:97%;"/></td>
