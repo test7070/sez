@@ -447,7 +447,7 @@
                         <tr>
                             <td align="center" style="width:5%"><a id='vewChk'></a></td>
                             <td align="center" style="width:5%"><a id='vewDatea'></a></td>
-                            <td align="center" style="width:25%"><a id='vewChgitem'></a></td>
+                            <td align="center" style="width:25%"><a id='vewAcc2'></a></td>
                             <td align="center" style="width:15%"><a id='vewMoney'></a></td>
                             <td align="center" style="width:10%"><a id='vewNamea'></a></td>
                             <td align="center" style="width:15%"><a id='vewChecker'></a></td>
@@ -457,7 +457,7 @@
                         <tr>
                             <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                             <td align="center" id='datea'>~datea</td>
-                            <td id='chgitem' style="text-align: left;">~chgitem</td>
+                            <td id='acc2' style="text-align: left;">~acc2</td>
                             <td id='money' style="text-align: right;">~money</td>
                             <td align="center" id='namea'>~namea</td>
                             <td align="center" id='checker'>~checker</td>
@@ -469,26 +469,24 @@
                 <div class='dbbm' style="float: left;">
                     <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
                         <tr class="tr1">
-                            <td class="td1"><span> </span><a id="lblDatea" class="lbl"></a></td>
+                            <td class="td1"><span> </span><a id="lblDatea" class="lbl"> </a></td>
                             <td class="td2"><input id="txtDatea"  type="text"  class="txt c1"/></td>
-                            <td class="td3"><span> </span><a id="lblTime" class="lbl"></a></td>
+                            <td class="td3"><span> </span><a id="lblTime" class="lbl"> </a></td>
                             <td class="td4"><input id="txtTime"  type="text"  class="txt c1"/></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
-                            <td class="td7"></td>
-                            <td class="td8"></td>
+                            <td class="td5"> </td>
+                            <td class="td6"> </td>
+                            <td class="td7"> </td>
+                            <td class="td8"> </td>
                         </tr>
                         <tr class="tr2">
-                            <td class="td1"><span> </span><a id="lblAcc" class="lbl btn" ></a></td>
-                            <td class="td2"><input id="txtAcc1"  type="text"  class="txt c2"/>
-                            <input id="txtAcc2"  type="text"  class="txt c3"/></td>                           
-                            <td class="td3" style="display:none"><span> </span><a id="lblChgitem" class="lbl btn"></a></td>
-                            <td class="td4" style="display:none"><input id="txtChgitemno"  type="text"  class="txt c2"/>
+                        	<td class="td1"><span> </span><a id="lblAcc" class="lbl btn" ></a></td>
+                            <td class="td2"><input id="txtAcc1"  type="text"  class="txt c1"/></td>
+                            <td class="td3" colspan="2"><input id="txtAcc2"  type="text" class="txt c1"/></td>                        
+                            <td class="td5" style="display:none"><span> </span><a id="lblChgitem" class="lbl btn"></a></td>
+                            <td class="td6" style="display:none"><input id="txtChgitemno"  type="text"  class="txt c2"/>
                             <input id="txtChgitem"  type="text"  class="txt c3"/></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
-                            <td class="td7"></td>
-                            <td class="td8"></td>
+                            <td class="td7"> </td>
+                            <td class="td8"> </td>
                         </tr>
                         <tr>
                             <td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
