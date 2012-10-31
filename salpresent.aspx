@@ -54,6 +54,9 @@
             bbsMask = [['txtClockin', '99:99'],['txtClockout', '99:99']];
             q_mask(bbsMask);
             
+             $('#chkHoliday').click(function () {
+            	table_change();
+            });
             
             $('#btnInput').click(function () {
             	var t_where = "where=^^ (outdate is null or outdate='' or outdate >'"+$('#txtNoa').val()+"') and noa not in (select sssno from salvacause where datea='"+$('#txtNoa').val()+"') ^^";
@@ -77,7 +80,7 @@
             	case 'sss':
             		var as = _q_appendData("sss", "", true);
             		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea', as.length, as, 'noa,namea', '');
-            		
+            		table_change();
             	break;
                 case q_name: 
                 	if (q_cur == 1){
@@ -132,7 +135,7 @@
             //判斷當天是否新增過
             var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^";
 		    q_gt('salpresent', t_where , 0, 0, 0, "", r_accy);
-            
+            table_change();
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -194,7 +197,7 @@
         }
         function refresh(recno) {
             _refresh(recno);
-
+			table_change();
         }
 
         function readonly(t_para, empty) {
@@ -248,6 +251,44 @@
 
         function btnCancel() {
             _btnCancel();
+        }
+        
+        function table_change() {
+            if($('#chkHoliday')[0].checked){
+            	//bbm
+            	$('#hid_w133a').attr('hidden', 'true');
+            	$('#hid_w133b').attr('hidden', 'true');
+            	$('#hid_w166a').attr('hidden', 'true');
+            	$('#hid_w166b').attr('hidden', 'true');
+			    $('#hid_w100a').removeAttr('hidden');
+			    $('#hid_w100b').removeAttr('hidden');
+			    //bbs
+			    $('#hid_w133s').attr('hidden', 'true');
+			    $('#hid_w166s').attr('hidden', 'true');
+			    $('#hid_w100s').removeAttr('hidden');
+			    for (var j = 0; j < q_bbsCount; j++) {
+			    	$('#hid_w133s_'+j).attr('hidden', 'true');
+				    $('#hid_w166s_'+j).attr('hidden', 'true');
+				    $('#hid_w100s_'+j).removeAttr('hidden');
+			    }
+            }else{
+            	//bbm
+            	$('#hid_w133a').removeAttr('hidden');
+            	$('#hid_w133b').removeAttr('hidden');
+            	$('#hid_w166a').removeAttr('hidden');
+            	$('#hid_w166b').removeAttr('hidden');
+			    $('#hid_w100a').attr('hidden', 'true');
+			    $('#hid_w100b').attr('hidden', 'true');
+			    //bbs
+			    $('#hid_w133s').removeAttr('hidden');
+			    $('#hid_w166s').removeAttr('hidden');
+			    $('#hid_w100s').attr('hidden', 'true');
+			    for (var j = 0; j < q_bbsCount; j++) {
+			    	$('#hid_w133s_'+j).removeAttr('hidden');
+				    $('#hid_w166s_'+j).removeAttr('hidden');
+				    $('#hid_w100s_'+j).attr('hidden', 'true');
+			    }
+            }
         }
     </script>
     <style type="text/css">
@@ -430,12 +471,12 @@
             <td class='td5'><input id="btnGlance" type="button" /></td>
         </tr>-->   
         <tr class="tr3">
-            <td class='td1'><span> </span><a id="lblW100" class="lbl" > </a></td>
-            <td class="td2"><input id="txtW100"  type="text" class="txt num c1"/></td>
-            <td class='td3'><span> </span><a id="lblW133" class="lbl" > </a></td>
-            <td class="td4"><input id="txtW133"  type="text" class="txt num c1"/></td>
-            <td class='td5'><span> </span><a id="lblW166" class="lbl" > </a></td>
-            <td class="td6"><input id="txtW166"  type="text" class="txt num c1"/></td> 
+            <td class='td1' id='hid_w133a'><span> </span><a id="lblW133" class="lbl" > </a></td>
+            <td class="td2" id='hid_w133b'><input id="txtW133"  type="text" class="txt num c1"/></td>
+            <td class='td3' id='hid_w166a'><span> </span><a id="lblW166" class="lbl" > </a></td>
+            <td class="td4" id='hid_w166b'><input id="txtW166"  type="text" class="txt num c1"/></td> 
+            <td class='td5' id='hid_w100a'><span> </span><a id="lblW100" class="lbl" > </a></td>
+            <td class="td6" id='hid_w100b'><input id="txtW100"  type="text" class="txt num c1"/></td>
         </tr>
         <!--<tr class="tr4">
             <td class='td1'><span> </span><a id="lblW200" class="lbl" > </a></td>
@@ -461,9 +502,9 @@
                 <td align="center"><a id='lblClockin_s'> </a></td>
                 <td align="center"><a id='lblClockout_s'> </a></td>
                 <td align="center"><a id='lblCardno_s'> </a></td>
-                <td align="center"><a id='lblW100_s'> </a></td>
-                <td align="center"><a id='lblW133_s'> </a></td>
-                <td align="center"><a id='lblW166_s'> </a></td>
+                <td align="center" id='hid_w133s'><a id='lblW133_s'> </a></td>
+                <td align="center" id='hid_w166s'><a id='lblW166_s'> </a></td>
+                <td align="center" id='hid_w100s'><a id='lblW100_s'> </a></td>
                 <!--<td align="center"><a id='lblW200_s'> </a></td>
                 <td align="center"><a id='lblW300_s'> </a></td>-->
                 <td align="center"><a id='lblHr_special_s'> </a></td>
@@ -478,9 +519,9 @@
                 <td ><input class="txt c1" id="txtClockin.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtClockout.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtCardno.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtW100.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtW133.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtW166.*"type="text" /></td>
+                <td id='hid_w133s.*'><input class="txt num c1" id="txtW133.*"type="text" /></td>
+                <td id='hid_w166s.*'><input class="txt num c1" id="txtW166.*"type="text" /></td>
+                <td id='hid_w100s.*'><input class="txt num c1" id="txtW100.*"type="text" /></td>
                 <!--<td ><input class="txt num c1" id="txtW200.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtW300.*"type="text" /></td>-->
                 <td ><input class="txt num c1" id="txtHr_special.*"type="text" /></td>

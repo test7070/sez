@@ -23,7 +23,7 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        
+         aPop = new Array(['txtNoa', 'lblNoa', 'sss', 'noa,namea', 'txtNoa,txtNamea', 'sss_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -51,7 +51,7 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-            bbsMask = [['txtBirthday', r_picd],['txtIdate', r_picd],['txtOutdate', r_picd]];
+            bbsMask = [['txtBirthday', r_picd],['txtIndate', r_picd],['txtOutdate', r_picd]];
             q_mask(bbsMask);
             
         }
@@ -384,7 +384,7 @@
         <div class='dbbm' style="width: 68%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr class="tr1">
-            <td class='td1'><span> </span><a id="lblNoa" class="lbl" > </a></td>
+            <td class='td1'><span> </span><a id="lblNoa" class="lbl btn" > </a></td>
             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
             <td class='td3'><span> </span><a id="lblNamea" class="lbl" > </a></td>
             <td class="td4"><input id="txtNamea" type="text" class="txt c1" /></td> 
@@ -393,12 +393,12 @@
             <td class="td7"> </td>
         </tr>
         <tr class="tr2">
-            <td class='td1'><span> </span><a id="lblTypea" class="lbl" > </a></td>
-            <td class="td2"><input id="txtTypea" type="text" class="txt  c1" /></td>
-            <td class='td3'><span> </span><a id="lblDatea" class="lbl"> </a></td>
-            <td class="td4"><input id="txtDatea" type="text" class="txt  c1" /></td>
-            <td class='td5'><span> </span><a id="lblSalary" class="lbl"> </a></td>
-            <td class="td6"><input id="txtSalary" type="text" class="txt num c1" /></td>
+            <!--<td class='td1'><span> </span><a id="lblTypea" class="lbl" > </a></td>
+            <td class="td2"><input id="txtTypea" type="text" class="txt  c1" /></td>-->
+            <td class='td1'><span> </span><a id="lblDatea" class="lbl"> </a></td>
+            <td class="td2"><input id="txtDatea" type="text" class="txt  c1" /></td>
+            <td class='td3'><span> </span><a id="lblSalary" class="lbl"> </a></td>
+            <td class="td4"><input id="txtSalary" type="text" class="txt num c1" /></td>
         </tr>
         <tr class="tr3">
             <td class='td1'><span> </span><a id="lblSa_retire" class="lbl" > </a></td>

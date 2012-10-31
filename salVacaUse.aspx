@@ -43,7 +43,7 @@
             }///  end Main()
             
             var t_tot_special=0;//存放初始'特休假剩餘天數'
-
+			var insed=false;//判斷員工是否重覆請假
             function mainPost() {
             	q_getFormat();
             	bbmMask = [['txtDatea', r_picd]];
@@ -55,6 +55,19 @@
 			           		var t_where = "where=^^ noa ='"+$('#txtDatea').val().substr(0, 3)+"' ^^";
 			           		q_gt('salvaca', t_where , 0, 0, 0, "", r_accy);
 			        }
+			        if(!emp($('#txtSssno').val()) && !emp($('#txtDatea').val())){
+	            		//判斷員工是否重覆請假
+			           		var t_where = "where=^^ datea ='"+$('#txtDatea').val()+"' and sssno='"+$('#txtSssno').val()+"' ^^";
+			           		q_gt('salvacause', t_where , 0, 0, 0, "", r_accy);
+			        }
+	        	});
+	        	
+	        	$('#txtDatea').change(function () {
+	            	if(!emp($('#txtSssno').val()) && !emp($('#txtDatea').val())){
+	            		//判斷員工是否重覆請假
+			           		var t_where = "where=^^ datea ='"+$('#txtDatea').val()+"' and sssno='"+$('#txtSssno').val()+"' ^^";
+			           		q_gt('salvacause', t_where , 0, 0, 0, "", r_accy);
+			        }
 	        	});
 				
 	        	$('#txtHr_used').change(function () {
@@ -64,7 +77,14 @@
 	        			$('#txtHr_used').val('0');
 	        			return;
 	        		}
-	            	q_tr('txtTot_special',t_tot_special-q_float('txtHr_used'));
+	        		if(emp($('#txtHtype').val()))
+	        		{
+	        			alert('請先填寫假別!!');
+	        			$('#txtHr_used').val('0');
+	        			return;
+	        		}
+	        		if($('#txtHname').val().indexOf('特休')>-1)
+	            		q_tr('txtTot_special',t_tot_special-q_float('txtHr_used'));
 	        	});
             }
 
@@ -137,13 +157,18 @@
                    				}
                    			}
                    		}
+                   		break;
                     case q_name:
+                    	if(q_cur == 1){
+                    		var as = _q_appendData("salvacause", "", true);	
+                    		if(as[0]!=undefined){
+                    			insed=true;
+                    		}else{
+                    			insed=false;
+                    		}
+                    	}
                         if(q_cur == 4)
                             q_Seek_gtPost();
-
-                        if(q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                         break;
                 }  /// end switch
             }
@@ -156,6 +181,11 @@
 			           		var t_where = "where=^^ noa ='"+$('#txtDatea').val().substr(0, 3)+"' ^^";
 			           		q_gt('salvaca', t_where , 0, 0, 0, "", r_accy);
 			        	}
+			        	if(!emp($('#txtSssno').val()) && !emp($('#txtDatea').val())){
+		            		//判斷員工是否重覆請假
+				           		var t_where = "where=^^ datea ='"+$('#txtDatea').val()+"' and sssno='"+$('#txtSssno').val()+"' ^^";
+				           		q_gt('salvacause', t_where , 0, 0, 0, "", r_accy);
+			        	}
 		                break;
 		    	}
 			}
@@ -166,7 +196,7 @@
 
                 q_box('salvacause_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
-
+			
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
@@ -180,7 +210,8 @@
 				
 				t_tot_special=dec($('#txtTot_special').val())+dec($('#txtHr_used').val())
                 _btnModi();
-                $('#txtDatea').focus();
+                $('#txtHr_used').focus();
+                $('#txtDatea').attr('readonly', true);
                 $('#txtSssno').attr('readonly', true);
                 $('#txtNamea').attr('readonly', true);
             }
@@ -191,12 +222,18 @@
 
             function btnOk() {
                 var t_err = '';
-                t_err = q_chkEmpField([['txtSssno', q_getMsg('lblSss')],['txtHname', q_getMsg('txtHtype')]]);
+                t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')],['txtSssno', q_getMsg('lblSss')],['txtHname', q_getMsg('txtHtype')]]);
 
                 if(t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
+                
+                if(insed) {
+                    alert('該員工當天已請假!!!');
+                    return;
+                }
+                
                 var t_noa = trim($('#txtNoa').val());
 
                 if (t_noa.length == 0 || t_noa == "AUTO")
@@ -424,83 +461,45 @@
 					<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
 						<tr>
 							<td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-							<td class="td2">
-							<input id="txtNoa"  type="text"  class="txt c1"/>
-							</td>
-							<td class="td3" >
-							<!--<input id="btnAuto"  type="button" />-->
-							</td>
+							<td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
+							<td class="td3" ><!--<input id="btnAuto"  type="button" />--></td>
 							<td class="td4"></td>
 							<td class="td5" ></td>
 							<td class="td6"></td>
 						</tr>
 						<tr>
 							<td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
-							<td class="td2">
-							<input id="txtDatea"  type="text" class="txt c1" />
-							</td>
+							<td class="td2"><input id="txtDatea"  type="text" class="txt c1" /></td>
 							<td class="td3" ></td>
 							<td class="td4"></td>
 							<td class="td5" ></td>
 							<td class="td6"></td>
 						</tr>
 						<tr>
-							<td class="td1" ><span> </span>
-							<a id='lblSss' class="lbl btn"></a>
-							</td>
+							<td class="td1" ><span> </span>	<a id='lblSss' class="lbl btn"></a></td>
 							<td class="td2">
 								<input id="txtSssno"  type="text"  class="txt c2"/>
 								<input id="txtNamea"  type="text"  class="txt c3"/>
 							</td>
-							<td class="td3" ></td>
-							<td class="td4"></td>
+							<td class="td3" ><span> </span><a id='lblId' class="lbl"></a></td>
+							<td class="td4"><input id="txtId"  type="text" class="txt c1" /></td>
 							<td class="td5"></td>
 							<td class="td6"></td>
 						</tr>
 						<tr>
-							<td class="td1"><span> </span><a id='lblId' class="lbl"></a></td>
+							<td class="td1" ><span> </span>	<a id='lblHtype' class="lbl btn" ></a></td>
 							<td class="td2">
-							<input id="txtId"  type="text" class="txt c1" />
+								<input id="txtHtype"  type="text"  class="txt c2"/>
+								<input id="txtHname"  type="text"  class="txt c3"/>
 							</td>
-							<td class="td3"></td>
-							<td class="td4"></td>
-							<td class="td5"></td>
-							<td class="td6"></td>
-						</tr>
-						<tr>
-							<td class="td1" ><span> </span>
-							<a id='lblHtype' class="lbl btn" ></a>
-							</td>
-							<td class="td2">
-							<input id="txtHtype"  type="text"  class="txt c2"/>
-							<input id="txtHname"  type="text"  class="txt c3"/>
-							</td>
-							<td class="td3" ></td>
-							<td class="td4"></td>
-							<td class="td5"></td>
-							<td class="td6"></td>
-						</tr>
-						<tr>
-							<td class="td1"><span> </span><a id='lblHr_special' class="lbl"></a></td>
-							<td class="td2">
-							<input id="txtHr_special"  type="text" class="txt num c1" />
-							</td>
-							<td class="td3"></td>
-							<td class="td4"></td>
-							<td class="td5"></td>
-							<td class="td6"></td>
+							<td class="td3" ><span> </span><a id='lblHr_special' class="lbl"></a></td>
+							<td class="td4"><input id="txtHr_special"  type="text" class="txt num c1" /></td>
+							<td class="td5"><span> </span><a id='lblTot_special' class="lbl"></a></td>
+							<td class="td6"><input id="txtTot_special"  type="text" class="txt num c1" /></td>
 						</tr>
 						<tr>
 							<td class="td1"><span> </span><a id='lblHr_used' class="lbl"></a></td>
 							<td class="td2"><input id="txtHr_used"  type="text" class="txt num c1"/></td>
-							<td class="td3"></td>
-							<td class="td4"></td>
-							<td class="td5" ></td>
-							<td class="td6"></td>
-						</tr>
-						<tr>
-							<td class="td1"><span> </span><a id='lblTot_special' class="lbl"></a></td>
-							<td class="td2"><input id="txtTot_special"  type="text" class="txt num c1" /></td>
 							<td class="td3"></td>
 							<td class="td4"></td>
 							<td class="td5" ></td>

@@ -10,8 +10,8 @@
 <script src='../script/mask.js' type="text/javascript"></script>
 
 <script type="text/javascript">
-    var q_name = 'labase', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
-    var t_sqlname = 'labase_load'; t_postname = q_name;
+    var q_name = 'labases', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
+    var t_sqlname = 'labases_load'; t_postname = q_name;
     var isBott = false;  
     var afield, t_htm;
     var i, s1;
@@ -162,7 +162,7 @@
                 <!--<td ><input class="txt c1" id="txtMemo.*" type="text"/></td>-->
             </tr>
         </table>
-    <!--#include file="../inc/pop_save.inc"--> 
+    <!--#include file="../inc/pop_modi.inc"--> 
 </div>
         <input id="q_sys" type="hidden" />
 </body>

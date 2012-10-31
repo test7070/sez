@@ -52,7 +52,7 @@
 				q_cmbParse("cmbPerson", q_getPara('person.typea'));
 				q_cmbParse("cmbRecord", ('').concat(new Array('國小', '國中', '高中', '高職', '大專', '大學', '碩士', '博士')));
 				$('#btnFamily').click(function(e) {
-					q_box("family_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'family', "850px", "600px", q_getMsg("popFamily"));
+					q_box("labases_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'family', "850px", "600px", q_getMsg("popFamily"));
 				});
 				$('#btnSaladjust').click(function(e) {
 					q_box("salAdjust.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'saladjust', "850px", "600px", q_getMsg("popSaladjust"));

@@ -18,46 +18,48 @@
         var q_name = "labsal";
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [['txtBo_admin',15,0,1],['txtBo_traffic',15,0,1],['txtBo_full',15,0,1],['txtBo_special',15,0,1],['txtBo_oth',15,0,1],['txtMoney',15,0,1],['txtDiff',15,0,1]];  
-        var bbsNum = [['txtMoney',15,0,1]];
+        var bbmNum = [];  
+        var bbsNum = [];
         var bbmMask = [];
         var bbsMask = [];
-        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        //ajaxPath = ""; // �u�b�ڥؿ����A�~�ݳ]�w
+        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
+        //ajaxPath = ""; 
 
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
             
-            q_brwCount();  // �p�� �X�A  brwCount 
+            q_brwCount();  
 
-            q_gt(q_name, q_content, q_sqlCount, 1)  /// q_sqlCount=�̫e�� top=���ơA q_init ����J q_sys.xml �P q_LIST
+            q_gt(q_name, q_content, q_sqlCount, 1)  
 
         });
 
         //////////////////   end Ready
         function main() {
-            if (dataErr)  /// ��J��ƿ�~
+            if (dataErr)  
             {
                 dataErr = false;
                 return;
             }
 
-            mainForm(1); // 1=�̫�@��  0=�Ĥ@��
+            mainForm(1); 
         }  
 
        
-        function mainPost() { // ��J��Ƨ��A�� refresh �e
+        function mainPost() { 
             q_getFormat();
             bbmMask = [['txtNoa', r_picd]];
             q_mask(bbmMask);
             
-            
+            $('#txtSalary').change(function () {
+            	q_gt('labsal', t_where+t_where1+t_where2+t_where3 , 0, 0, 0, "", r_accy);
+            });
         }
 
-        function q_boxClose(s2) { ///   q_boxClose 2/4 /// �d�ߵ�B�Ȥ��B����  �����ɰ���
+        function q_boxClose(s2) {
             var ret;
-            switch (b_pop) {   /// ���n�G���i�H���� return �A�̫�ݰ��� originalClose();
+            switch (b_pop) {   
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -66,25 +68,20 @@
         }
 
 
-        function q_gtPost(t_name) {  /// ��ƤU��� ...
+        function q_gtPost(t_name) {  
             switch (t_name) {
                 case q_name: 
                 	if (q_cur == 1){
-                		var as = _q_appendData("salrank", "", true);
-                		if(as[0]!=undefined){
-                			alert('¾�����ƿ�J!!');
-                			$('#txtNoa').val('');
-                			$('#txtNoa').focus();
-                		}
+                		
                 	}
-                	if (q_cur == 4)   // �d��
+                	if (q_cur == 4)  
                         q_Seek_gtPost();
                     break;
             }  /// end switch
         }
 
         function btnOk() {
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // �ˬd�ť� 
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
@@ -104,24 +101,19 @@
             q_box('labsal_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
-        function bbsAssign() {  /// �?�B�⦡
+        function bbsAssign() {  
             _bbsAssign();
         }
 
         function btnIns() {
         	var t_noa= dec($('#txtNoa').val());
             _btnIns();
-            $('#txtNoa').val(t_noa+1);
             $('#txtNoa').focus();
-            $('#txtLevel1').val('1');
-            $('#txtLevel2').val('31');
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            $('#txtNoa').attr('readonly', true);
-            $('#txtBo_admin').focus();
         }
         function btnPrint() {
 
@@ -134,9 +126,9 @@
             _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
         }
 
-        function bbsSave(as) {   /// �? �g�J��Ʈw�e�A�g�J�ݭn���
-            if (!as['class']) {  //���s�ɱ��
-                as[bbsKey[1]] = '';   /// no2 ���šA���s��
+        function bbsSave(as) {   
+            if (!as['class']) {  
+                as[bbsKey[1]] = '';   
                 return;
             }
 
@@ -162,7 +154,7 @@
 
             }  // j
         }
-        ///////////////////////////////////////////////////  �H�U���Ѩƥ�{���A���ݭn�ɭק�
+        /////////////////////////////////////////////////// 
         function refresh(recno) {
             _refresh(recno);
 
@@ -382,22 +374,21 @@
         </div>
         <div class='dbbm' style="width: 68%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
-        <tr>
+        	<tr>
             <td class='td1'><span> </span><a id="lblNoa" class="lbl" > </a></td>
             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-            <td class='td3'><span> </span><a id="lblInsur_accident" class="lbl" > </a></td>
-            <td class="td4"><input id="txtInsur_accident" type="text" class="txt num c1" /></td> 
-            <td class='td5'><span> </span><a id="lblInsur_job" class="lbl" > </a></td>
-            <td class="td6"><input id="txtInsur_job" type="text"class="txt num c1" /></td> 
-            <td class="td7"> </td>
+            </tr>
+        <tr>
+            <td class='td1'><span> </span><a id="lblInsur_accident" class="lbl" > </a></td>
+            <td class="td2"><input id="txtInsur_accident" type="text" class="txt num c1" /></td> 
+            <td class='td3'><span> </span><a id="lblInsur_job" class="lbl" > </a></td>
+            <td class="td4"><input id="txtInsur_job" type="text"class="txt num c1" /></td> 
         </tr>
-        <tr>            
-            <td class='td1'> </td>
-            <td class="td2"> </td>
-            <td class='td3'><span> </span><a id="lblInsur_person" class="lbl" > </a></td>
-            <td class="td4"><input id="txtInsur_person" type="text" class="txt num c1" /></td>
-            <td class='td5'><span> </span><a id="lblInsur_comp" class="lbl"> </a></td>
-            <td class="td6"><input id="txtInsur_comp" type="text" class="txt num c1" /></td>
+        <tr>
+            <td class='td1'><span> </span><a id="lblInsur_person" class="lbl" > </a></td>
+            <td class="td2"><input id="txtInsur_person" type="text" class="txt num c1" /></td>
+            <td class='td3'><span> </span><a id="lblInsur_comp" class="lbl"> </a></td>
+            <td class="td4"><input id="txtInsur_comp" type="text" class="txt num c1" /></td>
         </tr>              
         </table>
         </div>
