@@ -101,7 +101,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('salrank_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+            q_box('labsal_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
         function bbsAssign() {  /// �?�B�⦡
@@ -265,7 +265,7 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 9%;
+                width: 11%;
             }
             .tbbm .tdZ {
                 width: 2%;
@@ -373,12 +373,10 @@
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:20%"><a id='vewNoa'></a></td>
-                
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='noa'>~noa</td>
-                  
             </tr>
         </table>
         </div>
