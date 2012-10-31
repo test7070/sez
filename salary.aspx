@@ -42,7 +42,8 @@
 
             mainForm(1); 
         }  
-		
+        
+		//紀錄工作開始日期、結束日期和工作天數(上期、下期、本月)
 		var date_1='',date_2='',dtmp=0;
 		
         function mainPost() {
@@ -106,7 +107,7 @@
         function q_gtPost(t_name) {  
             switch (t_name) {
                 case 'salary_import':  
-						var as = _q_appendData("family", "", true);
+						var as = _q_appendData("labases", "", true);
 						for (var i = 0; i < as.length; i++) {
 							//判斷是否哪些員工要計算薪水
 		                    if ((!emp(as[i].ft_date) && as[i].ft_date >date_1)||(!emp(as[i].outdate)&&as[i].outdate<date_1||as[i].indate>$('#txtMon').val())) {
@@ -166,8 +167,8 @@
 		                    		}
 		                    	}
 		                    //請假扣薪
-		                    	as[i].msaliday= dec(as[i].inday)-(dec(as[i].late)/8);//給薪日數=上班天數-(遲到時數/8)-->一天工作8小時為基準
-		                    	as[i].mi_saliday=(dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave))/8; //扣薪日數=病假(時)+事假(時)+曠工(時)/8--->一天工作8小時為基準
+		                    	as[i].msaliday= dec(as[i].inday)-dec(as[i].late);//給薪日數=上班天數-遲到次數
+		                    	as[i].mi_saliday=(dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary))/8; //扣薪日數=病假(時)+事假(時)+曠工(時)+無薪(時)/8--->一天工作8小時為基準
 		                    
 		                    //全勤獎金
 		                    if($('#cmbPerson').find("option:selected").text().indexOf('外勞')==-1)
@@ -209,12 +210,15 @@
                         }
                         
                         //福利金	
-                        for (var j = 0; j < q_bbsCount; j++) {
-	                        for (var i = 0; i < as.length; i++) {
-			                    	if($('#txtSno_'+j).val()==as[i].sssno){
-			                    		$('#chkIswelfare_'+j)[0].checked=as[i].iswelfare;
-			                    		break;
-			                    	}
+                        if($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1)
+                        {
+	                        for (var j = 0; j < q_bbsCount; j++) {
+		                        for (var i = 0; i < as.length; i++) {
+				                    	if($('#txtSno_'+j).val()==as[i].sssno){
+				                    		$('#chkIswelfare_'+j)[0].checked=as[i].iswelfare;
+				                    		break;
+				                    	}
+		                        }
 	                        }
                         }
                          sum();
