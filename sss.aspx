@@ -495,7 +495,7 @@
 					</tr>
 					<tr>
 						<td class="td1"></td>
-						<td class="td2"><input id='btnClock' type="button"/></td>
+						<td class="td2"></td>
 						<td class="td3"><input id='btnSaladjust' type="button"/></td>
 						<td class="td4"><input id='btnFamily' type="button" /></td>
 						<td class="td5"></td>
