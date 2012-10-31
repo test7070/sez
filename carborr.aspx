@@ -18,9 +18,9 @@
 
             q_tables = 's';
             var q_name = "carborr";
-            var q_readonly = ['txtNoa','txtWorker','txtMoney2','txtTotal'];
+            var q_readonly = ['txtNoa','txtWorker','txtMoney2','txtTotal','txtMoney'];
             var q_readonlys = [];
-            var bbmNum = [['txtMoney',10,0],['txtComppay',10,0],['txtMount',10,0]];
+            var bbmNum = [['txtMoney',10,0],['txtComppay',10,0],['txtMount',10,0],['txtDriverpay',10,0],['txtPay',10,0]];
             var bbsNum = [['txtMoney',10,0]];
             var bbmMask = [['txtMon','999/99'],['txtDatea','999/99/99'],['txtTicketdate','999/99/99']];
             var bbsMask = [['txtMon','999/99']];
@@ -70,6 +70,12 @@
                     sum();
                 });
 				$('#txtMoney').change(function() {
+                    sum();
+                });
+                $('#txtDriverpay').change(function() {
+                    sum();
+                });
+                $('#txtPay').change(function() {
                     sum();
                 });
 				$('#btnAction').click(function(){
@@ -177,8 +183,8 @@
             
             function sum(){
             	var t_total=0;
-            	
-            	$('#txtTotal').val(q_float('txtComppay')+q_float('txtMoney'));
+            	$('#txtMoney').val(q_float('txtDriverpay')-q_float('txtPay'));
+            	$('#txtTotal').val(q_float('txtComppay')+q_float('txtDriverpay'));
             }
 			function money2(){
 				
@@ -189,10 +195,6 @@
                 if (result.substr(0, 5) == '<Data') {/// 如果傳回  table[]
                     var as = _q_appendData('carsal2', '', true);
                     if(as.length>0){
-                    	/*if(t_curMon==$('#txtMon').val() &&  t_curDriverno==$('#txtDriverno').val())
-                    		$('#txtMoney2').val(parseFloat(as[0].total)+t_curMoney);
-                    	else
-                    		$('#txtMoney2').val(parseFloat(as[0].total));*/
                     	if(t_curMon==$('#txtMon').val() &&  t_curDriverno==$('#txtDriverno').val())
                     		t_money2=parseFloat(as[0].total)+t_curMoney;
                     	else
@@ -526,14 +528,16 @@
 						</td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblDriverpay" class="lbl"> </a></td>
+						<td><input id="txtDriverpay" type="text"  class="txt c1 num"/></td>
+						<td><span> </span><a id="lblPay" class="lbl"> </a></td>
+						<td><input id="txtPay" type="text"  class="txt c1 num"/></td>
 						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
-						<td>
-						<input id="txtMoney" type="text"  class="txt c1 num"/>
-						</td>
+						<td><input id="txtMoney" type="text"  class="txt c1 num"/></td>	
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblMoney2" class="lbl"> </a></td>
-						<td>
-						<input id="txtMoney2" type="text"  class="txt c1 num"/>
-						</td>
+						<td><input id="txtMoney2" type="text"  class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
