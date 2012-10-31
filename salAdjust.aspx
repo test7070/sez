@@ -92,6 +92,9 @@
         for (i = 0; i < abbsDele.length; i++) {
             abbsDele[i][bbsKey[0]] = t_key[1];
         }
+        if(emp($('#txtDatea_0').val()))
+        	$('#txtDatea_0').val(q_date());
+        $('#txtJobno_0').focus();
     }
 
     function boxStore() {
