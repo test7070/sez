@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title></title>
@@ -10,232 +10,243 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			this.errorHandler = null;
-			function onPageError(error) {
-				alert("An error occurred:\r\n" + error.Message);
-			}
+		    this.errorHandler = null;
+		    function onPageError(error) {
+		        alert("An error occurred:\r\n" + error.Message);
+		    }
 
-			var q_name = "sss";
-			var q_readonly = [];
-			var bbmNum = [];
-			var bbmMask = [];
-			q_sqlCount = 6;
-			brwCount = 6;
-			brwList = [];
-			brwNowPage = 0;
-			brwKey = 'noa';
-			//ajaxPath = ""; //  execute in Root
-			aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp', 'acomp_b.aspx'], ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
-			$(document).ready(function() {
-				bbmKey = ['noa'];
-				q_brwCount();
-				q_gt(q_name, q_content, q_sqlCount, 1)
-				$('#txtNoa').focus
-			});
+		    var q_name = "sss";
+		    var q_readonly = [];
+		    var bbmNum = [];
+		    var bbmMask = [];
+		    q_sqlCount = 6;
+		    brwCount = 6;
+		    brwList = [];
+		    brwNowPage = 0;
+		    brwKey = 'noa';
+		    //ajaxPath = ""; //  execute in Root
+		    aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp', 'acomp_b.aspx'], ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
+		    $(document).ready(function () {
+		        bbmKey = ['noa'];
+		        q_brwCount();
 
-			//////////////////   end Ready
-			function main() {
-				if (dataErr) {
-					dataErr = false;
-					return;
-				}
-				mainForm(0);
-				// 1=Last  0=Top
-			}///  end Main()
+		        q_gt('authority', "where=^^a.noa='sss' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
 
-			function mainPost() {
-				q_getFormat();
-            	bbmMask = [['txtBirthday', r_picd],['txtFt_date', r_picd],['txtIndate', r_picd],['txtOutdate', r_picd],['txtHealth_bdate', r_picd],['txtHealth_edate', r_picd],['txtLabor1_bdate', r_picd],['txtLabor1_edate', r_picd],['txtLabor2_bdate', r_picd],['txtLabor2_edate', r_picd]];
-				q_mask(bbmMask);
-				q_cmbParse("cmbTypea", q_getPara('sss.typea'));
-				q_cmbParse("cmbSex", q_getPara('sss.sex'));
-				q_cmbParse("cmbPerson", q_getPara('person.typea'));
-				q_cmbParse("cmbRecord", ('').concat(new Array('國小', '國中', '高中', '高職', '大專', '大學', '碩士', '博士')));
-				$('#btnFamily').click(function(e) {
-					q_box("labases_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'family', "850px", "600px", q_getMsg("popFamily"));
-				});
-				$('#btnSaladjust').click(function(e) {
-					q_box("salAdjust.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'saladjust', "850px", "600px", q_getMsg("popSaladjust"));
-				});
+		    });
 
-			}
+		    //////////////////   end Ready
+		    function main() {
+		        if (dataErr) {
+		            dataErr = false;
+		            return;
+		        }
+		        mainForm(0);
+		        // 1=Last  0=Top
+		    } ///  end Main()
 
-			function txtCopy(dest, source) {
-				var adest = dest.split(',');
-				var asource = source.split(',');
-				$('#' + adest[0]).focus(function() {
-					if (trim($(this).val()).length == 0)
-						$(this).val(q_getMsg('msgCopy'));
-				});
-				$('#' + adest[0]).focusout(function() {
-					var t_copy = ($(this).val().substr(0, 1) == '=');
-					var t_clear = ($(this).val().substr(0, 2) == ' =');
-					for (var i = 0; i < adest.length; i++) { {
-							if (t_copy)
-								$('#' + adest[i]).val($('#' + asource[i]).val());
+		    function mainPost() {
+		        q_getFormat();
+		        bbmMask = [['txtBirthday', r_picd], ['txtFt_date', r_picd], ['txtIndate', r_picd], ['txtOutdate', r_picd], ['txtHealth_bdate', r_picd], ['txtHealth_edate', r_picd], ['txtLabor1_bdate', r_picd], ['txtLabor1_edate', r_picd], ['txtLabor2_bdate', r_picd], ['txtLabor2_edate', r_picd]];
+		        q_mask(bbmMask);
+		        q_cmbParse("cmbTypea", q_getPara('sss.typea'));
+		        q_cmbParse("cmbSex", q_getPara('sss.sex'));
+		        q_cmbParse("cmbPerson", q_getPara('person.typea'));
+		        q_cmbParse("cmbRecord", ('').concat(new Array('國小', '國中', '高中', '高職', '大專', '大學', '碩士', '博士')));
+		        $('#btnFamily').click(function (e) {
+		            q_box("labases_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'family', "850px", "600px", q_getMsg("popFamily"));
+		        });
+		        $('#btnSaladjust').click(function (e) {
+		            q_box("salAdjust.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'saladjust', "850px", "600px", q_getMsg("popSaladjust"));
+		        });
 
-							if (t_clear)
-								$('#' + adest[i]).val('');
-						}
-					}
-				});
-			}
+		    }
 
-			function q_boxClose(s2) {
-				var ret;
-				switch (b_pop) {
-					case 'conn':
+		    function txtCopy(dest, source) {
+		        var adest = dest.split(',');
+		        var asource = source.split(',');
+		        $('#' + adest[0]).focus(function () {
+		            if (trim($(this).val()).length == 0)
+		                $(this).val(q_getMsg('msgCopy'));
+		        });
+		        $('#' + adest[0]).focusout(function () {
+		            var t_copy = ($(this).val().substr(0, 1) == '=');
+		            var t_clear = ($(this).val().substr(0, 2) == ' =');
+		            for (var i = 0; i < adest.length; i++) {
+		                
+		                {
+		                    if (t_copy)
+		                        $('#' + adest[i]).val($('#' + asource[i]).val());
 
-						break;
+		                    if (t_clear)
+		                        $('#' + adest[i]).val('');
+		                }
+		            }
+		        });
+		    }
 
-					case 'sss':
-						ret = getb_ret();
-						if (q_cur > 0 && q_cur < 4)
-							q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-						break;
+		    function q_boxClose(s2) {
+		        var ret;
+		        switch (b_pop) {
+		            case 'conn':
+		                break;
 
-					case 'sss':
-						ret = getb_ret();
-						if (q_cur > 0 && q_cur < 4)
-							q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-						break;
+		            case 'sss':
+		                ret = getb_ret();
+		                if (q_cur > 0 && q_cur < 4)
+		                    q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
+		                break;
 
-					case q_name + '_s':
-						q_boxClose2(s2);
-						///   q_boxClose 3/4
-						break;
-				}   /// end Switch
-			}
+		            case 'sss':
+		                ret = getb_ret();
+		                if (q_cur > 0 && q_cur < 4)
+		                    q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
+		                break;
 
-			function q_gtPost(t_name) {
-				switch (t_name) {
-					case 'sss':
-						q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-						break;
+		            case q_name + '_s':
+		                q_boxClose2(s2);
+		                ///   q_boxClose 3/4
+		                break;
+		        }   /// end Switch
+		    }
 
-					case q_name:
-						if (q_cur == 4)
-							q_Seek_gtPost();
+		    function q_gtPost(t_name) {
+		        switch (t_name) {
+		            case 'authority':
+		                var as = _q_appendData('authority', '', true);
+		                if (as.length > 0 && as[0]["pr_run"] == "true")
+		                    q_content = "";
+		                else
+		                    q_content = "where=^^noa='" + r_userno + "'^^";
 
-						if (q_cur == 1 || q_cur == 2)
-							q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
+		                q_gt(q_name, q_content, q_sqlCount, 1)
+		                break;
+                    case 'sss':
+		                q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
+		                break;
 
-						break;
-				}  /// end switch
-			}
+		            case q_name:
+		                if (q_cur == 4)
+		                    q_Seek_gtPost();
 
-			function _btnSeek() {
-				if (q_cur > 0 && q_cur < 4)// 1-3
-					return;
+		                if (q_cur == 1 || q_cur == 2)
+		                    q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 
-				q_box('sss_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
-			}
+		                break;
+		        }  /// end switch
+		    }
 
-			function combPay_chg() {
-				var cmb = document.getElementById("combPay")
-				if (!q_cur)
-					cmb.value = '';
-				else
-					$('#txtPay').val(cmb.value);
-				cmb.value = '';
-			}
+		    function _btnSeek() {
+		        if (q_cur > 0 && q_cur < 4)// 1-3
+		            return;
 
-			function btnIns() {
-				_btnIns();
-				$('#txtNoa').focus();
-			}
+		        q_box('sss_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+		    }
 
-			function btnModi() {
-				if (emp($('#txtNoa').val()))
-					return;
+		    function combPay_chg() {
+		        var cmb = document.getElementById("combPay")
+		        if (!q_cur)
+		            cmb.value = '';
+		        else
+		            $('#txtPay').val(cmb.value);
+		        cmb.value = '';
+		    }
 
-				_btnModi();
-				$('#txtComp').focus();
-			}
+		    function btnIns() {
+		        _btnIns();
+		        $('#txtNoa').focus();
+		    }
 
-			function btnPrint() {
+		    function btnModi() {
+		        if (emp($('#txtNoa').val()))
+		            return;
 
-			}
+		        _btnModi();
+		        $('#txtComp').focus();
+		    }
 
-			function btnOk() {
-				var t_noa=$.trim($('#txtNoa').val());
+		    function btnPrint() {
 
-				if (t_noa.length == 0)
-					q_gtnoa(q_name, t_noa);
-				else
-					wrServer(t_noa);
-			}
+		    }
 
-			function wrServer(key_value) {
-				var i;
+		    function btnOk() {
+		        var t_noa = $.trim($('#txtNoa').val());
 
-				xmlSql = '';
-				if (q_cur == 2)/// popSave
-					xmlSql = q_preXml();
+		        if (t_noa.length == 0)
+		            q_gtnoa(q_name, t_noa);
+		        else
+		            wrServer(t_noa);
+		    }
 
-				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-				_btnOk(key_value, bbmKey[0], '', '', 2);
-			}
+		    function wrServer(key_value) {
+		        var i;
 
-			function refresh(recno) {
-				_refresh(recno);
-			}
+		        xmlSql = '';
+		        if (q_cur == 2)/// popSave
+		            xmlSql = q_preXml();
 
-			function readonly(t_para, empty) {
-				_readonly(t_para, empty);
-			}
+		        $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+		        _btnOk(key_value, bbmKey[0], '', '', 2);
+		    }
 
-			function btnMinus(id) {
-				_btnMinus(id);
-			}
+		    function refresh(recno) {
+		        _refresh(recno);
+		    }
 
-			function btnPlus(org_htm, dest_tag, afield) {
-				_btnPlus(org_htm, dest_tag, afield);
-			}
+		    function readonly(t_para, empty) {
+		        _readonly(t_para, empty);
+		    }
 
-			function q_appendData(t_Table) {
-				return _q_appendData(t_Table);
-			}
+		    function btnMinus(id) {
+		        _btnMinus(id);
+		    }
 
-			function btnSeek() {
-				_btnSeek();
-			}
+		    function btnPlus(org_htm, dest_tag, afield) {
+		        _btnPlus(org_htm, dest_tag, afield);
+		    }
 
-			function btnTop() {
-				_btnTop();
-			}
+		    function q_appendData(t_Table) {
+		        return _q_appendData(t_Table);
+		    }
 
-			function btnPrev() {
-				_btnPrev();
-			}
+		    function btnSeek() {
+		        _btnSeek();
+		    }
 
-			function btnPrevPage() {
-				_btnPrevPage();
-			}
+		    function btnTop() {
+		        _btnTop();
+		    }
 
-			function btnNext() {
-				_btnNext();
-			}
+		    function btnPrev() {
+		        _btnPrev();
+		    }
 
-			function btnNextPage() {
-				_btnNextPage();
-			}
+		    function btnPrevPage() {
+		        _btnPrevPage();
+		    }
 
-			function btnBott() {
-				_btnBott();
-			}
+		    function btnNext() {
+		        _btnNext();
+		    }
 
-			function q_brwAssign(s1) {
-				_q_brwAssign(s1);
-			}
+		    function btnNextPage() {
+		        _btnNextPage();
+		    }
 
-			function btnDele() {
-				_btnDele();
-			}
+		    function btnBott() {
+		        _btnBott();
+		    }
 
-			function btnCancel() {
-				_btnCancel();
-			}
+		    function q_brwAssign(s1) {
+		        _q_brwAssign(s1);
+		    }
+
+		    function btnDele() {
+		        _btnDele();
+		    }
+
+		    function btnCancel() {
+		        _btnCancel();
+		    }
 		</script>
 		<style type="text/css">
 			#dmain {

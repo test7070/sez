@@ -473,7 +473,9 @@
             </tr>
             <tr class="tr13">
                 <td class="td1"><span> </span><a id='lblChkstatus' class="lbl"></a></td>
-                <td class="td2" colspan='5'><input id="txtChkstatus"  type="text"  class="txt c7" /></td> 
+                <td class="td2" colspan='3'><input id="txtChkstatus"  type="text"  class="txt c7" /></td>
+                <td class="td5"><span> </span><a id='lblUacc4' class="lbl"></a></td>
+                <td class="td6"><input id="txtUacc4"    type="text" class="txt c1"/></td>   
             </tr>
             <tr class="tr14">
                <td class="td1"><span> </span><a id='lblChkdate' class="lbl"></a></td>
