@@ -147,7 +147,7 @@
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
             </tr>
         </table>
-    <!--#include file="../inc/pop_save.inc"--> 
+    <!--#include file="../inc/pop_modi.inc"--> 
 </div>
         <input id="q_sys" type="hidden" />
 </body>

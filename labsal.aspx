@@ -51,10 +51,6 @@
             q_getFormat();
             bbmMask = [['txtNoa', r_picd]];
             q_mask(bbmMask);
-            
-            $('#txtSalary').change(function () {
-            	q_gt('labsal', t_where+t_where1+t_where2+t_where3 , 0, 0, 0, "", r_accy);
-            });
         }
 
         function q_boxClose(s2) {

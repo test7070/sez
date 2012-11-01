@@ -54,6 +54,12 @@
             bbsMask = [['txtBirthday', r_picd],['txtIndate', r_picd],['txtOutdate', r_picd]];
             q_mask(bbsMask);
             
+            $('#txtSalary').change(function () {
+            	//取得勞保等級表的投保資料
+            	var t_where = "where=^^ noa like '%"+$('#txtDatea').val().substr( 0,3)+"%' ^^";
+            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
+            });
+            
         }
 
         function q_boxClose(s2) { 
@@ -69,6 +75,25 @@
 
         function q_gtPost(t_name) {
             switch (t_name) {
+            	case 'labsal':
+            			var as = _q_appendData("labsal", "", true);
+            			if(as[0]!=undefined){
+            				var labsals = _q_appendData("labsals", "", true);
+            				for (var i = 0; i < labsals.length; i++) {
+            					if(dec(labsals[i].salary1)<=dec($('#txtSalary').val())&&dec(labsals[i].salary2)>=dec($('#txtSalary').val())){
+            						q_tr('txtSa_labor',labsals[i].lmoney);//勞保薪資
+            						if($('#chkForeigns')[0].checked){
+            							q_tr('txtLa_person',labsals[i].flself);//勞保自付額
+            							q_tr('txtLa_comp',labsals[i].flcomp);//勞保公司負擔
+            						}else{
+            							q_tr('txtLa_person',labsals[i].lself);
+            							q_tr('txtLa_comp',labsals[i].lcomp);
+            						}
+            						break;	
+            					}
+            				}
+            			}
+            		break;
                 case q_name: 
                 	if (q_cur == 1){
                 		
@@ -108,6 +133,8 @@
 
         function btnIns() {
             _btnIns();
+            $('#txtDatea').val(q_date());
+            $('#txtNoa').focus();
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
