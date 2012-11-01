@@ -18,8 +18,8 @@
         var q_name = "labsal";
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [];  
-        var bbsNum = [];
+        var bbmNum = [['txtInsur_accident',5,1,1],['txtInsur_job',5,1,1],['txtInsur_person',5,1,1],['txtInsur_comp',5,1,1]];  
+        var bbsNum = [['txtSalary1',10,0,1],['txtSalary2',10,0,1],['txtLmoney',10,0,1],['txtLself',10,0,1],['txtLcomp',10,0,1],['txtFlself',10,0,1],['txtFlcomp',10,0,1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
