@@ -321,9 +321,10 @@
                         <tr>
                             <td align="center" style="width:5%"><a id='vewChk'></a></td>
                             <td align="center" style="width:5%"><a id='vewDatea'></a></td>
-                            <td align="center" style="width:15%"><a id='vewCarno'></a></td>
-                            <td align="center" style="width:15%"><a id='vewDriver'></a></td>
-                            <td align="center" style="width:20%"><a id='vewAddr'></a></td>
+                            <td align="center" style="width:8%"><a id='vewCarno'></a></td>
+                            <td align="center" style="width:8%"><a id='vewDriver'></a></td>
+                            <td align="center" style="width:10%"><a id='vewAddr'></a></td>
+                            <td align="center" style="width:8%"><a id='vewInmoney'></a></td>
                             <td align="center" style="width:15%"><a id='vewCardeal'></a></td>
                         </tr>
                         <tr>
@@ -332,7 +333,8 @@
                             <td align="center" id='carno'>~carno</td>
                             <td align="center" id='driver'>~driver</td>
                             <td align="center" id='addr'>~addr</td>
-                            <td align="center" id='cardeal'>~cardeal</td>
+                            <td align="center" id='inmoney'>~inmoney</td>
+                            <td align="center" id='cardeal'>~cardeal.substr()</td>
                         </tr>
                     </table>
                 </div>
