@@ -23,7 +23,7 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
-        
+        q_desc=1;
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -180,7 +180,7 @@
             var t1 = 0, t_unit, t_mount=0, t_weight = 0;
             var t_w100=0,t_w133=0,t_w166=0,t_hr_special=0;
             for (var j = 0; j < q_bbsCount; j++) {
-            	if(!emp($('#txtSssno'+j).val()))
+            	if(!emp($('#txtSssno_'+j).val()))
             		t_mount++;
 				t_w100+=dec($('#txtW100_'+j).val());
 				t_w133+=dec($('#txtW133_'+j).val());

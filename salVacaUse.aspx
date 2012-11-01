@@ -23,6 +23,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
+            q_desc=1;
             //ajaxPath = ""; //  execute in Root
 			 aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea,id', 'txtSssno,txtNamea,txtId', 'sss_b.aspx'],
 			 ['txtHtype', 'lblHtype', 'salhtype', 'noa,namea', 'txtHtype,txtHname', 'salhtype_b.aspx']);
@@ -39,7 +40,7 @@
                     dataErr = false;
                     return;
                 }
-                mainForm(0);
+                mainForm(1);
             }///  end Main()
             
             var t_tot_special=0;//存放初始'特休假剩餘天數'
