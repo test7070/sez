@@ -53,6 +53,14 @@
             txtCopy('txtZip_comp,txtAddr_comp', 'txtZip_fact,txtAddr_fact');
             txtCopy('txtZip_invo,txtAddr_invo', 'txtZip_comp,txtAddr_comp');
             txtCopy('txtZip_home,txtAddr_home', 'txtZip_invo,txtAddr_invo');
+             $('#txtUacc4').change(function () {
+		                var s1 = trim($(this).val());
+		                if (s1.length > 4 && s1.indexOf('.') < 0)
+		                    $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
+		                if (s1.length == 4)
+		                    $(this).val(s1 + '.');
+		                    
+		            });
         }
         function txtCopy(dest, source) {
             var adest = dest.split(',');
