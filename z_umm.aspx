@@ -55,9 +55,7 @@
 	             $('#txtDate2').mask('999/99/99');
 	             $('#txtDate2').datepicker(); 
 	             $('#txtXdate1').mask('99/99');
-	             $('#txtXdate1').datepicker();
-	             $('#txtXdate2').mask('99/99');
-	             $('#txtXdate2').datepicker();   
+	             $('#txtXdate2').mask('99/99'); 
                 
                 
                  var t_date,t_year,t_month,t_day;

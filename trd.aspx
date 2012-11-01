@@ -362,7 +362,7 @@
 				if (q_cur > 0 && q_cur < 4)
 					return;
 
-				q_box('trd_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+				q_box('trd_s.aspx', q_name + '_s', "600px", "400px", q_getMsg("popSeek"));
 			}
 
 			function bbsAssign() {
