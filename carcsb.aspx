@@ -333,7 +333,7 @@
                             <td align="center" id='carno'>~carno</td>
                             <td align="center" id='driver'>~driver</td>
                             <td align="center" id='addr'>~addr</td>
-                            <td align="center" id='inmoney'>~inmoney</td>
+                            <td align="center" id='inmoney,0,1'>~inmoney,0,1</td>
                             <td align="center" id='custnick'>~custnick</td>
                         </tr>
                     </table>
