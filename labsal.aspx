@@ -51,6 +51,41 @@
             q_getFormat();
             bbmMask = [['txtNoa', r_picd]];
             q_mask(bbmMask);
+            
+            $('#txtInsur_accident').change(function () {
+            	for (var j = 0; j < q_bbsCount; j++) {
+            		if(!emp($('#txtLmoney_'+j).val())){
+						q_tr('txtFlself_'+j,Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_person').val())/100)*(dec($('#txtInsur_accident').val())/100)));//外勞個人負擔
+						q_tr('txtFlcomp_'+j,Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_accident').val())/100)));//外勞公司負擔
+						q_tr('txtLself_'+j,dec($('#txtFlself_'+j).val())+Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_person').val())/100)*(dec($('#txtInsur_job').val())/100)));//個人負擔
+						q_tr('txtLcomp_'+j,dec($('#txtFlcomp_'+j).val())+Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_job').val())/100)));//公司負擔
+					}
+            	}
+            });
+            $('#txtInsur_job').change(function () {
+            	for (var j = 0; j < q_bbsCount; j++) {
+            		if(!emp($('#txtLmoney_'+j).val())){
+						q_tr('txtLself_'+j,dec($('#txtFlself_'+j).val())+Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_person').val())/100)*(dec($('#txtInsur_job').val())/100)));//個人負擔
+						q_tr('txtLcomp_'+j,dec($('#txtFlcomp_'+j).val())+Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_job').val())/100)));//公司負擔
+					}
+            	}
+            });
+            $('#txtInsur_person').change(function () {
+            	for (var j = 0; j < q_bbsCount; j++) {
+            		if(!emp($('#txtLmoney_'+j).val())){
+						q_tr('txtFlself_'+j,Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_person').val())/100)*(dec($('#txtInsur_accident').val())/100)));//外勞個人負擔
+						q_tr('txtLself_'+j,dec($('#txtFlself_'+j).val())+Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_person').val())/100)*(dec($('#txtInsur_job').val())/100)));//個人負擔
+					}
+            	}
+            });
+            $('#txtInsur_comp').change(function () {
+            	for (var j = 0; j < q_bbsCount; j++) {
+            		if(!emp($('#txtLmoney_'+j).val())){
+						q_tr('txtFlcomp_'+j,Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_accident').val())/100)));//外勞公司負擔
+						q_tr('txtLcomp_'+j,dec($('#txtFlcomp_'+j).val())+Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_job').val())/100)));//公司負擔
+					}
+            	}
+            });
         }
 
         function q_boxClose(s2) {
@@ -98,11 +133,37 @@
         }
 
         function bbsAssign() {  
+        	for (var j = 0; j < q_bbsCount; j++) {
+        		if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+        			$('#txtSalary2_'+j).change(function () {
+        				 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                 q_bodyId($(this).attr('id'));
+		                 b_seq = t_IdSeq;
+        				if(!emp($('#txtSalary2_'+b_seq).val())){
+							q_tr('txtLmoney_'+b_seq,$('#txtSalary2_'+b_seq).val());
+							q_tr('txtFlself_'+b_seq,Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_person').val())/100)*(dec($('#txtInsur_accident').val())/100)));//外勞個人負擔
+							q_tr('txtFlcomp_'+b_seq,Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_accident').val())/100)));//外勞公司負擔
+							q_tr('txtLself_'+b_seq,dec($('#txtFlself_'+b_seq).val())+Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_person').val())/100)*(dec($('#txtInsur_job').val())/100)));//個人負擔
+							q_tr('txtLcomp_'+b_seq,dec($('#txtFlcomp_'+b_seq).val())+Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_job').val())/100)));//公司負擔
+						}
+        			});
+        			$('#txtLmoney_'+j).change(function () {
+        				 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                 q_bodyId($(this).attr('id'));
+		                 b_seq = t_IdSeq;
+        				if(!emp($('#txtLmoney_'+b_seq).val())){
+							q_tr('txtFlself_'+b_seq,Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_person').val())/100)*(dec($('#txtInsur_accident').val())/100)));//外勞個人負擔
+							q_tr('txtFlcomp_'+b_seq,Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_accident').val())/100)));//外勞公司負擔
+							q_tr('txtLself_'+b_seq,dec($('#txtFlself_'+b_seq).val())+Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_person').val())/100)*(dec($('#txtInsur_job').val())/100)));//個人負擔
+							q_tr('txtLcomp_'+b_seq,dec($('#txtFlcomp_'+b_seq).val())+Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_job').val())/100)));//公司負擔
+						}
+        			});
+				}
+            }
             _bbsAssign();
         }
 
         function btnIns() {
-        	var t_noa= dec($('#txtNoa').val());
             _btnIns();
             $('#txtNoa').focus();
         }

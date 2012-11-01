@@ -18,12 +18,12 @@
         var q_name = "labretire";
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [['txtBo_admin',15,0,1],['txtBo_traffic',15,0,1],['txtBo_full',15,0,1],['txtBo_special',15,0,1],['txtBo_oth',15,0,1],['txtMoney',15,0,1],['txtDiff',15,0,1]];  
-        var bbsNum = [['txtMoney',15,0,1]];
+        var bbmNum = [['txtRe_comp',5,1,1]];  
+        var bbsNum = [['txtSalary1',10,0,1],['txtSalary2',10,0,1],['txtPmoney',10,0,1],['txtPcomp',10,0,1]];
         var bbmMask = [];
         var bbsMask = [];
-        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        
+        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
+        q_desc=1;
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -52,7 +52,13 @@
             bbmMask = [['txtNoa', r_picd]];
             q_mask(bbmMask);
             
-            
+            $('#txtRe_comp').change(function () {
+            	for (var j = 0; j < q_bbsCount; j++) {
+            		if(!emp($('#txtPmoney_'+j).val())){
+							q_tr('txtPcomp_'+j,Math.round(dec($('#txtPmoney_'+b_seq).val())*(dec($('#txtRe_comp').val())/100)));
+					}
+            	}
+            });
         }
 
         function q_boxClose(s2) { 
@@ -66,25 +72,17 @@
         }
 
 
-        function q_gtPost(t_name) {  /// ???U??? ...
+        function q_gtPost(t_name) {  ///
             switch (t_name) {
                 case q_name: 
-                	if (q_cur == 1){
-                		var as = _q_appendData("salrank", "", true);
-                		if(as[0]!=undefined){
-                			alert('????????J!!');
-                			$('#txtNoa').val('');
-                			$('#txtNoa').focus();
-                		}
-                	}
-                	if (q_cur == 4)   // ?d??
+                	if (q_cur == 4)   // 
                         q_Seek_gtPost();
                     break;
             }  /// end switch
         }
 
         function btnOk() {
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // ??d??? 
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // 
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
@@ -104,24 +102,40 @@
             q_box('labretire_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
-        function bbsAssign() {  /// ???B??
+        function bbsAssign() {  ///
+        	for (var j = 0; j < q_bbsCount; j++) {
+        		if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+        			$('#txtSalary2_'+j).change(function () {
+        				 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                 q_bodyId($(this).attr('id'));
+		                 b_seq = t_IdSeq;
+        				if(!emp($('#txtSalary2_'+b_seq).val())){
+							q_tr('txtPmoney_'+b_seq,$('#txtSalary2_'+b_seq).val());
+							q_tr('txtPcomp_'+b_seq,Math.round(dec($('#txtPmoney_'+b_seq).val())*(dec($('#txtRe_comp').val())/100)));
+						}
+        			});
+        			$('#txtPmoney_'+j).change(function () {
+        				 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                 q_bodyId($(this).attr('id'));
+		                 b_seq = t_IdSeq;
+        				if(!emp($('#txtPmoney_'+b_seq).val())){
+							q_tr('txtPcomp_'+b_seq,Math.round(dec($('#txtPmoney_'+b_seq).val())*(dec($('#txtRe_comp').val())/100)));
+						}
+        			});
+				}
+            }
             _bbsAssign();
         }
 
         function btnIns() {
-        	var t_noa= dec($('#txtNoa').val());
             _btnIns();
-            $('#txtNoa').val(t_noa+1);
             $('#txtNoa').focus();
-            $('#txtLevel1').val('1');
-            $('#txtLevel2').val('31');
+            $('#txtNoa').val(q_date());
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            $('#txtNoa').attr('readonly', true);
-            $('#txtBo_admin').focus();
         }
         function btnPrint() {
 
@@ -134,9 +148,9 @@
             _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
         }
 
-        function bbsSave(as) {   /// ?? ?g?J???w?e?A?g?J??n???
-            if (!as['class']) {  //???s????
-                as[bbsKey[1]] = '';   /// no2 ????A???s??
+        function bbsSave(as) {   /// 
+            if (!as['class']) {  //
+                as[bbsKey[1]] = '';   ///
                 return;
             }
 
@@ -162,7 +176,7 @@
 
             }  // j
         }
-        ///////////////////////////////////////////////////  ?H?U??????{???A????n????
+        ///////////////////////////////////////////////////  
         function refresh(recno) {
             _refresh(recno);
 
@@ -391,9 +405,6 @@
             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
             <td class='td3'><span> </span><a id="lblRe_comp" class="lbl" > </a></td>
             <td class="td4"><input id="txtRe_comp" type="text" class="txt num c1" /></td> 
-            <td class='td5'> </td>
-            <td class="td6"> </td> 
-            <td class="td7"> </td>
         </tr>                                           
         </table>
         </div>

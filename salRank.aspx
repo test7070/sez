@@ -24,7 +24,7 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
-
+		q_desc=1;
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];

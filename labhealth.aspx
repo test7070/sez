@@ -49,6 +49,29 @@
             q_getFormat();
             bbmMask = [['txtNoa', r_picd]];
             q_mask(bbmMask);
+            
+            $('#txtRate').change(function () {
+            	for (var j = 0; j < q_bbsCount; j++) {
+            		if(!emp($('#txtLmoney_'+j).val())){
+							q_tr('txtHe_person_'+j,Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtRate').val())/100)*(dec($('#txtHe_person').val())/100))-dec($('#txtAs_gover_'+j).val()));//自付金額
+							q_tr('txtHe_comp_'+j,Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtRate').val())/100)*(dec($('#txtHe_comp').val())/100)*1.7));//公司負擔
+					}
+            	}
+            });
+            $('#txtHe_person').change(function () {
+            	for (var j = 0; j < q_bbsCount; j++) {
+            		if(!emp($('#txtLmoney_'+j).val())){
+							q_tr('txtHe_person_'+j,Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtRate').val())/100)*(dec($('#txtHe_person').val())/100))-dec($('#txtAs_gover_'+j).val()));//自付金額
+					}
+            	}
+            });
+            $('#txtHe_comp').change(function () {
+            	for (var j = 0; j < q_bbsCount; j++) {
+            		if(!emp($('#txtLmoney_'+j).val())){
+							q_tr('txtHe_comp_'+j,Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtRate').val())/100)*(dec($('#txtHe_comp').val())/100)*1.7));//公司負擔
+					}
+            	}
+            });
         }
 
         function q_boxClose(s2) { 
@@ -93,13 +116,44 @@
         }
 
         function bbsAssign() {  /// 
+        	for (var j = 0; j < q_bbsCount; j++) {
+        		if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+        			$('#txtSalary2_'+j).change(function () {
+        				 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                 q_bodyId($(this).attr('id'));
+		                 b_seq = t_IdSeq;
+        				if(!emp($('#txtSalary2_'+b_seq).val())){
+							q_tr('txtLmoney_'+b_seq,$('#txtSalary2_'+b_seq).val());
+							q_tr('txtHe_person_'+b_seq,Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtRate').val())/100)*(dec($('#txtHe_person').val())/100))-dec($('#txtAs_gover_'+b_seq).val()));//自付金額
+							q_tr('txtHe_comp_'+b_seq,Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtRate').val())/100)*(dec($('#txtHe_comp').val())/100)*1.7));//公司負擔
+						}
+        			});
+        			$('#txtLmoney_'+j).change(function () {
+        				 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                 q_bodyId($(this).attr('id'));
+		                 b_seq = t_IdSeq;
+        				if(!emp($('#txtLmoney_'+b_seq).val())){
+							q_tr('txtHe_person_'+b_seq,Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtRate').val())/100)*(dec($('#txtHe_person').val())/100))-dec($('#txtAs_gover_'+b_seq).val()));//自付金額
+							q_tr('txtHe_comp_'+b_seq,Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtRate').val())/100)*(dec($('#txtHe_comp').val())/100)*1.7));//公司負擔
+						}
+        			});
+        			$('#txtAs_gover_'+j).change(function () {
+        				 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                 q_bodyId($(this).attr('id'));
+		                 b_seq = t_IdSeq;
+        				if(!emp($('#txtLmoney_'+b_seq).val())){
+							q_tr('txtHe_person_'+b_seq,Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtRate').val())/100)*(dec($('#txtHe_person').val())/100))-dec($('#txtAs_gover_'+b_seq).val()));//自付金額
+						}
+        			});
+				}
+            }
             _bbsAssign();
         }
 
         function btnIns() {
-        	var t_noa= dec($('#txtNoa').val());
             _btnIns();
             $('#txtNoa').focus();
+            $('#txtNoa').val(q_date());
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))

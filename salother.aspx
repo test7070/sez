@@ -23,7 +23,7 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
-        
+        q_desc=1;
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -61,6 +61,12 @@
             	 }else{
             	 	q_cmbParse("cmbMonkind", ('').concat(new Array('上期', '下期')));
             	 }
+            	 table_change();
+            	 check_insed();
+            });
+            
+            $('#cmbMonkind').change(function () {
+            	check_insed();
             });
             
             $('#btnInput').click(function () {
@@ -98,6 +104,7 @@
 		                    }
 		                 }
 		                 q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea', as.length, as, 'noa,namea', '');
+		                 table_change();
             	break;
                 case q_name: 
 
@@ -111,6 +118,11 @@
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]); 
             if (t_err.length > 0) {
                 alert(t_err);
+                return;
+            }
+            
+            if(insed&&q_cur==1){
+            	alert('該其他項目作業已做過!!!');
                 return;
             }
 
@@ -153,11 +165,26 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtMon').val(q_date().substr( 0,6));
             $('#txtMon').focus();
+            check_insed();
+            table_change();
         }
+        
+        var insed=false;
+        function check_insed() {
+        	if(q_cur==1){
+        	 //判斷是否已新增過
+           		var t_where = "where=^^ mon='"+$('#txtMon').val()+"' and person='"+$('#cmbPerson').find("option:selected").text()+"' and monkind='"+$('#cmbMonkind').find("option:selected").text()+"' ^^";
+		    	q_gt('salother', t_where , 0, 0, 0, "", r_accy);
+		    }
+        }
+        
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
+            $('#txtMon').attr('disabled', 'disabled');
+            $('#cmbPerson').attr('disabled', 'disabled');
+            $('#cmbMonkind').attr('disabled', 'disabled');
         }
         function btnPrint() {
 
@@ -196,7 +223,11 @@
             var t1 = 0, t_unit, t_mount, t_weight = 0;
             var t_total=0;
             for (var j = 0; j < q_bbsCount; j++) {
-				q_tr('txtTotal_'+j,q_float('txtBo_borns_'+j)+q_float('txtBo_night_'+j)+q_float('txtBo_day_'+j)+q_float('txtOth_dutyfree_'+j)+q_float('txtOth_tax_'+j)+q_float('txtBorr_'+j)+q_float('txtCh_power_'+j)+q_float('txtChgcash_'+j)+q_float('txtCh_stay_'+j));
+            	if($('#cmbPerson').find("option:selected").text().indexOf('外勞')>-1){
+					q_tr('txtTotal_'+j,q_float('txtBo_borns_'+j)+q_float('txtBo_night_'+j)+q_float('txtBo_day_'+j)+q_float('txtOth_dutyfree_'+j)+q_float('txtOth_tax_'+j)+q_float('txtBorr_'+j)+q_float('txtChgcash_'+j)+q_float('txtCh_stay_'+j));
+				}else{
+					q_tr('txtTotal_'+j,q_float('txtBo_borns_'+j)+q_float('txtBo_night_'+j)+q_float('txtBo_day_'+j)+q_float('txtOth_dutyfree_'+j)+q_float('txtOth_tax_'+j)+q_float('txtBorr_'+j)+q_float('txtCh_power_'+j));
+				}
 				t_total+=dec($('#txtTotal_'+j).val());
             }  // j
             q_tr('txtTotal',t_total);
@@ -204,7 +235,7 @@
 
         function refresh(recno) {
             _refresh(recno);
-
+			table_change();
         }
 
         function readonly(t_para, empty) {
@@ -258,6 +289,30 @@
 
         function btnCancel() {
             _btnCancel();
+        }
+        
+        function table_change() {
+            if($('#cmbPerson').find("option:selected").text().indexOf('外勞')>-1){
+			    //bbs
+            	$('#hid_ch_powers').attr('hidden', 'true');
+			    $('#hid_chgcashs').removeAttr('hidden');
+			    $('#hid_ch_stays').removeAttr('hidden');
+			    for (var j = 0; j < q_bbsCount; j++) {
+			    	$('#hid_ch_powers_'+j).attr('hidden', 'true');
+			    	$('#hid_chgcashs_'+j).removeAttr('hidden');
+				    $('#hid_ch_stays_'+j).removeAttr('hidden');
+			    }
+            }else{
+			    //bbs
+            	$('#hid_ch_powers').removeAttr('hidden');
+			    $('#hid_chgcashs').attr('hidden', 'true');
+			    $('#hid_ch_stays').attr('hidden', 'true');
+			    for (var j = 0; j < q_bbsCount; j++) {
+			    	$('#hid_ch_powers_'+j).removeAttr('hidden');
+			    	$('#hid_chgcashs_'+j).attr('hidden', 'true');
+				    $('#hid_ch_stays_'+j).attr('hidden', 'true');
+			    }
+            }
         }
     </script>
     <style type="text/css">
@@ -458,9 +513,9 @@
                 <td align="center"><a id='lblOth_dutyfree_s'> </a></td>
                 <td align="center"><a id='lblOth_tax_s'> </a></td>
                 <td align="center"><a id='lblBorr_s'> </a></td>
-                <td align="center"><a id='lblCh_power_s'> </a></td>
-                <td align="center"><a id='lblChgcash_s'> </a></td>
-                <td align="center"><a id='lblCh_stay_s'> </a></td>
+                <td align="center" id='hid_ch_powers'><a id='lblCh_power_s'> </a></td>
+                <td align="center" id='hid_chgcashs'><a id='lblChgcash_s'> </a></td>
+                <td align="center" id='hid_ch_stays'><a id='lblCh_stay_s'> </a></td>
                 <td align="center"><a id='lblTotal_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -473,9 +528,9 @@
                 <td ><input class="txt num c1" id="txtOth_dutyfree.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtOth_tax.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtBorr.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtCh_power.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtChgcash.*"type="text" /></td>
-                <td ><input class="txt num c1" id="txtCh_stay.*"type="text" /></td>
+                <td id='hid_ch_powers.*'><input class="txt num c1" id="txtCh_power.*"type="text" /></td>
+                <td id='hid_chgcashs.*'><input class="txt num c1" id="txtChgcash.*"type="text" /></td>
+                <td id='hid_ch_stays.*'><input class="txt num c1" id="txtCh_stay.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtTotal.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
             </tr>
         </table>
