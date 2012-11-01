@@ -29,6 +29,7 @@
         
         $(document).ready(function () {
             bbmKey = ['noa'];
+            q_desc = 1;
             brwCount2 = 10
             q_brwCount();
           q_gt(q_name, q_content, q_sqlCount, 1)

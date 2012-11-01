@@ -98,7 +98,7 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('carplate_s.aspx', q_name + '_s', "500px", "250px", q_getMsg("popSeek"));
+                q_box('carplate_s.aspx', q_name + '_s', "600px", "300px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();

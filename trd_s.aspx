@@ -10,6 +10,7 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<script type="text/javascript">
 			var q_name = "trd_s";
+			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno', 'cust_b.aspx']);
 
 			$(document).ready(function() {
 				main();
