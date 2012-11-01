@@ -22,7 +22,8 @@
         var bbsNum = [['txtCh_money', 15, 0, 1],['txtAs_health', 15, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
-        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
+
+        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
          aPop = new Array(['txtNoa', 'lblNoa', 'sss', 'noa,namea', 'txtNoa,txtNamea', 'sss_b.aspx']);
 
         $(document).ready(function () {
@@ -43,7 +44,7 @@
                 return;
             }
 
-            mainForm(1); 
+            mainForm(0); 
         }  
 
        
@@ -54,10 +55,33 @@
             bbsMask = [['txtBirthday', r_picd],['txtIndate', r_picd],['txtOutdate', r_picd]];
             q_mask(bbsMask);
             
+            
+            $('#txtNoa').change(function () {
+            	 if(!emp($('#txtNoa').val())){
+            	 		//判斷員工是否是外勞
+			           var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
+			           q_gt('sss', t_where , 0, 0, 0, "", r_accy);
+			           //判斷員工是否重覆儲存
+			           var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
+			           q_gt('labase', t_where , 0, 0, 0, "", r_accy);
+			     }
+            });
+            
             $('#txtSalary').change(function () {
-            	//取得勞保等級表的投保資料
+            	//取得勞保薪資等級表
             	var t_where = "where=^^ noa like '%"+$('#txtDatea').val().substr( 0,3)+"%' ^^";
             	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
+            	//取得健保薪資等級表
+            	sum();//計算家屬
+            	var t_where = "where=^^ noa like '%"+$('#txtDatea').val().substr( 0,3)+"%' ^^";
+            	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
+            });
+            
+            $('#txtMount').change(function () {
+            	//取得健保薪資等級表
+            	sum();//計算家屬
+            	var t_where = "where=^^ noa like '%"+$('#txtDatea').val().substr( 0,3)+"%' ^^";
+            	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
             });
             
         }
@@ -75,6 +99,15 @@
 
         function q_gtPost(t_name) {
             switch (t_name) {
+            	case 'sss':
+            		var as = _q_appendData("sss", "", true);
+            		if(as[0]!=undefined){
+            			if(as[0].person=='外勞')
+            				$('#chkForeigns')[0].checked=true;
+            			else
+            				$('#chkForeigns')[0].checked=false;	
+            		}
+            	break;
             	case 'labsal':
             			var as = _q_appendData("labsal", "", true);
             			if(as[0]!=undefined){
@@ -94,23 +127,60 @@
             				}
             			}
             		break;
+            		case 'labhealth':
+            			var as = _q_appendData("labhealth", "", true);
+            			if(as[0]!=undefined){
+            				var labhealths = _q_appendData("labhealths", "", true);
+            				for (var i = 0; i < labhealths.length; i++) {
+            					if(dec(labhealths[i].salary1)<=dec($('#txtSalary').val())&&dec(labhealths[i].salary2)>=dec($('#txtSalary').val())){
+            						q_tr('txtSa_health',labhealths[i].lmoney);//健保薪資
+            						if(dec($('#txtMount').val())>3)
+            							q_tr('txtHe_person',dec(labhealths[i].he_person)*(1+3));//健保自付額
+            						else
+            							q_tr('txtHe_person',dec(labhealths[i].he_person)*(1+dec($('#txtMount').val())));
+            						q_tr('txtHe_comp',labhealths[i].he_comp);//健保公司負擔
+            						break;	
+            					}
+            				}
+            			}
+            		break;
                 case q_name: 
                 	if (q_cur == 1){
-                		
-                	}
+	                	var as = _q_appendData("labase", "", true);
+	            			if(as[0]!=undefined)
+	            				insed=true;
+	            			else
+	            				insed=false;
+       				}
                 	if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
             }  /// end switch
         }
-
+        
+        function q_popPost(s1) {
+		    	switch (s1) {
+		    		case 'txtNoa':
+		                if(!emp($('#txtNoa').val())){
+	            		//判斷員工是否是外勞
+			           		var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
+			           		q_gt('sss', t_where , 0, 0, 0, "", r_accy);
+			        	}
+		                break;
+		    	}
+			}
+        
+		var insed=false;//判斷是否重覆輸入員工
         function btnOk() {
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
             }
-			
+			if (insed) {
+                alert('該員工重覆建立勞健保資料!!');
+                return;
+            }
 			$('#txtMount').val(r_name);
 			
             $('#txtWorker').val(r_name)
@@ -140,6 +210,10 @@
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
+            $('#txtNoa').attr('disabled', 'disabled');
+            $('#txtNamea').attr('disabled', 'disabled');
+            $('#chkForeigns').attr('disabled', 'disabled');
+            $('#txtSalary').focus();
         }
         function btnPrint() {
 
