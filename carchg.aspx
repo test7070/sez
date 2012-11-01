@@ -170,8 +170,7 @@
                 _btnIns();
                 curData.paste();
 				$('#txtNoa').val('AUTO');
-				$('#txtDatea').val(q_date());
-				$('#txtCarno').focus();
+				$('#txtDatea').focus();
 			}
 
 			function btnModi() {
