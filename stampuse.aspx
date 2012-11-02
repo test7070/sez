@@ -25,10 +25,10 @@
             brwKey = 'noa';
             q_desc=1;
             //ajaxPath = ""; //  execute in Root
-			 aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],
+			 aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea,partno,part', 'txtSssno,txtNamea,txtPartno,txtPart', 'sss_b.aspx'],
 			 ['txtStampno', 'lblStamp', 'stamp', 'noa,namea,typea', 'txtStampno,txtStamp,cmbTypea', 'stamp_b.aspx'],
 			 ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
-			 ['txtCheck_sssno', 'lblCheck_sss', 'txtCheck_namea', 'noa,namea', 'txtCheck_sssno,txtCheck_namea', 'sss_b.aspx']);
+			 ['txtCheck_sssno', 'lblCheck_sss', 'sss', 'noa,namea', 'txtCheck_sssno,txtCheck_namea', 'sss_b.aspx']);
 			 
             $(document).ready(function() {
                bbmKey = ['noa'];
@@ -140,6 +140,29 @@
                 if(emp($('#txtNoa').val()))
                     return;
                 _btnModi();
+                if (!emp($('#txtBdatea').val())&&!emp($('#txtCheck_sssno').val())){
+		            	$('#txtDatea').attr('disabled', 'disabled');
+		            	$('#txtSssno').attr('disabled', 'disabled');
+		            	$('#txtNamea').attr('disabled', 'disabled');
+		            	$('#txtPartno').attr('disabled', 'disabled');
+		            	$('#txtPart').attr('disabled', 'disabled');
+		            	$('#txtStampno').attr('disabled', 'disabled');
+		            	$('#txtStamp').attr('disabled', 'disabled');
+		            	$('#cmbTypea').attr('disabled', 'disabled');
+		            	$('#cmbTypea').css('background', t_background2);
+		            	$('#txtBdatea').attr('disabled', 'disabled');
+		            	$('#txtCheck_sssno').attr('disabled', 'disabled');
+		            	$('#txtCheck_namea').attr('disabled', 'disabled');
+            	}else{
+            			$('#txtDatea').attr('disabled', 'disabled');
+		            	$('#txtSssno').attr('disabled', 'disabled');
+		            	$('#txtNamea').attr('disabled', 'disabled');
+		            	$('#txtPartno').attr('disabled', 'disabled');
+		            	$('#txtPart').attr('disabled', 'disabled');
+		            	$('#txtStampno').attr('disabled', 'disabled');
+		            	$('#txtStamp').attr('disabled', 'disabled');
+		            	$('#cmbTypea').attr('disabled', 'disabled');
+            	}
             }
 
             function btnPrint() {
