@@ -9,7 +9,7 @@
 		<script src='qset.js' type="text/javascript"></script>
 		<script src="../script/qj_mess.js" type="text/javascript"></script>
 		<script type="text/javascript">
-            var q_name = 'stamp', t_content = ' field=noa,namea,typea', bbsKey = ['noa'], as;
+            var q_name = 'stamp', t_content = ' field=noa,namea,acomp,typea', bbsKey = ['noa'], as;
             var isBott = false;
             /// 是否已按過 最後一頁
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
@@ -45,17 +45,21 @@
 					<th align="center" ></th>
 					<th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
 					<th align="center" style='color:Blue;' ><a id='lblNamea'></a></th>
+					<th align="center" style='color:Blue;' ><a id='lblAcomp'></a></th>
 					<th align="center" style='color:Blue;' ><a id='lblTypea'></a></th>
 				</tr>
 				<tr>
 					<td style="width:2%;">
 					<input name="sel"  id="radSel.*" type="radio" />
 					</td>
-					<td style="width:20%;">
+					<td style="width:10%;">
 					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
-					<td style="width:55%;">
+					<td style="width:45%;">
 					<input class="txt" id="txtNamea.*" type="text" style="width:98%;"  readonly="readonly" />
+					</td>
+					<td style="width:20%;">
+					<input class="txt" id="txtAcomp.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
 					<td style="width:20%;">
 					<input class="txt" id="txtTypea.*" type="text" style="width:98%;"  readonly="readonly" />
