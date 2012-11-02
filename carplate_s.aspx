@@ -10,7 +10,7 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<script type="text/javascript">
 			var q_name = "carplate_s";
-
+			aPop=new Array( ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno', 'driver_b.aspx']);
 			$(document).ready(function() {
 				main();
 			});
@@ -35,7 +35,8 @@
 				t_noa = $('#txtNoa').val();
 				t_carplate = $('#txtCarplate').val();
 				t_cardno = $('#txtCardno').val();
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("carplate", t_carplate)+ q_sqlPara2("cardno", t_cardno);
+				t_driverno = $('#txtDriverno').val();
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("carplate", t_carplate)+ q_sqlPara2("cardno", t_cardno)+ q_sqlPara2("driverno", t_driverno);
 
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
@@ -69,6 +70,12 @@
 					<td class='seek'  style="width:20%;"><a id='lblCardno'></a></td>
 					<td>
 					<input class="txt" id="txtCardno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblDriverno'></a></td>
+					<td>
+					<input class="txt" id="txtDriverno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
