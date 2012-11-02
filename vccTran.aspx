@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -11,373 +10,323 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            this.errorHandler = null;
+		    this.errorHandler = null;
 
-            function onPageError(error) {
-                alert("An error occurred:\r\n" + error.Message);
-            }
+		    function onPageError(error) {
+		        alert("An error occurred:\r\n" + error.Message);
+		    }
 
-            q_tables = 's';
-            q_desc = 1;
-            var q_name = "vcc";
-            var q_readonly = ['txtNoa','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtOrdeno'];
-            var q_readonlys = [];
-            var bbmNum = [['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]];
-            var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2], ['txtTotal', 10, 0]];
-            var bbmMask = [];
-            var bbsMask = [];
-            q_sqlCount = 6;
-            brwCount = 6;
-            brwList = [];
-            brwNowPage = 0;
-            brwKey = 'datea';
+		    q_tables = 's';
+		    q_desc = 1;
+		    var q_name = "vcc";
+		    var q_readonly = ['txtNoa', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtOrdeno'];
+		    var q_readonlys = [];
+		    var bbmNum = [['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]];
+		    var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2], ['txtTotal', 10, 0]];
+		    var bbmMask = [];
+		    var bbsMask = [];
+		    q_sqlCount = 6;
+		    brwCount = 6;
+		    brwList = [];
+		    brwNowPage = 0;
+		    brwKey = 'datea';
 
-            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], 
-            ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
-            ['txtPartno2', 'lblPart2', 'part', 'noa,part', 'txtPartno2,txtPart2', 'part_b.aspx'], 
-            ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
-            ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
-            ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-            ['txtItemno_', 'btnItemno_', 'chgitem', 'noa,item', 'txtItemno_,txtItem_', 'chgitem_b.aspx'],
-            ['txtStoreno_', '', 'acomp', 'noa,acomp', 'txtStoreno_,txtStore_', 'acomp_b.aspx']);
+		    aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtPartno2', 'lblPart2', 'part', 'noa,part', 'txtPartno2,txtPart2', 'part_b.aspx'], ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'], ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtItemno_', 'btnItemno_', 'chgitem', 'noa,item', 'txtItemno_,txtItem_', 'chgitem_b.aspx']);
 
-            $(document).ready(function() {
-                bbmKey = ['noa'];
-                bbsKey = ['noa', 'noq'];
-                q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
-            });
+		    $(document).ready(function () {
+		        bbmKey = ['noa'];
+		        bbsKey = ['noa', 'noq'];
+		        q_brwCount();
+		        q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+		    });
 
-            function main() {
-                if(dataErr) {
-                    dataErr = false;
-                    return;
-                }
+		    function main() {
+		        if (dataErr) {
+		            dataErr = false;
+		            return;
+		        }
 
-                mainForm(1);
-            }
+		        mainForm(1);
+		    }
 
-            function mainPost() {
-                q_getFormat();
-                bbmMask = [['txtDatea', r_picd]];
-                q_mask(bbmMask);
-                q_cmbParse("cmbTypea", q_getPara('vcc.typea'));
-                q_cmbParse("cmbStype", q_getPara('vcc.stype'));
-                q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-                q_cmbParse("combPay", q_getPara('vcc.pay'));
-                q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
-                $('#btnAccc').parent().click(function(e) {
-                    q_box("accc.aspx?" + $('#txtAccno').val() + "'", 'accc', "850px", "600px", q_getMsg("popAccc"));
-                });
+		    function mainPost() {
+		        q_getFormat();
+		        bbmMask = [['txtDatea', r_picd]];
+		        q_mask(bbmMask);
+		        q_cmbParse("cmbTypea", q_getPara('vcc.typea'));
+		        q_cmbParse("cmbStype", q_getPara('vcc.stype'));
+		        q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+		        q_cmbParse("combPay", q_getPara('vcc.pay'));
+		        q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
 
-                $('#cmbTaxtype').change(function(e) {
-                    sum();
-                });
-                $('#txtTaxrate').change(function(e) {
-                    sum();
-                });
-                $('#txtTax').change(function(e) {
-                    sum();
-                });
+		        $('#cmbTaxtype').change(function (e) {
+		            sum();
+		        });
+		        $('#txtTaxrate').change(function (e) {
+		            sum();
+		        });
+		        $('#txtTax').change(function (e) {
+		            sum();
+		        });
 
-            }
+		    }
 
-            function q_boxClose(s2) {
-                var ret;
+		    function q_boxClose(s2) {
+		        var ret;
 
-                switch (b_pop) {
-                    case 'ordes':
-                        if(q_cur > 0 && q_cur < 4) {
-                            b_ret = getb_ret();
-                            if(!b_ret || b_ret.length == 0)
-                                return;
-                            var i, j = 0;
-                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2,txtPrice', b_ret.length, b_ret, 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2,price', 'txtProductno,txtProduct,txtSpec');
-                            bbsAssign();
+		        switch (b_pop) {
+		            case 'ordes':
+		                if (q_cur > 0 && q_cur < 4) {
+		                    b_ret = getb_ret();
+		                    if (!b_ret || b_ret.length == 0)
+		                        return;
+		                    var i, j = 0;
+		                    ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2,txtPrice', b_ret.length, b_ret, 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2,price', 'txtProductno,txtProduct,txtSpec');
+		                    bbsAssign();
 
-                            for( i = 0; i < ret.length; i++) {
-                                k = ret[i];
-                                if(!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
-                                    $('#txtMount_' + k).val(b_ret[i]['notv']);
-                                    $('#txtWeight_' + k).val(divide0(b_ret[i]['weight'] * b_ret[i]['notv'], b_ret[i]['mount']));
-                                } else {
-                                    $('#txtWeight_' + k).val(b_ret[i]['notv']);
-                                    $('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv'], b_ret[i]['weight']));
-                                }
-                            }
-                        }
-                        break;
+		                    for (i = 0; i < ret.length; i++) {
+		                        k = ret[i];
+		                        if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
+		                            $('#txtMount_' + k).val(b_ret[i]['notv']);
+		                            $('#txtWeight_' + k).val(divide0(b_ret[i]['weight'] * b_ret[i]['notv'], b_ret[i]['mount']));
+		                        } else {
+		                            $('#txtWeight_' + k).val(b_ret[i]['notv']);
+		                            $('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv'], b_ret[i]['weight']));
+		                        }
+		                    }
+		                }
+		                break;
 
-                    case q_name + '_s':
-                        q_boxClose2(s2);
-                        break;
-                }
-                b_pop = '';
-            }
+		            case q_name + '_s':
+		                q_boxClose2(s2);
+		                break;
+		        }
+		        b_pop = '';
+		    }
 
-            function q_gtPost(t_name) {
-                switch (t_name) {
-                    case q_name:
-                        if(q_cur == 4)
-                            q_Seek_gtPost();
-                        break;
-                }
-            }
+		    function q_gtPost(t_name) {
+		        switch (t_name) {
+		            case q_name:
+		                if (q_cur == 4)
+		                    q_Seek_gtPost();
+		                break;
+		        }
+		    }
 
-            function btnOrdes() {
-                var t_custno = trim($('#txtCustno').val());
-                var t_where = '';
-                if(t_custno.length > 0) {
-                    t_where = "enda='N' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");
-                    t_where = t_where;
-                } else {
-                    alert(q_getMsg('msgCustEmp'));
-                    return;
-                }
-                q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "650px", q_getMsg('popOrde'));
-            }
+		    function btnOrdes() {
+		        var t_custno = trim($('#txtCustno').val());
+		        var t_where = '';
+		        if (t_custno.length > 0) {
+		            t_where = "enda='N' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");
+		            t_where = t_where;
+		        } else {
+		            alert(q_getMsg('msgCustEmp'));
+		            return;
+		        }
+		        q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "650px", q_getMsg('popOrde'));
+		    }
 
-            function btnOk() {
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-                if(t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }
-                sum();
-                var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtDatea').val());
-                if(t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_vcctran') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-                else
-                    wrServer(t_noa);
-            }
+		    function btnOk() {
+		        t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
+		        if (t_err.length > 0) {
+		            alert(t_err);
+		            return;
+		        }
+		        sum();
+		        var t_noa = trim($('#txtNoa').val());
+		        var t_date = trim($('#txtDatea').val());
+		        if (t_noa.length == 0 || t_noa == "AUTO")
+		            q_gtnoa(q_name, replaceAll(q_getPara('sys.key_vcctran') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+		        else
+		            wrServer(t_noa);
+		    }
 
-            function _btnSeek() {
-                if(q_cur > 0 && q_cur < 4)
-                    return;
+		    function _btnSeek() {
+		        if (q_cur > 0 && q_cur < 4)
+		            return;
 
-                q_box('vcc_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
-            }
+		        q_box('vcc_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+		    }
 
-            function combPay_chg() {
-                var cmb = document.getElementById("combPay")
-                if(!q_cur)
-                    cmb.value = '';
-                else
-                    $('#txtPay').val(cmb.value);
-                cmb.value = '';
-            }
+		    function combPay_chg() {
+		        var cmb = document.getElementById("combPay")
+		        if (!q_cur)
+		            cmb.value = '';
+		        else
+		            $('#txtPay').val(cmb.value);
+		        cmb.value = '';
+		    }
 
-            function btnIns() {
-                _btnIns();
-                $('#txtNoa').val('AUTO');
-                $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
-            }
+		    function btnIns() {
+		        _btnIns();
+		        $('#txtNoa').val('AUTO');
+		        $('#txtDatea').val(q_date());
+		        $('#txtDatea').focus();
+		    }
 
-            function btnModi() {
-                if(emp($('#txtNoa').val()))
-                    return;
-                _btnModi();
-                $('#txtDatea').focus();
-            }
+		    function btnModi() {
+		        if (emp($('#txtNoa').val()))
+		            return;
+		        _btnModi();
+		        $('#txtDatea').focus();
+		    }
 
-            function btnPrint() {
+		    function btnPrint() {
 
-            }
+		    }
 
-            function wrServer(key_value) {
-                var i;
+		    function wrServer(key_value) {
+		        var i;
 
-                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-                _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
-            }
+		        $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+		        _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
+		    }
 
-            function bbsAssign() {
-                _bbsAssign();
-                for(var i = 0; i < q_bbsCount; i++) {
-                    /*Mount*/
-                    if( typeof ($('#txtMount_' + i).data('info')) == 'undefined')
-                        $('#txtMount_' + i).data('info', {
-                            isSetChange : false
-                        });
-                    if( typeof ($('#txtMount_' + i).data('info').isSetChange) == 'undefined')
-                        $('#txtMount_' + i).data('info').isSetChange = false;
-                    if(!$('#txtMount_' + i).data('info').isSetChange) {
-                        $('#txtMount_' + i).data('info').isSetChange = true;
-                        $('#txtMount_' + i).change(function(e) {
-                            sum();
-                        });
-                    }
-                    /*Price*/
-                    if( typeof ($('#txtPrice_' + i).data('info')) == 'undefined')
-                        $('#txtPrice_' + i).data('info', {
-                            isSetChange : false
-                        });
-                    if( typeof ($('#txtPrice_' + i).data('info').isSetChange) == 'undefined')
-                        $('#txtPrice_' + i).data('info').isSetChange = false;
-                    if(!$('#txtPrice_' + i).data('info').isSetChange) {
-                        $('#txtPrice_' + i).data('info').isSetChange = true;
-                        $('#txtPrice_' + i).change(function(e) {
-                            sum();
-                        });
-                    }
-                    /*Total*/
-                    if( typeof ($('#txtTotal_' + i).data('info')) == 'undefined')
-                        $('#txtTotal_' + i).data('info', {
-                            isSetChange : false
-                        });
-                    if( typeof ($('#txtTotal_' + i).data('info').isSetChange) == 'undefined')
-                        $('#txtTotal_' + i).data('info').isSetChange = false;
+		    function bbsAssign() {        
+		        for (var i = 0; i < q_bbsCount; i++) {   // q_bbsCount �?�`�C��
+		            if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+		                $('#txtUnit_' + i).focusout(function () { sum(); });    //  $('#txtUnit_' + j)  �C�C���� id
+		                $('#txtWeight_' + i).focusout(function () { sum(); });
+		                $('#txtPrice_' + i).focusout(function () { sum(); });
+		                $('#txtMount_' + i).focusout(function () { sum(); });
+		                $('#txtTotal_' + i).focusout(function () { sum(); });
 
-                    if(!$('#txtTotal_' + i).data('info').isSetChange) {
-                        $('#txtTotal_' + i).data('info').isSetChange = true;
-                        $('#txtTotal_' + i).change(function(e) {
-                            sum();
-                        });
-                    }
-                    /*Memo*/
-                    if( typeof ($('#txtMemo_' + i).data('info')) == 'undefined')
-                        $('#txtMemo_' + i).data('info', {
-                            index : i,
-                            isSetChange : false
-                        });
-                    if( typeof ($('#txtMemo_' + i).data('info').index) == 'undefined')
-                        $('#txtMemo_' + i).data('info').index = i;
-                    if( typeof ($('#txtMemo_' + i).data('info').isSetChange) == 'undefined')
-                        $('#txtMemo_' + i).data('info').isSetChange = false;
-                    if(!$('#txtMemo_' + i).data('info').isSetChange) {
-                        $('#txtMemo_' + i).data('info').isSetChange = true;
-                        $('#txtMemo_' + i).change(function(e) {
-                            if($.trim($(this).val()).substring(0, 1) == '.')
-                                $('#txtTotal_' + $(this).data('info').index).removeAttr('readonly');
-                            else
-                                $('#txtTotal_' + $(this).data('info').index).attr('readonly', 'readonly');
-                            sum();
-                        });
-                    }
-                    $('#txtMemo_' + i).change();
-                }
-            }
+		                $('#txtMemo_' + i).change(function (e) {
+		                    t_IdSeq = -1;  /// �n��  �~��ϥ� q_bodyId()
+		                    q_bodyId($(this).attr('id'));
+		                    b_seq = t_IdSeq;
 
-            function bbsSave(as) {
-                if(!as['item']) {
-                    as[bbsKey[1]] = '';
-                    return;
-                }
-                q_nowf();
-                as['noa'] = abbm2['noa'];
-                if(t_err) {
-                    alert(t_err)
-                    return false;
-                }
-                return true;
-            }
+		                    if ($.trim($(this).val()).substring(0, 1) == '.')
+		                        $('#txtTotal_' + b_seq).removeAttr('readonly');
+		                    else
+		                        $('#txtTotal_' + b_seq).attr('readonly', 'readonly');
+		                });
 
-            function sum() {
-                var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0;
-                var t1, t2;
-                for( i = 0; i < q_bbsCount; i++) {
-                    if($.trim($('#txtMemo_' + i).val()).substring(0, 1) != '.') {
-                        t1 = parseInt($.trim($('#txtMount_' + i).val()).length == 0 ? '0' : $('#txtMount_' + i).val(), 10);
-                        t2 = parseInt($.trim($('#txtPrice_' + i).val()).length == 0 ? '0' : $('#txtPrice_' + i).val(), 10);
-                        $('#txtTotal_' + i).val(Math.round(t1 * t2, 0));
-                    }
-                    if($.trim($('#txtTotal_' + i).val()).length != 0)
-                        t_money += parseInt($('#txtTotal_' + i).val(), 10);
-                }
-                t_rate = parseInt($.trim($('#txtTaxrate').val()).length == 0 ? '0' : $('#txtTaxrate').val(), 10);
-                switch($('#cmbTaxtype').val()) {
-                    case '1':
-                        t_tax = Math.round(t_money * t_rate / 100);
-                        t_total = t_money + t_tax;
-                        break;
-                    case '3':
-                        t_total = t_money;
-                        t_money = Math.round(t_total / (1 + t_rate / 100), 0);
-                        t_tax = t_total - t_money;
-                        break;
-                    case '5':
-                        t_tax = parseInt($.trim($('#txtTax').val()).length == 0 ? '0' : $('#txtTax').val(), 10);
-                        t_total = t_money + t_tax;
-                        break;
-                    default:
-                        t_total = t_money;
-                }
-                $('#txtMoney').val(t_money);
-                $('#txtTax').val(t_tax);
-                $('#txtTotal').val(t_total);
-            }
+		            }
+		        } //j
+		        _bbsAssign();
+		    }
 
-            function refresh(recno) {
-                _refresh(recno);
 
-            }
 
-            function readonly(t_para, empty) {
-                _readonly(t_para, empty);
-                for(var i = 0; i < q_bbsCount; i++) {
-                    if($.trim($('#txtMemo_' + i).val()).substring(0, 1) == '.')
-                        $('#txtTotal_' + $('#txtMemo_' + i).data('info').index).removeAttr('readonly');
-                    else
-                        $('#txtTotal_' + $('#txtMemo_' + i).data('info').index).attr('readonly', 'readonly');
-                }
-            }
+		    function bbsSave(as) {
+		        if (!as['item']) {
+		            as[bbsKey[1]] = '';
+		            return;
+		        }
+		        q_nowf();
+		        as['noa'] = abbm2['noa'];
+		        if (t_err) {
+		            alert(t_err)
+		            return false;
+		        }
+		        return true;
+		    }
 
-            function btnMinus(id) {
-                _btnMinus(id);
-                sum();
-            }
+		    function sum() {
+		        var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0;
+		        var t1, t2;
+		        for (i = 0; i < q_bbsCount; i++) {
+		            if ($.trim($('#txtMemo_' + i).val()).substring(0, 1) != '.') {
+		                t1 = parseInt($.trim($('#txtMount_' + i).val()).length == 0 ? '0' : $('#txtMount_' + i).val(), 10);
+		                t2 = parseInt($.trim($('#txtPrice_' + i).val()).length == 0 ? '0' : $('#txtPrice_' + i).val(), 10);
+		                $('#txtTotal_' + i).val(Math.round(t1 * t2, 0));
+		            }
+		            if ($.trim($('#txtTotal_' + i).val()).length != 0)
+		                t_money += parseInt($('#txtTotal_' + i).val(), 10);
+		        }
+		        t_rate = parseInt($.trim($('#txtTaxrate').val()).length == 0 ? '0' : $('#txtTaxrate').val(), 10);
+		        switch ($('#cmbTaxtype').val()) {
+		            case '1':
+		                t_tax = Math.round(t_money * t_rate / 100);
+		                t_total = t_money + t_tax;
+		                break;
+		            case '3':
+		                t_total = t_money;
+		                t_money = Math.round(t_total / (1 + t_rate / 100), 0);
+		                t_tax = t_total - t_money;
+		                break;
+		            case '5':
+		                t_tax = parseInt($.trim($('#txtTax').val()).length == 0 ? '0' : $('#txtTax').val(), 10);
+		                t_total = t_money + t_tax;
+		                break;
+		            default:
+		                t_total = t_money;
+		        }
+		        $('#txtMoney').val(t_money);
+		        $('#txtTax').val(t_tax);
+		        $('#txtTotal').val(t_total);
+		    }
 
-            function btnPlus(org_htm, dest_tag, afield) {
-                _btnPlus(org_htm, dest_tag, afield);
-                if(q_tables == 's')
-                    bbsAssign();
-            }
+		    function refresh(recno) {
+		        _refresh(recno);
 
-            function q_appendData(t_Table) {
-                return _q_appendData(t_Table);
-            }
+		    }
 
-            function btnSeek() {
-                _btnSeek();
-            }
+		    function readonly(t_para, empty) {
+		        _readonly(t_para, empty);
+		        for (var i = 0; i < q_bbsCount; i++) {
+		            if ($.trim($('#txtMemo_' + i).val()).substring(0, 1) == '.')
+		                $('#txtTotal_' + i).removeAttr('readonly');
+		            else
+		                $('#txtTotal_' + i).attr('readonly', 'readonly');
+		        }
+		    }
 
-            function btnTop() {
-                _btnTop();
-            }
+		    function btnMinus(id) {
+		        _btnMinus(id);
+		        sum();
+		    }
 
-            function btnPrev() {
-                _btnPrev();
-            }
+		    function btnPlus(org_htm, dest_tag, afield) {
+		        _btnPlus(org_htm, dest_tag, afield);
+		        if (q_tables == 's')
+		            bbsAssign();
+		    }
 
-            function btnPrevPage() {
-                _btnPrevPage();
-            }
+		    function q_appendData(t_Table) {
+		        return _q_appendData(t_Table);
+		    }
 
-            function btnNext() {
-                _btnNext();
-            }
+		    function btnSeek() {
+		        _btnSeek();
+		    }
 
-            function btnNextPage() {
-                _btnNextPage();
-            }
+		    function btnTop() {
+		        _btnTop();
+		    }
 
-            function btnBott() {
-                _btnBott();
-            }
+		    function btnPrev() {
+		        _btnPrev();
+		    }
 
-            function q_brwAssign(s1) {
-                _q_brwAssign(s1);
-            }
+		    function btnPrevPage() {
+		        _btnPrevPage();
+		    }
 
-            function btnDele() {
-                _btnDele();
-            }
+		    function btnNext() {
+		        _btnNext();
+		    }
 
-            function btnCancel() {
-                _btnCancel();
-            }
+		    function btnNextPage() {
+		        _btnNextPage();
+		    }
+
+		    function btnBott() {
+		        _btnBott();
+		    }
+
+		    function q_brwAssign(s1) {
+		        _q_brwAssign(s1);
+		    }
+
+		    function btnDele() {
+		        _btnDele();
+		    }
+
+		    function btnCancel() {
+		        _btnCancel();
+		    }
 		</script>
 		<style type="text/css">
             #dmain {
@@ -510,7 +459,7 @@
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
-						<td align="center" id='type'>~type</td>
+						<td align="center" id='typea=vcc.typea'>~typea=vcc.typea</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='noa'>~noa</td>
 						<td align="center" id='custno comp,4'>~custno ~comp,4</td>
@@ -649,19 +598,17 @@
 					<td align="center" style="width: 1%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:25%;"><a id='lblItem_s'></a></td>
+					<td align="center" style="width:30%;"><a id='lblItem_s'></a></td>
 					<td align="center" style="width: 5%;"><a id='lblUnit_s'></a></td>
-					<td align="center" style="width: 8%;"><a id='lblMountt_s'></a></td>
+					<td align="center" style="width: 8%;"><a id='lblMount_s'></a></td>
 					<td align="center" style="width: 8%;"><a id='lblPrice_s'></a></td>
 					<td align="center" style="width: 8%;"><a id='lblTotal_s'></a></td>
-					<td align="center" style="width: 13%;"><a id='lblStoreno_s'></a></td>
-					<td align="center" style="width: 8%;"><a id='lblDime3_s'></a></td>
-					<td align="center" style="width:12%;"><a id='lblMemo_s'></a></td>
+					<td align="center" style="width:30%;"><a id='lblMemo_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
-					<input id="txtNoq.*" type="texr" style="display: none;" />
+					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
 					<td>
 					<input  id="txtItemno.*"type="text" style="float:left;width: 20%;"/>
@@ -673,21 +620,13 @@
 					<td>
 					<input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/>
 					</td>
-					<td >
+					<td style="width:6%;">
 					<input  id="txtPrice.*" type="text" style="width: 95%;text-align: right;"/>
 					</td>
-					<td >
+					<td style="width:8%;">
 					<input  id="txtTotal.*" type="text" style="width: 95%;text-align: right;"/>
 					</td>
-					</td>
-					<td >
-					<input  id="txtStoreno.*" type="text" style="width: 20%;"/><input  id="txtStore.*" type="text" style="width: 70%;"/>
-					</td>
-					</td>
-					<td >
-					<input  id="txtDime.*" type="text" style="width: 95%;"/>
-					</td>
-					<td >
+					<td style="width:12%;">
 					<input id="txtMemo.*" type="text" style="width: 95%;"/>
 					</td>
 				</tr>
