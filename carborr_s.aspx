@@ -38,7 +38,7 @@
 				t_bdate = $('#txtBdate').val();
 				t_edate = $('#txtEdate').val();
 				t_carno = $('#txtCarno').val();
-				t_driverno = $('#txtDriverno').val();
+				t_driverno = $.trim($('#txtDriverno').val());
 				t_driver = $('#txtDriver').val();
 
 				t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
