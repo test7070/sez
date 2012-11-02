@@ -20,11 +20,11 @@
             }
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_vcctran');
+                q_gf('', 'z_vccp');
             });
             function q_gfPost() {
                $('#q_report').q_report({
-                        fileName : 'z_vcctran',
+                        fileName : 'z_vccp',
                         options : [{
 	                        type : '0',
 	                        name : 'accy',

@@ -26,7 +26,10 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
-		 aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx']);
+		 aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,tel,zip_invo,addr_invo', 'txtTggno,txtTgg,txtTel,txtPost,txtAddr', 'tgg_b.aspx'],
+		 ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
+		 ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
+		 ['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -49,7 +52,7 @@
 
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd ]];
+            bbmMask = [['txtDatea', r_picd ],['txtMon', r_picm ]];
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('rc2.typea'));   // 需在 main_form() 後執行，才會載入 系統參數
             q_cmbParse("cmbStype", q_getPara('rc2.stype'));   

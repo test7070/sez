@@ -28,7 +28,11 @@
                     }]
                     });
                 q_popAssign();
-	            
+                
+	             var t_noa=typeof(q_getId()[3])=='undefined'?'':q_getId()[3];
+                t_noa  =  t_noa.replace('noa=','');
+                $('#txtXnoa1').val(t_noa);
+                $('#txtXnoa2').val(t_noa);
             }
 
             function q_boxClose(s2) {
