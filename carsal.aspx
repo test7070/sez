@@ -202,7 +202,7 @@
 
 			function sum() {
 				var t_tranmoney=0,t_drivermoney=0,t_bonus=0,t_plus=0,t_money=0;
-				var t_ticket=0,t_labor=0,t_health=0,t_minus=0,t_carborr=0,t_total=0;		
+				var t_eo=0,t_ticket=0,t_labor=0,t_health=0,t_minus=0,t_carborr=0,t_total=0;		
 		
 				 for( i = 0; i < q_bbsCount; i++) {
 					 t_tranmoney += q_float('txtTranmoney_'+i);					 
@@ -211,13 +211,14 @@
 					 t_plus += q_float('txtPlus_'+i);					 
 					 t_money += q_float('txtDrivermoney_'+i)+q_float('txtBonus_'+i)+q_float('txtPlus_'+i);
 					 $('#txtMoney_' + i).val(q_float('txtDrivermoney_'+i)+q_float('txtBonus_'+i)+q_float('txtPlus_'+i));
+					 t_eo += q_float('txtEo_'+i);
 					 t_ticket += q_float('txtTicket_'+i);
 					 t_labor += q_float('txtLabor_'+i);
 					 t_health += q_float('txtHealth_'+i);
 					 t_minus += q_float('txtMinus_'+i);
 					 t_carborr += q_float('txtCarborr_'+i);
-				     t_total +=  q_float('txtMoney_'+i)-q_float('txtTicket_'+i)-q_float('txtLabor_'+i)-q_float('txtHealth_'+i)-q_float('txtMinus_'+i)-q_float('txtCarborr_'+i);
-					 $('#txtTotal_' + i).val(q_float('txtMoney_'+i)-q_float('txtTicket_'+i)-q_float('txtLabor_'+i)-q_float('txtHealth_'+i)-q_float('txtMinus_'+i)-q_float('txtCarborr_'+i));
+				     t_total +=  q_float('txtMoney_'+i)-q_float('txtEo_'+i)-q_float('txtTicket_'+i)-q_float('txtLabor_'+i)-q_float('txtHealth_'+i)-q_float('txtMinus_'+i)-q_float('txtCarborr_'+i);
+					 $('#txtTotal_' + i).val(q_float('txtMoney_'+i)-q_float('txtEo_'+i)-q_float('txtTicket_'+i)-q_float('txtLabor_'+i)-q_float('txtHealth_'+i)-q_float('txtMinus_'+i)-q_float('txtCarborr_'+i));
 					// t_total += parseInt($.trim($('#txtTotal_' + i).val()).length == 0 ? '0' : $('#txtTotal_' + i).val().replace(/,/g,''), 10);				
 				 }
 				 
@@ -227,7 +228,7 @@
 				 $('#txtBonus').val(t_bonus);
 				 $('#txtPlus').val(t_plus);
 				 $('#txtMoney').val(t_money);
-				 
+				 $('#txtEo').val(t_eo);
 				 $('#txtTicket').val(t_ticket);
 				 $('#txtLabor').val(t_labor);
 				 $('#txtHealth').val(t_health);
