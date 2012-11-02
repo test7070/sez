@@ -565,6 +565,11 @@
 
 			function q_popPost(id) {
 				switch(id) {
+					case 'txtCarno':
+						if(q_cur==1 || q_cur==2){
+							$('#txtDriverno').focus();
+						}
+						break;
 					case 'txtCustno':
 						if(q_cur==1 || q_cur==2){
 							$('#txtCaseuseno').val($('#txtCustno').val());
