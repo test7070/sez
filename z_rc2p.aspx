@@ -29,7 +29,7 @@
                     {
                         type : '0',
                         name : 'accy',
-                        value : q_getId()[4]
+                        value : r_accy
                     },{
                         type : '1',
                         name : 'date'
@@ -114,7 +114,11 @@
             }
 		</script>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+        ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"  
+        ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"  
+        ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+     >
 		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">

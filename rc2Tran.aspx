@@ -453,11 +453,15 @@
                 float: left;
             }
             .txt.c2 {
-                width: 40%;
+                width: 35%;
                 float: left;
             }
             .txt.c3 {
                 width: 60%;
+                float: left;
+            }
+            .txt.c4 {
+                width: 48%;
                 float: left;
             }
             .txt.num {
@@ -562,8 +566,8 @@
 						</td>
 						<td class="td3"><span> </span><a id='lblPay' class="lbl"> </a></td>
 						<td class="td4">
-						<input id="txtPay" type="text" class="txt c2"/>
-						<select id="combPay" class="txt c2" > </select></td>
+						<input id="txtPay" type="text" class="txt c4"/>
+						<select id="combPay" class="txt c4" > </select></td>
 						<td class="td5" align="right"><span> </span><input id='btnAccc'  type="button"/> </td>
 						<td class="td6">
 						<input type="text" id="txtAccno" class="txt c1"/>

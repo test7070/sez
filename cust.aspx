@@ -448,22 +448,22 @@
             </tr>
             <tr class="tr7">
                 <td class="td1"><span> </span><a id='lblAddr_fact' class="lbl"></a></td>
-                <td class="td2"><input id="txtPost_fact" type="text"  class="txt c1"></td>
+                <td class="td2"><input id="txtZip_fact" type="text"  class="txt c1"></td>
                 <td class="td3" colspan='4' ><input id="txtAddr_fact"  type="text" class="txt c7"/></td> 
             </tr>
             <tr class="tr8">
                 <td class="td1"><span> </span><a id='lblAddr_comp' class="lbl"></a></td>
-                <td class="td2" ><input id="txtPost_comp" type="text" class="txt c1"/></td>
+                <td class="td2" ><input id="txtZip_comp" type="text" class="txt c1"/></td>
                 <td class="td3" colspan='4' ><input id="txtAddr_comp"  type="text" class="txt c7"/></td> 
             </tr>
             <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblAddr_invo' class="lbl"></a></td>
-                <td class="td2" ><input id="txtPost_invo" type="text" class="txt c1"/></td>
+                <td class="td2" ><input id="txtZip_invo" type="text" class="txt c1"/></td>
                 <td class="td3" colspan='4' ><input id="txtAddr_invo"  type="text" class="txt c7"/></td> 
             </tr>
             <tr class="tr10">
                 <td class="td1"><span> </span><a id='lblAddr_home' class="lbl"></a></td>
-                <td class="td2"><input id="txtPost_home" type="text" class="txt c1"/></td>
+                <td class="td2"><input id="txtZip_home" type="text" class="txt c1"/></td>
                 <td class="td3" colspan='4'><input id="txtAddr_home"  type="text" class="txt c7"/></td> 
             </tr>
             <tr class="tr11">
