@@ -165,6 +165,8 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtMon').val(q_date().substr( 0,6));
             $('#txtMon').focus();
+            $('#cmbPerson').val("本國");
+            $('#cmbMonkind').val("上期");
             check_insed();
             table_change();
         }
@@ -294,23 +296,23 @@
         function table_change() {
             if($('#cmbPerson').find("option:selected").text().indexOf('外勞')>-1){
 			    //bbs
-            	$('#hid_ch_powers').attr('hidden', 'true');
-			    $('#hid_chgcashs').removeAttr('hidden');
-			    $('#hid_ch_stays').removeAttr('hidden');
+            	$('#hid_ch_powers').hide();
+			    $('#hid_chgcashs').show();
+			    $('#hid_ch_stays').show();
 			    for (var j = 0; j < q_bbsCount; j++) {
-			    	$('#hid_ch_powers_'+j).attr('hidden', 'true');
-			    	$('#hid_chgcashs_'+j).removeAttr('hidden');
-				    $('#hid_ch_stays_'+j).removeAttr('hidden');
+			    	$('#hid_ch_powers_'+j).hide();
+			    	$('#hid_chgcashs_'+j).show();
+				    $('#hid_ch_stays_'+j).show();
 			    }
             }else{
 			    //bbs
-            	$('#hid_ch_powers').removeAttr('hidden');
-			    $('#hid_chgcashs').attr('hidden', 'true');
-			    $('#hid_ch_stays').attr('hidden', 'true');
+            	$('#hid_ch_powers').show();
+			    $('#hid_chgcashs').hide();
+			    $('#hid_ch_stays').hide();
 			    for (var j = 0; j < q_bbsCount; j++) {
-			    	$('#hid_ch_powers_'+j).removeAttr('hidden');
-			    	$('#hid_chgcashs_'+j).attr('hidden', 'true');
-				    $('#hid_ch_stays_'+j).attr('hidden', 'true');
+			    	$('#hid_ch_powers_'+j).show();
+			    	$('#hid_chgcashs_'+j).hide();
+				    $('#hid_ch_stays_'+j).hide();
 			    }
             }
         }

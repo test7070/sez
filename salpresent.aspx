@@ -132,6 +132,7 @@
             $('#txtNoa').val(q_date());
             $('#txtNoa').focus();
             
+            
             //判斷當天是否新增過
             var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^";
 		    q_gt('salpresent', t_where , 0, 0, 0, "", r_accy);
@@ -256,37 +257,37 @@
         function table_change() {
             if($('#chkHoliday')[0].checked){
             	//bbm
-            	$('#hid_w133a').attr('hidden', 'true');
-            	$('#hid_w133b').attr('hidden', 'true');
-            	$('#hid_w166a').attr('hidden', 'true');
-            	$('#hid_w166b').attr('hidden', 'true');
-			    $('#hid_w100a').removeAttr('hidden');
-			    $('#hid_w100b').removeAttr('hidden');
+            	$('#hid_w133a').hide();
+            	$('#hid_w133b').hide();
+            	$('#hid_w166a').hide();
+            	$('#hid_w166b').hide();
+			    $('#hid_w100a').show();
+			    $('#hid_w100b').show();
 			    //bbs
-			    $('#hid_w133s').attr('hidden', 'true');
-			    $('#hid_w166s').attr('hidden', 'true');
-			    $('#hid_w100s').removeAttr('hidden');
+			    $('#hid_w133s').hide();
+			    $('#hid_w166s').hide();
+			    $('#hid_w100s').show();
 			    for (var j = 0; j < q_bbsCount; j++) {
-			    	$('#hid_w133s_'+j).attr('hidden', 'true');
-				    $('#hid_w166s_'+j).attr('hidden', 'true');
-				    $('#hid_w100s_'+j).removeAttr('hidden');
+			    	$('#hid_w133s_'+j).hide();
+				    $('#hid_w166s_'+j).hide();
+				    $('#hid_w100s_'+j).show();
 			    }
             }else{
             	//bbm
-            	$('#hid_w133a').removeAttr('hidden');
-            	$('#hid_w133b').removeAttr('hidden');
-            	$('#hid_w166a').removeAttr('hidden');
-            	$('#hid_w166b').removeAttr('hidden');
-			    $('#hid_w100a').attr('hidden', 'true');
-			    $('#hid_w100b').attr('hidden', 'true');
+            	$('#hid_w133a').show();
+            	$('#hid_w133b').show();
+            	$('#hid_w166a').show();
+            	$('#hid_w166b').show();
+			    $('#hid_w100a').hide();
+			    $('#hid_w100b').hide();
 			    //bbs
-			    $('#hid_w133s').removeAttr('hidden');
-			    $('#hid_w166s').removeAttr('hidden');
-			    $('#hid_w100s').attr('hidden', 'true');
+			    $('#hid_w133s').show();
+			    $('#hid_w166s').show();
+			    $('#hid_w100s').hide();
 			    for (var j = 0; j < q_bbsCount; j++) {
-			    	$('#hid_w133s_'+j).removeAttr('hidden');
-				    $('#hid_w166s_'+j).removeAttr('hidden');
-				    $('#hid_w100s_'+j).attr('hidden', 'true');
+			    	$('#hid_w133s_'+j).show();
+				    $('#hid_w166s_'+j).show();
+				    $('#hid_w100s_'+j).hide();
 			    }
             }
         }

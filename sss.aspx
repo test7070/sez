@@ -62,6 +62,23 @@
 		        $('#btnSaladjust').click(function (e) {
 		            q_box("salAdjust.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'saladjust', "850px", "600px", q_getMsg("popSaladjust"));
 		        });
+		        
+		        $('#txtIndate').change(function (e) {
+		            if(!emp($('#txtIndate').val()))
+		            {
+		            	$('#txtHealth_bdate').val($('#txtIndate').val());
+		            	$('#txtLabor1_bdate').val($('#txtIndate').val());
+		            	$('#txtLabor2_bdate').val($('#txtIndate').val());
+		            }
+		        });
+		        $('#txtOutdate').change(function (e) {
+		            if(!emp($('#txtOutdate').val()))
+		            {
+		            	$('#txtHealth_edate').val($('#txtOutdate').val());
+		            	$('#txtLabor1_edate').val($('#txtOutdate').val());
+		            	$('#txtLabor2_edate').val($('#txtOutdate').val());
+		            }
+		        });
 		    }
 
 		    function txtCopy(dest, source) {
@@ -489,8 +506,8 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblRecord' class="lbl"></a></td>
 						<td class="td2">
-							<select id="cmbRecord" class="txt c2"></select>
-							<input id="txtSchool" type="text" class="txt c3"/>
+							<!--<select id="cmbRecord" class="txt c2"></select>-->
+							<input id="txtSchool" type="text" class="txt c1"/>
 						</td>
 						<td class="td3"><span> </span><a id='lblAccount' class="lbl"></a></td>
 						<td class="td4"><input id="txtAccount"  type="text" class="txt c1" /></td>
