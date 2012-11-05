@@ -21,7 +21,7 @@
 		    var q_readonly = ['txtNoa', 'txtWmoney', 'txtCmoney','txtMoney', 'txtTotal','txtWorker'];
 		    var q_readonlys = ['txtMemo2'];
 		    var bbmNum = new Array(['txtMiles', 10, 0],['txtDiscount', 10, 0], ['txtWmoney', 10, 0], ['txtCmoney', 10, 0], ['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]);
-		    var bbsNum = new Array(['txtPrice', 10, 0], ['txtMount', 10, 0], ['txtMoney', 10, 0]);
+		    var bbsNum = new Array(['txtPrice', 10, 1], ['txtMount', 10, 0], ['txtMoney', 10, 0]);
 		    var bbmMask = [];
 		    var bbsMask = [];
 		    q_sqlCount = 6;
@@ -228,6 +228,8 @@
             }
 
 		    function sum() {
+		    	if(!(q_cur==1 || q_cur==2))
+		    		return;
 		        var t_mount, t_price, t_money = 0, t_wmoney = 0, t_cmoney = 0, t_tax,t_discount;
 		        for (var j = 0; j < q_bbsCount; j++) {
 		            if ($.trim($('#txtMemo_' + j).val()).substring(0, 1) != '.') {
