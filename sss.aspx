@@ -25,7 +25,10 @@
 		    brwNowPage = 0;
 		    brwKey = 'noa';
 		    //ajaxPath = ""; //  execute in Root
-		    aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp', 'acomp_b.aspx'], ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
+		    aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp', 'acomp_b.aspx'],
+		    							['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
+		    							['txtJobno', 'lblJob', 'part', 'noa,job', 'txtJobno,txtJob', 'salm_b.aspx']);
+		    
 		    $(document).ready(function () {
 		        bbmKey = ['noa'];
 		        q_brwCount();
@@ -469,8 +472,11 @@
 							<input id="txtPartno"  type="text" class="txt c2"/>
 							<input id="txtPart"  type="text" class="txt c3"/>
 						</td>
-						<td class="td3"><span> </span><a id='lblJob' class="lbl"></a></td>
-						<td class="td4"><input id="txtJob"  type="text" class="txt c1" />	</td>
+						<td class="td3"><span> </span><a id='lblJob' class="lbl btn"></a></td>
+						<td class="td4">
+							<input id="txtJobno"  type="text" class="txt c2" />
+							<input id="txtJob"  type="text" class="txt c3" />	
+						</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblAcomp' class="lbl btn" ></a></td>

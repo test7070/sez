@@ -24,7 +24,7 @@
         var bbsMask = [];
 
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
-         aPop = new Array(['txtNoa', 'lblNoa', 'sss', 'noa,namea', 'txtNoa,txtNamea', 'sss_b.aspx']);
+         aPop = new Array(['txtNoa', 'lblNoa', 'sss', 'noa,namea', 'txtNoa,txtNamea,txtDatea', 'sss_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -70,6 +70,8 @@
             $('#txtSalary').change(function () {
             	if(emp($('#txtNoa').val())){
             		alert('請先輸入員工編號!!!');
+            		q_tr('txtSalary',0);
+            		$('#txtNoa').focus();
             		return;
             	}
             	
