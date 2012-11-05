@@ -41,6 +41,12 @@
 					}, {/*4*/
 						type : '6',
 						name : 'xmon'
+					}, {/*5*/
+						type : '2',
+						name : 'tgg',
+						dbf : 'tgg',
+						index : 'noa,nick',
+						src : 'tgg_b.aspx'
 					}]
 				});
 				q_popAssign();
