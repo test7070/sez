@@ -18,7 +18,10 @@
     </script>
     
     <script type="text/javascript">
-    
+    	
+    	var map,mapOptions,marker,myLatlng;//地圖
+    	var locations;
+    	
         this.errorHandler = null;
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
@@ -48,10 +51,7 @@
             mainForm(0); // 1=Last  0=Top
         }  ///  end Main()
 
-		var location;
         function mainPost() {
-        		q_gt('location', '', 0, 0, 0, "", r_accy);
-        	
         		$('#btnModi').attr('hidden', 'true');
         		$('#btnDele').attr('hidden', 'true');
         		$('#btnSeek').attr('hidden', 'true');
@@ -68,6 +68,7 @@
         		$('#btnOk').attr('hidden', 'true');
         		$('#btnCancel').attr('hidden', 'true');
         		$('#dmain').attr('hidden', 'true');
+        		initialize();
         }
         
         function q_stPost() {
@@ -86,8 +87,9 @@
 
         function q_gtPost(t_name) {
             switch (t_name) {
-                case q_name: 
-                	location=_q_appendData("location", "", true);
+                case q_name:
+                	locations=_q_appendData("location", "", true);                	
+
                 	if (q_cur == 4)
                         q_Seek_gtPost();
 
@@ -141,8 +143,6 @@
 
         function refresh(recno) {
             _refresh(recno);
-            if(!mapins)
-            	check_telephone();
         }
 
         function readonly(t_para, empty) {
@@ -200,19 +200,16 @@
         }
         
         function initialize() {
-        	if(location[0]==undefined)
-        	
 			//地圖建立
 			myLatlng=new google.maps.LatLng(22.669193,120.308327);
 			mapOptions = {
 				center: myLatlng,
-				zoom: 16,
+				zoom: 13,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
 			
 			map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
 			
-			window.setInterval(getLocation,1500);//定時抓GPS
 			window.setInterval(mark,2000); //定時建立mark
 		}
         
@@ -223,16 +220,16 @@
 				marker.setMap(null);
 			}
 			
-			//設定中心點
-			map.setCenter(myLatlng);
-			
 			//插入marker
-			marker = new google.maps.Marker({
-				position: myLatlng,
-				map: map,
-				title:"XXXX"
-			});
-			
+			for(var i=0;i<myLatlng.length;i++){
+				myLatlng[i]=new google.maps.LatLng(locations[i].latitude,locations[i].longitude)	
+				marker = new google.maps.Marker({
+					position: myLatlng[i],
+					map: map,
+					title:"我是"+locations[i].noa
+				});
+			}
+			q_gt('location','', 0, 0, 0, "", r_accy);
 		}
         ////////////////////////////////////////////////////////////////////////////////
     </script>
@@ -353,7 +350,7 @@
 			
         </style>
     </head>
-    <body onload="initialize()">
+    <body>
             <!--#include file="../inc/toolbar.inc"-->
             <div id='dmain' >
             	<div class="dview" id="dview">
