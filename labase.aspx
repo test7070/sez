@@ -68,6 +68,9 @@
             });
             
             $('#txtSalary').change(function () {
+            	//取得勞退薪資等級表
+            	var t_where = "where=^^ noa like '%"+$('#txtDatea').val().substr( 0,3)+"%' ^^";
+            	q_gt('labretire', t_where, 0, 0, 0, "", r_accy);
             	//取得勞保薪資等級表
             	var t_where = "where=^^ noa like '%"+$('#txtDatea').val().substr( 0,3)+"%' ^^";
             	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
@@ -108,6 +111,19 @@
             				$('#chkForeigns')[0].checked=false;	
             		}
             	break;
+            	case 'labretire':
+            		var as = _q_appendData("labretire", "", true);
+            			if(as[0]!=undefined){
+            				var labretires = _q_appendData("labretires", "", true);
+            				for (var i = 0; i < labretires.length; i++) {
+            					if(dec(labretires[i].salary1)<=dec($('#txtSalary').val())&&dec(labretires[i].salary2)>=dec($('#txtSalary').val())){
+            						q_tr('txtSa_retire',labretires[i].pmoney);//勞退提繳金額
+            						q_tr('txtRe_comp',labretires[i].pcomp);//勞保公司提繳
+            						break;	
+            					}
+            				}
+            			}
+            		break;
             	case 'labsal':
             			var as = _q_appendData("labsal", "", true);
             			if(as[0]!=undefined){
