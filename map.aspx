@@ -20,6 +20,7 @@
     <script type="text/javascript">
     	
     	var map,mapOptions,marker,myLatlng;//地圖
+    	var locations;
     	
         this.errorHandler = null;
         function onPageError(error) {
@@ -50,7 +51,6 @@
             mainForm(0); // 1=Last  0=Top
         }  ///  end Main()
 
-		var as;
         function mainPost() {
         		$('#btnModi').attr('hidden', 'true');
         		$('#btnDele').attr('hidden', 'true');
@@ -88,7 +88,8 @@
         function q_gtPost(t_name) {
             switch (t_name) {
                 case q_name:
-                	as=_q_appendData("location", "", true);                	
+                	locations=_q_appendData("location", "", true);                	
+
                 	if (q_cur == 4)
                         q_Seek_gtPost();
 
@@ -209,23 +210,27 @@
 			
 			map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
 			
-			window.setInterval(mark,2000); //定時建立mark
+			window.setInterval(mark,3000); //定時建立mark
 		}
         
         //建立mark
 		function mark() {
 			//清除marker
 			if (marker) {
-				marker.setMap(null);
+				for (i in marker) {
+					marker[i].setMap(null);
+				}
 			}
-			myLatlng=new google.maps.LatLng(as[0].latitude,as[0].longitude)
 			
 			//插入marker
-			marker = new google.maps.Marker({
-				position: myLatlng,
-				map: map,
-				title:"location[0].noa"
-			});
+			for(var i=0;i<myLatlng.length;i++){
+				myLatlng[i]=new google.maps.LatLng(locations[i].latitude,locations[i].longitude)	
+				marker[i] = new google.maps.Marker({
+					position: myLatlng[i],
+					map: map,
+					title:"我是"+locations[i].noa
+				});
+			}
 			q_gt('location','', 0, 0, 0, "", r_accy);
 		}
         ////////////////////////////////////////////////////////////////////////////////

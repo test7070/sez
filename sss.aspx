@@ -25,7 +25,10 @@
 		    brwNowPage = 0;
 		    brwKey = 'noa';
 		    //ajaxPath = ""; //  execute in Root
-		    aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp', 'acomp_b.aspx'], ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
+		    aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp', 'acomp_b.aspx'],
+		    							['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
+		    							['txtJobno', 'lblJob', 'part', 'noa,job', 'txtJobno,txtJob', 'salm_b.aspx']);
+		    
 		    $(document).ready(function () {
 		        bbmKey = ['noa'];
 		        q_brwCount();
@@ -46,19 +49,19 @@
 
 		    function mainPost() {
 		        q_getFormat();
-		        bbmMask = [['txtBirthday', r_picd], ['txtFt_date', r_picd], ['txtIndate', r_picd], ['txtOutdate', r_picd], ['txtHealth_bdate', r_picd], ['txtHealth_edate', r_picd], ['txtLabor1_bdate', r_picd], ['txtLabor1_edate', r_picd], ['txtLabor2_bdate', r_picd], ['txtLabor2_edate', r_picd]];
+		        bbmMask = [['txtBirthday', r_picd], ['txtFt_date', r_picd], ['txtIndate', r_picd], ['txtOutdate', r_picd], ['txtMobile1', '9999999999'], ['txtMobile2', '9999999999'], ['txtHealth_bdate', r_picd], ['txtHealth_edate', r_picd], ['txtLabor1_bdate', r_picd], ['txtLabor1_edate', r_picd], ['txtLabor2_bdate', r_picd], ['txtLabor2_edate', r_picd]];
 		        q_mask(bbmMask);
 		        q_cmbParse("cmbTypea", q_getPara('sss.typea'));
 		        q_cmbParse("cmbSex", q_getPara('sss.sex'));
 		        q_cmbParse("cmbPerson", q_getPara('person.typea'));
 		        q_cmbParse("cmbRecord", ('').concat(new Array('國小', '國中', '高中', '高職', '大專', '大學', '碩士', '博士')));
+		        q_cmbParse("cmbBlood", ('').concat(new Array('A', 'B', 'AB', 'O')));
 		        $('#btnFamily').click(function (e) {
 		            q_box("labases_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'family', "850px", "600px", q_getMsg("popFamily"));
 		        });
 		        $('#btnSaladjust').click(function (e) {
 		            q_box("salAdjust.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'saladjust', "850px", "600px", q_getMsg("popSaladjust"));
 		        });
-
 		    }
 
 		    function txtCopy(dest, source) {
@@ -162,6 +165,7 @@
 
 		        _btnModi();
 		        $('#txtComp').focus();
+		        $('#txtNoa').attr('disabled', 'disabled');
 		    }
 
 		    function btnPrint() {
@@ -411,7 +415,7 @@
 						<td class="td3"><span> </span><a id='lblBirthday' class="lbl"></a></td>
 						<td class="td4"><input id="txtBirthday"  type="text" class="txt c1"/></td>
 						<td class="td5"><span> </span><a id='lblBlood' class="lbl"></a></td>
-						<td class="td6"><input id="txtBlood" type="text"  class="txt c2"/></td>
+						<td class="td6"><select id="cmbBlood" class="txt c2" style="width: 50%;float: left;"></select></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblSex' class="lbl"></a></td>
@@ -469,16 +473,17 @@
 							<input id="txtPartno"  type="text" class="txt c2"/>
 							<input id="txtPart"  type="text" class="txt c3"/>
 						</td>
-						<td class="td3"><span> </span><a id='lblJob' class="lbl"></a></td>
-						<td class="td4"><input id="txtJob"  type="text" class="txt c1" />	</td>
-						<td class="td5"><span> </span><a id='lblAccount' class="lbl"></a></td>
-						<td class="td6"><input id="txtAccount"  type="text" class="txt c1" /></td>
+						<td class="td3"><span> </span><a id='lblJob' class="lbl btn"></a></td>
+						<td class="td4">
+							<input id="txtJobno"  type="text" class="txt c2" />
+							<input id="txtJob"  type="text" class="txt c3" />	
+						</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblAcomp' class="lbl btn" ></a></td>
 						<td class="td2" colspan="3">
-							<input id="txtCno"type="text" class="txt c2"/>
-							<input id="txtComp"  type="text"  class="txt c3"/>
+							<input id="txtCno"type="text" class="txt c2" style="width: 30%"/>
+							<input id="txtComp"  type="text"  class="txt c3" style="width: 69%"/>
 						</td>
 					</tr>
 					<tr>
@@ -487,10 +492,8 @@
 							<select id="cmbRecord" class="txt c2"></select>
 							<input id="txtSchool" type="text" class="txt c3"/>
 						</td>
-						<td class="td3"><span> </span><a id='lblBank_account1' class="lbl"></a></td>
-						<td class="td4"><input id="txtBank_account1"  type="text" class="txt c1" />	</td>
-						<td class="td5"><span> </span><a id='lblBank_account2' class="lbl"></a></td>
-						<td class="td6"><input id="txtBank_account2"  type="text" class="txt c1" /></td>
+						<td class="td3"><span> </span><a id='lblAccount' class="lbl"></a></td>
+						<td class="td4"><input id="txtAccount"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblAddr_home" class="lbl"></a></td>
