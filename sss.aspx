@@ -471,8 +471,6 @@
 						</td>
 						<td class="td3"><span> </span><a id='lblJob' class="lbl"></a></td>
 						<td class="td4"><input id="txtJob"  type="text" class="txt c1" />	</td>
-						<td class="td5"><span> </span><a id='lblAccount' class="lbl"></a></td>
-						<td class="td6"><input id="txtAccount"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblAcomp' class="lbl btn" ></a></td>
@@ -487,10 +485,8 @@
 							<select id="cmbRecord" class="txt c2"></select>
 							<input id="txtSchool" type="text" class="txt c3"/>
 						</td>
-						<td class="td3"><span> </span><a id='lblBank_account1' class="lbl"></a></td>
-						<td class="td4"><input id="txtBank_account1"  type="text" class="txt c1" />	</td>
-						<td class="td5"><span> </span><a id='lblBank_account2' class="lbl"></a></td>
-						<td class="td6"><input id="txtBank_account2"  type="text" class="txt c1" /></td>
+						<td class="td3"><span> </span><a id='lblAccount' class="lbl"></a></td>
+						<td class="td4"><input id="txtAccount"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblAddr_home" class="lbl"></a></td>

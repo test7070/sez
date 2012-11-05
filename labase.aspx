@@ -68,6 +68,11 @@
             });
             
             $('#txtSalary').change(function () {
+            	if(emp($('#txtNoa').val())){
+            		alert('請先輸入員工編號!!!');
+            		return;
+            	}
+            	
             	//取得勞退薪資等級表
             	var t_where = "where=^^ noa like '%"+$('#txtDatea').val().substr( 0,3)+"%' ^^";
             	q_gt('labretire', t_where, 0, 0, 0, "", r_accy);
