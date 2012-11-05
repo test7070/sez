@@ -2,15 +2,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
-		<script src="../script/jquery.min.js" type="text/javascript"></script>
-		<script src='../script/qj2.js' type="text/javascript"></script>
-		<script src='qset.js' type="text/javascript"></script>
-		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src='../script/mask.js' type="text/javascript"></script>
-		<script src="../script/qbox.js" type="text/javascript"></script>
+		<title> </title>
+		<script src="../script/jquery.min.js" type="text/javascript"> </script>
+		<script src='../script/qj2.js' type="text/javascript"> </script>
+		<script src='qset.js' type="text/javascript"> </script>
+		<script src='../script/qj_mess.js' type="text/javascript"> </script>
+		<script src='../script/mask.js' type="text/javascript"> </script>
+		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-		<script src="//59.125.143.170/jquery/js/qtran.js" type="text/javascript"></script>
+		<script src="//59.125.143.170/jquery/js/qtran.js" type="text/javascript"> </script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -27,7 +27,8 @@
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
             //q_alias = 'a';
-            aPop = new Array(['txtInsurerno', 'lblInsurer', 'insurer', 'noa,comp', 'txtInsurerno,txtInsurer', 'Insurer_b.aspx'])
+            aPop = new Array(['txtInsurerno', 'lblInsurer', 'insurer', 'noa,comp', 'txtInsurerno,txtInsurer', 'Insurer_b.aspx'],
+            ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'Cardeal_b.aspx'])
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -446,11 +447,11 @@
                         <td class="td2">
                         <input id="txtGuild" type="text" class="txt c1"/>
                         </td>
-                        <td class="td3"><span> </span><a id="lblInsurer" class="lbl btn" ></a></td>
+                        <td class="td3"><span> </span><a id="lblCardeal" class="lbl btn" ></a></td>
                         <td class="td4">
-                        <input id="txtInsurerno" type="text" class="txt c1"/>
+                        <input id="txtCardealno" type="text" class="txt c1"/>
                         </td> 
-                        <td class="td5" colspan="4"><input id="txtInsurer" type="text" class="txt c1"/></td>
+                        <td class="td5" colspan="4"><input id="txtCardeal" type="text" class="txt c1"/></td>
                     </tr>
                     <tr class="tr12">
 						<td class="td1"><span> </span><a id="lblUacc1" class="lbl" style="font-size: 14px;"></a></td>

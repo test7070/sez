@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"> </script>
 		<script src='../script/qj2.js' type="text/javascript"> </script>
 		<script src='qset.js' type="text/javascript"> </script>
@@ -26,7 +26,7 @@
                     fileName : 'z_vccest',
                     options : [ {
                         type : '6',
-                        name : 'noa'
+                        name : 'xnoa'
                     },{
                         type : '1',
                         name : 'date'
@@ -44,7 +44,7 @@
                         src : 'uccc_b.aspx'
                     }, {
                         type : '5', 
-                        name : 'type',
+                        name : 'xtype',
                         value : [q_getPara('report.all')].concat(q_getPara('uccc.itype').split(','))
                     }]
                 });
