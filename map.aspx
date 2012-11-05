@@ -50,8 +50,7 @@
 
 		var location;
         function mainPost() {
-        		var t_where = "where=^^ a.person='"+$('#cmbPerson').find("option:selected").text()+"' ^^";
-        		q_gt('salary_import', t_where+t_where1+t_where2+t_where3 , 0, 0, 0, "", r_accy);
+        		q_gt('location','', 0, 0, 0, "", r_accy);
         	
         		$('#btnModi').attr('hidden', 'true');
         		$('#btnDele').attr('hidden', 'true');
@@ -87,8 +86,9 @@
 
         function q_gtPost(t_name) {
             switch (t_name) {
-               
-                case q_name: if (q_cur == 4)
+                case q_name: 
+                	location=_q_appendData("location", "", true);
+                	if (q_cur == 4)
                         q_Seek_gtPost();
 
                     if (q_cur == 1 || q_cur == 2)
@@ -200,6 +200,8 @@
         }
         
         function initialize() {
+        	if(location)
+        		return
 			//地圖建立
 			myLatlng=new google.maps.LatLng(22.669193,120.308327);
 			mapOptions = {
