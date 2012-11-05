@@ -201,7 +201,7 @@
         
         function initialize() {
         	if(location[0]==undefined)
-        		
+        	
 			//地圖建立
 			myLatlng=new google.maps.LatLng(22.669193,120.308327);
 			mapOptions = {
