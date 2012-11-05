@@ -29,7 +29,7 @@
                     });
                 q_popAssign();
                 
-	             var t_noa=typeof(q_getId()[3])=='undefined'?'':q_getId()[3];
+	            var t_noa=typeof(q_getId()[3])=='undefined'?'':q_getId()[3];
                 t_noa  =  t_noa.replace('noa=','');
                 $('#txtXnoa1').val(t_noa);
                 $('#txtXnoa2').val(t_noa);
@@ -41,7 +41,11 @@
             }
 		</script>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+        ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"  
+        ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"  
+        ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+     >
 		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">

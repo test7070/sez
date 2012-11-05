@@ -3,12 +3,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 <meta http-equiv="Content-Language" content="en-us" /> 
 <title></title> 
-<script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
+<script src="../script/jquery.min.js" type="text/javascript"></script>
 <script src="../script/qj2.js" type="text/javascript"></script>
     <script src='qset.js' type="text/javascript"></script>
 <script src="../script/qj_mess.js" type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = 'cust', t_content = ' field=noa,comp,tel,zip_fact,addr_fact,pay,trantype ', bbsKey = ['noa'], as; 
+    var q_name = 'cust', t_content = ' field=noa,comp,tel,zip_fact,addr_fact,pay,trantype,zip_invo,addr_invo ', bbsKey = ['noa'], as; 
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
     var i,s1;
