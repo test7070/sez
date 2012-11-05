@@ -210,20 +210,22 @@
 			
 			map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
 			
-			window.setInterval(mark,2000); //定時建立mark
+			window.setInterval(mark,3000); //定時建立mark
 		}
         
         //建立mark
 		function mark() {
 			//清除marker
 			if (marker) {
-				marker.setMap(null);
+				for (i in marker) {
+					marker[i].setMap(null);
+				}
 			}
 			
 			//插入marker
 			for(var i=0;i<myLatlng.length;i++){
 				myLatlng[i]=new google.maps.LatLng(locations[i].latitude,locations[i].longitude)	
-				marker = new google.maps.Marker({
+				marker[i] = new google.maps.Marker({
 					position: myLatlng[i],
 					map: map,
 					title:"我是"+locations[i].noa
