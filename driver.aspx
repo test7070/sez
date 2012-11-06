@@ -94,7 +94,7 @@
             }
 
             function btnPrint() {
-
+				q_box('z_driver.aspx' + "?;;;;" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
             }
 
             function btnOk() {
