@@ -384,7 +384,7 @@
 			}
 
 			function btnPrint() {
-				q_box('z_trans.aspx' + "?;;;;" + r_accy, '', "800px", "600px", q_getMsg("popPrint"));
+				q_box('z_trans.aspx' + "?;;;;" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
 			}
 
 			function btnOk() {
