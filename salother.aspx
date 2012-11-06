@@ -155,6 +155,7 @@
            			$('#txtCh_power_'+j).change(function () {sum();});
            			$('#txtChgcash_'+j).change(function () {sum();});
            			$('#txtCh_stay_'+j).change(function () {sum();});
+           			$('#txtMeal_'+j).change(function () {sum();});
             	}
             }
             _bbsAssign();
@@ -226,9 +227,9 @@
             var t_total=0;
             for (var j = 0; j < q_bbsCount; j++) {
             	if($('#cmbPerson').find("option:selected").text().indexOf('外勞')>-1){
-					q_tr('txtTotal_'+j,q_float('txtBo_borns_'+j)+q_float('txtBo_night_'+j)+q_float('txtBo_day_'+j)+q_float('txtOth_dutyfree_'+j)+q_float('txtOth_tax_'+j)+q_float('txtBorr_'+j)+q_float('txtChgcash_'+j)+q_float('txtCh_stay_'+j));
+					q_tr('txtTotal_'+j,q_float('txtBo_borns_'+j)+q_float('txtBo_night_'+j)+q_float('txtBo_day_'+j)+q_float('txtOth_dutyfree_'+j)+q_float('txtOth_tax_'+j)+q_float('txtBorr_'+j)+q_float('txtChgcash_'+j)+q_float('txtCh_stay_'+j)+q_float('txtMeal_'+j));
 				}else{
-					q_tr('txtTotal_'+j,q_float('txtBo_borns_'+j)+q_float('txtBo_night_'+j)+q_float('txtBo_day_'+j)+q_float('txtOth_dutyfree_'+j)+q_float('txtOth_tax_'+j)+q_float('txtBorr_'+j)+q_float('txtCh_power_'+j));
+					q_tr('txtTotal_'+j,q_float('txtBo_borns_'+j)+q_float('txtBo_night_'+j)+q_float('txtBo_day_'+j)+q_float('txtOth_dutyfree_'+j)+q_float('txtOth_tax_'+j)+q_float('txtBorr_'+j)+q_float('txtCh_power_'+j)+q_float('txtMeal_'+j));
 				}
 				t_total+=dec($('#txtTotal_'+j).val());
             }  // j
@@ -518,6 +519,7 @@
                 <td align="center" id='hid_ch_powers'><a id='lblCh_power_s'> </a></td>
                 <td align="center" id='hid_chgcashs'><a id='lblChgcash_s'> </a></td>
                 <td align="center" id='hid_ch_stays'><a id='lblCh_stay_s'> </a></td>
+                <td align="center"><a id='lblMeal_s'> </a></td>
                 <td align="center"><a id='lblTotal_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -533,6 +535,7 @@
                 <td id='hid_ch_powers.*'><input class="txt num c1" id="txtCh_power.*"type="text" /></td>
                 <td id='hid_chgcashs.*'><input class="txt num c1" id="txtChgcash.*"type="text" /></td>
                 <td id='hid_ch_stays.*'><input class="txt num c1" id="txtCh_stay.*"type="text" /></td>
+                <td ><input class="txt num c1" id="txtMeal.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtTotal.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
             </tr>
         </table>

@@ -47,9 +47,9 @@
 
         function mainPost() { 
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd], ['txtCucdate', r_picd]];
+            bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
             q_mask(bbmMask);
-			
+			q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
 			$('#lblOrdeno').click(function () {
 		            lblOrdeno();
 		     });
@@ -476,7 +476,7 @@
         </tr>
         <tr>
             <td class="td1"><span> </span><a id='lblTaxtype' class="lbl"> </a></td>
-            <td class="td2"><input id="txtTaxtype"  type="text" class="txt c1"/></td>
+            <td class="td2"><select id="cmbTaxtype" class="txt c1"></select></td>
             <td class="td3"><span> </span><a id='lblType' class="lbl"> </a></td>
             <td class="td4"><input id="txtType"  type="text" class="txt c1"/></td>  
             <td class="td5"><span> </span><a id='lblInvono' class="lbl"> </a></td>
@@ -498,7 +498,7 @@
         </tr>
         <tr>
             <td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-            <td class="td2" colspan="10"><textarea id="txtMemo" rows="5" cols="10" style="width: 98%; height: 50px;" > </textarea></td>
+            <td class="td2" colspan="10"><input id="txtMemo" type="text" class="txt c1" /></td>
         </tr>       
         </table>
         </div>

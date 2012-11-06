@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -18,7 +17,7 @@
         }
         var q_name="bcc";
         var q_readonly = [];
-        var bbmNum = []; 
+        var bbmNum = [['txtBeginmount',14 , 0, 1],['txtBeginmoney',14 , 0, 1],['txtSafemount',14 , 0, 1],['txtStkmount',14 , 0, 1],['txtStkmoney',14 , 0, 1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
@@ -42,7 +41,17 @@
 
 
         function mainPost() { 
+        	bbmMask = [['txtBegindatea', r_picd]];
            q_mask(bbmMask); 
+           q_cmbParse("cmbType", q_getPara('bcc.type'));
+           
+           $('#txtBeginmount').change(function () {
+           		q_tr('txtBeginmoney',dec($('#txtPrice').val())*dec($('#txtBeginmount').val()));
+           		if(dec($('#txtStkmount').val())==0){
+           			q_tr('txtStkmount',dec($('#txtBeginmount').val()));
+           			q_tr('txtStkmoney',dec($('#txtPrice').val())*dec($('#txtBeginmount').val()));
+           		}
+	        });
         }
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -343,6 +352,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size: medium;
             }
             
              input[type="text"],input[type="button"] {     
@@ -371,7 +381,7 @@
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
            <tr>
                <td class="td1"><span> </span><a id='lblType' class="lbl"></a></td>
-               <td class="td2"><input id="txtType" type="text"  class="txt c1"/></td>
+               <td class="td2"><select id="cmbType" class="txt c1"></select></td>
                <td class="td3"></td>
                <td class="td4"></td>
                <td class="td5"></td>
@@ -436,11 +446,11 @@
                <td class="td6"></td>
             </tr>
                 <tr><td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
-                <td class="td2" colspan='6'><textarea id="txtMemo"  cols="10" rows="5"  style='width:98%; height: 50px;'></textarea></td>
+                <td class="td2" colspan='6'><input id="txtMemo" type="text"  class="txt c1"/></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
-               <td class="td2"><input id="txtDatea"  type="text" class="txt c1" /></td>
+               <td class="td2"><input id="txtBegindatea"  type="text" class="txt c1" /></td>
                <td class="td3"><span> </span><a id='lblBeginmount' class="lbl"></a></td>
                <td class="td4"><input id="txtBeginmount"  type="text" class="txt num c1"/></td>
                <td class="td5"><span> </span><a id='lblBeginmoney' class="lbl"></a></td>
