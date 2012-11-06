@@ -24,7 +24,10 @@
                         fileName : 'z_bcc5',
                         options : [{
                         type : '6',
-                        name : 'date'
+                        name : 'xdate'
+                    },{
+                        type : '6',
+                        name : 'mon'
                     },{
                         type : '2',
                         name : 'bcc',
@@ -37,10 +40,11 @@
                 q_getFormat();
                 q_langShow();
                 
-                $('#txtDate').val(q_date());
-                $('#txtDate').mask('999/99/99');
-                $('#txtDate').datepicker();
-                
+                $('#txtXDate').val(q_date());
+                $('#txtXDate').mask('999/99/99');
+                $('#txtXDate').datepicker();
+                 $('#txtMon').val(q_date().substr(0,6));
+                $('#txtMon').mask('999/99');
             }
 
             function q_boxClose(s2) {

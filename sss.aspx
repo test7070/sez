@@ -27,7 +27,7 @@
 		    //ajaxPath = ""; //  execute in Root
 		    aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp', 'acomp_b.aspx'],
 		    							['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
-		    							['txtJobno', 'lblJob', 'part', 'noa,job', 'txtJobno,txtJob', 'salm_b.aspx']);
+		    							['txtJobno', 'lblJob', 'salm', 'noa,job', 'txtJobno,txtJob', 'salm_b.aspx']);
 
 		    $(document).ready(function () {
 		        bbmKey = ['noa'];
