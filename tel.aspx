@@ -26,7 +26,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
-			aPop = new Array(['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx']);
+			aPop = new Array(['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],['txtSssno', 'lblSss', 'sss', 'noa,namea,partno,part', 'txtSssno,txtNamea,txtPartno,txtPart', 'sss_b.aspx'],['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -55,10 +55,6 @@
                 fbbm[fbbm.length] = 'txtMemo'; 
 				 q_cmbParse("cmbTypea", q_getPara('tel.typea'));
 				 
-				 $('#txtMobile').change(function() {
-        			t_where = "where=^^ mobile = '"+$('#txtMobile').val()+"' ^^";
-					q_gt('tel', t_where , 0, 0, 0, "", r_accy);
-        		});
 				 $('#txtFeerate').change(function () {
 				 	sum();
 			     });
@@ -86,41 +82,6 @@
         			$('#txtCondate').val(t_enddate+(trim($('#txtBegindate').val())).substring(3));
         			$('#txtEnddate').val(t_enddate+(trim($('#txtBegindate').val())).substring(3));
 			     });
-        		
-				 
-              /*  $('#btnSales').click(function() {
-                    pop('sss');
-                });
-                $('#btnSalesno').mouseenter(function() {
-                    $(this).css('cursor', 'pointer')
-                });
-                $("#txtSalesno").change(function() {
-                    q_change($(this), 'sss', 'noa', 'noa,namea');
-                });
-
-                $('#btnsss').click(function() {
-                    pop('sss');
-                });
-                $('#btnsss').mouseenter(function() {
-                    $(this).css('cursor', 'pointer')
-                });
-                $("#txtGrpno").change(function() {
-                    q_change($(this), 'sss', 'noa', 'noa,comp');
-                });
-
-                $('#btnConn').click(function() {
-                    pop('conn')
-                });
-                $('#btnConn').mouseenter(function() {
-                    $(this).css('cursor', 'pointer')
-                });
-
-                $("#txtComp").change(function() {
-                    $("#txtNick").val($("#txtComp").val().substr(0, 2));
-                });
-                txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
-                txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
-                txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');*/
             }
             
             function txtCopy(dest, source) {
@@ -182,14 +143,6 @@
 
                         if(q_cur == 1 || q_cur == 2){
                             q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-                            
-	                        var as = _q_appendData('tel', '', true);
-			        		if(as[0]!=undefined && t_mobile!=$('#txtMobile').val()){
-			        			alert('電話或手機號碼重複輸入，請修改');
-			        			$('#txtMobile').focus();
-			        			var t_tel=$('#txtMobile').val().substring(0,7);
-			        			$('#txtMobile').val(t_tel);
-		        			}
 		        		}
 
                         break;
@@ -213,9 +166,8 @@
                 if(emp($('#txtNoa').val()))
                     return;
 				
-				t_mobile=$('#txtMobile').val();
                 _btnModi();
-                $('#txtMobile').focus();
+                $('#txtNoa').focus();
             }
 
             function btnPrint() {
@@ -236,7 +188,7 @@
 
             function btnOk() {
                 var t_err = '';
-                t_err = q_chkEmpField([['txtMobile', q_getMsg('lblMobile')]]);
+                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblMobile')]]);
 
                 if(t_err.length > 0) {
                     alert(t_err);
@@ -448,23 +400,23 @@
                             <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                             <td align="center" id='part'>~part</td>
                             <td align="center" id='namea'>~namea</td>
-                            <td align="center" id='mobile'>~mobile</td>
+                            <td align="center" id='noa'>~noa</td>
                         </tr>
                     </table>
                 </div>
                 <div class='dbbm' style="width: 73%;float: left;">
                     <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
                          <tr class="tr1">
-                            <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
+                            <td class="td1"><span> </span><a id='lblMobile' class="lbl"></a></td>
                             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-                            <td class="td3"><span> </span><a id='lblPart' class="lbl btn"></a></td>
-                            <td class="td4"><input id="txtPartno" type="text"  class="txt c2"/><input id="txtPart" type="text"  class="txt c3"/></td><!--<input id="btnPart" type="button" style="width: auto;font-size: medium;"/>-->
                             <td class="td5"><span> </span><a id='lblSss' class="lbl btn"></a></td>
                             <td class="td6"><input id="txtSssno"  type="text"  class="txt c2"/><input id="txtNamea"  type="text"  class="txt c3"/></td><!--<input id="btnSss" type="button" style="width: auto;font-size: medium;"/>-->
+                            <td class="td3"><span> </span><a id='lblPart' class="lbl btn"></a></td>
+                            <td class="td4"><input id="txtPartno" type="text"  class="txt c2"/><input id="txtPart" type="text"  class="txt c3"/></td><!--<input id="btnPart" type="button" style="width: auto;font-size: medium;"/>-->
                         </tr>
                         <tr class="tr2">
-                            <td class="td1"><span> </span><a id='lblMobile' class="lbl"></a></td>
-                            <td class="td2"><input id="txtMobile"  type="text" class="txt c1"/></td>
+                            <!--<td class="td1"><span> </span><a id='lblMobile' class="lbl"></a></td>
+                            <td class="td2"><input id="txtMobile"  type="text" class="txt c1"/></td>-->
                             <td class="td3"><span> </span><a id='lblAcomp' class="lbl btn"></a></td><!--<input id="btnAcomp" type="button"  style="width: auto;font-size: medium;"/>-->
                             <td class="td4" colspan="2"><input id="txtCno" type="text"  class="txt c4"/><input id="txtComp2" type="text" class="txt c5"/></td>
                             <td class="td6"></td>

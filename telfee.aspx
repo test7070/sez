@@ -52,7 +52,7 @@
             		alert('請先輸入帳款月份!!');
             		return;
             	}
-	           	t_where = "where=^^ mobile not in (select mobile from telfees where mon ='"+$('#txtMon').val()+"') ^^"
+	           	t_where = "where=^^ noa not in (select mobile from telfees where mon ='"+$('#txtMon').val()+"') ^^"
 	           	q_gt('tel', t_where , 0, 0, 0, "", r_accy);
 	        });
 	        $('#txtDatea').change(function () {
@@ -78,14 +78,14 @@
 	            	
 	            	for(var j = 0; j < q_bbsCount; j++){
 	            		for (var i = 0; i < as.length; i++) {
-		                    if (as[i].mobile == $('#txtMobile_'+j).val()) {
+		                    if (as[i].noa == $('#txtMobile_'+j).val()) {
 		                        as.splice(i, 1);
 		                        i--;
 		                    }
 		                }
 		            }
 		            
-	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtMobile,txtOfee,txtFee', as.length, as, 'mobile,total,total', 'txtMobile');
+	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtMobile,txtOfee,txtFee', as.length, as, 'noa,total,total', 'txtMobile');
 	            	sum();
             	break;
                 case q_name: 
