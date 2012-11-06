@@ -200,6 +200,10 @@
 							dbf : 'sss',
 							index : 'noa,namea',
 							src : 'sss_b.aspx'
+						}, {/*26*/
+							type : '5',
+							name : 'xsort6',
+							value : t_data.data['carteam'].split(',')
 						}]
 					});
 					q_popAssign();
