@@ -28,7 +28,7 @@
 		    aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp', 'acomp_b.aspx'],
 		    							['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
 		    							['txtJobno', 'lblJob', 'part', 'noa,job', 'txtJobno,txtJob', 'salm_b.aspx']);
-		    
+
 		    $(document).ready(function () {
 		        bbmKey = ['noa'];
 		        q_brwCount();
@@ -62,21 +62,19 @@
 		        $('#btnSaladjust').click(function (e) {
 		            q_box("salAdjust.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'saladjust', "850px", "600px", q_getMsg("popSaladjust"));
 		        });
-		        
+
 		        $('#txtIndate').change(function (e) {
-		            if(!emp($('#txtIndate').val()))
-		            {
-		            	$('#txtHealth_bdate').val($('#txtIndate').val());
-		            	$('#txtLabor1_bdate').val($('#txtIndate').val());
-		            	$('#txtLabor2_bdate').val($('#txtIndate').val());
+		            if (!emp($('#txtIndate').val())) {
+		                $('#txtHealth_bdate').val($('#txtIndate').val());
+		                $('#txtLabor1_bdate').val($('#txtIndate').val());
+		                $('#txtLabor2_bdate').val($('#txtIndate').val());
 		            }
 		        });
 		        $('#txtOutdate').change(function (e) {
-		            if(!emp($('#txtOutdate').val()))
-		            {
-		            	$('#txtHealth_edate').val($('#txtOutdate').val());
-		            	$('#txtLabor1_edate').val($('#txtOutdate').val());
-		            	$('#txtLabor2_edate').val($('#txtOutdate').val());
+		            if (!emp($('#txtOutdate').val())) {
+		                $('#txtHealth_edate').val($('#txtOutdate').val());
+		                $('#txtLabor1_edate').val($('#txtOutdate').val());
+		                $('#txtLabor2_edate').val($('#txtOutdate').val());
 		            }
 		        });
 		    }
@@ -92,7 +90,7 @@
 		            var t_copy = ($(this).val().substr(0, 1) == '=');
 		            var t_clear = ($(this).val().substr(0, 2) == ' =');
 		            for (var i = 0; i < adest.length; i++) {
-		                
+
 		                {
 		                    if (t_copy)
 		                        $('#' + adest[i]).val($('#' + asource[i]).val());
@@ -140,7 +138,7 @@
 
 		                q_gt(q_name, q_content, q_sqlCount, 1)
 		                break;
-                    case 'sss':
+		            case 'sss':
 		                q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
 		                break;
 
@@ -180,7 +178,7 @@
 		        if (emp($('#txtNoa').val()))
 		            return;
 
-		        _btnModi();
+		        _btnModi(1);   /// 允許修改
 		        $('#txtComp').focus();
 		        $('#txtNoa').attr('disabled', 'disabled');
 		    }
@@ -537,3 +535,4 @@
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
+

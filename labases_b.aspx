@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -12,14 +12,14 @@
 <script type="text/javascript">
     var q_name = 'labases', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
     var t_sqlname = 'labases_load'; t_postname = q_name;
-    var isBott = false;  
+    var isBott = false;
     var afield, t_htm;
     var i, s1;
     var decbbs = ['ch_health'];
     var decbbm = [];
     var q_readonly = [];
     var q_readonlys = [];
-    var bbmNum = [];   
+    var bbmNum = [];
     var bbsNum = [];
     var bbmMask = [];
     var bbsMask = [];
@@ -39,18 +39,17 @@
     });            /// end ready
 
     function main() {
-        if (dataErr)  
-        {
+        if (dataErr) {
             dataErr = false;
             return;
         }
         mainBrow(6, t_content, t_sqlname, t_postname);
     }
 
-    function bbsAssign() {  
+    function bbsAssign() {
         _bbsAssign();
- }
- 
+    }
+
     function btnOk() {
         sum();
 
@@ -77,11 +76,11 @@
         if (!t_key)
             return;
 
-        _btnModi();
+        _btnModi(1);
 
-        for (i = 0; i < abbsDele.length; i++) {
-            abbsDele[i][bbsKey[0]] = t_key[1];
-        }
+//        for (i = 0; i < abbsDele.length; i++) {
+//            abbsDele[i][bbsKey[0]] = t_key[1];
+//        }
     }
 
     function boxStore() {
@@ -93,7 +92,7 @@
     function sum() { }
 
     function q_gtPost(t_postname) {  /// ��ƤU��� ...
-       
+
     }
 
     function readonly(t_para, empty) {
