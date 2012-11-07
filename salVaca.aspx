@@ -91,7 +91,11 @@
 		            for (var i = 0; i < as.length; i++) {
 		            	//as._year年資
 		            	//as._day特休天數
-		            	as[i]._year = dec($('#txtNoa').val())-dec(as[i].indate.substr(0,3));
+		            	if(as[i].indate.length>0)	//判斷到職日是否有輸入，若沒輸入則無特休
+		            		as[i]._year = dec($('#txtNoa').val())-dec(as[i].indate.substr(0,3));
+		            	else
+		            		as[i]._year=0;
+		            		
 		            	if (as[i]._year==0 && as[i].indate.substr(4)=='01/01') {
 		                	as[i]._year=1;
 		                }
@@ -111,7 +115,7 @@
 		                }
 		           }
 		            
-	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtId,txtRank,txtJobday,txtInday,txtTotal,txtCno', as.length, as, 'noa,namea,id,rank,indate,_day,_day,cno', 'txtMobile');
+	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtId,txtJob,txtJobday,txtInday,txtTotal,txtCno', as.length, as, 'noa,namea,id,job,indate,_day,_day,cno', 'txtSssno');
 	            	sum();
             		break;
                 case q_name:
@@ -467,16 +471,16 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" class="td1"><a id='lblSssno'></a></td>
-                <td align="center" class="td1"><a id='lblNamea'></a></td>
-                <td align="center" style="width: 10%;"><a id='lblId'></a></td>
-                <td align="center" style="width: 5%;"><a id='lblRank'></a></td>
-                <td align="center" class="td1"><a id='lblJobday'></a></td>
-                <td align="center" class="td1"><a id='lblInday'></a></td>
-                <td align="center" class="td1"><a id='lblOutday'></a></td>
-                <td align="center" class="td1"><a id='lblTotals'></a></td>
-                <td align="center" class="td1"><a id='lblBoutday'></a></td>
-                <td align="center" class="td1"><a id='lblCno'></a></td>
+                <td align="center" class="td1" style="width: 8%;"><a id='lblSssno'></a></td>
+                <td align="center" class="td1" style="width: 10%;"><a id='lblNamea'></a></td>
+                <td align="center" style="width: 9%;"><a id='lblId'></a></td>
+                <td align="center" style="width: 7%;"><a id='lblJob'></a></td>
+                <td align="center" class="td1" style="width: 8%;"><a id='lblJobday'></a></td>
+                <td align="center" class="td1" style="width: 7%;"><a id='lblInday'></a></td>
+                <td align="center" class="td1" style="width: 7%;"><a id='lblOutday'></a></td>
+                <td align="center" class="td1" style="width: 7%;"><a id='lblTotals'></a></td>
+                <td align="center" class="td1" style="width: 7%;"><a id='lblBoutday'></a></td>
+                <td align="center" class="td1" style="width: 6%;"><a id='lblCno'></a></td>
                 <td align="center"><a id='lblMemo'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -484,7 +488,7 @@
                 <td ><input class="txt c2" id="txtSssno.*" type="text" /><input id="btnSss.*" type="button" value="." style="width: 1%;float: right;"/></td>
                 <td ><input class="txt c1" id="txtNamea.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtId.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtRank.*"type="text" /></td>
+                <td ><input class="txt c1" id="txtJob.*"type="text" /></td>
                 <td ><input class="txt c1" id="txtJobday.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtInday.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtOutday.*" type="text" /></td>

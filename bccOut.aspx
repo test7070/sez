@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -19,13 +18,16 @@
         var q_name = "bccout";
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [];  
-        var bbsNum = [];
+        var bbmNum = [['txtTotal', 15, 0, 1]];  
+        var bbsNum = [['txtMount', 10, 0, 1],['txtBkbcc', 10, 0, 1],['txtTotal', 15, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
-        aPop = new Array(['txtPartno','lblPart','part','noa,part','txtPartno,txtPart','part_b.aspx'],
-        ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product', 'txtBccno_,txtBccname_', 'bcc_b.aspx']);
+        aPop = new Array(['txtSno', 'lblSname', 'sss', 'noa,namea,partno,part', 'txtSno,txtSname,txtPartno,txtPart', 'sss_b.aspx'],
+        ['txtApprover', 'lblApprover', 'sss', 'namea', 'txtApprover', 'sss_b.aspx'],
+        ['txtPartno','lblPart','part','noa,part','txtPartno,txtPart','part_b.aspx'],
+        ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product', 'txtBccno_,txtBccname_', 'bcc_b.aspx'],
+        ['txtSno_', 'lblSno', 'sss', 'noa,namea', 'txtSno_,txtSname_', 'sss_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -435,24 +437,20 @@
                <td class="td2"><input id="txtDatea"  type="text" /></td>
                <td class="td3"><span> </span><a id='lblNoa' class="lbl"></a></td>
                <td class="td4"><input id="txtNoa" type="text"  /></td>               
-               <td class="td5"><span> </span><a id='lblSname' class="lbl"></a></td>
-               <td class="td6"><input id="txtSname"  type="text"  /></td> 
-               <td class="td7"><span> </span><a id="lblPart" class="lbl btn"></a></td>               
-               <td class="td8"><input id="txtPartno"  type="text" class="txt c2" /><input id="txtPart"  type="text"  class="txt c3"/></td>
         </tr>
         <tr>
-            <td class="td1"></td>
-            <td class="td2"></td>
-            <td class="td3"><span> </span><a id='lblTotal' class="lbl"></a></td>
-            <td class="td4"><input id="txtTotal"  type="text" class="txt num c1"/></td>
-            <td class="td5"><span> </span><a id='lblApprover' class="lbl"></a></td>
-            <td class="td6"><input id="txtApprover"  type="text"  class="txt c1"/></td> 
-             
+            <td class="td1"><span> </span><a id='lblSname' class="lbl btn"></a></td>
+            <td class="td2"><input id="txtSno"  type="text" class="txt c2"/><input id="txtSname"  type="text" class="txt c3"/></td> 
+            <td class="td3"><span> </span><a id="lblPart" class="lbl btn"></a></td>               
+            <td class="td4"><input id="txtPartno"  type="text" class="txt c2" /><input id="txtPart"  type="text"  class="txt c3"/></td>
+            <td class="td5"><span> </span><a id='lblTotal' class="lbl"></a></td>
+            <td class="td6"><input id="txtTotal"  type="text" class="txt num c1"/></td>
+            <td class="td7"><span> </span><a id='lblApprover' class="lbl btn"></a></td>
+            <td class="td8s"><input id="txtApprover"  type="text"  class="txt c1"/></td> 
         </tr>  
         <tr>
             <td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
-            <td class="td2" colspan="7"><textarea id="txtMemo" cols="10" rows="5" style="width: 99%; height: 50px;"></textarea></td>
-            
+            <td class="td2" colspan="7"><input id="txtMemo"  type="text"  class="txt c1"/></td>
         </tr>       
         </table>
         </div>
@@ -474,7 +472,7 @@
             </tr>
             <tr  style='background:#cad3ff;'> 
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>              
-                <td ><input id="txtBccno.*" type="text" style="width: 60%;"/><input id="btnBccno.*" type="button" value="..." style="width: auto;font-size: medium;" /></td>
+                <td ><input id="txtBccno.*" type="text" style="width: 70%;"/><input id="btnBccno.*" type="button" value="." style="width: auto;font-size: medium;" /></td>
                 <td ><input class="txt c1" id="txtBccname.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtBkbcc.*" type="text" /></td>
