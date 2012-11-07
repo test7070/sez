@@ -19,8 +19,8 @@
         var q_name = "bccin";
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [];  
-        var bbsNum = [];
+        var bbmNum = [['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1]];
+        var bbsNum = [['txtMount', 10, 0, 1], ['txtWeight', 10, 2, 1], ['txtMount2', 10, 0, 1], ['txtPrice', 15, 3, 1], ['txtTotal', 15, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
@@ -195,6 +195,16 @@
                      b_seq = t_IdSeq;
                      q_change($(this), 'ucc', 'noa', 'noa,product,unit');  /// ?? q_gtPost()
                  });
+
+                 $('#txtMount_' + j).change(function () {
+                     t_IdSeq = -1;
+                     q_bodyId($(this).attr('id'));
+                     b_seq = t_IdSeq;
+                     q_tr('txtMount_' + b_seq, dec($('#txtMount2_' + b_seq).val()));
+                     sum();
+                 });
+                 $('#txtMount2_' + j).change(function () { sum(); });
+                 $('#txtPrice_' + j).change(function () { sum(); });
 
             } //j
         }
