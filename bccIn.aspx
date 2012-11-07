@@ -257,7 +257,9 @@
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0;
             for (var j = 0; j < q_bbsCount; j++) {
-
+                if (!emp($('#txtMount2_' + j).val())) {
+                    q_tr('txtTotal_' + j, dec($('#txtMount2_' + j).val()) * dec($('#txtPrice_' + j).val()));
+                }
             }  // j
 
         }
