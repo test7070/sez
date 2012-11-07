@@ -17,7 +17,7 @@
         q_desc = 1
         q_tables = 's';
         var q_name = "bccin";
-        var q_readonly = [];
+        var q_readonly = ['txtNoa'];
         var q_readonlys = [];
         var bbmNum = [['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1]];
         var bbsNum = [['txtMount', 10, 0, 1], ['txtWeight', 10, 2, 1], ['txtMount2', 10, 0, 1], ['txtPrice', 15, 3, 1], ['txtTotal', 15, 0, 1]];
@@ -26,7 +26,7 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
         aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
         ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
-        ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product', 'txtBccno_,txtBccname_', 'bcc_b.aspx']);
+        ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product,unit,price', 'txtBccno_,txtBccname_,txtUnit_,txtPrice_', 'bcc_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -50,6 +50,7 @@
             bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
             q_mask(bbmMask);
 			q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
+			q_cmbParse("cmbType", q_getPara('bccin.type')); 
 			$('#lblOrdeno').click(function () {
 		            lblOrdeno();
 		     });
@@ -200,8 +201,8 @@
                      t_IdSeq = -1;
                      q_bodyId($(this).attr('id'));
                      b_seq = t_IdSeq;
-                     if(!emp($('#txtMount_' + j).val()))
-                     	q_tr('txtMount_' + b_seq, dec($('#txtMount2_' + b_seq).val()));
+                     if(!emp($('#txtMount_' + b_seq).val()))
+                     	q_tr('txtMount2_' + b_seq, dec($('#txtMount_' + b_seq).val()));
                      sum();
                  });
                  $('#txtMount2_' + j).change(function () { sum(); });
@@ -214,6 +215,7 @@
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
+            $('#txtMon').val(q_date().substr( 0,6));
             $('#txtDatea').focus();
          }
         function btnModi() {
@@ -256,13 +258,16 @@
         }
 
         function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0;
+            var t1 = 0, t_unit, t_mount, t_weight = 0,t_total=0;
             for (var j = 0; j < q_bbsCount; j++) {
                 if (!emp($('#txtMount2_' + j).val())&&!emp($('#txtPrice_' + j).val())) {
                     q_tr('txtTotal_' + j, dec($('#txtMount2_' + j).val()) * dec($('#txtPrice_' + j).val()));
+                
+                if(!emp($('#txtBccno_' + j).val()))
+                	t_total+=dec($('#txtTotal_' + j).val())
                 }
             }  // j
-
+			q_tr('txtTotal', t_total);
         }
        
         function refresh(recno) {
@@ -412,11 +417,11 @@
                 float: left;
             }
             .txt.c2 {
-                width: 38%;
+                width: 30%;
                 float: left;
             }
             .txt.c3 {
-                width: 60%;
+                width: 68%;
                 float: left;
             }
             .txt.num {
@@ -436,6 +441,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size: medium;
             }
             .tbbs input[type="text"] {
                 width: 95%;
@@ -468,7 +474,7 @@
                 <td align="center" style="width:25%"><a id='vewInvono'> </a></td>
             </tr>
              <tr>
-                   <td ><input id="chkBrow.*" type="checkbox" style=' '/>.</td>
+                   <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='datea'>~datea</td>
                    <td align="center" id='invono'>~invono</td>
             </tr>
@@ -491,7 +497,7 @@
             <td class="td1"><span> </span><a id='lblTaxtype' class="lbl"> </a></td>
             <td class="td2"><select id="cmbTaxtype" class="txt c1"></select></td>
             <td class="td3"><span> </span><a id='lblType' class="lbl"> </a></td>
-            <td class="td4"><input id="txtType"  type="text" class="txt c1"/></td>  
+            <td class="td4"><select id="cmbType" class="txt c1"></select></td>  
             <td class="td5"><span> </span><a id='lblInvono' class="lbl"> </a></td>
             <td class="td6"><input id="txtInvono"  type="text" class="txt c1" /></td>  
             <td class="td7"><span> </span><a id='lblTax' class="lbl"> </a></td>
@@ -519,23 +525,23 @@
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'>
             <tr style='color:White; background:#003366;' >
-                <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" class="td1"><a id='lblBccno'> </a></td>
-                <td align="center" class="td2"><a id='lblBccname'> </a></td>
-                <td align="center"class="td1"><a id='lblMount'> </a></td>
-                <td align="center" class="td1"><a id='lblWeight'> </a></td>
-                <td align="center" class="td1"><a id='lblMount2'> </a></td>
-                <td align="center" class="td1"><a id='lblUnit'> </a></td>
-                <td align="center" class="td1"><a id='lblPrice'> </a></td>
-                <td align="center" class="td1"><a id='lblTotals'> </a></td>
-                <td align="center" class="td1"><a id='lblUno'> </a></td>
-                <td align="center" ><a id='lblMemos'> </a></td>
-                <td align="center" class="td2"><a id='lblOrdenos'> </a></td>
-                <td align="center" class="td1"><a id='lblNo2'> </a></td>
+                <td align="center" style="width: 3%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
+                <td align="center" class="td1" style="width: 8%;"><a id='lblBccno'> </a></td>
+                <td align="center" class="td1" style="width: 8%;"><a id='lblBccname'> </a></td>
+                <td align="center"class="td1" style="width: 8%;"><a id='lblMount'> </a></td>
+                <td align="center" class="td1" style="width: 8%;"><a id='lblWeight'> </a></td>
+                <td align="center" class="td1" style="width: 8%;"><a id='lblMount2'> </a></td>
+                <td align="center" class="td1" style="width: 8%;"><a id='lblUnit'> </a></td>
+                <td align="center" class="td1" style="width: 8%;"><a id='lblPrice'> </a></td>
+                <td align="center" class="td1" style="width: 8%;"><a id='lblTotals'> </a></td>
+                <td align="center" class="td1" style="width: 8%;"><a id='lblUno'> </a></td>
+                <td align="center" class="td1"><a id='lblMemos'> </a></td>
+                <td align="center" class="td1" style="width: 8%;"><a id='lblOrdenos'> </a></td>
+                <td align="center" class="td1" style="width: 4%;"><a id='lblNo2'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input id="txtBccno.*" type="text" style="width: 55%;" /><input id="btnBccno.*" type="button" value="." style="width: 12%;"/></td>
+                <td ><input id="txtBccno.*" type="text" style="width: 75%;" /><input id="btnBccno.*" type="button" value="." style="width: 12%;"/></td>
                 <td ><input class="txt c1" id="txtBccname.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtWeight.*" type="text"/></td>

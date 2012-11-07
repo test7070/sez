@@ -66,6 +66,13 @@
         			sum();
         		});
         		$('#txtYears').change(function () {
+        			if(emp($('#txtYears').val())||dec($('#txtYears').val())==0){
+        				$('#txtBegindate').val('');
+        				$('#txtCondate').val('');
+        				$('#txtEnddate').val('');
+        				return;
+        			}
+        			
         			var t_enddate='';
         			if(emp($('#txtBegindate').val())){
         				$('#txtBegindate').val(q_date());
