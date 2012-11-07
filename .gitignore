@@ -1,3 +1,5 @@
 *.class
 *.pyc
 *.pyo
+tmp
+.metadata
