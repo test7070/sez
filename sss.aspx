@@ -189,7 +189,10 @@
 
 		    function btnOk() {
 		        var t_noa = $.trim($('#txtNoa').val());
-
+				
+				if(!emp($('#txtId').val()))
+               		$('#txtId').val($('#txtId').val().toUpperCase());
+				
 		        if (t_noa.length == 0)
 		            q_gtnoa(q_name, t_noa);
 		        else

@@ -53,6 +53,7 @@
             	bbmMask = [['txtBegindate', r_picd],['txtCondate', r_picd],['txtEnddate', r_picd]];
             	q_mask(bbmMask);
                 fbbm[fbbm.length] = 'txtMemo'; 
+                q_cmbParse("cmbComp2", ('').concat(new Array('中華電信', '台灣大哥大', '亞太電信', '遠傳電信', '泛亞電信', '大眾電信', '威寶電信')));
 				 q_cmbParse("cmbTypea", q_getPara('tel.typea'));
 				 
 				 $('#txtFeerate').change(function () {
@@ -194,6 +195,7 @@
                     alert(t_err);
                     return;
                 }
+                
                 var t_noa = trim($('#txtNoa').val());
 
                 if(t_noa.length ==0)
@@ -342,15 +344,15 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 98%;
+                width: 100%;
                 float: left;
             }
             .txt.c2 {
-                width: 35%;
+                width: 45%;
                 float: left;
             }
             .txt.c3 {
-                width: 63%;
+                width: 55%;
                 float: left;
             }
             .txt.c4 {
@@ -378,6 +380,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size: medium;
             }
             
              input[type="text"],input[type="button"] {     
@@ -394,7 +397,7 @@
                             <td align="center" style="width:5%"><a id='vewChk'></a></td>
                             <td align="center" style="width:25%"><a id='vewPart'></a></td>
                             <td align="center" style="width:25%"><a id='vewNamea'></a></td>
-                            <td align="center" style="width:30%"><a id='vewMobile'></a></td>
+                            <td align="center" style="width:30%"><a id='vewNoa'></a></td>
                         </tr>
                         <tr>
                             <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -404,22 +407,24 @@
                         </tr>
                     </table>
                 </div>
-                <div class='dbbm' style="width: 73%;float: left;">
+                <div class='dbbm' style="width: 74%;float: left;">
                     <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
                          <tr class="tr1">
-                            <td class="td1"><span> </span><a id='lblMobile' class="lbl"></a></td>
+                            <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
                             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-                            <td class="td5"><span> </span><a id='lblSss' class="lbl btn"></a></td>
-                            <td class="td6"><input id="txtSssno"  type="text"  class="txt c2"/><input id="txtNamea"  type="text"  class="txt c3"/></td><!--<input id="btnSss" type="button" style="width: auto;font-size: medium;"/>-->
-                            <td class="td3"><span> </span><a id='lblPart' class="lbl btn"></a></td>
-                            <td class="td4"><input id="txtPartno" type="text"  class="txt c2"/><input id="txtPart" type="text"  class="txt c3"/></td><!--<input id="btnPart" type="button" style="width: auto;font-size: medium;"/>-->
+                            <td class="td3"><span> </span><a id='lblAcomp' class="lbl"></a></td><!--<input id="btnAcomp" type="button"  style="width: auto;font-size: medium;"/>-->
+                            <td class="td4">
+                            	<select id="cmbComp2" class="txt c1"></select>
+                            	<!--<input id="txtCno" type="text"  class="txt c4"/><input id="txtComp2" type="text" class="txt c5"/>-->
+                            </td>
                         </tr>
                         <tr class="tr2">
                             <!--<td class="td1"><span> </span><a id='lblMobile' class="lbl"></a></td>
                             <td class="td2"><input id="txtMobile"  type="text" class="txt c1"/></td>-->
-                            <td class="td3"><span> </span><a id='lblAcomp' class="lbl btn"></a></td><!--<input id="btnAcomp" type="button"  style="width: auto;font-size: medium;"/>-->
-                            <td class="td4" colspan="2"><input id="txtCno" type="text"  class="txt c4"/><input id="txtComp2" type="text" class="txt c5"/></td>
-                            <td class="td6"></td>
+                            <td class="td1"><span> </span><a id='lblSss' class="lbl btn"></a></td>
+                            <td class="td2"><input id="txtSssno"  type="text"  class="txt c2"/><input id="txtNamea"  type="text"  class="txt c3"/></td><!--<input id="btnSss" type="button" style="width: auto;font-size: medium;"/>-->
+                            <td class="td3"><span> </span><a id='lblPart' class="lbl btn"></a></td>
+                            <td class="td4"><input id="txtPartno" type="text"  class="txt c2"/><input id="txtPart" type="text"  class="txt c3"/></td><!--<input id="btnPart" type="button" style="width: auto;font-size: medium;"/>-->
                         </tr>
                         <tr class="tr3">
                             <td class="td1"><span> </span><a id='lblType' class="lbl"></a></td>

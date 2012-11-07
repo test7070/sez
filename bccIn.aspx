@@ -200,7 +200,8 @@
                      t_IdSeq = -1;
                      q_bodyId($(this).attr('id'));
                      b_seq = t_IdSeq;
-                     q_tr('txtMount_' + b_seq, dec($('#txtMount2_' + b_seq).val()));
+                     if(!emp($('#txtMount_' + j).val()))
+                     	q_tr('txtMount_' + b_seq, dec($('#txtMount2_' + b_seq).val()));
                      sum();
                  });
                  $('#txtMount2_' + j).change(function () { sum(); });
@@ -257,7 +258,7 @@
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0;
             for (var j = 0; j < q_bbsCount; j++) {
-                if (!emp($('#txtMount2_' + j).val())) {
+                if (!emp($('#txtMount2_' + j).val())&&!emp($('#txtPrice_' + j).val())) {
                     q_tr('txtTotal_' + j, dec($('#txtMount2_' + j).val()) * dec($('#txtPrice_' + j).val()));
                 }
             }  // j
