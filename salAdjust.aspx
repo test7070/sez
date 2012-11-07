@@ -47,6 +47,12 @@
         mainBrow(6, t_content, t_sqlname, t_postname);
     }
 
+    function mainPost() {
+        q_getFormat();
+        bbsMask = [['txtDatea', r_picd]];
+        q_mask(bbsMask);
+    }
+
     function bbsAssign() {  /// 表身運算式
     	for(var j = 0; j < q_bbsCount; j++) {
            		if (!$('#btnMinus_' + j).hasClass('isAssign')) {
