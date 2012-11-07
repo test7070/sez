@@ -59,7 +59,7 @@
             });
             
             $('#btnInput').click(function () {
-            	var t_where = "where=^^ (outdate is null or outdate='' or outdate >'"+$('#txtNoa').val()+"') and noa not in (select sssno from salvacause where datea='"+$('#txtNoa').val()+"') ^^";
+            	var t_where = "where=^^ (outdate is null or outdate='' or outdate >'"+$('#txtNoa').val()+"') and noa not in (select sssno from salvacause where datea='"+$('#txtNoa').val()+"' and hname not like '遲到' and hname not like '早退' ) ^^";
             	q_gt('sss', t_where, 0, 0, 0, "", r_accy);
             });
         }
@@ -80,6 +80,11 @@
             	case 'sss':
             		var as = _q_appendData("sss", "", true);
             		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea', as.length, as, 'noa,namea', '');
+            		
+            		for (var j = 0; j < q_bbsCount; j++) {
+            			$('#txtClockin_'+j).val('08:00');
+            			$('#txtClockout_'+j).val('17:30');
+            		}
             		table_change();
             	break;
                 case q_name: 

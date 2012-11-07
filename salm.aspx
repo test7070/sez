@@ -374,7 +374,7 @@
                <td class="td3"></td>
                <td class="td4"></td>
             </tr>
-            <tr>
+            <!--在salrank設定<tr>
                 <td class="td1"></td>
                 <td class="td2"><input id="chkBo_admin" type="checkbox" style=" "><a id='vewBo_admin'></a></td>
                 <td class="td3"><input id="chkBo_traffic" type="checkbox" style=" "><a id='vewBo_traffic'></a></td>
@@ -384,7 +384,7 @@
                 <td class="td1"></td>
                 <td class="td2"><input id="chkBo_special" type="checkbox" style=" "><a id='vewBo_special'></a></td>
                 <td class="td3"><input id="chkBo_oth" type="checkbox" style=" "><a id='vewBo_oth'></a></td>
-            </tr>
+            </tr>-->
         </table>
         </div>
         </div>

@@ -55,6 +55,17 @@
 	}
 
     function bbsAssign() {
+    		for(var j = 0; j < q_bbsCount; j++) {
+            	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+            		$('#txtId_' + j).change(function () {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						if(!emp($('#txtId_'+b_seq).val()))
+               				$('#txtId_'+b_seq).val($('#txtId_'+b_seq).val().toUpperCase());
+				    });
+				}
+			}
         _bbsAssign();
     }
 

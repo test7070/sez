@@ -53,18 +53,18 @@
             q_mask(bbmMask);
             
             $('#btnLevel').click(function () {
-            	if(dec($('#txtLevel1').val())>dec($('#txtLevel2').val()))
+            	if(dec($('#txtLevel21').val())>dec($('#txtLevel22').val()))
             	{
-            		var t_level1=$('#txtLevel1').val();
-            		var t_level2=$('#txtLevel2').val();
-            		$('#txtLevel1').val(t_level2);
-            		$('#txtLevel2').val(t_level1);
+            		var t_level1=$('#txtLevel21').val();
+            		var t_level2=$('#txtLevel22').val();
+            		$('#txtLevel21').val(t_level2);
+            		$('#txtLevel22').val(t_level1);
             	}
-	           	var t_level=dec($('#txtLevel2').val())-dec($('#txtLevel1').val());
+	           	var t_level=dec($('#txtLevel22').val())-dec($('#txtLevel21').val());
 	           	if(q_bbsCount<t_level)
-		    			q_gridAddRow(bbsHtm, 'tbbs', 'txtLevel1', t_level-q_bbsCount+1, as, '');
+		    			q_gridAddRow(bbsHtm, 'tbbs', 'txtLevel2', t_level-q_bbsCount+1, as, '');
 		    	for (var i = 0; i <= t_level; i++) {
-		    	 	$('#txtLevel1_'+i).val(dec($('#txtLevel1').val())+i);
+		    	 	$('#txtLevel2_'+i).val(dec($('#txtLevel21').val())+i);
 		    	 	$('#txtMoney_'+i).val(dec($('#txtMoney').val())+dec($('#txtDiff').val())*(i));
 		    	}
 	        });
@@ -134,8 +134,8 @@
             _btnIns();
             $('#txtNoa').val(t_noa+1);
             $('#txtNoa').focus();
-            $('#txtLevel1').val('1');
-            $('#txtLevel2').val('31');
+            $('#txtLevel21').val('1');
+            $('#txtLevel22').val('31');
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -395,16 +395,16 @@
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:20%"><a id='vewNoa'></a></td>
                 <td align="center" style="width:25%"><a id='vewMoney'></a></td>
-                <td align="center" style="width:25%"><a id='vewLevel1'></a></td>
-                <td align="center" style="width:25%"><a id='vewLevel2'></a></td>
+                <!--<td align="center" style="width:25%"><a id='vewLevel1'></a></td>
+                <td align="center" style="width:25%"><a id='vewLevel2'></a></td>-->
                 
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='noa'>~noa</td>
                    <td align="center" id='money'>~money</td>
-                   <td align="center" id='level21'>~level21</td>
-                   <td align="center" id='level22'>~level22</td>
+                   <!--<td align="center" id='level21'>~level21</td>
+                   <td align="center" id='level22'>~level22</td>-->
                   
             </tr>
         </table>
