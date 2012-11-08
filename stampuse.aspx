@@ -28,7 +28,8 @@
 			 aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea,partno,part', 'txtSssno,txtNamea,txtPartno,txtPart', 'sss_b.aspx'],
 			 ['txtStampno', 'lblStamp', 'stamp', 'noa,namea,typea', 'txtStampno,txtStamp,cmbTypea', 'stamp_b.aspx'],
 			 ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
-			 ['txtCheck_sssno', 'lblCheck_sss', 'sss', 'noa,namea', 'txtCheck_sssno,txtCheck_namea', 'sss_b.aspx']);
+			 ['txtTsssno', 'lblTsss', 'sss', 'noa,namea', 'txtTsssno,txtTnamea', 'sss_b.aspx'],
+			 ['txtRsssno', 'lblRsss', 'sss', 'noa,namea', 'txtRsssno,txtRnamea', 'sss_b.aspx']);
 			 
             $(document).ready(function() {
                bbmKey = ['noa'];
@@ -48,7 +49,7 @@
             
             function mainPost() {
             	q_getFormat();
-            	bbmMask = [['txtDatea', r_picd],['txtRdate', r_picd]];
+            	bbmMask = [['txtDatea', r_picd],['txtTdate', r_picd],['txtRdate', r_picd]];
 				q_mask(bbmMask);
 				
 				q_cmbParse("cmbTypea", q_getPara('stamp.typea'));
@@ -140,7 +141,7 @@
                 if(emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                if (!emp($('#txtRdate').val())&&!emp($('#txtCheck_sssno').val())){
+                if (!emp($('#txtRdate').val())&&!emp($('#txtRsssno').val())){
 		            	$('#txtDatea').attr('disabled', 'disabled');
 		            	$('#txtSssno').attr('disabled', 'disabled');
 		            	$('#txtNamea').attr('disabled', 'disabled');
@@ -150,9 +151,12 @@
 		            	$('#txtStamp').attr('disabled', 'disabled');
 		            	$('#cmbTypea').attr('disabled', 'disabled');
 		            	$('#cmbTypea').css('background', t_background2);
+		            	$('#txtTdate').attr('disabled', 'disabled');
+		            	$('#txtTsssno').attr('disabled', 'disabled');
+		            	$('#txtTnamea').attr('disabled', 'disabled');
 		            	$('#txtRdate').attr('disabled', 'disabled');
-		            	$('#txtCheck_sssno').attr('disabled', 'disabled');
-		            	$('#txtCheck_namea').attr('disabled', 'disabled');
+		            	$('#txtRsssno').attr('disabled', 'disabled');
+		            	$('#txtRnamea').attr('disabled', 'disabled');
             	}else{
             			$('#txtDatea').attr('disabled', 'disabled');
 		            	$('#txtSssno').attr('disabled', 'disabled');
@@ -162,6 +166,7 @@
 		            	$('#txtStampno').attr('disabled', 'disabled');
 		            	$('#txtStamp').attr('disabled', 'disabled');
 		            	$('#cmbTypea').attr('disabled', 'disabled');
+		            	$('#cmbTypea').css('background', t_background2);
             	}
             }
 
@@ -442,15 +447,25 @@
 						</tr>
 						<tr>
 							<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-							<td class="td2" colspan="4"><input id="txtMemo"  type="text" class="txt c1"/></td>
+							<td class="td2" colspan="3"><input id="txtMemo"  type="text" class="txt c1"/></td>
+						</tr>
+						<tr>
+							<td class="td1" ><span> </span>	<a id='lblTdate' class="lbl"></a></td>
+							<td class="td2"><input id="txtTdate"  type="text" class="txt c1" /></td>
+							<td class="td3" ><span> </span>	<a id='lblTsss' class="lbl btn"></a></td>
+							<td class="td4">
+								<input id="txtTsssno"  type="text"  class="txt c2"/>
+								<input id="txtTnamea"  type="text"  class="txt c3"/>
+							</td>
+							<td class="td5"></td>
 						</tr>
 						<tr>
 							<td class="td1" ><span> </span>	<a id='lblRdate' class="lbl"></a></td>
 							<td class="td2"><input id="txtRdate"  type="text" class="txt c1" /></td>
-							<td class="td3" ><span> </span>	<a id='lblCheck_sss' class="lbl btn"></a></td>
+							<td class="td3" ><span> </span>	<a id='lblRsss' class="lbl btn"></a></td>
 							<td class="td4">
-								<input id="txtCheck_sssno"  type="text"  class="txt c2"/>
-								<input id="txtCheck_namea"  type="text"  class="txt c3"/>
+								<input id="txtRsssno"  type="text"  class="txt c2"/>
+								<input id="txtRnamea"  type="text"  class="txt c3"/>
 							</td>
 							<td class="td5"></td>
 						</tr>

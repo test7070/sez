@@ -24,7 +24,7 @@
         var bbsMask = [];
 
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
-         aPop = new Array(['txtNoa', 'lblNoa', 'sss', 'noa,namea', 'txtNoa,txtNamea,txtDatea', 'sss_b.aspx']);
+         aPop = new Array(['txtNoa', 'lblNoa', 'sss', 'noa,namea', 'txtNoa,txtNamea,txtBdate', 'sss_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -50,7 +50,7 @@
        
         function mainPost() { 
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd]];
+            bbmMask = [['txtBdate', r_picd]];
             q_mask(bbmMask);
             bbsMask = [['txtBirthday', r_picd],['txtIndate', r_picd],['txtOutdate', r_picd]];
             q_mask(bbsMask);
@@ -76,21 +76,21 @@
             	}
             	
             	//取得勞退薪資等級表
-            	var t_where = "where=^^ noa like '%"+$('#txtDatea').val().substr( 0,3)+"%' ^^";
+            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
             	q_gt('labretire', t_where, 0, 0, 0, "", r_accy);
             	//取得勞保薪資等級表
-            	var t_where = "where=^^ noa like '%"+$('#txtDatea').val().substr( 0,3)+"%' ^^";
+            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
             	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
             	//取得健保薪資等級表
             	sum();//計算家屬
-            	var t_where = "where=^^ noa like '%"+$('#txtDatea').val().substr( 0,3)+"%' ^^";
+            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
             	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
             });
             
             $('#txtMount').change(function () {
             	//取得健保薪資等級表
             	sum();//計算家屬
-            	var t_where = "where=^^ noa like '%"+$('#txtDatea').val().substr( 0,3)+"%' ^^";
+            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
             	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
             });
             
@@ -237,7 +237,7 @@
 
         function btnIns() {
             _btnIns();
-            $('#txtDatea').val(q_date());
+            $('#txtBdate').val(q_date());
             $('#txtNoa').focus();
         }
         function btnModi() {
@@ -530,8 +530,8 @@
         <tr class="tr2">
             <!--<td class='td1'><span> </span><a id="lblTypea" class="lbl" > </a></td>
             <td class="td2"><input id="txtTypea" type="text" class="txt  c1" /></td>-->
-            <td class='td1'><span> </span><a id="lblDatea" class="lbl"> </a></td>
-            <td class="td2"><input id="txtDatea" type="text" class="txt  c1" /></td>
+            <td class='td1'><span> </span><a id="lblBdate" class="lbl"> </a></td>
+            <td class="td2"><input id="txtBdate" type="text" class="txt  c1" /></td>
             <td class='td3'><span> </span><a id="lblSalary" class="lbl"> </a></td>
             <td class="td4"><input id="txtSalary" type="text" class="txt num c1" /></td>
         </tr>
