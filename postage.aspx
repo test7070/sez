@@ -16,7 +16,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="postage";
-        var q_readonly = [];
+        var q_readonly = ['txtNoa','txtMount','txtMoney'];
         var bbmNum = [['txtNoa',5 , 1, 1],['txtMount',10 , 0, 1],['txtMoney',15 , 1, 1],['txtBeginmount',10 , 0, 1],['txtBeginmoney',15 , 1, 1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -43,6 +43,7 @@
 
         function mainPost() { 
     		q_mask(bbmMask);
+    		$('#btnIns').hide();
     		
     		$('#txtBeginmount').change(function () {
            		if(!emp($('#txtNoa').val())&&!emp($('#txtBeginmount').val()))

@@ -18,8 +18,8 @@
         var q_name = "salary";
         var q_readonly = ['txtNoa'];
         var q_readonlys = [];
-        var bbmNum = [['txtMoney', 15, 0, 1],['txtDaymoney', 15, 0, 1],['txtPubmoney', 15, 0, 1],['txtBo_admin', 15, 0, 1],['txtBo_traffic', 15, 0, 1],['txtBo_special', 15, 0, 1],['txtBo_oth', 15, 0, 1],['txtTax_other', 15, 0, 1],['txtMi_total', 15, 0, 1],['txtMtotal', 15, 0, 1],['txtBo_full', 15, 0, 1],['txtAddmoney', 15, 0, 1],['txtChg', 15, 0, 1],['txtCh_labor', 15, 0, 1],['txtCh_health', 15, 0, 1],['txtCh_labor_comp', 15, 0, 1],['txtCh_labor_self', 15, 0, 1],['txtWelfare', 15, 0, 1],['txtTotal3', 15, 0, 1],['txtTotal4', 15, 0, 1],['txtTotal5', 15, 0, 1]];  
-        var bbsNum = [['txtMoney', 15, 0, 1],['txtPubmoney', 15, 0, 1],['txtBo_admin', 15, 0, 1],['txtBo_traffic', 15, 0, 1],['txtBo_special', 15, 0, 1],['txtBo_oth', 15, 0, 1],['txtTotal1', 15, 0, 1],['txtCh_labor1', 15, 0, 1],['txtCh_labor2', 15, 0, 1],['txtCh_health_insure', 15, 0, 1],['txtMsaliday', 15, 4, 1],['txtMtotal', 15, 0, 1],['txtBo_born', 15, 0, 1],['txtBo_night', 15, 0, 1],['txtBo_full', 15, 0, 1],['txtBo_duty', 15, 0, 1],['txtTax_other', 15, 0, 1],['txtTotal2', 15, 0, 1],['txtOstand', 15, 2, 1],['txtAddh2_1', 15, 1, 1],['txtAddh2_2', 15, 1, 1],['txtAddmoney', 15, 0, 1],['txtAddh100', 15, 1, 1],['txtAddh46_1', 15, 1, 1],['txtAddh46_2', 15, 1, 1],['txtTax_other2', 15, 0, 1],['txtTotal3', 15, 0, 1],['txtChg', 15, 0, 1],['txtCh_labor', 15, 0, 1],['txtChgcash', 15, 0, 1],['txtTax6', 15, 0, 1],['txtStay_tax', 15, 0, 1],['txtTax12', 15, 0, 1],['txtTax18', 15, 0, 1],['txtCh_labor_comp', 15, 0, 1],['txtCh_labor_self', 15, 0, 1],['txtLodging_power_fee', 15, 0, 1],['txtTax', 15, 0, 1],['txtTax5', 15, 0, 1],['txtWelfare', 15, 0, 1],['txtStay_money', 15, 0, 1],['txtRaise_num', 15, 0, 1],['txtCh_health', 15, 0, 1],['txtTotal4', 15, 0, 1],['txtTotal5', 15, 0, 1],['txtLate', 15, 0, 1],['txtHr_sick', 15, 1, 1],['txtMi_sick', 15, 0, 1],['txtHr_person', 15, 1, 1],['txtMi_person', 15, 0, 1],['txtHr_nosalary', 15, 1, 1],['txtMi_nosalary', 15, 0, 1],['txtHr_leave', 15, 1, 1],['txtMi_leave', 15, 0, 1]];
+        var bbmNum = [['txtMoney', 15, 0, 1],['txtDaymoney', 15, 0, 1],['txtPubmoney', 15, 0, 1],['txtBo_admin', 15, 0, 1],['txtBo_traffic', 15, 0, 1],['txtBo_special', 15, 0, 1],['txtBo_oth', 15, 0, 1],['txtTax_other', 15, 0, 1],['txtMi_total', 15, 0, 1],['txtMtotal', 15, 0, 1],['txtBo_full', 15, 0, 1],['txtAddmoney', 15, 0, 1],['txtBorrow', 15, 0, 1],['txtCh_labor', 15, 0, 1],['txtCh_health', 15, 0, 1],['txtCh_labor_comp', 15, 0, 1],['txtCh_labor_self', 15, 0, 1],['txtWelfare', 15, 0, 1],['txtTotal3', 15, 0, 1],['txtTotal4', 15, 0, 1],['txtTotal5', 15, 0, 1]];  
+        var bbsNum = [['txtMoney', 15, 0, 1],['txtPubmoney', 15, 0, 1],['txtBo_admin', 15, 0, 1],['txtBo_traffic', 15, 0, 1],['txtBo_special', 15, 0, 1],['txtBo_oth', 15, 0, 1],['txtTotal1', 15, 0, 1],['txtCh_labor1', 15, 0, 1],['txtCh_labor2', 15, 0, 1],['txtCh_health_insure', 15, 0, 1],['txtDay', 15, 4, 1],['txtMtotal', 15, 0, 1],['txtBo_born', 15, 0, 1],['txtBo_night', 15, 0, 1],['txtBo_full', 15, 0, 1],['txtBo_duty', 15, 0, 1],['txtTax_other', 15, 0, 1],['txtTotal2', 15, 0, 1],['txtOstand', 15, 2, 1],['txtAddh2_1', 15, 1, 1],['txtAddh2_2', 15, 1, 1],['txtAddmoney', 15, 0, 1],['txtAddh100', 15, 1, 1],['txtAddh46_1', 15, 1, 1],['txtAddh46_2', 15, 1, 1],['txtTax_other2', 15, 0, 1],['txtTotal3', 15, 0, 1],['txtBorrow', 15, 0, 1],['txtCh_labor', 15, 0, 1],['txtChgcash', 15, 0, 1],['txtTax6', 15, 0, 1],['txtStay_tax', 15, 0, 1],['txtTax12', 15, 0, 1],['txtTax18', 15, 0, 1],['txtCh_labor_comp', 15, 0, 1],['txtCh_labor_self', 15, 0, 1],['txtLodging_power_fee', 15, 0, 1],['txtTax', 15, 0, 1],['txtTax5', 15, 0, 1],['txtWelfare', 15, 0, 1],['txtStay_money', 15, 0, 1],['txtRaise_num', 15, 0, 1],['txtCh_health', 15, 0, 1],['txtTotal4', 15, 0, 1],['txtTotal5', 15, 0, 1],['txtLate', 15, 0, 1],['txtHr_sick', 15, 1, 1],['txtMi_sick', 15, 0, 1],['txtHr_person', 15, 1, 1],['txtMi_person', 15, 0, 1],['txtHr_nosalary', 15, 1, 1],['txtMi_nosalary', 15, 0, 1],['txtHr_leave', 15, 1, 1],['txtMi_leave', 15, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
@@ -167,9 +167,13 @@
 		                    		}
 		                    	}
 		                    //請假扣薪
-		                    	as[i].msaliday= dec(as[i].inday)-dec(as[i].late);//給薪日數=上班天數-遲到次數
+		                    if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
+		                    	as[i].day= dec(as[i].inday)-dec(as[i].late);//給薪日數=上班天數-遲到次數
+		                    	as[i].mi_saliday=0;
+		                    }else{
+		                    	as[i].day=0;
 		                    	as[i].mi_saliday=(dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary))/8; //扣薪日數=病假(時)+事假(時)+曠工(時)+無薪(時)/8--->一天工作8小時為基準
-		                    
+		                    }
 		                    //全勤獎金
 		                    if($('#cmbPerson').find("option:selected").text().indexOf('外勞')==-1)
 		                    	as[i].bo_full=as[i].bo_full/2;
@@ -198,14 +202,14 @@
 						}//end for
 						
 						if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtSno,txtNamea,txtDaymoney,txtPubmoney,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtCh_labor1,txtCh_labor2,txtCh_health_insure,txtMsaliday,txtMi_saliday,txtBo_born,txtBo_night,txtBo_full,txtBo_duty,txtTax_other,txtAddh2_1,txtAddh2_2,txtAddh100,txtAddh46_1,txtAddh46_2,txtTax_other2,txtChg,txtCh_labor,txtChgcash,txtCh_labor_comp,txtCh_labor_self,txtLodging_power_fee,txtTax,txtStay_money,txtRaise_num,txtCh_health,txtLate,txtHr_sick,txtHr_person,txtHr_nosalary,txtHr_leave'
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtSno,txtNamea,txtDaymoney,txtPubmoney,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtCh_labor1,txtCh_labor2,txtCh_health_insure,txtDay,txtMi_saliday,txtBo_born,txtBo_night,txtBo_full,txtBo_duty,txtTax_other,txtAddh2_1,txtAddh2_2,txtAddh100,txtAddh46_1,txtAddh46_2,txtTax_other2,txtBorrow,txtCh_labor,txtChgcash,txtCh_labor_comp,txtCh_labor_self,txtLodging_power_fee,txtTax,txtStay_money,txtRaise_num,txtCh_health,txtLate,txtHr_sick,txtHr_person,txtHr_nosalary,txtHr_leave'
 															, as.length, as
-                                                           , 'sssno,namea,salary,pubmoney,bo_admin,bo_traffic,bo_special,bo_oth,ch_labor1,ch_labor2,ch_health_insure,msaliday,mi_saliday,bo_born,bo_night,bo_full,bo_day,tax_other,addh21,addh22,addh100,addh46_1,addh46_2,tax_other2,chg,ch_labor,chgcash,ch_labor_comp,ch_labor_self,lodging_power_fee,tax,stay_money,raise_num,ch_health,late,hr_sick,hr_person,hr_nosalary,hr_leave'
+                                                           , 'sssno,namea,salary,pubmoney,bo_admin,bo_traffic,bo_special,bo_oth,ch_labor1,ch_labor2,ch_health_insure,day,mi_saliday,bo_born,bo_night,bo_full,bo_day,tax_other,addh21,addh22,addh100,addh46_1,addh46_2,tax_other2,chg,ch_labor,chgcash,ch_labor_comp,ch_labor_self,lodging_power_fee,tax,stay_money,raise_num,ch_health,late,hr_sick,hr_person,hr_nosalary,hr_leave'
                                                            , '');
 						}else{
-                         	q_gridAddRow(bbsHtm, 'tbbs', 'txtSno,txtNamea,txtMoney,txtPubmoney,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtCh_labor1,txtCh_labor2,txtCh_health_insure,txtMsaliday,txtMi_saliday,txtBo_born,txtBo_night,txtBo_full,txtBo_duty,txtTax_other,txtAddh2_1,txtAddh2_2,txtAddh100,txtAddh46_1,txtAddh46_2,txtTax_other2,txtChg,txtCh_labor,txtChgcash,txtCh_labor_comp,txtCh_labor_self,txtLodging_power_fee,txtTax,txtStay_money,txtRaise_num,txtCh_health,txtLate,txtHr_sick,txtHr_person,txtHr_nosalary,txtHr_leave'
+                         	q_gridAddRow(bbsHtm, 'tbbs', 'txtSno,txtNamea,txtMoney,txtPubmoney,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtCh_labor1,txtCh_labor2,txtCh_health_insure,txtDay,txtMi_saliday,txtBo_born,txtBo_night,txtBo_full,txtBo_duty,txtTax_other,txtAddh2_1,txtAddh2_2,txtAddh100,txtAddh46_1,txtAddh46_2,txtTax_other2,txtBorrow,txtCh_labor,txtChgcash,txtCh_labor_comp,txtCh_labor_self,txtLodging_power_fee,txtTax,txtStay_money,txtRaise_num,txtCh_health,txtLate,txtHr_sick,txtHr_person,txtHr_nosalary,txtHr_leave'
 															, as.length, as
-                                                           , 'sssno,namea,salary,pubmoney,bo_admin,bo_traffic,bo_special,bo_oth,ch_labor1,ch_labor2,ch_health_insure,msaliday,mi_saliday,bo_born,bo_night,bo_full,bo_day,tax_other,addh21,addh22,addh100,addh46_1,addh46_2,tax_other2,chg,ch_labor,chgcash,ch_labor_comp,ch_labor_self,lodging_power_fee,tax,stay_money,raise_num,ch_health,late,hr_sick,hr_person,hr_nosalary,hr_leave'
+                                                           , 'sssno,namea,salary,pubmoney,bo_admin,bo_traffic,bo_special,bo_oth,ch_labor1,ch_labor2,ch_health_insure,day,mi_saliday,bo_born,bo_night,bo_full,bo_day,tax_other,addh21,addh22,addh100,addh46_1,addh46_2,tax_other2,chg,ch_labor,chgcash,ch_labor_comp,ch_labor_self,lodging_power_fee,tax,stay_money,raise_num,ch_health,late,hr_sick,hr_person,hr_nosalary,hr_leave'
                                                            , '');
                         }
                         
@@ -298,7 +302,7 @@
            			$('#txtWelfare_'+j).change(function () {sum();});
            			$('#txtDaymoney_'+j).change(function () {sum();});
            			$('#txtMtotal_'+j).change(function () {sum();});
-           			$('#txtMsaliday_'+j).change(function () {sum();});
+           			$('#txtDay_'+j).change(function () {sum();});
            			$('#txtBo_born_'+j).change(function () {sum();});
            			$('#txtBo_night_'+j).change(function () {sum();});
            			$('#txtBo_duty_'+j).change(function () {sum();});
@@ -307,7 +311,7 @@
            			$('#txtAddh46_2_'+j).change(function () {sum();});
            			$('#txtAddh100_'+j).change(function () {sum();});
            			$('#txtTotal4_'+j).change(function () {sum();});
-           			$('#txtChg_'+j).change(function () {sum();});
+           			$('#txtBorrow_'+j).change(function () {sum();});
            			$('#txtCh_labor_'+j).change(function () {sum();});
            			$('#txtChgcash_'+j).change(function () {sum();});
            			$('#txtCh_labor_self_'+j).change(function () {sum();});
@@ -410,7 +414,7 @@
 		        		q_tr('txtWelfare_'+j,0);
         		}else if($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
         			q_tr('txtTotal1_'+j,Math.round(dec($('#txtDaymoney_'+j).val())));
-        			q_tr('txtMtotal_'+j,Math.round(dec($('#txtDaymoney_'+j).val())*dec($('#txtMsaliday_'+j).val())));//給薪金額
+        			q_tr('txtMtotal_'+j,Math.round(dec($('#txtDaymoney_'+j).val())*dec($('#txtDay_'+j).val())));//給薪金額
         			q_tr('txtTotal2_'+j,Math.round((dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val()))/2+dec($('#txtMtotal_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額
         			q_tr('txtOstand_'+j,Math.round((dec($('#txtDaymoney_'+j).val())/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
         			q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.67*dec($('#txtAddh2_2_'+j).val())));//加班費
@@ -434,14 +438,14 @@
 		        		q_tr('txtWelfare_'+j,0);
         		}
         		//應扣總額=借支+勞保費+零用金+勞退個人提繳+住宿電費+所得稅+所得稅5%+所得稅6%(外勞)+暫留稅10%(外勞)+所得稅12%(外勞)+所得稅18%(外勞)+福利金+暫留款+健保費
-				q_tr('txtTotal4_'+j,Math.round(dec($('#txtChg_'+j).val())+dec($('#txtCh_labor_'+j).val())+dec($('#txtChgcash_'+j).val())+dec($('#txtCh_labor_self_'+j).val())+dec($('#txtLodging_power_fee_'+j).val())+dec($('#txtTax_'+j).val())+dec($('#txtTax5_'+j).val())+dec($('#txtTax6_'+j).val())+dec($('#txtStay_tax_'+j).val())+dec($('#txtTax12_'+j).val())+dec($('#txtTax18_'+j).val())+dec($('#txtWelfare_'+j).val())+dec($('#txtStay_money_'+j).val())+dec($('#txtCh_health_'+j).val())));
+				q_tr('txtTotal4_'+j,Math.round(dec($('#txtBorrow_'+j).val())+dec($('#txtCh_labor_'+j).val())+dec($('#txtChgcash_'+j).val())+dec($('#txtCh_labor_self_'+j).val())+dec($('#txtLodging_power_fee_'+j).val())+dec($('#txtTax_'+j).val())+dec($('#txtTax5_'+j).val())+dec($('#txtTax6_'+j).val())+dec($('#txtStay_tax_'+j).val())+dec($('#txtTax12_'+j).val())+dec($('#txtTax18_'+j).val())+dec($('#txtWelfare_'+j).val())+dec($('#txtStay_money_'+j).val())+dec($('#txtCh_health_'+j).val())));
 				//實發金額=應領總額-應扣總額
         		q_tr('txtTotal5_'+j,Math.round(dec($('#txtTotal3_'+j).val())-dec($('#txtTotal4_'+j).val())));
         		
         	}
         	//bbm計算
             var monkind=0,t_money=0,t_daymoney=0,t_pubmoney=0,t_bo_admin=0,t_bo_traffic=0,t_bo_special=0,t_bo_oth=0,t_bo_full=0,t_tax_other=0
-            ,t_mtotal=0,t_mitotal=0,t_addmoney=0,t_chg=0,t_ch_labor=0,t_ch_health=0,t_ch_labor_comp=0,t_ch_labor_self=0
+            ,t_mtotal=0,t_mitotal=0,t_addmoney=0,t_borrow=0,t_ch_labor=0,t_ch_health=0,t_ch_labor_comp=0,t_ch_labor_self=0
             ,t_welfare=0,t_total3=0,t_total4=0,t_total5=0;
             //結算方式，因為外勞是以一個月結算，所以*1，大公司以上下期計算薪資，因此*0.5
             if($('#cmbPerson').find("option:selected").text().indexOf('外勞')>-1)
@@ -462,7 +466,7 @@
 				t_mtotal+=dec($('#txtMtotal_'+j).val());//給薪金額
 				t_mitotal+=dec($('#txtMi_total_'+j).val());//扣薪金額
 				t_addmoney+=dec($('#txtAddmoney_'+j).val());//加班費
-				t_chg+=dec($('#txtChg_'+j).val());//借支
+				t_borrow+=dec($('#txtBorrow_'+j).val());//借支
 				t_ch_labor+=dec($('#txtCh_labor_'+j).val());//勞保費
 				t_ch_health+=dec($('#txtCh_health_'+j).val());//健保費
 				t_ch_labor_comp+=dec($('#txtCh_labor_comp_'+j).val());//勞退提繳
@@ -485,7 +489,7 @@
             q_tr('txtMtotal',Math.round(t_mtotal));//給薪金額
             q_tr('txtMi_total',Math.round(t_mitotal));//扣薪金額
             q_tr('txtAddmoney',t_addmoney);//加班費
-            q_tr('txtChg',t_chg);//借支
+            q_tr('txtBorrow',t_borrow);//借支
             q_tr('txtCh_labor',t_ch_labor);//勞保費
             q_tr('txtCh_health',t_ch_health);//健保費
             q_tr('txtCh_labor_comp',t_ch_labor_comp);//勞退提繳
@@ -598,7 +602,7 @@
             	 //bbs
             	 $('#hid_money').show();
             	 $('#hid_daymoney').hide();
-            	 $('#hid_msaliday').hide();
+            	 $('#hid_day').hide();
 	             $('#hid_mtotal').hide();
 	             $('#hid_mi_saliday').show();
 	             $('#hid_mi_total').show();
@@ -619,7 +623,7 @@
             	 for (var j = 0; j < q_bbsCount; j++) {
             	 	 $('#hid_money_'+j).show();
             		 $('#hid_daymoney_'+j).hide();
-	            	 $('#hid_msaliday_'+j).hide();
+	            	 $('#hid_day_'+j).hide();
 		             $('#hid_mtotal_'+j).hide();
 		             $('#hid_mi_saliday_'+j).show();
 		             $('#hid_mi_total_'+j).show();
@@ -651,7 +655,7 @@
 	            	 //bbs
 	            	 $('#hid_money').hide();
             	 	 $('#hid_daymoney').show();
-	            	 $('#hid_msaliday').show();
+	            	 $('#hid_day').show();
 	            	 $('#hid_mtotal').show();
 	            	 $('#hid_mi_saliday').hide();
 	            	 $('#hid_mi_total').hide();
@@ -672,7 +676,7 @@
             	 	for (var j = 0; j < q_bbsCount; j++) {
             	 		 $('#hid_money_'+j).hide();
             			 $('#hid_daymoney_'+j).show();
-            	 		 $('#hid_msaliday_'+j).show();
+            	 		 $('#hid_day_'+j).show();
 		            	 $('#hid_mtotal_'+j).show();
 		            	 $('#hid_mi_saliday_'+j).hide();
 		            	 $('#hid_mi_total_'+j).hide();
@@ -704,7 +708,7 @@
 	            	 //bbs
 	            	 $('#hid_money').show();
             		 $('#hid_daymoney').hide();
-	            	 $('#hid_msaliday').hide();
+	            	 $('#hid_day').hide();
 		             $('#hid_mtotal').hide();
 		             $('#hid_mi_saliday').show();
 		             $('#hid_mi_total').show();
@@ -725,7 +729,7 @@
             	 	for (var j = 0; j < q_bbsCount; j++) {
             	 		 $('#hid_money_'+j).show();
             			 $('#hid_daymoney_'+j).hide();
-            	 		 $('#hid_msaliday_'+j).hide();
+            	 		 $('#hid_day_'+j).hide();
 			             $('#hid_mtotal_'+j).hide();
 			             $('#hid_mi_saliday_'+j).show();
 			             $('#hid_mi_total_'+j).show();
@@ -952,8 +956,8 @@
             <td class="td2"><input id="txtBo_full"  type="text" class="txt num c1"/></td>
             <td class="td3"><span> </span><a id="lblAddmoney" class="lbl"></a></td>
             <td class="td4"><input id="txtAddmoney"  type="text" class="txt num c1"/></td>
-            <td class="td5"><span> </span><a id="lblChg" class="lbl"></a></td>
-            <td class="td6"><input id="txtChg"  type="text" class="txt num c1"/></td>
+            <td class="td5"><span> </span><a id="lblBorrow" class="lbl"></a></td>
+            <td class="td6"><input id="txtBorrow"  type="text" class="txt num c1"/></td>
             <td class="td7"><span> </span><a id="lblCh_labor" class="lbl"></a></td>
             <td class="td8"><input id="txtCh_labor"  type="text" class="txt num c1"/></td>
         </tr>
@@ -997,7 +1001,7 @@
                 <td align="center" class="td2"><a id='lblCh_labor1s'></a></td>
                 <td align="center" class="td2"><a id='lblCh_labor2s'></a></td>
                 <td align="center" class="td2"><a id='lblCh_health_insures'></a></td>
-                <td align="center" class="td2" id='hid_msaliday'><a id='lblMsalidays'></a></td>
+                <td align="center" class="td2" id='hid_day'><a id='lblDays'></a></td>
                 <td align="center" class="td2" id='hid_mtotal'><a id='lblMtotals'></a></td>
                 <td align="center" class="td2" id='hid_mi_saliday'><a id='lblMi_salidays'></a></td>
                 <td align="center" class="td2" id='hid_mi_total'><a id='lblMi_totals'></a></td>
@@ -1016,7 +1020,7 @@
                 <td align="center" class="td2"><a id='lblAddh46_2s'></a></td>
                 <td align="center" class="td2" ><a id='lblTax_other2s'></a></td>
                 <td align="center" class="td2"><a id='lblTotal3s'></a></td>
-                <td align="center" class="td2"><a id='lblChgs'></a></td>
+                <td align="center" class="td2"><a id='lblBorrows'></a></td>
                 <td align="center" class="td2"><a id='lblCh_labors'></a></td>
                 <td align="center" class="td2" id='hid_chgcash'><a id='lblChgcashs'></a></td>
                 <td align="center" class="td2" id='hid_tax6'><a id='lblTax6s'></a></td>
@@ -1056,7 +1060,7 @@
                 <td ><input class="txt num c1" id="txtCh_labor1.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtCh_labor2.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtCh_health_insure.*" type="text" /></td>
-                <td id='hid_msaliday.*'><input class="txt num c1" id="txtMsaliday.*" type="text" /></td>
+                <td id='hid_day.*'><input class="txt num c1" id="txtDay.*" type="text" /></td>
                 <td id='hid_mtotal.*'><input class="txt num c1" id="txtMtotal.*" type="text" /></td>
                 <td id='hid_mi_saliday.*'><input class="txt num c1" id="txtMi_saliday.*" type="text" /></td>
                 <td id='hid_mi_total.*'><input class="txt num c1" id="txtMi_total.*" type="text" /></td>
@@ -1075,7 +1079,7 @@
                 <td ><input class="txt num c1" id="txtAddh46_2.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtTax_other2.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtTotal3.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtChg.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtBorrow.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtCh_labor.*" type="text" /></td>
                 <td id='hid_chgcash.*'><input class="txt num c1" id="txtChgcash.*" type="text" /></td>
                 <td id='hid_tax6.*'><input class="txt num c1" id="txtTax6.*" type="text" /></td>
