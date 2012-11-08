@@ -565,11 +565,6 @@
 
 			function q_popPost(id) {
 				switch(id) {
-					case 'txtStraddrno':
-						if(q_cur==1 || q_cur==2){
-							$('#txtInmount').focus();
-						}
-						break;
 					case 'txtCarno':
 						if(q_cur==1 || q_cur==2){
 							$('#txtDriverno').focus();
@@ -582,7 +577,6 @@
 						}
 						break;
 					case 'txtStraddrno':
-
 						if (q_cur == 2 && $.trim($('#txtTrdno').val()).length > 0) {
 							for (var i in curData.data) {
 								if (curData.data[i].field == 'txtPrice') {
@@ -597,7 +591,9 @@
 								}
 							}
 						}
-				
+						if(q_cur==1 || q_cur==2){
+							$('#txtInmount').focus();
+						}
 						break;
 				}
 			}
