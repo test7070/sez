@@ -48,7 +48,7 @@
             
             function mainPost() {
             	q_getFormat();
-            	bbmMask = [['txtDatea', r_picd],['txtBdatea', r_picd]];
+            	bbmMask = [['txtDatea', r_picd],['txtRdate', r_picd]];
 				q_mask(bbmMask);
 				
 				q_cmbParse("cmbTypea", q_getPara('stamp.typea'));
@@ -140,7 +140,7 @@
                 if(emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                if (!emp($('#txtBdatea').val())&&!emp($('#txtCheck_sssno').val())){
+                if (!emp($('#txtRdate').val())&&!emp($('#txtCheck_sssno').val())){
 		            	$('#txtDatea').attr('disabled', 'disabled');
 		            	$('#txtSssno').attr('disabled', 'disabled');
 		            	$('#txtNamea').attr('disabled', 'disabled');
@@ -150,7 +150,7 @@
 		            	$('#txtStamp').attr('disabled', 'disabled');
 		            	$('#cmbTypea').attr('disabled', 'disabled');
 		            	$('#cmbTypea').css('background', t_background2);
-		            	$('#txtBdatea').attr('disabled', 'disabled');
+		            	$('#txtRdate').attr('disabled', 'disabled');
 		            	$('#txtCheck_sssno').attr('disabled', 'disabled');
 		            	$('#txtCheck_namea').attr('disabled', 'disabled');
             	}else{
@@ -445,8 +445,8 @@
 							<td class="td2" colspan="4"><input id="txtMemo"  type="text" class="txt c1"/></td>
 						</tr>
 						<tr>
-							<td class="td1" ><span> </span>	<a id='lblBdatea' class="lbl"></a></td>
-							<td class="td2"><input id="txtBdatea"  type="text" class="txt c1" /></td>
+							<td class="td1" ><span> </span>	<a id='lblRdate' class="lbl"></a></td>
+							<td class="td2"><input id="txtRdate"  type="text" class="txt c1" /></td>
 							<td class="td3" ><span> </span>	<a id='lblCheck_sss' class="lbl btn"></a></td>
 							<td class="td4">
 								<input id="txtCheck_sssno"  type="text"  class="txt c2"/>

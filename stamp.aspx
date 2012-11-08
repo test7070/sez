@@ -343,13 +343,12 @@
 						</tr>
 						<tr>
 							<td class="td1" ><span> </span>	<a id='lblAcomp' class="lbl btn"></a></td>
-							<td class="td2">
+							<td class="td2" colspan="2">
 								<input id="txtCno"  type="text"  class="txt c2"/>
 								<input id="txtAcomp"  type="text"  class="txt c3"/>
 							</td>
-							<td class="td3" ><span> </span>	<a id='lblTypea' class="lbl"></a></td>
-							<td class="td4"><select id="cmbTypea" class="txt c1" style="font-size: medium;"></select></td>
-							<td class="td5"></td>
+							<td class="td4"><span> </span>	<a id='lblTypea' class="lbl"></a></td>
+							<td class="td5"><select id="cmbTypea" class="txt c1" style="font-size: medium;"></select></td>
 						</tr>
 						<tr>
 							<td class="td1" ><span> </span>	<a id='lblFlow' class="lbl"></a></td>
