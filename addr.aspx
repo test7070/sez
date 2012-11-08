@@ -18,7 +18,7 @@
 			isEditTotal = false;
             q_tables = 's';
             var q_name = "addr";
-            var q_readonly = ['txtCustprice','txtDriverprice','txtDriverprice2','txtCommission','txtCommission2'];
+            var q_readonly = ['txtCustprice','txtDriverprice','txtDriverprice2','txtCommission','txtCommission2','txtSalesno','txtSales'];
             var q_readonlys = [];
             var bbmNum = [['txtCustprice', 10, 3],['txtDriverprice', 10, 3],['txtDriverprice2', 10, 3],['txtCommission', 10, 3],['txtCommission2', 10, 3]];
             var bbsNum = [['txtCustprice', 10, 3],['txtDriverprice', 10, 3],['txtDriverprice2', 10, 3],['txtCommission', 10, 3],['txtCommission2', 10, 3]];
@@ -30,7 +30,8 @@
             brwNowPage = 0;
             brwKey = 'Datea';
                    
-            aPop =  new Array(['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']);
+            aPop =  new Array(['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
+            ,['txtSalesno_', '', 'sss', 'noa,namea', 'txtSalesno_,txtSales_', 'sss_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -402,6 +403,10 @@
                <td class="td1"><span> </span><a id='lblCommission2' class="lbl"></a></td>
                <td class="td2"><input id="txtCommission2" type="text"  class="txt c1  num"/></td>
             </tr>
+            <tr>
+               <td><span> </span><a id='lblSales' class="lbl"></a></td>
+               <td colspan="2"><input id="txtSalesno" type="text"  class="txt c2"/><input id="txtSales" type="text"  class="txt c3"/></td>
+            </tr>
             <tr> </tr>
         </table>
         </div>
@@ -418,6 +423,8 @@
 					<td align="center" style="width:100px;"><a id='lblDriverprice2_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblCommission_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblCommission2_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblSalesno_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblSales_s'> </a></td>
 					<td align="center" style="width:150px;"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -431,6 +438,8 @@
 					<td ><input type="text" id="txtDriverprice2.*" style="width:95%;text-align:right;" />  </td>
 					<td ><input type="text" id="txtCommission.*" style="width:95%;text-align:right;" />  </td>
 					<td ><input type="text" id="txtCommission2.*" style="width:95%;text-align:right;" />  </td>
+					<td ><input type="text" id="txtSalesno.*" style="width:95%;text-align:right;" />  </td>
+					<td ><input type="text" id="txtSales.*" style="width:95%;text-align:right;" />  </td>
 					<td ><input type="text" id="txtMemo.*" style="width:95%;" />  </td>
 				</tr>
 			</table>
