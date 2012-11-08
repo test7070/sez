@@ -95,6 +95,8 @@
                 		$('#txtDriverprice2').val($('#txtDriverprice2_'+i).val());
                 		$('#txtCommission').val($('#txtCommission_'+i).val());
                 		$('#txtCommission2').val($('#txtCommission2_'+i).val());
+                		$('#txtSalesno').val($('#txtSalesno_'+i).val());
+                		$('#txtSales').val($('#txtSales_'+i).val());
                 	}
                 }
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
@@ -438,8 +440,8 @@
 					<td ><input type="text" id="txtDriverprice2.*" style="width:95%;text-align:right;" />  </td>
 					<td ><input type="text" id="txtCommission.*" style="width:95%;text-align:right;" />  </td>
 					<td ><input type="text" id="txtCommission2.*" style="width:95%;text-align:right;" />  </td>
-					<td ><input type="text" id="txtSalesno.*" style="width:95%;text-align:right;" />  </td>
-					<td ><input type="text" id="txtSales.*" style="width:95%;text-align:right;" />  </td>
+					<td ><input type="text" id="txtSalesno.*" style="width:95%;text-align:left;" />  </td>
+					<td ><input type="text" id="txtSales.*" style="width:95%;text-align:left;" />  </td>
 					<td ><input type="text" id="txtMemo.*" style="width:95%;" />  </td>
 				</tr>
 			</table>
