@@ -16,7 +16,7 @@
         }
         var q_name="postout";
         var q_readonly = ['txtNoa'];
-        var bbmNum = [['txtTotal',14 , 0, 1],['txtP35',14 , 0, 1],['txtP50',14 , 0, 1],['txtP100',14 , 0, 1],['txtP120',14 , 0, 1],['txtP200',14 , 0, 1],['txtP250',14 , 0, 1],['txtP320',14 , 0, 1]]; 
+        var bbmNum = [['txtTotal',14 , 1, 1],['txtP35',14 , 0, 1],['txtP50',14 , 0, 1],['txtP100',14 , 0, 1],['txtP120',14 , 0, 1],['txtP200',14 , 0, 1],['txtP250',14 , 0, 1],['txtP320',14 , 0, 1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
@@ -403,17 +403,17 @@
             </tr>
             <tr class="tr2">
                <td class="td1"><span> </span><a id="lblSss" class="lbl btn" ></a></td>
-               <td class="td2" colspan="2"><input id="txtSssno"  type="text"  class="txt c4"/><input id="txtNamea"  type="text"  class="txt c5"/></td>
+               <td class="td2" colspan="2"><input id="txtSssno"  type="text"  class="txt c2"/><input id="txtNamea"  type="text"  class="txt c3"/></td>
                <td class="td3" ><span> </span><a id="lblPart" class="lbl btn"></a></td>
-               <td class="td4" colspan="2"><input id="txtPartno"  type="text"  class="txt c4"/><input id="txtPart" type="text"  class="txt c5"/></td> 
+               <td class="td4" colspan="2"><input id="txtPartno"  type="text"  class="txt c2"/><input id="txtPart" type="text"  class="txt c3"/></td> 
             </tr>
             <tr class="tr3">
                <td class="td1"><span> </span><a id="lblSend" class="lbl btn" ></a></td>
-               <td class="td2" colspan="2"><input id="txtSenderno"  type="text"  class="txt c4"/><input id="txtSender" type="text"  class="txt c5"/></td>
+               <td class="td2" colspan="2"><input id="txtSenderno"  type="text"  class="txt c2"/><input id="txtSender" type="text"  class="txt c3"/></td>
                <td class="td4"><span> </span><a id="lblReceiver_cust" class="lbl btn" style="font-size: 14px;"></a></td>
-               <td class="td5"colspan="2"><input id="txtReceiverno_cust" type="text"  class="txt c4"/><input id="txtReceiver_cust"  type="text"  class="txt c5"/></td>
+               <td class="td5"colspan="2"><input id="txtReceiverno_cust" type="text"  class="txt c2"/><input id="txtReceiver_cust"  type="text"  class="txt c3"/></td>
                <td class="td7"><span> </span><a id="lblReceiver_tgg" class="lbl btn" style="font-size: 14px;"></a></td>
-               <td class="td8"colspan="2"><input id="txtReceiverno_tgg" type="text"  class="txt c4"/><input id="txtReceiver_tgg"  type="text"  class="txt c5"/></td>            
+               <td class="td8"colspan="2"><input id="txtReceiverno_tgg" type="text"  class="txt c2"/><input id="txtReceiver_tgg"  type="text"  class="txt c3"/></td>            
             </tr> 
            <tr class="tr4">
                <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>

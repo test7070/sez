@@ -16,7 +16,7 @@
         }
         var q_name="postin";
         var q_readonly = ['txtNoa'];
-        var bbmNum = [['txtTotal',14 , 0, 1],['txtP35',14 , 0, 1],['txtP50',14 , 0, 1],['txtP100',14 , 0, 1],['txtP120',14 , 0, 1],['txtP200',14 , 0, 1],['txtP250',14 , 0, 1],['txtP320',14 , 0, 1]]; 
+        var bbmNum = [['txtTotal',14 , 1, 1],['txtP35',14 , 0, 1],['txtP50',14 , 0, 1],['txtP100',14 , 0, 1],['txtP120',14 , 0, 1],['txtP200',14 , 0, 1],['txtP250',14 , 0, 1],['txtP320',14 , 0, 1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
@@ -386,9 +386,9 @@
             </tr>
             <tr class="tr2">
                <td class="td1"><span> </span><a id="lblSss" class="lbl btn" ></a></td>
-               <td class="td2" colspan="2"><input id="txtSssno"  type="text"  class="txt c4"/><input id="txtNamea"  type="text"  class="txt c5"/></td>
+               <td class="td2" colspan="2"><input id="txtSssno"  type="text"  class="txt c2"/><input id="txtNamea"  type="text"  class="txt c3"/></td>
                <td class="td4" ><span> </span><a id="lblPart" class="lbl btn"></a></td>
-               <td class="td5" colspan="2"><input id="txtPartno"  type="text"  class="txt c4"/><input id="txtPart" type="text"  class="txt c5"/></td> 
+               <td class="td5" colspan="2"><input id="txtPartno"  type="text"  class="txt c2"/><input id="txtPart" type="text"  class="txt c3"/></td> 
                <td class="td7"><span> </span><a id="lblChgcashno" class="lbl"></a></td>
                <td class="td8"><input id="txtChgcashno" type="text" class="txt c1" /></td>                          
             </tr>
