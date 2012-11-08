@@ -80,7 +80,7 @@
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('driver_s.aspx', q_name + '_s', "500px", "340px", q_getMsg("popSeek"));
+                q_box('driver_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -376,7 +376,7 @@
 					</tr>
 					<tr class="tr6">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
-						<td class="td2" colspan='7'><textarea id="txtMemo" style="width:99%; height: 50px;"></textarea></td>
+						<td class="td2" colspan='7'><input id="txtMemo" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblTakeofficedate" class="lbl"></a></td>
