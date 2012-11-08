@@ -30,7 +30,7 @@
                         name : 'xmon'
                     },{
                         type : '5',
-                        name : 'xmonkind',
+                        name : 'xkind',
                         value : (('').concat(new Array("上期","下期"))).split(',')
                     }]
                     });
