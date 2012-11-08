@@ -997,7 +997,7 @@
                 <td align="center" class="td2"><a id='lblCh_labor1s'></a></td>
                 <td align="center" class="td2"><a id='lblCh_labor2s'></a></td>
                 <td align="center" class="td2"><a id='lblCh_health_insures'></a></td>
-                <td align="center" class="td2" id='hid_msaliday'><a id='lblMsalidays'></a></td>
+                <td align="center" class="td2" id='hid_msaliday'><a id='lblDays'></a></td>
                 <td align="center" class="td2" id='hid_mtotal'><a id='lblMtotals'></a></td>
                 <td align="center" class="td2" id='hid_mi_saliday'><a id='lblMi_salidays'></a></td>
                 <td align="center" class="td2" id='hid_mi_total'><a id='lblMi_totals'></a></td>
@@ -1016,7 +1016,7 @@
                 <td align="center" class="td2"><a id='lblAddh46_2s'></a></td>
                 <td align="center" class="td2" ><a id='lblTax_other2s'></a></td>
                 <td align="center" class="td2"><a id='lblTotal3s'></a></td>
-                <td align="center" class="td2"><a id='lblChgs'></a></td>
+                <td align="center" class="td2"><a id='lblBorrow'></a></td>
                 <td align="center" class="td2"><a id='lblCh_labors'></a></td>
                 <td align="center" class="td2" id='hid_chgcash'><a id='lblChgcashs'></a></td>
                 <td align="center" class="td2" id='hid_tax6'><a id='lblTax6s'></a></td>
@@ -1056,7 +1056,7 @@
                 <td ><input class="txt num c1" id="txtCh_labor1.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtCh_labor2.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtCh_health_insure.*" type="text" /></td>
-                <td id='hid_msaliday.*'><input class="txt num c1" id="txtMsaliday.*" type="text" /></td>
+                <td id='hid_msaliday.*'><input class="txt num c1" id="txtDay.*" type="text" /></td>
                 <td id='hid_mtotal.*'><input class="txt num c1" id="txtMtotal.*" type="text" /></td>
                 <td id='hid_mi_saliday.*'><input class="txt num c1" id="txtMi_saliday.*" type="text" /></td>
                 <td id='hid_mi_total.*'><input class="txt num c1" id="txtMi_total.*" type="text" /></td>
@@ -1075,7 +1075,7 @@
                 <td ><input class="txt num c1" id="txtAddh46_2.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtTax_other2.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtTotal3.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtChg.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtBorrow.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtCh_labor.*" type="text" /></td>
                 <td id='hid_chgcash.*'><input class="txt num c1" id="txtChgcash.*" type="text" /></td>
                 <td id='hid_tax6.*'><input class="txt num c1" id="txtTax6.*" type="text" /></td>
