@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title></title>
@@ -15,8 +15,8 @@
 		        alert("An error occurred:\r\n" + error.Message);
 		    }
 
-		    var q_name = "sss";
-		    var q_readonly = [];
+		    var q_name = "sssp";
+		    var q_readonly = [ ];
 		    var bbmNum = [];
 		    var bbmMask = [];
 		    q_sqlCount = 6;
@@ -51,10 +51,11 @@
 		        q_getFormat();
 		        bbmMask = [['txtBirthday', r_picd], ['txtFt_date', r_picd], ['txtIndate', r_picd], ['txtOutdate', r_picd], ['txtMobile1', '9999999999'], ['txtMobile2', '9999999999'], ['txtHealth_bdate', r_picd], ['txtHealth_edate', r_picd], ['txtLabor1_bdate', r_picd], ['txtLabor1_edate', r_picd], ['txtLabor2_bdate', r_picd], ['txtLabor2_edate', r_picd]];
 		        q_mask(bbmMask);
+		        
 		        q_cmbParse("cmbTypea", q_getPara('sss.typea'));
 		        q_cmbParse("cmbSex", q_getPara('sss.sex'));
 		        q_cmbParse("cmbPerson", q_getPara('person.typea'));
-		        q_cmbParse("cmbRecord", ('').concat(new Array('國小', '國中', '高中', '高職', '大專', '大學', '碩士', '博士')));
+		        q_cmbParse("cmbRecord", ('').concat(new Array('��p', '�ꤤ', '����', '��¾', '�j�M', '�j��', '�Ӥh', '�դh')));
 		        q_cmbParse("cmbBlood", ('').concat(new Array('A', 'B', 'AB', 'O')));
 		        $('#btnLabases').click(function (e) {
 		            q_box("labases_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labases', "850px", "600px", q_getMsg("popLabases"));
@@ -157,7 +158,7 @@
 		        if (q_cur > 0 && q_cur < 4)// 1-3
 		            return;
 
-		        q_box('sss_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+		        q_box('sssp_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
 		    }
 
 		    function combPay_chg() {
@@ -171,16 +172,21 @@
 
 		    function btnIns() {
 		        _btnIns();
+		       $('#cmbTypea').val('寄保');
 		        $('#txtNoa').focus();
+		        $('#cmbTypea').attr('disabled', 'disabled');
+		            	$('#cmbTypea').css('background', t_background2);
 		    }
 
 		    function btnModi() {
 		        if (emp($('#txtNoa').val()))
 		            return;
 
-		        _btnModi(1);   /// 允許修改
+		        _btnModi(1);   /// ���\�ק�
 		        $('#txtComp').focus();
 		        $('#txtNoa').attr('disabled', 'disabled');
+		        $('#cmbTypea').attr('disabled', 'disabled');
+		            	$('#cmbTypea').css('background', t_background2);
 		    }
 
 		    function btnPrint() {
