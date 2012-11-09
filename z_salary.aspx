@@ -36,7 +36,13 @@
                         type : '5',
                         name : 'xkind',
                         value : (('').concat(new Array("上期","下期"))).split(',')
-                    }]
+                    },{
+                        type : '2',
+                        name : 'sssno',
+                        dbf : 'sss',
+                        index : 'noa,namea',
+                        src : 'sss_b.aspx'
+                        }]
                     });
                 q_popAssign();
                 $('#txtXmon').mask('999/99');
