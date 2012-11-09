@@ -30,6 +30,10 @@
                         name : 'xmon'
                     },{
                         type : '5',
+                        name : 'xperson',
+                        value : (('').concat(new Array("本國","日薪"))).split(',')
+                    },{
+                        type : '5',
                         name : 'xkind',
                         value : (('').concat(new Array("上期","下期"))).split(',')
                     }]
