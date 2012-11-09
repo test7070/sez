@@ -145,16 +145,19 @@
                     break;
                 case 'chgcashorg':
                     var as = _q_appendData("chgcash", "", true);
-                    $('#txtOrg').val(as[0].total);
+                    if(as[0] != undefined)
+                    	$('#txtOrg').val(as[0].total);
                     break;
                 case 'carteam':
 						var as = _q_appendData("carteam", "", true);
-						var t_item = "";
-						for ( i = 0; i < as.length; i++) {
-							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+						if(as[0] != undefined){
+							var t_item = "";
+							for ( i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+							}
+							q_cmbParse("cmbCarteamno", t_item);
+							$("#cmbCarteamno").val(t_item);//abbm[q_recno].carteamno
 						}
-						q_cmbParse("cmbCarteamno", t_item);
-						$("#cmbCarteamno").val(abbm[q_recno].carteamno);
 						break;
                 case q_name: if (q_cur == 4)
                         q_Seek_gtPost();
