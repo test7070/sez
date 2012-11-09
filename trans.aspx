@@ -267,11 +267,12 @@
 				if ($('#txtDiscount').val().length == 0) {
 					$('#txtDiscount').val('1');
 				}
-				var t_mount = $.trim($('#txtInmount').val()).length == 0 ? 0 : parseFloat($.trim($('#txtInmount').val().replace(/,/g, '')), 10);
-				t_mount = t_mount + ($.trim($('#txtPton').val()).length == 0 ? 0 : parseFloat($.trim($('#txtPton').val().replace(/,/g, '')), 10));
+				var t_mount = q_float('txtInmount');
+				t_mount += q_float('txtPton');
 				$('#txtMount').val(t_mount);
-				var t_price = $.trim($('#txtPrice').val()).length == 0 ? 0 : parseFloat($.trim($('#txtPrice').val().replace(/,/g, '')), 10);
-				$("#txtTotal").val(Math.round(t_mount * t_price, 0));
+				var t_price = q_float('txtPrice');
+				
+				$("#txtTotal").val(Math.round(Math.floor(1000*t_mount * t_price)/1000));
 
 				var t_discount = $.trim($('#txtDiscount').val()).length == 0 ? 0 : parseFloat($.trim($('#txtDiscount').val().replace(/,/g, '')), 10);
 				t_mount = $.trim($('#txtOutmount').val()).length == 0 ? 0 : parseFloat($.trim($('#txtOutmount').val().replace(/,/g, '')), 10);
