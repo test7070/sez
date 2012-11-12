@@ -69,8 +69,8 @@
 		        $('#btnFix').click(function () {
 		           if(!emp($('#txtTggno').val())){
 		           		var t_where = "where=^^ tggno='"+$('#txtTggno').val()+"' and datea between '"+$('#txtMon').val()+"/01' and '"+$('#txtMon').val()+"/31' ^^";
-		           		var t_where1 = "where[1]=^^ tggno='"+$('#txtTggno').val()+"' and datea between '"+$('#txtMon').val()+"/01' and '"+$('#txtMon').val()+"/31' ^^";
-		           		q_gt('payb_fix', t_where+t_where1 , 0, 0, 0, "", r_accy);
+		           		//var t_where1 = "where[1]=^^ tggno='"+$('#txtTggno').val()+"' and datea between '"+$('#txtMon').val()+"/01' and '"+$('#txtMon').val()+"/31' ^^";
+		           		q_gt('payb_fix', t_where , 0, 0, 0, "", r_accy);
 		           }
 
 		        });
@@ -278,6 +278,11 @@
 	                    return;
 	                }
                 } 
+                
+                if (!as['total'] && !as['money']&& !as['memo']) {
+		            as[bbsKey[1]] = '';
+		            return;
+		        }
                 
                 /*if(!as['invono']) {
                     as[bbsKey[1]] = '';

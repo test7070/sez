@@ -474,7 +474,7 @@
 		    }
 
 		    function bbsSave(as) {
-		        if (!as['acc1'] && !as['paysale']) {
+		        if (!as['acc1'] && !as['money']&& !as['memo']&& !as['paysale']) {
 		            as[bbsKey[1]] = '';
 		            return;
 		        }

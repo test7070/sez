@@ -30,7 +30,40 @@
 			brwNowPage = 0;
 			brwKey = 'Datea';
 			aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtCarplateno', 'lblCarplateno', 'carplate', 'noa,carplate,driver', 'txtCarplateno', 'carplate_b.aspx'], ['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,brand,unit', 'txtProductno_,txtProduct_,txtBrand_,txtUnit_', 'fixucc_b.aspx'], ['txtTireno_', 'btnTirestk_', 'tirestk', 'noa,productno,product,brandno,brand,price', 'txtTireno_,txtProductno_,txtProduct_,txtBrandno_,txtBrand_,txtPrice_', 'tirestk_b.aspx']);
-
+			
+			function currentData() {}
+			currentData.prototype = {
+				data : [],
+				/*新增時複製的欄位*/
+				include : ['txtDatea','txtOutdate','txtMon','cmbTypea'],
+				/*記錄當前的資料*/
+				copy : function() {
+					curData.data = new Array();
+					for (var i in fbbm) {
+						var isInclude = false;
+						for (var j in curData.include) {
+							if (fbbm[i] == curData.include[j]) {
+								isInclude = true;
+								break;
+							}
+						}
+						if (isInclude) {
+							curData.data.push({
+								field : fbbm[i],
+								value : $('#' + fbbm[i]).val()
+							});
+						}
+					}
+				},
+				/*貼上資料*/
+				paste : function() {
+					for (var i in curData.data) {
+						$('#' + curData.data[i].field).val(curData.data[i].value);
+					}
+				}
+			};
+			var curData = new currentData();
+			
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				bbsKey = ['noa', 'noq'];
@@ -195,13 +228,17 @@
             }
 
             function btnIns() {
+                curData.copy();
                 _btnIns();
+                curData.paste();
                 
                 $('#txtNoa').val('AUTO');
                 $('#cmbTypea').val('01');
-                $('#txtDatea').val(q_date());
-                $('#txtMon').val(q_date().substring(0,6));
-                $('#txtOutdate').focus();
+                if($('#txtDatea').val().length==0)
+               		$('#txtDatea').val(q_date());
+               	if($('#txtMon').val().length==0)
+               		$('#txtMon').val(q_date().substring(0,6));
+                $('#txtCarno').focus();
             }
 
             function btnModi() {
