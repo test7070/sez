@@ -100,6 +100,12 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCarno'></a></td>
+					<td>
+					<input class="txt" id="txtCarno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblDriverno'></a></td>
 					<td>
 					<input class="txt" id="txtDriverno" type="text" style="width:90px; font-size:medium;" />
@@ -127,12 +133,7 @@
 					<input class="txt" id="txtPo" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCarno'></a></td>
-					<td>
-					<input class="txt" id="txtCarno" type="text" style="width:215px; font-size:medium;" />
-					</td>
-				</tr>
+				
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblStraddr'></a></td>
 					<td>
