@@ -314,6 +314,7 @@
 						sum();
 						$('#btnTrans').val("出車單匯入");
 						$('#btnTrans').removeAttr('disabled');
+						$('#txtNoa').focus();
 						break;
 					case q_name:
 						if (q_cur == 4)

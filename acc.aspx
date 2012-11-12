@@ -48,6 +48,11 @@
            
            $('#txtAcc1').change(function () {
            		$('#txtAcc1').val($('#txtAcc1').val().replace(/_/g,''));
+           		var s1 = trim($(this).val());
+		        if (s1.length > 4 && s1.indexOf('.') < 0)
+		            $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
+		        if (s1.length == 4)
+		            $(this).val(s1 + '.');
            		if(emp($('#txtAcc1').val()))
            		{
            			$('#txtAcc1').focus();
@@ -126,10 +131,13 @@
 							}
 						}else{
 							var as =_q_appendData(t_name, "", true);
-							$('#txtAcc2').val(as[0].acc2);
-							$('#txtBeginmoney').val(as[0].beginmoney);
-							$('#txtOacc').val(as[0].oacc);
-							$('#txtLok').val(as[0].lok);
+							if(as[0]!=undefined)
+	                   		{
+								$('#txtAcc2').val(as[0].acc2);
+								$('#txtBeginmoney').val(as[0].beginmoney);
+								$('#txtOacc').val(as[0].oacc);
+								$('#txtLok').val(as[0].lok);
+							}
 							accdb=true;
 						}
 						

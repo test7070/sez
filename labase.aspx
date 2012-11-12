@@ -46,11 +46,10 @@
 
             mainForm(0); 
         }  
-
-       
+		var t_la_person=0,t_he_person=0;
         function mainPost() { 
             q_getFormat();
-            bbmMask = [['txtBdate', r_picd]];
+            bbmMask = [['txtBdate', r_picd],['txtMon', r_picm]];
             q_mask(bbmMask);
             bbsMask = [['txtBirthday', r_picd],['txtIndate', r_picd],['txtOutdate', r_picd]];
             q_mask(bbsMask);
@@ -100,6 +99,13 @@
             	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
             });
             
+			
+			$('#txtAs_labor').change(function () {
+            	$('#txtLa_person').val(t_la_person-dec($('#txtAs_labor').val()));
+            });
+			$('#txtAs_health').change(function () {
+            	$('#txtHe_person').val(t_he_person-dec($('#txtAs_health').val()));
+            });
         }
 
         function q_boxClose(s2) { 
@@ -146,9 +152,11 @@
             						q_tr('txtSa_labor',labsals[i].lmoney);//勞保薪資
             						if($('#chkForeigns')[0].checked){
             							q_tr('txtLa_person',labsals[i].flself);//勞保自付額
+            							t_la_person=dec(labsals[i].flself);
             							q_tr('txtLa_comp',labsals[i].flcomp);//勞保公司負擔
             						}else{
             							q_tr('txtLa_person',labsals[i].lself);
+            							t_la_person=dec(labsals[i].lself);
             							q_tr('txtLa_comp',labsals[i].lcomp);
             						}
             						break;	
@@ -163,10 +171,13 @@
             				for (var i = 0; i < labhealths.length; i++) {
             					if(dec(labhealths[i].salary1)<=dec($('#txtSalary').val())&&dec(labhealths[i].salary2)>=dec($('#txtSalary').val())){
             						q_tr('txtSa_health',labhealths[i].lmoney);//健保薪資
-            						if(dec($('#txtMount').val())>3)
+            						if(dec($('#txtMount').val())>3){
             							q_tr('txtHe_person',dec(labhealths[i].he_person)*(1+3));//健保自付額
-            						else
+            							t_he_person=dec(labhealths[i].he_person)*(1+3);
+            						}else{
             							q_tr('txtHe_person',dec(labhealths[i].he_person)*(1+dec($('#txtMount').val())));
+            							t_he_person=dec(labhealths[i].he_person)*(1+dec($('#txtMount').val()));
+            						}
             						q_tr('txtHe_comp',labhealths[i].he_comp);//健保公司負擔
             						break;	
             					}
@@ -304,6 +315,13 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            
+            if (t_para) {
+		            $('#btnUmmb').removeAttr('disabled');	          
+		        }
+		        else {
+		        	$('#btnUmmb').attr('disabled', 'disabled');	 
+		        }
         }
 
         function btnMinus(id) {
@@ -530,8 +548,7 @@
             <td class='td3'><span> </span><a id="lblNamea" class="lbl" > </a></td>
             <td class="td4"><input id="txtNamea" type="text" class="txt c1" /></td> 
             <td class='td5'><input id="chkForeigns" type="checkbox" style=' '/><span> </span><a id="lblForeign"> </a></td>
-            <td class="td6"> </td> 
-            <td class="td7"> </td>
+            <td class="td6" colspan="2"><span> </span><input id="btnSalinsures" type="button"/></td> 
         </tr>
         <tr class="tr2">
             <!--<td class='td1'><span> </span><a id="lblTypea" class="lbl" > </a></td>
@@ -540,8 +557,9 @@
             <td class="td2"><input id="txtBdate" type="text" class="txt  c1" /></td>
             <td class='td3'><span> </span><a id="lblSalary" class="lbl"> </a></td>
             <td class="td4"><input id="txtSalary" type="text" class="txt num c1" /></td>
-            <td class="td5"><span> </span><input id="btnSalinsures" type="button"/></td>
-            <td class="td6"><span> </span><input id="btnUmmb" type="button" /></td>
+            <td class="td5"><span> </span><a id="lblMon" class="lbl"> </a></td>
+            <td class="td6"><input id="txtMon" type="text" class="txt c1" /></td>
+            <td class="td7" colspan="2"><span> </span><input id="btnUmmb" type="button" /></td>
         </tr>
         <tr class="tr3">
             <td class='td1'><span> </span><a id="lblSa_retire" class="lbl" > </a></td>
