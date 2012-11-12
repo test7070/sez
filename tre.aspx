@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -39,7 +39,10 @@
             	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
             	['txtBdriverno', '', 'driver', 'noa,namea', 'txtBdriverno', 'driver_b.aspx'],
           	  ['txtEdriverno', '', 'driver', 'noa,namea', 'txtEdriverno', 'driver_b.aspx']);
-            
+
+            q_xchg = 1;
+            brwCount2 = 20;
+
             function tre() {}
 			tre.prototype = {
 				isLoad: false,
@@ -133,10 +136,10 @@
                 	}
                 });
                 
-                $('#txtDatea').datepicker(); 
-                $('#txtDate2').datepicker();
-                $('#txtBdate').datepicker(); 
-                $('#txtEdate').datepicker();  
+//                $('#txtDatea').datepicker(); 
+//                $('#txtDate2').datepicker();
+//                $('#txtBdate').datepicker(); 
+//                $('#txtEdate').datepicker();  
             }
             
             function q_funcPost(t_func, result) {
@@ -401,7 +404,7 @@
             }
             .dview {
                 float: left;
-                width: 23%;
+                width: 350px;
             }
             .tview {
                 margin: 0;
@@ -419,7 +422,7 @@
             }
             .dbbm {
                 float: left;
-                width: 75%;
+                width: 800px;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;

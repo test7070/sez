@@ -56,7 +56,7 @@
             q_mask(bbsMask);
             
              $('#btnSalinsures').click(function (e) {
-		            q_box("salinsures_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'salinsures', "850px", "600px", q_getMsg("popSalinsures"));
+		            q_box("salinsures_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'salinsures', "1000px", "700px", q_getMsg("popSalinsures"));
 		        });
 		     $('#btnUmmb').click(function () {
 		            if ($('#txtNoa').val().length > 0)
