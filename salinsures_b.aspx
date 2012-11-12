@@ -39,7 +39,7 @@
             COLOR: blue ;
             TEXT-ALIGN: left;
              BORDER:1PX LIGHTGREY SOLID;
-             width:100% ; height:100% ;  
+             width:150% ; height:100% ;  
         }      
         .txt.c1
         {
@@ -58,7 +58,7 @@
 
 <body> 
 <div  id="dbbs"  >
-       <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
+       <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style="width: 150%;">
             <tr>
                 <th align="center" > </th>
                 <th align="center" style='color:Blue;' class="td2"><a id='lblNoa'></a></th>
