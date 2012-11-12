@@ -33,11 +33,13 @@
 
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();
-        t_addr = $('#txtAddr').val();
+        t_addr = $.trim($('#txtAddr').val());
         t_productno = $('#txtProductno').val();
         t_product = $('#txtProduct').val();
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("addr", t_addr) + q_sqlPara2("productno", t_productno) + q_sqlPara2("product", t_product);
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("productno", t_productno) + q_sqlPara2("product", t_product);
+        if(t_addr.length>0)
+        	t_where += " and patindex('%"+t_addr+"%',addr)>0";
         t_where = ' where=^^' + t_where + '^^ '; 
         return t_where;
     }
