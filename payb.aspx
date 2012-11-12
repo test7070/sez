@@ -279,6 +279,11 @@
 	                }
                 } 
                 
+                if (!as['total'] && !as['money']&& !as['memo']) {
+		            as[bbsKey[1]] = '';
+		            return;
+		        }
+                
                 /*if(!as['invono']) {
                     as[bbsKey[1]] = '';
                     return;
