@@ -484,20 +484,21 @@
 						<td class="td2">
 						<input id="txtCarno" type="text" class="txt c1"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblCarplateno" class="lbl"> </a></td>
-						<td class="td4">
-						<input id="txtCarplateno" type="text" class="txt c1"/></td>
+						<td class="td1"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
+						<td class="td2">
+						<input id="txtDriverno" type="text" class="txt c2"/>
+						<input id="txtDriver" type="text" class="txt c3"/>
+						</td> 
+						
 						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtNoa" type="text" class="txt c1"/>
 						</td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
-						<td class="td2">
-						<input id="txtDriverno" type="text" class="txt c2"/>
-						<input id="txtDriver" type="text" class="txt c3"/>
-						</td> 
+						<td class="td3"><span> </span><a id="lblCarplateno" class="lbl"> </a></td>
+						<td class="td4">
+						<input id="txtCarplateno" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id="lblMiles" class="lbl"> </a></td>
 						<td class="td4">
 						<input id="txtMiles" type="text" class="txt c1 num"/>
