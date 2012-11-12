@@ -75,7 +75,8 @@
             	var t_where1 = "where[1]=^^ datea between '"+date_1+"' and '"+date_2+"' ^^";
             	var t_where2 = "where[2]=^^ noa between '"+date_1+"' and '"+date_2+"' and sssno=a.noa ^^";
             	var t_where3 = "where[3]=^^ da.mon='"+$('#txtMon').val()+"' and da.person='"+$('#cmbPerson').find("option:selected").text()+"' and da.monkind='"+$('#cmbMonkind').find("option:selected").text()+"' ^^";
-		        q_gt('salary_import', t_where+t_where1+t_where2+t_where3 , 0, 0, 0, "", r_accy);
+            	var t_where4 = "where[4]=^^ noa between '"+$('#txtMon').val()+"/01' and '"+$('#txtMon').val()+"/15' and sssno=a.noa ^^";
+		        q_gt('salary_import', t_where+t_where1+t_where2+t_where3+t_where4 , 0, 0, 0, "", r_accy);
             });
             
         }
@@ -187,16 +188,51 @@
 		                    		as[i].tax_other=dec(as[i].tax_other)+dec(as[i].bo_born)+dec(as[i].bo_night)+dec(as[i].bo_day);
 		                   	//加班時數
 		                   		var t_fir =46,bef_fir01,bef_fir02;
+		                   		as[i].addh21=as[i].addh1;
+		                   		as[i].addh22=as[i].addh2;
 		                   		as[i].addh46_1=0;
 		                   		as[i].addh46_2=0;
-		                    	if((dec(as[i].addh1)+dec(as[i].addh2))>46){//加班超過46小時
-		                    		bef_fir01=Math.min(dec(as[i].addh1),t_fir);
-		                    		as[i].addh21=bef_fir01;
-		                    		as[i].addh46_1=dec(as[i].addh1)-bef_fir01;
-		                    		
-		                    		bef_fir02=t_fir-bef_fir01;
-		                    		as[i].addh22=bef_fir02;
-		                    		as[i].addh46_2=dec(as[i].addh2)-bef_fir02;
+		                   		if($('#cmbPerson').find("option:selected").text().indexOf('外勞')==-1){
+		                    		if((dec(as[i].addh1)+dec(as[i].addh2))>46){//加班超過46小時
+			                    		bef_fir01=Math.min(dec(as[i].addh1),t_fir);
+			                    		as[i].addh21=bef_fir01;
+			                    		as[i].addh46_1=dec(as[i].addh1)-bef_fir01;
+			                    		
+			                    		bef_fir02=t_fir-bef_fir01;
+			                    		as[i].addh22=bef_fir02;
+			                    		as[i].addh46_2=dec(as[i].addh2)-bef_fir02;
+		                    		}
+		                    	}else{
+		                    		if($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1){
+		                    			if((dec(as[i].addh1)+dec(as[i].addh2)+dec(as[i].addh3)+dec(as[i].addh4))>46){//加班超過46小時
+		                    				
+		                    				if((dec(as[i].addh3)+dec(as[i].addh4))>46){//上期已超過46小時
+		                    					as[i].addh21=0;
+						                   		as[i].addh22=0;
+						                   		as[i].addh46_1=as[i].addh1;
+						                   		as[i].addh46_2=as[i].addh2;
+		                    				}else{//下期才超過46小時
+			                    				t_fir=t_fir-(dec(as[i].addh3)+dec(as[i].addh4));
+					                    		bef_fir01=Math.min(dec(as[i].addh1),t_fir);
+					                    		as[i].addh21=bef_fir01;
+					                    		as[i].addh46_1=dec(as[i].addh1)-bef_fir01;
+					                    		
+					                    		bef_fir02=t_fir-bef_fir01;
+					                    		as[i].addh22=bef_fir02;
+					                    		as[i].addh46_2=dec(as[i].addh2)-bef_fir02;
+				                    		}
+		                    			}
+		                    		}else{
+		                    			if((dec(as[i].addh1)+dec(as[i].addh2))>46){//加班超過46小時
+				                    		bef_fir01=Math.min(dec(as[i].addh1),t_fir);
+				                    		as[i].addh21=bef_fir01;
+				                    		as[i].addh46_1=dec(as[i].addh1)-bef_fir01;
+				                    		
+				                    		bef_fir02=t_fir-bef_fir01;
+				                    		as[i].addh22=bef_fir02;
+				                    		as[i].addh46_2=dec(as[i].addh2)-bef_fir02;
+		                    			}	
+		                    		}
 		                    	}
 		                    }
 						}//end for
