@@ -1,13 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-    <title></title>
-    <script src="../script/jquery.min.js" type="text/javascript"></script>
-    <script src='../script/qj2.js' type="text/javascript"></script>
-        <script src='qset.js' type="text/javascript"></script>
-    <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src="../script/qbox.js" type="text/javascript"></script>
-    <script src='../script/mask.js' type="text/javascript"></script>
+    <title> </title>
+    <script src="../script/jquery.min.js" type="text/javascript"> </script>
+    <script src='../script/qj2.js' type="text/javascript"> </script>
+        <script src='qset.js' type="text/javascript"> </script>
+    <script src='../script/qj_mess.js' type="text/javascript"> </script>
+    <script src="../script/qbox.js" type="text/javascript"> </script>
+    <script src='../script/mask.js' type="text/javascript"> </script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         this.errorHandler = null;
@@ -55,7 +55,13 @@
             bbsMask = [['txtBirthday', r_picd],['txtIndate', r_picd],['txtOutdate', r_picd]];
             q_mask(bbsMask);
             
-            
+             $('#btnSalinsures').click(function (e) {
+		            q_box("salinsures_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'salinsures', "850px", "600px", q_getMsg("popSalinsures"));
+		        });
+		     $('#btnUmmb').click(function () {
+		            if ($('#txtNoa').val().length > 0)
+		                q_func('labase.gen', r_accy + ',' + $('#txtNoa').val());
+		        });
             $('#txtNoa').change(function () {
             	 if(!emp($('#txtNoa').val())){
             	 		//判斷員工是否是外勞
@@ -534,6 +540,8 @@
             <td class="td2"><input id="txtBdate" type="text" class="txt  c1" /></td>
             <td class='td3'><span> </span><a id="lblSalary" class="lbl"> </a></td>
             <td class="td4"><input id="txtSalary" type="text" class="txt num c1" /></td>
+            <td class="td5"><span> </span><input id="btnSalinsures" type="button"/></td>
+            <td class="td6"><span> </span><input id="btnUmmb" type="button" /></td>
         </tr>
         <tr class="tr3">
             <td class='td1'><span> </span><a id="lblSa_retire" class="lbl" > </a></td>
