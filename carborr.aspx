@@ -144,12 +144,12 @@
                 	alert('分期金額異常');
                 	return;
                 }
-            	if($('#cmbTypea').val()=='借支'){
+            	/*if($('#cmbTypea').val()=='借支'){
             		if(q_float('txtMoney')>q_float('txtMoney2')){
             			alert('超支!');
             			return;
             		}	
-            	}
+            	}*/
                 $('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
@@ -270,7 +270,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
-				money2();
+				//money2();
             }
 
             function readonly(t_para, empty) {
