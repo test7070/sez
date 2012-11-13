@@ -29,6 +29,10 @@
 			 ['txtStampno', 'lblStamp', 'stamp', 'noa,namea,typea', 'txtStampno,txtStamp,cmbTypea', 'stamp_b.aspx'],
 			 ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
 			 ['txtTsssno', 'lblTsss', 'sss', 'noa,namea', 'txtTsssno,txtTnamea', 'sss_b.aspx'],
+			 ['txtTsssno2', 'lblTsss2', 'sss', 'noa,namea', 'txtTsssno2,txtTnamea2', 'sss_b.aspx'],
+			 ['txtTsssno3', 'lblTsss3', 'sss', 'noa,namea', 'txtTsssno3,txtTnamea3', 'sss_b.aspx'],
+			 ['txtTsssno4', 'lblTsss4', 'sss', 'noa,namea', 'txtTsssno4,txtTnamea4', 'sss_b.aspx'],
+			 ['txtTsssno5', 'lblTsss5', 'sss', 'noa,namea', 'txtTsssno5,txtTnamea5', 'sss_b.aspx'],
 			 ['txtRsssno', 'lblRsss', 'sss', 'noa,namea', 'txtRsssno,txtRnamea', 'sss_b.aspx']);
 			 
             $(document).ready(function() {
@@ -49,7 +53,7 @@
             
             function mainPost() {
             	q_getFormat();
-            	bbmMask = [['txtDatea', r_picd],['txtTdate', r_picd],['txtRdate', r_picd]];
+            	bbmMask = [['txtDatea', r_picd],['txtTdate', r_picd],['txtTdate2', r_picd],['txtTdate3', r_picd],['txtTdate4', r_picd],['txtTdate5', r_picd],['txtRdate', r_picd]];
 				q_mask(bbmMask);
 				
 				q_cmbParse("cmbTypea", q_getPara('stamp.typea'));
@@ -86,22 +90,6 @@
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
-                    case 'conn':
-
-                        break;
-
-                    case 'sss':
-                        ret = getb_ret();
-                        if(q_cur > 0 && q_cur < 4)
-                            q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                        break;
-
-                    case 'sss':
-                        ret = getb_ret();
-                        if(q_cur > 0 && q_cur < 4)
-                            q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                        break;
-
                     case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
@@ -111,11 +99,6 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                    case 'sss':
-                        q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                        break;
-                        
-                   
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -126,8 +109,6 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
-
-                q_box('salvacause_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
 			
             function btnIns() {
@@ -154,6 +135,18 @@
 		            	$('#txtTdate').attr('disabled', 'disabled');
 		            	$('#txtTsssno').attr('disabled', 'disabled');
 		            	$('#txtTnamea').attr('disabled', 'disabled');
+		            	$('#txtTdate2').attr('disabled', 'disabled');
+		            	$('#txtTsssno2').attr('disabled', 'disabled');
+		            	$('#txtTnamea2').attr('disabled', 'disabled');
+		            	$('#txtTdate3').attr('disabled', 'disabled');
+		            	$('#txtTsssno3').attr('disabled', 'disabled');
+		            	$('#txtTnamea3').attr('disabled', 'disabled');
+		            	$('#txtTdate4').attr('disabled', 'disabled');
+		            	$('#txtTsssno4').attr('disabled', 'disabled');
+		            	$('#txtTnamea4').attr('disabled', 'disabled');
+		            	$('#txtTdate5').attr('disabled', 'disabled');
+		            	$('#txtTsssno5').attr('disabled', 'disabled');
+		            	$('#txtTnamea5').attr('disabled', 'disabled');
 		            	$('#txtRdate').attr('disabled', 'disabled');
 		            	$('#txtRsssno').attr('disabled', 'disabled');
 		            	$('#txtRnamea').attr('disabled', 'disabled');
@@ -176,7 +169,7 @@
 
             function btnOk() {
                 var t_err = '';
-                t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')],['txtSssno', q_getMsg('lblSss')],['txtHname', q_getMsg('txtHtype')]]);
+                t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')],['txtSssno', q_getMsg('lblSss')]]);
 
                 if(t_err.length > 0) {
                     alert(t_err);
