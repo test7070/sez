@@ -460,6 +460,46 @@
 							<td class="td5"></td>
 						</tr>
 						<tr>
+							<td class="td1" ><span> </span>	<a id='lblTdate2' class="lbl"></a></td>
+							<td class="td2"><input id="txtTdate2"  type="text" class="txt c1" /></td>
+							<td class="td3" ><span> </span>	<a id='lblTsss2' class="lbl btn"></a></td>
+							<td class="td4">
+								<input id="txtTsssno2"  type="text"  class="txt c2"/>
+								<input id="txtTnamea2"  type="text"  class="txt c3"/>
+							</td>
+							<td class="td5"></td>
+						</tr>
+						<tr>
+							<td class="td1" ><span> </span>	<a id='lblTdate3' class="lbl"></a></td>
+							<td class="td2"><input id="txtTdate3"  type="text" class="txt c1" /></td>
+							<td class="td3" ><span> </span>	<a id='lblTsss3' class="lbl btn"></a></td>
+							<td class="td4">
+								<input id="txtTsssno3"  type="text"  class="txt c2"/>
+								<input id="txtTnamea3"  type="text"  class="txt c3"/>
+							</td>
+							<td class="td5"></td>
+						</tr>
+						<tr>
+							<td class="td1" ><span> </span>	<a id='lblTdate4' class="lbl"></a></td>
+							<td class="td2"><input id="txtTdate4"  type="text" class="txt c1" /></td>
+							<td class="td3" ><span> </span>	<a id='lblTsss4' class="lbl btn"></a></td>
+							<td class="td4">
+								<input id="txtTsssno4"  type="text"  class="txt c2"/>
+								<input id="txtTnamea4"  type="text"  class="txt c3"/>
+							</td>
+							<td class="td5"></td>
+						</tr>
+						<tr>
+							<td class="td1" ><span> </span>	<a id='lblTdate5' class="lbl"></a></td>
+							<td class="td2"><input id="txtTdate5"  type="text" class="txt c1" /></td>
+							<td class="td3" ><span> </span>	<a id='lblTsss5' class="lbl btn"></a></td>
+							<td class="td4">
+								<input id="txtTsssno5"  type="text"  class="txt c2"/>
+								<input id="txtTnamea5"  type="text"  class="txt c3"/>
+							</td>
+							<td class="td5"></td>
+						</tr>
+						<tr>
 							<td class="td1" ><span> </span>	<a id='lblRdate' class="lbl"></a></td>
 							<td class="td2"><input id="txtRdate"  type="text" class="txt c1" /></td>
 							<td class="td3" ><span> </span>	<a id='lblRsss' class="lbl btn"></a></td>
