@@ -52,7 +52,7 @@
             bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
             q_mask(bbmMask);
 			q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
-			q_cmbParse("cmbType", q_getPara('bccin.type')); 
+			q_cmbParse("cmbTypea", q_getPara('bccin.type')); 
 			$('#lblOrdeno').click(function () {
 		            lblOrdeno();
 		     });
@@ -270,6 +270,8 @@
                 }
             }  // j
 			q_tr('txtMoney', t_money);
+			calTax();
+			q_tr('txtTotal', dec($('#txtMoney').val())+dec($('#txtTax').val())-dec($('#txtDiscount').val()));
         }
        
         function refresh(recno) {
@@ -497,7 +499,7 @@
         </tr>
         <tr>
             <td class="td1"><span> </span><a id='lblType' class="lbl"> </a></td>
-            <td class="td2"><select id="cmbType" class="txt c1"></select></td>  
+            <td class="td2"><select id="cmbTypea" class="txt c1"></select></td>  
             <td class="td3"><span> </span><a id='lblInvono' class="lbl"> </a></td>
             <td class="td4"><input id="txtInvono"  type="text" class="txt c1" /></td>
             <td class='td5'><span> </span><a id="lblPart" class="lbl btn"> </a></td>

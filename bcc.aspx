@@ -43,7 +43,7 @@
         function mainPost() { 
         	bbmMask = [['txtBegindatea', r_picd]];
            q_mask(bbmMask); 
-           q_cmbParse("cmbType", q_getPara('bcc.type'));
+           q_cmbParse("cmbTypea", q_getPara('bcc.type'));
            
            $('#txtBeginmount').change(function () {
            		q_tr('txtBeginmoney',dec($('#txtPrice').val())*dec($('#txtBeginmount').val()));
@@ -381,7 +381,7 @@
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
            <tr>
                <td class="td1"><span> </span><a id='lblType' class="lbl"></a></td>
-               <td class="td2"><select id="cmbType" class="txt c1"></select></td>
+               <td class="td2"><select id="cmbTypea" class="txt c1"></select></td>
                <td class="td3"></td>
                <td class="td4"></td>
                <td class="td5"></td>
@@ -397,11 +397,7 @@
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblProduct' class="lbl"></a></td>
-               <td class="td2"><input id="txtProduct" type="text" class="txt c1" /></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-               <td class="td5"></td>
-               <td class="td6"></td>
+               <td class="td2" colspan='3'><input id="txtProduct" type="text" class="txt c1" /></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblUnit' class="lbl"></a></td>
@@ -450,7 +446,7 @@
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
-               <td class="td2"><input id="txtBegindatea"  type="text" class="txt c1" /></td>
+               <td class="td2"><input id="txtBegindate"  type="text" class="txt c1" /></td>
                <td class="td3"><span> </span><a id='lblBeginmount' class="lbl"></a></td>
                <td class="td4"><input id="txtBeginmount"  type="text" class="txt num c1"/></td>
                <td class="td5"><span> </span><a id='lblBeginmoney' class="lbl"></a></td>
