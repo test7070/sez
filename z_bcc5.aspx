@@ -40,9 +40,9 @@
                 q_getFormat();
                 q_langShow();
                 
-                $('#txtXDate').val(q_date());
-                $('#txtXDate').mask('999/99/99');
-                $('#txtXDate').datepicker();
+                $('#txtXdate').val(q_date());
+                $('#txtXdate').mask('999/99/99');
+                $('#txtXdate').datepicker();
                  $('#txtMon').val(q_date().substr(0,6));
                 $('#txtMon').mask('999/99');
             }

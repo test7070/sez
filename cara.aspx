@@ -29,6 +29,10 @@
             brwNowPage = 0;
             brwKey = 'Datea';
 
+			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'noa,boss', 'txtCarno,txtBoss', "car2_b.aspx?;;;1=1"],
+				['txtCaritemno_', 'lblCaritemno', 'caritem', 'noa,item', 'txtCaritemno_,txtCaritem_', 'caritem_b.aspx'], 
+				['txtAcc1_', 'lblAcc2', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -54,6 +58,11 @@
                 q_mask(bbmMask);
 				bbsMask = [['txtDatea', r_picd]];
                 q_mask(bbsMask);
+                
+                q_cmbParse("cmbIsource", q_getPara('cara.isource'));
+                
+                
+                
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -362,7 +371,7 @@
 			</div>
 			<div class='dbbm' style="width: 73%;float: left;">
 				<table class="tbbm"  id="tbbm"  border="0" cellpadding='2'  cellspacing='5'>
-					<tr>
+					<tr class="tr1">
 						<td class="td1" ><span> </span><a id="lblCarno" class="lbl btn"></a></td>
 						<td class="td2" colspan="2">
 							<input id="txtCarno"  type="text"  class="txt c2"/>
@@ -370,8 +379,9 @@
 						</td>
 						<td class="td4"><span> </span><a id='lblCarseek' class="lbl"></a></td>
 						<td class="td5"><input id="txtCarseek"  type="text" class="txt c1"/></td>
+						<td class="td6"><input id="btnImport" type="button" /></td>
 					</tr>
-					<tr>
+					<tr class="tr2">
 						<td class="td1"><span> </span><a id='lblIprev' class="lbl"></a></td>
 						<td class="td2"><input id="txtIprev" type="text" class="txt num c1"/></td>
 						<td class="td3"><span> </span><a id='lblIset' class="lbl"></a></td>
@@ -379,7 +389,7 @@
 						<td class="td5"><span> </span><a id='lblBprev' class="lbl"></a></td>
 						<td class="td6"><input id="txtBprev"  type="text" class="txt num c1"/></td>
 					</tr>
-					<tr class="tr2">
+					<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblMon' class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtMon"  type="text" class="txt c1"/>
@@ -389,15 +399,13 @@
 						<input id="txtInterest"  type="text" class="txt num c1"/>
 						</td>
 						<td class="td5"><span> </span><a id='lblIsource' class="lbl"></a></td>
-						<td class="td6">
-						<input id="txtIsource"  type="text" class="txt c1"/>
-						</td>
+						<td class="td6"><select id="cmbIsource" class="txt c1" style="font-size: medium;"></select></td>
 						<td class="td7"><span> </span><a id='lblBin' class="lbl"></a></td>
 						<td class="td8">
 						<input id="txtBin" type="text" class="txt num c1"/>
 						</td>
 					</tr>
-					<tr class="tr3">
+					<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblPdate' class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtPdate"  type="text" class="txt c1"/>
@@ -417,7 +425,7 @@
 						<td class="td10"><input id="txtLastmon"  type="text" class="txt c2"/></td>
 					-->
 					</tr>
-					<tr class="tr4">
+					<tr class="tr5">
 						<td class="td1"><span> </span><a id='lblTotal' class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtTotal"  type="text" class="txt num c1">
