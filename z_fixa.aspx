@@ -55,6 +55,12 @@
 						dbf : 'tgg',
 						index : 'noa,nick',
 						src : 'tgg_b.aspx'
+					}, {/*7*/
+						type : '2',
+						name : 'product',
+						dbf : 'fixucc',
+						index : 'noa,namea',
+						src : 'fixucc_b.aspx'
 					}]
 				});
 				q_popAssign();
@@ -94,7 +100,11 @@
 			}
 		</script>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
