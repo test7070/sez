@@ -38,7 +38,7 @@
              ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
              ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'], 
              ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], 
-             ['txtProductno_', 'btnProductno_', 'chgitem', 'noa,item', 'txtProductno_,txtProduct_', 'chgitem_b.aspx']);
+             ['txtProductno_', 'btnProductno_', 'uccdc', 'noa,item', 'txtProductno_,txtProduct_', 'uccdc_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -668,7 +668,8 @@
 					</td>
 					<td>
 					<input  id="txtProductno.*"type="text" style="float:left;width: 20%;"/>
-					<input id="txtProduct.*" type="text" style="float:left;width: 75%;"/>
+					<input id="txtProduct.*" type="text" style="float:left;width: 70%;"/>
+					<input id="btnProductno.*" type="button" value=".." style="float:left;width:8%;"/>
 					</td>
 					<td>
 					<input id="txtUnit.*" type="text" style="width: 95%;"/>

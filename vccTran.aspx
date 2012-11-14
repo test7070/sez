@@ -6,9 +6,10 @@
 		<script src='../script/qj2.js' type="text/javascript"> </script>
 		<script src='qset.js' type="text/javascript"> </script>
 		<script src='../script/qj_mess.js' type="text/javascript"> </script>
-		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<script src='../script/mask.js' type="text/javascript"> </script>
+		<script src="../script/qbox.js" type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+
 		<script type="text/javascript">
             this.errorHandler = null;
 
@@ -37,8 +38,8 @@
             ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
             ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
             ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-            ['txtItemno_', 'btnItemno_', 'chgitem', 'noa,item', 'txtItemno_,txtItem_', 'chgitem_b.aspx'],
-            ['txtStoreno_', '', 'acomp', 'noa,acomp', 'txtStoreno_,txtStore_', 'acomp_b.aspx']);
+            ['txtStoren_', '', 'acomp', 'noa,acomp', 'txtStoreno_,txtStore_', 'acomp_b.aspx'],
+             ['txtItemno_', 'btnItemno_', 'uccdc', 'noa,item', 'txtItemno_,txtItem_', 'uccdc_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -673,7 +674,8 @@
 					</td>
 					<td>
 					<input  id="txtItemno.*"type="text" style="float:left;width: 20%;"/>
-					<input id="txtItem.*" type="text" style="float:left;width: 75%;"/>
+					<input id="txtItem.*" type="text" style="float:left;width: 70%;"/>
+					<input id="btnItemno.*" type="button" value=".." style="float:left;width:8%;"/>
 					</td>
 					<td>
 					<input id="txtUnit.*" type="text" style="width: 95%;"/>
