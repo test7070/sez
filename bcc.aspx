@@ -45,6 +45,10 @@
            q_mask(bbmMask); 
            q_cmbParse("cmbTypea", q_getPara('bcc.type'));
            
+           $('#txtPrice').change(function () {
+           		q_tr('txtBeginmoney',dec($('#txtPrice').val())*dec($('#txtBeginmount').val()));
+	        });
+           
            $('#txtBeginmount').change(function () {
            		q_tr('txtBeginmoney',dec($('#txtPrice').val())*dec($('#txtBeginmount').val()));
            		if(q_cur==1){
