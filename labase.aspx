@@ -255,6 +255,7 @@
         function btnIns() {
             _btnIns();
             $('#txtBdate').val(q_date());
+            $('#txtMon').val(q_date().substr(0,6));
             $('#txtNoa').focus();
         }
         function btnModi() {
