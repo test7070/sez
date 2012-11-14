@@ -41,16 +41,19 @@
 
 
         function mainPost() { 
-        	bbmMask = [['txtBegindatea', r_picd]];
+        	bbmMask = [['txtBegindate', r_picd]];
            q_mask(bbmMask); 
            q_cmbParse("cmbTypea", q_getPara('bcc.type'));
            
            $('#txtBeginmount').change(function () {
            		q_tr('txtBeginmoney',dec($('#txtPrice').val())*dec($('#txtBeginmount').val()));
-           		if(dec($('#txtStkmount').val())==0){
+           		if(q_cur==1){
            			q_tr('txtStkmount',dec($('#txtBeginmount').val()));
            			q_tr('txtStkmoney',dec($('#txtPrice').val())*dec($('#txtBeginmount').val()));
            		}
+	        });
+	        $('#txtStkmount').change(function () {
+           		q_tr('txtStkmoney',dec($('#txtPrice').val())*dec($('#txtStkmount').val()));
 	        });
         }
         function txtCopy(dest, source) {
@@ -112,6 +115,17 @@
             }  /// end switch
         }
         
+        function q_stPost() {
+            if (!(q_cur == 1 || q_cur == 2))
+                return false;
+            var s2 = xmlString.split(';');
+            abbm[q_recno]['stkmount'] = s2[0];
+            abbm[q_recno]['stkmoney'] = s2[1];
+            $('#txtStkmount').val(s2[0]);
+            $('#txtStkmoney').val(s2[1]);
+
+        }
+        
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
@@ -136,9 +150,12 @@
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
-
             _btnModi();
-            $('#txtComp').focus();
+            $('#txtNoa').attr('disabled', 'disabled');
+            $('#txtStkmount').attr('disabled', 'disabled');
+            $('#txtStkmoney').attr('disabled', 'disabled');
+            
+            $('#txtProduct').focus();
         }
 
         function btnPrint() {
