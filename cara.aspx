@@ -28,8 +28,8 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-
-			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'noa,boss', 'txtCarno,txtBoss', "car2_b.aspx?;;;1=1"],
+			//q_alias='a';
+			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,a.boss', 'txtCarno,txtBoss', "car2_b.aspx"],
 				['txtCaritemno_', 'lblCaritemno', 'caritem', 'noa,item', 'txtCaritemno_,txtCaritem_', 'caritem_b.aspx'], 
 				['txtAcc1_', 'lblAcc2', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 
