@@ -30,8 +30,8 @@
             brwKey = 'Datea';
             q_desc=1;
 			//q_alias='a';
-			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,a.boss', 'txtCarno,txtBoss', "car2_b.aspx"],
-				['textCarseek', 'lblCarseek', 'car2', 'a.noa,a.boss', 'textCarseek', "car2_b.aspx"],
+			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,b.carowner', 'txtCarno,txtCarowner', "car2_b.aspx"],
+				['textCarseek', 'lblCarseek', 'car2', 'a.noa,b.carowner', 'textCarseek', "car2_b.aspx"],
 				['txtCaritemno_', 'lblCaritemno', 'caritem', 'noa,item', 'txtCaritemno_,txtCaritem_', 'caritem_b.aspx'], 
 				['txtAcc1_', 'lblAcc2', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 
@@ -507,7 +507,7 @@
 						<td class="td1" ><span> </span><a id="lblCarno" class="lbl btn"></a></td>
 						<td class="td2" colspan="2">
 							<input id="txtCarno"  type="text"  class="txt c2"/>
-							<input id="txtBoss"  type="text" class="txt c3"/>
+							<input id="txtCarowner"  type="text" class="txt c3"/>
 						</td>
 						<td class="td4"><span> </span><a id='lblCarseek' class="lbl"></a></td>
 						<td class="td5"><input id="textCarseek"  type="text" class="txt c1"/></td>

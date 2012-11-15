@@ -37,7 +37,10 @@
                         dbf : 'sss',
                         index : 'noa,namea',
                         src : 'sss_b.aspx'
-                        }]
+                        },{
+                        type : '6',
+                        name : 'xdate'
+                    	}]
                     });
                 q_popAssign();
                 q_getFormat();
@@ -47,6 +50,8 @@
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
+                $('#txtXdate').mask('999/99/99');
+                $('#txtXdate').val(q_date());
                 
                   var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
