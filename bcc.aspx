@@ -388,8 +388,8 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>                
-                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:25%"><a id='vewProduct'></a></td>                
+                <td align="center" style="width:20%"><a id='vewNoa'></a></td>
+                <td align="center"><a id='vewProduct'></a></td>                
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>

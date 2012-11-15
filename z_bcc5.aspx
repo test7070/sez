@@ -27,7 +27,7 @@
                         name : 'xdate'
                     },{
                         type : '6',
-                        name : 'mon'
+                        name : 'xmon'
                     },{
                         type : '2',
                         name : 'bcc',
@@ -43,8 +43,8 @@
                 $('#txtXdate').val(q_date());
                 $('#txtXdate').mask('999/99/99');
                 $('#txtXdate').datepicker();
-                 $('#txtMon').val(q_date().substr(0,6));
-                $('#txtMon').mask('999/99');
+                 $('#txtXmon').val(q_date().substr(0,6));
+                $('#txtXmon').mask('999/99');
             }
 
             function q_boxClose(s2) {
