@@ -35,6 +35,8 @@
             brwKey = 'noa';
             q_alias = '';
             q_desc = 1;
+            q_xchg = 1;
+            brwCount2 = 20;
             aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'],
             ['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
             ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'],
@@ -200,7 +202,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
-                q_box('tranorde_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+                q_box('tranorde_s.aspx', q_name + '_s', "500px", "600px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -318,7 +320,7 @@
             }
             .dview {
                 float: left;
-                width: 23%;
+                width:1000px;
             }
             .tview {
                 margin: 0;
@@ -336,7 +338,7 @@
             }
             .dbbm {
                 float: left;
-                width: 75%;
+                width: 95%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -444,18 +446,30 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:15%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:20%"><a id='vewNoa'></a></td>
-						<td align="center" style="width:20%"><a id='vewCust'></a></td>
+						<td align="center" style="width:20px;"><a id='vewChk'></a></td>	
+						<td align="center" style="width:100px;"><a id='vewNoa'></a></td>
+						<td align="center" style="width:80px;"><a id='vewCust'></a></td>
+						<td align="center" style="width:80px;"><a id='vewDatea'></a></td>
+						<td align="center" style="width:80px;"><a id='vewDldate'></a></td>
+						<td align="center" style="width:120px;"><a id='vewDeliveryno'></a></td>
+						<td align="center" style="width:120px;"><a id='vewPo'></a></td>
+						<td align="center" style="width:100px;"><a id='vewProduct'></a></td>
+						<td align="center" style="width:80px;"><a id='vewMount'></a></td>
+						<td align="center" style="width:50px;"><a id='vewUnit'></a></td>
+						<td align="center" style="width:150px;"><a id='vewAddr'></a></td>
 					</tr>
 					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox" style=' '/>
-						</td>
-						<td align="center" id='datea'>~datea</td>
+						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td align="center" id='noa'>~noa</td>
 						<td align="center" id='nick'>~nick</td>
+						<td align="center" id='datea'>~datea</td>
+						<td align="center" id='dldate'>~dldate</td>
+						<td id='deliveryno' style="text-align: left;">~deliveryno</td>
+						<td id='po' style="text-align: left;">~po</td>
+						<td id='product' style="text-align: left;">~product</td>
+						<td id='mount' style="text-align: right;">~mount</td>
+						<td id='unit' style="text-align: left;">~unit</td>
+						<td id='addr' style="text-align: left;">~addr</td>
 					</tr>
 				</table>
 			</div>
