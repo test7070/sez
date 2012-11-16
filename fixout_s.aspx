@@ -36,6 +36,7 @@
 			}
 
 			function q_seekStr() {
+				t_noa = $.trim($('#txtNoa').val());
 				t_bdate = $.trim($('#txtBdate').val());
 				t_edate = $.trim($('#txtEdate').val());
 				t_boutdate = $.trim($('#txtBoutdate').val());
@@ -46,6 +47,7 @@
 				t_driverno = $.trim($('#txtDriverno').val());
 
 				var t_where = " 1=1 "
+					+q_sqlPara2("noa", t_noa)
 					+q_sqlPara2("datea", t_bdate, t_edate)
 					+q_sqlPara2("outdate", t_boutdate, t_eoutdate)
 					+q_sqlPara2("mon", t_mon)
@@ -107,6 +109,12 @@
 					<td class='seek'  style="width:20%;"><a id='lblDriver'></a></td>
 					<td>
 					<input class="txt" id="txtDriverno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
+					<td>
+					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
