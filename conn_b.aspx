@@ -83,7 +83,7 @@
         if (!t_key)
             return;
 
-        _btnModi();
+        _btnModi(1);
 
         for (i = 0; i < abbsDele.length; i++) {
             abbsDele[i][bbsKey[0]] = t_key[1];

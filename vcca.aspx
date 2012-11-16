@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title></title>
@@ -29,7 +29,7 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'Datea';
-			aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp,serial,addr_invo,nick', 'txtCustno,txtComp,txtSeria,txtAddress,txtNick', 'cust_b.aspx'], ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx'], ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
+			aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp,serial,addr_invo,nick', 'txtCustno,txtComp,txtSerial,txtAddress,txtNick', 'cust_b.aspx'], ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx'], ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
 
 			function currentData() {
 			}
@@ -38,7 +38,7 @@
 			currentData.prototype = {
 				data : [],
 				/*新增時複製的欄位*/
-				include : ['txtDatea', 'txtCno', 'txtComp2', 'txtCustno', 'txtComp', 'txtNick', 'txtSeria', 'txtAddress', 'txtMon'],
+				include : ['txtDatea', 'txtCno', 'txtComp2', 'txtCustno', 'txtComp', 'txtNick', 'txtSerial', 'txtAddress', 'txtMon'],
 				/*記錄當前的資料*/
 				copy : function() {
 					curData.data = new Array();
@@ -492,7 +492,7 @@
 						<td class="td2">
 						<input id="txtNoa"  type="text" class="txt c1"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblCust" class="lbl btn" ></td>
+						<td class="td3"><span> </span><a id="lblCust" class="lbl btn" ></a></td>
 						<td class="td4" colspan="3">
 						<input id="txtCustno"  type="text"  class="txt c2"/>
 						<input id="txtComp" type="text"  class="txt c3"/>
@@ -500,9 +500,9 @@
 						</td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1"><span> </span><a id='lblSeria' class="lbl"></a></td>
+						<td class="td1"><span> </span><a id='lblSerial' class="lbl"></a></td>
 						<td class="td2">
-						<input id="txtSeria" type="text" class="txt c1"/>
+						<input id="txtSerial" type="text" class="txt c1"/>
 						</td>
 						<td class="td3"><span> </span><a id='lblAddress' class="lbl"></a></td>
 						<td class="td4" colspan="3">
@@ -608,3 +608,4 @@
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
+
