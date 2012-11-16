@@ -33,7 +33,7 @@
                 $('#txtBdate').focus();
             }
 
-            function q_seekStr() {///  ?j?M???U??A????
+            function q_seekStr() {
                 t_noa = $('#txtNoa').val();
                 t_bdate = $('#txtBdate').val();
                 t_edate = $('#txtEdate').val();

@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
     <title> </title>
@@ -25,7 +25,7 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,serial,addr_invo', 'txtTggno,txtComp,txtSeria,txtAddress', 'tgg_b.aspx'],
+        aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,serial,addr_invo', 'txtTggno,txtComp,txtSerial,txtAddress', 'tgg_b.aspx'],
         ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
         ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx'],
         ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
@@ -418,7 +418,7 @@
             </tr>
              <tr>
                 <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
-                <td align="center" id='noa'>~noa<input id="txtnick"  type="hidden"/></td>
+                <td align="center" id='noa'>~noa</td>
                 <td align="center" id='datea'>~datea</td> 
             </tr>
         </table>
@@ -430,7 +430,7 @@
 	            <td class="td2"><input id="txtDatea" type="text" class="txt c1"/></td>
 	            <td class="td3"><span> </span><a id="lblAcomp" class="lbl btn" > </a></td>
 	            <td class="td4" colspan="3"><input id="txtCno" type="text" class="txt c2"/>
-	            	<input id="txtAcomp" type="text" class="txt c3"/><input id="txtnick"  type="hidden"/></td>
+	            	<input id="txtAcomp" type="text" class="txt c3"/><input id="txtNick"  type="hidden"/></td>
                         
         </tr>
         <tr class="tr2">
@@ -442,8 +442,8 @@
                					<input id="txtComp"  type="text" class="txt c3" /></td>
         </tr>
         <tr class="tr3">
-        	<td class="td1"><span> </span><a id='lblSeria' class="lbl"> </a></td>
-            <td class="td2"><input id="txtSeria"  type="text"  class="txt c1"/></td>
+        	<td class="td1"><span> </span><a id='lblSerial' class="lbl"> </a></td>
+            <td class="td2"><input id="txtSerial"  type="text"  class="txt c1"/></td>
             <td class="td3"><span> </span><a id='lblAddress' class="lbl"> </a></td>
             <td class="td4" colspan="3"><input id="txtAddress" type="text" style="width: 99%;"/></td>  
         </tr>
@@ -511,3 +511,4 @@
         <input id="q_sys" type="hidden" />
 </body>
 </html>
+
