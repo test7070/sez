@@ -255,8 +255,9 @@
         function btnIns() {
             _btnIns();
             $('#txtBdate').val(q_date());
-            $('#txtMon').val(q_date().substr(0,6));
             $('#txtNoa').focus();
+            $('#txtMon').attr('readonly',true);
+		    $('#txtMon').attr('disabled', 'disabled');
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -266,6 +267,8 @@
             $('#txtNamea').attr('disabled', 'disabled');
             $('#chkForeigns').attr('disabled', 'disabled');
             $('#txtSalary').focus();
+            $('#txtMon').attr('readonly',true);
+		    $('#txtMon').attr('disabled', 'disabled');
         }
         function btnPrint() {
 
@@ -311,7 +314,10 @@
         ///////////////////////////////////////////////////  ?H?U??????{???A????n????
         function refresh(recno) {
             _refresh(recno);
-
+			if (q_cur==0) {
+		            $('#txtMon').removeAttr('disabled');
+		            $('#txtMon').css('background-color','white');           
+		    }
         }
 
         function readonly(t_para, empty) {
@@ -323,6 +329,7 @@
 		        else {
 		        	$('#btnUmmb').attr('disabled', 'disabled');	 
 		        }
+		        
         }
 
         function btnMinus(id) {
@@ -558,9 +565,9 @@
             <td class="td2"><input id="txtBdate" type="text" class="txt  c1" /></td>
             <td class='td3'><span> </span><a id="lblSalary" class="lbl"> </a></td>
             <td class="td4"><input id="txtSalary" type="text" class="txt num c1" /></td>
-            <td class="td5"><span> </span><a id="lblMon" class="lbl"> </a></td>
-            <td class="td6"><input id="txtMon" type="text" class="txt c1" /></td>
-            <td class="td7" colspan="2"><span> </span><input id="btnUmmb" type="button" /></td>
+            <td class="td5" colspan="2"><span> </span><input id="btnUmmb" type="button" style="float: right;"/></td>
+            <td class="td7"><span> </span><a id="lblMon" class="lbl"> </a></td>
+            <td class="td8"><input id="txtMon" type="text" class="txt c1" /></td>
         </tr>
         <tr class="tr3">
             <td class='td1'><span> </span><a id="lblSa_retire" class="lbl" > </a></td>
