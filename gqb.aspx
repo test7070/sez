@@ -475,17 +475,17 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblTcomp" class="lbl btn" ></a></td>
-						<td class="td2" colspan="2">
-						<input id="txtTcompno"  type="text" class="txt c2" />
-						<input id="txtTcomp"  type="text" class="txt c3" />
+						<td class="td2" colspan="3">
+						<input id="txtTcompno"  type="text" class="txt" style="width:30%;" />
+						<input id="txtTcomp"  type="text" class="txt" style="width:70%;"/>
 						</td>
 						<td class="td4"></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblComp" class="lbl btn"></a></td>
-						<td class="td2" colspan="2">
-						<input id="txtCompno"  type="text" class="txt c2" />
-						<input id="txtComp"  type="text" class="txt c3" />
+						<td class="td2" colspan="3">
+						<input id="txtCompno"  type="text" class="txt" style="width:30%;"/>
+						<input id="txtComp"  type="text" class="txt" style="width:70%;"/>
 						</td>
 						<td class="td3"></td>
 					</tr>
