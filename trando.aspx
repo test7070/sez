@@ -20,7 +20,7 @@
 			q_tables = 's';
 			var q_name = "trando";
 			var q_readonly = ['txtNoa', 'txtWorker'];
-			var q_readonlys = ['txtTranno', 'txtTrannoq','txtTrandate','txtCustorde','txtMoney'];
+			var q_readonlys = ['txtTranno', 'txtTrannoq','txtTrandate','txtCustorde','txtMoney','txtAddr','txtProduct'];
 			var bbmNum = [];
 			var bbsNum = [['txtMoney', 10, 0]];
 			var bbmMask = [];
