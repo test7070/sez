@@ -59,9 +59,6 @@
 						q_tr('txtFlcomp_'+j,Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_accident').val())/100)));//外勞公司負擔
 						q_tr('txtLself_'+j,dec($('#txtFlself_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_person').val())/100)*(dec($('#txtInsur_job').val())/100)));//個人負擔
 						q_tr('txtLcomp_'+j,dec($('#txtFlcomp_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_job').val())/100)));//公司負擔
-						//大昌一般員工的工資墊償基金和勞保職災加在公司負擔，但寄保人員算在加在個人負擔
-							q_tr('txtLcomp_'+b_seq,dec($('#txtLcomp_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_fund').val())/100)));//工資墊償基金
-							q_tr('txtLcomp_'+b_seq,dec($('#txtLcomp_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_disaster').val())/100)));//勞保職災
 					}
             	}
             });
@@ -70,9 +67,6 @@
             		if(!emp($('#txtLmoney_'+j).val())){
 						q_tr('txtLself_'+j,dec($('#txtFlself_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_person').val())/100)*(dec($('#txtInsur_job').val())/100)));//個人負擔
 						q_tr('txtLcomp_'+j,dec($('#txtFlcomp_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_job').val())/100)));//公司負擔
-						//大昌一般員工的工資墊償基金和勞保職災加在公司負擔，但寄保人員算在加在個人負擔
-							q_tr('txtLcomp_'+j,dec($('#txtLcomp_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_fund').val())/100)));//工資墊償基金
-							q_tr('txtLcomp_'+j,dec($('#txtLcomp_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_disaster').val())/100)));//勞保職災
 					}
             	}
             });
@@ -89,35 +83,6 @@
             		if(!emp($('#txtLmoney_'+j).val())){
 						q_tr('txtFlcomp_'+j,Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_accident').val())/100)));//外勞公司負擔
 						q_tr('txtLcomp_'+j,dec($('#txtFlcomp_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_job').val())/100)));//公司負擔
-						//大昌一般員工的工資墊償基金和勞保職災加在公司負擔，但寄保人員算在加在個人負擔
-							q_tr('txtLcomp_'+j,dec($('#txtLcomp_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_fund').val())/100)));//工資墊償基金
-							q_tr('txtLcomp_'+j,dec($('#txtLcomp_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_disaster').val())/100)));//勞保職災
-					}
-            	}
-            });
-            $('#txtInsur_fund').change(function () {
-            	for (var j = 0; j < q_bbsCount; j++) {
-            		if(!emp($('#txtLmoney_'+j).val())){
-						q_tr('txtFlself_'+j,Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_person').val())/100)*(dec($('#txtInsur_accident').val())/100)));//外勞個人負擔
-						q_tr('txtFlcomp_'+j,Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_accident').val())/100)));//外勞公司負擔
-						q_tr('txtLself_'+j,dec($('#txtFlself_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_person').val())/100)*(dec($('#txtInsur_job').val())/100)));//個人負擔
-						q_tr('txtLcomp_'+j,dec($('#txtFlcomp_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_job').val())/100)));//公司負擔
-						//大昌一般員工的工資墊償基金和勞保職災加在公司負擔，但寄保人員算在加在個人負擔
-							q_tr('txtLcomp_'+j,dec($('#txtLcomp_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_fund').val())/100)));//工資墊償基金
-							q_tr('txtLcomp_'+j,dec($('#txtLcomp_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_disaster').val())/100)));//勞保職災
-					}
-            	}
-            });
-            $('#txtInsur_disaster').change(function () {
-            	for (var j = 0; j < q_bbsCount; j++) {
-            		if(!emp($('#txtLmoney_'+j).val())){
-						q_tr('txtFlself_'+j,Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_person').val())/100)*(dec($('#txtInsur_accident').val())/100)));//外勞個人負擔
-						q_tr('txtFlcomp_'+j,Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_accident').val())/100)));//外勞公司負擔
-						q_tr('txtLself_'+j,dec($('#txtFlself_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_person').val())/100)*(dec($('#txtInsur_job').val())/100)));//個人負擔
-						q_tr('txtLcomp_'+j,dec($('#txtFlcomp_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_job').val())/100)));//公司負擔
-						//大昌一般員工的工資墊償基金和勞保職災加在公司負擔，但寄保人員算在加在個人負擔
-							q_tr('txtLcomp_'+j,dec($('#txtLcomp_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_fund').val())/100)));//工資墊償基金
-							q_tr('txtLcomp_'+j,dec($('#txtLcomp_'+j).val())+Math.round(dec($('#txtLmoney_'+j).val())*(dec($('#txtInsur_disaster').val())/100)));//勞保職災
 					}
             	}
             });
@@ -180,9 +145,6 @@
 							q_tr('txtFlcomp_'+b_seq,Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_accident').val())/100)));//外勞公司負擔
 							q_tr('txtLself_'+b_seq,dec($('#txtFlself_'+b_seq).val())+Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_person').val())/100)*(dec($('#txtInsur_job').val())/100)));//個人負擔
 							q_tr('txtLcomp_'+b_seq,dec($('#txtFlcomp_'+b_seq).val())+Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_job').val())/100)));//公司負擔
-							//大昌一般員工的工資墊償基金和勞保職災加在公司負擔，但寄保人員算在加在個人負擔
-							q_tr('txtLcomp_'+b_seq,dec($('#txtLcomp_'+b_seq).val())+Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_fund').val())/100)));//工資墊償基金
-							q_tr('txtLcomp_'+b_seq,dec($('#txtLcomp_'+b_seq).val())+Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_disaster').val())/100)));//勞保職災
 						}
         			});
         			$('#txtLmoney_'+j).change(function () {
@@ -194,9 +156,6 @@
 							q_tr('txtFlcomp_'+b_seq,Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_accident').val())/100)));//外勞公司負擔
 							q_tr('txtLself_'+b_seq,dec($('#txtFlself_'+b_seq).val())+Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_person').val())/100)*(dec($('#txtInsur_job').val())/100)));//個人負擔
 							q_tr('txtLcomp_'+b_seq,dec($('#txtFlcomp_'+b_seq).val())+Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_comp').val())/100)*(dec($('#txtInsur_job').val())/100)));//公司負擔
-							//大昌一般員工的工資墊償基金和勞保職災加在公司負擔，但寄保人員算在加在個人負擔
-							q_tr('txtLcomp_'+b_seq,dec($('#txtLcomp_'+b_seq).val())+Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_fund').val())/100)));//工資墊償基金
-							q_tr('txtLcomp_'+b_seq,dec($('#txtLcomp_'+b_seq).val())+Math.round(dec($('#txtLmoney_'+b_seq).val())*(dec($('#txtInsur_disaster').val())/100)));//勞保職災
 						}
         			});
 				}
@@ -481,12 +440,6 @@
             <td class="td2"><input id="txtInsur_accident" type="text" class="txt num c1" /></td> 
             <td class='td3'><span> </span><a id="lblInsur_job" class="lbl" > </a></td>
             <td class="td4"><input id="txtInsur_job" type="text"class="txt num c1" /></td> 
-        </tr>
-        <tr>
-            <td class='td1'><span> </span><a id="lblInsur_fund" class="lbl" > </a></td>
-            <td class="td2"><input id="txtInsur_fund" type="text" class="txt num c1" /></td> 
-            <td class='td3'><span> </span><a id="lblInsur_disaster" class="lbl" > </a></td>
-            <td class="td4"><input id="txtInsur_disaster" type="text"class="txt num c1" /></td> 
         </tr>
         <tr>
             <td class='td1'><span> </span><a id="lblInsur_person" class="lbl" > </a></td>

@@ -24,7 +24,7 @@
         var bbsMask = [];
 
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
-         aPop = new Array(['txtNoa', 'lblNoa', 'sss', 'noa,namea', 'txtNoa,txtNamea,txtBdate', 'sss_b.aspx']);
+         aPop = new Array(['txtNoa', 'lblNoa', 'sssall', 'noa,namea', 'txtNoa,txtNamea,txtBdate', 'sssall_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -53,7 +53,7 @@
             q_mask(bbmMask);
             bbsMask = [['txtBirthday', r_picd],['txtIndate', r_picd],['txtOutdate', r_picd]];
             q_mask(bbsMask);
-            
+
              $('#btnSalinsures').click(function (e) {
 		            q_box("salinsures_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'salinsures', "1000px", "700px", q_getMsg("popSalinsures"));
 		        });
@@ -69,6 +69,18 @@
 			           //判斷員工是否重覆儲存
 			           var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
 			           q_gt('labase', t_where , 0, 0, 0, "", r_accy);
+			           
+			     	if(q_getPara('sys.comp').indexOf('大昌')>-1){
+			     		if($('#txtNoa').val().substr(0,1)>='A' && $('#txtNoa').val().substr(0,1)<='Z'){
+			     			$('#chkIssssp')[0].checked=true;
+			     			$('#txtInsur_fund').val(0.025);
+		            		$('#txtInsur_disaster').val(0.11);
+			     		}else{
+			     			$('#chkIssssp')[0].checked=false;
+			     			$('#txtInsur_fund').val(0.025);
+	            			$('#txtInsur_disaster').val(0.34);
+			     		}
+			     	}
 			     }
             });
             
@@ -77,6 +89,9 @@
             		alert('請先輸入員工編號!!!');
             		q_tr('txtSalary',0);
             		$('#txtNoa').focus();
+            		return;
+            	}
+            	if(emp($('#txtSalary').val())||dec($('#txtSalary').val())==0){
             		return;
             	}
             	
@@ -106,6 +121,58 @@
 			$('#txtAs_health').change(function () {
             	$('#txtHe_person').val(t_he_person-dec($('#txtAs_health').val()));
             });
+            
+                $('#chkIssssp').hide();
+            	$('#lblIssssp').hide();
+            	$('#lblInsur_fund').hide();
+            	$('#txtInsur_fund').hide();
+            	$('#lblInsur_disaster').hide();
+            	$('#txtInsur_disaster').hide();
+            
+            if(q_getPara('sys.comp').indexOf('大昌')>-1){ 
+            	$('#chkIssssp').show();
+            	$('#lblIssssp').show();
+            	$('#lblInsur_fund').show();
+            	$('#txtInsur_fund').show();
+            	$('#lblInsur_disaster').show();
+            	$('#txtInsur_disaster').show();
+
+	            $('#chkIssssp').change(function () {
+	            	if($('#chkIssssp')[0].checked){//寄保人員
+	            		$('#txtInsur_fund').val(0.025);
+	            		$('#txtInsur_disaster').val(0.11);
+	            	}else{//一般員工
+	            		$('#txtInsur_fund').val(0.025);
+	            		$('#txtInsur_disaster').val(0.34);
+	            	}
+	            	
+	            	if(emp($('#txtSalary').val())||dec($('#txtSalary').val())==0){
+	            		return;
+	            	}
+	            	//重新計算取得勞保薪資等級表
+	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+	            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
+	            });
+	            
+	            $('#txtInsur_fund').change(function () {
+	            	if(emp($('#txtSalary').val())||dec($('#txtSalary').val())==0){
+	            		return;
+	            	}
+	            	//重新計算取得勞保薪資等級表
+	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+	            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
+	            });
+	            
+	            $('#txtInsur_disaster').change(function () {
+	            	if(emp($('#txtSalary').val())||dec($('#txtSalary').val())==0){
+	            		return;
+	            	}
+	            	//重新計算取得勞保薪資等級表
+	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+	            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
+	            });
+			}
+            
         }
 
         function q_boxClose(s2) { 
@@ -155,9 +222,23 @@
             							t_la_person=dec(labsals[i].flself);
             							q_tr('txtLa_comp',labsals[i].flcomp);//勞保公司負擔
             						}else{
-            							q_tr('txtLa_person',labsals[i].lself);
-            							t_la_person=dec(labsals[i].lself);
-            							q_tr('txtLa_comp',labsals[i].lcomp);
+            							if(q_getPara('sys.comp').indexOf('大昌')>-1){
+	            							//--------大昌外加工資墊償基金提繳費與勞保職災-------
+	            							//--------一般員工由公司負擔，寄保人員自己負擔-------
+	            							if($('#chkIssssp')[0].checked){//寄保人員
+	            								q_tr('txtLa_person',dec(labsals[i].lself)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+	            								t_la_person=dec($('#txtLa_person').val());
+	            								q_tr('txtLa_comp',labsals[i].lcomp);
+	            							}else{//一般員工
+	            								q_tr('txtLa_person',labsals[i].lself);
+	            								t_la_person=dec(labsals[i].lself);
+	            								q_tr('txtLa_comp',dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+	            							}
+            							}else{
+            								q_tr('txtLa_person',labsals[i].lself);
+	            								t_la_person=dec(labsals[i].lself);
+	            								q_tr('txtLa_comp',labsals[i].lcomp);
+            							}
             						}
             						break;	
             					}
@@ -206,7 +287,18 @@
 			           		var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
 			           		q_gt('sss', t_where , 0, 0, 0, "", r_accy);
 			        	}
-		                break;
+			        	if(q_getPara('sys.comp').indexOf('大昌')>-1){
+				     		if($('#txtNoa').val().substr(0,1)>='A' && $('#txtNoa').val().substr(0,1)<='Z'){
+				     			$('#chkIssssp')[0].checked=true;
+				     			$('#txtInsur_fund').val(0.025);
+			            		$('#txtInsur_disaster').val(0.11);
+				     		}else{
+				     			$('#chkIssssp')[0].checked=false;
+				     			$('#txtInsur_fund').val(0.025);
+		            			$('#txtInsur_disaster').val(0.34);
+				     		}
+				     	}
+			            break;
 		    	}
 			}
         
@@ -556,9 +648,16 @@
             <td class='td3'><span> </span><a id="lblNamea" class="lbl" > </a></td>
             <td class="td4"><input id="txtNamea" type="text" class="txt c1" /></td> 
             <td class='td5'><input id="chkForeigns" type="checkbox" style=' '/><span> </span><a id="lblForeign"> </a></td>
+            <td class='td5'><input id="chkIssssp" type="checkbox" style=' '/><span> </span><a id="lblIssssp"> </a></td>
             <td class="td6" colspan="2"><span> </span><input id="btnSalinsures" type="button"/></td> 
         </tr>
         <tr class="tr2">
+            <td class='td1'><span> </span><a id="lblInsur_fund" class="lbl"> </a></td>
+            <td class="td2"><input id="txtInsur_fund" type="text" class="txt num c1" /></td>
+            <td class='td3'><span> </span><a id="lblInsur_disaster" class="lbl"> </a></td>
+            <td class="td4"><input id="txtInsur_disaster" type="text" class="txt num c1" /></td>
+        </tr>
+        <tr class="tr3">
             <!--<td class='td1'><span> </span><a id="lblTypea" class="lbl" > </a></td>
             <td class="td2"><input id="txtTypea" type="text" class="txt  c1" /></td>-->
             <td class='td1'><span> </span><a id="lblBdate" class="lbl"> </a></td>
@@ -569,7 +668,7 @@
             <td class="td7"><span> </span><a id="lblMon" class="lbl"> </a></td>
             <td class="td8"><input id="txtMon" type="text" class="txt c1" /></td>
         </tr>
-        <tr class="tr3">
+        <tr class="tr4">
             <td class='td1'><span> </span><a id="lblSa_retire" class="lbl" > </a></td>
             <td class="td2"><input id="txtSa_retire" type="text" class="txt num c1" /></td>
             <td class='td3'><span> </span><a id="lblRe_comp" class="lbl"> </a></td>
@@ -577,7 +676,7 @@
             <td class='td5'><span> </span><a id="lblRe_person" class="lbl"> </a></td>
             <td class="td6"><input id="txtRe_person" type="text" class="txt num c1" /></td>
         </tr>
-        <tr class="tr4">
+        <tr class="tr5">
             <td class='td1'><span> </span><a id="lblSa_labor" class="lbl" > </a></td>
             <td class="td2"><input id="txtSa_labor" type="text" class="txt num c1" /></td>
             <td class='td3'><span> </span><a id="lblAs_labor" class="lbl"> </a></td>
@@ -587,7 +686,7 @@
             <td class='td7'><span> </span><a id="lblLa_comp" class="lbl"> </a></td>
             <td class="td8"><input id="txtLa_comp" type="text" class="txt num c1" /></td>
         </tr>
-        <tr class="tr5">
+        <tr class="tr6">
             <td class='td1'><span> </span><a id="lblSa_health" class="lbl" > </a></td>
             <td class="td2"><input id="txtSa_health" type="text" class="txt num c1" /></td>
             <td class='td3'><span> </span><a id="lblAs_health" class="lbl"> </a></td>
@@ -597,7 +696,7 @@
             <td class='td7'><span> </span><a id="lblHe_comp" class="lbl"> </a></td>
             <td class="td8"><input id="txtHe_comp" type="text" class="txt num c1" /></td>
         </tr>                               
-        <tr class="tr6">
+        <tr class="tr7">
             <td class='td1'><span> </span><a id="lblTax" class="lbl" > </a></td>
             <td class="td2"><input id="txtTax" type="text" class="txt num c1" /></td>
             <td class='td3'><span> </span><a id="lblMount" class="lbl"> </a></td>
