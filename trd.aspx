@@ -61,7 +61,11 @@
                 }
                 mainForm(0);
             }
-
+			
+			function mouseDown_accno(w){
+				//alert(w.toString());
+			//	q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $(this).val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+			}
             function mainPost() {
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtBtrandate', r_picd], ['txtEtrandate', r_picd], ['txtVccadate', r_picd]];
@@ -614,7 +618,7 @@
             }
             .dview {
                 float: left;
-                width: 300px;
+                width: 1000px;
             }
             .tview {
                 margin: 0;
@@ -632,7 +636,7 @@
             }
             .dbbm {
                 float: left;
-                width: 800px;
+                width: 1000px;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -738,18 +742,34 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:15%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:20%"><a id='vewComp'></a></td>
-						<td align="center" style="width:20%"><a id='vewTotal'></a></td>
+						<td align="center" style="width:20px;"><a id='vewChk'></a></td>
+						<td align="center" style="width:80px;"><a id='vewDatea'></a></td>
+						<td align="center" style="width:100px;"><a id='vewComp'></a></td>
+						<td align="center" style="width:80px;"><a id='vewMoney'></a></td>
+						<td align="center" style="width:70px;"><a id='vewDiscount'></a></td>
+						<td align="center" style="width:70px;"><a id='vewPlus'></a></td>
+						<td align="center" style="width:80px;"><a id='vewTax'></a></td>
+						<td align="center" style="width:80px;"><a id='vewPlusmoney'></a></td>
+						<td align="center" style="width:80px;"><a id='vewMinusmoney'></a></td>
+						<td align="center" style="width:80px;"><a id='vewTotal'></a></td>
+						<td align="center" style="width:80px;"><a id='vewMount'></a></td>
+						<td align="center" style="width:100px;"><a id='vewAccno'></a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
-						<td align="center" id='datea'>~datea</td>
+						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='nick' style="text-align: center;">~nick</td>
+						<td id='money' style="text-align: right;">~money</td>
+						<td id='discount' style="text-align: right;">~discount</td>
+						<td id='plus' style="text-align: right;">~plus</td>
+						<td id='tax' style="text-align: right;">~tax</td>
+						<td id='plusmoney' style="text-align: right;">~plusmoney</td>
+						<td id='minusmoney' style="text-align: right;">~minusmoney</td>
 						<td id='total' style="text-align: right;">~total</td>
+						<td id='mount' style="text-align: right;">~mount</td>
+						<td id='accno' style="text-align: left;" onmousedown="mouseDown_accno(this)">~accno</td>
 					</tr>
 				</table>
 			</div>
