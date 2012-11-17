@@ -35,11 +35,16 @@
 						dbf : 'driver',
 						index : 'noa,namea',
 						src : 'driver_b.aspx'
+					}, {
+						type : '1',
+						name : 'mon'
 					}]
 				});
 				q_popAssign();
 
 				$('#txtXmon').mask('999/99');
+				$('#txtMon1').mask('999/99');
+				$('#txtMon2').mask('999/99');
 
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
@@ -51,6 +56,8 @@
 				t_day = t_date.getUTCDate();
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
 				$('#txtXmon').val(t_year + '/' + t_month);
+				$('#txtMon1').val(t_year + '/' + t_month);
+				$('#txtMon2').val(t_year + '/' + t_month);
 			}
 
 			function q_boxClose(s2) {
@@ -60,7 +67,11 @@
 			}
 		</script>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">

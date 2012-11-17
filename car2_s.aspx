@@ -27,7 +27,9 @@
 
 				bbmMask = [['txtBindate', r_picd], ['txtEindate', r_picd]];
 				q_mask(bbmMask);
-
+				
+				q_cmbParse("cmbCartype", '@全部,'+q_getPara('car2.cartype'));
+				
 				$('#txtBindate').focus();
 			}
 
@@ -42,14 +44,18 @@
 				t_cardeal = $('#txtCardeal').val();
 				t_carownerno = $('#txtCarownerno').val();
 				t_carowner = $('#txtCarowner').val();
+				t_cartype = $('#cmbCartype').val();
 				t_bindate = t_bindate.length > 0 && t_bindate.indexOf("_") > -1 ? t_bindate.substr(0, t_bindate.indexOf("_")) : t_bindate;
 				/// 100.  .
 				t_eindate = t_eindate.length > 0 && t_eindate.indexOf("_") > -1 ? t_eindate.substr(0, t_eindate.indexOf("_")) : t_eindate;
 				/// 100.  .
 
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("carno", t_carno) + q_sqlPara2("indate", t_bindate, t_eindate) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("f.namea", t_driver) + q_sqlPara2("cardealno", t_cardealno) + q_sqlPara2("cardeal", t_cardeal) + q_sqlPara2("carownerno", t_carownerno) + q_sqlPara2("carowner", t_carowner);
-
-				t_where = ' where=^^' + t_where + '^^ ';
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("carno", t_carno) 
+				+ q_sqlPara2("indate", t_bindate, t_eindate) + q_sqlPara2("driverno", t_driverno) 
+				+ q_sqlPara2("f.namea", t_driver) + q_sqlPara2("cardealno", t_cardealno) 
+				+ q_sqlPara2("cardeal", t_cardeal) + q_sqlPara2("carownerno", t_carownerno) 
+				+ q_sqlPara2("carowner", t_carowner)+ q_sqlPara2("a.cartype", t_cartype);
+				t_where = ' where=^^' + t_where + '^^ ';	
 				return t_where;
 			}
 		</script>
@@ -58,7 +64,7 @@
 				color: white;
 				text-align: center;
 				font-weight: bold;
-				BACKGROUND-COLOR: #76a2fe
+				background-color: #76a2fe
 			}
 		</style>
 	</head>
@@ -108,6 +114,10 @@
 					&nbsp;
 					<input class="txt" id="txtCarowner" type="text" style="width:115px; font-size:medium;" />
 					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCartype'></a></td>
+					<td><select class="txt" id="cmbCartype" style="width:215px; font-size:medium;"> </select></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
