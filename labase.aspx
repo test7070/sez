@@ -25,6 +25,7 @@
 
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
          aPop = new Array(['txtNoa', 'lblNoa', 'sssall', 'noa,namea', 'txtNoa,txtNamea,txtBdate', 'sssall_b.aspx']);
+         //aPop = new Array(['txtNoa', 'lblNoa', 'sss', 'noa,namea', 'txtNoa,txtNamea,txtBdate', 'sssall_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -122,20 +123,31 @@
             	$('#txtHe_person').val(t_he_person-dec($('#txtAs_health').val()));
             });
             
+            $('#txtInsur_fund').change(function () {
+	            	if(emp($('#txtSalary').val())||dec($('#txtSalary').val())==0){
+	            		return;
+	            	}
+	            	//重新計算取得勞保薪資等級表
+	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+	            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
+	          });
+	            
+	          $('#txtInsur_disaster').change(function () {
+	            	if(emp($('#txtSalary').val())||dec($('#txtSalary').val())==0){
+	            		return;
+	            	}
+	            	//重新計算取得勞保薪資等級表
+	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+	          		q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
+	          });
+            
                 $('#chkIssssp').hide();
             	$('#lblIssssp').hide();
-            	$('#lblInsur_fund').hide();
-            	$('#txtInsur_fund').hide();
-            	$('#lblInsur_disaster').hide();
-            	$('#txtInsur_disaster').hide();
+            	
             
             if(q_getPara('sys.comp').indexOf('大昌')>-1){ 
             	$('#chkIssssp').show();
             	$('#lblIssssp').show();
-            	$('#lblInsur_fund').show();
-            	$('#txtInsur_fund').show();
-            	$('#lblInsur_disaster').show();
-            	$('#txtInsur_disaster').show();
 
 	            $('#chkIssssp').change(function () {
 	            	if($('#chkIssssp')[0].checked){//寄保人員
@@ -146,24 +158,6 @@
 	            		$('#txtInsur_disaster').val(0.34);
 	            	}
 	            	
-	            	if(emp($('#txtSalary').val())||dec($('#txtSalary').val())==0){
-	            		return;
-	            	}
-	            	//重新計算取得勞保薪資等級表
-	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
-	            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
-	            });
-	            
-	            $('#txtInsur_fund').change(function () {
-	            	if(emp($('#txtSalary').val())||dec($('#txtSalary').val())==0){
-	            		return;
-	            	}
-	            	//重新計算取得勞保薪資等級表
-	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
-	            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
-	            });
-	            
-	            $('#txtInsur_disaster').change(function () {
 	            	if(emp($('#txtSalary').val())||dec($('#txtSalary').val())==0){
 	            		return;
 	            	}
@@ -223,8 +217,7 @@
             							q_tr('txtLa_comp',labsals[i].flcomp);//勞保公司負擔
             						}else{
             							if(q_getPara('sys.comp').indexOf('大昌')>-1){
-	            							//--------大昌外加工資墊償基金提繳費與勞保職災-------
-	            							//--------一般員工由公司負擔，寄保人員自己負擔-------
+	            							//--------大昌工資墊償基金提繳費與勞保職災一般員工由公司負擔，寄保人員自己負擔-------
 	            							if($('#chkIssssp')[0].checked){//寄保人員
 	            								q_tr('txtLa_person',dec(labsals[i].lself)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
 	            								t_la_person=dec($('#txtLa_person').val());
@@ -234,10 +227,10 @@
 	            								t_la_person=dec(labsals[i].lself);
 	            								q_tr('txtLa_comp',dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
 	            							}
-            							}else{
+            							}else{//一般皆由公司負擔
             								q_tr('txtLa_person',labsals[i].lself);
-	            								t_la_person=dec(labsals[i].lself);
-	            								q_tr('txtLa_comp',labsals[i].lcomp);
+            								t_la_person=dec(labsals[i].lself);
+            								q_tr('txtLa_comp',dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
             							}
             						}
             						break;	
@@ -287,14 +280,13 @@
 			           		var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
 			           		q_gt('sss', t_where , 0, 0, 0, "", r_accy);
 			        	}
+			        	$('#txtInsur_fund').val(0.025);
 			        	if(q_getPara('sys.comp').indexOf('大昌')>-1){
 				     		if($('#txtNoa').val().substr(0,1)>='A' && $('#txtNoa').val().substr(0,1)<='Z'){
 				     			$('#chkIssssp')[0].checked=true;
-				     			$('#txtInsur_fund').val(0.025);
 			            		$('#txtInsur_disaster').val(0.11);
 				     		}else{
 				     			$('#chkIssssp')[0].checked=false;
-				     			$('#txtInsur_fund').val(0.025);
 		            			$('#txtInsur_disaster').val(0.34);
 				     		}
 				     	}
@@ -350,6 +342,8 @@
             $('#txtNoa').focus();
             $('#txtMon').attr('readonly',true);
 		    $('#txtMon').attr('disabled', 'disabled');
+		    $('#txtInsur_fund').val(0.025);
+			$('#txtInsur_disaster').val(0.34);
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
