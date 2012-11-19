@@ -60,6 +60,11 @@
 				q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('lblConn'));
 				}
 			);
+			 $('#btnDetail').click(function(){
+				t_where = "noa='"+  $('#txtNoa').val() +"'";
+				q_box("custdetail_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custdetail', "95%", "650px", q_getMsg('btnDetail'));
+				}
+			);
 			  
         
 
@@ -419,9 +424,10 @@
             </tr>
             <tr class="tr2">
                <td class="td1" ><span> </span><a id='lblComp' class="lbl"></a></td>
-               <td class="td2"  colspan='3' ><input id="txtComp" type="text" class="txt c1"/></td>
-               <td class="td3" ><span> </span><a id='lblNick' class="lbl"></a></td>
-               <td class="td4"><input id="txtNick" type="text"  class="txt c1"/></td>
+               <td class="td2"  colspan='2' ><input id="txtComp" type="text" class="txt c1"/></td>
+               <td class="td3"><input id="btnDetail" type="button"/> </td>
+               <td class="td5"><span> </span><a id='lblNick' class="lbl"></a></td>
+               <td class="td6"><input id="txtNick" type="text"  class="txt c1"/></td>
             </tr>
             <tr class="tr3">
                <td class="td1"><span> </span><a id='lblBoss' class="lbl"></a></td>
@@ -485,11 +491,14 @@
             </tr>
             <tr class="tr13">
                 <td class="td1"><span> </span><a id="lblInvest" class="lbl btn"></a></td>
-                <td class="td2" colspan='5' ><input id="txtInvestdate"  type="text" class="txt c4"/><input id="txtInvestmemo"  type="text" class="txt c5"/></td> 
+                <td class="td2" colspan='5' ><input id="txtInvestdate"  type="text" class="txt c4"/><input id="txtInvestmemo"  type="text" class="txt c5"/></td>
+                 
             </tr>
             <tr class="tr14">
                 <td class="td1"><span> </span><a id='lblChkstatus' class="lbl"></a></td>
-                <td class="td2" colspan='5' ><input id="txtChkstatus"  type="text" class="txt c6"/></td> 
+                <td class="td2" colspan='3' ><input id="txtChkstatus"  type="text" class="txt c6"/></td>
+                <td class="td5"><span> </span><a id='lblUacc4' class="lbl"></a></td>
+                <td class="td6"><input id="txtUacc4"    type="text" class="txt c1"/></td>  
             </tr>
             <tr class="tr15">
                <td class="td1"><span> </span><a id='lblChkdate' class="lbl"></a></td>
@@ -509,10 +518,10 @@
             </tr>
             <tr class="tr17">
                <td class="td1"><span> </span><a id='lblTrantype' class="lbl"></a></td>
-               <td class="td2"><select id="cmbTrantype" class="txt c1"/></td>
+               <td class="td2"><select id="cmbTrantype" class="txt c1"></select></td>
                <td class="td3"><span> </span><a id='lblPay' class="lbl"></a></td>
                <td class="td4"><input id="txtPay" type="text" class="txt c3"/>
-               <select id="combPay" class="txt c2" onchange='combPay_chg()' /> </td>
+               <select id="combPay" class="txt c2" onchange='combPay_chg()' > </select></td>
                <td class="td5"><span> </span><a id='lblUacc3' class="lbl"></a></td>
                <td class="td6"><input id="txtUacc3"  type="text" class="txt c1"/></td>
             </tr>

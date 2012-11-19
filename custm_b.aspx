@@ -1,16 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title></title>
-<script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
-<script src='../script/qj.js' type="text/javascript"></script>
- <script src='qset.js' type="text/javascript"></script>
-<script src='../script/qj_mess.js' type="text/javascript"></script>
-<script src='../script/mask.js' type="text/javascript"></script>
-<script type="text/javascript">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Content-Language" content="en-us" />
+		<title> </title>
+		<script src="../script/jquery.min.js" type="text/javascript"> </script>
+		<script src="../script/qj2.js" type="text/javascript"> </script>
+		<script src='qset.js' type="text/javascript"> </script>
+		<script src="../script/qj_mess.js" type="text/javascript"> </script>
+		<script src="../script/qbox.js" type="text/javascript"> </script>
+    	<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript">
     var q_name = 'custm', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbmKey = ['noa'], bbsKey = ['noa', 'noq'], t_count = 0, as, brwCount2 = 15;
     var t_sqlname = 'custm_load'; t_postname = q_name;
-    var isBott = false;  /// ¬O§_¤w«ö¹L ³Ì«á¤@­¶
+    var isBott = false;  /// ï¿½Oï¿½_ï¿½wï¿½ï¿½ï¿½L ï¿½Ì«ï¿½@ï¿½ï¿½
     var afield, t_htm;
     var i, s1;
 
@@ -39,7 +41,7 @@
     });                  /// end ready
 
     function main() {
-        if (dataErr)  /// ¸ü¤J¸ê®Æ¿ù»~
+        if (dataErr)  /// ï¿½ï¿½Jï¿½ï¿½Æ¿ï¿½~
         {
             dataErr = false;
             return;
@@ -48,7 +50,7 @@
         mainBrow(6, t_content, t_sqlname, t_postname);
     }
 
-    function bbsAssign() {  /// ªí¨­¹Bºâ¦¡
+    function bbsAssign() {  /// ï¿½?ï¿½Bï¿½â¦¡
         _bbsAssign();
         for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
             $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
@@ -80,7 +82,7 @@
         if (!t_key)
             return;
 
-        _btnModi();
+        _btnModi(1);
 
         for (i = 0; i < abbsDele.length; i++) {
             abbsDele[i][bbsKey[0]] = t_key[1];
@@ -95,7 +97,7 @@
     }
     function sum() { }
 
-    function q_gtPost() {  /// ¸ê®Æ¤U¸ü«á ...
+    function q_gtPost() {  /// ï¿½ï¿½Æ¤Uï¿½ï¿½ï¿½ ...
         q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
         q_cmbParse("cmbWtype", q_getPara('custm.wtype'));
         q_cmbParse("cmbQtype", q_getPara('custm.qtype'));
@@ -114,7 +116,7 @@
     function btnPlus(org_htm, dest_tag, afield) {
         _btnPlus(org_htm, dest_tag, afield);
         if (q_tables == 's')
-            bbsAssign();  /// ªí¨­¹Bºâ¦¡ 
+            bbsAssign();  /// ï¿½?ï¿½Bï¿½â¦¡ 
     }
 
 </script>
