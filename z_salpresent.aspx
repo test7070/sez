@@ -32,7 +32,13 @@
                         type : '5',
                         name : 'xperson',
                         value : (('').concat(new Array("本國","日薪","外勞"))).split(',')
-                    }]
+                    },{
+                        type : '2',
+                        name : 'sssno',
+                        dbf : 'sss',
+                        index : 'noa,namea',
+                        src : 'sss_b.aspx'
+                        }]
                     });
                 q_popAssign();
                $('#txtDate1').mask('999/99/99');

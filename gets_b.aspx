@@ -1,15 +1,15 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title></title>
-<script src="../script/jquery.min.js" type="text/javascript"></script>
-<script src='../script/qj2.js' type="text/javascript"></script>
-    <script src='qset.js' type="text/javascript"></script>
-<script src='../script/qj_mess.js' type="text/javascript"></script>
-<script src='../script/mask.js' type="text/javascript"></script>
-
-<script type="text/javascript">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Content-Language" content="en-us" />
+		<title> </title>
+		<script src="../script/jquery.min.js" type="text/javascript"> </script>
+		<script src="../script/qj2.js" type="text/javascript"> </script>
+		<script src='qset.js' type="text/javascript"> </script>
+		<script src="../script/qj_mess.js" type="text/javascript"> </script>
+		<script src="../script/qbox.js" type="text/javascript"> </script>
+    	<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript">
     var q_name = 'gets', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
     var t_sqlname = 'gets_load'; t_postname = q_name;
     var isBott = false;  
@@ -76,7 +76,7 @@
         if (!t_key)
             return;
 
-        _btnModi();
+        _btnModi(1);
 
         for (i = 0; i < abbsDele.length; i++) {
             abbsDele[i][bbsKey[0]] = t_key[1];
@@ -146,23 +146,23 @@
         <table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style="width: 100%;" >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" class="td3"><a id='lblNoa'></a></td>
-                <td align="center" class="td3"><a id='lblUno'></a></td>
-                <td align="center" class="td1"><a id='lblProductno'></a></td>
-                <td align="center" class="td2"><a id='lblProduct'></a></td>
-                <td align="center" class="td2"><a id='lblSpec'></a></td>
-                <td align="center" class="td1"><a id='lblDime'></a></td>
-                <td align="center" class="td1"><a id='lblWidth'></a></td>
-                <td align="center" class="td1"><a id='lblLength'></a></td>
-                <td align="center" class="td3"><a id='lblMount'></a></td>
-                <td align="center" class="td1"><a id='lblGweight'></a></td>
-                <td align="center" class="td3"><a id='lblInvono'></a></td>
-                <td align="center" class="td3"><a id='lblNo2'></a></td>
-                <td align="center" class="td1"><a id='lblEweight'></a></td>
-                <td align="center" class="td1"><a id='lblMweight'></a></td>
-                <td align="center" class="td2"><a id='lblMemo'></a></td>
-                <td align="center" class="td1"><a id='lblRadius'></a></td>
-                <td align="center" class="td1"><a id='lblSize'></a></td>
+                <td align="center" class="td3"><a id='lblNoa'> </a></td>
+                <td align="center" class="td3"><a id='lblUno'> </a></td>
+                <td align="center" class="td1"><a id='lblProductno'> </a></td>
+                <td align="center" class="td2"><a id='lblProduct'> </a></td>
+                <td align="center" class="td2"><a id='lblSpec'> </a></td>
+                <td align="center" class="td1"><a id='lblDime'> </a></td>
+                <td align="center" class="td1"><a id='lblWidth'> </a></td>
+                <td align="center" class="td1"><a id='lblLength'> </a></td>
+                <td align="center" class="td3"><a id='lblMount'> </a></td>
+                <td align="center" class="td1"><a id='lblGweight'> </a></td>
+                <td align="center" class="td3"><a id='lblInvono'> </a></td>
+                <td align="center" class="td3"><a id='lblNo2'> </a></td>
+                <td align="center" class="td1"><a id='lblEweight'> </a></td>
+                <td align="center" class="td1"><a id='lblMweight'> </a></td>
+                <td align="center" class="td2"><a id='lblMemo'> </a></td>
+                <td align="center" class="td1"><a id='lblRadius'> </a></td>
+                <td align="center" class="td1"><a id='lblSize'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  /></td>
