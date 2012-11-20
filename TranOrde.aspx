@@ -464,8 +464,8 @@
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='nick' style="text-align: center;">~nick</td>
-						<td id='strdate' style="text-align: center;">~strdate</td>
 						<td id='datea' style="text-align: center;">~datea</td>
+						<td id='strdate' style="text-align: center;">~strdate</td>
 						<td id='dldate' style="text-align: center;">~dldate</td>
 						<td id='deliveryno' style="text-align: left;">~deliveryno</td>
 						<td id='po' style="text-align: left;">~po</td>
