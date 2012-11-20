@@ -21,7 +21,7 @@
 		    var q_readonly = ['txtNoa', 'txtWmoney', 'txtCmoney','txtMoney', 'txtTotal','txtWorker'];
 		    var q_readonlys = ['txtMemo2'];
 		    var bbmNum = new Array(['txtMiles', 10, 0],['txtDiscount', 10, 0], ['txtWmoney', 10, 0], ['txtCmoney', 10, 0], ['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]);
-		    var bbsNum = new Array(['txtPrice', 10, 1], ['txtMount', 10, 0], ['txtMoney', 10, 0]);
+		    var bbsNum = new Array(['txtPrice', 10, 1], ['txtMount', 10, 1], ['txtMoney', 10, 0]);
 		    var bbmMask = [];
 		    var bbsMask = [];
 		    q_sqlCount = 6;
@@ -243,8 +243,8 @@
 		            t_wmoney = t_wmoney + ($('#cmbWtype_' + j).val() == 'A' ? t_money : 0);
 		            t_cmoney = t_cmoney + ($('#cmbWtype_' + j).val() == 'B' ? t_money : 0);
 		        }
-		        t_tax = parseFloat($.trim($('#txtTax').val()).length == 0 ? '0' : $('#txtTax').val());
-		        t_discount = parseFloat($.trim($('#txtDiscount').val()).length == 0 ? '0' : $('#txtDiscount').val());
+		        t_tax = q_float('txtTax');
+		        t_discount = q_float('txtDiscount');
 		        $('#txtWmoney').val(t_wmoney);
 		        $('#txtCmoney').val(t_cmoney);
 		        $('#txtMoney').val(t_wmoney + t_cmoney);
