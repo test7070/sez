@@ -560,6 +560,23 @@
                 padding: 0px;
                 margin: -1px;
             }
+            .tbbs a {
+                font-size: medium;
+            }
+            .tbbs a {
+                font-size: medium;
+            }
+            .tbbs tr.error input[type="text"] {
+                color: red;
+            }
+            .tbbs
+        	{
+	            FONT-SIZE: medium;
+	            COLOR: blue ;
+	            TEXT-ALIGN: left;
+	             BORDER:1PX LIGHTGREY SOLID;
+	             width:100% ; height:98% ;  
+        	} 
             .num {
                 text-align: right;
             }
@@ -570,7 +587,7 @@
 	</head>
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain' style="overflow:hidden;">
+		<div id='dmain' >
 			<div class="dview" style="float: left;  width:25%;">
 				<table class="tview" id="tview" border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
@@ -643,14 +660,15 @@
 					</tr>
 				</table>
 			</div>
-
-			<div class='dbbs'>
-				<table id="tbbs" class='tbbs' border="1"  cellpadding='2' cellspacing='1'  style="width:100%;">
+		</div>
+		<div class='dbbs'>
+				<table id="tbbs" class='tbbs' border="1"  cellpadding='2' cellspacing='1' style="width: 1500px;">
 					<tr style='color:White; background:#003366;' >
 						<td align="center">
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 						</td>
 						<td align="center" style="width: 80px;"><a id='lblDateas'></a></td>
+						<td align="center" style="width: 70px;"><a id='lblNoq'></a></td>
 						<td align="center" style="width: 100px;"><a id='lblCaritem'></a></td>
 						<td align="center" style="width: 80px;"><a id='lblOutmoney'></a></td>
 						<td align="center" style="width: 80px;"><a id='lblInmoney'></a></td>
@@ -658,7 +676,7 @@
 						<td align="center" style="width: 100px;"><a id='lblAccount'></a></td>
 						<td align="center" style="width: 200px;"><a id='lblBank'></a></td>
 						<td align="center" style="width: 80px;"><a id='lblIndate'></a></td>
-						<td align="center"><a id='lblMemo'></a></td>
+						<td align="center" style="width: 200px;"><a id='lblMemo'></a></td>
 						<td align="center" style="width: 80px;"><a id='lblPay'></a></td>
 						<td align="center" style="width: 110px;"><a id='lblAcc2'></a></td>
 					</tr>
@@ -668,7 +686,10 @@
 						</td>
 						<td >
 							<input id="txtDatea.*" type="text" class="txt c1" />
-							<input id="recno.*" type="hidden" /><input id="txtNoq.*" type="hidden"/>
+							<input id="recno.*" type="hidden" />
+						</td>
+						<td >
+							<input id="txtNoq.*" type="text" class="txt c1"/>
 						</td>
 						<td >
 							<input id="txtCaritemno.*" type="text" class="txt c5"/>
@@ -697,7 +718,6 @@
 					</tr>
 				</table>
 			</div>
-		</div>
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
