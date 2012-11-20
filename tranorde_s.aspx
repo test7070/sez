@@ -39,6 +39,8 @@
                 t_edate = $('#txtEdate').val();
                 t_custno = $('#txtCustno').val();
           		
+          		t_bstrdate = $('#txtBstrdate').val();
+                t_estrdate = $('#txtEstrdate').val();
           		t_bdldate = $('#txtBdldate').val();
                 t_edldate = $('#txtEdldate').val();
                 t_deliveryno = $('#txtDeliveryno').val();
@@ -50,7 +52,8 @@
                 t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
                 /// 100.  .
 
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("dldate", t_bdldate, t_edldate)
+                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("datea", t_bdate, t_edate) 
+                 + q_sqlPara2("strdate", t_bstrdate, t_estrdate) + q_sqlPara2("dldate", t_bdldate, t_edldate)
                  + q_sqlPara2("custno", t_custno)+ q_sqlPara2("deliveryno", t_deliveryno)+ q_sqlPara2("po", t_po)
                  + q_sqlPara2("productno", t_productno)+ q_sqlPara2("addrno", t_addrno);
 
@@ -63,7 +66,7 @@
                 color: white;
                 text-align: center;
                 font-weight: bold;
-                BACKGROUND-COLOR: #76a2fe
+                background-color: #76a2fe
             }
 		</style>
 	</head>
@@ -76,6 +79,14 @@
 					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>
 					<input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td style="width:35%;" ><a id='lblStrdate'></a></td>
+					<td style="width:65%;  ">
+					<input class="txt" id="txtBstrdate" type="text" style="width:90px; font-size:medium;" />
+					<span style="display:inline-block; vertical-align:middle">&sim;</span>
+					<input class="txt" id="txtEstrdate" type="text" style="width:93px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>

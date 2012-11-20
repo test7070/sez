@@ -27,7 +27,7 @@
             var bbsNum = [];
             var bbsMask = new Array(['txtTrandate','999/99/99']);
             var bbmNum = new Array();
-            var bbmMask = new Array(['txtDatea','999/99/99'],['txtDldate','999/99/99'],['txtCldate','999/99/99'],['txtNodate','999/99/99'],['txtMadate','999/99/99'],['txtRedate','999/99/99']);
+            var bbmMask = new Array(['txtDatea','999/99/99'],['txtDldate','999/99/99'],['txtCldate','999/99/99'],['txtNodate','999/99/99'],['txtMadate','999/99/99'],['txtRedate','999/99/99'],['txtStrdate','999/99/99']);
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -123,6 +123,7 @@
                 $('#txtNodate').datepicker();
                 $('#txtMadate').datepicker();
                 $('#txtRedate').datepicker(); 
+                $('#txtStrdate').datepicker(); 
                 $('#txtDldate').datepicker(); 
             }
 
@@ -320,7 +321,7 @@
             }
             .dview {
                 float: left;
-                width:1000px;
+                width:1080px;
             }
             .tview {
                 margin: 0;
@@ -450,6 +451,7 @@
 						<td align="center" style="width:100px;"><a id='vewNoa'></a></td>
 						<td align="center" style="width:80px;"><a id='vewCust'></a></td>
 						<td align="center" style="width:80px;"><a id='vewDatea'></a></td>
+						<td align="center" style="width:80px;"><a id='vewStrdate'></a></td>
 						<td align="center" style="width:80px;"><a id='vewDldate'></a></td>
 						<td align="center" style="width:120px;"><a id='vewDeliveryno'></a></td>
 						<td align="center" style="width:120px;"><a id='vewPo'></a></td>
@@ -460,15 +462,16 @@
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
-						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='nick'>~nick</td>
-						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='dldate'>~dldate</td>
+						<td id='noa' style="text-align: center;">~noa</td>
+						<td id='nick' style="text-align: center;">~nick</td>
+						<td id='strdate' style="text-align: center;">~strdate</td>
+						<td id='datea' style="text-align: center;">~datea</td>
+						<td id='dldate' style="text-align: center;">~dldate</td>
 						<td id='deliveryno' style="text-align: left;">~deliveryno</td>
 						<td id='po' style="text-align: left;">~po</td>
 						<td id='product' style="text-align: left;">~product</td>
 						<td id='mount' style="text-align: right;">~mount</td>
-						<td id='unit' style="text-align: left;">~unit</td>
+						<td id='unit' style="text-align: center;">~unit</td>
 						<td id='addr' style="text-align: left;">~addr</td>
 					</tr>
 				</table>
@@ -495,10 +498,12 @@
 						<td>
 						<input type="text" id="txtDatea" class="txt c1"/>
 						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblStrdate" class="lbl"> </a></td>
+						<td><input type="text" id="txtStrdate" class="txt c1"/></td>
 						<td><span> </span><a id="lblDldate" class="lbl"> </a></td>
-						<td>
-						<input type="text" id="txtDldate" class="txt c1"/>
-						</td>
+						<td><input type="text" id="txtDldate" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCust" class="lbl"> </a></td>
