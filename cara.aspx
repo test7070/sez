@@ -32,8 +32,9 @@
 			//q_alias='a';
 			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,b.carowner', 'txtCarno,txtCarowner', "car2_b.aspx"],
 				['textCarseek', 'lblCarseek', 'car2', 'a.noa,b.carowner', 'textCarseek', "car2_b.aspx"],
+				['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
 				['txtCaritemno_', 'btnCaritem_', 'caritem', 'noa,item,typea,acc1,acc2', 'txtCaritemno_,txtCaritem_,txtTypea_,txtAcc1_,txtAcc2_', 'caritem_b.aspx'], 
-				['txtAcc1_', 'btnAcc', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+				['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -57,7 +58,7 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd],['txtMon', r_picm],['txtPdate', r_picd]];
                 q_mask(bbmMask);
-				bbsMask = [['txtDatea', r_picd]];
+				bbsMask = [['txtDatea', r_picd],['txtIndate', r_picd]];
                 q_mask(bbsMask);
                 
                 q_cmbParse("cmbIsource", q_getPara('cara.isource'));
@@ -93,6 +94,10 @@
 				}).blur(function() {
 					q_cur=0;
 				});
+				
+				$('#btnNextmon').click(function () {
+					
+		     	});
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -113,66 +118,83 @@
                 		if(dateimport){
                 			var as = _q_appendData("car2", "", true);
                 			if(as[0]!=undefined){
+                				as[0]._datea=q_date();
+                				if(dec($('#txtIprev').val())>dec(as[0].irange)&&dec(as[0].irate)>0)
+                				{
+                					as[0]._iratefee=Math.round((dec($('#txtIprev').val())-dec(as[0].irange))*dec(as[0].irate))
+                					as[0].caritemno='002';
+                    				as[0].caritem='上月利息';
+                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,_iratefee', 'txtCaritemno');
+                				}
+                				
+                				if(dec($('#txtBprev').val())>0&&dec(as[0].irate)>0)
+                				{
+                					as[0]._bratefee=Math.round(dec($('#txtBprev').val())*dec(as[0].irate))
+                					as[0].caritemno='202';
+                    				as[0].caritem='借支利息';
+                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,_bratefee', 'txtCaritemno');
+                				}
+                				
                 				if(dec(as[0].manage)>0){
                 					as[0].caritemno='401';
                     				as[0].caritem='行費';//管理費
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtCaritemno,txtCaritem,txtOutmoney', 1, as, 'caritemno,caritem,manage', 'txtCaritemno');
+                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,manage', 'txtCaritemno');
                     			}
                     			if(dec(as[0].guile)>0){
                     				as[0].caritemno='402';
                     				as[0].caritem='公會費'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtCaritemno,txtCaritem,txtOutmoney', 1, as, 'caritemno,caritem,guile', 'txtCaritemno');
+                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,guile', 'txtCaritemno');
                     			}
                     			if(dec(as[0].reserve)>0){
                     				as[0].caritemno='000';//未定
                     				as[0].caritem='準備金'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtCaritemno,txtCaritem,txtOutmoney', 1, as, 'caritemno,caritem,reserve', 'txtCaritemno');
+                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,reserve', 'txtCaritemno');
                     			}
                     			if(dec(as[0].help)>0){
                     				as[0].caritemno='000';//未定
                     				as[0].caritem='互助金'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtCaritemno,txtCaritem,txtOutmoney', 1, as, 'caritemno,caritem,help', 'txtCaritemno');
+                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,help', 'txtCaritemno');
                     			}
                     			
                     			//上牌照稅
                     			if(as[0].ulicensemon==$('#txtMon').val().substr(4,2)&&dec(as[0].ulicense)>0){
                     				as[0].caritemno='501';
                     				as[0].caritem='牌照稅'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtCaritemno,txtCaritem,txtOutmoney', 1, as, 'caritemno,caritem,ulicense', 'txtCaritemno');
+                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,ulicense', 'txtCaritemno');
                     			}
                     			//下牌照稅
                     			if(as[0].dlicensemon==$('#txtMon').val().substr(4,2)&&dec(as[0].dlicense)>0){
                     				as[0].caritemno='501';
                     				as[0].caritem='牌照稅'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtCaritemno,txtCaritem,txtOutmoney', 1, as, 'caritemno,caritem,dlicense', 'txtCaritemno');
+                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,dlicense', 'txtCaritemno');
                     			}
                     			
                     			//春燃料費
                     			if(as[0].springmon==$('#txtMon').val().substr(4,2)&&dec(as[0].spring)>0){
                     				as[0].caritemno='502';
                     				as[0].caritem='燃料費'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtCaritemno,txtCaritem,txtOutmoney', 1, as, 'caritemno,caritem,spring', 'txtCaritemno');
+                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,spring', 'txtCaritemno');
                     			}
                     			//夏燃料費
                     			if(as[0].summermon==$('#txtMon').val().substr(4,2)&&dec(as[0].summer)>0){
                     				as[0].caritemno='502';
                     				as[0].caritem='燃料費'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtCaritemno,txtCaritem,txtOutmoney', 1, as, 'caritemno,caritem,summer', 'txtCaritemno');
+                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,summer', 'txtCaritemno');
                     			}
                     			//秋燃料費
                     			if(as[0].fallamon==$('#txtMon').val().substr(4,2)&&dec(as[0].falla)>0){
                     				as[0].caritemno='502';
                     				as[0].caritem='燃料費'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtCaritemno,txtCaritem,txtOutmoney', 1, as, 'caritemno,caritem,falla', 'txtCaritemno');
+                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,falla', 'txtCaritemno');
                     			}
                     			//冬燃料費
                     			if(as[0].wintermon==$('#txtMon').val().substr(4,2)&&dec(as[0].winter)>0){
                     				as[0].caritemno='502';
                     				as[0].caritem='燃料費'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtCaritemno,txtCaritem,txtOutmoney', 1, as, 'caritemno,caritem,winter', 'txtCaritemno');
+                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,winter', 'txtCaritemno');
                     			}
                 			}
-                			//保費
+                			//保險費
 					        var t_where = "where=^^ noa ='"+$('#txtCarno').val()+"' and inmon='"+$('#txtMon').val()+"' ^^";
 					        q_gt('carinsure', t_where , 0, 0, 0, "", r_accy);
 					    }
@@ -181,9 +203,10 @@
                 		var as = _q_appendData("carinsure", "", true);
                     		if(as[0]!=undefined){
                     			if(dec(as[0].money)>0){
+                    				as[0]._datea=q_date();
                     				as[0].caritemno='306';
                     				as[0].caritem='保險費'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtCaritemno,txtCaritem,txtOutmoney', 1, as, 'caritemno,caritem,money', 'txtCaritemno');
+                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,money', 'txtCaritemno');
                     			}
                     		}
                     		sum();
@@ -196,12 +219,18 @@
 		                        	as.splice(i, 1);
 		                        	i--;
                     			}
-                    			q_tr('txtIprev',dec(as[0].itotal));//上月息額取上一張累計息額
+                    			//上月息額取上一張累計息額並判斷來源
+                    			if(as[0].isource=='1'){
+                    				q_tr('txtIprev',dec(as[0].itotal));
+                    			}else{
+                    				q_tr('txtIprev',dec(as[0].iset));
+                    			}
                     			q_tr('txtBprev',dec(as[0].btotal));//上月借支餘額取上一張本月借支餘額
                     			if(dec(as[0].total)>0){
+                    				as[0]._datea=q_date();
                     				as[0].caritemno='001';
                     				as[0].caritem='上月欠款'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtCaritemno,txtCaritem,txtOutmoney', as.length, as, 'caritemno,caritem,total', 'txtCaritemno');
+                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', as.length, as, '_datea,caritemno,caritem,total', 'txtCaritemno');
                     			}
                     		}
                     		//管理費,公會費,準備金,互助金,牌照稅,燃料費
@@ -319,12 +348,7 @@
                 }
                 
                 q_tr('txtInterest',t_interest);//本月息額
-                
-                if($('#cmbIsource').val()=='1')//累計息額
-                	q_tr('txtItotal',dec($('#txtIprev').val())+dec($('#txtInterest').val()));
-                else
-                	q_tr('txtItotal',dec($('#txtIset').val())+dec($('#txtInterest').val()));
-                	
+                q_tr('txtItotal',dec($('#txtIprev').val())+dec($('#txtInterest').val()));//累計息額
                 q_tr('txtBin',t_bin);//本月借支-入款
                 q_tr('txtBtotal',dec($('#txtBprev').val())+dec($('#txtBin').val()));//本月借支餘額
                 q_tr('txtTotal',t_total);//金額合計
@@ -353,10 +377,14 @@
                 _readonly(t_para, empty);
                 
                 if (t_para) {
-		            $('#textCarseek').removeAttr('disabled');	          
+		            $('#textCarseek').removeAttr('disabled');
+		            $('#btnNextmon').removeAttr('disabled');
+		            $('#btnImport').attr('disabled', 'disabled');
 		        }
 		        else {
-		        	$('#textCarseek').attr('disabled', 'disabled');	 
+		        	$('#textCarseek').attr('disabled', 'disabled');
+		        	$('#btnNextmon').attr('disabled', 'disabled');
+		        	$('#btnImport').removeAttr('disabled');
 		        }
             }
 
@@ -572,28 +600,28 @@
 						<td class="td6"><input id="btnImport" type="button" /></td>
 					</tr>
 					<tr class="tr2">
-						<td class="td1"><span> </span><a id='lblIprev' class="lbl"></a></td>
-						<td class="td2"><input id="txtIprev" type="text" class="txt num c1"/></td>
-						<td class="td3"><span> </span><a id='lblIset' class="lbl"></a></td>
-						<td class="td4"><input id="txtIset"  type="text" class="txt num c1"/></td>
-						<td class="td5"><span> </span><a id='lblIsource' class="lbl"></a></td>
-						<td class="td6"><select id="cmbIsource" class="txt c1" style="font-size: medium;"></select></td>
+						<td class="td1"><span> </span><a id='lblMon' class="lbl"></a></td>
+						<td class="td2"><input id="txtMon"  type="text" class="txt c1"/></td>
+						<td class="td3"><span> </span><a id='lblIprev' class="lbl"></a></td>
+						<td class="td4"><input id="txtIprev" type="text" class="txt num c1"/></td>
+						<td class="td5"><span> </span><a id='lblIset' class="lbl"></a></td>
+						<td class="td6"><input id="txtIset"  type="text" class="txt num c1"/></td>
 						<td class="td7"><span> </span><a id='lblBprev' class="lbl"></a></td>
 						<td class="td8"><input id="txtBprev"  type="text" class="txt num c1"/></td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1"><span> </span><a id='lblMon' class="lbl"></a></td>
-						<td class="td2"><input id="txtMon"  type="text" class="txt c1"/></td>
+						<td class="td1"><span> </span><a id='lblPdate' class="lbl"></a></td>
+						<td class="td2"><input id="txtPdate"  type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id='lblInterest' class="lbl"></a></td>
 						<td class="td4"><input id="txtInterest"  type="text" class="txt num c1"/></td>
-						<td class="td5"></td>
-						<td class="td6"></td>
+						<td class="td5"><span> </span><a id='lblIsource' class="lbl"></a></td>
+						<td class="td6"><select id="cmbIsource" class="txt c1" style="font-size: medium;"></select></td>
 						<td class="td7"><span> </span><a id='lblBin' class="lbl"></a></td>
 						<td class="td8"><input id="txtBin" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr class="tr4">
-						<td class="td1"><span> </span><a id='lblPdate' class="lbl"></a></td>
-						<td class="td2"><input id="txtPdate"  type="text" class="txt c1"/></td>
+						<td class="td1"><span> </span><a id='lblTotal' class="lbl"></a></td>
+						<td class="td2"><input id="txtTotal"  type="text" class="txt num c1">	</td>
 						<td class="td3"><span> </span><a id='lblItotal' class="lbl"></a></td>
 						<td class="td4"><input id="txtItotal"  type="text" class="txt num c1"/></td>
 						<td class="td5"></td>
@@ -606,14 +634,12 @@
 					-->
 					</tr>
 					<tr class="tr5">
-						<td class="td1"><span> </span><a id='lblTotal' class="lbl"></a></td>
-						<td class="td2"><input id="txtTotal"  type="text" class="txt num c1">	</td>
-						<td class="td3"></td>
-						<td class="td4"><input id="btnNextmon" type="button" /></td>
-						<td class="td5"><span> </span><a id='lblDatea' class="lbl"></a></td>
-						<td class="td6"><input id="txtDatea"  type="text" class="txt c1"/></td>
-						<td class="td7"><span> </span><a id='lblNoa' class="lbl"></a></td>
-						<td class="td8"><input id="txtNoa"  type="text" class="txt c1"/>	</td>
+						<td class="td1"></td>
+						<td class="td2"><input id="btnNextmon" type="button" /></td>
+						<td class="td3"><span> </span><a id='lblDatea' class="lbl"></a></td>
+						<td class="td4"><input id="txtDatea"  type="text" class="txt c1"/></td>
+						<td class="td5"><span> </span><a id='lblNoa' class="lbl"></a></td>
+						<td class="td6"><input id="txtNoa"  type="text" class="txt c1"/>	</td>
 					</tr>
 				</table>
 			</div>
@@ -624,16 +650,17 @@
 						<td align="center">
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 						</td>
-						<td align="center" class="ch2"><a id='lblDateas'></a></td>
-						<td align="center" class="ch2"><a id='lblNoq'></a></td>
-						<td align="center" class="ch2"><a id='lblCaritemno'></a></td>
-						<td align="center" class="ch1"><a id='lblCaritem'></a></td>
-						<td align="center" class="ch1"><a id='lblOutmoney'></a></td>
-						<td align="center" class="ch1"><a id='lblInmoney'></a></td>
+						<td align="center" style="width: 80px;"><a id='lblDateas'></a></td>
+						<td align="center" style="width: 100px;"><a id='lblCaritem'></a></td>
+						<td align="center" style="width: 80px;"><a id='lblOutmoney'></a></td>
+						<td align="center" style="width: 80px;"><a id='lblInmoney'></a></td>
+						<td align="center" style="width: 100px;"><a id='lblCheckno'></a></td>
+						<td align="center" style="width: 100px;"><a id='lblAccount'></a></td>
+						<td align="center" style="width: 200px;"><a id='lblBank'></a></td>
+						<td align="center" style="width: 80px;"><a id='lblIndate'></a></td>
 						<td align="center"><a id='lblMemo'></a></td>
-						<td align="center" class="ch2"><a id='lblPay'></a></td>
-						<td align="center" class="ch2"><a id='lblAcc1'></a></td>
-						<td align="center" class="ch1"><a id='lblAcc2'></a></td>
+						<td align="center" style="width: 80px;"><a id='lblPay'></a></td>
+						<td align="center" style="width: 110px;"><a id='lblAcc2'></a></td>
 					</tr>
 					<tr  style='background:#cad3ff;'>
 						<td style="width:1%;">
@@ -641,23 +668,32 @@
 						</td>
 						<td >
 							<input id="txtDatea.*" type="text" class="txt c1" />
-							<input id="recno.*" type="hidden" />
+							<input id="recno.*" type="hidden" /><input id="txtNoq.*" type="hidden"/>
 						</td>
-						<td ><input id="txtNoq.*" type="text" class="txt c1"/></td>
 						<td >
 							<input id="txtCaritemno.*" type="text" class="txt c5"/>
 							<input class="btn"  id="btnCaritem.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+							<input id="txtCaritem.*" type="text" class="txt c1"/>
+							<input id="txtTypea.*" type="hidden"/>
 						</td>
-						<td ><input id="txtCaritem.*" type="text" class="txt c1"/><input id="txtTypea.*" type="hidden"/></td>
 						<td ><input id="txtOutmoney.*" type="text" class="txt num c1"/></td>
 						<td ><input id="txtInmoney.*" type="text" class="txt num c1"/></td>
+						<td><input type="text" id="txtCheckno.*"  class="txt c1" />	</td>
+						<td>	<input type="text" id="txtAccount.*"  class="txt c1" /></td>
+						<td>
+							<input type="button" id="btnBankno.*"  style="float:left;width:7%;" value="."/>
+							<input type="text" id="txtBankno.*" class="txt c1" style="float:left;width:35%;" />
+							<input type="text" id="txtBank.*" class="txt c1"style="float:left;width:47%;"/>
+                    		<input type="text" id="txtTitle.*" class="txt c1"style="width:95%;" />
+						</td>
+						<td><input type="text" id="txtIndate.*" class="txt c1" /></td>
 						<td ><input id="txtMemo.*" type="text" class="txt c1"/></td>
 						<td ><input id="txtPay.*" type="text" class="txt num c1"/></td>
 						<td >
 							<input id="txtAcc1.*" type="text"class="txt c5"/>
 							<input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+							<input id="txtAcc2.*" type="text" class="txt c1"/></td>
 						</td>
-						<td ><input id="txtAcc2.*" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

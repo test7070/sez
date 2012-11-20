@@ -73,7 +73,6 @@
 	        $('#txtP320').change(function () {
 	           sum();
 	        });
-	        
         }
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -398,8 +397,8 @@
                <td class="td2" colspan="2"><input id="txtSssno"  type="text"  class="txt c2"/><input id="txtNamea"  type="text"  class="txt c3"/></td>
                <td class="td4" ><span> </span><a id="lblPart" class="lbl btn"></a></td>
                <td class="td5" colspan="2"><input id="txtPartno"  type="text"  class="txt c2"/><input id="txtPart" type="text"  class="txt c3"/></td> 
-               <td class="td7"><span> </span><a id="lblChgcashno" class="lbl"></a></td>
-               <td class="td8"><input id="txtChgcashno" type="text" class="txt c1" /></td>                          
+               <!--<td class="td7"><span> </span><a id="lblChgcashno" class="lbl btn"></a></td>
+               <td class="td8"><input id="txtChgcashno" type="text" class="txt c1" /></td>-->                          
             </tr>
             <tr class="tr3">
             	<td class="td1"><span> </span><a id="lblPosts" class="lbl"></a></td>
