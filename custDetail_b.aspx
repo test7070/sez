@@ -1,11 +1,10 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
     <title> </title>
     <script src="../script/jquery.min.js" type="text/javascript"> </script>
     <script src='../script/qj2.js' type="text/javascript"> </script>
-    <script src='qset.js' type="text/javascript"> </script>
+        <script src='qset.js' type="text/javascript"> </script>
     <script src='../script/qj_mess.js' type="text/javascript"> </script>
     <script src="../script/qbox.js" type="text/javascript"> </script>
     <script src='../script/mask.js' type="text/javascript"> </script>
@@ -23,24 +22,22 @@
         var bbsNum = [];
         var bbmMask = [];
         var bbsMask = [];
-        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtStoreno', 'lblStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
-        ['txtStorinno', 'lblStorein', 'store', 'noa,store', 'txtStorinno,txtStorin', 'store_b.aspx'],
-        ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
-        ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
-        ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
+        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
+        q_desc=1;
 
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
+            
             q_brwCount();   
-            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy )
+
+            q_gt(q_name, q_content, q_sqlCount, 1)  
 
         });
 
         //////////////////   end Ready
         function main() {
-            if (dataErr)  
+            if (dataErr) 
             {
                 dataErr = false;
                 return;
@@ -49,15 +46,25 @@
             mainForm(1); 
         }  
 
+       
         function mainPost() { 
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd]];
+            bbmMask = [['txtNoa', r_picd]];
             q_mask(bbmMask);
-            q_cmbParse("cmbTypea", q_getPara('cng.typea'));
-            q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
+           
+           
+            
+            /* $('#chkHoliday').click(function () {
+            	table_change();
+            });
+            
+            $('#btnInput').click(function () {
+            	var t_where = "where=^^ (outdate is null or outdate='' or outdate >'"+$('#txtNoa').val()+"') and noa not in (select sssno from salvacause where datea='"+$('#txtNoa').val()+"' and hname not like '遲到' and hname not like '早退' ) ^^";
+            	q_gt('sss', t_where, 0, 0, 0, "", r_accy);
+            });*/
         }
 
-        function q_boxClose(s2) { ///   q_boxClose 2/4 
+        function q_boxClose(s2) { 
             var ret;
             switch (b_pop) {   
                 case q_name + '_s':
@@ -68,59 +75,68 @@
         }
 
 
-        function q_gtPost(t_name) {  
+        function q_gtPost(t_name) { 
             switch (t_name) {
-                case q_name: if (q_cur == 4)   
+            	case 'sss':
+            		var as = _q_appendData("sss", "", true);
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea', as.length, as, 'noa,namea', '');
+            		table_change();
+            	break;
+                case q_name: 
+                	if (q_cur == 1){
+                		var as = _q_appendData("salpresent", "", true);
+	                	if(as[0]!=undefined)
+	                 		insed=true;
+	                 	else
+	                 		insed=false;
+                	}
+                	if (q_cur == 4)   // ?d??
                         q_Seek_gtPost();
                     break;
             }  /// end switch
         }
 
         function btnOk() {
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  
-            if (t_err.length > 0) {
-                alert(t_err);
-                return;
-            }
-
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // ??d??? 
+           
             $('#txtWorker').val(r_name)
             sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
-            if (s1.length == 0 || s1 == "AUTO")   
-                q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
-            else
-                wrServer(s1);
+            wrServer(s1);
         }
 
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('custdetail_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+            q_box('salpresent_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
-        function combPay_chg() {   
-        }
-
-        function bbsAssign() {  
+        function bbsAssign() {  /// ???B??
             _bbsAssign();
         }
-
+		
+		var insed=false;
         function btnIns() {
             _btnIns();
-            $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-            $('#txtDatea').val(q_date());
-            $('#txtDatea').focus();
+            $('#txtNoa').val(q_date());
+            $('#txtNoa').focus();
+            
+            
+            //判斷當天是否新增過
+            var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^";
+		    q_gt('salpresent', t_where , 0, 0, 0, "", r_accy);
+            table_change();
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            $('#txtProduct').focus();
+            $('#txtNoa').attr('disabled', 'disabled');
         }
         function btnPrint() {
-		q_box('z_cng.aspx'+ "?;;;;" + r_accy+ ";noa=" + trim($('#txtNoa').val()), '', "1000px", "700px", q_getMsg("popPrint"));
+
         }
 
         function wrServer(key_value) {
@@ -130,9 +146,9 @@
             _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
         }
 
-        function bbsSave(as) {
-            if (!as['productno'] ) {  
-                as[bbsKey[1]] = '';   
+        function bbsSave(as) {   
+            if (!as['datea']) {  
+                as[bbsKey[1]] = '';  
                 return;
             }
 
@@ -153,17 +169,12 @@
         }
 
         function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0;
-            for (var j = 0; j < q_bbsCount; j++) {
-
-            }  // j
-
+            
         }
-
-        
         function refresh(recno) {
             _refresh(recno);
-       }
+			
+        }
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
@@ -392,8 +403,8 @@
 				</table>
 			</div>
 		</div>
-		<div class='dbbs' >
-			<table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
+		<div class='dbbs' > <%--style="overflow-x: hidden; overflow-y: scroll; height:200px"  --%>
+        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:3%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
@@ -403,16 +414,12 @@
 					<td align="center" style="width:150px;"><a id='lblMemo2_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
-					<td align="center">
-					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
-					</td>
-					<td><input id="txtDatea.*" type="text" class="txt c1" /></td>
-					<td><input id="txtDescript.*" type="text" class="txt c1" /></td>
-					<td>
-					<input  id="txtMemo2.*"  class="txt c1" type="text" />
-					<input id="txtNoq.*" type="hidden" />
-					</td>
-				</tr>
+                <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+                <td ><input id="txtDatea.*" type="text" class="txt c1"/></td>
+                <td ><input class="txt c1" id="txtDescript.*" type="text"/></td>
+                <td ><input class="txt c1" id="txtMemo2.*" type="text" />
+                <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
+            </tr>
 				
 			</table>
 		</div>
