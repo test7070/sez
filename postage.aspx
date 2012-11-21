@@ -97,7 +97,7 @@
                 return;
 
             _btnModi();
-            $('#txtMount').focus();
+            $('#txtBeginmount').focus();
         }
 
         function btnPrint() {
