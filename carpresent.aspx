@@ -9,6 +9,10 @@
     <script src="../script/qbox.js" type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
+    <link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
     <script type="text/javascript">
         this.errorHandler = null;
         function onPageError(error) {
@@ -46,21 +50,37 @@
 
             mainForm(1); 
         }  
-		var today_unpresent=[];
-		var Unbtn=false;//讓開始匯入資料時不判斷今天是否已匯入未出車
+
         function mainPost() { 
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
             //工具隱藏
-            //$('#btnIns').attr('hidden', 'true');//新增
+            //$('#btnIns').hide();//新增
             $('#btnIns').val("未出車匯入");
-            $('#btnSeek').attr('hidden', 'true');//查詢
-            $('#btnPrint').attr('hidden', 'true');//列印
-            $('#btnAuthority').attr('hidden', 'true');//權限
-            $('#btnSign').attr('hidden', 'true');//簽核
-            $('#tbbm').attr('hidden', 'true');//BBM隱藏
-				
+            $('#btnSeek').hide();//查詢
+            $('#btnPrint').hide();//列印
+            $('#btnAuthority').hide();//權限
+            $('#btnSign').hide();//簽核
+            $('#tbbm').hide();//BBM隱藏
+			
+			$('#lblClose_divImportdate').parent().click(function(e) {//按下關閉
+				$('#divImportdate').hide();
+			});
+			$('#lbl_divImport').parent().click(function(e) {//按下資料匯入
+				$('#divImportdate').hide();
+				if(!emp($('#txtBdate').val())&&!emp($('#txtEdate').val())){
+					q_func("dtable.dele", "carpresents,datea >=^^"+$('#txtBdate').val()+"^^ and datea <=^^"+$('#txtEdate').val()+"^^ ");//刪除bbs重覆資料
+					q_func("dtable.dele", "carpresent,datea >=^^"+$('#txtBdate').val()+"^^ and datea <=^^"+$('#txtEdate').val()+"^^ ");//刪除bbm重覆資料
+					t_date=$('#txtBdate').val();
+					insimport=true;
+		    		insdata();
+		    	}
+			});
+			$('#txtBdate').mask('999/99/99');
+            $('#txtBdate').datepicker();
+            $('#txtEdate').mask('999/99/99');
+            $('#txtEdate').datepicker();
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -72,39 +92,84 @@
             }   /// end Switch
             b_pop = '';
         }
-
-
+		
+		var t_date='';
+		var insimport=false;
+		function insdata() {
+		    if(t_date<=$('#txtEdate').val()&&t_date!=''){
+		    	//跳過六日
+		    	if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6){
+		    		//日期加一天
+				    var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+				    nextdate.setDate(nextdate.getDate() +1)
+				    t_date=''+(nextdate.getFullYear()-1911)+'/';
+				    //月份
+				    if(nextdate.getMonth()+1<10)
+				    	t_date=t_date+'0'+(nextdate.getMonth()+1)+'/';
+				    else
+				       	t_date=t_date+(nextdate.getMonth()+1)+'/';
+				    //日期
+				    if(nextdate.getDate()<10)
+				    	t_date=t_date+'0'+(nextdate.getDate());
+				    else
+				     	t_date=t_date+(nextdate.getDate());
+				     insdata();
+				     return;
+		    	}
+		    	//呼叫要匯入的資料
+				var t_where = "where=^^ a.cartype='2' and len( carno)=6 AND CHARINDEX( '-',carno) > 0 and (len(outdate)=0 OR outdate is null) and carno not in (select noa from carChange where len(enddate)>0 or len(wastedate)>0 or len(canceldate)>0) ";
+				t_where=t_where+"and a.carno not in (select carno from trans101 where carno in(select noa from car2 where cartype='2') and datea='"+t_date+"' group by carno) ^^";
+			    q_gt('car2_carteam', t_where , 0, 0, 0, "", r_accy);
+			}else{
+				insimport=false;
+				location.href = location.href ;//重新整理
+				return;
+			}
+		}
+		
         function q_gtPost(t_name) {  
             switch (t_name) {
             	case 'car2_carteam':
+            	//開始新增
+            	_btnIns();
+            	$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+	            $('#txtDatea').val(t_date);
+	            $('#txtWeek').val(weekday(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()));
+	            $('#txtDatea').focus();
+            	
+            	//匯進資料
             	var as = _q_appendData("car2", "", true);
             	q_gridAddRow(bbsHtm, 'tbbs', 'txtCarno,txtCarteam', as.length, as, 'carno,team', '');
             	$('#txtUnpresent').val(as.length);
             	for (var i = 0; i < q_bbsCount; i++) {
             		if(!emp($('#txtCarno_'+i).val()))
             		{
-            			$('#txtDatea_'+i).val(q_date());
-            			$('#txtWeek_'+i).val(weekday(today.getDay()));
+            			$('#txtDatea_'+i).val(t_date);
+            			$('#txtWeek_'+i).val(weekday(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()));
             			chkshow(i);
             		}
             	}
             	
+				//存檔
+				btnOk();
+				
+				//日期加一天
+			    var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+			    nextdate.setDate(nextdate.getDate() +1)
+			    t_date=''+(nextdate.getFullYear()-1911)+'/';
+			    //月份
+			    if(nextdate.getMonth()+1<10)
+			    	t_date=t_date+'0'+(nextdate.getMonth()+1)+'/';
+			    else
+			       	t_date=t_date+(nextdate.getMonth()+1)+'/';
+			    //日期
+			    if(nextdate.getDate()<10)
+			    	t_date=t_date+'0'+(nextdate.getDate());
+			    else
+			     	t_date=t_date+(nextdate.getDate());
+				
             	break;
-                case q_name: 
-                	if(Unbtn){
-	                	today_unpresent = _q_appendData(q_name, "", true);
-	                	if(today_unpresent[0]==undefined)
-	                	{		     
-			            	var t_where = "where=^^ a.cartype='2' and len( carno)=6 AND CHARINDEX( '-',carno) > 0 and (len(outdate)=0 OR outdate is null) and carno not in (select noa from carChange where len(enddate)>0 or len(wastedate)>0 or len(canceldate)>0) ";
-			            	t_where=t_where+"and a.carno not in (select carno from trans101 where carno in(select noa from car2 where cartype='2') and datea='"+q_date()+"' group by carno) ^^";
-	            			q_gt('car2_carteam', t_where , 0, 0, 0, "", r_accy);    
-						}else{
-							alert("今天已匯入未出車資料");
-							btnCancel();
-	                		return;
-						}
-					}
-                	
+                case q_name: 	
                 	if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
@@ -207,18 +272,13 @@
         }
 
         function btnIns() {
-        		today = new Date();//防止更改日期
-             	//讀取今天是否以新增過未出車
-            	var t_where = "where=^^ datea='"+q_date()+"' ^^";
-            	q_gt(q_name, t_where , 0, 0, 0, "", r_accy);
-            	Unbtn=true;
-        	
-        	
-            _btnIns();
-            $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-            $('#txtDatea').val(q_date());
-            $('#txtWeek').val(weekday(today.getDay()));
-            $('#txtDatea').focus();
+        	if ($('#divImportdate').is(":hidden")) {
+				$('#divImportdate').show();
+				$('#txtBdate').val(q_date());
+				$('#txtEdate').val(q_date());
+			} else{
+				$('#divImportdate').hide();
+        	}
 
         }
         function btnModi() {
@@ -265,6 +325,9 @@
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
+            //繼續新增資料
+          if(insimport)
+          	insdata();
        }
 		
         function readonly(t_para, empty) {
@@ -324,33 +387,33 @@
         
         function chkhidden(id)
         {
-        	$('#chkMemo1_'+id).attr('hidden', 'true');
-        	$('#chkMemo2_'+id).attr('hidden', 'true');
-        	$('#chkMemo3_'+id).attr('hidden', 'true');
-        	$('#chkMemo4_'+id).attr('hidden', 'true');
-        	$('#chkMemo5_'+id).attr('hidden', 'true');
-        	$('#chkMemo6_'+id).attr('hidden', 'true');
-        	$('#labmemo1_'+id).attr('hidden', 'true');
-        	$('#labmemo2_'+id).attr('hidden', 'true');
-        	$('#labmemo3_'+id).attr('hidden', 'true');
-        	$('#labmemo4_'+id).attr('hidden', 'true');
-        	$('#labmemo5_'+id).attr('hidden', 'true');
-        	$('#labmemo6_'+id).attr('hidden', 'true');
+        	$('#chkMemo1_'+id).hide();
+        	$('#chkMemo2_'+id).hide();
+        	$('#chkMemo3_'+id).hide();
+        	$('#chkMemo4_'+id).hide();
+        	$('#chkMemo5_'+id).hide();
+        	$('#chkMemo6_'+id).hide();
+        	$('#labmemo1_'+id).hide();
+        	$('#labmemo2_'+id).hide();
+        	$('#labmemo3_'+id).hide();
+        	$('#labmemo4_'+id).hide();
+        	$('#labmemo5_'+id).hide();
+        	$('#labmemo6_'+id).hide();
         }
         function chkshow(id)
         {
-        	$('#chkMemo1_'+id).removeAttr('hidden');
-        	$('#chkMemo2_'+id).removeAttr('hidden');
-        	$('#chkMemo3_'+id).removeAttr('hidden');
-        	$('#chkMemo4_'+id).removeAttr('hidden');
-        	$('#chkMemo5_'+id).removeAttr('hidden');
-        	$('#chkMemo6_'+id).removeAttr('hidden');
-        	$('#labmemo1_'+id).removeAttr('hidden');
-        	$('#labmemo2_'+id).removeAttr('hidden');
-        	$('#labmemo3_'+id).removeAttr('hidden');
-        	$('#labmemo4_'+id).removeAttr('hidden');
-        	$('#labmemo5_'+id).removeAttr('hidden');
-        	$('#labmemo6_'+id).removeAttr('hidden');
+        	$('#chkMemo1_'+id).show();
+        	$('#chkMemo2_'+id).show();
+        	$('#chkMemo3_'+id).show();
+        	$('#chkMemo4_'+id).show();
+        	$('#chkMemo5_'+id).show();
+        	$('#chkMemo6_'+id).show();
+        	$('#labmemo1_'+id).show();
+        	$('#labmemo2_'+id).show();
+        	$('#labmemo3_'+id).show();
+        	$('#labmemo4_'+id).show();
+        	$('#labmemo5_'+id).show();
+        	$('#labmemo6_'+id).show();
         }
         function weekday(wd)
 		{
@@ -484,11 +547,92 @@
              input[type="text"],input[type="button"] {     
                 font-size: medium;
             }
-      
+            
+            .popDiv {
+				position: absolute;
+				z-index: 99;
+				background: #4297D7;
+				border: 2px #EEEEEE solid;
+				display: none;/*default*/
+			}
+			.popDiv .block {
+				border-radius: 5px;
+			}
+			.popDiv .block .col {
+				display: block;
+				width: 600px;
+				height: 30px;
+				margin-top: 5px;
+				margin-left: 5px;
+			}
+      		.btnLbl {
+				background: #cad3ff;
+				border-radius: 5px;
+				display: block;
+				width: 95px;
+				height: 25px;
+				cursor: default;
+			}
+			.btnLbl.tb {
+				float: right;
+			}
+			.btnLbl.button {
+				cursor: pointer;
+				background: #76A2FE;
+			}
+			.btnLbl.button.close {
+				background: #cad3ff;
+			}
+			.btnLbl.button:hover {
+				background: #FF8F19;
+			}
+			.btnLbl a {
+				color: blue;
+				font-size: medium;
+				height: 25px;
+				line-height: 25px;
+				display: block;
+				text-align: center;
+			}
+			.btnLbl.button a {
+				color: #000000;
+			}
+			.btnLbl.close a {
+				color: red;
+				font-size: 16px;
+				height: 25px;
+				line-height: 25px;
+				display: block;
+				text-align: center;
+			}
     </style>
 </head>
 <body>
 <!--#include file="../inc/toolbar.inc"-->
+		<div id="divImportdate" class='popDiv'>
+			<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:300px">
+	            <tr>
+	                <td align="center" style="width:30%"><span> </span><a id="lblImportdate" class="lbl" ></a></td>
+	                <td align="center" style="width:70%">
+	                	<input id="txtBdate" type="text"  class="txt c2" style=" float: left;"/>~
+	                	<input id="txtEdate" type="text"  class="txt c2"  style=" float: right;"/>
+	                </td>
+	            </tr>
+	            <tr>
+	            	<td align="center" colspan="2">
+	            		<div class="block" style="display: table-cell;">
+		            		<div class='btnLbl button close' style="float: left;">
+								<a id='lbl_divImport'></a>
+							</div>
+							<div style="float: left;width: 10px;height: 25px;">	</div>
+							<div class='btnLbl button close' style="float: left;">
+								<a id='lblClose_divImportdate'></a>
+							</div>
+						</div>
+	                </td>
+	            </tr>
+        	</table>
+		</div>
         <div id='dmain'>
         <div class="dview" id="dview" style="float: left;  width:100%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66; width:100%;">
