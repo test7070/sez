@@ -26,7 +26,7 @@
 
        bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
         q_mask(bbmMask);
-
+		q_cmbParse("cmbTypea", q_getPara('bcc.type'));
         $('#txtBdate').focus();
     }
 
@@ -35,13 +35,13 @@
         t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();
        
-        t_type = $('#txtType').val();
+        t_typea = $('#cmbTypea').val();
 		t_partno = $('#txtPartno').val();
 		t_part = $('#txtPart').val();
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +q_sqlPara2("type", t_type)+ q_sqlPara2("datea", t_bdate, t_edate)+q_sqlPara2("partno", t_partno)+q_sqlPara2("part", t_part);
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +q_sqlPara2("typea", t_typea)+ q_sqlPara2("datea", t_bdate, t_edate)+q_sqlPara2("partno", t_partno)+q_sqlPara2("part", t_part);
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -63,7 +63,7 @@
             </tr>
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblType'></a></td>
-                <td><input class="txt" id="txtType" type="text" style="width:215px; font-size:medium;" /></td>
+                <td><select id="cmbTypea" class="txt c1"  style="font-size:medium;width:215px;" ></select></td><!--<input class="txt" id="txtType" type="text" style="width:215px; font-size:medium;" />-->
             </tr>
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>

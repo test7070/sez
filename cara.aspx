@@ -58,7 +58,7 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd],['txtMon', r_picm],['txtPdate', r_picd]];
                 q_mask(bbmMask);
-				bbsMask = [['txtDatea', r_picd],['txtIndate', r_picd]];
+				bbsMask = [['txtDatea', r_picd],['txtIndate', r_picd],['txtPdate', r_picd],['txtUdate', r_picd]];
                 q_mask(bbsMask);
                 
                 q_cmbParse("cmbIsource", q_getPara('cara.isource'));
@@ -662,7 +662,7 @@
 			</div>
 		</div>
 		<div class='dbbs'>
-				<table id="tbbs" class='tbbs' border="1"  cellpadding='2' cellspacing='1' style="width: 1500px;">
+				<table id="tbbs" class='tbbs' border="1"  cellpadding='2' cellspacing='1' style="width: 1600px;">
 					<tr style='color:White; background:#003366;' >
 						<td align="center">
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
@@ -679,6 +679,8 @@
 						<td align="center" style="width: 200px;"><a id='lblMemo'></a></td>
 						<td align="center" style="width: 80px;"><a id='lblPay'></a></td>
 						<td align="center" style="width: 110px;"><a id='lblAcc2'></a></td>
+						<td align="center" style="width: 80px;"><a id='lblPdates'></a></td>
+						<td align="center" style="width: 80px;"><a id='lblUdate'></a></td>
 					</tr>
 					<tr  style='background:#cad3ff;'>
 						<td style="width:1%;">
@@ -715,6 +717,8 @@
 							<input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
 							<input id="txtAcc2.*" type="text" class="txt c1"/></td>
 						</td>
+						<td><input type="text" id="txtPdate.*" class="txt c1" /></td>
+						<td><input type="text" id="txtUdate.*" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
