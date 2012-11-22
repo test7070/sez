@@ -35,10 +35,11 @@
         t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();
         t_carno = $('#txtCarno').val();
+        t_carowner = $('#txtCarowner').val();
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +q_sqlPara2("carno", t_carno)+ q_sqlPara2("datea", t_bdate, t_edate);
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +q_sqlPara2("carno", t_carno)+q_sqlPara2("carowner", t_carowner)+ q_sqlPara2("datea", t_bdate, t_edate);
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -65,6 +66,10 @@
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblCarno'></a></td>
                 <td><input class="txt" id="txtCarno" type="text" style="width:215px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblCarowner'></a></td>
+                <td><input class="txt" id="txtCarowner" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
