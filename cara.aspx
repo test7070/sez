@@ -326,7 +326,7 @@
                 }
 
                 q_nowf();
-                as['date'] = abbm2['date'];
+                as['mon'] = abbm2['mon'];
 
                 return true;
             }

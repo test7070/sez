@@ -118,6 +118,13 @@
 				$('#lblCartax').parent().click(function(e) {
 					q_box("cartax.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'cartax', "800px", "600px", q_getMsg("popCartax"));
 				});
+				
+				//--11/21大昌改管理費+公會費=行費
+				if(q_getPara('sys.comp').indexOf('大昌')>-1){
+					$('#divGuile').hide();
+					$('#lblGuile').hide();
+					$('#txtGuile').hide();
+				}
 			}
 
 			function q_boxClose(s2) {
@@ -803,7 +810,7 @@
 					<div style='width:150px; float:left;'>
 						<input id="txtManage"  type="text"  style='margin-left:5px; width: 85px; text-align: right;'/>
 					</div>
-					<div class='btnLbl'>
+					<div class='btnLbl' id ='divGuile'>
 						<a id='lblGuile'></a>
 					</div>
 					<div style='width:150px; float:left;'>
