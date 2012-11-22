@@ -19,7 +19,7 @@
             var q_name = "cara";
             var q_readonly = [];
             var q_readonlys = [];
-            var bbmNum = [['txtIprev', 15, 0, 1],['txtIset', 15, 0, 1],['txtBprev', 15, 0, 1],['txtInterest', 15, 0, 1],['txtBin', 15, 0, 1],['txtItotal', 15, 0, 1],['txtBtotal', 15, 0, 1],['txtTotal', 15, 0, 1]];
+            var bbmNum = [['txtIprev', 15, 0, 1],['txtIset', 15, 0, 1],['txtBprev', 15, 0, 1],['txtInterest', 15, 0, 1],['txtBin', 15, 0, 1],['txtItotal', 15, 0, 1],['txtBtotal', 15, 0, 1],['txtTotal', 15, 0, 1],['txtPaytotal', 15, 0, 1]];
             var bbsNum = [['txtOutmoney', 15, 0, 1],['txtInmoney', 15, 0, 1],['txtPay', 15, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
@@ -226,11 +226,11 @@
                     				q_tr('txtIprev',dec(as[0].iset));
                     			}
                     			q_tr('txtBprev',dec(as[0].btotal));//上月借支餘額取上一張本月借支餘額
-                    			if(dec(as[0].total)>0){
+                    			if(dec(as[0].paytotal)>0){
                     				as[0]._datea=q_date();
                     				as[0].caritemno='001';
                     				as[0].caritem='上月欠款'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', as.length, as, '_datea,caritemno,caritem,total', 'txtCaritemno');
+                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', as.length, as, '_datea,caritemno,caritem,paytotal', 'txtCaritemno');
                     			}
                     		}
                     		//管理費,公會費,準備金,互助金,牌照稅,燃料費
@@ -332,10 +332,16 @@
             }
 
             function sum() {
-                var t_total = 0,t_bin=0,t_interest=0;
+                var t_total = 0,t_bin=0,t_interest=0,t_paytotal=0;
                 for(var j = 0; j < q_bbsCount; j++) {
                 	//金額合計
                     t_total += dec($('#txtOutmoney_' + j).val()) - dec($('#txtInmoney_' + j).val());
+                    //實際金額合計
+                    if(dec($('#txtPay_' + j).val())>0){
+                    	t_paytotal+=dec($('#txtPay_' + j).val()) - dec($('#txtInmoney_' + j).val());
+                    }else{
+                    	t_paytotal+=dec($('#txtOutmoney_' + j).val()) - dec($('#txtInmoney_' + j).val());
+                    }
                     //本月息額
                     if($('#txtCaritemno_' + j).val()!='001'&&$('#txtCaritemno_' + j).val()!='002'&&$('#txtCaritemno_' + j).val()!='102'&&$('#txtCaritemno_' + j).val()!='201'&&$('#txtCaritemno_' + j).val()!='202'&&$('#txtCaritemno_' + j).val()!='203'&&$('#txtCaritemno_' + j).val()!='306'&&$('#txtCaritemno_' + j).val()!='401'){
                     	t_interest+=dec($('#txtOutmoney_' + j).val()) - dec($('#txtInmoney_' + j).val());
@@ -352,6 +358,7 @@
                 q_tr('txtBin',t_bin);//本月借支-入款
                 q_tr('txtBtotal',dec($('#txtBprev').val())+dec($('#txtBin').val()));//本月借支餘額
                 q_tr('txtTotal',t_total);//金額合計
+                q_tr('txtPaytotal',t_paytotal);//金額合計
             }
 
             ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
@@ -651,12 +658,14 @@
 					-->
 					</tr>
 					<tr class="tr5">
-						<td class="td1"></td>
-						<td class="td2"><input id="btnNextmon" type="button" /></td>
-						<td class="td3"><span> </span><a id='lblDatea' class="lbl"></a></td>
-						<td class="td4"><input id="txtDatea"  type="text" class="txt c1"/></td>
-						<td class="td5"><span> </span><a id='lblNoa' class="lbl"></a></td>
-						<td class="td6"><input id="txtNoa"  type="text" class="txt c1"/>	</td>
+						<td class="td1"><span> </span><a id='lblPaytotal' class="lbl"></a></td>
+						<td class="td2"><input id="txtPaytotal"  type="text" class="txt num c1">	</td>
+						<td class="td3"></td>
+						<td class="td4"><input id="btnNextmon" type="button" /></td>
+						<td class="td5"><span> </span><a id='lblDatea' class="lbl"></a></td>
+						<td class="td6"><input id="txtDatea"  type="text" class="txt c1"/></td>
+						<td class="td7"><span> </span><a id='lblNoa' class="lbl"></a></td>
+						<td class="td8"><input id="txtNoa"  type="text" class="txt c1"/>	</td>
 					</tr>
 				</table>
 			</div>
