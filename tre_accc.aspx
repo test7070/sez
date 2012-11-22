@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"> </script>
 		<script src='../script/qj2.js' type="text/javascript"> </script>
 		<script src='qset.js' type="text/javascript"> </script>
@@ -52,7 +52,21 @@
 		        q_mask(bbmMask);
 		        bbmMask2 = new Array(['txtBdate', r_picd], ['txtEdate', r_picd]);
 		        q_mask(bbmMask2);
-		        q_cmbParse("cmbCarteamno", q_getPara('.taxtype'));
+		        q_gt('carteam', '', 0, 0, 0, "");
+		        $("#cmbCarteamno").focus(function() {
+					var len = $("#cmbCarteamno").children().length > 0 ? $("#cmbCarteamno").children().length : 1;
+					$("#cmbCarteamno").attr('size', len + "");
+				}).blur(function() {
+					$("#cmbCarteamno").attr('size', '1');
+				});
+				
+				$("#cmbCarteamno2").focus(function() {
+					var len = $("#cmbCarteamno2").children().length > 0 ? $("#cmbCarteamno2").children().length : 1;
+					$("#cmbCarteamno2").attr('size', len + "");
+				}).blur(function() {
+					$("#cmbCarteamno2").attr('size', '1');
+				});
+				
 		        $('#lblAccno1').click(function () {
 		            q_pop('txtAccno1', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno1').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 		            //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
@@ -86,14 +100,6 @@
 		            if (s1.length == 4)
 		                $(this).val(s1 + '.');
 		        });
-
-		        //q_gt('carteam', '', 0, 0, 0, "");
-		        //$("#cmbCarteamno").focus(function(){
-		        //	var len = $("#cmbCarteamno").children().length>0?$("#cmbCarteamno").children().length:1;
-		        //	$("#cmbCarteamno").attr('size',len+"");
-		        // }).blur(function(){
-		        // 	$("#cmbCarteamno").attr('size','1');
-		        //});
 		    }
 
 
@@ -165,15 +171,17 @@
 
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
-		            //case 'carteam':     
-		            //  var as = _q_appendData("carteam", "", true);     
-		            //	var t_item = "";     
-		            //   for( i = 0; i < as.length; i++) {     
-		            //      t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;     
-		            // }     
-		            //q_cmbParse("cmbCarteamno", t_item);      
-		            //$("#cmbCarteamno").val( abbm[q_recno].carteamno);                       
-		            // break;     
+		            case 'carteam':     
+		              var as = _q_appendData("carteam", "", true);     
+		            	var t_item = "";     
+		               for( i = 0; i < as.length; i++) {     
+		                  t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;     
+		             }     
+		            q_cmbParse("cmbCarteamno", t_item);
+		            q_cmbParse("cmbCarteamno2", t_item);      
+		            $("#cmbCarteamno").val( abbm[q_recno].carteamno);  
+		            $("#cmbCarteamno2").val(abbm[q_recno].carteamno);                     
+		             break;   
 		            case q_name:
 		                if (q_cur == 4)
 		                    q_Seek_gtPost();
@@ -476,13 +484,10 @@
 						<td class="td7"> </td>
 					</tr>
 					<tr class="tr4">
-						<td class="td1"><span> </span><a id='lblBdriver' class="lbl btn">  </a></td>
-						<td class="td2" colspan="2"><input id="txtBdriverno"  type="text"  class="txt c4"/>
-						<input id="txtBdriver"  type="text"  class="txt c5"/></td> 
+						<td class="td1"><span> </span><a id="lblCarteam" class="lbl"> </a></td>
+						<td class="td2"><select id="cmbCarteamno" class="txt c1"> </select></td> 
 						<td><a id="lblSymbol3" class="lbl" style="font-weight: bold;font-size: 24px;width: 22%;float: left;"> </a></td>
-           				<td class="td4"> <span> </span><a id="lblEdriver" class="lbl btn" > </a></td>
-            			<td class="td5"colspan="2"><input id="txtEdriverno" type="text" class="txt c4"/><input id="txtEdriver" type="text" class="txt c5"/>
-						</td>
+						<td class="td3"><select id="cmbCarteamno2" class="txt c1"> </select></td>
 					</tr>
 					<tr class="tr5">
 						<td class="td1"><span> </span><a id='lblOpay' class="lbl">  </a></td>
