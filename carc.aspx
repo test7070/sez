@@ -17,7 +17,7 @@
         q_desc=1;
         q_tables = 's';
         var q_name = "carc";
-        var q_readonly = ['txtNoa','txtDatea'];
+        var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2'];
         var q_readonlys = [];
         var bbmNum = [];  
         var bbsNum = [['txtOutmoney',14, 0, 1]];
@@ -51,6 +51,18 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd],['txtEdate', r_picd]];
             q_mask(bbmMask);
+            bbsMask = [['txtCaradate', r_picd]];
+            q_mask(bbsMask);
+            
+            $('#btnImport').click(function () {
+                	if(emp($('#txtBdate').val())||emp($('#txtEdate').val())){
+                		alert('登錄日期請先輸入!!');
+                		$('#txtBdate').focus();
+                		return;
+                	}
+		            var t_where = "where=^^ mon between '"+$('#txtBdate').val().substr(0,6)+"' and '"+$('#txtEdate').val().substr(0,6)+"' ^^";
+			        q_gt('cara', t_where , 0, 0, 0, "", r_accy);
+		     });
             
         }
 
@@ -67,7 +79,44 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case q_name: if (q_cur == 4)   
+            	case 'cara':
+            		var cara = _q_appendData("cara", "", true);
+            		if(cara[0]!=undefined){
+            			var caras = _q_appendData("caras", "", true);
+            			if(caras[0]!=undefined){
+            				for (var i = 0; i < caras.length; i++) {//只取時間範圍內的值
+            					if(!(caras[i].datea>=$('#txtBdate').val()&&caras[i].datea<=$('#txtEdate').val())||!(caras[i].mon>=$('#txtBdate').val().substr(0,6)&&caras[i].mon<=$('#txtEdate').val().substr(0,6))){
+		                        	caras.splice(i, 1);
+		                        	i--;
+                    			}else if($('#chkManage')[0].checked==false&&caras[i].caritemno=='401'){//判斷行費是否被勾選
+                    				caras.splice(i, 1);
+		                        	i--;
+                    			}else if($('#chkInsure')[0].checked==false&&caras[i].caritemno=='306'){//判斷保險費是否被勾選
+                    				caras.splice(i, 1);
+		                        	i--;
+                    			}else if($('#chkFuel')[0].checked==false&&caras[i].caritemno=='502'){//判斷燃料費是否被勾選
+                    				caras.splice(i, 1);
+		                        	i--;
+                    			}else if($('#chkLicense')[0].checked==false&&caras[i].caritemno=='501'){//判斷牌照稅是否被勾選
+                    				caras.splice(i, 1);
+		                        	i--;
+                    			}else if($('#chkOther')[0].checked==false&&caras[i].caritemno!='401'&&caras[i].caritemno!='306'&&caras[i].caritemno!='502'&&caras[i].caritemno!='501'){//判斷其他是否被勾選
+                    				caras.splice(i, 1);
+		                        	i--;
+                    			}else{//判斷是否有實際支付的金額
+                    				if(dec(caras[i].pay)>0)
+                    					caras[i]._outmoney=caras[i].pay
+                    				else
+                    					caras[i]._outmoney=caras[i].outmoney
+                    			}
+                    		}
+            				q_gridAddRow(bbsHtm, 'tbbs', 'txtCarano,txtCaranoq,txtCaradate,txtCaritemno,txtCaritem,txtOutmoney,txtInmoney,txtMemo'
+            								, caras.length, caras, 'noa,noq,datea,caritemno,caritem,_outmoney,inmoney,memo', 'txtCarano');
+            			}
+            		}
+            		break; 
+                case q_name: 
+                	if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
             }  /// end switch
@@ -107,6 +156,13 @@
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
+            $('#txtBdate').val(q_date());
+            $('#txtEdate').val(q_date());
+            $('#chkManage')[0].checked=true;
+            $('#chkInsure')[0].checked=true;
+            $('#chkFuel')[0].checked=true;
+            $('#chkLicense')[0].checked=true;
+            $('#chkOther')[0].checked=true;
             $('#txtBdate').focus();
 
         }
@@ -286,7 +342,7 @@
                 float: left;
             }
             .txt.c4 {
-                width: 47%;
+                width: 44%;
                 float: left;
             }
             .txt.num {
@@ -348,24 +404,35 @@
             <td class='td1'><span> </span><a id="lblNoa" class="lbl"></a></td>
             <td class='td2'><input id="txtNoa"  type="text" class="txt c1" /></td>
             <td class='td3'><span> </span><a id="lblDatea" class="lbl"></a></td>
-            <td class='td4'><input id="txtDatea" type="text" class="txt c1"/></td>
+            <td class='td4'><input id="txtDatea" type="text" class="txt c4"/></td>
+            <td class='td5'></td>
        </tr>
        <tr>           
-			<td class='td1'><span> </span><a id="lblBdate" class="lbl"></a></td>
-            <td class='td2' colspan='2'>
-            	<input id="txtBdate" type="text" class="txt c2"/>~
-            	<input id="txtEdate"  type="text"  class="txt c2"/>
+			<td class='td1'><span> </span><a id="lblDate2" class="lbl"></a></td>
+            <td class='td2'>
+            	<input id="txtBdate" type="text" class="txt c4"/>
+            	<span style="float:left;display: block;width:10%;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
+            	<input id="txtEdate"  type="text"  class="txt c4"/>
             </td>
+            <td class='td3'><span> </span><a id="lblChkimport" class="lbl"></a></td>
+            <td class='td4' colspan='2'>
+            	<input id="chkManage" type="checkbox" style="float: left;"/><a id="lblManage" class="lbl" style="float: left;"></a>
+            	<input id="chkInsure" type="checkbox" style="float: left;"/><a id="lblInsure" class="lbl" style="float: left;"></a>
+            	<input id="chkFuel" type="checkbox" style="float: left;"/><a id="lblFuel" class="lbl" style="float: left;"></a>
+            	<input id="chkLicense" type="checkbox" style="float: left;"/><a id="lblLicense" class="lbl" style="float: left;"></a>
+            	<input id="chkOther" type="checkbox" style="float: left;"/><a id="lblOther" class="lbl" style="float: left;"></a>
+            	<input id="btnImport" type="button" style="float: left;"/></td>
+            </td><!--行費、保險費、燃料費、牌照稅、其他-->
        </tr>        
         <tr>           
 			<td class='td1'><span> </span><a id="lblWorker" class="lbl"></a></td>
-            <td class='td2'><input id="txtWorker"  type="text" class="txt c1" /></td>
+            <td class='td2'><input id="txtWorker"  type="text" class="txt c4" /></td>
             <td class='td3'><span> </span><a id="lblWorker2" class="lbl"></a></td>
-            <td class='td4'><input id="txtWorker2" type="text" class="txt c1"/></td>
+            <td class='td4'><input id="txtWorker2" type="text" class="txt c4"></td>
        </tr>        
         <tr>
             <td class='td1'><span> </span><a id="lblMemo" class="lbl"></a></td>
-            <td class='td2' colspan='3'><input id="txtMemo"  type="text"  class="txt c1"/></td>
+            <td class='td2' colspan='4'><input id="txtMemo"  type="text"  class="txt c1"/></td>
         </tr> 
         </table>
         </div>
@@ -374,47 +441,29 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
-                <!--<td align="center" style="width:8%"><a id='lblDateas'></a></td>-->
-                <td align="center" style="width:8%"><a id='lblCarnos'></a></td>
-                <td align="center" style="width:8%"><a id='lblDrivers'></a></td>
-                <!--<td align="center" style="width:14%"><a id='lblCardeals'></a></td>-->
-                <td align="center" style="width:8%"><a id='lblWeights'></a></td>
-                <td align="center" style="width:12%"><a id='lblMounts'></a></td>
-                <td align="center" style="width:12%"><a id='lblDiscounts'></a></td>
-                <td align="center" style="width:14%"><a id='lblIns'></a></td>
-                <td align="center" style="width:14%"><a id='lblOuts'></a></td>
+                <td align="center" style="width:12%"><a id='lblCaranos'></a></td>
+                <td align="center" style="width:8%"><a id='lblCaradates'></a></td>
+                <td align="center" style="width:12%"><a id='lblCaritems'></a></td>
+                <td align="center" style="width:10%"><a id='lblOutmoneys'></a></td>
+                <td align="center" style="width:10%"><a id='lblInmoneys'></a></td>
+                <td align="center" ><a id='lblMemos'></a></td>
             </tr>
             <tr >
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <!--<td ><input class="txt c1" id="txtDatea.*" type="text" /></td>-->
                 <td >
-                		<input class="txt c3" id="txtCarno.*" type="text" />
-                		<input class="btn"  id="btnCarno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+                		<input  id="txtCarano.*" type="text" class="txt c1"/>
+                		<input  id="txtCaranoq.*" type="text" class="txt c1"/>
                 </td>
+                <td ><input  id="txtCaradate.*" type="text" class="txt c1"/></td>
                 <td >
-                	<input class="txt c3" id="txtDriverno.*" type="text" />
-                	<input class="btn"  id="btnDriver.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
-                	<input class="txt c1" id="txtDriver.*" type="text" />
+                	<input id="txtCaritemno.*" type="text" class="txt c3"/>
+					<input class="btn"  id="btnCaritem.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+					<input id="txtCaritem.*" type="text" class="txt c1"/>
                 </td>
-                <!--<td >
-                		<input class="txt c3" id="txtCardealno.*" type="text" />
-                		<input class="btn"  id="btnCardeal.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
-                		<input class="txt c1" id="txtCardeal.*" type="text" />
-                </td>-->
-                <td ><input class="txt num c1" id="txtWeight.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtMount.*" type="text" /></td>
+                <td ><input id="txtOutmoney.*" type="text" class="txt num c1"/></td>
+                <td ><input id="txtInmoney.*" type="text" class="txt num c1"/></td>
                 <td >
-                	<input class="txt num c1" id="txtDiscount.*" type="text" />
-                </td>
-                <td >
-                	<!--<input class="txt num c1" id="txtInprice.*" type="text" />-->
-                	<input class="txt num c4" id="txtInmount.*" type="hidden" />
-                	<input class="txt num c1" id="txtInmoney.*" type="text" />
-                </td>
-                <td >
-                	<!--<input class="txt num c4" id="txtOutprice.*" type="text" />-->
-                	<input class="txt num c4" id="txtOutmount.*" type="hidden" />
-                	<input class="txt num c1" id="txtOutmoney.*" type="text" />
+                	<input  id="txtMemo.*" type="text" class="txt c1"/>
                 	<input id="txtNoq.*" type="hidden" />
                 </td>
             </tr>
