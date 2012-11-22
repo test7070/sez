@@ -127,13 +127,14 @@
                 return;
             }
 
+			$('#txtWorker').val(r_name);
+			
 			var t_noa = trim($('#txtNoa').val());
 			 var t_date = trim($('#txtDatea').val());
     		 if (t_noa.length == 0 || t_noa == "AUTO")
 		            q_gtnoa(q_name, replaceAll(q_getPara('sys.key_carborr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 		        else
 		            wrServer(t_noa);
-		            $('#txtWorker').val(r_name);
         }
 
         function wrServer( key_value) {
