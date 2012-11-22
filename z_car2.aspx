@@ -39,7 +39,7 @@
                         break;
                        }
                      if(t_item.length>0 ){
-	                $('#qReport').q_report({
+	                $('#q_report').q_report({
 	                    fileName : 'z_car2',
                         options : [{
                             type : '1',
