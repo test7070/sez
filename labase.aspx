@@ -171,6 +171,18 @@
 
         function q_boxClose(s2) { 
             var ret;
+            if(s2[0]='sss'){
+            	if(q_getPara('sys.comp').indexOf('大昌')>-1){
+				  	if($('#txtNoa').val().substr(0,1)>='A' && $('#txtNoa').val().substr(0,1)<='Z'){
+				   		$('#chkIssssp')[0].checked=true;
+			        	$('#txtInsur_disaster').val(0.11);
+				   	}else{
+				   		$('#chkIssssp')[0].checked=false;
+		        		$('#txtInsur_disaster').val(0.34);
+					}
+				}
+            }
+            
             switch (b_pop) {   
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
