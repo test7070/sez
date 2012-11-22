@@ -156,7 +156,7 @@
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
-            $('#txtBdate').val(q_date());
+            $('#txtBdate').val(q_date().substr(0,7)+'01');
             $('#txtEdate').val(q_date());
             $('#chkManage')[0].checked=true;
             $('#chkInsure')[0].checked=true;
