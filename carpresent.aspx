@@ -70,8 +70,8 @@
 			$('#lbl_divImport').parent().click(function(e) {//按下資料匯入
 				$('#divImportdate').hide();
 				if(!emp($('#txtBdate').val())&&!emp($('#txtEdate').val())){
-					q_func("dtable.dele", "carpresents,datea >=^^"+$('#txtBdate').val()+"^^ and datea <=^^"+$('#txtEdate').val()+"^^ ");//刪除bbs重覆資料
-					q_func("dtable.dele", "carpresent,datea >=^^"+$('#txtBdate').val()+"^^ and datea <=^^"+$('#txtEdate').val()+"^^ ");//刪除bbm重覆資料
+					//q_func("dtable.dele", "carpresents,datea >=^^"+$('#txtBdate').val()+"^^ and datea <=^^"+$('#txtEdate').val()+"^^ ");//刪除bbs重覆資料
+					//q_func("dtable.dele", "carpresent,datea >=^^"+$('#txtBdate').val()+"^^ and datea <=^^"+$('#txtEdate').val()+"^^ ");//刪除bbm重覆資料
 					t_date=$('#txtBdate').val();
 					insimport=true;
 		    		insdata();
@@ -116,17 +116,18 @@
 				     insdata();
 				     return;
 		    	}
-		    	//呼叫要匯入的資料
-				var t_where = "where=^^ a.cartype='2' and len( carno)=6 AND CHARINDEX( '-',carno) > 0 and (len(outdate)=0 OR outdate is null) and carno not in (select noa from carChange where len(enddate)>0 or len(wastedate)>0 or len(canceldate)>0) ";
-				t_where=t_where+"and a.carno not in (select carno from trans101 where carno in(select noa from car2 where cartype='2') and datea='"+t_date+"' group by carno) ^^";
-			    q_gt('car2_carteam', t_where , 0, 0, 0, "", r_accy);
+		    	//呼叫已儲存的舊資料
+		    	var t_where = "where=^^ datea='"+t_date+"' ^^";
+			    q_gt('carpresent', t_where , 0, 0, 0, "", r_accy);
+			    
+		    	
 			}else{
 				insimport=false;
 				location.href = location.href ;//重新整理
 				return;
 			}
 		}
-		
+		var t_carpresents;
         function q_gtPost(t_name) {  
             switch (t_name) {
             	case 'car2_carteam':
@@ -139,7 +140,16 @@
             	
             	//匯進資料
             	var as = _q_appendData("car2", "", true);
-            	q_gridAddRow(bbsHtm, 'tbbs', 'txtCarno,txtCarteam', as.length, as, 'carno,team', '');
+            	if(as[0]!=undefined&&t_carpresents[0]!=undefined){
+            		for (var i = 0; i < t_carpresents.length; i++) {
+            			for (var j = 0; j < as.length; j++) {
+            				if(t_carpresents[i].carno==as[j].carno){//取代先前原因
+            					as[j].memo=t_carpresents[i].memo;
+            				}
+            			}	
+            		}
+            	}
+            	q_gridAddRow(bbsHtm, 'tbbs', 'txtCarno,txtCarteam,txtMemo', as.length, as, 'carno,team,memo', '');
             	$('#txtUnpresent').val(as.length);
             	for (var i = 0; i < q_bbsCount; i++) {
             		if(!emp($('#txtCarno_'+i).val()))
@@ -169,7 +179,31 @@
 			     	t_date=t_date+(nextdate.getDate());
 				
             	break;
-                case q_name: 	
+            	
+                case q_name: 
+                	 if(insimport){
+                	 	t_carpresents=[];
+                		var as = _q_appendData("carpresent", "", true);
+                		if(as[0]!=undefined){
+                			t_carpresents = _q_appendData("carpresents", "", true);
+                			if(t_carpresents[0]!=undefined){
+	                			for (var i = 0; i < t_carpresents.length; i++) {
+	                				if(t_carpresents[i].memo==''){//只保留有原因的資料
+			                        	t_carpresents.splice(i, 1);
+			                        	i--;
+			                        }
+	                    		}
+                			}
+                		}
+                		
+                		q_func("dtable.dele", "carpresents,datea =^^"+t_date+"^^ ");//刪除bbs重覆資料
+						q_func("dtable.dele", "carpresent,datea =^^"+t_date+"^^ ");//刪除bbm重覆資料
+                		
+		                //呼叫要匯入的資料
+						var t_where = "where=^^ a.cartype='2' and len( carno)=6 AND CHARINDEX( '-',carno) > 0 and (len(outdate)=0 OR outdate is null) and carno not in (select noa from carChange where len(enddate)>0 or len(wastedate)>0 or len(canceldate)>0) ";
+						t_where=t_where+"and a.carno not in (select carno from trans101 where carno in(select noa from car2 where cartype='2') and datea='"+t_date+"' group by carno) ^^";
+					    q_gt('car2_carteam', t_where , 0, 0, 0, "", r_accy);
+			    	}
                 	if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
