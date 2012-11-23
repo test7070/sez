@@ -84,6 +84,15 @@
                         }, {
                             type : '1',
                             name : 'Tcarno'
+                        }, {
+                            type : '6',
+                            name : 'xmon'
+                        },{
+                            type : '2',
+                            name : 'carinsure',
+                            dbf : 'carinsure',
+                            index : 'carinsureno,carinsure',
+                            src : 'carinsure_b.aspx'
                         }]
                     });
                     q_getFormat();
