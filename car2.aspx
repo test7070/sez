@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -55,6 +54,7 @@
 
 				q_gt('carbrand', '', 0, 0, 0, "");
 				q_gt('carkind', '', 0, 0, 0, "");
+				q_gt('carstyle', '', 0, 0, 0, "");
 
 				fbbm[fbbm.length] = 'cmbAuto';
 				fbbm[fbbm.length] = 'txtIrange';
@@ -163,6 +163,15 @@
 						}
 						q_cmbParse("cmbCarkindno", t_item);
 						$("#cmbCarkindno").val(abbm[q_recno].carkindno);
+						break;
+					case 'carstyle':
+						var as = _q_appendData("carstyle", "", true);
+						var t_item = " @ ";
+						for ( i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].style;
+						}
+						q_cmbParse("cmbCarstyleno", t_item);
+						$("#cmbCarstyleno").val(abbm[q_recno].carstyleno);
 						break;
 					case q_name:
 						if (q_cur == 4)
@@ -392,6 +401,12 @@
 				display: block;
 				text-align: center;
 			}
+			.tbbm select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                font-size: medium;
+            }
 		</style>
 	</head>
 	<body>
@@ -431,10 +446,12 @@
 								<a id='lblCarkind'></a>
 							</div></td>
 							<td class="td4" ><select id="cmbCarkindno" style="width:95%;"></select></td>
-							<td class="td5" ></td>
-							<td class="td6" ></td>
-							<td class="td7" ></td>
-							<td class="td8" ></td>
+							<td class="td5" >
+								<div class='btnLbl tb'>
+									<a id='lblCarstyle'></a>
+								</div>
+							</td>
+							<td class="td6" colspan="3"><select id="cmbCarstyleno" style="width:95%;"></select></td>
 						</tr>
 						<tr class="tr1">
 							<td class="td3">
