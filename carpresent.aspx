@@ -64,10 +64,10 @@
             $('#btnSign').hide();//簽核
             $('#tbbm').hide();//BBM隱藏
 			
-			$('#lblClose_divImportdate').parent().click(function(e) {//按下關閉
+			$('#lblClose_divImportdate').click(function(e) {//按下關閉
 				$('#divImportdate').hide();
 			});
-			$('#lbl_divImport').parent().click(function(e) {//按下資料匯入
+			$('#lbl_divImport').click(function(e) {//按下資料匯入
 				$('#divImportdate').hide();
 				if(!emp($('#txtBdate').val())&&!emp($('#txtEdate').val())){
 					//q_func("dtable.dele", "carpresents,datea >=^^"+$('#txtBdate').val()+"^^ and datea <=^^"+$('#txtEdate').val()+"^^ ");//刪除bbs重覆資料
