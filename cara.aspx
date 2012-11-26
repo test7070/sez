@@ -305,7 +305,19 @@
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
-                _btnModi();     
+                _btnModi();
+				//禁止修改
+				for(var j = 0; j < q_bbsCount; j++) {
+					if($('#txtUdate_'+j).val()!=''){
+						$('#btnMinus_'+j).attr('disabled', 'disabled');
+						$('#txtNoq_'+j).attr('disabled', 'disabled');
+						$('#txtDatea_'+j).attr('disabled', 'disabled');
+						$('#txtCaritemno_'+j).attr('disabled', 'disabled');
+						$('#txtCaritem_'+j).attr('disabled', 'disabled');
+						$('#txtOutmoney_'+j).attr('disabled', 'disabled');
+						$('#txtInmoney_'+j).attr('disabled', 'disabled');
+					}
+				}
             }
 
             function btnPrint() {
@@ -327,6 +339,7 @@
 
                 q_nowf();
                 as['mon'] = abbm2['mon'];
+                as['carno'] = abbm2['carno'];
 
                 return true;
             }
