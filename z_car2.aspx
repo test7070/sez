@@ -91,17 +91,16 @@
                             type : '2',
                             name : 'carinsure',
                             dbf : 'carinsure',
-                            index : 'carinsureno,carinsure',
-                            src : 'carinsure_b.aspx'
+                            index : 'noa,comp',
+                            src : 'insurer_b.aspx'
                         }]
                     });
                     q_getFormat();
 	                q_langShow();
 	                q_popAssign();
 					$('#txtMon1').mask('999/99');
-	                $('#txtMon1').datepicker();
 	                $('#txtMon2').mask('999/99');
-	                $('#txtMon2').datepicker(); 
+	                $('#txtXmon').mask('999/99');
 	                $('#txtDate1').mask('999/99/99');
 	                $('#txtDate1').datepicker();
 	                $('#txtDate2').mask('999/99/99');
@@ -129,6 +128,15 @@
 	                t_month = t_date.getUTCMonth()+1;
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                $('#txtMon2').val(t_year+'/'+t_month);
+	                
+	                t_date = new Date();
+	                t_date.setDate(35);
+	                t_date.setDate(0);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                $('#txtXmon').val(t_year+'/'+t_month);
 	                
 	                
 	                var t_date,t_year,t_month,t_day;
