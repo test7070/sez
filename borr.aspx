@@ -519,13 +519,22 @@
 						<td align="center" style="width:3%;">
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 						</td>
-						<td align="center" style="width:5%;"><a id='lbl_typea'></a></td>
-						<td align="center" style="width:15%;"><a id='lbl_checkno'></a></td>
-						<td align="center" style="width:8%;"><a id='lbl_bankno'></a></td>
-						<td align="center" style="width:15%;"><a id='lbl_account'></a></td>
-						<td align="center" style="width:10%;"><a id='lbl_bank'></a></td>
-						<td align="center" style="width:10%;"><a id='lbl_money'></a></td>
-						<td align="center" style="width:8%;"><a id='lbl_indate'></a></td>
+						<td align="center" style="width:4%;"><a id='lbl_typea'></a></td>
+						<td align="center" style="width:5%;"><a id='lbl_datea'></a></td>
+						<td align="center" style="width:5%;"><a id='lbl_soldledger'></a></td>
+						<td align="center" style="width:6%;"><a id='lbl_principal'></a></td>
+						<td align="center" style="width:6%;"><a id='lbl_pay'></a></td>
+						<td align="center" style="width:5%;"><a id='lbl_inteis'></a></td>
+						<td align="center" style="width:9%;"><a id='lbl_patch'></a></td>
+						<td align="center" style="width:6%;"><a id='lbl_paytotal'></a></td>
+						<td align="center" style="width:6%;"><a id='lbl_arrerage'></a></td>
+						<td align="center" style="width:5%;"><a id='lbl_sign'></a></td>
+						<td align="center" style="width:6%;"><a id='lbl_checkno'></a></td>
+						<td align="center" style="width:6%;"><a id='lbl_bankno'></a></td>
+						<td align="center" style="width:9%;"><a id='lbl_account'></a></td>
+						<td align="center" style="width:8%;"><a id='lbl_bank'></a></td>
+						<td align="center" style="width:6%;"><a id='lbl_money'></a></td>
+						<td align="center" style="width:5%;"><a id='lbl_indate'></a></td>
 
 					</tr>
 					<tr  style='background:#cad3ff;'>
@@ -534,6 +543,33 @@
 						<input class="txt" id="txtNoq.*" type="text" style="display: none;"/>
 						</td>
 						<td><select id="cmbTypea.*" style="width:95%; text-align: center;"></select></td>
+						<td>
+						<input class="txt" id="txtDatea.*" type="text" style="width:95%;"/>
+						</td>
+						<td>
+						<input class="txt" id="txtSoldledger.*" type="text" style="width:95%;"/>
+						</td>
+						<td>
+						<input class="txt" id="txtPrincipal.*" type="text" style="width:95%;text-align: right;"/>
+						</td>
+						<td>
+						<input class="txt" id="txtPay.*" type="text" style="width:95%;text-align: right;"/>
+						</td>
+						<td>
+						<input class="txt" id="txtInteis.*" type="text" style="width:95%;text-align: right;"/>
+						</td>
+						<td>
+						<input class="txt" id="txtPatch.*" type="text" style="width:95%;"/>
+						</td>
+						<td>
+						<input class="txt" id="txtPaytotal.*" type="text" style="width:95%;"/>
+						</td>
+						<td>
+						<input class="txt" id="txtArrerage.*" type="text" style="width:95%;"/>
+						</td>
+						<td>
+						<input class="txt" id="txtSign.*" type="text" style="width:95%;"/>
+						</td>
 						<td>
 						<input class="txt" id="txtCheckno.*" type="text" style="width:95%;"/>
 						</td>

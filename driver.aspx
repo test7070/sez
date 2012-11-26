@@ -443,6 +443,20 @@
 						</td>
 					</tr>
 					<tr class="tr11">
+						<td class="td1"><span> </span><a id="lblAccount2" class="lbl"></a></td>
+						<td class="td2" colspan="3">
+						<input id="txtAccount2" type="text" class="txt c1"/>
+						</td>
+						<td class="td5"><span> </span><a id="lblAccountname2" class="lbl"></a></td>
+						<td class="td6">
+						<input id="txtAccountname2" type="text" class="txt c1"/>
+						</td> 
+						<td class="td7"><span> </span><a id="lblMark2" class="lbl"></a></td>
+						<td class="td8">
+						<input id="txtMark2" type="text" class="txt cen c4" />
+						</td>
+					</tr>
+					<tr class="tr12">
                         <td class="td1"><span> </span><a id="lblGuild" class="lbl"></a></td>
                         <td class="td2">
                         <input id="txtGuild" type="text" class="txt c1"/>
@@ -453,7 +467,7 @@
                         </td> 
                         <td class="td5" colspan="4"><input id="txtCardeal" type="text" class="txt c1"/></td>
                     </tr>
-                    <tr class="tr12">
+                    <tr class="tr13">
 						<td class="td1"><span> </span><a id="lblUacc1" class="lbl" style="font-size: 14px;"></a></td>
 						<td class="td2">
 						<input id="txtUacc1" type="text" class="txt c1"/>

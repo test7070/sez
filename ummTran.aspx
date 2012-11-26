@@ -576,7 +576,7 @@
             }
             .dview {
                 float: left;
-                width: 18%;
+                width: 22%;
             }
             .tview {
                 margin: 0;
@@ -594,7 +594,7 @@
             }
             .dbbm {
                 float: left;
-                width: 80%;
+                width: 78%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -705,6 +705,7 @@
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:28%"><a id='vewDatea'></a></td>
 						<td align="center" style="width:38%"><a id='vewComp'></a></td>
+						<td align="center" style="width:38%"><a id='vewTotal'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -712,6 +713,7 @@
 						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='comp,4'>~comp,4</td>
+						<td align="center" id='total,0,1'>~total,0,1</td>
 					</tr>
 				</table>
 			</div>
