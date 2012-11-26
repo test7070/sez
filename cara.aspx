@@ -17,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "cara";
-            var q_readonly = [];
+            var q_readonly = ['txtNoa','txtIprev','txtInterest','txtItotal','txtTotal','txtPaytotal','txtBprev','txtBin','txtBtotal','txtDatea'];
             var q_readonlys = [];
             var bbmNum = [['txtIprev', 15, 0, 1],['txtIset', 15, 0, 1],['txtBprev', 15, 0, 1],['txtInterest', 15, 0, 1],['txtBin', 15, 0, 1],['txtItotal', 15, 0, 1],['txtBtotal', 15, 0, 1],['txtTotal', 15, 0, 1],['txtPaytotal', 15, 0, 1]];
             var bbsNum = [['txtOutmoney', 15, 0, 1],['txtInmoney', 15, 0, 1],['txtPay', 15, 0, 1]];
@@ -353,10 +353,10 @@
                     	t_bin-=dec($('#txtInmoney_' + j).val());
                 }
                 
-                q_tr('txtInterest',t_interest);//本月息額
-                q_tr('txtItotal',dec($('#txtIprev').val())+dec($('#txtInterest').val()));//累計息額
-                q_tr('txtBin',t_bin);//本月借支-入款
-                q_tr('txtBtotal',dec($('#txtBprev').val())+dec($('#txtBin').val()));//本月借支餘額
+                q_tr('txtInterest',t_interest);//本月息額不含001,002,102,201,202,203,306,401
+                q_tr('txtItotal',dec($('#txtIprev').val())+dec($('#txtInterest').val()));//累計息額=上月息額+本月息額
+                q_tr('txtBin',t_bin);//本月借支-入款=201-102-112
+                q_tr('txtBtotal',dec($('#txtBprev').val())+dec($('#txtBin').val()));//本月借支餘額=上月借支餘額+本月借支-入款
                 q_tr('txtTotal',t_total);//金額合計
                 q_tr('txtPaytotal',t_paytotal);//金額合計
             }
