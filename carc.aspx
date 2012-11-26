@@ -18,9 +18,9 @@
         q_tables = 's';
         var q_name = "carc";
         var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2'];
-        var q_readonlys = [];
+        var q_readonlys = ['txtCarno','txtCaradate','txtCaritemno','txtCaritem','txtOutmoney','txtInmoney','txtMemo','txtCarano','txtCaranoq'];
         var bbmNum = [];  
-        var bbsNum = [['txtOutmoney',14, 0, 1]];
+        var bbsNum = [['txtOutmoney',14, 0, 1],['txtInmoney',14, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
@@ -83,7 +83,7 @@
             			var caras = _q_appendData("caras", "", true);
             			if(caras[0]!=undefined){
             				for (var i = 0; i < caras.length; i++) {//只取時間範圍內的值
-            					if(!(caras[i].datea>=$('#txtBdate').val()&&caras[i].datea<=$('#txtEdate').val())||!(caras[i].mon>=$('#txtBdate').val().substr(0,6)&&caras[i].mon<=$('#txtEdate').val().substr(0,6))){
+            					if(!(caras[i].datea>=$('#txtBdate').val()&&caras[i].datea<=$('#txtEdate').val())||!(caras[i].mon>=$('#txtBdate').val().substr(0,6)&&caras[i].mon<=$('#txtEdate').val().substr(0,6))||caras[i].udate!=''){
 		                        	caras.splice(i, 1);
 		                        	i--;
                     			}else if($('#chkManage')[0].checked==false&&caras[i].caritemno=='401'){//判斷行費是否被勾選
@@ -108,8 +108,8 @@
                     					caras[i]._outmoney=caras[i].outmoney
                     			}
                     		}
-            				q_gridAddRow(bbsHtm, 'tbbs', 'txtCarano,txtCaranoq,txtCaradate,txtCaritemno,txtCaritem,txtOutmoney,txtInmoney,txtMemo'
-            								, caras.length, caras, 'noa,noq,datea,caritemno,caritem,_outmoney,inmoney,memo', 'txtCarano');
+            				q_gridAddRow(bbsHtm, 'tbbs', 'txtCarano,txtCaranoq,txtCaradate,txtCaritemno,txtCaritem,txtOutmoney,txtInmoney,txtMemo,txtCarno'
+            								, caras.length, caras, 'noa,noq,datea,caritemno,caritem,_outmoney,inmoney,memo,carno', 'txtCarano');
             			}
             		}
             		break; 
@@ -277,6 +277,7 @@
                 font-size: medium;
                 background-color: #FFFF66;
                 color: blue;
+                width: 100%;
             }
             .tview td {
                 padding: 2px;
@@ -323,6 +324,7 @@
             .tbbm tr td .lbl.btn {
                 color: #4297D7;
                 font-weight: bolder;
+                font-size: medium;
             }
             .tbbm tr td .lbl.btn:hover {
                 color: #FF8F19;
@@ -356,23 +358,34 @@
                 margin: -1px;
                 float: left;
             }
+            .tbbm td input[type="button"] {
+                float: left;
+                width: auto;
+            }
             .tbbm select {
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
             }
-            
             .tbbs a {
                 font-size: medium;
             }
-            .dbbs .tbbs{margin:0;padding:2px;border:2px lightgrey double;border-spacing:1px;border-collapse:collapse;font-size:medium;color:blue;background:#cad3ff;width:100%;}
-			 .dbbs .tbbs tr{height:35px;}
-			 .dbbs .tbbs tr td{text-align:center;border:2px lightgrey double;}
+            .tbbs a {
+                font-size: medium;
+            }
+            .tbbs tr.error input[type="text"] {
+                color: red;
+            }
+            .tbbs
+        	{
+	            FONT-SIZE: medium;
+	            COLOR: blue ;
+	            TEXT-ALIGN: left;
+	             BORDER:1PX LIGHTGREY SOLID;
+	             width:100% ; height:98% ;  
+        	} 
             .num {
                 text-align: right;
-            }
-            .bbs{
-            	float:left;
             }
             input[type="text"], input[type="button"] {
                 font-size: medium;
@@ -439,19 +452,17 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
-                <td align="center" style="width:12%"><a id='lblCaranos'></a></td>
+                <td align="center" style="width:8%"><a id='lblCarnos'></a></td>
                 <td align="center" style="width:8%"><a id='lblCaradates'></a></td>
-                <td align="center" style="width:12%"><a id='lblCaritems'></a></td>
+                <td align="center" style="width:10%"><a id='lblCaritems'></a></td>
                 <td align="center" style="width:10%"><a id='lblOutmoneys'></a></td>
                 <td align="center" style="width:10%"><a id='lblInmoneys'></a></td>
                 <td align="center" ><a id='lblMemos'></a></td>
+                <td align="center" style="width:12%"><a id='lblCaranos'></a></td>
             </tr>
-            <tr >
+            <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td >
-                		<input  id="txtCarano.*" type="text" class="txt c1"/>
-                		<input  id="txtCaranoq.*" type="text" class="txt c1"/>
-                </td>
+                <td ><input id="txtCarno.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtCaradate.*" type="text" class="txt c1"/></td>
                 <td >
                 	<input id="txtCaritemno.*" type="text" class="txt c3"/>
@@ -463,6 +474,10 @@
                 <td >
                 	<input  id="txtMemo.*" type="text" class="txt c1"/>
                 	<input id="txtNoq.*" type="hidden" />
+                </td>
+                <td >
+                		<input  id="txtCarano.*" type="text" class="txt c1"/>
+                		<input  id="txtCaranoq.*" type="text" class="txt c1"/>
                 </td>
             </tr>
         </table>
