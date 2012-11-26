@@ -108,7 +108,8 @@
 	                t_item = "";
 	                $('#chkXcarteamno').children('input').attr('checked','checked')
 	                
-	                
+	                $('#txtXmon').mask('999/99');
+	                $('#txtXmon').val(q_date().substr(0,6));
 	                
 	                var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
