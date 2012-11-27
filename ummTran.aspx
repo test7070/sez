@@ -594,7 +594,7 @@
             }
             .dbbm {
                 float: left;
-                width: 78%;
+                width: 76%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
