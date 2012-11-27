@@ -451,9 +451,9 @@
 						<td class="td6">
 						<input id="txtAccountname2" type="text" class="txt c1"/>
 						</td> 
-						<td class="td7"><span> </span><a id="lblMark2" class="lbl"></a></td>
+						<td class="td7"><span> </span><a id="lblId2" class="lbl"></a></td>
 						<td class="td8">
-						<input id="txtMark2" type="text" class="txt cen c4" />
+						<input id="txtId2" type="text" class="txt c1" />
 						</td>
 					</tr>
 					<tr class="tr12">

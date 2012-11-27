@@ -60,12 +60,12 @@
 					$("#cmbCarteamno").attr('size', '1');
 				});
 				
-				$("#cmbCarteamno2").focus(function() {
+				/*$("#cmbCarteamno2").focus(function() {
 					var len = $("#cmbCarteamno2").children().length > 0 ? $("#cmbCarteamno2").children().length : 1;
 					$("#cmbCarteamno2").attr('size', len + "");
 				}).blur(function() {
 					$("#cmbCarteamno2").attr('size', '1');
-				});
+				});*/
 				
 		        $('#lblAccno1').click(function () {
 		            q_pop('txtAccno1', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno1').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
@@ -178,9 +178,9 @@
 		                  t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;     
 		             }     
 		            q_cmbParse("cmbCarteamno", t_item);
-		            q_cmbParse("cmbCarteamno2", t_item);      
+		            //q_cmbParse("cmbCarteamno2", t_item);      
 		            $("#cmbCarteamno").val( abbm[q_recno].carteamno);  
-		            $("#cmbCarteamno2").val(abbm[q_recno].carteamno);                     
+		            //$("#cmbCarteamno2").val(abbm[q_recno].carteamno);                     
 		             break;   
 		            case q_name:
 		                if (q_cur == 4)
@@ -486,8 +486,6 @@
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id="lblCarteam" class="lbl"> </a></td>
 						<td class="td2"><select id="cmbCarteamno" class="txt c1"> </select></td> 
-						<td><a id="lblSymbol3" class="lbl" style="font-weight: bold;font-size: 24px;width: 22%;float: left;"> </a></td>
-						<td class="td3"><select id="cmbCarteamno2" class="txt c1"> </select></td>
 					</tr>
 					<tr class="tr5">
 						<td class="td1"><span> </span><a id='lblOpay' class="lbl">  </a></td>
@@ -503,9 +501,9 @@
 						<td class="td2"><input id="txtChkbno" type="text"  class="txt c1"/></td>
 						<td align="center"><a id="lblChkeno"  style="font-weight: bold;font-size: 24px;"> </a></td>
 						<td class="td4"><input id="txtChkeno" type="text"  class="txt c1"/> </td>
-						<td class="td5"><span> </span><a id='lblAcc1' class="lbl btn">  </a> </td>
-						<td class="td6" colspan="2"><input id="txtAcc1"  type="text"  class="txt c4"/>
-                        <input id="txtAcc2"  type="text"  class="txt c5"/></td>
+						<!--<td class="td5"><span> </span><a id='lblAcc1' class="lbl btn" >  </a></td>-->
+						<td class="td6" colspan="2"><input id="txtAcc1"  type="hidden"  class="txt c4"/>
+                        <input id="txtAcc2"  type="hidden"  class="txt c5"/></td>
                         
 					</tr>
 					<tr class="tr7">

@@ -1,21 +1,20 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
-		<script src="../script/jquery.min.js" type="text/javascript"></script>
-		<script src='../script/qj2.js' type="text/javascript"></script>
-		<script src='qset.js' type="text/javascript"></script>
-		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src="../script/qbox.js" type="text/javascript"></script>
-		<script src='../script/mask.js' type="text/javascript"></script>
+		<title> </title>
+		<script src="../script/jquery.min.js" type="text/javascript"> </script>
+		<script src='../script/qj2.js' type="text/javascript"> </script>
+		<script src='qset.js' type="text/javascript"> </script>
+		<script src='../script/qj_mess.js' type="text/javascript"> </script>
+		<script src="../script/qbox.js" type="text/javascript"> </script>
+		<script src='../script/mask.js' type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 
 		<script type="text/javascript">
             this.errorHandler = null;
 
             q_tables = 's';
-            var q_name = "borr";
+            var q_name = "borrd";
             var q_readonly = ['txtBwmoney', 'txtPay'];
             var q_readonlys = [];
             var bbmNum = [];
@@ -110,7 +109,7 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
-               q_box('borr_s.aspx', q_name + '_s', "500px", "340px", q_getMsg( "popSeek"));
+               q_box('borrd_s.aspx', q_name + '_s', "500px", "340px", q_getMsg( "popSeek"));
             }
 
             function btnIns() {
@@ -145,10 +144,10 @@
                 _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
             }
 
-            function bbsSave(as) {/// �? �g�J��Ʈw�e�A�g�J�ݭn���
-                if(!as['checkno']) {//���s�ɱ��
+            function bbsSave(as) {/// ?? ?g?J???w?e?A?g?J??n???
+                if(!as['checkno']) {//???s????
                     as[bbsKey[1]] = '';
-                    /// noq ���šA���s��
+                    /// noq ????A???s??
                     return;
                 }
 
@@ -423,32 +422,32 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr1">
-						<td class="td1" ><span> </span><a id="lblDatea" class="lbl"></a></td>
+						<td class="td1" ><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtDatea"  type="text"  class="txt c1"/>
 						</td>
-						<td class="td3" ><span> </span><a id="lblNoa" class="lbl"></a></td>
+						<td class="td3" ><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class="td4">
 						<input id="txtNoa"  type="text" class="txt c1"/>
 						</td>
-						<td class="td5"></td>
-						<td class="td6"></td>
-						<td class="td9"></td>
+						<td class="td5"> </td>
+						<td class="td6"> </td>
+						<td class="td9"> </td>
 					</tr>
 					<tr class="tr2">
-						<td class="td1" ><span> </span><a id="lblCarno" class="lbl"></a></td>
+						<td class="td1" ><span> </span><a id="lblCarno" class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtCarno"  type="text" class="txt c1"/>
 						</td>
 						<td class="td3" ><span> </span>
-						<a id="lblDriver" class="lbl btn"></a>
+						<a id="lblDriver" class="lbl btn"> </a>
 						</td>
 						<td class="td4">
 						<input id="txtDriverno"  type="text"  class="txt c2"/>
 						<input id="txtDriver"  type="text"  class="txt c3"/>
 						</td>
 						<td class="td5" ><span> </span>
-						<a id="lblCust" class="lbl btn" ></a>
+						<a id="lblCust" class="lbl btn" > </a>
 						</td>
 						<td class="td6">
 						<input id="txtCustno"  type="text"  class="txt c2"/>
@@ -456,39 +455,39 @@
 						</td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1"><span> </span><a id="lblCash" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblCash" class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtCash"  type="text" class="txt c1 num" />
 						</td>
-						<td class="td3"><span> </span><a id="lblChecka" class="lbl"></a></td>
+						<td class="td3"><span> </span><a id="lblChecka" class="lbl"> </a></td>
 						<td class="td4">
 						<input id="txtChecka"  type="text" class="txt c1 num" />
 						</td>
-						<td class="td5" ><span> </span><a id="lblMoney" class="lbl"></a></td>
+						<td class="td5" ><span> </span><a id="lblMoney" class="lbl"> </a></td>
 						<td class="td6">
 						<input id="txtMoney" type="text" class="txt c1 num" />
 						</td>
 					</tr>
 					<tr class="tr4">
-						<td class="td1"><span> </span><a id="lblBegindate" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblBegindate" class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtBegindate" type="text" class="txt c1"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblEnddate" class="lbl"></a></td>
+						<td class="td3"><span> </span><a id="lblEnddate" class="lbl"> </a></td>
 						<td class="td4">
 						<input id="txtEnddate" type="text" class="txt c1"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblRate" class="lbl"></a></td>
+						<td class="td5"><span> </span><a id="lblRate" class="lbl"> </a></td>
 						<td class="td6">
 						<input id="txtRate" type="text" class="txt c1"/>
 						</td>
 					</tr>
 					<tr class="tr5">
-						<td class="td1"><span> </span><a id="lblDays" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblDays" class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtDays"  type="text" class="txt c1" />
 						</td>
-						<td class="td3" ><span> </span><a id="lblInteis" class="lbl"></a></td>
+						<td class="td3" ><span> </span><a id="lblInteis" class="lbl"> </a></td>
 						<td class="td4">
 						<input id="txtInteis" type="text" class="txt c1 num" />
 						</td>
@@ -497,18 +496,22 @@
 						</td>
 					</tr>
 					<tr class="tr6">
-						<td class="td1"><span> </span><a id="lblPaydate" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblEarmoney" class="lbl"></a></td>
 						<td class="td2">
+						<input id="txtEarmoney"  type="text" class="txt c1 num" />
+						</td>
+						<td class="td3"><span> </span><a id="lblPaydate" class="lbl"> </a></td>
+						<td class="td4">
 						<input id="txtPaydate"  type="text" class="txt c1" />
 						</td>
-						<td class="td3"><span> </span><a id="lblPay" class="lbl"></a></td>
-						<td class="td4">
+						<td class="td5"><span> </span><a id="lblPay" class="lbl"> </a></td>
+						<td class="td6">
 						<input id="txtPay" type="text" class="txt c1 num" />
 						</td>
 					</tr>
 					<tr class="tr7">
-						<td class="td1" ><span> </span><a id="lblMemo" class="lbl"></a></td>
-						<td class="column1" colspan="5"><textarea id="txtMemo" style="width:100%; height: 50px;"></textarea></td>
+						<td class="td1" ><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td class="column1" colspan="5"><textarea id="txtMemo" style="width:100%; height: 50px;"> </textarea></td>
 					</tr>
 
 				</table>
@@ -522,11 +525,11 @@
 						<td align="center" style="width:4%;"><a id='lbl_typea'></a></td>
 						<td align="center" style="width:5%;"><a id='lbl_datea'></a></td>
 						<td align="center" style="width:5%;"><a id='lbl_soldledger'></a></td>
-						<td align="center" style="width:6%;"><a id='lbl_principal'></a></td>
-						<td align="center" style="width:6%;"><a id='lbl_pay'></a></td>
-						<td align="center" style="width:5%;"><a id='lbl_inteis'></a></td>
+						<td align="center" style="width:6%;"><a id='lbl_mon'></a></td>
+						<td align="center" style="width:6%;"><a id='lbl_comp'></a></td>
+						<td align="center" style="width:5%;"><a id='lbl_earmoney'></a></td>
 						<td align="center" style="width:9%;"><a id='lbl_patch'></a></td>
-						<td align="center" style="width:6%;"><a id='lbl_paytotal'></a></td>
+						<td align="center" style="width:6%;"><a id='lbl_inteis'></a></td>
 						<td align="center" style="width:6%;"><a id='lbl_arrerage'></a></td>
 						<td align="center" style="width:5%;"><a id='lbl_sign'></a></td>
 						<td align="center" style="width:6%;"><a id='lbl_checkno'></a></td>
@@ -550,20 +553,20 @@
 						<input class="txt" id="txtSoldledger.*" type="text" style="width:95%;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtPrincipal.*" type="text" style="width:95%;text-align: right;"/>
+						<input class="txt" id="txtMon.*" type="text" style="width:95%;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtPay.*" type="text" style="width:95%;text-align: right;"/>
+						<input class="txt" id="txtComp.*" type="text" style="width:95%;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtInteis.*" type="text" style="width:95%;text-align: right;"/>
+						<input class="txt" id="txtEarmoney.*" type="text" style="width:95%;text-align: right;"/>
 						</td>
 						<td>
 						<input class="txt" id="txtBdate.*" type="text" style="width:95%;"/>
 						<input class="txt" id="txtEdate.*" type="text" style="width:95%;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtPaytotal.*" type="text" style="width:95%;"/>
+						<input class="txt" id="txtInteis.*" type="text" style="width:95%;text-align: right;"/>
 						</td>
 						<td>
 						<input class="txt" id="txtArrerage.*" type="text" style="width:95%;"/>
