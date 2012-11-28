@@ -16,9 +16,9 @@
         }
         q_tables = 's';
         var q_name = "labase";
-        var q_readonly = [];
+        var q_readonly = ['txtWorker'];
         var q_readonlys = [];
-        var bbmNum = [['txtSalary', 15, 0, 1],['txtSa_retire', 15, 0, 1],['txtRe_comp', 15, 0, 1],['txtRe_person', 15, 0, 1],['txtSa_labor', 15, 0, 1],['txtAs_labor', 15, 0, 1],['txtLa_person', 15, 0, 1],['txtLa_comp', 15, 0, 1],['txtSa_health', 15, 0, 1],['txtAs_health', 15, 0, 1],['txtHe_person', 15, 0, 1],['txtHe_comp', 15, 0, 1],['txtTax', 15, 0, 1],['txtMount', 15, 0, 1]];  
+        var bbmNum = [['txtSalary', 15, 0, 1],['txtSa_retire', 15, 0, 1],['txtRe_comp', 15, 0, 1],['txtRe_person', 15, 0, 1],['txtSa_labor', 15, 0, 1],['txtAs_labor', 15, 0, 1],['txtLa_person', 15, 0, 1],['txtLa_comp', 15, 0, 1],['txtSa_health', 15, 0, 1],['txtAs_health', 15, 0, 1],['txtHe_person', 15, 0, 1],['txtHe_comp', 15, 0, 1],['txtTax', 15, 0, 1],['txtMount', 15, 0, 1],['txtDisaster', 15, 0, 1]];  
         var bbsNum = [['txtCh_money', 15, 0, 1],['txtAs_health', 15, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
@@ -662,8 +662,6 @@
             <td class="td2"><input id="txtInsur_fund" type="text" class="txt num c1" /></td>
             <td class='td3'><span> </span><a id="lblInsur_disaster" class="lbl"> </a></td>
             <td class="td4"><input id="txtInsur_disaster" type="text" class="txt num c1" /></td>
-            <td class='td5'><span> </span><a id="lblDisaster" class="lbl"> </a></td>
-            <td class="td6"><input id="txtDisaster" type="text" class="txt num c1" /></td>
         </tr>
         <tr class="tr3">
             <!--<td class='td1'><span> </span><a id="lblTypea" class="lbl" > </a></td>
@@ -709,8 +707,8 @@
             <td class="td2"><input id="txtTax" type="text" class="txt num c1" /></td>
             <td class='td3'><span> </span><a id="lblMount" class="lbl"> </a></td>
             <td class="td4"><input id="txtMount" type="text" class="txt num c1" /></td>
-            <td class='td5'> </td>
-            <td class="td6"> </td>
+            <td class='td5'><span> </span><a id="lblDisaster" class="lbl"> </a></td>
+            <td class="td6"><input id="txtDisaster" type="text" class="txt num c1" /></td>
             <td class='td7'><span> </span><a id="lblWorker" class="lbl"> </a></td>
             <td class="td8"><input id="txtWorker" type="text" class="txt c1" /></td>
         </tr>                                                           
