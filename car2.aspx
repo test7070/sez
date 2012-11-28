@@ -105,7 +105,7 @@
 					q_box("carinsure.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'carinsure', "800px", "600px", q_getMsg("popCarinsure"));
 				});
 				$('#lblCarlender').parent().click(function(e) {
-					q_box("carlender.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'carlender', "800px", "600px", q_getMsg("popCarlender"));
+					q_box("carlender.aspx?;;;noa='" + $('#txtCarownerno').val() + "'", 'carlender', "95%", "95%", q_getMsg("popCarlender"));
 				});
 				$('#lblCaraccident').parent().click(function(e) {
 					q_box("caraccident.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'caraccident', "850px", "600px", q_getMsg("popCaraccident"));

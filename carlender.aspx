@@ -11,30 +11,30 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		
 		<script type="text/javascript">
-            var q_name = 'carlender', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
+            var q_name = 'carlender', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
             var t_sqlname = 'carlender_load';
             t_postname = q_name;
             var isBott = false;
             var afield, t_htm;
             var i, s1;
-            var decbbs = ['money','installment', 'installmentamount'];
+            var decbbs = ['money','installment', 'installmentamount', 'bkmoney'];
             var decbbm = [];
             var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [];
             var bbmNum_comma = [];
-            var bbsNum = [['txtMoney', 10, 0, 1], ['txtInstallment', 2, 0, 1], ['txtInstallmentamount', 10, 0, 1]];
+            var bbsNum = [['txtMoney', 10, 0, 1], ['txtInstallment', 2, 0, 1], ['txtDay', 2, 0, 1], ['txtInstallmentamount', 10, 0, 1],['txtBkmoney', 10, 0, 1]];
             var bbsNum_comma = [];
             var bbmMask = [];
             var bbsMask = [['txtBdate', '999/99/99'], ['txtEdate', '999/99/99']];
-			aPop = [['txtLenderno_', 'btnLender_', 'lender', 'noa,comp', 'txtLenderno_,txtLender_', 'lender_b.aspx']];
+			aPop = [['txtCardealno_', 'btnCardeal_', 'cardeal', 'noa,comp', 'txtCardealno_,txtCardeal_', 'cardeal_b.aspx'],['txtLenderno_', 'btnLender_', 'lender', 'noa,comp', 'txtLenderno_,txtLender_', 'lender_b.aspx']];
 			
             $(document).ready(function() {
                 bbmKey = [];
                 bbsKey = ['noa', 'noq'];
                 if(location.href.indexOf('?') < 0)// debug
                 {
-                    location.href = location.href + "?;;;noa='098-KM'";
+                    location.href = location.href + "?;;;noa='0000'";
                     return;
                 }
                 if(!q_paraChk())
@@ -57,6 +57,53 @@
             }
 
             function bbsAssign() {
+            	for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
+            		if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+            			$('#txtBdate_' + j).change(function () {
+		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                     q_bodyId($(this).attr('id'));
+		                     b_seq = t_IdSeq;
+		                     if(!emp($('#txtBdate_' + b_seq).val())&&!emp($('#txtEdate_' +b_seq).val())){
+		                     	$('#txtInstallment_' +b_seq).val((dec($('#txtEdate_' +b_seq).val().substr(0,3))*12+dec($('#txtEdate_' +b_seq).val().substr(4,2)))-(dec($('#txtBdate_' + b_seq).val().substr(0,3))*12+dec($('#txtBdate_' + b_seq).val().substr(4,2)))+1);
+		                     }
+		                     if(!emp($('#txtInstallmentamount_' + b_seq).val())){
+		                     	$('#txtBkmoney_' +b_seq).val(dec($('#txtInstallmentamount_' +b_seq).val())*dec($('#txtInstallment_' +b_seq).val()));
+		                     }
+		                 });
+            			
+		                 $('#txtEdate_' + j).change(function () {
+		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                     q_bodyId($(this).attr('id'));
+		                     b_seq = t_IdSeq;
+		                     if(!emp($('#txtBdate_' + b_seq).val())&&!emp($('#txtEdate_' +b_seq).val())){
+		                     	$('#txtInstallment_' +b_seq).val((dec($('#txtEdate_' +b_seq).val().substr(0,3))*12+dec($('#txtEdate_' +b_seq).val().substr(4,2)))-(dec($('#txtBdate_' + b_seq).val().substr(0,3))*12+dec($('#txtBdate_' + b_seq).val().substr(4,2)))+1);
+		                     	$('#txtDay_' +b_seq).val($('#txtEdate_' +b_seq).val().substr(7,2));
+		                     }
+		                     if(!emp($('#txtInstallmentamount_' + b_seq).val())){
+		                     	$('#txtBkmoney_' +b_seq).val(dec($('#txtInstallmentamount_' +b_seq).val())*dec($('#txtInstallment_' +b_seq).val()));
+		                     }
+		                     
+		                 });
+		                 
+		                 $('#txtInstallmentamount_' + j).change(function () {
+		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                     q_bodyId($(this).attr('id'));
+		                     b_seq = t_IdSeq;
+		                     if(!emp($('#txtInstallment_' + b_seq).val())&&!emp($('#txtInstallmentamount_' + b_seq).val())){
+		                     	$('#txtBkmoney_' +b_seq).val(dec($('#txtInstallmentamount_' +b_seq).val())*dec($('#txtInstallment_' +b_seq).val()));
+		                     }
+		                 });
+		                 
+		                 $('#txtInstallment_' + j).change(function () {
+		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                     q_bodyId($(this).attr('id'));
+		                     b_seq = t_IdSeq;
+		                     if(!emp($('#txtInstallmentamount_' + b_seq).val())&&!emp($('#txtInstallment_' + b_seq).val())){
+		                     	$('#txtBkmoney_' +b_seq).val(dec($('#txtInstallmentamount_' +b_seq).val())*dec($('#txtInstallment_' +b_seq).val()));
+		                     }
+		                 });
+					}
+            	} //j
                 _bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
             }
 
@@ -124,39 +171,54 @@
 					<td class="td1" align="center" style="width:1%; max-width:20px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td class="td2" align="center" style="width:25%;"><a id='lblLender'></a></td>
-					<td class="td3" align="center" style="width:9%;"><a id='lblBdate'></a></td>
-					<td class="td4" align="center" style="width:9%;"><a id='lblEdate'></a></td>
-					<td class="td5" align="center" style="width:9%;"><a id='lblMoney'></a></td>
-					<td class="td6" align="center" style="width:5%;"><a id='lblInstallment'></a></td>
-					<td class="td6" align="center" style="width:9%;"><a id='lblInstallmentamount'></a></td>
-					<td class="td8" align="center" style="width:15%;"><a id='lblMemo'></a></td>
+					<td class="td2" align="center" style="width:18%;"><a id='lblCardeal'></a></td>
+					<td class="td3" align="center" style="width:18%;"><a id='lblLender'></a></td>
+					<td class="td4" align="center" style="width:8%;"><a id='lblBdate'></a></td>
+					<td class="td5" align="center" style="width:8%;"><a id='lblEdate'></a></td>
+					<td class="td6" align="center" style="width:8%;"><a id='lblMoney'></a></td>
+					<td class="td7" align="center" style="width:8%;"><a id='lblInstallmentamount'></a></td>
+					<td class="td8" align="center" style="width:4%;"><a id='lblInstallment'></a></td>
+					<td class="td9" align="center" style="width:8%;"><a id='lblBkmoney'></a></td>
+					<td class="td10" align="center" style="width:3%;"><a id='lblDay'></a></td>
+					<td class="td11" align="center" style="width:15%;"><a id='lblMemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td class="td1" align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  />
 					<input class="txt" id="txtNoq.*" type="text" style="display:none;"   />
 					</td>
-					<td class="td2" style="width:3%;">
-					<input class="txt"  id="txtLenderno.*" type="text" style="width:20%;"  />
-					<input class="txt" id="txtLender.*" type="text" style="width:73%;"   />
+					<td class="td2">
+					<input class="txt"  id="txtCardealno.*" type="text" style="width:20%;"  />
+					<input id="btnCardeal.*" type="button" value="." style="width: 5%;" />
+					<input class="txt" id="txtCardeal.*" type="text" style="width:73%;"   />
 					</td>
 					<td class="td3">
-					<input class="txt" id="txtBdate.*" type="text" style="width:95%; text-align: center;"  />
+					<input class="txt"  id="txtLenderno.*" type="text" style="width:20%;"  />
+					<input id="btnLender.*" type="button" value="." style="width: 5%;" />
+					<input class="txt" id="txtLender.*" type="text" style="width:73%;"   />
 					</td>
 					<td class="td4">
-					<input class="txt" id="txtEdate.*" type="text" style="width:95%; text-align: center;"  />
+					<input class="txt" id="txtBdate.*" type="text" style="width:95%; text-align: center;"  />
 					</td>
 					<td class="td5">
-					<input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;" />
+					<input class="txt" id="txtEdate.*" type="text" style="width:95%; text-align: center;"  />
 					</td>
 					<td class="td6">
-					<input class="txt" id="txtInstallment.*" type="text" style="width:95%; text-align: right;" />
+					<input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;" />
 					</td>
 					<td class="td7">
 					<input class="txt" id="txtInstallmentamount.*" type="text" style="width:95%; text-align: right;" />
 					</td>
 					<td class="td8">
+					<input class="txt" id="txtInstallment.*" type="text" style="width:95%; text-align: right;" />
+					</td>
+					<td class="td9">
+					<input class="txt" id="txtBkmoney.*" type="text" style="width:95%; text-align: right;" />
+					</td>
+					<td class="td10">
+					<input class="txt" id="txtDay.*" type="text" style="width:95%; text-align: right;" />
+					</td>
+					<td class="td11">
 					<input class="txt" id="txtMemo.*" type="text" style="width:95%;"  />
 					</td>
 				</tr>
