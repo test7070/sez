@@ -54,7 +54,11 @@
 							type : '8',
 							name : 'xaccc5',
 							value : q_getPara('acc.bal').split(',')
-						}]
+						},{
+                        type : '8',
+                        name : 'balance',
+                        value : (('').concat(new Array("餘額"))).split(',')
+                    }]
                 });
                 
                 $('#txtAcc1a').change(function () {
