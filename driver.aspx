@@ -28,7 +28,8 @@
             //ajaxPath = ""; //  execute in Root
             //q_alias = 'a';
             aPop = new Array(['txtInsurerno', 'lblInsurer', 'insurer', 'noa,comp', 'txtInsurerno,txtInsurer', 'Insurer_b.aspx'],
-            ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'Cardeal_b.aspx'])
+            ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'Cardeal_b.aspx'],
+            ['txtBankno2', 'lblBank2', 'bank', 'noa,bank', 'txtBankno2,txtBank2', 'Bank_b.aspx'])
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -243,7 +244,7 @@
             .tbbm tr td .lbl.btn {
                 color: #4297D7;
                 font-weight: bolder;
-                font-size: medium;
+                font-size: 15px;
             }
             .tbbm tr td .lbl.btn:hover {
                 color: #FF8F19;
@@ -443,6 +444,12 @@
 						</td>
 					</tr>
 					<tr class="tr11">
+						<td class="td1"><span> </span><a id="lblBank2" class="lbl btn"></a></td>
+						<td class="td2" colspan="3">
+						<input id="txtBankno2" type="text" class="txt c2"/>
+						<input id="txtBank2" type="text" class="txt c3"/></td> 
+					</tr>
+					<tr class="tr12">
 						<td class="td1"><span> </span><a id="lblAccount2" class="lbl"></a></td>
 						<td class="td2" colspan="3">
 						<input id="txtAccount2" type="text" class="txt c1"/>
@@ -456,7 +463,7 @@
 						<input id="txtId2" type="text" class="txt c1" />
 						</td>
 					</tr>
-					<tr class="tr12">
+					<tr class="tr13">
                         <td class="td1"><span> </span><a id="lblGuild" class="lbl"></a></td>
                         <td class="td2">
                         <input id="txtGuild" type="text" class="txt c1"/>
@@ -467,7 +474,7 @@
                         </td> 
                         <td class="td5" colspan="4"><input id="txtCardeal" type="text" class="txt c1"/></td>
                     </tr>
-                    <tr class="tr13">
+                    <tr class="tr14">
 						<td class="td1"><span> </span><a id="lblUacc1" class="lbl" style="font-size: 14px;"></a></td>
 						<td class="td2">
 						<input id="txtUacc1" type="text" class="txt c1"/>

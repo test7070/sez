@@ -662,6 +662,8 @@
             <td class="td2"><input id="txtInsur_fund" type="text" class="txt num c1" /></td>
             <td class='td3'><span> </span><a id="lblInsur_disaster" class="lbl"> </a></td>
             <td class="td4"><input id="txtInsur_disaster" type="text" class="txt num c1" /></td>
+            <td class='td5'><span> </span><a id="lblDisaster" class="lbl"> </a></td>
+            <td class="td6"><input id="txtDisaster" type="text" class="txt num c1" /></td>
         </tr>
         <tr class="tr3">
             <!--<td class='td1'><span> </span><a id="lblTypea" class="lbl" > </a></td>
