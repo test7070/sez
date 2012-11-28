@@ -15,7 +15,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="postout";
-        var q_readonly = ['txtNoa'];
+        var q_readonly = ['txtNoa','txtChecker'];
         var bbmNum = [['txtTotal',14 , 1, 1],['txtP20',14 , 0, 1],['txtP35',14 , 0, 1],['txtP50',14 , 0, 1],['txtP100',14 , 0, 1],['txtP120',14 , 0, 1],['txtP130',14 , 0, 1],['txtP150',14 , 0, 1],['txtP200',14 , 0, 1],['txtP250',14 , 0, 1],['txtP320',14 , 0, 1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -54,6 +54,9 @@
 			}).blur(function() {
 				$("#cmbTypea").attr('size', '1');
 			});
+			$('#btnCheck').click(function () {
+	           $('#txtChecker').val(r_name);
+	        });
 			$('#txtP20').change(function () {
 	           sum();
 	        });
@@ -164,6 +167,7 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
+            $('#btnCheck').attr('disabled', 'disabled');
         }
 
         function btnModi() {
@@ -213,6 +217,12 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            if (t_para) {
+		            $('#btnCheck').attr('disabled', 'disabled');
+		        }
+		        else {
+		        	$('#btnCheck').removeAttr('disabled');
+		        }
         }
 
         function btnMinus(id) {
@@ -408,7 +418,10 @@
           	   <td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
                <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblDatea" class="lbl"></a></td>
-               <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td> 
+               <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
+               <td class="td5"><span> </span><a id="lblChecker" class="lbl"></a></td>
+               <td class="td6"><input id="txtChecker" type="text" class="txt c1"/></td>
+               <td class="td7"><input id="btnCheck" type="button" /></td>
             </tr>
             <tr class="tr2">
                <td class="td1"><span> </span><a id="lblSss" class="lbl btn" ></a></td>
@@ -456,7 +469,7 @@
              	<td class="td8"><span> </span><a id="lblP200" class="lbl"></a></td>
                <td class="td9"><input id="txtP200" type="text" class="txt num c3" /></td>              
             </tr>
-            <tr class="tr7">
+            <tr class="tr8">
              	<td class="td1"></td>
                <td class="td2"><span> </span><a id="lblP250" class="lbl"></a></td>
                <td class="td3"><input id="txtP250" type="text" class="txt num c3" /></td>

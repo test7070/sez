@@ -72,7 +72,7 @@
 			           q_gt('labase', t_where , 0, 0, 0, "", r_accy);
 			           
 			     	if(q_getPara('sys.comp').indexOf('大昌')>-1){
-			     		if($('#txtNoa').val().substr(0,1)>='A' && $('#txtNoa').val().substr(0,1)<='Z'){
+			     		if($('#txtNoa').val().substr(0,1)='P'){
 			     			$('#chkIssssp')[0].checked=true;
 			     			$('#txtInsur_fund').val(0.025);
 		            		$('#txtInsur_disaster').val(0.11);
@@ -173,7 +173,7 @@
             var ret;
             if(s2[0]='sss'){
             	if(q_getPara('sys.comp').indexOf('大昌')>-1){
-				  	if($('#txtNoa').val().substr(0,1)>='A' && $('#txtNoa').val().substr(0,1)<='Z'){
+				  	if($('#txtNoa').val().substr(0,1)='P'){
 				   		$('#chkIssssp')[0].checked=true;
 			        	$('#txtInsur_disaster').val(0.11);
 				   	}else{
@@ -294,7 +294,7 @@
 			        	}
 			        	$('#txtInsur_fund').val(0.025);
 			        	if(q_getPara('sys.comp').indexOf('大昌')>-1){
-				     		if($('#txtNoa').val().substr(0,1)>='A' && $('#txtNoa').val().substr(0,1)<='Z'){
+				     		if($('#txtNoa').val().substr(0,1)='P'){
 				     			$('#chkIssssp')[0].checked=true;
 			            		$('#txtInsur_disaster').val(0.11);
 				     		}else{

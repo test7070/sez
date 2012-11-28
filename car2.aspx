@@ -54,6 +54,7 @@
 
 				q_gt('carbrand', '', 0, 0, 0, "");
 				q_gt('carkind', '', 0, 0, 0, "");
+				q_gt('carspec', '', 0, 0, 0, "");
 				q_gt('carstyle', '', 0, 0, 0, "");
 
 				fbbm[fbbm.length] = 'cmbAuto';
@@ -163,6 +164,15 @@
 						}
 						q_cmbParse("cmbCarkindno", t_item);
 						$("#cmbCarkindno").val(abbm[q_recno].carkindno);
+						break;
+					case 'carspec':
+						var as = _q_appendData("carspec", "", true);
+						var t_item = " @ ";
+						for ( i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].spec;
+						}
+						q_cmbParse("cmbCarspecno", t_item);
+						$("#cmbCarspecno").val(abbm[q_recno].carspecno);
 						break;
 					case 'carstyle':
 						var as = _q_appendData("carstyle", "", true);
@@ -454,22 +464,27 @@
 							<td class="td6" colspan="3"><select id="cmbCarstyleno" style="width:95%;"></select></td>
 						</tr>
 						<tr class="tr1">
-							<td class="td3">
+							<td class="td1">
 							<div class='btnLbl tb button'>
 								<a id='lblCardeal'></a>
 							</div></td>
-							<td class="td4" colspan="3">
+							<td class="td2" colspan="3">
 							<input id="txtCardealno" type="text"  style='width:20%; float:left;'/>
 							<input id="txtCardeal" type="text"  style='width:73%; float:left;'/>
 							</td>
-							<td class="td7">
+							<td class="td5">
 							<div class='btnLbl tb button'>
 								<a id='lblDriver'></a>
 							</div></td>
-							<td class="td8">
+							<td class="td6">
 							<input id="txtDriverno" type="text"  style='width:40%; float:left;'/>
 							<input id="txtDriver" type="text"  style='width:53%; float:left;'/>
 							</td>
+							<td class="td7" >
+							<div class='btnLbl tb'>
+								<a id='lblCarspec'></a>
+							</div></td>
+							<td class="td8" ><select id="cmbCarspecno" style="width:95%;"></select></td>
 						</tr>
 						<tr class="tr2">
 							<td class="td1" >
