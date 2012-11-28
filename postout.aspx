@@ -167,6 +167,7 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
+            $('#btnCheck').attr('disabled', 'disabled');
         }
 
         function btnModi() {
