@@ -89,8 +89,8 @@
                             name : 'xmon'
                         },{
                             type : '2',
-                            name : 'carinsure',
-                            dbf : 'carinsure',
+                            name : 'carinsurer',
+                            dbf : 'insurer',
                             index : 'noa,comp',
                             src : 'insurer_b.aspx'
                         }]
