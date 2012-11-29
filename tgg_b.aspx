@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = 'tgg', t_content = ' field=noa,comp,zip_invo,addr_invo', bbsKey = ['noa'], as, t_where = '';  // , afilter = ['noa', 'comp']
+    var q_name = 'tgg', t_content = ' field=noa,comp,zip_invo,addr_invo,paytype', bbsKey = ['noa'], as, t_where = '';  // , afilter = ['noa', 'comp']
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
     var i,s1;

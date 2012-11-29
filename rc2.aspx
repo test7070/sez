@@ -26,7 +26,7 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
-		 aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,tel,zip_invo,addr_invo', 'txtTggno,txtTgg,txtTel,txtPost,txtAddr', 'tgg_b.aspx'],
+		 aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,tel,zip_invo,addr_invo,paytype', 'txtTggno,txtTgg,txtTel,txtPost,txtAddr,txtPaytype', 'tgg_b.aspx'],
 		 ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
 		 ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
 		 ['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx']);
@@ -57,7 +57,7 @@
             q_cmbParse("cmbTypea", q_getPara('rc2.typea'));   // 需在 main_form() 後執行，才會載入 系統參數
             q_cmbParse("cmbStype", q_getPara('rc2.stype'));   
             q_cmbParse("cmbCoin", q_getPara('sys.coin'));      /// q_cmbParse 會加入 fbbm
-            q_cmbParse("cmbPay", q_getPara('rc2.pay'));  // comb 未連結資料庫
+            q_cmbParse("combPaytype", q_getPara('tgg.paytype'));  // comb 未連結資料庫
             q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
              $('#lblAccc').click(function () {
@@ -73,7 +73,7 @@
             switch (b_pop) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
                 case 'tgg':
                     ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtTggno,txtComp,txtTel,txtPost,txtAddr,txtPay,cmbTrantype', ret, 'noa,comp,tel,post_fact,addr_fact,pay,trantype'); 
+                    if (q_cur > 0 && q_cur < 4) q_browFill('txtTggno,txtComp,txtTel,txtPost,txtAddr,txtPaytype,cmbTrantype', ret, 'noa,comp,tel,post_fact,addr_fact,paytype,trantype'); 
                     break;
 
                 case 'ucc':
@@ -138,7 +138,7 @@
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
                 case 'tgg':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtTggno,txtComp,txtTel,txtPost,txtAddr,txtPay,cmbTrantype', 'noa,comp,tel,post_fact,addr_fact,pay,trantype');
+                    q_changeFill(t_name, 'txtTggno,txtComp,txtTel,txtPost,txtAddr,txtPaytype,cmbTrantype', 'noa,comp,tel,post_fact,addr_fact,paytype,trantype');
                     break;
 
                 case 'acomp':  ////  直接 key in 編號，帶入 form
@@ -216,12 +216,12 @@
             q_box('rc2_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
-        function cmbPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
-            var cmb = document.getElementById("cmbPay")
+        function cmbPaytype_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
+            var cmb = document.getElementById("combPaytype")
             if (!q_cur) 
                 cmb.value = '';
             else
-                $('#txtPay').val(cmb.value);
+                $('#txtPaytype').val(cmb.value);
             cmb.value = '';
         }
 
@@ -582,8 +582,8 @@
                 <td class="td1"><span> </span><a id='lblTgg' class="lbl btn"></a></td>
                 <td class="td2"><input id="txtTggno" type="text" class="txt c1" /></td>
                 <td class="td3"><input id="txtTgg"  type="text" class="txt c1"/></td>
-                <td class="td4"><span> </span><a id='lblPay' class="lbl"></a></td>
-                <td class="td5" colspan='2'><input id="txtPay" type="hidden" class="txt c1"/><select id="cmbPay" class="txt c3"></select></td> 
+                <td class="td4"><span> </span><a id='lblPaytype' class="lbl"></a></td>
+                <td class="td5" colspan='2'><input id="txtPaytype" type="text" class="txt c3"/><select id="combPaytype" class="txt c2" onchange='combPaytype_chg()'></select></td> 
                 <td class="td7"><span> </span><a id='lblOrdc' class="lbl btn"></a></td>
                 <td class="td8"><input id="txtOrdeno"  type="text"  class="txt c1"/></td> 
             </tr>

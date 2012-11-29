@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"> </script>
 		<script src='../script/qj2.js' type="text/javascript"> </script>
 		<script src='qset.js' type="text/javascript"> </script>
@@ -33,7 +33,7 @@
             brwKey = 'datea';
 
             aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], 
-            ['txtCustno', 'lblCust', 'cust', 'noa,comp,tel,zip_invo,addr_invo', 'txtCustno,txtComp,txtTel,txtZipcode,txtAddr', 'cust_b.aspx'],
+            ['txtCustno', 'lblCust', 'cust', 'noa,comp,tel,zip_invo,addr_invo,paytype', 'txtCustno,txtComp,txtTel,txtZipcode,txtAddr,txtPaytype', 'cust_b.aspx'],
             ['txtPartno2', 'lblPart2', 'part', 'noa,part', 'txtPartno2,txtPart2', 'part_b.aspx'],
             ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
             ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
@@ -44,6 +44,7 @@
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
+                brwCount2 = 11;
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
             });
@@ -536,7 +537,7 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr1">
-						<td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
+						<td class="td1"><span> </span><a id='lblNo2' class="lbl"></a></td>
 						<td class="td2">
 						<input type="text" id="txtNoa" class="txt c1"/>
 						</td>
@@ -573,7 +574,7 @@
 						<td class="td3"><span> </span><a id='lblPaytype' class="lbl"></a></td>
 						<td class="td4">
 						<input id="txtPaytype" type="text" class="txt c4"/>
-						<select id="combPaytype" class="txt c4" ></select></td>
+						<select id="combPaytype" class="txt c4" onchange='combPaytype_chg()' ></select></td>
 						<td class="td5" align="right"><span> </span><input type="button" id="btnAccc" /></td>
 						<td class="td6">
 						<input type="text" id="txtAccno" class="txt c1"/>

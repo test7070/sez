@@ -539,13 +539,21 @@
                <td class="td3"><span> </span><a id='lblBillday' class="lbl"></a></td>
                <td class="td4" colspan="3"><input id="txtBillday" type="text" class="txt c1"></td>               
             </tr>
-            <tr class="tr21">
+           <!-- <tr class="tr21">
                 <td class="td1"><span> </span><a id="lblBilltype" class="lbl"></a></td>
                 <td class="ch2"><input id="chkIsboat" type="checkbox"/><a id="lblIsboat"></a></td>
                 <td class="ch3"><input id="chkIsboatname" type="checkbox"/><a id="lblIsboatname"></a></td>
                 <td class="ch4"><input id="chkIsship" type="checkbox"/><a id="lblIsship"></a></td>
                 <td class="ch5"><input id="chkIsadd1" type="checkbox"/><a id="lblIsadd1"></a></td>
                 <td class="ch6"><input id="chkIsadd2" type="checkbox"/><a id="lblIsadd2"></a></td>
+           </tr>-->
+           <tr class="tr21">
+               <td class="td1"><span> </span><a id='lblTax1' class="lbl"></a></td>
+               <td class="td2"><input id="txtTax1" type="text" class="txt num c1"/></td>
+               <td class="td1"><span> </span><a id='lblTax2' class="lbl"></a></td>
+               <td class="td2"><input id="txtTax2" type="text" class="txt num c1"/></td>
+               <td class="td1"><span> </span><a id='lblTax3' class="lbl"></a></td>
+               <td class="td2"><input id="txtTax3" type="text" class="txt num c1"/></td>               
             </tr>
             <tr class="tr22">
                 <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>

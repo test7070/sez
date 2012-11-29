@@ -25,7 +25,11 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'odate';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
-		 aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'namea', 'txtWorker', 'sss_b.aspx'],['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],['txtCustno','lblCust','cust','noa,comp','txtCustno,txtCust','cust_b.aspx']);
+		 aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
+		 ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+		  ['txtWorker', 'lblWorker', 'sss', 'namea', 'txtWorker', 'sss_b.aspx'],
+		 ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
+		 ['txtCustno','lblCust','cust','noa,comp,paytype','txtCustno,txtComp,txtPaytype','cust_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'no2'];
@@ -59,7 +63,7 @@
             q_mask(bbmMask);            
             q_cmbParse("cmbStype", q_getPara('orde.stype')); // 需在 main_form() 後執行，才會載入 系統參數  
             q_cmbParse("cmbCoin", q_getPara('sys.coin'));      /// q_cmbParse 會加入 fbbm
-            q_cmbParse("combPay", q_getPara('vcc.pay'));  // comb 未連結資料庫
+            q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  // comb 未連結資料庫
             q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
 
@@ -75,7 +79,7 @@
             switch (b_pop) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
                 case 'cust':
                     ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtCustno,txtComp,txtTel,txtPost,txtAddr,txtPay,cmbTrantype', ret, 'noa,comp,tel,post_fact,addr_fact,pay,trantype');
+                    if (q_cur > 0 && q_cur < 4) q_browFill('txtCustno,txtComp,txtTel,txtPost,txtAddr,txtPaytype,cmbTrantype', ret, 'noa,comp,tel,post_fact,addr_fact,paytype,trantype');
                     break;
 
                 case 'ucc':
@@ -140,7 +144,7 @@
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
                 case 'cust':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtCustno,txtComp,txtTel,txtPost,txtAddr,txtPay,cmbTrantype', 'noa,comp,tel,post_fact,addr_fact,pay,trantype');
+                    q_changeFill(t_name, 'txtCustno,txtComp,txtTel,txtPost,txtAddr,txtPaytype,cmbTrantype', 'noa,comp,tel,post_fact,addr_fact,paytype,trantype');
                     break;
 
                 case 'acomp':  ////  直接 key in 編號，帶入 form
@@ -208,12 +212,12 @@
             q_box('orde_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
-        function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
-            var cmb = document.getElementById("combPay")
+        function combPaytype_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
+            var cmb = document.getElementById("combPaytype")
             if (!q_cur) 
                 cmb.value = '';
             else
-                $('#txtPay').val(cmb.value);
+                $('#txtPaytype').val(cmb.value);
             cmb.value = '';
         }
 
@@ -571,9 +575,9 @@
                 <td class="td1"><span> </span><a id="lblCust" class="lbl btn"></a></td>
                 <td class="td2" colspan="2"><input id="txtCustno" type="text" class="txt c4"/>
                 <input id="txtComp"  type="text" class="txt c5"/></td>
-                <td class="td4"><span> </span><a id='lblPay' class="lbl"></a></td>
-                <td class="td5"><input id="txtPay" type="text" class="txt c1"/></td> 
-                <td class="td6"><select id="combPay" class="txt c1" onchange='combPay_chg()' ></select></td> 
+                <td class="td4"><span> </span><a id='lblPaytype' class="lbl"></a></td>
+                <td class="td5"><input id="txtPaytype" type="text" class="txt c1"/></td> 
+                <td class="td6"><select id="combPaytype" class="txt c1" onchange='combPaytype_chg()' ></select></td> 
                 <td class="td7"><span> </span><a id='lblContract' class="lbl"></a></td>
                 <td class="td8"><input id="txtContract"  type="text" class="txt c1"/></td> 
             </tr>
