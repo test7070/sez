@@ -65,38 +65,38 @@
                 <th align="center" > </th>
                 <th align="center" style='color:Blue;' class="td2"><a id='lblNoa'></a></th>
                 <th align="center" style='color:Blue;' class="td2"><a id='lblMon'></a></th>
-                <th align="center" style='color:Blue;' class="td1"><a id='lblInsu_health1'></a></th>
-                <th align="center" style='color:Blue;' class="td1"><a id='lblInsu_health2'></a></th>
-                <th align="center" style='color:Blue;' class="td1"><a id='lblInsu_labor1'></a></th>
-                <th align="center" style='color:Blue;' class="td1"><a id='lblInsu_labor2'></a></th>
-                <th align="center" style='color:Blue;' class="td1"><a id='lblInsu_retire1'></a></th>
-                <th align="center" style='color:Blue;' class="td1"><a id='lblInsu_retire2'></a></th>
+                <th align="center" style='color:Blue;' class="td1"><a id='lblHe_person'></a></th>
+                <th align="center" style='color:Blue;' class="td1"><a id='lblHe_comp'></a></th>
+                <th align="center" style='color:Blue;' class="td1"><a id='lblLa_person'></a></th>
+                <th align="center" style='color:Blue;' class="td1"><a id='lblLa_comp'></a></th>
+                <th align="center" style='color:Blue;' class="td1"><a id='lblRe_person'></a></th>
+                <th align="center" style='color:Blue;' class="td1"><a id='lblRe_comp'></a></th>
                 <th align="center" style='color:Blue;' class="td2"><a id='lblTotal1'></a></th>
                 <th align="center" style='color:Blue;' class="td2"><a id='lblTotal2'></a></th>
                 <th align="center" style='color:Blue;' class="td2"><a id='lblPayc'></a></th>
                 <th align="center" style='color:Blue;' class="td2"><a id='lblPay'></a></th>
                 <th align="center" style='color:Blue;' class="td2"><a id='lblUnpay'></a></th>
                 <th align="center" style='color:Blue;' class="td2"><a id='lblSalary'></a></th>
-                <th align="center" style='color:Blue;' class="td2"><a id='lblFamily'></a></th>
+                <th align="center" style='color:Blue;' class="td2"><a id='lblMount'></a></th>
                 <th align="center" style='color:Blue;' class="td2"><a id='lblDisaster'></a></th>
             </tr>
             <tr>
                 <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
                 <td ><input class="txt c1" id="txtNoa.*" type="text"   readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtMon.*" type="text"   readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtInsu_health1.*"  type="text"  readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtInsu_health2.*"  type="text"  readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtInsu_labor1.*"  type="text"   readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtInsu_labor2.*"  type="text"   readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtInsu_retire1.*"  type="text"   readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtInsu_retire2.*"  type="text"  readonly="readonly" /></td>
+                <td ><input class="txt c1" id="txtHe_person.*"  type="text"  readonly="readonly" /></td>
+                <td ><input class="txt c1" id="txtHe_comp.*"  type="text"  readonly="readonly" /></td>
+                <td ><input class="txt c1" id="txtLa_person.*"  type="text"   readonly="readonly" /></td>
+                <td ><input class="txt c1" id="txtLa_comp.*"  type="text"   readonly="readonly" /></td>
+                <td ><input class="txt c1" id="txtRe_person.*"  type="text"   readonly="readonly" /></td>
+                <td ><input class="txt c1" id="txtRe_comp.*"  type="text"  readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtTotal1.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtTotal2.*" type="text"   readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtPayc.*" type="text"   readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtPay.*" type="text"   readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtUnpay.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtSalary.*" type="text"  readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtFamily.*" type="text"  readonly="readonly" /></td>
+                <td ><input class="txt c1" id="txtMount.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtDisaster.*" type="text"  readonly="readonly" /></td>
             </tr>
         </table>

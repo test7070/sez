@@ -64,7 +64,7 @@
                 q_cmbParse("cmbTypea", q_getPara('vcc.typea'));
                 q_cmbParse("cmbStype", q_getPara('vcc.stype'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-                q_cmbParse("combPay", q_getPara('vcc.pay'));
+                q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
                 q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
                 
 
@@ -166,12 +166,12 @@
                 q_box('vcc_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
 
-            function combPay_chg() {
-                var cmb = document.getElementById("combPay")
+            function combPaytype_chg() {
+                var cmb = document.getElementById("combPaytype")
                 if(!q_cur)
                     cmb.value = '';
                 else
-                    $('#txtPay').val(cmb.value);
+                    $('#txtPaytype').val(cmb.value);
                 cmb.value = '';
             }
 
@@ -570,10 +570,10 @@
 						<input type="text" id="txtCustno" style="float:left;width:30%;"/>
 						<input type="text" id="txtComp" style="float:left;width:70%;"/>
 						</td>
-						<td class="td3"><span> </span><a id='lblPay' class="lbl"></a></td>
+						<td class="td3"><span> </span><a id='lblPaytype' class="lbl"></a></td>
 						<td class="td4">
-						<input id="txtPay" type="text" class="txt c4"/>
-						<select id="combPay" class="txt c4" ></select></td>
+						<input id="txtPaytype" type="text" class="txt c4"/>
+						<select id="combPaytype" class="txt c4" ></select></td>
 						<td class="td5" align="right"><span> </span><input type="button" id="btnAccc" /></td>
 						<td class="td6">
 						<input type="text" id="txtAccno" class="txt c1"/>
