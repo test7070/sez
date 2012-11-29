@@ -51,7 +51,7 @@
         function mainPost() { 
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('cust.typea'));
-            q_cmbParse("combPay", q_getPara('vcc.pay'));  
+            q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  
             q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
 			
 			$('#lblConn').click(function(){
@@ -141,12 +141,12 @@
             q_box('cust_s.aspx', q_name + '_s', "500px", "330px", q_getMsg( "popSeek"));
         }
 
-        function combPay_chg() {   
-            var cmb = document.getElementById("combPay")
+        function combPaytype_chg() {   
+            var cmb = document.getElementById("combPaytype")
             if (!q_cur) 
                 cmb.value = '';
             else
-                $('#txtPay').val(cmb.value);
+                $('#txtPaytype').val(cmb.value);
             cmb.value = '';
         }
 
@@ -505,9 +505,9 @@
             <tr class="tr16">
                <td class="td1"><span> </span><a id='lblTrantype' class="lbl"></a></td>
                <td class="td2"><select id="cmbTrantype" class="txt c1"></select></td>
-               <td class="td3"><span> </span><a id='lblPay' class="lbl"></a></td>
-               <td class="td4"><input id="txtPay" type="text" class="txt c6"/>
-               <select id="combPay" class="txt c6" onchange='combPay_chg()'></select></td>
+               <td class="td3"><span> </span><a id='lblPaytype' class="lbl"></a></td>
+               <td class="td4"><input id="txtPaytype" type="text" class="txt c6"/>
+               <select id="combPaytype" class="txt c6" onchange='combPaytype_chg()'></select></td>
                <td class="td5"><span> </span><a id='lblUacc3' class="lbl"></a></td>
                <td class="td6"><input id="txtUacc3" type="text" class="txt c1"/></td>
             </tr>
