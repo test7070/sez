@@ -78,6 +78,8 @@
 		                $('#txtLabor2_edate').val($('#txtOutdate').val());
 		            }
 		        });
+		        
+		        $('#sssppart').hide();
 		    }
 
 		    function txtCopy(dest, source) {
@@ -491,7 +493,7 @@
 						<td class="td3"><span> </span><a id='lblLabor2_edate' class="lbl"></a></td>
 						<td class="td4"><input id="txtLabor2_edate" type="text" class="txt c1"/></td>
 					</tr>
-					<tr>
+					<tr id="sssppart">
 						<td class="td1"><span> </span><a id="lblPart" class="lbl btn"></a></td>
 						<td class="td2">
 							<input id="txtPartno"  type="text" class="txt c2"/>

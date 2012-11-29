@@ -34,7 +34,7 @@
                 bbsKey = ['noa', 'noq'];
                 if(location.href.indexOf('?') < 0)// debug
                 {
-                    location.href = location.href + "?;;;noa='0000'";
+                    location.href = location.href + "?;;;noa='A0254'";
                     return;
                 }
                 if(!q_paraChk())
@@ -102,6 +102,13 @@
 		                     	$('#txtBkmoney_' +b_seq).val(dec($('#txtInstallmentamount_' +b_seq).val())*dec($('#txtInstallment_' +b_seq).val()));
 		                     }
 		                 });
+		                 $('#txtCarnos_' + j).focus(function () {
+		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                     q_bodyId($(this).attr('id'));
+		                     b_seq = t_IdSeq;
+							t_where = "  carownerno" + q_getId()[3].substr(q_getId()[3].indexOf('='));
+                    		q_box("car2_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;;", 'car2', "95%", "650px", q_getMsg('popCar2'));
+		                 });
 					}
             	} //j
                 _bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
@@ -143,6 +150,30 @@
                 if(q_tables == 's')
                     bbsAssign();
             }
+            
+            function q_boxClose(s2) {
+                var ret;
+                switch (b_pop) {
+                    case 'car2':
+                    	b_ret = getb_ret(); 
+                        if (b_ret != null) { 
+                        	 $('#txtCarnos_' + b_seq).val('');
+                        	 var t_carno='';
+                            for (var i = 0; i < b_ret.length; i++) {
+                            	if(i == b_ret.length-1)
+                                	t_carno+=b_ret[i].noa;
+                                else
+                                	t_carno+=b_ret[i].noa+'.';
+                            }
+                            $('#txtCarnos_' + b_seq).val(t_carno);
+                        }
+                        break;
+                    case q_name + '_s':
+                        q_boxClose2(s2);
+                        break;
+                }
+                b_pop = '';
+            }
 		</script>
 		<style type="text/css">
 			.dbbs .tbbs {
@@ -171,8 +202,8 @@
 					<td class="td1" align="center" style="width:1%; max-width:20px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td class="td2" align="center" style="width:18%;"><a id='lblCardeal'></a></td>
-					<td class="td3" align="center" style="width:18%;"><a id='lblLender'></a></td>
+					<td class="td2" align="center" style="width:10%;"><a id='lblCardeal'></a></td>
+					<td class="td3" align="center" style="width:10%;"><a id='lblLender'></a></td>
 					<td class="td4" align="center" style="width:8%;"><a id='lblBdate'></a></td>
 					<td class="td5" align="center" style="width:8%;"><a id='lblEdate'></a></td>
 					<td class="td6" align="center" style="width:8%;"><a id='lblMoney'></a></td>
@@ -180,6 +211,7 @@
 					<td class="td8" align="center" style="width:4%;"><a id='lblInstallment'></a></td>
 					<td class="td9" align="center" style="width:8%;"><a id='lblBkmoney'></a></td>
 					<td class="td10" align="center" style="width:3%;"><a id='lblDay'></a></td>
+					<td class="td11" align="center" style="width:15%;"><a id='lblCarnos'></a></td>
 					<td class="td11" align="center" style="width:15%;"><a id='lblMemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -219,6 +251,9 @@
 					<input class="txt" id="txtDay.*" type="text" style="width:95%; text-align: right;" />
 					</td>
 					<td class="td11">
+					<input class="txt" id="txtCarnos.*" type="text" style="width:95%;"  />
+					</td>
+					<td class="td12">
 					<input class="txt" id="txtMemo.*" type="text" style="width:95%;"  />
 					</td>
 				</tr>
