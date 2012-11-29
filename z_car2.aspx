@@ -107,7 +107,9 @@
 	                $('#txtDate2').datepicker(); 
 	                t_item = "";
 	                $('#chkXcarteamno').children('input').attr('checked','checked')
-	                
+	                $('#txtEnddate').mask('999/99/99');
+	                $('#txtEnddate').datepicker(); 
+	                $('#txtEnddate').val(q_date());
 	                
 	                var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
