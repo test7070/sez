@@ -8,8 +8,14 @@
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
+		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			var q_name = "car2_s";
+			
+			aPop = [['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], 
+						['txtCarownerno', 'lblCarowner', 'carowner', 'noa,namea', 'txtCarownerno,txtCarowner', 'carowner_b.aspx'], 
+				 		['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']];
+
 
 			$(document).ready(function() {
 				main();
@@ -54,7 +60,7 @@
 				+ q_sqlPara2("indate", t_bindate, t_eindate) + q_sqlPara2("driverno", t_driverno) 
 				+ q_sqlPara2("f.namea", t_driver) + q_sqlPara2("cardealno", t_cardealno) 
 				+ q_sqlPara2("cardeal", t_cardeal) + q_sqlPara2("carownerno", t_carownerno) 
-				+ q_sqlPara2("carowner", t_carowner)+ q_sqlPara2("a.cartype", t_cartype);
+				+ q_sqlPara2("b.namea", t_carowner)+ q_sqlPara2("a.cartype", t_cartype);
 				t_where = ' where=^^' + t_where + '^^ ';	
 				return t_where;
 			}
