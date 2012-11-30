@@ -401,8 +401,8 @@
             	{
             		$('#lblSize_help').text("厚度x寬度x長度");
 	            	for (var j = 0; j < q_bbsCount; j++) {
-			           $('#txtSize4_'+j).attr('hidden', 'true');
-			           $('#x3_'+j).attr('hidden', 'true');
+			           $('#txtSize4_'+j).hide();
+			           $('#x3_'+j).hide();
 			         	$('#Size').css('width','222px');
 			         	q_tr('txtSize1_'+ j ,q_float('txtDime_'+j));
 			         	q_tr('txtSize2_'+ j ,q_float('txtWidth_'+j));
@@ -415,8 +415,8 @@
 		         {
 		         	$('#lblSize_help').text("短徑x長徑x厚度x長度");
 			         for (var j = 0; j < q_bbsCount; j++) {
-			         	$('#txtSize4_'+j).removeAttr('hidden');
-			         	$('#x3_'+j).removeAttr('hidden');
+			         	$('#txtSize4_'+j).show();
+			         	$('#x3_'+j).show();
 			         	$('#Size').css('width','297px');
 			         	q_tr('txtSize1_'+ j ,q_float('txtRadius_'+j));
 			         	q_tr('txtSize2_'+ j ,q_float('txtWidth_'+j));
@@ -622,7 +622,7 @@
                 <input id="txtComp"  type="text" class="txt c5"/></td>
                 <td class="td4"><span> </span><a id='lblPaytype' class="lbl"> </a></td>
                 <td class="td5"><input id="txtPaytype" type="text" class="txt c1"/></td> 
-                <td class="td6"><select id="combPaytype" class="txt c1" onchange='combPay_chg()' > </select></td> 
+                <td class="td6"><select id="combPaytype" class="txt c1" onchange='combPaytype_chg()' > </select></td> 
                 <td class="td7"><span> </span><a id='lblContract' class="lbl"> </a></td>
                 <td class="td8"><input id="txtContract"  type="text" class="txt c1"/></td> 
             </tr>

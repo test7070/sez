@@ -550,12 +550,16 @@
            <tr class="tr21">
                <td class="td1"><span> </span><a id='lblTax1' class="lbl"></a></td>
                <td class="td2"><input id="txtTax1" type="text" class="txt num c1"/></td>
-               <td class="td1"><span> </span><a id='lblTax2' class="lbl"></a></td>
-               <td class="td2"><input id="txtTax2" type="text" class="txt num c1"/></td>
-               <td class="td1"><span> </span><a id='lblTax3' class="lbl"></a></td>
-               <td class="td2"><input id="txtTax3" type="text" class="txt num c1"/></td>               
+               <td class="td3"><span> </span><a id='lblTax2' class="lbl"></a></td>
+               <td class="td4"><input id="txtTax2" type="text" class="txt num c1"/></td>
+               <td class="td5"><span> </span><a id='lblTax3' class="lbl"></a></td>
+               <td class="td6"><input id="txtTax3" type="text" class="txt num c1"/></td>               
             </tr>
             <tr class="tr22">
+               <td class="td1"><span> </span><a id='lblTaxrate' class="lbl"></a></td>
+               <td class="td2"><input id="txtTaxrate" type="text" class="txt num c1"/></td>               
+            </tr>
+            <tr class="tr23">
                 <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
                 <td class="td2" colspan='5' ><textarea id="txtMemo"  rows='5' cols='10' style="width:99%; height: 50px;"></textarea></td> 
             </tr>
