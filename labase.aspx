@@ -711,7 +711,11 @@
             <td class="td6"><input id="txtDisaster" type="text" class="txt num c1" /></td>
             <td class='td7'><span> </span><a id="lblWorker" class="lbl"> </a></td>
             <td class="td8"><input id="txtWorker" type="text" class="txt c1" /></td>
-        </tr>                                                           
+        </tr>  
+        <tr class="tr2">
+            <td class='td1'><span> </span><a id="lblMemo" class="lbl" > </a></td>
+            <td class="td2" colspan="7"><input id="txtMemo" type="text" class="txt c1" /></td>
+        </tr>                                                            
         </table>
         </div>
 
