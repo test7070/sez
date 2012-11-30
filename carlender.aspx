@@ -102,7 +102,7 @@
 		                     	$('#txtBkmoney_' +b_seq).val(dec($('#txtInstallmentamount_' +b_seq).val())*dec($('#txtInstallment_' +b_seq).val()));
 		                     }
 		                 });
-		                 $('#txtDay_' + j).blur(function () {
+		                 $('#btnCarnos_' + j).click(function () {
 		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
@@ -220,14 +220,14 @@
 					<input class="txt" id="txtNoq.*" type="text" style="display:none;"   />
 					</td>
 					<td class="td2">
-					<input class="txt"  id="txtCardealno.*" type="text" style="width:20%;"  />
+					<input class="txt"  id="txtCardealno.*" type="text" style="width:75%;"  />
 					<input id="btnCardeal.*" type="button" value="." style="width: 5%;" />
-					<input class="txt" id="txtCardeal.*" type="text" style="width:73%;"   />
+					<input class="txt" id="txtCardeal.*" type="text" style="width:98%;"   />
 					</td>
 					<td class="td3">
-					<input class="txt"  id="txtLenderno.*" type="text" style="width:20%;"  />
+					<input class="txt"  id="txtLenderno.*" type="text" style="width:75%;"  />
 					<input id="btnLender.*" type="button" value="." style="width: 5%;" />
-					<input class="txt" id="txtLender.*" type="text" style="width:73%;"   />
+					<input class="txt" id="txtLender.*" type="text" style="width:98%;"   />
 					</td>
 					<td class="td4">
 					<input class="txt" id="txtBdate.*" type="text" style="width:95%; text-align: center;"  />
@@ -251,7 +251,8 @@
 					<input class="txt" id="txtDay.*" type="text" style="width:95%; text-align: right;" />
 					</td>
 					<td class="td11">
-					<input class="txt" id="txtCarnos.*" type="text" style="width:95%;"  />
+					<input class="txt" id="txtCarnos.*" type="text" style="width:85%;"  />
+					<input class="btn"  id="btnCarnos.*" type="button" value='.' style=" font-weight: bold;width: 5%;" />
 					</td>
 					<td class="td12">
 					<input class="txt" id="txtMemo.*" type="text" style="width:95%;"  />
