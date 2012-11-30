@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'car2', t_content = ' field=noa,driverno,driver', bbsKey = ['noa'], as, t_where = '';
+            var q_name = 'car2', t_content = ' field=noa,driverno,driver order=odate', bbsKey = ['noa'], as, t_where = '';
             var isBott = false;
             /// 是否已按過 最後一頁
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
@@ -18,6 +18,8 @@
             q_alias='a';
             
             $(document).ready(function() {
+            	if (!q_paraChk())
+            		return;
                 main();
             });
             function main() {
@@ -33,11 +35,16 @@
             function refresh(){
             	_refresh();
             }
+            function bbsAssign() { 
+        		_bbsAssign();
+	   	
+    		}
 		</script>
+		
 	</head>
 	<body>
 		<div  id="dbbs"  >
-			<table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
+			<table id="tbbs"  class='tbbs' border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
 				<tr>
 					<th align="center" ></th>
 					<th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
@@ -55,7 +62,7 @@
 					</td>
 				</tr>
 			</table>
-			<!--#include file="../inc/brow_ctrl.inc"-->
+			<!--#include file="../inc/pop_ctrl.inc"--> 
 		</div>
 	</body>
 </html>
