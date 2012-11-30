@@ -137,12 +137,12 @@
             q_box('bcc_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
         }
 
-        function combPay_chg() {  
-            var cmb = document.getElementById("combPay")
+        function combPaytype_chg() {  
+            var cmb = document.getElementById("combPaytype")
             if (!q_cur) 
                 cmb.value = '';
             else
-                $('#txtPay').val(cmb.value);
+                $('#txtPaytype').val(cmb.value);
             cmb.value = '';
         }
 

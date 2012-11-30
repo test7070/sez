@@ -27,7 +27,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Odate';
-            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'namea', 'txtWorker', 'sss_b.aspx'],['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],['txtTggno','lblTgg','tgg','noa,comp','txtTggno,txtTgg','tgg_b.aspx']);
+            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtWorker', 'lblWorker', 'sss', 'namea', 'txtWorker', 'sss_b.aspx'],['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],['txtTggno','lblTgg','tgg','noa,comp,paytype','txtTggno,txtTgg,txtPaytype','tgg_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'no3'];
@@ -50,7 +50,7 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbKind", q_getPara('ordbst.kind')); 
                 q_cmbParse("cmbCoin", q_getPara('sys.coin'));      
-                q_cmbParse("cmbPaytype", q_getPara('rc2.pay'));  
+                q_cmbParse("cmbPaytype", q_getPara('rc2.paytype'));  
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
                 
@@ -340,8 +340,8 @@
             	{
             		$('#lblSize_help').text("厚度x寬度x長度");
 	            	for (var j = 0; j < q_bbsCount; j++) {
-			           $('#txtSize4_'+j).attr('hidden', 'true');
-			           $('#x3_'+j).attr('hidden', 'true');
+			           $('#txtSize4_'+j).hide();
+			           $('#x3_'+j).hide();
 			         	$('#Size').css('width','222px');
 			         	q_tr('txtSize1_'+ j ,q_float('txtDime_'+j));
 			         	q_tr('txtSize2_'+ j ,q_float('txtWidth_'+j));
@@ -354,8 +354,8 @@
 		         {
 		         	$('#lblSize_help').text("短徑x長徑x厚度x長度");
 			         for (var j = 0; j < q_bbsCount; j++) {
-			         	$('#txtSize4_'+j).removeAttr('hidden');
-			         	$('#x3_'+j).removeAttr('hidden');
+			         	$('#txtSize4_'+j).show();
+			         	$('#x3_'+j).show();
 			         	$('#Size').css('width','297px');
 			         	q_tr('txtSize1_'+ j ,q_float('txtRadius_'+j));
 			         	q_tr('txtSize2_'+ j ,q_float('txtWidth_'+j));
@@ -610,7 +610,7 @@
                 <td class="td1"><span> </span><a id="lblTgg" class="lbl btn"></a></td>
                 <td class="td2" colspan="2"><input id="txtTggno" type="text" class="txt c4"/>
                 <input id="txtTgg"  type="text" class="txt c5"/></td>
-                <td class="td4"><span> </span><a id='lblPay' class="lbl"></a></td>
+                <td class="td4"><span> </span><a id='lblPaytype' class="lbl"></a></td>
                 <td class="td5"  colspan='2'><select id="cmbPaytype" class="txt c1" ></select><input id="txtPay" type="hidden" class="txt c1"/></td> 
                 <td class="td7"><span> </span><a id='lblTrantype' class="lbl"></a></td>
                 <td class="td8"><select id="cmbTrantype" class="txt c1" name="D1" ></select></td> 

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -34,7 +34,6 @@
             q_desc = 1;
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
-
             q_brwCount();  // 計算 合適  brwCount 
             q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
         });
@@ -49,7 +48,7 @@
             mainForm(1); // 1=最後一筆  0=第一筆
         }  ///  end Main()
 
-        aPop = [['txtCustno' , 'btnCust' , 'cust' , 'noa,comp,tel,zip_fact,addr_fact,pay,trantype', 'txtCustno,txtComp,txtTel,txtZipcode,txtAddr,txtPay,cmbTrantype','cust_b.aspx'],
+        aPop = [['txtCustno' , 'btnCust' , 'cust' , 'noa,comp,tel,zip_fact,addr_fact,paytype,trantype', 'txtCustno,txtComp,txtTel,txtZipcode,txtAddr,txtPaytype,cmbTrantype','cust_b.aspx'],
                 ['txtStoreno', 'btnStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
                 ['txtCarno'  , 'btnCar'  , 'car'  , 'noa,car'  , 'txtCarno,txtCar' , 'car_b.aspx'],
                 ['txtAcomp', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
@@ -64,7 +63,7 @@
             q_cmbParse("cmbStype", q_getPara('vcc.stype'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));   
             q_cmbParse("cmbCoin", q_getPara('sys.coin'));      /// q_cmbParse 會加入 fbbm
-            q_cmbParse("combPay", q_getPara('vcc.pay'));  // comb 未連結資料庫
+            q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  // comb 未連結資料庫
             q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
 
             $('#btnOrdes').click(function () { btnOrdes(); });
@@ -183,12 +182,12 @@
             q_box('vcc_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
         }
 
-        function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
-            var cmb = document.getElementById("combPay")
+        function combPaytype_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
+            var cmb = document.getElementById("combPaytype")
             if (!q_cur) 
                 cmb.value = '';
             else
-                $('#txtPay').val(cmb.value);
+                $('#txtPaytype').val(cmb.value);
             cmb.value = '';
         }
 
@@ -533,9 +532,9 @@
                 <td class="td1"><span> </span><a id="lblCust" class="lbl btn" > </a></td>
                 <td class="td2"><input id="txtCustno" type="text" class="txt c7"/></td>
                 <td class="td3"><input id="txtComp"  type="text" class="txt c7"/></td>
-                <td class="td4"><span> </span><a id='lblPay' class="lbl"> </a></td>
-                <td class="td5"><input id="txtPay" type="text" class="txt c1" /></td> 
-                <td class="td6"><select id="combPay" class="txt c7" onchange='combPay_chg()'> </select></td> 
+                <td class="td4"><span> </span><a id='lblPaytype' class="lbl"> </a></td>
+                <td class="td5"><input id="txtPaytype" type="text" class="txt c1" /></td> 
+                <td class="td6"><select id="combPaytype" class="txt c7" onchange='combPaytype_chg()'> </select></td> 
                 <td class="td7" align="right"><span> </span><input id="btnOrdes" type="button" value='.' /></td>
                 <td class="td8"><input id="txtOrdeno"  type="text" class="txt c6"/></td> 
             </tr>

@@ -2,13 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
     <head>
-        <title></title>
-        <script src="../script/jquery.min.js" type="text/javascript"></script>
-        <script src='../script/qj2.js' type="text/javascript"></script>
-        <script src='qset.js' type="text/javascript"></script>
-        <script src='../script/qj_mess.js' type="text/javascript"></script>
-        <script src="../script/qbox.js" type="text/javascript"></script>
-        <script src='../script/mask.js' type="text/javascript"></script>
+        <title> </title>
+        <script src="../script/jquery.min.js" type="text/javascript"> </script>
+        <script src='../script/qj2.js' type="text/javascript"> </script>
+        <script src='qset.js' type="text/javascript"> </script>
+        <script src='../script/qj_mess.js' type="text/javascript"> </script>
+        <script src="../script/qbox.js" type="text/javascript"> </script>
+        <script src='../script/mask.js' type="text/javascript"> </script>
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript">
             this.errorHandler = null;
@@ -28,7 +28,10 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']);
+            aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
+            ['txtCustno', 'lblCust', 'cust', 'noa,comp,paytype', 'txtCustno,txtComp,txtPaytype', 'cust_b.aspx'],
+            ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+            ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'no3'];
@@ -51,7 +54,7 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbStype", q_getPara('vcc.stype')); 
                 q_cmbParse("cmbCoin", q_getPara('sys.coin'));     
-                q_cmbParse("cmbPaytype", q_getPara('vcc.pay'));  
+                q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  
                 q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
             }
@@ -97,7 +100,13 @@
                 q_box('quat_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
 
-            function combPay_chg() {
+            function combPaytype_chg() {
+            	 var cmb = document.getElementById("combPaytype")
+            if (!q_cur) 
+                cmb.value = '';
+            else
+                $('#txtPaytype').val(cmb.value);
+            cmb.value = '';
             }
 
             function bbsAssign() {
@@ -337,6 +346,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size:medium;
             }
             .dbbs {
                 width: 100%;
@@ -403,9 +413,9 @@
                 <td class="td1"><span> </span><a id="lblCust" class="lbl btn"></a></td>
                 <td class="td2" colspan="2"><input id="txtCustno" type="text" class="txt c4"/>
                 <input id="txtComp"  type="text" class="txt c5"/></td>
-                <td class="td4"><span> </span><a id='lblPay' class="lbl"></a></td>
-                <td class="td5"><input id="txtPay" type="text" class="txt c1" /></td> 
-                <td class="td6"><select id="cmbPaytype" class="txt c1"></select></td> 
+                <td class="td4"><span> </span><a id='lblPaytype' class="lbl"></a></td>
+                <td class="td5"><input id="txtPaytype" type="text" class="txt c1" /></td> 
+                <td class="td6"><select id="combPaytype" class="txt c1"  onchange='combPaytype_chg()'></select></td> 
                 <td class="td7"><span> </span><a id='lblTrantype' class="lbl"></a></td>
                 <td class="td8"><select id="cmbTrantype" class="txt c1" name="D1" ></select></td> 
             </tr>

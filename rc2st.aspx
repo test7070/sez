@@ -220,7 +220,7 @@
             q_box('rc2_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
-        function cmbPaytype_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
+        function combPaytype_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
             var cmb = document.getElementById("combPaytype")
             if (!q_cur) 
                 cmb.value = '';
@@ -479,8 +479,8 @@
             	{
             		$('#lblSize_help').text("厚度x寬度x長度");
 	            	for (var j = 0; j < q_bbsCount; j++) {
-			           $('#txtSize4_'+j).attr('hidden', 'true');
-			           $('#x3_'+j).attr('hidden', 'true');
+			           $('#txtSize4_'+j).hide();
+			           $('#x3_'+j).hide();
 			         	$('#Size').css('width','222px');
 			         	q_tr('txtSize1_'+ j ,q_float('txtDime_'+j));
 			         	q_tr('txtSize2_'+ j ,q_float('txtWidth_'+j));
@@ -493,8 +493,8 @@
 		         {
 		         	$('#lblSize_help').text("短徑x長徑x厚度x長度");
 			         for (var j = 0; j < q_bbsCount; j++) {
-			         	$('#txtSize4_'+j).removeAttr('hidden');
-			         	$('#x3_'+j).removeAttr('hidden');
+			         	$('#txtSize4_'+j).show();
+			         	$('#x3_'+j).show();
 			         	$('#Size').css('width','297px');
 			         	q_tr('txtSize1_'+ j ,q_float('txtRadius_'+j));
 			         	q_tr('txtSize2_'+ j ,q_float('txtWidth_'+j));
@@ -734,7 +734,7 @@
                 <td class="td1"><span> </span><a id='lblTgg' class="lbl btn"></td>
                 <td class="td2" colspan='2'><input id="txtTggno" type="text" class="txt c2" /><input id="txtTgg"  type="text" class="txt c3"/></td>
                 <td class="td4"><span> </span><a id='lblPaytype' class="lbl"></a></td>
-                <td class="td5" colspan='2'><input id="txtPaytype" type="text" class="txt c3"/> <select id="combPaytype" class="txt c2"></select></td> 
+                <td class="td5" colspan='2'><input id="txtPaytype" type="text" class="txt c3"/> <select id="combPaytype" class="txt c2" onchange='combPaytype_chg()'></select></td> 
             </tr>
             <tr class="tr4">
                 <td class="td1"><span> </span><a id='lblTel' class="lbl"></a></td>
