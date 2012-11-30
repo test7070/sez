@@ -54,7 +54,7 @@
 				+ q_sqlPara2("indate", t_bindate, t_eindate) + q_sqlPara2("driverno", t_driverno) 
 				+ q_sqlPara2("f.namea", t_driver) + q_sqlPara2("cardealno", t_cardealno) 
 				+ q_sqlPara2("cardeal", t_cardeal) + q_sqlPara2("carownerno", t_carownerno) 
-				+ q_sqlPara2("carowner", t_carowner)+ q_sqlPara2("a.cartype", t_cartype);
+				+ q_sqlPara2("b.namea", t_carowner)+ q_sqlPara2("a.cartype", t_cartype);
 				t_where = ' where=^^' + t_where + '^^ ';	
 				return t_where;
 			}

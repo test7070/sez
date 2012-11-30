@@ -102,11 +102,11 @@
 		                     	$('#txtBkmoney_' +b_seq).val(dec($('#txtInstallmentamount_' +b_seq).val())*dec($('#txtInstallment_' +b_seq).val()));
 		                     }
 		                 });
-		                 $('#txtCarnos_' + j).focus(function () {
+		                 $('#txtDay_' + j).blur(function () {
 		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
-							t_where = "  carownerno" + q_getId()[3].substr(q_getId()[3].indexOf('='));
+							t_where = "carownerno" + q_getId()[3].substr(q_getId()[3].indexOf('='));
                     		q_box("car2_b2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;;", 'car2', "95%", "650px", q_getMsg('popCar2'));
 		                 });
 					}

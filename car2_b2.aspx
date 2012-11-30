@@ -10,10 +10,11 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'car2', t_content = ' field=noa,driverno,driver order=odate', bbsKey = ['noa'], as, t_where = '';
+            var q_name = 'car2', t_bbsTag = 'tbbs', t_content = ' field=noa,driverno,driver order=odate', afilter = [], bbsKey = ['noa'], as;//, t_where = '';
+            var t_sqlname = 'car2_load'; t_postname = q_name; brwCount2 = 12;
             var isBott = false;
             /// 是否已按過 最後一頁
-            var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
+            var txtfield = [], afield, t_data, t_htm;
             var i, s1;
             q_alias='a';
             
@@ -27,7 +28,7 @@
                     dataErr = false;
                     return;
                 }
-                mainBrow();
+                mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
             }
 
             function q_gtPost() {
@@ -45,21 +46,15 @@
 	<body>
 		<div  id="dbbs"  >
 			<table id="tbbs"  class='tbbs' border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
-				<tr>
+				<tr style='color:White; background:#003366;'>
 					<th align="center" ></th>
-					<th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
-					<th align="center" style='color:Blue;' ><a id='lblDriver'></a></th>
+					<th align="center"><a id='lblNoa'></a></th>
+					<th align="center"><a id='lblDriver'></a></th>
 				</tr>
-				<tr>
-					<td style="width:2%;">
-					<input class="chk"  id="chkSel.*" type="checkbox" name="chkSel"/>
-					</td>
-					<td style="width:20%;">
-					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
-					</td>
-					<td style="width:75%;">
-					<input class="txt" id="txtDriver.*" type="text" style="width:98%;"  readonly="readonly" />
-					</td>
+				<tr style='background:#cad3ff;'>
+					<td style="width:2%;">	<input class="chk"  id="chkSel.*" type="checkbox" name="chkSel"/></td>
+					<td style="width:20%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+					<td style="width:75%;"><input class="txt" id="txtDriver.*" type="text" style="width:98%;"  readonly="readonly" />	</td>
 				</tr>
 			</table>
 			<!--#include file="../inc/pop_ctrl.inc"--> 
