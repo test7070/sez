@@ -372,7 +372,7 @@
             $('#txtMon').val(q_date().substr( 0,6));
             $('#txtMon').focus();
             $('#cmbPerson').val("本國");
-            $('#cmbMonkind').val("上期");
+            $('#cmbMonkind').val("本月");
             $('#cmbTypea').val("薪資");
             table_change();
             check_insed();

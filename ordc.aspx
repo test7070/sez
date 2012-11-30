@@ -34,7 +34,7 @@
             							,['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
             							,['txtWorker', 'lblWorker', 'sss', 'namea', 'txtWorker', 'sss_b.aspx']
             							,['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']
-            							,['txtTggno','lblTgg','tgg','noa,comp','txtTggno,txtTgg','tgg_b.aspx']);
+            							,['txtTggno','lblTgg','tgg','noa,comp,paytype','txtTggno,txtTgg,txtPaytype','tgg_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'no2'];
@@ -57,13 +57,13 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbKind", q_getPara('ordc.kind')); //rc2.stype
                 q_cmbParse("cmbCoin", q_getPara('sys.coin'));      
-                q_cmbParse("cmbPaytype", q_getPara('rc2.pay'));  
+                q_cmbParse("combPaytype", q_getPara('rc2.paytype'));  
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
                 
-                $('#cmbPaytype').change(function () {
-	            	$('#txtPay').val($('#cmbPaytype').find("option:selected").text())
-			     });
+               /* $('#combPaytype').change(function () {
+	            	$('#txtPaytype').val($('#combPaytype').find("option:selected").text())
+			     });*/
 			     //變動按鈕
                 $('#cmbKind').change(function () {
                 	for (var j = 0; j < q_bbsCount; j++) {
@@ -121,8 +121,8 @@
                 		var ordb = _q_appendData("ordb", "", true);
                 		if(ordb[0]!=undefined)
                 		{
-                			$('#cmbPaytype').val(ordb[0].paytype);
-                			$('#txtPay').val(ordb[0].pay);
+                			$('#combPaytype').val(ordb[0].paytype);
+                			$('#txtPaytype').val(ordb[0].pay);
                 			$('#txtPost').val(ordb[0].post);
                 			$('#txtAddr').val(ordb[0].addr);
                 			var ordbs = _q_appendData("ordbs", "", true);
@@ -174,7 +174,13 @@
                 q_box('ordc_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
 
-            function combPay_chg() {
+            function combPaytype_chg() {
+            	 var cmb = document.getElementById("combPaytype")
+            if (!q_cur) 
+                cmb.value = '';
+            else
+                $('#txtPaytype').val(cmb.value);
+            cmb.value = '';
             }
 
             function bbsAssign() {
@@ -335,32 +341,32 @@
             function product_change() {
                 if($('#cmbKind').find("option:selected").text().indexOf('物料')>-1){
                 	for (var j = 0; j < q_bbsCount; j++) {
-                		$('#btnProduct1_'+j).removeAttr('hidden');
-			           	$('#btnProduct2_'+j).attr('hidden', 'true');
-			           	$('#btnProduct3_'+j).attr('hidden', 'true');
-			           	$('#txtProductno1_'+j).removeAttr('hidden');
-			           	$('#txtProductno2_'+j).attr('hidden', 'true');
-			           	$('#txtProductno3_'+j).attr('hidden', 'true');
+                		$('#btnProduct1_'+j).show();
+			           	$('#btnProduct2_'+j).hide();
+			           	$('#btnProduct3_'+j).hide();
+			           	$('#txtProductno1_'+j).show();
+			           	$('#txtProductno2_'+j).hide();
+			           	$('#txtProductno3_'+j).hide();
 			           	$('#txtProductno1_'+j).val($('#txtProductno_'+j).val());
 			         }
               	}else if($('#cmbKind').find("option:selected").text().indexOf('零件')>-1){
               		for (var j = 0; j < q_bbsCount; j++) {
-              			$('#btnProduct1_'+j).attr('hidden', 'true');
-			           	$('#btnProduct2_'+j).removeAttr('hidden');
-			           	$('#btnProduct3_'+j).attr('hidden', 'true');
-			           	$('#txtProductno1_'+j).attr('hidden', 'true');
-			           	$('#txtProductno2_'+j).removeAttr('hidden');
-			           	$('#txtProductno3_'+j).attr('hidden', 'true');
+              			$('#btnProduct1_'+j).hide();
+			           	$('#btnProduct2_'+j).show();
+			           	$('#btnProduct3_'+j).hide();
+			           	$('#txtProductno1_'+j).hide();
+			           	$('#txtProductno2_'+j).show();
+			           	$('#txtProductno3_'+j).hide();
 			           	$('#txtProductno2_'+j).val($('#txtProductno_'+j).val());
 			         }
               	}else{
               		for (var j = 0; j < q_bbsCount; j++) {
-              			$('#btnProduct1_'+j).attr('hidden', 'true');
-			           	$('#btnProduct2_'+j).attr('hidden', 'true');
-			           	$('#btnProduct3_'+j).removeAttr('hidden');
-			           	$('#txtProductno1_'+j).attr('hidden', 'true');
-			           	$('#txtProductno2_'+j).attr('hidden', 'true');
-			           	$('#txtProductno3_'+j).removeAttr('hidden');
+              			$('#btnProduct1_'+j).hide();
+			           	$('#btnProduct2_'+j).hide();
+			           	$('#btnProduct3_'+j).show();
+			           	$('#txtProductno1_'+j).hide();
+			           	$('#txtProductno2_'+j).hide();
+			           	$('#txtProductno3_'+j).show();
 			           	$('#txtProductno3_'+j).val($('#txtProductno_'+j).val());
 			         }
               	}
@@ -462,6 +468,10 @@
                 width: 95%;
                 float: left;
             }
+             .txt.c8 {
+                width: 48%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -548,8 +558,8 @@
                 <td class="td1"><span> </span><a id="lblTgg" class="lbl btn"></a></td>
                 <td class="td2" colspan="2"><input id="txtTggno" type="text" class="txt c4"/>
                 <input id="txtTgg"  type="text" class="txt c5"/></td>
-                <td class="td4"><span> </span><a id='lblPay' class="lbl"></a></td>
-                <td class="td5" colspan='2'><select id="cmbPaytype" class="txt c1"></select><input id="txtPay" type="hidden" class="txt c1"/></td> 
+                <td class="td4"><span> </span><a id='lblPaytype' class="lbl"></a></td>
+                <td class="td5" colspan='2'><input id="txtPaytype" type="text" class="txt c8"/><select id="combPaytype" class="txt c8" onchange='combPaytype_chg()'> </select></td> 
                 <td class="td7"><span> </span><a id='lblTrantype' class="lbl"></a></td>
                 <td class="td8"><select id="cmbTrantype" class="txt c1" name="D1" ></select></td> 
             </tr>

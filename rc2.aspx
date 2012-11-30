@@ -57,7 +57,7 @@
             q_cmbParse("cmbTypea", q_getPara('rc2.typea'));   // 需在 main_form() 後執行，才會載入 系統參數
             q_cmbParse("cmbStype", q_getPara('rc2.stype'));   
             q_cmbParse("cmbCoin", q_getPara('sys.coin'));      /// q_cmbParse 會加入 fbbm
-            q_cmbParse("combPaytype", q_getPara('tgg.paytype'));  // comb 未連結資料庫
+            q_cmbParse("combPaytype", q_getPara('rc2.paytype'));  // comb 未連結資料庫
             q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
              $('#lblAccc').click(function () {

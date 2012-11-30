@@ -16,7 +16,7 @@
 		    }
 
 		    var q_name = "lab_accc";
-		    var q_readonly = [];
+		    var q_readonly = ['txtWorker'];
 		    var bbmNum = [];
 		    var bbmMask = [];
 		    q_sqlCount = 6;
@@ -48,9 +48,12 @@
 
 		    function mainPost() {
 		        q_getFormat();
-		        bbmMask = [ ['txtDatea', r_picd]];
+		        bbmMask = [ ['txtDatea', r_picd],['txtBdate', r_picd],['txtEdate', r_picd],['txtMon', r_picm]];
 		        q_mask(bbmMask);
-		        q_cmbParse("cmbTypea", ('').concat(new Array('發票', '會計-營業稅', '會計-營所稅', '會計-綜所稅', '利息收入', '佣金收入', '其他收入', '保證金','票貼','借支')));
+		        q_cmbParse("cmbTypea", ('').concat(new Array('發票', '會計-營業稅', '會計-營所稅', '會計-綜所稅', '利息收入', '佣金收入', '其他收入', '保證金','票貼','借支','勞健保')));
+		        $('#btnAccno').click(function () {
+		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "97%", "1054px", q_getMsg('btnAccno'), true);
+		        });
 		       
 		    }
 
@@ -164,6 +167,7 @@
 
 		    function btnOk() {
 		        var t_noa = $.trim($('#txtNoa').val());
+		         $('#txtWorker').val(r_name);
 				
 				if(!emp($('#txtId').val()))
                		$('#txtId').val($('#txtId').val().toUpperCase());
@@ -292,7 +296,7 @@
 				width: 9%;
 			}
 			.tbbm .tdZ {
-				width: 2%;
+				width: 4%;
 			}
 			.tbbm tr td span {
 				float: right;
@@ -326,8 +330,7 @@
 				float: left;
 			}
 			.txt.c4 {
-				width: 18%;
-				float: left;
+				width: 40%;
 			}
 			.txt.c5 {
 				width: 80%;
@@ -354,7 +357,7 @@
 				float: left;
 			}
 			.tbbm td input[type="button"] {
-				float: left;
+				float: right;
 				width: auto;
 			}
 			.tbbm select {
@@ -382,6 +385,7 @@
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:25%"><a id='vewDatea'></a></td>
 						<td align="center" style="width:40%"><a id='vewNoa'></a></td>
+						<td align="center" style="width:40%"><a id='vewTypea'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -389,6 +393,7 @@
 						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='noa'>~noa</td>
+						<td align="center" id='typea'>~typea</td>
 					</tr>
 				</table>
 			</div>
@@ -397,7 +402,7 @@
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td class="td2"><input id="txtDatea"  type="text" class="txt c1"/>	</td>
-						<td class="td3"><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td class="tdZ"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td4"><input id="txtNoa" type="text" class="txt c1" />	</td>
 						
 						<td class="td7"> </td>
@@ -405,20 +410,20 @@
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id='lblMon' class="lbl"></a></td>
 						<td class="td2"><input id="txtMon"  type="text" class="txt c1"/>	</td>
-						<td class="td5"><span> </span><a id='lblTypea' class="lbl"> </a></td>
+						<td class="tdZ"><span> </span><a id='lblTypea' class="lbl"> </a></td>
 						<td class="td6"><select id="cmbTypea" class="txt c1" > </select></td>
 					</tr>
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblBdate' class="lbl"></a></td>
-						<td class="td2"><input id="txtBdate"  type="text" class="txt c1"/></td>
-						<td align="center"><a id="lblSymbol3"  style="font-weight: bold;font-size: 24px;"> </a></td>
-						<td class="td4"><input id="txtEdate" type="text" class="txt c1" /></td>
+						<td class="td2" ><input id="txtBdate"  type="text" class="txt c1"/></td>
+						<td class="tdZ" align="center"><a id="lblSymbol3"  style="font-weight: bold;font-size: 24px;"> </a></td>
+						<td class="td3"><input id="txtEdate" type="text" class="txt c1" /></td>
 					</tr>
 					
 					<tr class="tr3">
-						<td class="td3"><span> </span><a id='lblCustno' class="lbl"></a></td>
-						<td class="td4"><input id="txtBcustno" type="text" class="txt c1" /></td>
-            			<td align="center"><a id="lblSymbol2"  style="font-weight: bold;font-size: 24px;"> </a></td>
+						<td class="td1"><span> </span><a id='lblCustno' class="lbl"></a></td>
+						<td class="td2"><input id="txtBcustno" type="text" class="txt c1" /></td>
+            			<td class="tdZ" align="center"><a id="lblSymbol2"  style="font-weight: bold;font-size: 24px;"> </a></td>
 						<td class="td6"><input id="txtEcustno" type="text" class="txt c1" /></td>
 						</tr>
 					<tr class="tr3">
@@ -436,12 +441,14 @@
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id='lblBvccno' class="lbl"></a></td>
 						<td class="td2"><input id="txtBvccno"  type="text" class="txt c1"/></td>
-						<td align="center"><a id="lblSymbol"  style="font-weight: bold;font-size: 24px;"> </a></td>
+						<td class="tdZ" align="center"><a id="lblSymbol"  style="font-weight: bold;font-size: 24px;"> </a></td>
 						<td class="td4"><input id="txtEvccno" type="text" class="txt c1" /></td>
 					</tr>
 					<tr class="tr5">
-						<td class="td1"><span> </span><a id='lblAccc3' class="lbl"></a></td>
-						<td class="td2"><input id="txtAccc3"  type="text" class="txt c1"/></td>
+						<td class="td1"><input type="button" id="btnAccno" class="txt c1 " /></td>
+						<td class="td2"><input id="txtAccno"  type="text" class="txt c1"/></td>
+						<td class="tdZ"><span> </span><a id='lblWorker' class="lbl"></a></td>
+						<td class="td2"><input id="txtWorker"  type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
