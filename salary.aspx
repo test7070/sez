@@ -52,7 +52,7 @@
             q_mask(bbmMask);
             
             q_cmbParse("cmbPerson", q_getPara('person.typea'));
-            q_cmbParse("cmbMonkind", ('').concat(new Array('上期', '下期', '本月')));
+            q_cmbParse("cmbMonkind", ('').concat(new Array( '本月','上期', '下期')));
             q_cmbParse("cmbTypea", ('').concat(new Array('薪資')));
             
             $('#cmbPerson').change(function () {
