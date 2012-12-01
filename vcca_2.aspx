@@ -513,9 +513,9 @@
 						</td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1"><span> </span><a id='lblSeria' class="lbl"></a></td>
+						<td class="td1"><span> </span><a id='lblSerial' class="lbl"></a></td>
 						<td class="td2">
-						<input id="txtSeria" type="text" class="txt c1"/>
+						<input id="txtSerial" type="text" class="txt c1"/>
 						</td>
 						<td class="td3"><span> </span><a id='lblAddress' class="lbl"></a></td>
 						<td class="td4" colspan="3">

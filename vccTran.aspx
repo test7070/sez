@@ -637,8 +637,7 @@
 						<input id="txtMoney" type="text"  class="txt c1 num"/>
 						</td>
 						<td class="td3"><span> </span><a id="lblTaxrate" class="lbl"></a></td>
-						<td class="td4"><select id="cmbTaxtype" class="txt c3"></select>
-						<input id="txtTaxrate" type="text"  class="txt c2 num"/>
+						<td class="td4"><select id="cmbTaxtype" class="txt c1"></select>
 						</td>
 						<td class="td5"><span> </span><a id="lblTax" class="lbl"></a></td>
 						<td class="td6">
