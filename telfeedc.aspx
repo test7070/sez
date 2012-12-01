@@ -15,16 +15,17 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         q_tables = 's';
-        var q_name = "telfee";
-        var q_readonly = ['txtNoa'];
+        var q_name = "telfeedc";
+        var q_readonly = ['txtNoa','txtDatea','txtTalktotal','txtTotal'];
         var q_readonlys = [];
-        var bbmNum = [['txtTotal',14 , 0, 1]]; 
-        var bbsNum = [['txtOfee',12 , 0, 1],['txtFee',12 , 0, 1]];
+        var bbmNum = [['txtTotal',14 , 0, 1],['txtComptotal',14 , 0, 1]]; 
+        var bbsNum = [['txtTalkfee',12 , 0, 1],['txtTelfee',12 , 0, 1],['txtPhonefee',12 , 0, 1],['txtTotal',12 , 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         //ajaxPath = ""; 
-		aPop = new Array();
+		aPop = new Array(['txtPartno_', 'btnPart_', 'part', 'noa,part', 'txtPartno_,txtPart_', 'part_b.aspx'],
+			['txtSssno_', 'btnSss_', 'sss', 'noa,namea', 'txtSssno_,txtNamea_', 'sss_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -42,21 +43,26 @@
             }
 
             mainForm(1); 
-        }  
+        }
         function mainPost() { 
             q_getFormat();
             bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
             q_mask(bbmMask);
-            $('#btnTel').click(function () {
-            	if(emp($('#txtMon').val())){
-            		alert('請先輸入帳款月份!!');
-            		return;
-            	}
-	           	t_where = "where=^^ noa not in (select mobile from telfees where mon ='"+$('#txtMon').val()+"') ^^"
-	           	q_gt('tel', t_where , 0, 0, 0, "", r_accy);
+
+            $('#txtComptotal').change(function () {
+	           	//分配室內金額
+	           	if(dec($('#txtComptotal').val())>0&&dec($('#txtTalktotal').val())>0){
+		           	for(var j = 0; j < q_bbsCount; j++) {
+		           		if(!emp($('#txtTalkfee_'+j).val()))
+		           			q_tr('txtTelfee_'+j,round((q_float('txtTalkfee_'+j)/q_float('txtTalktotal'))*q_float('txtComptotal'),0));
+		           			q_tr('txtTotal_'+j,q_float('txtTelfee_'+j)+q_float('txtPhonefee_'+j));
+		           	}
+		           	sum();
+	           	}
 	        });
-	        $('#txtDatea').change(function () {
-	           $('#txtMon').val($('#txtDatea').val().substring(0,6));
+	        $('#btnOld').click(function () {
+	        	/*t_where = "where=^^ mon='"+$('#txtMon').val().substr(0,3)+"/"+$('#txtMon').val().substr(0,3)+"') ^^"
+	           	q_gt('tel', t_where , 0, 0, 0, "", r_accy);*/
 	        });
         }
 
@@ -73,39 +79,7 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-            	case 'tel':
-	            	var as = _q_appendData("tel", "", true);
-	            	
-	            	for(var j = 0; j < q_bbsCount; j++){
-	            		for (var i = 0; i < as.length; i++) {
-		                    if (as[i].noa == $('#txtMobile_'+j).val()) {
-		                        as.splice(i, 1);
-		                        i--;
-		                    }
-		                }
-		            }
-		            
-	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtMobile,txtOfee,txtFee,txtNamea', as.length, as, 'noa,total,total,namea', 'txtMobile');
-	            	sum();
-            	break;
                 case q_name: 
-                	if(q_cur == 1 || q_cur == 2){
-                		var as = _q_appendData("telfee", "", true);
-	                	if(as[0]!=undefined){
-	            			var fees = _q_appendData("telfees", "", true);
-		            		for (var i = 0; i < fees.length; i++) {
-				                    if (fees[i].mobile == $('#txtMobile_'+b_seq).val()) {
-				                    	alert('本月份號碼重複輸入!!');
-				                    	if(q_cur==2)
-						    				$('#txtMobile_' + b_seq).val(t_mobile[b_seq]);
-						    			else
-						    				$('#txtMobile_' + b_seq).val('');
-						    			$('#txtMobile_' + b_seq).focus();
-						    			break;
-				                    }
-				             }
-			            }
-		            }
                 	if (q_cur == 4)  
                         q_Seek_gtPost();
                     break;
@@ -133,7 +107,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-           	q_box('telfee_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+           	q_box('telfeedc_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {  
@@ -143,36 +117,37 @@
         function bbsAssign() {
         	for(var j = 0; j < q_bbsCount; j++) {
             	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-            		$('#txtFee_' + j).change(function () {
+					$('#txtTelfee_' + j).change(function () {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						q_tr('txtTotal_'+b_seq,q_float('txtTelfee_'+b_seq)+q_float('txtPhonefee_'+b_seq));
 						sum();
 				    });
-
-				    $('#txtMobile_' + j).change(function () {
-				    		t_IdSeq = -1;
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-				    		if(emp($('#txtMon').val())){
-				    			alert('請先輸入帳款月份!!');
-				    			$('#txtMobile_' + b_seq).val('');
-				    			$('#txtMon').focus();
-				    			return;
-				    		}
-							for (var i = 0; i < q_bbsCount; i++) {
-								if ($('#txtMobile_' + b_seq).val() == $('#txtMobile_' + i).val() && !emp($('#txtMobile_' + i).val()) && b_seq != i) {
-									alert('號碼重複!!');
-									if(q_cur==2)
-										$('#txtMobile_' + b_seq).val(t_mobile[b_seq]);
-									else
-										$('#txtMobile_' + b_seq).val('');
-									$('#txtMobile_' + b_seq).focus();
-									return;
-								}
-							}
-							if(t_mobile[b_seq]!=$('#txtMobile_' + b_seq).val()||q_cur==1){
-								//判斷當月號碼是否有輸入過
-								t_where = "where=^^ mon = '"+$('#txtMon').val()+"' ^^";
-								q_gt('telfee', t_where , 0, 0, 0, "", r_accy);
-							}
+				    $('#txtPhonefee_' + j).change(function () {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						q_tr('txtTotal_'+b_seq,q_float('txtTelfee_'+b_seq)+q_float('txtPhonefee_'+b_seq));
+						sum();
+				    });
+				    $('#txtTalkfee_' + j).change(function () {
+						var talk_total=0;
+						for (var j = 0; j < q_bbsCount; j++) {//計算調節器加總
+	           				if(!emp($('#txtTalkfee_'+j).val()))
+	           					talk_total+=dec($('#txtTalkfee_'+j).val());
+						}
+						q_tr('txtTalktotal',talk_total);
+						
+						//重新分配室內金額
+			           	if(dec($('#txtComptotal').val())>0&&dec($('#txtTalktotal').val())>0){
+				           	for(var j = 0; j < q_bbsCount; j++) {
+				           		if(!emp($('#txtTalkfee_'+j).val()))
+				           			q_tr('txtTelfee_'+j,round((q_float('txtTalkfee_'+j)/q_float('txtTalktotal'))*q_float('txtComptotal'),0));
+				           			q_tr('txtTotal_'+j,q_float('txtTelfee_'+j)+q_float('txtPhonefee_'+j));
+				           	}
+			           	}
+			           	sum();
 				    });
 				}
 			}
@@ -190,9 +165,6 @@
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
-            for (var i = 0; i < q_bbsCount; i++) {
-            	t_mobile[i] = $('#txtMobile_' + i).val();
-            }
             _btnModi();
             
         }
@@ -208,7 +180,7 @@
         }
 
         function bbsSave(as) {  
-            if (!as['mobile'] ) { 
+            if (!as['namea'] ) { 
                 as[bbsKey[1]] = '';   
                 return;
             }
@@ -230,9 +202,9 @@
         }
 
         function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0,t_total=0;
+            var t1 = 0, t_unit, t_mount, t_total=0;
             for (var j = 0; j < q_bbsCount; j++) {
-				t_total+=dec($('#txtFee_'+j).val());
+				t_total+=dec($('#txtTotal_'+j).val());
             }  // j
 			q_tr('txtTotal',t_total);
         }
@@ -436,13 +408,19 @@
                	<td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
                	<td class="td3"><span> </span><a id='lblMon' class="lbl"></a></td>
                	<td class="td4"><input id="txtMon"  type="text"  class="txt c1"/></td>
-               	<td class="td5"><input type="button" id="btnTel" class="txt c1 "></td>
+               	<td class="td5"><span> </span><a id='lblDatea' class="lbl"></a></td>
+               	<td class="td6"><input id="txtDatea"  type="text"  class="txt c1"/></td>
         </tr>
         <tr class="tr2">
-               <td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
-               <td class="td2"><input id="txtDatea"  type="text"  class="txt c1"/></td>
-               <td class="td3"><span> </span><a id='lblTotal' class="lbl"></a></td>
-               <td class="td4"><input id="txtTotal"  type="text"  class="txt c1"/></td>
+               <td class="td1"><span> </span><a id='lblComptotal' class="lbl"></a></td>
+               <td class="td2"><input id="txtComptotal"  type="text"  class="txt num c1"/></td>
+               <td class="td3"><span> </span><a id='lblTalktotal' class="lbl"></a></td>
+               <td class="td4"><input id="txtTalktotal"  type="text"  class="txt num c1"/></td>
+               <td class="td5"><span> </span><a id='lblTotal' class="lbl"></a></td>
+               <td class="td6"><input id="txtTotal"  type="text"  class="txt num c1"/></td>
+        </tr>
+        <tr class="tr2">
+               <td class="td1"><input type="button" id="btnOld" class="txt c1 "></td>
         </tr>
         </table>
         </div>
@@ -450,18 +428,30 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  style="width:100%;">
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
+                <td align="center" style="width: 10%;"><a id='lblPart'></a></td>
                 <td align="center" style="width: 10%;"><a id='lblSss'></a></td>
-                <td align="center" style="width: 12%;"><a id='lblMobile'></a></td>
-                <td align="center" style="width: 8%;"><a id='lblOfee'></a></td>
-                <td align="center" style="width: 8%;"><a id='lblFee'></a></td>
+                <td align="center" style="width: 8%;"><a id='lblTalkfee'></a></td>
+                <td align="center" style="width: 8%;"><a id='lblTelfee'></a></td>
+                <td align="center" style="width: 8%;"><a id='lblPhonefee'></a></td>
+                <td align="center" style="width: 10%;"><a id='lblTotals'></a></td>
                 <td align="center"><a id='lblMemo'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input class="txt c1" id="txtNamea.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtMobile.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtOfee.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtFee.*" type="text" /></td>
+                <td >
+                	<input id="txtPartno.*" type="text" class="txt c5"/>
+                	<input class="btn"  id="btnPart.*" type="button" value='.' style=" float: left;font-weight: bold;width:1%;" />
+                    <input id="txtPart.*" type="text" class="txt c1"/></td>
+				</td>
+                <td >
+                	<input id="txtSssno.*" type="text" class="txt c5"/>
+                	<input class="btn"  id="btnSss.*" type="button" value='.' style=" float: left;font-weight: bold;width:1%;" />
+                    <input id="txtNamea.*" type="text" class="txt c1"/></td>
+				</td>
+                <td ><input class="txt num c1" id="txtTalkfee.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtTelfee.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtPhonefee.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtTotal.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" />
                 		<input id="txtNoq.*" type="hidden" /></td>
             </tr>
