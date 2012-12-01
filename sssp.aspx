@@ -16,7 +16,7 @@
 		    }
 
 		    var q_name = "sssp";
-		    var q_readonly = [ ];
+		    var q_readonly = ['txtNoa'];
 		    var bbmNum = [];
 		    var bbmMask = [];
 		    q_sqlCount = 6;
@@ -174,21 +174,22 @@
 
 		    function btnIns() {
 		        _btnIns();
+		        $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
 		       $('#cmbTypea').val('寄保');
-		        $('#txtNoa').focus();
+		        $('#txtNamea').focus();
 		        $('#cmbTypea').attr('disabled', 'disabled');
-		            	$('#cmbTypea').css('background', t_background2);
+		        $('#cmbTypea').css('background', t_background2);
 		    }
 
 		    function btnModi() {
 		        if (emp($('#txtNoa').val()))
 		            return;
 
-		        _btnModi(1);   /// ���\�ק�
+		        _btnModi(1);
 		        $('#txtComp').focus();
 		        $('#txtNoa').attr('disabled', 'disabled');
 		        $('#cmbTypea').attr('disabled', 'disabled');
-		            	$('#cmbTypea').css('background', t_background2);
+		        $('#cmbTypea').css('background', t_background2);
 		    }
 
 		    function btnPrint() {
@@ -201,8 +202,8 @@
 				if(!emp($('#txtId').val()))
                		$('#txtId').val($('#txtId').val().toUpperCase());
 				
-		        if (t_noa.length == 0)
-		            q_gtnoa(q_name, t_noa);
+		        if (t_noa.length == 0 || t_noa == "AUTO")
+		            q_gtnoa(q_name,replaceAll('G00', ' ', ''));
 		        else
 		            wrServer(t_noa);
 		    }
