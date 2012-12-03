@@ -396,7 +396,7 @@
             table_change();
         }
         function btnPrint() {
-
+		q_box('z_salary.aspx', '', "1000px", "800px", q_getMsg("popPrint"));
         }
 
         function wrServer(key_value) {
