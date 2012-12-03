@@ -21,9 +21,7 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],
-		 ['txtMinusitemno', 'lblMinusitem', 'chgitem', 'noa,item', 'txtMinusitemno,txtMinusitem', 'chgitem_b.aspx'], 
-			['txtPlusitemno', 'lblPlusitem', 'chgitem', 'noa,item', 'txtPlusitemno,txtPlusitem', 'chgitem_b.aspx']);
+		aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -389,7 +387,6 @@
 							<td class="td3"></td>
 							<td class="td4"></td>
 							<td class="td5"></td>
-							<td class="td6"></td>
 						</tr>
 						<tr>
                             <td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
@@ -397,7 +394,6 @@
                             <td class="td3"></td>
                             <td class="td4"></td>
                             <td class="td5"></td>
-                            <td class="td6"></td>
                         </tr>			
                         <tr>
                             <td class="td1"><span> </span><a id="lblSss" class="lbl btn" ></a></td>
@@ -405,7 +401,6 @@
                             <td class="td3"></td>
                             <td class="td4"></td>
                             <td class="td5"></td>
-                            <td class="td6"></td>
                         </tr>
                         <!--<tr>
                             <td class="td1"><span> </span><a id='lblDay_meal' class="lbl"></a></td>
@@ -421,7 +416,6 @@
                             <td class="td3"></td>
                             <td class="td4"></td>
                             <td class="td5"></td>
-                            <td class="td6"></td>
                         </tr>
                         <tr>
                             <td class="td1"><span> </span><a id='lblTypea' class="lbl"></a></td>
@@ -429,7 +423,6 @@
                             <td class="td3"></td>
                             <td class="td4"></td>
                             <td class="td5"></td>
-                            <td class="td6"></td>
                         </tr>
                         <tr>
                             <td class="td1"><span> </span><a id='lblBorrow' class="lbl"></a></td>
@@ -437,13 +430,11 @@
                             <td class="td3"></td>
                             <td class="td4"></td>
                             <td class="td5"></td>
-                            <td class="td6"></td>
                         </tr>
                      <tr>
-						<td class="td1"><span> </span><a id="lblMinusitem" class="lbl btn"> </a></td>
-						<td class="td2" colspan="2">
-						<input id="txtMinusitemno"  type="text"  class="txt c2"/>
-						<input id="txtMinusitem"  type="text"  class="txt c3"/>
+						<td class="td1"><span> </span><a id="lblMinusitem" class="lbl"> </a></td>
+						<td class="td2" >
+						<input id="txtMinusitem"  type="text"  class="txt c1"/>
 						</td>
 						<td class="td3"><span> </span><a id="lblMinus" class="lbl"> </a></td>
 						<td class="td4">
@@ -451,10 +442,9 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id="lblPlusitem" class="lbl btn"> </a></td>
-						<td class="td2" colspan="2">
-						<input id="txtPlusitemno"  type="text" class="txt c2"/>
-						<input id="txtPlusitem"  type="text"  class="txt c3"/>
+						<td class="td1"><span> </span><a id="lblPlusitem" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtPlusitem"  type="text"  class="txt c1"/>
 						</td>
 						<td class="td3"><span> </span><a id="lblPlus" class="lbl"> </a></td>
 						<td class="td4">
@@ -463,7 +453,7 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td class="td2" colspan='5'>
+						<td class="td2" colspan='4'>
 						<input id="txtMemo"  type="text" class="txt c1" />
 						</td>
 					</tr>
