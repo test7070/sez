@@ -56,11 +56,11 @@
             q_cmbParse("cmbTypea", ('').concat(new Array('薪資')));
             
             $('#cmbPerson').change(function () {
-            	 if ($('#cmbPerson').find("option:selected").text().indexOf('外勞')>-1){
+            	 /*if ($('#cmbPerson').find("option:selected").text().indexOf('外勞')>-1){
             	 	q_cmbParse("cmbMonkind", ('').concat(new Array('本月')));
             	 }else{
             	 	q_cmbParse("cmbMonkind", ('').concat(new Array('上期', '下期')));
-            	 }
+            	 }*/
             	 table_change();
             	 check_insed();
             });
@@ -176,7 +176,7 @@
 		                    	as[i].mi_saliday=(dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary))/8; //扣薪日數=病假(時)+事假(時)+曠工(時)+無薪(時)/8--->一天工作8小時為基準
 		                    }
 		                    //全勤獎金
-		                    if($('#cmbPerson').find("option:selected").text().indexOf('外勞')==-1)
+		                    if(($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1)||($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1))
 		                    	as[i].bo_full=as[i].bo_full/2;
 		                    //只要有請假與遲到一律都沒有全勤獎金
 		                    if((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].late))>0)
@@ -184,7 +184,7 @@
 		                    
 		                    //其他項目
 		                    	//應稅其他=應稅其他+生產獎金+夜班津貼+值班津貼
-		                    	if($('#cmbPerson').find("option:selected").text().indexOf('外勞')==-1)
+		                    	if(!($('#cmbPerson').find("option:selected").text().indexOf('外勞')>-1))
 		                    		as[i].tax_other=dec(as[i].tax_other)+dec(as[i].bo_born)+dec(as[i].bo_night)+dec(as[i].bo_day);
 		                   	//加班時數
 		                   		var t_fir =46,bef_fir01,bef_fir02;
@@ -192,7 +192,7 @@
 		                   		as[i].addh22=as[i].addh2;
 		                   		as[i].addh46_1=0;
 		                   		as[i].addh46_2=0;
-		                   		if($('#cmbPerson').find("option:selected").text().indexOf('外勞')==-1){
+		                   		if($('#cmbMonkind').find("option:selected").text().indexOf('本月')>-1){
 		                    		if((dec(as[i].addh1)+dec(as[i].addh2))>46){//加班超過46小時
 			                    		bef_fir01=Math.min(dec(as[i].addh1),t_fir);
 			                    		as[i].addh21=bef_fir01;
@@ -202,7 +202,7 @@
 			                    		as[i].addh22=bef_fir02;
 			                    		as[i].addh46_2=dec(as[i].addh2)-bef_fir02;
 		                    		}
-		                    	}else{
+		                    	}else{//上下期計算
 		                    		if($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1){
 		                    			if((dec(as[i].addh1)+dec(as[i].addh2)+dec(as[i].addh3)+dec(as[i].addh4))>46){//加班超過46小時
 		                    				
@@ -223,7 +223,7 @@
 				                    		}
 		                    			}
 		                    		}else{
-		                    			if((dec(as[i].addh1)+dec(as[i].addh2))>46){//加班超過46小時
+		                    			if((dec(as[i].addh1)+dec(as[i].addh2))>46){//上期加班超過46小時
 				                    		bef_fir01=Math.min(dec(as[i].addh1),t_fir);
 				                    		as[i].addh21=bef_fir01;
 				                    		as[i].addh46_1=dec(as[i].addh1)-bef_fir01;
@@ -250,7 +250,7 @@
                         }
                         
                         //福利金	
-                        if($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1)
+                        if($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1||$('#cmbMonkind').find("option:selected").text().indexOf('本月')>-1)
                         {
 	                        for (var j = 0; j < q_bbsCount; j++) {
 		                        for (var i = 0; i < as.length; i++) {
@@ -437,7 +437,7 @@
         		//小計=本俸+公費+主管津貼+交通津貼+特別津貼+其他津貼
         		q_tr('txtTotal1_'+j,dec($('#txtMoney_'+j).val())+dec($('#txtPubmoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val()));
         		
-        		if($('#cmbPerson').find("option:selected").text().indexOf('本國')>-1){
+        		if(($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1)||($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1)){
         			q_tr('txtMi_total_'+j,Math.round(dec($('#txtTotal1_'+j).val())/2/dtmp*dec($('#txtMi_saliday_'+j).val())));//扣薪金額
         			q_tr('txtTotal2_'+j,Math.round(dec($('#txtTotal1_'+j).val())/2-dec($('#txtMi_total_'+j).val())+dec($('#txtBo_full_'+j).val())+dec($('#txtTax_other_'+j).val())));//給付總額
         			q_tr('txtOstand_'+j,Math.round((dec($('#txtTotal1_'+j).val())/30/8)*100)/100);//加班費基數(取小數點兩位並四捨五入)
