@@ -444,7 +444,7 @@
 						<input id="txtCust"  type="text"  class="txt" style="width:70%;  float: left;"/>
 						</td>
 						<td><span> </span><a id="lblCarteam" class="lbl"> </a></td>
-						<td><select id="cmbCarteamno" class="txt c1"></select></td>
+						<td><select id="cmbCarteamno" class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td class="td3"><span> </span><a id='lblCarno' class="lbl"> </a></td>

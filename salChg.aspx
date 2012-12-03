@@ -1,13 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-    <title></title>
-    <script src="../script/jquery.min.js" type="text/javascript"></script>
-    <script src='../script/qj2.js' type="text/javascript"></script>
-    <script src='qset.js' type="text/javascript"></script>
-    <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src="../script/qbox.js" type="text/javascript"></script>
-    <script src='../script/mask.js' type="text/javascript"></script>
+    <title> </title>
+    <script src="../script/jquery.min.js" type="text/javascript"> </script>
+    <script src='../script/qj2.js' type="text/javascript"> </script>
+    <script src='qset.js' type="text/javascript"> </script>
+    <script src='../script/qj_mess.js' type="text/javascript"> </script>
+    <script src="../script/qbox.js" type="text/javascript"> </script>
+    <script src='../script/mask.js' type="text/javascript"> </script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
     
     <script type="text/javascript">
@@ -16,12 +16,14 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="salchg";
-        var q_readonly = ['txtNoa'];
-        var bbmNum = [['txtBorrow',15,0,1],['txtMi_oth',15,0,1]]; 
+        var q_readonly = ['txtNoa','txtWorker'];
+        var bbmNum = [['txtBorrow',15,0,1],['txtMinus',15,0,1],['txtPlus',15,0,1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']);
+		aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],
+		 ['txtMinusitemno', 'lblMinusitem', 'chgitem', 'noa,item', 'txtMinusitemno,txtMinusitem', 'chgitem_b.aspx'], 
+			['txtPlusitemno', 'lblPlusitem', 'chgitem', 'noa,item', 'txtPlusitemno,txtPlusitem', 'chgitem_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -148,6 +150,7 @@
  
         }
         function btnOk() {
+        	$('#txtWorker').val(r_name);
             var t_err = '';
 
             t_err = q_chkEmpField([['txtMon', q_getMsg('lblMon')], ['txtSssno', q_getMsg('lblSss')] ]);
@@ -436,15 +439,40 @@
                             <td class="td5"></td>
                             <td class="td6"></td>
                         </tr>
-                        <tr>
-                            <td class="td1"><span> </span><a id='lblMi_oth' class="lbl"></a></td>
-                            <td class="td2"><input id="txtMi_oth"  type="text" class="txt num c1" /></td>
-                            <td class="td3"></td>
-                            <td class="td4"></td>
-                            <td class="td5"></td>
-                            <td class="td6"></td>
-                        </tr>
-				
+                     <tr>
+						<td class="td1"><span> </span><a id="lblMinusitem" class="lbl btn"> </a></td>
+						<td class="td2" colspan="2">
+						<input id="txtMinusitemno"  type="text"  class="txt c2"/>
+						<input id="txtMinusitem"  type="text"  class="txt c3"/>
+						</td>
+						<td class="td3"><span> </span><a id="lblMinus" class="lbl"> </a></td>
+						<td class="td4">
+						<input id="txtMinus"  type="text" class="txt num c1"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id="lblPlusitem" class="lbl btn"> </a></td>
+						<td class="td2" colspan="2">
+						<input id="txtPlusitemno"  type="text" class="txt c2"/>
+						<input id="txtPlusitem"  type="text"  class="txt c3"/>
+						</td>
+						<td class="td3"><span> </span><a id="lblPlus" class="lbl"> </a></td>
+						<td class="td4">
+						<input id="txtPlus"  type="text" class="txt num c1" />
+						</td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td class="td2" colspan='5'>
+						<input id="txtMemo"  type="text" class="txt c1" />
+						</td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtWorker"  type="text" class="txt c1" />
+						</td>
+					</tr>
 			</table>
 			</div>
 			</div>
