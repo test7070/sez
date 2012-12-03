@@ -35,7 +35,7 @@
                     },{
                         type : '5',
                         name : 'xkind',
-                        value : (('').concat(new Array("上期","下期"))).split(',')
+                        value : (('').concat(new Array("本月","上期","下期"))).split(',')
                     },{
                         type : '2',
                         name : 'sssno',
