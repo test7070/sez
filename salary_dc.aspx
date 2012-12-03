@@ -433,7 +433,7 @@
         	getdtmp();
         	for (var j = 0; j < q_bbsCount; j++) {
         		//小計=本俸+公費+主管津貼+交通津貼+特別津貼+其他津貼
-        		q_tr('txtTotal1_'+j,dec($('#txtMoney_'+j).val())+dec($('#txtPubmoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val()));
+        		q_tr('txtTotal1_'+j,dec($('#txtMoney_'+j).val())+dec($('#txtPubmoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtPlus_'+j).val()));
         		
         		if(($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1)||($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1)){
         			q_tr('txtMi_total_'+j,Math.round(dec($('#txtTotal1_'+j).val())/2/dtmp*dec($('#txtMi_saliday_'+j).val())));//扣薪金額
@@ -472,7 +472,7 @@
 		        		q_tr('txtWelfare_'+j,0);
         		}
         		//應扣總額=借支+勞保費+零用金+勞退個人提繳+住宿電費+所得稅+所得稅5%+所得稅6%(外勞)+暫留稅10%(外勞)+所得稅12%(外勞)+所得稅18%(外勞)+福利金+暫留款+健保費
-				q_tr('txtTotal4_'+j,Math.round(dec($('#txtBorrow_'+j).val())+dec($('#txtCh_labor_'+j).val())+dec($('#txtChgcash_'+j).val())+dec($('#txtCh_labor_self_'+j).val())+dec($('#txtLodging_power_fee_'+j).val())+dec($('#txtTax_'+j).val())+dec($('#txtTax5_'+j).val())+dec($('#txtTax6_'+j).val())+dec($('#txtStay_tax_'+j).val())+dec($('#txtTax12_'+j).val())+dec($('#txtTax18_'+j).val())+dec($('#txtWelfare_'+j).val())+dec($('#txtStay_money_'+j).val())+dec($('#txtCh_health_'+j).val())+dec($('#txtMinus_'+j).val())-dec($('#txtPlus_'+j).val())));
+				q_tr('txtTotal4_'+j,Math.round(dec($('#txtBorrow_'+j).val())+dec($('#txtCh_labor_'+j).val())+dec($('#txtChgcash_'+j).val())+dec($('#txtCh_labor_self_'+j).val())+dec($('#txtLodging_power_fee_'+j).val())+dec($('#txtTax_'+j).val())+dec($('#txtTax5_'+j).val())+dec($('#txtTax6_'+j).val())+dec($('#txtStay_tax_'+j).val())+dec($('#txtTax12_'+j).val())+dec($('#txtTax18_'+j).val())+dec($('#txtWelfare_'+j).val())+dec($('#txtStay_money_'+j).val())+dec($('#txtCh_health_'+j).val())+dec($('#txtMinus_'+j).val())));
 				//實發金額=應領總額-應扣總額
         		q_tr('txtTotal5_'+j,Math.round(dec($('#txtTotal3_'+j).val())-dec($('#txtTotal4_'+j).val())));
         		
@@ -969,13 +969,13 @@
         </tr>
         <tr>
             <td class="td1"><span> </span><a id="lblMoney" class="lbl"></a><a id="lblDaymoney" class="lbl"></a></td>
-            <td class="td2"><input id="txtMoney"  type="text" class="txt num c1" /><input id="txtDaymoney"  type="text" class="txt num c1" /></td>
-            <td class="td3"><span> </span><a id="lblPubmoney" class="lbl"></a></td>
-            <td class="td4"><input id="txtPubmoney"  type="text" class="txt num c1" /></td>
+            <td class="td2"><input id="txtMoney"  type="text" class="txt num c1" /><input id="txtDaymoney"  type="text" class="txt num c1" /></td>            
             <td class="td5"><span> </span><a id="lblBo_admin" class="lbl"></a></td>
             <td class="td6"><input id="txtBo_admin"  type="text" class="txt num c1" /></td>
             <td class="td7"><span> </span><a id="lblBo_traffic" class="lbl"></a></td>
             <td class="td8"><input id="txtBo_traffic"  type="text" class="txt num c1"/></td>
+            <td class="td3"><span> </span><a id="lblPubmoney" class="lbl"></a></td>
+            <td class="td4"><input id="txtPubmoney"  type="text" class="txt num c1" /></td>
         </tr>
         <tr>
             <td class="td1"><span> </span><a id="lblBo_special" class="lbl"></a></td>
@@ -1033,6 +1033,7 @@
                 <td align="center" class="td2"><a id='lblBo_traffics'></a></td>
                 <td align="center" class="td2"><a id='lblBo_specials'></a></td>
                 <td align="center" class="td2"><a id='lblBo_oths'></a></td>
+                <td align="center" class="td2"><a id='lblPlus'></a></td>
                 <td align="center" class="td2"><a id='lblTotal1s'></a></td>
                 <td align="center" class="td2" id='hid_day'><a id='lblDays'></a></td>
                 <td align="center" class="td2" id='hid_mtotal'><a id='lblMtotals'></a></td>
@@ -1075,7 +1076,6 @@
                 <td align="center" class="td2" id='hid_stay_money'><a id='lblStay_moneys'></a></td>
                 <td align="center" class="td1"><a id='lblRaise_nums'></a></td>
                 <td align="center" class="td2"><a id='lblCh_healths'></a></td>
-                <td align="center" class="td2"><a id='lblPlus'></a></td>
                 <td align="center" class="td2"><a id='lblMinus'></a></td>
                 <td align="center" class="td2"><a id='lblTotal4s'></a></td>
                 <td align="center" class="td2"><a id='lblTotal5s'></a></td>
@@ -1095,6 +1095,7 @@
                 <td ><input class="txt num c1" id="txtBo_traffic.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtBo_special.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtBo_oth.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtPlus.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtTotal1.*" type="text" /></td>
                 <td id='hid_day.*'><input class="txt num c1" id="txtDay.*" type="text" /></td>
                 <td id='hid_mtotal.*'><input class="txt num c1" id="txtMtotal.*" type="text" /></td>
@@ -1141,7 +1142,6 @@
                 <td id='hid_stay_money.*'><input class="txt num c1" id="txtStay_money.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtRaise_num.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtCh_health.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtPlus.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtMinus.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtTotal4.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtTotal5.*" type="text" /></td>

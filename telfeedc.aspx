@@ -18,7 +18,7 @@
         var q_name = "telfeedc";
         var q_readonly = ['txtNoa','txtDatea','txtTalktotal','txtTotal'];
         var q_readonlys = [];
-        var bbmNum = [['txtTotal',14 , 0, 1],['txtComptotal',14 , 0, 1]]; 
+        var bbmNum = [['txtTotal',14 , 0, 1],['txtComptotal',14 , 0, 1],['txtTalktotal',14 , 0, 1]]; 
         var bbsNum = [['txtTalkfee',12 , 0, 1],['txtTelfee',12 , 0, 1],['txtPhonefee',12 , 0, 1],['txtTotal',12 , 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
@@ -61,8 +61,12 @@
 	           	}
 	        });
 	        $('#btnOld').click(function () {
-	        	/*t_where = "where=^^ mon='"+$('#txtMon').val().substr(0,3)+"/"+$('#txtMon').val().substr(0,3)+"') ^^"
-	           	q_gt('tel', t_where , 0, 0, 0, "", r_accy);*/
+	        	t_where = "where=^^ 1=1^^  top=1"
+	           	q_gt('telfeedc', t_where , 0, 0, 0, "", r_accy);
+	        });
+	        $('#btnUpdate').click(function () {
+	        	t_where = "where=^^mon ='"+$('#txtMon').val()+"'^^"
+	           	q_gt('telfee', t_where , 0, 0, 0, "", r_accy);
 	        });
         }
 
@@ -79,7 +83,34 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'telfee':
+            		var as = _q_appendData("telfee", "", true);
+            		if(as[0]!=undefined){
+            			var telfees = _q_appendData("telfees", "", true);
+            			if(telfees[0]!=undefined){
+	            			for(var i = 0; i < telfees.length; i++) {
+		            			for(var j = 0; j < q_bbsCount; j++) {
+		            				if(telfees[i].namea==$('#txtNamea_'+j).val()){
+		            					if((telfees[i].mobile).substr(0,2)=='09'){
+		            						q_tr('txtPhonefee_'+j,telfees[i].fee);
+		            					}else{
+		            						q_tr('txtTelfee_'+j,telfees[i].fee);
+		            					}
+		            				}
+		            			}
+	            			}
+            			}
+            		}
+            	break;
                 case q_name: 
+                	if(q_cur==1){
+                		var as = _q_appendData("telfeedc", "", true);
+                		if(as[0]!=undefined){
+                			var telfeedcs = _q_appendData("telfeedcs", "", true);
+                			q_gridAddRow(bbsHtm, 'tbbs', 'txtPartno,txtPart,txtSssno,txtNamea,txtTalkfee,txtTelfee,txtPhonefee,txtTotal,txtMemo', telfeedcs.length, telfeedcs, 'partno,part,sssno,namea,talkfee,telfee,phonefee,total,memo', 'txtNamea');
+                		}
+                	}
+                
                 	if (q_cur == 4)  
                         q_Seek_gtPost();
                     break;
@@ -217,10 +248,12 @@
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
             if (t_para) {
-		            $('#btnTel').attr('disabled', 'disabled');	          
+		            $('#btnOld').attr('disabled', 'disabled');
+		            $('#btnUpdate').attr('disabled', 'disabled');	          
 		        }
 		        else {
-		        	$('#btnTel').removeAttr('disabled');	 
+		        	$('#btnOld').removeAttr('disabled');	 
+		        	$('#btnUpdate').removeAttr('disabled');	
 		        }
         }
 
@@ -357,7 +390,7 @@
                 float: left;
             }
             .txt.c5 {
-                width: 80%;
+                width: 75%;
                 float: left;
             }
             .txt.num {
@@ -421,6 +454,7 @@
         </tr>
         <tr class="tr2">
                <td class="td1"><input type="button" id="btnOld" class="txt c1 "></td>
+               <td class="td2"><input type="button" id="btnUpdate" class="txt c1 "></td>
         </tr>
         </table>
         </div>
