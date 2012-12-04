@@ -78,14 +78,14 @@
 	            	
 	            	for(var j = 0; j < q_bbsCount; j++){
 	            		for (var i = 0; i < as.length; i++) {
-		                    if (as[i].noa == $('#txtMobile_'+j).val()) {
+		                    if (as[i].telno == $('#txtMobile_'+j).val()) {
 		                        as.splice(i, 1);
 		                        i--;
 		                    }
 		                }
 		            }
 		            
-	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtMobile,txtOfee,txtFee,txtNamea', as.length, as, 'noa,total,total,namea', 'txtMobile');
+	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtMobile,txtOfee,txtFee,txtNamea', as.length, as, 'telno,total,total,namea', 'txtMobile');
 	            	sum();
             	break;
                 case q_name: 

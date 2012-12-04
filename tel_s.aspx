@@ -8,8 +8,12 @@
     <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
+    <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "tel_s";
+    aPop = new Array(['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
+    							['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']
+    );
 
     $(document).ready(function () {
         main();
@@ -31,18 +35,18 @@
     }
 
     function q_seekStr() {   
-        t_noa = $('#txtNoa').val();
-        t_sssno = $('#txtSssno').val();
-        t_namea = $('#txtNamea').val();
-        t_partno = $('#txtPartno').val();
-        t_part = $('#txtPart').val();
+        var t_noa = $('#txtNoa').val();
+        var t_sssno = $('#txtSssno').val();
+        var t_namea = $('#txtNamea').val();
+        var t_partno = $('#txtPartno').val();
+        var t_part = $('#txtPart').val();
        /* t_bmon = $('#txtBmon').val();
         t_emon = $('#txtEmon').val();
         t_bmon = t_bmon.length > 0 && t_bmon.indexOf("_") > -1 ? t_bmon.substr(0, t_bmon.indexOf("_")) : t_bmon;  /// 100.  .
         t_emon = t_emon.length > 0 && t_emon.indexOf("_") > -1 ? t_emon.substr(0, t_emon.indexOf("_")) : t_emon;  /// 100.  .*/
 		
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+q_sqlPara2("sssno", t_sssno)q_sqlPara2("namea", t_namea)+
+        var t_where = " 1=1 " + q_sqlPara2("telno", t_noa)+q_sqlPara2("sssno", t_sssno)+q_sqlPara2("namea", t_namea)+
         q_sqlPara2("partno", t_partno)+q_sqlPara2("part", t_part);
         
 
@@ -65,7 +69,7 @@
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblSssno'></a></td>
                 <td><input class="txt" id="txtSssno" type="text" style="width:90px; font-size:medium;" />
-                	<input class="txt" id="txtnamea" type="text" style="width:115px; font-size:medium;" />
+                	<input class="txt" id="txtNamea" type="text" style="width:115px; font-size:medium;" />
                 </td>
             </tr>
             <tr class='seek_tr'>

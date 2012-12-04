@@ -48,6 +48,9 @@
         	bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('send.typea'));
+            
+            q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+            
             $("#cmbTypea").focus(function() {
 				var len = $("#cmbTypea").children().length > 0 ? $("#cmbTypea").children().length : 1;
 				$("#cmbTypea").attr('size', len + "");
@@ -58,34 +61,74 @@
 	           $('#txtChecker').val(r_name);
 	        });
 			$('#txtP20').change(function () {
-	           sum();
+				if(p20<dec($('#txtP20').val())){
+					alert('郵資庫存數量不足');
+	           		$('#txtP20').val(p20);
+	           	}
+	           	sum();
 	        });
 			$('#txtP35').change(function () {
-	           sum();
+	           if(p35<dec($('#txtP35').val())){
+	           		alert('郵資庫存數量不足');
+	           		$('#txtP35').val(p35);
+	           	}
+	           	sum();
 	        });
 	        $('#txtP50').change(function () {
-	           sum();
+	           if(p50<dec($('#txtP50').val())){
+	           		alert('郵資庫存數量不足');
+	           		$('#txtP50').val(p50);
+	           	}
+	           	sum();
 	        });
 	        $('#txtP100').change(function () {
-	           sum();
+	           if(p100<dec($('#txtP100').val())){
+	           		alert('郵資庫存數量不足');
+	           		$('#txtP100').val(p100);
+	           	}
+	           	sum();
 	        });
 	        $('#txtP120').change(function () {
-	           sum();
+	           if(p120<dec($('#txtP120').val())){
+	           		alert('郵資庫存數量不足');
+	           		$('#txtP120').val(p120);
+	           	}
+	           	sum();
 	        });
 	        $('#txtP130').change(function () {
-	           sum();
+	           if(p130<dec($('#txtP130').val())){
+	           		alert('郵資庫存數量不足');
+	           		$('#txtP130').val(p130);
+	           	}
+	           	sum();
 	        });
 	        $('#txtP150').change(function () {
-	           sum();
+	           if(p150<dec($('#txtP150').val())){
+	           		alert('郵資庫存數量不足');
+	           		$('#txtP150').val(p150);
+	           	}
+	           	sum();
 	        });
 	        $('#txtP200').change(function () {
-	           sum();
+	           if(p200<dec($('#txtP200').val())){
+	           		alert('郵資庫存數量不足');
+	           		$('#txtP200').val(p200);
+	           	}
+	           	sum();
 	        });
 	        $('#txtP250').change(function () {
-	           sum();
+	           if(p250<dec($('#txtP250').val())){
+	           		alert('郵資庫存數量不足');
+	           		$('#txtP250').val(p250);
+	           	}
+	           	sum();
 	        });
 	        $('#txtP320').change(function () {
-	           sum();
+	           if(p320<dec($('#txtP320').val())){
+	           		alert('郵資庫存數量不足');
+	           		$('#txtP320').val(p320);
+	           	}
+	           	sum();
 	        });
         }
         function txtCopy(dest, source) {
@@ -109,7 +152,8 @@
         
         function q_boxClose( s2) {
             var ret; 
-            switch (b_pop) {                   case 'conn':
+            switch (b_pop) {                   
+            	case 'conn':
 
                     break;
 
@@ -129,9 +173,36 @@
             }   /// end Switch
         }
 
-
+		var p20=0,p35=0,p50=0,p100=0,p120=0,p130=0,p150=0,p200=0,p250=0,p320=0;//郵資庫存
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'postage':
+            		var as = _q_appendData("postage", "", true);
+            				if(as[0]!=undefined){
+            					for (var i = 0; i < as.length; i++) {
+            						if(as[i].noa=='2.0')
+            							p20=dec(as[i].mount)
+            						else if(as[i].noa=='3.5')
+            							p35=dec(as[i].mount)
+            						else if(as[i].noa=='5.0')
+            							p50=dec(as[i].mount)
+            						else if(as[i].noa=='10.0')
+            							p100=dec(as[i].mount)
+            						else if(as[i].noa=='12.0')
+            							p120=dec(as[i].mount)
+            						else if(as[i].noa=='13.0')
+            							p130=dec(as[i].mount)
+            						else if(as[i].noa=='15.0')
+            							p150=dec(as[i].mount)
+            						else if(as[i].noa=='20.0')
+            							p200=dec(as[i].mount)
+            						else if(as[i].noa=='25.0')
+            							p250=dec(as[i].mount)
+            						else if(as[i].noa=='32.0')
+            							p320=dec(as[i].mount)
+            					}
+            				}
+            		break;
                 case 'sss':  
                     q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
                     break;
@@ -276,6 +347,8 @@
         function btnCancel() {
             _btnCancel();
         }
+        
+        
     </script>
     <style type="text/css">
                  #dmain {

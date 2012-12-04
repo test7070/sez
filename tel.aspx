@@ -48,13 +48,20 @@
                 $('#txtNoa').focus();
 
             }///  end Main()
-
+			var insed=false;//判斷電話是否重覆輸入
             function mainPost() {
             	bbmMask = [['txtBegindate', r_picd],['txtCondate', r_picd],['txtEnddate', r_picd]];
             	q_mask(bbmMask);
                 fbbm[fbbm.length] = 'txtMemo'; 
                 q_cmbParse("cmbComp2", ('').concat(new Array('中華電信', '台灣大哥大', '亞太電信', '遠傳電信', '泛亞電信', '大眾電信', '威寶電信')));
 				 q_cmbParse("cmbTypea", q_getPara('tel.typea'));
+				 
+				 $('#txtTelno').change(function () {
+				 	if(!emp($('#txtTelno').val())){
+				 		t_where = "where=^^ telno='"+$('#txtTelno').val()+"' ^^"
+	           			q_gt('tel', t_where , 0, 0, 0, "", r_accy);
+				 	}
+			     });
 				 
 				 $('#txtFeerate').change(function () {
 				 	sum();
@@ -150,7 +157,14 @@
                             q_Seek_gtPost();
 
                         if(q_cur == 1 || q_cur == 2){
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
+                           var as = _q_appendData("tel", "", true);
+            				if(as[0]!=undefined){
+            					insed=true;
+            					alert('電話重覆輸入!!');
+            					$('#txtTelno').focus();
+            				}else{
+            					insed=false;
+            				}
 		        		}
 
                         break;
@@ -166,8 +180,8 @@
 
             function btnIns() {
                 _btnIns();
-                //$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-                $('#txtNoa').focus();
+                $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+                $('#txtTelno').focus();
             }
 			var t_mobile='';
             function btnModi() {
@@ -175,7 +189,7 @@
                     return;
 				
                 _btnModi();
-                $('#txtNoa').focus();
+                $('#txtTelno').focus();
             }
 
             function btnPrint() {
@@ -196,19 +210,22 @@
 
             function btnOk() {
                 var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblMobile')]]);
+                t_err = q_chkEmpField([['txtTelno', q_getMsg('lblMobile')]]);
 
                 if(t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
                 
-                var t_noa = trim($('#txtNoa').val());
-
-                if(t_noa.length ==0)
-                    q_gtnoa(q_name, t_noa);
-                else
-                    wrServer(t_noa);
+                if(insed){
+            		alert('電話重覆輸入!!');
+                	return;
+                }
+	            var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+	            if (s1.length == 0 || s1 == "AUTO")   
+	                q_gtnoa(q_name, replaceAll('T' + $('#txtPartno').val(), '/', ''));
+	            else
+	                wrServer(s1);
             }
 
             function wrServer(key_value) {
@@ -410,7 +427,7 @@
                             <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                             <td align="center" id='part'>~part</td>
                             <td align="center" id='namea'>~namea</td>
-                            <td align="center" id='noa'>~noa</td>
+                            <td align="center" id='telno'>~telno</td>
                         </tr>
                     </table>
                 </div>
@@ -418,7 +435,7 @@
                     <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
                          <tr class="tr1">
                             <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-                            <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
+                            <td class="td2"><input id="txtTelno"  type="text" class="txt c1"/><input id="txtNoa"  type="hidden" class="txt c1"/></td>
                             <td class="td3"><span> </span><a id='lblAcomp' class="lbl"></a></td><!--<input id="btnAcomp" type="button"  style="width: auto;font-size: medium;"/>-->
                             <td class="td4">
                             	<select id="cmbComp2" class="txt c1"></select>
