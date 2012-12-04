@@ -47,7 +47,11 @@
         	$('#btnGen').click(function () {
         	    q_func('banktran.gen', $('#txtNoa').val());
         	});
-        	  
+
+        	$('#btnGen2').click(function () {
+        	    q_func('banktran.gen2', $('#txtNoa').val());
+        	});
+
             $('#lblAccno').click(function () {
 		        q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 		    });
@@ -56,8 +60,13 @@
 		function q_funcPost(t_func,result) {
 		    var s1 = location.href;
 		    var t_path = (s1.substr(7, 5) == 'local' ? xlsPath : s1.substr(0, s1.indexOf('/', 10)) + '/htm/');
-            window.open(t_path + 'obtdta.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
-		    $('#txtAccno').val(result);
+		    if (t_func == 'banktran.gen') {
+		        window.open(t_path + 'obtdta.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
+		        $('#txtAccno').val(result);
+		    }
+		    if (t_func == 'banktran.gen2') 
+		        window.open(t_path + 'obtdta.txt2', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
+
         }
 
         function q_boxClose( s2) {
@@ -156,10 +165,12 @@
             _readonly(t_para, empty);
             
             if (t_para) {
-		            $('#btnGen').removeAttr('disabled');
+                $('#btnGen').removeAttr('disabled');
+                $('#btnGen2').removeAttr('disabled');
 		        }
 		        else {
 		            $('#btnGen').attr('disabled', 'disabled');
+		            $('#btnGen2').attr('disabled', 'disabled');
 		        }
         }
 
@@ -380,6 +391,7 @@
             <tr>
             	<td> </td>
                <td class="td1"><input id="btnGen"  type="button"  /></td>
+               <td class="td2"><input id="btnGen2"  type="button"  /></td>
                <td class="td3"><span> </span><a id='lblWorker' class="lbl"> </a></td>
                <td class="td4"><input id="txtWorker" type="text"  class="txt c1"/> </td>
             </tr>
@@ -393,3 +405,4 @@
         <input id="q_sys" type="hidden" />    
 </body>
 </html>
+
