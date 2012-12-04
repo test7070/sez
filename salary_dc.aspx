@@ -104,7 +104,7 @@
         function q_gtPost(t_name) {  
             switch (t_name) {
                 case 'salarydc_import':  
-						var as = _q_appendData("labases", "", true);
+						var as = _q_appendData("salpresents", "", true);
 						for (var i = 0; i < as.length; i++) {
 							//判斷是否哪些員工要計算薪水
 		                    if ((!emp(as[i].ft_date) && as[i].ft_date >date_1)||(!emp(as[i].outdate)&&as[i].outdate<date_1||as[i].indate>$('#txtMon').val())) {
@@ -112,10 +112,10 @@
 		                        i--;
 		                    }else{
 		                    	//判斷勞健保(部份公式再load已計算)
+		                    		//大昌健保直接抓labase的bbm
 									//健保費：只要離職 就一整個月不算(除離職日=月底最後一天 要算) 新進人員 就整月算
 									//勞保費：只要當月新進 或當月離職 就依照在職日數/30 去算	通常都是下期收 除了有離職的
 									//福利金：下期收 但新進人員到職未滿90日 不收；離職人員 只要離職當月就不收
-									//取扶養人之應繳健保費 AND 健保補助金已在SQL時加入
 		                    	if(as[i].indate>=$('#txtMon').val()+'/01'&&date_2>=as[i].indate){//新進日在薪資月份內
 		                    		if (($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1)||($('#cmbMonkind').find("option:selected").text().indexOf('本月')>-1)){
 		                    			//在職日數
@@ -141,7 +141,7 @@
 		                    		var labor2days=parseInt(Math.abs(Date.parse($('#txtMon').val()+'/01') -Date.parse(as[i].labor2_edate)) /1000/60/60/24);
 		                    			
 		                    		if(as[i].outdate==date_2)
-		                    			as[i].ch_health=Math.round(as[i].ch_health+as[i].as_health);	//健保費
+		                    			as[i].ch_health=as[i].ch_health;	//健保費
 		                    		else
 		                    			as[i].ch_health=0;
 		                    		as[i].ch_labor=Math.round(as[i].ch_labor*labor1days/30);//勞保費
