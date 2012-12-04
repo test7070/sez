@@ -31,7 +31,7 @@
             //ajaxPath = "";
 			aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
 			 ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
-			 ['txtProductno_', 'btnchgitem_', 'chgitem', 'noa,item,acc1,acc2', 'txtProductno_,txtProduct_,txtAcc1_,txtAcc2_', 'chgitem_b.aspx'],
+			 ['txtProductno_', 'btnchgitem_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
 			['txtPartno_', 'btnpart_', 'part', 'noa,part', 'txtPartno_,txtPart_', 'part_b.aspx'],
 			['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
 			['txtPartno2', 'lblPart2', 'part', 'noa,part', 'txtPartno2,txtPart2', 'part_b.aspx'],
@@ -80,6 +80,13 @@
 		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 		        });
 		         //.........................   
+		         $('#btnTgg').click(function () {
+		            q_box('Tgg.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtTggno').val()), '', "800px", "600px", "廠商主檔");
+		        });
+		        $('#btnUcc').click(function () {
+		             q_box('ucc.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtno').val()), '', "800px", "600px", "電子檔製作");
+
+		        });
             }
 
             function q_boxClose(s2) {
@@ -626,7 +633,8 @@
                 <td class="td8"><input id="txtTotal" type="text" class="txt num c1"/></td>  
             </tr>
             <tr><td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-                <td class="td2" colspan='7' ><textarea id="txtMemo" cols="10" rows="5" style="width: 99%; height:50px;"></textarea></td>
+                <td class="td2" colspan='6' ><textarea id="txtMemo" cols="10" rows="5" style="width: 99%; height:50px;"></textarea></td>
+                <td class="td8"><input id="btnTgg" type="button"/><input id="btnUcc" type="button"/></td>
                 </tr>
         </table>
         </div>
@@ -638,7 +646,7 @@
                 <td align="center" class="td2"><a id='lblRc2no'></a></td>
                 <td align="center" style="width: 5%;"><a id='lblKind'></a></td>
                 <td align="center" style="width: 4%;"><a id='lblType'></a></td>
-                <td align="center" style="width: 10%;"><a id='lblInvonos'></a>/<a id='lblTaxs'></a></td>
+                <td align="center" style="width: 8%;"><a id='lblInvonos'></a>/<a id='lblTaxs'></a></td>
                 <td align="center" class="td1"><a id='lblPart'></a></td>
                 <td align="center" style="width: 5%;"><a id='lblMount'></a></td>
                 <td align="center" style="width: 7%;"><a id='lblPrice'></a></td>
@@ -646,6 +654,7 @@
                 <td align="center" class="td1"><a id='lblTotals'></a></td>
                 <td align="center" style="width: 12%;"><a id='lblProduct'></a></td>
                 <td align="center"><a id='lblMemos'></a></td>
+                <td align="center" style="width: 7%;"><a id='lblBal'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
@@ -666,9 +675,10 @@
                 <td ><input id="txtMemo.*" type="text" class="txt c1"/></br>
                 		<input class="btn"  id="btnAcc.*" type="button" value='.' style="float: left; font-weight: bold;width:1%;" />
                         <input type="text" id="txtAcc1.*"  style="width:35%;"/>
-						<input type="text" id="txtAcc2.*"  style="width:45%;"/>
+						<input type="text" id="txtAcc2.*"  style="width:43%;"/>
 						<input type="hidden" id="txtNoq.*"  style="width:45%;"/>
                 </td>
+                <td><input id="txtBal.*" type="text"  class="txt c1" /></td>
             </tr>
         </table>
         </div>
