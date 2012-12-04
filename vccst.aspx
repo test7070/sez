@@ -26,7 +26,7 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'datea';
         //ajaxPath = ""; 
-		 aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,paytype', 'txtTggno,txtTgg,txtPaytype', 'tgg_b.aspx'],
+		 aPop = new Array( ['txtCustno', 'lblCust', 'cust', 'noa,comp,tel,zip_invo,addr_invo,paytype', 'txtCustno,txtComp,txtTel,txtZipcode,txtAddr,txtPaytype', 'cust_b.aspx'],
 		 ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
 		 ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
 		 ['txtCarno', 'lblCar', 'cardeal', 'noa,comp', 'txtCarno,txtCar', 'cardeal_b.aspx']);
@@ -220,7 +220,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('rc2_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+            q_box('vcc_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
         function combPaytype_chg() {   /// �u�� comb �}�Y�A�~�ݭn�g onChange()   �A��l cmb �s����Ʈw
@@ -480,7 +480,7 @@
         function size_change () {
 		  if($('#cmbKind').find("option:selected").text().indexOf('�O')>-1)
             	{
-            		$('#lblSize_help').text("�p��x�e��x���");
+            		$('#lblSize_help').text("厚度x寬度x長度");
 	            	for (var j = 0; j < q_bbsCount; j++) {
 			           $('#txtSize4_'+j).hide();
 			           $('#x3_'+j).hide();
@@ -494,7 +494,7 @@
 			     }
 		         else
 		         {
-		         	$('#lblSize_help').text("�u�|x��|x�p��x���");
+		         	$('#lblSize_help').text("短徑x長徑x厚度x長度");
 			         for (var j = 0; j < q_bbsCount; j++) {
 			         	$('#txtSize4_'+j).show();
 			         	$('#x3_'+j).show();
@@ -511,7 +511,7 @@
 			var as = _q_appendData("ucc", "", true);
 			if(as[0]==undefined)
 			{
-				alert('�п�J���T����');
+				alert('請輸入正確材質');
 				return;
 			}
 			//�P�_�?�Ѧ�theory:40
@@ -523,7 +523,7 @@
 			}else{//���~�P�P��L
 				var cmb = document.getElementById("cmbStype");
 				if (!cmb) {
-					alert('cmbStype ���s�b');
+					alert('cmbStype 不存在');
 					return;
 				}
 				//qsys....orde.stype
@@ -699,14 +699,14 @@
                 <td align="center" style="width:5%"><a id='vewTypea'></a></td>
                 <td align="center" style="width:25%"><a id='vewDatea'></a></td>
                 <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:40%"><a id='vewTgg'></a></td>
+                <td align="center" style="width:40%"><a id='vewComp'> </a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                    <td align="center" id='typea=rc2.typea'>~typea=rc2.typea</td>
                    <td align="center" id='datea'>~datea</td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='tggno tgg,4'>~tggno ~tgg,4</td>
+                   <td align="center" id='custno comp,4'>~custno ~comp,4</td>
             </tr>
         </table>
         </div>
@@ -734,8 +734,11 @@
                 <td class="td8"><input id="txtInvono"  type="text" class="txt c1"/></td> 
             </tr>
 			<tr class="tr3">
-                <td class="td1"><span> </span><a id='lblTgg' class="lbl btn"></td>
-                <td class="td2" colspan='2'><input id="txtTggno" type="text" class="txt c2" /><input id="txtTgg"  type="text" class="txt c3"/></td>
+                <td class="td1"><span> </span><a id='lblCust' class="lbl btn"></a></td>
+						<td class="td2">
+						<input type="text" id="txtCustno" style="float:left;width:30%;"/>
+						<input type="text" id="txtComp" style="float:left;width:70%;"/>
+						</td>
                 <td class="td4"><span> </span><a id='lblPaytype' class="lbl"></a></td>
                 <td class="td5" colspan='2'><input id="txtPaytype" type="text" class="txt c3"/> <select id="combPaytype" class="txt c2" onchange='combPaytype_chg()'></select></td> 
             </tr>
@@ -793,7 +796,7 @@
         <div class='dbbs' >
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
            <tr style='color:White; background:#003366;' >
-                <td align="center"><input class="btn"  id="btnPlus" type="button" value='��' style="font-weight: bold;"  /> </td>
+                <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:10%;"><a id="lblUno_st" > </a></td>
                 <td align="center" style="width:8%;"><a id='lblProductno_st'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblProduct_st'> </a></td>
@@ -806,7 +809,7 @@
                 <td align="center"><a id='lblMemos_st'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='��' style=" font-weight: bold;" /></td>
+                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
                 <td ><input  id="txtUno.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtProductno.*" type="text" style="width:70%;" /><input class="btn"  id="btnProductno.*" type="button" value='...' style="width:16%;"  /></td>
                 <td ><input class="txt c1" id="txtProduct.*" type="text" /></td>
@@ -815,7 +818,7 @@
                 		<input class="txt num c8" id="txtSize2.*" type="text"/><div id="x2" style="float: left"> x</div>
                         <input class="txt num c8" id="txtSize3.*" type="text"/><div id="x3.*" style="float: left"> x</div>
                          <input class="txt num c8" id="txtSize4.*" type="text"/>
-                         <!--�W�������U�����-->
+                           <!--上為虛擬下為實際-->
                          <input id="txtRadius.*" type="hidden"/>
                 		<input  id="txtWidth.*" type="hidden"/>
                         <input  id="txtDime.*" type="hidden"/>
