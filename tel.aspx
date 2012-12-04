@@ -48,13 +48,20 @@
                 $('#txtNoa').focus();
 
             }///  end Main()
-
+			var insed=false;//判斷電話是否重覆輸入
             function mainPost() {
             	bbmMask = [['txtBegindate', r_picd],['txtCondate', r_picd],['txtEnddate', r_picd]];
             	q_mask(bbmMask);
                 fbbm[fbbm.length] = 'txtMemo'; 
                 q_cmbParse("cmbComp2", ('').concat(new Array('中華電信', '台灣大哥大', '亞太電信', '遠傳電信', '泛亞電信', '大眾電信', '威寶電信')));
 				 q_cmbParse("cmbTypea", q_getPara('tel.typea'));
+				 
+				 $('#txtTelno').change(function () {
+				 	if(!emp($('#txtTelno').val())){
+				 		t_where = "where=^^ telno='"+$('#txtTelno').val()+"' ^^"
+	           			q_gt('tel', t_where , 0, 0, 0, "", r_accy);
+				 	}
+			     });
 				 
 				 $('#txtFeerate').change(function () {
 				 	sum();
@@ -150,7 +157,14 @@
                             q_Seek_gtPost();
 
                         if(q_cur == 1 || q_cur == 2){
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
+                           var as = _q_appendData("tel", "", true);
+            				if(as[0]!=undefined){
+            					insed=true;
+            					alert('電話重覆輸入!!');
+            					$('#txtTelno').focus();
+            				}else{
+            					insed=false;
+            				}
 		        		}
 
                         break;
@@ -175,7 +189,7 @@
                     return;
 				
                 _btnModi();
-                $('#txtNoa').focus();
+                $('#txtTelno').focus();
             }
 
             function btnPrint() {
@@ -203,6 +217,10 @@
                     return;
                 }
                 
+                if(insed){
+            		alert('電話重覆輸入!!');
+                	return;
+                }
 	            var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
 	            if (s1.length == 0 || s1 == "AUTO")   
 	                q_gtnoa(q_name, replaceAll('T' + $('#txtPartno').val(), '/', ''));
