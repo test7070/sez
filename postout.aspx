@@ -66,6 +66,8 @@
 	           		$('#txtP20').val(p20);
 	           	}
 	           	sum();
+	        }).focus(function () {
+				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 	        });
 			$('#txtP35').change(function () {
 	           if(p35<dec($('#txtP35').val())){
@@ -73,6 +75,8 @@
 	           		$('#txtP35').val(p35);
 	           	}
 	           	sum();
+	        }).focus(function () {
+				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 	        });
 	        $('#txtP50').change(function () {
 	           if(p50<dec($('#txtP50').val())){
@@ -80,6 +84,8 @@
 	           		$('#txtP50').val(p50);
 	           	}
 	           	sum();
+	        }).focus(function () {
+				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 	        });
 	        $('#txtP100').change(function () {
 	           if(p100<dec($('#txtP100').val())){
@@ -87,6 +93,8 @@
 	           		$('#txtP100').val(p100);
 	           	}
 	           	sum();
+	        }).focus(function () {
+				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 	        });
 	        $('#txtP120').change(function () {
 	           if(p120<dec($('#txtP120').val())){
@@ -94,6 +102,8 @@
 	           		$('#txtP120').val(p120);
 	           	}
 	           	sum();
+	        }).focus(function () {
+				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 	        });
 	        $('#txtP130').change(function () {
 	           if(p130<dec($('#txtP130').val())){
@@ -101,6 +111,8 @@
 	           		$('#txtP130').val(p130);
 	           	}
 	           	sum();
+	        }).focus(function () {
+				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 	        });
 	        $('#txtP150').change(function () {
 	           if(p150<dec($('#txtP150').val())){
@@ -108,6 +120,8 @@
 	           		$('#txtP150').val(p150);
 	           	}
 	           	sum();
+	        }).focus(function () {
+				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 	        });
 	        $('#txtP200').change(function () {
 	           if(p200<dec($('#txtP200').val())){
@@ -115,6 +129,8 @@
 	           		$('#txtP200').val(p200);
 	           	}
 	           	sum();
+	        }).focus(function () {
+				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 	        });
 	        $('#txtP250').change(function () {
 	           if(p250<dec($('#txtP250').val())){
@@ -122,6 +138,8 @@
 	           		$('#txtP250').val(p250);
 	           	}
 	           	sum();
+	        }).focus(function () {
+				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 	        });
 	        $('#txtP320').change(function () {
 	           if(p320<dec($('#txtP320').val())){
@@ -129,6 +147,8 @@
 	           		$('#txtP320').val(p320);
 	           	}
 	           	sum();
+	        }).focus(function () {
+				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
 	        });
         }
         function txtCopy(dest, source) {

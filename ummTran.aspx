@@ -191,11 +191,11 @@
                             return;
                             
                         for (var i = 0; i < b_ret.length; i++) {
-		                    if (b_ret[i].total - b_ret[i].paysale == 0) {
+		                    if (dec(b_ret[i].total) - dec(b_ret[i].paysale) == 0) {
 		                        b_ret.splice(i, 1);
 		                        i--;
 		                    } else {
-		                        b_ret[i]._unpay = (b_ret[i].total - b_ret[i].paysale).toString();
+		                        b_ret[i]._unpay = (dec(b_ret[i].total) - dec(b_ret[i].paysale)).toString();
 		                        b_ret[i].paysale = 0;
 		                    }
 		                }
