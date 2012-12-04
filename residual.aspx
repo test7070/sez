@@ -17,8 +17,7 @@
             
             var q_name = "residual";
             var q_readonly = [];
-            var bbmNum = [];
-            
+            var bbmNum = [['txtMoney', 15, 0, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -49,6 +48,15 @@
             	q_mask(bbmMask);
             	q_gt('carbrand', '', 0, 0, 0, "");
             	q_gt('carspec', '', 0, 0, 0, "");
+            	
+            	/*
+	            	residual,lblNoa,編號
+					residual,lblBrand,廠牌
+					residual,lblTon,噸位CC數
+					residual,lblSpec,車種
+					residual,lblYear,年份
+					residual,lblMoney,預估殘值
+            	 */
             }
             
             function q_boxClose(s2) {
