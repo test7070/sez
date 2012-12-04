@@ -166,8 +166,8 @@
 
             function btnIns() {
                 _btnIns();
-                //$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-                $('#txtNoa').focus();
+                $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+                $('#txtTelno').focus();
             }
 			var t_mobile='';
             function btnModi() {
@@ -196,19 +196,18 @@
 
             function btnOk() {
                 var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblMobile')]]);
+                t_err = q_chkEmpField([['txtTelno', q_getMsg('lblMobile')]]);
 
                 if(t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
                 
-                var t_noa = trim($('#txtNoa').val());
-
-                if(t_noa.length ==0)
-                    q_gtnoa(q_name, t_noa);
-                else
-                    wrServer(t_noa);
+	            var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+	            if (s1.length == 0 || s1 == "AUTO")   
+	                q_gtnoa(q_name, replaceAll('T' + $('#txtPartno').val(), '/', ''));
+	            else
+	                wrServer(s1);
             }
 
             function wrServer(key_value) {
@@ -410,7 +409,7 @@
                             <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                             <td align="center" id='part'>~part</td>
                             <td align="center" id='namea'>~namea</td>
-                            <td align="center" id='noa'>~noa</td>
+                            <td align="center" id='telno'>~telno</td>
                         </tr>
                     </table>
                 </div>
@@ -418,7 +417,7 @@
                     <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
                          <tr class="tr1">
                             <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-                            <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
+                            <td class="td2"><input id="txtTelno"  type="text" class="txt c1"/><input id="txtNoa"  type="hidden" class="txt c1"/></td>
                             <td class="td3"><span> </span><a id='lblAcomp' class="lbl"></a></td><!--<input id="btnAcomp" type="button"  style="width: auto;font-size: medium;"/>-->
                             <td class="td4">
                             	<select id="cmbComp2" class="txt c1"></select>
