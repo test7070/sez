@@ -542,7 +542,7 @@
             }
        .tbbs .td1
         {
-            width: 10%;
+            width: 9%;
         }
         .tbbs .td2
         {
@@ -663,19 +663,19 @@
                 <td><select id="cmbTypea.*" > </select></td><!--<input id="txtTypea.*" type="text"  class="txt c1"/>-->
                 <td><input id="txtInvono.*" type="text" class="txt c1"/><input id="txtTax.*" type="text" class="txt num c1" /></td>
                 <td><input class="btn"  id="btnpart.*" type="button" value='.' style=" float: left;font-weight: bold;width:1%;" />
-                	<input id="txtPartno.*" type="text" class="txt c4"/>
-                    <input id="txtPart.*" type="text" class="txt c3"/></td>
+                	<input id="txtPartno.*" type="text" style="width:21%;"/>
+                    <input id="txtPart.*" type="text" style="width:50%;"/></td>
                     <td><input id="txtMount.*" type="text" class="txt num c1" /></td>
                     <td><input id="txtPrice.*" type="text" class="txt num c1" /><input id="txtDiscount.*" type="text" class="txt num c1" /></td>
                 <td><input id="txtMoney.*" type="text" class="txt num c1"/></td>
                 <td><input id="txtTotal.*" type="text"  class="txt num c1" /></td>
                 <td><input class="btn"  id="btnchgitem.*" type="button" value='.' style="float: left;font-weight: bold;width:1%;" />
-                		<input id="txtProductno.*" type="text" style=" width: 85%;"/><br><input id="txtProduct.*" type="text" style=" width: 98%;"/>
+                		<input id="txtProductno.*" type="text" style=" width: 80%;"/><br><input id="txtProduct.*" type="text" style=" width: 98%;"/>
                 </td>
                 <td ><input id="txtMemo.*" type="text" class="txt c1"/></br>
                 		<input class="btn"  id="btnAcc.*" type="button" value='.' style="float: left; font-weight: bold;width:1%;" />
                         <input type="text" id="txtAcc1.*"  style="width:35%;"/>
-						<input type="text" id="txtAcc2.*"  style="width:43%;"/>
+						<input type="text" id="txtAcc2.*"  style="width:40%;"/>
 						<input type="hidden" id="txtNoq.*"  style="width:45%;"/>
                 </td>
                 <td><input id="txtBal.*" type="text"  class="txt c1" /></td>

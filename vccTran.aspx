@@ -39,7 +39,7 @@
             ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
             ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
             ['txtStoren_', '', 'acomp', 'noa,acomp', 'txtStoreno_,txtStore_', 'acomp_b.aspx'],
-             ['txtItemno_', 'btnItemno_', 'uccdc', 'noa,item', 'txtItemno_,txtItem_', 'uccdc_b.aspx']);
+             ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -673,9 +673,9 @@
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
 					<td>
-					<input  id="txtItemno.*"type="text" style="float:left;width: 20%;"/>
-					<input id="txtItem.*" type="text" style="float:left;width: 70%;"/>
-					<input id="btnItemno.*" type="button" value=".." style="float:left;width:8%;"/>
+					<input id="txtProductno.*"type="text" style="float:left;width: 20%;"/>
+					<input id="txtProduct.*" type="text" style="float:left;width: 70%;"/>
+					<input id="btnProductno.*" type="button" value=".." style="float:left;width:8%;"/>
 					</td>
 					<td>
 					<input id="txtUnit.*" type="text" style="width: 95%;"/>
