@@ -796,9 +796,9 @@
 						<div class='btnLbl button'>
 							<a id='lblCarinsurance'></a>
 						</div>
-						<div class='btnLbl button'>
+						<!--<div class='btnLbl button'>
 							<a id='lblCarlender'></a>
-						</div>
+						</div>-->
 						<div class='btnLbl button'>
 							<a id='lblCaraccident'></a>
 						</div>

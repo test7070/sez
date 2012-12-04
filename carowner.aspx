@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -44,6 +43,12 @@
             function mainPost() { 
             	q_mask(bbmMask);
             	q_cmbParse("cmbSex",q_getPara('sys.sex'));
+            	$('#lblBalance').parent().click(function(e) {
+					q_box("balance.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'balance', "95%", "95%", q_getMsg("popBalance"));
+				});
+            	$('#lblCarlender').parent().click(function(e) {
+					q_box("carlender.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'carlender', "95%", "95%", q_getMsg("popCarlender"));
+				});
             }
 
             function txtCopy(dest, source) {
@@ -232,7 +237,7 @@
                 float: left;
                 width: 65%;
                 margin: -1px;
-                border: 1px black solid;
+                /*border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -319,6 +324,69 @@
              input[type="text"],input[type="button"] {     
                 font-size: medium;
             }
+            .popDiv {
+				position: absolute;
+				z-index: 99;
+				background: #4297D7;
+				height: 370px;
+				width: 500px;
+				border: 2px #EEEEEE solid;
+				border-radius: 5px;
+				padding-top: 10px;
+				display: none;/*default*/
+			}
+			.popDiv .block {
+				border: 1px #CCD9F2 solid;
+				border-radius: 5px;
+			}
+			.popDiv .block .col {
+				display: block;
+				width: 600px;
+				height: 30px;
+				margin-top: 5px;
+				margin-left: 5px;
+			}
+			.btnLbl {
+				background: #cad3ff;
+				border-radius: 5px;
+				display: block;
+				width: 95px;
+				height: 25px;
+				float: left;
+				cursor: default;
+			}
+			.btnLbl.tb {
+				float: right;
+			}
+			.btnLbl.button {
+				cursor: pointer;
+				background: #76A2FE;
+			}
+			.btnLbl.button.close {
+				background: #cad3ff;
+			}
+			.btnLbl.button:hover {
+				background: #FF8F19;
+			}
+			.btnLbl a {
+				color: blue;
+				font-size: medium;
+				height: 25px;
+				line-height: 25px;
+				display: block;
+				text-align: center;
+			}
+			.btnLbl.button a {
+				color: #000000;
+			}
+			.btnLbl.close a {
+				color: red;
+				font-size: 16px;
+				height: 25px;
+				line-height: 25px;
+				display: block;
+				text-align: center;
+			}
 		</style>
 	</head>
 	<body>
@@ -420,6 +488,14 @@
                             </td>
                         </tr>
 					</table>
+					<div style="border-radius: 5px; height:30px; padding: 5px 0 0 5px; ">
+						<div class='btnLbl button'>
+							<a id='lblBalance'></a>
+						</div>
+						<div class='btnLbl button'>
+							<a id='lblCarlender'></a>
+						</div>
+					</div>
 				</div>
 			</div>
 			<input id="q_sys" type="hidden" />
