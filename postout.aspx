@@ -21,7 +21,7 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
 		aPop = new Array(['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
-		['txtSssno', 'lblSss', 'sssall', 'noa,namea', 'txtSssno,txtNamea', 'sssall_b.aspx'],
+		['txtSssno', 'lblSss', 'sssall', 'noa,namea,partno,part', 'txtSssno,txtNamea,txtPartno,txtPart', 'sssall_b.aspx'],
 		['txtSenderno', 'lblSend', 'cust', 'noa,comp','txtSenderno,txtSender', 'cust_b.aspx'],
 		['txtReceiverno_cust', 'lblReceiver_cust', 'cust', 'noa,comp','txtReceiverno_cust,txtReceiver_cust', 'cust_b.aspx'],
 		['txtReceiverno_tgg', 'lblReceiver_tgg', 'tgg', 'noa,comp','txtReceiverno_tgg,txtReceiver_tgg', 'tgg_b.aspx']);
@@ -51,12 +51,7 @@
             
             q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
             
-            $("#cmbTypea").focus(function() {
-				var len = $("#cmbTypea").children().length > 0 ? $("#cmbTypea").children().length : 1;
-				$("#cmbTypea").attr('size', len + "");
-			}).blur(function() {
-				$("#cmbTypea").attr('size', '1');
-			});
+            
 			$('#btnCheck').click(function () {
 	           $('#txtChecker').val(r_name);
 	        });
@@ -173,20 +168,6 @@
         function q_boxClose( s2) {
             var ret; 
             switch (b_pop) {                   
-            	case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-                
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;

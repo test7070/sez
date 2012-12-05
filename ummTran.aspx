@@ -92,14 +92,14 @@
 		         $('#btnAuto').click(function (e) {
 		         		t_Saving = true;
 		        		/// 自動沖帳
-		               $('#txtOpay').val(0);
-		               $('#txtUnopay').val(0);
+		               //$('#txtOpay').val(0);
+		               //$('#txtUnopay').val(0);
 		               for (var i = 0; i < q_bbsCount; i++) {
 		               		$('#txtPaysale_'+i).val(0);//歸零
 		               		$('#txtUnpay_'+i).val($('#txtUnpayorg_'+i).val());//歸零
 		               }
 		               
-		               var t_money = 0;
+		               var t_money = 0+q_float('txtUnopay');
 		               for (var i = 0; i < q_bbsCount; i++) {
 		               		if($('#txtAcc1_'+i).val().indexOf('2121') == 0 || $('#txtAcc1_'+i).val().indexOf('7149') == 0 || $('#txtAcc1_'+i).val().indexOf('7044') == 0)
 		               			t_money -= q_float('txtMoney_' + i);
@@ -240,7 +240,7 @@
 		        
 		        q_tr('txtSale', t_sale);
 		        q_tr('txtTotal', t_money);
-		        q_tr('txtPaysale', t_pay + q_float('txtUnopay'));
+		        q_tr('txtPaysale', t_pay);
 		        q_tr('txtUnpay', q_float('txtSale') - q_float('txtPaysale'));
 		        if(q_float('txtTotal')-q_float('txtPaysale')>0)
 		        {

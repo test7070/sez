@@ -93,6 +93,12 @@
                             dbf : 'insurer',
                             index : 'noa,comp',
                             src : 'insurer_b.aspx'
+                        },{
+                            type : '2',
+                            name : 'carspec',
+                            dbf : 'carspec',
+                            index : 'noa,spec',
+                            src : 'carspec_b.aspx'
                         }]
                     });
                     q_getFormat();

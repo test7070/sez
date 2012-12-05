@@ -18,8 +18,8 @@
 
 			var q_name = "car2";
 			var q_readonly = ['txtCardeal', 'txtCarowner', 'cmbSex', 'txtIdno', 'txtBirthday', 'txtTel1', 'txtTel2', 'txtMobile', 'txtFax', 'txtAddr_conn', 'txtAddr_home', 'txtDriver'];
-			var bbmNum = [['txtInmoney', 10, 0], ['txtOutmoney', 10, 0], ['txtIrange', 10, 0], ["txtManage", 10, 0], ["txtGuile", 10, 0], ["txtLabor", 10, 0], ["txtHealth", 10, 0], ["txtReserve", 10, 0], ["txtHelp", 10, 0], ["txtVrate", 5, 2], ["txtRrate", 5, 2], ["txtOrate", 5, 2], ["txtIrate", 5, 2], ["txtPrate", 5, 2], ["txtUlicense", 10, 0], ["txtDlicense", 10, 0], ["txtSpring", 10, 0], ["txtSummer", 10, 0], ["txtFalla", 10, 0], ["txtWinter", 10, 0], ["txtCylinder", 2, 0], ["txtSalemoney", 10, 0]];
-			var bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"], ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999"], ["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"]];
+			var bbmNum = [['txtInmoney', 10, 0], ['txtOutmoney', 10, 0], ['txtIrange', 10, 0], ["txtManage", 10, 0], ["txtGuile", 10, 0], ["txtLabor", 10, 0], ["txtHealth", 10, 0], ["txtReserve", 10, 0], ["txtHelp", 10, 0], ["txtVrate", 5, 2], ["txtRrate", 5, 2], ["txtOrate", 5, 2], ["txtIrate", 5, 2], ["txtPrate", 5, 2], ["txtUlicense", 10, 0], ["txtDlicense", 10, 0], ["txtSpring", 10, 0], ["txtSummer", 10, 0], ["txtFalla", 10, 0], ["txtWinter", 10, 0], ["txtCylinder", 2, 0], ["txtSalemoney", 10, 0], ["txtImprovemoney1", 10, 0], ["txtImprovemoney2", 10, 0], ["txtImprovemoney3", 10, 0], ["txtDiscountmoney", 10, 0], ["txtDurableyear", 2,0,0,0]];
+			var bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"], ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999"], ["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"], ["txtImprovedate1", "999/99/99"], ["txtImprovedate2", "999/99/99"], ["txtImprovedate3", "999/99/99"], ["txtDiscountdate", "999/99/99"]];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
@@ -82,6 +82,16 @@
 				fbbm[fbbm.length] = 'txtSummermon';
 				fbbm[fbbm.length] = 'txtFallamon';
 				fbbm[fbbm.length] = 'txtWintermon';
+				fbbm[fbbm.length] = 'txtImprovedate1';
+				fbbm[fbbm.length] = 'txtImprovemoney1';
+				fbbm[fbbm.length] = 'txtImprovedate2';
+				fbbm[fbbm.length] = 'txtImprovemoney2';
+				fbbm[fbbm.length] = 'txtImprovedate3';
+				fbbm[fbbm.length] = 'txtImprovemoney3';
+				fbbm[fbbm.length] = 'txtDiscountdate';
+				fbbm[fbbm.length] = 'txtDiscountmoney';
+				fbbm[fbbm.length] = 'txtSaledate';
+				fbbm[fbbm.length] = 'txtSalemoney';
 
 				$('#divCarexpense').find("input:text").bind('keydown', function(event) {
 					keypress_bbm(event, $(this), fbbm, 'lblClose_DivCarexpense', bbmNum);
@@ -126,6 +136,47 @@
 					$('#lblGuile').hide();
 					$('#txtGuile').hide();
 				}
+				
+				$('#txtIndate').change(function () {
+				 	Sale();
+			     });
+			     $('#txtInmoney').change(function () {
+			     	if(!emp($('#txtInmoney').val())){
+			     		if(dec($('#txtInmoney').val())>=1000000){
+			     			$('#txtDurableyear').val(10);
+			     		}else{
+			     			if(replaceAll($('#txtNoa').val(),'-','').length==4)//板台
+			     				$('#txtDurableyear').val(5);
+			     			else	//車頭
+			     				$('#txtDurableyear').val(4);
+			     		}
+			     	}
+				 	Sale();
+			     });
+			     $('#txtDurableyear').change(function () {
+				 	Sale();
+			     });
+			     $('#txtSaledate').change(function () {
+				 	Sale();
+			     });
+			     $('#divSale').find("input:text").bind('keydown', function(event) {
+					keypress_bbm(event, $(this), fbbm, 'lblClose_DivSale', bbmNum);
+				});
+
+				$('#divSale').offset({
+					top : $('.tr3').eq(0).offset().top,
+					left : $('.tbbm').eq(0).offset().left + 10
+				});
+			     $('#lblSale').parent().click(function(e) {
+					if ($('#divSale').is(":hidden")) {
+						$('#divSale').show();
+						$('#cmbAuto').focus();
+					} else
+						$('#divSale').hide();
+				});
+				$('#lblClose_DivSale').parent().click(function(e) {
+					$('#lblSale').parent().click();
+				});
 			}
 
 			function q_boxClose(s2) {
@@ -294,6 +345,35 @@
 
 			function btnCancel() {
 				_btnCancel();
+			}
+			function Sale() {
+				if((dec($('#txtIndate').val().substr(0,3))*12+dec($('#txtIndate').val().substr(4,2))+(dec($('#txtDurableyear').val())*12))-(dec($('#txtSaledate').val().substr(0,3))*12+dec($('#txtSaledate').val().substr(4,2)))>=0){
+				
+					if(!emp($('#txtDurableyear').val())&&!emp($('#txtSaledate').val())&&!emp($('#txtIndate').val())&&!emp($('#txtInmoney').val()))
+					//取得到開發票月數
+					var t_mon=(dec($('#txtSaledate').val().substr(0,3))*12+dec($('#txtSaledate').val().substr(4,2)))-(dec($('#txtIndate').val().substr(0,3))*12+dec($('#txtIndate').val().substr(4,2)))
+					//未折減餘額
+					var t_osale=round(dec($('#txtInmoney').val())-((dec($('#txtInmoney').val())/(dec($('#txtDurableyear').val())+1)/12)*t_mon),0)
+					
+					//改良日至耐用年限月數=取得日+耐用-改良日
+					var t_imon1=(dec($('#txtIndate').val().substr(0,3))*12+dec($('#txtIndate').val().substr(4,2))+(dec($('#txtDurableyear').val())*12))-dec($('#txtImprovedate1').val().substr(0,3))*12+dec($('#txtImprovedate1').val().substr(4,2));
+					var t_imon2=(dec($('#txtIndate').val().substr(0,3))*12+dec($('#txtIndate').val().substr(4,2))+(dec($('#txtDurableyear').val())*12))-dec($('#txtImprovedate2').val().substr(0,3))*12+dec($('#txtImprovedate2').val().substr(4,2));
+					var t_imon3=(dec($('#txtIndate').val().substr(0,3))*12+dec($('#txtIndate').val().substr(4,2))+(dec($('#txtDurableyear').val())*12))-dec($('#txtImprovedate3').val().substr(0,3))*12+dec($('#txtImprovedate3').val().substr(4,2));
+					//改良日至開發票月數=開發票日-改良日
+					var t_ismon1=(dec($('#txtSaledate').val().substr(0,3))*12+dec($('#txtSaledate').val().substr(4,2)))-dec($('#txtImprovedate1').val().substr(0,3))*12+dec($('#txtImprovedate1').val().substr(4,2));
+					var t_ismon2=(dec($('#txtSaledate').val().substr(0,3))*12+dec($('#txtSaledate').val().substr(4,2)))-dec($('#txtImprovedate2').val().substr(0,3))*12+dec($('#txtImprovedate2').val().substr(4,2));
+					var t_ismon3=(dec($('#txtSaledate').val().substr(0,3))*12+dec($('#txtSaledate').val().substr(4,2)))-dec($('#txtImprovedate3').val().substr(0,3))*12+dec($('#txtImprovedate3').val().substr(4,2));
+					//改良餘額
+					var imsale1=dec($('#txtImprovemoney1').val())-(dec($('#txtImprovemoney1').val())/(t_imon1+12)*t_ismon1);
+					var imsale2=dec($('#txtImprovemoney2').val())-(dec($('#txtImprovemoney2').val())/(t_imon2+12)*t_ismon2);
+					var imsale3=dec($('#txtImprovemoney3').val())-(dec($('#txtImprovemoney3').val())/(t_imon3+12)*t_ismon3);
+	
+					//總額
+					var total=t_osale+imsale1+imsale2+imsale3-dec($('#txtDiscountmoney'));
+					q_tr('txtSalemoney',total);
+				}else{
+					q_tr('txtSalemoney',0);
+				}
 			}
 		</script>
 		<style type="text/css">
@@ -656,10 +736,10 @@
 							</td>
 							<td class="td7" >
 							<div class='btnLbl tb'>
-								<a id='lblEngineno'></a>
+								<a id='lblCc'></a>
 							</div></td>
 							<td class="td8" >
-							<input id="txtEngineno"  type="text"  style='width:95%; max-width: 200px; '/>
+							<input id="txtCc"  type="text"  style='width:95%; max-width: 200px; '/>
 							</td>
 						</tr>
 						<tr class="tr10">
@@ -677,12 +757,18 @@
 							<td class="td4" >
 							<input id="txtCarmode"  type="text"  style='width:95%; max-width: 200px; '/>
 							</td>
-
-							<td class="td7" >
+							<td class="td5" >
 							<div class='btnLbl tb'>
 								<a id='lblChecktype'></a>
 							</div></td>
-							<td class="td8" ><select id="cmbChecktype" style="width:95%;"></select></td>
+							<td class="td6" ><select id="cmbChecktype" style="width:95%;"></select></td>
+							<td class="td7" >
+							<div class='btnLbl tb'>
+								<a id='lblEngineno'></a>
+							</div></td>
+							<td class="td8" >
+							<input id="txtEngineno"  type="text"  style='width:95%; max-width: 200px; '/>
+							</td>
 						</tr>
 						<tr class="tr11">
 							<td class="td1" >
@@ -749,25 +835,32 @@
 							</td>
 							<td class="td3" >
 							<div class='btnLbl tb'>
-								<a id='lblSaledate'></a>
+								<a id='lblDurableyear'></a>
 							</div></td>
 							<td class="td4" >
+							<input id="txtDurableyear"  type="text"  style='width:95%; max-width: 200px; '/>
+							</td>
+							<!--<td class="td5" >
+							<div class='btnLbl tb'>
+								<a id='lblSaledate'></a>
+							</div></td>
+							<td class="td6" >
 							<input id="txtSaledate"  type="text"  style='width:95%; max-width: 200px; '/>
 							</td>
-							<td class="td5" >
+							<td class="td7" >
 							<div class='btnLbl tb'>
 								<a id='lblSalemoney'></a>
 							</div></td>
-							<td class="td6" >
+							<td class="td8" >
 							<input id="txtSalemoney"  type="text"  style='width:95%; text-align: right;'/>
-							</td>
+							</td>-->
 						</tr>
 						<tr class="tr14">
 							<td class="td1" >
 							<div class='btnLbl tb'>
 								<a id='lblMemo'></a>
 							</div></td>
-							<td class="td2" colspan='7'>							<textarea id="txtMemo" rows="5" cols="10" style="width:95%; height: 127px;"></textarea></td>
+							<td class="td2" colspan='7'><textarea id="txtMemo" rows="5" cols="10" style="width:95%; height: 127px;"></textarea></td>
 						</tr>
 						<tr class="tr15">
 							<td class="td1" >
@@ -810,6 +903,9 @@
 						</div>
 						<div class='btnLbl button'>
 							<a id='lblCartax'></a>
+						</div>
+						<div class='btnLbl button'>
+							<a id='lblSale'></a>
 						</div>
 					</div>
 				</div>
@@ -977,6 +1073,88 @@
 			<div class="block">
 				<div class='btnLbl button close' style="position:relative; top:5px; left:200px;">
 					<a id='lblClose_DivCarexpense'></a>
+				</div>
+			</div>
+		</div>
+		
+		<div id="divSale" class='popDiv' style="height: 220px;">
+			<div class="block">
+				<div class="col">
+					<div class='btnLbl' style='width:105px;'>
+						<a id='lblImprovedate1'></a>
+					</div>
+					<div style='width:150px; float:left;'>
+						<input id="txtImprovedate1"  type="text"  style='margin-left:5px; width: 100px; text-align: left; float:left;'/>
+					</div>
+					<div class='btnLbl' style='width:105px;'>
+						<a id='lblImprovemoney1'></a>
+					</div>
+					<div style='width:150px; float:left;'>
+						<input id="txtImprovemoney1"  type="text"  style='margin-left:5px; width: 100px; text-align: right; float:left;'/>
+					</div>
+				</div>
+				<div class="col">
+					<div class='btnLbl' style='width:105px;'>
+						<a id='lblImprovedate2'></a>
+					</div>
+					<div style='width:150px; float:left;'>
+						<input id="txtImprovedate2"  type="text"  style='margin-left:5px; width: 100px; text-align: left; float:left;'/>
+					</div>
+					<div class='btnLbl' style='width:105px;'>
+						<a id='lblImprovemoney2'></a>
+					</div>
+					<div style='width:150px; float:left;'>
+						<input id="txtImprovemoney2"  type="text"  style='margin-left:5px; width: 100px; text-align: right; float:left;'/>
+					</div>
+				</div>
+				<div class="col">
+					<div class='btnLbl' style='width:105px;'>
+						<a id='lblImprovedate3'></a>
+					</div>
+					<div style='width:150px; float:left;'>
+						<input id="txtImprovedate3"  type="text"  style='margin-left:5px; width: 100px; text-align: left; float:left;'/>
+					</div>
+					<div class='btnLbl' style='width:105px;'>
+						<a id='lblImprovemoney3'></a>
+					</div>
+					<div style='width:150px; float:left;'>
+						<input id="txtImprovemoney3"  type="text"  style='margin-left:5px; width: 100px; text-align: right; float:left;'/>
+					</div>
+				</div>
+				<div class="col">
+					<div class='btnLbl' style='width:105px;'>
+						<a id='lblDiscountdate'></a>
+					</div>
+					<div style='width:150px; float:left;'>
+						<input id="txtDiscountdate"  type="text"  style='margin-left:5px; width: 100px; text-align: left; float:left;'/>
+					</div>
+					<div class='btnLbl' style='width:105px;'>
+						<a id='lblDiscountmoney'></a>
+					</div>
+					<div style='width:150px; float:left;'>
+						<input id="txtDiscountmoney"  type="text"  style='margin-left:5px; width: 100px; text-align: right; float:left;'/>
+					</div>
+				</div>
+			</div>
+			<div class="block">
+				<div class="col">
+					<div class='btnLbl' style='width:105px;'>
+						<a id='lblSaledate'></a>
+					</div>
+					<div style='width:150px; float:left;'>
+						<input id="txtSaledate"  type="text"  style='margin-left:5px; width: 100px; text-align: left; float:left;'/>
+					</div>
+					<div class='btnLbl' style='width:105px;'>
+						<a id='lblSalemoney'></a>
+					</div>
+					<div style='width:150px; float:left;'>
+						<input id="txtSalemoney"  type="text"  style='margin-left:5px; width: 100px; text-align: right; float:left;'/>
+					</div>
+				</div>
+			</div>
+			<div class="block">
+				<div class='btnLbl button close' style="position:relative; top:5px; left:200px;">
+					<a id='lblClose_DivSale'></a>
 				</div>
 			</div>
 		</div>
