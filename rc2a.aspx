@@ -55,7 +55,7 @@
             bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
             q_mask(bbmMask);
              q_cmbParse("cmbTypea", q_getPara('rc2.typea')); 
-             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+             q_cmbParse("cmbTaxtype", ('').concat(new Array('應稅', '零稅率', '內含', '免稅','自訂','作廢')));
              
         }
 

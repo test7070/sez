@@ -26,6 +26,7 @@
 		    brwKey = 'noa';
 		    //ajaxPath = ""; //  execute in Root
 		    aPop = new Array(['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
+		    				['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
 		    				['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 
 		    $(document).ready(function () {
@@ -54,6 +55,11 @@
 		        $('#btnAccno').click(function () {
 		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "97%", "1054px", q_getMsg('btnAccno'), true);
 		        });
+		        $('#btnPaybno').click(function () {
+		             q_box('payb.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtPaybno').val()), '', "97%", "1054px", " ");
+
+		        });
+
 		       
 		    }
 
@@ -426,6 +432,12 @@
             			<td class="tdZ" align="center"><a id="lblSymbol2"  style="font-weight: bold;font-size: 24px;"> </a></td>
 						<td class="td6"><input id="txtEcustno" type="text" class="txt c1" /></td>
 						</tr>
+						<tr class="tr3">
+						<td class="td1"><span> </span><a id='lblSalesno' class="lbl btn"></a></td>
+						<td class="td2" colspan="2"><input id="txtSalesno"  type="text" class="txt c2"/>
+							<input id="txtSales"  type="text" class="txt c3"/>	</td>
+					
+					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblPart' class="lbl btn"></a></td>
 						<td class="td2" colspan="2"><input id="txtPartno"  type="text" class="txt c2"/>
@@ -443,6 +455,10 @@
 						<td class="td2"><input id="txtBvccno"  type="text" class="txt c1"/></td>
 						<td class="tdZ" align="center"><a id="lblSymbol"  style="font-weight: bold;font-size: 24px;"> </a></td>
 						<td class="td4"><input id="txtEvccno" type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td class="td1"><input type="button" id="btnPaybno" class="txt c1 " /></td>
+						<td class="td2"><input id="txtPaybno"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr5">
 						<td class="td1"><input type="button" id="btnAccno" class="txt c1 " /></td>

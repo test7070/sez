@@ -29,7 +29,8 @@
             //q_alias = 'a';
             aPop = new Array(['txtInsurerno', 'lblInsurer', 'insurer', 'noa,comp', 'txtInsurerno,txtInsurer', 'Insurer_b.aspx'],
             ['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'Cardeal_b.aspx'],
-            ['txtBankno2', 'lblBank2', 'bank', 'noa,bank', 'txtBankno2,txtBank2', 'Bank_b.aspx'])
+            ['txtBankno2', 'lblBank2', 'bank', 'noa,bank', 'txtBankno2,txtBank2', 'Bank_b.aspx'],
+            ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp', 'acomp_b.aspx'])
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -375,11 +376,8 @@
 							<input id="txtAddr_conn" type="text" class="txt c5"/>
 						</td>
 					</tr>
+					
 					<tr class="tr6">
-						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
-						<td class="td2" colspan='7'><input id="txtMemo" type="text" class="txt c1"/></td>
-					</tr>
-					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblTakeofficedate" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtTakeofficedate" type="text" class="txt c1"/>
@@ -395,7 +393,7 @@
 						<input id="txtEo" type="text" class="txt num c1" />
 						</td> 
 					</tr>
-					<tr class="tr8">
+					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblLabor" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtLabor" type="text" class="txt num c1" />
@@ -413,21 +411,34 @@
 						<input id="txtDependents" type="text" class="txt num c1"/>
 						</td>
 					</tr>
+					<tr class="tr8">
+						<td class="td1"><span> </span><a id='lblHealth_bdate' class="lbl"></a></td>
+						<td class="td2"><input id="txtHealth_bdate" type="text" class="txt c1"/></td>
+						<td class="td3"><span> </span><a id='lblHealth_edate' class="lbl"></a></td>
+						<td class="td4"><input id="txtHealth_edate" type="text" class="txt c1"/></td>
+						<td class="td1"><span> </span><a id='lblLabor1_bdate' class="lbl"></a></td>
+						<td class="td2"><input id="txtLabor1_bdate" type="text" class="txt c1"/></td>
+						<td class="td3"><span> </span><a id='lblLabor1_edate' class="lbl"></a></td>
+						<td class="td4"><input id="txtLabor1_edate" type="text" class="txt c1"/></td>
+					</tr>
 					<tr class="tr9">
-						<td class="td1"><span> </span><a id="lblStrdate" class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtStrdate" type="text" class="txt c1"/>
-						</td>
-						<td class="td3"><span> </span><a id="lblEnddate" class="lbl"></a></td>
-						<td class="td4">
-						<input id="txtEnddate" type="text" class="txt c1"/>
-						</td> 
+						<td class="td1"><span> </span><a id='lblLabor2_bdate' class="lbl"></a></td>
+						<td class="td2"><input id="txtLabor2_bdate" type="text" class="txt c1"/></td>
+						<td class="td3"><span> </span><a id='lblLabor2_edate' class="lbl"></a></td>
+						<td class="td4"><input id="txtLabor2_edate" type="text" class="txt c1"/></td>
 						<td class="td5"><span> </span><a id="lblMoney" class="lbl"></a></td>
 						<td class="td6">
 						<input id="txtMoney" type="text" class="txt num c1"/>
 						</td>
 						<td><span> </span><a id="lblSalmoney" class="lbl"></a></td>
 						<td><input id="txtSalmoney" type="text" class="txt num c1"/></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblAcomp' class="lbl btn" ></a></td>
+						<td class="td2" colspan="3">
+							<input id="txtCno"type="text" class="txt c2" style="width: 30%"/>
+							<input id="txtComp"  type="text"  class="txt c3" style="width: 69%"/>
+						</td>
 					</tr>
 					<tr class="tr10">
 						<td class="td1"><span> </span><a id="lblAccount" class="lbl"></a></td>
@@ -489,6 +500,10 @@
 						</td>
 						<td class="td7"></td>
 						<td class="td8"><input id='btnFamily' type="button" /></td>
+					</tr>
+					<tr class="tr15">
+						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
+						<td class="td2" colspan='7'><input id="txtMemo" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

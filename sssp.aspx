@@ -465,6 +465,12 @@
 						<td class="td6"><a id='vewIswelfare'></a></td>
 					</tr>
 					<tr>
+						<td class="td1"><span> </span><a id="lblEmail" class="lbl"></a></td>
+						<td class="td2" colspan="5">
+							<input id="txtEmail"  type="text"  class="txt c1"/>
+						</td>
+					</tr>
+					<tr>
 						<td class="td1"><span> </span><a id='lblTypea' class="lbl"></a></td>
 						<td class="td2"><select id="cmbTypea" class="txt c1"></select></td>
 						<td class="td3"><span> </span><a id='lblFt_date' class="lbl"></a></td>
@@ -532,6 +538,18 @@
 						<td class="td1"><span> </span><a id="lblAddr_conn" class="lbl"></a></td>
 						<td class="td2" colspan="5">
 							<input id="txtAddr_conn"  type="text"  class="txt c1"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id="lblConn" class="lbl"></a></td>
+						<td class="td2"><input id="txtConn"  type="text"  class="txt c1"/></td>
+						<td class="td1"><span> </span><a id="lblConntel" class="lbl"></a></td>
+						<td class="td2"><input id="txtConntel"  type="text"  class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
+						<td class="td2" colspan="5">
+							<input id="txtMemo"  type="text"  class="txt c1"/>
 						</td>
 					</tr>
 					<tr>

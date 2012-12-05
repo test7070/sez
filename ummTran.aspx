@@ -82,6 +82,11 @@
 		        $('#txtOpay').change(function () { sum(); });
 		        $('#txtUnopay').change(function () { sum(); });
 		        
+		         $('#btnBank').click(function () {
+		             q_box('bank.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "800px", "600px", "銀行主檔");
+
+		        });
+		        
 		        //1003將請款單匯入與自動沖帳分開
 		         /*$('#btnAuto').click(function (e) {
 		            t_Saving = true;
@@ -801,7 +806,7 @@
 						<input id="txtWorker"  type="text" class="txt c1"/>
 						</td>
 						<td class="td7"><input type="button" id="btnAuto" class="txt c1 "  style="color:Red"/></td>
-						<td class="td8" ></td>
+						<td class="td8" ><input type="button" id="btnBank" class="txt c1 "  /></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblChecker" class="lbl"></a></td>

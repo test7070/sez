@@ -82,7 +82,7 @@
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
 
-				q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+				q_cmbParse("cmbTaxtype", ('').concat(new Array('應稅', '零稅率', '內含', '免稅','自訂','作廢')));
 				$('#txtMount').change(function() {
 					sum();
 				});
@@ -473,8 +473,8 @@
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:20%"><a id='vewNoa'></a></td>
 						<td align="center" style="width:10%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:20%"><a id='vewNick'></a></td>
-						<td align="center" style="width:10%"><a id='vewTotal'></a></td>
+						<td align="center" style="width:15%"><a id='vewNick'></a></td>
+						<td align="center" style="width:15%"><a id='vewTotal'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -483,7 +483,7 @@
 						<td id='noa'>~noa</td>
 						<td id='datea'>~datea</td>
 						<td id='nick' style="text-align: left;">~nick</td>
-						<td id='total' style="text-align: right;">~total</td>
+						<td id='total,0,1' style="text-align: right;">~total,0,1</td>
 					</tr>
 				</table>
 			</div>
