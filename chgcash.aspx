@@ -1,28 +1,31 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
-<head>
-    <title> </title>
-     <script src="../script/jquery.min.js" type="text/javascript"> </script>
-    <script src='../script/qj2.js' type="text/javascript"> </script>
-    <script src='qset.js' type="text/javascript"> </script>
-    <script src='../script/qj_mess.js' type="text/javascript"> </script>
-    <script src="../script/qbox.js" type="text/javascript"> </script>
-    <script src='../script/mask.js' type="text/javascript"> </script>
-    <link href="../qbox.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript">
+	<head>
+		<title> </title>
+		<script src="../script/jquery.min.js" type="text/javascript"> </script>
+		<script src='../script/qj2.js' type="text/javascript"> </script>
+		<script src='qset.js' type="text/javascript"> </script>
+		<script src='../script/qj_mess.js' type="text/javascript"> </script>
+		<script src="../script/qbox.js" type="text/javascript"> </script>
+		<script src='../script/mask.js' type="text/javascript"> </script>
+		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript">
 
         this.errorHandler = null;
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name = "chgcash";
-        var q_readonly = ['txtAcc2', 'txtChgitem', 'txtPart', 'txtChgpart', 'txtOrg', 'txtNamea', 'txtComp', 'txtChgaccno', 'txtNoa'];
-        var bbmNum = [['txtMoney', 12, , 1], ['txtOrg', 12, , 1]];  // master 允許 key 小數  [物件,整數位數,小數位數, comma Display]
+        var q_readonly = ['txtChgitem', 'txtPart', 'txtChgpart', 'txtOrg', 'txtNamea', 'txtComp', 'txtChgaccno', 'txtNoa'];
+        var q_readonlys = ['txtAcc2'];
+        var bbmNum = [['txtOrg', 12, , 1]];  // master 允許 key 小數  [物件,整數位數,小數位數, comma Display]
+        var bbsNum =[];
         var bbmMask = [];
+        var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
 
-        aPop = new Array(['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+        aPop = new Array(['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
         ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
         ['txtChgpartno', 'lblChgpart', 'chgpart', 'noa,part', 'txtChgpartno,txtChgpart', 'chgpart_b.aspx'],
         ['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],
@@ -33,6 +36,8 @@
 
         $(document).ready(function () {
             bbmKey = ['noa'];
+             bbsKey = ['noa', 'noq'];
+             
             brwCount2 = 13
             q_brwCount();
             q_gt(q_name, q_content, q_sqlCount, 1)
@@ -231,6 +236,12 @@
         function btnPrint() {
 
         }
+         function q_stPost() {
+		        if (!(q_cur == 1 || q_cur == 2))
+		            return false;
+		        abbm[q_recno]['accno'] = xmlString;
+		        $('#txtAccno').val(xmlString);
+		    }
         function btnOk() {
             var t_err = '';
 
@@ -258,7 +269,16 @@
             $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
             _btnOk(key_value, bbmKey[0], '', '', 2);
         }
+		function bbsSave(as) {
+		        if (!as['acc1'] ) {
+		            as[bbsKey[1]] = '';
+		            return;
+		        }
 
+		        q_nowf();
+
+		        return true;
+		    }
         function refresh(recno) {
             _refresh(recno);
 
@@ -442,7 +462,15 @@
              input[type="text"],input[type="button"] {     
                 font-size: medium;
             }
-
+			.dbbs {
+                width: 100%;
+            }
+            .tbbs a {
+                font-size: medium;
+            }
+             .tbbs tr.error input[type="text"] {
+                color: red;
+            }
         </style>
     </head>
     <body>
@@ -453,7 +481,6 @@
                         <tr>
                             <td align="center" style="width:5%"><a id='vewChk'></a></td>
                             <td align="center" style="width:5%"><a id='vewDatea'></a></td>
-                            <td align="center" style="width:25%"><a id='vewAcc2'></a></td>
                             <td align="center" style="width:15%"><a id='vewMoney'></a></td>
                             <td align="center" style="width:10%"><a id='vewNamea'></a></td>
                             <td align="center" style="width:15%"><a id='vewChecker'></a></td>
@@ -463,7 +490,6 @@
                         <tr>
                             <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                             <td align="center" id='datea'>~datea</td>
-                            <td id='acc2' style="text-align: left;">~acc2</td>
                             <td id='money' style="text-align: right;">~money</td>
                             <td align="center" id='namea'>~namea</td>
                             <td align="center" id='checker'>~checker</td>
@@ -484,20 +510,13 @@
                             <td class="td7"> </td>
                             <td class="td8"> </td>
                         </tr>
-                        <tr class="tr2">
-                        	<td class="td1"><span> </span><a id="lblAcc" class="lbl btn" ></a></td>
-                            <td class="td2"><input id="txtAcc1"  type="text"  class="txt c1"/></td>
-                            <td class="td3" colspan="2"><input id="txtAcc2"  type="text" class="txt c1"/></td>                        
+                        <!--<tr class="tr2">                     
                             <td class="td5" style="display:none"><span> </span><a id="lblChgitem" class="lbl btn"></a></td>
                             <td class="td6" style="display:none"><input id="txtChgitemno"  type="text"  class="txt c2"/>
                             <input id="txtChgitem"  type="text"  class="txt c3"/></td>
                             <td class="td7"> </td>
                             <td class="td8"> </td>
-                        </tr>
-                        <tr>
-                            <td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-                            <td class="td2" colspan="3"><input id="txtMemo"  type="text" class="txt c1" /></td>
-                        </tr>
+                        </tr>-->
                         <tr class="tr3">
                             <td class="td1"><span> </span><a id="lblPart" class="lbl btn"> </a></td>
                             <td class="td2"><input id="txtPartno"  type="text"  class="txt c2"/>
@@ -519,8 +538,6 @@
                             </td>
                         </tr>
                         <tr class="tr5">
-                            <td class="td1"><span> </span><a id="lblMoney" class="lbl"> </a></td>
-                            <td class="td2"><input id="txtMoney"  type="text" class="txt num c1" /></td>
                             <td class="td3"><span > </span><a id="lblDc" class="lbl"> </a></td>
                             <td class="td4"><input id="txtDc"  type="text" maxlength="20" style="width:10%;"/>
                             	<select id="combDc" style="width:88%;font-size: medium;"> </select>
@@ -578,6 +595,35 @@
                 </table>
             </div>
          </div>  
+         <div class='dbbs' >
+			<table id="tbbs" class='tbbs'>
+				<tr style='color:white; background:#003366;' >
+					<td align="center" style="width:1%;">
+					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
+					</td>
+					<td align="center" style="width:15%;"><a id='lblAcc'></a></td>
+					<td align="center" style="width:40%;"><a id='lblMemo'></a></td>
+					<td align="center" style="width:10%;"><a id='lblMoney'></a></td>
+				</tr>
+				<tr  style='background:#cad3ff;'>
+					<td align="center">
+					<input type="button" id="btnMinus.*"  value='-' style=" font-weight: bold;" />
+					<input type="text" id="txtNoq.*" style="display:none;" />
+					</td>
+					<td>
+						<input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+                        <input type="text" id="txtAcc1.*"  style="width:35%;"/>
+						<input type="text" id="txtAcc2.*"  style="width:45%;"/>
+					</td>
+					<td>
+					<input type="text" id="txtMemo.*" style="width:95%;"/>
+					</td>
+					<td>
+					<input type="text" id="txtMoney.*"  style="text-align:right; width:95%;" />
+					</td>
+				</tr>
+			</table>
+		</div>
             <input id="q_sys" type="hidden" />
     </body>
 </html>

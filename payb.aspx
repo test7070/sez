@@ -84,7 +84,7 @@
 		            q_box('Tgg.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtTggno').val()), '', "800px", "600px", "廠商主檔");
 		        });
 		        $('#btnUcc').click(function () {
-		             q_box('ucc.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtno').val()), '', "800px", "600px", "電子檔製作");
+		             q_box('ucc.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "800px", "600px", "電子檔製作");
 
 		        });
             }
