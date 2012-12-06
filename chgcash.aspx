@@ -38,7 +38,7 @@
             bbmKey = ['noa'];
              bbsKey = ['noa', 'noq'];
              
-            brwCount2 = 13
+            brwCount2 = 4
             q_brwCount();
             q_gt(q_name, q_content, q_sqlCount, 1)
             //$('#txtNoa').focus
