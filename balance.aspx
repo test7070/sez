@@ -149,10 +149,11 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td class="td2" align="center" style="width:15%;"><a id='lblAsset'></a></td>
-					<td class="td3" align="center" style="width:8%;"><a id='lblGetdate'></a></td>
-					<td class="td4" align="center" style="width:10%;"><a id='lblMoney'></a></td>
-					<td class="td5" align="center" style="width:8%;"><a id='lblFdate'></a></td>
-					<td class="td6" align="center" ><a id='lblMemo'></a></td>
+					<td class="td3" align="center" style="width:10%;"><a id='lblTypea'></a></td>
+					<td class="td4" align="center" style="width:8%;"><a id='lblGetdate'></a></td>
+					<td class="td5" align="center" style="width:10%;"><a id='lblMoney'></a></td>
+					<td class="td6" align="center" style="width:8%;"><a id='lblFdate'></a></td>
+					<td class="td7" align="center" ><a id='lblMemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td class="td1" align="center">
@@ -163,15 +164,18 @@
 					<input class="txt" id="txtAsset.*" type="text" style="width:95%;"  />
 					</td>
 					<td class="td3">
-					<input class="txt" id="txtGetdate.*" type="text" style="width:95%;"  />
+					<input class="txt" id="txtTypea.*" type="text" style="width:95%;"  />
 					</td>
 					<td class="td4">
-					<input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;" />
+					<input class="txt" id="txtGetdate.*" type="text" style="width:95%;"  />
 					</td>
 					<td class="td5">
-					<input class="txt" id="txtFdate.*" type="text" style="width:95%;" />
+					<input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;" />
 					</td>
 					<td class="td6">
+					<input class="txt" id="txtFdate.*" type="text" style="width:95%;" />
+					</td>
+					<td class="td7">
 					<input class="txt" id="txtMemo.*" type="text" style="width:95%;"  />
 					</td>
 				</tr>

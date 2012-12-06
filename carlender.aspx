@@ -163,7 +163,7 @@
                             	if(i == b_ret.length-1)
                                 	t_carno+=b_ret[i].noa;
                                 else
-                                	t_carno+=b_ret[i].noa+'.';
+                                	t_carno+=b_ret[i].noa+',';
                             }
                             $('#txtCarnos_' + b_seq).val(t_carno);
                         }
