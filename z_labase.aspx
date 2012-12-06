@@ -26,8 +26,27 @@
                         type : '1',
                         name : 'xmon'
                     },{
-                        type : '1',
-                        name : 'xnoa'
+                        type : '2',
+                        name : 'xsssno',
+                        dbf : 'sss',
+                        index : 'noa,namea',
+                        src : 'sss_b.aspx'
+                        },{
+                        type : '2',
+                        name : 'xcomp',
+                        dbf : 'acomp',
+                        index : 'noa,acomp',
+                        src : 'acomp_b.aspx'
+                        },{
+                        type : '2',
+                        name : 'xcustno',
+                        dbf : 'cust',
+                        index : 'noa,comp',
+                        src : 'cust_b.aspx'
+                        },{
+                        type : '8',
+                        name : 'xsss',
+                        value : (('').concat(new Array("寄保","非寄保","全部"))).split(',')
                     }]
                     });
                 q_popAssign();
