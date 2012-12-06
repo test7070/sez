@@ -347,33 +347,33 @@
 				_btnCancel();
 			}
 			function Sale() {
-				if((dec($('#txtIndate').val().substr(0,3))*12+dec($('#txtIndate').val().substr(4,2))+(dec($('#txtDurableyear').val())*12))-(dec($('#txtSaledate').val().substr(0,3))*12+dec($('#txtSaledate').val().substr(4,2)))>=0){
 				
-					if(!emp($('#txtDurableyear').val())&&!emp($('#txtSaledate').val())&&!emp($('#txtIndate').val())&&!emp($('#txtInmoney').val()))
+				var depmoney=0;	//折舊後金額
+				if(dec($('#txtInmoney').val())<=1000)	//取得金額1000以下不折舊
+					depmoney=dec($('#txtInmoney').val());
+				else{
 					//取得到開發票月數
 					var t_mon=(dec($('#txtSaledate').val().substr(0,3))*12+dec($('#txtSaledate').val().substr(4,2)))-(dec($('#txtIndate').val().substr(0,3))*12+dec($('#txtIndate').val().substr(4,2)))
-					//未折減餘額
-					var t_osale=round(dec($('#txtInmoney').val())-((dec($('#txtInmoney').val())/(dec($('#txtDurableyear').val())+1)/12)*t_mon),0)
-					
-					//改良日至耐用年限月數=取得日+耐用-改良日
-					var t_imon1=(dec($('#txtIndate').val().substr(0,3))*12+dec($('#txtIndate').val().substr(4,2))+(dec($('#txtDurableyear').val())*12))-dec($('#txtImprovedate1').val().substr(0,3))*12+dec($('#txtImprovedate1').val().substr(4,2));
-					var t_imon2=(dec($('#txtIndate').val().substr(0,3))*12+dec($('#txtIndate').val().substr(4,2))+(dec($('#txtDurableyear').val())*12))-dec($('#txtImprovedate2').val().substr(0,3))*12+dec($('#txtImprovedate2').val().substr(4,2));
-					var t_imon3=(dec($('#txtIndate').val().substr(0,3))*12+dec($('#txtIndate').val().substr(4,2))+(dec($('#txtDurableyear').val())*12))-dec($('#txtImprovedate3').val().substr(0,3))*12+dec($('#txtImprovedate3').val().substr(4,2));
-					//改良日至開發票月數=開發票日-改良日
-					var t_ismon1=(dec($('#txtSaledate').val().substr(0,3))*12+dec($('#txtSaledate').val().substr(4,2)))-dec($('#txtImprovedate1').val().substr(0,3))*12+dec($('#txtImprovedate1').val().substr(4,2));
-					var t_ismon2=(dec($('#txtSaledate').val().substr(0,3))*12+dec($('#txtSaledate').val().substr(4,2)))-dec($('#txtImprovedate2').val().substr(0,3))*12+dec($('#txtImprovedate2').val().substr(4,2));
-					var t_ismon3=(dec($('#txtSaledate').val().substr(0,3))*12+dec($('#txtSaledate').val().substr(4,2)))-dec($('#txtImprovedate3').val().substr(0,3))*12+dec($('#txtImprovedate3').val().substr(4,2));
-					//改良餘額
-					var imsale1=dec($('#txtImprovemoney1').val())-(dec($('#txtImprovemoney1').val())/(t_imon1+12)*t_ismon1);
-					var imsale2=dec($('#txtImprovemoney2').val())-(dec($('#txtImprovemoney2').val())/(t_imon2+12)*t_ismon2);
-					var imsale3=dec($('#txtImprovemoney3').val())-(dec($('#txtImprovemoney3').val())/(t_imon3+12)*t_ismon3);
-	
-					//總額
-					var total=t_osale+imsale1+imsale2+imsale3-dec($('#txtDiscountmoney'));
-					q_tr('txtSalemoney',total);
-				}else{
-					q_tr('txtSalemoney',0);
+					//折舊後金額
+					depmoney=round(dec($('#txtInmoney').val())-((dec($('#txtInmoney').val())/(dec($('#txtDurableyear').val())+1)/12)*t_mon),0)
 				}
+				
+				//改良日至耐用年限月數=取得日+耐用-改良日
+				var t_imon1=(dec($('#txtIndate').val().substr(0,3))*12+dec($('#txtIndate').val().substr(4,2))+(dec($('#txtDurableyear').val())*12))-dec($('#txtImprovedate1').val().substr(0,3))*12+dec($('#txtImprovedate1').val().substr(4,2));
+				var t_imon2=(dec($('#txtIndate').val().substr(0,3))*12+dec($('#txtIndate').val().substr(4,2))+(dec($('#txtDurableyear').val())*12))-dec($('#txtImprovedate2').val().substr(0,3))*12+dec($('#txtImprovedate2').val().substr(4,2));
+				var t_imon3=(dec($('#txtIndate').val().substr(0,3))*12+dec($('#txtIndate').val().substr(4,2))+(dec($('#txtDurableyear').val())*12))-dec($('#txtImprovedate3').val().substr(0,3))*12+dec($('#txtImprovedate3').val().substr(4,2));
+				//改良日至開發票月數=開發票日-改良日
+				var t_ismon1=(dec($('#txtSaledate').val().substr(0,3))*12+dec($('#txtSaledate').val().substr(4,2)))-dec($('#txtImprovedate1').val().substr(0,3))*12+dec($('#txtImprovedate1').val().substr(4,2));
+				var t_ismon2=(dec($('#txtSaledate').val().substr(0,3))*12+dec($('#txtSaledate').val().substr(4,2)))-dec($('#txtImprovedate2').val().substr(0,3))*12+dec($('#txtImprovedate2').val().substr(4,2));
+				var t_ismon3=(dec($('#txtSaledate').val().substr(0,3))*12+dec($('#txtSaledate').val().substr(4,2)))-dec($('#txtImprovedate3').val().substr(0,3))*12+dec($('#txtImprovedate3').val().substr(4,2));
+				//改良餘額
+				var imsale1=dec($('#txtImprovemoney1').val())-(dec($('#txtImprovemoney1').val())/(t_imon1+12)*t_ismon1);
+				var imsale2=dec($('#txtImprovemoney2').val())-(dec($('#txtImprovemoney2').val())/(t_imon2+12)*t_ismon2);
+				var imsale3=dec($('#txtImprovemoney3').val())-(dec($('#txtImprovemoney3').val())/(t_imon3+12)*t_ismon3);
+
+				//q_tr('txtSalemoney',total);
+				//if(!emp($('#txtDurableyear').val())&&!emp($('#txtSaledate').val())&&!emp($('#txtIndate').val())&&!emp($('#txtInmoney').val()))
+				//(dec($('#txtIndate').val().substr(0,3))*12+dec($('#txtIndate').val().substr(4,2))+(dec($('#txtDurableyear').val())*12))-(dec($('#txtSaledate').val().substr(0,3))*12+dec($('#txtSaledate').val().substr(4,2)))>=0
 			}
 		</script>
 		<style type="text/css">
