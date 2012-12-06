@@ -38,7 +38,7 @@
             bbmKey = ['noa'];
              bbsKey = ['noa', 'noq'];
              
-            brwCount2 = 13
+            brwCount2 = 4
             q_brwCount();
             q_gt(q_name, q_content, q_sqlCount, 1)
             //$('#txtNoa').focus
@@ -490,7 +490,7 @@
                         <tr>
                             <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                             <td align="center" id='datea'>~datea</td>
-                            <td id='money' style="text-align: right;">~money</td>
+                            <td id='money,0,1' style="text-align: right;">~money,0,1</td>
                             <td align="center" id='namea'>~namea</td>
                             <td align="center" id='checker'>~checker</td>
                             <td align="center" id='apprv'>~apprv</td>
@@ -538,6 +538,8 @@
                             </td>
                         </tr>
                         <tr class="tr5">
+                        	<td class="td1"><span> </span><a id="lblMoney" class="lbl"></a></td>
+                        	<td class="td2"><input id="txtMoney" type="text" class="txt num c1"/></td>
                             <td class="td3"><span > </span><a id="lblDc" class="lbl"> </a></td>
                             <td class="td4"><input id="txtDc"  type="text" maxlength="20" style="width:10%;"/>
                             	<select id="combDc" style="width:88%;font-size: medium;"> </select>
@@ -601,9 +603,9 @@
 					<td align="center" style="width:1%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:15%;"><a id='lblAcc'></a></td>
-					<td align="center" style="width:40%;"><a id='lblMemo'></a></td>
-					<td align="center" style="width:10%;"><a id='lblMoney'></a></td>
+					<td align="center" style="width:15%;"><a id='lblAcc_s'></a></td>
+					<td align="center" style="width:40%;"><a id='lblMemo_s'></a></td>
+					<td align="center" style="width:10%;"><a id='lblMoney_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
