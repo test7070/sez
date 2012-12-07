@@ -44,7 +44,7 @@
         function mainPost() { 
     		q_mask(bbmMask);
     		$('#btnIns').hide();
-    		
+    		$('#btnDele').hide();
     		$('#txtBeginmount').change(function () {
            		if(!emp($('#txtNoa').val())&&!emp($('#txtBeginmount').val()))
            			q_tr('txtBeginmoney',dec($('#txtNoa').val())*dec($('#txtBeginmount').val()));

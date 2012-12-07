@@ -33,8 +33,8 @@
 		        bbmKey = ['noa'];
 		        q_brwCount();
 
-		        q_gt('authority', "where=^^a.noa='sss' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
-
+		        //q_gt('authority', "where=^^a.noa='sss' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
+				q_gt('sssp', "", q_sqlCount, 1)
 		    });
 
 		    //////////////////   end Ready
@@ -60,10 +60,9 @@
 		        $('#btnLabases').click(function (e) {
 		            q_box("labases_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labases', "850px", "600px", q_getMsg("popLabases"));
 		        });
-		        $('#btnSaladjust').click(function (e) {
-		            q_box("salAdjust.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'saladjust', "850px", "600px", q_getMsg("popSaladjust"));
+		        $('#btnLabase').click(function (e) {
+		            q_box("labase.aspx", 'labase', "95%", "95%", q_getMsg("popLabase"));
 		        });
-
 		        $('#txtIndate').change(function (e) {
 		            if (!emp($('#txtIndate').val())) {
 		                $('#txtHealth_bdate').val($('#txtIndate').val());
@@ -554,9 +553,9 @@
 					</tr>
 					<tr>
 						<td class="td1"></td>
-						<td class="td2"></td>
-						<td class="td4"><input id='btnLabases' type="button" /></td>
-						<td class="td5"></td>
+						<td class="td2"><input id='btnLabases' type="button" /></td>
+						<td class="td4"></td>
+						<td class="td5"><input id='btnLabase' type="button" /></td>
 					</tr>
 				</table>
 			</div>

@@ -70,6 +70,9 @@
 			           //判斷員工是否重覆儲存
 			           var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
 			           q_gt('labase', t_where , 0, 0, 0, "", r_accy);
+			           //判斷員工家屬
+			           var t_where = "where=^^noa='"+$('#txtNoa').val()+"'^^";
+            			q_gt('labases_sum', t_where, 0, 0, 0, "", r_accy);
 			           
 			     	if(q_getPara('sys.comp').indexOf('大昌')>-1){
 			     		if($('#txtNoa').val().substr(0,1)=='G'){
@@ -97,21 +100,21 @@
             	}
             	
             	//取得勞退薪資等級表
-            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
             	q_gt('labretire', t_where, 0, 0, 0, "", r_accy);
             	//取得勞保薪資等級表
-            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
             	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
-            	//取得健保薪資等級表
-            	sum();//計算家屬
-            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+            	if(q_cur!=1)
+            		sum();//計算家屬
+            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
             	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
             });
             
             $('#txtMount').change(function () {
             	//取得健保薪資等級表
-            	sum();//計算家屬
-            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+            	//sum();//計算家屬
+            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
             	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
             });
             
@@ -128,7 +131,7 @@
 	            		return;
 	            	}
 	            	//重新計算取得勞保薪資等級表
-	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
 	            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
 	          });
 	            
@@ -137,7 +140,7 @@
 	            		return;
 	            	}
 	            	//重新計算取得勞保薪資等級表
-	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
 	          		q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
 	          });
             
@@ -162,7 +165,7 @@
 	            		return;
 	            	}
 	            	//重新計算取得勞保薪資等級表
-	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
 	            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
 	            });
 			}
@@ -191,16 +194,24 @@
             b_pop = '';
         }
 
-
+		var labases_sum;
         function q_gtPost(t_name) {
             switch (t_name) {
+            	case 'labases_sum':
+            		labases_sum = _q_appendData("labases", "", true);
+            		if(labases_sum[0]!=undefined){
+            			$('#txtMount').val(labases_sum[0].total);
+            		}else{
+            			$('#txtMount').val(0);
+            		}
+            	break;
             	case 'sss':
             		var as = _q_appendData("sss", "", true);
             		if(as[0]!=undefined){
             			if(as[0].person=='外勞')
-            				$('#chkForeigns')[0].checked=true;
+            				$('#chkIsforeign')[0].checked=true;
             			else
-            				$('#chkForeigns')[0].checked=false;	
+            				$('#chkIsforeign')[0].checked=false;	
             		}
             	break;
             	case 'labretire':
@@ -210,7 +221,11 @@
             				for (var i = 0; i < labretires.length; i++) {
             					if(dec(labretires[i].salary1)<=dec($('#txtSalary').val())&&dec(labretires[i].salary2)>=dec($('#txtSalary').val())){
             						q_tr('txtSa_retire',labretires[i].pmoney);//勞退提繳金額
-            						q_tr('txtRe_comp',labretires[i].pcomp);//勞保公司提繳
+            						if(q_getPara('sys.comp').indexOf('大昌')>-1&&$('#chkIssssp')[0].checked){
+            							q_tr('txtRe_person',labretires[i].pcomp);//個人提繳
+            						}else{
+            							q_tr('txtRe_comp',labretires[i].pcomp);//勞保公司提繳
+            						}
             						break;	
             					}
             				}
@@ -223,7 +238,7 @@
             				for (var i = 0; i < labsals.length; i++) {
             					if(dec(labsals[i].salary1)<=dec($('#txtSalary').val())&&dec(labsals[i].salary2)>=dec($('#txtSalary').val())){
             						q_tr('txtSa_labor',labsals[i].lmoney);//勞保薪資
-            						if($('#chkForeigns')[0].checked){
+            						if($('#chkIsforeign')[0].checked){
             							q_tr('txtLa_person',labsals[i].flself);//勞保自付額
             							t_la_person=dec(labsals[i].flself);
             							q_tr('txtLa_comp',labsals[i].flcomp);//勞保公司負擔
@@ -231,9 +246,9 @@
             							if(q_getPara('sys.comp').indexOf('大昌')>-1){
 	            							//--------大昌工資墊償基金提繳費與勞保職災一般員工由公司負擔，寄保人員自己負擔-------
 	            							if($('#chkIssssp')[0].checked){//寄保人員
-	            								q_tr('txtLa_person',dec(labsals[i].lself)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+	            								q_tr('txtLa_person',dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
 	            								t_la_person=dec($('#txtLa_person').val());
-	            								q_tr('txtLa_comp',labsals[i].lcomp);
+	            								q_tr('txtLa_comp',0);
 	            							}else{//一般員工
 	            								q_tr('txtLa_person',labsals[i].lself);
 	            								t_la_person=dec(labsals[i].lself);
@@ -265,6 +280,13 @@
             							t_he_person=dec(labhealths[i].he_person)*(1+dec($('#txtMount').val()));
             						}
             						q_tr('txtHe_comp',labhealths[i].he_comp);//健保公司負擔
+            						
+            						if(q_getPara('sys.comp').indexOf('大昌')>-1&&$('#chkIssssp')[0].checked){
+            							q_tr('txtHe_person',q_float('txtHe_person')+q_float('txtHe_comp'));//健保自付額
+            							t_he_person=q_float('txtHe_person');
+            							q_tr('txtHe_comp',0);//健保公司負擔
+            						}
+            						
             						break;	
             					}
             				}
@@ -291,6 +313,9 @@
 	            		//判斷員工是否是外勞
 			           		var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
 			           		q_gt('sss', t_where , 0, 0, 0, "", r_accy);
+			           		//判斷員工家屬
+			           var t_where = "where=^^noa='"+$('#txtNoa').val()+"'^^";
+            			q_gt('labases_sum', t_where, 0, 0, 0, "", r_accy);
 			        	}
 			        	$('#txtInsur_fund').val(0.025);
 			        	if(q_getPara('sys.comp').indexOf('大昌')>-1){
@@ -320,7 +345,7 @@
 			$('#txtMount').val(r_name);
 			
             $('#txtWorker').val(r_name)
-            sum();
+            //sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             wrServer(s1);
@@ -343,6 +368,12 @@
 						if(!emp($('#txtId_'+b_seq).val()))
                				$('#txtId_'+b_seq).val($('#txtId_'+b_seq).val().toUpperCase());
 				    });
+				    $('#txtNamea_' + j).change(function () {
+						sum();
+				    });
+				    $('#btnMinus_' + j).click(function () {
+						sum();
+				    });
 				}
 			}
             _bbsAssign();
@@ -363,7 +394,7 @@
             _btnModi();
             $('#txtNoa').attr('disabled', 'disabled');
             $('#txtNamea').attr('disabled', 'disabled');
-            $('#chkForeigns').attr('disabled', 'disabled');
+            $('#chkIsforeign').attr('disabled', 'disabled');
             $('#txtSalary').focus();
             $('#txtMon').attr('readonly',true);
 		    $('#txtMon').attr('disabled', 'disabled');
@@ -653,7 +684,7 @@
             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
             <td class='td3'><span> </span><a id="lblNamea" class="lbl" > </a></td>
             <td class="td4"><input id="txtNamea" type="text" class="txt c1" /></td> 
-            <td class='td5'><input id="chkForeigns" type="checkbox" style=' '/><span> </span><a id="lblForeign"> </a></td>
+            <td class='td5'><input id="chkIsforeign" type="checkbox" style=' '/><span> </span><a id="lblIsforeign"> </a></td>
             <td class='td5'><input id="chkIssssp" type="checkbox" style=' '/><span> </span><a id="lblIssssp"> </a></td>
             <td class="td6" colspan="2"><span> </span><input id="btnSalinsures" type="button"/></td> 
         </tr>
