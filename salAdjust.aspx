@@ -202,6 +202,7 @@
                 <td align="center" class="td3"><a id='lblBo_oth'></a></td>
                 <td align="center" class="td3"><a id='lblBo_full'></a></td>
                 <td align="center" class="td3"><a id='lblSalary'></a></td>
+                <td align="center" class="td3"><a id='lblMemo'></a></td>
                 <!--<td align="center" class="td1"><a id='lblUnfix'></a></td>
                 <td align="center" class="td3"><a id='lblSa_retire'></a></td>
                 <td align="center" class="td3"><a id='lblRate'></a></td>
@@ -232,6 +233,7 @@
                 <td ><input class="txt c1" id="txtBo_oth.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtBo_full.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtSalary.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
                 <!--<td ><input class="txt c1" id="txtUnfix.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtSa_retire.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtRate.*" type="text" /></td>
