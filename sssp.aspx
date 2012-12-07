@@ -33,8 +33,8 @@
 		        bbmKey = ['noa'];
 		        q_brwCount();
 
-		        q_gt('authority', "where=^^a.noa='sss' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
-
+		        //q_gt('authority', "where=^^a.noa='sss' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
+				q_gt('sssp', "", q_sqlCount, 1)
 		    });
 
 		    //////////////////   end Ready
