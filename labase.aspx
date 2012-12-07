@@ -371,7 +371,7 @@
 				    $('#txtNamea_' + j).change(function () {
 						sum();
 				    });
-				    $('#btnMinus_' + j).chick(function () {
+				    $('#btnMinus_' + j).click(function () {
 						sum();
 				    });
 				}
