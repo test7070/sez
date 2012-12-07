@@ -54,7 +54,33 @@
             
 			$('#btnCheck').click(function () {
 	           $('#txtChecker').val(r_name);
+	           var totalstr='';
+	          	if(p20<=10)
+	           		totalstr+='<BR>郵資2.0庫存剩'+p20+'張';
+	           	if(p35<=10)
+	           		totalstr+='<BR>郵資3.5庫存剩'+p35+'張';
+	           	if(p50<=10)
+	           		totalstr+='<BR>郵資2.0庫存剩'+p50+'張';
+	           	if(p100<=10)
+	           		totalstr+='<BR>郵資2.0庫存剩'+p100+'張';
+	           	if(p120<=10)
+	           		totalstr+='<BR>郵資2.0庫存剩'+p120+'張';
+	           	if(p130<=10)
+	           		totalstr+='<BR>郵資2.0庫存剩'+p130+'張';
+	           	if(p150<=10)
+	           		totalstr+='<BR>郵資2.0庫存剩'+p150+'張';
+	           	if(p200<=10)
+	           		totalstr+='<BR>郵資2.0庫存剩'+p200+'張';
+	           	if(p250<=10)
+	           		totalstr+='<BR>郵資2.0庫存剩'+p250+'張';
+	           	if(p320<=10)
+	           		totalstr+='<BR>郵資2.0庫存剩'+p320+'張';
+	           totalstr=totalstr.substr(4)
+	           q_msg( $(this), totalstr); 
+	        }).blur(function () {
+				q_msg();
 	        });
+	        
 			$('#txtP20').change(function () {
 				if(p20<dec($('#txtP20').val())){
 					alert('郵資庫存數量不足');
@@ -63,6 +89,9 @@
 	           	sum();
 	        }).focus(function () {
 				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				q_msg( $(this), '郵資2.0庫存剩'+p20+'張');
+	        }).blur(function () {
+				q_msg();
 	        });
 			$('#txtP35').change(function () {
 	           if(p35<dec($('#txtP35').val())){
@@ -72,6 +101,9 @@
 	           	sum();
 	        }).focus(function () {
 				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				q_msg( $(this), '郵資3.5庫存剩'+p35+'張');
+	        }).blur(function () {
+				q_msg();
 	        });
 	        $('#txtP50').change(function () {
 	           if(p50<dec($('#txtP50').val())){
@@ -81,6 +113,9 @@
 	           	sum();
 	        }).focus(function () {
 				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				q_msg( $(this), '郵資5.0庫存剩'+p50+'張');
+	        }).blur(function () {
+				q_msg();
 	        });
 	        $('#txtP100').change(function () {
 	           if(p100<dec($('#txtP100').val())){
@@ -90,6 +125,9 @@
 	           	sum();
 	        }).focus(function () {
 				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				q_msg( $(this), '郵資10.0庫存剩'+p100+'張'); 
+	        }).blur(function () {
+				q_msg();
 	        });
 	        $('#txtP120').change(function () {
 	           if(p120<dec($('#txtP120').val())){
@@ -99,6 +137,9 @@
 	           	sum();
 	        }).focus(function () {
 				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				q_msg( $(this), '郵資12.0庫存剩'+p120+'張');
+	        }).blur(function () {
+				q_msg();
 	        });
 	        $('#txtP130').change(function () {
 	           if(p130<dec($('#txtP130').val())){
@@ -108,6 +149,9 @@
 	           	sum();
 	        }).focus(function () {
 				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				q_msg( $(this), '郵資13.0庫存剩'+p130+'張');
+	        }).blur(function () {
+				q_msg();
 	        });
 	        $('#txtP150').change(function () {
 	           if(p150<dec($('#txtP150').val())){
@@ -117,6 +161,9 @@
 	           	sum();
 	        }).focus(function () {
 				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				q_msg( $(this), '郵資15.0庫存剩'+p150+'張');
+	        }).blur(function () {
+				q_msg();
 	        });
 	        $('#txtP200').change(function () {
 	           if(p200<dec($('#txtP200').val())){
@@ -126,6 +173,9 @@
 	           	sum();
 	        }).focus(function () {
 				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				q_msg( $(this), '郵資20.0庫存剩'+p200+'張');
+	        }).blur(function () {
+				q_msg();
 	        });
 	        $('#txtP250').change(function () {
 	           if(p250<dec($('#txtP250').val())){
@@ -135,6 +185,9 @@
 	           	sum();
 	        }).focus(function () {
 				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				q_msg( $(this), '郵資25.0庫存剩'+p250+'張');
+	        }).blur(function () {
+				q_msg();
 	        });
 	        $('#txtP320').change(function () {
 	           if(p320<dec($('#txtP320').val())){
@@ -144,6 +197,9 @@
 	           	sum();
 	        }).focus(function () {
 				q_gt('postage', '' , 0, 0, 0, "", r_accy);//讀出庫存
+				q_msg( $(this), '郵資32.0庫存剩'+p320+'張');
+	        }).blur(function () {
+				q_msg();
 	        });
         }
         function txtCopy(dest, source) {
