@@ -70,6 +70,9 @@
 			           //判斷員工是否重覆儲存
 			           var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
 			           q_gt('labase', t_where , 0, 0, 0, "", r_accy);
+			           //判斷員工家屬
+			           var t_where = "where=^^noa='"+$('#txtNoa').val()+"'^^";
+            			q_gt('labases_sum', t_where, 0, 0, 0, "", r_accy);
 			           
 			     	if(q_getPara('sys.comp').indexOf('大昌')>-1){
 			     		if($('#txtNoa').val().substr(0,1)=='G'){
@@ -97,21 +100,22 @@
             	}
             	
             	//取得勞退薪資等級表
-            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
             	q_gt('labretire', t_where, 0, 0, 0, "", r_accy);
             	//取得勞保薪資等級表
-            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
             	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
             	//取得健保薪資等級表
-            	sum();//計算家屬
-            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+            	if(q_cur!=1)
+            		sum();//計算家屬
+            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
             	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
             });
             
             $('#txtMount').change(function () {
             	//取得健保薪資等級表
-            	sum();//計算家屬
-            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+            	//sum();//計算家屬
+            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
             	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
             });
             
@@ -128,7 +132,7 @@
 	            		return;
 	            	}
 	            	//重新計算取得勞保薪資等級表
-	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
 	            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
 	          });
 	            
@@ -137,7 +141,7 @@
 	            		return;
 	            	}
 	            	//重新計算取得勞保薪資等級表
-	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
 	          		q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
 	          });
             
@@ -162,7 +166,7 @@
 	            		return;
 	            	}
 	            	//重新計算取得勞保薪資等級表
-	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^";
+	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
 	            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
 	            });
 			}
@@ -194,6 +198,14 @@
 
         function q_gtPost(t_name) {
             switch (t_name) {
+            	case 'labases_sum':
+            		labases_sum = _q_appendData("labases", "", true);
+            		if(labases_sum[0]!=undefined){
+            			$('#txtMount').val(labases_sum[0].total);
+            		}else{
+            			$('#txtMount').val(0);
+            		}
+            	break;
             	case 'sss':
             		var as = _q_appendData("sss", "", true);
             		if(as[0]!=undefined){
@@ -291,6 +303,9 @@
 	            		//判斷員工是否是外勞
 			           		var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
 			           		q_gt('sss', t_where , 0, 0, 0, "", r_accy);
+			           		//判斷員工家屬
+			           var t_where = "where=^^noa='"+$('#txtNoa').val()+"'^^";
+            			q_gt('labases_sum', t_where, 0, 0, 0, "", r_accy);
 			        	}
 			        	$('#txtInsur_fund').val(0.025);
 			        	if(q_getPara('sys.comp').indexOf('大昌')>-1){
@@ -342,6 +357,12 @@
 						b_seq = t_IdSeq;
 						if(!emp($('#txtId_'+b_seq).val()))
                				$('#txtId_'+b_seq).val($('#txtId_'+b_seq).val().toUpperCase());
+				    });
+				    $('#txtNamea_' + j).change(function () {
+						sum();
+				    });
+				    $('#btnMinus_' + j).chick(function () {
+						sum();
 				    });
 				}
 			}
