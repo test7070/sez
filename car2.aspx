@@ -112,22 +112,22 @@
 					$('#lblCarexpense').parent().click();
 				});
 				$('#lblCarinsurance').parent().click(function(e) {
-					q_box("carinsure.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'carinsure', "800px", "600px", q_getMsg("popCarinsure"));
+					q_box("carinsure.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'carinsure', "90%", "600px", q_getMsg("popCarinsure"));
 				});
 				$('#lblCarlender').parent().click(function(e) {
 					q_box("carlender.aspx?;;;noa='" + $('#txtCarownerno').val() + "'", 'carlender', "95%", "95%", q_getMsg("popCarlender"));
 				});
 				$('#lblCaraccident').parent().click(function(e) {
-					q_box("caraccident.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'caraccident', "850px", "600px", q_getMsg("popCaraccident"));
+					q_box("caraccident.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'caraccident', "90%", "600px", q_getMsg("popCaraccident"));
 				});
 				$('#lblCarchange').parent().click(function(e) {
-					q_box("carchange.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'carchange', "800px", "600px", q_getMsg("popCarchange"));
+					q_box("carchange.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'carchange', "90%", "600px", q_getMsg("popCarchange"));
 				});
 				$('#lblOil').parent().click(function(e) {
-					q_box("oil.aspx?;;;carno='" + $('#txtCarno').val() + "'", 'oil', "800px", "600px", q_getMsg("popOil"));
+					q_box("oil.aspx?;;;carno='" + $('#txtCarno').val() + "'", 'oil', "90%", "600px", q_getMsg("popOil"));
 				});
 				$('#lblCartax').parent().click(function(e) {
-					q_box("cartax.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'cartax', "800px", "600px", q_getMsg("popCartax"));
+					q_box("cartax.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'cartax', "90%", "600px", q_getMsg("popCartax"));
 				});
 				
 				//--11/21大昌改管理費+公會費=行費
