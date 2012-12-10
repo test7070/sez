@@ -23,7 +23,7 @@
                 q_gf('', 'z_car2');
             });
             function q_gfPost() {
-                 q_gt('carteam', '', 0, 0, 0, "");
+                 q_gt('carteam', '', 0, 1, 0, "");
             }
 
             function q_boxClose(t_name) {
