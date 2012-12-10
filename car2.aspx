@@ -19,7 +19,7 @@
 			var q_name = "car2";
 			var q_readonly = ['txtCardeal', 'txtCarowner', 'cmbSex', 'txtIdno', 'txtBirthday', 'txtTel1', 'txtTel2', 'txtMobile', 'txtFax', 'txtAddr_conn', 'txtAddr_home', 'txtDriver'];
 			var bbmNum = [['txtInmoney', 10, 0], ['txtOutmoney', 10, 0], ['txtIrange', 10, 0], ["txtManage", 10, 0], ["txtGuile", 10, 0], ["txtLabor", 10, 0], ["txtHealth", 10, 0], ["txtReserve", 10, 0], ["txtHelp", 10, 0], ["txtVrate", 5, 2], ["txtRrate", 5, 2], ["txtOrate", 5, 2], ["txtIrate", 5, 2], ["txtPrate", 5, 2], ["txtUlicense", 10, 0], ["txtDlicense", 10, 0], ["txtSpring", 10, 0], ["txtSummer", 10, 0], ["txtFalla", 10, 0], ["txtWinter", 10, 0], ["txtCylinder", 2, 0], ["txtSalemoney", 10, 0], ["txtImprovemoney1", 10, 0], ["txtImprovemoney2", 10, 0], ["txtImprovemoney3", 10, 0], ["txtDiscountmoney", 10, 0], ["txtDurableyear", 2,0,0,0]];
-			var bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"], ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999"], ["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"], ["txtImprovedate1", "999/99/99"], ["txtImprovedate2", "999/99/99"], ["txtImprovedate3", "999/99/99"], ["txtDiscountdate", "999/99/99"]];
+			var bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"], ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999"], ["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"], ["txtImprovedate1", "999/99/99"], ["txtImprovedate2", "999/99/99"], ["txtImprovedate3", "999/99/99"], ["txtDiscountdate", "999/99/99"], ["txtStopdate", "999/99/99"], ["txtOverdate", "999/99/99"], ["txtEnddate", "999/99/99"]];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
@@ -860,6 +860,36 @@
 						<tr class="tr13">
 							<td class="td1" >
 							<div class='btnLbl tb'>
+								<a id='lblOverdate'></a>
+							</div></td>
+							<td class="td2" >
+							<input id="txtOverdate"  type="text"  style='width:95%; max-width: 200px; '/>
+							</td>
+							<td class="td3" >
+							<div class='btnLbl tb'>
+								<a id='lblStopdate'></a>
+							</div></td>
+							<td class="td4" >
+							<input id="txtStopdate"  type="text"  style='width:95%; max-width: 200px; '/>
+							</td>
+							<td class="td5" >
+							<div class='btnLbl tb'>
+								<a id='lblEnddate'></a>
+							</div></td>
+							<td class="td6" >
+							<input id="txtEnddate"  type="text"  style='width:95%; max-width: 200px; '/>
+							</td>
+							<td class="td7" >
+							<div class='btnLbl tb'>
+								<a id='lblOldnoa'></a>
+							</div></td>
+							<td class="td8" >
+							<input id="txtOldnoa"  type="text"  style='width:95%; max-width: 200px; '/>
+							</td>
+						</tr>
+						<tr class="tr14">
+							<td class="td1" >
+							<div class='btnLbl tb'>
 								<a id='lblReferee'></a>
 							</div></td>
 							<td class="td2" >
@@ -887,14 +917,14 @@
 							<input id="txtSalemoney"  type="text"  style='width:95%; text-align: right;'/>
 							</td>-->
 						</tr>
-						<tr class="tr14">
+						<tr class="tr15">
 							<td class="td1" >
 							<div class='btnLbl tb'>
 								<a id='lblMemo'></a>
 							</div></td>
 							<td class="td2" colspan='7'><textarea id="txtMemo" rows="5" cols="10" style="width:95%; height: 127px;"></textarea></td>
 						</tr>
-						<tr class="tr15">
+						<tr class="tr16">
 							<td class="td1" >
 							<div class='btnLbl tb'>
 								<a id='lblCartype'></a>
