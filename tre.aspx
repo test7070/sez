@@ -122,10 +122,10 @@
 							t_carchgno += (t_carchgno.length>0?',':'')+curData.carchgno[i];
 						t_carchgno='carchgno='+t_carchgno;
 					}
-					
+
 					t_where = "  carno='" + $('#txtCarno').val() + "' and driverno='"+ $('#txtDriverno').val() +"' and  (treno='" + $('#txtNoa').val() + "' or len(isnull(treno,''))=0) ";
 					q_box("carchg_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_carchgno + ";", 'carchg', "95%", "650px", q_getMsg('popCarchg'));
-					
+
 				});
                 $('#txtMemo').change(function(){
                 	if(isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.'){
@@ -135,11 +135,6 @@
                 		sum();
                 	}
                 });
-                
-//                $('#txtDatea').datepicker(); 
-//                $('#txtDate2').datepicker();
-//                $('#txtBdate').datepicker(); 
-//                $('#txtEdate').datepicker();  
             }
             
             function q_funcPost(t_func, result) {
@@ -186,6 +181,7 @@
 						}
 						q_cmbParse("cmbCarteamno", t_item);
 						$("#cmbCarteamno").val(abbm[q_recno].carteamno);
+						q_gridv('dview', browHtm, fbrow, abbm, aindex, brwNowPage, brwCount);
 						break;
                 	case 'carchg':
 						var as = _q_appendData("carchg", "", true);
@@ -234,7 +230,7 @@
                 if(q_cur > 0 && q_cur < 4)
                     return;
 
-                q_box('tre_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+                q_box('tre_s.aspx', q_name + '_s', "530px", "400px", q_getMsg("popSeek"));
             }
 
             function combPay_chg() {
@@ -404,7 +400,7 @@
             }
             .dview {
                 float: left;
-                width: 350px;
+                width: 1000px;
             }
             .tview {
                 margin: 0;
@@ -422,7 +418,7 @@
             }
             .dbbm {
                 float: left;
-                width: 800px;
+                width: 1000px;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -531,16 +527,28 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:15%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:20%"><a id='vewCarno'> </a></td>
+						<td align="center" style="width:20px;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:80px;"><a id='vewCarteam'> </a></td>
+						<td align="center" style="width:100px;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:80px;"><a id='vewCarno'> </a></td>
+						<td align="center" style="width:140px;"><a id='vewDriver'> </a></td>
+						<td align="center" style="width:100px;"><a id='vewMoney'> </a></td>
+						<td align="center" style="width:100px;"><a id='vewTolls'> </a></td>
+						<td align="center" style="width:100px;"><a id='vewPlusmoney'> </a></td>
+						<td align="center" style="width:100px;"><a id='vewMinusmoney'> </a></td>
+						<td align="center" style="width:100px;"><a id='vewTotal'> </a></td>
 					</tr>
 					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox" style=' '/>
-						</td>
-						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='carno'>~carno</td>
+						<td ><input id="chkBrow.*" type="checkbox" /></td>
+						<td id="carteamno=cmbCarteamno" style="text-align: center;">~carteamno=cmbCarteamno</td>
+						<td id="datea" style="text-align: center;">~datea</td>
+						<td id="carno" style="text-align: center;">~carno</td>
+						<td id="driver" style="text-align: center;">~driver</td>
+						<td id="money" style="text-align: right;">~money</td>
+						<td id="tolls" style="text-align: right;">~tolls</td>
+						<td id="plusmoney" style="text-align: right;">~plusmoney</td>
+						<td id="minusmoney" style="text-align: right;">~minusmoney</td>
+						<td id="total" style="text-align: right;">~total</td>
 					</tr>
 				</table>
 			</div>
@@ -564,11 +572,11 @@
 						<td class="td2">
 						<input id="txtDate2" type="text"  class="txt c1" />
 						</td>
-						
+
 						<td><span> </span><a id="lblCarteam" class="lbl"> </a></td>
 						<td><select id="cmbCarteamno" class="txt c1">  </select></td>
-						
-						
+
+
 						<td class="td3" colspan="2"><span> </span><a id="lblDate3" class="lbl"> </a></td>
 						<td class="td5" colspan="3">
 						<input id="txtBdate" type="text"  class="txt c2"/>
@@ -590,7 +598,7 @@
 						<td class="td2" colspan="2">
 						<input id="txtNoa" type="text" class="txt c1"/>
 						</td>
-						
+
 						<td class="td6"><span> </span><a id="lblCarno" class="lbl"> </a></td>
 						<td class="td7">
 						<input id="txtCarno" type="text"  class="txt c1"/>

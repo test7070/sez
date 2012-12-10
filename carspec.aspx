@@ -349,7 +349,7 @@
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 38%;float:left">
+			<div class='dbbm' style="width: 58%;float:left">
 				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 					<tr class="tr1">
 						<td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
@@ -362,10 +362,20 @@
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id="lblSpec" class="lbl"></a></td>
 						<td class="td2">
-						<input id="txtSpec" type="text" class="txt c1"/>
+							<input id="txtSpec" type="text" class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr3"><td style="height:400px;"></td></tr>
+					<tr class="tr3">
+						<td class="td1" style="height:200px;" align="right"><span> </span>說明</td>
+						<td class="td2" colspan="3">
+							驗車時間：<BR>
+							編號A開頭為曳引車類別→5年以下一年一次，第六年起半年一次<BR>
+							編號B開頭為半拖車類別→每年一次<BR>
+							編號C開頭為大小貨車類別→5年以下一年一次，第六年起半年一次<BR>
+							編號D開頭為自小客車類別→10年以下一年一次，第十一年起半年一次<BR>
+							其他編號開頭由使用者自行更改驗車時間，系統不自動更新。
+						</td>
+					</tr>
 				</table>
 			</div>
 			</div>

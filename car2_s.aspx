@@ -78,6 +78,10 @@
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCartype'></a></td>
+					<td><select class="txt" id="cmbCartype" style="width:215px; font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
 					<td   style="width:35%;" ><a id='lblDatea'></a></td>
 					<td style="width:65%;  ">
 					<input class="txt" id="txtBindate" type="text" style="width:90px; font-size:medium;" />
@@ -121,10 +125,7 @@
 					<input class="txt" id="txtCarowner" type="text" style="width:115px; font-size:medium;" />
 					</td>
 				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCartype'></a></td>
-					<td><select class="txt" id="cmbCartype" style="width:215px; font-size:medium;"> </select></td>
-				</tr>
+				
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
 		</div>

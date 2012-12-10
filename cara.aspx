@@ -135,7 +135,7 @@
                     				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,_bratefee', 'txtCaritemno');
                 				}
                 				
-                				if(dec(as[0].manage)>0){
+                				if(dec(as[0].manage)>0 && as[0].outdate=='' && as[0].stopdate=='' && as[0].enddate==''){
                 					as[0].caritemno='401';
                     				as[0].caritem='行費';//管理費
                     				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,manage', 'txtCaritemno');

@@ -38,6 +38,10 @@
 					}, {
 						type : '1',
 						name : 'mon'
+					}, {
+						type : '8',
+						name : 'xchk',
+						value : q_getMsg('chk').split('&')
 					}]
 				});
 				q_popAssign();
