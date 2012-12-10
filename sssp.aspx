@@ -61,7 +61,7 @@
 		            q_box("labases_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labases', "850px", "600px", q_getMsg("popLabases"));
 		        });
 		        $('#btnLabase').click(function (e) {
-		            q_box("labase.aspx", 'labase', "95%", "95%", q_getMsg("popLabase"));
+		            q_box("labase.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labase', "95%", "95%", q_getMsg("popLabase"));
 		        });
 		        $('#txtIndate').change(function (e) {
 		            if (!emp($('#txtIndate').val())) {
