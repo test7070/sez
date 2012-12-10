@@ -22,7 +22,8 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
 		aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
-             ['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']);
+             ['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
+             ['txtPartno', 'lblPartno', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -43,6 +44,7 @@
         function mainPost() { 
             q_mask(bbmMask);
 			q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+			q_cmbParse("cmbTypea", ('').concat(new Array('發票', '會計-營業稅', '會計-營所稅', '會計-綜所稅', '利息收入', '佣金收入', '其他收入', '保證金','票貼','借支','勞健保')));
         }
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -341,6 +343,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size: medium;
             }
             
              input[type="text"],input[type="button"] {     
@@ -367,23 +370,34 @@
         </div>
         <div class='dbbm' style="width: 70%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
-          <tr class="tr1">
-               <td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
-               <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
+          <tr class="tr0" style="height: 1px;" >
+               <td class="td1" style="display: none;"><span> </span><a id="lblNoa" class="lbl" > </a></td>
+               <td class="td2"><input id="txtNoa" type="hidden"  class="txt c1"/></td>
                <td class="td3"> </td>
                <td class="td4"> </td> 
             </tr>
-            <tr class="tr2">
+            <tr class="tr1">
                <td class="td1"><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
                <td class="td2"><input id="txtCustno" type="text" class="txt c1"/></td>
                <td class="td3" colspan="2"><input id="txtComp" type="text" class="txt c1"/></td>
                <td class="td4"> </td> 
             </tr>
+             <tr class="tr1">
+               <td class="td1"><span> </span><a id="lblPartno" class="lbl btn"> </a></td>
+               <td class="td2"><input id="txtPartno" type="text" class="txt c2"/>
+               <input id="txtPart" type="text" class="txt c3"/></td>
+               <td class="td4"> </td> 
+            </tr>
+            <tr class="tr2">
+               <td class="td1"><span> </span><a id="lblTypea" class="lbl"> </a></td>
+               <td class="td2"> <select id="cmbTypea" class="txt c1"> </select> </td>
+              
+            </tr>
             <tr class="tr3">
                <td class="td1"><span> </span><a id="lblTaxtype" class="lbl"> </a></td>
                <td class="td2"> <select id="cmbTaxtype" class="txt c1"> </select> </td>
-               <td class="td3"> </td>
-               <td class="td4"> </td> 
+              <td class="td1"><span> </span><a id="lblTaxrate" class="lbl"> </a></td>
+               <td class="td2"><input id="txtTaxrate" type="text" class="txt num c1"/> </td>
             </tr>
 			<tr class="tr4">
                <td class="td1"><span> </span><a id="lblProductno" class="lbl btn"> </a></td>
@@ -399,7 +413,7 @@
             </tr>
              <tr class="tr2">
                <td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-               <td class="td2"><input id="txtMemo" type="text" class="txt num c1"/> </td>
+               <td class="td2"><input id="txtMemo" type="text" class="txt c1"/> </td>
                <td class="td3"> </td>
                <td class="td4"> </td> 
             </tr>

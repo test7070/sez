@@ -26,8 +26,8 @@
 			brwNowPage = 0;
 			brwKey = 'noa';
 			//ajaxPath = ""; //  execute in Root
-			aPop = new Array(['txtVacc1', 'lblVacc1', 'acc', 'acc1,acc2', 'txtVacc1,txtVacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
-			['txtRacc1', 'lblRacc1', 'acc', 'acc1,acc2', 'txtRacc1,txtRacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+			aPop = new Array(['txtVccacc1', 'lblVccacc', 'acc', 'acc1,acc2', 'txtVccacc1,txtVccacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+			['txtRc2acc1', 'lblRc2acc', 'acc', 'acc1,acc2', 'txtRc2acc1,txtRc2acc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				q_brwCount();
@@ -341,15 +341,15 @@
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 						<td align="center" style="width:7%"><a id='vewNoa'> </a></td>
 						<td align="center" style="width:25%"><a id='vewItem'> </a></td>
-						<td align="center" style="width:25%"><a id='vewVacc1'> </a></td>
-						<td align="center" style="width:25%"><a id='vewRacc1'> </a></td>
+						<td align="center" style="width:25%"><a id='vewVccacc1'> </a></td>
+						<td align="center" style="width:25%"><a id='vewRc2acc1'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox"/></td>
 						<td align="center" id='noa'>~noa</td>
 						<td id='item' style="text-align:left;">~item</td>
-						<td id='vacc1' style="text-align:left;">~vacc1</td>
-						<td id='racc1' style="text-align:left;">~racc1</td>
+						<td id='vccacc1' style="text-align:left;">~vccacc1</td>
+						<td id='rc2acc1' style="text-align:left;">~rc2acc1</td>
 					</tr>
 				</table>
 			</div>
@@ -370,30 +370,38 @@
 						<td class="td2"  colspan="2"><input id="txtItem" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr class="tr3">
+						<td class="td3"><span> </span><a id="lblVccacc" class="lbl btn" >  </a></td>
+						<td class="td4"  colspan="3">
+						<input id="txtVccacc1" type="text"  class="txt c2"/>
+						<input id="txtVccacc2"  type="text"  class="txt c3"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblSprice' class="lbl">  </a></td>
+						<td class="td2">
+						<input id="txtSprice" type="text"  class="txt num c1"/>
+						</td>
+						<td class="td1"><span> </span><a id='lblLabsprice' class="lbl">  </a></td>
+						<td class="td2">
+						<input id="txtLabsprice" type="text"  class="txt num c1"/>
+						</td>
+					</tr>
+					<tr class="tr4">
+						<td class="td3"><span> </span><a id="lblRc2acc" class="lbl btn" >  </a></td>
+						<td class="td4"  colspan="3">
+						<input id="txtRc2acc1" type="text"  class="txt c2"/>
+						<input id="txtRc2acc2"  type="text"  class="txt c3"/>
+						</td>
+					</tr>
+					<tr>
 						<td class="td1"><span> </span><a id='lblPrice' class="lbl">  </a></td>
 						<td class="td2">
 						<input id="txtPrice" type="text"  class="txt num c1"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblVacc1" class="lbl btn" >  </a></td>
-						<td class="td4"  colspan="3">
-						<input id="txtVacc1" type="text"  class="txt c2"/>
-						<input id="txtVacc2"  type="text"  class="txt c3"/>
-						</td>
-					</tr>
-					<tr class="tr4">
-						<td class="td1"><span> </span><a id="lblPricepay" class="lbl">  </a></td>
+						<td class="td1"><span> </span><a id='lblLabprice' class="lbl">  </a></td>
 						<td class="td2">
-						<input id="txtPricepay" type="text"  class="txt num c1"/>
+						<input id="txtLabprice" type="text"  class="txt num c1"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblRacc1" class="lbl btn" >  </a></td>
-						<td class="td4"  colspan="3">
-						<input id="txtRacc1" type="text"  class="txt c2"/>
-						<input id="txtRacc2"  type="text"  class="txt c3"/>
-						</td>
-					</tr>
-					<tr class="tr5">
-						<td class="td5"><span> </span><a id="vewIsfix"  class="lbl">  </a></td>
-						<td class="td6"><input id="chkIsfix" type="checkbox" /></td>
 					</tr>
 					<tr class="tr6">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl">  </a></td>

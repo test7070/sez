@@ -59,7 +59,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm],['txtVbdate',r_picd],['txtVedate',r_picd]];
+                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm],['txtVbdate',r_picd],['txtVedate',r_picd],['txtPaydate',r_picd]];
                 q_mask(bbmMask);
                  //........................下拉選單
                 q_cmbParse("cmbKind", q_getPara('payb.kind'),'s');
@@ -594,7 +594,7 @@
                 											<input id="txtComp"  type="text" class="txt c5"/></td>
                  <td class="td4" ><input type="button" id="btnFix"  value="單據匯入"></td>
                  <td class="td5" ><span> </span><a id='lblPayc' class="lbl"></a></td>
-                <td class="td6" ><input id="txtPayc" type="text" class="txt c1"/></td> 
+                <td class="td6" ><input id="txtPayc" type="text" class="txt c2"/><input id="txtPaydate" type="text" class="txt c3"/></td> 
                 <td class="td7" ><span> </span><a id='lblPayed' class="lbl"></a></td>
                 <td class="td8" ><input id="txtPayed" type="text" class="txt num c1"/></td> 
                <!-- <td class="td7"><span> </span><a id='lblInvono' class="lbl"></a></td>

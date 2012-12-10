@@ -400,7 +400,7 @@
 		    $('#txtMon').attr('disabled', 'disabled');
         }
         function btnPrint() {
-
+		q_box('z_labase.aspx', '', "95%", "650px", q_getMsg("popPrint"));
         }
 
         function wrServer(key_value) {
