@@ -99,7 +99,11 @@
                             dbf : 'carspec',
                             index : 'noa,spec',
                             src : 'carspec_b.aspx'
-                        }]
+                        }, {
+	                        type : '8', //select
+	                        name : 'pdate',
+	                        value : ('遷出,報銷,報停').split(',')
+	                    }]
                     });
                     q_getFormat();
 	                q_langShow();
