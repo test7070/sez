@@ -357,7 +357,11 @@
                     }
                     //本月息額
                     if($('#txtCaritemno_' + j).val()!='001'&&$('#txtCaritemno_' + j).val()!='002'&&$('#txtCaritemno_' + j).val()!='102'&&$('#txtCaritemno_' + j).val()!='201'&&$('#txtCaritemno_' + j).val()!='202'&&$('#txtCaritemno_' + j).val()!='203'&&$('#txtCaritemno_' + j).val()!='306'&&$('#txtCaritemno_' + j).val()!='401'){
-                    	t_interest+=dec($('#txtOutmoney_' + j).val()) - dec($('#txtInmoney_' + j).val());
+                    	if(dec($('#txtPay_' + j).val())>0){
+                    		t_interest+=dec($('#txtPay_' + j).val()) - dec($('#txtInmoney_' + j).val());
+	                    }else{
+	                    	t_interest+=dec($('#txtOutmoney_' + j).val()) - dec($('#txtInmoney_' + j).val());
+	                    }
                     }
                     //本月借支-入款
                     if($('#txtCaritemno_' + j).val()=='201')//借支
