@@ -26,7 +26,9 @@
             brwNowPage = 0;
             brwKey = 'noa';
             q_desc = 1;
-            //ajaxPath = ""; //  execute in Root
+            q_xchg = 1;
+            brwCount2 = 20;
+    
             aPop = new Array(
             	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver','txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
             	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
@@ -145,7 +147,7 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('oil_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+                q_box('oil_s.aspx', q_name + '_s', "600px", "400px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -309,30 +311,32 @@
             }
             .dview {
                 float: left;
-                width: 98%;
+                width: 1000px; 
+                border-width: 0px; 
             }
             .tview {
-                margin: 0;
-                padding: 2px;
-                border: 1px black double;
-                border-spacing: 0;
+                border: 5px solid gray;
                 font-size: medium;
-                background-color: #FFFF66;
-                color: blue;
+                background-color: black;
+            }
+            .tview tr {
+                height: 30px;
             }
             .tview td {
                 padding: 2px;
                 text-align: center;
-                border: 1px black solid;
+                border-width: 0px;
+                background-color: #FFFF66;
+                color: blue;
             }
             .dbbm {
                 float: left;
-                width: 98%;
-                margin: -1px;
-                border: 1px black solid;
+                width: 1000px;
+                /*margin: -1px;        
+                border: 1px black solid;*/
                 border-radius: 5px;
             }
-            .tbbm {
+			.tbbm {
                 padding: 0px;
                 border: 1px white double;
                 border-spacing: 0;
@@ -346,10 +350,10 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 9%;
+                width: 10%;
             }
             .tbbm .tdZ {
-                width: 2%;
+                width: 1%;
             }
             .tbbm tr td span {
                 float: right;
@@ -422,42 +426,53 @@
             }
 		</style>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
-			<div class="dview" id="dview" style="float: left;  width:40%;"  >
-				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+			<div class="dview" id="dview" >
+				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:15%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:15%"><a id='vewCarno'> </a></td>
-						<td align="center" style="width:15%"><a id='vewDriver'> </a></td>
-						<td align="center" style="width:10%"><a id='vewPrice'> </a></td>
-						<td align="center" style="width:10%"><a id='vewMount'> </a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewCarno'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewDriver'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewOilstation'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewPrice'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewMount'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewMoney'> </a></td>
 					</tr>
 					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox" style=''/>
-						</td>
-
-						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='carno'>~carno</td>
-						<td align="center" id='driver'>~driver</td>
+						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
+						<td id='datea' style="text-align: center;">~datea</td>
+						<td id='carno' style="text-align: center;">~carno</td>
+						<td id='driver' style="text-align: center;">~driver</td>
+						<td id='oilstation' style="text-align: center;">~oilstation</td>
 						<td id='price' style="text-align: right;">~price</td>
 						<td id='mount' style="text-align: right;">~mount</td>
+						<td id='money' style="text-align: right;">~money</td>
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 55%;float: left;">
-				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
+			<div class='dbbm'>
+				<table class="tbbm"  id="tbbm">
+					<tr style="height: 1px;">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="tdZ"></td>
+					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtNoa"  type="text"  class="txt c1"/>
 						</td>
-						<td class="td3"> </td>
-						<td class="td4"> </td>
-						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
