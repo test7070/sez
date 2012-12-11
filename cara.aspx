@@ -76,7 +76,7 @@
                 	}
                 	dateimport=true;
                 	//上期欠款
-		            var t_where = "where=^^ carno ='"+$('#txtCarno').val()+"' ^^";
+		            var t_where = "where=^^ carno ='"+$('#txtCarno').val()+"' ^^ top=1";
 			        q_gt('cara', t_where , 0, 0, 0, "", r_accy);
 		     	});
                 $('#cmbIsource').change(function () {sum();});
@@ -215,10 +215,6 @@
                     	if(dateimport){
                     		var as = _q_appendData("cara", "", true);
                     		if(as[0]!=undefined){
-                    			for (var i = 1; i < as.length; i++) {//只取最後一筆
-		                        	as.splice(i, 1);
-		                        	i--;
-                    			}
                     			//上月息額取上一張累計息額並判斷來源
                     			if(as[0].isource=='1'){
                     				q_tr('txtIprev',dec(as[0].itotal));

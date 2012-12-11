@@ -8,62 +8,54 @@
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
-        		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-		    var q_name = "etc_s";
-		    aPop = new Array(
-		    	 ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
-           		 ,['txtCarno', 'lblCarno', 'car2', 'a.noa', 'txtCarno', 'car2_b.aspx']);
-		    $(document).ready(function () {
-		        main();
-		    });
-		    /// end ready
+            var q_name = "etc_s";
+            aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtCarno', 'lblCarno', 'car2', 'a.noa', 'txtCarno', 'car2_b.aspx']);
+            $(document).ready(function() {
+                main();
+            });
+            /// end ready
 
-		    function main() {
-		        mainSeek();
-		        q_gf('', q_name);
-		    }
+            function main() {
+                mainSeek();
+                q_gf('', q_name);
+            }
 
-		    function q_gfPost() {
-		        q_getFormat();
-		        q_langShow();
+            function q_gfPost() {
+                q_getFormat();
+                q_langShow();
 
-		        bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
-		        q_mask(bbmMask);
-		        $('#txtBdate').focus();
+                bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+                q_mask(bbmMask);
+                q_cmbParse("cmbTypea", '@全部,' + q_getPara('etc.typea'));
+                $('#txtBdate').focus();
+            }
 
-		    }
+            function q_seekStr() {
+                t_noa = $.trim($('#txtNoa').val());
+                t_driverno = $.trim($('#txtDriverno').val());
+                t_driver = $.trim($('#txtDriver').val());
+                t_carno = $.trim($('#txtCarno').val());
+                t_bdate = $.trim($('#txtBdate').val());
+                t_edate = $.trim($('#txtEdate').val());
+                t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
+                t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
+                t_typea = $('#cmbTypea').val();
 
-		    function q_seekStr() {
-		        t_noa = $.trim($('#txtNoa').val());
-		        t_driverno = $.trim($('#txtDriverno').val());
-		        t_driver = $.trim($('#txtDriver').val());
+                var t_where = " 1=1 " + q_sqlPara2("typea", t_typea) + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver) + q_sqlPara2("carno", t_carno);
 
-		        t_carno = $.trim($('#txtCarno').val());
-
-		        t_bdate = $.trim($('#txtBdate').val());
-		        t_edate = $.trim($('#txtEdate').val());
-		        ;
-		        t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
-		        /// 100.  .
-		        t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
-
-
-		        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) +
-		     q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver) 
-		      + q_sqlPara2("carno", t_carno);
-		
-		        t_where = ' where=^^' + t_where + '^^ ';
-		        return t_where;
-		    }
+                t_where = ' where=^^' + t_where + '^^ ';
+                return t_where;
+            }
 		</script>
 		<style type="text/css">
-			.seek_tr {
-				color: white;
-				text-align: center;
-				font-weight: bold;
-				BACKGROUND-COLOR: #76a2fe
-			}
+            .seek_tr {
+                color: white;
+                text-align: center;
+                font-weight: bold;
+                background-color: #76a2fe
+            }
 		</style>
 	</head>
 	<body>
@@ -82,6 +74,10 @@
 					<td>
 					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
 					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblTypea'></a></td>
+					<td><select id="cmbTypea" style="width:215px; font-size:medium;" ></select></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCarno'></a></td>

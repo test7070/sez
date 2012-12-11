@@ -77,7 +77,11 @@
 		                $('#txtLabor2_edate').val($('#txtOutdate').val());
 		            }
 		        });
-		        
+		        $('#lblAddr_conn').click(function (e) {
+		            if (!emp($('#txtAddr_home').val())) {
+		                $('#txtAddr_conn').val($('#txtAddr_home').val());
+		            }
+		        });
 		        $('#sssppart').hide();
 		    }
 
@@ -534,7 +538,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id="lblAddr_conn" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblAddr_conn" class="lbl btn"></a></td>
 						<td class="td2" colspan="5">
 							<input id="txtAddr_conn"  type="text"  class="txt c1"/>
 						</td>

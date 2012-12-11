@@ -29,9 +29,11 @@
 			 ['txtHtype', 'lblHtype', 'salhtype', 'noa,namea', 'txtHtype,txtHname', 'salhtype_b.aspx']);
             $(document).ready(function() {
                bbmKey = ['noa'];
-            q_brwCount();
-           q_gt(q_name, q_content, q_sqlCount, 1)
-            $('#txtNoa').focus
+	            q_brwCount();
+	           //q_gt(q_name, q_content, q_sqlCount, 1)
+	            //$('#txtNoa').focus
+	            
+	            q_gt('authority', "where=^^a.noa='salvacause' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
         });
 
             //////////////////   end Ready
@@ -138,6 +140,16 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'authority':
+		                var as = _q_appendData('authority', '', true);
+		                if (as.length > 0 && as[0]["pr_run"] == "true")
+		                    q_content = "";
+		                else
+		                    q_content = "where=^^sssno='" + r_userno + "'^^";
+
+		                q_gt(q_name, q_content, q_sqlCount, 1)
+		                break;
+                	
                     case 'sss':
                         q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
                         break;

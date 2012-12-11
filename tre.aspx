@@ -181,7 +181,7 @@
 						}
 						q_cmbParse("cmbCarteamno", t_item);
 						$("#cmbCarteamno").val(abbm[q_recno].carteamno);
-						q_gridv('dview', browHtm, fbrow, abbm, aindex, brwNowPage, brwCount);
+						q_gridv('tview', browHtm, fbrow, abbm, aindex, brwNowPage, brwCount);
 						break;
                 	case 'carchg':
 						var as = _q_appendData("carchg", "", true);
@@ -400,27 +400,29 @@
             }
             .dview {
                 float: left;
-                width: 1000px;
+                width: 1080px; 
+                border-width: 0px; 
             }
             .tview {
-                margin: 0;
-                padding: 2px;
-                border: 1px black double;
-                border-spacing: 0;
+                border: 5px solid gray;
                 font-size: medium;
-                background-color: #FFFF66;
-                color: blue;
+                background-color: black;
+            }
+            .tview tr {
+                height: 30px;
             }
             .tview td {
                 padding: 2px;
                 text-align: center;
-                border: 1px black solid;
+                border-width: 0px;
+                background-color: #FFFF66;
+                color: blue;
             }
             .dbbm {
                 float: left;
-                width: 1000px;
-                margin: -1px;
-                border: 1px black solid;
+                width: 1080px;
+                /*margin: -1px;        
+                border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -442,7 +444,7 @@
             .tbbm .tr1{
                 background-color: #FFEC8B;
             }
-            .tbbm  .tr_carchg {
+            .tbbm .tr_carchg {
 				background-color: #DAA520;
 			}
             .tbbm .tdZ {
@@ -527,16 +529,16 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:20px;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:80px;"><a id='vewCarteam'> </a></td>
-						<td align="center" style="width:100px;"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:80px;"><a id='vewCarno'> </a></td>
-						<td align="center" style="width:140px;"><a id='vewDriver'> </a></td>
-						<td align="center" style="width:100px;"><a id='vewMoney'> </a></td>
-						<td align="center" style="width:100px;"><a id='vewTolls'> </a></td>
-						<td align="center" style="width:100px;"><a id='vewPlusmoney'> </a></td>
-						<td align="center" style="width:100px;"><a id='vewMinusmoney'> </a></td>
-						<td align="center" style="width:100px;"><a id='vewTotal'> </a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewCarteam'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewCarno'> </a></td>
+						<td align="center" style="width:140px; color:black;"><a id='vewDriver'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMoney'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewTolls'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewPlusmoney'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMinusmoney'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewTotal'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>

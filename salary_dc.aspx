@@ -252,6 +252,8 @@
 		                        for (var i = 0; i < as.length; i++) {
 				                    	if($('#txtSno_'+j).val()==as[i].sssno){
 				                    		$('#chkIswelfare_'+j)[0].checked=as[i].iswelfare;
+				                    		if(as[i].iswelfare)
+				                    			q_tr('txtWelfare_'+j,100);
 				                    		break;
 				                    	}
 		                        }
@@ -442,9 +444,7 @@
         			q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.67*dec($('#txtAddh2_2_'+j).val())));//加班費
         			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())));//應領總額=給付總額+加班費+免稅其他
         			//福利金
-        			if($('#chkIswelfare_'+j)[0].checked)
-		        		q_tr('txtWelfare_'+j,Math.round(dec($('#txtMoney_'+j).val())*5/1000));
-		        	else
+        			if(!($('#chkIswelfare_'+j)[0].checked))
 		        		q_tr('txtWelfare_'+j,0);
         		}else if($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
         			q_tr('txtTotal1_'+j,Math.round(dec($('#txtDaymoney_'+j).val())));
@@ -454,9 +454,7 @@
         			q_tr('txtAddmoney_'+j,Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh2_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.67*dec($('#txtAddh2_2_'+j).val())));//加班費
         			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())));//應領總額=給付總額+加班費+免稅其他
         			//福利金
-        			if($('#chkIswelfare_'+j)[0].checked)
-		        		q_tr('txtWelfare_'+j,Math.round(dec($('#txtDaymoney_'+j).val())*22*5/1000));
-		        	else
+        			if(!($('#chkIswelfare_'+j)[0].checked))
 		        		q_tr('txtWelfare_'+j,0);
         		}else{//本月
         			q_tr('txtMi_total_'+j,Math.round(dec($('#txtTotal1_'+j).val())/dtmp*dec($('#txtMi_saliday_'+j).val())));//扣薪金額
@@ -466,9 +464,7 @@
         			//q_tr('txtTax6_'+j,Math.round((dec($('#txtTotal2_'+j).val())+Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh46_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.67*dec($('#txtAddh46_2_'+j).val())))*0.06));//所得稅
         			q_tr('txtTotal3_'+j,Math.round(dec($('#txtTotal2_'+j).val())+dec($('#txtAddmoney_'+j).val())+dec($('#txtTax_other2_'+j).val())+Math.round(dec($('#txtOstand_'+j).val())*1.33*dec($('#txtAddh46_1_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1.67*dec($('#txtAddh46_2_'+j).val()))+Math.round(dec($('#txtOstand_'+j).val())*1*dec($('#txtAddh100_'+j).val()))));//應領總額
         			//福利金--本薪*0.5%
-        			if($('#chkIswelfare_'+j)[0].checked)
-		        		q_tr('txtWelfare_'+j,Math.round(dec($('#txtMoney_'+j).val())*5/1000));
-		        	else
+        			if(!($('#chkIswelfare_'+j)[0].checked))
 		        		q_tr('txtWelfare_'+j,0);
         		}
         		//應扣總額=借支+勞保費+零用金+勞退個人提繳+住宿電費+所得稅+所得稅5%+所得稅6%(外勞)+暫留稅10%(外勞)+所得稅12%(外勞)+所得稅18%(外勞)+福利金+暫留款+健保費+其他扣款
