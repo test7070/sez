@@ -520,9 +520,9 @@
 						<td class="td2">
 						<input id="txtSerial" type="text" class="txt c1"/>
 						</td>
-						<td class="td3"><span> </span><a id='lblAddress' class="lbl"></a></td>
-						<td class="td4" colspan="3">
-						<input id="txtAddress"  type="text" style="width: 99%;float: left;"/>
+						<td class="td3"><span> </span><a id='lblMoney' class="lbl"></a></td>
+						<td class="td4">
+							<input id="txtMoney"  type="text"  class="txt num c1"/>
 						</td>
 					</tr>
 					<tr class="tr4">
@@ -547,10 +547,6 @@
 						<td class="td3"><span> </span><a id='lblMount' class="lbl"></a></td>
 						<td class="td4">
 							<input id="txtMount"  type="text"  class="txt num c1"/>
-						</td>
-						<td class="td5"><span> </span><a id='lblMoney' class="lbl"></a></td>
-						<td class="td6">
-							<input id="txtMoney"  type="text"  class="txt num c1"/>
 						</td>
 					</tr>
 					<tr class="tr6">

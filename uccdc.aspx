@@ -16,7 +16,7 @@
 				alert("An error occurred:\r\n" + error.Message);
 			}
 
-			var q_name = "uccdc";
+			var q_name = "ucc";
 			var q_readonly = ['txtWorker'];
 			var bbmNum = [];
 			var bbmMask = [];
@@ -26,8 +26,8 @@
 			brwNowPage = 0;
 			brwKey = 'noa';
 			//ajaxPath = ""; //  execute in Root
-			aPop = new Array(['txtVccacc1', 'lblVccacc', 'acc', 'acc1,acc2', 'txtVccacc1,txtVccacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
-			['txtRc2acc1', 'lblRc2acc', 'acc', 'acc1,acc2', 'txtRc2acc1,txtRc2acc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+			aPop = new Array(['txtVccacc1', 'lblVccacc1', 'acc', 'acc1,acc2', 'txtVccacc1,txtVccacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+			['txtRc2acc1', 'lblRc2acc1', 'acc', 'acc1,acc2', 'txtRc2acc1,txtRc2acc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 			$(document).ready(function() {
 				bbmKey = ['noa'];
 				q_brwCount();
@@ -105,7 +105,7 @@
 				if (q_cur > 0 && q_cur < 4)// 1-3
 					return;
 
-				q_box('uccdc_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
+				q_box('ucc_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
 			}
 
 			function btnIns() {
@@ -256,6 +256,9 @@
             .tbbm td {
                 width: 10%;
             }
+             .tbbm .td1 {
+                width: 14%;
+            }
             .tbbm .tdZ {
                 width: 2%;
             }
@@ -347,7 +350,7 @@
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox"/></td>
 						<td align="center" id='noa'>~noa</td>
-						<td id='item' style="text-align:left;">~item</td>
+						<td id='product' style="text-align:left;">~product</td>
 						<td id='vccacc1' style="text-align:left;">~vccacc1</td>
 						<td id='rc2acc1' style="text-align:left;">~rc2acc1</td>
 					</tr>
@@ -367,10 +370,10 @@
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id='lblItem' class="lbl">  </a></td>
-						<td class="td2"  colspan="2"><input id="txtItem" type="text"  class="txt c1"/></td>
+						<td class="td2"  colspan="2"><input id="txtProduct" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr class="tr3">
-						<td class="td3"><span> </span><a id="lblVccacc" class="lbl btn" >  </a></td>
+						<td class="td1"><span> </span><a id="lblVccacc1" class="lbl btn" >  </a></td>
 						<td class="td4"  colspan="3">
 						<input id="txtVccacc1" type="text"  class="txt c2"/>
 						<input id="txtVccacc2"  type="text"  class="txt c3"/>
@@ -381,13 +384,9 @@
 						<td class="td2">
 						<input id="txtSprice" type="text"  class="txt num c1"/>
 						</td>
-						<td class="td1"><span> </span><a id='lblLabsprice' class="lbl">  </a></td>
-						<td class="td2">
-						<input id="txtLabsprice" type="text"  class="txt num c1"/>
-						</td>
 					</tr>
 					<tr class="tr4">
-						<td class="td3"><span> </span><a id="lblRc2acc" class="lbl btn" >  </a></td>
+						<td class="td1"><span> </span><a id="lblRc2acc1" class="lbl btn" >  </a></td>
 						<td class="td4"  colspan="3">
 						<input id="txtRc2acc1" type="text"  class="txt c2"/>
 						<input id="txtRc2acc2"  type="text"  class="txt c3"/>
@@ -397,10 +396,6 @@
 						<td class="td1"><span> </span><a id='lblPrice' class="lbl">  </a></td>
 						<td class="td2">
 						<input id="txtPrice" type="text"  class="txt num c1"/>
-						</td>
-						<td class="td1"><span> </span><a id='lblLabprice' class="lbl">  </a></td>
-						<td class="td2">
-						<input id="txtLabprice" type="text"  class="txt num c1"/>
 						</td>
 					</tr>
 					<tr class="tr6">

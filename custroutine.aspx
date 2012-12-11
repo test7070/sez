@@ -26,6 +26,7 @@
              ['txtPartno', 'lblPartno', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
+            brwCount2=15;
             q_brwCount();
            q_gt(q_name, q_content, q_sqlCount, 1)
             $('#txtNoa').focus
