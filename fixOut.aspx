@@ -29,7 +29,10 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'Datea';
-			aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtCarplateno', 'lblCarplateno', 'carplate', 'noa,carplate,driver', 'txtCarplateno', 'carplate_b.aspx'], ['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,brand,unit', 'txtProductno_,txtProduct_,txtBrand_,txtUnit_', 'fixucc_b.aspx'], ['txtTireno_', 'btnTirestk_', 'tirestk', 'noa,productno,product,brandno,brand,price', 'txtTireno_,txtProductno_,txtProduct_,txtBrandno_,txtBrand_,txtPrice_', 'tirestk_b.aspx']);
+			aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
+			, ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
+			, ['txtCarplateno', 'lblCarplateno', 'carplate', 'noa,carplate,driver', 'txtCarplateno', 'carplate_b.aspx']
+			, ['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,brand,unit,inprice', 'txtProductno_,txtProduct_,txtBrand_,txtUnit_,txtPrice_', 'fixucc_b.aspx'], ['txtTireno_', 'btnTirestk_', 'tirestk', 'noa,productno,product,brandno,brand,price', 'txtTireno_,txtProductno_,txtProduct_,txtBrandno_,txtBrand_,txtPrice_', 'tirestk_b.aspx']);
 			
 			function currentData() {}
 			currentData.prototype = {
@@ -481,7 +484,11 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
 			<div class="dview" id="dview" >
@@ -599,9 +606,9 @@
 					<td align="center" class="td1"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width: 20%;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width: 12%;"><a id='lblBrand_s'> </a></td>
-					<td align="center" style="width: 3%;"><a id='lblUnit_s'> </a></td>
-					<td align="center" class="td1" style="width: 5%;"><a id='lblMount_s'> </a></td>
+					<td align="center" style="width: 3%;"><a id='lblUnit_s'> </a></td>				
 					<td align="center" class="td1"><a id='lblPrice_s'> </a></td>
+					<td align="center" class="td1" style="width: 5%;"><a id='lblMount_s'> </a></td>
 					<td align="center" class="td1"><a id='lblMoney_s'> </a></td>
 					<td align="center" class="td1"><a id='lblTireno_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
@@ -627,10 +634,10 @@
 					<input class="txt c1" id="txtUnit.*" type="text" />
 					</td>
 					<td >
-					<input class="txt num c1" id="txtMount.*" type="text" onfocus='show_stkmount(id);'/>
+					<input class="txt num c1" id="txtPrice.*" type="text" />
 					</td>
 					<td >
-					<input class="txt num c1" id="txtPrice.*" type="text" />
+					<input class="txt num c1" id="txtMount.*" type="text" onfocus='show_stkmount(id);'/>
 					</td>
 					<td >
 					<input class="txt num c1" id="txtMoney.*" type="text" />
