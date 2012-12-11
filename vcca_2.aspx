@@ -25,7 +25,7 @@
 			brwNowPage = 0;
 			brwKey = 'Datea';
 			aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx'], 
-			['txtCustno', 'lblCust', 'cust', 'noa,comp,serial,addr_invo,nick', 'txtCustno,txtComp,txtSeria,txtAddress,txtNick', 'cust_b.aspx'],
+			['txtCustno', 'lblCust', 'cust', 'noa,comp,serial,addr_invo,nick', 'txtCustno,txtComp,txtSerial,txtAddress,txtNick', 'cust_b.aspx'],
 		    ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx'],
 			['txtProductno', 'lblProductno', 'ucca', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit', 'ucca_b.aspx']);
 
