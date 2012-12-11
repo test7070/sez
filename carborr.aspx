@@ -30,6 +30,8 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             q_desc = 1;
+            q_xchg = 1;
+            brwCount2 = 20;
             aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']);
 
             $(document).ready(function() {
@@ -344,30 +346,32 @@
             }
             .dview {
                 float: left;
-                width: 30%;
+                width: 1000px; 
+                border-width: 0px; 
             }
             .tview {
-                margin: 0;
-                padding: 2px;
-                border: 1px black double;
-                border-spacing: 0;
+                border: 5px solid gray;
                 font-size: medium;
-                background-color: #FFFF66;
-                color: blue;
+                background-color: black;
+            }
+            .tview tr {
+                height: 30px;
             }
             .tview td {
                 padding: 2px;
                 text-align: center;
-                border: 1px black solid;
+                border-width: 0px;
+                background-color: #FFFF66;
+                color: blue;
             }
             .dbbm {
                 float: left;
-                width: 65%;
-                margin: -1px;
-                border: 1px black solid;
+                width: 1000px;
+                /*margin: -1px;        
+                border: 1px black solid;*/
                 border-radius: 5px;
             }
-            .tbbm {
+			.tbbm {
                 padding: 0px;
                 border: 1px white double;
                 border-spacing: 0;
@@ -458,17 +462,25 @@
 
 		</style>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:15%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:20%"><a id='vewCarno'></a></td>
-						<td align="center" style="width:20%"><a id='vewDriver'></a></td>
-						<td align="center" style="width:20%"><a id='vewTypea'></a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewDatea'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewCarno'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewDriver'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewTypea'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewComppay'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewDriverpay'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewTotal'></a></td>
+						<td align="center" style="width:360px; color:black;"><a id='vewMemo'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -478,6 +490,10 @@
 						<td id='carno' style="text-align: center;">~carno</td>
 						<td id='driver' style="text-align: center;">~driver</td>
 						<td id='typea' style="text-align: center;">~typea</td>
+						<td id='comppay' style="text-align: right;">~comppay</td>
+						<td id='driverpay' style="text-align: right;">~driverpay</td>
+						<td id='total' style="text-align: right;">~total</td>
+						<td id='memo' style="text-align: left;">~memo</td>
 					</tr>
 				</table>
 			</div>
