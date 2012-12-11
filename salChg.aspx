@@ -21,7 +21,7 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']);
+		aPop = new Array(['txtSssno', 'lblSss', 'sssall', 'noa,namea', 'txtSssno,txtNamea', 'sssall_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
