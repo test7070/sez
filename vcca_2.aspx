@@ -85,7 +85,7 @@
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
 
-				q_cmbParse("cmbTaxtype", ('').concat(new Array('應稅', '零稅率', '內含', '免稅','自訂','作廢')));
+				q_cmbParse("cmbTaxtype", ('').concat(new Array('1@應稅', '2@零稅率', '3@內含', '4@免稅','5@自訂','6@作廢')));
 				$('#txtMount').change(function() {
 					sum();
 				});
@@ -343,6 +343,39 @@
 			            $('#txtTax').css('background', t_background);
 			
 			            q_tr('txtTotal', q_float('txtTax') + t_money, 0);
+			            break;$
+			        case '6':  // 作廢-清空資料
+			            $('#txtCustno').val('');//銷貨客戶
+			            $('#txtCustno').attr('readonly', true);
+			            $('#txtComp').val('');
+			            $('#txtComp').attr('readonly', true);
+			            $('#txtSerial').val('');//統一編號
+			            $('#txtSerial').attr('readonly', true);
+			            $('#txtMoney').val(0);//產品金額
+			            $('#txtMoney').attr('readonly', true);
+			            $('#txtMon').val('');//帳款月份
+			            $('#txtMon').attr('readonly', true);
+			            $('#txtProductno').val('');//產品編號	
+			            $('#txtProductno').attr('readonly', true);
+			            $('#txtProduct').val('');//品名規格	
+			            $('#txtProduct').attr('readonly', true);
+			            $('#txtUnit').val('');//單位
+			            $('#txtUnit').attr('readonly', true);
+			            $('#txtMount').val(0);//數量
+			            $('#txtMount').attr('readonly', true);
+			            $('#txtTax').val(0);//營業稅
+			            $('#txtTax').attr('readonly', true);
+			            $('#txtTotal').val(0);//總計
+			            $('#txtTotal').attr('readonly', true);
+			            $('#txtChkno').val('');//檢查號碼
+			            $('#txtChkno').attr('readonly', true);
+			            $('#txtAccno').val('');//轉會計傳票編號
+			            $('#txtAccno').attr('readonly', true);
+			            $('#txtBuyerno').val('');//買受人
+			            $('#txtBuyerno').attr('readonly', true);
+			            $('#txtBuyer').val('');//
+			            $('#txtBuyer').attr('readonly', true);
+			            $('#txtMemo').val('');//發票備註
 			            break;
 			
 			
