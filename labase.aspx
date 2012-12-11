@@ -342,7 +342,6 @@
                 alert('該員工重覆建立勞健保資料!!');
                 return;
             }
-			$('#txtMount').val(r_name);
 			
             $('#txtWorker').val(r_name)
             //sum();
