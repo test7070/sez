@@ -11,6 +11,14 @@
 		<script type="text/javascript">
 			var q_name = "carchg_s";
 			aPop=new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']);
+
+			function z_carchg() {
+			}
+            z_carchg.prototype = {
+                carteam : ''
+            };
+            var t_data = new z_carchg();
+            
 			$(document).ready(function() {
 				main();
 			});
@@ -27,9 +35,23 @@
 
 				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
 				q_mask(bbmMask);
-
+				q_gt('carteam', '', 0, 0, 0, "");
 				$('#txtBdate').focus();
 			}
+			function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'carteam':
+                        t_data.carteam = '@全部';
+                        var as = _q_appendData("carteam", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_data.carteam += (t_data.carteam.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+                        }
+                        break;
+                }
+                if (t_data.carteam.length > 0){
+                    q_cmbParse("cmbCarteam", t_data.carteam);
+                }
+            }
 
 			function q_seekStr() {
 				t_noa = $('#txtNoa').val();
@@ -38,14 +60,13 @@
 				t_carno = $('#txtCarno').val();
 				t_driverno = $('#txtDriverno').val();
 				t_driver = $('#txtDriver').val();
-
 				t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
-				/// 100.  .
 				t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
-				/// 100.  .
+				t_carteam = $('#cmbCarteam').val();
 
 				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("carno", t_carno) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver);
-
+				if (t_carteam.length > 0)
+                    t_where += q_sqlPara2("carteamno", t_carteam);
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -59,9 +80,17 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCarteam'></a></td>
+					<td><select id="cmbCarteam" style="width:215px; font-size:medium;" ></select></td>
+				</tr>
 				<tr class='seek_tr'>
 					<td   style="width:35%;" ><a id='lblDatea'></a></td>
 					<td style="width:65%;  ">
@@ -76,6 +105,7 @@
 					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
+				
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCarno'></a></td>
 					<td>

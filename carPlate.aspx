@@ -26,6 +26,8 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
+            q_xchg = 1;
+            brwCount2 = 20;
             //ajaxPath = ""; //  execute in Root
 			 aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']);
             $(document).ready(function() {
@@ -47,27 +49,18 @@
 
             function mainPost() {
                 q_mask(bbmMask);
-
-            }
-
-            function txtCopy(dest, source) {
-                var adest = dest.split(',');
-                var asource = source.split(',');
-                $('#' + adest[0]).focus(function() {
-                    if (trim($(this).val()).length == 0)
-                        $(this).val(q_getMsg('msgCopy'));
-                });
-                $('#' + adest[0]).focusout(function() {
-                    var t_copy = ($(this).val().substr(0, 1) == '=');
-                    var t_clear = ($(this).val().substr(0, 2) == ' =');
-                    for (var i = 0; i < adest.length; i++) { {
-                            if (t_copy)
-                                $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                            if (t_clear)
-                                $('#' + adest[i]).val('');
-                        }
-                    }
+                
+                var tmp = q_getMsg('carplate.typea').split('&');
+                var t_typea = '';
+                for(var i in tmp)
+                	t_typea += (t_typea.length>0?',':'')+tmp[i];
+				q_cmbParse("cmbTypea", t_typea);
+                q_gridv('tview', browHtm, fbrow, abbm, aindex, brwNowPage, brwCount);
+                $('#cmbTypea').focus(function() {
+                    var len = $("#cmbTypea").children().length > 0 ? $("#cmbTypea").children().length : 1;
+                    $("#cmbTypea").attr('size', len + "");
+                }).blur(function() {
+                    $("#cmbTypea").attr('size', '1');
                 });
             }
 
@@ -98,7 +91,7 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('carplate_s.aspx', q_name + '_s', "600px", "300px", q_getMsg("popSeek"));
+                q_box('carplate_s.aspx', q_name + '_s', "600px", "400px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
@@ -114,7 +107,7 @@
             }
 
             function btnPrint() {
-
+				q_box('z_carplate.aspx' + "?;;;;" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
             }
 
             function btnOk() {
@@ -203,31 +196,32 @@
             }
             .dview {
                 float: left;
-                width: 40%;
+                width: 1000px; 
+                border-width: 0px; 
             }
             .tview {
-                margin: 0;
-                padding: 2px;
-                border: 1px black double;
-                border-spacing: 0;
+                border: 5px solid gray;
                 font-size: medium;
-                background-color: #FFFF66;
-                color: blue;
-                width: 100%;
+                background-color: black;
+            }
+            .tview tr {
+                height: 30px;
             }
             .tview td {
                 padding: 2px;
                 text-align: center;
-                border: 1px black solid;
+                border-width: 0px;
+                background-color: #FFFF66;
+                color: blue;
             }
             .dbbm {
                 float: left;
-                width: 50%;
-                margin: -1px;
-                border: 1px black solid;
+                width: 1000px;
+                /*margin: -1px;        
+                border: 1px black solid;*/
                 border-radius: 5px;
             }
-            .tbbm {
+			.tbbm {
                 padding: 0px;
                 border: 1px white double;
                 border-spacing: 0;
@@ -285,6 +279,10 @@
                 width: 80%;
                 float: left;
             }
+            .txt.c6 {
+                width: 50%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -302,6 +300,10 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size: medium;
+            }
+            .tbbm textarea {
+                font-size: medium;
             }
 
             input[type="text"], input[type="button"] {
@@ -309,27 +311,33 @@
             }
 		</style>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
 			<div class="dview" id="dview"   >
 				<table class="tview" id="tview" >
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:10%"><a id='vewNoa'></a></td>
-						<td align="center" style="width:10%"><a id='vewCarplate'></a></td>
-						<td align="center" style="width:10%"><a id='vewDriver'></a></td>
-						<td align="center" style="width:10%"><a id='vewCardno'></a></td>
-						<td align="center" style="width:30%"><a id='vewMemo'></a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewNoa'></a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewTypea'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewCarplate'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewDriver'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewCardno'></a></td>
+						<td align="center" style="width:80x; color:black;"><a id='vewSize'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMemo'></a></td>
 					</tr>
 					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox" style=''/>
-						</td>
+						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td align="center" id='noa'>~noa</td>
+						<td id='typea' style="text-align: center;">~typea</td>
 						<td align="center" id='carplate'>~carplate</td>
 						<td align="center" id='driver'>~driver</td>
 						<td align="center" id='cardno'>~cardno</td>
+						<td align="center" id='size'>~size</td>
 						<td align="center" id='memo,10'>~memo,10</td>
 					</tr>
 				</table>
@@ -364,10 +372,17 @@
 						<td><input id="txtCardno"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblSize' class="lbl"></a></td>
+						<td><input id="txtSize"  type="text"  class="txt c1"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl btn"></a></td>
 						<td colspan="3"><input id="txtMemo"  type="text"  class="txt c1"/></td>
 					</tr>
-					<tr> </tr>
+					<tr>
+						<td><span> </span><a id='lblTypea' class="lbl"> </a></td>
+						<td><select id="cmbTypea" class="txt c1"></select></td>
+					</tr>
 					<tr> </tr>
 					<tr> </tr>
 					<tr> </tr>

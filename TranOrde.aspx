@@ -316,32 +316,34 @@
 			}
 		</script>
 		<style type="text/css">
-            #dmain {
+             #dmain {
                 overflow: hidden;
             }
             .dview {
                 float: left;
-                width:1080px;
+                width: 1080px; 
+                border-width: 0px; 
             }
             .tview {
-                margin: 0;
-                padding: 2px;
-                border: 1px black double;
-                border-spacing: 0;
+                border: 5px solid gray;
                 font-size: medium;
-                background-color: #FFFF66;
-                color: blue;
+                background-color: black;
+            }
+            .tview tr {
+                height: 30px;
             }
             .tview td {
                 padding: 2px;
                 text-align: center;
-                border: 1px black solid;
+                border-width: 0px;
+                background-color: #FFFF66;
+                color: blue;
             }
             .dbbm {
                 float: left;
-                width: 95%;
-                margin: -1px;
-                border: 1px black solid;
+                width: 1080px;
+                /*margin: -1px;        
+                border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -447,18 +449,18 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:20px;"><a id='vewChk'></a></td>	
-						<td align="center" style="width:100px;"><a id='vewNoa'></a></td>
-						<td align="center" style="width:80px;"><a id='vewCust'></a></td>
-						<td align="center" style="width:80px;"><a id='vewDatea'></a></td>
-						<td align="center" style="width:80px;"><a id='vewStrdate'></a></td>
-						<td align="center" style="width:80px;"><a id='vewDldate'></a></td>
-						<td align="center" style="width:120px;"><a id='vewDeliveryno'></a></td>
-						<td align="center" style="width:120px;"><a id='vewPo'></a></td>
-						<td align="center" style="width:100px;"><a id='vewProduct'></a></td>
-						<td align="center" style="width:80px;"><a id='vewMount'></a></td>
-						<td align="center" style="width:50px;"><a id='vewUnit'></a></td>
-						<td align="center" style="width:150px;"><a id='vewAddr'></a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>	
+						<td align="center" style="width:100px; color:black;"><a id='vewNoa'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewCust'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewDatea'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewStrdate'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewDldate'></a></td>
+						<td align="center" style="width:120px; color:black;"><a id='vewDeliveryno'></a></td>
+						<td align="center" style="width:120px; color:black;"><a id='vewPo'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewProduct'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewMount'></a></td>
+						<td align="center" style="width:50px; color:black;"><a id='vewUnit'></a></td>
+						<td align="center" style="width:150px; color:black;"><a id='vewAddr'></a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
