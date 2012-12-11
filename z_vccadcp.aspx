@@ -17,51 +17,42 @@
 		<script type="text/javascript">
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_vcca');
+                q_gf('', 'z_vccadc');
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_vcca',
-                    options : [{
+                    fileName : 'z_vccadc',
+                    options : [ {
                         type : '1',
-                        name : 'date'
+                        name : 'xmon'
+                    },{
+                        type : '1',
+                        name : 'bxmon'
                     }, {
                         type : '1',
-                        name : 'mon'
+                        name : 'exmon'
                     }, {
                         type : '2',
-                        name : 'cust',
+                        name : 'xcust',
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
                     }, {
                         type : '2',
-                        name : 'product',
-                        dbf : 'ucc',
-                        index : 'noa,product',
-                        src : 'ucc_b.aspx'
-                    }, {
-                        type : '1',
-                        name : 'xmon'
-                    }, {
-                        type : '1',
-                        name : 'year'
-                    }, {
-                        type : '2',
-                        name : 'acomp',
+                        name : 'xacomp',
                         dbf : 'acomp',
                         index : 'noa,acomp',
                         src : 'acomp_b.aspx'
                     }]
                 });
                 q_popAssign();
+                $('#txtXmon1').mask('999/99');
+                $('#txtXmon2').mask('999/99');
+                $('#txtBxmon1').mask('999/99');
+                $('#txtBxmon2').mask('999/99');
+                $('#txtExmon1').mask('999/99');
+                $('#txtExmon2').mask('999/99');
                 
-                $('#txtDate1').mask('999/99/99');
-                $('#txtDate1').datepicker();
-                $('#txtDate2').mask('999/99/99');
-                $('#txtDate2').datepicker();
-                $('#txtMon1').mask('999/99');
-                $('#txtMon2').mask('999/99');
                 var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
@@ -71,7 +62,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtXmon1').val(t_year+'/'+t_month);
 	                
 	                t_date = new Date();
 	                t_date.setDate(35);
@@ -82,7 +73,8 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtXmon2').val(t_year+'/'+t_month);
+	                
 	                var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
@@ -92,7 +84,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtMon1').val(t_year+'/'+t_month);
+	                $('#txtBxmon1').val(t_year+'/'+t_month);
 	                
 	                t_date = new Date();
 	                t_date.setDate(35);
@@ -103,7 +95,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtMon2').val(t_year+'/'+t_month);
+	                $('#txtBxmon2').val(t_year+'/'+t_month);
 	             var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
@@ -113,7 +105,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtXmon1').val(t_month);
+	                $('#txtExmon1').val(t_year+'/'+t_month);
 	                
 	                t_date = new Date();
 	                t_date.setDate(35);
@@ -124,28 +116,8 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtXmon2').val(t_month);
-	           var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtYear1').val(t_year);
-	                
-	                t_date = new Date();
-	                t_date.setDate(35);
-	                t_date.setDate(0);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtYear2').val(t_year);
+	                $('#txtExmon2').val(t_year+'/'+t_month);
+	           
             }
 
             function q_boxClose(s2) {
