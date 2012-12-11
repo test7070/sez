@@ -89,7 +89,7 @@
 					<input class="txt" id="txtEindate" type="text" style="width:93px; font-size:medium;" />
 					</td>
 				</tr>
-				<tr class='seek_tr'>
+				<tr class='seek_tr' style="display:none;">
 					<td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
 					<td>
 					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
