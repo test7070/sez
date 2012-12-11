@@ -618,27 +618,29 @@
             }
             .dview {
                 float: left;
-                width: 1000px;
+                width: 1080px; 
+                border-width: 0px; 
             }
             .tview {
-                margin: 0;
-                padding: 2px;
-                border: 1px black double;
-                border-spacing: 0;
+                border: 5px solid gray;
                 font-size: medium;
-                background-color: #FFFF66;
-                color: blue;
+                background-color: black;
+            }
+            .tview tr {
+                height: 30px;
             }
             .tview td {
                 padding: 2px;
                 text-align: center;
-                border: 1px black solid;
+                border-width: 0px;
+                background-color: #FFFF66;
+                color: blue;
             }
             .dbbm {
                 float: left;
-                width: 1000px;
-                margin: -1px;
-                border: 1px black solid;
+                width: 1080px;
+                /*margin: -1px;        
+                border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -742,18 +744,18 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:20px;"><a id='vewChk'></a></td>
-						<td align="center" style="width:80px;"><a id='vewDatea'></a></td>
-						<td align="center" style="width:100px;"><a id='vewComp'></a></td>
-						<td align="center" style="width:80px;"><a id='vewMoney'></a></td>
-						<td align="center" style="width:70px;"><a id='vewDiscount'></a></td>
-						<td align="center" style="width:70px;"><a id='vewPlus'></a></td>
-						<td align="center" style="width:80px;"><a id='vewTax'></a></td>
-						<td align="center" style="width:80px;"><a id='vewPlusmoney'></a></td>
-						<td align="center" style="width:80px;"><a id='vewMinusmoney'></a></td>
-						<td align="center" style="width:80px;"><a id='vewTotal'></a></td>
-						<td align="center" style="width:80px;"><a id='vewMount'></a></td>
-						<td align="center" style="width:100px;"><a id='vewAccno'></a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewDatea'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewComp'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewMoney'></a></td>
+						<td align="center" style="width:70px; color:black;"><a id='vewDiscount'></a></td>
+						<td align="center" style="width:70px; color:black;"><a id='vewPlus'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewTax'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewPlusmoney'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewMinusmoney'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewTotal'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewMount'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewAccno'></a></td>
 					</tr>
 					<tr>
 						<td >
