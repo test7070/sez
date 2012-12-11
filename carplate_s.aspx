@@ -24,10 +24,17 @@
 			function q_gfPost() {
 				q_getFormat();
 				q_langShow();
-
+				
 				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
 				q_mask(bbmMask);
-				$('#txtBdate').focus();
+				
+				var tmp = q_getMsg('carplate.typea').split('&');
+                var t_typea = '';
+                for(var i in tmp)
+                	t_typea += (t_typea.length>0?',':'')+tmp[i];
+				q_cmbParse("cmbTypea", t_typea);
+				
+				$('#txtNoa').focus();
 
 			}
 
@@ -36,7 +43,8 @@
 				t_carplate = $('#txtCarplate').val();
 				t_cardno = $('#txtCardno').val();
 				t_driverno = $('#txtDriverno').val();
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("carplate", t_carplate)+ q_sqlPara2("cardno", t_cardno)+ q_sqlPara2("driverno", t_driverno);
+				t_typea = $('#cmbTypea').val();
+				var t_where = " 1=1 " + q_sqlPara2("typea", t_typea) + q_sqlPara2("noa", t_noa) + q_sqlPara2("carplate", t_carplate)+ q_sqlPara2("cardno", t_cardno)+ q_sqlPara2("driverno", t_driverno);
 
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
@@ -54,6 +62,12 @@
 	<body>
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblTypea'></a></td>
+					<td>
+					<select class="txt" id="cmbTypea" style="width:215px; font-size:medium;" > </select>
+					</td>
+				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
 					<td>
