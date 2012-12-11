@@ -308,43 +308,45 @@
 		</script>
 		<style type="text/css">
 			#dmain {
-				overflow: hidden;
-			}
-			.dview {
-				float: left;
-				width: 23%;
-			}
-			.tview {
-				margin: 0;
-				padding: 2px;
-				border: 1px black double;
-				border-spacing: 0;
-				font-size: medium;
-				background-color: #FFFF66;
-				color: blue;
-			}
-			.tview td {
-				padding: 2px;
-				text-align: center;
-				border: 1px black solid;
-			}
-			.dbbm {
-				float: left;
-				width: 75%;
-				margin: -1px;
-				border: 1px black solid;
-				border-radius: 5px;
-			}
+                overflow: hidden;
+            }
+            .dview {
+                float: left;
+                width: 150px; 
+                border-width: 0px; 
+            }
+            .tview {
+                border: 5px solid gray;
+                font-size: medium;
+                background-color: black;
+            }
+            .tview tr {
+                height: 30px;
+            }
+            .tview td {
+                padding: 2px;
+                text-align: center;
+                border-width: 0px;
+                background-color: #FFFF66;
+                color: blue;
+            }
+            .dbbm {
+                float: left;
+                width: 850px;
+                /*margin: -1px;        
+                border: 1px black solid;*/
+                border-radius: 5px;
+            }
 			.tbbm {
-				padding: 0px;
-				border: 1px white double;
-				border-spacing: 0;
-				border-collapse: collapse;
-				font-size: medium;
-				color: blue;
-				background: #cad3ff;
-				width: 100%;
-			}
+                padding: 0px;
+                border: 1px white double;
+                border-spacing: 0;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                background: #cad3ff;
+                width: 100%;
+            }
 			.tbbm tr {
 				height: 35px;
 			}
@@ -429,8 +431,8 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:15%"><a id='vewNoa'></a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewNoa'></a></td>
 					</tr>
 					<tr>
 						<td >
