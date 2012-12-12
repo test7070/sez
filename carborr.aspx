@@ -480,6 +480,7 @@
 						<td align="center" style="width:80px; color:black;"><a id='vewComppay'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDriverpay'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTotal'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewTicketdate'></a></td>
 						<td align="center" style="width:360px; color:black;"><a id='vewMemo'></a></td>
 					</tr>
 					<tr>
@@ -493,6 +494,7 @@
 						<td id='comppay' style="text-align: right;">~comppay</td>
 						<td id='driverpay' style="text-align: right;">~driverpay</td>
 						<td id='total' style="text-align: right;">~total</td>
+						<td id='ticketdate' style="text-align: center;">~ticketdate</td>
 						<td id='memo' style="text-align: left;">~memo</td>
 					</tr>
 				</table>
