@@ -16,7 +16,7 @@
         }
         q_tables = 's';
         var q_name = "bccout";
-        var q_readonly = [];
+        var q_readonly = ['txtNoa'];
         var q_readonlys = [];
         var bbmNum = [];  
         var bbsNum = [['txtMount', 10, 0, 1],['txtBkbcc', 10, 0, 1]];
@@ -155,7 +155,7 @@
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   /// ??????s??
-                q_gtnoa(q_name, replaceAll('B' + $('#txtDatea').val(), '/', ''));
+                q_gtnoa(q_name, replaceAll('A' + $('#txtDatea').val(), '/', ''));
             else
                 wrServer(s1);
         }

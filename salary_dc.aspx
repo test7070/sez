@@ -67,12 +67,23 @@
             });
             
             $('#txtMon').change(function () {
+            	if($('#txtMon').val().length!=6||$('#txtMon').val().indexOf('/')!=3){
+            		if($('#txtMon').val().length==5&&$('#txtMon').val().indexOf('/')==-1)
+            			$('#txtMon').val($('#txtMon').val().substr(0,3)+'/'+$('#txtMon').val().substr(3,2));
+            		else{
+            			alert('月份欄位錯誤請，重新輸入!!!');
+            			$('#txtMon').focus();
+            			return;
+            		}
+            	}
+            	
+            	
             	getdtmp();
             	check_insed();
             });
             
             $('#btnInput').click(function () {
-            	var t_where = "where=^^ a.person='"+$('#cmbPerson').find("option:selected").text()+"' ^^";
+            	var t_where = "where=^^ a.person='"+$('#cmbPerson').find("option:selected").text()+"' and a.noa!='Z001' and a.noa!='010132'^^";//後面是不要匯入軒威和董事長資料
             	var t_where1 = "where[1]=^^ datea between '"+date_1+"' and '"+date_2+"' ^^";
             	var t_where2 = "where[2]=^^ noa between '"+date_1+"' and '"+date_2+"' and sssno=a.noa ^^";
             	var t_where3 = "where[3]=^^ mon='"+$('#txtMon').val()+"' ^^";
