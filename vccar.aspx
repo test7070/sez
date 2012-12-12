@@ -23,7 +23,7 @@
         var bbsNum = [];
         var bbmMask = []; 
         var bbsMask = [];
-        
+        q_desc=1;
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
         aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx']);
@@ -42,7 +42,7 @@
                dataErr = false;
                return;
            }
-            mainForm(0); // 1=Last  0=Top
+            mainForm(1); // 1=Last  0=Top
         }  ///  end Main()
 
 
@@ -61,16 +61,23 @@
 		    		alert("發票號碼格式錯誤");
                 	return;
 		    	}else{
+		    		var count=0;//已存在數量
 		    		for (var i = 0; i < q_bbsCount; i++) {
-		    		 	$('#txtNoq_'+i).val('');
-		    		 }
+		    			if(!emp($('#txtNoq_'+i).val()))
+		    				count++;
+		    		}
+		    		//本數
 		    		var t_seq=Math.ceil((dec($('#txtEinvono').val().substr(6))-dec($('#txtBinvono').val().substr(6))+1)/50);
-		    		$('#txtSeq').val(t_seq);
-		    		if(q_bbsCount<t_seq)
-		    			q_gridAddRow(bbsHtm, 'tbbs', 'txtNoq', t_seq-q_bbsCount, as, '');
-		    		 for (var i = 0; i < t_seq; i++) {
-		    		 	$('#txtNoq_'+i).val(i+1);
-		    		 }
+		    		var as=new Array(t_seq);
+		    		for (var i = 0; i < t_seq; i++) {
+		    			as[i]= ["noq", "binvono", "einvono"];
+		    			as[i].noq=count+i+1;
+		    			t_bnumber='00000000'+(dec($('#txtBinvono').val().substr(2))+i*50);
+		    			t_enumber='00000000'+(dec($('#txtBinvono').val().substr(2))+(i+1)*50-1);
+		    			as[i].binvono=$('#txtBinvono').val().substr(0,2)+t_bnumber.substr(t_bnumber.length-8)
+		    			as[i].einvono=$('#txtBinvono').val().substr(0,2)+t_enumber.substr(t_enumber.length-8)
+		    		}
+		    		q_gridAddRow(bbsHtm, 'tbbs', 'txtNoq,txtBinvono,txtEinvono', as.length, as,'noq,binvono,einvono' ,'txtNoq');
 		    	}
 		    	
 		    });
@@ -135,6 +142,15 @@
             }  /// end switch
         }
         
+        function sum() {
+            var t1 = 0, t_unit, t_mount, t_weight = 0,t_count=0;
+            for (var j = 0; j < q_bbsCount; j++) {
+		    	if(!emp($('#txtNoq_'+j).val()))
+		    		t_count++;
+            }  // j
+            $('#txtSeq').val(t_count);
+        }
+        
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
@@ -177,15 +193,18 @@
                 alert(t_err);
                 return;
             }
-          
+          sum();
 				var t_noa = trim($('#txtNoa').val());
 				var t_bdate = trim($('#txtBdate').val());
 				if (t_noa.length == 0 || t_noa == "AUTO")
 					q_gtnoa(q_name, replaceAll( (t_bdate.length == 0 ? q_bdate() : t_bdate), '/', ''));
 				else
 					wrServer(t_noa);
+<<<<<<< HEAD
 			
             
+=======
+>>>>>>> 8251634b5fa9d3973ae71bcaf4fd1a8ba2f5dd9e
         }
 		
 		function bbsAssign() {
@@ -471,7 +490,8 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:8%;"><a id='lblNoq'></a></td>
-					<td align="center" style="width:25%;"><a id='lblCust'></a></td>
+					<td align="center" style="width:25%;"><a id='lblInvonos'></a></td>
+					<td align="center" style="width:20%;"><a id='lblCust'></a></td>
 					<td align="center" style="width:10%;"><a id='lblDatea'></a></td>
 					<td align="center"><a id='lblMemo'></a></td>
 				</tr>
@@ -481,6 +501,11 @@
 					</td>
 					<td>
 						<input type="text" id="txtNoq.*" class="txt c1" />
+					</td>
+					<td>
+						<input id="txtBinvono.*"  type="text"  class="txt c2" style="width: 43%;"/>
+                        <a id="lblSymbol3" class="txt c7"> </a>
+                        <input id="txtEinvono.*"  type="text"  class="txt c2" style="width: 43%;"/>
 					</td>
 					<td>
 						<input class="btn"  id="btnCust.*" type="button" value='.' style=" font-weight: bold;width:1%;float: left;" />
