@@ -16,13 +16,13 @@
         }
         q_tables = 's';
         var q_name = "salvaca";
-        var q_readonly = ['txtNoa','txtTotal'];
+        var q_readonly = ['txtTotal'];
         var q_readonlys = [];
         var bbmNum = [];  
         var bbsNum = [['txtInday',10,1,1],['txtOutday',10,1,1],['txtTotal',10,1,1],['txtBoutday',10,1,1]];
         var bbmMask = [];
         var bbsMask = [];
-        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
+        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Noa';
         aPop = new Array(['txtSssno_', 'btnSss_', 'sss', 'noa,namea,id,rank,indate,cno', 'txtSssno_,txtNamea_,txtId_,txtRank_,txtJobday_,txtCno_', 'sss_b.aspx']);
 
         $(document).ready(function () {
@@ -45,7 +45,6 @@
             mainForm(1); 
         }  
         
-        var notins=false; //判斷今年是否已新增
         
         function mainPost() { 
             q_getFormat();
@@ -59,8 +58,6 @@
 		           }
 		    });
             
-            var t_where = "where=^^ noa='"+q_date().substr(0,3)+"' ^^";
-		    q_gt('salvaca', t_where , 0, 0, 0, "", r_accy);
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -113,17 +110,16 @@
 		                	else
 		                		as[i]._day=14+as[i]._year-9;
 		                }
+		                
+		                if(q_getPara('sys.comp').indexOf('大昌')>-1){//大昌用時數算
+		            		as[i]._day=as[i]._day*8
+		            	}
 		           }
 		            
 	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtId,txtJob,txtJobday,txtInday,txtTotal,txtCno', as.length, as, 'noa,namea,id,job,indate,_day,_day,cno', 'txtSssno');
 	            	sum();
             		break;
                 case q_name:
-                	var as = _q_appendData("salvaca", "", true);
-                	if(as[0]!=undefined)
-                 		notins=true;
-                 	else
-                 		notins=false;
                 	if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
@@ -178,10 +174,6 @@
         }
 
         function btnIns() {
-        	if (notins){
-        		alert('今年度已新增!!');
-        		return;	
-        	}
             _btnIns();
             $('#txtNoa').val(q_date().substr(0,3));
             $('#txtSssno_0').focus();
