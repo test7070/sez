@@ -121,11 +121,27 @@
 						var as = _q_appendData("vccar", "", true);
 						if (as[0] == undefined) {
 							noaerror = true;
-							alert("發票號碼不在範圍內或已輸入過");
+							alert("發票本數不存在或已輸入過");
 						} else {
-							noaerror = false;
-							ins = false;
-							btnOk();
+							var vccars = _q_appendData("vccars", "", true);
+							if (vccars[0] != undefined) {
+								 for (var i = 0; i < vccars.length; i++) {
+								 	if(vccars[0].binvono<=$('#txtNoa').val() &&vccars[0].einvono>=$('#txtNoa').val())
+								 	{
+								 		noaerror = false;
+										ins = false;
+										btnOk();
+								 		break;
+								 	}else{
+								 		noaerror = true;
+								 	}
+								}
+							}else{
+								noaerror = true;
+								alert("發票號碼資料錯誤");
+							}
+							if(noaerror)
+							alert("發票號碼超出範圍");
 						}
 						break;
 					case 'vcca1':
@@ -159,7 +175,7 @@
 				if (ins == true) {
 					//判斷發票號碼是否存在或超過
 					var t_where = "where=^^ cno = '" + $('#txtCno').val() + "' and bdate<='" + $('#txtDatea').val() + "' and edate>='" + $('#txtDatea').val()//判斷發票的日期
-					+ "' and binvono<='" + $('#txtNoa').val() + "' and einvono>='" + $('#txtNoa').val()//判斷發票的範圍
+					//+ "' and binvono<='" + $('#txtNoa').val() + "' and einvono>='" + $('#txtNoa').val()//判斷發票的範圍
 					+ "' and '" + $('#txtNoa').val() + "' not in (select noa from vcca ) and len(binvono)=len('" + $('#txtNoa').val() + "') ^^";
 					//判斷是否已存在與長度是否正確
 					q_gt('vccar', t_where, 0, 0, 0, "", r_accy);

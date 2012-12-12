@@ -22,11 +22,13 @@
         var bbsNum = [['txtMount', 10, 0, 1],['txtBkbcc', 10, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
-        q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
+        q_desc=1;
+        q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         aPop = new Array(['txtSno', 'lblSname', 'sss', 'noa,namea,partno,part', 'txtSno,txtSname,txtPartno,txtPart', 'sss_b.aspx'],
         ['txtApprover', 'lblApprover', 'sss', 'namea', 'txtApprover', 'sss_b.aspx'],
         ['txtPartno','lblPart','part','noa,part','txtPartno,txtPart','part_b.aspx'],
-        ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product,stkmount', 'txtBccno_,txtBccname_,txtStkmount_,txtMount_', 'bcc_b.aspx']);
+        ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product,stkmount', 'txtBccno_,txtBccname_,txtStkmount_,txtMount_', 'bcc_b.aspx'],
+        ['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -473,7 +475,10 @@
                 <td ><input class="txt num c1" id="txtMount.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtBkbcc.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtmechno.*" type="text" /></td>
+                <td ><input id="txtMechno.*" type="text" style="width: 70%;"/>
+                		<input id="btnMechno.*" type="button" value="." style="width: auto;font-size: medium;" />
+                		<input class="txt c1" id="txtMech.*" type="text" />
+                </td>
                 <td ><input class="txt c1" id="txtUno.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
                 <!--<td ><input class="txt num c1" id="txtTotal.*" type="text" /></td>-->
                 
