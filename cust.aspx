@@ -184,12 +184,12 @@
                 return;
             }
             var t_noa = trim($('#txtNoa').val());
-            if (emp($('#txtUacc1').val()))
-                $('#txtUacc1').val('1123.' + t_noa);
-            if (emp($('#txtUacc2').val()))
-                $('#txtUacc2').val('1121.' + t_noa);
-            if (emp($('#txtUacc3').val()))
-                $('#txtUacc3').val( '2131.'+t_noa);
+           // if (emp($('#txtUacc1').val()))
+             //   $('#txtUacc1').val('1123.' + t_noa);
+            //if (emp($('#txtUacc2').val()))
+              //  $('#txtUacc2').val('1121.' + t_noa);
+            //if (emp($('#txtUacc3').val()))
+              //  $('#txtUacc3').val( '2131.'+t_noa);
 
 
             if ( t_noa.length==0 )  

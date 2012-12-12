@@ -452,6 +452,7 @@
 						<td align="center" style="width:80px; color:black;"><a id='vewTypea'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewMoney'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMon'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMemo'> </a></td>
 					</tr>
 					<tr>
 						<td>
@@ -466,6 +467,7 @@
 						<td id='typea=cmbTypea' style="text-align: center;">~typea=cmbTypea</td>
 						<td id='money' style="text-align: right;">~money</td>
 						<td id='mon' style="text-align: center;">~mon</td>
+						<td id='memo' style="text-align: center;">~memo</td>
 					</tr>
 				</table>
 			</div>

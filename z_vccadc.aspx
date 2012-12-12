@@ -27,10 +27,10 @@
                         name : 'xmon'
                     },{
                         type : '1',
-                        name : 'bxmon'
+                        name : 'bmon'
                     }, {
                         type : '1',
-                        name : 'exmon'
+                        name : 'emon'
                     }, {
                         type : '2',
                         name : 'xcust',
@@ -48,10 +48,10 @@
                 q_popAssign();
                 $('#txtXmon1').mask('999/99');
                 $('#txtXmon2').mask('999/99');
-                $('#txtBxmon1').mask('999/99');
-                $('#txtBxmon2').mask('999/99');
-                $('#txtExmon1').mask('999/99');
-                $('#txtExmon2').mask('999/99');
+                $('#txtBmon1').mask('999/99');
+                $('#txtBmon2').mask('999/99');
+                $('#txtEmon1').mask('999/99');
+                $('#txtEmon2').mask('999/99');
                 
                 var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
@@ -84,7 +84,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtBxmon1').val(t_year+'/'+t_month);
+	                $('#txtBmon1').val(t_year+'/'+t_month);
 	                
 	                t_date = new Date();
 	                t_date.setDate(35);
@@ -95,7 +95,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtBxmon2').val(t_year+'/'+t_month);
+	                $('#txtBmon2').val(t_year+'/'+t_month);
 	             var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
@@ -105,7 +105,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtExmon1').val(t_year+'/'+t_month);
+	                $('#txtEmon1').val(t_year+'/'+t_month);
 	                
 	                t_date = new Date();
 	                t_date.setDate(35);
@@ -116,7 +116,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtExmon2').val(t_year+'/'+t_month);
+	                $('#txtEmon2').val(t_year+'/'+t_month);
 	           
             }
 
