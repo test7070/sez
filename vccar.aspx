@@ -52,6 +52,20 @@
         	q_mask(bbmMask);
         	bbsMask = [['txtDatea', r_picd]];
         	
+        	$('#txtBinvono').focusout(function (e) {
+        		if(!emp($('#txtBinvono').val())&&($('#txtBinvono').val()).length!=10){
+		    		alert("發票號碼格式錯誤");
+		    		$('#txtBinvono').focus();
+		    	}
+        	});
+        	
+        	$('#txtEinvono').focusout(function (e) {
+        		if(!emp($('#txtEinvono').val())&&($('#txtEinvono').val()).length!=10){
+		    		alert("發票號碼格式錯誤");
+		    		$('#txtEinvono').focus();
+		    	}
+        	});
+        	
         	$('#btnSeq').click(function (e) {
 		    	if(emp($('#txtBinvono').val()) ||emp($('#txtEinvono').val()))
 		    	{
@@ -71,7 +85,8 @@
 		    		var as=new Array(t_seq);
 		    		for (var i = 0; i < t_seq; i++) {
 		    			as[i]= ["noq", "binvono", "einvono"];
-		    			as[i].noq=count+i+1;
+		    			var t_noq='00'+(count+i+1);
+		    			as[i].noq=t_noq.substr(t_noq.length-2);
 		    			t_bnumber='00000000'+(dec($('#txtBinvono').val().substr(2))+i*50);
 		    			t_enumber='00000000'+(dec($('#txtBinvono').val().substr(2))+(i+1)*50-1);
 		    			as[i].binvono=$('#txtBinvono').val().substr(0,2)+t_bnumber.substr(t_bnumber.length-8)
@@ -204,8 +219,53 @@
 		
 		function bbsAssign() {
 		        for (var i = 0; i < q_bbsCount; i++) {
-		            if ($('#btnMinus_' + i).hasClass('isAssign'))    /// 重要
-		                continue;
+		            if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+	            		$('#txtBinvono_' + i).change(function () {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							
+							if(($('#txtBinvono_'+b_seq).val()).length!=10){
+					    		alert("發票號碼格式錯誤");
+			                	return;
+					    	}
+					    	
+					    	t_enumber='00000000'+(dec($('#txtBinvono_'+b_seq).val().substr(2))+49);
+			    			$('#txtEinvono_'+b_seq).val($('#txtBinvono_'+b_seq).val().substr(0,2)+t_enumber.substr(t_enumber.length-8));
+							
+							if(emp($('#txtNoq_' + b_seq).val())&&!emp($('#txtBinvono_' + b_seq).val())&&!emp($('#txtEinvono_' + b_seq).val())){
+								var count=0;//已存在數量
+					    		for (var j= 0; j < q_bbsCount; j++) {
+					    			if(!emp($('#txtNoq_'+j).val()))
+					    				count++;
+					    		}
+					    		var t_noq='00'+(count+1);
+		    					$('#txtNoq_' + b_seq).val(t_noq.substr(t_noq.length-2));
+							}
+					    });
+					    $('#txtEinvono_' + i).change(function () {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							
+							if(($('#txtEinvono_'+b_seq).val()).length!=10){
+					    		alert("發票號碼格式錯誤");
+			                	return;
+					    	}
+							
+							if(emp($('#txtNoq_' + b_seq).val())&&!emp($('#txtBinvono_' + b_seq).val())&&!emp($('#txtEinvono_' + b_seq).val())){
+								var count=0;//已存在數量
+					    		for (var j= 0; j < q_bbsCount; j++) {
+					    			if(!emp($('#txtNoq_'+j).val()))
+					    				count++;
+					    		}
+					    		var t_noq='00'+(count+1);
+		    					$('#txtNoq_' + b_seq).val(t_noq.substr(t_noq.length-2));
+							}
+							
+					    });
+					}
+					//continue;
 		        }
 
 		        _bbsAssign();
