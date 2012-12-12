@@ -170,7 +170,7 @@
 		                    	}
 		                    //請假扣薪
 		                    if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
-		                    	as[i].day= dec(as[i].inday)-dec(as[i].late);//給薪日數=上班天數-遲到次數
+		                    	as[i].day= dec(as[i].inday);//給薪日數=上班天數
 		                    	as[i].mi_saliday=0;
 		                    }else{
 		                    	as[i].day=0;
