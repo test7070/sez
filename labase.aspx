@@ -168,8 +168,16 @@
 	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
 	            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
 	            });
+	            
+	            //計算職災
+	            $('#lblDisaster').click(function () {
+	            	q_tr('txtDisaster',Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+	            	q_tr('txtSa_labor',0);
+	            	q_tr('txtAs_labor',0);
+	            	q_tr('txtLa_person',0);
+	            	q_tr('txtLa_comp',0);
+	            });
 			}
-            
         }
 
         function q_boxClose(s2) { 
@@ -737,7 +745,7 @@
             <td class="td2"><input id="txtTax" type="text" class="txt num c1" /></td>
             <td class='td3'><span> </span><a id="lblMount" class="lbl"> </a></td>
             <td class="td4"><input id="txtMount" type="text" class="txt num c1" /></td>
-            <td class='td5'><span> </span><a id="lblDisaster" class="lbl"> </a></td>
+            <td class='td5'><span> </span><a id="lblDisaster" class="lbl btn"> </a></td>
             <td class="td6"><input id="txtDisaster" type="text" class="txt num c1" /></td>
             <td class='td7'><span> </span><a id="lblWorker" class="lbl"> </a></td>
             <td class="td8"><input id="txtWorker" type="text" class="txt c1" /></td>
