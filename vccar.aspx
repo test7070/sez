@@ -184,7 +184,7 @@
 					q_gtnoa(q_name, replaceAll( (t_bdate.length == 0 ? q_bdate() : t_bdate), '/', ''));
 				else
 					wrServer(t_noa);
-
+			
             
         }
 		
