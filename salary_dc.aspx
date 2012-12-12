@@ -279,8 +279,11 @@
 	                        for (var j = 0; j < q_bbsCount; j++) {
 		                        for (var i = 0; i < as.length; i++) {
 				                    	if($('#txtSno_'+j).val()==as[i].sssno){
-				                    		$('#chkIswelfare_'+j)[0].checked=as[i].iswelfare;
-				                    		if(as[i].iswelfare)
+				                    		if(as[i].iswelfare=='true')
+				                    			$('#chkIswelfare_'+j)[0].checked=true;
+				                    		else
+				                    			$('#chkIswelfare_'+j)[0].checked=false;
+				                    		if($('#chkIswelfare_'+j)[0].checked)
 				                    			q_tr('txtWelfare_'+j,100);
 				                    		break;
 				                    	}
