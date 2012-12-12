@@ -28,7 +28,8 @@
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
-            ['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno,txtCust', 'cust_b.aspx'])
+            ['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno,txtCust', 'cust_b.aspx'],
+            ['txtComp_', 'btnComp_', 'acomp', 'acomp', 'txtComp_', 'acomp_b.aspx'])
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -523,9 +524,6 @@
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 						</td>
 						<td align="center" style="width:4%;"><a id='lbl_typea'></a></td>
-						<td align="center" style="width:5%;"><a id='lbl_datea'></a></td>
-						<td align="center" style="width:5%;"><a id='lbl_soldledger'></a></td>
-						<td align="center" style="width:6%;"><a id='lbl_mon'></a></td>
 						<td align="center" style="width:6%;"><a id='lbl_comp'></a></td>
 						<td align="center" style="width:5%;"><a id='lbl_earmoney'></a></td>
 						<td align="center" style="width:9%;"><a id='lbl_patch'></a></td>
@@ -547,16 +545,8 @@
 						</td>
 						<td><select id="cmbTypea.*" style="width:95%; text-align: center;"></select></td>
 						<td>
-						<input class="txt" id="txtDatea.*" type="text" style="width:95%;"/>
-						</td>
-						<td>
-						<input class="txt" id="txtSoldledger.*" type="text" style="width:95%;"/>
-						</td>
-						<td>
-						<input class="txt" id="txtMon.*" type="text" style="width:95%;"/>
-						</td>
-						<td>
-						<input class="txt" id="txtComp.*" type="text" style="width:95%;"/>
+						<input class="txt" id="txtComp.*" type="text" style="width:65%;"/>
+						<input id = "btnComp.*" type="button" value="." style="width: 18%;">
 						</td>
 						<td>
 						<input class="txt" id="txtEarmoney.*" type="text" style="width:95%;text-align: right;"/>

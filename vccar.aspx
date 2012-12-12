@@ -215,6 +215,11 @@
 					q_gtnoa(q_name, replaceAll( (t_bdate.length == 0 ? q_bdate() : t_bdate), '/', ''));
 				else
 					wrServer(t_noa);
+<<<<<<< HEAD
+			
+            
+=======
+>>>>>>> 8251634b5fa9d3973ae71bcaf4fd1a8ba2f5dd9e
         }
 		
 		function bbsAssign() {
