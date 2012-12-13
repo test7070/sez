@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>XXXXX</title>
+		<title>aaasca</title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script type="text/javascript">
             ;(function($, undefined) {
@@ -148,9 +148,9 @@
                                 obj.data('info').value.data[i].point3 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].eDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].eDegree), 0)];
                                 var pointLogo = [x + radius + 20, i * 20 + 30];
                                 var pointText = [x + radius + 35, i * 20 + 40];
-                                tmpPath += '<rect class="blockLogo" width="10" height="10" x="' + pointLogo[0] + '" y="' + pointLogo[1] + '" fill=' + fillColor + ' stroke=' + strokeColor + '/>';
-                                tmpPath += '<text class="blockText" x="' + pointText[0] + '" y="' + pointText[1] + '" fill="#000000">' + obj.data('info').value.data[i].text + '</text>';
-                                tmpPath += '<path class="block" d="M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + ' 0 1 ' + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z" fill=' + obj.data('info').value.data[i].currentFillColor + ' stroke=' + obj.data('info').value.data[i].currentStrokeColor + '/>';
+                                tmpPath += '<rect class="blockLogo" id="blockLogo_'+i+'" width="10" height="10" x="' + pointLogo[0] + '" y="' + pointLogo[1] + '" fill=' + fillColor + ' stroke=' + strokeColor + '/>';
+                                tmpPath += '<text class="blockText" id="blockText_'+i+'" x="' + pointText[0] + '" y="' + pointText[1] + '" fill="#000000">' + obj.data('info').value.data[i].text + '</text>';
+                                tmpPath += '<path class="block" id="block_'+i+'" d="M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + ' 0 1 ' + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z" fill=' + obj.data('info').value.data[i].currentFillColor + ' stroke=' + obj.data('info').value.data[i].currentStrokeColor + '/>';
                             }
                             obj.append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
                             for ( i = 0; i < obj.data('info').value.data.length; i++) {
@@ -164,14 +164,24 @@
                                     index : i
                                 });
                             }
-                            obj.children('svg').find('.block,.blockLogo,.blockText').hover(function(e) {
+                            /*obj.children('svg').find('.block,.blockLogo,.blockText').hover(function(e) {
+                                $(this).attr('fill','white');
                                 var obj = $(this).parent().parent();
                                 obj.data('info').focusIndex = $(this).data('info').index;
                                 obj.data('info').refresh(obj);
                             }, function(e) {
-                                var obj = $(this).parent().parent();
+                                $(this).attr('fill',obj.data('info').fillColor[$(this).data('info').index]);
                                 obj.data('info').focusIndex = -1;
                                 obj.data('info').refresh(obj);
+                            });*/
+                            obj.children('svg').find('.block,.blockLogo,.blockText').hover(function(e) {
+                                var obj = $(this).parent().parent();
+                                $('#block_'+$(this).data('info').index).attr('fill',obj.data('info').focusfillColor);
+                                $('#blockLogo_'+$(this).data('info').index).attr('fill',obj.data('info').focusfillColor);
+                            }, function(e) {
+                                var obj = $(this).parent().parent();
+                                $('#block_'+$(this).data('info').index).attr('fill',obj.data('info').fillColor[$(this).data('info').index]);
+                                $('#blockLogo_'+$(this).data('info').index).attr('fill',obj.data('info').fillColor[$(this).data('info').index]);
                             });
                         }
                     });
@@ -258,24 +268,24 @@
             }
 		</style>
 	</head>
-	<body>
+	<body style="background-color: gray;">
 		<div id='pieChart'> </div>
 		<div id='barChart'> </div>
 		
 		<script type="text/javascript">
 			$(document).ready(function() {  
 				$('#barChart').barChart({
-					width: 500,
+					width: 800,
 					height: 500,
-					xAxis: ['A','B','C','D','E'],
-					yAxis: ['1','2','3','4','5'],
-					data: [{rate:0.5},{rate:0.7},{rate:0.2},{rate:0.1},{rate:0.55}]
+					xAxis: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+					yAxis: ['100','200','300','400','500'],
+					data: [{rate:0.5,value:500},{rate:0.7},{rate:0.21},{rate:0.1},{rate:0.55}]
 				});
 				
 				$('#pieChart').pieChart({
-					data : [{text:'A',value:200},{text:'B',value:300},{text:'C',value:500}],
-					x: 300,
-					y: 300,
+					data : [{text:'A',value:200},{text:'B',value:300},{text:'C',value:550},{text:'S',value:800}],
+					x: 250,
+					y: 250,
 					radius: 200
 				});
 				

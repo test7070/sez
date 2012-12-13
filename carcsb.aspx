@@ -72,10 +72,17 @@
 					$('#divExport').toggle();
 					$('#txtBdate_export').focus();
 				});
+				$('#btnCancel_export').click(function(){
+					$('#divExport').toggle();
+				});
 				$('#btnExport_trans').click(function(){
 					var t_bdate = $.trim($('#txtBdate_export').val());
 					var t_edate = $.trim($('#txtEdate_export').val());
 					var t_cartype = $.trim($('#cmbCartype_export').val());
+					if(t_bdate.length==0 || t_edate.length==0 || t_cartype==0){
+						alert('請輸入匯入條件!');
+						return;
+					}
 					$('#btnExport_trans').attr('disabled','disabled').val('請稍後。');
 					q_func('carcsb.export',t_bdate+','+t_edate+','+t_cartype);
 				});
@@ -120,6 +127,7 @@
 			function q_funcPost(t_func, result) {
                 switch(t_func) {
                     case 'carcsb.export':
+						alert(result.length);
 						$('#btnExport_trans').removeAttr('disabled','disabled').val('匯至出車單');
                         break;
                 }
@@ -347,16 +355,18 @@
         ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
      >
 		<!--#include file="../inc/toolbar.inc"-->
-		<input id="btnExport" type="button" style="width:120px; height 35px;" value="匯出"/>
-		<div id="divExport" style="position:absolute; top:40px; left:150px; display:none; width:300px; height:200px; background-color: #cad3ff; border: 5px solid gray;">
+		<div id="divExport" style="position:absolute; top:400px; left:600px; display:none; width:300px; height:200px; background-color: #cad3ff; border: 5px solid gray;">
 			<table style="width:100%;">
 				<tr style="height:1px;">
 					<td style="width:80px;"> </td>
-					<td style="width:320px;"> </td>
+					<td style="width:80px;"> </td>
+					<td style="width:80px;"> </td>
+					<td style="width:80px;"> </td>
+					<td style="width:80px;"> </td>
 				</tr>
 				<tr style="height:35px;">
 					<td><span> </span><a id="lblDate_export" style="float:right; color: blue; font-size: medium;"> </a></td>
-					<td>
+					<td colspan="4">
 						<input id="txtBdate_export"  type="text" style="float:left; width:80px; font-size: medium;"/>
 						<span style="float:left; display:block; width:20px;"><a>～</a></span>
 						<input id="txtEdate_export"  type="text" style="float:left; width:80px; font-size: medium;"/>
@@ -364,13 +374,16 @@
 				</tr>
 				<tr style="height:35px;">
 					<td><span> </span><a id="lblCartype_export" style="float:right; color: blue; font-size: medium;"> </a></td>
-					<td><select id="cmbCartype_export" style="float:left; width:100px; font-size: medium;"> </select></td>
+					<td colspan="4"><select id="cmbCartype_export" style="float:left; width:100px; font-size: medium;"> </select></td>
 				</tr>
 				<tr style="height:35px;"> </tr>
 				<tr style="height:35px;"> </tr>
 				<tr style="height:35px;">
 					<td> </td>
-					<td><input id="btnExport_trans" type="button" style="width:120px; height 35px;" value="匯至出車單"/></td>			
+					<td><input id="btnExport_trans" type="button" value="匯至出車單"/></td>			
+					<td> </td>
+					<td> </td>
+					<td><input id="btnCancel_export" type="button" value="關閉"/></td>			
 				</tr>
 			</table>
 		</div>
@@ -436,6 +449,8 @@
 							<input id="txtCust" type="text" style="float:left; width:73.33%;"/>
 							<input id="txtCustnick" style="display:none;"/>
 						</td>
+						<td> </td>
+						<td><input id="btnExport" type="button" class="txt c1" value="匯出"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWeight" class="lbl"> </a></td>
