@@ -28,7 +28,7 @@
             //ajaxPath = ""; //  execute in Root
 
             aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
-            ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtCustnick', 'cust_b.aspx'], 
+            ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtCustnick', 'cust_b.aspx'], 
             ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']);
 
             $(document).ready(function() {
@@ -446,7 +446,7 @@
 						<td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
 						<td colspan='3'>
 							<input id="txtCustno" type="text" style="float:left; width:26.67%;"/>
-							<input id="txtCust" type="text" style="float:left; width:73.33%;"/>
+							<input id="txtComp" type="text" style="float:left; width:73.33%;"/>
 							<input id="txtCustnick" style="display:none;"/>
 						</td>
 						<td> </td>
