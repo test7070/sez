@@ -19,7 +19,7 @@
         var q_name = "bccin";
         var q_readonly = ['txtNoa'];
         var q_readonlys = [];
-        var bbmNum = [['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1]];
+        var bbmNum = [['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtDiscount', 10, 0, 1]];
         var bbsNum = [['txtMount', 10, 0, 1], ['txtWeight', 10, 2, 1], ['txtMount2', 10, 0, 1], ['txtPrice', 15, 3, 1], ['txtDiscount', 15, 0, 1], ['txtMoney', 15, 0, 1], ['txtTotal', 15, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
@@ -55,6 +55,13 @@
 			q_cmbParse("cmbTypea", q_getPara('bccin.type')); 
 			$('#lblOrdeno').click(function () {
 		            lblOrdeno();
+		     });
+		     
+		     $('#txtInvono').change(function () {
+		            if(!emp($('#txtInvono').val())&&$('#txtInvono').val().length!=10){
+		            	alert('發票號碼錯誤!!');
+		            	$('#txtInvono').focus();
+		            }
 		     });
         }
 
