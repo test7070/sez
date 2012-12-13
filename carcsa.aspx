@@ -25,7 +25,7 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         aPop = new Array(['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'],
-        							['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
+        							['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
         							['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']);
 
         $(document).ready(function () {
@@ -474,8 +474,8 @@
             <td class='td4'><input id="txtMoney" type="text" class="txt c1"/></td>
         </tr>
         <tr>
-            <td class='td1'><span> </span><a id="lblCardeal" class="lbl btn"></a></td>
-            <td class='td2' colspan='2'><input id="txtCardealno"  type="text"  class="txt c2"/><input id="txtCardeal"  type="text"  class="txt c3"/></td>
+            <td class='td1'><span> </span><a id="lblCustno" class="lbl btn"></a></td>
+            <td class='td2' colspan='2'><input id="txtCustno"  type="text"  class="txt c2"/><input id="txtComp"  type="text"  class="txt c3"/></td>
         </tr> 
         </table>
         </div>

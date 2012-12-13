@@ -46,6 +46,7 @@
             }///  end Main()
 
             function mainPost() {
+            	bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('borr.typea'), 's');
 
@@ -468,6 +469,12 @@
 						<input id="btnUmmtran" type="button" class="btn"/>
 						</td>
 					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id="lblArrerage" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtArrerage" type="text" class="txt c1 num" />
+						</td>
+					</tr>
 					<tr class="tr6">
 						<td class="td1" ><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td class="column1" colspan="5"><textarea id="txtMemo" style="width:100%; height: 50px;"> </textarea></td>
@@ -482,15 +489,15 @@
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 						</td>
 						<td align="center" style="width:4%;"><a id='lbl_typea'> </a></td>
-						<td align="center" style="width:5%;"><a id='lbl_datea'> </a></td>
-						<td align="center" style="width:5%;"><a id='lbl_soldledger'> </a></td>
+						
+						
 						<td align="center" style="width:6%;"><a id='lbl_carowner'> </a></td>
 						<td align="center" style="width:6%;"><a id='lbl_carno'> </a></td>
 						<td align="center" style="width:5%;"><a id='lbl_memo'> </a></td>
 						<td align="center" style="width:9%;"><a id='lbl_salesvolume'> </a></td>
 						<td align="center" style="width:6%;"><a id='lbl_tax'> </a></td>
 						<td align="center" style="width:6%;"><a id='lbl_cashreceipt'> </a></td>
-						<td align="center" style="width:5%;"><a id='lbl_sign'> </a></td>
+						
 						<td align="center" style="width:6%;"><a id='lbl_checkno'> </a></td>
 						<td align="center" style="width:6%;"><a id='lbl_bankno'> </a></td>
 						<td align="center" style="width:9%;"><a id='lbl_account'> </a></td>
@@ -505,12 +512,6 @@
 						<input class="txt" id="txtNoq.*" type="text" style="display: none;"/>
 						</td>
 						<td><select id="cmbTypea.*" style="width:95%; text-align: center;"> </select></td>
-						<td>
-						<input class="txt" id="txtDatea.*" type="text" style="width:95%;"/>
-						</td>
-						<td>
-						<input class="txt" id="txtSoldledger.*" type="text" style="width:95%;"/>
-						</td>
 						<td>
 						<input class="txt" id="txtCarowner.*" type="text" style="width:95%;"/>
 						</td>
@@ -528,9 +529,6 @@
 						</td>
 						<td>
 						<input class="txt" id="txtCashreceipt.*" type="text" style="width:95%;"/>
-						</td>
-						<td>
-						<input class="txt" id="txtSign.*" type="text" style="width:95%;"/>
 						</td>
 						<td>
 						<input class="txt" id="txtCheckno.*" type="text" style="width:95%;"/>

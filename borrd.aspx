@@ -47,6 +47,7 @@
             }///  end Main()
 
             function mainPost() {
+            	bbmMask = [['txtDatea', r_picd],['txtBegindate', r_picd],['txtEnddate', r_picd],['txtPaydate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('borr.typea'), 's');
 
@@ -510,6 +511,12 @@
 						<input id="txtPay" type="text" class="txt c1 num" />
 						</td>
 					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id="lblArrerage" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtArrerage" type="text" class="txt c1 num" />
+						</td>
+					</tr>
 					<tr class="tr7">
 						<td class="td1" ><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td class="column1" colspan="5"><textarea id="txtMemo" style="width:100%; height: 50px;"> </textarea></td>
@@ -526,9 +533,8 @@
 						<td align="center" style="width:4%;"><a id='lbl_typea'></a></td>
 						<td align="center" style="width:6%;"><a id='lbl_comp'></a></td>
 						<td align="center" style="width:5%;"><a id='lbl_earmoney'></a></td>
-						<td align="center" style="width:9%;"><a id='lbl_patch'></a></td>
 						<td align="center" style="width:6%;"><a id='lbl_inteis'></a></td>
-						<td align="center" style="width:6%;"><a id='lbl_arrerage'></a></td>
+						
 						<td align="center" style="width:5%;"><a id='lbl_sign'></a></td>
 						<td align="center" style="width:6%;"><a id='lbl_checkno'></a></td>
 						<td align="center" style="width:6%;"><a id='lbl_bankno'></a></td>
@@ -552,14 +558,7 @@
 						<input class="txt" id="txtEarmoney.*" type="text" style="width:95%;text-align: right;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtBdate.*" type="text" style="width:95%;"/>
-						<input class="txt" id="txtEdate.*" type="text" style="width:95%;"/>
-						</td>
-						<td>
 						<input class="txt" id="txtInteis.*" type="text" style="width:95%;text-align: right;"/>
-						</td>
-						<td>
-						<input class="txt" id="txtArrerage.*" type="text" style="width:95%;"/>
 						</td>
 						<td>
 						<input class="txt" id="txtSign.*" type="text" style="width:95%;"/>

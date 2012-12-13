@@ -23,7 +23,7 @@
         //ajaxPath = ""; //  execute in Root
         
         aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
-        							['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'],
+        							['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
         							['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'],
         							['txtBoatno', 'lblBoatno', 'boat', 'noa,boat', 'txtBoatno,txtBoat', 'boat_b.aspx']);
         
@@ -373,8 +373,8 @@
                             <td class="td2"><input id="txtCarno"  type="text"  class="txt c1"/></td>
                             <td class="td3"><span> </span><a id="lblDriver" class="lbl btn"></a></td>
                             <td class="td4" colspan='2'><input id="txtDriverno"  type="text"  class="txt c2"/><input id="txtDriver"  type="text"  class="txt c3"/></td>
-                            <td class="td6"><span> </span><a id="lblCardeal" class="lbl btn"></a></td>
-                            <td class="td7" colspan='2'><input id="txtCardealno"  type="text"  class="txt c2"/><input id="txtCardeal"  type="text"  class="txt c3"/></td>
+                            <td class="td6"><span> </span><a id="lblCustno" class="lbl btn"></a></td>
+                            <td class="td7" colspan='2'><input id="txtCustno"  type="text"  class="txt c2"/><input id="txtComp"  type="text"  class="txt c3"/></td>
                         </tr>
                         <tr class="tr3">
                             <td class="td1"><span> </span><a id="lblAddr" class="lbl"></a></td>

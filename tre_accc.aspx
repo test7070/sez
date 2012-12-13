@@ -180,7 +180,8 @@
 		            q_cmbParse("cmbCarteamno", t_item);
 		            //q_cmbParse("cmbCarteamno2", t_item);      
 		            $("#cmbCarteamno").val( abbm[q_recno].carteamno);  
-		            //$("#cmbCarteamno2").val(abbm[q_recno].carteamno);                     
+		            //$("#cmbCarteamno2").val(abbm[q_recno].carteamno); 
+		            q_gridv('tview', browHtm, fbrow, abbm, aindex, brwNowPage, brwCount);                    
 		             break;   
 		            case q_name:
 		                if (q_cur == 4)
@@ -447,12 +448,12 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
 						<td align="center" style="width:40%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:45%"><a id='vewDriver'> </a></td>
+						<td align="center" style="width:45%"><a id='vewCarteamno'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox"/></td>
 						<td align="center" id='bdate edate'>~bdate ~edate</td>
-						<td align="center" id='bdriverno edriverno'>~bdriverno ~edriverno</td>
+						<td id="carteamno=cmbCarteamno" style="text-align: center;">~carteamno=cmbCarteamno</td>
 					</tr>
 				</table>
 			</div>
