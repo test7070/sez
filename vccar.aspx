@@ -66,13 +66,24 @@
 		    	}
         	});
         	
+        	$('#txtRev').blur(function() {
+        		if(emp($('#txtBinvono').val()) ||emp($('#txtEinvono').val())||($('#txtBinvono').val()).length!=10 ||($('#txtEinvono').val()).length!=10)
+		    	{
+		    		//alert("發票號碼請輸入");
+		    	}else{
+		    		$('#btnSeq').click();
+		    	}
+			});
+        	
         	$('#btnSeq').click(function (e) {
 		    	if(emp($('#txtBinvono').val()) ||emp($('#txtEinvono').val()))
 		    	{
 		    		alert("發票號碼請輸入");
+		    		$('#txtBinvono').focus();
                 	return;
 		    	}else if(($('#txtBinvono').val()).length!=10 ||($('#txtEinvono').val()).length!=10){
 		    		alert("發票號碼格式錯誤");
+		    		$('#txtBinvono').focus();
                 	return;
 		    	}else{
 		    		var count=0;//已存在數量
