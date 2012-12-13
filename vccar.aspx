@@ -227,6 +227,7 @@
 							
 							if(($('#txtBinvono_'+b_seq).val()).length!=10){
 					    		alert("發票號碼格式錯誤");
+					    		$('#txtBinvono_'+b_seq).focus();
 			                	return;
 					    	}
 					    	
@@ -263,6 +264,12 @@
 		    					$('#txtNoq_' + b_seq).val(t_noq.substr(t_noq.length-2));
 							}
 							
+					    }).blur(function () {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if($('#txtCustno_'+b_seq).val().length==10)
+								$('#txtCustno_'+b_seq).focus();
 					    });
 					}
 					//continue;
@@ -348,6 +355,18 @@
 
         function btnCancel() {
             _btnCancel();
+        }
+        function inputbinvono(x) {
+        	var id =x.substr(x.length-1);
+			if(($('#txtBinvono_'+id).val()).length==10){
+				$('#txtEinvono_'+id).focus();
+           }
+        }
+        function inputeinvono(x) {
+        	var id =replaceAll(x.substr(x.length-2),'_','');
+			if(($('#txtEinvono_'+id).val()).length==10){
+				$('#txtCustno_'+id).focus();
+           }
         }
     </script>
 <style type="text/css">
@@ -516,7 +535,7 @@
                         </tr>
                         <tr>
                             <td class="td1"><span> </span><a id="lblInvono" class="lbl"> </a></td>
-                            <td class="td2"><input id="txtBinvono"  type="text"  class="txt c2"/>
+                            <td class="td2"><input id="txtBinvono"  type="text"  class="txt c2" />
                             	<a id="lblSymbol2" class="txt c7"> </a>
                             	<input id="txtEinvono"  type="text"  class="txt c2"/>
                             </td>
@@ -558,9 +577,9 @@
 						<input type="text" id="txtNoq.*" class="txt c1" />
 					</td>
 					<td>
-						<input id="txtBinvono.*"  type="text"  class="txt c2" style="width: 43%;"/>
+						<input id="txtBinvono.*"  type="text"  class="txt c2" style="width: 43%;" onKeyUp="inputbinvono(this.id);"/>
                         <a id="lblSymbol3" class="txt c7"> </a>
-                        <input id="txtEinvono.*"  type="text"  class="txt c2" style="width: 43%;"/>
+                        <input id="txtEinvono.*"  type="text"  class="txt c2" style="width: 43%;" onKeyUp="inputeinvono(this.id);"/>
 					</td>
 					<td>
 						<input class="btn"  id="btnCust.*" type="button" value='.' style=" font-weight: bold;width:1%;float: left;" />
