@@ -52,8 +52,7 @@
             function mainPost() {
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate_export', r_picd], ['txtEdate_export', r_picd]];
                 q_mask(bbmMask);
-				q_gt('carteam', '', 0, 0, 0, "");
-				
+
                 $('#txtInprice').change(function() {
                     sum();
                 });
@@ -71,13 +70,14 @@
                 });
 				$('#btnExport').click(function(){
 					$('#divExport').toggle();
+					$('#txtBdate_export').focus();
 				});
 				$('#btnExport_trans').click(function(){
 					var t_bdate = $.trim($('#txtBdate_export').val());
 					var t_edate = $.trim($('#txtEdate_export').val());
-					var t_carteamno = $.trim($('#cmbCarteamno_export').val());
-					var t_where = "";
-					q_gt('carcsb.export', t_where, 0, 0, 0, "", r_accy);
+					var t_cartype = $.trim($('#cmbCartype_export').val());
+					$('#btnExport_trans').attr('disabled','disabled').val('請稍後。');
+					q_func('carcsb.export',r_accy+','+r_name+','+t_bdate+','+t_edate+','+t_cartype);
 				});
 				$('#txtBdate_export').keydown(function(e) {
 					if(e.which==13)
@@ -85,12 +85,13 @@
 				});
 				$('#txtEdate_export').keydown(function(e) {
 					if(e.which==13)
-						$('#cmbCarteamno_export').focus();
+						$('#cmbCartype_export').focus();
 				});
-				$('#cmbCarteamno_export').keydown(function(e) {
+				$('#cmbCartype_export').keydown(function(e) {
 					if(e.which==13)
 						$('#btnExport_trans').focus();
 				});
+				q_cmbParse("cmbCartype_export", q_getPara('car2.cartype'));
             }
 
             function sum() {
@@ -110,21 +111,20 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'carteam':
-						var as = _q_appendData("carteam", "", true);
-						var t_item = "";
-						for ( i = 0; i < as.length; i++) {
-							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
-						}
-						q_cmbParse("cmbCarteamno_export", t_item);
-						break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
                 }  /// end switch
             }
-
+			function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'carcsb.export':
+						$('#btnExport_trans').removeAttr('disabled','disabled').val('匯至出車單');
+                        break;
+                }
+            }
+            
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
@@ -363,8 +363,8 @@
 					</td>
 				</tr>
 				<tr style="height:35px;">
-					<td><span> </span><a id="lblCarteam_export" style="float:right; color: blue; font-size: medium;"> </a></td>
-					<td><select id="cmbCarteamno_export" style="float:left; width:100px; font-size: medium;"> </select></td>
+					<td><span> </span><a id="lblCartype_export" style="float:right; color: blue; font-size: medium;"> </a></td>
+					<td><select id="cmbCartype_export" style="float:left; width:100px; font-size: medium;"> </select></td>
 				</tr>
 				<tr style="height:35px;"> </tr>
 				<tr style="height:35px;"> </tr>
