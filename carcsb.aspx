@@ -77,7 +77,7 @@
 					var t_edate = $.trim($('#txtEdate_export').val());
 					var t_cartype = $.trim($('#cmbCartype_export').val());
 					$('#btnExport_trans').attr('disabled','disabled').val('請稍後。');
-					q_func('carcsb.export',r_accy+','+r_name+','+t_bdate+','+t_edate+','+t_cartype);
+					q_func('carcsb.export',t_bdate+','+t_edate+','+t_cartype);
 				});
 				$('#txtBdate_export').keydown(function(e) {
 					if(e.which==13)
