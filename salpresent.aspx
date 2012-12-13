@@ -59,7 +59,7 @@
             });
             
             $('#btnInput').click(function () {
-            	var t_where = "where=^^ (outdate is null or outdate='' or outdate >'"+$('#txtNoa').val()+"') and noa not in (select sssno from salvacause where datea='"+$('#txtNoa').val()+"' and hname not like '遲到' and hname not like '早退' ) ^^";
+            	var t_where = "where=^^ (outdate is null or outdate='' or outdate >'"+$('#txtNoa').val()+"') and noa not in (select sssno from salvacause where datea='"+$('#txtNoa').val()+"' and hname not like '遲到' and hname not like '早退' ) and noa!='Z001' and noa!='010132'^^";
             	q_gt('sss', t_where, 0, 0, 0, "", r_accy);
             });
         }

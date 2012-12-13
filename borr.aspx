@@ -34,9 +34,7 @@
             q_xchg = 1;
             brwCount2 = 20;
             
-            aPop = new Array(
-            ['txtCarno', 'lblCarno', 'car2', 'a.noa,carownerno,carowner', 'txtCarno,txtCustno,txtCust', 'car2_b.aspx']	
-            ,['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtCustnick', 'cust_b.aspx'])
+            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtCustnick', 'cust_b.aspx'])
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -55,8 +53,16 @@
 
             function mainPost() {
                 q_mask(bbmMask);
+                 $('#txtBegindate').datepicker();
+                  $('#txtEnddate').datepicker();
                 q_cmbParse("cmbTypea", q_getPara('borr.typea'), 's');
-
+				
+				$("#txtBegindate").change(function() {
+                    calcDay();
+                });
+                $("#txtEnddate").change(function() {
+                    calcDay();
+                });
                 $("#txtCash").change(function() {
                     sum();
                 });
@@ -70,14 +76,6 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'cust':
-                		var as = _q_appendData("cust", "", true);
-						var t_nick = "";
-						for ( i = 0; i < as.length; i++) {
-							t_nick = as[i].nick;
-						}
-						$("#txtCustnick").val(t_nick);
-                		break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -107,6 +105,7 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
+               
             }
 
             function btnModi() {
@@ -143,14 +142,12 @@
             }
 
             function bbsSave(as) {
-                if(!as['checkno']) {
+                if(!as['money']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
-
                 q_nowf();
                 as['noa'] = abbm2['noa'];
-
                 return true;
             }
 
@@ -173,34 +170,58 @@
             }
 
             function bbsAssign() {
-                _bbsAssign();
                 for (var i = 0; i < q_bbsCount; i++) {
                     $('#lblNo_' + i).text(i + 1);
-                    if(!$('#txtMoney_'+i).hasClass('isAssign')){
-						$('#txtMoney_'+i).addClass('isAssign');
-						$('#txtMoney_'+i).change(function(){
+                    if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+                    	$('#txtMoney_'+i).change(function(){
 							sum();
 						});
-					}
+						$('#txtCheckno_'+i).change(function(){
+							sum();
+						});
+						$('#cmbTypea_'+i).change(function(){
+							sum();
+						});
+                    }
                 }
+                _bbsAssign();
             }
-
+			
+			function calcDay(){
+				if(!(q_cur==1 || q_cur==2))
+            		return;	
+            	var t_days = 0;
+            	var t_date1 = $('#txtBegindate').val();
+            	var t_date2 = $('#txtEnddate').val();
+            	t_date1 = (new Date()).setFullYear(parseInt(t_date1.substring(0,3))+1911,t_date1.substring(4,6),t_date1.substring(7,9));
+            	t_date2 = (new Date()).setFullYear(parseInt(t_date2.substring(0,3))+1911,t_date2.substring(4,6),t_date2.substring(7,9));       
+            	t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24) + 1;
+ 				$('#txtDays').val(t_days); 
+ 				sum();    	
+			}
             function sum() {
             	if(!(q_cur==1 || q_cur==2))
-            		return;
-            		
-            	var t_money = 0, t_cash = 0, t_checka = 0, t_interest=0;
-            	for (var ix = 0; i < q_bbsCount; i++) {
-            		t_cash += $.trim($('#txtCheckno_'+i).val()).length=0?q_float('txtMoney_'+i):0;
-					t_checka += $.trim($('#txtCheckno_'+i).val()).length>0?q_float('txtMoney_'+i):0;
+            		return;	
+            	var t_days = 0, t_money = 0, t_cash = 0, t_checka = 0, t_interest=0, t_pay = 0;
+ 				t_days=q_float('txtDays');    
+            	for (var i = 0; i < q_bbsCount; i++) {
+            		if($('#cmbTypea_'+i).val()=='1')
+	            		if($.trim($('#txtCheckno_'+i).val()).length>0)
+	            			t_checka += q_float('txtMoney_'+i);
+	            		else
+							t_cash += q_float('txtMoney_'+i);
+					else
+						t_pay += q_float('txtMoney_'+i);
                 }
                 $('#txtCash').val(t_cash);
                 $('#txtChecka').val(t_checka);
                 t_money = t_cash + t_checka;
                 $('#txtMoney').val(t_money);
-                t_interest = /*q_round*/(t_money + q_float('txtDays') * q_float('txtRate') / 30);
+                t_interest = round(t_money * t_days * q_float('txtRate') / 3000,0);
             	$('#txtInterest').val(t_interest);
-            	$('#txtToal').val(t_money+t_interest);
+            	$('#txtTotal').val(t_money+t_interest);
+            	$('#txtPay').val(t_pay);
+            	$('#txtUnpay').val(t_money+t_interest-t_pay);
             }
 
             function q_appendData(t_Table) {
@@ -252,11 +273,7 @@
             }
             function q_popPost(id) {
 				switch(id) {
-					case 'txtCarno':
-						if((q_cur==1 || q_cur==2) && $.trim($('#txtCustno').val()).length>0){
-							var t_where = " where=^^noa="+$.trim($('#txtCustno').val())+"^^ "
-							 q_gt('cust', t_where, 0, 0, 0, "");
-						}
+					default:
 						break;
 				}
 			}
@@ -390,7 +407,6 @@
 					<tr>
 						<td style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td style="width:80px; color:black;"><a id='vewDatea'> </a></td>
-						<td style="width:80px; color:black;"><a id='vewCarno'> </a></td>
 						<td style="width:80px; color:black;"><a id='vewCust'> </a></td>
 						<td style="width:80px; color:black;"><a id='vewMoney'> </a></td>
 						<td style="width:80px; color:black;"><a id='vewInterest'> </a></td>
@@ -402,7 +418,6 @@
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td id='datea' style="text-align: center;">~datea</td>
-						<td id='carno' style="text-align: center;">~carno</td>
 						<td id='custnick' style="text-align: center;">~custnick</td>
 						<td id='money' style="text-align: right;">~money</td>
 						<td id='interest' style="text-align: right;">~interest</td>
@@ -435,15 +450,12 @@
 						<td><input id="txtDatea"  type="text"  class="txt c1"/>	</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCarno" class="lbl"> </a></td>
-						<td><input id="txtCarno"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
 						<td colspan="4">
 						<input id="txtCustno"  type="text" style="width:25%; float:left;"/>
 						<input id="txtCust"  type="text" style="width:75%; float:left;"/>
-						
+						<input id="txtCustnick"  type="text" style="display: none;"/>
 						</td>
-						<td><input id="txtCustnick"  type="text" style="width:100%;"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCash" class="lbl"> </a></td>
@@ -519,7 +531,7 @@
 				<table id="tbbs" class='tbbs'>
 					<tr style='color:white; background:#003366;' >
 						<td style="width:20px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"/></td>
-						<td style="width:20px;"></td>
+						<td style="width:20px;"> </td>
 						<td style="width:60px;"><a id='lbl_typea'> </a></td>
 						<td style="width:80px;"><a id='lbl_datea'> </a></td>
 						<td style="width:80px;"><a id='lbl_money'> </a></td>

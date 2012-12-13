@@ -48,6 +48,7 @@
             mainForm(0); 
         }  
 		var t_la_person=0,t_he_person=0;
+		var cal=false;//判斷計算各自投保金額
         function mainPost() { 
             q_getFormat();
             bbmMask = [['txtBdate', r_picd],['txtMon', r_picm]];
@@ -143,7 +144,38 @@
 	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
 	          		q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
 	          });
-            
+	          //---------------------各自判斷投保新增----------------------
+	          $('#txtSa_retire').change(function () {
+	            	if(emp($('#txtSa_retire').val())||dec($('#txtSa_retire').val())==0){
+	            		return;
+	            	}
+	            	cal=true;
+	            	//取得勞退薪資等級表
+	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
+	            	q_gt('labretire', t_where, 0, 0, 0, "", r_accy);
+	          });
+	          
+	          $('#txtSa_labor').change(function () {
+	            	if(emp($('#txtSa_labor').val())||dec($('#txtSa_labor').val())==0){
+	            		return;
+	            	}
+	            	cal=true;
+	            	//重新計算取得勞保薪資等級表
+	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
+	          		q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
+	          });
+	          
+	          $('#txtSa_health').change(function () {
+	            	if(emp($('#txtSa_health').val())||dec($('#txtSa_health').val())==0){
+	            		return;
+	            	}
+	            	cal=true;
+	            	sum();//計算家屬
+	            	//取得健保薪資等級表
+	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
+	            	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
+	          });
+            //----------------------------------------
                 $('#chkIssssp').hide();
             	$('#lblIssssp').hide();
             	
@@ -226,16 +258,30 @@
             		var as = _q_appendData("labretire", "", true);
             			if(as[0]!=undefined){
             				var labretires = _q_appendData("labretires", "", true);
-            				for (var i = 0; i < labretires.length; i++) {
-            					if(dec(labretires[i].salary1)<=dec($('#txtSalary').val())&&dec(labretires[i].salary2)>=dec($('#txtSalary').val())){
-            						q_tr('txtSa_retire',labretires[i].pmoney);//勞退提繳金額
-            						if(q_getPara('sys.comp').indexOf('大昌')>-1&&$('#chkIssssp')[0].checked){
-            							q_tr('txtRe_person',labretires[i].pcomp);//個人提繳
-            						}else{
-            							q_tr('txtRe_comp',labretires[i].pcomp);//勞保公司提繳
-            						}
-            						break;	
-            					}
+            				if(!cal){
+            					for (var i = 0; i < labretires.length; i++) {
+	            					if(dec(labretires[i].salary1)<=dec($('#txtSalary').val())&&dec(labretires[i].salary2)>=dec($('#txtSalary').val())){
+	            						q_tr('txtSa_retire',labretires[i].pmoney);//勞退提繳金額
+	            						if(q_getPara('sys.comp').indexOf('大昌')>-1&&$('#chkIssssp')[0].checked){
+	            							q_tr('txtRe_person',labretires[i].pcomp);//個人提繳
+	            						}else{
+	            							q_tr('txtRe_comp',labretires[i].pcomp);//勞保公司提繳
+	            						}
+	            						break;	
+	            					}
+	            				}
+            				}else{
+            					for (var i = 0; i < labretires.length; i++) {
+	            					if(dec(labretires[i].salary1)<=dec($('#txtSa_retire').val())&&dec(labretires[i].salary2)>=dec($('#txtSa_retire').val())){
+	            						//q_tr('txtSa_retire',labretires[i].pmoney);//勞退提繳金額
+	            						if(q_getPara('sys.comp').indexOf('大昌')>-1&&$('#chkIssssp')[0].checked){
+	            							q_tr('txtRe_person',labretires[i].pcomp);//個人提繳
+	            						}else{
+	            							q_tr('txtRe_comp',labretires[i].pcomp);//勞保公司提繳
+	            						}
+	            						break;	
+	            					}
+	            				}
             				}
             			}
             		break;
@@ -243,33 +289,64 @@
             			var as = _q_appendData("labsal", "", true);
             			if(as[0]!=undefined){
             				var labsals = _q_appendData("labsals", "", true);
-            				for (var i = 0; i < labsals.length; i++) {
-            					if(dec(labsals[i].salary1)<=dec($('#txtSalary').val())&&dec(labsals[i].salary2)>=dec($('#txtSalary').val())){
-            						q_tr('txtSa_labor',labsals[i].lmoney);//勞保薪資
-            						if($('#chkIsforeign')[0].checked){
-            							q_tr('txtLa_person',labsals[i].flself);//勞保自付額
-            							t_la_person=dec(labsals[i].flself);
-            							q_tr('txtLa_comp',labsals[i].flcomp);//勞保公司負擔
-            						}else{
-            							if(q_getPara('sys.comp').indexOf('大昌')>-1){
-	            							//--------大昌工資墊償基金提繳費與勞保職災一般員工由公司負擔，寄保人員自己負擔-------
-	            							if($('#chkIssssp')[0].checked){//寄保人員
-	            								q_tr('txtLa_person',dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
-	            								t_la_person=dec($('#txtLa_person').val());
-	            								q_tr('txtLa_comp',0);
-	            							}else{//一般員工
+            				if(!cal){//正常薪資各自投保金額
+            					for (var i = 0; i < labsals.length; i++) {
+	            					if(dec(labsals[i].salary1)<=dec($('#txtSalary').val())&&dec(labsals[i].salary2)>=dec($('#txtSalary').val())){
+	            						q_tr('txtSa_labor',labsals[i].lmoney);//勞保薪資
+	            						if($('#chkIsforeign')[0].checked){
+	            							q_tr('txtLa_person',labsals[i].flself);//勞保自付額
+	            							t_la_person=dec(labsals[i].flself);
+	            							q_tr('txtLa_comp',labsals[i].flcomp);//勞保公司負擔
+	            						}else{
+	            							if(q_getPara('sys.comp').indexOf('大昌')>-1){
+		            							//--------大昌工資墊償基金提繳費與勞保職災一般員工由公司負擔，寄保人員自己負擔-------
+		            							if($('#chkIssssp')[0].checked){//寄保人員
+		            								q_tr('txtLa_person',dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+		            								t_la_person=dec($('#txtLa_person').val());
+		            								q_tr('txtLa_comp',0);
+		            							}else{//一般員工
+		            								q_tr('txtLa_person',labsals[i].lself);
+		            								t_la_person=dec(labsals[i].lself);
+		            								q_tr('txtLa_comp',dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+		            							}
+	            							}else{//一般皆由公司負擔
 	            								q_tr('txtLa_person',labsals[i].lself);
 	            								t_la_person=dec(labsals[i].lself);
 	            								q_tr('txtLa_comp',dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
 	            							}
-            							}else{//一般皆由公司負擔
-            								q_tr('txtLa_person',labsals[i].lself);
-            								t_la_person=dec(labsals[i].lself);
-            								q_tr('txtLa_comp',dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
-            							}
-            						}
-            						break;	
-            					}
+	            						}
+	            						break;	
+	            					}
+	            				}
+            				}else{//各自設定投保金額
+            					for (var i = 0; i < labsals.length; i++) {
+	            					if(dec(labsals[i].salary1)<=dec($('#txtSa_labor').val())&&dec(labsals[i].salary2)>=dec($('#txtSa_labor').val())){
+	            						//q_tr('txtSa_labor',labsals[i].lmoney);//勞保薪資
+	            						if($('#chkIsforeign')[0].checked){
+	            							q_tr('txtLa_person',labsals[i].flself);//勞保自付額
+	            							t_la_person=dec(labsals[i].flself);
+	            							q_tr('txtLa_comp',labsals[i].flcomp);//勞保公司負擔
+	            						}else{
+	            							if(q_getPara('sys.comp').indexOf('大昌')>-1){
+		            							//--------大昌工資墊償基金提繳費與勞保職災一般員工由公司負擔，寄保人員自己負擔-------
+		            							if($('#chkIssssp')[0].checked){//寄保人員
+		            								q_tr('txtLa_person',dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+		            								t_la_person=dec($('#txtLa_person').val());
+		            								q_tr('txtLa_comp',0);
+		            							}else{//一般員工
+		            								q_tr('txtLa_person',labsals[i].lself);
+		            								t_la_person=dec(labsals[i].lself);
+		            								q_tr('txtLa_comp',dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+		            							}
+	            							}else{//一般皆由公司負擔
+	            								q_tr('txtLa_person',labsals[i].lself);
+	            								t_la_person=dec(labsals[i].lself);
+	            								q_tr('txtLa_comp',dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+	            							}
+	            						}
+	            						break;	
+	            					}
+	            				}
             				}
             			}
             		break;
@@ -277,26 +354,51 @@
             			var as = _q_appendData("labhealth", "", true);
             			if(as[0]!=undefined){
             				var labhealths = _q_appendData("labhealths", "", true);
-            				for (var i = 0; i < labhealths.length; i++) {
-            					if(dec(labhealths[i].salary1)<=dec($('#txtSalary').val())&&dec(labhealths[i].salary2)>=dec($('#txtSalary').val())){
-            						q_tr('txtSa_health',labhealths[i].lmoney);//健保薪資
-            						if(dec($('#txtMount').val())>3){
-            							q_tr('txtHe_person',dec(labhealths[i].he_person)*(1+3));//健保自付額
-            							t_he_person=dec(labhealths[i].he_person)*(1+3);
-            						}else{
-            							q_tr('txtHe_person',dec(labhealths[i].he_person)*(1+dec($('#txtMount').val())));
-            							t_he_person=dec(labhealths[i].he_person)*(1+dec($('#txtMount').val()));
-            						}
-            						q_tr('txtHe_comp',labhealths[i].he_comp);//健保公司負擔
-            						
-            						if(q_getPara('sys.comp').indexOf('大昌')>-1&&$('#chkIssssp')[0].checked){
-            							q_tr('txtHe_person',q_float('txtHe_person')+q_float('txtHe_comp'));//健保自付額
-            							t_he_person=q_float('txtHe_person');
-            							q_tr('txtHe_comp',0);//健保公司負擔
-            						}
-            						
-            						break;	
-            					}
+            				if(!cal){//正常薪資各自投保金額
+            					for (var i = 0; i < labhealths.length; i++) {
+	            					if(dec(labhealths[i].salary1)<=dec($('#txtSalary').val())&&dec(labhealths[i].salary2)>=dec($('#txtSalary').val())){
+	            						q_tr('txtSa_health',labhealths[i].lmoney);//健保薪資
+	            						if(dec($('#txtMount').val())>3){
+	            							q_tr('txtHe_person',dec(labhealths[i].he_person)*(1+3));//健保自付額
+	            							t_he_person=dec(labhealths[i].he_person)*(1+3);
+	            						}else{
+	            							q_tr('txtHe_person',dec(labhealths[i].he_person)*(1+dec($('#txtMount').val())));
+	            							t_he_person=dec(labhealths[i].he_person)*(1+dec($('#txtMount').val()));
+	            						}
+	            						q_tr('txtHe_comp',labhealths[i].he_comp);//健保公司負擔
+	            						
+	            						if(q_getPara('sys.comp').indexOf('大昌')>-1&&$('#chkIssssp')[0].checked){
+	            							q_tr('txtHe_person',q_float('txtHe_person')+q_float('txtHe_comp'));//健保自付額
+	            							t_he_person=q_float('txtHe_person');
+	            							q_tr('txtHe_comp',0);//健保公司負擔
+	            						}
+	            						
+	            						break;	
+	            					}
+	            				}
+            				}else{//各自設定投保金額
+            					for (var i = 0; i < labhealths.length; i++) {
+	            					if(dec(labhealths[i].salary1)<=dec($('#txtSa_health').val())&&dec(labhealths[i].salary2)>=dec($('#txtSa_health').val())){
+	            						//q_tr('txtSa_health',labhealths[i].lmoney);//健保薪資
+	            						if(dec($('#txtMount').val())>3){
+	            							q_tr('txtHe_person',dec(labhealths[i].he_person)*(1+3));//健保自付額
+	            							t_he_person=dec(labhealths[i].he_person)*(1+3);
+	            						}else{
+	            							q_tr('txtHe_person',dec(labhealths[i].he_person)*(1+dec($('#txtMount').val())));
+	            							t_he_person=dec(labhealths[i].he_person)*(1+dec($('#txtMount').val()));
+	            						}
+	            						q_tr('txtHe_comp',labhealths[i].he_comp);//健保公司負擔
+	            						
+	            						if(q_getPara('sys.comp').indexOf('大昌')>-1&&$('#chkIssssp')[0].checked){
+	            							q_tr('txtHe_person',q_float('txtHe_person')+q_float('txtHe_comp'));//健保自付額
+	            							t_he_person=q_float('txtHe_person');
+	            							q_tr('txtHe_comp',0);//健保公司負擔
+	            						}
+	            						
+	            						break;	
+	            					}
+	            				}
+	            				cal=false;
             				}
             			}
             		break;
