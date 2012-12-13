@@ -127,7 +127,7 @@
 			function q_funcPost(t_func, result) {
                 switch(t_func) {
                     case 'carcsb.export':
-						alert(result.length);
+						alert(result);
 						$('#btnExport_trans').removeAttr('disabled','disabled').val('匯至出車單');
                         break;
                 }
