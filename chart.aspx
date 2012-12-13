@@ -182,6 +182,9 @@
                                 var obj = $(this).parent().parent();
                                 $('#block_'+$(this).data('info').index).attr('fill',obj.data('info').fillColor[$(this).data('info').index]);
                                 $('#blockLogo_'+$(this).data('info').index).attr('fill',obj.data('info').fillColor[$(this).data('info').index]);
+                            }).click(function(e){
+                            	var obj = $(this).parent().parent();
+                            	alert(obj.data('info').value.data[$(this).data('info').index].text);
                             });
                         }
                     });
