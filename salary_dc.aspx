@@ -390,6 +390,16 @@
            			$('#txtCh_health_'+j).change(function () {sum();});
            			$('#txtPlus_'+j).change(function () {sum();});
            			$('#txtMinus_'+j).change(function () {sum();});
+           			$('#chkSel_' + j).click(function () {
+	                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+						 if($('#chkSel_' +b_seq)[0].checked){	//判斷是否被選取
+		                	$('#trSel_'+ b_seq).addClass('chksel');//變色
+		                }else{
+		                	$('#trSel_'+b_seq).removeClass('chksel');//取消變色
+		                }
+	                });
             	}
             }
             _bbsAssign();
@@ -960,6 +970,7 @@
              BORDER:1PX LIGHTGREY SOLID;
              width:100% ; height:98% ;  
         } 
+        .tbbs tr.chksel { background:bisque;} 
     </style>
 </head>
 <body ondragstart="return false" draggable="false"
@@ -1050,9 +1061,10 @@
         </div>
         </div>
         <div class='dbbs' > 
-        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 5000px;">
+        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 5000px;background:#cad3ff;">
             <tr style='color:White; background:#003366;' >
                 <td align="center" class="td1"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;font-size: 16px;"  /> </td>
+                <td align="center" class="td0"><a id='vewChks'></a></td>
                 <td align="center" class="td1"><a id='lblSno'></a></td>
                 <td align="center" class="td2"><a id='lblNamea'></a></td>
                 <td align="center" class="td2" id='hid_money'><a id='lblMoneys'></a></td>
@@ -1097,6 +1109,7 @@
                 <td align="center" class="td2" id='hid_tax18'><a id='lblTax18s'></a></td>
                 <td align="center" class="td2" id='hid_ch_labor_comp'><a id='lblCh_labor_comps'></a></td>
                 <td align="center" class="td2" id='hid_ch_labor_self'><a id='lblCh_labor_selfs'></a></td>
+                <td align="center" class="td2"><a id='lblCh_healths'></a></td>
                 <td align="center" class="td2" id='hid_lodging_power_fee'><a id='lblLodging_power_fees'></a></td>
                 <td align="center" class="td1" id='hid_tax'><a id='lblTaxs'></a></td>
                 <td align="center" class="td1" id='hid_tax5'><a id='lblTax5s'></a></td>
@@ -1104,7 +1117,6 @@
                 <td align="center" class="td1"><a id='vewIswelfare'></a></td>
                 <td align="center" class="td2" id='hid_stay_money'><a id='lblStay_moneys'></a></td>
                 <td align="center" class="td1"><a id='lblRaise_nums'></a></td>
-                <td align="center" class="td2"><a id='lblCh_healths'></a></td>
                 <td align="center" class="td2"><a id='lblMinus'></a></td>
                 <td align="center" class="td2"><a id='lblTotal4s'></a></td>
                 <td align="center" class="td2"><a id='lblTotal5s'></a></td>
@@ -1113,8 +1125,9 @@
                 <td align="center" class="td2"><a id='lblCh_health_insures'></a></td>
                 <td align="center" class="td2"><a id='lblMemo'></a></td>
             </tr>
-            <tr  style='background:#cad3ff;'>
+            <tr  id="trSel.*">
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;font-size: 16px;float: center;" /></td>
+                <td ><input id="chkSel.*" type="checkbox"/></td>
                 <td ><input class="txt c1" id="txtSno.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
                 <td ><input class="txt c1" id="txtNamea.*" type="text" /></td>
                 <td id='hid_money.*'><input class="txt num c1" id="txtMoney.*" type="text" /></td>
@@ -1163,6 +1176,7 @@
                 <td id='hid_tax18.*'><input class="txt num c1" id="txtTax18.*" type="text" /></td>
                 <td id='hid_ch_labor_comp.*'><input class="txt num c1" id="txtCh_labor_comp.*" type="text" /></td>
                 <td id='hid_ch_labor_self.*'><input class="txt num c1" id="txtCh_labor_self.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtCh_health.*" type="text" /></td>
                 <td id='hid_lodging_power_fee.*'><input class="txt num c1" id="txtLodging_power_fee.*" type="text" /></td>
                 <td id='hid_tax.*'><input class="txt num c1" id="txtTax.*" type="text" /></td>
                 <td id='hid_tax5.*'><input class="txt num c1" id="txtTax5.*" type="text" /></td>
@@ -1170,7 +1184,6 @@
                 <td ><input id="chkIswelfare.*" type="checkbox"/></td>
                 <td id='hid_stay_money.*'><input class="txt num c1" id="txtStay_money.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtRaise_num.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtCh_health.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtMinus.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtTotal4.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtTotal5.*" type="text" /></td>
