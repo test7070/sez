@@ -126,7 +126,7 @@
 							var vccars = _q_appendData("vccars", "", true);
 							if (vccars[0] != undefined) {
 								 for (var i = 0; i < vccars.length; i++) {
-								 	if(vccars[0].binvono<=$('#txtNoa').val() &&vccars[0].einvono>=$('#txtNoa').val())
+								 	if(vccars[i].binvono<=$('#txtNoa').val() &&vccars[i].einvono>=$('#txtNoa').val())
 								 	{
 								 		noaerror = false;
 										ins = false;

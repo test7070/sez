@@ -12,7 +12,7 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
-    var q_name = 'saladjust', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 1;
+    var q_name = 'saladjust', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
     var t_sqlname = 'saladjust_load'; t_postname = q_name;
     var isBott = false;  /// 是否已按過 最後一頁
     var afield, t_htm;
@@ -97,9 +97,9 @@
 
         _btnModi();
 
-        for (i = 0; i < abbsDele.length; i++) {
+        /*for (i = 0; i < abbsDele.length; i++) {
             abbsDele[i][bbsKey[0]] = t_key[1];
-        }
+        }*/
         if(emp($('#txtDatea_0').val()))
         	$('#txtDatea_0').val(q_date());
         $('#txtJobno_0').focus();
