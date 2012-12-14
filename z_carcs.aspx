@@ -163,6 +163,10 @@
 							type : '8',
 							name : 'xcarkind',
 							value : t_data.data['carkind'].split(',')
+						}, {/*4*/
+							type : '8',
+							name : 'cartype',
+							value : q_getPara('car2.cartype').split(',')
 						}]
 					});
 					q_popAssign();

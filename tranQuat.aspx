@@ -403,11 +403,26 @@
 							<td class="td6" >
 							<input id="txtConn_acomp"  type="text"  class="txt c1"/>
 							</td>
-							<td class="td7"><span> </span><a id="lblAssistant" class="lbl"> </a></td>
+							<td class="td7"><span> </span><a id="lblConn_acomp_tel" class="lbl"> </a></td>
 							<td class="td8" >
-							<input id="txtAssistant"  type="text"  class="txt c1"/>
+							<input id="txtConn_acomp_tel"  type="text"  class="txt c1"/>
 							</td>
 						</tr>
+						<tr class="tr4"> 
+							<td class="td3"><span> </span><a id="lblAssistant" class="lbl"> </a></td>
+							<td class="td4" >
+							<input id="txtAssistant"  type="text"  class="txt c1"/>
+							</td>
+							<td class="td3"><span> </span><a id="lblAssistanttel" class="lbl"> </a></td>
+							<td class="td4" >
+							<input id="txtAssistanttel"  type="text"  class="txt c1"/>
+							</td>
+							<td class="td1"><span> </span><a id="lblDisatcher" class="lbl"> </a></td>
+							<td class="td2" >
+							<input id="txtDisatcher"  type="text"  class="txt c1"/>
+							</td> 
+							
+					    </tr>
 						<tr class="tr5">
 							<td class="td1"><span> </span><a id='lblCust' class="lbl btn"> </a></td>
 							<td class="td2" colspan="3">
@@ -419,7 +434,10 @@
 							<td class="td5">
 							<input id="txtConn_cust"  type="text"  class="txt c1"/>
 							</td>
-
+							<td class="td7"><span> </span><a id='lblConn_cust_tel'  class="lbl"> </a></td>
+							<td class="td8">
+							<input id="txtConn_cust_tel"  type="text"  class="txt c1"/>
+							</td>
 						</tr>
 						<tr class="tr6">
 							<td class="td1"><span> </span><a id='lblAddr_cust' class="lbl"> </a></td>
