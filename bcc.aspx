@@ -481,6 +481,11 @@
                <td class="td5"><span> </span><a id='lblStkmoney' class="lbl"></a></td>
                <td class="td6"><input id="txtStkmoney"  type="text"  class="txt num c1" /></td>
             </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblMemo2' class="lbl"></a></td>
+               <td class="td2" colspan='6'><input id="txtMemo2"  type="text" class="txt c1" /></td>
+               
+            </tr>
         </table>
         </div>
         </div> 

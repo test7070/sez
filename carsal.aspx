@@ -56,7 +56,19 @@
 				bbmMask = [['txtDatea', r_picd], ['txtNoa', r_picm], ['txtMon', r_picm]];
 				q_mask(bbmMask);
 				 $('#btnCarsal').click(function(e) {
+				 	if($('#txtMon').val().length==0){
+				 		alert('請輸入月份。');
+				 		return;
+				 	}
+				 	if($('#txtBdriverno').val().length==0 || $('#txtBdriverno').val().length==0){
+				 		alert('請輸入司機。');
+				 		return;
+				 	}
+				 		
                 	q_func('carsal.import',r_accy+','+$('#txtMon').val()+','+$('#txtBdriverno').val()+','+$('#txtEdriverno').val()+','+r_name);
+                });
+                $('#lblAccno').click(function() {
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
                 });
 			}
 
@@ -305,6 +317,12 @@
 			function btnCancel() {
 				_btnCancel();
 			}
+			function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                abbm[q_recno]['accno'] = xmlString;
+                $('#txtAccno').val(xmlString);
+            }
 		</script>
 		<style type="text/css">
 			#dmain {
@@ -531,6 +549,8 @@
 						<td><input id="txtWorker" type="text" class="txt c1"/>	</td>
 						<td><span> </span><a id="lblLock" class="lbl"> </a></td>
 						<td><input id="chkLock" type="checkbox" style="float:left;"/>	</td>
+						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
+						<td><input id="txtAccno" type="text"  class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

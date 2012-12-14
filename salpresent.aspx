@@ -24,7 +24,7 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
         q_desc=1;
-
+		aPop = new Array(['txtSssno_', 'txtSssno_', 'sss', 'noa,namea', 'txtSssno_,txtNamea_', 'sss_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];

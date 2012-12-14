@@ -557,7 +557,7 @@
 					</tr>
 					<tr>
 						<td class="td1"></td>
-						<td class="td2"><input id='btnLabases' type="button" /></td>
+						<td class="td2"><!--<input id='btnLabases' type="button" />--></td>
 						<td class="td4"></td>
 						<td class="td5"><input id='btnLabase' type="button" /></td>
 					</tr>
