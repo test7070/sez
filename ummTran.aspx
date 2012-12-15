@@ -142,6 +142,8 @@
 		                	 var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
 				            t_where = "custno=" + t_custno + " and unpay!=0 ";
 				            t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "'";
+				            t_where2 = " where[2]=^^ left(a.datea,6)='" + $('#txtDatea').val().substr(0,6) + "' ^^";
+		            		t_where3 = " where[3]=^^ c.noa='" + $('#txtCustno').val() + "' ^^";
 				            
 				            if(!emp($('#txtCustno2').val()))
 				            {
@@ -166,7 +168,7 @@
 			            	t_where = "^^1=0^^";
 				            t_where1 = " where[1]=^^1=0^^";
 			            }
-		                q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+t_where1, 'umm_trd', "70%", "600px", q_getMsg('popUmm_trd'));
+		                q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+t_where1+t_where2+t_where3, 'umm_trd', "70%", "600px", q_getMsg('popUmm_trd'));
 		        });
 		    }
 

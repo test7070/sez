@@ -241,7 +241,7 @@
             }
 
             function btnOk() {
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
+                t_err = q_chkEmpField([['txtCarno', q_getMsg('lblCarno')],['txtMon', q_getMsg('lblMon')]]);
                 if(t_err.length > 0) {
                     alert(t_err);
                     return;
@@ -252,9 +252,7 @@
 
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if(s1.length == 0 || s1 == "AUTO")
-                    q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
-                else
-                    wrServer(s1);
+                    wrServer($('#txtCarno').val()+'-'+$('#txtMon').val());
             }
 
             function _btnSeek() {
