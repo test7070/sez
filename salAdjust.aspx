@@ -3,14 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title></title>
-<script src="../script/jquery.min.js" type="text/javascript"></script>
-<script src='../script/qj2.js' type="text/javascript"></script>
-    <script src='qset.js' type="text/javascript"></script>
-<script src='../script/qj_mess.js' type="text/javascript"></script>
-<script src='../script/mask.js' type="text/javascript"></script>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-
 <script type="text/javascript">
     var q_name = 'saladjust', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
     var t_sqlname = 'saladjust_load'; t_postname = q_name;
@@ -22,10 +21,10 @@
     var q_readonly = [];
     var q_readonlys = [];
     var bbmNum = [];
-    var bbsNum = [];
+    var bbsNum = ['txtMoney','txtBo_admin','txtBo_traffic','txtBo_special','txtBo_oth','txtBo_full','txtSalary'];
     var bbmMask = [];
     var bbsMask = [];
-	aPop = new Array(['txtJobno_', 'lblJobno', 'salm', 'noa,job,level1', 'txtJobno_,txtJob_,txtLevel1_', '']);
+	aPop = new Array(['txtJobno_', 'txtJobno_', 'salm', 'noa,job,level1', 'txtJobno_,txtJob_,txtLevel1_','salm_b.aspx']);
     $(document).ready(function () {
         bbmKey = [];
         bbsKey = ['noa', 'noq'];
@@ -47,6 +46,8 @@
             return;
         }
         mainBrow(6, t_content, t_sqlname, t_postname);
+        bbsMask = [['txtDatea', r_picd]];
+        q_mask(bbsMask);
     }
 
     function mainPost() {
