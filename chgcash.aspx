@@ -2,27 +2,28 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title> </title>
-		<script src="../script/jquery.min.js" type="text/javascript"> </script>
-		<script src='../script/qj2.js' type="text/javascript"> </script>
-		<script src='qset.js' type="text/javascript"> </script>
-		<script src='../script/qj_mess.js' type="text/javascript"> </script>
-		<script src='../script/mask.js' type="text/javascript"> </script>
-		<script src="../script/qbox.js" type="text/javascript"> </script>
+		<title></title>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
-		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
-		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
-		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-			isEditTotal = false;
+
+            isEditTotal = false;
             q_tables = 's';
             var q_name = "chgcash";
-            var q_readonly = ['txtChgitem', 'txtPart', 'txtChgpart', 'txtOrg', 'txtNamea', 'txtComp', 'txtChgaccno', 'txtNoa','txtWorker'];
+            var q_readonly = ['txtChgitem', 'txtPart', 'txtChgpart', 'txtOrg', 'txtNamea', 'txtComp', 'txtChgaccno', 'txtNoa', 'txtWorker', 'txtMoney'];
             var q_readonlys = ['txtAcc2'];
             var bbmNum = [['txtOrg', 12, 0, 1]];
             var bbsNum = [];
@@ -34,16 +35,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             q_desc = 1;
-            aPop = new Array(
-            ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver','txtCarno', 'car2_b.aspx'],
-            ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], 
-            ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'], 
-            ['txtChgpartno', 'lblChgpart', 'chgpart', 'noa,part', 'txtChgpartno,txtChgpart', 'chgpart_b.aspx'], 
-            ['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'], 
-            ['txtChgitemno', 'lblChgitem', 'chgitem', 'noa,item', 'txtChgitemno,txtChgitem', 'chgitem_b.aspx'], 
-            ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], 
-            ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
-            ['txtMemo', '', 'qphr', 'code,phr', 'txtMemo,txtMemo', "qPhr_b.aspx", 'txtAcc1']);
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx'], ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'], ['txtChgpartno', 'lblChgpart', 'chgpart', 'noa,part', 'txtChgpartno,txtChgpart', 'chgpart_b.aspx'], ['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'], ['txtChgitemno', 'lblChgitem', 'chgitem', 'noa,item', 'txtChgitemno,txtChgitem', 'chgitem_b.aspx'], ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtMemo', '', 'qphr', 'code,phr', 'txtMemo,txtMemo', "qPhr_b.aspx", 'txtAcc1']);
 
             brwCount2 = 4;
 
@@ -54,7 +46,7 @@
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
             });
             function main() {
-                if(dataErr) {
+                if (dataErr) {
                     dataErr = false;
                     return;
                 }
@@ -68,13 +60,15 @@
                 //零用金下拉式與TXT輸入
                 q_cmbParse("cmbDc", q_getPara('chgcash.typea'));
                 q_gt('carteam', '', 0, 0, 0, "");
+                q_gt('part', '', 0, 0, 0, "");
+                q_gt('chgpart', '', 0, 0, 0, "");
 
                 $("#cmbDc").focus(function() {
-					var len = $("#cmbDc").children().length > 0 ? $("#cmbDc").children().length : 1;
-					$("#cmbDc").attr('size', len + "");
-				}).blur(function() {
-					$("#cmbDc").attr('size', '1');
-				});
+                    var len = $("#cmbDc").children().length > 0 ? $("#cmbDc").children().length : 1;
+                    $("#cmbDc").attr('size', len + "");
+                }).blur(function() {
+                    $("#cmbDc").attr('size', '1');
+                });
 
                 $('#txtAcc1').change(function() {
                     var s1 = trim($(this).val());
@@ -89,8 +83,20 @@
                 }).blur(function() {
                     $("#cmbCarteamno").attr('size', '1');
                 });
+                $("#cmbPartno").focus(function() {
+                    var len = $("#cmbPartno").children().length > 0 ? $("#cmbPartno").children().length : 1;
+                    $("#cmbPartno").attr('size', len + "");
+                }).blur(function() {
+                    $("#cmbPartno").attr('size', '1');
+                });
+                $("#cmbChgpartno").focus(function() {
+                    var len = $("#cmbChgpartno").children().length > 0 ? $("#cmbChgpartno").children().length : 1;
+                    $("#cmbChgpartno").attr('size', len + "");
+                }).blur(function() {
+                    $("#cmbChgpartno").attr('size', '1');
+                });
             }
-            
+
             function q_funcPost(t_func, result) {
                 switch(t_func) {
                     default:
@@ -99,19 +105,19 @@
 
             }
 
-           function q_boxClose(s2) {
-				var ret;
-				switch (b_pop) {
-					case q_name + '_s':
-						q_boxClose2(s2);
-						break;
-				}
-				b_pop = '';
-			}
+            function q_boxClose(s2) {
+                var ret;
+                switch (b_pop) {
+                    case q_name + '_s':
+                        q_boxClose2(s2);
+                        break;
+                }
+                b_pop = '';
+            }
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'chgcashorg':
+                    case 'chgcashorg':
                         var as = _q_appendData("chgcash", "", true);
                         if (as[0] != undefined)
                             $('#txtOrg').val(as[0].total);
@@ -124,16 +130,41 @@
                                 t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
                             }
                             q_cmbParse("cmbCarteamno", t_item);
-                            $("#cmbCarteamno").val(t_item);
+                            $("#cmbCarteamno").val(abbm[q_recno].carteamno);
                         }
                         break;
-                	default:
+                    case 'part':
+                        var as = _q_appendData("part", "", true);
+                        if (as[0] != undefined) {
+                            var t_item = "";
+                            for ( i = 0; i < as.length; i++) {
+                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+                            }
+                            q_cmbParse("cmbPartno", t_item);
+                            $("#cmbPartno").val(abbm[q_recno].partno);
+                        }
+                        break;
+                    case 'chgpart':
+                        var as = _q_appendData("chgpart", "", true);
+                        if (as[0] != undefined) {
+                            var t_item = "";
+                            for ( i = 0; i < as.length; i++) {
+                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+                            }
+                            q_cmbParse("cmbChgpartno", t_item);
+                            $("#cmbChgpartno").val(abbm[q_recno].chgpartno);
+                        }
+                        break;
+                    default:
                         break;
                 }
             }
 
             function btnOk() {
+                sum();
                 $('#txtWorker').val(r_name);
+                $('#txtPart').val($('#cmbPartno').find(":selected").text());
+                $('#txtChgpart').val($('#cmbChgpartno').find(":selected").text());
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
@@ -143,17 +174,32 @@
             }
 
             function _btnSeek() {
-                if(q_cur > 0 && q_cur < 4)
+                if (q_cur > 0 && q_cur < 4)
                     return;
 
-                q_box('chgcash_s.aspx', q_name + '_s', "500px", "340px", q_getMsg("popSeek"));
+                q_box('chgcash_s.aspx', q_name + '_s', "550px", "550px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
+                for (var i = 0; i < q_bbsCount; i++) {
+                    $('#lblNo_' + i).text(i + 1);
+                    if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+                        $('#txtMoney_' + i).change(function() {
+                            sum();
+                        });
+                    }
+                }
                 _bbsAssign();
-                for(var ix = 0; ix < q_bbsCount; ix++) {
-                	$('#lblNo_'+ix).text(ix+1);	
-                }            
+            }
+
+            function sum() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return;
+                var t_money = 0;
+                for (var i = 0; i < q_bbsCount; i++) {
+                    t_money += q_float('txtMoney_' + i);
+                }
+                $('#txtMoney').val(t_money);
             }
 
             function btnIns() {
@@ -162,7 +208,7 @@
                 //申請日期與時間
                 var now = new Date();
                 $('#txtDatea').val(q_date());
-                $('#txtTime').val((now.getHours()<10?'0':'')+now.getHours() + ':' + (now.getMinutes()<10?'0':'') + now.getMinutes());
+                $('#txtTime').val((now.getHours() < 10 ? '0' : '') + now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes());
 
                 //申請金額初始
                 $('#txtMoney').val(0);
@@ -175,10 +221,11 @@
                     return;
                 _btnModi();
                 $('#txtDatea').focus();
+                sum();
             }
 
             function btnPrint() {
-            	q_box('z_chgcash.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
+                q_box('z_chgcash.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -258,17 +305,20 @@
             function btnCancel() {
                 _btnCancel();
             }
-             function q_stPost() {
+
+            function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
                 abbm[q_recno]['accno'] = xmlString;
                 $('#txtAccno').val(xmlString);
             }
+
             //...........................................零用金餘額查詢
             function cashorg() {
-                var t_where = "where=^^ partno='" + $('#txtPartno').val() + "'^^";
+                var t_where = "where=^^ partno='" + $('#cmbPartno').val() + "'^^";
                 q_gt('chgcashorg', t_where, 0, 0, 0, "", r_accy);
             }
+
             //..........................................................
 		</script>
 		<style type="text/css">
@@ -277,8 +327,8 @@
             }
             .dview {
                 float: left;
-                width: 1080px; 
-                border-width: 0px; 
+                width: 1080px;
+                border-width: 0px;
             }
             .tview {
                 border: 5px solid gray;
@@ -298,8 +348,8 @@
             .dbbm {
                 float: left;
                 width: 1080px;
-                /*margin: -1px;        
-                border: 1px black solid;*/
+                /*margin: -1px;
+                 border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -318,12 +368,12 @@
             .tbbm tr td {
                 width: 9%;
             }
-            .tbbm .tr1{
+            .tbbm .tr1 {
                 background-color: #FFEC8B;
             }
             .tbbm .tr_carchg {
-				background-color: #DAA520;
-			}
+                background-color: #DAA520;
+            }
             .tbbm .tdZ {
                 width: 2%;
             }
@@ -383,7 +433,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
-                font-size:medium;
+                font-size: medium;
             }
             .dbbs {
                 width: 2400px;
@@ -391,12 +441,12 @@
             .tbbs a {
                 font-size: medium;
             }
-            
+
             .num {
                 text-align: right;
             }
-			input[type="text"],input[type="button"] {
-                font-size:medium;
+            input[type="text"], input[type="button"] {
+                font-size: medium;
             }
 		</style>
 	</head>
@@ -419,7 +469,9 @@
 						<td align="center" style="width:100px; color:black;"><a id='vewApprove'> </a></td>
 					</tr>
 					<tr>
-						<td ><input id="chkBrow.*" type="checkbox" /></td>
+						<td >
+						<input id="chkBrow.*" type="checkbox" />
+						</td>
 						<td id="datea" style="text-align: center;">~datea</td>
 						<td id="money,0,1" style="text-align: right;">~money,0,1</td>
 						<td id="namea" style="text-align: center;">~namea</td>
@@ -458,9 +510,8 @@
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id="lblPart" class="lbl btn"> </a></td>
-						<td class="td2">
-						<input id="txtPartno"  type="text"  class="txt c2"/>
-						<input id="txtPart"  type="text"  class="txt c3"/>
+						<td class="td2"><select id="cmbPartno" class="txt c1"></select>
+						<input id="txtPart"  type="text" style="display: none;"/>
 						</td>
 						<td class="td3"><span> </span><a id="lblSss" class="lbl btn"> </a></td>
 						<td class="td4">
@@ -479,9 +530,8 @@
 					</tr>
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id="lblChgpart" class="lbl btn"> </a></td>
-						<td class="td2">
-						<input id="txtChgpartno"  type="text"  class="txt c2"/>
-						<input id="txtChgpart"  type="text"  class="txt c3"/>
+						<td class="td2"><select id="cmbChgpartno" class="txt c1"></select>
+						<input id="txtChgpart"  type="text" style="display: none;"/>
 						</td>
 					</tr>
 					<tr class="tr5">
@@ -490,7 +540,7 @@
 						<input id="txtMoney" type="text" class="txt num c1"/>
 						</td>
 						<td class="td3"><span > </span><a id="lblDc" class="lbl"> </a></td>
-						<td class="td4"><select id="cmbDc" class="txt c1"> </select></td>
+						<td class="td4"><select id="cmbDc" class="txt c1"></select></td>
 						<td class="td5"><span> </span><a id="lblCarteam" class="lbl"> </a></td>
 						<td class="td6"><select id="cmbCarteamno" class="txt c1"></select></td>
 					</tr>
@@ -567,7 +617,7 @@
 					<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:20px;"> </td>
+					<td align="center" style="width:20px;"></td>
 					<td align="center" style="width:200px;"><a id='lblAcc_s'> </a></td>
 					<td align="center" style="width:400px;"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMoney_s'> </a></td>
@@ -583,9 +633,13 @@
 					<input type="text" id="txtAcc1.*"  style="width:35%;"/>
 					<input type="text" id="txtAcc2.*"  style="width:45%;"/>
 					</td>
-					<td ><input type="text" id="txtMemo.*" style="width:95%;" /></td>
-					<td><input type="text" id="txtMoney.*" style="width:95%;text-align: right;" /></td>
-					
+					<td >
+					<input type="text" id="txtMemo.*" style="width:95%;" />
+					</td>
+					<td>
+					<input type="text" id="txtMoney.*" style="width:95%;text-align: right;" />
+					</td>
+
 				</tr>
 			</table>
 		</div>

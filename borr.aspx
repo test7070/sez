@@ -494,20 +494,15 @@
 						<td><input id="txtTotal" type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
+						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td colspan="6"><input id="txtMemo" type="text" class="txt c1"/></td>
 						<td> </td>
 						<td><span> </span><a id="lblPay" class="lbl"> </a></td>
 						<td><input id="txtPay" type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
-						<td> </td>
-						<td> </td>
+						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
@@ -516,14 +511,6 @@
 						<td> </td>
 						<td><span> </span><a id="lblUnpay" class="lbl"> </a></td>
 						<td><input id="txtUnpay" type="text" class="txt c1 num"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td colspan="9"><input id="txtMemo" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
-						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
