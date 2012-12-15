@@ -65,7 +65,7 @@
 		        $('#txtAccno').val(result);
 		    }
 		    if (t_func == 'banktran.gen2') 
-		        window.open(t_path + 'obtdta.txt2', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
+		        window.open(t_path + 'obtdta2.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
 
         }
 
