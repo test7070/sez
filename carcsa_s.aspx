@@ -9,7 +9,7 @@
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<script type="text/javascript">
-			var q_name = "carchg_s";
+			var q_name = "carcsa_s";
 			aPop=new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']);
 
 			function z_carchg() {
@@ -38,20 +38,6 @@
 				q_gt('carteam', '', 0, 0, 0, "");
 				$('#txtBdate').focus();
 			}
-			function q_gtPost(t_name) {
-                switch (t_name) {
-                    case 'carteam':
-                        t_data.carteam = '@¥þ³¡';
-                        var as = _q_appendData("carteam", "", true);
-                        for ( i = 0; i < as.length; i++) {
-                            t_data.carteam += (t_data.carteam.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
-                        }
-                        break;
-                }
-                if (t_data.carteam.length > 0){
-                    q_cmbParse("cmbCarteam", t_data.carteam);
-                }
-            }
 
 			function q_seekStr() {
 				t_noa = $('#txtNoa').val();
