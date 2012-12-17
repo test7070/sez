@@ -409,16 +409,20 @@
 							</td>
 						</tr>
 						<tr class="tr4"> 
-							<td class="td3"><span> </span><a id="lblAssistant" class="lbl"> </a></td>
-							<td class="td4" >
+							<td class="td1"><span> </span><a id="lblAssistant" class="lbl"> </a></td>
+							<td class="td2" >
 							<input id="txtAssistant"  type="text"  class="txt c1"/>
 							</td>
 							<td class="td3"><span> </span><a id="lblAssistanttel" class="lbl"> </a></td>
 							<td class="td4" >
 							<input id="txtAssistanttel"  type="text"  class="txt c1"/>
 							</td>
-							<td class="td1"><span> </span><a id="lblDisatcher" class="lbl"> </a></td>
-							<td class="td2" >
+							<td class="td5"><span> </span><a id="lblCar_conn" class="lbl"> </a></td>
+							<td class="td6" >
+							<input id="txtCar_conn"  type="text"  class="txt c1"/>
+							</td> 
+							<td class="td7"><span> </span><a id="lblDisatcher" class="lbl"> </a></td>
+							<td class="td8" >
 							<input id="txtDisatcher"  type="text"  class="txt c1"/>
 							</td> 
 							
@@ -441,20 +445,21 @@
 						</tr>
 						<tr class="tr6">
 							<td class="td1"><span> </span><a id='lblAddr_cust' class="lbl"> </a></td>
-							<td class="td2" colspan="3" >
+							<td class="td2" colspan="5" >
 							<input id="txtZip_cust"  type="text" class="txt" style="width:20%; float: left;"/>
 							<input id="txtAddr_cust"  type="text" class="txt" style="width:80%; float: left;"/>
 							</td>
-							<td class="td5"><span> </span><a id='lblTel_cust'  class="lbl"> </a></td>
-							<td class="td6">
+						</tr>
+						<tr class="tr7">
+							<td class="td1"><span> </span><a id='lblTel_cust'  class="lbl"> </a></td>
+							<td class="td2">
 							<input id="txtTel_cust"  type="text"  class="txt c1"/>
 							</td>
-							<td class="td7"><span> </span><a id='lblFax_cust'  class="lbl"> </a></td>
-							<td class="td8">
+							<td class="td3"><span> </span><a id='lblFax_cust'  class="lbl"> </a></td>
+							<td class="td4">
 							<input id="txtFax_cust"  type="text"  class="txt c1"/>
 							</td>
 						</tr>
-
 						<tr class="tr8">
 							<td class="td1" ><span> </span><a id='lblOil1' class="lbl"> </a></td>
 							<td class="td2" colspan="2">
@@ -473,7 +478,7 @@
 							<input id="txtMemo"  type="text" class="txt c1"/>
 							</td>
 						</tr>
-						<tr>
+						<tr class="tr10">
 							<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 							<td class="td2">
 							<input id="txtWorker"  type="text" class="txt c1" />
