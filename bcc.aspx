@@ -163,7 +163,7 @@
         }
 
         function btnPrint() {
- 
+ 			q_box('z_bcc5.aspx', '', "95%", "650px", q_getMsg("popPrint"));
         }
         function btnOk() {
             var t_err = '';

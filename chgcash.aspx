@@ -23,7 +23,7 @@
             isEditTotal = false;
             q_tables = 's';
             var q_name = "chgcash";
-            var q_readonly = ['txtChgitem', 'txtPart', 'txtChgpart', 'txtOrg', 'txtNamea', 'txtComp', 'txtChgaccno', 'txtNoa', 'txtWorker', 'txtMoney'];
+            var q_readonly = ['txtChgitem', 'txtPart', 'txtChgpart', 'txtOrg', 'txtNamea', 'txtComp', 'txtAccno', 'txtNoa', 'txtWorker', 'txtMoney'];
             var q_readonlys = ['txtAcc2'];
             var bbmNum = [['txtOrg', 12, 0, 1]];
             var bbsNum = [];
@@ -95,6 +95,18 @@
                 }).blur(function() {
                     $("#cmbChgpartno").attr('size', '1');
                 });
+                $("#chkCarchg").change(function(e){
+                	if($("#chkCarchg").prop("checked"))
+                		$(".carchg").css('display','');
+                	else
+                		$(".carchg").css('display','none');
+                });
+                $('#lblAccno').click(function() {
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+                });
+                $('#lblCarchgno').click(function() {
+                    q_pop('txtCarchgno', "carchg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtCarchgno').val() + "';" + r_accy, 'carchg','noa','datea', "92%", "1054px", q_getMsg('popCarchg'), true);
+                });
             }
 
             function q_funcPost(t_func, result) {
@@ -155,6 +167,10 @@
                             $("#cmbChgpartno").val(abbm[q_recno].chgpartno);
                         }
                         break;
+                    case q_name:
+                        if (q_cur == 4)
+                            q_Seek_gtPost();
+                        break;
                     default:
                         break;
                 }
@@ -177,7 +193,7 @@
                 if (q_cur > 0 && q_cur < 4)
                     return;
 
-                q_box('chgcash_s.aspx', q_name + '_s', "550px", "550px", q_getMsg("popSeek"));
+                q_box('chgcash_s.aspx', q_name + '_s', "550px", "520px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
@@ -247,6 +263,10 @@
             function refresh(recno) {
                 _refresh(recno);
                 cashorg();
+                if($("#chkCarchg").prop("checked"))
+            		$(".carchg").css('display','');
+            	else
+            		$(".carchg").css('display','none');
             }
 
             function readonly(t_para, empty) {
@@ -320,6 +340,12 @@
             }
 
             //..........................................................
+            function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                abbm[q_recno]['accno'] = xmlString;
+                $('#txtAccno').val(xmlString);
+            }
 		</script>
 		<style type="text/css">
             #dmain {
@@ -366,7 +392,7 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 9%;
+                width: 10%;
             }
             .tbbm .tr1 {
                 background-color: #FFEC8B;
@@ -436,7 +462,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 2400px;
+                width: 1080px;
             }
             .tbbs a {
                 font-size: medium;
@@ -503,10 +529,11 @@
 						<td class="td4">
 						<input id="txtTime"  type="text"  class="txt c1"/>
 						</td>
-						<td class="td5"></td>
-						<td class="td6"></td>
+						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
+						<td><input id="txtNoa"  type="text"  class="txt c1"/></td>
 						<td class="td7"></td>
 						<td class="td8"></td>
+						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id="lblPart" class="lbl btn"> </a></td>
@@ -518,23 +545,13 @@
 						<input id="txtSssno"  type="text"  class="txt c4"/>
 						<input id="txtNamea" type="text"  class="txt c4"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
-						<td class="td6">
-						<input id="txtDriverno"  type="text"  class="txt c4"/>
-						<input id="txtDriver" type="text"  class="txt c4"/>
-						</td>
-						<td class="td7"><span> </span><a id="lblCarno" class="lbl btn"> </a></td>
-						<td class="td8">
-						<input id="txtCarno" type="text" class="txt c1" />
-						</td>
+						
 					</tr>
 					<tr class="tr4">
 						<td class="td1"><span> </span><a id="lblChgpart" class="lbl btn"> </a></td>
 						<td class="td2"><select id="cmbChgpartno" class="txt c1"></select>
 						<input id="txtChgpart"  type="text" style="display: none;"/>
 						</td>
-					</tr>
-					<tr class="tr5">
 						<td class="td1"><span> </span><a id="lblMoney" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtMoney" type="text" class="txt num c1"/>
@@ -544,69 +561,61 @@
 						<td class="td5"><span> </span><a id="lblCarteam" class="lbl"> </a></td>
 						<td class="td6"><select id="cmbCarteamno" class="txt c1"></select></td>
 					</tr>
-					<tr class="tr6">
-						<td class="td1"><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
-						<td class="td2">
-						<input id="txtCustno"  type="text"  class="txt c1"/>
+					<tr>
+						<td> </td>
+						<td><span> </span><a id="lblCustchgno" class="lbl"> </a>
+							<input id="chkCustchg" type="checkbox" style="float: right;"/>
+							<input id="txtCustchgno" style="display:none;"/>
 						</td>
-						<td class="td3" colspan="2">
-						<input id="txtComp"  type="text"  class="txt c1"/>
-						</td>
+						<td><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
+						<td><input id="txtCustno"  type="text"  class="txt c1"/></td>
+						<td colspan="2"><input id="txtComp"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblPo" class="lbl"> </a></td>
+						<td><input id="txtPo"  type="text" class="txt c1" /></td>
 					</tr>
-					<tr class="tr7">
-						<td class="td1"><span> </span><a id="lblPo" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtPo"  type="text" class="txt num c1" />
+					<tr>
+						<td> </td>
+						<td>
+							<span> </span><a id="lblCarchg" class="lbl"> </a>
+							<input id="chkCarchg" type="checkbox" style="float: right;"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblCustchgno" class="lbl"> </a>
-						<input id="chkCustchg" type="checkbox" style="float: right;"/>
-						<input id="txtCustchgno"  type="hidden" />
+						<td class="carchg"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
+						<td class="carchg">
+							<input id="txtDriverno"  type="text"  class="txt c4"/>
+							<input id="txtDriver" type="text"  class="txt c4"/>
 						</td>
-						<td class="td4"><span> </span><a id="lblCarchgno" class="lbl"> </a>
-						<input id="chkCarchg" type="checkbox" style="float: right;"/>
-						<input id="txtCarchgno"  type="hidden" />
-						</td>
-						<td class="td5"><span> </span><a id="lblChecker" class="lbl"> </a></td>
-						<td class="td6">
-						<input id="txtChecker"  type="text" class="txt c1" />
-						</td>
-						<td class="td7" colspan="2">
-						<input id="txtCheckmemo"  type="text" class="txt c1"/>
-						</td>
+						<td class="carchg"><span> </span><a id="lblCarno" class="lbl btn"> </a></td>
+						<td class="carchg"><input id="txtCarno" type="text" class="txt c1" /></td>
+						<td class="carchg"><span> </span><a id="lblCarchgno" class="lbl btn"> </a></td>
+						<td class="carchg"><input id="txtCarchgno"  type="text" class="txt c1" /></td>
 					</tr>
-					<tr class="tr8">
-						<td class="td1"><span> </span><a id="lblOrg" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtOrg"  type="text" class="txt num c1" />
-						</td>
-						<td class="td3"><span> </span><a id="lblNoa" class="lbl"> </a></td>
-						<td class="td4">
-						<input id="txtNoa"  type="text"  class="txt c1"/>
-						</td>
-						<td class="td5"><span> </span><a id="lblApprv" class="lbl"> </a></td>
-						<td class="td6">
-						<input id="txtApprv"  type="text" class="txt c1"/>
-						</td>
-						<td class="td7"colspan="2">
-						<input id="txtApprvmemo"  type="text" class="txt c1" />
-						</td>
+					
+					<tr>
+						<td><span> </span><a id="lblOrg" class="lbl"> </a></td>
+						<td><input id="txtOrg"  type="text" class="txt num c1" /></td>
+						<td> </td>
+						<td> </td>
+						<td><span> </span><a id="lblChecker" class="lbl"> </a></td>
+						<td><input id="txtChecker"  type="text" class="txt c1" /></td>
+						<td colspan="2"><input id="txtCheckmemo"  type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="tr9">
-						<td class="td1"><span> </span><a id="lblWorker" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtWorker"  type="text" class="txt c1"/>
-						</td>
-						<td class="td3"><span> </span><a id="lblChgaccno" class="lbl"> </a></td>
-						<td class="td4">
-						<input id="txtChgaccno"  type="text"  class="txt c1"/>
-						</td>
-						<td class="td5"><span> </span><a id="lblApprove" class="lbl"> </a></td>
-						<td class="td6">
-						<input id="txtApprove"  type="text" class="txt c1" />
-						</td>
-						<td class="td7" colspan="2">
-						<input id="txtApprovememo"  type="text" class="txt c1" />
-						</td>
+					<tr>
+						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
+						<td><input id="txtAccno"  type="text"  class="txt c1"/></td>
+						<td> </td>
+						<td> </td>
+						<td><span> </span><a id="lblApprv" class="lbl"> </a></td>
+						<td><input id="txtApprv"  type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="txtApprvmemo"  type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td><input id="txtWorker"  type="text" class="txt c1"/></td>	
+						<td> </td>
+						<td> </td>				
+						<td><span> </span><a id="lblApprove" class="lbl"> </a></td>
+						<td><input id="txtApprove"  type="text" class="txt c1" /></td>
+						<td colspan="2"><input id="txtApprovememo"  type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
