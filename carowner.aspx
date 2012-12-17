@@ -49,6 +49,9 @@
             	$('#lblCarlender').parent().click(function(e) {
 					q_box("carlender.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'carlender', "95%", "95%", q_getMsg("popCarlender"));
 				});
+				$('#lblLabase').parent().click(function(e) {
+					q_box("labase.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labase', "95%", "95%", q_getMsg("popLabase"));
+				});
             }
 
             function txtCopy(dest, source) {
@@ -494,6 +497,9 @@
 						</div>
 						<div class='btnLbl button'>
 							<a id='lblCarlender'></a>
+						</div>
+						<div class='btnLbl button'>
+							<a id='lblLabase'></a>
 						</div>
 					</div>
 				</div>
