@@ -52,9 +52,8 @@
 						value : q_getMsg('tsort3').split('&')
 					}]
 				});
-				q_getFormat();
-				q_langShow();
 				q_popAssign();
+				q_langShow();
 
 				$('#txtMon1').mask('999/99');
 				$('#txtMon2').mask('999/99');

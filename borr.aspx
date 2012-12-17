@@ -190,13 +190,20 @@
 			function calcDay(){
 				if(!(q_cur==1 || q_cur==2))
             		return;	
-            	var t_days = 0;
+            	/*var t_days = 0;
             	var t_date1 = $('#txtBegindate').val();
             	var t_date2 = $('#txtEnddate').val();
             	t_date1 = (new Date()).setFullYear(parseInt(t_date1.substring(0,3))+1911,t_date1.substring(4,6),t_date1.substring(7,9));
             	t_date2 = (new Date()).setFullYear(parseInt(t_date2.substring(0,3))+1911,t_date2.substring(4,6),t_date2.substring(7,9));       
             	t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24) + 1;
- 				$('#txtDays').val(t_days); 
+ 				$('#txtDays').val(t_days); */
+ 				var t_days = 0;
+            	var t_date1 = $('#txtBegindate').val();
+            	var t_date2 = $('#txtEnddate').val();
+            	t_date1 = new Date(dec(t_date1.substr(0,3))+1911, dec(t_date1.substring(4,6))-1, dec(t_date1.substring(7,9)));
+            	t_date2 = new Date(dec(t_date2.substr(0,3))+1911, dec(t_date2.substring(4,6))-1, dec(t_date2.substring(7,9)));      
+            	t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24) + 1;
+            	$('#txtDays').val(t_days);
  				sum();    	
 			}
             function sum() {
@@ -217,7 +224,7 @@
                 $('#txtChecka').val(t_checka);
                 t_money = t_cash + t_checka;
                 $('#txtMoney').val(t_money);
-                t_interest = round(t_money * t_days * q_float('txtRate') / 3000,0);
+                t_interest = round(t_days/30 * q_float('txtRate')*10000,0);
             	$('#txtInterest').val(t_interest);
             	$('#txtTotal').val(t_money+t_interest);
             	$('#txtPay').val(t_pay);
