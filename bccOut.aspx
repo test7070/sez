@@ -202,7 +202,7 @@
             $('#txtProduct').focus();
         }
         function btnPrint() {
- 
+ 			q_box('z_bcc.aspx', '', "95%", "650px", q_getMsg("popPrint"));
         }
 
         function wrServer( key_value) {
