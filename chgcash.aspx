@@ -366,7 +366,7 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 9%;
+                width: 10%;
             }
             .tbbm .tr1 {
                 background-color: #FFEC8B;
@@ -436,7 +436,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 2400px;
+                width: 1080px;
             }
             .tbbs a {
                 font-size: medium;
@@ -507,6 +507,7 @@
 						<td class="td6"></td>
 						<td class="td7"></td>
 						<td class="td8"></td>
+						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id="lblPart" class="lbl btn"> </a></td>
