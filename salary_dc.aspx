@@ -78,7 +78,6 @@
             		}
             	}
             	
-            	
             	getdtmp();
             	check_insed();
             });
@@ -654,13 +653,6 @@
         }
         
         function table_change() {
-        	$.DragTitleWidth({
-                TableID:'tdDrag'
-            })
-        	// 鎖定首行首列
-	        $.FixTable({
-	            TableID: 'tbbs'
-	            });
         	getdtmp();
              if ($('#cmbPerson').find("option:selected").text().indexOf('本國')>-1){
              	//bbm
@@ -831,6 +823,10 @@
             	 	 $('#hid_pubmoney_'+j).hide();
             	 	 $('#hid_lodging_power_fee_'+j).hide();
             }
+            // 鎖定首行首列
+	        $.FixTable({
+	            TableID: 'tbbs'
+	            });
         }
         
         var TableID='';
@@ -841,7 +837,7 @@
         var defaults ={
                 TableID:'',//要设置的TableID
                 LockRowCount:1,//要锁定的行数
-                LockColumnCount:0,//要锁定的列数
+                LockColumnCount:4,//要锁定的列数
                 IsDragTitleWidth:false//是否拖拽标题列宽
             };
         //转换接收来的参数值
@@ -925,7 +921,7 @@
                         tmp+='<td>';
                             tmp+='<div id="'+pid+'1"></div>';
                         tmp+='</td>';
-                        tmp+='<td style="border-bottom: 1px solid '+splitColor+';">';
+                        tmp+='<td style="border-bottom: 1px solid ;">';
                             tmp+='<div id="'+pid+'2"></div>';
                         tmp+='</td>';
                     tmp+='</tr>';
@@ -1317,8 +1313,8 @@ function setTableLayoutToFixed() {
         .tbbs tr.chksel { background:bisque;} 
         
         #box{
-		height:500px;
-		width: 5020px;
+		height:550px;
+		width: 1200px;
 		overflow-y:auto;
 		position:relative;
 		}
@@ -1422,8 +1418,7 @@ function setTableLayoutToFixed() {
         </table>
         </div>
         </div>
-        <div id="box">
-        <div class='dbbs' > 
+        <div id="box" > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 5000px;background:#cad3ff;">
             <tr style='color:White; background:#003366;' >
                 <td align="center" class="td1" style="width: 35px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;font-size: 16px;"  /> </td>
@@ -1556,7 +1551,6 @@ function setTableLayoutToFixed() {
                 <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
            </tr>
         </table>
-        </div>
         </div>
         <input id="q_sys" type="hidden" />
 </body>
