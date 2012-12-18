@@ -40,6 +40,12 @@
                     }]
                     });
                 q_popAssign();
+                
+                var t_noa=typeof(q_getId()[3])=='undefined'?'':q_getId()[3];
+                t_noa  =  t_noa.replace('noa=','');
+                $('#txtNoa1').val(t_noa);
+                $('#txtNoa2').val(t_noa);
+                
                 $('#txtDate1').mask('999/99/99');
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
@@ -55,7 +61,11 @@
 		     
 		</script>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+        ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"  
+        ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"  
+        ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+     >
 		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;">
 			<div id="container">
