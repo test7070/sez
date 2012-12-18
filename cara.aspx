@@ -140,11 +140,12 @@
                     				as[0].caritem='行費';//管理費
                     				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,manage', 'txtCaritemno');
                     			}
-                    			if(dec(as[0].guile)>0){
+                    			//12月之後沒有公會費，與行費算在一起
+                    			/*if(dec(as[0].guile)>0){
                     				as[0].caritemno='402';
                     				as[0].caritem='公會費'
                     				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,guile', 'txtCaritemno');
-                    			}
+                    			}*/
                     			if(dec(as[0].reserve)>0){
                     				as[0].caritemno='000';//未定
                     				as[0].caritem='準備金'
@@ -268,7 +269,14 @@
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
            			if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-           				$('#txtCaritemno_'+j).change(function () {sum();});
+           				$('#txtCaritemno_'+j).change(function () {
+           					t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+           					if(!emp($('#txtCaritemno_'+b_seq).val())&&$('#txtCaritemno_'+b_seq).val()=='303')
+           						q_box("ticket.aspx", 'ticket', "95%", "95%", q_getMsg("popTicket"));
+           					sum();
+           				});
            				$('#txtOutmoney_'+j).change(function () {sum();});
            				$('#txtInmoney_'+j).change(function () {sum();});
            				
@@ -398,12 +406,14 @@
                 
                 if (t_para) {
 		            $('#textCarseek').removeAttr('disabled');
-		            $('#btnNextmon').removeAttr('disabled');
+		            //$('#btnNextmon').removeAttr('disabled');
+		            $('#btnPxextmon').removeAttr('disabled');
 		            $('#btnImport').attr('disabled', 'disabled');
 		        }
 		        else {
 		        	$('#textCarseek').attr('disabled', 'disabled');
-		        	$('#btnNextmon').attr('disabled', 'disabled');
+		        	//$('#btnNextmon').attr('disabled', 'disabled');
+		        	$('#btnPnxtmon').attr('disabled', 'disabled');
 		        	$('#btnImport').removeAttr('disabled');
 		        }
             }
@@ -637,6 +647,7 @@
 						<td class="td4"><span> </span><a id='lblCarseek' class="lbl"></a></td>
 						<td class="td5"><input id="textCarseek"  type="text" class="txt c1"/></td>
 						<td class="td6"><input id="btnImport" type="button" /></td>
+						<!--<td class="td7"><input id="btnNextmon" type="button" /></td>-->
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id='lblMon' class="lbl"></a></td>
@@ -676,7 +687,7 @@
 						<td class="td1"><span> </span><a id='lblPaytotal' class="lbl"></a></td>
 						<td class="td2"><input id="txtPaytotal"  type="text" class="txt num c1">	</td>
 						<td class="td3"></td>
-						<td class="td4"><input id="btnNextmon" type="button" /></td>
+						<td class="td4"><input id="btnPnextmon" type="button" /></td>
 						<td class="td5"><span> </span><a id='lblDatea' class="lbl"></a></td>
 						<td class="td6"><input id="txtDatea"  type="text" class="txt c1"/></td>
 						<td class="td7"><span> </span><a id='lblNoa' class="lbl"></a></td>

@@ -995,7 +995,7 @@
         
         #box{
 		height:500px;
-		width: 5020px;
+		width: 100%;
 		overflow-y:auto;
 		position:relative;
 		}

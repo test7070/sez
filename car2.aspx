@@ -542,15 +542,17 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td class="td1" style="width:10%"><a id='vewChk'></a></td>
-						<td class="td2" style="width:45%"><a id='vewCarno'></a></td>
-						<td class="td3" style="width:45%"><a id='vewDriver'></a></td>
+						<td class="td2" style="width:30%"><a id='vewCarno'></a></td>
+						<td class="td3" style="width:30%"><a id='vewCarowner'></a></td>
+						<td class="td4" style="width:30%"><a id='vewDriver'></a></td>
 					</tr>
 					<tr>
 						<td class="td1">
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
 						<td class="td2" id='carno'>~carno</td>
-						<td class="td3" id='driver'>~driver</td>
+						<td class="td3" id='carowner'>~carowner</td>
+						<td class="td4" id='driver'>~driver</td>
 					</tr>
 				</table>
 			</div>
