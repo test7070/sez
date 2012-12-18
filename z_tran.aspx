@@ -194,7 +194,7 @@
 							type : '5',
 							name : 'xsort14',
 							value : q_getMsg('tsort14').split('&')
-						}, {/*25*/
+						}, {/*25  外務   trans.sales*/
 							type : '2',
 							name : 'sales',
 							dbf : 'sss',
@@ -204,6 +204,12 @@
 							type : '5',
 							name : 'xsort6',
 							value : t_data.data['carteam'].split(',')
+						}, {/*27  業務  cust.sales*/
+							type : '2',
+							name : 'sales2',
+							dbf : 'sss',
+							index : 'noa,namea',
+							src : 'sss_b.aspx'
 						}]
 					});
 					q_popAssign();

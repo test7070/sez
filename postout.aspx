@@ -29,8 +29,10 @@
             bbmKey = ['noa'];
             q_brwCount();
             q_desc = 1;
-           q_gt(q_name, q_content, q_sqlCount, 1)
-            $('#txtNoa').focus
+           	q_gt(q_name, q_content, q_sqlCount, 1)
+            //$('#txtNoa').focus
+            //判斷是否為權限(簽核)
+            q_gt('authority', "where=^^a.noa='postout' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
         });
  
        function main() {
@@ -229,10 +231,18 @@
                     break;
             }   /// end Switch
         }
-
+		
+		var ischecker=false;
 		var p20=0,p35=0,p50=0,p100=0,p120=0,p130=0,p150=0,p200=0,p250=0,p320=0;//郵資庫存
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'authority':
+		                var as = _q_appendData('authority', '', true);
+		                if (as.length > 0 && as[0]["pr_run"] == "true")
+		                    ischecker = true;
+		                else
+		                    ischecker = false;
+		                break;
             	case 'postage':
             		var as = _q_appendData("postage", "", true);
             				if(as[0]!=undefined){
@@ -295,14 +305,28 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
-            $('#btnCheck').attr('disabled', 'disabled');
+            if(!ischecker)
+					$('#btnCheck').attr('disabled', 'disabled');
         }
 
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
-
+            
+            if(!emp($('#txtChecker').val())&&!ischecker){
+            	alert('已核准不准修改!!');
+				return;
+			}
+            
+            if(emp($('#txtChecker').val())&&$('#txtSssno').val()!=r_userno&&!ischecker){
+            	alert('非領用人禁止修改!!');
+				return;
+			}
             _btnModi();
+            
+            if(!ischecker)
+					$('#btnCheck').attr('disabled', 'disabled');
+					
             $('#txtComp').focus();
         }
 

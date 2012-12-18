@@ -30,7 +30,6 @@
             bbsKey = ['noa', 'noq'];
             q_brwCount();  
             q_gt(q_name, q_content, q_sqlCount, 1)
-            
         });
         
         //////////////////   end Ready
@@ -654,13 +653,7 @@
         }
         
         function table_change() {
-        	$.DragTitleWidth({
-                TableID:'tdDrag'
-            })
-        	// 鎖定首行首列
-	        $.FixTable({
-	            TableID: 'tbbs'
-	            });
+        	scroll("tbbs","box",1);
         	getdtmp();
              if ($('#cmbPerson').find("option:selected").text().indexOf('本國')>-1){
              	//bbm
@@ -833,342 +826,26 @@
             }
         }
         
-        var TableID='';
-
-(function(){
-    $.FixTable=function(options){
-        //设置接收参数及默认值
-        var defaults ={
-                TableID:'',//要设置的TableID
-                LockRowCount:1,//要锁定的行数
-                LockColumnCount:0,//要锁定的列数
-                IsDragTitleWidth:false//是否拖拽标题列宽
-            };
-        //转换接收来的参数值
-        $.extend(defaults, options);
         
-        TableID=defaults.TableID;
-        
-        //得到表格本身
-        var $table=$("#"+defaults.TableID);
-        if($table.length==0)
-        {
-            return;
-        }
-        
-        //以下设置拖拽效果
-        
-        
-        //以下设置Table冻结行列
-        //滚动条宽度
-        var scrW = 16;
-
-        $table.show();
-    
-        //得到表格实际大小
-        var tableW = $table.outerWidth(true);
-        var tableH = $table.outerHeight(true);
-        
-        //如果存在这个Table 框架(上次动态查询产生)
-        if($("#tb_fix_Frame").length!=0)
-        {
-            $("#tb_fix_Frame").remove();
-        }
-    
-        //允许显示区域大小(外层Div的大小)
-        $table.hide();
-        var outDivW = $table.parent().outerWidth(true);
-        var outDivH = $table.parent().outerHeight(true);
-        $table.show();
-        
-        //拿到表格的HTML代码(必须返回到父类才能得到全部HTML)
-        var tableHtml = $table.parent().html();
-    
-        //判断是否需要固定行列头
-        if(tableW<=outDivW && tableH<=outDivH){
-            return;
-        }
-        //判断需要固定行/列/行列
-        var fixType = 4;    //全固定
-        if(defaults.LockRowCount<0 && defaults.LockColumnCount<0)
-        {
-            return;
-            }
-        else if (defaults.LockRowCount>0 && defaults.LockColumnCount<=0)
-        {
-            fixType = 1;    //行固定
-            }
-        else if(defaults.LockRowCount<=0 && defaults.LockColumnCount>0)
-        {
-            fixType = 2;    //列固定
-            }
-    
-        //固定单元格的位置(固定的宽度高度)
-        var fixW = 0;
-        var fixH = 0;
-    
-        //得到表格的偏移量 (元素在父元素内的坐标)
-        var tableOffset = $table.offset();
-    
-        //每个块中Div统一名称
-        var pid = 'fixbox_'+$table.attr('id');
-        var div1, div2, div3, div4;
-        
-        if(fixType==4){    //行头列头都需固定
-            //取出指定行列单元格在Table表内的偏移量
-            var tdOffset = $table.find('tr').eq(defaults.LockRowCount).find('td').eq(defaults.LockColumnCount).offset();
-            //相减得到要锁定的高度宽度像素
-            fixW = tdOffset.left - tableOffset.left;
-            fixH = tdOffset.top - tableOffset.top;
-            var tmp='<table id="tb_fix_Frame" style="background: #ededed;" border="0" cellspacing="0" cellpadding="0">';
-                    tmp+='<tr>';
-                        tmp+='<td>';
-                            tmp+='<div id="'+pid+'1"></div>';
-                        tmp+='</td>';
-                        tmp+='<td style="border-bottom: 1px solid '+splitColor+';">';
-                            tmp+='<div id="'+pid+'2"></div>';
-                        tmp+='</td>';
-                    tmp+='</tr>';
-                    tmp+='<tr>';
-                        tmp+='<td valign="top">';
-                            tmp+='<div id="'+pid+'3"></div>';
-                        tmp+='</td>';
-                        tmp+='<td>';
-                            tmp+='<div id="'+pid+'4"></div>';
-                        tmp+='</td>';
-                    tmp+='</tr>';
-                tmp+='</table>';
-    
-            $table.before(tmp);
-            
-            $('div[id^='+pid+']').each(function(){
-                $(this).css({
-                    background: 'white',
-                    overflow: 'hidden',
-                    margin: '0 0 0 0',
-                    padding: '0 0 0 0',
-                    border: '0'
-                });
-            });
-            div1 = $('#'+pid+'1');
-            div2 = $('#'+pid+'2');
-            div3 = $('#'+pid+'3');
-            div4 = $('#'+pid+'4');
-            
-            //左上角方块
-            div1.html(tableHtml).css({width: fixW, height: fixH});
-            div1.find('table:first').attr('id',$table.attr('id')+1);
-    
-            //右上方块
-            div2.html(tableHtml).css({width: outDivW-fixW-scrW, height: fixH});
-            if(outDivH>=tableH)//如果外层Div高度大于或等于表格高度，则不会出现上下滚动条，右上方块宽度不用减去滚动条
-            {
-                div2.html(tableHtml).css({width: outDivW-fixW, height: fixH});
-                }
-            
-            //移动Div内的Table
-            div2.find('table:first').css({
-                position: 'relative',
-                left: -fixW
-            }).attr('id',$table.attr('id')+2);
-    
-            //左下方块
-            div3.html(tableHtml).css({width: fixW, height: outDivH-fixH-scrW});
-            div3.find('table:first').css({
-                position: 'relative',
-                top: -fixH
-            }).attr('id',$table.attr('id')+3);
-    
-            //主方块
-            div4.append(tableHtml).css({
-                width: outDivW-fixW, 
-                height: outDivH-fixH+1,
-                overflow:'auto'});
-            div4.find('table:first').css({
-                position: 'relative',
-                top: -fixH,
-                left:-fixW
-            }).attr('id',$table.attr('id')+4);
-            
-            //设置主Div块与Div2块滚动条左右滚动同步
-            //设置主Div块与Div3块滚动条上下滚动同步
-            div4.scroll(function(){
-                div2.scrollLeft($(this).scrollLeft());
-                div3.scrollTop($(this).scrollTop());
-            });
-        }else if(fixType==1){    //只需固定行头
-            
-            //锁定行号大于等于Table的行数、则锁定高度像素为Table高度
-            if(defaults.LockRowCount>=$table.find('tr').length)
-            {
-                fixH=$table.height();
-            }
-            else
-            {
-                //得到行的偏移量
-                var tdOffset= $table.find('tr').eq(defaults.LockRowCount).offset();
-                //相减得到要锁定的高度像素
-                fixH = tdOffset.top - tableOffset.top;
-            }
-    
-            //取消Table外层的Div,为下次动态锁定做准备
-            //$table.unwrap();
-            var tmp='<table id="tb_fix_Frame" style="background: #ededed;" border="0" cellspacing="0" cellpadding="0">';
-                    tmp+='<tr>';
-                        tmp+='<td>';
-                            tmp+='<div id="'+pid+'1"></div>';
-                        tmp+='</td>'
-                    tmp+='</tr>';
-                    tmp+='<tr>';
-                            tmp+='<td>';
-                                tmp+='<div id="'+pid+'2"></div>';
-                            tmp+='</td>';
-                    tmp+='</tr>';
-                tmp+='</table>';
-    
-            $table.before(tmp);
-            
-            $('div[id^='+pid+']').each(function(){
-                $(this).css({
-                    background: 'white',
-                    overflow: 'hidden',
-                    margin: '0 0 0 0',
-                    padding: '0 0 0 0',
-                    border: '0'
-                });
-            });
-            div1 = $('#'+pid+'1');
-            div2 = $('#'+pid+'2');
-    
-            //上方方块
-            div1.html(tableHtml).css({width: outDivW-scrW, height: fixH});
-            if(outDivH>=tableH)//如果外层Div高度大于或等于表格高度，则不会出现上下滚动条，上方块宽度不用减去滚动条
-            {
-                div1.html(tableHtml).css({width: outDivW, height: fixH});
-                }
-            div1.find('table:first').attr('id',$table.attr('id')+1);
-    
-            //主方块
-            div2.append(tableHtml).css({
-                width: outDivW+1, 
-                height: outDivH-fixH,
-                overflow: 'auto'
-            });
-            div2.find('table:first').css({
-                position: 'relative',
-                top: -fixH,
-                left:0
-            }).attr('id',$table.attr('id')+2);
-            
-            //设置上下Div块滚动条左右同步
-            div2.scroll(function(){
-                div1.scrollLeft($(this).scrollLeft());
-            });        
-        }else if(fixType==2){    //只需固定列头
-            //锁定列号大于等于Table的列数、则锁定宽度像素为Table宽度
-            if(defaults.LockColumnCount>=$table.find('tr').first().find('td').length)
-            {
-                fixW=$table.width();
-            }    
-            else
-            {
-                //得到TD在表格内的偏移量
-                var tdOffset = $table.find('tr').first().find('td').eq(defaults.LockColumnCount).offset();
-                //相减得到要锁定的宽度像素
-                fixW = tdOffset.left - tableOffset.left;
-            }
-            //取消Table外层的Div,为下次动态锁定做准备
-            //$table.unwrap();
-            var tmp='<table id="tb_fix_Frame" style="background: #ededed;" border="0" cellspacing="0" cellpadding="0">';
-                    tmp+='<tr>';
-                        tmp+='<td valign="top">';
-                            tmp+='<div id="'+pid+'1"></div>';
-                        tmp+='</td>';
-                        tmp+='<td>';
-                            tmp+='<div id="'+pid+'2"></div>';
-                        tmp+='</td>';
-                    tmp+='</tr>';
-                tmp+='</table>';
-    
-            $table.before(tmp);
-            
-            $('div[id^='+pid+']').each(function(){
-                $(this).css({
-                    background: 'white',
-                    overflow: 'hidden',
-                    margin: '0 0 0 0',
-                    padding: '0 0 0 0',
-                    border: '0'
-                });
-            });
-            div1 = $('#'+pid+'1');
-            div2 = $('#'+pid+'2');
-            //左方方块
-            div1.html(tableHtml).css({width: fixW, height: outDivH-scrW});
-            div1.find('table:first').attr('id',$table.attr('id')+1);
-    
-            //主方块
-            div2.append(tableHtml).css({
-                width: outDivW-fixW, 
-                height: outDivH+1,
-                overflow: 'auto'
-            });
-            div2.find('table:first').css({
-                position: 'relative',
-                top: 0,
-                left:-fixW
-            }).attr('id',$table.attr('id')+2);
-            
-            //设置左右Div块滚动条上下滚动同步
-            div2.scroll(function(){
-                div1.scrollTop($(this).scrollTop());
-            });    
-        }
-    }
-    
-})(jQuery);
-
-
-function MouseDownToResize(obj) {
-    var theObjTable = document.getElementById(TableID);
-    setTableLayoutToFixed();
-    obj.mouseDownX = event.clientX;
-    obj.pareneTdW = obj.parentElement.offsetWidth;
-    obj.pareneTableW = theObjTable.offsetWidth;
-    obj.setCapture();
-}
-function MouseMoveToResize(obj) {
-    if (!obj.mouseDownX) return false;
-    var newWidth = obj.pareneTdW * 1 + event.clientX * 1 - obj.mouseDownX;
-    if (newWidth > 10) {
-        var theObjTable = document.getElementById(TableID);
-        obj.parentElement.style.width = newWidth;
-        theObjTable.style.width = obj.pareneTdW * 1 + event.clientX * 1 - obj.mouseDownX;
-    }
-}
-function MouseUpToResize(obj) {
-    obj.releaseCapture();
-    obj.mouseDownX = 0;
-}
-function setTableLayoutToFixed() {
-    var theObjTable = document.getElementById(TableID);    
-    if (theObjTable.style.tableLayout == 'fixed') return;
-    var headerTr = theObjTable.rows[0];
-    for (var i = 0; i < headerTr.cells.length; i++) {
-        headerTr.cells[i].styleOffsetWidth = headerTr.cells[i].offsetWidth;
-        headerTr.cells[i].style.width = headerTr.cells[i].styleOffsetWidth;
-    }
-
-    theObjTable.style.tableLayout = 'fixed';
-    
-    var $table=$("#"+TableID);
-    if($table.css('position')=='fixed') return;
-    var $td=$table.find('tr').first().find('td');
-    for(var i=0;i<$td.length;i++)
-    {
-        //$td.css({'width':$td.outerWidth(true)});
-    }
-} //http://www.cnblogs.com/only-copy/articles/2518296.html
+        function scroll(viewid,scrollid,size){
+			var scroll = document.getElementById(scrollid);
+			var tb2 = document.getElementById(viewid).cloneNode(true);
+			var len = tb2.rows.length;
+			for(var i=tb2.rows.length;i>size;i--){
+		                tb2.deleteRow(size);
+			}
+			var bak = document.createElement("div");
+			scroll.appendChild(bak);
+			bak.appendChild(tb2);
+			bak.style.position = "absolute";
+			bak.style.backgroundColor = "#cfc";
+		    bak.style.display = "block";
+			bak.style.left = 0;
+			bak.style.top = "0px";
+			scroll.onscroll = function(){
+				bak.style.top = this.scrollTop+"px";
+			}
+		}
     </script>
     <style type="text/css">
        
@@ -1318,20 +995,9 @@ function setTableLayoutToFixed() {
         
         #box{
 		height:500px;
-		width: 5020px;
+		width: 100%;
 		overflow-y:auto;
 		position:relative;
-		}
-		.resizeDivClass
-		 { 
-		    text-align : right ; 
-		    width : 2px ; 
-		    height : 100% ; 
-		    margin-left : auto ; 
-		    margin-right : 0px ; 
-		    border : 0px ; 
-		    float : right ; 
-		    cursor : e-resize ;
 		}
     </style>
 </head>
