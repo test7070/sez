@@ -128,7 +128,7 @@
             }
 
             function btnPrint() {
-                q_box("z_tranQuat.aspx", '', "95%", "95%", "")
+                q_box("z_tranQuat.aspx?;;;"+$('#txtNoa').val(), '', "95%", "95%", "")
             }
 
             function wrServer(key_value) {
