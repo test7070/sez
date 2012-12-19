@@ -51,7 +51,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtZip_cust', '999-99']];
+                bbmMask = [['txtDatea', r_picd], ['txtZip_cust', '999-99'],['txtBcontdate', r_picd],['txtEcontdate', r_picd],['txtChangecontdate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbStype", q_getPara('vcc.stype'));
 				$("#cmbStype").focus(function(){
@@ -389,24 +389,24 @@
 						</tr>
 						<tr class="tr2">
 							<td class="td1"><span> </span><a id='lblContract' class="lbl"> </a></td>
-							<td class="td2" colspan="2">
+							<td class="td2">
 							<input id="txtContract"  type="text"  class="txt c1"/>
 							</td>
 							<td class="td3"><span> </span><a id='lblBcontdate' class="lbl"> </a></td>
 							<td class="td4">
 							<input id="txtBcontdate" type="text"  class="txt c1"/>
 							</td>
-							<td class="td3"><span> </span><a id='lblEcontdate' class="lbl"> </a></td>
-							<td class="td4">
+							<td align="center"><a id="lblEcontdate"> </a></td>
+							<td class="td6">
 							<input id="txtEcontdate" type="text"  class="txt c1"/>
 							</td>
-						</tr>
-						<tr class="tr3">
-							<td class="td3"><span> </span><a id='lblChangecontdate' class="lbl"> </a></td>
-							<td class="td4">
+							<td class="td7"><span> </span><a id='lblChangecontdate' class="lbl"> </a></td>
+							<td class="td8">
 							<input id="txtChangecontdate" type="text"  class="txt c1"/>
 							</td>
 						</tr>
+							
+						
 						<tr class="tr4">
 							<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 							<td class='td2' colspan="3">
