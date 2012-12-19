@@ -755,7 +755,7 @@
 						<td align="center" style="width:80px; color:black;"><a id='vewMinusmoney'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTotal'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMount'></a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewAccno'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewVccano'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -771,7 +771,7 @@
 						<td id='minusmoney' style="text-align: right;">~minusmoney</td>
 						<td id='total' style="text-align: right;">~total</td>
 						<td id='mount' style="text-align: right;">~mount</td>
-						<td id='accno' style="text-align: left;" onmousedown="mouseDown_accno(this)">~accno</td>
+						<td id='vccano,10' style="text-align: left;" >~vccano,10</td>
 					</tr>
 				</table>
 			</div>

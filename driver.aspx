@@ -55,6 +55,9 @@
                 $('#btnLabase').click(function (e) {
 		            q_box("labase.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labase', "95%", "95%", q_getMsg("popLabase"));
 		        });
+		        $('#btnFamily').click(function (e) {
+		            q_box("labases_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labases', "95%", "95%", q_getMsg("popLabases"));
+		        });
             }
 
             function q_boxClose(s2) {
@@ -498,7 +501,7 @@
 						<td class="td6">
 						<input id="txtUacc3" type="text" class="txt c1" />
 						</td>
-						<td class="td7"></td>
+						<td class="td7"><input id='btnFamily' type="button" /></td>
 						<td class="td8"><input id='btnLabase' type="button" /></td>
 					</tr>
 					<tr class="tr15">
