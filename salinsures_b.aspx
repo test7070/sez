@@ -77,6 +77,9 @@
                 <th align="center" style='color:Blue;' class="td2"><a id='lblPay'></a></th>
                 <th align="center" style='color:Blue;' class="td2"><a id='lblUnpay'></a></th>
                 <th align="center" style='color:Blue;' class="td2"><a id='lblSalary'></a></th>
+                <th align="center" style='color:Blue;' class="td2"><a id='lblSa_retire'></a></th>
+                <th align="center" style='color:Blue;' class="td2"><a id='lblSa_labor'></a></th>
+                <th align="center" style='color:Blue;' class="td2"><a id='lblSa_health'></a></th>
                 <th align="center" style='color:Blue;' class="td2"><a id='lblMount'></a></th>
                 <th align="center" style='color:Blue;' class="td2"><a id='lblDisaster'></a></th>
                 <th align="center" style='color:Blue;' class="td1"><a id='lblComp'></a></th>
@@ -97,6 +100,9 @@
                 <td ><input class="txt c1" id="txtPay.*" type="text"   readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtUnpay.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtSalary.*" type="text"  readonly="readonly" /></td>
+                <td ><input class="txt c1" id="txtSa_retire.*" type="text"  readonly="readonly" /></td>
+                <td ><input class="txt c1" id="txtSa_labor.*" type="text"  readonly="readonly" /></td>
+                <td ><input class="txt c1" id="txtSa_health.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtMount.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtDisaster.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtComp.*" type="text"  readonly="readonly" /></td>
