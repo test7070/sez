@@ -149,7 +149,6 @@
                         break;
                 }
             }
-
 			function btnOk() {
 				$('#txtDatea').val($.trim($('#txtDatea').val()));
             	if($('#txtDatea').val().length>0 && !(/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test($('#txtDatea').val()))
