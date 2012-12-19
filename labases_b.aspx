@@ -45,8 +45,7 @@
             return;
         }
         mainBrow(6, t_content, t_sqlname, t_postname);
-        bbsMask = [['txtBirthday', r_picd],['txtIndate', r_picd],['txtOutdate', r_picd]];
-        q_mask(bbsMask);
+
     }
     
     function mainPost() {
