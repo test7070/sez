@@ -16,7 +16,7 @@
             }
 
             var q_name = "vcca";
-            var q_readonly = [];
+            var q_readonly = ['txtTotal','txtChkno','txtWorker','txtAccno'];
             var bbmNum = [['txtMoney',10,0],['txtTax',10,0],['txtTotal',10,0]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -24,14 +24,17 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp,serial,nick', 'txtCustno,txtComp,txtSerial,txtNick', 'cust_b.aspx'], ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx'], ['txtProductno', 'lblProductno', 'ucca', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit,txtProduct', 'ucca_b.aspx']);
+            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx']
+            ,['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
+            ,['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp,serial', 'txtBuyerno,txtBuyer,txtSerial', 'cust_b.aspx']
+            ,['txtSerial', 'lblSerial', 'cust', 'serial,noa,comp', 'txtSerial,txtBuyerno,txtBuyer', 'cust_b.aspx']);
 			brwCount2 = 15;
             function currentData() {
             }
             currentData.prototype = {
                 data : [],
                 /*新增時複製的欄位*/
-                include : ['txtDatea', 'txtCno', 'txtComp2', 'txtCustno', 'txtComp', 'txtNick', 'txtSeria', 'txtAddress', 'txtMon', 'txtNoa', 'txtBuyerno', 'txtBuyer', 'txtProductno', 'txtProduct', 'txtUnit'],
+                include : ['txtDatea', 'txtCno', 'txtComp2', 'txtNoa'],
                 /*記錄當前的資料*/
                 copy : function() {
                     curData.data = new Array();
@@ -71,7 +74,6 @@
                     dataErr = false;
                     return;
                 }
-
                 mainForm(1);
             }
 
@@ -86,7 +88,7 @@
                 $('#txtMoney').change(function(e) {
                     var t_money=0,t_tax=0;
                     t_money = q_float('txtMoney');
-                    t_tax = round(t_money*0.05,0);
+                    t_tax = round(t_money*parseFloat(q_getPara('sys.taxrate'))/100,0);
                     $('#txtTax').val(t_tax);
                     sum();
                 });
@@ -107,6 +109,27 @@
             }
             function q_gtPost(t_name) {
                 switch (t_name) {  
+                	case 'vccar':
+						var as = _q_appendData("vccar", "", true);
+						if (as[0] == undefined) {
+							alert("發票本數不存在或已輸入過");
+						} else {
+							var vccars = _q_appendData("vccars", "", true);
+							if (vccars[0] != undefined) {
+								 for (var i = 0; i < vccars.length; i++) {
+								 	if(vccars[i].binvono<=$('#txtNoa').val() && vccars[i].einvono>=$('#txtNoa').val())
+								 	{
+								 		wrServer($('#txtNoa').val());
+								 		return;
+								 	}
+								}
+							}else{
+								alert("發票號碼資料錯誤");
+								break;
+							}		
+							alert("發票號碼超出範圍");			
+						}
+						break;
                     case q_name:
                         if (q_cur == 4)// 查詢
                             q_Seek_gtPost();
@@ -115,6 +138,12 @@
             }
 
             function btnOk() {
+            	$('#txtDatea').val($.trim($('#txtDatea').val()));
+            	if(!(/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test($('#txtDatea').val()))
+            		alert('日期格式錯誤。');
+            	$('#txtNoa').val($.trim($('#txtNoa').val()));
+            	if(!(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val()))
+            		alert('發票格式錯誤。');
             	sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCno', q_getMsg('lblAcomp')]]);
                 // 檢查空白
@@ -122,25 +151,13 @@
                     alert(t_err);
                     return;
                 }
-                var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
-                /*if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-                 {
-                 q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
-                 }*/
-
-                if (ins == true) {
-                    //判斷發票號碼是否存在或超過
+				if(q_cur==1){
+					//判斷發票號碼是否存在或超過
                     var t_where = "where=^^ cno = '" + $('#txtCno').val() + "' and bdate<='" + $('#txtDatea').val() + "' and edate>='" + $('#txtDatea').val()//判斷發票的日期
-                    // +  "' and binvono<='" + $('#txtNoa').val() + "' and einvono>='" + $('#txtNoa').val()//判斷發票的範圍
                     + "' and '" + $('#txtNoa').val() + "' not in (select noa from vcca ) and len(binvono)=len('" + $('#txtNoa').val() + "') ^^";
                     //判斷是否已存在與長度是否正確
                     q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
-                } else {
-                    $('#txtWorker').val(r_name)
-                    sum();
-                    $('#txtNoa').attr('readonly', true);
-                    wrServer(s1);
-                }
+				}
             }
 
             function _btnSeek() {
@@ -158,19 +175,11 @@
 
                 //發票號碼+1
                 var t_noa = trim($('#txtNoa').val());
-                var t_noa_num = dec(t_noa.substr(2)) + 1;
-
-                if (t_noa_num.toString().length == 8)
-                    $('#txtNoa').val(t_noa.substr(0, 2) + t_noa_num);
-                else
-                    $('#txtNoa').val(t_noa.substr(0, 2) + '0' + t_noa_num);
-
-                //$('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-                //取上個發票號碼並將後兩個數字拿掉
-                //後面再寫判斷時間之間差12天
-                //var t_where = "where=^^ datea between '" + q_date().substr(0, 6) + "' and '" + q_date() + "' and noa not like '%退貨%' ^^";
-                //q_gt('vcca1', t_where, 0, 0, 0, "", r_accy);
-                $('#cmbTaxtype').val(1);
+                var str = '00000000'+(parseInt(t_noa.substring(2,10))+1);
+                str = str.substring(str.length-8,str.length);
+                t_noa = t_noa.substring(0,2)+str;
+                $('#txtNoa').val(t_noa);
+   
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
             }
@@ -265,7 +274,8 @@
             }
             function checkId(str){
             	if((/^[a-z,A-Z][0-9]{9}$/g).test(str)){
-            		var s = (str.substring(0,1).toUpperCase().charCodeAt(0)-55)+str.substring(1,10);
+            		var key='ABCDEFGHJKLMNPQRSTUVWXYZIO';
+            		var s = (key.indexOf(str.substring(0,1))+10)+str.substring(1,10);
             		var n = parseInt(s.substring(0,1))*1 
             			+ parseInt(s.substring(1,2))*9
             			+ parseInt(s.substring(2,3))*8
@@ -275,8 +285,9 @@
             			+ parseInt(s.substring(6,7))*4
             			+ parseInt(s.substring(7,8))*3
             			+ parseInt(s.substring(8,9))*2
-            			+ parseInt(s.substring(9,10))*1;
-					if (10-(n%10)!=parseInt(s.substring(10,11)))
+            			+ parseInt(s.substring(9,10))*1
+            			+ parseInt(s.substring(10,11))*1;
+					if ((n%10)!=0)
             			alert('身分證字號錯誤。') ;       		
             	}else if((/^[0-9]{8}$/g).test(str)){
             		var key = '12121241';
@@ -284,16 +295,12 @@
             		var m = 0;
             		for(var i=0;i<8;i++){
             			n = parseInt(str.substring(i,i+1)) * parseInt(key.substring(i,i+1));
-            			m += (n>=10?(Math.round(n/10)+n%10):n);
+            			m += Math.floor(n/10)+n%10;
             		}
-            		if(str.substring(6,7)=='7')
-            			m += 1;
-            		$('#txtMemo').val(m);
-            		if((m%10)!=0)
+            		if( !((m%10)==0 || ((str.substring(6,7)=='7'?m+1:m)%10)==0))
             			alert('統一編號錯誤。') ; 
-            			
             	}else{
-            		alert('undefine');
+            		alert('undefined');
             	}
             }
 		</script>
