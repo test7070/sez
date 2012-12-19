@@ -100,7 +100,7 @@
 					<td class="td3" align="center" style="width:80px;"><a id='lblDatea'> </a></td>
 					<td class="td2" align="center" style="width:50px;"><a id='lblMon'> </a></td>
 					<td class="td4" align="center" style="width:120px;"><a id='lblBuyer'></a></td>
-					<td class="td6" align="center" style="width:100px;"><a id='lblMoney'></a></td>
+					<td class="td6" align="center" style="width:100px;"><a id='lblPrice'></a></td>
 					<td class="td6" align="center" style="width:100px;"><a id='lblTax'></a></td>
 					<td class="td6" align="center" style="width:100px;"><a id='lblTotal'></a></td>
 					<td class="td6" align="center" style="width:100px;"><a id='lblMemo'></a></td>

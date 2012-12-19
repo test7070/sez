@@ -146,7 +146,7 @@
             	if(!(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val()))
             		alert('發票格式錯誤。');
             	$('#txtSerial').val($.trim($('#txtSerial').val()));
-            	if(!(/^[0-9]{8}$/g).test($('#txtSerial').val()))
+            	if($('#txtSerial').val().length>0 && !(/^[0-9]{8}$/g).test($('#txtSerial').val()))
             		alert('統一編號格式錯誤。');
             	sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCno', q_getMsg('lblAcomp')]]);
