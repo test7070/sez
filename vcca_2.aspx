@@ -228,36 +228,28 @@
 			function sum() {
 				if(!(q_cur==1 && q_cur==2))
 					return;
-				var t_mount,t_price,t_money,t_tax,t_total;
+				var t_mount,t_price,t_money,t_taxrate,t_tax,t_total;
 				t_mount = q_float('txtMount');
 				t_price = q_float('txtPrice');
 				t_money = round(t_mount*t_price,0);
-				
-				
-				
-				
-			    taxtype = trim(taxtype);
-			    var t_taxrate = dec(q_getPara('taxrate'))/100;
-			    var t_money = Math.round(q_float('txtMount')*q_float('txtMoney')), t_tax = 0;
-			    $('#txtTax').attr('readonly', true);
-			    $('#txtTax').css('background', t_background2);
-			
+				t_taxrate = parseFloat(q_getPara('sys.taxrate'))/100;
 			    switch (taxtype) {
 			        case '1':  // 應稅
 			            t_tax = round(t_money * t_taxrate, 0);
-			            q_tr('txtTax', t_tax, 0);
-			            q_tr('txtTotal', t_money + t_tax, 0);
+			            t_total = t_money + t_tax;
 			            break;
 			        case '2': //零稅率
+			        	t_tax = 0;
+			        	t_total = t_money + t_tax;
+			        	break;
 			        case '4':  // 免稅
-			            $('#txtTax').val(0);
-			            q_tr('txtTotal', t_money, 0);
+			            t_tax = 0;
+			        	t_total = t_money + t_tax;
 			            break;
 			        case '3':  // 內含
-			            t_tax = round(t_money / (1 + t_taxrate), 0) * t_taxrate;
-			            q_tr('txtTax', t_tax, 0);
-			            q_tr('txtTotal', t_money, 0);
-			            q_tr('txtMoney', t_money - t_tax, 0);
+			            t_tax = round(t_money / (1 + t_taxrate) * t_taxrate, 0);
+			            t_total = t_money;
+			            t_money = t_total - t_tax;
 			            break;
 			        case '5':  // 自定
 			            $('#txtTax').attr('readonly', false);
@@ -284,6 +276,8 @@
 			            $('#txtUnit').attr('readonly', true);
 			            $('#txtMount').val(0);//數量
 			            $('#txtMount').attr('readonly', true);
+			            $('#txtPrice').val(0);//price
+			            $('#txtPrice').attr('readonly', true);
 			            $('#txtTax').val(0);//營業稅
 			            $('#txtTax').attr('readonly', true);
 			            $('#txtTotal').val(0);//總計
