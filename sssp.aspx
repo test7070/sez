@@ -83,6 +83,17 @@
 		            }
 		        });
 		        $('#sssppart').hide();
+		        
+		        $('#txtId').change(function (e) {
+		            if (!emp($('#txtId').val())) {
+		            	if($('#txtId').val().length!=10){
+		            		alert('身分證字號錯誤!!');
+		            		return;
+		            	}
+		                var t_where = "where=^^ id ='"+$('#txtId').val()+"' ^^";
+					    q_gt('sssp', t_where , 0, 0, 0, "", r_accy);
+		            }
+		        });
 		    }
 
 		    function txtCopy(dest, source) {
@@ -149,6 +160,13 @@
 		                break;
 
 		            case q_name:
+		            	if (q_cur == 1 || q_cur == 2){
+		            		var as = _q_appendData("sssp", "", true);
+		            		if(as[0]!=undefined){
+		            			alert('身分證字號重覆!!請確認是否重覆輸入!!');
+		            		}
+		            	}
+		            		
 		                if (q_cur == 4)
 		                    q_Seek_gtPost();
 
