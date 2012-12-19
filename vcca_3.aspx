@@ -83,7 +83,8 @@
                 q_mask(bbmMask);
 				
 				$('#txtSerial').change(function(e){
-					checkId($.trim($('#txtSerial').val()));
+					$('#txtSerial').val($.trim($('#txtSerial').val()));
+					checkId($('#txtSerial').val());
 				});
                 $('#txtMoney').change(function(e) {
                     var t_money=0,t_tax=0;
@@ -144,6 +145,9 @@
             	$('#txtNoa').val($.trim($('#txtNoa').val()));
             	if(!(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val()))
             		alert('發票格式錯誤。');
+            	$('#txtSerial').val($.trim($('#txtSerial').val()));
+            	if(!(/^[0-9]{8}$/g).test($('#txtSerial').val()))
+            		alert('統一編號格式錯誤。');
             	sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCno', q_getMsg('lblAcomp')]]);
                 // 檢查空白
@@ -157,6 +161,8 @@
                     + "' and '" + $('#txtNoa').val() + "' not in (select noa from vcca ) and len(binvono)=len('" + $('#txtNoa').val() + "') ^^";
                     //判斷是否已存在與長度是否正確
                     q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
+				}else{
+					wrServer($('#txtNoa').val());
 				}
             }
 
