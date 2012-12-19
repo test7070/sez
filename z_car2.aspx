@@ -103,6 +103,10 @@
 	                        type : '8', //select
 	                        name : 'pdate',
 	                        value : ('遷出,報銷,報停').split(',')
+	                    }, {
+	                        type : '8', //select
+	                        name : 'sssno',
+	                        value : ('070120,070121,070122').split(',')
 	                    }]
                     });
                     q_getFormat();
