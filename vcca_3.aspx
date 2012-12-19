@@ -140,13 +140,13 @@
 
             function btnOk() {
             	$('#txtDatea').val($.trim($('#txtDatea').val()));
-            	if(!(/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test($('#txtDatea').val()))
+            	if($('#txtDatea').val().length>0 && !(/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test($('#txtDatea').val()))
             		alert('日期格式錯誤。');
             	$('#txtNoa').val($.trim($('#txtNoa').val()));
-            	if(!(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val()))
+            	if($('#txtNoa').val().length>0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val()))
             		alert('發票格式錯誤。');
             	$('#txtSerial').val($.trim($('#txtSerial').val()));
-            	if(!(/^[0-9]{8}$/g).test($('#txtSerial').val()))
+            	if($('#txtSerial').val().length>0 && !(/^[0-9]{8}$/g).test($('#txtSerial').val()))
             		alert('統一編號格式錯誤。');
             	sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCno', q_getMsg('lblAcomp')]]);
