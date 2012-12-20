@@ -61,11 +61,6 @@
                 }
                 mainForm(0);
             }
-			
-			function mouseDown_accno(w){
-				//alert(w.toString());
-			//	q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $(this).val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
-			}
             function mainPost() {
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtBtrandate', r_picd], ['txtEtrandate', r_picd], ['txtVccadate', r_picd]];
@@ -533,7 +528,6 @@
 
             function refresh(recno) {
                 _refresh(recno);
-
             }
 
             function readonly(t_para, empty) {
