@@ -85,6 +85,9 @@
             }
 
             function btnOk() {
+            	$('#txtDatea').val($.trim($('#txtDatea').val()));
+            	if($('#txtDatea').val().length>0 && !(/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test($('#txtDatea').val()))
+            		alert('日期格式錯誤。');
                 $('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
