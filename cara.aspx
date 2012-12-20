@@ -135,64 +135,66 @@
                     				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,_bratefee', 'txtCaritemno');
                 				}
                 				
-                				if(dec(as[0].manage)>0 && as[0].outdate=='' && as[0].stopdate=='' && as[0].enddate==''){
-                					as[0].caritemno='401';
-                    				as[0].caritem='行費';//管理費
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,manage', 'txtCaritemno');
-                    			}
-                    			//12月之後沒有公會費，與行費算在一起
-                    			/*if(dec(as[0].guile)>0){
-                    				as[0].caritemno='402';
-                    				as[0].caritem='公會費'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,guile', 'txtCaritemno');
-                    			}*/
-                    			if(dec(as[0].reserve)>0){
-                    				as[0].caritemno='000';//未定
-                    				as[0].caritem='準備金'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,reserve', 'txtCaritemno');
-                    			}
-                    			if(dec(as[0].help)>0){
-                    				as[0].caritemno='000';//未定
-                    				as[0].caritem='互助金'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,help', 'txtCaritemno');
-                    			}
-                    			
-                    			//上牌照稅
-                    			if(as[0].ulicensemon==$('#txtMon').val().substr(4,2)&&dec(as[0].ulicense)>0){
-                    				as[0].caritemno='501';
-                    				as[0].caritem='牌照稅'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,ulicense', 'txtCaritemno');
-                    			}
-                    			//下牌照稅
-                    			if(as[0].dlicensemon==$('#txtMon').val().substr(4,2)&&dec(as[0].dlicense)>0){
-                    				as[0].caritemno='501';
-                    				as[0].caritem='牌照稅'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,dlicense', 'txtCaritemno');
-                    			}
-                    			
-                    			//春燃料費
-                    			if(as[0].springmon==$('#txtMon').val().substr(4,2)&&dec(as[0].spring)>0){
-                    				as[0].caritemno='502';
-                    				as[0].caritem='燃料費'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,spring', 'txtCaritemno');
-                    			}
-                    			//夏燃料費
-                    			if(as[0].summermon==$('#txtMon').val().substr(4,2)&&dec(as[0].summer)>0){
-                    				as[0].caritemno='502';
-                    				as[0].caritem='燃料費'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,summer', 'txtCaritemno');
-                    			}
-                    			//秋燃料費
-                    			if(as[0].fallamon==$('#txtMon').val().substr(4,2)&&dec(as[0].falla)>0){
-                    				as[0].caritemno='502';
-                    				as[0].caritem='燃料費'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,falla', 'txtCaritemno');
-                    			}
-                    			//冬燃料費
-                    			if(as[0].wintermon==$('#txtMon').val().substr(4,2)&&dec(as[0].winter)>0){
-                    				as[0].caritemno='502';
-                    				as[0].caritem='燃料費'
-                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,winter', 'txtCaritemno');
+                				if(as[0].outdate=='' && as[0].stopdate=='' && as[0].enddate==''){
+	                				if(dec(as[0].manage)>0){
+	                					as[0].caritemno='401';
+	                    				as[0].caritem='行費';//管理費
+	                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,manage', 'txtCaritemno');
+	                    			}
+	                    			//12月之後沒有公會費，與行費算在一起
+	                    			/*if(dec(as[0].guile)>0){
+	                    				as[0].caritemno='402';
+	                    				as[0].caritem='公會費'
+	                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,guile', 'txtCaritemno');
+	                    			}*/
+	                    			/*if(dec(as[0].reserve)>0){
+	                    				as[0].caritemno='000';//未定
+	                    				as[0].caritem='準備金'
+	                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,reserve', 'txtCaritemno');
+	                    			}
+	                    			if(dec(as[0].help)>0){
+	                    				as[0].caritemno='000';//未定
+	                    				as[0].caritem='互助金'
+	                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,help', 'txtCaritemno');
+	                    			}*/
+	                    			
+	                    			//上牌照稅
+	                    			if(as[0].ulicensemon==$('#txtMon').val().substr(4,2)&&dec(as[0].ulicense)>0){
+	                    				as[0].caritemno='501';
+	                    				as[0].caritem='牌照稅'
+	                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,ulicense', 'txtCaritemno');
+	                    			}
+	                    			//下牌照稅
+	                    			if(as[0].dlicensemon==$('#txtMon').val().substr(4,2)&&dec(as[0].dlicense)>0){
+	                    				as[0].caritemno='501';
+	                    				as[0].caritem='牌照稅'
+	                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,dlicense', 'txtCaritemno');
+	                    			}
+	                    			
+	                    			//春燃料費
+	                    			if(as[0].springmon==$('#txtMon').val().substr(4,2)&&dec(as[0].spring)>0){
+	                    				as[0].caritemno='502';
+	                    				as[0].caritem='燃料費'
+	                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,spring', 'txtCaritemno');
+	                    			}
+	                    			//夏燃料費
+	                    			if(as[0].summermon==$('#txtMon').val().substr(4,2)&&dec(as[0].summer)>0){
+	                    				as[0].caritemno='502';
+	                    				as[0].caritem='燃料費'
+	                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,summer', 'txtCaritemno');
+	                    			}
+	                    			//秋燃料費
+	                    			if(as[0].fallamon==$('#txtMon').val().substr(4,2)&&dec(as[0].falla)>0){
+	                    				as[0].caritemno='502';
+	                    				as[0].caritem='燃料費'
+	                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,falla', 'txtCaritemno');
+	                    			}
+	                    			//冬燃料費
+	                    			if(as[0].wintermon==$('#txtMon').val().substr(4,2)&&dec(as[0].winter)>0){
+	                    				as[0].caritemno='502';
+	                    				as[0].caritem='燃料費'
+	                    				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,winter', 'txtCaritemno');
+	                    			}
                     			}
                 			}
                 			//保險費
