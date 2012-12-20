@@ -23,6 +23,10 @@
                 $('#q_report').q_report({
                     fileName : 'z_tranquat',
                     options : [{
+                    	type : '0',
+                    	name : 'xstype',
+                    	value :  q_getPara('vcc.stype')
+                    },{
                         type : '6',
                         name : 'xnoa'
                     }, {
