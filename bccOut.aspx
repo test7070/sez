@@ -16,7 +16,7 @@
         }
         q_tables = 's';
         var q_name = "bccout";
-        var q_readonly = ['txtNoa'];
+        var q_readonly = ['txtNoa','txtApprover'];
         var q_readonlys = [];
         var bbmNum = [];  
         var bbsNum = [['txtMount', 10, 0, 1],['txtBkbcc', 10, 0, 1]];
@@ -25,10 +25,10 @@
         q_desc=1;
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         aPop = new Array(['txtSno', 'lblSname', 'sss', 'noa,namea,partno,part', 'txtSno,txtSname,txtPartno,txtPart', 'sss_b.aspx'],
-        ['txtApprover', 'lblApprover', 'sss', 'namea', 'txtApprover', 'sss_b.aspx'],
         ['txtPartno','lblPart','part','noa,part','txtPartno,txtPart','part_b.aspx'],
         ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product,stkmount', 'txtBccno_,txtBccname_,txtStkmount_,txtMount_', 'bcc_b.aspx'],
         ['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx']);
+		//['txtApprover', 'lblApprover', 'sss', 'namea', 'txtApprover', 'sss_b.aspx'],
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -50,6 +50,9 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
+            $('#lblApprover').click(function (e) {
+		             $('#txtApprover').val(r_name);
+		     });
         }
 
         function q_boxClose( s2) { 

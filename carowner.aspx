@@ -41,7 +41,8 @@
             }
 
             function mainPost() { 
-            	q_mask(bbmMask);
+            	bbmMask = [['txtBirthday', r_picd],['txtHealth_bdate', r_picd], ['txtHealth_edate', r_picd], ['txtLabor1_bdate', r_picd], ['txtLabor1_edate', r_picd], ['txtLabor2_bdate', r_picd], ['txtLabor2_edate', r_picd]];
+		        q_mask(bbmMask);
             	q_cmbParse("cmbSex",q_getPara('sys.sex'));
             	$('#lblBalance').parent().click(function(e) {
 					q_box("balance.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'balance', "95%", "95%", q_getMsg("popBalance"));
@@ -463,6 +464,24 @@
 							<td class="td4">
 							<input id="txtFax"  type="text" class="txt c1"/>
 							</td>
+						</tr>
+						<tr>
+							<td class="td1"><span> </span><a id='lblHealth_bdate' class="lbl"></a></td>
+							<td class="td2"><input id="txtHealth_bdate" type="text" class="txt c1"/></td>
+							<td class="td3"><span> </span><a id='lblHealth_edate' class="lbl"></a></td>
+							<td class="td4"><input id="txtHealth_edate" type="text" class="txt c1"/></td>
+						</tr>
+						<tr>
+							<td class="td1"><span> </span><a id='lblLabor1_bdate' class="lbl"></a></td>
+							<td class="td2"><input id="txtLabor1_bdate" type="text" class="txt c1"/></td>
+							<td class="td3"><span> </span><a id='lblLabor1_edate' class="lbl"></a></td>
+							<td class="td4"><input id="txtLabor1_edate" type="text" class="txt c1"/></td>
+						</tr>
+						<tr>
+							<td class="td1"><span> </span><a id='lblLabor2_bdate' class="lbl"></a></td>
+							<td class="td2"><input id="txtLabor2_bdate" type="text" class="txt c1"/></td>
+							<td class="td3"><span> </span><a id='lblLabor2_edate' class="lbl"></a></td>
+							<td class="td4"><input id="txtLabor2_edate" type="text" class="txt c1"/></td>
 						</tr>
 						<tr class="tr5">
 							<td class="td1"><span> </span><a id='lblAddr_home' class="lbl"></a></td>

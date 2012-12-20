@@ -100,22 +100,16 @@
             		return;
             	}
             	
-            	//取得勞退薪資等級表
-            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
-            	q_gt('labretire', t_where, 0, 0, 0, "", r_accy);
-            	//取得勞保薪資等級表
-            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
-            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
-            	if(q_cur!=1)
-            		sum();//計算家屬
-            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
-            	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
+            	//取得健勞保退保日期
+            	var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^ top=1";
+            	q_gt('sssall', t_where, 0, 0, 0, "", r_accy);
+            	
             });
             
             $('#txtMount').change(function () {
             	//取得健保薪資等級表
             	//sum();//計算家屬
-            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
+            	var t_where = "where=^^ 1=1 ^^ top=1";
             	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
             });
             
@@ -132,7 +126,7 @@
 	            		return;
 	            	}
 	            	//重新計算取得勞保薪資等級表
-	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
+	            	var t_where = "where=^^ 1=1 ^^ top=1";
 	            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
 	          });
 	            
@@ -141,7 +135,7 @@
 	            		return;
 	            	}
 	            	//重新計算取得勞保薪資等級表
-	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
+	            	var t_where = "where=^^ 1=1 ^^ top=1";
 	          		q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
 	          });
 	          //---------------------各自判斷投保新增----------------------
@@ -151,7 +145,7 @@
 	            	}
 	            	cal=true;
 	            	//取得勞退薪資等級表
-	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
+	            	var t_where = "where=^^ 1=1 ^^ top=1";
 	            	q_gt('labretire', t_where, 0, 0, 0, "", r_accy);
 	          });
 	          
@@ -161,7 +155,7 @@
 	            	}
 	            	cal=true;
 	            	//重新計算取得勞保薪資等級表
-	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
+	            	var t_where = "where=^^ 1=1 ^^ top=1";
 	          		q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
 	          });
 	          
@@ -172,7 +166,7 @@
 	            	cal=true;
 	            	sum();//計算家屬
 	            	//取得健保薪資等級表
-	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
+	            	var t_where = "where=^^ 1=1 ^^ top=1";
 	            	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
 	          });
             //----------------------------------------
@@ -197,7 +191,7 @@
 	            		return;
 	            	}
 	            	//重新計算取得勞保薪資等級表
-	            	var t_where = "where=^^ noa like '%"+$('#txtBdate').val().substr( 0,3)+"%' ^^ top=1";
+	            	var t_where = "where=^^ 1=1 ^^ top=1";
 	            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
 	            });
 	            
@@ -235,8 +229,32 @@
         }
 
 		var labases_sum;
+		var health_bdate='',health_edate='',labor1_bdate='',labor1_edate='',labor2_bdate='',labor2_edate='';
         function q_gtPost(t_name) {
             switch (t_name) {
+            	case 'sssall':
+            		var as = _q_appendData("sss", "", true);
+            		if(as[0]!=undefined){
+            			health_bdate=as[0].health_bdate;
+            			health_edate=as[0].health_edate;
+            			labor1_bdate=as[0].labor1_bdate;
+            			labor1_edate=as[0].labor1_edate;
+            			labor2_bdate=as[0].labor2_bdate;
+            			labor2_edate=as[0].labor2_edate;
+            		}
+            		
+            	//取得勞退薪資等級表
+            	var t_where = "where=^^ 1=1 ^^ top=1";
+            	q_gt('labretire', t_where, 0, 0, 0, "", r_accy);
+            	//取得勞保薪資等級表
+            	var t_where = "where=^^ 1=1 ^^ top=1";
+            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
+            	if(q_cur!=1)
+            		sum();//計算家屬
+            	var t_where = "where=^^ 1=1 ^^ top=1";
+            	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
+            		
+            	break;
             	case 'labases_sum':
             		labases_sum = _q_appendData("labases", "", true);
             		if(labases_sum[0]!=undefined){
@@ -298,22 +316,43 @@
 	            							t_la_person=dec(labsals[i].flself);
 	            							q_tr('txtLa_comp',labsals[i].flcomp);//勞保公司負擔
 	            						}else{
-	            							if(q_getPara('sys.comp').indexOf('大昌')>-1){
 		            							//--------大昌工資墊償基金提繳費與勞保職災一般員工由公司負擔，寄保人員自己負擔-------
 		            							if($('#chkIssssp')[0].checked){//寄保人員
-		            								q_tr('txtLa_person',dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+		            								if(labor1_edate!=''){//退保
+		            									if(labor1_bdate.substr(0,6)==labor1_edate.substr(0,6)){//當月退保
+		            										var t_date1 = new Date(dec(labor1_bdate.substr(0,3))+1911, dec(labor1_bdate.substr(4,2))-1, dec(labor1_bdate.substr(7,2)));
+            												var t_date2 = new Date(dec(labor1_edate.substr(0,3))+1911, dec(labor1_edate.substr(4,2))-1, dec(labor1_edate.substr(7,2)));
+            												var t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24);
+            												q_tr('txtLa_person',Math.round((dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*(t_days+1)));
+		            									}else{
+		            										q_tr('txtLa_person',Math.round((dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*(dec(labor1_edate.substr(7,2))+1)));
+		            									}
+		            								}else{//還在加保
+		            									q_tr('txtLa_person',dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+		            								}
 		            								t_la_person=dec($('#txtLa_person').val());
 		            								q_tr('txtLa_comp',0);
+		            								
 		            							}else{//一般員工
-		            								q_tr('txtLa_person',labsals[i].lself);
-		            								t_la_person=dec(labsals[i].lself);
-		            								q_tr('txtLa_comp',dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+		            								if(labor1_edate!=''){//退保
+		            									if(labor1_bdate.substr(0,6)==labor1_edate.substr(0,6)){//當月退保
+		            										var t_date1 = new Date(dec(labor1_bdate.substr(0,3))+1911, dec(labor1_bdate.substr(4,2))-1, dec(labor1_bdate.substr(7,2)));
+            												var t_date2 = new Date(dec(labor1_edate.substr(0,3))+1911, dec(labor1_edate.substr(4,2))-1, dec(labor1_edate.substr(7,2)));
+            												var t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24);
+            												q_tr('txtLa_person',Math.round(dec(labsals[i].lself)/30*(t_days+1)));
+			            									t_la_person=Math.round(dec(labsals[i].lself)/30*(t_days+1));
+			            									q_tr('txtLa_comp',Math.round((dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*(t_days+1)));
+		            									}else{
+		            										q_tr('txtLa_person',Math.round(dec(labsals[i].lself)/30*(dec(labor1_edate.substr(7,2))+1)));
+			            									t_la_person=Math.round(dec(labsals[i].lself)/30*(dec(labor1_edate.substr(7,2))+1));
+			            									q_tr('txtLa_comp',Math.round((dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*(dec(labor1_edate.substr(7,2))+1)));
+		            									}
+		            								}else{//還在加保
+			            								q_tr('txtLa_person',labsals[i].lself);
+			            								t_la_person=dec(labsals[i].lself);
+			            								q_tr('txtLa_comp',dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+		            								}
 		            							}
-	            							}else{//一般皆由公司負擔
-	            								q_tr('txtLa_person',labsals[i].lself);
-	            								t_la_person=dec(labsals[i].lself);
-	            								q_tr('txtLa_comp',dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
-	            							}
 	            						}
 	            						break;	
 	            					}
@@ -327,23 +366,44 @@
 	            							t_la_person=dec(labsals[i].flself);
 	            							q_tr('txtLa_comp',labsals[i].flcomp);//勞保公司負擔
 	            						}else{
-	            							if(q_getPara('sys.comp').indexOf('大昌')>-1){
 		            							//--------大昌工資墊償基金提繳費與勞保職災一般員工由公司負擔，寄保人員自己負擔-------
 		            							if($('#chkIssssp')[0].checked){//寄保人員
-		            								q_tr('txtLa_person',dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+		            								if(labor1_edate!=''){//退保
+		            									if(labor1_bdate.substr(0,6)==labor1_edate.substr(0,6)){//當月退保
+		            										var t_date1 = new Date(dec(labor1_bdate.substr(0,3))+1911, dec(labor1_bdate.substr(4,2))-1, dec(labor1_bdate.substr(7,2)));
+            												var t_date2 = new Date(dec(labor1_edate.substr(0,3))+1911, dec(labor1_edate.substr(4,2))-1, dec(labor1_edate.substr(7,2)));
+            												var t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24);
+            												q_tr('txtLa_person',Math.round((dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*(t_days+1)));
+		            									}else{
+		            										q_tr('txtLa_person',Math.round((dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*(dec(labor1_edate.substr(7,2))+1)));
+		            									}
+		            								}else{//還在加保
+		            									q_tr('txtLa_person',dec(labsals[i].lself)+dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+		            								}
 		            								t_la_person=dec($('#txtLa_person').val());
 		            								q_tr('txtLa_comp',0);
+		            								
 		            							}else{//一般員工
-		            								q_tr('txtLa_person',labsals[i].lself);
-		            								t_la_person=dec(labsals[i].lself);
-		            								q_tr('txtLa_comp',dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+		            								if(labor1_edate!=''){//退保
+		            									if(labor1_bdate.substr(0,6)==labor1_edate.substr(0,6)){//當月退保
+		            										var t_date1 = new Date(dec(labor1_bdate.substr(0,3))+1911, dec(labor1_bdate.substr(4,2))-1, dec(labor1_bdate.substr(7,2)));
+            												var t_date2 = new Date(dec(labor1_edate.substr(0,3))+1911, dec(labor1_edate.substr(4,2))-1, dec(labor1_edate.substr(7,2)));
+            												var t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24);
+            												q_tr('txtLa_person',Math.round(dec(labsals[i].lself)/30*(t_days+1)));
+			            									t_la_person=Math.round(dec(labsals[i].lself)/30*(t_days+1));
+			            									q_tr('txtLa_comp',Math.round((dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*(t_days+1)));
+		            									}else{
+		            										q_tr('txtLa_person',Math.round(dec(labsals[i].lself)/30*(dec(labor1_edate.substr(7,2))+1)));
+			            									t_la_person=Math.round(dec(labsals[i].lself)/30*(dec(labor1_edate.substr(7,2))+1));
+			            									q_tr('txtLa_comp',Math.round((dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100))/30*(dec(labor1_edate.substr(7,2))+1)));
+		            									}
+		            								}else{//還在加保
+			            								q_tr('txtLa_person',labsals[i].lself);
+			            								t_la_person=dec(labsals[i].lself);
+			            								q_tr('txtLa_comp',dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
+		            								}
 		            							}
-	            							}else{//一般皆由公司負擔
-	            								q_tr('txtLa_person',labsals[i].lself);
-	            								t_la_person=dec(labsals[i].lself);
-	            								q_tr('txtLa_comp',dec(labsals[i].lcomp)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_fund').val())/100)+Math.round(dec($('#txtSalary').val())*dec($('#txtInsur_disaster').val())/100));
 	            							}
-	            						}
 	            						break;	
 	            					}
 	            				}
