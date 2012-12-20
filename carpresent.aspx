@@ -328,7 +328,7 @@
 	            }
         }
         function btnPrint() {
-
+			q_box('z_carpresent.aspx', '', "95%", "800px", q_getMsg("popPrint"));
         }
 
         function wrServer(key_value) {
