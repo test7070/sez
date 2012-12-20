@@ -35,7 +35,7 @@
 			currentData.prototype = {
 				data : [],
 				/*新增時複製的欄位*/
-				include : ['txtDatea', 'txtCno', 'txtComp2', 'txtCustno', 'txtComp', 'txtNick', 'txtSeria', 'txtAddress', 'txtMon','txtNoa','txtBuyerno','txtBuyer','txtProductno','txtProduct','txtUnit'],
+				include : ['txtDatea', 'txtCno', 'txtComp2', 'txtCustno', 'txtComp', 'txtNick', 'txtSerial', 'txtAddress', 'txtMon','txtNoa','txtBuyerno','txtBuyer','txtProductno','txtProduct','txtUnit'],
 				/*記錄當前的資料*/
 				copy : function() {
 					curData.data = new Array();
@@ -258,7 +258,7 @@
 			        	$('#txtTax').removeAttr('readonly');
 						t_tax = round(q_float('txtTax'),0);
 			        	t_total = t_money + t_tax;
-			            break;$
+			            break;
 			        case '6':  // 作廢-清空資料
 			            $('#txtCustno').val('');//銷貨客戶
 			            $('#txtCustno').attr('readonly', true);
