@@ -59,7 +59,7 @@
             //$('#btnIns').hide();//新增
             $('#btnIns').val("未出車匯入");
             $('#btnSeek').hide();//查詢
-            $('#btnPrint').hide();//列印
+            //$('#btnPrint').hide();//列印
             $('#btnAuthority').hide();//權限
             $('#btnSign').hide();//簽核
             $('#tbbm').hide();//BBM隱藏
@@ -328,7 +328,7 @@
 	            }
         }
         function btnPrint() {
-
+			q_box('z_carpresent.aspx', '', "95%", "800px", q_getMsg("popPrint"));
         }
 
         function wrServer(key_value) {
