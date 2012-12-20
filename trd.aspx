@@ -492,11 +492,11 @@
                     return;
                 var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0, t_mount = 0, t_plus = 0, t_plusmoney = 0, t_minusmoney = 0;
                 for ( iz = 0; iz < q_bbsCount; iz++) {
-                    t_money += Math.round(q_float('txtTranmoney_' + iz) * 1000);
-                    t_mount += Math.round(q_float('txtMount_' + iz) * 1000);
+                    t_money += round(q_float('txtTranmoney_' + iz),0);
+                    t_mount += round(q_float('txtMount_' + iz),0);
                 }
-                t_money = t_money / 1000;
-                t_mount = t_mount / 1000;
+                t_money = t_money;
+                t_mount = t_mount;
 
                 t_discount = q_float('txtDiscount');
                 t_plus = q_float('txtPlus');
@@ -507,11 +507,11 @@
                     case '1':
                         $('#txtTaxrate').val(q_getPara('sys.taxrate'));
                         t_rate = q_float('txtTaxrate');
-                        t_tax = Math.round((t_money - t_discount + t_plus) * t_rate / 100);
+                        t_tax =round((t_money - t_discount + t_plus) * t_rate / 100,0);
                         t_total = (t_money - t_discount + t_plus + t_plusmoney - t_minusmoney) + t_tax;
                         break;
                     case '3':
-                        t_total = Math.round((t_money - t_discount + t_plus) / (1 + t_rate / 100), 0);
+                        t_total = round((t_money - t_discount + t_plus) / (1 + t_rate / 100), 0);
                         t_tax = (t_money - t_discount + t_plus) - t_total;
                         t_total = t_money + t_plusmoney - t_minusmoney;
                         break;

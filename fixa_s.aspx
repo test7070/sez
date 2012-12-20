@@ -55,7 +55,7 @@
 					+q_sqlPara2("carplateno", t_carplateno)
 					+q_sqlPara2("driverno", t_driverno)
 					+q_sqlPara2("tggno", t_tggno);
-					
+
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
