@@ -28,7 +28,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,addr_invo,serial', 'txtCustno,txtComp,txtNick,txtAddress,txtSerial', 'cust_b.aspx'], ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx'], ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
+            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,zip_invo,addr_invo,serial', 'txtCustno,txtComp,txtNick,txtZip,txtAddress,txtSerial', 'cust_b.aspx'], ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx'], ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
             q_xchg = 1;
             brwCount2 = 20;
 
@@ -611,8 +611,9 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddress' class="lbl"> </a></td>
-						<td colspan="3">
-						<input id="txtAddress"  type="text" class="txt c1"/>
+						<td colspan="5">
+							<input id="txtZip" type="text" style="float:left; width:10%;"/>
+							<input id="txtAddress" type="text" style="float:left; width:90%;"/>
 						</td>
 					</tr>
 					<tr>
