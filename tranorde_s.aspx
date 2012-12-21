@@ -27,7 +27,7 @@
                 q_getFormat();
                 q_langShow();
 
-                bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd],['txtBdldate', r_picd], ['txtEdldate', r_picd]];
+                bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd],['txtBdldate', r_picd], ['txtEdldate', r_picd],['txtBstrdate', r_picd], ['txtEstrdate', r_picd]];
 
                 q_mask(bbmMask);
                 $('#txtBdate').focus();
@@ -56,7 +56,7 @@
                  + q_sqlPara2("strdate", t_bstrdate, t_estrdate) + q_sqlPara2("dldate", t_bdldate, t_edldate)
                  + q_sqlPara2("custno", t_custno)+ q_sqlPara2("deliveryno", t_deliveryno)+ q_sqlPara2("po", t_po)
                  + q_sqlPara2("productno", t_productno)+ q_sqlPara2("addrno", t_addrno);
-
+		
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
