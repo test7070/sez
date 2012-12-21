@@ -65,6 +65,9 @@
 		        });
             $('#txtNoa').change(function () {
             	 if(!emp($('#txtNoa').val())){
+            	 	//取得健勞保退保日期
+	            	var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^ top=1";
+	            	q_gt('sssall', t_where, 0, 0, 0, "", r_accy);
             	 		//判斷員工是否是外勞
 			           var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
 			           q_gt('sss', t_where , 0, 0, 0, "", r_accy);
@@ -100,10 +103,16 @@
             		return;
             	}
             	
-            	//取得健勞保退保日期
-            	var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^ top=1";
-            	q_gt('sssall', t_where, 0, 0, 0, "", r_accy);
-            	
+            	//取得勞退薪資等級表
+            	var t_where = "where=^^ 1=1 ^^ top=1";
+            	q_gt('labretire', t_where, 0, 0, 0, "", r_accy);
+            	//取得勞保薪資等級表
+            	var t_where = "where=^^ 1=1 ^^ top=1";
+            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
+            	if(q_cur!=1)
+            		sum();//計算家屬
+            	var t_where = "where=^^ 1=1 ^^ top=1";
+            	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
             });
             
             $('#txtMount').change(function () {
@@ -242,18 +251,6 @@
             			labor2_bdate=as[0].labor2_bdate;
             			labor2_edate=as[0].labor2_edate;
             		}
-            		
-            	//取得勞退薪資等級表
-            	var t_where = "where=^^ 1=1 ^^ top=1";
-            	q_gt('labretire', t_where, 0, 0, 0, "", r_accy);
-            	//取得勞保薪資等級表
-            	var t_where = "where=^^ 1=1 ^^ top=1";
-            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
-            	if(q_cur!=1)
-            		sum();//計算家屬
-            	var t_where = "where=^^ 1=1 ^^ top=1";
-            	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
-            		
             	break;
             	case 'labases_sum':
             		labases_sum = _q_appendData("labases", "", true);
@@ -662,6 +659,9 @@
             $('#txtSalary').focus();
             $('#txtMon').attr('readonly',true);
 		    $('#txtMon').attr('disabled', 'disabled');
+		    //取得健勞保退保日期
+            	var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^ top=1";
+            	q_gt('sssall', t_where, 0, 0, 0, "", r_accy);
         }
         function btnPrint() {
 		q_box('z_labase.aspx', '', "95%", "650px", q_getMsg("popPrint"));
