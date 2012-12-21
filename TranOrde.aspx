@@ -232,26 +232,28 @@
 
             function btnOk() {
             	$('#txtDatea').val($.trim($('#txtDatea').val()));
-                if ($('#txtDatea').val().length > 0 && checkId($('#txtDatea').val())==0)
-                    alert('登錄日期錯誤。'); 
+                if (checkId($('#txtDatea').val())==0){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
+                	return;
+                }
                 $('#txtDldate').val($.trim($('#txtDldate').val()));
                 if ($('#txtDldate').val().length > 0 && checkId($('#txtDldate').val())==0)
-                    alert('預計完工日期錯誤。');     
+                    alert(q_getMsg('lblDldate')+'錯誤。'); 
                 $('#txtCldate').val($.trim($('#txtCldate').val()));
                 if ($('#txtCldate').val().length > 0 && checkId($('#txtCldate').val())==0)
-                    alert('結關日期錯誤。'); 
+                    alert(q_getMsg('lblCldate')+'錯誤。');
                 $('#txtNodate').val($.trim($('#txtNodate').val()));
                 if ($('#txtNodate').val().length > 0 && checkId($('#txtNodate').val())==0)
-                    alert('通知日期錯誤。'); 
+                    alert(q_getMsg('lblNodate')+'錯誤。');; 
                 $('#txtMadate').val($.trim($('#txtMadate').val()));
                 if ($('#txtMadate').val().length > 0 && checkId($('#txtMadate').val())==0)
-                    alert('到期日期錯誤。'); 
+                    alert(q_getMsg('lblMadate')+'錯誤。');
                 $('#txtRedate').val($.trim($('#txtRedate').val()));
                 if ($('#txtRedate').val().length > 0 && checkId($('#txtRedate').val())==0)
-                    alert('放行日期錯誤。'); 
+                    alert(q_getMsg('lblRedate')+'錯誤。');
                 $('#txtStrdate').val($.trim($('#txtStrdate').val()));
                 if ($('#txtStrdate').val().length > 0 && checkId($('#txtStrdate').val())==0)
-                    alert('開工日期錯誤。'); 
+                    alert(q_getMsg('lblStrdate')+'錯誤。');
                 
             	$('#txtWorker').val(r_name);
                 var t_noa = trim($('#txtNoa').val());

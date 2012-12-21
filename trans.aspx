@@ -391,20 +391,20 @@
 			function btnOk() {
 				$('#txtDatea').val($.trim($('#txtDatea').val()));
                 if (checkId($('#txtDatea').val())==0){
-                	alert('登錄日期錯誤。'); 
+                	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
                 }
                 $('#txtTrandate').val($.trim($('#txtTrandate').val()));
                 if (checkId($('txtTrandate').val())==0){
-                	alert('交運日期錯誤。'); 
+                	alert(q_getMsg('lblTrandate')+'錯誤。');
                 	return;
                 }
                 $('#txtMon').val($.trim($('#txtMon').val()));
                 if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()))
-                    alert('請款月份錯誤。');
+                    alert(q_getMsg('lblMon')+'錯誤。');
                 $('#txtMon2').val($.trim($('#txtMon2').val()));
                 if ($('#txtMon2').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon2').val()))
-                    alert('付款月份錯誤。');    
+                    alert(q_getMsg('lblMon2')+'錯誤。');
                     
 				var t_custno = $.trim($('#txtCustno').val());
 				var t_addrno = $.trim($('#txtStraddrno').val());

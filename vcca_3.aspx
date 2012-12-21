@@ -85,7 +85,7 @@
 				$('#txtSerial').change(function(e) {
                     $('#txtSerial').val($.trim($('#txtSerial').val()));
                     if($('#txtSerial').val().length>0 && checkId($('#txtSerial').val())==0)
-                    	alert('統一編號錯誤');
+                    	alert(q_getMsg('lblSerial')+'錯誤。');
                 });
                 $('#txtMoney').change(function(e) {
                     var t_money=0,t_tax=0;
@@ -141,14 +141,16 @@
 
             function btnOk() {
             	$('#txtDatea').val($.trim($('#txtDatea').val()));
-                if ($('#txtDatea').val().length > 0 && checkId($('#txtDatea').val())==0)
-                    alert('日期錯誤。');             
+                if (checkId($('#txtDatea').val())==0){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
+                	return;
+                }             
                 $('#txtNoa').val($.trim($('#txtNoa').val()));
                 if ($('#txtNoa').val().length > 0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val()))
-                    alert('發票錯誤。');
+                    alert(q_getMsg('lblNoa')+'錯誤。');
                 $('#txtSerial').val($.trim($('#txtSerial').val()));
                 if ($('#txtSerial').val().length > 0 && checkId($('#txtSerial').val())==0)
-                    alert('統一編號錯誤。');
+                    alert(q_getMsg('lblSerial')+'錯誤。');
             	sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCno', q_getMsg('lblAcomp')]]);
                 // 檢查空白

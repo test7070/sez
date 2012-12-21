@@ -396,12 +396,12 @@
             function btnOk() {
             	$('#txtDatea').val($.trim($('#txtDatea').val()));
                 if (checkId($('#txtDatea').val())==0){
-                	alert('登錄日期錯誤。');
+                	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
                 }             
                 $('#txtMon').val($.trim($('#txtMon').val()));
                 if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()))
-                    alert('月份錯誤。');
+                   alert(q_getMsg('lblMon')+'錯誤。');
                     
                 $('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
