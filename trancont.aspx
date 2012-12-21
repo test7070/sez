@@ -83,6 +83,18 @@
             }
 
             function btnOk() {
+            	$('#txtDatea').val($.trim($('#txtDatea').val()));
+            	if($('#txtDatea').val().length>0 && !(/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test($('#txtDatea').val()))
+            		alert('日期格式錯誤。');
+            	$('#txtBcontdate').val($.trim($('#txtBcontdate').val()));
+            	if($('#txtBcontdate').val().length>0 && !(/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test($('#txtBcontdate').val()))
+            		alert('日期格式錯誤。');
+            	$('#txtEcontdate').val($.trim($('#txtEcontdate').val()));
+            	if($('#txtEcontdate').val().length>0 && !(/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test($('#txtEcontdate').val()))
+            		alert('日期格式錯誤。');
+            	$('#txtChangecontdate').val($.trim($('#txtChangecontdate').val()));
+            	if($('#txtChangecontdate').val().length>0 && !(/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test($('#txtChangecontdate').val()))
+            		alert('日期格式錯誤。');
                 $('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
@@ -128,7 +140,7 @@
             }
 
             function btnPrint() {
-                q_box("z_trancont.aspx", '', "95%", "95%", "")
+                q_box('z_tranCont.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -340,24 +352,26 @@
 
 		</style>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain'>
 			<div style="float: left;">
 				<div class="dview" id="dview">
 					<table class="tview" id="tview">
 						<tr>
-							<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-							<td align="center" style="width:25%"><a id='vewDatea'> </a></td>
-							<td align="center" style="width:25%"><a id='vewNoa'> </a></td>
-							<td align="center" style="width:15%"><a id='vewComp'> </a></td>
+							<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+							<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
+							<td align="center" style="width:100px; color:black;"><a id='vewComp'> </a></td>
 						</tr>
 						<tr>
 							<td >
 							<input id="chkBrow.*" type="checkbox" style=''/>
 							</td>
 							<td align="center" id='datea'>~datea</td>
-							<td align="center" id='noa'>~noa</td>
 							<td align="center" id='nick'>~nick</td>
 						</tr>
 					</table>

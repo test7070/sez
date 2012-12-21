@@ -25,7 +25,13 @@
                         options : [{/*1*/
 							type : '1',
 							name : 'invono'
-						}]
+						}, {
+                        type : '2',
+                        name : 'cno',
+                        dbf : 'acomp',
+                        index : 'noa,comp',
+                        src : 'acomp_b.aspx'
+                    }]
                     });
                 q_popAssign();
                 $('#txtInvono1').change(function (e) {               	

@@ -35,6 +35,8 @@
             bbsKey = ['noa', 'noq'];
             q_brwCount();
             q_gt(q_name, q_content, q_sqlCount, 1)
+            //判斷是否為權限(簽核)
+            q_gt('authority', "where=^^a.noa='bccout' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
         });
 
         //////////////////   end Ready
@@ -50,9 +52,6 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-            $('#lblApprover').click(function (e) {
-		             $('#txtApprover').val(r_name);
-		     });
         }
 
         function q_boxClose( s2) { 
@@ -110,9 +109,16 @@
             b_pop = '';
         }
 
-
+		var ischecker=false;//簽核權限
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'authority':
+		                var as = _q_appendData('authority', '', true);
+		                if (as.length > 0 && as[0]["pr_run"] == "true")
+		                    ischecker = true;
+		                else
+		                    ischecker = false;
+		                break;
                 case 'ucc':  
                     q_changeFill(t_name, 'txtProductno_' + b_seq + ',txtProduct_' + b_seq + ',txtUnit_' + b_seq, 'noa,product,unit');
                     break;
@@ -197,12 +203,22 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
+            if(ischecker){
+            	$('#lblApprover').click(function (e) {
+		             $('#txtApprover').val(r_name);
+		     	});
+            }
          }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
             $('#txtProduct').focus();
+            if(ischecker){
+            	$('#lblApprover').click(function (e) {
+		             $('#txtApprover').val(r_name);
+		     	});
+            }
         }
         function btnPrint() {
  			q_box('z_bcc.aspx', '', "95%", "650px", q_getMsg("popPrint"));
