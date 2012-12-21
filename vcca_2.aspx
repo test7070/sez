@@ -81,7 +81,7 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm],['txtSerial','99999999']];
+				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
 
 				q_cmbParse("cmbTaxtype", ('').concat(new Array('1@應稅', '2@零稅率', '3@內含', '4@免稅','5@自訂','6@作廢')));
@@ -94,7 +94,10 @@
 					sum();
 				}).click(function(e) {			
 					sum();
-				});			
+				});	
+				$('#txtNoa').change(function(e) {
+                    $('#txtNoa').val($('#txtNoa').val().toUpperCase());
+                });		
 				$('#txtMount').change(function() {
 					sum();
 				});
@@ -106,7 +109,7 @@
 				});
 				$('#txtSerial').change(function(e) {
                     $('#txtSerial').val($.trim($('#txtSerial').val()));
-                    if($('#txtSerial').val().length>0 && checkId($('#txtSerial').val())==0)
+                    if($('#txtSerial').val().length>0 && checkId($('#txtSerial').val())!=2)
                     	alert(q_getMsg('lblSerial')+'錯誤。');
                 });
 			}
@@ -165,7 +168,7 @@
                 if ($('#txtNoa').val().length > 0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val()))
                     alert(q_getMsg('lblNoa')+'錯誤。');
                 $('#txtSerial').val($.trim($('#txtSerial').val()));
-                if ($('#txtSerial').val().length > 0 && checkId($('#txtSerial').val())==0)
+                if ($('#txtSerial').val().length > 0 && checkId($('#txtSerial').val())!=2)
                     alert(q_getMsg('lblSerial')+'錯誤。');
             	sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCno', q_getMsg('lblAcomp')]]);
@@ -263,6 +266,7 @@
 			        	t_total = t_money + t_tax;
 			            break;
 			        case '6':  // 作廢-清空資料
+			        	t_money = 0,t_tax = 0, t_total = 0;
 			            $('#txtCustno').val('');//銷貨客戶
 			            $('#txtCustno').attr('readonly', true);
 			            $('#txtComp').val('');
