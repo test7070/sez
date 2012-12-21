@@ -82,6 +82,12 @@
             	q_cmbParse("cmbCasetype2", "20'',40''");
                 q_cmbParse("cmbStype", q_getPara('vcc.stype'));
                 q_cmbParse("cmbUnit", q_getPara('sys.unit'));
+                $("#cmbStype").focus(function() {
+					var len = $("#cmbStype").children().length > 0 ? $("#cmbStype").children().length : 1;
+					$("#cmbStype").attr('size', len + "");
+				}).blur(function() {
+					$("#cmbStype").attr('size', '1');
+				});
                 $("#cmbUnit").focus(function() {
 					var len = $("#cmbUnit").children().length > 0 ? $("#cmbUnit").children().length : 1;
 					$("#cmbUnit").attr('size', len + "");
@@ -225,6 +231,28 @@
             }
 
             function btnOk() {
+            	$('#txtDatea').val($.trim($('#txtDatea').val()));
+                if ($('#txtDatea').val().length > 0 && checkId($('#txtDatea').val())==0)
+                    alert('登錄日期錯誤。'); 
+                $('#txtDldate').val($.trim($('#txtDldate').val()));
+                if ($('#txtDldate').val().length > 0 && checkId($('#txtDldate').val())==0)
+                    alert('預計完工日期錯誤。');     
+                $('#txtCldate').val($.trim($('#txtCldate').val()));
+                if ($('#txtCldate').val().length > 0 && checkId($('#txtCldate').val())==0)
+                    alert('結關日期錯誤。'); 
+                $('#txtNodate').val($.trim($('#txtNodate').val()));
+                if ($('#txtNodate').val().length > 0 && checkId($('#txtNodate').val())==0)
+                    alert('通知日期錯誤。'); 
+                $('#txtMadate').val($.trim($('#txtMadate').val()));
+                if ($('#txtMadate').val().length > 0 && checkId($('#txtMadate').val())==0)
+                    alert('到期日期錯誤。'); 
+                $('#txtRedate').val($.trim($('#txtRedate').val()));
+                if ($('#txtRedate').val().length > 0 && checkId($('#txtRedate').val())==0)
+                    alert('放行日期錯誤。'); 
+                $('#txtStrdate').val($.trim($('#txtStrdate').val()));
+                if ($('#txtStrdate').val().length > 0 && checkId($('#txtStrdate').val())==0)
+                    alert('開工日期錯誤。'); 
+                
             	$('#txtWorker').val(r_name);
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
@@ -314,6 +342,35 @@
 						break;
 				}
 			}
+			function checkId(str) {
+                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
+                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
+                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
+                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
+                    if ((n % 10) == 0)
+                        return 1;
+                } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
+                    var key = '12121241';
+                    var n = 0;
+                    var m = 0;
+                    for (var i = 0; i < 8; i++) {
+                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
+                        m += Math.floor(n / 10) + n % 10;
+                    }
+                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
+                        return 2;
+                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
+                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
+               		if(regex.test(str))
+               			return 3;
+                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
+                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
+                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
+               		if(regex.test(str))
+               			return 4
+               	}
+               	return 0;//錯誤
+            }
 		</script>
 		<style type="text/css">
              #dmain {
@@ -615,6 +672,16 @@
 						<td>
 						<input type="text" id="txtCaseAssign" class="txt c1"/>
 						</td>
+						<td> </td>
+					</tr>
+					<tr class="trX">
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td><span> </span><a id="lblPort2" class="lbl"> </a></td>
+						<td colspan="2"><input type="text" id="txtPort2" class="txt c1"/></td>
+						<td> </td>
 						<td> </td>
 					</tr>
 					<tr class="trX">
