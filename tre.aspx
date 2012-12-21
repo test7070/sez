@@ -108,14 +108,21 @@
                 	}
                 });
                 $("#btnCarchg").click(function(e) {
-					if ($('#txtCarno').val().length == 0) {
-						alert('請輸入車牌!');
-						return;
-					}
-					if ($('#txtDriverno').val().length == 0) {
-						alert('請輸入司機!');
-						return;
-					}
+                	$('#txtDate2').val($.trim($('#txtDate2').val()));
+               		if (checkId($('#txtDate2').val())==0){
+               			alert('立帳日期錯誤。'); 
+               			return;
+               		}
+                    $('#txtBdate').val($.trim($('#txtBdate').val()));
+               		if (checkId($('#txtBdate').val())==0){
+               			alert('出車單登錄日期錯誤。'); 
+               			return;
+               		}
+					$('#txtEdate').val($.trim($('#txtEdate').val()));
+               		if (checkId($('#txtEdate').val())==0){
+               			alert('出車單登錄日期錯誤。'); 
+               			return;
+               		}
 					var t_carchgno='';
 					if(curData.isLoad){
 						for(var i=0;i<curData.carchgno.length;i++)
@@ -202,6 +209,17 @@
             }
 
             function btnOk() {
+            	$('#txtDatea').val($.trim($('#txtDatea').val()));
+                if (checkId($('#txtDatea').val())==0){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
+                	return;
+                }
+                $('#txtPaydate').val($.trim($('#txtPaydate').val()));
+                if ($('#txtPaydate').val().length > 0 && checkId($('#txtPaydate').val())==0)
+                    alert(q_getMsg('lblPaydate')+'錯誤。');          
+                $('#txtMon').val($.trim($('#txtMon').val()));
+                if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()))
+                    alert(q_getMsg('lblMon')+'錯誤。');
             	 $('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if(t_err.length > 0) {
@@ -392,6 +410,35 @@
 
             function btnCancel() {
                 _btnCancel();
+            }
+            function checkId(str) {
+                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
+                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
+                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
+                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
+                    if ((n % 10) == 0)
+                        return 1;
+                } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
+                    var key = '12121241';
+                    var n = 0;
+                    var m = 0;
+                    for (var i = 0; i < 8; i++) {
+                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
+                        m += Math.floor(n / 10) + n % 10;
+                    }
+                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
+                        return 2;
+                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
+                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
+               		if(regex.test(str))
+               			return 3;
+                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
+                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
+                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
+               		if(regex.test(str))
+               			return 4
+               	}
+               	return 0;//錯誤
             }
 		</script>
 		<style type="text/css">

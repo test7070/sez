@@ -16,7 +16,7 @@
             }
 
             var q_name = "vcca";
-            var q_readonly = ['txtTotal','txtChkno','txtWorker','txtAccno'];
+            var q_readonly = ['txtTotal','txtChkno','txtWorker','txtAccno','txtVccno'];
             var bbmNum = [['txtMoney',10,0],['txtTax',10,0],['txtTotal',10,0]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -25,9 +25,8 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx']
-            ,['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
-            ,['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp,serial', 'txtBuyerno,txtBuyer,txtSerial', 'cust_b.aspx']
-            ,['txtSerial', 'lblSerial', 'cust', 'serial,noa,comp', 'txtSerial,txtBuyerno,txtBuyer', 'cust_b.aspx']);
+            ,['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']        
+            ,['txtSerial', 'lblSerial', 'vccabuyer', 'serial,buyer', 'txtSerial,txtBuyer', 'vccabuyer_b.aspx']);
 			brwCount2 = 15;
             function currentData() {
             }
@@ -81,21 +80,30 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
-				
-				$('#txtSerial').change(function(e){
-					$('#txtSerial').val($.trim($('#txtSerial').val()));
-					checkId($('#txtSerial').val());
-				});
+				$('#txtNoa').change(function(e) {
+                    $('#txtNoa').val($('#txtNoa').val().toUpperCase());
+                });
                 $('#txtMoney').change(function(e) {
-                    var t_money=0,t_tax=0;
-                    t_money = q_float('txtMoney');
-                    t_tax = round(t_money*parseFloat(q_getPara('sys.taxrate'))/100,0);
-                    $('#txtTax').val(t_tax);
                     sum();
                 });
                 $('#txtTax').change(function(e) {
                     sum();
                 });
+                q_cmbParse("cmbTaxtype", ('').concat(new Array('1@應稅', '2@零稅率', '3@內含', '4@免稅','5@自訂','6@作廢')));
+				$('#cmbTaxtype').focus(function() {
+					var len = $("#cmbTaxtype").children().length > 0 ? $("#cmbTaxtype").children().length : 1;
+					$("#cmbTaxtype").attr('size', len + "");
+				}).blur(function() {
+					$("#cmbTaxtype").attr('size', '1');
+				}).change(function(e) {				
+					sum();
+				}).click(function(e) {			
+					sum();
+				});	
+				$('#btnVcc').click(function(e){
+					$('#btnVcc').val('請稍後。');
+					q_func('vcca.genvcc',$('#txtNoa').val());
+				});	
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -137,17 +145,34 @@
                         break;
                 }
             }
-
+			function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'vcca.genvcc':
+                    	try{
+	                    	$('#txtVccno').val(result.split(';')[0]);
+	                    	$('#txtAccno').val(result.split(';')[1]);
+                    	}catch(e){
+                    		alert(e.toString());
+                    	}
+						$('#btnVcc').val(q_getMsg('btnVcc'));
+                        break;
+                }
+            }
             function btnOk() {
             	$('#txtDatea').val($.trim($('#txtDatea').val()));
-            	if($('#txtDatea').val().length>0 && !(/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test($('#txtDatea').val()))
-            		alert('日期格式錯誤。');
-            	$('#txtNoa').val($.trim($('#txtNoa').val()));
-            	if($('#txtNoa').val().length>0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val()))
-            		alert('發票格式錯誤。');
-            	$('#txtSerial').val($.trim($('#txtSerial').val()));
-            	if($('#txtSerial').val().length>0 && !(/^[0-9]{8}$/g).test($('#txtSerial').val()))
-            		alert('統一編號格式錯誤。');
+                if (checkId($('#txtDatea').val())==0){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
+                	return;
+                } 
+                $('#txtSerial').val($.trim($('#txtSerial').val()));
+                if ($('#txtSerial').val().length > 0 && checkId($('#txtSerial').val())!=2){
+                	alert(q_getMsg('lblSerial')+'錯誤。');
+                	return;
+                }              
+                $('#txtNoa').val($.trim($('#txtNoa').val()));
+                if ($('#txtNoa').val().length > 0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val()))
+                    alert(q_getMsg('lblNoa')+'錯誤。');
+                           
             	sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCno', q_getMsg('lblAcomp')]]);
                 // 檢查空白
@@ -164,6 +189,7 @@
 				}else{
 					wrServer($('#txtNoa').val());
 				}
+				$('#btnVcc').removeAttr('disabled');
             }
 
             function _btnSeek() {
@@ -178,14 +204,14 @@
                 curData.copy();
                 _btnIns();
                 curData.paste();
-
+				$('#btnVcc').attr('disabled','disabled');
                 //發票號碼+1
                 var t_noa = trim($('#txtNoa').val());
                 var str = '00000000'+(parseInt(t_noa.substring(2,10))+1);
                 str = str.substring(str.length-8,str.length);
                 t_noa = t_noa.substring(0,2)+str;
                 $('#txtNoa').val(t_noa);
-   
+   				$('#cmbTaxtype').val(1);
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
             }
@@ -194,6 +220,7 @@
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
+                $('#btnVcc').attr('disabled','disabled');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
                 $('#txtNoa').attr('readonly', true);
@@ -212,8 +239,66 @@
             }
 
             function sum() {
-				var t_total = round(q_float('txtMoney')+q_float('txtTax'),0);
-                $('#txtTotal').val(t_total);
+				if(!(q_cur==1 || q_cur==2))
+					return;		
+				$('#txtTax').attr('readonly','readonly');	
+				var t_money,t_taxrate,t_tax,t_total;
+				t_money = round(q_float('txtMoney'),0);
+				t_taxrate = parseFloat(q_getPara('sys.taxrate'))/100;
+			    switch ($('#cmbTaxtype').val()) {
+			        case '1':  // 應稅
+			            t_tax = round(t_money * t_taxrate, 0);
+			            t_total = t_money + t_tax;
+			            break;
+			        case '2': //零稅率
+			        	t_tax = 0;
+			        	t_total = t_money + t_tax;
+			        	break;
+			        case '3':  // 內含
+			            t_tax = round(t_money / (1 + t_taxrate) * t_taxrate, 0);
+			            t_total = t_money;
+			            t_money = t_total - t_tax;
+			            break;
+			        case '4':  // 免稅
+			            t_tax = 0;
+			        	t_total = t_money + t_tax;
+			            break;
+			        case '5':  // 自定
+			        	$('#txtTax').removeAttr('readonly');
+						t_tax = round(q_float('txtTax'),0);
+			        	t_total = t_money + t_tax;
+			            break;
+			        case '6':  // 作廢-清空資料
+			        	t_money = 0,t_tax = 0, t_total = 0;
+			            $('#txtCustno').val('');//銷貨客戶
+			            $('#txtCustno').attr('readonly', true);
+			            $('#txtComp').val('');
+			            $('#txtComp').attr('readonly', true);
+			            $('#txtSerial').val('');//統一編號
+			            $('#txtSerial').attr('readonly', true);
+			            $('#txtMoney').val(0);//產品金額
+			            $('#txtMoney').attr('readonly', true);
+			            $('#txtMon').val('');//帳款月份
+			            $('#txtMon').attr('readonly', true);
+			            $('#txtTax').val(0);//營業稅
+			            $('#txtTax').attr('readonly', true);
+			            $('#txtTotal').val(0);//總計
+			            $('#txtTotal').attr('readonly', true);
+			            $('#txtChkno').val('');//檢查號碼
+			            $('#txtChkno').attr('readonly', true);
+			            $('#txtAccno').val('');//轉會計傳票編號
+			            $('#txtAccno').attr('readonly', true);
+			            $('#txtBuyerno').val('');//買受人
+			            $('#txtBuyerno').attr('readonly', true);
+			            $('#txtBuyer').val('');//
+			            $('#txtBuyer').attr('readonly', true);
+			            $('#txtMemo').val('');//發票備註
+			            break;		
+			        default:		
+			    }
+			    $('#txtMoney').val(t_money);
+			    $('#txtTax').val(t_tax);
+			    $('#txtTotal').val(t_total);
             }
 
             function refresh(recno) {
@@ -277,37 +362,36 @@
 
             function btnCancel() {
                 _btnCancel();
+                $('#btnVcc').removeAttr('disabled');
             }
-            function checkId(str){
-            	if((/^[a-z,A-Z][0-9]{9}$/g).test(str)){
-            		var key='ABCDEFGHJKLMNPQRSTUVWXYZIO';
-            		var s = (key.indexOf(str.substring(0,1))+10)+str.substring(1,10);
-            		var n = parseInt(s.substring(0,1))*1 
-            			+ parseInt(s.substring(1,2))*9
-            			+ parseInt(s.substring(2,3))*8
-            			+ parseInt(s.substring(3,4))*7
-            			+ parseInt(s.substring(4,5))*6
-            			+ parseInt(s.substring(5,6))*5
-            			+ parseInt(s.substring(6,7))*4
-            			+ parseInt(s.substring(7,8))*3
-            			+ parseInt(s.substring(8,9))*2
-            			+ parseInt(s.substring(9,10))*1
-            			+ parseInt(s.substring(10,11))*1;
-					if ((n%10)!=0)
-            			alert('身分證字號錯誤。') ;       		
-            	}else if((/^[0-9]{8}$/g).test(str)){
-            		var key = '12121241';
-            		var n = 0;
-            		var m = 0;
-            		for(var i=0;i<8;i++){
-            			n = parseInt(str.substring(i,i+1)) * parseInt(key.substring(i,i+1));
-            			m += Math.floor(n/10)+n%10;
-            		}
-            		if( !((m%10)==0 || ((str.substring(6,7)=='7'?m+1:m)%10)==0))
-            			alert('統一編號錯誤。') ; 
-            	}else{
-            		alert('undefined');
-            	}
+            function checkId(str) {
+                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
+                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
+                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
+                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
+                    if ((n % 10) == 0)
+                        return 1;
+                } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
+                    var key = '12121241';
+                    var n = 0;
+                    var m = 0;
+                    for (var i = 0; i < 8; i++) {
+                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
+                        m += Math.floor(n / 10) + n % 10;
+                    }
+                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
+                        return 2;
+                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
+                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
+               		if(regex.test(str))
+               			return 3;
+                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
+                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
+                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
+               		if(regex.test(str))
+               			return 4
+               	}
+               	return 0;//錯誤
             }
 		</script>
 		<style type="text/css">
@@ -316,7 +400,7 @@
             }
             .dview {
                 float: left;
-                width: 400px; 
+                width: 380px; 
                 border-width: 0px; 
             }
             .tview {
@@ -336,7 +420,7 @@
             }
             .dbbm {
                 float: left;
-                width: 600px;
+                width: 520px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -439,9 +523,9 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
-						<td align="center" style="width:120px; color:black;"><a id='vewNoa'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewNoa'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'></a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewNick'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewNick'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTotal'></a></td>
 					</tr>
 					<tr>
@@ -476,14 +560,15 @@
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtNoa"  type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblTaxtype' class="lbl"> </a></td>
+						<td><select id="cmbTaxtype" class="txt c1" > </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
 						<td><input id="txtSerial" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblBuyer' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblBuyer' class="lbl"> </a></td>
 						<td colspan="3">
-							<input id="txtBuyerno"  type="text"  style="float:left; width:30%;"/>
-							<input id="txtBuyer" type="text"  style="float:left; width:70%;"/>
+							<input id="txtBuyer" type="text" class="txt c1"/>
 						</td>
 					</tr>
 					<tr>
@@ -508,11 +593,16 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblChkno' class="lbl"> </a></td>
-						<td><input id="txtChkno"  type="text" class="txt c1" /></td>
+						<td><input id="txtChkno"  type="text" class="txt c1" /></td>					
+						<td><span> </span><a id='lblAccno' class="lbl"> </a></td>
+						<td colspan="2"><input id="txtAccno"  type="text" class="txt c1"/>	</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id='lblAccno' class="lbl"> </a></td>
-						<td><input id="txtAccno"  type="text" class="txt c1"/>	</td>
+						<td><span> </span><a id='lblVccno' class="lbl"> </a></td>
+						<td colspan="2"><input id="txtVccno"  type="text" class="txt c1"/>	</td>
+						<td><input id="btnVcc"  type="button" class="txt c1"/>	</td>
 					</tr>
 				</table>
 			</div>
