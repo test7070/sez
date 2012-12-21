@@ -395,7 +395,7 @@
                 	return;
                 }
                 $('#txtTrandate').val($.trim($('#txtTrandate').val()));
-                if (checkId($('txtTrandate').val())==0){
+                if (checkId($('#txtTrandate').val())==0){
                 	alert(q_getMsg('lblTrandate')+'錯誤。');
                 	return;
                 }
