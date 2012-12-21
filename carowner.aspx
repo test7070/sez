@@ -23,6 +23,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
+            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp', 'acomp_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
