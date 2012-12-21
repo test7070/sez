@@ -109,6 +109,7 @@
 					<td class="td2" align="center" style="width:7%;"><a id='lblMon'></a></td>
 					<td class="td3" align="center" style="width:10%;"><a id='lblMoney'></a></td>
 					<td class="td4" align="center" style="width:5%;"><a id='lblSheetyn'></a></td>
+					<td class="td4" align="center" style="width:5%;"><a id='lblFareyn'></a></td>
 					<td class="td5" align="center" style="width:10%;"><a id='lblPaydate'></a></td>
 					<td class="td6" align="center" style="width:40%;"><a id='lblMemo'></a></td>
 				</tr>
@@ -124,6 +125,9 @@
 					</td>
 					<td class="td4">
 					<input class="txt" id="txtSheetyn.*" type="text" style="width:95%; text-align: center;"  />
+					</td>
+					<td class="td4">
+					<input class="txt" id="txtFareyn.*" type="text" style="width:95%; text-align: center;"  />
 					</td>
 					<td class="td5">
 					<input class="txt" id="txtPaydate.*" type="text" style="width:95%; text-align: center;"  />

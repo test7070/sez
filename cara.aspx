@@ -119,7 +119,7 @@
                 			var as = _q_appendData("car2", "", true);
                 			if(as[0]!=undefined){
                 				as[0]._datea=q_date();
-                				if(dec($('#txtIprev').val())>dec(as[0].irange)&&dec(as[0].irate)>0)
+                				if(dec($('#txtIprev').val())>dec(as[0].irange)&&dec(as[0].irate)>0 &&dec(as[0].auto)=='Y')
                 				{
                 					as[0]._iratefee=Math.round((dec($('#txtIprev').val())-dec(as[0].irange))*dec(as[0].irate))
                 					as[0].caritemno='002';
@@ -127,7 +127,7 @@
                     				q_gridAddRow(bbsHtm, 'tbbs', 'txtDatea,txtCaritemno,txtCaritem,txtOutmoney', 1, as, '_datea,caritemno,caritem,_iratefee', 'txtCaritemno');
                 				}
                 				
-                				if(dec($('#txtBprev').val())>0&&dec(as[0].irate)>0)
+                				if(dec($('#txtBprev').val())>0&&dec(as[0].irate)>0 &&dec(as[0].auto)=='Y')
                 				{
                 					as[0]._bratefee=Math.round(dec($('#txtBprev').val())*dec(as[0].irate))
                 					as[0].caritemno='202';

@@ -51,7 +51,7 @@
 		var cal=false;//判斷計算各自投保金額
         function mainPost() { 
             q_getFormat();
-            bbmMask = [['txtBdate', r_picd],['txtMon', r_picm]];
+            bbmMask = [['txtBdate', r_picd]];
             q_mask(bbmMask);
             bbsMask = [['txtBirthday', r_picd],['txtIndate', r_picd],['txtOutdate', r_picd]];
             q_mask(bbsMask);
@@ -644,8 +644,8 @@
             _btnIns();
             $('#txtBdate').val(q_date());
             $('#txtNoa').focus();
-            $('#txtMon').attr('readonly',true);
-		    $('#txtMon').attr('disabled', 'disabled');
+            //$('#txtMon').attr('readonly',true);
+		    //$('#txtMon').attr('disabled', 'disabled');
 		    $('#txtInsur_fund').val(0.025);
 			$('#txtInsur_disaster').val(0.34);
         }
@@ -657,8 +657,8 @@
             $('#txtNamea').attr('disabled', 'disabled');
             $('#chkIsforeign').attr('disabled', 'disabled');
             $('#txtSalary').focus();
-            $('#txtMon').attr('readonly',true);
-		    $('#txtMon').attr('disabled', 'disabled');
+            //$('#txtMon').attr('readonly',true);
+		    //$('#txtMon').attr('disabled', 'disabled');
 		    //取得健勞保退保日期
             	var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^ top=1";
             	q_gt('sssall', t_where, 0, 0, 0, "", r_accy);
@@ -707,10 +707,10 @@
         ///////////////////////////////////////////////////  ?H?U??????{???A????n????
         function refresh(recno) {
             _refresh(recno);
-			if (q_cur==0) {
+			/*if (q_cur==0) {
 		            $('#txtMon').removeAttr('disabled');
 		            $('#txtMon').css('background-color','white');           
-		    }
+		    }*/
         }
 
         function readonly(t_para, empty) {
@@ -941,7 +941,7 @@
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 68%;float:left">
+        <div class='dbbm' style="width: 66%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr class="tr1">
             <td class='td1'><span> </span><a id="lblNoa" class="lbl btn" > </a></td>
@@ -965,9 +965,9 @@
             <td class="td2"><input id="txtBdate" type="text" class="txt  c1" /></td>
             <td class='td3'><span> </span><a id="lblSalary" class="lbl"> </a></td>
             <td class="td4"><input id="txtSalary" type="text" class="txt num c1" /></td>
-            <td class="td5" colspan="2"><span> </span><input id="btnUmmb" type="button" style="float: right;"/></td>
+            <!--<td class="td5" colspan="2"><span> </span><input id="btnUmmb" type="button" style="float: right;"/></td>
             <td class="td7"><span> </span><a id="lblMon" class="lbl"> </a></td>
-            <td class="td8"><input id="txtMon" type="text" class="txt c1" /></td>
+            <td class="td8"><input id="txtMon" type="text" class="txt c1" /></td>-->
         </tr>
         <tr class="tr4">
             <td class='td1'><span> </span><a id="lblSa_retire" class="lbl" > </a></td>
