@@ -950,28 +950,28 @@
 						</tr>
 					</table>
 					<div style="border: 1px solid #000000;border-radius: 5px; height:30px; padding: 5px 0 0 5px; ">
-						<div class='btnLbl button'>
+						<div id='divlblCarexpense' class='btnLbl button'>
 							<a id='lblCarexpense'></a>
 						</div>
-						<div class='btnLbl button'>
+						<div id='divlblCarinsurance' class='btnLbl button'>
 							<a id='lblCarinsurance'></a>
 						</div>
 						<!--<div class='btnLbl button'>
 							<a id='lblCarlender'></a>
 						</div>-->
-						<div class='btnLbl button'>
+						<div id='divlblCaraccident' class='btnLbl button'>
 							<a id='lblCaraccident'></a>
 						</div>
-						<div class='btnLbl button'>
+						<div id='divlblCarchange' class='btnLbl button'>
 							<a id='lblCarchange'></a>
 						</div>
-						<div class='btnLbl button'>
+						<div id='divlblOil' class='btnLbl button'>
 							<a id='lblOil'></a>
 						</div>
-						<div class='btnLbl button'>
+						<div id='divlblCartax' class='btnLbl button'>
 							<a id='lblCartax'></a>
 						</div>
-						<div class='btnLbl button'>
+						<div id='divlblSale' class='btnLbl button'>
 							<a id='lblSale'></a>
 						</div>
 					</div>

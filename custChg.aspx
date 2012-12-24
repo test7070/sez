@@ -53,11 +53,9 @@
                 q_mask(bbmMask);
 
                 $('#txtAcc1').change(function() {
-                    var s1 = trim($(this).val());
-                    if (s1.length > 4 && s1.indexOf('.') < 0)
-                        $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
-                    if (s1.length == 4)
-                        $(this).val(s1 + '.');
+                    var str=$.trim($(this).val());
+                	if((/^[0-9]{4}$/g).test(str))
+                		$(this).val(str+'.');
                 });
             }
 

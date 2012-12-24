@@ -24,34 +24,28 @@
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'Datea';
+            brwKey = 'Noa';
             q_desc=1;
 			//q_alias='a';
 			
             $(document).ready(function() {
-                bbmKey = ['noa'];
+               // bbmKey = ['noa'];
                 //q_brwCount();
                 //q_gt(q_name, q_content, q_sqlCount, 1)
+                main();
             });
 
             //////////////////   end Ready
             function main() {
-                if(dataErr) {
+                /*if(dataErr) {
                     dataErr = false;
                     return;
                 }
-
-                mainForm(1);
+                mainForm(1);*/
+               q_gf('', q_name);
             }
             			
-			var dateimport=false;
             function mainPost() {
-                q_getFormat();
-                bbmMask = [['txtMon', r_picm]];
-                q_mask(bbmMask);
-                $('#btnImport').click(function() {
-                	//執行後端結轉function
-                });
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -74,6 +68,36 @@
                         break;
                 }  /// end switch
             }
+            
+            function q_gfPost() {
+				q_popAssign();
+				q_getFormat();
+				bbmMask = [['txtMon', r_picm],['txtDiscount', '99']];
+                q_mask(bbmMask);
+				q_langShow();
+				
+				$('#btnIns').hide();
+				$('#btnModi').hide();
+				$('#btnDele').hide();
+				$('#btnSeek').hide();
+				$('#btnPrint').hide();
+				$('#btnPrevPage').hide();
+				$('#btnPrev').hide();
+				$('#btnNext').hide();
+				$('#btnNextPage').hide();
+				$('#btnOk').hide();
+				$('#btnCancel').hide();
+				$('#btnSign').hide();
+				$('#pageNow').hide();
+				$('#pageAll').hide();
+				
+				$('#txtMon').val(q_date().substr(0,6));
+				
+				$('#btnImport').click(function() {
+                	q_func('', "");
+                	//執行後端結轉function
+                });
+			}
 
             function btnOk() {
                 
@@ -82,8 +106,6 @@
             function _btnSeek() {
                 
             }
-
-
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
            			
@@ -104,31 +126,6 @@
             function btnPrint() {
             }
 
-            function wrServer(key_value) {
-                var i;
-
-                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-                _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
-            }
-
-            function bbsSave(as) {
-                if(!as['datea']) {
-                    as[bbsKey[1]] = '';
-                    return;
-                }
-
-                q_nowf();
-                as['mon'] = abbm2['mon'];
-                as['carno'] = abbm2['carno'];
-
-                return true;
-            }
-
-            function sum() {
-                var t_total = 0,t_bin=0,t_interest=0,t_paytotal=0;
-                for(var j = 0; j < q_bbsCount; j++) {
-                }
-            }
 
             ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
 
@@ -340,24 +337,6 @@
 	<body>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
-			<div class="dview" style="float: left;  width:25%;">
-				<table class="tview" id="tview" border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
-					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width: 25%;"><a id='vewDatea'></a></td>
-						<td align="center" style="width: 25%;"><a id='vewMon'></a></td>
-						<td align="center" style="width: 50%;"><a id='vewCarno'></a></td>
-					</tr>
-					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox" style=''/>
-						</td>
-						<td align="center" id='datea '>~datea</td>
-						<td align="center" id='mon '>~mon</td>
-						<td align="center" id='carno '>~carno</td>
-					</tr>
-				</table>
-			</div>
 			<div class='dbbm' style="width: 73%;float: left;">
 				<table class="tbbm"  id="tbbm"  border="0" cellpadding='2'  cellspacing='5'>
 					<tr class="tr1">

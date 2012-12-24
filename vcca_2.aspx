@@ -170,6 +170,7 @@
                 $('#txtSerial').val($.trim($('#txtSerial').val()));
                 if ($('#txtSerial').val().length > 0 && checkId($('#txtSerial').val())!=2)
                     alert(q_getMsg('lblSerial')+'錯誤。');
+            	$('#txtWorker' ).val(r_name);
             	sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCno', q_getMsg('lblAcomp')]]);
                 // 檢查空白

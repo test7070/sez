@@ -23,7 +23,7 @@
             isEditTotal = false;
             q_tables = 's';
             var q_name = "chgcash";
-            var q_readonly = ['txtChgitem', 'txtPart', 'txtChgpart', 'txtOrg', 'txtNamea', 'txtComp', 'txtAccno', 'txtNoa', 'txtWorker', 'txtMoney'];
+            var q_readonly = ['txtCarchgno','txtCustchgno','txtChgitem', 'txtPart', 'txtChgpart', 'txtOrg', 'txtNamea', 'txtComp', 'txtAccno', 'txtNoa', 'txtWorker', 'txtMoney'];
             var q_readonlys = ['txtAcc2'];
             var bbmNum = [['txtOrg', 12, 0, 1]];
             var bbsNum = [];
@@ -101,11 +101,29 @@
                 	else
                 		$(".carchg").css('display','none');
                 });
+                 $("#chkCustchg").change(function(e){
+                	if($("#chkCustchg").prop("checked"))
+                		$(".custchg").css('display','');
+                	else
+                		$(".custchg").css('display','none');
+                });
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
                 });
-                $('#lblCarchgno').click(function() {
-                    q_pop('txtCarchgno', "carchg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtCarchgno').val() + "';" + r_accy, 'carchg','noa','datea', "92%", "1054px", q_getMsg('popCarchg'), true);
+                
+                $('#lblCustchg').click(function() {
+                    var t_where = "";
+                    var tmp = $('#txtCustchgno').val().split(',');
+                    for (var i in tmp)
+                    t_where += (t_where.length > 0 ? ' or ' : '') + "noa='" + tmp[i] + "'";
+                    q_pop('txtCustchgno', "custchg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno, 'custchg', 'noa', 'datea', "92%", "1000px", q_getMsg('popCustchg'), true);
+                });
+                $('#lblCarchg').click(function() {
+                    var t_where = "";
+                    var tmp = $('#txtCarchgno').val().split(',');
+                    for (var i in tmp)
+                    t_where += (t_where.length > 0 ? ' or ' : '') + "noa='" + tmp[i] + "'";
+                    q_pop('txtCarchgno', "carchg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno, 'custchg', 'noa', 'datea', "92%", "1000px", q_getMsg('popCarchg'), true);
                 });
             }
 
@@ -177,6 +195,9 @@
             }
 
             function btnOk() {
+            	if(!$("#chkCarchg").prop("checked")){
+            		$('#cmbCarteamno').val('');
+            	}
             	$('#txtDatea').val($.trim($('#txtDatea').val()));
                 if (checkId($('#txtDatea').val())==0){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
@@ -205,9 +226,14 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                     $('#lblNo_' + i).text(i + 1);
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-                        $('#txtMoney_' + i).change(function() {
+                        $('#txtMoney_' + i).change(function(e) {
                             sum();
                         });
+                        $('#txtAcc1_' + i).change(function(e) {
+                        	var str=$.trim($(this).val());
+                        	if((/^[0-9]{4}$/g).test(str))
+                        		$(this).val(str+'.');
+                    	});
                     }
                 }
                 _bbsAssign();
@@ -272,6 +298,10 @@
             		$(".carchg").css('display','');
             	else
             		$(".carchg").css('display','none');
+            	 if($("#chkCustchg").prop("checked"))
+            		$(".custchg").css('display','');
+            	else
+            		$(".custchg").css('display','none');
             }
 
             function readonly(t_para, empty) {
@@ -330,14 +360,6 @@
             function btnCancel() {
                 _btnCancel();
             }
-
-            function q_stPost() {
-                if (!(q_cur == 1 || q_cur == 2))
-                    return false;
-                abbm[q_recno]['accno'] = xmlString;
-                $('#txtAccno').val(xmlString);
-            }
-
             //...........................................零用金餘額查詢
             function cashorg() {
                 var t_where = "where=^^ partno='" + $('#cmbPartno').val() + "'^^";
@@ -565,9 +587,9 @@
 						</td>
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td><input id="txtNoa"  type="text"  class="txt c1"/></td>
-						<td class="td7"></td>
-						<td class="td8"></td>
-						<td class="tdZ"></td>
+						<td class="td7"> </td>
+						<td class="td8"> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id="lblPart" class="lbl btn"> </a></td>
@@ -581,37 +603,36 @@
 						</td>
 						
 					</tr>
-					<tr class="tr4">
-						<td class="td1"><span> </span><a id="lblChgpart" class="lbl btn"> </a></td>
-						<td class="td2"><select id="cmbChgpartno" class="txt c1"></select>
+					<tr>
+						<td><span> </span><a id="lblChgpart" class="lbl btn"> </a></td>
+						<td><select id="cmbChgpartno" class="txt c1"></select>
 						<input id="txtChgpart"  type="text" style="display: none;"/>
 						</td>
-						<td class="td1"><span> </span><a id="lblMoney" class="lbl"></a></td>
-						<td class="td2">
+						<td><span> </span><a id="lblMoney" class="lbl"></a></td>
+						<td>
 						<input id="txtMoney" type="text" class="txt num c1"/>
 						</td>
-						<td class="td3"><span > </span><a id="lblDc" class="lbl"> </a></td>
-						<td class="td4"><select id="cmbDc" class="txt c1"></select></td>
-						<td class="td5"><span> </span><a id="lblCarteam" class="lbl"> </a></td>
-						<td class="td6"><select id="cmbCarteamno" class="txt c1"></select></td>
+						<td><span > </span><a id="lblDc" class="lbl"> </a></td>
+						<td><select id="cmbDc" class="txt c1"></select></td>					
 					</tr>
 					<tr>
 						<td> </td>
-						<td><span> </span><a id="lblCustchgno" class="lbl"> </a>
+						<td><span> </span><a id="lblCustchg" class="lbl btn"> </a>
 							<input id="chkCustchg" type="checkbox" style="float: right;"/>
-							<input id="txtCustchgno" style="display:none;"/>
+							<input id="txtCustchgno"  type="text" style="display:none;"/></td>
 						</td>
-						<td><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
-						<td><input id="txtCustno"  type="text"  class="txt c1"/></td>
-						<td colspan="2"><input id="txtComp"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id="lblPo" class="lbl"> </a></td>
-						<td><input id="txtPo"  type="text" class="txt c1" /></td>
+						<td class="custchg"><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
+						<td class="custchg"><input id="txtCustno"  type="text"  class="txt c1"/></td>
+						<td class="custchg" colspan="2"><input id="txtComp"  type="text"  class="txt c1"/></td>
+						<td class="custchg"<span> </span><a id="lblPo" class="lbl"> </a></td>
+						<td class="custchg"><input id="txtPo"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td> </td>
 						<td>
-							<span> </span><a id="lblCarchg" class="lbl"> </a>
+							<span> </span><a id="lblCarchg" class="lbl btn"> </a>
 							<input id="chkCarchg" type="checkbox" style="float: right;"/>
+							<input id="txtCarchgno"  type="text" style="display:none;"/></td>
 						</td>
 						<td class="carchg"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
 						<td class="carchg">
@@ -619,9 +640,9 @@
 							<input id="txtDriver" type="text"  class="txt c4"/>
 						</td>
 						<td class="carchg"><span> </span><a id="lblCarno" class="lbl btn"> </a></td>
-						<td class="carchg"><input id="txtCarno" type="text" class="txt c1" /></td>
-						<td class="carchg"><span> </span><a id="lblCarchgno" class="lbl btn"> </a></td>
-						<td class="carchg"><input id="txtCarchgno"  type="text" class="txt c1" /></td>
+						<td class="carchg"><input id="txtCarno" type="text" class="txt c1" /></td>	
+						<td class="carchg"><span> </span><a id="lblCarteam" class="lbl"> </a></td>
+						<td class="carchg"><select id="cmbCarteamno" class="txt c1"> </select></td>
 					</tr>
 					
 					<tr>

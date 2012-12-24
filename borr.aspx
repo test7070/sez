@@ -2,29 +2,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title> </title>
-		<script src="../script/jquery.min.js" type="text/javascript"> </script>
-		<script src='../script/qj2.js' type="text/javascript"> </script>
-		<script src='qset.js' type="text/javascript"> </script>
-		<script src='../script/qj_mess.js' type="text/javascript"> </script>
-		<script src='../script/mask.js' type="text/javascript"> </script>
-		<script src="../script/qbox.js" type="text/javascript"> </script>
+		<title></title>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
-		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
-		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
-		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
 
             q_tables = 's';
             var q_name = "borr";
-            var q_readonly = ['txtNoa','txtCash','txtChecka','txtMoney', 'txtInterest','txtTotal','txtPay','txtUnpay','txtWorker'];
+            var q_readonly = ['txtNoa', 'txtCash', 'txtChecka', 'txtMoney', 'txtInterest', 'txtTotal', 'txtPay', 'txtUnpay', 'txtWorker'];
             var q_readonlys = [];
-            var bbmNum = [['txtCash', 10, 0],['txtChecka', 10, 0],['txtMoney', 10, 0],['txtInterest', 10, 0],['txtTotal', 10, 0],['txtPay', 10, 0],['txtUnpay', 10, 0]];
+            var bbmNum = [['txtCash', 10, 0], ['txtChecka', 10, 0], ['txtMoney', 10, 0], ['txtInterest', 10, 0], ['txtTotal', 10, 0], ['txtPay', 10, 0], ['txtUnpay', 10, 0]];
             var bbsNum = [];
-            var bbmMask = [['txtDatea','999/99/99'],['txtBegindate','999/99/99'],['txtEnddate','999/99/99']];
-            var bbsMask = [['txtDatea','999/99/99'],['txtIndate','999/99/99']];
+            var bbmMask = [['txtDatea', '999/99/99'], ['txtBegindate', '999/99/99'], ['txtEnddate', '999/99/99']];
+            var bbsMask = [['txtDatea', '999/99/99'], ['txtIndate', '999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -33,7 +33,7 @@
             q_desc = 1;
             q_xchg = 1;
             brwCount2 = 20;
-            
+
             aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtCustnick', 'cust_b.aspx'])
 
             $(document).ready(function() {
@@ -44,7 +44,7 @@
             });
 
             function main() {
-                if(dataErr) {
+                if (dataErr) {
                     dataErr = false;
                     return;
                 }
@@ -53,11 +53,11 @@
 
             function mainPost() {
                 q_mask(bbmMask);
-                 $('#txtBegindate').datepicker();
-                  $('#txtEnddate').datepicker();
+                $('#txtBegindate').datepicker();
+                $('#txtEnddate').datepicker();
                 q_cmbParse("cmbTypea", q_getPara('borr.typea'), 's');
-				
-				$("#txtBegindate").change(function() {
+
+                $("#txtBegindate").change(function() {
                     calcDay();
                 });
                 $("#txtEnddate").change(function() {
@@ -77,9 +77,9 @@
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case q_name:
-                        if(q_cur == 4)
+                        if (q_cur == 4)
                             q_Seek_gtPost();
-                        if(q_cur == 1 || q_cur == 2)
+                        if (q_cur == 1 || q_cur == 2)
                             q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
                         break;
                 }
@@ -95,9 +95,9 @@
             }
 
             function _btnSeek() {
-                if(q_cur > 0 && q_cur < 4)
+                if (q_cur > 0 && q_cur < 4)
                     return;
-               	q_box('borr_s.aspx', q_name + '_s', "500px", "340px", q_getMsg( "popSeek"));
+                q_box('borr_s.aspx', q_name + '_s', "500px", "340px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -105,7 +105,7 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
-               
+
             }
 
             function btnModi() {
@@ -116,12 +116,12 @@
             }
 
             function btnPrint() {
-            	q_box('z_borr.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
+                q_box('z_borr.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
             }
 
             function btnOk() {
-            	sum();
-            	$('#txtWorker').val(r_name);
+                sum();
+                $('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
@@ -142,7 +142,7 @@
             }
 
             function bbsSave(as) {
-                if(!as['money']) {
+                if (!as['money']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -153,7 +153,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
-                if(q_cur > 0 && q_cur < 4)
+                if (q_cur > 0 && q_cur < 4)
                     sum();
             }
 
@@ -173,62 +173,63 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                     $('#lblNo_' + i).text(i + 1);
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-                    	$('#txtMoney_'+i).change(function(){
-							sum();
-						});
-						$('#txtCheckno_'+i).change(function(){
-							sum();
-						});
-						$('#cmbTypea_'+i).change(function(){
-							sum();
-						});
+                        $('#txtMoney_' + i).change(function() {
+                            sum();
+                        });
+                        $('#txtCheckno_' + i).change(function() {
+                            sum();
+                        });
+                        $('#cmbTypea_' + i).change(function() {
+                            sum();
+                        });
                     }
                 }
                 _bbsAssign();
             }
-			
-			function calcDay(){
-				if(!(q_cur==1 || q_cur==2))
-            		return;	
-            	/*var t_days = 0;
-            	var t_date1 = $('#txtBegindate').val();
-            	var t_date2 = $('#txtEnddate').val();
-            	t_date1 = (new Date()).setFullYear(parseInt(t_date1.substring(0,3))+1911,t_date1.substring(4,6),t_date1.substring(7,9));
-            	t_date2 = (new Date()).setFullYear(parseInt(t_date2.substring(0,3))+1911,t_date2.substring(4,6),t_date2.substring(7,9));       
-            	t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24) + 1;
- 				$('#txtDays').val(t_days); */
- 				var t_days = 0;
-            	var t_date1 = $('#txtBegindate').val();
-            	var t_date2 = $('#txtEnddate').val();
-            	t_date1 = new Date(dec(t_date1.substr(0,3))+1911, dec(t_date1.substring(4,6))-1, dec(t_date1.substring(7,9)));
-            	t_date2 = new Date(dec(t_date2.substr(0,3))+1911, dec(t_date2.substring(4,6))-1, dec(t_date2.substring(7,9)));      
-            	t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24) + 1;
-            	$('#txtDays').val(t_days);
- 				sum();    	
-			}
+
+            function calcDay() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return;
+                /*var t_days = 0;
+                 var t_date1 = $('#txtBegindate').val();
+                 var t_date2 = $('#txtEnddate').val();
+                 t_date1 = (new Date()).setFullYear(parseInt(t_date1.substring(0,3))+1911,t_date1.substring(4,6),t_date1.substring(7,9));
+                 t_date2 = (new Date()).setFullYear(parseInt(t_date2.substring(0,3))+1911,t_date2.substring(4,6),t_date2.substring(7,9));
+                 t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24) + 1;
+                 $('#txtDays').val(t_days); */
+                var t_days = 0;
+                var t_date1 = $('#txtBegindate').val();
+                var t_date2 = $('#txtEnddate').val();
+                t_date1 = new Date(dec(t_date1.substr(0, 3)) + 1911, dec(t_date1.substring(4, 6)) - 1, dec(t_date1.substring(7, 9)));
+                t_date2 = new Date(dec(t_date2.substr(0, 3)) + 1911, dec(t_date2.substring(4, 6)) - 1, dec(t_date2.substring(7, 9)));
+                t_days = Math.abs(t_date2 - t_date1) / (1000 * 60 * 60 * 24) + 1;
+                $('#txtDays').val(t_days);
+                sum();
+            }
+
             function sum() {
-            	if(!(q_cur==1 || q_cur==2))
-            		return;	
-            	var t_days = 0, t_money = 0, t_cash = 0, t_checka = 0, t_interest=0, t_pay = 0;
- 				t_days=q_float('txtDays');    
-            	for (var i = 0; i < q_bbsCount; i++) {
-            		if($('#cmbTypea_'+i).val()=='1')
-	            		if($.trim($('#txtCheckno_'+i).val()).length>0)
-	            			t_checka += q_float('txtMoney_'+i);
-	            		else
-							t_cash += q_float('txtMoney_'+i);
-					else
-						t_pay += q_float('txtMoney_'+i);
+                if (!(q_cur == 1 || q_cur == 2))
+                    return;
+                var t_days = 0, t_money = 0, t_cash = 0, t_checka = 0, t_interest = 0, t_pay = 0;
+                t_days = q_float('txtDays');
+                for (var i = 0; i < q_bbsCount; i++) {
+                    if ($('#cmbTypea_' + i).val() == '1')
+                        if ($.trim($('#txtCheckno_' + i).val()).length > 0)
+                            t_checka += q_float('txtMoney_' + i);
+                        else
+                            t_cash += q_float('txtMoney_' + i);
+                    else
+                        t_pay += q_float('txtMoney_' + i);
                 }
                 $('#txtCash').val(t_cash);
                 $('#txtChecka').val(t_checka);
                 t_money = t_cash + t_checka;
                 $('#txtMoney').val(t_money);
-                t_interest = round(t_days/30 * q_float('txtRate')*10000,0);
-            	$('#txtInterest').val(t_interest);
-            	$('#txtTotal').val(t_money+t_interest);
-            	$('#txtPay').val(t_pay);
-            	$('#txtUnpay').val(t_money+t_interest-t_pay);
+                t_interest = round(t_money * t_days / 30 * q_float('txtRate') / 100, 0);
+                $('#txtInterest').val(t_interest);
+                $('#txtTotal').val(t_money + t_interest);
+                $('#txtPay').val(t_pay);
+                $('#txtUnpay').val(t_money + t_interest - t_pay);
             }
 
             function q_appendData(t_Table) {
@@ -278,12 +279,13 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
+
             function q_popPost(id) {
-				switch(id) {
-					default:
-						break;
-				}
-			}
+                switch(id) {
+                    default:
+                        break;
+                }
+            }
 		</script>
 		<style type="text/css">
             #dmain {
@@ -291,8 +293,8 @@
             }
             .dview {
                 float: left;
-                width: 1080px; 
-                border-width: 0px; 
+                width: 900px;
+                border-width: 0px;
             }
             .tview {
                 border: 5px solid gray;
@@ -311,9 +313,9 @@
             }
             .dbbm {
                 float: left;
-                width: 1080px;
-                /*margin: -1px;        
-                border: 1px black solid;*/
+                width: 900px;
+                /*margin: -1px;
+                 border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -357,7 +359,7 @@
             .txt.c1 {
                 width: 100%;
                 float: left;
-            }    
+            }
             .txt.num {
                 text-align: right;
             }
@@ -375,13 +377,16 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
-                font-size:medium;
-            }
-            
-             input[type="text"],input[type="button"] {     
                 font-size: medium;
             }
-             .dbbs .tbbs {
+
+            input[type="text"], input[type="button"] {
+                font-size: medium;
+            }
+            .dbbs {
+                width: 950px;
+            }
+            .dbbs .tbbs {
                 margin: 0;
                 padding: 2px;
                 border: 2px lightgrey double;
@@ -395,18 +400,18 @@
             .dbbs .tbbs tr {
                 height: 35px;
             }
-            .dbbs .tbbs tr td{
-            	text-align: center;
+            .dbbs .tbbs tr td {
+                text-align: center;
                 border: 2px lightgrey double;
             }
-            
+
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
-	    ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();" 
-	    ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"  
-        ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-     >
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain'>
 			<div class="dview" id="dview" >
@@ -423,7 +428,9 @@
 						<td style="width:340px; color:black;"><a id='vewMemo'> </a></td>
 					</tr>
 					<tr>
-						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
+						<td >
+						<input id="chkBrow.*" type="checkbox" style=''/>
+						</td>
 						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='custnick' style="text-align: center;">~custnick</td>
 						<td id='money' style="text-align: right;">~money</td>
@@ -438,23 +445,27 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td class="tdZ"> </td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="tdZ"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
-						<td colspan="2"><input id="txtNoa"  type="text" class="txt c1"/></td>
+						<td colspan="2">
+						<input id="txtNoa"  type="text" class="txt c1"/>
+						</td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td><input id="txtDatea"  type="text"  class="txt c1"/>	</td>
+						<td>
+						<input id="txtDatea"  type="text"  class="txt c1"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
@@ -466,67 +477,95 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCash" class="lbl"> </a></td>
-						<td><input id="txtCash"  type="text" class="txt c1 num"/></td>
+						<td>
+						<input id="txtCash"  type="text" class="txt c1 num"/>
+						</td>
 						<td><span> </span><a id="lblChecka" class="lbl"> </a></td>
-						<td><input id="txtChecka"  type="text" class="txt c1 num" /></td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
+						<td>
+						<input id="txtChecka"  type="text" class="txt c1 num" />
+						</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
 						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
-						<td><input id="txtMoney" type="text" class="txt c1 num"/></td>
+						<td>
+						<input id="txtMoney" type="text" class="txt c1 num"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblBegindate" class="lbl"> </a></td>
-						<td><input id="txtBegindate" type="text" class="txt c1"/></td>
+						<td>
+						<input id="txtBegindate" type="text" class="txt c1"/>
+						</td>
 						<td><span> </span><a id="lblEnddate" class="lbl"> </a></td>
-						<td><input id="txtEnddate" type="text" class="txt c1"/></td>
+						<td>
+						<input id="txtEnddate" type="text" class="txt c1"/>
+						</td>
 						<td><span> </span><a id="lblDays" class="lbl"> </a></td>
-						<td><input id="txtDays"  type="text" class="txt c1 num"/></td>
+						<td>
+						<input id="txtDays"  type="text" class="txt c1 num"/>
+						</td>
 						<td><span> </span><a id="lblRate" class="lbl"> </a></td>
-						<td><input id="txtRate" type="text" class="txt c1 num"/></td>
+						<td>
+						<input id="txtRate" type="text" class="txt c1 num"/>
+						</td>
 						<td><span> </span><a id="lblInterest" class="lbl"> </a></td>
-						<td><input id="txtInterest" type="text" class="txt c1 num"/></td>
+						<td>
+						<input id="txtInterest" type="text" class="txt c1 num"/>
+						</td>
 					</tr>
 					<tr>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
 						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
-						<td><input id="txtTotal" type="text" class="txt c1 num"/></td>
+						<td>
+						<input id="txtTotal" type="text" class="txt c1 num"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td colspan="6"><input id="txtMemo" type="text" class="txt c1"/></td>
-						<td> </td>
+						<td colspan="6">
+						<input id="txtMemo" type="text" class="txt c1"/>
+						</td>
+						<td></td>
 						<td><span> </span><a id="lblPay" class="lbl"> </a></td>
-						<td><input id="txtPay" type="text" class="txt c1 num"/></td>
+						<td>
+						<input id="txtPay" type="text" class="txt c1 num"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
-						<td><input id="txtWorker" type="text" class="txt c1"/></td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
+						<td>
+						<input id="txtWorker" type="text" class="txt c1"/>
+						</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
 						<td><span> </span><a id="lblUnpay" class="lbl"> </a></td>
-						<td><input id="txtUnpay" type="text" class="txt c1 num"/></td>
+						<td>
+						<input id="txtUnpay" type="text" class="txt c1 num"/>
+						</td>
 					</tr>
 				</table>
 			</div>
 			<div class='dbbs' >
 				<table id="tbbs" class='tbbs'>
 					<tr style='color:white; background:#003366;' >
-						<td style="width:20px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"/></td>
-						<td style="width:20px;"> </td>
-						<td style="width:60px;"><a id='lbl_typea'> </a></td>
+						<td style="width:20px;">
+						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"/>
+						</td>
+						<td style="width:20px;"></td>
+						<td style="width:80px;"><a id='lbl_typea'> </a></td>
 						<td style="width:80px;"><a id='lbl_datea'> </a></td>
 						<td style="width:80px;"><a id='lbl_money'> </a></td>
 						<td style="width:150px;"><a id='lbl_checkno'> </a></td>
@@ -542,15 +581,31 @@
 						<input class="txt" id="txtNoq.*" type="text" style="display: none;"/>
 						</td>
 						<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-						<td><select id="cmbTypea.*" style="width:95%; text-align: center;"> </select></td>
-						<td><input class="txt" id="txtDatea.*" type="text" style="width:95%; text-align: center;"/></td>
-						<td><input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;"/></td>
-						<td><input class="txt" id="txtCheckno.*" type="text" style="width:95%; text-align: left;"/></td>
-						<td><input class="txt" id="txtIndate.*" type="text" style="width:95%; text-align: center;"/></td>
-						<td><input class="txt" id="txtBankno.*" type="text" style="width:95%; text-align: left;"/></td>
-						<td><input class="txt" id="txtBank.*" type="text" style="width:95%; text-align: left;"/></td>
-						<td><input class="txt" id="txtAccount.*" type="text" style="width:95%; text-align: left;"/></td>
-						<td><input class="txt" id="txtMemo.*" type="text" style="width:95%; text-align: left;"/></td>
+						<td><select id="cmbTypea.*" style="width:95%; text-align: center;"></select></td>
+						<td>
+						<input class="txt" id="txtDatea.*" type="text" style="width:95%; text-align: center;"/>
+						</td>
+						<td>
+						<input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;"/>
+						</td>
+						<td>
+						<input class="txt" id="txtCheckno.*" type="text" style="width:95%; text-align: left;"/>
+						</td>
+						<td>
+						<input class="txt" id="txtIndate.*" type="text" style="width:95%; text-align: center;"/>
+						</td>
+						<td>
+						<input class="txt" id="txtBankno.*" type="text" style="width:95%; text-align: left;"/>
+						</td>
+						<td>
+						<input class="txt" id="txtBank.*" type="text" style="width:95%; text-align: left;"/>
+						</td>
+						<td>
+						<input class="txt" id="txtAccount.*" type="text" style="width:95%; text-align: left;"/>
+						</td>
+						<td>
+						<input class="txt" id="txtMemo.*" type="text" style="width:95%; text-align: left;"/>
+						</td>
 					</tr>
 				</table>
 			</div>
