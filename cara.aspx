@@ -83,16 +83,16 @@
                 //速查
                 $('#textCarseek').change(function () {
                 	if(!emp($('#textCarseek').val())){
-                		var s2=new Array('cara',"where=^^ carno like '%" +$('#textCarseek').val() + "%'^^ ");
+                		var s2=new Array('cara_s',"where=^^ carno like '%" +$('#textCarseek').val() + "%'^^ ");
                 		q_boxClose2(s2);
                 	}else{
-                		var s2=new Array('cara',"where=^^ 1=1 ^^ ");
+                		var s2=new Array('cara_s',"where=^^ 1=1 ^^ ");
                 		q_boxClose2(s2);
                 	}
                 }).focus(function() {
 					q_cur=2;
 				}).blur(function() {
-					q_cur=0;
+					q_cur=4;
 				});
 				
 				$('#btnNextmon').click(function () {
@@ -385,7 +385,7 @@
             }
 
             ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
-            function q_popPost(s1) {
+            /*function q_popPost(s1) {
 		    	switch (s1) {
 		    		case 'textCarseek':
 		    			if(!emp($('#textCarseek').val())){
@@ -397,7 +397,7 @@
                 		}
 			        break;
 		    	}
-			}
+			}*/
             
             function refresh(recno) {
                 _refresh(recno);
