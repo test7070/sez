@@ -29,6 +29,8 @@
 
             aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
             ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtCustnick', 'cust_b.aspx'], 
+            ['txtProductno', 'lblUcc', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
+            ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'], 
             ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']);
 
             $(document).ready(function() {
@@ -447,34 +449,43 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblAddr" class="lbl"> </a></td>
-						<td><input id="txtAddr"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
 						<td colspan='3'>
 							<input id="txtCustno" type="text" style="float:left; width:26.67%;"/>
 							<input id="txtComp" type="text" style="float:left; width:73.33%;"/>
 							<input id="txtCustnick" style="display:none;"/>
 						</td>
-						<td> </td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblAddr" class="lbl btn"> </a></td>
+						<td colspan="3">
+							<input id="txtAddrno"  type="text"  style="float:left; width:26.67%;"/>
+							<input id="txtAddr"  type="text"  style="float:left; width:73.33%;"/>
+						</td>
+						<td><span> </span><a id="lblProduct" class="lbl btn"> </a></td>
+						<td colspan='2'>
+							<input id="txtProductno"  type="text" style="float:left; width:40%;"/>
+							<input id="txtProduct"  type="text" style="float:left; width:60%;"/>
+						</td>
 						<td><input id="btnExport" type="button" class="txt c1" value="匯出"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblWeight" class="lbl"> </a></td>
-						<td><input id="txtWeight"  type="text"  class="txt num c1"/></td>
-						<td><span> </span><a id="lblInprice" class="lbl"> </a></td>
-						<td><input id="txtInprice"  type="text"  class="txt num c1"/></td>
 						<td><span> </span><a id="lblInmount" class="lbl"> </a></td>
 						<td><input id="txtInmount"  type="text"  class="txt num c1"/></td>
+						<td><span> </span><a id="lblInprice" class="lbl"> </a></td>
+						<td><input id="txtInprice"  type="text"  class="txt num c1"/></td>
 						<td><span> </span><a id="lblInmoney" class="lbl"> </a></td>
 						<td><input id="txtInmoney"  type="text"  class="txt num c1"/></td>
+						<td><span> </span><a id="lblWeight" class="lbl"> </a></td>
+						<td><input id="txtWeight"  type="text"  class="txt num c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblDiscount" class="lbl"> </a></td>
-						<td><input id="txtDiscount"  type="text"  class="txt num c1"/></td>
-						<td><span> </span><a id="lblOutprice" class="lbl"> </a></td>
-						<td><input id="txtOutprice"  type="text"  class="txt num c1"/></td>
 						<td><span> </span><a id="lblOutmount" class="lbl"> </a></td>
 						<td><input id="txtOutmount"  type="text"  class="txt num c1"/></td>
+						<td><span> </span><a id="lblOutprice" class="lbl"> </a></td>
+						<td><input id="txtOutprice"  type="text"  class="txt num c1"/></td>	
+						<td><span> </span><a id="lblDiscount" class="lbl"> </a></td>
+						<td><input id="txtDiscount"  type="text"  class="txt num c1"/></td>
 						<td><span> </span><a id="lblOutmoney" class="lbl"> </a></td>
 						<td><input id="txtOutmoney"  type="text"  class="txt num c1"/></td>
 					</tr>
