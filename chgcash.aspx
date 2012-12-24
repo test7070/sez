@@ -360,14 +360,6 @@
             function btnCancel() {
                 _btnCancel();
             }
-
-            function q_stPost() {
-                if (!(q_cur == 1 || q_cur == 2))
-                    return false;
-                abbm[q_recno]['accno'] = xmlString;
-                $('#txtAccno').val(xmlString);
-            }
-
             //...........................................零用金餘額查詢
             function cashorg() {
                 var t_where = "where=^^ partno='" + $('#cmbPartno').val() + "'^^";
