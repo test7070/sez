@@ -8,6 +8,7 @@
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
+        <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             aPop = new Array(['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'], ['txtNoa', 'lblNoa', 'addr', 'noa,addr', 'txtNoa', 'addr_b.aspx']);
             var q_name = "addr_s";
