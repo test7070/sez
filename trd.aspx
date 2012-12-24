@@ -466,6 +466,7 @@
                 _btnModi();
                 $('#txtDatea').focus();
                 curData = new trd();
+                sum();
             }
 
             function btnPrint() {
@@ -492,15 +493,17 @@
             }
 
             function sum() {
+            	if(!(q_cur==1 || q_cur==2))
+            		return;
                 if (isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.')
                     return;
                 var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0, t_mount = 0, t_plus = 0, t_plusmoney = 0, t_minusmoney = 0;
                 for ( iz = 0; iz < q_bbsCount; iz++) {
                     t_money += round(q_float('txtTranmoney_' + iz),0);
-                    t_mount += round(q_float('txtMount_' + iz),0);
+                    t_mount += q_float('txtMount_' + iz);
                 }
                 t_money = t_money;
-                t_mount = t_mount;
+                t_mount = round(t_mount,3);
 
                 t_discount = q_float('txtDiscount');
                 t_plus = q_float('txtPlus');
