@@ -17,7 +17,7 @@
 
             var q_name = "carcsb";
             var q_readonly = ['txtNoa','txtTranno'];
-            var bbmNum = [['txtWeight', 14, 3, 1], ['txtInprice', 14, 0, 1], ['txtInmount', 14, 3, 1], ['txtInmoney', 14, 0, 1], ['txtOutprice', 14, 0, 1], ['txtOutmount', 14, 3, 1], ['txtOutmoney', 14, 0, 1]];
+            var bbmNum = [['txtDiscount', 10, 3],['txtWeight', 10, 3], ['txtInprice', 10, 3], ['txtInmount', 10, 3], ['txtInmoney', 10, 0], ['txtOutprice', 10, 3], ['txtOutmount', 10, 3], ['txtOutmoney', 10, 0]];
             // master 允許 key 小數  [物件,整數位數,小數位數, comma Display]
             var bbmMask = [];
             q_sqlCount = 6;
@@ -102,8 +102,15 @@
             }
 
             function sum() {
-                q_tr('txtInmoney', q_float('txtInprice') * q_float('txtInmount'));
-                q_tr('txtOutmoney', q_float('txtOutprice') * q_float('txtDiscount') * q_float('txtOutmount'));
+            	var t_inprice = q_float('txtInprice');
+            	var t_inmount = q_float('txtInmount');
+            	var t_inmoney = round(t_inprice*t_inmount,0);
+            	var t_outprice = q_float('txtOutprice');
+            	var t_outmount = q_float('txtOutmount');
+            	var t_discount = q_float('txtDiscount');
+            	var t_outmoney = round(t_outprice*t_outmount*t_discount,0);
+            	$('#txtInmoney').val(t_inmoney);
+            	$('#txtOutmoney').val(t_outmoney);
             }
 
             function q_boxClose(s2) {
