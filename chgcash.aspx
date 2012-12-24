@@ -226,9 +226,14 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                     $('#lblNo_' + i).text(i + 1);
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-                        $('#txtMoney_' + i).change(function() {
+                        $('#txtMoney_' + i).change(function(e) {
                             sum();
                         });
+                        $('#txtAcc1_' + i).change(function(e) {
+                        	var str=$.trim($(this).val());
+                        	if((/^[0-9]{4}$/g).test(str))
+                        		$(this).val(str+'.');
+                    	});
                     }
                 }
                 _bbsAssign();
