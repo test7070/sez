@@ -20,7 +20,7 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+		aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'],
              ['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
              ['txtPartno', 'lblPartno', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
         $(document).ready(function () {
@@ -348,7 +348,7 @@
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
-                   <td align="center" id='comp'>~comp</td>
+                   <td align="center" id='nick'>~nick</td>
                    <td align="center" id='product'>~product</td>
             </tr>
         </table>
@@ -367,40 +367,46 @@
                <td class="td3" colspan="2"><input id="txtComp" type="text" class="txt c1"/></td>
                <td class="td4"> </td> 
             </tr>
-             <tr class="tr1">
+            <tr class="tr2">
+               <td class="td1"><span> </span><a id="lblNick" class="lbl"> </a></td>
+               <td class="td2"><input id="txtNick" type="text" class="txt c1"/></td>
+               <td class="td3"> </td>
+               <td class="td4"> </td> 
+            </tr>
+            
+             <tr class="tr3">
                <td class="td1"><span> </span><a id="lblPartno" class="lbl btn"> </a></td>
                <td class="td2"><input id="txtPartno" type="text" class="txt c2"/>
                <input id="txtPart" type="text" class="txt c3"/></td>
                <td class="td4"> </td> 
             </tr>
-            <tr class="tr2">
+            <tr class="tr4">
                <td class="td1"><span> </span><a id="lblTypea" class="lbl"> </a></td>
                <td class="td2"> <select id="cmbTypea" class="txt c1"> </select> </td>
               
             </tr>
-            <tr class="tr3">
+            <tr class="tr5">
                <td class="td1"><span> </span><a id="lblTaxtype" class="lbl"> </a></td>
                <td class="td2"> <select id="cmbTaxtype" class="txt c1"> </select> </td>
               <td class="td1"><span> </span><a id="lblTaxrate" class="lbl"> </a></td>
                <td class="td2"><input id="txtTaxrate" type="text" class="txt num c1"/> </td>
             </tr>
-			<tr class="tr4">
+			<tr class="tr6">
                <td class="td1"><span> </span><a id="lblProductno" class="lbl btn"> </a></td>
                <td class="td2"><input id="txtProductno" type="text" class="txt c1"/></td>
                <td class="td3" colspan="2"><input id="txtProduct" type="text" class="txt c1"/></td>
                <td class="td4"> </td>  
             </tr>
-            <tr class="tr5">
+            <tr class="tr7">
                <td class="td1"><span> </span><a id="lblMoney" class="lbl"> </a></td>
                <td class="td2"><input id="txtMoney" type="text" class="txt num c1"/></td>
                <td class="td3"> </td>
                <td class="td4"> </td> 
             </tr>
-             <tr class="tr2">
+             <tr class="tr8">
                <td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-               <td class="td2"><input id="txtMemo" type="text" class="txt c1"/> </td>
-               <td class="td3"> </td>
-               <td class="td4"> </td> 
+               <td class="td2"colspan="3"><input id="txtMemo" type="text" class="txt c1"/> </td>
+               
             </tr>
         </table>
         </div>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -272,7 +271,7 @@
             }
             .dview {
                 float: left;
-                width: 20%;
+                width: 40%;
             }
             .tview {
                 margin: 0;
@@ -282,6 +281,7 @@
                 font-size: 16px;
                 background-color: #FFFF66;
                 color: blue;
+                width: 100%;
             }
             .tview td {
                 padding: 2px;
@@ -290,7 +290,7 @@
             }
             .dbbm {
                 float: left;
-                width: 78%;
+                width: 58%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -390,7 +390,7 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
-        <div class="dview" id="dview" style="float: left;  width:25%;"  >
+        <div class="dview" id="dview" style="float: left;  width:40%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'> </a></td>
@@ -404,7 +404,7 @@
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 70%;float: left;">
+        <div class='dbbm' style="width: 58%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
           <tr class="tr1">
                <td class="td1"><span> </span><a id="lblAcc1" class="lbl"> </a></td>
@@ -414,8 +414,7 @@
             </tr>
             <tr class="tr2">
                <td class="td1"><span> </span><a id="lblAcc2" class="lbl"> </a></td>
-               <td class="td2"><input id="txtAcc2" type="text" class="txt c1"/></td>
-               <td class="td3"> </td>
+               <td class="td2" colspan="2"><input id="txtAcc2" type="text" class="txt c1"/></td>
                <td class="td4"> </td> 
             </tr>      
             <tr class="tr3">

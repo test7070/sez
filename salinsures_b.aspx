@@ -83,6 +83,7 @@
                 <th align="center" style='color:Blue;' class="td2"><a id='lblMount'></a></th>
                 <th align="center" style='color:Blue;' class="td2"><a id='lblDisaster'></a></th>
                 <th align="center" style='color:Blue;' class="td1"><a id='lblComp'></a></th>
+                <th align="center" style='color:Blue;' class="td1"><a id='lblMemo'></a></th>
             </tr>
             <tr>
                 <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
@@ -106,6 +107,7 @@
                 <td ><input class="txt c1" id="txtMount.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtDisaster.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtComp.*" type="text"  readonly="readonly" /></td>
+                <td ><input class="txt c1" id="txtMemo.*" type="text"  readonly="readonly" /></td>
             </tr>
         </table>
   <!--#include file="../inc/brow_ctrl.inc"--> 

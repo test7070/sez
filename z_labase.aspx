@@ -47,6 +47,9 @@
                         type : '8',
                         name : 'xsss',
                         value : (('').concat(new Array("寄保","非寄保","全部"))).split(',')
+                    }, {
+                        type : '6',
+                        name : 'xyear'
                     }]
                     });
                 q_popAssign();

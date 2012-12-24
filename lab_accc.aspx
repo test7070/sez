@@ -59,7 +59,15 @@
 		             q_box('payb.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtPaybno').val()), '', "97%", "1054px", " ");
 
 		        });
-
+		         $('#txtDatea').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
+	              $('#txtBdate').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
+				 $('#txtEdate').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
 		       
 		    }
 
@@ -155,7 +163,7 @@
 
 		    function btnIns() {
 		        _btnIns();
-		        $('#txtNoa').focus();
+		        $('#txtDatea').focus();
 		    }
 
 		    function btnModi() {
@@ -163,7 +171,7 @@
 		            return;
 
 		        _btnModi(1);   /// ���\�ק�
-		        $('#txtComp').focus();
+		        $('#txtDatea').focus();
 		        $('#txtNoa').attr('disabled', 'disabled');
 		    }
 
@@ -174,7 +182,24 @@
 		    function btnOk() {
 		        var t_noa = $.trim($('#txtNoa').val());
 		         $('#txtWorker').val(r_name);
-				
+				$('#txtDatea').val($.trim($('#txtDatea').val()));
+                if (checkId($('#txtDatea').val())==0){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
+                	return;
+                }   
+                $('#txtBdate').val($.trim($('#txtBdate').val()));
+                if (checkId($('#txtBdate').val())==0){
+                	alert(q_getMsg('lblBdate')+'錯誤。');
+                	return;
+                }  
+                $('#txtEdate').val($.trim($('#txtEdate').val()));
+                if (checkId($('#txtEdate').val())==0){
+                	alert(q_getMsg('lblEdate')+'錯誤。');
+                	return;
+                }          
+                $('#txtMon').val($.trim($('#txtMon').val()));
+                if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()))
+                    alert(q_getMsg('lblMon')+'錯誤。');
 				if(!emp($('#txtId').val()))
                		$('#txtId').val($('#txtId').val().toUpperCase());
 				
