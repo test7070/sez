@@ -196,7 +196,7 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('vcca_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+                q_box('vcca_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
             }
 
 
@@ -525,14 +525,14 @@
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewNoa'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'></a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewNick'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewBuyer'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTotal'></a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='datea' style="text-align: center;">~datea</td>
-						<td id='nick' style="text-align: left;">~nick</td>
+						<td id='buyer,4' style="text-align: left;">~buyer,4</td>
 						<td id='total,0,1' style="text-align: right;">~total,0,1</td>
 					</tr>
 				</table>

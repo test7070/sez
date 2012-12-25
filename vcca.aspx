@@ -166,6 +166,7 @@
                 $('#txtSerial').val($.trim($('#txtSerial').val()));
                 if ($('#txtSerial').val().length > 0 && checkId($('#txtSerial').val())!=2)
                     alert(q_getMsg('lblSerial')+'錯誤。');
+                $('#txtWorker' ).val(r_name);
                 sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCno', q_getMsg('lblAcomp')]]);
                 // 檢查空白
@@ -187,7 +188,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('vcca_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+                q_box('vcca_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {/// 表身運算式
