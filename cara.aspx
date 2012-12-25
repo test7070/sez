@@ -96,7 +96,12 @@
 				});
 				
 				$('#btnNextmon').click(function () {
-					
+					if ($('#divNextmon').is(":hidden")) {
+						$('#divNextmon').show();
+						$('#txtNextmon').val(q_date().substr(0,6));
+					} else{
+						$('#divNextmon').hide();
+		        	}
 		     	});
             }
 
@@ -615,9 +620,96 @@
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
+            
+            .popDiv {
+				position: absolute;
+				z-index: 99;
+				background: #4297D7;
+				border: 2px #EEEEEE solid;
+				display: none;/*default*/
+			}
+			.popDiv .block {
+				border-radius: 5px;
+			}
+			.popDiv .block .col {
+				display: block;
+				width: 600px;
+				height: 30px;
+				margin-top: 5px;
+				margin-left: 5px;
+			}
+      		.btnLbl {
+				background: #cad3ff;
+				border-radius: 5px;
+				display: block;
+				width: 95px;
+				height: 25px;
+				cursor: default;
+			}
+			.btnLbl.tb {
+				float: right;
+			}
+			.btnLbl.button {
+				cursor: pointer;
+				background: #76A2FE;
+			}
+			.btnLbl.button.close {
+				background: #cad3ff;
+			}
+			.btnLbl.button:hover {
+				background: #FF8F19;
+			}
+			.btnLbl a {
+				color: blue;
+				font-size: medium;
+				height: 25px;
+				line-height: 25px;
+				display: block;
+				text-align: center;
+			}
+			.btnLbl.button a {
+				color: #000000;
+			}
+			.btnLbl.close a {
+				color: red;
+				font-size: 16px;
+				height: 25px;
+				line-height: 25px;
+				display: block;
+				text-align: center;
+			}
 		</style>
 	</head>
 	<body>
+		<div id="divNextmon" class='popDiv'>
+			<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:300px">
+	            <tr>
+	                <td align="center" style="width:30%"><span> </span><a id="lblNextmon" class="lbl" ></a></td>
+	                <td align="center" style="width:70%">
+	                	<input id="txtNextmon" type="text"  class="txt c1" style=" float: left;"/>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td align="center" style="width:30%"><span> </span><a id="lblDiscount" class="lbl" ></a></td>
+	                <td align="center" style="width:70%">
+	                	<input id="txtDiscount" type="text"  class="txt c1" style=" float: left;"/>
+	                </td>
+	            </tr>
+	            <tr>
+	            	<td align="center" colspan="2">
+	            		<div class="block" style="display: table-cell;">
+		            		<div class='btnLbl button close' style="float: left;">
+								<a id='lbl_divNextmon'></a>
+							</div>
+							<div style="float: left;width: 10px;height: 25px;">	</div>
+							<div class='btnLbl button close' style="float: left;">
+								<a id='lblClose_divNextmon'></a>
+							</div>
+						</div>
+	                </td>
+	            </tr>
+        	</table>
+		</div>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
 			<div class="dview" style="float: left;  width:25%;">
@@ -649,7 +741,7 @@
 						<td class="td4"><span> </span><a id='lblCarseek' class="lbl"></a></td>
 						<td class="td5"><input id="textCarseek"  type="text" class="txt c1"/></td>
 						<td class="td6"><input id="btnImport" type="button" /></td>
-						<!--<td class="td7"><input id="btnNextmon" type="button" /></td>-->
+						<td class="td7"><input id="btnNextmon" type="button" /></td>
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id='lblMon' class="lbl"></a></td>
