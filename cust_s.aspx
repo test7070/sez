@@ -8,13 +8,14 @@
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
+        <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			var q_name = "cust_s";
-
+			aPop = new Array(['txtNoa', 'lblNoa', 'cust', 'noa,nick', 'txtNoa', 'cust_b.aspx']
+			,['txtSerial', 'lblSerial', 'cust', 'serial,noa,nick', 'txtSerial', 'cust_b.aspx']);
 			$(document).ready(function() {
 				main();
 			});
-			/// end ready
 
 			function main() {
 				mainSeek();
@@ -32,9 +33,11 @@
 				t_noa = $('#txtNoa').val();
 				t_comp = $('#txtComp').val();
 				t_serial = $('#txtSerial').val();
-
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("comp", t_comp) + q_sqlPara2("serial", t_serial);
-
+				
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("serial", t_serial);
+				if (t_comp.length > 0)
+                    t_where += " and patindex('%" + t_comp + "%',comp)>0";
+                    
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}

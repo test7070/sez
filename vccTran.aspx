@@ -116,6 +116,7 @@
                     $(this).attr('size', '1');
                 });
   				$("#combPaytype").change(function(e) {
+  					if(q_cur==1 || q_cur==2)
 					 $('#txtPaytype').val($('#combPaytype').find(":selected").text()); 
 				});
 				$("#txtTax").change(function(e) {				
