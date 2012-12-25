@@ -24,7 +24,8 @@
         var bbsMask = [];
 
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'noa';
-         aPop = new Array(['txtNoa', 'lblNoa', 'sssall', 'noa,namea', 'txtNoa,txtNamea,txtBdate', 'sssall_b.aspx']);
+         aPop = new Array(['txtNoa', 'lblNoa', 'sssall', 'noa,namea', 'txtNoa,txtNamea,txtBdate', 'sssall_b.aspx'],
+         ['txtCustno', 'lblCustno', 'sssall', 'noa,namea', 'txtCustno,txtComp', 'sssall_b.aspx']);
          //aPop = new Array(['txtNoa', 'lblNoa', 'sss', 'noa,namea', 'txtNoa,txtNamea,txtBdate', 'sssall_b.aspx']);
 
         $(document).ready(function () {
@@ -653,9 +654,9 @@
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            //$('#txtNoa').attr('disabled', 'disabled');
-            //$('#txtNamea').attr('disabled', 'disabled');
-            //$('#chkIsforeign').attr('disabled', 'disabled');
+            $('#txtNoa').attr('disabled', 'disabled');
+            $('#txtNamea').attr('disabled', 'disabled');
+            $('#chkIsforeign').attr('disabled', 'disabled');
             $('#txtSalary').focus();
             //$('#txtMon').attr('readonly',true);
 		    //$('#txtMon').attr('disabled', 'disabled');
@@ -965,6 +966,9 @@
             <td class="td2"><input id="txtBdate" type="text" class="txt  c1" /></td>
             <td class='td3'><span> </span><a id="lblSalary" class="lbl"> </a></td>
             <td class="td4"><input id="txtSalary" type="text" class="txt num c1" /></td>
+            <td class='td5'><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
+            <td class="td6"><input id="txtCustno" type="text" class="txt c1" /></td>
+            <td class="td7"><input id="txtComp" type="text" class="txt c1" /></td>
             <!--<td class="td5" colspan="2"><span> </span><input id="btnUmmb" type="button" style="float: right;"/></td>
             <td class="td7"><span> </span><a id="lblMon" class="lbl"> </a></td>
             <td class="td8"><input id="txtMon" type="text" class="txt c1" /></td>-->
