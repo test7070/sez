@@ -11,7 +11,8 @@
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			var q_name = "vcca_s";
-			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
+			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
+			,['txtSerial', 'lblSerial', 'vccabuyer', 'serial,buyer', 'txtSerial', 'vccabuyer_b.aspx']);
 			$(document).ready(function() {
 				main();
 			});
@@ -35,7 +36,8 @@
 			function q_seekStr() {
 				t_noa = $('#txtNoa').val();
 				t_custno = $('#txtCustno').val();
-
+				t_serial = $('#txtSerial').val();
+				t_buyer = $('#txtBuyer').val();
 				t_bdate = $('#txtBdate').val();
 				t_edate = $('#txtEdate').val();
 				t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
@@ -43,8 +45,9 @@
 				t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
 				/// 100.  .
 
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("custno", t_custno) + q_sqlPara2("datea", t_bdate, t_edate);
-
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("serial", t_serial) + q_sqlPara2("custno", t_custno) + q_sqlPara2("datea", t_bdate, t_edate);
+				if (t_buyer.length > 0)
+                    t_where += " and patindex('%" + t_buyer + "%',buyer)>0";
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -79,6 +82,18 @@
 					<td class='seek'  style="width:20%;"><a id='lblCustno'></a></td>
 					<td>
 					<input class="txt" id="txtCustno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblSerial'> </a></td>
+					<td>
+					<input class="txt" id="txtSerial" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblBuyer'> </a></td>
+					<td>
+					<input class="txt" id="txtBuyer" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>

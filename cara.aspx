@@ -60,7 +60,8 @@
                 q_mask(bbmMask);
 				bbsMask = [['txtDatea', r_picd],['txtIndate', r_picd],['txtPdate', r_picd],['txtUdate', r_picd]];
                 q_mask(bbsMask);
-                
+                $('#textNextmon').mask('999/99');
+                $('#textDiscount').mask('999');
                 q_cmbParse("cmbIsource", q_getPara('cara.isource'));
                 
                 $('#btnImport').click(function () {
@@ -96,8 +97,23 @@
 				});
 				
 				$('#btnNextmon').click(function () {
-					
+					if ($('#divNextmon').is(":hidden")) {
+						$('#divNextmon').show();
+						$('#textNextmon').val(q_date().substr(0,6));
+						$('#textDiscount').val(100);
+					} else{
+						$('#divNextmon').hide();
+		        	}
 		     	});
+		     	$('#lblClose_divNextmon').click(function(e) {//按下關閉
+					$('#divNextmon').hide();
+				});
+				$('#lbl_divNextmon').click(function(e) {//按下資料匯入
+					$('#divNextmon').hide();
+					if(!emp($('#textNextmon').val())&&!emp($('#textDiscount').val())){
+						q_func( 'cara.genNext',$('#textNextmon').val()+','+$('#textDiscount').val()+','+r_name);//genNext(string t_mon , string t_discount, string t_worker);
+			    	}
+				});
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -615,9 +631,96 @@
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
+            
+            .popDiv {
+				position: absolute;
+				z-index: 99;
+				background: #4297D7;
+				border: 2px #EEEEEE solid;
+				display: none;/*default*/
+			}
+			.popDiv .block {
+				border-radius: 5px;
+			}
+			.popDiv .block .col {
+				display: block;
+				width: 600px;
+				height: 30px;
+				margin-top: 5px;
+				margin-left: 5px;
+			}
+      		.btnLbl {
+				background: #cad3ff;
+				border-radius: 5px;
+				display: block;
+				width: 95px;
+				height: 25px;
+				cursor: default;
+			}
+			.btnLbl.tb {
+				float: right;
+			}
+			.btnLbl.button {
+				cursor: pointer;
+				background: #76A2FE;
+			}
+			.btnLbl.button.close {
+				background: #cad3ff;
+			}
+			.btnLbl.button:hover {
+				background: #FF8F19;
+			}
+			.btnLbl a {
+				color: blue;
+				font-size: medium;
+				height: 25px;
+				line-height: 25px;
+				display: block;
+				text-align: center;
+			}
+			.btnLbl.button a {
+				color: #000000;
+			}
+			.btnLbl.close a {
+				color: red;
+				font-size: 16px;
+				height: 25px;
+				line-height: 25px;
+				display: block;
+				text-align: center;
+			}
 		</style>
 	</head>
 	<body>
+		<div id="divNextmon" class='popDiv' style="top:70px;right:0px;">
+			<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:300px">
+	            <tr>
+	                <td align="center" style="width:30%"><span> </span><a id="lblNextmon" class="lbl" ></a></td>
+	                <td align="center" style="width:70%">
+	                	<input id="textNextmon" type="text"  class="txt c1" style=" float: left;"/>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td align="center" style="width:30%"><span> </span><a id="lblDiscount" class="lbl" ></a></td>
+	                <td style="width:70%">
+	                	<input id="textDiscount" type="text"  class="txt c2" style=" float: left;"/>%
+	                </td>
+	            </tr>
+	            <tr>
+	            	<td align="center" colspan="2">
+	            		<div class="block" style="display: table-cell;">
+		            		<div class='btnLbl button close' style="float: left;">
+								<a id='lbl_divNextmon'></a>
+							</div>
+							<div style="float: left;width: 10px;height: 25px;">	</div>
+							<div class='btnLbl button close' style="float: left;">
+								<a id='lblClose_divNextmon'></a>
+							</div>
+						</div>
+	                </td>
+	            </tr>
+        	</table>
+		</div>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
 			<div class="dview" style="float: left;  width:25%;">
@@ -649,7 +752,7 @@
 						<td class="td4"><span> </span><a id='lblCarseek' class="lbl"></a></td>
 						<td class="td5"><input id="textCarseek"  type="text" class="txt c1"/></td>
 						<td class="td6"><input id="btnImport" type="button" /></td>
-						<!--<td class="td7"><input id="btnNextmon" type="button" /></td>-->
+						<td class="td7"><input id="btnNextmon" type="button" /></td>
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id='lblMon' class="lbl"></a></td>
@@ -699,7 +802,7 @@
 			</div>
 		</div>
 		<div class='dbbs'>
-				<table id="tbbs" class='tbbs' border="1"  cellpadding='2' cellspacing='1' style="width: 1600px;">
+				<table id="tbbs" class='tbbs' border="1"  cellpadding='2' cellspacing='1'>
 					<tr style='color:White; background:#003366;' >
 						<td align="center">
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
@@ -709,10 +812,10 @@
 						<td align="center" style="width: 100px;"><a id='lblCaritem'></a></td>
 						<td align="center" style="width: 80px;"><a id='lblOutmoney'></a></td>
 						<td align="center" style="width: 80px;"><a id='lblInmoney'></a></td>
-						<td align="center" style="width: 100px;"><a id='lblCheckno'></a></td>
+						<!--<td align="center" style="width: 100px;"><a id='lblCheckno'></a></td>
 						<td align="center" style="width: 100px;"><a id='lblAccount'></a></td>
 						<td align="center" style="width: 200px;"><a id='lblBank'></a></td>
-						<td align="center" style="width: 80px;"><a id='lblIndate'></a></td>
+						<td align="center" style="width: 80px;"><a id='lblIndate'></a></td>-->
 						<td align="center" style="width: 200px;"><a id='lblMemo'></a></td>
 						<td align="center" style="width: 80px;"><a id='lblPay'></a></td>
 						<td align="center" style="width: 110px;"><a id='lblAcc2'></a></td>
@@ -738,7 +841,7 @@
 						</td>
 						<td ><input id="txtOutmoney.*" type="text" class="txt num c1"/></td>
 						<td ><input id="txtInmoney.*" type="text" class="txt num c1"/></td>
-						<td><input type="text" id="txtCheckno.*"  class="txt c1" />	</td>
+						<!--<td><input type="text" id="txtCheckno.*"  class="txt c1" />	</td>
 						<td>	<input type="text" id="txtAccount.*"  class="txt c1" /></td>
 						<td>
 							<input type="button" id="btnBankno.*"  style="float:left;width:7%;" value="."/>
@@ -746,7 +849,7 @@
 							<input type="text" id="txtBank.*" class="txt c1"style="float:left;width:47%;"/>
                     		<input type="text" id="txtTitle.*" class="txt c1"style="width:95%;" />
 						</td>
-						<td><input type="text" id="txtIndate.*" class="txt c1" /></td>
+						<td><input type="text" id="txtIndate.*" class="txt c1" /></td>-->
 						<td ><input id="txtMemo.*" type="text" class="txt c1"/></td>
 						<td ><input id="txtPay.*" type="text" class="txt num c1"/></td>
 						<td >
