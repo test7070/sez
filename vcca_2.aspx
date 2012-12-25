@@ -84,7 +84,7 @@
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
 
-				q_cmbParse("cmbTaxtype", ('').concat(new Array('1@應稅', '2@零稅率', '3@內含', '4@免稅','5@自訂','6@作廢')));
+				q_cmbParse("cmbTaxtype",q_getPara('sys.taxtype'));
 				$('#cmbTaxtype').focus(function() {
 					var len = $("#cmbTaxtype").children().length > 0 ? $("#cmbTaxtype").children().length : 1;
 					$("#cmbTaxtype").attr('size', len + "");
