@@ -8,7 +8,6 @@
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
-        <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			var q_name = "carborr_s";
 			aPop=new Array(
@@ -30,7 +29,12 @@
 
 				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
 				q_mask(bbmMask);
-
+				var tmp = q_getMsg('carborr.typea').split('&');
+				var t_string = '';
+				for(var x in tmp){
+					t_string += (t_string.length>0?',':'')+tmp[x];
+				}
+				q_cmbParse("cmbTypea",'@全部,'+t_string);
 				$('#txtBdate').focus();
 			}
 
@@ -41,13 +45,11 @@
 				t_carno = $('#txtCarno').val();
 				t_driverno = $.trim($('#txtDriverno').val());
 				t_driver = $('#txtDriver').val();
-
+				t_typea= $('#cmbTypea').val();
 				t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
-				/// 100.  .
 				t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
-				/// 100.  .
 
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("carno", t_carno) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver);
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("typea", t_typea) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("carno", t_carno) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver);
 
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
@@ -65,6 +67,12 @@
 	<body>
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblTypea'></a></td>
+					<td>
+					<select id="cmbTypea" style="width:215px; font-size:medium;" > </select>
+					</td>
+				</tr>
 				<tr class='seek_tr'>
 					<td   style="width:35%;" ><a id='lblDate'></a></td>
 					<td style="width:65%;  ">

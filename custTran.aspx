@@ -18,7 +18,7 @@
 
             var q_name = "cust";
             var q_readonly = ['txtWorker'];
-            var bbmNum = [['txtDueday',10,0]];
+            var bbmNum = [['txtDueday',10,0],['txtCredit',10,0]];
             var bbmMask = [['txtChkdate','999/99/99'],['txtStartdate','999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
