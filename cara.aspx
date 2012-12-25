@@ -60,7 +60,8 @@
                 q_mask(bbmMask);
 				bbsMask = [['txtDatea', r_picd],['txtIndate', r_picd],['txtPdate', r_picd],['txtUdate', r_picd]];
                 q_mask(bbsMask);
-                
+                $('#textNextmon').mask('999/99');
+                $('#textDiscount').mask('999');
                 q_cmbParse("cmbIsource", q_getPara('cara.isource'));
                 
                 $('#btnImport').click(function () {
@@ -98,8 +99,8 @@
 				$('#btnNextmon').click(function () {
 					if ($('#divNextmon').is(":hidden")) {
 						$('#divNextmon').show();
-						$('#txtNextmon').val(q_date().substr(0,6));
-						$('#txtDiscount').val(100);
+						$('#textNextmon').val(q_date().substr(0,6));
+						$('#textDiscount').val(100);
 					} else{
 						$('#divNextmon').hide();
 		        	}
@@ -109,8 +110,8 @@
 				});
 				$('#lbl_divNextmon').click(function(e) {//按下資料匯入
 					$('#divNextmon').hide();
-					if(!emp($('#txtNextmon').val())&&!emp($('#txtDiscount').val())){
-						q_func( 'cara.genNext',$('#txtNextmon').val()+','+$('#txtDiscount').val()+','+r_name);//genNext(string t_mon , string t_discount, string t_worker);
+					if(!emp($('#textNextmon').val())&&!emp($('#textDiscount').val())){
+						q_func( 'cara.genNext',$('#textNextmon').val()+','+$('#textDiscount').val()+','+r_name);//genNext(string t_mon , string t_discount, string t_worker);
 			    	}
 				});
             }
@@ -696,13 +697,13 @@
 	            <tr>
 	                <td align="center" style="width:30%"><span> </span><a id="lblNextmon" class="lbl" ></a></td>
 	                <td align="center" style="width:70%">
-	                	<input id="txtNextmon" type="text"  class="txt c1" style=" float: left;"/>
+	                	<input id="textNextmon" type="text"  class="txt c1" style=" float: left;"/>
 	                </td>
 	            </tr>
 	            <tr>
 	                <td align="center" style="width:30%"><span> </span><a id="lblDiscount" class="lbl" ></a></td>
 	                <td style="width:70%">
-	                	<input id="txtDiscount" type="text"  class="txt c2" style=" float: left;"/>%
+	                	<input id="textDiscount" type="text"  class="txt c2" style=" float: left;"/>%
 	                </td>
 	            </tr>
 	            <tr>
