@@ -99,10 +99,20 @@
 					if ($('#divNextmon').is(":hidden")) {
 						$('#divNextmon').show();
 						$('#txtNextmon').val(q_date().substr(0,6));
+						$('#txtDiscount').val(100);
 					} else{
 						$('#divNextmon').hide();
 		        	}
 		     	});
+		     	$('#lblClose_divNextmon').click(function(e) {//按下關閉
+					$('#divNextmon').hide();
+				});
+				$('#lbl_divNextmon').click(function(e) {//按下資料匯入
+					$('#divNextmon').hide();
+					if(!emp($('#txtNextmon').val())&&!emp($('#txtDiscount').val())){
+						q_func( 'cara.genNext',$('#txtNextmon').val()+','+$('#txtDiscount').val()+','+r_name);//genNext(string t_mon , string t_discount, string t_worker);
+			    	}
+				});
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -681,7 +691,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="divNextmon" class='popDiv'>
+		<div id="divNextmon" class='popDiv' style="top:70px;right:0px;">
 			<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:300px">
 	            <tr>
 	                <td align="center" style="width:30%"><span> </span><a id="lblNextmon" class="lbl" ></a></td>
@@ -691,8 +701,8 @@
 	            </tr>
 	            <tr>
 	                <td align="center" style="width:30%"><span> </span><a id="lblDiscount" class="lbl" ></a></td>
-	                <td align="center" style="width:70%">
-	                	<input id="txtDiscount" type="text"  class="txt c1" style=" float: left;"/>
+	                <td style="width:70%">
+	                	<input id="txtDiscount" type="text"  class="txt c2" style=" float: left;"/>%
 	                </td>
 	            </tr>
 	            <tr>
@@ -791,7 +801,7 @@
 			</div>
 		</div>
 		<div class='dbbs'>
-				<table id="tbbs" class='tbbs' border="1"  cellpadding='2' cellspacing='1' style="width: 1600px;">
+				<table id="tbbs" class='tbbs' border="1"  cellpadding='2' cellspacing='1'>
 					<tr style='color:White; background:#003366;' >
 						<td align="center">
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
@@ -801,10 +811,10 @@
 						<td align="center" style="width: 100px;"><a id='lblCaritem'></a></td>
 						<td align="center" style="width: 80px;"><a id='lblOutmoney'></a></td>
 						<td align="center" style="width: 80px;"><a id='lblInmoney'></a></td>
-						<td align="center" style="width: 100px;"><a id='lblCheckno'></a></td>
+						<!--<td align="center" style="width: 100px;"><a id='lblCheckno'></a></td>
 						<td align="center" style="width: 100px;"><a id='lblAccount'></a></td>
 						<td align="center" style="width: 200px;"><a id='lblBank'></a></td>
-						<td align="center" style="width: 80px;"><a id='lblIndate'></a></td>
+						<td align="center" style="width: 80px;"><a id='lblIndate'></a></td>-->
 						<td align="center" style="width: 200px;"><a id='lblMemo'></a></td>
 						<td align="center" style="width: 80px;"><a id='lblPay'></a></td>
 						<td align="center" style="width: 110px;"><a id='lblAcc2'></a></td>
@@ -830,7 +840,7 @@
 						</td>
 						<td ><input id="txtOutmoney.*" type="text" class="txt num c1"/></td>
 						<td ><input id="txtInmoney.*" type="text" class="txt num c1"/></td>
-						<td><input type="text" id="txtCheckno.*"  class="txt c1" />	</td>
+						<!--<td><input type="text" id="txtCheckno.*"  class="txt c1" />	</td>
 						<td>	<input type="text" id="txtAccount.*"  class="txt c1" /></td>
 						<td>
 							<input type="button" id="btnBankno.*"  style="float:left;width:7%;" value="."/>
@@ -838,7 +848,7 @@
 							<input type="text" id="txtBank.*" class="txt c1"style="float:left;width:47%;"/>
                     		<input type="text" id="txtTitle.*" class="txt c1"style="width:95%;" />
 						</td>
-						<td><input type="text" id="txtIndate.*" class="txt c1" /></td>
+						<td><input type="text" id="txtIndate.*" class="txt c1" /></td>-->
 						<td ><input id="txtMemo.*" type="text" class="txt c1"/></td>
 						<td ><input id="txtPay.*" type="text" class="txt num c1"/></td>
 						<td >

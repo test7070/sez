@@ -653,9 +653,9 @@
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            $('#txtNoa').attr('disabled', 'disabled');
-            $('#txtNamea').attr('disabled', 'disabled');
-            $('#chkIsforeign').attr('disabled', 'disabled');
+            //$('#txtNoa').attr('disabled', 'disabled');
+            //$('#txtNamea').attr('disabled', 'disabled');
+            //$('#chkIsforeign').attr('disabled', 'disabled');
             $('#txtSalary').focus();
             //$('#txtMon').attr('readonly',true);
 		    //$('#txtMon').attr('disabled', 'disabled');
