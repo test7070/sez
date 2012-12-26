@@ -541,14 +541,14 @@
 						<td><select id="cmbCarspecno" class="txt c1"> </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblDriver" class="lbl"> </a></td>
+						<td><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
 						<td colspan="2">
 							<input id="txtDriverno" type="text"  style='width:40%; float:left;'/>
 							<input id="txtDriver" type="text"  style='width:60%; float:left;'/>
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCarowner" class="lbl"> </a></td>
+						<td><span> </span><a id="lblCarowner" class="lbl btn"> </a></td>
 						<td colspan="2">
 							<input id="txtCarownerno" type="text"  style='width:40%; float:left;'/>
 							<input id="txtCarowner" type="text"  style='width:60%; float:left;'/>
@@ -617,10 +617,12 @@
 						<td><select id="cmbChecktype" class="txt c1"> </select></td>
 					</tr>
 					<tr class="other">
-						<td><span> </span><a id="lblCarmode" class="lbl"> </a></td>
-						<td><input id="txtCarmode" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblCarbrand" class="lbl"> </a></td>
 						<td><select id="cmbCarbrandno" class="txt c1"> </select></td>
+						<td><span> </span><a id="lblCarmode" class="lbl"> </a></td>
+						<td><input id="txtCarmode" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblInplace" class="lbl"> </a></td>
+						<td><input id="txtInplace" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
 						<td><span> </span><a id="lblCc" class="lbl"> </a></td>
@@ -633,8 +635,6 @@
 						<td><input id="txtPassno" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblEngineno" class="lbl"> </a></td>
 						<td><input id="txtEngineno" type="text" class="txt c1"/> </td>
-						<td><span> </span><a id="lblInplace" class="lbl"> </a></td>
-						<td><input id="txtInplace" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
 						<td><span> </span><a id="lblWeight1" class="lbl"> </a></td>
@@ -673,7 +673,7 @@
 						<td><input id="txtDurableyear" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblIsprint" class="lbl"> </a></td>
 						<td><select id="cmbIsprint" class="txt c1"> </select> </td>
-						<td><span> </span><a id="lblSss" class="lbl"> </a></td>
+						<td><span> </span><a id="lblSss" class="lbl btn"> </a></td>
 						<td><input id="txtSssno" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr>
