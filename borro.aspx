@@ -14,7 +14,7 @@
             this.errorHandler = null;
 
             q_tables = 's';
-            var q_name = "borre";
+            var q_name = "borro";
             var q_readonly = [ 'txtPay'];
             var q_readonlys = [];
             var bbmNum = [];
@@ -50,6 +50,7 @@
             	bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('borr.typea'), 's');
+                q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 				$('#txtDatea').focusout(function () {
                      	   q_cd( $(this).val() ,$(this));
 	                });
@@ -113,7 +114,7 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
-               q_box('borre_s.aspx', q_name + '_s', "500px", "340px", q_getMsg( "popSeek"));
+               q_box('borro_s.aspx', q_name + '_s', "500px", "340px", q_getMsg( "popSeek"));
             }
 
             function btnIns() {
@@ -468,6 +469,10 @@
 						<td class="td4">
 						<input id="txtSalesvolume"  type="text" class="txt c1 num" />
 						</td>
+						<td class="td5"><span> </span><a id="lblTaxtype" class="lbl"> </a></td>
+						<td class="td6">
+						<select id="cmbTaxtype" class="txt c1"> </select>
+						</td>
 						<td class="td5"><span> </span><a id="lblTax" class="lbl"> </a></td>
 						<td class="td6">
 						<input id="txtTax" type="text" class="txt c1 num" />
@@ -496,11 +501,10 @@
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 						</td>
 						<td align="center" style="width:4%;"><a id='lbl_typea'> </a></td>
-						
-						
 						<td align="center" style="width:6%;"><a id='lbl_carowner'> </a></td>
 						<td align="center" style="width:6%;"><a id='lbl_carno'> </a></td>
 						<td align="center" style="width:5%;"><a id='lbl_memo'> </a></td>
+						<td align="center" style="width:5%;"><a id='lbl_invono'> </a></td>
 						<td align="center" style="width:5%;"><a id='lbl_salesvolume'> </a></td>
 						<td align="center" style="width:5%;"><a id='lbl_tax'> </a></td>
 						<td align="center" style="width:5%;"><a id='lbl_checkno'> </a></td>
@@ -526,6 +530,9 @@
 						</td>
 						<td>
 						<input class="txt" id="txtMemo.*" type="text" style="width:95%;"/>
+						</td>
+						<td>
+						<input class="txt" id="txtInvono.*" type="text" style="width:95%;"/>
 						</td>
 						<td>
 						<input class="txt" id="txtSalesvolume.*" type="text" style="width:95%;text-align: right;"/>

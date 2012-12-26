@@ -35,7 +35,52 @@
             brwCount2 = 20;
 
             aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtCustnick', 'cust_b.aspx'])
-
+			
+			function borr() {}
+			borr.prototype = {
+				noa : '',
+				payed : '',
+				data : new Array(),
+				analyze : function(obj){			
+					var x = obj.payed.split(',');
+					obj.data = new Array();
+					for(var i=0; i < x.length; i+=2){
+						obj.data.push({mon:x[i],data:x[i+1]});
+					}
+				},
+				display : function(obj){
+					var t_table = $('#payed table');
+					var t_schema = t_table.has('.schema');
+					var t_item = t_table.has('.item');	
+					
+					t_schema.clone().appendTo(t_item);
+					
+					/*for(var i=0;i<t_item.length;i++){
+						t_item.eq(i).has('td').eq(2).has('input').val('');//mon
+						t_item.eq(i).has('td').eq(3).has('input').val('');//money
+						t_item.eq(i).hide();
+					}
+					for(var i=0;i<obj.data.length;i++){
+						if(i>=t_item.length){
+							t_schema.clone().appendTo(t_item);
+							t_table.has('.schema').eq(1).removeClass('schema').addClass('item');
+							t_table.has('.item:last').show();
+							t_table.has('.item:last').has('td').eq(1).val(i);
+							t_table.has('.item:last').has('td').eq(2).has('input').val(obj.data[i].mon);
+							t_table.has('.item:last').has('td').eq(3).has('input').val(obj.data[i].money);
+						}else{
+							t_table.has('.item').eq(i).show();
+							t_table.has('.item').eq(i).has('td').eq(2).has('input').val(obj.data[i].mon);
+							t_table.has('.item').eq(i).has('td').eq(3).has('input').val(obj.data[i].money);
+						}
+					}*/			
+				}
+			}
+			t_borr = new borr();
+			t_borr.payed='101/11,1000,101/12,2000';
+			t_borr.analyze(t_borr);
+			t_borr.display(t_borr);
+			
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -71,6 +116,13 @@
                 });
                 $("#txtRate").change(function() {
                     sum();
+                });
+
+                $('#btnXchg').click(function() {
+                    if(q_xchg==2)
+                    	$("#payed").hide();
+                    else
+                    	$("#payed").show();
                 });
             }
 
@@ -611,6 +663,22 @@
 			</div>
 		</div>
 		<input id="q_sys" type="hidden" />
+		<div id="payed" style="display:none;">
+			<table style="width:250px; background-color: pink;">
+				<tr class="head" style="color:white; background:#003366;">
+					<td style="width:30px;"><input type="button" style="width:95%;"/></td>
+					<td style="width:30px;"> </td>
+					<td style="width:80px; text-align: center;">還款月份</td>
+					<td style="width:100px; text-align: center;">金額</td>
+				</tr>
+				<tr class="schema" style="display:none;">
+					<td><input type="button" style="width:95%;"/></td>
+					<td> </td>
+					<td><input type="text" style="width:95%;"/></td>
+					<td><input type="text" style="width:95%; text-align: right;"/></td>
+				</tr>
+			</table>
+		</div>
 	</body>
 </html>
 
