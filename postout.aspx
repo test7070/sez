@@ -305,6 +305,7 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
+            $('#txtWorker').val(r_name);
             if(!ischecker)
 					$('#btnCheck').attr('disabled', 'disabled');
         }
@@ -630,7 +631,7 @@
                <td class="td4"><span> </span><a id="lblP320" class="lbl"></a></td>
                <td class="td5"><input id="txtP320" type="text" class="txt num c3" /></td>
                <td class="td6"></td>
-               <td class="td7"></td>
+               <td class="td7"><input id="txtWorker" type="hidden" class="txt c1" /></td>
                <td class="td8"><span> </span><a id="lblTotal" class="lbl"></a></td>
                <td class="td9"><input id="txtTotal" type="text" class="txt num c1" /></td>                 
             </tr> 
