@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
+ ﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -35,7 +35,9 @@
             brwNowPage = 0;
             brwKey = 'noa';
             q_desc = 1;
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx'], ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'], ['txtChgpartno', 'lblChgpart', 'chgpart', 'noa,part', 'txtChgpartno,txtChgpart', 'chgpart_b.aspx'], ['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'], ['txtChgitemno', 'lblChgitem', 'chgitem', 'noa,item', 'txtChgitemno,txtChgitem', 'chgitem_b.aspx'], ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtMemo', '', 'qphr', 'code,phr', 'txtMemo,txtMemo', "qPhr_b.aspx", 'txtAcc1']);
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx'], ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMemo_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'], ['txtChgpartno', 'lblChgpart', 'chgpart', 'noa,part', 'txtChgpartno,txtChgpart', 'chgpart_b.aspx'], ['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'], ['txtChgitemno', 'lblChgitem', 'chgitem', 'noa,item', 'txtChgitemno,txtChgitem', 'chgitem_b.aspx'], ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
+            ['txtMemo', '', 'qphr', 'code,phr', 'txtMemo,txtMemo', "qPhr_b.aspx", 'txtAcc1'],
+            ['txtAcc1', 'lblAcc1', 'bank', 'noa,bank', 'txtAcc1,txtAcc2', 'Bank_b.aspx']);
 
             brwCount2 = 4;
 
@@ -616,6 +618,13 @@
 						<td><select id="cmbDc" class="txt c1"></select></td>					
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblAcc1" class="lbl btn"> </a></td>
+						<td colspan="2">
+						<input id="txtAcc1" type="text" class="txt c2"/>
+						<input id="txtAcc2" type="text" class="txt c3"/>
+						</td>					
+					</tr>
+					<!--<tr>
 						<td> </td>
 						<td><span> </span><a id="lblCustchg" class="lbl btn"> </a>
 							<input id="chkCustchg" type="checkbox" style="float: right;"/>
@@ -624,7 +633,7 @@
 						<td class="custchg"><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
 						<td class="custchg"><input id="txtCustno"  type="text"  class="txt c1"/></td>
 						<td class="custchg" colspan="2"><input id="txtComp"  type="text"  class="txt c1"/></td>
-						<td class="custchg"<span> </span><a id="lblPo" class="lbl"> </a></td>
+						<td class="custchg"><span> </span><a id="lblPo" class="lbl"> </a></td>
 						<td class="custchg"><input id="txtPo"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
@@ -643,7 +652,7 @@
 						<td class="carchg"><input id="txtCarno" type="text" class="txt c1" /></td>	
 						<td class="carchg"><span> </span><a id="lblCarteam" class="lbl"> </a></td>
 						<td class="carchg"><select id="cmbCarteamno" class="txt c1"> </select></td>
-					</tr>
+					</tr>-->
 					
 					<tr>
 						<td><span> </span><a id="lblOrg" class="lbl"> </a></td>

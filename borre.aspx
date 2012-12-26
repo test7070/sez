@@ -28,7 +28,8 @@
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
-            ['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno,txtCust', 'cust_b.aspx'])
+            ['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno,txtCust', 'cust_b.aspx'],
+            ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno])
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -49,7 +50,9 @@
             	bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('borr.typea'), 's');
-
+				$('#txtDatea').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
                 $("#txtPayc").change(function() {
                     sum();
                 });
@@ -110,7 +113,7 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
-               q_box('borrd_s.aspx', q_name + '_s', "500px", "340px", q_getMsg( "popSeek"));
+               q_box('borre_s.aspx', q_name + '_s', "500px", "340px", q_getMsg( "popSeek"));
             }
 
             function btnIns() {
@@ -128,7 +131,11 @@
 
             function btnOk() {
                 var t_err = '';
-
+				$('#txtDatea').val($.trim($('#txtDatea').val()));
+                if (checkId($('#txtDatea').val())==0){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
+                	return;
+                }  
                 //  t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
                 var t_noa = $.trim($('#txtNoa').val());
                 //  alert(t_noa+'  '+t_noa.length);
@@ -494,16 +501,16 @@
 						<td align="center" style="width:6%;"><a id='lbl_carowner'> </a></td>
 						<td align="center" style="width:6%;"><a id='lbl_carno'> </a></td>
 						<td align="center" style="width:5%;"><a id='lbl_memo'> </a></td>
-						<td align="center" style="width:9%;"><a id='lbl_salesvolume'> </a></td>
-						<td align="center" style="width:6%;"><a id='lbl_tax'> </a></td>
-						<td align="center" style="width:6%;"><a id='lbl_cashreceipt'> </a></td>
+						<td align="center" style="width:5%;"><a id='lbl_salesvolume'> </a></td>
+						<td align="center" style="width:5%;"><a id='lbl_tax'> </a></td>
 						
-						<td align="center" style="width:6%;"><a id='lbl_checkno'> </a></td>
+						<td align="center" style="width:5%;"><a id='lbl_checkno'> </a></td>
 						<td align="center" style="width:6%;"><a id='lbl_bankno'> </a></td>
 						<td align="center" style="width:9%;"><a id='lbl_account'> </a></td>
-						<td align="center" style="width:8%;"><a id='lbl_bank'> </a></td>
+						<td align="center" style="width:6%;"><a id='lbl_bank'> </a></td>
 						<td align="center" style="width:6%;"><a id='lbl_money'> </a></td>
 						<td align="center" style="width:5%;"><a id='lbl_indate'> </a></td>
+						<td align="center" style="width:5%;"><a id='lbl_acc'> </a></td>
 
 					</tr>
 					<tr  style='background:#cad3ff;'>
@@ -528,9 +535,6 @@
 						<input class="txt" id="txtTax.*" type="text" style="width:95%;text-align: right;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtCashreceipt.*" type="text" style="width:95%;"/>
-						</td>
-						<td>
 						<input class="txt" id="txtCheckno.*" type="text" style="width:95%;"/>
 						</td>
 						<td>
@@ -548,7 +552,9 @@
 						<td>
 						<input class="txt" id="txtIndate.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
-
+						<td>
+						<input class="txt" id="txtAcc1.*" type="text" style="width:20%;"/><input class="txt" id="txtAcc2.*" type="text" style="width:50%;"/><input id="btnAcc.*" type="button" value="." style="width: 10%;"/>
+						</td>
 					</tr>
 				</table>
 			</div>
