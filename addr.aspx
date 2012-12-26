@@ -225,7 +225,7 @@
             }
             .dview {
                 float: left;
-                width: 400px; 
+                width: 500px; 
                 border-width: 0px; 
             }
             .tview {
@@ -245,7 +245,7 @@
             }
             .dbbm {
                 float: left;
-                width: 550px;
+                width: 450px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -342,8 +342,8 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:170px; color:black;"><a id='vewAddr'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewProductno'> </a></td>
+						<td align="center" style="width:200px; color:black;"><a id='vewAddr'> </a></td>
+						<td align="center" style="width:150px; color:black;"><a id='vewProductno'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" /></td>
