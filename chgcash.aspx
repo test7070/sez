@@ -615,11 +615,9 @@
 						<input id="txtMoney" type="text" class="txt num c1"/>
 						</td>
 						<td><span > </span><a id="lblDc" class="lbl"> </a></td>
-						<td><select id="cmbDc" class="txt c1"></select></td>					
-					</tr>
-					<tr>
+						<td><select id="cmbDc" class="txt c1"></select></td>
 						<td><span> </span><a id="lblAcc1" class="lbl btn"> </a></td>
-						<td colspan="2">
+						<td >
 						<input id="txtAcc1" type="text" class="txt c2"/>
 						<input id="txtAcc2" type="text" class="txt c3"/>
 						</td>					
