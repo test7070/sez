@@ -17,7 +17,7 @@
 
             var q_name = "car2";
             var q_readonly = ['txtCardeal', 'txtCarowner', 'cmbSex', 'txtIdno', 'txtBirthday', 'txtTel1', 'txtTel2', 'txtMobile', 'txtFax', 'txtAddr_conn', 'txtAddr_home', 'txtDriver'];
-            var bbmNum = [['txtInmoney', 10, 0], ['txtOutmoney', 10, 0], ['txtIrange', 10, 0], ["txtManage", 10, 0], ["txtReserve", 10, 0], ["txtHelp", 10, 0], ["txtVrate", 5, 2], ["txtRrate", 5, 2], ["txtOrate", 5, 2], ["txtIrate", 5, 2], ["txtPrate", 5, 2], ["txtUlicense", 10, 0], ["txtDlicense", 10, 0], ["txtSpring", 10, 0], ["txtSummer", 10, 0], ["txtFalla", 10, 0], ["txtWinter", 10, 0], ["txtCylinder", 2, 0], ["txtSalemoney", 10, 0], ["txtImprovemoney1", 10, 0], ["txtImprovemoney2", 10, 0], ["txtImprovemoney3", 10, 0], ["txtDiscountmoney", 10, 0], ["txtDurableyear", 2, 0, 0, 0]];
+            var bbmNum = [['txtInmoney', 10, 0],['txtInvoicemoney', 10, 0], ['txtOutmoney', 10, 0], ['txtIrange', 10, 0], ["txtManage", 10, 0], ["txtReserve", 10, 0], ["txtHelp", 10, 0], ["txtVrate", 5, 2], ["txtRrate", 5, 2], ["txtOrate", 5, 2], ["txtIrate", 5, 2], ["txtPrate", 5, 2], ["txtUlicense", 10, 0], ["txtDlicense", 10, 0], ["txtSpring", 10, 0], ["txtSummer", 10, 0], ["txtFalla", 10, 0], ["txtWinter", 10, 0], ["txtCylinder", 2, 0], ["txtSalemoney", 10, 0], ["txtImprovemoney1", 10, 0], ["txtImprovemoney2", 10, 0], ["txtImprovemoney3", 10, 0], ["txtDiscountmoney", 10, 0], ["txtDurableyear", 2, 0, 0, 0]];
             var bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"], ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999"], ["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"], ["txtImprovedate1", "999/99/99"], ["txtImprovedate2", "999/99/99"], ["txtImprovedate3", "999/99/99"], ["txtDiscountdate", "999/99/99"], ["txtStopdate", "999/99/99"], ["txtOverdate", "999/99/99"], ["txtEnddate", "999/99/99"]];
             q_sqlCount = 6;
             brwCount = 6;
@@ -588,8 +588,8 @@
 						<td><input id="txtIndate" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblInmoney" class="lbl"> </a></td>
 						<td><input id="txtInmoney" type="text" class="txt c1 num"/> </td>
-						<td><span> </span><a id="lblInplace" class="lbl"> </a></td>
-						<td><input id="txtInplace" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblInvoicemoney" class="lbl"> </a></td>
+						<td><input id="txtInvoicemoney" type="text" class="txt c1 num"/> </td>
 					</tr>
 					<tr class="other">
 						<td><span> </span><a id="lblOutdate" class="lbl"> </a></td>
@@ -629,6 +629,8 @@
 						<td><input id="txtPassno" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblEngineno" class="lbl"> </a></td>
 						<td><input id="txtEngineno" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblInplace" class="lbl"> </a></td>
+						<td><input id="txtInplace" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
 						<td><span> </span><a id="lblWeight1" class="lbl"> </a></td>
