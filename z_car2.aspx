@@ -37,7 +37,7 @@
                             t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;
                         }    
                         break;
-                       }
+                  }
                      if(t_item.length>0 ){
 	                $('#q_report').q_report({
 	                    fileName : 'z_car2',
@@ -124,7 +124,7 @@
 	                $('#txtEnddate').mask('999/99/99');
 	                $('#txtEnddate').datepicker(); 
 	                $('#txtEnddate').val(q_date());
-	                
+
 	                var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
@@ -174,8 +174,70 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+	                
+	                $('#chkSssno').children('input').attr('checked', 'checked');
+	                
+	                $('#txtCardeal1a').change(function() {
+                    	if(emp($('#txtCardeal1a').val())){
+                    		$('#txtCardeal1b').val('');
+                    	}
+                    	if(emp($('#txtCardeal2a').val())&&!emp($('#txtCardeal1a').val())){
+                    		$('#txtCardeal2a').val($('#txtCardeal1a').val());
+                    		$('#txtCardeal2b').val($('#txtCardeal1b').val());
+                    	}
+                	});
+                	$('#txtCardeal2a').change(function() {
+                    	if(emp($('#txtCardeal2a').val())){
+                    		$('#txtCardeal2b').val('');
+                    	}
+                	});
+                	
+                	$('#txtCarowner1a').change(function() {
+                    	if(emp($('#txtCarowner1a').val())){
+                    		$('#txtCarowner1b').val('');
+                    	}
+                    	if(emp($('#txtCarowner2a').val())&&!emp($('#txtCarowner1a').val())){
+                    		$('#txtCarowner2a').val($('#txtCarowner1a').val());
+                    		$('#txtCarowner2b').val($('#txtCarowner1b').val());
+                    	}
+                	});
+                	$('#txtCarowner2a').change(function() {
+                    	if(emp($('#txtCarowner2a').val())){
+                    		$('#txtCarowner2b').val('');
+                    	}
+                	});
+                	
+                	$('#txtCarspec1a').change(function() {
+                    	if(emp($('#txtCarspec1a').val())){
+                    		$('#txtCarspec1b').val('');
+                    	}
+                    	if(emp($('#txtCarspec2a').val())&&!emp($('#txtCarspec1a').val())){
+                    		$('#txtCarspec2a').val($('#txtCarspec1a').val());
+                    		$('#txtCarspec2b').val($('#txtCarspec1b').val());
+                    	}
+                	});
+                	$('#txtCarspec2a').change(function() {
+                    	if(emp($('#txtCarspec2a').val())){
+                    		$('#txtCarspec2b').val('');
+                    	}
+                	});
+                	
+                	$('#txtCarinsurer1a').change(function() {
+                    	if(emp($('#txtCarinsurer1a').val())){
+                    		$('#txtCarinsurer1b').val('');
+                    	}
+                    	if(emp($('#txtCarinsurer2a').val())&&!emp($('#txtCarinsurer1a').val())){
+                    		$('#txtCarinsurer2a').val($('#txtCarinsurer1a').val());
+                    		$('#txtCarinsurer2b').val($('#txtCarinsurer1b').val());
+                    	}
+                	});
+                	$('#txtCarinsurer2a').change(function() {
+                    	if(emp($('#txtCarinsurer2a').val())){
+                    		$('#txtCarinsurer2b').val('');
+                    	}
+                	});
 
-            }
+            	}
             }
 		</script>
 	</head>

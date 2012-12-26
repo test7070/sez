@@ -17,7 +17,7 @@
 
             var q_name = "car2";
             var q_readonly = ['txtCardeal', 'txtCarowner', 'cmbSex', 'txtIdno', 'txtBirthday', 'txtTel1', 'txtTel2', 'txtMobile', 'txtFax', 'txtAddr_conn', 'txtAddr_home', 'txtDriver'];
-            var bbmNum = [['txtInmoney', 10, 0], ['txtOutmoney', 10, 0], ['txtIrange', 10, 0], ["txtManage", 10, 0], ["txtReserve", 10, 0], ["txtHelp", 10, 0], ["txtVrate", 5, 2], ["txtRrate", 5, 2], ["txtOrate", 5, 2], ["txtIrate", 5, 2], ["txtPrate", 5, 2], ["txtUlicense", 10, 0], ["txtDlicense", 10, 0], ["txtSpring", 10, 0], ["txtSummer", 10, 0], ["txtFalla", 10, 0], ["txtWinter", 10, 0], ["txtCylinder", 2, 0], ["txtSalemoney", 10, 0], ["txtImprovemoney1", 10, 0], ["txtImprovemoney2", 10, 0], ["txtImprovemoney3", 10, 0], ["txtDiscountmoney", 10, 0], ["txtDurableyear", 2, 0, 0, 0]];
+            var bbmNum = [['txtInmoney', 10, 0],['txtInvoicemoney', 10, 0], ['txtOutmoney', 10, 0], ['txtIrange', 10, 0], ["txtManage", 10, 0], ["txtReserve", 10, 0], ["txtHelp", 10, 0], ["txtVrate", 5, 2], ["txtRrate", 5, 2], ["txtOrate", 5, 2], ["txtIrate", 5, 2], ["txtPrate", 5, 2], ["txtUlicense", 10, 0], ["txtDlicense", 10, 0], ["txtSpring", 10, 0], ["txtSummer", 10, 0], ["txtFalla", 10, 0], ["txtWinter", 10, 0], ["txtCylinder", 2, 0], ["txtSalemoney", 10, 0], ["txtImprovemoney1", 10, 0], ["txtImprovemoney2", 10, 0], ["txtImprovemoney3", 10, 0], ["txtDiscountmoney", 10, 0], ["txtDurableyear", 2, 0, 0, 0]];
             var bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"], ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999"], ["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"], ["txtImprovedate1", "999/99/99"], ["txtImprovedate2", "999/99/99"], ["txtImprovedate3", "999/99/99"], ["txtDiscountdate", "999/99/99"], ["txtStopdate", "999/99/99"], ["txtOverdate", "999/99/99"], ["txtEnddate", "999/99/99"]];
             q_sqlCount = 6;
             brwCount = 6;
@@ -104,9 +104,9 @@
                     $('#txtGuile').hide();
                 }
 
-                $('#txtInmoney').change(function() {
-                    if (!emp($('#txtInmoney').val())) {
-                        if (dec($('#txtInmoney').val()) >= 1000000) {
+                $('#txtInvoicemoney').change(function() {
+                    if (!emp($('#txtInvoicemoney').val())) {
+                        if (dec($('#txtInvoicemoney').val()) >= 1000000) {
                             $('#txtDurableyear').val(10);
                         } else {
                             if (replaceAll($('#txtNoa').val(), '-', '').length == 4)//板台
@@ -328,13 +328,13 @@
                 //-----------------------折舊計算------------------------
                 var depmoney = 0;
                 //折舊後金額
-                if (dec($('#txtInmoney').val()) <= 1000)//取得金額1000以下不折舊
-                    depmoney = dec($('#txtInmoney').val());
-                if (!emp($('#txtSaledate').val()) && dec($('#txtInmoney').val()) > 0 && dec($('#txtDurableyear').val()) > 0) {
+                if (dec($('#txtInvoicemoney').val()) <= 1000)//取得金額1000以下不折舊
+                    depmoney = dec($('#txtInvoicemoney').val());
+                if (!emp($('#txtSaledate').val()) && dec($('#txtInvoicemoney').val()) > 0 && dec($('#txtDurableyear').val()) > 0) {
                     //取得到開發票月數
                     var t_mon = (dec($('#txtSaledate').val().substr(0, 3)) * 12 + dec($('#txtSaledate').val().substr(4, 2))) - (dec($('#txtIndate').val().substr(0, 3)) * 12 + dec($('#txtIndate').val().substr(4, 2)))
                     //折舊後金額
-                    depmoney = round(dec($('#txtInmoney').val()) - ((dec($('#txtInmoney').val()) / (dec($('#txtDurableyear').val()) + 1) / 12) * t_mon), 0)
+                    depmoney = round(dec($('#txtInvoicemoney').val()) - ((dec($('#txtInvoicemoney').val()) / (dec($('#txtDurableyear').val()) + 1) / 12) * t_mon), 0)
 
                     if (depmoney < 0)
                         depmoney = 0;
@@ -541,14 +541,14 @@
 						<td><select id="cmbCarspecno" class="txt c1"> </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblDriver" class="lbl"> </a></td>
+						<td><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
 						<td colspan="2">
 							<input id="txtDriverno" type="text"  style='width:40%; float:left;'/>
 							<input id="txtDriver" type="text"  style='width:60%; float:left;'/>
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCarowner" class="lbl"> </a></td>
+						<td><span> </span><a id="lblCarowner" class="lbl btn"> </a></td>
 						<td colspan="2">
 							<input id="txtCarownerno" type="text"  style='width:40%; float:left;'/>
 							<input id="txtCarowner" type="text"  style='width:60%; float:left;'/>
@@ -588,8 +588,8 @@
 						<td><input id="txtIndate" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblInmoney" class="lbl"> </a></td>
 						<td><input id="txtInmoney" type="text" class="txt c1 num"/> </td>
-						<td><span> </span><a id="lblInplace" class="lbl"> </a></td>
-						<td><input id="txtInplace" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblInvoicemoney" class="lbl"> </a></td>
+						<td><input id="txtInvoicemoney" type="text" class="txt c1 num"/> </td>
 					</tr>
 					<tr class="other">
 						<td><span> </span><a id="lblOutdate" class="lbl"> </a></td>
@@ -617,12 +617,18 @@
 						<td><select id="cmbChecktype" class="txt c1"> </select></td>
 					</tr>
 					<tr class="other">
-						<td><span> </span><a id="lblCc" class="lbl"> </a></td>
-						<td><input id="txtCc" type="text" class="txt c1"/> </td>
-						<td><span> </span><a id="lblCarmode" class="lbl"> </a></td>
-						<td><input id="txtCarmode" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblCarbrand" class="lbl"> </a></td>
 						<td><select id="cmbCarbrandno" class="txt c1"> </select></td>
+						<td><span> </span><a id="lblCarmode" class="lbl"> </a></td>
+						<td><input id="txtCarmode" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblInplace" class="lbl"> </a></td>
+						<td><input id="txtInplace" type="text" class="txt c1"/> </td>
+					</tr>
+					<tr class="other">
+						<td><span> </span><a id="lblCc" class="lbl"> </a></td>
+						<td><input id="txtCc" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblTon" class="lbl"> </a></td>
+						<td><input id="txtTon" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
 						<td><span> </span><a id="lblPassno" class="lbl"> </a></td>
@@ -667,7 +673,7 @@
 						<td><input id="txtDurableyear" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblIsprint" class="lbl"> </a></td>
 						<td><select id="cmbIsprint" class="txt c1"> </select> </td>
-						<td><span> </span><a id="lblSss" class="lbl"> </a></td>
+						<td><span> </span><a id="lblSss" class="lbl btn"> </a></td>
 						<td><input id="txtSssno" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr>

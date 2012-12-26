@@ -1,215 +1,191 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title> </title>
-		<script src="../script/jquery.min.js" type="text/javascript"> </script>
-		<script src='../script/qj2.js' type="text/javascript"> </script>
-		<script src='qset.js' type="text/javascript"> </script>
-		<script src='../script/qj_mess.js' type="text/javascript"> </script>
-		<script src='../script/mask.js' type="text/javascript"> </script>
-		<script src="../script/qbox.js" type="text/javascript"> </script>
+		<title></title>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 
 		<script type="text/javascript">
-			this.errorHandler = null;
-			function onPageError(error) {
-				alert("An error occurred:\r\n" + error.Message);
-			}
+            this.errorHandler = null;
+            function onPageError(error) {
+                alert("An error occurred:\r\n" + error.Message);
+            }
 
-			var q_name = "ucc";
-			var q_readonly = ['txtWorker'];
-			var bbmNum = [];
-			var bbmMask = [];
-			q_sqlCount = 6;
-			brwCount = 6;
-			brwList = [];
-			brwNowPage = 0;
-			brwKey = 'noa';
-			//ajaxPath = ""; //  execute in Root
-			aPop = new Array(['txtVccacc1', 'lblVccacc1', 'acc', 'acc1,acc2', 'txtVccacc1,txtVccacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
-			['txtRc2acc1', 'lblRc2acc1', 'acc', 'acc1,acc2', 'txtRc2acc1,txtRc2acc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
-			$(document).ready(function() {
-				bbmKey = ['noa'];
-				q_brwCount();
-				q_gt(q_name, q_content, q_sqlCount, 1)
-				$('#txtNoa').focus
-			});
+            var q_name = "ucc";
+            var q_readonly = ['txtWorker'];
+            var bbmNum = [['txtSprice',10,0],['txtPrice',10,0]];
+            var bbmMask = [];
+            q_sqlCount = 6;
+            brwCount = 6;
+            brwList = [];
+            brwNowPage = 0;
+            brwKey = 'noa';
+            brwCount2 = 20;
+            //ajaxPath = ""; //  execute in Root
+            aPop = new Array(['txtVccacc1', 'lblVccacc1', 'acc', 'acc1,acc2', 'txtVccacc1,txtVccacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtRc2acc1', 'lblRc2acc1', 'acc', 'acc1,acc2', 'txtRc2acc1,txtRc2acc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+            $(document).ready(function() {
+                bbmKey = ['noa'];
+                q_brwCount();
+                q_gt(q_name, q_content, q_sqlCount, 1)
+                $('#txtNoa').focus
+            });
+            function main() {
+                if (dataErr) {
+                    dataErr = false;
+                    return;
+                }
+                mainForm(0);
+            }///  end Main()
 
-			//////////////////   end Ready
-			function main() {
-				if (dataErr) {
-					dataErr = false;
-					return;
-				}
-				mainForm(0);
-				// 1=Last  0=Top
-			}///  end Main()
+            function mainPost() {
+                q_mask(bbmMask);
 
-			function mainPost() {
-			    q_mask(bbmMask);
-			    
-                $('#txtAcc1').change(function () {
-			        var s1 = trim($(this).val());
-			        if (s1.length > 4 && s1.indexOf('.') < 0)
-			            $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
-			        if (s1.length == 4)
-			            $(this).val(s1 + '.');
-			    });
-			}
-
-			function txtCopy(dest, source) {
-				var adest = dest.split(',');
-				var asource = source.split(',');
-				$('#' + adest[0]).focus(function() {
-					if (trim($(this).val()).length == 0)
-						$(this).val(q_getMsg('msgCopy'));
+                $('#txtVccacc1').change(function() {
+					var str=$.trim($(this).val());
+                	if((/^[0-9]{4}$/g).test(str))
+                		$(this).val(str+'.');
 				});
-				$('#' + adest[0]).focusout(function() {
-					var t_copy = ($(this).val().substr(0, 1) == '=');
-					var t_clear = ($(this).val().substr(0, 2) == ' =');
-					for (var i = 0; i < adest.length; i++) { {
-							if (t_copy)
-								$('#' + adest[i]).val($('#' + asource[i]).val());
-
-							if (t_clear)
-								$('#' + adest[i]).val('');
-						}
-					}
+				$('#txtRc2acc1').change(function() {
+					var str=$.trim($(this).val());
+                	if((/^[0-9]{4}$/g).test(str))
+                		$(this).val(str+'.');
 				});
-			}
+            }
 
-			function q_boxClose(s2) {
-				var ret;
-				switch (b_pop) {
-					case q_name + '_s':
-						q_boxClose2(s2);
-						///   q_boxClose 3/4
-						break;
-				}   /// end Switch
-			}
+            function q_boxClose(s2) {
+                var ret;
+                switch (b_pop) {
+                    case q_name + '_s':
+                        q_boxClose2(s2);
+                        ///   q_boxClose 3/4
+                        break;
+                }   /// end Switch
+            }
+            function q_gtPost(t_name) {
+                switch (t_name) {
+                    case q_name:
+                        if (q_cur == 4)
+                            q_Seek_gtPost();
 
-			function q_gtPost(t_name) {
-				switch (t_name) {
-					case q_name:
-						if (q_cur == 4)
-							q_Seek_gtPost();
+                        if (q_cur == 1 || q_cur == 2)
+                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 
-						if (q_cur == 1 || q_cur == 2)
-							q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
+                        break;
+                }  /// end switch
+            }
 
-						break;
-				}  /// end switch
-			}
+            function _btnSeek() {
+                if (q_cur > 0 && q_cur < 4)// 1-3
+                    return;
+                q_box('uccdc_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
+            }
 
-			function _btnSeek() {
-				if (q_cur > 0 && q_cur < 4)// 1-3
-					return;
+            function btnIns() {
+                _btnIns();
+                $('#txtNoa').focus();
+            }
 
-				q_box('ucc_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
-			}
+            function btnModi() {
+                if (emp($('#txtNoa').val()))
+                    return;
+                _btnModi();
+                $('#txtNoa').attr('readonly','readonly');
+                $('#txtItem').focus();
+            }
 
-			function btnIns() {
-				_btnIns();
-				$('#txtNoa').focus();
-			}
+            function btnPrint() {
 
-			function btnModi() {
-				if (emp($('#txtNoa').val()))
-					return;
+            }
 
-				_btnModi();
-				$('#txtNoa').focus();
-			}
+            function btnOk() {
+                $('#txtWorker').val(r_name);
+                var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
+                if (t_err.length > 0) {
+                    alert(t_err);
+                    return;
+                }
+                var t_noa = trim($('#txtNoa').val());
+                if (t_noa.length == 0)
+                    return;
+                else
+                    wrServer(t_noa);
+            }
 
-			function btnPrint() {
+            function wrServer(key_value) {
+                var i;
 
-			}
+                xmlSql = '';
+                if (q_cur == 2)/// popSave
+                    xmlSql = q_preXml();
 
-			function btnOk() {
-				$('#txtWorker').val(r_name);	
-				var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-				if (t_err.length > 0) {
-					alert(t_err);
-					return;
-				}
-				var t_noa = trim($('#txtNoa').val());
-				
-				if (t_noa.length == 0)
-					return;
-				else
-					wrServer(t_noa);
-			}
+                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+                _btnOk(key_value, bbmKey[0], '', '', 2);
+            }
 
-			function wrServer(key_value) {
-				var i;
+            function refresh(recno) {
+                _refresh(recno);
+            }
 
-				xmlSql = '';
-				if (q_cur == 2)/// popSave
-					xmlSql = q_preXml();
+            function readonly(t_para, empty) {
+                _readonly(t_para, empty);
+            }
 
-				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-				_btnOk(key_value, bbmKey[0], '', '', 2);
-			}
+            function btnMinus(id) {
+                _btnMinus(id);
+            }
 
-			function refresh(recno) {
-				_refresh(recno);
-			}
+            function btnPlus(org_htm, dest_tag, afield) {
+                _btnPlus(org_htm, dest_tag, afield);
+            }
 
-			function readonly(t_para, empty) {
-				_readonly(t_para, empty);
-			}
+            function q_appendData(t_Table) {
+                return _q_appendData(t_Table);
+            }
 
-			function btnMinus(id) {
-				_btnMinus(id);
-			}
+            function btnSeek() {
+                _btnSeek();
+            }
 
-			function btnPlus(org_htm, dest_tag, afield) {
-				_btnPlus(org_htm, dest_tag, afield);
-			}
+            function btnTop() {
+                _btnTop();
+            }
 
-			function q_appendData(t_Table) {
-				return _q_appendData(t_Table);
-			}
+            function btnPrev() {
+                _btnPrev();
+            }
 
-			function btnSeek() {
-				_btnSeek();
-			}
+            function btnPrevPage() {
+                _btnPrevPage();
+            }
 
-			function btnTop() {
-				_btnTop();
-			}
+            function btnNext() {
+                _btnNext();
+            }
 
-			function btnPrev() {
-				_btnPrev();
-			}
+            function btnNextPage() {
+                _btnNextPage();
+            }
 
-			function btnPrevPage() {
-				_btnPrevPage();
-			}
+            function btnBott() {
+                _btnBott();
+            }
 
-			function btnNext() {
-				_btnNext();
-			}
+            function q_brwAssign(s1) {
+                _q_brwAssign(s1);
+            }
 
-			function btnNextPage() {
-				_btnNextPage();
-			}
+            function btnDele() {
+                _btnDele();
+            }
 
-			function btnBott() {
-				_btnBott();
-			}
-
-			function q_brwAssign(s1) {
-				_q_brwAssign(s1);
-			}
-
-			function btnDele() {
-				_btnDele();
-			}
-
-			function btnCancel() {
-				_btnCancel();
-			}
+            function btnCancel() {
+                _btnCancel();
+            }
 		</script>
 		<style type="text/css">
 			#dmain {
@@ -217,35 +193,37 @@
             }
             .dview {
                 float: left;
-                width: 35%;
+                width: 400px; 
+                border-width: 0px; 
             }
             .tview {
-                margin: 0;
-                padding: 2px;
-                border: 1px black double;
-                border-spacing: 0;
-                font-size: 16px;
-                background-color: #FFFF66;
-                color: blue;
+                border: 5px solid gray;
+                font-size: medium;
+                background-color: black;
+            }
+            .tview tr {
+                height: 30px;
             }
             .tview td {
                 padding: 2px;
                 text-align: center;
-                border: 1px black solid;
+                border-width: 0px;
+                background-color: #FFFF66;
+                color: blue;
             }
             .dbbm {
                 float: left;
-                width: 60%;
-                margin: -1px;
-                border: 1px black solid;
+                width: 550px;
+                /*margin: -1px;        
+                border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
                 padding: 0px;
-                /*border: 1px white double;
-                 border-spacing: 0;
-                 border-collapse: collapse;*/
-                font-size: 16px;
+                border: 1px white double;
+                border-spacing: 0;
+                border-collapse: collapse;
+                font-size: medium;
                 color: blue;
                 background: #cad3ff;
                 width: 100%;
@@ -253,19 +231,11 @@
             .tbbm tr {
                 height: 35px;
             }
-            .tbbm td {
-                width: 10%;
-            }
-             .tbbm .td1 {
-                width: 14%;
+            .tbbm tr td {
+                width: 9%;
             }
             .tbbm .tdZ {
                 width: 2%;
-            }
-            td .schema {
-                display: block;
-                width: 95%;
-                height: 0px;
             }
             .tbbm tr td span {
                 float: right;
@@ -276,7 +246,7 @@
             .tbbm tr td .lbl {
                 float: right;
                 color: blue;
-                font-size: 16px;
+                font-size: medium;
             }
             .tbbm tr td .lbl.btn {
                 color: #4297D7;
@@ -285,71 +255,75 @@
             .tbbm tr td .lbl.btn:hover {
                 color: #FF8F19;
             }
-            .tbbm tr td .txt.c1 {
+            .txt.c1 {
                 width: 100%;
                 float: left;
             }
-            .tbbm tr td .txt.c2 {
-                width: 45%;
-                float: left;
-            }
-            .tbbm tr td .txt.c3 {
-                width: 55%;
-                float: left;
-            }
-            .tbbm tr td .txt.c4 {
-                width: 60%;
-                float: left;
-            }
-            .tbbm tr td .txt.c5 {
+            .txt.c2 {
                 width: 40%;
                 float: left;
             }
-            .tbbm tr td .txt.num {
-                text-align: right;
+            .txt.c3 {
+                width: 60%;
+                float: left;
             }
-          	
             .txt.num {
                 text-align: right;
             }
-            td {
-                margin: 0px -1px;
+            .tbbm td {
+                margin: 0 -1px;
                 padding: 0;
             }
-            td input[type="text"] {
+            .tbbm td input[type="text"] {
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                float: left;
+            }
+            .tbbm select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+            }
+            .tbbs input[type="text"] {
+                width: 98%;
+            }
+            .tbbs a {
+                font-size: medium;
+            }
+            .num {
+                text-align: right;
+            }
+            .bbs {
+                float: left;
+            }
+            input[type="text"], input[type="button"] {
+                font-size: medium;
             }
             select {
-                border-width: 1px;
-                padding: 0px;
-                margin: -1px;
-                font-size:medium;
-            }
-            input[type="text"],input[type="button"] {
-                font-size:medium;
-            }
-            input[readonly="readonly"]#txtMiles{
-            	color:green;
+                font-size: medium;
             }
 		</style>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain'>
 			<div class="dview" id="dview" >
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:7%"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:25%"><a id='vewItem'> </a></td>
-						<td align="center" style="width:25%"><a id='vewVccacc1'> </a></td>
-						<td align="center" style="width:25%"><a id='vewRc2acc1'> </a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewItem'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewVccacc1'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewRc2acc1'> </a></td>
 					</tr>
 					<tr>
-						<td><input id="chkBrow.*" type="checkbox"/></td>
-						<td align="center" id='noa'>~noa</td>
+						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
+						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='product' style="text-align:left;">~product</td>
 						<td id='vccacc1' style="text-align:left;">~vccacc1</td>
 						<td id='rc2acc1' style="text-align:left;">~rc2acc1</td>
@@ -358,56 +332,51 @@
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
-					<tr class="tr1">
-						<td class="td1"><span> </span><a id='lblNoa' class="lbl">  </a></td>
-						<td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-						<td class="td3"> </td>
-						<td class="td4"> </td>
-						<td class="td5"> </td>
-						<td class="td6"> </td>
-						<td class="td7"> </td>
+					<tr style="height:1px;">
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 						<td class="tdZ"> </td>
 					</tr>
-					<tr class="tr2">
-						<td class="td1"><span> </span><a id='lblItem' class="lbl">  </a></td>
-						<td class="td2"  colspan="2"><input id="txtProduct" type="text"  class="txt c1"/></td>
+					<tr>
+						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td><input id="txtNoa"  type="text"  class="txt c1"/></td>
 					</tr>
-					<tr class="tr3">
-						<td class="td1"><span> </span><a id="lblVccacc1" class="lbl btn" >  </a></td>
-						<td class="td4"  colspan="3">
-						<input id="txtVccacc1" type="text"  class="txt c2"/>
-						<input id="txtVccacc2"  type="text"  class="txt c3"/>
+					<tr>
+						<td><span> </span><a id='lblItem' class="lbl"> </a></td>
+						<td colspan="3"><input id="txtProduct" type="text"  class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblVccacc1" class="lbl btn" > </a></td>
+						<td colspan="3">
+							<input id="txtVccacc1" type="text" style="float:left; width:35%;"/>
+							<input id="txtVccacc2" type="text" style="float:left; width:65%;"/>
 						</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblSprice' class="lbl">  </a></td>
-						<td class="td2">
-						<input id="txtSprice" type="text"  class="txt num c1"/>
-						</td>
+						<td><span> </span><a id='lblSprice' class="lbl"> </a></td>
+						<td><input id="txtSprice" type="text"  class="txt num c1"/>	</td>
 					</tr>
-					<tr class="tr4">
-						<td class="td1"><span> </span><a id="lblRc2acc1" class="lbl btn" >  </a></td>
-						<td class="td4"  colspan="3">
-						<input id="txtRc2acc1" type="text"  class="txt c2"/>
-						<input id="txtRc2acc2"  type="text"  class="txt c3"/>
+					<tr>
+						<td><span> </span><a id="lblRc2acc1" class="lbl btn" > </a></td>
+						<td colspan="3">
+							<input id="txtRc2acc1" type="text" style="float:left; width:35%;"/>
+							<input id="txtRc2acc2" type="text" style="float:left; width:65%;"/>
 						</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblPrice' class="lbl">  </a></td>
-						<td class="td2">
-						<input id="txtPrice" type="text"  class="txt num c1"/>
-						</td>
+						<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
+						<td><input id="txtPrice" type="text" class="txt num c1"/></td>
 					</tr>
-					<tr class="tr6">
-						<td class="td1"><span> </span><a id="lblMemo" class="lbl">  </a></td>
-						<td class="td2" colspan='5'><input id="txtMemo"  type="text" class="txt c1" /></td>
-						
+					<tr>
+						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td colspan="3"><input id="txtMemo"  type="text" class="txt c1" /></td>
 					</tr>
-					<tr class="tr7"> 
-						<td class="td5"><span> </span><a id="lblWorker" class="lbl"> </a></td>
-						<td class="td6"><input id="txtWorker" type="text" class="txt c1" /></td>
+					<tr>
+						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td><input id="txtWorker" type="text" class="txt c1" /></td>
 					</tr>
-					<tr> </tr>
 				</table>
 			</div>
 		</div>

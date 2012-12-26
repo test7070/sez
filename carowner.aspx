@@ -519,13 +519,13 @@
                         </tr>
 					</table>
 					<div style="border-radius: 5px; height:30px; padding: 5px 0 0 5px; ">
-						<div class='btnLbl button'>
+						<div id='divBalance' class='btnLbl button'>
 							<a id='lblBalance'></a>
 						</div>
-						<div class='btnLbl button'>
+						<div id='divCarlender' class='btnLbl button'>
 							<a id='lblCarlender'></a>
 						</div>
-						<div class='btnLbl button'>
+						<div id='divLabase' class='btnLbl button'>
 							<a id='lblLabase'></a>
 						</div>
 					</div>

@@ -792,7 +792,7 @@
 						<td class="td1"><span> </span><a id='lblPaytotal' class="lbl"></a></td>
 						<td class="td2"><input id="txtPaytotal"  type="text" class="txt num c1">	</td>
 						<td class="td3"></td>
-						<td class="td4"><input id="btnPnextmon" type="button" /></td>
+						<td class="td4"><!--<input id="btnPnextmon" type="button" />--></td>
 						<td class="td5"><span> </span><a id='lblDatea' class="lbl"></a></td>
 						<td class="td6"><input id="txtDatea"  type="text" class="txt c1"/></td>
 						<td class="td7"><span> </span><a id='lblNoa' class="lbl"></a></td>
