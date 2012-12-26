@@ -478,7 +478,7 @@
 					</tr>
 					<tr class="tr12">
 						<td><span> </span><a class="lbl">E-mail</a></td>
-						<td colspan="2"><input id="txtEmail" type="text" class="txt c1"/></td>
+						<td colspan="5"><input id="txtEmail" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCredit" class="lbl btn"> </a></td>
