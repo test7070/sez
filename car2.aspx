@@ -104,9 +104,9 @@
                     $('#txtGuile').hide();
                 }
 
-                $('#txtInmoney').change(function() {
-                    if (!emp($('#txtInmoney').val())) {
-                        if (dec($('#txtInmoney').val()) >= 1000000) {
+                $('#txtInvoicemoney').change(function() {
+                    if (!emp($('#txtInvoicemoney').val())) {
+                        if (dec($('#txtInvoicemoney').val()) >= 1000000) {
                             $('#txtDurableyear').val(10);
                         } else {
                             if (replaceAll($('#txtNoa').val(), '-', '').length == 4)//板台
@@ -328,13 +328,13 @@
                 //-----------------------折舊計算------------------------
                 var depmoney = 0;
                 //折舊後金額
-                if (dec($('#txtInmoney').val()) <= 1000)//取得金額1000以下不折舊
-                    depmoney = dec($('#txtInmoney').val());
-                if (!emp($('#txtSaledate').val()) && dec($('#txtInmoney').val()) > 0 && dec($('#txtDurableyear').val()) > 0) {
+                if (dec($('#txtInvoicemoney').val()) <= 1000)//取得金額1000以下不折舊
+                    depmoney = dec($('#txtInvoicemoney').val());
+                if (!emp($('#txtSaledate').val()) && dec($('#txtInvoicemoney').val()) > 0 && dec($('#txtDurableyear').val()) > 0) {
                     //取得到開發票月數
                     var t_mon = (dec($('#txtSaledate').val().substr(0, 3)) * 12 + dec($('#txtSaledate').val().substr(4, 2))) - (dec($('#txtIndate').val().substr(0, 3)) * 12 + dec($('#txtIndate').val().substr(4, 2)))
                     //折舊後金額
-                    depmoney = round(dec($('#txtInmoney').val()) - ((dec($('#txtInmoney').val()) / (dec($('#txtDurableyear').val()) + 1) / 12) * t_mon), 0)
+                    depmoney = round(dec($('#txtInvoicemoney').val()) - ((dec($('#txtInvoicemoney').val()) / (dec($('#txtDurableyear').val()) + 1) / 12) * t_mon), 0)
 
                     if (depmoney < 0)
                         depmoney = 0;
@@ -617,12 +617,16 @@
 						<td><select id="cmbChecktype" class="txt c1"> </select></td>
 					</tr>
 					<tr class="other">
-						<td><span> </span><a id="lblCc" class="lbl"> </a></td>
-						<td><input id="txtCc" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblCarmode" class="lbl"> </a></td>
 						<td><input id="txtCarmode" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblCarbrand" class="lbl"> </a></td>
 						<td><select id="cmbCarbrandno" class="txt c1"> </select></td>
+					</tr>
+					<tr class="other">
+						<td><span> </span><a id="lblCc" class="lbl"> </a></td>
+						<td><input id="txtCc" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblTon" class="lbl"> </a></td>
+						<td><input id="txtTon" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
 						<td><span> </span><a id="lblPassno" class="lbl"> </a></td>
