@@ -8,13 +8,14 @@
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
+        <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			var q_name = "tgg_s";
-
+			aPop = new Array(['txtNoa', 'lblNoa', 'tgg', 'noa,nick', 'txtNoa', 'tgg_b.aspx']
+			,['txtSerial', 'lblSerial', 'tgg', 'serial,noa,nick', 'txtSerial', 'tgg_b.aspx']);
 			$(document).ready(function() {
 				main();
 			});
-			/// end ready
 
 			function main() {
 				mainSeek();
@@ -24,16 +25,19 @@
 			function q_gfPost() {
 				q_getFormat();
 				q_langShow();
+
+				$('#txtNoa').focus();
 			}
 
 			function q_seekStr() {
 				t_noa = $('#txtNoa').val();
 				t_comp = $('#txtComp').val();
-				t_nick = $('#txtNick').val();
 				t_serial = $('#txtSerial').val();
-
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("comp", t_comp) + q_sqlPara2("nick", t_nick) + q_sqlPara2("serial", t_serial);
-
+				
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("serial", t_serial);
+				if (t_comp.length > 0)
+                    t_where += " and patindex('%" + t_comp + "%',comp)>0";
+                    
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -60,12 +64,6 @@
 					<td class='seek'  style="width:20%;"><a id='lblComp'></a></td>
 					<td>
 					<input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblNick'></a></td>
-					<td>
-					<input class="txt" id="txtNick" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
