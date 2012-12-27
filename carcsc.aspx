@@ -24,6 +24,7 @@
         
         aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
         							['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+        							['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'],
         							['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver,cardealno,cardeal', 'txtCarno,txtDriverno,txtDriver,txtCardealno,txtCardeal', 'car2_b.aspx'],
         							['txtBoatno', 'lblBoatno', 'boat', 'noa,boat', 'txtBoatno,txtBoat', 'boat_b.aspx']);
         
@@ -52,7 +53,9 @@
         	q_mask(bbmMask);
         	
         	q_cmbParse("cmbAddr", ('').concat(new Array('','中鋼', '外港', '台中港')));
-        	
+        	$('#txtDatea').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
         	$('#txtInprice').change(function () {
         		sum();
         	});
@@ -139,7 +142,11 @@
                 alert(t_err);
                 return;
             }
-
+			$('#txtDatea').val($.trim($('#txtDatea').val()));
+                if (checkId($('#txtDatea').val())==0){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
+                	return;
+                }  
          	//$('#txtWorker').val(r_name);
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   
@@ -381,6 +388,12 @@
                             <td class="td2" ><select id="cmbAddr" class="txt c1" style="font-size: medium;"></td><!--<input id="txtAddr"  type="text"  class="txt c1"/>-->
                             <td class="td6"><span> </span><a id="lblBoatno" class="lbl btn"></a></td>
                             <td class="td7" colspan='2'><input id="txtBoatno"  type="text"  class="txt c2"/><input id="txtBoat"  type="text"  class="txt c3"/></td>
+                            <td><span> </span><a id="lblUcc" class="lbl btn"> </a></td>
+						<td colspan='2'>
+							<input id="txtUccno"  type="text" style="float:left; width:40%;"/>
+							<input id="txtProduct"  type="text" style="float:left; width:60%;"/>
+						</td>
+						<td><input id="btnExport" type="button" class="txt c1" value="匯出"/></td>
                         </tr>
                         <tr class="tr4">
                         	<td class="td1"><span> </span><a id="lblWeight" class="lbl"></a></td>

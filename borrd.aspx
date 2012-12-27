@@ -184,7 +184,7 @@
             }
 
             function bbsSave(as) {
-                if(!as['checkno']) {
+                if(!as['comp']) {
                     as[bbsKey[1]] = '';
                     
                     return;
