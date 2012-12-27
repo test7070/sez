@@ -29,7 +29,7 @@
 
             aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
             ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtCustnick', 'cust_b.aspx'], 
-            ['txtProductno', 'lblUcc', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
+            ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'],
             ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'], 
             ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']);
 
@@ -54,7 +54,15 @@
             function mainPost() {
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate_export', r_picd], ['txtEdate_export', r_picd]];
                 q_mask(bbmMask);
-
+				$('#txtDatea').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
+	            $('#txtBdate_export').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
+	            $('#txtEdate_export').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
                 $('#txtInprice').change(function() {
                     sum();
                 });
@@ -173,6 +181,21 @@
                     alert(t_err);
                     return;
                 }
+                $('#txtDatea').val($.trim($('#txtDatea').val()));
+                if (checkId($('#txtDatea').val())==0){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
+                	return;
+                }  
+                $('#txtBdate_export').val($.trim($('#txtBdate_export').val()));
+                if (checkId($('#txtBdate_export').val())==0){
+                	alert(q_getMsg('lblBdate_export')+'錯誤。');
+                	return;
+                }  
+                $('#txtEdate_export').val($.trim($('#txtEdate_export').val()));
+                if (checkId($('#txtEdate_export').val())==0){
+                	alert(q_getMsg('lblEdate_export')+'錯誤。');
+                	return;
+                }  
 
                 //$('#txtWorker').val(r_name);
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -265,7 +288,7 @@
             }
             .dview {
                 float: left;
-                width: 1080px; 
+                width: 950px; 
                 border-width: 0px; 
             }
             .tview {
@@ -285,7 +308,7 @@
             }
             .dbbm {
                 float: left;
-                width: 1080px;
+                width: 950px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -462,9 +485,9 @@
 							<input id="txtAddrno"  type="text"  style="float:left; width:26.67%;"/>
 							<input id="txtAddr"  type="text"  style="float:left; width:73.33%;"/>
 						</td>
-						<td><span> </span><a id="lblProduct" class="lbl btn"> </a></td>
+						<td><span> </span><a id="lblUcc" class="lbl btn"> </a></td>
 						<td colspan='2'>
-							<input id="txtProductno"  type="text" style="float:left; width:40%;"/>
+							<input id="txtUccno"  type="text" style="float:left; width:40%;"/>
 							<input id="txtProduct"  type="text" style="float:left; width:60%;"/>
 						</td>
 						<td><input id="btnExport" type="button" class="txt c1" value="匯出"/></td>
