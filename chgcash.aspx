@@ -36,7 +36,7 @@
             q_desc = 1;
             aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx'], ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMemo_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'], ['txtChgpartno', 'lblChgpart', 'chgpart', 'noa,part', 'txtChgpartno,txtChgpart', 'chgpart_b.aspx'], ['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'], ['txtChgitemno', 'lblChgitem', 'chgitem', 'noa,item', 'txtChgitemno,txtChgitem', 'chgitem_b.aspx'], ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
             ['txtMemo', '', 'qphr', 'code,phr', 'txtMemo,txtMemo', "qPhr_b.aspx", 'txtAcc1'],
-            ['txtAcc1', 'lblAcc1', 'bank', 'noa,bank', 'txtAcc1,txtAcc2', 'Bank_b.aspx']);
+            ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 
             brwCount2 = 4;
 
@@ -63,7 +63,10 @@
                 q_gt('carteam', '', 0, 0, 0, "");
                 q_gt('part', '', 0, 0, 0, "");
                 q_gt('chgpart', '', 0, 0, 0, "");
-
+				
+				 $('#txtDatea').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
                 $("#cmbDc").focus(function() {
                     var len = $("#cmbDc").children().length > 0 ? $("#cmbDc").children().length : 1;
                     $("#cmbDc").attr('size', len + "");
@@ -536,8 +539,7 @@
 	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-	>
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
 			<div class="dview" id="dview">
@@ -594,7 +596,7 @@
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id="lblPart" class="lbl btn"> </a></td>
-						<td class="td2"><select id="cmbPartno" class="txt c1"></select>
+						<td class="td2"><select id="cmbPartno" class="txt c1"> </select>
 						<input id="txtPart"  type="text" style="display: none;"/>
 						</td>
 						<td class="td3"><span> </span><a id="lblSss" class="lbl btn"> </a></td>
@@ -602,21 +604,22 @@
 						<input id="txtSssno"  type="text"  class="txt c4"/>
 						<input id="txtNamea" type="text"  class="txt c4"/>
 						</td>
+						<td><span > </span><a id="lblDc" class="lbl"> </a></td>
+						<td><select id="cmbDc" class="txt c1"></select></td>
+						
 						
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblChgpart" class="lbl btn"> </a></td>
-						<td><select id="cmbChgpartno" class="txt c1"></select>
+						<td><select id="cmbChgpartno" class="txt c1"> </select>
 						<input id="txtChgpart"  type="text" style="display: none;"/>
 						</td>
-						<td><span> </span><a id="lblMoney" class="lbl"></a></td>
+						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
 						<td>
 						<input id="txtMoney" type="text" class="txt num c1"/>
 						</td>
-						<td><span > </span><a id="lblDc" class="lbl"> </a></td>
-						<td><select id="cmbDc" class="txt c1"></select></td>
 						<td><span> </span><a id="lblAcc1" class="lbl btn"> </a></td>
-						<td >
+						<td colspan="3">
 						<input id="txtAcc1" type="text" class="txt c2"/>
 						<input id="txtAcc2" type="text" class="txt c3"/>
 						</td>					
