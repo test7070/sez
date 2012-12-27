@@ -1,5 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title></title>
@@ -9,7 +8,7 @@
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
 <script type="text/javascript">
-    var q_name = "borrc_s";
+    var q_name = "borrd_s";
 
     $(document).ready(function () {
         main();
@@ -33,8 +32,8 @@
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();
         t_carno = $('#txtCarno').val();
-		t_driverno = $('#txtDriverno').val();
-		t_driver = $('#txtDriver').val();
+		t_custno = $('#txtCustno').val();
+		t_comp = $('#txtComp').val();
 		t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
@@ -51,7 +50,10 @@
     {color:white; text-align:center; font-weight:bold;BACKGROUND-COLOR: #76a2fe}
 </style>
 </head>
-<body>
+<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 <div style='width:400px; text-align:center;padding:15px;' >
        <table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >            
             <tr class='seek_tr'>
