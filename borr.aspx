@@ -41,6 +41,9 @@
 				noa : '',
 				payed : '',
 				data : new Array(),
+				monSort : function(a,b){
+					return a.mon>b.mon?1:-1;
+				},
 				analyze : function(obj){
 					try{			
 						var x = obj.payed.split(',');
@@ -48,6 +51,7 @@
 						for(var i=0; i < x.length; i+=2){
 							obj.data.push({mon:x[i],money:x[i+1]});
 						}
+						obj.data.sort(obj.monSort);
 					}
 					catch(e){
 						alert("analyze: "+e.message);
@@ -724,8 +728,8 @@
 			<table style="width:250px; background-color: pink;">
 				<tbody>
 					<tr class="head" style="color:white; background:#003366;">
-						<td style="width:30px;"><input type="button" id="payed_plus" style="font-size: medium; font-weight: bold; width:90%;" value="＋"/></td>
-						<td style="width:30px;"> </td>
+						<td style="width:20px;"><input type="button" id="payed_plus" style="font-size: medium; font-weight: bold; width:90%;" value="＋"/></td>
+						<td style="width:20px;"> </td>
 						<td style="width:80px; text-align: center;">還款月份</td>
 						<td style="width:100px; text-align: center;">金額</td>
 					</tr>
