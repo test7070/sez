@@ -41,51 +41,91 @@
 				noa : '',
 				payed : '',
 				data : new Array(),
-				analyze : function(obj){			
-					var x = obj.payed.split(',');
-					obj.data = new Array();
-					for(var i=0; i < x.length; i+=2){
-						obj.data.push({mon:x[i],data:x[i+1]});
+				analyze : function(obj){
+					try{			
+						var x = obj.payed.split(',');
+						obj.data = new Array();
+						for(var i=0; i < x.length; i+=2){
+							obj.data.push({mon:x[i],money:x[i+1]});
+						}
+					}
+					catch(e){
+						alert("analyze: "+e.message);
 					}
 				},
-				display : function(obj){
-					var t_table = $('#payed table');
-					var t_schema = t_table.has('.schema');
-					var t_item = t_table.has('.item');	
-					
-					t_schema.clone().appendTo(t_item);
-					
-					/*for(var i=0;i<t_item.length;i++){
-						t_item.eq(i).has('td').eq(2).has('input').val('');//mon
-						t_item.eq(i).has('td').eq(3).has('input').val('');//money
-						t_item.eq(i).hide();
-					}
-					for(var i=0;i<obj.data.length;i++){
-						if(i>=t_item.length){
-							t_schema.clone().appendTo(t_item);
-							t_table.has('.schema').eq(1).removeClass('schema').addClass('item');
-							t_table.has('.item:last').show();
-							t_table.has('.item:last').has('td').eq(1).val(i);
-							t_table.has('.item:last').has('td').eq(2).has('input').val(obj.data[i].mon);
-							t_table.has('.item:last').has('td').eq(3).has('input').val(obj.data[i].money);
-						}else{
-							t_table.has('.item').eq(i).show();
-							t_table.has('.item').eq(i).has('td').eq(2).has('input').val(obj.data[i].mon);
-							t_table.has('.item').eq(i).has('td').eq(3).has('input').val(obj.data[i].money);
+				merge : function(obj){
+					var t_table,t_schema,t_item,t_tr,t_str;
+					t_table = $('#payed > table').children('tbody').eq(0);
+					t_item =t_table.children('.item');
+					t_str = "";
+					for(var i=0;i<t_item.length;i++){
+						if(!t_item.eq(i).is(":hidden")){
+							t_str += (t_str.length>0?',':'') + t_item.eq(i).children('td').eq(2).children(':input').eq(0).val()+","+t_item.eq(i).children('td').eq(3).children(':input').eq(0).val();
 						}
-					}*/			
+					}
+					obj.payed = t_str;
+					obj.analyze(obj);
+				},		
+				addRow : function(obj){
+					try{
+						$('#payed > table').children('tbody').eq(0).append($('#payed > table').children('tbody').eq(0).children('.schema').eq(0).clone());
+						$('#payed > table').children('tbody').eq(0).children('.schema').eq(1).removeClass('schema').addClass('item').show();
+						$('#payed > table').children('tbody').eq(0).children('.item:last').eq(0).children('td').eq(0).children('input').eq(0).click(function(e){
+							$(this).parent().parent().hide();
+						});
+						$('#payed > table').children('tbody').eq(0).children('.item:last').eq(0).children('td').eq(2).children('input').eq(0).keydown(function(e){
+							if(e.which==13)
+								$(this).parent().next().children().eq(0).focus();
+						}).mask('999/99');
+						$('#payed > table').children('tbody').eq(0).children('.item:last').eq(0).children('td').eq(3).children('input').eq(0).keydown(function(e){
+							if(e.which==13)
+								var t_tr= $(this).parent().parent().next().children('td').eq(2).children('input').eq(0).focus();
+						});
+						var n = 1;
+						for(var i=0; i<$('#payed > table').children('tbody').eq(0).children('.item').length;i++){
+							if(!$('#payed > table').children('tbody').eq(0).children('.item').eq(i).is(':hidden')){
+								$('#payed > table').children('tbody').eq(0).children('.item').eq(i).children('td').eq(1).children('a').text(n);
+								n++;
+							}						
+						}
+					}catch(e){
+						alert("addRow: "+e.message);
+					}
+				},			
+				display : function(obj){
+					try{
+						obj.analyze(obj);
+						var t_table,t_schema,t_item,t_tr;
+						t_table = $('#payed > table').children('tbody').eq(0);
+						t_schema = t_table.children('.schema').eq(0);
+						t_item = t_table.children('.item');	
+		
+						for(var i=0;i<t_item.length;i++){
+							t_item.eq(i).children('td').eq(2).children('input').val('');//mon
+							t_item.eq(i).children('td').eq(3).children('input').val('');//money
+							t_item.eq(i).hide();
+						}
+						for(var i=0;i<obj.data.length;i++){
+							if(i>=t_item.length){
+								obj.addRow();
+							}
+							t_table.children('.item').eq(i).show();
+							t_table.children('.item').eq(i).children('td').eq(2).children('input').val(obj.data[i].mon);
+							t_table.children('.item').eq(i).children('td').eq(3).children('input').val(obj.data[i].money);
+						}
+					}catch(e){
+						alert("display: "+e.message);
+					}		
 				}
+				
 			}
 			t_borr = new borr();
-			t_borr.payed='101/11,1000,101/12,2000';
-			t_borr.analyze(t_borr);
-			t_borr.display(t_borr);
 			
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt(q_name, q_content, q_sqlCount, 1);
             });
 
             function main() {
@@ -124,6 +164,10 @@
                     else
                     	$("#payed").show();
                 });
+                
+                $('#payed_plus').click(function(e){
+                	t_borr.addRow(t_borr);
+                });
             }
 
             function q_gtPost(t_name) {
@@ -157,7 +201,10 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
-
+                
+				t_borr.payed='';
+                t_borr.display(t_borr);
+                $("#payed").show();
             }
 
             function btnModi() {
@@ -165,6 +212,10 @@
                     return;
                 _btnModi();
                 $('#txtDatea').focus();
+                
+                t_borr.payed=$('#txtPayed').val();
+                t_borr.display(t_borr);
+                 $("#payed").show();
             }
 
             function btnPrint() {
@@ -173,6 +224,8 @@
 
             function btnOk() {
                 sum();
+                t_borr.merge(t_borr);
+                $('#txtPayed').val(t_borr.payed);
                 $('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
@@ -207,10 +260,18 @@
                 _refresh(recno);
                 if (q_cur > 0 && q_cur < 4)
                     sum();
+                    
+                t_borr.payed=$('#txtPayed').val();
+                t_borr.display(t_borr);
             }
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(q_cur==1 || q_cur==2){
+                	$('#payed').contents().find(':input').removeAttr('disabled');
+                }else{
+                	$('#payed').contents().find(':input').attr('disabled','disabled');
+                }
             }
 
             function btnMinus(id) {
@@ -326,6 +387,8 @@
 
             function btnCancel() {
                 _btnCancel();
+                t_borr.payed=$('#txtPayed').val();
+                t_borr.display(t_borr);
             }
 
             function onPageError(error) {
@@ -456,7 +519,6 @@
                 text-align: center;
                 border: 2px lightgrey double;
             }
-
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -597,12 +659,7 @@
 						<td>
 						<input id="txtWorker" type="text" class="txt c1"/>
 						</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td colspan="6"><input id="txtPayed" type="text" style="display:none;"/></td>
 						<td><span> </span><a id="lblUnpay" class="lbl"> </a></td>
 						<td>
 						<input id="txtUnpay" type="text" class="txt c1 num"/>
@@ -665,18 +722,20 @@
 		<input id="q_sys" type="hidden" />
 		<div id="payed" style="display:none;">
 			<table style="width:250px; background-color: pink;">
-				<tr class="head" style="color:white; background:#003366;">
-					<td style="width:30px;"><input type="button" style="width:95%;"/></td>
-					<td style="width:30px;"> </td>
-					<td style="width:80px; text-align: center;">還款月份</td>
-					<td style="width:100px; text-align: center;">金額</td>
-				</tr>
-				<tr class="schema" style="display:none;">
-					<td><input type="button" style="width:95%;"/></td>
-					<td> </td>
-					<td><input type="text" style="width:95%;"/></td>
-					<td><input type="text" style="width:95%; text-align: right;"/></td>
-				</tr>
+				<tbody>
+					<tr class="head" style="color:white; background:#003366;">
+						<td style="width:30px;"><input type="button" id="payed_plus" style="font-size: medium; font-weight: bold; width:90%;" value="＋"/></td>
+						<td style="width:30px;"> </td>
+						<td style="width:80px; text-align: center;">還款月份</td>
+						<td style="width:100px; text-align: center;">金額</td>
+					</tr>
+					<tr class="schema" style="display:none;">
+						<td><input type="button" style="font-size: medium; font-weight: bold; width:90%;" value="－"/></td>
+						<td style="text-align: center;"><a style="font-size: medium; font-weight: bold; color:blue;"> </a></td>
+						<td><input type="text" style="width:95%;"/></td>
+						<td><input type="text" style="width:95%; text-align: right;"/></td>
+					</tr>
+				</tbody>
 			</table>
 		</div>
 	</body>
