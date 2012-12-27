@@ -167,12 +167,11 @@
                         t_where += " and (straddrno  between " + t_straddrno + " and " + t_endaddrno + ")";
                         if (!(t_bodate == "''" && t_eodate == "char(255)" && t_ordeno == "''"))
                             t_where += "and exists(select * from tranorde" + r_accy + " where noa=trans" + r_accy + ".ordeno and (odate between " + t_bodate + " and " + t_eodate + "))";
-                        // t_where += " not exists(select * from trds" + r_accy + " where not(noa=" + t_curno + ") and tranno=trans" + r_accy + ".noa and trannoq=trans" + r_accy + ".noq and (straddrno between " + t_bstraddrno + " and " + t_estraddrno + ") and (endaddrno between " + t_bendaddrno + " and " + t_eendaddrno + "))^^";
                         t_where += "^^";
                         t_where += "order=^^datea,noa^^";
                         $(this).val('請稍後');
                         $(this).attr('disabled', 'disabled');
-                        q_gt('trans', t_where, 0, 0, 0, "", r_accy);
+                        q_gt('view_trans', t_where, 0, 0, 0, "", r_accy);
                     }
                 });
                 $("#btnCustchg").click(function(e) {
@@ -230,7 +229,7 @@
                             $('#txtTax').val(t_tax);
                             sum();
                             break;
-                        case 'trans':
+                        case 'view_trans':                 
                             var as = _q_appendData("trans", "", true);
                             q_gridAddRow(bbsHtm, 'tbbs', 'txtTranno,txtOrdeno,txtTrandate', as.length, as, 'tranno,ordeno,trandate', '', '');
                             for ( i = 0; i < q_bbsCount; i++) {

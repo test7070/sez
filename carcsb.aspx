@@ -29,7 +29,11 @@
 
             aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
             ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtCustnick', 'cust_b.aspx'], 
+<<<<<<< HEAD
             ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'],
+=======
+            ['txtUccno', 'lblProduct', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'],
+>>>>>>> 8cb78ecfb2cc6c0970e64044ac566c42f5f93d8f
             ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'], 
             ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']);
 
@@ -288,7 +292,7 @@
             }
             .dview {
                 float: left;
-                width: 1080px; 
+                width: 950px; 
                 border-width: 0px; 
             }
             .tview {
@@ -308,7 +312,7 @@
             }
             .dbbm {
                 float: left;
-                width: 1080px;
+                width: 950px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
