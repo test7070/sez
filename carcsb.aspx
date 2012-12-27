@@ -29,7 +29,7 @@
 
             aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
             ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtCustnick', 'cust_b.aspx'], 
-            ['txtProductno', 'lblUcc', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
+            ['txtUccno', 'lblProduct', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx'],
             ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'], 
             ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']);
 
@@ -464,7 +464,7 @@
 						</td>
 						<td><span> </span><a id="lblProduct" class="lbl btn"> </a></td>
 						<td colspan='2'>
-							<input id="txtProductno"  type="text" style="float:left; width:40%;"/>
+							<input id="txtUccno"  type="text" style="float:left; width:40%;"/>
 							<input id="txtProduct"  type="text" style="float:left; width:60%;"/>
 						</td>
 						<td><input id="btnExport" type="button" class="txt c1" value="匯出"/></td>
