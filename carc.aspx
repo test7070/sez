@@ -53,12 +53,7 @@
             q_mask(bbsMask);
             
             $('#btnImport').click(function () {
-                	if(emp($('#txtBdate').val())||emp($('#txtEdate').val())){
-                		alert('登錄日期請先輸入!!');
-                		$('#txtBdate').focus();
-                		return;
-                	}
-		            var t_where = "where=^^ mon between '"+$('#txtBdate').val().substr(0,6)+"' and '"+$('#txtEdate').val().substr(0,6)+"' ^^";
+		            var t_where = "where=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";
 			        q_gt('cara', t_where , 0, 0, 0, "", r_accy);
 		     });
             
@@ -133,6 +128,24 @@
             	$('#txtWorker2').val(r_name);
             	
             sum();
+            
+            var t_checkpay="";
+            if($('#chkManage')[0].checked==true){
+            	t_checkpay+='行費,';
+            }
+            if($('#chkInsure')[0].checked==true){
+            	t_checkpay+='保險費,';
+            }
+            if($('#chkFuel')[0].checked==true){
+            	t_checkpay+='燃料費,';
+            }
+            if($('#chkLicense')[0].checked==true){
+            	t_checkpay+='牌照稅,';
+            }
+            if($('#chkOther')[0].checked==true){
+            	t_checkpay+='其他,';
+            }
+            $('#txtCheckpay').val(t_checkpay.substr(0,(t_checkpay.length-1)));
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   
@@ -400,11 +413,13 @@
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:25%"><a id='vewDatea'></a></td>
+                <td align="center" style="width:25%"><a id='vewCheckpay'></a></td>
                 <td align="center"><a id='vewNoa'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='datea'>~datea</td>
+                   <td align="center" id='checkpay'>~checkpay</td>
                    <td align="center" id='noa'>~noa</td>
             </tr>
         </table>
@@ -419,11 +434,9 @@
             <td class='td5'></td>
        </tr>
        <tr>           
-			<td class='td1'><span> </span><a id="lblDate2" class="lbl"></a></td>
+			<td class='td1'><span> </span><a id="lblPaydate" class="lbl"></a></td>
             <td class='td2'>
-            	<input id="txtBdate" type="text" class="txt c4"/>
-            	<span style="float:left;display: block;width:10%;height:inherit;color:blue;font-size: 14px;text-align: center;">~</span>
-            	<input id="txtEdate"  type="text"  class="txt c4"/>
+            	<input id="txtPaydate" type="text" class="txt c1"/>
             </td>
             <td class='td3'><span> </span><a id="lblChkimport" class="lbl"></a></td>
             <td class='td4' colspan='2'>
@@ -432,7 +445,7 @@
             	<input id="chkFuel" type="checkbox" style="float: left;"/><a id="lblFuel" class="lbl" style="float: left;"></a>
             	<input id="chkLicense" type="checkbox" style="float: left;"/><a id="lblLicense" class="lbl" style="float: left;"></a>
             	<input id="chkOther" type="checkbox" style="float: left;"/><a id="lblOther" class="lbl" style="float: left;"></a>
-            	<input id="btnImport" type="button" style="float: left;"/></td>
+            	<input id="btnImport" type="button" style="float: left;"/><input id="txtCheckpay" type="hidden"></td>
             </td><!--行費、保險費、燃料費、牌照稅、其他-->
        </tr>        
         <tr>           
@@ -452,16 +465,20 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
+                <td align="center" style="width:8%"><a id='lblCarowners'></a></td>
                 <td align="center" style="width:8%"><a id='lblCarnos'></a></td>
                 <td align="center" style="width:8%"><a id='lblCaradates'></a></td>
                 <td align="center" style="width:10%"><a id='lblCaritems'></a></td>
                 <td align="center" style="width:10%"><a id='lblOutmoneys'></a></td>
-                <td align="center" style="width:10%"><a id='lblInmoneys'></a></td>
                 <td align="center" ><a id='lblMemos'></a></td>
                 <td align="center" style="width:12%"><a id='lblCaranos'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
+                <td >
+                	<input id="txtCarownerno.*" type="text" class="txt c3"/>
+					<input id="txtCarowner.*" type="text" class="txt c1"/>
+                </td>
                 <td ><input id="txtCarno.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtCaradate.*" type="text" class="txt c1"/></td>
                 <td >
@@ -470,7 +487,6 @@
 					<input id="txtCaritem.*" type="text" class="txt c1"/>
                 </td>
                 <td ><input id="txtOutmoney.*" type="text" class="txt num c1"/></td>
-                <td ><input id="txtInmoney.*" type="text" class="txt num c1"/></td>
                 <td >
                 	<input  id="txtMemo.*" type="text" class="txt c1"/>
                 	<input id="txtNoq.*" type="hidden" />
