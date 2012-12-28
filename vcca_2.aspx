@@ -24,7 +24,7 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'Datea';
-			aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx']
+			aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
 			,['txtCustno', 'lblCust', 'cust', 'noa,comp,serial,nick', 'txtCustno,txtComp,txtSerial,txtNick', 'cust_b.aspx']
 		    ,['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx']
 			,['txtProductno', 'lblProductno', 'ucca', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit,txtProduct', 'ucca_b.aspx']
@@ -560,7 +560,7 @@
 						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td colspan="3">
 						<input id="txtCno" type="text" style="float:left; width:15%;">
-						<input id="txtComp2" type="text" style="float:left; width:85%;"/>
+						<input id="txtAcomp" type="text" style="float:left; width:85%;"/>
 						</td>
 					</tr>
 					<tr>

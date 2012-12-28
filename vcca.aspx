@@ -39,7 +39,7 @@
             currentData.prototype = {
                 data : [],
                 /*新增時複製的欄位*/
-                include : ['txtDatea', 'txtCno', 'txtComp2', 'txtCustno', 'txtComp', 'txtNick', 'txtSerial', 'txtAddress', 'txtMon', 'txtNoa', 'txtBuyerno', 'txtBuyer'],
+                include : ['txtDatea', 'txtCno', 'txtAcomp', 'txtCustno', 'txtComp', 'txtNick', 'txtSerial', 'txtAddress', 'txtMon', 'txtNoa', 'txtBuyerno', 'txtBuyer'],
                 /*記錄當前的資料*/
                 copy : function() {
                     curData.data = new Array();
@@ -604,7 +604,7 @@
 						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td colspan="3">
 						<input id="txtCno" type="text" style="float:left; width:15%;">
-						<input id="txtComp2" type="text" style="float:left; width:85%;"/>
+						<input id="txtAcomp" type="text" style="float:left; width:85%;"/>
 						</td>
 					</tr>
 					<tr>
