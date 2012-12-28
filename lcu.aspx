@@ -17,7 +17,7 @@
 
             var q_name = "lcu";
             var q_readonly = ['txtNoa','txtWorker'];
-            var bbmNum = [];
+            var bbmNum = [['txtMoney',10,0]];
             var bbmMask = [['txtVdate','999/99/99'],['txtDatea','999/99/99'],['txtLcdate','999/99/99'],['txtDate2','999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
@@ -90,6 +90,8 @@
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
+                $('#chkEnds').prop('checked',false);
+                $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
             }
 
@@ -105,12 +107,6 @@
             }
 
             function btnOk() {
-            	var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }
             	if (!q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
