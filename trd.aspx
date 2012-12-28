@@ -19,7 +19,7 @@
             isEditTotal = false;
             q_tables = 's';
             var q_name = "trd";
-            var q_readonly = ['txtNoa', 'txtDatea', 'txtMoney', 'txtTotal', 'txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney', 'txtVccano'];
+            var q_readonly = ['txtTaxrate','txtTax','txtNoa', 'txtDatea', 'txtMoney', 'txtTotal', 'txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney', 'txtVccano'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
             var bbmNum = [['txtMoney', 10, 0], ['txtTaxrate', 10, 1], ['txtTax', 10, 0], ['txtTotal', 10, 0], ['txtDiscount', 10, 0], ['txtMount', 10, 3], ['txtPlus', 10, 0], ['txtPlusmoney', 10, 0], ['txtMinusmoney', 10, 0]];
             var bbsNum = [['txtTranmoney', 10, 0], ['txtOverweightcost', 10, 0], ['txtOthercost', 10, 0], ['txtMount', 10, 3], ['txtPrice', 10, 3], ['txtTotal', 10, 0]];
@@ -103,12 +103,6 @@
                 });
                 $('#cmbTaxtype').change(function(e) {
                     sum();
-                }).focus(function() {
-                    var len = $("#cmbTaxtype").children().length > 0 ? $("#cmbTaxtype").children().length : 1;
-                    $("#cmbTaxtype").attr('size', len + "");
-                }).blur(function() {
-                    $("#cmbTaxtype").attr('size', '1');
-                    sum();
                 });
                 $('#txtTaxrate').change(function(e) {
                     sum();
@@ -171,7 +165,7 @@
                         t_where += "order=^^datea,noa^^";
                         $(this).val('請稍後');
                         $(this).attr('disabled', 'disabled');
-                        q_gt('view_trans', t_where, 0, 0, 0, "", r_accy);
+                        q_gt('trans', t_where, 0, 0, 0, "", r_accy);
                     }
                 });
                 $("#btnCustchg").click(function(e) {
@@ -229,7 +223,7 @@
                             $('#txtTax').val(t_tax);
                             sum();
                             break;
-                        case 'view_trans':                 
+                        case 'trans':                 
                             var as = _q_appendData("trans", "", true);
                             q_gridAddRow(bbsHtm, 'tbbs', 'txtTranno,txtOrdeno,txtTrandate', as.length, as, 'tranno,ordeno,trandate', '', '');
                             for ( i = 0; i < q_bbsCount; i++) {
@@ -455,7 +449,9 @@
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
+                $('#cmbTaxtype').val(5);
+                $('#txtTaxrate').val(0);
+                $('#txtCustno').focus();
                 curData = new trd();
             }
 
@@ -539,6 +535,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                
             }
 
             function readonly(t_para, empty) {
@@ -555,6 +552,7 @@
                 if (isEditTotal && (q_cur == 1 || q_cur == 2) && $.trim($('#txtMemo').val()).substring(0, 1) == '.') {
                     $('#txtTotal').removeAttr('readonly').css('background-color', 'white').css('color', 'black');
                 }
+                $('#cmbTaxtype').attr('disabled','disabled');
             }
 
             function btnMinus(id) {
@@ -652,7 +650,7 @@
             }
             .dview {
                 float: left;
-                width: 1080px; 
+                width: 950px; 
                 border-width: 0px; 
             }
             .tview {
@@ -672,7 +670,7 @@
             }
             .dbbm {
                 float: left;
-                width: 1080px;
+                width: 950px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -955,8 +953,8 @@
 						<input id="txtPlus" type="text"  class="txt c1 num"/>
 						</td>
 						<td><span> </span><a id="lblTaxrate" class="lbl"> </a></td>
-						<td><select id="cmbTaxtype" class="txt c3"></select>
-						<input id="txtTaxrate" type="text"  class="txt c2 num"/>
+						<td><select id="cmbTaxtype" style="float:left; width:70%;"></select>
+						<input id="txtTaxrate" type="text" style="float:left; width:30%;"/>
 						</td>
 						<td><span> </span><a id="lblTax" class="lbl"> </a></td>
 						<td>

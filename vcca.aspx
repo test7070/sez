@@ -156,16 +156,22 @@
                 if (checkId($('#txtDatea').val())==0){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
+                }   
+                $('#txtSerial').val($.trim($('#txtSerial').val()));    
+                if($('#txtSerial').val().length==0){
+                	alert('請輸入'+q_getMsg('lblSerial')+'。');
+                	return;
+                }    
+                 if (checkId($('#txtSerial').val())!=2){
+                	alert(q_getMsg('lblSerial')+'錯誤。');
+                	return;
                 }                            
                 $('#txtMon').val($.trim($('#txtMon').val()));
                 if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()))
                     alert(q_getMsg('lblMon')+'錯誤。');
                 $('#txtNoa').val($.trim($('#txtNoa').val()));
                 if ($('#txtNoa').val().length > 0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val()))
-                    alert(q_getMsg('lblNoa')+'錯誤。');
-                $('#txtSerial').val($.trim($('#txtSerial').val()));
-                if ($('#txtSerial').val().length > 0 && checkId($('#txtSerial').val())!=2)
-                    alert(q_getMsg('lblSerial')+'錯誤。');
+                    alert(q_getMsg('lblNoa')+'錯誤。');              
                 $('#txtWorker' ).val(r_name);
                 sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCno', q_getMsg('lblAcomp')]]);
