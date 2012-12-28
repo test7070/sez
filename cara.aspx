@@ -58,7 +58,7 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd],['txtMon', r_picm],['txtPdate', r_picd]];
                 q_mask(bbmMask);
-				bbsMask = [['txtDatea', r_picd],['txtIndate', r_picd],['txtPdate', r_picd],['txtUdate', r_picd]];
+				bbsMask = [['txtDatea', r_picd],['txtIndate', r_picd],['txtPdate', r_picd],['txtUdate', r_picd],['txtPaydate', r_picd]];
                 q_mask(bbsMask);
                 $('#textNextmon').mask('999/99');
                 $('#textDiscount').mask('999');
@@ -401,7 +401,7 @@
             }
 
             ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
-            /*function q_popPost(s1) {
+            function q_popPost(s1) {
 		    	switch (s1) {
 		    		case 'textCarseek':
 		    			if(!emp($('#textCarseek').val())){
@@ -413,7 +413,7 @@
                 		}
 			        break;
 		    	}
-			}*/
+			}
             
             function refresh(recno) {
                 _refresh(recno);
@@ -817,6 +817,8 @@
 						<td align="center" style="width: 200px;"><a id='lblBank'></a></td>
 						<td align="center" style="width: 80px;"><a id='lblIndate'></a></td>-->
 						<td align="center" style="width: 200px;"><a id='lblMemo'></a></td>
+						<td align="center" style="width: 80px;"><a id='lblPaydate'></a></td>
+						<td align="center" style="width: 80px;"><a id='lblFareyn'></a></td>
 						<td align="center" style="width: 80px;"><a id='lblPay'></a></td>
 						<td align="center" style="width: 110px;"><a id='lblAcc2'></a></td>
 						<td align="center" style="width: 80px;"><a id='lblPdates'></a></td>
@@ -851,6 +853,8 @@
 						</td>
 						<td><input type="text" id="txtIndate.*" class="txt c1" /></td>-->
 						<td ><input id="txtMemo.*" type="text" class="txt c1"/></td>
+						<td ><input id="txtPaydate.*" type="text" class="txt c1"/></td>
+						<td ><input id="txtFareyn.*" type="text" class="txt c1"/></td>
 						<td ><input id="txtPay.*" type="text" class="txt num c1"/></td>
 						<td >
 							<input id="txtAcc1.*" type="text"class="txt c5"/>

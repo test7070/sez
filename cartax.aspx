@@ -10,8 +10,8 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'cartax', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
-            var t_sqlname = 'cartax_load';
+            var q_name = 'caras', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
+            var t_sqlname = 'caras_load';
             t_postname = q_name;
             var isBott = false;
 
@@ -20,7 +20,7 @@
             var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtMoney', 10, 0, 1]];
+            var bbsNum = [['txtOutmoney', 10, 0, 1]];
             var bbmMask = [];
             var bbsMask = [['txtMon', '999/99'], ['txtPaydate', '999/99/99']];
 
@@ -29,7 +29,7 @@
                 bbsKey = ['noa', 'noq'];
                 if(location.href.indexOf('?') < 0)// debug
                 {
-                    location.href = location.href + "?;;;noa='002-XC'";
+                    location.href = location.href + "?;;;carno='002-XC' and (caritemno='501' or caritemno='502')";
                     return;
                 }
                 if(!q_paraChk())
@@ -107,11 +107,12 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td class="td2" align="center" style="width:7%;"><a id='lblMon'></a></td>
-					<td class="td3" align="center" style="width:10%;"><a id='lblMoney'></a></td>
-					<td class="td4" align="center" style="width:5%;"><a id='lblSheetyn'></a></td>
-					<td class="td4" align="center" style="width:5%;"><a id='lblFareyn'></a></td>
-					<td class="td5" align="center" style="width:10%;"><a id='lblPaydate'></a></td>
-					<td class="td6" align="center" style="width:40%;"><a id='lblMemo'></a></td>
+					<td class="td8" align="center" style="width:40%;"><a id='lblMemo'></a></td>
+					<td class="td3" align="center" style="width:10%;"><a id='lblOutmoney'></a></td>
+					<td class="td4" align="center" style="width:10%;"><a id='lbltPaydate'></a></td>
+					<td class="td5" align="center" style="width:5%;"><a id='lblSheetyn'></a></td>
+					<td class="td6" align="center" style="width:5%;"><a id='lblFareyn'></a></td>
+					<td class="td7" align="center" style="width:10%;"><a id='lblTaxmemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td class="td1" align="center">
@@ -120,20 +121,23 @@
 					<td class="td2">
 					<input class="txt" id="txtMon.*" type="text" style="width:95%; text-align: center;"  />
 					</td>
+					<td class="td8">
+					<input class="txt" id="txtMemo.*" type="text" style="width:95%;"   />
+					</td>
 					<td class="td3">
-					<input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align:right"  />
+					<input class="txt" id="txtOutmoney.*" type="text" style="width:95%; text-align:right"  />
 					</td>
 					<td class="td4">
-					<input class="txt" id="txtSheetyn.*" type="text" style="width:95%; text-align: center;"  />
-					</td>
-					<td class="td4">
-					<input class="txt" id="txtFareyn.*" type="text" style="width:95%; text-align: center;"  />
+					<input class="txt" id="txtPaydate.*" type="text" style="width:95%; text-align:right"  />
 					</td>
 					<td class="td5">
-					<input class="txt" id="txtPaydate.*" type="text" style="width:95%; text-align: center;"  />
+					<input class="txt" id="txtSheetyn.*" type="text" style="width:95%; text-align: center;"  />
 					</td>
 					<td class="td6">
-					<input class="txt" id="txtMemo.*" type="text" style="width:95%;"   />
+					<input class="txt" id="txtFareyn.*" type="text" style="width:95%; text-align: center;"  />
+					</td>
+					<td class="td7">
+					<input class="txt" id="txtTaxmemo.*" type="text" style="width:95%; text-align: center;"  />
 					</td>
 				</tr>
 			</table>

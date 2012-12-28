@@ -18,7 +18,7 @@
         q_tables = 's';
         var q_name = "carc";
         var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2'];
-        var q_readonlys = ['txtCarno','txtCaradate','txtCaritemno','txtCaritem','txtOutmoney','txtInmoney','txtMemo','txtCarano','txtCaranoq'];
+        var q_readonlys = ['txtCarownerno','txtCarowner','txtCarno','txtCaradate','txtCaritemno','txtCaritem','txtOutmoney','txtInmoney','txtMemo','txtCarano','txtCaranoq'];
         var bbmNum = [];  
         var bbsNum = [['txtOutmoney',14, 0, 1],['txtInmoney',14, 0, 1]];
         var bbmMask = [];
@@ -47,14 +47,37 @@
         function mainPost() { 
         
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd],['txtEdate', r_picd]];
+            bbmMask = [['txtDatea', r_picd],['txtPaydate', r_picd],['txtMon', r_picm]];
             q_mask(bbmMask);
             bbsMask = [['txtCaradate', r_picd]];
             q_mask(bbsMask);
             
             $('#btnImport').click(function () {
-		            var t_where = "where=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";
-			        q_gt('cara', t_where , 0, 0, 0, "", r_accy);
+            		if(emp($('#txtMon').val()))
+            		{
+            			alert('請先輸入單據月份');
+            			return;
+            		}
+		            var t_where = "where=^^ mon ='"+$('#txtMon').val()+"' and (a.fareyn!='Y' or a.fareyn is null) and (";
+		            if($('#chkInsure')[0].checked==true)
+		            {
+		            	t_where+="caritemno='306' or ";
+		            }
+		            if($('#chkFuel')[0].checked==true)
+		            {
+		            	t_where+="caritemno='502' or ";
+		            }
+		            if($('#chkLicense')[0].checked==true)
+		            {
+		            	t_where+="caritemno='501' or ";
+		            }
+		            if($('#chkOther')[0].checked==true)
+		            {
+		            	t_where+="(caritemno!='306' and caritemno!='502' and caritemno!='501' and caritemno!='401' and caritemno!='001' and caritemno!='002') or ";
+		            }
+		            t_where+=" 1=0)^^"
+		            
+			        q_gt('carc_caras', t_where , 0, 0, 0, "", r_accy);
 		     });
             
         }
@@ -72,42 +95,19 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-            	case 'cara':
-            		var cara = _q_appendData("cara", "", true);
-            		if(cara[0]!=undefined){
-            			var caras = _q_appendData("caras", "", true);
-            			if(caras[0]!=undefined){
-            				for (var i = 0; i < caras.length; i++) {//只取時間範圍內的值
-            					if(!(caras[i].datea>=$('#txtBdate').val()&&caras[i].datea<=$('#txtEdate').val())||!(caras[i].mon>=$('#txtBdate').val().substr(0,6)&&caras[i].mon<=$('#txtEdate').val().substr(0,6))||caras[i].udate!=''){
-		                        	caras.splice(i, 1);
-		                        	i--;
-                    			}else if($('#chkManage')[0].checked==false&&caras[i].caritemno=='401'){//判斷行費是否被勾選
-                    				caras.splice(i, 1);
-		                        	i--;
-                    			}else if($('#chkInsure')[0].checked==false&&caras[i].caritemno=='306'){//判斷保險費是否被勾選
-                    				caras.splice(i, 1);
-		                        	i--;
-                    			}else if($('#chkFuel')[0].checked==false&&caras[i].caritemno=='502'){//判斷燃料費是否被勾選
-                    				caras.splice(i, 1);
-		                        	i--;
-                    			}else if($('#chkLicense')[0].checked==false&&caras[i].caritemno=='501'){//判斷牌照稅是否被勾選
-                    				caras.splice(i, 1);
-		                        	i--;
-                    			}else if($('#chkOther')[0].checked==false&&caras[i].caritemno!='401'&&caras[i].caritemno!='306'&&caras[i].caritemno!='502'&&caras[i].caritemno!='501'){//判斷其他是否被勾選
-                    				caras.splice(i, 1);
-		                        	i--;
-                    			}else{//判斷是否有實際支付的金額
-                    				if(dec(caras[i].pay)>0)
-                    					caras[i]._outmoney=caras[i].pay
-                    				else
-                    					caras[i]._outmoney=caras[i].outmoney
-                    			}
-                    		}
-            				q_gridAddRow(bbsHtm, 'tbbs', 'txtCarano,txtCaranoq,txtCaradate,txtCaritemno,txtCaritem,txtOutmoney,txtInmoney,txtMemo,txtCarno'
-            								, caras.length, caras, 'noa,noq,datea,caritemno,caritem,_outmoney,inmoney,memo,carno', 'txtCarano');
-            			}
-            		}
-            		break; 
+            	case 'carc_caras':
+            	var caras = _q_appendData("caras", "", true);
+            	for (var i = 0; i < caras.length; i++) {
+            		if(dec(caras[i].pay)>0)
+                    	caras[i]._outmoney=caras[i].pay
+                    else
+                    	caras[i]._outmoney=caras[i].outmoney
+            	}
+            	
+            	q_gridAddRow(bbsHtm, 'tbbs', 'txtCarano,txtCaranoq,txtCaradate,txtCaritemno,txtCaritem,txtOutmoney,txtMemo,txtCarno,txtCarownerno,txtCarowner'
+            								, caras.length, caras, 'noa,noq,datea,caritemno,caritem,_outmoney,memo,carno,carownerno,namea', 'txtCarano');
+            	break;
+
                 case q_name: 
                 	if (q_cur == 4)   
                         q_Seek_gtPost();
@@ -130,9 +130,7 @@
             sum();
             
             var t_checkpay="";
-            if($('#chkManage')[0].checked==true){
-            	t_checkpay+='行費,';
-            }
+            
             if($('#chkInsure')[0].checked==true){
             	t_checkpay+='保險費,';
             }
@@ -167,15 +165,14 @@
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
-            $('#txtBdate').val(q_date().substr(0,7)+'01');
-            $('#txtEdate').val(q_date());
-            $('#chkManage')[0].checked=true;
-            $('#chkInsure')[0].checked=true;
+            $('#txtMon').val(q_date().substr(0,6));
+            $('#txtPaydate').val(q_date());
+            
+            /*$('#chkInsure')[0].checked=true;
             $('#chkFuel')[0].checked=true;
             $('#chkLicense')[0].checked=true;
-            $('#chkOther')[0].checked=true;
-            $('#txtBdate').focus();
-
+            $('#chkOther')[0].checked=true;*/
+           
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -430,17 +427,14 @@
             <td class='td1'><span> </span><a id="lblNoa" class="lbl"></a></td>
             <td class='td2'><input id="txtNoa"  type="text" class="txt c1" /></td>
             <td class='td3'><span> </span><a id="lblDatea" class="lbl"></a></td>
-            <td class='td4'><input id="txtDatea" type="text" class="txt c4"/></td>
+            <td class='td4'><input id="txtDatea" type="text" class="txt c1"/></td>
             <td class='td5'></td>
        </tr>
        <tr>           
-			<td class='td1'><span> </span><a id="lblPaydate" class="lbl"></a></td>
-            <td class='td2'>
-            	<input id="txtPaydate" type="text" class="txt c1"/>
-            </td>
+			<td class='td1'><span> </span><a id="lblMon" class="lbl"></a></td>
+            <td class='td2'><input id="txtMon" type="text" class="txt c1"/></td>
             <td class='td3'><span> </span><a id="lblChkimport" class="lbl"></a></td>
             <td class='td4' colspan='2'>
-            	<input id="chkManage" type="checkbox" style="float: left;"/><a id="lblManage" class="lbl" style="float: left;"></a>
             	<input id="chkInsure" type="checkbox" style="float: left;"/><a id="lblInsure" class="lbl" style="float: left;"></a>
             	<input id="chkFuel" type="checkbox" style="float: left;"/><a id="lblFuel" class="lbl" style="float: left;"></a>
             	<input id="chkLicense" type="checkbox" style="float: left;"/><a id="lblLicense" class="lbl" style="float: left;"></a>
@@ -448,11 +442,17 @@
             	<input id="btnImport" type="button" style="float: left;"/><input id="txtCheckpay" type="hidden"></td>
             </td><!--行費、保險費、燃料費、牌照稅、其他-->
        </tr>        
+       <tr>           
+			<td class='td1'><span> </span><a id="lblPaydate" class="lbl"></a></td>
+            <td class='td2'>
+            	<input id="txtPaydate" type="text" class="txt c1"/>
+            </td>
+       </tr>
         <tr>           
 			<td class='td1'><span> </span><a id="lblWorker" class="lbl"></a></td>
-            <td class='td2'><input id="txtWorker"  type="text" class="txt c4" /></td>
+            <td class='td2'><input id="txtWorker"  type="text" class="txt c1" /></td>
             <td class='td3'><span> </span><a id="lblWorker2" class="lbl"></a></td>
-            <td class='td4'><input id="txtWorker2" type="text" class="txt c4"></td>
+            <td class='td4'><input id="txtWorker2" type="text" class="txt c1"></td>
        </tr>        
         <tr>
             <td class='td1'><span> </span><a id="lblMemo" class="lbl"></a></td>

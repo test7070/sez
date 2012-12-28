@@ -94,7 +94,7 @@
 					q_box("oil.aspx?;;;carno='" + $('#txtCarno').val() + "'", 'oil', "90%", "600px", q_getMsg("popOil"));
 				});
 				$('#btnCartax').click(function(e) {
-					q_box("cartax.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'cartax', "90%", "600px", q_getMsg("popCartax"));
+					q_box("cartax.aspx?;;;carno='" + $('#txtCarno').val() + "' and (caritemno='501' or caritemno='502')", 'cartax', "90%", "600px", q_getMsg("popCartax"));
 				});
 				
                 //--11/21大昌改管理費+公會費=行費
