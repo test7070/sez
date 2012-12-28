@@ -171,7 +171,7 @@
                         t_where += "order=^^datea,noa^^";
                         $(this).val('請稍後');
                         $(this).attr('disabled', 'disabled');
-                        q_gt('view_trans', t_where, 0, 0, 0, "", r_accy);
+                        q_gt('trans', t_where, 0, 0, 0, "", r_accy);
                     }
                 });
                 $("#btnCustchg").click(function(e) {
@@ -229,7 +229,7 @@
                             $('#txtTax').val(t_tax);
                             sum();
                             break;
-                        case 'view_trans':                 
+                        case 'trans':                 
                             var as = _q_appendData("trans", "", true);
                             q_gridAddRow(bbsHtm, 'tbbs', 'txtTranno,txtOrdeno,txtTrandate', as.length, as, 'tranno,ordeno,trandate', '', '');
                             for ( i = 0; i < q_bbsCount; i++) {
@@ -455,7 +455,7 @@
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
+                $('#txtCustno').focus();
                 curData = new trd();
             }
 
