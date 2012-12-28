@@ -39,7 +39,7 @@
             currentData.prototype = {
                 data : [],
                 /*新增時複製的欄位*/
-                include : ['txtDatea', 'txtCno', 'txtComp2', 'txtCustno', 'txtComp', 'txtNick', 'txtSerial', 'txtAddress', 'txtMon', 'txtNoa', 'txtBuyerno', 'txtBuyer'],
+                include : ['txtDatea', 'txtCno', 'txtAcomp', 'txtCustno', 'txtComp', 'txtNick', 'txtSerial', 'txtAddress', 'txtMon', 'txtNoa', 'txtBuyerno', 'txtBuyer'],
                 /*記錄當前的資料*/
                 copy : function() {
                     curData.data = new Array();
@@ -156,16 +156,22 @@
                 if (checkId($('#txtDatea').val())==0){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
+                }   
+                $('#txtSerial').val($.trim($('#txtSerial').val()));    
+                if($('#txtSerial').val().length==0){
+                	alert('請輸入'+q_getMsg('lblSerial')+'。');
+                	return;
+                }    
+                 if (checkId($('#txtSerial').val())!=2){
+                	alert(q_getMsg('lblSerial')+'錯誤。');
+                	return;
                 }                            
                 $('#txtMon').val($.trim($('#txtMon').val()));
                 if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()))
                     alert(q_getMsg('lblMon')+'錯誤。');
                 $('#txtNoa').val($.trim($('#txtNoa').val()));
                 if ($('#txtNoa').val().length > 0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val()))
-                    alert(q_getMsg('lblNoa')+'錯誤。');
-                $('#txtSerial').val($.trim($('#txtSerial').val()));
-                if ($('#txtSerial').val().length > 0 && checkId($('#txtSerial').val())!=2)
-                    alert(q_getMsg('lblSerial')+'錯誤。');
+                    alert(q_getMsg('lblNoa')+'錯誤。');              
                 $('#txtWorker' ).val(r_name);
                 sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCno', q_getMsg('lblAcomp')]]);
@@ -604,7 +610,7 @@
 						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td colspan="3">
 						<input id="txtCno" type="text" style="float:left; width:15%;">
-						<input id="txtComp2" type="text" style="float:left; width:85%;"/>
+						<input id="txtAcomp" type="text" style="float:left; width:85%;"/>
 						</td>
 					</tr>
 					<tr>

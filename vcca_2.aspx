@@ -24,7 +24,7 @@
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'Datea';
-			aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx']
+			aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
 			,['txtCustno', 'lblCust', 'cust', 'noa,comp,serial,nick', 'txtCustno,txtComp,txtSerial,txtNick', 'cust_b.aspx']
 		    ,['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx']
 			,['txtProductno', 'lblProductno', 'ucca', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit,txtProduct', 'ucca_b.aspx']
@@ -160,16 +160,23 @@
                 if (checkId($('#txtDatea').val())==0){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
-                }           
+                }        
+                $('#txtSerial').val($.trim($('#txtSerial').val()));    
+                if($('#txtSerial').val().length==0){
+                	alert('請輸入'+q_getMsg('lblSerial')+'。');
+                	return;
+                }    
+                 if (checkId($('#txtSerial').val())!=2){
+                	alert(q_getMsg('lblSerial')+'錯誤。');
+                	return;
+                }    
                 $('#txtMon').val($.trim($('#txtMon').val()));
                 if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()))
                     alert(q_getMsg('lblMon')+'錯誤。');
                 $('#txtNoa').val($.trim($('#txtNoa').val()));
                 if ($('#txtNoa').val().length > 0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val()))
                     alert(q_getMsg('lblNoa')+'錯誤。');
-                $('#txtSerial').val($.trim($('#txtSerial').val()));
-                if ($('#txtSerial').val().length > 0 && checkId($('#txtSerial').val())!=2)
-                    alert(q_getMsg('lblSerial')+'錯誤。');
+                        
             	$('#txtWorker' ).val(r_name);
             	sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCno', q_getMsg('lblAcomp')]]);
@@ -521,8 +528,7 @@
 	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-	>
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain'>
 			<div class="dview" id="dview">
@@ -560,7 +566,7 @@
 						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td colspan="3">
 						<input id="txtCno" type="text" style="float:left; width:15%;">
-						<input id="txtComp2" type="text" style="float:left; width:85%;"/>
+						<input id="txtAcomp" type="text" style="float:left; width:85%;"/>
 						</td>
 					</tr>
 					<tr>

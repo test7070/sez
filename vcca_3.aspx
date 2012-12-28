@@ -24,7 +24,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtComp2', 'acomp_b.aspx']
+            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
             ,['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']        
             ,['txtSerial', 'lblSerial', 'vccabuyer', 'serial,buyer', 'txtSerial,txtBuyer', 'vccabuyer_b.aspx']);
 			brwCount2 = 15;
@@ -164,11 +164,15 @@
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
                 } 
-                $('#txtSerial').val($.trim($('#txtSerial').val()));
-                if ($('#txtSerial').val().length > 0 && checkId($('#txtSerial').val())!=2){
+                $('#txtSerial').val($.trim($('#txtSerial').val()));    
+                if($('#txtSerial').val().length==0){
+                	alert('請輸入'+q_getMsg('lblSerial')+'。');
+                	return;
+                }    
+                 if (checkId($('#txtSerial').val())!=2){
                 	alert(q_getMsg('lblSerial')+'錯誤。');
                 	return;
-                }              
+                }               
                 $('#txtNoa').val($.trim($('#txtNoa').val()));
                 if ($('#txtNoa').val().length > 0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val()))
                     alert(q_getMsg('lblNoa')+'錯誤。');
@@ -554,7 +558,7 @@
 						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td colspan="3">
 						<input id="txtCno" type="text" style="float:left; width:15%;">
-						<input id="txtComp2" type="text" style="float:left; width:85%;"/>
+						<input id="txtAcomp" type="text" style="float:left; width:85%;"/>
 						</td>
 					</tr>
 					<tr>
