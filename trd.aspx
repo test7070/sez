@@ -652,7 +652,7 @@
             }
             .dview {
                 float: left;
-                width: 1080px; 
+                width: 950px; 
                 border-width: 0px; 
             }
             .tview {
@@ -672,7 +672,7 @@
             }
             .dbbm {
                 float: left;
-                width: 1080px;
+                width: 950px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -955,8 +955,8 @@
 						<input id="txtPlus" type="text"  class="txt c1 num"/>
 						</td>
 						<td><span> </span><a id="lblTaxrate" class="lbl"> </a></td>
-						<td><select id="cmbTaxtype" class="txt c3"></select>
-						<input id="txtTaxrate" type="text"  class="txt c2 num"/>
+						<td><select id="cmbTaxtype" style="float:left; width:70%;"></select>
+						<input id="txtTaxrate" type="text" style="float:left; width:30%;"/>
 						</td>
 						<td><span> </span><a id="lblTax" class="lbl"> </a></td>
 						<td>
