@@ -688,7 +688,7 @@
 						<td>
 						<input id="txtWorker"  type="text"  class="txt c1"/>
 						</td>
-						<td><span> </span><a id='lblAccno' class="lbl"> </a></td>
+						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
 						<td>
 						<input id="txtAccno"  type="text" class="txt c1"/>
 						</td>

@@ -607,7 +607,7 @@
 					<tr>
 						<td><span> </span><a id='lblChkno' class="lbl"> </a></td>
 						<td><input id="txtChkno"  type="text" class="txt c1" /></td>					
-						<td><span> </span><a id='lblAccno' class="lbl"> </a></td>
+						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
 						<td colspan="2"><input id="txtAccno"  type="text" class="txt c1"/>	</td>
 					</tr>
 					<tr>
