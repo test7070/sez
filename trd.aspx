@@ -223,7 +223,7 @@
                             $('#txtTax').val(t_tax);
                             sum();
                             break;
-                        case 'trans':                 
+                        case 'trans':              
                             var as = _q_appendData("trans", "", true);
                             q_gridAddRow(bbsHtm, 'tbbs', 'txtTranno,txtOrdeno,txtTrandate', as.length, as, 'tranno,ordeno,trandate', '', '');
                             for ( i = 0; i < q_bbsCount; i++) {
@@ -265,16 +265,6 @@
                             break;
                     }
                 }
-
-
-                $('#txtMemo').change(function() {
-                    if (isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.') {
-                        $('#txtTotal').removeAttr('readonly').css('background-color', 'white').css('color', 'black');
-                    } else {
-                        $('#txtTotal').attr('readonly', 'readonly').css('background-color', 'rgb(237, 237, 238)').css('color', 'green');
-                        sum();
-                    }
-                });
             }
 
             function q_boxClose(s2) {
@@ -317,75 +307,6 @@
                 }
                 b_pop = '';
             }
-
-            function q_gtPost(t_name) {
-                switch (t_name) {
-                    case 'custchg':
-                        var as = _q_appendData("custchg", "", true);
-                        var t_plusmoney = 0, t_minusmoney = 0;
-                        for ( i = 0; i < as.length; i++) {
-                            t_plusmoney += parseFloat(as[i].plusmoney);
-                            t_minusmoney += parseFloat(as[i].minusmoney);
-                        }
-                        $('#txtPlusmoney').val(t_plusmoney);
-                        $('#txtMinusmoney').val(t_minusmoney);
-                        sum();
-                        break;
-                    case 'vcca1':
-                        var as = _q_appendData("vcca", "", true);
-                        var t_money = 0, t_tax = 0, t_total = 0;
-                        for ( i = 0; i < as.length; i++) {
-                            t_money += parseFloat(as[i].money);
-                            t_tax += parseFloat(as[i].tax);
-                            t_total += parseFloat(as[i].total);
-                        }
-                        $('#cmbTaxtype').val(5);
-                        //custom
-                        $('#txtTax').val(t_tax);
-                        sum();
-                        break;
-                    case 'trans':
-                        var as = _q_appendData("trans", "", true);
-                        q_gridAddRow(bbsHtm, 'tbbs', 'txtTranno,txtOrdeno,txtTrandate', as.length, as, 'tranno,ordeno,trandate', '', '');
-                        for ( i = 0; i < q_bbsCount; i++) {
-                            _btnMinus("btnMinus_" + i);
-                            if (i < as.length) {
-                                $('#txtOrdeno_' + i).val(as[i].ordeno);
-                                $('#txtTranno_' + i).val(as[i].noa);
-                                $('#txtTrannoq_' + i).val(as[i].noq);
-                                $('#txtTrandate_' + i).val(as[i].trandate);
-                                $('#txtCarno_' + i).val(as[i].carno);
-                                $('#txtRs_' + i).val();
-                                $('#txtStraddr_' + i).val(as[i].straddr);
-                                $('#txtTranmoney_' + i).val(as[i].total);
-                                $('#txtPaymemo_' + i).val();
-                                $('#txtFill_' + i).val(as[i].fill);
-                                $('#txtCasetype_' + i).val(as[i].csetype);
-                                $('#txtCaseno_' + i).val(as[i].caseno);
-                                $('#txtCaseno2_' + i).val(as[i].caseno2);
-                                $('#txtBoat_' + i).val();
-                                $('#txtBoatname_' + i).val();
-                                $('#txtMemo_' + i).val();
-                                $('#txtOverweightcost_' + i).val();
-                                $('#txtOthercost_' + i).val();
-                                $('#txtMount_' + i).val(as[i].mount);
-                                $('#txtPrice_' + i).val(as[i].price);
-                                $('#txtTotal_' + i).val(as[i].total);
-                                $('#txtCustorde_' + i).val(as[i].custorde);
-                                $('#txtProduct_' + i).val(as[i].product);
-                            }
-                        }
-                        sum();
-                        $('#btnTrans').val("出車單匯入");
-                        $('#btnTrans').removeAttr('disabled');
-                        break;
-                    case q_name:
-                        if (q_cur == 4)
-                            q_Seek_gtPost();
-                        break;
-                }
-            }
-
             function btnOk() {
             	$('#txtDatea').val($.trim($('#txtDatea').val()));
                 if (checkId($('#txtDatea').val())==0){
@@ -490,8 +411,7 @@
             function sum() {
             	if(!(q_cur==1 || q_cur==2))
             		return;
-                if (isEditTotal && $.trim($('#txtMemo').val()).substring(0, 1) == '.')
-                    return;
+
                 var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0, t_mount = 0, t_plus = 0, t_plusmoney = 0, t_minusmoney = 0;
                 for ( iz = 0; iz < q_bbsCount; iz++) {
                     t_money += round(q_float('txtTranmoney_' + iz),0);
@@ -548,9 +468,6 @@
                     $('#btnTrans').attr('disabled', 'disabled');
                     $('#btnCustchg').attr('disabled', 'disabled');
                     $('#btnVcca').attr('disabled', 'disabled');
-                }
-                if (isEditTotal && (q_cur == 1 || q_cur == 2) && $.trim($('#txtMemo').val()).substring(0, 1) == '.') {
-                    $('#txtTotal').removeAttr('readonly').css('background-color', 'white').css('color', 'black');
                 }
                 $('#cmbTaxtype').attr('disabled','disabled');
             }
