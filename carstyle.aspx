@@ -17,7 +17,7 @@
 
             
             var q_name = "carstyle";
-            var q_readonly = [];
+            var q_readonly = ['txtNoa'];
             var bbmNum = [];
             
             var bbmMask = [];
@@ -98,7 +98,9 @@
             }
 			  
             function btnIns() {
+            	
                 _btnIns();
+                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             }
 
             function btnModi() {
@@ -117,7 +119,10 @@
 
                 var t_noa = $('#txtNoa').val();
 
-                wrServer(t_noa);
+                if (t_noa.length == 0 || t_noa == "AUTO")
+		            q_gtnoa(q_name,replaceAll('CS0', ' ', ''));
+		        else
+		            wrServer(t_noa);
             }
 
             function wrServer(key_value) {

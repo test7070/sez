@@ -31,11 +31,12 @@
             q_desc=1;
 			//q_alias='a';
 			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,b.carowner', 'txtCarno,txtCarowner', "car2_b.aspx"],
-				['textCarseek', 'lblCarseek', 'car2', 'a.noa,b.carowner', 'textCarseek', "car2_b.aspx"],
 				['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
-				['txtCaritemno_', 'btnCaritem_', 'caritem', 'noa,item,typea,acc1,acc2', 'txtCaritemno_,txtCaritem_,txtTypea_,txtAcc1_,txtAcc2_', 'caritem_b.aspx'], 
+				['txtCaritemno_', 'btnCaritem_', 'caritem', 'noa,item,typea,acc1,acc2', 'txtCaritemno_,txtCaritem_,txtTypea_,txtAcc1_,txtAcc2_,txtOutmoney_', 'caritem_b.aspx'], 
 				['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
-
+			
+			//['textCarseek', 'lblCarseek', 'car2', 'a.noa,b.carowner', 'textCarseek', "car2_b.aspx"],
+			
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -82,7 +83,7 @@
 		     	});
                 $('#cmbIsource').change(function () {sum();});
                 //速查
-                $('#textCarseek').change(function () {
+                /*$('#textCarseek').change(function () {
                 	if(!emp($('#textCarseek').val())){
                 		var s2=new Array('cara_s',"where=^^ carno like '%" +$('#textCarseek').val() + "%'^^ ");
                 		q_boxClose2(s2);
@@ -94,7 +95,7 @@
 					q_cur=2;
 				}).blur(function() {
 					q_cur=4;
-				});
+				});*/
 				
 				$('#btnNextmon').click(function () {
 					if ($('#divNextmon').is(":hidden")) {
@@ -230,6 +231,20 @@
                     		}
                     		sum();
                 		break;
+                		case 'caritem':
+                		var as = _q_appendData("caritem", "", true);
+                    		if(as[0]!=undefined){
+                    			if(as[0].typea=='1'){
+	           						$('#txtInmoney_'+b_seq).val(0);
+	           						$('#txtOutmoney_'+b_seq).focus();
+	           					}
+	           					if(as[0].typea=='2'){
+	           						$('#txtOutmoney_'+b_seq).val(0);
+	           						$('#txtInmoney_'+b_seq).focus();
+	           					}
+                    		}
+                    		sum();
+                		break;
                     case q_name:
                     	if(dateimport){
                     		var as = _q_appendData("cara", "", true);
@@ -291,26 +306,17 @@
            					t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
+							
+							//判斷要輸入支付和付款
+           					var t_where = "where=^^ noa ='"+$('#txtCaritemno_'+b_seq).val()+"' ^^";
+					        q_gt('caritem', t_where , 0, 0, 0, "", r_accy);
+							
            					if(!emp($('#txtCaritemno_'+b_seq).val())&&$('#txtCaritemno_'+b_seq).val()=='303')
            						q_box("ticket.aspx", 'ticket', "95%", "95%", q_getMsg("popTicket"));
            					sum();
            				});
            				$('#txtOutmoney_'+j).change(function () {sum();});
            				$('#txtInmoney_'+j).change(function () {sum();});
-           				
-           				$('#txtAcc2_'+j).blur(function () {//判斷要輸入支付和付款
-           					t_IdSeq = -1;
-							q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-           					if($('#txtTypea_'+b_seq).val()=='1'){
-           						$('#txtInmoney_'+b_seq).val(0);
-           						$('#txtOutmoney_'+b_seq).focus();
-           					}
-           					if($('#txtTypea_'+b_seq).val()=='2'){
-           						$('#txtOutmoney_'+b_seq).val(0);
-           						$('#txtInmoney_'+b_seq).focus();
-           					}
-           				});
            			}
            		}
                 _bbsAssign();
@@ -412,6 +418,11 @@
 	                		q_boxClose2(s2);
                 		}
 			        break;
+			        case 'txtCaritemno_':
+		    			//判斷要輸入支付和付款
+           				var t_where = "where=^^ noa ='"+$('#txtCaritemno_'+b_seq).val()+"' ^^";
+					    q_gt('caritem', t_where , 0, 0, 0, "", r_accy);
+			        break;
 		    	}
 			}
             
@@ -423,13 +434,13 @@
                 _readonly(t_para, empty);
                 
                 if (t_para) {
-		            $('#textCarseek').removeAttr('disabled');
+		            //$('#textCarseek').removeAttr('disabled');
 		            $('#btnNextmon').removeAttr('disabled');
 		            //$('#btnPxextmon').removeAttr('disabled');
 		            $('#btnImport').attr('disabled', 'disabled');
 		        }
 		        else {
-		        	$('#textCarseek').attr('disabled', 'disabled');
+		        	//$('#textCarseek').attr('disabled', 'disabled');
 		        	$('#btnNextmon').attr('disabled', 'disabled');
 		        	//$('#btnPnxtmon').attr('disabled', 'disabled');
 		        	$('#btnImport').removeAttr('disabled');
@@ -749,10 +760,11 @@
 							<input id="txtCarno"  type="text"  class="txt c2"/>
 							<input id="txtCarowner"  type="text" class="txt c3"/>
 						</td>
-						<td class="td4"><span> </span><a id='lblCarseek' class="lbl"></a></td>
-						<td class="td5"><input id="textCarseek"  type="text" class="txt c1"/></td>
-						<td class="td6"><input id="btnImport" type="button" /></td>
-						<td class="td7"><input id="btnNextmon" type="button" /></td>
+						<td class="td4"><!--<span> </span><a id='lblCarseek' class="lbl"></a>--></td>
+						<td class="td5"><!--<input id="textCarseek"  type="text" class="txt c1"/>--></td>
+						<td class="td6"><!--<input id="btnImport" type="button" />--></td>
+						<td class="td7"></td>
+						<td class="td8"><input id="btnNextmon" type="button" /></td>
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id='lblMon' class="lbl"></a></td>

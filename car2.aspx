@@ -96,6 +96,12 @@
 				$('#btnCartax').click(function(e) {
 					q_box("cartax.aspx?;;;carno='" + $('#txtCarno').val() + "' and (caritemno='501' or caritemno='502')", 'cartax', "90%", "600px", q_getMsg("popCartax"));
 				});
+				$('#lblCarstyle').click(function(e) {
+					q_box("carstyle.aspx", 'carstyle', "90%", "600px", q_getMsg("popCarstyle"));
+				});
+				$('#lblCarspec').click(function(e) {
+					q_box("carspec.aspx", 'carspec', "90%", "600px", q_getMsg("popCarspec"));
+				});
 				
                 //--11/21大昌改管理費+公會費=行費
                 if (q_getPara('sys.comp').indexOf('大昌') > -1) {
@@ -149,7 +155,12 @@
 
                 var ret;
                 switch (b_pop) {
-
+                case 'carspec':
+                        q_gt('carspec', '', 0, 0, 0, "");
+                        break;	
+				case 'carstyle':
+                        q_gt('carstyle', '', 0, 0, 0, "");
+                        break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
@@ -535,9 +546,9 @@
 					<tr>
 						<td><span> </span><a id="lblCarkind" class="lbl"> </a></td>
 						<td><select id="cmbCarkindno" class="txt c1"> </select></td>
-						<td><span> </span><a id="lblCarstyle" class="lbl"> </a></td>
+						<td><span> </span><a id="lblCarstyle" class="lbl btn"> </a></td>
 						<td><select id="cmbCarstyleno" class="txt c1"> </select></td>
-						<td><span> </span><a id="lblCarspec" class="lbl"> </a></td>
+						<td><span> </span><a id="lblCarspec" class="lbl btn"> </a></td>
 						<td><select id="cmbCarspecno" class="txt c1"> </select></td>
 					</tr>
 					<tr>
@@ -635,14 +646,16 @@
 						<td><input id="txtPassno" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblEngineno" class="lbl"> </a></td>
 						<td><input id="txtEngineno" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblCylinder" class="lbl"> </a></td>
+						<td><input id="txtCylinder" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
 						<td><span> </span><a id="lblWeight1" class="lbl"> </a></td>
 						<td><input id="txtWeight1" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblWeight2" class="lbl"> </a></td>
 						<td><input id="txtWeight2" type="text" class="txt c1"/> </td>
-						<td><span> </span><a id="lblCylinder" class="lbl"> </a></td>
-						<td><input id="txtCylinder" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblWeight3" class="lbl"> </a></td>
+						<td><input id="txtWeight3" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
 						<td><span> </span><a id="lblLengthb" class="lbl"> </a></td>
