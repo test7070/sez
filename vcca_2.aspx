@@ -85,6 +85,10 @@
 				q_mask(bbmMask);
 
 				q_cmbParse("cmbTaxtype",q_getPara('sys.taxtype'));
+				
+				 $('#txtDatea').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
 				$('#cmbTaxtype').focus(function() {
 					var len = $("#cmbTaxtype").children().length > 0 ? $("#cmbTaxtype").children().length : 1;
 					$("#cmbTaxtype").attr('size', len + "");
