@@ -1,13 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-    <title></title>
-    <script src="../script/jquery.min.js" type="text/javascript"></script>
-    <script src='../script/qj2.js' type="text/javascript"></script>
-    <script src='qset.js' type="text/javascript"></script>
-    <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src="../script/qbox.js" type="text/javascript"></script>
-    <script src='../script/mask.js' type="text/javascript"></script>
+    <title> </title>
+    <script src="../script/jquery.min.js" type="text/javascript"> </script>
+    <script src='../script/qj2.js' type="text/javascript"> </script>
+    <script src='qset.js' type="text/javascript"> </script>
+    <script src='../script/qj_mess.js' type="text/javascript"> </script>
+    <script src="../script/qbox.js" type="text/javascript"> </script>
+    <script src='../script/mask.js' type="text/javascript"> </script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         this.errorHandler = null;
@@ -79,6 +79,9 @@
 		            
 			        q_gt('carc_caras', t_where , 0, 0, 0, "", r_accy);
 		     });
+		     $('#lblAccno').click(function() {
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+                });
             
         }
 
@@ -230,7 +233,12 @@
         function btnPlus(org_htm, dest_tag, afield) {
             _btnPlus(org_htm, dest_tag, afield); 
         }
-
+		function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                abbm[q_recno]['accno'] = xmlString;
+                $('#txtAccno').val(xmlString);
+            }
         function q_appendData(t_Table) {
             return _q_appendData(t_Table);
         }
@@ -348,7 +356,7 @@
                 float: left;
             }
             .txt.c3 {
-                width: 75%;
+                width: 71%;
                 float: left;
             }
             .txt.c4 {
@@ -423,14 +431,18 @@
         </div>
         <div class='dbbm' style="width: 74%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
-        <tr>
+        <tr class="tr1">
             <td class='td1'><span> </span><a id="lblNoa" class="lbl"></a></td>
             <td class='td2'><input id="txtNoa"  type="text" class="txt c1" /></td>
             <td class='td3'><span> </span><a id="lblDatea" class="lbl"></a></td>
             <td class='td4'><input id="txtDatea" type="text" class="txt c1"/></td>
             <td class='td5'></td>
        </tr>
-       <tr>           
+       <tr class="tr2">
+            <td class='td1'><span> </span><a id="lblPaybno" class="lbl"></a></td>
+            <td class='td2'><input id="txtPaybno"  type="text" class="txt c1" /></td>
+       </tr>
+       <tr class="tr3">           
 			<td class='td1'><span> </span><a id="lblMon" class="lbl"></a></td>
             <td class='td2'><input id="txtMon" type="text" class="txt c1"/></td>
             <td class='td3'><span> </span><a id="lblChkimport" class="lbl"></a></td>
@@ -442,19 +454,21 @@
             	<input id="btnImport" type="button" style="float: left;"/><input id="txtCheckpay" type="hidden"></td>
             </td><!--行費、保險費、燃料費、牌照稅、其他-->
        </tr>        
-       <tr>           
+       <tr class="tr4">           
 			<td class='td1'><span> </span><a id="lblPaydate" class="lbl"></a></td>
             <td class='td2'>
             	<input id="txtPaydate" type="text" class="txt c1"/>
             </td>
+         	<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
+			<td><input id="txtAccno"  type="text"  class="txt c1"/></td>
        </tr>
-        <tr>           
+        <tr class="tr5">           
 			<td class='td1'><span> </span><a id="lblWorker" class="lbl"></a></td>
             <td class='td2'><input id="txtWorker"  type="text" class="txt c1" /></td>
             <td class='td3'><span> </span><a id="lblWorker2" class="lbl"></a></td>
             <td class='td4'><input id="txtWorker2" type="text" class="txt c1"></td>
        </tr>        
-        <tr>
+        <tr class="tr6">
             <td class='td1'><span> </span><a id="lblMemo" class="lbl"></a></td>
             <td class='td2' colspan='4'><input id="txtMemo"  type="text"  class="txt c1"/></td>
         </tr> 

@@ -87,6 +87,10 @@
 				});
                 $('#btnTrans').click(function(e) {
                 	if(q_cur != 1 && q_cur != 2){
+                		if(r_accy.substring(0,3)!=$('#txtDate2').val().substring(0,3)){
+		            		alert('年度異常!');
+		            		return;
+		            	}
 						$(this).attr('disabled','disabled');
 						$(this).val('Watting...');
 	                	q_func('tre.import',r_accy+','+$('#cmbCarteamno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);

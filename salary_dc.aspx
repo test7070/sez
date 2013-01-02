@@ -55,6 +55,9 @@
             q_cmbParse("cmbPerson", ('').concat(new Array( '本國','日薪')));
             q_cmbParse("cmbMonkind", ('').concat(new Array( '本月','上期', '下期')));
             q_cmbParse("cmbTypea", ('').concat(new Array('薪資')));
+             $('#txtDatea').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
             
             $('#cmbPerson').change(function () {
             	 table_change();
@@ -311,7 +314,15 @@
         }
 
         function btnOk() {
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]); 
+            $('#txtDatea').val($.trim($('#txtDatea').val()));
+                if (checkId($('#txtDatea').val())==0){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
+                	return;
+                }  
+                  $('#txtMon').val($.trim($('#txtMon').val()));
+                if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()))
+                    alert(q_getMsg('lblMon')+'錯誤。'); 
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
@@ -1037,14 +1048,16 @@
             <td class="td11"><input id="btnInput" type="button" style="width: auto;font-size: medium;"/></td>
         </tr>
         <tr>
-            <td class="td1"><span> </span><a id="lblMoney" class="lbl"></a><a id="lblDaymoney" class="lbl"></a></td>
-            <td class="td2"><input id="txtMoney"  type="text" class="txt num c1" /><input id="txtDaymoney"  type="text" class="txt num c1" /></td>            
+        	<td class="td1"><span> </span><a id="lblDatea" class="lbl"></a></td>
+            <td class="td2"><input id="txtDatea"  type="text" class="txt c1"/></td>
+            <td class="td3"><span> </span><a id="lblMoney" class="lbl"></a><a id="lblDaymoney" class="lbl"></a></td>
+            <td class="td4"><input id="txtMoney"  type="text" class="txt num c1" /><input id="txtDaymoney"  type="text" class="txt num c1" /></td>            
             <td class="td5"><span> </span><a id="lblBo_admin" class="lbl"></a></td>
             <td class="td6"><input id="txtBo_admin"  type="text" class="txt num c1" /></td>
             <td class="td7"><span> </span><a id="lblBo_traffic" class="lbl"></a></td>
             <td class="td8"><input id="txtBo_traffic"  type="text" class="txt num c1"/></td>
-            <td class="td3"><span> </span><a id="lblPubmoney" class="lbl"></a></td>
-            <td class="td4"><input id="txtPubmoney"  type="text" class="txt num c1" /></td>
+            <td class="td9"><span> </span><a id="lblPubmoney" class="lbl"></a></td>
+            <td class="td10"><input id="txtPubmoney"  type="text" class="txt num c1" /></td>
         </tr>
         <tr>
             <td class="td1"><span> </span><a id="lblBo_special" class="lbl"></a></td>

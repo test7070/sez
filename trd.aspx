@@ -19,7 +19,7 @@
             isEditTotal = false;
             q_tables = 's';
             var q_name = "trd";
-            var q_readonly = ['txtTaxrate','txtTax','txtNoa', 'txtDatea', 'txtMoney', 'txtTotal', 'txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney', 'txtVccano'];
+            var q_readonly = ['txtTaxrate', 'txtTax', 'txtNoa', 'txtDatea', 'txtMoney', 'txtTotal', 'txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney', 'txtVccano'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
             var bbmNum = [['txtMoney', 10, 0], ['txtTaxrate', 10, 1], ['txtTax', 10, 0], ['txtTotal', 10, 0], ['txtDiscount', 10, 0], ['txtMount', 10, 3], ['txtPlus', 10, 0], ['txtPlusmoney', 10, 0], ['txtMinusmoney', 10, 0]];
             var bbsNum = [['txtTranmoney', 10, 0], ['txtOverweightcost', 10, 0], ['txtOthercost', 10, 0], ['txtMount', 10, 3], ['txtPrice', 10, 3], ['txtTotal', 10, 0]];
@@ -61,6 +61,7 @@
                 }
                 mainForm(0);
             }
+
             function mainPost() {
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtBtrandate', r_picd], ['txtEtrandate', r_picd], ['txtVccadate', r_picd]];
@@ -165,7 +166,7 @@
                         t_where += "order=^^datea,noa^^";
                         $(this).val('請稍後');
                         $(this).attr('disabled', 'disabled');
-                        q_gt('trans', t_where, 0, 0, 0, "", r_accy);
+                        q_gt('view_trans', t_where, 0, 0, 0, "", r_accy);
                     }
                 });
                 $("#btnCustchg").click(function(e) {
@@ -196,74 +197,74 @@
                     t_where = "  custno='" + $('#txtCustno').val() + "' and  (trdno='" + $('#txtNoa').val() + "' or len(isnull(trdno,''))=0) ";
                     q_box("vcca_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_vccano + ";", 'vcca1', "95%", "650px", q_getMsg('popVcca'));
                 });
+            }
 
-                function q_gtPost(t_name) {
-                    switch (t_name) {
-                        case 'custchg':
-                            var as = _q_appendData("custchg", "", true);
-                            var t_plusmoney = 0, t_minusmoney = 0;
-                            for ( i = 0; i < as.length; i++) {
-                                t_plusmoney += parseFloat(as[i].plusmoney);
-                                t_minusmoney += parseFloat(as[i].minusmoney);
+            function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'custchg':
+                        var as = _q_appendData("custchg", "", true);
+                        var t_plusmoney = 0, t_minusmoney = 0;
+                        for ( i = 0; i < as.length; i++) {
+                            t_plusmoney += parseFloat(as[i].plusmoney);
+                            t_minusmoney += parseFloat(as[i].minusmoney);
+                        }
+                        $('#txtPlusmoney').val(t_plusmoney);
+                        $('#txtMinusmoney').val(t_minusmoney);
+                        sum();
+                        break;
+                    case 'vcca1':
+                        var as = _q_appendData("vcca", "", true);
+                        var t_money = 0, t_tax = 0, t_total = 0;
+                        for ( i = 0; i < as.length; i++) {
+                            t_money += parseFloat(as[i].money);
+                            t_tax += parseFloat(as[i].tax);
+                            t_total += parseFloat(as[i].total);
+                        }
+                        $('#cmbTaxtype').val(5);
+                        //custom
+                        $('#txtTax').val(t_tax);
+                        sum();
+                        break;
+                    case 'trans':
+                        var as = _q_appendData("trans", "", true);
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtTranno,txtOrdeno,txtTrandate', as.length, as, 'tranno,ordeno,trandate', '', '');
+                        for ( i = 0; i < q_bbsCount; i++) {
+                            _btnMinus("btnMinus_" + i);
+                            if (i < as.length) {
+                                $('#txtOrdeno_' + i).val(as[i].ordeno);
+                                $('#txtTranno_' + i).val(as[i].noa);
+                                $('#txtTrannoq_' + i).val(as[i].noq);
+                                $('#txtTrandate_' + i).val(as[i].trandate);
+                                $('#txtCarno_' + i).val(as[i].carno);
+                                $('#txtRs_' + i).val();
+                                $('#txtStraddr_' + i).val(as[i].straddr);
+                                $('#txtTranmoney_' + i).val(as[i].total);
+                                $('#txtPaymemo_' + i).val();
+                                $('#txtFill_' + i).val(as[i].fill);
+                                $('#txtCasetype_' + i).val(as[i].csetype);
+                                $('#txtCaseno_' + i).val(as[i].caseno);
+                                $('#txtCaseno2_' + i).val(as[i].caseno2);
+                                $('#txtBoat_' + i).val();
+                                $('#txtBoatname_' + i).val();
+                                $('#txtMemo_' + i).val();
+                                $('#txtOverweightcost_' + i).val();
+                                $('#txtOthercost_' + i).val();
+                                $('#txtMount_' + i).val(as[i].mount);
+                                $('#txtPrice_' + i).val(as[i].price);
+                                $('#txtTotal_' + i).val(as[i].total);
+                                $('#txtCustorde_' + i).val(as[i].custorde);
+                                $('#txtProduct_' + i).val(as[i].product);
                             }
-                            $('#txtPlusmoney').val(t_plusmoney);
-                            $('#txtMinusmoney').val(t_minusmoney);
-                            sum();
-                            break;
-                        case 'vcca1':
-                            var as = _q_appendData("vcca", "", true);
-                            var t_money = 0, t_tax = 0, t_total = 0;
-                            for ( i = 0; i < as.length; i++) {
-                                t_money += parseFloat(as[i].money);
-                                t_tax += parseFloat(as[i].tax);
-                                t_total += parseFloat(as[i].total);
-                            }
-                            $('#cmbTaxtype').val(5);
-                            //custom
-                            $('#txtTax').val(t_tax);
-                            sum();
-                            break;
-                        case 'trans':              
-                            var as = _q_appendData("trans", "", true);
-                            q_gridAddRow(bbsHtm, 'tbbs', 'txtTranno,txtOrdeno,txtTrandate', as.length, as, 'tranno,ordeno,trandate', '', '');
-                            for ( i = 0; i < q_bbsCount; i++) {
-                                _btnMinus("btnMinus_" + i);
-                                if (i < as.length) {
-                                    $('#txtOrdeno_' + i).val(as[i].ordeno);
-                                    $('#txtTranno_' + i).val(as[i].noa);
-                                    $('#txtTrannoq_' + i).val(as[i].noq);
-                                    $('#txtTrandate_' + i).val(as[i].trandate);
-                                    $('#txtCarno_' + i).val(as[i].carno);
-                                    $('#txtRs_' + i).val();
-                                    $('#txtStraddr_' + i).val(as[i].straddr);
-                                    $('#txtTranmoney_' + i).val(as[i].total);
-                                    $('#txtPaymemo_' + i).val();
-                                    $('#txtFill_' + i).val(as[i].fill);
-                                    $('#txtCasetype_' + i).val(as[i].csetype);
-                                    $('#txtCaseno_' + i).val(as[i].caseno);
-                                    $('#txtCaseno2_' + i).val(as[i].caseno2);
-                                    $('#txtBoat_' + i).val();
-                                    $('#txtBoatname_' + i).val();
-                                    $('#txtMemo_' + i).val();
-                                    $('#txtOverweightcost_' + i).val();
-                                    $('#txtOthercost_' + i).val();
-                                    $('#txtMount_' + i).val(as[i].mount);
-                                    $('#txtPrice_' + i).val(as[i].price);
-                                    $('#txtTotal_' + i).val(as[i].total);
-                                    $('#txtCustorde_' + i).val(as[i].custorde);
-                                    $('#txtProduct_' + i).val(as[i].product);
-                                }
-                            }
-                            sum();
-                            $('#btnTrans').val("出車單匯入");
-                            $('#btnTrans').removeAttr('disabled');
-                            $('#txtNoa').focus();
-                            break;
-                        case q_name:
-                            if (q_cur == 4)
-                                q_Seek_gtPost();
-                            break;
-                    }
+                        }
+                        sum();
+                        $('#btnTrans').val("出車單匯入");
+                        $('#btnTrans').removeAttr('disabled');
+                        $('#txtNoa').focus();
+                        break;
+                    case q_name:
+                        if (q_cur == 4)
+                            q_Seek_gtPost();
+                        break;
                 }
             }
 
@@ -307,16 +308,21 @@
                 }
                 b_pop = '';
             }
+
             function btnOk() {
-            	$('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (checkId($('#txtDatea').val())==0){
-                	alert(q_getMsg('lblDatea')+'錯誤。');
-                	return;
-                }             
+            	if(r_accy.substring(0,3)!=$('#txtDatea').val().substring(0,3)){
+            		alert('年度異常!');
+            		return;
+            	}
+                $('#txtDatea').val($.trim($('#txtDatea').val()));
+                if (checkId($('#txtDatea').val()) == 0) {
+                    alert(q_getMsg('lblDatea') + '錯誤。');
+                    return;
+                }
                 $('#txtMon').val($.trim($('#txtMon').val()));
                 if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()))
-                   alert(q_getMsg('lblMon')+'錯誤。');
-                    
+                    alert(q_getMsg('lblMon') + '錯誤。');
+
                 $('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
@@ -409,16 +415,16 @@
             }
 
             function sum() {
-            	if(!(q_cur==1 || q_cur==2))
-            		return;
+                if (!(q_cur == 1 || q_cur == 2))
+                    return;
 
                 var t_money = 0, t_rate = 0, t_tax = 0, t_total = 0, t_mount = 0, t_plus = 0, t_plusmoney = 0, t_minusmoney = 0;
                 for ( iz = 0; iz < q_bbsCount; iz++) {
-                    t_money += round(q_float('txtTranmoney_' + iz),0);
+                    t_money += round(q_float('txtTranmoney_' + iz), 0);
                     t_mount += q_float('txtMount_' + iz);
                 }
                 t_money = t_money;
-                t_mount = round(t_mount,3);
+                t_mount = round(t_mount, 3);
 
                 t_discount = q_float('txtDiscount');
                 t_plus = q_float('txtPlus');
@@ -429,7 +435,7 @@
                     case '1':
                         $('#txtTaxrate').val(q_getPara('sys.taxrate'));
                         t_rate = q_float('txtTaxrate');
-                        t_tax =round((t_money - t_discount + t_plus) * t_rate / 100,0);
+                        t_tax = round((t_money - t_discount + t_plus) * t_rate / 100, 0);
                         t_total = (t_money - t_discount + t_plus + t_plusmoney - t_minusmoney) + t_tax;
                         break;
                     case '3':
@@ -455,7 +461,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
-                
+
             }
 
             function readonly(t_para, empty) {
@@ -469,7 +475,7 @@
                     $('#btnCustchg').attr('disabled', 'disabled');
                     $('#btnVcca').attr('disabled', 'disabled');
                 }
-                $('#cmbTaxtype').attr('disabled','disabled');
+                $('#cmbTaxtype').attr('disabled', 'disabled');
             }
 
             function btnMinus(id) {
@@ -531,6 +537,7 @@
                 abbm[q_recno]['accno'] = xmlString;
                 $('#txtAccno').val(xmlString);
             }
+
             function checkId(str) {
                 if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
                     var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
@@ -548,17 +555,18 @@
                     }
                     if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
                         return 2;
-                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 3;
-                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
-                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 4
-               	}
-               	return 0;//錯誤
+                } else if ((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//西元年
+                    var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
+                    if (regex.test(str))
+                        return 3;
+                } else if ((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//民國年
+                    str = (parseInt(str.substring(0, 3)) + 1911) + str.substring(3);
+                    var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
+                    if (regex.test(str))
+                        return 4
+                }
+                return 0;
+                //錯誤
             }
 		</script>
 		<style type="text/css">
@@ -567,8 +575,8 @@
             }
             .dview {
                 float: left;
-                width: 950px; 
-                border-width: 0px; 
+                width: 950px;
+                border-width: 0px;
             }
             .tview {
                 border: 5px solid gray;
@@ -588,8 +596,8 @@
             .dbbm {
                 float: left;
                 width: 950px;
-                /*margin: -1px;        
-                border: 1px black solid;*/
+                /*margin: -1px;
+                 border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
