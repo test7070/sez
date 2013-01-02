@@ -424,14 +424,14 @@
                 
                 if (t_para) {
 		            $('#textCarseek').removeAttr('disabled');
-		            //$('#btnNextmon').removeAttr('disabled');
-		            $('#btnPxextmon').removeAttr('disabled');
+		            $('#btnNextmon').removeAttr('disabled');
+		            //$('#btnPxextmon').removeAttr('disabled');
 		            $('#btnImport').attr('disabled', 'disabled');
 		        }
 		        else {
 		        	$('#textCarseek').attr('disabled', 'disabled');
-		        	//$('#btnNextmon').attr('disabled', 'disabled');
-		        	$('#btnPnxtmon').attr('disabled', 'disabled');
+		        	$('#btnNextmon').attr('disabled', 'disabled');
+		        	//$('#btnPnxtmon').attr('disabled', 'disabled');
 		        	$('#btnImport').removeAttr('disabled');
 		        }
             }

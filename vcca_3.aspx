@@ -33,7 +33,7 @@
             currentData.prototype = {
                 data : [],
                 /*新增時複製的欄位*/
-                include : ['txtDatea', 'txtCno', 'txtComp2', 'txtNoa'],
+                include : ['txtDatea', 'txtCno', 'txtAcomp', 'txtNoa'],
                 /*記錄當前的資料*/
                 copy : function() {
                     curData.data = new Array();
@@ -104,6 +104,9 @@
 					$('#btnVcc').val('請稍後。');
 					q_func('vcca.genvcc',$('#txtNoa').val());
 				});	
+				$('#lblAccno').click(function() {
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+                });
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -144,6 +147,12 @@
                             q_Seek_gtPost();
                         break;
                 }
+            }
+            function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                abbm[q_recno]['accno'] = xmlString;
+                $('#txtAccno').val(xmlString);
             }
 			function q_funcPost(t_func, result) {
                 switch(t_func) {
@@ -598,7 +607,7 @@
 					<tr>
 						<td><span> </span><a id='lblChkno' class="lbl"> </a></td>
 						<td><input id="txtChkno"  type="text" class="txt c1" /></td>					
-						<td><span> </span><a id='lblAccno' class="lbl"> </a></td>
+						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
 						<td colspan="2"><input id="txtAccno"  type="text" class="txt c1"/>	</td>
 					</tr>
 					<tr>

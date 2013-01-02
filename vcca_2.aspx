@@ -35,7 +35,7 @@
 			currentData.prototype = {
 				data : [],
 				/*新增時複製的欄位*/
-				include : ['txtDatea', 'txtCno', 'txtComp2', 'txtCustno', 'txtComp', 'txtNick', 'txtSerial', 'txtAddress', 'txtMon','txtNoa','txtBuyerno','txtBuyer','txtProductno','txtProduct','txtUnit'],
+				include : ['txtDatea', 'txtCno', 'txtAcomp', 'txtCustno', 'txtComp', 'txtNick', 'txtSerial', 'txtAddress', 'txtMon','txtNoa','txtBuyerno','txtBuyer','txtProductno','txtProduct','txtUnit'],
 				/*記錄當前的資料*/
 				copy : function() {
 					curData.data = new Array();
@@ -116,6 +116,9 @@
                     if($('#txtSerial').val().length>0 && checkId($('#txtSerial').val())!=2)
                     	alert(q_getMsg('lblSerial')+'錯誤。');
                 });
+                $('#lblAccno').click(function() {
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+                });
 			}
 
 			function q_boxClose(s2) {///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -158,6 +161,12 @@
                             q_Seek_gtPost();
                         break;
                 }
+            }
+            function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                abbm[q_recno]['accno'] = xmlString;
+                $('#txtAccno').val(xmlString);
             }
 			function btnOk() {
 				$('#txtDatea').val($.trim($('#txtDatea').val()));
@@ -630,7 +639,7 @@
 						<td><input id="txtChkno"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id='lblAccno' class="lbl"> </a></td>
+						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
 						<td><input id="txtAccno"  type="text" class="txt c1"/>	</td>
 					</tr>
 				</table>
