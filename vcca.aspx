@@ -109,6 +109,9 @@
                     if($('#txtSerial').val().length>0 && checkId($('#txtSerial').val())!=2)
                     	alert(q_getMsg('lblSerial')+'錯誤。');
                 });
+                $('#lblAccno').click(function() {
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+                });
             }
 
             function q_boxClose(s2) {
@@ -150,7 +153,12 @@
                         break;
                 }
             }
-
+			function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                abbm[q_recno]['accno'] = xmlString;
+                $('#txtAccno').val(xmlString);
+            }
             function btnOk() {
                 $('#txtDatea').val($.trim($('#txtDatea').val()));
                 if (checkId($('#txtDatea').val())==0){
