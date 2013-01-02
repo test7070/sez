@@ -21,7 +21,7 @@
 			});
 			function q_gfPost() {
 				$('#q_report').q_report({
-					fileName : 'z_driver',
+					fileName : 'z_carc',
 					options : [ {/*1*/
                         type : '1',
                         name : 'date'

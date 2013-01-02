@@ -15,14 +15,48 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+		
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
+            function z_accc() {
+			}
+            z_accc.prototype = {
+				isInit : false,
+				data : {
+					balacc1 : null
+				},
+				isLoad : function() {
+					var isLoad = true;
+					for (var x in this.data) {
+						isLoad = isLoad && (this.data[x] != null);
+					}
+					return isLoad;
+				}
+			};
+			t_data = new z_accc();
+			
             $(document).ready(function() {
                 q_getId();
                 q_gf('', 'z_accc');   
             });
+            
             function q_gfPost() {
+				q_gt('balacc1', '', 0, 0, 0, "");
+			}
+
+            function q_gfPost() {
+            	switch (t_name) {
+					case 'balacc1':
+						t_data.data['balacc1'] = '';
+						var as = _q_appendData("balacc1", "", true);
+						for ( i = 0; i < as.length; i++) {
+							t_data.data['balacc1'] += (t_data.data['balacc1'].length > 0 ? ',' : '') + as[i].noa + '@' + as[i].balacc1;
+						}
+						break;
+				}
+				 if (t_data.isLoad() && !t_data.isInit) {
+					t_data.isInit  =  true;
                 $('#q_report').q_report({
                     fileName : 'z_accc',
                     options : [{
@@ -53,14 +87,14 @@
 					}, {/*4*/
 							type : '8',
 							name : 'xaccc5',
-							value : q_getPara('acc.bal').split(',')
+							value : t_data.data['accbal1'].split(',')
 						},{
                         type : '8',
                         name : 'balance',
                         value : (('').concat(new Array("餘額"))).split(',')
                     }]
                 });
-                
+               
                 $('#txtAcc1a').change(function () {
 		                var s1 = trim($(this).val());
 		                if (s1.length > 4 && s1.indexOf('.') < 0)
@@ -102,6 +136,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_month+'/'+t_day);
+            }
             }
 		</script>
 	</head>

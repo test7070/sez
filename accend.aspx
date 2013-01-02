@@ -1,13 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-    <title></title>
-    <script src="../script/jquery.min.js" type="text/javascript"></script>
-    <script src='../script/qj2.js' type="text/javascript"></script>
-    <script src='qset.js' type="text/javascript"></script>
-    <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src="../script/qbox.js" type="text/javascript"></script>
-    <script src='../script/mask.js' type="text/javascript"></script>
+    <title> </title>
+    <script src="../script/jquery.min.js" type="text/javascript"> </script>
+    <script src='../script/qj2.js' type="text/javascript"> </script>
+    <script src='qset.js' type="text/javascript"> </script>
+    <script src='../script/qj_mess.js' type="text/javascript"> </script>
+    <script src="../script/qbox.js" type="text/javascript"> </script>
+    <script src='../script/mask.js' type="text/javascript"> </script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
     
     <script type="text/javascript">
@@ -16,13 +16,12 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var decbbm = [];
-        var q_name="store";
+        var q_name="accend";
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		 aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -351,49 +350,16 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
-        <div class="dview" id="dview" style="float: left;  width:25%;"  >
-           <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+        	<table>
             <tr>
-                <td align="center" style="width:5%"><a id='vewChk'></a></td>                
-                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:25%"><a id='vewStore'></a></td>                
-            </tr>
-             <tr>
-                 <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
-                 <td align="center" id='noa'>~noa</td>
-                 <td align="center" id='store'>~store</td>
-            </tr>
-        </table>
-        </div>
-        <div class='dbbm' style="width: 73%;float: left;">
-        <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>            
+               <td class="td1"><span> </span><a id='lblYears' class="lbl"></a></td>
+               <td class="td2"><input id="txtYears"  type="text"  class="txt c2"/></td>
+            </tr>  
             <tr>
-               <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-               <td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblStore' class="lbl"></a></td>
-               <td class="td2"><input id="txtStore"  type="text" class="txt c1"/></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-            
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblStart' class="lbl"></a></td>
-               <td class="td2"><input id="txtStart"  type="text" class="txt c1" /></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id="lblTgg" class="lbl btn" ></a></td>
-               <td class="td2"><input id="txtTggno"  type="text" class="txt c2"/><input id="txtTgg"  type="text" class="txt c3"/></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
-            </tr>    
-        </table>
-        </div>
+               <td class="td1"><input id="btnAccount" type="button" class="txt c2"/></td>
+               <td class="td2"><input id="btnClose" type="button" class="txt c2"/></td>
+            </tr>  
+            </table>
         </div> 
         <input id="q_sys" type="hidden" />    
 </body>
