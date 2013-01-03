@@ -225,8 +225,8 @@
                         $('#txtTax').val(t_tax);
                         sum();
                         break;
-                    case 'trans':
-                        var as = _q_appendData("trans", "", true);
+                    case 'view_trans':
+                        var as = _q_appendData("view_trans", "", true);
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtTranno,txtOrdeno,txtTrandate', as.length, as, 'tranno,ordeno,trandate', '', '');
                         for ( i = 0; i < q_bbsCount; i++) {
                             _btnMinus("btnMinus_" + i);

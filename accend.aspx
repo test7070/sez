@@ -356,8 +356,8 @@
                <td class="td2"><input id="txtYears"  type="text"  class="txt c2"/></td>
             </tr>  
             <tr>
-               <td class="td1"><input id="btnAccount" type="button" class="txt c2"/></td>
-               <td class="td2"><input id="btnClose" type="button" class="txt c2"/></td>
+               <td class="td2"><input id="btnAccount" type="button" style="width: auto;"/></td>
+               <td class="td3"><input id="btnClose" type="button" /></td>
             </tr>  
             </table>
         </div> 

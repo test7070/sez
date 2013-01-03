@@ -269,6 +269,7 @@
 
 		                break;
 		            case 'umm_trd':
+		            	
 		                for (var i = 0; i < q_bbsCount; i++) {
 		                    if ($('#txtVccno_' + i).val().length > 0) {
 		                        $('#txtVccno_' + i).val('');
@@ -278,7 +279,7 @@
 		                        $('#txtUnpayorg_' + i).val('');
 		                    }
 		                }
-		                var as = _q_appendData("trd", "", true);
+		                var as = _q_appendData("view_trd", "", true);
 		                for (var i = 0; i < as.length; i++) {
 		                    if (as[i].total - as[i].paysale == 0) {
 		                        as.splice(i, 1);

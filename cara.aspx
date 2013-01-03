@@ -121,6 +121,18 @@
                 var
                 ret;
                 switch (b_pop) {
+                	case 'ticket':
+                		if (q_cur > 0 && q_cur < 4) {
+	                        b_ret = getb_ret();
+	                        if (!b_ret || b_ret.length == 0)
+	                            return;
+	                            
+	                        if (b_seq < 0 || b_seq >= q_bbsCount){
+	                        	$('#txtOutmoney_' + b_seq).val(b_ret[0].phr);
+	                        	$('#txtMemo_' + b_seq).val(b_ret[0].phr);
+	                        }
+						}
+                        break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4

@@ -65,7 +65,9 @@
 					var t_where = "where=^^ gqbno = '" + $('#txtGqbno').val() + "' ^^";
 					q_gt('gqb', t_where, 0, 0, 0, "", r_accy);
 				});
-
+		     	$('#lblAccno').click(function() {
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+                });
 			}
 
 			function txtCopy(dest, source) {
@@ -472,7 +474,7 @@
 						<td class="td2" colspan="2">
 						<input id="txtMoney"  type="text" class="txt num c1"/>
 						</td>
-						<td class="td4"><span> </span><a id='lblAccno' class="lbl"></a></td>
+						<td class="td4"><span> </span><a id='lblAccno' class="lbl btn"></a></td>
 						<td class="td5">
 						<input id="txtAccno"  type="text" class="txt c1" />
 						</td>

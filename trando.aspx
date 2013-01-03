@@ -57,8 +57,8 @@
 							return false;
 						}
 						var t_po = "'" + $.trim($('#txtPo').val()) + "'";
-						t_where = " where=^^(trans" + r_accy + ".po=" + t_po + ")^^";						
-						q_gt('trans', t_where, 0, 0, 0, "", r_accy);
+						t_where = " where=^^ (view_trans" + r_accy + ".po=" + t_po + ") ^^";						
+						q_gt('view_trans', t_where, 0, 0, 0, "", r_accy);
 					}
 				});
 			}
@@ -75,8 +75,8 @@
 
 			function q_gtPost(t_name) {
 				switch (t_name) {
-					case 'trans':
-						var as = _q_appendData("trans", "", true);
+					case 'view_trans':
+						var as = _q_appendData("view_trans", "", true);
 						for(var i=0;i<as.length;i++){
 							for(var j=0;j<q_bbsCount;j++){
 								if(as[i].caseno==$('#txtCaseno_'+j).val()){
