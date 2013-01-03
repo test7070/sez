@@ -109,9 +109,6 @@
                 q_box('tranquat_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
 
-            function combPay_chg() {
-            }
-
             function bbsAssign() {
                 _bbsAssign();
                 for (var j = 0; j < q_bbsCount; j++) {
