@@ -85,9 +85,17 @@
             }
 
             function btnOk() {
-            	$('#txtDatea').val($.trim($('#txtDatea').val()));
-            	if($('#txtDatea').val().length>0 && !(/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test($('#txtDatea').val()))
-            		alert('日期格式錯誤。');
+            	if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())) {
+                    alert(q_getMsg('lblDatea') + '錯誤。');
+                    return;
+                }
+                if($('#txtDldate').val().length==0){
+                	if($('#txtCldate').val().length>0)
+                		$('#txtDldate').val($('#txtCldate').val());
+                	else if($('#txtMadate').val().length>0)
+                		$('#txtDldate').val($('#txtMadate').val());
+                }
+                
                 $('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
