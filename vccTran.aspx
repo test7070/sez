@@ -155,19 +155,27 @@
                                 t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
                             }
                             q_cmbParse("cmbPartno", t_item);
-                            $("#cmbPartno").val(abbm[q_recno].partno);
+                            if (abbm[q_recno] != undefined) {
+	                        	$("#cmbPartno").val(abbm[q_recno].partno);
+	                        }
                             q_cmbParse("cmbPartno2", t_item);
-                            $("#cmbPartno2").val(abbm[q_recno].partno);
+                             if (abbm[q_recno] != undefined) {
+	                        	$("#cmbPartno2").val(abbm[q_recno].partno2);
+	                        }
                         }
                         break;
                 	case 'acomp':
                         var as = _q_appendData("acomp", "", true);
-                        var t_item = " @ ";
-                        for ( i = 0; i < as.length; i++) {
-                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+                        if (as[0] != undefined) {
+	                        var t_item = " @ ";
+	                        for ( i = 0; i < as.length; i++) {
+	                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+	                        }
+	                        q_cmbParse("cmbCno", t_item);
+	                        if (abbm[q_recno] != undefined) {
+	                        	$("#cmbCno").val(abbm[q_recno].cno);
+	                        }
                         }
-                        q_cmbParse("cmbCno", t_item);
-                        $("#cmbCno").val(abbm[q_recno].cno);
                         break;
                     case q_name:
                         if (q_cur == 4)
