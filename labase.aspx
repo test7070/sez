@@ -78,16 +78,17 @@
 			           //判斷員工家屬
 			           var t_where = "where=^^noa='"+$('#txtNoa').val()+"'^^";
             			q_gt('labases_sum', t_where, 0, 0, 0, "", r_accy);
-			           
+            			
+			           $('#txtInsur_fund').val(0.025);
 			     	if(q_getPara('sys.comp').indexOf('大昌')>-1){
 			     		if($('#txtNoa').val().substr(0,1)=='G'){
 			     			$('#chkIssssp')[0].checked=true;
-			     			$('#txtInsur_fund').val(0.025);
-		            		$('#txtInsur_disaster').val(0.11);
+			     			//$('#txtInsur_fund').val(0.025);
+		            		//$('#txtInsur_disaster').val(0.11);
 			     		}else{
 			     			$('#chkIssssp')[0].checked=false;
-			     			$('#txtInsur_fund').val(0.025);
-	            			$('#txtInsur_disaster').val(0.34);
+			     			//$('#txtInsur_fund').val(0.025);
+	            			//$('#txtInsur_disaster').val(0.34);
 			     		}
 			     	}
 			     }
@@ -191,10 +192,10 @@
 	            $('#chkIssssp').change(function () {
 	            	if($('#chkIssssp')[0].checked){//寄保人員
 	            		$('#txtInsur_fund').val(0.025);
-	            		$('#txtInsur_disaster').val(0.11);
+	            		//$('#txtInsur_disaster').val(0.11);
 	            	}else{//一般員工
 	            		$('#txtInsur_fund').val(0.025);
-	            		$('#txtInsur_disaster').val(0.34);
+	            		//$('#txtInsur_disaster').val(0.34);
 	            	}
 	            	
 	            	if(emp($('#txtSalary').val())||dec($('#txtSalary').val())==0){
@@ -222,10 +223,10 @@
             	if(q_getPara('sys.comp').indexOf('大昌')>-1){
 				  	if($('#txtNoa').val().substr(0,1)=='G'){
 				   		$('#chkIssssp')[0].checked=true;
-			        	$('#txtInsur_disaster').val(0.11);
+			        	//$('#txtInsur_disaster').val(0.11);
 				   	}else{
 				   		$('#chkIssssp')[0].checked=false;
-		        		$('#txtInsur_disaster').val(0.34);
+		        		//$('#txtInsur_disaster').val(0.34);
 					}
 				}
             }
@@ -240,6 +241,7 @@
 
 		var labases_sum;
 		var health_bdate='',health_edate='',labor1_bdate='',labor1_edate='',labor2_bdate='',labor2_edate='';
+		var insur_disaster=0.13;
         function q_gtPost(t_name) {
             switch (t_name) {
             	case 'sssall':
@@ -251,6 +253,8 @@
             			labor1_edate=as[0].labor1_edate;
             			labor2_bdate=as[0].labor2_bdate;
             			labor2_edate=as[0].labor2_edate;
+            			insur_disaster=as[0].insur_disaster;
+            			$('#txtInsur_disaster').val(insur_disaster);
             		}
             	break;
             	case 'labases_sum':
@@ -584,10 +588,10 @@
 			        	if(q_getPara('sys.comp').indexOf('大昌')>-1){
 				     		if($('#txtNoa').val().substr(0,1)=='G'){
 				     			$('#chkIssssp')[0].checked=true;
-			            		$('#txtInsur_disaster').val(0.11);
+			            		//$('#txtInsur_disaster').val(0.11);
 				     		}else{
 				     			$('#chkIssssp')[0].checked=false;
-		            			$('#txtInsur_disaster').val(0.34);
+		            			//$('#txtInsur_disaster').val(0.34);
 				     		}
 				     	}
 			            break;
@@ -648,7 +652,7 @@
             //$('#txtMon').attr('readonly',true);
 		    //$('#txtMon').attr('disabled', 'disabled');
 		    $('#txtInsur_fund').val(0.025);
-			$('#txtInsur_disaster').val(0.34);
+			//$('#txtInsur_disaster').val(0.34);
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
