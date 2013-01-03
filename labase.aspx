@@ -159,6 +159,15 @@
 	            	var t_where = "where=^^ 1=1 ^^ top=1";
 	            	q_gt('labretire', t_where, 0, 0, 0, "", r_accy);
 	          });
+	          $('#lblSa_retire').click(function () {
+	            	if(emp($('#txtSa_retire').val())||dec($('#txtSa_retire').val())==0){
+	            		return;
+	            	}
+	            	cal=true;
+	            	//取得勞退薪資等級表
+	            	var t_where = "where=^^ 1=1 ^^ top=1";
+	            	q_gt('labretire', t_where, 0, 0, 0, "", r_accy);
+	          });
 	          
 	          $('#txtSa_labor').change(function () {
 	            	if(emp($('#txtSa_labor').val())||dec($('#txtSa_labor').val())==0){
@@ -169,8 +178,26 @@
 	            	var t_where = "where=^^ 1=1 ^^ top=1";
 	          		q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
 	          });
-	          
+	          $('#lblSa_labor').click(function () {
+	            	if(emp($('#txtSa_labor').val())||dec($('#txtSa_labor').val())==0){
+	            		return;
+	            	}
+	            	cal=true;
+	            	//重新計算取得勞保薪資等級表
+	            	var t_where = "where=^^ 1=1 ^^ top=1";
+	          		q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
+	          });
 	          $('#txtSa_health').change(function () {
+	            	if(emp($('#txtSa_health').val())||dec($('#txtSa_health').val())==0){
+	            		return;
+	            	}
+	            	cal=true;
+	            	sum();//計算家屬
+	            	//取得健保薪資等級表
+	            	var t_where = "where=^^ 1=1 ^^ top=1";
+	            	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
+	          });
+	          $('#lblSa_health').click(function () {
 	            	if(emp($('#txtSa_health').val())||dec($('#txtSa_health').val())==0){
 	            		return;
 	            	}
