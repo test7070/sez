@@ -23,13 +23,13 @@
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'acc1';
+            brwKey = 'noa';
             brwCount2 = 20;
             //ajaxPath = ""; //  execute in Root
             aPop = new Array();
 
             $(document).ready(function() {
-                bbmKey = ['acc1'];
+                bbmKey = ['noa'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy + '_' + r_cno)
             });
@@ -86,7 +86,7 @@
                 q_gt('acomp', '', 0, 0, 0, "");
                 q_gt('part', '', 0, 0, 0, "");
                 q_gt('salm', '', 0, 0, 0, "");
-                $("#cmbCno").focus(function() {
+               /* $("#cmbCno").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
                 }).blur(function() {
@@ -97,13 +97,13 @@
                     $(this).attr('size', len + "");
                 }).blur(function() {
                     $(this).attr('size', '1');
-                });
-                $("#cmbJobno").focus(function() {
+                });*/
+               /* $("#cmbJobno").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
                 }).blur(function() {
                     $(this).attr('size', '1');
-                });
+                });*/
                          
                 $('#btnLabases').click(function(e) {
                     q_box("labases_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labases', "850px", "600px", q_getMsg("popLabases"));
@@ -148,7 +148,7 @@
 
                         q_gt(q_name, q_content, q_sqlCount, 1)
                         break;
-                    case 'part':
+                  /*  case 'part':
                         var as = _q_appendData("part", "", true);
                         if (as[0] != undefined) {
                             var t_item = "";
@@ -158,8 +158,8 @@
                             q_cmbParse("cmbPartno", t_item);
                             $("#cmbPartno").val(abbm[q_recno].partno);
                         }
-                        break;
-                    case 'salm':
+                        break;*/
+                   /* case 'salm':
                         var as = _q_appendData("salm", "", true);
                         if (as[0] != undefined) {
                             var t_item = "";
@@ -169,8 +169,8 @@
                             q_cmbParse("cmbJobno", t_item);
                             $("#cmbJobno").val(abbm[q_recno].jobno);
                         }
-                        break;
-                	case 'acomp':
+                        break;*/
+                	/*case 'acomp':
                         var as = _q_appendData("acomp", "", true);
                         var t_item = " @ ";
                         for ( i = 0; i < as.length; i++) {
@@ -178,7 +178,7 @@
                         }
                         q_cmbParse("cmbCno", t_item);
                         $("#cmbCno").val(abbm[q_recno].cno);
-                        break;
+                        break;*/
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -197,16 +197,16 @@
             }
             function btnIns() {
                 _btnIns();
-                $('#txtAcc1').focus();
+                $('#txtNoa').focus();
             }
 
             function btnModi() {
-                if (emp($('#txtAcc1').val()))
+                if (emp($('#txtNoa').val()))
                     return;
                 _btnModi(1);
                 /// 允許修改
                 $('#txtComp').focus();
-                $('#txtAcc1').attr('disabled', 'disabled');
+                $('#txtNoa').attr('disabled', 'disabled');
             }
 
             function btnPrint() {
@@ -247,9 +247,9 @@
                 	alert(q_getMsg('lblLabor2_edate')+'錯誤。');
                 }
 
-            	$('#txtAcomp').val($('#cmbCno').find(":selected").text());
-                $('#txtPart').val($('#cmbPartno').find(":selected").text());
-                $('#txtJob').val($('#cmbJobno').find(":selected").text());
+            	/*$('#txtAcomp').val($('#cmbCno').find(":selected").text());
+                $('#txtPart').val($('#cmbPartno').find(":selected").text());*/
+                /*$('#txtJob').val($('#cmbJobno').find(":selected").text());*/
                 
                 var t_noa = $.trim($('#txtNoa').val());
                 if (!emp($('#txtId').val()))
@@ -502,6 +502,10 @@
 						<td> </td>
 						<td> </td>
 						<td class="tdZ"> </td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td><input id="txtNoa"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAcc1' class="lbl"> </a></td>

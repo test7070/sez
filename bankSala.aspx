@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
     <title> </title>
@@ -40,11 +40,23 @@
 
 
         function mainPost() { 
-        	bbmMask = [['txtDatea', r_picd], ['txtMon', r_picd], ['txtEdate', r_picd]];
+        	bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd]];
         	q_mask(bbmMask);
+			  $('#txtDatea').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
+			  $('#txtBdate').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
+			  $('#txtEdate').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
 
         	$('#btnGen').click(function () {
-        	    q_func('banktran.gen', $('#txtNoa').val());
+        	    q_func('banksala.gen', $('#txtNoa').val());
+        	});
+        	$('#btnGen2').click(function () {
+        	    q_func('banktran.gen2', $('#txtNoa').val());
         	});
 
             $('#lblAccno').click(function () {
@@ -100,8 +112,8 @@
             _btnIns();
             $('#txtNoa').focus();
 
-			$('#txtMon').val(q_date());
-		    $('#txtMon').focus();
+			$('#txtBdate').val(q_date());
+		    $('#txtBdate').focus();
 		    $('#txtEdate').val(q_date());
 		    $('#txtDatea').val(q_date());
             $('#txtNoa').val('AUTO');
@@ -112,14 +124,28 @@
                 return;
 
             _btnModi();
-            $('#txtMon').focus();
+            $('#txtBdate').focus();
         }
 
         function btnPrint() {
  
         }
         function btnOk() {
-    	
+    		$('#txtDatea').val($.trim($('#txtDatea').val()));
+                if (checkId($('#txtDatea').val())==0){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
+                	return;
+                }      
+                $('#txtBdate').val($.trim($('#txtDatea').val()));
+                if (checkId($('#txtBdate').val())==0){
+                	alert(q_getMsg('lblBdate')+'錯誤。');
+                	return;
+                }      
+                $('#txtEdate').val($.trim($('#txtEdate').val()));
+                if (checkId($('#txtEdate').val())==0){
+                	alert(q_getMsg('lblEdate')+'錯誤。');
+                	return;
+                }      
 
             var t_err = '';
 	
@@ -161,9 +187,11 @@
             
             if (t_para) {
                 $('#btnGen').removeAttr('disabled');
+                $('#btnGen2').removeAttr('disabled');
 		        }
 		        else {
 		            $('#btnGen').attr('disabled', 'disabled');
+		            $('#btnGen2').attr('disabled', 'disabled');
 		        }
         }
 
@@ -363,7 +391,7 @@
         </div>
         <div class='dbbm' style="width: 73%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
-          <tr>
+           <tr>
 				<td class="td1"><span> </span><a id='lblBdate' class="lbl">  </a></td>
 				<td class="td2"><input id="txtBdate" type="text"  class="txt c1"/></td>
 				<td align="center"><a id="lblSymbol"  style="font-weight: bold;font-size: 24px;"> </a></td>
@@ -376,7 +404,7 @@
                <td class="td4"><input id="txtNoa"  type="text" class="txt c1"/></td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblSettlement' class="lbl"> </a></td>
+            	<td class="td1"><span> </span><a id='lblSettlement' class="lbl"> </a></td>
                <td class="td2"><input id="txtSettlement"  type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
                <td class="td4"><input id="txtAccno" type="text"  class="txt c1"/> </td>
