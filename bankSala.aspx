@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
     <title> </title>
@@ -352,21 +351,21 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'> </a></td>
-                <td align="center" style="width:40%"><a id='vewMon'> </a></td>
+                <td align="center" style="width:40%"><a id='vewBdate'> </a></td>
                 <td align="center" style="width:40%"><a id='vewDatea'> </a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
-                   <td align="center" id='Mon'>~Mon</td>
+                   <td align="center" id='bdate'>~bdate</td>
                    <td align="center" id='datea'>~datea</td>
             </tr>
         </table>
         </div>
         <div class='dbbm' style="width: 73%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
-           <tr>
-				<td class="td1"><span> </span><a id='lblMon' class="lbl">  </a></td>
-				<td class="td2"><input id="txtMon" type="text"  class="txt c1"/></td>
+          <tr>
+				<td class="td1"><span> </span><a id='lblBdate' class="lbl">  </a></td>
+				<td class="td2"><input id="txtBdate" type="text"  class="txt c1"/></td>
 				<td align="center"><a id="lblSymbol"  style="font-weight: bold;font-size: 24px;"> </a></td>
 				<td class="td4"><input id="txtEdate" type="text"  class="txt c1"/> </td>
 		   </tr>
