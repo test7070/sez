@@ -171,7 +171,7 @@
             }
 
             function btnPrint() {
-                q_box('z_carcs.aspx' + "?;;;;" + r_accy, '', "800px", "600px", q_getMsg("popPrint"));
+                q_box('z_carcs.aspx' + "?;;;;" + r_accy, '', "92%", "600px", q_getMsg("popPrint"));
             }
 
             function btnOk() {
@@ -181,22 +181,10 @@
                     alert(t_err);
                     return;
                 }
-                $('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (checkId($('#txtDatea').val())==0){
+                if ($('#txtDatea').val().length=0 || !q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
                 }  
-                $('#txtBdate_export').val($.trim($('#txtBdate_export').val()));
-                if (checkId($('#txtBdate_export').val())==0){
-                	alert(q_getMsg('lblBdate_export')+'錯誤。');
-                	return;
-                }  
-                $('#txtEdate_export').val($.trim($('#txtEdate_export').val()));
-                if (checkId($('#txtEdate_export').val())==0){
-                	alert(q_getMsg('lblEdate_export')+'錯誤。');
-                	return;
-                }  
-
                 //$('#txtWorker').val(r_name);
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if (s1.length == 0 || s1 == "AUTO")
@@ -280,7 +268,6 @@
             function btnCancel() {
                 _btnCancel();
             }
-
 		</script>
 		<style type="text/css">
             #dmain {
