@@ -389,6 +389,10 @@
 			}
 
 			function btnOk() {
+				if(r_accy.substring(0,3)!=$('#txtDatea').val().substring(0,3)){
+            		alert('年度異常!');
+            		return;
+            	}
 				$('#txtDatea').val($.trim($('#txtDatea').val()));
                 if (checkId($('#txtDatea').val())==0){
                 	alert(q_getMsg('lblDatea')+'錯誤。');

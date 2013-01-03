@@ -57,8 +57,8 @@
 							return false;
 						}
 						var t_po = "'" + $.trim($('#txtPo').val()) + "'";
-						t_where = " where=^^(trans" + r_accy + ".po=" + t_po + ")^^";						
-						q_gt('trans', t_where, 0, 0, 0, "", r_accy);
+						t_where = " where=^^ (view_trans" + r_accy + ".po=" + t_po + ") ^^";						
+						q_gt('view_trans', t_where, 0, 0, 0, "", r_accy);
 					}
 				});
 			}
