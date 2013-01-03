@@ -1,4 +1,3 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -394,6 +393,10 @@
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan="3"><textarea id="txtMemo" cols="10" rows="5" style="width: 100%;height: 127px;"></textarea></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblInsur_disaster' class="lbl"> </a></td>
+						<td><input id="txtInsur_disaster"  type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
