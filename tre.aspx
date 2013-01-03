@@ -168,7 +168,9 @@
 							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
 						}
 						q_cmbParse("cmbCarteamno", t_item);
-						$("#cmbCarteamno").val(abbm[q_recno].carteamno);
+						if (abbm[q_recno] != undefined) {
+							$("#cmbCarteamno").val(abbm[q_recno].carteamno);
+						}
 						q_gridv('tview', browHtm, fbrow, abbm, aindex, brwNowPage, brwCount);
 						break;
                 	case 'carchg':

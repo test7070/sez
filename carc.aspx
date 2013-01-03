@@ -24,7 +24,8 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
-        aPop = new Array(['txtCaritemno_', 'btnCaritem_', 'caritem', 'noa,item', 'txtCaritemno_,txtCaritem_', 'caritem_b.aspx']);
+        aPop = new Array(['txtCaritemno_', 'btnCaritem_', 'caritem', 'noa,item', 'txtCaritemno_,txtCaritem_', 'caritem_b.aspx'],
+        ['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -441,6 +442,10 @@
        <tr class="tr2">
             <td class='td1'><span> </span><a id="lblPaybno" class="lbl"></a></td>
             <td class='td2'><input id="txtPaybno"  type="text" class="txt c1" /></td>
+            <td class='td3'><span> </span><a id="lblTggno" class="lbl btn"></a></td>
+            <td class='td4' colspan="2"><input id="txtTggno"  type="text" class="txt c2" />
+            	<input id="txtComp"  type="text" class="txt c3" />
+            </td>
        </tr>
        <tr class="tr3">           
 			<td class='td1'><span> </span><a id="lblMon" class="lbl"></a></td>
