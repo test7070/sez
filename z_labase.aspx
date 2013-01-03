@@ -53,9 +53,6 @@
                     }, {
                         type : '6',
                         name : 'cmon'
-                    }, {
-                        type : '6',
-                        name : 'xstaffno'
                     }]
                     });
                 q_popAssign();
