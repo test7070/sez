@@ -34,7 +34,7 @@
 				bbmMask = [['txtMon', r_picm]];
 				q_mask(bbmMask);
 				q_gt('acomp', '', 0, 0, 0, "");
-				$('#txtBdate').focus();
+				$('#txtMon').focus();
 			}
 			function q_gtPost(t_name) {
                 switch (t_name) {
