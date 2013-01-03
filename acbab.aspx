@@ -23,13 +23,13 @@
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'noa';
+            brwKey = 'acc1';
             brwCount2 = 20;
             //ajaxPath = ""; //  execute in Root
             aPop = new Array();
 
             $(document).ready(function() {
-                bbmKey = ['noa'];
+                bbmKey = ['acc1'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy + '_' + r_cno)
             });
@@ -197,16 +197,16 @@
             }
             function btnIns() {
                 _btnIns();
-                $('#txtNoa').focus();
+                $('#txtAcc1').focus();
             }
 
             function btnModi() {
-                if (emp($('#txtNoa').val()))
+                if (emp($('#txtAcc1').val()))
                     return;
                 _btnModi(1);
                 /// 允許修改
                 $('#txtComp').focus();
-                $('#txtNoa').attr('disabled', 'disabled');
+                $('#txtAcc1').attr('disabled', 'disabled');
             }
 
             function btnPrint() {
@@ -506,8 +506,13 @@
 					<tr>
 						<td><span> </span><a id='lblAcc1' class="lbl"> </a></td>
 						<td><input id="txtAcc1"  type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblBal' class="lbl"> </a></td>
 						<td><input id="txtBal" type="text" class="txt c1" />	</td>
+						
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
 						<td><input id="txtMoney" type="text" class="txt c1" />	</td>
 					</tr>
