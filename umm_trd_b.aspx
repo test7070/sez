@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = 'trd', t_bbsTag = 'tbbs', t_content = " field=noa,paysale,total,part2,comp  order=odate ", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
+    var q_name = 'view_trd', t_bbsTag = 'tbbs', t_content = " field=noa,paysale,total,part2,comp  order=odate ", afilter = [], bbsKey = ['noa'],  as; //, t_where = '';
     var t_sqlname = 'umm_trd_load'; t_postname = q_name; brwCount2 = 12;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm;
