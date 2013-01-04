@@ -37,7 +37,7 @@
              ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,tel,zip_invo,addr_invo,paytype', 'txtCustno,txtComp,txtNick,txtTel,txtZipcode,txtAddr,txtPaytype', 'cust_b.aspx']
             , ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx']
             , ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
-            , ['txtAcc1_', 'btnAccno_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],'s');
+            , ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
             
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -624,8 +624,8 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:150px;"><a id='lblAcc1_s'> </a></td>
-					<td align="center" style="width:300px;"><a id='lblAcc2_s'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblProductno_s'> </a></td>
+					<td align="center" style="width:300px;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblPrice_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblTotal_s'> </a></td>
@@ -638,10 +638,10 @@
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
-						<input id="btnAccno.*" type="button" value=".." style="float:left;width:20px;"/>
-						<input id="txtAcc1.*"type="text" style="float:left;width: 120px;"/>			
+						<input id="btnProductno.*" type="button" value=".." style="float:left;width:20px;"/>
+						<input id="txtProductno.*"type="text" style="float:left;width: 120px;"/>			
 					</td>
-					<td><input id="txtAcc2.*" type="text" style="width: 95%;"/></td>
+					<td><input id="txtProduct.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtPrice.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtTotal.*" type="text" style="width: 95%;text-align: right;"/></td>
