@@ -27,12 +27,12 @@
     }
 
     function q_seekStr() {   ///  搜尋按下時，執行
-        t_Noa = $('#txtNoa').val();
-        t_Nick = $('#txtNick').val();
-        t_Boss = $('#txtBoss').val();
-        t_Tel1 = $('#txtTel1').val();
+        t_noa = $('#txtNoa').val();
+        t_nick = $('#txtNick').val();
+        t_boss = $('#txtBoss').val();
+        t_tel1 = $('#txtTel1').val();
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_Noa) + q_sqlPara2("nick", t_Nick) + q_sqlPara2("boss", t_Boss) + q_sqlPara2("tel1", t_Tel1);
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("nick", t_nick) + q_sqlPara2("boss", t_boss) + q_sqlPara2("tel1", t_tel1);
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
