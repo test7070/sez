@@ -272,7 +272,7 @@
         function q_gtPost(t_name) {
             switch (t_name) {
             	case 'sssall':
-            		var as = _q_appendData("sssall", "", true);
+            		var as = _q_appendData("acomp", "", true);
             		if(as[0]!=undefined){
             			health_bdate=as[0].health_bdate;
             			health_edate=as[0].health_edate;
