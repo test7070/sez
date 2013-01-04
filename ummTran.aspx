@@ -461,12 +461,12 @@
 		                q_bodyId($(this).attr('id'));
 		                b_seq = t_IdSeq;
 		                
-		                if(q_float('txtPaysale_'+b_seq)>q_float('txtUnpayorg_'+b_seq))
+		               /* if(q_float('txtPaysale_'+b_seq)>q_float('txtUnpayorg_'+b_seq))
 		                {
 		               		alert('請輸入正確沖帳金額!!');
 		               		$('#txtPaysale_'+b_seq).val(0);
 		               		$('#txtPaysale_'+b_seq).focus();
-						}
+						}*/
 		                var t_unpay = dec($('#txtUnpayorg_' + b_seq).val()) - dec($('#txtPaysale_' + b_seq).val());
 		                q_tr('txtUnpay_' + b_seq, t_unpay);
 		                sum();

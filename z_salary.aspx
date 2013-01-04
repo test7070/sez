@@ -48,7 +48,7 @@
                     },{
                         type : '5',
                         name : 'xorder',
-                        value : (('').concat(new Array("員工編號","帳號","金額"))).split(',')
+                        value : (('').concat(new Array("職稱","員工編號","帳號","金額"))).split(',')
                     }]
                     });
                 q_popAssign();
@@ -84,6 +84,7 @@
                  var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
+	                t_date.setMonth(t_date.getMonth() - 1);
 	                t_year = t_date.getUTCFullYear()-1911;
 	                t_year = t_year>99?t_year+'':'0'+t_year;
 	                t_month = t_date.getUTCMonth()+1;

@@ -142,7 +142,7 @@
             }
 
             function btnOk() {
-            	for (var j = 0; j < q_bbsCount; j++) {
+            	/*for (var j = 0; j < q_bbsCount; j++) {
 	                if(!(($('#txtMemo_'+j).val()).substr(0,1)=='.'))
 	                {
 		                if(dec($('#txtMoney_'+j).val())!=0){
@@ -152,7 +152,7 @@
 		             		}
 		             	}
 	             	}
-             	}
+             	}*/
                 
                 
                 
@@ -279,8 +279,8 @@
 
             function bbsSave(as) {
             	            	
-            	if(!as['invono']){
-	                if(!as['rc2no'] || !as['kind'] || !as['typea']) {
+            	if(!emp(as['invono'])){
+	                if(emp(as['rc2no'])) {
 	                    as[bbsKey[1]] = '';
 	                    return;
 	                }
@@ -653,7 +653,7 @@
                 <td align="center" class="td2">*<a id='lblMoneys'></a></td>
                 <td align="center" class="td1">*<a id='lblTotals'></a></td>
                 <td align="center" style="width: 12%;"><a id='lblProduct'></a></td>
-                <td align="center">*<a id='lblMemos'></a></td>
+                <td align="center" style="width: 20%;">*<a id='lblMemos'></a></td>
                 <td align="center" style="width: 7%;"><a id='lblBal'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
