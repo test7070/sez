@@ -157,7 +157,7 @@
 
             function btnSeek() {
                 _btnSeek();
-                q_box('caltype_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
+                q_box('calctype_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
             }
 
             function btnTop() {

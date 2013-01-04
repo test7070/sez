@@ -2,21 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title> </title>
-		<script src="../script/jquery.min.js" type="text/javascript"> </script>
-		<script src='../script/qj2.js' type="text/javascript"> </script>
-		<script src='qset.js' type="text/javascript"> </script>
-		<script src='../script/qj_mess.js' type="text/javascript"> </script>
-		<script src="../script/qbox.js" type="text/javascript"> </script>
-		<script src='../script/mask.js' type="text/javascript"> </script>
+		<title></title>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
-		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
-		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
-		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             $(document).ready(function() {
-            	q_getId();
+                q_getId();
                 q_gf('', 'z_gqb');
 
             });
@@ -24,23 +24,30 @@
                 $('#q_report').q_report({
                     fileName : 'z_gqb',
                     options : [{
+                        type : '0',
+                        name : 'ctypea',
+                        value : q_getPara('gqb.typea')
+                    }, {/*1*/
                         type : '5',
                         name : 'stype',
-                        value : [q_getPara('report.all')].concat(q_getPara('gqb.type').split(','))
-                    }, {
+                        value : [q_getPara('report.all')].concat(q_getPara('gqb.typea').split(','))
+                    }, {/*2*/
                         type : '5',
                         name : 'status',
                         value : [q_getPara('report.all')].concat(new Array('Y', 'N'))
-                    }, {
+                    }, {/*3*/
                         type : '1',
                         name : 'date'
-                    }, {
+                    }, {/*4*/
+                        type : '1',
+                        name : 'indate'
+                    }, {/*5*/
                         type : '2',
                         name : 'bank',
                         dbf : 'bank',
                         index : 'noa,bank',
                         src : 'bank_b.aspx'
-                    }, {
+                    }, {/*6*/
                         type : '1',
                         name : 'gqbno'
                     }]
@@ -51,7 +58,13 @@
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
+
+                $('#txtIndate1').mask('999/99/99');
+                $('#txtIndate1').datepicker();
+                $('#txtIndate2').mask('999/99/99');
+                $('#txtIndate2').datepicker();
             }
+
             function q_boxClose(t_name) {
             }
 
@@ -60,10 +73,10 @@
 		</script>
 	</head>
 	<body>
-		<div id="q_menu"> </div>
+		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
-				<div id="q_report"> </div>
+				<div id="q_report"></div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
