@@ -97,7 +97,9 @@
         }
         
         function _btnSeek() {
-            return;
+            if (q_cur > 0 && q_cur < 4)  // 1-3
+                return;
+            q_box('bankTran_s.aspx', q_name + '_s', "500px", "300px", q_getMsg( "popSeek"));
         }
 
 

@@ -1,3 +1,4 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -55,10 +56,7 @@
         	$('#btnGen').click(function () {
         	    q_func('banksala.gen', $('#txtNoa').val());
         	});
-        	$('#btnGen2').click(function () {
-        	    q_func('banktran.gen2', $('#txtNoa').val());
-        	});
-
+        	
             $('#lblAccno').click(function () {
 		        q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 		    });
@@ -67,13 +65,10 @@
 		function q_funcPost(t_func,result) {
 		    var s1 = location.href;
 		    var t_path = (s1.substr(7, 5) == 'local' ? xlsPath : s1.substr(0, s1.indexOf('/', 10)) + '/htm/');
-		    if (t_func == 'banktran.gen') {
+		    if (t_func == 'banksala.gen') {
 		        window.open(t_path + 'obtdta.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
 		        $('#txtAccno').val(result);
 		    }
-		    if (t_func == 'banktran.gen2') 
-		        window.open(t_path + 'obtdta2.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
-
         }
 
         function q_boxClose( s2) {
@@ -104,14 +99,14 @@
         }
         
         function _btnSeek() {
-            return;
+            if (q_cur > 0 && q_cur < 4)  // 1-3
+                return;
+            q_box('bankSala_s.aspx', q_name + '_s', "500px", "300px", q_getMsg( "popSeek"));
         }
-
 
         function btnIns() {
             _btnIns();
             $('#txtNoa').focus();
-
 			$('#txtBdate').val(q_date());
 		    $('#txtBdate').focus();
 		    $('#txtEdate').val(q_date());
@@ -130,6 +125,35 @@
         function btnPrint() {
  
         }
+        function checkId(str) {
+                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
+                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
+                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
+                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
+                    if ((n % 10) == 0)
+                        return 1;
+                } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
+                    var key = '12121241';
+                    var n = 0;
+                    var m = 0;
+                    for (var i = 0; i < 8; i++) {
+                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
+                        m += Math.floor(n / 10) + n % 10;
+                    }
+                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
+                        return 2;
+                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
+                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
+               		if(regex.test(str))
+               			return 3;
+                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
+                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
+                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
+               		if(regex.test(str))
+               			return 4
+               	}
+               	return 0;//錯誤
+            }
         function btnOk() {
     		$('#txtDatea').val($.trim($('#txtDatea').val()));
                 if (checkId($('#txtDatea').val())==0){
@@ -187,11 +211,9 @@
             
             if (t_para) {
                 $('#btnGen').removeAttr('disabled');
-                $('#btnGen2').removeAttr('disabled');
 		        }
 		        else {
 		            $('#btnGen').attr('disabled', 'disabled');
-		            $('#btnGen2').attr('disabled', 'disabled');
 		        }
         }
 

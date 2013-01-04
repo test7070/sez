@@ -108,7 +108,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('color_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+            q_box('custroutine_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
         }
 
         function combPay_chg() {   
@@ -122,7 +122,7 @@
 
         function btnIns() {
             _btnIns();
-            $('#txtNoa').focus();
+            $('#txtCustno').focus();
         }
 
         function btnModi() {
@@ -130,7 +130,7 @@
                 return;
 
             _btnModi();
-            $('#txtComp').focus();
+            $('#txtCustno').focus();
         }
 
         function btnPrint() {

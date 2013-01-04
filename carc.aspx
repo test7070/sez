@@ -156,10 +156,11 @@
                 wrServer(s1);
         }
 
-        function _btnSeek() {
-            if (q_cur > 0 && q_cur < 4)  // 1-3
-                return;
-        }
+	        function _btnSeek() {
+	            if (q_cur > 0 && q_cur < 4)  // 1-3
+	                return;
+	            q_box('carc_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+	        }
 
         function bbsAssign() {  
             _bbsAssign();

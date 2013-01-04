@@ -46,8 +46,6 @@
             return;
         }
         mainBrow(6, t_content, t_sqlname, t_postname);
-        bbsMask = [['txtDatea', r_picd]];
-        q_mask(bbsMask);
     }
 
     function mainPost() {

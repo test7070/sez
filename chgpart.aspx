@@ -16,17 +16,17 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var q_name="part";
+        var q_name="chgpart";
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
-        q_sqlCount = 6; brwCount = 6; brwCount2=20; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
+        q_sqlCount = 6; brwCount = 6;brwCount2=20; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		
+
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
-            q_gt(q_name, q_content, q_sqlCount, 1)
+            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy + "_" + r_cno)
             $('#txtNoa').focus
         });
 
@@ -106,7 +106,7 @@
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
-            q_box('part_s.aspx', q_name + '_s', "500px", "300px", q_getMsg( "popSeek"));
+            q_box('chgpart_s.aspx', q_name + '_s', "500px", "300px", q_getMsg( "popSeek"));
         }
 
         function combPay_chg() {   
