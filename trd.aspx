@@ -194,7 +194,8 @@
                             t_vccano += (t_vccano.length > 0 ? ',' : '') + curData.vccano[i];
                         t_vccano = 'vccano=' + t_vccano;
                     }
-                    t_where = "  custno='" + $('#txtCustno').val() + "' and  (trdno='" + $('#txtNoa').val() + "' or len(isnull(trdno,''))=0) ";
+                    /*未請款發票才抓*/
+                    t_where = "  custno='" + $('#txtCustno').val() + "' and len(isnull(accno,''))=0 and len(isnull(vccno,''))=0 and (trdno='" + $('#txtNoa').val() + "' or len(isnull(trdno,''))=0) ";
                     q_box("vcca_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_vccano + ";", 'vcca1', "95%", "650px", q_getMsg('popVcca'));
                 });
             }

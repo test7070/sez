@@ -16,7 +16,7 @@
             }
 
             var q_name = "vcca";
-            var q_readonly = ['txtTotal','txtChkno','txtWorker','txtAccno','txtVccno'];
+            var q_readonly = ['txtTotal','txtChkno','txtWorker','txtAccno','txtVccno','txtTrdno'];
             var bbmNum = [['txtMoney',10,0],['txtTax',10,0],['txtTotal',10,0]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -101,11 +101,21 @@
 					sum();
 				});	
 				$('#btnVcc').click(function(e){
-					$('#btnVcc').val('請稍後。');
-					q_func('vcca.genvcc',$('#txtNoa').val());
+					if($('#txtTrdno').val().length==0){
+						$('#btnVcc').val('請稍後。');
+						q_func('vcca.genvcc',$('#txtNoa').val());
+					}else{
+						alert('已立帳，無法請款。');						
+					}
 				});	
 				$('#lblAccno').click(function() {
-                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
+                });
+               	$('#lblVccno').click(function() {
+                    q_pop('txtVccno', "vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+                });
+				$('#lblTrdno').click(function() {
+                    q_pop('txtTrdno', "trd.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtTrdno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popTrd'), true);
                 });
             }
 
@@ -148,19 +158,12 @@
                         break;
                 }
             }
-            function q_stPost() {
-                if (!(q_cur == 1 || q_cur == 2))
-                    return false;
-                abbm[q_recno]['accno'] = xmlString;
-                $('#txtAccno').val(xmlString);
-            }
 			function q_funcPost(t_func, result) {
                 switch(t_func) {
                     case 'vcca.genvcc':
-                    	alert(result);
                     	try{
-	                    	$('#txtVccno').val(result.split(';')[0]);
-	                    	$('#txtAccno').val(result.split(';')[1]);
+	                    	$('#txtAccno').val(result.split(';')[0]);
+	                    	$('#txtVccno').val(result.split(';')[1]);
                     	}catch(e){
                     		alert(e.toString());
                     	}
@@ -614,9 +617,15 @@
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id='lblVccno' class="lbl"> </a></td>
+						<td><span> </span><a id='lblVccno' class="lbl btn"> </a></td>
 						<td colspan="2"><input id="txtVccno"  type="text" class="txt c1"/>	</td>
 						<td><input id="btnVcc"  type="button" class="txt c1"/>	</td>
+					</tr>
+					<tr>
+						<td> </td>
+						<td> </td>
+						<td><span> </span><a id='lblTrdno' class="lbl btn"> </a></td>
+						<td colspan="2"><input id="txtTrdno"  type="text" class="txt c1"/>	</td>
 					</tr>
 				</table>
 			</div>
