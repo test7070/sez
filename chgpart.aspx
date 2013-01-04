@@ -16,7 +16,7 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var q_name="acpart";
+        var q_name="chgpart";
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
@@ -106,7 +106,7 @@
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
-            q_box('acpart_s.aspx', q_name + '_s', "500px", "300px", q_getMsg( "popSeek"));
+            q_box('chgpart_s.aspx', q_name + '_s', "500px", "300px", q_getMsg( "popSeek"));
         }
 
         function combPay_chg() {   

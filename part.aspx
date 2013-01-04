@@ -20,9 +20,9 @@
         var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
-        q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
+        q_sqlCount = 6; brwCount = 6; brwCount2=20; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-
+		
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -358,13 +358,13 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
-        <div class="dview" id="dview" style="float: left;  width:25%;"  >
+        <div class="dview" id="dview" style="float: left;  width:35%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>                
-                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:25%"><a id='vewPart'></a></td>
-                <td align="center" style="width:25%"><a id='vewNick'></a></td>                                
+                <td align="center" style="width:15%"><a id='vewNoa'></a></td>
+                <td align="center" style="width:30%"><a id='vewPart'></a></td>
+                <td align="center" style="width:30%"><a id='vewNick'></a></td>                                
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
@@ -374,7 +374,7 @@
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 73%;float: left;">
+        <div class='dbbm' style="width: 63%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>            
             <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
