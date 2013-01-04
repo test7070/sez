@@ -422,7 +422,7 @@
 						</td>
 						<td align="center" id='gqbno'>~gqbno</td>
 						<td align="center" id='indate'>~indate</td>
-						<td align="center" id='typea=gqb.typea'>~typea=gqb.typea</td>
+						<td align="center" id='typea'>~typea</td>
 					</tr>
 				</table>
 			</div>
