@@ -157,6 +157,7 @@
 			function q_funcPost(t_func, result) {
                 switch(t_func) {
                     case 'vcca.genvcc':
+                    	alert(result);
                     	try{
 	                    	$('#txtVccno').val(result.split(';')[0]);
 	                    	$('#txtAccno').val(result.split(';')[1]);
