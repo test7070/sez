@@ -45,6 +45,10 @@
                         },{
                         type : '1',
                         name : 'date'
+                    },{
+                        type : '5',
+                        name : 'xorder',
+                        value : (('').concat(new Array("員工編號","帳號","金額"))).split(',')
                     }]
                     });
                 q_popAssign();
