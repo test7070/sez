@@ -23,10 +23,10 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
         $(document).ready(function () {
-            bbmKey = ['noa'];
+            //bbmKey = ['noa'];
             q_brwCount();
             q_gt(q_name, q_content, q_sqlCount, 1)
-            $('#txtNoa').focus
+           // $('#txtNoa').focus
         });
 	
         //////////////////   end Ready
@@ -67,29 +67,19 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('store_s.aspx', q_name + '_s', "500px", "340px", q_getMsg( "popSeek"));
+            
         }
 
-        function combPay_chg() {   
-            var cmb = document.getElementById("combPay")
-            if (!q_cur) 
-                cmb.value = '';
-            else
-                $('#txtPay').val(cmb.value);
-            cmb.value = '';
-        }
+        
 
         function btnIns() {
             _btnIns();
-            $('#txtNoa').focus();
+
         }
 
         function btnModi() {
-            if (emp($('#txtNoa').val()))
-                return;
-
             _btnModi();
-            $('#txtComp').focus();
+            
         }
 
         function btnPrint() {
@@ -98,33 +88,12 @@
         function btnOk() {
             var t_err = '';
 
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
-
-            if ( dec( $('#txtCredit').val()) > 9999999999)
-                t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
-
-            if ( dec( $('#txtStartn').val()) > 31)
-                t_err = t_err + q_getMsg( "lblStartn")+q_getMsg( "msgErr")+'\r';
-            if (dec( $('#txtGetdate').val()) > 31)
-                t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
+           
 
             if( t_err.length > 0) {
                 alert(t_err);
                 return;
             }
-            var t_noa = trim($('#txtNoa').val());
-            if (emp($('#txtUacc1').val()))
-                $('#txtUacc1').val('1123.' + t_noa);
-            if (emp($('#txtUacc2').val()))
-                $('#txtUacc2').val('1121.' + t_noa);
-            if (emp($('#txtUacc3').val()))
-                $('#txtUacc3').val( '2131.'+t_noa);
-
-
-            if ( t_noa.length==0 )  
-                q_gtnoa(q_name, t_noa);
-            else
-                wrServer(  t_noa);
         }
 
         function wrServer( key_value) {
