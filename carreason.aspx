@@ -138,6 +138,11 @@
         }
         function btnOk() {
             var t_err = '';
+			$('#txtDatea').val($.trim($('#txtDatea').val()));
+			                if (checkId($('#txtDatea').val())==0){
+			                	alert(q_getMsg('lblDatea')+'錯誤。');
+			                	return;
+			}
 
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
 

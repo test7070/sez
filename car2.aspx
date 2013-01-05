@@ -256,8 +256,78 @@
 
             function btnOk() {
             	$('#txtCardeal').val($('#cmbCardealno').find(":selected").text());
-            	
-                var t_err = '';
+				$('#txtIndate').val($.trim($('#txtIndate').val()));
+                if (checkId($('#txtIndate').val())==0){
+                	alert(q_getMsg('lblIndate')+'錯誤。');
+                	return;
+           		}
+				$('#txtOutdate').val($.trim($('#txtOutdate').val()));
+                if (checkId($('#txtOutdate').val())==0){
+                	alert(q_getMsg('lblOutdate')+'錯誤。');
+                	return;
+           		}
+				$('#txtPassdate').val($.trim($('#txtPassdate').val()));
+                if (checkId($('#txtPassdate').val())==0){
+                	alert(q_getMsg('lblPassdate')+'錯誤。');
+                	return;
+           		}
+				$('#txtLimitdate').val($.trim($('#txtLimitdate').val()));
+                if (checkId($('#txtLimitdate').val())==0){
+                	alert(q_getMsg('lblLimitdate')+'錯誤。');
+                	return;
+           		}
+				$('#txtCheckdate').val($.trim($('#txtCheckdate').val()));
+                if (checkId($('#txtCheckdate').val())==0){
+                	alert(q_getMsg('lblCheckdate')+'錯誤。');
+                	return;
+           		}
+				$('#txtSaledate').val($.trim($('#txtSaledate').val()));
+                if (checkId($('#txtSaledate').val())==0){
+                	alert(q_getMsg('lblSaledate')+'錯誤。');
+                	return;
+           		}
+				$('#txtImprovedate1').val($.trim($('#txtImprovedate1').val()));
+                if (checkId($('#txtImprovedate1').val())==0){
+                	alert(q_getMsg('lblImprovedate1')+'錯誤。');
+                	return;
+           		}
+				$('#txtImprovedate2').val($.trim($('#txtImprovedate2').val()));
+                if (checkId($('#txtImprovedate2').val())==0){
+                	alert(q_getMsg('lblImprovedate2')+'錯誤。');
+                	return;
+           		}
+				$('#txtImprovedate3').val($.trim($('#txtImprovedate3').val()));
+                if (checkId($('#txtImprovedate3').val())==0){
+                	alert(q_getMsg('lblImprovedate3')+'錯誤。');
+                	return;
+           		}
+				$('#txtDiscountdate').val($.trim($('#txtDiscountdate').val()));
+                if (checkId($('#txtDiscountdate').val())==0){
+                	alert(q_getMsg('lblDiscountdate')+'錯誤。');
+                	return;
+           		}
+				$('#txtStopdate').val($.trim($('#txtStopdate').val()));
+                if (checkId($('#txtStopdate').val())==0){
+                	alert(q_getMsg('lblStopdate')+'錯誤。');
+                	return;
+           		}
+				$('#txtOverdate').val($.trim($('#txtOverdate').val()));
+                if (checkId($('#txtOverdate').val())==0){
+                	alert(q_getMsg('lblOverdate')+'錯誤。');
+                	return;
+           		}
+				$('#txtEnddate').val($.trim($('#txtEnddate').val()));
+                if (checkId($('#txtEnddate').val())==0){
+                	alert(q_getMsg('lblEnddate')+'錯誤。');
+                	return;
+           		}
+				$('#txtCaryeartw').val($.trim($('#txtCaryeartw').val()));
+				if ($('#txtCaryeartw').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtCaryeartw').val())){
+					alert(q_getMsg('lblCaryeartw')+'錯誤。');
+					return;
+
+				}
+	           	var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
 
                 var t_noa = $('#txtNoa').val();
@@ -388,7 +458,35 @@
                 q_tr('txtSalemoney', round(depmoney + imsale1 + imsale2 + imsale3 - dec($('#txtDiscountmoney').val()), 0));
 
             }
-		</script>
+			function checkId(str) {
+                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
+                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
+                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
+                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
+                    if ((n % 10) == 0)
+                        return 1;
+                } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
+                    var key = '12121241';
+                    var n = 0;
+                    var m = 0;
+                    for (var i = 0; i < 8; i++) {
+                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
+                        m += Math.floor(n / 10) + n % 10;
+                    }
+                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
+                        return 2;
+                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
+                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
+               		if(regex.test(str))
+               			return 3;
+                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
+                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
+                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
+               		if(regex.test(str))
+               			return 4
+               	}
+               	return 0;//錯誤
+            }		</script>
 		<style type="text/css">
             #dmain {
                 overflow: hidden;

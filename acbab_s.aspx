@@ -23,7 +23,7 @@
     function q_gfPost() {
         q_getFormat();
         q_langShow();
-        $('#txtBmon').focus();
+        $('#txtNoa').focus();
     }
 
     function q_seekStr() {   ///  搜尋按下時，執行
