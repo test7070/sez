@@ -9,7 +9,6 @@
     <script src="../script/qbox.js" type="text/javascript"> </script>
     <script src='../script/mask.js' type="text/javascript"> </script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
-    
     <script type="text/javascript">
         this.errorHandler = null;
         function onPageError(error) {
@@ -23,7 +22,7 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
         $(document).ready(function () {
-            //bbmKey = ['noa'];
+            bbmKey = ['noa'];
             q_brwCount();
             q_gt(q_name, q_content, q_sqlCount, 1)
            // $('#txtNoa').focus
