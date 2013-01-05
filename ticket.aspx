@@ -196,9 +196,9 @@
                 _btnCancel();
             }
             
-            function test() {
+            function returnparent() {
 				 var wParent = window.parent.document;
-				 var b_seq= wParent.getElementById("textB_seq").value
+				 var b_seq= wParent.getElementById("text_Noq").value
 				 wParent.getElementById("txtMemo_"+b_seq).value=$('#txtTicketno').val();
 				 wParent.getElementById("txtOutmoney_"+b_seq).value=$('#txtMoney').val();
 			}
@@ -329,7 +329,7 @@
 
 		</style>
 	</head>
-	<body onunload='test()'>
+	<body onunload='returnparent()'>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' style="overflow:hidden;">
 			<div class="dview" id="dview">

@@ -323,7 +323,7 @@
 					        q_gt('caritem', t_where , 0, 0, 0, "", r_accy);
 							
            					if(!emp($('#txtCaritemno_'+b_seq).val())&&$('#txtCaritemno_'+b_seq).val()=='303'){
-           						$('#textB_seq').val(b_seq);
+           						$('#text_Noq').val(b_seq);
            						q_box("ticket.aspx", 'ticket', "95%", "95%", q_getMsg("popTicket"));
            					}
            					sum();
@@ -824,7 +824,7 @@
 						<td class="td8"><input id="txtNoa"  type="text" class="txt c1"/>	</td>
 					</tr>
 				</table>
-				<input id="textB_seq"  type="hidden" class="txt c1"/>	
+				<input id="text_Noq"  type="hidden" class="txt c1"/>	
 			</div>
 		</div>
 		<div class='dbbs'>
