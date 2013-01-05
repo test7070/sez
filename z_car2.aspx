@@ -177,6 +177,7 @@
 	                
 	                $('#chkSssno').children('input').attr('checked', 'checked');
 	                
+	                //---------------------------車行
 	                $('#txtCardeal1a').change(function() {
                     	if(emp($('#txtCardeal1a').val())){
                     		$('#txtCardeal1b').val('');
@@ -185,13 +186,16 @@
                     		$('#txtCardeal2a').val($('#txtCardeal1a').val());
                     		$('#txtCardeal2b').val($('#txtCardeal1b').val());
                     	}
+                    	$('#btnOk').click()
                 	});
                 	$('#txtCardeal2a').change(function() {
                     	if(emp($('#txtCardeal2a').val())){
                     		$('#txtCardeal2b').val('');
                     	}
+                    	$('#btnOk').click()
                 	});
-                	
+                	//---------------------------
+                	//---------------------------車主
                 	$('#txtCarowner1a').change(function() {
                     	if(emp($('#txtCarowner1a').val())){
                     		$('#txtCarowner1b').val('');
@@ -200,13 +204,16 @@
                     		$('#txtCarowner2a').val($('#txtCarowner1a').val());
                     		$('#txtCarowner2b').val($('#txtCarowner1b').val());
                     	}
+                    	$('#btnOk').click()
                 	});
                 	$('#txtCarowner2a').change(function() {
                     	if(emp($('#txtCarowner2a').val())){
                     		$('#txtCarowner2b').val('');
                     	}
+                    	$('#btnOk').click()
                 	});
-                	
+                	//---------------------------
+                	//---------------------------車種樣式
                 	$('#txtCarspec1a').change(function() {
                     	if(emp($('#txtCarspec1a').val())){
                     		$('#txtCarspec1b').val('');
@@ -215,13 +222,16 @@
                     		$('#txtCarspec2a').val($('#txtCarspec1a').val());
                     		$('#txtCarspec2b').val($('#txtCarspec1b').val());
                     	}
+                    	$('#btnOk').click()
                 	});
                 	$('#txtCarspec2a').change(function() {
                     	if(emp($('#txtCarspec2a').val())){
                     		$('#txtCarspec2b').val('');
                     	}
+                    	$('#btnOk').click()
                 	});
-                	
+                	//---------------------------
+                	//---------------------------保險公司
                 	$('#txtCarinsurer1a').change(function() {
                     	if(emp($('#txtCarinsurer1a').val())){
                     		$('#txtCarinsurer1b').val('');
@@ -230,13 +240,15 @@
                     		$('#txtCarinsurer2a').val($('#txtCarinsurer1a').val());
                     		$('#txtCarinsurer2b').val($('#txtCarinsurer1b').val());
                     	}
+                    	$('#btnOk').click()
                 	});
                 	$('#txtCarinsurer2a').change(function() {
                     	if(emp($('#txtCarinsurer2a').val())){
                     		$('#txtCarinsurer2b').val('');
                     	}
+                    	$('#btnOk').click()
                 	});
-
+					//---------------------------
             	}
             }
 		</script>

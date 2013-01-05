@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -196,6 +195,13 @@
             function btnCancel() {
                 _btnCancel();
             }
+            
+            function returnparent() {
+				 var wParent = window.parent.document;
+				 var b_seq= wParent.getElementById("text_Noq").value
+				 wParent.getElementById("txtMemo_"+b_seq).value=$('#txtTicketno').val();
+				 wParent.getElementById("txtOutmoney_"+b_seq).value=$('#txtMoney').val();
+			}
 		</script>
 		<style type="text/css">
             #dmain {
@@ -323,7 +329,7 @@
 
 		</style>
 	</head>
-	<body>
+	<body onunload='returnparent()'>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' style="overflow:hidden;">
 			<div class="dview" id="dview">
