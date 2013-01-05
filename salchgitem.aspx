@@ -17,7 +17,7 @@
         }
         var decbbm = [];
         var q_name="salchgitem";
-        var q_readonly = [];
+        var q_readonly = ['txtNoa'];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6;brwCount2 = 20; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -42,43 +42,12 @@
 
         function mainPost() { 
           q_mask(bbmMask);
-                  }
-        function txtCopy(dest, source) {
-            var adest = dest.split(',');
-            var asource = source.split(',');
-            $('#' + adest[0]).focus(function () { if (trim($(this).val()).length == 0) $(this).val( q_getMsg('msgCopy')); });
-            $('#' + adest[0]).focusout(function () {
-                var t_copy = ($(this).val().substr(0, 1) == '=');
-                var t_clear = ($(this).val().substr(0, 2) == ' =') ;
-                for (var i = 0; i < adest.length; i++) {
-                    {
-                        if (t_copy)
-                            $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                        if( t_clear)
-                            $('#' + adest[i]).val('');
-                    }
-                }
-            });
         }
+        
         
         function q_boxClose( s2) { 
             var ret; 
             switch (b_pop) {   
-                case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-                
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -88,15 +57,9 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case 'sss':  
-                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                    break;
 
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
-
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 
                     break;
             }  /// end switch
@@ -108,17 +71,9 @@
 			q_box('bonus_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
 	    }
 
-        function combPay_chg() {   
-            var cmb = document.getElementById("combPay")
-            if (!q_cur) 
-                cmb.value = '';
-            else
-                $('#txtPay').val(cmb.value);
-            cmb.value = '';
-        }
-
         function btnIns() {
             _btnIns();
+            $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtNoa').focus();
         }
 
@@ -133,6 +88,7 @@
         function btnPrint() {
  
         }
+        
         function btnOk() {
             var t_err = '';
 
@@ -141,12 +97,13 @@
                 alert(t_err);
                 return;
             }
-            var t_noa = trim($('#txtNoa').val());
 
-            if ( t_noa.length==0 )  
-                q_gtnoa(q_name, t_noa);
+            var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+            
+            if (s1.length == 0 || s1 == "AUTO")   
+                q_gtnoa(q_name, 'S00');
             else
-                wrServer(  t_noa);
+                wrServer(s1);
         }
 
         function wrServer( key_value) {

@@ -199,6 +199,8 @@
             }
 
             function btnOk() {
+            	if($('#txtSssno').val().length==0)
+            		$('#txtNamea').val('');
             	if(!$("#chkCarchg").prop("checked")){
             		$('#cmbCarteamno').val('');
             	}
@@ -413,7 +415,7 @@
             }
             .dview {
                 float: left;
-                width: 1080px;
+                width: 750px;
                 border-width: 0px;
             }
             .tview {
@@ -433,7 +435,7 @@
             }
             .dbbm {
                 float: left;
-                width: 1080px;
+                width: 950px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -565,6 +567,9 @@
 						<td id="approve" style="text-align: left;">~approve</td>
 					</tr>
 				</table>
+			</div>
+			<div style="background-color:gray; width:200px;float:left; margin: 5px; padding: 5px; color:white;">
+				<b>若要歸到個人成本，才需輸入員工編號。</b>
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
