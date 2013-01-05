@@ -17,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "vcca";
-            var q_readonly = ['txtMoney', 'txtTotal', 'txtChkno', 'txtTax', 'txtAccno', 'txtWorker'];
+            var q_readonly = ['txtMoney', 'txtTotal', 'txtChkno', 'txtTax', 'txtAccno', 'txtWorker','txtTrdno'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney', 15, 0], ['txtTax', 15, 0], ['txtTotal', 15, 0]];
             var bbsNum = [['txtMount', 15, 3], ['txtGmount', 15, 4], ['txtEmount', 15, 4], ['txtPrice', 15, 3], ['txtTotal', 15, 0]];
@@ -111,6 +111,9 @@
                 });
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+                });
+                $('#lblTrdno').click(function() {
+                    q_pop('txtTrdno', "trd.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtTrdno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popTrd'), true);
                 });
             }
 
@@ -692,6 +695,8 @@
 						<td>
 						<input id="txtAccno"  type="text" class="txt c1"/>
 						</td>
+						<td><span> </span><a id='lblTrdno' class="lbl btn"> </a></td>
+						<td colspan="2"><input id="txtTrdno"  type="text" class="txt c1"/>	</td>
 					</tr>
 				</table>
 			</div>
