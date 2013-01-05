@@ -331,7 +331,7 @@
                         t_IdSeq = -1;
                         q_bodyId($(this).attr('id'));
                         b_seq = t_IdSeq;
-
+						$('#text_Noq').val(b_seq);
                         q_box('qPhr.aspx' + "?;;;;" + r_accy, 'qphr', "90%", "90%", m_qphr);
                     });
 
@@ -654,6 +654,7 @@
 						</tr>
 
 					</table>
+					<input id="text_Noq"  type="hidden" class="txt c1"/>	
 				</div>
 			</div>
 

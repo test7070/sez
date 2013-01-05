@@ -16,7 +16,7 @@
 			}
 
 			var q_name = "vcca";
-			var q_readonly = ['txtMoney','txtTotal', 'txtChkno', 'txtTax', 'txtAccno', 'txtWorker'];
+			var q_readonly = ['txtMoney','txtTotal', 'txtChkno', 'txtTax', 'txtAccno', 'txtWorker','txtTrdno'];
 			var bbmNum = [['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0], ['txtMount', 10, 3], ['txtPrice', 10, 1]];
 			var bbmMask = [];
 			q_sqlCount = 6;
@@ -118,6 +118,9 @@
                 });
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+                });
+                $('#lblTrdno').click(function() {
+                    q_pop('txtTrdno', "trd.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtTrdno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popTrd'), true);
                 });
 			}
 
@@ -641,6 +644,10 @@
 						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
 						<td><input id="txtAccno"  type="text" class="txt c1"/>	</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblTrdno' class="lbl btn"> </a></td>
+						<td colspan="2"><input id="txtTrdno"  type="text" class="txt c1"/>	</td>
 					</tr>
 				</table>
 			</div>

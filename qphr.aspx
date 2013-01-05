@@ -235,6 +235,13 @@
         function btnCancel() {
             _btnCancel();
         }
+        
+        function returnparent() {
+				 var wParent = window.parent.document;
+				 var b_seq= wParent.getElementById("text_Noq").value
+				 wParent.getElementById("txtAccc7_"+b_seq).value=$('#txtPhr').val();
+		}
+
     </script>
     <style type="text/css">
          #dmain {
@@ -355,7 +362,7 @@
             }
     </style>
 </head>
-<body>
+<body onunload='returnparent()'>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
         <div class="dview" id="dview" style="float: left;  width:25%;"  >

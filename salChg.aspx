@@ -51,44 +51,14 @@
 			}).blur(function() {
 				$("#cmbTypea").attr('size', '1');
 			});
+			
+			q_gt('salchgitem', '', 0, 0, 0, "");
 
         }
-        function txtCopy(dest, source) {
-            var adest = dest.split(',');
-            var asource = source.split(',');
-            $('#' + adest[0]).focus(function () { if (trim($(this).val()).length == 0) $(this).val( q_getMsg('msgCopy')); });
-            $('#' + adest[0]).focusout(function () {
-                var t_copy = ($(this).val().substr(0, 1) == '=');
-                var t_clear = ($(this).val().substr(0, 2) == ' =') ;
-                for (var i = 0; i < adest.length; i++) {
-                    {
-                        if (t_copy)
-                            $('#' + adest[i]).val($('#' + asource[i]).val());
 
-                        if( t_clear)
-                            $('#' + adest[i]).val('');
-                    }
-                }
-            });
-        }
-        
         function q_boxClose( s2) { 
             var ret; 
             switch (b_pop) {   
-                case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-                
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -98,16 +68,19 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case 'sss':  
-                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                    break;
-
+            	case 'salchgitem':
+						var as = _q_appendData("salchgitem", "", true);
+                        var t_item = " @ ";
+                        for ( i = 0; i < as.length; i++) {
+                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].item;
+                        }
+                        q_cmbParse("cmbPlusitem", t_item);
+                        $("#cmbPlusitem").val(abbm[q_recno].plusitem);
+                        q_cmbParse("cmbMinusitem", t_item);
+                        $("#cmbMinusitem").val(abbm[q_recno].minusitem);
+					break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
-
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                     break;
             }  /// end switch
         }
@@ -351,6 +324,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size: medium;
             }
             .num {
                 text-align: right;
@@ -402,14 +376,13 @@
                             <td class="td4"></td>
                             <td class="td5"></td>
                         </tr>
-                        <!--<tr>
+                        <tr>
                             <td class="td1"><span> </span><a id='lblDay_meal' class="lbl"></a></td>
                             <td class="td2"><input id="txtDay_meal"  type="text" class="txt num c1" /></td>
                             <td class="td3"></td>
                             <td class="td4"></td>
                             <td class="td5"></td>
-                            <td class="td6"></td>
-                        </tr>-->
+                        </tr>
                         <tr>
                             <td class="td1"><span> </span><a id='lblMon' class="lbl"></a></td>
                             <td class="td2"><input id="txtMon"  type="text" class="txt c1" /></td>
@@ -417,13 +390,13 @@
                             <td class="td4"></td>
                             <td class="td5"></td>
                         </tr>
-                        <tr>
+                        <!--<tr>
                             <td class="td1"><span> </span><a id='lblTypea' class="lbl"></a></td>
                             <td class="td2"><select id="cmbTypea" class="txt c1"></select></td>
                             <td class="td3"></td>
                             <td class="td4"></td>
                             <td class="td5"></td>
-                        </tr>
+                        </tr>-->
                         <tr>
                             <td class="td1"><span> </span><a id='lblBorrow' class="lbl"></a></td>
                             <td class="td2"><input id="txtBorrow"  type="text" class="txt num c1" /></td>
@@ -433,8 +406,8 @@
                         </tr>
                      <tr>
 						<td class="td1"><span> </span><a id="lblMinusitem" class="lbl"> </a></td>
-						<td class="td2" >
-						<input id="txtMinusitem"  type="text"  class="txt c1"/>
+						<td class="td2" ><select id="cmbMinusitem" class="txt c1"></select>
+						<!--<input id="txtMinusitem"  type="text"  class="txt c1"/>-->
 						</td>
 						<td class="td3"><span> </span><a id="lblMinus" class="lbl"> </a></td>
 						<td class="td4">
@@ -443,8 +416,8 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblPlusitem" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtPlusitem"  type="text"  class="txt c1"/>
+						<td class="td2"><select id="cmbPlusitem" class="txt c1"></select>
+						<!--<input id="txtPlusitem"  type="text"  class="txt c1"/>-->
 						</td>
 						<td class="td3"><span> </span><a id="lblPlus" class="lbl"> </a></td>
 						<td class="td4">
