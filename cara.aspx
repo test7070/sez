@@ -310,7 +310,6 @@
                 q_box('cara_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
             }
 
-
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
            			if (!$('#btnMinus_' + j).hasClass('isAssign')) {
@@ -323,8 +322,10 @@
            					var t_where = "where=^^ noa ='"+$('#txtCaritemno_'+b_seq).val()+"' ^^";
 					        q_gt('caritem', t_where , 0, 0, 0, "", r_accy);
 							
-           					if(!emp($('#txtCaritemno_'+b_seq).val())&&$('#txtCaritemno_'+b_seq).val()=='303')
+           					if(!emp($('#txtCaritemno_'+b_seq).val())&&$('#txtCaritemno_'+b_seq).val()=='303'){
+           						$('#textB_seq').val(b_seq);
            						q_box("ticket.aspx", 'ticket', "95%", "95%", q_getMsg("popTicket"));
+           					}
            					sum();
            				});
            				$('#txtOutmoney_'+j).change(function () {sum();});
@@ -823,6 +824,7 @@
 						<td class="td8"><input id="txtNoa"  type="text" class="txt c1"/>	</td>
 					</tr>
 				</table>
+				<input id="textB_seq"  type="hidden" class="txt c1"/>	
 			</div>
 		</div>
 		<div class='dbbs'>
