@@ -272,7 +272,7 @@
         function q_gtPost(t_name) {
             switch (t_name) {
             	case 'sssall':
-            		var as = _q_appendData("acomp", "", true);
+            		var as = _q_appendData("sss", "", true);
             		if(as[0]!=undefined){
             			health_bdate=as[0].health_bdate;
             			health_edate=as[0].health_edate;
@@ -280,7 +280,16 @@
             			labor1_edate=as[0].labor1_edate;
             			labor2_bdate=as[0].labor2_bdate;
             			labor2_edate=as[0].labor2_edate;
-            			insur_disaster=as[0].insur_disaster;
+            			
+            			//取得健勞保退保日期
+	            		var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^ top=1";
+	            		q_gt('labase_insur', t_where, 0, 0, 0, "", r_accy);
+            		}
+            	break;
+            	case 'labase_insur':
+            		var as = _q_appendData("acomp", "", true);
+            		if(as[0]!=undefined){
+						insur_disaster=as[0].insur_disaster;
             			$('#txtInsur_disaster').val(insur_disaster);
             		}
             	break;
@@ -604,12 +613,18 @@
 		    	switch (s1) {
 		    		case 'txtNoa':
 		                if(!emp($('#txtNoa').val())){
-	            		//判斷員工是否是外勞
+		                	//取得健勞保退保日期
+	            			var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^ top=1";
+	            			q_gt('sssall', t_where, 0, 0, 0, "", r_accy);
+			           		//判斷員工是否重覆儲存
+			           		var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
+			           		q_gt('labase', t_where , 0, 0, 0, "", r_accy);
+	            			//判斷員工是否是外勞
 			           		var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
 			           		q_gt('sss', t_where , 0, 0, 0, "", r_accy);
 			           		//判斷員工家屬
-			           var t_where = "where=^^noa='"+$('#txtNoa').val()+"'^^";
-            			q_gt('labases_sum', t_where, 0, 0, 0, "", r_accy);
+			           		var t_where = "where=^^noa='"+$('#txtNoa').val()+"'^^";
+            				q_gt('labases_sum', t_where, 0, 0, 0, "", r_accy);
 			        	}
 			        	$('#txtInsur_fund').val(0.025);
 			        	if(q_getPara('sys.comp').indexOf('大昌')>-1){

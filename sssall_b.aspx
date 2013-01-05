@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'acomp', t_content = ' field=noa,namea', bbsKey = ['noa'], as;
+            var q_name = 'sss', t_content = ' field=noa,namea', bbsKey = ['noa'], as;
             var t_sqlname = 'sssall_load'; t_postname = q_name; brwCount2 = 12;
             var isBott = false;
             //q_alias='a';
