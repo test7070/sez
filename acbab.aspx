@@ -44,88 +44,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtBirthday', r_picd], ['txtFt_date', r_picd], ['txtIndate', r_picd], ['txtOutdate', r_picd], ['txtMobile1', '9999999999'], ['txtMobile2', '9999999999'], ['txtHealth_bdate', r_picd], ['txtHealth_edate', r_picd], ['txtLabor1_bdate', r_picd], ['txtLabor1_edate', r_picd], ['txtLabor2_bdate', r_picd], ['txtLabor2_edate', r_picd]];
-                q_mask(bbmMask);
-                q_cmbParse("cmbTypea", q_getPara('sss.typea'));
-                q_cmbParse("cmbSex", q_getPara('sss.sex'));
-                q_cmbParse("cmbPerson", q_getPara('person.typea'));
-                q_cmbParse("cmbRecord", ('').concat(new Array('國小', '國中', '高中', '高職', '大專', '大學', '碩士', '博士')));
-                q_cmbParse("cmbBlood", ('').concat(new Array('A', 'B', 'AB', 'O')));
-                
-                $("#cmbTypea").focus(function() {
-                    var len = $(this).children().length > 0 ? $(this).children().length : 1;
-                    $(this).attr('size', len + "");
-                }).blur(function() {
-                    $(this).attr('size', '1');
-                });
-                $("#cmbSex").focus(function() {
-                    var len = $(this).children().length > 0 ? $(this).children().length : 1;
-                    $(this).attr('size', len + "");
-                }).blur(function() {
-                    $(this).attr('size', '1');
-                });
-                $("#cmbPerson").focus(function() {
-                    var len = $(this).children().length > 0 ? $(this).children().length : 1;
-                    $(this).attr('size', len + "");
-                }).blur(function() {
-                    $(this).attr('size', '1');
-                });
-                $("#cmbRecord").focus(function() {
-                    var len = $(this).children().length > 0 ? $(this).children().length : 1;
-                    $(this).attr('size', len + "");
-                }).blur(function() {
-                    $(this).attr('size', '1');
-                });
-                $("#cmbBlood").focus(function() {
-                    var len = $(this).children().length > 0 ? $(this).children().length : 1;
-                    $(this).attr('size', len + "");
-                }).blur(function() {
-                    $(this).attr('size', '1');
-                });
-                
-                q_gt('acomp', '', 0, 0, 0, "");
-                q_gt('part', '', 0, 0, 0, "");
-                q_gt('salm', '', 0, 0, 0, "");
-               /* $("#cmbCno").focus(function() {
-                    var len = $(this).children().length > 0 ? $(this).children().length : 1;
-                    $(this).attr('size', len + "");
-                }).blur(function() {
-                    $(this).attr('size', '1');
-                });
-                $("#cmbPartno").focus(function() {
-                    var len = $(this).children().length > 0 ? $(this).children().length : 1;
-                    $(this).attr('size', len + "");
-                }).blur(function() {
-                    $(this).attr('size', '1');
-                });*/
-               /* $("#cmbJobno").focus(function() {
-                    var len = $(this).children().length > 0 ? $(this).children().length : 1;
-                    $(this).attr('size', len + "");
-                }).blur(function() {
-                    $(this).attr('size', '1');
-                });*/
-                         
-                $('#btnLabases').click(function(e) {
-                    q_box("labases_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labases', "850px", "600px", q_getMsg("popLabases"));
-                });
-                $('#btnSaladjust').click(function(e) {
-                    q_box("salAdjust.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'saladjust', "850px", "600px", q_getMsg("popSaladjust"));
-                });
 
-                $('#txtIndate').change(function(e) {
-                    if (!emp($('#txtIndate').val())) {
-                        $('#txtHealth_bdate').val($('#txtIndate').val());
-                        $('#txtLabor1_bdate').val($('#txtIndate').val());
-                        $('#txtLabor2_bdate').val($('#txtIndate').val());
-                    }
-                });
-                $('#txtOutdate').change(function(e) {
-                    if (!emp($('#txtOutdate').val())) {
-                        $('#txtHealth_edate').val($('#txtOutdate').val());
-                        $('#txtLabor1_edate').val($('#txtOutdate').val());
-                        $('#txtLabor2_edate').val($('#txtOutdate').val());
-                    }
-                });
             }
             function q_boxClose(s2) {
                 var ret;
@@ -148,38 +67,7 @@
 
                         q_gt(q_name, q_content, q_sqlCount, 1)
                         break;
-                  /*  case 'part':
-                        var as = _q_appendData("part", "", true);
-                        if (as[0] != undefined) {
-                            var t_item = "";
-                            for ( i = 0; i < as.length; i++) {
-                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
-                            }
-                            q_cmbParse("cmbPartno", t_item);
-                            $("#cmbPartno").val(abbm[q_recno].partno);
-                        }
-                        break;*/
-                   /* case 'salm':
-                        var as = _q_appendData("salm", "", true);
-                        if (as[0] != undefined) {
-                            var t_item = "";
-                            for ( i = 0; i < as.length; i++) {
-                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].job;
-                            }
-                            q_cmbParse("cmbJobno", t_item);
-                            $("#cmbJobno").val(abbm[q_recno].jobno);
-                        }
-                        break;*/
-                	/*case 'acomp':
-                        var as = _q_appendData("acomp", "", true);
-                        var t_item = " @ ";
-                        for ( i = 0; i < as.length; i++) {
-                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
-                        }
-                        q_cmbParse("cmbCno", t_item);
-                        $("#cmbCno").val(abbm[q_recno].cno);
-                        break;*/
-                    case q_name:
+                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
 
@@ -193,7 +81,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('sss_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
+                q_box('acbab_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
@@ -205,7 +93,7 @@
                     return;
                 _btnModi(1);
                 /// 允許修改
-                $('#txtComp').focus();
+                $('#txtAcc1').focus();
                 $('#txtNoa').attr('disabled', 'disabled');
             }
 
@@ -213,44 +101,19 @@
             }
 
             function btnOk() {
-            	if (checkId($('#txtId').val())!=1){
-                	alert(q_getMsg('lblId')+'錯誤。');
+            	if (checkId($('#txtNoa').val())){
+                	alert(q_getMsg('lblNoa')+'錯誤。');
                 } 
-                if (!q_cd($('#txtBirthday').val())){
-                	alert(q_getMsg('lblBirthday')+'錯誤。');
+                if (($('#txtAcc1').val() == '')){
+                	alert(q_getMsg('lblAcc1')+'錯誤。');
                 }
-                if (!q_cd($('#txtFt_date').val())){
-                	alert(q_getMsg('lblFt_date')+'錯誤。');
+                if (!q_cd($('#txtBal').val()) == ''){
+                	alert(q_getMsg('lblBal')+'錯誤。');
                 }
-                if (!q_cd($('#txtIndate').val())){
-                	alert(q_getMsg('lblIndate')+'錯誤。');
-                }
-                if (!q_cd($('#txtOutdate').val())){
-                	alert(q_getMsg('lblOutdate')+'錯誤。');
-                }
-                if (!q_cd($('#txtHealth_bdate').val())){
-                	alert(q_getMsg('lblHealth_bdate')+'錯誤。');
-                }
-                if (!q_cd($('#txtHealth_edate').val())){
-                	alert(q_getMsg('lblHealth_edate')+'錯誤。');
-                }
-                if (!q_cd($('#txtLabor1_bdate').val())){
-                	alert(q_getMsg('lblLabor1_bdate')+'錯誤。');
-                }
-                if (!q_cd($('#txtLabor1_edate').val())){
-                	alert(q_getMsg('lblLabor1_edate')+'錯誤。');
-                }
-                if (!q_cd($('#txtLabor2_bdate').val())){
-                	alert(q_getMsg('lblLabor2_bdate')+'錯誤。');
-                }
-                if (!q_cd($('#txtLabor2_edate').val())){
-                	alert(q_getMsg('lblLabor2_edate')+'錯誤。');
+                if (!q_cd($('#txtMoney').val()) == ''){
+                	alert(q_getMsg('lblMoney')+'錯誤。');
                 }
 
-            	/*$('#txtAcomp').val($('#cmbCno').find(":selected").text());
-                $('#txtPart').val($('#cmbPartno').find(":selected").text());*/
-                /*$('#txtJob').val($('#cmbJobno').find(":selected").text());*/
-                
                 var t_noa = $.trim($('#txtNoa').val());
                 if (!emp($('#txtId').val()))
                     $('#txtId').val($('#txtId').val().toUpperCase());
