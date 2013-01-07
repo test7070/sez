@@ -486,11 +486,11 @@
                 float: left;
             }
             .txt.c4 {
-                width: 23%;
+                width: 30%;
                 float: left;
             }
             .txt.c5 {
-                width: 75%;
+                width: 68%;
                 float: left;
             }
             .txt.c6 {
@@ -523,7 +523,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 100%;
+                width: 110%;
             }
             .tbbs a {
                 font-size: medium;
@@ -567,7 +567,7 @@
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 74%;float: left;">
+        <div class='dbbm' style="width: 72%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
             <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
@@ -591,24 +591,30 @@
                 <td class="td2" colspan="2"><input id="txtTggno" type="text" class="txt c4"/>
                 											<input id="txtComp"  type="text" class="txt c5"/></td>
                  <td class="td4" ><input type="button" id="btnFix"  value="單據匯入"></td>
-                 <td class="td5" ><span> </span><a id='lblPayc' class="lbl"></a></td>
-                <td class="td6" ><input id="txtPayc" type="text" class="txt c2"/><input id="txtPaydate" type="text" class="txt c3"/></td> 
-                <td class="td7" ><span> </span><a id='lblPayed' class="lbl"></a></td>
-                <td class="td8" ><input id="txtPayed" type="text" class="txt num c1"/></td> 
                <!-- <td class="td7"><span> </span><a id='lblInvono' class="lbl"></a></td>
                 <td class="td8"><input id="txtInvono" type="text" class="txt c1"/></td>--> 
             </tr>
             <tr>
+            	<td class="td1" ><span> </span><a id='lblPayc' class="lbl"></a></td>
+                <td class="td2" colspan="2"><input id="txtPayc" type="text" class="txt c2"/>
+                						<input id="txtPaydate" type="text" class="txt c3"/></td> 
+                 <td class="td4"><span> </span><a id="lblAccno" class="lbl btn"></a></td>
+                <td class="td5" colspan="2"><input id="txtAccno"  type="text" class="txt c1"/>
+                <td class="td6" ><span> </span><a id='lblPayed' class="lbl"></a></td>
+                <td class="td7" ><input id="txtPayed" type="text" class="txt num c1"/></td>	
+            </tr>
+            <tr>
                 <td class="td1"><span> </span><a id='lblVdate'class="lbl" ></a></td>
-                <td class="td2"><input id="txtVbdate" type="text"  class="txt c1"/></td> 
+                <td class="td2" ><input id="txtVbdate" type="text"  class="txt c1"/></td> 
                 <td class="td3"><input id="txtVedate" type="text"  class="txt c1"/></td> 
                 <!--<td class="td4"><span> </span><a id='lblCno2' class="lbl"></a></td>
                 <td class="td5"><input id="txtCno2"    type="text"  class="txt c1" /></td>
                 <td class="td6"><input id="txtAccno2"    type="text"  class="txt c1"/></td>-->
-                <td class="td4"><span> </span><a id="lblAccno" class="lbl btn"></a></td>
-                <td class="td5"  colspan="2"><input id="txtAccno"  type="text" class="txt c1"/>
-                <td class="td6"><span> </span><a id="lblUnpay" class="lbl"></a></td>
-                <td class="td7"  colspan="2"><input id="txtUnpay"  type="text" class="txt num c1"/>
+                 <td class="td4"></td>
+                <td class="td5"></td>
+                 <td class="td6"></td>
+                <td class="td7"><span> </span><a id="lblUnpay" class="lbl"></a></td>
+                <td class="td8"><input id="txtUnpay"  type="text" class="txt num c1"/>
                 	<input id="txtPayed"  type="hidden"/>
                 </td>
              </tr>
@@ -648,11 +654,11 @@
                 <td align="center" class="td1"><a id='lblPart'></a></td>
                 <td align="center" style="width: 5%;"><a id='lblMount'></a></td>
                 <td align="center" style="width: 7%;"><a id='lblPrice'></a></td>
-                <td align="center" class="td2">*<a id='lblMoneys'></a></td>
-                <td align="center" class="td1">*<a id='lblTotals'></a></td>
-                <td align="center" style="width: 12%;"><a id='lblProduct'></a></td>
-                <td align="center" style="width: 20%;">*<a id='lblMemos'></a></td>
-                <td align="center" style="width: 7%;"><a id='lblBal'></a></td>
+                <td align="center" class="td2" style="width: 7%;">*<a id='lblMoneys'></a></td>
+                <td align="center" class="td1" style="width: 7%;">*<a id='lblTotals'></a></td>
+                <td align="center" style="width: 10%;"><a id='lblProduct'></a></td>
+                <td align="center" style="width: 13%;">*<a id='lblMemos'></a></td>
+                <td align="center" style="width: 10%;"><a id='lblBal'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>

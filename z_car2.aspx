@@ -107,6 +107,9 @@
 	                        type : '8', //select
 	                        name : 'sssno',
 	                        value : ('070120,070121,070122').split(',')
+	                    }, {
+	                        type : '6',
+	                        name : 'xcarnos'
 	                    }]
                     });
                     q_getFormat();

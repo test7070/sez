@@ -58,7 +58,7 @@
 		                    break;
 		                }
 		            }
-		            q_box('z_gqba.aspx' + "?;;;;" + r_accy + ";noa=" + t_noa, '', "900px", "600px", m_print);
+		            q_box('z_gqbp.aspx' + "?;;;;" + r_accy + ";noa=" + t_noa, '', "900px", "600px", m_print);
 		        });
 
 		        $('#btnAccc').click(function () {
