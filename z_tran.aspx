@@ -228,8 +228,8 @@
 					$('#chkXcarkind').children('input').attr('checked', 'checked');
 					$('#chkXcalctypes').children('input').attr('checked', 'checked');
 					$('#chkXfield05').children('input').attr('checked', 'checked');
-
-					var t_date, t_year, t_month, t_day;
+					//日期不要自動給值
+					/*var t_date, t_year, t_month, t_day;
 					t_date = new Date();
 					t_date.setDate(1);
 					t_year = t_date.getUTCFullYear() - 1911;
@@ -250,7 +250,7 @@
 					t_day = t_date.getUTCDate();
 					t_day = t_day > 9 ? t_day + '' : '0' + t_day;
 					$('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
-					$('#txtTrandate2').val(t_year + '/' + t_month + '/' + t_day);
+					$('#txtTrandate2').val(t_year + '/' + t_month + '/' + t_day);*/
 				}
 
 			}
