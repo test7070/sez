@@ -229,8 +229,12 @@
                 t_noa = t_noa.substring(0,2)+str;
                 $('#txtNoa').val(t_noa);
    				$('#cmbTaxtype').val(1);
-                $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
+   				/*txtDatea 不能FOCUS, selectionEnd 要比 selectionStart 先指定,不然不會選定日期*/
+                var input = document.getElementById ("txtDatea");
+	            if (typeof(input.selectionStart) != 'undefined' ) {	               
+	                input.selectionEnd =2;
+	                input.selectionStart = 7;
+	            }
             }
 
             function btnModi() {

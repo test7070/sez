@@ -43,6 +43,7 @@
 				t_bfixadate = $.trim($('#txtBfixadate').val());
 				t_efixadate = $.trim($('#txtEfixadate').val());
 				t_mon = $.trim($('#txtMon').val());
+				t_noa = $.trim($('#txtNoa').val());
 				t_carno = $.trim($('#txtCarno').val());
 				t_carplateno = $.trim($('#txtCarplateno').val());
 				t_driverno = $.trim($('#txtDriverno').val());
@@ -52,6 +53,7 @@
 					+q_sqlPara2("datea", t_bdate, t_edate)
 					+q_sqlPara2("fixadate", t_bfixadate, t_efixadate)
 					+q_sqlPara2("mon", t_mon)
+					+q_sqlPara2("noa", t_noa)
 					+q_sqlPara2("carno", t_carno)
 					+q_sqlPara2("carplateno", t_carplateno)
 					+q_sqlPara2("driverno", t_driverno)
@@ -93,6 +95,12 @@
 					<td class='seek'  style="width:20%;"><a id='lblMon'></a></td>
 					<td>
 					<input class="txt" id="txtMon" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
+					<td>
+					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
