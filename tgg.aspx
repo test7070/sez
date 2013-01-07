@@ -17,7 +17,7 @@
             }
 
             var q_name = "tgg";
-            var q_readonly = ['txtWorker'];
+            var q_readonly = [['txtWorker'],['txtUacc1'],['txtUacc2'],['txtUacc3']];
             var bbmNum = [['txtDueday',10,0],['txtCredit',10,0]];
             var bbmMask = [['txtChkdate','999/99/99'],['txtStartdate','999/99/99']];
             q_sqlCount = 6;
