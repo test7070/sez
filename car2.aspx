@@ -166,7 +166,7 @@
                         ///   q_boxClose 3/4
                         break;
                 }   /// end Switch
-
+				b_pop = '';
             }
 
             function q_gfPost() {
@@ -256,68 +256,55 @@
 
             function btnOk() {
             	$('#txtCardeal').val($('#cmbCardealno').find(":selected").text());
-				$('#txtIndate').val($.trim($('#txtIndate').val()));
-                if (checkId($('#txtIndate').val())==0){
+                if (!q_cd($('#txtIndate').val())){
                 	alert(q_getMsg('lblIndate')+'錯誤。');
                 	return;
            		}
-				$('#txtOutdate').val($.trim($('#txtOutdate').val()));
-                if (checkId($('#txtOutdate').val())==0){
+                if (!q_cd($('#txtOutdate').val())){
                 	alert(q_getMsg('lblOutdate')+'錯誤。');
                 	return;
            		}
-				$('#txtPassdate').val($.trim($('#txtPassdate').val()));
-                if (checkId($('#txtPassdate').val())==0){
+                if (!q_cd($('#txtPassdate').val())){
                 	alert(q_getMsg('lblPassdate')+'錯誤。');
                 	return;
            		}
-				$('#txtLimitdate').val($.trim($('#txtLimitdate').val()));
-                if (checkId($('#txtLimitdate').val())==0){
+                if (!q_cd($('#txtLimitdate').val())){
                 	alert(q_getMsg('lblLimitdate')+'錯誤。');
                 	return;
            		}
-				$('#txtCheckdate').val($.trim($('#txtCheckdate').val()));
-                if (checkId($('#txtCheckdate').val())==0){
+                if (!q_cd($('#txtCheckdate').val())){
                 	alert(q_getMsg('lblCheckdate')+'錯誤。');
                 	return;
            		}
-				$('#txtSaledate').val($.trim($('#txtSaledate').val()));
-                if (checkId($('#txtSaledate').val())==0){
+                if (!q_cd($('#txtSaledate').val())){
                 	alert(q_getMsg('lblSaledate')+'錯誤。');
                 	return;
            		}
-				$('#txtImprovedate1').val($.trim($('#txtImprovedate1').val()));
-                if (checkId($('#txtImprovedate1').val())==0){
+                if (!q_cd($('#txtImprovedate1').val())){
                 	alert(q_getMsg('lblImprovedate1')+'錯誤。');
                 	return;
            		}
-				$('#txtImprovedate2').val($.trim($('#txtImprovedate2').val()));
-                if (checkId($('#txtImprovedate2').val())==0){
+                if (!q_cd($('#txtImprovedate2').val())){
                 	alert(q_getMsg('lblImprovedate2')+'錯誤。');
                 	return;
            		}
-				$('#txtImprovedate3').val($.trim($('#txtImprovedate3').val()));
-                if (checkId($('#txtImprovedate3').val())==0){
+                if (!q_cd($('#txtImprovedate3').val())){
                 	alert(q_getMsg('lblImprovedate3')+'錯誤。');
                 	return;
            		}
-				$('#txtDiscountdate').val($.trim($('#txtDiscountdate').val()));
-                if (checkId($('#txtDiscountdate').val())==0){
+                if (!q_cd($('#txtDiscountdate').val())){
                 	alert(q_getMsg('lblDiscountdate')+'錯誤。');
                 	return;
            		}
-				$('#txtStopdate').val($.trim($('#txtStopdate').val()));
-                if (checkId($('#txtStopdate').val())==0){
+                if (!q_cd($('#txtStopdate').val())){
                 	alert(q_getMsg('lblStopdate')+'錯誤。');
                 	return;
            		}
-				$('#txtOverdate').val($.trim($('#txtOverdate').val()));
-                if (checkId($('#txtOverdate').val())==0){
+                if (!q_cd($('#txtOverdate').val())){
                 	alert(q_getMsg('lblOverdate')+'錯誤。');
                 	return;
            		}
-				$('#txtEnddate').val($.trim($('#txtEnddate').val()));
-                if (checkId($('#txtEnddate').val())==0){
+                if (!q_cd($('#txtEnddate').val())){
                 	alert(q_getMsg('lblEnddate')+'錯誤。');
                 	return;
            		}

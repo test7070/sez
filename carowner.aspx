@@ -80,20 +80,6 @@
             function q_boxClose(s2) {
             var ret; 
             switch (b_pop) {   
-                case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-                
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -103,15 +89,8 @@
 
             function q_gtPost(t_name) {
             	switch (t_name) {
-                case 'sss': 
-                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                    break;
-
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
-
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 
                     break;
             }  /// end switch
@@ -142,40 +121,40 @@
 
             function btnOk() {
 				$('#txtBirthday').val($.trim($('#txtBirthday').val()));
-                if (checkId($('#txtBirthday').val())==0){
+                /*if (checkId($('#txtBirthday').val())==0){
                 	alert(q_getMsg('lblBirthday')+'錯誤。');
                 	return;
-           		}
+           		}*/
 				$('#txtHealth_bdate').val($.trim($('#txtHealth_bdate').val()));
-                if (checkId($('#txtHealth_bdate').val())==0){
+                /*if (checkId($('#txtHealth_bdate').val())==0){
                 	alert(q_getMsg('lblHealth_bdate')+'錯誤。');
                 	return;
-           		}
+           		}*/
 				$('#txtHealth_edate').val($.trim($('#txtHealth_edate').val()));
-                if (checkId($('#txtHealth_edate').val())==0){
+                /*if (checkId($('#txtHealth_edate').val())==0){
                 	alert(q_getMsg('lblHealth_edate')+'錯誤。');
                 	return;
-           		}
+           		}*/
 				$('#txtLabor1_bdate').val($.trim($('#txtLabor1_bdate').val()));
-                if (checkId($('#txtLabor1_bdate').val())==0){
+                /*if (checkId($('#txtLabor1_bdate').val())==0){
                 	alert(q_getMsg('lblLabor1_bdate')+'錯誤。');
                 	return;
-           		}
+           		}*/
 				$('#txtLabor1_edate').val($.trim($('#txtLabor1_edate').val()));
-                if (checkId($('#txtLabor1_edate').val())==0){
+                /*if (checkId($('#txtLabor1_edate').val())==0){
                 	alert(q_getMsg('lblLabor1_edate')+'錯誤。');
                 	return;
-           		}
+           		}*/
 				$('#txtLabor2_bdate').val($.trim($('#txtLabor2_bdate').val()));
-                if (checkId($('#txtLabor2_bdate').val())==0){
+                /*if (checkId($('#txtLabor2_bdate').val())==0){
                 	alert(q_getMsg('lblLabor2_bdate')+'錯誤。');
                 	return;
-           		}
+           		}*/
 				$('#txtLabor2_edate').val($.trim($('#txtLabor2_edate').val()));
-                if (checkId($('#txtLabor2_edate').val())==0){
+                /*if (checkId($('#txtLabor2_edate').val())==0){
                 	alert(q_getMsg('lblLabor2_edate')+'錯誤。');
                 	return;
-           		}
+           		}*/
             	var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
                 var t_noa = $('#txtNoa').val();

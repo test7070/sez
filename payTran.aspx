@@ -75,7 +75,7 @@
 		            pay_tre();
 		        });
 		        $('#btnRc2no').click(function (e) {
-		            var t_where = "where=^^ unpay<0 ^^"; 
+		            var t_where = "where=^^ unpay>0 ^^"; 
 		            q_gt('payb', t_where, 0, 0, 0, "", r_accy);
 		        });
 		        
@@ -479,11 +479,11 @@
 		    }
 
 		    function bbsSave(as) {
-		        if (!as['acc1'] && !as['money']&& !as['memo']&& !as['paysale']) {
+		        if (!as['acc1'] && (!as['money'] || as['money']==0)&& !as['memo']&& !as['vccno']&& (!as['paysale'] || as['paysale']==0)) {
 		            as[bbsKey[1]] = '';
 		            return;
 		        }
-
+				//!as['acc1'] && !as['money']&& !as['memo']&& !as['paysale']
 		        q_nowf();
 
 		        return true;

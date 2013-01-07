@@ -18,7 +18,7 @@
 
             var q_name = "oil";
             var q_readonly = ['txtNoa','txtWorker','txtMoney','txtCurmount','txtCurmoney'];
-            var bbmNum = new Array(['txtMount',10,2],['txtPrice',10,2],['txtMoney',10,0],['txtCurmount',10,2],['txtCurmoney',10,2]);
+            var bbmNum = new Array(['txtMiles',10,2],['txtMount',10,2],['txtPrice',10,2],['txtMoney',10,0],['txtCurmount',10,2],['txtCurmoney',10,2]);
             var bbmMask = [['txtDatea','999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
@@ -517,11 +517,10 @@
 						<td class="td3"> </td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblCarno' class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtCarno"  type="text"  class="txt c1"/>
-						</td>
-						<td class="td3"> </td>
+						<td><span> </span><a id='lblCarno' class="lbl"> </a></td>
+						<td><input id="txtCarno"  type="text"  class="txt c1"/>	</td>
+						<td><span> </span><a id='lblMiles' class="lbl"> </a></td>
+						<td><input id="txtMiles"  type="text"  class="txt c1 num"/>	</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDriver' class="lbl btn"> </a></td>

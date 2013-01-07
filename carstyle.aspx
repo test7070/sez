@@ -193,6 +193,11 @@
             function btnCancel() {
                 _btnCancel();
             }
+            
+            function returnparent() {
+				 var wParent = window.parent.document;
+				 wParent.getElementById("cmbCarstyleno").value=$('#txtNoa').val();
+			}
 		</script>
 		<style type="text/css">
             #dmain {
@@ -309,7 +314,7 @@
             }
 		</style>
 	</head>
-	<body>
+	<body onunload='returnparent()'>
 			<!--#include file="../inc/toolbar.inc"-->
 			<div id='dmain' >
 			<div class="dview" id="dview" >
