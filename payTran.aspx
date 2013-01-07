@@ -75,7 +75,7 @@
 		            pay_tre();
 		        });
 		        $('#btnRc2no').click(function (e) {
-		            var t_where = "where=^^ unpay<0 ^^"; 
+		            var t_where = "where=^^ unpay>0 ^^"; 
 		            q_gt('payb', t_where, 0, 0, 0, "", r_accy);
 		        });
 		        
