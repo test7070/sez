@@ -20,6 +20,7 @@
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
+         aPop = new Array(['txtSssno', 'lblSssno', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -369,11 +370,14 @@
             <tr>
             	<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
                <td class="td2"><input id="txtDatea"  type="text" class="txt c1"/></td>
+               <td class="td3"> </td>
+               <td class="td4"> </td>
+               <td class="td5"> </td>
             </tr>
             <tr>
             	<td class="td1"><span> </span><a id='lblSssno' class="lbl btn"> </a></td>
-               <td class="td2" colspan="2"><input id="txtSssno"  type="text" class="txt c2"/></td>
-               <input id="txtSssno"  type="text" class="txt c3"/></td>
+               <td class="td2" colspan="2"><input id="txtSssno"  type="text" class="txt c2"/>
+               <input id="txtNamea"  type="text" class="txt c3"/></td>
             </tr>
             <tr>
             	<td class="td1"><span> </span><a id='lblIncome' class="lbl"> </a></td>
