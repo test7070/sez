@@ -96,9 +96,9 @@
 				$('#btnCartax').click(function(e) {
 					q_box("cartax.aspx?;;;carno='" + $('#txtCarno').val() + "' and (caritemno='501' or caritemno='502')", 'cartax', "90%", "600px", q_getMsg("popCartax"));
 				});
-				$('#lblCarstyle').click(function(e) {
+				/*$('#lblCarstyle').click(function(e) {
 					q_box("carstyle.aspx", 'carstyle', "90%", "600px", q_getMsg("popCarstyle"));
-				});
+				});*/
 				$('#lblCarspec').click(function(e) {
 					q_box("carspec.aspx", 'carspec', "90%", "600px", q_getMsg("popCarspec"));
 				});
@@ -631,8 +631,8 @@
 					<tr>
 						<td><span> </span><a id="lblCarkind" class="lbl"> </a></td>
 						<td><select id="cmbCarkindno" class="txt c1"> </select></td>
-						<td><span> </span><a id="lblCarstyle" class="lbl btn"> </a></td>
-						<td><select id="cmbCarstyleno" class="txt c1"> </select></td>
+						<td><span> </span><a id="lblCarstyle" class="lbl"> </a></td>
+						<td><input id="txtCarstyleno" type="text" class="txt c1"/></td><!--<select id="cmbCarstyleno" class="txt c1"> </select>-->
 						<td><span> </span><a id="lblCarspec" class="lbl btn"> </a></td>
 						<td><select id="cmbCarspecno" class="txt c1"> </select></td>
 					</tr>
