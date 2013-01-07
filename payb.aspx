@@ -279,11 +279,9 @@
 
             function bbsSave(as) {
             	            	
-            	if(!emp(as['invono'])){
-	                if(emp(as['rc2no'])) {
+            	if(emp(as['invono'])&&emp(as['rc2no'])){
 	                    as[bbsKey[1]] = '';
 	                    return;
-	                }
                 } 
                 
                 if (!as['total'] && !as['money']&& !as['memo']) {

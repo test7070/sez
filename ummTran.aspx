@@ -216,7 +216,7 @@
 			            }
 		                
 		                /*if (!t_Saving)*/
-		                    ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2', '');   /// 最後 aEmpField 不可以有【數字欄位】
+		                    ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2,partno,part2', '');   /// 最後 aEmpField 不可以有【數字欄位】
                     }
                     break;
 		            case q_name + '_s':
