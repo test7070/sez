@@ -33,7 +33,7 @@
             currentData.prototype = {
                 data : [],
                 /*新增時複製的欄位*/
-                include : ['txtDatea', 'txtCno', 'txtAcomp', 'txtNoa'],
+                include : ['txtDatea', 'txtCno', 'txtAcomp', 'txtNoa','txtSerial','txtBuyer','txtCustno','txtComp','txtNick'],
                 /*記錄當前的資料*/
                 copy : function() {
                     curData.data = new Array();
