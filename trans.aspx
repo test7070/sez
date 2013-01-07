@@ -256,11 +256,17 @@
 				});
 				$("#txtCustno").change(function() {
 					if ($("#txtCustno").val().length > 0) {
-						$("#txtStraddrno").val($("#txtCustno").val());
+						$("#txtStraddrno").val($("#txtCustno").val()+'-');
 						$("#txtStraddr").val("");
 					}
 				});
-
+				$("#txtStraddrno").focus(function() {
+					var input = document.getElementById ("txtStraddrno");
+		            if (typeof(input.selectionStart) != 'undefined' ) {	               
+		                input.selectionEnd =1;
+		                input.selectionStart = 6;
+		            }
+				});
 			}
 
 			function sum() {
