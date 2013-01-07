@@ -33,7 +33,7 @@
             currentData.prototype = {
                 data : [],
                 /*新增時複製的欄位*/
-                include : ['txtDatea', 'txtCno', 'txtAcomp', 'txtNoa'],
+                include : ['txtDatea', 'txtCno', 'txtAcomp', 'txtNoa','txtSerial','txtBuyer','txtCustno','txtComp','txtNick'],
                 /*記錄當前的資料*/
                 copy : function() {
                     curData.data = new Array();
@@ -182,7 +182,7 @@
                 	alert('請輸入'+q_getMsg('lblSerial')+'。');
                 	return;
                 }    
-                 if (checkId($('#txtSerial').val())!=2){
+                if ($('#cmbTaxtype').val()!='6' && checkId($('#txtSerial').val())!=2){
                 	alert(q_getMsg('lblSerial')+'錯誤。');
                 	return;
                 }               
