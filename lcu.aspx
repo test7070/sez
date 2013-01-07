@@ -113,12 +113,15 @@
                 }
             	if ($('#txtVdate').val().length>0 && !q_cd($('#txtVdate').val())){
                 	alert(q_getMsg('lblVdate')+'錯誤。');
+                	return;
                 }
                 if ($('#txtLcdate').val().length>0 && !q_cd($('#txtLcdate').val())){
                 	alert(q_getMsg('lblLcdate')+'錯誤。');
+                	return;
                 }
                 if ($('#txtDate2').val().length>0 && !q_cd($('#txtDate2').val())){
                 	alert(q_getMsg('lblDate2')+'錯誤。');
+                	return;
                 }
                 var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());

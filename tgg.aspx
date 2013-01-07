@@ -116,12 +116,10 @@
                 q_box('z_tggtran.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
             }
             function btnOk() {
-            	/*if ($('#txtSerial').val().length > 0 && checkId($('#txtSerial').val())!=2)
-                    alert(q_getMsg('lblSerial')+'錯誤。');
                 if($('#txtChkdate').val().length>0 && !q_cd($('#txtChkdate').val()))
             		alert(q_getMsg('lblChkdate')+'錯誤。');  
             	if($('#txtStartdate').val().length>0 && !q_cd($('#txtStartdate').val()))
-            		alert(q_getMsg('lblStartdate')+'錯誤。');*/
+            		alert(q_getMsg('lblStartdate')+'錯誤。');
             		
             	if (dec($('#txtCredit').val()) > 9999999999)
                     t_err = t_err + q_getMsg('msgCreditErr') + '\r'; 

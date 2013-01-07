@@ -49,7 +49,7 @@
 
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd ]];
+            bbmMask = [['txtDatea', r_picd ],['txtMon', r_picm ]];
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('rc2.typea'));   // 需在 main_form() 後執行，才會載入 系統參數
             //q_cmbParse("cmbStype", q_getPara('rc2.stype'));   
@@ -191,7 +191,12 @@
         }
 
         function btnOk() {
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtTggno', q_getMsg('lblTggno')], ['txtCno', q_getMsg('btnAcomp')]]);  // 檢查空白 
+			$('#txtMon').val($.trim($('#txtMon').val()));
+				if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
+					alert(q_getMsg('lblMon')+'錯誤。');   
+					return;
+				} 
+		    t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtTggno', q_getMsg('lblTggno')], ['txtCno', q_getMsg('btnAcomp')]]);  // 檢查空白 
             if (t_err.length > 0) {
                 alert(t_err);
                 return;

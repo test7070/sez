@@ -217,36 +217,47 @@
             function btnOk() {
             	if (checkId($('#txtId').val())!=1){
                 	alert(q_getMsg('lblId')+'錯誤。');
+                	return;
                 } 
                 if (!q_cd($('#txtBirthday').val())){
                 	alert(q_getMsg('lblBirthday')+'錯誤。');
+                	return;
                 }
                 if (!q_cd($('#txtFt_date').val())){
                 	alert(q_getMsg('lblFt_date')+'錯誤。');
+                	return;
                 }
                 if (!q_cd($('#txtIndate').val())){
                 	alert(q_getMsg('lblIndate')+'錯誤。');
+                	return;
                 }
                 if (!q_cd($('#txtOutdate').val())){
                 	alert(q_getMsg('lblOutdate')+'錯誤。');
+                	return;
                 }
                 if (!q_cd($('#txtHealth_bdate').val())){
                 	alert(q_getMsg('lblHealth_bdate')+'錯誤。');
+                	return;
                 }
                 if (!q_cd($('#txtHealth_edate').val())){
                 	alert(q_getMsg('lblHealth_edate')+'錯誤。');
+                	return;
                 }
                 if (!q_cd($('#txtLabor1_bdate').val())){
                 	alert(q_getMsg('lblLabor1_bdate')+'錯誤。');
+                	return;
                 }
                 if (!q_cd($('#txtLabor1_edate').val())){
                 	alert(q_getMsg('lblLabor1_edate')+'錯誤。');
+                	return;
                 }
                 if (!q_cd($('#txtLabor2_bdate').val())){
                 	alert(q_getMsg('lblLabor2_bdate')+'錯誤。');
+                	return;
                 }
                 if (!q_cd($('#txtLabor2_edate').val())){
                 	alert(q_getMsg('lblLabor2_edate')+'錯誤。');
+                	return;
                 }
 
             	$('#txtAcomp').val($('#cmbCno').find(":selected").text());
