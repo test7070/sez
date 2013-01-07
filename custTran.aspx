@@ -27,7 +27,10 @@
             brwKey = 'noa';
             brwCount2 = 20;
             //ajaxPath = ""; //  execute in Root
-            aPop = new Array(['txtInvestdate', 'lblInvest', 'invest', 'datea,investmemo', 'txtInvestdate,txtInvestmemo', 'invest_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtGrpno', 'lblCust', 'cust', 'noa,comp', 'txtGrpno,txtGrpname', 'cust_b.aspx'])
+            aPop = new Array(['txtInvestdate', 'lblInvest', 'invest', 'datea,investmemo', 'txtInvestdate,txtInvestmemo', 'invest_b.aspx']
+            , ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
+            , ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx']
+            , ['txtGrpno', 'lblCust', 'cust', 'noa,comp', 'txtGrpno,txtGrpname', 'cust_b.aspx'])
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -126,20 +129,7 @@
             function btnPrint() {
                 q_box('z_custtran.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
             }
-            function btnOk() {
-            	$('#txtChkdate').val($.trim($('#txtChkdate').val()));
-                if (checkId($('#txtChkdate').val())==0){
-                	alert(q_getMsg('lblChkdate')+'錯誤。');
-                	return;
-            	}
-            	$('#txtStartdate').val($.trim($('#txtStartdate').val()));
-                if (checkId($('#txtStartdate').val())==0){
-                	alert(q_getMsg('lblStartdate')+'錯誤。');
-                	return;
-            	}
-
-
-            	
+            function btnOk() {        	
             	if ($('#txtSerial').val().length > 0 && checkId($('#txtSerial').val())!=2)
                     alert(q_getMsg('lblSerial')+'錯誤。');
                 if($('#txtChkdate').val().length>0 && !q_cd($('#txtChkdate').val()))
@@ -494,13 +484,20 @@
 						<td colspan="5"><input id="txtEmail" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCredit" class="lbl btn"> </a></td>
-						<td><input id="txtCredit" type="text" class="txt num c1" />	</td>
 						<td><span> </span><a id="lblSales" class="lbl btn" > </a></td>
 						<td colspan="2">
 							<input id="txtSalesno" type="text" style="float:left; width:40%;"/>
 							<input id="txtSales" type="text" style="float:left; width:60%;"/>
 						</td>
+						<td><span> </span><a id="lblSales2" class="lbl btn" > </a></td>
+						<td colspan="2">
+							<input id="txtSalesno2" type="text" style="float:left; width:40%;"/>
+							<input id="txtSales2" type="text" style="float:left; width:60%;"/>
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblCredit" class="lbl btn"> </a></td>
+						<td><input id="txtCredit" type="text" class="txt num c1" />	</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblInvest" class="lbl btn"> </a></td>
