@@ -116,6 +116,11 @@
 			}
 
 			function btnOk() {
+				$('#txtNoa').val($.trim($('#txtNoa').val()));
+				if ($('#txtNoa').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
+					alert(q_getMsg('lblMon')+'錯誤。');   
+					return;
+				} 
 				var t_n=0,t_price1=0,t_price2=0,t_price3=0,t_price4=0,t_price5=0,t_price=0;
 				t_price1 = parseFloat($.trim($('#txtPrice1').val()).length == 0 ? '0' : $('#txtPrice1').val().replace(/,/g,''));
 				t_price2 = parseFloat($.trim($('#txtPrice2').val()).length == 0 ? '0' : $('#txtPrice2').val().replace(/,/g,''));

@@ -403,6 +403,16 @@
                 	alert(q_getMsg('lblTrandate')+'錯誤。');
                 	return;
                 }
+                $('#txtBilldate').val($.trim($('#txtBilldate').val()));
+                if (checkId($('#txtBilldate').val())==0){
+                	alert(q_getMsg('lblBilldate')+'錯誤。');
+                	return;
+                }
+                $('#txtCldate').val($.trim($('#txtCldate').val()));
+                if (checkId($('#txtCldate').val())==0){
+                	alert(q_getMsg('lblCldate')+'錯誤。');
+                	return;
+                }
                 $('#txtMon').val($.trim($('#txtMon').val()));
                 if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()))
                     alert(q_getMsg('lblMon')+'錯誤。');

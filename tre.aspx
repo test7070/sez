@@ -192,10 +192,26 @@
             }
 
             function btnOk() {
+            	
             	$('#txtDatea').val($.trim($('#txtDatea').val()));
                 if (checkId($('#txtDatea').val())==0){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
+                }
+            	$('#txtDate2').val($.trim($('#txtDate2').val()));
+                if (checkId($('#txtDate2').val())==0){
+                	alert(q_getMsg('lblDate2')+'錯誤。');
+                	return;
+                }
+                $('#txtBdate').val($.trim($('#txtBdate').val()));
+                if (checkId($('#txtBdate').val()) == 0) {
+                    alert(q_getMsg('lblBdate') + '錯誤。');
+                    return;
+                }
+                $('#txtEdate').val($.trim($('#txtEdate').val()));
+                if (checkId($('#txtEdate').val()) == 0) {
+                    alert(q_getMsg('lblEdate') + '錯誤。');
+                    return;
                 }
                 $('#txtPaydate').val($.trim($('#txtPaydate').val()));
                 if ($('#txtPaydate').val().length > 0 && checkId($('#txtPaydate').val())==0)

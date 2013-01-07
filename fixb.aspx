@@ -100,6 +100,21 @@
 			}
 
 			function btnOk() {
+				$('#txtDatea').val($.trim($('#txtDatea').val()));
+	                if (checkId($('#txtDatea').val())==0){
+	                	alert(q_getMsg('lblDatea')+'錯誤。');
+	                	return;
+	            }							
+	            $('#txtLdate').val($.trim($('#txtLdate').val()));
+	                if (checkId($('#txtLdate').val())==0){
+	                	alert(q_getMsg('lblLdate')+'錯誤。');
+	                	return;
+	            }							
+	            $('#txtNdate').val($.trim($('#txtNdate').val()));
+	                if (checkId($('#txtNdate').val())==0){
+	                	alert(q_getMsg('lblNdate')+'錯誤。');
+	                	return;
+	            }							
 				$('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if(t_err.length > 0) {

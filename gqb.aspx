@@ -170,6 +170,18 @@
 			}
 
 			function btnOk() {
+	            $('#txtIndate').val($.trim($('#txtIndate').val()));
+	                if (checkId($('#txtIndate').val())==0){
+	                	alert(q_getMsg('lblIndate')+'錯誤。');
+	                	return;
+	            }
+	            $('#txtTdate').val($.trim($('#txtTdate').val()));
+	                if (checkId($('#txtTdate').val())==0){
+	                	alert(q_getMsg('lblTdate')+'錯誤。');
+	                	return;
+	            }
+
+ 						
 				if (emp($('#txtGqbno').val())) {
 					alert("請輸入票據號碼");
 					$('#txtGqbno').focus();
