@@ -17,7 +17,7 @@
             q_desc = 1
             q_tables = 's';
             var q_name = "payb";
-            var q_readonly = ['txtNoa', 'txtMoney', 'txtTax', 'txtTotal', 'txtPayed'];
+            var q_readonly = ['txtNoa', 'txtMoney', 'txtTax', 'txtTotal', 'txtPayed','txtWorker'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtPayed', 10, 0, 1]];
             var bbsNum = [['txtPrice', 10, 0, 1], ['txtDiscount', 10, 0, 1], ['txtMount', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1]];
@@ -75,6 +75,11 @@
 
                 });
                 //.........................
+                $('#txtVedate').change(function () {
+                	if(!emp($('#txtVedate').val()))
+                   		$('#txtMon').val($('#txtVedate').val().substr(0,6));
+                });
+                
                 //........................會計傳票
                 $('#lblAccno').click(function () {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
@@ -256,6 +261,7 @@
                 _btnIns();
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
                 $('#txtDatea').val(q_date());
+                $('#txtMon').val(q_date().substr(0,6));
                 $('#txtDatea').focus();
             }
 
@@ -558,11 +564,13 @@
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:10%"><a id='vewDatea'></a></td>
                 <td align="center" style="width:30%"><a id='vewComp'></a></td>
+                <td align="center" style="width:20%"><a id='vewPayed'></a></td>
             </tr>
              <tr>
                 <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                 <td align="center" id='datea'>~datea</td>
                 <td align="center" id='tggno comp,4'>~tggno ~comp,4</td>
+                <td align="right" style ="text-align:right;" id='payed,0,1'>~payed,0,1</td>
             </tr>
         </table>
         </div>
@@ -650,7 +658,7 @@
                 <td align="center" style="width: 5%;">#<a id='lblKind'></a></td>
                 <td align="center" style="width: 4%;">#<a id='lblType'></a></td>
                 <td align="center" style="width: 8%;">#<a id='lblInvonos'></a>/<a id='lblTaxs'></a></td>
-                <td align="center" class="td1"><a id='lblParts'></a></td>
+                <!--<td align="center" class="td1"><a id='lblParts'></a></td>-->
                 <td align="center" style="width: 5%;"><a id='lblMount'></a></td>
                 <td align="center" style="width: 7%;"><a id='lblPrice'></a></td>
                 <td align="center"  style="width: 7%;" class="td2">*<a id='lblMoneys'></a></td>
@@ -665,9 +673,9 @@
                 <td><select id="cmbKind.*" > </select></td><!--<input id="txtKind.*" type="text"class="txt c1"/>-->
                 <td><select id="cmbTypea.*" > </select></td><!--<input id="txtTypea.*" type="text"  class="txt c1"/>-->
                 <td><input id="txtInvono.*" type="text" class="txt c1"/><input id="txtTax.*" type="text" class="txt num c1" /></td>
-                <td><input class="btn"  id="btnpart.*" type="button" value='.' style=" float: left;font-weight: bold;width:1%;" />
+                <!--<td><input class="btn"  id="btnpart.*" type="button" value='.' style=" float: left;font-weight: bold;width:1%;" />
                 	<input id="txtPartno.*" type="text" style="width:21%;"/>
-                    <input id="txtPart.*" type="text" style="width:50%;"/></td>
+                    <input id="txtPart.*" type="text" style="width:50%;"/></td>-->
                     <td><input id="txtMount.*" type="text" class="txt num c1" /></td>
                     <td><input id="txtPrice.*" type="text" class="txt num c1" /><input id="txtDiscount.*" type="text" class="txt num c1" /></td>
                 <td><input id="txtMoney.*" type="text" class="txt num c1"/></td>

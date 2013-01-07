@@ -27,7 +27,14 @@
             brwKey = 'noa';
             brwCount2 = 20;
             //ajaxPath = ""; //  execute in Root
-            aPop = new Array(['txtInvestdate', 'lblInvest', 'invest', 'datea,investmemo', 'txtInvestdate,txtInvestmemo', 'invest_b.aspx'], ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtGrpno', 'lblTgg', 'tgg', 'noa,comp', 'txtGrpno,txtGrpname', 'tgg_b.aspx'])
+            aPop = new Array(['txtInvestdate', 'lblInvest', 'invest', 'datea,investmemo', 'txtInvestdate,txtInvestmemo', 'invest_b.aspx']
+            							, ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
+            							, ['txtGrpno', 'lblTgg', 'tgg', 'noa,comp', 'txtGrpno,txtGrpname', 'tgg_b.aspx']
+            							, ['txtUacc1', 'lblUacc1', 'acc', 'acc1,acc2', 'txtUacc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+            							, ['txtUacc2', 'lblUacc2', 'acc', 'acc1,acc2', 'txtUacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+            							, ['txtUacc3', 'lblUacc3', 'acc', 'acc1,acc2', 'txtUacc3', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+            							, ['txtUacc4', 'lblUacc4', 'acc', 'acc1,acc2', 'txtUacc4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+            )
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -479,7 +486,7 @@
 					<tr>
 						<td><span> </span><a id='lblService' class="lbl"> </a></td>
 						<td colspan="3"><input id="txtService"  type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblUacc4' class="lbl"> </a></td>
+						<td><span> </span><a id='lblUacc4' class="lbl btn"> </a></td>
 						<td><input id="txtUacc4" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
@@ -487,7 +494,7 @@
 						<td><input id="txtChkdate" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblStartdate' class="lbl"> </a></td>
 						<td><input id="txtStartdate" type="text" class="txt c1" />	</td>
-						<td><span> </span><a id='lblUacc1' class="lbl"> </a></td>
+						<td><span> </span><a id='lblUacc1' class="lbl btn"> </a></td>
 						<td><input id="txtUacc1"    type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
@@ -495,7 +502,7 @@
 						<td><input id="txtDueday" type="text" class="txt num c1"/>	</td>
 						<td><span> </span><a id='lblGetdate' class="lbl"> </a></td>
 						<td><input id="txtGetdate" type="text" class="txt c1"/>	</td>
-						<td><span> </span><a id='lblUacc2' class="lbl"> </a></td>
+						<td><span> </span><a id='lblUacc2' class="lbl btn"> </a></td>
 						<td><input id="txtUacc2" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
@@ -505,7 +512,7 @@
 							<span> </span><a id='lblTrantype' class="lbl"> </a>
 						</td>
 						<td><select id="cmbTrantype" class="txt c1"> </select></td>
-						<td><span> </span><a id='lblUacc3' class="lbl"> </a></td>
+						<td><span> </span><a id='lblUacc3' class="lbl btn"> </a></td>
 						<td><input id="txtUacc3"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>

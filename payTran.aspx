@@ -220,7 +220,7 @@
 		                }
 
 		                if (!t_Saving) 
-		                    q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'noa,paysale,_unpay,_unpay,part2', 'txtRc2no', '');
+		                    q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart,txtMemo', as.length, as, 'noa,paysale,_unpay,_unpay,part,partno,part,memo', 'txtRc2no', '');
 		                else {/// 自動沖帳
 		                   /* $('#txtOpay').val(0);
 		                    $('#txtUnopay').val(0);
@@ -712,32 +712,29 @@
 						<td class="td4" >
 						<input id="txtDatea" type="text" class="txt c1"/>
 						</td>
-						<td class="td1" ><span> </span><a id='lblAcomp' class="lbl btn"></a></td>
-						<td class="td2" >
+						<td class="td5" ><span> </span><a id='lblAcomp' class="lbl btn"></a></td>
+						<td class="td6" >
 						<input id="txtCno"  type="text" class="txt c4"/>
 						<input id="txtAcomp"    type="text" class="txt c5"/>
 						</td>
 						<td class="td7"><span> </span><a id='lblPayc' class="lbl"></a></td>
-						<td class="td8">
-						<input id="txtPayc" type="text" class="txt c1"/>
-						</td>
-						<td class="tdZ"></td>
+						<td class="td8"><input id="txtPayc" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr2">
                         <td class="td1" ><span> </span><a id='lblTgg' class="lbl btn"></a></td>
-						<td class="td2" >
-                        <input id="txtTggno" type="text" class="txt"/>
+						<td class="td2" colspan='3'>
+                        <input id="txtTggno" type="text" class="txt c4"/>
+                        <input id="txtComp"  type="text" class="txt c5" />
 						</td>
-						<td class="td3" colspan="2"><input id="txtComp"  type="text" class="txt" style="width:100%" /></td>
 						<td class="td4">
 							<input type="button" id="btnRc2no" class="txt c1 " />
 						</td>
-						<td class="6">
+						<td class="5">
 						<input type="button" id="btnVcc" class="txt c1 " />
 						</td>
-						<td class="td7"><span> </span><a id='lblMon' class="lbl"></a></td>
-						<td class="td8" >
-						<input id="txtMon"  type="text" class="txt"/>
+						<td class="td6"><span> </span><a id='lblMon' class="lbl"></a></td>
+						<td class="td7" >
+						<input id="txtMon"  type="text" class="txt c1"/>
 						</td>
 					</tr>
 					<tr class="tr3">
@@ -781,9 +778,9 @@
 					<tr class="tr5">
 						<td class="td1"> <a id='lblMemo' class="lbl"></a></td>
 						<td class="td2" colspan='3' ><textarea id="txtMemo"  rows='3' cols='3' style="width: 99%; height: 50px;" ></textarea></td>
-						<td class="td5" >
+						<td class="td5" ><span> </span>
 							<a id='lblRc2no' class="lbl"></a>
-							<p style="height:1%;"></p>
+							<p style="height:1%;"></p><span> </span>
 							<a id='lblWorker' class="lbl"></a>
 						</td>
 						<td class="td6" >
