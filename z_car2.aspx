@@ -107,6 +107,7 @@
 	                        type : '8', //select
 	                        name : 'sssno',
 	                        value : ('070120,070121,070122').split(',')
+<<<<<<< HEAD
 	                    },{
 	                    type : '0',
 	                    name : 'r_tel',
@@ -115,6 +116,11 @@
 	                    type : '0',
 	                    name : 'r_addr',
 	                    value : q_getPara('sys.addr')
+=======
+	                    }, {
+	                        type : '6',
+	                        name : 'xcarnos'
+>>>>>>> c727f540575a29b6b582888b8d12b4eb21bcbd54
 	                    }]
                     });
                     q_getFormat();

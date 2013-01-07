@@ -182,7 +182,7 @@
                 	alert('請輸入'+q_getMsg('lblSerial')+'。');
                 	return;
                 }    
-                 if (checkId($('#txtSerial').val())!=2){
+                if ($('#cmbTaxtype').val()!='6' && checkId($('#txtSerial').val())!=2){
                 	alert(q_getMsg('lblSerial')+'錯誤。');
                 	return;
                 }    
