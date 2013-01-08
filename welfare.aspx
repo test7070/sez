@@ -82,12 +82,13 @@
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
-            //q_box('welfare_s.aspx', q_name + '_s', "500px", "300px", q_getMsg( "popSeek"));
+            q_box('welfare_s.aspx', q_name + '_s', "500px", "300px", q_getMsg( "popSeek"));
         }
 
         function btnIns() {
             _btnIns();
-            $('#txtNoa').focus();
+            $('#txtDatea').val(q_date());
+            $('#txtDatea').focus();
         }
 
         function btnModi() {
@@ -131,7 +132,11 @@
                	return 0;//錯誤
             }
         function btnOk() {
- 
+		  	$('#txtDatea').val($.trim($('#txtDatea').val()));
+		          if (checkId($('#txtDatea').val())==0){
+		             alert(q_getMsg('lblDatea')+'錯誤。');
+		          return;
+		    }
             var t_err = '';
 	
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);

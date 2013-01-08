@@ -69,7 +69,7 @@
 
 		        $('#txtOpay').change(function () { sum(); });
 		        $('#txtUnopay').change(function () { sum(); });
-				
+		        $('#txtRc2no').change(function () { $('txtMon').val(t_mon); });
 				//1003暫時不先開啟視窗選擇要匯入的立帳單
 		        $('#btnVcc').click(function (e) {
 		            pay_tre();
