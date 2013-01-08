@@ -571,7 +571,7 @@
                 <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                 <td align="center" id='datea'>~datea</td>
                 <td align="center" id='tggno comp,4'>~tggno ~comp,4</td>
-                <td align="right" style ="text-align:right;" id='money,0,1'>~money,0,1</td>
+                <td align="right" style ="text-align:right;" id='total,0,1'>~total,0,1</td>
                 <td align="right" style ="text-align:right;" id='payed,0,1'>~payed,0,1</td>
             </tr>
         </table>
