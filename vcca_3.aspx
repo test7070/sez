@@ -26,7 +26,8 @@
             brwKey = 'Datea';
             aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
             ,['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']        
-            ,['txtSerial', 'lblSerial', 'vccabuyer', 'serial,buyer', 'txtSerial,txtBuyer', 'vccabuyer_b.aspx']);
+            ,['txtSerial', 'lblSerial', 'vccabuyer', 'serial,buyer', 'txtSerial,txtBuyer', 'vccabuyer_b.aspx']
+            ,['txtProductno', 'lblProduct', 'ucca', 'noa,product', 'txtProductno,txtProduct', 'ucca_b.aspx']);
 			brwCount2 = 15;
             function currentData() {
             }
@@ -589,6 +590,13 @@
 						<td><input id="txtTax"  type="text"  class="txt num c1"/></td>
 						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
 						<td><input id="txtTotal"  type="text"  class="txt num c1"/>	</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblProduct' class="lbl btn"> </a></td>
+						<td colspan="3">
+							<input id="txtProductno"  type="text"  style="float:left; width:25%;"/>
+							<input id="txtProduct"  type="text"  style="float:left; width:75%;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
