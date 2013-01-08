@@ -263,9 +263,8 @@
 				$("#txtStraddrno").focus(function() {
 					var input = document.getElementById ("txtStraddrno");
 		            if (typeof(input.selectionStart) != 'undefined' ) {	  
-		            	//alert($("#txtStraddrno").val().index)             
-		                input.selectionEnd =1;
-		                input.selectionStart = 6;
+		                input.selectionStart = 5;
+		                input.selectionEnd =8;
 		            }
 				});
 			}
@@ -400,23 +399,19 @@
             		alert('年度異常!');
             		return;
             	}
-				$('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (checkId($('#txtDatea').val())==0){
+                if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
                 }
-                $('#txtTrandate').val($.trim($('#txtTrandate').val()));
-                if (checkId($('#txtTrandate').val())==0){
+                if ($('#txtTrandate').val().length==0 || !q_cd($('#txtTrandate').val())){
                 	alert(q_getMsg('lblTrandate')+'錯誤。');
                 	return;
                 }
-                $('#txtBilldate').val($.trim($('#txtBilldate').val()));
-                if (checkId($('#txtBilldate').val())==0){
+                if (!q_cd($('#txtBilldate').val()))==0){
                 	alert(q_getMsg('lblBilldate')+'錯誤。');
                 	return;
                 }
-                $('#txtCldate').val($.trim($('#txtCldate').val()));
-                if (checkId($('#txtCldate').val())==0){
+                if (!q_cd($('#txtCldate').val()))==0){
                 	alert(q_getMsg('lblCldate')+'錯誤。');
                 	return;
                 }
