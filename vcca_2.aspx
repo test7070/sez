@@ -27,7 +27,7 @@
 			aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
 			,['txtCustno', 'lblCust', 'cust', 'noa,comp,serial,nick', 'txtCustno,txtComp,txtSerial,txtNick', 'cust_b.aspx']
 		    ,['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx']
-			,['txtProductno', 'lblProductno', 'ucca', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit,txtProduct', 'ucca_b.aspx']
+			,['txtProductno', 'lblProduct', 'ucca', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit', 'ucca_b.aspx']
 			,['txtSerial', 'lblSerial', 'cust', 'serial,noa,comp', 'txtSerial,txtBuyerno,txtBuyer', 'cust_b.aspx']);
 			brwCount2 = 10;
 			function currentData() {
