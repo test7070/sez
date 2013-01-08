@@ -102,6 +102,7 @@
             }
 
             function btnOk() {
+
             	/*$('#txtBirthday').val($.trim($('#txtBirthday').val()));
                 if (checkId($('#txtBirthday').val())==0){
                 	alert(q_getMsg('lblBirthday')+'錯誤。');
