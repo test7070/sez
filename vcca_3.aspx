@@ -101,12 +101,8 @@
 					sum();
 				});	
 				$('#btnVcc').click(function(e){
-					if($('#txtTrdno').val().length==0){
-						$('#btnVcc').val('請稍後。');
-						q_func('vcca.genvcc',$('#txtNoa').val());
-					}else{
-						alert('已立帳，無法請款。');						
-					}
+					$('#btnVcc').val('請稍後。');
+					q_func('vcca.genvcc',$('#txtNoa').val());
 				});	
 				$('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
@@ -172,16 +168,10 @@
                 }
             }
             function btnOk() {
-            	$('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (checkId($('#txtDatea').val())==0){
+                if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
                 } 
-                $('#txtSerial').val($.trim($('#txtSerial').val()));    
-                if($('#txtSerial').val().length==0){
-                	alert('請輸入'+q_getMsg('lblSerial')+'。');
-                	return;
-                }    
                 if ($('#cmbTaxtype').val()!='6' && checkId($('#txtSerial').val())!=2){
                 	alert(q_getMsg('lblSerial')+'錯誤。');
                 	return;

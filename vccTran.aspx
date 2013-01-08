@@ -119,6 +119,14 @@
   					if(q_cur==1 || q_cur==2)
 					 $('#txtPaytype').val($('#combPaytype').find(":selected").text()); 
 				});
+				$("#txtPaytype").focus(function(e) {
+  					var n=$(this).val().match(/[0-9]+/g);
+  					var input = document.getElementById ("txtPaytype");
+		            if (typeof(input.selectionStart) != 'undefined' && n != null) {	  
+		                input.selectionStart = $(this).val().indexOf(n);
+		                input.selectionEnd =$(this).val().indexOf(n)+n.length+1;
+		            }
+				});
 				$("#txtTax").change(function(e) {				
 					sum();
 				});

@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -17,14 +16,17 @@
 		<script type="text/javascript">
             this.errorHandler = null;
 
-            q_tables = 's';
+            q_tables = 't';
             var q_name = "borr";
             var q_readonly = ['txtNoa', 'txtCash', 'txtChecka', 'txtMoney', 'txtInterest', 'txtTotal', 'txtPay', 'txtUnpay', 'txtWorker'];
             var q_readonlys = [];
             var bbmNum = [['txtCash', 10, 0], ['txtChecka', 10, 0], ['txtMoney', 10, 0], ['txtInterest', 10, 0], ['txtTotal', 10, 0], ['txtPay', 10, 0], ['txtUnpay', 10, 0]];
-            var bbsNum = [];
+            var bbsNum = [['txtMoney', 10, 0, 1]];
+            var bbtNum = [['txtMoney', 10, 0, 1]];
             var bbmMask = [['txtDatea', '999/99/99'], ['txtBegindate', '999/99/99'], ['txtEnddate', '999/99/99']];
             var bbsMask = [['txtDatea', '999/99/99'], ['txtIndate', '999/99/99']];
+            var bbtMask = [['txtMon', '999/99']];
+            var q_readonlyt = [];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -34,100 +36,13 @@
             q_xchg = 1;
             brwCount2 = 20;
 
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtCustnick', 'cust_b.aspx'])
-			
-			function borr() {}
-			borr.prototype = {
-				noa : '',
-				payed : '',
-				data : new Array(),
-				monSort : function(a,b){
-					return a.mon>b.mon?1:-1;
-				},
-				analyze : function(obj){
-					try{			
-						var x = obj.payed.split(',');
-						obj.data = new Array();
-						for(var i=0; i < x.length; i+=2){
-							obj.data.push({mon:x[i],money:x[i+1]});
-						}
-						obj.data.sort(obj.monSort);
-					}
-					catch(e){
-						alert("analyze: "+e.message);
-					}
-				},
-				merge : function(obj){
-					var t_table,t_schema,t_item,t_tr,t_str;
-					t_table = $('#payed > table').children('tbody').eq(0);
-					t_item =t_table.children('.item');
-					t_str = "";
-					for(var i=0;i<t_item.length;i++){
-						if(!t_item.eq(i).is(":hidden")){
-							t_str += (t_str.length>0?',':'') + t_item.eq(i).children('td').eq(2).children(':input').eq(0).val()+","+t_item.eq(i).children('td').eq(3).children(':input').eq(0).val();
-						}
-					}
-					obj.payed = t_str;
-					obj.analyze(obj);
-				},		
-				addRow : function(obj){
-					try{
-						$('#payed > table').children('tbody').eq(0).append($('#payed > table').children('tbody').eq(0).children('.schema').eq(0).clone());
-						$('#payed > table').children('tbody').eq(0).children('.schema').eq(1).removeClass('schema').addClass('item').show();
-						$('#payed > table').children('tbody').eq(0).children('.item:last').eq(0).children('td').eq(0).children('input').eq(0).click(function(e){
-							$(this).parent().parent().hide();
-						});
-						$('#payed > table').children('tbody').eq(0).children('.item:last').eq(0).children('td').eq(2).children('input').eq(0).keydown(function(e){
-							if(e.which==13)
-								$(this).parent().next().children().eq(0).focus();
-						}).mask('999/99');
-						$('#payed > table').children('tbody').eq(0).children('.item:last').eq(0).children('td').eq(3).children('input').eq(0).keydown(function(e){
-							if(e.which==13)
-								var t_tr= $(this).parent().parent().next().children('td').eq(2).children('input').eq(0).focus();
-						});
-						var n = 1;
-						for(var i=0; i<$('#payed > table').children('tbody').eq(0).children('.item').length;i++){
-							if(!$('#payed > table').children('tbody').eq(0).children('.item').eq(i).is(':hidden')){
-								$('#payed > table').children('tbody').eq(0).children('.item').eq(i).children('td').eq(1).children('a').text(n);
-								n++;
-							}						
-						}
-					}catch(e){
-						alert("addRow: "+e.message);
-					}
-				},			
-				display : function(obj){
-					try{
-						obj.analyze(obj);
-						var t_table,t_schema,t_item,t_tr;
-						t_table = $('#payed > table').children('tbody').eq(0);
-						t_schema = t_table.children('.schema').eq(0);
-						t_item = t_table.children('.item');	
-		
-						for(var i=0;i<t_item.length;i++){
-							t_item.eq(i).children('td').eq(2).children('input').val('');//mon
-							t_item.eq(i).children('td').eq(3).children('input').val('');//money
-							t_item.eq(i).hide();
-						}
-						for(var i=0;i<obj.data.length;i++){
-							if(i>=t_item.length){
-								obj.addRow();
-							}
-							t_table.children('.item').eq(i).show();
-							t_table.children('.item').eq(i).children('td').eq(2).children('input').val(obj.data[i].mon);
-							t_table.children('.item').eq(i).children('td').eq(3).children('input').val(obj.data[i].money);
-						}
-					}catch(e){
-						alert("display: "+e.message);
-					}		
-				}
-				
-			}
-			t_borr = new borr();
-			
+            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtCustnick', 'cust_b.aspx']
+           ,['txtBankno_', '', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']);
+
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
+                bbtKey = ['noa', 'noq'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
             });
@@ -160,17 +75,6 @@
                 });
                 $("#txtRate").change(function() {
                     sum();
-                });
-
-                $('#btnXchg').click(function() {
-                    if(q_xchg==2)
-                    	$("#payed").hide();
-                    else
-                    	$("#payed").show();
-                });
-                
-                $('#payed_plus').click(function(e){
-                	t_borr.addRow(t_borr);
                 });
             }
 
@@ -205,10 +109,7 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
-                
-				t_borr.payed='';
-                t_borr.display(t_borr);
-                $("#payed").show();
+
             }
 
             function btnModi() {
@@ -216,10 +117,6 @@
                     return;
                 _btnModi();
                 $('#txtDatea').focus();
-                
-                t_borr.payed=$('#txtPayed').val();
-                t_borr.display(t_borr);
-                 $("#payed").show();
             }
 
             function btnPrint() {
@@ -228,25 +125,8 @@
 
             function btnOk() {
                 sum();
-                t_borr.merge(t_borr);
-                $('#txtPayed').val(t_borr.payed);
                 $('#txtWorker').val(r_name);
-	            $('#txtDatea').val($.trim($('#txtDatea').val()));
-	                if (checkId($('#txtDatea').val())==0){
-	                	alert(q_getMsg('lblDatea')+'錯誤。');
-	                	return;
-	            }
-	            $('#txtBegindate').val($.trim($('#txtBegindate').val()));
-	                if (checkId($('#txtBegindate').val())==0){
-	                	alert(q_getMsg('lblBegindate')+'錯誤。');
-	                	return;
-	            }
-	            $('#txtEnddate').val($.trim($('#txtEnddate').val()));
-	                if (checkId($('#txtEnddate').val())==0){
-	                	alert(q_getMsg('lblEnddate')+'錯誤。');
-	                	return;
-	            }
-	            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
+                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
@@ -279,18 +159,10 @@
                 _refresh(recno);
                 if (q_cur > 0 && q_cur < 4)
                     sum();
-                    
-                t_borr.payed=$('#txtPayed').val();
-                t_borr.display(t_borr);
             }
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                if(q_cur==1 || q_cur==2){
-                	$('#payed').contents().find(':input').removeAttr('disabled');
-                }else{
-                	$('#payed').contents().find(':input').attr('disabled','disabled');
-                }
             }
 
             function btnMinus(id) {
@@ -298,6 +170,10 @@
             }
 
             function btnPlus(org_htm, dest_tag, afield) {
+                _btnPlus(org_htm, dest_tag, afield);
+            }
+
+            function btnPlut(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
             }
 
@@ -319,16 +195,21 @@
                 _bbsAssign();
             }
 
+            function bbtAssign() {
+                for (var i = 0; i < q_bbtCount; i++) {
+                    $('#lblNo__' + i).text(i + 1);
+                    if (!$('#btnMinut__' + i).hasClass('isAssign')) {
+                        $('#txtMoney__' + i).change(function() {
+                            sum();
+                        });
+                    }
+                }
+                _bbtAssign();
+            }
+
             function calcDay() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return;
-                /*var t_days = 0;
-                 var t_date1 = $('#txtBegindate').val();
-                 var t_date2 = $('#txtEnddate').val();
-                 t_date1 = (new Date()).setFullYear(parseInt(t_date1.substring(0,3))+1911,t_date1.substring(4,6),t_date1.substring(7,9));
-                 t_date2 = (new Date()).setFullYear(parseInt(t_date2.substring(0,3))+1911,t_date2.substring(4,6),t_date2.substring(7,9));
-                 t_days = Math.abs(t_date2-t_date1)/(1000*60*60*24) + 1;
-                 $('#txtDays').val(t_days); */
                 var t_days = 0;
                 var t_date1 = $('#txtBegindate').val();
                 var t_date2 = $('#txtEnddate').val();
@@ -406,8 +287,6 @@
 
             function btnCancel() {
                 _btnCancel();
-                t_borr.payed=$('#txtPayed').val();
-                t_borr.display(t_borr);
             }
 
             function onPageError(error) {
@@ -415,39 +294,10 @@
             }
 
             function q_popPost(id) {
-                switch(id) {
+                switch (id) {
                     default:
                         break;
                 }
-            }
-			function checkId(str) {
-                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
-                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
-                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-                    if ((n % 10) == 0)
-                        return 1;
-                } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
-                    var key = '12121241';
-                    var n = 0;
-                    var m = 0;
-                    for (var i = 0; i < 8; i++) {
-                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-                        m += Math.floor(n / 10) + n % 10;
-                    }
-                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-                        return 2;
-                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 3;
-                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
-                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 4
-               	}
-               	return 0;//錯誤
             }
 		</script>
 		<style type="text/css">
@@ -536,13 +386,6 @@
                 margin: -1px;
                 float: left;
             }
-            .tbbs select {
-                border-width: 1px;
-                padding: 0px;
-                margin: -1px;
-                font-size: medium;
-            }
-
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
@@ -557,7 +400,8 @@
                 border-collapse: collapse;
                 font-size: medium;
                 color: blue;
-                background: #cad3ff;
+                /*background: #cad3ff;*/
+                background: lightgrey;
                 width: 100%;
             }
             .dbbs .tbbs tr {
@@ -566,6 +410,33 @@
             .dbbs .tbbs tr td {
                 text-align: center;
                 border: 2px lightgrey double;
+            }
+            .dbbs .tbbs select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                font-size: medium;
+            }
+            #dbbt {
+                width: 220px;
+            }
+            #tbbt {
+                margin: 0;
+                padding: 2px;
+                border: 2px pink double;
+                border-spacing: 1;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                background: pink;
+                width: 100%;
+            }
+            #tbbt tr {
+                height: 35px;
+            }
+            #tbbt tr td {
+                text-align: center;
+                border: 2px pink double;
             }
 		</style>
 	</head>
@@ -707,7 +578,9 @@
 						<td>
 						<input id="txtWorker" type="text" class="txt c1"/>
 						</td>
-						<td colspan="6"><input id="txtPayed" type="text" style="display:none;"/></td>
+						<td colspan="6">
+						<input id="txtPayed" type="text" style="display:none;"/>
+						</td>
 						<td><span> </span><a id="lblUnpay" class="lbl"> </a></td>
 						<td>
 						<input id="txtUnpay" type="text" class="txt c1 num"/>
@@ -715,13 +588,13 @@
 					</tr>
 				</table>
 			</div>
-			<div class='dbbs' >
+			<div class='dbbs'>
 				<table id="tbbs" class='tbbs'>
 					<tr style='color:white; background:#003366;' >
 						<td style="width:20px;">
-						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"/>
+						<input id="btnPlus" type="button" style="font-size: medium; font-weight: bold; width:90%;" value="＋"/>
 						</td>
-						<td style="width:20px;"></td>
+						<td style="width:20px;"> </td>
 						<td style="width:80px;"><a id='lbl_typea'> </a></td>
 						<td style="width:80px;"><a id='lbl_datea'> </a></td>
 						<td style="width:80px;"><a id='lbl_money'> </a></td>
@@ -734,11 +607,11 @@
 					</tr>
 					<tr  style='background:#cad3ff;'>
 						<td align="center">
-						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
-						<input class="txt" id="txtNoq.*" type="text" style="display: none;"/>
+						<input id="btnMinus.*" type="button" style="font-size: medium; font-weight: bold; width:90%;" value="－"/>
+						<input id="txtNoq.*" type="text" style="display: none;"/>
 						</td>
 						<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-						<td><select id="cmbTypea.*" style="width:95%; text-align: center;"></select></td>
+						<td><select id="cmbTypea.*" style="width:95%; text-align: center;"> </select></td>
 						<td>
 						<input class="txt" id="txtDatea.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
@@ -768,24 +641,28 @@
 			</div>
 		</div>
 		<input id="q_sys" type="hidden" />
-		<div id="payed" style="display:none;">
-			<table style="width:250px; background-color: pink;">
+		<div id="dbbt" >
+			<table id="tbbt">
 				<tbody>
 					<tr class="head" style="color:white; background:#003366;">
-						<td style="width:20px;"><input type="button" id="payed_plus" style="font-size: medium; font-weight: bold; width:90%;" value="＋"/></td>
+						<td style="width:20px;">
+						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold; width:90%;" value="＋"/>
+						</td>
 						<td style="width:20px;"> </td>
 						<td style="width:80px; text-align: center;">還款月份</td>
 						<td style="width:100px; text-align: center;">金額</td>
 					</tr>
-					<tr class="schema" style="display:none;">
-						<td><input type="button" style="font-size: medium; font-weight: bold; width:90%;" value="－"/></td>
-						<td style="text-align: center;"><a style="font-size: medium; font-weight: bold; color:blue;"> </a></td>
-						<td><input type="text" style="width:95%;"/></td>
-						<td><input type="text" style="width:95%; text-align: right;"/></td>
+					<tr>
+						<td>
+						<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold; width:90%;" value="－"/>
+						<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
+						</td>
+						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+						<td><input id="txtMon..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtMoney..*"  type="text" style="width:95%; text-align: right;"/></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</body>
 </html>
-
