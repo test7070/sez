@@ -172,16 +172,10 @@
                 }
             }
             function btnOk() {
-            	$('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (checkId($('#txtDatea').val())==0){
+                if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
                 } 
-                $('#txtSerial').val($.trim($('#txtSerial').val()));    
-                if($('#txtSerial').val().length==0){
-                	alert('請輸入'+q_getMsg('lblSerial')+'。');
-                	return;
-                }    
                 if ($('#cmbTaxtype').val()!='6' && checkId($('#txtSerial').val())!=2){
                 	alert(q_getMsg('lblSerial')+'錯誤。');
                 	return;
