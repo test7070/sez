@@ -233,7 +233,7 @@
                 var input = document.getElementById ("txtDatea");
 	            if (typeof(input.selectionStart) != 'undefined' ) {	               
 	                input.selectionEnd =2;
-	                input.selectionStart = 7;
+	                input.selectionStart = 7;  
 	            }
             }
 
