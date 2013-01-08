@@ -407,11 +407,11 @@
                 	alert(q_getMsg('lblTrandate')+'錯誤。');
                 	return;
                 }
-                if (!q_cd($('#txtBilldate').val()))==0){
+                if (!q_cd($('#txtBilldate').val())){
                 	alert(q_getMsg('lblBilldate')+'錯誤。');
                 	return;
                 }
-                if (!q_cd($('#txtCldate').val()))==0){
+                if (!q_cd($('#txtCldate').val())){
                 	alert(q_getMsg('lblCldate')+'錯誤。');
                 	return;
                 }
