@@ -102,31 +102,6 @@
             }
 
             function btnOk() {
-            	$('#txtBirthday').val($.trim($('#txtBirthday').val()));
-                if (checkId($('#txtBirthday').val())==0){
-                	alert(q_getMsg('lblBirthday')+'錯誤。');
-                	return;
-            	}
-            	$('#txtTakeofficedate').val($.trim($('#txtTakeofficedate').val()));
-                if (checkId($('#txtTakeofficedate').val())==0){
-                	alert(q_getMsg('lblTakeofficedate')+'錯誤。');
-                	return;
-            	}
-            	$('#txtLeaveofficedate').val($.trim($('#txtLeaveofficedate').val()));
-                if (checkId($('#txtLeaveofficedate').val())==0){
-                	alert(q_getMsg('lblLeaveofficedate')+'錯誤。');
-                	return;
-            	}
-            	$('#txtStrdate').val($.trim($('#txtStrdate').val()));
-                if (checkId($('#txtStrdate').val())==0){
-                	alert(q_getMsg('lblStrdate')+'錯誤。');
-                	return;
-            	}
-            	$('#txtEnddate').val($.trim($('#txtEnddate').val()));
-                if (checkId($('#txtEnddate').val())==0){
-                	alert(q_getMsg('lblEnddate')+'錯誤。');
-                	return;
-            	}
             	
                 var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
