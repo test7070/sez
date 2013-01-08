@@ -152,7 +152,15 @@
                         t_where1 = " where[1]=^^ a.noa='" + $('#txtNoa').val() + "' and a.paysale!=0 ";
 
                         t_where2 = " where[2]=^^ left(a.datea,6)='" + $('#txtDatea').val().substr(0, 6) + "' ^^";
-                        t_where3 = " where[3]=^^ c.noa='" + $('#txtCustno').val() + "' ^^";
+                        t_where3 = " where[3]=^^ c.noa='" + $('#txtCustno').val() + "' ";
+                        
+                        if (!emp($('#txtCustno2').val())) {
+                            var t_custno2 = ($('#txtCustno2').val()).split(",");
+                            for (var i = 0; i < t_custno2.length; i++) {
+                                t_where3 += " or c.noa ='" + t_custno2[i] + "'"
+                            }
+                        }
+                        t_where3+=" ^^";
 
                        /* var j = 0, s2 = '', s1 = '';
                         for (var i = 0; i < q_bbsCount; i++) {
