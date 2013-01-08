@@ -362,6 +362,10 @@
                     return;
                 _btnModi();
 				//禁止修改
+				$('#txtCarowner').attr('disabled', 'disabled');
+				$('#txtCarno').attr('disabled', 'disabled');
+				$('#txtMon').attr('disabled', 'disabled');
+				
 				for(var j = 0; j < q_bbsCount; j++) {
 					if($('#txtUdate_'+j).val()!=''){
 						$('#btnMinus_'+j).attr('disabled', 'disabled');

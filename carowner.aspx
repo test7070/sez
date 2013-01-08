@@ -42,7 +42,7 @@
             }
 
             function mainPost() { 
-            	bbmMask = [['txtBirthday', r_picd],['txtHealth_bdate', r_picd], ['txtHealth_edate', r_picd], ['txtLabor1_bdate', r_picd], ['txtLabor1_edate', r_picd], ['txtLabor2_bdate', r_picd], ['txtLabor2_edate', r_picd]];
+            	bbmMask = [['txtBirthday', r_picd],['txtIndate', r_picd],['txtHealth_bdate', r_picd], ['txtHealth_edate', r_picd], ['txtLabor1_bdate', r_picd], ['txtLabor1_edate', r_picd], ['txtLabor2_bdate', r_picd], ['txtLabor2_edate', r_picd]];
 		        q_mask(bbmMask);
             	q_cmbParse("cmbSex",q_getPara('sys.sex'));
             	$('#lblBalance').parent().click(function(e) {
@@ -499,6 +499,10 @@
 							<td class="td4">
 							<input id="txtFax"  type="text" class="txt c1"/>
 							</td>
+						</tr>
+						<tr>
+							<td class="td1"><span> </span><a id='lblIndate' class="lbl"></a></td>
+							<td class="td2"><input id="txtIndate" type="text" class="txt c1"/></td>
 						</tr>
 						<tr>
 							<td class="td1"><span> </span><a id='lblHealth_bdate' class="lbl"></a></td>
