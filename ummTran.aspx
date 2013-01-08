@@ -109,7 +109,8 @@
 
                     var t_money = 0 + q_float('txtUnopay');
                     for (var i = 0; i < q_bbsCount; i++) {
-                        if ($('#txtAcc1_' + i).val().indexOf('2121') == 0 || $('#txtAcc1_' + i).val().indexOf('7149') == 0 || $('#txtAcc1_' + i).val().indexOf('7044') == 0)
+                    	//$('#txtAcc1_' + i).val().indexOf('2121') == 0 ||
+                        if ( $('#txtAcc1_' + i).val().indexOf('7149') == 0 || $('#txtAcc1_' + i).val().indexOf('7044') == 0)
                             t_money -= q_float('txtMoney_' + i);
                         else
                             t_money += q_float('txtMoney_' + i);
@@ -241,7 +242,8 @@
             function sum() {
                 var t_money = 0, t_pay = 0, t_sale = 0;
                 for (var j = 0; j < q_bbsCount; j++) {
-                    if ($('#txtAcc1_' + j).val().indexOf('2121') == 0 || $('#txtAcc1_' + j).val().indexOf('7149') == 0 || $('#txtAcc1_' + j).val().indexOf('7044') == 0)
+                	//$('#txtAcc1_' + j).val().indexOf('2121') == 0 ||
+                    if ( $('#txtAcc1_' + j).val().indexOf('7149') == 0 || $('#txtAcc1_' + j).val().indexOf('7044') == 0)
                         t_money -= q_float('txtMoney_' + j);
                     else
                         t_money += q_float('txtMoney_' + j);
