@@ -15,7 +15,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
             var q_name = "carowner";
-            var q_readonly = [];
+            var q_readonly = ['txtNoa'];
             var bbmNum = [];
             var bbmMask = [['txtZip_home','999-99'],['txtZip_conn','999-99'],['txtBirthday','999/99/99']];
             q_sqlCount = 6;
@@ -89,7 +89,15 @@
 
             function q_gtPost(t_name) {
             	switch (t_name) {
-                case q_name: if (q_cur == 4)   
+                case q_name:
+                	if(q_cur==1){
+                		var caras = _q_appendData("carowner", "", true);
+                		if(as[0]!=undefined){
+                			$('#txtNoa').val(as[0].noa.substr(0,1)+(dec(as[0].noa.substr(1))+1));
+                		}
+                	}
+                	 
+                	if (q_cur == 4)   
                         q_Seek_gtPost();
 
                     break;
@@ -104,7 +112,9 @@
             
             function btnIns() {
                 _btnIns();
-                $('#txtNoa').focus();
+                $('#txtNamea').focus();
+                var t_where = "where=^^ noa=(select MAX(noa) from carOwner) ^^";
+                q_gt('carowner', t_where , 0, 0, 0, "", r_accy);
             }
 
             function btnModi() {
@@ -120,41 +130,6 @@
             }
 
             function btnOk() {
-				$('#txtBirthday').val($.trim($('#txtBirthday').val()));
-                /*if (checkId($('#txtBirthday').val())==0){
-                	alert(q_getMsg('lblBirthday')+'錯誤。');
-                	return;
-           		}*/
-				$('#txtHealth_bdate').val($.trim($('#txtHealth_bdate').val()));
-                /*if (checkId($('#txtHealth_bdate').val())==0){
-                	alert(q_getMsg('lblHealth_bdate')+'錯誤。');
-                	return;
-           		}*/
-				$('#txtHealth_edate').val($.trim($('#txtHealth_edate').val()));
-                /*if (checkId($('#txtHealth_edate').val())==0){
-                	alert(q_getMsg('lblHealth_edate')+'錯誤。');
-                	return;
-           		}*/
-				$('#txtLabor1_bdate').val($.trim($('#txtLabor1_bdate').val()));
-                /*if (checkId($('#txtLabor1_bdate').val())==0){
-                	alert(q_getMsg('lblLabor1_bdate')+'錯誤。');
-                	return;
-           		}*/
-				$('#txtLabor1_edate').val($.trim($('#txtLabor1_edate').val()));
-                /*if (checkId($('#txtLabor1_edate').val())==0){
-                	alert(q_getMsg('lblLabor1_edate')+'錯誤。');
-                	return;
-           		}*/
-				$('#txtLabor2_bdate').val($.trim($('#txtLabor2_bdate').val()));
-                /*if (checkId($('#txtLabor2_bdate').val())==0){
-                	alert(q_getMsg('lblLabor2_bdate')+'錯誤。');
-                	return;
-           		}*/
-				$('#txtLabor2_edate').val($.trim($('#txtLabor2_edate').val()));
-                /*if (checkId($('#txtLabor2_edate').val())==0){
-                	alert(q_getMsg('lblLabor2_edate')+'錯誤。');
-                	return;
-           		}*/
             	var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
                 var t_noa = $('#txtNoa').val();
