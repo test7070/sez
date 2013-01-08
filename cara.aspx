@@ -287,13 +287,11 @@
             }
 
             function btnOk() {
-            	$('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (checkId($('#txtDatea').val())==0){
+                if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
             	}
-            	$('#txtPdate').val($.trim($('#txtPdate').val()));
-                if (checkId($('#txtPdate').val())==0){
+                if (!q_cd($('#txtPdate').val())){
                 	alert(q_getMsg('lblPdate')+'錯誤。');
                 	return;
             	}
