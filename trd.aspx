@@ -315,8 +315,7 @@
             		alert('年度異常!');
             		return;
             	}
-                $('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (checkId($('#txtDatea').val()) == 0) {
+                if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     return;
                 }
@@ -325,31 +324,7 @@
                     alert(q_getMsg('lblMon') + '錯誤。');
 					return;
 				}
-                $('#txtBdate').val($.trim($('#txtBdate').val()));
-                if (checkId($('#txtBdate').val()) == 0) {
-                    alert(q_getMsg('lblBdate') + '錯誤。');
-                    return;
-                }
-                $('#txtEdate').val($.trim($('#txtEdate').val()));
-                if (checkId($('#txtEdate').val()) == 0) {
-                    alert(q_getMsg('lblEdate') + '錯誤。');
-                    return;
-                }
-                $('#txtBtrandate').val($.trim($('#txtBtrandate').val()));
-                if (checkId($('#txtBtrandate').val()) == 0) {
-                    alert(q_getMsg('lblBtrandate') + '錯誤。');
-                    return;
-                }
-                $('#txtEtrandate').val($.trim($('#txtEtrandate').val()));
-                if (checkId($('#txtEtrandate').val()) == 0) {
-                    alert(q_getMsg('lblEtrandate') + '錯誤。');
-                    return;
-                }
-                $('#txtVccadate').val($.trim($('#txtVccadate').val()));
-                if (checkId($('#txtVccadate').val()) == 0) {
-                    alert(q_getMsg('lblVccadate') + '錯誤。');
-                    return;
-                }
+
                 $('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
