@@ -101,12 +101,8 @@
 					sum();
 				});	
 				$('#btnVcc').click(function(e){
-					if($('#txtTrdno').val().length==0){
-						$('#btnVcc').val('請稍後。');
-						q_func('vcca.genvcc',$('#txtNoa').val());
-					}else{
-						alert('已立帳，無法請款。');						
-					}
+					$('#btnVcc').val('請稍後。');
+					q_func('vcca.genvcc',$('#txtNoa').val());
 				});	
 				$('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);

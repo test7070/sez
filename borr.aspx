@@ -36,7 +36,8 @@
             q_xchg = 1;
             brwCount2 = 20;
 
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtCustnick', 'cust_b.aspx'])
+            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtCustnick', 'cust_b.aspx']
+           ,['txtBankno_', '', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -417,7 +418,7 @@
                 font-size: medium;
             }
             #dbbt {
-                width: 950px;
+                width: 220px;
             }
             #tbbt {
                 margin: 0;
