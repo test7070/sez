@@ -232,7 +232,24 @@
                			return 4
                	}
                	return 0;//錯誤
-            }		</script>
+            }
+            function returnparent() {
+            	if(window.parent.q_name=='car2'){
+				 	var wParent = window.parent.document;
+				 	wParent.getElementById("txtCarownerno").value=$('#txtNoa').val();
+				 	wParent.getElementById("txtCarowner").value=$('#txtNamea').val();
+				 	wParent.getElementById("cmbSex").value=$('#cmbSex').val();
+				 	wParent.getElementById("txtIdno").value=$('#txtIdno').val();
+				 	wParent.getElementById("txtBirthday").value=$('#txtBirthday').val();
+				 	wParent.getElementById("txtTel1").value=$('#txtTel1').val();
+				 	wParent.getElementById("txtTel2").value=$('#txtTel2').val();
+				 	wParent.getElementById("txtMobile").value=$('#txtMobile').val();
+				 	wParent.getElementById("txtFax").value=$('#txtFax').val();
+				 	wParent.getElementById("txtAddr_conn").value=$('#txtAddr_conn').val();
+				 	wParent.getElementById("txtAddr_home").value=$('#txtAddr_home').val();
+				 }
+			}
+        </script>
 		<style type="text/css">
              #dmain {
                 overflow: hidden;
@@ -411,7 +428,7 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body onunload='returnparent()'>
 		<form id="form1" style="height: 100%;" action="">
 			<!--#include file="../inc/toolbar.inc"-->
 			<div id='dmain' style="overflow:hidden;">
