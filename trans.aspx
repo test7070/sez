@@ -262,7 +262,8 @@
 				});
 				$("#txtStraddrno").focus(function() {
 					var input = document.getElementById ("txtStraddrno");
-		            if (typeof(input.selectionStart) != 'undefined' ) {	               
+		            if (typeof(input.selectionStart) != 'undefined' ) {	  
+		            	//alert($("#txtStraddrno").val().index)             
 		                input.selectionEnd =1;
 		                input.selectionStart = 6;
 		            }
