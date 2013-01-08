@@ -18,7 +18,7 @@
             var q_name = "driver";
             var q_readonly = [];
             var bbmNum = [['txtSalmoney',10,0],['txtLabor',10,0],['txtHealth',10,0],['txtPensionfund',10,0],['txtDependents',10,0],['txtMoney',10,0],['txtEo',10,0]];
-            var bbmMask = [['txtZip_home','999-99'],['txtZip_conn','999-99'],['txtBirthday','999/99/99'],['txtTakeofficedate','999/99/99'],['txtLeaveofficedate','999/99/99'],['txtStrdate','999/99/99'],['txtEnddate','999/99/99']];
+            var bbmMask = [['txtZip_home','999-99'],['txtIndate', '999/99/99'],['txtZip_conn','999-99'],['txtBirthday','999/99/99'],['txtTakeofficedate','999/99/99'],['txtLeaveofficedate','999/99/99'],['txtStrdate','999/99/99'],['txtEnddate','999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -102,7 +102,8 @@
             }
 
             function btnOk() {
-            	$('#txtBirthday').val($.trim($('#txtBirthday').val()));
+
+            	/*$('#txtBirthday').val($.trim($('#txtBirthday').val()));
                 if (checkId($('#txtBirthday').val())==0){
                 	alert(q_getMsg('lblBirthday')+'錯誤。');
                 	return;
@@ -126,7 +127,7 @@
                 if (checkId($('#txtEnddate').val())==0){
                 	alert(q_getMsg('lblEnddate')+'錯誤。');
                 	return;
-            	}
+            	}*/
             	
                 var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
@@ -408,8 +409,8 @@
 						<td class="td6">
 						<input id="txtBirthday" type="text" class="txt c1"/>
 						</td>
-						
-						
+						<td class="td1"><span> </span><a id='lblIndate' class="lbl"></a></td>
+						<td class="td2"><input id="txtIndate" type="text" class="txt c1"/></td>
 					</tr>
 					<tr  class="tr3">
 						<td class="td1" ><span> </span><a id="lblTel" class="lbl"></a></td>

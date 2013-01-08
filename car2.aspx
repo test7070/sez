@@ -57,6 +57,7 @@
                 q_gt('cardeal', '', 0, 0, 0, "");
 				
 				$(".carowner").hide();
+				
 				$("#btnCarowner").val("＋");
 				$("#btnCarowner").toggle(function(e) {
 					$(".carowner").show();
@@ -65,6 +66,15 @@
 					$(".carowner").hide();
 					$("#btnCarowner").val("＋");
 				});
+				
+				$("#btnCarowneredit").val("車主新增/修改");
+				$('#btnCarowneredit').click(function(e) {
+					if(emp($('#txtCarownerno').val()))
+						q_box("carowner.aspx?;;;;", 'carowner', "90%", "600px", q_getMsg("popCarowner"));
+					else
+						q_box("carowner.aspx?;;;noa='" + $('#txtCarownerno').val() + "'", 'carowner', "90%", "600px", q_getMsg("popCarowner"));
+				});
+				
 				$(".carexpense").hide();
 				$("#btnCarexpense").toggle(function(e) {
 					$(".carexpense").show();
@@ -650,6 +660,7 @@
 							<input id="txtCarowner" type="text"  style='width:60%; float:left;'/>
 						</td>
 						<td style="text-align: center;"><input id="btnCarowner" type="button" style="width:50%;"/></td>
+						<td style="text-align: center;"><input id="btnCarowneredit" type="button" /></td>
 					</tr>
 					<tr class="carowner">
 						<td><span> </span><a id="lblSex" class="lbl"> </a></td>

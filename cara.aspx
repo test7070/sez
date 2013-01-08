@@ -287,13 +287,11 @@
             }
 
             function btnOk() {
-            	$('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (checkId($('#txtDatea').val())==0){
+                if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
             	}
-            	$('#txtPdate').val($.trim($('#txtPdate').val()));
-                if (checkId($('#txtPdate').val())==0){
+                if (!q_cd($('#txtPdate').val())){
                 	alert(q_getMsg('lblPdate')+'錯誤。');
                 	return;
             	}
@@ -364,6 +362,10 @@
                     return;
                 _btnModi();
 				//禁止修改
+				$('#txtCarowner').attr('disabled', 'disabled');
+				$('#txtCarno').attr('disabled', 'disabled');
+				$('#txtMon').attr('disabled', 'disabled');
+				
 				for(var j = 0; j < q_bbsCount; j++) {
 					if($('#txtUdate_'+j).val()!=''){
 						$('#btnMinus_'+j).attr('disabled', 'disabled');
@@ -378,7 +380,7 @@
             }
 
             function btnPrint() {
-				q_box('z_cara.aspx', '', "90%", "600px", q_getMsg("popPrint"));
+				q_box('z_car2.aspx', '', "90%", "600px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
