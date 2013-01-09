@@ -20,7 +20,7 @@
                 q_gf('', 'z_gqb');
 
             });
-            function q_gfPost() {
+            function q_gfPost() {         	
                 $('#q_report').q_report({
                     fileName : 'z_gqb',
                     options : [{
@@ -50,6 +50,10 @@
                     }, {/*6*/
                         type : '1',
                         name : 'gqbno'
+                    }, {/*7*/
+                        type : '5',
+                        name : 'sort01',
+                        value : q_getMsg('sort01').split('&')
                     }]
                 });
                 q_popAssign();
