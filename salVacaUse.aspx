@@ -210,7 +210,7 @@
             }
 
             function btnPrint() {
-
+ 				q_box('z_salvacause.aspx', '', "95%", "650px", q_getMsg("popPrint"));
             }
 
             function btnOk() {
