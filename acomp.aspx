@@ -48,6 +48,26 @@
 					$('#txtSerial').val($.trim($('#txtSerial').val()));
 					checkId($('#txtSerial').val());
 				});
+				
+				var t_stamp = q_getPara('stamp.typea').split(',');
+				var n = 3;//一行可放幾個
+				var m = 0;
+				for(var i=0;i<t_stamp.length;i++){
+					if(i%n==0){
+						$('.schema_tr').clone().appendTo($('#tbbm tbody')).css('display','').removeClass('schema_tr').attr('id','stamp_tr_'+Math.round(i/n));
+					}
+					if(i==0){
+						$('.schema_lbl').clone().appendTo($('#stamp_tr_0')).removeClass('schema_lbl');
+					}
+					else if(i%n==0)
+						$('.schema_td').clone().appendTo($('#stamp_tr_'+Math.round(i/n))).removeClass('schema_td');
+					$('.schema_chk').clone().appendTo($('#stamp_tr'+Math.round(i/n))).removeClass('schema_chk');
+				}
+				
+				
+				//<td><span> </span><a id='lblStamp' class="lbl"> </a></td>
+				//$('#tbbm tbody').appendTo('<tr><input type="checkbox" /> </tr>')
+				
             }
             function checkId(str){
             	if((/^[a-z,A-Z][0-9]{9}$/g).test(str)){
@@ -119,6 +139,7 @@
                     return;
 
                 _btnModi();
+                $('#txtNoa').attr('readonly', true);
                 $('#txtComp').focus();
             }
 
@@ -347,57 +368,65 @@
 			</div>
 			<div class='dbbm' >
 				<table class="tbbm"  id="tbbm">
-					<tr style="height:1px;">
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td class="tdZ"> </td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblAcomp' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtAcomp"  type="text" class="txt c1" />	</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblNick' class="lbl"> </a></td>
-						<td><input id="txtNick"  type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblEname' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtEname"  type="text" class="txt c1" />	</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblBoss' class="lbl"> </a></td>
-						<td><input id="txtBoss"  type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
-						<td><input id="txtSerial"  type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
-						<td><input id="txtTel"  type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblFax' class="lbl"> </a></td>
-						<td><input id="txtFax"  type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblAddr' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtAddr"  type="text" class="txt c1" />	</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan="3"><textarea id="txtMemo" cols="10" rows="5" style="width: 100%;height: 127px;"></textarea></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblInsur_disaster' class="lbl"> </a></td>
-						<td><input id="txtInsur_disaster"  type="text" class="txt c1" /></td>
-					</tr>
+					<tbody>
+						<tr style="height:1px;">
+							<td> </td>
+							<td> </td>
+							<td> </td>
+							<td> </td>
+							<td class="tdZ"> </td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
+							<td colspan="3"><input id="txtNoa"  type="text"  class="txt c1"/></td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblAcomp' class="lbl"> </a></td>
+							<td colspan="3"><input id="txtAcomp"  type="text" class="txt c1" />	</td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblNick' class="lbl"> </a></td>
+							<td><input id="txtNick"  type="text" class="txt c1" /></td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblEname' class="lbl"> </a></td>
+							<td colspan="3"><input id="txtEname"  type="text" class="txt c1" />	</td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblBoss' class="lbl"> </a></td>
+							<td><input id="txtBoss"  type="text" class="txt c1" /></td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
+							<td><input id="txtSerial"  type="text" class="txt c1" /></td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblTel' class="lbl"> </a></td>
+							<td><input id="txtTel"  type="text" class="txt c1" /></td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblFax' class="lbl"> </a></td>
+							<td><input id="txtFax"  type="text" class="txt c1" /></td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblAddr' class="lbl"> </a></td>
+							<td colspan="3"><input id="txtAddr"  type="text" class="txt c1" />	</td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
+							<td colspan="3"><textarea id="txtMemo" cols="10" rows="5" style="width: 100%;height: 127px;"></textarea></td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblInsur_disaster' class="lbl"> </a></td>
+							<td><input id="txtInsur_disaster"  type="text" class="txt c1" /></td>
+						</tr>
+						<tr class="schema_tr" style="display:none;"> </tr>
+						<tr style="display:none;">
+							<td class="schema_lbl"><span> </span><a class="lbl"> </a></td>
+							<td class="schema_td"> </td>
+							<td class="schema_chk"><input type="checkbox"/></td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>
