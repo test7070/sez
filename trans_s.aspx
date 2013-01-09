@@ -32,6 +32,8 @@
                 q_mask(bbmMask);
                 q_gt('carteam', '', 0, 0, 0, "");
                 q_gt('calctype2', '', 0, 0, 0, "calctypes");
+                q_cmbParse("cmbTrd", '@全部,Y@已立帳,N@未立帳');
+                q_cmbParse("cmbTre", '@全部,Y@已立帳,N@未立帳');
                 $('#txtBdate').focus();
             }
 
@@ -81,7 +83,8 @@
 		        /// 100.  .
 		        t_etrandate = t_etrandate.length > 0 && t_etrandate.indexOf("_") > -1 ? t_etrandate.substr(0, t_etrandate.indexOf("_")) : t_etrandate;
 		        /// 100.  .
-		        
+		        t_trd = $.trim($('#cmbTrd').val());
+		        t_tre = $.trim($('#cmbTre').val());
 		        t_carteam = $.trim($('#cmbCarteam').val());
 		        t_calctype = $.trim($('#cmbCalctype').val());
 
@@ -92,7 +95,15 @@
 		        + q_sqlPara2("datea", t_bdate, t_edate) 
 		        + q_sqlPara2("Trandate", t_btrandate, t_etrandate) 
 		        + q_sqlPara_or(["caseno", "caseno2"], t_caseno) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver) + q_sqlPara2("custno", t_custno) + q_sqlPara2("straddrno", t_straddrno) + q_sqlPara2("comp", t_comp) + q_sqlPara2("carno", t_carno) + q_sqlPara2("po", t_po);
-		       
+		       	if(t_trd=='Y')
+		       		t_where += " and len(trdno)>0"
+		       	if(t_trd=='N')
+		       		t_where += " and len(trdno)=0"
+		       	if(t_tre=='Y')
+		       		t_where += " and len(treno)>0"
+		       	if(t_tre=='N')
+		       		t_where += " and len(treno)=0"	
+		       		
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
             }
@@ -120,6 +131,14 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCalctype'> </a></td>
 					<td><select id="cmbCalctype" style="width:215px; font-size:medium;" > </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblTrd'> </a></td>
+					<td><select id="cmbTrd" style="width:215px; font-size:medium;" > </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblTre'> </a></td>
+					<td><select id="cmbTre" style="width:215px; font-size:medium;" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td   style="width:35%;" ><a id='lblDatea'></a></td>
