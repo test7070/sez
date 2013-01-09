@@ -16,7 +16,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="welfare";
-        var q_readonly = [];
+        var q_readonly = ['txtNoa'];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -87,6 +87,7 @@
 
         function btnIns() {
             _btnIns();
+            $('#txtNoa').val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
         }
@@ -100,7 +101,7 @@
         }
 
         function btnPrint() {
- 
+ 			q_box('z_welfare.aspx', '', "95%", "650px", q_getMsg("popPrint"));
         }
         function checkId(str) {
                 if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
@@ -152,7 +153,7 @@
 			var t_noa = trim($('#txtNoa').val());
 			 var t_date = trim($('#txtDatea').val());
     		 if (t_noa.length == 0 || t_noa == "AUTO")
-		            q_gtnoa(q_name, replaceAll(q_getPara('sys.key_carborr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+		            q_gtnoa(q_name, replaceAll(q_getPara('sys.key_welfare') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 		        else
 		            wrServer(t_noa);
         }
@@ -372,6 +373,10 @@
         </div>
         <div class='dbbm' style="width: 73%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
+            <tr>
+            	<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
+               <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
+            </tr>
             <tr>
             	<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
                <td class="td2"><input id="txtDatea"  type="text" class="txt c1"/></td>
