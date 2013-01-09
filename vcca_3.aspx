@@ -109,7 +109,7 @@
 					q_func('vcca.genvcc',$('#txtNoa').val());
 				});	
 				$('#lblAccno').click(function() {
-                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
                 });
                	$('#lblVccno').click(function() {
                     q_pop('txtVccno', "vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
@@ -169,7 +169,7 @@
                         break;
                 }
             }
-            function btnOk() {  	
+            function btnOk() {  
                 if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
