@@ -122,7 +122,7 @@
                 switch (t_name) {
                 	case 'authority':
 		                var as = _q_appendData('authority', '', true);
-		                if (as.length > 0 && as[0]["pr_run"] == "true")
+		                if (as.length > 0 && as[0]["pr_dele"] == "true")
 		                    q_content = "";
 		                else
 		                    q_content = "where=^^sssno='" + r_userno + "'^^";
