@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -10,35 +10,55 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-		    var q_name = "trans_s";
-		    aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+            var q_name = "trans_s";
+			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
 		    ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
 		    ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno', 'addr_b.aspx'],
              ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']);
-		    $(document).ready(function () {
-		        main();
-		    });
-		    /// end ready
+            $(document).ready(function() {
+                main();
+            });
+            /// end ready
 
-		    function main() {
-		        mainSeek();
-		        q_gf('', q_name);
-		    }
+            function main() {
+                mainSeek();
+                q_gf('', q_name);
+            }
 
-		    function q_gfPost() {
-		        q_getFormat();
-		        q_langShow();
+            function q_gfPost() {
+                q_getFormat();
+                q_langShow();
+                bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+                q_mask(bbmMask);
+                q_gt('carteam', '', 0, 0, 0, "");
+                q_gt('calctype2', '', 0, 0, 0, "calctypes");
+                $('#txtBdate').focus();
+            }
 
-		        bbmMask1 = [['txtBdate', r_picd], ['txtEdate', r_picd]];
-		        bbmMask = [['txtBtrandate', r_picd], ['txtEtrandate', r_picd]];
-		        q_mask(bbmMask1);
-		        q_mask(bbmMask);
-		        $('#txtBdate').focus();
+            function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'carteam':
+                        var t_carteam = '@全部';
+                        var as = _q_appendData("carteam", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_carteam += (t_carteam.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+                        }
+                        q_cmbParse("cmbCarteam", t_carteam);
+                        break;
+                    case 'calctypes':
+						var as = _q_appendData("calctypes", "", true);
+						var t_item = '@全部';
+						var item = new Array();
+						for ( i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + as[i].noq + '@' + as[i].typea;
+						}
+						q_cmbParse("cmbCalctype", t_item);
+						break;
+                }
+            }
 
-		    }
-
-		    function q_seekStr() {
-		        t_noa = $('#txtNoa').val();
+            function q_seekStr() {
+                t_noa = $('#txtNoa').val();
 		        t_driverno = $('#txtDriverno').val();
 		        t_driver = $('#txtDriver').val();
 		        t_custno = $('#txtCustno').val();
@@ -61,24 +81,46 @@
 		        /// 100.  .
 		        t_etrandate = t_etrandate.length > 0 && t_etrandate.indexOf("_") > -1 ? t_etrandate.substr(0, t_etrandate.indexOf("_")) : t_etrandate;
 		        /// 100.  .
+		        
+		        t_carteam = $.trim($('#cmbCarteam').val());
+		        t_calctype = $.trim($('#cmbCalctype').val());
 
-		        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("Trandate", t_btrandate, t_etrandate) + q_sqlPara_or(["caseno", "caseno2"], t_caseno) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver) + q_sqlPara2("custno", t_custno) + q_sqlPara2("straddrno", t_straddrno) + q_sqlPara2("comp", t_comp) + q_sqlPara2("carno", t_carno) + q_sqlPara2("po", t_po);
+		        var t_where = " 1=1 " 
+		        + q_sqlPara2("carteamno", t_carteam)
+		        + q_sqlPara2("calctype", t_calctype)
+		        + q_sqlPara2("noa", t_noa) 
+		        + q_sqlPara2("datea", t_bdate, t_edate) 
+		        + q_sqlPara2("Trandate", t_btrandate, t_etrandate) 
+		        + q_sqlPara_or(["caseno", "caseno2"], t_caseno) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver) + q_sqlPara2("custno", t_custno) + q_sqlPara2("straddrno", t_straddrno) + q_sqlPara2("comp", t_comp) + q_sqlPara2("carno", t_carno) + q_sqlPara2("po", t_po);
+		       
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
-		    }
+            }
 		</script>
 		<style type="text/css">
-			.seek_tr {
-				color: white;
-				text-align: center;
-				font-weight: bold;
-				BACKGROUND-COLOR: #76a2fe
-			}
+            .seek_tr {
+                color: white;
+                text-align: center;
+                font-weight: bold;
+                background-color: #76a2fe;
+            }
 		</style>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCarteam'> </a></td>
+					<td><select id="cmbCarteam" style="width:215px; font-size:medium;" > </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCalctype'> </a></td>
+					<td><select id="cmbCalctype" style="width:215px; font-size:medium;" > </select></td>
+				</tr>
 				<tr class='seek_tr'>
 					<td   style="width:35%;" ><a id='lblDatea'></a></td>
 					<td style="width:65%;  ">
