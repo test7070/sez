@@ -34,7 +34,7 @@
             currentData.prototype = {
                 data : [],
                 /*新增時複製的欄位*/
-                include : ['txtDatea', 'txtCno', 'txtAcomp', 'txtNoa','txtSerial','txtBuyer','txtCustno','txtComp','txtNick'],
+                include : ['txtDatea', 'txtCno', 'txtAcomp', 'txtNoa','txtSerial','txtBuyer','txtCustno','txtComp','txtNick','txtProductno','txtProduct'],
                 /*記錄當前的資料*/
                 copy : function() {
                     curData.data = new Array();
@@ -88,6 +88,9 @@
                     sum();
                 });
                 $('#txtTax').change(function(e) {
+                    sum();
+                });
+                $('#txtTotal').change(function(e) {
                     sum();
                 });
                 q_cmbParse("cmbTaxtype",q_getPara('sys.taxtype'));
@@ -226,6 +229,7 @@
 	                input.selectionEnd =2;
 	                input.selectionStart = 7;  
 	            }
+	            sum();
             }
 
             function btnModi() {
@@ -237,6 +241,7 @@
                 $('#txtDatea').focus();
                 $('#txtNoa').attr('readonly', true);
                 //讓發票號碼不可修改
+                sum();
             }
 
             function btnPrint() {
@@ -252,8 +257,14 @@
 
             function sum() {
 				if(!(q_cur==1 || q_cur==2))
-					return;		
-				$('#txtTax').attr('readonly','readonly');	
+					return;	
+				$('#txtMoney').attr('readonly',false);			
+				$('#txtTax').attr('readonly',true);	
+				$('#txtTotal').attr('readonly', true);
+				$('#txtMoney').css('background-color','white').css('color','black');
+				$('#txtTax').css('background-color','rgb(237,237,238)').css('color','green');
+				$('#txtTotal').css('background-color','rgb(237,237,238)').css('color','green');
+		
 				var t_money,t_taxrate,t_tax,t_total;
 				t_money = round(q_float('txtMoney'),0);
 				t_taxrate = parseFloat(q_getPara('sys.taxrate'))/100;
@@ -267,16 +278,21 @@
 			        	t_total = t_money + t_tax;
 			        	break;
 			        case '3':  // 內含
-			            t_tax = round(t_money / (1 + t_taxrate) * t_taxrate, 0);
-			            t_total = t_money;
-			            t_money = t_total - t_tax;
+			        	$('#txtMoney').attr('readonly',true);			
+						$('#txtTotal').attr('readonly', false);
+						$('#txtMoney').css('background-color','rgb(237,237,238)').css('color','green');
+						$('#txtTotal').css('background-color','white').css('color','black');
+			        	t_total = q_float('txtTotal');
+			        	t_money = round(t_total/(1 + t_taxrate),0);
+			        	t_tax = t_total-t_money;
 			            break;
 			        case '4':  // 免稅
 			            t_tax = 0;
 			        	t_total = t_money + t_tax;
 			            break;
-			        case '5':  // 自定
-			        	$('#txtTax').removeAttr('readonly');
+			        case '5':  // 自定		
+						$('#txtTax').attr('readonly',false);	
+						$('#txtTax').css('background-color','white').css('color','black');
 						t_tax = round(q_float('txtTax'),0);
 			        	t_total = t_money + t_tax;
 			            break;

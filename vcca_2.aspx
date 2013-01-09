@@ -111,6 +111,9 @@
 				$('#txtTax').change(function() {
 					sum();
 				});
+				$('#txtTotal').change(function() {
+					sum();
+				});
 				$('#txtSerial').change(function(e) {
                     $('#txtSerial').val($.trim($('#txtSerial').val()));
                     if($('#txtSerial').val().length>0 && checkId($('#txtSerial').val())!=2)
@@ -234,6 +237,7 @@
 				$('#cmbTaxtype').val(1);
 				$('#txtDatea').val(q_date());
 				$('#txtDatea').focus();
+				sum();
 			}
 
 			function btnModi() {
@@ -244,6 +248,7 @@
 				$('#txtDatea').focus();
 				$('#txtNoa').attr('readonly', true);
 				//讓發票號碼不可修改
+				sum();
 			}
 
 			function btnPrint() {
@@ -260,7 +265,13 @@
 			function sum() {
 				if(!(q_cur==1 || q_cur==2))
 					return;		
-				$('#txtTax').attr('readonly','readonly');	
+				$('#txtMoney').attr('readonly',true);			
+				$('#txtTax').attr('readonly',true);	
+				$('#txtTotal').attr('readonly', true);
+				$('#txtMoney').css('background-color','rgb(237,237,238)').css('color','green');
+				$('#txtTax').css('background-color','rgb(237,237,238)').css('color','green');
+				$('#txtTotal').css('background-color','rgb(237,237,238)').css('color','green');
+				
 				var t_mount,t_price,t_money,t_taxrate,t_tax,t_total;
 				t_mount = q_float('txtMount');
 				t_price = q_float('txtPrice');
@@ -285,7 +296,8 @@
 			        	t_total = t_money + t_tax;
 			            break;
 			        case '5':  // 自定
-			        	$('#txtTax').removeAttr('readonly');
+			        	$('#txtTax').attr('readonly',false);	
+						$('#txtTax').css('background-color','white').css('color','black');
 						t_tax = round(q_float('txtTax'),0);
 			        	t_total = t_money + t_tax;
 			            break;
