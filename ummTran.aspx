@@ -364,6 +364,14 @@
             }
 
             function btnOk() {
+            	//為了查詢
+            	var t_part = '';
+            	for (var i = 0; i < q_bbsCount; i++) {
+            		if(t_part.indexOf($.trim($('#txtPart_'+i).val()))==-1)
+            			t_part += (t_part.length>0?',':'') + $.trim($('#txtPart_'+i).val());
+            	}
+            	$('#txtPart').val(t_part);
+            	
                 $('#txtMon').val($.trim($('#txtMon').val()));
                 if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
                     alert(q_getMsg('lblMon') + '錯誤。');
@@ -428,9 +436,6 @@
                     return;
 
                 q_box('umm_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
-            }
-
-            function combPay_chg() {
             }
 
             function bbsAssign() {
@@ -727,10 +732,10 @@
 			<div class="dview" id="dview" >
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:28%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:38%"><a id='vewComp'></a></td>
-						<td align="center" style="width:38%"><a id='vewTotal'></a></td>
+						<td align="center" style="width:5%; color:black;"><a id='vewChk'></a></td>
+						<td align="center" style="width:28%; color:black;"><a id='vewDatea'></a></td>
+						<td align="center" style="width:38%; color:black;"><a id='vewComp'></a></td>
+						<td align="center" style="width:38%; color:black;"><a id='vewTotal'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -738,30 +743,35 @@
 						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='comp,4'>~comp,4</td>
-						<td align="center" id='total,0,1'>~total,0,1</td>
+						<td id='total,0,1' style="text-align: right;">~total,0,1</td>
 					</tr>
 				</table>
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
-					<tr class="tr1">
-						<td class="td1" ><span> </span><a id='lblNoa' class="lbl"></a></td>
-						<td class="td2" >
-						<input id="txtNoa" type="text" class="txt c1"/>
+					<tr style="height:1px;">
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblNoa' class="lbl"></a></td>
+						<td>
+							<input id="txtNoa" type="text" class="txt c1"/>
+							<input id="txtPart" type="text" style="display:none;"/>
 						</td>
-						<td class="td3" ><span> </span><a id='lblDatea' class="lbl"></a></td>
-						<td class="td4" >
-						<input id="txtDatea" type="text" class="txt c1"/>
-						</td>
-						<td class="td5" ><span> </span><a id='lblMon' class="lbl"></a></td>
-						<td class="td6">
-						<input id="txtMon" type="text" class="txt c1"/>
-						</td>
-						<td class="td7"><span> </span><a id='lblPayc' class="lbl"></a></td>
-						<td class="td8">
-						<input id="txtPayc" type="text" class="txt c1"/>
-						</td>
-						<td class="tdZ"></td>
+						<td><span> </span><a id='lblDatea' class="lbl"></a></td>
+						<td><input id="txtDatea" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblMon' class="lbl"></a></td>
+						<td><input id="txtMon" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblPayc' class="lbl"></a></td>
+						<td><input id="txtPayc" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr2">
 						<td class="td1" ><span> </span><a id='lblAcomp' class="lbl btn"></a></td>
