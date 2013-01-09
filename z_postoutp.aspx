@@ -40,6 +40,9 @@
                         },{
                         type : '6',
                         name : 'xdate'
+                        },{
+                        type : '6',
+                        name : 'xyear'
                     	}]
                     });
                 q_popAssign();
