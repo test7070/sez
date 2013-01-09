@@ -135,19 +135,18 @@
 						if (as[0] == undefined) {
 							alert("請檢查發票日期及公司有無設定，或發票已輸入。");
 						} else {
-							var vccar = _q_appendData("vccar", "", true);
-							if (vccar[0] != undefined) {
-				            	if (vccar[0].rev=='3' && $('#cmbTaxtype').val()!='6' && checkId($('#txtSerial').val())!=2){					                	
-				                	alert(q_getMsg('lblSerial')+'錯誤。');
-				                	return;
-				                }
-				                wrServer($('#txtNoa').val()); 
-				                return;            
-							}else{
-								alert("發票號碼資料錯誤");
-								break;
-							}		
-							alert("發票號碼超出範圍");			
+			            	//3聯須輸入統編
+			            	if (as[0].rev=='3' && $('#cmbTaxtype').val()!='6' && checkId($('#txtSerial').val())!=2){					                	
+			                	alert(q_getMsg('lblSerial')+'錯誤。');
+			                	return;
+			                }
+			                //2聯不須輸入統編
+			                if (as[0].rev=='2' && $('#txtSerial').val().length>0 && $('#cmbTaxtype').val()!='6' && checkId($('#txtSerial').val())!=2){					                	
+			                	alert(q_getMsg('lblSerial')+'錯誤。');
+			                	return;
+			                }
+			                wrServer($('#txtNoa').val()); 
+			                return;            
 						}
 						break;
                     case q_name:
@@ -184,16 +183,16 @@
                     alert(t_err);
                     return;
                 }
-                if(q_cur==1){
-					//判斷發票號碼是否存在或超過
-                    var t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) "+
+                var t_where = '';
+				if(q_cur==1){
+                    t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) "+
 					" and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono))"+
-					" and not exists(select noa from vcca where noa='" + $('#txtNoa').val() + "') ^^";
-                    //判斷是否已存在與長度是否正確
-                    q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
+					" and not exists(select noa from vcca where noa='" + $('#txtNoa').val() + "') ^^";                  
 				}else{
-					wrServer($('#txtNoa').val());
+					t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) "+
+					" and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono))"
 				}
+				q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
             }
 
             function _btnSeek() {
@@ -245,7 +244,7 @@
                 $('#txtDatea').focus();
                 $('#txtNoa').attr('readonly', true);
                 //讓發票號碼不可修改
-
+				sum();
             }
 
             function btnPrint() {
@@ -372,7 +371,6 @@
             function btnMinus(id) {
                 _btnMinus(id);
                 sum();
-                $('#txtNoa').attr('readonly', 'readonly');
             }
 
             function btnPlus(org_htm, dest_tag, afield) {
