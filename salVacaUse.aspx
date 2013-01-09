@@ -89,46 +89,25 @@
 	        		if($('#txtHname').val().indexOf('特休')>-1)
 	            		q_tr('txtTot_special',t_tot_special-q_float('txtHr_used'));
 	        	});
-            }
-
-            function txtCopy(dest, source) {
-                var adest = dest.split(',');
-                var asource = source.split(',');
-                $('#' + adest[0]).focus(function() {
-                    if(trim($(this).val()).length == 0)
-                        $(this).val(q_getMsg('msgCopy'));
-                });
-                $('#' + adest[0]).focusout(function() {
-                    var t_copy = ($(this).val().substr(0, 1) == '=');
-                    var t_clear = ($(this).val().substr(0, 2) == ' =');
-                    for( i = 0; i < adest.length; i++) {
-                        if(t_copy)
-                            $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                        if(t_clear)
-                           $('#' + adest[i]).val('');
-
-                    }
-                });
+	        	
+	        	$('#lblAgent').click(function () {
+	            	q_box("sss_b.aspx", 'sss', "95%", "95%", q_getMsg("popSss"));
+	        	});
+	        	
             }
 
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
-                    case 'conn':
-
-                        break;
-
                     case 'sss':
                         ret = getb_ret();
                         if(q_cur > 0 && q_cur < 4)
-                            q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                        break;
-
-                    case 'sss':
-                        ret = getb_ret();
-                        if(q_cur > 0 && q_cur < 4)
-                            q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
+                            if($('#txtAgent').val().length>0){
+                            	var temp=$('#txtAgent').val();
+                            	$('#txtAgent').val(temp+','+ret[0].namea);
+                            }else{
+                            	$('#txtAgent').val(ret[0].namea);
+                            } 
                         break;
 
                     case q_name + '_s':
@@ -136,6 +115,7 @@
                         ///   q_boxClose 3/4
                         break;
                 }   /// end Switch
+                b_pop = '';
             }
 
             function q_gtPost(t_name) {
@@ -230,7 +210,7 @@
             }
 
             function btnPrint() {
-
+ 				q_box('z_salvacause.aspx', '', "95%", "650px", q_getMsg("popPrint"));
             }
 
             function btnOk() {
@@ -521,6 +501,11 @@
 						<tr>
 							<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
 							<td class="td2" colspan="5"><input id="txtMemo"  type="text" class="txt c1"/></td>
+						</tr>
+						<tr>
+							<td class="td1"><span> </span><a id='lblAgent' class="lbl btn"></a></td>
+							<td class="td2" colspan="5"><input id="txtAgent"  type="text" class="txt c1"/>
+							</td>
 						</tr>
 						<!--<tr>
 							<td class="td1"><span> </span><a id='lblHbtime' class="lbl"></a></td>

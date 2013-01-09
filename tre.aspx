@@ -97,21 +97,6 @@
                 	}
                 });
                 $("#btnCarchg").click(function(e) {
-                	$('#txtDate2').val($.trim($('#txtDate2').val()));
-               		if (checkId($('#txtDate2').val())==0){
-               			alert('立帳日期錯誤。'); 
-               			return;
-               		}
-                    $('#txtBdate').val($.trim($('#txtBdate').val()));
-               		if (checkId($('#txtBdate').val())==0){
-               			alert('出車單登錄日期錯誤。'); 
-               			return;
-               		}
-					$('#txtEdate').val($.trim($('#txtEdate').val()));
-               		if (checkId($('#txtEdate').val())==0){
-               			alert('出車單登錄日期錯誤。'); 
-               			return;
-               		}
 					var t_carchgno='';
 					if(curData.isLoad){
 						for(var i=0;i<curData.carchgno.length;i++)
@@ -192,26 +177,10 @@
             }
 
             function btnOk() {
-            	
             	$('#txtDatea').val($.trim($('#txtDatea').val()));
                 if (checkId($('#txtDatea').val())==0){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
-                }
-            	$('#txtDate2').val($.trim($('#txtDate2').val()));
-                if (checkId($('#txtDate2').val())==0){
-                	alert(q_getMsg('lblDate2')+'錯誤。');
-                	return;
-                }
-                $('#txtBdate').val($.trim($('#txtBdate').val()));
-                if (checkId($('#txtBdate').val()) == 0) {
-                    alert(q_getMsg('lblBdate') + '錯誤。');
-                    return;
-                }
-                $('#txtEdate').val($.trim($('#txtEdate').val()));
-                if (checkId($('#txtEdate').val()) == 0) {
-                    alert(q_getMsg('lblEdate') + '錯誤。');
-                    return;
                 }
                 $('#txtPaydate').val($.trim($('#txtPaydate').val()));
                 if ($('#txtPaydate').val().length > 0 && checkId($('#txtPaydate').val())==0)
@@ -572,11 +541,11 @@
 						<td id="datea" style="text-align: center;">~datea</td>
 						<td id="carno" style="text-align: center;">~carno</td>
 						<td id="driver" style="text-align: center;">~driver</td>
-						<td id="money" style="text-align: right;">~money</td>
-						<td id="tolls" style="text-align: right;">~tolls</td>
-						<td id="plusmoney" style="text-align: right;">~plusmoney</td>
-						<td id="minusmoney" style="text-align: right;">~minusmoney</td>
-						<td id="total" style="text-align: right;">~total</td>
+						<td id="money,0,1" style="text-align: right;">~money,0,1</td>
+						<td id="tolls,0,1" style="text-align: right;">~tolls,0,1</td>
+						<td id="plusmoney,0,1" style="text-align: right;">~plusmoney,0,1</td>
+						<td id="minusmoney,0,1" style="text-align: right;">~minusmoney,0,1</td>
+						<td id="total,0,1" style="text-align: right;">~total,0,1</td>
 					</tr>
 				</table>
 			</div>

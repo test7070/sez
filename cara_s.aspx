@@ -8,9 +8,10 @@
     <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
+    <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "cara_s";
-
+	aPop = new Array(['txtCarownerno', 'lblCarowner', 'carowner', 'noa,namea', 'txtCarownerno,txtCarowner', 'carowner_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -69,7 +70,8 @@
             </tr>
             <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblCarowner'></a></td>
-                <td><input class="txt" id="txtCarowner" type="text" style="width:215px; font-size:medium;" /></td>
+                <td style="width:65%;  "><input class="txt" id="txtCarownerno" type="text" style="width:90px; font-size:medium;" />
+                <input class="txt" id="txtCarowner" type="text" style="width:93px; font-size:medium;" /></td>
             </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 

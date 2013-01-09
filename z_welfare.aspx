@@ -17,34 +17,16 @@
 		<script type="text/javascript">
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_postout');
+                q_gf('', 'z_welfare');
             });
             function q_gfPost() {
                $('#q_report').q_report({
-                        fileName : 'z_postout',
+                        fileName : 'z_welfare',
                         options : [{
                         type : '1',
                         name : 'date'
-                    },{
-                        type : '2',
-                        name : 'part',
-                        dbf : 'part',
-                        index : 'noa,part',
-                        src : 'part_b.aspx'
-                        },{
-                        type : '2',
-                        name : 'sss',
-                        dbf : 'sss',
-                        index : 'noa,namea',
-                        src : 'sss_b.aspx'
-                        },{
-                        type : '6',
-                        name : 'xdate'
-                        },{
-                        type : '6',
-                        name : 'xyear'
-                    	}]
-                    });
+                    }]
+                });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
@@ -53,8 +35,6 @@
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
-                $('#txtXdate').mask('999/99/99');
-                $('#txtXdate').val(q_date());
                 
                   var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
