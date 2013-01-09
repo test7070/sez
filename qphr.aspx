@@ -237,9 +237,11 @@
         }
         
         function returnparent() {
+        	if(window.parent.q_name=='accc'){
 				 var wParent = window.parent.document;
 				 var b_seq= wParent.getElementById("text_Noq").value
 				 wParent.getElementById("txtAccc7_"+b_seq).value=$('#txtPhr').val();
+			}
 		}
 
     </script>

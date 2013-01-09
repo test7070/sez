@@ -354,7 +354,7 @@
 		                t_mon = $('#txtRc2no_' + i).val();
 		        }
 
-		        $('#txtMon').val(t_mon.substr(1,r_len)+'/'+t_mon.substr( r_len+1,2));
+		        //$('#txtMon').val(t_mon.substr(1,r_len)+'/'+t_mon.substr( r_len+1,2));
 
 		        sum();
 		        if (t_err) {

@@ -558,23 +558,25 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' >
-        <div class="dview" id="dview" style="float: left;  width:26%;"  >
+        <div class="dview" id="dview" style="float: left;  width:40%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:10%"><a id='vewDatea'></a></td>
                 <td align="center" style="width:30%"><a id='vewComp'></a></td>
+                <td align="center" style="width:20%"><a id='vewMoney'></a></td>
                 <td align="center" style="width:20%"><a id='vewPayed'></a></td>
             </tr>
              <tr>
                 <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                 <td align="center" id='datea'>~datea</td>
                 <td align="center" id='tggno comp,4'>~tggno ~comp,4</td>
+                <td align="right" style ="text-align:right;" id='total,0,1'>~total,0,1</td>
                 <td align="right" style ="text-align:right;" id='payed,0,1'>~payed,0,1</td>
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 72%;float: left;">
+        <div class='dbbm' style="width: 75%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
             <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>

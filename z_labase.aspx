@@ -76,6 +76,8 @@
 	                t_month = t_date.getUTCMonth()+1;
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                $('#txtXmon2').val(t_year+'/'+t_month);
+	                
+	                $('#txtXyear').val(t_year);
             }
 
             function q_boxClose(s2) {

@@ -63,7 +63,27 @@
 				}).blur(function() {
 					$("#cmbTypea").attr('size', '1');
 				});
-				
+				$('#txtDatea').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
+	            $('#txtTdate').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
+	            $('#txtTdate2').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
+				$('#txtTdate3').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
+	            $('#txtTdate4').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
+	            $('#txtTdate5').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
+	            $('#txtRdate').focusout(function () {
+                     	   q_cd( $(this).val() ,$(this));
+	                });
             }
 
             function txtCopy(dest, source) {
@@ -169,44 +189,39 @@
             }
 
             function btnOk() {
- 				$('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (checkId($('#txtDatea').val())==0){
-                	alert(q_getMsg('lblDatea')+'錯誤。');
-                	return;
-           		}
- 				$('#txtTdate').val($.trim($('#txtTdate').val()));
-                if (checkId($('#txtTdate').val())==0){
-                	alert(q_getMsg('lblTdate')+'錯誤。');
-                	return;
-           		}
- 				$('#txtTdate2').val($.trim($('#txtTdate2').val()));
-                if (checkId($('#txtTdate2').val())==0){
-                	alert(q_getMsg('lblTdate2')+'錯誤。');
-                	return;
-           		}
- 				$('#txtTdate3').val($.trim($('#txtTdate3').val()));
-                if (checkId($('#txtTdate3').val())==0){
-                	alert(q_getMsg('lblTdate3')+'錯誤。');
-                	return;
-           		}
- 				$('#txtTdate4').val($.trim($('#txtTdate4').val()));
-                if (checkId($('#txtTdate4').val())==0){
-                	alert(q_getMsg('lblTdate4')+'錯誤。');
-                	return;
-           		}
- 				$('#txtTdate5').val($.trim($('#txtTdate5').val()));
-                if (checkId($('#txtTdate5').val())==0){
-                	alert(q_getMsg('lblTdate5')+'錯誤。');
-                	return;
-           		}
- 				$('#txtRdate').val($.trim($('#txtRdate').val()));
-                if (checkId($('#txtRdate').val())==0){
-                	alert(q_getMsg('lblRdate')+'錯誤。');
-                	return;
-           		}
+            	
+ 				if(!q_cd($('#txtDatea').val())){
+            		alert(q_getMsg('lblDatea')+'錯誤。');
+            		return;
+            	}
+            	if (($("#txtTsssno").val() != '') && ($("#txtTdate").val() == '')){
+            		alert(q_getMsg('lblTdate')+'錯誤。');
+            		return;
+            	}
+            	if (($("#txtTsssno2").val() != '') && ($("#txtTdate2").val() == '')){
+            		alert(q_getMsg('lblTdate2')+'錯誤。');
+            		return;
+            	}
+            	if (($("#txtTsssno3").val() != '') && ($("#txtTdate3").val() == '')){
+            		alert(q_getMsg('lblTdate3')+'錯誤。');
+            		return;
+            	}
+            	if (($("#txtTsssno4").val() != '') && ($("#txtTdate4").val() == '')){
+            		alert(q_getMsg('lblTdate4')+'錯誤。');
+            		return;
+            	}
+            	if (($("#txtTsssno5").val() != '') && ($("#txtTdate5").val() == '')){
+            		alert(q_getMsg('lblTdate5')+'錯誤。');
+            		return;
+            	}
+ 				if(!q_cd($('#txtRdate').val())){
+            		alert(q_getMsg('lblRdate')+'錯誤。');
+            		return;
+            	}
            		var t_err = '';
                 t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')],['txtSssno', q_getMsg('lblSss')]]);
-
+				
+				
                 if(t_err.length > 0) {
                     alert(t_err);
                     return;
