@@ -34,7 +34,7 @@
             currentData.prototype = {
                 data : [],
                 /*新增時複製的欄位*/
-                include : ['txtDatea', 'txtCno', 'txtAcomp', 'txtNoa','txtSerial','txtBuyer','txtCustno','txtComp','txtNick'],
+                include : ['txtDatea', 'txtCno', 'txtAcomp', 'txtNoa','txtSerial','txtBuyer','txtCustno','txtComp','txtNick','txtProductno','txtProduct'],
                 /*記錄當前的資料*/
                 copy : function() {
                     curData.data = new Array();
@@ -90,6 +90,9 @@
                 $('#txtTax').change(function(e) {
                     sum();
                 });
+                $('#txtTotal').change(function(e) {
+                    sum();
+                });
                 q_cmbParse("cmbTaxtype",q_getPara('sys.taxtype'));
 				$('#cmbTaxtype').focus(function() {
 					var len = $("#cmbTaxtype").children().length > 0 ? $("#cmbTaxtype").children().length : 1;
@@ -131,17 +134,16 @@
                 	case 'vccar':
 						var as = _q_appendData("vccar", "", true);
 						if (as[0] == undefined) {
-							alert("發票本數不存在或已輸入過");
+							alert("請檢查發票日期及公司有無設定，或發票已輸入。");
 						} else {
-							var vccars = _q_appendData("vccars", "", true);
-							if (vccars[0] != undefined) {
-								 for (var i = 0; i < vccars.length; i++) {
-								 	if(vccars[i].binvono<=$('#txtNoa').val() && vccars[i].einvono>=$('#txtNoa').val())
-								 	{
-								 		wrServer($('#txtNoa').val());
-								 		return;
-								 	}
-								}
+							var vccar = _q_appendData("vccar", "", true);
+							if (vccar[0] != undefined) {
+				            	if (vccar[0].rev=='3' && $('#cmbTaxtype').val()!='6' && checkId($('#txtSerial').val())!=2){					                	
+				                	alert(q_getMsg('lblSerial')+'錯誤。');
+				                	return;
+				                }
+				                wrServer($('#txtNoa').val()); 
+				                return;            
 							}else{
 								alert("發票號碼資料錯誤");
 								break;
@@ -168,18 +170,17 @@
                         break;
                 }
             }
-            function btnOk() {
+            function btnOk() {  	
                 if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
-                } 
-                if ($('#cmbTaxtype').val()!='6' && checkId($('#txtSerial').val())!=2){
-                	alert(q_getMsg('lblSerial')+'錯誤。');
-                	return;
-                }               
+                }                               
                 $('#txtNoa').val($.trim($('#txtNoa').val()));
-                if ($('#txtNoa').val().length > 0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val()))
+                if ($('#txtNoa').val().length > 0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val())){
                     alert(q_getMsg('lblNoa')+'錯誤。');
+                    return;
+                }
+      
                 $('#txtWorker' ).val(  r_name);           
             	sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCno', q_getMsg('lblAcomp')]]);
@@ -190,8 +191,9 @@
                 }
 				if(q_cur==1){
 					//判斷發票號碼是否存在或超過
-                    var t_where = "where=^^ cno = '" + $('#txtCno').val() + "' and bdate<='" + $('#txtDatea').val() + "' and edate>='" + $('#txtDatea').val()//判斷發票的日期
-                    + "' and '" + $('#txtNoa').val() + "' not in (select noa from vcca ) and len(binvono)=len('" + $('#txtNoa').val() + "') ^^";
+                    var t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) "+
+					" and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono))"+
+					" and not exists(select noa from vcca where noa='" + $('#txtNoa').val() + "') ^^";
                     //判斷是否已存在與長度是否正確
                     q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
 				}else{
@@ -226,6 +228,7 @@
 	                input.selectionEnd =2;
 	                input.selectionStart = 7;  
 	            }
+	            sum();
             }
 
             function btnModi() {
@@ -237,6 +240,7 @@
                 $('#txtDatea').focus();
                 $('#txtNoa').attr('readonly', true);
                 //讓發票號碼不可修改
+                sum();
             }
 
             function btnPrint() {
@@ -252,8 +256,14 @@
 
             function sum() {
 				if(!(q_cur==1 || q_cur==2))
-					return;		
-				$('#txtTax').attr('readonly','readonly');	
+					return;	
+				$('#txtMoney').attr('readonly',false);			
+				$('#txtTax').attr('readonly',true);	
+				$('#txtTotal').attr('readonly', true);
+				$('#txtMoney').css('background-color','white').css('color','black');
+				$('#txtTax').css('background-color','rgb(237,237,238)').css('color','green');
+				$('#txtTotal').css('background-color','rgb(237,237,238)').css('color','green');
+		
 				var t_money,t_taxrate,t_tax,t_total;
 				t_money = round(q_float('txtMoney'),0);
 				t_taxrate = parseFloat(q_getPara('sys.taxrate'))/100;
@@ -267,16 +277,21 @@
 			        	t_total = t_money + t_tax;
 			        	break;
 			        case '3':  // 內含
-			            t_tax = round(t_money / (1 + t_taxrate) * t_taxrate, 0);
-			            t_total = t_money;
-			            t_money = t_total - t_tax;
+			        	$('#txtMoney').attr('readonly',true);			
+						$('#txtTotal').attr('readonly', false);
+						$('#txtMoney').css('background-color','rgb(237,237,238)').css('color','green');
+						$('#txtTotal').css('background-color','white').css('color','black');
+			        	t_total = q_float('txtTotal');
+			        	t_money = round(t_total/(1 + t_taxrate),0);
+			        	t_tax = t_total-t_money;
 			            break;
 			        case '4':  // 免稅
 			            t_tax = 0;
 			        	t_total = t_money + t_tax;
 			            break;
-			        case '5':  // 自定
-			        	$('#txtTax').removeAttr('readonly');
+			        case '5':  // 自定		
+						$('#txtTax').attr('readonly',false);	
+						$('#txtTax').css('background-color','white').css('color','black');
 						t_tax = round(q_float('txtTax'),0);
 			        	t_total = t_money + t_tax;
 			            break;

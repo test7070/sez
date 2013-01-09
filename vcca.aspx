@@ -129,27 +129,27 @@
             }
 
             function q_gtPost(t_name) {
-                switch (t_name) {
-                    case 'vccar':
-                        var as = _q_appendData("vccar", "", true);
-                        if (as[0] == undefined) {
-                            alert("發票本數不存在或已輸入過");
-                        } else {
-                            var vccars = _q_appendData("vccars", "", true);
-                            if (vccars[0] != undefined) {
-                                for (var i = 0; i < vccars.length; i++) {
-                                    if (vccars[i].binvono <= $('#txtNoa').val() && vccars[i].einvono >= $('#txtNoa').val()) {
-                                        wrServer($('#txtNoa').val());
-                                        return;
-                                    }
-                                }
-                            } else {
-                                alert("發票號碼資料錯誤");
-                                break;
-                            }
-                            alert("發票號碼超出範圍");
-                        }
-                        break;
+                switch (t_name) {  
+                	case 'vccar':
+						var as = _q_appendData("vccar", "", true);
+						if (as[0] == undefined) {
+							alert("請檢查發票日期及公司有無設定，或發票已輸入。");
+						} else {
+							var vccar = _q_appendData("vccar", "", true);
+							if (vccar[0] != undefined) {
+				            	if (vccar[0].rev=='3' && $('#cmbTaxtype').val()!='6' && checkId($('#txtSerial').val())!=2){					                	
+				                	alert(q_getMsg('lblSerial')+'錯誤。');
+				                	return;
+				                }
+				                wrServer($('#txtNoa').val()); 
+				                return;            
+							}else{
+								alert("發票號碼資料錯誤");
+								break;
+							}		
+							alert("發票號碼超出範圍");			
+						}
+						break;
                     case q_name:
                         if (q_cur == 4)// 查詢
                             q_Seek_gtPost();
@@ -163,26 +163,19 @@
                 $('#txtAccno').val(xmlString);
             }
             function btnOk() {
-                $('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (checkId($('#txtDatea').val())==0){
+                if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
-                }   
-                $('#txtSerial').val($.trim($('#txtSerial').val()));    
-                if($('#txtSerial').val().length==0){
-                	alert('請輸入'+q_getMsg('lblSerial')+'。');
-                	return;
-                }    
-                if ($('#cmbTaxtype').val()!='6' && checkId($('#txtSerial').val())!=2){
-                	alert(q_getMsg('lblSerial')+'錯誤。');
-                	return;
-                }                            
+                }                               
+                $('#txtNoa').val($.trim($('#txtNoa').val()));
+                if ($('#txtNoa').val().length > 0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val())){
+                    alert(q_getMsg('lblNoa')+'錯誤。');
+                    return;
+                }                         
                 $('#txtMon').val($.trim($('#txtMon').val()));
                 if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()))
                     alert(q_getMsg('lblMon')+'錯誤。');
-                $('#txtNoa').val($.trim($('#txtNoa').val()));
-                if ($('#txtNoa').val().length > 0 && !(/^[a-z,A-Z]{2}[0-9]{8}$/g).test($('#txtNoa').val()))
-                    alert(q_getMsg('lblNoa')+'錯誤。');              
+            
                 $('#txtWorker' ).val(r_name);
                 sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCno', q_getMsg('lblAcomp')]]);
@@ -191,15 +184,16 @@
                     alert(t_err);
                     return;
                 }
-                if (q_cur == 1) {
-                    //判斷發票號碼是否存在或超過
-                    var t_where = "where=^^ cno = '" + $('#txtCno').val() + "' and bdate<='" + $('#txtDatea').val() + "' and edate>='" + $('#txtDatea').val()//判斷發票的日期
-                    + "' and '" + $('#txtNoa').val() + "' not in (select noa from vcca ) and len(binvono)=len('" + $('#txtNoa').val() + "') ^^";
+                if(q_cur==1){
+					//判斷發票號碼是否存在或超過
+                    var t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) "+
+					" and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono))"+
+					" and not exists(select noa from vcca where noa='" + $('#txtNoa').val() + "') ^^";
                     //判斷是否已存在與長度是否正確
                     q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
-                } else {
-                    wrServer($('#txtNoa').val());
-                }
+				}else{
+					wrServer($('#txtNoa').val());
+				}
             }
 
             function _btnSeek() {
