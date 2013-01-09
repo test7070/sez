@@ -18,7 +18,7 @@
             var q_name = "car2";
             var q_readonly = ['txtCardeal', 'txtCarowner', 'cmbSex', 'txtIdno', 'txtBirthday', 'txtTel1', 'txtTel2', 'txtMobile', 'txtFax', 'txtAddr_conn', 'txtAddr_home', 'txtDriver'];
             var bbmNum = [['txtInmoney', 10, 0],['txtInvoicemoney', 10, 0], ['txtOutmoney', 10, 0], ['txtIrange', 10, 0], ["txtManage", 10, 0], ["txtReserve", 10, 0], ["txtHelp", 10, 0], ["txtVrate", 5, 2], ["txtRrate", 5, 2], ["txtOrate", 5, 2], ["txtIrate", 5, 2], ["txtPrate", 5, 2], ["txtUlicense", 10, 0], ["txtDlicense", 10, 0], ["txtSpring", 10, 0], ["txtSummer", 10, 0], ["txtFalla", 10, 0], ["txtWinter", 10, 0], ["txtCylinder", 2, 0], ["txtSalemoney", 10, 0], ["txtImprovemoney1", 10, 0], ["txtImprovemoney2", 10, 0], ["txtImprovemoney3", 10, 0], ["txtDiscountmoney", 10, 0], ["txtDurableyear", 2, 0, 0, 0]];
-            var bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"], ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999"], ["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"], ["txtImprovedate1", "999/99/99"], ["txtImprovedate2", "999/99/99"], ["txtImprovedate3", "999/99/99"], ["txtDiscountdate", "999/99/99"], ["txtStopdate", "999/99/99"], ["txtOverdate", "999/99/99"], ["txtEnddate", "999/99/99"]];
+            var bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"], ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999"], ["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"], ["txtImprovedate1", "999/99/99"], ["txtImprovedate2", "999/99/99"], ["txtImprovedate3", "999/99/99"], ["txtDiscountdate", "999/99/99"], ["txtStopdate", "999/99/99"], ["txtOverdate", "999/99/99"], ["txtEnddate", "999/99/99"], ["txtWastedate", "999/99/99"]];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -574,6 +574,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size: medium;
             }
 
             input[type="text"], input[type="button"] {
@@ -736,6 +737,8 @@
 						<td><input id="txtCc" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblTon" class="lbl"> </a></td>
 						<td><input id="txtTon" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblWheelbase" class="lbl"> </a></td>
+						<td><input id="txtWheelbase" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
 						<td><span> </span><a id="lblPassno" class="lbl"> </a></td>
@@ -762,16 +765,16 @@
 						<td><input id="txtHeight" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
-						<td><span> </span><a id="lblWheelbase" class="lbl"> </a></td>
-						<td><input id="txtWheelbase" type="text" class="txt c1"/> </td>
-						<td><span> </span><a id="lblOverdate" class="lbl"> </a></td>
-						<td><input id="txtOverdate" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblEnddate" class="lbl"> </a></td>
+						<td><input id="txtEnddate" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblWastedate" class="lbl"> </a></td>
+						<td><input id="txtWastedate" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblStopdate" class="lbl"> </a></td>
 						<td><input id="txtStopdate" type="text" class="txt c1"/> </td>
 					</tr>
 					<tr class="other">
-						<td><span> </span><a id="lblEnddate" class="lbl"> </a></td>
-						<td><input id="txtEnddate" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id="lblOverdate" class="lbl"> </a></td>
+						<td><input id="txtOverdate" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblOldnoa" class="lbl"> </a></td>
 						<td><input id="txtOldnoa" type="text" class="txt c1"/> </td>
 						<td><span> </span><a id="lblReferee" class="lbl"> </a></td>
