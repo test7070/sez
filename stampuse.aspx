@@ -14,6 +14,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
+
             var q_name = "stampuse";
             var q_readonly = ['txtNoa'];
             var bbmNum = [];
@@ -23,88 +24,85 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            q_desc=1;
-            //ajaxPath = ""; //  execute in Root
-			 aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea,partno,part', 'txtSssno,txtNamea,txtPartno,txtPart', 'sss_b.aspx'],
-			 ['txtStampno', 'lblStamp', 'stamp', 'noa,namea,typea', 'txtStampno,txtStamp,cmbTypea', 'stamp_b.aspx'],
-			 ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
-			 ['txtTsssno', 'lblTsss', 'sss', 'noa,namea', 'txtTsssno,txtTnamea', 'sss_b.aspx'],
-			 ['txtTsssno2', 'lblTsss2', 'sss', 'noa,namea', 'txtTsssno2,txtTnamea2', 'sss_b.aspx'],
-			 ['txtTsssno3', 'lblTsss3', 'sss', 'noa,namea', 'txtTsssno3,txtTnamea3', 'sss_b.aspx'],
-			 ['txtTsssno4', 'lblTsss4', 'sss', 'noa,namea', 'txtTsssno4,txtTnamea4', 'sss_b.aspx'],
-			 ['txtTsssno5', 'lblTsss5', 'sss', 'noa,namea', 'txtTsssno5,txtTnamea5', 'sss_b.aspx'],
-			 ['txtRsssno', 'lblRsss', 'sss', 'noa,namea', 'txtRsssno,txtRnamea', 'sss_b.aspx']);
-			 
-            $(document).ready(function() {
-               bbmKey = ['noa'];
-	            q_brwCount();
-	           	q_gt(q_name, q_content, q_sqlCount, 1)
-	            $('#txtNoa').focus
-        	});
+            q_desc = 1;
+            brwCount2 = 20;
+            aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea,partno,part', 'txtSssno,txtNamea,txtPartno,txtPart', 'sss_b.aspx'], ['txtRsssno', 'lblRsss', 'sss', 'noa,namea', 'txtRsssno,txtRnamea', 'sss_b.aspx']);
+			
+			t_stamp = new Array();//q_getPara('stamp.typea')	
+			t_acomp = new Array();//q_gt('acomp', '', 0, 0, 0, "");
 
-            //////////////////   end Ready
+            $(document).ready(function() {
+                bbmKey = ['noa'];
+                q_brwCount();
+                q_gt(q_name, q_content, q_sqlCount, 1)
+            });
+
             function main() {
-                if(dataErr) {
+                if (dataErr) {
                     dataErr = false;
                     return;
                 }
                 mainForm(1);
-            }///  end Main()
-            
-            function mainPost() {
-            	q_getFormat();
-            	bbmMask = [['txtDatea', r_picd],['txtTdate', r_picd],['txtTdate2', r_picd],['txtTdate3', r_picd],['txtTdate4', r_picd],['txtTdate5', r_picd],['txtRdate', r_picd]];
-				q_mask(bbmMask);
-				
-				q_cmbParse("cmbTypea", q_getPara('stamp.typea'));
-	            $("#cmbTypea").focus(function() {
-					var len = $("#cmbTypea").children().length > 0 ? $("#cmbTypea").children().length : 1;
-					$("#cmbTypea").attr('size', len + "");
-				}).blur(function() {
-					$("#cmbTypea").attr('size', '1');
-				});
-				$('#txtDatea').focusout(function () {
-                     	   q_cd( $(this).val() ,$(this));
-	                });
-	            $('#txtTdate').focusout(function () {
-                     	   q_cd( $(this).val() ,$(this));
-	                });
-	            $('#txtTdate2').focusout(function () {
-                     	   q_cd( $(this).val() ,$(this));
-	                });
-				$('#txtTdate3').focusout(function () {
-                     	   q_cd( $(this).val() ,$(this));
-	                });
-	            $('#txtTdate4').focusout(function () {
-                     	   q_cd( $(this).val() ,$(this));
-	                });
-	            $('#txtTdate5').focusout(function () {
-                     	   q_cd( $(this).val() ,$(this));
-	                });
-	            $('#txtRdate').focusout(function () {
-                     	   q_cd( $(this).val() ,$(this));
-	                });
             }
 
-            function txtCopy(dest, source) {
-                var adest = dest.split(',');
-                var asource = source.split(',');
-                $('#' + adest[0]).focus(function() {
-                    if(trim($(this).val()).length == 0)
-                        $(this).val(q_getMsg('msgCopy'));
-                });
-                $('#' + adest[0]).focusout(function() {
-                    var t_copy = ($(this).val().substr(0, 1) == '=');
-                    var t_clear = ($(this).val().substr(0, 2) == ' =');
-                    for( i = 0; i < adest.length; i++) {
-                        if(t_copy)
-                            $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                        if(t_clear)
-                           $('#' + adest[i]).val('');
-
-                    }
-                });
+            function mainPost() {
+                q_getFormat();
+                bbmMask = [['txtDatea', r_picd], ['txtRdate', r_picd]];
+                q_mask(bbmMask);
+				
+				q_gt('acomp', '', 0, 0, 0, "");
+				
+				var m,n;
+				t_stamp = q_getPara('stamp.typea').split(',');
+				n = 3;//一行可放幾個
+				for(var i=0;i<t_stamp.length;i++){
+					m = Math.floor(i/n);
+					if(i%n==0){
+						$('.schema_tr').clone().insertBefore($('#xxzz').nextAll().eq(m)).css('display','').removeClass('schema_tr').addClass('stamp_tr').attr('id','stamp_tr_'+ m);
+					}
+					if(i==0){
+						$('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').addClass('stamp_td str');
+						$('.schema_span').clone().appendTo($('.stamp_td.str')).removeClass('schema_span').addClass('stamp_span');
+						$('.schema_lbl').clone().appendTo($('.stamp_td.str')).removeClass('schema_lbl').addClass('stamp_lbl').css('float','right').html(q_getMsg('lblStamp'));
+					}
+					else if(i%n==0)
+						$('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').addClass('stamp_td');
+						
+					$('.schema_chk').clone().appendTo($('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').attr('id','stamp_td_'+i)).removeClass('schema_chk').addClass('stamp_chk').attr('id','stamp_chk_'+i);	
+					$('#stamp_td_'+ i).append($('.schema_lbl').clone().removeClass('schema_lbl').addClass('stamp_lbl').css('float','left').attr('id','stamp_lbl_'+i).html(t_stamp[i]).css('cursor','pointer').click(function(e){
+						if(q_cur==1 || q_cur==2)
+							$(this).prev().eq(0).prop('checked',!$(this).prev().eq(0).prop('checked'));
+					}));
+				}	
+				
+                /*q_cmbParse("cmbTypea", q_getPara('stamp.typea'));
+                 $("#cmbTypea").focus(function() {
+                 var len = $("#cmbTypea").children().length > 0 ? $("#cmbTypea").children().length : 1;
+                 $("#cmbTypea").attr('size', len + "");
+                 }).blur(function() {
+                 $("#cmbTypea").attr('size', '1');
+                 });
+                 $('#txtDatea').focusout(function() {
+                 q_cd($(this).val(), $(this));
+                 });
+                 $('#txtTdate').focusout(function() {
+                 q_cd($(this).val(), $(this));
+                 });
+                 $('#txtTdate2').focusout(function() {
+                 q_cd($(this).val(), $(this));
+                 });
+                 $('#txtTdate3').focusout(function() {
+                 q_cd($(this).val(), $(this));
+                 });
+                 $('#txtTdate4').focusout(function() {
+                 q_cd($(this).val(), $(this));
+                 });
+                 $('#txtTdate5').focusout(function() {
+                 q_cd($(this).val(), $(this));
+                 });
+                 $('#txtRdate').focusout(function() {
+                 q_cd($(this).val(), $(this));
+                 });*/
             }
 
             function q_boxClose(s2) {
@@ -119,19 +117,37 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'acomp':
+                        var as = _q_appendData("acomp", "", true);
+                        if (as[0] != undefined) {
+                            var t_item = "";
+                            for ( i = 0; i < as.length; i++) {
+                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+                                t_acomp.push({
+                                	noa:as[i].noa,
+                                	acomp:as[i].acomp,
+                                	nick:as[i].nick,
+                                	stamp:as[i].stamp
+                                });
+                            }
+                            q_cmbParse("cmbCno", t_item);
+                            //$("#cmbCno").val(abbm[q_recno].cno);
+                            refresh(q_recno);
+                        }
+                        break;
                     case q_name:
-                        if(q_cur == 4)
+                        if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
                 }  /// end switch
             }
-            
+
             function _btnSeek() {
-                if(q_cur > 0 && q_cur < 4)// 1-3
+                if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-            q_box('stampuse_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+                q_box('stampuse_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
             }
-			
+
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
@@ -140,48 +156,10 @@
             }
 
             function btnModi() {
-                if(emp($('#txtNoa').val()))
+                if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                if (!emp($('#txtRdate').val())&&!emp($('#txtRsssno').val())){
-		            	$('#txtDatea').attr('disabled', 'disabled');
-		            	$('#txtSssno').attr('disabled', 'disabled');
-		            	$('#txtNamea').attr('disabled', 'disabled');
-		            	$('#txtPartno').attr('disabled', 'disabled');
-		            	$('#txtPart').attr('disabled', 'disabled');
-		            	$('#txtStampno').attr('disabled', 'disabled');
-		            	$('#txtStamp').attr('disabled', 'disabled');
-		            	$('#cmbTypea').attr('disabled', 'disabled');
-		            	$('#cmbTypea').css('background', t_background2);
-		            	$('#txtTdate').attr('disabled', 'disabled');
-		            	$('#txtTsssno').attr('disabled', 'disabled');
-		            	$('#txtTnamea').attr('disabled', 'disabled');
-		            	$('#txtTdate2').attr('disabled', 'disabled');
-		            	$('#txtTsssno2').attr('disabled', 'disabled');
-		            	$('#txtTnamea2').attr('disabled', 'disabled');
-		            	$('#txtTdate3').attr('disabled', 'disabled');
-		            	$('#txtTsssno3').attr('disabled', 'disabled');
-		            	$('#txtTnamea3').attr('disabled', 'disabled');
-		            	$('#txtTdate4').attr('disabled', 'disabled');
-		            	$('#txtTsssno4').attr('disabled', 'disabled');
-		            	$('#txtTnamea4').attr('disabled', 'disabled');
-		            	$('#txtTdate5').attr('disabled', 'disabled');
-		            	$('#txtTsssno5').attr('disabled', 'disabled');
-		            	$('#txtTnamea5').attr('disabled', 'disabled');
-		            	$('#txtRdate').attr('disabled', 'disabled');
-		            	$('#txtRsssno').attr('disabled', 'disabled');
-		            	$('#txtRnamea').attr('disabled', 'disabled');
-            	}else{
-            			$('#txtDatea').attr('disabled', 'disabled');
-		            	$('#txtSssno').attr('disabled', 'disabled');
-		            	$('#txtNamea').attr('disabled', 'disabled');
-		            	$('#txtPartno').attr('disabled', 'disabled');
-		            	$('#txtPart').attr('disabled', 'disabled');
-		            	$('#txtStampno').attr('disabled', 'disabled');
-		            	$('#txtStamp').attr('disabled', 'disabled');
-		            	$('#cmbTypea').attr('disabled', 'disabled');
-		            	$('#cmbTypea').css('background', t_background2);
-            	}
+                $('#txtDatea').focus();
             }
 
             function btnPrint() {
@@ -189,57 +167,32 @@
             }
 
             function btnOk() {
-            	
- 				if(!q_cd($('#txtDatea').val())){
-            		alert(q_getMsg('lblDatea')+'錯誤。');
-            		return;
-            	}
-            	if (($("#txtTsssno").val() != '') && ($("#txtTdate").val() == '')){
-            		alert(q_getMsg('lblTdate')+'錯誤。');
-            		return;
-            	}
-            	if (($("#txtTsssno2").val() != '') && ($("#txtTdate2").val() == '')){
-            		alert(q_getMsg('lblTdate2')+'錯誤。');
-            		return;
-            	}
-            	if (($("#txtTsssno3").val() != '') && ($("#txtTdate3").val() == '')){
-            		alert(q_getMsg('lblTdate3')+'錯誤。');
-            		return;
-            	}
-            	if (($("#txtTsssno4").val() != '') && ($("#txtTdate4").val() == '')){
-            		alert(q_getMsg('lblTdate4')+'錯誤。');
-            		return;
-            	}
-            	if (($("#txtTsssno5").val() != '') && ($("#txtTdate5").val() == '')){
-            		alert(q_getMsg('lblTdate5')+'錯誤。');
-            		return;
-            	}
- 				if(!q_cd($('#txtRdate').val())){
-            		alert(q_getMsg('lblRdate')+'錯誤。');
-            		return;
-            	}
-           		var t_err = '';
-                t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')],['txtSssno', q_getMsg('lblSss')]]);
-				
-				
-                if(t_err.length > 0) {
+                if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
+                    alert(q_getMsg('lblDatea') + '錯誤。');
+                    return;
+                }
+                if (!q_cd($('#txtRdate').val())) {
+                    alert(q_getMsg('lblRdate') + '錯誤。');
+                    return;
+                }
+                var t_err = '';
+                t_err = q_chkEmpField([['txtDatea', q_getMsg('lblDatea')], ['txtSssno', q_getMsg('lblSss')]]);
+
+                if (t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
-                
-                
                 var t_noa = trim($('#txtNoa').val());
-
                 if (t_noa.length == 0 || t_noa == "AUTO")
-					q_gtnoa(q_name, replaceAll( 'S'+$('#txtDatea').val(), '/', ''));
-				else
-					wrServer(t_noa);
+                    q_gtnoa(q_name, replaceAll('S' + $('#txtDatea').val(), '/', ''));
+                else
+                    wrServer(t_noa);
             }
 
             function wrServer(key_value) {
                 var i;
                 xmlSql = '';
-                if(q_cur == 2)/// popSave
+                if (q_cur == 2)/// popSave
                     xmlSql = q_preXml();
 
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
@@ -248,6 +201,23 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                
+                $('.stamp_chk').prop('checked',false);
+                for(var i in t_acomp){
+                	if(t_acomp[i].noa==$('#cmbCno').val()){
+                		t_stamp2 = t_acomp[i].stamp.split(',');
+                		for(var j in t_stamp2){
+							n = t_stamp.indexOf(t_stamp2[j]);
+							if(n>=0){
+								
+								$('#stamp_chk_'+ n).prop('checked',true);
+								
+							}
+							else
+								
+						}	
+                	}
+                }
             }
 
             function readonly(t_para, empty) {
@@ -305,66 +275,36 @@
             function btnCancel() {
                 _btnCancel();
             }
-            function checkId(str) {
-                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
-                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
-                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-                    if ((n % 10) == 0)
-                        return 1;
-                } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
-                    var key = '12121241';
-                    var n = 0;
-                    var m = 0;
-                    for (var i = 0; i < 8; i++) {
-                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-                        m += Math.floor(n / 10) + n % 10;
-                    }
-                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-                        return 2;
-                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 3;
-                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
-                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 4
-               	}
-               	return 0;//錯誤
-            }
-
-
 		</script>
 		<style type="text/css">
-                    #dmain {
+            #dmain {
                 overflow: hidden;
             }
             .dview {
                 float: left;
-                width: 28%;
+                width: 250px;
+                border-width: 0px;
             }
             .tview {
-                margin: 0;
-                padding: 2px;
-                border: 1px black double;
-                border-spacing: 0;
+                border: 5px solid gray;
                 font-size: medium;
-                background-color: #FFFF66;
-                color: blue;
-                width: 100%;
+                background-color: black;
+            }
+            .tview tr {
+                height: 30px;
             }
             .tview td {
                 padding: 2px;
                 text-align: center;
-                border: 1px black solid;
+                border-width: 0px;
+                background-color: #FFFF66;
+                color: blue;
             }
             .dbbm {
                 float: left;
-                width: 70%;
-                margin: -1px;
-                border: 1px black solid;
+                width: 700px;
+                /*margin: -1px;
+                 border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -400,37 +340,12 @@
             .tbbm tr td .lbl.btn {
                 color: #4297D7;
                 font-weight: bolder;
-                font-size: medium;
             }
             .tbbm tr td .lbl.btn:hover {
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 98%;
-                float: left;
-            }
-            .txt.c2 {
-                width: 36%;
-                float: right;
-            }
-            .txt.c3 {
-                width: 62%;
-                float: left;
-            }
-            .txt.c4 {
-                width: 18%;
-                float: left;
-            }
-            .txt.c5 {
-                width: 80%;
-                float: left;
-            }
-            .txt.c6 {
-                width: 25%;
-                
-            }
-            .txt.c7 {
-                width: 95%;
+                width: 100%;
                 float: left;
             }
             .txt.num {
@@ -446,147 +361,111 @@
                 margin: -1px;
                 float: left;
             }
-            .tbbm td input[type="button"] {
-                float: left;
-                width: auto;
-            }
             .tbbm select {
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
             }
+            .tbbs input[type="text"] {
+                width: 98%;
+            }
+            .tbbs a {
+                font-size: medium;
+            }
             .num {
                 text-align: right;
+            }
+            .bbs {
+                float: left;
             }
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
+            select {
+                font-size: medium;
+            }
 		</style>
 	</head>
-	<body>
-			<!--#include file="../inc/toolbar.inc"-->
-			<div id='dmain' style="overflow:hidden;">
-				<div class="dview" id="dview" style="float: left;  width:25%;"  >
-					<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
-						<tr>
-							<td align="center" style="width:5%"><a id='vewChk'></a></td>
-							<td align="center" style="width:25%"><a id='vewDatea'></a></td>
-							<td align="center" style="width:40%"><a id='vewNamea'></a></td>
-						</tr>
-						<tr>
-							<td >
-							<input id="chkBrow.*" type="checkbox" style=''/>
-							</td>
-							<td align="center" id='datea'>~datea</td>
-							<td align="center" id='namea'>~namea</td>
-						</tr>
-					</table>
-				</div>
-				<div class='dbbm' style="width: 73%;float: left;">
-					<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
-						<tr>
-							<td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-							<td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-							<td class="td3" ></td>
-							<td class="td4"></td>
-							<td class="td5" ></td>
-						</tr>
-						<tr>
-							<td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
-							<td class="td2"><input id="txtDatea"  type="text" class="txt c1" /></td>
-							<td class="td3" ></td>
-							<td class="td4"></td>
-							<td class="td5" ></td>
-						</tr>
-						<tr>
-							<td class="td1" ><span> </span>	<a id='lblSss' class="lbl btn"></a></td>
-							<td class="td2">
-								<input id="txtSssno"  type="text"  class="txt c2"/>
-								<input id="txtNamea"  type="text"  class="txt c3"/>
-							</td>
-							<td class="td3" ><span> </span>	<a id='lblPart' class="lbl btn"></a></td>
-							<td class="td4">
-								<input id="txtPartno"  type="text"  class="txt c2"/>
-								<input id="txtPart"  type="text"  class="txt c3"/>
-							</td>
-							<td class="td5"></td>
-						</tr>
-						<tr>
-							<td class="td1" ><span> </span>	<a id='lblStamp' class="lbl btn"></a></td>
-							<td class="td2" colspan="2">
-								<input id="txtStampno"  type="text"  class="txt" style="width: 18%;float: left;"/>
-								<input id="txtStamp"  type="text"  class="txt" style="width: 80%;float: left;"/>
-							</td>
-							<td class="td4"><select id="cmbTypea" class="txt c1" style="font-size: medium;"></select></td>
-							<td class="td5"></td>
-						</tr>
-						<tr>
-							<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-							<td class="td2" colspan="3"><input id="txtMemo"  type="text" class="txt c1"/></td>
-						</tr>
-						<tr>
-							<td class="td1" ><span> </span>	<a id='lblTdate' class="lbl"></a></td>
-							<td class="td2"><input id="txtTdate"  type="text" class="txt c1" /></td>
-							<td class="td3" ><span> </span>	<a id='lblTsss' class="lbl btn"></a></td>
-							<td class="td4">
-								<input id="txtTsssno"  type="text"  class="txt c2"/>
-								<input id="txtTnamea"  type="text"  class="txt c3"/>
-							</td>
-							<td class="td5"></td>
-						</tr>
-						<tr>
-							<td class="td1" ><span> </span>	<a id='lblTdate2' class="lbl"></a></td>
-							<td class="td2"><input id="txtTdate2"  type="text" class="txt c1" /></td>
-							<td class="td3" ><span> </span>	<a id='lblTsss2' class="lbl btn"></a></td>
-							<td class="td4">
-								<input id="txtTsssno2"  type="text"  class="txt c2"/>
-								<input id="txtTnamea2"  type="text"  class="txt c3"/>
-							</td>
-							<td class="td5"></td>
-						</tr>
-						<tr>
-							<td class="td1" ><span> </span>	<a id='lblTdate3' class="lbl"></a></td>
-							<td class="td2"><input id="txtTdate3"  type="text" class="txt c1" /></td>
-							<td class="td3" ><span> </span>	<a id='lblTsss3' class="lbl btn"></a></td>
-							<td class="td4">
-								<input id="txtTsssno3"  type="text"  class="txt c2"/>
-								<input id="txtTnamea3"  type="text"  class="txt c3"/>
-							</td>
-							<td class="td5"></td>
-						</tr>
-						<tr>
-							<td class="td1" ><span> </span>	<a id='lblTdate4' class="lbl"></a></td>
-							<td class="td2"><input id="txtTdate4"  type="text" class="txt c1" /></td>
-							<td class="td3" ><span> </span>	<a id='lblTsss4' class="lbl btn"></a></td>
-							<td class="td4">
-								<input id="txtTsssno4"  type="text"  class="txt c2"/>
-								<input id="txtTnamea4"  type="text"  class="txt c3"/>
-							</td>
-							<td class="td5"></td>
-						</tr>
-						<tr>
-							<td class="td1" ><span> </span>	<a id='lblTdate5' class="lbl"></a></td>
-							<td class="td2"><input id="txtTdate5"  type="text" class="txt c1" /></td>
-							<td class="td3" ><span> </span>	<a id='lblTsss5' class="lbl btn"></a></td>
-							<td class="td4">
-								<input id="txtTsssno5"  type="text"  class="txt c2"/>
-								<input id="txtTnamea5"  type="text"  class="txt c3"/>
-							</td>
-							<td class="td5"></td>
-						</tr>
-						<tr>
-							<td class="td1" ><span> </span>	<a id='lblRdate' class="lbl"></a></td>
-							<td class="td2"><input id="txtRdate"  type="text" class="txt c1" /></td>
-							<td class="td3" ><span> </span>	<a id='lblRsss' class="lbl btn"></a></td>
-							<td class="td4">
-								<input id="txtRsssno"  type="text"  class="txt c2"/>
-								<input id="txtRnamea"  type="text"  class="txt c3"/>
-							</td>
-							<td class="td5"></td>
-						</tr>
-			</table>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
+		<!--#include file="../inc/toolbar.inc"-->
+		<div id='dmain'>
+			<div class="dview" id="dview" >
+				<table class="tview" id="tview">
+					<tr>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewNamea'> </a></td>
+					</tr>
+					<tr>
+						<td >
+						<input id="chkBrow.*" type="checkbox" style=' '/>
+						</td>
+						<td id='datea' style="text-align: center;">~datea</td>
+						<td id='namea' style="text-align: left;">~namea</td>
+					</tr>
+				</table>
 			</div>
+			<div class='dbbm' >
+				<table class="tbbm"  id="tbbm">
+					<tr style="height:1px;">
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td><input id="txtNoa"  type="text"  class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblSss' class="lbl btn"> </a></td>
+						<td colspan="2">
+							<input id="txtSssno"  type="text"  style="float:left; width:40%;"/>
+							<input id="txtNamea"  type="text"  style="float:left; width:60%;"/>
+						</td>
+					</tr>
+					<tr id="xxzz">
+						<td><span> </span><a id='lblAcomp' class="lbl btn"> </a></td>
+						<td colspan="2">
+							<select id="txtCno" class="txt c1"> </select>
+							<input id="txtAcomp"  type="text" style="display:none;"/>
+							<input id="txtStamp"  type="text" style="display:none;"/>
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
+						<td colspan="3"><input id="txtMemo"  type="text" class="txt c1"/></td>
+					</tr>				
+					<tr>
+						<td><span> </span><a id='lblRdate' class="lbl"> </a></td>
+						<td><input id="txtRdate"  type="text" class="txt c1" />	</td>
+						<td><span> </span><a id='lblRsss' class="lbl btn"> </a></td>
+						<td>
+							<input id="txtRsssno"  type="text"  style="float:left; width:40%;"/>
+							<input id="txtRnamea"  type="text"  style="float:left; width:60%;"/>
+						</td>
+					</tr>
+					<tr class="schema_tr" style="display:none;"> </tr>
+					<tr style="display:none;">
+						<td class="schema_td"> </td>
+						<td>
+							<span class="schema_span"> </span>
+							<a class="schema_lbl"> </a>
+						</td>					
+						<td><input type="checkbox" class="schema_chk" style="float:left;"/></td>
+					</tr>
+				</table>
 			</div>
-			<input id="q_sys" type="hidden" />
+		</div>
+		<input id="q_sys" type="hidden" />
 	</body>
 </html>

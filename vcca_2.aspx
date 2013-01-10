@@ -263,6 +263,13 @@
 				$('#txtTax').css('background-color','rgb(237,237,238)').css('color','green');
 				$('#txtTotal').css('background-color','rgb(237,237,238)').css('color','green');
 				
+				$('#txtCustno').attr('readonly', false);
+	            $('#txtComp').attr('readonly', false);
+	            $('#txtSerial').attr('readonly', false);
+	            $('#txtMon').attr('readonly', false);
+	            $('#txtBuyerno').attr('readonly', false);
+	            $('#txtBuyer').attr('readonly', false);
+	            
 				var t_mount,t_price,t_money,t_taxrate,t_tax,t_total;
 				t_mount = q_float('txtMount');
 				t_price = q_float('txtPrice');

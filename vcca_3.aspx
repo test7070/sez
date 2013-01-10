@@ -263,6 +263,13 @@
 				$('#txtTax').css('background-color','rgb(237,237,238)').css('color','green');
 				$('#txtTotal').css('background-color','rgb(237,237,238)').css('color','green');
 		
+				$('#txtCustno').attr('readonly', false);
+	            $('#txtComp').attr('readonly', false);
+	            $('#txtSerial').attr('readonly', false);
+	            $('#txtMon').attr('readonly', false);
+	            $('#txtBuyerno').attr('readonly', false);
+	            $('#txtBuyer').attr('readonly', false);
+	            
 				var t_money,t_taxrate,t_tax,t_total;
 				t_money = round(q_float('txtMoney'),0);
 				t_taxrate = parseFloat(q_getPara('sys.taxrate'))/100;
