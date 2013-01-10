@@ -31,6 +31,8 @@
             q_desc=1;
 			//q_alias='a';
 			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,b.carowner', 'txtCarno,txtCarowner', "car2_b.aspx"],
+				['textBcarno', 'lblNextcarno', 'car2', 'a.noa,b.carowner', 'textBcarno', "car2_b.aspx"],
+				['textEcarno', 'lblNextcarno', 'car2', 'a.noa,b.carowner', 'textEcarno', "car2_b.aspx"],
 				['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
 				['txtCaritemno_', 'btnCaritem_', 'caritem', 'noa,item,typea,acc1,acc2', 'txtCaritemno_,txtCaritem_,txtTypea_,txtAcc1_,txtAcc2_,txtOutmoney_', 'caritem_b.aspx'], 
 				['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
@@ -115,12 +117,29 @@
 						q_func( 'cara.genNext',$('#textNextmon').val()+','+$('#textDiscount').val()+','+r_name);//genNext(string t_mon , string t_discount, string t_worker);
 			    	}
 				});
+				
+				$('#lblSssno').click(function () {
+	            	q_box("sss_b2.aspx?;;;partno='07'", 'sss', "95%", "95%", q_getMsg("popSss"));
+	       		});
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
                 var
                 ret;
                 switch (b_pop) {
+                	case 'sss':
+                        ret = getb_ret();
+	                        if(ret[0]!=undefined){
+	                        	for (var i = 0; i < ret.length; i++) {
+	                        		if($('#texSssno').val().length>0){
+		                            	var temp=$('#texSssno').val();
+		                            	$('#texSssno').val(temp+','+ret[i].noa);
+		                            }else{
+		                            	$('#texSssno').val(ret[i].noa);
+		                            } 
+	                        	}
+							}
+					break;
                 	case 'ticket':
                 		if (q_cur > 0 && q_cur < 4) {
 	                        b_ret = getb_ret();
@@ -767,15 +786,29 @@
 		<div id="divNextmon" class='popDiv' style="top:70px;right:0px;">
 			<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:300px">
 	            <tr>
-	                <td align="center" style="width:30%"><span> </span><a id="lblNextmon" class="lbl" ></a></td>
-	                <td align="center" style="width:70%">
+	                <td align="center" style="width:35%"><span> </span><a id="lblNextmon" class="lbl" ></a></td>
+	                <td align="center" style="width:65%">
 	                	<input id="textNextmon" type="text"  class="txt c1" style=" float: left;"/>
 	                </td>
 	            </tr>
 	            <tr>
-	                <td align="center" style="width:30%"><span> </span><a id="lblDiscount" class="lbl" ></a></td>
-	                <td style="width:70%">
+	                <td align="center" style="width:35%"><span> </span><a id="lblDiscount" class="lbl" ></a></td>
+	                <td style="width:65%">
 	                	<input id="textDiscount" type="text"  class="txt c2" style=" float: left;"/>%
+	                </td>
+	            </tr>
+	            <tr>
+	                <td align="center" style="width:35%"><span> </span><a id="lblNextcarno" class="lbl" ></a></td>
+	                <td style="width:65%">
+	                	<input id="textBcarno" type="text"  class="txt c2" style=" float: left;"/>
+	                	<a style=" float: left;">~</a>
+	                	<input id="textEcarno" type="text"  class="txt c2" style=" float: left;"/>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td align="center" style="width:35%"><span> </span><a id="lblSssno" class="lbl btn" ></a></td>
+	                <td style="width:65%">
+	                	<input id="texSssno" type="text"  class="txt c1" style=" float: left;"/>
 	                </td>
 	            </tr>
 	            <tr>
