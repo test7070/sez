@@ -26,7 +26,8 @@
             brwNowPage = 0;
             brwKey = 'noa';
 			brwCount2 = 20;
-
+			t_stamp = new Array();//q_getPara('stamp.typea')
+			
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -48,17 +49,16 @@
 					$('#txtSerial').val($.trim($('#txtSerial').val()));
 					checkId($('#txtSerial').val());
 				});
-				
-				var t_stamp = q_getPara('stamp.typea').split(',');
-				var n = 3;//一行可放幾個
-				var m = 0;
+				var m,n;
+				t_stamp = q_getPara('stamp.typea').split(',');
+	
+				n = 3;//一行可放幾個
 				for(var i=0;i<t_stamp.length;i++){
 					m = Math.floor(i/n);
 					if(i%n==0){
 						$('.schema_tr').clone().appendTo($('#tbbm tbody')).css('display','').removeClass('schema_tr').addClass('stamp_tr').attr('id','stamp_tr_'+ m);
 					}
 					if(i==0){
-						//$('.schema_lbla').clone().appendTo($('#stamp_tr_0')).removeClass('schema_lbla').addClass('stamp_lbla');
 						$('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').addClass('stamp_td str');
 						$('.schema_span').clone().appendTo($('.stamp_td.str')).removeClass('schema_span').addClass('stamp_span');
 						$('.schema_lbl').clone().appendTo($('.stamp_td.str')).removeClass('schema_lbl').addClass('stamp_lbl').css('float','right').html(q_getMsg('lblStamp'));
@@ -66,11 +66,12 @@
 					else if(i%n==0)
 						$('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').addClass('stamp_td');
 						
-					$('.schema_chk').clone().appendTo($('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').attr('id','stamp_td_'+i)).removeClass('schema_chk').addClass('stamp_chk');	
-					$('#stamp_td_'+ i).append($('.schema_lbl').clone().removeClass('schema_lbl').addClass('stamp_lbl').css('float','left').html(t_stamp[i]).css('cursor','pointer').click(function(e){
-						$(this).prev().eq(0).prop('checked',!$(this).prev().eq(0).prop('checked'));
+					$('.schema_chk').clone().appendTo($('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').attr('id','stamp_td_'+i)).removeClass('schema_chk').addClass('stamp_chk').attr('id','stamp_chk_'+i);	
+					$('#stamp_td_'+ i).append($('.schema_lbl').clone().removeClass('schema_lbl').addClass('stamp_lbl').css('float','left').html(t_stamp[i]).css('color','black').css('cursor','pointer').click(function(e){
+						if(q_cur==1 || q_cur==2)
+							$(this).prev().eq(0).prop('checked',!$(this).prev().eq(0).prop('checked'));
 					}));
-				}		
+				}	
             }
             function checkId(str){
             	if((/^[a-z,A-Z][0-9]{9}$/g).test(str)){
@@ -151,6 +152,13 @@
             }
 
             function btnOk() {
+            	var string = '';
+            	for(var i in t_stamp){
+            		if($('#stamp_chk_'+ i).prop('checked'))
+            			string += (string.length>0?',':'')+t_stamp[i];
+				}
+            	$('#txtStamp').val(string);
+            	
                 var t_noa = trim($('#txtNoa').val());
 
                 if (t_noa.length == 0)
@@ -172,10 +180,22 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                
+                $('.stamp_chk').prop('checked',false);
+                var t_stamp2 = $('#txtStamp').val().split(',');	
+				for(var i in t_stamp2){
+					n = t_stamp.indexOf(t_stamp2[i]);
+					if(n>=0)
+						$('#stamp_chk_'+ n).prop('checked',true);
+				}	
             }
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(q_cur==1 || q_cur==2)
+                	$('.stamp_chk').removeAttr('disabled');
+                else
+                	$('.stamp_chk').attr('disabled','disabled');
             }
 
             function btnMinus(id) {
@@ -230,6 +250,7 @@
                 _btnCancel();
             }
 		</script>
+
 		<style type="text/css">
             #dmain {
                 overflow: hidden;
@@ -425,6 +446,7 @@
 						</tr>
 						<tr class="schema_tr" style="display:none;"> </tr>
 						<tr style="display:none;">
+							<td><input id="txtStamp"  type="text" class="txt c1"/></td>
 							<td class="schema_td"> </td>
 							<td>
 								<span class="schema_span"> </span>

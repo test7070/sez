@@ -26,7 +26,8 @@
             brwKey = 'noa';
             q_desc = 1;
             brwCount2 = 20;
-            aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea,partno,part', 'txtSssno,txtNamea,txtPartno,txtPart', 'sss_b.aspx'], ['txtRsssno', 'lblRsss', 'sss', 'noa,namea', 'txtRsssno,txtRnamea', 'sss_b.aspx']);
+            aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']
+            , ['txtRsssno', 'lblRsss', 'sss', 'noa,namea', 'txtRsssno,txtRnamea', 'sss_b.aspx']);
 			
 			t_stamp = new Array();//q_getPara('stamp.typea')	
 			t_acomp = new Array();//q_gt('acomp', '', 0, 0, 0, "");
@@ -52,57 +53,85 @@
 				
 				q_gt('acomp', '', 0, 0, 0, "");
 				
+				$('#cmbCno').change(function(e) {
+					display();
+				}).click(function(e) {
+					display();
+				});
+				
 				var m,n;
 				t_stamp = q_getPara('stamp.typea').split(',');
 				n = 3;//一行可放幾個
 				for(var i=0;i<t_stamp.length;i++){
 					m = Math.floor(i/n);
 					if(i%n==0){
+						//add tr
 						$('.schema_tr').clone().insertBefore($('#xxzz').nextAll().eq(m)).css('display','').removeClass('schema_tr').addClass('stamp_tr').attr('id','stamp_tr_'+ m);
 					}
 					if(i==0){
+						//add lbl
 						$('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').addClass('stamp_td str');
 						$('.schema_span').clone().appendTo($('.stamp_td.str')).removeClass('schema_span').addClass('stamp_span');
-						$('.schema_lbl').clone().appendTo($('.stamp_td.str')).removeClass('schema_lbl').addClass('stamp_lbl').css('float','right').html(q_getMsg('lblStamp'));
+						$('.schema_lbl').clone().appendTo($('.stamp_td.str')).removeClass('schema_lbl').css('float','right').html(q_getMsg('lblStamp'));
 					}
 					else if(i%n==0)
 						$('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').addClass('stamp_td');
-						
+					//add checkbox	
 					$('.schema_chk').clone().appendTo($('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').attr('id','stamp_td_'+i)).removeClass('schema_chk').addClass('stamp_chk').attr('id','stamp_chk_'+i);	
+					//add lbl
 					$('#stamp_td_'+ i).append($('.schema_lbl').clone().removeClass('schema_lbl').addClass('stamp_lbl').css('float','left').attr('id','stamp_lbl_'+i).html(t_stamp[i]).css('cursor','pointer').click(function(e){
-						if(q_cur==1 || q_cur==2)
-							$(this).prev().eq(0).prop('checked',!$(this).prev().eq(0).prop('checked'));
-					}));
-				}	
-				
-                /*q_cmbParse("cmbTypea", q_getPara('stamp.typea'));
-                 $("#cmbTypea").focus(function() {
-                 var len = $("#cmbTypea").children().length > 0 ? $("#cmbTypea").children().length : 1;
-                 $("#cmbTypea").attr('size', len + "");
-                 }).blur(function() {
-                 $("#cmbTypea").attr('size', '1');
-                 });
-                 $('#txtDatea').focusout(function() {
-                 q_cd($(this).val(), $(this));
-                 });
-                 $('#txtTdate').focusout(function() {
-                 q_cd($(this).val(), $(this));
-                 });
-                 $('#txtTdate2').focusout(function() {
-                 q_cd($(this).val(), $(this));
-                 });
-                 $('#txtTdate3').focusout(function() {
-                 q_cd($(this).val(), $(this));
-                 });
-                 $('#txtTdate4').focusout(function() {
-                 q_cd($(this).val(), $(this));
-                 });
-                 $('#txtTdate5').focusout(function() {
-                 q_cd($(this).val(), $(this));
-                 });
-                 $('#txtRdate').focusout(function() {
-                 q_cd($(this).val(), $(this));
-                 });*/
+						if(q_cur==1 || q_cur==2){
+							if($(this).css('color').toUpperCase().replace(/ /g,'')=='RGB(0,0,0)'){
+								$(this).prev().eq(0).prop('checked',!$(this).prev().eq(0).prop('checked'));
+								var string = '';
+				            	for(var i in t_stamp){
+				            		if($('#stamp_chk_'+ i).prop('checked'))
+				            			string += (string.length>0?',':'')+t_stamp[i];
+								}
+				            	$('#txtStamp').val(string);	
+							}
+						}
+							
+					}));	
+				}
+				$('.stamp_chk').click(function(e){
+					if(q_cur==1 || q_cur==2){
+						var string = '';
+		            	for(var i in t_stamp){
+		            		if($('#stamp_chk_'+ i).prop('checked'))
+		            			string += (string.length>0?',':'')+t_stamp[i];
+						}
+		            	$('#txtStamp').val(string);	
+	            	}	
+            	});		
+            }
+            
+            function display(){
+            	$('.stamp_lbl').css('color','rgb(237,237,237)');      
+                $('.stamp_chk').prop('checked',false);
+                $('.stamp_chk').attr('disabled','disabled');
+                for(var i in t_acomp){
+                	if(t_acomp[i].noa==$('#cmbCno').val()){
+                		//t_stamp  全部的印章種類
+                		//t_stamp2 該公司有的印章種類
+                		t_stamp2 = t_acomp[i].stamp.split(',');
+                		for(var j in t_stamp2){
+							n = t_stamp.indexOf(t_stamp2[j]);
+							if(n>=0){								
+								$('#stamp_lbl_'+n).css('color','RGB(0,0,0)');   
+								if(q_cur==1 || q_cur==2)
+									$('#stamp_chk_'+ n).removeAttr('disabled');
+							}
+						}	
+						//t_stamp3 該單據已勾選的印章
+						var t_stamp3 = $('#txtStamp').val().split(',');	
+						for(var i in t_stamp3){
+							n = t_stamp.indexOf(t_stamp3[i]);
+							if(n>=0)
+								$('#stamp_chk_'+ n).prop('checked',true);
+						}
+                	}
+                }
             }
 
             function q_boxClose(s2) {
@@ -131,8 +160,9 @@
                                 });
                             }
                             q_cmbParse("cmbCno", t_item);
-                            //$("#cmbCno").val(abbm[q_recno].cno);
-                            refresh(q_recno);
+                            if(q_recno>=0)
+                           		$("#cmbCno").val(abbm[q_recno].cno);
+                            display();
                         }
                         break;
                     case q_name:
@@ -145,7 +175,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('stampuse_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('stampuse_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -153,6 +183,7 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
+                display();
             }
 
             function btnModi() {
@@ -160,6 +191,7 @@
                     return;
                 _btnModi();
                 $('#txtDatea').focus();
+                display();
             }
 
             function btnPrint() {
@@ -167,6 +199,21 @@
             }
 
             function btnOk() {
+            	for(var i in t_stamp){
+            		if($('#stamp_chk_'+ i).prop('checked') && $('#stamp_lbl_'+ i).css('color').toUpperCase().replace(/ /g,'')!='RGB(0,0,0)'){
+            			alert($('#stamp_lbl_'+ i).html()+' 無法選擇。');
+            			return;
+            		}
+				}
+
+            	for(var i in t_acomp){
+            		if($('#cmbCno').val()==t_acomp[i].noa){
+            			$('#txtAcomp').val(t_acomp[i].acomp);
+            			$('#txtNick').val(t_acomp[i].nick);	
+            			break;
+            		}
+            	}
+            	
                 if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     return;
@@ -200,28 +247,16 @@
             }
 
             function refresh(recno) {
-                _refresh(recno);
-                
-                $('.stamp_chk').prop('checked',false);
-                for(var i in t_acomp){
-                	if(t_acomp[i].noa==$('#cmbCno').val()){
-                		t_stamp2 = t_acomp[i].stamp.split(',');
-                		for(var j in t_stamp2){
-							n = t_stamp.indexOf(t_stamp2[j]);
-							if(n>=0){
-								
-								$('#stamp_chk_'+ n).prop('checked',true);
-								
-							}
-							else
-								
-						}	
-                	}
-                }
+                _refresh(recno);    
+                display();     
             }
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if(q_cur==1 || q_cur==2)
+                	$('.stamp_chk').removeAttr('disabled');
+                else
+                	$('.stamp_chk').attr('disabled','disabled');
             }
 
             function btnMinus(id) {
@@ -282,7 +317,7 @@
             }
             .dview {
                 float: left;
-                width: 250px;
+                width: 300px;
                 border-width: 0px;
             }
             .tview {
@@ -302,7 +337,7 @@
             }
             .dbbm {
                 float: left;
-                width: 700px;
+                width: 600px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -399,6 +434,7 @@
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewNamea'> </a></td>
+						<td align="center" style="width:120px; color:black;"><a id='vewAcomp'> </a></td>
 					</tr>
 					<tr>
 						<td >
@@ -406,6 +442,7 @@
 						</td>
 						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='namea' style="text-align: left;">~namea</td>
+						<td id='nick' style="text-align: left;">~nick</td>
 					</tr>
 				</table>
 			</div>
@@ -434,10 +471,11 @@
 						</td>
 					</tr>
 					<tr id="xxzz">
-						<td><span> </span><a id='lblAcomp' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblAcomp' class="lbl"> </a></td>
 						<td colspan="2">
-							<select id="txtCno" class="txt c1"> </select>
+							<select id="cmbCno" class="txt c1"> </select>
 							<input id="txtAcomp"  type="text" style="display:none;"/>
+							<input id="txtNick"  type="text" style="display:none;"/>
 							<input id="txtStamp"  type="text" style="display:none;"/>
 						</td>
 					</tr>
@@ -448,8 +486,10 @@
 					<tr>
 						<td><span> </span><a id='lblRdate' class="lbl"> </a></td>
 						<td><input id="txtRdate"  type="text" class="txt c1" />	</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblRsss' class="lbl btn"> </a></td>
-						<td>
+						<td colspan="2">
 							<input id="txtRsssno"  type="text"  style="float:left; width:40%;"/>
 							<input id="txtRnamea"  type="text"  style="float:left; width:60%;"/>
 						</td>
