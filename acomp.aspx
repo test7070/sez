@@ -67,7 +67,7 @@
 						$('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').addClass('stamp_td');
 						
 					$('.schema_chk').clone().appendTo($('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').attr('id','stamp_td_'+i)).removeClass('schema_chk').addClass('stamp_chk').attr('id','stamp_chk_'+i);	
-					$('#stamp_td_'+ i).append($('.schema_lbl').clone().removeClass('schema_lbl').addClass('stamp_lbl').css('float','left').html(t_stamp[i]).css('cursor','pointer').click(function(e){
+					$('#stamp_td_'+ i).append($('.schema_lbl').clone().removeClass('schema_lbl').addClass('stamp_lbl').css('float','left').html(t_stamp[i]).css('color','black').css('cursor','pointer').click(function(e){
 						if(q_cur==1 || q_cur==2)
 							$(this).prev().eq(0).prop('checked',!$(this).prev().eq(0).prop('checked'));
 					}));
