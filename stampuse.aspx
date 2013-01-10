@@ -160,7 +160,6 @@
                                 });
                             }
                             q_cmbParse("cmbCno", t_item);
-                            //$("#cmbCno").val(abbm[q_recno].cno);
                             display();
                         }
                         break;
@@ -174,7 +173,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('stampuse_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('stampuse_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -198,6 +197,13 @@
             }
 
             function btnOk() {
+            	for(var i in t_stamp){
+            		if($('#stamp_chk_'+ i).prop('checked') && $('#stamp_lbl_'+ i).css('color').toUpperCase().replace(/ /g,'')!='RGB(0,0,0)'){
+            			alert($('#stamp_lbl_'+ i).html()+' 無法選擇。');
+            			return;
+            		}
+				}
+						
             	for(var i in t_acomp){
             		if($('#cmbCno').val()==t_acomp[i].noa){
             			$('#txtAcomp').val(t_acomp[i].acomp);
