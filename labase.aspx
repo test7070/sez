@@ -310,6 +310,12 @@
             				$('#chkIsforeign')[0].checked=false;	
             		}
             	break;
+            	case 'carowner':
+            		var as = _q_appendData("carowner", "", true);
+            		if(as[0]!=undefined){
+            			alert('車主的車子有異動，請與監理部核對資料!!!');
+            		}
+            	break;
             	case 'labretire':
             		var as = _q_appendData("labretire", "", true);
             			if(as[0]!=undefined){
@@ -642,11 +648,6 @@
         
 		var insed=false;//判斷是否重覆輸入員工
         function btnOk() {
-            $('#txtBdate').val($.trim($('#txtBdate').val()));
-                if (checkId($('#txtBdate').val())==0){
-                	alert(q_getMsg('lblBdate')+'錯誤。');
-                	return;
-            }
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
             if (t_err.length > 0) {
                 alert(t_err);
@@ -714,6 +715,12 @@
 		    //取得健勞保退保日期
             	var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^ top=1";
             	q_gt('sssall', t_where, 0, 0, 0, "", r_accy);
+            
+            //判斷車主是否有異動資料	
+            if($('#txtNoa').val().substr(0,1)=='H'){
+            	var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' and noa in (select  a.noa from carOwner a left join car2 b on a.noa=b.carownerno where (b.outdate!='' and left(b.outdate,6)='"+q_date().substr(0,6)+"') or (b.enddate!='' and left(b.enddate,6)='"+q_date().substr(0,6)+"') or (b.wastedate!='' and left(b.wastedate,6)='"+q_date().substr(0,6)+"') or (b.suspdate!='' and left(b.suspdate,6)='"+q_date().substr(0,6)+"') group by a.noa) ^^";
+            	q_gt('carowner', t_where, 0, 0, 0, "", r_accy);
+            }
         }
         function btnPrint() {
 		q_box('z_labase.aspx', '', "95%", "650px", q_getMsg("popPrint"));
@@ -825,36 +832,7 @@
         function btnCancel() {
             _btnCancel();
         }
-		function checkId(str) {
-                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
-                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
-                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-                    if ((n % 10) == 0)
-                        return 1;
-                } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
-                    var key = '12121241';
-                    var n = 0;
-                    var m = 0;
-                    for (var i = 0; i < 8; i++) {
-                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-                        m += Math.floor(n / 10) + n % 10;
-                    }
-                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-                        return 2;
-                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 3;
-                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
-                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 4
-               	}
-               	return 0;//錯誤
-            }
-
+        
     </script>
     <style type="text/css">
         #dmain {
