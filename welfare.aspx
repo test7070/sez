@@ -310,7 +310,7 @@
                 float: left;
             }
             .txt.c5 {
-                width: 80%;
+                width: 98%;
                 float: left;
             }
             .txt.c6 {
@@ -390,6 +390,10 @@
                <input id="txtNamea"  type="text" class="txt c3"/></td>
             </tr>
             <tr>
+            	<td class="td1"><span> </span><a id='lblInpaymemo' class="lbl"> </a></td>
+               <td class="td2"><input id="txtInpaymemo"  type="text" class="txt c5"/></td>
+            </tr>
+            <tr>
             	<td class="td1"><span> </span><a id='lblIncome' class="lbl"> </a></td>
                <td class="td2"><input id="txtIncome"  type="text" class="txt num c1"/></td>
             </tr>
@@ -397,6 +401,11 @@
             	<td class="td1"><span> </span><a id='lblPay' class="lbl"> </a></td>
                <td class="td2"><input id="txtPay"  type="text" class="txt num c1"/></td>
             </tr>
+            <tr>
+            	<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
+               <td class="td2"><input id="txtMemo"  type="text" class="txt c5"/></td>
+            </tr>
+
         </table>
         </div>
         </div> 
