@@ -115,7 +115,7 @@
 	        	});
 	        	
 	        	$('#lblAgent').click(function () {
-	            	q_box("sss_b.aspx", 'sss', "95%", "95%", q_getMsg("popSss"));
+	            	q_box("sss_b2.aspx", 'sss', "95%", "95%", q_getMsg("popSss"));
 	        	});
 	        	
             }
@@ -125,15 +125,19 @@
                 switch (b_pop) {
                     case 'sss':
                         ret = getb_ret();
-                        if(q_cur > 0 && q_cur < 4)
-                            if($('#txtAgent').val().length>0){
-                            	var temp=$('#txtAgent').val();
-                            	$('#txtAgent').val(temp+','+ret[0].namea);
-                            }else{
-                            	$('#txtAgent').val(ret[0].namea);
-                            } 
+                        if(q_cur > 0 && q_cur < 4){
+	                        if(ret[0]!=undefined){
+	                        	for (var i = 0; i < ret.length; i++) {
+	                        		if($('#txtAgent').val().length>0){
+		                            	var temp=$('#txtAgent').val();
+		                            	$('#txtAgent').val(temp+','+ret[i].namea);
+		                            }else{
+		                            	$('#txtAgent').val(ret[i].namea);
+		                            } 
+	                        	}
+	                        }
+						}
                         break;
-
                     case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
