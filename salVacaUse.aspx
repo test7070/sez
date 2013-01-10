@@ -49,7 +49,7 @@
 			var insed=false;//判斷員工是否重覆請假
             function mainPost() {
             	q_getFormat();
-            	bbmMask = [['txtDatea', r_picd]];
+            	bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd],['txtEdate', r_picd]];
 				q_mask(bbmMask);
 				
 				$('#txtSssno').change(function () {
@@ -71,6 +71,30 @@
 			           		var t_where = "where=^^ datea ='"+$('#txtDatea').val()+"' and sssno='"+$('#txtSssno').val()+"' ^^";
 			           		q_gt('salvacause', t_where , 0, 0, 0, "", r_accy);
 			        }
+	        	});
+	        	
+				
+	        	$('#txtBdate').focus(function() {
+            		q_msg( $(this), '請假日期跨月份，請申請兩張!!');
+                }).blur(function () {
+                	if($('#txtBdate').val().substr(0,6)!=$('#txtDatea').val().substr(0,6)){
+						$('#txtDatea').val($('#txtBdate').val());
+					}
+					if($('#txtBdate').val().substr(0,6)!=$('#txtEdate').val().substr(0,6)||$('#txtBdate').val()>$('#txtEdate').val()){
+						alert('請假日期不正確!!');
+						$('#txtEdate').val($('#txtBdate').val());
+					}
+					q_msg();
+	        	});
+	        	
+	        	$('#txtEdate').focus(function() {
+            		q_msg( $(this), '請假日期跨月份，請申請兩張!!');
+                }).blur(function () {
+                	if($('#txtBdate').val().substr(0,6)!=$('#txtEdate').val().substr(0,6)||$('#txtBdate').val()>$('#txtEdate').val()){
+						alert('請假日期不正確!!');
+						$('#txtEdate').val($('#txtBdate').val());
+					}
+					q_msg();
 	        	});
 				
 	        	$('#txtHr_used').change(function () {
@@ -194,6 +218,8 @@
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
+                $('#txtBdate').val(q_date());
+                $('#txtEdate').val(q_date());
                 $('#txtDatea').focus();
             }
 
@@ -463,10 +489,12 @@
 						<tr>
 							<td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
 							<td class="td2"><input id="txtDatea"  type="text" class="txt c1" /></td>
-							<td class="td3" ></td>
-							<td class="td4"></td>
-							<td class="td5" ></td>
-							<td class="td6"></td>
+							<td class="td3" ><span> </span><a id='lblBdate' class="lbl"></a></td>
+							<td class="td4" colspan="2">
+								<input id="txtBdate"  type="text" class="txt" style="width: 120px;"/>
+								<a style="float:left;">~</a>
+								<input id="txtEdate"  type="text" class="txt" style="width: 120px;"/>
+							</td>
 						</tr>
 						<tr>
 							<td class="td1" ><span> </span>	<a id='lblSss' class="lbl btn"></a></td>
