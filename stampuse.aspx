@@ -160,7 +160,8 @@
                                 });
                             }
                             q_cmbParse("cmbCno", t_item);
-                            $("#cmbCno").val(abbm[q_recno].cno);
+                            if(q_recno>=0)
+                           		$("#cmbCno").val(abbm[q_recno].cno);
                             display();
                         }
                         break;
