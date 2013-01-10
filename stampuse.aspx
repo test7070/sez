@@ -83,22 +83,27 @@
 						if(q_cur==1 || q_cur==2){
 							if($(this).css('color').toUpperCase().replace(/ /g,'')=='RGB(0,0,0)'){
 								$(this).prev().eq(0).prop('checked',!$(this).prev().eq(0).prop('checked'));
-								$(this).prev().eq(0).prop('checked',!$(this).prev().eq(0).click());							
+								var string = '';
+				            	for(var i in t_stamp){
+				            		if($('#stamp_chk_'+ i).prop('checked'))
+				            			string += (string.length>0?',':'')+t_stamp[i];
+								}
+				            	$('#txtStamp').val(string);	
 							}
 						}
 							
 					}));	
-					$('#stamp_td_'+ i).click(function(e){
-						if(q_cur==1 || q_cur==2){
-							var string = '';
-			            	for(var i in t_stamp){
-			            		if($('#stamp_chk_'+ i).prop('checked'))
-			            			string += (string.length>0?',':'')+t_stamp[i];
-							}
-			            	$('#txtStamp').val(string);	
-		            	}	
-	            	});	
-				}	
+				}
+				$('.stamp_chk').click(function(e){
+					if(q_cur==1 || q_cur==2){
+						var string = '';
+		            	for(var i in t_stamp){
+		            		if($('#stamp_chk_'+ i).prop('checked'))
+		            			string += (string.length>0?',':'')+t_stamp[i];
+						}
+		            	$('#txtStamp').val(string);	
+	            	}	
+            	});		
             }
             
             function display(){
