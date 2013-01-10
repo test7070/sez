@@ -53,21 +53,24 @@
 				var n = 3;//一行可放幾個
 				var m = 0;
 				for(var i=0;i<t_stamp.length;i++){
+					m = Math.floor(i/n);
 					if(i%n==0){
-						$('.schema_tr').clone().appendTo($('#tbbm tbody')).css('display','').removeClass('schema_tr').attr('id','stamp_tr_'+Math.round(i/n));
+						$('.schema_tr').clone().appendTo($('#tbbm tbody')).css('display','').removeClass('schema_tr').addClass('stamp_tr').attr('id','stamp_tr_'+ m);
 					}
 					if(i==0){
-						$('.schema_lbl').clone().appendTo($('#stamp_tr_0')).removeClass('schema_lbl');
+						//$('.schema_lbla').clone().appendTo($('#stamp_tr_0')).removeClass('schema_lbla').addClass('stamp_lbla');
+						$('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').addClass('stamp_td str');
+						$('.schema_span').clone().appendTo($('.stamp_td.str')).removeClass('schema_span').addClass('stamp_span');
+						$('.schema_lbl').clone().appendTo($('.stamp_td.str')).removeClass('schema_lbl').addClass('stamp_lbl').css('float','right').html(q_getMsg('lblStamp'));
 					}
 					else if(i%n==0)
-						$('.schema_td').clone().appendTo($('#stamp_tr_'+Math.round(i/n))).removeClass('schema_td');
-					$('.schema_chk').clone().appendTo($('#stamp_tr'+Math.round(i/n))).removeClass('schema_chk');
-				}
-				
-				
-				//<td><span> </span><a id='lblStamp' class="lbl"> </a></td>
-				//$('#tbbm tbody').appendTo('<tr><input type="checkbox" /> </tr>')
-				
+						$('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').addClass('stamp_td');
+						
+					$('.schema_chk').clone().appendTo($('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').attr('id','stamp_td_'+i)).removeClass('schema_chk').addClass('stamp_chk');	
+					$('#stamp_td_'+ i).append($('.schema_lbl').clone().removeClass('schema_lbl').addClass('stamp_lbl').css('float','left').html(t_stamp[i]).css('cursor','pointer').click(function(e){
+						$(this).prev().eq(0).prop('checked',!$(this).prev().eq(0).prop('checked'));
+					}));
+				}		
             }
             function checkId(str){
             	if((/^[a-z,A-Z][0-9]{9}$/g).test(str)){
@@ -422,9 +425,12 @@
 						</tr>
 						<tr class="schema_tr" style="display:none;"> </tr>
 						<tr style="display:none;">
-							<td class="schema_lbl"><span> </span><a class="lbl"> </a></td>
 							<td class="schema_td"> </td>
-							<td class="schema_chk"><input type="checkbox"/></td>
+							<td>
+								<span class="schema_span"> </span>
+								<a class="schema_lbl"> </a>
+							</td>					
+							<td><input type="checkbox" class="schema_chk" style="float:left;"/></td>
 						</tr>
 					</tbody>
 				</table>
