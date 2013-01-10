@@ -118,22 +118,7 @@
 
             }
 
-            function btnOk() {
-				$('#txtBegindatea').val($.trim($('#txtBegindatea').val()));
-	                if (checkId($('#txtBegindatea').val())==0){
-	                	alert(q_getMsg('lblBegindatea')+'錯誤。');
-	                	return;
-	            }            	
-				$('#txtIndate').val($.trim($('#txtIndate').val()));
-	                if (checkId($('#txtIndate').val())==0){
-	                	alert(q_getMsg('lblIndate')+'錯誤。');
-	                	return;
-	            }            	
-				$('#txtOutdate').val($.trim($('#txtOutdate').val()));
-	                if (checkId($('#txtOutdate').val())==0){
-	                	alert(q_getMsg('lblOutdate')+'錯誤。');
-	                	return;
-	            }            	
+            function btnOk() {   	
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
 		        if (t_err.length > 0) {
 		            alert(t_err);

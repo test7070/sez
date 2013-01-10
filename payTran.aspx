@@ -689,7 +689,6 @@
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:18%"><a id='vewDatea'></a></td>
 						<td align="center" style="width:28%"><a id='vewComp'></a></td>
-                        <td align="center" style="width:28%"><a id='vewDriver'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -697,7 +696,6 @@
 						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='comp,4'>~comp,4</td>
-                        <td align="center" id='driver'>~driver</td>
 					</tr>
 				</table>
 			</div>
