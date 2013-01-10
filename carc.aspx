@@ -75,7 +75,7 @@
 		            }
 		            if($('#chkOther')[0].checked==true)
 		            {
-		            	t_where+="(caritemno!='306' and caritemno!='502' and caritemno!='501' and caritemno!='401' and caritemno!='001' and caritemno!='002') or ";
+		            	t_where+="(caritemno!='306' and caritemno!='502' and caritemno!='501' and caritemno!='401' and caritemno!='001' and caritemno!='002' and caritemno!='101' and caritemno!='102' and caritemno!='103' and caritemno!='104' and caritemno!='105' and caritemno!='106' and caritemno!='111' and caritemno!='112' and caritemno!='201' and caritemno!='202' and caritemno!='203') or ";
 		            }
 		            t_where+=" 1=0) ";
 		            
