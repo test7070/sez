@@ -160,6 +160,7 @@
                                 });
                             }
                             q_cmbParse("cmbCno", t_item);
+                            $("#cmbCno").val(abbm[q_recno].cno);
                             display();
                         }
                         break;
@@ -203,11 +204,12 @@
             			return;
             		}
 				}
-						
+
             	for(var i in t_acomp){
             		if($('#cmbCno').val()==t_acomp[i].noa){
             			$('#txtAcomp').val(t_acomp[i].acomp);
-            			$('#txtNick').val(t_acomp[i].nick);
+            			$('#txtNick').val(t_acomp[i].nick);	
+            			break;
             		}
             	}
             	
