@@ -645,10 +645,10 @@
 					<input class="txt c1" id="txtUnit.*" type="text" style="text-align: center;"/>
 					</td>
 					<td>
-					<input class="txt num c1" id="txtMount.*" type="text" />
+					<input class="txt num c1" id="txtPrice.*" type="text" />
 					</td>
 					<td>
-					<input class="txt num c1" id="txtPrice.*" type="text" />
+					<input class="txt num c1" id="txtMount.*" type="text" />
 					</td>
 					<td>
 					<input class="txt num c1" id="txtMoney.*" type="text" />
