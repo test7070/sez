@@ -152,7 +152,7 @@
                             var tmp = $.trim($('#txtPo').val()).split(',');
                             t_po = ' and (';
                             for (var i in tmp)
-                            t_po += (i == 0 ? '' : ' or ') + "trans" + r_accy + ".po='" + tmp[i] + "'"
+                            t_po += (i == 0 ? '' : ' or ') + "view_trans" + r_accy + ".po='" + tmp[i] + "'"
                             t_po += ')';
                         }
 
@@ -161,7 +161,7 @@
                         t_where += t_po;
                         t_where += " and (straddrno  between " + t_straddrno + " and " + t_endaddrno + ")";
                         if (!(t_bodate == "''" && t_eodate == "char(255)" && t_ordeno == "''"))
-                            t_where += "and exists(select * from tranorde" + r_accy + " where noa=trans" + r_accy + ".ordeno and (odate between " + t_bodate + " and " + t_eodate + "))";
+                            t_where += "and exists(select * from tranorde" + r_accy + " where noa=view_trans" + r_accy + ".ordeno and (odate between " + t_bodate + " and " + t_eodate + "))";
                         t_where += "^^";
                         t_where += "order=^^datea,noa^^";
                         $(this).val('請稍後');
@@ -404,7 +404,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['ordeno'] && !as['tranno'] && !as['trannoq']) {
+                if (!as['tranno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }

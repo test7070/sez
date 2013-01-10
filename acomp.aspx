@@ -48,6 +48,29 @@
 					$('#txtSerial').val($.trim($('#txtSerial').val()));
 					checkId($('#txtSerial').val());
 				});
+				
+				var t_stamp = q_getPara('stamp.typea').split(',');
+				var n = 3;//一行可放幾個
+				var m = 0;
+				for(var i=0;i<t_stamp.length;i++){
+					m = Math.floor(i/n);
+					if(i%n==0){
+						$('.schema_tr').clone().appendTo($('#tbbm tbody')).css('display','').removeClass('schema_tr').addClass('stamp_tr').attr('id','stamp_tr_'+ m);
+					}
+					if(i==0){
+						//$('.schema_lbla').clone().appendTo($('#stamp_tr_0')).removeClass('schema_lbla').addClass('stamp_lbla');
+						$('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').addClass('stamp_td str');
+						$('.schema_span').clone().appendTo($('.stamp_td.str')).removeClass('schema_span').addClass('stamp_span');
+						$('.schema_lbl').clone().appendTo($('.stamp_td.str')).removeClass('schema_lbl').addClass('stamp_lbl').css('float','right').html(q_getMsg('lblStamp'));
+					}
+					else if(i%n==0)
+						$('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').addClass('stamp_td');
+						
+					$('.schema_chk').clone().appendTo($('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').attr('id','stamp_td_'+i)).removeClass('schema_chk').addClass('stamp_chk');	
+					$('#stamp_td_'+ i).append($('.schema_lbl').clone().removeClass('schema_lbl').addClass('stamp_lbl').css('float','left').html(t_stamp[i]).css('cursor','pointer').click(function(e){
+						$(this).prev().eq(0).prop('checked',!$(this).prev().eq(0).prop('checked'));
+					}));
+				}		
             }
             function checkId(str){
             	if((/^[a-z,A-Z][0-9]{9}$/g).test(str)){
@@ -119,6 +142,7 @@
                     return;
 
                 _btnModi();
+                $('#txtNoa').attr('readonly', true);
                 $('#txtComp').focus();
             }
 
@@ -347,57 +371,68 @@
 			</div>
 			<div class='dbbm' >
 				<table class="tbbm"  id="tbbm">
-					<tr style="height:1px;">
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td class="tdZ"> </td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblAcomp' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtAcomp"  type="text" class="txt c1" />	</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblNick' class="lbl"> </a></td>
-						<td><input id="txtNick"  type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblEname' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtEname"  type="text" class="txt c1" />	</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblBoss' class="lbl"> </a></td>
-						<td><input id="txtBoss"  type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
-						<td><input id="txtSerial"  type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
-						<td><input id="txtTel"  type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblFax' class="lbl"> </a></td>
-						<td><input id="txtFax"  type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblAddr' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtAddr"  type="text" class="txt c1" />	</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan="3"><textarea id="txtMemo" cols="10" rows="5" style="width: 100%;height: 127px;"></textarea></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblInsur_disaster' class="lbl"> </a></td>
-						<td><input id="txtInsur_disaster"  type="text" class="txt c1" /></td>
-					</tr>
+					<tbody>
+						<tr style="height:1px;">
+							<td> </td>
+							<td> </td>
+							<td> </td>
+							<td> </td>
+							<td class="tdZ"> </td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
+							<td colspan="3"><input id="txtNoa"  type="text"  class="txt c1"/></td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblAcomp' class="lbl"> </a></td>
+							<td colspan="3"><input id="txtAcomp"  type="text" class="txt c1" />	</td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblNick' class="lbl"> </a></td>
+							<td><input id="txtNick"  type="text" class="txt c1" /></td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblEname' class="lbl"> </a></td>
+							<td colspan="3"><input id="txtEname"  type="text" class="txt c1" />	</td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblBoss' class="lbl"> </a></td>
+							<td><input id="txtBoss"  type="text" class="txt c1" /></td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
+							<td><input id="txtSerial"  type="text" class="txt c1" /></td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblTel' class="lbl"> </a></td>
+							<td><input id="txtTel"  type="text" class="txt c1" /></td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblFax' class="lbl"> </a></td>
+							<td><input id="txtFax"  type="text" class="txt c1" /></td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblAddr' class="lbl"> </a></td>
+							<td colspan="3"><input id="txtAddr"  type="text" class="txt c1" />	</td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
+							<td colspan="3"><textarea id="txtMemo" cols="10" rows="5" style="width: 100%;height: 127px;"></textarea></td>
+						</tr>
+						<tr>
+							<td><span> </span><a id='lblInsur_disaster' class="lbl"> </a></td>
+							<td><input id="txtInsur_disaster"  type="text" class="txt c1" /></td>
+						</tr>
+						<tr class="schema_tr" style="display:none;"> </tr>
+						<tr style="display:none;">
+							<td class="schema_td"> </td>
+							<td>
+								<span class="schema_span"> </span>
+								<a class="schema_lbl"> </a>
+							</td>					
+							<td><input type="checkbox" class="schema_chk" style="float:left;"/></td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>
