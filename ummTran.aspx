@@ -140,6 +140,7 @@
                 //0926改為開啟視窗
                 $('#btnVcc').click(function(e) {
                     //umm_trd();
+                    var t_where2='',t_where3='';
                     if (!emp($('#txtCustno').val())) {
                       //  var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
 						t_where = "(a.custno='" + $.trim($('#txtCustno').val()) + "'";
@@ -151,10 +152,15 @@
                         }
                         t_where+=") and (a.unpay+isnull(b.paysale,0))!=0 ";
                         t_where1 = " where[1]=^^ a.noa='" + $('#txtNoa').val() + "' and a.paysale!=0 ";
+						
+						if(!emp($('#txtDatea').val()))
+							t_where2 = " where[2]=^^ left(a.datea,6)='" + $('#txtDatea').val().substr(0, 6) + "' ^^";
+						else
+							t_where2 = " where[2]=^^ 1=1 ^^";
+							
+							t_where3 = " where[3]=^^ c.noa='" + $('#txtCustno').val() + "' ";
 
-                        t_where2 = " where[2]=^^ left(a.datea,6)='" + $('#txtDatea').val().substr(0, 6) + "' ^^";
-                        t_where3 = " where[3]=^^ c.noa='" + $('#txtCustno').val() + "' ";
-                        
+                        	
                         if (!emp($('#txtCustno2').val())) {
                             var t_custno2 = ($('#txtCustno2').val()).split(",");
                             for (var i = 0; i < t_custno2.length; i++) {
@@ -179,6 +185,8 @@
                     } else {
                         t_where = "^^1=0^^";
                         t_where1 = " where[1]=^^1=0^^";
+                        t_where2 = " where[2]=^^ 1=1 ^^";
+                        t_where3 = " where[3]=^^ 1=0 ";
                     }
                     q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + t_where1 + t_where2 + t_where3, 'umm_trd', "70%", "600px", q_getMsg('popUmm_trd'));
                 });
@@ -230,6 +238,8 @@
                             /*if (!t_Saving)*/
                             ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2,partno,part2', '');
                             /// 最後 aEmpField 不可以有【數字欄位】
+                            
+                            $('#txtAcc1_0').focus();
                         }
                         break;
                     case q_name + '_s':
