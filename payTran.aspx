@@ -218,11 +218,13 @@
 		                        as[i].paysale = 0;
 		                    }
 		                }
-
-		                if (!t_Saving) 
+						
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart,txtMemo', as.length, as, 'noa,paysale,_unpay,_unpay,part,partno,part,memo', 'txtRc2no', '');
+						
+		                 /*if (!t_Saving) 
 		                    q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart,txtMemo', as.length, as, 'noa,paysale,_unpay,_unpay,part,partno,part,memo', 'txtRc2no', '');
 		                else {/// 自動沖帳
-		                   /* $('#txtOpay').val(0);
+		                   $('#txtOpay').val(0);
 		                    $('#txtUnopay').val(0);
 		                    var t_money = 0;
 		                    for (var i = 0; i < q_bbsCount; i++) {
@@ -260,7 +262,7 @@
 		                        q_tr('txtOpay', t_money);
 
 		                    sum();
-		                */}
+		                }*/
 
 		                t_Saving = false;
 		                sum();
