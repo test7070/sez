@@ -60,7 +60,15 @@
                 q_cmbParse("cmbTypea", q_getPara('uccc.itype'));
                 q_cmbParse("cmbKind", q_getPara('inast.kind'));
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
-                
+                /* 若非本會計年度則無法存檔 */
+				$('#txtDatea').focusout(function () {
+					if($(this).val().substr( 0,3)!= r_accy){
+				        	$('#btnOk').attr('disabled','disabled');
+					}else{
+				       		$('#btnOk').removeAttr('disabled');
+					}
+				});
+
                 $('#btnRc2st').click(function () {
 		            var t_where = "where=^^ kind='"+ $('#cmbKind').val()+"' and tggno='"+$('#txtTggno').val()+"' and (storeno ='' OR storeno is null ) ^^"; 
 					q_gt('rc2', t_where , 0, 0, 0, "", r_accy);

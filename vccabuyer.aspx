@@ -46,6 +46,7 @@
 
             function mainPost() {
                 q_mask(bbmMask);
+                
             }
             function checkId(str) {
                 if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號

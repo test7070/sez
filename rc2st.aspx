@@ -59,7 +59,7 @@
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
             q_cmbParse("cmbKind", q_getPara('rc2st.kind')); 
              $('#lblAccc').click(function () {
-		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('btnAccc'), true);
+		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('btnAccc'), true);
 		        });
 		        $('#lblOrdc').click(function () {
 		            lblOrdc();
@@ -67,7 +67,14 @@
 		       $('#cmbKind').change(function () {
             	size_change();
 		     });
-
+			/* 若非本會計年度則無法存檔 */
+			$('#txtDatea').focusout(function () {
+				if($(this).val().substr( 0,3)!= r_accy){
+			        	$('#btnOk').attr('disabled','disabled');
+				}else{
+			       		$('#btnOk').removeAttr('disabled');
+				}
+			});
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、廠商視窗、訂單視窗  關閉時執行

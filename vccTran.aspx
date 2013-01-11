@@ -67,7 +67,14 @@
                 
                 q_gt('acomp', '', 0, 0, 0, "");
                 q_gt('part', '', 0, 0, 0, "");
-
+				/* 若非本會計年度則無法存檔 */
+				$('#txtDatea').focusout(function () {
+					if($(this).val().substr( 0,3)!= r_accy){
+				        	$('#btnOk').attr('disabled','disabled');
+					}else{
+				       		$('#btnOk').removeAttr('disabled');
+					}
+				});
 				$("#cmbStype").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");

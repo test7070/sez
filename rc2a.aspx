@@ -56,7 +56,14 @@
             q_mask(bbmMask);
              q_cmbParse("cmbTypea", q_getPara('rc2.typea')); 
              q_cmbParse("cmbTaxtype", ('').concat(new Array('應稅', '零稅率', '內含', '免稅','自訂','作廢')));
-             
+            /* 若非本會計年度則無法存檔 */
+			$('#txtDatea').focusout(function () {
+				if($(this).val().substr( 0,3)!= r_accy){
+			        	$('#btnOk').attr('disabled','disabled');
+				}else{
+			       		$('#btnOk').removeAttr('disabled');
+				}
+			});
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
