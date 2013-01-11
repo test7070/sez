@@ -74,6 +74,7 @@
 
                 $('#txtCustno').change(function() {
                     getOpay();
+                    $('#btnVcc').click();
                 });
 
                 $('#txtOpay').change(function() {
@@ -85,7 +86,6 @@
 
                 $('#btnBank').click(function() {
                     q_box('bank.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "800px", "600px", "銀行主檔");
-
                 });
 
                 //1003將請款單匯入與自動沖帳分開
@@ -203,6 +203,9 @@
                 switch (s1) {
                     case 'txtAcc1_':
                         sum();
+                        break;
+                    case 'txtCustno':
+                        $('#btnVcc').click();
                         break;
                 }
             }

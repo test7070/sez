@@ -31,8 +31,8 @@
             q_desc=1;
 			//q_alias='a';
 			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,b.carowner', 'txtCarno,txtCarowner', "car2_b.aspx"],
-				['textBcarno', 'lblNextcarno', 'car2', 'a.noa,b.carowner', 'textBcarno', "car2_b.aspx"],
-				['textEcarno', 'lblNextcarno', 'car2', 'a.noa,b.carowner', 'textEcarno', "car2_b.aspx"],
+				['textBcarno', 'lblNextcarno', 'view_carno_carowner', 'carno,carownerno,namea,', 'textBcarno', "car2_b.aspx"],
+				['textEcarno', 'lblNextcarno', 'view_carno_carowner', 'carno,carownerno,namea', 'textEcarno', "car2_b.aspx"],
 				['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
 				['txtCaritemno_', 'btnCaritem_', 'caritem', 'noa,item,typea,acc1,acc2', 'txtCaritemno_,txtCaritem_,txtTypea_,txtAcc1_,txtAcc2_,txtOutmoney_', 'caritem_b.aspx'], 
 				['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
@@ -104,6 +104,7 @@
 						$('#divNextmon').show();
 						$('#textNextmon').val(q_date().substr(0,6));
 						$('#textDiscount').val(100);
+						$('#textSssno').val('070120,070121,070122');
 					} else{
 						$('#divNextmon').hide();
 		        	}
@@ -114,7 +115,7 @@
 				$('#lbl_divNextmon').click(function(e) {//按下資料匯入
 					$('#divNextmon').hide();
 					if(!emp($('#textNextmon').val())&&!emp($('#textDiscount').val())){
-						q_func( 'cara.genNext',$('#textNextmon').val()+','+$('#textDiscount').val()+','+$('#textBcarno').val()+','+$('#textEcarno').val()+','+$('#texSssno').val()+','+r_name);//genNext(string t_mon , string t_discount, string t_worker);
+						q_func( 'cara.genNext',$('#textNextmon').val()+','+$('#textDiscount').val()+','+$('#textBcarno').val()+','+$('#textEcarno').val()+','+$('#textSssno').val()+','+r_name);//genNext(string t_mon , string t_discount, string t_worker);
 			    	}
 				});
 				
@@ -140,12 +141,13 @@
                 	case 'sss':
                         ret = getb_ret();
 	                        if(ret[0]!=undefined){
+	                        	$('#textSssno').val('');
 	                        	for (var i = 0; i < ret.length; i++) {
-	                        		if($('#texSssno').val().length>0){
-		                            	var temp=$('#texSssno').val();
-		                            	$('#texSssno').val(temp+','+ret[i].noa);
+	                        		if($('#textSssno').val().length>0){
+		                            	var temp=$('#textSssno').val();
+		                            	$('#textSssno').val(temp+','+ret[i].noa);
 		                            }else{
-		                            	$('#texSssno').val(ret[i].noa);
+		                            	$('#textSssno').val(ret[i].noa);
 		                            } 
 	                        	}
 							}
@@ -818,7 +820,7 @@
 	            <tr>
 	                <td align="center" style="width:35%"><span> </span><a id="lblSssno" class="lbl btn" ></a></td>
 	                <td style="width:65%">
-	                	<input id="texSssno" type="text"  class="txt c1" style=" float: left;"/>
+	                	<input id="textSssno" type="text"  class="txt c1" style=" float: left;"/>
 	                </td>
 	            </tr>
 	            <tr>
