@@ -26,7 +26,7 @@
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
-            brwCount = 20;
+            brwCount = 6;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'datea';
@@ -42,7 +42,6 @@
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
-                brwCount2 = 11;
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
             });
@@ -228,7 +227,7 @@
                 if (q_cur > 0 && q_cur < 4)
                     return;
 
-                q_box('vcc_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+                q_box('vcc_s.aspx', q_name + '_s', "550px", "600px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();

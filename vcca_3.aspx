@@ -204,7 +204,7 @@
 					" and not exists(select noa from vcca where noa='" + $('#txtNoa').val() + "') ^^";                  
 				}else{
 					t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) "+
-					" and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono))"
+					" and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono)) ^^";
 				}
 				q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
 				$('#btnVcc').removeAttr('disabled');
