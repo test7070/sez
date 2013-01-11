@@ -260,6 +260,12 @@
                     	}
                     	$('#btnOk').click()
                 	});
+                	$('#txtTcarno1').change(function() {
+                    	if(emp($('#txtTcarno2').val())){
+                    		$('#txtTcarno2').val($('#txtTcarno1').val());
+                    	}
+                    	$('#btnOk').click()
+                	});
 					//---------------------------
             	//----------------多車欄位設定----------------
             	$('#Xcarnos').css("width","410px");

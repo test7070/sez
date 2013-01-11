@@ -680,11 +680,11 @@
                 float: left;
             }
             .txt.c4 {
-                width: 18%;
+                width: 25%;
                 float: left;
             }
             .txt.c5 {
-                width: 80%;
+                width: 73%;
                 float: left;
             }
             .txt.num {
