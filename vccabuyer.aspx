@@ -1,4 +1,3 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -17,7 +16,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
             var q_name = "vccabuyer";
-            var q_readonly = [];
+            var q_readonly = ['txtNoa'];
             var bbmNum = [];
             var bbmMask = [];
      
@@ -25,15 +24,13 @@
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'serial';
+            brwKey = 'noa';
 			brwCount2 = 20;
-			q_xchg = 1;
 			
             $(document).ready(function() {
-                bbmKey = ['serial'];
+                bbmKey = ['noa'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
-                $('#txtSerial').focus();
             });
 
             function main() {
@@ -88,6 +85,20 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'vccabuyer':
+                		if(q_cur==1 || q_cur==2){
+							var as = _q_appendData("vccabuyer", "", true);
+							if (as[0] == undefined) {
+								var t_noa = $.trim($('#txtNoa').val());
+								if (t_noa.length == 0 || t_noa == "AUTO")
+									q_gtnoa(q_name, replaceAll(q_date(), '/', ''));
+								else
+									wrServer(t_noa);
+							} else {
+								alert("統一編號已存在。");
+							}
+						}
+						break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -102,11 +113,12 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('vccabuyer_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+                q_box('vccabuyer_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
                 _btnIns();
+                $('#txtNoa').val('AUTO');
                 $('#txtSerial').focus();
             }
 
@@ -115,7 +127,7 @@
                     return;
 
                 _btnModi();
-                $('#txtBuyer').focus();
+                $('#txtSerial').focus();
             }
 
             function btnPrint() {
@@ -123,12 +135,13 @@
             }
 
             function btnOk() {
-                $('#txtSerial').val($.trim($('#txtSerial').val()));
+            	$('#txtSerial').val($.trim($('#txtSerial').val()));
                 if (checkId($('#txtSerial').val())!=2){
                 	alert(q_getMsg('lblSerial')+'錯誤。');
                 	return;
                 }
-                wrServer($('#txtSerial').val());
+				t_where = "where=^^ noa!='"+$.trim($('#txtNoa').val())+"' and serial='"+$('#txtSerial').val()+"' ^^";
+				q_gt('vccabuyer', t_where, 0, 0, 0, "", r_accy);
             }
 
             function wrServer(key_value) {
@@ -208,7 +221,7 @@
             }
             .dview {
                 float: left;
-                width: 800px; 
+                width: 500px; 
                 border-width: 0px; 
             }
             .tview {
@@ -228,7 +241,7 @@
             }
             .dbbm {
                 float: left;
-                width: 800px;
+                width: 450px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -247,10 +260,10 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 9%;
+                width: 15%;
             }
             .tbbm .tdZ {
-                width: 2%;
+                width: 1%;
             }
             .tbbm tr td span {
                 float: right;
@@ -271,15 +284,7 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 98%;
-                float: left;
-            }
-            .txt.c2 {
-                width: 38%;
-                float: left;
-            }
-            .txt.c3 {
-                width: 61%;
+                width: 100%;
                 float: left;
             }
             .txt.num {
@@ -330,9 +335,9 @@
 			<div class="dview" id="dview" >
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewSerial'></a></td>
-						<td align="center" style="width:300px; color:black;"><a id='vewBuyer'></a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewSerial'> </a></td>
+						<td align="center" style="width:300px; color:black;"><a id='vewBuyer'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
@@ -352,7 +357,10 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtSerial"  type="text"  class="txt c1"/></td>
+						<td colspan="3">
+							<input id="txtNoa"  type="text" style="display:none;"/>
+							<input id="txtSerial"  type="text"  class="txt c1"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBuyer' class="lbl"> </a></td>
