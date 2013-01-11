@@ -110,7 +110,7 @@
 						for(var j in t_acomp[i].stampuse){
 							t_index = t_stamp.indexOf(t_acomp[i].stampuse[j].stamp);
 							if(t_index>=0){
-								$('#stamp_lbl_'+t_index).html(t_stamp[t_index]+'('+t_acomp[i].stampuse[j].namea+')').css('color','red').attr('title',t_acomp[i].stampuse[j].memo);
+								$('#stamp_lbl_'+t_index).html(t_stamp[t_index]+'('+t_acomp[i].stampuse[j].namea+')').css('color','red').attr('title',t_acomp[i].stampuse[j].datea+' '+t_acomp[i].stampuse[j].memo);
 							}	
 						}
 						break;
