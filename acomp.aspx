@@ -28,11 +28,31 @@
 			brwCount2 = 20;
 			t_stamp = new Array();//q_getPara('stamp.typea')
 			
+			function acomp(noa,stamp) {
+				try{
+					this.noa = noa;
+					if(stamp.length>0)
+						this.stamp = stamp.split(',');
+					else
+						this.stamp = new Array();
+					this.stampuse = new Array();
+					t_where = "where=^^ cno='"+this.noa+"' and len(isnull(rdate,''))=0 and len(ltrim(stamp))>0 ^^";		
+					q_gt('stampuse', t_where, 0, 0, 0, "", r_accy);
+				}catch(e){
+					alert('1_'+e.message);
+				}
+			}
+			acomp.prototype = {
+				noa: '',
+				stamp : new Array(),
+				stampuse : new Array()
+			}
+			t_acomp = new Array();
+			
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1)
-                $('#txtNoa').focus
+                q_gt(q_name, q_content, q_sqlCount, 1);
             });
 
             function main() {
@@ -67,11 +87,35 @@
 						$('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').addClass('stamp_td');
 						
 					$('.schema_chk').clone().appendTo($('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').attr('id','stamp_td_'+i)).removeClass('schema_chk').addClass('stamp_chk').attr('id','stamp_chk_'+i);	
-					$('#stamp_td_'+ i).append($('.schema_lbl').clone().removeClass('schema_lbl').addClass('stamp_lbl').css('float','left').html(t_stamp[i]).css('color','black').css('cursor','pointer').click(function(e){
+					$('#stamp_td_'+ i).append($('.schema_lbl').clone().removeClass('schema_lbl').addClass('stamp_lbl').css('float','left').attr('id','stamp_lbl_'+i).html(t_stamp[i]).css('color','black').css('cursor','pointer').click(function(e){
 						if(q_cur==1 || q_cur==2)
 							$(this).prev().eq(0).prop('checked',!$(this).prev().eq(0).prop('checked'));
 					}));
 				}	
+            }
+            function display(){
+            	$('.stamp_chk').prop('checked',false);
+                var t_stamp2 = $('#txtStamp').val().split(',');	
+				for(var i in t_stamp2){
+					n = t_stamp.indexOf(t_stamp2[i]);
+					if(n>=0)
+						$('#stamp_chk_'+ n).prop('checked',true);
+				}
+				for(var i in t_stamp){
+					$('#stamp_lbl_'+i).html(t_stamp[i]).css('color','black');
+				}
+				var t_index = -1;
+				for(var i in t_acomp){
+					if($.trim($('#txtNoa').val())==t_acomp[i].noa){
+						for(var j in t_acomp[i].stampuse){
+							t_index = t_stamp.indexOf(t_acomp[i].stampuse[j].stamp);
+							if(t_index>=0){
+								$('#stamp_lbl_'+t_index).html(t_stamp[t_index]+'('+t_acomp[i].stampuse[j].namea+')').css('color','red').attr('title',t_acomp[i].stampuse[j].datea+' '+t_acomp[i].stampuse[j].memo);
+							}	
+						}
+						break;
+					}
+				}
             }
             function checkId(str){
             	if((/^[a-z,A-Z][0-9]{9}$/g).test(str)){
@@ -116,7 +160,67 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'stampuse':           		
+                		var as = _q_appendData("stampuse", "", true);
+                        if (as[0] != undefined) {
+                        	if(as[0].cno.length==0)
+                        		return;
+                        	var index_acomp = -1;
+                        	for(var i in t_acomp){
+                        		if(as[0].cno == t_acomp[i].noa){
+                        			index_acomp = i;
+                        			break;
+                        		}
+                        	}
+                        	if(index_acomp==-1)
+                        		return;
+                        	var index_stampuse = -1;           
+                        	for(var i in as) {
+                        		if(as[i].stamp == undefined)
+                        			continue;
+                       			tmp_stamp = $.trim(as[i].stamp).split(',');
+                        		for(var j in tmp_stamp){
+                        			for(var k in t_acomp[index_acomp].stampuse){
+                        				if(tmp_stamp[j]==t_acomp[index_acomp].stampuse[k].stamp){
+                        					index_stampuse = k;
+                        					break;
+                        				}	
+                        			}
+                        			if(index_stampuse==-1){       
+										t_acomp[index_acomp].stampuse.push({
+	                            			stamp : tmp_stamp[j],
+	                            			datea : as[i].datea,
+	                            			sssno : as[i].sssno,
+	                            			namea : as[i].namea,
+	                            			memo : as[i].memo
+	                            		});    				
+                        			}else if(as[i].datea>=t_acomp[index_acomp].stampuse[index_stampuse].datea){
+                        				t_acomp[index_acomp].stampuse[index_stampuse].datea = as[i].datea;
+                        				t_acomp[index_acomp].stampuse[index_stampuse].sssno = as[i].sssno;
+                        				t_acomp[index_acomp].stampuse[index_stampuse].namea = as[i].namea;
+                        				t_acomp[index_acomp].stampuse[index_stampuse].memo = as[i].memo;
+                        			}
+                        		}
+                        	}
+                        }
+                        display();
+                		break;
                     case q_name:
+                    	var as = _q_appendData("acomp", "", true);
+                        if (as[0] != undefined) {                   
+                            for (var i = 0; i < as.length; i++) {
+                            	isFound = false;
+                            	for(var j in t_acomp){
+                            		if(t_acomp[j].noa == as[i].noa){
+                            			isFound = true;
+                            			break;
+                            		}
+                            	}
+                            	if(!isFound)
+                            		t_acomp.push(new acomp(as[i].noa,$.trim(as[i].stamp)));
+                            }
+                        }
+                    
                         if (q_cur == 4)
                             q_Seek_gtPost();
 
@@ -181,13 +285,7 @@
             function refresh(recno) {
                 _refresh(recno);
                 
-                $('.stamp_chk').prop('checked',false);
-                var t_stamp2 = $('#txtStamp').val().split(',');	
-				for(var i in t_stamp2){
-					n = t_stamp.indexOf(t_stamp2[i]);
-					if(n>=0)
-						$('#stamp_chk_'+ n).prop('checked',true);
-				}	
+                display();	
             }
 
             function readonly(t_para, empty) {

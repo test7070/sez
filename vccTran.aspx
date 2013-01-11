@@ -30,8 +30,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'datea';
-			brwCount2 = 20;
-            q_xchg = 1;
+			brwCount2 = 10;
             
             aPop = new Array(
              ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,tel,zip_invo,addr_invo,paytype', 'txtCustno,txtComp,txtNick,txtTel,txtZipcode,txtAddr,txtPaytype', 'cust_b.aspx']
@@ -392,7 +391,7 @@
             }
             .dview {
                 float: left;
-                width: 950px;
+                width: 200px;
                 border-width: 0px;
             }
             .tview {
@@ -412,7 +411,7 @@
             }
             .dbbm {
                 float: left;
-                width: 950px;
+                width: 750px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -509,24 +508,18 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewComp'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewTotal'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="datea" style="text-align: center;">~datea</td>
-						<td id="noa" style="text-align: center;">~noa</td>
 						<td id="nick" style="text-align: center;">~nick</td>
-						<td id="total,0,1" style="text-align: right;">~total,0,1</td>
 					</tr>
 				</table>
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td> </td>
-						<td> </td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
@@ -559,6 +552,12 @@
 							<input type="text" id="txtComp" style="float:left;width:70%;"/>
 							<input type="text" id="txtNick" style="display:none;"/>
 						</td>
+						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
+						<td><input type="text" id="txtTel" class="txt c1"/>	</td>
+						
+						
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblPaytype' class="lbl"> </a></td>
 						<td><input id="txtPaytype" type="text" class="txt c1"/></td>
 						<td><select id="combPaytype" style="float:left; width:20px;"> </select>
@@ -567,8 +566,6 @@
 						<td><select id="cmbTrantype" class="txt c1"> </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
-						<td><input type="text" id="txtTel" class="txt c1"/>	</td>
 						<td><span> </span><a id='lblAddr' class="lbl"> </a></td>
 						<td colspan="5">
 							<input type="text" id="txtZipcode" style="float:left;width:10%;"/>
@@ -606,6 +603,12 @@
 						<td><select id="cmbTaxtype" class="txt c1"> </select></td>
 						<td><span> </span><a id="lblTax" class="lbl"> </a></td>
 						<td><input id="txtTax" type="text" class="txt c1 num"/>	</td>
+					</tr>
+					<tr>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
 						<td><input id="txtTotal" type="text" class="txt c1 num"/></td>
 					</tr>
