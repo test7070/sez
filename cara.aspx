@@ -31,8 +31,8 @@
             q_desc=1;
 			//q_alias='a';
 			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,b.carowner', 'txtCarno,txtCarowner', "car2_b.aspx"],
-				['textBcarno', 'lblNextcarno', 'view_carno_carowner', 'carno,carownerno,namea,', 'textBcarno', "car2_b.aspx"],
-				['textEcarno', 'lblNextcarno', 'view_carno_carowner', 'carno,carownerno,namea', 'textEcarno', "car2_b.aspx"],
+				['textBcarno', 'lblNextcarno', 'car2', 'a.noa,b.carowner', 'textBcarno', "car2_b.aspx?;;;a.carownerno!='' "],
+				['textEcarno', 'lblNextcarno', 'car2', 'a.noa,b.carowner', 'textEcarno', "car2_b.aspx?;;;a.carownerno!='' "],
 				['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
 				['txtCaritemno_', 'btnCaritem_', 'caritem', 'noa,item,typea,acc1,acc2', 'txtCaritemno_,txtCaritem_,txtTypea_,txtAcc1_,txtAcc2_,txtOutmoney_', 'caritem_b.aspx'], 
 				['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
