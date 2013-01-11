@@ -114,10 +114,20 @@
 				$('#lbl_divNextmon').click(function(e) {//按下資料匯入
 					$('#divNextmon').hide();
 					if(!emp($('#textNextmon').val())&&!emp($('#textDiscount').val())){
-						q_func( 'cara.genNext',$('#textNextmon').val()+','+$('#textDiscount').val()+','+r_name);//genNext(string t_mon , string t_discount, string t_worker);
+						q_func( 'cara.genNext',$('#textNextmon').val()+','+$('#textDiscount').val()+','+$('#textBcarno').val()+','+$('#textEcarno').val()+','+$('#texSssno').val()+','+r_name);//genNext(string t_mon , string t_discount, string t_worker);
 			    	}
 				});
 				
+				$('#textBcarno').focus(function () {
+	            	q_cur=2;
+	       		}).blur(function () {
+	            	q_cur=0;
+	       		});
+				$('#textEcarno').focus(function () {
+	            	q_cur=2;
+	       		}).blur(function () {
+	            	q_cur=0;
+	       		});
 				$('#lblSssno').click(function () {
 	            	q_box("sss_b2.aspx?;;;partno='07'", 'sss', "95%", "95%", q_getMsg("popSss"));
 	       		});
@@ -725,7 +735,7 @@
             
             .popDiv {
 				position: absolute;
-				z-index: 99;
+				/*z-index: 99;*/
 				background: #4297D7;
 				border: 2px #EEEEEE solid;
 				display: none;/*default*/

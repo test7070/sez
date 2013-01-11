@@ -59,7 +59,15 @@
             q_cmbParse("cmbKind", q_getPara('getst.kind'));
             q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
             // 需在 main_form() 後執行，才會載入 系統參數
-            
+            /* 若非本會計年度則無法存檔 */
+			$('#txtDatea').focusout(function () {
+				if($(this).val().substr( 0,3)!= r_accy){
+			        	$('#btnOk').attr('disabled','disabled');
+				}else{
+			       		$('#btnOk').removeAttr('disabled');
+				}
+			});
+
             //變動尺寸欄位
             $('#cmbKind').change(function () {
             	size_change();

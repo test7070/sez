@@ -67,7 +67,14 @@
             q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  // comb 未連結資料庫
             q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
-
+			/* 若非本會計年度則無法存檔 */
+			$('#txtDatea').focusout(function () {
+				if($(this).val().substr( 0,3)!= r_accy){
+			        	$('#btnOk').attr('disabled','disabled');
+				}else{
+			       		$('#btnOk').removeAttr('disabled');
+				}
+			});
             $('#lblQuat').click(function () { btnQuat(); });
 
 

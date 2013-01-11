@@ -21,7 +21,7 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
 		aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'],
-             ['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
+             ['txtProductno', 'lblProductno', 'ucc', 'noa,product,saleprice', 'txtProductno,txtProduct,txtMoney', 'ucc_b.aspx'],
              ['txtPartno', 'lblPartno', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -37,7 +37,7 @@
                dataErr = false;
                return;
            }
-            mainForm(0); // 1=Last  0=Top           
+            mainForm(0); // 1=Last  0=Top       
         }  
 
 
@@ -45,6 +45,17 @@
             q_mask(bbmMask);
 			q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 			q_cmbParse("cmbTypea", ('').concat(new Array('發票', '會計-營業稅', '會計-營所稅', '會計-綜所稅', '利息收入', '佣金收入', '其他收入', '保證金','票貼','借支','勞健保')));
+			$('#cmbTypea').change(function() {
+				if($('#cmbTypea :selected').val().substr( 0,2) != '會計'){
+					$('#txtSalesno').val("");
+					$('#txtSales').val("");					
+					$('#txtSalesno').attr("readonly","readonly");
+					$('#txtSales').attr("readonly","readonly");
+				}else{
+					$('#txtSalesno').removeAttr("readonly");
+					$('#txtSales').removeAttr("readonly");
+				}
+			});
         }
         function txtCopy(dest, source) {
             var adest = dest.split(',');
@@ -67,7 +78,8 @@
         
         function q_boxClose( s2) {
             var ret; 
-            switch (b_pop) {                   case 'conn':
+            switch (b_pop) {
+            	case 'conn':
 
                     break;
 
@@ -123,6 +135,8 @@
         function btnIns() {
             _btnIns();
             $('#txtCustno').focus();
+            $('#txtSalesno').attr("readonly","readonly");
+			$('#txtSales').attr("readonly","readonly");
         }
 
         function btnModi() {
@@ -131,6 +145,8 @@
 
             _btnModi();
             $('#txtCustno').focus();
+            $('#txtSalesno').attr("readonly","readonly");
+			$('#txtSales').attr("readonly","readonly");
         }
 
         function btnPrint() {
@@ -383,7 +399,9 @@
             <tr class="tr4">
                <td class="td1"><span> </span><a id="lblTypea" class="lbl"> </a></td>
                <td class="td2"> <select id="cmbTypea" class="txt c1"> </select> </td>
-              
+               <td class="td1"><span> </span><a id="lblSales" class="lbl"> </a></td>
+               <td class="td2"><input id="txtSalesno" type="text" class="txt c2"/>
+               <input id="txtSales" type="text" class="txt c3"/></td>   
             </tr>
             <tr class="tr5">
                <td class="td1"><span> </span><a id="lblTaxtype" class="lbl"> </a></td>

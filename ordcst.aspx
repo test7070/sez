@@ -58,7 +58,14 @@
                 q_cmbParse("combPaytype", q_getPara('rc2.paytype'));  
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
-                
+                /* 若非本會計年度則無法存檔 */
+				$('#txtDatea').focusout(function () {
+					if($(this).val().substr( 0,3)!= r_accy){
+				        	$('#btnOk').attr('disabled','disabled');
+					}else{
+				       		$('#btnOk').removeAttr('disabled');
+					}
+				});
                /* $('#cmbPaytype').change(function () {
 	            	$('#txtPay').val($('#cmbPaytype').find("option:selected").text())
 			     });*/

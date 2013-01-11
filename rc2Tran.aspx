@@ -66,7 +66,7 @@
                 q_cmbParse("combPay", q_getPara('rc2.pay'));
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
                $('#btnAccc').click(function () {
-		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "97%", "1054px", q_getMsg('btnAccc'), true);
+		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "97%", "1054px", q_getMsg('btnAccc'), true);
 		        });
 
                 $('#cmbTaxtype').change(function(e) {
@@ -78,7 +78,14 @@
                 $('#txtTax').change(function(e) {
                     sum();
                 });
-
+				/* 若非本會計年度則無法存檔 */
+				$('#txtDatea').focusout(function () {
+					if($(this).val().substr( 0,3)!= r_accy){
+				        	$('#btnOk').attr('disabled','disabled');
+					}else{
+				       		$('#btnOk').removeAttr('disabled');
+					}
+				});
             }
 
             function q_boxClose(s2) {

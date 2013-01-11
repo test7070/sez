@@ -58,7 +58,15 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbItype", q_getPara('ina.typea'));
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
-                
+                /* 若非本會計年度則無法存檔 */
+				$('#txtDatea').focusout(function () {
+					if($(this).val().substr( 0,3)!= r_accy){
+				        	$('#btnOk').attr('disabled','disabled');
+					}else{
+				       		$('#btnOk').removeAttr('disabled');
+					}
+				});
+
             }
 		
             function q_boxClose(s2) {///   q_boxClose 2/4

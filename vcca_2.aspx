@@ -85,10 +85,15 @@
 				q_mask(bbmMask);
 
 				q_cmbParse("cmbTaxtype",q_getPara('sys.taxtype'));
-				
-				 $('#txtDatea').focusout(function () {
-                     	   q_cd( $(this).val() ,$(this));
-	                });
+				$('#txtDatea').focusout(function () {
+                	q_cd( $(this).val() ,$(this));
+                	/* 若非本會計年度則無法存檔 */
+                 	if($(this).val().substr( 0,3)!= r_accy){
+                 		$('#btnOk').attr('disabled','disabled');
+                 	}else{
+                 		$('#btnOk').removeAttr('disabled');
+                 	}
+	            });
 				$('#cmbTaxtype').focus(function() {
 					var len = $("#cmbTaxtype").children().length > 0 ? $("#cmbTaxtype").children().length : 1;
 					$("#cmbTaxtype").attr('size', len + "");
@@ -201,7 +206,7 @@
 					" and not exists(select noa from vcca where noa='" + $('#txtNoa').val() + "') ^^";                  
 				}else{
 					t_where = "where=^^ cno='" + $('#txtCno').val() + "' and ('" + $('#txtDatea').val() + "' between bdate and edate) "+
-					" and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono))"
+					" and exists(select noa from vccars where vccars.noa=vccar.noa and ('" + $('#txtNoa').val() + "' between binvono and einvono)) ^^";
 				}
 				q_gt('vccar', t_where, 0, 0, 0, "", r_accy);
 			}
