@@ -50,7 +50,7 @@
                 q_mask(bbmMask);
                 q_gt('part', '', 0, 0, 0, "");
                 q_cmbParse("cmbTypea", q_getPara('bcc.type'));
-				
+				q_cmbParse("cmbTaxtype", '含稅,自訂');
 				$("#cmbPartno").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
@@ -63,20 +63,25 @@
                 }).blur(function() {
                     $(this).attr('size', '1');
                 });
-                
-                $('#txtPrice').change(function() {
-                    q_tr('txtBeginmoney', dec($('#txtPrice').val()) * dec($('#txtBeginmount').val()));
+                $("#cmbTaxtype").change(function() {
+                	sum();
+                }).click(function() {
+                	sum();
                 });
-
+                $('#txtPrice').change(function() {
+                	sum();
+                });
+                $('#txtTax').change(function() {
+                	sum();
+                });
+                $('#txtTotal').change(function() {
+                	sum();
+                });
                 $('#txtBeginmount').change(function() {
-                    q_tr('txtBeginmoney', dec($('#txtPrice').val()) * dec($('#txtBeginmount').val()));
-                    if (q_cur == 1) {
-                        q_tr('txtStkmount', dec($('#txtBeginmount').val()));
-                        q_tr('txtStkmoney', dec($('#txtPrice').val()) * dec($('#txtBeginmount').val()));
-                    }
+                    sum();
                 });
                 $('#txtStkmount').change(function() {
-                    q_tr('txtStkmoney', dec($('#txtPrice').val()) * dec($('#txtStkmount').val()));
+                    sum();
                 });
                 $('#txtAcc1').change(function(e) {
                     if($('#txtAcc1').val().length==4 && $('#txtAcc1').val().indexOf('.')==-1){
@@ -86,6 +91,49 @@
                     }
                 });
             }
+            function sum(){
+            	if(!(q_cur==1 || q_cur==2))
+					return;	
+				$('#txtPrice').attr('readonly',true);			
+				$('#txtTax').attr('readonly',true);	
+				$('#txtTotal').attr('readonly', true);
+				$('#txtPrice').css('background-color','rgb(237,237,238)').css('color','green');
+				$('#txtTax').css('background-color','rgb(237,237,238)').css('color','green');
+				$('#txtTotal').css('background-color','rgb(237,237,238)').css('color','green');
+				var t_price=0,t_tax=0,t_total=0,t_taxrate = parseFloat(q_getPara('sys.taxrate'))/100;;
+            	switch($('#cmbTaxtype').val()){
+            		case '自訂':
+            			$('#txtPrice').attr('readonly',false);			
+						$('#txtTax').attr('readonly',false);	
+						$('#txtPrice').css('background-color','white').css('color','black');
+						$('#txtTax').css('background-color','white').css('color','black');
+						t_price = q_float('txtPrice');
+						t_tax = q_float('txtTax');
+						t_total = t_price + t_tax;
+            			break;
+            		case '含稅':
+            			$('#txtTotal').attr('readonly',false);
+            			$('#txtTotal').css('background-color','white').css('color','black');
+            			t_total = q_float('txtTotal');
+            			t_price = round(t_total / (1 + t_taxrate), 0);
+			            t_tax = t_total - t_price;
+			            break;
+			        default:
+			       	 	break;
+            	}
+            	$('#txtPrice').val(t_price);
+            	$('#txtTax').val(t_tax);
+            	$('#txtTotal').val(t_total);
+            	
+            	q_tr('txtBeginmoney', dec($('#txtPrice').val()) * dec($('#txtBeginmount').val()));
+            	q_tr('txtBeginmoney', dec($('#txtPrice').val()) * dec($('#txtBeginmount').val()));
+                if (q_cur == 1) {
+                    q_tr('txtStkmount', dec($('#txtBeginmount').val()));
+                    q_tr('txtStkmoney', dec($('#txtPrice').val()) * dec($('#txtBeginmount').val()));
+                }
+                q_tr('txtStkmoney', dec($('#txtPrice').val()) * dec($('#txtStkmount').val()));
+            }
+            
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -150,7 +198,9 @@
 
             function btnIns() {
                 _btnIns();
+                sum();
                 $('#txtNoa').focus();
+                
             }
 
             function btnModi() {
@@ -160,8 +210,9 @@
                 $('#txtNoa').attr('disabled', 'disabled');
                 $('#txtStkmount').attr('disabled', 'disabled');
                 $('#txtStkmoney').attr('disabled', 'disabled');
-
+				sum();
                 $('#txtProduct').focus();
+                
             }
 
             function btnPrint() {
@@ -469,8 +520,20 @@
 						<td><input id="txtUnit" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblTaxtype' class="lbl"> </a></td>
+						<td><select id="cmbTaxtype"  class="txt c1"> </select></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
 						<td><input id="txtPrice"  type="text" class="txt num c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblTax' class="lbl"> </a></td>
+						<td><input id="txtTax"  type="text" class="txt num c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
+						<td><input id="txtTotal"  type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
