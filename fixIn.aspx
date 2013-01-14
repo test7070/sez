@@ -159,13 +159,11 @@
 			}
 
 			function btnOk() {
-				$('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (checkId($('#txtDatea').val())==0){
+                if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
             	}
-				$('#txtIndate').val($.trim($('#txtIndate').val()));
-                if (checkId($('#txtIndate').val())==0){
+                if (!q_cd($('#txtIndate').val())){
                 	alert(q_getMsg('lblIndate')+'錯誤。');
                 	return;
             	}
@@ -677,8 +675,8 @@
 					<td align="center" style="width:15%;"><a id='lblProduct_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblBrand_s'> </a></td>
 					<td align="center" style="width: 4%;"><a id='lblUnit_s'> </a></td>
-					<td align="center" style="width: 7%;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width: 7%;"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width: 7%;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width: 7%;"><a id='lblMoney_s'> </a></td>
 					<td align="center" style="width: 8%;"><a id='lblTireno_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
@@ -704,10 +702,10 @@
 					<input class="txt c1" id="txtUnit.*" type="text" />
 					</td>
 					<td >
-					<input class="txt num c1" id="txtMount.*" type="text" />
+					<input class="txt num c1" id="txtPrice.*" type="text" />
 					</td>
 					<td >
-					<input class="txt num c1" id="txtPrice.*" type="text" />
+					<input class="txt num c1" id="txtMount.*" type="text" />
 					</td>
 					<td >
 					<input class="txt num c1" id="txtMoney.*" type="text" />
