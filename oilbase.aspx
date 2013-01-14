@@ -25,6 +25,7 @@
 			brwNowPage = 0;
 			brwKey = 'noa';
 			q_desc  =  1;
+			brwCount2 = 12;
 			//ajaxPath = ""; //  execute in Root
 
 			$(document).ready(function() {
@@ -200,7 +201,7 @@
             }
             .dview {
                 float: left;
-                width: 300px; 
+                width: 500px; 
                 border-width: 0px; 
             }
             .tview {
@@ -220,7 +221,7 @@
             }
             .dbbm {
                 float: left;
-                width: 550px;
+                width: 450px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -315,11 +316,21 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>			
 						<td align="center" style="width:60px; color:black;"><a id='vewMon'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewPrice'> </a></td>
+						<td align="center" style="width:70px; color:black;"><a id='vewPrice1'> </a></td>
+						<td align="center" style="width:70px; color:black;"><a id='vewPrice2'> </a></td>
+						<td align="center" style="width:70px; color:black;"><a id='vewPrice3'> </a></td>
+						<td align="center" style="width:70px; color:black;"><a id='vewPrice4'> </a></td>
+						<td align="center" style="width:70px; color:black;"><a id='vewPrice5'> </a></td>
+						<td align="center" style="width:70px; color:black;"><a id='vewPrice'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='noa' style="text-align: center;">~noa</td>
+						<td id='price1' style="text-align: right;">~price1</td>
+						<td id='price2' style="text-align: right;">~price2</td>
+						<td id='price3' style="text-align: right;">~price3</td>
+						<td id='price4' style="text-align: right;">~price4</td>
+						<td id='price5' style="text-align: right;">~price5</td>
 						<td id='price' style="text-align: right;">~price</td>
 					</tr>
 				</table>
@@ -327,8 +338,6 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td> </td>
-						<td> </td>
 						<td> </td>
 						<td> </td>
 						<td class="tdZ"> </td>
