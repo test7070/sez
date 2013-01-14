@@ -71,7 +71,14 @@
                 	if(q_cur==1 || q_cur==2)
 					 $('#txtPaytype').val($('#combPaytype').find(":selected").text()); 
 				});
-                
+                $("#txtPaytype").focus(function(e) {
+  					var n=$(this).val().match(/[0-9]+/g);
+  					var input = document.getElementById ("txtPaytype");
+		            if (typeof(input.selectionStart) != 'undefined' && n != null) {	  
+		                input.selectionStart = $(this).val().indexOf(n);
+		                input.selectionEnd =$(this).val().indexOf(n)+n.length+1;
+		            }
+				});
                 $('#lblConn').click(function() {
                     t_where = "noa='" + $('#txtNoa').val() + "'";
                     q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('lblConn'));
