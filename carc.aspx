@@ -90,9 +90,9 @@
 		     $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
                 });
-		     $('#btnCarowner').click(function() {
+		     $('#btnCarlender').click(function() {
 		     		t_where = "noa='" + $('#txtCarownerno').val() + "'";
-            		q_box("carowner.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "650px", q_getMsg('popOrde'));
+            		q_box("carlender.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'carLender', "95%", "650px", q_getMsg('popCarlender'));
              });
             
         }
@@ -508,7 +508,7 @@
 			<td class='td1'><span> </span><a id="lblMon" class="lbl"></a></td>
             <td class='td2'><input id="txtMon" type="text" class="txt c1"/></td>
 			<td class='td3'><span> </span></td>
-            <td class='td4'><input id="btnCarowner" type="button" style="float: left;"/></td>
+            <td class='td4'><input id="btnCarlender" type="button" style="float: left;"/></td>
        </tr>
        <tr class="tr3">           
 			<td class='td1'><span> </span><a id="lblCarowner" class="lbl btn"></a></td>

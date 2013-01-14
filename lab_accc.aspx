@@ -16,7 +16,7 @@
             }
 
             var q_name = "lab_accc";
-            var q_readonly = ['txtNoa','txtWorker','txtAccno','txtPaybno','txtBvccno','txtEvccno'];
+            var q_readonly = ['txtNoa','txtMon','txtWorker','txtAccno','txtBvccno','txtEvccno'];
             var bbmNum = [];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -46,14 +46,11 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd], ['txtMon', r_picm]];
+                bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('lab_accc.typea'));
                 $('#lblAccno').click(function() {
-                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
-                });
-                $('#lblPaybno').click(function() {
-                	q_pop('txtPaybno', "payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtPaybno').val() + "';" + r_accy + '_' + r_cno, 'payb', 'noa', 'datea', "95%", "95%", q_getMsg('popPayb'), true);
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtMon').val().substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
                 });
                 $('#txtDatea').focusout(function() {
                     q_cd($(this).val(), $(this));
@@ -63,6 +60,9 @@
                 });
                 $('#txtEdate').focusout(function() {
                     q_cd($(this).val(), $(this));
+                });
+                $('#txtEdate').focusout(function() {
+                		$('#txtMon').val($(this).val().substr(0,6));
                 });
             }
 
@@ -420,23 +420,32 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSalesno' class="lbl btn"> </a></td>
-						<td colspan="2">
+						<td colspan="3">
 							<input id="txtSalesno"  type="text" style="float:left; width:45%;"/>
-							<input id="txtSales"  type="text" style="float:left; width:55%;"/>
+							<span style="float:left; width:5px;"> </span>
+							<span style="float:left; width:20px; font-weight: bold;font-size: 20px;"></span>
+							<span style="float:left; width:5px;"> </span>
+							<input id="txtSales"  type="text" style="float:left; width:45%;"/>
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPart' class="lbl btn"> </a></td>
-						<td colspan="2">
+						<td colspan="3">
 							<input id="txtPartno"  type="text" style="float:left; width:45%;"/>
-							<input id="txtPart"  type="text" style="float:left; width:55%;"/>
+							<span style="float:left; width:5px;"> </span>
+							<span style="float:left; width:20px; font-weight: bold;font-size: 20px;"></span>
+							<span style="float:left; width:5px;"> </span>
+							<input id="txtPart"  type="text" style="float:left; width:45%;"/>
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAcc1' class="lbl btn"> </a></td>
-						<td colspan="2">
+						<td colspan="3">
 							<input id="txtAcc1"  type="text" style="float:left; width:45%;"/>
-							<input id="txtAcc2"  type="text" style="float:left; width:55%;"/>
+							<span style="float:left; width:5px;"> </span>
+							<span style="float:left; width:20px; font-weight: bold;font-size: 20px;"></span>
+							<span style="float:left; width:5px;"> </span>
+							<input id="txtAcc2"  type="text" style="float:left; width:45%;"/>
 						</td>
 					</tr>
 					<tr>
@@ -448,10 +457,6 @@
 							<span style="float:left; width:5px;"> </span>
 							<input id="txtEvccno"  type="text" style="float:left; width:45%;"/>
 						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblPaybno' class="lbl btn"> </a></td>
-						<td><input id="txtPaybno"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
