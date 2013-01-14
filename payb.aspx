@@ -533,11 +533,13 @@
             .tbbs a {
                 font-size: medium;
             }
-
+			.tbbs input[type="text"] {
+                width: 95%;
+            }
             .num {
                 text-align: right;
             }
-            input[type="text"], input[type="button"] {
+            input[type="text"], input[type="button"], select{
                 font-size: medium;
             }
 		</style>
