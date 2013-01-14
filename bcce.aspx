@@ -19,8 +19,8 @@
         var q_name = "bcce";
         var q_readonly = [];
         var q_readonlys = [];
-        var bbmNum = [['txtPrice', 10, 3]];  
-        var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
+        var bbmNum = [];  
+        var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4],['txtPrice', 10, 3]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
