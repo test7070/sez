@@ -17,8 +17,8 @@
 			}
 
 			var q_name = "trans";
-			var q_readonly = ['txtNoa', 'txtTotal', 'txtTotal2', 'txtTrdno', 'txtTreno', 'txtWorkerno', 'txtWorker'];
-			var bbmNum = new Array(['txtUnpack', 10, 0], ['txtInmount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3], ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['txtMiles', 10, 0], ['txtBmiles', 10, 0], ['txtEmiles', 10, 0], ['txtGross', 10, 3], ['txtWeight', 10, 3], ['txtOutmount', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 3], ['txtPton2', 10, 3], ['txtOverh', 10, 0], ['txtOverw', 10, 0], ['txtTolls', 10, 0], ['txtReserve', 10, 0]);
+			var q_readonly = ['txtNoa', 'txtTotal', 'txtTotal2', 'txtTrdno', 'txtTreno', 'txtWorkerno', 'txtWorker','txtWeight3'];
+			var bbmNum = new Array(['txtWeight3',10,3],['txtWeight2',10,3],['txtUnpack', 10, 0], ['txtInmount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3], ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['txtMiles', 10, 0], ['txtBmiles', 10, 0], ['txtEmiles', 10, 0], ['txtGross', 10, 3], ['txtWeight', 10, 3], ['txtOutmount', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 3], ['txtPton2', 10, 3], ['txtOverh', 10, 0], ['txtOverw', 10, 0], ['txtTolls', 10, 0], ['txtReserve', 10, 0]);
 			var bbmMask = new Array(['txtTrandate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99'], ['txtCldate', '999/99/99'], ['txtLtime', '99:99'], ['txtStime', '99:99'], ['txtDtime', '99:99'], ['txtMon', '999/99']);
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -267,9 +267,16 @@
 		                input.selectionEnd =8;
 		            }
 				});
+				$('#txtWeight2').change(function(e) {
+					sum();	
+				});
 			}
 
 			function sum() {
+				if(q_float('txtWeight2')==0)
+					$('#txtWeight3').val(0);
+				else
+					$('#txtWeight3').val(q_float('txtMount')-q_float('txtWeight2'));
 				if ($('#txtDiscount').val().length == 0) {
 					$('#txtDiscount').val('1');
 				}
@@ -987,6 +994,10 @@
 						<td class="tdF" colspan="2">
 						<input id="txtWeight" type="text"  class="txt num c1"/>
 						</td>
+						<td colspan="2"><span> </span><a id="lblWeight2" class="lbl"> </a></td>
+						<td colspan="2"><input id="txtWeight2" type="text"  class="txt num c1"/></td>
+						<td colspan="2"><span> </span><a id="lblWeight3" class="lbl"> </a></td>
+						<td colspan="2"><input id="txtWeight3" type="text"  class="txt num c1"/></td>
 					</tr>
 					<tr class="tr7 m">
 						<td class="td1" colspan="2"><span> </span><a id="lblCaseno" class="lbl"> </a></td>
