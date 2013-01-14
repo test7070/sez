@@ -72,7 +72,7 @@
 						//add lbl
 						$('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').addClass('stamp_td str');
 						$('.schema_span').clone().appendTo($('.stamp_td.str')).removeClass('schema_span').addClass('stamp_span');
-						$('.schema_lbl').clone().appendTo($('.stamp_td.str')).removeClass('schema_lbl').css('float','right').html(q_getMsg('lblStamp'));
+						$('.schema_lbl').clone().appendTo($('.stamp_td.str')).removeClass('schema_lbl').css('float','right').html(q_getMsg('lblStamp')).attr('title','印章需在公司主檔設定。');
 					}
 					else if(i%n==0)
 						$('.schema_td').clone().appendTo($('#stamp_tr_'+ m)).removeClass('schema_td').addClass('stamp_td');

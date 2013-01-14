@@ -44,17 +44,20 @@
 
             function mainPost() {
                 q_mask(bbmMask);
-
-                $('#txtVccacc1').change(function() {
-					var str=$.trim($(this).val());
-                	if((/^[0-9]{4}$/g).test(str))
-                		$(this).val(str+'.');
-				});
-				$('#txtRc2acc1').change(function() {
-					var str=$.trim($(this).val());
-                	if((/^[0-9]{4}$/g).test(str))
-                		$(this).val(str+'.');
-				});
+				$('#txtVccacc1').change(function(e) {
+                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
+                    	$(this).val($(this).val()+'.');	
+                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
+                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
+                    }
+                });
+				$('#txtRc2acc1').change(function(e) {
+                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
+                    	$(this).val($(this).val()+'.');	
+                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
+                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
+                    }
+                });
             }
 
             function q_boxClose(s2) {
