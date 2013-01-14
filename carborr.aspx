@@ -138,13 +138,11 @@
             }
 
             function btnOk() {
-            	$('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (checkId($('#txtDatea').val())==0){
+                if ($('#txtDatea').val().length>0 && !q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
            		}
-            	$('#txtTicketdate').val($.trim($('#txtTicketdate').val()));
-                if (checkId($('#txtTicketdate').val())==0){
+                if (!q_cd($('#txtTicketdate').val())){
                 	alert(q_getMsg('lblTicketdate')+'錯誤。');
                 	return;
            		}
