@@ -23,6 +23,7 @@
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Noa';
+        q_desc=1;
         //ajaxPath = ""; 
 		aPop = new Array();
         $(document).ready(function () {

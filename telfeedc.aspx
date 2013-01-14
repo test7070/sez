@@ -84,11 +84,15 @@
         function q_gtPost(t_name) {  
             switch (t_name) {
             	case 'telfee':
+            		var comptotal=0;
             		var as = _q_appendData("telfee", "", true);
             		if(as[0]!=undefined){
             			var telfees = _q_appendData("telfees", "", true);
             			if(telfees[0]!=undefined){
 	            			for(var i = 0; i < telfees.length; i++) {
+	            				if(telfees[i].namea.substr(0,2)=='公司'){
+	            					comptotal+=dec(telfees[i].fee);
+	            				}
 		            			for(var j = 0; j < q_bbsCount; j++) {
 		            				if(telfees[i].namea==$('#txtNamea_'+j).val()){
 		            					if((telfees[i].mobile).substr(0,2)=='09'){
@@ -101,6 +105,7 @@
 	            			}
             			}
             		}
+            		$('#txtComptotal').val(comptotal);
             	break;
                 case q_name: 
                 	if(q_cur==1){

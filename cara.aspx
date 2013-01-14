@@ -373,8 +373,23 @@
            					}
            					sum();
            				});
-           				$('#txtOutmoney_'+j).change(function () {sum();});
-           				$('#txtInmoney_'+j).change(function () {sum();});
+           				$('#txtOutmoney_'+j).change(function () {
+           					sum();
+           				}).blur(function() {
+           					t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							$('#txtMemo_'+b_seq).focus();
+						});
+						
+           				$('#txtInmoney_'+j).change(function () {
+           					sum();
+           				}).blur(function() {
+           					t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							$('#txtMemo_'+b_seq).focus();
+						});
            			}
            		}
                 _bbsAssign();
