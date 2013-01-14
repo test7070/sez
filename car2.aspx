@@ -66,6 +66,10 @@
 					$(".carowner").hide();
 					$("#btnCarowner").val("＋");
 				});
+				$('#txtCarownerno').keydown(function(e) {
+					if(e.which==13)
+						$('#txtIndate').focus();
+				});
 				
 				$("#btnCarowneredit").val("車主新增/修改");
 				$('#btnCarowneredit').click(function(e) {

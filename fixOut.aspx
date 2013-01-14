@@ -20,7 +20,7 @@
             var q_name = "fixout";
             var q_readonly = ['txtNoa', 'txtMoney', 'txtWorker'];
             var q_readonlys = ['txtStkmount'];
-            var bbmNum = new Array(['txtMoney', 10, 0, 1]);
+            var bbmNum = new Array(['txtMoney', 10, 0, 1],['txtMiles',10,0]);
             var bbsNum = new Array(['txtPrice', 10, 0, 1], ['txtMount', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtStkmount', 10, 0, 1]);
             var bbmMask = [];
             var bbsMask = [];
@@ -615,8 +615,8 @@
 						<td class="td4">
 						<input id="txtCarplateno" type="text" class="txt c1"/>
 						</td>
-						<td></td>
-						<td></td>
+						<td><span> </span><a id="lblMiles" class="lbl"> </a></td>
+						<td><input id="txtMiles" type="text" class="txt c1 num"/> </td>
 						<td></td>
 						<td></td>
 						<td rowspan="3"><img src="../image/ben.jpg" class="txt c1"/></td>
