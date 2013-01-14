@@ -25,7 +25,8 @@
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Noa';
         q_desc=1;
         //ajaxPath = ""; 
-		aPop = new Array();
+        
+		 aPop = new Array(['txtNamea_', 'lblSss', 'tel', 'namea,telno,total,sssno', 'txtNamea_,txtMobile_,txtOfee_', 'tel_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];

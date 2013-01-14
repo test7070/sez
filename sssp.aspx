@@ -63,14 +63,14 @@
 		        $('#btnLabase').click(function (e) {
 		            q_box("labase.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labase', "95%", "95%", q_getMsg("popLabase"));
 		        });
-		        $('#txtIndate').change(function (e) {
+		        $('#txtIndate').blur(function (e) {
 		            if (!emp($('#txtIndate').val())) {
 		                $('#txtHealth_bdate').val($('#txtIndate').val());
 		                $('#txtLabor1_bdate').val($('#txtIndate').val());
 		                $('#txtLabor2_bdate').val($('#txtIndate').val());
 		            }
 		        });
-		        $('#txtOutdate').change(function (e) {
+		        $('#txtOutdate').blur(function (e) {
 		            if (!emp($('#txtOutdate').val())) {
 		                $('#txtHealth_edate').val($('#txtOutdate').val());
 		                $('#txtLabor1_edate').val($('#txtOutdate').val());
