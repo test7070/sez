@@ -22,7 +22,7 @@
         var bbsNum = [['txtOfee',12 , 0, 1],['txtFee',12 , 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
-        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
+        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Noa';
         //ajaxPath = ""; 
 		aPop = new Array();
         $(document).ready(function () {

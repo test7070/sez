@@ -45,6 +45,8 @@
 	                t_month = t_date.getUTCMonth()+1;
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                $('#txtXmon').val(t_year+'/'+t_month);
+	                $('#txtMon1').val(t_year+'/'+t_month);
+	                $('#txtMon2').val(t_year+'/'+t_month);
             }
 
             function q_boxClose(s2) {
