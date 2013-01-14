@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -15,48 +15,14 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
-		
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
-            function z_accc() {
-			}
-            z_accc.prototype = {
-				isInit : false,
-				data : {
-					balacc1 : null
-				},
-				isLoad : function() {
-					var isLoad = true;
-					for (var x in this.data) {
-						isLoad = isLoad && (this.data[x] != null);
-					}
-					return isLoad;
-				}
-			};
-			t_data = new z_accc();
-			
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_accc');   
+                q_gf('', 'z_accc');             
             });
-            
             function q_gfPost() {
-				q_gt('balacc1', '', 0, 0, 0, "");
-			}
-
-            function q_gfPost() {
-            	switch (t_name) {
-					case 'balacc1':
-						t_data.data['balacc1'] = '';
-						var as = _q_appendData("balacc1", "", true);
-						for ( i = 0; i < as.length; i++) {
-							t_data.data['balacc1'] += (t_data.data['balacc1'].length > 0 ? ',' : '') + as[i].noa + '@' + as[i].balacc1;
-						}
-						break;
-				}
-				 if (t_data.isLoad() && !t_data.isInit) {
-					t_data.isInit  =  true;
                 $('#q_report').q_report({
                     fileName : 'z_accc',
                     options : [{
@@ -81,36 +47,8 @@
                     },{
                         type : '1',
                         name : 'xaccc3'
-                    }, {
-							type : '6',
-							name : 'xbal'
-					}, {/*4*/
-							type : '8',
-							name : 'xaccc5',
-							value : t_data.data['accbal1'].split(',')
-						},{
-                        type : '8',
-                        name : 'balance',
-                        value : (('').concat(new Array("餘額"))).split(',')
                     }]
                 });
-               
-                $('#txtAcc1a').change(function () {
-		                var s1 = trim($(this).val());
-		                if (s1.length > 4 && s1.indexOf('.') < 0)
-		                    $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
-		                if (s1.length == 4)
-		                    $(this).val(s1 + '.');
-		                    
-		            });
-		            $('#txtAcc2a').change(function () {
-		                var s1 = trim($(this).val());
-		                if (s1.length > 4 && s1.indexOf('.') < 0)
-		                    $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
-		                if (s1.length == 4)
-		                    $(this).val(s1 + '.');
-		            });
-		            
                     q_popAssign();
 
                 $('#txtDate1').mask('99/99');
@@ -136,7 +74,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_month+'/'+t_day);
-            }
+   
             }
 		</script>
 	</head>
