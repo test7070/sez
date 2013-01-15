@@ -29,7 +29,7 @@
                 bbsKey = ['noa', 'noq'];
                 if(location.href.indexOf('?') < 0)// debug
                 {
-                    location.href = location.href + "?;;;carno='002-XC' and (caritemno='501' or caritemno='502')";
+                    location.href = location.href + "?;;;carno='002-XC' and (caritemno='501' or caritemno='502') order by mon desc";
                     return;
                 }
                 if(!q_paraChk())
