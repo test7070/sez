@@ -197,6 +197,8 @@
                 $('#txtAccno').val(xmlString);
             }
             function btnOk() {
+            	if($.trim($('#txtNick').val()).length==0)
+            		$('#txtNick').val($('#txtComp').val());
             	if(!q_cd($('#txtDatea').val())){
             		alert(q_getMsg('lblDatea')+'錯誤。');
             		return;
