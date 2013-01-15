@@ -66,13 +66,14 @@
                 q_gt('acomp', '', 0, 0, 0, "");
                 q_gt('part', '', 0, 0, 0, "");
 				/* 若非本會計年度則無法存檔 */
-				$('#txtDatea').focusout(function () {
+				/*$('#txtDatea').focusout(function () {
 					if($(this).val().substr( 0,3)!= r_accy){
-				        	$('#btnOk').attr('disabled','disabled');
+				        $('#btnOk').attr('disabled','disabled');
+				        alert(q_getMsg('lblDatea') + '非本會計年度。');
 					}else{
-				       		$('#btnOk').removeAttr('disabled');
+				       	$('#btnOk').removeAttr('disabled');
 					}
-				});
+				});*/
 				$("#cmbStype").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
@@ -197,6 +198,8 @@
                 $('#txtAccno').val(xmlString);
             }
             function btnOk() {
+            	if($.trim($('#txtNick').val()).length==0)
+            		$('#txtNick').val($('#txtComp').val());
             	if(!q_cd($('#txtDatea').val())){
             		alert(q_getMsg('lblDatea')+'錯誤。');
             		return;
@@ -391,7 +394,7 @@
             }
             .dview {
                 float: left;
-                width: 200px;
+                width: 270px;
                 border-width: 0px;
             }
             .tview {
@@ -411,7 +414,7 @@
             }
             .dbbm {
                 float: left;
-                width: 750px;
+                width: 680px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -508,12 +511,14 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewComp'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewComp'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewTotal'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="datea" style="text-align: center;">~datea</td>
 						<td id="nick" style="text-align: center;">~nick</td>
+						<td id="total,0,1" style="text-align: right;">~total,0,1</td>
 					</tr>
 				</table>
 			</div>

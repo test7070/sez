@@ -56,27 +56,6 @@
 			    });
 			}
 
-			function txtCopy(dest, source) {
-				var adest = dest.split(',');
-				var asource = source.split(',');
-				$('#' + adest[0]).focus(function() {
-					if (trim($(this).val()).length == 0)
-						$(this).val(q_getMsg('msgCopy'));
-				});
-				$('#' + adest[0]).focusout(function() {
-					var t_copy = ($(this).val().substr(0, 1) == '=');
-					var t_clear = ($(this).val().substr(0, 2) == ' =');
-					for (var i = 0; i < adest.length; i++) { {
-							if (t_copy)
-								$('#' + adest[i]).val($('#' + asource[i]).val());
-
-							if (t_clear)
-								$('#' + adest[i]).val('');
-						}
-					}
-				});
-			}
-
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
@@ -109,7 +88,7 @@
 
 			function btnIns() {
 				_btnIns();
-				$('#txtNoa').focus();
+				$('#txtAcc1').focus();
 			}
 
 			function btnModi() {
@@ -117,7 +96,8 @@
 					return;
 
 				_btnModi();
-				$('#txtNoa').focus();
+				$('#txtNoa').attr('readonly',true);
+				$('#txtAcc1').focus();
 			}
 
 			function btnPrint() {
@@ -363,15 +343,15 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblItem' class="lbl">  </a></td>
-						<td class="td2"  colspan="2"><input id="txtItem" type="text"  class="txt c1"/></td>
-					</tr>
-					<tr>
 						<td class="td3"><span> </span><a id="lblAcc" class="lbl btn" >  </a></td>
 						<td class="td4"  colspan="3">
 						<input id="txtAcc1" type="text"  class="txt c2"/>
 						<input id="txtAcc2"  type="text"  class="txt c3"/>
 						</td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblItem' class="lbl">  </a></td>
+						<td class="td2"  colspan="2"><input id="txtItem" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblPrice' class="lbl">  </a></td>
