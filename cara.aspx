@@ -594,7 +594,7 @@
             function btnCancel() {
                 _btnCancel();
             }
-           
+           	
             function KeyDown(){
 				if ( event.keyCode=='116' ){
 				   location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"';"+r_accy;
