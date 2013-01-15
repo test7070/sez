@@ -15,6 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+		aPop  =  new Array(['txtXcarno', 'lblXcarno', 'car2', 'a.noa,driver','txtXcarno', 'car2_b.aspx']);
 			$(document).ready(function() {
 				q_getId();
 				q_gf('', 'z_trand');
@@ -29,10 +30,17 @@
 					}, {
 						type : '6',
 						name : 'mon'
+					}, {
+						type : '6',
+						name : 'xdate'
+					}, {
+						type : '6',
+						name : 'xcarno'
 					}]
 				});
 				q_popAssign();
 				$('#txtMon').mask('99');
+				$('#txtXdate').mask('999/99/99');
 			}
 
 			function q_boxClose(s2) {
