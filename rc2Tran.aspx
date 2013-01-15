@@ -82,6 +82,7 @@
 				$('#txtDatea').focusout(function () {
 					if($(this).val().substr( 0,3)!= r_accy){
 				        	$('#btnOk').attr('disabled','disabled');
+				        	alert(q_getMsg('lblDatea') + '非本會計年度。');
 					}else{
 				       		$('#btnOk').removeAttr('disabled');
 					}
