@@ -906,7 +906,7 @@
 				<input id="text_Noq"  type="hidden" class="txt c1"/>	
 			</div>
 		</div>
-		<div class='dbbs'>
+		<div class='dbbs' style="width: 1250px;">
 				<table id="tbbs" class='tbbs' border="1"  cellpadding='2' cellspacing='1'>
 					<tr style='color:White; background:#003366;' >
 						<td align="center">
