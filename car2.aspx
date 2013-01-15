@@ -108,7 +108,7 @@
 					q_box("oil.aspx?;;;carno='" + $('#txtCarno').val() + "'", 'oil', "90%", "600px", q_getMsg("popOil"));
 				});
 				$('#btnCartax').click(function(e) {
-					q_box("cartax.aspx?;;;carno='" + $('#txtCarno').val() + "' and (caritemno='501' or caritemno='502')", 'cartax', "90%", "600px", q_getMsg("popCartax"));
+					q_box("cartax.aspx?;;;carno='" + $('#txtCarno').val() + "' and (caritemno='501' or caritemno='502') order by mon desc", 'cartax', "90%", "600px", q_getMsg("popCartax"));
 				});
 				/*$('#lblCarstyle').click(function(e) {
 					q_box("carstyle.aspx", 'carstyle', "90%", "600px", q_getMsg("popCarstyle"));
