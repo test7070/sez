@@ -522,6 +522,14 @@
                             <td class="td6"><input id="txtEnddate" type="text" class="txt c1"/></td>
                         </tr>
                         <tr class="tr6">
+                            <td class="td1"><span> </span><a id='lblBrand' class="lbl"></a></td>
+                            <td class="td2"><input id="txtBrand"  type="text" class="txt c1" /></td>
+                            <td class="td3"><span> </span><a id='lblModel' class="lbl"></a></td>
+                            <td class="td4"><input id="txtModel" type="text" class="txt c1"/></td>
+                            <td class="td5"><span> </span><a id='lblMoney' class="lbl"></a></td>
+                            <td class="td6"><input id="txtMoney" type="text" class="txt num c1"/></td>
+                        </tr>
+                        <tr class="tr7">
                             <td class="td1" ><span> </span><a id='lblMemo' class="lbl"></a></td>
                             <td class="td2" colspan="5"><input id="txtMemo" type="text" class="txt c1" style="width: 100%;"/></td>
                         </tr>
