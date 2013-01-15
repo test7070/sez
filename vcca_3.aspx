@@ -118,14 +118,6 @@
 				$('#lblTrdno').click(function() {
                     q_pop('txtTrdno', "trd.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtTrdno').val() + "';" + r_accy + '_' + r_cno, 'trd', 'noa', 'datea', "95%", "95%", q_getMsg('popTrd'), true);
                 });
-                /* 若非本會計年度則無法存檔 */
-				$('#txtDatea').focusout(function () {
-					if($(this).val().substr( 0,3)!= r_accy){
-				        	$('#btnOk').attr('disabled','disabled');
-					}else{
-				       		$('#btnOk').removeAttr('disabled');
-				}
-});
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行

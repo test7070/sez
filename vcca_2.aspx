@@ -87,12 +87,6 @@
 				q_cmbParse("cmbTaxtype",q_getPara('sys.taxtype'));
 				$('#txtDatea').focusout(function () {
                 	q_cd( $(this).val() ,$(this));
-                	/* 若非本會計年度則無法存檔 */
-                 	if($(this).val().substr( 0,3)!= r_accy){
-                 		$('#btnOk').attr('disabled','disabled');
-                 	}else{
-                 		$('#btnOk').removeAttr('disabled');
-                 	}
 	            });
 				$('#cmbTaxtype').focus(function() {
 					var len = $("#cmbTaxtype").children().length > 0 ? $("#cmbTaxtype").children().length : 1;
