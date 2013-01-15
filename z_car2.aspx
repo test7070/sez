@@ -110,16 +110,10 @@
 	                    }, {
 	                        type : '6',
 	                        name : 'xcarnos'
-
-	                    },{
-	                    type : '0',
-	                    name : 'r_tel',
-	                    value : q_getPara('sys.tel')
-	                    },{
-	                    type : '0',
-	                    name : 'r_addr',
-	                    value : q_getPara('sys.addr')
-               }]
+	                    }, {
+                            type : '1',
+                            name : 'xmoney'
+                        }]
                     });
                     q_getFormat();
 	                q_langShow();
@@ -136,6 +130,8 @@
 	                $('#txtEnddate').mask('999/99/99');
 	                $('#txtEnddate').datepicker(); 
 	                $('#txtEnddate').val(q_date());
+	                $('#txtXmoney1').val(-99999999);
+	                $('#txtXmoney2').val(99999999);
 
 	                var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
