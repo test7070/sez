@@ -117,7 +117,7 @@
             }
 
             function btnPrint() {
-				q_box('z_oilin.aspx'+ "?;;;;"+r_accy,  '', "90%", "600px", q_getMsg("popPrint"));
+				q_box('z_oil.aspx'+ "?;;;;"+r_accy,  '', "90%", "600px", q_getMsg("popPrint"));
             }
 
             function btnOk() {

@@ -30,10 +30,16 @@
                         name : 'xmon'
                     }, {
                         type : '2',
-                        name : 'sales',
+                        name : 'sssno',
                         dbf : 'sss',
                         index : 'noa,namea',
                         src : 'sss_b.aspx'
+                    }, {
+                        type : '2',
+                        name : 'partno',
+                        dbf : 'part',
+                        index : 'noa,part',
+                        src : 'part_b.aspx'
                     }]
                     });
                 q_popAssign();
