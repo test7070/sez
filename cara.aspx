@@ -116,6 +116,7 @@
 					$('#divNextmon').hide();
 					if(!emp($('#textNextmon').val())&&!emp($('#textDiscount').val())){
 						q_func( 'cara.genNext',$('#textNextmon').val()+','+$('#textDiscount').val()+','+$('#textBcarno').val()+','+$('#textEcarno').val()+','+$('#textSssno').val()+','+r_name);//genNext(string t_mon , string t_discount, string t_worker);
+						location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"';"+r_accy;
 			    	}
 				});
 				
@@ -131,6 +132,10 @@
 	       		});
 				$('#lblSssno').click(function () {
 	            	q_box("sss_b2.aspx?;;;partno='07'", 'sss', "95%", "95%", q_getMsg("popSss"));
+	       		});
+	       		
+	       		$('#lblAccno').click(function () {
+	            	q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 	       		});
             }
 
@@ -390,6 +395,18 @@
 							b_seq = t_IdSeq;
 							$('#txtMemo_'+b_seq).focus();
 						});
+						
+						$('#txtAcc1_'+j).change(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+		                    var s1 = trim($('#txtAcc1_'+b_seq).val());
+		                    if (s1.length > 4 && s1.indexOf('.') < 0)
+		                        $('#txtAcc1_'+b_seq).val(s1.substr(0, 4) + '.' + s1.substr(4));
+		                    if (s1.length == 4)
+		                        $('#txtAcc1_'+b_seq).val(s1 + '.');
+                		});
+						
            			}
            		}
                 _bbsAssign();
@@ -577,6 +594,13 @@
             function btnCancel() {
                 _btnCancel();
             }
+           	
+            function KeyDown(){
+				if ( event.keyCode=='116' ){
+				   location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"';"+r_accy;
+				   event.returnValue= false;
+				  }
+			 }
 
 		</script>
 		<style type="text/css">
@@ -780,7 +804,7 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body onkeydown="KeyDown()">
 		<div id="divNextmon" class='popDiv' style="top:70px;right:0px;">
 			<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:300px">
 	            <tr>
@@ -892,11 +916,11 @@
 						<td class="td10"><input id="txtLastmon"  type="text" class="txt c2"/></td>
 					-->
 					</tr>
-					<tr class="tr5">
+					<tr class="tr5"><!--<input id="btnPnextmon" type="button" />-->
 						<td class="td1"><span> </span><a id='lblPaytotal' class="lbl"></a></td>
 						<td class="td2"><input id="txtPaytotal"  type="text" class="txt num c1">	</td>
-						<td class="td3"></td>
-						<td class="td4"><!--<input id="btnPnextmon" type="button" />--></td>
+						<td class="td3"><span> </span><a id='lblAccno' class="lbl btn"></a></td>
+						<td class="td4"><input id="txtAccno"  type="text" class="txt c1"/></td>
 						<td class="td5"><span> </span><a id='lblDatea' class="lbl"></a></td>
 						<td class="td6"><input id="txtDatea"  type="text" class="txt c1"/></td>
 						<td class="td7"><span> </span><a id='lblNoa' class="lbl"></a></td>

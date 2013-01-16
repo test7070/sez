@@ -1,4 +1,3 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -17,7 +16,7 @@
         }
         var q_name="welfare";
         var q_readonly = ['txtNoa'];
-        var bbmNum = []; 
+        var bbmNum = [['txtIncome',10,0,0,1],['txtPay',10,0,0,1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
          aPop = new Array(['txtSssno', 'lblSssno', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']);
@@ -134,7 +133,7 @@
             }
         function btnOk() {
 		  	$('#txtDatea').val($.trim($('#txtDatea').val()));
-		          if (checkId($('#txtDatea').val())==0){
+		          if (!emp($('#txtDatea').val())&&checkId($('#txtDatea').val())==0){
 		             alert(q_getMsg('lblDatea')+'錯誤。');
 		          return;
 		    }
