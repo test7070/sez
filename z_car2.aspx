@@ -113,7 +113,15 @@
 	                    }, {
                             type : '1',
                             name : 'xmoney'
-                        }]
+                        }, {
+	                        type : '5', //select
+	                        name : 'xorder',
+	                        value : ('車號,金額').split(',')
+                    	}, {
+	                        type : '5', //select
+	                        name : 'zorder',
+	                        value : ('車主,金額').split(',')
+                    	}]
                     });
                     q_getFormat();
 	                q_langShow();
