@@ -17,8 +17,8 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="carpack";
-        var q_readonly = [];
-        var bbmNum = []; 
+        var q_readonly = ['txtNoa','txtDatea','txtWorker'];
+        var bbmNum = [['txtConmoney',10,0,0,1],['txtMount',10,0,0,1],['txtCarmount',10,0,0,1],['txtPalmount',10,0,0,1],['txtMount2',10,0,0,1],['txtEmount',10,0,0,1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
@@ -28,7 +28,6 @@
             brwCount2 = 20;
             q_brwCount();
             q_gt(q_name, q_content, q_sqlCount, 1)
-            $('#txtNoa').focus
         });
 
         //////////////////   end Ready
@@ -38,9 +37,7 @@
                dataErr = false;
                return;
            }
-
-            q_mask(bbmMask);
-
+           
             mainForm(0); // 1=Last  0=Top
 
             $('#txtNoa').focus();
@@ -49,71 +46,14 @@
 
 
         function mainPost() { 
-          /*  $('#btnSales').click(function () { pop('sss'); });
-            $('#btnSalesno').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtSalesno").change(function () { q_change($(this), 'sss', 'noa', 'noa,namea'); });
-
-            $('#btnsss').click(function () { pop('sss'); });
-            $('#btnsss').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtGrpno").change(function () { 
-            q_change($(this), 'sss', 'noa', 'noa,comp'); });
-
-            $('#btnConn').click(function () { pop('conn') });  
-            $('#btnConn').mouseenter(function () { $(this).css('cursor', 'pointer') });
-
-            $("#txtComp").change(function () { $("#txtNick").val($("#txtComp").val().substr(0, 2)); });
-
-            txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
-            txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
-            txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');*/
-        }
-
-       /* function pop(form, seq) {
-            b_seq = (seq ? seq : '');
-            b_pop = form;
-            switch (form) {
-                case 'sss': q_pop('txtSalesno', 'sss_b.aspx', 'sss', 'noa', 'namea', "60%", "650px", q_getMsg('popSss')); break;
-                case 'sss': q_pop('txtGrpno', 'sss_b.aspx', 'sss', 'noa', 'comp', "60%", "650px", q_getMsg('popsss')); break;
-                case 'conn': q_pop('txtNoa', "conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'conn', 'noa', 'namea', "60%", "650px", q_getMsg('popConn')); break;
-            }
-        }*/
-
-        function txtCopy(dest, source) {
-            var adest = dest.split(',');
-            var asource = source.split(',');
-            $('#' + adest[0]).focus(function () { if (trim($(this).val()).length == 0) $(this).val( q_getMsg('msgCopy')); });
-            $('#' + adest[0]).focusout(function () {
-                var t_copy = ($(this).val().substr(0, 1) == '=');
-                var t_clear = ($(this).val().substr(0, 2) == ' =') ;
-                for (var i = 0; i < adest.length; i++) {
-                    {
-                        if (t_copy)
-                            $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                        if( t_clear)
-                            $('#' + adest[i]).val('');
-                    }
-                }
-            });
+          	q_getFormat();
+            bbmMask = [['txtDatea', r_picd],['txtCondate', r_picd],['txtLastdate', r_picd]];
+            q_mask(bbmMask);
         }
         
         function q_boxClose( s2) { 
             var ret; 
             switch (b_pop) {  
-                case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-                
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -123,16 +63,12 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case 'sss':  
-                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                    break;
-
-                case q_name: if (q_cur == 4)   
+            	case 'car2':
+            	
+            		break;
+                case q_name: 
+                	if (q_cur == 4)   
                         q_Seek_gtPost();
-
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                     break;
             }  /// end switch
         }
@@ -144,18 +80,16 @@
             q_box('carpack_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
         }
 
-        function combPay_chg() {   
-            var cmb = document.getElementById("combPay")
-            if (!q_cur) 
-                cmb.value = '';
-            else
-                $('#txtPay').val(cmb.value);
-            cmb.value = '';
-        }
-
         function btnIns() {
             _btnIns();
-            $('#txtNoa').focus();
+            $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+            $('#txtDatea').val(q_date());
+            $('#txtCondate').val(q_date());
+            $('#txtLastdate').val(q_date());
+            $('#txtCardealno').focus();
+            
+            t_where="^^ carownerno!='' ^^";
+            q_gt('car2', t_where , 0, 0, 0, "", r_accy);
         }
 
         function btnModi() {
@@ -163,7 +97,7 @@
                 return;
 
             _btnModi();
-            $('#txtComp').focus();
+            $('#txtCardealno').focus();
         }
 
         function btnPrint() {
@@ -172,33 +106,20 @@
         function btnOk() {
             var t_err = '';
 
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
-
-            if ( dec( $('#txtCredit').val()) > 9999999999)
-                t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
-
-            if ( dec( $('#txtStartn').val()) > 31)
-                t_err = t_err + q_getMsg( "lblStartn")+q_getMsg( "msgErr")+'\r';
-            if (dec( $('#txtGetdate').val()) > 31)
-                t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
 
             if( t_err.length > 0) {
                 alert(t_err);
                 return;
             }
-            var t_noa = trim($('#txtNoa').val());
-            if (emp($('#txtUacc1').val()))
-                $('#txtUacc1').val('1123.' + t_noa);
-            if (emp($('#txtUacc2').val()))
-                $('#txtUacc2').val('1121.' + t_noa);
-            if (emp($('#txtUacc3').val()))
-                $('#txtUacc3').val( '2131.'+t_noa);
+            
+            $('#txtWorker').val(r_name);
 
-
-            if ( t_noa.length==0 )  
-                q_gtnoa(q_name, t_noa);
+            var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
+            if (s1.length == 0 || s1 == "AUTO")   
+                q_gtnoa(q_name, replaceAll('P' + $('#txtDatea').val(), '/', ''));
             else
-                wrServer(  t_noa);
+                wrServer(s1);
         }
 
         function wrServer( key_value) {
