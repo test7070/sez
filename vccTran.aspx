@@ -65,6 +65,10 @@
                 
                 q_gt('acomp', '', 0, 0, 0, "");
                 q_gt('part', '', 0, 0, 0, "");
+                $('#txtDatea').blur(function(e){
+                	if($('#txtMon').val().length==0)
+                		$('#txtMon').val($('#txtDatea').val().substring(0,6));
+                });
 				/* 若非本會計年度則無法存檔 */
 				/*$('#txtDatea').focusout(function () {
 					if($(this).val().substr( 0,3)!= r_accy){

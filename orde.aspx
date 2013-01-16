@@ -217,7 +217,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('orde_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+            //q_box('orde_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
         }
 
         function combPaytype_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
@@ -269,7 +269,7 @@
             $('#txtOdate').focus();
         }
         function btnPrint() {
-
+			q_box('z_orde.aspx' + "?;;;;" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
         }
         
         function wrServer( key_value) {
