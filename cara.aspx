@@ -140,8 +140,7 @@
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
-                var
-                ret;
+                var ret;
                 switch (b_pop) {
                 	case 'sss':
                         ret = getb_ret();
@@ -597,7 +596,7 @@
            	
             function KeyDown(){
 				if ( event.keyCode=='116' ){
-				   location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"';"+r_accy;
+				   location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";noa='"+$('#txtNoa').val()+"';"+r_accy;
 				   event.returnValue= false;
 				  }
 			 }
@@ -804,7 +803,7 @@
 			}
 		</style>
 	</head>
-	<body onkeydown="KeyDown()">
+	<body onkeydown="KeyDown()"><!--onkeydown="KeyDown()"-->
 		<div id="divNextmon" class='popDiv' style="top:70px;right:0px;">
 			<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:300px">
 	            <tr>
