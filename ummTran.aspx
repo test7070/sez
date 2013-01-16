@@ -722,7 +722,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 100%;
+                width: 1300px;
             }
             .tbbs a {
                 font-size: medium;
