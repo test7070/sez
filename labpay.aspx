@@ -24,10 +24,10 @@
         var bbsMask = [];
         q_desc=1;
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
-        aPop = new Array(['txtProductno','lblProduct','ucc','noa,product','txtProductno,txtProduct','ucc_b.aspx'],
+        aPop = new Array(['txtProductno','lblProduct','ucc','noa,product,vccacc1,vccacc2','txtProductno,txtProduct,txtAcc1,txtAcc2','ucc_b.aspx'],
         ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno],
         ['txtCustno_','btnCustno_','cust','noa,comp','txtCustno_,txtComp_','cust_b.aspx'],
-        ['txtProductno_','btnProductno_','ucc','noa,product','txtProductno_,txtProduct_','ucc_b.aspx'],
+        ['txtProductno_','btnProductno_','ucc','noa,product,vccacc1,vccacc2','txtProductno_,txtProduct_,txtAcc1_,txtAcc2_','ucc_b.aspx'],
         ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" +r_accy + '_' + r_cno]);
 
         $(document).ready(function () {
@@ -472,15 +472,15 @@
                <td class="td5"> </td>         
         </tr>
         <tr>
-               <td class="td1"><span> </span><a id='lblAcc1' class="lbl btn"></a></td>
-               <td class="td2"><input id="txtAcc1"  type="text" class="txt c1" /></td>
-               <td class="td3" colspan="2"><input id="txtAcc2" type="text" class="txt c1" /></td>
-               <td class="td5"> </td>               
-        </tr>
-        <tr>
                <td class="td1"><span> </span><a id='lblProduct' class="lbl btn"></a></td>
                <td class="td2"><input id="txtProductno"  type="text" class="txt c1" /></td>
                <td class="td3" colspan="2"><input id="txtProduct" type="text" class="txt c1" /></td>
+               <td class="td5"> </td>               
+        </tr>
+        <tr>
+               <td class="td1"><span> </span><a id='lblAcc1' class="lbl btn"></a></td>
+               <td class="td2"><input id="txtAcc1"  type="text" class="txt c1" /></td>
+               <td class="td3" colspan="2"><input id="txtAcc2" type="text" class="txt c1" /></td>
                <td class="td5"> </td>               
         </tr>
         <tr>
@@ -495,8 +495,7 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:18%;"><a id='lblCustno_s'></a></td>
-                <td align="center" style="width:10%;"><a id='lblProductno_s'></a></td>
-                <td align="center" style="width:18%;"><a id='lblProduct_s'></a></td>
+                <td align="center" style="width:28%;"><a id='lblProductno_s'></a></td>
                 <td align="center" style="width:8%;"><a id='lblPlusmoney_s'></a></td>
                 <td align="center" style="width:8%;"><a id='lblMinusmoney_s'></a></td>
                 <td align="center" style="width:18%;"><a id='lblAcc1_s'></a></td>
@@ -505,8 +504,7 @@
             <tr  style='background:#cad3ff;'> 
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>              
                 <td ><input id="txtCustno.*" type="text" style="width: 25%;" /><input id="txtComp.*" type="text" style="width: 55%;" /><input id="btnCustno.*" type="button" value="." /></td>
-                <td ><input id="txtProductno.*" type="text" style="width: 70%;"/><input id="btnProductno.*" type="button" value="." style="width: auto;font-size: medium;" /></td>
-                <td ><input class="txt c1" id="txtProduct.*"type="text" /></td>
+                <td ><input id="txtProductno.*" type="text" style="width: 25%;"/><input  id="txtProduct.*"type="text" style="width: 55%;"/><input id="btnProductno.*" type="button" value="." /></td>
                 <td ><input class="txt num c1" id="txtPlusmoney.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtMinusmoney.*" type="text" /></td>
                 <td ><input id="txtAcc1.*" type="text" style="width: 25%;"/>

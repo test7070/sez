@@ -43,6 +43,12 @@
                         dbf : 'mech',
                         index : 'noa,mech',
                         src : 'mech_b.aspx'
+                        },{
+                        type : '2',
+                        name : 'partno',
+                        dbf : 'part',
+                        index : 'noa,part',
+                        src : 'part_b.aspx'
                         }]
                     });
                 q_popAssign();
