@@ -59,7 +59,7 @@
 
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd], ['txtOdate', r_picd ]];  
+            bbmMask = [['txtOdate', r_picd ]];  
             q_mask(bbmMask);            
             q_cmbParse("cmbStype", q_getPara('orde.stype')); // 需在 main_form() 後執行，才會載入 系統參數  
             q_cmbParse("cmbCoin", q_getPara('sys.coin'));      /// q_cmbParse 會加入 fbbm
@@ -67,10 +67,10 @@
             q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
 			/* 若非本會計年度則無法存檔 */
-			$('#txtDatea').focusout(function () {
+			$('#txtOdate').focusout(function () {
 				if($(this).val().substr( 0,3)!= r_accy){
 			        	$('#btnOk').attr('disabled','disabled');
-			        	alert(q_getMsg('lblDatea') + '非本會計年度。');
+			        	alert(q_getMsg('lblOdate') + '非本會計年度。');
 				}else{
 			       		$('#btnOk').removeAttr('disabled');
 				}
@@ -563,8 +563,8 @@
                <td class="td1"><span> </span><a id='lblStype' class="lbl"></a></td>
                <td class="td2"><select id="cmbStype" class="txt c1"></select></td>
                <td class="td3"></td>
-               <td class="td4"><span> </span><a id='lblDatea' class="lbl"></a></td>
-               <td class="td5"><input id="txtDatea"  type="text"  class="txt c1"/></td>
+               <td class="td4"><span> </span><a id='lblOdate' class="lbl"></a></td>
+               <td class="td5"><input id="txtOdate"  type="text"  class="txt c1"/></td>
                <td class="td6"></td>
                <td class="td7"><span> </span><a id='lblNoa' class="lbl"></a></td>
                <td class="td8"><input id="txtNoa"   type="text" class="txt c1"/></td> 
