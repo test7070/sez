@@ -64,7 +64,14 @@
         function q_gtPost(t_name) {  
             switch (t_name) {
             	case 'car2':
-            	
+            		var as = _q_appendData("car2", "", true);
+            		$('#txtMount').val(as.length);
+            		/*for (var i = 0; i < as.length; i++) {
+            		if(dec(as[i].pay)>0)
+                    	as[i]._outmoney=caras[i].pay
+                    else
+                    	as[i]._outmoney=caras[i].outmoney
+            		}*/
             		break;
                 case q_name: 
                 	if (q_cur == 4)   
