@@ -30,6 +30,7 @@
         ['txtProductno_','btnProductno_','ucc','noa,product,vccacc1,vccacc2','txtProductno_,txtProduct_,txtAcc1_,txtAcc2_','ucc_b.aspx'],
         ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" +r_accy + '_' + r_cno]);
 
+
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -51,6 +52,11 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
+                $('#txtAcc1').change(function() {
+                    var str=$.trim($(this).val());
+                	if((/^[0-9]{4}$/g).test(str))
+                		$(this).val(str+'.');
+                })
         }
 
         function q_boxClose( s2) { 
@@ -185,6 +191,12 @@
         function bbsAssign() {
         	for(var j = 0; j < q_bbsCount; j++) {
             	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+            		$('#txtAcc1_' + i).change(function() {
+                            var str=$.trim($(this).val());
+		                	if((/^[0-9]{4}$/g).test(str))
+		                		$(this).val(str+'.');
+                        });
+
             		$('#txtMount_' + j).change(function () {
 						t_IdSeq = -1;
 						q_bodyId($(this).attr('id'));
@@ -483,6 +495,7 @@
                <td class="td3" colspan="2"><input id="txtAcc2" type="text" class="txt c1" /></td>
                <td class="td5"> </td>               
         </tr>
+        
         <tr>
             <td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
             <td class="td2" colspan="3"><input id="txtMemo"  type="text"  style="width: 99%;"/></td>
@@ -513,6 +526,7 @@
                 </td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
            </tr>
+
         </table>
         </div>
         <input id="q_sys" type="hidden" />
