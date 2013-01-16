@@ -102,7 +102,7 @@
             }
 
             function btnPrint() {
-
+ 				q_box('z_uccdc.aspx', '', "90%", "600px", q_getMsg("popPrint"));
             }
 
             function btnOk() {
