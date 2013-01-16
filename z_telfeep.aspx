@@ -28,6 +28,12 @@
                     },{
                         type : '6',
                         name : 'xmon'
+                    }, {
+                        type : '2',
+                        name : 'sales',
+                        dbf : 'sss',
+                        index : 'noa,namea',
+                        src : 'sss_b.aspx'
                     }]
                     });
                 q_popAssign();

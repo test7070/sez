@@ -15,15 +15,53 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
+          	function z_accc() {
+			}
+
+
+			z_accc.prototype = {
+				isInit : false,
+				data : {
+					balacc1 : null
+				},
+				isLoad : function() {
+					var isLoad = true;
+					for (var x in this.data) {
+						isLoad = isLoad && (this.data[x] != null);
+					}
+					return isLoad;
+				}
+			};
+			t_data = new z_accc();
+
             $(document).ready(function() {
+            	_q_boxClose();
                 q_getId();
                 q_gf('', 'z_accc');             
             });
-            function q_gfPost() {
-                $('#q_report').q_report({
+          
+             function q_gfPost() {
+                q_gt('balacc1', '', 0, 0, 0, "");
+            }
+         
+            function q_gtPost(t_name) {
+            	
+            	switch (t_name) {
+                    case 'balacc1':
+						t_data.data['balacc1'] = '';
+						var as = _q_appendData("balacc1", "", true);
+						for ( i = 0; i < as.length; i++) {
+							t_data.data['balacc1'] += (t_data.data['balacc1'].length > 0 ? ',' : '') + as[i].noa + '@' + as[i].balacc1;
+						}
+						break;
+                       }
+             if (t_data.isLoad() && !t_data.isInit) {
+					t_data.isInit = true;
+                 $('#q_report').q_report({
                     fileName : 'z_accc',
                     options : [{
                         type : '0',
@@ -47,12 +85,25 @@
                     },{
                         type : '1',
                         name : 'xaccc3'
+                    }, {
+                        type : '6',
+                        name : 'xbal'
+                    }, {
+                        type : '8', //checkbox
+                        name : 'xaccc5',
+                        value :  t_data.data['balacc1'].split(',')
+                    }, {
+                        type : '8', //checkbox
+                        name : 'balance',
+                        value : (('').concat(new Array("餘額"))).split(',')
                     }]
                 });
                     q_popAssign();
-
+					q_langShow();
                 $('#txtDate1').mask('99/99');
                 $('#txtDate2').mask('99/99');
+                
+                $('#chkXbalacc1').children('input').attr('checked','checked');
                  var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
@@ -74,11 +125,19 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_month+'/'+t_day);
-   
+   				
             }
+            }
+            function q_boxClose(t_name) {
+			}
+
 		</script>
 	</head>
-	<body>
+		<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
