@@ -15,25 +15,31 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
+            q_tables = 's';
             var q_name = "lab_accc";
-            var q_readonly = ['txtNoa','txtMon','txtWorker','txtAccno','txtBvccno','txtEvccno'];
+            var q_readonly = ['txtNoa', 'txtSales', 'txtPart', 'txtPaybno', 'txtWorker', 'txtAccno', 'txtBvccno', 'txtEvccno'];
+            var q_readonlys = [];
             var bbmNum = [];
+            var bbsNum = [];
             var bbmMask = [];
+            var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'noa';
-            brwCount2 = 20;
-            //ajaxPath = ""; //  execute in Root
-            aPop = new Array(['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'], ['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+            brwKey = 'Noa';
+            aPop = new Array(['txtSalesno', 'lblSalesno', 'sss', 'noa,namea,partno,part', 'txtSalesno,txtSales,txtPartno,txtPart', 'sss_b.aspx']
+            , ['txtBcustno', '', 'cust', 'noa,comp', 'txtBcustno', 'cust_b.aspx']
+            , ['txtEcustno', '', 'cust', 'noa,comp', 'txtEcustno', 'cust_b.aspx']
+            , ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+            , ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
+            brwCount2 = 10;
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
+                bbsKey = ['noa', 'noq'];
                 q_brwCount();
-
                 q_gt(q_name, q_content, q_sqlCount, 1)
-
             });
 
             function main() {
@@ -41,12 +47,12 @@
                     dataErr = false;
                     return;
                 }
-                mainForm(0);
+                mainForm(1);
             }
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd]];
+                bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd],['txtMon', r_picm]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('lab_accc.typea'));
                 $('#lblAccno').click(function() {
@@ -64,36 +70,79 @@
                 $('#txtEdate').focusout(function() {
                 		$('#txtMon').val($(this).val().substr(0,6));
                 });
+                $('#txtAcc1').change(function(e) {
+                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
+                    	$(this).val($(this).val()+'.');	
+                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
+                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
+                    }
+                });
             }
 
             function q_boxClose(s2) {
                 var ret;
-                switch (b_pop) {
+                switch (b_pop) {/// 重要：不可以直接 return ，最後需執行 originalClose();
                     case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
                         break;
-                }   /// end Switch
+                }/// end Switch
+                b_pop = '';
             }
 
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case q_name:
-                        if (q_cur == 4)
+                        if (q_cur == 4)// 查詢
                             q_Seek_gtPost();
-
-                        if (q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                         break;
-                }  /// end switch
+                }
+            }
+
+            function btnOk() {
+                $('#txtWorker').val(r_name);
+                if($('#txtSalesno').val()==0){
+                    alert(q_getMsg('lblSalesno') + '錯誤。');
+                    return;
+                }
+                if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())) {
+                    alert(q_getMsg('lblDatea') + '錯誤。');
+                    return;
+                }
+                if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
+                    alert(q_getMsg('lblMon')+'錯誤。'); 
+                    return;
+                }
+	            if (!q_cd($('#txtBdate').val())){
+                	alert(q_getMsg('lblDate')+'錯誤。');
+                	return;
+	            }
+	            if (!q_cd($('#txtEdate').val())){
+	                alert(q_getMsg('lblDate')+'錯誤。');
+                	return;
+	            }
+                var t_noa = trim($('#txtNoa').val());
+				var t_date = trim($('#txtDatea').val());
+                if (t_noa.length == 0 || t_noa == "AUTO")
+					q_gtnoa(q_name, replaceAll('Z'+(t_date.length == 0 ? q_date() : t_date), '/', ''));
+				else
+					wrServer(t_noa);
             }
 
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-
                 q_box('lab_accc_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
+            }
+
+            function bbsAssign() {/// 表身運算式
+                for (var j = 0; j < q_bbsCount; j++) {
+                    $('#lblNo_' + j).text(j + 1);
+                    if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+                      
+                    }
+                }
+                _bbsAssign();
             }
 
             function btnIns() {
@@ -105,7 +154,7 @@
             }
 
             function btnModi() {
-                if (emp($('#txtNoa').val()))
+                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi(1);
                 $('#txtDatea').focus();
@@ -115,48 +164,32 @@
 
             }
 
-            function btnOk() {
-                $('#txtWorker').val(r_name);
-                if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())) {
-                    alert(q_getMsg('lblDatea') + '錯誤。');
-                    return;
-                }
-
-                if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
-                    alert(q_getMsg('lblMon')+'錯誤。'); 
-                    return;
-                }
-	            $('#txtBdate').val($.trim($('#txtBdate').val()));
-	                if (checkId($('#txtBdate').val())==0){
-	                	alert(q_getMsg('lblDate')+'錯誤。');
-	                	return;
-	            }
-	            $('#txtEdate').val($.trim($('#txtEdate').val()));
-	                if (checkId($('#txtEdate').val())==0){
-	                	alert(q_getMsg('lblEdate')+'錯誤。');
-	                	return;
-	            }
-                var t_noa = trim($('#txtNoa').val());
-				var t_date = trim($('#txtDatea').val());
-                if (t_noa.length == 0 || t_noa == "AUTO")
-					q_gtnoa(q_name, replaceAll('Z'+(t_date.length == 0 ? q_date() : t_date), '/', ''));
-				else
-					wrServer(t_noa);
-            }
-
             function wrServer(key_value) {
                 var i;
 
-                xmlSql = '';
-                if (q_cur == 2)/// popSave
-                    xmlSql = q_preXml();
-
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-                _btnOk(key_value, bbmKey[0], '', '', 2);
+                _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
+            }
+
+            function bbsSave(as) {/// 表身 寫入資料庫前，寫入需要欄位
+                if (!as['productno'] && !as['product']) {//不存檔條件
+                    as[bbsKey[1]] = '';
+                    return;
+                }
+
+                q_nowf();
+
+                return true;
+            }
+
+            function sum() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return;
             }
 
             function refresh(recno) {
                 _refresh(recno);
+
             }
 
             function readonly(t_para, empty) {
@@ -165,6 +198,7 @@
 
             function btnMinus(id) {
                 _btnMinus(id);
+                sum();
             }
 
             function btnPlus(org_htm, dest_tag, afield) {
@@ -214,46 +248,15 @@
             function btnCancel() {
                 _btnCancel();
             }
-
-			function checkId(str) {
-                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
-                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
-                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-                    if ((n % 10) == 0)
-                        return 1;
-                } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
-                    var key = '12121241';
-                    var n = 0;
-                    var m = 0;
-                    for (var i = 0; i < 8; i++) {
-                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-                        m += Math.floor(n / 10) + n % 10;
-                    }
-                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-                        return 2;
-                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 3;
-                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
-                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 4
-               	}
-               	return 0;//錯誤
-            }
-
 		</script>
 		<style type="text/css">
-			#dmain {
+            #dmain {
                 overflow: hidden;
             }
             .dview {
                 float: left;
-                width: 250px; 
-                border-width: 0px; 
+                width: 250px;
+                border-width: 0px;
             }
             .tview {
                 border: 5px solid gray;
@@ -273,8 +276,8 @@
             .dbbm {
                 float: left;
                 width: 700px;
-                /*margin: -1px;        
-                border: 1px black solid;*/
+                /*margin: -1px;
+                 border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -346,6 +349,7 @@
                 text-align: right;
             }
             .bbs {
+                width: 950px;
                 float: left;
             }
             input[type="text"], input[type="button"] {
@@ -359,7 +363,8 @@
 	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain'>
 			<div class="dview" id="dview">
@@ -370,7 +375,9 @@
 						<td align="center" style="width:130px; color:black;"><a id='vewTypea'> </a></td>
 					</tr>
 					<tr>
-						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
+						<td>
+						<input id="chkBrow.*" type="checkbox" style=''/>
+						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='typea'>~typea</td>
 					</tr>
@@ -379,95 +386,110 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td class="tdZ"> </td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="tdZ"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td><input id="txtNoa" type="text" class="txt c1" /></td>
+						<td>
+						<input id="txtNoa" type="text" class="txt c1" />
+						</td>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td><input id="txtDatea"  type="text" class="txt c1"/></td>
+						<td>
+						<input id="txtDatea"  type="text" class="txt c1"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
-						<td><input id="txtMon"  type="text" class="txt c1"/></td>
+						<td>
+						<input id="txtMon"  type="text" class="txt c1"/>
+						</td>
 						<td><span> </span><a id='lblTypea' class="lbl"> </a></td>
-						<td><select id="cmbTypea" class="txt c1" > </select></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblDate' class="lbl"> </a></td>
-						<td colspan="3">
-							<input id="txtBdate"  type="text" style="float:left; width:45%;"/>
-							<span style="float:left; width:5px;"> </span>
-							<span style="float:left; width:20px; font-weight: bold;font-size: 20px;">～</span>
-							<span style="float:left; width:5px;"> </span>
-							<input id="txtEdate"  type="text" style="float:left; width:45%;"/>
-						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblCustno' class="lbl"> </a></td>
-						<td colspan="3">
-							<input id="txtBcustno"  type="text" style="float:left; width:45%;"/>
-							<span style="float:left; width:5px;"> </span>
-							<span style="float:left; width:20px; font-weight: bold;font-size: 20px;">～</span>
-							<span style="float:left; width:5px;"> </span>
-							<input id="txtEcustno"  type="text" style="float:left; width:45%;"/>
-						</td>
+						<td><select id="cmbTypea" class="txt c1" ></select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSalesno' class="lbl btn"> </a></td>
-						<td colspan="3">
-							<input id="txtSalesno"  type="text" style="float:left; width:45%;"/>
-							<span style="float:left; width:5px;"> </span>
-							<span style="float:left; width:20px; font-weight: bold;font-size: 20px;"></span>
-							<span style="float:left; width:5px;"> </span>
-							<input id="txtSales"  type="text" style="float:left; width:45%;"/>
+						<td colspan="2">
+						<input id="txtSalesno"  type="text" style="float:left; width:40%;"/>
+						<input id="txtSales"  type="text" style="float:left; width:60%;"/>
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPart' class="lbl btn"> </a></td>
-						<td colspan="3">
-							<input id="txtPartno"  type="text" style="float:left; width:45%;"/>
-							<span style="float:left; width:5px;"> </span>
-							<span style="float:left; width:20px; font-weight: bold;font-size: 20px;"></span>
-							<span style="float:left; width:5px;"> </span>
-							<input id="txtPart"  type="text" style="float:left; width:45%;"/>
+						<td>
+							<input id="txtPartno"  type="text" style="display:none;"/>
+							<input id="txtPart"  type="text" class="txt c1"/>
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAcc1' class="lbl btn"> </a></td>
 						<td colspan="3">
-							<input id="txtAcc1"  type="text" style="float:left; width:45%;"/>
-							<span style="float:left; width:5px;"> </span>
-							<span style="float:left; width:20px; font-weight: bold;font-size: 20px;"></span>
-							<span style="float:left; width:5px;"> </span>
-							<input id="txtAcc2"  type="text" style="float:left; width:45%;"/>
+						<input id="txtAcc1"  type="text" style="float:left; width:30%;"/>
+						<input id="txtAcc2"  type="text" style="float:left; width:70%;"/>
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblDate' class="lbl"> </a></td>
+						<td colspan="3">
+						<input id="txtBdate"  type="text" style="float:left; width:45%;"/>
+						<span style="float:left; width:5px;"> </span><span style="float:left; width:20px; font-weight: bold;font-size: 20px;">～</span><span style="float:left; width:5px;"> </span>
+						<input id="txtEdate"  type="text" style="float:left; width:45%;"/>
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblCustno' class="lbl"> </a></td>
+						<td colspan="3">
+						<input id="txtBcustno"  type="text" style="float:left; width:45%;"/>
+						<span style="float:left; width:5px;"> </span><span style="float:left; width:20px; font-weight: bold;font-size: 20px;">～</span><span style="float:left; width:5px;"> </span>
+						<input id="txtEcustno"  type="text" style="float:left; width:45%;"/>
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblVccno' class="lbl"> </a></td>
 						<td colspan="3">
-							<input id="txtBvccno"  type="text" style="float:left; width:45%;"/>
-							<span style="float:left; width:5px;"> </span>
-							<span style="float:left; width:20px; font-weight: bold;font-size: 20px;">～</span>
-							<span style="float:left; width:5px;"> </span>
-							<input id="txtEvccno"  type="text" style="float:left; width:45%;"/>
+						<input id="txtBvccno"  type="text" style="float:left; width:45%;"/>
+						<span style="float:left; width:5px;"> </span><span style="float:left; width:20px; font-weight: bold;font-size: 20px;">～</span><span style="float:left; width:5px;"> </span>
+						<input id="txtEvccno"  type="text" style="float:left; width:45%;"/>
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
 						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
+						<td colspan="2"><span> </span><a id='lblPaybno' class="lbl btn"> </a></td>
+						<td><input id="txtPaybno" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
 		</div>
+		<div class='dbbs'>
+			<table id="tbbs" class='tbbs' style=' text-align:center'>
+				<tr style='color:white; background:#003366;' >
+					<td align="center" style="width:30px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"/></td>
+					<td align="center" style="width:20px;"> </td>
+					<td align="center" style="width:200px;"><a id='lblProduct_s'> </a></td>
+				</tr>
+				<tr  style='background:#cad3ff;'>
+					<td align="center">
+						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+						<input id="txtNoq.*" type="text" style="display: none;" />
+					</td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+					<td >
+						<input id="btnProductno.*" type="button" value=".." style="float:left;width: 5%;"/>
+						<input id="txtProductno.*" type="text" style="float:left;width: 35%;"/>
+						<input id="txtProduct.*" type="text" style="float:left;width: 55%;"/>					
+					</td>
+				</tr>
+			</table>
+		</div>
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
-
