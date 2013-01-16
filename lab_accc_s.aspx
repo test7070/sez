@@ -24,31 +24,36 @@
 
             function q_gfPost() {
                 q_getFormat();
+                q_langShow();
                 bbmMask = [['txtMon', r_picm]];
                 q_mask(bbmMask);
-                q_langShow();
+                
                 q_cmbParse("cmbTypea", '@全部,'+q_getPara('lab_accc.typea'));
             }
 
             function q_seekStr() {
-            	t_typea = $.trim($('#cmbTypea').val());
-                t_salesno = $.trim($('#txtSalesno').val());
-                t_sales = $.trim($('#txtSales').val());
-                t_mon = $.trim($('#txtMon').val());
-                t_acc1 = $.trim($('#txtAcc1').val());
-                t_acc2 = $.trim($('#txtAcc2').val());
-                
-                var t_where = " 1=1 " 
-                + q_sqlPara2("typea", t_typea)
-                + q_sqlPara2("mon", t_mon)
-                + q_sqlPara2("salesno", t_salesno)
-                + q_sqlPara2("acc1", t_acc1);
-				if (t_sales.length > 0)
-                    t_where += " and patindex('%" + t_sales + "%',sales)>0";
-                if (t_acc2.length > 0)
-                    t_where += " and patindex('%" + t_acc2 + "%',acc2)>0";
-                t_where = ' where=^^' + t_where + '^^ ';
-
+            	var t_where='';
+            	try{
+	            	t_typea = $.trim($('#cmbTypea').val());
+	                t_salesno = $.trim($('#txtSalesno').val());
+	                t_sales = $.trim($('#txtSales').val());
+	                t_mon = $.trim($('#txtMon').val());
+	                t_acc1 = $.trim($('#txtAcc1').val());
+	                t_acc2 = $.trim($('#txtAcc2').val());
+	                
+	                t_where = " 1=1 " 
+	                + q_sqlPara2("typea", t_typea)
+	                + q_sqlPara2("mon", t_mon)
+	                + q_sqlPara2("salesno", t_salesno)
+	                + q_sqlPara2("acc1", t_acc1);
+					if (t_sales.length > 0)
+	                    t_where += " and patindex('%" + t_sales + "%',sales)>0";
+	                if (t_acc2.length > 0)
+	                    t_where += " and patindex('%" + t_acc2 + "%',acc2)>0";
+	                t_where = ' where=^^' + t_where + '^^ ';
+				}catch(e){
+					alert(e.message);
+				}
                 return t_where;
             }
 		</script>
