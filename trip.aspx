@@ -222,7 +222,7 @@
            
         }
         function btnPrint() {
-        	
+            q_box('z_trip.aspx', '', "90%", "600px", q_getMsg("popPrint"));       	
         }
 
         function wrServer(key_value) {

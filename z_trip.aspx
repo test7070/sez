@@ -20,75 +20,30 @@
             }
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_vcctran');
+                q_gf('', 'z_trip');
             });
             function q_gfPost() {
                $('#q_report').q_report({
-                        fileName : 'z_vcctran',
-                        options : [{
-	                        type : '0',
-	                        name : 'accy',
-	                        value : r_accy
-	                    },  {
-	                        type : '1',
-	                        name : 'xnoa'
-	                    }, {
-	                        type : '1',
-	                        name : 'date'
-	                    }, {
-	                        type : '2',
-	                        name : 'cust',
-	                        dbf : 'cust',
-	                        index : 'noa,comp',
-	                        src : 'cust_b.aspx'
-	                    } , {
-	                        type : '1',
-	                        name : 'xmon'
-	                    }, {
-	                        type : '2',
-	                        name : 'acomp',
-	                        dbf : 'cust',
-	                        index : 'noa,acomp',
-	                        src : 'acomp_b.aspx'
-	                    }]
+	               		fileName : 'z_trip',
+	                    options : [{
+						type : '1',
+						name : 'date'
+					},{
+                        type : '2',
+                        name : 'sssno',
+                        dbf : 'sss',
+                        index : 'noa,namea',
+                        src : 'sss_b.aspx'
+                    }]
                     });
                 q_popAssign();
-                	
-                	$('#txtXmon1').mask('999/99');
-	                $('#txtXmon2').mask('999/99');
-	                $('#txtDate1').mask('999/99/99');
-	                $('#txtDate1').datepicker();
-	                $('#txtDate2').mask('999/99/99');
-	                $('#txtDate2').datepicker();  
-	                
-	            var t_noa=typeof(q_getId()[3])=='undefined'?'':q_getId()[3];
-                t_noa  =  t_noa.replace('noa=','');
-                $('#txtXnoa1').val(t_noa);
-                $('#txtXnoa2').val(t_noa);
+                 $('#txtDate1').mask('999/99/99');
+	             $('#txtDate1').datepicker();
+	             $('#txtDate2').mask('999/99/99');
+	             $('#txtDate2').datepicker();  
+                
                 
                  var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtXmon1').val(t_year+'/'+t_month);
-	                
-	                t_date = new Date();
-	                t_date.setDate(35);
-	                t_date.setDate(0);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtXmon2').val(t_year+'/'+t_month);
-	                
-	                var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
 	                t_year = t_date.getUTCFullYear()-1911;
@@ -109,7 +64,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
-            }
+	                }
 
             function q_boxClose(s2) {
             }
