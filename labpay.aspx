@@ -57,19 +57,6 @@
                 	if((/^[0-9]{4}$/g).test(str))
                 		$(this).val(str+'.');
                 })
-          for(var j = 0; j < q_bbsCount; j++) {
-            	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-            		$('#txtAcc1_' + j).change(function() {
-                            var str=$.trim($(this).val());
-		                	if((/^[0-9]{4}$/g).test(str))
-		                		$(this).val(str+'.');
-                        });
-                    $('#txtCustno_' + j).change(function() {
-                    	$('#txtProductno_' + j).val('123');
-                    	$('#txtProduct_' + j).val('123');
-                    });
-				}
-			}
 			
         }
 
@@ -210,7 +197,7 @@
 		                	if((/^[0-9]{4}$/g).test(str))
 		                		$(this).val(str+'.');
                         });
-                    $('#txtCustno_' + j).change(function() {
+                    $('#txtCustno_' + j).focusout(function() {
                     	t_IdSeq = -1;
                         q_bodyId($(this).attr('id'));
                         b_seq = t_IdSeq;
@@ -528,13 +515,15 @@
             </tr>
             <tr  style='background:#cad3ff;'> 
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>              
-                <td ><input id="txtCustno.*" type="text" style="width: 25%;" /><input id="txtComp.*" type="text" style="width: 55%;" /><input id="btnCustno.*" type="button" value="." /></td>
+                <td ><input id="txtCustno.*" type="text" style="width: 65%;" /><input id="btnCustno.*" type="button" value="." />
+                	<input id="txtComp.*" type="text" style="width: 95%;" />
+                </td>
                 <td ><input class="txt num c1" id="txtPlusmoney.*" type="text" /></td>
-                <td ><input id="txtProductno.*" type="text" style="width: 25%;"/><input  id="txtProduct.*"type="text" style="width: 55%;"/><input id="btnProductno.*" type="button" value="." /></td>
+                <td ><input id="txtProductno.*" type="text" style="width: 65%;"/><input id="btnProductno.*" type="button" value="." />
+                	<input  id="txtProduct.*"type="text" style="width: 95%;"/></td>
                 <td ><input class="txt num c1" id="txtMinusmoney.*" type="text" /></td>
-                <td ><input id="txtAcc1.*" type="text" style="width: 25%;"/>
-                		<input  id="txtAcc2.*" type="text" style="width: 55%;"/>
-                		<input id="btnAcc.*" type="button" value="."  />
+                <td ><input id="txtAcc1.*" type="text" style="width: 65%;"/><input id="btnAcc.*" type="button" value="."  />
+                		<input  id="txtAcc2.*" type="text" style="width: 95%;"/>
                 </td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCost.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
