@@ -47,6 +47,10 @@
 						type : '0',
 						name : 'accy',
 						value : r_accy+"_"+r_cno
+					},{
+						type : '0',
+						name : 'accy',
+						value : r_accy
 					}]
                     });
                 q_popAssign();
