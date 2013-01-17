@@ -528,13 +528,15 @@
             </tr>
             <tr  style='background:#cad3ff;'> 
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>              
-                <td ><input id="txtCustno.*" type="text" style="width: 25%;" /><input id="txtComp.*" type="text" style="width: 55%;" /><input id="btnCustno.*" type="button" value="." /></td>
+                <td ><input id="txtCustno.*" type="text" style="width: 65%;" /><input id="btnCustno.*" type="button" value="." />
+                	<input id="txtComp.*" type="text" style="width: 95%;" />
+                </td>
                 <td ><input class="txt num c1" id="txtPlusmoney.*" type="text" /></td>
-                <td ><input id="txtProductno.*" type="text" style="width: 25%;"/><input  id="txtProduct.*"type="text" style="width: 55%;"/><input id="btnProductno.*" type="button" value="." /></td>
+                <td ><input id="txtProductno.*" type="text" style="width: 65%;"/><input id="btnProductno.*" type="button" value="." />
+                	<input  id="txtProduct.*"type="text" style="width: 95%;"/></td>
                 <td ><input class="txt num c1" id="txtMinusmoney.*" type="text" /></td>
-                <td ><input id="txtAcc1.*" type="text" style="width: 25%;"/>
-                		<input  id="txtAcc2.*" type="text" style="width: 55%;"/>
-                		<input id="btnAcc.*" type="button" value="."  />
+                <td ><input id="txtAcc1.*" type="text" style="width: 65%;"/><input id="btnAcc.*" type="button" value="."  />
+                		<input  id="txtAcc2.*" type="text" style="width: 95%;"/>
                 </td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCost.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
