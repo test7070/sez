@@ -52,7 +52,7 @@
             
             $('#txtCardealno').change(function() {
             	if(!emp($('#txtCardealno').val())){
-		            t_where="^^ carownerno!='' and cardealno='"+$('#txtCardealno').val()+"'^^";
+		            t_where="^^ a.carownerno!='' and a.cardealno='"+$('#txtCardealno').val()+"'^^";
 		            q_gt('car2', t_where , 0, 0, 0, "", r_accy);
 	            }
             });
@@ -72,13 +72,16 @@
             switch (t_name) {
             	case 'car2':
             		var as = _q_appendData("car2", "", true);
-            		$('#txtMount2').val(as.length);
+            		$('#txtMount').val(as.length);
             		var t_carmount=0,t_palmount=0;
             		for (var i = 0; i < as.length; i++) {
 	            		if(dec(as[i].noa.length)==6&&as[i].noa.indexOf('-')>-1)
 	                    	t_carmount++;
 	                    if(dec(as[i].noa.length)==5&&as[i].noa.indexOf('-')>-1)
 	                    	t_palmount++;
+	                    	
+	                    $('#txtCarmount').val(t_carmount);
+	                    $('#txtPalmount').val(t_palmount);
             		}
             		break;
                 case q_name: 
@@ -154,7 +157,7 @@
 		    	switch (s1) {
 		    		case 'txtCardealno':
 	            		if(!emp($('#txtCardealno').val())){
-				            t_where="^^ carownerno!='' and cardealno='"+$('#txtCardealno').val()+"'^^";
+				            t_where="^^ a.carownerno!='' and a.cardealno='"+$('#txtCardealno').val()+"'^^";
 				            q_gt('car2', t_where , 0, 0, 0, "", r_accy);
 			            }
 			        break;
