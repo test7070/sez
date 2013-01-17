@@ -220,10 +220,10 @@
                 $('#txtNoa').val('AUTO');
                 if($('#txtDatea').val().length==0)
                		$('#txtDatea').val(q_date());
-               	$('#txtWacc1').val('5850.02');
-               	$('#txtWacc2').val('輪胎');	
-               	$('#txtCacc1').val('5850.03');
-               	$('#txtCacc2').val('修繕費');	
+               	$('#txtWacc1').val('5850.03');
+               	$('#txtWacc2').val('修繕費');
+               	$('#txtCacc1').val('5850.02');
+               	$('#txtCacc2').val('輪胎');		
 		        $('#txtFixadate').focus();
 		    }
 

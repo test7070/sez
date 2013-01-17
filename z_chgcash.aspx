@@ -83,6 +83,10 @@
                             type : '0',
                             name : 'accy',
                             value : q_getId()[4]
+                        },{
+                            type : '0',
+                            name : 'r_name',
+                            value : r_name
                         }, {/*1*/
                             type : '6',
                             name : 'xnoa'
