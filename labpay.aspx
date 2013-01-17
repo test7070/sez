@@ -57,19 +57,6 @@
                 	if((/^[0-9]{4}$/g).test(str))
                 		$(this).val(str+'.');
                 })
-          for(var j = 0; j < q_bbsCount; j++) {
-            	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-            		$('#txtAcc1_' + j).change(function() {
-                            var str=$.trim($(this).val());
-		                	if((/^[0-9]{4}$/g).test(str))
-		                		$(this).val(str+'.');
-                        });
-                    $('#txtCustno_' + j).change(function() {
-                    	$('#txtProductno_' + j).val('123');
-                    	$('#txtProduct_' + j).val('123');
-                    });
-				}
-			}
 			
         }
 
@@ -210,7 +197,7 @@
 		                	if((/^[0-9]{4}$/g).test(str))
 		                		$(this).val(str+'.');
                         });
-                    $('#txtCustno_' + j).change(function() {
+                    $('#txtCustno_' + j).focusout(function() {
                     	t_IdSeq = -1;
                         q_bodyId($(this).attr('id'));
                         b_seq = t_IdSeq;
