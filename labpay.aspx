@@ -57,6 +57,20 @@
                 	if((/^[0-9]{4}$/g).test(str))
                 		$(this).val(str+'.');
                 })
+          for(var j = 0; j < q_bbsCount; j++) {
+            	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+            		$('#txtAcc1_' + j).change(function() {
+                            var str=$.trim($(this).val());
+		                	if((/^[0-9]{4}$/g).test(str))
+		                		$(this).val(str+'.');
+                        });
+                    $('#txtCustno_' + j).change(function() {
+                    	$('#txtProductno_' + j).val('123');
+                    	$('#txtProduct_' + j).val('123');
+                    });
+				}
+			}
+			
         }
 
         function q_boxClose( s2) { 
@@ -191,23 +205,20 @@
         function bbsAssign() {
         	for(var j = 0; j < q_bbsCount; j++) {
             	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-            		$('#txtAcc1_' + i).change(function() {
+            		$('#txtAcc1_' + j).change(function() {
                             var str=$.trim($(this).val());
 		                	if((/^[0-9]{4}$/g).test(str))
 		                		$(this).val(str+'.');
                         });
-
-            		$('#txtMount_' + j).change(function () {
-						t_IdSeq = -1;
-						q_bodyId($(this).attr('id'));
-						b_seq = t_IdSeq;
-						
-						if(q_cur==1&&!emp($('#txtMount_'+b_seq).val())&&!emp($('#txtStkmount_'+b_seq).val())&&dec($('#txtMount_'+b_seq).val())>dec($('#txtStkmount_'+b_seq).val())){
-							alert('�w�s����');
-							$('#txtMount_'+b_seq).val('0');
-							return;
-						}
-				    });
+                    $('#txtCustno_' + j).change(function() {
+                    	t_IdSeq = -1;
+                        q_bodyId($(this).attr('id'));
+                        b_seq = t_IdSeq;
+                    	$('#txtProductno_' + b_seq).val($('#txtProductno').val());
+                    	$('#txtProduct_' + b_seq).val($('#txtProduct').val());
+                    	$('#txtAcc1_' + b_seq).val($('#txtAcc1').val());
+                    	$('#txtAcc2_' + b_seq).val($('#txtAcc2').val());
+                    });
 				}
 			}
             _bbsAssign();
@@ -508,23 +519,25 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:18%;"><a id='lblCustno_s'></a></td>
-                <td align="center" style="width:28%;"><a id='lblProductno_s'></a></td>
                 <td align="center" style="width:8%;"><a id='lblPlusmoney_s'></a></td>
+                <td align="center" style="width:20%;"><a id='lblProductno_s'></a></td>
                 <td align="center" style="width:8%;"><a id='lblMinusmoney_s'></a></td>
                 <td align="center" style="width:18%;"><a id='lblAcc1_s'></a></td>
                 <td align="center" ><a id='lblMemo_s'></a></td>
+                <td align="center" ><a id='lblCost_s'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'> 
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>              
                 <td ><input id="txtCustno.*" type="text" style="width: 25%;" /><input id="txtComp.*" type="text" style="width: 55%;" /><input id="btnCustno.*" type="button" value="." /></td>
-                <td ><input id="txtProductno.*" type="text" style="width: 25%;"/><input  id="txtProduct.*"type="text" style="width: 55%;"/><input id="btnProductno.*" type="button" value="." /></td>
                 <td ><input class="txt num c1" id="txtPlusmoney.*" type="text" /></td>
+                <td ><input id="txtProductno.*" type="text" style="width: 25%;"/><input  id="txtProduct.*"type="text" style="width: 55%;"/><input id="btnProductno.*" type="button" value="." /></td>
                 <td ><input class="txt num c1" id="txtMinusmoney.*" type="text" /></td>
                 <td ><input id="txtAcc1.*" type="text" style="width: 25%;"/>
                 		<input  id="txtAcc2.*" type="text" style="width: 55%;"/>
                 		<input id="btnAcc.*" type="button" value="."  />
                 </td>
-                <td ><input class="txt c1" id="txtMemo.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
+                <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtCost.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
            </tr>
 
         </table>
