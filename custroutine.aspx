@@ -282,7 +282,7 @@
                 margin: -1px;
             }
             .tbbs input[type="text"] {
-                width: 80%;
+                width: 98%;
             }
             .tbbs a {
                 font-size: medium;
@@ -385,46 +385,6 @@
 					</tr>
 				</table>
 			</div>
-		</div>
-		<div class='dbbs'>
-			<table id="tbbs" class='tbbs' style=' text-align:center'>
-				<tr style='color:white; background:#003366;' >
-					<td  align="center" style="width:30px;">
-					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
-					</td>
-					<td align="center" style="width:20px;"></td>				
-					<td align="center" style="width:200px;"><a id='lblProduct_s'></a></td>
-					<td align="center" style="width:200px;"><a id="lblStraddr_s"></a></td>
-					<td align="center" style="width:80px;"><a id='lblMount_s'></a></td>
-					<td align="center" style="width:80px;"><a id='lblPrice_s'></a></td>
-					<td align="center" style="width:200px;"><a id='lblMemo_s'></a></td>
-				</tr>
-				<tr  style='background:#cad3ff;'>
-					<td align="center">
-					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
-					<input id="txtNoq.*" type="text" style="display: none;" />
-					</td>
-					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td>
-					<input id="txtProductno.*" type="text" style="width: 25%; float: left;"/>
-					<input id="txtProduct.*" type="text" style="width: 70%; float: left;"/>
-					</td>
-					<td>
-					<input id="txtStraddrno.*" type="text" style="width: 25%; float: left;"/>
-					<input id="txtStraddr.*" type="text" style="width: 70%; float: left;"/>
-					</td>
-					<td>
-					<input id="txtMount.*" type="text" style="width: 95%;text-align:right;"/>
-					</td>
-					<td>
-					<input id="txtPrice.*" type="text" style="width: 95%;text-align:right;"/>
-					</td>
-					<td>
-					<input id="txtMemo.*" type="text" style="width: 95%;"/>
-					<input id="recno.*" type="hidden" />
-					</td>
-				</tr>
-			</table>
 		</div>
 		<input id="q_sys" type="hidden" />
 	</body>
