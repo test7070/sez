@@ -37,7 +37,7 @@
                 t_bdate = $.trim($('#txtBdate').val());
                 t_edate = $.trim($('#txtEdate').val());
                 t_mon = $.trim($('#txtMon').val());
-                tnoa = $.trim($('#txtNoa').val());
+                t_noa = $.trim($('#txtNoa').val());
                 t_tggno = $.trim($('#txtTggno').val());
 
                 var t_where = " 1=1 " + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("mon", t_mon) + q_sqlPara2("noa", t_noa) + q_sqlPara2("tggno", t_tggno);

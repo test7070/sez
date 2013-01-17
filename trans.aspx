@@ -615,6 +615,10 @@
 						if(q_cur==1 || q_cur==2){
 							$('#txtCaseuseno').val($('#txtCustno').val());
 							$('#txtCaseuse').val($('#txtComp').val());
+							if ($("#txtCustno").val().length > 0) {
+								$("#txtStraddrno").val($("#txtCustno").val()+'-');
+								$("#txtStraddr").val("");
+							}
 						}
 						break;
 					case 'txtStraddrno':

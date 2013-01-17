@@ -54,8 +54,9 @@
             q_mask(bbmMask);
             
              $('#txtDatea').focusout(function () {
-                     	   q_cd( $(this).val() ,$(this));
-	                });
+             	q_cd( $(this).val() ,$(this));
+	         });
+	         q_gt('store', '', 0, 0, 0, "");
         }
 
         function q_boxClose( s2) { 
@@ -118,7 +119,7 @@
             switch (t_name) {
             	case 'authority':
 		                var as = _q_appendData('authority', '', true);
-		                if (as.length > 0 && as[0]["pr_run"] == "true")
+		                if (as.length > 0 && as[0]["pr_dele"] == "true")
 		                    ischecker = true;
 		                else
 		                    ischecker = false;
@@ -128,7 +129,14 @@
                     break;
 
                 case 'store':  
-                    q_changeFill(t_name, 'txtStoreno,txtStore', 'noa,store');
+					var as = _q_appendData("store", "", true);
+                    var t_item = " @ ";
+                        for ( i = 0; i < as.length; i++) {
+                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
+                        }
+                        q_cmbParse("cmbStoreno", t_item);
+                        $("#cmbStoreno").val(abbm[q_recno].storeno);
+                    //q_changeFill(t_name, 'txtStoreno,txtStore', 'noa,store');
                     break;
 
                 case 'station':  
@@ -492,7 +500,9 @@
                <td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
                <td class="td2"><input id="txtDatea"  type="text" /></td>
                <td class="td3"><span> </span><a id='lblNoa' class="lbl"></a></td>
-               <td class="td4"><input id="txtNoa" type="text"  /></td>               
+               <td class="td4"><input id="txtNoa" type="text"  /></td>
+               <td class="td5"><span> </span><a id='lblStore' class="lbl"></a></td>
+               <td class="td6"><select id="cmbStoreno" class="txt c1"> </select></td>               
         </tr>
         <tr>
             <td class="td1"><span> </span><a id='lblSname' class="lbl btn"></a></td>

@@ -55,13 +55,6 @@
             $('#txtRate').change(function() {
             	$('#txtCarmount').val(dec($('#txtMount').val())*dec($('#txtRate').val()));
             });
-            
-            /*$('#txtCardealno').change(function() {
-            	if(!emp($('#txtCardealno').val())){
-		            var t_where="where=^^ (a.outdate='' or a.outdate is null) and a.carownerno!='' and a.cardealno='"+$('#txtCardealno').val()+"'^^";
-		            q_gt('car2', t_where , 0, 0, 0, "", r_accy);
-	            }
-            });*/
         }
         
         function q_boxClose( s2) { 
@@ -76,20 +69,6 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-            	case 'car2':
-            		var as = _q_appendData("car2", "", true);
-            		$('#txtMount').val(as.length);
-            		var t_carmount=0,t_palmount=0;
-            		for (var i = 0; i < as.length; i++) {
-	            		if(dec(as[i].noa.length)==6&&as[i].noa.indexOf('-')>-1)
-	                    	t_carmount++;
-	                    if(dec(as[i].noa.length)==5&&as[i].noa.indexOf('-')>-1)
-	                    	t_palmount++;
-	                    	
-	                    $('#txtCarmount').val(t_carmount);
-	                    $('#txtPalmount').val(t_palmount);
-            		}
-            		break;
                 case q_name: 
                 	if (q_cur == 4)   
                         q_Seek_gtPost();
@@ -158,17 +137,6 @@
         function refresh(recno) {
             _refresh(recno);
         }
-        
-        function q_popPost(s1) {
-		    	switch (s1) {
-		    		case 'txtCardealno':
-	            		/*if(!emp($('#txtCardealno').val())){
-				            var t_where="where=^^ (a.outdate='' or a.outdate is null) and a.carownerno!='' and a.cardealno='"+$('#txtCardealno').val()+"'^^";
-				            q_gt('car2', t_where , 0, 0, 0, "", r_accy);
-			            }*/
-			        break;
-		    	}
-			}
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
@@ -343,10 +311,10 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66; width: 100%;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:15%"><a id='vewCardeal'></a></td>
-				<td align="center" style="width:20%"><a id='vewBdate'></a></td>
-				<td align="center" style="width:20%"><a id='vewMount'></a></td>
-				<td align="center" style="width:20%"><a id='vewEdate'></a></td>
+                <td align="center" style="width:41%"><a id='vewCardeal'></a></td>
+				<td align="center" style="width:12%"><a id='vewBdate'></a></td>
+				<td align="center" style="width:10%"><a id='vewMount'></a></td>
+				<td align="center" style="width:12%"><a id='vewEdate'></a></td>
 				<td align="center" style="width:20%"><a id='vewPlace'></a></td>
             </tr>
              <tr>
