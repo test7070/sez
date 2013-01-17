@@ -63,6 +63,7 @@
 		            	$('#txtInvono').focus();
 		            }
 		     });
+		     q_gt('store', '', 0, 0, 0, "");
         }
 
         function q_boxClose( s2) { 
@@ -134,7 +135,14 @@
                     break;
 
                 case 'store': 
-                    q_changeFill(t_name, 'txtStoreno,txtStore', 'noa,store');
+                	var as = _q_appendData("store", "", true);
+                    var t_item = " @ ";
+                    for ( i = 0; i < as.length; i++) {
+                    	t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
+                    }
+                    q_cmbParse("cmbStoreno", t_item);
+                    $("#cmbStoreno").val(abbm[q_recno].storeno);
+                    //q_changeFill(t_name, 'txtStoreno,txtStore', 'noa,store');
                     break;
 
                 case 'station':  
@@ -571,8 +579,8 @@
             <td class="td2"><input id="txtOrdeno"  type="text" class="txt c1"/></td>
             <td class='td3'><span> </span><a id="lblAcomp" class="lbl btn" style="font-size: 14px;"> </a></td>
             <td class="td4" colspan="3"><input id="txtCno" type="text" class="txt c2"/><input id="txtAcomp" type="text" class="txt c3"/></td>
-			<td class="td7"> </td>
-			<td class="td8"> </td>
+			<td class="td7"><span> </span><a id='lblStore' class="lbl"></a></td>
+            <td class="td8"><select id="cmbStoreno" class="txt c1"> </select></td>  
 			<td class="td9"><span> </span><a id="lblWorker" class="lbl"> </a></td>
 			<td class="td10"><input id="txtWorker" type="text" class="txt c1" /></td>        
         </tr>
