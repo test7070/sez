@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -25,7 +24,7 @@
         aPop = new Array(['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
-            brwCount2 = 20;
+            brwCount2 = 10;
             q_brwCount();
             q_gt(q_name, q_content, q_sqlCount, 1)
         });
@@ -96,7 +95,7 @@
             $('#txtCardealno').focus();
             
             t_where="^^ carownerno!='' ^^";
-            q_gt('car2', t_where , 0, 0, 0, "", r_accy);
+            //q_gt('car2', t_where , 0, 0, 0, "", r_accy);
         }
 
         function btnModi() {
@@ -350,24 +349,24 @@
                <td class="td2"><input id="txtCondate" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblConmoney" class="lbl"></a></td>
                <td class="td4"><input id="txtConmoney" type="text" class="txt num c1" /></td>
-               <td class="td5"><span> </span><a id="lblLastdate" class="lbl"></a></td>
-               <td class="td6"><input id="txtLastdate" type="text" class="txt c1"/></td>
+               <td class="td5"><span> </span><a id="lblConmount" class="lbl"></a></td>
+               <td class="td6"><input id="txtConmount" type="text" class="txt num c1"/></td>
         </tr>
          <tr>
-              <td class="td1"><span> </span><a id='lblMount' class="lbl"></a></td>
-              <td class="td2"><input id="txtMount" type="text" class="txt num c1"/></td>
-              <td class="td3"><span> </span><a id="lblPlace" class="lbl"></a></td>
-              <td class="td4"><input id="txtPlace" type="text" class="txt c1"/></td>
-              <td class="td5"></td>
-              <td class="td6"></td>  
+         	  <td class="td1"><span> </span><a id="lblPlace" class="lbl"></a></td>
+              <td class="td2"><input id="txtPlace" type="text" class="txt c1"/></td>
+         	  <td class="td3"><span> </span><a id="lblLastdate" class="lbl"></a></td>
+              <td class="td4"><input id="txtLastdate" type="text" class="txt c1"/></td>
+              <td class="td5"><span> </span><a id="lblRate" class="lbl"></a></td>
+              <td class="td6"><input id="txtRate" type="text" class="txt c1"/></td>
          </tr>
 	   <tr>   
-		     <td class="td1"><span> </span><a id='lblCarmount' class="lbl"></a></td>
-             <td class="td2"><input id="txtCarmount" type="text" class="txt num c1" /></td>
-	         <td class="td3"><span> </span><a id="lblPalmount" class="lbl"></a></td>
-             <td class="td4"><input id="txtPalmount" type="text" class="txt num c1" /></td>
-             <td class="td5"></td>
-             <td class="td6"></td>
+	   		 <td class="td1"><span> </span><a id='lblMount' class="lbl"></a></td>
+             <td class="td2"><input id="txtMount" type="text" class="txt num c1"/></td>
+		     <td class="td3"><span> </span><a id='lblCarmount' class="lbl"></a></td>
+             <td class="td4"><input id="txtCarmount" type="text" class="txt num c1" /></td>
+	         <td class="td5"><span> </span><a id="lblPalmount" class="lbl"></a></td>
+             <td class="td6"><input id="txtPalmount" type="text" class="txt num c1" /></td>
 	   </tr>  
 	   <tr>   
              <td class="td1"><span> </span><a id='lblMount2' class="lbl"></a></td>
