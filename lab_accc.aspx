@@ -77,7 +77,7 @@
                     	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
                     }
                 });
-                $('#lbl_divNextmon').click(function(e) {//按下立帳
+                $('#btnGen').click(function(e) {//按下立帳
                 	if(!emp($('#txtNoa').val()))
 						q_func('lab_accc.gen', $('#txtNoa').val());
 				});

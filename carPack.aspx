@@ -17,7 +17,7 @@
         }
         var q_name="carpack";
         var q_readonly = ['txtNoa','txtDatea','txtWorker'];
-        var bbmNum = [['txtConmoney',10,0,0,1],['txtMount',10,0,0,1],['txtCarmount',10,0,0,1],['txtPalmount',10,0,0,1],['txtMount2',10,0,0,1],['txtEmount',10,0,0,1]]; 
+        var bbmNum = [['txtConmoney',10,0,0,1],['txtMount',10,0,0,1],['txtCarmount',10,0,0,1],['txtPalmount',10,0,0,1],['txtConmount',10,0,0,1],['txtEmount',10,0,0,1],['txtRate',2,0,0,1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
@@ -52,7 +52,7 @@
             
             $('#txtCardealno').change(function() {
             	if(!emp($('#txtCardealno').val())){
-		            t_where="^^ a.carownerno!='' and a.cardealno='"+$('#txtCardealno').val()+"'^^";
+		            var t_where="where=^^ (a.outdate='' or a.outdate is null) and a.carownerno!='' and a.cardealno='"+$('#txtCardealno').val()+"'^^";
 		            q_gt('car2', t_where , 0, 0, 0, "", r_accy);
 	            }
             });
@@ -157,7 +157,7 @@
 		    	switch (s1) {
 		    		case 'txtCardealno':
 	            		if(!emp($('#txtCardealno').val())){
-				            t_where="^^ a.carownerno!='' and a.cardealno='"+$('#txtCardealno').val()+"'^^";
+				            var t_where="where=^^ (a.outdate='' or a.outdate is null) and a.carownerno!='' and a.cardealno='"+$('#txtCardealno').val()+"'^^";
 				            q_gt('car2', t_where , 0, 0, 0, "", r_accy);
 			            }
 			        break;
@@ -379,7 +379,7 @@
          	  <td class="td3"><span> </span><a id="lblLastdate" class="lbl"></a></td>
               <td class="td4"><input id="txtLastdate" type="text" class="txt c1"/></td>
               <td class="td5"><span> </span><a id="lblRate" class="lbl"></a></td>
-              <td class="td6"><input id="txtRate" type="text" class="txt c1"/></td>
+              <td class="td6"><input id="txtRate" type="text" class="txt num c1"/></td>
          </tr>
 	   <tr>   
 		     <td class="td3"><span> </span><a id='lblCarmount' class="lbl"></a></td>
