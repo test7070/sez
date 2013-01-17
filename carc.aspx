@@ -26,6 +26,7 @@
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         aPop = new Array(['txtCaritemno_', 'btnCaritem_', 'caritem', 'noa,item', 'txtCaritemno_,txtCaritem_', 'caritem_b.aspx'],
         ['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
+         ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno],
         ['txtCarownerno', 'lblCarowner', 'carowner', 'noa,namea', 'txtCarownerno,txtCarowner', 'carowner_b.aspx']);
 
         $(document).ready(function () {
@@ -88,13 +89,16 @@
 			        q_gt('carc_caras', t_where , 0, 0, 0, "", r_accy);
 		     });
 		     $('#lblAccno').click(function() {
-                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtAcdate').val().substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
                 });
 		     $('#btnCarlender').click(function() {
 		     		t_where = "noa='" + $('#txtCarownerno').val() + "'";
             		q_box("carlender.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'carLender', "95%", "650px", q_getMsg('popCarlender'));
              });
-            
+               $('#lblPaybno').click(function() {
+		     		t_where = "noa='" + $('#txtPaybno').val() + "'";
+            		q_box("paytran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "650px", q_getMsg('popPaytran'));
+             });
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -497,20 +501,28 @@
             <td class='td5'></td>
        </tr>
        <tr class="tr2">
-            <td class='td1'><span> </span><a id="lblPaybno" class="lbl"></a></td>
+            <td class='td1'><span> </span><a id="lblMon" class="lbl"></a></td>
+            <td class='td2'><input id="txtMon" type="text" class="txt c1"/></td>
+          <td class='td1'><span> </span><a id="lblAcdate" class="lbl"></a></td>
+            <td class='td2'><input id="txtAcdate" type="text" class="txt c1"/></td>
+       </tr>
+       <tr class="tr3">
+            <td class='td1'><span> </span><a id="lblPaybno" class="lbl btn"></a></td>
             <td class='td2'><input id="txtPaybno"  type="text" class="txt c1" /></td>
             <td class='td3'><span> </span><a id="lblTggno" class="lbl btn"></a></td>
             <td class='td4' colspan="2"><input id="txtTggno"  type="text" class="txt c2" />
             	<input id="txtComp"  type="text" class="txt c3" />
             </td>
        </tr>
-       <tr class="tr3">           
-			<td class='td1'><span> </span><a id="lblMon" class="lbl"></a></td>
-            <td class='td2'><input id="txtMon" type="text" class="txt c1"/></td>
+       <tr class="tr4">           
+			<td class='td3'><span> </span><a id="lblAcc1" class="lbl btn"></a></td>
+            <td class='td4' colspan="2"><input id="txtAcc1"  type="text" class="txt c2" />
+            	<input id="txtAcc2"  type="text" class="txt c3" />
+            </td>
 			<td class='td3'><span> </span></td>
             <td class='td4'><input id="btnCarlender" type="button" style="float: left;"/></td>
        </tr>
-       <tr class="tr3">           
+       <tr class="tr5">           
 			<td class='td1'><span> </span><a id="lblCarowner" class="lbl btn"></a></td>
             <td class='td2'>
             	<input id="txtCarownerno" type="text" class="txt c2"/>
@@ -525,7 +537,7 @@
             	<input id="btnImport" type="button" style="float: left;"/><input id="txtCheckpay" type="hidden"></td>
             </td><!--保險費、燃料費、牌照稅、其他-->
        </tr>
-       <tr class="tr4">           
+       <tr class="tr6">           
 			<td class='td1'><span> </span><a id="lblPaydate" class="lbl"></a></td>
             <td class='td2'>
             	<input id="txtPaydate" type="text" class="txt c1"/>
@@ -533,13 +545,17 @@
          	<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
 			<td><input id="txtAccno"  type="text"  class="txt c1"/></td>
        </tr>
-        <tr class="tr5">           
+       <tr class="tr7">
+       		<td class="td1"><span> </span><a id="lblTotal" class="lbl"> </a></td>
+			<td class="td2"><input id="txtTotal"  type="text"  class="txt num c1"/></td>
+       </tr>
+        <tr class="tr8">           
 			<td class='td1'><span> </span><a id="lblWorker" class="lbl"></a></td>
             <td class='td2'><input id="txtWorker"  type="text" class="txt c1" /></td>
             <td class='td3'><span> </span><a id="lblWorker2" class="lbl"></a></td>
             <td class='td4'><input id="txtWorker2" type="text" class="txt c1"></td>
        </tr>        
-        <tr class="tr6">
+        <tr class="tr9">
             <td class='td1'><span> </span><a id="lblMemo" class="lbl"></a></td>
             <td class='td2' colspan='4'><input id="txtMemo"  type="text"  class="txt c1"/></td>
         </tr> 
