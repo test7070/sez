@@ -389,8 +389,13 @@
             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
             <td class='td3'><span> </span><a id="lblYear" class="lbl"> </a></td>
             <td class="td4"><input id="txtYear" type="text" class="txt c1"/></td> 
-            <td class='td5'><input id="btnIndata" type="button" style="width: auto;font-size: medium;"/></td>
-            <td class='td6'><input id="btnAcount"  type="button" style="width: auto;font-size: medium;" /></td>
+            <td class='td5'><span> </span><a id="lblDatea" class="lbl"></a></td>
+            <td class="td6"><input id="txtDatea" type="text" class="txt c1"/></td> 
+        </tr>
+        <tr>
+        	<td class='td1'></td>
+            <td class='td2'><input id="btnIndata" type="button" style="width: auto;font-size: medium;"/></td>
+            <td class='td3'><input id="btnAcount"  type="button" style="width: auto;font-size: medium;" /></td>
         </tr>
         <tr>
             <td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -400,7 +405,11 @@
         </div>
         </div>
         <div class='dbbs' > 
+<<<<<<< HEAD
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' >
+=======
+        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'>
+>>>>>>> 6f9a2f03cf2f9ae7878b85b361fe70389d673fe1
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
                 <td class="st2" align="center"><a id='lblSssno'> </a></td>
