@@ -1,14 +1,13 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
-    <title></title>
-    <script src="../script/jquery.min.js" type="text/javascript"></script>
-    <script src='../script/qj2.js' type="text/javascript"></script>
-        <script src='qset.js' type="text/javascript"></script>
-    <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src="../script/qbox.js" type="text/javascript"></script>
-    <script src='../script/mask.js' type="text/javascript"></script>
+    <title> </title>
+    <script src="../script/jquery.min.js" type="text/javascript"> </script>
+    <script src='../script/qj2.js' type="text/javascript"> </script>
+        <script src='qset.js' type="text/javascript"> </script>
+    <script src='../script/qj_mess.js' type="text/javascript"> </script>
+    <script src="../script/qbox.js" type="text/javascript"> </script>
+    <script src='../script/mask.js' type="text/javascript"> </script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         this.errorHandler = null;
@@ -347,21 +346,21 @@
             }
         .tbbs
         {
-            FONT-SIZE: medium;
+            font-size: medium;
             COLOR: blue ;
             TEXT-ALIGN: left;
              BORDER:1PX LIGHTGREY SOLID;
-             width:100% ; height:98% ;  
+           width: 350%;
         }  
         
         
         .st1
         {
-            width: 4%; text-align:right;
+            width: 2%; 
         }
         .st2
         {
-            width: 2%;text-align:right;
+            width: 1.5%;
         }      
     </style>
 </head>
@@ -386,109 +385,109 @@
         <div class='dbbm' style="width: 68%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr>
-            <td class='td1'><span> </span><a id="lblNoa" class="lbl"></a></td>
+            <td class='td1'><span> </span><a id="lblNoa" class="lbl"> </a></td>
             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-            <td class='td3'><span> </span><a id="lblYear" class="lbl"></a></td>
+            <td class='td3'><span> </span><a id="lblYear" class="lbl"> </a></td>
             <td class="td4"><input id="txtYear" type="text" class="txt c1"/></td> 
             <td class='td5'><input id="btnIndata" type="button" style="width: auto;font-size: medium;"/></td>
             <td class='td6'><input id="btnAcount"  type="button" style="width: auto;font-size: medium;" /></td>
         </tr>
         <tr>
-            <td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
-            <td class="td2" colspan="6"><textarea id="txtMemo" cols="10" rows="5" style="width: 95%;height: 50px;"></textarea></td>
+            <td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
+            <td class="td2" colspan="6"><textarea id="txtMemo" cols="10" rows="5" style="width: 95%;height: 50px;"> </textarea></td>
         </tr>
         </table>
         </div>
         </div>
         <div class='dbbs' > 
-        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 2000px;">
+        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
-                <td align="center"><a id='lblSssno'></a></td>
-                <td align="center"><a id='lblNamea'></a></td>
-                <td align="center"><a id='lblPart'></a></td>
-                <td align="center"><a id='lblMon'></a></td>
-                <td align="center"><a id='lblBase'></a></td>
-                <td align="center"><a id='lblQpoint1'></a></td>
-                <td align="center"><a id='lblQpoint2'></a></td>
-                <td align="center"><a id='lblQpoint'></a></td>
-                <td align="center"><a id='lblPoint1'></a></td>
-                <td align="center"><a id='lblTot_person'></a></td>
-                <td align="center"><a id='lblTot_sick'></a></td>
-                <td align="center"><a id='lblTot_leave'></a></td>
-                <td align="center"><a id='lblTot_late'></a></td>
-                <td align="center"><a id='lblTot_forget'></a></td>
-                <td align="center"><a id='lblXcountx'></a></td>
-                <td align="center"><a id='lblMi_person'></a></td>
-                <td align="center"><a id='lblMi_sick'></a></td>
-                <td align="center"><a id='lblMi_leave'></a></td>
-                <td align="center"><a id='lblMi_late'></a></td>
-                <td align="center"><a id='lblMi_forget'></a></td>
-                <td align="center"><a id='lblXpoint'></a></td>
-                <td align="center"><a id='lblPoint2'></a></td>
-                <td align="center"><a id='lblVcount1'></a></td>
-                <td align="center"><a id='lblVcount2'></a></td>
-                <td align="center"><a id='lblVcount3'></a></td>
-                <td align="center"><a id='lblVcount4'></a></td>
-                <td align="center"><a id='lblVcount5'></a></td>
-                <td align="center"><a id='lblVcount6'></a></td>
-                <td align="center"><a id='lblVcount7'></a></td>
-                <td align="center"><a id='lblVpoint'></a></td>
-                <td align="center"><a id='lblPoint'></a></td>
-                <td align="center"><a id='lblClass'></a></td>
-                <td align="center"><a id='lblQclass'></a></td>
-                <td align="center"><a id='lblDay1'></a></td>
-                <td align="center"><a id='lblDay2'></a></td>
-                <td align="center"><a id='lblMoney1'></a></td>
-                <td align="center"><a id='lblDay3'></a></td>
-                <td align="center"><a id='lblMoney2'></a></td>
-                <td align="center"><a id='lblMoney3'></a></td>
-                <td align="center"><a id='lblTax'></a></td>
-                <td align="center"><a id='lblTotal'></a></td>
+                <td class="st2" align="center"><a id='lblSssno'> </a></td>
+                <td class="st1" align="center"><a id='lblNamea'> </a></td>
+                <td class="st1" align="center"><a id='lblPart'> </a></td>
+                <td class="st1" align="center"><a id='lblMon'> </a></td>
+                <td class="st1" align="center"><a id='lblBase'> </a></td>
+                <td class="st2" align="center"><a id='lblQpoint1'> </a></td>
+                <td class="st2" align="center"><a id='lblQpoint2'> </a></td>
+                <td class="st2" align="center"><a id='lblQpoint'> </a></td>
+                <td class="st2" align="center"><a id='lblPoint1'> </a></td>
+                <td class="st1" align="center"><a id='lblTot_person'> </a></td>
+                <td class="st1" align="center"><a id='lblTot_sick'> </a></td>
+                <td class="st1" align="center"><a id='lblTot_leave'> </a></td>
+                <td class="st1" align="center"><a id='lblTot_late'> </a></td>
+                <td class="st1" align="center"><a id='lblTot_forget'> </a></td>
+                <td class="st2" align="center"><a id='lblXcountx'> </a></td>
+                <td class="st2" align="center"><a id='lblMi_person'> </a></td>
+                <td class="st2" align="center"><a id='lblMi_sick'> </a></td>
+                <td class="st2" align="center"><a id='lblMi_leave'> </a></td>
+                <td class="st2" align="center"><a id='lblMi_late'> </a></td>
+                <td class="st2" align="center"><a id='lblMi_forget'> </a></td>
+                <td class="st1" align="center"><a id='lblXpoint'> </a></td>
+                <td class="st2" align="center"><a id='lblPoint2'> </a></td>
+                <td class="st2" align="center"><a id='lblVcount1'> </a></td>
+                <td class="st2" align="center"><a id='lblVcount2'> </a></td>
+                <td class="st2" align="center"><a id='lblVcount3'> </a></td>
+                <td class="st2" align="center"><a id='lblVcount4'> </a></td>
+                <td class="st2" align="center"><a id='lblVcount5'> </a></td>
+                <td class="st2" align="center"><a id='lblVcount6'> </a></td>
+                <td class="st2" align="center"><a id='lblVcount7'> </a></td>
+                <td class="st2" align="center"><a id='lblVpoint'> </a></td>
+                <td class="st2" align="center"><a id='lblPoint'> </a></td>
+                <td class="st2" align="center"><a id='lblClass'> </a></td>
+                <td class="st1" align="center"><a id='lblQclass'> </a></td>
+                <td class="st1" align="center"><a id='lblDay1'> </a></td>
+                <td class="st1" align="center"><a id='lblDay2'> </a></td>
+                <td class="st1" align="center"><a id='lblMoney1'> </a></td>
+                <td class="st1" align="center"><a id='lblDay3'> </a></td>
+                <td class="st1" align="center"><a id='lblMoney2'> </a></td>
+                <td class="st1" align="center"><a id='lblMoney3'> </a></td>
+                <td class="st2" align="center"><a id='lblTax'> </a></td>
+                <td class="st1" align="center"><a id='lblTotal'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td class="st2"><input  id="txtSssno.*" type="text" class="txt c1"/></td>
-                <td class="st1"><input  id="txtNamea.*" type="text" class="txt c1"/></td>
-                <td class="st1"><input  id="txtPart.*" type="text" class="txt c1" /></td>
-                <td class="st1"><input  id="txtMon.*" type="text" class="txt c1"/></td>
-                <td class="st1"><input  id="txtBase.*" type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtQpoint1.*" type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtQpoint2.*" type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtQpoint.*" type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtPoint1.*" type="text" class="txt num c1" /></td>
-                <td class="st1"><input  id="txtTot_person.*" type="text" class="txt num c1" /></td>
-                <td class="st1"><input  id="txtTot_sick.*" type="text" class="txt num c1" /></td>
-                <td class="st1"><input  id="txtTot_leave.*" type="text" class="txt num c1" /></td>
-                <td class="st1"><input  id="txtTot_late.*" type="text" class="txt num c1" /></td>
-                <td class="st1"><input  id="txtTot_forget.*" type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtXcountx.*" type="text" class="txt c1"/></td>
-                <td class="st2"><input  id="txtMi_person.*" type="text" class="txt num c1"/></td>
-                <td class="st2"><input  id="txtMi_sick.*" type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtMi_leave.*" type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtMi_late.*" type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtMi_forget.*" type="text" class="txt num c1" /></td>
-                <td class="st1"><input  id="txtXpoint.*" type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtPoint2.*" type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtVcount1.*"type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtVcount2.*"type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtVcount3.*" type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtVcount4.*" type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtVcount5.*" type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtVcount6.*" type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtVcount7.*" type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtVpoint.*" type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtPoint.*" type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtClass.*" type="text" class="txt c1"/></td>
-                <td class="st1"><input  id="txtQclass.*"type="text" class="txt c1"/></td>
-                <td class="st1"><input  id="txtDay1.*" type="text" class="txt num c1" /></td>
-                <td class="st1"><input  id="txtDay2.*" type="text" class="txt num c1" /></td>
-                <td class="st1"><input  id="txtMoney1.*" type="text" class="txt num c1" /></td>
-                <td class="st1"><input  id="txtDay3.*" type="text" class="txt num c1" /></td>
-                <td class="st1"><input  id="txtMoney2.*" type="text" class="txt num c1" /></td>
-                <td class="st1"><input  id="txtMoney3.*" type="text" class="txt num c1" /></td>
-                <td class="st2"><input  id="txtTax.*" type="text" class="txt num c1" /></td>
-                <td class="st1"><input  id="txtTotal.*" type="text" class="txt num c1" /><input id="txtNoq.*" type="hidden" /></td>               
+                <td ><input  id="txtSssno.*" type="text" class="txt c1"/></td>
+                <td ><input  id="txtNamea.*" type="text" class="txt c1"/></td>
+                <td ><input  id="txtPart.*" type="text" class="txt c1" /></td>
+                <td ><input  id="txtMon.*" type="text" class="txt c1"/></td>
+                <td ><input  id="txtBase.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtQpoint1.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtQpoint2.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtQpoint.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtPoint1.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtTot_person.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtTot_sick.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtTot_leave.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtTot_late.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtTot_forget.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtXcountx.*" type="text" class="txt c1"/></td>
+                <td ><input  id="txtMi_person.*" type="text" class="txt num c1"/></td>
+                <td ><input  id="txtMi_sick.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtMi_leave.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtMi_late.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtMi_forget.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtXpoint.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtPoint2.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtVcount1.*"type="text" class="txt num c1" /></td>
+                <td ><input  id="txtVcount2.*"type="text" class="txt num c1" /></td>
+                <td ><input  id="txtVcount3.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtVcount4.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtVcount5.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtVcount6.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtVcount7.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtVpoint.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtPoint.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtClass.*" type="text" class="txt c1"/></td>
+                <td ><input  id="txtQclass.*"type="text" class="txt c1"/></td>
+                <td ><input  id="txtDay1.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtDay2.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtMoney1.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtDay3.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtMoney2.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtMoney3.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtTax.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtTotal.*" type="text" class="txt num c1" /><input id="txtNoq.*" type="hidden" /></td>               
             </tr>
         </table>
         </div>
