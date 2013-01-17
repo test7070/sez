@@ -33,7 +33,7 @@
             , ['txtEcustno', '', 'cust', 'noa,comp', 'txtEcustno', 'cust_b.aspx']
             , ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             , ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
-            brwCount2 = 10;
+            brwCount2 = 8;
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -77,7 +77,18 @@
                     	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
                     }
                 });
+                $('#btnGen').click(function(e) {//按下立帳
+                	if(!emp($('#txtNoa').val()))
+						q_func('lab_accc.gen', $('#txtNoa').val());
+				});
             }
+            
+            function q_funcPost(t_func, result) {	//後端傳回
+				$('#txtAccno').val(result.split(';')[0]);
+				$('#txtBvccno').val(result.split(';')[1]);
+				$('#txtEvccno').val(result.split(';')[2]);
+				$('#txtPaybno').val(result.split(';')[3]);
+		    }
 
             function q_boxClose(s2) {
                 var ret;
@@ -194,6 +205,15 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if (t_para) {
+                	if(r_rank>='9' || r_name==$('#txtWorker').val())
+		            	$('#btnGen').removeAttr('disabled');
+		            else
+		            	$('#btnGen').attr('disabled', 'disabled');
+		        }
+		        else {
+		        	$('#btnGen').attr('disabled', 'disabled');
+		        }
             }
 
             function btnMinus(id) {
@@ -425,13 +445,13 @@
 							<input id="txtPart"  type="text" class="txt c1"/>
 						</td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td><span> </span><a id='lblAcc1' class="lbl btn"> </a></td>
 						<td colspan="3">
 						<input id="txtAcc1"  type="text" style="float:left; width:30%;"/>
 						<input id="txtAcc2"  type="text" style="float:left; width:70%;"/>
 						</td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td><span> </span><a id='lblDate' class="lbl"> </a></td>
 						<td colspan="3">
@@ -440,14 +460,14 @@
 						<input id="txtEdate"  type="text" style="float:left; width:45%;"/>
 						</td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td><span> </span><a id='lblCustno' class="lbl"> </a></td>
 						<td colspan="3">
 						<input id="txtBcustno"  type="text" style="float:left; width:45%;"/>
 						<span style="float:left; width:5px;"> </span><span style="float:left; width:20px; font-weight: bold;font-size: 20px;">～</span><span style="float:left; width:5px;"> </span>
 						<input id="txtEcustno"  type="text" style="float:left; width:45%;"/>
 						</td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td><span> </span><a id='lblVccno' class="lbl"> </a></td>
 						<td colspan="3">
@@ -465,6 +485,7 @@
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
+						<td><input id="btnGen" type="button" /></td>
 					</tr>
 				</table>
 			</div>
