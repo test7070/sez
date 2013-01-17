@@ -50,7 +50,7 @@
         function mainPost() { 
         
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd],['txtPaydate', r_picd],['txtMon', r_picm]];
+            bbmMask = [['txtDatea', r_picd],['txtPaydate', r_picd],['txtMon', r_picm],['txtAcdate',r_picd]];
             q_mask(bbmMask);
             bbsMask = [['txtCaradate', r_picd]];
             q_mask(bbsMask);
@@ -99,6 +99,10 @@
 		     		t_where = "noa='" + $('#txtPaybno').val() + "'";
             		q_box("paytran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "650px", q_getMsg('popPaytran'));
              });
+             $('#txtAcdate').focusout(function() {
+	             $('#txtMon').val($(this).val().substr(0,6));
+             });
+ 
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -150,6 +154,10 @@
 					alert(q_getMsg('lblMon')+'錯誤。');   
 					return;
 			}
+			if ($('#txtAcdate').val().length==0 || !q_cd($('#txtAcdate').val())){
+            	alert(q_getMsg('lblAcdate')+'錯誤。');
+            	return;
+            }
 	        t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  
             if (t_err.length > 0) {
                 alert(t_err);
@@ -202,7 +210,7 @@
             $('#txtDatea').val(q_date());
             $('#txtMon').val(q_date().substr(0,6));
             $('#txtPaydate').val(q_date());
-            
+            $('#txtAcdate').val(q_date());
             /*$('#chkInsure')[0].checked=true;
             $('#chkFuel')[0].checked=true;
             $('#chkLicense')[0].checked=true;
