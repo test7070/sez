@@ -49,9 +49,18 @@
 						value : r_accy+"_"+r_cno
 					},{
 						type : '0',
-						name : 'accy',
+						name : 'xaccy',
 						value : r_accy
-					}]
+					}, {
+                        type : '2',
+                        name : 'scno',
+                        dbf : 'acomp',
+                        index : 'noa,acomp',
+                        src : 'acomp_b.aspx'
+                    },{
+                        type : '6',
+                        name : 'xmon'
+                    }]
                     });
                 q_popAssign();
                  $('#txtDate1').mask('999/99/99');
