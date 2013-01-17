@@ -17,7 +17,7 @@
         }
         var q_name="carpack";
         var q_readonly = ['txtNoa','txtDatea','txtWorker'];
-        var bbmNum = [['txtConmoney',10,0,0,1],['txtMount',10,0,0,1],['txtCarmount',10,0,0,1],['txtPalmount',10,0,0,1],['txtConmount',10,0,0,1],['txtEmount',10,0,0,1],['txtRate',2,0,0,1]]; 
+        var bbmNum = [['txtMoney',10,0,0,1],['txtMount',4,0,0,1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
@@ -46,16 +46,22 @@
 
         function mainPost() { 
           	q_getFormat();
-            bbmMask = [['txtDatea', r_picd],['txtCondate', r_picd],['txtLastdate', r_picd]];
+            bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd],['txtEdate', r_picd]];
             q_mask(bbmMask);
             
+            $('#txtMount').change(function() {
+            	$('#txtCarmount').val(dec($('#txtMount').val())*dec($('#txtRate').val()));
+            });
+            $('#txtRate').change(function() {
+            	$('#txtCarmount').val(dec($('#txtMount').val())*dec($('#txtRate').val()));
+            });
             
-            $('#txtCardealno').change(function() {
+            /*$('#txtCardealno').change(function() {
             	if(!emp($('#txtCardealno').val())){
 		            var t_where="where=^^ (a.outdate='' or a.outdate is null) and a.carownerno!='' and a.cardealno='"+$('#txtCardealno').val()+"'^^";
 		            q_gt('car2', t_where , 0, 0, 0, "", r_accy);
 	            }
-            });
+            });*/
         }
         
         function q_boxClose( s2) { 
@@ -102,8 +108,8 @@
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
-            $('#txtCondate').val(q_date());
-            $('#txtLastdate').val(q_date());
+            $('#txtBdate').val(q_date());
+            $('#txtRate').val(8);
             $('#txtCardealno').focus();
 
         }
@@ -156,10 +162,10 @@
         function q_popPost(s1) {
 		    	switch (s1) {
 		    		case 'txtCardealno':
-	            		if(!emp($('#txtCardealno').val())){
+	            		/*if(!emp($('#txtCardealno').val())){
 				            var t_where="where=^^ (a.outdate='' or a.outdate is null) and a.carownerno!='' and a.cardealno='"+$('#txtCardealno').val()+"'^^";
 				            q_gt('car2', t_where , 0, 0, 0, "", r_accy);
-			            }
+			            }*/
 			        break;
 		    	}
 			}
@@ -338,20 +344,18 @@
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:15%"><a id='vewCardeal'></a></td>
-                <td align="center" style="width:20%"><a id='vewPlace'></a></td>
-                <td align="center" style="width:15%"><a id='vewCarmount'></a></td>
-                <td align="center" style="width:15%"><a id='vewPalmount'></a></td>
-                <td align="center" style="width:15%"><a id='vewMount2'></a></td>
-                <td align="center" style="width:15%"><a id='vewEmount'></a></td>
+				<td align="center" style="width:20%"><a id='vewBdate'></a></td>
+				<td align="center" style="width:20%"><a id='vewMount'></a></td>
+				<td align="center" style="width:20%"><a id='vewEdate'></a></td>
+				<td align="center" style="width:20%"><a id='vewPlace'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
                    <td align="center" id='cardeal'>~cardeal</td>
+                   <td align="right" id='bdate'>~bdate</td>
+                   <td align="center" id='mount'>~mount</td>
+                   <td align="right" id='edate'>~edate</td>
                    <td align="center" id='place'>~place</td>
-                   <td align="center" id='carmount'>~carmount</td>
-                   <td align="center" id='palmount'>~palmount</td>
-                   <td align="center" id='mount2'>~mount2</td>
-                   <td align="center" id='emount'>~emount</td>
             </tr>
         </table>
         </div>
@@ -366,35 +370,27 @@
                <td class="td6"><input id="txtDatea"  type="text" class="txt c1"/></td>
         </tr>
 	     <tr>
-               <td class="td1"><span> </span><a id='lblCondate' class="lbl"></a></td>
-               <td class="td2"><input id="txtCondate" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblConmoney" class="lbl"></a></td>
-               <td class="td4"><input id="txtConmoney" type="text" class="txt num c1" /></td>
-               <td class="td5"><span> </span><a id="lblConmount" class="lbl"></a></td>
-               <td class="td6"><input id="txtConmount" type="text" class="txt num c1"/></td>
+               <td class="td1"><span> </span><a id='lblBdate' class="lbl"></a></td>
+               <td class="td2"><input id="txtBdate" type="text" class="txt c1"/></td>
+               <td class="td3"><span> </span><a id="lblMoney" class="lbl"></a></td>
+               <td class="td4"><input id="txtMoney" type="text" class="txt num c1" /></td>
+               <td class="td5"><span> </span><a id="lblMount" class="lbl"></a></td>
+               <td class="td6"><input id="txtMount" type="text" class="txt num c1"/></td>
         </tr>
+        <tr>
+        	  <td class="td1"><span> </span><a id="lblRate" class="lbl"></a></td>
+              <td class="td2"><input id="txtRate" type="text" class="txt c1"/></td>
+         	  <td class="td3"><span> </span><a id="lblCarmount" class="lbl"></a></td>
+              <td class="td4"><input id="txtCarmount" type="text" class="txt c1"/></td>
+              <td class="td5"><span> </span><a id="lblPlace" class="lbl"></a></td>
+              <td class="td6"><input id="txtPlace" type="text" class="txt c1"/></td>
+         </tr> 
          <tr>
-         	  <td class="td1"><span> </span><a id="lblPlace" class="lbl"></a></td>
-              <td class="td2"><input id="txtPlace" type="text" class="txt c1"/></td>
-         	  <td class="td3"><span> </span><a id="lblLastdate" class="lbl"></a></td>
-              <td class="td4"><input id="txtLastdate" type="text" class="txt c1"/></td>
-              <td class="td5"><span> </span><a id="lblRate" class="lbl"></a></td>
-              <td class="td6"><input id="txtRate" type="text" class="txt num c1"/></td>
-         </tr>
-	   <tr>   
-		     <td class="td3"><span> </span><a id='lblCarmount' class="lbl"></a></td>
-             <td class="td4"><input id="txtCarmount" type="text" class="txt num c1" /></td>
-	         <td class="td5"><span> </span><a id="lblPalmount" class="lbl"></a></td>
-             <td class="td6"><input id="txtPalmount" type="text" class="txt num c1" /></td>
-             <td class="td1"><span> </span><a id='lblMount' class="lbl"></a></td>
-             <td class="td2"><input id="txtMount" type="text" class="txt num c1" /></td>
-	   </tr>  
-	   <tr>
-             <td class="td3"><span> </span><a id="lblEmount" class="lbl"></a></td>
-             <td class="td4"><input id="txtEmount" type="text" class="txt num c1" /></td>
-             <td class="td5"><span> </span><a id='lblWorker' class="lbl"></a></td>
-             <td class="td6"><input id="txtWorker" type="text" class="txt c1"/></td>
-       </tr>       
+         	  <td class="td1"><span> </span><a id="lblEdate" class="lbl"></a></td>
+              <td class="td2"><input id="txtEdate" type="text" class="txt c1"/></td>
+              <td class="td3"><span> </span><a id='lblWorker' class="lbl"></a></td>
+             <td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
+         </tr> 
         </table>
         </div>
         </div> 
