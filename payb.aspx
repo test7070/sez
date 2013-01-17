@@ -97,7 +97,7 @@
 
                 //........................會計傳票
                 $('#lblAccno').click(function() {
-                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+                	q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "97%", "1054px", q_getMsg('btnAccc'), true);
                 });
                 //.........................
                 $('#btnTgg').click(function() {
@@ -114,9 +114,9 @@
                 switch (b_pop) {
                     case q_name + '_s':
                         q_boxClose2(s2);
-                        ///   q_boxClose 3/4
                         break;
-                }   /// end Switch
+                }
+                b_pop = '';
             }
 
             function q_gtPost(t_name) {

@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -35,7 +34,8 @@
 		    	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
 		    	['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtNick', 'tgg_b.aspx'], 
 		    	['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
-		    	['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2',  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+		    	['txtWacc1', 'lblWacc1', 'acc', 'acc1,acc2', 'txtWacc1,txtWacc2',  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno],
+		    	['txtCacc1', 'lblCacc1', 'acc', 'acc1,acc2', 'txtCacc1,txtCacc2',  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno],
 		    	['txtCarplateno', 'lblCarplateno', 'carplate', 'noa,carplate,driver', 'txtCarplateno', 'carplate_b.aspx'], 
 		    	['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,unit,inprice', 'txtProductno_,txtProduct_,txtUnit_,txtPrice_', 'fixucc_b.aspx']);
 		    q_desc = 1;
@@ -104,6 +104,20 @@
 		        $('#txtDiscount').change(function () {
 		            sum();
 		        });
+		        $('#txtWacc1').change(function(e) {
+                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
+                    	$(this).val($(this).val()+'.');	
+                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
+                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
+                    }
+                });
+                $('#txtCacc1').change(function(e) {
+                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
+                    	$(this).val($(this).val()+'.');	
+                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
+                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
+                    }
+                });
 		    }
 
 		    function q_boxClose(s2) {
@@ -206,6 +220,10 @@
                 $('#txtNoa').val('AUTO');
                 if($('#txtDatea').val().length==0)
                		$('#txtDatea').val(q_date());
+               	$('#txtWacc1').val('5850.02');
+               	$('#txtWacc2').val('輪胎');	
+               	$('#txtCacc1').val('5850.03');
+               	$('#txtCacc2').val('修繕費');	
 		        $('#txtFixadate').focus();
 		    }
 
@@ -553,45 +571,47 @@
 						
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id="lblAcc1" class="lbl btn"> </a></td>
-						<td class="td2" colspan="3">
-						<input id="txtAcc1" type="text" class="txt"  style="width:25%;"/>
-						<input id="txtAcc2" type="text" class="txt" style="width:75%;"/></td>
-						<td class="td3"><span> </span><a id="lblInvono" class="lbl"> </a></td>
-						<td class="td4">
-						<input id="txtInvono" type="text" class="txt c1"/></td>
-					</tr>
-					<tr class="tr3">
-						<td class="td3"><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
-						<td class="td4" colspan="3">
+						<td><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
+						<td colspan="3">
 						<input id="txtTggno" type="text" class="txt"  style="width:25%;"/>
 						<input id="txtTgg" type="text" class="txt" style="width:75%;"/>
 						<input id="txtNick" type="text" class="txt" style="display: none;"/>
 						</td>
+						<td><span> </span><a id="lblInvono" class="lbl"> </a></td>
+						<td><input id="txtInvono" type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="tr3">
+					<tr>
 						<td class="td1"><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td class="td2" colspan="3">
 						<input id="txtCno" type="text" class="txt" style="width:25%;"/>
 						<input id="txtAcomp" type="text" class="txt" style="width:75%;"/>
 						</td>
 					</tr>
-					<tr class="tr4">
-						<td class="td1"><span> </span><a id="lblWmoney" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtWmoney" type="text" class="txt num c1" />
-						</td>
-						<td class="td3"><span> </span><a id="lblCmoney" class="lbl"> </a></td>
-						<td class="td4">
-						<input id="txtCmoney" type="text" class="txt num c1" />
-						</td>
-						<td class="td5"><span> </span><a id="lblMoney" class="lbl"> </a></td>
-						<td class="td6">
-						<input id="txtMoney" type="text" class="txt num c1" />
+					<tr>
+						<td><span> </span><a id="lblWmoney" class="lbl"> </a></td>
+						<td><input id="txtWmoney" type="text" class="txt num c1" /></td>
+						<td><span> </span><a id="lblWacc1" class="lbl btn"> </a></td>
+						<td colspan="3">
+							<input id="txtWacc1" type="text" class="txt"  style="width:25%;"/>
+							<input id="txtWacc2" type="text" class="txt" style="width:75%;"/>
 						</td>
 					</tr>
-					<tr class="tr5">
+					<tr>	
+						<td><span> </span><a id="lblCmoney" class="lbl"> </a></td>
+						<td><input id="txtCmoney" type="text" class="txt num c1" /></td>
+						<td><span> </span><a id="lblCacc1" class="lbl btn"> </a></td>
+						<td colspan="3">
+							<input id="txtCacc1" type="text" class="txt"  style="width:25%;"/>
+							<input id="txtCacc2" type="text" class="txt" style="width:75%;"/>
+						</td>
 						
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
+						<td><input id="txtMoney" type="text" class="txt num c1" /></td>
+					</tr>
+					
+					<tr class="tr5">
 						<td class="td1"><span> </span><a id="lblTax" class="lbl"> </a></td>
 						<td class="td2">
 						<input id="txtTax" type="text" class="txt num c1" />
