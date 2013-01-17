@@ -333,9 +333,14 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
+						<td>
+							<input id="txtNoa" type="text" style="float:left;"/>
+						</td>	
+					</tr>
+					<tr>		
 						<td><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
-						<td colspan="3">
-							<input id="txtNoa" type="text" style="display:none;"/>
+						<td colspan="2">
 							<input id="txtCustno" type="text" style="float:left; width:30%;">			
 							<input id="txtComp" type="text" style="float:left; width:70%;"/>
 							<input id="txtNick" type="text" style="display:none;"/>
