@@ -1,5 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title></title>
@@ -11,7 +10,7 @@
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			var q_name = "vcca_s";
-			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
+			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno', 'cust_b.aspx']
 			,['txtSerial', 'lblSerial', 'vccabuyer', 'serial,buyer', 'txtSerial', 'vccabuyer_b.aspx']);
 			$(document).ready(function() {
 				main();
@@ -29,13 +28,27 @@
 
 				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
 				q_mask(bbmMask);
+				q_gt('acomp', '', 0, 0, 0, "");
 				$('#txtBdate').focus();
 
 			}
-
+			function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'acomp':
+                        var t_acomp = '@全部';
+                        var as = _q_appendData("acomp", "", true);
+                        for ( var i in as) {
+                            t_acomp += (t_acomp.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+                        }
+                        q_cmbParse("cmbAcomp", t_acomp);
+                        break;
+                }
+            }
 			function q_seekStr() {
+				t_cno = $('#cmbAcomp').val();
 				t_noa = $('#txtNoa').val();
 				t_custno = $('#txtCustno').val();
+				t_cust = $('#txtCust').val();
 				t_serial = $('#txtSerial').val();
 				t_buyer = $('#txtBuyer').val();
 				t_bdate = $('#txtBdate').val();
@@ -45,9 +58,11 @@
 				t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
 				/// 100.  .
 
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("serial", t_serial) + q_sqlPara2("custno", t_custno) + q_sqlPara2("datea", t_bdate, t_edate);
-				if (t_buyer.length > 0)
-                    t_where += " and patindex('%" + t_buyer + "%',buyer)>0";
+				var t_where = " 1=1 " + q_sqlPara2("cno", t_cno)+ q_sqlPara2("noa", t_noa)+ q_sqlPara2("serial", t_serial) + q_sqlPara2("custno", t_custno) + q_sqlPara2("datea", t_bdate, t_edate);
+				if (t_cust.length > 0)
+                    t_where += " and patindex('%" + t_cust + "%',comp)>0";
+                if (t_buyer.length > 0)
+                    t_where += " and patindex('%" + t_buyer + "%',buyer)>0";    
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -65,7 +80,11 @@
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
-					<td   style="width:35%;" ><a id='lblDatea'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblAcomp'> </a></td>
+					<td><select id="cmbAcomp" style="width:215px; font-size:medium;" > </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td   style="width:35%;" ><a id='lblDatea'> </a></td>
 					<td style="width:65%;  ">
 					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>
@@ -79,9 +98,15 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCustno'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblCustno'> </a></td>
 					<td>
 					<input class="txt" id="txtCustno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCust'> </a></td>
+					<td>
+					<input class="txt" id="txtCust" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
