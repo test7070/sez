@@ -47,7 +47,13 @@
             bbmMask = [['txtDatea', r_picd],['txtYear', '999']];
             q_mask(bbmMask);
 
-            $('#txtYear').val(q_date().substr(0,3));            
+            $('#txtYear').val(q_date().substr(0,3));
+            q_cmbParse("cmbPerson", ('').concat(new Array( '本國','日薪')));
+            $('#btnIndata').click(function() {
+            	var t_where = "where=^^ person='"+$('#cmbPerson').find("option:selected").text()+"' and noa!='Z001' and noa!='010132'^^";
+            	q_gt('sss', t_where , 0, 0, 0, "", r_accy);
+            });
+                  
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -63,7 +69,12 @@
 
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
-                case q_name: if (q_cur == 4)   // 查詢
+            	case 'sss':
+            		var as = _q_appendData("sss", "", true);
+            			q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtPart', as.length, as, 'noa,namea,part', '');
+            		break;
+                case q_name: 
+                	if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
             }  /// end switch
@@ -394,7 +405,8 @@
             <td class="td6"><input id="txtDatea" type="text" class="txt c1"/></td> 
         </tr>
         <tr>
-        	<td class='td1'></td>
+        	<td class="td1"><span> </span><a id="lblPerson" class="lbl"></a></td>
+            <td class="td2"><select id="cmbPerson" class="txt c1"></select></td>
             <td class='td2'><input id="btnIndata" type="button" style="width: auto;font-size: medium;"/></td>
             <td class='td3'><input id="btnAcount"  type="button" style="width: auto;font-size: medium;" /></td>
         </tr>
