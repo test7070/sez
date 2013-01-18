@@ -86,11 +86,11 @@
 		        });
 
 		        $('#btnGqb').click(function () {
-		            q_box('z_gqbp.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtChkbno').val()), '', "800px", "600px", "支票列印");
+		            q_box('z_gqbp.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtChkbno').val()), '', "92%", "92%", "支票列印");
 		        });
 
 		        $('#btnBank').click(function () {
-		            q_box('bankTran.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtChkbno').val()), '', "800px", "600px", "電子檔製作");
+		            q_box('bankTran.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtChkbno').val()), '', "92%", "92%", "電子檔製作");
 		        });
 
 		        $('#txtAcc1').change(function () {
