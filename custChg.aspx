@@ -53,32 +53,20 @@
                 q_mask(bbmMask);
 
                 $('#txtAcc1').change(function() {
-                    var str=$.trim($(this).val());
-                	if((/^[0-9]{4}$/g).test(str))
-                		$(this).val(str+'.');
+                    var s1 = trim($(this).val());
+                    if (s1.length > 4 && s1.indexOf('.') < 0)
+                        $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
+                    if (s1.length == 4)
+                        $(this).val(s1 + '.');
                 });
+                $('#txtMinusitemno').blur(function(e) {
+					$('#txtMinusitem').focus();
+				});
+				$('#txtPlusitemno').blur(function(e) {
+					$('#txtPlusitem').focus();
+				});
             }
 
-            function txtCopy(dest, source) {
-                var adest = dest.split(',');
-                var asource = source.split(',');
-                $('#' + adest[0]).focus(function() {
-                    if (trim($(this).val()).length == 0)
-                        $(this).val(q_getMsg('msgCopy'));
-                });
-                $('#' + adest[0]).focusout(function() {
-                    var t_copy = ($(this).val().substr(0, 1) == '=');
-                    var t_clear = ($(this).val().substr(0, 2) == ' =');
-                    for (var i = 0; i < adest.length; i++) { {
-                            if (t_copy)
-                                $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                            if (t_clear)
-                                $('#' + adest[i]).val('');
-                        }
-                    }
-                });
-            }
 
             function q_boxClose(s2) {
                 var ret;
@@ -101,6 +89,20 @@
                         break;
                 }  /// end switch
             }
+            function q_popPost(id) {
+				switch(id) {
+					case 'txtMinusitemno':
+						if(q_cur==1 || q_cur==2){
+							$('#txtMinusitem').focus();
+						}
+						break;
+					case 'txtPlusitemno':
+						if(q_cur==1 || q_cur==2){
+							$('#txtMinusitem').focus();
+						}
+						break;
+				}
+			}
 
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
