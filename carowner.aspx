@@ -256,7 +256,7 @@
             }
             .dview {
                 float: left;
-                width: 25%;
+                width: 250px;
             }
             .tview {
                 margin: 0;
@@ -274,7 +274,7 @@
             }
             .dbbm {
                 float: left;
-                width: 65%;
+                width: 948px;
                 margin: -1px;
                 /*border: 1px black solid;*/
                 border-radius: 5px;
@@ -461,8 +461,6 @@
 							</td>
 							<td class="td5"><span> </span><a id='lblSpouse' class="lbl"></a></td>
 							<td class="td6"><input id="txtSpouse"  type="text" class="txt c1"/></td>
-							<td class="td7"></td>
-							<td class="td8"></td>
 						</tr>
 						<tr class="tr2">
 							<td class="td1"><span> </span><a id='lblBirthday' class="lbl"></a></td>
@@ -477,8 +475,6 @@
 							<td class="td6" >
 								<select id="cmbSex" class="txt c6"></select>
 							</td>
-							<td class="td7"></td>
-							<td class="td8"></td>
 						</tr>
 						<tr class="tr3">
 							<td class="td1"><span> </span><a id='lblTel1' class="lbl"></a></td>
@@ -531,27 +527,27 @@
 						</tr>
 						<tr class="tr5">
 							<td class="td1"><span> </span><a id='lblAddr_home' class="lbl"></a></td>
-							<td class="td2" colspan="7">
+							<td class="td2" colspan="6">
 								<input id="txtZip_home" type="text" class="txt c4"/>
 								<input id="txtAddr_home" type="text" class="txt c5"/>
 							</td>
 						</tr>
 						<tr class="tr6">
 							<td class="td1"><span> </span><a id='lblAddr_conn' class="lbl"></a></td>
-							<td class="td2" colspan="7">
+							<td class="td2" colspan="6">
 								<input id="txtZip_conn" type="text" class="txt c4"/>
 								<input id="txtAddr_conn" type="text" class="txt c5"/>
 							</td>
 						</tr>
 						<tr class="tr7">
                             <td class="td1"><span> </span><a id='lblMemo2' class="lbl"></a></td>
-                            <td class="td2" colspan="7">
+                            <td class="td2" colspan="6">
                                 <input id="txtMemo2" type="text" class="txt c1"/>
                             </td>
                         </tr>
                         <tr class="tr8">
                             <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-                            <td class="td2" colspan="7">
+                            <td class="td2" colspan="6">
                                 <textarea id="txtMemo" cols="10" rows="5" style="width: 93%; height: 50px;"></textarea>
                             </td>
                         </tr>
