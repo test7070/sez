@@ -16,7 +16,7 @@
         }
         q_tables = 's';
         var q_name = "salexam";
-        var q_readonly = ['txtNoa'];
+        var q_readonly = ['txtNoa','txtDatea'];
         var q_readonlys = [];
         var bbmNum = [];  // 允許 key 小數
         var bbsNum = [];
