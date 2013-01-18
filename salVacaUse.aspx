@@ -49,7 +49,7 @@
 			var insed=false;//判斷員工是否重覆請假
             function mainPost() {
             	q_getFormat();
-            	bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd],['txtEdate', r_picd]];
+            	bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd],['txtEdate', r_picd],['txtBtime', '99:99'],['txtEtime', '99:99']];
 				q_mask(bbmMask);
 				
 				$('#txtSssno').change(function () {
@@ -96,7 +96,51 @@
 					}
 					q_msg();
 	        	});
-				
+	        	
+	        	$('#txtBtime').blur(function () {
+	            	if(!emp($('#txtBtime').val()) && !emp($('#txtEtime').val())){
+	            		if($('#txtBtime').val()>$('#txtEtime').val()){
+	            			var time=$('#txtBtime').val()
+	            			$('#txtBtime').val($('#txtEtime').val());
+	            			$('#txtEtime').val(time);
+	            		}
+	            		var use_hr=0;
+	            		if($('#txtEtime').val()>='13:30'&&$('#txtBtime').val()<='12:00'){
+	            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-dec($('#txtBtime').val().substr(0,2)))*60+dec($('#txtEtime').val().substr(3,2))-dec($('#txtBtime').val().substr(3,2)))/60,1);
+	            			use_hr=use_hr-1.5;//大昌休息時間從12點到13點半
+	            		}else if($('#txtBtime').val()>='12:00'&&$('#txtBtime').val()<'13:30' && $('#txtEtime').val()>='13:30'){
+	            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-13)*60+dec($('#txtEtime').val().substr(3,2))-30)/60,1);
+	            		}else if($('#txtEtime').val()>='12:00'&&$('#txtEtime').val()<'13:30' && $('#txtBtime').val()>='12:00'){
+	            			use_hr=round(((12-dec($('#txtBtime').val().substr(0,2)))*60+0-dec($('#txtBtime').val().substr(3,2)))/60,1);
+	            		}else{
+	            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-dec($('#txtBtime').val().substr(0,2)))*60+dec($('#txtEtime').val().substr(3,2))-dec($('#txtBtime').val().substr(3,2)))/60,1);
+	            		}
+	            		$('#txtHr_used').val(use_hr);
+			        }
+	        	});
+	        	
+	        	$('#txtEtime').blur(function () {
+	            	if(!emp($('#txtBtime').val()) && !emp($('#txtEtime').val())){
+	            		if($('#txtBtime').val()>$('#txtEtime').val()){
+	            			var time=$('#txtBtime').val()
+	            			$('#txtBtime').val($('#txtEtime').val());
+	            			$('#txtEtime').val(time);
+	            		}
+	            		var use_hr=0;
+	            		if($('#txtEtime').val()>='13:30'&&$('#txtBtime').val()<='12:00'){
+	            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-dec($('#txtBtime').val().substr(0,2)))*60+dec($('#txtEtime').val().substr(3,2))-dec($('#txtBtime').val().substr(3,2)))/60,1);
+	            			use_hr=use_hr-1.5;//大昌休息時間從12點到13點半
+	            		}else if($('#txtBtime').val()>='12:00'&&$('#txtBtime').val()<'13:30' && $('#txtEtime').val()>='13:30'){
+	            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-13)*60+dec($('#txtEtime').val().substr(3,2))-30)/60,1);
+	            		}else if($('#txtEtime').val()>='12:00'&&$('#txtEtime').val()<'13:30' && $('#txtBtime').val()<='12:00'){
+	            			use_hr=round(((12-dec($('#txtBtime').val().substr(0,2)))*60+0-dec($('#txtBtime').val().substr(3,2)))/60,1);
+	            		}else{
+	            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-dec($('#txtBtime').val().substr(0,2)))*60+dec($('#txtEtime').val().substr(3,2))-dec($('#txtBtime').val().substr(3,2)))/60,1);
+	            		}
+	            		$('#txtHr_used').val(use_hr);
+			        }
+	        	});
+	        	
 	        	$('#txtHr_used').change(function () {
 	        		if(emp($('#txtSssno').val()))
 	        		{
@@ -523,11 +567,14 @@
 							<td class="td6"><input id="txtTot_special"  type="text" class="txt num c1" /></td>
 						</tr>
 						<tr>
-							<td class="td1"><span> </span><a id='lblHr_used' class="lbl"></a></td>
-							<td class="td2"><input id="txtHr_used"  type="text" class="txt num c1"/></td>
-							<td class="td3"></td>
-							<td class="td4"></td>
-							<td class="td5" ></td>
+							<td class="td1" ><span> </span><a id='lblBtime' class="lbl"></a></td>
+							<td class="td2" colspan="2">
+								<input id="txtBtime"  type="text" class="txt" style="width: 120px;"/>
+								<a style="float:left;">~</a>
+								<input id="txtEtime"  type="text" class="txt" style="width: 120px;"/>
+							</td>
+							<td class="td4"><span> </span><a id='lblHr_used' class="lbl"></a></td>
+							<td class="td5"><input id="txtHr_used"  type="text" class="txt num c1"/></td>
 							<td class="td6"></td>
 						</tr>
 						<tr>
