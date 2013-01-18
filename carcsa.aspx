@@ -56,55 +56,23 @@
                 bbmMask = [['txtDatea', r_picd], ['txtBtime', '99:99'], ['txtEtime', '99:99'], ['txtMon', r_picm]];
                 q_mask(bbmMask);
 
-                q_cmbParse("cmbType", ('').concat(new Array('', '1@TR00 中鴻 全拖 4712', '2@TR00 中鴻 半拖 2480', '3@TR00 廠內 半拖 605', '4@TR35 廠內 605', '5@TR35 廠外 570', '6@TR13 大寮 1600')));
+                q_cmbParse("cmbType", '@,'+q_getPara('carcsa.type'));
                 q_cmbParse("cmbTypea2", ('').concat(new Array('', '全拖', '半拖', '小時', '塊')));
 
-                $('#cmbType').change(function() {
-                    var i = $('#cmbType').val();
-                    switch (i) {
-                        case '1':
-                            $('#txtCartype').val('TR00');
-                            $('#txtAddr').val('中鴻');
-                            $('#cmbTypea2').val('全拖');
-                            q_tr('txtPrice', 4712);
-                            sum();
-                            break;
-                        case '2':
-                            $('#txtCartype').val('TR00');
-                            $('#txtAddr').val('中鴻');
-                            $('#cmbTypea2').val('半拖');
-                            q_tr('txtPrice', 2480);
-                            sum();
-                            break;
-                        case '3':
-                            $('#txtCartype').val('TR00');
-                            $('#txtAddr').val('廠內');
-                            $('#cmbTypea2').val('半拖');
-                            q_tr('txtPrice', 605);
-                            sum();
-                            break;
-                        case '4':
-                            $('#txtCartype').val('TR35');
-                            $('#txtAddr').val('廠內');
-                            $('#cmbTypea2').val('');
-                            q_tr('txtPrice', 605);
-                            sum();
-                            break;
-                        case '5':
-                            $('#txtCartype').val('TR35');
-                            $('#txtAddr').val('廠外');
-                            $('#cmbTypea2').val('');
-                            q_tr('txtPrice', 570);
-                            sum();
-                            break;
-                        case '6':
-                            $('#txtCartype').val('TR13');
-                            $('#txtAddr').val('大寮');
-                            $('#cmbTypea2').val('');
-                            q_tr('txtPrice', 1600);
-                            sum();
-                            break;
-                    }   /// end Switch
+                $('#cmbType').change(function() {         
+                    var tmp = $('#cmbType').find(":selected").text().split('_');
+                    if(tmp.length==4){
+                    	$('#txtCartype').val(tmp[0]);
+                        $('#txtAddr').val(tmp[1]);
+                        $('#cmbTypea2').val(tmp[2]);
+                        $('#txtPrice').val(tmp[3]);
+                    }else{
+                    	$('#txtCartype').val('');
+                        $('#txtAddr').val('');
+                        $('#cmbTypea2').val('');
+                        $('#txtPrice').val('0');
+                    }
+                    sum();
                 });
                 $('#txtPrice').change(function() {
                     sum();
@@ -164,10 +132,6 @@
                     return;
                 q_box('carcsa_s.aspx', q_name + '_s', "520px", "430px", q_getMsg("popSeek"));
             }
-
-            function combPay_chg() {
-            }
-
             function bbsAssign() {
                 for (var j = 0; j < q_bbsCount; j++) {
                     $('#txtMount_' + j).change(function() {
