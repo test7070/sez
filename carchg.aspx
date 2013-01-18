@@ -28,7 +28,10 @@
 			brwKey = 'noa';
 			q_desc = 1;
 			//ajaxPath = ""; //  execute in Root
-			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'], ['txtMinusitemno', 'lblMinusitem', 'chgitem', 'noa,item,acc1,acc2', 'txtMinusitemno,txtMinusitem,txtAcc1,txtAcc2', 'chgitem_b.aspx'], ['txtPlusitemno', 'lblPlusitem', 'chgitem', 'noa,item,acc1,acc2', 'txtPlusitemno,txtPlusitem,txtAcc1,txtAcc2', 'chgitem_b.aspx'], ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
+			, ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
+			, ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx']
+			, ['txtMinusitemno', 'lblMinusitem', 'chgitem', 'noa,item,acc1,acc2', 'txtMinusitemno,txtMinusitem,txtAcc1,txtAcc2', 'chgitem_b.aspx'], ['txtPlusitemno', 'lblPlusitem', 'chgitem', 'noa,item,acc1,acc2', 'txtPlusitemno,txtPlusitem,txtAcc1,txtAcc2', 'chgitem_b.aspx'], ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 			q_xchg = 1;
             brwCount2 = 20;
             
@@ -93,10 +96,12 @@
 				});
 
 				$('#txtAcc1').change(function() {
-					var str=$.trim($(this).val());
-                	if((/^[0-9]{4}$/g).test(str))
-                		$(this).val(str+'.');
-				});
+                    var s1 = trim($(this).val());
+                    if (s1.length > 4 && s1.indexOf('.') < 0)
+                        $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
+                    if (s1.length == 4)
+                        $(this).val(s1 + '.');
+                });
 
 				$("#cmbCarteamno").focus(function() {
 					var len = $("#cmbCarteamno").children().length > 0 ? $("#cmbCarteamno").children().length : 1;
@@ -104,29 +109,14 @@
 				}).blur(function() {
 					$("#cmbCarteamno").attr('size', '1');
 				});
-			}
-
-			function txtCopy(dest, source) {
-				var adest = dest.split(',');
-				var asource = source.split(',');
-				$('#' + adest[0]).focus(function() {
-					if (trim($(this).val()).length == 0)
-						$(this).val(q_getMsg('msgCopy'));
+				
+				$('#txtMinusitemno').blur(function(e) {
+					$('#txtMinusitem').focus();
 				});
-				$('#' + adest[0]).focusout(function() {
-					var t_copy = ($(this).val().substr(0, 1) == '=');
-					var t_clear = ($(this).val().substr(0, 2) == ' =');
-					for (var i = 0; i < adest.length; i++) { {
-							if (t_copy)
-								$('#' + adest[i]).val($('#' + asource[i]).val());
-
-							if (t_clear)
-								$('#' + adest[i]).val('');
-						}
-					}
+				$('#txtPlusitemno').blur(function(e) {
+					$('#txtPlusitem').focus();
 				});
 			}
-
 			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {
@@ -158,6 +148,20 @@
 
 						break;
 				}  /// end switch
+			}
+			function q_popPost(id) {
+				switch(id) {
+					case 'txtMinusitemno':
+						if(q_cur==1 || q_cur==2){
+							$('#txtMinusitem').focus();
+						}
+						break;
+					case 'txtPlusitemno':
+						if(q_cur==1 || q_cur==2){
+							$('#txtMinusitem').focus();
+						}
+						break;
+				}
 			}
 
 			function _btnSeek() {
