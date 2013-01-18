@@ -276,7 +276,7 @@
 				if(q_float('txtWeight2')==0)
 					$('#txtWeight3').val(0);
 				else
-					$('#txtWeight3').val(round(q_float('txtMount')-q_float('txtWeight2'),3));
+					$('#txtWeight3').val(round(q_float('txtInmount')-q_float('txtWeight2'),3));
 				if ($('#txtDiscount').val().length == 0) {
 					$('#txtDiscount').val('1');
 				}
