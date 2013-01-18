@@ -19,7 +19,7 @@
         var q_name = "carc";
         var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2'];
         var q_readonlys = ['txtCarownerno','txtCarowner','txtCarno','txtCaradate','txtCaritemno','txtCaritem','txtOutmoney','txtInmoney','txtMemo','txtCarano','txtCaranoq'];
-        var bbmNum = [];  
+        var bbmNum = [['txtTotal',14, 0, 1]];  
         var bbsNum = [['txtOutmoney',14, 0, 1],['txtInmoney',14, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
@@ -36,7 +36,6 @@
             q_brwCount();   
            q_gt(q_name, q_content, q_sqlCount, 1)  
         });
-
         //////////////////   end Ready
         function main() {
             if (dataErr)  
@@ -54,7 +53,7 @@
             q_mask(bbmMask);
             bbsMask = [['txtCaradate', r_picd]];
             q_mask(bbsMask);
-            
+
             $('#btnImport').click(function () {
             		if(emp($('#txtMon').val()))
             		{
@@ -87,10 +86,19 @@
 		            
 		            t_where+=" ^^";
 			        q_gt('carc_caras', t_where , 0, 0, 0, "", r_accy);
-		     });
+					setTimeout(function() {
+						var t_money = 0, t_moneys = 0;
+					     		for ( i = 0; i < q_bbsCount; i++) {
+					                t_moneys = round(q_float('txtOutmoney_'+i),0)
+					                t_money += t_moneys;
+					            }
+					   $('#txtTotal').val(t_money);
+				   }, 500);
+				   $('#txtTotal').focus();
+			 });
 		     $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtAcdate').val().substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
-                });
+              });
 		     $('#btnCarlender').click(function() {
 		     		t_where = "noa='" + $('#txtCarownerno').val() + "'";
             		q_box("carlender.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'carLender', "95%", "650px", q_getMsg('popCarlender'));
@@ -215,14 +223,13 @@
             $('#chkFuel')[0].checked=true;
             $('#chkLicense')[0].checked=true;
             $('#chkOther')[0].checked=true;*/
-           
+            $('#txtAcdate').focus();
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            $('#txtBdate').focus();
-            
+            $('#txtAcdate').focus();            
            
         }
         function btnPrint() {
@@ -502,29 +509,29 @@
         <div class='dbbm' style="width: 74%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr class="tr1">
-            <td class='td1'><span> </span><a id="lblNoa" class="lbl"></a></td>
-            <td class='td2'><input id="txtNoa"  type="text" class="txt c1" /></td>
-            <td class='td3'><span> </span><a id="lblDatea" class="lbl"></a></td>
-            <td class='td4'><input id="txtDatea" type="text" class="txt c1"/></td>
+            <td class='td1'><span> </span><a id="lblDatea" class="lbl"></a></td>
+            <td class='td2'><input id="txtDatea" type="text" class="txt c1"/></td>        	
+            <td class='td3'><span> </span><a id="lblNoa" class="lbl"></a></td>
+            <td class='td4'><input id="txtNoa"  type="text" class="txt c1" /></td>
             <td class='td5'></td>
        </tr>
        <tr class="tr2">
-            <td class='td1'><span> </span><a id="lblMon" class="lbl"></a></td>
-            <td class='td2'><input id="txtMon" type="text" class="txt c1"/></td>
-          <td class='td1'><span> </span><a id="lblAcdate" class="lbl"></a></td>
+            <td class='td1'><span> </span><a id="lblAcdate" class="lbl"></a></td>
             <td class='td2'><input id="txtAcdate" type="text" class="txt c1"/></td>
+            <td class='td1'></td>
+            <td class='td2'><input id="txtMon" type="hidden" class="txt c1" /></td>
        </tr>
        <tr class="tr3">
-            <td class='td1'><span> </span><a id="lblPaybno" class="lbl btn"></a></td>
-            <td class='td2'><input id="txtPaybno"  type="text" class="txt c1" /></td>
-            <td class='td3'><span> </span><a id="lblTggno" class="lbl btn"></a></td>
-            <td class='td4' colspan="2"><input id="txtTggno"  type="text" class="txt c2" />
-            	<input id="txtComp"  type="text" class="txt c3" />
-            </td>
+            <td class='td1'><span> </span><a id="lblTggno" class="lbl btn"></a></td>
+            <td class='td2'><input id="txtTggno"  type="text" class="txt c2" />
+            							<input id="txtComp"  type="text" class="txt c3" />
+            </td>							
+            <td class='td3'><span> </span><a id="lblPaybno" class="lbl btn"></a></td>
+            <td class='td4'><input id="txtPaybno"  type="hidden" class="txt c1" /></td>
        </tr>
        <tr class="tr4">           
 			<td class='td3'><span> </span><a id="lblAcc1" class="lbl btn"></a></td>
-            <td class='td4' colspan="2"><input id="txtAcc1"  type="text" class="txt c2" />
+            <td class='td4'><input id="txtAcc1"  type="text" class="txt c2" />
             	<input id="txtAcc2"  type="text" class="txt c3" />
             </td>
 			<td class='td3'><span> </span></td>
@@ -551,7 +558,7 @@
             	<input id="txtPaydate" type="text" class="txt c1"/>
             </td>
          	<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
-			<td><input id="txtAccno"  type="text"  class="txt c1"/></td>
+			<td><input id="txtAccno"  type="hidden"  class="txt c1"/></td>
        </tr>
        <tr class="tr7">
        		<td class="td1"><span> </span><a id="lblTotal" class="lbl"> </a></td>
