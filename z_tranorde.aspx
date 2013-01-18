@@ -43,6 +43,15 @@
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
+                    },{
+                        type : '1',
+                        name : 'odate'
+                    }, {
+                        type : '2',
+                        name : 'sales',
+                        dbf : 'sss',
+                        index : 'noa,namea',
+                        src : 'sss_b.aspx'
                     }]
                 });
                 q_popAssign();
