@@ -44,12 +44,11 @@
                     dataErr = false;
                     return;
                 }
-                mainForm(0);
+                mainForm(1);
                 // 1=Last  0=Top
             }
 
             function mainPost() {
-            	q_getFormat();
                 q_mask(bbmMask);
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
                 q_cmbParse("cmbTypea", ','+q_getPara('lab_accc.typea'));
