@@ -17,7 +17,7 @@
 			q_tables = 's';
             var q_name = "custroutine";
             var q_readonly = ['txtNoa','txtPartno','txtPart'];
-			var q_readonlys = [];
+			var q_readonlys = ['txtMoney'];
             var bbmNum = [['txtMoney',10,0],['txtTaxrate',10,1]];
 		    var bbsNum = [['txtPrice', 10, 1], ['txtMount', 10, 1], ['txtMoney', 10, 0]];
             var bbmMask = [];
@@ -31,7 +31,8 @@
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
             , ['txtSalesno', 'lblSales', 'sss', 'noa,namea,partno,part', 'txtSalesno,txtSales,txtPartno,txtPart', 'sss_b.aspx']
-            , ['txtProductno', 'lblProductno', 'ucc', 'noa,product,saleprice', 'txtProductno,txtProduct,txtMoney', 'ucc_b.aspx']);
+            , ['txtProductno', 'lblProductno', 'ucc', 'noa,product,saleprice', 'txtProductno,txtProduct,txtMoney', 'ucc_b.aspx']
+            ,['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
 		        bbsKey = ['noa', 'noq'];
@@ -44,12 +45,11 @@
                     dataErr = false;
                     return;
                 }
-                mainForm(0);
+                mainForm(1);
                 // 1=Last  0=Top
             }
 
             function mainPost() {
-            	q_getFormat();
                 q_mask(bbmMask);
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
                 q_cmbParse("cmbTypea", ','+q_getPara('lab_accc.typea'));
@@ -86,10 +86,25 @@
                 $('#txtCustno').focus();
             }
             
-	        function bbsAssign() {  
+	        function bbsAssign() {
+            	for(var j = 0; j < q_bbsCount; j++) {
+           			if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+           				$('#txtMount_' + j).change(function() {
+           					t_IdSeq = -1;
+                        	q_bodyId($(this).attr('id'));
+                        	b_seq = t_IdSeq;
+							$('#txtMoney_' + b_seq).val($('#txtMount_' + b_seq).val() * $('#txtPrice_' + b_seq).val());  
+						});
+           				$('#txtPrice_' + j).change(function() {
+           					t_IdSeq = -1;
+                        	q_bodyId($(this).attr('id'));
+                        	b_seq = t_IdSeq;
+							$('#txtMoney_' + b_seq).val($('#txtMount_' + b_seq).val() * $('#txtPrice_' + b_seq).val());  
+						});
+           			}
+            	}
 	            _bbsAssign();
 	        }
-
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
