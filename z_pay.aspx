@@ -47,6 +47,9 @@
                     },{
                         type : '1',
                         name : 'xdate'
+                    },{
+                        type : '6',
+                        name : 'xmon'
                     }]
                     });
                 q_popAssign();
@@ -55,7 +58,8 @@
 	             $('#txtDate2').mask('999/99/99');
 	             $('#txtDate2').datepicker();  
                  $('#txtXdate1').mask('99/99');
-	             $('#txtXdate2').mask('99/99');  
+	             $('#txtXdate2').mask('99/99');
+	             $('#txtXmon').mask('999/99');  
                 
                 
                  var t_date,t_year,t_month,t_day;
@@ -68,7 +72,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
-	                
+	                $('#txtXmon').val(t_year+'/'+t_month);
 	                t_date = new Date();
 	                t_date.setDate(35);
 	                t_date.setDate(0);
