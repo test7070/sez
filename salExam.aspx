@@ -24,7 +24,7 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
-
+		aPop = new Array(['txtSssno_', 'lblSssno', 'sss', 'noa,namea,part', 'txtSssno_,txtNamea_,txtPart_', 'sss_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -44,9 +44,10 @@
         }
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd]];
+            bbmMask = [['txtDatea', r_picd],['txtYear', '999']];
             q_mask(bbmMask);
-            
+
+            $('#txtYear').val(q_date().substr(0,3));            
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -405,11 +406,7 @@
         </div>
         </div>
         <div class='dbbs' > 
-<<<<<<< HEAD
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' >
-=======
-        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'>
->>>>>>> 6f9a2f03cf2f9ae7878b85b361fe70389d673fe1
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
                 <td class="st2" align="center"><a id='lblSssno'> </a></td>

@@ -159,10 +159,10 @@
 					$('#txtMon1').mask('999/99');
                     $('#txtMon2').mask('999/99');
                     
-                    $('#chkXcarteam').children('input').attr('checked', 'checked');
+                    /*$('#chkXcarteam').children('input').attr('checked', 'checked');
                     $('#chkXpart').children('input').attr('checked', 'checked');
                     $('#chkXchgpart').children('input').attr('checked', 'checked');
-                    $('#chkXdc').children('input').attr('checked', 'checked');
+                    $('#chkXdc').children('input').attr('checked', 'checked');*/
 
                     var t_date, t_year, t_month, t_day;
                     t_date = new Date();

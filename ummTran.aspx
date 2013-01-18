@@ -167,7 +167,7 @@
                                 t_where3 += " or c.noa ='" + t_custno2[i] + "'"
                             }
                         }
-                        t_where3+=" ^^";
+                        t_where3+=" order by a.noa^^";
 
                        /* var j = 0, s2 = '', s1 = '';
                         for (var i = 0; i < q_bbsCount; i++) {
@@ -186,7 +186,7 @@
                         t_where = "^^1=0^^";
                         t_where1 = " where[1]=^^1=0^^";
                         t_where2 = " where[2]=^^ 1=1 ^^";
-                        t_where3 = " where[3]=^^ 1=0 ";
+                        t_where3 = " where[3]=^^ 1=0 order by a.noa^^";
                     }
                     q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + t_where1 + t_where2 + t_where3, 'umm_trd', "70%", "600px", q_getMsg('popUmm_trd'));
                 });
@@ -722,7 +722,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 1300px;
+                width: 100%;
             }
             .tbbs a {
                 font-size: medium;
