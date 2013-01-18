@@ -105,6 +105,8 @@
 						$('#textNextmon').val(q_date().substr(0,6));
 						$('#textDiscount').val(100);
 						$('#textSssno').val('070120,070121,070122');
+						if(r_userno.substr(0,2)!='07')
+							q_msg( $(this), '要結轉前請先詢問監理部相關人員!!');
 					} else{
 						$('#divNextmon').hide();
 		        	}
