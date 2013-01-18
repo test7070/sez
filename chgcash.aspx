@@ -22,7 +22,7 @@
             isEditTotal = false;
             q_tables = 's';
             var q_name = "chgcash";
-            var q_readonly = ['txtCarchgno','txtCustchgno','txtChgitem', 'txtPart', 'txtChgpart', 'txtOrg', 'txtNamea', 'txtComp', 'txtAccno', 'txtNoa', 'txtWorker', 'txtMoney'];
+            var q_readonly = ['txtCarchgno','txtCustchgno','txtChgitem', 'txtChgpart', 'txtOrg', 'txtNamea', 'txtComp', 'txtAccno', 'txtNoa', 'txtWorker', 'txtMoney'];
             var q_readonlys = ['txtAcc2'];
             var bbmNum = [['txtOrg', 12, 0, 1]];
             var bbsNum = [];
@@ -65,9 +65,9 @@
                 //------------------------------------------------
                 //零用金下拉式與TXT輸入
                 q_cmbParse("cmbDc", q_getPara('chgcash.typea'));
-                q_gt('carteam', '', 0, 0, 0, "");
-                q_gt('part', '', 0, 0, 0, "");
+                q_gt('carteam', '', 0, 0, 0, "");              
                 q_gt('chgpart', '', 0, 0, 0, "");
+                q_gt('part', '', 0, 0, 0, "");
 				
 				 $('#txtDatea').focusout(function () {
                      	   q_cd( $(this).val() ,$(this));
@@ -91,12 +91,6 @@
                     $("#cmbCarteamno").attr('size', len + "");
                 }).blur(function() {
                     $("#cmbCarteamno").attr('size', '1');
-                });
-                $("#cmbPartno").focus(function() {
-                    var len = $("#cmbPartno").children().length > 0 ? $("#cmbPartno").children().length : 1;
-                    $("#cmbPartno").attr('size', len + "");
-                }).blur(function() {
-                    $("#cmbPartno").attr('size', '1');
                 });
                 $("#cmbChgpartno").focus(function() {
                     var len = $("#cmbChgpartno").children().length > 0 ? $("#cmbChgpartno").children().length : 1;
@@ -175,12 +169,17 @@
                     case 'part':
                         var as = _q_appendData("part", "", true);
                         if (as[0] != undefined) {
-                            var t_item = "";
+                            var t_item = "@";
                             for ( i = 0; i < as.length; i++) {
                                 t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
                             }
-                            q_cmbParse("cmbPartno", t_item);
-                            $("#cmbPartno").val(abbm[q_recno].partno);
+                            q_cmbParse("cmbPartno", t_item,'s');
+                            /*for (var i = 0; i < q_bbsCount; i++) {
+                            	if(abbs[i]==undefined)
+                            		break;
+                            	alert(abbs[i].partno+'__'+abbs.length);
+                            	$("#cmbPartno_"+i).val(abbs[i].partno);
+                            }*/
                         }
                         break;
                     case 'chgpart':
@@ -204,6 +203,9 @@
             }
 
             function btnOk() {
+            	for (var i = 0; i < q_bbsCount; i++) {
+            		$('#txtPart_'+i).val($('#cmbPartno_'+i).find(":selected").text());
+            	}
             	if($('#txtSssno').val().length==0)
             		$('#txtNamea').val('');
             	if(!$("#chkCarchg").prop("checked")){
@@ -215,7 +217,6 @@
                 }
                 sum();
                 $('#txtWorker').val(r_name);
-                $('#txtPart').val($('#cmbPartno').find(":selected").text());
                 $('#txtChgpart').val($('#cmbChgpartno').find(":selected").text());
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
@@ -372,7 +373,7 @@
             }
             //...........................................零用金餘額查詢
             function cashorg() {
-                var t_where = "where=^^ partno='" + $('#cmbPartno').val() + "'^^";
+                var t_where = "where=^^ partno='" + $('#cmbChgpartno').val() + "'^^";
                 q_gt('chgcashorg', t_where, 0, 0, 0, "", r_accy);
             }
 
@@ -528,7 +529,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 1080px;
+                width: 950px;
             }
             .tbbs a {
                 font-size: medium;
@@ -537,7 +538,7 @@
             .num {
                 text-align: right;
             }
-            input[type="text"], input[type="button"] {
+            input[type="text"], input[type="button"], select {
                 font-size: medium;
             }
 		</style>
@@ -554,7 +555,7 @@
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewMoney'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewNamea'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewChgpart'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewChecker'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewApprv'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewApprove'> </a></td>
@@ -565,7 +566,7 @@
 						</td>
 						<td id="datea" style="text-align: center;">~datea</td>
 						<td id="money,0,1" style="text-align: right;">~money,0,1</td>
-						<td id="namea" style="text-align: center;">~namea</td>
+						<td id="chgpart" style="text-align: center;">~chgpart</td>
 						<td id="checker" style="text-align: left;">~checker</td>
 						<td id="apprv" style="text-align: left;">~apprv</td>
 						<td id="approve" style="text-align: left;">~approve</td>
@@ -604,19 +605,13 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1"><span> </span><a id="lblPart" class="lbl"> </a></td>
-						<td class="td2"><select id="cmbPartno" class="txt c1"> </select>
-						<input id="txtPart"  type="text" style="display: none;"/>
-						</td>
-						<td class="td3"><span> </span><a id="lblSss" class="lbl btn"> </a></td>
-						<td class="td4">
+						<td><span > </span><a id="lblDc" class="lbl"> </a></td>
+						<td><select id="cmbDc" class="txt c1"> </select></td>
+						<td><span> </span><a id="lblSss" class="lbl btn"> </a></td>
+						<td>
 						<input id="txtSssno"  type="text"  class="txt c4"/>
 						<input id="txtNamea" type="text"  class="txt c4"/>
 						</td>
-						<td><span > </span><a id="lblDc" class="lbl"> </a></td>
-						<td><select id="cmbDc" class="txt c1"></select></td>
-						
-						
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblChgpart" class="lbl"> </a></td>
@@ -632,36 +627,6 @@
 						<td colspan="2"><input id="txtAcc2" type="text" class="txt c1"/>
 						</td>					
 					</tr>
-					<!--<tr>
-						<td> </td>
-						<td><span> </span><a id="lblCustchg" class="lbl btn"> </a>
-							<input id="chkCustchg" type="checkbox" style="float: right;"/>
-							<input id="txtCustchgno"  type="text" style="display:none;"/></td>
-						</td>
-						<td class="custchg"><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
-						<td class="custchg"><input id="txtCustno"  type="text"  class="txt c1"/></td>
-						<td class="custchg" colspan="2"><input id="txtComp"  type="text"  class="txt c1"/></td>
-						<td class="custchg"><span> </span><a id="lblPo" class="lbl"> </a></td>
-						<td class="custchg"><input id="txtPo"  type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td> </td>
-						<td>
-							<span> </span><a id="lblCarchg" class="lbl btn"> </a>
-							<input id="chkCarchg" type="checkbox" style="float: right;"/>
-							<input id="txtCarchgno"  type="text" style="display:none;"/></td>
-						</td>
-						<td class="carchg"><span> </span><a id="lblDriver" class="lbl btn"> </a></td>
-						<td class="carchg">
-							<input id="txtDriverno"  type="text"  class="txt c4"/>
-							<input id="txtDriver" type="text"  class="txt c4"/>
-						</td>
-						<td class="carchg"><span> </span><a id="lblCarno" class="lbl btn"> </a></td>
-						<td class="carchg"><input id="txtCarno" type="text" class="txt c1" /></td>	
-						<td class="carchg"><span> </span><a id="lblCarteam" class="lbl"> </a></td>
-						<td class="carchg"><select id="cmbCarteamno" class="txt c1"> </select></td>
-					</tr>-->
-					
 					<tr>
 						<td><span> </span><a id="lblOrg" class="lbl"> </a></td>
 						<td><input id="txtOrg"  type="text" class="txt num c1" /></td>
@@ -698,9 +663,10 @@
 					<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:20px;"></td>
+					<td align="center" style="width:20px;"> </td>
+					<td align="center" style="width:80px;"><a id='lblPart_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblAcc_s'> </a></td>
-					<td align="center" style="width:400px;"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:300px;"><a id='lblMemo_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMoney_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -709,6 +675,10 @@
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+					<td>
+						<select id="cmbPartno.*" class="txt c1"> </select>
+						<input id="txtPart.*"  type="text" style="display: none;"/>
+					</td>
 					<td>
 					<input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
 					<input type="text" id="txtAcc1.*"  style="width:35%;"/>
