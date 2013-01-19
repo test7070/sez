@@ -41,8 +41,19 @@
 
         function mainPost() { 
 			q_getFormat();
-        	bbmMask = [['txtDatea', r_picd]];
+        	bbmMask = [['txtIndate', r_picd],['txtFixdate', r_picd]];
             q_mask(bbmMask);
+            $('#btnAccc').click(function () {
+            	q_box("acczt.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" , '', "95%", "650px", q_getMsg('popOrde'));
+            })
+            $('#btnCommand4').click(function () {
+            	q_box("accza.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" , '', "95%", "650px", q_getMsg('popOrde'));
+            })
+            $('#btnCommand1').click(function () {
+            	
+            	q_box("acczs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" +  r_accy , '', "95%", "650px", q_getMsg('popOrde'));
+            })
+            
         }
 
         function q_boxClose( s2) {
@@ -74,6 +85,7 @@
         function btnIns() {
             _btnIns();
             $('#txtNoa').focus();
+            $('#txtIndate').val(q_date());
         }
 
         function btnModi() {
@@ -87,15 +99,21 @@
  
         }
         function btnOk() {
+            if (!q_cd($('#txtIndate').val())) {
+            	alert(q_getMsg('lblIndate') + '錯誤。');
+                return;
+            }
+            if (!q_cd($('#txtFixdate').val())) {
+            	alert(q_getMsg('lblFixdate') + '錯誤。');
+                return;
+            }
             var t_err = '';
-
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
             if( t_err.length > 0) {
                 alert(t_err);
                 return;
             }
             var t_noa = trim($('#txtNoa').val());
-
             if ( t_noa.length==0 )  
                 q_gtnoa(q_name, t_noa);
             else
@@ -380,8 +398,8 @@
                <td class="td6"></td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
-               <td class="td2"><input id="txtDatea"  type="text" class="txt c1" /></td>
+               <td class="td1"><span> </span><a id='lblIndate' class="lbl"></a></td>
+               <td class="td2"><input id="txtIndate"  type="text" class="txt c1" /></td>
                <td class="td3"></td>
                <td class="td4"><input id="btnAccc" type="button" /></td>
 	           <td class="td5"></td>
