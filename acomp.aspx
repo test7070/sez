@@ -36,7 +36,7 @@
 					else
 						this.stamp = new Array();
 					this.stampuse = new Array();
-					t_where = "where=^^ cno='"+this.noa+"' and len(isnull(rdate,''))=0 and len(ltrim(stamp))>0 ^^";		
+					t_where = "where=^^ cno='"+this.noa+"' and len(isnull(rdate,''))=0 and len(isnull(tdate,''))=0 and len(ltrim(stamp))>0 ^^";		
 					q_gt('stampuse', t_where, 0, 0, 0, "", r_accy);
 				}catch(e){
 					alert('1_'+e.message);
