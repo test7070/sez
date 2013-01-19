@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title></title>
@@ -14,27 +14,27 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-            this.errorHandler = null;
-            function onPageError(error) {
-                alert("An error occurred:\r\n" + error.Message);
-            }
+		    this.errorHandler = null;
+		    function onPageError(error) {
+		        alert("An error occurred:\r\n" + error.Message);
+		    }
 
-            isEditTotal = false;
-            q_tables = 's';
-            var q_name = "chgcash";
-            var q_readonly = ['txtCarchgno','txtCustchgno','txtChgitem', 'txtChgpart', 'txtOrg', 'txtNamea', 'txtComp', 'txtAccno', 'txtNoa', 'txtWorker', 'txtMoney'];
-            var q_readonlys = ['txtAcc2'];
-            var bbmNum = [['txtOrg', 12, 0, 1]];
-            var bbsNum = [];
-            var bbmMask = [];
-            var bbsMask = [];
-            q_sqlCount = 6;
-            brwCount = 6;
-            brwList = [];
-            brwNowPage = 0;
-            brwKey = 'noa';
-            q_desc = 1;
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx']
+		    isEditTotal = false;
+		    q_tables = 's';
+		    var q_name = "chgcash";
+		    var q_readonly = ['txtCarchgno', 'txtCustchgno', 'txtChgitem', 'txtChgpart', 'txtOrg', 'txtNamea', 'txtComp', 'txtAccno', 'txtNoa', 'txtWorker', 'txtMoney'];
+		    var q_readonlys = ['txtAcc2'];
+		    var bbmNum = [['txtMoney', 10, 0,1],['txtOrg', 12, 0, 1]];
+		    var bbsNum = [['txtMoney', 10, 0,1]];
+		    var bbmMask = [];
+		    var bbsMask = [];
+		    q_sqlCount = 6;
+		    brwCount = 6;
+		    brwList = [];
+		    brwNowPage = 0;
+		    brwKey = 'noa';
+		    q_desc = 1;
+		    aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx']
             , ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMemo_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             , ['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']
             , ['txtChgitemno', 'lblChgitem', 'chgitem', 'noa,item', 'txtChgitemno,txtChgitem', 'chgitem_b.aspx']
@@ -43,376 +43,386 @@
             ['txtMemo', '', 'qphr', 'code,phr', 'txtMemo,txtMemo', "qPhr_b.aspx", 'txtAcc1'],
             ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 
-            brwCount2 = 4;
+		    brwCount2 = 4;
 
-            $(document).ready(function() {
-                bbmKey = ['noa'];
-                bbsKey = ['noa', 'noq'];
-                q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
-            });
-            function main() {
-                if (dataErr) {
-                    dataErr = false;
-                    return;
-                }
-                mainForm(0);
-            }
+		    $(document).ready(function () {
+		        bbmKey = ['noa'];
+		        bbsKey = ['noa', 'noq'];
+		        q_brwCount();
 
-            function mainPost() {
-                bbmMask = [['txtTime', '99:99'], ['txtDatea', r_picd]];
-                q_mask(bbmMask);
-                //------------------------------------------------
-                //零用金下拉式與TXT輸入
-                q_cmbParse("cmbDc", q_getPara('chgcash.typea'));
-                q_gt('carteam', '', 0, 0, 0, "");              
-                q_gt('chgpart', '', 0, 0, 0, "");
-                q_gt('part', '', 0, 0, 0, "");
-				
-				 $('#txtDatea').focusout(function () {
-                     	   q_cd( $(this).val() ,$(this));
-	                });
-                $("#cmbDc").focus(function() {
-                    var len = $("#cmbDc").children().length > 0 ? $("#cmbDc").children().length : 1;
-                    $("#cmbDc").attr('size', len + "");
-                }).blur(function() {
-                    $("#cmbDc").attr('size', '1');
-                });
+		        q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+		    });
+		    function main() {
+		        if (dataErr) {
+		            dataErr = false;
+		            return;
+		        }
+		        mainForm(0);
+		    }
 
-                $('#txtAcc1').change(function() {
-                    var s1 = trim($(this).val());
-                    if (s1.length > 4 && s1.indexOf('.') < 0)
-                        $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
-                    if (s1.length == 4)
-                        $(this).val(s1 + '.');
-                });
-                $("#cmbCarteamno").focus(function() {
-                    var len = $("#cmbCarteamno").children().length > 0 ? $("#cmbCarteamno").children().length : 1;
-                    $("#cmbCarteamno").attr('size', len + "");
-                }).blur(function() {
-                    $("#cmbCarteamno").attr('size', '1');
-                });
-                $("#cmbChgpartno").focus(function() {
-                    var len = $("#cmbChgpartno").children().length > 0 ? $("#cmbChgpartno").children().length : 1;
-                    $("#cmbChgpartno").attr('size', len + "");
-                }).blur(function() {
-                    $("#cmbChgpartno").attr('size', '1');
-                });
-                $("#chkCarchg").change(function(e){
-                	if($("#chkCarchg").prop("checked"))
-                		$(".carchg").css('display','');
-                	else
-                		$(".carchg").css('display','none');
-                });
-                 $("#chkCustchg").change(function(e){
-                	if($("#chkCustchg").prop("checked"))
-                		$(".custchg").css('display','');
-                	else
-                		$(".custchg").css('display','none');
-                });
-                $('#lblAccno').click(function() {
-                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
-                });
-                
-                $('#lblCustchg').click(function() {
-                    var t_where = "";
-                    var tmp = $('#txtCustchgno').val().split(',');
-                    for (var i in tmp)
-                    t_where += (t_where.length > 0 ? ' or ' : '') + "noa='" + tmp[i] + "'";
-                    q_pop('txtCustchgno', "custchg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno, 'custchg', 'noa', 'datea', "92%", "1000px", q_getMsg('popCustchg'), true);
-                });
-                $('#lblCarchg').click(function() {
-                    var t_where = "";
-                    var tmp = $('#txtCarchgno').val().split(',');
-                    for (var i in tmp)
-                    t_where += (t_where.length > 0 ? ' or ' : '') + "noa='" + tmp[i] + "'";
-                    q_pop('txtCarchgno', "carchg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno, 'custchg', 'noa', 'datea', "92%", "1000px", q_getMsg('popCarchg'), true);
-                });
-            }
+		    function mainPost() {
+		        bbmMask = [['txtTime', '99:99'], ['txtDatea', r_picd]];
+		        q_mask(bbmMask);
+		        //------------------------------------------------
+		        //零用金下拉式與TXT輸入
+		        q_cmbParse("cmbDc", q_getPara('chgcash.typea'));
+		        q_gt('part', '', 0, 0, 0, "");
+		        q_gt('carteam', '', 0, 0, 0, "");
+		        q_gt('chgpart', '', 0, 0, 0, "");
+		        
 
-            function q_funcPost(t_func, result) {
-                switch(t_func) {
-                    default:
-                        break;
-                }
+		        $('#txtDatea').focusout(function () {
+		            q_cd($(this).val(), $(this));
+		        });
+		        $("#cmbDc").focus(function () {
+		            var len = $("#cmbDc").children().length > 0 ? $("#cmbDc").children().length : 1;
+		            $("#cmbDc").attr('size', len + "");
+		        }).blur(function () {
+		            $("#cmbDc").attr('size', '1');
+		        });
 
-            }
+		        $('#txtAcc1').change(function () {
+		            var s1 = trim($(this).val());
+		            if (s1.length > 4 && s1.indexOf('.') < 0)
+		                $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
+		            if (s1.length == 4)
+		                $(this).val(s1 + '.');
+		        });
+		        $("#cmbCarteamno").focus(function () {
+		            var len = $("#cmbCarteamno").children().length > 0 ? $("#cmbCarteamno").children().length : 1;
+		            $("#cmbCarteamno").attr('size', len + "");
+		        }).blur(function () {
+		            $("#cmbCarteamno").attr('size', '1');
+		        });
+		        $("#cmbChgpartno").focus(function () {
+		            var len = $("#cmbChgpartno").children().length > 0 ? $("#cmbChgpartno").children().length : 1;
+		            $("#cmbChgpartno").attr('size', len + "");
+		        }).blur(function () {
+		            $("#cmbChgpartno").attr('size', '1');
+		        });
+		        $("#chkCarchg").change(function (e) {
+		            if ($("#chkCarchg").prop("checked"))
+		                $(".carchg").css('display', '');
+		            else
+		                $(".carchg").css('display', 'none');
+		        });
+		        $("#chkCustchg").change(function (e) {
+		            if ($("#chkCustchg").prop("checked"))
+		                $(".custchg").css('display', '');
+		            else
+		                $(".custchg").css('display', 'none');
+		        });
+		        $('#lblAccno').click(function () {
+		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+		        });
 
-            function q_boxClose(s2) {
-                var ret;
-                switch (b_pop) {
-                    case q_name + '_s':
-                        q_boxClose2(s2);
-                        break;
-                }
-                b_pop = '';
-            }
+		        $('#lblCustchg').click(function () {
+		            var t_where = "";
+		            var tmp = $('#txtCustchgno').val().split(',');
+		            for (var i in tmp)
+		                t_where += (t_where.length > 0 ? ' or ' : '') + "noa='" + tmp[i] + "'";
+		            q_pop('txtCustchgno', "custchg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno, 'custchg', 'noa', 'datea', "92%", "1000px", q_getMsg('popCustchg'), true);
+		        });
+		        $('#lblCarchg').click(function () {
+		            var t_where = "";
+		            var tmp = $('#txtCarchgno').val().split(',');
+		            for (var i in tmp)
+		                t_where += (t_where.length > 0 ? ' or ' : '') + "noa='" + tmp[i] + "'";
+		            q_pop('txtCarchgno', "carchg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno, 'custchg', 'noa', 'datea', "92%", "1000px", q_getMsg('popCarchg'), true);
+		        });
+		        //alert('mainpost');
+		    }
 
-            function q_gtPost(t_name) {
-                switch (t_name) {
-                    case 'chgcashorg':
-                        var as = _q_appendData("chgcash", "", true);
-                        if (as[0] != undefined)
-                            $('#txtOrg').val(as[0].total);
-                        break;
-                    case 'carteam':
-                        var as = _q_appendData("carteam", "", true);
-                        if (as[0] != undefined) {
-                            var t_item = "";
-                            for ( i = 0; i < as.length; i++) {
-                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
-                            }
-                            q_cmbParse("cmbCarteamno", t_item);
-                            $("#cmbCarteamno").val(abbm[q_recno].carteamno);
-                        }
-                        break;
-                    case 'part':
-                        var as = _q_appendData("part", "", true);
-                        if (as[0] != undefined) {
-                            var t_item = "@";
-                            for ( i = 0; i < as.length; i++) {
-                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
-                            }
-                            q_cmbParse("cmbPartno", t_item,'s');
-                            /*for (var i = 0; i < q_bbsCount; i++) {
-                            	if(abbs[i]==undefined)
-                            		break;
-                            	alert(abbs[i].partno+'__'+abbs.length);
-                            	$("#cmbPartno_"+i).val(abbs[i].partno);
-                            }*/
-                        }
-                        break;
-                    case 'chgpart':
-                        var as = _q_appendData("chgpart", "", true);
-                        if (as[0] != undefined) {
-                            var t_item = "";
-                            for ( i = 0; i < as.length; i++) {
-                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
-                            }
-                            q_cmbParse("cmbChgpartno", t_item);
-                            $("#cmbChgpartno").val(abbm[q_recno].chgpartno);
-                        }
-                        break;
-                    case q_name:
-                        if (q_cur == 4)
-                            q_Seek_gtPost();
-                        break;
-                    default:
-                        break;
-                }
-            }
+		    function q_funcPost(t_func, result) {
+		        switch (t_func) {
+		            default:
+		                break;
+		        }
 
-            function btnOk() {
-            	for (var i = 0; i < q_bbsCount; i++) {
-            		$('#txtPart_'+i).val($('#cmbPartno_'+i).find(":selected").text());
-            	}
-            	if($('#txtSssno').val().length==0)
-            		$('#txtNamea').val('');
-            	if(!$("#chkCarchg").prop("checked")){
-            		$('#cmbCarteamno').val('');
-            	}
-            	if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
-                	alert(q_getMsg('lblDatea')+'錯誤。');
-                	return;
-                }
-                sum();
-                $('#txtWorker').val(r_name);
-                $('#txtChgpart').val($('#cmbChgpartno').find(":selected").text());
-                var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtDatea').val());
-                if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll('C' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-                else
-                    wrServer(t_noa);
-            }
+		    }
 
-            function _btnSeek() {
-                if (q_cur > 0 && q_cur < 4)
-                    return;
+		    function q_boxClose(s2) {
+		        var ret;
+		        switch (b_pop) {
+		            case q_name + '_s':
+		                q_boxClose2(s2);
+		                break;
+		        }
+		        b_pop = '';
+		    }
 
-                q_box('chgcash_s.aspx', q_name + '_s', "550px", "520px", q_getMsg("popSeek"));
-            }
+		    function q_gtPost(t_name) {
+		        switch (t_name) {
+		            case 'chgcashorg':
+		                var as = _q_appendData("chgcash", "", true);
+		                if (as[0] != undefined)
+		                    $('#txtOrg').val(as[0].total);
+		                break;
+		            case 'carteam':
+		                var as = _q_appendData("carteam", "", true);
+		                if (as[0] != undefined) {
+		                    var t_item = "";
+		                    for (i = 0; i < as.length; i++) {
+		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+		                    }
+		                    q_cmbParse("cmbCarteamno", t_item);
+		                    $("#cmbCarteamno").val(abbm[q_recno].carteamno);
+		                }
+		                break;
+		            case 'part':
+		                var as = _q_appendData("part", "", true);
+		                if (as[0] != undefined) {
+		                    var t_item = "@";
+		                    for (i = 0; i < as.length; i++) {
+		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+		                    }
+		                    q_cmbParse("cmbPartno", t_item, 's');
 
-            function bbsAssign() {
-                for (var i = 0; i < q_bbsCount; i++) {
-                    $('#lblNo_' + i).text(i + 1);
-                    if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-                        $('#txtMoney_' + i).change(function(e) {
-                            sum();
-                        });
-                        $('#txtAcc1_' + i).change(function(e) {
-                        	var str=$.trim($(this).val());
-                        	if((/^[0-9]{4}$/g).test(str))
-                        		$(this).val(str+'.');
-                    	});
-                    }
-                }
-                _bbsAssign();
-            }
+		                    refresh(q_recno);  /// 第一次需要重新載入
+		                    //isGtPost = true;
+		                    //bbsAssign();
+		                    //  alert('gtpost');
+		                    /*var n = 0;
+		                    for (var i in abbs) {
+		                    if(abbs[i].noa==$('#txtNoa').val()){
+		                    alert(abbs[i].partno);
+		                    $("#cmbPartno_"+n).val(abbs[i].partno);	
+		                    n++;
+		                    }                        	
+		                    }*/
+		                }
+		                break;
+		            case 'chgpart':
+		                var as = _q_appendData("chgpart", "", true);
+		                if (as[0] != undefined) {
+		                    var t_item = "";
+		                    for (i = 0; i < as.length; i++) {
+		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+		                    }
+		                    q_cmbParse("cmbChgpartno", t_item);
+		                    $("#cmbChgpartno").val(abbm[q_recno].chgpartno);
+		                }
+		                break;
+		            case q_name:
+		                if (q_cur == 4)
+		                    q_Seek_gtPost();
+		                break;
+		            default:
+		                break;
+		        }
+		    }
 
-            function sum() {
-                if (!(q_cur == 1 || q_cur == 2))
-                    return;
-                var t_money = 0;
-                for (var i = 0; i < q_bbsCount; i++) {
-                    t_money += q_float('txtMoney_' + i);
-                }
-                $('#txtMoney').val(t_money);
-            }
+		    function btnOk() {
+		        for (var i = 0; i < q_bbsCount; i++) {
+		            $('#txtPart_' + i).val($('#cmbPartno_' + i).find(":selected").text());
+		        }
+		        if ($('#txtSssno').val().length == 0)
+		            $('#txtNamea').val('');
+		        if (!$("#chkCarchg").prop("checked")) {
+		            $('#cmbCarteamno').val('');
+		        }
+		        if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
+		            alert(q_getMsg('lblDatea') + '錯誤。');
+		            return;
+		        }
+		        sum();
+		        $('#txtWorker').val(r_name);
+		        $('#txtChgpart').val($('#cmbChgpartno').find(":selected").text());
+		        var t_noa = trim($('#txtNoa').val());
+		        var t_date = trim($('#txtDatea').val());
+		        if (t_noa.length == 0 || t_noa == "AUTO")
+		            q_gtnoa(q_name, replaceAll('C' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+		        else
+		            wrServer(t_noa);
+		    }
 
-            function btnIns() {
-                _btnIns();
-                $('#txtNoa').val('AUTO');
-                //申請日期與時間
-                var now = new Date();
-                $('#txtDatea').val(q_date());
-                $('#txtTime').val((now.getHours() < 10 ? '0' : '') + now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes());
+		    function _btnSeek() {
+		        if (q_cur > 0 && q_cur < 4)
+		            return;
 
-                //申請金額初始
-                $('#txtMoney').val(0);
+		        q_box('chgcash_s.aspx', q_name + '_s', "550px", "520px", q_getMsg("popSeek"));
+		    }
 
-                $('#txtDatea').focus();
-            }
+		    function bbsAssign() {
+		        for (var i = 0; i < q_bbsCount; i++) {
+		            $('#lblNo_' + i).text(i + 1);
+		            if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+		                $('#txtMoney_' + i).change(function (e) {
+		                    sum();
+		                });
+		                $('#txtAcc1_' + i).change(function (e) {
+		                    var str = $.trim($(this).val());
+		                    if ((/^[0-9]{4}$/g).test(str))
+		                        $(this).val(str + '.');
+		                });
+		            }
+		        }
+		        _bbsAssign();
+		    }
 
-            function btnModi() {
-                if (emp($('#txtNoa').val()))
-                    return;
-                _btnModi();
-                $('#txtDatea').focus();
-                sum();
-            }
+		    function sum() {
+		        if (!(q_cur == 1 || q_cur == 2))
+		            return;
+		        var t_money = 0;
+		        for (var i = 0; i < q_bbsCount; i++) {
+		            t_money += q_float('txtMoney_' + i);
+		        }
+		        $('#txtMoney').val(t_money);
+		    }
 
-            function btnPrint() {
-                q_box('z_chgcash.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
-            }
+		    function btnIns() {
+		        _btnIns();
+		        $('#txtNoa').val('AUTO');
+		        //申請日期與時間
+		        var now = new Date();
+		        $('#txtDatea').val(q_date());
+		        $('#txtTime').val((now.getHours() < 10 ? '0' : '') + now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes());
 
-            function wrServer(key_value) {
-                var i;
+		        //申請金額初始
+		        $('#txtMoney').val(0);
 
-                $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
-                _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
-            }
+		        $('#txtDatea').focus();
+		    }
 
-            function bbsSave(as) {
-                if (!as['acc1']) {
-                    as[bbsKey[1]] = '';
-                    return;
-                }
-                q_nowf();
-                return true;
-            }
+		    function btnModi() {
+		        if (emp($('#txtNoa').val()))
+		            return;
+		        _btnModi();
+		        $('#txtDatea').focus();
+		        sum();
+		    }
 
-            function refresh(recno) {
-                _refresh(recno);
-                cashorg();
-                if($("#chkCarchg").prop("checked"))
-            		$(".carchg").css('display','');
-            	else
-            		$(".carchg").css('display','none');
-            	 if($("#chkCustchg").prop("checked"))
-            		$(".custchg").css('display','');
-            	else
-            		$(".custchg").css('display','none');
-            }
+		    function btnPrint() {
+		        q_box('z_chgcash.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
+		    }
 
-            function readonly(t_para, empty) {
-                _readonly(t_para, empty);
-            }
+		    function wrServer(key_value) {
+		        var i;
 
-            function btnMinus(id) {
-                _btnMinus(id);
-                sum();
-            }
+		        $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+		        _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
+		    }
 
-            function btnPlus(org_htm, dest_tag, afield) {
-                _btnPlus(org_htm, dest_tag, afield);
-            }
+		    function bbsSave(as) {
+		        if (!as['acc1']) {
+		            as[bbsKey[1]] = '';
+		            return;
+		        }
+		        q_nowf();
+		        return true;
+		    }
 
-            function q_appendData(t_Table) {
-                return _q_appendData(t_Table);
-            }
+		    function refresh(recno) {
+		        _refresh(recno);
+		        cashorg();
+		        if ($("#chkCarchg").prop("checked"))
+		            $(".carchg").css('display', '');
+		        else
+		            $(".carchg").css('display', 'none');
+		        if ($("#chkCustchg").prop("checked"))
+		            $(".custchg").css('display', '');
+		        else
+		            $(".custchg").css('display', 'none');
+		    }
 
-            function btnSeek() {
-                _btnSeek();
-            }
+		    function readonly(t_para, empty) {
+		        _readonly(t_para, empty);
+		    }
 
-            function btnTop() {
-                _btnTop();
-            }
+		    function btnMinus(id) {
+		        _btnMinus(id);
+		        sum();
+		    }
 
-            function btnPrev() {
-                _btnPrev();
-            }
+		    function btnPlus(org_htm, dest_tag, afield) {
+		        _btnPlus(org_htm, dest_tag, afield);
+		    }
 
-            function btnPrevPage() {
-                _btnPrevPage();
-            }
+		    function q_appendData(t_Table) {
+		        return _q_appendData(t_Table);
+		    }
 
-            function btnNext() {
-                _btnNext();
-            }
+		    function btnSeek() {
+		        _btnSeek();
+		    }
 
-            function btnNextPage() {
-                _btnNextPage();
-            }
+		    function btnTop() {
+		        _btnTop();
+		    }
 
-            function btnBott() {
-                _btnBott();
-            }
+		    function btnPrev() {
+		        _btnPrev();
+		    }
 
-            function q_brwAssign(s1) {
-                _q_brwAssign(s1);
-            }
+		    function btnPrevPage() {
+		        _btnPrevPage();
+		    }
 
-            function btnDele() {
-                _btnDele();
-            }
+		    function btnNext() {
+		        _btnNext();
+		    }
 
-            function btnCancel() {
-                _btnCancel();
-            }
-            //...........................................零用金餘額查詢
-            function cashorg() {
-                var t_where = "where=^^ partno='" + $('#cmbChgpartno').val() + "'^^";
-                q_gt('chgcashorg', t_where, 0, 0, 0, "", r_accy);
-            }
+		    function btnNextPage() {
+		        _btnNextPage();
+		    }
 
-            //..........................................................
-            function q_stPost() {
-                if (!(q_cur == 1 || q_cur == 2))
-                    return false;
-                abbm[q_recno]['accno'] = xmlString;
-                $('#txtAccno').val(xmlString);
-            }
-            function checkId(str) {
-                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
-                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
-                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-                    if ((n % 10) == 0)
-                        return 1;
-                } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
-                    var key = '12121241';
-                    var n = 0;
-                    var m = 0;
-                    for (var i = 0; i < 8; i++) {
-                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-                        m += Math.floor(n / 10) + n % 10;
-                    }
-                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-                        return 2;
-                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 3;
-                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
-                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 4
-               	}
-               	return 0;//錯誤
-            }
+		    function btnBott() {
+		        _btnBott();
+		    }
+
+		    function q_brwAssign(s1) {
+		        _q_brwAssign(s1);
+		    }
+
+		    function btnDele() {
+		        _btnDele();
+		    }
+
+		    function btnCancel() {
+		        _btnCancel();
+		    }
+		    //...........................................零用金餘額查詢
+		    function cashorg() {
+		        var t_where = "where=^^ partno='" + $('#cmbChgpartno').val() + "'^^";
+		        q_gt('chgcashorg', t_where, 0, 0, 0, "", r_accy);
+		    }
+
+		    //..........................................................
+		    function q_stPost() {
+		        if (!(q_cur == 1 || q_cur == 2))
+		            return false;
+		        abbm[q_recno]['accno'] = xmlString;
+		        $('#txtAccno').val(xmlString);
+		    }
+		    function checkId(str) {
+		        if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
+		            var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
+		            var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
+		            var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
+		            if ((n % 10) == 0)
+		                return 1;
+		        } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
+		            var key = '12121241';
+		            var n = 0;
+		            var m = 0;
+		            for (var i = 0; i < 8; i++) {
+		                n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
+		                m += Math.floor(n / 10) + n % 10;
+		            }
+		            if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
+		                return 2;
+		        } else if ((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//西元年
+		            var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
+		            if (regex.test(str))
+		                return 3;
+		        } else if ((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//民國年
+		            str = (parseInt(str.substring(0, 3)) + 1911) + str.substring(3);
+		            var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
+		            if (regex.test(str))
+		                return 4
+		        }
+		        return 0; //錯誤
+		    }
 		</script>
 		<style type="text/css">
             #dmain {

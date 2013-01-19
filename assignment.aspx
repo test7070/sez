@@ -15,7 +15,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
+			q_tables = 's';
             var q_name = "assignment";
             var q_readonly = ['txtWorker'];
             var q_readonlys = [];
@@ -27,8 +27,7 @@
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'datea';
-			brwCount2 = 10;
+            brwKey = 'noa';
             
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -215,7 +214,7 @@
             }
             .dview {
                 float: left;
-                width: 15%;
+                width: 30%;
                 border-width: 0px;
             }
             .tview {
@@ -240,7 +239,7 @@
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
-                width: 85%;
+                width: 70%;
             }
             .tbbm {
                 padding: 0px;
@@ -333,12 +332,14 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width：100px;color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:5%; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width：25%;color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width：55%;color:black;"><a id='vewItem'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
-						<td id="Noa" style="text-align: center;">~noa</td>
+						<td id="noa" style="text-align: center;">~noa</td>
+						<td id="item" style="text-align: center;">~item</td>
 					</tr>
 				</table>
 			</div>
@@ -362,7 +363,7 @@
 						<td class="td2" colspan="2"><input type="text" id="txtItem" class="txt c1"/></td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblTtggno' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblTggno' class="lbl"> </a></td>
 						<td class="td2" ><input type="text" id="txtTggno" class="txt c1"/></td>	
 					</tr>
 					<tr>

@@ -26,9 +26,7 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         aPop = new Array(['txtSno', 'lblSname', 'sss', 'noa,namea,partno,part', 'txtSno,txtSname,txtPartno,txtPart', 'sss_b.aspx'],
         ['txtPartno','lblPart','part','noa,part','txtPartno,txtPart','part_b.aspx'],
-        ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product,stkmount', 'txtBccno_,txtBccname_,txtStkmount_,txtMount_', 'bcc_b.aspx'],
-        ['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx']);
-		//['txtApprover', 'lblApprover', 'sss', 'namea', 'txtApprover', 'sss_b.aspx'],
+        ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product,stkmount', 'txtBccno_,txtBccname_,txtStkmount_,txtMount_', 'bcc_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -148,21 +146,7 @@
                     break;
             }  /// end switch
         }
-        
-//        function btnquat() {
-//            var t_custno = trim($('#txtCustno').val());
-//            var t_where='';
-//            if (t_custno.length > 0) {
-//                t_where = "enda='N' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");  ////  sql AND ?y?k?A??? &&  
-//                t_where =  t_where ;
-//            }
-//            else {
-//                alert(q_getMsg('msgCustEmp'));
-//                return;
-//            }
-
-//            q_box('ordes_b.aspx', 'ordes;' + t_where , "95%", "650px", "????");
-//        }
+      
 
         function btnOk() {
             $('#txtDatea').val($.trim($('#txtDatea').val()));
@@ -192,11 +176,10 @@
             q_box('bccout_s.aspx', q_name + '_s', "500px", "340px", q_getMsg("popSeek"));
         }
 
-        function combPay_chg() {   
-        }
 
         function bbsAssign() {
         	for(var j = 0; j < q_bbsCount; j++) {
+        		$('#lblNo_'+j).text(j+1);	
             	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
             		$('#txtMount_' + j).change(function () {
 						t_IdSeq = -1;
@@ -523,31 +506,30 @@
 		</div>
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'>
-            <tr style='color:White; background:#003366;' >
-                <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
+            <tr style='color:white; background:#003366;' >
+            	<td  align="center" style="width:30px;">
+                	<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
+				</td>
+				<td align="center" style="width:20px;"> </td>
                 <td align="center" style="width:10%;"><a id='lblBccno'></a></td>
                 <td align="center" style="width:18%;"><a id='lblBccname'></a></td>
                 <td align="center" style="width:10%;"><a id='lblMount'></a></td>
                 <td align="center" style="width:10%;"><a id='lblBkbcc'></a></td>
                 <td align="center"><a id='lblMemos'></a></td>
-                <td align="center"  style="width:15%;"><a id='lblMechno'></a></td>
                 <td align="center"  style="width:18%;"><a id='lblUno'></a></td>
-                <!--<td align="center" class='td1'><a id='lblTotals'></a></td>-->
             </tr>
             <tr  style='background:#cad3ff;'> 
-                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>              
+                <td align="center">
+					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+					<input id="txtNoq.*" type="text" style="display: none;" />
+				</td>
+				<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
                 <td ><input id="txtBccno.*" type="text" style="width: 70%;"/><input id="btnBccno.*" type="button" value="." style="width: auto;font-size: medium;" /></td>
                 <td ><input class="txt c1" id="txtBccname.*"type="text" /><input class="txt c1" id="txtStkmount.*"type="hidden" /><input class="txt c1" id="txtStkmoney.*"type="hidden" /></td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtBkbcc.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
-                <td ><input id="txtMechno.*" type="text" style="width: 70%;"/>
-                		<input id="btnMechno.*" type="button" value="." style="width: auto;font-size: medium;" />
-                		<input class="txt c1" id="txtMech.*" type="text" />
-                </td>
-                <td ><input class="txt c1" id="txtUno.*" type="text" /><input id="txtNoq.*" type="hidden" /></td>
-                <!--<td ><input class="txt num c1" id="txtTotal.*" type="text" /></td>-->
-                
+                <td ><input class="txt c1" id="txtUno.*" type="text" /></td>
            </tr>
         </table>
         </div>

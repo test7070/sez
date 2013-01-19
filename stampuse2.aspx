@@ -59,12 +59,6 @@
 				}).click(function(e) {
 					display();
 				});
-				$('#lblTnoa').click(function() {
-					if($('#txtKeya').val().length>0)
-                    	q_pop('txtKeya', "stampuse2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";keya='" + $('#txtKeya').val() + "';" + r_accy + '_' + r_cno, 'stampuse', 'noa', 'datea', "92%", "92%", q_getMsg('popStampuse'), true);
-                	else
-                		alert('無'+q_getMsg('lblTnoa')+'。');
-                });
 				
 				var m,n;
 				t_stamp = q_getPara('stamp.typea').split(',');
@@ -89,8 +83,7 @@
 					$('#stamp_td_'+ i).append($('.schema_lbl').clone().removeClass('schema_lbl').addClass('stamp_lbl').css('float','left').attr('id','stamp_lbl_'+i).html(t_stamp[i]).css('cursor','pointer').click(function(e){
 						if(q_cur==1 || q_cur==2){
 							if($(this).css('color').toUpperCase().replace(/ /g,'')=='RGB(0,0,0)'){
-								if($(this).prev().eq(0).attr('disabled')=='')
-									$(this).prev().eq(0).prop('checked',!$(this).prev().eq(0).prop('checked'));
+								$(this).prev().eq(0).prop('checked',!$(this).prev().eq(0).prop('checked'));
 								var string = '';
 				            	for(var i in t_stamp){
 				            		if($('#stamp_chk_'+ i).prop('checked'))
@@ -139,10 +132,6 @@
 								$('#stamp_chk_'+ n).prop('checked',true);
 						}
                 	}
-                }
-                if(q_cur==2 && !($('#txtRdate').val().length==0 && $('#txtTdate').val().length==0)){
-                	$('.stamp_chk').attr('disabled','disabled');
-                	$('#cmbCno').attr('disabled','disabled');
                 }
             }
 
@@ -445,8 +434,7 @@
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-	>
-		<!--#include file="../inc/toolbar.inc"-->
+	>	
 		<div id='dmain'>
 			<div class="dview" id="dview" >
 				<table class="tview" id="tview">
@@ -484,7 +472,7 @@
 						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblSss' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblSss' class="lbl"> </a></td>
 						<td colspan="2">
 							<input id="txtSssno"  type="text"  style="float:left; width:40%;"/>
 							<input id="txtNamea"  type="text"  style="float:left; width:60%;"/>
@@ -508,7 +496,7 @@
 						<td><input id="txtRdate"  type="text" class="txt c1" />	</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblRsss' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblRsss' class="lbl"> </a></td>
 						<td colspan="2">
 							<input id="txtRsssno"  type="text"  style="float:left; width:40%;"/>
 							<input id="txtRnamea"  type="text"  style="float:left; width:60%;"/>
@@ -517,14 +505,14 @@
 					<tr>
 						<td><span> </span><a id='lblTdate' class="lbl"> </a></td>
 						<td><input id="txtTdate"  type="text" class="txt c1" />	</td>
-						<td><span> </span><a id='lblTnoa' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblTnoa' class="lbl"> </a></td>
 						<td>
 							<input id="txtTnoa"  type="text" class="txt c1" />	
 							<input id="txtKeya"  type="text" style="display:none;" />
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblTsss' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblTsss' class="lbl"> </a></td>
 						<td colspan="2">
 							<input id="txtTsssno"  type="text"  style="float:left; width:40%;"/>
 							<input id="txtTnamea"  type="text"  style="float:left; width:60%;"/>
