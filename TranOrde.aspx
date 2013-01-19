@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -123,7 +123,12 @@
 				}).blur(function() {
 					$("#cmbCasetype2").attr('size', '1');
 				});
-
+				$("#btnPrintorde").click(function(e) {
+					q_box('z_tranorde.aspx' + "?;;;;" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
+				});
+				$("#btnPrinttrand").click(function(e) {
+					q_box('z_trand.aspx' + "?;;;;" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
+				});
                 $('#txtDatea').datepicker(); 
                 $('#txtCldate').datepicker();
                 $('#txtNodate').datepicker();
@@ -239,37 +244,7 @@
                 if (checkId($('#txtDatea').val())==0){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
-                }
-                $('#txtDldate').val($.trim($('#txtDldate').val()));
-                if ($('#txtDldate').val().length > 0 && checkId($('#txtDldate').val())==0){
-                    alert(q_getMsg('lblDldate')+'錯誤。'); 
-                	return;
-                }
-                $('#txtCldate').val($.trim($('#txtCldate').val()));
-                if ($('#txtCldate').val().length > 0 && checkId($('#txtCldate').val())==0){
-                    alert(q_getMsg('lblCldate')+'錯誤。');
-                	return;
-            	}
-                $('#txtNodate').val($.trim($('#txtNodate').val()));
-                if ($('#txtNodate').val().length > 0 && checkId($('#txtNodate').val())==0){
-                    alert(q_getMsg('lblNodate')+'錯誤。');; 
-                	return;
-            	}
-                $('#txtMadate').val($.trim($('#txtMadate').val()));
-                if ($('#txtMadate').val().length > 0 && checkId($('#txtMadate').val())==0){
-                    alert(q_getMsg('lblMadate')+'錯誤。');
-                	return;
-            	}
-                $('#txtRedate').val($.trim($('#txtRedate').val()));
-                if ($('#txtRedate').val().length > 0 && checkId($('#txtRedate').val())==0){
-                    alert(q_getMsg('lblRedate')+'錯誤。');
-                	return;
-            	}
-                $('#txtStrdate').val($.trim($('#txtStrdate').val()));
-                if ($('#txtStrdate').val().length > 0 && checkId($('#txtStrdate').val())==0){
-                    alert(q_getMsg('lblStrdate')+'錯誤。');
-                	return;       
-                }         
+                }     
             	$('#txtWorker').val(r_name);
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
@@ -573,6 +548,12 @@
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td>
 						<input type="text" id="txtDatea" class="txt c1"/>
+						</td>
+						<td>
+						<input type="button" id="btnPrintorde" />
+						</td>
+						<td>
+						<input type="button" id="btnPrinttrand" />
 						</td>
 					</tr>
 					<tr>

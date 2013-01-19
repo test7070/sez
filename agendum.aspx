@@ -286,6 +286,10 @@
                 width: 100%;
                 float: left;
             }
+            .txt.c2 {
+                width: 20%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -357,10 +361,6 @@
 						<td class="td2"><input type="text" id="txtNoa" class="txt c1"/>	</td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtDatea" class="txt c1"/>	</td>	
-					</tr>
-					<tr>
 						<td class="td1"><span> </span><a id='lblItem' class="lbl"> </a></td>
 						<td class="td2" colspan="2"><input type="text" id="txtItem" class="txt c1"/></td>	
 					</tr>
@@ -371,6 +371,24 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblComp' class="lbl"> </a></td>
 						<td class="td2"colspan="2"><input type="text" id="txtComp" class="txt c1"/></td>	
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
+						<td class="td2"colspan="2"><input type="text" id="txtCustno" style="width: 30%;"/>
+							<input type="text" id="txtCust" style="width: 70%;"/>
+						</td>	
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblOdate' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtOdate" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblWdate' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtWdate" class="txt c1"/>	</td>	
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblEnddate' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtEnddate" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblEnda' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtEnda" class="txt c2"/>	</td>	
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
