@@ -61,7 +61,7 @@
 				});
 				$('#lblTnoa').click(function() {
 					if($('#txtKeya').val().length>0)
-                    	q_pop('txtKeya', "stampuse.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";keya='" + $('#txtKeya').val() + "';" + r_accy + '_' + r_cno, 'stampuse', 'noa', 'datea', "92%", "92%", q_getMsg('popStampuse'), true);
+                    	q_pop('txtKeya', "stampuse2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";keya='" + $('#txtKeya').val() + "';" + r_accy + '_' + r_cno, 'stampuse', 'noa', 'datea', "92%", "92%", q_getMsg('popStampuse'), true);
                 	else
                 		alert('無'+q_getMsg('lblTnoa')+'。');
                 });
