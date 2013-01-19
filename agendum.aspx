@@ -344,9 +344,9 @@
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
-						<td id="Noa" style="text-align: center;">~noa</td>
-						<td id="Item" style="text-align: center;">~item</td>
-						<td id="Cust" style="text-align: center;">~cust</td>
+						<td id="noa" style="text-align: center;">~noa</td>
+						<td id="item" style="text-align: center;">~item</td>
+						<td id="cust" style="text-align: center;">~cust</td>
 					</tr>
 				</table>
 			</div>
@@ -376,12 +376,13 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblComp' class="lbl"> </a></td>
 						<td class="td2"colspan="2"><input type="text" id="txtComp" class="txt c1"/></td>	
+						<td class="td3"><input type="button" id="btnInput" /></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
 						<td class="td2"colspan="2"><input type="text" id="txtCustno" style="width: 30%;"/>
 							<input type="text" id="txtCust" style="width: 70%;"/>
-						</td>	
+						</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblOdate' class="lbl"> </a></td>
