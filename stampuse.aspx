@@ -16,7 +16,7 @@
             }
 
             var q_name = "stampuse";
-            var q_readonly = ['txtNoa'];
+            var q_readonly = ['txtNoa','txtTnoa','txtKeya'];
             var bbmNum = [];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -27,7 +27,8 @@
             q_desc = 1;
             brwCount2 = 20;
             aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']
-            , ['txtRsssno', 'lblRsss', 'sss', 'noa,namea', 'txtRsssno,txtRnamea', 'sss_b.aspx']);
+            , ['txtRsssno', 'lblRsss', 'sss', 'noa,namea', 'txtRsssno,txtRnamea', 'sss_b.aspx']
+            , ['txtTsssno', 'lblTsss', 'sss', 'noa,namea', 'txtTsssno,txtTnamea', 'sss_b.aspx']);
 			
 			t_stamp = new Array();//q_getPara('stamp.typea')	
 			t_acomp = new Array();//q_gt('acomp', '', 0, 0, 0, "");
@@ -48,7 +49,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtRdate', r_picd]];
+                bbmMask = [['txtDatea', r_picd], ['txtRdate', r_picd], ['txtTdate', r_picd]];
                 q_mask(bbmMask);
 				
 				q_gt('acomp', '', 0, 0, 0, "");
@@ -58,6 +59,12 @@
 				}).click(function(e) {
 					display();
 				});
+				$('#lblTnoa').click(function() {
+					if($('#txtKeya').val().length>0)
+                    	q_pop('txtKeya', "stampuse.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";keya='" + $('#txtKeya').val() + "';" + r_accy + '_' + r_cno, 'stampuse', 'noa', 'datea', "92%", "92%", q_getMsg('popStampuse'), true);
+                	else
+                		alert('無'+q_getMsg('lblTnoa')+'。');
+                });
 				
 				var m,n;
 				t_stamp = q_getPara('stamp.typea').split(',');
@@ -170,6 +177,14 @@
                             q_Seek_gtPost();
                         break;
                 }  /// end switch
+            }
+            function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                if(abbm[q_recno]['tnoa'].length==0 && xmlString.length>0){
+                	abbm[q_recno]['tnoa'] = xmlString;
+                	$('#txtTnoa').val(xmlString);	
+                }
             }
 
             function _btnSeek() {
@@ -492,6 +507,22 @@
 						<td colspan="2">
 							<input id="txtRsssno"  type="text"  style="float:left; width:40%;"/>
 							<input id="txtRnamea"  type="text"  style="float:left; width:60%;"/>
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblTdate' class="lbl"> </a></td>
+						<td><input id="txtTdate"  type="text" class="txt c1" />	</td>
+						<td><span> </span><a id='lblTnoa' class="lbl btn"> </a></td>
+						<td>
+							<input id="txtTnoa"  type="text" class="txt c1" />	
+							<input id="txtKeya"  type="text" style="display:none;" />
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblTsss' class="lbl btn"> </a></td>
+						<td colspan="2">
+							<input id="txtTsssno"  type="text"  style="float:left; width:40%;"/>
+							<input id="txtTnamea"  type="text"  style="float:left; width:60%;"/>
 						</td>
 					</tr>
 					<tr class="schema_tr" style="display:none;"> </tr>
