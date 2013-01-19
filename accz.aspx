@@ -25,14 +25,10 @@
 
         $(document).ready(function () {
             bbmKey = ['noa'];
-
             q_brwCount();
-
             q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy + "_" + r_cno )
-
             $('#txtNoa').focus
         });
-
         //////////////////   end Ready
        function main() {
            if (dataErr)   
@@ -45,7 +41,8 @@
 
 
         function mainPost() { 
-             q_mask(bbmMask);
+        	bbmMask = new array(['txtDatea', r_picd]);
+            q_mask(bbmMask);
         }
 
         function txtCopy(dest, source) {
@@ -69,20 +66,7 @@
         
         function q_boxClose( s2) {
             var ret; 
-            switch (b_pop) {                   case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-                
+            switch (b_pop) {
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -92,16 +76,9 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case 'sss':  
-                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                    break;
-
-                case q_name: if (q_cur == 4)  
+                 case q_name: 
+                 	if (q_cur == 4)  
                         q_Seek_gtPost();
-
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                     break;
             }  /// end switch
         }
@@ -111,15 +88,6 @@
                 return;
 
             q_box('accz_s.aspx', q_name + '_s', "500px", "330px", q_getMsg( "popSeek"));
-        }
-
-        function combPay_chg() {   
-            var cmb = document.getElementById("combPay")
-            if (!q_cur) 
-                cmb.value = '';
-            else
-                $('#txtPay').val(cmb.value);
-            cmb.value = '';
         }
 
         function btnIns() {
@@ -132,7 +100,6 @@
                 return;
 
             _btnModi();
-            $('#txtComp').focus();
         }
 
         function btnPrint() {
@@ -141,28 +108,12 @@
         function btnOk() {
             var t_err = '';
 
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
-
-            if ( dec( $('#txtCredit').val()) > 9999999999)
-                t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
-
-            if ( dec( $('#txtStartn').val()) > 31)
-                t_err = t_err + q_getMsg( "lblStartn")+q_getMsg( "msgErr")+'\r';
-            if (dec( $('#txtGetdate').val()) > 31)
-                t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
-
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
             if( t_err.length > 0) {
                 alert(t_err);
                 return;
             }
             var t_noa = trim($('#txtNoa').val());
-            if (emp($('#txtUacc1').val()))
-                $('#txtUacc1').val('1123.' + t_noa);
-            if (emp($('#txtUacc2').val()))
-                $('#txtUacc2').val('1121.' + t_noa);
-            if (emp($('#txtUacc3').val()))
-                $('#txtUacc3').val( '2131.'+t_noa);
-
 
             if ( t_noa.length==0 )  
                 q_gtnoa(q_name, t_noa);

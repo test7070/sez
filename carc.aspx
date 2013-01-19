@@ -85,16 +85,7 @@
 		            }
 		            
 		            t_where+=" ^^";
-			        q_gt('carc_caras', t_where , 0, 0, 0, "", r_accy);
-					setTimeout(function() {
-						var t_money = 0, t_moneys = 0;
-					     		for ( i = 0; i < q_bbsCount; i++) {
-					                t_moneys = round(q_float('txtOutmoney_'+i),0)
-					                t_money += t_moneys;
-					            }
-					   $('#txtTotal').val(t_money);
-				   }, 500);
-				   $('#txtTotal').focus();				   
+			        q_gt('carc_caras', t_where , 0, 0, 0, "", r_accy);			   
 			 });
 		     $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtAcdate').val().substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
@@ -137,6 +128,12 @@
             	
             	q_gridAddRow(bbsHtm, 'tbbs', 'txtCarano,txtCaranoq,txtCaradate,txtCaritemno,txtCaritem,txtOutmoney,txtMemo,txtCarno,txtCarownerno,txtCarowner'
             								, caras.length, caras, 'noa,noq,datea,caritemno,caritem,_outmoney,memo,carno,carownerno,namea', 'txtCarano');
+            	var t_money = 0, t_moneys = 0;
+					for ( i = 0; i < q_bbsCount; i++) {
+					    t_moneys = round(q_float('txtOutmoney_'+i),0)
+					    t_money += t_moneys;
+					    }
+					   $('#txtTotal').val(t_money);
             	break;
 
                 case q_name: 
