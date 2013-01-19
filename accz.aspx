@@ -41,29 +41,10 @@
 
 
         function mainPost() { 
-        	bbmMask = new array(['txtDatea', r_picd]);
+        	bbmMask = new Array(['txtDatea', r_picd]);
             q_mask(bbmMask);
         }
 
-        function txtCopy(dest, source) {
-            var adest = dest.split(',');
-            var asource = source.split(',');
-            $('#' + adest[0]).focus(function () { if (trim($(this).val()).length == 0) $(this).val( q_getMsg('msgCopy')); });
-            $('#' + adest[0]).focusout(function () {
-                var t_copy = ($(this).val().substr(0, 1) == '=');
-                var t_clear = ($(this).val().substr(0, 2) == ' =') ;
-                for (var i = 0; i < adest.length; i++) {
-                    {
-                        if (t_copy)
-                            $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                        if( t_clear)
-                            $('#' + adest[i]).val('');
-                    }
-                }
-            });
-        }
-        
         function q_boxClose( s2) {
             var ret; 
             switch (b_pop) {
