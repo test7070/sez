@@ -28,7 +28,6 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-			brwCount2 = 10;
             
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -215,7 +214,7 @@
             }
             .dview {
                 float: left;
-                width: 15%;
+                width: 30%;
                 border-width: 0px;
             }
             .tview {
@@ -240,7 +239,7 @@
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
-                width: 85%;
+                width: 70%;
             }
             .tbbm {
                 padding: 0px;
@@ -364,7 +363,7 @@
 						<td class="td2" colspan="2"><input type="text" id="txtItem" class="txt c1"/></td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblTtggno' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblTggno' class="lbl"> </a></td>
 						<td class="td2" ><input type="text" id="txtTggno" class="txt c1"/></td>	
 					</tr>
 					<tr>

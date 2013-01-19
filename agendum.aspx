@@ -28,7 +28,6 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-			brwCount2 = 10;
             aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -48,6 +47,8 @@
 
             function mainPost() {
                 q_getFormat();
+                 bbmMask = [['txtOdate', r_picd], ['txtWdate', r_picd], ['txtEnddate', r_picd]];
+                q_mask(bbmMask);
             }
 
             function q_boxClose(s2) {
@@ -369,7 +370,7 @@
 						<td class="td2" colspan="2"><input type="text" id="txtItem" class="txt c1"/></td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblTtggno' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblTggno' class="lbl"> </a></td>
 						<td class="td2" ><input type="text" id="txtTggno" class="txt c1"/></td>	
 					</tr>
 					<tr>
