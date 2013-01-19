@@ -215,13 +215,14 @@
             }
             .dview {
                 float: left;
-                width: 270px;
+                width: 15%;
                 border-width: 0px;
             }
             .tview {
                 border: 5px solid gray;
                 font-size: medium;
                 background-color: black;
+                width: 100%;
             }
             .tview tr {
                 height: 30px;
@@ -239,6 +240,7 @@
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
+                width: 85%;
             }
             .tbbm {
                 padding: 0px;
@@ -304,9 +306,10 @@
                 padding: 0px;
                 margin: -1px;
                 font-size: medium;
+                width: 100%;
             }
             .dbbs {
-                width: 950px;
+                width: 100%;
             }
             .tbbs a {
                 font-size: medium;
@@ -384,13 +387,14 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
-					<td  align="center" style="width:30px;">
+					<td  align="center" style="width: 2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:150px;"><a id='lblDescr_s'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblMoney_s'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblCost_s'> </a></td>
-					<td align="center" style="width:300px;"><a id='lblMemo_s'> </a></td>
+					<td align="center" style="width:25%;"><a id='lblDescr_s'> </a></td>
+					<td align="center" style="width:10%;"><a id='lblDays_s'> </a></td>
+					<td align="center" style="width:10%;"><a id='lblMoney_s'> </a></td>
+					<td align="center" style="width:10%;"><a id='lblCost_s'> </a></td>
+					<td align="center" ><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -398,6 +402,7 @@
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
 					<td><input id="txtDescr.*" type="text" style="width: 95%;"/></td>
+					<td><input id="txtDays.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtMoney.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtCost.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtMemo.*" type="text" style="width: 95%;"/></td>

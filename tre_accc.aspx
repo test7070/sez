@@ -89,10 +89,13 @@
 		            q_box('z_gqbp.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtChkbno').val()), '', "92%", "92%", "支票列印");
 		        });
 
-		        $('#btnBank').click(function () {
-		            q_box('bankTran.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtChkbno').val()), '', "92%", "92%", "電子檔製作");
-		        });
+		     	$('#btnBank').click(function() {
+                    q_func('banktran.gen', $('#txtNoa').val()+',1');
+                });
 
+                $('#btnBank2').click(function() {
+                    q_func('banktran.gen2', $('#txtNoa').val()+',1');
+                });
 		        $('#txtAcc1').change(function () {
 		            var s1 = trim($(this).val());
 		            if (s1.length > 4 && s1.indexOf('.') < 0)
@@ -104,6 +107,7 @@
 
 
 		    function q_funcPost(t_func, result) {
+		    	
 		        if (result.length > 0) {
 		            var s2 = result.split(';');
 		            for (var i = 0; i < s2.length; i++) {
@@ -126,9 +130,9 @@
 		                } //end switch
 		            } //end for
 		        } //end  if
-
+				
 		        alert('功能執行完畢');
-
+				
 		    } //endfunction
 
 		    function q_stPost() {
@@ -262,11 +266,13 @@
 		            $('#btnAccc').removeAttr('disabled');
 		            $('#btnGqb').removeAttr('disabled');
 		            $('#btnBank').removeAttr('disabled');
+		            $('#btnBank2').removeAttr('disabled');
 		        }
 		        else {
 		            $('#btnAccc').attr('disabled', 'disabled');
 		            $('#btnGqb').attr('disabled', 'disabled');
 		            $('#btnBank').attr('disabled', 'disabled');
+		            $('#btnBank2').attr('disabled', 'disabled');
 		        }
 		    }
 
@@ -569,6 +575,7 @@
 						<td class="td2" colspan="5"><textarea id="txtMemo" cols="5" rows="10" style="width: 98%;height: 50px;"> </textarea></td>
 						<td class="td7" ><input id="btnGqb" type="button" />
 										 <input id="btnBank" type="button" />
+										 <input id="btnBank2" type="button" />
 						</td>
 					</tr>
 				</table>
