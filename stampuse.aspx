@@ -25,7 +25,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             q_desc = 1;
-            brwCount2 = 20;
+            brwCount2 = 12;
             aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx']
             , ['txtRsssno', 'lblRsss', 'sss', 'noa,namea', 'txtRsssno,txtRnamea', 'sss_b.aspx']
             , ['txtTsssno', 'lblTsss', 'sss', 'noa,namea', 'txtTsssno,txtTnamea', 'sss_b.aspx']);
@@ -89,7 +89,8 @@
 					$('#stamp_td_'+ i).append($('.schema_lbl').clone().removeClass('schema_lbl').addClass('stamp_lbl').css('float','left').attr('id','stamp_lbl_'+i).html(t_stamp[i]).css('cursor','pointer').click(function(e){
 						if(q_cur==1 || q_cur==2){
 							if($(this).css('color').toUpperCase().replace(/ /g,'')=='RGB(0,0,0)'){
-								$(this).prev().eq(0).prop('checked',!$(this).prev().eq(0).prop('checked'));
+								if($(this).prev().eq(0).attr('disabled')=='')
+									$(this).prev().eq(0).prop('checked',!$(this).prev().eq(0).prop('checked'));
 								var string = '';
 				            	for(var i in t_stamp){
 				            		if($('#stamp_chk_'+ i).prop('checked'))
@@ -138,6 +139,10 @@
 								$('#stamp_chk_'+ n).prop('checked',true);
 						}
                 	}
+                }
+                if(q_cur==2 && !($('#txtRdate').val().length==0 && $('#txtTdate').val().length==0)){
+                	$('.stamp_chk').attr('disabled','disabled');
+                	$('#cmbCno').attr('disabled','disabled');
                 }
             }
 
