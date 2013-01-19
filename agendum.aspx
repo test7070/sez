@@ -392,9 +392,13 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
-						<td class="td2"colspan="2"><input type="text" id="txtMoney" class="txt num c1"/></td>	
+						<td class="td2"><input type="text" id="txtMoney" class="txt num c1"/></td>
+						<td class="td1"><span> </span><a id='lblCost' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtCost" class="txt num c1"/></td>	
 					</tr>
 					<tr>
+						<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
+						<td class="td2"colspan="2"><input type="text" id="txtMoney" class="txt num c1"/></td>
 						<td class="td1"><span> </span><a id='lblCost' class="lbl"> </a></td>
 						<td class="td2"colspan="2"><input type="text" id="txtCost" class="txt num c1"/></td>	
 					</tr>

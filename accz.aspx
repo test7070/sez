@@ -41,7 +41,7 @@
 
 
         function mainPost() { 
-        	bbmMask = new array(['txtDatea', r_picd]);
+        	 bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
         }
 
