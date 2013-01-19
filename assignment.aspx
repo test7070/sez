@@ -27,7 +27,7 @@
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'datea';
+            brwKey = 'noa';
 			brwCount2 = 10;
             
             $(document).ready(function() {
@@ -333,12 +333,14 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width：100px;color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:5%; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width：35%;color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width：60%;color:black;"><a id='vewItem'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="Noa" style="text-align: center;">~noa</td>
+						<td id="Item" style="text-align: center;">~item</td>
 					</tr>
 				</table>
 			</div>
