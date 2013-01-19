@@ -40,7 +40,7 @@
 
 
         function mainPost() { 
-			q_getfromat();
+			q_getFormat();
         	bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
         }
