@@ -174,11 +174,13 @@
                                 t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
                             }
                             q_cmbParse("cmbPartno", t_item,'s');
-                            /*for (var i = 0; i < q_bbsCount; i++) {
-                            	if(abbs[i]==undefined)
-                            		break;
-                            	alert(abbs[i].partno+'__'+abbs.length);
-                            	$("#cmbPartno_"+i).val(abbs[i].partno);
+                            /*var n = 0;
+                            for (var i in abbs) {
+                            	if(abbs[i].noa==$('#txtNoa').val()){
+                            		alert(abbs[i].partno);
+                            		$("#cmbPartno_"+n).val(abbs[i].partno);	
+                            		n++;
+                            	}                        	
                             }*/
                         }
                         break;
