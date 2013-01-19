@@ -338,8 +338,8 @@
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
-						<td id="Noa" style="text-align: center;">~noa</td>
-						<td id="Item" style="text-align: center;">~item</td>
+						<td id="noa" style="text-align: center;">~noa</td>
+						<td id="item" style="text-align: center;">~item</td>
 					</tr>
 				</table>
 			</div>
