@@ -376,12 +376,13 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblComp' class="lbl"> </a></td>
 						<td class="td2"colspan="2"><input type="text" id="txtComp" class="txt c1"/></td>	
+						<td class="td3"><input type="button" id="btnInput" /></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
 						<td class="td2"colspan="2"><input type="text" id="txtCustno" style="width: 30%;"/>
 							<input type="text" id="txtCust" style="width: 70%;"/>
-						</td>	
+						</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblOdate' class="lbl"> </a></td>

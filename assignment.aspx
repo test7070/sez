@@ -333,8 +333,8 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width：35%;color:black;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width：60%;color:black;"><a id='vewItem'> </a></td>
+						<td align="center" style="width：25%;color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width：55%;color:black;"><a id='vewItem'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
