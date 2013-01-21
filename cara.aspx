@@ -17,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "cara";
-            var q_readonly = ['txtNoa','txtIprev','txtInterest','txtItotal','txtTotal','txtPaytotal','txtBprev','txtBin','txtBtotal','txtDatea'];
+            var q_readonly = ['txtNoa','txtIprev','txtInterest','txtItotal','txtTotal','txtPaytotal','txtBprev','txtBin','txtBtotal'];
             var q_readonlys = ['txtCaritem'];
             var bbmNum = [['txtIprev', 15, 0, 1],['txtIset', 15, 0, 1],['txtBprev', 15, 0, 1],['txtInterest', 15, 0, 1],['txtBin', 15, 0, 1],['txtItotal', 15, 0, 1],['txtBtotal', 15, 0, 1],['txtTotal', 15, 0, 1],['txtPaytotal', 15, 0, 1]];
             var bbsNum = [['txtOutmoney', 15, 0, 1],['txtInmoney', 15, 0, 1],['txtCost', 15, 0, 1]];
@@ -62,7 +62,7 @@
                 bbmMask = [['txtDatea', r_picd],['txtMon', r_picm],['txtPdate', r_picd]];
                 q_mask(bbmMask);
 				bbsMask = [['txtDatea', r_picd],['txtIndate', r_picd],['txtPdate', r_picd],['txtUdate', r_picd],['txtPaydate', r_picd]];
-                q_mask(bbsMask);
+                //q_mask(bbsMask);
                 $('#textNextmon').mask('999/99');
                 $('#textDiscount').mask('999');
                 q_cmbParse("cmbIsource", q_getPara('cara.isource'));
