@@ -127,8 +127,8 @@
             	case 'carc_caras':
             	var caras = _q_appendData("caras", "", true);
             	for (var i = 0; i < caras.length; i++) {
-            		if(dec(caras[i].pay)>0)
-                    	caras[i]._outmoney=caras[i].pay
+            		if(dec(caras[i].cost)>0)
+                    	caras[i]._outmoney=caras[i].cost
                     else
                     	caras[i]._outmoney=caras[i].outmoney
             	}
