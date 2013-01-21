@@ -28,7 +28,8 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx']);
+            aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtCust', 'cust_b.aspx'],
+            ['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -77,12 +78,6 @@
             function btnOk() {
             	if($.trim($('#txtNick').val()).length==0)
             		$('#txtNick').val($('#txtComp').val());
-            	if(!q_cd($('#txtDatea').val())){
-            		alert(q_getMsg('lblDatea')+'錯誤。');
-            		return;
-            	}
-            	if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()))
-                    alert(q_getMsg('lblMon')+'錯誤。');	
             	
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
@@ -370,12 +365,9 @@
 						<td class="td2" colspan="2"><input type="text" id="txtItem" class="txt c1"/></td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblTggno' class="lbl"> </a></td>
-						<td class="td2" ><input type="text" id="txtTggno" class="txt c1"/></td>	
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id='lblComp' class="lbl"> </a></td>
-						<td class="td2"colspan="2"><input type="text" id="txtComp" class="txt c1"/></td>	
+						<td class="td1"><span> </span><a id='lblTggno' class="lbl btn"> </a></td>
+						<td class="td2"colspan="2"><input type="text" id="txtTggno" style="width: 30%;"/>
+							<input type="text" id="txtComp" style="width: 70%;"/></td>	
 						<td class="td3"><input type="button" id="btnInput" /></td>
 					</tr>
 					<tr>

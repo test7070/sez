@@ -75,13 +75,8 @@
             function btnOk() {
             	if($.trim($('#txtNick').val()).length==0)
             		$('#txtNick').val($('#txtComp').val());
-            	if(!q_cd($('#txtDatea').val())){
-            		alert(q_getMsg('lblDatea')+'錯誤。');
-            		return;
-            	}
-            	if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()))
-                    alert(q_getMsg('lblMon')+'錯誤。');	
-            	
+ 
+
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
@@ -90,10 +85,10 @@
                 sum();
                 $('#txtWorker').val(r_name);
                 
+               
                 var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtDatea').val());
-                if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_assignmeny') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                if (t_noa.length == 0)
+                    return;
                 else
                     wrServer(t_noa);
             }
@@ -105,15 +100,16 @@
             }
             function btnIns() {
                 _btnIns();
-                $('#txtNoa').val('AUTO');
+               $('#txtNoa').focus();
                 $('#txtDatea').val(q_date());
-                $('#txtItem').focus();
+                
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();           
-                $('#txtDatea').focus();
+                $('#txtNoa').attr('readonly','readonly');
+                $('#txtItem').focus();
             }
             function btnPrint() {
             	//q_box('z_vcctran.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()), '', "90%", "650px", m_print);
@@ -149,6 +145,7 @@
             function sum() {
             	if(!(q_cur==1 || q_cur==2))
 					return;
+					
             }
             function refresh(recno) {
                 _refresh(recno);
