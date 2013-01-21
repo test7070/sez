@@ -60,7 +60,7 @@
             			alert('請先輸入單據月份');
             			return;
             		}
-		            var t_where = "where=^^ mon ='"+$('#txtMon').val()+"' and (a.fareyn!='Y' or a.fareyn is null) and (";
+		            var t_where = "where=^^ mon ='"+$('#txtMon').val()+"' and (a.udate='' or a.udate is null) and (";
 		            if($('#chkInsure')[0].checked==true)
 		            {
 		            	t_where+="caritemno='306' or ";
