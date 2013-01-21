@@ -52,8 +52,10 @@
             	q_box("accza.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" , '', "95%", "650px", q_getMsg('popOrde'));
             })
             $('#btnCommand1').click(function () {
-            	
             	q_box("acczs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" +  r_accy , '', "95%", "650px", q_getMsg('popOrde'));
+            })
+            $('#btnCommand2').click(function () {
+				q_box('z_accz.aspx' + "?;;;;" + r_accy, '', '95%', '650px', q_getMsg("popPrint"));
             })
             $('#txtNoa').change(function(){
             	var s1 = trim($(this).val());
@@ -161,7 +163,7 @@
         }
 
         function btnPrint() {
- 
+			q_box('z_accz.aspx' + "?;;;;" + r_accy, '', '95%', '650px', q_getMsg("popPrint"));
         }
         function btnOk() {
             if (!q_cd($('#txtIndate').val())) {
