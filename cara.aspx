@@ -353,7 +353,14 @@
                 else
                 	wrServer(s1);
             }
-
+			
+			function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                abbm[q_recno]['accno'] = xmlString;
+                $('#txtAccno').val(xmlString);
+            }
+			
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
