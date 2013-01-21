@@ -27,7 +27,7 @@
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'Datea';
+            brwKey = 'Noa';
             aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,zip_invo,addr_invo,serial', 'txtCustno,txtComp,txtNick,txtZip,txtAddress,txtSerial', 'cust_b.aspx'], ['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp', 'txtBuyerno,txtBuyer', 'cust_b.aspx'], ['txtProductno_', 'btnProductno_', 'ucca', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucca_b.aspx']);
             q_xchg = 1;
             brwCount2 = 20;
@@ -104,11 +104,6 @@
                 $('#txtTax').change(function() {
                     sum();
                 });
-                $('#txtSerial').change(function(e) {
-                    $('#txtSerial').val($.trim($('#txtSerial').val()));
-                    if($('#txtSerial').val().length>0 && checkId($('#txtSerial').val())!=2)
-                    	alert(q_getMsg('lblSerial')+'錯誤。');
-                });
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
                 });
@@ -174,7 +169,6 @@
                 $('#txtMon').val($.trim($('#txtMon').val()));
                 if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()))
                     alert(q_getMsg('lblMon')+'錯誤。');
-            
                 $('#txtWorker' ).val(r_name);
                 sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCno', q_getMsg('lblAcomp')]]);
@@ -580,7 +574,7 @@
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:120px; color:black;"><a id='vewNoa'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewNick'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewBuyer'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMoney'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTax'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTotal'> </a></td>
@@ -592,7 +586,7 @@
 						</td>
 						<td id='noa' style="text-align: center;">~noa</td>
 						<td id='datea' style="text-align: center;">~datea</td>
-						<td id='nick' style="text-align: left;">~nick</td>
+						<td id='buyer,4' style="text-align: left;">~buyer,4</td>
 						<td id='money,0,1' style="text-align: right;">~money,0,1</td>
 						<td id='tax,0,1' style="text-align: right;">~tax,0,1</td>
 						<td id='total,0,1' style="text-align: right;">~total,0,1</td>
@@ -627,6 +621,17 @@
 						</td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
+						<td>
+						<input id="txtSerial" type="text" class="txt c1"/>
+						</td>
+						<td><span> </span><a id='lblBuyer' class="lbl btn"> </a></td>
+						<td colspan="3">
+						<input id="txtBuyerno"  type="text"  style="float:left; width:30%;"/>
+						<input id="txtBuyer" type="text"  style="float:left; width:70%;"/>
+						</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
 						<td colspan="3">
 						<input id="txtCustno" type="text" style="float:left; width:30%;">
@@ -655,17 +660,6 @@
 						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
 						<td>
 						<input id="txtTotal"  type="text"  class="txt num c1"/>
-						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
-						<td>
-						<input id="txtSerial" type="text" class="txt c1"/>
-						</td>
-						<td><span> </span><a id='lblBuyer' class="lbl btn"> </a></td>
-						<td colspan="3">
-						<input id="txtBuyerno"  type="text"  style="float:left; width:30%;"/>
-						<input id="txtBuyer" type="text"  style="float:left; width:70%;"/>
 						</td>
 					</tr>
 					<tr>

@@ -9,19 +9,21 @@
     <script src="../script/qbox.js" type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
-    
     <script type="text/javascript">
         this.errorHandler = null;
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="accz";
-        var q_readonly = [];
-        var bbmNum = []; 
+        var q_readonly = ['txtYear_depl','txtTotal'];
+        var bbmNum = [['txtMoney',14, 0, 1],['txtFixmoney',14, 0, 1],['txtAccumulat',14, 0, 1],['txtYear_depl',14, 0, 1],['txtEndvalue',14, 0, 1],['txtTotal',14, 0, 1],['txtScrapvalue',14, 0, 1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-
+        aPop = new Array(
+        	['txtNoa', 'lblNoa', 'acc', 'acc1,acc2', 'txtNoa,txtNamea', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+        	['txtDepl_ac', 'lblAcc', 'acc', 'acc1,acc2', 'txtDepl_ac,txtNamea2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+        );
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -50,12 +52,76 @@
             	q_box("accza.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" , '', "95%", "650px", q_getMsg('popOrde'));
             })
             $('#btnCommand1').click(function () {
-            	
             	q_box("acczs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" +  r_accy , '', "95%", "650px", q_getMsg('popOrde'));
             })
-            
+            $('#btnCommand2').click(function () {
+				q_box('z_accz.aspx' + "?;;;;" + r_accy, '', '95%', '650px', q_getMsg("popPrint"));
+            })
+            $('#txtNoa').change(function(){
+            	var s1 = trim($(this).val());
+            	if(s1.length > 4 && s1.indexOf('.') <0)
+            		$(this).val(s1.substr(0,4) + '.' + s1.substr(4));
+            	if(s1.length == 4)
+            		$(this).val(s1 + '.');
+            })
+            $('#txtDepl_ac').change(function(){
+            	var s1 = trim($(this).val());
+            	if(s1.length > 4 && s1.indexOf('.') <0)
+            		$(this).val(s1.substr(0,4) + '.' + s1.substr(4));
+            	if(s1.length == 4)
+            		$(this).val(s1 + '.');
+            })
+            $('#txtMoney').change(function(){
+            	if(!emp($(this).val()) && $('#txtFixmoney').val() > 0 )
+            		alert(q_getMsg('lblMoney') + ' ' + q_getMsg('lblFixmoney') + '不可同時存在。');
+            	sum();
+            })
+            $('#txtFixmoney').change(function(){
+            	if(!emp($(this).val()) && $('#txtMoney').val() > 0)
+            		alert(q_getMsg('lblMoney') + ' ' + q_getMsg('lblFixmoney') + '不可同時存在。');
+            	sum();
+            })
+            $('#txtAccumulat').change(function(){
+            	sum();
+            })
+            $('#txtYear').change(function(){
+            	sum();
+            })
+            $('#txtEndvalue').change(function(){
+            	sum();
+            })
+            $('#txtRate').change(function(){
+            	var rate = trim($(this).val().valueOf());
+            	if(rate >=0 && rate <= 1){
+            		if(rate.indexOf('.') < 0)
+            			$(this).val(rate + '.00');
+            		else{
+	            		if(rate.length == 3)
+	            			$(this).val(rate + '0');
+	            		else if(rate.length <3)
+	            			$(this).val(rate + '00');
+	            	}
+            	}else{
+            		alert(q_getMsg('lblRate') + '提撥率應介於 0 ~ 1 之間');
+            		$(this).val('1.00');
+            	}
+            })
         }
-
+		function sum(){
+			var endvalue = 0;
+			var money = trim($('#txtMoney').val());
+			var fixmoney = trim($('#txtFixmoney').val());
+			var year = trim($('#txtYear').val());
+			var accumulat = trim($('#txtAccumulat').val());
+			var year_depl = trim($('#txtYear_depl').val());
+			var total = 0;
+			if(year > 0 && !($('#chkIsdepl')[0].checked==true)){
+				endvalue = (money + fixmoney)/(year+1);
+			}	
+			$('#txtEndvalue').val(endvalue.toFixed(0));
+			total = money + fixmoney-accumulat-year_depl;
+			$('#txtTotal').val(total);
+		}
         function q_boxClose( s2) {
             var ret; 
             switch (b_pop) {
@@ -86,17 +152,18 @@
             _btnIns();
             $('#txtNoa').focus();
             $('#txtIndate').val(q_date());
+            $('#txtRate').val('1.00');
         }
 
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
-
             _btnModi();
+            $('#txtNoa').focus();
         }
 
         function btnPrint() {
- 
+			q_box('z_accz.aspx' + "?;;;;" + r_accy, '', '95%', '650px', q_getMsg("popPrint"));
         }
         function btnOk() {
             if (!q_cd($('#txtIndate').val())) {
@@ -299,7 +366,10 @@
             }
     </style>
 </head>
-<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
         <div class="dview" id="dview" style="float: left;  width:25%;"  >
@@ -321,7 +391,7 @@
         <div class='dbbm' style="width: 73%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
             <tr>
-               <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
+               <td class="td1"><span> </span><a id='lblNoa' class="lbl btn"></a></td>
                <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
                <td class="td3" align="right"><input id="chkIsdepl" type="checkbox" /></td>
                <td class="td4"><a id="lblDepl_ac"></a></td>
@@ -374,15 +444,15 @@
             </tr>  
 	    <tr>
                <td class="td1"><span> </span><a id='lblYear' class="lbl"></a></td>
-               <td class="td2"><input id="txtYear"  type="text" class="txt c1"/></td>
+               <td class="td2"><input id="txtYear"  type="text" class="txt num c1"/></td>
                <td class="td3"></td>
                <td class="td4"></td>
 	           <td class="td5"></td>               
                <td class="td6"></td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblEndvalu' class="lbl"></a></td>
-               <td class="td2"><input id="txtEndvalu"  type="text" class="txt num c1" /></td>
+               <td class="td1"><span> </span><a id='lblEndvalue' class="lbl"></a></td>
+               <td class="td2"><input id="txtEndvalue"  type="text" class="txt num c1" /></td>
                <td class="td3"></td>
                <td class="td4"></td>
 	           <td class="td5"></td>
@@ -415,7 +485,7 @@
             </tr> 
             <tr>
                <td class="td1"><span> </span><a id='lblScrapvalue' class="lbl"></a></td>
-               <td class="td2"><input id="txtScrapvalue"  type="text" class="txt c1" /></td>
+               <td class="td2"><input id="txtScrapvalue"  type="text" class="txt num c1" /></td>
                <td class="td3"><span> </span><a id="lblNscrapvalue" class="lbl"></a></td>
                <td class="td4"><input id="btnCommand2" type="button"  /></td>
                <td class="td5"></td>

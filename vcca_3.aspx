@@ -23,7 +23,7 @@
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'Datea';
+            brwKey = 'Noa';
             aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
             ,['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']        
             ,['txtSerial', 'lblSerial', 'vccabuyer', 'serial,buyer', 'txtSerial,txtBuyer', 'vccabuyer_b.aspx']
@@ -180,7 +180,6 @@
                     alert(q_getMsg('lblNoa')+'錯誤。');
                     return;
                 }
-      
                 $('#txtWorker' ).val(  r_name);           
             	sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCno', q_getMsg('lblAcomp')]]);

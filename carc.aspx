@@ -17,7 +17,7 @@
         q_desc=1;
         q_tables = 's';
         var q_name = "carc";
-        var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2'];
+        var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2','txtMon','txtPaybno','txtAccno'];
         var q_readonlys = ['txtCarownerno','txtCarowner','txtCarno','txtCaradate','txtCaritemno','txtCaritem','txtOutmoney','txtInmoney','txtMemo','txtCarano','txtCaranoq'];
         var bbmNum = [['txtTotal',14, 0, 1]];  
         var bbsNum = [['txtOutmoney',14, 0, 1],['txtInmoney',14, 0, 1]];
@@ -60,7 +60,7 @@
             			alert('請先輸入單據月份');
             			return;
             		}
-		            var t_where = "where=^^ mon ='"+$('#txtMon').val()+"' and (a.fareyn!='Y' or a.fareyn is null) and (";
+		            var t_where = "where=^^ mon ='"+$('#txtMon').val()+"' and (a.udate='' or a.udate is null) and (";
 		            if($('#chkInsure')[0].checked==true)
 		            {
 		            	t_where+="caritemno='306' or ";
@@ -96,11 +96,18 @@
              });
                $('#lblPaybno').click(function() {
 		     		t_where = "noa='" + $('#txtPaybno').val() + "'";
-            		q_box("paytran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "650px", q_getMsg('popPaytran'));
+            		q_box("payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "650px", q_getMsg('popPaytran'));
              });
              $('#txtAcdate').focusout(function() {
 	             $('#txtMon').val($(this).val().substr(0,6));
              });
+             $('#txtAcc1').change(function () {
+			 	var s1 = trim($(this).val());
+			    if (s1.length > 4 && s1.indexOf('.') < 0)
+			    	$(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
+			    if (s1.length == 4)
+			        $(this).val(s1 + '.');
+			 });
  
         }
 
@@ -216,6 +223,9 @@
             $('#txtMon').val(q_date().substr(0,6));
             $('#txtPaydate').val(q_date());
             $('#txtAcdate').val(q_date());
+            $('#txtAcc1').val('2195.16');
+            $('#txtAcc2').val('代付款項-監理部');
+            
             /*$('#chkInsure')[0].checked=true;
             $('#chkFuel')[0].checked=true;
             $('#chkLicense')[0].checked=true;
@@ -280,8 +290,11 @@
 		function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
-                abbm[q_recno]['accno'] = xmlString;
-                $('#txtAccno').val(xmlString);
+				var s2 = xmlString.split(';');
+                abbm[q_recno]['accno'] = s2[0];
+                abbm[q_recno]['paybno'] = s2[1];
+                $('#txtAccno').val(s2[0]);
+                $('#txtPaybno').val(s2[1]);
             }
         function q_appendData(t_Table) {
             return _q_appendData(t_Table);
@@ -484,7 +497,10 @@
             }
     </style>
 </head>
-<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 <!--#include file="../inc/toolbar.inc"-->
     <div id='dmain' >
         <div class="dview" id="dview" style="float: left;  width:25%;"  >
@@ -515,8 +531,8 @@
        <tr class="tr2">
             <td class='td1'><span> </span><a id="lblAcdate" class="lbl"></a></td>
             <td class='td2'><input id="txtAcdate" type="text" class="txt c1"/></td>
-            <td class='td1'></td>
-            <td class='td2'><input id="txtMon" type="hidden" class="txt c1" /></td>
+            <td class='td1'><span> </span><a id="lblMon" class="lbl"></a></td>
+            <td class='td2'><input id="txtMon" type="text" class="txt c1" /></td>
        </tr>
        <tr class="tr3">
             <td class='td1'><span> </span><a id="lblTggno" class="lbl btn"></a></td>
@@ -524,7 +540,7 @@
             							<input id="txtComp"  type="text" class="txt c3" />
             </td>							
             <td class='td3'><span> </span><a id="lblPaybno" class="lbl btn"></a></td>
-            <td class='td4'><input id="txtPaybno"  type="hidden" class="txt c1" /></td>
+            <td class='td4'><input id="txtPaybno"  type="text" class="txt c1" /></td>
        </tr>
        <tr class="tr4">           
 			<td class='td3'><span> </span><a id="lblAcc1" class="lbl btn"></a></td>
@@ -555,7 +571,7 @@
             	<input id="txtPaydate" type="text" class="txt c1"/>
             </td>
          	<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
-			<td><input id="txtAccno"  type="hidden"  class="txt c1"/></td>
+			<td><input id="txtAccno"  type="text"  class="txt c1"/></td>
        </tr>
        <tr class="tr7">
        		<td class="td1"><span> </span><a id="lblTotal" class="lbl"> </a></td>

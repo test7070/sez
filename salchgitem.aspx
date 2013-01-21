@@ -21,6 +21,8 @@
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6;brwCount2 = 20; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
+        aPop = new Array(['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+        
         //ajaxPath = ""; //  execute in Root
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -322,6 +324,13 @@
                <td class="td4"></td>  
                <td class="td5"></td>
             </tr>
+            <tr>
+				<td class="td1"><span> </span><a id="lblAcc" class="lbl btn" >  </a></td>
+				<td class="td2"  colspan="2">
+				<input id="txtAcc1" type="text"  class="txt c2"/>
+				<input id="txtAcc2"  type="text"  class="txt c3"/>
+				</td>
+			</tr>
         </table>
         </div>
         </div> 
