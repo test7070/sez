@@ -28,7 +28,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            
+            aPop = new Array(['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -363,12 +363,10 @@
 						<td class="td2" colspan="2"><input type="text" id="txtItem" class="txt c1"/></td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblTggno' class="lbl"> </a></td>
-						<td class="td2" ><input type="text" id="txtTggno" class="txt c1"/></td>	
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id='lblComp' class="lbl"> </a></td>
-						<td class="td2"colspan="2"><input type="text" id="txtComp" class="txt c1"/></td>	
+						<td class="td1"><span> </span><a id='lblTggno' class="lbl btn"> </a></td>
+						<td class="td2"colspan="2"><input type="text" id="txtTggno" style="width: 30%;"/>
+							<input type="text" id="txtComp" style="width: 70%;"/>
+						</td>	
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
