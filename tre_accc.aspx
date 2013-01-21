@@ -107,6 +107,18 @@
 
 
 		    function q_funcPost(t_func, result) {
+		        
+		        var s1 = location.href;
+		        var t_path = (s1.substr(7, 5) == 'local' ? xlsPath : s1.substr(0, s1.indexOf('/', 10)) + '/htm/');
+		        if (t_func == 'banktran.gen') {
+		            window.open(t_path + 'obtdta.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
+		            return;
+		        }
+		        if (t_func == 'banktran.gen2') {
+		            window.open(t_path + 'obtdta2.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
+		            return;
+		        }
+
 		    	
 		        if (result.length > 0) {
 		            var s2 = result.split(';');
@@ -175,18 +187,20 @@
 
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
-		            case 'carteam':     
-		              var as = _q_appendData("carteam", "", true);     
-		            	var t_item = "";     
-		               for( i = 0; i < as.length; i++) {     
-		                  t_item = t_item + (t_item.length>0?',':'') + as[i].noa +'@' + as[i].team;     
-		             }     
-		            q_cmbParse("cmbCarteamno", t_item);
-		            //q_cmbParse("cmbCarteamno2", t_item);      
-		            $("#cmbCarteamno").val( abbm[q_recno].carteamno);  
-		            //$("#cmbCarteamno2").val(abbm[q_recno].carteamno); 
-		            q_gridv('tview', browHtm, fbrow, abbm, aindex, brwNowPage, brwCount);                    
-		             break;   
+		            case 'carteam':
+		                var as = _q_appendData("carteam", "", true);
+		                var t_item = "";
+		                for (i = 0; i < as.length; i++) {
+		                    t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+		                }
+		                q_cmbParse("cmbCarteamno", t_item);
+		                //q_cmbParse("cmbCarteamno2", t_item);      
+		                $("#cmbCarteamno").val(abbm[q_recno].carteamno);
+		                
+		                //$("#cmbCarteamno2").val(abbm[q_recno].carteamno); 
+		                q_gridv('tview', browHtm, fbrow, abbm, aindex, brwNowPage, brwCount);
+		                refresh(q_recno);
+		                break;   
 		            case q_name:
 		                if (q_cur == 4)
 		                    q_Seek_gtPost();
@@ -584,3 +598,4 @@
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
+
