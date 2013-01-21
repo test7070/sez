@@ -16,7 +16,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="salchg";
-        var q_readonly = ['txtNoa','txtWorker'];
+        var q_readonly = ['txtNoa','txtWorker','txtAccno'];
         var bbmNum = [['txtBorrow',15,0,1],['txtMinus',15,0,1],['txtPlus',15,0,1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -25,8 +25,9 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
-            q_gt(q_name, q_content, q_sqlCount, 1)
+            //q_gt(q_name, q_content, q_sqlCount, 1)
             $('#txtNoa').focus
+            q_gt('authority', "where=^^a.noa='sss' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
         });
 
         //////////////////   end Ready
@@ -53,7 +54,9 @@
 			});
 			
 			q_gt('salchgitem', '', 0, 0, 0, "");
-
+			$('#lblAccno').click(function () {
+	            	q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+	       	});
         }
 
         function q_boxClose( s2) { 
@@ -68,6 +71,15 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'authority':
+                        var as = _q_appendData('authority', '', true);
+                        if (as.length > 0 && as[0]["pr_dele"] == "true")
+                            q_content = "";
+                        else
+                            q_content = "where=^^sssno='" + r_userno + "'^^";
+
+                        q_gt(q_name, q_content, q_sqlCount, 1)
+                        break;
             	case 'salchgitem':
 						var as = _q_appendData("salchgitem", "", true);
                         var t_item = " @ ";
@@ -405,8 +417,8 @@
                         <tr>
                             <td class="td1"><span> </span><a id='lblBorrow' class="lbl"></a></td>
                             <td class="td2"><input id="txtBorrow"  type="text" class="txt num c1" /></td>
-                            <td class="td3"></td>
-                            <td class="td4"></td>
+                            <td class="td3"><span> </span><a id='lblAccno' class="lbl btn"></a></td>
+							<td class="td4"><input id="txtAccno"  type="text" class="txt c1"/></td>
                             <td class="td5"></td>
                         </tr>
                      <tr>

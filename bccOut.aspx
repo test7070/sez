@@ -26,7 +26,7 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         aPop = new Array(['txtSno', 'lblSname', 'sss', 'noa,namea,partno,part', 'txtSno,txtSname,txtPartno,txtPart', 'sss_b.aspx'],
         ['txtPartno','lblPart','part','noa,part','txtPartno,txtPart','part_b.aspx'],
-        ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product,stkmount', 'txtBccno_,txtBccname_,txtStkmount_,txtMount_', 'bcc_b.aspx']);
+        ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product', 'txtBccno_,txtBccname_', 'bcc_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -181,7 +181,7 @@
         	for(var j = 0; j < q_bbsCount; j++) {
         		$('#lblNo_'+j).text(j+1);	
             	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-            		$('#txtMount_' + j).change(function () {
+            		/*$('#txtMount_' + j).change(function () {
 						t_IdSeq = -1;
 						q_bodyId($(this).attr('id'));
 						b_seq = t_IdSeq;
@@ -191,7 +191,7 @@
 							$('#txtMount_'+b_seq).val('0');
 							return;
 						}
-				    });
+				    });*/
 				}
 			}
             _bbsAssign();
@@ -525,7 +525,7 @@
 				</td>
 				<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
                 <td ><input id="txtBccno.*" type="text" style="width: 70%;"/><input id="btnBccno.*" type="button" value="." style="width: auto;font-size: medium;" /></td>
-                <td ><input class="txt c1" id="txtBccname.*"type="text" /><input class="txt c1" id="txtStkmount.*"type="hidden" /><input class="txt c1" id="txtStkmoney.*"type="hidden" /></td>
+                <td ><input class="txt c1" id="txtBccname.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtBkbcc.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
