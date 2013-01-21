@@ -73,7 +73,7 @@
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
 
                 $('#lblAccno').click(function() {
-                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3)+ '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3)+ '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "600px", q_getMsg('popAccc'), true);
                 });
 
                 $('#lblVccano').click(function() {
@@ -81,7 +81,7 @@
                     var tmp = $('#txtVccano').val().split(',');
                     for (var i in tmp)
                     t_where += (t_where.length > 0 ? ' or ' : '') + "noa='" + tmp[i] + "'";
-                    q_pop('txtVccano', "vcca_2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno, 'vcca', 'noa', 'datea', "92%", "1054px", q_getMsg('popVcca'), true);
+                    q_pop('txtVccano', "vcca_2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno+";origin=trd&orgcustno="+$('#txtCustno').val(), 'vcca', 'noa', 'datea', "92%", "600px", q_getMsg('popVcca'), true);
                 });
 
                 $('#cmbTrtype').focus(function() {
@@ -195,7 +195,7 @@
                         t_vccano = 'vccano=' + t_vccano;
                     }
                     /*未請款發票才抓*/
-                    t_where = "  custno='" + $('#txtCustno').val() + "' and len(isnull(accno,''))=0 and len(isnull(vccno,''))=0 and (trdno='" + $('#txtNoa').val() + "' or len(isnull(trdno,''))=0) ";
+                    t_where = "  buyerno='" + $('#txtCustno').val() + "' and len(isnull(vccno,''))=0 and (trdno='" + $('#txtNoa').val() + "' or len(isnull(trdno,''))=0) ";
                     q_box("vcca_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_vccano + ";", 'vcca1', "95%", "650px", q_getMsg('popVcca'));
                 });
             }
