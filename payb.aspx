@@ -643,9 +643,9 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblTgg"  class="lbl btn"> </a></td>
-						<td colspan="2">
-						<input id="txtTggno" type="text" style="float:left; width:30%;"/>
-						<input id="txtComp"  type="text" style="float:left; width:70%;"/>
+						<td colspan="3">
+						<input id="txtTggno" type="text" style="float:left; width:20%;"/>
+						<input id="txtComp"  type="text" style="float:left; width:80%;"/>
 						<input id="txtNick"  type="text" style="display:none;"/>
 						</td>
 						<td>
@@ -653,7 +653,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblPayc' class="lbl"> </a></td>
+						<td><span> </span><a id='lblPayc' class="lbl"></a></td>
 						<td colspan="2">
 							<input id="txtPayc" type="text" style="float:left; width:50%;"/>
 							<input id="txtPaydate" type="text" style="float:left; width:50%;"/>
@@ -711,13 +711,12 @@
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:120px;">#<a id='lblRc2no'> </a></td>
 					<td align="center" style="width:60px;">#<a id='lblKind'> </a></td>
-					<td align="center" style="width:120px;">#<a id='lblInvonos'> </a>/<a id='lblTaxs'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblMount'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblPrice'> </a></td>
 					<td align="center" style="width:80px;">*<a id='lblMoneys'> </a></td>
+					<td align="center" style="width:120px;">#<a id='lblInvonos'> </a>/<a id='lblTaxs'> </a></td>
 					<td align="center" style="width:80px;">*<a id='lblTotals'> </a></td>
-					<td align="center" style="width:100px;">*<a id='lblMemos'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblBal'> </a></td>
+					<td align="center" style="width:150px;">*<a id='lblMemos'> </a></td>
+					<td align="center" style="width:120px;"><a id='lblBal'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td>
@@ -726,17 +725,19 @@
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td><input id="txtRc2no.*" type="text"  style="width: 95%;"/></td>
-					<td><select id="cmbKind.*" style="width: 95%;"> </select></td>
+					<td><select id="cmbKind.*" style="width: 95%;"> </select></td>	
+					<td>
+						<input id="txtMount.*" type="text" style="text-align: right; width: 95%;" />
+						<input id="txtPrice.*" type="text" style="text-align: right; width: 95%;" />
+					</td>
+					<td>
+						<input id="txtMoney.*" type="text" style="text-align: right; width: 95%;"/>
+						<input id="txtDiscount.*" type="text" style="text-align: right; width: 95%;" />
+					</td>
 					<td>
 						<input id="txtInvono.*" type="text" style="width: 95%;"/>
 						<input id="txtTax.*" type="text" style="text-align: right; width: 95%;" />
 					</td>
-					<td><input id="txtMount.*" type="text" style="text-align: right; width: 95%;" /></td>
-					<td>
-						<input id="txtPrice.*" type="text" style="text-align: right; width: 95%;" />
-						<input id="txtDiscount.*" type="text" style="text-align: right; width: 95%;" />
-					</td>
-					<td><input id="txtMoney.*" type="text" style="text-align: right; width: 95%;"/></td>
 					<td><input id="txtTotal.*" type="text" style="text-align: right; width: 95%;" /></td>
 					<td>
 						<input id="txtMemo.*" type="text" style=" width: 95%;"/>	

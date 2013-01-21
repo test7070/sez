@@ -10,7 +10,9 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             var q_name = "stampuse_s";
-            aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno', 'sss_b.aspx']);
+            aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno', 'sss_b.aspx']
+            , ['txtRsssno', 'lblRsss', 'sss', 'noa,namea', 'txtRsssno', 'sss_b.aspx']
+            , ['txtTsssno', 'lblTsss', 'sss', 'noa,namea', 'txtTsssno', 'sss_b.aspx']);
             $(document).ready(function() {
                 main();
             });
