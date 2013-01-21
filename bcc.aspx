@@ -228,7 +228,7 @@
                     return;
                 }
                 $('#txtBegindate').val($.trim($('#txtBegindate').val()));
-                if (checkId($('#txtBegindate').val()) == 0) {
+                if (!q_cd($('#txtBegindate').val())) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     return;
                 }
