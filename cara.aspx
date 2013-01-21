@@ -18,7 +18,7 @@
             q_tables = 's';
             var q_name = "cara";
             var q_readonly = ['txtNoa','txtIprev','txtInterest','txtItotal','txtTotal','txtPaytotal','txtBprev','txtBin','txtBtotal','txtDatea'];
-            var q_readonlys = [];
+            var q_readonlys = ['txtCaritem'];
             var bbmNum = [['txtIprev', 15, 0, 1],['txtIset', 15, 0, 1],['txtBprev', 15, 0, 1],['txtInterest', 15, 0, 1],['txtBin', 15, 0, 1],['txtItotal', 15, 0, 1],['txtBtotal', 15, 0, 1],['txtTotal', 15, 0, 1],['txtPaytotal', 15, 0, 1]];
             var bbsNum = [['txtOutmoney', 15, 0, 1],['txtInmoney', 15, 0, 1],['txtCost', 15, 0, 1]];
             var bbmMask = [];
@@ -411,6 +411,21 @@
            			}
            		}
                 _bbsAssign();
+                
+                //收款的資料禁止修改
+                if(q_cur==2){
+	                for(var j = 0; j < q_bbsCount; j++) {
+						if($('#txtUmmnoa_'+j).val()!=''){
+							$('#btnMinus_'+j).attr('disabled', 'disabled');
+							$('#txtNoq_'+j).attr('disabled', 'disabled');
+							$('#txtDatea_'+j).attr('disabled', 'disabled');
+							//$('#txtCaritemno_'+j).attr('disabled', 'disabled');
+							$('#txtOutmoney_'+j).attr('disabled', 'disabled');
+							$('#txtInmoney_'+j).attr('disabled', 'disabled');
+							$('#txtUdate_'+j).attr('disabled', 'disabled');
+						}
+					}
+                }
             }
 
             function btnIns() {
@@ -429,16 +444,16 @@
 				$('#txtCarowner').attr('disabled', 'disabled');
 				$('#txtCarno').attr('disabled', 'disabled');
 				$('#txtMon').attr('disabled', 'disabled');
-				
+				//收款的資料禁止修改
 				for(var j = 0; j < q_bbsCount; j++) {
-					if($('#txtUdate_'+j).val()!=''){
+					if($('#txtUmmnoa_'+j).val()!=''){
 						$('#btnMinus_'+j).attr('disabled', 'disabled');
 						$('#txtNoq_'+j).attr('disabled', 'disabled');
 						$('#txtDatea_'+j).attr('disabled', 'disabled');
-						$('#txtCaritemno_'+j).attr('disabled', 'disabled');
-						$('#txtCaritem_'+j).attr('disabled', 'disabled');
+						//$('#txtCaritemno_'+j).attr('disabled', 'disabled');
 						$('#txtOutmoney_'+j).attr('disabled', 'disabled');
 						$('#txtInmoney_'+j).attr('disabled', 'disabled');
+						$('#txtUdate_'+j).attr('disabled', 'disabled');
 					}
 				}
             }
@@ -964,6 +979,7 @@
 						</td>
 						<td >
 							<input id="txtNoq.*" type="text" class="txt c1"/>
+							<input id="txtUmmnoa.*" type="hidden"/>
 						</td>
 						<td >
 							<input id="txtCaritemno.*" type="text" class="txt c5"/>
