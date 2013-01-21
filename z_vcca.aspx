@@ -46,12 +46,6 @@
                         type : '1',
                         name : 'mon'
                     }, {/*2*/
-                        type : '2',
-                        name : 'cust',
-                        dbf : 'cust',
-                        index : 'noa,comp',
-                        src : 'cust_b.aspx'
-                    }, {/*3*/
                         type : '8',
                         name : 'xcno',
                         value : t_cno.split(',')
