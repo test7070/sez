@@ -20,7 +20,7 @@
             var q_readonly = ['txtNoa','txtIprev','txtInterest','txtItotal','txtTotal','txtPaytotal','txtBprev','txtBin','txtBtotal','txtDatea'];
             var q_readonlys = [];
             var bbmNum = [['txtIprev', 15, 0, 1],['txtIset', 15, 0, 1],['txtBprev', 15, 0, 1],['txtInterest', 15, 0, 1],['txtBin', 15, 0, 1],['txtItotal', 15, 0, 1],['txtBtotal', 15, 0, 1],['txtTotal', 15, 0, 1],['txtPaytotal', 15, 0, 1]];
-            var bbsNum = [['txtOutmoney', 15, 0, 1],['txtInmoney', 15, 0, 1],['txtPay', 15, 0, 1]];
+            var bbsNum = [['txtOutmoney', 15, 0, 1],['txtInmoney', 15, 0, 1],['txtCost', 15, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -34,7 +34,7 @@
 				['textBcarno', 'lblNextcarno', 'car2', 'a.noa,b.carowner', 'textBcarno', "car2_b.aspx?;;;a.carownerno!='' "],
 				['textEcarno', 'lblNextcarno', 'car2', 'a.noa,b.carowner', 'textEcarno', "car2_b.aspx?;;;a.carownerno!='' "],
 				['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
-				['txtCaritemno_', 'btnCaritem_', 'caritem', 'noa,item,typea,acc1,acc2', 'txtCaritemno_,txtCaritem_,txtTypea_,txtAcc1_,txtAcc2_,txtOutmoney_', 'caritem_b.aspx'], 
+				['txtCaritemno_', 'btnCaritem_', 'caritem', 'noa,item,acc1,acc2', 'txtCaritemno_,txtCaritem_,txtAcc1_,txtAcc2_,txtOutmoney_', 'caritem_b.aspx'], 
 				['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 			
 			//['textCarseek', 'lblCarseek', 'car2', 'a.noa,b.carowner', 'textCarseek', "car2_b.aspx"],
@@ -473,15 +473,15 @@
                 	//金額合計
                     t_total += dec($('#txtOutmoney_' + j).val()) - dec($('#txtInmoney_' + j).val());
                     //實際金額合計
-                    if(dec($('#txtPay_' + j).val())>0){
-                    	t_paytotal+=dec($('#txtPay_' + j).val()) - dec($('#txtInmoney_' + j).val());
+                    if(dec($('#txtCost_' + j).val())>0){
+                    	t_paytotal+=dec($('#txtCost_' + j).val()) - dec($('#txtInmoney_' + j).val());
                     }else{
                     	t_paytotal+=dec($('#txtOutmoney_' + j).val()) - dec($('#txtInmoney_' + j).val());
                     }
                     //本月息額
                     if($('#txtCaritemno_' + j).val()!='001'&&$('#txtCaritemno_' + j).val()!='002'&&$('#txtCaritemno_' + j).val()!='102'&&$('#txtCaritemno_' + j).val()!='201'&&$('#txtCaritemno_' + j).val()!='202'&&$('#txtCaritemno_' + j).val()!='203'&&$('#txtCaritemno_' + j).val()!='306'&&$('#txtCaritemno_' + j).val()!='401'){
-                    	if(dec($('#txtPay_' + j).val())>0){
-                    		t_interest+=dec($('#txtPay_' + j).val()) - dec($('#txtInmoney_' + j).val());
+                    	if(dec($('#txtCost_' + j).val())>0){
+                    		t_interest+=dec($('#txtCost_' + j).val()) - dec($('#txtInmoney_' + j).val());
 	                    }else{
 	                    	t_interest+=dec($('#txtOutmoney_' + j).val()) - dec($('#txtInmoney_' + j).val());
 	                    }
@@ -969,7 +969,6 @@
 							<input id="txtCaritemno.*" type="text" class="txt c5"/>
 							<input class="btn"  id="btnCaritem.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
 							<input id="txtCaritem.*" type="text" class="txt c1"/>
-							<input id="txtTypea.*" type="hidden"/>
 						</td>
 						<td ><input id="txtOutmoney.*" type="text" class="txt num c1"/></td>
 						<td ><input id="txtInmoney.*" type="text" class="txt num c1"/></td>
@@ -985,7 +984,7 @@
 						<td ><input id="txtMemo.*" type="text" class="txt c1"/></td>
 						<td ><input id="txtPaydate.*" type="text" class="txt c1"/></td>
 						<td ><input id="txtFareyn.*" type="text" class="txt c1"/></td>
-						<td ><input id="txtPay.*" type="text" class="txt num c1"/></td>
+						<td ><input id="txtCost.*" type="text" class="txt num c1"/></td>
 						<td >
 							<input id="txtAcc1.*" type="text"class="txt c5"/>
 							<input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
