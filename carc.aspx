@@ -96,7 +96,7 @@
              });
                $('#lblPaybno').click(function() {
 		     		t_where = "noa='" + $('#txtPaybno').val() + "'";
-            		q_box("paytran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "650px", q_getMsg('popPaytran'));
+            		q_box("payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "650px", q_getMsg('popPaytran'));
              });
              $('#txtAcdate').focusout(function() {
 	             $('#txtMon').val($(this).val().substr(0,6));
