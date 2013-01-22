@@ -185,8 +185,8 @@
 
 		    function bbsAssign() {
 		        for (var i = 0; i < q_bbsCount; i++) {
+		        	$('#lblNo_'+i).text(i+1);
 		            if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-		            	$('#lblNo_'+i).text(i+1);
 		                $('#cmbWtype_' + i).change(function (e) {
 		                    sum();
 		                });
