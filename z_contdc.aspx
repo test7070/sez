@@ -17,11 +17,11 @@
 		<script type="text/javascript">
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_trancont');
+                q_gf('', 'z_contdc');
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_trancont',
+                    fileName : 'z_contdc',
                     options : [{
                         type : '6',
                         name : 'xnoa'
