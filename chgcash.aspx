@@ -179,17 +179,6 @@
 		                    q_cmbParse("cmbPartno", t_item, 's');
 
 		                    refresh(q_recno);  /// 第一次需要重新載入
-		                    //isGtPost = true;
-		                    //bbsAssign();
-		                    //  alert('gtpost');
-		                    /*var n = 0;
-		                    for (var i in abbs) {
-		                    if(abbs[i].noa==$('#txtNoa').val()){
-		                    alert(abbs[i].partno);
-		                    $("#cmbPartno_"+n).val(abbs[i].partno);	
-		                    n++;
-		                    }                        	
-		                    }*/
 		                }
 		                break;
 		            case 'chgpart':
