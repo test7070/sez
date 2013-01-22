@@ -13,9 +13,8 @@
 			var q_name = "car2_s";
 			
 			aPop = [['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx'],
-			['txtCardealno', 'lblCardeal', 'cardeal', 'noa,comp', 'txtCardealno,txtCardeal', 'cardeal_b.aspx'], 
-						['txtCarownerno', 'lblCarowner', 'carowner', 'noa,namea', 'txtCarownerno,txtCarowner', 'carowner_b.aspx'], 
-				 		['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']];
+						['txtCarownerno', 'lblCarowner', 'carowner', 'noa,namea', 'txtCarownerno', 'carowner_b.aspx'], 
+				 		['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno', 'driver_b.aspx']];
 
 
 			$(document).ready(function() {
@@ -34,11 +33,23 @@
 
 				bbmMask = [['txtBindate', r_picd], ['txtEindate', r_picd]];
 				q_mask(bbmMask);
-				
+				q_gt('cardeal', '', 0, 0, 0, "");
 				q_cmbParse("cmbCartype", '@全部,'+q_getPara('car2.cartype'));
 				
 				$('#txtBindate').focus();
 			}
+			function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'cardeal':
+                        var t_cardeal = '@全部';
+                        var as = _q_appendData("cardeal", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_cardeal += (t_cardeal.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].nick;
+                        }
+                        q_cmbParse("cmbCardealno", t_cardeal);
+                        break;
+                }
+            }
 
 			function q_seekStr() {
 				t_noa = $('#txtNoa').val();
@@ -46,22 +57,20 @@
 				t_bindate = $('#txtBindate').val();
 				t_eindate = $('#txtEindate').val();
 				t_driverno = $('#txtDriverno').val();
-				t_driver = $('#txtDriver').val();
-				t_cardealno = $('#txtCardealno').val();
-				t_cardeal = $('#txtCardeal').val();
+
+				
+				t_cardealno = $('#cmbCardealno').val();
+
 				t_carownerno = $('#txtCarownerno').val();
-				t_carowner = $('#txtCarowner').val();
+
 				t_cartype = $('#cmbCartype').val();
-				t_bindate = t_bindate.length > 0 && t_bindate.indexOf("_") > -1 ? t_bindate.substr(0, t_bindate.indexOf("_")) : t_bindate;
-				/// 100.  .
-				t_eindate = t_eindate.length > 0 && t_eindate.indexOf("_") > -1 ? t_eindate.substr(0, t_eindate.indexOf("_")) : t_eindate;
-				/// 100.  .
+
 
 				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("carno", t_carno) 
 				+ q_sqlPara2("indate", t_bindate, t_eindate) + q_sqlPara2("driverno", t_driverno) 
-				+ q_sqlPara2("f.namea", t_driver) + q_sqlPara2("cardealno", t_cardealno) 
-				+ q_sqlPara2("cardeal", t_cardeal) + q_sqlPara2("carownerno", t_carownerno) 
-				+ q_sqlPara2("b.namea", t_carowner)+ q_sqlPara2("a.cartype", t_cartype);
+				+ q_sqlPara2("a.cardealno", t_cardealno) 
+				+ q_sqlPara2("a.carownerno", t_carownerno) 
+				+ q_sqlPara2("a.cartype", t_cartype);
 				t_where = ' where=^^' + t_where + '^^ ';	
 				return t_where;
 			}
@@ -81,6 +90,10 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCartype'></a></td>
 					<td><select class="txt" id="cmbCartype" style="width:215px; font-size:medium;"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCardealno'></a></td>
+					<td><select class="txt" id="cmbCardealno" style="width:215px; font-size:medium;"> </select></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td   style="width:35%;" ><a id='lblDatea'></a></td>
@@ -103,27 +116,15 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCardeal'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblDriverno'></a></td>
 					<td>
-					<input class="txt" id="txtCardealno" type="text" style="width:90px; font-size:medium;" />
-					&nbsp;
-					<input class="txt" id="txtcardeal" type="text" style="width:115px; font-size:medium;" />
+					<input class="txt" id="txtDriverno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblDriver'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblCarownerno'></a></td>
 					<td>
-					<input class="txt" id="txtDriverno" type="text" style="width:90px; font-size:medium;" />
-					&nbsp;
-					<input class="txt" id="txtDriver" type="text" style="width:115px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCarowner'></a></td>
-					<td>
-					<input class="txt" id="txtCarownerno" type="text" style="width:90px; font-size:medium;" />
-					&nbsp;
-					<input class="txt" id="txtCarowner" type="text" style="width:115px; font-size:medium;" />
+					<input class="txt" id="txtCarownerno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				
