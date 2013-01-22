@@ -51,8 +51,15 @@
                 q_getFormat();
                  bbmMask = [['txtOdate', r_picd], ['txtWdate', r_picd], ['txtEnddate', r_picd]];
                 q_mask(bbmMask);
+                $('#lblVccno').click(function() {
+		     		t_where = "noa='" + $('#txtVccno').val() + "'";
+            		q_box("vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vcc', "95%", "650px", q_getMsg('popVcctran'));
+             });
             }
-
+			function cmbpaybno(id){
+					t_where = "noa='" + $('#txtPaybno' + id).val() + "'";
+            		q_box("payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'payb', "95%", "650px", q_getMsg('popPayb'));
+			}
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -400,6 +407,10 @@
 						<td class="td4"><input type="text" id="txtPay" class="txt num c1"/></td>	
 					</tr>
 					<tr>
+						<td class="td1"><span> </span><a id='lblVccno' class="lbl btn"> </a></td>
+						<td class="td2"><input type="text" id="txtVccno" class="txt c1"/></td>	
+					</tr>
+					<tr>
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtWorker" class="txt c1"/></td>	
 					</tr>
@@ -419,6 +430,7 @@
 					<td align="center" style="width:8%;"><a id='lblCost_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblCharge_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblPay_s'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblPaybno_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -436,6 +448,9 @@
 					<td><input id="txtCost.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtCharge.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtPay.*" type="text" class="txt num c1"/></td>
+					<td><input id="txtPaybno.*" type="text" style="width: 65%;"/>
+						<input id="btnPaybno.*" type="button"value="." onclick="cmbpaybno('.*')"/>
+					</td>
 					<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
 				</tr>
 			</table>
