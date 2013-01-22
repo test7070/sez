@@ -311,10 +311,10 @@
             }
 
             function btnOk() {
-            	if(r_accy.substring(0,3)!=$('#txtDatea').val().substring(0,3)){
+            	/*if(r_accy.substring(0,3)!=$('#txtDatea').val().substring(0,3)){
             		alert('年度異常!');
             		return;
-            	}
+            	}*/
                 if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     return;

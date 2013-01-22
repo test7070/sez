@@ -12,7 +12,7 @@
 		<script type="text/javascript">
             var q_name = "tre_s";
 			aPop = new Array(
-		    ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
+		    ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno', 'driver_b.aspx'], 
              ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx']);
 			function z_tre() {
 			}
@@ -59,17 +59,17 @@
             function q_seekStr() {
                 t_noa = $('#txtNoa').val();
                 t_driverno = $('#txtDriverno').val();
-                t_driver = $('#txtDriver').val();
+                t_driver = $.trim($('#txtDriver').val());
                 t_carno = $('#txtCarno').val();
                 t_bdate = $('#txtBdate').val();
                 t_edate = $('#txtEdate').val();
-                t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
-                t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
                 t_carteam = $('#cmbCarteam').val();
 
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver) + q_sqlPara2("carno", t_carno) + q_sqlPara2("datea", t_bdate, t_edate);
+                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("carno", t_carno) + q_sqlPara2("datea", t_bdate, t_edate);
                 if (t_carteam.length > 0)
                     t_where += q_sqlPara2("carteamno", t_carteam);
+                if (t_driver.length > 0)
+                    t_where += " and patindex('%" + t_driver + "%',driver)>0";     
 
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
@@ -109,13 +109,16 @@
 					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
-				
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblDriverno'></a></td>
 					<td>
-					<input class="txt" id="txtDriverno" type="text" style="width:90px; font-size:medium;" />
-					&nbsp;
-					<input class="txt" id="txtDriver" type="text" style="width:115px; font-size:medium;" />
+					<input class="txt" id="txtDriverno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblDriver'></a></td>
+					<td>
+					<input class="txt" id="txtDriver" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
