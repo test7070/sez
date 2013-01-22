@@ -221,7 +221,7 @@
                                 return;
 
                             for (var i = 0; i < b_ret.length; i++) {
-                                if (dec(b_ret[i].total) - dec(b_ret[i].paysale) == 0) {
+                                if (dec(b_ret[i].total) - dec(b_ret[i].paysale) == 0 &&$('#txtCustno').val().substr(0,1)!='H') {
                                     b_ret.splice(i, 1);
                                     i--;
                                 } else {
