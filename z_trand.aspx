@@ -36,6 +36,12 @@
 					}, {
 						type : '6',
 						name : 'xcarno'
+					}, {
+						type : '1',
+						name : 'trandate'
+					}, {
+						type : '6',
+						name : 'xuccno'
 					}]
 				});
 				q_popAssign();
