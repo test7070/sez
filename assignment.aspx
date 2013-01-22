@@ -28,7 +28,8 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx']);
+            aPop = new Array(['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
+            ['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtComp_', 'tgg_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -386,6 +387,7 @@
 					<td  align="center" style="width: 2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
+					<td align="center" style="width:25%;"><a id='lblTggno_s'> </a></td>
 					<td align="center" style="width:25%;"><a id='lblDescr_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblDays_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblMoney_s'> </a></td>
@@ -396,6 +398,10 @@
 					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
+					</td>
+					<td><input id="txtTggno.*" type="text" style="width: 50%;"/>
+						<input id="btnTggno.*" type="button" value="." />
+						<input id="txtComp.*" type="text" style="width: 95%;" />
 					</td>
 					<td><input id="txtDescr.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtDays.*" type="text" style="width: 95%;"/></td>

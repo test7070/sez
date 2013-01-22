@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -17,7 +16,7 @@
             }
 
             q_tables = 's';
-            var q_name = "trancont";
+            var q_name = "contdc";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtApv'];
             var q_readonlys = ['txtNoq'];
             var bbmNum = new Array(['txtThirdprice', 10, 3], ['txtOil1', 5, 2], ['txtOil2', 5, 2]);
@@ -140,7 +139,7 @@
             }
 
             function btnPrint() {
-                q_box('z_tranCont.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
+                q_box('z_contdc.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {

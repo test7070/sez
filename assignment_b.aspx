@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'assignment', t_content = ' field=noa,item,tggno,comp', bbsKey = ['noa'], as, t_where = '';
+            var q_name = 'assignment', t_content = ' field=noa,item', bbsKey = ['noa'], as, t_where = '';
             var isBott = false;
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
             var i, s1;

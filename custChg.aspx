@@ -261,7 +261,7 @@
             }
             .dview {
                 float: left;
-                width: 1000px; 
+                width: 950px; 
                 border-width: 0px; 
             }
             .tview {
@@ -281,7 +281,7 @@
             }
             .dbbm {
                 float: left;
-                width: 1000px;
+                width: 950px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -396,9 +396,9 @@
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:140px; color:black;"><a id='vewComp'> </a></td>
-						<td align="center" style="width:150px; color:black;"><a id='vewMinusitem'> </a></td>
+						<td align="center" style="width:170px; color:black;"><a id='vewMinusitem'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewMinusmoney'> </a></td>
-						<td align="center" style="width:150px; color:black;"><a id='vewPlusitem'> </a></td>
+						<td align="center" style="width:170px; color:black;"><a id='vewPlusitem'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewPlusmoney'> </a></td>
 					</tr>
 					<tr>

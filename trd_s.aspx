@@ -36,17 +36,17 @@
 			function q_seekStr() {
 				t_noa = $('#txtNoa').val();
 				t_custno = $('#txtCustno').val();
-				t_comp = $('#txtComp').val();
+				t_comp = $('#txtCust').val();
 				t_mon = $('#txtMon').val();
 				t_bdate = $('#txtBdate').val();
 				t_edate = $('#txtEdate').val();
-				t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
-				/// 100.  .
-				t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
-				/// 100.  .
+				t_invono = $.trim($('#txtInvono').val());
 
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("custno", t_custno) + q_sqlPara2("comp", t_comp) + q_sqlPara2("mon", t_mon) + q_sqlPara2("datea", t_bdate, t_edate);
-
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("custno", t_custno) + q_sqlPara2("mon", t_mon) + q_sqlPara2("datea", t_bdate, t_edate);
+				if (t_comp.length > 0)
+                    t_where += " and patindex('%" + t_comp + "%',comp)>0";
+				if (t_invono.length > 0)
+                    t_where += " and patindex('%" + t_invono + "%',vccano)>0"; 
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -78,17 +78,27 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCustno'></a></td>
-					<td>
-					<input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" />
-					&nbsp;
-					<input class="txt" id="txtComp" type="text" style="width:115px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblMon'></a></td>
 					<td>
 					<input class="txt" id="txtMon" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCustno'></a></td>
+					<td>
+					<input class="txt" id="txtCustno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCust'></a></td>
+					<td>
+					<input class="txt" id="txtCust" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblInvono'></a></td>
+					<td>
+					<input class="txt" id="txtInvono" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
