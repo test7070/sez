@@ -439,15 +439,19 @@
                 float: left;
             }
             .txt.c2 {
-                width: 25%;
+                width: 65px;
                 float: left;
             }
             .txt.c3 {
-                width: 71%;
+                width: 130px;
                 float: left;
             }
             .txt.c4 {
-                width: 44%;
+                width: 25%;
+                float: left;
+            }
+            .txt.c5 {
+                width: 71%;
                 float: left;
             }
             .txt.num {
@@ -520,7 +524,7 @@
         </table>
         </div>
         <div class='dbbm' style="width: 74%;float:left">
-        <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
+        <table class="tbbm"  id="tbbm"  border="0" cellpadding='2'  cellspacing='0'>
         <tr class="tr1">
             <td class='td1'><span> </span><a id="lblDatea" class="lbl"></a></td>
             <td class='td2'><input id="txtDatea" type="text" class="txt c1"/></td>        	
@@ -605,13 +609,13 @@
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td >
-                	<input id="txtCarownerno.*" type="text" class="txt c3"/>
+                	<input id="txtCarownerno.*" type="text" class="txt c5"/>
 					<input id="txtCarowner.*" type="text" class="txt c1"/>
                 </td>
                 <td ><input id="txtCarno.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtCaradate.*" type="text" class="txt c1"/></td>
                 <td >
-                	<input id="txtCaritemno.*" type="text" class="txt c3"/>
+                	<input id="txtCaritemno.*" type="text" class="txt c5"/>
 					<input class="btn"  id="btnCaritem.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
 					<input id="txtCaritem.*" type="text" class="txt c1"/>
                 </td>
