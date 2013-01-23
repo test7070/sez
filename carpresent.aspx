@@ -352,8 +352,11 @@
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0,chksum=0;
             for (var j = 0; j < q_bbsCount; j++) {
-
+				if(!emp($('#txtCarno_'+j).val()))
+					chksum++;
             }  // j
+            
+            $('#txtUnpresent').val(chksum);
         }
 
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
