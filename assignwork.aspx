@@ -51,10 +51,21 @@
                 q_getFormat();
                  bbmMask = [['txtOdate', r_picd], ['txtWdate', r_picd], ['txtEnddate', r_picd]];
                 q_mask(bbmMask);
+             
+             $('#btnInput').click(function () {
+            	if(emp($('#txtItemno').val())){
+            		alert('請先輸入項目!!');
+            		return;
+            	}
+	           	t_where = "where=^^ noa=(select noa from assignment where noa ='"+$('#txtItemno').val()+"') ^^"
+	           	q_gt('assignment', t_where , 0, 0, 0, "", r_accy);
+	        });
                 $('#lblVccno').click(function() {
 		     		t_where = "noa='" + $('#txtVccno').val() + "'";
             		q_box("vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vcc', "95%", "650px", q_getMsg('popVcctran'));
              });
+             
+             
             }
 			function cmbpaybno(id){
 					t_where = "noa='" + $('#txtPaybno' + id).val() + "'";
@@ -72,6 +83,21 @@
 
             function q_gtPost(t_name) {
             	switch (t_name) {
+            		case 'assignment':
+	            	var as = _q_appendData("assignments", "", true);
+	            	
+	            	for(var j = 0; j < q_bbsCount; j++){
+	            		for (var i = 0; i < as.length; i++) {
+		                    if (as[i].telno == $('#txtDescr_'+j).val()) {
+		                        as.splice(i, 1);
+		                        i--;
+		                    }
+		                }
+		            }
+		            
+	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtTggno,txtComp,txtDescr,txtDays,txtMoney,txtCost,txtMemo', as.length, as, 'tggno,comp,descr,days,money,cost,memo', 'txtDescr');
+	            	sum();
+            	break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -152,6 +178,18 @@
             }
 
             function sum() {
+            var t1 = 0, t_unit, t_mount, t_money = 0,t_cost=0,t_charge=0,t_pay=0;
+            for (var j = 0; j < q_bbsCount; j++) {
+				t_money+=dec($('#txtMoney_'+j).val());
+				t_cost+=dec($('#txtCost_'+j).val());
+				t_charge+=dec($('#txtCharge_'+j).val());
+				t_pay+=dec($('#txtPay_'+j).val());
+            }  // j
+			q_tr('txtMoney',t_money);
+			q_tr('txtCost',t_cost);
+			q_tr('txtCharge',t_charge);
+			q_tr('txtPay',t_pay);
+			
             	if(!(q_cur==1 || q_cur==2))
 					return;
             }
@@ -423,8 +461,8 @@
 					<td  align="center" style="width:2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:25%;"><a id='lblTggno_s'> </a></td>
-					<td align="center" style="width:25%;"><a id='lblDescr_s'> </a></td>
+					<td align="center" style="width:15%;"><a id='lblTggno_s'> </a></td>
+					<td align="center" style="width:20%;"><a id='lblDescr_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblDays_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblMoney_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblCost_s'> </a></td>

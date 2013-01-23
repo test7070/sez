@@ -552,10 +552,6 @@
 							</td>					
 							<td><input type="checkbox" class="schema_chk" style="float:left;"/></td>
 						</tr>
-						<tr>
-							<td><span> </span><a id='lblFlow' class="lbl"> </a></td>
-							<td colspan="3"><input id="txtFlow"  type="text" class="txt c1" /></td>
-						</tr>
 					</tbody>
 				</table>
 			</div>
