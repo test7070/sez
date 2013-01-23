@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
 		<title></title>
@@ -46,11 +46,11 @@
                 q_mask(bbmMask);
 				q_cmbParse("cmbCode",q_getPara('banktran.code'));
                 $('#btnGen').click(function() {
-                    q_func('banktran.gen', $('#txtNoa').val());
+                    q_func('banktran.gen', $('#txtNoa').val()+",");
                 });
 
                 $('#btnGen2').click(function() {
-                    q_func('banktran.gen2', $('#txtNoa').val());
+                    q_func('banktran.gen2', $('#txtNoa').val() + ",");
                 });
 
                 $('#lblAccno').click(function() {
@@ -433,7 +433,7 @@
 					<tr>
 						<td> </td>
 						<td><input id="btnGen"  type="button"  /></td>
-						<td><input id="btnGen2"  type="button"  /></td>
+						<td><input id="btnGen2"  type="button" style=" display:none"  /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -449,4 +449,5 @@
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
+
 
