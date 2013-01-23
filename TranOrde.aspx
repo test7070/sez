@@ -78,7 +78,7 @@
 
             function mainPost() {
             	q_mask(bbmMask);
-            	q_cmbParse("cmbCasetype", "20'',40'',超重櫃,HQ,OP,太空包");
+            	q_cmbParse("cmbCasetype", "20'',40'',超重櫃,HQ,OT,太空包");//OP改OT我已經先改了，太空包拿掉
             	q_cmbParse("cmbCasetype2", "20'',40''");
                 q_cmbParse("cmbStype", q_getPara('vcc.stype'));
                 q_cmbParse("cmbUnit", q_getPara('sys.unit'));
@@ -711,6 +711,17 @@
 						<td><input type="text" id="txtCheckInstru" class="txt c1"/></td>
 						<td><span> </span><a id="lblCasedo" class="lbl"> </a></td>
 						<td><input type="text" id="txtCasedo" class="txt c1"/></td>
+						<td> </td>
+					</tr>
+					<tr class="trX">
+						<td><span> </span><a id="lblEmpdock" class="lbl"> </a></td>
+						<td><input type="text" id="txtEmpdock" class="txt c1"/></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 						<td> </td>
 					</tr>
 					<tr class="trX">
