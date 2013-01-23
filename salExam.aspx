@@ -24,7 +24,9 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
-		aPop = new Array(['txtSssno_', 'lblSssno', 'sss', 'noa,namea,part', 'txtSssno_,txtNamea_,txtPart_', 'sss_b.aspx']);
+		aPop = new Array(['txtSssno_', 'lblSssno', 'sss', 'noa,namea', 'txtSssno_,txtNamea_', 'sss_b.aspx']
+				,['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
+		
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -50,7 +52,7 @@
             $('#txtYear').val(q_date().substr(0,3));
             q_cmbParse("cmbPerson", ('').concat(new Array( '本國','日薪')));
             $('#btnIndata').click(function() {
-            	var t_where = "where=^^ person='"+$('#cmbPerson').find("option:selected").text()+"' and noa!='Z001' and noa!='010132'^^";
+            	var t_where = "where=^^ person='"+$('#cmbPerson').find("option:selected").text()+"' and partno ='"+$('#txtPartno').val()+"' and noa!='Z001' and noa!='010132'^^";
             	q_gt('sss', t_where , 0, 0, 0, "", r_accy);
             });
                   
@@ -295,11 +297,11 @@
                 float: left;
             }
             .txt.c2 {
-                width: 70%;
+                width: 25%;
                 float: right;
             }
             .txt.c3 {
-                width: 50%;
+                width: 73%;
                 float: left;
             }
             .txt.c4 {
@@ -385,12 +387,13 @@
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:20%"><a id='vewNoa'></a></td>
                 <td align="center" style="width:25%"><a id='vewYear'></a></td>
+                <td align="center" style="width:25%"><a id='vewPart'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='noa'>~noa</td>
                    <td align="center" id='year'>~year</td>
-                  
+                  	<td align="center" id='part'>~part</td>
             </tr>
         </table>
         </div>
@@ -407,8 +410,12 @@
         <tr>
         	<td class="td1"><span> </span><a id="lblPerson" class="lbl"></a></td>
             <td class="td2"><select id="cmbPerson" class="txt c1"></select></td>
-            <td class='td2'><input id="btnIndata" type="button" style="width: auto;font-size: medium;"/></td>
-            <td class='td3'><input id="btnAcount"  type="button" style="width: auto;font-size: medium;" /></td>
+            <td class="td3"><span> </span><a id="lblPart" class="lbl btn"></a></td>
+            <td class="td4">
+            	<input id="txtPartno" type="text" class="txt c2"/>
+            	<input id="txtPart" type="text" class="txt c3"/>
+            </td>
+            <td class='td5'><input id="btnIndata" type="button" style="width: auto;font-size: medium;"/></td>
         </tr>
         <tr>
             <td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -423,7 +430,6 @@
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
                 <td class="st2" align="center"><a id='lblSssno'> </a></td>
                 <td class="st1" align="center"><a id='lblNamea'> </a></td>
-                <td class="st1" align="center"><a id='lblPart'> </a></td>
                 <td class="st1" align="center"><a id='lblMon'> </a></td>
                 <td class="st1" align="center"><a id='lblBase'> </a></td>
                 <td class="st2" align="center"><a id='lblQpoint1'> </a></td>
@@ -467,7 +473,6 @@
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input  id="txtSssno.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtNamea.*" type="text" class="txt c1"/></td>
-                <td ><input  id="txtPart.*" type="text" class="txt c1" /></td>
                 <td ><input  id="txtMon.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtBase.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtQpoint1.*" type="text" class="txt num c1" /></td>
