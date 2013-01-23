@@ -37,6 +37,10 @@
 				q_cmbParse("cmbCartype", '@全部,'+q_getPara('car2.cartype'));
 				
 				$('#txtBindate').focus();
+				$('#txtEindate').keydown(function(e) {
+					if(e.which==13)
+						$('#txtNoa').focus();
+				});
 			}
 			function q_gtPost(t_name) {
                 switch (t_name) {
