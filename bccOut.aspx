@@ -26,7 +26,7 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         aPop = new Array(['txtSno', 'lblSname', 'sss', 'noa,namea,partno,part', 'txtSno,txtSname,txtPartno,txtPart', 'sss_b.aspx'],
         ['txtPartno','lblPart','part','noa,part','txtPartno,txtPart','part_b.aspx'],
-        ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product', 'txtBccno_,txtBccname_', 'bcc_b.aspx']);
+        ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product', 'txtBccno_,txtBccname_', 'bcc_b.aspx'])
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -49,12 +49,13 @@
         function mainPost() { 
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
+            bbsMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-            
-             $('#txtDatea').focusout(function () {
-             	q_cd( $(this).val() ,$(this));
-	         });
-	         q_gt('store', '', 0, 0, 0, "");
+            q_gt('store', '', 0, 0, 0, "");
+            $('#txtDatea').focusout(function () {
+            	q_cd( $(this).val() ,$(this));
+	        });
+	        q_gt('store', '', 0, 0, 0, "");
         }
 
         function q_boxClose( s2) { 
@@ -132,8 +133,7 @@
                         for ( i = 0; i < as.length; i++) {
                             t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
                         }
-                        q_cmbParse("cmbStoreno", t_item);
-                        $("#cmbStoreno").val(abbm[q_recno].storeno);
+                        q_cmbParse("cmbStoreno", t_item,'s');
                     //q_changeFill(t_name, 'txtStoreno,txtStore', 'noa,store');
                     break;
 
@@ -193,6 +193,7 @@
 						}
 				    });*/
 				}
+				
 			}
             _bbsAssign();
         }
@@ -484,8 +485,8 @@
                <td class="td2"><input id="txtDatea"  type="text" /></td>
                <td class="td3"><span> </span><a id='lblNoa' class="lbl"></a></td>
                <td class="td4"><input id="txtNoa" type="text"  /></td>
-               <td class="td5"><span> </span><a id='lblStore' class="lbl"></a></td>
-               <td class="td6"><select id="cmbStoreno" class="txt c1"> </select></td>               
+               <td class="td5"></td>
+               <td class="td6"></td>               
         </tr>
         <tr>
             <td class="td1"><span> </span><a id='lblSname' class="lbl btn"></a></td>
@@ -511,6 +512,8 @@
                 	<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 				</td>
 				<td align="center" style="width:20px;"> </td>
+                <td align="center" style="width:10%;"><a id='lblDateas'></a></td>
+                <td align="center" style="width:10%;"><a id='lblStoreno'></a></td>
                 <td align="center" style="width:10%;"><a id='lblBccno'></a></td>
                 <td align="center" style="width:18%;"><a id='lblBccname'></a></td>
                 <td align="center" style="width:10%;"><a id='lblMount'></a></td>
@@ -524,6 +527,8 @@
 					<input id="txtNoq.*" type="text" style="display: none;" />
 				</td>
 				<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+                <td ><input class="txt c1" id="txtDatea.*"type="text" /></td>
+                <td ><select id="cmbStoreno.*" class="txt c1"></td>
                 <td ><input id="txtBccno.*" type="text" style="width: 70%;"/><input id="btnBccno.*" type="button" value="." style="width: auto;font-size: medium;" /></td>
                 <td ><input class="txt c1" id="txtBccname.*"type="text" /></td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text" /></td>
