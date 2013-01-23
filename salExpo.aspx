@@ -17,12 +17,13 @@
         }
         var q_name="salexpo";
         var q_readonly = [];
-        var bbmNum = [['txtPoint',10,1],['txtUnit',10,0]];  
+        var bbmNum = [['txtPoint',10,1]];  
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-
+		
         $(document).ready(function () {
+        	brwCount2 = 6;
             bbmKey = ['noa'];
             q_brwCount();
            q_gt(q_name, q_content, q_sqlCount, 1)
@@ -44,26 +45,7 @@
         function mainPost() { 
            q_mask(bbmMask);
         }
-        
-        function txtCopy(dest, source) {
-            var adest = dest.split(',');
-            var asource = source.split(',');
-            $('#' + adest[0]).focus(function () { if (trim($(this).val()).length == 0) $(this).val( q_getMsg('msgCopy')); });
-            $('#' + adest[0]).focusout(function () {
-                var t_copy = ($(this).val().substr(0, 1) == '=');
-                var t_clear = ($(this).val().substr(0, 2) == ' =') ;
-                for (var i = 0; i < adest.length; i++) {
-                    {
-                        if (t_copy)
-                            $('#' + adest[i]).val($('#' + asource[i]).val());
 
-                        if( t_clear)
-                            $('#' + adest[i]).val('');
-                    }
-                }
-            });
-        }
-        
         function q_boxClose( s2) { 
             var ret; 
             switch (b_pop) {  
@@ -101,7 +83,7 @@
         function btnIns() {
             _btnIns();
             $('#txtNamea').focus();
-            $('#txtUnit').val('1');
+            //$('#txtUnit').val('1');
         }
 
         function btnModi() {
@@ -373,14 +355,14 @@
                <td class="td5"></td>
                <td class="td6"></td>
             </tr>
-            <tr>
+            <!--<tr>
                <td class="td1"><span> </span><a id="lblUnit" class="lbl" ></a></td>
                <td class="td2"><input id="txtUnit"  type="text" class="txt num c5" /><a id="lblTimes"></a></td>
                <td class="td3"></td>
                <td class="td4"></td>
                <td class="td5"></td>              
                <td class="td6"></td>
-            </tr>
+            </tr>-->
         </table>
         </div>
         </div>

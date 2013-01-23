@@ -16,12 +16,12 @@
         }
         var q_name="salexrw";
         var q_readonly = ['txtNoa'];
-        var bbmNum = [['txtMount',15,0,1]]; 
+        var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
 	aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],
-	['txtSalexpono', 'lblSalexpo', 'salexpo', 'noa,namea,unit', 'txtSalexpono,txtSalexpo,txtMount', 'salexpo_b.aspx']);
+	['txtSalexpono', 'lblSalexpo', 'salexpo', 'noa,namea', 'txtSalexpono,txtSalexpo', 'salexpo_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
