@@ -50,6 +50,9 @@
 						type : '5',
 						name : 'xsort3',
 						value : q_getMsg('tsort3').split('&')
+					}, {/*6*/
+						type : '1',
+						name : 'ummdate'
 					}]
 				});
 				q_popAssign();
@@ -59,7 +62,11 @@
 				$('#txtMon2').mask('999/99');
 				$('#txtUmmmon1').mask('999/99');
 				$('#txtUmmmon2').mask('999/99');
-
+				$('#txtUmmdate1').mask('999/99/99');
+				$('#txtUmmdate2').mask('999/99/99');
+				$('#txtUmmdate1').datepicker();
+				$('#txtUmmdate2').datepicker();
+				
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();
 				t_date.setDate(1);
