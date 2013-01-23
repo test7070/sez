@@ -30,8 +30,7 @@
              ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2,acc7', 'txtAcc1_,txtAcc2_,txtMemo_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
              ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
              ['txtUmmaccno_', '', 'payacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'payacc_b.aspx'],
-             ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
-             ['txtPartno_', '', 'part', 'noa,part', 'txtPartno_,txtPart_', 'part_b.aspx']);
+             ['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
 
 		    $(document).ready(function () {
 		        bbmKey = ['noa'];
@@ -49,6 +48,7 @@
 		        bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 		        q_mask(bbmMask);
 		        bbsMask = [['txtIndate', r_picd]];
+		        q_gt('part', '', 0, 0, 0, "");
 		        
 		        $('#btnGqbPrint').click(function (e) {
 		            var t_noa = '', t_max, t_min;
@@ -185,6 +185,17 @@
 			
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
+		        	case 'part':
+		                var as = _q_appendData("part", "", true);
+		                if (as[0] != undefined) {
+		                    var t_item = "@";
+		                    for (i = 0; i < as.length; i++) {
+		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+		                    }
+		                    q_cmbParse("cmbPartno", t_item, 's');
+		                    refresh(q_recno);  /// 第一次需要重新載入
+		                }
+		                break;
 		        	case 'payb':
 		        		var as = _q_appendData('paybs', '', true);
 		        		if(as[0]!=undefined)
@@ -219,51 +230,15 @@
 		                    }
 		                }
 						
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart,txtMemo', as.length, as, 'noa,paysale,_unpay,_unpay,part,partno,part,memo', 'txtRc2no', '');
-						
-		                 /*if (!t_Saving) 
-		                    q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart,txtMemo', as.length, as, 'noa,paysale,_unpay,_unpay,part,partno,part,memo', 'txtRc2no', '');
-		                else {/// 自動沖帳
-		                   $('#txtOpay').val(0);
-		                    $('#txtUnopay').val(0);
-		                    var t_money = 0;
-		                    for (var i = 0; i < q_bbsCount; i++) {
-		                        t_money += q_float('txtMoney_' + i) + q_float('txtChgs_' + i);
-		                    }
-
-		                    var t_unpay, t_pay;
-		                    for (var i = 0; i < q_bbsCount; i++) {
-		                        if (i < as.length && as[i].total - as[i].paysale != 0) {
-		                            $('#txtRc2no_' + i).val(as[i].noa);
-		                            $('#txtPart2_' + i).val(as[i].part2);
-		                            t_unpay = as[i]._unpay;
-
-		                            q_tr('txtUnpayorg_' + i, t_unpay);
-
-		                            if (t_money >= t_unpay) {
-		                                q_tr('txtPaysale_' + i, t_unpay);
-		                                $('#txtUnpay_' + i).val(0);
-		                                t_money = t_money - t_unpay;
-		                            }
-		                            else {
-		                                q_tr('txtPaysale_' + i, t_money);
-		                                q_tr('txtUnpay_' + i, t_unpay - t_money);
-		                                t_money = 0;
-		                            }
-		                        }
-		                        else {
-		                            $('#txtRc2no_' + i).val('');
-		                            $('#txtPaysale_' + i).val('');
-		                            $('#txtUnpay_' + i).val('');
-		                        }
-		                    }
-
-		                    if (t_money > 0)
-		                        q_tr('txtOpay', t_money);
-
-		                    sum();
-		                }*/
-
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,cmbPartno,txtPart,txtMemo', as.length, as, 'noa,paysale,_unpay,_unpay,part,partno,part,memo', 'txtRc2no', '');
+						var t_memo = '';
+						for (var i = 0; i < q_bbsCount; i++) {
+							if($.trim($('#txtMemo_'+i).val()).length>0){
+								t_memo = t_memo+(t_memo.length>0?',':'')+ $.trim($('#txtMemo_'+i).val());
+								$('#txtMemo_'+i).val('');
+							}
+				        }
+				        $('#txtMemo').val(t_memo);
 		                t_Saving = false;
 		                sum();
 
@@ -315,6 +290,9 @@
 		    }
 
 		    function btnOk() {
+		    	for (var i = 0; i < q_bbsCount; i++) {
+		            $('#txtPart_' + i).val($('#cmbPartno_' + i).find(":selected").text());
+		        }
 				$('#txtMon').val($.trim($('#txtMon').val()));
 					if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
 						alert(q_getMsg('lblMon')+'錯誤。');   
@@ -677,7 +655,7 @@
             .tbbs tr.error input[type="text"] {
                 color: red;
             }
-            input[type="text"], input[type="button"] {
+            input[type="text"], input[type="button"],select {
                 font-size: medium;
             }
 		</style>
@@ -863,7 +841,8 @@
 					</td>
 					<td>
 						<input type="text" id="txtChgs.*" style="text-align:right;width:95%;"/>
-						<input type="text" id="txtPartno.*"  style="float:left;width:25%;" /><input type="text" id="txtPart.*" style="float:left;width:57%;"/>
+						<select id="cmbPartno.*"  style="float:left;width:95%;" > </select>
+						<input type="text" id="txtPart.*" style="display:none;"/>
 					</td>
 					<td>
 					<input type="text" id="txtMemo.*" style="width:95%;"/>

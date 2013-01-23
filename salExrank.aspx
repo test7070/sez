@@ -372,6 +372,10 @@
                <td class="td5" ><a id="lblCpoint" style="font-size: 20px;"></a></td>
                <td class="td6"><input id="txtPoint2"  type="text" class="txt num c1" /></td>
             </tr>
+            <tr>
+               <td class="td1" ><span> </span><a id="lblAwardmon" style="float: right;"></a></td>
+               <td class="td2"><input id="txtAwardmon"  type="text"  class="txt num c1" /></td>
+            </tr>
         </table>
         </div>
         </div>

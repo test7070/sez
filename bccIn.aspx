@@ -50,6 +50,7 @@
         function mainPost() { 
             q_getFormat();
             bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
+            bbsMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
 			q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
 			q_cmbParse("cmbTypea", q_getPara('bccin.type')); 
@@ -142,6 +143,7 @@
                     }
                     q_cmbParse("cmbStoreno", t_item);
                     $("#cmbStoreno").val(abbm[q_recno].storeno);
+                    q_cmbParse("cmbStoreno", t_item,'s');
                     //q_changeFill(t_name, 'txtStoreno,txtStore', 'noa,store');
                     break;
 
@@ -599,14 +601,16 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
+                <td align="center" style="width:8%;"><a id='lblDateas'></a></td>
+                <td align="center" style="width:8%;"><a id='lblStoreno'></a></td>
                 <td align="center" class="td1" style="width: 8%;"><a id='lblBccno'> </a></td>
                 <td align="center" class="td1" style="width: 8%;"><a id='lblBccname'> </a></td>
-                <td align="center"class="td1" style="width: 8%;"><a id='lblMount'> </a></td>
-                <td align="center" class="td1" style="width: 8%;"><a id='lblWeight'> </a></td>
+                <td align="center"class="td1" style="width: 6%;"><a id='lblMount'> </a></td>
+                <td align="center" class="td1" style="width: 5%;"><a id='lblWeight'> </a></td>
                 <td align="center" class="td1" style="width: 8%;"><a id='lblMount2'> </a></td>
-                <td align="center" class="td1" style="width: 8%;"><a id='lblUnit'> </a></td>
-                <td align="center" class="td1" style="width: 8%;"><a id='lblPrice'> </a></td>
-                <td align="center" class="td1" style="width: 8%;"><a id='lblTotals'> </a></td>
+                <td align="center" class="td1" style="width: 6%;"><a id='lblUnit'> </a></td>
+                <td align="center" class="td1" style="width: 5%;"><a id='lblPrice'> </a></td>
+                <td align="center" class="td1" style="width: 6%;"><a id='lblTotals'> </a></td>
                 <td align="center" class="td1" style="width: 8%;"><a id='lblUno'> </a></td>
                 <td align="center" class="td1"><a id='lblMemos'> </a></td>
                 <td align="center" class="td1" style="width: 8%;"><a id='lblOrdenos'> </a></td>
@@ -618,6 +622,8 @@
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+                <td ><input class="txt c1" id="txtDatea.*"type="text" /></td>
+                <td ><select id="cmbStoreno.*" class="txt c1"></td>
                 <td ><input id="txtBccno.*" type="text" style="width: 75%;" /><input id="btnBccno.*" type="button" value="." style="width: 12%;"/></td>
                 <td ><input class="txt c1" id="txtBccname.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text" /></td>
