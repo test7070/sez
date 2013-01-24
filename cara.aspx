@@ -895,9 +895,10 @@
 				<table class="tbbm"  id="tbbm"  border="0" cellpadding='2'  cellspacing='5'>
 					<tr class="tr1">
 						<td class="td1" ><span> </span><a id="lblCarno" class="lbl btn"></a></td>
-						<td class="td2" colspan="2">
-							<input id="txtCarno"  type="text"  class="txt c2"/>
-							<input id="txtCarowner"  type="text" class="txt c3"/>
+						<td class="td2" colspan="4">
+							<input id="txtCarno"  type="text"  class="txt" style="width:100px;"/>
+							<input id="txtCarownerno"  type="text" class="txt" style="width:50px;"/>
+							<input id="txtCarowner"  type="text" class="txt" style="width:100px;"/>
 						</td>
 						<td class="td4"><!--<span> </span><a id='lblCarseek' class="lbl"></a>--></td>
 						<td class="td5"><!--<input id="textCarseek"  type="text" class="txt c1"/>--></td>
