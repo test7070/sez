@@ -29,7 +29,7 @@
         ['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
         ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
         ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product,unit,price', 'txtBccno_,txtBccname_,txtUnit_,txtPrice_', 'bcc_b.aspx']);
-
+		q_gt('store', '', 0, 0, 0, "");
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -52,6 +52,7 @@
             bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
             bbsMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
+            q_gt('store', '', 0, 0, 0, "");
 			q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
 			q_cmbParse("cmbTypea", q_getPara('bccin.type')); 
 			$('#lblOrdeno').click(function () {
@@ -64,7 +65,7 @@
 		            	$('#txtInvono').focus();
 		            }
 		     });
-		     q_gt('store', '', 0, 0, 0, "");
+		     
         }
 
         function q_boxClose( s2) { 
@@ -135,15 +136,13 @@
                     q_changeFill(t_name, 'txtProductno_' + b_seq + ',txtProduct_' + b_seq + ',txtUnit_' + b_seq, 'noa,product,unit');
                     break;
 
-                case 'store': 
-                	var as = _q_appendData("store", "", true);
+                case 'store':  
+					var as = _q_appendData("store", "", true);
                     var t_item = " @ ";
-                    for ( i = 0; i < as.length; i++) {
-                    	t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
-                    }
-                    q_cmbParse("cmbStoreno", t_item);
-                    $("#cmbStoreno").val(abbm[q_recno].storeno);
-                    q_cmbParse("cmbStoreno", t_item,'s');
+                        for ( i = 0; i < as.length; i++) {
+                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
+                        }
+                        q_cmbParse("cmbStoreno", t_item,'s');
                     //q_changeFill(t_name, 'txtStoreno,txtStore', 'noa,store');
                     break;
 
@@ -582,10 +581,10 @@
             <td class="td2"><input id="txtOrdeno"  type="text" class="txt c1"/></td>
             <td class='td3'><span> </span><a id="lblAcomp" class="lbl btn" style="font-size: 14px;"> </a></td>
             <td class="td4" colspan="3"><input id="txtCno" type="text" class="txt c2"/><input id="txtAcomp" type="text" class="txt c3"/></td>
-			<td class="td7"><span> </span><a id='lblStore' class="lbl"></a></td>
-            <td class="td8"><select id="cmbStoreno" class="txt c1"> </select></td>  
-			<td class="td9"><span> </span><a id="lblWorker" class="lbl"> </a></td>
-			<td class="td10"><input id="txtWorker" type="text" class="txt c1" /></td>        
+			<td class="td7"><span> </span><a id="lblWorker" class="lbl"> </a></td>
+            <td class="td8"><input id="txtWorker" type="text" class="txt c1" /></td>  
+			<td class="td9"></td>
+			<td class="td10"></td>        
         </tr>
         <tr>
             <td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>

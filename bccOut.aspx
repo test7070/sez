@@ -27,14 +27,15 @@
         aPop = new Array(['txtSno', 'lblSname', 'sss', 'noa,namea,partno,part', 'txtSno,txtSname,txtPartno,txtPart', 'sss_b.aspx'],
         ['txtPartno','lblPart','part','noa,part','txtPartno,txtPart','part_b.aspx'],
         ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product', 'txtBccno_,txtBccname_', 'bcc_b.aspx'])
-
+		q_gt('store', '', 0, 0, 0, "");
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
             q_brwCount();
-            q_gt(q_name, q_content, q_sqlCount, 1)
+            q_gt(q_name, q_content, q_sqlCount, 1);
             //判斷是否為權限(簽核)
-            q_gt('authority', "where=^^a.noa='bccout' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
+            q_gt('authority', "where=^^a.noa='bccout' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1);
+            
         });
 
         //////////////////   end Ready
@@ -55,7 +56,6 @@
             $('#txtDatea').focusout(function () {
             	q_cd( $(this).val() ,$(this));
 	        });
-	        q_gt('store', '', 0, 0, 0, "");
         }
 
         function q_boxClose( s2) { 
