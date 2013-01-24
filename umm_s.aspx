@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title> </title>
@@ -54,18 +53,23 @@
             }
 
             function q_seekStr() {
-                t_custno = $.trim($('#txtCustno').val());
-                t_noa = $.trim($('#txtNoa').val());
                 t_bdate = $.trim($('#txtBdate').val());
                 t_edate = $.trim($('#txtEdate').val());
+                t_mon = $.trim($('#txtMon').val());
+                t_noa = $.trim($('#txtNoa').val());
+                t_custno = $.trim($('#txtCustno').val());
+                t_cust = $.trim($('#txtCust').val());
                 t_part = $('#cmbPart').find(":selected").text();
                 t_cno = $.trim($('#cmbCno').val());
 
-                var t_where = " 1=1 "  
-                + q_sqlPara2("custno", t_custno) 
-                + q_sqlPara2("noa", t_noa) 
+                var t_where = " 1=1 " 
                 + q_sqlPara2("datea", t_bdate, t_edate) 
-                + q_sqlPara2("cno", t_cno);
+                + q_sqlPara2("mon", t_mon) 
+                + q_sqlPara2("noa", t_noa) 
+                + q_sqlPara2("custno", t_custno)
+				+ q_sqlPara2("cno", t_cno);
+				if (t_cust.length>0)
+                    t_where += " and patindex('%" + t_cust + "%',comp)>0";
                 if ($('#cmbPart').val().length>0)
                     t_where += " and patindex('%" + t_part + "%',part)>0";
 
@@ -107,14 +111,22 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCustno'> </a></td>
-					<td><input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" /></td>
+					<td class='seek'  style="width:20%;"><a id='lblMon'> </a></td>
+					<td>
+					<input class="txt" id="txtMon" type="text" style="width:215px; font-size:medium;" />
+					</td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
-					<td>
-					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
-					</td>
+					<td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCustno'> </a></td>
+					<td><input class="txt" id="txtCustno" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCust'> </a></td>
+					<td><input class="txt" id="txtCust" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
