@@ -896,14 +896,12 @@
 					<tr class="tr1">
 						<td class="td1" ><span> </span><a id="lblCarno" class="lbl btn"></a></td>
 						<td class="td2" colspan="4">
-							<input id="txtCarno"  type="text"  class="txt" style="width:100px;"/>
+							<input id="txtCarno"  type="text"  class="txt" style="width:90px;"/>
 							<input id="txtCarownerno"  type="text" class="txt" style="width:50px;"/>
-							<input id="txtCarowner"  type="text" class="txt" style="width:100px;"/>
+							<input id="txtCarowner"  type="text" class="txt" style="width:90px;"/>
 						</td>
-						<td class="td4"><!--<span> </span><a id='lblCarseek' class="lbl"></a>--></td>
-						<td class="td5"><!--<input id="textCarseek"  type="text" class="txt c1"/>--></td>
-						<td class="td6"><!--<input id="btnImport" type="button" />--></td>
-						<td class="td7"></td>
+						<td class="td6"><!--<span> </span><a id='lblCarseek' class="lbl"></a>--><!--<input id="textCarseek"  type="text" class="txt c1"/>--></td>
+						<td class="td7"><!--<input id="btnImport" type="button" />--></td>
 						<td class="td8"><input id="btnNextmon" type="button" /></td>
 					</tr>
 					<tr class="tr2">

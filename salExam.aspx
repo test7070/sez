@@ -26,13 +26,13 @@
         //ajaxPath = ""; // 只在根目錄執行，才需設定
 		aPop = new Array(['txtSssno_', 'lblSssno', 'sss', 'noa,namea', 'txtSssno_,txtNamea_', 'sss_b.aspx']
 				,['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
-		
+		q_desc=1;
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
             q_brwCount();  // 計算 合適  brwCount 
             
-            if(r_rank>8)           
+            if(r_rank>=8)           
             	q_gt(q_name, q_content, q_sqlCount, 1)
             else{
             	q_gt('sss', "where=^^noa='" + r_userno + "'^^", q_sqlCount, 1)
@@ -55,7 +55,18 @@
             q_mask(bbmMask);
             
             $('#btnImport').click(function() {
-            	var t_where = "where=^^ partno ='"+$('#txtPartno').val()+"' and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
+            	if(r_rank==9)//總事長評量副總
+            		var t_where = "where=^^ (partno ='02' and jobno='02' and noa!='Z001' and noa!='010132' ) ^^";
+            	else if(r_rank==8)//副總評量各主管(含監理部經理)以及部門以下員工
+            		var t_where = "where=^^ ((partno ='"+$('#txtPartno').val()+"' and noa!='"+r_userno+"' ) or jobno<='03' or (partno='07' and jobno<='04'))   and noa!='Z001' and noa!='010132'^^";
+            	else{
+            		if($('#txtPartno').val()=='03')//財務部跟內帳部一起
+            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='04') and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
+            		else if($('#txtPartno').val()=='08')//運輸部跟中鋼部一起
+            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='09') and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
+            		else
+            			var t_where = "where=^^ partno ='"+$('#txtPartno').val()+"' and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
+            	}
             	q_gt('sss', t_where , 0, 0, 0, "", r_accy);
             });
         }
@@ -70,14 +81,16 @@
             b_pop = '';
         }
 
-
+		var r_partno='',r_part='';
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
             	case 'sss':
             		if(q_cur==0){
             			var as = _q_appendData("sss", "", true);
             			q_content = "where=^^partno='" + as[0].partno + "'^^";
-            			q_gt(q_name, q_content, q_sqlCount, 1)	
+            			r_partno=as[0].partno;
+            			r_part=as[0].part;
+            			q_gt(q_name, q_content, q_sqlCount, 1);
             		}
             		if(q_cur==1 || q_cur==2){
             			var as = _q_appendData("sss", "", true);
@@ -242,6 +255,8 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtYear').val(dec(q_date().substr(0,3))-1);
             $('#txtDatea').val(q_date());
+            $('#txtPartno').val(r_partno);
+            $('#txtPart').val(r_part);
             $('#txtDatea').focus();
         }
         function btnModi() {

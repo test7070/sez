@@ -49,10 +49,11 @@
             bbmMask = [['txtDatea', r_picd],['txtYear', '999']];
             q_mask(bbmMask);
 
-            q_cmbParse("cmbPerson", ('').concat(new Array( '本國','日薪')));
-            $('#btnIndata').click(function() {
-            	var t_where = "where=^^ person='"+$('#cmbPerson').find("option:selected").text()+"' and partno ='"+$('#txtPartno').val()+"' and noa!='Z001' and noa!='010132'^^";
-            	q_gt('sss', t_where , 0, 0, 0, "", r_accy);
+            $('#btnImport').click(function() {
+            	var t_where = "where=^^ a.noa!='Z001' and a.noa!='010132' and a.partno<='09' order by a.partno,e.jobno^^";
+            	var t_where1 = "where[1]=^^ datea between '"+$('#txtYear').val()+"/01/01' and '"+$('#txtYear').val()+"/12/31'^^";
+            	var t_where2 = "where[2]=^^ year='"+$('#txtYear').val()+"'^^";
+            	q_gt('salaward_import', t_where+t_where1+t_where2 , 0, 0, 0, "", r_accy);
             });
                   
         }
@@ -70,9 +71,11 @@
 
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
-            	case 'sss':
+            	case 'salaward_import':
             		var as = _q_appendData("sss", "", true);
-            			q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtPart', as.length, as, 'noa,namea,part', '');
+            			q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtJob,txtIndate,txtTotal1,txtLate,txtLeaveearly,txtPerson,txtSick,txtLeave,txtMarriageleave,txtBereavementleave,txtTotal2,txtGreatmeriy,txtMinormerits,txtCommend,txtMajordemerits,txtPeccadillo,txtReprimand,txtTotal3,txtTotal4,txtMemo,txtSalary,txtBo_admin,txtBo_traffic,txtBo_special'
+            			, as.length, as, 
+            			'noa,namea,job,indate,total,late,early,person,sick,leave,marriage,bereavement,total2,great,minor,commend,majorde,peccadillo,reprimand,total3,total4,memo,salary,bo_admin,bo_traffic,bo_special', '');
             		break;
                 case q_name: 
                 	if (q_cur == 4)   // 查詢
@@ -434,6 +437,9 @@
                 <td align="center" style="width:100px;"><a id='lblTotal4_s'> </a></td>
                 <td align="center" style="width:200px;"><a id='lblMemo_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblSalary_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblBo_admin_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblBo_traffic_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblBo_special_s'> </a></td>
                 <td align="center" style="width:70px;"><a id='lblAwardmon_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblTotal5_s'> </a></td>
             </tr>
@@ -463,6 +469,9 @@
                 <td ><input  id="txtTotal4.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtMemo.*" type="text" class="txt c1" /><input id="txtNoq.*" type="hidden" /></td>
                 <td ><input  id="txtSalary.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtBo_admin.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtBo_traffic.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtBo_special.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtAwardmon.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtTotal5.*" type="text" class="txt num c1" /></td>
             </tr>
