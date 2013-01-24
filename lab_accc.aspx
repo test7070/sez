@@ -81,6 +81,10 @@
                 	if(!emp($('#txtNoa').val()))
 						q_func('lab_accc.gen', $('#txtNoa').val());
 				});
+				$('#lblPaybno').click(function(){
+		     		t_where = "noa='" + $('#txtPaybno').val() + "'";
+					q_box("payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "650px", q_getMsg('popPaytran'));
+				})
             }
             
             function q_funcPost(t_func, result) {	//後端傳回
