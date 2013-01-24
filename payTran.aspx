@@ -22,6 +22,7 @@
 
 		    q_sqlCount = 6;
 		    brwCount = 6;
+		    brwCount2 = 5;
 		    brwList = [];
 		    brwNowPage = 0;
 		    brwKey = 'Datea';
@@ -306,10 +307,10 @@
 		        //為了查詢
             	var t_part = '';
             	for (var i = 0; i < q_bbsCount; i++) {
-            		if(t_part.indexOf($.trim($('#txtPart_'+i).val()))==-1)
-            			t_part += (t_part.length>0?',':'') + $.trim($('#txtPart_'+i).val());
+            		if(t_part.indexOf($.trim($('#txtPart2_'+i).val()))==-1)
+            			t_part += (t_part.length>0?',':'') + $.trim($('#txtPart2_'+i).val());
             	}
-            	$('#txtPart').val(t_part);
+            	$('#txtPart2').val(t_part);
             	
 		        $('#txtAcomp').val($('#cmbCno').find(":selected").text());
 				$('#txtMon').val($.trim($('#txtMon').val()));
@@ -554,26 +555,28 @@
             .dview {
                 float: left;
                 width: 20%;
+                border-width: 0px;
             }
             .tview {
-                margin: 0;
-                padding: 2px;
-                border: 1px black double;
-                border-spacing: 0;
+                border: 5px solid gray;
                 font-size: medium;
-                background-color: #FFFF66;
-                color: blue;
+                background-color: black;
+            }
+            .tview tr {
+                height: 30px;
             }
             .tview td {
                 padding: 2px;
                 text-align: center;
-                border: 1px black solid;
+                border-width: 0px;
+                background-color: #FFFF66;
+                color: blue;
             }
             .dbbm {
                 float: left;
                 width: 80%;
-                margin: -1px;
-                border: 1px black solid;
+                /*margin: -1px;
+                 border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -590,10 +593,10 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 9%;
+                width: 10%;
             }
             .tbbm .tdZ {
-                width: 2%;
+                width: 1%;
             }
             .tbbm tr td span {
                 float: right;
@@ -609,17 +612,16 @@
             .tbbm tr td .lbl.btn {
                 color: #4297D7;
                 font-weight: bolder;
-                font-size: medium;
             }
             .tbbm tr td .lbl.btn:hover {
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 98%;
+                width: 100%;
                 float: left;
             }
             .txt.c2 {
-                width: 48%;
+                width: 50%;
                 float: left;
             }
             .txt.c3 {
@@ -627,7 +629,7 @@
                 float: left;
             }
             .txt.c4 {
-                width: 18%;
+                width: 20%;
                 float: left;
             }
             .txt.c5 {
@@ -647,9 +649,6 @@
                 margin: -1px;
                 float: left;
             }
-            .tbbm td input[type="button"] {
-                float: left;
-            }
             .tbbm select {
                 border-width: 1px;
                 padding: 0px;
@@ -661,27 +660,28 @@
             .tbbs a {
                 font-size: medium;
             }
-
-            .num {
-                text-align: right;
-            }
-            .tbbs tr.error input[type="text"] {
-                color: red;
-            }
             input[type="text"], input[type="button"],select {
                 font-size: medium;
             }
+            .num {
+                text-align: right;
+            }
 		</style>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
-			<div class="dview" id="dview" >
+			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:18%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:28%"><a id='vewComp'></a></td>
+						<td align="center" style="width:30%"><a id='vewDatea'></a></td>
+						<td align="center" style="width:30%"><a id='vewComp'></a></td>
+						<td align="center" style="width:30%"><a id='vewTotal'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -689,11 +689,23 @@
 						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='comp,4'>~comp,4</td>
+						<td id='total,0,1' style="text-align: right;">~total,0,1</td>
 					</tr>
 				</table>
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
+					<tr class="tr0" style="height:1px;">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="tdZ"></td>
+					</tr>
 					<tr class="tr1">
 						<td class="td1" ><span> </span><a id='lblNoa' class="lbl"></a></td>
 						<td class="td2" >
@@ -707,6 +719,7 @@
 						<td>
 							<select id="cmbCno" class="txt c1"> </select>
 							<input id="txtAcomp" type="text" style="display:none;"/>
+							<input id="txtPart2" type="text" style="display:none;"/>
 						</td>
 						<td class="td7"><span> </span><a id='lblPayc' class="lbl"></a></td>
 						<td class="td8"><input id="txtPayc" type="text" class="txt c1"/></td>
@@ -776,9 +789,10 @@
 							<p style="height:1%;"></p>
 							<input id="txtWorker"  type="text" class="txt c1"/>
 						</td>
-						<td class="td7"><input type="button" id="btnAuto" class="txt c1 "  style="color:Red"/>
-                        <input type="button" id="btnGqbPrint" class="txt c1 "/></td>
-						<td class="td8" ></td>
+						<td>
+							<input type="button" id="btnAuto" style="width:80%;color:red;"/>
+                        	<input type="button" id="btnGqbPrint" style="width:80%;"/>
+                        </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblChecker" class="lbl"></a></td>
