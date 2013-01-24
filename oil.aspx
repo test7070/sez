@@ -530,9 +530,13 @@
 						<td align="center" style="width:100px; color:black;"><a id='vewCarno'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDriver'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewOilstation'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewPrice'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewMount'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewPrice'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewMount'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMoney'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewBmiles'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewEmiles'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewMiles'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewRate'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -542,7 +546,11 @@
 						<td id='oilstation' style="text-align: center;">~oilstation</td>
 						<td id='price' style="text-align: right;">~price</td>
 						<td id='mount' style="text-align: right;">~mount</td>
-						<td id='money' style="text-align: right;">~money</td>
+						<td id='money,0,1' style="text-align: right;">~money,0,1</td>
+						<td id='bmiles,0,1' style="text-align: right;">~bmiles,0,1</td>
+						<td id='emiles,0,1' style="text-align: right;">~emiles,0,1</td>
+						<td id='miles,0,1' style="text-align: right;">~miles,0,1</td>
+						<td id='rate' style="text-align: right;">~rate</td>
 					</tr>
 				</table>
 			</div>
