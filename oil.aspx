@@ -17,8 +17,8 @@
             }
 
             var q_name = "oil";
-            var q_readonly = ['txtNoa','txtWorker','txtMoney','txtCurmount','txtCurmoney'];
-            var bbmNum = new Array(['txtMiles',10,2],['txtMount',10,2],['txtPrice',10,2],['txtMoney',10,0],['txtCurmount',10,2],['txtCurmoney',10,2]);
+            var q_readonly = ['txtNoa','txtWorker','txtMoney','txtCurmount','txtCurmoney','txtBmiles','txtMiles','txtRate'];
+            var bbmNum = new Array(['txtBmiles',10,0],['txtEmiles',10,0],['txtMiles',10,0],['txtRate',10,2],['txtMount',10,2],['txtPrice',10,2],['txtMoney',10,0],['txtCurmount',10,2],['txtCurmoney',10,2]);
             var bbmMask = [['txtDatea','999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
@@ -104,6 +104,21 @@
                 		sum();
                 	}
                 });
+                $('#chkIscustom').change(function(e){
+                	if($('#chkIscustom').prop('checked')){
+	           			$('#txtMiles').removeAttr('readonly').css('color','black').css('background-color','white');
+	           		}	
+                });
+                $('#txtEmiles').change(function(){
+                	sum();
+                });
+                $('#txtMiles').change(function(){
+                	sum();
+                });
+               /* $('#txtCarno').change(function(e){
+                	
+               
+                });*/
             }
 
             function q_boxClose(s2) {
@@ -118,6 +133,13 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'oil_top':
+                		var as = _q_appendData("oil", "", true);
+                		if(as[0]!=undefined){
+							$('#txtBmiles').val(as[0].emiles);
+							sum();                			
+                		}
+                		break;
                     case 'oilorg':
                         var as = _q_appendData("oilorg", "", true);
 						var t_mount = 0,t_money=0;
@@ -142,6 +164,19 @@
                         break;
                 }
             }
+            function q_popPost(id) {
+				switch(id) {
+					case 'txtCarno':
+						var t_carno = $.trim($('#txtCarno').val());
+						var t_datea = $.trim($('#txtDatea').val());
+						if(t_carno.length>0 && t_datea.length>0){
+							t_where = " where=^^ carno='"+t_carno+"' and datea<'"+t_datea+"' ^^ ";
+							q_gt('oil_top', t_where, 0, 0, 0, "", r_accy);
+						}
+						$('#txtDriverno').focus();
+						break;
+				}
+			}
 
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
@@ -156,6 +191,7 @@
                 curData.paste();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').focus(); 
+                $('#chkIscustom').prop('checked',false);
                 $('#txtOrgmount').val($('#txtMount').val());
                 $('#txtOrgmoney').val($('#txtMoney').val());
                 if($('#txtOilstationno').val().length>0)
@@ -217,6 +253,11 @@
                 $("#txtCurmoney").removeClass('finish');
                 if($('#txtOilstationno').val().length>0)
                 	q_gt('oilorg', "where=^^oilstationno='"+$.trim($('#txtOilstationno').val())+"'^^", 0, 0, 0, "");
+           		if(q_cur==1 || q_cur==2){
+           			if($('#chkIscustom').prop('checked')){
+	           			$('#txtMiles').removeAttr('readonly').css('color','black').css('background-color','white');
+	           		}	
+           		}
             }
 
             function readonly(t_para, empty) {
@@ -277,11 +318,24 @@
             function btnCancel() {
                 _btnCancel();
             }
-            function sum(){       	
+            function sum(){    
+            	if(!(q_cur==1 || q_cur==2))
+            	   	return;
+            	var t_bmiles = q_float('txtBmiles');
+            	var t_emiles = q_float('txtEmiles');
+            	var t_miles = q_float('txtMiles');
             	var t_mount = q_float('txtMount');
             	var t_orgmount = q_float('txtOrgmount');
             	var t_curmount = q_float('txtCurmount');
             	var t_price = q_float('txtPrice');
+            	//---------------------------------------------------------------------------------
+            	if(!$('#chkIscustom').prop('checked')){
+            		t_miles = round(t_emiles - t_bmiles,0);
+            		$('#txtMiles').val(t_miles);
+            	}
+            	t_rate = t_mount==0 ? 0 : round(t_miles / t_mount,2);
+            	$('#txtRate').val(t_rate);
+            	
             	if($("#txtCurmount").hasClass('finish')  &&  (q_cur==1 || q_cur==2)){
             		$('#txtCurmount').val((t_curmount*1000+t_orgmount*1000-t_mount*1000)/1000);
             		$('#txtOrgmount').val(t_mount);
@@ -410,11 +464,11 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 98%;
+                width: 100%;
                 float: left;
             }
             .txt.c2 {
-                width: 38%;
+                width: 40%;
                 float: left;
             }
             .txt.c3 {
@@ -422,7 +476,7 @@
                 float: left;
             }
             .txt.c4 {
-                width: 18%;
+                width: 20%;
                 float: left;
             }
             .txt.c5 {
@@ -476,9 +530,13 @@
 						<td align="center" style="width:100px; color:black;"><a id='vewCarno'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDriver'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewOilstation'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewPrice'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewMount'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewPrice'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewMount'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMoney'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewBmiles'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewEmiles'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewMiles'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewRate'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -488,7 +546,11 @@
 						<td id='oilstation' style="text-align: center;">~oilstation</td>
 						<td id='price' style="text-align: right;">~price</td>
 						<td id='mount' style="text-align: right;">~mount</td>
-						<td id='money' style="text-align: right;">~money</td>
+						<td id='money,0,1' style="text-align: right;">~money,0,1</td>
+						<td id='bmiles,0,1' style="text-align: right;">~bmiles,0,1</td>
+						<td id='emiles,0,1' style="text-align: right;">~emiles,0,1</td>
+						<td id='miles,0,1' style="text-align: right;">~miles,0,1</td>
+						<td id='rate' style="text-align: right;">~rate</td>
 					</tr>
 				</table>
 			</div>
@@ -514,13 +576,14 @@
 						<td class="td2">
 						<input id="txtDatea"  type="text"  class="txt c1"/>
 						</td>
-						<td class="td3"> </td>
+						<td><span> </span><a id='lblIscustom' class="lbl"> </a></td>
+						<td><input id="chkIscustom"  type="checkbox"/>	</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblCarno' class="lbl"> </a></td>
 						<td><input id="txtCarno"  type="text"  class="txt c1"/>	</td>
-						<td><span> </span><a id='lblMiles' class="lbl"> </a></td>
-						<td><input id="txtMiles"  type="text"  class="txt c1 num"/>	</td>
+						<td><span> </span><a id='lblBmiles' class="lbl"> </a></td>
+						<td><input id="txtBmiles"  type="text"  class="txt c1 num"/>	</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDriver' class="lbl btn"> </a></td>
@@ -528,18 +591,23 @@
 						<input id="txtDriverno"  type="text"  class="txt c2"/>
 						<input id="txtDriver"  type="text"  class="txt c3"/>
 						</td>
-						<td class="td3"> </td>
+						<td><span> </span><a id='lblEmiles' class="lbl"> </a></td>
+						<td><input id="txtEmiles"  type="text"  class="txt c1 num"/>	</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblOilstation' class="lbl btn"> </a></td>
 						<td class="td2">
 						<input id="txtOilstationno"  type="text"  class="txt c2"/>
 						<input id="txtOilstation"  type="text"  class="txt c3"/>
-						</td>					
+						</td>
+						<td><span> </span><a id='lblMiles' class="lbl"> </a></td>
+						<td><input id="txtMiles"  type="text"  class="txt c1 num"/>	</td>				
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblProduct' class="lbl"> </a></td>
 						<td class="td2"><select id="cmbProduct" class="txt c1"> </select></td>
+						<td><span> </span><a id='lblRate' class="lbl"> </a></td>
+						<td><input id="txtRate"  type="text"  class="txt c1 num"/>	</td>	
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblPrice' class="lbl"> </a></td>

@@ -90,6 +90,19 @@
                 }).blur(function() {
                     $("#cmbUnit").attr('size', '1');
                 });
+                $("#txtCustno").change(function() {
+					if ($("#txtCustno").val().length > 0) {
+						$("#txtAddrno").val($("#txtCustno").val()+'-');
+						$("#txtAddr").val("");
+					}
+				});
+				$("#txtAddrno").focus(function() {
+					var input = document.getElementById ("txtAddrno");
+		            if (typeof(input.selectionStart) != 'undefined' ) {	  
+		                input.selectionStart = 5;
+		                input.selectionEnd =8;
+		            }
+				});
                 $("#btnTranquat").click(function(e) {
                     if ($('#txtCustno').val().length == 0) {
                         alert('請輸入客戶編號!');
@@ -432,7 +445,12 @@
             function q_popPost(id) {
                 switch(id) {
                     case 'txtCustno':
-                        $('#txtAddrno').val($('#txtCustno').val());
+                        if(q_cur==1 || q_cur==2){
+							if ($("#txtCustno").val().length > 0) {
+								$("#txtAddrno").val($("#txtCustno").val()+'-');
+								$("#txtAddr").val("");
+							}
+						}
                         break;
                 }
             }
@@ -677,9 +695,14 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCust" class="lbl"> </a></td>
-						<td colspan="4">
+						<td colspan="3">
 						<input type="text" id="txtCustno" class="txt" style="width:15%;float: left; " />
 						<input type="text" id="txtComp" class="txt" style="width:85%;float: left; " />
+						</td>
+						<td><span> </span><a id="lblAddr" class="lbl btn"> </a></td>
+						<td colspan="3">
+						<input type="text" id="txtAddrno" class="txt c2"/>
+						<input type="text" id="txtAddr" class="txt c3"/>
 						</td>
 					</tr>
 					<tr>
@@ -735,11 +758,6 @@
 						</td>
 						<td><span> </span><a id="lblUnit" class="lbl"> </a></td>
 						<td><select id="cmbUnit" class="txt c1"></select></td>
-						<td><span> </span><a id="lblAddr" class="lbl btn"> </a></td>
-						<td colspan="3">
-						<input type="text" id="txtAddrno" class="txt c2"/>
-						<input type="text" id="txtAddr" class="txt c3"/>
-						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>

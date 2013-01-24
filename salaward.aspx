@@ -49,11 +49,11 @@
             bbmMask = [['txtDatea', r_picd],['txtYear', '999']];
             q_mask(bbmMask);
 
-            $('#txtYear').val(q_date().substr(0,3));
-            q_cmbParse("cmbPerson", ('').concat(new Array( '本國','日薪')));
-            $('#btnIndata').click(function() {
-            	var t_where = "where=^^ person='"+$('#cmbPerson').find("option:selected").text()+"' and partno ='"+$('#txtPartno').val()+"' and noa!='Z001' and noa!='010132'^^";
-            	q_gt('sss', t_where , 0, 0, 0, "", r_accy);
+            $('#btnImport').click(function() {
+            	var t_where = "where=^^ a.noa!='Z001' and a.noa!='010132' and a.partno<='09' order by a.partno,e.jobno^^";
+            	var t_where1 = "where[1]=^^ datea between '"+$('#txtYear').val()+"/01/01' and '"+$('#txtYear').val()+"/12/31'^^";
+            	var t_where2 = "where[2]=^^ year='"+$('#txtYear').val()+"'^^";
+            	q_gt('salaward_import', t_where+t_where1+t_where2 , 0, 0, 0, "", r_accy);
             });
                   
         }
@@ -71,9 +71,11 @@
 
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
-            	case 'sss':
+            	case 'salaward_import':
             		var as = _q_appendData("sss", "", true);
-            			q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtPart', as.length, as, 'noa,namea,part', '');
+            			q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtJob,txtIndate,txtTotal1,txtLate,txtLeaveearly,txtPerson,txtSick,txtLeave,txtMarriageleave,txtBereavementleave,txtTotal2,txtGreatmeriy,txtMinormerits,txtCommend,txtMajordemerits,txtPeccadillo,txtReprimand,txtTotal3,txtTotal4,txtMemo,txtSalary,txtBo_admin,txtBo_traffic,txtBo_special'
+            			, as.length, as, 
+            			'noa,namea,job,indate,total,late,early,person,sick,leave,marriage,bereavement,total2,great,minor,commend,majorde,peccadillo,reprimand,total3,total4,memo,salary,bo_admin,bo_traffic,bo_special', '');
             		break;
                 case q_name: 
                 	if (q_cur == 4)   // 查詢
@@ -116,8 +118,9 @@
         function btnIns() {
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+            $('#txtYear').val(dec(q_date().substr(0,3))-1);
             $('#txtDatea').val(q_date());
-            $('#txtDatea').focus();
+            $('#txtYear').focus();
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -293,7 +296,7 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 90%;
+                width: 97%;
                 float: left;
             }
             .txt.c2 {
@@ -343,7 +346,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 100%;
+                width: 2500px;
             }
             .tbbs a {
                 font-size: medium;
@@ -364,18 +367,7 @@
             COLOR: blue ;
             TEXT-ALIGN: left;
              BORDER:1PX LIGHTGREY SOLID;
-           width: 100%;
         }  
-        
-        
-        .st1
-        {
-            width: 3%; 
-        }
-        .st2
-        {
-            width: 1.5%;
-        }      
     </style>
 </head>
 <body>
@@ -400,12 +392,12 @@
         <tr>
             <td class='td1'><span> </span><a id="lblNoa" class="lbl"> </a></td>
             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-            <td class='td3'><span> </span><a id="lblYear" class="lbl"> </a></td>
-            <td class="td4"><input id="txtYear" type="text" class="txt c1"/></td>
+			<td class='td3'><span> </span><a id="lblDatea" class="lbl"></a></td>
+            <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td> 
         </tr>
         <tr>
-        	<td class='td1'><span> </span><a id="lblDatea" class="lbl"></a></td>
-            <td class="td2"><input id="txtDatea" type="text" class="txt c1"/></td> 
+        	<td class='td1'><span> </span><a id="lblYear" class="lbl"> </a></td>
+            <td class="td2"><input id="txtYear" type="text" class="txt c1"/></td>
             <td class='td3'><input id="btnImport" type="button" style="width: auto;font-size: medium;"/></td>
         </tr>
         <tr>
@@ -420,30 +412,36 @@
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' >
             <tr style='color:White; background:#003366;' >
-                <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
-                <td class="st1" align="center"><a id='lblSssno_s'> </a></td>
-                <td class="st1" align="center"><a id='lblNamea_s'> </a></td>
-                <td class="st1" align="center"><a id='lblJob_s'> </a></td>
-                <td class="st1" align="center"><a id='lblIndate_s'> </a></td>
-                <td class="st1" align="center"><a id='lblTotal1_s'> </a></td>
-                <td class="st2" align="center"><a id='lblLate_s'> </a></td>
-                <td class="st2" align="center"><a id='lblLeaveearly_s'> </a></td>
-                <td class="st2" align="center"><a id='lblPerson_s'> </a></td>
-                <td class="st2" align="center"><a id='lblSick_s'> </a></td>
-                <td class="st2" align="center"><a id='lblLeave_s'> </a></td>
-                <td class="st2" align="center"><a id='lblMarriageleave_s'> </a></td>
-                <td class="st2" align="center"><a id='lblBereavementleave_s'> </a></td>
-                <td class="st2" align="center"><a id='lblTotal2_s'> </a></td>
-                <td class="st2" align="center"><a id='lblLeavewithoutpay_s'> </a></td>
-                <td class="st2" align="center"><a id='lblGreatmerits_s'> </a></td>
-                <td class="st2" align="center"><a id='lblMinormerits_s'> </a></td>
-                <td class="st2" align="center"><a id='lblCommend_s'> </a></td>
-                <td class="st2" align="center"><a id='lblMajordemerits_s'> </a></td>
-                <td class="st2" align="center"><a id='lblPeccadillo_s'> </a></td>
-                <td class="st2" align="center"><a id='lblReprimand_s'> </a></td>
-                <td class="st2" align="center"><a id='lblTotal3_s'> </a></td>
-                <td class="st2" align="center"><a id='lblTotal4_s'> </a></td>
-                <td class="st1" align="center"><a id='lblMemo_s'> </a></td>
+                <td align="center" style="width:30px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
+                <td align="center" style="width:80px;"><a id='lblSssno_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblNamea_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblJob_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblIndate_s'> </a></td>
+                <td align="center" style="width:75px;"><a id='lblTotal1_s'> </a></td>
+                <td align="center" style="width:75px;"><a id='lblLate_s'> </a></td>
+                <td align="center" style="width:75px;"><a id='lblLeaveearly_s'> </a></td>
+                <td align="center" style="width:75px;"><a id='lblPerson_s'> </a></td>
+                <td align="center" style="width:75px;"><a id='lblSick_s'> </a></td>
+                <td align="center" style="width:75px;"><a id='lblLeave_s'> </a></td>
+                <td align="center" style="width:75px;"><a id='lblMarriageleave_s'> </a></td>
+                <td align="center" style="width:75px;"><a id='lblBereavementleave_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblTotal2_s'> </a></td>
+                <td align="center" style="width:75px;"><a id='lblLeavewithoutpay_s'> </a></td>
+                <td align="center" style="width:75px;"><a id='lblGreatmerits_s'> </a></td>
+                <td align="center" style="width:75px;"><a id='lblMinormerits_s'> </a></td>
+                <td align="center" style="width:75px;"><a id='lblCommend_s'> </a></td>
+                <td align="center" style="width:75px;"><a id='lblMajordemerits_s'> </a></td>
+                <td align="center" style="width:75px;"><a id='lblPeccadillo_s'> </a></td>
+                <td align="center" style="width:75px;"><a id='lblReprimand_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblTotal3_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblTotal4_s'> </a></td>
+                <td align="center" style="width:200px;"><a id='lblMemo_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblSalary_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblBo_admin_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblBo_traffic_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblBo_special_s'> </a></td>
+                <td align="center" style="width:70px;"><a id='lblAwardmon_s'> </a></td>
+                <td align="center" style="width:100px;"><a id='lblTotal5_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
@@ -469,7 +467,13 @@
                 <td ><input  id="txtReprimand.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtTotal3.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtTotal4.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtMemo.*" type="text" class="txt c1" /><input id="txtNoq.*" type="hidden" /></td>               
+                <td ><input  id="txtMemo.*" type="text" class="txt c1" /><input id="txtNoq.*" type="hidden" /></td>
+                <td ><input  id="txtSalary.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtBo_admin.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtBo_traffic.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtBo_special.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtAwardmon.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtTotal5.*" type="text" class="txt num c1" /></td>
             </tr>
         </table>
         </div>

@@ -215,10 +215,6 @@
             }
 
             function btnOk() {
-            	if (checkId($('#txtId').val())!=1){
-                	alert(q_getMsg('lblId')+'錯誤。');
-                	return;
-                } 
                 if (!q_cd($('#txtBirthday').val())){
                 	alert(q_getMsg('lblBirthday')+'錯誤。');
                 	return;

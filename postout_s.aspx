@@ -8,9 +8,13 @@
     <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
+    <link href="../qbox.css" rel="stylesheet" type="text/css" /> 
 <script type="text/javascript">
     var q_name = "postout_s";
-
+		aPop = new Array(['txtPartno', '', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
+		['txtSssno', '', 'sssall', 'noa,namea,partno,part', 'txtSssno,txtNamea', 'sssall_b.aspx'],
+		['txtSenderno', '', 'acomp', 'noa,nick','txtSenderno,txtSender', 'acomp_b.aspx']);
+ 
     $(document).ready(function () {
         main();
     });         /// end ready

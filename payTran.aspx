@@ -22,10 +22,11 @@
 
 		    q_sqlCount = 6;
 		    brwCount = 6;
+		    brwCount2 = 5;
 		    brwList = [];
 		    brwNowPage = 0;
 		    brwKey = 'Datea';
-		    aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
+		    aPop = new Array(
             ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
              ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2,acc7', 'txtAcc1_,txtAcc2_,txtMemo_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
              ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
@@ -49,7 +50,7 @@
 		        q_mask(bbmMask);
 		        bbsMask = [['txtIndate', r_picd]];
 		        q_gt('part', '', 0, 0, 0, "");
-		        
+		        q_gt('acomp', '', 0, 0, 0, "");
 		        $('#btnGqbPrint').click(function (e) {
 		            var t_noa = '', t_max, t_min;
 		            for (var i = 0; i < q_bbsCount; i++) {
@@ -61,8 +62,8 @@
 		            q_box('z_gqbp.aspx' + "?;;;;" + r_accy + ";noa=" + t_noa, '', "900px", "600px", m_print);
 		        });
 
-		        $('#btnAccc').click(function () {
-		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('btnAccc'), true);
+		        $('#lblAccc').click(function () {
+		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substr(0,3)+ '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "92%", q_getMsg('btnAccc'), true);
 		        });
 
 		        $('#txtTggno').change(function () { getOpay(); });
@@ -196,6 +197,16 @@
 		                    refresh(q_recno);  /// 第一次需要重新載入
 		                }
 		                break;
+		            case 'acomp':
+		                var as = _q_appendData("acomp", "", true);
+		                if (as[0] != undefined) {
+		                    var t_item = "@";
+		                    for (i = 0; i < as.length; i++) {
+		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+		                    }
+		                    q_cmbParse("cmbCno", t_item);
+		                }
+		                break;
 		        	case 'payb':
 		        		var as = _q_appendData('paybs', '', true);
 		        		if(as[0]!=undefined)
@@ -234,7 +245,7 @@
 						var t_memo = '';
 						for (var i = 0; i < q_bbsCount; i++) {
 							if($.trim($('#txtMemo_'+i).val()).length>0){
-								t_memo = t_memo+(t_memo.length>0?',':'')+ $.trim($('#txtMemo_'+i).val());
+								t_memo = t_memo+(t_memo.length>0?'\n':'')+ $.trim($('#txtMemo_'+i).val());
 								$('#txtMemo_'+i).val('');
 							}
 				        }
@@ -293,6 +304,15 @@
 		    	for (var i = 0; i < q_bbsCount; i++) {
 		            $('#txtPart_' + i).val($('#cmbPartno_' + i).find(":selected").text());
 		        }
+		        //為了查詢
+            	var t_part = '';
+            	for (var i = 0; i < q_bbsCount; i++) {
+            		if(t_part.indexOf($.trim($('#txtPart2_'+i).val()))==-1)
+            			t_part += (t_part.length>0?',':'') + $.trim($('#txtPart2_'+i).val());
+            	}
+            	$('#txtPart2').val(t_part);
+            	
+		        $('#txtAcomp').val($('#cmbCno').find(":selected").text());
 				$('#txtMon').val($.trim($('#txtMon').val()));
 					if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
 						alert(q_getMsg('lblMon')+'錯誤。');   
@@ -308,11 +328,6 @@
 		        for (var j = 0; j < q_bbsCount; j++) {
 		        	t_money+=q_float('txtMoney_' + j);
 		        }
-		        /*if((Math.abs(q_float('txtOpay')-t_money)/t_money)>0.05)
-		        {
-		        	alert('預付與付款金額總額差異過大');
-		            return;
-		        }*/
 		        
 		        if ($.trim($('#txtTggno').val()) == 0) {
 		            alert(m_empty + q_getMsg('lblTgg'));
@@ -333,8 +348,6 @@
 		           if (t_money != 0 || i == 0)
 		                t_mon = $('#txtRc2no_' + i).val();
 		        }
-
-		        //$('#txtMon').val(t_mon.substr(1,r_len)+'/'+t_mon.substr( r_len+1,2));
 
 		        sum();
 		        if (t_err) {
@@ -374,9 +387,10 @@
 
 		    function bbsAssign() {
 		        for (var i = 0; i < q_bbsCount; i++) {
+		        	$('#lblNo_'+i).text(i+1);	
 		            if ($('#btnMinus_' + i).hasClass('isAssign'))    /// 重要
 		                continue;
-
+				
 		            $('#txtMoney_' + i).change(function (e) {
 		                sum();
 		            });
@@ -541,26 +555,28 @@
             .dview {
                 float: left;
                 width: 20%;
+                border-width: 0px;
             }
             .tview {
-                margin: 0;
-                padding: 2px;
-                border: 1px black double;
-                border-spacing: 0;
+                border: 5px solid gray;
                 font-size: medium;
-                background-color: #FFFF66;
-                color: blue;
+                background-color: black;
+            }
+            .tview tr {
+                height: 30px;
             }
             .tview td {
                 padding: 2px;
                 text-align: center;
-                border: 1px black solid;
+                border-width: 0px;
+                background-color: #FFFF66;
+                color: blue;
             }
             .dbbm {
                 float: left;
                 width: 80%;
-                margin: -1px;
-                border: 1px black solid;
+                /*margin: -1px;
+                 border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -577,10 +593,10 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 9%;
+                width: 10%;
             }
             .tbbm .tdZ {
-                width: 2%;
+                width: 1%;
             }
             .tbbm tr td span {
                 float: right;
@@ -596,17 +612,16 @@
             .tbbm tr td .lbl.btn {
                 color: #4297D7;
                 font-weight: bolder;
-                font-size: medium;
             }
             .tbbm tr td .lbl.btn:hover {
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 98%;
+                width: 100%;
                 float: left;
             }
             .txt.c2 {
-                width: 48%;
+                width: 50%;
                 float: left;
             }
             .txt.c3 {
@@ -614,7 +629,7 @@
                 float: left;
             }
             .txt.c4 {
-                width: 18%;
+                width: 20%;
                 float: left;
             }
             .txt.c5 {
@@ -634,9 +649,6 @@
                 margin: -1px;
                 float: left;
             }
-            .tbbm td input[type="button"] {
-                float: left;
-            }
             .tbbm select {
                 border-width: 1px;
                 padding: 0px;
@@ -648,27 +660,28 @@
             .tbbs a {
                 font-size: medium;
             }
-
-            .num {
-                text-align: right;
-            }
-            .tbbs tr.error input[type="text"] {
-                color: red;
-            }
             input[type="text"], input[type="button"],select {
                 font-size: medium;
             }
+            .num {
+                text-align: right;
+            }
 		</style>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
-			<div class="dview" id="dview" >
+			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:18%"><a id='vewDatea'></a></td>
-						<td align="center" style="width:28%"><a id='vewComp'></a></td>
+						<td align="center" style="width:30%"><a id='vewDatea'></a></td>
+						<td align="center" style="width:30%"><a id='vewComp'></a></td>
+						<td align="center" style="width:30%"><a id='vewTotal'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -676,11 +689,23 @@
 						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='comp,4'>~comp,4</td>
+						<td id='total,0,1' style="text-align: right;">~total,0,1</td>
 					</tr>
 				</table>
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
+					<tr class="tr0" style="height:1px;">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="tdZ"></td>
+					</tr>
 					<tr class="tr1">
 						<td class="td1" ><span> </span><a id='lblNoa' class="lbl"></a></td>
 						<td class="td2" >
@@ -690,10 +715,11 @@
 						<td class="td4" >
 						<input id="txtDatea" type="text" class="txt c1"/>
 						</td>
-						<td class="td5" ><span> </span><a id='lblAcomp' class="lbl btn"></a></td>
-						<td class="td6" >
-						<input id="txtCno"  type="text" class="txt c4"/>
-						<input id="txtAcomp"    type="text" class="txt c5"/>
+						<td><span> </span><a id='lblAcomp' class="lbl"> </a></td>
+						<td>
+							<select id="cmbCno" class="txt c1"> </select>
+							<input id="txtAcomp" type="text" style="display:none;"/>
+							<input id="txtPart2" type="text" style="display:none;"/>
 						</td>
 						<td class="td7"><span> </span><a id='lblPayc' class="lbl"></a></td>
 						<td class="td8"><input id="txtPayc" type="text" class="txt c1"/></td>
@@ -747,11 +773,8 @@
 						<input id="textOpay"  type="text" class="txt num c1"/>
                         <input type='hidden' id="textOpayOrg" />
 						</td>
-						<td class="td7"><input type="button" id="btnAccc" class="txt c1 " /></td>
-						<td class="td8">
-						<input id="txtAccno"  type="text" class="txt c1"/>
-						</td>
-
+						<td><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
+						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr5">
 						<td class="td1"> <a id='lblMemo' class="lbl"></a></td>
@@ -766,9 +789,10 @@
 							<p style="height:1%;"></p>
 							<input id="txtWorker"  type="text" class="txt c1"/>
 						</td>
-						<td class="td7"><input type="button" id="btnAuto" class="txt c1 "  style="color:Red"/>
-                        <input type="button" id="btnGqbPrint" class="txt c1 "/></td>
-						<td class="td8" ></td>
+						<td>
+							<input type="button" id="btnAuto" style="width:80%;color:red;"/>
+                        	<input type="button" id="btnGqbPrint" style="width:80%;"/>
+                        </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblChecker" class="lbl"></a></td>
@@ -798,13 +822,14 @@
 		<div class='dbbs' >
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
-					<td align="center" style="width:1%;">
+					<td  align="center" style="width:1%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
+					<td align="center" style="width:1%;"> </td>
 					<td align="center" style="width:8%;"><a id='lblAcc1'></a></td>
 					<td align="center" style="width:3%;"><a id='lblMoney'></a></td>
-					<td align="center" style="width:4%;"><a id='lblCheckno'></a></td>
-					<td align="center" style="width:4%;"><a id='lblAccount'></a></td>
+					<td align="center" style="width:5%;"><a id='lblCheckno'></a></td>
+					<td align="center" style="width:5%;"><a id='lblAccount'></a></td>
 					<td align="center" style="width:8%;"><a id='lblBank'></a></td>
 					<td align="center" style="width:3%;"><a id='lblIndate'></a></td>
 					<td align="center" style="width:3%;"><a id='lblChgsTran'></a></td>
@@ -814,13 +839,15 @@
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
-					<input type="button" id="btnMinus.*"  value='-' style=" font-weight: bold;" />
-					<input type="text" id="txtNoq.*" style="display:none;" />
+					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
-						<input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
-                        <input type="text" id="txtAcc1.*"  style="width:35%;"/>
-						<input type="text" id="txtAcc2.*"  style="width:45%;"/>
+						<input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+                        <input type="text" id="txtAcc1.*"  style="width:85%; float:left;"/>
+                        <span style="display:block; width:1%;float:left;"> </span>
+						<input type="text" id="txtAcc2.*"  style="width:85%; float:left;"/>
 					</td>
 					<td>
 					<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
@@ -832,9 +859,10 @@
 					<input type="text" id="txtAccount.*"  style="width:95%;" />
                      </td>
 					<td>
-					<input type="button" id="btnBankno.*"  style="float:left;width:7%;" value="."/>
-					<input type="text" id="txtBankno.*"  style="float:left;width:35%;" />
-					<input type="text" id="txtBank.*" style="float:left;width:47%;"/>
+						<input class="btn"  id="btnBankno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+                        <input type="text" id="txtBankno.*"  style="width:85%; float:left;"/>
+                        <span style="display:block; width:1%;float:left;"> </span>
+						<input type="text" id="txtBank.*"  style="width:85%; float:left;"/>
 					</td>
 					<td>
 					<input type="text" id="txtIndate.*" style="width:95%;" />

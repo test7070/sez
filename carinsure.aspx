@@ -6,10 +6,9 @@
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-		<script src="//59.125.143.170/jquery/js/qset.js" type="text/javascript"></script>
 		<script type="text/javascript">
             var q_name = 'carinsure', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
             var t_sqlname = 'carinsure_load';
@@ -50,7 +49,8 @@
                     return;
                 }
                 mainBrow(6, t_content, t_sqlname, t_postname);
-                q_mask(bbmMask);
+                q_getFormat();
+                //q_mask(bbsMask);
             }
 
             function q_gtPost(t_name) {
@@ -58,7 +58,7 @@
             }
 
             function bbsAssign() {
-                _bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
+                _bbsAssign();//'tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
             }
 
             function btnOk() {

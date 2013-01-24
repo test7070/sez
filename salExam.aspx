@@ -26,12 +26,17 @@
         //ajaxPath = ""; // 只在根目錄執行，才需設定
 		aPop = new Array(['txtSssno_', 'lblSssno', 'sss', 'noa,namea', 'txtSssno_,txtNamea_', 'sss_b.aspx']
 				,['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
-		
+		q_desc=1;
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
             q_brwCount();  // 計算 合適  brwCount 
-            q_gt(q_name, q_content, q_sqlCount, 1)
+            
+            if(r_rank>=8)           
+            	q_gt(q_name, q_content, q_sqlCount, 1)
+            else{
+            	q_gt('sss', "where=^^noa='" + r_userno + "'^^", q_sqlCount, 1)
+            }
         });
 
         //////////////////   end Ready
@@ -48,14 +53,22 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd],['txtYear', '999']];
             q_mask(bbmMask);
-
-            $('#txtYear').val(q_date().substr(0,3));
-            q_cmbParse("cmbPerson", ('').concat(new Array( '本國','日薪')));
+            
             $('#btnImport').click(function() {
-            	var t_where = "where=^^ partno ='"+$('#txtPartno').val()+"' and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
+            	if(r_rank==9)//總事長評量副總
+            		var t_where = "where=^^ (partno ='02' and jobno='02' and noa!='Z001' and noa!='010132' ) ^^";
+            	else if(r_rank==8)//副總評量各主管(含監理部經理)以及部門以下員工
+            		var t_where = "where=^^ ((partno ='"+$('#txtPartno').val()+"' and noa!='"+r_userno+"' ) or jobno<='03' or (partno='07' and jobno<='04'))   and noa!='Z001' and noa!='010132'^^";
+            	else{
+            		if($('#txtPartno').val()=='03')//財務部跟內帳部一起
+            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='04') and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
+            		else if($('#txtPartno').val()=='08')//運輸部跟中鋼部一起
+            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='09') and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
+            		else
+            			var t_where = "where=^^ partno ='"+$('#txtPartno').val()+"' and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
+            	}
             	q_gt('sss', t_where , 0, 0, 0, "", r_accy);
             });
-                  
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -68,12 +81,21 @@
             b_pop = '';
         }
 
-
+		var r_partno='',r_part='';
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
             	case 'sss':
-            		var as = _q_appendData("sss", "", true);
+            		if(q_cur==0){
+            			var as = _q_appendData("sss", "", true);
+            			q_content = "where=^^partno='" + as[0].partno + "'^^";
+            			r_partno=as[0].partno;
+            			r_part=as[0].part;
+            			q_gt(q_name, q_content, q_sqlCount, 1);
+            		}
+            		if(q_cur==1 || q_cur==2){
+            			var as = _q_appendData("sss", "", true);
             			q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtPart', as.length, as, 'noa,namea,part', '');
+            		}
             		break;
                 case q_name: 
                 	if (q_cur == 4)   // 查詢
@@ -89,12 +111,12 @@
                 return;
             }
 
-            $('#txtWorker').val(r_name)
+            $('#txtWorker').val(r_name);
             sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
-                q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
+                q_gtnoa(q_name, replaceAll('E' + $('#txtDatea').val(), '/', ''));
             else
                 wrServer(s1);
         }
@@ -106,29 +128,135 @@
             q_box('salexam_s.aspx', q_name + '_s', "500px", "250px", q_getMsg("popSeek"));
         }
 
-        function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
-        }
-
         function bbsAssign() {  /// 表身運算式
-        	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-        		$('#txtCaritemno_'+j).change(function () {
-           				t_IdSeq = -1;
-						q_bodyId($(this).attr('id'));
-						b_seq = t_IdSeq;
-						
-						$('#txtTotal_'+b_seq).val(dec($('#txtEfficiency_'+b_seq).val())+dec($('#txtDuty_'+b_seq).val()));
-           		});
-        		
-        		
-        		
-        	}
+        	for (var j = 0; j < q_bbsCount; j++) {
+	        	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+	        		$('#txtEfficiency_'+j).change(function () {
+	           				t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!(dec($('#txtEfficiency_'+b_seq).val())>=6 && dec($('#txtEfficiency_'+b_seq).val())<=20))
+							{
+								alert(q_getMsg('lblEfficiency_s')+'分數錯誤!!');
+								$('#txtEfficiency_'+b_seq).val(6)
+							}
+							totalsum(b_seq);
+	           		});
+	        		$('#txtDuty_'+j).change(function () {
+	           				t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!(dec($('#txtDuty_'+b_seq).val())>=5 && dec($('#txtDuty_'+b_seq).val())<=15))
+							{
+								alert(q_getMsg('lblDuty_s')+'分數錯誤!!');
+								$('#txtDuty_'+b_seq).val(5)
+							}
+							totalsum(b_seq);
+	           		});
+	           		$('#txtAb_incoo_'+j).change(function () {
+	           				t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!(dec($('#txtAb_incoo_'+b_seq).val())>=5 && dec($('#txtAb_incoo_'+b_seq).val())<=15))
+							{
+								alert(q_getMsg('lblAb_incoo_s')+'分數錯誤!!');
+								$('#txtAb_incoo_'+b_seq).val(5)
+							}
+							totalsum(b_seq);
+	           		});
+	           		$('#txtAb_harcoo_'+j).change(function () {
+	           				t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!(dec($('#txtAb_harcoo_'+b_seq).val())>=4 && dec($('#txtAb_harcoo_'+b_seq).val())<=10))
+							{
+								alert(q_getMsg('lblAb_harcoo_s')+'分數錯誤!!');
+								$('#txtAb_harcoo_'+b_seq).val(4)
+							}
+							totalsum(b_seq);
+	           		});
+	           		$('#txtAb_leabeh_'+j).change(function () {
+	           				t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!(dec($('#txtAb_leabeh_'+b_seq).val())>=4 && dec($('#txtAb_leabeh_'+b_seq).val())<=10))
+							{
+								alert(q_getMsg('lblAb_leabeh_s')+'分數錯誤!!');
+								$('#txtAb_leabeh_'+b_seq).val(4)
+							}
+							totalsum(b_seq);
+	           		});
+	           		$('#txtAb_anadet_'+j).change(function () {
+	           				t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!(dec($('#txtAb_anadet_'+b_seq).val())>=4 && dec($('#txtAb_anadet_'+b_seq).val())<=10))
+							{
+								alert(q_getMsg('lblAb_anadet_s')+'分數錯誤!!');
+								$('#txtAb_anadet_'+b_seq).val(4)
+							}
+							totalsum(b_seq);
+	           		});
+	           		$('#txtAb_worknow_'+j).change(function () {
+	           				t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!(dec($('#txtAb_worknow_'+b_seq).val())>=1 && dec($('#txtAb_worknow_'+b_seq).val())<=5))
+							{
+								alert(q_getMsg('lblAb_worknow_s')+'分數錯誤!!');
+								$('#txtAb_worknow_'+b_seq).val(1)
+							}
+							totalsum(b_seq);
+	           		});
+	           		$('#txtAttitude_'+j).change(function () {
+	           				t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!(dec($('#txtAttitude_'+b_seq).val())>=1 && dec($('#txtAttitude_'+b_seq).val())<=5))
+							{
+								alert(q_getMsg('lblAttitude_s')+'分數錯誤!!');
+								$('#txtAttitude_'+b_seq).val(1)
+							}
+							totalsum(b_seq);
+	           		});
+	           		$('#txtAb_innovation_'+j).change(function () {
+	           				t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!(dec($('#txtAb_innovation_'+b_seq).val())>=1 && dec($('#txtAb_innovation_'+b_seq).val())<=5))
+							{
+								alert(q_getMsg('lblAb_innovation_s')+'分數錯誤!!');
+								$('#txtAb_innovation_'+b_seq).val(1)
+							}
+							totalsum(b_seq);
+	           		});
+	           		$('#txtWorkdegree_'+j).change(function () {
+	           				t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!(dec($('#txtWorkdegree_'+b_seq).val())>=1 && dec($('#txtWorkdegree_'+b_seq).val())<=5))
+							{
+								alert(q_getMsg('lblWorkdegree_s')+'分數錯誤!!');
+								$('#txtWorkdegree_'+b_seq).val(1)
+							}
+							totalsum(b_seq);
+	           		});
+	        	}
+	        }
             _bbsAssign();
+        }
+        
+        function totalsum(seq) {
+        	$('#txtTotal_'+seq).val(dec($('#txtEfficiency_'+seq).val())+dec($('#txtDuty_'+seq).val())+dec($('#txtAb_incoo_'+seq).val())+dec($('#txtAb_harcoo_'+seq).val())+dec($('#txtAb_leabeh_'+seq).val())+dec($('#txtAb_anadet_'+seq).val())+dec($('#txtAb_worknow_'+seq).val())+dec($('#txtAttitude_'+seq).val())+dec($('#txtAb_innovation_'+seq).val())+dec($('#txtWorkdegree_'+seq).val()));
         }
 
         function btnIns() {
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+            $('#txtYear').val(dec(q_date().substr(0,3))-1);
             $('#txtDatea').val(q_date());
+            $('#txtPartno').val(r_partno);
+            $('#txtPart').val(r_part);
             $('#txtDatea').focus();
         }
         function btnModi() {
@@ -155,7 +283,7 @@
             }
 
             q_nowf();
-            as['date'] = abbm2['date'];
+            as['year'] = abbm2['year'];
 
             //            t_err ='';
             //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
@@ -305,7 +433,7 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 90%;
+                width: 97%;
                 float: left;
             }
             .txt.c2 {
@@ -376,7 +504,7 @@
             COLOR: blue ;
             TEXT-ALIGN: left;
              BORDER:1PX LIGHTGREY SOLID;
-           width: 1264px;
+           width: 1500px;
         }     
     </style>
 </head>
@@ -442,6 +570,7 @@
                 <td align="center" style="width:110px;"><a id='lblAb_innovation_s'> </a><br>(1-5)</td>
                 <td align="center" style="width:120px;"><a id='lblWorkdegree_s'> </a><br>(1-5)</td>
                 <td align="center" style="width:120px;"><a id='lblTotal_s'> </a></td>
+                <td align="center" style="width:300px;"><a id='lblMemo_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
@@ -457,7 +586,8 @@
                 <td ><input  id="txtAttitude.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtAb_innovation.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtWorkdegree.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtTotal.*" type="text" class="txt num c1" /><input id="txtNoq.*" type="hidden" /></td>               
+                <td ><input  id="txtTotal.*" type="text" class="txt num c1" /><input id="txtNoq.*" type="hidden" /></td>
+                <td ><input  id="txtMemo.*" type="text" class="txt c1" /></td>
             </tr>
         </table>
         </div>
