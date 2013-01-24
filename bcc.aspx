@@ -18,16 +18,15 @@
 
             var q_name = "bcc";
             var q_readonly = [];
-            var bbmNum = [['txtBeginmount', 14, 0, 1], ['txtBeginmoney', 14, 0, 1], ['txtSafemount', 14, 0, 1], ['txtStkmount', 14, 0, 1], ['txtStkmoney', 14, 0, 1]];
+            var bbmNum = [['txtBeginmount', 14, 0, 1], ['txtBeginmoney', 14, 0, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            brwCount2 = 20;
+            brwCount2 = 15;
        
-            aPop = new Array(['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -35,28 +34,19 @@
                 $('#txtNoa').focus
             });
 
-            //////////////////   end Ready
             function main() {
                 if (dataErr) {
                     dataErr = false;
                     return;
                 }
                 mainForm(0);
-                // 1=Last  0=Top
-            }///  end Main()
+            }
 
             function mainPost() {
-                bbmMask = [['txtBegindate', r_picd], ['txtMon', r_picm]];
+                bbmMask = [['txtBegindate', r_picd], ['txtExpirationdate', r_picd]];
                 q_mask(bbmMask);
-                q_gt('part', '', 0, 0, 0, "");
                 q_cmbParse("cmbTypea", q_getPara('bcc.type'));
 				q_cmbParse("cmbTaxtype", '含稅,自訂');
-				$("#cmbPartno").focus(function() {
-                    var len = $(this).children().length > 0 ? $(this).children().length : 1;
-                    $(this).attr('size', len + "");
-                }).blur(function() {
-                    $(this).attr('size', '1');
-                });
                 $("#cmbTypea").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
@@ -78,9 +68,6 @@
                 	sum();
                 });
                 $('#txtBeginmount').change(function() {
-                    sum();
-                });
-                $('#txtStkmount').change(function() {
                     sum();
                 });
                 $('#txtAcc1').change(function(e) {
@@ -124,14 +111,7 @@
             	$('#txtPrice').val(t_price);
             	$('#txtTax').val(t_tax);
             	$('#txtTotal').val(t_total);
-            	
             	q_tr('txtBeginmoney', dec($('#txtPrice').val()) * dec($('#txtBeginmount').val()));
-            	q_tr('txtBeginmoney', dec($('#txtPrice').val()) * dec($('#txtBeginmount').val()));
-                if (q_cur == 1) {
-                    q_tr('txtStkmount', dec($('#txtBeginmount').val()));
-                    q_tr('txtStkmoney', dec($('#txtPrice').val()) * dec($('#txtBeginmount').val()));
-                }
-                q_tr('txtStkmoney', dec($('#txtPrice').val()) * dec($('#txtStkmount').val()));
             }
             
             function q_boxClose(s2) {
@@ -146,18 +126,6 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'part':
-                        var as = _q_appendData("part", "", true);
-                        if (as[0] != undefined) {
-                            var t_item = "@ ";
-                            for ( i = 0; i < as.length; i++) {
-                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
-                            }
-                            q_cmbParse("cmbPartno", t_item);
-                            if (abbm[q_recno] != undefined) 
-                           		$("#cmbPartno").val(abbm[q_recno].partno);
-                        }
-                        break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -169,38 +137,16 @@
                 }  /// end switch
             }
 
-            function q_stPost() {
-                if (!(q_cur == 1 || q_cur == 2))
-                    return false;
-                var s2 = xmlString.split(';');
-                abbm[q_recno]['stkmount'] = s2[0];
-                abbm[q_recno]['stkmoney'] = s2[1];
-                $('#txtStkmount').val(s2[0]);
-                $('#txtStkmoney').val(s2[1]);
-
-            }
-
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-
-                q_box('bcc_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
-            }
-
-            function combPaytype_chg() {
-                var cmb = document.getElementById("combPaytype")
-                if (!q_cur)
-                    cmb.value = '';
-                else
-                    $('#txtPaytype').val(cmb.value);
-                cmb.value = '';
+                q_box('bcc_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
                 _btnIns();
                 sum();
                 $('#txtNoa').focus();
-                
             }
 
             function btnModi() {
@@ -208,52 +154,32 @@
                     return;
                 _btnModi();
                 $('#txtNoa').attr('disabled', 'disabled');
-                $('#txtStkmount').attr('disabled', 'disabled');
-                $('#txtStkmoney').attr('disabled', 'disabled');
 				sum();
                 $('#txtProduct').focus();
-                
             }
 
             function btnPrint() {
-                q_box('z_bcc5.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+                q_box('z_bcc5.aspx', '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function btnOk() {
-            	$('#txtPart').val($('#cmbPartno').find(":selected").text());
                 var t_err = '';
-                $('#txtMon').val($.trim($('#txtMon').val()));
-                if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
-                    alert(q_getMsg('lblMon') + '錯誤。');
-                    return;
-                }
-                $('#txtBegindate').val($.trim($('#txtBegindate').val()));
-                if (!q_cd($('#txtBegindate').val())) {
-                    alert(q_getMsg('lblDatea') + '錯誤。');
-                    return;
-                }
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
-
-                if (dec($('#txtCredit').val()) > 9999999999)
-                    t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
-
-                if (dec($('#txtStartn').val()) > 31)
-                    t_err = t_err + q_getMsg("lblStartn") + q_getMsg("msgErr") + '\r';
-                if (dec($('#txtGetdate').val()) > 31)
-                    t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
-
+                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
+                $('#txtExpirationdate').val($.trim($('#txtExpirationdate').val()));
+                if (!q_cd($('#txtExpirationdate').val())) {
+                    alert(q_getMsg('lblExpirationdate') + '錯誤。');
+                    return;
+                }
+                $('#txtBegindate').val($.trim($('#txtBegindate').val()));
+                if (!q_cd($('#txtBegindate').val())) {
+                    alert(q_getMsg('lblBegindate') + '錯誤。');
+                    return;
+                }
                 var t_noa = trim($('#txtNoa').val());
-                if (emp($('#txtUacc1').val()))
-                    $('#txtUacc1').val('1123.' + t_noa);
-                if (emp($('#txtUacc2').val()))
-                    $('#txtUacc2').val('1121.' + t_noa);
-                if (emp($('#txtUacc3').val()))
-                    $('#txtUacc3').val('2131.' + t_noa);
-
                 if (t_noa.length == 0)
                     q_gtnoa(q_name, t_noa);
                 else
@@ -536,29 +462,19 @@
 						<td><input id="txtTotal"  type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblMon' class="lbl"> </a></td>
-						<td><input id="txtMon" type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblPart" class="lbl btn" > </a></td>
-						<td>
-							<select id="cmbPartno" class="txt c1"> </select>
-							<input id="txtPart"  type="text"style="display: none;" />
-						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblAcc" class="lbl btn"> </a></td>
-						<td colspan="2">
-							<input id="txtAcc1" type="text"  style="float:left; width:50%;"/>
-							<input id="txtAcc2"  type="text"  style="float:left; width:50%;"/>
-						</td>
+						<td><span> </span><a id='lblExpirationdate' class="lbl"> </a></td>
+						<td><input id="txtExpirationdate" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td colspan="3"><input id="txtMemo" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td><span> </span><a id='lblMemo2' class="lbl"> </a></td>
+						<td colspan="3"><input id="txtMemo2"  type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblBegindate' class="lbl"> </a></td>
 						<td><input id="txtBegindate"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
@@ -566,20 +482,6 @@
 						<td><input id="txtBeginmount"  type="text" class="txt num c1"/></td>
 						<td><span> </span><a id='lblBeginmoney' class="lbl"> </a></td>
 						<td><input id="txtBeginmoney"  type="text" class="txt num c1"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblSafemount' class="lbl"> </a></td>
-						<td><input id="txtSafemount"  type="text" class="txt num c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblStkmount' class="lbl"> </a></td>
-						<td><input id="txtStkmount"  type="text" class="txt num c1" /></td>
-						<td><span> </span><a id='lblStkmoney' class="lbl"> </a></td>
-						<td><input id="txtStkmoney"  type="text"  class="txt num c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblMemo2' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtMemo2"  type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
