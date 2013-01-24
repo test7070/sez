@@ -51,8 +51,8 @@
 
             $('#txtYear').val(q_date().substr(0,3));
             q_cmbParse("cmbPerson", ('').concat(new Array( '本國','日薪')));
-            $('#btnIndata').click(function() {
-            	var t_where = "where=^^ person='"+$('#cmbPerson').find("option:selected").text()+"' and partno ='"+$('#txtPartno').val()+"' and noa!='Z001' and noa!='010132'^^";
+            $('#btnImport').click(function() {
+            	var t_where = "where=^^ partno ='"+$('#txtPartno').val()+"' and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
             	q_gt('sss', t_where , 0, 0, 0, "", r_accy);
             });
                   
@@ -110,6 +110,18 @@
         }
 
         function bbsAssign() {  /// 表身運算式
+        	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+        		$('#txtCaritemno_'+j).change(function () {
+           				t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						
+						$('#txtTotal_'+b_seq).val(dec($('#txtEfficiency_'+b_seq).val())+dec($('#txtDuty_'+b_seq).val()));
+           		});
+        		
+        		
+        		
+        	}
             _bbsAssign();
         }
 
@@ -364,18 +376,8 @@
             COLOR: blue ;
             TEXT-ALIGN: left;
              BORDER:1PX LIGHTGREY SOLID;
-           width: 100%;
-        }  
-        
-        
-        .st1
-        {
-            width: 6%; 
-        }
-        .st2
-        {
-            width: 3%;
-        }      
+           width: 1264px;
+        }     
     </style>
 </head>
 <body>
@@ -426,20 +428,20 @@
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' >
             <tr style='color:White; background:#003366;' >
-                <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight:"  /></td>
-                <td class="st1" align="center"><a id='lblSssno_s'> </a></td>
-                <td class="st1" align="center"><a id='lblNamea_s'> </a></td>
-                <td class="st2" align="center"><a id='lblEfficiency_s'> </a></td>
-                <td class="st2" align="center"><a id='lblDuty_s'> </a></td>
-                <td class="st2" align="center"><a id='lblAb_incoo_s'> </a></td>
-                <td class="st2" align="center"><a id='lblAb_harcoo_s'> </a></td>
-                <td class="st2" align="center"><a id='lblAb_leabeh_s'> </a></td>
-                <td class="st2" align="center"><a id='lblAb_anadet_s'> </a></td>
-                <td class="st2" align="center"><a id='lblAb_worknow_s'> </a></td>
-                <td class="st2" align="center"><a id='lblAttitude_s'> </a></td>
-                <td class="st2" align="center"><a id='lblAb_innovation_s'> </a></td>
-                <td class="st2" align="center"><a id='lblWorkdegree_s'> </a></td>
-                <td class="st2" align="center"><a id='lblTotal_s'> </a></td>
+                <td align="center" style="width:30px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
+                <td align="center" style="width:120px;"><a id='lblSssno_s'> </a></td>
+                <td align="center" style="width:120px;"><a id='lblNamea_s'> </a></td>
+                <td align="center" style="width:110px;"><a id='lblEfficiency_s'></a><br>(6-20)</td>
+                <td align="center" style="width:110px;"><a id='lblDuty_s'></a><br>(5-15)</td>
+                <td align="center" style="width:140px;"><a id='lblAb_incoo_s'> </a><br>(5-15)</td>
+                <td align="center" style="width:140px;"><a id='lblAb_harcoo_s'> </a><br>(4-10)</td>
+                <td align="center" style="width:140px;"><a id='lblAb_leabeh_s'> </a><br>(4-10)</td>
+                <td align="center" style="width:140px;"><a id='lblAb_anadet_s'> </a><br>(4-10)</td>
+                <td align="center" style="width:140px;"><a id='lblAb_worknow_s'> </a><br>(1-5)</td>
+                <td align="center" style="width:110px;"><a id='lblAttitude_s'> </a><br>(1-5)</td>
+                <td align="center" style="width:110px;"><a id='lblAb_innovation_s'> </a><br>(1-5)</td>
+                <td align="center" style="width:120px;"><a id='lblWorkdegree_s'> </a><br>(1-5)</td>
+                <td align="center" style="width:120px;"><a id='lblTotal_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
