@@ -364,13 +364,13 @@
             COLOR: blue ;
             TEXT-ALIGN: left;
              BORDER:1PX LIGHTGREY SOLID;
-           width: 350%;
+           width: 100%;
         }  
         
         
         .st1
         {
-            width: 2%; 
+            width: 3%; 
         }
         .st2
         {
@@ -387,13 +387,11 @@
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:20%"><a id='vewNoa'></a></td>
                 <td align="center" style="width:25%"><a id='vewYear'></a></td>
-                <td align="center" style="width:25%"><a id='vewPart'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='noa'>~noa</td>
                    <td align="center" id='year'>~year</td>
-                  	<td align="center" id='part'>~part</td>
             </tr>
         </table>
         </div>
@@ -403,23 +401,18 @@
             <td class='td1'><span> </span><a id="lblNoa" class="lbl"> </a></td>
             <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
             <td class='td3'><span> </span><a id="lblYear" class="lbl"> </a></td>
-            <td class="td4"><input id="txtYear" type="text" class="txt c1"/></td> 
-            <td class='td5'><span> </span><a id="lblDatea" class="lbl"></a></td>
-            <td class="td6"><input id="txtDatea" type="text" class="txt c1"/></td> 
+            <td class="td4"><input id="txtYear" type="text" class="txt c1"/></td>
         </tr>
         <tr>
-        	<td class="td1"><span> </span><a id="lblPerson" class="lbl"></a></td>
-            <td class="td2"><select id="cmbPerson" class="txt c1"></select></td>
-            <td class="td3"><span> </span><a id="lblPart" class="lbl btn"></a></td>
-            <td class="td4">
-            	<input id="txtPartno" type="text" class="txt c2"/>
-            	<input id="txtPart" type="text" class="txt c3"/>
-            </td>
-            <td class='td5'><input id="btnIndata" type="button" style="width: auto;font-size: medium;"/></td>
+        	<td class='td1'><span> </span><a id="lblDatea" class="lbl"></a></td>
+            <td class="td2"><input id="txtDatea" type="text" class="txt c1"/></td> 
+            <td class='td3'><input id="btnImport" type="button" style="width: auto;font-size: medium;"/></td>
         </tr>
         <tr>
-            <td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-            <td class="td2" colspan="6"><textarea id="txtMemo" cols="10" rows="5" style="width: 95%;height: 50px;"> </textarea></td>
+            <td class='td1'><span> </span><a id="lblTotal" class="lbl"> </a></td>
+            <td class="td2"><input id="txtTotal"  type="text" class="txt num c1"/></td>
+            <td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
+            <td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
         </tr>
         </table>
         </div>
@@ -428,89 +421,55 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
-                <td class="st2" align="center"><a id='lblSssno'> </a></td>
-                <td class="st1" align="center"><a id='lblNamea'> </a></td>
-                <td class="st1" align="center"><a id='lblMon'> </a></td>
-                <td class="st1" align="center"><a id='lblBase'> </a></td>
-                <td class="st2" align="center"><a id='lblQpoint1'> </a></td>
-                <td class="st2" align="center"><a id='lblQpoint2'> </a></td>
-                <td class="st2" align="center"><a id='lblQpoint'> </a></td>
-                <td class="st2" align="center"><a id='lblPoint1'> </a></td>
-                <td class="st1" align="center"><a id='lblTot_person'> </a></td>
-                <td class="st1" align="center"><a id='lblTot_sick'> </a></td>
-                <td class="st1" align="center"><a id='lblTot_leave'> </a></td>
-                <td class="st1" align="center"><a id='lblTot_late'> </a></td>
-                <td class="st1" align="center"><a id='lblTot_forget'> </a></td>
-                <td class="st2" align="center"><a id='lblXcountx'> </a></td>
-                <td class="st2" align="center"><a id='lblMi_person'> </a></td>
-                <td class="st2" align="center"><a id='lblMi_sick'> </a></td>
-                <td class="st2" align="center"><a id='lblMi_leave'> </a></td>
-                <td class="st2" align="center"><a id='lblMi_late'> </a></td>
-                <td class="st2" align="center"><a id='lblMi_forget'> </a></td>
-                <td class="st1" align="center"><a id='lblXpoint'> </a></td>
-                <td class="st2" align="center"><a id='lblPoint2'> </a></td>
-                <td class="st2" align="center"><a id='lblVcount1'> </a></td>
-                <td class="st2" align="center"><a id='lblVcount2'> </a></td>
-                <td class="st2" align="center"><a id='lblVcount3'> </a></td>
-                <td class="st2" align="center"><a id='lblVcount4'> </a></td>
-                <td class="st2" align="center"><a id='lblVcount5'> </a></td>
-                <td class="st2" align="center"><a id='lblVcount6'> </a></td>
-                <td class="st2" align="center"><a id='lblVcount7'> </a></td>
-                <td class="st2" align="center"><a id='lblVpoint'> </a></td>
-                <td class="st2" align="center"><a id='lblPoint'> </a></td>
-                <td class="st2" align="center"><a id='lblClass'> </a></td>
-                <td class="st1" align="center"><a id='lblQclass'> </a></td>
-                <td class="st1" align="center"><a id='lblDay1'> </a></td>
-                <td class="st1" align="center"><a id='lblDay2'> </a></td>
-                <td class="st1" align="center"><a id='lblMoney1'> </a></td>
-                <td class="st1" align="center"><a id='lblDay3'> </a></td>
-                <td class="st1" align="center"><a id='lblMoney2'> </a></td>
-                <td class="st1" align="center"><a id='lblMoney3'> </a></td>
-                <td class="st2" align="center"><a id='lblTax'> </a></td>
-                <td class="st1" align="center"><a id='lblTotal'> </a></td>
+                <td class="st1" align="center"><a id='lblSssno_s'> </a></td>
+                <td class="st1" align="center"><a id='lblNamea_s'> </a></td>
+                <td class="st1" align="center"><a id='lblJob_s'> </a></td>
+                <td class="st1" align="center"><a id='lblIndate_s'> </a></td>
+                <td class="st1" align="center"><a id='lblTotal1_s'> </a></td>
+                <td class="st2" align="center"><a id='lblLate_s'> </a></td>
+                <td class="st2" align="center"><a id='lblLeaveearly_s'> </a></td>
+                <td class="st2" align="center"><a id='lblPerson_s'> </a></td>
+                <td class="st2" align="center"><a id='lblSick_s'> </a></td>
+                <td class="st2" align="center"><a id='lblLeave_s'> </a></td>
+                <td class="st2" align="center"><a id='lblMarriageleave_s'> </a></td>
+                <td class="st2" align="center"><a id='lblBereavementleave_s'> </a></td>
+                <td class="st2" align="center"><a id='lblTotal2_s'> </a></td>
+                <td class="st2" align="center"><a id='lblLeavewithoutpay_s'> </a></td>
+                <td class="st2" align="center"><a id='lblGreatmerits_s'> </a></td>
+                <td class="st2" align="center"><a id='lblMinormerits_s'> </a></td>
+                <td class="st2" align="center"><a id='lblCommend_s'> </a></td>
+                <td class="st2" align="center"><a id='lblMajordemerits_s'> </a></td>
+                <td class="st2" align="center"><a id='lblPeccadillo_s'> </a></td>
+                <td class="st2" align="center"><a id='lblReprimand_s'> </a></td>
+                <td class="st2" align="center"><a id='lblTotal3_s'> </a></td>
+                <td class="st2" align="center"><a id='lblTotal4_s'> </a></td>
+                <td class="st1" align="center"><a id='lblMemo_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input  id="txtSssno.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtNamea.*" type="text" class="txt c1"/></td>
-                <td ><input  id="txtMon.*" type="text" class="txt c1"/></td>
-                <td ><input  id="txtBase.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtQpoint1.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtQpoint2.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtQpoint.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtPoint1.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtTot_person.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtTot_sick.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtTot_leave.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtTot_late.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtTot_forget.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtXcountx.*" type="text" class="txt c1"/></td>
-                <td ><input  id="txtMi_person.*" type="text" class="txt num c1"/></td>
-                <td ><input  id="txtMi_sick.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtMi_leave.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtMi_late.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtMi_forget.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtXpoint.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtPoint2.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtVcount1.*"type="text" class="txt num c1" /></td>
-                <td ><input  id="txtVcount2.*"type="text" class="txt num c1" /></td>
-                <td ><input  id="txtVcount3.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtVcount4.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtVcount5.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtVcount6.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtVcount7.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtVpoint.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtPoint.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtClass.*" type="text" class="txt c1"/></td>
-                <td ><input  id="txtQclass.*"type="text" class="txt c1"/></td>
-                <td ><input  id="txtDay1.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtDay2.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtMoney1.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtDay3.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtMoney2.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtMoney3.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtTax.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtTotal.*" type="text" class="txt num c1" /><input id="txtNoq.*" type="hidden" /></td>               
+                <td ><input  id="txtJob.*" type="text" class="txt c1"/></td>
+                <td ><input  id="txtIndate.*" type="text" class="txt c1" /></td>
+                <td ><input  id="txtTotal1.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtLate.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtLeaveearly.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtPerson.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtSick.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtLeave.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtMarriageleave.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtBereavementleave.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtTotal2.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtLeavewithoutpay.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtGreatmeriy.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtMinormerits.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtCommend.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtMajordemerits.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtPeccadillo.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtReprimand.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtTotal3.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtTotal4.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtMemo.*" type="text" class="txt c1" /><input id="txtNoq.*" type="hidden" /></td>               
             </tr>
         </table>
         </div>
