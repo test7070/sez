@@ -38,7 +38,7 @@
             brwCount2 = 15;
             aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], ['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'], ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'], ['txtCarno_', '', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx'], ['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'], ['txtDeliveryno', 'lblDeliveryno', 'trando', 'deliveryno,po', 'txtDeliveryno,txtPo', 'trando_b.aspx']);
 
-            var t_casetype = ["20''", "40''", "超重櫃", "HQ", "OT", "太空包"];
+            var t_casetype = ["20''", "40''", "超重櫃", "HQ", "OT"];
             var t_casetype2 = ["20''", "40''"];
 
             $(document).ready(function() {
@@ -753,6 +753,21 @@
 					</tr>
 					<tr class="trX">
 						<td><span> </span><a id="lblExcon" class="lbl" style="color: #ff0033;font-weight:bolder;"> </a></td>
+						<td><span> </span><a id="lblEmpdock" class="lbl"> </a></td>
+						<td>
+						<input type="text" id="txtEmpdock" class="txt c1"/>
+						</td>
+						<td><span> </span><a id="lblDock" class="lbl"> </a></td>
+						<td>
+						<input type="text" id="txtDock" class="txt c1"/>
+						</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr class="trX">
+						<td> </td>
 						<td><span> </span><a id="lblBoat" class="lbl"> </a></td>
 						<td>
 						<input type="text" id="txtBoat" class="txt c1"/>
@@ -780,24 +795,12 @@
 						<td></td>
 						<td></td>
 					</tr>
-					<tr class="trX">
-						<td></td>
+					<tr class="trX" id="xxx">
+						<td> </td>
 						<td><span> </span><a id="lblPort" class="lbl"> </a></td>
 						<td>
 						<input type="text" id="txtPort" class="txt c1"/>
 						</td>
-						<td><span> </span><a id="lblDock" class="lbl"> </a></td>
-						<td>
-						<input type="text" id="txtDock" class="txt c1"/>
-						</td>
-						<td><span> </span><a id="lblEmpdock" class="lbl"> </a></td>
-						<td>
-						<input type="text" id="txtEmpdock" class="txt c1"/>
-						</td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr class="trX" id="xxx">
 						<td>
 						<input type="text" id="txtCasetype" style="display:none;"/>
 						</td>
@@ -809,8 +812,6 @@
 						<td>
 						<input type="text" id="txtNodate" class="txt c1"/>
 						</td>
-						<td></td>
-						<td></td>
 						<td></td>
 						<td></td>
 					</tr>
