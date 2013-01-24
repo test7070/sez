@@ -364,7 +364,7 @@
             COLOR: blue ;
             TEXT-ALIGN: left;
              BORDER:1PX LIGHTGREY SOLID;
-           width: 350%;
+           width: 100%;
         }  
         
         
@@ -426,7 +426,7 @@
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' >
             <tr style='color:White; background:#003366;' >
-                <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
+                <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight:"  /></td>
                 <td class="st1" align="center"><a id='lblSssno_s'> </a></td>
                 <td class="st1" align="center"><a id='lblNamea_s'> </a></td>
                 <td class="st2" align="center"><a id='lblEfficiency_s'> </a></td>
