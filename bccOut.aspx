@@ -181,6 +181,7 @@
         	for(var j = 0; j < q_bbsCount; j++) {
         		$('#lblNo_'+j).text(j+1);	
             	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+            		$("#cmbStoreno_"+j).val(abbs[q_recno].storeno);
             		/*$('#txtMount_' + j).change(function () {
 						t_IdSeq = -1;
 						q_bodyId($(this).attr('id'));
