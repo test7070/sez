@@ -444,6 +444,9 @@
                 <td class="st2" align="center"><a id='lblTotal3_s'> </a></td>
                 <td class="st2" align="center"><a id='lblTotal4_s'> </a></td>
                 <td class="st1" align="center"><a id='lblMemo_s'> </a></td>
+                <td class="st2" align="center"><a id='lblSalary_s'> </a></td>
+                <td class="st2" align="center"><a id='lblAwardmon_s'> </a></td>
+                <td class="st1" align="center"><a id='lblTotal5_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
@@ -469,7 +472,10 @@
                 <td ><input  id="txtReprimand.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtTotal3.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtTotal4.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtMemo.*" type="text" class="txt c1" /><input id="txtNoq.*" type="hidden" /></td>               
+                <td ><input  id="txtMemo.*" type="text" class="txt c1" /><input id="txtNoq.*" type="hidden" /></td>
+                <td ><input  id="txtSalary.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtAwardmon.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtTotal5.*" type="text" class="txt num c1" /></td>
             </tr>
         </table>
         </div>
