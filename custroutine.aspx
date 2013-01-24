@@ -53,8 +53,39 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
                 q_cmbParse("cmbTypea", ','+q_getPara('lab_accc.typea'));
+                $('#cmbTypea').change(function(){
+                	cmbTypea_chg();
+                })
             }
-
+			function cmbTypea_chg(){
+               	for(var j = 0;j < q_bbsCount;j++){
+		               if($('#cmbTypea').val().substr(0,2) == '發票'){
+	           				$('#txtCno_' + j).removeAttr('disabled');
+	           				$('#txtAcomp_' + j).removeAttr('disabled');
+	           				$('#txtTaxrate_' + j).removeAttr('disabled');
+		               		$('#txtCustno_' + j).attr('disabled','disabled');
+		               		$('#txtComp_' + j).attr('disabled','disabled');
+		               		$('#txtMount_' + j).attr('disabled','disabled');
+		               		$('#txtPrice_' + j).attr('disabled','disabled');	                		
+	                	}else if($('#cmbTypea').val().substr(0,2) == '會計'){
+               				$('#txtCno_' + j).attr('disabled','disabled');
+               				$('#txtAcomp_' + j).attr('disabled','disabled');
+               				$('#txtTaxrate_' + j).attr('disabled','disabled');
+	                		$('#txtCustno_' + j).removeAttr('disabled');
+	                		$('#txtComp_' + j).removeAttr('disabled');
+	                		$('#txtMount_' + j).removeAttr('disabled');
+	                		$('#txtPrice_' + j).removeAttr('disabled');                		
+	                	}else{
+	                		$('#txtCustno_' + j).removeAttr('disabled');
+	                		$('#txtComp_' + j).removeAttr('disabled');
+	                		$('#txtMount_' + j).removeAttr('disabled');
+	                		$('#txtPrice_' + j).removeAttr('disabled'); 
+	                		$('#txtCno_' + j).removeAttr('disabled');
+	           				$('#txtAcomp_' + j).removeAttr('disabled');
+	           				$('#txtTaxrate_' + j).removeAttr('disabled');  
+	                	}
+	           }
+			}
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -415,11 +446,12 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
-                <td align="center" style="width:13%"><a id='lblCustnos'></a></td>
-                <td align="center" style="width:8%"><a id='lblMounts'></a></td>
-                <td align="center" style="width:10%"><a id='lblPrices'></a></td>
-                <td align="center" style="width:10%"><a id='lblMoneys'></a></td>
-                <td align="center" style="width:8%"><a id='lblTaxrates'></a></td>
+                <td align="center" style="width:18%"><a id='lblCustnos'></a></td>
+                <td align="center" style="width:18%"><a id='lblCnos'></a></td>
+                <td align="center" style="width:7%"><a id='lblMounts'></a></td>
+                <td align="center" style="width:7%"><a id='lblPrices'></a></td>
+                <td align="center" style="width:7%"><a id='lblMoneys'></a></td>
+                <td align="center" style="width:7%"><a id='lblTaxrates'></a></td>
                 <td align="center" style="width:15%"><a id='lblMemos'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -427,6 +459,11 @@
                 <td >
 					<input class="txt" id="txtCustno.*" type="text" style="width:25%;"/>
 					<input class="txt" id="txtComp.*"type="text" style="width:55%;"/>
+					<input id="btnCustno.*" type="button" value="." style="width: 10%;" />
+                </td>
+                <td >
+					<input class="txt" id="txtCno.*" type="text" style="width:25%;"/>
+					<input class="txt" id="txtAcomp.*"type="text" style="width:55%;"/>
 					<input id="btnCustno.*" type="button" value="." style="width: 10%;" />
                 </td>
                 <td ><input id="txtMount.*" type="text" class="txt num c1"/></td>

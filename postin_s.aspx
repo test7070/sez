@@ -11,7 +11,7 @@
     <link href="../qbox.css" rel="stylesheet" type="text/css" /> 
 <script type="text/javascript">
     var q_name = "postin_s";
-		aPop = new Array(['txtNamea', 'lblNamea', 'sss', 'namea,noa,partno,part', 'txtNamea', 'sss_b.aspx']);
+		aPop = new Array(['txtNamea', '', 'sss', 'namea,noa,partno,part', 'txtNamea', 'sss_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -64,7 +64,7 @@
                 <td style="width:65%;  "><input class="txt" id="txtNoa" type="text" style="width:150px; font-size:medium;" />
             </tr>
             <tr class='seek_tr'>
-                <td   style="width:35%;" ><a id='lblNamea'></a></td>
+                <td   style="width:35%;" ><a id='lblNamea' class="lbl btn"></a></td>
                 <td style="width:65%;  "><input class="txt" id="txtNamea" type="text" style="width:150px; font-size:medium;" />
             </tr>
         </table>
