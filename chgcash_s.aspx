@@ -27,7 +27,7 @@
                 q_langShow();
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
-                q_gt('part', '', 0, 0, 0, "");
+               // q_gt('part', '', 0, 0, 0, "");
                 q_gt('chgpart', '', 0, 0, 0, "");
                 q_cmbParse("cmbDc", '@全部,' + q_getPara('chgcash.typea'));
                 $('#txtBdate').focus();
@@ -35,14 +35,14 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                    case 'part':
+                    /*case 'part':
                         var t_part = '@全部';
                         var as = _q_appendData("part", "", true);
                         for ( i = 0; i < as.length; i++) {
                             t_part += (t_part.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
                         }
                         q_cmbParse("cmbPart", t_part);
-                        break;
+                        break;*/
                     case 'chgpart':
                         var t_chgpart = '@全部';
                         var as = _q_appendData("chgpart", "", true);
@@ -55,21 +55,19 @@
             }
 
             function q_seekStr() {
+            	t_noa = $.trim($('#txtNoa').val());
                 t_sssno = $.trim($('#txtSssno').val());
                 t_sss = $.trim($('#txtSss').val());
                 t_bdate = $.trim($('#txtBdate').val());
                 t_edate = $.trim($('#txtEdate').val());
-                t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
-                t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
-                t_part = $.trim($('#cmbPart').val());
                 t_chgpart = $.trim($('#cmbChgpart').val());
                 t_dc = $.trim($('#cmbDc').val());
 
                 var t_where = " 1=1 "  
+                + q_sqlPara2("noa", t_noa) 
                 + q_sqlPara2("sssno", t_sssno) 
                 + q_sqlPara2("sss", t_sss) 
                 + q_sqlPara2("datea", t_bdate, t_edate) 
-                + q_sqlPara2("partno", t_part) 
                 + q_sqlPara2("chgpartno", t_chgpart) 
                 + q_sqlPara2("dc", t_dc);
 
@@ -95,10 +93,6 @@
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblPart'></a></td>
-					<td><select id="cmbPart" style="width:215px; font-size:medium;" ></select></td>
-				</tr>
-				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblChgpart'></a></td>
 					<td><select id="cmbChgpart" style="width:215px; font-size:medium;" ></select></td>
 				</tr>
@@ -120,6 +114,12 @@
 					<input class="txt" id="txtSssno" type="text" style="width:90px; font-size:medium;" />
 					&nbsp;
 					<input class="txt" id="txtSss" type="text" style="width:115px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td   style="width:35%;" ><a id='lblNoa'></a></td>
+					<td style="width:65%;  ">
+					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
