@@ -55,6 +55,9 @@
         {
             width: 2%;
         }
+        .num {
+                text-align: right;
+            }
     </style>
 </head>
 
@@ -89,23 +92,23 @@
                 <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
                 <td ><input class="txt c1" id="txtNoa.*" type="text"   readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtMon.*" type="text"   readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtHe_person.*"  type="text"  readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtHe_comp.*"  type="text"  readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtLa_person.*"  type="text"   readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtLa_comp.*"  type="text"   readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtRe_person.*"  type="text"   readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtRe_comp.*"  type="text"  readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtTotal1.*" type="text"  readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtTotal2.*" type="text"   readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtHe_person.*"  type="text"  readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtHe_comp.*"  type="text"  readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtLa_person.*"  type="text"   readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtLa_comp.*"  type="text"   readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtRe_person.*"  type="text"   readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtRe_comp.*"  type="text"  readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtTotal1.*" type="text"  readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtTotal2.*" type="text"   readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtPayc.*" type="text"   readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtPay.*" type="text"   readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtUnpay.*" type="text"  readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtSalary.*" type="text"  readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtSa_retire.*" type="text"  readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtSa_labor.*" type="text"  readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtSa_health.*" type="text"  readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtMount.*" type="text"  readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtDisaster.*" type="text"  readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtPay.*" type="text"   readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtUnpay.*" type="text"  readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtSalary.*" type="text"  readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtSa_retire.*" type="text"  readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtSa_labor.*" type="text"  readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtSa_health.*" type="text"  readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtMount.*" type="text"  readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtDisaster.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtComp.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text"  readonly="readonly" /></td>
             </tr>

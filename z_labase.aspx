@@ -15,6 +15,9 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+             if (location.href.indexOf('?') < 0) {
+                location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
+            }
             $(document).ready(function() {
             	q_getId();
                 q_gf('', 'z_labase');
@@ -53,6 +56,16 @@
                     }, {
                         type : '6',
                         name : 'cmon'
+                    }, {
+                            type : '2',
+                            name : 'carownerno',
+                            dbf : 'carowner',
+                            index : 'noa,namea',
+                            src : 'carowner_b.aspx'
+                        },{
+                        type : '0',
+                        name : 'accy',
+                        value : r_accy
                     }]
                     });
                 q_popAssign();

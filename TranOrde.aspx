@@ -39,7 +39,7 @@
             aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], ['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'], ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'], ['txtCarno_', '', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx'], ['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'], ['txtDeliveryno', 'lblDeliveryno', 'trando', 'deliveryno,po', 'txtDeliveryno,txtPo', 'trando_b.aspx']);
 
             var t_casetype = ["20''", "40''", "超重櫃", "HQ", "OT"];
-            var t_casetype2 = ["20''", "40''"];
+            var t_casetype2 = ["20''", "40''","OT","太空包"];
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -801,19 +801,17 @@
 						<td>
 						<input type="text" id="txtPort" class="txt c1"/>
 						</td>
-						<td>
-						<input type="text" id="txtCasetype" style="display:none;"/>
-						</td>
 						<td><span> </span><a id="lblCldate" class="lbl"> </a></td>
 						<td>
 						<input type="text" id="txtCldate" class="txt c1"/>
 						</td>
-						<td><span> </span><a id="lblNodate" class="lbl"> </a></td>
 						<td>
-						<input type="text" id="txtNodate" class="txt c1"/>
+						<input type="text" id="txtCasetype" style="display:none;"/>
 						</td>
-						<td></td>
-						<td></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 					</tr>
 					<tr class="trY">
 						<td><span> </span><a id="lblImcon" class="lbl" style="color: #ff0033;font-weight:bolder;"> </a></td>
@@ -870,14 +868,12 @@
 						<td>
 						<input type="text" id="txtMadate" class="txt c1"/>
 						</td>
-						<td><span> </span><a id="lblRedate" class="lbl"> </a></td>
-						<td>
-						<input type="text" id="txtRedate" class="txt c1"/>
-						</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
