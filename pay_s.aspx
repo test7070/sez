@@ -59,6 +59,7 @@
                 t_mon = $.trim($('#txtMon').val());
                 t_noa = $.trim($('#txtNoa').val());
                 t_tggno = $.trim($('#txtTggno').val());
+                t_tgg = $.trim($('#txtTgg').val());
                 t_part = $('#cmbPart').find(":selected").text();
                 t_cno = $.trim($('#cmbCno').val());
 
@@ -68,6 +69,8 @@
                 + q_sqlPara2("noa", t_noa) 
                 + q_sqlPara2("tggno", t_tggno)
 				+ q_sqlPara2("cno", t_cno);
+				if (t_tgg.length>0)
+                    t_where += " and patindex('%" + t_tgg + "%',comp)>0";
                 if ($('#cmbPart').val().length>0)
                     t_where += " and patindex('%" + t_part + "%',part2)>0";
                     
@@ -108,21 +111,27 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
 					<td>
 					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblMon'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblMon'> </a></td>
 					<td>
 					<input class="txt" id="txtMon" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblTgg'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblTggno'> </a></td>
 					<td>
 					<input class="txt" id="txtTggno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblTgg'> </a></td>
+					<td>
+					<input class="txt" id="txtTgg" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
