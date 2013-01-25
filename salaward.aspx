@@ -22,11 +22,11 @@
         var bbsNum = [];
         var bbmMask = [];
         var bbsMask = [];
-        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
+        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Noa';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
 		aPop = new Array(['txtSssno_', 'lblSssno', 'sss', 'noa,namea', 'txtSssno_,txtNamea_', 'sss_b.aspx']
 				,['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
-		
+		q_desc=1;
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -73,6 +73,14 @@
             switch (t_name) {
             	case 'salaward_import':
             		var as = _q_appendData("sss", "", true);
+            		for (var i = 0; i < as.length; i++) {
+            			//出勤扣分計算=遲到+早退+事假+病假+曠工+婚假+喪假
+            			as[i].total2=dec(as[i].late_sc)+dec(as[i].early_sc)+dec(as[i].person_sc)+dec(as[i].sick_sc)+dec(as[i].leave_sc)+dec(as[i].marriage_sc)+dec(as[i].bereavement_sc);
+            			//獎懲分數=大功+小功+嘉獎+大過(負)+小過(負)+申誡(負)
+            			as[i].total3=dec(as[i].great_sc)+dec(as[i].minor_sc)+dec(as[i].commend_sc)+dec(as[i].majorde_sc)+dec(as[i].peccadillo_sc)+dec(as[i].reprimand_sc);
+            			//分數合計=考績分數-出勤扣分+獎懲分數
+            			as[i].total4=dec(as[i].total)-dec(as[i].total2)+dec(as[i].total3)
+            		}
             			q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtJob,txtIndate,txtTotal1,txtLate,txtLeaveearly,txtPerson,txtSick,txtLeave,txtMarriageleave,txtBereavementleave,txtTotal2,txtGreatmeriy,txtMinormerits,txtCommend,txtMajordemerits,txtPeccadillo,txtReprimand,txtTotal3,txtTotal4,txtMemo,txtSalary,txtBo_admin,txtBo_traffic,txtBo_special'
             			, as.length, as, 
             			'noa,namea,job,indate,total,late,early,person,sick,leave,marriage,bereavement,total2,great,minor,commend,majorde,peccadillo,reprimand,total3,total4,memo,salary,bo_admin,bo_traffic,bo_special', '');
