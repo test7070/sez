@@ -98,7 +98,7 @@
 						break;
 					case 'txtPlusitemno':
 						if(q_cur==1 || q_cur==2){
-							$('#txtMinusitem').focus();
+							$('#txtPlnusitem').focus();
 						}
 						break;
 				}

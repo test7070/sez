@@ -19,7 +19,7 @@
             isEditTotal = false;
             q_tables = 's';
             var q_name = "trd";
-            var q_readonly = ['txtTaxrate', 'txtTax', 'txtNoa', 'txtMoney', 'txtTotal', 'txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney', 'txtVccano'];
+            var q_readonly = ['txtTaxrate', 'txtTax', 'txtNoa', 'txtMoney', 'txtTotal', 'txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney', 'txtVccano','txtAccno2','txtYear2'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
             var bbmNum = [['txtMoney', 10, 0], ['txtTaxrate', 10, 1], ['txtTax', 10, 0], ['txtTotal', 10, 0], ['txtDiscount', 10, 0], ['txtMount', 10, 3], ['txtPlus', 10, 0], ['txtPlusmoney', 10, 0], ['txtMinusmoney', 10, 0]];
             var bbsNum = [['txtTranmoney', 10, 0], ['txtOverweightcost', 10, 0], ['txtOthercost', 10, 0], ['txtMount', 10, 3], ['txtPrice', 10, 3], ['txtTotal', 10, 0]];
@@ -74,6 +74,9 @@
 
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3)+ '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "600px", q_getMsg('popAccc'), true);
+                });
+                $('#lblAccno2').click(function() {
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtYear2').val()+ '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "600px", q_getMsg('popAccc'), true);
                 });
 
                 $('#lblVccano').click(function() {
@@ -919,6 +922,12 @@
 						<td class="tdA">
 						<input id="txtWorker" type="text"  class="txt c1"/>
 						</td>
+					</tr>
+					<tr>
+						<td colspan="6"> </td>
+						<td><span> </span><a id="lblAccno2" class="lbl btn"> </a></td>
+						<td><input id="txtAccno2" type="text"  class="txt c1"/> </td>
+						<td><input id="txtYear2" type="text"  class="txt c1"/> </td>
 					</tr>
 				</table>
 			</div>
