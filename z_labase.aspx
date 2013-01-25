@@ -15,6 +15,11 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+		aPop  =  new Array(['txtXsssno', 'lblXsssno', 'sss', 'noa,namea','txtSssno', 'sss_b.aspx'],
+			['txtXcomp', 'lblXcomp', 'acomp', 'noa,acomp', 'txtXcomp', 'acomp_b.aspx'],
+			['txtXcustno', 'lblXcustno', 'cust', 'noa,comp', 'txtXcustno', 'cust_b.aspx'],
+			['txtCarownerno', 'lblCarownerno', 'carowner', 'noa,namea', 'txtCarownerno', 'carowner_b.aspx']);
+		
              if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }

@@ -45,6 +45,12 @@
 					}, {
 						type : '6',
 						name : 'xuccno'
+                    }, {/*3*/
+                        type : '2',
+                        name : 'cust',
+                        dbf : 'cust',
+                        index : 'noa,comp',
+                        src : 'cust_b.aspx'
 					}]
 				});
 				q_popAssign();
