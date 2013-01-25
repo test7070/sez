@@ -18,7 +18,7 @@
 
             var q_name = "bcc";
             var q_readonly = [];
-            var bbmNum = [['txtBeginmount', 14, 0, 1], ['txtBeginmoney', 14, 0, 1]];
+            var bbmNum = [['txtPrice', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -43,10 +43,11 @@
             }
 
             function mainPost() {
-                bbmMask = [['txtBegindate', r_picd], ['txtExpirationdate', r_picd]];
+                bbmMask = [['txtExpirationdate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('bcc.type'));
 				q_cmbParse("cmbTaxtype", '含稅,自訂');
+				q_gt('store', '', 0, 0, 0, "");
                 $("#cmbTypea").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
@@ -66,9 +67,6 @@
                 });
                 $('#txtTotal').change(function() {
                 	sum();
-                });
-                $('#txtBeginmount').change(function() {
-                    sum();
                 });
                 $('#txtAcc1').change(function(e) {
                     if($('#txtAcc1').val().length==4 && $('#txtAcc1').val().indexOf('.')==-1){
@@ -111,7 +109,6 @@
             	$('#txtPrice').val(t_price);
             	$('#txtTax').val(t_tax);
             	$('#txtTotal').val(t_total);
-            	q_tr('txtBeginmoney', dec($('#txtPrice').val()) * dec($('#txtBeginmount').val()));
             }
             
             function q_boxClose(s2) {
@@ -134,6 +131,16 @@
                             q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 
                         break;
+                    case 'store':
+		                var as = _q_appendData("store", "", true);
+		                if (as[0] != undefined) {
+		                    var t_item = "@";
+		                    for (i = 0; i < as.length; i++) {
+		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
+		                    }
+		                    q_cmbParse("cmbStoreno", t_item);
+		                    refresh(q_recno);  /// 第一次需要重新載入
+		                }
                 }  /// end switch
             }
 
@@ -172,11 +179,6 @@
                 $('#txtExpirationdate').val($.trim($('#txtExpirationdate').val()));
                 if (!q_cd($('#txtExpirationdate').val())) {
                     alert(q_getMsg('lblExpirationdate') + '錯誤。');
-                    return;
-                }
-                $('#txtBegindate').val($.trim($('#txtBegindate').val()));
-                if (!q_cd($('#txtBegindate').val())) {
-                    alert(q_getMsg('lblBegindate') + '錯誤。');
                     return;
                 }
                 var t_noa = trim($('#txtNoa').val());
@@ -466,22 +468,16 @@
 						<td><input id="txtExpirationdate" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblStoreno' class="lbl"> </a></td>
+						<td><select id="cmbStoreno" class="txt c1"></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td colspan="3"><input id="txtMemo" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo2' class="lbl"> </a></td>
 						<td colspan="3"><input id="txtMemo2"  type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblBegindate' class="lbl"> </a></td>
-						<td><input id="txtBegindate"  type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblBeginmount' class="lbl"> </a></td>
-						<td><input id="txtBeginmount"  type="text" class="txt num c1"/></td>
-						<td><span> </span><a id='lblBeginmoney' class="lbl"> </a></td>
-						<td><input id="txtBeginmoney"  type="text" class="txt num c1"/></td>
 					</tr>
 				</table>
 			</div>
