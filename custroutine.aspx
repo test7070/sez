@@ -18,7 +18,7 @@
             var q_name = "custroutine";
             var q_readonly = ['txtNoa','txtPartno','txtPart'];
 			var q_readonlys = ['txtMoney'];
-            var bbmNum = [['txtMoney',10,0],['txtTaxrate',10,1]];
+            var bbmNum = [];
 		    var bbsNum = [['txtPrice', 10, 1], ['txtMount', 10, 1], ['txtMoney', 10, 0]];
             var bbmMask = [];
 		    var bbsMask = [];
@@ -29,8 +29,7 @@
             brwKey = 'noa';
             brwCount2 = 7;//15
             //ajaxPath = ""; //  execute in Root
-            aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
-            , ['txtSalesno', 'lblSales', 'sss', 'noa,namea,partno,part', 'txtSalesno,txtSales,txtPartno,txtPart', 'sss_b.aspx']
+            aPop = new Array(['txtSalesno', 'lblSales', 'sss', 'noa,namea,partno,part', 'txtSalesno,txtSales,txtPartno,txtPart', 'sss_b.aspx']
             , ['txtProductno', 'lblProductno', 'ucc', 'noa,product,saleprice', 'txtProductno,txtProduct,txtMoney', 'ucc_b.aspx']
             ,['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx']);
             $(document).ready(function() {
@@ -51,7 +50,6 @@
 
             function mainPost() {
                 q_mask(bbmMask);
-                q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
                 q_cmbParse("cmbTypea", ','+q_getPara('lab_accc.typea'));
                 $('#cmbTypea').change(function(){
                 	cmbTypea_chg();
@@ -114,7 +112,8 @@
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
-                $('#txtCustno').focus();
+                $('#txtSalesno').focus();
+                cmbTypea_chg();
             }
             
 	        function bbsAssign() {
@@ -135,12 +134,15 @@
            			}
             	}
 	            _bbsAssign();
+	            cmbTypea_chg();
 	        }
+	       
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtCustno').focus();
+                $('#txtSalesno').focus();
+                cmbTypea_chg();
             }
 
             function btnPrint() {
@@ -148,21 +150,6 @@
             }
 
             function btnOk() {
-            	if($('#txtNick').val().length==0)
-            		$('#txtNick').val($('#txtComp').val());
-
-            	if($('#txtCustno').val().length==0){
-            		alert('請輸入'+q_getMsg('lblCustno')+'編號。')
-            		return;
-            	}          		
-                var t_err = '';
-                t_err = q_chkEmpField([['txtCustno', q_getMsg('lblCustno')]]);
-
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }  
-                
                 var t_noa = trim($('#txtNoa').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
                     q_gtnoa(q_name, replaceAll(q_date(), '/', ''));
@@ -394,50 +381,35 @@
 							<input id="txtNoa" type="text" style="float:left;"/>
 						</td>	
 					</tr>
-					<tr>		
-						<td><span> </span><a id="lblCustno" class="lbl btn"> </a></td>
-						<td colspan="2">
-							<input id="txtCustno" type="text" style="float:left; width:30%;">			
-							<input id="txtComp" type="text" style="float:left; width:70%;"/>
-							<input id="txtNick" type="text" style="display:none;"/>
-						</td>			
-					</tr>
 					<tr>
 						<td><span> </span><a id="lblSales" class="lbl btn"> </a></td>
 						<td>
 							<input id="txtSalesno" type="text" style="float:left; width:40%;"/>
 							<input id="txtSales" type="text" style="float:left; width:60%;"/>
 						</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblPartno" class="lbl"> </a></td>
 						<td>
 							<input id="txtPartno" type="text" style="display:none;"/>
 							<input id="txtPart" type="text" class="txt c1"/>
 						</td>
+
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblTypea" class="lbl"> </a></td>
 						<td><select id="cmbTypea" class="txt c1"> </select></td>						
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblTaxtype" class="lbl"> </a></td>
-						<td><select id="cmbTaxtype" class="txt c1"> </select></td>
-						<td><span> </span><a id="lblTaxrate" class="lbl"> </a></td>
-						<td><input id="txtTaxrate" type="text" class="txt num c1"/></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id="lblProductno" class="lbl btn"> </a></td>
-						<td colspan="3">
+						<td>
 							<input id="txtProductno" type="text" style="float:left; width:30%;"/>
 							<input id="txtProduct" type="text" style="float:left; width:70%;"/>
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
-						<td><input id="txtMoney" type="text" class="txt num c1"/></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td colspan="3"><input id="txtMemo" type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="txtMemo" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
