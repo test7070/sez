@@ -48,7 +48,6 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd],['txtYear', '999']];
             q_mask(bbmMask);
-
             $('#btnImport').click(function() {
             	var t_where = "where=^^ a.noa!='Z001' and a.noa!='010132' and a.partno<='09' order by a.partno,e.jobno^^";
             	var t_where1 = "where[1]=^^ datea between '"+$('#txtYear').val()+"/01/01' and '"+$('#txtYear').val()+"/12/31'^^";
@@ -68,7 +67,9 @@
             b_pop = '';
         }
 
-
+		var salexrank,salhtype,salexpo;
+		var late_point=0,early_point=0,person_point=0,sick_point=0,leave_point=0,marriage_point=0,bereavement_point=0;
+		var great_point=0,minor_point=0,commend_point=0,majorde_point=0,peccadillo_point=0,reprimand_point=0;
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
             	case 'salaward_import':
@@ -80,10 +81,62 @@
             			as[i].total3=dec(as[i].great_sc)+dec(as[i].minor_sc)+dec(as[i].commend_sc)+dec(as[i].majorde_sc)+dec(as[i].peccadillo_sc)+dec(as[i].reprimand_sc);
             			//分數合計=考績分數-出勤扣分+獎懲分數
             			as[i].total4=dec(as[i].total)-dec(as[i].total2)+dec(as[i].total3)
+            			
+            			//獎金月份數
+            			for (var j = 0; j < salexrank.length; j++) {
+            				if(dec(salexrank[j].point1)<=dec(as[i].total4) &&dec (salexrank[j].point2) > dec(as[i].total4) ){
+            					as[i].awardmon=salexrank[j].awardmon;
+            					break;
+            				}
+            			}
+            			
+            			//獎金金額
+            			as[i].total5=(dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special))*dec(as[i].awardmon)
             		}
-            			q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtJob,txtIndate,txtTotal1,txtLate,txtLeaveearly,txtPerson,txtSick,txtLeave,txtMarriageleave,txtBereavementleave,txtTotal2,txtGreatmeriy,txtMinormerits,txtCommend,txtMajordemerits,txtPeccadillo,txtReprimand,txtTotal3,txtTotal4,txtMemo,txtSalary,txtBo_admin,txtBo_traffic,txtBo_special'
-            			, as.length, as, 
-            			'noa,namea,job,indate,total,late,early,person,sick,leave,marriage,bereavement,total2,great,minor,commend,majorde,peccadillo,reprimand,total3,total4,memo,salary,bo_admin,bo_traffic,bo_special', '');
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtJob,txtIndate,txtTotal1,txtLate,txtLeaveearly,txtPerson,txtSick,txtLeave,txtMarriageleave,txtBereavementleave,txtTotal2,txtGreatmeriy,txtMinormerits,txtCommend,txtMajordemerits,txtPeccadillo,txtReprimand,txtTotal3,txtTotal4,txtMemo,txtSalary,txtBo_admin,txtBo_traffic,txtBo_special,txtAwardmon,txtTotal5'
+            		, as.length, as, 
+            		'noa,namea,job,indate,total,late,early,person,sick,leave,marriage,bereavement,total2,great,minor,commend,majorde,peccadillo,reprimand,total3,total4,memo,salary,bo_admin,bo_traffic,bo_special,awardmon,total5', '');
+            			
+            		sum();
+            		break;
+            	case 'salhtype':
+            		salhtype=_q_appendData("salhtype", "", true);
+            		for (var i = 0; i < salhtype.length; i++) {
+            			if(salhtype[i].namea=='遲到')
+            				late_point=dec(salhtype[i].point);
+            			if(salhtype[i].namea=='早退')
+            				early_point=dec(salhtype[i].point);
+            			if(salhtype[i].namea=='事假')
+            				person_point=dec(salhtype[i].point);
+            			if(salhtype[i].namea=='病假')
+            				sick_point=dec(salhtype[i].point);
+            			if(salhtype[i].namea=='曠工')
+            				leave_point=dec(salhtype[i].point);
+            			if(salhtype[i].namea=='婚假')
+            				marriage_point=dec(salhtype[i].point);
+            			if(salhtype[i].namea=='喪假')
+            				bereavement_point=dec(salhtype[i].point);
+            		}
+            		break;
+            	case 'salexpo':
+            		salexpo=_q_appendData("salexpo", "", true);
+            		for (var i = 0; i < salexpo.length; i++) {
+            			if(salexpo[i].namea=='大功')
+            				great_point=dec(salexpo[i].point);
+            			if(salexpo[i].namea=='小功')
+            				minor_point=dec(salexpo[i].point);
+            			if(salexpo[i].namea=='嘉獎')
+            				commend_point=dec(salexpo[i].point);
+            			if(salexpo[i].namea=='大過')
+            				majorde_point=dec(salexpo[i].point);
+            			if(salexpo[i].namea=='小過')
+            				peccadillo_point=dec(salexpo[i].point);
+            			if(salexpo[i].namea=='申誡')
+            				reprimand_point=dec(salexpo[i].point);
+            		}
+            		break;
+            	case 'salexrank':
+            		salexrank=_q_appendData("salexrank", "", true);
             		break;
                 case q_name: 
                 	if (q_cur == 4)   // 查詢
@@ -120,13 +173,29 @@
         }
 
         function bbsAssign() {  /// 表身運算式
+        	for(var j = 0; j < q_bbsCount; j++) {
+           		if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+           			$('#txtLate_'+j).change(function() {
+           				
+           			});
+           			
+           			
+           			
+           			
+           			
+           			//獎金金額
+           			$('#txtTotal5_'+j).change(function() {sum();});
+        		}
+           	}
             _bbsAssign();
         }
 
         function btnIns() {
             _btnIns();
-            $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             q_gt('salexrank', '', 0, 0, 0, "", r_accy);
+            q_gt('salhtype', '', 0, 0, 0, "", r_accy);
+            q_gt('salexpo', '', 0, 0, 0, "", r_accy);
+            $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtYear').val(dec(q_date().substr(0,3))-1);
             $('#txtDatea').val(q_date());
             $('#txtYear').focus();
@@ -135,7 +204,10 @@
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            $('#txtProduct').focus();
+            q_gt('salexrank', '', 0, 0, 0, "", r_accy);
+            q_gt('salhtype', '', 0, 0, 0, "", r_accy);
+            q_gt('salexpo', '', 0, 0, 0, "", r_accy);
+            $('#txtYear').focus();
         }
         function btnPrint() {
 
@@ -171,11 +243,27 @@
         }
 
         function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0;
+            var t_total= 0;
             for (var j = 0; j < q_bbsCount; j++) {
-
+            	//出勤扣分數
+            	q_tr('txtTotal2_'+j,((q_float('txtLate_'+j)/8)*late_point)+((q_float('txtLeaveearly_'+j)/8)*early_point)+((q_float('txtPerson_'+j)/8)*person_point)+((q_float('txtSick_'+j)/8)*sick_point)+((q_float('txtLeave_'+j)/8)*leave_point)+((q_float('txtMarriageleave_'+j)/8)*marriage_point)+((q_float('txtBereavementleave_'+j)/8)*bereavement_point));
+            	//獎懲分數
+            	q_tr('txtTotal3_'+j,(q_float('txtGreatmeriy_'+j)*great_point)+(q_float('txtMinormerits_'+j)*minor_point)+(q_float('txtCommend_'+j)*commend_point)+(q_float('txtMajordemerits_'+j)*majorde_point)+(q_float('txtPeccadillo_'+j)*peccadillo_point)+(q_float('txtReprimand_'+j)*reprimand_point));
+            	//分數合計
+            	q_tr('txtTotal4_'+j,q_float('txtTotal1_'+j)-q_float('txtTotal2_'+j)+q_float('txtTotal3_'+j));
+            	//獎金月份數
+            	for (var k = 0; k < salexrank.length; k++) {
+            		if(dec(salexrank[k].point1)<=q_float('txtTotal4_'+j) &&dec (salexrank[k].point2) > q_float('txtTotal4_'+j) ){
+            			$('#txtAwardmon_'+j).val(salexrank[k].awardmon);
+            			break;
+            		}
+            	}
+            	//獎金金額
+            	q_tr('txtTotal5_'+j,(q_float('txtSalary_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j))*q_float('txtAwardmon_'+j));
+            	
+				t_total+=dec($('#txtTotal5_'+j).val());
             }  // j
-
+            q_tr('txtTotal',t_total);
         }
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
