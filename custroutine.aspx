@@ -31,7 +31,8 @@
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(['txtSalesno', 'lblSales', 'sss', 'noa,namea,partno,part', 'txtSalesno,txtSales,txtPartno,txtPart', 'sss_b.aspx']
             , ['txtProductno', 'lblProductno', 'ucc', 'noa,product,saleprice', 'txtProductno,txtProduct,txtMoney', 'ucc_b.aspx']
-            ,['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx']);
+            ,['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx']
+            ,['txtCno_', 'btnCno_', 'cust', 'noa,comp', 'txtCno_,txtAcomp_', 'cust_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
 		        bbsKey = ['noa', 'noq'];
@@ -58,28 +59,25 @@
 			function cmbTypea_chg(){
                	for(var j = 0;j < q_bbsCount;j++){
 		               if($('#cmbTypea').val().substr(0,2) == '發票'){
-	           				$('#txtCno_' + j).removeAttr('disabled');
+	                		$('#txtCno_' + j).removeAttr('disabled');
 	           				$('#txtAcomp_' + j).removeAttr('disabled');
+	           				$('#btnCno_' + j).removeAttr('disabled');
 	           				$('#txtTaxrate_' + j).removeAttr('disabled');
-		               		$('#txtCustno_' + j).attr('disabled','disabled');
-		               		$('#txtComp_' + j).attr('disabled','disabled');
 		               		$('#txtMount_' + j).attr('disabled','disabled');
 		               		$('#txtPrice_' + j).attr('disabled','disabled');	                		
 	                	}else if($('#cmbTypea').val().substr(0,2) == '會計'){
                				$('#txtCno_' + j).attr('disabled','disabled');
                				$('#txtAcomp_' + j).attr('disabled','disabled');
+               				$('#btnCno_' + j).attr('disabled','disabled');
                				$('#txtTaxrate_' + j).attr('disabled','disabled');
-	                		$('#txtCustno_' + j).removeAttr('disabled');
-	                		$('#txtComp_' + j).removeAttr('disabled');
 	                		$('#txtMount_' + j).removeAttr('disabled');
 	                		$('#txtPrice_' + j).removeAttr('disabled');                		
 	                	}else{
-	                		$('#txtCustno_' + j).removeAttr('disabled');
-	                		$('#txtComp_' + j).removeAttr('disabled');
 	                		$('#txtMount_' + j).removeAttr('disabled');
 	                		$('#txtPrice_' + j).removeAttr('disabled'); 
 	                		$('#txtCno_' + j).removeAttr('disabled');
 	           				$('#txtAcomp_' + j).removeAttr('disabled');
+	           				$('#btnCno_' + j).removeAttr('disabled');
 	           				$('#txtTaxrate_' + j).removeAttr('disabled');  
 	                	}
 	           }
@@ -419,10 +417,10 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
                 <td align="center" style="width:18%"><a id='lblCustnos'></a></td>
-                <td align="center" style="width:18%"><a id='lblCnos'></a></td>
                 <td align="center" style="width:7%"><a id='lblMounts'></a></td>
                 <td align="center" style="width:7%"><a id='lblPrices'></a></td>
                 <td align="center" style="width:7%"><a id='lblMoneys'></a></td>
+                <td align="center" style="width:18%"><a id='lblCnos'></a></td>
                 <td align="center" style="width:7%"><a id='lblTaxrates'></a></td>
                 <td align="center" style="width:15%"><a id='lblMemos'></a></td>
             </tr>
@@ -433,14 +431,14 @@
 					<input class="txt" id="txtComp.*"type="text" style="width:55%;"/>
 					<input id="btnCustno.*" type="button" value="." style="width: 10%;" />
                 </td>
-                <td >
-					<input class="txt" id="txtCno.*" type="text" style="width:25%;"/>
-					<input class="txt" id="txtAcomp.*"type="text" style="width:55%;"/>
-					<input id="btnCustno.*" type="button" value="." style="width: 10%;" />
-                </td>
                 <td ><input id="txtMount.*" type="text" class="txt num c1"/></td>
                 <td ><input  id="txtPrice.*" type="text" class="txt num c1"/></td>
                 <td ><input id="txtMoney.*" type="text" class="txt num c1"/></td>
+                <td >
+					<input class="txt" id="txtCno.*" type="text" style="width:25%;"/>
+					<input class="txt" id="txtAcomp.*"type="text" style="width:55%;"/>
+					<input id="btnCno.*" type="button" value="." style="width: 10%;" />
+                </td>
                 <td ><input id="txtTaxrate.*" type="text" class="txt num c1"/></td>
                 <td >
                 	<input  id="txtMemo.*" type="text" class="txt c1"/>
