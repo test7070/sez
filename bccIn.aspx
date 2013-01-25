@@ -157,7 +157,7 @@
                	var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
-		            q_gtnoa(q_name, replaceAll('A' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+		            q_gtnoa(q_name, replaceAll('K5' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 		        else
 		            wrServer(t_noa);
             }
@@ -378,7 +378,7 @@
             }
             .dview {
                 float: left;
-                width: 300px;
+                width: 270px;
                 border-width: 0px;
             }
             .tview {
@@ -398,7 +398,7 @@
             }
             .dbbm {
                 float: left;
-                width: 650px;
+                width: 680px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -488,7 +488,7 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewInvono'> </a></td>
+						<td align="center" style="width:90px; color:black;"><a id='vewInvono'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTotal'> </a></td>
 					</tr>
 					<tr>
