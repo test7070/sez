@@ -126,6 +126,7 @@
         function btnIns() {
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+            q_gt('salexrank', '', 0, 0, 0, "", r_accy);
             $('#txtYear').val(dec(q_date().substr(0,3))-1);
             $('#txtDatea').val(q_date());
             $('#txtYear').focus();
