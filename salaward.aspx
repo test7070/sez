@@ -54,7 +54,7 @@
             	var t_where2 = "where[2]=^^ year='"+$('#txtYear').val()+"'^^";
             	q_gt('salaward_import', t_where+t_where1+t_where2 , 0, 0, 0, "", r_accy);
             });
-                  
+            scroll("tbbs","box",1);
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -191,6 +191,16 @@
 						b_seq = t_IdSeq;
            				q_tr('txtFirstmoney_'+b_seq,q_float('txtTotal8_'+b_seq)-q_float('txtSecondmoney_'+b_seq));
            			});
+           			$('#checkSel_' + j).click(function () {
+	                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+						 if($('#checkSel_' +b_seq)[0].checked){	//判斷是否被選取
+		                	$('#trSel_'+ b_seq).addClass('chksel');//變色
+		                }else{
+		                	$('#trSel_'+b_seq).removeClass('chksel');//取消變色
+		                }
+	                });
         		}
            	}
             _bbsAssign();
@@ -381,6 +391,26 @@
         function btnCancel() {
             _btnCancel();
         }
+        
+        function scroll(viewid,scrollid,size){
+			var scroll = document.getElementById(scrollid);
+			var tb2 = document.getElementById(viewid).cloneNode(true);
+			var len = tb2.rows.length;
+			for(var i=tb2.rows.length;i>size;i--){
+		                tb2.deleteRow(size);
+			}
+			var bak = document.createElement("div");
+			scroll.appendChild(bak);
+			bak.appendChild(tb2);
+			bak.style.position = "absolute";
+			bak.style.backgroundColor = "#cfc";
+		    bak.style.display = "block";
+			bak.style.left = 0;
+			bak.style.top = "0px";
+			scroll.onscroll = function(){
+				bak.style.top = this.scrollTop+"px";
+			}
+		}
     </script>
     <style type="text/css">
        #dmain {
@@ -501,7 +531,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 2900px;
+                width: 100%;
             }
             .tbbs a {
                 font-size: medium;
@@ -518,17 +548,25 @@
             }
         .tbbs
         {
-            font-size: medium;
+            FONT-SIZE: medium;
             COLOR: blue ;
             TEXT-ALIGN: left;
              BORDER:1PX LIGHTGREY SOLID;
+             width:100% ; height:98% ;  
         }  
+        .tbbs tr.chksel { background:bisque;} 
+        #box{
+		height:500px;
+		width: 100%;
+		overflow-y:auto;
+		position:relative;
+		}
     </style>
 </head>
 <body>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' >
-        <div class="dview" id="dview" style="float: left;  width:32%;"  >
+        <div class="dview" id="dview" style="float: left;  width:32%;">
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
@@ -564,10 +602,12 @@
         </table>
         </div>
         </div>
+        <div id="box">
         <div class='dbbs' > 
-        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' >
+        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 2900px;background:#cad3ff;" >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:30px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
+                <td align="center" style="width: 26px;"><a id='vewChks'></a></td>
                 <td align="center" style="width:80px;"><a id='lblSssno_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblNamea_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblJob_s'> </a></td>
@@ -603,8 +643,9 @@
                 <td align="center" style="width:100px;"><a id='lblFirstmoney_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblSecondmoney_s'> </a></td>
             </tr>
-            <tr  style='background:#cad3ff;'>
+            <tr id="trSel.*">
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
+                 <td ><input id="checkSel.*" type="checkbox"/></td>
                 <td ><input  id="txtSssno.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtNamea.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtJob.*" type="text" class="txt c1"/></td>
@@ -641,6 +682,7 @@
                 <td ><input  id="txtSecondmoney.*" type="text" class="txt num c1" /></td>
             </tr>
         </table>
+        </div>
         </div>
         <input id="q_sys" type="hidden" />
 </body>
