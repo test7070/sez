@@ -47,6 +47,7 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('bcc.type'));
 				q_cmbParse("cmbTaxtype", '含稅,自訂');
+				q_gt('store', '', 0, 0, 0, "");
                 $("#cmbTypea").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
@@ -130,6 +131,16 @@
                             q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 
                         break;
+                    case 'store':
+		                var as = _q_appendData("store", "", true);
+		                if (as[0] != undefined) {
+		                    var t_item = "@";
+		                    for (i = 0; i < as.length; i++) {
+		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
+		                    }
+		                    q_cmbParse("cmbStoreno", t_item);
+		                    refresh(q_recno);  /// 第一次需要重新載入
+		                }
                 }  /// end switch
             }
 
@@ -455,6 +466,10 @@
 					<tr>
 						<td><span> </span><a id='lblExpirationdate' class="lbl"> </a></td>
 						<td><input id="txtExpirationdate" type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblStoreno' class="lbl"> </a></td>
+						<td><select id="cmbStoreno" class="txt c1"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
