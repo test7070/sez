@@ -56,7 +56,7 @@
             width: 2%;
         }
         .num {
-                text-align: right;
+                text-align: center;
             }
     </style>
 </head>
