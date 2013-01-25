@@ -317,15 +317,13 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewNamea'></a></td>
-                <td align="center" style="width:40%"><a id='vewPoint'></a></td>
-                <td align="center" style="width:40%"><a id='vewUnit'></a></td>
+                <td align="center" style="width:30%"><a id='vewNamea'></a></td>
+                <td align="center" style="width:30%"><a id='vewPoint'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
                    <td align="center" id='namea'>~namea</td>
                    <td align="center" id='point'>~point</td>
-                   <td align="center" id='unit'>~unit</td>
             </tr>
         </table>
         </div>
