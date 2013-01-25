@@ -15,51 +15,78 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+            t_part = '';
+            t_store = '';
             $(document).ready(function() {
-            	q_getId();
-            	q_gf('', 'z_bcc5');
+                q_getId();
+                q_gf('', 'z_bcc5');
             });
             function q_gfPost() {
-               $('#q_report').q_report({
+                q_gt('part', '', 0, 0, 0);
+                q_gt('store', '', 0, 0, 0);
+            }
+
+            function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'part':
+                        t_part = '';
+                        var as = _q_appendData("part", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_part += (t_part.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+                        }
+                        break;
+                    case 'store':
+                        t_store = '';
+                        var as = _q_appendData("store", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_store += (t_store.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
+                        }
+                        break;
+                }
+                if (t_part.length > 0 && t_store.length > 0) {
+                    $('#q_report').q_report({
                         fileName : 'z_bcc5',
-                        options : [{
-                        type : '6',
-                        name : 'xdate'
-                    },{
-                        type : '1',
-                        name : 'xmon'
-                    },{
-                        type : '2',
-                        name : 'bcc',
-                        dbf : 'bcc',
-                        index : 'noa,product',
-                        src : 'bcc_b.aspx'
-                     }]
+                        options : [{/*1*/
+							type : '1',
+							name : 'date'
+						}, {/*2*/
+                            type : '2',
+                            name : 'bcc',
+                            dbf : 'bcc',
+                            index : 'noa,product',
+                            src : 'bcc_b.aspx'
+                        },{/*3*/
+							type : '8',
+							name : 'xstore',
+							value : t_store.split(',')
+						},{/*4*/
+							type : '8',
+							name : 'xpart',
+							value : t_part.split(',')
+						}]
                     });
-                q_popAssign();
-                q_getFormat();
-                q_langShow();
-                
-                $('#txtXdate').val(q_date());
-                $('#txtXdate').mask('999/99/99');
-                $('#txtXdate').datepicker();
-                 $('#txtXmon1').val(q_date().substr(0,6));
-                $('#txtXmon1').mask('999/99');
-                $('#txtXmon2').val(q_date().substr(0,6));
-                $('#txtXmon2').mask('999/99');
+                    q_popAssign();
+                    q_langShow();
+
+                    $('#txtDate1').mask('999/99/99');
+                    $('#txtDate1').datepicker();
+                    $('#txtDate2').mask('999/99/99');
+					$('#txtDate2').datepicker();
+					
+					$('#chkXstore').children('input').attr('checked', 'checked');
+                }
             }
 
             function q_boxClose(s2) {
             }
-            function q_gtPost(s2) {
-            }
+
 		</script>
 	</head>
 	<body>
-		<div id="q_menu"> </div>
+		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
-				<div id="q_report"> </div>
+				<div id="q_report"></div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
