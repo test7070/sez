@@ -30,8 +30,8 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtSno', 'lblSname', 'sss', 'noa,namea,partno,part', 'txtSno,txtSname,txtPartno,txtPart', 'sss_b.aspx']
-            ,['txtBccno_', 'btnBccno_', 'bcc', 'noa,product', 'txtBccno_,txtBccname_', 'bcc_b.aspx'])
+            aPop = new Array(['txtSno', 'lblSname', 'sss', 'noa,namea,partno,part', 'txtSno,txtSname,cmbPartno', 'sss_b.aspx']
+            ,['txtBccno_', 'btnBccno_', 'bcc', 'noa,product', 'txtBccno_,txtBccname_', 'bcc_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -422,7 +422,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSname' class="lbl btn"> </a></td>
-						<td>
+						<td colspan="2">
 							<input id="txtSno"  type="text" style="float:left; width:40%;"/>
 							<input id="txtSname"  type="text" style="float:left; width:60%;"/>
 						</td>
