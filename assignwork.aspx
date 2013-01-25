@@ -30,7 +30,8 @@
             brwKey = 'noa';
             aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
             ['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtComp_', 'tgg_b.aspx'],
-            ['txtItemno', 'lblItem', 'assignment', 'noa,item', 'txtItemno,txtItem', 'assignment_b.aspx']);
+            ['txtItemno', 'lblItem', 'assignment', 'noa,item', 'txtItemno,txtItem', 'assignment_b.aspx'],
+            ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -85,17 +86,7 @@
             	switch (t_name) {
             		case 'assignment':
 	            	var as = _q_appendData("assignments", "", true);
-	            	
-	            	for(var j = 0; j < q_bbsCount; j++){
-	            		for (var i = 0; i < as.length; i++) {
-		                    if (as[i].telno == $('#txtDescr_'+j).val()) {
-		                        as.splice(i, 1);
-		                        i--;
-		                    }
-		                }
-		            }
-		            
-	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtTggno,txtComp,txtDescr,txtDays,txtMoney,txtCost,txtMemo', as.length, as, 'tggno,comp,descr,days,money,cost,memo', 'txtDescr');
+	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtTggno,txtComp,txtProductno,txtProduct,txtDays,txtMoney,txtCost,txtMemo', as.length, as, 'tggno,comp,productno,product,days,money,cost,memo', '');
 	            	sum();
             	break;
                     case q_name:
@@ -178,17 +169,13 @@
             }
 
             function sum() {
-            var t1 = 0, t_unit, t_mount, t_money = 0,t_cost=0,t_charge=0,t_pay=0;
+            var t1 = 0, t_unit, t_mount, t_money = 0,t_cost=0;
             for (var j = 0; j < q_bbsCount; j++) {
 				t_money+=dec($('#txtMoney_'+j).val());
 				t_cost+=dec($('#txtCost_'+j).val());
-				t_charge+=dec($('#txtCharge_'+j).val());
-				t_pay+=dec($('#txtPay_'+j).val());
             }  // j
 			q_tr('txtMoney',t_money);
 			q_tr('txtCost',t_cost);
-			q_tr('txtCharge',t_charge);
-			q_tr('txtPay',t_pay);
 			
             	if(!(q_cur==1 || q_cur==2))
 					return;
@@ -462,12 +449,10 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:15%;"><a id='lblTggno_s'> </a></td>
-					<td align="center" style="width:20%;"><a id='lblDescr_s'> </a></td>
+					<td align="center" style="width:20%;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblDays_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblMoney_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblCost_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblCharge_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblPay_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblPaybno_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
 				</tr>
@@ -480,12 +465,13 @@
 						<input id="btnTggno.*" type="button" value="." />
 						<input id="txtComp.*" type="text" style="width: 95%;" />
 					</td>
-					<td><input id="txtDescr.*" type="text" class="txt c1"/></td>
+					<td><input id="txtProductno.*" type="text" style="width: 50%;"/>
+						<input id="btnProductno.*" type="button" value="." />
+						<input id="txtProduct.*" type="text" style="width: 95%;" />
+					</td>
 					<td><input id="txtDays.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMoney.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtCost.*" type="text" class="txt num c1"/></td>
-					<td><input id="txtCharge.*" type="text" class="txt num c1"/></td>
-					<td><input id="txtPay.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtPaybno.*" type="text" style="width: 65%;"/>
 						<input id="btnPaybno.*" type="button"value="." onclick="cmbpaybno('.*')"/>
 					</td>

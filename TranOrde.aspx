@@ -814,7 +814,13 @@
 						<td></td>
 					</tr>
 					<tr class="trX" id="xxx">
-						<td> </td>
+						<td>
+						<input type="text" id="txtCasetype" style="display:none;"/>
+						</td>
+						<td><span> </span><a id="lblCasepackaddr" class="lbl"> </a></td>
+						<td>
+						<input type="text" id="txtCasepackaddr" class="txt c1"/>
+						</td>
 						<td><span> </span><a id="lblPort" class="lbl"> </a></td>
 						<td>
 						<input type="text" id="txtPort" class="txt c1"/>
@@ -823,10 +829,6 @@
 						<td>
 						<input type="text" id="txtCldate" class="txt c1"/>
 						</td>
-						<td>
-						<input type="text" id="txtCasetype" style="display:none;"/>
-						</td>
-						<td> </td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
@@ -882,12 +884,14 @@
 						<td>
 						<input type="text" id="txtCasetype2" style="display:none;"/>
 						</td>
+						</td>
+						<td><span> </span><a id="lblCaseopenaddr" class="lbl"> </a></td>
+						<td>
+						<input type="text" id="txtCaseopenaddr" class="txt c1"/>
+						</td>
 						<td><span> </span><a id="lblMadate" class="lbl"> </a></td>
 						<td>
 						<input type="text" id="txtMadate" class="txt c1"/>
-						</td>
-						<td> </td>
-						<td> </td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
