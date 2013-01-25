@@ -354,13 +354,11 @@
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewSales'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewProduct'> </a></td>
-						<td align="center" style="width:70px; color:black;"><a id='vewMoney'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='sales' style="text-align: center;">~sales</td>
 						<td id='product' style="text-align: left;">~product</td>
-						<td id='money,0,1' style="text-align: right;">~money,0,1</td>
 					</tr>
 				</table>
 			</div>
