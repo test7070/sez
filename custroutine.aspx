@@ -32,7 +32,7 @@
             aPop = new Array(['txtSalesno', 'lblSales', 'sss', 'noa,namea,partno,part', 'txtSalesno,txtSales,txtPartno,txtPart', 'sss_b.aspx']
             , ['txtProductno', 'lblProductno', 'ucc', 'noa,product,saleprice', 'txtProductno,txtProduct,txtMoney', 'ucc_b.aspx']
             ,['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx']
-            ,['txtCno_', 'btnCno_', 'cust', 'noa,comp', 'txtCno_,txtAcomp_', 'cust_b.aspx']);
+            ,['txtCno_', 'btnCno_', 'acomp', 'noa,acomp', 'txtCno_,txtAcomp_', 'acomp_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
 		        bbsKey = ['noa', 'noq'];
@@ -352,13 +352,13 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewComp'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewSales'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewProduct'> </a></td>
 						<td align="center" style="width:70px; color:black;"><a id='vewMoney'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
-						<td id='nick' style="text-align: center;">~nick</td>
+						<td id='sales' style="text-align: center;">~sales</td>
 						<td id='product' style="text-align: left;">~product</td>
 						<td id='money,0,1' style="text-align: right;">~money,0,1</td>
 					</tr>
