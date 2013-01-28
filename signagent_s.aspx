@@ -8,9 +8,11 @@
     <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
+    <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "signagent_s";
-
+	var aPop = new Array(['txtCheckerno', '','sss','noa,namea', 'txtCheckerno,txtChecker','sss_b.aspx'],
+						 ['txtAgentno', '','sss','noa,namea', 'txtAgentno,txtAgent','sss_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
