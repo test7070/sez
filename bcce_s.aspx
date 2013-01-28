@@ -9,7 +9,7 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = "trans_s";
+            var q_name = "bcce_s";
             $(document).ready(function() {
                 main();
             });
@@ -43,7 +43,7 @@
                         var t_store = '@全部';
                         var as = _q_appendData("store", "", true);
                         for ( i = 0; i < as.length; i++) {
-                            t_store += (t_store.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+                            t_store += (t_store.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
                         }
                         q_cmbParse("cmbStore", t_store);
                         break;
@@ -51,49 +51,17 @@
             }
 
             function q_seekStr() {
-                t_noa = $('#txtNoa').val();
-		        t_driverno = $('#txtDriverno').val();
-		        t_driver = $('#txtDriver').val();
-		        t_custno = $('#txtCustno').val();
-		        t_comp = $('#txtComp').val();
-		        t_carno = $('#txtCarno').val();
-		        t_po = $('#txtPo').val();
-		        t_caseno = $('#txtCaseno').val();
-		        t_straddrno = $('#txtStraddrno').val();
-
-		        t_bdate = $('#txtBdate').val();
-		        t_edate = $('#txtEdate').val();
-		        ;
-		        t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
-		        /// 100.  .
-		        t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
-		        /// 100.  .
-		        t_btrandate = $('#txtBtrandate').val();
-		        t_etrandate = $('#txtEtrandate').val();
-		        t_btrandate = t_btrandate.length > 0 && t_btrandate.indexOf("_") > -1 ? t_btrandate.substr(0, t_btrandate.indexOf("_")) : t_btrandate;
-		        /// 100.  .
-		        t_etrandate = t_etrandate.length > 0 && t_etrandate.indexOf("_") > -1 ? t_etrandate.substr(0, t_etrandate.indexOf("_")) : t_etrandate;
-		        /// 100.  .
-		        t_trd = $.trim($('#cmbTrd').val());
-		        t_tre = $.trim($('#cmbTre').val());
-		        t_carteam = $.trim($('#cmbCarteam').val());
-		        t_calctype = $.trim($('#cmbCalctype').val());
+                t_noa = $.trim($('#txtNoa').val());
+                t_bdate = $.trim($('#txtBdate').val());
+                t_edate = $.trim($('#txtEdate').val());
+                t_part = $('#cmbPart').val();
+                t_store = $('#cmbStore').val();
 
 		        var t_where = " 1=1 " 
-		        + q_sqlPara2("carteamno", t_carteam)
-		        + q_sqlPara2("calctype", t_calctype)
+		        + q_sqlPara2("partno", t_part)
+		        + q_sqlPara2("storeno", t_store)
 		        + q_sqlPara2("noa", t_noa) 
-		        + q_sqlPara2("datea", t_bdate, t_edate) 
-		        + q_sqlPara2("Trandate", t_btrandate, t_etrandate) 
-		        + q_sqlPara_or(["caseno", "caseno2"], t_caseno) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver) + q_sqlPara2("custno", t_custno) + q_sqlPara2("straddrno", t_straddrno) + q_sqlPara2("comp", t_comp) + q_sqlPara2("carno", t_carno) + q_sqlPara2("po", t_po);
-		       	if(t_trd=='Y')
-		       		t_where += " and len(trdno)>0"
-		       	if(t_trd=='N')
-		       		t_where += " and len(trdno)=0"
-		       	if(t_tre=='Y')
-		       		t_where += " and len(treno)>0"
-		       	if(t_tre=='N')
-		       		t_where += " and len(treno)=0"	
+		        + q_sqlPara2("datea", t_bdate, t_edate); 
 		       		
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
@@ -116,23 +84,15 @@
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCarteam'> </a></td>
-					<td><select id="cmbCarteam" style="width:215px; font-size:medium;" > </select></td>
+					<td class='seek'  style="width:20%;"><a id='lblPart'> </a></td>
+					<td><select id="cmbPart" style="width:215px; font-size:medium;" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCalctype'> </a></td>
-					<td><select id="cmbCalctype" style="width:215px; font-size:medium;" > </select></td>
+					<td class='seek'  style="width:20%;"><a id='lblStore'> </a></td>
+					<td><select id="cmbStore" style="width:215px; font-size:medium;" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblTrd'> </a></td>
-					<td><select id="cmbTrd" style="width:215px; font-size:medium;" > </select></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblTre'> </a></td>
-					<td><select id="cmbTre" style="width:215px; font-size:medium;" > </select></td>
-				</tr>
-				<tr class='seek_tr'>
-					<td   style="width:35%;" ><a id='lblDatea'></a></td>
+					<td   style="width:35%;" ><a id='lblDate'></a></td>
 					<td style="width:65%;  ">
 					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>
@@ -140,58 +100,9 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td   style="width:35%;" ><a id='lblTrandate'></a></td>
-					<td style="width:65%;  ">
-					<input class="txt" id="txtBtrandate" type="text" style="width:90px; font-size:medium;" />
-					<span style="display:inline-block; vertical-align:middle">&sim;</span>
-					<input class="txt" id="txtEtrandate" type="text" style="width:93px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
 					<td>
 					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCarno'></a></td>
-					<td>
-					<input class="txt" id="txtCarno" type="text" style="width:215px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblDriverno'></a></td>
-					<td>
-					<input class="txt" id="txtDriverno" type="text" style="width:90px; font-size:medium;" />
-					&nbsp;
-					<input class="txt" id="txtDriver" type="text" style="width:115px;font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCustno'></a></td>
-					<td>
-					<input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" />
-					&nbsp;
-					<input class="txt" id="txtComp" type="text" style="width:115px;font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCaseno'></a></td>
-					<td>
-					<input class="txt" id="txtCaseno" type="text" style="width:215px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblPo'></a></td>
-					<td>
-					<input class="txt" id="txtPo" type="text" style="width:215px; font-size:medium;" />
-					</td>
-				</tr>
-				
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblStraddr'></a></td>
-					<td>
-					<input class="txt" id="txtStraddrno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
