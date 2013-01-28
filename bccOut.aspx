@@ -82,7 +82,7 @@
                     case 'part':
 		                var as = _q_appendData("part", "", true);
 		                if (as[0] != undefined) {
-		                    var t_item = "@";
+		                    var t_item = "";
 		                    for (i = 0; i < as.length; i++) {
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
 		                    }
@@ -93,12 +93,12 @@
                     case 'store':
 		                var as = _q_appendData("store", "", true);
 		                if (as[0] != undefined) {
-		                    var t_item = "@";
+		                    var t_item = "";
 		                    for (i = 0; i < as.length; i++) {
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
 		                    }
-		                    q_cmbParse("cmbStoreno", t_item, 's');
-		                    refresh(q_recno);  /// 第一次需要重新載入
+		                    q_cmbParse("cmbStoreno", t_item);
+		                    $("#cmbStoreno").val(abbm[q_recno].storeno);
 		                }
 		                break;
                     case q_name:
@@ -176,6 +176,8 @@
                     return;
                 }
                 q_nowf();
+                as['storeno'] = abbm2['storeno'];
+                as['datea'] = abbm2['datea'];
                 return true;
             }
 
@@ -433,6 +435,10 @@
 							<select id="cmbPartno" class="txt c1"> </select>
 							<input id="txtPart"  type="text"  style="display:none;"/>
 						</td>
+						<td><span> </span><a id="lblStore" class="lbl"> </a></td>
+						<td>
+							<select id="cmbStoreno" class="txt c1"> </select>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -454,7 +460,6 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:1%;"> </td>
-					<td align="center" style="width:5%;"><a id='lblStoreno'></a></td>
 					<td align="center" style="width:5%;"><a id='lblBccno'></a></td>
 					<td align="center" style="width:18%;"><a id='lblBccname'></a></td>
 					<td align="center" style="width:5%;"><a id='lblMount'></a></td>
@@ -466,9 +471,9 @@
 					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
+					<input id="txtStoreno.*" type="text" style="display: none;" />
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td><select id="cmbStoreno.*" class="txt c1"> </td>
 					<td>
 						<input id="btnBccno.*" type="button" value="." style="float:left;width: 20%;"/>
 						<input id="txtBccno.*" type="text" style="float:left;width: 75%;" />
