@@ -210,6 +210,10 @@
 							dbf : 'sss',
 							index : 'noa,namea',
 							src : 'sss_b.aspx'
+						}, {/*28*/
+							type : '5',
+							name : 'xsort18',
+							value : q_getMsg('tsort18').split('&')
 						}]
 					});
 					q_popAssign();
