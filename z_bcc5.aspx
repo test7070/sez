@@ -15,6 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+			t_isInit = false;
             t_part = '';
             t_store = '';
             $(document).ready(function() {
@@ -45,7 +46,8 @@
                         
                         break;
                 }
-                if (t_part.length > 0 && t_store.length > 0) {
+                if (!t_isInit && t_part.length > 0 && t_store.length > 0) {
+                	t_isInit = true;
                     $('#q_report').q_report({
                         fileName : 'z_bcc5',
                         options : [{/*1*/
