@@ -8,9 +8,10 @@
     <script src='qset.js' type="text/javascript"> </script>
     <script src='../script/qj_mess.js' type="text/javascript"> </script>
     <script src='../script/mask.js' type="text/javascript"> </script>
+    <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "rc2e_s";
-
+    var aPop = new Array(['txtTggno', '', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready

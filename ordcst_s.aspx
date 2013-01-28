@@ -8,9 +8,11 @@
     <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
+    <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "ordcst_s";
-
+    var aPop = new Array(['txtTggno','','tgg','noa,comp,paytype','txtTggno,txtTgg','tgg_b.aspx'],
+            			 ['txtSalesno', '', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
