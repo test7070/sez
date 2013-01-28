@@ -604,7 +604,7 @@
         </div>
         <div id="box">
         <div class='dbbs' > 
-        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 2900px;background:#cad3ff;" >
+        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 3100px;background:#cad3ff;" >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:30px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
                 <td align="center" style="width: 26px;"><a id='vewChks'></a></td>
@@ -642,6 +642,7 @@
                 <td align="center" style="width:100px;"><a id='lblTotal8_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblFirstmoney_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblSecondmoney_s'> </a></td>
+                <td align="center" style="width:200px;"><a id='lblMemo2_s'> </a></td>
             </tr>
             <tr id="trSel.*">
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
@@ -680,6 +681,7 @@
                 <td ><input  id="txtTotal8.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtFirstmoney.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtSecondmoney.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtMemo2.*" type="text" class="txt c1" /></td>
             </tr>
         </table>
         </div>
