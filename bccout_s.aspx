@@ -8,9 +8,10 @@
     <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
+    <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "bccout_s";
-
+    aPop = new Array(['txtPartno', '', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -71,7 +72,8 @@
             </tr>
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblPart'></a></td>
-                <td><input class="txt" id="txtPartno" type="text" style="width:90px; font-size:medium;" />&nbsp;<input class="txt" id="txtPart" type="text" style="width:115px; font-size:medium;" /></td>
+                <td><input class="txt" id="txtPartno" type="text" style="width:90px; font-size:medium;" />&nbsp;
+                	<input class="txt" id="txtPart" type="text" style="width:115px; font-size:medium;" /></td>
              </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 

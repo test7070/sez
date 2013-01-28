@@ -573,7 +573,7 @@
 					<td align="center" style="width:1%;"> </td>
 					<td align="center" style="width:5%;"><a id='lblStoreno'> </a></td>
 					<td align="center" style="width: 5%;"><a id='lblBccno'> </a></td>
-					<td align="center" style="width: 18%;"><a id='lblBccname'> </a></td>
+					<td align="center" style="width: 15%;"><a id='lblBccname'> </a></td>
 					<td align="center" style="width: 5%;"><a id='lblUnit'> </a></td>
 					<td align="center" style="width: 5%;"><a id='lblMount'> </a></td>
 					<td align="center" style="width: 5%;"><a id='lblMount2'> </a></td>	

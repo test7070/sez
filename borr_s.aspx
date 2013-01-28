@@ -11,7 +11,7 @@
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             var q_name = "borr_s";
-			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno', 'cust_b.aspx']);
+			aPop = new Array(['txtCustno', '', 'cust', 'noa,comp', 'txtCustno', 'cust_b.aspx']);
             $(document).ready(function() {
                 main();
             });

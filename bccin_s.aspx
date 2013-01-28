@@ -8,9 +8,10 @@
     <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
+    <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "bccin_s";
-
+	aPop = new Array(['txtTggno', '', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -64,7 +65,8 @@
             </tr>
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblTggno'></a></td>
-                <td><input class="txt" id="txtTggno" type="text" style="width:90px; font-size:medium;" />&nbsp;<input class="txt" id="txtTgg" type="text" style="width:115px;font-size:medium;" /></td>
+                <td><input class="txt" id="txtTggno" type="text" style="width:90px; font-size:medium;" />&nbsp;
+                	<input class="txt" id="txtTgg" type="text" style="width:115px;font-size:medium;" /></td>
              </tr>
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>

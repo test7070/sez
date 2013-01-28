@@ -38,9 +38,11 @@
                     case 'store':
                         t_store = '';
                         var as = _q_appendData("store", "", true);
+                        t_store += '99@全部';
                         for ( i = 0; i < as.length; i++) {
                             t_store += (t_store.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
                         }
+                        
                         break;
                 }
                 if (t_part.length > 0 && t_store.length > 0) {
@@ -56,7 +58,7 @@
                             index : 'noa,product',
                             src : 'bcc_b.aspx'
                         },{/*3*/
-							type : '8',
+							type : '5',
 							name : 'xstore',
 							value : t_store.split(',')
 						},{/*4*/

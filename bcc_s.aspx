@@ -10,7 +10,7 @@
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             var q_name = "bcc_s";
-
+            aPop = new Array(['txtNoa', '', 'bcc', 'noa,product', 'txtNoa,txtProduct', 'bcc_b.aspx']);
             $(document).ready(function() {
                 main();
             });
