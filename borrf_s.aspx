@@ -8,9 +8,10 @@
     <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
+	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-    var q_name = "borrc_s";
-
+    var q_name = "borrf_s";
+    aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -32,15 +33,15 @@
 
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();
-        t_carno = $('#txtCarno').val();
-		t_driverno = $('#txtDriverno').val();
-		t_driver = $('#txtDriver').val();
 		t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();
+        t_custno = $('#txtCustno').val();
+        t_comp = $('#txtComp').val();
+        
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +q_sqlPara2("carno", t_carno)+q_sqlPara2("driverno", t_driverno)+q_sqlPara2("driver", t_driver)+q_sqlPara2("datea", t_bdate,t_edate);
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate,t_edate) + q_sqlPara2("custno", t_custno) + q_sqlPara2("comp", t_comp);
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -65,14 +66,10 @@
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
              <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblCarno'></a></td>
-                <td><input class="txt" id="txtCarno" type="text" style="width:215px; font-size:medium;" /></td>
-            </tr>
-             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblDriver'></a></td>
-                <td><input class="txt" id="txtDriverno" type="text" style="width:90px; font-size:medium;" />&nbsp;<input class="txt" id="txtDriver" type="text" style="width:115px; font-size:medium;" /></td>
-             </tr>
-             
+                <td class='seek'  style="width:20%;"><a id='lblCustno'></a></td>
+                <td><input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" />&nbsp;
+                	<input class="txt" id="txtComp" type="text" style="width:115px; font-size:medium;" /></td>
+             </tr>             
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
 </div>

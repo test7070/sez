@@ -59,7 +59,7 @@
 
                 $('#txtInvono').change(function() {
                 	$(this).val($.trim($(this).val().toUpperCase()));
-                	if ($(this).val().length > 0 && !(/^[A-Z]{2}[0-9]{8})$/g).test($($this).val()))
+                	if ($(this).val().length > 0 && !(/^[A-Z]{2}[0-9]{8}$/g).test($(this).val()))
                     	alert(q_getMsg('lblInvono')+'錯誤。');
                 });
                 $('#cmbTaxtype').focus(function() {

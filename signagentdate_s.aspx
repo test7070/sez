@@ -8,9 +8,11 @@
     <script src='qset.js' type="text/javascript"></script>
     <script src='../script/qj_mess.js' type="text/javascript"></script>
     <script src='../script/mask.js' type="text/javascript"></script>
+    <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "signagentdate_s";
-
+	var aPop = new Array(['txtCheckerno', '','sss','noa,namea', 'txtCheckerno,txtChecker','sss_b.aspx'],
+						 ['txtAgentno', '','sss','noa,namea', 'txtAgentno,txtAgent','sss_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -38,8 +40,8 @@
 		t_datea = $('#txtDatea').val();
         
         var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("part", t_part)  + q_sqlPara_between("bdate" , "edate" , t_datea)  +
-                           q_sqlPara2("checkerno", t_checkerno) + q_sqlPara2("checker", t_checker)+q_sqlPara_or("agentno", t_agentno) +
-                           q_sqlPara_or("agent", t_agent);
+                           q_sqlPara2("checkerno", t_checkerno) + q_sqlPara2("checker", t_checker)+q_sqlPara2("agentno", t_agentno) +
+                           q_sqlPara2("agent", t_agent);
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;

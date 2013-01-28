@@ -51,6 +51,9 @@
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
+					}, {
+						type : '6',
+						name : 'caseno'
 					}]
 				});
 				q_popAssign();
