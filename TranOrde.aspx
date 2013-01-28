@@ -771,15 +771,15 @@
 					</tr>
 					<tr class="trX">
 						<td><span> </span><a id="lblExcon" class="lbl" style="color: #ff0033;font-weight:bolder;"> </a></td>
-						<td><span> </span><a id="lblEmpdock" class="lbl"> </a></td>
+						<td> </td>
 						<td>
 						<input type="text" id="txtEmpdock" class="txt c1"/>
 						</td>
+						<td align="left"><a id="lblEmpdock" > </a></td>
 						<td><span> </span><a id="lblDock" class="lbl"> </a></td>
 						<td>
 						<input type="text" id="txtDock" class="txt c1"/>
 						</td>
-						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
@@ -799,7 +799,7 @@
 						</td>
 						<td></td>
 					</tr>
-					<tr class="trX">
+					<tr class="trX" id="xxx">
 						<td></td>
 						<td><span> </span><a id="lblDo1" class="lbl"> </a></td>
 						<td colspan="2">
@@ -813,7 +813,7 @@
 						<td></td>
 						<td></td>
 					</tr>
-					<tr class="trX" id="xxx">
+					<tr class="trX" >
 						<td>
 						<input type="text" id="txtCasetype" style="display:none;"/>
 						</td>
@@ -841,11 +841,24 @@
 						</td>
 						<td><span> </span><a id="lblCasePresent" class="lbl"> </a></td>
 						<td>
-						<input type="text" id="txtCasePresent" class="txt c1"/>
+						<input type="text" id="txtCasePresent" class="txt c1"/></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+					</tr>
+					<tr class="trY">
+						<td></td>
+						<td><span> </span><a id="lblEmpdock2" class="lbl"> </a></td>
+						<td>
+						<input type="text" id="txtEmpdock2" class="txt c1"/>
+						</td>
 						<td><span> </span><a id="lblPort2" class="lbl"> </a></td><td colspan="2">
 						<input type="text" id="txtPort2" class="txt c1"/>
 						</td>
-						<td></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 					</tr>
 					<tr class="trY">
 						<td></td>
