@@ -44,17 +44,31 @@
 
             mainForm(1); // 1=最後一筆  0=第一筆
         }
+        
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
             bbmMask = [['txtDatea', r_picd],['txtYear', '999']];
             q_mask(bbmMask);
+            q_cmbParse("cmbTypea", ('').concat(new Array('年終','秋節')));
+            
             $('#btnImport').click(function() {
-            	var t_where = "where=^^ a.noa!='Z001' and a.noa!='010132' and a.partno<='09' order by a.partno,a.jobno^^";
-            	var t_where1 = "where[1]=^^ datea between '"+$('#txtYear').val()+"/01/01' and '"+$('#txtYear').val()+"/12/31'^^";
-            	var t_where2 = "where[2]=^^ year='"+$('#txtYear').val()+"'^^";
-            	q_gt('salaward_import', t_where+t_where1+t_where2 , 0, 0, 0, "", r_accy);
+            	if ($('#cmbTypea').find("option:selected").text().indexOf('年終')>-1){
+	            	var t_where = "where=^^ a.noa!='Z001' and a.noa!='010132' and a.partno<='09' order by a.partno,a.jobno^^";
+	            	var t_where1 = "where[1]=^^ datea between '"+$('#txtYear').val()+"/01/01' and '"+$('#txtYear').val()+"/12/31'^^";
+	            	var t_where2 = "where[2]=^^ year='"+$('#txtYear').val()+"'^^";
+	            	q_gt('salaward_import', t_where+t_where1+t_where2 , 0, 0, 0, "", r_accy);
+            	}else{
+            		var t_where = "where=^^ a.noa!='Z001' and a.noa!='010132' and a.partno<='09' order by a.partno,a.jobno^^";
+	            	var t_where1 = "where[1]=^^ datea between '"+$('#txtYear').val()+"/01/01' and '"+$('#txtYear').val()+"/12/31'^^";
+	            	var t_where2 = "where[2]=^^ left(datea,3)='"+(dec($('#txtYear').val())-1)+"'^^";
+	            	q_gt('salaward_midautumn', t_where+t_where1+t_where2 , 0, 0, 0, "", r_accy);
+            	}
             });
-            scroll("tbbs","box",1);
+            
+            $('#cmbTypea').change(function () {
+            	 table_change();
+            	 $('#txtYear').val(q_date().substr(0,3));
+            });
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -79,6 +93,13 @@
             		'noa,namea,job,indate,total,late,early,person,sick,leave,marriage,bereavement,great,minor,commend,majorde,peccadillo,reprimand,memo,salary,bo_admin,bo_traffic,bo_special', '');
             			
             		sum();
+            		break;
+            	case 'salaward_midautumn':
+            		var as = _q_appendData("sss", "", true);
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtJob,txtLate,txtLeaveearly,txtPerson,txtSick,txtLeave,txtMarriageleave,txtBereavementleave,txtGreatmeriy,txtMinormerits,txtCommend,txtMajordemerits,txtPeccadillo,txtReprimand,txtSalary,txtBo_admin,txtBo_traffic,txtBo_special,txtAdjustmoney'
+            		, as.length, as, 
+            		'noa,namea,job,late,early,person,sick,leave,marriage,bereavement,great,minor,commend,majorde,peccadillo,reprimand,salary,bo_admin,bo_traffic,bo_special,adjustmoney', '');
+            			
             		break;
             	case 'salhtype':
             		salhtype=_q_appendData("salhtype", "", true);
@@ -150,9 +171,6 @@
             q_box('salexam_s.aspx', q_name + '_s', "500px", "250px", q_getMsg("popSeek"));
         }
 
-        function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
-        }
-
         function bbsAssign() {  /// 表身運算式
         	for(var j = 0; j < q_bbsCount; j++) {
            		if (!$('#btnMinus_' + j).hasClass('isAssign')) {
@@ -204,6 +222,7 @@
         		}
            	}
             _bbsAssign();
+            table_change();
         }
 
         function btnIns() {
@@ -215,6 +234,7 @@
             $('#txtYear').val(dec(q_date().substr(0,3))-1);
             $('#txtDatea').val(q_date());
             $('#txtYear').focus();
+            table_change();
         }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -224,6 +244,7 @@
             q_gt('salhtype', '', 0, 0, 0, "", r_accy);
             q_gt('salexpo', '', 0, 0, 0, "", r_accy);
             $('#txtYear').focus();
+            table_change();
         }
         function btnPrint() {
 
@@ -333,10 +354,90 @@
             }  // j
             q_tr('txtTotal',t_total);
         }
+        
+        function table_change() {
+             if ($('#cmbTypea').find("option:selected").text().indexOf('年終')>-1){
+            	 $('#tbbs').css("width","3300px");
+            	 //bbs
+            	 $('#hide_Indate').show();
+            	 $('#hide_Total1').show();
+            	 $('#hide_Total2').show();
+            	 $('#hide_Total3').show();
+            	 $('#hide_Total4').show();
+            	 $('#hide_Memo').show();
+            	 $('#hide_Awardmon').show();
+            	 $('#hide_Total5').show();
+            	 $('#hide_Total6').show();
+            	 $('#hide_Total7').show();
+            	 $('#hide_Total8').show();
+            	 $('#hide_Firstmoney').show();
+            	 $('#hide_Secondmoney').show();
+            	 $('#hide_Adjustmoney').hide();
+            	 $('#hide_Sugmoney').hide();
+            	 $('#hide_Chkmoney').hide();
+            	 for (var j = 0; j < q_bbsCount; j++) {
+            	 	 $('#hide_Indate_'+j).show();
+	            	 $('#hide_Total1_'+j).show();
+	            	 $('#hide_Total2_'+j).show();
+	            	 $('#hide_Total3_'+j).show();
+	            	 $('#hide_Total4_'+j).show();
+	            	 $('#hide_Memo_'+j).show();
+	            	 $('#hide_Awardmon_'+j).show();
+	            	 $('#hide_Total5_'+j).show();
+	            	 $('#hide_Total6_'+j).show();
+	            	 $('#hide_Total7_'+j).show();
+	            	 $('#hide_Total8_'+j).show();
+	            	 $('#hide_Firstmoney_'+j).show();
+	            	 $('#hide_Secondmoney_'+j).show();
+	            	 $('#hide_Adjustmoney_'+j).hide();
+	            	 $('#hide_Sugmoney_'+j).hide();
+	            	 $('#hide_Chkmoney_'+j).hide();
+            	 }
+            }else{
+            	$('#tbbs').css("width","2300px");
+            	//bbs
+            	 $('#hide_Indate').hide();
+            	 $('#hide_Total1').hide();
+            	 $('#hide_Total2').hide();
+            	 $('#hide_Total3').hide();
+            	 $('#hide_Total4').hide();
+            	 $('#hide_Memo').hide();
+            	 $('#hide_Awardmon').hide();
+            	 $('#hide_Total5').hide();
+            	 $('#hide_Total6').hide();
+            	 $('#hide_Total7').hide();
+            	 $('#hide_Total8').hide();
+            	 $('#hide_Firstmoney').hide();
+            	 $('#hide_Secondmoney').hide();
+            	 $('#hide_Adjustmoney').show();
+            	 $('#hide_Sugmoney').show();
+            	 $('#hide_Chkmoney').show();
+            	 for (var j = 0; j < q_bbsCount; j++) {
+            	 	 $('#hide_Indate_'+j).hide();
+	            	 $('#hide_Total1_'+j).hide();
+	            	 $('#hide_Total2_'+j).hide();
+	            	 $('#hide_Total3_'+j).hide();
+	            	 $('#hide_Total4_'+j).hide();
+	            	 $('#hide_Memo_'+j).hide();
+	            	 $('#hide_Awardmon_'+j).hide();
+	            	 $('#hide_Total5_'+j).hide();
+	            	 $('#hide_Total6_'+j).hide();
+	            	 $('#hide_Total7_'+j).hide();
+	            	 $('#hide_Total8_'+j).hide();
+	            	 $('#hide_Firstmoney_'+j).hide();
+	            	 $('#hide_Secondmoney_'+j).hide();
+	            	 $('#hide_Adjustmoney_'+j).show();
+	            	 $('#hide_Sugmoney_'+j).show();
+	            	 $('#hide_Chkmoney_'+j).show();
+            	 }
+            }
+            scroll("tbbs","box",1);
+        }
+        
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
-
+			table_change();
         }
 
         function readonly(t_para, empty) {
@@ -392,7 +493,10 @@
             _btnCancel();
         }
         
+        var scrollcount=1;
         function scroll(viewid,scrollid,size){
+        	if(scrollcount>1)
+        	$('#box_'+(scrollcount-1)).remove();
 			var scroll = document.getElementById(scrollid);
 			var tb2 = document.getElementById(viewid).cloneNode(true);
 			var len = tb2.rows.length;
@@ -400,6 +504,8 @@
 		                tb2.deleteRow(size);
 			}
 			var bak = document.createElement("div");
+			bak.id="box_"+scrollcount
+			scrollcount++;
 			scroll.appendChild(bak);
 			bak.appendChild(tb2);
 			bak.style.position = "absolute";
@@ -529,6 +635,7 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size: medium;
             }
             .dbbs {
                 width: 100%;
@@ -591,7 +698,9 @@
         <tr>
         	<td class='td1'><span> </span><a id="lblYear" class="lbl"> </a></td>
             <td class="td2"><input id="txtYear" type="text" class="txt c1"/></td>
-            <td class='td3'><input id="btnImport" type="button" style="width: auto;font-size: medium;"/></td>
+            <td class="td3"><span> </span><a id="lblTypea" class="lbl"></a></td>
+            <td class="td4"><select id="cmbTypea" class="txt c1"></select></td>
+            <td class='td5'><input id="btnImport" type="button" style="width: auto;font-size: medium;"/></td>
         </tr>
         <tr>
             <td class='td1'><span> </span><a id="lblTotal" class="lbl"> </a></td>
@@ -604,15 +713,15 @@
         </div>
         <div id="box">
         <div class='dbbs' > 
-        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 3100px;background:#cad3ff;" >
+        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 3200px;background:#cad3ff;" >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:30px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
-                <td align="center" style="width: 26px;"><a id='vewChks'></a></td>
+                <td align="center" style="width:35px;"><a id='vewChks'></a></td>
                 <td align="center" style="width:80px;"><a id='lblSssno_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblNamea_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblJob_s'> </a></td>
-                <td align="center" style="width:100px;"><a id='lblIndate_s'> </a></td>
-                <td align="center" style="width:75px;"><a id='lblTotal1_s'> </a></td>
+                <td id="hide_Indate" align="center" style="width:100px;"><a id='lblIndate_s'> </a></td>
+                <td id="hide_Total1" align="center" style="width:75px;"><a id='lblTotal1_s'> </a></td>
                 <td align="center" style="width:75px;"><a id='lblLate_s'> </a></td>
                 <td align="center" style="width:75px;"><a id='lblLeaveearly_s'> </a></td>
                 <td align="center" style="width:75px;"><a id='lblPerson_s'> </a></td>
@@ -620,7 +729,7 @@
                 <td align="center" style="width:75px;"><a id='lblLeave_s'> </a></td>
                 <td align="center" style="width:75px;"><a id='lblMarriageleave_s'> </a></td>
                 <td align="center" style="width:75px;"><a id='lblBereavementleave_s'> </a></td>
-                <td align="center" style="width:100px;"><a id='lblTotal2_s'> </a></td>
+                <td id="hide_Total2" align="center" style="width:100px;"><a id='lblTotal2_s'> </a></td>
                 <!--<td align="center" style="width:75px;"><a id='lblLeavewithoutpay_s'> </a></td>-->
                 <td align="center" style="width:75px;"><a id='lblGreatmerits_s'> </a></td>
                 <td align="center" style="width:75px;"><a id='lblMinormerits_s'> </a></td>
@@ -628,30 +737,33 @@
                 <td align="center" style="width:75px;"><a id='lblMajordemerits_s'> </a></td>
                 <td align="center" style="width:75px;"><a id='lblPeccadillo_s'> </a></td>
                 <td align="center" style="width:75px;"><a id='lblReprimand_s'> </a></td>
-                <td align="center" style="width:100px;"><a id='lblTotal3_s'> </a></td>
-                <td align="center" style="width:100px;"><a id='lblTotal4_s'> </a></td>
-                <td align="center" style="width:200px;"><a id='lblMemo_s'> </a></td>
+                <td id="hide_Total3" align="center" style="width:100px;"><a id='lblTotal3_s'> </a></td>
+                <td id="hide_Total4" align="center" style="width:100px;"><a id='lblTotal4_s'> </a></td>
+                <td id="hide_Memo" align="center" style="width:200px;"><a id='lblMemo_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblSalary_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblBo_admin_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblBo_traffic_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblBo_special_s'> </a></td>
-                <td align="center" style="width:70px;"><a id='lblAwardmon_s'> </a></td>
-                <td align="center" style="width:100px;"><a id='lblTotal5_s'> </a></td>
-                <td align="center" style="width:100px;"><a id='lblTotal6_s'> </a></td>
-                <td align="center" style="width:100px;"><a id='lblTotal7_s'> </a></td>
-                <td align="center" style="width:100px;"><a id='lblTotal8_s'> </a></td>
-                <td align="center" style="width:100px;"><a id='lblFirstmoney_s'> </a></td>
-                <td align="center" style="width:100px;"><a id='lblSecondmoney_s'> </a></td>
+                <td id="hide_Awardmon" align="center" style="width:90px;"><a id='lblAwardmon_s'> </a></td>
+                <td id="hide_Total5" align="center" style="width:100px;"><a id='lblTotal5_s'> </a></td>
+                <td id="hide_Total6" align="center" style="width:100px;"><a id='lblTotal6_s'> </a></td>
+                <td id="hide_Total7" align="center" style="width:100px;"><a id='lblTotal7_s'> </a></td>
+                <td id="hide_Total8" align="center" style="width:100px;"><a id='lblTotal8_s'> </a></td>
+                <td id="hide_Firstmoney" align="center" style="width:100px;"><a id='lblFirstmoney_s'> </a></td>
+                <td id="hide_Secondmoney" align="center" style="width:100px;"><a id='lblSecondmoney_s'> </a></td>
+                <td id="hide_Adjustmoney" align="center" style="width:110px;"><a id='lblAdjustmoney_s'> </a></td>
+                <td id="hide_Sugmoney" align="center" style="width:100px;"><a id='lblSugmoney_s'> </a></td>
+                <td id="hide_Chkmoney" align="center" style="width:100px;"><a id='lblChkmoney_s'> </a></td>
                 <td align="center" style="width:200px;"><a id='lblMemo2_s'> </a></td>
             </tr>
             <tr id="trSel.*">
-                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                 <td ><input id="checkSel.*" type="checkbox"/></td>
+                <td ><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
+                <td ><input id="checkSel.*" type="checkbox"/></td>
                 <td ><input  id="txtSssno.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtNamea.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtJob.*" type="text" class="txt c1"/></td>
-                <td ><input  id="txtIndate.*" type="text" class="txt c1" /></td>
-                <td ><input  id="txtTotal1.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Indate.*'><input  id="txtIndate.*" type="text" class="txt c1" /></td>
+                <td id='hide_Total1.*'><input  id="txtTotal1.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtLate.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtLeaveearly.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtPerson.*" type="text" class="txt num c1" /></td>
@@ -659,7 +771,7 @@
                 <td ><input  id="txtLeave.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtMarriageleave.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtBereavementleave.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtTotal2.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Total2.*'><input  id="txtTotal2.*" type="text" class="txt num c1" /></td>
                 <!--<td ><input  id="txtLeavewithoutpay.*" type="text" class="txt num c1" /></td>-->
                 <td ><input  id="txtGreatmeriy.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtMinormerits.*" type="text" class="txt num c1" /></td>
@@ -667,20 +779,23 @@
                 <td ><input  id="txtMajordemerits.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtPeccadillo.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtReprimand.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtTotal3.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtTotal4.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtMemo.*" type="text" class="txt c1" /><input id="txtNoq.*" type="hidden" /></td>
+                <td id='hide_Total3.*'><input  id="txtTotal3.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Total4.*'><input  id="txtTotal4.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Memo.*'><input  id="txtMemo.*" type="text" class="txt c1" /><input id="txtNoq.*" type="hidden" /></td>
                 <td ><input  id="txtSalary.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtBo_admin.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtBo_traffic.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtBo_special.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtAwardmon.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtTotal5.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtTotal6.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtTotal7.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtTotal8.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtFirstmoney.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtSecondmoney.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Awardmon.*'><input  id="txtAwardmon.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Total5.*'><input  id="txtTotal5.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Total6.*'><input  id="txtTotal6.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Total7.*'><input  id="txtTotal7.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Total8.*'><input  id="txtTotal8.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Firstmoney.*'><input  id="txtFirstmoney.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Secondmoney.*'><input  id="txtSecondmoney.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Adjustmoney.*'><input  id="txtAdjustmoney.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Sugmoney.*'><input  id="txtSugmoney.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Chkmoney.*'><input  id="txtChkmoney.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtMemo2.*" type="text" class="txt c1" /></td>
             </tr>
         </table>
