@@ -16,10 +16,10 @@
         }
         q_tables = 's';
         var q_name = "salaward";
-        var q_readonly = ['txtNoa','txtDatea'];
+        var q_readonly = ['txtNoa','txtDatea','txtWorker'];
         var q_readonlys = [];
-        var bbmNum = [];  // 允許 key 小數
-        var bbsNum = [['txtTotal1',4,1,1],['txtLate',4,0,1],['txtLeaveearly',4,0,1],['txtPerson',4,0,1],['txtSick',4,0,1],['txtLeave',4,0,1],['txtMarriageleave',4,0,1],['txtBereavementleave',4,0,1],['txtTotal2',4,1,1],['txtGreatmeriy',2,0,1],['txtMinormerits',2,0,1],['txtCommend',2,0,1],['txtMajordemerits',2,0,1],['txtPeccadillo',2,0,1],['txtReprimand',2,0,1],['txtTotal3',4,1,1],['txtTotal4',10,5,1],['txtSalary',10,0,1],['txtBo_admin',10,0,1],['txtBo_traffic',10,0,1],['txtBo_special',10,0,1],['txtAwardmon_',4,2,1],['txtTotal5',10,0,1],['txtTotal6',10,0,1],['txtTotal7',10,0,1],['txtTotal8',14,0,1],['txtFirstmoney',14,0,1],['txtSecondmoney',14,0,1]];
+        var bbmNum = [['txtTotal',10,0,1]];  // 允許 key 小數
+        var bbsNum = [['txtTotal1',4,1,1],['txtLate',4,0,1],['txtLeaveearly',4,0,1],['txtPerson',4,0,1],['txtSick',4,0,1],['txtLeave',4,0,1],['txtMarriageleave',4,0,1],['txtBereavementleave',4,0,1],['txtTotal2',4,1,1],['txtGreatmeriy',2,0,1],['txtMinormerits',2,0,1],['txtCommend',2,0,1],['txtMajordemerits',2,0,1],['txtPeccadillo',2,0,1],['txtReprimand',2,0,1],['txtTotal3',4,1,1],['txtTotal4',10,5,1],['txtSalary',10,0,1],['txtBo_admin',10,0,1],['txtBo_traffic',10,0,1],['txtBo_special',10,0,1],['txtAwardmon_',4,2,1],['txtTotal5',10,0,1],['txtTotal6',10,0,1],['txtTotal7',10,0,1],['txtTotal8',14,0,1],['txtFirstmoney',14,0,1],['txtSecondmoney',14,0,1],['txtAdjustmoney',14,0,1],['txtSugmoney',14,0,1],['txtChkmoney',14,0,1],['txtMoney',14,0,1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Noa';
@@ -67,8 +67,160 @@
             
             $('#cmbTypea').change(function () {
             	 table_change();
-            	 $('#txtYear').val(q_date().substr(0,3));
+            	 if ($('#cmbTypea').find("option:selected").text().indexOf('年終')>-1){
+            	 	$('#txtYear').val(dec(q_date().substr(0,3))-1);
+            	 }else{
+            	 	$('#txtYear').val(q_date().substr(0,3));
+            	 }
+            	 $('#txtTotal').val(0);
+            	 for(var j = 0; j < q_bbsCount; j++) {
+            	 	$('#btnMinus_'+j).click();
+            	 }
             });
+            
+            $("#btnHidesss").click(function() {
+            	if($('#btnHidesss').val().indexOf("隱藏")>-1){
+					$("#hide_Sssno").hide();
+					$("#hide_Part").hide();
+					$("#hide_Job").hide();
+					for (var j = 0; j < q_bbsCount; j++) {
+	            	 	 $('#hide_Sssno_'+j).hide();
+		            	 $('#hide_Part_'+j).hide();
+		            	 $('#hide_Job_'+j).hide();
+	            	 }
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-280)+"px");
+	            	scroll("tbbs","box",1);
+					$("#btnHidesss").val("員工詳細顯示");
+				}else{
+					$("#hide_Sssno").show();
+					$("#hide_Part").show();
+					$("#hide_Job").show();
+					for (var j = 0; j < q_bbsCount; j++) {
+	            	 	 $('#hide_Sssno_'+j).show();
+		            	 $('#hide_Part_'+j).show();
+		            	 $('#hide_Job_'+j).show();
+	            	 }
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+280)+"px");
+	            	 scroll("tbbs","box",1);
+					$("#btnHidesss").val("員工詳細隱藏");
+				}
+			});
+			
+            $("#btnHideday").click(function() {
+            	if($('#btnHideday').val().indexOf("隱藏")>-1){
+					$("#hide_Late").hide();
+					$("#hide_Leaveearly").hide();
+					$("#hide_Person").hide();
+					$("#hide_Sick").hide();
+					$("#hide_Leave").hide();
+					$("#hide_Marriageleave").hide();
+					$("#hide_Bereavementleave").hide();
+					for (var j = 0; j < q_bbsCount; j++) {
+	            	 	 $('#hide_Late_'+j).hide();
+		            	 $('#hide_Leaveearly_'+j).hide();
+		            	 $('#hide_Person_'+j).hide();
+		            	 $('#hide_Sick_'+j).hide();
+		            	 $('#hide_Leave_'+j).hide();
+		            	 $('#hide_Marriageleave_'+j).hide();
+		            	 $('#hide_Bereavementleave_'+j).hide();
+	            	 }
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-525)+"px");
+	            	scroll("tbbs","box",1);
+					$("#btnHideday").val("出勤詳細顯示");
+				}else{
+					$("#hide_Late").show();
+					$("#hide_Leaveearly").show();
+					$("#hide_Person").show();
+					$("#hide_Sick").show();
+					$("#hide_Leave").show();
+					$("#hide_Marriageleave").show();
+					$("#hide_Bereavementleave").show();
+					for (var j = 0; j < q_bbsCount; j++) {
+	            	 	 $('#hide_Late_'+j).show();
+		            	 $('#hide_Leaveearly_'+j).show();
+		            	 $('#hide_Person_'+j).show();
+		            	 $('#hide_Sick_'+j).show();
+		            	 $('#hide_Leave_'+j).show();
+		            	 $('#hide_Marriageleave_'+j).show();
+		            	 $('#hide_Bereavementleave_'+j).show();
+	            	 }
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+525)+"px");
+	            	 scroll("tbbs","box",1);
+					$("#btnHideday").val("出勤詳細隱藏");
+				}
+			});
+			
+			$("#btnHidemerits").click(function() {
+				if($('#btnHidemerits').val().indexOf("隱藏")>-1){
+					$("#hide_Greatmerits").hide();
+					$("#hide_Minormerits").hide();
+					$("#hide_Commend").hide();
+					$("#hide_Majordemerits").hide();
+					$("#hide_Peccadillo").hide();
+					$("#hide_Reprimand").hide();
+					for (var j = 0; j < q_bbsCount; j++) {
+	            	 	 $('#hide_Greatmerits_'+j).hide();
+		            	 $('#hide_Minormerits_'+j).hide();
+		            	 $('#hide_Commend_'+j).hide();
+		            	 $('#hide_Majordemerits_'+j).hide();
+		            	 $('#hide_Peccadillo_'+j).hide();
+		            	 $('#hide_Reprimand_'+j).hide();
+	            	 }
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-450)+"px");
+	            	scroll("tbbs","box",1);
+					$("#btnHidemerits").val("獎懲詳細顯示");
+				}else{
+					$("#hide_Greatmerits").show();
+					$("#hide_Minormerits").show();
+					$("#hide_Commend").show();
+					$("#hide_Majordemerits").show();
+					$("#hide_Peccadillo").show();
+					$("#hide_Reprimand").show();
+					for (var j = 0; j < q_bbsCount; j++) {
+	            	 	 $('#hide_Greatmerits_'+j).show();
+		            	 $('#hide_Minormerits_'+j).show();
+		            	 $('#hide_Commend_'+j).show();
+		            	 $('#hide_Majordemerits_'+j).show();
+		            	 $('#hide_Peccadillo_'+j).show();
+		            	 $('#hide_Reprimand_'+j).show();
+	            	 }
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+450)+"px");
+	            	 scroll("tbbs","box",1);
+					$("#btnHidemerits").val("獎懲詳細隱藏");
+				}
+			});
+			
+			$("#btnHidesalary").click(function() {
+            	if($('#btnHidesalary').val().indexOf("隱藏")>-1){
+					$("#hide_Salary").hide();
+					$("#hide_Bo_admin").hide();
+					$("#hide_Bo_traffic").hide();
+					$("#hide_Bo_special").hide();
+					for (var j = 0; j < q_bbsCount; j++) {
+	            	 	 $('#hide_Salary_'+j).hide();
+		            	 $('#hide_Bo_admin_'+j).hide();
+		            	 $('#hide_Bo_traffic_'+j).hide();
+		            	 $('#hide_Bo_special_'+j).hide();
+	            	 }
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-400)+"px");
+	            	scroll("tbbs","box",1);
+					$("#btnHidesalary").val("薪資詳細顯示");
+				}else{
+					$("#hide_Salary").show();
+					$("#hide_Bo_admin").show();
+					$("#hide_Bo_traffic").show();
+					$("#hide_Bo_special").show();
+					for (var j = 0; j < q_bbsCount; j++) {
+	            	 	 $('#hide_Salary_'+j).show();
+		            	 $('#hide_Bo_admin_'+j).show();
+		            	 $('#hide_Bo_traffic_'+j).show();
+		            	 $('#hide_Bo_special_'+j).show();
+	            	 }
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+400)+"px");
+	            	 scroll("tbbs","box",1);
+					$("#btnHidesalary").val("薪資詳細隱藏");
+				}
+			});
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -88,18 +240,24 @@
             switch (t_name) {
             	case 'salaward_import':
             		var as = _q_appendData("sss", "", true);
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtJob,txtIndate,txtTotal1,txtLate,txtLeaveearly,txtPerson,txtSick,txtLeave,txtMarriageleave,txtBereavementleave,txtGreatmeriy,txtMinormerits,txtCommend,txtMajordemerits,txtPeccadillo,txtReprimand,txtMemo,txtSalary,txtBo_admin,txtBo_traffic,txtBo_special'
+            		for (var i = 0; i < as.length; i++) {
+            			as[i].money=dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)
+            		}
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtJob,txtJobno,txtPart,txtPartno,txtIndate,txtTotal1,txtLate,txtLeaveearly,txtPerson,txtSick,txtLeave,txtMarriageleave,txtBereavementleave,txtGreatmeriy,txtMinormerits,txtCommend,txtMajordemerits,txtPeccadillo,txtReprimand,txtMemo,txtSalary,txtBo_admin,txtBo_traffic,txtBo_special,txtMoney'
             		, as.length, as, 
-            		'noa,namea,job,indate,total,late,early,person,sick,leave,marriage,bereavement,great,minor,commend,majorde,peccadillo,reprimand,memo,salary,bo_admin,bo_traffic,bo_special', '');
+            		'noa,namea,job,jobno,part,partno,indate,total,late,early,person,sick,leave,marriage,bereavement,great,minor,commend,majorde,peccadillo,reprimand,memo,salary,bo_admin,bo_traffic,bo_special,money', '');
             			
             		sum();
             		break;
             	case 'salaward_midautumn':
             		var as = _q_appendData("sss", "", true);
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtJob,txtLate,txtLeaveearly,txtPerson,txtSick,txtLeave,txtMarriageleave,txtBereavementleave,txtGreatmeriy,txtMinormerits,txtCommend,txtMajordemerits,txtPeccadillo,txtReprimand,txtSalary,txtBo_admin,txtBo_traffic,txtBo_special,txtAdjustmoney'
+            		for (var i = 0; i < as.length; i++) {
+            			as[i].money=dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)
+            		}
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtJob,txtJobno,txtPart,txtPartno,txtLate,txtLeaveearly,txtPerson,txtSick,txtLeave,txtMarriageleave,txtBereavementleave,txtGreatmeriy,txtMinormerits,txtCommend,txtMajordemerits,txtPeccadillo,txtReprimand,txtSalary,txtBo_admin,txtBo_traffic,txtBo_special,txtAdjustmoney,txtMoney'
             		, as.length, as, 
-            		'noa,namea,job,late,early,person,sick,leave,marriage,bereavement,great,minor,commend,majorde,peccadillo,reprimand,salary,bo_admin,bo_traffic,bo_special,adjustmoney', '');
-            			
+            		'noa,namea,job,jobno,part,partno,late,early,person,sick,leave,marriage,bereavement,great,minor,commend,majorde,peccadillo,reprimand,salary,bo_admin,bo_traffic,bo_special,adjustmoney,money', '');
+            		midautumnsum();
             		break;
             	case 'salhtype':
             		salhtype=_q_appendData("salhtype", "", true);
@@ -154,8 +312,8 @@
                 return;
             }
 
-            $('#txtWorker').val(r_name)
-            sum();
+            $('#txtWorker').val(r_name);
+            //sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
@@ -219,6 +377,7 @@
 		                	$('#trSel_'+b_seq).removeClass('chksel');//取消變色
 		                }
 	                });
+	                $('#txtChkmoney_'+j).change(function() {midautumnsum();});
         		}
            	}
             _bbsAssign();
@@ -354,10 +513,18 @@
             }  // j
             q_tr('txtTotal',t_total);
         }
+        function midautumnsum() {//秋節用
+            var t_total= 0;
+            for (var j = 0; j < q_bbsCount; j++) {
+            	//發放金額
+				t_total+=dec($('#txtChkmoney_'+j).val());
+            }  // j
+            q_tr('txtTotal',t_total);
+        }
         
         function table_change() {
              if ($('#cmbTypea').find("option:selected").text().indexOf('年終')>-1){
-            	 $('#tbbs').css("width","3300px");
+            	 $('#tbbs').css("width","3500px");
             	 //bbs
             	 $('#hide_Indate').show();
             	 $('#hide_Total1').show();
@@ -394,7 +561,7 @@
 	            	 $('#hide_Chkmoney_'+j).hide();
             	 }
             }else{
-            	$('#tbbs').css("width","2300px");
+            	$('#tbbs').css("width","2500px");
             	//bbs
             	 $('#hide_Indate').hide();
             	 $('#hide_Total1').hide();
@@ -431,6 +598,54 @@
 	            	 $('#hide_Chkmoney_'+j).show();
             	 }
             }
+            
+            $("#hide_Sssno").show();
+			$("#hide_Part").show();
+			$("#hide_Job").show();
+            $("#hide_Late").show();
+			$("#hide_Leaveearly").show();
+			$("#hide_Person").show();
+			$("#hide_Sick").show();
+			$("#hide_Leave").show();
+			$("#hide_Marriageleave").show();
+			$("#hide_Bereavementleave").show();
+			$("#hide_Greatmerits").show();
+			$("#hide_Minormerits").show();
+			$("#hide_Commend").show();
+			$("#hide_Majordemerits").show();
+			$("#hide_Peccadillo").show();
+			$("#hide_Reprimand").show();
+			$("#hide_Salary").show();
+			$("#hide_Bo_admin").show();
+			$("#hide_Bo_traffic").show();
+			$("#hide_Bo_special").show();
+					
+			for (var j = 0; j < q_bbsCount; j++) {
+				$('#hide_Sssno_'+j).show();
+		        $('#hide_Part_'+j).show();
+		        $('#hide_Job_'+j).show();
+				$('#hide_Late_'+j).show();
+	            $('#hide_Leaveearly_'+j).show();
+	            $('#hide_Person_'+j).show();
+	            $('#hide_Sick_'+j).show();
+	            $('#hide_Leave_'+j).show();
+	            $('#hide_Marriageleave_'+j).show();
+	            $('#hide_Bereavementleave_'+j).show();
+             	$('#hide_Greatmerits_'+j).show();
+	           	$('#hide_Minormerits_'+j).show();
+	           	$('#hide_Commend_'+j).show();
+	           	$('#hide_Majordemerits_'+j).show();
+	           	$('#hide_Peccadillo_'+j).show();
+	           	$('#hide_Reprimand_'+j).show();
+	           	$('#hide_Salary_'+j).show();
+		        $('#hide_Bo_admin_'+j).show();
+		        $('#hide_Bo_traffic_'+j).show();
+		        $('#hide_Bo_special_'+j).show();
+             }
+             $("#btnHidesss").val("員工詳細隱藏");
+             $("#btnHideday").val("出勤詳細隱藏");
+             $("#btnHidemerits").val("獎懲詳細隱藏");
+             $("#btnHidesalary").val("薪資詳細隱藏");
             scroll("tbbs","box",1);
         }
         
@@ -713,37 +928,39 @@
         </div>
         <div id="box">
         <div class='dbbs' > 
-        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 3200px;background:#cad3ff;" >
+        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 3500px;background:#cad3ff;" >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:30px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
                 <td align="center" style="width:35px;"><a id='vewChks'></a></td>
-                <td align="center" style="width:80px;"><a id='lblSssno_s'> </a></td>
+                <td id="hide_Sssno" align="center" style="width:80px;"><a id='lblSssno_s'> </a></td>
                 <td align="center" style="width:100px;"><a id='lblNamea_s'> </a></td>
-                <td align="center" style="width:100px;"><a id='lblJob_s'> </a></td>
+                <td id="hide_Part" align="center" style="width:100px;"><a id='lblPart_s'> </a></td>
+                <td id="hide_Job" align="center" style="width:100px;"><a id='lblJob_s'> </a></td>
                 <td id="hide_Indate" align="center" style="width:100px;"><a id='lblIndate_s'> </a></td>
                 <td id="hide_Total1" align="center" style="width:75px;"><a id='lblTotal1_s'> </a></td>
-                <td align="center" style="width:75px;"><a id='lblLate_s'> </a></td>
-                <td align="center" style="width:75px;"><a id='lblLeaveearly_s'> </a></td>
-                <td align="center" style="width:75px;"><a id='lblPerson_s'> </a></td>
-                <td align="center" style="width:75px;"><a id='lblSick_s'> </a></td>
-                <td align="center" style="width:75px;"><a id='lblLeave_s'> </a></td>
-                <td align="center" style="width:75px;"><a id='lblMarriageleave_s'> </a></td>
-                <td align="center" style="width:75px;"><a id='lblBereavementleave_s'> </a></td>
+                <td id="hide_Late" align="center" style="width:75px;"><a id='lblLate_s'> </a></td>
+                <td id="hide_Leaveearly" align="center" style="width:75px;"><a id='lblLeaveearly_s'> </a></td>
+                <td id="hide_Person" align="center" style="width:75px;"><a id='lblPerson_s'> </a></td>
+                <td id="hide_Sick" align="center" style="width:75px;"><a id='lblSick_s'> </a></td>
+                <td id="hide_Leave" align="center" style="width:75px;"><a id='lblLeave_s'> </a></td>
+                <td id="hide_Marriageleave" align="center" style="width:75px;"><a id='lblMarriageleave_s'> </a></td>
+                <td id="hide_Bereavementleave" align="center" style="width:75px;"><a id='lblBereavementleave_s'> </a></td>
                 <td id="hide_Total2" align="center" style="width:100px;"><a id='lblTotal2_s'> </a></td>
                 <!--<td align="center" style="width:75px;"><a id='lblLeavewithoutpay_s'> </a></td>-->
-                <td align="center" style="width:75px;"><a id='lblGreatmerits_s'> </a></td>
-                <td align="center" style="width:75px;"><a id='lblMinormerits_s'> </a></td>
-                <td align="center" style="width:75px;"><a id='lblCommend_s'> </a></td>
-                <td align="center" style="width:75px;"><a id='lblMajordemerits_s'> </a></td>
-                <td align="center" style="width:75px;"><a id='lblPeccadillo_s'> </a></td>
-                <td align="center" style="width:75px;"><a id='lblReprimand_s'> </a></td>
+                <td id="hide_Greatmerits" align="center" style="width:75px;"><a id='lblGreatmerits_s'> </a></td>
+                <td id="hide_Minormerits" align="center" style="width:75px;"><a id='lblMinormerits_s'> </a></td>
+                <td id="hide_Commend" align="center" style="width:75px;"><a id='lblCommend_s'> </a></td>
+                <td id="hide_Majordemerits" align="center" style="width:75px;"><a id='lblMajordemerits_s'> </a></td>
+                <td id="hide_Peccadillo" align="center" style="width:75px;"><a id='lblPeccadillo_s'> </a></td>
+                <td id="hide_Reprimand" align="center" style="width:75px;"><a id='lblReprimand_s'> </a></td>
                 <td id="hide_Total3" align="center" style="width:100px;"><a id='lblTotal3_s'> </a></td>
                 <td id="hide_Total4" align="center" style="width:100px;"><a id='lblTotal4_s'> </a></td>
                 <td id="hide_Memo" align="center" style="width:200px;"><a id='lblMemo_s'> </a></td>
-                <td align="center" style="width:100px;"><a id='lblSalary_s'> </a></td>
-                <td align="center" style="width:100px;"><a id='lblBo_admin_s'> </a></td>
-                <td align="center" style="width:100px;"><a id='lblBo_traffic_s'> </a></td>
-                <td align="center" style="width:100px;"><a id='lblBo_special_s'> </a></td>
+                <td id="hide_Salary" align="center" style="width:100px;"><a id='lblSalary_s'> </a></td>
+                <td id="hide_Bo_admin" align="center" style="width:100px;"><a id='lblBo_admin_s'> </a></td>
+                <td id="hide_Bo_traffic" align="center" style="width:100px;"><a id='lblBo_traffic_s'> </a></td>
+                <td id="hide_Bo_special" align="center" style="width:100px;"><a id='lblBo_special_s'> </a></td>
+                <td align="center" style="width:110px;"><a id='lblMoney_s'> </a></td>
                 <td id="hide_Awardmon" align="center" style="width:90px;"><a id='lblAwardmon_s'> </a></td>
                 <td id="hide_Total5" align="center" style="width:100px;"><a id='lblTotal5_s'> </a></td>
                 <td id="hide_Total6" align="center" style="width:100px;"><a id='lblTotal6_s'> </a></td>
@@ -759,33 +976,35 @@
             <tr id="trSel.*">
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input id="checkSel.*" type="checkbox"/></td>
-                <td ><input  id="txtSssno.*" type="text" class="txt c1"/></td>
+                <td id='hide_Sssno.*' ><input  id="txtSssno.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtNamea.*" type="text" class="txt c1"/></td>
-                <td ><input  id="txtJob.*" type="text" class="txt c1"/></td>
+                <td id='hide_Part.*' ><input  id="txtPart.*" type="text" class="txt c1"/><input  id="txtPartno.*" type="hidden"/></td>
+                <td id='hide_Job.*' ><input  id="txtJob.*" type="text" class="txt c1"/><input  id="txtJobno.*" type="hidden"/></td>
                 <td id='hide_Indate.*'><input  id="txtIndate.*" type="text" class="txt c1" /></td>
                 <td id='hide_Total1.*'><input  id="txtTotal1.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtLate.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtLeaveearly.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtPerson.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtSick.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtLeave.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtMarriageleave.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtBereavementleave.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Late.*'><input  id="txtLate.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Leaveearly.*'><input  id="txtLeaveearly.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Person.*'><input  id="txtPerson.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Sick.*'><input  id="txtSick.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Leave.*'><input  id="txtLeave.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Marriageleave.*'><input  id="txtMarriageleave.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Bereavementleave.*'><input  id="txtBereavementleave.*" type="text" class="txt num c1" /></td>
                 <td id='hide_Total2.*'><input  id="txtTotal2.*" type="text" class="txt num c1" /></td>
                 <!--<td ><input  id="txtLeavewithoutpay.*" type="text" class="txt num c1" /></td>-->
-                <td ><input  id="txtGreatmeriy.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtMinormerits.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtCommend.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtMajordemerits.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtPeccadillo.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtReprimand.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Greatmerits.*'><input  id="txtGreatmeriy.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Minormerits.*'><input  id="txtMinormerits.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Commend.*'><input  id="txtCommend.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Majordemerits.*'><input  id="txtMajordemerits.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Peccadillo.*'><input  id="txtPeccadillo.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Reprimand.*'><input  id="txtReprimand.*" type="text" class="txt num c1" /></td>
                 <td id='hide_Total3.*'><input  id="txtTotal3.*" type="text" class="txt num c1" /></td>
                 <td id='hide_Total4.*'><input  id="txtTotal4.*" type="text" class="txt num c1" /></td>
                 <td id='hide_Memo.*'><input  id="txtMemo.*" type="text" class="txt c1" /><input id="txtNoq.*" type="hidden" /></td>
-                <td ><input  id="txtSalary.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtBo_admin.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtBo_traffic.*" type="text" class="txt num c1" /></td>
-                <td ><input  id="txtBo_special.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Salary.*'><input  id="txtSalary.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Bo_admin.*'><input  id="txtBo_admin.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Bo_traffic.*'><input  id="txtBo_traffic.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Bo_special.*'><input  id="txtBo_special.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtMoney.*" type="text" class="txt num c1" /></td>
                 <td id='hide_Awardmon.*'><input  id="txtAwardmon.*" type="text" class="txt num c1" /></td>
                 <td id='hide_Total5.*'><input  id="txtTotal5.*" type="text" class="txt num c1" /></td>
                 <td id='hide_Total6.*'><input  id="txtTotal6.*" type="text" class="txt num c1" /></td>
@@ -801,6 +1020,10 @@
         </table>
         </div>
         </div>
+        <input id="btnHidesss" type="button" style="width: auto;font-size: medium;"/>
+        <input id="btnHideday" type="button" style="width: auto;font-size: medium;"/>
+        <input id="btnHidemerits" type="button" style="width: auto;font-size: medium;"/>
+        <input id="btnHidesalary" type="button" style="width: auto;font-size: medium;"/>
         <input id="q_sys" type="hidden" />
 </body>
 </html>
