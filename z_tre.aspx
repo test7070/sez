@@ -15,6 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+		aPop = new Array(['txtXcarno', 'lblXcarno', 'car2', 'a.noa,driverno,driver', 'txtXcarno', 'car2_b.aspx']);
 			t_item = "";
 			if (location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
@@ -67,6 +68,10 @@
 						}, {
 							type : '6',
 							name : 'xnoa'
+						}, {
+							type : '8', //select
+							name : 'xcarteam',
+							value : t_item.split(',')
 						}]
 					});
 					q_popAssign();

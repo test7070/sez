@@ -15,6 +15,9 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+		aPop = new Array(['txtTcarno1', '', 'car2', 'a.noa,driverno,driver', 'txtTcarno1', 'car2_b.aspx'],
+						 ['txtTcarno2', '', 'car2', 'a.noa,driverno,driver', 'txtTcarno2', 'car2_b.aspx']
+		);
             t_item = "";
            	
             $(document).ready(function() {
@@ -278,7 +281,7 @@
             	$('#Xcarnos').css("width","410px");
             	$('#txtXcarnos').css("width","320px");
             	$('#txtXcarnos').focus(function() {
-            		q_msg( $(this), '輸入格式為：車牌,車牌,......');
+            		q_msg( $(this), '輸入格式為：車牌.車牌.車牌.......');
                 }).blur(function () {
 					q_msg();
 					$('#btnOk').click()

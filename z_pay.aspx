@@ -15,6 +15,8 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+		aPop = new Array(['txtXcno', '', 'acomp', 'noa,acomp,nick', 'txtXcno', "acomp_b.aspx"],
+						 ['txtXpart', '', 'part', 'part,noa', 'txtXpart', "part_b.aspx"]);
            if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }

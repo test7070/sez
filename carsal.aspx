@@ -621,7 +621,7 @@
 					<td align="center" style="width:60px;"><a id='lblTicket_s'></a></td>
 					<td align="center" style="width:60px;"><a id='lblLabor_s'></a></td>
 					<td align="center" style="width:60px;"><a id='lblHealth_s'></a></td>
-					<td align="center" style="width:80px;"><a id='lblMinus_s'></a></td>
+					<td align="center" style="width:80px;"><a id='lblMinus_s' title="司機減項+司機借支(維修)+司機借支(其他借支)"></a></td>
 					<td align="center" style="width:60px;"><a id='lblCarborr_s'></a></td>
 					<td align="center" style="width:80px;"><a id='lblTotal_s'></a></td>
 					<td align="center" style="width:80px;"><a id='lblUnpay_s'></a></td>
