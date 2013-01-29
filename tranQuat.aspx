@@ -89,12 +89,6 @@
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     return;
                 }
-                if($('#txtDldate').val().length==0){
-                	if($('#txtCldate').val().length>0)
-                		$('#txtDldate').val($('#txtCldate').val());
-                	else if($('#txtMadate').val().length>0)
-                		$('#txtDldate').val($('#txtMadate').val());
-                }
                 
                 $('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
