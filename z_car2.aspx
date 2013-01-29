@@ -278,7 +278,7 @@
             	$('#Xcarnos').css("width","410px");
             	$('#txtXcarnos').css("width","320px");
             	$('#txtXcarnos').focus(function() {
-            		q_msg( $(this), '輸入格式為：車牌,車牌,......');
+            		q_msg( $(this), '輸入格式為：車牌.車牌.車牌.......');
                 }).blur(function () {
 					q_msg();
 					$('#btnOk').click()
