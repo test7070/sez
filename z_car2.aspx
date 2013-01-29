@@ -15,6 +15,9 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+		aPop = new Array(['txtTcarno1', '', 'car2', 'a.noa,driverno,driver', 'txtTcarno1', 'car2_b.aspx'],
+						 ['txtTcarno2', '', 'car2', 'a.noa,driverno,driver', 'txtTcarno2', 'car2_b.aspx']
+		);
             t_item = "";
            	
             $(document).ready(function() {
