@@ -31,10 +31,10 @@
 						name : 'xyear'
                     }, {/*3*/
                         type : '2',
-                        name : 'cust',
-                        dbf : 'cust',
-                        index : 'noa,comp',
-                        src : 'cust_b.aspx'
+                        name : 'sss',
+                        dbf : 'sss',
+                        index : 'noa,namea',
+                        src : 'sss_b.aspx'
 					}]
 				});
 				q_popAssign();
