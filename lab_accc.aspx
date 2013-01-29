@@ -92,6 +92,7 @@
 				$('#txtBvccno').val(result.split(';')[1]);
 				$('#txtEvccno').val(result.split(';')[2]);
 				$('#txtPaybno').val(result.split(';')[3]);
+				alert('作業完畢');
 		    }
 
             function q_boxClose(s2) {
