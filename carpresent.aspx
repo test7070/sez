@@ -149,7 +149,12 @@
             			}	
             		}
             	}
-            	q_gridAddRow(bbsHtm, 'tbbs', 'txtCarno,txtCarteam,txtMemo', as.length, as, 'carno,team,memo', '');
+            	if(as[0]!=undefined&&t_carpresents[0]!=undefined){
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtCarno,txtCarteam,txtMemo', as.length, as, 'carno,team,memo', '');
+            	}else{
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtCarno,txtCarteam', as.length, as, 'carno,team', '');
+            	}
+            	
             	$('#txtUnpresent').val(as.length);
             	for (var i = 0; i < q_bbsCount; i++) {
             		if(!emp($('#txtCarno_'+i).val()))

@@ -8,6 +8,10 @@
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
+        <link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 			var q_name = "vcca_s";
 			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno', 'cust_b.aspx']
@@ -26,11 +30,13 @@
 				q_getFormat();
 				q_langShow();
 
-				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd], ['txtMon', r_picm]];
+				
 				q_mask(bbmMask);
 				q_gt('acomp', '', 0, 0, 0, "");
 				$('#txtBdate').focus();
-
+				$('#txtBdate').datepicker();
+				$('#txtEdate').datepicker();
 			}
 			function q_gtPost(t_name) {
                 switch (t_name) {
@@ -53,12 +59,9 @@
 				t_buyer = $('#txtBuyer').val();
 				t_bdate = $('#txtBdate').val();
 				t_edate = $('#txtEdate').val();
-				t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
-				/// 100.  .
-				t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
-				/// 100.  .
-
-				var t_where = " 1=1 " + q_sqlPara2("cno", t_cno)+ q_sqlPara2("noa", t_noa)+ q_sqlPara2("serial", t_serial) + q_sqlPara2("custno", t_custno) + q_sqlPara2("datea", t_bdate, t_edate);
+				t_mon = $('#txtMon').val();
+				
+				var t_where = " 1=1 " + q_sqlPara2("cno", t_cno)+ q_sqlPara2("mon", t_mon)+ q_sqlPara2("noa", t_noa)+ q_sqlPara2("serial", t_serial) + q_sqlPara2("custno", t_custno) + q_sqlPara2("datea", t_bdate, t_edate);
 				if (t_cust.length > 0)
                     t_where += " and patindex('%" + t_cust + "%',comp)>0";
                 if (t_buyer.length > 0)
@@ -89,6 +92,12 @@
 					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>
 					<input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblMon'></a></td>
+					<td>
+					<input class="txt" id="txtMon" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
