@@ -18,9 +18,9 @@
             q_desc = 1
             q_tables = 's';
             var q_name = "payb";
-            var q_readonly = ['txtVccno','txtAccno','txtNoa', 'txtMoney', 'txtTax', 'txtDiscount', 'txtTotal', 'txtWorker'];
+            var q_readonly = ['txtVccno','txtAccno','txtNoa', 'txtMoney', 'txtTax', 'txtDiscount', 'txtTotal', 'txtWorker','txtUnpay','txtPayed'];
             var q_readonlys = ['txtTotal','txtMoney'];
-            var bbmNum = [['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtDiscount', 10, 0, 1]];
+            var bbmNum = [['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtDiscount', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtPayed', 10, 0, 1]];
             var bbsNum = [['txtPrice', 10, 0, 1], ['txtDiscount', 10, 0, 1], ['txtMount', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
@@ -470,7 +470,7 @@
             }
             .dview {
                 float: left;
-                width: 270px;
+                width: 390px;
                 border-width: 0px;
             }
             .tview {
@@ -490,7 +490,7 @@
             }
             .dbbm {
                 float: left;
-                width: 680px;
+                width: 560px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -589,8 +589,9 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewComp'> </a></td>
-						<td align="center" style="width:60px; color:black;"><a id='vewTotal'> </a></td>
+						<td align="center" style="width:150px; color:black;"><a id='vewComp'> </a></td>
+						<td align="center" style="width:70px; color:black;"><a id='vewTotal'> </a></td>
+						<td align="center" style="width:70px; color:black;"><a id='vewUnpay'> </a></td>
 					</tr>
 					<tr>
 						<td >
@@ -599,25 +600,25 @@
 						<td id="datea" style="text-align: center;">~datea</td>
 						<td id="nick" style="text-align: center;">~nick</td>
 						<td id="total,0,1" style="text-align: right;">~total,0,1</td>
+						<td id="unpay,0,1" style="text-align: right;">~unpay,0,1</td>
 					</tr>
 				</table>
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td><input id="txtNoa"   type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblAcomp" class="lbl btn" > </a></td>
-						<td colspan="3">
+						<td colspan="2">
 							<select id="cmbCno" class="txt c1"> </select>
 							<input id="txtAcomp" type="text"  style="display:none;"/>
 						</td>
@@ -658,6 +659,8 @@
 							<input id="txtPayc" type="text" style="float:left; width:50%;"/>
 							<input id="txtPaydate" type="text" style="float:left; width:50%;"/>
 						</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblVdate'class="lbl" > </a></td>
 						<td>
 						<input id="txtVbdate" type="text"  class="txt c1"/>
@@ -665,25 +668,32 @@
 						<td>
 						<input id="txtVedate" type="text"  class="txt c1"/>
 						</td>
-					</tr>					
+					</tr>						
 					<tr>
 						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
 						<td><input id="txtMoney" type="text" class="txt num c1" /></td>
 						<td><span> </span><a id='lblTax' class="lbl"> </a></td>
 						<td><input id="txtTax" type="text"  class="txt num c1" /></td>
-						<td><span> </span><a id='lblDiscount' class="lbl"> </a></td>
-						<td><input id="txtDiscount" type="text"  class="txt num c1" /></td>
+						
 					</tr>
 					<tr>
-						<td colspan="4"> </td>
+						<td><span> </span><a id='lblDiscount' class="lbl"> </a></td>
+						<td><input id="txtDiscount" type="text"  class="txt num c1" /></td>
 						<td><span> </span><a id='lblTotal' class="lbl"> </a></td>
 						<td><input id="txtTotal" type="text" class="txt num c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblPayed' class="lbl"> </a></td>
+						<td><input id="txtPayed" type="text" class="txt num c1" /></td>
+						<td><span> </span><a id='lblUnpay' class="lbl"> </a></td>
+						<td><input id="txtUnpay" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblVccno' class="lbl"> </a></td>
 						<td><input id="txtVccno"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
 						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
+						
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPic' class="lbl"> </a></td>
@@ -693,7 +703,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan="4" >						<textarea id="txtMemo" cols="10" rows="5" style="width: 99%; height:50px;"> </textarea></td>
+						<td colspan="3" ><textarea id="txtMemo" cols="10" rows="5" style="width: 99%; height:50px;"> </textarea></td>
 						<td class="td8">
 						<input id="btnTgg" type="button"/>
 						<input id="btnUcc" type="button"/>
