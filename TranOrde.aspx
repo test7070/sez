@@ -799,7 +799,7 @@
 						</td>
 						<td></td>
 					</tr>
-					<tr class="trX" id="xxx">
+					<tr class="trX" >
 						<td></td>
 						<td><span> </span><a id="lblDo1" class="lbl"> </a></td>
 						<td colspan="2">
@@ -813,7 +813,7 @@
 						<td></td>
 						<td></td>
 					</tr>
-					<tr class="trX" >
+					<tr class="trX" id="xxx">
 						<td>
 						<input type="text" id="txtCasetype" style="display:none;"/>
 						</td>
@@ -849,13 +849,14 @@
 					</tr>
 					<tr class="trY">
 						<td></td>
+						<td><span> </span><a id="lblPort2" class="lbl"> </a></td><td>
+						<input type="text" id="txtPort2" class="txt c1"/>
+						</td>
 						<td><span> </span><a id="lblEmpdock2" class="lbl"> </a></td>
 						<td>
 						<input type="text" id="txtEmpdock2" class="txt c1"/>
 						</td>
-						<td><span> </span><a id="lblPort2" class="lbl"> </a></td><td colspan="2">
-						<input type="text" id="txtPort2" class="txt c1"/>
-						</td>
+						<td> </td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
