@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -18,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "carborr";
-            var q_readonly = ['txtNoa','txtWorker','txtMoney2','txtTotal','txtMoney'];
+            var q_readonly = ['txtNoa','txtWorker','txtMoney2','txtTotal','txtMoney','txtPaybno'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney',10,0],['txtComppay',10,0],['txtMount',10,0],['txtDriverpay',10,0],['txtPay',10,0]];
             var bbsNum = [['txtMoney',10,0]];
@@ -159,12 +158,6 @@
                 	alert('分期金額異常');
                 	return;
                 }
-            	/*if($('#cmbTypea').val()=='借支'){
-            		if(q_float('txtMoney')>q_float('txtMoney2')){
-            			alert('超支!');
-            			return;
-            		}	
-            	}*/
                 $('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
@@ -624,6 +617,10 @@
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td>
 						<input id="txtWorker" type="text"  class="txt c1"/>
+						</td>
+						<td><span> </span><a id="lblPaybno" class="lbl"> </a></td>
+						<td>
+						<input id="txtPaybno" type="text"  class="txt c1"/>
 						</td>
 					</tr>
 				</table>

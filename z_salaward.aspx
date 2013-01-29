@@ -17,24 +17,28 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				q_getId();
-				q_gf('', 'z_driver');
+				q_gf('', 'z_salaward');
 			});
 			function q_gfPost() {
 				$('#q_report').q_report({
-					fileName : 'z_driver',
+					fileName : 'z_salaward',
 					options : [{
 						type : '0',
 						name : 'accy',
 						value : q_getId()[4]
-					}, {/*1*/
-						type : '2',
-						name : 'driver',
-						dbf : 'driver',
-						index : 'noa,namea',
-						src : 'driver_b.aspx'
+					}, {
+						type : '6',
+						name : 'xyear'
+                    }, {/*3*/
+                        type : '2',
+                        name : 'sss',
+                        dbf : 'sss',
+                        index : 'noa,namea',
+                        src : 'sss_b.aspx'
 					}]
 				});
 				q_popAssign();
+				$('#txtXyear').mask('999');
 			}
 
 			function q_boxClose(s2) {
@@ -43,6 +47,7 @@
 			function q_gtPost(s2) {
 			}
 		</script>
+
 	</head>
 	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
