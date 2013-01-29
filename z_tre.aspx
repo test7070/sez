@@ -67,6 +67,10 @@
 						}, {
 							type : '6',
 							name : 'xnoa'
+						}, {
+							type : '8', //select
+							name : 'xcarteam',
+							value : t_item.split(',')
 						}]
 					});
 					q_popAssign();
