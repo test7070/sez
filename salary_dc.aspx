@@ -93,8 +93,48 @@
             	var t_where4 = "where[4]=^^ noa between '"+$('#txtMon').val()+"/01' and '"+$('#txtMon').val()+"/15' and sssno=a.noa ^^";
 		        q_gt('salarydc_import', t_where+t_where1+t_where2+t_where3+t_where4 , 0, 0, 0, "", r_accy);
             });
+            
+            $('#btnBank').click(function() {
+            	q_func('banktran.gen', $('#txtNoa').val()+',4');
+            });
         }
+		
+		function q_funcPost(t_func, result) {
+		        
+		        var s1 = location.href;
+		        var t_path = (s1.substr(7, 5) == 'local' ? xlsPath : s1.substr(0, s1.indexOf('/', 10)) + '/htm/');
+		        if (t_func == 'banktran.gen') {
+		            window.open(t_path + 'obtdta.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
+		            return;
+		        }
 
+		        if (result.length > 0) {
+		            var s2 = result.split(';');
+		            for (var i = 0; i < s2.length; i++) {
+		                switch (i) {
+		                    case 0:
+		                        $('#txtAccno1').val(s2[i]);
+		                        break;
+		                    case 1:
+		                        $('#txtAccno2').val(s2[i]);
+		                        break;
+		                    case 2:
+		                        $('#txtAccno3').val(s2[i]);
+		                        break;
+		                    case 3:
+		                        $('#txtChkeno').val(s2[i]);
+		                        break;
+		                    case 4:
+		                        $('#txtMemo').val(s2[i]);
+		                        break;
+		                } //end switch
+		            } //end for
+		        } //end  if
+				
+		        alert('功能執行完畢');
+				
+		    } //endfunction
+		
         function q_boxClose(s2) { 
            var ret; 
             switch (b_pop) {                   
@@ -627,6 +667,12 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            if (t_para) {
+		            $('#btnBank').removeAttr('disabled');
+		        }
+		        else {
+		            $('#btnBank').attr('disabled', 'disabled');
+		        }
         }
 
         function btnMinus(id) {
@@ -1103,6 +1149,7 @@
             <td class="td6"><input id="txtTax_other"  type="text" class="txt num c1"/></td>
             <td class="td7"><span> </span><a id="lblMi_total" class="lbl"></a><a id="lblMtotal" class="lbl"></a></td>
             <td class="td8"><input id="txtMi_total"  type="text" class="txt num c1"/><input id="txtMtotal"  type="text" class="txt num c1"/></td>
+            <td class="td9" colspan="2"><input id="btnBank" type="button" style="float: right;"/></td>
         </tr>
         <tr>
         	<td class="td1"><span> </span><a id="lblBo_full" class="lbl"></a></td>

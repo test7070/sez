@@ -87,9 +87,11 @@
                             t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].item;
                         }
                         q_cmbParse("cmbPlusitem", t_item);
-                        $("#cmbPlusitem").val(abbm[q_recno].plusitem);
+                        if(abbm[q_recno]!=undefined)
+                        	$("#cmbPlusitem").val(abbm[q_recno].plusitem);
                         q_cmbParse("cmbMinusitem", t_item);
-                        $("#cmbMinusitem").val(abbm[q_recno].minusitem);
+                        if(abbm[q_recno]!=undefined)
+                        	$("#cmbMinusitem").val(abbm[q_recno].minusitem);
 					break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
