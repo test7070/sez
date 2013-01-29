@@ -28,6 +28,7 @@
 				q_mask(bbmMask);
 				q_gt('acomp', '', 0, 0, 0, "");
 				q_gt('part', '', 0, 0, 0, "");
+				q_cmbParse("cmbStatus", "@全部,Y@已付完,N@未付完");
 				$('#txtNoa').focus();
 			}
 			function q_gtPost(t_name) {
@@ -52,6 +53,7 @@
             }
 
 			function q_seekStr() {
+				t_status = $('#cmbStatus').val();
 				t_cno = $('#cmbCno').val();
 				t_partno = $('#cmbPart').val();
 				t_noa = $.trim($('#txtNoa').val());
@@ -70,6 +72,10 @@
 				+ q_sqlPara2("tggno", t_tggno);
 				if (t_tgg.length > 0)
                     t_where += " and patindex('%" + t_tgg + "%',comp)>0";
+                if(t_status=='Y')
+                	t_where += " and unpay=0";
+                if(t_status=='N')
+                	t_where += " and unpay!=0";
 				t_where = ' where=^^ ' + t_where + ' ^^ ';
 				return t_where;
 			}
@@ -105,6 +111,10 @@
 				<tr class='seek_tr'>
 					<td style="width: 30%;"><a id='lblPart'> </a></td>
 					<td style="width: 70%;"><select id="cmbPart"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td style="width: 30%;"><a id='lblStatus'> </a></td>
+					<td style="width: 70%;"><select id="cmbStatus"> </select></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td><a id='lblNoa'> </a></td>
