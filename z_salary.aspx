@@ -49,7 +49,13 @@
                         type : '5',
                         name : 'xorder',
                         value : (('').concat(new Array("職稱","員工編號","帳號","金額"))).split(',')
-                    }]
+                    },{
+                        type : '2',
+                        name : 'xpartno',
+                        dbf : 'part',
+                        index : 'noa,part',
+                        src : 'part_b.aspx'
+                        }]
                     });
                 q_popAssign();
                 $('#txtXmon').mask('999/99');
