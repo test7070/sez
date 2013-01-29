@@ -247,7 +247,7 @@
             table_change();
         }
         function btnPrint() {
-
+			q_box('z_salaward.aspx' + "?;;;;" + r_accy, '','95%', '650px', q_getMsg("popPrint"));
         }
 
         function wrServer(key_value) {
