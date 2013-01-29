@@ -75,7 +75,13 @@
                         type : '8',
                         name : 'xtypea',
                         value : (('').concat(new Array("監理部","非監理部","全部"))).split(',')
-                    }]
+                    }, {
+                            type : '2',
+                            name : 'sssall',
+                            dbf : 'sssall',
+                            index : 'noa,namea',
+                            src : 'sssall_b.aspx'
+                        }]
                     });
                 q_popAssign();
                 
