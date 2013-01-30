@@ -560,7 +560,7 @@
                         /// 要先給  才能使用 q_bodyId()
                         q_bodyId($(this).attr('id'));
                         b_seq = t_IdSeq;
-                    	if(($('#txtAcc1_' + b_seq).val().substr(0,4) == '1121') || ($('#txtMoney_'+b_seq).val() < 0)){
+                    	if(($('#txtAcc1_' + b_seq).val().substr(0,4) == '1121') && ($('#txtMoney_'+b_seq).val() < 0)){
                     		var str1 = $('#txtCheckno_' + b_seq).val()
                     		var t_where = "where=^^ checkno = '" + str1 +"' and money > 0 ^^";
                     		q_gt('umms', t_where , 0, 0, 0, "", r_accy);
