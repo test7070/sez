@@ -241,7 +241,7 @@
 		                    }
 		                }
 						
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,cmbPartno,txtPart,txtMemo', as.length, as, 'noa,paysale,_unpay,_unpay,part,partno,part,memo', 'txtRc2no', '');
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,cmbPartno,txtPart,txtMemo,txtPayc,txtIndate', as.length, as, 'noa,paysale,_unpay,_unpay,part,partno,part,memo,payc,paydate', 'txtRc2no', '');
 						var t_memo = '';
 						for (var i = 0; i < q_bbsCount; i++) {
 							if($.trim($('#txtMemo_'+i).val()).length>0){
@@ -827,9 +827,8 @@
 					</td>
 					<td align="center" style="width:1%;"> </td>
 					<td align="center" style="width:8%;"><a id='lblAcc1'></a></td>
-					<td align="center" style="width:3%;"><a id='lblMoney'></a></td>
-					<td align="center" style="width:5%;"><a id='lblCheckno'></a></td>
-					<td align="center" style="width:5%;"><a id='lblAccount'></a></td>
+					<td align="center" style="width:5%;"><a id='lblMoney'></a></td>
+					<td align="center" style="width:8%;"><a id='lblCheckno'></a></td>
 					<td align="center" style="width:8%;"><a id='lblBank'></a></td>
 					<td align="center" style="width:3%;"><a id='lblIndate'></a></td>
 					<td align="center" style="width:3%;"><a id='lblChgsTran'></a></td>
@@ -851,13 +850,12 @@
 					</td>
 					<td>
 					<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
+					<input type="text" id="txtPayc.*"  style="width:95%;" />
 					</td>
 					<td>
 					<input type="text" id="txtCheckno.*"  style="width:95%;" />
-					</td>
-					<td>
 					<input type="text" id="txtAccount.*"  style="width:95%;" />
-                     </td>
+					</td>
 					<td>
 						<input class="btn"  id="btnBankno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                         <input type="text" id="txtBankno.*"  style="width:85%; float:left;"/>
