@@ -390,6 +390,20 @@
                         sum();
 
                         break;
+                    case 'umms' :
+                    	var as = _q_appendData('umms', '', true);
+                    	if(as[0]!=undefined){
+                			$('#txtVccno_'+b_seq).val(as[0].vccno).attr('readonly','readonly');
+                			$('#txtVccno_'+b_seq).css('background-color', 'rgb(237, 237, 238)').css('color','green');
+                			$('#txtUnpayorg_' + b_seq).val(parseFloat(as[0].money,10)*(-1));
+                			$('#txtPart2_' + b_seq).val(as[0].part2);
+                		}else{
+                			$('#txtVccno_'+b_seq).val('').removeAttr('readonly');
+                			$('#txtVccno_'+b_seq).css('background-color', 'rgb(255, 255, 255)').css('color','');
+                			$('#txtUnpayorg_' + b_seq).val('');
+                			$('#txtPart2_' + b_seq).val('');
+                		}
+                    	break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -539,6 +553,18 @@
                         var t_unpay = dec($('#txtUnpayorg_' + b_seq).val()) - dec($('#txtPaysale_' + b_seq).val());
                         q_tr('txtUnpay_' + b_seq, t_unpay);
                         sum();
+                    });
+                    
+                    $('#txtCheckno_' + i).change(function(){
+                        t_IdSeq = -1;
+                        /// 要先給  才能使用 q_bodyId()
+                        q_bodyId($(this).attr('id'));
+                        b_seq = t_IdSeq;
+                    	if(($('#txtAcc1_' + b_seq).val().substr(0,4) == '1121') || ($('#txtMoney_'+b_seq).val() < 0)){
+                    		var str1 = $('#txtCheckno_' + b_seq).val()
+                    		var t_where = "where=^^ checkno = '" + str1 +"' and money > 0 ^^";
+                    		q_gt('umms', t_where , 0, 0, 0, "", r_accy);
+                    	}
                     });
                 }
 
