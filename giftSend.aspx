@@ -28,7 +28,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
+            aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
             ['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtComp_', 'tgg_b.aspx'],
             ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
             $(document).ready(function() {
@@ -341,12 +341,12 @@
 					<tr>
 						<td align="center" style="width:5%; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width�G25%;color:black;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width�G55%;color:black;"><a id='vewItem'> </a></td>
+						<td align="center" style="width�G55%;color:black;"><a id='vewComp'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="noa" style="text-align: center;">~noa</td>
-						<td id="item" style="text-align: center;">~item</td>
+						<td id="comp" style="text-align: center;">~comp</td>
 					</tr>
 				</table>
 			</div>
@@ -370,7 +370,7 @@
 						<td class="td2"><input type="text" id="txtDatea" class="txt c1"/>	</td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblCno' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblCno' class="lbl btn"> </a></td>
 						<td class="td2" colspan="2"><input type="text" id="txtCno" class="txt c2"/>
 							<input type="text" id="txtAcomp" class="txt c3"/>
 						</td>	
@@ -378,7 +378,7 @@
 						<td class="td2"><input type="text" id="txtConsigner" class="txt c1"/>	</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblCustno' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
 						<td class="td2" colspan="2"><input type="text" id="txtCustno" class="txt c2"/>
 							<input type="text" id="txtComp" class="txt c3"/>
 						</td>
