@@ -137,7 +137,7 @@
 	            $('#txtDatea').val(t_date);
 	            $('#txtWeek').val(weekday(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()));
 	            $('#txtDatea').focus();
-            	
+            	insimport=true;
             	//匯進資料
             	var as = _q_appendData("car2", "", true);
             	if(as[0]!=undefined&&t_carpresents[0]!=undefined){
@@ -187,6 +187,7 @@
             	
                 case q_name: 
                 	 if(insimport){
+                	 	insimport=false;
                 	 	t_carpresents=[];
                 		var as = _q_appendData("carpresent", "", true);
                 		if(as[0]!=undefined){
