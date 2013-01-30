@@ -30,7 +30,7 @@
             brwKey = 'Datea';
             q_desc=1;
 			//q_alias='a';
-			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,b.carowner', 'txtCarno,txtCarowner', "car2_b.aspx"],
+			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,a.carownerno,b.carowner', 'txtCarno,txtCarownerno,txtCarowner', "car2_b.aspx"],
 				['textBcarno', 'lblNextcarno', 'car2', 'a.noa,b.carowner', 'textBcarno', "car2_b.aspx?;;;a.carownerno!='' "],
 				['textEcarno', 'lblNextcarno', 'car2', 'a.noa,b.carowner', 'textEcarno', "car2_b.aspx?;;;a.carownerno!='' "],
 				['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
@@ -449,6 +449,7 @@
                 _btnModi();
 				//禁止修改
 				$('#txtCarowner').attr('disabled', 'disabled');
+				$('#txtCarownerno').attr('disabled', 'disabled');
 				$('#txtCarno').attr('disabled', 'disabled');
 				$('#txtMon').attr('disabled', 'disabled');
 				//收款的資料禁止修改
