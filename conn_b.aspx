@@ -60,7 +60,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['namea'] && !as['tel'] && !as['addr'] && !as['mobile'] && !as['memo']) {
+                if (!as['namea'] && !as['tel'] && !as['addr'] && !as['mobile']) {
                     as[bbsKey[0]] = '';
                     return;
                 }
@@ -82,6 +82,38 @@
                 for ( i = 0; i < abbsDele.length; i++) {
                     abbsDele[i][bbsKey[0]] = t_key[1];
                 }
+            }
+
+            function boxStore() {
+
+            }
+
+            function refresh() {
+                //        refresh2();
+                _refresh();
+            }
+
+            function sum() {
+            }
+
+            function q_gtPost(t_postname) {  /// 資料下載後 ...
+                //        q_gtPost2(t_postname);
+            }
+
+            function readonly(t_para, empty) {
+                _readonly(t_para, empty);
+            }
+
+            function btnMinus(id) {
+                _btnMinus(id);
+                sum();
+            }
+
+            function btnPlus(org_htm, dest_tag, afield) {
+                _btnPlus(org_htm, dest_tag, afield);
+                if (q_tables == 's')
+                    bbsAssign();
+                /// 表身運算式
             }
 
 		</script>
