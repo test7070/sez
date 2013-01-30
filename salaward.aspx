@@ -19,7 +19,7 @@
         var q_readonly = ['txtNoa','txtDatea','txtWorker'];
         var q_readonlys = [];
         var bbmNum = [['txtTotal',10,0,1]];  // 允許 key 小數
-        var bbsNum = [['txtTotal1',4,1,1],['txtLate',4,0,1],['txtLeaveearly',4,0,1],['txtPerson',4,0,1],['txtSick',4,0,1],['txtLeave',4,0,1],['txtMarriageleave',4,0,1],['txtBereavementleave',4,0,1],['txtTotal2',4,1,1],['txtGreatmeriy',2,0,1],['txtMinormerits',2,0,1],['txtCommend',2,0,1],['txtMajordemerits',2,0,1],['txtPeccadillo',2,0,1],['txtReprimand',2,0,1],['txtTotal3',4,1,1],['txtTotal4',10,5,1],['txtSalary',10,0,1],['txtBo_admin',10,0,1],['txtBo_traffic',10,0,1],['txtBo_special',10,0,1],['txtAwardmon_',4,2,1],['txtTotal5',10,0,1],['txtTotal6',10,0,1],['txtTotal7',10,0,1],['txtTotal8',14,0,1],['txtFirstmoney',14,0,1],['txtSecondmoney',14,0,1],['txtAdjustmoney',14,0,1],['txtSugmoney',14,0,1],['txtChkmoney',14,0,1],['txtMoney',14,0,1]];
+        var bbsNum = [['txtTotal1',4,1,1],['txtLate',4,0,1],['txtLeaveearly',4,0,1],['txtPerson',4,0,1],['txtSick',4,0,1],['txtLeave',4,0,1],['txtMarriageleave',4,0,1],['txtBereavementleave',4,0,1],['txtTotal2',4,1,1],['txtGreatmeriy',2,0,1],['txtMinormerits',2,0,1],['txtCommend',2,0,1],['txtMajordemerits',2,0,1],['txtPeccadillo',2,0,1],['txtReprimand',2,0,1],['txtTotal3',4,1,1],['txtTotal4',10,5,1],['txtSalary',10,0,1],['txtBo_admin',10,0,1],['txtBo_traffic',10,0,1],['txtBo_special',10,0,1],['txtBo_oth',10,0,1],['txtAwardmon_',4,2,1],['txtTotal5',10,0,1],['txtTotal6',10,0,1],['txtTotal7',10,0,1],['txtTotal8',14,0,1],['txtFirstmoney',14,0,1],['txtSecondmoney',14,0,1],['txtAdjustmoney',14,0,1],['txtSugmoney',14,0,1],['txtChkmoney',14,0,1],['txtMoney',14,0,1],['txtOldmidmon',14,0,1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Noa';
@@ -56,12 +56,14 @@
 	            	var t_where = "where=^^ a.noa!='Z001' and a.noa!='010132' and a.partno<='09' order by a.partno,a.jobno^^";
 	            	var t_where1 = "where[1]=^^ datea between '"+$('#txtYear').val()+"/01/01' and '"+$('#txtYear').val()+"/12/31'^^";
 	            	var t_where2 = "where[2]=^^ year='"+$('#txtYear').val()+"'^^";
-	            	q_gt('salaward_import', t_where+t_where1+t_where2 , 0, 0, 0, "", r_accy);
+	            	var t_where3 = "where[3]=^^ a.typea='秋節' and a.year='"+(dec($('#txtYear').val())-1)+"'^^";
+	            	q_gt('salaward_import', t_where+t_where1+t_where2+t_where3 , 0, 0, 0, "", r_accy);
             	}else{
             		var t_where = "where=^^ a.noa!='Z001' and a.noa!='010132' and a.partno<='09' order by a.partno,a.jobno^^";
 	            	var t_where1 = "where[1]=^^ datea between '"+$('#txtYear').val()+"/01/01' and '"+$('#txtYear').val()+"/12/31'^^";
 	            	var t_where2 = "where[2]=^^ left(datea,3)='"+(dec($('#txtYear').val())-1)+"'^^";
-	            	q_gt('salaward_midautumn', t_where+t_where1+t_where2 , 0, 0, 0, "", r_accy);
+	            	var t_where3 = "where[3]=^^ a.typea='秋節' and a.year='"+(dec($('#txtYear').val())-1)+"'^^";
+	            	q_gt('salaward_midautumn', t_where+t_where1+t_where2+t_where3 , 0, 0, 0, "", r_accy);
             	}
             });
             
@@ -196,11 +198,13 @@
 					$("#hide_Bo_admin").hide();
 					$("#hide_Bo_traffic").hide();
 					$("#hide_Bo_special").hide();
+					$("#hide_Bo_oth").hide();
 					for (var j = 0; j < q_bbsCount; j++) {
 	            	 	 $('#hide_Salary_'+j).hide();
 		            	 $('#hide_Bo_admin_'+j).hide();
 		            	 $('#hide_Bo_traffic_'+j).hide();
 		            	 $('#hide_Bo_special_'+j).hide();
+		            	 $('#hide_Bo_oth_'+j).hide();
 	            	 }
 	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-400)+"px");
 	            	scroll("tbbs","box",1);
@@ -210,11 +214,13 @@
 					$("#hide_Bo_admin").show();
 					$("#hide_Bo_traffic").show();
 					$("#hide_Bo_special").show();
+					$("#hide_Bo_oth").show();
 					for (var j = 0; j < q_bbsCount; j++) {
 	            	 	 $('#hide_Salary_'+j).show();
 		            	 $('#hide_Bo_admin_'+j).show();
 		            	 $('#hide_Bo_traffic_'+j).show();
 		            	 $('#hide_Bo_special_'+j).show();
+		            	 $('#hide_Bo_oth_'+j).show();
 	            	 }
 	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+400)+"px");
 	            	 scroll("tbbs","box",1);
@@ -241,22 +247,22 @@
             	case 'salaward_import':
             		var as = _q_appendData("sss", "", true);
             		for (var i = 0; i < as.length; i++) {
-            			as[i].money=dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)
+            			as[i].money=dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth)
             		}
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtJob,txtJobno,txtPart,txtPartno,txtIndate,txtTotal1,txtLate,txtLeaveearly,txtPerson,txtSick,txtLeave,txtMarriageleave,txtBereavementleave,txtGreatmeriy,txtMinormerits,txtCommend,txtMajordemerits,txtPeccadillo,txtReprimand,txtMemo,txtSalary,txtBo_admin,txtBo_traffic,txtBo_special,txtMoney'
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtJob,txtJobno,txtPart,txtPartno,txtIndate,txtTotal1,txtLate,txtLeaveearly,txtPerson,txtSick,txtLeave,txtMarriageleave,txtBereavementleave,txtGreatmeriy,txtMinormerits,txtCommend,txtMajordemerits,txtPeccadillo,txtReprimand,txtMemo,txtSalary,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtMoney,txtOldmidmon'
             		, as.length, as, 
-            		'noa,namea,job,jobno,part,partno,indate,total,late,early,person,sick,leave,marriage,bereavement,great,minor,commend,majorde,peccadillo,reprimand,memo,salary,bo_admin,bo_traffic,bo_special,money', '');
+            		'noa,namea,job,jobno,part,partno,indate,total,late,early,person,sick,leave,marriage,bereavement,great,minor,commend,majorde,peccadillo,reprimand,memo,salary,bo_admin,bo_traffic,bo_special,bo_oth,money,monmoney', '');
             			
             		sum();
             		break;
             	case 'salaward_midautumn':
             		var as = _q_appendData("sss", "", true);
             		for (var i = 0; i < as.length; i++) {
-            			as[i].money=dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)
+            			as[i].money=dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth)
             		}
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtJob,txtJobno,txtPart,txtPartno,txtLate,txtLeaveearly,txtPerson,txtSick,txtLeave,txtMarriageleave,txtBereavementleave,txtGreatmeriy,txtMinormerits,txtCommend,txtMajordemerits,txtPeccadillo,txtReprimand,txtSalary,txtBo_admin,txtBo_traffic,txtBo_special,txtAdjustmoney,txtMoney'
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtJob,txtJobno,txtPart,txtPartno,txtLate,txtLeaveearly,txtPerson,txtSick,txtLeave,txtMarriageleave,txtBereavementleave,txtGreatmeriy,txtMinormerits,txtCommend,txtMajordemerits,txtPeccadillo,txtReprimand,txtSalary,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtAdjustmoney,txtMoney,txtOldmidmon'
             		, as.length, as, 
-            		'noa,namea,job,jobno,part,partno,late,early,person,sick,leave,marriage,bereavement,great,minor,commend,majorde,peccadillo,reprimand,salary,bo_admin,bo_traffic,bo_special,adjustmoney,money', '');
+            		'noa,namea,job,jobno,part,partno,late,early,person,sick,leave,marriage,bereavement,great,minor,commend,majorde,peccadillo,reprimand,salary,bo_admin,bo_traffic,bo_special,bo_oth,adjustmoney,money,monmoney', '');
             		midautumnsum();
             		break;
             	case 'salhtype':
@@ -350,6 +356,7 @@
            			$('#txtBo_admin_'+j).change(function() {sum();});
            			$('#txtBo_traffic_'+j).change(function() {sum();});
            			$('#txtBo_special_'+j).change(function() {sum();});
+           			$('#txtBo_oth_'+j).change(function() {sum();});
            			$('#txtAwardmon_'+j).change(function() {monsum();});
            			$('#txtTotal5_'+j).change(function() {totalsum();});
            			$('#txtTotal6_'+j).change(function() {totalsum();});
@@ -469,9 +476,9 @@
             		}
             	}
             	//考績獎金
-            	q_tr('txtTotal5_'+j,(q_float('txtSalary_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j))*q_float('txtAwardmon_'+j));
+            	q_tr('txtTotal5_'+j,(q_float('txtSalary_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))*q_float('txtAwardmon_'+j));
             	//年終獎金(大昌預設1個月)
-            	q_tr('txtTotal6_'+j,q_float('txtSalary_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j));
+            	q_tr('txtTotal6_'+j,q_float('txtSalary_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j));
             	//績效獎金(預設0)
             	q_tr('txtTotal7_'+j,0);
             	//獎金合計=考績獎金+年終獎金+績效獎金
@@ -488,7 +495,7 @@
             var t_total= 0;
             for (var j = 0; j < q_bbsCount; j++) {
             	//獎金金額
-            	q_tr('txtTotal5_'+j,(q_float('txtSalary_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j))*q_float('txtAwardmon_'+j));
+            	q_tr('txtTotal5_'+j,(q_float('txtSalary_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))*q_float('txtAwardmon_'+j));
             }  // j
             totalsum();
         }
@@ -524,7 +531,7 @@
         
         function table_change() {
              if ($('#cmbTypea').find("option:selected").text().indexOf('年終')>-1){
-            	 $('#tbbs').css("width","3500px");
+            	 $('#tbbs').css("width","3710px");
             	 //bbs
             	 $('#hide_Indate').show();
             	 $('#hide_Total1').show();
@@ -561,7 +568,7 @@
 	            	 $('#hide_Chkmoney_'+j).hide();
             	 }
             }else{
-            	$('#tbbs').css("width","2500px");
+            	$('#tbbs').css("width","2710px");
             	//bbs
             	 $('#hide_Indate').hide();
             	 $('#hide_Total1').hide();
@@ -619,7 +626,8 @@
 			$("#hide_Bo_admin").show();
 			$("#hide_Bo_traffic").show();
 			$("#hide_Bo_special").show();
-					
+			$("#hide_Bo_oth").show();		
+			
 			for (var j = 0; j < q_bbsCount; j++) {
 				$('#hide_Sssno_'+j).show();
 		        $('#hide_Part_'+j).show();
@@ -641,6 +649,7 @@
 		        $('#hide_Bo_admin_'+j).show();
 		        $('#hide_Bo_traffic_'+j).show();
 		        $('#hide_Bo_special_'+j).show();
+		        $('#hide_Bo_oth_'+j).show();
              }
              $("#btnHidesss").val("員工詳細隱藏");
              $("#btnHideday").val("出勤詳細隱藏");
@@ -928,7 +937,7 @@
         </div>
         <div id="box">
         <div class='dbbs' > 
-        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 3500px;background:#cad3ff;" >
+        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 3710px;background:#cad3ff;" >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:30px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
                 <td align="center" style="width:35px;"><a id='vewChks'></a></td>
@@ -960,7 +969,9 @@
                 <td id="hide_Bo_admin" align="center" style="width:100px;"><a id='lblBo_admin_s'> </a></td>
                 <td id="hide_Bo_traffic" align="center" style="width:100px;"><a id='lblBo_traffic_s'> </a></td>
                 <td id="hide_Bo_special" align="center" style="width:100px;"><a id='lblBo_special_s'> </a></td>
+                <td id="hide_Bo_oth" align="center" style="width:100px;"><a id='lblBo_oth_s'> </a></td>
                 <td align="center" style="width:110px;"><a id='lblMoney_s'> </a></td>
+                <td align="center" style="width:110px;"><a id='lblOldmidmon_s'> </a></td>
                 <td id="hide_Awardmon" align="center" style="width:90px;"><a id='lblAwardmon_s'> </a></td>
                 <td id="hide_Total5" align="center" style="width:100px;"><a id='lblTotal5_s'> </a></td>
                 <td id="hide_Total6" align="center" style="width:100px;"><a id='lblTotal6_s'> </a></td>
@@ -1004,7 +1015,9 @@
                 <td id='hide_Bo_admin.*'><input  id="txtBo_admin.*" type="text" class="txt num c1" /></td>
                 <td id='hide_Bo_traffic.*'><input  id="txtBo_traffic.*" type="text" class="txt num c1" /></td>
                 <td id='hide_Bo_special.*'><input  id="txtBo_special.*" type="text" class="txt num c1" /></td>
+                <td id='hide_Bo_oth.*'><input  id="txtBo_oth.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtMoney.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtOldmidmon.*" type="text" class="txt num c1" /></td>
                 <td id='hide_Awardmon.*'><input  id="txtAwardmon.*" type="text" class="txt num c1" /></td>
                 <td id='hide_Total5.*'><input  id="txtTotal5.*" type="text" class="txt num c1" /></td>
                 <td id='hide_Total6.*'><input  id="txtTotal6.*" type="text" class="txt num c1" /></td>
