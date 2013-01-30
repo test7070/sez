@@ -399,8 +399,8 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:10%;"><a id='lblDatea_s'> </a></td>
-					<td align="center" style="width:20%;"><a id='lblSssno_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblState_s'> </a></td>
+					<td align="center" style="width:10%;"><a id='lblSssno_s'> </a></td>
+					<td align="center" style="width:20%;"><a id='lblState_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
