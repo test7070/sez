@@ -21,13 +21,25 @@
                 q_gf('', 'z_acbe2');
             });
             function q_gfPost() {
-               q_popAssign();  
+               q_popAssign(); 
+               q_gt('acpart','', 0, 0, 0, "", r_accy+'_'+r_cno); 
             }
 
-            function q_boxClose(s2) {
-            }
-            function q_gtPost(s2) {
-            }
+            function q_boxClose(t_name) {
+		    }
+		    function q_gtPost(t_name) {
+		    	switch (t_name) {
+					case 'acpart':
+					 	t_part = ""
+						var as = _q_appendData("acpart","",true);
+						for ( i = 0; i < as.length; i++) {
+							t_part = t_part + (t_part.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+						}
+						q_cmbParse("combPart1", t_part);
+						q_cmbParse("combPart2", t_part);
+						break;
+				}
+				}
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"

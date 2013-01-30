@@ -15,6 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+		  
 		    $(document).ready(function () {
 		        _q_boxClose();
 		        q_getId();
@@ -42,13 +43,24 @@
 		    });
 		    function q_gfPost() {
 		        q_popAssign();
+		        q_gt('acpart','', 0, 0, 0, "", r_accy+'_'+r_cno);
 		        fbbm = q_getField('tbbm');
 		        $('#tbbm td').children("input:text").each(function () { $(this).bind('keydown', function (event) { keypress_bbm(event, $(this), fbbm, 'btnOk'); }); });
 		    }
 
-		    function q_boxClose(s2) {
+		    function q_boxClose(t_name) {
 		    }
-		    function q_gtPost(s2) {
+		    function q_gtPost(t_name) {
+		    	switch (t_name) {
+					case 'acpart':
+					 	t_part = ""
+						var as = _q_appendData("acpart","",true);
+						for ( i = 0; i < as.length; i++) {
+							t_part = t_part + (t_part.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+						}
+						q_cmbParse("combPart", t_part);
+						break;
+				}
 		    }
 		</script>
 		
