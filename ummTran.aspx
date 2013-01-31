@@ -13,7 +13,7 @@
             q_desc = 1
             q_tables = 's';
             var q_name = "umm";
-            var q_readonly = ['txtNoa', 'txtWorker', 'txtCno', 'txtAcomp', 'txtSale', 'txtTotal', 'txtPaysale', 'txtUnpay', 'txtOpay', 'textOpay'];
+            var q_readonly = ['txtNoa', 'txtWorker', 'txtCno', 'txtAcomp', 'txtSale', 'txtTotal', 'txtPaysale', 'txtUnpay', 'txtOpay', 'textOpay','txtAccno'];
             var q_readonlys = ['txtVccno', 'txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2'];
             var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]);
             var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUpay', 10, 0, 1], ['txtUnpayorg', 10, 0, 1]];
@@ -42,7 +42,6 @@
                 mainForm(1);
             }
 
-            var t_Saving;
             function mainPost() {
                 q_getFormat();
 
@@ -95,15 +94,7 @@
                     q_box('bank.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "800px", "600px", "銀行主檔");
                 });
 
-                //1003將請款單匯入與自動沖帳分開
-                /*$('#btnAuto').click(function (e) {
-                 t_Saving = true;
-                 umm_trd();
-
-                 });*/
-
                 $('#btnAuto').click(function(e) {
-                    t_Saving = true;
                     /// 自動沖帳
                     //$('#txtOpay').val(0);
                     //$('#txtUnopay').val(0);
@@ -245,7 +236,6 @@
                                 $('#txtPart2_' + i).val('');
                             }
 
-                            /*if (!t_Saving)*/
                             ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2,partno,part2', '');
                             /// 最後 aEmpField 不可以有【數字欄位】
                             
@@ -344,49 +334,7 @@
                             }
                         }
 
-                        if (!t_Saving)
-                            q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'noa,paysale,_unpay,_unpay,part2', 'txtVccno', '');
-                        else {/// 自動沖帳
-                            /*$('#txtOpay').val(0);
-                            $('#txtUnopay').val(0);
-                            var t_money = 0;
-                            for (var i = 0; i < q_bbsCount; i++) {
-                            t_money += q_float('txtMoney_' + i) + q_float('txtChgs_' + i);
-                            }
-
-                            var t_unpay, t_pay;
-                            for (var i = 0; i < q_bbsCount; i++) {
-                            if (i < as.length && as[i].total - as[i].paysale != 0) {
-                            $('#txtVccno_' + i).val(as[i].noa);
-                            $('#txtPart2_' + i).val(as[i].part2);
-                            t_unpay = as[i]._unpay;
-
-                            q_tr('txtUnpayorg_' + i, t_unpay);
-
-                            if (t_money >= t_unpay) {
-                            q_tr('txtPaysale_' + i, t_unpay);
-                            $('#txtUnpay_' + i).val(0);
-                            t_money = t_money - t_unpay;
-                            }
-                            else {
-                            q_tr('txtPaysale_' + i, t_money);
-                            q_tr('txtUnpay_' + i, t_unpay - t_money);
-                            t_money = 0;
-                            }
-                            }
-                            else {
-                            $('#txtVccno_' + i).val('');
-                            $('#txtPaysale_' + i).val('');
-                            $('#txtUnpay_' + i).val('');
-                            }
-                            }
-
-                            if (t_money > 0)
-                            q_tr('txtOpay', t_money);
-                            */
-                        }
-
-                        t_Saving = false;
+                        q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'noa,paysale,_unpay,_unpay,part2', 'txtVccno', '');
                         sum();
 
                         break;

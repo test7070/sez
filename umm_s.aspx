@@ -66,13 +66,14 @@
                 + q_sqlPara2("datea", t_bdate, t_edate) 
                 + q_sqlPara2("mon", t_mon) 
                 + q_sqlPara2("noa", t_noa) 
-                + q_sqlPara2("custno", t_custno)
 				+ q_sqlPara2("cno", t_cno);
 				if (t_cust.length>0)
                     t_where += " and patindex('%" + t_cust + "%',comp)>0";
                 if ($('#cmbPart').val().length>0)
                     t_where += " and patindex('%" + t_part + "%',part)>0";
-
+				if (t_custno.length>0)
+                    t_where += " and (patindex('%" + t_custno + "%',custno)>0 or patindex('%" + t_custno + "%',custno2)>0)";
+               
                 t_where = ' where=^^' + t_where + '^^ ';
                // alert(t_where);
                 return t_where;
