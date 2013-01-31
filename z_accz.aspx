@@ -35,27 +35,10 @@
 	                    }, {
 	                        type : '1',
 	                        name : 'date'
-	                    }, {
-	                        type : '2',
-	                        name : 'cust',
-	                        dbf : 'cust',
-	                        index : 'noa,comp',
-	                        src : 'cust_b.aspx'
-	                    } , {
-	                        type : '1',
-	                        name : 'xmon'
-	                    }, {
-	                        type : '2',
-	                        name : 'acomp',
-	                        dbf : 'cust',
-	                        index : 'noa,acomp',
-	                        src : 'acomp_b.aspx'
 	                    }]
                     });
                 q_popAssign();
                 	
-                	$('#txtXmon1').mask('999/99');
-	                $('#txtXmon2').mask('999/99');
 	                $('#txtDate1').mask('999/99/99');
 	                $('#txtDate1').datepicker();
 	                $('#txtDate2').mask('999/99/99');

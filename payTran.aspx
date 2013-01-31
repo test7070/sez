@@ -412,19 +412,6 @@
 		            $('#txtChgs_' + i).change(function (e) {
 		                sum();
 		            });
-		            
-		            $('#txtCheckno_' + i).change(function (e) {
-		            	 t_IdSeq = -1;
-		                q_bodyId($(this).attr('id'));
-		                b_seq = t_IdSeq;
-		                for (var j = 0; j < q_bbsCount; j++) {
-		                	if($('#txtCheckno_' + b_seq).val()==$('#txtCheckno_' + j).val() && b_seq!=j && !emp($('#txtCheckno_' + j).val())){
-		                		alert('支票號碼重複輸入!!');
-		                		$('#txtCheckno_'+b_seq).val(($('#txtCheckno_'+b_seq).val()).substr(0,7));
-		               			$('#txtCheckno_'+b_seq).focus();
-		               		}
-		                }
-		            });
 
 		            $('#txtAcc1_' + i).change(function () {
 		                t_IdSeq = -1;
@@ -455,7 +442,7 @@
 		                q_tr('txtUnpay_' + b_seq, t_unpay);
 		                sum();
 		            });
-                    $('#txtCheckno_' + i).change(function(){
+                    /*$('#txtCheckno_' + i).change(function(){
                         t_IdSeq = -1;
                         /// 要先給  才能使用 q_bodyId()
                         q_bodyId($(this).attr('id'));
@@ -466,7 +453,7 @@
                     		var t_where = "where=^^ checkno = '" + str1 +"' and money > 0 ^^";
                     		q_gt('pays', t_where , 0, 0, 0, "", r_accy);
                     	}
-                    });
+                    });*/
 		        }
 
 		        _bbsAssign();

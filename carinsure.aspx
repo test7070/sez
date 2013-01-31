@@ -58,6 +58,21 @@
             }
 
             function bbsAssign() {
+            	for(var j = 0; j < q_bbsCount; j++) {
+           			if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+           				$('#txtInsurerno_'+j).change(function () {
+           					t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							
+							if(b_seq>='1'){
+								$('#txtBdate_'+b_seq).val($('#txtEdate_'+(dec(b_seq)-1)).val());
+								$('#txtEdate_'+b_seq).val((dec($('#txtBdate_'+b_seq).val().substr(0,3))+1)+$('#txtBdate_'+b_seq).val().substr(3,7));
+								$('#txtInmon_'+b_seq).val($('#txtBdate_'+b_seq).val().substr(0,6));
+							}
+           				});
+           			}
+           		}
                 _bbsAssign();//'tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
             }
 
