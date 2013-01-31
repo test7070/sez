@@ -64,20 +64,21 @@
 		function cmbTypea_change(){
 			var typeaval = $('#cmbTypea').val();
 			if(typeaval==1 || typeaval==2){
-				$('#lblTgg').attr('disabled','disabled');
-               	$('#txtTggno').attr('disabled','disabled');
-               	$('#txtTgg').attr('disabled','disabled');
-               	$('#lblCust').removeAttr('disabled');
-               	$('#txtCustno').removeAttr('disabled');
-               	$('#txtComp').removeAttr('disabled');
+				$('#lblTgg').attr('readonly','readonly');
+               	$('#txtTggno').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+               	$('#txtTgg').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+               	
+               	$('#lblCust').removeAttr('readonly');
+               	$('#txtCustno').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+               	$('#txtComp').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
             }
             else{
-               	$('#lblCust').attr('disabled','disabled');
-               	$('#txtCustno').attr('disabled','disabled');
-               	$('#txtComp').attr('disabled','disabled');
-               	$('#lblTgg').removeAttr('disabled');
-               	$('#txtTggno').removeAttr('disabled');
-               	$('#txtTgg').removeAttr('disabled');
+               	$('#lblCust').attr('readonly','readonly');
+               	$('#txtCustno').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+               	$('#txtComp').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+               	$('#lblTgg').removeAttr('readonly');
+               	$('#txtTggno').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+               	$('#txtTgg').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
 			}
 		}
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -89,8 +90,6 @@
             }   /// end Switch
             b_pop = '';
         }
-
-
         function q_gtPost(t_name) {  
             switch (t_name) {
                 case q_name: if (q_cur == 4)   
@@ -176,7 +175,6 @@
             //            
             return true;
         }
-
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0;
             for (var j = 0; j < q_bbsCount; j++) {
