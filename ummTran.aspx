@@ -80,7 +80,8 @@
 
                 $('#txtCustno').change(function() {
                     getOpay();
-                    $('#btnVcc').click();
+                    if($('#txtCustno').val().substr(0,1)>='0'&&$('#txtCustno').val().substr(0,1)<='z')
+                    	$('#btnVcc').click();
                 });
 
                 $('#txtOpay').change(function() {
@@ -203,7 +204,8 @@
                         sum();
                         break;
                     case 'txtCustno':
-                        $('#btnVcc').click();
+                    	if($('#txtCustno').val().substr(0,1)>='0'&&$('#txtCustno').val().substr(0,1)<='z')
+                        	$('#btnVcc').click();
                         break;
                 }
             }
