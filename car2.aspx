@@ -169,9 +169,23 @@
                 $('#txtSaledate').blur(function() {
                     Sale();
                 });
+                
+                $('#txtChangecarno').change(function() {
+                	if(!emp($('#txtChangecarno').val())){
+                		var t_where = "where=^^ a.noa ='"+$('#txtChangecarno').val()+"' ^^";
+						q_gt('car2', t_where, 0, 0, 0, "");
+					}
+                });
+                
                 $('#btnChange').click(function(e) {
-					//q_func( 'cara.gen',$('#txtNoa').val()+','+$('#txtChangecarno').val()+','+r_name);
-					//location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";;"+r_accy;
+                	if(!canchange){
+	                	alert('車牌重覆!!');
+	                	return;
+                	}
+                	if(!emp($('#txtChangecarno').val())&&canchange){
+						//q_func( 'cara.gen',$('#txtNoa').val()+','+$('#txtChangecarno').val()+','+r_name);
+						location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";;"+r_accy;
+					}
 					alert('尚未完成!!');
 				});
             }
@@ -197,7 +211,7 @@
             function q_gfPost() {
 
             }
-
+			var canchange=false;
             function q_gtPost(t_name) {
                 switch (t_name) {
                 	case 'cardeal':
@@ -246,11 +260,20 @@
                         $("#cmbCarstyleno").val(abbm[q_recno].carstyleno);
                         break;
                     case q_name:
+                    	
                         if (q_cur == 4)
                             q_Seek_gtPost();
 
-                        if (q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
+                        if (q_cur == 2)
+                        {
+                        	var as = _q_appendData("car2", "", true);
+	                    	if(as[0]==undefined)
+	                    		canchange=true;
+	                    	else{
+	                    		alert('車牌重覆!!');
+	                    		canchange=false;
+	                    	}
+                        }
 
                         break;
                 }
