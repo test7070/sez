@@ -370,7 +370,7 @@
 						<td class="td2"><input type="text" id="txtDatea" class="txt c1"/>	</td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblCno' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblCno' class="lbl btn"> </a></td>
 						<td class="td2" colspan="2"><input type="text" id="txtCno" class="txt c2"/>
 							<input type="text" id="txtAcomp" class="txt c3"/>
 						</td>	
@@ -380,7 +380,7 @@
 						<td class="td2"><input type="text" id="txtCusttype" class="txt c1"/>	</td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblCustno' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
 						<td class="td2" colspan="2"><input type="text" id="txtCustno" class="txt c2"/>
 							<input type="text" id="txtComp" class="txt c3"/>
 						</td>	

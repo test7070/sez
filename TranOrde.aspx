@@ -794,10 +794,9 @@
 						<td colspan="2">
 						<input type="text" id="txtBoatname" class="txt c1"/>
 						</td>
-						<td colspan="2">
-						<input type="text" id="txtShip" class="txt c1"/>
-						</td>
-						<td></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 					</tr>
 					<tr class="trX" >
 						<td></td>
