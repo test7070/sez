@@ -91,6 +91,12 @@
 				}, function(e) {
 					$(".sale").hide();
 				});
+				$(".carnocchange").hide();
+				$("#btnCarnochange").toggle(function(e) {
+					$(".carnocchange").show();
+				}, function(e) {
+					$(".carnocchange").hide();
+				});
 				
 				$('#btnCarinsurance').click(function(e) {
 					q_box("carinsure.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'carinsure', "90%", "600px", q_getMsg("popCarinsure"));
@@ -163,6 +169,11 @@
                 $('#txtSaledate').blur(function() {
                     Sale();
                 });
+                $('#btnChange').click(function(e) {
+					//q_func( 'cara.gen',$('#txtNoa').val()+','+$('#txtChangecarno').val()+','+r_name);
+					//location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";;"+r_accy;
+					alert('尚未完成!!');
+				});
             }
 
             function q_boxClose(s2) {
@@ -563,6 +574,9 @@
             .sale{
             	background-color:#FF9900;
             }
+            .carnocchange{
+            	background-color:#19FF1C;
+            }
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -781,7 +795,9 @@
 						<td> </td>
 						<td><input id="btnCarexpense" type="button" style="width:80%;"/> </td>
 						<td><input id="btnSale" type="button" style="width:80%;"/> </td>	
-						<td><!--<input id="btnCarlender" type="button" style="width:80%;"/> --></td>	
+						<td><!--<input id="btnCarlender" type="button" style="width:80%;"/> --></td>
+						<td> </td>
+						<td><input id="btnCarnochange" type="button" /></td>
 					</tr>
 					<tr class="carexpense">
 						<td><span> </span><a id="lblAuto" class="lbl"> </a></td>
@@ -923,6 +939,14 @@
 						<td><input id="txtSaledate"  type="text"  class="txt c1"/>	</td>
 						<td><span> </span><a id="lblSalemoney" class="lbl"> </a></td>
 						<td><input id="txtSalemoney"  type="text"  class="txt c1 num"/>	</td>	
+						<td> </td>
+						<td> </td>
+						<td> </td>
+					</tr>
+					<tr class="carnocchange">
+						<td><span> </span><a id="lblChangecarno" class="lbl"> </a></td>
+						<td><input id="txtChangecarno"  type="text"  class="txt c1"/></td>
+						<td><input id="btnChange" type="button" /></td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
