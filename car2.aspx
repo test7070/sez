@@ -184,7 +184,6 @@
                 	}
                 	if(!emp($('#txtChangecarno').val())&&canchange){
 						//q_func( 'cara.gen',$('#txtNoa').val()+','+$('#txtChangecarno').val()+','+r_name);
-						location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";;"+r_accy;
 					}
 					alert('尚未完成!!');
 				});
@@ -207,7 +206,10 @@
                 }   /// end Switch
 				b_pop = '';
             }
-
+			function q_funcPost(t_func, result) {
+		        location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";;"+r_accy;
+		        alert('功能執行完畢');
+		    } //endfunction
             function q_gfPost() {
 
             }
