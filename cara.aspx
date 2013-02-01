@@ -104,7 +104,7 @@
 						$('#divNextmon').show();
 						$('#textNextmon').val(q_date().substr(0,6));
 						$('#textDiscount').val(100);
-						$('#textSssno').val('070120,070121,070122');
+						$('#textSssno').val('070120.070121.070122');
 						if(r_userno.substr(0,2)!='07')
 							q_msg( $(this), '要結轉前請先詢問監理部相關人員!!');
 					} else{
@@ -118,7 +118,6 @@
 					$('#divNextmon').hide();
 					if(!emp($('#textNextmon').val())&&!emp($('#textDiscount').val())){
 						q_func( 'cara.genNext',$('#textNextmon').val()+','+$('#textDiscount').val()+','+$('#textBcarno').val()+','+$('#textEcarno').val()+','+$('#textSssno').val()+','+r_name);//genNext(string t_mon , string t_discount, string t_worker);
-						location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"';"+r_accy;
 			    	}
 				});
 				
@@ -140,7 +139,12 @@
 	            	q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 	       		});
             }
-
+			
+			function q_funcPost(t_func, result) {
+		        location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"';"+r_accy;
+		        alert('功能執行完畢');
+		    } //endfunction
+			
             function q_boxClose(s2) {///   q_boxClose 2/4
                 var ret;
                 switch (b_pop) {
@@ -151,7 +155,7 @@
 	                        	for (var i = 0; i < ret.length; i++) {
 	                        		if($('#textSssno').val().length>0){
 		                            	var temp=$('#textSssno').val();
-		                            	$('#textSssno').val(temp+','+ret[i].noa);
+		                            	$('#textSssno').val(temp+'.'+ret[i].noa);
 		                            }else{
 		                            	$('#textSssno').val(ret[i].noa);
 		                            } 
