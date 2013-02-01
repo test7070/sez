@@ -31,7 +31,10 @@
             brwNowPage = 0;
             brwKey = 'Datea';
 
-            aPop = new Array(['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'], ['txtSalesno_', '', 'sss', 'noa,namea', 'txtSalesno_,txtSales_', 'sss_b.aspx']);
+            aPop = new Array(['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
+            				 ['txtSalesno_', '', 'sss', 'noa,namea', 'txtSalesno_,txtSales_', 'sss_b.aspx'],
+            				 ['txtCaseuseno', 'lblCaseuse', 'cust', 'noa,comp', 'txtCaseuseno,txtCaseuse', 'cust_b.aspx']
+							);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -375,6 +378,13 @@
 						<td colspan="3">
 							<input id="txtProductno" type="text" style="float:left; width:40%;"/>
 							<input id="txtProduct" type="text" style="float:left; width:60%;"/>
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblCaseuse" class="lbl btn"> </a></td>
+						<td colspan="3">
+							<input id="txtCaseuseno" type="text" style="float:left; width:40%;"/>
+							<input id="txtCaseuse" type="text" style="float:left; width:60%;"/>
 						</td>
 					</tr>
 					<tr>
