@@ -301,7 +301,7 @@
             }
 
             function btnPrint() {
-
+				q_box('z_car2.aspx', '', "90%", "600px", q_getMsg("popPrint"));
             }
 
             function btnOk() {
