@@ -284,7 +284,18 @@
                     return;
                 }
                 sum();
-
+                
+                var yufu=false;
+                for (var j = 0; j < q_bbsCount; j++) {
+                	if($('#txtAcc2_'+j).val().indexOf('預付')>-1){
+                		yufu=true;
+                		break;
+                	}
+                }
+                
+                if(yufu)
+                	$('#txtPayc').val($('#txtPayc').val()+' 預付');
+				
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if (s1.length == 0 || s1 == "AUTO")
                     q_gtnoa(q_name, replaceAll(q_getPara('sys.key_payb') + $('#txtDatea').val(), '/', ''));

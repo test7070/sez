@@ -30,7 +30,7 @@
 
        bbmMask = [['txtBmon', r_picm], ['txtEmon', r_picm]];
         q_mask(bbmMask);
-		$('#txtBmon').val(q_date().substr(0,6))
+		$('#txtEmon').val(q_date().substr(0,6))
         $('#txtCarno').focus();
     }
 

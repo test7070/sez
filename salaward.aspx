@@ -735,7 +735,7 @@
 			scroll.appendChild(bak);
 			bak.appendChild(tb2);
 			bak.style.position = "absolute";
-			bak.style.backgroundColor = "#cfc";
+			bak.style.backgroundColor = "#fff";
 		    bak.style.display = "block";
 			bak.style.left = 0;
 			bak.style.top = "0px";
