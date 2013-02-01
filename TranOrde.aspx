@@ -36,7 +36,14 @@
             q_desc = 1;
             q_xchg = 1;
             brwCount2 = 15;
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], ['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'], ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'], ['txtCarno_', '', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx'], ['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'], ['txtDeliveryno', 'lblDeliveryno', 'trando', 'deliveryno,po', 'txtDeliveryno,txtPo', 'trando_b.aspx']);
+            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], 
+            ['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'], 
+            ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'], 
+            ['txtCarno_', '', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx'],
+             ['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'], 
+            ['txtDeliveryno', 'lblDeliveryno', 'trando', 'deliveryno,po', 'txtDeliveryno,txtPo', 'trando_b.aspx'],
+            ['txtCasepackaddr', 'lblCasepackaddr', 'addrcase', 'addr,noa', 'txtCasepackaddr', 'addrcase_b.aspx'],
+            ['txtCaseopenaddr', 'lblCaseopenaddr', 'addrcase', 'addr,noa', 'txtCaseopenaddr', 'addrcase_b.aspx']);
 
             var t_casetype = ["20''", "40''", "超重櫃", "HQ", "OT"];
             var t_casetype2 = ["20''", "40''","OT","太空包"];
@@ -790,11 +797,12 @@
 						<td>
 						<input type="text" id="txtBoat" class="txt c1"/>
 						</td>
+						<td> </td>
 						<td><span> </span><a id="lblShip" class="lbl"> </a></td>
-						<td colspan="2">
+						<td colspan="3">
 						<input type="text" id="txtBoatname" class="txt c1"/>
 						</td>
-						<td> </td>
+						
 						<td> </td>
 						<td> </td>
 					</tr>
@@ -816,8 +824,8 @@
 						<td>
 						<input type="text" id="txtCasetype" style="display:none;"/>
 						</td>
-						<td><span> </span><a id="lblCasepackaddr" class="lbl"> </a></td>
-						<td>
+						<td><span> </span><a id="lblCasepackaddr" class="lbl btn"> </a></td>
+						<td colspan="2">
 						<input type="text" id="txtCasepackaddr" class="txt c1"/>
 						</td>
 						<td><span> </span><a id="lblPort" class="lbl"> </a></td>
@@ -828,7 +836,6 @@
 						<td>
 						<input type="text" id="txtCldate" class="txt c1"/>
 						</td>
-						<td> </td>
 						<td> </td>
 						<td> </td>
 					</tr>
@@ -898,14 +905,14 @@
 						<input type="text" id="txtCasetype2" style="display:none;"/>
 						</td>
 						</td>
-						<td><span> </span><a id="lblCaseopenaddr" class="lbl"> </a></td>
-						<td>
+						<td><span> </span><a id="lblCaseopenaddr" class="lbl btn"> </a></td>
+						<td colspan="2">
 						<input type="text" id="txtCaseopenaddr" class="txt c1"/>
 						</td>
+						<td> </td>
 						<td><span> </span><a id="lblMadate" class="lbl"> </a></td>
 						<td>
 						<input type="text" id="txtMadate" class="txt c1"/>
-						<td> </td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
