@@ -39,6 +39,7 @@
 				});
 				q_popAssign();
 				$('#txtXyear').mask('999');
+				$('#txtXyear').val(q_date().substr(0,3));
 			}
 
 			function q_boxClose(s2) {
