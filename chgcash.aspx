@@ -214,6 +214,12 @@
 		            alert(q_getMsg('lblDatea') + '錯誤。');
 		            return;
 		        }
+		        if($('#cmbDc').val() == 3){
+		        	if(($('#txtAcc1').val() == '') || ($('#txtAcc2').val() == '') || $('#txtAcc1').val().substring(0,4) !='1112'){
+		        		alert('請輸入' + q_getMsg('lblAcc1') + '且為1112開頭' );
+		        		return;
+		        	}
+		        }
 		        sum();
 		        $('#txtWorker').val(r_name);
 		        $('#txtChgpart').val($('#cmbChgpartno').find(":selected").text());
