@@ -56,7 +56,7 @@
 	            	var t_where = "where=^^ a.noa!='Z001' and a.noa!='010132' and a.partno<='09' order by a.partno,a.jobno^^";
 	            	var t_where1 = "where[1]=^^ datea between '"+$('#txtYear').val()+"/01/01' and '"+$('#txtYear').val()+"/12/31'^^";
 	            	var t_where2 = "where[2]=^^ year='"+$('#txtYear').val()+"'^^";
-	            	var t_where3 = "where[3]=^^ a.typea='秋節' and a.year='"+(dec($('#txtYear').val())-1)+"'^^";
+	            	var t_where3 = "where[3]=^^ a.typea='秋節' and a.year='"+dec($('#txtYear').val())+"'^^";
 	            	q_gt('salaward_import', t_where+t_where1+t_where2+t_where3 , 0, 0, 0, "", r_accy);
             	}else{
             		var t_where = "where=^^ a.noa!='Z001' and a.noa!='010132' and a.partno<='09' order by a.partno,a.jobno^^";
@@ -533,6 +533,7 @@
              if ($('#cmbTypea').find("option:selected").text().indexOf('年終')>-1){
             	 $('#tbbs').css("width","3710px");
             	 //bbs
+            	 $('#lblOldmidmon_s').text('秋節獎金');
             	 $('#hide_Indate').show();
             	 $('#hide_Total1').show();
             	 $('#hide_Total2').show();
@@ -570,6 +571,7 @@
             }else{
             	$('#tbbs').css("width","2710px");
             	//bbs
+            	$('#lblOldmidmon_s').text('去年秋節獎金');
             	 $('#hide_Indate').hide();
             	 $('#hide_Total1').hide();
             	 $('#hide_Total2').hide();

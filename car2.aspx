@@ -184,7 +184,6 @@
                 	}
                 	if(!emp($('#txtChangecarno').val())&&canchange){
 						//q_func( 'cara.gen',$('#txtNoa').val()+','+$('#txtChangecarno').val()+','+r_name);
-						location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";;"+r_accy;
 					}
 					alert('尚未完成!!');
 				});
@@ -207,7 +206,10 @@
                 }   /// end Switch
 				b_pop = '';
             }
-
+			function q_funcPost(t_func, result) {
+		        location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";;"+r_accy;
+		        alert('功能執行完畢');
+		    } //endfunction
             function q_gfPost() {
 
             }
@@ -299,7 +301,7 @@
             }
 
             function btnPrint() {
-
+				q_box('z_car2.aspx', '', "90%", "600px", q_getMsg("popPrint"));
             }
 
             function btnOk() {
@@ -493,7 +495,12 @@
                 q_tr('txtSalemoney', round(depmoney + imsale1 + imsale2 + imsale3 - dec($('#txtDiscountmoney').val()), 0));
 
             }
-			
+			function KeyDown(){
+				if ( event.keyCode=='116' ){
+				   location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";a.noa>='"+$('#txtNoa').val()+"';"+r_accy;
+				   event.returnValue= false;
+				  }
+			 }
 		</script>
 		<style type="text/css">
             #dmain {
@@ -606,6 +613,7 @@
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	onkeydown="KeyDown()"
 	>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
