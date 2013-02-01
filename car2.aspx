@@ -183,9 +183,9 @@
 	                	return;
                 	}
                 	if(!emp($('#txtChangecarno').val())&&canchange){
-						//q_func( 'cara.gen',$('#txtNoa').val()+','+$('#txtChangecarno').val()+','+r_name);
+                		q_func( 'cara.carnoChange', $('#txtNoa').val()+','+$('#txtChangecarno').val());
+                		//q_func( 'cara.carnoChange', 't_old,t_new');
 					}
-					alert('尚未完成!!');
 				});
             }
 
