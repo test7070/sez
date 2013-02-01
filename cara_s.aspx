@@ -11,7 +11,10 @@
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "cara_s";
-	aPop = new Array(['txtCarownerno', 'lblCarowner', 'carowner', 'noa,namea', 'txtCarownerno,txtCarowner', 'carowner_b.aspx']);
+	aPop = new Array(
+		['txtCarownerno', 'lblCarowner', 'carowner', 'noa,namea', 'txtCarownerno,txtCarowner', 'carowner_b.aspx'],
+		['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx']);
+	
     $(document).ready(function () {
         main();
     });         /// end ready

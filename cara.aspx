@@ -625,7 +625,7 @@
            	
             function KeyDown(){
 				if ( event.keyCode=='116' ){
-				   location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";noa='"+$('#txtNoa').val()+"';"+r_accy;
+				   location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";noa<='"+$('#txtNoa').val()+"';"+r_accy;
 				   event.returnValue= false;
 				  }
 			 }
