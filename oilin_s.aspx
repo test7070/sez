@@ -1,5 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title></title>
@@ -8,49 +7,44 @@
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
+		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = "oilin_s";
+            var q_name = "oilin_s";
 
-			$(document).ready(function() {
-				main();
-			});
-			/// end ready
+            $(document).ready(function() {
+                main();
+            });
 
-			function main() {
-				mainSeek();
-				q_gf('', q_name);
-			}
+            function main() {
+                mainSeek();
+                q_gf('', q_name);
+            }
 
-			function q_gfPost() {
-				q_getFormat();
-				q_langShow();
+            function q_gfPost() {
+                q_getFormat();
+                q_langShow();
 
-				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
-				q_mask(bbmMask);
-				$('#txtBdate').focus();
-			}
+                bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+                q_mask(bbmMask);
+                $('#txtBdate').focus();
+            }
 
-			function q_seekStr() {
-				t_bdate = $('#txtBdate').val();
-				t_edate = $('#txtEdate').val();
-				t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
-				/// 100.  .
-				t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
-				/// 100.  .
+            function q_seekStr() {
+                t_bdate = $('#txtBdate').val();
+                t_edate = $('#txtEdate').val();
 
-				var t_where = " 1=1 " + q_sqlPara2("datea", t_bdate, t_edate) ;
-				alert(t_where);
-				t_where = ' where=^^' + t_where + '^^ ';
-				return t_where;
-			}
+                var t_where = " 1=1 " + q_sqlPara2("datea", t_bdate, t_edate);
+                t_where = ' where=^^' + t_where + '^^ ';
+                return t_where;
+            }
 		</script>
 		<style type="text/css">
-			.seek_tr {
-				color: white;
-				text-align: center;
-				font-weight: bold;
-				background-color: #76a2fe
-			}
+            .seek_tr {
+                color: white;
+                text-align: center;
+                font-weight: bold;
+                background-color: #76a2fe
+            }
 		</style>
 	</head>
 	<body>
