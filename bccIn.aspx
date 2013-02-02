@@ -537,6 +537,8 @@
 							<input id="txtTggno"  type="text" style="float:left; width:30%;"/>
 							<input id="txtTgg"  type="text" style="float:left; width:70%;"/>
 						</td>
+						<td><span> </span><a id='lblBuyer' class="lbl"> </a></td>
+						<td><input id="txtBuyer"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblInvono' class="lbl"> </a></td>

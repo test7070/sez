@@ -313,7 +313,7 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 100%;
+                width: 98%;
                 float: left;
             }
             .txt.c2 {
@@ -448,6 +448,7 @@
 					<td  align="center" style="width:2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
+					<td align="center" style="width:8%;"><a id='lblDatea_s'> </a></td>
 					<td align="center" style="width:15%;"><a id='lblTggno_s'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblDays_s'> </a></td>
@@ -461,6 +462,7 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
+					<td><input id="txtDatea.*" type="text" class="txt c1"/></td>
 					<td><input id="txtTggno.*" type="text" style="width: 50%;"/>
 						<input id="btnTggno.*" type="button" value="." />
 						<input id="txtComp.*" type="text" style="width: 95%;" />
