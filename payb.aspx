@@ -164,7 +164,7 @@
 			                            $('#txtDiscount_'+n).val(as[i].discount);
 			                            $('#txtMoney_'+n).val(as[i].wmoney);
 			                            $('#txtTotal_'+n).val(as[i].wmoney);
-			                            $('#txtMemo_'+n).val('');
+			                            $('#txtMemo_'+n).val(as[i].memo);
 			                            $('#txtAcc1_'+n).val(as[i].wacc1);
 			                            $('#txtAcc2_'+n).val(as[i].wacc2);
 			                            $('#txtBal_'+n).val('');
@@ -179,7 +179,7 @@
 			                            $('#txtDiscount_'+n).val(0);
 			                            $('#txtMoney_'+n).val(as[i].cmoney);
 			                            $('#txtTotal_'+n).val(as[i].cmoney);
-			                            $('#txtMemo_'+n).val('');
+			                            $('#txtMemo_'+n).val(as[i].memo);
 			                            $('#txtAcc1_'+n).val(as[i].cacc1);
 			                            $('#txtAcc2_'+n).val(as[i].cacc2);
 			                            $('#txtBal_'+n).val('');
@@ -194,7 +194,7 @@
 			                            $('#txtDiscount_'+n).val(as[i].discount);
 			                            $('#txtMoney_'+n).val(as[i].wmoney);
 			                            $('#txtTotal_'+n).val(as[i].wmoney);
-			                            $('#txtMemo_'+n).val('');
+			                            $('#txtMemo_'+n).val(as[i].memo);
 			                            $('#txtAcc1_'+n).val(as[i].wacc1);
 			                            $('#txtAcc2_'+n).val(as[i].wacc2);
 			                            $('#txtBal_'+n).val('');
@@ -209,7 +209,7 @@
 			                            $('#txtDiscount_'+n).val(as[i].discount);
 			                            $('#txtMoney_'+n).val(as[i].cmoney);
 			                            $('#txtTotal_'+n).val(as[i].cmoney);
-			                            $('#txtMemo_'+n).val('');
+			                            $('#txtMemo_'+n).val(as[i].memo);
 			                            $('#txtAcc1_'+n).val(as[i].cacc1);
 			                            $('#txtAcc2_'+n).val(as[i].cacc2);
 			                            $('#txtBal_'+n).val('');
@@ -223,7 +223,7 @@
 			                            $('#txtDiscount_'+n).val(as[i].discount);
 			                            $('#txtMoney_'+n).val(as[i].money);
 			                            $('#txtTotal_'+n).val(as[i].money);
-			                            $('#txtMemo_'+n).val('');
+			                            $('#txtMemo_'+n).val(as[i].memo);
 			                            $('#txtAcc1_'+n).val(as[i].acc1);
 			                            $('#txtAcc2_'+n).val(as[i].acc2);
 			                            $('#txtBal_'+n).val('');
