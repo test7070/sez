@@ -32,6 +32,7 @@
             aPop = new Array(
              ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
             , ['txtInvono_', '', 'vcca', 'noa,datea,serial,custno,comp,cno,acomp', 'txtInvono_,txtIdate_,txtSerial_,txtCustno_,txtComp_,txtCno_,txtAcomp_', 'vcca_b.aspx']
+       		, ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
             , ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
 
             $(document).ready(function() {
@@ -57,7 +58,7 @@
                 q_cmbParse("cmbTypea", q_getPara('vccb.typea'));
                 q_cmbParse("cmbTaxtype", q_getPara('vccb.taxtype'),'s');
                 q_gt('acomp', '', 0, 0, 0, "");
-                
+                typea_chg();
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -164,7 +165,19 @@
             function btnPrint() {
 
             }
-
+			function typea_chg(){
+				if($('#cmbTypea').val() == 1 || $('#cmbTypea').val() == 2){
+					$('#Cust').show();
+					$('#Tgg').hide();
+					$('#txtTggno').val('');
+					$('#txtTgg').val('');
+				}else if($('#cmbTypea').val() == 3 || $('#cmbTypea').val() == 4){
+					$('#Cust').hide();
+					$('#txtCustno').val('');
+					$('#txtComp').val('');
+					$('#Tgg').show();
+				}
+			}
             function wrServer(key_value) {
                 var i;
 
@@ -411,7 +424,7 @@
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td><input id="txtDatea"  type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblTypea' class="lbl"> </a></td>
-						<td><select id="cmbTypea" class="txt c1"> </select></td>
+						<td><select id="cmbTypea" class="txt c1" onchange="typea_chg();"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
@@ -424,11 +437,18 @@
 							<input id="txtAcomp" type="text" style="display:none;"/>
 						</td>
 					</tr>
-					<tr>
+					<tr id='Cust'>
 						<td><span> </span><a id='lblCust' class="lbl btn"> </a></td>
 						<td colspan="3">
 							<input id="txtCustno" type="text" style="float:left; width:30%;"/>
 							<input id="txtComp" type="text" style="float:left; width:70%;"/>
+						</td>
+					</tr>
+					<tr id='Tgg'>
+						<td><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
+						<td colspan="3">
+							<input id="txtTggno" type="text" style="float:left; width:30%;"/>
+							<input id="txtTgg" type="text" style="float:left; width:70%;"/>
 						</td>
 					</tr>
 					<tr>
