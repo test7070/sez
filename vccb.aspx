@@ -214,6 +214,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                typea_chg();
             }
 
             function readonly(t_para, empty) {
