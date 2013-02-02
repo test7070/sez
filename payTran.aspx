@@ -70,7 +70,7 @@
 
 		        $('#txtOpay').change(function () { sum(); });
 		        $('#txtUnopay').change(function () { sum(); });
-		        $('#txtRc2no').change(function () { $('txtMon').val(t_mon); });
+		        //$('#txtRc2no').change(function () { $('txtMon').val(t_mon); });
 				//1003暫時不先開啟視窗選擇要匯入的立帳單
 		        $('#btnVcc').click(function (e) {
 		            pay_tre();
@@ -230,6 +230,7 @@
 		                        $('#txtUnpayorg_' + i).val('');
 		                    }
 		                }
+		                var yufu=false;
 		                var as = _q_appendData("tre", "", true);
 		                for (var i = 0; i < as.length; i++) {
 		                    if (as[i].total - as[i].paysale == 0) {
@@ -239,6 +240,18 @@
 		                        as[i]._unpay = (as[i].total - as[i].paysale).toString();
 		                        as[i].paysale = 0;
 		                    }
+		                    //判斷匯入資料是否有預付
+		                    if(as[i].payc.indexOf('預付')>-1){
+		                    	yufu=true;
+		                    }
+		                }
+		                
+		                //有預付存在每個備註插入預付，並在BBM預付單號上加上預付
+		                if(yufu){
+		                	for (var i = 0; i < as.length; i++) {
+		                		as[i].memo='預付.'+as[i].memo
+		                	}
+		                	$('#txtRc2no').val('預付'+$('#txtRc2no').val());
 		                }
 						
 						q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,cmbPartno,txtPart,txtMemo,txtPayc,txtIndate', as.length, as, 'noa,paysale,_unpay,_unpay,part,partno,part,memo,payc,paydate', 'txtRc2no', '');
@@ -379,8 +392,16 @@
 		        }
 		        //alert(sum_paysale + " --" + (sum_money + sum_chgs));
 		        $('#txtWorker').val(r_name);
-
-
+		        
+		        //20130201只要預付單號有預付，預付金額=SUM(BBS沖帳金額)
+		        if($('#txtRc2no').val().indexOf('預付')>-1){
+		        	var yufu_total=0;
+		        	for (var i = 0; i < q_bbsCount; i++) {
+		        		yufu_total+=q_float('txtPaysale_'+i);
+		        	}
+		        	q_tr('txtOpay',yufu_total);
+		        }
+				
 		        var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")

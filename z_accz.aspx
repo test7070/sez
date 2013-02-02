@@ -35,6 +35,10 @@
 	                    }, {
 	                        type : '1',
 	                        name : 'date'
+	                    }, {
+	                        type : '8', //checkbox
+	                        name : 'xcounttype',
+	                        value : (('').concat(new Array("單月"))).split(',')
 	                    }]
                     });
                 q_popAssign();

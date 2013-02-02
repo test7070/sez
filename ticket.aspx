@@ -221,7 +221,7 @@
             	if(window.parent.q_name=='cara'){
 					 var wParent = window.parent.document;
 					 var b_seq= wParent.getElementById("text_Noq").value
-					 wParent.getElementById("txtMemo_"+b_seq).value=$('#txtTicketno').val();
+					 wParent.getElementById("txtMemo_"+b_seq).value=$('#txtTicketno').val()+$('#txtIrregularities').val();
 					 wParent.getElementById("txtOutmoney_"+b_seq).value=$('#txtMoney').val();
 				 }
 			}

@@ -104,7 +104,7 @@
 						$('#divNextmon').show();
 						$('#textNextmon').val(q_date().substr(0,6));
 						$('#textDiscount').val(100);
-						$('#textSssno').val('070120,070121,070122');
+						$('#textSssno').val('070120.070121.070122');
 						if(r_userno.substr(0,2)!='07')
 							q_msg( $(this), '要結轉前請先詢問監理部相關人員!!');
 					} else{
@@ -118,7 +118,6 @@
 					$('#divNextmon').hide();
 					if(!emp($('#textNextmon').val())&&!emp($('#textDiscount').val())){
 						q_func( 'cara.genNext',$('#textNextmon').val()+','+$('#textDiscount').val()+','+$('#textBcarno').val()+','+$('#textEcarno').val()+','+$('#textSssno').val()+','+r_name);//genNext(string t_mon , string t_discount, string t_worker);
-						location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"';"+r_accy;
 			    	}
 				});
 				
@@ -139,8 +138,14 @@
 	       		$('#lblAccno').click(function () {
 	            	q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 	       		});
+	       		scroll("tbbs","box",1);
             }
-
+			
+			function q_funcPost(t_func, result) {
+		        location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"';"+r_accy;
+		        alert('功能執行完畢');
+		    } //endfunction
+			
             function q_boxClose(s2) {///   q_boxClose 2/4
                 var ret;
                 switch (b_pop) {
@@ -151,7 +156,7 @@
 	                        	for (var i = 0; i < ret.length; i++) {
 	                        		if($('#textSssno').val().length>0){
 		                            	var temp=$('#textSssno').val();
-		                            	$('#textSssno').val(temp+','+ret[i].noa);
+		                            	$('#textSssno').val(temp+'.'+ret[i].noa);
 		                            }else{
 		                            	$('#textSssno').val(ret[i].noa);
 		                            } 
@@ -621,11 +626,34 @@
            	
             function KeyDown(){
 				if ( event.keyCode=='116' ){
-				   location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";noa='"+$('#txtNoa').val()+"';"+r_accy;
+				   location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";noa<='"+$('#txtNoa').val()+"';"+r_accy;
 				   event.returnValue= false;
 				  }
 			 }
-
+		var scrollcount=1;
+        function scroll(viewid,scrollid,size){
+        	if(scrollcount>1)
+        	$('#box_'+(scrollcount-1)).remove();
+			var scroll = document.getElementById(scrollid);
+			var tb2 = document.getElementById(viewid).cloneNode(true);
+			var len = tb2.rows.length;
+			for(var i=tb2.rows.length;i>size;i--){
+		                tb2.deleteRow(size);
+			}
+			var bak = document.createElement("div");
+			bak.id="box_"+scrollcount
+			scrollcount++;
+			scroll.appendChild(bak);
+			bak.appendChild(tb2);
+			bak.style.position = "absolute";
+			bak.style.backgroundColor = "#fff";
+		    bak.style.display = "block";
+			bak.style.left = 0;
+			bak.style.top = "0px";
+			scroll.onscroll = function(){
+				bak.style.top = this.scrollTop+"px";
+			}
+		}
 		</script>
 		<style type="text/css">
             #dmain {
@@ -826,6 +854,12 @@
 				display: block;
 				text-align: center;
 			}
+			#box{
+				height:380px;
+				width: 100%;
+				overflow-y:auto;
+				position:relative;
+		}
 		</style>
 	</head>
 	<body onkeydown="KeyDown()"><!--onkeydown="KeyDown()"-->
@@ -953,8 +987,9 @@
 				<input id="text_Noq"  type="hidden" class="txt c1"/>	
 			</div>
 		</div>
-		<div class='dbbs' style="width: 1250px;">
-				<table id="tbbs" class='tbbs' border="1"  cellpadding='2' cellspacing='1'>
+		<div id="box">
+		<div class='dbbs'>
+				<table id="tbbs" class='tbbs' border="1"  cellpadding='2' cellspacing='1' style="width: 1250px;">
 					<tr style='color:White; background:#003366;' >
 						<td align="center">
 						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
@@ -977,8 +1012,8 @@
 						<td align="center" style="width: 80px;"><a id='lblUdate'></a></td>
 					</tr>
 					<tr  style='background:#cad3ff;'>
-						<td style="width:1%;">
-						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+						<td>
+							<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						</td>
 						<td >
 							<input id="txtDatea.*" type="text" class="txt c1" />
@@ -1017,6 +1052,7 @@
 						<td><input type="text" id="txtUdate.*" class="txt c1" /></td>
 					</tr>
 				</table>
+			</div>
 			</div>
 		<input id="q_sys" type="hidden" />
 	</body>

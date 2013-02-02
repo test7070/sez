@@ -127,7 +127,11 @@
                     	}, {
 	                        type : '6',
 	                        name : 'xmemo'
-	                    }]
+	                    }, {
+	                        type : '5', //select
+	                        name : 'yorder',
+	                        value : ('車行,車主,驗車日期').split(',')
+                    	}]
                     });
                     q_getFormat();
 	                q_langShow();

@@ -65,7 +65,7 @@
 			        }
 	        	});
 	        	
-	        	$('#txtDatea').change(function () {
+	        	$('#txtDatea').blur(function () {
 	            	if(!emp($('#txtSssno').val()) && !emp($('#txtDatea').val())){
 	            		//判斷員工是否重覆請假
 			           		var t_where = "where=^^ datea ='"+$('#txtDatea').val()+"' and sssno='"+$('#txtSssno').val()+"' ^^";
@@ -77,11 +77,8 @@
 	        	$('#txtBdate').focus(function() {
             		q_msg( $(this), '請假日期跨月份，請申請兩張!!');
                 }).blur(function () {
-                	if($('#txtBdate').val().substr(0,6)!=$('#txtDatea').val().substr(0,6)){
-						$('#txtDatea').val($('#txtBdate').val());
-					}
 					if($('#txtBdate').val().substr(0,6)!=$('#txtEdate').val().substr(0,6)||$('#txtBdate').val()>$('#txtEdate').val()){
-						alert('請假日期不正確!!');
+						//alert('請假日期不正確!!');
 						$('#txtEdate').val($('#txtBdate').val());
 					}
 					q_msg();

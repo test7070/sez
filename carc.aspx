@@ -108,7 +108,7 @@
 			    if (s1.length == 4)
 			        $(this).val(s1 + '.');
 			 });
- 
+ 			scroll("tbbs","box",1);
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -364,6 +364,31 @@
                	}
                	return 0;//錯誤
             }
+            
+   		var scrollcount=1;
+        function scroll(viewid,scrollid,size){
+        	if(scrollcount>1)
+        	$('#box_'+(scrollcount-1)).remove();
+			var scroll = document.getElementById(scrollid);
+			var tb2 = document.getElementById(viewid).cloneNode(true);
+			var len = tb2.rows.length;
+			for(var i=tb2.rows.length;i>size;i--){
+		                tb2.deleteRow(size);
+			}
+			var bak = document.createElement("div");
+			bak.id="box_"+scrollcount
+			scrollcount++;
+			scroll.appendChild(bak);
+			bak.appendChild(tb2);
+			bak.style.position = "absolute";
+			bak.style.backgroundColor = "#fff";
+		    bak.style.display = "block";
+			bak.style.left = 0;
+			bak.style.top = "0px";
+			scroll.onscroll = function(){
+				bak.style.top = this.scrollTop+"px";
+			}
+		}
 
     </script>
     <style type="text/css">
@@ -372,7 +397,7 @@
             }
             .dview {
                 float: left;
-                width: 23%;
+                width: 30%;
             }
             .tview {
                 margin: 0;
@@ -391,7 +416,7 @@
             }
             .dbbm {
                 float: left;
-                width: 75%;
+                width: 68%;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -499,6 +524,12 @@
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
+            #box{
+				height:170px;
+				width: 100%;
+				overflow-y:auto;
+				position:relative;
+		}
     </style>
 </head>
 	<body ondragstart="return false" draggable="false"
@@ -507,23 +538,23 @@
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 <!--#include file="../inc/toolbar.inc"-->
     <div id='dmain' >
-        <div class="dview" id="dview" style="float: left;  width:25%;"  >
+        <div class="dview" id="dview" style="float: left;  width:30%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewDatea'></a></td>
-                <td align="center" style="width:25%"><a id='vewCheckpay'></a></td>
-                <td align="center"><a id='vewNoa'></a></td>
+                <td align="center" style="width:30%"><a id='vewDatea'></a></td>
+                <td align="center" style="width:65%"><a id='vewCheckpay'></a></td>
+                <!--<td align="center"><a id='vewNoa'></a></td>-->
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='datea'>~datea</td>
                    <td align="center" id='checkpay'>~checkpay</td>
-                   <td align="center" id='noa'>~noa</td>
+                   <!--<td align="center" id='noa'>~noa</td>-->
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 74%;float:left">
+        <div class='dbbm' style="width: 68%;float:left">
         <table class="tbbm"  id="tbbm"  border="0" cellpadding='2'  cellspacing='0'>
         <tr class="tr1">
             <td class='td1'><span> </span><a id="lblDatea" class="lbl"></a></td>
@@ -594,6 +625,7 @@
         </table>
         </div>
 		</div>
+		<div id="box">
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
@@ -630,6 +662,7 @@
                 </td>
             </tr>
         </table>
+        </div>
         </div>
         <input id="q_sys" type="hidden" />
 </body>

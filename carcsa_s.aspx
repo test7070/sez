@@ -33,23 +33,16 @@
 			}
 
 			function q_seekStr() {
-				t_ordeno = $('#txtOrdeno').val();
+				t_noa = $.trim($('#txtNoa').val());
+				t_ordeno = $.trim($('#txtOrdeno').val());
 				t_bdate = $('#txtBdate').val();
 				t_edate = $('#txtEdate').val();
-				t_bmon = $('#txtBmon').val();
-				t_emon = $('#txtEmon').val();
-				t_cartype = $('#txtCartype').val();
-				t_addr = $('#txtAddr').val();
-				t_custno = $('#txtCustno').val();
-				t_comp = $('#txtComp').val();
 				
-				t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
-				t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
-				t_bmon = t_bmon.length > 0 && t_bmon.indexOf("_") > -1 ? t_bmon.substr(0, t_bmon.indexOf("_")) : t_bmon;
-				t_emon = t_emon.length > 0 && t_emon.indexOf("_") > -1 ? t_emon.substr(0, t_emon.indexOf("_")) : t_emon;
 
-				var t_where = " 1=1 " + q_sqlPara2("ordeno", t_ordeno) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("mon", t_bmon,t_emon) + 
-				q_sqlPara2("cartype", t_cartype) + q_sqlPara2("addr", t_addr) + q_sqlPara2("custno", t_custno)+ q_sqlPara2("comp", t_comp);
+				var t_where = " 1=1 " 
+				+ q_sqlPara2("noa", t_noa) 
+				+ q_sqlPara2("ordeno", t_ordeno) 
+				+ q_sqlPara2("datea", t_bdate, t_edate) ;
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -71,46 +64,21 @@
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblOrdeno'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
+					<td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblOrdeno'> </a></td>
 					<td><input class="txt" id="txtOrdeno" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td   style="width:35%;" ><a id='lblDatea'></a></td>
+					<td   style="width:35%;" ><a id='lblDatea'> </a></td>
 					<td style="width:65%;  ">
 					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>
 					<input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
 					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td   style="width:35%;" ><a id='lblMon'></a></td>
-					<td style="width:65%;  ">
-					<input class="txt" id="txtBmon" type="text" style="width:90px; font-size:medium;" />
-					<span style="display:inline-block; vertical-align:middle">&sim;</span>
-					<input class="txt" id="txtEmon" type="text" style="width:93px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCartype'></a></td>
-					<td>
-					<input class="txt" id="txtCartype" type="text" style="width:215px; font-size:medium;" />
-					</td>
-				</tr>
-				
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblAddr'></a></td>
-					<td>
-					<input class="txt" id="txtAddr" type="text" style="width:215px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCustno'></a></td>
-					<td>
-					<input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" />
-					&nbsp;
-					<input class="txt" id="txtComp" type="text" style="width:115px; font-size:medium;" />
-					</td>
-				</tr>
+				</tr>	
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
 		</div>
