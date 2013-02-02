@@ -39,6 +39,40 @@
 
 			brwCount2 = 15;
             q_xchg = 1;
+            
+            function currentData() {}
+			currentData.prototype = {
+				data : [],
+				/*新增時複製的欄位*/
+				include : ['txtDatea','txtMon','cmbInterval','txtCustno','txtComp','cmbCno'],
+				/*記錄當前的資料*/
+				copy : function() {
+					curData.data = new Array();
+					for (var i in fbbm) {
+						var isInclude = false;
+						for (var j in curData.include) {
+							if (fbbm[i] == curData.include[j]) {
+								isInclude = true;
+								break;
+							}
+						}
+						if (isInclude) {
+							curData.data.push({
+								field : fbbm[i],
+								value : $('#' + fbbm[i]).val()
+							});
+						}
+					}
+				},
+				/*貼上資料*/
+				paste : function() {
+					for (var i in curData.data) {
+						$('#' + curData.data[i].field).val(curData.data[i].value);
+					}
+				}
+			};
+			var curData = new currentData();
+			
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -61,7 +95,9 @@
                 bbmMask = [['txtDatea', r_picd], ['txtBtime', '99:99'], ['txtEtime', '99:99'], ['txtMon', r_picm]];
                 q_mask(bbmMask);
 				
+				q_gt('acomp', '', 0, 0, 0, "");
 				q_cmbParse("cmbOntime", ',Y');
+				q_cmbParse("cmbInterval", q_getPara('carcsa.interval'));
                 q_cmbParse("cmbType", '@,'+q_getPara('carcsa.type'));
                 q_cmbParse("cmbTypea2", ('').concat(new Array('', '全拖', '半拖', '小時', '塊')));
 
@@ -104,6 +140,19 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'acomp':
+                        var as = _q_appendData("acomp", "", true);
+                        if (as[0] != undefined) {
+	                        var t_item = " @ ";
+	                        for ( i = 0; i < as.length; i++) {
+	                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+	                        }
+	                        q_cmbParse("cmbCno", t_item);
+	                        if (abbm[q_recno] != undefined) {
+	                        	$("#cmbCno").val(abbm[q_recno].cno);
+	                        }
+                        }
+                        break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -141,7 +190,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('carcsa_s.aspx', q_name + '_s', "520px", "430px", q_getMsg("popSeek"));
+                q_box('carcsa_s.aspx', q_name + '_s', "550px", "500px", q_getMsg("popSeek"));
             }
             function bbsAssign() {
             	for (var j = 0; j < q_bbsCount; j++) {
@@ -165,7 +214,9 @@
             }
 
             function btnIns() {
+                curData.copy();
                 _btnIns();
+                curData.paste();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
@@ -499,14 +550,18 @@
 						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
-						<td colspan="3"><input id="txtOrdeno" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblType" class="lbl"> </a></td>
-						<td><select id="cmbType" class="txt c1" style="font-size: medium;"> </select></td>
 						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
 						<td><input id="txtMon" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblInterval" class="lbl"> </a></td>
+						<td><select id="cmbInterval" class="txt c1"> </select></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
+						<td colspan="2"><input id="txtOrdeno" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblAcomp" class="lbl"> </a></td>
+						<td colspan="2"><select id="cmbCno" class="txt c1"> </select></td>
+						<td><span> </span><a id="lblType" class="lbl"> </a></td>
+						<td><select id="cmbType" class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCartype" class="lbl"> </a></td>
