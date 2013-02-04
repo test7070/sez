@@ -120,6 +120,8 @@
 				<tr  style='background:#cad3ff;'>
 					<td class="td1">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  />
+					<input class="txt c1"  id="txtNoa.*" type="hidden"  />
+                    <input id="txtNoq.*" type="hidden" />
 					</td>
 					<td class="td2">
 					<input class="txt"  id="txtCarno.*" maxlength='30'type="text" style="width:95%;"  />

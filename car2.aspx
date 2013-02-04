@@ -197,7 +197,7 @@
 				b_pop = '';
             }
 			function q_funcPost(t_func, result) {
-		        location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";;"+r_accy;
+		        location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";a.noa='"+$('#txtChangecarno').val()+"';"+r_accy;
 		        alert('功能執行完畢');
 		    } //endfunction
             function q_gfPost() {

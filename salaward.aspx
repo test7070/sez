@@ -887,7 +887,7 @@
              BORDER:1PX LIGHTGREY SOLID;
              width:100% ; height:98% ;  
         }  
-        .tbbs tr.chksel { background:bisque;} 
+        .tbbs tr.chksel { background:#FA0300;} 
         #box{
 		height:500px;
 		width: 100%;
