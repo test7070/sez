@@ -776,6 +776,12 @@
 						<input id="txtMon"  type="text" class="txt c1"/>
 						</td>
 					</tr>
+					<tr class="tr2">
+                        <td class="td1" ><span> </span><a id='lblTgg2' class="lbl"></a></td>
+						<td class="td2" colspan='3'>
+                        <input id="txtTggno2" type="text" class="txt c1"/>
+						</td>
+					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblSale' class="lbl"></a></td>
 						<td class="td2">
