@@ -138,7 +138,9 @@
 	       		$('#lblAccno').click(function () {
 	            	q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 	       		});
-	       		scroll("tbbs","box",1);
+	       		
+	       		//$('#hide_Plus').hide();
+	       		//scroll("tbbs","box",1);
             }
 			
 			function q_funcPost(t_func, result) {
@@ -648,11 +650,12 @@
 			bak.style.position = "absolute";
 			bak.style.backgroundColor = "#fff";
 		    bak.style.display = "block";
-			bak.style.left = 0;
+			bak.style.left = "42px";
 			bak.style.top = "0px";
 			scroll.onscroll = function(){
 				bak.style.top = this.scrollTop+"px";
 			}
+			$('#hide_Plus').show();
 		}
 		</script>
 		<style type="text/css">
@@ -987,12 +990,12 @@
 				<input id="text_Noq"  type="hidden" class="txt c1"/>	
 			</div>
 		</div>
-		<div id="box">
+		<!--<div id="box">-->
 		<div class='dbbs'>
 				<table id="tbbs" class='tbbs' border="1"  cellpadding='2' cellspacing='1' style="width: 1250px;">
 					<tr style='color:White; background:#003366;' >
-						<td align="center">
-						<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
+						<td align="center" id='hide_Plus'  style="width: 42px;">
+						<input class="btn"  id="btnPlus" style="width: 25px;" type="button" value='+' style="font-weight: bold;"  />
 						</td>
 						<td align="center" style="width: 80px;"><a id='lblDateas'></a></td>
 						<td align="center" style="width: 70px;"><a id='lblNoq'></a></td>
@@ -1053,7 +1056,7 @@
 					</tr>
 				</table>
 			</div>
-			</div>
+			<!--</div>-->
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
