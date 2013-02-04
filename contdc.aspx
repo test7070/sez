@@ -52,7 +52,7 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtZip_cust', '999-99'],['txtBcontdate', r_picd],['txtEcontdate', r_picd],['txtChangecontdate', r_picd]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbStype", q_getPara('vcc.stype'));
+                q_cmbParse("cmbStype", q_getPara('cont.stype'));
 				$("#cmbStype").focus(function(){
                 	var len = $("#cmbStype").children().length>0?$("#cmbStype").children().length:1;
                 	$("#cmbStype").attr('size',len+"");
