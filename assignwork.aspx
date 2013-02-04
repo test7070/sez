@@ -28,7 +28,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+            aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtCustnick', 'cust_b.aspx'],
             ['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtComp_', 'tgg_b.aspx'],
             ['txtItemno', 'lblItem', 'assignment', 'noa,item', 'txtItemno,txtItem', 'assignment_b.aspx'],
             ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
@@ -368,13 +368,13 @@
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width：100px;color:black;"><a id='vewNoa'> </a></td>
 						<td align="center" style="width：100px;color:black;"><a id='vewItem'> </a></td>
-						<td align="center" style="width：100px;color:black;"><a id='vewCust'> </a></td>
+						<td align="center" style="width：100px;color:black;"><a id='vewCustnick'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="noa" style="text-align: center;">~noa</td>
 						<td id="item" style="text-align: center;">~item</td>
-						<td id="cust" style="text-align: center;">~cust</td>
+						<td id="custnick" style="text-align: center;">~custnick</td>
 					</tr>
 				</table>
 			</div>
@@ -401,8 +401,10 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
-						<td class="td2"colspan="2"><input type="text" id="txtCustno" style="width: 30%;"/>
+						<td class="td2"colspan="2">
+							<input type="text" id="txtCustno" style="width: 30%;"/>
 							<input type="text" id="txtComp" style="width: 70%;"/>
+							<input id="txtCustnick"  type="text" style="display: none;"/>
 						</td>
 					</tr>
 					<tr>
@@ -448,12 +450,12 @@
 					<td  align="center" style="width:2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:8%;"><a id='lblDatea_s'> </a></td>
-					<td align="center" style="width:15%;"><a id='lblTggno_s'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblDays_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblMoney_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblCost_s'> </a></td>
+					<td align="center" style="width:15%;"><a id='lblTggno_s'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblPaydate_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblPaybno_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
 				</tr>
@@ -462,11 +464,6 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
-					<td><input id="txtDatea.*" type="text" class="txt c1"/></td>
-					<td><input id="txtTggno.*" type="text" style="width: 50%;"/>
-						<input id="btnTggno.*" type="button" value="." />
-						<input id="txtComp.*" type="text" style="width: 95%;" />
-					</td>
 					<td><input id="txtProductno.*" type="text" style="width: 50%;"/>
 						<input id="btnProductno.*" type="button" value="." />
 						<input id="txtProduct.*" type="text" style="width: 95%;" />
@@ -474,6 +471,11 @@
 					<td><input id="txtDays.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMoney.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtCost.*" type="text" class="txt num c1"/></td>
+					<td><input id="txtTggno.*" type="text" style="width: 50%;"/>
+						<input id="btnTggno.*" type="button" value="." />
+						<input id="txtComp.*" type="text" style="width: 95%;" />
+					</td>
+					<td><input id="txtPaydate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtPaybno.*" type="text" style="width: 65%;"/>
 						<input id="btnPaybno.*" type="button"value="." onclick="cmbpaybno('.*')"/>
 					</td>
