@@ -112,6 +112,36 @@
 	            		}else{
 	            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-dec($('#txtBtime').val().substr(0,2)))*60+dec($('#txtEtime').val().substr(3,2))-dec($('#txtBtime').val().substr(3,2)))/60,1);
 	            		}
+	            		
+	            		if($('#txtBdate').val()!=$('#txtEdate').val())
+	            		{
+	            			var t_date=$('#txtBdate').val();
+	            			var count=0;
+	            			while(t_date<=$('#txtEdate').val()){
+	            				//日期加一天
+								    var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+								    nextdate.setDate(nextdate.getDate() +1)
+								    t_date=''+(nextdate.getFullYear()-1911)+'/';
+								    //月份
+								    if(nextdate.getMonth()+1<10)
+								    	t_date=t_date+'0'+(nextdate.getMonth()+1)+'/';
+								    else
+								       	t_date=t_date+(nextdate.getMonth()+1)+'/';
+								    //日期
+								    if(nextdate.getDate()<10)
+								    	t_date=t_date+'0'+(nextdate.getDate());
+								    else
+								     	t_date=t_date+(nextdate.getDate());
+		            			if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6){
+					    		  	//六日不算
+					    		  }else{
+					    		  	count++;
+					    		  }
+					    		}
+	            			
+	            			use_hr=use_hr*count;
+	            		}
+	            		
 	            		$('#txtHr_used').val(use_hr);
 			        }
 	        	});
@@ -133,6 +163,34 @@
 	            			use_hr=round(((12-dec($('#txtBtime').val().substr(0,2)))*60+0-dec($('#txtBtime').val().substr(3,2)))/60,1);
 	            		}else{
 	            			use_hr=round(((dec($('#txtEtime').val().substr(0,2))-dec($('#txtBtime').val().substr(0,2)))*60+dec($('#txtEtime').val().substr(3,2))-dec($('#txtBtime').val().substr(3,2)))/60,1);
+	            		}
+	            		if($('#txtBdate').val()!=$('#txtEdate').val())
+	            		{
+	            			var t_date=$('#txtBdate').val();
+	            			var count=0;
+	            			while(t_date<=$('#txtEdate').val()){
+	            				//日期加一天
+								    var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+								    nextdate.setDate(nextdate.getDate() +1)
+								    t_date=''+(nextdate.getFullYear()-1911)+'/';
+								    //月份
+								    if(nextdate.getMonth()+1<10)
+								    	t_date=t_date+'0'+(nextdate.getMonth()+1)+'/';
+								    else
+								       	t_date=t_date+(nextdate.getMonth()+1)+'/';
+								    //日期
+								    if(nextdate.getDate()<10)
+								    	t_date=t_date+'0'+(nextdate.getDate());
+								    else
+								     	t_date=t_date+(nextdate.getDate());
+		            			if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6){
+					    		  	//六日不算
+					    		  }else{
+					    		  	count++;
+					    		  }
+					    		}
+	            			
+	            			use_hr=use_hr*count;
 	            		}
 	            		$('#txtHr_used').val(use_hr);
 			        }
@@ -293,10 +351,10 @@
                     return;
                 }
                 
-                if(insed) {
+                /*if(insed) {
                     alert('該員工當天已請假!!!');
                     return;
-                }
+                }*/
                 
                 var t_noa = trim($('#txtNoa').val());
 

@@ -104,6 +104,8 @@
 						$('#divNextmon').show();
 						$('#textNextmon').val(q_date().substr(0,6));
 						$('#textDiscount').val(100);
+						$('#textBcarno').val($('#txtCarno').val());
+						$('#textEcarno').val($('#txtCarno').val());
 						$('#textSssno').val('070120.070121.070122');
 						if(r_userno.substr(0,2)!='07')
 							q_msg( $(this), '要結轉前請先詢問監理部相關人員!!');
@@ -139,8 +141,11 @@
 	            	q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 	       		});
 	       		
-	       		//$('#hide_Plus').hide();
-	       		//scroll("tbbs","box",1);
+	       		scroll("tbbs","box",1);
+	       		
+	       		$('#scrollplus').click(function () {
+	            	$('#btnPlus').click();
+	       		});
             }
 			
 			function q_funcPost(t_func, result) {
@@ -642,6 +647,8 @@
 			for(var i=tb2.rows.length;i>size;i--){
 		                tb2.deleteRow(size);
 			}
+			//tb2.rows[0].deleteCell(0);
+			tb2.rows[0].cells[0].children[0].id="scrollplus"
 			var bak = document.createElement("div");
 			bak.id="box_"+scrollcount
 			scrollcount++;
@@ -650,12 +657,11 @@
 			bak.style.position = "absolute";
 			bak.style.backgroundColor = "#fff";
 		    bak.style.display = "block";
-			bak.style.left = "42px";
+			bak.style.left = 0;
 			bak.style.top = "0px";
 			scroll.onscroll = function(){
 				bak.style.top = this.scrollTop+"px";
 			}
-			$('#hide_Plus').show();
 		}
 		</script>
 		<style type="text/css">
@@ -743,7 +749,7 @@
                 float: left;
             }
             .txt.c5 {
-                width: 80%;
+                width: 75%;
                 float: left;
             }
             .txt.c6 {
@@ -858,7 +864,7 @@
 				text-align: center;
 			}
 			#box{
-				height:380px;
+				height:320px;
 				width: 100%;
 				overflow-y:auto;
 				position:relative;
@@ -866,7 +872,7 @@
 		</style>
 	</head>
 	<body onkeydown="KeyDown()"><!--onkeydown="KeyDown()"-->
-		<div id="divNextmon" class='popDiv' style="top:70px;right:0px;">
+		<div id="divNextmon" class='popDiv' style="top:50px;right:180px;">
 			<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:300px">
 	            <tr>
 	                <td align="center" style="width:35%"><span> </span><a id="lblNextmon" class="lbl" ></a></td>
@@ -990,14 +996,14 @@
 				<input id="text_Noq"  type="hidden" class="txt c1"/>	
 			</div>
 		</div>
-		<!--<div id="box">-->
+		<div id="box">
 		<div class='dbbs'>
 				<table id="tbbs" class='tbbs' border="1"  cellpadding='2' cellspacing='1' style="width: 1250px;">
-					<tr style='color:White; background:#003366;' >
+					<tr style='color:White; background:#003366;'>
 						<td align="center" id='hide_Plus'  style="width: 42px;">
 						<input class="btn"  id="btnPlus" style="width: 25px;" type="button" value='+' style="font-weight: bold;"  />
 						</td>
-						<td align="center" style="width: 80px;"><a id='lblDateas'></a></td>
+						<td align="center" style="width: 80px; height: 35px;"><a id='lblDateas'></a></td>
 						<td align="center" style="width: 70px;"><a id='lblNoq'></a></td>
 						<td align="center" style="width: 100px;"><a id='lblCaritem'></a></td>
 						<td align="center" style="width: 80px;"><a id='lblOutmoney'></a></td>
@@ -1015,7 +1021,7 @@
 						<td align="center" style="width: 80px;"><a id='lblUdate'></a></td>
 					</tr>
 					<tr  style='background:#cad3ff;'>
-						<td>
+						<td align="center">
 							<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						</td>
 						<td >
@@ -1056,7 +1062,7 @@
 					</tr>
 				</table>
 			</div>
-			<!--</div>-->
+			</div>
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
