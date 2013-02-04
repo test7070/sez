@@ -49,7 +49,7 @@
                     return;
                 }
                 mainBrow(6, t_content, t_sqlname, t_postname);
-                q_getFormat();
+                //q_getFormat();
                 //q_mask(bbsMask);
             }
 
@@ -83,7 +83,7 @@
             }
 
             function bbsSave(as) {
-                if(!as['insurer']) {// Dont Save Condition
+                if(!as['bdate']) {// Dont Save Condition
                     as[bbsKey[0]] = '';
                     return;
                 }
@@ -144,6 +144,8 @@
 					<td class="td2">
 					<input class="txt"  id="txtInsurerno.*" type="text" style="width:20%;"  />
 					<input class="txt" id="txtInsurer.*" type="text" style="width:73%;"   />
+					<input class="txt c1"  id="txtNoa.*" type="hidden"  />
+                    <input id="txtNoq.*" type="hidden" />
 					</td>
 					<td class="td3">
 					<input class="txt" id="txtBdate.*" type="text" style="width:95%; text-align:center;"  />
@@ -170,7 +172,7 @@
 					<input class="txt" id="txtStopdate.*" type="text" style="width:95%; text-align:center;"  />
 					</td>
 					<td class="td11">
-                    <input class="txt" id="txtMemo.*" type="text" style="width:95%;"  />
+                    	<input class="txt" id="txtMemo.*" type="text" style="width:95%;"  />
                     </td>
 				</tr>
 			</table>

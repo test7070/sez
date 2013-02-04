@@ -251,7 +251,8 @@
 		                	for (var i = 0; i < as.length; i++) {
 		                		as[i].memo='預付.'+as[i].memo
 		                	}
-		                	$('#txtRc2no').val('預付'+$('#txtRc2no').val());
+		                	if($('#txtRc2no').val().indexOf('預付')==-1)
+		                		$('#txtRc2no').val('預付'+$('#txtRc2no').val());
 		                }
 						
 						q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,cmbPartno,txtPart,txtMemo,txtPayc,txtIndate', as.length, as, 'noa,paysale,_unpay,_unpay,part,partno,part,memo,payc,paydate', 'txtRc2no', '');
@@ -773,6 +774,12 @@
 						<td class="td6"><span> </span><a id='lblMon' class="lbl"></a></td>
 						<td class="td7" >
 						<input id="txtMon"  type="text" class="txt c1"/>
+						</td>
+					</tr>
+					<tr class="tr2">
+                        <td class="td1" ><span> </span><a id='lblTgg2' class="lbl"></a></td>
+						<td class="td2" colspan='3'>
+                        <input id="txtTggno2" type="text" class="txt c1"/>
 						</td>
 					</tr>
 					<tr class="tr3">

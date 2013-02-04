@@ -27,6 +27,7 @@
         aPop = new Array(['txtProductno','lblProduct','ucc','noa,product,vccacc1,vccacc2','txtProductno,txtProduct,txtAcc1,txtAcc2','ucc_b.aspx'],
         ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno],
         ['txtCustno_','btnCustno_','cust','noa,comp','txtCustno_,txtComp_','cust_b.aspx'],
+        ['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtComp_', 'tgg_b.aspx'],
         ['txtProductno_','btnProductno_','ucc','noa,product,vccacc1,vccacc2','txtProductno_,txtProduct_,txtAcc1_,txtAcc2_','ucc_b.aspx'],
         ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" +r_accy + '_' + r_cno]);
 
@@ -57,6 +58,9 @@
                 	if((/^[0-9]{4}$/g).test(str))
                 		$(this).val(str+'.');
                 })
+            $('#btnGenvcc').click(function() {
+                q_func('labpay.genVcc', $('#txtNoa').val());
+            });
 			
         }
 
@@ -497,19 +501,26 @@
         <tr>
             <td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
             <td class="td2" colspan="3"><input id="txtMemo"  type="text"  style="width: 99%;"/></td>
-        </tr>       
-        </table>
+        </tr>   
+		<tr>
+			<td> </td>
+			<td><input id="btnGenvcc"  type="button"  /></td>
+		</tr>
+		</table>
         </div>
 		</div>
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'>
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:18%;"><a id='lblCustno_s'></a></td>
+                <td align="center" style="width:12%;"><a id='lblCustno_s'></a></td>
+				<td align="center" style="width:12%;"><a id='lblTggno_s'> </a></td>
+				<td align="center" style="width:8%;"><a id='lblPaybno_s'> </a></td>				
+				<td align="center" style="width:8%;"><a id='lblVccno_s'> </a></td>				
                 <td align="center" style="width:8%;"><a id='lblPlusmoney_s'></a></td>
-                <td align="center" style="width:20%;"><a id='lblProductno_s'></a></td>
+                <td align="center" style="width:12%;"><a id='lblProductno_s'></a></td>
                 <td align="center" style="width:8%;"><a id='lblMinusmoney_s'></a></td>
-                <td align="center" style="width:18%;"><a id='lblAcc1_s'></a></td>
+                <td align="center" style="width:12%;"><a id='lblAcc1_s'></a></td>
                 <td align="center" ><a id='lblMemo_s'></a></td>
                 <td align="center" ><a id='lblCost_s'></a></td>
             </tr>
@@ -518,6 +529,12 @@
                 <td ><input id="txtCustno.*" type="text" style="width: 65%;" /><input id="btnCustno.*" type="button" value="." />
                 	<input id="txtComp.*" type="text" style="width: 95%;" />
                 </td>
+				<td><input id="txtTggno.*" type="text" style="width: 65%;"/>
+					<input id="btnTggno.*" type="button" value="." />
+					<input id="txtTgg.*" type="text" style="width: 95%;" />
+				</td>                
+				<td><input id="txtPaybno.*" type="text"/></td>
+				<td><input id="txtVccno.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtPlusmoney.*" type="text" /></td>
                 <td ><input id="txtProductno.*" type="text" style="width: 65%;"/><input id="btnProductno.*" type="button" value="." />
                 	<input  id="txtProduct.*"type="text" style="width: 95%;"/></td>

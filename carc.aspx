@@ -213,6 +213,13 @@
 	        }
 
         function bbsAssign() {  
+        	for(var j = 0; j < q_bbsCount; j++) {
+           			if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+           				$('#txtOutmoney_'+j).change(function () {
+           					sum();
+           				});
+           			}
+           		}
             _bbsAssign();
         }
 
@@ -262,9 +269,12 @@
         }
 
         function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0,money_total=0;
+            var t1 = 0, t_unit, t_mount, t_weight = 0,money_total=0,t_total=0;
             for (var j = 0; j < q_bbsCount; j++) {
+            	t_total+=dec($('#txtOutmoney_'+j).val());
+            	
             }  // j
+            q_tr('txtTotal',t_total);
         }
         
        
@@ -375,6 +385,7 @@
 			for(var i=tb2.rows.length;i>size;i--){
 		                tb2.deleteRow(size);
 			}
+			tb2.rows[0].deleteCell(0);
 			var bak = document.createElement("div");
 			bak.id="box_"+scrollcount
 			scrollcount++;

@@ -31,7 +31,8 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
-            , ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product,unit', 'txtBccno_,txtBccname_,txtUnit_', 'bcc_b.aspx']);
+            , ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product,unit', 'txtBccno_,txtBccname_,txtUnit_', 'bcc_b.aspx']
+            ,['txtBuyer', 'lblBuyer', 'sss', 'noa,namea', 'txtBuyer', 'sss_b.aspx']);
             
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -537,7 +538,7 @@
 							<input id="txtTggno"  type="text" style="float:left; width:30%;"/>
 							<input id="txtTgg"  type="text" style="float:left; width:70%;"/>
 						</td>
-						<td><span> </span><a id='lblBuyer' class="lbl"> </a></td>
+						<td><span> </span><a id='lblBuyer' class="lbl btn"> </a></td>
 						<td><input id="txtBuyer"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>

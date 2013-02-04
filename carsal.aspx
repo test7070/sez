@@ -106,15 +106,10 @@
                 		return;
             		}				
 				$('#txtNoa').val($.trim($('#txtNoa').val()));
-					if ($('#txtNoa').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
+					if ($('#txtNoa').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtNoa').val())){
 						alert(q_getMsg('lblNoa')+'錯誤。');   
 						return;
-				}				
-				$('#txtMon').val($.trim($('#txtMon').val()));
-					if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
-						alert(q_getMsg('lblMon')+'錯誤。');   
-						return;
-				}				
+				}							
 				
 				if(r_accy.substring(0,3)!=$('#txtDatea').val().substring(0,3)){
             		alert('登錄日期需與會計年度相同!');
