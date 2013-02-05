@@ -54,8 +54,9 @@
 		    q_mask(bbmMask2);
 		    //q_cmbParse("cmbCarteamno", q_getPara('.taxtype'));
 		    q_gt('carteam', '', 0, 0, 0, "");
-		    $('#btnChoutprice').click(function () { chgPrice('out'); });
-		    $('#btnChinprice').click(function () { chgPrice('in'); });
+		    $('#btnChoutprice').click(function () { 
+		    	q_func("traneprice.eprice", $('#txtNoa').val());
+		    });
 
 		    $("#cmbCarteamno").focus(function () {
 		        var len = $("#cmbCarteamno").children().length > 0 ? $("#cmbCarteamno").children().length : 1;
@@ -72,47 +73,6 @@
                 });    
 		}
 
-		function chgPrice(t_type) {
-
-            var t_custno = $.trim( $('#txtCustno').val());
-		    var t_bdate = $.trim( $('#txtBdate').val());
-		    var t_edate = $.trim( $('#txtEdate').val());
-		    var t_inprice = $('#txtInprice').val();
-		    var t_outprice = $('#txtOutprice').val();
-		    var t_addrno = $.trim($('#txtStraddrno').val());
-		    var t_carteamno= $('#cmbCarteamno').val();
-
-		    t_bdate = '101/02/29';
-		    t_edate = '101/02/29';
-
-		    if (t_type == "in" && t_custno.length == 0) {
-		        alert("客戶 為空值，無法執行");
-		        return;
-		    }
-
-		    if (t_addrno.length == 0) {
-		        alert("地點 為空值，無法執行");
-		        return;
-		    }
-
-		    if (t_bdate.length == 0 || t_edate.length==0) {
-		        alert("日期異常，無法執行");
-		        return;
-		    }
-
-		    if (t_type == "out")
-		        t_inprice = 0;
-		    else if (t_type == "in")
-		        t_outprice = 0;
-		    else
-		        alert('chgPrice() Error type');
-                
-		    var t_driverno = $('#txtDriver').val();
-		    var t_carno = $('#txtCarno').val();
-		    q_func("traneprice.eprice", r_accy + "," + t_custno + "," + t_carteamno + "," + t_bdate + "," + t_edate + "," + t_inprice + "," + t_outprice + "," + t_driverno + "," + t_carno + "," + t_addrno);
-
-		}
-
 		function q_funcPost(t_func, result) {  /// 執行 q_exec() 呼叫 server 端 function 後， client 端所要執行的程式
 		    if (t_func == "traneprice.eprice") {
 		        if (result.length > 0)
@@ -120,29 +80,6 @@
 		        else
 		            alert("【單價修改完成】"); 
 		    }
-		}
-
-		function txtCopy(dest, source) {
-		    var adest = dest.split(',');
-		    var asource = source.split(',');
-		    $('#' + adest[0]).focus(function () {
-		        if (trim($(this).val()).length == 0)
-		            $(this).val(q_getMsg('msgCopy'));
-		    });
-		    $('#' + adest[0]).focusout(function () {
-		        var t_copy = ($(this).val().substr(0, 1) == '=');
-		        var t_clear = ($(this).val().substr(0, 2) == ' =');
-		        for (var i = 0; i < adest.length; i++) {
-		            
-		            {
-		                if (t_copy)
-		                    $('#' + adest[i]).val($('#' + asource[i]).val());
-
-		                if (t_clear)
-		                    $('#' + adest[i]).val('');
-		            }
-		        }
-		    });
 		}
 
 		function q_boxClose(s2) {
@@ -205,23 +142,24 @@
 		}
 
 		function btnOk() {
-			$('#txtBdate').val($.trim($('#txtBdate').val()));
-                if (checkId($('#txtBdate').val())==0){
-                	alert(q_getMsg('lblBdate')+'錯誤。');
-                	return;
+			if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
+            	alert(q_getMsg('lblDatea')+'錯誤。');
+            	return;
            	}
-			$('#txtEdate').val($.trim($('#txtEdate').val()));
-                if (checkId($('#txtEdate').val())==0){
-                	alert(q_getMsg('lblBdate')+'錯誤。');
-                	return;
+            if (!q_cd($('#txtBdate').val())){
+            	alert(q_getMsg('lblBdate')+'錯誤。');
+            	return;
            	}
-
+            if (!q_cd($('#txtEdate').val())){
+            	alert(q_getMsg('lblBdate')+'錯誤。');
+            	return;
+           	}
 			
 		    $('#txtWorker').val(r_name);
 		    var t_noa = trim($('#txtNoa').val());
 		    var t_date = trim($('#txtDatea').val());
 		    if (t_noa.length == 0 || t_noa == "AUTO")
-		        q_gtnoa(q_name, replaceAll(q_getPara('sys.key_carborr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+		        q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tranepeice') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 		    else
 		        wrServer(t_noa);
 		}
@@ -343,7 +281,7 @@
             }
             .dview {
                 float: left;
-                width: 20%;
+                width: 300px;
             }
             .tview {
                 margin: 0;
@@ -361,7 +299,7 @@
             }
             .dbbm {
                 float: left;
-                width: 58%;
+                width: 650px;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -466,22 +404,28 @@
             }
 		</style>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain'>
-			<div class="dview" id="dview" >
+		<div id='dmain' >
+			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:25%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:25%"><a id='vewComp'> </a></td>
-						<td align="center" style="width:20%"><a id='vewOutprice'> </a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewComp'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewInprice'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewOutprice'> </a></td>
 					</tr>
 					<tr>
-						<td><input id="chkBrow.*" type="checkbox"/></td>
-						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='comp,4'>~comp,4</td>
-						<td align="center" id='outprice'>~outprice</td>
+						<td ><input id="chkBrow.*" type="checkbox" /></td>
+						<td id="datea" style="text-align: center;">~datea</td>
+						<td id="comp,4" style="text-align: center;">~comp,4</td>
+						<td id="inprice,0,1" style="text-align: right;">~inprice,0,1</td>
+						<td id="outprice,0,1" style="text-align: right;">~outprice,0,1</td>
 					</tr>
 				</table>
 			</div>
@@ -540,7 +484,6 @@
 					<tr>
 						<td class="td1" ><span> </span><a id="lblInprice" class="lbl"> </a></td>
 						<td class="td2" ><input id="txtInprice" type="text"  class="txt num c1"/></td>
-						<td class="td3" ><input id="btnChinprice" type="button" /></td>
 					</tr>
 					<tr>
 						<td class="td1" ><span> </span><a id="lblOutprice" class="lbl"> </a></td>

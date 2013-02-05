@@ -35,7 +35,15 @@
                         dbf : 'sss',
                         index : 'noa,namea',
                         src : 'sss_b.aspx'
-					}]
+					},{
+                        type : '5',
+                        name : 'xmoney',
+                        value : (('').concat(new Array("第一次","第二次"))).split(',')
+                    },{
+                        type : '5',
+                        name : 'xorder',
+                        value : (('').concat(new Array("職稱","員工編號","帳號","金額"))).split(',')
+                    }]
 				});
 				q_popAssign();
 				$('#txtXyear').mask('999');

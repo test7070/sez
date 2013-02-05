@@ -53,17 +53,19 @@
             
             $('#btnImport').click(function() {
             	if ($('#cmbTypea').find("option:selected").text().indexOf('年終')>-1){
-	            	var t_where = "where=^^ a.noa!='Z001' and a.noa!='010132' and a.partno<='09' order by a.partno,a.jobno^^";
+	            	var t_where = "where=^^ a.noa!='Z001' and a.noa!='010132' order by a.partno,a.jobno^^";
 	            	var t_where1 = "where[1]=^^ datea between '"+$('#txtYear').val()+"/01/01' and '"+$('#txtYear').val()+"/12/31'^^";
 	            	var t_where2 = "where[2]=^^ year='"+$('#txtYear').val()+"'^^";
 	            	var t_where3 = "where[3]=^^ a.typea='秋節' and a.year='"+dec($('#txtYear').val())+"'^^";
-	            	q_gt('salaward_import', t_where+t_where1+t_where2+t_where3 , 0, 0, 0, "", r_accy);
+	            	var t_where4 = "where[4]=^^ a.typea='年終' and a.year='"+(dec($('#txtYear').val())-1)+"'^^";
+	            	q_gt('salaward_import', t_where+t_where1+t_where2+t_where3+t_where4 , 0, 0, 0, "", r_accy);
             	}else{
-            		var t_where = "where=^^ a.noa!='Z001' and a.noa!='010132' and a.partno<='09' order by a.partno,a.jobno^^";
+            		var t_where = "where=^^ a.noa!='Z001' and a.noa!='010132' order by a.partno,a.jobno^^";
 	            	var t_where1 = "where[1]=^^ datea between '"+$('#txtYear').val()+"/01/01' and '"+$('#txtYear').val()+"/12/31'^^";
 	            	var t_where2 = "where[2]=^^ left(datea,3)='"+(dec($('#txtYear').val())-1)+"'^^";
 	            	var t_where3 = "where[3]=^^ a.typea='秋節' and a.year='"+(dec($('#txtYear').val())-1)+"'^^";
-	            	q_gt('salaward_midautumn', t_where+t_where1+t_where2+t_where3 , 0, 0, 0, "", r_accy);
+	            	var t_where4 = "where[4]=^^ a.typea='年終' and a.year='"+(dec($('#txtYear').val())-1)+"'^^";
+	            	q_gt('salaward_midautumn', t_where+t_where1+t_where2+t_where3+t_where4 , 0, 0, 0, "", r_accy);
             	}
             });
             
@@ -227,7 +229,51 @@
 					$("#btnHidesalary").val("薪資詳細隱藏");
 				}
 			});
+			
+			///-----------------------------------------------
+			$('#btnBank').click(function() {
+            	q_func('banktran.gen', $('#txtNoa').val()+',5');
+            });
+            $('#btnBank2').click(function() {
+            	q_func('banktran.gen', $('#txtNoa').val()+',6');
+            });
         }
+        
+        function q_funcPost(t_func, result) {
+		        
+		        var s1 = location.href;
+		        var t_path = (s1.substr(7, 5) == 'local' ? xlsPath : s1.substr(0, s1.indexOf('/', 10)) + '/htm/');
+		        if (t_func == 'banktran.gen') {
+		            window.open(t_path + 'obtdta.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
+		            return;
+		        }
+
+		        if (result.length > 0) {
+		            var s2 = result.split(';');
+		            for (var i = 0; i < s2.length; i++) {
+		                switch (i) {
+		                    case 0:
+		                        $('#txtAccno1').val(s2[i]);
+		                        break;
+		                    case 1:
+		                        $('#txtAccno2').val(s2[i]);
+		                        break;
+		                    case 2:
+		                        $('#txtAccno3').val(s2[i]);
+		                        break;
+		                    case 3:
+		                        $('#txtChkeno').val(s2[i]);
+		                        break;
+		                    case 4:
+		                        $('#txtMemo').val(s2[i]);
+		                        break;
+		                } //end switch
+		            } //end for
+		        } //end  if
+				
+		        alert('功能執行完畢');
+				
+		    } //endfunction
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
             var ret;
@@ -249,9 +295,9 @@
             		for (var i = 0; i < as.length; i++) {
             			as[i].money=dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth)
             		}
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtJob,txtJobno,txtPart,txtPartno,txtIndate,txtTotal1,txtLate,txtLeaveearly,txtPerson,txtSick,txtLeave,txtMarriageleave,txtBereavementleave,txtGreatmeriy,txtMinormerits,txtCommend,txtMajordemerits,txtPeccadillo,txtReprimand,txtMemo,txtSalary,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtMoney,txtOldmidmon'
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtJob,txtJobno,txtPart,txtPartno,txtIndate,txtTotal1,txtLate,txtLeaveearly,txtPerson,txtSick,txtLeave,txtMarriageleave,txtBereavementleave,txtGreatmeriy,txtMinormerits,txtCommend,txtMajordemerits,txtPeccadillo,txtReprimand,txtMemo,txtSalary,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtMoney,txtOldmidmon,txtOldaward'
             		, as.length, as, 
-            		'noa,namea,job,jobno,part,partno,indate,total,late,early,person,sick,leave,marriage,bereavement,great,minor,commend,majorde,peccadillo,reprimand,memo,salary,bo_admin,bo_traffic,bo_special,bo_oth,money,monmoney', '');
+            		'noa,namea,job,jobno,part,partno,indate,total,late,early,person,sick,leave,marriage,bereavement,great,minor,commend,majorde,peccadillo,reprimand,memo,salary,bo_admin,bo_traffic,bo_special,bo_oth,money,monmoney,oldaward', '');
             			
             		sum();
             		break;
@@ -260,9 +306,9 @@
             		for (var i = 0; i < as.length; i++) {
             			as[i].money=dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth)
             		}
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtJob,txtJobno,txtPart,txtPartno,txtLate,txtLeaveearly,txtPerson,txtSick,txtLeave,txtMarriageleave,txtBereavementleave,txtGreatmeriy,txtMinormerits,txtCommend,txtMajordemerits,txtPeccadillo,txtReprimand,txtSalary,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtAdjustmoney,txtMoney,txtOldmidmon'
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtJob,txtJobno,txtPart,txtPartno,txtLate,txtLeaveearly,txtPerson,txtSick,txtLeave,txtMarriageleave,txtBereavementleave,txtGreatmeriy,txtMinormerits,txtCommend,txtMajordemerits,txtPeccadillo,txtReprimand,txtSalary,txtBo_admin,txtBo_traffic,txtBo_special,txtBo_oth,txtAdjustmoney,txtMoney,txtOldmidmon,txtOldaward'
             		, as.length, as, 
-            		'noa,namea,job,jobno,part,partno,late,early,person,sick,leave,marriage,bereavement,great,minor,commend,majorde,peccadillo,reprimand,salary,bo_admin,bo_traffic,bo_special,bo_oth,adjustmoney,money,monmoney', '');
+            		'noa,namea,job,jobno,part,partno,late,early,person,sick,leave,marriage,bereavement,great,minor,commend,majorde,peccadillo,reprimand,salary,bo_admin,bo_traffic,bo_special,bo_oth,adjustmoney,money,monmoney,oldaward', '');
             		midautumnsum();
             		break;
             	case 'salhtype':
@@ -531,7 +577,10 @@
         
         function table_change() {
              if ($('#cmbTypea').find("option:selected").text().indexOf('年終')>-1){
-            	 $('#tbbs').css("width","3710px");
+            	 $('#tbbs').css("width","3820px");
+            	 //bbm
+            	 $('#btnBank').val('第一次發放獎金轉帳電子檔');
+            	 $('#btnBank2').show();
             	 //bbs
             	 $('#lblOldmidmon_s').text('秋節獎金');
             	 $('#hide_Indate').show();
@@ -569,7 +618,10 @@
 	            	 $('#hide_Chkmoney_'+j).hide();
             	 }
             }else{
-            	$('#tbbs').css("width","2710px");
+            	$('#tbbs').css("width","2820px");
+            	//bbm
+            	$('#btnBank').val('發放獎金轉帳電子檔');
+            	$('#btnBank2').hide();
             	//bbs
             	$('#lblOldmidmon_s').text('去年秋節獎金');
             	 $('#hide_Indate').hide();
@@ -668,6 +720,14 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            if (t_para) {
+		            $('#btnBank').removeAttr('disabled');
+		             $('#btnBank2').removeAttr('disabled');
+		        }
+		        else {
+		            $('#btnBank').attr('disabled', 'disabled');
+		            $('#btnBank2').attr('disabled', 'disabled');
+		        }
         }
 
         function btnMinus(id) {
@@ -729,6 +789,8 @@
 			for(var i=tb2.rows.length;i>size;i--){
 		                tb2.deleteRow(size);
 			}
+			//tb2.rows[0].deleteCell(0);
+			tb2.rows[0].cells[0].children[0].id="scrollplus"
 			var bak = document.createElement("div");
 			bak.id="box_"+scrollcount
 			scrollcount++;
@@ -742,6 +804,9 @@
 			scroll.onscroll = function(){
 				bak.style.top = this.scrollTop+"px";
 			}
+			$('#scrollplus').click(function () {
+	            	$('#btnPlus').click();
+	       		});
 		}
     </script>
     <style type="text/css">
@@ -934,12 +999,16 @@
             <td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
             <td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
         </tr>
+        <tr>
+            <td class='td1' colspan="2"><input id="btnBank" type="button" style="float: right;"/></td>
+            <td class='td3' colspan="2"><input id="btnBank2" type="button" style="float: right;"/></td>
+        </tr>
         </table>
         </div>
         </div>
         <div id="box">
         <div class='dbbs' > 
-        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 3710px;background:#cad3ff;" >
+        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1' style="width: 3820px;background:#cad3ff;" >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:30px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
                 <td align="center" style="width:35px;"><a id='vewChks'></a></td>
@@ -974,6 +1043,7 @@
                 <td id="hide_Bo_oth" align="center" style="width:100px;"><a id='lblBo_oth_s'> </a></td>
                 <td align="center" style="width:110px;"><a id='lblMoney_s'> </a></td>
                 <td align="center" style="width:110px;"><a id='lblOldmidmon_s'> </a></td>
+                <td align="center" style="width:110px;"><a id='lblOldaward_s'> </a></td>
                 <td id="hide_Awardmon" align="center" style="width:90px;"><a id='lblAwardmon_s'> </a></td>
                 <td id="hide_Total5" align="center" style="width:100px;"><a id='lblTotal5_s'> </a></td>
                 <td id="hide_Total6" align="center" style="width:100px;"><a id='lblTotal6_s'> </a></td>
@@ -1020,6 +1090,7 @@
                 <td id='hide_Bo_oth.*'><input  id="txtBo_oth.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtMoney.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtOldmidmon.*" type="text" class="txt num c1" /></td>
+                <td ><input  id="txtOldaward.*" type="text" class="txt num c1" /></td>
                 <td id='hide_Awardmon.*'><input  id="txtAwardmon.*" type="text" class="txt num c1" /></td>
                 <td id='hide_Total5.*'><input  id="txtTotal5.*" type="text" class="txt num c1" /></td>
                 <td id='hide_Total6.*'><input  id="txtTotal6.*" type="text" class="txt num c1" /></td>
