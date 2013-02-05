@@ -431,6 +431,10 @@
 						<td><input id="txtAccno" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblCash' class="lbl"> </a></td>
+						<td><input id="txtCash" type="text"  class="txt c1 num"/></td>
+					</tr>
+					<tr>
 						<td> </td>
 						<td><input id="btnGen"  type="button"  /></td>
 						<td><input id="btnGen2"  type="button" style=" display:none"  /></td>
