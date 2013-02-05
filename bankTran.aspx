@@ -432,17 +432,17 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblAcc" class="lbl btn"> </a></td>
-						<td colspan="2">
+						<td>
 						<input id="txtAcc1" type="text" style="float:left; width:30%;">
 						<input id="txtAcc2" type="text" style="float:left; width:70%;"/>
 						</td>
+						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
+						<td><input id="txtMoney" type="text"  class="txt c1 num"/></td>
 
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblCash' class="lbl"> </a></td>
 						<td><input id="txtCash" type="text"  class="txt c1 num"/></td>
-						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
-						<td><input id="txtMoney" type="text"  class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<td> </td>
