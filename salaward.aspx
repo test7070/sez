@@ -229,7 +229,51 @@
 					$("#btnHidesalary").val("薪資詳細隱藏");
 				}
 			});
+			
+			///-----------------------------------------------
+			$('#btnBank').click(function() {
+            	q_func('banktran.gen', $('#txtNoa').val()+',5');
+            });
+            $('#btnBank2').click(function() {
+            	q_func('banktran.gen', $('#txtNoa').val()+',6');
+            });
         }
+        
+        function q_funcPost(t_func, result) {
+		        
+		        var s1 = location.href;
+		        var t_path = (s1.substr(7, 5) == 'local' ? xlsPath : s1.substr(0, s1.indexOf('/', 10)) + '/htm/');
+		        if (t_func == 'banktran.gen') {
+		            window.open(t_path + 'obtdta.txt', "_blank", 'directories=no,location=no,menubar=no,resizable=1,scrollbars=1,status=0,toolbar=1');
+		            return;
+		        }
+
+		        if (result.length > 0) {
+		            var s2 = result.split(';');
+		            for (var i = 0; i < s2.length; i++) {
+		                switch (i) {
+		                    case 0:
+		                        $('#txtAccno1').val(s2[i]);
+		                        break;
+		                    case 1:
+		                        $('#txtAccno2').val(s2[i]);
+		                        break;
+		                    case 2:
+		                        $('#txtAccno3').val(s2[i]);
+		                        break;
+		                    case 3:
+		                        $('#txtChkeno').val(s2[i]);
+		                        break;
+		                    case 4:
+		                        $('#txtMemo').val(s2[i]);
+		                        break;
+		                } //end switch
+		            } //end for
+		        } //end  if
+				
+		        alert('功能執行完畢');
+				
+		    } //endfunction
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
             var ret;
@@ -534,6 +578,9 @@
         function table_change() {
              if ($('#cmbTypea').find("option:selected").text().indexOf('年終')>-1){
             	 $('#tbbs').css("width","3820px");
+            	 //bbm
+            	 $('#btnBank').val('第一次發放獎金轉帳電子檔');
+            	 $('#btnBank2').show();
             	 //bbs
             	 $('#lblOldmidmon_s').text('秋節獎金');
             	 $('#hide_Indate').show();
@@ -572,6 +619,9 @@
             	 }
             }else{
             	$('#tbbs').css("width","2820px");
+            	//bbm
+            	$('#btnBank').val('發放獎金轉帳電子檔');
+            	$('#btnBank2').hide();
             	//bbs
             	$('#lblOldmidmon_s').text('去年秋節獎金');
             	 $('#hide_Indate').hide();
@@ -670,6 +720,14 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            if (t_para) {
+		            $('#btnBank').removeAttr('disabled');
+		             $('#btnBank2').removeAttr('disabled');
+		        }
+		        else {
+		            $('#btnBank').attr('disabled', 'disabled');
+		            $('#btnBank2').attr('disabled', 'disabled');
+		        }
         }
 
         function btnMinus(id) {
@@ -940,6 +998,10 @@
             <td class="td2"><input id="txtTotal"  type="text" class="txt num c1"/></td>
             <td class='td3'><span> </span><a id="lblWorker" class="lbl"> </a></td>
             <td class="td4"><input id="txtWorker" type="text" class="txt c1"/></td>
+        </tr>
+        <tr>
+            <td class='td1' colspan="2"><input id="btnBank" type="button" style="float: right;"/></td>
+            <td class='td3' colspan="2"><input id="btnBank2" type="button" style="float: right;"/></td>
         </tr>
         </table>
         </div>
