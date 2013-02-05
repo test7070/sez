@@ -170,6 +170,19 @@
 							type : '8',
 							name : 'cartype',
 							value : q_getPara('car2.cartype').split(',')
+						}, {/*7*/
+							type : '6',
+							name : 'xmon'
+						},{
+                        type : '5',
+                        name : 'xinterval',
+                        value : (('').concat(new Array("上期","中期","下期"))).split(',')
+                    }, {/*6*/
+							type : '2',
+							name : 'cno',
+							dbf : 'acomp',
+							index : 'noa,acomp',
+							src : 'acomp_b.aspx'
 						}]
 					});
 					q_popAssign();
@@ -183,7 +196,7 @@
 					$('#txtTrandate1').datepicker();
 					$('#txtTrandate2').mask('999/99/99');
 					$('#txtTrandate2').datepicker();
-					
+					$('#txtXmon').mask('999/99');
 					$('#chkXcarteam').children('input').attr('checked','checked');
 					$('#chkXcarkind').children('input').attr('checked','checked');
 	                $('#chkXcalctypes').children('input').attr('checked','checked');
@@ -199,6 +212,7 @@
 					t_day = t_date.getUTCDate();
 					t_day = t_day > 9 ? t_day + '' : '0' + t_day;
 					$('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
+					$('#txtXmon').val(t_year + '/' + t_month);
 					$('#txtTrandate1').val(t_year + '/' + t_month + '/' + t_day);
 					t_date = new Date();
 					t_date.setDate(35);

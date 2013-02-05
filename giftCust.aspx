@@ -29,7 +29,6 @@
             brwNowPage = 0;
             brwKey = 'noa';
             aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,comp', 'txtCno,txtAcomp', 'Acomp_b.aspx'],
-            ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
             ['txtSssno_', 'btnSssno_', 'sss', 'noa,namea', 'txtSssno_,txtNamea_', 'sss_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -49,6 +48,7 @@
 
             function mainPost() {
                 q_getFormat();
+                q_cmbParse("cmbSex", q_getPara('sss.sex'));
             }
 
             function q_boxClose(s2) {
@@ -340,13 +340,13 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width�G25%;color:black;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width�G55%;color:black;"><a id='vewComp'> </a></td>
+						<td align="center" style="width:25%;color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:55%;color:black;"><a id='vewCustname'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="noa" style="text-align: center;">~noa</td>
-						<td id="comp" style="text-align: center;">~comp</td>
+						<td id="custname" style="text-align: center;">~custname</td>
 					</tr>
 				</table>
 			</div>
@@ -361,31 +361,67 @@
 						<td> </td>
 						<td class="tdZ"> </td>
 					</tr>
-					<tr>
+					<tr class="tr1">
 						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtNoa" class="txt c1"/>	</td>	
-					</tr>
-					<tr>
+						<td class="td2"><input type="text" id="txtNoa" class="txt c1"/>	</td>
 						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtDatea" class="txt c1"/>	</td>	
 					</tr>
-					<tr>
+					<tr class="tr2">
 						<td class="td1"><span> </span><a id='lblCno' class="lbl btn"> </a></td>
 						<td class="td2" colspan="2"><input type="text" id="txtCno" class="txt c2"/>
 							<input type="text" id="txtAcomp" class="txt c3"/>
 						</td>	
 					</tr>
-					<tr>
+					<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblCusttype' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtCusttype" class="txt c1"/>	</td>	
+						<td class="td2"><input type="text" id="txtCusttype" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblCustname' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtCustname" class="txt c1"/></td>
+						<td class="td5"><span> </span><a id='lblJob' class="lbl"> </a></td>
+						<td class="td6"><input type="text" id="txtJob" class="txt c1"/></td>	
 					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
-						<td class="td2" colspan="2"><input type="text" id="txtCustno" class="txt c2"/>
-							<input type="text" id="txtComp" class="txt c3"/>
-						</td>	
+					<tr class="tr4">
+						<td class="td1"><span> </span><a id='lblCustno' class="lbl"> </a></td>
+						<td class="td2" colspan="2"><input type="text" id="txtCustno" class="txt c2"/><input type="text" id="txtCustno" class="txt c3"/></td>						
 					</tr>
-					<tr>
+					<tr class="tr5">
+						<td class="td1"><span> </span><a id='lblAddr_cust' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtZip_cust" class="txt c1"/></td>
+						<td class="td3" colspan="4"><input type="text" id="txtAddr_cust" class="txt c1"/></td>
+					</tr>
+					<tr class="tr6">
+						<td class="td1"><span> </span><a id='lblSex' class="lbl"> </a></td>
+						<td class="td2"><select id="cmbSex" class="txt c1"> </select></td>
+						<td class="td3"><span> </span><a id='lblBirthday' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtBirthday" class="txt c1"/></td>
+						<td class="td5"><span> </span><a id='lblAge' class="lbl"> </a></td>
+						<td class="td6"><input type="text" id="txtAge" class="txt c1"/></td>	
+					</tr>
+					<tr class="tr7">
+						<td class="td1"><span> </span><a id='lblLike' class="lbl"> </a></td>
+						<td class="td2" colspan="5"><input type="text" id="txtLike" class="txt c1"/>	</td>
+					</tr>
+					<tr class="tr8">
+						<td class="td1"><span> </span><a id='lblPersonality' class="lbl"> </a></td>
+						<td class="td2" colspan="5"><input type="text" id="txtPersonality" class="txt c1"/></td>	
+					</tr>	
+					<tr class="tr9">
+						<td class="td1"><span> </span><a id='lblEmail' class="lbl"> </a></td>
+						<td class="td2" colspan="5"><input type="text" id="txtEmail" class="txt c1"/></td>	
+					</tr>
+					<tr class="tr10">
+						<td class="td1"><span> </span><a id='lblTel' class="lbl"> </a></td>
+						<td class="td2" colspan="5"><input type="text" id="txtTel" class="txt c1"/></td>	
+					</tr>
+					<tr class="tr11">
+						<td class="td1"><span> </span><a id='lblAccount' class="lbl"> </a></td>
+						<td class="td2"colspan="2"><input type="text" id="txtAccount" class="txt c1"/></td>
+						<td> </td>
+						<td class="td1"><span> </span><a id='lblSendtype' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtSendtype" class="txt c1"/></td>	
+					</tr>
+					<tr class="tr12">
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtWorker" class="txt c1"/></td>	
 					</tr>
