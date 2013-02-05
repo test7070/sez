@@ -33,7 +33,10 @@
             , ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b2.aspx']
             , ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,conn,tel,fax,zip_comp,addr_comp', 'txtCustno,txtComp,txtNick,txtConn_cust,txtTel_cust,txtFax_cust,txtZip_cust,txtAddr_cust', 'cust_b.aspx']
             , ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
-            , ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
+            , ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
+            , ['txtAssigner', 'lblAssigner', 'sss', 'noa,namea', 'txtAssignerno,txtAssigner', 'sss_b.aspx']
+            , ['txtAssistant', 'lblAssistant', 'sss', 'noa,namea', 'txtAssistantno,txtAssistant', 'sss_b.aspx']
+            , ['txtCar_conn', 'lblCar_conn', 'sss', 'noa,namea', 'txtCar_connno,txtCar_conn', 'sss_b.aspx']
             );
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -55,12 +58,6 @@
                 bbmMask = [['txtDatea', r_picd], ['txtPledgedate',r_picd],['txtPaydate',r_picd],['txtZip_cust', '999-99'],['txtBcontdate', r_picd],['txtEcontdate', r_picd],['txtChangecontdate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbStype", q_getPara('cont.stype'));
-				$("#cmbStype").focus(function(){
-                	var len = $("#cmbStype").children().length>0?$("#cmbStype").children().length:1;
-                	$("#cmbStype").attr('size',len+"");
-                }).blur(function(){
-                	$("#cmbStype").attr('size','1');
-                }); 
             }
 
             function q_boxClose(s2) {
@@ -451,33 +448,17 @@
 							<input id="txtCno"  type="text" class="txt" style="width:20%; float: left;"/>
 							<input id="txtAcomp"  type="text" class="txt" style="width:80%; float: left;"/>
 							</td>
-							<td class="td5"><span> </span><a id="lblConn_acomp" class="lbl"> </a></td>
-							<td class="td6" >
-							<input id="txtConn_acomp"  type="text"  class="txt c1"/>
-							</td>
-							<td class="td7"><span> </span><a id="lblConn_acomp_tel" class="lbl"> </a></td>
-							<td class="td8" >
-							<input id="txtConn_acomp_tel"  type="text"  class="txt c1"/>
-							</td>
 						</tr>
 						<tr class="tr5"> 
-							<td class="td1"><span> </span><a id="lblAssistant" class="lbl"> </a></td>
+							<td class="td1"><span> </span><a id="lblCar_conn" class="lbl btn"> </a></td>
 							<td class="td2" >
-							<input id="txtAssistant"  type="text"  class="txt c1"/>
-							</td>
-							<td class="td3"><span> </span><a id="lblAssistanttel" class="lbl"> </a></td>
-							<td class="td4" >
-							<input id="txtAssistanttel"  type="text"  class="txt c1"/>
-							</td>
-							<td class="td5"><span> </span><a id="lblCar_conn" class="lbl"> </a></td>
-							<td class="td6" >
+							<input id="txtCar_connno" type="text" class="txt" style="display: none;"/>
 							<input id="txtCar_conn"  type="text"  class="txt c1"/>
 							</td> 
-							<td class="td7"><span> </span><a id="lblDisatcher" class="lbl"> </a></td>
-							<td class="td8" >
+							<td class="td3"><span> </span><a id="lblDisatcher" class="lbl"> </a></td>
+							<td class="td4" >
 							<input id="txtDisatcher"  type="text"  class="txt c1"/>
 							</td> 
-							
 					    </tr>
 						<tr class="tr6">
 							<td class="td1"><span> </span><a id='lblCust' class="lbl btn"> </a></td>
@@ -510,11 +491,6 @@
 							<td class="td3"><span> </span><a id='lblFax_cust'  class="lbl"> </a></td>
 							<td class="td4">
 							<input id="txtFax_cust"  type="text"  class="txt c1"/>
-							</td>
-							<td class="td5"><span> </span><a id="lblSales" class="lbl btn"></a></td>
-							<td class="td6" colspan="2">
-							<input id="txtSalesno" type="text" class="txt" style="width:30%; float: left;"/>
-							<input id="txtSales" type="text" class="txt" style="width:70%; float: left;"/>
 							</td>
 						</tr>
 						<tr class="tr9">
@@ -554,13 +530,27 @@
 							</td>
 						</tr>
 						<tr class="tr12">
+							<td class="td1"><span> </span><a id="lblSales" class="lbl btn"></a></td>
+							<td class="td2">
+								<input id="txtSalesno" type="text" class="txt" style="display: none;"/>
+								<input id="txtSales" type="text" class="txt c1">
+							</td>
+							<td class="td3"><span> </span><a id='lblAssigner' class="lbl btn"> </a></td>
+							<td class="td4">
+								<input id="txtAssignerno" type="text" class="txt" style="display: none;"/>
+								<input id="txtAssigner" type="text" class="txt c1">
+							</td>
+							<td class="td5"><span> </span><a id="lblAssistant" class="lbl btn"> </a></td>
+							<td class="td6">
+								<input id="txtAssistantno" type="text" class="txt" style="display: none;"/>
+								<input id="txtAssistant" type="text" class="txt c1">
+							</td>
+
+						</tr>
+						<tr class="tr13">
 							<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 							<td class="td2">
 							<input id="txtWorker"  type="text" class="txt c1" />
-							</td>
-							<td class="td3"><span> </span><a id='lblAssigner' class="lbl"> </a></td>
-							<td class="td4">
-							<input id="txtAssigner"  type="text" class="txt c1" />
 							</td>
 							<td class="td3"><span> </span><a id='lblApv' class="lbl"> </a></td>
 							<td class="td4">
