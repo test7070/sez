@@ -729,6 +729,8 @@
 			for(var i=tb2.rows.length;i>size;i--){
 		                tb2.deleteRow(size);
 			}
+			//tb2.rows[0].deleteCell(0);
+			tb2.rows[0].cells[0].children[0].id="scrollplus"
 			var bak = document.createElement("div");
 			bak.id="box_"+scrollcount
 			scrollcount++;
@@ -742,6 +744,9 @@
 			scroll.onscroll = function(){
 				bak.style.top = this.scrollTop+"px";
 			}
+			$('#scrollplus').click(function () {
+	            	$('#btnPlus').click();
+	       		});
 		}
     </script>
     <style type="text/css">
