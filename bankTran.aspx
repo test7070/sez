@@ -441,6 +441,8 @@
 					<tr>
 						<td><span> </span><a id='lblCash' class="lbl"> </a></td>
 						<td><input id="txtCash" type="text"  class="txt c1 num"/></td>
+						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
+						<td><input id="txtMoney" type="text"  class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<td> </td>
