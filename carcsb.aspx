@@ -25,7 +25,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            //ajaxPath = ""; //  execute in Root
+            
 
             aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
             ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtCustnick', 'cust_b.aspx'], 
@@ -33,6 +33,7 @@
             ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'], 
             ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']);
 
+			var tmp_discount = new Array();
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_desc = 1;
@@ -54,6 +55,21 @@
             function mainPost() {
                 bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtBdate_export', r_picd], ['txtEdate_export', r_picd]];
                 q_mask(bbmMask);
+                q_gt('calctype2', '', 0, 0, 0, "calctypes");
+                
+                $("#cmbCalctype").focus(function() {
+					var len = $(this).children().length > 0 ? $(this).children().length : 1;
+					$(this).attr('size', len + "");
+				}).blur(function() {
+					$(this).attr('size', '1');
+				}).change(function() {
+					$('#txtDiscount').val( tmp_discount[$(this).get(0).selectedIndex]);
+					sum();
+				}).click(function() {
+					$('#txtDiscount').val( tmp_discount[$(this).get(0).selectedIndex]);
+					sum();
+				});
+				
 				$('#txtDatea').focusout(function () {
                      	   q_cd( $(this).val() ,$(this));
 	                });
@@ -135,6 +151,18 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'calctypes':
+						var as = _q_appendData("calctypes", "", true);
+						var t_item = "";
+						var item = new Array();
+						for ( i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + as[i].noq + '@' + as[i].typea;
+							tmp_discount.push(as[i].discount);
+						}
+						q_cmbParse("cmbCalctype", t_item);
+						if(abbm[q_recno]!=undefined)
+							$("#cmbCalctype").val(abbm[q_recno].calctype);
+						break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -506,6 +534,8 @@
 							<input id="txtComp" type="text" style="float:left; width:73.33%;"/>
 							<input id="txtCustnick" style="display:none;"/>
 						</td>
+						<td><span> </span><a id="lblCalctype" class="lbl btn"> </a></td>
+						<td><select id="cmbCalctype" type="text" class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblAddr" class="lbl btn"> </a></td>
