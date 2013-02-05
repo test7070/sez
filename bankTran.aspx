@@ -14,7 +14,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
+            aPop = new Array(['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
             var q_name = "banktran";
             var q_readonly = ['txtNoa', 'txtWorker'];
             var bbmNum = [];
@@ -429,6 +429,14 @@
 						<td><select id="cmbCode" class="txt c1"> </select></td>
 						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
 						<td><input id="txtAccno" type="text"  class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblAcc" class="lbl btn"> </a></td>
+						<td colspan="2">
+						<input id="txtAcc1" type="text" style="float:left; width:30%;">
+						<input id="txtAcc2" type="text" style="float:left; width:70%;"/>
+						</td>
+
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblCash' class="lbl"> </a></td>
