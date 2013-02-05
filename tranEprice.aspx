@@ -122,29 +122,6 @@
 		    }
 		}
 
-		function txtCopy(dest, source) {
-		    var adest = dest.split(',');
-		    var asource = source.split(',');
-		    $('#' + adest[0]).focus(function () {
-		        if (trim($(this).val()).length == 0)
-		            $(this).val(q_getMsg('msgCopy'));
-		    });
-		    $('#' + adest[0]).focusout(function () {
-		        var t_copy = ($(this).val().substr(0, 1) == '=');
-		        var t_clear = ($(this).val().substr(0, 2) == ' =');
-		        for (var i = 0; i < adest.length; i++) {
-		            
-		            {
-		                if (t_copy)
-		                    $('#' + adest[i]).val($('#' + asource[i]).val());
-
-		                if (t_clear)
-		                    $('#' + adest[i]).val('');
-		            }
-		        }
-		    });
-		}
-
 		function q_boxClose(s2) {
 		    var ret;
 		    switch (b_pop) {
@@ -205,23 +182,24 @@
 		}
 
 		function btnOk() {
-			$('#txtBdate').val($.trim($('#txtBdate').val()));
-                if (checkId($('#txtBdate').val())==0){
-                	alert(q_getMsg('lblBdate')+'錯誤。');
-                	return;
+			if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
+            	alert(q_getMsg('lblDatea')+'錯誤。');
+            	return;
            	}
-			$('#txtEdate').val($.trim($('#txtEdate').val()));
-                if (checkId($('#txtEdate').val())==0){
-                	alert(q_getMsg('lblBdate')+'錯誤。');
-                	return;
+            if (!q_cd($('#txtBdate').val())){
+            	alert(q_getMsg('lblBdate')+'錯誤。');
+            	return;
            	}
-
+            if (!q_cd($('#txtEdate').val())){
+            	alert(q_getMsg('lblBdate')+'錯誤。');
+            	return;
+           	}
 			
 		    $('#txtWorker').val(r_name);
 		    var t_noa = trim($('#txtNoa').val());
 		    var t_date = trim($('#txtDatea').val());
 		    if (t_noa.length == 0 || t_noa == "AUTO")
-		        q_gtnoa(q_name, replaceAll(q_getPara('sys.key_carborr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+		        q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tranepeice') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 		    else
 		        wrServer(t_noa);
 		}
