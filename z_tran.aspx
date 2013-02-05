@@ -227,7 +227,8 @@
 					$('#txtTrandate1').datepicker();
 					$('#txtTrandate2').mask('999/99/99');
 					$('#txtTrandate2').datepicker();
-
+					
+					$('#chkXoption2').children('input').attr('checked', 'checked');
 					$('#chkXcarteam').children('input').attr('checked', 'checked');
 					$('#chkXcarkind').children('input').attr('checked', 'checked');
 					$('#chkXcalctypes').children('input').attr('checked', 'checked');
