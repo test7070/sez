@@ -19,7 +19,7 @@
             var q_name = "contdc";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtApv'];
             var q_readonlys = ['txtNoq'];
-            var bbmNum = new Array(['txtThirdprice', 10, 3], ['txtOil1', 5, 2], ['txtOil2', 5, 2]);
+            var bbmNum = new Array(['txtThirdprice', 10, 3],['txtTotal', 10, 3], ['txtOil1', 5, 2], ['txtOil2', 5, 2]);
             var bbsNum = new Array(['txtMount', 10, 3], ['txtPrice', 10, 3]);
             var bbmMask = [];
             var bbsMask = [];
@@ -32,7 +32,9 @@
             aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
             , ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b2.aspx']
             , ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,conn,tel,fax,zip_comp,addr_comp', 'txtCustno,txtComp,txtNick,txtConn_cust,txtTel_cust,txtFax_cust,txtZip_cust,txtAddr_cust', 'cust_b.aspx']
-            , ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
+            , ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+            , ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
+            );
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -50,7 +52,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtZip_cust', '999-99'],['txtBcontdate', r_picd],['txtEcontdate', r_picd],['txtChangecontdate', r_picd]];
+                bbmMask = [['txtDatea', r_picd], ['txtPledgedate',r_picd],['txtPaydate',r_picd],['txtZip_cust', '999-99'],['txtBcontdate', r_picd],['txtEcontdate', r_picd],['txtChangecontdate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbStype", q_getPara('cont.stype'));
 				$("#cmbStype").focus(function(){
@@ -121,14 +123,37 @@
             function bbsAssign() {
                 _bbsAssign();
                 for (var j = 0; j < q_bbsCount; j++) {
+                	$('#txtPrice_' + j).change(function() {
+						sumprice();	
+					});
                 }
             }
-
+			function sumprice(){
+				var total = 0,empval = 0;
+                for (var j = 0; j < q_bbsCount; j++) {
+						if($('#txtPrice_' + j).val() != ''){
+	                		total += parseFloat($('#txtPrice_' + j).val());
+                		}else{
+                			empval += 1;
+                		}
+				}
+				if(empval == q_bbsCount){
+					$('#txtTotal').val('0');
+					$('#txtTotal').removeAttr('readonly');
+					$('#txtTotal').css('background-color', 'rgb(255, 255, 255)').css('color','');
+				}else{
+					$('#txtTotal').attr('readonly','readonly');
+					$('#txtTotal').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtTotal').val(total);
+				}
+				
+            }				
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
+                $('#txtTotal').val('0');
             }
 
             function btnModi() {
@@ -486,8 +511,31 @@
 							<td class="td4">
 							<input id="txtFax_cust"  type="text"  class="txt c1"/>
 							</td>
+							<td class="td5"><span> </span><a id="lblSales" class="lbl btn"></a></td>
+							<td class="td6" colspan="2">
+							<input id="txtSalesno" type="text" class="txt" style="width:30%; float: left;"/>
+							<input id="txtSales" type="text" class="txt" style="width:70%; float: left;"/>
+							</td>
 						</tr>
 						<tr class="tr9">
+							<td class="td1" ><span> </span><a id='lblEarnest' class="lbl"> </a></td>
+							<td class="td2">
+								<input id="txtEarnest" type="text"  class="txt c1 num"/>
+							</td>
+							<td class="td3" ><span> </span><a id='lblPledgedate' class="lbl"> </a></td>
+							<td class="td4">
+								<input id="txtPledgedate" type="text"  class="txt c1"/>
+							</td>
+							<td class="td5" ><span> </span><a id='lblPaydate' class="lbl"> </a></td>
+							<td class="td6">
+								<input id="txtPaydate" type="text"  class="txt c1"/>
+							</td>
+							<td class="td7" ><span> </span><a id='lblTotal' class="lbl"> </a></td>
+							<td class="td8">
+								<input id="txtTotal" type="text"  class="txt c1 num"/>
+							</td>
+						</tr>
+						<tr class="tr10">
 							<td class="td1" ><span> </span><a id='lblOil1' class="lbl"> </a></td>
 							<td class="td2" colspan="2">
 							<input id="txtOil1" type="text"  class="txt c5 num"/>
@@ -499,16 +547,20 @@
 							<input id="txtThirdprice" type="text"  class="txt c1 num"/>
 							</td>
 						</tr>
-						<tr class="tr10">
+						<tr class="tr11">
 							<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
 							<td class="td2" colspan='7' >
 							<input id="txtMemo"  type="text" class="txt c1"/>
 							</td>
 						</tr>
-						<tr class="tr11">
+						<tr class="tr12">
 							<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 							<td class="td2">
 							<input id="txtWorker"  type="text" class="txt c1" />
+							</td>
+							<td class="td3"><span> </span><a id='lblAssigner' class="lbl"> </a></td>
+							<td class="td4">
+							<input id="txtAssigner"  type="text" class="txt c1" />
 							</td>
 							<td class="td3"><span> </span><a id='lblApv' class="lbl"> </a></td>
 							<td class="td4">
