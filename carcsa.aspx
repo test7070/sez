@@ -497,6 +497,8 @@
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:120px; color:black;"><a id='vewOrdeno'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewCartype'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewMon'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewInterval'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewBtime'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewOntime'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewEtime'> </a></td>
@@ -516,6 +518,8 @@
 						<td id="datea" style="text-align: center;">~datea</td>
 						<td id="ordeno" style="text-align: center;">~ordeno</td>
 						<td id="cartype" style="text-align: center;">~cartype</td>
+						<td id="mon" style="text-align: center;">~mon</td>
+						<td id="interval=carcsa.interval" style="text-align: center;">~interval=carcsa.interval</td>
 						<td id="btime" style="text-align: center;">~btime</td>
 						<td id="ontime" style="text-align: center;">~ontime</td>
 						<td id="etime" style="text-align: center;">~etime</td>

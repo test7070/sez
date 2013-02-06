@@ -41,7 +41,7 @@
                         src : 'sss_b.aspx'
                         },{
                         type : '2',
-                        name : 'xcomp',
+                        name : 'xcno',
                         dbf : 'acomp',
                         index : 'noa,acomp',
                         src : 'acomp_b.aspx'
@@ -54,7 +54,7 @@
                         },{
                         type : '8',
                         name : 'xsss',
-                        value : (('').concat(new Array("寄保","非寄保","全部"))).split(',')
+                        value : (('').concat(new Array("寄保","員工","司機","全部"))).split(',')
                     }, {
                         type : '6',
                         name : 'xyear'
