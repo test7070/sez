@@ -16,7 +16,8 @@
         }
         var q_name="accz";
         var q_readonly = ['txtYear_depl','txtTotal'];
-        var bbmNum = [['txtMoney',14, 0, 1],['txtFixmoney',14, 0, 1],['txtAccumulat',14, 0, 1],['txtYear_depl',14, 0, 1],['txtEndvalue',14, 0, 1],['txtTotal',14, 0, 1],['txtScrapvalue',14, 0, 1]]; 
+        var bbmNum = [];
+        //var bbmNum = [['txtMoney',14, 0, 1],['txtFixmoney',14, 0, 1],['txtAccumulat',14, 0, 1],['txtYear_depl',14, 0, 1],['txtEndvalue',14, 0, 1],['txtTotal',14, 0, 1],['txtScrapvalue',14, 0, 1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
@@ -72,12 +73,12 @@
             		$(this).val(s1 + '.');
             })
             $('#txtMoney').change(function(){
-            	if(!emp($(this).val()) && $('#txtFixmoney').val() > 0 )
+            	if($(this).val() != 0 && $('#txtFixmoney').val() > 0 )
             		alert(q_getMsg('lblMoney') + ' ' + q_getMsg('lblFixmoney') + '不可同時存在。');
             	sum();
             })
             $('#txtFixmoney').change(function(){
-            	if(!emp($(this).val()) && $('#txtMoney').val() > 0)
+            	if($(this).val() !=0 && $('#txtMoney').val() > 0)
             		alert(q_getMsg('lblMoney') + ' ' + q_getMsg('lblFixmoney') + '不可同時存在。');
             	sum();
             })
@@ -109,18 +110,18 @@
         }
 		function sum(){
 			var endvalue = 0;
-			var money = trim($('#txtMoney').val());
-			var fixmoney = trim($('#txtFixmoney').val());
-			var year = trim($('#txtYear').val());
-			var accumulat = trim($('#txtAccumulat').val());
-			var year_depl = trim($('#txtYear_depl').val());
+			var money = parseFloat(trim($('#txtMoney').val()),10);
+			var fixmoney = parseFloat(trim($('#txtFixmoney').val()),10);
+			var year = parseFloat(trim($('#txtYear').val()),10);
+			var accumulat = parseFloat(trim($('#txtAccumulat').val()),10);
+			var year_depl = parseFloat(trim($('#txtYear_depl').val()),10);
 			var total = 0;
 			if(year > 0 && !($('#chkIsdepl')[0].checked==true)){
 				endvalue = (money + fixmoney)/(year+1);
 			}	
 			$('#txtEndvalue').val(endvalue.toFixed(0));
 			total = money + fixmoney-accumulat-year_depl;
-			$('#txtTotal').val(total);
+			$('#txtTotal').val(parseFloat(total,10));
 		}
         function q_boxClose( s2) {
             var ret; 
