@@ -176,13 +176,11 @@
 						},{
                         type : '5',
                         name : 'xinterval',
-                        value : (('').concat(new Array("上期","中期","下期"))).split(',')
-                    }, {/*6*/
-							type : '2',
+                        value :[q_getPara('report.all')].concat(new Array("上期","中期","下期"))
+                    }, {/*13*/
+							type : '5',
 							name : 'cno',
-							dbf : 'acomp',
-							index : 'noa,acomp',
-							src : 'acomp_b.aspx'
+							value : [q_getPara('report.all')].concat(t_data.data['acomp'].split(','))
 						}]
 					});
 					q_popAssign();
