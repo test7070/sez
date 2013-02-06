@@ -121,6 +121,7 @@
 	</head>
 	<body>
 		<div  id="dbbs"  >
+			<!--#include file="../inc/pop_modi.inc"-->
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
 				<tr style='color:white; background:#003366;' >
 					<td class="td1" align="center" style="width:1%; max-width:20px;">
@@ -176,7 +177,6 @@
                     </td>
 				</tr>
 			</table>
-			<!--#include file="../inc/pop_modi.inc"-->
 		</div>
 		<input id="q_sys" type="hidden" />
 	</body>
