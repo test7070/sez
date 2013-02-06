@@ -189,6 +189,7 @@
 		    	switch (s1) {
 		    		case 'txtAcc1_':
 		                sum();
+		                $('#txtMoney_'+b_seq).focus();
 		                break;
 		    	}
 		    }
