@@ -21,7 +21,7 @@
 
             q_tables = 's';
             var q_name = "tranorde";
-            var q_readonly = ['txtNoa', 'txtTranquatno', 'txtTranquatnoq', 'txtContract', 'txtCno', 'txtAcomp', 'txtWorker','txtCasetype','txtCasetype2'];
+            var q_readonly = ['txtNoa', 'txtTranquatno', 'txtTranquatnoq', 'txtContract', 'txtWorker','txtCasetype','txtCasetype2'];
             var q_readonlys = ['txtTranno', 'txtTrannoq'];
             var bbsNum = [];
             var bbsMask = new Array(['txtTrandate', '999/99/99']);
@@ -43,7 +43,8 @@
              ['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'], 
             ['txtDeliveryno', 'lblDeliveryno', 'trando', 'deliveryno,po', 'txtDeliveryno,txtPo', 'trando_b.aspx'],
             ['txtCasepackaddr', 'lblCasepackaddr', 'addrcase', 'addr,noa', 'txtCasepackaddr', 'addrcase_b.aspx'],
-            ['txtCaseopenaddr', 'lblCaseopenaddr', 'addrcase', 'addr,noa', 'txtCaseopenaddr', 'addrcase_b.aspx']);
+            ['txtCaseopenaddr', 'lblCaseopenaddr', 'addrcase', 'addr,noa', 'txtCaseopenaddr', 'addrcase_b.aspx'], 
+            ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
 
             var t_casetype = ["20''", "40''", "超重櫃", "HQ", "OT"];
             var t_casetype2 = ["20''", "40''","OT","太空包"];

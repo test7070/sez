@@ -11,7 +11,7 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		
 		<script type="text/javascript">
-            var q_name = 'carlender', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
+            var q_name = 'carlender', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 6;
             var t_sqlname = 'carlender_load';
             t_postname = q_name;
             var isBott = false;
@@ -59,7 +59,7 @@
             function bbsAssign() {
             	for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
             		if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-            			$('#txtBdate_' + j).change(function () {
+            			$('#txtBdate_' + j).blur(function () {
 		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
@@ -71,7 +71,7 @@
 		                     }
 		                 });
             			
-		                 $('#txtEdate_' + j).change(function () {
+		                 $('#txtEdate_' + j).blur(function () {
 		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
@@ -111,7 +111,7 @@
 		                 });
 					}
             	} //j
-                _bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
+                _bbsAssign();//_bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
             }
 
             function btnOk() {

@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -211,7 +210,7 @@
             }
 
             function btnPrint() {
-				q_box('z_oil.aspx'+ "?;;;;"+r_accy,  '', "90%", "600px", q_getMsg("popPrint"));
+				q_box('z_oil.aspx'+ "?;;;;"+r_accy,  '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function btnOk() {
