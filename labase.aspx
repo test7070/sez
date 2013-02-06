@@ -94,6 +94,29 @@
 			     }
             });
             
+            $('#txtBdate').blur(function () {
+            	if(emp($('#txtNoa').val())){
+            		alert('請先輸入員工編號!!!');
+            		q_tr('txtSalary',0);
+            		$('#txtNoa').focus();
+            		return;
+            	}
+            	if(emp($('#txtSalary').val())||dec($('#txtSalary').val())==0){
+            		return;
+            	}
+            	
+            	//取得勞退薪資等級表
+            	var t_where = "where=^^ 1=1 ^^ top=1";
+            	q_gt('labretire', t_where, 0, 0, 0, "", r_accy);
+            	//取得勞保薪資等級表
+            	var t_where = "where=^^ 1=1 ^^ top=1";
+            	q_gt('labsal', t_where, 0, 0, 0, "", r_accy);
+            	if(q_cur!=1)
+            		sum();//計算家屬
+            	var t_where = "where=^^ 1=1 ^^ top=1";
+            	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
+            });
+            
             $('#txtSalary').change(function () {
             	if(emp($('#txtNoa').val())){
             		alert('請先輸入員工編號!!!');
@@ -600,6 +623,7 @@
 	            				cal=false;
             				}
             			}
+            			q_tr('txtHe_person',q_float('txtHe_person')-q_float('txtAs_health'))
             		break;
                 case q_name: 
                 	if (q_cur == 1){
@@ -675,6 +699,15 @@
         function bbsAssign() {  
         	for(var j = 0; j < q_bbsCount; j++) {
             	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+            		$('#txtAs_health_' + j).change(function () {
+            			var total_as_health=0;
+            			for(var i = 0; i < q_bbsCount; i++) {
+            				total_as_health+=dec($('#txtAs_health_' + i).val());
+            			}
+            			$('#txtAs_health').val(total_as_health);
+				    	$('#txtHe_person').val(t_he_person-dec($('#txtAs_health').val()));
+				    });
+            		
             		$('#txtId_' + j).change(function () {
 						t_IdSeq = -1;
 						q_bodyId($(this).attr('id'));
@@ -682,11 +715,27 @@
 						if(!emp($('#txtId_'+b_seq).val()))
                				$('#txtId_'+b_seq).val($('#txtId_'+b_seq).val().toUpperCase());
 				    });
+				    
 				    $('#txtNamea_' + j).change(function () {
-						sum();
+				    	if(emp($('#txtSa_health').val())||dec($('#txtSa_health').val())==0){
+		            		return;
+		            	}
+	            		cal=true;
+	            		sum();//計算家屬
+		            	//取得健保薪資等級表
+		            	var t_where = "where=^^ 1=1 ^^ top=1";
+		            	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
 				    });
+				    
 				    $('#btnMinus_' + j).click(function () {
-						sum();
+						if(emp($('#txtSa_health').val())||dec($('#txtSa_health').val())==0){
+		            		return;
+		            	}
+	            		cal=true;
+	            		sum();//計算家屬
+		            	//取得健保薪資等級表
+		            	var t_where = "where=^^ 1=1 ^^ top=1";
+		            	q_gt('labhealth', t_where, 0, 0, 0, "", r_accy);
 				    });
 				}
 			}
@@ -712,6 +761,8 @@
             $('#txtSalary').focus();
             //$('#txtMon').attr('readonly',true);
 		    //$('#txtMon').attr('disabled', 'disabled');
+		    t_la_person=dec($('#txtLa_person').val())+dec($('#txtAs_labor').val())
+		    t_he_person=dec($('#txtHe_person').val())+dec($('#txtAs_health').val())
 		    //取得健勞保退保日期
             	var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^ top=1";
             	q_gt('sssall', t_where, 0, 0, 0, "", r_accy);

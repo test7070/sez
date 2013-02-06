@@ -84,6 +84,33 @@
 		            	t_where+="and b.carownerno='"+$('#txtCarownerno').val()+"' ";
 		            }
 		            
+		            if(!emp($('#txtCarno').val()))
+		            {
+		            	t_where+="and a.carno='"+$('#txtCarno').val()+"' ";
+		            }
+		            
+		            var sssno_count=0;
+		            if($('#chkSssno1')[0].checked==true){
+		            	t_where+="and (b.sssno='"+q_getMsg('lblSssno1')+"' "
+		            	sssno_count++;
+		            }
+		            if($('#chkSssno2')[0].checked==true){
+		            	if(sssno_count==0)
+		            		t_where+="and (b.sssno='"+q_getMsg('lblSssno2')+"' "
+		            	else
+		            		t_where+="or b.sssno='"+q_getMsg('lblSssno2')+"' "
+		            	sssno_count++;
+		            }
+		            if($('#chkSssno3')[0].checked==true){
+		            	if(sssno_count==0)
+		            		t_where+="and (b.sssno='"+q_getMsg('lblSssno3')+"' "
+		            	else
+		            		t_where+="or b.sssno='"+q_getMsg('lblSssno3')+"' "
+		            }
+		            if(sssno_count>0)
+		            	t_where+=") ";
+		            
+		            
 		            t_where+=" ^^";
 			        q_gt('carc_caras', t_where , 0, 0, 0, "", r_accy);			   
 			 });
@@ -385,7 +412,8 @@
 			for(var i=tb2.rows.length;i>size;i--){
 		                tb2.deleteRow(size);
 			}
-			tb2.rows[0].deleteCell(0);
+			//tb2.rows[0].deleteCell(0);
+			tb2.rows[0].cells[0].children[0].id="scrollplus"
 			var bak = document.createElement("div");
 			bak.id="box_"+scrollcount
 			scrollcount++;
@@ -536,7 +564,7 @@
                 font-size: medium;
             }
             #box{
-				height:170px;
+				height:240px;
 				width: 100%;
 				overflow-y:auto;
 				position:relative;
@@ -608,8 +636,20 @@
             	<input id="chkFuel" type="checkbox" style="float: left;"/><a id="lblFuel" class="lbl" style="float: left;"></a>
             	<input id="chkLicense" type="checkbox" style="float: left;"/><a id="lblLicense" class="lbl" style="float: left;"></a>
             	<input id="chkOther" type="checkbox" style="float: left;"/><a id="lblOther" class="lbl" style="float: left;"></a>
-            	<input id="btnImport" type="button" style="float: left;"/><input id="txtCheckpay" type="hidden"></td>
+            	<input id="txtCheckpay" type="hidden"></td>
             </td><!--保險費、燃料費、牌照稅、其他-->
+       </tr>
+       <tr class="tr6">           
+			<td class='td1'><span> </span><a id="lblCarno" class="lbl"></a></td>
+            <td class='td2'>
+            	<input id="txtCarno" type="text" class="txt c1"/>
+            </td>
+            <td class='td3' ><input id="btnImport" type="button" style="float: left;"/></td>
+            <td class='td4' colspan='2'>
+            	<input id="chkSssno1" type="checkbox" style="float: left;"/><a id="lblSssno1" class="lbl" style="float: left;"></a>
+            	<input id="chkSssno2" type="checkbox" style="float: left;"/><a id="lblSssno2" class="lbl" style="float: left;"></a>
+            	<input id="chkSssno3" type="checkbox" style="float: left;"/><a id="lblSssno3" class="lbl" style="float: left;"></a>
+            </td>
        </tr>
        <tr class="tr6">           
 			<td class='td1'><span> </span><a id="lblPaydate" class="lbl"></a></td>
