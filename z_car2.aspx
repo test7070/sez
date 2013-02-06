@@ -133,17 +133,15 @@
 	                        value : ('車行,車主,驗車日期').split(',')
                     	}, {
                             type : '2',
-                            name : 'xxcarownerno',
-                            dbf : 'car2',
-                            index : 'carownerno,carowner',
-                            src : 'car2_b.aspx'
-                        }, {
-                            type : '2',
                             name : 'caritemno',
                             dbf : 'caritem',
                             index : 'noa,item',
                             src : 'caritem_b.aspx'
-                        }]
+                        }, {
+	                        type : '5', //select
+	                        name : 'worder',
+	                        value : ('車牌,車行,車主').split(',')
+                    	}]
                     });
                     q_getFormat();
 	                q_langShow();
