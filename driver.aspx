@@ -453,7 +453,7 @@
 						<input id="txtEo" type="text" class="txt num c1" />
 						</td> 
 					</tr>
-					<tr class="tr7">
+					<tr style="display:none;" title="改由LABASE抓資料">
 						<td class="td1"><span> </span><a id="lblLabor" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtLabor" type="text" class="txt num c1" />
@@ -471,7 +471,7 @@
 						<input id="txtDependents" type="text" class="txt num c1"/>
 						</td>
 					</tr>
-					<tr class="tr8">
+					<tr style="display:none;" title="改由LABASE抓資料">
 						<td class="td1"><span> </span><a id='lblHealth_bdate' class="lbl"></a></td>
 						<td class="td2"><input id="txtHealth_bdate" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id='lblHealth_edate' class="lbl"></a></td>
@@ -481,7 +481,7 @@
 						<td class="td3"><span> </span><a id='lblLabor1_edate' class="lbl"></a></td>
 						<td class="td4"><input id="txtLabor1_edate" type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="tr9">
+					<tr style="display:none;" title="改由LABASE抓資料">
 						<td class="td1"><span> </span><a id='lblLabor2_bdate' class="lbl"></a></td>
 						<td class="td2"><input id="txtLabor2_bdate" type="text" class="txt c1"/></td>
 						<td class="td3"><span> </span><a id='lblLabor2_edate' class="lbl"></a></td>
@@ -490,6 +490,8 @@
 						<td class="td6">
 						<input id="txtMoney" type="text" class="txt num c1"/>
 						</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblSalmoney" class="lbl"></a></td>
 						<td><input id="txtSalmoney" type="text" class="txt num c1"/></td>
 					</tr>
