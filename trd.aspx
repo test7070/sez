@@ -80,11 +80,8 @@
                 });
 
                 $('#lblVccano').click(function() {
-                    var t_where = "";
-                    var tmp = $('#txtVccano').val().split(',');
-                    for (var i in tmp)
-                    t_where += (t_where.length > 0 ? ' or ' : '') + "noa='" + tmp[i] + "'";
-                    q_pop('txtVccano', "vcca_2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno+";origin=trd&orgcustno="+$('#txtCustno').val(), 'vcca', 'noa', 'datea', "92%", "600px", q_getMsg('popVcca'), true);
+                	var t_where = "where=^^ noa='"+$('#txtCustno').val()+"' ^^";
+                	q_gt('cust', t_where, 0, 0, 0, "");
                 });
 
                 $('#cmbTrtype').focus(function() {
@@ -205,6 +202,19 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'cust':
+                		var t_custno2 ='',t_cust2='';
+                		var as = _q_appendData("cust", "", true);
+                		if(as[0]!=undefined){
+                			t_custno2 = as[0].custno2;
+                			t_cust2 = as[0].cust2;
+                		}
+                		var t_where = "";
+               		 	var tmp = $('#txtVccano').val().split(',');
+                    	for (var i in tmp)
+                   			t_where += (t_where.length > 0 ? ' or ' : '') + "noa='" + tmp[i] + "'";
+                   	 	q_pop('txtVccano', "vcca_2.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno+";"+encodeURI("origin=trd&orgcustno="+$('#txtCustno').val()+"&custno2="+t_custno2+"&cust2="+t_cust2), 'vcca', 'noa', 'datea', "95%", "95%", q_getMsg('popVcca'), true);
+                		break;
                     case 'custchg':
                         var as = _q_appendData("custchg", "", true);
                         var t_plusmoney = 0, t_minusmoney = 0;
