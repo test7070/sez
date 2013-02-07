@@ -36,8 +36,8 @@
 			currentData.prototype = {
 				origin : '',
 				orgcustno : '',
-				custno : 'H249',
-				cust : '運輸部',
+				custno : '',
+				cust : '',
 				data : [],
 				/*新增時複製的欄位*/
 				include : ['txtDatea', 'txtCno', 'txtAcomp', 'txtCustno', 'txtComp', 'txtNick', 'txtSerial', 'txtAddress', 'txtMon','txtNoa','txtBuyerno','txtBuyer','txtProductno','txtProduct','txtUnit'],
@@ -89,14 +89,17 @@
 				bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
 				if(q_getId()[5]!=undefined){
-					var str=q_getId()[5].split('&');
+					var str=decodeURI(q_getId()[5]).split('&');
 					for(var i in str){
 						if(str[i].toUpperCase().substring(0,7)=='ORIGIN=')
 							curData.origin = str[i].substring(7).toUpperCase();	
-						if(str[i].toUpperCase().substring(0,10)=='ORGCUSTNO=')
+						else if(str[i].toUpperCase().substring(0,10)=='ORGCUSTNO=')
 							curData.orgcustno = str[i].substring(10).toUpperCase();	
+						else if(str[i].toUpperCase().substring(0,8)=='CUSTNO2=')
+							curData.custno = str[i].substring(8).toUpperCase();	
+						else if(str[i].toUpperCase().substring(0,6)=='CUST2=')
+							curData.cust = str[i].substring(6).toUpperCase();	
 					}
-		
 				}
 				q_cmbParse("cmbTaxtype",q_getPara('sys.taxtype'));
 				$('#txtDatea').focusout(function () {

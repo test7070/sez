@@ -25,15 +25,14 @@
             brwKey = 'noa';
             q_desc=1;
             //ajaxPath = ""; //  execute in Root
-			 aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea,id', 'txtSssno,txtNamea,txtId', 'sss_b.aspx'],
+			 aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea,partno,part,id', 'txtSssno,txtNamea,txtPartno,txtPart,txtId', 'sss_b.aspx'],
 			 ['txtHtype', 'lblHtype', 'salhtype', 'noa,namea', 'txtHtype,txtHname', 'salhtype_b.aspx']);
             $(document).ready(function() {
                bbmKey = ['noa'];
 	            q_brwCount();
 	           //q_gt(q_name, q_content, q_sqlCount, 1)
 	            //$('#txtNoa').focus
-	            
-	            q_gt('authority', "where=^^a.noa='salvacause' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
+	            q_gt('sss', "where=^^noa='" + r_userno + "'^^", q_sqlCount, 1)
         });
 
             //////////////////   end Ready
@@ -244,13 +243,16 @@
                 }   /// end Switch
                 b_pop = '';
             }
-
+			
+			var ssspartno='';
             function q_gtPost(t_name) {
                 switch (t_name) {
                 	case 'authority':
 		                var as = _q_appendData('authority', '', true);
-		                if (as.length > 0 && as[0]["pr_dele"] == "true")
-		                    q_content = "";
+		                if(r_rank >7)
+		                	q_content = "";
+		                if (as.length > 0 && as[0]["pr_modi"] == "true")
+		                    q_content = "where=^^partno='"+ssspartno+"'^^";
 		                else
 		                    q_content = "where=^^sssno='" + r_userno + "'^^";
 
@@ -258,7 +260,9 @@
 		                break;
                 	
                     case 'sss':
-                        q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
+                        	var as = _q_appendData('sss', '', true);
+                        	ssspartno=as[0].partno;
+                        	q_gt('authority', "where=^^a.noa='salvacause' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
                         break;
                         
                    case 'salvaca':
@@ -605,10 +609,13 @@
 								<input id="txtSssno"  type="text"  class="txt c2"/>
 								<input id="txtNamea"  type="text"  class="txt c3"/>
 							</td>
-							<td class="td3" ><span> </span><a id='lblId' class="lbl"></a></td>
-							<td class="td4"><input id="txtId"  type="text" class="txt c1" /></td>
-							<td class="td5"></td>
-							<td class="td6"></td>
+							<td class="td3" ><span> </span>	<a id='lblPart' class="lbl"></a></td>
+							<td class="td4">
+								<input id="txtPartno"  type="text"  class="txt c2"/>
+								<input id="txtPart"  type="text"  class="txt c3"/>
+							</td>
+							<td class="td5"><span> </span><a id='lblId' class="lbl"></a></td>
+							<td class="td6"><input id="txtId"  type="text" class="txt c1" /></td>
 						</tr>
 						<tr>
 							<td class="td1" ><span> </span>	<a id='lblHtype' class="lbl btn" ></a></td>

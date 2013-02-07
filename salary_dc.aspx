@@ -97,6 +97,279 @@
             $('#btnBank').click(function() {
             	q_func('banktran.gen', $('#txtNoa').val()+',4');
             });
+            
+            //隱藏控制
+            $('#btnHidesalary').click(function() {
+            	if($('#btnHidesalary').val().indexOf("隱藏")>-1){
+            		if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
+            			$("#hid_daymoney").hide();
+            		}else{
+						$("#hid_money").hide();
+					}
+					$("#hid_bo_admin").hide();
+					$("#hid_bo_traffic").hide();
+					$("#hid_bo_special").hide();
+					$("#hid_bo_oth").hide();
+					$("#hid_plus").hide();
+					for (var j = 0; j < q_bbsCount; j++) {
+						if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
+							$('#hid_daymoney_'+j).hide();
+						}else{
+							$('#hid_money_'+j).hide();
+						}
+		            	 $('#hid_bo_admin_'+j).hide();
+		            	 $('#hid_bo_traffic_'+j).hide();
+		            	 $('#hid_bo_special_'+j).hide();
+		            	 $('#hid_bo_oth_'+j).hide();
+		            	 $('#hid_plus_'+j).hide();
+	            	 }
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-600)+"px");
+	            	scroll("tbbs","box",1);
+					$("#btnHidesalary").val("薪資顯示");
+				}else{
+					if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
+            			$("#hid_daymoney").show();
+            		}else{
+						$("#hid_money").show();
+					}
+					$("#hid_bo_admin").show();
+					$("#hid_bo_traffic").show();
+					$("#hid_bo_special").show();
+					$("#hid_bo_oth").show();
+					$("#hid_plus").show();
+					for (var j = 0; j < q_bbsCount; j++) {
+						if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
+							$('#hid_daymoney_'+j).show();
+						}else{
+							$('#hid_money_'+j).show();
+						}
+		            	 $('#hid_bo_admin_'+j).show();
+		            	 $('#hid_bo_traffic_'+j).show();
+		            	 $('#hid_bo_special_'+j).show();
+		            	 $('#hid_bo_oth_'+j).show();
+		            	 $('#hid_plus_'+j).show();
+	            	 }
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+600)+"px");
+	            	 scroll("tbbs","box",1);
+					$("#btnHidesalary").val("薪資隱藏");
+				}
+            });
+            
+            $('#btnHidesalaryinsure').click(function() {
+            	if($('#btnHidesalaryinsure').val().indexOf("隱藏")>-1){
+					$("#hid_ch_labor1").hide();
+					$("#hid_ch_labor2").hide();
+					$("#hid_health_insures").hide();
+					for (var j = 0; j < q_bbsCount; j++) {
+	            	 	 $('#hid_ch_labor1_'+j).hide();
+		            	 $('#hid_ch_labor2_'+j).hide();
+		            	 $('#hid_health_insures_'+j).hide();
+	            	 }
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-300)+"px");
+	            	scroll("tbbs","box",1);
+					$("#btnHidesalaryinsure").val("投保薪資顯示");
+				}else{
+					$("#hid_ch_labor1").show();
+					$("#hid_ch_labor2").show();
+					$("#hid_health_insures").show();
+					for (var j = 0; j < q_bbsCount; j++) {
+	            	 	 $('#hid_ch_labor1_'+j).show();
+		            	 $('#hid_ch_labor2_'+j).show();
+		            	 $('#hid_health_insures_'+j).show();
+	            	 }
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+300)+"px");
+	            	 scroll("tbbs","box",1);
+					$("#btnHidesalaryinsure").val("投保薪資隱藏");
+				}
+            });
+            
+            $('#btnHidetotal4').click(function() {
+            	if($('#btnHidetotal4').val().indexOf("隱藏")>-1){
+					$("#hid_borrow").hide();
+					$("#hid_ch_labor").hide();
+					$("#hid_ch_labor_comp").hide();
+					$("#hid_ch_labor_self").hide();
+					$("#hid_ch_health").hide();
+					$("#hid_tax").hide();
+					$("#hid_tax5").hide();
+					$("#hid_welfare").hide();
+					$("#hid_iswelfare").hide();
+					$("#hid_raise_num").hide();
+					$("#hid_minus").hide();
+					for (var j = 0; j < q_bbsCount; j++) {
+	            	 	 $('#hid_borrow_'+j).hide();
+		            	 $('#hid_ch_labor_'+j).hide();
+		            	 $('#hid_ch_labor_comp_'+j).hide();
+		            	 $('#hid_ch_labor_self_'+j).hide();
+		            	 $('#hid_ch_health_'+j).hide();
+		            	 $('#hid_tax_'+j).hide();
+		            	 $('#hid_tax5_'+j).hide();
+		            	 $('#hid_welfare_'+j).hide();
+		            	 $('#hid_iswelfare_'+j).hide();
+		            	 $('#hid_raise_num_'+j).hide();
+		            	 $('#hid_minus_'+j).hide();
+	            	 }
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-1026)+"px");
+	            	scroll("tbbs","box",1);
+					$("#btnHidetotal4").val("應扣詳細顯示");
+				}else{
+					$("#hid_borrow").show();
+					$("#hid_ch_labor").show();
+					$("#hid_ch_labor_comp").show();
+					$("#hid_ch_labor_self").show();
+					$("#hid_ch_health").show();
+					$("#hid_tax").show();
+					$("#hid_tax5").show();
+					$("#hid_welfare").show();
+					$("#hid_iswelfare").show();
+					$("#hid_raise_num").show();
+					$("#hid_minus").show();
+					for (var j = 0; j < q_bbsCount; j++) {
+	            	 	 $('#hid_borrow_'+j).show();
+		            	 $('#hid_ch_labor_'+j).show();
+		            	 $('#hid_ch_labor_comp_'+j).show();
+		            	 $('#hid_ch_labor_self_'+j).show();
+		            	 $('#hid_ch_health_'+j).show();
+		            	 $('#hid_tax_'+j).show();
+		            	 $('#hid_tax5_'+j).show();
+		            	 $('#hid_welfare_'+j).show();
+		            	 $('#hid_iswelfare_'+j).show();
+		            	 $('#hid_raise_num_'+j).show();
+		            	 $('#hid_minus_'+j).show();
+	            	 }
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+1026)+"px");
+	            	 scroll("tbbs","box",1);
+					$("#btnHidetotal4").val("應扣詳細隱藏");
+				}
+            });
+            
+            $('#btnHideaddmoney').click(function() {
+            	if($('#btnHideaddmoney').val().indexOf("隱藏")>-1){
+					$("#hid_ostand").hide();
+					$("#hid_addh2_1").hide();
+					$("#hid_addh2_2").hide();
+					$("#hid_addmoney").hide();
+					$("#hid_addh100").hide();
+					$("#hid_addh46_1").hide();
+					$("#hid_addh46_2").hide();
+					$("#hid_tax_other2").hide();
+					for (var j = 0; j < q_bbsCount; j++) {
+	            	 	 $('#hid_ostand_'+j).hide();
+		            	 $('#hid_addh2_1_'+j).hide();
+		            	 $('#hid_addh2_2_'+j).hide();
+		            	 $('#hid_addmoney_'+j).hide();
+		            	 $('#hid_addh100_'+j).hide();
+		            	 $('#hid_addh46_1_'+j).hide();
+		            	 $('#hid_addh46_2_'+j).hide();
+		            	 $('#hid_tax_other2_'+j).hide();
+	            	 }
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-800)+"px");
+	            	scroll("tbbs","box",1);
+					$("#btnHideaddmoney").val("加班費顯示");
+				}else{
+					$("#hid_ostand").show();
+					$("#hid_addh2_1").show();
+					$("#hid_addh2_2").show();
+					$("#hid_addmoney").show();
+					$("#hid_addh100").show();
+					$("#hid_addh46_1").show();
+					$("#hid_addh46_2").show();
+					$("#hid_tax_other2").show();
+					for (var j = 0; j < q_bbsCount; j++) {
+						$('#hid_ostand_'+j).show();
+		            	 $('#hid_addh2_1_'+j).show();
+		            	 $('#hid_addh2_2_'+j).show();
+		            	 $('#hid_addmoney_'+j).show();
+		            	 $('#hid_addh100_'+j).show();
+		            	 $('#hid_addh46_1_'+j).show();
+		            	 $('#hid_addh46_2_'+j).show();
+		            	 $('#hid_tax_other2_'+j).show();
+	            	 }
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+800)+"px");
+	            	 scroll("tbbs","box",1);
+					$("#btnHideaddmoney").val("加班費隱藏");
+				}
+            });
+            
+            $('#btnHideday').click(function() {
+            	if($('#btnHideday').val().indexOf("隱藏")>-1){
+            		if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
+            			$("#hid_day").hide();
+						$("#hid_mtotal").hide();
+            		}else{
+						$("#hid_mi_saliday").hide();
+						$("#hid_mi_total").hide();
+					}
+					$("#hid_late").hide();
+					$("#hid_sick").hide();
+					$("#hid_person").hide();
+					$("#hid_nosalary").hide();
+					$("#hid_leave").hide();
+					$("#hid_bo_full").hide();
+					$("#hid_tax_other").hide();
+					for (var j = 0; j < q_bbsCount; j++) {
+						if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
+	            	 	 	$('#hid_day_'+j).hide();
+		            	 	$('#hid_mtotal_'+j).hide();
+		            	}else{
+		            		$('#hid_mi_saliday_'+j).hide();
+		            	 	$('#hid_mi_total_'+j).hide();
+		            	}
+		            	 $('#hid_late_'+j).hide();
+		            	 $('#hid_hr_sick_'+j).hide();
+		            	 $('#hid_mi_sick_'+j).hide();
+		            	 $('#hid_hr_person_'+j).hide();
+		            	 $('#hid_mi_person_'+j).hide();
+		            	 $('#hid_hr_nosalary_'+j).hide();
+		            	 $('#hid_mi_nosalary_'+j).hide();
+		            	 $('#hid_hr_leave_'+j).hide();
+		            	 $('#hid_mi_leave_'+j).hide();
+		            	 $('#hid_bo_full_'+j).hide();
+		            	 $('#hid_tax_other_'+j).hide();
+	            	 }
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)-1349)+"px");
+	            	scroll("tbbs","box",1);
+					$("#btnHideday").val("出勤顯示");
+				}else{
+					if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
+						$("#hid_day").show();
+						$("#hid_mtotal").show();
+					}else{
+						$("#hid_mi_saliday").show();
+						$("#hid_mi_total").show();
+					}
+					$("#hid_late").show();
+					$("#hid_sick").show();
+					$("#hid_person").show();
+					$("#hid_nosalary").show();
+					$("#hid_leave").show();
+					$("#hid_bo_full").show();
+					$("#hid_tax_other").show();
+					for (var j = 0; j < q_bbsCount; j++) {
+						if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
+	            	 	 	$('#hid_day_'+j).show();
+		            	 	$('#hid_mtotal_'+j).show();
+		            	}else{
+		            		$('#hid_mi_saliday_'+j).show();
+		            	 	$('#hid_mi_total_'+j).show();
+		            	}
+		            	 $('#hid_late_'+j).show();
+		            	 $('#hid_hr_sick_'+j).show();
+		            	 $('#hid_mi_sick_'+j).show();
+		            	 $('#hid_hr_person_'+j).show();
+		            	 $('#hid_mi_person_'+j).show();
+		            	 $('#hid_hr_nosalary_'+j).show();
+		            	 $('#hid_mi_nosalary_'+j).show();
+		            	 $('#hid_hr_leave_'+j).show();
+		            	 $('#hid_mi_leave_'+j).show();
+		            	 $('#hid_bo_full_'+j).show();
+		            	 $('#hid_tax_other_'+j).show();
+	            	 }
+	            	 $('#tbbs').css("width",(dec($('#tbbs')[0].offsetWidth)+1349)+"px");
+	            	 scroll("tbbs","box",1);
+					$("#btnHideday").val("出勤隱藏");
+				}
+            });
         }
 		
 		function q_funcPost(t_func, result) {
@@ -746,8 +1019,8 @@
         }
         
         function table_change() {
-        	scroll("tbbs","box",1);
         	getdtmp();
+        	$('#tbbs').css("width","5000px");
              if ($('#cmbPerson').find("option:selected").text().indexOf('本國')>-1){
              	//bbm
             	 $('#lblDaymoney').hide();
@@ -854,7 +1127,7 @@
 		            	 $('#hid_tax_'+j).show();
 		            	 $('#hid_tax5_'+j).show();
             	 	}
-            }else{
+            }else{//外勞
             		//bbm
             	 	$('#lblDaymoney').hide();
 	            	 $('#txtDaymoney').hide();
@@ -917,27 +1190,141 @@
             	 	 $('#hid_pubmoney_'+j).hide();
             	 	 $('#hid_lodging_power_fee_'+j).hide();
             }
+            
+            //--------------------隱藏控制---------------------------
+            
+	        if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
+	        	$("#hid_daymoney").show();
+            	$("#hid_day").show();
+				$("#hid_mtotal").show();
+            }else{
+            	$("#hid_money").show();
+				$("#hid_mi_saliday").show();
+				$("#hid_mi_total").show();
+			}
+			$("#hid_bo_admin").show();
+			$("#hid_bo_traffic").show();
+			$("#hid_bo_special").show();
+			$("#hid_bo_oth").show();
+			$("#hid_plus").show();
+			$("#hid_late").show();
+			$("#hid_sick").show();
+			$("#hid_person").show();
+			$("#hid_nosalary").show();
+			$("#hid_leave").show();
+			$("#hid_bo_full").show();
+			$("#hid_tax_other").show();
+	        $("#hid_ch_labor1").show();
+			$("#hid_ch_labor2").show();
+			$("#hid_health_insures").show();
+			$("#hid_borrow").show();
+			$("#hid_ch_labor").show();
+			$("#hid_ch_labor_comp").show();
+			$("#hid_ch_labor_self").show();
+			$("#hid_ch_health").show();
+			$("#hid_tax").show();
+			$("#hid_tax5").show();
+			$("#hid_welfare").show();
+			$("#hid_iswelfare").show();
+			$("#hid_raise_num").show();
+			$("#hid_minus").show();
+			$("#hid_ostand").show();
+			$("#hid_addh2_1").show();
+			$("#hid_addh2_2").show();
+			$("#hid_addmoney").show();
+			$("#hid_addh100").show();
+			$("#hid_addh46_1").show();
+			$("#hid_addh46_2").show();
+			$("#hid_tax_other2").show();
+			
+	        for (var j = 0; j < q_bbsCount; j++) {
+	        	if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
+	        		$('#hid_daymoney_'+j).show();
+	            	$('#hid_day_'+j).show();
+		        	$('#hid_mtotal_'+j).show();
+		        }else{
+		        	$('#hid_money_'+j).show();
+		            $('#hid_mi_saliday_'+j).show();
+		        	$('#hid_mi_total_'+j).show();
+		        }
+		        $('#hid_bo_admin_'+j).show();
+			    $('#hid_bo_traffic_'+j).show();
+			    $('#hid_bo_special_'+j).show();
+			    $('#hid_bo_oth_'+j).show();
+			    $('#hid_plus_'+j).show();
+			    $('#hid_late_'+j).show();
+			    $('#hid_hr_sick_'+j).show();
+			    $('#hid_mi_sick_'+j).show();
+			    $('#hid_hr_person_'+j).show();
+			    $('#hid_mi_person_'+j).show();
+			    $('#hid_hr_nosalary_'+j).show();
+			    $('#hid_mi_nosalary_'+j).show();
+			    $('#hid_hr_leave_'+j).show();
+			    $('#hid_mi_leave_'+j).show();
+			    $('#hid_bo_full_'+j).show();
+			    $('#hid_tax_other_'+j).show();
+				$('#hid_ch_labor1_'+j).show();
+			    $('#hid_ch_labor2_'+j).show();
+			    $('#hid_health_insures_'+j).show();
+			    $('#hid_borrow_'+j).show();
+			    $('#hid_ch_labor_'+j).show();
+			    $('#hid_ch_labor_comp_'+j).show();
+			    $('#hid_ch_labor_self_'+j).show();
+			    $('#hid_ch_health_'+j).show();
+			    $('#hid_tax_'+j).show();
+			    $('#hid_tax5_'+j).show();
+			    $('#hid_welfare_'+j).show();
+			    $('#hid_iswelfare_'+j).show();
+			    $('#hid_raise_num_'+j).show();
+			    $('#hid_minus_'+j).show();
+			    $('#hid_ostand_'+j).show();
+			    $('#hid_addh2_1_'+j).show();
+			    $('#hid_addh2_2_'+j).show();
+			    $('#hid_addmoney_'+j).show();
+			    $('#hid_addh100_'+j).show();
+			    $('#hid_addh46_1_'+j).show();
+			    $('#hid_addh46_2_'+j).show();
+			    $('#hid_tax_other2_'+j).show();
+			}
+			
+			$('#btnHidesalary').val("薪資隱藏");
+			$('#btnHideday').val("出勤隱藏");
+	        $('#btnHidetotal4').val("應扣詳細隱藏");
+	        $('#btnHidesalaryinsure').val("投保薪資隱藏");
+	        $('#btnHideaddmoney').val("加班費隱藏");
+	        
+            scroll("tbbs","box",1);
         }
         
         
+		var scrollcount=1;
         function scroll(viewid,scrollid,size){
+        	if(scrollcount>1)
+        	$('#box_'+(scrollcount-1)).remove();
 			var scroll = document.getElementById(scrollid);
 			var tb2 = document.getElementById(viewid).cloneNode(true);
 			var len = tb2.rows.length;
 			for(var i=tb2.rows.length;i>size;i--){
 		                tb2.deleteRow(size);
 			}
+			//tb2.rows[0].deleteCell(0);
+			tb2.rows[0].cells[0].children[0].id="scrollplus"
 			var bak = document.createElement("div");
+			bak.id="box_"+scrollcount
+			scrollcount++;
 			scroll.appendChild(bak);
 			bak.appendChild(tb2);
 			bak.style.position = "absolute";
-			bak.style.backgroundColor = "#cfc";
+			bak.style.backgroundColor = "#fff";
 		    bak.style.display = "block";
 			bak.style.left = 0;
 			bak.style.top = "0px";
 			scroll.onscroll = function(){
 				bak.style.top = this.scrollTop+"px";
 			}
+			$('#scrollplus').click(function () {
+	            	$('#btnPlus').click();
+	       		});
 		}
     </script>
     <style type="text/css">
@@ -1197,38 +1584,38 @@
                 <td align="center" class="td2" id='hid_money' style="width: 100px;"><a id='lblMoneys'></a></td>
                 <td align="center" class="td2" id='hid_daymoney' style="width: 100px;"><a id='lblDaymoneys'></a></td>
                 <td align="center" class="td2" id='hid_pubmoney' style="width: 100px;"><a id='lblPubmoneys'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblBo_admins'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblBo_traffics'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblBo_specials'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblBo_oths'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblPluss'></a></td>
+                <td align="center" class="td2" id='hid_bo_admin' style="width: 100px;"><a id='lblBo_admins'></a></td>
+                <td align="center" class="td2" id='hid_bo_traffic' style="width: 100px;"><a id='lblBo_traffics'></a></td>
+                <td align="center" class="td2" id='hid_bo_special' style="width: 100px;"><a id='lblBo_specials'></a></td>
+                <td align="center" class="td2" id='hid_bo_oth' style="width: 100px;"><a id='lblBo_oths'></a></td>
+                <td align="center" class="td2" id='hid_plus' style="width: 100px;"><a id='lblPluss'></a></td>
                 <td align="center" class="td2" style="width: 100px;"><a id='lblTotal1s'></a></td>
                 <td align="center" class="td2" id='hid_day' style="width: 100px;"><a id='lblDays'></a></td>
                 <td align="center" class="td2" id='hid_mtotal' style="width: 100px;"><a id='lblMtotals'></a></td>
                 <td align="center" class="td2" id='hid_mi_saliday' style="width: 100px;"><a id='lblMi_salidays'></a></td>
                 <td align="center" class="td2" id='hid_mi_total' style="width: 100px;"><a id='lblMi_totals'></a></td>
-                <td align="center" class="td2" style="width: 85px;"><a id='lblLate'></a></td>
-                <td align="center"colspan="2" style="width: 216px;"><a id='lblHr_sick'></a></td>
-                <td align="center"colspan="2" style="width: 216px;"><a id='lblHr_person'></a></td>
-                <td align="center"colspan="2" style="width: 216px;"><a id='lblHr_nosalary'></a></td>
-                <td align="center"colspan="2" style="width: 216px;"><a id='lblHr_leave'></a></td>
+                <td align="center" class="td2" id='hid_late' style="width: 85px;"><a id='lblLate'></a></td>
+                <td align="center"colspan="2" id='hid_sick' style="width: 216px;"><a id='lblHr_sick'></a></td>
+                <td align="center"colspan="2" id='hid_person' style="width: 216px;"><a id='lblHr_person'></a></td>
+                <td align="center"colspan="2" id='hid_nosalary' style="width: 216px;"><a id='lblHr_nosalary'></a></td>
+                <td align="center"colspan="2" id='hid_leave' style="width: 216px;"><a id='lblHr_leave'></a></td>
                 <td align="center" class="td2" id='hid_bo_born' style="width: 100px;"><a id='lblBo_borns'></a></td>
                 <td align="center" class="td2" id='hid_bo_night' style="width: 100px;"><a id='lblBo_nights'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblBo_fulls' style="width: 100px;"></a></td>
+                <td align="center" class="td2" id='hid_bo_full' style="width: 100px;"><a id='lblBo_fulls' style="width: 100px;"></a></td>
                 <td align="center" class="td2" id='hid_bo_duty' style="width: 100px;"><a id='lblBo_dutys'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblTax_others'></a></td>
+                <td align="center" class="td2" id='hid_tax_other' style="width: 100px;"><a id='lblTax_others'></a></td>
                 <td align="center" class="td2" style="width: 100px;"><a id='lblTotal2s'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblOstands'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblAddh2_1s'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblAddh2_2s'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblAddmoneys'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblAddh100s'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblAddh46_1s'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblAddh46_2s'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblTax_other2s'></a></td>
+                <td align="center" class="td2" id='hid_ostand' style="width: 100px;"><a id='lblOstands'></a></td>
+                <td align="center" class="td2" id='hid_addh2_1' style="width: 100px;"><a id='lblAddh2_1s'></a></td>
+                <td align="center" class="td2" id='hid_addh2_2' style="width: 100px;"><a id='lblAddh2_2s'></a></td>
+                <td align="center" class="td2" id='hid_addmoney' style="width: 100px;"><a id='lblAddmoneys'></a></td>
+                <td align="center" class="td2" id='hid_addh100' style="width: 100px;"><a id='lblAddh100s'></a></td>
+                <td align="center" class="td2" id='hid_addh46_1' style="width: 100px;"><a id='lblAddh46_1s'></a></td>
+                <td align="center" class="td2" id='hid_addh46_2' style="width: 100px;"><a id='lblAddh46_2s'></a></td>
+                <td align="center" class="td2" id='hid_tax_other2' style="width: 100px;"><a id='lblTax_other2s'></a></td>
                 <td align="center" class="td2" style="width: 100px;"><a id='lblTotal3s'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblBorrows'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblCh_labors'></a></td>
+                <td align="center" class="td2" id='hid_borrow' style="width: 100px;"><a id='lblBorrows'></a></td>
+                <td align="center" class="td2" id='hid_ch_labor' style="width: 100px;"><a id='lblCh_labors'></a></td>
                 <td align="center" class="td2" id='hid_chgcash' style="width: 100px;"><a id='lblChgcashs'></a></td>
                 <td align="center" class="td2" id='hid_tax6' style="width: 100px;"><a id='lblTax6s'></a></td>
                 <td align="center" class="td2" id='hid_stay_tax' style="width: 100px;"><a id='lblStay_taxs'></a></td>
@@ -1236,20 +1623,20 @@
                 <td align="center" class="td2" id='hid_tax18' style="width: 100px;"><a id='lblTax18s'></a></td>
                 <td align="center" class="td2" id='hid_ch_labor_comp' style="width: 100px;"><a id='lblCh_labor_comps'></a></td>
                 <td align="center" class="td2" id='hid_ch_labor_self' style="width: 100px;"><a id='lblCh_labor_selfs'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblCh_healths'></a></td>
+                <td align="center" class="td2" id='hid_ch_health' style="width: 100px;"><a id='lblCh_healths'></a></td>
                 <td align="center" class="td2" id='hid_lodging_power_fee' style="width: 100px;"><a id='lblLodging_power_fees'></a></td>
                 <td align="center" class="td1" id='hid_tax' style="width: 100px;"><a id='lblTaxs'></a></td>
                 <td align="center" class="td1" id='hid_tax5' style="width: 100px;"><a id='lblTax5s'></a></td>
-                <td align="center" class="td1" style="width: 100px;"><a id='lblWelfares'></a></td>
-                <td align="center" class="td1" style="width: 26px;"><a id='vewIswelfare'></a></td>
+                <td align="center" class="td1" id='hid_welfare' style="width: 100px;"><a id='lblWelfares'></a></td>
+                <td align="center" class="td1" id='hid_iswelfare' style="width: 26px;"><a id='vewIswelfare'></a></td>
                 <td align="center" class="td2" id='hid_stay_money' style="width: 100px;"><a id='lblStay_moneys'></a></td>
-                <td align="center" class="td1" style="width: 100px;"><a id='lblRaise_nums'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblMinuss'></a></td>
+                <td align="center" class="td1" id='hid_raise_num' style="width: 100px;"><a id='lblRaise_nums'></a></td>
+                <td align="center" class="td2" id='hid_minus' style="width: 100px;"><a id='lblMinuss'></a></td>
                 <td align="center" class="td2" style="width: 100px;"><a id='lblTotal4s'></a></td>
                 <td align="center" class="td2" style="width: 100px;"><a id='lblTotal5s'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblCh_labor1s'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblCh_labor2s'></a></td>
-                <td align="center" class="td2" style="width: 100px;"><a id='lblCh_health_insures'></a></td>
+                <td align="center" class="td2" id='hid_ch_labor1' style="width: 100px;"><a id='lblCh_labor1s'></a></td>
+                <td align="center" class="td2" id='hid_ch_labor2' style="width: 100px;"><a id='lblCh_labor2s'></a></td>
+                <td align="center" class="td2" id='hid_health_insures' style="width: 100px;"><a id='lblCh_health_insures'></a></td>
                 <td align="center" class="td2" style="width: 150px;"><a id='lblMemo'></a></td>
             </tr>
             <tr  id="trSel.*">
@@ -1260,42 +1647,42 @@
                 <td id='hid_money.*'><input class="txt num c1" id="txtMoney.*" type="text" /></td>
                 <td id='hid_daymoney.*'><input class="txt num c1" id="txtDaymoney.*" type="text" /></td>
                 <td id='hid_pubmoney.*'><input class="txt num c1" id="txtPubmoney.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtBo_admin.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtBo_traffic.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtBo_special.*" type="text"/></td>
-                <td ><input class="txt num c1" id="txtBo_oth.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtPlus.*" type="text" /></td>
+                <td id='hid_bo_admin.*'><input class="txt num c1" id="txtBo_admin.*" type="text" /></td>
+                <td id='hid_bo_traffic.*'><input class="txt num c1" id="txtBo_traffic.*" type="text" /></td>
+                <td id='hid_bo_special.*'><input class="txt num c1" id="txtBo_special.*" type="text"/></td>
+                <td id='hid_bo_oth.*'><input class="txt num c1" id="txtBo_oth.*" type="text" /></td>
+                <td id='hid_plus.*'><input class="txt num c1" id="txtPlus.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtTotal1.*" type="text" /></td>
                 <td id='hid_day.*'><input class="txt num c1" id="txtDay.*" type="text" /></td>
                 <td id='hid_mtotal.*'><input class="txt num c1" id="txtMtotal.*" type="text" /></td>
                 <td id='hid_mi_saliday.*'><input class="txt num c1" id="txtMi_saliday.*" type="text" /></td>
                 <td id='hid_mi_total.*'><input class="txt num c1" id="txtMi_total.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtLate.*" type="text" /></td>
-                <td class="td2"><input class="txt num c3" id="txtHr_sick.*" type="text" />HR</td> 
-                <td class="td2">&#36; <input class="txt num c2" id="txtMi_sick.*" type="text" /></td>
-                <td class="td2"><input class="txt num c3" id="txtHr_person.*" type="text" />HR</td>
-                <td class="td2">&#36; <input class="txt num c2" id="txtMi_person.*" type="text"/></td>
-                <td class="td2"><input class="txt num c3" id="txtHr_nosalary.*" type="text" />HR</td>
-                <td class="td2">&#36;<input class="txt num c2" id="txtMi_nosalary.*" type="text" /></td>
-                <td class="td2"><input class="txt num c3" id="txtHr_leave.*" type="text" />HR</td>
-                <td class="td2">&#36;<input class="txt c2" id="txtMi_leave.*" type="text" /></td>
+                <td id='hid_late.*'><input class="txt num c1" id="txtLate.*" type="text" /></td>
+                <td id='hid_hr_sick.*' class="td2"><input class="txt num c3" id="txtHr_sick.*" type="text" />HR</td> 
+                <td id='hid_mi_sick.*' class="td2">&#36; <input class="txt num c2" id="txtMi_sick.*" type="text" /></td>
+                <td id='hid_hr_person.*' class="td2"><input class="txt num c3" id="txtHr_person.*" type="text" />HR</td>
+                <td id='hid_mi_person.*' class="td2">&#36; <input class="txt num c2" id="txtMi_person.*" type="text"/></td>
+                <td id='hid_hr_nosalary.*' class="td2"><input class="txt num c3" id="txtHr_nosalary.*" type="text" />HR</td>
+                <td id='hid_mi_nosalary.*' class="td2">&#36;<input class="txt num c2" id="txtMi_nosalary.*" type="text" /></td>
+                <td id='hid_hr_leave.*' class="td2"><input class="txt num c3" id="txtHr_leave.*" type="text" />HR</td>
+                <td id='hid_mi_leave.*' class="td2">&#36;<input class="txt c2" id="txtMi_leave.*" type="text" /></td>
                 <td id='hid_bo_born.*'><input class="txt num c1" id="txtBo_born.*" type="text" /></td>
                 <td id='hid_bo_night.*'><input class="txt num c1" id="txtBo_night.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtBo_full.*" type="text"/></td>
+                <td id='hid_bo_full.*'><input class="txt num c1" id="txtBo_full.*" type="text"/></td>
                 <td id='hid_bo_duty.*'><input class="txt num c1" id="txtBo_duty.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtTax_other.*" type="text"/></td>
+                <td id='hid_tax_other.*'><input class="txt num c1" id="txtTax_other.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtTotal2.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtOstand.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtAddh2_1.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtAddh2_2.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtAddmoney.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtAddh100.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtAddh46_1.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtAddh46_2.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtTax_other2.*" type="text"/></td>
+                <td id='hid_ostand.*'><input class="txt num c1" id="txtOstand.*" type="text" /></td>
+                <td id='hid_addh2_1.*'><input class="txt num c1" id="txtAddh2_1.*" type="text" /></td>
+                <td id='hid_addh2_2.*'><input class="txt num c1" id="txtAddh2_2.*" type="text" /></td>
+                <td id='hid_addmoney.*'><input class="txt num c1" id="txtAddmoney.*" type="text" /></td>
+                <td id='hid_addh100.*'><input class="txt num c1" id="txtAddh100.*" type="text" /></td>
+                <td id='hid_addh46_1.*'><input class="txt num c1" id="txtAddh46_1.*" type="text" /></td>
+                <td id='hid_addh46_2.*'><input class="txt num c1" id="txtAddh46_2.*" type="text" /></td>
+                <td id='hid_tax_other2.*'><input class="txt num c1" id="txtTax_other2.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtTotal3.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtBorrow.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtCh_labor.*" type="text" /></td>
+                <td id='hid_borrow.*'><input class="txt num c1" id="txtBorrow.*" type="text" /></td>
+                <td id='hid_ch_labor.*'><input class="txt num c1" id="txtCh_labor.*" type="text" /></td>
                 <td id='hid_chgcash.*'><input class="txt num c1" id="txtChgcash.*" type="text" /></td>
                 <td id='hid_tax6.*'><input class="txt num c1" id="txtTax6.*" type="text" /></td>
                 <td id='hid_stay_tax.*'><input class="txt num c1" id="txtStay_tax.*" type="text" /></td>
@@ -1303,25 +1690,30 @@
                 <td id='hid_tax18.*'><input class="txt num c1" id="txtTax18.*" type="text" /></td>
                 <td id='hid_ch_labor_comp.*'><input class="txt num c1" id="txtCh_labor_comp.*" type="text" /></td>
                 <td id='hid_ch_labor_self.*'><input class="txt num c1" id="txtCh_labor_self.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtCh_health.*" type="text" /></td>
+                <td id='hid_ch_health.*'><input class="txt num c1" id="txtCh_health.*" type="text" /></td>
                 <td id='hid_lodging_power_fee.*'><input class="txt num c1" id="txtLodging_power_fee.*" type="text" /></td>
                 <td id='hid_tax.*'><input class="txt num c1" id="txtTax.*" type="text" /></td>
                 <td id='hid_tax5.*'><input class="txt num c1" id="txtTax5.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtWelfare.*" type="text" /></td>
-                <td ><input id="chkIswelfare.*" type="checkbox"/></td>
+                <td id='hid_welfare.*'><input class="txt num c1" id="txtWelfare.*" type="text" /></td>
+                <td id='hid_iswelfare.*'><input id="chkIswelfare.*" type="checkbox"/></td>
                 <td id='hid_stay_money.*'><input class="txt num c1" id="txtStay_money.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtRaise_num.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtMinus.*" type="text" /></td>
+                <td id='hid_raise_num.*'><input class="txt num c1" id="txtRaise_num.*" type="text" /></td>
+                <td id='hid_minus.*'><input class="txt num c1" id="txtMinus.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtTotal4.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtTotal5.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtCh_labor1.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtCh_labor2.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtCh_health_insure.*" type="text" /></td>
+                <td id='hid_ch_labor1.*'><input class="txt num c1" id="txtCh_labor1.*" type="text" /></td>
+                <td id='hid_ch_labor2.*'><input class="txt num c1" id="txtCh_labor2.*" type="text" /></td>
+                <td id='hid_health_insures.*'><input class="txt num c1" id="txtCh_health_insure.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
            </tr>
         </table>
         </div>
         </div>
+        <input id="btnHidesalary" type="button" style="width: auto;font-size: medium;"/>
+        <input id="btnHideday" type="button" style="width: auto;font-size: medium;"/>
+        <input id="btnHideaddmoney" type="button" style="width: auto;font-size: medium;"/>
+        <input id="btnHidetotal4" type="button" style="width: auto;font-size: medium;"/>
+        <input id="btnHidesalaryinsure" type="button" style="width: auto;font-size: medium;"/>
         <input id="q_sys" type="hidden" />
 </body>
 </html>

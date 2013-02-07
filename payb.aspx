@@ -15,7 +15,6 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            q_desc = 1
             q_tables = 's';
             var q_name = "payb";
             var q_readonly = ['txtVccno','txtAccno','txtNoa', 'txtMoney', 'txtTax', 'txtDiscount', 'txtTotal', 'txtWorker','txtUnpay','txtPayed'];
@@ -28,7 +27,8 @@
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'Datea';
+            brwKey = 'Noa';
+            q_desc = 1;
             //ajaxPath = "";
             aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
             , ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
@@ -293,7 +293,7 @@
                 	}
                 }
                 
-                if(yufu)
+                if(yufu &&$('#txtPayc').val().indexOf('預付')==-1)
                 	$('#txtPayc').val($('#txtPayc').val()+' 預付');
 				
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
