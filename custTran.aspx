@@ -28,6 +28,7 @@
             brwCount2 = 20;
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(['txtInvestdate', 'lblInvest', 'invest', 'datea,investmemo', 'txtInvestdate,txtInvestmemo', 'invest_b.aspx']
+            , ['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtCust2', 'cust_b.aspx']
             , ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
             , ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx']
             , ['txtGrpno', 'lblCust', 'cust', 'noa,comp', 'txtGrpno,txtGrpname', 'cust_b.aspx'])
@@ -438,6 +439,11 @@
 					<tr>
 						<td><span> </span><a id='lblMobile' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtMobile" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblCust2' class="lbl btn" title="請款立帳輸入發票時,判斷銷貨客戶用。"> </a></td>
+						<td colspan="2">
+							<input id="txtCustno2" type="text" style="float:left;width:40%;"/>
+							<input id="txtCust2" type="text" style="float:left;width:60%;"/>
+						</td>	
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblConn" class="lbl btn" > </a></td>
