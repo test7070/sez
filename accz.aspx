@@ -17,8 +17,8 @@
         var q_name="accz";
         var q_readonly = ['txtYear_depl','txtTotal'];
         var bbmNum = [];
-        //var bbmNum = [['txtMoney',14, 0, 1],['txtFixmoney',14, 0, 1],['txtAccumulat',14, 0, 1],['txtYear_depl',14, 0, 1],['txtEndvalue',14, 0, 1],['txtTotal',14, 0, 1],['txtScrapvalue',14, 0, 1]]; 
-        var bbmMask = []; 
+        var bbmNum = [['txtMoney',14, 0, 1],['txtFixmoney',14, 0, 1],['txtAccumulat',14, 0, 1],['txtYear_depl',14, 0, 1],['txtEndvalue',14, 0, 1],['txtTotal',14, 0, 1],['txtScrapvalue',14, 0, 1]]; 
+        //var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
         aPop = new Array(
@@ -73,12 +73,13 @@
             		$(this).val(s1 + '.');
             })
             $('#txtMoney').change(function(){
-            	if($(this).val() != 0 && $('#txtFixmoney').val() > 0 )
+            	if(q_float('txtMoney') != 0 && q_float('txtFixmoney') > 0 )
             		alert(q_getMsg('lblMoney') + ' ' + q_getMsg('lblFixmoney') + '不可同時存在。');
+            		
             	sum();
             })
             $('#txtFixmoney').change(function(){
-            	if($(this).val() !=0 && $('#txtMoney').val() > 0)
+            	if(q_float('txtFixmoney') !=0 && q_float('txtMoney') > 0)
             		alert(q_getMsg('lblMoney') + ' ' + q_getMsg('lblFixmoney') + '不可同時存在。');
             	sum();
             })
@@ -110,11 +111,11 @@
         }
 		function sum(){
 			var endvalue = 0;
-			var money = parseFloat(trim($('#txtMoney').val()),10);
-			var fixmoney = parseFloat(trim($('#txtFixmoney').val()),10);
-			var year = parseFloat(trim($('#txtYear').val()),10);
-			var accumulat = parseFloat(trim($('#txtAccumulat').val()),10);
-			var year_depl = parseFloat(trim($('#txtYear_depl').val()),10);
+			var money = q_float('txtMoney');
+			var fixmoney = q_float('txtFixmoney');
+			var year = q_float('txtYear');
+			var accumulat = q_float('txtAccumulat');
+			var year_depl = q_float('txtYear_depl');
 			var total = 0;
 			if(year > 0 && !($('#chkIsdepl')[0].checked==true)){
 				endvalue = (money + fixmoney)/(year+1);
