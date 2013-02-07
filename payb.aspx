@@ -15,7 +15,6 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            q_desc = 1
             q_tables = 's';
             var q_name = "payb";
             var q_readonly = ['txtVccno','txtAccno','txtNoa', 'txtMoney', 'txtTax', 'txtDiscount', 'txtTotal', 'txtWorker','txtUnpay','txtPayed'];
@@ -28,7 +27,8 @@
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'Datea';
+            brwKey = 'Noa';
+            q_desc = 1;
             //ajaxPath = "";
             aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
             , ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
