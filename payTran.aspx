@@ -778,7 +778,7 @@
                         <input id="txtComp"  type="text" class="txt c5" />
 						</td>
 						<td class="td4">
-							<input type="button" id="btnRc2no" class="txt c1 " />
+							<!--<input type="button" id="btnRc2no" class="txt c1 " />-->
 						</td>
 						<td class="5">
 						<input type="button" id="btnVcc" class="txt c1 " />
