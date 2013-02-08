@@ -19,8 +19,8 @@
             var q_name = "giftsend";
             var q_readonly = ['txtWorker'];
             var q_readonlys = [];
-            var bbmNum = [];
-            var bbsNum = [];
+            var bbmNum = new Array(['txtPrice', 10, 0, 1],['txtTotal',10,0,1]);
+            var bbsNum = new Array(['txtPrice', 10, 0, 1]);
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -30,6 +30,8 @@
             brwKey = 'noa';
             aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'Acomp_b.aspx'],
             ['txtCustno', 'lblCustno', 'giftCust', 'noa,custnamea', 'txtCustno,txtNamea', 'giftcust_b.aspx'],
+            ['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+            ['txtCustno_', 'btnCustno_', 'giftcust', 'noa,namea', 'txtCustno_,txtNamea_', 'giftcust_b.aspx'],
             ['txtGiftno', 'lblGiftno', 'bcc', 'noa,product', 'txtGiftno,txtGift', 'bcc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -340,13 +342,15 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width�G25%;color:black;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width�G55%;color:black;"><a id='vewComp'> </a></td>
+						<td align="center" style="width:25%;color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:25%;color:black;"><a id='vewFestival'> </a></td>
+						<td align="center" style="width:40%;color:black;"><a id='vewSales'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="noa" style="text-align: center;">~noa</td>
-						<td id="comp" style="text-align: center;">~comp</td>
+						<td id="festival" style="text-align: center;">~festival</td>
+						<td id="sales" style="text-align: center;">~sales</td>
 					</tr>
 				</table>
 			</div>
@@ -368,7 +372,7 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtDatea" class="txt c1"/>	</td>
-						<td class="td1"><span> </span><a id='lblFestival' class="lbl btn"> </a></td>
+						<td class="td1"><span> </span><a id='lblFestival' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtFestival" class="txt c1"/></td>	
 					</tr>
 					<tr>
@@ -378,13 +382,31 @@
 						</td>
 					</tr>
 					<tr>
+						<td class="td1"><span> </span><a id='lblSalesno' class="lbl btn"> </a></td>
+						<td class="td2" colspan="2"><input type="text" id="txtSalesno" class="txt c2"/>
+							<input type="text" id="txtSales" class="txt c3"/>
+						</td>
+					</tr>
+					<tr>
 						<td class="td1"><span> </span><a id='lblGiftno' class="lbl btn"> </a></td>
-						<td class="td2"><input id="txtGiftno" type="text" class="txt c2"/>
+						<td class="td2" colspan="2"><input id="txtGiftno" type="text" class="txt c2"/>
 						<input id="txtGift" type="text"  class="txt c3"/></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblTotal' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtTotal" class="txt num c1"/></td>	
+						<td class="td1"><span> </span><a id='lblUpname' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtUpname" class="txt c1"/></td>
+						<td class="td3"><span> </span><a id='lblDownname' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtDownname" class="txt c1"/></td>	
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblPrice' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtPrice" class="txt num c1"/></td>
+						<td class="td3"><span> </span><a id='lblTotal' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtTotal" class="txt num c1"/></td>	
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
+						<td class="td2" colspan="5"><input type="text" id="txtMemo" class="txt num c1"/></td>	
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
@@ -399,9 +421,11 @@
 					<td  align="center" style="width: 2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
+					<td align="center" style="width:20%;"><a id='lblCust_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width:10%;"><a id='lblReceiver_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -409,9 +433,14 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
+					<td><input id="txtCustno.*" type="text" style="width: 65%;"/>
+						<input id="btnCustno.*" type="button" value="." style="width: 20%;"/>
+						<input id="txtNamea.*" type="text" style="width: 95%;"/>
+					</td>
 					<td><input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtUnit.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtPrice.*" type="text" style="width: 95%;text-align: right;"/></td>
+					<td><input id="txtReceiver.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtMemo.*" type="text" style="width: 95%;"/></td>
 				</tr>
 			</table>
