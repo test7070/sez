@@ -157,7 +157,7 @@
 						else
 							t_where2 = " where[2]=^^ 1=1 ^^";
 							
-							t_where3 = " where[3]=^^ c.noa='" + $('#txtCustno').val() + "' ";
+							t_where3 = " where[3]=^^ c.noa='" + $('#txtCustno').val() + "' and ((b.outdate='' and b.suspdate='' and b.enddate='') or a.total!=0)";
 
                         	
                         if (!emp($('#txtCustno2').val())) {
