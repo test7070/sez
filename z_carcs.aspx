@@ -176,12 +176,16 @@
 						},{
                         type : '5',
                         name : 'xinterval',
-                        value :[q_getPara('report.all')].concat(new Array("上期","中期","下期"))
+                        value :[q_getPara('report.all')].concat(q_getPara('carcsa.interval').split(','))
                     }, {/*13*/
 							type : '5',
-							name : 'cno',
+							name : 'xcno',
 							value : [q_getPara('report.all')].concat(t_data.data['acomp'].split(','))
-						}]
+						},{
+                        type : '0',
+                        name : 'cinterval',
+                        value : q_getPara('carcsa.interval')
+                    }]
 					});
 					q_popAssign();
 					q_langShow();

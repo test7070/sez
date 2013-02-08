@@ -24,7 +24,7 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Noa';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
-		aPop = new Array(['txtSssno_', 'lblSssno', 'sss', 'noa,namea', 'txtSssno_,txtNamea_', 'sss_b.aspx']
+		aPop = new Array(['txtSssno_', 'lblSssno', 'sss', 'noa,namea,partno,part,jobno,job,indate', 'txtSssno_,txtNamea_,txtPartno_,txtPart_,txtJobno_,txtJob_,txtIndate_', 'sss_b.aspx']
 				,['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
 		q_desc=1;
         $(document).ready(function () {
@@ -530,9 +530,12 @@
             	//獎金合計=考績獎金+年終獎金+績效獎金
             	q_tr('txtTotal8_'+j,q_float('txtTotal5_'+j)+q_float('txtTotal6_'+j)+q_float('txtTotal7_'+j));
             	//發放金額
-            	q_tr('txtFirstmoney_'+j,q_float('txtTotal8_'+j)/2);
-            	q_tr('txtSecondmoney_'+j,q_float('txtTotal8_'+j)/2);
-            	
+            	if($('#txtPart').val()=='運輸部' || $('#txtPart').val()=='中鋼辦公室' ||$('#txtPart').val()=='特支')
+            		q_tr('txtFirstmoney_'+j,q_float('txtTotal8_'+j));
+            	else{
+            		q_tr('txtFirstmoney_'+j,q_float('txtTotal8_'+j)/2);
+            		q_tr('txtSecondmoney_'+j,q_float('txtTotal8_'+j)/2);
+            	}
 				t_total+=dec($('#txtTotal8_'+j).val());
             }  // j
             q_tr('txtTotal',t_total);
@@ -550,8 +553,12 @@
             for (var j = 0; j < q_bbsCount; j++) {
             	q_tr('txtTotal8_'+j,q_float('txtTotal5_'+j)+q_float('txtTotal6_'+j)+q_float('txtTotal7_'+j));
             	//發放金額
-            	q_tr('txtFirstmoney_'+j,q_float('txtTotal8_'+j)/2);
-            	q_tr('txtSecondmoney_'+j,q_float('txtTotal8_'+j)/2);
+            	if($('#txtPart').val()=='運輸部' || $('#txtPart').val()=='中鋼辦公室' ||$('#txtPart').val()=='特支')
+            		q_tr('txtFirstmoney_'+j,q_float('txtTotal8_'+j));
+            	else{
+            		q_tr('txtFirstmoney_'+j,q_float('txtTotal8_'+j)/2);
+            		q_tr('txtSecondmoney_'+j,q_float('txtTotal8_'+j)/2);
+            	}
 				t_total+=dec($('#txtTotal8_'+j).val());
             }  // j
             q_tr('txtTotal',t_total);
@@ -560,8 +567,12 @@
             var t_total= 0;
             for (var j = 0; j < q_bbsCount; j++) {
             	//發放金額
-            	q_tr('txtFirstmoney_'+j,q_float('txtTotal8_'+j)/2);
-            	q_tr('txtSecondmoney_'+j,q_float('txtTotal8_'+j)/2);
+            	if($('#txtPart').val()=='運輸部' || $('#txtPart').val()=='中鋼辦公室' ||$('#txtPart').val()=='特支')
+            		q_tr('txtFirstmoney_'+j,q_float('txtTotal8_'+j));
+            	else{
+            		q_tr('txtFirstmoney_'+j,q_float('txtTotal8_'+j)/2);
+            		q_tr('txtSecondmoney_'+j,q_float('txtTotal8_'+j)/2);
+            	}
 				t_total+=dec($('#txtTotal8_'+j).val());
             }  // j
             q_tr('txtTotal',t_total);

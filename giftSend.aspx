@@ -28,9 +28,9 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,comp', 'txtCno,txtAcomp', 'Acomp_b.aspx'],
-            ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
-            ['txtGiftno_', 'btnGiftno_', 'bcc', 'noa,product', 'txtGiftno_,txtGift_', 'bcc_b.aspx']);
+            aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'Acomp_b.aspx'],
+            ['txtCustno', 'lblCustno', 'giftCust', 'noa,custnamea', 'txtCustno,txtNamea', 'giftcust_b.aspx'],
+            ['txtGiftno', 'lblGiftno', 'bcc', 'noa,product', 'txtGiftno,txtGift', 'bcc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -367,23 +367,20 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtDatea" class="txt c1"/>	</td>	
+						<td class="td2"><input type="text" id="txtDatea" class="txt c1"/>	</td>
+						<td class="td1"><span> </span><a id='lblFestival' class="lbl btn"> </a></td>
+						<td class="td2"><input type="text" id="txtFestival" class="txt c1"/></td>	
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCno' class="lbl btn"> </a></td>
 						<td class="td2" colspan="2"><input type="text" id="txtCno" class="txt c2"/>
 							<input type="text" id="txtAcomp" class="txt c3"/>
-						</td>	
-						<td class="td1"><span> </span><a id='lblConsigner' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtConsigner" class="txt c1"/>	</td>
+						</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
-						<td class="td2" colspan="2"><input type="text" id="txtCustno" class="txt c2"/>
-							<input type="text" id="txtComp" class="txt c3"/>
-						</td>
-						<td class="td1"><span> </span><a id='lblReceiver' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtReceiver" class="txt c1"/>	</td>	
+						<td class="td1"><span> </span><a id='lblGiftno' class="lbl btn"> </a></td>
+						<td class="td2"><input id="txtGiftno" type="text" class="txt c2"/>
+						<input id="txtGift" type="text"  class="txt c3"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblTotal' class="lbl"> </a></td>
@@ -402,7 +399,6 @@
 					<td  align="center" style="width: 2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:25%;"><a id='lblGiftno_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblUnit_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblPrice_s'> </a></td>
@@ -412,10 +408,6 @@
 					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
-					</td>
-					<td><input id="txtGiftno.*" type="text" style="width: 50%;"/>
-						<input id="btnGiftno.*" type="button" value="." />
-						<input id="txtGift.*" type="text" style="width: 95%;" />
 					</td>
 					<td><input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtUnit.*" type="text" style="width: 95%;"/></td>
