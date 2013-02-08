@@ -32,11 +32,11 @@
             bbsKey = ['noa', 'noq'];
             q_brwCount();  // 計算 合適  brwCount 
             
-            if(r_rank>=8)           
-            	q_gt(q_name, q_content, q_sqlCount, 1)
-            else{
-            	q_gt('sss', "where=^^noa='" + r_userno + "'^^", q_sqlCount, 1)
+            if(r_rank<8){
+            	q_content = "where=^^workerno='" + r_userno+ "'^^";
+            	//q_gt('sss', "where=^^noa='" + r_userno + "'^^", q_sqlCount, 1)
             }
+            q_gt(q_name, q_content, q_sqlCount, 1)
         });
 
         //////////////////   end Ready
@@ -56,9 +56,9 @@
             
             $('#btnImport').click(function() {
             	if(r_rank==9)//總事長評量副總
-            		var t_where = "where=^^ (partno ='02' and jobno='02' and noa!='Z001' and noa!='010132' ) ^^";
+            		var t_where = "where=^^ (partno ='02' and jobno='02') ^^";
             	else if(r_rank==8)//副總評量各主管(含監理部經理)以及部門以下員工
-            		var t_where = "where=^^ ((partno ='"+$('#txtPartno').val()+"' and noa!='"+r_userno+"' ) or jobno<='03' or (partno='07' and jobno<='04'))   and noa!='Z001' and noa!='010132'^^";
+            		var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or jobno<='03' or (partno='07' and jobno<='04')) and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
             	else{
             		if($('#txtPartno').val()=='03')//財務部跟內帳部一起
             			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='04') and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
@@ -85,13 +85,13 @@
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
             	case 'sss':
-            		if(q_cur==0){
+            		/*if(q_cur==0){
             			var as = _q_appendData("sss", "", true);
             			q_content = "where=^^partno='" + as[0].partno + "'^^";
             			r_partno=as[0].partno;
             			r_part=as[0].part;
             			q_gt(q_name, q_content, q_sqlCount, 1);
-            		}
+            		}*/
             		if(q_cur==1 || q_cur==2){
             			var as = _q_appendData("sss", "", true);
             			q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtPartno,txtPart,txtJobno,txtJob', as.length, as, 'noa,namea,partno,part,jobno,job', '');
@@ -110,7 +110,7 @@
                 alert(t_err);
                 return;
             }
-
+			$('#txtWorkerno').val(r_userno);
             $('#txtWorker').val(r_name);
             sum();
 
@@ -253,7 +253,7 @@
         function btnIns() {
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-            $('#txtYear').val(dec(q_date().substr(0,3))-1);
+            $('#txtYear').val(q_date().substr(0,3));
             $('#txtDatea').val(q_date());
             $('#txtPartno').val(r_partno);
             $('#txtPart').val(r_part);
@@ -266,7 +266,7 @@
             $('#txtPartno').focus();
         }
         function btnPrint() {
-
+			q_box('z_salexam.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
         }
 
         function wrServer(key_value) {
@@ -548,7 +548,7 @@
         <tr>
             <td class="td1"><span> </span><a id="lblWorker" class="lbl"></a></td>
             <td class="td2">
-            	<input id="txtWorker" type="text" class="txt c1"/></td>
+            	<input id="txtWorker" type="text" class="txt c1"/><input id="txtWorkerno" type="hidden" class="txt c1"/></td>
         </tr>
         </table>
         </div>
