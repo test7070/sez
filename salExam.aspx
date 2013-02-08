@@ -24,7 +24,7 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
-		aPop = new Array(['txtSssno_', 'lblSssno', 'sss', 'noa,namea', 'txtSssno_,txtNamea_', 'sss_b.aspx']
+		aPop = new Array(['txtSssno_', 'lblSssno', 'sss', 'noa,namea,partno,part,jobno,job,', 'txtSssno_,txtNamea_,txtPartno_,txtPart_,txtJobno_,txtJob_', 'sss_b.aspx']
 				,['txtPartno', 'lblPart', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx']);
 		q_desc=1;
         $(document).ready(function () {
@@ -94,7 +94,7 @@
             		}
             		if(q_cur==1 || q_cur==2){
             			var as = _q_appendData("sss", "", true);
-            			q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtPart', as.length, as, 'noa,namea,part', '');
+            			q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtPartno,txtPart,txtJobno,txtJob', as.length, as, 'noa,namea,partno,part,jobno,job', '');
             		}
             		break;
                 case q_name: 
@@ -504,7 +504,7 @@
             COLOR: blue ;
             TEXT-ALIGN: left;
              BORDER:1PX LIGHTGREY SOLID;
-           width: 1500px;
+           width: 1700px;
         }     
     </style>
 </head>
@@ -559,6 +559,8 @@
                 <td align="center" style="width:30px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
                 <td align="center" style="width:120px;"><a id='lblSssno_s'> </a></td>
                 <td align="center" style="width:120px;"><a id='lblNamea_s'> </a></td>
+                <td align="center" style="width:120px;"><a id='lblPart_s'> </a></td>
+                <td align="center" style="width:120px;"><a id='lblJob_s'> </a></td>
                 <td align="center" style="width:110px;"><a id='lblEfficiency_s'></a><br>(6-20)</td>
                 <td align="center" style="width:110px;"><a id='lblDuty_s'></a><br>(5-15)</td>
                 <td align="center" style="width:140px;"><a id='lblAb_incoo_s'> </a><br>(5-15)</td>
@@ -576,6 +578,8 @@
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input  id="txtSssno.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtNamea.*" type="text" class="txt c1"/></td>
+                <td ><input  id="txtPart.*" type="text" class="txt c1"/><input  id="txtPartno.*" type="hidden" class="txt c1"/></td>
+                <td ><input  id="txtJob.*" type="text" class="txt c1"/><input  id="txtJobno.*" type="hidden" class="txt c1"/></td>
                 <td ><input  id="txtEfficiency.*" type="text" class="txt num c1"/></td>
                 <td ><input  id="txtDuty.*" type="text" class="txt num c1" /></td>
                 <td ><input  id="txtAb_incoo.*" type="text" class="txt num c1" /></td>
