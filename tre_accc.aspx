@@ -68,15 +68,15 @@
 				});*/
 				
 		        $('#lblAccno1').click(function () {
-		            q_pop('txtAccno1', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno1').val() + "';" + $('#txtEdate').val().substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+		            q_pop('txtAccno1', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno1').val() + "';" + $('#txtDatea').val().substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 		            //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
 		        });
 		        $('#lblAccno2').click(function () {
-		            q_pop('txtAccno2', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + $('#txtEdate').val().substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+		            q_pop('txtAccno2', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + $('#txtDatea').val().substr(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 		            //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
 		        });
 		        $('#lblAccno3').click(function () {
-		            q_pop('txtAccno3', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno3').val() + "';" + $('#txtEdate').val().substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+		            q_pop('txtAccno3', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno3').val() + "';" + $('#txtDatea').val().substr(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 		            //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
 		        });
 
@@ -586,7 +586,7 @@
 					</tr>
 					<tr class="tr9">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td class="td2" colspan="5"><textarea id="txtMemo" cols="5" rows="10" style="width: 98%;height: 50px;"> </textarea></td>
+						<td class="td2" colspan="5"><textarea id="txtMemo" cols="5" rows="10" style="width: 98%;height: 150px;"> </textarea></td>
 						<td class="td7" ><input id="btnGqb" type="button" />
 										 <input id="btnBank" type="button" />
 										 <input id="btnBank2" type="button" />
@@ -598,4 +598,5 @@
 		<input id="q_sys" type="hidden" />
 	</body>
 </html>
+
 

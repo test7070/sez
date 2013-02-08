@@ -400,7 +400,7 @@
            				});
            				$('#txtOutmoney_'+j).change(function () {
            					sum();
-           				}).blur(function() {
+           				//}).blur(function() {
            					t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
@@ -409,7 +409,7 @@
 						
            				$('#txtInmoney_'+j).change(function () {
            					sum();
-           				}).blur(function() {
+           				//}).blur(function() {
            					t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
@@ -445,6 +445,12 @@
 						}
 					}
                 }
+                 for(var j = 0; j < q_bbsCount; j++) {
+                 	if($('#txtDatea_'+j).val()==''){
+                 		$('#txtDatea_'+j).focus();
+                 		break;
+                 	}
+                 }
             }
 
             function btnIns() {

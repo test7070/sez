@@ -384,13 +384,17 @@
 						<td class="td6"><input type="text" id="txtJob" class="txt c1"/></td>	
 					</tr>
 					<tr class="tr4">
-						<td class="td1"><span> </span><a id='lblCusttype' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtCusttype" class="txt c1"/>	</td>
-						<td class="td1"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
-						<td class="td2" colspan="2"><input type="text" id="txtCustno" class="txt c2"/><input type="text" id="txtComp" class="txt c3"/></td>						
+						<td class="td1"><span> </span><a id='lblClass' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtClass" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblCusttype' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtCusttype" class="txt c1"/>	</td>
+					</tr>
+					<tr class="tr5">
+						<td class="td3"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
+						<td class="td4" colspan="2"><input type="text" id="txtCustno" class="txt c2"/><input type="text" id="txtComp" class="txt c3"/></td>						
 					</tr>
 					
-					<tr class="tr5">
+					<tr class="tr6">
 						<td class="td1"><span> </span><a id='lblSex' class="lbl"> </a></td>
 						<td class="td2"><select id="cmbSex" class="txt c1"> </select></td>
 						<td class="td3"><span> </span><a id='lblBirthday' class="lbl"> </a></td>
@@ -398,38 +402,38 @@
 						<td class="td5"><span> </span><a id='lblAge' class="lbl"> </a></td>
 						<td class="td6"><input type="text" id="txtAge" class="txt c1"/></td>	
 					</tr>
-					<tr class="tr6">
+					<tr class="tr7">
 						<td class="td1"><span> </span><a id='lblLikes' class="lbl"> </a></td>
 						<td class="td2" colspan="5"><input type="text" id="txtLikes" class="txt c1"/>	</td>
 					</tr>
-					<tr class="tr7">
+					<tr class="tr8">
 						<td class="td1"><span> </span><a id='lblPersonality' class="lbl"> </a></td>
 						<td class="td2" colspan="5"><input type="text" id="txtPersonality" class="txt c1"/></td>	
 					</tr>
-					<tr class="tr8">
+					<tr class="tr9">
 						<td class="td1"><span> </span><a id='lblTel' class="lbl"> </a></td>
 						<td class="td2" colspan="5"><input type="text" id="txtTel" class="txt c1"/></td>	
 					</tr>	
-					<tr class="tr9">
+					<tr class="tr10">
 						<td class="td1"><span> </span><a id='lblEmail' class="lbl"> </a></td>
 						<td class="td2" colspan="5"><input type="text" id="txtEmail" class="txt c1"/></td>	
 					</tr>
-					<tr class="tr10">
+					<tr class="tr11">
 						<td class="td1"><span> </span><a id='lblAddr_cust' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtZip_cust" class="txt c1"/></td>
 						<td class="td3" colspan="4"><input type="text" id="txtAddr_cust" class="txt c1"/></td>
 					</tr>
-					<tr class="tr11">
+					<tr class="tr12">
 						<td class="td1"><span> </span><a id='lblSendtype' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtSendtype" class="txt c1"/></td>	
 						<td class="td1"><span> </span><a id='lblAccount' class="lbl"> </a></td>
 						<td class="td2"colspan="2"><input type="text" id="txtAccount" class="txt c1"/></td>
 					</tr>
-					<tr class="tr12">
+					<tr class="tr13">
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td class="td2" colspan="5"><input type="text" id="txtMemo" class="txt c1"/></td>
 					</tr>
-					<tr class="tr13">
+					<tr class="tr14">
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtWorker" class="txt c1"/></td>	
 					</tr>
