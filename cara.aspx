@@ -864,7 +864,7 @@
 				text-align: center;
 			}
 			#box{
-				height:320px;
+				height:390px;
 				width: 100%;
 				overflow-y:auto;
 				position:relative;
