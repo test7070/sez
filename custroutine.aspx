@@ -51,6 +51,8 @@
 
             function mainPost() {
                 q_mask(bbmMask);
+        		bbsMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+                q_mask(bbsMask);
                 q_cmbParse("cmbTypea", ','+q_getPara('lab_accc.typea'));
                 $('#cmbTypea').change(function(){
                 	cmbTypea_chg();
@@ -421,6 +423,8 @@
                 <td align="center" style="width:18%"><a id='lblCnos'></a></td>
                 <td align="center" style="width:7%"><a id='lblTaxrates'></a></td>
                 <td align="center" style="width:15%"><a id='lblMemos'></a></td>
+                <td align="center" style="width:7%"><a id='lblBdate'></a></td>
+                <td align="center" style="width:7%"><a id='lblEdate'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
@@ -442,6 +446,9 @@
                 	<input  id="txtMemo.*" type="text" class="txt c1"/>
                 	<input id="txtNoq.*" type="hidden" />
                 </td>
+                <td><input id="txtBdate.*" type="text" class="txt c1"/></td>
+                <td><input id="txtEdate.*" type="text" class="txt c1"/></td>
+                
             </tr>
         </table>
         </div>
