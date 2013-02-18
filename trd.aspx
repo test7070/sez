@@ -377,7 +377,7 @@
                 if (q_cur > 0 && q_cur < 4)
                     return;
 
-                q_box('trd_s.aspx', q_name + '_s', "600px", "400px", q_getMsg("popSeek"));
+                q_box('trd_s.aspx', q_name + '_s', "600px", "450px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
@@ -605,7 +605,7 @@
             }
             .dview {
                 float: left;
-                width: 950px;
+                width: 1080px;
                 border-width: 0px;
             }
             .tview {
@@ -733,16 +733,17 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'></a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewComp'></a></td>
+						<td align="center" style="width:120px; color:black;"><a id='vewComp'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMoney'></a></td>
 						<td align="center" style="width:70px; color:black;"><a id='vewDiscount'></a></td>
 						<td align="center" style="width:70px; color:black;"><a id='vewPlus'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTax'></a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewPlusmoney'></a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewMinusmoney'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewPlusmoney'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMinusmoney'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTotal'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMount'></a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewVccano'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewUnpay'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -750,15 +751,16 @@
 						</td>
 						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='nick' style="text-align: center;">~nick</td>
-						<td id='money' style="text-align: right;">~money</td>
-						<td id='discount' style="text-align: right;">~discount</td>
-						<td id='plus' style="text-align: right;">~plus</td>
-						<td id='tax' style="text-align: right;">~tax</td>
-						<td id='plusmoney' style="text-align: right;">~plusmoney</td>
-						<td id='minusmoney' style="text-align: right;">~minusmoney</td>
-						<td id='total' style="text-align: right;">~total</td>
+						<td id='money,0,1' style="text-align: right;">~money,0,1</td>
+						<td id='discount,0,1' style="text-align: right;">~discount,0,1</td>
+						<td id='plus,0,1' style="text-align: right;">~plus,0,1</td>
+						<td id='tax,0,1' style="text-align: right;">~tax,0,1</td>
+						<td id='plusmoney,0,1' style="text-align: right;">~plusmoney,0,1</td>
+						<td id='minusmoney,0,1' style="text-align: right;">~minusmoney,0,1</td>
+						<td id='total,0,1' style="text-align: right;">~total,0,1</td>
 						<td id='mount' style="text-align: right;">~mount</td>
 						<td id='vccano,10' style="text-align: left;" >~vccano,10</td>
+						<td id='unpay,0,1' style="text-align: right;">~unpay,0,1</td>
 					</tr>
 				</table>
 			</div>
