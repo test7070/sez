@@ -116,6 +116,10 @@
 				$('#txtPlusitemno').blur(function(e) {
 					$('#txtPlusitem').focus();
 				});
+				$('#lblAccno').click(function () {
+	            	q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+	       		});
+
 			}
 			function q_boxClose(s2) {
 				var ret;
@@ -547,7 +551,9 @@
 						<input id="txtWorker"  type="text" class="txt c1" />
 						</td>
 						<td><span> </span><a id='lblTreno' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtTreno"  type="text" class="txt c1" /></td>
+						<td><input id="txtTreno"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
+						<td><input id="txtAccno"  type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
