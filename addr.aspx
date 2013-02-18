@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -21,7 +20,7 @@
             var q_name = "addr";
             var q_readonly = ['txtCustprice', 'txtDriverprice', 'txtDriverprice2', 'txtCommission', 'txtCommission2', 'txtSalesno', 'txtSales'];
             var q_readonlys = [];
-            var bbmNum = [['txtCustprice', 10, 3], ['txtDriverprice', 10, 3], ['txtDriverprice2', 10, 3], ['txtCommission', 10, 3], ['txtCommission2', 10, 3]];
+            var bbmNum = [['txtCustprice', 10, 3], ['txtDriverprice', 10, 3], ['txtDriverprice2', 10, 3], ['txtCommission', 10, 3], ['txtCommission2', 10, 3],['txtMiles',10,0]];
             var bbsNum = [['txtCustprice', 10, 3], ['txtDriverprice', 10, 3], ['txtDriverprice2', 10, 3], ['txtCommission', 10, 3], ['txtCommission2', 10, 3]];
             var bbmMask = [];
             var bbsMask = [];
@@ -386,6 +385,10 @@
 							<input id="txtCaseuseno" type="text" style="float:left; width:40%;"/>
 							<input id="txtCaseuse" type="text" style="float:left; width:60%;"/>
 						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblMiles' class="lbl"> </a></td>
+						<td><input id="txtMiles" type="text"  class="txt c1  num"/>	</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblCurrent' class="lbl"> </a></td>
