@@ -139,14 +139,19 @@
                 //0926改為開啟視窗
                 $('#btnVcc').click(function(e) {
                     //umm_trd();
-                    var t_where2='',t_where3='';
+                    var t_where2='',t_where3='',t_where4='';
                     if (!emp($('#txtCustno').val())) {
                       //  var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
 						t_where = "(a.custno='" + $.trim($('#txtCustno').val()) + "'";
+						t_where3 = " where[3]=^^ (c.noa='" + $('#txtCustno').val() + "' ";
+						t_where4 = " where[4]=^^ (custno='" + $('#txtCustno').val() + "' ";
+						
                         if (!emp($('#txtCustno2').val())) {
                             var t_custno2 = ($('#txtCustno2').val()).split(",");
                             for (var i = 0; i < t_custno2.length; i++) {
                                 t_where += " or a.custno ='" + t_custno2[i] + "'"
+                                t_where3 += " or c.noa ='" + t_custno2[i] + "'"
+                                t_where4 += " or custno ='" + t_custno2[i] + "'"
                             }
                         }
                         t_where+=") and (a.unpay+isnull(b.paysale,0))!=0 ";
@@ -157,37 +162,21 @@
 						else
 							t_where2 = " where[2]=^^ 1=1 ^^";
 							
-							t_where3 = " where[3]=^^ c.noa='" + $('#txtCustno').val() + "' and ((b.outdate='' and b.suspdate='' and b.enddate='') or a.total!=0)";
-
+						t_where3 += " ) and ((b.outdate='' and b.suspdate='' and b.enddate='') or a.total!=0) ^^";
+						t_where4 += " ) order by noa ^^";
                         	
-                        if (!emp($('#txtCustno2').val())) {
-                            var t_custno2 = ($('#txtCustno2').val()).split(",");
-                            for (var i = 0; i < t_custno2.length; i++) {
-                                t_where3 += " or c.noa ='" + t_custno2[i] + "'"
-                            }
-                        }
-                        t_where3+=" order by a.noa^^";
+                       // 最後一個t_whereX 加 order by noa^^";
 
-                       /* var j = 0, s2 = '', s1 = '';
-                        for (var i = 0; i < q_bbsCount; i++) {
-                            if ($.trim($('#txtVccno_' + i).val()).length > 0) {
-                                s2 = s2 + (j == 0 ? "" : " or ") + " noa='" + $('#txtVccno_' + i).val() + "'";
-                                s1 = s1 + (j == 0 ? "" : " or ") + " vccno='" + $('#txtVccno_' + i).val() + "'";
-                                j++;
-                            }
-                        }
-
-                        t_where = t_where + (s2.length > 0 ? " or (" + s2 + ")" : '') + "^^";
-                        t_where1 = t_where1 + (s1.length > 0 ? " or (" + s2 + ")" : '') + "^^";*/
                        t_where += "^^";
                        t_where1 += "^^";
                     } else {
                         t_where = "^^1=0^^";
                         t_where1 = " where[1]=^^1=0^^";
                         t_where2 = " where[2]=^^ 1=1 ^^";
-                        t_where3 = " where[3]=^^ 1=0 order by a.noa^^";
+                        t_where3 = " where[3]=^^ 1=0 ^^";
+                        t_where4 = " where[4]=^^ 1=0 oder by noa ^^";
                     }
-                    q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + t_where1 + t_where2 + t_where3, 'umm_trd', "70%", "600px", q_getMsg('popUmm_trd'));
+                    q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + t_where1 + t_where2 + t_where3+ t_where4, 'umm_trd', "70%", "600px", q_getMsg('popUmm_trd'));
                 });
             }
 

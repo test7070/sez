@@ -29,8 +29,8 @@
 
 				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
+				q_cmbParse("cmbUmm", '@全部,Y@已收完,N@未收完');
 				$('#txtBdate').focus();
-
 			}
 
 			function q_seekStr() {
@@ -41,12 +41,17 @@
 				t_bdate = $('#txtBdate').val();
 				t_edate = $('#txtEdate').val();
 				t_invono = $.trim($('#txtInvono').val());
-
+				t_umm = $.trim($('#cmbUmm').val());
+				
 				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("custno", t_custno) + q_sqlPara2("mon", t_mon) + q_sqlPara2("datea", t_bdate, t_edate);
 				if (t_comp.length > 0)
                     t_where += " and patindex('%" + t_comp + "%',comp)>0";
 				if (t_invono.length > 0)
                     t_where += " and patindex('%" + t_invono + "%',vccano)>0"; 
+                if(t_umm=='Y')
+		       		t_where += " and unpay=0"
+		       	if(t_umm=='N')
+		       		t_where += " and unpay!=0"	
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -56,13 +61,19 @@
 				color: white;
 				text-align: center;
 				font-weight: bold;
-				BACKGROUND-COLOR: #76a2fe
+				background-color: #76a2fe;
 			}
 		</style>
 	</head>
 	<body>
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblUmm'></a></td>
+					<td>
+					<select class="txt" id="cmbUmm" style="width:215px; font-size:medium;"> </select>
+					</td>
+				</tr>
 				<tr class='seek_tr'>
 					<td   style="width:35%;" ><a id='lblDatea'></a></td>
 					<td style="width:65%;  ">
