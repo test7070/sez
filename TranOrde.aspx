@@ -84,6 +84,7 @@
 
             function mainPost() {
                 q_mask(bbmMask);
+                q_cmbParse("cmbContainertype", ('').concat(new Array( '傾卸櫃','平板櫃')));
                 q_cmbParse("cmbStype", q_getPara('vcc.stype'));
                 q_cmbParse("cmbUnit", q_getPara('sys.unit'));
                 $("#cmbStype").focus(function() {
@@ -849,6 +850,20 @@
 						<td><span> </span><a id="lblCasePresent" class="lbl"> </a></td>
 						<td>
 						<input type="text" id="txtCasePresent" class="txt c1"/></td>
+						<td><span> </span><a id="lblProduct2" class="lbl"> </a></td>
+						<td colspan="2">
+						<input type="text" id="txtProduct2" class="txt c1"/> </td>
+						<td> </td>
+						<td> </td>
+					</tr>
+					<tr class="trY">
+						<td> </td>
+						<td><span> </span><a id="lblContainertype" class="lbl"> </a></td>
+						<td>
+						<select id="cmbContainertype" class="txt c1"></select></td>
+						<td><span> </span><a id="lblDocketno" class="lbl"> </a></td>
+						<td>
+						<input type="text" id="txtDocketno" class="txt c1"/> </td>
 						<td> </td>
 						<td> </td>
 						<td> </td>

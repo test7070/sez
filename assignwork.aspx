@@ -28,7 +28,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtCustnick', 'cust_b.aspx'],
+            aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick,conn,conntel', 'txtCustno,txtComp,txtCustnick,txtConn,txtConntel', 'cust_b.aspx'],
             ['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtComp_', 'tgg_b.aspx'],
             ['txtItemno', 'lblItem', 'assignment', 'noa,item', 'txtItemno,txtItem', 'assignment_b.aspx'],
             ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
@@ -406,6 +406,12 @@
 							<input type="text" id="txtComp" style="width: 70%;"/>
 							<input id="txtCustnick"  type="text" style="display: none;"/>
 						</td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblConn' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtConn" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblConntel' class="lbl"> </a></td>
+						<td class="td4" colspan="2"><input type="text" id="txtConntel" class="txt c1"/>	</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblOdate' class="lbl"> </a></td>
