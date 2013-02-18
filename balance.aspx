@@ -62,7 +62,7 @@
             			
 					}
             	} //j
-                _bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
+                _bbsAssign();//_bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
             }
 
             function btnOk() {
@@ -143,6 +143,7 @@
 	</head>
 	<body>
 		<div  id="dbbs"  >
+			<!--#include file="../inc/pop_modi.inc"-->
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
 					<td class="td1" align="center" style="width:1%; max-width:20px;">
@@ -180,7 +181,7 @@
 					</td>
 				</tr>
 			</table>
-			<!--#include file="../inc/pop_modi.inc"-->
+			
 		</div>
 		<input id="q_sys" type="hidden" />
 	</body>

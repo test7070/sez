@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'caras', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
+            var q_name = 'caras', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
             var t_sqlname = 'caras_load';
             t_postname = q_name;
             var isBott = false;
@@ -18,7 +18,7 @@
             var afield, t_htm;
             var i, s1;
             var q_readonly = [];
-            var q_readonlys = [];
+            var q_readonlys = ['txtOutmoney'];
             var bbmNum = [];
             var bbsNum = [['txtOutmoney', 10, 0, 1]];
             var bbmMask = [];
@@ -51,9 +51,10 @@
             }
 
             function bbsAssign() {
-                _bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
+                
                 for(var j = 0; j < q_bbsCount; j++) {
                 }
+                _bbsAssign();//_bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
             }
 
             function btnOk() {
@@ -101,18 +102,19 @@
 	</head>
 	<body>
 		<div  id="dbbs"  >
+			<!--#include file="../inc/pop_modi.inc"-->
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
 				<tr style='color:white; background:#003366;' >
 					<td class="td1" align="center" style="width:1%; max-width:20px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td class="td2" align="center" style="width:7%;"><a id='lblMon'></a></td>
-					<td class="td8" align="center" style="width:40%;"><a id='lblMemo'></a></td>
+					<td class="td8" align="center" style="width:30%;"><a id='lblMemo'></a></td>
 					<td class="td3" align="center" style="width:10%;"><a id='lblOutmoney'></a></td>
 					<td class="td4" align="center" style="width:10%;"><a id='lblPaydate'></a></td>
 					<td class="td5" align="center" style="width:5%;"><a id='lblSheetyn'></a></td>
 					<td class="td6" align="center" style="width:5%;"><a id='lblFareyn'></a></td>
-					<td class="td7" align="center" style="width:10%;"><a id='lblTaxmemo'></a></td>
+					<td class="td7" align="center" style="width:20%;"><a id='lblTaxmemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td class="td1" align="center">
@@ -141,7 +143,7 @@
 					</td>
 				</tr>
 			</table>
-			<!--#include file="../inc/pop_modi.inc"-->
+			
 		</div>
 		<input id="q_sys" type="hidden" />
 	</body>

@@ -11,7 +11,7 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script src="//59.125.143.170/jquery/js/qset.js" type="text/javascript"></script>
 		<script type="text/javascript">
-            var q_name = 'carchange', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
+            var q_name = 'carchange', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
             var t_sqlname = 'carchange_load';
             t_postname = q_name;
             q_alias = 'a';
@@ -54,7 +54,7 @@
             }
 
             function bbsAssign() {
-                _bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
+                _bbsAssign();//_bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
             }
 
             function btnOk() {
@@ -102,6 +102,7 @@
 	</head>
 	<body>
 		<div  id="dbbs"  >
+			<!--#include file="../inc/pop_modi.inc"-->
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
 				<tr style='color:white; background:#003366;' >
 					<td class="td1" align="center" style="width:1%; max-width:20px;">
@@ -152,7 +153,6 @@
 					</td>
 				</tr>
 			</table>
-			<!--#include file="../inc/pop_modi.inc"-->
 		</div>
 		<input id="q_sys" type="hidden" />
 	</body>
