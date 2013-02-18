@@ -144,7 +144,7 @@
 
             function bbsAssign() {
                 for (var j = 0; j < q_bbsCount; j++) {
-                    $('#lblNo_' + j).text(i + 1);
+                    $('#lblNo_' + j).text(j + 1);
                     if (!$('#btnMinus_' + j).hasClass('isAssign')) {
                         $('#txtAcc1_' + j).change(function() {
                             var s1 = trim($(this).val());
