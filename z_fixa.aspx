@@ -63,7 +63,11 @@
 						dbf : 'fixucc',
 						index : 'noa,namea',
 						src : 'fixucc_b.aspx'
-					}]
+                    }, {
+	                    type : '5', //select
+	                    name : 'xorder',
+	                    value : ('車號,司機,維修日期,料名編號').split(',')
+ 					}]
 				});
 				q_popAssign();
 				q_getFormat();
