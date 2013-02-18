@@ -375,6 +375,12 @@
                     alert(q_getMsg('lblMon') + '錯誤。');
                     return;
                 }
+                for (var i = 0; i < q_bbsCount; i++) {
+                	 if ($('#txtIndate_'+i).val().length > 0 && $('#txtIndate_'+i).val().indexOf('_')>-1) {
+                    	alert(q_getMsg('lblIndate') + '錯誤。');
+                    	return;
+                	}
+                }
                 var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 // 檢查空白
                 if (t_err.length > 0) {

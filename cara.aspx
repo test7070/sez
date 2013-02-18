@@ -18,7 +18,7 @@
             q_tables = 's';
             var q_name = "cara";
             var q_readonly = ['txtNoa','txtIprev','txtInterest','txtItotal','txtTotal','txtPaytotal','txtBprev','txtBin','txtBtotal','txtAccno'];
-            var q_readonlys = ['txtCaritem'];
+            var q_readonlys = ['txtCaritem','txtUmmnoa'];
             var bbmNum = [['txtIprev', 15, 0, 1],['txtIset', 15, 0, 1],['txtBprev', 15, 0, 1],['txtInterest', 15, 0, 1],['txtBin', 15, 0, 1],['txtItotal', 15, 0, 1],['txtBtotal', 15, 0, 1],['txtTotal', 15, 0, 1],['txtPaytotal', 15, 0, 1]];
             var bbsNum = [['txtOutmoney', 15, 0, 1],['txtInmoney', 15, 0, 1],['txtCost', 15, 0, 1]];
             var bbmMask = [];
@@ -1036,7 +1036,7 @@
 						</td>
 						<td >
 							<input id="txtNoq.*" type="text" class="txt c1"/>
-							<input id="txtUmmnoa.*" type="hidden"/>
+							
 						</td>
 						<td >
 							<input id="txtCaritemno.*" type="text" class="txt c5"/>
@@ -1064,7 +1064,10 @@
 							<input id="txtAcc2.*" type="text" class="txt c1"/></td>
 						</td>
 						<td><input type="text" id="txtPdate.*" class="txt c1" /></td>
-						<td><input type="text" id="txtUdate.*" class="txt c1" /></td>
+						<td>
+							<input type="text" id="txtUdate.*" class="txt c1" />
+							<input type="text" id="txtUmmnoa.*" class="txt c1"/>
+						</td>
 					</tr>
 				</table>
 			</div>
