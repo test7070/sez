@@ -448,6 +448,14 @@
 					$("#txtCommission2").val(0);
 				}
 				sum();
+				if(q_float('txtTotal')<0){
+					alert(q_getMsg('lblTotal')+'異常。');
+					return;
+				}
+				if(q_float('txtTotal2')<0){
+					alert(q_getMsg('lblTotal2')+'異常。');
+					return;
+				}	
 				var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
 				if($.trim($('#txtMon').val()).length==0)
