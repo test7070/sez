@@ -497,7 +497,7 @@
                <td class="td3" colspan="2"><input id="txtAcc2" type="text" class="txt c1" /></td>
                <td class="td5"> </td>               
         </tr>
-        
+
         <tr>
             <td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
             <td class="td2" colspan="3"><input id="txtMemo"  type="text"  style="width: 99%;"/></td>
