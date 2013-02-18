@@ -628,6 +628,8 @@
 					<tr>
 						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
 						<td><input type="text" id="txtAccno" class="txt c1"/></td>
+						<td><span> </span><a id='lblKind' class="lbl"> </a></td>
+						<td><input type="text" id="txtKind" class="txt c1"/></td>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input type="text" id="txtWorker" class="txt c1"/></td>
 					</tr>
