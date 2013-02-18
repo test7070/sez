@@ -17,9 +17,9 @@
 
             q_tables = 's';
             var q_name = "labpay";
-            var q_readonly = ['txtNoa', 'txtApprover'];
+            var q_readonly = ['txtNoa', 'txtApprover','txtAccno','txtVccno'];
             var q_readonlys = [];
-            var bbmNum = [];
+            var bbmNum = [['txtMoney', 10, 0, 1]];
             var bbsNum = [['txtMount', 10, 0, 1], ['txtBkbcc', 10, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
@@ -29,7 +29,15 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtProductno', 'lblProduct', 'ucc', 'noa,product,vccacc1,vccacc2', 'txtProductno,txtProduct,txtAcc1,txtAcc2', 'ucc_b.aspx'], ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno], ['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx'], ['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', 'tgg_b.aspx'], ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,vccacc1,vccacc2', 'txtProductno_,txtProduct_,txtAcc1_,txtAcc2_', 'ucc_b.aspx'], ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+            aPop = new Array(['txtProductno', 'lblProduct', 'ucc', 'noa,product,vccacc1,vccacc2', 'txtProductno,txtProduct,txtAcc1,txtAcc2', 'ucc_b.aspx'],
+            				 ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+							 ['txtUcc3', 'lblUcc3', 'ucc', 'noa,product,vccacc1,vccacc2', 'txtUcc3,txtUcc4,txtAcc3,txtAcc4', 'ucc_b.aspx'],
+            				 ['txtAcc3', 'lblAcc3', 'acc', 'acc1,acc2', 'txtAcc3,txtAcc4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+             				 ['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx'],
+            				 ['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', 'tgg_b.aspx'],
+							 ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,vccacc1,vccacc2,inprice', 'txtProductno_,txtProduct_,txtAcc1_,txtAcc2_,txtCost_', 'ucc_b.aspx'],
+							 ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -62,6 +70,14 @@
                 $('#btnGenvcc').click(function() {
                     q_func('labpay.genVcc', $('#txtNoa').val());
                 });
+                $('#lblAccno').click(function() {
+                	if(!emp($('#txtDatea').val()))
+                    	q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
+                });
+                $('#lblVccno').click(function() {
+                    q_pop('txtVccno', "vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+                });
+
 
             }
 
@@ -449,14 +465,25 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblProduct' class="lbl btn"></a></td>
+						<td class="td1"><span> </span><a id='lblSalesno' class="lbl btn"></a></td>
 						<td class="td2">
-						<input id="txtProductno"  type="text" class="txt c1" />
+						<input id="txtSalesno"  type="text" class="txt c1" />
 						</td>
 						<td class="td3" colspan="2">
-						<input id="txtProduct" type="text" class="txt c1" />
+						<input id="txtSales" type="text" class="txt c1" />
 						</td>
 						<td class="td5"></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblProduct' class="lbl btn"></a></td>
+						<td class="td2">
+							<input id="txtProductno"  type="text" class="txt c1" />
+						</td>
+						<td class="td3">
+							<input id="txtProduct" type="text" class="txt c1" />
+						</td>
+						<td class="td4"><span> </span><a id='lblMoney' class="lbl"></a></td>
+						<td class="td5"><input id="txtMoney"  type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblAcc1' class="lbl btn"></a></td>
@@ -468,12 +495,38 @@
 						</td>
 						<td class="td5"></td>
 					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblAcc3' class="lbl btn"></a></td>
+						<td class="td2">
+						<input id="txtAcc3"  type="text" class="txt c1" />
+						</td>
+						<td class="td3" colspan="2">
+						<input id="txtAcc4" type="text" class="txt c1" />
+						</td>
+						<td class="td5"></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblUcc3' class="lbl btn"></a></td>
+						<td class="td2">
+						<input id="txtUcc3"  type="text" class="txt c1" />
+						</td>
+						<td class="td3" colspan="2">
+						<input id="txtUcc4" type="text" class="txt c1" />
+						</td>
+						<td class="td5"></td>
+					</tr>
 
 					<tr>
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
 						<td class="td2" colspan="3">
 						<input id="txtMemo"  type="text"  style="width: 99%;"/>
 						</td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id="lblVccno" class="lbl btn"></a></td>
+						<td class="td2"><input id="txtVccno" type="text" class="txt c1" /></td>
+						<td class="td3"><span> </span><a id="lblAccno" class="lbl btn"></a></td>
+						<td class="td4"><input id="txtAccno" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td></td>
@@ -492,15 +545,14 @@
 					</td>
 					<td align="center" style="width:1%;"></td>
 					<td align="center" style="width:12%;"><a id='lblCustno_s'></a></td>
-					<td align="center" style="width:12%;"><a id='lblTggno_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblPaybno_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblVccno_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblPlusmoney_s'></a></td>
 					<td align="center" style="width:12%;"><a id='lblProductno_s'></a></td>
 					<td align="center" style="width:8%;"><a id='lblMinusmoney_s'></a></td>
 					<td align="center" style="width:12%;"><a id='lblAcc1_s'></a></td>
 					<td align="center" style="width:8%;"><a id='lblMemo_s'></a></td>
 					<td align="center" style="width:8%;"><a id='lblCost_s'></a></td>
+					<td align="center" style="width:12%;"><a id='lblTggno_s'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblPaybno_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -513,18 +565,6 @@
 					<input type="text" id="txtCustno.*"  style="width:85%; float:left;"/>
 					<span style="display:block; width:1%;float:left;"> </span>
 					<input type="text" id="txtComp.*"  style="width:85%; float:left;"/>
-					</td>
-					<td>
-					<input class="btn"  id="btnTggno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-					<input type="text" id="txtTggno.*"  style="width:85%; float:left;"/>
-					<span style="display:block; width:1%;float:left;"> </span>
-					<input type="text" id="txtTgg.*"  style="width:85%; float:left;"/>
-					</td>
-					<td>
-					<input id="txtPaybno.*" type="text"/>
-					</td>
-					<td>
-					<input id="txtVccno.*" type="text"/>
 					</td>
 					<td >
 					<input id="txtPlusmoney.*" type="text" style="width:95%;float:left;text-align: right;"/>
@@ -549,6 +589,15 @@
 					</td>
 					<td>
 					<input id="txtCost.*" type="text" style="width:95%;float:left;text-align: right;"/>
+					</td>
+					<td>
+					<input class="btn"  id="btnTggno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+					<input type="text" id="txtTggno.*"  style="width:85%; float:left;"/>
+					<span style="display:block; width:1%;float:left;"> </span>
+					<input type="text" id="txtTgg.*"  style="width:85%; float:left;"/>
+					</td>
+					<td>
+					<input id="txtPaybno.*" type="text"/>
 					</td>
 				</tr>
 
