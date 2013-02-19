@@ -629,9 +629,9 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td><input id="txtNoa"   type="text"  class="txt c1"/></td>
+						<td colspan="2"><input id="txtNoa"   type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblAcomp" class="lbl btn" > </a></td>
-						<td colspan="2">
+						<td>
 							<select id="cmbCno" class="txt c1"> </select>
 							<input id="txtAcomp" type="text"  style="display:none;"/>
 						</td>
@@ -650,7 +650,7 @@
 							<input id="txtPart"  type="text" style="display: none;"/>
 						</td>
 						<td><span> </span><a id="lblSales2" class="lbl btn" > </a></td>
-						<td>
+						<td colspan="2">
 							<input id="txtSalesno2" type="text" style="float:left; width:50%;"/>
 							<input id="txtSales2" type="text" style="float:left; width:50%;"/>
 						</td>
