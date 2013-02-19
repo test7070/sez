@@ -30,9 +30,7 @@
             brwKey = 'Datea';
             brwCount2 = 6;
 
-            aPop = new Array(['txtBankno', 'lblBank', 'bank', 'noa,bank,account,acc1', 'txtBankno,txtBank,txtAccount,txtAccl', 'bank_b.aspx'], 
-            ['txtTcompno_', 'btnTcomp_', 'tgg', 'noa,comp', 'txtTcompno_,txtTcomp_', 'Tgg_b.aspx'], 
-            ['txtAccl', 'lblAccl', 'acc', 'acc1,acc2', 'txtAccl', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+            aPop = new Array(['txtBankno', 'lblBank', 'bank', 'noa,bank,account,acc1', 'txtBankno,txtBank,txtAccount,txtAccl', 'bank_b.aspx'], ['txtTcompno_', 'btnTcomp_', 'tgg', 'noa,comp', 'txtTcompno_,txtTcomp_', 'Tgg_b.aspx'], ['txtAccl', 'lblAccl', 'acc', 'acc1,acc2', 'txtAccl', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -91,13 +89,6 @@
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     return;
                 }
-
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }
-
                 if (emp($('#txtBankno').val())) {
                     alert("託收銀行未輸入");
                     return;
@@ -105,11 +96,12 @@
                 $('#txtWorker').val(r_name)
                 sum();
 
-                var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
-                if (s1.length == 0 || s1 == "AUTO")
-                    q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
+                var t_noa = trim($('#txtNoa').val());
+                var t_date = trim($('#txtDatea').val());
+                if (t_noa.length == 0 || t_noa == "AUTO")
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_chk2') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
-                    wrServer(s1);
+                    wrServer(t_noa);
             }
 
             function _btnSeek() {
@@ -124,7 +116,7 @@
                     $('#lblNo_' + i).text(i + 1);
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
                         $('#chkSel_' + i).click(function() {
-                        	sum();
+                            sum();
                         }).hover(function() {
                             t_IdSeq = -1;
                             /// 要先給  才能使用 q_bodyId()
@@ -197,9 +189,9 @@
             function sum() {
                 var t_money = 0;
                 for (var j = 0; j < q_bbsCount; j++) {
-                    if ($('#chkSel_' + j).prop('checked')){
-                    	t_money += q_float('txtMoney_' + j);
-                    }     
+                    if ($('#chkSel_' + j).prop('checked')) {
+                        t_money += q_float('txtMoney_' + j);
+                    }
                 }
                 $('#txtMoney').val(t_money);
             }
@@ -517,8 +509,7 @@
 					<input class="txt c1" id="txtDatea.*" type="text"  style="width: 95%"/>
 					</td><td >
 					<input class="txt num c1" id="txtMoney.*" type="text" style="width: 95%"/>
-					</td>
-					<td style="display:none;">
+					</td><td style="display:none;">
 					<input id="btnTcomp.*" type="button" value="." style="float:left;width: 1%;"/>
 					<input id="txtTcompno.*" type="text" style="width: 25%;float: left;"/>
 					<input id="txtTcomp.*" type="text" style="width: 50%;float: left;"/>

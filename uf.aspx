@@ -16,10 +16,10 @@
         }
         q_tables = 's';
         var q_name = "uf";
-        var q_readonly = ['txtAccno'];
+        var q_readonly = ['txtAccno','txtNoa'];
         var q_readonlys = [];
-        var bbmNum = [['txtMoney',12 , , 1]];  
-        var bbsNum = [['txtMoney',12 , , 1]];
+        var bbmNum = [['txtMoney',10 ,0 ]];  
+        var bbsNum = [['txtMoney',10 ,0 ]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
@@ -95,7 +95,7 @@
 			        for (var j = 0; j < q_bbsCount; j++) {
 			            	$('#ufseq_'+j).text(j+1);//自動產生序號
 			            	$('#trSel_'+j).removeClass('chksel');//取消變色
-			            	$('#chkSel_'+j).removeAttr("checked");//將單據內的票據取消
+			            	$('#chkSel_'+j).prop("checked",false);//將單據內的票據取消
 			        }  // j
 
 		             sum();
@@ -107,20 +107,19 @@
         }
 
         function btnOk() {
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  
-            if (t_err.length > 0) {
-                alert(t_err);
+        	if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())) {
+                alert(q_getMsg('lblDatea') + '錯誤。');
                 return;
             }
-
             $('#txtWorker').val(r_name)
             sum();
 
-            var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
-            if (s1.length == 0 || s1 == "AUTO")   
-                q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
+            var t_noa = trim($('#txtNoa').val());
+            var t_date = trim($('#txtDatea').val());
+            if (t_noa.length == 0 || t_noa == "AUTO")
+                q_gtnoa(q_name, replaceAll(q_getPara('sys.key_uf') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
             else
-                wrServer(s1);
+                wrServer(t_noa);
         }
 
         function _btnSeek() {
@@ -128,9 +127,6 @@
                 return;
 
             q_box('uf_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
-        }
-
-        function combPay_chg() {   
         }
 
         function bbsAssign() {  
@@ -149,7 +145,7 @@
                     q_bodyId($(this).attr('id'));
                     b_seq = t_IdSeq;
                     $('#trSel_' + b_seq).removeClass('sel');
-				 if($('#chkSel_' +b_seq)[0].checked){	//判斷是否被選取
+				 if($('#chkSel_' +b_seq).prop("checked")){	//判斷是否被選取
                 	$('#trSel_'+ b_seq).addClass('chksel');//變色
                 }else{
                 	$('#trSel_'+b_seq).removeClass('chksel');//取消變色
@@ -161,7 +157,7 @@
 
         function btnIns() {
             _btnIns();
-            $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+            $('#txtNoa').val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
             $('#cmbTypea').val(2);
@@ -180,9 +176,7 @@
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            $('#txtProduct').focus();
-            
-           
+            $('#txtDatea').focus();
         }
         function btnPrint() {
 
@@ -203,24 +197,13 @@
 
             q_nowf();
             as['date'] = abbm2['date'];
-
-            //            t_err ='';
-            //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-            //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-            //            
-            //            if (t_err) {
-            //                alert(t_err)
-            //                return false;
-            //            }
-            //            
             return true;
         }
 
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0,money_total=0;
             for (var j = 0; j < q_bbsCount; j++) {
-            	if($('#chkSel_' +j)[0].checked)
+            	if($('#chkSel_' +j).prop("checked"))
 				money_total+=dec($('#txtMoney_' + j).val());//兌現金額總計
             }  // j
 			q_tr('txtMoney',money_total , 2)
@@ -228,8 +211,8 @@
         
         function q_stPost() {
             if (q_cur == 1 || q_cur == 2) {
-                abbm[q_recno]['noa'] = xmlString;   /// 存檔後， server 傳回 xmlString 
-                $('#txtNoa').val(xmlString);   /// 顯示 server 端，產生之傳票號碼
+                abbm[q_recno]['accno'] = xmlString;   /// 存檔後， server 傳回 xmlString 
+                $('#txtAccno').val(xmlString);   /// 顯示 server 端，產生之傳票號碼
             }
         }
 
@@ -243,7 +226,7 @@
 			}  // j
 			
 			for (var j = 0; j < q_bbsCount; j++) {
-			 if($('#chkSel_' + j )[0].checked){	//判斷是否被選取
+			 if($('#chkSel_' + j ).prop("checked")){	//判斷是否被選取
                 	$('#trSel_'+  j ).addClass('chksel');//變色
                 }else{
                 	$('#trSel_'+ j ).removeClass('chksel');//取消變色
