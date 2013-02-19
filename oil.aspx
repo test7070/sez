@@ -582,8 +582,8 @@
 					<tr>
 						<td><span> </span><a id='lblCarno' class="lbl"> </a></td>
 						<td><input id="txtCarno"  type="text"  class="txt c1"/>	</td>
-						<td><span> </span><a id='lblBmiles' class="lbl"> </a></td>
-						<td><input id="txtBmiles"  type="text"  class="txt c1 num"/>	</td>
+						<td><span> </span><a id='lblBmiles' class="lbl" title="按一下可重新載入。"> </a></td>
+						<td><input id="txtBmiles"  type="text"  class="txt c1 num" />	</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDriver' class="lbl btn"> </a></td>
