@@ -15,6 +15,9 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+			t_isInit = false;
+            t_store = '';
+		
             $(document).ready(function() {
             	q_getId();
                 q_gf('', 'z_bccin');
@@ -22,7 +25,7 @@
             function q_gfPost() {
                 q_gt('store', '', 0, 0, 0);
             }
-            function q_gfPost() {
+            function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'store':
                         t_store = '';
@@ -33,6 +36,8 @@
                         }
                         break;
                 }
+                if (!t_isInit  && t_store.length > 0) {
+                	t_isInit = true;
                $('#q_report').q_report({
                         fileName : 'z_bccin',
                         options : [{
@@ -54,6 +59,7 @@
                     }]
                     });
                 q_popAssign();
+                q_langShow();
                  $('#txtDate1').mask('999/99/99');
 	             $('#txtDate1').datepicker();
 	             $('#txtDate2').mask('999/99/99');
@@ -82,10 +88,9 @@
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
 	                }
+	         }
 
             function q_boxClose(s2) {
-            }
-            function q_gtPost(s2) {
             }
 		</script>
 	</head>
