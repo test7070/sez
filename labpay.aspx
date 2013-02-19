@@ -29,7 +29,8 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtProductno', 'lblProduct', 'ucc', 'noa,product,vccacc1,vccacc2', 'txtProductno,txtProduct,txtAcc1,txtAcc2', 'ucc_b.aspx'],
+            aPop = new Array(['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+            				 ['txtProductno', 'lblProduct', 'ucc', 'noa,product,vccacc1,vccacc2', 'txtProductno,txtProduct,txtAcc1,txtAcc2', 'ucc_b.aspx'],
             				 ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
 							 ['txtUcc3', 'lblUcc3', 'ucc', 'noa,product,vccacc1,vccacc2', 'txtUcc3,txtUcc4,txtAcc3,txtAcc4', 'ucc_b.aspx'],
             				 ['txtAcc3', 'lblAcc3', 'acc', 'acc1,acc2', 'txtAcc3,txtAcc4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
@@ -79,7 +80,26 @@
                 $('#lblVccno').click(function() {
                     q_pop('txtVccno', "vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
                 });
-
+				$('#btnImport').click(function () {
+                	if(emp($('#txtSalesno').val()) || emp($('#txtSales').val())){
+                		alert('請先輸入[業務]!!');
+                		$('#txtSalesno').focus();
+                		return;
+                	}
+                	if(emp($('#txtProductno').val()) || emp($('#txtProduct').val())){
+                		alert('請先輸入[收入品名]!!');
+                		$('#txtProductno').focus();
+                		return;
+                	}
+                	dateimport=true;
+                	//上期欠款
+		            var t_where = "where=^^ salesno ='"+$('#txtSalesno').val()+"' ";
+		            t_where+= "and sales ='"+$('#txtSales').val()+"' ";
+		            t_where+= "and productno ='"+$('#txtProductno').val()+"' ";
+		            t_where+= "and product ='"+$('#txtProduct').val()+"' ";
+		            t_where+=" ^^";
+			        q_gt('custroutine', t_where , 0, 0, 0, "", r_accy);
+		     	});
 
             }
 
@@ -114,6 +134,12 @@
                             ischecker = true;
                         else
                             ischecker = false;
+                        break;
+                    case 'custroutine':
+		            	var custroutines = _q_appendData("custroutines", "", true);
+		            	q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtComp'
+		            								, custroutines.length, custroutines, 'custno,comp', 'txtCustno');
+
                         break;
                     case q_name:
                         if (q_cur == 4)
