@@ -17,7 +17,7 @@
         q_desc=1;
         q_tables = 's';
         var q_name = "carc";
-        var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2','txtMon','txtPaybno','txtAccno'];
+        var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2','txtPaybno','txtAccno'];
         var q_readonlys = ['txtCarownerno','txtCarowner','txtCarno','txtCaradate','txtCaritemno','txtCaritem','txtInmoney','txtMemo','txtCarano','txtCaranoq'];
         var bbmNum = [['txtTotal',14, 0, 1]];  
         var bbsNum = [['txtOutmoney',14, 0, 1],['txtInmoney',14, 0, 1]];
@@ -52,7 +52,6 @@
             bbmMask = [['txtDatea', r_picd],['txtPaydate', r_picd],['txtMon', r_picm],['txtAcdate',r_picd]];
             q_mask(bbmMask);
             bbsMask = [['txtCaradate', r_picd]];
-            q_mask(bbsMask);
 
             $('#btnImport').click(function () {
             		if(emp($('#txtMon').val()))
