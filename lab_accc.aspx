@@ -368,12 +368,14 @@
                 width: 98%;
             }
             .tbbs a {
+            	visibility:hidden;
                 font-size: medium;
             }
             .num {
                 text-align: right;
             }
             .bbs {
+            	visibility:hidden;
                 width: 950px;
                 float: left;
             }
@@ -496,7 +498,7 @@
 			</div>
 		</div>
 		<div class='dbbs'>
-			<table id="tbbs" class='tbbs' style=' text-align:center'>
+			<table id="tbbs" class='tbbs' style=' text-align:center;visibility:hidden;'>
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:30px;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"/></td>
 					<td align="center" style="width:20px;"> </td>
