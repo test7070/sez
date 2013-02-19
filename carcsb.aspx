@@ -484,7 +484,7 @@
 						<td style="width: 80px; color:black;"><a id='vewDriver'></a></td>
 						<td style="width: 200px; color:black;"><a id='vewAddr'></a></td>
 						<td style="width: 80px; color:black;"><a id='vewInmoney'></a></td>
-						<td style="width: 200px; color:black;"><a id='vewCust'></a></td>
+						<td style="width: 120px; color:black;"><a id='vewCust'></a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -493,7 +493,7 @@
 						<td id='driver' style="text-align: center;">~driver</td>
 						<td id='addr' style="text-align: left;">~addr</td>
 						<td id='inmoney,0,1' style="text-align: right;">~inmoney,0,1</td>
-						<td id='comp' style="text-align: center;">~comp</td>
+						<td id='nick' style="text-align: center;">~nick</td>
 					</tr>
 				</table>
 			</div>
