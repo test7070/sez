@@ -398,7 +398,7 @@
             }
             .dview {
                 float: left;
-                width: 270px;
+                width: 320px;
                 border-width: 0px;
             }
             .tview {
@@ -418,7 +418,7 @@
             }
             .dbbm {
                 float: left;
-                width: 680px;
+                width: 630px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -517,12 +517,14 @@
 						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewComp'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewTotal'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewUnpay'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="datea" style="text-align: center;">~datea</td>
 						<td id="nick" style="text-align: center;">~nick</td>
 						<td id="total,0,1" style="text-align: right;">~total,0,1</td>
+						<td id="unpay,0,1" style="text-align: right;">~unpay,0,1</td>
 					</tr>
 				</table>
 			</div>
