@@ -170,13 +170,16 @@
                     Sale();
                 });
                 
-                
                 $('#btnChange').click(function(e) {
                 	if(!emp($('#txtChangecarno').val())&&q_cur==2){
                 		var t_where = "where=^^ a.noa ='"+$('#txtChangecarno').val()+"' ^^";
 						q_gt('car2', t_where, 0, 0, 0, "");
 					}
 				});
+				
+				$('#txtSssno').blur(function() {
+                    $('#txtManage').focus();
+                });
             }
 
             function q_boxClose(s2) {
@@ -281,6 +284,7 @@
 
             function btnIns() {
                 _btnIns();
+                $(".carexpense").show();
                 $('#txtNoa').focus();
             }
 
@@ -297,6 +301,10 @@
             }
 
             function btnOk() {
+            	if(!emp($('#txtCarownerno').val())&&emp($('#txtSssno').val())){
+            		alert(q_getMsg('lblSss')+'沒有輸入。');
+            		return;
+            	}
             	$('#txtCardeal').val($('#cmbCardealno').find(":selected").text());
                 if (!q_cd($('#txtIndate').val())){
                 	alert(q_getMsg('lblIndate')+'錯誤。');
@@ -367,6 +375,8 @@
                 var t_noa = $('#txtNoa').val();
                 $('#txtCarno').val(t_noa);
                 wrServer(t_noa);
+                if(q_cur=='1')
+                	$("#btnCarinsurance").click();
             }
 
             function wrServer(key_value) {
