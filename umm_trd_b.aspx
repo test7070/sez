@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'view_trd', t_bbsTag = 'tbbs', t_content = " field=noa,paysale,total,part2,comp  order=odate ", afilter = [], bbsKey = ['noa'], as;
+            var q_name = 'view_trd', t_bbsTag = 'tbbs', t_content = " field=noa,paysale,total,part2,comp,memo  order=odate ", afilter = [], bbsKey = ['noa'], as;
             //, t_where = '';
             var t_sqlname = 'umm_trd_load';
             t_postname = q_name;
@@ -216,6 +216,7 @@
 					<td align="center" style="width: 15%;"><a id='lblOpay'></a></td>
 					<td align="center" style="width: 10%;"><a id='lblPart2'></a></td>
 					<td align="center"><a id='lblComp'></a></td>
+					<td align="center"><a id='lblMemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td>
@@ -240,6 +241,9 @@
 					<td>
 					<input id="txtComp.*" type="text" class="txt c1"/>
 					<input id="txtNick.*" type="text" style="display:none;"/>
+					</td>
+					<td>
+						<input id="txtMemo.*" type="text" class="txt c1"/>
 					</td>
 				</tr>
 			</table>
