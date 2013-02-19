@@ -114,10 +114,10 @@
                 $('#txtMiles').change(function(){
                 	sum();
                 });
-               /* $('#txtCarno').change(function(e){
-                	
-               
-                });*/
+               	$('#lblBmiles').click(function(e){
+                	if(q_cur==1 || q_cur==2)
+                		q_popPost('txtCarno'); 
+                });
             }
 
             function q_boxClose(s2) {
@@ -168,8 +168,9 @@
 					case 'txtCarno':
 						var t_carno = $.trim($('#txtCarno').val());
 						var t_datea = $.trim($('#txtDatea').val());
+						var t_noa = $.trim($('#txtNoa').val());
 						if(t_carno.length>0 && t_datea.length>0){
-							t_where = " where=^^ carno='"+t_carno+"' and datea<'"+t_datea+"' ^^ ";
+							t_where = " where=^^ noa!='"+t_noa+"' and carno='"+t_carno+"' and datea<='"+t_datea+"' and not(datea='"+t_datea+"' and noa>'"+t_noa+"')^^ ";
 							q_gt('oil_top', t_where, 0, 0, 0, "", r_accy);
 						}
 						$('#txtDriverno').focus();

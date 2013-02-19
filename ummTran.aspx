@@ -144,14 +144,14 @@
                       //  var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
 						t_where = "(a.custno='" + $.trim($('#txtCustno').val()) + "'";
 						t_where3 = " where[3]=^^ (c.noa='" + $('#txtCustno').val() + "' ";
-						t_where4 = " where[4]=^^ (custno='" + $('#txtCustno').val() + "' ";
+						t_where4 = " where[4]=^^ (a.custno='" + $('#txtCustno').val() + "' ";
 						
                         if (!emp($('#txtCustno2').val())) {
                             var t_custno2 = ($('#txtCustno2').val()).split(",");
                             for (var i = 0; i < t_custno2.length; i++) {
                                 t_where += " or a.custno ='" + t_custno2[i] + "'"
                                 t_where3 += " or c.noa ='" + t_custno2[i] + "'"
-                                t_where4 += " or custno ='" + t_custno2[i] + "'"
+                                t_where4 += " or a.custno ='" + t_custno2[i] + "'"
                             }
                         }
                         t_where+=") and (a.unpay+isnull(b.paysale,0))!=0 ";
@@ -163,7 +163,7 @@
 							t_where2 = " where[2]=^^ 1=1 ^^";
 							
 						t_where3 += " ) and ((b.outdate='' and b.suspdate='' and b.enddate='') or a.total!=0) ^^";
-						t_where4 += " ) order by noa ^^";
+						t_where4 += " ) and (CHARINDEX('會計',kind)>0 or CHARINDEX('代書',kind)>0) order by noa ^^";
                         	
                        // 最後一個t_whereX 加 order by noa^^";
 
@@ -227,7 +227,7 @@
                                 $('#txtPart2_' + i).val('');
                             }
 
-                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2,partno,part2', '');
+                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart,txtMemo', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2,partno,part2,memo', '');
                             /// 最後 aEmpField 不可以有【數字欄位】
                             
                             $('#txtAcc1_0').focus();
