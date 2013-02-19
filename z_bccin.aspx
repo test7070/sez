@@ -20,6 +20,19 @@
                 q_gf('', 'z_bccin');
             });
             function q_gfPost() {
+                q_gt('store', '', 0, 0, 0);
+            }
+            function q_gfPost() {
+                switch (t_name) {
+                    case 'store':
+                        t_store = '';
+                        var as = _q_appendData("store", "", true);
+                        t_store += '99@全部';
+                        for ( i = 0; i < as.length; i++) {
+                            t_store += (t_store.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
+                        }
+                        break;
+                }
                $('#q_report').q_report({
                         fileName : 'z_bccin',
                         options : [{
@@ -34,6 +47,10 @@
                         dbf : 'bcc',
                         index : 'noa,product',
                         src : 'bcc_b.aspx'
+                    },{/*3*/
+						type : '5',
+						name : 'xstore',
+						value : t_store.split(',')
                     }]
                     });
                 q_popAssign();
