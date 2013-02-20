@@ -85,6 +85,7 @@
             function mainPost() {
                 q_mask(bbmMask);
                 q_cmbParse("cmbContainertype", ('').concat(new Array( '','傾卸櫃','平板櫃')));
+                q_cmbParse("cmbCtype", ('').concat(new Array( '貨櫃','平板','散裝')));
                 q_cmbParse("cmbStype", q_getPara('vcc.stype'));
                 q_cmbParse("cmbUnit", q_getPara('sys.unit'));
                 $("#cmbStype").focus(function() {
@@ -700,6 +701,10 @@
 						<td><span> </span><a id="lblDldate" class="lbl"> </a></td>
 						<td>
 						<input type="text" id="txtDldate" class="txt c1"/>
+						</td>
+						<td><span> </span><a id="lblCtype" class="lbl"> </a></td>
+						<td>
+						<select id="cmbCtype" class="txt c1"></select>
 						</td>
 					</tr>
 					<tr>
