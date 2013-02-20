@@ -15,11 +15,25 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+            t_store = '';
             $(document).ready(function() {
             	q_getId();
             	q_gf('', 'z_bcc2');
             });
             function q_gfPost() {
+                q_gt('store', '', 0, 0, 0);
+            }
+            function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'store':
+                        t_store = '';
+                        var as = _q_appendData("store", "", true);
+                        t_store += '99@全部';
+                        for ( i = 0; i < as.length; i++) {
+                            t_store += (t_store.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
+                        }
+                        break;
+                }
                $('#q_report').q_report({
                         fileName : 'z_bcc2',
                         options : [{
@@ -31,7 +45,11 @@
                         dbf : 'bcc',
                         index : 'noa,product',
                         src : 'bcc_b.aspx'
-                     }]
+                    },{/*3*/
+						type : '5',
+						name : 'xstore',
+						value : t_store.split(',')
+                    }]
                     });
                 q_popAssign();
                 q_getFormat();
@@ -67,8 +85,6 @@
             }
 
             function q_boxClose(s2) {
-            }
-            function q_gtPost(s2) {
             }
 		</script>
 	</head>
