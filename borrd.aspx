@@ -15,7 +15,7 @@
 
             q_tables = 's';
             var q_name = "borrd";
-            var q_readonly = ['txtBwmoney', 'txtPay'];
+            var q_readonly = ['txtBwmoney', 'txtPay','txtNoa','txtWorker'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [['money', 10, 0]];
@@ -126,55 +126,43 @@
             }
 
             function _btnSeek() {
-                if(q_cur > 0 && q_cur < 4)// 1-3
+              	if (q_cur > 0 && q_cur < 4)
                     return;
-               q_box('borrd_s.aspx', q_name + '_s', "500px", "340px", q_getMsg( "popSeek"));
+                q_box('borrd_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
                 _btnIns();
+                $('#txtNoa').val('AUTO');
+                $('#txtDatea').val(q_date());
+                $('#txtDatea').focus();
             }
 
             function btnModi() {
-                if(emp($('#txtNoa').val()))
+                if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
+                $('#txtDatea').focus();
             }
 
             function btnPrint() {
+            	q_box('z_borrd.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function btnOk() {
-                var t_err = '';
-                $('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (checkId($('#txtDatea').val())==0){
+                if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
-                }   
-                $('#txtBegindate').val($.trim($('#txtBegindate').val()));
-                if (checkId($('#txtBegindate').val())==0){
-                	alert(q_getMsg('lblBegindate')+'錯誤。');
-                	return;
-                }   
-                $('#txtEnddate').val($.trim($('#txtEnddate').val()));
-                if (checkId($('#txtEnddate').val())==0){
-                	alert(q_getMsg('lblEnddate')+'錯誤。');
-                	return;
-                }   
-                $('#txtPaydate').val($.trim($('#txtPaydate').val()));
-                if (checkId($('#txtPaydate').val())==0){
-                	alert(q_getMsg('lblPaydate')+'錯誤。');
-                	return;
-                }   
-
-                //  t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
-                var t_noa = $.trim($('#txtNoa').val());
-                //  alert(t_noa+'  '+t_noa.length);
-                //  if(t_noa.length == 0)
-                //    q_gtnoa(q_name, t_noa);
-                //else
-
-                wrServer(t_noa);
+                }
+                sum();
+                $('#txtWorker').val(r_name);
+               
+                var t_noa = trim($('#txtNoa').val());
+                var t_date = trim($('#txtDatea').val());
+                if (t_noa.length == 0 || t_noa == "AUTO")
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_borrd') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                else
+                    wrServer(t_noa);
             }
 
             function wrServer(key_value) {
@@ -461,14 +449,15 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr1">
-						<td class="td1" ><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtDatea"  type="text"  class="txt c1"/>
-						</td>
 						<td class="td3" ><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class="td4">
 						<input id="txtNoa"  type="text" class="txt c1"/>
 						</td>
+						<td class="td1" ><span> </span><a id="lblDatea" class="lbl"> </a></td>
+						<td class="td2">
+						<input id="txtDatea"  type="text"  class="txt c1"/>
+						</td>
+						
 						<td class="td5"> </td>
 						<td class="td6"> </td>
 						<td class="td9"> </td>
