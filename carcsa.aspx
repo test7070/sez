@@ -23,8 +23,7 @@
             var q_readonlys = ['txtInmoney','txtOutmoney'];
             var bbmNum = [['txtWeight',10,3,1],['txtMount',10,3,1],['txtPrice',10,3,1]
             ,['txtInmoney',10,0,1],['txtInplus',10,0,1],['txtInminus',10,0,1],['txtIntotal',10,0,1]
-            ,['txtOutmoney',10,0,1],['txtOutplus',10,0,1],['txtOutminus',10,0,1],['txtOuttotal',10,0,1]
-            ];
+            ,['txtOutmoney',10,0,1],['txtOutplus',10,0,1],['txtOutminus',10,0,1],['txtOuttotal',10,0,1]];
             var bbsNum = [['txtWeight',10,3,1],['txtMount',10,3,1],['txtDiscount',10,3,1],['txtInmoney',10,0,1],['txtOutmoney',10,0,1],['txtOutplus',10,0,1],['txtOutminus',10,0,1],['txtOutprice',10,3,1]];
             var bbmMask = [];
             var bbsMask = [];
@@ -33,8 +32,10 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'],
-        	['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+            aPop = new Array(
+            ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'],
+            ['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'],
+        	['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'],
         	['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']);
 
 			brwCount2 = 15;
@@ -44,7 +45,7 @@
 			currentData.prototype = {
 				data : [],
 				/*新增時複製的欄位*/
-				include : ['txtDatea','txtMon','cmbInterval','txtCustno','txtComp','cmbCno'],
+				include : ['txtDatea','txtMon','cmbInterval','txtCustno','txtComp','txtNick','txtAddrno','txtAddr','cmbCno'],
 				/*記錄當前的資料*/
 				copy : function() {
 					curData.data = new Array();
@@ -102,16 +103,23 @@
                 q_cmbParse("cmbType", '@,'+q_getPara('carcsa.type'));
                 q_cmbParse("cmbTypea2", ('').concat(new Array('', '全拖', '半拖', '小時', '塊')));
 
+				$("#txtAddrno").focus(function() {
+					var input = document.getElementById ("txtAddrno");
+		            if (typeof(input.selectionStart) != 'undefined' ) {	  
+		                input.selectionStart = 5;
+		                input.selectionEnd =8;
+		            }
+				});
                 $('#cmbType').change(function() {         
                     var tmp = $('#cmbType').find(":selected").text().split('_');
                     if(tmp.length==4){
                     	$('#txtCartype').val(tmp[0]);
-                        $('#txtAddr').val(tmp[1]);
+                        $('#txtMemo').val(tmp[1]);
                         $('#cmbTypea2').val(tmp[2]);
                         $('#txtPrice').val(tmp[3]);
                     }else{
                     	$('#txtCartype').val('');
-                        $('#txtAddr').val('');
+                        $('#txtMemo').val('');
                         $('#cmbTypea2').val('');
                         $('#txtPrice').val('0');
                     }
@@ -141,6 +149,13 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'addr':
+                        var as = _q_appendData("addr", "", true);
+                        if (as[0] != undefined) {
+	                        $('#txtAddrno').val(as[0].noa);
+	                        $('#txtAddr').val(as[0].addr);
+                        }
+                        break;
                 	case 'calctypes':
 						var as = _q_appendData("calctypes", "", true);
 						var t_item = "@";
@@ -186,6 +201,13 @@
             }
             function q_popPost(id) {
 				switch(id) {
+					case 'txtCustno':
+						if ($("#txtCustno").val().length > 0) {
+							var t_addrno = $('#txtCustno').val()+'-001';
+							var t_where = "where=^^ noa='"+t_addrno+"' ^^";
+	                		q_gt('addr', t_where, 0, 0, 0, "");
+						}
+						break;
 					case 'txtCarno_':
 						if(q_cur==1 || q_cur==2){
 							if(q_float('txtOutprice_'+b_seq)==0)							
@@ -616,8 +638,6 @@
 					<tr>
 						<td><span> </span><a id="lblCartype" class="lbl"> </a></td>
 						<td><input id="txtCartype" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblAddr" class="lbl"> </a></td>
-						<td><input id="txtAddr"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblTypea" class="lbl"> </a></td>
 						<td>
 							<input id="txtTypea" type="text" style="float:left; width:30%;"/>
@@ -628,9 +648,15 @@
 						<td><span> </span><a id="lblPrice" class="lbl"> </a></td>
 						<td><input id="txtPrice" type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
-						<td colspan="3">
-							<input id="txtCustno"  type="text" style="float:left; width:30%;"/>
-							<input id="txtComp"  type="text" style="float:left; width:70%;"/>
+						<td colspan="2">
+							<input id="txtCustno"  type="text" style="float:left; width:40%;"/>
+							<input id="txtComp"  type="text" style="float:left; width:60%;"/>
+							<input id="txtNick"  type="text" style="display: none;"/>
+						</td>
+						<td><span> </span><a id="lblAddr" class="lbl"> </a></td>
+						<td colspan="2">
+							<input id="txtAddrno"  type="text"  style="float:left; width:50%;"/>
+							<input id="txtAddr"  type="text"  style="float:left; width:50%;"/>
 						</td>
 					</tr>
 					<tr>
