@@ -471,10 +471,12 @@
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
-                //abbm[q_recno]['accno'] = xmlString;
-                $('#txtAccno').val(xmlString.split(";")[0]);
-                $('#txtPayed').val(xmlString.split(";")[1]);
-                $('#txtUnpay').val(xmlString.split(";")[2]);
+                abbm[q_recno]['accno'] = xmlString.split(";")[0];
+                abbm[q_recno]['payed'] = xmlString.split(";")[1];
+                abbm[q_recno]['unpay'] = xmlString.split(";")[2];
+                //$('#txtAccno').val(xmlString.split(";")[0]);
+                //$('#txtPayed').val(xmlString.split(";")[1]);
+                //$('#txtUnpay').val(xmlString.split(";")[2]);
             }
 		</script>
 		<style type="text/css">

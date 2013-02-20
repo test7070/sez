@@ -305,7 +305,7 @@
 		        if (!(q_cur == 1 || q_cur == 2))
 		            return false;
 		        abbm[q_recno]['accno'] = xmlString;
-		        $('#txtAccno').val(xmlString);
+		        //$('#txtAccno').val(xmlString);
 		    }
 
 		    function sum() {

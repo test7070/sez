@@ -554,19 +554,19 @@
                 var string =  xmlString.split(';');
                 if(string[0]!=undefined){
                 	abbm[q_recno]['accno'] = string[0];
-               		$('#txtAccno').val(string[0]);
+               		//$('#txtAccno').val(string[0]);
                 }
                 if(string[1]!=undefined){
                 	abbm[q_recno]['year1'] = string[1];
-               		$('#txtYear1').val(string[1]);
+               		//$('#txtYear1').val(string[1]);
                 }	
                 if(string[2]!=undefined){
                 	abbm[q_recno]['accno2'] = string[2];
-               		$('#txtAccno2').val(string[2]);
+               		//$('#txtAccno2').val(string[2]);
                 }	
                 if(string[3]!=undefined){
                 	abbm[q_recno]['year2'] = string[3];
-               		$('#txtYear2').val(string[3]);
+               		//$('#txtYear2').val(string[3]);
                 }
             }
 
