@@ -38,6 +38,8 @@
                 }
                 if (!t_isInit  && t_store.length > 0) {
                 	t_isInit = true;
+                	var t_noa=typeof(q_getId()[3])=='undefined'?'':q_getId()[3];
+                	t_noa  =  t_noa.replace('noa=','');
                $('#q_report').q_report({
                         fileName : 'z_bccin',
                         options : [{
@@ -64,7 +66,7 @@
 	             $('#txtDate1').datepicker();
 	             $('#txtDate2').mask('999/99/99');
 	             $('#txtDate2').datepicker();  
-                
+                $('#txtXnoa').val(t_noa);
                 
                  var t_date,t_year,t_month,t_day;
 	                t_date = new Date();

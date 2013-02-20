@@ -206,7 +206,8 @@
             }
 
             function btnPrint() {
-                q_box('z_bccin.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+                //q_box('z_bccin.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+                q_box("z_bccin.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'bccin', "95%", "650px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
