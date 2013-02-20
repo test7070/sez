@@ -287,7 +287,7 @@
         function q_stPost() {
             if (q_cur == 1 || q_cur == 2) {
                 abbm[q_recno]['accno'] = xmlString;   /// 存檔後， server 傳回 xmlString 
-                $('#txtAccno').val(xmlString);   /// 顯示 server 端，產生之傳票號碼
+                //$('#txtAccno').val(xmlString);   /// 顯示 server 端，產生之傳票號碼
             }
         }
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
