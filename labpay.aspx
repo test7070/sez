@@ -36,7 +36,7 @@
             				 ['txtAcc3', 'lblAcc3', 'acc', 'acc1,acc2', 'txtAcc3,txtAcc4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
              				 ['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx'],
             				 ['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', 'tgg_b.aspx'],
-							 ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,vccacc1,vccacc2', 'txtProductno_,txtProduct_,txtAcc1_,txtAcc2_', 'ucc_b.aspx'],
+							 ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,vccacc1,vccacc2', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
 							 ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
 							 ['txtProductno2_', 'btnProductno2_', 'ucc', 'noa,product,vccacc1,vccacc2', 'txtProductno2_,txtProduct2_,txtAcc3_,txtAcc4_', 'ucc_b.aspx'],
 							 ['txtAcc3_', 'btnAcc1_', 'acc', 'acc1,acc2', 'txtAcc3_,txtAcc4_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
@@ -111,6 +111,9 @@
                     case 'txtProductno_':
                         $('#txtMinusmoney_' + b_seq).focus();
                         break;
+                    case 'txtProductno2_':
+                        $('#txtPlusmoney_' + b_seq).focus();
+                        break;
                 }
             }
 
@@ -137,9 +140,9 @@
                         break;
                     case 'custroutine':
 		            	var custroutines = _q_appendData("custroutines", "", true);
-		            	q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtComp'
-		            								, custroutines.length, custroutines, 'custno,comp', 'txtCustno');
-
+		            	q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtComp,txtMount'
+		            								, custroutines.length, custroutines, 'custno,comp,mount', 'txtCustno');
+		            	
                         break;
                     case q_name:
                         if (q_cur == 4)
@@ -147,7 +150,6 @@
                         break;
                 }  /// end switch
             }
-
             function btnOk() {
                 if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
@@ -190,6 +192,10 @@
                             $('#txtAcc1_' + b_seq).val($('#txtAcc1').val());
                             $('#txtAcc2_' + b_seq).val($('#txtAcc2').val());
                         });
+                        if($('#txtCustno_' + j).val() != ''){
+			                $('#txtProductno_' + j).val($('#txtProductno').val());
+			                $('#txtProduct_' + j).val($('#txtProduct').val());
+		                }
                     }
                 }
                 _bbsAssign();
@@ -587,8 +593,9 @@
 					<td align="center" style="width:1%;"></td>
 					<td align="center" style="width:12%;"><a id='lblCustno_s'></a></td>
 					<td align="center" style="width:12%;"><a id='lblProductno_s'></a></td>
+					<td align="center" style="width:12%;"><a id='lblMount_s'></a></td>
 					<td align="center" style="width:12%;"><a id='lblMoney_s'></a></td>
-					<td align="center" style="width:12%;"><a id='lblAcc1_s'></a></td>
+					<!--<td align="center" style="width:12%;"><a id='lblAcc1_s'></a></td>-->
 					<td align="center" style="width:12%;"><a id='lblProductno2_s'></a></td>
 					<td align="center" style="width:8%;"><a id='lblPlusmoney_s'></a></td>
 					<td align="center" style="width:8%;"><a id='lblMinusmoney_s'></a></td>
@@ -619,14 +626,19 @@
 						<input type="text" id="txtProduct.*"  style="width:85%; float:left;"/>
 					</td>
 					<td >
+						<input id="txtMount.*" type="text" style="width:95%;float:left;text-align: right;"/>
+					</td>
+					<td >
 						<input id="txtMoney.*" type="text" style="width:95%;float:left;text-align: right;"/>
 					</td>
+					<!--
 					<td>
 						<input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
 						<input type="text" id="txtAcc1.*"  style="width:85%; float:left;"/>
 						<span style="display:block; width:1%;float:left;"> </span>
 						<input type="text" id="txtAcc2.*"  style="width:85%; float:left;"/>
 					</td>
+					-->
 					<td>
 						<input class="btn"  id="btnProductno2.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
 						<input type="text" id="txtProductno2.*"  style="width:85%; float:left;"/>
