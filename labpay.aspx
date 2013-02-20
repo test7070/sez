@@ -98,7 +98,7 @@
 		            t_where+= "and productno ='"+$('#txtProductno').val()+"' ";
 		            t_where+= "and product ='"+$('#txtProduct').val()+"' ";
 		            t_where+=" ^^";
-			        q_gt('custroutine_custroutines', t_where , 0, 0, 0, "", r_accy);
+			        q_gt('custroutine', t_where , 0, 0, 0, "", r_accy);
 		     	});
 
             }
@@ -138,8 +138,8 @@
                         else
                             ischecker = false;
                         break;
-                    case 'custroutine_custroutines':
-		            	var custroutines = _q_appendData("custroutine_custroutines", "", true);
+                    case 'custroutine':
+		            	var custroutines = _q_appendData("custroutines", "", true);
 		            	q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtComp,txtMount'
 		            								, custroutines.length, custroutines, 'custno,comp,mount', 'txtCustno');
 		            	
@@ -192,6 +192,10 @@
                             $('#txtAcc1_' + b_seq).val($('#txtAcc1').val());
                             $('#txtAcc2_' + b_seq).val($('#txtAcc2').val());
                         });
+                        if($('#txtCustno_' + j).val() != ''){
+			                $('#txtProductno_' + j).val($('#txtProductno').val());
+			                $('#txtProduct_' + j).val($('#txtProduct').val());
+		                }
                     }
                 }
                 _bbsAssign();
