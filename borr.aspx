@@ -18,7 +18,7 @@
 
             q_tables = 't';
             var q_name = "borr";
-            var q_readonly = ['txtNoa', 'txtCash', 'txtChecka', 'txtMoney', 'txtInterest', 'txtTotal', 'txtPay', 'txtUnpay', 'txtWorker'];
+            var q_readonly = ['txtNoa', 'txtCash', 'txtChecka', 'txtMoney', 'txtInterest', 'txtTotal', 'txtPay', 'txtUnpay', 'txtWorker','txtAccno'];
             var q_readonlys = [];
             var bbmNum = [['txtCash', 10, 0], ['txtChecka', 10, 0], ['txtMoney', 10, 0], ['txtInterest', 10, 0], ['txtTotal', 10, 0], ['txtPay', 10, 0], ['txtUnpay', 10, 0]];
             var bbsNum = [['txtMoney', 10, 0, 1]];
@@ -76,6 +76,11 @@
                 $("#txtRate").change(function() {
                     sum();
                 });
+                
+                $('#lblAccno').click(function() {
+                	if($('#txtDatea').val().substring(0,3).length>0)
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3)+ '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
+                });
             }
 
             function q_gtPost(t_name) {
@@ -87,6 +92,12 @@
                             q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
                         break;
                 }
+            }
+            function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                abbm[q_recno]['accno'] = xmlString;
+               	$('#txtAccno').val(xmlString);
             }
 
             function q_boxClose(s2) {
@@ -101,7 +112,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
-                q_box('borr_s.aspx', q_name + '_s', "500px", "340px", q_getMsg("popSeek"));
+                q_box('borr_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -109,7 +120,6 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
-
             }
 
             function btnModi() {
@@ -120,21 +130,21 @@
             }
 
             function btnPrint() {
-                q_box('z_borr.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
+                q_box('z_borr.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function btnOk() {
+            	if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
+                	return;
+                }
                 sum();
                 $('#txtWorker').val(r_name);
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }
+               
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_trd') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_borr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
             }
@@ -418,7 +428,7 @@
                 font-size: medium;
             }
             #dbbt {
-                width: 220px;
+                width: 600px;
             }
             #tbbt {
                 margin: 0;
@@ -451,14 +461,14 @@
 				<table class="tview" id="tview" >
 					<tr>
 						<td style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td style="width:80px; color:black;"><a id='vewDatea'> </a></td>
+						<td style="width:100px; color:black;"><a id='vewDatea'> </a></td>
 						<td style="width:80px; color:black;"><a id='vewCust'> </a></td>
 						<td style="width:80px; color:black;"><a id='vewMoney'> </a></td>
 						<td style="width:80px; color:black;"><a id='vewInterest'> </a></td>
 						<td style="width:80px; color:black;"><a id='vewTotal'> </a></td>
 						<td style="width:80px; color:black;"><a id='vewPay'> </a></td>
 						<td style="width:80px; color:black;"><a id='vewUnpay'> </a></td>
-						<td style="width:340px; color:black;"><a id='vewMemo'> </a></td>
+						<td style="width:300px; color:black;"><a id='vewMemo'> </a></td>
 					</tr>
 					<tr>
 						<td >
@@ -578,9 +588,11 @@
 						<td>
 						<input id="txtWorker" type="text" class="txt c1"/>
 						</td>
-						<td colspan="6">
-						<input id="txtPayed" type="text" style="display:none;"/>
+						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
+						<td>
+						<input id="txtAccno" type="text" class="txt c1"/>
 						</td>
+						<td colspan="4"> </td>
 						<td><span> </span><a id="lblUnpay" class="lbl"> </a></td>
 						<td>
 						<input id="txtUnpay" type="text" class="txt c1 num"/>
@@ -649,8 +661,9 @@
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold; width:90%;" value="＋"/>
 						</td>
 						<td style="width:20px;"> </td>
-						<td style="width:80px; text-align: center;">還款月份</td>
+						<td style="width:100px; text-align: center;">請款月份</td>
 						<td style="width:100px; text-align: center;">金額</td>
+						<td style="width:350px; text-align: center;">備註</td>
 					</tr>
 					<tr>
 						<td>
@@ -660,6 +673,7 @@
 						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td><input id="txtMon..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtMoney..*"  type="text" style="width:95%; text-align: right;"/></td>
+						<td><input id="txtMemo..*"  type="text" style="width:95%; text-align: left;"/></td>
 					</tr>
 				</tbody>
 			</table>
