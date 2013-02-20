@@ -84,7 +84,7 @@
 
             function mainPost() {
                 q_mask(bbmMask);
-                q_cmbParse("cmbContainertype", ('').concat(new Array( '傾卸櫃','平板櫃')));
+                q_cmbParse("cmbContainertype", ('').concat(new Array( '','傾卸櫃','平板櫃')));
                 q_cmbParse("cmbStype", q_getPara('vcc.stype'));
                 q_cmbParse("cmbUnit", q_getPara('sys.unit'));
                 $("#cmbStype").focus(function() {
