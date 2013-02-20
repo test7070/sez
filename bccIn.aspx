@@ -32,7 +32,7 @@
             brwKey = 'Datea';
             aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
             , ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product,unit', 'txtBccno_,txtBccname_,txtUnit_', 'bcc_b.aspx']
-            ,['txtBuyer', 'lblBuyer', 'sss', 'noa,namea', 'txtBuyer', 'sss_b.aspx']);
+            ,['txtBuyer', 'lblBuyer', 'sss', 'namea,noa', 'txtBuyer', 'sss_b.aspx']);
             
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -206,7 +206,8 @@
             }
 
             function btnPrint() {
-                q_box('z_bccin.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+                //q_box('z_bccin.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+                q_box("z_bccin.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'bccin', "95%", "650px", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
