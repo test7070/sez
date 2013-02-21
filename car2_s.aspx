@@ -75,7 +75,7 @@
 				+ q_sqlPara2("a.cardealno", t_cardealno) 
 				+ q_sqlPara2("a.carownerno", t_carownerno) 
 				+ q_sqlPara2("a.cartype", t_cartype);
-				t_where = ' where=^^' + t_where + '^^ ';	
+				t_where = " where=^^" + t_where + " or oldnoa='"+t_carno+"' ^^ ";	
 				return t_where;
 			}
 		</script>
