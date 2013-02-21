@@ -249,9 +249,9 @@
                 switch (t_name) {
                 	case 'authority':
 		                var as = _q_appendData('authority', '', true);
-		                if(r_rank >7)
+		                if(r_rank >=7)
 		                	q_content = "";
-		                if (as.length > 0 && as[0]["pr_modi"] == "true")
+		                else if (as.length > 0 && as[0]["pr_modi"] == "true")
 		                    q_content = "where=^^partno='"+ssspartno+"'^^";
 		                else
 		                    q_content = "where=^^sssno='" + r_userno + "'^^";
