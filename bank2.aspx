@@ -317,16 +317,19 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBank2' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtBank2"  type="text" class="txt c1" /></td>
+						<td colspan="2"><input id="txtBank2"  type="text" class="txt c1" /></td>
+						<td> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAccount' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtAccount"  type="text" class="txt c1" /></td>
+						<td colspan="2"><input id="txtAccount"  type="text" class="txt c1" /></td>
+						<td> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAcc1' class="lbl"> </a></td>
 						<td><input id="txtAcc1" type="text" class="txt c1" /></td>
 						<td><input id="txtAcc2" type="text" class="txt c1" /></td>
+						<td> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>

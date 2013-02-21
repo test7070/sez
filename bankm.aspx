@@ -17,8 +17,8 @@
             }
 
             var q_name = "bankm";
-            var q_readonly = [];
-            var bbmNum = [];
+            var q_readonly = ['txtNoa','txtAccno','txtDatea'];
+            var bbmNum = [['txtMoney', 10, 3],['txtMoney2', 10, 3],['txtMoney3', 10, 3]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -44,8 +44,9 @@
             }
 
             function mainPost() {
+            	bbmMask = [['txtIndate', r_picd],['txtEnddate', r_picd],['txtUndate', r_picd],['txtPaydate', r_picd]];
                 q_mask(bbmMask);
-				$('#txtAcc1').change(function() {
+				$('#txtPayacc1').change(function() {
 					var str=$.trim($(this).val());
                 	if((/^[0-9]{4}$/g).test(str))
                 		$(this).val(str+'.');
@@ -77,14 +78,16 @@
             }
             function btnIns() {
                 _btnIns();
-                $('#txtNoa').focus();
+                $('#txtNoa').val('AUTO');
+				$('#txtDatea').val(q_date());
+                $('#txtLcno').focus();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
                 $('#txtNoa').attr('disabled','disabled')
-                $('#txtComp').focus();
+                $('#txtLcno').focus();
             }
 
             function btnPrint() {
@@ -93,16 +96,17 @@
 
             function btnOk() {
                 var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
+                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
-                var t_noa = trim($('#txtNoa').val());
-                if (t_noa.length == 0)
-                    q_gtnoa(q_name, t_noa);
-                else
-                    wrServer(t_noa);
+               	var t_noa = trim($('#txtNoa').val());
+		        var t_date = trim($('#txtDatea').val());
+		        if (t_noa.length == 0 || t_noa == "AUTO")
+		            q_gtnoa(q_name, replaceAll('M' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+		        else
+		            wrServer(t_noa);
             }
 
             function wrServer(key_value) {
@@ -319,26 +323,28 @@
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblLcno' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtLcno"  type="text" class="txt c1" /></td>
+						<td colspan="2"><input id="txtLcno"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblType' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtType" type="text" class="txt c1" /></td>
+						<td colspan="2"><input id="txtType" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblIndate' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtIndate" type="text" class="txt c1" /></td>
+						<td><input id="txtIndate" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblEnddate' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtEnddate" type="text" class="txt c1" /></td>
+						<td><input id="txtEnddate" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
-						<td colspan="3"><input id="txtMoney"  type="text" class="txt num c1" /></td>
+						<td><input id="txtMoney"  type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblUndate' class="lbl"> </a></td>
@@ -346,7 +352,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoney2' class="lbl"> </a></td>
-						<td><input id="txtMoney2" type="text" class="txt c1" /></td>
+						<td><input id="txtMoney2" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPayacc' class="lbl"> </a></td>
@@ -363,12 +369,12 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBank' class="lbl"> </a></td>
-						<td><input id="lblBank3no" type="text" class="txt c1" /></td>
-						<td><input id="lblBank3" type="text" class="txt c1" /></td>
+						<td><input id="txtBank3no" type="text" class="txt c1" /></td>
+						<td><input id="txtBank3" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoney3' class="lbl"> </a></td>
-						<td><input id="txtMoney3" type="text" class="txt c1" /></td>
+						<td><input id="txtMoney3" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>

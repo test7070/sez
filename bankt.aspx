@@ -1,34 +1,33 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title> </title>
+		<title></title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            var q_name = "lcu";
-            var q_readonly = ['txtNoa','txtWorker'];
-            var bbmNum = [['txtMoney',10,0]];
-            var bbmMask = [['txtVdate','999/99/99'],['txtDatea','999/99/99'],['txtLcdate','999/99/99'],['txtDate2','999/99/99']];
+            var q_name = "bankt";
+            var q_readonly = [];
+            var bbmNum = [];
+            var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            brwCount2 = 20;
-             
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
+                brwCount2 = 8
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
             });
@@ -38,27 +37,12 @@
                     dataErr = false;
                     return;
                 }
-                mainForm(0);
+                mainForm(0);          
             }
 
             function mainPost() {
                 q_mask(bbmMask);
-                q_cmbParse("cmbTypea", q_getPara('lcu.typea'));
-                $('#cmbTypea').focus(function() {
-					var len = $(this).children().length > 0 ? $(this).children().length : 1;
-					$(this).attr('size', len + "");
-				}).blur(function() {
-					$(this).attr('size', '1');
-				});
-				
-                $('#lblAccno').click(function() {
-                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "1054px", q_getMsg('btnAccc'), true);
-                });
-                $('#lblAccno2').click(function() {
-                    q_pop('txtAccno2', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "1054px", q_getMsg('btnAccc'), true);
-                });
             }
-
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -66,7 +50,7 @@
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
                         break;
-                }   
+                }  
             }
 
             function q_gtPost(t_name) {
@@ -74,32 +58,24 @@
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
-
-                        if (q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                         break;
-                }  
+                } 
             }
 
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('lcu_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
+                q_box('bankt_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
-                $('#txtNoa').val('AUTO');
-                $('#chkEnds').prop('checked',false);
-                $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
+                $('#txtNoa').focus();
             }
-
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtDatea').focus();
+                $('#txtNamea').focus();
             }
 
             function btnPrint() {
@@ -107,37 +83,19 @@
             }
 
             function btnOk() {
-            	if (!q_cd($('#txtDatea').val())){
-                	alert(q_getMsg('lblDatea')+'錯誤。');
-                	return;
+                var t_err = '';
+                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
+                if (t_err.length > 0) {
+                    alert(t_err);
+                    return;
                 }
-            	if ($('#txtVdate').val().length>0 && !q_cd($('#txtVdate').val())){
-                	alert(q_getMsg('lblVdate')+'錯誤。');
-                	return;
-                }
-                if ($('#txtLcdate').val().length>0 && !q_cd($('#txtLcdate').val())){
-                	alert(q_getMsg('lblLcdate')+'錯誤。');
-                	return;
-                }
-                if ($('#txtDate2').val().length>0 && !q_cd($('#txtDate2').val())){
-                	alert(q_getMsg('lblDate2')+'錯誤。');
-                	return;
-                }
-                var t_noa = trim($('#txtNoa').val());
-				var t_date = trim($('#txtDatea').val());
-				if (t_noa.length == 0 || t_noa == "AUTO")
-					q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
-				else
-					wrServer(t_noa);
+                t_noa = trim($('#txtNoa').val());
+		        if (t_noa.length != 0)
+		            wrServer(t_noa);
             }
 
             function wrServer(key_value) {
                 var i;
-
-                xmlSql = '';
-                if (q_cur == 2)/// popSave
-                    xmlSql = q_preXml();
-
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], '', '', 2);
             }
@@ -208,7 +166,7 @@
             }
             .dview {
                 float: left;
-                width: 450px; 
+                width: 400px; 
                 border-width: 0px; 
             }
             .tview {
@@ -228,7 +186,7 @@
             }
             .dbbm {
                 float: left;
-                width: 500px;
+                width: 550px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -247,7 +205,7 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 24%;
+                width: 10%;
             }
             .tbbm .tdZ {
                 width: 1%;
@@ -323,17 +281,13 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewNick'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewLcdate'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewLcno'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewMoney'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewNamea'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
-						<td id='nick' style="text-align: center;">~nick</td>
-						<td id='lcdate' style="text-align: center;">~lcdate</td>
-						<td id='lcno' style="text-align: left;">~lcno</td>
-						<td id="money,0" style="text-align:right;">~money,0</td>
+						<td id='noa' style="text-align: center;">~noa</td>
+						<td id='namea' style="text-align: left;">~namea</td>
 					</tr>
 				</table>
 			</div>
@@ -347,59 +301,20 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
-						<td colspan="2"><input id="txtNoa" type="text" class="txt c1"/>	</td>
+						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td><input id="txtDatea" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblNamea' class="lbl"> </a></td>
+						<td colspan="2"><input id="txtNamea"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblLcno" class="lbl"> </a></td>
-						<td colspan="2"><input id="txtLcno" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>					
-						<td><span> </span><a id="lblTypea" class="lbl"> </a></td>
-						<td><select id="cmbTypea" class="txt c1"> </select></td>
+						<td><span> </span><a id='lblTgroup' class="lbl"> </a></td>
+						<td colspan="2"><input id="txtTgroup" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
-						<td colspan="3">
-							<input id="txtCustno" type="text" style="float:left; width:20%;"/>
-							<input id="txtComp" type="text" style="float:left; width:80%;"/>
-							<input id="txtNick" type="text" style="display:none;"/>
-						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
-						<td><input id="txtMoney" type="text" class="txt num c1"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblBank" class="lbl"> </a></td>
-						<td colspan="2"><input id="txtBank" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblVdate" class="lbl"> </a></td>
-						<td><input id="txtVdate" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblLcdate" class="lbl"> </a></td>
-						<td><input id="txtLcdate" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblDate2" class="lbl"> </a></td>
-						<td><input id="txtDate2" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
-						<td><input id="txtAccno" type="text" class="txt c1"/></td>
-						<td><input id="chkEnds" type="checkbox" class="lbl txt"/><a id="lblEnds" class="lbl txt"> </a></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblAccno2" class="lbl btn"> </a></td>
-						<td><input id="txtAccno2" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
-						<td><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
+						<td colspan="3" ><textarea id="txtMemo"  style="width:100%; height: 60px;"> </textarea></td>
 					</tr>
 				</table>
 			</div>

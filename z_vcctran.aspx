@@ -18,6 +18,8 @@
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
+            aPop = new Array(['txtPartno', '', 'part', 'noa,part', 'txtPartno', "part_b.aspx"],
+            ['txtCustno', '', 'cust', 'noa,part', 'txtCustno', "cust_b.aspx"]);
             $(document).ready(function() {
             	q_getId();
                 q_gf('', 'z_vcctran');
@@ -41,6 +43,12 @@
 	                        dbf : 'cust',
 	                        index : 'noa,comp',
 	                        src : 'cust_b.aspx'
+	                    }, {
+	                        type : '2',
+	                        name : 'partno',
+	                        dbf : 'part',
+	                        index : 'noa,part',
+	                        src : 'part_b.aspx'
 	                    } , {
 	                        type : '1',
 	                        name : 'xmon'
