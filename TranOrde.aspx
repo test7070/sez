@@ -137,7 +137,11 @@
                     q_box('z_trand.aspx' + "?;;;;" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
                 });
                 $('#btnTweight2').click(function (e) {
-		            q_box("tranordet.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'tranordet', "95%", "95%", q_getMsg("popTranorde"));
+		        	if($('#txtNoa').val() == 'AUTO'){
+		        		alert('請先儲存後進入修改才能使用此功能');
+		        	}else{
+		            	q_box("tranordet.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'tranordet', "95%", "95%", q_getMsg("popTranorde"));
+		        	}
 		        });
                 $('#txtDatea').datepicker();
                 $('#txtCldate').datepicker();
@@ -319,6 +323,12 @@
                             }
                         }
                         break;
+                    case 'tranordet':
+                        if (q_cur > 0 && q_cur < 4) {
+							t_where = "where=^^ noa='" + $('#txtNoa').val()+"' ^^"
+	           				q_gt('tranordet', t_where , 0, 0, 0, "", r_accy);
+	           			}
+                        break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         break;
@@ -331,6 +341,14 @@
                         var as = _q_appendData("trandos", "", true);
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtCaseno,txtTranno,txtTrannoq', as.length, as, 'caseno,tranno,trannoq', '', '');
                         $('#btnDeliveryno').val("匯入櫃號 ");
+                        break;
+                    case 'tranordet':
+                        var as = _q_appendData("tranordet", "", true);
+                        var total_weight = 0;
+						for (var i = 0; i < as.length; i++) {
+							total_weight += dec(as[i].weight2);
+						}
+						$('#txtTweight2').val(total_weight);
                         break;
                     case q_name:
                         if (q_cur == 4)
