@@ -12,7 +12,7 @@
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "tranordes", t_bbsTag = 'tbbs', t_content = " ", afilter = [], t_count = 0, as, brwCount2 = 10;
-    var t_sqlname = "tranorde_load"; t_postname = q_name;
+    var t_sqlname = "tranordess_load"; t_postname = q_name;
     var isBott = false;
     var afield, t_htm;
     var i, s1;
