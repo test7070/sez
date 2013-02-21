@@ -48,12 +48,21 @@
                     },{
                         type : '1',
                         name : 'date'
+                    },{
+                        type : '1',
+                        name : 'mon'
                     }, {
                         type : '2',
                         name : 'xbccno',
                         dbf : 'bcc',
                         index : 'noa,product',
                         src : 'bcc_b.aspx'
+                    },{
+                        type : '2',
+                        name : 'tgg',
+                        dbf : 'tgg',
+                        index : 'noa,comp',
+                        src : 'tgg_b.aspx'
                     },{/*3*/
 						type : '5',
 						name : 'xstore',
