@@ -16,9 +16,9 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            var q_name = "bankm";
+            var q_name = "bankf";
             var q_readonly = ['txtNoa','txtAccno','txtDatea'];
-            var bbmNum = [['txtMoney', 10, 3],['txtMoney2', 10, 3],['txtMoney3', 10, 3]];
+            var bbmNum = [['txtMoney', 10, 3],['txtMoney2', 10, 3]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -74,7 +74,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('bankm_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
+                q_box('bankf_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
@@ -104,7 +104,7 @@
                	var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
-		            q_gtnoa(q_name, replaceAll('M' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+		            q_gtnoa(q_name, replaceAll('F' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 		        else
 		            wrServer(t_noa);
             }
@@ -303,11 +303,13 @@
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewIndate'> </a></td>
 						<td align="center" style="width:280px; color:black;"><a id='vewType'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewEnddate'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='indate' style="text-align: center;">~indate</td>
 						<td id='type' style="text-align: left;">~type</td>
+						<td id='enddate' style="text-align: center;">~enddate</td>
 					</tr>
 				</table>
 			</div>
@@ -332,7 +334,12 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblType' class="lbl"> </a></td>
-						<td colspan="2"><input id="txtType" type="text" class="txt c1" /></td>
+						<td><input id="txtType" type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblBank' class="lbl"> </a></td>
+						<td><input id="txtBankno" type="text" class="txt c1" /></td>
+						<td><input id="txtBank" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblIndate' class="lbl"> </a></td>
@@ -355,9 +362,9 @@
 						<td><input id="txtMoney2" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblPayacc' class="lbl"> </a></td>
-						<td><input id="txtPayacc1" type="text" class="txt c1" /></td>
-						<td><input id="txtPayacc2" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblAcc' class="lbl"> </a></td>
+						<td><input id="txtAcc1" type="text" class="txt c1" /></td>
+						<td><input id="txtAcc2" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblCheckno' class="lbl"> </a></td>
@@ -368,13 +375,9 @@
 						<td><input id="txtPaydate" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblBank' class="lbl"> </a></td>
-						<td><input id="txtBank3no" type="text" class="txt c1" /></td>
-						<td><input id="txtBank3" type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblMoney3' class="lbl"> </a></td>
-						<td><input id="txtMoney3" type="text" class="txt num c1" /></td>
+						<td><span> </span><a id='lblBank2' class="lbl"> </a></td>
+						<td><input id="txtBank2no" type="text" class="txt c1" /></td>
+						<td><input id="txtBank2" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
