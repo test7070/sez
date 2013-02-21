@@ -140,8 +140,13 @@
                         break;
                     case 'custroutine':
 		            	var custroutines = _q_appendData("custroutines", "", true);
-		            	q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtComp,txtMount'
-		            								, custroutines.length, custroutines, 'custno,comp,mount', 'txtCustno');
+		            	for(var i = 0;i < custroutines.length;i++){
+			            	custroutines[i].productno=$('#txtProductno').val();
+			            	custroutines[i].product=$('#txtProduct').val();
+		            	}
+
+		            	q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtComp,txtMount,txtProduct,txtProductno'
+		            								, custroutines.length, custroutines, 'custno,comp,mount,product,productno', 'txtCustno,txtComp,txtProductno,txtProduct');
 		            	
                         break;
                     case q_name:
@@ -192,10 +197,7 @@
                             $('#txtAcc1_' + b_seq).val($('#txtAcc1').val());
                             $('#txtAcc2_' + b_seq).val($('#txtAcc2').val());
                         });
-                        if($('#txtCustno_' + j).val() != ''){
-			                $('#txtProductno_' + j).val($('#txtProductno').val());
-			                $('#txtProduct_' + j).val($('#txtProduct').val());
-		                }
+
                     }
                 }
                 _bbsAssign();
