@@ -136,6 +136,9 @@
                 $("#btnPrinttrand").click(function(e) {
                     q_box('z_trand.aspx' + "?;;;;" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
                 });
+                $('#btnTweight2').click(function (e) {
+		            q_box("tranorde_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'tranordes', "95%", "95%", q_getMsg("popTranorde"));
+		        });
                 $('#txtDatea').datepicker();
                 $('#txtCldate').datepicker();
                 $('#txtNodate').datepicker();
@@ -283,6 +286,16 @@
             }
 
             function sum() {
+             var t1 = 0, t_weight2 = 0,t_trannumber=0;
+            for (var j = 0; j < q_bbsCount; j++) {
+				t_weight2+=dec($('#txtWeight2_'+j).val());
+				t_trannumber+=dec($('#txtTrannumber_'+j).val());
+            }  // j
+			q_tr('txtTweight2',t_weight2);
+			q_tr('txtTtrannumber',t_trannumber);
+			
+			if(!(q_cur==1 || q_cur==2))
+					return;
             }
 
             function q_boxClose(s2) {
@@ -728,6 +741,10 @@
 						<td>
 						<input type="button" id="btnTranquat" style="width:100px;"/>
 						</td>
+						<td><span> </span><a id="lblTweight2" class="lbl"> </a></td>
+						<td><input type="text" id="txtTweight2" class="txt num c1"/> </td>
+						<td><span> </span><a id="lblTtrannumber" class="lbl"> </a></td>
+						<td><input type="text" id="txtTtrannumber" class="txt num c1"/> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblDeliveryno" class="lbl"> </a></td>
@@ -736,6 +753,10 @@
 						</td>
 						<td>
 						<input type="button" id="btnDeliveryno" style="width:100px;"/>
+						</td>
+						<td> </td>
+						<td>
+						<input type="button" id="btnTweight2" style="width:100px;"/>
 						</td>
 					</tr>
 					<tr>
