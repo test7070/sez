@@ -30,7 +30,7 @@
 				q_getFormat();
 				q_langShow();
 
-				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd],['txtBmon', r_picm], ['txtEmon', r_picm]];
+				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd],['txtBtrandate', r_picd], ['txtEtrandate', r_picd],['txtBmon', r_picm], ['txtEmon', r_picm]];
 				q_mask(bbmMask);
 				$('#txtBdate').focus();
 			}
@@ -41,6 +41,8 @@
 				t_noa = $.trim($('#txtNoa').val());
 				t_bdate = $('#txtBdate').val();
 				t_edate = $('#txtEdate').val();
+				t_btrandate = $('#txtBtrandate').val();
+				t_etrandate = $('#txtEtrandate').val();
 				t_mon=$('#txtMon').val();
 				t_carno = $.trim($('#txtCarno').val());
 				t_custno = $.trim($('#txtCustno').val());
@@ -50,6 +52,7 @@
 				var t_where = " 1=1 " 
 				+ q_sqlPara2("noa", t_noa) 
 				+ q_sqlPara2("datea", t_bdate, t_edate) 
+				+ q_sqlPara2("trandate", t_btrandate, t_etrandate) 
 				+ q_sqlPara2("mon", t_mon)
 				+ q_sqlPara2("custno", t_custno);
 				if (t_carno.length>0)
@@ -86,6 +89,14 @@
 					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>
 					<input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td   style="width:35%;" ><a id='lblTrandate'> </a></td>
+					<td style="width:65%;  ">
+					<input class="txt" id="txtBtrandate" type="text" style="width:90px; font-size:medium;" />
+					<span style="display:inline-block; vertical-align:middle">&sim;</span>
+					<input class="txt" id="txtEtrandate" type="text" style="width:93px; font-size:medium;" />
 					</td>
 				</tr>	
 				<tr class='seek_tr'>
