@@ -58,10 +58,6 @@
 		     		t_where = "noa='" + $('#txtPaybno').val() + "'";
 					q_box("payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "650px", q_getMsg('popPaytran'));
 				});
-                $('#btnGen').click(function(e) {//按下立帳
-                	//if(!emp($('#txtNoa').val()))
-						//q_func('lab_accc.gen', $('#txtNoa').val());
-				});
             }
             
             function q_funcPost(t_func, result) {	//後端傳回
@@ -110,7 +106,12 @@
                 for (var j = 0; j < q_bbsCount; j++) {
                 	$('#lblNo_' + j).text(j + 1);
                     if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-                      
+                      $('#btnVccno_' + j).click(function(){
+	                    t_IdSeq = -1; 
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+                    	q_box("vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno_' + b_seq).val() + "';" + r_accy + '_' + r_cno, 'vcc', "95%", "95%", q_getMsg('popVcc'));
+                      });
                     }
                 }
                 _bbsAssign();
@@ -375,14 +376,13 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-            			<td colspan="3"><textarea id="txtMemo" cols="10" rows="5" style="width: 95%;height: 50px;"></textarea></td>
+            			<td colspan="3"><input id="txtMeno" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
-						<td><input id="btnVcc" type="button" /></td>
 						<td></td>
-					</tr>
+						<td></td>
 				</table>
 			</div>
 		</div>
@@ -391,12 +391,12 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:2%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"/></td>
 					<td align="center" style="width:2%;"> </td>
-					<td align="center" style="width:300px;"><a id='lblSss_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblSss_s'> </a></td>
 					<td align="center" colspan="2" style="width:100px;"><a id='lblLab_s'> </a></td>
 					<td align="center" colspan="2" style="width:100px;"><a id='lblHe_s'> </a></td>
 					<td align="center" colspan="2" style="width:100px;"><a id='lblRe_s'> </a></td>
 					<td align="center" colspan="2" style="width:100px;"><a id='lblDisaster_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblVccno_s'> </a></td>
+					<td align="center" style="width:180px;"><a id='lblVccno_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -406,7 +406,7 @@
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td >
-						<input id="txtSssno.*" type="text" style="float:left;width: 35%;"/>
+						<input id="txtSssno.*" type="text" style="float:left;width: 30%;"/>
 						<input id="txtNamea.*" type="text" style="float:left;width: 55%;"/>	
 						<input id="btnSssno.*" type="button" value="." style="float:left;width: 5%;"/>				
 					</td>
@@ -418,7 +418,10 @@
 					<td><input id="txtReminus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtDisasterplus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtDisasterminus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
-					<td><input id="txtVccno.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
+					<td>
+						<input id="txtVccno.*" class="txt num c1" type="text" style="float:left;width: 85%;"/>
+						<input id="btnVccno.*" type="button" value="." style="float:left;width: 5%;"/>			
+					</td>
 					<td><input id="txtMemo.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
 				</tr>
 			</table>
