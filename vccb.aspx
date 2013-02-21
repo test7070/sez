@@ -17,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "vccb";
-            var q_readonly = ['txtNoa','txtAccno','txtWorker','txtMoney','txtTax','txtTotal'];
+            var q_readonly = ['txtNoa','txtAccno','txtVccno','txtWorker','txtMoney','txtTax','txtTotal'];
             var q_readonlys = ['txtTotal'];
             var bbmNum = [['txtMoney', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtTax', 10, 0, 1]];
             var bbsNum = [['txtMount', 10, 3, 1], ['txtPrice', 10, 3, 1], ['txtTotal', 10, 0, 1], ['txtTax', 10, 0, 1]];
@@ -30,7 +30,7 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             aPop = new Array(
-             ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
+             ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
             , ['txtInvono_', '', 'vcca', 'noa,datea,serial,custno,comp,cno,acomp', 'txtInvono_,txtIdate_,txtSerial_,txtCustno_,txtComp_,txtCno_,txtAcomp_', 'vcca_b.aspx']
        		, ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
             , ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
@@ -61,6 +61,12 @@
                 q_cmbParse("cmbTaxtype", q_getPara('vccb.taxtype'),'s');
                 q_gt('acomp', '', 0, 0, 0, "");
                 typea_chg();
+	            $('#lblAccno').click(function () {
+			        q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+			    });
+               	$('#lblVccno').click(function() {
+                    q_pop('txtVccno', "vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+                });
             }
 
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -94,6 +100,12 @@
                             q_Seek_gtPost();
                         break;
                 }  /// end switch
+            }
+            function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                	abbm[q_recno]['accno'] = xmlString.split(';')[0];
+                	abbm[q_recno]['vccno'] = xmlString.split(';')[1];
             }
 			function q_popPost(id) {
 				switch(id) {
@@ -445,6 +457,7 @@
 						<td colspan="3">
 							<input id="txtCustno" type="text" style="float:left; width:30%;"/>
 							<input id="txtComp" type="text" style="float:left; width:70%;"/>
+							<input id="txtNick" type="text" style="display:none;"/>
 						</td>
 					</tr>
 					<tr id='Tgg'>
@@ -467,8 +480,10 @@
 						<td><input id="txtTotal"  type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblAccno' class="lbl"> </a></td>
+						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
 						<td><input id="txtAccno" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblVccno' class="lbl btn"> </a></td>
+						<td><input id="txtVccno" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
 					</tr>
@@ -489,8 +504,8 @@
 					<td align="center" style="width:100px;"><a id='lblInvono'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblIdate'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblProductno'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblProduct'> </a></td>
-					<td align="center" style="width:60px;"><a id='lblMount'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblProduct'> </a></td>
+					<td align="center" style="width:20px;"><a id='lblMount'> </a></td>
 					<td align="center" style="width:60px;"><a id='lblPrice'> </a></td>
 					<td align="center" style="width:60px;"><a id='lblTotals'> </a></td>
 					<td align="center" style="width:60px;"><a id='lblTaxs'> </a></td>
