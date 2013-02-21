@@ -137,7 +137,7 @@
                     q_box('z_trand.aspx' + "?;;;;" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
                 });
                 $('#btnTweight2').click(function (e) {
-		            q_box("tranorde_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'tranordes', "95%", "95%", q_getMsg("popTranorde"));
+		            q_box("tranordet.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'tranordet', "95%", "95%", q_getMsg("popTranorde"));
 		        });
                 $('#txtDatea').datepicker();
                 $('#txtCldate').datepicker();
@@ -286,7 +286,8 @@
             }
 
             function sum() {
-             var t1 = 0, t_weight2 = 0,t_trannumber=0;
+            var as = _q_appendData("tranordet", "", true);
+            var t1 = 0, t_weight2 = 0,t_trannumber=0;
             for (var j = 0; j < q_bbsCount; j++) {
 				t_weight2+=dec($('#txtWeight2_'+j).val());
 				t_trannumber+=dec($('#txtTrannumber_'+j).val());
