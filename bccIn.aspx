@@ -31,7 +31,7 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
-            , ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product,unit', 'txtBccno_,txtBccname_,txtUnit_', 'bcc_b.aspx']
+            , ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product,unit,price', 'txtBccno_,txtBccname_,txtUnit_,txtPrice_', 'bcc_b.aspx']
             ,['txtBuyer', 'lblBuyer', 'sss', 'namea,noa', 'txtBuyer', 'sss_b.aspx']);
             
             $(document).ready(function() {
