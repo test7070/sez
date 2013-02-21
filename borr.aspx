@@ -316,7 +316,7 @@
             }
             .dview {
                 float: left;
-                width: 900px;
+                width: 950px;
                 border-width: 0px;
             }
             .tview {
@@ -336,7 +336,7 @@
             }
             .dbbm {
                 float: left;
-                width: 900px;
+                width: 950px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -476,11 +476,11 @@
 						</td>
 						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='custnick' style="text-align: center;">~custnick</td>
-						<td id='money' style="text-align: right;">~money</td>
-						<td id='interest' style="text-align: right;">~interest</td>
-						<td id='total' style="text-align: right;">~total</td>
-						<td id='pay' style="text-align: right;">~pay</td>
-						<td id='unpay' style="text-align: right;">~unpay</td>
+						<td id='money,0,1' style="text-align: right;">~money,0,1</td>
+						<td id='interest,0,1' style="text-align: right;">~interest,0,1</td>
+						<td id='total,0,1' style="text-align: right;">~total,0,1</td>
+						<td id='pay,0,1' style="text-align: right;">~pay,0,1</td>
+						<td id='unpay,0,1' style="text-align: right;">~unpay,0,1</td>
 						<td id='memo' style="text-align: left;">~memo</td>
 					</tr>
 				</table>

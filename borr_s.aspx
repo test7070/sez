@@ -9,9 +9,13 @@
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
 			var q_name = "borr_s";
-			aPop=new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
+			aPop=new Array(['txtCustno', '', 'cust', 'noa,comp', 'txtCustno', 'cust_b.aspx']);
 
 			
 			$(document).ready(function() {
@@ -30,7 +34,9 @@
 
 				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
 				q_mask(bbmMask);
-				$('#txtBdate').focus();
+				$('#txtBdate').datepicker();
+				$('#txtEdate').datepicker(); 
+				$('#txtNoa').focus();
 			}
 
 			function q_seekStr() {
