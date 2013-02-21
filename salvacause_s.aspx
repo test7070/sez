@@ -29,8 +29,29 @@
         bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
         q_mask(bbmMask);
         $('#txtBdate').focus();
+        q_gt('sss', "where=^^noa='" + q_getId()[0] + "'^^", q_sqlCount, 1)
          
     }
+    var ssspartno='';
+    function q_gtPost(t_name) {
+                switch (t_name) {
+                	case 'authority':
+		                var as = _q_appendData('authority', '', true);
+		                if(r_rank >=7)
+		                	seekwhere = "";
+		                else if (as.length > 0 && as[0]["pr_modi"] == "true")
+		                    seekwhere = "and partno='"+ssspartno+"' ";
+		                else
+		                    seekwhere = "and sssno='" + r_userno + "' ";
+		                break;
+                	
+                    case 'sss':
+                        	var as = _q_appendData('sss', '', true);
+                        	ssspartno=as[0].partno;
+                        	q_gt('authority', "where=^^a.noa='salvacause' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
+                        break;
+                }  /// end switch
+            }
 
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();
@@ -49,7 +70,7 @@
         + q_sqlPara2("namea", t_namea)+ q_sqlPara2("htype", t_htype)+ q_sqlPara2("hname", t_hname);
         
 
-        t_where = ' where=^^' + t_where + '^^ ';
+        t_where = ' where=^^' + t_where + seekwhere+'^^ ';
         return t_where;
     }
 </script>
