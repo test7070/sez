@@ -55,6 +55,8 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd],['txtVkdate', r_picd]];
                 q_mask(bbmMask);
+                bbsMask = [['txtIdate', r_picd]];
+                q_mask(bbsMask);
                 q_cmbParse("cmbTypea", q_getPara('vccb.typea'));
                 q_cmbParse("cmbTaxtype", q_getPara('vccb.taxtype'),'s');
                 q_gt('acomp', '', 0, 0, 0, "");

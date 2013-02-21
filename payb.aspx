@@ -287,7 +287,7 @@
                 
                 var yufu=false;
                 for (var j = 0; j < q_bbsCount; j++) {
-                	if($('#txtAcc2_'+j).val().indexOf('預付')>-1){
+                	if($('#cmbKind_'+j).val().indexOf('預付')>-1){
                 		yufu=true;
                 		break;
                 	}
