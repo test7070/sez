@@ -11,7 +11,7 @@
     <script src="../script/qbox.js" type="text/javascript"> </script>
     <link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-    var q_name = "tranorde", t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbmKey = ['noa'],bbsKey = ['noa','noq'], t_count = 0, as, brwCount2 = 10;
+    var q_name = "tranordes", t_bbsTag = 'tbbs', t_content = " ", afilter = [], t_count = 0, as, brwCount2 = 10;
     var t_sqlname = "tranorde_load"; t_postname = q_name;
     var isBott = false;
     var afield, t_htm;
@@ -27,7 +27,7 @@
 
     $(document).ready(function () {
         bbmKey = [];
-        bbsKey = ['noa', 'noq'];
+        bbsKey = ['noa','noq'];
         if (location.href.indexOf('?') < 0)   // debug
         {
             location.href = location.href + "?;;;noa='0015'";
