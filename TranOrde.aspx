@@ -290,17 +290,8 @@
             }
 
             function sum() {
-            var as = _q_appendData("tranordet", "", true);
-            var t1 = 0, t_weight2 = 0,t_trannumber=0;
-            for (var j = 0; j < q_bbsCount; j++) {
-				t_weight2+=dec($('#txtWeight2_'+j).val());
-				t_trannumber+=dec($('#txtTrannumber_'+j).val());
-            }  // j
-			q_tr('txtTweight2',t_weight2);
-			q_tr('txtTtrannumber',t_trannumber);
+           
 			
-			if(!(q_cur==1 || q_cur==2))
-					return;
             }
 
             function q_boxClose(s2) {
@@ -344,11 +335,13 @@
                         break;
                     case 'tranordet':
                         var as = _q_appendData("tranordet", "", true);
-                        var total_weight = 0;
+                        var total_weight = 0,total_trannumber=0;
 						for (var i = 0; i < as.length; i++) {
 							total_weight += dec(as[i].weight2);
+							total_trannumber += dec(as[i].trannumber);
 						}
 						$('#txtTweight2').val(total_weight);
+						$('#txtTtrannumber').val(total_trannumber);
                         break;
                     case q_name:
                         if (q_cur == 4)
@@ -418,9 +411,11 @@
                 if (q_cur != 1 && q_cur != 2) {
                     $('#btnTranquat').attr('disabled', 'disabled');
                     $('#btnDeliveryno').attr('disabled', 'disabled');
+                    $('#btnTweight2').attr('disabled', 'disabled');
                 } else {
                     $('#btnTranquat').removeAttr('disabled');
                     $('#btnDeliveryno').removeAttr('disabled');
+                    $('#btnTweight2').removeAttr('disabled');
                 }
                 if (q_cur == 1 || q_cur == 2) {
                     $('.x_chk').removeAttr('disabled');

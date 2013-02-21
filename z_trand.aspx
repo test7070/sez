@@ -16,7 +16,8 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 		aPop  =  new Array(['txtXcarno', 'lblXcarno', 'car2', 'a.noa,driver','txtXcarno', 'car2_b.aspx'],
-			['txtXuccno', 'lblXuccno', 'ucc', 'noa,product', 'txtXuccno', 'ucc_b.aspx']
+			['txtXuccno', 'lblXuccno', 'ucc', 'noa,product', 'txtXuccno', 'ucc_b.aspx'],
+			['txtXcarnos', 'lblXcarno', 'car2', 'a.noa,driverno,driver','txtXcarnos', 'car2_b.aspx']
 			);
 		
 			$(document).ready(function() {
@@ -57,7 +58,7 @@
 					}, {
 	                        type : '6',
 	                        name : 'xcarnos'
-	                    }]
+	                }]
 				});
 				q_popAssign();
 				$('#txtTrandate1').mask('999/99/99');
@@ -89,14 +90,7 @@
 				t_day = t_day > 9 ? t_day + '' : '0' + t_day;
 				$('#txtTrandate2').val(t_year + '/' + t_month + '/' + t_day);
 				
-				$('#Xcarnos').css("width","410px");
-            	$('#txtXcarnos').css("width","320px");
-            	$('#txtXcarnos').focus(function() {
-            		q_msg( $(this), '輸入格式為：車牌.車牌.車牌.......');
-                }).blur(function () {
-					q_msg();
-					$('#btnOk').click()
-	        	});
+			
 			}
 
 			function q_boxClose(s2) {
