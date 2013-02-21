@@ -107,6 +107,7 @@
                     sum();
                 });
                 $('#txtInmount').change(function() {
+                	$('#txtOutmount').val($('#txtInmount').val());
                     sum();
                 });
                 $('#txtOutprice').change(function() {
