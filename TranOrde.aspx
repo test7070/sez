@@ -137,7 +137,11 @@
                     q_box('z_trand.aspx' + "?;;;;" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
                 });
                 $('#btnTweight2').click(function (e) {
-		            q_box("tranordet.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'tranordet', "95%", "95%", q_getMsg("popTranorde"));
+		        	if($('#txtNoa').val() == 'AUTO'){
+		        		alert('請先儲存後進入修改才能使用此功能');
+		        	}else{
+		            	q_box("tranordet.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'tranordet', "95%", "95%", q_getMsg("popTranorde"));
+		        	}
 		        });
                 $('#txtDatea').datepicker();
                 $('#txtCldate').datepicker();
@@ -286,17 +290,8 @@
             }
 
             function sum() {
-            var as = _q_appendData("tranordet", "", true);
-            var t1 = 0, t_weight2 = 0,t_trannumber=0;
-            for (var j = 0; j < q_bbsCount; j++) {
-				t_weight2+=dec($('#txtWeight2_'+j).val());
-				t_trannumber+=dec($('#txtTrannumber_'+j).val());
-            }  // j
-			q_tr('txtTweight2',t_weight2);
-			q_tr('txtTtrannumber',t_trannumber);
+           
 			
-			if(!(q_cur==1 || q_cur==2))
-					return;
             }
 
             function q_boxClose(s2) {
@@ -319,6 +314,12 @@
                             }
                         }
                         break;
+                    case 'tranordet':
+                        if (q_cur > 0 && q_cur < 4) {
+							t_where = "where=^^ noa='" + $('#txtNoa').val()+"' ^^"
+	           				q_gt('tranordet', t_where , 0, 0, 0, "", r_accy);
+	           			}
+                        break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         break;
@@ -331,6 +332,16 @@
                         var as = _q_appendData("trandos", "", true);
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtCaseno,txtTranno,txtTrannoq', as.length, as, 'caseno,tranno,trannoq', '', '');
                         $('#btnDeliveryno').val("匯入櫃號 ");
+                        break;
+                    case 'tranordet':
+                        var as = _q_appendData("tranordet", "", true);
+                        var total_weight = 0,total_trannumber=0;
+						for (var i = 0; i < as.length; i++) {
+							total_weight += dec(as[i].weight2);
+							total_trannumber += dec(as[i].trannumber);
+						}
+						$('#txtTweight2').val(total_weight);
+						$('#txtTtrannumber').val(total_trannumber);
                         break;
                     case q_name:
                         if (q_cur == 4)
@@ -400,9 +411,11 @@
                 if (q_cur != 1 && q_cur != 2) {
                     $('#btnTranquat').attr('disabled', 'disabled');
                     $('#btnDeliveryno').attr('disabled', 'disabled');
+                    $('#btnTweight2').attr('disabled', 'disabled');
                 } else {
                     $('#btnTranquat').removeAttr('disabled');
                     $('#btnDeliveryno').removeAttr('disabled');
+                    $('#btnTweight2').removeAttr('disabled');
                 }
                 if (q_cur == 1 || q_cur == 2) {
                     $('.x_chk').removeAttr('disabled');
