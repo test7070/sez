@@ -35,7 +35,10 @@
         t_year = $('#txtYear').val();
 
         var t_where = " 1=1 "  + q_sqlPara2("noa", t_noa) + q_sqlPara2("year", t_year);
-
+		
+		if(r_rank<8){
+			t_where+=" and workerno='"+q_getId()[0]+"' "
+		}
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
     }
