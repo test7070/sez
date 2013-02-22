@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = 'bank2', t_content = 'field=noa,bank2 ', bbsKey = ['noa'], as; 
+    var q_name = 'bank2', t_content = 'field=noa,bank2,account ', bbsKey = ['noa'], as; 
     var isBott = false;  
     var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
     var i,s1;
@@ -45,11 +45,13 @@
                 <th align="center" > </th>
                 <th align="center" style='color:Blue;'><a id='lblNoa'> </a></th>
                 <th align="center" style='color:Blue;'><a id='lblBank2'> </a></th>
+                <th align="center" style='color:Blue;'><a id='lblAccount'> </a></th>
             </tr>
             <tr>
                 <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
                 <td style="width:20%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-                <td style="width:45%;"><input class="txt" id="txtBank2.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:35%;"><input class="txt" id="txtBank2.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:35%;"><input class="txt" id="txtAccount.*" type="text" style="width:98%;"  readonly="readonly" /></td>
                 
             </tr>
         </table>

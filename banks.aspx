@@ -17,8 +17,8 @@
             }
 
             var q_name = "banks";
-            var q_readonly = [];
-            var bbmNum = [];
+            var q_readonly = [['txtNoa'],['txtAccno'],['txtWorker']];
+            var bbmNum = [['txtMoney', 10, 0, 1], ['txtMoney2', 10, 0, 1], ['txtMoney3', 10, 0, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -26,8 +26,10 @@
             brwNowPage = 0;
             brwKey = 'noa';
             brwCount2 = 20;
-            aPop = new Array(['txtBanktno', 'lblBankt', 'bankt', 'noa,namea', 'txtBanktno,txtBanktname', 'bankt_b.aspx'],
-           					 ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+            aPop = new Array(['txtBankno', 'lblBank', 'bank2', 'noa,bank2,account', 'txtBankno,txtBank', 'bank2_b.aspx'],
+            				 ['txtBanktno', 'lblBankt', 'bankt', 'noa,namea', 'txtBanktno,txtBanktname', 'bankt_b.aspx'],
+           					 ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+           					 ['txtAcc3', 'lblAcc2', 'acc', 'acc1,acc2', 'txtAcc3,txtAcc4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 brwCount2 = 20
@@ -44,8 +46,19 @@
             }
 
             function mainPost() {
+				bbmMask = [['txtDatea', r_picd],['txtEnddate', r_picd],['txtPaydate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbBankt", q_getPara('bankt.typea'));
+				$('#txtAcc1').change(function() {
+					var str=$.trim($(this).val());
+                	if((/^[0-9]{4}$/g).test(str))
+                		$(this).val(str+'.');
+				});
+				$('#txtAcc3').change(function() {
+					var str=$.trim($(this).val());
+                	if((/^[0-9]{4}$/g).test(str))
+                		$(this).val(str+'.');
+				});
             }
             function q_boxClose(s2) {
                 var ret;
@@ -73,14 +86,17 @@
             }
             function btnIns() {
                 _btnIns();
-                $('#txtNoa').focus();
+                $('#txtDatea').val(q_date());
+            	$('#txtNoa').val('AUTO');
+                $('#txtDatea').focus();
+                bankt_change();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtNoa').attr('disabled','disabled')
-                $('#txtbanks').focus();
+                $('#txtDatea').focus();
+                bankt_change();
             }
 
             function btnPrint() {
@@ -94,11 +110,13 @@
                     alert(t_err);
                     return;
                 }
-                var t_noa = trim($('#txtNoa').val());
-                if (t_noa.length == 0)
-                    q_gtnoa(q_name, t_noa);
-                else
-                    wrServer(t_noa);
+                $('#txtWorker').val(r_name);
+				var t_noa = trim($('#txtNoa').val());
+			 	var t_date = trim($('#txtDatea').val());
+    			if (t_noa.length == 0 || t_noa == "AUTO")
+		            q_gtnoa(q_name, replaceAll('B' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+		        else
+		            wrServer(t_noa);
             }
 
             function wrServer(key_value) {
@@ -109,6 +127,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                bankt_change();
             }
 
             function readonly(t_para, empty) {
@@ -166,6 +185,34 @@
             function btnCancel() {
                 _btnCancel();
             }
+            function bankt_change(){
+				bankt_val = $('#cmbBankt').val();
+				if(bankt_val == '1'){
+					$('#txtAcc1').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtAcc2').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtEnddate').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtAcc3').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtAcc4').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtMoney2').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtCheckno').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtPaydate').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtBankno3').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtMoney3').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtBank3').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+				}else if(bankt_val == '2'){
+					$('#txtAcc3').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtAcc4').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtMoney2').val('0').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtCheckno').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtPaydate').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtBankno3').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtMoney3').val('0').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtBank3').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtAcc1').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtAcc2').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtEnddate').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+				}
+            }
 		</script>
 		<style type="text/css">
             #dmain {
@@ -193,7 +240,7 @@
             }
             .dbbm {
                 float: left;
-                width: 550px;
+                width: 600px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -314,7 +361,7 @@
 						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblBank' class="lbl"> </a></td>
+						<td><span> </span><a id='lblBank' class="lbl btn"> </a></td>
 						<td><input id="txtBankno"  type="text" class="txt c1" /></td>
 						<td><input id="txtBank"  type="text" class="txt c1" /></td>
 						<td> </td>
@@ -329,11 +376,11 @@
 						<td><span> </span><a id='lblBankt' class="lbl btn"> </a></td>
 						<td><input id="txtBanktno" type="text" class="txt c1" /></td>
 						<td><input id="txtBanktname" type="text" class="txt c1" /></td>
-						<td><select id="cmbBankt" class="txt c1"> </select></td>
+						<td><select id="cmbBankt" class="txt c1" onchange="bankt_change();"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
-						<td><input id="txtMoney" type="text" class="txt c1" /></td>
+						<td><input id="txtMoney" type="text" class="txt num c1" /></td>
 						<td> </td>
 					</tr>
 					<tr>
@@ -343,13 +390,13 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblFloat' class="lbl"> </a></td>
-						<td><input id="txtFloat" type="text" class="txt c1" /></td>
+						<td><input id="txtFloat" type="text" class="txt num c1" /></td>
 						<td> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblBank2' class="lbl"> </a></td>
-						<td><input id="txtBankno2" type="text" class="txt c1" /></td>
-						<td><input id="txtBank2" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblAcc1' class="lbl btn"> </a></td>
+						<td><input id="txtAcc1" type="text" class="txt c1" /></td>
+						<td><input id="txtAcc2" type="text" class="txt c1" /></td>
 						<td> </td>
 					</tr>
 					<tr>
@@ -358,14 +405,14 @@
 						<td> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblAcc' class="lbl"> </a></td>
-						<td><input id="txtAcc1" type="text" class="txt c1" /></td>
-						<td><input id="txtAcc2" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblAcc2' class="lbl btn"> </a></td>
+						<td><input id="txtAcc3" type="text" class="txt c1" /></td>
+						<td><input id="txtAcc4" type="text" class="txt c1" /></td>
 						<td> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMoney2' class="lbl"> </a></td>
-						<td><input id="txtMoney2" type="text" class="txt c1" /></td>
+						<td><input id="txtMoney2" type="text" class="txt num c1" /></td>
 						<td> </td>
 					</tr>
 					<tr>
@@ -378,13 +425,12 @@
 						<td><span> </span><a id='lblBankno3' class="lbl"> </a></td>
 						<td><input id="txtBankno3" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblMoney3' class="lbl"> </a></td>
-						<td><input id="txtMoney3" type="text" class="txt c1" /></td>
+						<td><input id="txtMoney3" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBank3' class="lbl"> </a></td>
-						<td><input id="txtBank3" type="text" class="txt c1" /></td>
-						<td></td>
-						<td></td>
+						<td colspan="3"><input id="txtBank3" type="text" class="txt c1" /></td>
+
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
@@ -393,6 +439,8 @@
 					<tr>
 						<td><span> </span><a id='lblAccno' class="lbl"> </a></td>
 						<td><input id="txtAccno" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td><input id="txtWorker" type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
