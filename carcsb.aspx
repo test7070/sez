@@ -157,6 +157,8 @@
 						var t_item = "";
 						var item = new Array();
 						for ( i = 0; i < as.length; i++) {
+							if(!(as[i].noa=='D' || as[i].noa=='E'))
+								continue;
 							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + as[i].noq + '@' + as[i].typea;
 							tmp_discount.push(as[i].discount);
 						}
@@ -182,7 +184,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-				q_box('carcsb_s.aspx', q_name + '_s', "520px", "430px", q_getMsg( "popSeek"));
+				q_box('carcsb_s.aspx', q_name + '_s', "520px", "600px", q_getMsg( "popSeek"));
             }
 
             function btnIns() {
@@ -473,8 +475,9 @@
 						<td style="width: 80px; color:black;"><a id='vewCarno'></a></td>
 						<td style="width: 80px; color:black;"><a id='vewDriver'></a></td>
 						<td style="width: 200px; color:black;"><a id='vewAddr'></a></td>
+						<td style="width: 100px; color:black;"><a id='vewCust'></a></td>
 						<td style="width: 80px; color:black;"><a id='vewInmoney'></a></td>
-						<td style="width: 120px; color:black;"><a id='vewCust'></a></td>
+						<td style="width: 80px; color:black;"><a id='vewDiscount'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -482,8 +485,9 @@
 						<td id='carno' style="text-align: center;">~carno</td>
 						<td id='driver' style="text-align: center;">~driver</td>
 						<td id='addr' style="text-align: left;">~addr</td>
-						<td id='inmoney,0,1' style="text-align: right;">~inmoney,0,1</td>
 						<td id='nick' style="text-align: center;">~nick</td>
+						<td id='inmoney,0,1' style="text-align: right;">~inmoney,0,1</td>
+						<td id='discount,3,1' style="text-align: right;">~discount,3,1</td>						
 					</tr>
 				</table>
 			</div>
