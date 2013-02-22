@@ -9,6 +9,10 @@
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
 			var q_name = "carcsa_s";
 			aPop=new Array(
@@ -30,11 +34,16 @@
 				q_getFormat();
 				q_langShow();
 
-				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd],['txtBmon', r_picm], ['txtEmon', r_picm]];
+				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd],['txtBtrandate', r_picd], ['txtEtrandate', r_picd],['txtBmon', r_picm], ['txtEmon', r_picm]];
 				q_mask(bbmMask);
 				q_gt('acomp', '', 0, 0, 0, "");
 				q_cmbParse("cmbInterval", '@全部,'+q_getPara('carcsa.interval'));
-				$('#txtBdate').focus();
+				$('#txtNoa').focus();
+				
+				$('#txtBdate').datepicker();
+				$('#txtEdate').datepicker(); 
+				$('#txtBtrandate').datepicker();
+				$('#txtEtrandate').datepicker(); 
 			}
 			function q_gtPost(t_name) {
                 switch (t_name) {
@@ -56,6 +65,8 @@
 				t_ordeno = $.trim($('#txtOrdeno').val());
 				t_bdate = $('#txtBdate').val();
 				t_edate = $('#txtEdate').val();
+				t_btrandate = $('#txtBtrandate').val();
+				t_etrandate = $('#txtEtrandate').val();
 				t_mon=$('#txtMon').val();
 				t_carno = $.trim($('#txtCarno').val());
 				t_interval = $('#cmbInterval').val();
@@ -66,7 +77,8 @@
 				var t_where = " 1=1 " 
 				+ q_sqlPara2("noa", t_noa) 
 				+ q_sqlPara2("ordeno", t_ordeno) 
-				+ q_sqlPara2("datea", t_bdate, t_edate) 
+				+ q_sqlPara2("tdate", t_bdate, t_edate)
+				+ q_sqlPara2("trandate", t_btrandate, t_etrandate) 
 				+ q_sqlPara2("mon", t_mon)
 				+ q_sqlPara2("custno", t_custno)
 				+ q_sqlPara2("interval", t_interval)
@@ -118,7 +130,15 @@
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>
 					<input class="txt" id="txtEdate" type="text" style="width:93px; font-size:medium;" />
 					</td>
-				</tr>	
+				</tr>
+				<tr class='seek_tr'>
+					<td   style="width:35%;" ><a id='lblTrandate'> </a></td>
+					<td style="width:65%;  ">
+					<input class="txt" id="txtBtrandate" type="text" style="width:90px; font-size:medium;" />
+					<span style="display:inline-block; vertical-align:middle">&sim;</span>
+					<input class="txt" id="txtEtrandate" type="text" style="width:93px; font-size:medium;" />
+					</td>
+				</tr>		
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblMon'> </a></td>
 					<td><input class="txt" id="txtMon" type="text" style="width:215px; font-size:medium;" /></td>

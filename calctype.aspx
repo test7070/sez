@@ -20,7 +20,7 @@
             var q_readonly = [];
             var q_readonlys = new Array();
             var bbmNum = [];
-            var bbsNum = [['txtDiscount',10,3]];
+            var bbsNum = [['txtDiscount',10,3],['txtDiscount2',10,3]];
             var bbmMask = [];
             var bbsMask = new Array();
             q_sqlCount = 6;
@@ -374,6 +374,7 @@
 					<td align="center" style="width:100px;"><a id='lblTypea_s'> </a></td>
 					<td align="center" style="width:50px;"><a id='lblIsoutside_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblDiscount_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblDiscount2_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblBonusno_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -384,6 +385,7 @@
 					<td><input type="text" id="txtTypea.*" style="width:95%;" /></td>
 					<td  align="center"><input type="checkbox" id="chkIsoutside.*" /></td>
 					<td><input type="text" id="txtDiscount.*" style="width:95%;text-align: right;" /></td>
+					<td><input type="text" id="txtDiscount2.*" style="width:95%;text-align: right;" /></td>
 					<td><input type="text" id="txtBonusno.*" style="width:95%;" /></td>
 				</tr>
 			</table>
