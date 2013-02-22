@@ -9,6 +9,10 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -84,7 +88,7 @@
             }
 
             function mainPost() {
-                bbmMask = [['txtDatea', r_picd],['txtTrandate', r_picd], ['txtMon', r_picm]];
+                bbmMask = [['txtDatea', r_picd],['txtTrandate', r_picd], ['txtMon', r_picm], ['txtBdate_export', r_picd], ['txtEdate_export', r_picd]];
                 q_mask(bbmMask);
 				q_gt('calctype2', '', 0, 0, 0, "calctypes");
 				
@@ -99,7 +103,7 @@
         			$('#txtDiscount').val(calctypeItem[$(this)[0].selectedIndex].discount);
         			sum();
         		});
-                		
+                	
                 $('#txtDatea').focusout(function() {
                     q_cd($(this).val(), $(this));
                 });
@@ -119,6 +123,40 @@
                 $('#txtDiscount').change(function() {
                     sum();
                 });
+                
+                $('#txtBdate_export').focusout(function () {
+                 	   q_cd( $(this).val() ,$(this));
+                });
+	            $('#txtEdate_export').focusout(function () {
+                 	   q_cd( $(this).val() ,$(this));
+                });	
+                $('#btnExport').click(function(){
+					$('#divExport').toggle();
+					$('#txtBdate_export').focus();
+				});
+				$('#btnCancel_export').click(function(){
+					$('#divExport').toggle();
+				});
+				$('#btnExport_trans').click(function(){
+					var t_bdate = $.trim($('#txtBdate_export').val());
+					var t_edate = $.trim($('#txtEdate_export').val());
+					if(t_bdate.length==0 || t_edate.length==0){
+						alert('請輸入匯入條件!');
+						return;
+					}
+					$('#btnExport_trans').attr('disabled','disabled').val('請稍後。');
+					q_func('carcsc.export',t_bdate+','+t_edate);
+				});
+				$('#txtBdate_export').keydown(function(e) {
+					if(e.which==13)
+						$('#txtEdate_export').focus();
+				});
+				$('#txtEdate_export').keydown(function(e) {
+					if(e.which==13)
+						$('#btnExport_trans').focus();
+				});
+				$('#txtBdate_export').datepicker();
+				$('#txtEdate_export').datepicker(); 
             }
 
             function sum() {
@@ -159,7 +197,7 @@
                         break;
                 	case 'calctypes':
 						var as = _q_appendData("calctypes", "", true);
-						var t_item = "@";
+						var t_item = "";
 						var item = new Array({
 								noa : '',
 								typea : '',
@@ -188,12 +226,19 @@
                         break;
                 }  /// end switch
             }
-
+			function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'carcsc.export':
+						alert(result);
+						$('#btnExport_trans').removeAttr('disabled','disabled').val('匯至出車單');
+                        break;
+                }
+            }
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('carcsc_s.aspx', q_name + '_s', "520px", "500px", q_getMsg("popSeek"));
+                q_box('carcsc_s.aspx', q_name + '_s', "520px", "650px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -259,6 +304,8 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                $('#txtBdate_export').removeAttr('disabled');
+                $('#txtEdate_export').removeAttr('disabled');
             }
 
             function btnMinus(id) {
@@ -451,6 +498,34 @@
         ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
      >
 		<!--#include file="../inc/toolbar.inc"-->
+		<div id="divExport" style="position:absolute; top:300px; left:500px; display:none; width:300px; height:200px; background-color: #cad3ff; border: 5px solid gray;">
+			<table style="width:100%;">
+				<tr style="height:1px;">
+					<td style="width:80px;"> </td>
+					<td style="width:80px;"> </td>
+					<td style="width:80px;"> </td>
+					<td style="width:80px;"> </td>
+					<td style="width:80px;"> </td>
+				</tr>
+				<tr style="height:35px;">
+					<td><span> </span><a id="lblDate_export" style="float:right; color: blue; font-size: medium;"> </a></td>
+					<td colspan="4">
+						<input id="txtBdate_export"  type="text" style="float:left; width:80px; font-size: medium;"/>
+						<span style="float:left; display:block; width:20px;"><a>～</a></span>
+						<input id="txtEdate_export"  type="text" style="float:left; width:80px; font-size: medium;"/>
+					</td>
+				</tr>
+				<tr style="height:35px;"> </tr>
+				<tr style="height:35px;"> </tr>
+				<tr style="height:35px;">
+					<td> </td>
+					<td><input id="btnExport_trans" type="button" value="匯至出車單"/></td>			
+					<td> </td>
+					<td> </td>
+					<td><input id="btnCancel_export" type="button" value="關閉"/></td>			
+				</tr>
+			</table>
+		</div>
 		<div id='dmain' >
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">

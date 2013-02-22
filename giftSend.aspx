@@ -20,7 +20,7 @@
             var q_readonly = ['txtWorker'];
             var q_readonlys = [];
             var bbmNum = new Array(['txtPrice', 10, 0, 1],['txtTotal',10,0,1]);
-            var bbsNum = new Array(['txtPrice', 10, 0, 1]);
+            var bbsNum = new Array(['txtPrice', 10, 0, 1],['txtMount', 10, 0, 1]);
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -91,10 +91,11 @@
                 
                
                 var t_noa = trim($('#txtNoa').val());
-                if (t_noa.length == 0)
-                    return;
-                else
-                    wrServer(t_noa);
+		        var t_date = trim($('#txtDatea').val());
+		        if (t_noa.length == 0 || t_noa == "AUTO")
+		            q_gtnoa(q_name, replaceAll('KGS' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+		        else
+		            wrServer(t_noa);
             }
 
             function _btnSeek() {
@@ -104,9 +105,9 @@
             }
             function btnIns() {
                 _btnIns();
-               $('#txtNoa').focus();
+               $('#txtDatea').focus();
                 $('#txtDatea').val(q_date());
-                
+                $('#txtNoa').val('AUTO');
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))

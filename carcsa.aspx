@@ -158,7 +158,7 @@
                         break;
                 	case 'calctypes':
 						var as = _q_appendData("calctypes", "", true);
-						var t_item = "@";
+						var t_item = "";
 						var item = new Array({
 								noa : '',
 								typea : '',
