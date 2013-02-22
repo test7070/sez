@@ -197,7 +197,7 @@
                         break;
                 	case 'calctypes':
 						var as = _q_appendData("calctypes", "", true);
-						var t_item = "@";
+						var t_item = "";
 						var item = new Array({
 								noa : '',
 								typea : '',
@@ -226,12 +226,19 @@
                         break;
                 }  /// end switch
             }
-
+			function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'carcsc.export':
+						alert(result);
+						$('#btnExport_trans').removeAttr('disabled','disabled').val('匯至出車單');
+                        break;
+                }
+            }
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('carcsc_s.aspx', q_name + '_s', "520px", "500px", q_getMsg("popSeek"));
+                q_box('carcsc_s.aspx', q_name + '_s', "520px", "650px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -491,7 +498,7 @@
         ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
      >
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id="divExport" style="position:absolute; top:400px; left:500px; display:none; width:300px; height:200px; background-color: #cad3ff; border: 5px solid gray;">
+		<div id="divExport" style="position:absolute; top:300px; left:500px; display:none; width:300px; height:200px; background-color: #cad3ff; border: 5px solid gray;">
 			<table style="width:100%;">
 				<tr style="height:1px;">
 					<td style="width:80px;"> </td>
