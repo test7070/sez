@@ -33,10 +33,10 @@
             , ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b2.aspx']
             , ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,conn,tel,fax,zip_comp,addr_comp', 'txtCustno,txtComp,txtNick,txtConn_cust,txtTel_cust,txtFax_cust,txtZip_cust,txtAddr_cust', 'cust_b.aspx']
             , ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
-            , ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
-            , ['txtAssigner', 'lblAssigner', 'sss', 'noa,namea', 'txtAssignerno,txtAssigner', 'sss_b.aspx']
-            , ['txtAssistant', 'lblAssistant', 'sss', 'noa,namea', 'txtAssistantno,txtAssistant', 'sss_b.aspx']
-            , ['txtCar_conn', 'lblCar_conn', 'sss', 'noa,namea', 'txtCar_connno,txtCar_conn', 'sss_b.aspx']
+            , ['txtSales', 'lblSales', 'sss', 'namea,noa', 'txtSales,txtSalesno', 'sss_b.aspx']
+            , ['txtAssigner', 'lblAssigner', 'sss', 'namea,noa', 'txtAssigner,txtAssignerno', 'sss_b.aspx']
+            , ['txtAssistant', 'lblAssistant', 'sss', 'namea,noa', 'txtAssistant,txtAssistantno', 'sss_b.aspx']
+            , ['txtCar_conn', 'lblCar_conn', 'sss', 'namea,noa', 'txtCar_conn,txtCar_connno', 'sss_b.aspx']
             );
             $(document).ready(function() {
                 bbmKey = ['noa'];
