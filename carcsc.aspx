@@ -40,7 +40,7 @@
 			currentData.prototype = {
 				data : [],
 				/*新增時複製的欄位*/
-				include : ['txtDatea','txtTrandate','txtMon','txtCustno','txtComp','txtNick','txtAddrno','txtAddr','txtBoatno','txtBoat','txtUccno','txtProduct'],
+				include : ['txtDatea','txtTrandate','txtMon','txtCustno','txtComp','txtNick','txtAddrno','txtAddr','txtBoatno','txtBoat','txtUccno','txtProduct','cmbCalctype','txtDiscount'],
 				/*記錄當前的資料*/
 				copy : function() {
 					curData.data = new Array();
@@ -173,7 +173,7 @@
 							item.push({
 								noa : as[i].noa + as[i].noq,
 								typea : as[i].typea,
-								discount : as[i].discount,
+								discount : as[i].discount2,
 								isOutside : as[i].isoutside.length == 0 ? false : (as[i].isoutside == "false" || as[i].isoutside == "0" || as[i].isoutside == "undefined" ? false : true)
 							});
 						}
@@ -201,7 +201,8 @@
                 _btnIns();
                 curData.paste();
                 $('#txtNoa').val('AUTO');
-                $('#txtDatea').val(q_date());
+                if($('#txtDatea').val().length==0)
+                	$('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
             }
 
@@ -462,7 +463,7 @@
 						<td style="width: 150px; color:black;"><a id='vewAddr'> </a></td>
 						<td style="width: 100px; color:black;"><a id='vewNick'> </a></td>
 						<td style="width: 80px; color:black;"><a id='vewBoatno'> </a></td>
-						<td style="width: 80px; color:black;"><a id='vewBoat'> </a></td>
+						<td style="width: 80px; color:black;"><a id='vewInmount'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -473,7 +474,7 @@
 						<td id='addr' style="text-align: left;">~addr</td>
 						<td id='nick' style="text-align: center;">~nick</td>
 						<td id='boatno' style="text-align: left;">~boatno</td>
-						<td id='boat' style="text-align: left;">~boat</td>
+						<td id='inmount,0,1' style="text-align: right;">~inmount,0,1</td>
 					</tr>
 				</table>
 			</div>
