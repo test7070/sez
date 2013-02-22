@@ -180,6 +180,32 @@
 				$('#txtSssno').blur(function() {
                     $('#txtManage').focus();
                 });
+                
+                $('#txtUlicensemon').blur(function() {
+                    if(!emp($('#txtUlicensemon').val())&&$('#txtUlicensemon').val()!='04')
+                    	alert(q_getMsg('lblUlicense')+'月份錯誤，請檢查!!');
+                });
+                $('#txtDlicensemon').blur(function() {
+                    if(!emp($('#txtDlicensemon').val())&&$('#txtDlicensemon').val()!='10')
+                    	alert(q_getMsg('lblDlicense')+'月份錯誤，請檢查!!');
+                });
+                $('#txtSpringmon').blur(function() {
+                    if(!emp($('#txtSpringmon').val())&&$('#txtSpringmon').val()!='03')
+                    	alert(q_getMsg('lblSpring')+'月份錯誤，請檢查!!');
+                });
+                $('#txtSummermon').blur(function() {
+                    if(!emp($('#txtSummermon').val())&&$('#txtSummermon').val()!='06')
+                    	alert(q_getMsg('lblSummer')+'月份錯誤，請檢查!!');
+                });
+                $('#txtFallamon').blur(function() {
+                    if(!emp($('#txtFallamon').val())&&$('#txtFallamon').val()!='09')
+                    	alert(q_getMsg('lblFalla')+'月份錯誤，請檢查!!');
+                });
+                $('#txtWintermon').blur(function() {
+                    if(!emp($('#txtWintermon').val())&&$('#txtWintermon').val()!='12')
+                    	alert(q_getMsg('lblWinter')+'月份錯誤，請檢查!!');
+                });
+                
             }
 
             function q_boxClose(s2) {
@@ -285,6 +311,13 @@
             function btnIns() {
                 _btnIns();
                 $(".carexpense").show();
+                $('#txtUlicensemon').val('04');
+                $('#txtDlicensemon').val('10');
+                $('#txtSpringmon').val('03');
+                $('#txtSummermon').val('06');
+                $('#txtFallamon').val('09');
+                $('#txtWintermon').val('12');
+                
                 $('#txtNoa').focus();
             }
 
