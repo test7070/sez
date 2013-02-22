@@ -18,7 +18,7 @@
 
             var q_name = "bankm";
             var q_readonly = ['txtNoa','txtAccno','txtDatea'];
-            var bbmNum = [['txtMoney', 10, 3],['txtMoney2', 10, 3],['txtMoney3', 10, 3]];
+            var bbmNum = [['txtMoney', 10, 3],['txtMoney2', 10, 3]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
