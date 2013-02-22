@@ -464,6 +464,7 @@
 						<td style="width: 100px; color:black;"><a id='vewNick'> </a></td>
 						<td style="width: 80px; color:black;"><a id='vewBoatno'> </a></td>
 						<td style="width: 80px; color:black;"><a id='vewInmount'> </a></td>
+						<td style="width: 80px; color:black;"><a id='vewDiscount'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
@@ -474,7 +475,8 @@
 						<td id='addr' style="text-align: left;">~addr</td>
 						<td id='nick' style="text-align: center;">~nick</td>
 						<td id='boatno' style="text-align: left;">~boatno</td>
-						<td id='inmount,0,1' style="text-align: right;">~inmount,0,1</td>
+						<td id='inmount,3,1' style="text-align: right;">~inmount,3,1</td>
+						<td id='discount,3,1' style="text-align: right;">~discount,3,1</td>
 					</tr>
 				</table>
 			</div>
