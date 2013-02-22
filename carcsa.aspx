@@ -45,7 +45,7 @@
 			currentData.prototype = {
 				data : [],
 				/*新增時複製的欄位*/
-				include : ['txtDatea','txtMon','cmbInterval','txtCustno','txtComp','txtNick','txtAddrno','txtAddr','cmbCno'],
+				include : ['txtTrandate','txtMon','cmbInterval','txtCustno','txtComp','txtNick','txtAddrno','txtAddr','cmbCno'],
 				/*記錄當前的資料*/
 				copy : function() {
 					curData.data = new Array();
@@ -93,7 +93,7 @@
             function mainPost() {
 
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtBtime', '99:99'], ['txtEtime', '99:99'], ['txtMon', r_picm]];
+                bbmMask = [['txtTdate', r_picd],['txtTrandate', r_picd], ['txtBtime', '99:99'], ['txtEtime', '99:99'], ['txtMon', r_picm]];
                 q_mask(bbmMask);
 				
 				q_gt('acomp', '', 0, 0, 0, "");
@@ -225,8 +225,12 @@
             	}
             	$('#txtCarno').val(t_carno);
             	
-            	if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
-                	alert(q_getMsg('lblDatea')+'錯誤。');
+            	if ($('#txtTrandate').val().length==0 || !q_cd($('#txtTrandate').val())){
+                	alert(q_getMsg('lblTrandate')+'錯誤。');
+                	return;
+                }
+            	if (!q_cd($('#txtTdate').val())){
+                	alert(q_getMsg('lblTdate')+'錯誤。');
                 	return;
                 }
                 $('#txtMon').val($.trim($('#txtMon').val()));
@@ -237,7 +241,7 @@
                 sum();
 
                 var t_noa = trim($('#txtNoa').val());
-				var t_date = trim($('#txtDatea').val());
+				var t_date = trim($('#txtTrandate').val()); /*!!!!!!!!!!*/
 				if (t_noa.length == 0 || t_noa == "AUTO")
 					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_carcsa') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 				else
@@ -247,7 +251,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('carcsa_s.aspx', q_name + '_s', "550px", "500px", q_getMsg("popSeek"));
+                q_box('carcsa_s.aspx', q_name + '_s', "550px", "550px", q_getMsg("popSeek"));
             }
             function bbsAssign() {
             	for (var j = 0; j < q_bbsCount; j++) {
@@ -280,15 +284,16 @@
                 _btnIns();
                 curData.paste();
                 $('#txtNoa').val('AUTO');
-                $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
+                if($('#txtTrandate').val().length==0)
+               		$('#txtTrandate').val(q_date());
+                $('#txtTrandate').focus();
             }
 
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtDatea').focus();
+                $('#txtTrandate').focus();
                 sum();
             }
 
@@ -562,7 +567,8 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewTrandate'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewTdate'> </a></td>
 						<td align="center" style="width:120px; color:black;"><a id='vewOrdeno'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewCartype'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMon'> </a></td>
@@ -583,7 +589,8 @@
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" /></td>
-						<td id="datea" style="text-align: center;">~datea</td>
+						<td id="trandate" style="text-align: center;">~trandate</td>
+						<td id="tdate" style="text-align: center;">~tdate</td>
 						<td id="ordeno" style="text-align: center;">~ordeno</td>
 						<td id="cartype" style="text-align: center;">~cartype</td>
 						<td id="mon" style="text-align: center;">~mon</td>
@@ -620,8 +627,8 @@
 					<tr>
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
-						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td><input id="txtDatea" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblTrandate" class="lbl"> </a></td>
+						<td><input id="txtTrandate" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
 						<td><input id="txtMon" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblInterval" class="lbl"> </a></td>
@@ -706,6 +713,8 @@
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl btn"> </a></td>
 						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblTdate" class="lbl"> </a></td>
+						<td><input id="txtTdate" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
