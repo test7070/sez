@@ -87,6 +87,9 @@
 				+ q_sqlPara2("partno", t_partno)
 				+ q_sqlPara2("cno", t_cno)
 				+ q_sqlPara2("jobno", t_jobno); 
+				
+				if(r_rank <7)
+					t_where+="and noa = '"+q_getId()[0]+"' ";
 			
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
