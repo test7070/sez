@@ -29,7 +29,7 @@
             brwNowPage = 0;
             brwKey = 'Noa';
             brwCount2 = 4;
-            aPop = new Array(['txtSssno_', 'btnSssno_', 'sss', 'noa,namea', 'txtSssno_,txtNamea_', 'sss_b.aspx']);
+            aPop = new Array(['txtSssno_', 'btnSssno_', 'sssall', 'noa,namea,partno,part', 'txtSssno,txtNamea', 'sssall_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
