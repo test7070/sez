@@ -540,22 +540,22 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblWeight" class="lbl"> </a></td>
-						<td><input id="txtWeight"  type="text"  class="txt num c1"/></td>
-						<td><span> </span><a id="lblInprice" class="lbl"> </a></td>
-						<td><input id="txtInprice"  type="text"  class="txt num c1"/></td>
 						<td><span> </span><a id="lblInmount" class="lbl"> </a></td>
 						<td><input id="txtInmount"  type="text"  class="txt num c1"/></td>
+						<td><span> </span><a id="lblInprice" class="lbl"> </a></td>
+						<td><input id="txtInprice"  type="text"  class="txt num c1"/></td>
 						<td><span> </span><a id="lblInmoney" class="lbl"> </a></td>
 						<td><input id="txtInmoney"  type="text"  class="txt num c1"/></td>
+						<td><span> </span><a id="lblWeight" class="lbl"> </a></td>
+						<td><input id="txtWeight"  type="text"  class="txt num c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblDiscount" class="lbl"> </a></td>
-						<td><input id="txtDiscount"  type="text"  class="txt num c1"/></td>
-						<td><span> </span><a id="lblOutprice" class="lbl"> </a></td>
-						<td><input id="txtOutprice"  type="text"  class="txt num c1"/></td>
 						<td><span> </span><a id="lblOutmount" class="lbl"> </a></td>
 						<td><input id="txtOutmount"  type="text"  class="txt num c1"/></td>
+						<td><span> </span><a id="lblOutprice" class="lbl"> </a></td>
+						<td><input id="txtOutprice"  type="text"  class="txt num c1"/></td>
+						<td><span> </span><a id="lblDiscount" class="lbl"> </a></td>
+						<td><input id="txtDiscount"  type="text"  class="txt num c1"/></td>
 						<td><span> </span><a id="lblOutmoney" class="lbl"> </a></td>
 						<td><input id="txtOutmoney"  type="text"  class="txt num c1"/></td>
 					</tr>
