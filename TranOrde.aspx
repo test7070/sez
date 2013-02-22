@@ -829,8 +829,9 @@
 						<td>
 						<input type="text" id="txtDock" class="txt c1"/>
 						</td>
-						<td></td>
-						<td></td>
+						<td><span> </span><a id="lblDocketno1" class="lbl"> </a></td>
+						<td>
+						<input type="text" id="txtDocketno1" class="txt c1"/> </td>
 						<td></td>
 					</tr>
 					<tr class="trX">
@@ -901,9 +902,9 @@
 						<td><span> </span><a id="lblContainertype" class="lbl"> </a></td>
 						<td>
 						<select id="cmbContainertype" class="txt c1"></select></td>
-						<td><span> </span><a id="lblDocketno" class="lbl"> </a></td>
+						<td><span> </span><a id="lblDocketno2" class="lbl"> </a></td>
 						<td>
-						<input type="text" id="txtDocketno" class="txt c1"/> </td>
+						<input type="text" id="txtDocketno2" class="txt c1"/> </td>
 						<td> </td>
 						<td> </td>
 						<td> </td>

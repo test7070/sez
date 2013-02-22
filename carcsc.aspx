@@ -40,7 +40,7 @@
 			currentData.prototype = {
 				data : [],
 				/*新增時複製的欄位*/
-				include : ['txtDatea','txtMon','txtCustno','txtComp','txtNick','txtAddrno','txtAddr','txtBoatno','txtBoat','txtUccno','txtProduct'],
+				include : ['txtDatea','txtTrandate','txtMon','txtCustno','txtComp','txtNick','txtAddrno','txtAddr','txtBoatno','txtBoat','txtUccno','txtProduct'],
 				/*記錄當前的資料*/
 				copy : function() {
 					curData.data = new Array();
@@ -84,7 +84,7 @@
             }
 
             function mainPost() {
-                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
+                bbmMask = [['txtDatea', r_picd],['txtTrandate', r_picd], ['txtMon', r_picm]];
                 q_mask(bbmMask);
 				q_gt('calctype2', '', 0, 0, 0, "calctypes");
 				
@@ -107,6 +107,7 @@
                     sum();
                 });
                 $('#txtInmount').change(function() {
+                	$('#txtOutmount').val($('#txtInmount').val());
                     sum();
                 });
                 $('#txtOutprice').change(function() {
@@ -218,6 +219,10 @@
             function btnOk() {
                 if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
+                    return;
+                }
+                if ($('#txtTrandate').val().length==0 || !q_cd($('#txtTrandate').val())) {
+                    alert(q_getMsg('lblTrandate') + '錯誤。');
                     return;
                 }
                 $('#txtMon').val($.trim($('#txtMon').val()));
@@ -451,6 +456,7 @@
 					<tr>
 						<td style="width: 20px; color:black;"><a id='vewChk'> </a></td>
 						<td style="width: 80px; color:black;"><a id='vewDatea'> </a></td>
+						<td style="width: 80px; color:black;"><a id='vewTrandate'> </a></td>
 						<td style="width: 80px; color:black;"><a id='vewCarno'> </a></td>
 						<td style="width: 80px; color:black;"><a id='vewDriver'> </a></td>
 						<td style="width: 150px; color:black;"><a id='vewAddr'> </a></td>
@@ -461,6 +467,7 @@
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
 						<td id='datea' style="text-align: center;">~datea</td>
+						<td id='trandate' style="text-align: center;">~trandate</td>
 						<td id='carno' style="text-align: center;">~carno</td>
 						<td id='driver' style="text-align: center;">~driver</td>
 						<td id='addr' style="text-align: left;">~addr</td>
@@ -488,16 +495,20 @@
 						<td><input id="txtNoa"  type="text"  class="txt c1"/> </td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td><input id="txtDatea"  type="text"  class="txt c1"/> </td>
+						<td><span> </span><a id="lblTrandate" class="lbl"> </a></td>
+						<td><input id="txtTrandate"  type="text"  class="txt c1"/> </td>
 						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
 						<td><input id="txtMon"  type="text"  class="txt c1"/></td>
-						<td><input id="btnExport" type="button" style="float:left; width:80%;" value="匯出"/></td>
+						
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblBoatno" class="lbl btn"> </a></td>
 						<td colspan="2">
 							<input id="txtBoatno"  type="text" style="float:left; width:40%;"/>
 							<input id="txtBoat"  type="text" style="float:left; width:60%;"/>
-						</td>					
+						</td>
+						<td colspan="4"> </td>
+						<td><input id="btnExport" type="button" style="float:left; width:80%;" value="匯出"/></td>					
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCarno" class="lbl btn"> </a></td>
@@ -529,22 +540,22 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblWeight" class="lbl"> </a></td>
-						<td><input id="txtWeight"  type="text"  class="txt num c1"/></td>
-						<td><span> </span><a id="lblInprice" class="lbl"> </a></td>
-						<td><input id="txtInprice"  type="text"  class="txt num c1"/></td>
 						<td><span> </span><a id="lblInmount" class="lbl"> </a></td>
 						<td><input id="txtInmount"  type="text"  class="txt num c1"/></td>
+						<td><span> </span><a id="lblInprice" class="lbl"> </a></td>
+						<td><input id="txtInprice"  type="text"  class="txt num c1"/></td>
 						<td><span> </span><a id="lblInmoney" class="lbl"> </a></td>
 						<td><input id="txtInmoney"  type="text"  class="txt num c1"/></td>
+						<td><span> </span><a id="lblWeight" class="lbl"> </a></td>
+						<td><input id="txtWeight"  type="text"  class="txt num c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblDiscount" class="lbl"> </a></td>
-						<td><input id="txtDiscount"  type="text"  class="txt num c1"/></td>
-						<td><span> </span><a id="lblOutprice" class="lbl"> </a></td>
-						<td><input id="txtOutprice"  type="text"  class="txt num c1"/></td>
 						<td><span> </span><a id="lblOutmount" class="lbl"> </a></td>
 						<td><input id="txtOutmount"  type="text"  class="txt num c1"/></td>
+						<td><span> </span><a id="lblOutprice" class="lbl"> </a></td>
+						<td><input id="txtOutprice"  type="text"  class="txt num c1"/></td>
+						<td><span> </span><a id="lblDiscount" class="lbl"> </a></td>
+						<td><input id="txtDiscount"  type="text"  class="txt num c1"/></td>
 						<td><span> </span><a id="lblOutmoney" class="lbl"> </a></td>
 						<td><input id="txtOutmoney"  type="text"  class="txt num c1"/></td>
 					</tr>
