@@ -17,7 +17,7 @@
             }
 
             var q_name = "bank2";
-            var q_readonly = [];
+            var q_readonly = ['txtWorker'];
             var bbmNum = [];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -98,6 +98,7 @@
                     alert(t_err);
                     return;
                 }
+                $('#txtWorker').val(r_name);
                 var t_noa = trim($('#txtNoa').val());
                 if (t_noa.length == 0)
                     q_gtnoa(q_name, t_noa);
@@ -326,7 +327,7 @@
 						<td> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblAcc1' class="lbl"> </a></td>
+						<td><span> </span><a id='lblAcc1' class="lbl btn"> </a></td>
 						<td><input id="txtAcc1" type="text" class="txt c1" /></td>
 						<td><input id="txtAcc2" type="text" class="txt c1" /></td>
 						<td> </td>
@@ -334,6 +335,11 @@
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan="3" ><textarea id="txtMemo"  style="width:100%; height: 60px;"> </textarea></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td><input id="txtWorker"  type="text" class="txt c1" /></td>
+						<td> </td>
 					</tr>
 				</table>
 			</div>

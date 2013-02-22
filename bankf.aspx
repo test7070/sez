@@ -17,7 +17,7 @@
             }
 
             var q_name = "bankf";
-            var q_readonly = ['txtNoa','txtAccno','txtDatea'];
+            var q_readonly = ['txtNoa','txtAccno','txtDatea','txtWorker'];
             var bbmNum = [['txtMoney', 10, 3],['txtMoney2', 10, 3]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -26,7 +26,9 @@
             brwNowPage = 0;
             brwKey = 'noa';
             brwCount2 = 20;
-            aPop = new Array(['txtPayacc1', 'lblPayacc', 'acc', 'acc1,acc2', 'txtPayacc1,txtPayacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+            aPop = new Array(['txtPayacc1', 'lblPayacc', 'acc', 'acc1,acc2', 'txtPayacc1,txtPayacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+							 ['txtBankno', 'lblBank', 'acc', 'acc1,acc2', 'txtBankno,txtBank', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+							 ['txtBank2no', 'lblBank2', 'bank', 'noa,bank', 'txtBank2no,txtBank2', 'bank_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -101,6 +103,7 @@
                     alert(t_err);
                     return;
                 }
+                $('#txtWorker').val(r_name);
                	var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
@@ -337,7 +340,7 @@
 						<td><input id="txtType" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblBank' class="lbl"> </a></td>
+						<td><span> </span><a id='lblBank' class="lbl btn"> </a></td>
 						<td><input id="txtBankno" type="text" class="txt c1" /></td>
 						<td><input id="txtBank" type="text" class="txt c1" /></td>
 					</tr>
@@ -386,6 +389,8 @@
 					<tr>
 						<td><span> </span><a id='lblAccno' class="lbl"> </a></td>
 						<td><input id="txtAccno" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td><input id="txtWorker" type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>

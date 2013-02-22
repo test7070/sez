@@ -26,7 +26,8 @@
             brwNowPage = 0;
             brwKey = 'noa';
             brwCount2 = 20;
-            aPop = new Array(['txtPayacc1', 'lblPayacc', 'acc', 'acc1,acc2', 'txtPayacc1,txtPayacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+            aPop = new Array(['txtPayacc1', 'lblPayacc', 'acc', 'acc1,acc2', 'txtPayacc1,txtPayacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+            				 ['txtBank3no', 'lblBank', 'bank', 'noa,bank', 'txtBank3no,txtBank3', 'bank_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -355,7 +356,7 @@
 						<td><input id="txtMoney2" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblPayacc' class="lbl"> </a></td>
+						<td><span> </span><a id='lblPayacc' class="lbl btn"> </a></td>
 						<td><input id="txtPayacc1" type="text" class="txt c1" /></td>
 						<td><input id="txtPayacc2" type="text" class="txt c1" /></td>
 					</tr>
@@ -368,7 +369,7 @@
 						<td><input id="txtPaydate" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblBank' class="lbl"> </a></td>
+						<td><span> </span><a id='lblBank' class="lbl btn"> </a></td>
 						<td><input id="txtBank3no" type="text" class="txt c1" /></td>
 						<td><input id="txtBank3" type="text" class="txt c1" /></td>
 					</tr>
