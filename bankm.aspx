@@ -373,10 +373,12 @@
 						<td><input id="txtBank3no" type="text" class="txt c1" /></td>
 						<td><input id="txtBank3" type="text" class="txt c1" /></td>
 					</tr>
+					<!--
 					<tr>
 						<td><span> </span><a id='lblMoney3' class="lbl"> </a></td>
 						<td><input id="txtMoney3" type="text" class="txt num c1" /></td>
 					</tr>
+					-->
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan="3" ><textarea id="txtMemo"  style="width:100%; height: 60px;"> </textarea></td>

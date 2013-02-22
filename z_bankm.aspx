@@ -32,12 +32,6 @@
                     }, {
                         type : '1',
                         name : 'xdate'
-                    }, {
-                        type : '2',
-                        name : 'acc',
-                        dbf : 'acc',
-                        index : 'acc1,acc2',
-                        src :  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
                     }]
                 });
                 
