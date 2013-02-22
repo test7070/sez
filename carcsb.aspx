@@ -9,6 +9,10 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -94,6 +98,7 @@
                 $('#txtDiscount').change(function() {
                     sum();
                 });
+				
 				$('#btnExport').click(function(){
 					$('#divExport').toggle();
 					$('#txtBdate_export').focus();
@@ -104,13 +109,12 @@
 				$('#btnExport_trans').click(function(){
 					var t_bdate = $.trim($('#txtBdate_export').val());
 					var t_edate = $.trim($('#txtEdate_export').val());
-					var t_cartype = $.trim($('#cmbCartype_export').val());
-					if(t_bdate.length==0 || t_edate.length==0 || t_cartype==0){
+					if(t_bdate.length==0 || t_edate.length==0){
 						alert('請輸入匯入條件!');
 						return;
 					}
 					$('#btnExport_trans').attr('disabled','disabled').val('請稍後。');
-					q_func('carcsb.export',t_bdate+','+t_edate+','+t_cartype);
+					q_func('carcsb.export',t_bdate+','+t_edate);
 				});
 				$('#txtBdate_export').keydown(function(e) {
 					if(e.which==13)
@@ -118,13 +122,10 @@
 				});
 				$('#txtEdate_export').keydown(function(e) {
 					if(e.which==13)
-						$('#cmbCartype_export').focus();
-				});
-				$('#cmbCartype_export').keydown(function(e) {
-					if(e.which==13)
 						$('#btnExport_trans').focus();
 				});
-				q_cmbParse("cmbCartype_export", q_getPara('car2.cartype'));
+				$('#txtBdate_export').datepicker();
+				$('#txtEdate_export').datepicker(); 
             }
 
             function sum() {
@@ -207,14 +208,7 @@
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
             	}
-                if (!q_cd($('#txtBdate_export').val())){
-                	alert(q_getMsg('lblBdate_export')+'錯誤。');
-                	return;
-            	}
-                if (!q_cd($('#txtEdate_export').val())){
-                	alert(q_getMsg('lblEdate_export')+'錯誤。');
-                	return;
-            	}
+
 				$('#txtMon').val($.trim($('#txtMon').val()));
 					if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
 						alert(q_getMsg('lblMon')+'錯誤。');   
@@ -228,7 +222,7 @@
                 }
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if (s1.length == 0 || s1 == "AUTO")
-                    q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
+                    q_gtnoa(q_name, replaceAll( $('#txtDatea').val(), '/', ''));
                 else
                     wrServer(s1);
             }
@@ -458,10 +452,6 @@
 						<span style="float:left; display:block; width:20px;"><a>～</a></span>
 						<input id="txtEdate_export"  type="text" style="float:left; width:80px; font-size: medium;"/>
 					</td>
-				</tr>
-				<tr style="height:35px;">
-					<td><span> </span><a id="lblCartype_export" style="float:right; color: blue; font-size: medium;"> </a></td>
-					<td colspan="4"><select id="cmbCartype_export" style="float:left; width:100px; font-size: medium;"> </select></td>
 				</tr>
 				<tr style="height:35px;"> </tr>
 				<tr style="height:35px;"> </tr>
