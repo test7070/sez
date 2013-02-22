@@ -17,7 +17,7 @@
             }
 			q_tables = 's';
             var q_name = "giftcust";
-            var q_readonly = ['txtWorker'];
+            var q_readonly = ['txtNoa','txtWorker','textAge'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [];
@@ -50,7 +50,14 @@
             function mainPost() {
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd], ['txtBirthday', r_picd]];
+                q_mask(bbmMask);
                 q_cmbParse("cmbSex", q_getPara('sss.sex'));
+                
+                $('#txtBirthday').blur(function() {
+                    if(!emp($('#txtBirthday').val()))
+                	$('#textAge').val(dec(q_date().substr(0,3))-dec($('#txtBirthday').val().substr(0,3)));
+                });
+                
             }
 
             function q_boxClose(s2) {
@@ -89,12 +96,12 @@
                 sum();
                 $('#txtWorker').val(r_name);
                 
-               
                 var t_noa = trim($('#txtNoa').val());
-                if (t_noa.length == 0)
-                    return;
-                else
-                    wrServer(t_noa);
+                var t_date = trim($('#txtDatea').val());
+                if (t_noa.length == 0 || t_noa == "AUTO")
+		            q_gtnoa(q_name, replaceAll('KGC'));
+		        else
+		            wrServer(t_noa);
             }
 
             function _btnSeek() {
@@ -104,9 +111,10 @@
             }
             function btnIns() {
                 _btnIns();
-               $('#txtNoa').focus();
-                $('#txtDatea').val(q_date());
-                
+               $('#txtDatea').focus();
+               $('#txtDatea').val(q_date());
+               $('#txtNoa').val('AUTO');
+               $('#textAge').val('');
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
@@ -153,6 +161,8 @@
             }
             function refresh(recno) {
                 _refresh(recno);
+                if(!emp($('#txtBirthday').val()))
+                	$('#textAge').val(dec(q_date().substr(0,3))-dec($('#txtBirthday').val().substr(0,3)));
             }
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
@@ -400,7 +410,7 @@
 						<td class="td3"><span> </span><a id='lblBirthday' class="lbl"> </a></td>
 						<td class="td4"><input type="text" id="txtBirthday" class="txt c1"/></td>
 						<td class="td5"><span> </span><a id='lblAge' class="lbl"> </a></td>
-						<td class="td6"><input type="text" id="txtAge" class="txt c1"/></td>	
+						<td class="td6"><input type="text" id="textAge" class="txt c1"/></td>	
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id='lblLikes' class="lbl"> </a></td>
