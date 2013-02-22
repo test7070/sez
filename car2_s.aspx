@@ -70,14 +70,14 @@
 				t_cartype = $('#cmbCartype').val();
 
 
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("carno", t_carno) 
+				var t_where = " 1=1 " 
 				+ q_sqlPara2("indate", t_bindate, t_eindate) + q_sqlPara2("driverno", t_driverno) 
 				+ q_sqlPara2("a.cardealno", t_cardealno) 
 				+ q_sqlPara2("a.carownerno", t_carownerno) 
 				+ q_sqlPara2("a.cartype", t_cartype);
 				
 				if(!emp(t_carno))
-				t_where+= " or oldnoa='"+t_carno+"' ";
+				t_where+= " and (a.noa='"+t_carno+"' or oldnoa='"+t_carno+"') ";
 				
 				t_where = " where=^^" + t_where + " ^^ ";	
 				return t_where;
