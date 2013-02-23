@@ -101,7 +101,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
-                q_box('assignment_s.aspx', q_name + '_s', "550px", "600px", q_getMsg("popSeek"));
+                q_box('assignment_s.aspx', q_name + '_s', "550px", "300px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
@@ -404,13 +404,15 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
-					<td><input id="txtTggno.*" type="text" style="width: 50%;"/>
-						<input id="btnTggno.*" type="button" value="." />
-						<input id="txtComp.*" type="text" style="width: 95%;" />
+					<td><input class="btn"  id="btnTggno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+                        <input type="text" id="txtTggno.*"  style="width:85%; float:left;"/>
+                        <span style="display:block; width:1%;float:left;"> </span>
+						<input type="text" id="txtComp.*"  style="width:85%; float:left;"/>
 					</td>
-					<td><input id="txtProductno.*" type="text" style="width: 50%;"/>
-						<input id="btnProductno.*" type="button" value="." />
-						<input id="txtProduct.*" type="text" style="width: 95%;" />
+					<td><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+                        <input type="text" id="txtProductno.*"  style="width:85%; float:left;"/>
+                        <span style="display:block; width:1%;float:left;"> </span>
+						<input type="text" id="txtProduct.*"  style="width:85%; float:left;"/>
 					</td>
 					<td><input id="txtDays.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtMoney.*" type="text" style="width: 95%;text-align: right;"/></td>
