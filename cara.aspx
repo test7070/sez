@@ -30,7 +30,7 @@
             brwKey = 'Datea';
             q_desc=1;
 			//q_alias='a';
-			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,a.carownerno,b.carowner', 'txtCarno,txtCarownerno,txtCarowner', "car2_b.aspx"],
+			aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,a.carownerno,b.carowner,a.sssno', 'txtCarno,txtCarownerno,txtCarowner,txtSssno', "car2_b.aspx"],
 				['textBcarno', 'lblNextcarno', 'car2', 'a.noa,b.carowner', 'textBcarno', "car2_b.aspx?;;;a.carownerno!='' "],
 				['textEcarno', 'lblNextcarno', 'car2', 'a.noa,b.carowner', 'textEcarno', "car2_b.aspx?;;;a.carownerno!='' "],
 				['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
@@ -996,7 +996,7 @@
 						<td class="td5"><span> </span><a id='lblDatea' class="lbl"></a></td>
 						<td class="td6"><input id="txtDatea"  type="text" class="txt c1"/></td>
 						<td class="td7"><span> </span><a id='lblNoa' class="lbl"></a></td>
-						<td class="td8"><input id="txtNoa"  type="text" class="txt c1"/>	</td>
+						<td class="td8"><input id="txtNoa"  type="text" class="txt c1"/><input id="txtSssno"  type="hidden"/>	</td>
 					</tr>
 				</table>
 				<input id="text_Noq"  type="hidden" class="txt c1"/>	
