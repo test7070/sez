@@ -132,6 +132,7 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	
                 	case 'oil_top':
                 		var as = _q_appendData("oil", "", true);
                 		if(as[0]!=undefined){
@@ -141,18 +142,38 @@
                 		break;
                     case 'oilorg':
                         var as = _q_appendData("oilorg", "", true);
-						var t_mount = 0,t_money=0;
-                        for( i = 0; i < as.length; i++) {
-                            t_mount += parseFloat(as[i].mount)*1000;
-                            t_money += parseFloat(as[i].money);
-                        }
-                        t_mount = t_mount/1000;
-                        $("#txtCurmount").addClass('finish');
-                        $("#txtCurmount").val( t_mount);   
-                        $("#txtCurmoney").addClass('finish');
-                        $("#txtCurmoney").val( t_money); 
-                        sum();             
+                        if(as[0]!=undefined){
+							var t_mount = 0,t_money=0;
+	                        for( i = 0; i < as.length; i++) {
+	                            t_mount += parseFloat(as[i].mount)*1000;
+	                            t_money += parseFloat(as[i].money);
+	                        }
+	                        t_mount = t_mount/1000;
+	                        $("#txtCurmount").addClass('finish');
+	                        $("#txtCurmount").val(t_mount);
+	                        $("#txtCurmoney").addClass('finish');
+	        				$("#txtCurmoney").val(t_money);
+	                        t_where = " where=^^ noa='"+$('#txtOilstationno').val()+"' ^^ ";
+							q_gt('oilstation', t_where, 0, 0, 0, "", r_accy); 
+						}            
                         break;
+                    case 'oilstation':
+                		var as = _q_appendData("oilstation", "", true);
+                		if(as[0]!=undefined){
+                			if(as[0].isl=='false'){
+                				$("#txtCurmount").val('');
+                				$("#txtCurmount").data('isl',false);
+                			}else
+                				$("#txtCurmount").data('isl',true);
+                				
+                			if(as[0].ism=='false'){
+                				$("#txtCurmoney").val('');
+                				$("#txtCurmoney").data('isl',false);
+                			}else
+                				$("#txtCurmoney").data('ism',true);
+							sum();            			
+                		}
+                		break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -321,6 +342,7 @@
             function sum(){    
             	if(!(q_cur==1 || q_cur==2))
             	   	return;
+            	//alert($("#txtCurmount").data('isl')+' '+$("#txtCurmoney").data('ism'));
             	var t_bmiles = q_float('txtBmiles');
             	var t_emiles = q_float('txtEmiles');
             	var t_miles = q_float('txtMiles');
@@ -336,7 +358,7 @@
             	t_rate = t_mount==0 ? 0 : round(t_miles / t_mount,2);
             	$('#txtRate').val(t_rate);
             	
-            	if($("#txtCurmount").hasClass('finish')  &&  (q_cur==1 || q_cur==2)){
+            	if($("#txtCurmount").data('isl') && $("#txtCurmount").hasClass('finish')  &&  (q_cur==1 || q_cur==2)){
             		$('#txtCurmount').val((t_curmount*1000+t_orgmount*1000-t_mount*1000)/1000);
             		$('#txtOrgmount').val(t_mount);
             	}
@@ -348,7 +370,7 @@
             	var t_money = q_float('txtMoney');
 	            var t_orgmoney = q_float('txtOrgmoney');
 	            var t_curmoney = q_float('txtCurmoney');
-	            if($("#txtCurmoney").hasClass('finish')  &&  (q_cur==1 || q_cur==2)){
+	            if($("#txtCurmoney").data('ism') && $("#txtCurmoney").hasClass('finish')  &&  (q_cur==1 || q_cur==2)){
             		$('#txtCurmoney').val(t_curmoney+t_orgmoney-t_money);
             		$('#txtOrgmoney').val(t_money);
             	}
