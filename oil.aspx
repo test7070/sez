@@ -132,7 +132,6 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	
                 	case 'oil_top':
                 		var as = _q_appendData("oil", "", true);
                 		if(as[0]!=undefined){

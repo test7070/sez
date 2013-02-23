@@ -20,7 +20,7 @@
             }
 
             var q_name = "gqb";
-            var q_readonly = [];
+            var q_readonly = ['txtTdate','txtEnda','txtTbankno','txtTbank','txtTacc1','txtEndaccno','txtAcc1','txtBkaccno'];
             var bbmNum = [['txtMoney', 10, 0]];
             var bbmMask = [['txtDatea', '999/99/99'], ['txtIndate', '999/99/99'], ['txtTdate', '999/99/99']];
             q_sqlCount = 6;
@@ -31,7 +31,7 @@
             brwCount2 = 15;
             q_xchg = 1;
             
-            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtTcompno', 'lblTcomp', 'cust', 'noa,comp', 'txtTcompno,txtTcomp', 'cust_b.aspx'], ['txtCompno', 'lblComp', 'tgg', 'noa,comp', 'txtCompno,txtComp', 'tgg_b.aspx'], ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx'], ['txtTbankno', 'lblTbank', 'bank', 'noa,bank', 'txtTbankno,txtTbank', 'bank_b.aspx']);
+            aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtTcompno', 'lblTcomp', 'cust', 'noa,comp', 'txtTcompno,txtTcomp', 'cust_b.aspx'], ['txtCompno', 'lblComp', 'tgg', 'noa,comp', 'txtCompno,txtComp', 'tgg_b.aspx'], ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -453,7 +453,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><a id="lblGqbs" style="color: #104E8B ;font-weight:bolder;font-size: 18px; text-align: left;"></a></td>
+						<td colspan="5"><a id="lblGqbs" style="color: #104E8B ;font-weight:bolder;font-size: 18px; text-align: left;"></a></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTdate' class="lbl"> </a></td>
@@ -462,7 +462,7 @@
 						<td><input id="txtEnda"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblTbank" class="lbl btn" > </a></td>
+						<td><span> </span><a id="lblTbank" class="lbl" > </a></td>
 						<td colspan="2">
 							<input id="txtTbankno"  type="text" style="float:left; width:30%;" />
 							<input id="txtTbank"  type="text" style="float:left; width:70%;" />
