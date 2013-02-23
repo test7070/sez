@@ -25,14 +25,13 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            brwCount2 = 20;
+            brwCount2 = 16;
             aPop = new Array(['txtPayacc1', 'lblPayacc', 'acc', 'acc1,acc2', 'txtPayacc1,txtPayacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
 							 ['txtBankno', 'lblBank', 'acc', 'acc1,acc2', 'txtBankno,txtBank', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
 							 ['txtBank2no', 'lblBank2', 'bank', 'noa,bank', 'txtBank2no,txtBank2', 'bank_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
-                brwCount2 = 20
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
             });
@@ -93,7 +92,7 @@
             }
 
             function btnPrint() {
-
+            	q_box('z_bankf.aspx'+ "?;;;;"+r_accy+";", '', "90%", "650px", m_print);
             }
 
             function btnOk() {
