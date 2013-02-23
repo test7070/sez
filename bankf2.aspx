@@ -25,14 +25,14 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            brwCount2 = 20;
+            brwCount2 = 16;
             aPop = new Array(['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
 							 ['txtBankno', 'lblBank', 'acc', 'acc1,acc2', 'txtBankno,txtBank', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
 						);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
-                brwCount2 = 20
+                brwCount2 = 16;
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
             });
@@ -98,7 +98,7 @@
             }
 
             function btnPrint() {
-
+            	q_box('z_bankf.aspx'+ "?;;;;"+r_accy+";", '', "90%", "650px", m_print);
             }
 
             function btnOk() {
@@ -194,7 +194,7 @@
             }
             .dview {
                 float: left;
-                width: 400px; 
+                width: 380px; 
                 border-width: 0px; 
             }
             .tview {
@@ -309,11 +309,13 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:120px; color:black;"><a id='vewLcno'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewType'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewBank'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
+						<td id='lcno' style="text-align: center;">~lcno</td>
 						<td id='type' style="text-align: center;">~type</td>
 						<td id='bank' style="text-align: left;">~bank</td>
 					</tr>
@@ -362,7 +364,7 @@
 						<td><input id="txtDate2" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblAcc' class="lbl"> </a></td>
+						<td><span> </span><a id='lblAcc' class="lbl btn"> </a></td>
 						<td><input id="txtAcc1" type="text" class="txt c1" /></td>
 						<td><input id="txtAcc2" type="text" class="txt c1" /></td>
 					</tr>

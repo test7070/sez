@@ -406,8 +406,8 @@
 					<td align="center" style="width:2%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"/></td>
 					<td align="center" style="width:2%;"> </td>
 					<td align="center" style="width:200px;"><a id='lblSss_s'> </a></td>
-					<td align="center" colspan="2" style="width:100px;"><a id='lblLab_s'> </a></td>
 					<td align="center" colspan="2" style="width:100px;"><a id='lblHe_s'> </a></td>
+					<td align="center" colspan="2" style="width:100px;"><a id='lblLab_s'> </a></td>
 					<td align="center" colspan="2" style="width:100px;"><a id='lblRe_s'> </a></td>
 					<td align="center" colspan="2" style="width:100px;"><a id='lblDisaster_s'> </a></td>
 					<td align="center" style="width:180px;"><a id='lblVccno_s'> </a></td>
@@ -424,10 +424,10 @@
 						<input id="txtNamea.*" type="text" style="float:left;width: 55%;"/>	
 						<input id="btnSssno.*" type="button" value="." style="float:left;width: 5%;"/>				
 					</td>
-					<td><input id="txtLabplus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
-					<td><input id="txtLabminus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtHeplus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtHeminus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
+					<td><input id="txtLabplus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
+					<td><input id="txtLabminus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtReplus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtReminus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtDisasterplus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
