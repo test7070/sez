@@ -541,7 +541,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td><input type="text" id="txtNoa" class="txt c1"/>	</td>
+						<td><input type="text" id="txtNoa" style="width:120px;" class="txt c1"/>	</td>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td><input type="text" id="txtDatea" class="txt c1"/></td>
 						<td><span> </span><a id='lblMon' class="lbl"> </a></td>

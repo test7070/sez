@@ -24,6 +24,7 @@
             });
             function q_gfPost() {
 				q_gt('carkind', '', 0, 0, 0, "");
+				q_gt('oilstation', '', 0, 0, 0, "");
             }
 
             function q_gtPost(t_name) {
@@ -33,6 +34,13 @@
                         var as = _q_appendData("carkind", "", true);
                         for ( i = 0; i < as.length; i++) {
                             t_carkind += (t_carkind.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].kind;
+                        }
+                        break;
+                     case 'oilstation':
+                        t_oilstation = '';
+                        var as = _q_appendData("oilstation", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_oilstation += (t_oilstation.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].station;
                         }
                         break;
                 }
@@ -69,6 +77,10 @@
                             type : '8',
                             name : 'xcarkind',
                             value : t_carkind.split(',')
+                        }, {/*6*/
+                            type : '8',
+                            name : 'xoilkind',
+                            value : t_oilstation.split(',')
                         }]
                     });
                     q_popAssign();

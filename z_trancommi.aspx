@@ -56,6 +56,10 @@
                     }, {/*6*/
                         type : '6',
                         name : 'xpo'
+                    }, {
+                        type : '5', //select
+                        name : 'xtype',
+                        value : (('').concat(new Array("收","發"))).split(',')
                     }]
                 });
                 q_popAssign();

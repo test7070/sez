@@ -29,7 +29,7 @@
             brwNowPage = 0;
             brwKey = 'Noa';
             brwCount2 = 4;
-            aPop = new Array(['txtSssno_', 'btnSssno_', 'sssall', 'noa,namea,partno,part', 'txtSssno,txtNamea', 'sssall_b.aspx']);
+            aPop = new Array(['txtSssno_', 'btnSssno_', 'sssall', 'noa,namea,partno,part', 'txtSssno_,txtNamea_', 'sssall_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -131,6 +131,20 @@
                 $('#txtDatea').focus();
             }
 
+            function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                abbm[q_recno]['accno'] = xmlString.split(";")[0];
+                abbm[q_recno]['paybno'] = xmlString.split(";")[1];
+                for(var i = 0; i < q_bbsCount ; i++){
+	                for (var j = 0; j < abbs.length; j++) {
+	                    if (abbs[j]['noa'] == $('#txtNoa').val() && abbs[j]['noq'] == $('#txtNoq_'+i).val()) {
+	                        abbs[j]['vccno'] = xmlString.split(";")[2 + i];
+	                       	$('#txtVccno_' + i).val(xmlString.split(";")[2 + i]);
+	                    }
+	                }
+	            }
+			}
             function btnPrint() {
 
             }
@@ -359,13 +373,13 @@
 					</tr>
 					-->
 					<tr>
-						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td>
-							<input id="txtNoa" type="text" class="txt c1" />
-						</td>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td>
 							<input id="txtDatea"  type="text" class="txt c1"/>
+						</td>
+						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td>
+							<input id="txtNoa" type="text" class="txt c1" />
 						</td>
 					</tr>
 					<tr>
@@ -392,8 +406,8 @@
 					<td align="center" style="width:2%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"/></td>
 					<td align="center" style="width:2%;"> </td>
 					<td align="center" style="width:200px;"><a id='lblSss_s'> </a></td>
-					<td align="center" colspan="2" style="width:100px;"><a id='lblLab_s'> </a></td>
 					<td align="center" colspan="2" style="width:100px;"><a id='lblHe_s'> </a></td>
+					<td align="center" colspan="2" style="width:100px;"><a id='lblLab_s'> </a></td>
 					<td align="center" colspan="2" style="width:100px;"><a id='lblRe_s'> </a></td>
 					<td align="center" colspan="2" style="width:100px;"><a id='lblDisaster_s'> </a></td>
 					<td align="center" style="width:180px;"><a id='lblVccno_s'> </a></td>
@@ -410,16 +424,16 @@
 						<input id="txtNamea.*" type="text" style="float:left;width: 55%;"/>	
 						<input id="btnSssno.*" type="button" value="." style="float:left;width: 5%;"/>				
 					</td>
-					<td><input id="txtLabplus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
-					<td><input id="txtLabminus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtHeplus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtHeminus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
+					<td><input id="txtLabplus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
+					<td><input id="txtLabminus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtReplus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtReminus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtDisasterplus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtDisasterminus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
 					<td>
-						<input id="txtVccno.*" class="txt num c1" type="text" style="float:left;width: 85%;"/>
+						<input id="txtVccno.*" class="txt c1" type="text" style="float:left;width: 85%;"/>
 						<input id="btnVccno.*" type="button" value="." style="float:left;width: 5%;"/>			
 					</td>
 					<td><input id="txtMemo.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
