@@ -65,6 +65,12 @@
                          	type : '8',
                             name : 'xcarkind',
                             value : t_carkind.split(',')
+                        }, {/*5*/
+                            type : '6',
+                            name : 'xcheckrate'
+                        }, {/*6*/
+                            type : '6',
+                            name : 'xsort01'
                         }]
                     });
                     q_popAssign();
