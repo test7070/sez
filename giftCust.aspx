@@ -141,7 +141,7 @@
             }
 
             function bbsSave(as) {
-                if (parseFloat(as['datea'])==0) {
+                if (!as['datea']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
