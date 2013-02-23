@@ -111,7 +111,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
-                q_box('giftsend_s.aspx', q_name + '_s', "550px", "600px", q_getMsg("popSeek"));
+                q_box('giftsend_s.aspx', q_name + '_s', "550px", "430px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
@@ -458,9 +458,10 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
-					<td><input id="txtCustno.*" type="text" style="width: 65%;"/>
-						<input id="btnCustno.*" type="button" value="." style="width: 20%;"/>
-						<input id="txtNamea.*" type="text" style="width: 95%;"/>
+					<td><input class="btn"  id="btnCustno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+                        <input type="text" id="txtCustno.*"  style="width:85%; float:left;"/>
+                        <span style="display:block; width:1%;float:left;"> </span>
+						<input type="text" id="txtNamea.*"  style="width:85%; float:left;"/>
 					</td>
 					<td><input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtMoney.*" type="text" style="width: 95%;text-align: right;"/></td>
