@@ -165,7 +165,7 @@
             }
 
             function btnPrint() {
-
+				q_box('z_chk2.aspx'+ "?;;;;" + r_accy+ ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
