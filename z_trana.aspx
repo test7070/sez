@@ -97,6 +97,7 @@
 					
 					$('#txtXcheckrate').val('35');
                     $('#chkXcarkind').children('input').attr('checked', 'checked');
+                    
                     //$('#chkXfilter').children('input').attr('checked', 'checked');
                     //日期不要自動給值
                     /*var t_date, t_year, t_month, t_day;
