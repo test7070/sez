@@ -25,7 +25,7 @@
             });
             function q_gfPost() {
 				q_gt('carkind', '', 0, 0, 0, "");
-				q_gt('oilkind', '', 0, 0, 0, "oilstation");
+				q_gt('oilstation', '', 0, 0, 0, "oilstation");
             }
 
             function q_gtPost(t_name) {
