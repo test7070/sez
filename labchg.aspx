@@ -27,7 +27,7 @@
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'Noa';
+            brwKey = 'noa';
             brwCount2 = 4;
             aPop = new Array(['txtSssno_', 'btnSssno_', 'sssall', 'noa,namea,partno,part', 'txtSssno_,txtNamea_', 'sssall_b.aspx']);
 
@@ -157,6 +157,10 @@
             }
 
             function bbsSave(as) {/// 表身 寫入資料庫前，寫入需要欄位
+                if (!as['txtSssno'] || !as['txtNamea']) {
+                    as[bbsKey[1]] = '';
+                    return;
+                }
                 q_nowf();
                 return true;
             }
