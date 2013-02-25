@@ -30,8 +30,6 @@
 			function q_gfPost() {
 				q_getFormat();
 				q_langShow();
-
-				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
 				q_mask(bbmMask);
 
 				$('#txtNoa').focus();
