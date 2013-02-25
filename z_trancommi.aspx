@@ -67,8 +67,12 @@
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
+                $('#txtTrandate1').mask('999/99/99');
+                $('#txtTrandate1').datepicker();
+                $('#txtTrandate2').mask('999/99/99');
+                $('#txtTrandate2').datepicker();
 
-                /*var t_date, t_year, t_month, t_day;
+                var t_date, t_year, t_month, t_day;
                 t_date = new Date();
                 t_date.setDate(1);
                 t_year = t_date.getUTCFullYear() - 1911;
@@ -78,6 +82,7 @@
                 t_day = t_date.getUTCDate();
                 t_day = t_day > 9 ? t_day + '' : '0' + t_day;
                 $('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
+                $('#txtTrandate1').val(t_year + '/' + t_month + '/' + t_day);
 
                 t_date = new Date();
                 t_date.setDate(35);
@@ -88,7 +93,8 @@
                 t_month = t_month > 9 ? t_month + '' : '0' + t_month;
                 t_day = t_date.getUTCDate();
                 t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-                $('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);*/
+                $('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
+                $('#txtTrandate2').val(t_year + '/' + t_month + '/' + t_day);
             }
 
             function q_boxClose(s2) {

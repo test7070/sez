@@ -28,6 +28,8 @@
                     }]
                     });
                 q_popAssign();
+                if(q_getId()[5])
+                	$('#txtXnoa').val(q_getId()[5].substring(4));
             }
 
             function q_boxClose(s2) {
