@@ -19,8 +19,8 @@
             var q_name = "assignwork";
             var q_readonly = ['txtWorker','txtNoa'];
             var q_readonlys = [];
-            var bbmNum = [];
-            var bbsNum = [];
+            var bbmNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1]];
+            var bbsNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -31,6 +31,7 @@
             aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick,conn,conntel', 'txtCustno,txtComp,txtCustnick,txtConn,txtConntel', 'cust_b.aspx'],
             ['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtComp_', 'tgg_b.aspx'],
             ['txtItemno', 'lblItem', 'assignment', 'noa,item', 'txtItemno,txtItem', 'assignment_b.aspx'],
+            ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
             ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -49,24 +50,29 @@
             }
 
             function mainPost() {
-                q_getFormat();
-                 bbmMask = [['txtOdate', r_picd], ['txtWdate', r_picd], ['txtEnddate', r_picd]];
-                q_mask(bbmMask);
+            	q_getFormat();
+                bbmMask = [['txtOdate', r_picd], ['txtWdate', r_picd], ['txtPaydate', r_picd], ['txtEnddate', r_picd]];
+            	q_mask(bbmMask);
              
-             $('#btnInput').click(function () {
-            	if(emp($('#txtItemno').val())){
-            		alert('請先輸入項目!!');
+            	$('#btnInput').click(function () {
+            		if(emp($('#txtItemno').val())){
+            			alert('請先輸入項目!!');
             		return;
             	}
-	           	t_where = "where=^^ noa=(select noa from assignment where noa ='"+$('#txtItemno').val()+"') ^^"
-	           	q_gt('assignment', t_where , 0, 0, 0, "", r_accy);
-	        });
-                $('#lblVccno').click(function() {
+		           	t_where = "where=^^ noa=(select noa from assignment where noa ='"+$('#txtItemno').val()+"') ^^"
+		           	q_gt('assignment', t_where , 0, 0, 0, "", r_accy);
+	        	});
+             	$('#lblVccno').click(function() {
 		     		t_where = "noa='" + $('#txtVccno').val() + "'";
-            		q_box("vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vcc', "95%", "650px", q_getMsg('popVcctran'));
-             });
-             
-             
+            		q_box("vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vcc', "95%", "95%", q_getMsg('popVcctran'));
+             	});
+             	$('#lblPaybno').click(function() {
+		     		t_where = "noa='" + $('#txtPaybno').val() + "'";
+            		q_box("payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "95%", q_getMsg('popPaytran'));
+             	});
+                $('#lblAccno').click(function() {
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
+                });
             }
 			function cmbpaybno(id){
 					t_where = "noa='" + $('#txtPaybno' + id).val() + "'";
@@ -99,6 +105,14 @@
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
+				var s2 = xmlString.split(';');
+                abbm[q_recno]['accno'] = s2[0];
+                abbm[q_recno]['vccno'] = s2[1];
+                abbm[q_recno]['paybno'] = s2[2];
+                $('#txtAccno').val(s2[0]);
+                $('#txtVccno').val(s2[1]);
+                $('#txtPaybno').val(s2[2]);
+
             }
             function btnOk() {
             	if($.trim($('#txtNick').val()).length==0)
@@ -129,6 +143,16 @@
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
+				t_date = new Date(dec(q_date().substring(0,3))+1911 + q_date().substring(3));
+	            t_date.setDate(t_date.getDate()+4);
+	            t_year = t_date.getUTCFullYear()-1911;
+	            t_year = t_year>99?t_year+'':'0'+t_year;
+	            t_month = t_date.getUTCMonth()+1;
+	            t_month = t_month>9?t_month+'':'0'+t_month;
+	            t_day = t_date.getUTCDate();
+	            t_day = t_day>9?t_day+'':'0'+t_day;
+	            $('#txtPaydate').val(t_year+'/'+t_month+'/'+t_day);
+	            $('#txtPaydate').val(t_year+'/'+t_month+'/'+t_day);
                 $('#txtItem').focus();
             }
             function btnModi() {
@@ -391,8 +415,10 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtNoa" class="txt c1"/>	</td>	
+						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtDatea" class="txt c1"/>	</td>	
+						<td class="td3"><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtNoa" class="txt c1"/>	</td>	
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblItem' class="lbl btn"> </a></td>
@@ -406,6 +432,13 @@
 							<input type="text" id="txtCustno" style="width: 30%;"/>
 							<input type="text" id="txtComp" style="width: 70%;"/>
 							<input id="txtCustnick"  type="text" style="display: none;"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblSales' class="lbl btn"> </a></td>
+						<td class="td2" colspan="2">
+							<input id="txtSalesno" type="text"  style="float:left; width:30%;"/>
+							<input id="txtSales" type="text"  style="float:left; width:70%;"/>
 						</td>
 					</tr>
 					<tr>
@@ -423,10 +456,8 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblEnddate' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtEnddate" class="txt c1"/>	</td>
-						<td class="td3">
-							<input id="chkEnda" type="checkbox" style="float: left;"/><a id="lblEnda" class="lbl" style="float: left;"></a>
-						</td>
-							
+						<td class="td3"><span> </span><a id='lblPaydate' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtPaydate" class="txt c1"/>	</td>							
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
@@ -435,14 +466,18 @@
 						<td class="td4"><input type="text" id="txtCost" class="txt num c1"/></td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblCharge' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtCharge" class="txt num c1"/></td>
-						<td class="td3"><span> </span><a id='lblPay' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtPay" class="txt num c1"/></td>	
-					</tr>
-					<tr>
 						<td class="td1"><span> </span><a id='lblVccno' class="lbl btn"> </a></td>
 						<td class="td2"><input type="text" id="txtVccno" class="txt c1"/></td>	
+			            <td class='td3'><span> </span><a id="lblPaybno" class="lbl btn"></a></td>
+			            <td class='td4'><input id="txtPaybno"  type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
+						<td class="td2"><input type="text" id="txtAccno" class="txt c1"/></td>	
+						<td class="td3">
+							<input id="chkEnda" type="checkbox" style="float: left;"/><a id="lblEnda" class="lbl" style="float: left;"></a>
+						</td>
+						<td class="td4"></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
@@ -457,13 +492,11 @@
 					<td  align="center" style="width:2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:20%;"><a id='lblProductno_s'> </a></td>
+					<td align="center" style="width:25%;"><a id='lblProductno_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblDays_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblMoney_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblCost_s'> </a></td>
-					<td align="center" style="width:15%;"><a id='lblTggno_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblPaydate_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblPaybno_s'> </a></td>
+					<td align="center" style="width:25%;"><a id='lblTggno_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -472,21 +505,19 @@
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
 					<td><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                        <input type="text" id="txtProductno.*"  style="width:85%; float:left;"/>
+                        <input type="text" id="txtProductno.*"  style="width:30%; float:left;"/>
                         <span style="display:block; width:1%;float:left;"> </span>
-						<input type="text" id="txtProduct.*"  style="width:85%; float:left;"/>
+						<input type="text" id="txtProduct.*"  style="width:60%; float:left;"/>
 					</td>
 					<td><input id="txtDays.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMoney.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtCost.*" type="text" class="txt num c1"/></td>
 					<td><input class="btn"  id="btnTggno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                        <input type="text" id="txtTggno.*"  style="width:85%; float:left;"/>
+                        <input type="text" id="txtTggno.*"  style="width:30%; float:left;"/>
                         <span style="display:block; width:1%;float:left;"> </span>
-						<input type="text" id="txtComp.*"  style="width:85%; float:left;"/>
+						<input type="text" id="txtComp.*"  style="width:60%; float:left;"/>
 					</td>
-					<td><input id="txtPaydate.*" type="text" class="txt c1"/></td>
-					<td><input class="btn"  id="btnPaybno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" /><input type="text" id="txtPaybno.*"  style="width:70%; float:left;"/>
-					</td>
+					
 					<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
 				</tr>
 			</table>
