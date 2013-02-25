@@ -50,10 +50,7 @@
 
             function mainPost() {
                 q_getFormat();
-                 bbmMask = [['txtOdate', r_picd], ['txtWdate', r_picd], ['txtEnddate', r_picd]];
-                q_mask(bbmMask);
-             
-             $('#btnInput').click(function () {
+                 $('#btnInput').click(function () {
             	if(emp($('#txtItemno').val())){
             		alert('請先輸入項目!!');
             		return;
@@ -61,12 +58,10 @@
 	           	t_where = "where=^^ noa=(select noa from assignment where noa ='"+$('#txtItemno').val()+"') ^^"
 	           	q_gt('assignment', t_where , 0, 0, 0, "", r_accy);
 	        });
-                $('#lblVccno').click(function() {
+	         $('#lblVccno').click(function() {
 		     		t_where = "noa='" + $('#txtVccno').val() + "'";
             		q_box("vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vcc', "95%", "650px", q_getMsg('popVcctran'));
              });
-             
-             
             }
 			function cmbpaybno(id){
 					t_where = "noa='" + $('#txtPaybno' + id).val() + "'";
@@ -103,7 +98,8 @@
             function btnOk() {
             	if($.trim($('#txtNick').val()).length==0)
             		$('#txtNick').val($('#txtComp').val());
-            	
+ 
+
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
@@ -112,10 +108,11 @@
                 sum();
                 $('#txtWorker').val(r_name);
                 
+               
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_assignmeny') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    q_gtnoa(q_name, replaceAll('F' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
             }
@@ -128,18 +125,19 @@
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
+               $('#txtItemno').focus();
                 $('#txtDatea').val(q_date());
-                $('#txtItem').focus();
+                
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-                _btnModi();
-                $('#txtNoa').attr('readonly','readonly');           
-                $('#txtDatea').focus();
+                _btnModi();           
+                $('#txtNoa').attr('readonly','readonly');
+                $('#txtItemno').focus();
             }
             function btnPrint() {
-            	//q_box('z_vcctran.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()), '', "90%", "650px", m_print);
+            	
             }
             function wrServer(key_value) {
                 var i;
@@ -150,19 +148,26 @@
                 for(var i = 0; i < q_bbsCount; i++) {
                 
                 	if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+                	$('#txtMoney_'+i).blur(function () {
+			            	sum();
+			       		});
+			       	$('#txtCost_'+i).blur(function () {
+			            	sum();
+			       		});
                     }
+                
                 }
                 _bbsAssign();
             }
 
             function bbsSave(as) {
-                if (parseFloat(as['product'])==0) {
+                if (parseFloat(as['Product'])==0) {
                     as[bbsKey[1]] = '';
                     return;
                 }
                 q_nowf();
                 as['noa'] = abbm2['noa'];
-                if (t_err) {
+              if (t_err) {
                     alert(t_err)
                     return false;
                 }
@@ -170,7 +175,7 @@
             }
 
             function sum() {
-            var t1 = 0, t_unit, t_mount, t_money = 0,t_cost=0;
+            	var t1 = 0,t_money = 0,t_cost=0;
             for (var j = 0; j < q_bbsCount; j++) {
 				t_money+=dec($('#txtMoney_'+j).val());
 				t_cost+=dec($('#txtCost_'+j).val());
@@ -180,6 +185,7 @@
 			
             	if(!(q_cur==1 || q_cur==2))
 					return;
+					
             }
             function refresh(recno) {
                 _refresh(recno);
