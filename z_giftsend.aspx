@@ -19,46 +19,54 @@
 						 ['txtPartno', '', 'part', 'noa,part', 'txtPartno', "part_b.aspx"]);
             $(document).ready(function() {
             	q_getId();
-            	q_gf('', 'z_telfee');
+            	q_gf('', 'z_giftsend');
             });
             function q_gfPost() {
                $('#q_report').q_report({
-                        fileName : 'z_telfee',
+                        fileName : 'z_giftsend',
                         options : [{
                         type : '1',
-                        name : 'mon'
+                        name : 'date'
                     },{
-                        type : '6',
-                        name : 'xmon'
-                    }, {
                         type : '2',
-                        name : 'sssno',
-                        dbf : 'sss',
+                        name : 'custno',
+                        dbf : 'giftcust',
                         index : 'noa,namea',
-                        src : 'sss_b.aspx'
+                        src : 'giftcust_b.aspx'
                     }, {
                         type : '2',
-                        name : 'partno',
-                        dbf : 'part',
-                        index : 'noa,part',
-                        src : 'part_b.aspx'
+                        name : 'giftno',
+                        dbf : 'bcc',
+                        index : 'noa,product',
+                        src : 'bcc_b.aspx'
                     }]
                     });
                 q_popAssign();
-                
-                $('#txtMon1').mask('999/99');
-                $('#txtMon2').mask('999/99');
-                $('#txtXmon').mask('999/99');
-                 var t_date,t_year,t_month,t_day;
+                $('#txtDate1').mask('999/99/99');
+	             $('#txtDate1').datepicker();
+	             $('#txtDate2').mask('999/99/99');
+	             $('#txtDate2').datepicker(); 
+	             var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
 	                t_year = t_date.getUTCFullYear()-1911;
 	                t_year = t_year>99?t_year+'':'0'+t_year;
 	                t_month = t_date.getUTCMonth()+1;
 	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                $('#txtXmon').val(t_year+'/'+t_month);
-	                $('#txtMon1').val(t_year+'/'+t_month);
-	                $('#txtMon2').val(t_year+'/'+t_month);
+	                t_day = t_date.getUTCDate();
+	                t_day = t_day>9?t_day+'':'0'+t_day;
+	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
+	                t_date = new Date();
+	                t_date.setDate(35);
+	                t_date.setDate(0);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                t_day = t_date.getUTCDate();
+	                t_day = t_day>9?t_day+'':'0'+t_day;
+	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+              
             }
 
             function q_boxClose(s2) {

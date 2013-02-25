@@ -20,6 +20,7 @@
             }
             var isInit = false;
             var t_carkind = null;
+           
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
@@ -38,10 +39,14 @@
                     case 'carkind':
                         t_carkind = '';
                         var as = _q_appendData("carkind", "", true);
-                        for ( i = 0; i < as.length; i++) {
-                            t_carkind += (t_carkind.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].kind;
+                        if (as[0] != undefined) {
+	                        for ( i = 0; i < as.length; i++) {
+	                            t_carkind += (t_carkind.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].kind;
+	                        }
                         }
                         break;
+                    default:
+                    	break;
                 }
 
                 if (t_carkind!=null && !isInit) {
@@ -69,8 +74,13 @@
                             type : '6',
                             name : 'xcheckrate'
                         }, {/*6*/
-                            type : '6',
-                            name : 'xsort01'
+                            type : '5',
+                            name : 'xsort01',
+                            value : q_getMsg('tsort01').split('&')
+                        }, {/*7*/
+                         	type : '8',
+                            name : 'xfilter',
+                            value : q_getMsg('tfilter').split('&')
                         }]
                     });
                     q_popAssign();
@@ -84,8 +94,10 @@
                     $('#txtTrandate1').datepicker();
                     $('#txtTrandate2').mask('999/99/99');
                     $('#txtTrandate2').datepicker();
-
+					
+					$('#txtXcheckrate').val('35');
                     $('#chkXcarkind').children('input').attr('checked', 'checked');
+                    //$('#chkXfilter').children('input').attr('checked', 'checked');
                     //日期不要自動給值
                     /*var t_date, t_year, t_month, t_day;
                      t_date = new Date();
