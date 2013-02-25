@@ -17,6 +17,7 @@
 		<script type="text/javascript">
             aPop = new Array(['txtXcarno', 'lblXcarno', 'car2', 'a.noa,driverno,driver', 'txtXcarno', 'car2_b.aspx']);
             t_carkind = '';
+            t_oilkind = '';
             t_isinit = false;
             $(document).ready(function() {
                 q_getId();
@@ -24,7 +25,7 @@
             });
             function q_gfPost() {
 				q_gt('carkind', '', 0, 0, 0, "");
-				q_gt('oilstation', '', 0, 0, 0, "");
+				q_gt('oilstation', '', 0, 0, 0, "oilstation");
             }
 
             function q_gtPost(t_name) {
@@ -36,11 +37,10 @@
                             t_carkind += (t_carkind.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].kind;
                         }
                         break;
-                     case 'oilstation':
-                        t_oilstation = '';
-                        var as = _q_appendData("oilstation", "", true);
+                     case 'oilkind':
+                        var as = _q_appendData("oilkind", "", true);
                         for ( i = 0; i < as.length; i++) {
-                            t_oilstation += (t_oilstation.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].station;
+                            t_oilkind += (t_oilkind.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].station;
                         }
                         break;
                 }
@@ -80,7 +80,7 @@
                         }, {/*6*/
                             type : '8',
                             name : 'xoilkind',
-                            value : t_oilstation.split(',')
+                            value : t_oilkind.split(',')
                         }]
                     });
                     q_popAssign();
