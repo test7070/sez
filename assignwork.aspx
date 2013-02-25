@@ -134,7 +134,8 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-                _btnModi();           
+                _btnModi();
+                $('#txtNoa').attr('readonly','readonly');           
                 $('#txtDatea').focus();
             }
             function btnPrint() {
@@ -155,7 +156,7 @@
             }
 
             function bbsSave(as) {
-                if (parseFloat(as['descr'])==0) {
+                if (parseFloat(as['product'])==0) {
                     as[bbsKey[1]] = '';
                     return;
                 }

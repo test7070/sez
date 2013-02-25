@@ -28,7 +28,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'Acomp_b.aspx'],
+            aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,nick', 'txtCno,txtAcomp', 'Acomp_b.aspx'],
             ['txtCustno', 'lblCustno', 'giftCust', 'noa,custnamea', 'txtCustno,txtNamea', 'giftcust_b.aspx'],
             ['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
             ['txtCustno_', 'btnCustno_', 'giftcust', 'noa,namea,namea', 'txtCustno_,txtNamea_,txtReceiver_,txtMount_', 'giftcust_b.aspx'],
@@ -127,7 +127,7 @@
                 $('#txtItem').focus();
             }
             function btnPrint() {
-            	//q_box('z_vcctran.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()), '', "90%", "650px", m_print);
+            	q_box('z_giftsend.aspx', '', "90%", "650px", m_print);
             }
             function wrServer(key_value) {
                 var i;

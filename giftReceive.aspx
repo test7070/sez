@@ -28,9 +28,9 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'Acomp_b.aspx'],
+            aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,nick', 'txtCno,txtAcomp', 'Acomp_b.aspx'],
             ['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-            ['txtCustno_', 'btnCustno_', 'giftcust', 'noa,namea,namea', 'txtCustno_,txtNamea_,txtGiver_', 'giftcust_b.aspx'],
+            ['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx'],
             ['txtGiftno_', 'btnGiftno_', 'bcc', 'noa,product,price', 'txtGiftno_,txtGift_,txtPrice_', 'bcc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -130,7 +130,7 @@
                 $('#txtItem').focus();
             }
             function btnPrint() {
-            	//q_box('z_vcctran.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()), '', "90%", "650px", m_print);
+            	q_box('z_giftreceive.aspx', '', "90%", "650px", m_print);
             }
             function wrServer(key_value) {
                 var i;
@@ -453,7 +453,7 @@
 					<td><input class="btn"  id="btnCustno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                         <input type="text" id="txtCustno.*"  style="width:85%; float:left;"/>
                         <span style="display:block; width:1%;float:left;"> </span>
-						<input type="text" id="txtNamea.*"  style="width:85%; float:left;"/>
+						<input type="text" id="txtComp.*"  style="width:85%; float:left;"/>
 					</td>
 					<td><input class="btn"  id="btnGiftno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                         <input type="text" id="txtGiftno.*"  style="width:85%; float:left;"/>
