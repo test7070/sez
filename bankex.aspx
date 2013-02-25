@@ -129,7 +129,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['datea']) {
+                if (!as['bankno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
