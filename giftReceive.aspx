@@ -16,6 +16,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 			q_tables = 's';
+			q_desc=1;
             var q_name = "giftreceive";
             var q_readonly = ['txtNoa','txtWorker','txtTotal'];
             var q_readonlys = [];
