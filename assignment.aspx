@@ -117,7 +117,7 @@
                 $('#txtItem').focus();
             }
             function btnPrint() {
-            	//q_box('z_vcctran.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()), '', "90%", "650px", m_print);
+            	q_box('z_assignment.aspx', '', "90%", "650px", m_print);
             }
             function wrServer(key_value) {
                 var i;

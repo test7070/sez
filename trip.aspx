@@ -483,11 +483,11 @@
             <tr >
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input class="txt c4" id="txtBtime.*" type="text" /><a style="float: left;">&nbsp;~&nbsp;</a><input class="txt c4" id="txtEtime.*" type="text" /></td>
-                <td >
-                	<input class="btn"  id="btnAcomp.*" type="button" value='.' style="font-weight: bold;width:1%;float: left;" />
-                	<input class="txt" id="txtCno.*" type="text" style="width:25%;"/>
-                	<input class="txt" id="txtAcomp.*" type="text" style="width:63%;"/>
-                </td>
+                <td><input class="btn"  id="btnAcomp.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+                        <input type="text" id="txtCno.*"  style="width:85%; float:left;"/>
+                        <span style="display:block; width:1%;float:left;"> </span>
+						<input type="text" id="txtAcomp.*"  style="width:85%; float:left;"/>
+					</td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
                 <td ><input id="chkTele_polling.*" type="checkbox"/><input id="txtNoq.*" type="hidden" /></td>
             </tr>
