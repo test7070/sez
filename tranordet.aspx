@@ -20,9 +20,9 @@
             var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [];
+            var bbsNum = [['txtWeight2',12 , 3, 1],['txtTrannumber',12 , 0, 1]];
             var bbmMask = [];
-            var bbsMask = [];
+            var bbsMask = [["txtDatea", "999/99/99"]];
 
             $(document).ready(function() {
                 bbmKey = [];
