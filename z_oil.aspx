@@ -25,7 +25,7 @@
             });
             function q_gfPost() {
 				q_gt('carkind', '', 0, 0, 0, "");
-				q_gt('oilstation', '', 0, 0, 0, "oilstation");
+				q_gt('oilstation', '', 0, 0, 0, "");
             }
 
             function q_gtPost(t_name) {
@@ -37,14 +37,14 @@
                             t_carkind += (t_carkind.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].kind;
                         }
                         break;
-                     case 'oilkind':
-                        var as = _q_appendData("oilkind", "", true);
+                     case 'oilstation':
+                        var as = _q_appendData("oilstation", "", true);
                         for ( i = 0; i < as.length; i++) {
                             t_oilkind += (t_oilkind.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].station;
                         }
                         break;
                 }
-                if (!t_isinit && t_carkind.length > 0) {
+                if (!t_isinit && t_carkind.length > 0 && t_oilkind.length > 0) {
                 	t_isinit = true;
                     $('#q_report').q_report({
                         fileName : 'z_oil',
