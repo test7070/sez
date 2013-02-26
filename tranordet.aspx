@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'tranordet', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
+            var q_name = 'tranordet', t_bbsTag = 'tbbs', t_content = "", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
             var t_sqlname = 'tranordet_load';
             t_postname = q_name;
             var isBott = false;
