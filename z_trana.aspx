@@ -95,7 +95,7 @@
                     $('#txtTrandate2').mask('999/99/99');
                     $('#txtTrandate2').datepicker();
 					
-					$('#txtXcheckrate').val('35');
+					$('#txtXcheckrate').val(q_getMsg('trate1'));
                     $('#chkXcarkind').children('input').attr('checked', 'checked');
                     
                     //$('#chkXfilter').children('input').attr('checked', 'checked');
@@ -126,7 +126,6 @@
             }
             function q_boxClose(t_name) {
             }
-
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
