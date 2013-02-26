@@ -25,7 +25,7 @@
             function q_gfPost() {
                 q_getFormat();
                 q_langShow();
-
+				q_cmbParse("cmbCtype", '貨櫃,平板,散裝');
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd], ['txtBdldate', r_picd], ['txtEdldate', r_picd], ['txtBstrdate', r_picd], ['txtEstrdate', r_picd]];
 
                 q_mask(bbmMask);
@@ -37,7 +37,8 @@
                 t_bdate = $('#txtBdate').val();
                 t_edate = $('#txtEdate').val();
                 t_custno = $('#txtCustno').val();
-
+				t_ctype = $.trim($('#cmbCtype').val());
+				
                 t_bstrdate = $('#txtBstrdate').val();
                 t_estrdate = $('#txtEstrdate').val();
                 t_bdldate = $('#txtBdldate').val();
@@ -51,7 +52,8 @@
                 t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
                 /// 100.  .
 
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("strdate", t_bstrdate, t_estrdate) + q_sqlPara2("dldate", t_bdldate, t_edldate) + q_sqlPara2("custno", t_custno) + q_sqlPara2("deliveryno", t_deliveryno) + q_sqlPara2("po", t_po) + q_sqlPara2("productno", t_productno) + q_sqlPara2("addrno", t_addrno);
+                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("strdate", t_bstrdate, t_estrdate) + q_sqlPara2("dldate", t_bdldate, t_edldate) + q_sqlPara2("custno", t_custno) + q_sqlPara2("deliveryno", t_deliveryno) + q_sqlPara2("po", t_po) + q_sqlPara2("productno", t_productno) + q_sqlPara2("addrno", t_addrno)
+                + q_sqlPara2("ctype", t_ctype);
 
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
@@ -92,6 +94,10 @@
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>
 					<input class="txt" id="txtEdldate" type="text" style="width:93px; font-size:medium;" />
 					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCtype'> </a></td>
+					<td><select id="cmbCtype" style="width:215px; font-size:medium;" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
