@@ -104,8 +104,12 @@
                             	data:t_carno,
                             	maxInmoney : t_maxInmoney
                             });
-                            $("#btnNext").show();
-                            $("#btnPrevious").show();
+                            $('#txtCurPage').val(1).change(function(e){
+                            	$(this).val(parseInt($(this).val()));
+                            	$('#chart01').data('info').page($('#chart01'),$(this).val());
+                            });
+                            $('#txtTotPage').val(t_carno.length);
+                            $(".control").show();
                         }
 
                         /*$('#pieChart').pieChart({
@@ -219,6 +223,13 @@
             				obj.data('info').curIndex = 0;	
             				obj.data('info').refresh(obj);
             			},
+            			page : function(obj,n){
+            				if(n>0 && n<=obj.data('info').carData.length){
+            					obj.data('info').curIndex=n-1;
+            					obj.data('info').refresh(obj);	
+            				}else
+            					alert('頁數錯誤。');
+            			},
             			next : function(obj){
             				if(obj.data('info').curIndex == obj.data('info').carData.length-1)
             					alert('已到最後頁。');
@@ -236,6 +247,7 @@
             				}
             			},
             			refresh : function(obj){
+            				obj.html('');
             				obj.width(950).height(500);
             				var t_color1 = ['rgb(210,233,255)','rgb(255,238,221)'];
             				var t_n = 10;//分幾個區塊
@@ -260,12 +272,18 @@
             				
             				//支出的顏色
             				tmpPath += '<defs>'+
-							'<linearGradient id="color1" x1="0%" y1="0%" x2="100%" y2="0%">'+
+							'<linearGradient id="chart01_outColor1" x1="0%" y1="0%" x2="100%" y2="0%">'+
 								'<stop offset="0%" style="stop-color:rgb(206,206,255);stop-opacity:1" />'+
 								'<stop offset="100%" style="stop-color:rgb(147,147,255);stop-opacity:1" />'+
 							'</linearGradient>'+
 							'</defs>';
-            				
+            				tmpPath += '<defs>'+
+							'<linearGradient id="chart01_outColor2" x1="0%" y1="0%" x2="100%" y2="0%">'+
+								'<stop offset="0%" style="stop-color:rgb(255,220,185);stop-opacity:1" />'+
+								'<stop offset="100%" style="stop-color:rgb(225,175,96);stop-opacity:1" />'+
+							'</linearGradient>'+
+							'</defs>';
+							
             				//支出
             				for(var i=0;i<t_detail.length;i++){
             					t_output = t_detail[i].outmoney + t_detail[i].oilmoney + t_detail[i].tolls + t_detail[i].tickets + t_detail[i].reserve ;
@@ -277,7 +295,7 @@
             					else   	   				
             						y = 50 + t_height - round(t_output/t_maxInmoney*t_height,0);
 								
-								tmpPath+='<rect x="'+x+'" y="'+y+'" width="'+t_n+'" height="'+(50 + t_height-y)+'" fill="url(#color1)"/>';
+								tmpPath+='<rect class="chart01_out" x="'+x+'" y="'+y+'" width="'+t_n+'" height="'+(50 + t_height-y)+'" fill="url(#chart01_outColor1)"/>';
             				}
             				//收入
             				for(var i=0;i<t_detail.length;i++){//連接線
@@ -291,19 +309,25 @@
             				for(var i=0;i<t_detail.length;i++){
             					x = 100 + 10+t_n*i;
             					y = (t_maxInmoney>0?50 + t_height - round(t_detail[i].inmoney/t_maxInmoney*t_height,0):50 + t_height);
-            					tmpPath +='<circle class="" cx="'+x+'" cy="'+y+'" r="5" stroke="black" stroke-width="2" fill="red"/>';        					
+            					tmpPath +='<circle class="chart01_in" class="" cx="'+x+'" cy="'+y+'" r="5" stroke="black" stroke-width="2" fill="red"/>';        					
             					tmpPath +='<text x="'+(x-10)+'" y="'+(50+t_height+30)+'" fill="black">'+t_detail[i].datea.substring(7,9)+'</text>';
             				}
             				//符號說明
-            				tmpPath+='<rect x="800" y="50" width="20" height="20" fill="url(#color1)"/>';
+            				tmpPath+='<rect x="800" y="50" width="20" height="20" fill="url(#chart01_outColor1)"/>';
             				tmpPath +='<text x="830" y="65" fill="black">支出</text>';
             				
             				tmpPath +='<line x1="800" y1="85" x2="820" y2="85" style="stroke:rgb(0,0,0);stroke-width:1"/>';
             				tmpPath +='<circle class="" cx="810" cy="85" r="5" stroke="black" stroke-width="2" fill="red"/>';        					
             				tmpPath +='<text x="830" y="90" fill="black">收入</text>';
-            				
-            				//obj.append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
-            				obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+            				          				
+            				obj.append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+            				//事件
+            				obj.children('svg').find('.chart01_in').hover(
+            					function(e){$(this).attr('fill','rgb(255,151,151)');}
+            					,function(e){$(this).attr('fill','red');});
+            				obj.children('svg').find('.chart01_out').hover(
+            					function(e){$(this).attr('fill','url(#chart01_outColor2)');}
+            					,function(e){$(this).attr('fill','url(#chart01_outColor1)');});
             			}
             		});
             		$(this).data('info').init($(this));
@@ -406,7 +430,10 @@
 		</script>
 		<style type="text/css">
             .pieChart .graph {
-                position: relative;
+                position: relative;              
+            }
+            .control{
+            	display:none;
             }
 		</style>
 	</head>
@@ -415,15 +442,18 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-		<div id="q_menu"></div>
+		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container" style="width:2000px;">
 				<div id="q_report"> </div>
 			</div>
 			<div style="display:inline-block;width:2000px;">
-				<input type="button" id="btnRun" style="float:left; width:80px;" value="執行"/>
-				<input type="button" id="btnPrevious" style="display:none;float:left; width:80px;" value="上一頁"/>
-				<input type="button" id="btnNext" style="display:none;float:left; width:80px;" value="下一頁"/>
+				<input type="button" id="btnRun" style="float:left; width:80px;font-size: medium;" value="執行"/>
+				<input type="button" id="btnPrevious" class="control" style="float:left; width:80px;font-size: medium;" value="上一頁"/>
+				<input type="button" id="btnNext" class="control" style="float:left; width:80px;font-size: medium;" value="下一頁"/>
+				<input type="text" id="txtCurPage" class="control" style="float:left;text-align: right;width:60px; font-size: medium;"/>
+				<span style="display:block; float:left; width:20px;"><label class="control" style="vertical-align: middle;font-size: medium;">／</label></span>
+				<input type="text" id="txtTotPage" class="control" style="float:left;text-align: right;width:60px; font-size: medium;" readonly="readonly"/>
 			</div>
 			<div id="chart">
 				<div id='chart01'> </div>
