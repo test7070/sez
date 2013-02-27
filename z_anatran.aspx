@@ -26,9 +26,9 @@
             var t_carno = null;
 			
 			Array.prototype.indexOfField = function (propertyName, value) {
-		        for (var i = 0; i < this.length; i++)
-		            if (this[i][propertyName] === value)
-		                return i;
+		        for (var z = 0; z < this.length; z++)
+		            if (this[z][propertyName] === value)
+		                return z;
 		        return -1;
 		    }
     			
@@ -70,46 +70,49 @@
                         	var n = -1;
                         	var t_maxInmoney = 0;
                             t_carno = new Array();
-                            for (var i in as) {
-                            	n = t_carno.indexOfField("carno", as[i].carno);
-                            	if(t_maxInmoney<parseFloat('0'+as[i].inmoney))
-                            		t_maxInmoney = parseFloat('0'+as[i].inmoney);
-                            	t_detail = {
-                            		datea : as[i].datea,
-                            		inmoney : parseFloat('0'+as[i].inmoney),
-                            		outmoney : parseFloat('0'+as[i].outmoney),
-                            		tranmiles : parseFloat('0'+as[i].tranmiles),
-                            		oilmoney : parseFloat('0'+as[i].oilmoney),
-                            		oilmount : parseFloat('0'+as[i].oilmount),
-                            		oilmiles : parseFloat('0'+as[i].oilmiles),
-                            		tolls : parseFloat('0'+as[i].tolls),
-                            		tickets : parseFloat('0'+as[i].tickets),
-                            		reserve : parseFloat('0'+as[i].reserve),
-                            		profit : parseFloat('0'+as[i].profit)
-                            	};
-                            	
-                            	if( n == -1){
-                            		t_carno.push({
-	                                    carkindno : as[i].carkindno,
-	                                    carkind : as[i].carkind,
-	                                    carno : as[i].carno,
-	                                    caryear : as[i].caryear,
-	                                    detail : [t_detail]
-	                                });
-                            	}else{
-                            		t_carno[n].detail.push(t_detail);
-                            	}
+                            
+                            for (var i in as) {        
+                            	if(as[i].carno!=undefined){                       		              
+	                            	n = t_carno.indexOfField("carno", as[i].carno);
+	                            	if(t_maxInmoney<parseFloat('0'+as[i].inmoney))
+	                            		t_maxInmoney = parseFloat('0'+as[i].inmoney);
+	                            	t_detail = {
+	                            		datea : as[i].datea,
+	                            		inmoney : parseFloat('0'+as[i].inmoney),
+	                            		outmoney : parseFloat('0'+as[i].outmoney),
+	                            		tranmiles : parseFloat('0'+as[i].tranmiles),
+	                            		oilmoney : parseFloat('0'+as[i].oilmoney),
+	                            		oilmount : parseFloat('0'+as[i].oilmount),
+	                            		oilmiles : parseFloat('0'+as[i].oilmiles),
+	                            		tolls : parseFloat('0'+as[i].tolls),
+	                            		tickets : parseFloat('0'+as[i].tickets),
+	                            		reserve : parseFloat('0'+as[i].reserve),
+	                            		profit : parseFloat('0'+as[i].profit)
+	                            	};
+	                            	
+	                            	if( n == -1){
+	                            		t_carno.push({
+		                                    carkindno : as[i].carkindno,
+		                                    carkind : as[i].carkind,
+		                                    carno : as[i].carno,
+		                                    caryear : as[i].caryear,
+		                                    detail : [t_detail]
+		                                });
+	                            	}else{
+	                            		t_carno[n].detail.push(t_detail);
+	                            	}
+	                            }
+	                            $('#chart01').barChart01({
+	                            	data:t_carno,
+	                            	maxInmoney : t_maxInmoney
+	                            });
+	                            $('#txtCurPage').val(1).change(function(e){
+	                            	$(this).val(parseInt($(this).val()));
+	                            	$('#chart01').data('info').page($('#chart01'),$(this).val());
+	                            });
+	                            $('#txtTotPage').val(t_carno.length);
+	                            $(".control").show();
                             }
-                            $('#chart01').barChart01({
-                            	data:t_carno,
-                            	maxInmoney : t_maxInmoney
-                            });
-                            $('#txtCurPage').val(1).change(function(e){
-                            	$(this).val(parseInt($(this).val()));
-                            	$('#chart01').data('info').page($('#chart01'),$(this).val());
-                            });
-                            $('#txtTotPage').val(t_carno.length);
-                            $(".control").show();
                         }
 
                         /*$('#pieChart').pieChart({
@@ -224,6 +227,7 @@
             				obj.data('info').refresh(obj);
             			},
             			page : function(obj,n){
+            				alert('page');
             				if(n>0 && n<=obj.data('info').carData.length){
             					obj.data('info').curIndex=n-1;
             					obj.data('info').refresh(obj);	
@@ -231,18 +235,22 @@
             					alert('頁數錯誤。');
             			},
             			next : function(obj){
+            				alert('next');
             				if(obj.data('info').curIndex == obj.data('info').carData.length-1)
             					alert('已到最後頁。');
             				else{
             					obj.data('info').curIndex++;
+            					$('#txtCurPage').val(obj.data('info').curIndex+1);
             					obj.data('info').refresh(obj);
             				}
             			},
             			previous : function(obj){
+            				alert('previous');
             				if(obj.data('info').curIndex == 0)
             					alert('已到最前頁。');
             				else{
             					obj.data('info').curIndex--;
+            					$('#txtCurPage').val(obj.data('info').curIndex+1);
             					obj.data('info').refresh(obj);
             				}
             			},
@@ -261,7 +269,7 @@
             				var t_detail = obj.data('info').carData[obj.data('info').curIndex].detail;
             				var t_maxInmoney = obj.data('info').maxInmoney;
             				var t_n = round((t_width-20)/t_detail.length,0);   			
-            				var x,y,bx,by,t_output;
+            				var w,h,x,y,bx,by,t_output;
   							var t_cmaxInmoney = FormatNumber(t_maxInmoney);
   							t_cmaxInmoney = ('      '+t_cmaxInmoney).substring(t_cmaxInmoney.length,7+t_cmaxInmoney.length)
   							
@@ -288,14 +296,20 @@
             				for(var i=0;i<t_detail.length;i++){
             					t_output = t_detail[i].outmoney + t_detail[i].oilmoney + t_detail[i].tolls + t_detail[i].tickets + t_detail[i].reserve ;
             					x = 100 + 10+t_n*i -(i==0?9:10);
-            					if(t_output<0)
+            					if(t_output<0){
             						y = 50 + t_height;
-            					else if(t_output>=t_maxInmoney)    
+            						h = -1;
+            					}
+            					else if(t_output>=t_maxInmoney){
             						y = 50;
-            					else   	   				
+            						h = 0;
+            					}   
+            					else{
             						y = 50 + t_height - round(t_output/t_maxInmoney*t_height,0);
-								
-								tmpPath+='<rect class="chart01_out" x="'+x+'" y="'+y+'" width="'+t_n+'" height="'+(50 + t_height-y)+'" fill="url(#chart01_outColor1)"/>';
+            						h = -1;
+            					}			
+
+								tmpPath+='<rect class="chart01_out" x="'+x+'" y="'+y+'" width="'+t_n+'" height="'+(50 + t_height-y+h)+'" fill="url(#chart01_outColor1)"/>';
             				}
             				//收入
             				for(var i=0;i<t_detail.length;i++){//連接線
