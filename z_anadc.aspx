@@ -15,26 +15,31 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+			var txtreport='';
 			$(document).ready(function() {
 				q_getId();
 				q_gf('', 'z_anadc');
 				$('#btnSvg').val('圓餅圖');
 				$('#pieChart').hide();
+				$('#btnSvg').hide();
 				
 				$('#q_report').click(function(e) {
 					$('#pieChart').hide();
 					$('#dataSearch').show();
+					if(txtreport!='')
+						$('#btnSvg').show();
 					for(var i =0 ;i<$('#q_report').data().info.reportData.length;i++){
 						if($(".select")[0].nextElementSibling.innerText==$('#q_report').data().info.reportData[i].reportName){
 							$('#btnSvg').val($('#q_report').data().info.reportData[i].reportName+'圓餅圖顯示');
 							//下面註解取得z_xxxxx
-							//$('#q_report').data().info.reportData[i].report
+							txtreport=$('#q_report').data().info.reportData[i].report;
 						}
 					}
 				});
 				$('#btnSvg').click(function(e) {
 					$('#pieChart').show();
 					$('#dataSearch').hide();
+					q_func('qtxt.query','z_anadc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + encodeURI($('#txtDate1').val()) + ';' + encodeURI($('#txtDate2').val()) + ';' + encodeURI($('#txtXmon').val()) + ';' + encodeURI($('#txtCust1a').val())+ ';' + encodeURI($('#txtCust2a').val())+ ';' + encodeURI($('#txtPart1a').val())+ ';' + encodeURI($('#txtPart1b').val())+ ';' + encodeURI($('#txtSss1a').val())+ ';' + encodeURI($('#txtSss1b').val()));
 				});
 				
 				$('#pieChart').pieChart({
@@ -117,6 +122,19 @@
 			function q_gtPost(s2) {
 			}
 			
+			function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'qtxt.query':
+                        var as = _q_appendData("tmp0", "", true, true);
+                         break;
+                        
+                        //if (as[0] != undefined) {
+                        //}
+                        //break;
+                }
+
+            }
+            
 			;(function($, undefined) {
                 $.fn.barChart = function(value) {
                     $(this).addClass('barChart');
