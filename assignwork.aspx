@@ -32,7 +32,7 @@
             ['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtComp_', 'tgg_b.aspx'],
             ['txtItemno', 'lblItem', 'assignment', 'noa,item', 'txtItemno,txtItem', 'assignment_b.aspx'],
             ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-            ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
+            ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea,partno', 'txtSalesno2,txtSales2,cmbPartno2', 'sss_b.aspx'],
             ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -469,15 +469,15 @@
 						</td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblSales2' class="lbl btn"> </a></td>
+						<td colspan="2">
+							<input type="text" id="txtSalesno2" style="float:left;width:30%;"/>
+							<input type="text" id="txtSales2" style="float:left;width:70%;"/>
+						</td>
 						<td><span> </span><a id="lblPart2" class="lbl"> </a></td>
 						<td>
 							<select id="cmbPartno2" class="txt c1"> </select>
 							<input id="txtPart2"  type="text" style="display: none;"/>
-						</td>
-						<td><span> </span><a id='lblSales2' class="lbl btn"> </a></td>
-						<td colspan="2">
-							<input type="text" id="txtSalesno2" style="float:left;width:40%;"/>
-							<input type="text" id="txtSales2" style="float:left;width:60%;"/>
 						</td>
 					</tr>
 					<tr>
