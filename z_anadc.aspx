@@ -184,96 +184,138 @@
             
 			;(function($, undefined) {
                 $.fn.barChart = function(value) {
-                    $(this).addClass('barChart');
-                    $(this).width(value.width);
-                    $(this).height(value.height);
-                    $(this).offset({
-                        top : $(this).offset().top,
-                        left : $(this).offset().left
-                    });
-                    $(this).data('info', {
-                        width : value.width,
-                        height : value.height,
-                        xAxis : value.xAxis,
-                        yAxis : value.yAxis,
-                        data : value.data,
-                        init : function(obj) {
-                            var tmp, tmpStr, tmpGraph;
-                            /*left*/
-                            tmpStr = '<div class="left"><';
-                            tmpStr += '/div>';
-                            obj.append(tmpStr);
-                            /*bottom*/
-                            tmpStr = '<div class="bottom"><';
-                            tmpStr += '/div>';
-                            obj.append(tmpStr);
-                            /*graph*/
-                            tmpStr = '<div class="graph"><';
-                            tmpStr += '/div>';
-                            obj.append(tmpStr);
-                            tmpGraph = obj.find('.graph');
-                            /*left text*/
-                            tmp = obj.find('.left');
-                            for ( i = obj.data('info').yAxis.length - 1; i >= 0; i--) {
-                                tmpStr = '<div class="text">' + obj.data('info').yAxis[i] + '<';
-                                tmpStr += '/div>';
-                                tmp.append(tmpStr);
-                            }
-                            tmp.find('div').height(Math.floor(tmpGraph.height() / obj.data('info').yAxis.length));
-                            /*bottom text*/
-                            tmp = obj.find('.bottom');
-                            for ( i = 0; i < obj.data('info').xAxis.length; i++) {
-                                tmpStr = '<div class="text">' + obj.data('info').xAxis[i] + '<';
-                                tmpStr += '/div>';
-                                tmp.append(tmpStr);
-                            }
-                            tmp.find('div').width(Math.floor(tmpGraph.width() / obj.data('info').xAxis.length));
-                            /*graph background*/
-                            for ( i = 0; i < obj.data('info').yAxis.length; i++) {
-                                tmpStr = '<div class="bg"><';
-                                tmpStr = tmpStr + '/div>';
-                                tmpGraph.append(tmpStr);
-                                tmp = tmpGraph.find('.bg').eq(i);
-                                tmp.addClass('bgColor' + ((i % 2) + 1).toString());
-                                tmp.height(Math.floor(tmpGraph.height() / obj.data('info').yAxis.length));
-                                tmp.offset({
-                                    top : tmpGraph.offset().top + tmp.height() * i,
-                                    left : tmpGraph.offset().left
-                                });
-                            }
-                            /*graph bar*/
-                            for ( i = 0; i < obj.data('info').xAxis.length && i < obj.data('info').data.length; i++) {
-                                tmpStr = '<div class="bar"><span class="nonselect"><b><';
-                                tmpStr += '/b><';
-                                tmpStr += '/span><';
-                                tmpStr += '/div>';
-                                tmpGraph.append(tmpStr);
-                                tmp = tmpGraph.find('.bar').eq(i);
-                                tmp.width(Math.floor(tmpGraph.width() / obj.data('info').xAxis.length));
-                                tmp.height(tmpGraph.height());
-                                tmp.offset({
-                                    top : tmpGraph.offset().top,
-                                    left : tmpGraph.offset().left + tmp.width() * i
-                                });
-                                tmp.find('span').height(Math.floor(tmpGraph.height() * obj.data('info').data[i].rate));
-                                tmp.find('span').offset({
-                                    top : tmpGraph.offset().top + tmpGraph.height() - tmp.find('span').height(),
-                                    left : tmp.offset().left + Math.floor((tmp.width() - tmp.find('span').width()) / 2)
-                                });
-                                tmp.find('b').text(obj.data('info').data[i].text);
-                            }
-                            obj.find('.graph').eq(0).find('.bar > span').hover(function(e) {
-                                $(this).removeClass('nonselect').addClass('select');
-                            }, function(e) {
-                                $(this).removeClass('select').addClass('nonselect');
-                            });
-                        },
-                        refresh : function(obj) {
+                    $(this).data('info',{
+            			curIndex : -1,
+            			carData : value.data,
+            			maxInmoney : value.maxInmoney,
+            			init : function(obj){
+            				if(value.length==0){
+            					alert('無資料。');
+            					return;
+            				}
+            				obj.data('info').curIndex = 0;	
+            				obj.data('info').refresh(obj);
+            			},
+            			page : function(obj,n){
+            				alert('page');
+            				if(n>0 && n<=obj.data('info').carData.length){
+            					obj.data('info').curIndex=n-1;
+            					obj.data('info').refresh(obj);	
+            				}else
+            					alert('頁數錯誤。');
+            			},
+            			next : function(obj){
+            				alert('next');
+            				if(obj.data('info').curIndex == obj.data('info').carData.length-1)
+            					alert('已到最後頁。');
+            				else{
+            					obj.data('info').curIndex++;
+            					$('#txtCurPage').val(obj.data('info').curIndex+1);
+            					obj.data('info').refresh(obj);
+            				}
+            			},
+            			previous : function(obj){
+            				alert('previous');
+            				if(obj.data('info').curIndex == 0)
+            					alert('已到最前頁。');
+            				else{
+            					obj.data('info').curIndex--;
+            					$('#txtCurPage').val(obj.data('info').curIndex+1);
+            					obj.data('info').refresh(obj);
+            				}
+            			},
+            			refresh : function(obj){
+            				obj.html('');
+            				obj.width(950).height(500);
+            				var t_color1 = ['rgb(210,233,255)','rgb(255,238,221)'];
+            				var t_n = 10;//分幾個區塊
+            				var t_height = 350, t_width = 600;
+            				var tmpPath='<rect x="0" y="0" width="950" height="500" style="fill:rgb(220,220,220);stroke-width:1;stroke:rgb(0,0,0)"/>';
+            				for(var i=0;i<t_n;i++)
+            					tmpPath += '<rect x="100" y="'+(50+(t_height/t_n)*i)+'" width="'+t_width+'" height="'+(t_height/t_n)+'" style="fill:'+t_color1[i%t_color1.length]+';"/>';
+            				tmpPath +='<line x1="100" y1="'+(50+t_height)+'" x2="'+(100+t_width)+'" y2="'+(50+t_height)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';//X軸
+            				tmpPath +='<line x1="100" y1="50" x2="100" y2="'+(50+t_height)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';//Y軸
+            				
+            				var t_detail = obj.data('info').carData[obj.data('info').curIndex].detail;
+            				var t_maxInmoney = obj.data('info').maxInmoney;
+            				var t_n = round((t_width-20)/t_detail.length,0);   			
+            				var w,h,x,y,bx,by,t_output;
+  							var t_cmaxInmoney = FormatNumber(t_maxInmoney);
+  							t_cmaxInmoney = ('      '+t_cmaxInmoney).substring(t_cmaxInmoney.length,7+t_cmaxInmoney.length)
+  							
+  							tmpPath +='<text x="'+(500)+'" y="'+(20)+'" fill="black">【'+obj.data('info').carData[obj.data('info').curIndex].carkind+'】'+obj.data('info').carData[obj.data('info').curIndex].carno+'</text>';
+  							tmpPath +='<text x="'+(70)+'" y="'+(20)+'" fill="black">金額</text>';
+  							tmpPath +='<text x="'+(50+t_width +50)+'" y="'+(50+t_height+30)+'" fill="black">日期</text>';
+  							tmpPath +='<text x="'+(50)+'" y="'+(50)+'" fill="black">'+t_cmaxInmoney+'</text>';
+            				
+            				//支出的顏色
+            				tmpPath += '<defs>'+
+							'<linearGradient id="chart01_outColor1" x1="0%" y1="0%" x2="100%" y2="0%">'+
+								'<stop offset="0%" style="stop-color:rgb(206,206,255);stop-opacity:1" />'+
+								'<stop offset="100%" style="stop-color:rgb(147,147,255);stop-opacity:1" />'+
+							'</linearGradient>'+
+							'</defs>';
+            				tmpPath += '<defs>'+
+							'<linearGradient id="chart01_outColor2" x1="0%" y1="0%" x2="100%" y2="0%">'+
+								'<stop offset="0%" style="stop-color:rgb(255,220,185);stop-opacity:1" />'+
+								'<stop offset="100%" style="stop-color:rgb(225,175,96);stop-opacity:1" />'+
+							'</linearGradient>'+
+							'</defs>';
+							
+            				//支出
+            				for(var i=0;i<t_detail.length;i++){
+            					t_output = t_detail[i].outmoney + t_detail[i].oilmoney + t_detail[i].tolls + t_detail[i].tickets + t_detail[i].reserve ;
+            					x = 100 + 10+t_n*i -(i==0?9:10);
+            					if(t_output<0){
+            						y = 50 + t_height;
+            						h = -1;
+            					}
+            					else if(t_output>=t_maxInmoney){
+            						y = 50;
+            						h = 0;
+            					}   
+            					else{
+            						y = 50 + t_height - round(t_output/t_maxInmoney*t_height,0);
+            						h = -1;
+            					}			
 
-                        }
-                    });
-                    $(this).data('info').init($(this));
-                }
+								tmpPath+='<rect class="chart01_out" x="'+x+'" y="'+y+'" width="'+t_n+'" height="'+(50 + t_height-y+h)+'" fill="url(#chart01_outColor1)"/>';
+            				}
+            				//收入
+            				for(var i=0;i<t_detail.length;i++){//連接線
+            					x = 100 + 10+t_n*i;
+            					y = (t_maxInmoney>0?50 + t_height - round(t_detail[i].inmoney/t_maxInmoney*t_height,0):50 + t_height);
+            					if(i>0)
+            						tmpPath +='<line x1="'+bx+'" y1="'+by+'" x2="'+x+'" y2="'+y+'" style="stroke:rgb(0,0,0);stroke-width:1"/>';
+            					bx = x;
+            					by = y;
+            				}
+            				for(var i=0;i<t_detail.length;i++){
+            					x = 100 + 10+t_n*i;
+            					y = (t_maxInmoney>0?50 + t_height - round(t_detail[i].inmoney/t_maxInmoney*t_height,0):50 + t_height);
+            					tmpPath +='<circle class="chart01_in" class="" cx="'+x+'" cy="'+y+'" r="5" stroke="black" stroke-width="2" fill="red"/>';        					
+            					tmpPath +='<text x="'+(x-10)+'" y="'+(50+t_height+30)+'" fill="black">'+t_detail[i].datea.substring(7,9)+'</text>';
+            				}
+            				//符號說明
+            				tmpPath+='<rect x="800" y="50" width="20" height="20" fill="url(#chart01_outColor1)"/>';
+            				tmpPath +='<text x="830" y="65" fill="black">支出</text>';
+            				
+            				tmpPath +='<line x1="800" y1="85" x2="820" y2="85" style="stroke:rgb(0,0,0);stroke-width:1"/>';
+            				tmpPath +='<circle class="" cx="810" cy="85" r="5" stroke="black" stroke-width="2" fill="red"/>';        					
+            				tmpPath +='<text x="830" y="90" fill="black">收入</text>';
+            				          				
+            				obj.append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+            				//事件
+            				obj.children('svg').find('.chart01_in').hover(
+            					function(e){$(this).attr('fill','rgb(255,151,151)');}
+            					,function(e){$(this).attr('fill','red');});
+            				obj.children('svg').find('.chart01_out').hover(
+            					function(e){$(this).attr('fill','url(#chart01_outColor2)');}
+            					,function(e){$(this).attr('fill','url(#chart01_outColor1)');});
+            			}
+            		});
+            		$(this).data('info').init($(this));
+            	}
                 $.fn.pieChart = function(value) {
                     $(this).data('info', {
                         value : value,
