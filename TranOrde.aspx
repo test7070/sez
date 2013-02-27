@@ -316,8 +316,6 @@
                         break;
                     case 'tranordet':
                         if (q_cur > 0 && q_cur < 4) {
-                        	b_ret = getb_ret();
-                        	alert(b_ret);
 							t_where = "where=^^ noa='" + $('#txtNoa').val()+"' ^^"
 	           				q_gt('tranordet', t_where , 0, 0, 0, "", r_accy);
 	           			}

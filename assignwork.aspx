@@ -32,6 +32,7 @@
             ['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtComp_', 'tgg_b.aspx'],
             ['txtItemno', 'lblItem', 'assignment', 'noa,item', 'txtItemno,txtItem', 'assignment_b.aspx'],
             ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+            ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx'],
             ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -53,6 +54,7 @@
             	q_getFormat();
                 bbmMask = [['txtOdate', r_picd], ['txtWdate', r_picd], ['txtPaydate', r_picd], ['txtEnddate', r_picd]];
             	q_mask(bbmMask);
+                q_gt('part', '', 0, 0, 0, "");
             	$('#btnInput').click(function () {
             		if(emp($('#txtItemno').val())){
             			alert('請先輸入項目!!');
@@ -94,13 +96,25 @@
 	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtTggno,txtComp,txtProductno,txtProduct,txtDays,txtMoney,txtCost,txtMemo', as.length, as, 'tggno,comp,productno,product,days,money,cost,memo', '');
 	            	sum();
             	break;
+                	case 'part':
+                        var as = _q_appendData("part", "", true);
+                        if (as[0] != undefined) {
+                            var t_item = "";
+                            for ( i = 0; i < as.length; i++) {
+                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+                            }
+                            q_cmbParse("cmbPartno2", t_item);
+                             if (abbm[q_recno] != undefined) {
+	                        	$("#cmbPartno2").val(abbm[q_recno].partno2);
+	                        }
+                        }
+                        break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
                 }
             }
-
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
@@ -155,6 +169,9 @@
 	            t_day = t_day>9?t_day+'':'0'+t_day;
 	            $('#txtPaydate').val(t_year+'/'+t_month+'/'+t_day);
 	            $('#txtPaydate').val(t_year+'/'+t_month+'/'+t_day);
+	            $('#cmbPartno2').val('06');
+	            $('#txtSalesno2').val('060188');
+	            $('#txtSales2').val('邱奕龍');
                 $('#txtItem').focus();
             }
             function btnModi() {
@@ -449,6 +466,18 @@
 						<td class="td2" colspan="2">
 							<input id="txtSalesno" type="text"  style="float:left; width:30%;"/>
 							<input id="txtSales" type="text"  style="float:left; width:70%;"/>
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblPart2" class="lbl"> </a></td>
+						<td>
+							<select id="cmbPartno2" class="txt c1"> </select>
+							<input id="txtPart2"  type="text" style="display: none;"/>
+						</td>
+						<td><span> </span><a id='lblSales2' class="lbl btn"> </a></td>
+						<td colspan="2">
+							<input type="text" id="txtSalesno2" style="float:left;width:40%;"/>
+							<input type="text" id="txtSales2" style="float:left;width:60%;"/>
 						</td>
 					</tr>
 					<tr>
