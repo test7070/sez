@@ -21,10 +21,12 @@
 				q_gf('', 'z_anadc');
 				$('#btnSvg').val('圓餅圖');
 				$('#pieChart').hide();
+				$('#barChart').hide();
 				$('#btnSvg').hide();
-				
+
 				$('#q_report').click(function(e) {
 					$('#pieChart').hide();
+					$('#barChart').hide();
 					$('#dataSearch').show();
 					if(txtreport!='')
 						$('#btnSvg').show();
@@ -37,19 +39,29 @@
 					}
 				});
 				$('#btnSvg').click(function(e) {
-					$('#pieChart').show();
+					if(txtreport=='z_anadc1' || txtreport=='z_anadc3')
+						$('#pieChart').show();
+					if(txtreport=='z_anadc6' || txtreport=='z_anadc8'){
+						$('#barChart').show();
+						$('#barChart').barChart({
+							width: 800,
+							height: 500,
+							xAxis: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+							yAxis: ['100','200','300','400','500'],
+							data: [{rate:0.5,value:500},{rate:0.7},{rate:0.21},{rate:0.1},{rate:0.55}]
+						});
+					}
 					$('#dataSearch').hide();
-					var cust1a,cust2a,part1a,part2a,sss1a,sss2a
+					var cust2a='#non',part2a='#non',sss2a='#non';
+					if(!emp($('#txtCust2a').val()))
+						cust2a=$('#txtCust2a').val();
+					if(!emp($('#txtPart2a').val()))
+						part2a=$('#txtPart2a').val();
+					if(!emp($('#txtSss2a').val()))
+						sss2a=$('#txtSss2a').val();
 					
-					q_func('qtxt.query','z_anadc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + encodeURI($('#txtDate1').val()) + ';' + encodeURI($('#txtDate2').val()) + ';' + encodeURI($('#txtXmon').val()) + ';' + encodeURI($('#txtCust1a').val())+ ';' + encodeURI($('#txtCust2a').val())+ ';' + encodeURI($('#txtPart1a').val())+ ';' + encodeURI($('#txtPart1b').val())+ ';' + encodeURI($('#txtSss1a').val())+ ';' + encodeURI($('#txtSss1b').val()));
+					q_func('qtxt.query','z_anadc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + encodeURI($('#txtDate1').val()) + ';' + encodeURI($('#txtDate2').val()) + ';' + encodeURI($('#txtXmon').val()) + ';' + encodeURI($('#txtCust1a').val())+ ';' + encodeURI(cust2a)+ ';' + encodeURI($('#txtPart1a').val())+ ';' + encodeURI(part2a)+ ';' + encodeURI($('#txtSss1a').val())+ ';' + encodeURI(sss2a));
 				});
-				
-				$('#pieChart').pieChart({
-					data : [{text:'威致鋼鐵',value:2764670},{text:'誼林交通',value:919544},{text:'華新麗華',value:749478},{text:'中鋼德山',value:314566}],
-					x: 250,
-					y: 250,
-					radius: 200
-				}); 
 			});
 			
 			function q_gfPost() {
@@ -128,14 +140,47 @@
                 switch(t_func) {
                     case 'qtxt.query':
                         var as = _q_appendData("tmp0", "", true, true);
-                         break;
+                        var test=new Array();
+                        if (as[0] != undefined) {
+                        	for (i = 0; i < as.length; i++) {
+                        		test[i]={
+                        			text:as[i].comp,
+                        			value:dec(as[i].total)
+                        		}
+                        		color[i]=getRndColor();
+                        	}
+                        }
                         
-                        //if (as[0] != undefined) {
-                        //}
-                        //break;
+                        $('#pieChart').pieChart({
+							data : test,
+							x: 250,
+							y: 250,
+							radius: 200
+						}); 
+                        
+                        /*$('#pieChart').pieChart({
+							data : [{text:'威致鋼鐵',value:2764670},{text:'誼林交通',value:919544},{text:'華新麗華',value:749478},{text:'中鋼德山',value:314566}],
+							x: 250,
+							y: 250,
+							radius: 200
+						}); */
+                         break;
                 }
 
             }
+            
+            //設定色彩
+            var color=new Array();
+            
+            function getRndColor(s){
+				var getColor = function(){
+					var r = Math.ceil(Math.random()*256).toString(16);
+					r = r.length==1?'0'+r:r;
+					return r;
+				}
+				var color = (s==undefined)?'#':'';
+				return(color + getColor() + getColor() + getColor());
+			}
             
 			;(function($, undefined) {
                 $.fn.barChart = function(value) {
@@ -232,7 +277,7 @@
                 $.fn.pieChart = function(value) {
                     $(this).data('info', {
                         value : value,
-                        fillColor : ["#E76E6D", "#E7AB6D", "#E6E76D", "#A9E76D", "6DA9E7", "#AB6DE7", "#E76DE6"],
+                        fillColor : color,
                         strokeColor : ["#000000"],
                         focusfillColor : "#FFEEFE",
                         focusIndex : -1,
@@ -338,6 +383,7 @@
 				<input id="btnSvg" type="button" />
 			</div>
 			<div id='pieChart'> </div>
+			<div id='barChart'> </div>
 			<div id='dataSearch' class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
