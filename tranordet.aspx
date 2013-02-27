@@ -10,11 +10,11 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'tranordet', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
+            var q_name = 'tranordet', t_bbsTag = 'tbbs', t_content = "", afilter = [] , bbmKey = [], bbsKey = ['noa','noq'], as;
             var t_sqlname = 'tranordet_load';
             t_postname = q_name;
             var isBott = false;
-
+            var txtfield = [], afield, t_data, t_htm;
             var afield, t_htm;
             var i, s1;
             var q_readonly = [];
@@ -22,19 +22,11 @@
             var bbmNum = [];
             var bbsNum = [['txtWeight2',12 , 3, 1],['txtTrannumber',12 , 0, 1]];
             var bbmMask = [];
-            var bbsMask = [["txtDatea", "999/99/99"]];
+            var bbsMask = [['txtDatea', '999/99/99']];
 
             $(document).ready(function() {
-                bbmKey = [];
-                bbsKey = ['noa', 'noq'];
-                if(location.href.indexOf('?') < 0)// debug
-                {
-                    location.href = location.href + "?;;;noa='0015'";
-                    return;
-                }
                 if(!q_paraChk())
                     return;
-
                 main();
             });
             function main() {
@@ -42,18 +34,12 @@
                     dataErr = false;
                     return;
                 }
-                mainBrow(6, t_content, t_sqlname, t_postname);
-                q_mask(bbmMask);
+                mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
             }
-
             function q_gtPost(t_name) {
 
             }
-
             function bbsAssign() {
-                
-                for(var j = 0; j < q_bbsCount; j++) {
-                }
                 _bbsAssign();//_bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
             }
 
@@ -61,7 +47,6 @@
                 sum();
                 t_key = q_getHref();
                 _btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
-                return true;
             }
 
             function bbsSave(as) {
@@ -94,6 +79,16 @@
                 if(q_tables == 's')
                     bbsAssign();
             }
+            function returnparent() {
+            	if(window.parent.q_name=='tranorde'){
+				 	var wParent = window.parent.document;
+				 	var total_weight = 0;
+				 	for(var i = 0;i < q_bbsCount;i++){
+				 		total_weight += dec($('#txtWeight2_' + i).val());
+				 	}
+				 	wParent.getElementById("txtTweight2").value=total_weight;
+				 }
+			}
 		</script>
 		<style type="text/css">
             td a {
@@ -104,11 +99,14 @@
             }
 		</style>
 	</head>
-	<body>
+	<body onunload='returnparent();'>
 		<div  id="dbbs"  >
 			<!--#include file="../inc/pop_modi.inc"-->
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
 				<tr style='color:white; background:#003366;' >
+					<input class="txt c1"  id="txtNoa.*" type="hidden"  />
+                    <input id="txtNoq.*" type="hidden" />
+
 					<td class="td1" align="center" style="width:1%; max-width:20px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
