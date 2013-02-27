@@ -26,12 +26,12 @@
             var t_carno = null;
 			
 			Array.prototype.indexOfField = function (propertyName, value) {
-		        for (var i = 0; i < this.length; i++)
-		            if (this[i][propertyName] === value)
-		                return i;
+		        for (var z = 0; z < this.length; z++)
+		            if (this[z][propertyName] === value)
+		                return z;
 		        return -1;
 		    }
-    
+    			
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
@@ -50,7 +50,15 @@
                     for (var x = 0; x < t_elements.length; x++) {
                         t_val += (t_val.length > 0 ? '@' : '') + t_elements.eq(x).val();
                     }
-                    q_func('z_anatran.chart01', encodeURI(r_accy) + ';' + encodeURI($('#txtTrandate1').val()) + ';' + encodeURI($('#txtTrandate2').val()) + ';' + encodeURI(t_val) + ';' + encodeURI($.trim($('#txtXcarno').val())));
+                    var t_index = $('#q_report').data('info').radioIndex;
+                    var t_report = $('#q_report').data('info').reportData[t_index].report;
+                    q_func('z_anatran.'+t_report, encodeURI(r_accy) + ';' + encodeURI($('#txtTrandate1').val()) + ';' + encodeURI($('#txtTrandate2').val()) + ';' + encodeURI(t_val) + ';' + encodeURI($.trim($('#txtXcarno').val())));
+                });
+                $("#btnNext").click(function(e) {
+                	$('#chart01').data('info').next($('#chart01'));
+                });
+                $("#btnPrevious").click(function(e) {
+                	$('#chart01').data('info').previous($('#chart01'));
                 });
             }
 
@@ -60,37 +68,51 @@
                         var as = _q_appendData("tmp0", "", true, true);
                         if (as[0] != undefined) {
                         	var n = -1;
+                        	var t_maxInmoney = 0;
                             t_carno = new Array();
-                            for (var i in as) {
-                            	n = t_carno.indexOfField("carno", as[i].carno);
-                            	//alert(i+' '+n+'  '+as[i].carno+' '+as[i].datea);
-                            	t_detail = {
-                            		datea : as[i].datea,
-                            		inmoney : as[i].inmoney,
-                            		outmoney : as[i].outmoney,
-                            		tranmiles : as[i].tranmiles,
-                            		oilmoney : as[i].oilmoney,
-                            		oilmount : as[i].oilmount,
-                            		oilmiles : as[i].oilmiles,
-                            		tolls : as[i].tolls,
-                            		tickets : as[i].tickets,
-                            		reserve : as[i].reserve,
-                            		profit : as[i].profit
-                            	};
-                            	
-                            	if( n == -1){
-                            		t_carno.push({
-	                                    carkindno : as[i].carkindno,
-	                                    carkind : as[i].carkind,
-	                                    carno : as[i].carno,
-	                                    caryear : as[i].caryear,
-	                                    detail : [t_detail]
-	                                });
-                            	}else{
-                            		t_carno[n].detail.push(t_detail);
-                            	}
+                            
+                            for (var i in as) {        
+                            	if(as[i].carno!=undefined){                       		              
+	                            	n = t_carno.indexOfField("carno", as[i].carno);
+	                            	if(t_maxInmoney<parseFloat('0'+as[i].inmoney))
+	                            		t_maxInmoney = parseFloat('0'+as[i].inmoney);
+	                            	t_detail = {
+	                            		datea : as[i].datea,
+	                            		inmoney : parseFloat('0'+as[i].inmoney),
+	                            		outmoney : parseFloat('0'+as[i].outmoney),
+	                            		tranmiles : parseFloat('0'+as[i].tranmiles),
+	                            		oilmoney : parseFloat('0'+as[i].oilmoney),
+	                            		oilmount : parseFloat('0'+as[i].oilmount),
+	                            		oilmiles : parseFloat('0'+as[i].oilmiles),
+	                            		tolls : parseFloat('0'+as[i].tolls),
+	                            		tickets : parseFloat('0'+as[i].tickets),
+	                            		reserve : parseFloat('0'+as[i].reserve),
+	                            		profit : parseFloat('0'+as[i].profit)
+	                            	};
+	                            	
+	                            	if( n == -1){
+	                            		t_carno.push({
+		                                    carkindno : as[i].carkindno,
+		                                    carkind : as[i].carkind,
+		                                    carno : as[i].carno,
+		                                    caryear : as[i].caryear,
+		                                    detail : [t_detail]
+		                                });
+	                            	}else{
+	                            		t_carno[n].detail.push(t_detail);
+	                            	}
+	                            }
+	                            $('#chart01').barChart01({
+	                            	data:t_carno,
+	                            	maxInmoney : t_maxInmoney
+	                            });
+	                            $('#txtCurPage').val(1).change(function(e){
+	                            	$(this).val(parseInt($(this).val()));
+	                            	$('#chart01').data('info').page($('#chart01'),$(this).val());
+	                            });
+	                            $('#txtTotPage').val(t_carno.length);
+	                            $(".control").show();
                             }
-                            $('#chart01').barChart(t_carno);
                         }
 
                         /*$('#pieChart').pieChart({
@@ -183,17 +205,143 @@
 
             function q_boxClose(t_name) {
             }
+			function FormatNumber(n) {
+			    n += "";
+			    var arr = n.split(".");
+			    var re = /(\d{1,3})(?=(\d{3})+$)/g;
+			    return arr[0].replace(re,"$1,") + (arr.length == 2 ? "."+arr[1] : "");
+			}
 
             ;(function($, undefined) {
-            	$.fn.barChart = function(value) {
+            	$.fn.barChart01 = function(value) {
             		$(this).data('info',{
+            			curIndex : -1,
+            			carData : value.data,
+            			maxInmoney : value.maxInmoney,
             			init : function(obj){
-            				var tmpPath='<rect width="300" height="100" style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,0)"/>';
-            				
-            				obj.append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+            				if(value.length==0){
+            					alert('無資料。');
+            					return;
+            				}
+            				obj.data('info').curIndex = 0;	
+            				obj.data('info').refresh(obj);
+            			},
+            			page : function(obj,n){
+            				alert('page');
+            				if(n>0 && n<=obj.data('info').carData.length){
+            					obj.data('info').curIndex=n-1;
+            					obj.data('info').refresh(obj);	
+            				}else
+            					alert('頁數錯誤。');
+            			},
+            			next : function(obj){
+            				alert('next');
+            				if(obj.data('info').curIndex == obj.data('info').carData.length-1)
+            					alert('已到最後頁。');
+            				else{
+            					obj.data('info').curIndex++;
+            					$('#txtCurPage').val(obj.data('info').curIndex+1);
+            					obj.data('info').refresh(obj);
+            				}
+            			},
+            			previous : function(obj){
+            				alert('previous');
+            				if(obj.data('info').curIndex == 0)
+            					alert('已到最前頁。');
+            				else{
+            					obj.data('info').curIndex--;
+            					$('#txtCurPage').val(obj.data('info').curIndex+1);
+            					obj.data('info').refresh(obj);
+            				}
             			},
             			refresh : function(obj){
+            				obj.html('');
+            				obj.width(950).height(500);
+            				var t_color1 = ['rgb(210,233,255)','rgb(255,238,221)'];
+            				var t_n = 10;//分幾個區塊
+            				var t_height = 350, t_width = 600;
+            				var tmpPath='<rect x="0" y="0" width="950" height="500" style="fill:rgb(220,220,220);stroke-width:1;stroke:rgb(0,0,0)"/>';
+            				for(var i=0;i<t_n;i++)
+            					tmpPath += '<rect x="100" y="'+(50+(t_height/t_n)*i)+'" width="'+t_width+'" height="'+(t_height/t_n)+'" style="fill:'+t_color1[i%t_color1.length]+';"/>';
+            				tmpPath +='<line x1="100" y1="'+(50+t_height)+'" x2="'+(100+t_width)+'" y2="'+(50+t_height)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';//X軸
+            				tmpPath +='<line x1="100" y1="50" x2="100" y2="'+(50+t_height)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';//Y軸
             				
+            				var t_detail = obj.data('info').carData[obj.data('info').curIndex].detail;
+            				var t_maxInmoney = obj.data('info').maxInmoney;
+            				var t_n = round((t_width-20)/t_detail.length,0);   			
+            				var w,h,x,y,bx,by,t_output;
+  							var t_cmaxInmoney = FormatNumber(t_maxInmoney);
+  							t_cmaxInmoney = ('      '+t_cmaxInmoney).substring(t_cmaxInmoney.length,7+t_cmaxInmoney.length)
+  							
+  							tmpPath +='<text x="'+(500)+'" y="'+(20)+'" fill="black">【'+obj.data('info').carData[obj.data('info').curIndex].carkind+'】'+obj.data('info').carData[obj.data('info').curIndex].carno+'</text>';
+  							tmpPath +='<text x="'+(70)+'" y="'+(20)+'" fill="black">金額</text>';
+  							tmpPath +='<text x="'+(50+t_width +50)+'" y="'+(50+t_height+30)+'" fill="black">日期</text>';
+  							tmpPath +='<text x="'+(50)+'" y="'+(50)+'" fill="black">'+t_cmaxInmoney+'</text>';
+            				
+            				//支出的顏色
+            				tmpPath += '<defs>'+
+							'<linearGradient id="chart01_outColor1" x1="0%" y1="0%" x2="100%" y2="0%">'+
+								'<stop offset="0%" style="stop-color:rgb(206,206,255);stop-opacity:1" />'+
+								'<stop offset="100%" style="stop-color:rgb(147,147,255);stop-opacity:1" />'+
+							'</linearGradient>'+
+							'</defs>';
+            				tmpPath += '<defs>'+
+							'<linearGradient id="chart01_outColor2" x1="0%" y1="0%" x2="100%" y2="0%">'+
+								'<stop offset="0%" style="stop-color:rgb(255,220,185);stop-opacity:1" />'+
+								'<stop offset="100%" style="stop-color:rgb(225,175,96);stop-opacity:1" />'+
+							'</linearGradient>'+
+							'</defs>';
+							
+            				//支出
+            				for(var i=0;i<t_detail.length;i++){
+            					t_output = t_detail[i].outmoney + t_detail[i].oilmoney + t_detail[i].tolls + t_detail[i].tickets + t_detail[i].reserve ;
+            					x = 100 + 10+t_n*i -(i==0?9:10);
+            					if(t_output<0){
+            						y = 50 + t_height;
+            						h = -1;
+            					}
+            					else if(t_output>=t_maxInmoney){
+            						y = 50;
+            						h = 0;
+            					}   
+            					else{
+            						y = 50 + t_height - round(t_output/t_maxInmoney*t_height,0);
+            						h = -1;
+            					}			
+
+								tmpPath+='<rect class="chart01_out" x="'+x+'" y="'+y+'" width="'+t_n+'" height="'+(50 + t_height-y+h)+'" fill="url(#chart01_outColor1)"/>';
+            				}
+            				//收入
+            				for(var i=0;i<t_detail.length;i++){//連接線
+            					x = 100 + 10+t_n*i;
+            					y = (t_maxInmoney>0?50 + t_height - round(t_detail[i].inmoney/t_maxInmoney*t_height,0):50 + t_height);
+            					if(i>0)
+            						tmpPath +='<line x1="'+bx+'" y1="'+by+'" x2="'+x+'" y2="'+y+'" style="stroke:rgb(0,0,0);stroke-width:1"/>';
+            					bx = x;
+            					by = y;
+            				}
+            				for(var i=0;i<t_detail.length;i++){
+            					x = 100 + 10+t_n*i;
+            					y = (t_maxInmoney>0?50 + t_height - round(t_detail[i].inmoney/t_maxInmoney*t_height,0):50 + t_height);
+            					tmpPath +='<circle class="chart01_in" class="" cx="'+x+'" cy="'+y+'" r="5" stroke="black" stroke-width="2" fill="red"/>';        					
+            					tmpPath +='<text x="'+(x-10)+'" y="'+(50+t_height+30)+'" fill="black">'+t_detail[i].datea.substring(7,9)+'</text>';
+            				}
+            				//符號說明
+            				tmpPath+='<rect x="800" y="50" width="20" height="20" fill="url(#chart01_outColor1)"/>';
+            				tmpPath +='<text x="830" y="65" fill="black">支出</text>';
+            				
+            				tmpPath +='<line x1="800" y1="85" x2="820" y2="85" style="stroke:rgb(0,0,0);stroke-width:1"/>';
+            				tmpPath +='<circle class="" cx="810" cy="85" r="5" stroke="black" stroke-width="2" fill="red"/>';        					
+            				tmpPath +='<text x="830" y="90" fill="black">收入</text>';
+            				          				
+            				obj.append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+            				//事件
+            				obj.children('svg').find('.chart01_in').hover(
+            					function(e){$(this).attr('fill','rgb(255,151,151)');}
+            					,function(e){$(this).attr('fill','red');});
+            				obj.children('svg').find('.chart01_out').hover(
+            					function(e){$(this).attr('fill','url(#chart01_outColor2)');}
+            					,function(e){$(this).attr('fill','url(#chart01_outColor1)');});
             			}
             		});
             		$(this).data('info').init($(this));
@@ -225,7 +373,7 @@
                             obj.data('info').refresh(obj);
                         },
                         refresh : function(obj) {
-                            obj.html('');
+                            obj.html('');                   
                             var tmpPath = '', shiftX, shiftY, degree, fillColor, strokeColor;
                             var x = obj.data('info').value.x;
                             var y = obj.data('info').value.y;
@@ -296,7 +444,10 @@
 		</script>
 		<style type="text/css">
             .pieChart .graph {
-                position: relative;
+                position: relative;              
+            }
+            .control{
+            	display:none;
             }
 		</style>
 	</head>
@@ -305,19 +456,22 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-		<div id="q_menu"></div>
+		<div id="q_menu"> </div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
-			<div id="container" style="width:100%;">
-				<div id="q_report"></div>
+			<div id="container" style="width:2000px;">
+				<div id="q_report"> </div>
 			</div>
-			<div style="width:100%;">
-				<input type="button" id="btnRun" style="float:left; width:80px;" value="RUN"/>
+			<div style="display:inline-block;width:2000px;">
+				<input type="button" id="btnRun" style="float:left; width:80px;font-size: medium;" value="執行"/>
+				<input type="button" id="btnPrevious" class="control" style="float:left; width:80px;font-size: medium;" value="上一頁"/>
+				<input type="button" id="btnNext" class="control" style="float:left; width:80px;font-size: medium;" value="下一頁"/>
+				<input type="text" id="txtCurPage" class="control" style="float:left;text-align: right;width:60px; font-size: medium;"/>
+				<span style="display:block; float:left; width:20px;"><label class="control" style="vertical-align: middle;font-size: medium;">／</label></span>
+				<input type="text" id="txtTotPage" class="control" style="float:left;text-align: right;width:60px; font-size: medium;" readonly="readonly"/>
 			</div>
 			<div id="chart">
-				<div id='char01' style="display:none;"> </div>
-				
-				
-				<div id='pieChart'></div>
+				<div id='chart01'> </div>
+				<div id='pieChart'> </div>
 			</div>
 		</div>
 		<div class="prt" style="display:none;">

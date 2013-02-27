@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'tranordet', t_bbsTag = 'tbbs', t_content = " field=datea,weight2  order=odate", afilter = [], bbsKey = ['noa','noq'], as;
+            var q_name = 'tranordet', t_bbsTag = 'tbbs', t_content = "", afilter = [] , bbmKey = [], bbsKey = ['noa','noq'], as;
             var t_sqlname = 'tranordet_load';
             t_postname = q_name;
             var isBott = false;
@@ -22,12 +22,11 @@
             var bbmNum = [];
             var bbsNum = [['txtWeight2',12 , 3, 1],['txtTrannumber',12 , 0, 1]];
             var bbmMask = [];
-            var bbsMask = [["txtDatea", "999/99/99"]];
+            var bbsMask = [['txtDatea', '999/99/99']];
 
             $(document).ready(function() {
                 if(!q_paraChk())
                     return;
-
                 main();
             });
             function main() {
@@ -37,11 +36,9 @@
                 }
                 mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
             }
-
             function q_gtPost(t_name) {
 
             }
-
             function bbsAssign() {
                 _bbsAssign();//_bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
             }
@@ -82,6 +79,16 @@
                 if(q_tables == 's')
                     bbsAssign();
             }
+            function returnparent() {
+            	if(window.parent.q_name=='tranorde'){
+				 	var wParent = window.parent.document;
+				 	var total_weight = 0;
+				 	for(var i = 0;i < q_bbsCount;i++){
+				 		total_weight += dec($('#txtWeight2_' + i).val());
+				 	}
+				 	wParent.getElementById("txtTweight2").value=total_weight;
+				 }
+			}
 		</script>
 		<style type="text/css">
             td a {
@@ -92,15 +99,14 @@
             }
 		</style>
 	</head>
-	<body>
+	<body onunload='returnparent();'>
 		<div  id="dbbs"  >
 			<!--#include file="../inc/pop_modi.inc"-->
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
 				<tr style='color:white; background:#003366;' >
-					<td class="td2" style="display:none;">
-					<input class="txt"  id="txtNoa.*" type="text" style="width:75%;" />
-					<input class="txt"  id="txtNoq.*" type="text" style="width:15%;" />
-					</td>
+					<input class="txt c1"  id="txtNoa.*" type="hidden"  />
+                    <input id="txtNoq.*" type="hidden" />
+
 					<td class="td1" align="center" style="width:1%; max-width:20px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
