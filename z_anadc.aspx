@@ -39,6 +39,8 @@
 				$('#btnSvg').click(function(e) {
 					$('#pieChart').show();
 					$('#dataSearch').hide();
+					var cust1a,cust2a,part1a,part2a,sss1a,sss2a
+					
 					q_func('qtxt.query','z_anadc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + encodeURI($('#txtDate1').val()) + ';' + encodeURI($('#txtDate2').val()) + ';' + encodeURI($('#txtXmon').val()) + ';' + encodeURI($('#txtCust1a').val())+ ';' + encodeURI($('#txtCust2a').val())+ ';' + encodeURI($('#txtPart1a').val())+ ';' + encodeURI($('#txtPart1b').val())+ ';' + encodeURI($('#txtSss1a').val())+ ';' + encodeURI($('#txtSss1b').val()));
 				});
 				
