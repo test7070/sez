@@ -686,7 +686,7 @@
 					</td>
 					<td >
 					<input class="txt num c1" id="txtMoney.*" type="text" />
-					<input class="txt num c1" id="txtStkmount.*" type="text" />
+					<input class="txt num c1" id="txtStkmount.*" type="text" style="visibility: hidden;"/>
 					</td>
 					<td >
 					<input class="txt" id="txtTireno.*" type="text" style="width:80%" />
