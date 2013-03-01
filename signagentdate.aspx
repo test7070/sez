@@ -45,11 +45,14 @@
         function mainPost() { 
         	bbmMask = [['txtBdate',r_picd],['txtEdate',r_picd]];
         	q_mask(bbmMask);
-        	var t_where = "where=^^ checkerno ='"+$('#txtCheckerno').val()+"' ^^";
+        	var t_where = "where=^^ checkerno ='"+ abbm[q_recno].checkerno +"' ^^";
 			q_gt('signagent', t_where, 0, 0, 0, "");
 			$('#txtCheckerno').change(function() {
         		var t_where = "where=^^ checkerno ='"+$('#txtCheckerno').val()+"' ^^";
 				q_gt('signagent', t_where, 0, 0, 0, "");
+			});
+			$('#cmbAgentno').change(function() {
+				$('#txtAgent').val($('#cmbAgentno :checked').text());;
 			});
         }
 
@@ -103,16 +106,17 @@
                     break;
                 case 'signagent':
 	                var as = _q_appendData("signagent", "", true);
+	                $('#cmbAgentno').text('');
 	                if (as[0] != undefined) {
-			            var t_item = " @ ";
 			            for ( i = 0; i < as.length; i++) {
-				            t_item = (t_item.length > 0 ? ',' : '') + as[i].agentno + '@' + as[i].agent;
+				            t_item = as[i].agentno + '@' + as[i].agent;
 				            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].agentno2 + '@' + as[i].agent2;
 				            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].agentno3 + '@' + as[i].agent3;
 		            	}
 			            q_cmbParse("cmbAgentno", t_item);
 			            if (abbm[q_recno] != undefined) {
 			            	$("#cmbAgentno").val(abbm[q_recno].agentno);
+			            	$('#txtAgent').val(abbm[q_recno].agent);
 			            }
 	                }
                 	break;
@@ -144,7 +148,10 @@
 
         function btnIns() {
             _btnIns();
+        	var t_where = "where=^^ checkerno ='"+$('#txtCheckerno').val()+"' ^^";
+			q_gt('signagent', t_where, 0, 0, 0, "");
             $('#txtNoa').focus();
+            
         }
 
         function btnModi() {
@@ -152,7 +159,9 @@
                 return;
 
             _btnModi();
-            $('#txtComp').focus();
+        	var t_where = "where=^^ checkerno ='"+$('#txtCheckerno').val()+"' ^^";
+			q_gt('signagent', t_where, 0, 0, 0, "");
+			$('#txtComp').focus();
         }
 
         function btnPrint() {
@@ -214,7 +223,8 @@
         }
         function refresh(recno) {
             _refresh(recno);
-
+			var t_where = "where=^^ checkerno ='"+ abbm[q_recno].checkerno +"' ^^";
+			q_gt('signagent', t_where, 0, 0, 0, "");
         }
 
         function readonly(t_para, empty) {
@@ -482,12 +492,7 @@
                <td class="td3"></td>
                <td class="td4"></td>
             </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblAgent' class="lbl btn"></a></td>
-               <td class="td2"><input id="txtAgentno"  type="text" class="txt c2"/>
-               		<input id="txtAgent"  type="text" class="txt c3"/>
-               </td>
-            <tr>
+           <tr>
 				<td class="td1"><span> </span><a id='lblAgent' class="lbl btn"></a></td>
 				<td class="td2">
 					<select class="txt" id="cmbAgentno" style="width:215px; font-size:medium;"> </select>
