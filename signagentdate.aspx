@@ -22,8 +22,7 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		aPop = new Array(['txtCheckerno', 'lblChecker','sss','noa,namea', 'txtCheckerno,txtChecker','sss_b.aspx'],
-		['txtAgentno', 'lblAgent','sss','noa,namea', 'txtAgentno,txtAgent','sss_b.aspx']);
+		aPop = new Array(['txtCheckerno', 'lblChecker','sss','noa,namea', 'txtCheckerno,txtChecker','sss_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -45,11 +44,14 @@
         function mainPost() { 
         	bbmMask = [['txtBdate',r_picd],['txtEdate',r_picd]];
         	q_mask(bbmMask);
-        	var t_where = "where=^^ checkerno ='"+$('#txtCheckerno').val()+"' ^^";
+        	var t_where = "where=^^ checkerno ='"+ abbm[q_recno].checkerno +"' ^^";
 			q_gt('signagent', t_where, 0, 0, 0, "");
 			$('#txtCheckerno').change(function() {
         		var t_where = "where=^^ checkerno ='"+$('#txtCheckerno').val()+"' ^^";
 				q_gt('signagent', t_where, 0, 0, 0, "");
+			});
+			$('#cmbAgentno').change(function() {
+				$('#txtAgent').val($('#cmbAgentno :checked').text());
 			});
         }
 
@@ -74,21 +76,7 @@
         
         function q_boxClose( s2) { 
             var ret; 
-            switch (b_pop) {  
-                case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-                
+            switch (b_pop) {                  
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -103,25 +91,26 @@
                     break;
                 case 'signagent':
 	                var as = _q_appendData("signagent", "", true);
+	                $('#cmbAgentno').text('');
 	                if (as[0] != undefined) {
-			            var t_item = " @ ";
 			            for ( i = 0; i < as.length; i++) {
-				            t_item = (t_item.length > 0 ? ',' : '') + as[i].agentno + '@' + as[i].agent;
+				            t_item = as[i].agentno + '@' + as[i].agent;
 				            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].agentno2 + '@' + as[i].agent2;
 				            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].agentno3 + '@' + as[i].agent3;
 		            	}
 			            q_cmbParse("cmbAgentno", t_item);
-			            if (abbm[q_recno] != undefined) {
-			            	$("#cmbAgentno").val(abbm[q_recno].agentno);
-			            }
+			            if(q_cur != 1){
+				            if (abbm[q_recno] != undefined) {
+				            	$("#cmbAgentno").val(abbm[q_recno].agentno);
+				            	$('#txtAgent').val(abbm[q_recno].agent);
+				            }
+				        }else{
+				        	$('#txtAgent').val($('#cmbAgentno :checked').text());
+				        }
 	                }
                 	break;
                 case q_name: if (q_cur == 4)  
                         q_Seek_gtPost();
-
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                     break;
             }  /// end switch
         }
@@ -144,7 +133,10 @@
 
         function btnIns() {
             _btnIns();
+        	var t_where = "where=^^ checkerno ='"+$('#txtCheckerno').val()+"' ^^";
+			q_gt('signagent', t_where, 0, 0, 0, "");
             $('#txtNoa').focus();
+            
         }
 
         function btnModi() {
@@ -152,7 +144,9 @@
                 return;
 
             _btnModi();
-            $('#txtComp').focus();
+        	var t_where = "where=^^ checkerno ='"+$('#txtCheckerno').val()+"' ^^";
+			q_gt('signagent', t_where, 0, 0, 0, "");
+			$('#txtComp').focus();
         }
 
         function btnPrint() {
@@ -214,7 +208,8 @@
         }
         function refresh(recno) {
             _refresh(recno);
-
+			var t_where = "where=^^ checkerno ='"+ abbm[q_recno].checkerno +"' ^^";
+			q_gt('signagent', t_where, 0, 0, 0, "");
         }
 
         function readonly(t_para, empty) {
@@ -482,12 +477,7 @@
                <td class="td3"></td>
                <td class="td4"></td>
             </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblAgent' class="lbl btn"></a></td>
-               <td class="td2"><input id="txtAgentno"  type="text" class="txt c2"/>
-               		<input id="txtAgent"  type="text" class="txt c3"/>
-               </td>
-            <tr>
+           <tr>
 				<td class="td1"><span> </span><a id='lblAgent' class="lbl btn"></a></td>
 				<td class="td2">
 					<select class="txt" id="cmbAgentno" style="width:215px; font-size:medium;"> </select>

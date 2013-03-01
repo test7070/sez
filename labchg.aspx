@@ -18,7 +18,7 @@
             q_tables = 's';
             var q_name = "labchg";
             var q_readonly = ['txtNoa','txtAccno','txtPaybno','txtWorker'];
-            var q_readonlys = [];
+            var q_readonlys = ['txtVccno'];
             var bbmNum = [];
             var bbsNum = [['txtLabplus', 15, 0, 1],['txtLabminus', 15, 0, 1],['txtHeplus', 15, 0, 1],['txtHeminus', 15, 0, 1],['txtReplus', 15, 0, 1],['txtReminus', 15, 0, 1],['txtDisasterplus', 15, 0, 1],['txtDisasterminus', 15, 0, 1]];
             var bbmMask = [];
@@ -136,6 +136,8 @@
                     return false;
                 abbm[q_recno]['accno'] = xmlString.split(";")[0];
                 abbm[q_recno]['paybno'] = xmlString.split(";")[1];
+                $('#txtAccno').val(xmlString.split(";")[0]);
+                $('#txtPaybno').val(xmlString.split(";")[1]);
                 for(var i = 0; i < q_bbsCount ; i++){
 	                for (var j = 0; j < abbs.length; j++) {
 	                    if (abbs[j]['noa'] == $('#txtNoa').val() && abbs[j]['noq'] == $('#txtNoq_'+i).val()) {
@@ -157,7 +159,7 @@
             }
 
             function bbsSave(as) {/// 表身 寫入資料庫前，寫入需要欄位
-                if (!as['txtSssno'] || !as['txtNamea']) {
+                if (!as['sssno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -399,8 +401,7 @@
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
-						<td></td>
-						<td></td>
+						<td colspan="2"><span> </span><a id='lblNotice' class="lbl"> </a></td>
 				</table>
 			</div>
 		</div>
@@ -414,7 +415,7 @@
 					<td align="center" colspan="2" style="width:100px;"><a id='lblLab_s'> </a></td>
 					<td align="center" colspan="2" style="width:100px;"><a id='lblRe_s'> </a></td>
 					<td align="center" colspan="2" style="width:100px;"><a id='lblDisaster_s'> </a></td>
-					<td align="center" style="width:180px;"><a id='lblVccno_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblVccno_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>

@@ -12,7 +12,8 @@
 			var q_name = "carchg_s";
 			aPop = new Array(
 		    ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno', 'driver_b.aspx'], 
-             ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx']);
+             ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx']
+             , ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 			function z_carchg() {
 			}
             z_carchg.prototype = {
@@ -58,11 +59,14 @@
 				t_bdate = $('#txtBdate').val();
 				t_edate = $('#txtEdate').val();
 				t_carno = $('#txtCarno').val();
+				t_acc1 = $('#txtAcc1').val();
+				t_acc2 = $('#txtAcc2').val();
 				t_driverno = $('#txtDriverno').val();
 				t_driver = $('#txtDriver').val();
 				t_carteam = $('#cmbCarteam').val();
 				t_tre = $('#cmbTre').val();
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("carno", t_carno) + q_sqlPara2("driverno", t_driverno) ;
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("carno", t_carno) + q_sqlPara2("driverno", t_driverno)
+										 + q_sqlPara2("acc1", t_acc1) + q_sqlPara2("acc2", t_acc2);
 				if (t_carteam.length > 0)
                     t_where += q_sqlPara2("carteamno", t_carteam);
                 if (t_driver.length > 0)
@@ -129,6 +133,13 @@
 					<td class='seek'  style="width:20%;"><a id='lblDriver'></a></td>
 					<td>
 					<input class="txt" id="txtDriver" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblAcc1'></a></td>
+					<td>
+					<input class="txt" id="txtAcc1" type="text" style="width:90px; font-size:medium;" />
+					<input class="txt" id="txtAcc2" type="text" style="width:115px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
