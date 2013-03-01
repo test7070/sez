@@ -136,6 +136,8 @@
                     return false;
                 abbm[q_recno]['accno'] = xmlString.split(";")[0];
                 abbm[q_recno]['paybno'] = xmlString.split(";")[1];
+                $('#txtAccno').val(xmlString.split(";")[0]);
+                $('#txtPaybno').val(xmlString.split(";")[1]);
                 for(var i = 0; i < q_bbsCount ; i++){
 	                for (var j = 0; j < abbs.length; j++) {
 	                    if (abbs[j]['noa'] == $('#txtNoa').val() && abbs[j]['noq'] == $('#txtNoq_'+i).val()) {
@@ -157,7 +159,7 @@
             }
 
             function bbsSave(as) {/// 表身 寫入資料庫前，寫入需要欄位
-                if (!as['txtSssno'] || !as['txtNamea']) {
+                if (!as['sssno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -399,8 +401,7 @@
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
-						<td></td>
-						<td></td>
+						<td colspan="2"><span> </span><a id='lblNotice' class="lbl"> </a></td>
 				</table>
 			</div>
 		</div>
