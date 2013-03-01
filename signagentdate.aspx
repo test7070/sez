@@ -45,7 +45,12 @@
         function mainPost() { 
         	bbmMask = [['txtBdate',r_picd],['txtEdate',r_picd]];
         	q_mask(bbmMask);
-
+        	var t_where = "where=^^ checkerno ='"+$('#txtCheckerno').val()+"' ^^";
+			q_gt('signagent', t_where, 0, 0, 0, "");
+			$('#txtCheckerno').change(function() {
+        		var t_where = "where=^^ checkerno ='"+$('#txtCheckerno').val()+"' ^^";
+				q_gt('signagent', t_where, 0, 0, 0, "");
+			});
         }
 
         function txtCopy(dest, source) {
@@ -96,7 +101,21 @@
                 case 'sss': 
                     q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
                     break;
-
+                case 'signagent':
+	                var as = _q_appendData("signagent", "", true);
+	                if (as[0] != undefined) {
+			            var t_item = " @ ";
+			            for ( i = 0; i < as.length; i++) {
+				            t_item = (t_item.length > 0 ? ',' : '') + as[i].agentno + '@' + as[i].agent;
+				            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].agentno2 + '@' + as[i].agent2;
+				            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].agentno3 + '@' + as[i].agent3;
+		            	}
+			            q_cmbParse("cmbAgentno", t_item);
+			            if (abbm[q_recno] != undefined) {
+			            	$("#cmbAgentno").val(abbm[q_recno].agentno);
+			            }
+	                }
+                	break;
                 case q_name: if (q_cur == 4)  
                         q_Seek_gtPost();
 
@@ -466,8 +485,14 @@
             <tr>
                <td class="td1"><span> </span><a id='lblAgent' class="lbl btn"></a></td>
                <td class="td2"><input id="txtAgentno"  type="text" class="txt c2"/>
-               	<input id="txtAgent"  type="text" class="txt c3"/>
+               		<input id="txtAgent"  type="text" class="txt c3"/>
                </td>
+            <tr>
+				<td class="td1"><span> </span><a id='lblAgent' class="lbl btn"></a></td>
+				<td class="td2">
+					<select class="txt" id="cmbAgentno" style="width:215px; font-size:medium;"> </select>
+					<input id="txtAgent"  type="text" style="display:none;"/>
+            	</td>
                <td class="td3"></td>
                <td class="td4"></td>
             </tr>
