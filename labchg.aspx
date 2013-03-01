@@ -18,7 +18,7 @@
             q_tables = 's';
             var q_name = "labchg";
             var q_readonly = ['txtNoa','txtAccno','txtPaybno','txtWorker'];
-            var q_readonlys = [];
+            var q_readonlys = ['txtVccno'];
             var bbmNum = [];
             var bbsNum = [['txtLabplus', 15, 0, 1],['txtLabminus', 15, 0, 1],['txtHeplus', 15, 0, 1],['txtHeminus', 15, 0, 1],['txtReplus', 15, 0, 1],['txtReminus', 15, 0, 1],['txtDisasterplus', 15, 0, 1],['txtDisasterminus', 15, 0, 1]];
             var bbmMask = [];
@@ -415,7 +415,7 @@
 					<td align="center" colspan="2" style="width:100px;"><a id='lblLab_s'> </a></td>
 					<td align="center" colspan="2" style="width:100px;"><a id='lblRe_s'> </a></td>
 					<td align="center" colspan="2" style="width:100px;"><a id='lblDisaster_s'> </a></td>
-					<td align="center" style="width:180px;"><a id='lblVccno_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblVccno_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
