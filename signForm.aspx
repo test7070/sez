@@ -22,9 +22,15 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		aPop = new Array(['txtPartno', 'lblPart','part','noa,part', 'txtPartno,txtPart','part_b.aspx'],['txtApprovpartno', 'lblApprovpart','part','noa,part', 'txtApprovpartno,txtApprovpart','part_b.aspx'],
-		['txtApprovepartno', 'lblApprovepart','part','noa,part', 'txtApprovepartno,txtApprovepart','part_b.aspx'],['txtApprove2partno', 'lblApprove2part','part','noa,part', 'txtApprove2partno,txtApprove2part','part_b.aspx'],
-		['txtApprove2no', 'lblApprove2','sss','noa,namea', 'txtApprove2no,txtApprove2','sss_b.aspx'],['txtApproveno', 'lblApprove','sss','noa,namea', 'txtApproveno,txtApprove','sss_b.aspx'],['txtApprovno', 'lblApprov','sss','noa,namea', 'txtApprovno,txtApprov','sss_b.aspx'],['txtCheckerno', 'lblChecker','sss','noa,namea', 'txtCheckerno,txtChecker','sss_b.aspx']);
+		aPop = new Array(['txtPartno', 'lblPart','part','noa,part', 'txtPartno,txtPart','part_b.aspx'],
+						 ['txtApprovpartno', 'lblApprovpart','part','noa,part', 'txtApprovpartno,txtApprovpart','part_b.aspx'],
+						 ['txtApprovepartno', 'lblApprovepart','part','noa,part', 'txtApprovepartno,txtApprovepart','part_b.aspx'],
+						 ['txtApprove2partno', 'lblApprove2part','part','noa,part', 'txtApprove2partno,txtApprove2part','part_b.aspx'],
+						 ['txtApprove2no', 'lblApprove2','sss','noa,namea', 'txtApprove2no,txtApprove2','sss_b.aspx'],
+					 	 ['txtApproveno', 'lblApprove','sss','noa,namea', 'txtApproveno,txtApprove','sss_b.aspx'],
+						 ['txtApprovno', 'lblApprov','sss','noa,namea', 'txtApprovno,txtApprov','sss_b.aspx'],
+						 ['txtCheckerno', 'lblChecker','sss','noa,namea', 'txtCheckerno,txtChecker','sss_b.aspx'],
+						 ['txtWorkmanno', 'lblWorkman','sss','noa,namea', 'txtWorkmanno,txtWorkman','sss_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -437,6 +443,12 @@
                <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
                <td class="td2" colspan="5"><textarea id="txtMemo" cols="10" rows="5" style="width: 99%; height: 50px;"></textarea></td>
             </tr>
+			<tr>
+				<td class="td1"><span> </span><a id='lblWorkman' class="lbl"></a></td>
+            	<td class="td2"><input id="txtWorkmanno"  type="text" class="txt c2"/>
+            		<input id="txtWorkman"  type="text" class="txt c3"/>
+            	</td>
+			</tr>
         </table>
         </div>
         </div>

@@ -17,7 +17,7 @@
             }
 			q_tables = 's';
             var q_name = "assignwork";
-            var q_readonly = ['txtWorker','txtNoa'];
+            var q_readonly = ['txtWorker','txtNoa','txtVccno','txtPaybno','txtAccno'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1]];
             var bbsNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1]];

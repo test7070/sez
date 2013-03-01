@@ -19,7 +19,7 @@
             q_tables = 's';
             q_desc = 1;
             var q_name = "vcc";
-            var q_readonly = ['txtNoa', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTotal','txtAccno','txtWorker'];
+            var q_readonly = ['txtNoa', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTotal','txtAccno','txtWorker','txtKind'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]];
             var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2], ['txtTotal', 10, 0]];

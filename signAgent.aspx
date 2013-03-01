@@ -25,7 +25,8 @@
 		aPop = new Array(['txtCheckerno', 'lblChecker','sss','noa,namea', 'txtCheckerno,txtChecker','sss_b.aspx'],
 		['txtAgentno', 'lblAgent','sss','noa,namea', 'txtAgentno,txtAgent','sss_b.aspx'],
 		['txtAgentno2', 'lblAgent2','sss','noa,namea', 'txtAgentno2,txtAgent2','sss_b.aspx'],
-		['txtAgentno3', 'lblAgent3','sss','noa,namea', 'txtAgentno3,txtAgent3','sss_b.aspx']);
+		['txtAgentno3', 'lblAgent3','sss','noa,namea', 'txtAgentno3,txtAgent3','sss_b.aspx'],
+		['txtSignformno', '', 'signform', 'noa,formname', 'txtSignformno,txtFormname', '']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -380,6 +381,18 @@
             <tr>
                <td class="td1"><span> </span><a id='lblPart' class="lbl"></a></td>
                <td class="td2"><input id="txtPart"  type="text" class="txt c1"/></td>
+               <td class="td3" ></td>
+               <td class="td4"></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblSignformno' class="lbl"></a></td>
+               <td class="td2"><input id="txtSignformno"  type="text" class="txt c1"/></td>
+               <td class="td3" ></td>
+               <td class="td4"></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblFormname' class="lbl"></a></td>
+               <td class="td2"><input id="txtFormname"  type="text" class="txt c1"/></td>
                <td class="td3" ></td>
                <td class="td4"></td>
             </tr>
