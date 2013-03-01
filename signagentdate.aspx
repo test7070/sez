@@ -22,8 +22,7 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		aPop = new Array(['txtCheckerno', 'lblChecker','sss','noa,namea', 'txtCheckerno,txtChecker','sss_b.aspx'],
-		['txtAgentno', 'lblAgent','sss','noa,namea', 'txtAgentno,txtAgent','sss_b.aspx']);
+		aPop = new Array(['txtCheckerno', 'lblChecker','sss','noa,namea', 'txtCheckerno,txtChecker','sss_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -52,7 +51,7 @@
 				q_gt('signagent', t_where, 0, 0, 0, "");
 			});
 			$('#cmbAgentno').change(function() {
-				$('#txtAgent').val($('#cmbAgentno :checked').text());;
+				$('#txtAgent').val($('#cmbAgentno :checked').text());
 			});
         }
 
@@ -77,21 +76,7 @@
         
         function q_boxClose( s2) { 
             var ret; 
-            switch (b_pop) {  
-                case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-                
+            switch (b_pop) {                  
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -114,18 +99,18 @@
 				            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].agentno3 + '@' + as[i].agent3;
 		            	}
 			            q_cmbParse("cmbAgentno", t_item);
-			            if (abbm[q_recno] != undefined) {
-			            	$("#cmbAgentno").val(abbm[q_recno].agentno);
-			            	$('#txtAgent').val(abbm[q_recno].agent);
-			            }
+			            if(q_cur != 1){
+				            if (abbm[q_recno] != undefined) {
+				            	$("#cmbAgentno").val(abbm[q_recno].agentno);
+				            	$('#txtAgent').val(abbm[q_recno].agent);
+				            }
+				        }else{
+				        	$('#txtAgent').val($('#cmbAgentno :checked').text());
+				        }
 	                }
                 	break;
                 case q_name: if (q_cur == 4)  
                         q_Seek_gtPost();
-
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                     break;
             }  /// end switch
         }
