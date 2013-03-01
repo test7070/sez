@@ -117,6 +117,8 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtXnoa1').css("width","90px");
+	                $('#txtXnoa2').css("width","90px");
             }
 
             function q_boxClose(s2) {
