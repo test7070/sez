@@ -20,6 +20,10 @@
                 q_getId();
                 q_gf('', 'z_tranorde');
             });
+            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], 
+            ['txtAddrno', '', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'],
+            ['txtSssno', '', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'], 
+            ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
             function q_gfPost() {
                 $('#q_report').q_report({
                     fileName : 'z_tranorde',
@@ -52,11 +56,19 @@
                         dbf : 'sss',
                         index : 'noa,namea',
                         src : 'sss_b.aspx'
-                    }]
+                    }, {
+                        type : '2',
+                        name : 'addrno',
+                        dbf : 'addr',
+                        index : 'noa,namea',
+                        src : 'addr_b.aspx'
+                    }, {/*7*/
+                         	type : '8',
+                            name : 'xdetail',
+                            value : q_getMsg('tdetail').split('&')
+                        }]
                 });
                 q_popAssign();
-                q_getFormat();
-                q_langShow();
 
                 $('#txtStrdate1').mask('999/99/99');
                 $('#txtStrdate2').mask('999/99/99');
