@@ -103,7 +103,10 @@
 	                        dbf : 'sss',
 	                        index : 'noa,namea',
 	                        src : 'sss_b.aspx'
-                        }]
+                        },{/*1*/
+	                        type : '1',
+	                        name : 'xyear'
+						}]
 				});
 				q_popAssign();
 				$('#txtDate1').mask('999/99/99');
