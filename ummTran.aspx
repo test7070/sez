@@ -181,7 +181,7 @@
                         t_where1 = " where[1]=^^1=0^^";
                         t_where2 = " where[2]=^^ 1=1 ^^";
                         t_where3 = " where[3]=^^ 1=0 ^^";
-                        t_where4 = " where[4]=^^ 1=0 oder by noa ^^";
+                        t_where4 = " where[4]=^^ 1=0 order by noa ^^";
                     }
                     q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + t_where1 + t_where2 + t_where3+ t_where4, 'umm_trd', "70%", "600px", q_getMsg('popUmm_trd'));
                 });
@@ -234,7 +234,7 @@
                                 $('#txtPart2_' + i).val('');
                             }
 
-                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart,txtMemo', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2,partno,part2,memo', '');
+                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart,txtMemo,cmbPartno', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2,partno,part2,memo,partno', '');
                             /// 最後 aEmpField 不可以有【數字欄位】
                             
                             $('#txtAcc1_0').focus();
@@ -897,15 +897,15 @@
 					</td>
 					<td align="center" style="width:1%;"> </td>
 					<td align="center" style="width:8%;"><a id='lblAcc1'></a></td>
-					<td align="center" style="width:3%;"><a id='lblMoney'></a></td>
-					<td align="center" style="width:10%;"><a id='lblCheckno'></a></td>
+					<td align="center" style="width:5%;"><a id='lblMoney'></a></td>
+					<td align="center" style="width:9%;"><a id='lblCheckno'></a></td>
 					<td align="center" style="width:8%;"><a id='lblAccount'></a></td>
 					<td align="center" style="width:8%;"><a id='lblBank'></a></td>
 					<td align="center" style="width:5%;"><a id='lblIndate'></a></td>
-					<td align="center" style="width:3%;"><a id='lblChgsTran'></a></td>
+					<td align="center" style="width:5%;"><a id='lblChgsTran'></a></td>
 					<td align="center" style="width:8%;"><a id='lblMemos'></a></td>
-					<td align="center" style="width:3%;"><a id='lblPaysales'></a></td>
-					<td align="center" style="width:3%;"><a id='lblUnpay_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblPaysales'></a></td>
+					<td align="center" style="width:5%;"><a id='lblUnpay_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">

@@ -29,6 +29,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             brwCount2 = 4;
+            q_desc = 1;
             aPop = new Array(['txtSssno_', 'btnSssno_', 'sssall', 'noa,namea,partno,part', 'txtSssno_,txtNamea_', 'sssall_b.aspx']);
 
             $(document).ready(function() {
@@ -49,7 +50,9 @@
             function mainPost() {
                 q_getFormat();
                 bbmMask = [];
+                bbsMask = [['txtMon',r_picm]];
                 q_mask(bbmMask);
+                q_mask(bbsMask);
                 $('#lblAccno').click(function() {
                 	if(!emp($('#txtDatea').val()))
                     	q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
@@ -99,7 +102,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                //q_box('lab_accc_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
+                q_box('labchg_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {/// 表身運算式
@@ -111,6 +114,19 @@
 	                    q_bodyId($(this).attr('id'));
 	                    b_seq = t_IdSeq;
                     	q_box("vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno_' + b_seq).val() + "';" + r_accy + '_' + r_cno, 'vcc', "95%", "95%", q_getMsg('popVcc'));
+                      });
+                      $('#txtMemo_' + j).change(function() {
+                      	t_IdSeq = -1; 
+	                    q_bodyId($(this).attr('id'));
+	                    b_seq = t_IdSeq;
+	                    var str = $('#txtMemo_' + b_seq).val();
+	                    var strindex = str.indexOf('月份');
+	                    var nowyear = new Date().getUTCFullYear()-1911;
+	                    if(!isNaN(str.substring(strindex-2,strindex))){
+	                    	$('#txtMon_' + b_seq).val(nowyear + '/' + str.substring(strindex-2,strindex));
+	                    }else if(!isNaN(str.substring(strindex-1,strindex))){
+	                    	$('#txtMon_' + b_seq).val(nowyear + '/0' + str.substring(strindex-1,strindex));
+	                    }
                       });
                     }
                 }
@@ -148,7 +164,7 @@
 	            }
 			}
             function btnPrint() {
-
+				q_box('z_labchg.aspx?;;;'+r_accy, '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -411,6 +427,7 @@
 					<td align="center" style="width:2%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"/></td>
 					<td align="center" style="width:2%;"> </td>
 					<td align="center" style="width:200px;"><a id='lblSss_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblMon_s'> </a></td>
 					<td align="center" colspan="2" style="width:100px;"><a id='lblHe_s'> </a></td>
 					<td align="center" colspan="2" style="width:100px;"><a id='lblLab_s'> </a></td>
 					<td align="center" colspan="2" style="width:100px;"><a id='lblRe_s'> </a></td>
@@ -429,6 +446,7 @@
 						<input id="txtNamea.*" type="text" style="float:left;width: 55%;"/>	
 						<input id="btnSssno.*" type="button" value="." style="float:left;width: 5%;"/>				
 					</td>
+					<td><input id="txtMon.*" class="txt c1" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtHeplus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtHeminus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>
 					<td><input id="txtLabplus.*" class="txt num c1" type="text" style="float:left;width: 95%;"/></td>

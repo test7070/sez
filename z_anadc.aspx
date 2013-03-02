@@ -33,20 +33,21 @@
 					$(".control").hide();
 					for(var i =0 ;i<$('#q_report').data().info.reportData.length;i++){
 						if($(".select")[0].nextElementSibling.innerText==$('#q_report').data().info.reportData[i].reportName){
-							$('#btnSvg').val($('#q_report').data().info.reportData[i].reportName+'圖形顯示');
-							//下面註解取得z_xxxxx
+							//下面註解取得q_lang的z_xxxxx
 							txtreport=$('#q_report').data().info.reportData[i].report;
+							if(txtreport=='z_anadc1' || txtreport=='z_anadc3' || txtreport=='z_anadc5' || txtreport=='z_anadc7')
+								$('#btnSvg').val($('#q_report').data().info.reportData[i].reportName+'圓餅圖顯示');
+							if(txtreport=='z_anadc6'||txtreport=='z_anadc8')
+								$('#btnSvg').val($('#q_report').data().info.reportData[i].reportName+'長條圖顯示');
 						}
 					}
-					if(txtreport=='z_anadc1' || txtreport=='z_anadc3' || txtreport=='z_anadc5' || txtreport=='z_anadc7')
-						$('#btnSvg').show();
-					if(txtreport=='z_anadc6')
+					if(txtreport=='z_anadc1' || txtreport=='z_anadc3' || txtreport=='z_anadc5' || txtreport=='z_anadc7'||txtreport=='z_anadc6'||txtreport=='z_anadc8')
 						$('#btnSvg').show();
 				});
 				$('#btnSvg').click(function(e) {
 					if(txtreport=='z_anadc1' || txtreport=='z_anadc3' || txtreport=='z_anadc5' || txtreport=='z_anadc7')
 						$('#pieChart').show();
-					if(txtreport=='z_anadc6'){
+					if(txtreport=='z_anadc6'||txtreport=='z_anadc8'){
 						$('#barChart').show();
 						$(".control").show();
 					}
@@ -102,7 +103,10 @@
 	                        dbf : 'sss',
 	                        index : 'noa,namea',
 	                        src : 'sss_b.aspx'
-                        }]
+                        },{/*1*/
+	                        type : '1',
+	                        name : 'xyear'
+						}]
 				});
 				q_popAssign();
 				$('#txtDate1').mask('999/99/99');
@@ -203,7 +207,7 @@
 							}); 
                         }
                         //長條圖
-                        if(txtreport=='z_anadc6'){
+                        if(txtreport=='z_anadc6'||txtreport=='z_anadc8'){
                         	var bar=new Array();
                         	//var t_maxMoney=5000000,t_minMoney=-5000000;
 	                        if (as[0] != undefined) {
@@ -217,16 +221,12 @@
 	                                        total : as[i].total01
 	                                };
 	                                //判斷該客戶的最大值與最小值
-	                                if(x_maxmoney<dec(as[i].money01)){x_maxmoney=dec(as[i].money01)}
-	                                if(x_maxmoney<dec(as[i].partcost01)){x_maxmoney=dec(as[i].partcost01)}
-	                                if(x_maxmoney<dec(as[i].total01)){x_maxmoney=dec(as[i].total01)}
-	                                if(x_minmoney>dec(as[i].money01)){x_minmoney=dec(as[i].money01)}
-	                                if(x_minmoney>dec(as[i].partcost01)){x_minmoney=dec(as[i].partcost01)}
-	                                if(x_minmoney>dec(as[i].total01)){x_minmoney=dec(as[i].total01)}
+	                                x_maxmoney=Math.max(x_maxmoney,dec(as[i].money01),dec(as[i].partcost01),dec(as[i].salarycost01),dec(as[i].total01))
+	                                x_minmoney=Math.min(x_minmoney,dec(as[i].money01),dec(as[i].partcost01),dec(as[i].salarycost01),dec(as[i].total01))
 	                                
 		                        	bar[i]={
-			                        			custno:as[i].custno,
-			                        			comp:as[i].comp,
+			                        			custno:txtreport=='z_anadc6'?as[i].custno:as[i].sssno,
+			                        			comp:txtreport=='z_anadc6'?as[i].comp:as[i].namea,
 			                        			partno:as[i].partno,
 			                        			part:as[i].pname,
 			                        			detail : [t_detail],
@@ -241,12 +241,8 @@
 	                                        total : as[i].total02
 	                                };
 	                                bar[i].detail.push(t_detail);
-	                                if(x_maxmoney<dec(as[i].money02)){x_maxmoney=dec(as[i].money02)}
-	                                if(x_maxmoney<dec(as[i].partcost02)){x_maxmoney=dec(as[i].partcost02)}
-	                                if(x_maxmoney<dec(as[i].total02)){x_maxmoney=dec(as[i].total02)}
-	                                if(x_minmoney>dec(as[i].money02)){x_minmoney=dec(as[i].money02)}
-	                                if(x_minmoney>dec(as[i].partcost02)){x_minmoney=dec(as[i].partcost02)}
-	                                if(x_minmoney>dec(as[i].total02)){x_minmoney=dec(as[i].total02)}
+	                                x_maxmoney=Math.max(x_maxmoney,dec(as[i].money02),dec(as[i].partcost02),dec(as[i].salarycost02),dec(as[i].total02))
+	                                x_minmoney=Math.min(x_minmoney,dec(as[i].money02),dec(as[i].partcost02),dec(as[i].salarycost02),dec(as[i].total02))
 	                                
 	                                t_detail = {
 	                                        mon : '03',
@@ -256,12 +252,8 @@
 	                                        total : as[i].total03
 	                                };
 	                                bar[i].detail.push(t_detail);
-	                                if(x_maxmoney<dec(as[i].money03)){x_maxmoney=dec(as[i].money03)}
-	                                if(x_maxmoney<dec(as[i].partcost03)){x_maxmoney=dec(as[i].partcost03)}
-	                                if(x_maxmoney<dec(as[i].total03)){x_maxmoney=dec(as[i].total03)}
-	                                if(x_minmoney>dec(as[i].money03)){x_minmoney=dec(as[i].money03)}
-	                                if(x_minmoney>dec(as[i].partcost03)){x_minmoney=dec(as[i].partcost03)}
-	                                if(x_minmoney>dec(as[i].total03)){x_minmoney=dec(as[i].total03)}
+	                                x_maxmoney=Math.max(x_maxmoney,dec(as[i].money03),dec(as[i].partcost03),dec(as[i].salarycost03),dec(as[i].total03))
+	                                x_minmoney=Math.min(x_minmoney,dec(as[i].money03),dec(as[i].partcost03),dec(as[i].salarycost03),dec(as[i].total03))
 	                                
 	                                t_detail = {
 	                                        mon : '04',
@@ -271,12 +263,8 @@
 	                                        total : as[i].total04
 	                                };
 	                                bar[i].detail.push(t_detail);
-	                                if(x_maxmoney<dec(as[i].money04)){x_maxmoney=dec(as[i].money04)}
-	                                if(x_maxmoney<dec(as[i].partcost04)){x_maxmoney=dec(as[i].partcost04)}
-	                                if(x_maxmoney<dec(as[i].total04)){x_maxmoney=dec(as[i].total04)}
-	                                if(x_minmoney>dec(as[i].money04)){x_minmoney=dec(as[i].money04)}
-	                                if(x_minmoney>dec(as[i].partcost04)){x_minmoney=dec(as[i].partcost04)}
-	                                if(x_minmoney>dec(as[i].total04)){x_minmoney=dec(as[i].total04)}
+	                                x_maxmoney=Math.max(x_maxmoney,dec(as[i].money04),dec(as[i].partcost04),dec(as[i].salarycost04),dec(as[i].total04))
+	                                x_minmoney=Math.min(x_minmoney,dec(as[i].money04),dec(as[i].partcost04),dec(as[i].salarycost04),dec(as[i].total04))
 	                                
 	                                t_detail = {
 	                                        mon : '05',
@@ -286,12 +274,8 @@
 	                                        total : as[i].total05
 	                                };
 	                                bar[i].detail.push(t_detail);
-	                                if(x_maxmoney<dec(as[i].money05)){x_maxmoney=dec(as[i].money05)}
-	                                if(x_maxmoney<dec(as[i].partcost05)){x_maxmoney=dec(as[i].partcost05)}
-	                                if(x_maxmoney<dec(as[i].total05)){x_maxmoney=dec(as[i].total05)}
-	                                if(x_minmoney>dec(as[i].money05)){x_minmoney=dec(as[i].money05)}
-	                                if(x_minmoney>dec(as[i].partcost05)){x_minmoney=dec(as[i].partcost05)}
-	                                if(x_minmoney>dec(as[i].total05)){x_minmoney=dec(as[i].total05)}
+	                                x_maxmoney=Math.max(x_maxmoney,dec(as[i].money05),dec(as[i].partcost05),dec(as[i].salarycost05),dec(as[i].total05))
+	                                x_minmoney=Math.min(x_minmoney,dec(as[i].money05),dec(as[i].partcost05),dec(as[i].salarycost05),dec(as[i].total05))
 	                                
 	                                t_detail = {
 	                                        mon : '06',
@@ -301,12 +285,8 @@
 	                                        total : as[i].total06
 	                                };
 	                                bar[i].detail.push(t_detail);
-	                                if(x_maxmoney<dec(as[i].money06)){x_maxmoney=dec(as[i].money06)}
-	                                if(x_maxmoney<dec(as[i].partcost06)){x_maxmoney=dec(as[i].partcost06)}
-	                                if(x_maxmoney<dec(as[i].total06)){x_maxmoney=dec(as[i].total06)}
-	                                if(x_minmoney>dec(as[i].money06)){x_minmoney=dec(as[i].money06)}
-	                                if(x_minmoney>dec(as[i].partcost06)){x_minmoney=dec(as[i].partcost06)}
-	                                if(x_minmoney>dec(as[i].total06)){x_minmoney=dec(as[i].total06)}
+	                                x_maxmoney=Math.max(x_maxmoney,dec(as[i].money06),dec(as[i].partcost06),dec(as[i].salarycost06),dec(as[i].total06))
+	                                x_minmoney=Math.min(x_minmoney,dec(as[i].money06),dec(as[i].partcost06),dec(as[i].salarycost06),dec(as[i].total06))
 	                                
 	                                t_detail = {
 	                                        mon : '07',
@@ -316,12 +296,8 @@
 	                                        total : as[i].total07
 	                                };
 	                                bar[i].detail.push(t_detail);
-	                                if(x_maxmoney<dec(as[i].money07)){x_maxmoney=dec(as[i].money07)}
-	                                if(x_maxmoney<dec(as[i].partcost07)){x_maxmoney=dec(as[i].partcost07)}
-	                                if(x_maxmoney<dec(as[i].total07)){x_maxmoney=dec(as[i].total07)}
-	                                if(x_minmoney>dec(as[i].money07)){x_minmoney=dec(as[i].money07)}
-	                                if(x_minmoney>dec(as[i].partcost07)){x_minmoney=dec(as[i].partcost07)}
-	                                if(x_minmoney>dec(as[i].total07)){x_minmoney=dec(as[i].total07)}
+	                                x_maxmoney=Math.max(x_maxmoney,dec(as[i].money07),dec(as[i].partcost07),dec(as[i].salarycost07),dec(as[i].total07))
+	                                x_minmoney=Math.min(x_minmoney,dec(as[i].money07),dec(as[i].partcost07),dec(as[i].salarycost07),dec(as[i].total07))
 	                                
 	                                t_detail = {
 	                                        mon : '08',
@@ -331,12 +307,8 @@
 	                                        total : as[i].total08
 	                                };
 	                                bar[i].detail.push(t_detail);
-	                                if(x_maxmoney<dec(as[i].money08)){x_maxmoney=dec(as[i].money08)}
-	                                if(x_maxmoney<dec(as[i].partcost08)){x_maxmoney=dec(as[i].partcost08)}
-	                                if(x_maxmoney<dec(as[i].total08)){x_maxmoney=dec(as[i].total08)}
-	                                if(x_minmoney>dec(as[i].money08)){x_minmoney=dec(as[i].money08)}
-	                                if(x_minmoney>dec(as[i].partcost08)){x_minmoney=dec(as[i].partcost08)}
-	                                if(x_minmoney>dec(as[i].total08)){x_minmoney=dec(as[i].total08)}
+	                                x_maxmoney=Math.max(x_maxmoney,dec(as[i].money08),dec(as[i].partcost08),dec(as[i].salarycost08),dec(as[i].total08))
+	                                x_minmoney=Math.min(x_minmoney,dec(as[i].money08),dec(as[i].partcost08),dec(as[i].salarycost08),dec(as[i].total08))
 	                                
 	                                t_detail = {
 	                                        mon : '09',
@@ -346,12 +318,8 @@
 	                                        total : as[i].total09
 	                                };
 	                                bar[i].detail.push(t_detail);
-	                                if(x_maxmoney<dec(as[i].money09)){x_maxmoney=dec(as[i].money09)}
-	                                if(x_maxmoney<dec(as[i].partcost09)){x_maxmoney=dec(as[i].partcost09)}
-	                                if(x_maxmoney<dec(as[i].total09)){x_maxmoney=dec(as[i].total09)}
-	                                if(x_minmoney>dec(as[i].money09)){x_minmoney=dec(as[i].money09)}
-	                                if(x_minmoney>dec(as[i].partcost09)){x_minmoney=dec(as[i].partcost09)}
-	                                if(x_minmoney>dec(as[i].total09)){x_minmoney=dec(as[i].total09)}
+	                                x_maxmoney=Math.max(x_maxmoney,dec(as[i].money09),dec(as[i].partcost09),dec(as[i].salarycost09),dec(as[i].total09))
+	                                x_minmoney=Math.min(x_minmoney,dec(as[i].money09),dec(as[i].partcost09),dec(as[i].salarycost09),dec(as[i].total09))
 	                                
 	                                t_detail = {
 	                                        mon : '10',
@@ -361,12 +329,8 @@
 	                                        total : as[i].total10
 	                                };
 	                                bar[i].detail.push(t_detail);
-	                                if(x_maxmoney<dec(as[i].money10)){x_maxmoney=dec(as[i].money10)}
-	                                if(x_maxmoney<dec(as[i].partcost10)){x_maxmoney=dec(as[i].partcost10)}
-	                                if(x_maxmoney<dec(as[i].total10)){x_maxmoney=dec(as[i].total10)}
-	                                if(x_minmoney>dec(as[i].money10)){x_minmoney=dec(as[i].money10)}
-	                                if(x_minmoney>dec(as[i].partcost10)){x_minmoney=dec(as[i].partcost10)}
-	                                if(x_minmoney>dec(as[i].total10)){x_minmoney=dec(as[i].total10)}
+	                                x_maxmoney=Math.max(x_maxmoney,dec(as[i].money10),dec(as[i].partcost10),dec(as[i].salarycost10),dec(as[i].total10))
+	                                x_minmoney=Math.min(x_minmoney,dec(as[i].money10),dec(as[i].partcost10),dec(as[i].salarycost10),dec(as[i].total10))
 	                                
 	                                t_detail = {
 	                                        mon : '11',
@@ -376,12 +340,8 @@
 	                                        total : as[i].total11
 	                                };
 	                                bar[i].detail.push(t_detail);
-	                                if(x_maxmoney<dec(as[i].money11)){x_maxmoney=dec(as[i].money11)}
-	                                if(x_maxmoney<dec(as[i].partcost11)){x_maxmoney=dec(as[i].partcost11)}
-	                                if(x_maxmoney<dec(as[i].total11)){x_maxmoney=dec(as[i].total11)}
-	                                if(x_minmoney>dec(as[i].money11)){x_minmoney=dec(as[i].money11)}
-	                                if(x_minmoney>dec(as[i].partcost11)){x_minmoney=dec(as[i].partcost11)}
-	                                if(x_minmoney>dec(as[i].total11)){x_minmoney=dec(as[i].total11)}
+	                                x_maxmoney=Math.max(x_maxmoney,dec(as[i].money11),dec(as[i].partcost11),dec(as[i].salarycost11),dec(as[i].total11))
+	                                x_minmoney=Math.min(x_minmoney,dec(as[i].money11),dec(as[i].partcost11),dec(as[i].salarycost11),dec(as[i].total11))
 	                                
 	                                t_detail = {
 	                                        mon : '12',
@@ -391,12 +351,8 @@
 	                                        total : as[i].total12
 	                                };
 	                                bar[i].detail.push(t_detail);
-	                                if(x_maxmoney<dec(as[i].money12)){x_maxmoney=dec(as[i].money12)}
-	                                if(x_maxmoney<dec(as[i].partcost12)){x_maxmoney=dec(as[i].partcost12)}
-	                                if(x_maxmoney<dec(as[i].total12)){x_maxmoney=dec(as[i].total12)}
-	                                if(x_minmoney>dec(as[i].money12)){x_minmoney=dec(as[i].money12)}
-	                                if(x_minmoney>dec(as[i].partcost12)){x_minmoney=dec(as[i].partcost12)}
-	                                if(x_minmoney>dec(as[i].total12)){x_minmoney=dec(as[i].total12)}
+	                                x_maxmoney=Math.max(x_maxmoney,dec(as[i].money12),dec(as[i].partcost12),dec(as[i].salarycost12),dec(as[i].total12))
+	                                x_minmoney=Math.min(x_minmoney,dec(as[i].money12),dec(as[i].partcost12),dec(as[i].salarycost12),dec(as[i].total12))
 									
 									bar[i].maxmoney=x_maxmoney;
 			                        bar[i].minmoney=x_minmoney;
@@ -600,14 +556,21 @@
                          
                             var t_detail = obj.data('info').Data[obj.data('info').curIndex].detail;
                             var t_maxMoney = obj.data('info').Data[obj.data('info').curIndex].maxmoney;
+                            t_maxMoney=(dec(t_maxMoney.toString().substr(0,1))+1)*Math.pow(10,t_maxMoney.toString().length-1);
+                            
                             var t_minMoney = obj.data('info').Data[obj.data('info').curIndex].minmoney;
+                            if(t_minMoney>0)
+                            	t_minMoney=(dec(t_minMoney.toString().substr(0,1))+1)*Math.pow(10,t_minMoney.toString().length-1);
+                            if(t_minMoney<0)
+                            	t_minMoney=(dec(t_minMoney.toString().substr(0,2))-1)*Math.pow(10,t_minMoney.toString().length-2);
+                            	
                             var t_cmaxMoney = FormatNumber(t_maxMoney);
                             t_cmaxMoney = (t_cmaxMoney).replace(/ /g,'&nbsp;');
 							var t_cminMoney = FormatNumber(t_minMoney);
 							t_cminMoney = (t_cminMoney).replace(/ /g,'&nbsp;');
 							var t_n = round((t_width - 20) / t_detail.length, 0);
                             var x, y, w, h, bx, by, t_output, t_money;
-                            tmpPath += '<text x="' + (500) + '" y="' + (20) + '" fill="black">【' + obj.data('info').Data[obj.data('info').curIndex].custno + '】' + obj.data('info').Data[obj.data('info').curIndex].comp + '</text>';
+                            tmpPath += '<text x="' + (450) + '" y="' + (20) + '" fill="black">【' + obj.data('info').Data[obj.data('info').curIndex].custno + '】' + obj.data('info').Data[obj.data('info').curIndex].comp +(txtreport=='z_anadc6'?'─'+obj.data('info').Data[obj.data('info').curIndex].part:'')+ '</text>';
                             tmpPath += '<text x="' + (70) + '" y="' + (20) + '" fill="black">金額</text>';
                             tmpPath += '<text x="' + (50 + t_width + 50) + '" y="' + (50 + t_height + 30) + '" fill="black">月份</text>';
                             
@@ -651,8 +614,8 @@
                             }
 
                             //損益的顏色
-                            tmpPath += '<defs>' + '<linearGradient id="chart01_outColor1" x1="0%" y1="0%" x2="100%" y2="0%">' + '<stop offset="0%" style="stop-color:rgb(206,206,255);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(147,147,255);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
-                            tmpPath += '<defs>' + '<linearGradient id="chart01_outColor2" x1="0%" y1="0%" x2="100%" y2="0%">' + '<stop offset="0%" style="stop-color:rgb(255,220,185);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(225,175,96);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
+                            tmpPath += '<defs>' + '<linearGradient id="barchart_profitColor1" x1="0%" y1="0%" x2="100%" y2="0%">' + '<stop offset="0%" style="stop-color:rgb(206,206,255);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(147,147,255);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
+                            tmpPath += '<defs>' + '<linearGradient id="barchart_profitColor2" x1="0%" y1="0%" x2="100%" y2="0%">' + '<stop offset="0%" style="stop-color:rgb(255,220,185);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(225,175,96);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
 
                             //損益
                             for (var i = 0; i < t_detail.length; i++) {
@@ -664,26 +627,12 @@
                                 }else{
                                 	y = t_Y;
                                 }
-                                tmpPath += '<rect id="chart01_out' + i + '" class="chart01_out" x="' + x + '" y="' + y + '" width="' + t_n + '" height="' + h + '" fill="url(#chart01_outColor1)"/>';
+                                tmpPath += '<rect id="barChart_profit' + i + '" class="barChart_profit" x="' + x + '" y="' + y + '" width="' + t_n + '" height="' + h + '" fill="url(#barchart_profitColor1)"/>';
                             }
                             //收入
                             for (var i = 0; i < t_detail.length; i++) {//連接線
                                 x = 100 + 10 + t_n * i;
                                 y = t_Y - round(dec(t_detail[i].money) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
-                                if (i > 0)
-                                    tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(0,255,0);stroke-width:1"/>';
-                                bx = x;
-                                by = y;
-                            }
-                            for (var i = 0; i < t_detail.length; i++) {
-                                x = 100 + 10 + t_n * i;
-                                y = t_Y - round(dec(t_detail[i].money) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
-                                tmpPath += '<circle id="chart01_profit' + i + '" class="chart01_profit" class="" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
-                            }
-                            //費用攤提
-                            for (var i = 0; i < t_detail.length; i++) {//連接線
-                                x = 100 + 10 + t_n * i;
-                                y = t_Y - round(dec(t_detail[i].partcost) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
                                 if (i > 0)
                                     tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(255,0,0);stroke-width:1"/>';
                                 bx = x;
@@ -691,41 +640,147 @@
                             }
                             for (var i = 0; i < t_detail.length; i++) {
                                 x = 100 + 10 + t_n * i;
-                                y = t_Y - round(dec(t_detail[i].partcost) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
-                                tmpPath += '<circle id="chart01_in' + i + '" class="chart01_in" class="" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
-                                tmpPath += '<text id="chart01_datea' + i + '" class="chart01_datea" x="' + (x - 10) + '" y="' + (50 + t_height + 30) + '" fill="black">' + t_detail[i].mon + '</text>';
+                                y = t_Y - round(dec(t_detail[i].money) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+                                tmpPath += '<circle id="barChart_in' + i + '" class="barChart_in" class="" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
                             }
-                            //符號說明
-                            tmpPath += '<rect x="800" y="90" width="20" height="20" fill="url(#chart01_outColor1)"/>';
-                            tmpPath += '<text x="830" y="105" fill="black">損益</text>';
+                            //費用攤提
+                            for (var i = 0; i < t_detail.length; i++) {//連接線
+                                x = 100 + 10 + t_n * i;
+                                y = t_Y - round(dec(t_detail[i].partcost) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+                                if (i > 0)
+                                    tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(0,255,0);stroke-width:1"/>';
+                                bx = x;
+                                by = y;
+                            }
+                            for (var i = 0; i < t_detail.length; i++) {
+                                x = 100 + 10 + t_n * i;
+                                y = t_Y - round(dec(t_detail[i].partcost) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+                                tmpPath += '<circle id="barChart_out' + i + '" class="barChart_out" class="" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
+                                tmpPath += '<text id="barChart_mon' + i + '" class="barChart_mon" x="' + (x - 10) + '" y="' + (50 + t_height + 30) + '" fill="black">' + t_detail[i].mon + '</text>';
+                            }
+                            //薪資
+                            for (var i = 0; i < t_detail.length; i++) {//連接線
+                                x = 100 + 10 + t_n * i;
+                                y = t_Y - round(dec(t_detail[i].salarycost) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+                                if (i > 0)
+                                    tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(255,255,0);stroke-width:1"/>';
+                                bx = x;
+                                by = y;
+                            }
+                            for (var i = 0; i < t_detail.length; i++) {
+                                x = 100 + 10 + t_n * i;
+                                y = t_Y - round(dec(t_detail[i].salarycost) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+                                tmpPath += '<circle id="barChart_salary' + i + '" class="barChart_salary" class="" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(255,255,0)"/>';
+                            }
                             
+                            //符號說明
                             tmpPath += '<line x1="800" y1="50" x2="820" y2="50" style="stroke:rgb(0,0,0);stroke-width:1"/>';
-                            tmpPath += '<circle class="" cx="810" cy="50" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
+                            tmpPath += '<circle class="" cx="810" cy="50" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
                             tmpPath += '<text x="830" y="55" fill="black">費用攤提</text>';
 
-                            tmpPath += '<line x1="800" y1="75" x2="820" y2="75" style="stroke:rgb(0,180,125);stroke-width:1"/>';
-                            tmpPath += '<circle class="" cx="810" cy="75" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
+                            tmpPath += '<line x1="800" y1="75" x2="820" y2="75" style="stroke:rgb(0,0,0);stroke-width:1"/>';
+                            tmpPath += '<circle class="" cx="810" cy="75" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
                             tmpPath += '<text x="830" y="80" fill="black">收入</text>';
+                            
+                            tmpPath += '<line x1="800" y1="100" x2="820" y2="100" style="stroke:rgb(0,0,0);stroke-width:1"/>';
+                            tmpPath += '<circle class="" cx="810" cy="100" r="5" stroke="black" stroke-width="2" fill="rgb(255,255,0)"/>';
+                            if(txtreport=='z_anadc6')
+                            	tmpPath += '<text x="830" y="105" fill="black">薪資攤提</text>';
+                            else if(txtreport=='z_anadc8')
+                            	tmpPath += '<text x="830" y="105" fill="black">薪資</text>';
+                            	
+                            tmpPath += '<rect x="800" y="115" width="20" height="20" fill="url(#barchart_profitColor1)"/>';
+                            tmpPath += '<text x="830" y="130" fill="black">損益</text>';
 
                             obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
                             //事件
-                            obj.children('svg').find('.chart01_in').hover(function(e) {
+                            obj.children('svg').find('.barChart_in').hover(function(e) {
                                 $(this).attr('fill', 'rgb(255,151,151)');
-                                var n = $(this).attr('id').replace('chart01_in', '');
-                                $('#chart01_datea' + n).attr('fill', 'rgb(187,94,0)');
+                                var n = $(this).attr('id').replace('barChart_in', '');
+                                $('#barChart_mon' + n).attr('fill', 'rgb(187,94,0)');
                             }, function(e) {
-                                $(this).attr('fill', 'red');
-                                var n = $(this).attr('id').replace('chart01_in', '');
-                                $('#chart01_datea' + n).attr('fill', 'black');
+                                $(this).attr('fill', 'rgb(255,0,0)');
+                                var n = $(this).attr('id').replace('barChart_in', '');
+                                $('#barChart_mon' + n).attr('fill', 'black');
+                            }).click(function(e){
+                            	var obj = $(this).parent().parent();
+                                var n = $(this).attr('id').replace('barChart_in', '');
+                                var t_index = obj.data('info').curIndex;
+                                var alerttxt='';
+                                if(txtreport=='z_anadc6')
+                                	alerttxt='客戶名稱：'+obj.data('info').Data[t_index].comp+'\n'
+                                else if(txtreport=='z_anadc8')
+                                	alerttxt='員工名稱：'+obj.data('info').Data[t_index].comp+'\n'
+                                alerttxt+='收入金額：'+obj.data('info').Data[t_index].detail[n].money
+                            	alert(alerttxt);
                             });
-                            obj.children('svg').find('.chart01_out').hover(function(e) {
-                                $(this).attr('fill', 'url(#chart01_outColor2)');
-                                var n = $(this).attr('id').replace('chart01_out', '');
-                                $('#chart01_datea' + n).attr('fill', 'rgb(187,94,0)');
+                            
+                            obj.children('svg').find('.barChart_out').hover(function(e) {
+                                $(this).attr('fill', 'rgb(255,151,151)');
+                                var n = $(this).attr('id').replace('barChart_out', '');
+                                $('#barChart_mon' + n).attr('fill', 'rgb(187,94,0)');
                             }, function(e) {
-                                $(this).attr('fill', 'url(#chart01_outColor1)');
-                                var n = $(this).attr('id').replace('chart01_out', '');
-                                $('#chart01_datea' + n).attr('fill', 'black');
+                                $(this).attr('fill', 'rgb(0,255,0)');
+                                var n = $(this).attr('id').replace('barChart_out', '');
+                                $('#barChart_mon' + n).attr('fill', 'black');
+                            }).click(function(e){
+                            	var obj = $(this).parent().parent();
+                                var n = $(this).attr('id').replace('barChart_out', '');
+                                var t_index = obj.data('info').curIndex;
+                                var alerttxt='';
+                               	if(txtreport=='z_anadc6')
+                                	alerttxt='客戶名稱：'+obj.data('info').Data[t_index].comp+'\n'
+                                else if(txtreport=='z_anadc8')
+                                	alerttxt='員工名稱：'+obj.data('info').Data[t_index].comp+'\n'
+                                alerttxt+='費用攤提金額：'+obj.data('info').Data[t_index].detail[n].partcost
+                            	alert(alerttxt);
+                            });
+                            
+                            obj.children('svg').find('.barChart_salary').hover(function(e) {
+                                $(this).attr('fill', 'rgb(255,151,151)');
+                                var n = $(this).attr('id').replace('barChart_salary', '');
+                                $('#barChart_mon' + n).attr('fill', 'rgb(187,94,0)');
+                            }, function(e) {
+                                $(this).attr('fill', 'rgb(255,255,0)');
+                                var n = $(this).attr('id').replace('barChart_salary', '');
+                                $('#barChart_mon' + n).attr('fill', 'black');
+                            }).click(function(e){
+                            	var obj = $(this).parent().parent();
+                                var n = $(this).attr('id').replace('barChart_salary', '');
+                                var t_index = obj.data('info').curIndex;
+                                var alerttxt='';
+                               	if(txtreport=='z_anadc6'){
+                                	alerttxt='客戶名稱：'+obj.data('info').Data[t_index].comp+'\n'
+                                	alerttxt+='薪資攤提：'+obj.data('info').Data[t_index].detail[n].salarycost
+                                }else if(txtreport=='z_anadc8'){
+                                	alerttxt='員工名稱：'+obj.data('info').Data[t_index].comp+'\n'
+                                	alerttxt+='薪資：'+obj.data('info').Data[t_index].detail[n].salarycost
+                                }
+                            	alert(alerttxt);
+                            });
+                            
+                            obj.children('svg').find('.barChart_profit').hover(function(e) {
+                                $(this).attr('fill', 'url(#barchart_profitColor2)');
+                                var n = $(this).attr('id').replace('barChart_profit', '');
+                                $('#barChart_mon' + n).attr('fill', 'rgb(187,94,0)');
+                            }, function(e) {
+                                $(this).attr('fill', 'url(#barchart_profitColor1)');
+                                var n = $(this).attr('id').replace('barChart_profit', '');
+                                $('#barChart_mon' + n).attr('fill', 'black');
+                            }).click(function(e){
+                            	var obj = $(this).parent().parent();
+                                var n = $(this).attr('id').replace('barChart_profit', '');
+                                var t_index = obj.data('info').curIndex;
+                                var alerttxt='';
+                                if(txtreport=='z_anadc6')
+                                	alerttxt='客戶名稱：'+obj.data('info').Data[t_index].comp+'\n'
+                                else if(txtreport=='z_anadc8')
+                                	alerttxt='員工名稱：'+obj.data('info').Data[t_index].comp+'\n'
+                                alerttxt+='收入：'+obj.data('info').Data[t_index].detail[n].money+'\n'
+                                alerttxt+=txtreport=='z_anadc6'?'薪資攤提：':'薪資：'+obj.data('info').Data[t_index].detail[n].salarycost+'\n'
+                                alerttxt+='費用攤提：'+obj.data('info').Data[t_index].detail[n].partcost+'\n'
+                                alerttxt+='損益：'+obj.data('info').Data[t_index].detail[n].total
+                            	alert(alerttxt);
                             });
 
                         }
