@@ -181,7 +181,7 @@
                         t_where1 = " where[1]=^^1=0^^";
                         t_where2 = " where[2]=^^ 1=1 ^^";
                         t_where3 = " where[3]=^^ 1=0 ^^";
-                        t_where4 = " where[4]=^^ 1=0 oder by noa ^^";
+                        t_where4 = " where[4]=^^ 1=0 order by noa ^^";
                     }
                     q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + t_where1 + t_where2 + t_where3+ t_where4, 'umm_trd', "70%", "600px", q_getMsg('popUmm_trd'));
                 });
@@ -234,7 +234,7 @@
                                 $('#txtPart2_' + i).val('');
                             }
 
-                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart,txtMemo', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2,partno,part2,memo', '');
+                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart,txtMemo,cmbPartno', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2,partno,part2,memo,partno', '');
                             /// 最後 aEmpField 不可以有【數字欄位】
                             
                             $('#txtAcc1_0').focus();
