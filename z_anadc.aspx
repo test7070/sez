@@ -553,14 +553,21 @@
                          
                             var t_detail = obj.data('info').Data[obj.data('info').curIndex].detail;
                             var t_maxMoney = obj.data('info').Data[obj.data('info').curIndex].maxmoney;
+                            t_maxMoney=(dec(t_maxMoney.toString().substr(0,1))+1)*Math.pow(10,t_maxMoney.toString().length-1);
+                            
                             var t_minMoney = obj.data('info').Data[obj.data('info').curIndex].minmoney;
+                            if(t_minMoney>0)
+                            	t_minMoney=(dec(t_minMoney.toString().substr(0,1))+1)*Math.pow(10,t_minMoney.toString().length-1);
+                            if(t_minMoney<0)
+                            	t_minMoney=(dec(t_minMoney.toString().substr(0,2))-1)*Math.pow(10,t_minMoney.toString().length-2);
+                            	
                             var t_cmaxMoney = FormatNumber(t_maxMoney);
                             t_cmaxMoney = (t_cmaxMoney).replace(/ /g,'&nbsp;');
 							var t_cminMoney = FormatNumber(t_minMoney);
 							t_cminMoney = (t_cminMoney).replace(/ /g,'&nbsp;');
 							var t_n = round((t_width - 20) / t_detail.length, 0);
                             var x, y, w, h, bx, by, t_output, t_money;
-                            tmpPath += '<text x="' + (450) + '" y="' + (20) + '" fill="black">【' + obj.data('info').Data[obj.data('info').curIndex].custno + '】' + obj.data('info').Data[obj.data('info').curIndex].comp + '</text>';
+                            tmpPath += '<text x="' + (450) + '" y="' + (20) + '" fill="black">【' + obj.data('info').Data[obj.data('info').curIndex].custno + '】' + obj.data('info').Data[obj.data('info').curIndex].comp +(txtreport=='z_anadc6'?'─'+obj.data('info').Data[obj.data('info').curIndex].part:'')+ '</text>';
                             tmpPath += '<text x="' + (70) + '" y="' + (20) + '" fill="black">金額</text>';
                             tmpPath += '<text x="' + (50 + t_width + 50) + '" y="' + (50 + t_height + 30) + '" fill="black">月份</text>';
                             
