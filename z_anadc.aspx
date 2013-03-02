@@ -127,6 +127,8 @@
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
 	                $('#txtXmon').val(t_year+'/'+t_month);
+	                $('#txtXyear1').val((dec(t_year)-1)>99?(dec(t_year)-1):'0'+(dec(t_year)-1));
+	                $('#txtXyear2').val(t_year);
 	                
 	                t_date = new Date();
 	                t_date.setDate(35);
