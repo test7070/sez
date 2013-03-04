@@ -39,7 +39,11 @@
                     }, {
                         type : '1',
                         name : 'gqbno'
-                    }]
+                    }, {/*7*/
+                         	type : '8',
+                            name : 'xtitle',
+                            value : q_getMsg('ttitle').split('&')
+                        }]
                 });
                 var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
                 t_noa  =  t_noa.replace('noa=','');
