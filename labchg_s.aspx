@@ -35,10 +35,9 @@
         t_edate = $('#txtEdate').val(); 
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
-        t_accno = $('#txtAccno').val();
-        t_paybno = $('#txtPaybno').val();
+        t_noa = $('#txtNoa').val();
 
-        var t_where = " 1=1 " + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("accno", t_accno) + q_sqlPara2("paybno", t_paybno);
+        var t_where = " 1=1 " + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("noa", t_noa);
         
 
         t_where = ' where=^^' + t_where + '^^ ';
@@ -62,12 +61,8 @@
 				</td>
 			</tr>
 			<tr class='seek_tr'>
-				<td class='seek'  style="width:20%;"><a id='lblAccno'></a></td>
-				<td><input class="txt" id="txtAccno" type="text" style="width:215px; font-size:medium;" /></td>
-			</tr>
-			<tr class='seek_tr'>
-				<td class='seek'  style="width:20%;"><a id='lblPaybno'></a></td>
-				<td><input class="txt" id="txtPaybno" type="text" style="width:215px; font-size:medium;" /></td>
+				<td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
+				<td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
 			</tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
