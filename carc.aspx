@@ -105,6 +105,7 @@
 		            		t_where+="and (b.sssno='"+q_getMsg('lblSssno3')+"' "
 		            	else
 		            		t_where+="or b.sssno='"+q_getMsg('lblSssno3')+"' "
+		            	sssno_count++;
 		            }
 		            if(sssno_count>0)
 		            	t_where+=") ";
