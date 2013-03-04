@@ -18,7 +18,8 @@
         var q_name="salchg";
         var q_readonly = ['txtNoa','txtWorker','txtAccno'];
         var bbmNum = [['txtBorrow',15,0,1],['txtMinus',15,0,1],['txtPlus',15,0,1]]; 
-        var bbmMask = []; 
+        var bbmMask = [];
+        q_desc=1; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
 		aPop = new Array(['txtSssno', 'lblSss', 'sssall', 'noa,namea', 'txtSssno,txtNamea', 'sssall_b.aspx']);

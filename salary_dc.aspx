@@ -69,7 +69,7 @@
             	check_insed();
             });
             
-            $('#txtMon').change(function () {
+            $('#txtMon').blur(function () {
             	if($('#txtMon').val().length!=6||$('#txtMon').val().indexOf('/')!=3){
             		if($('#txtMon').val().length==5&&$('#txtMon').val().indexOf('/')==-1)
             			$('#txtMon').val($('#txtMon').val().substr(0,3)+'/'+$('#txtMon').val().substr(3,2));
@@ -438,7 +438,7 @@
 						var as = _q_appendData("salpresents", "", true);
 						for (var i = 0; i < as.length; i++) {
 							//判斷是否哪些員工要計算薪水
-		                    if ((!emp(as[i].ft_date) && as[i].ft_date >date_1)||(!emp(as[i].outdate)&&as[i].outdate<date_1||as[i].indate>$('#txtMon').val())) {
+		                    if ((!emp(as[i].ft_date) && as[i].ft_date >date_1)||(!emp(as[i].outdate)&&as[i].outdate<date_1)) {//||as[i].indate>$('#txtMon').val()
 		                        as.splice(i, 1);
 		                        i--;
 		                    }else{

@@ -37,17 +37,17 @@
 							txtreport=$('#q_report').data().info.reportData[i].report;
 							if(txtreport=='z_anadc1' || txtreport=='z_anadc3' || txtreport=='z_anadc5' || txtreport=='z_anadc7')
 								$('#btnSvg').val($('#q_report').data().info.reportData[i].reportName+'圓餅圖顯示');
-							if(txtreport=='z_anadc6'||txtreport=='z_anadc8')
+							if(txtreport=='z_anadc6'||txtreport=='z_anadc8' || txtreport=='z_anadc9' ||txtreport=='z_anadc10')
 								$('#btnSvg').val($('#q_report').data().info.reportData[i].reportName+'長條圖顯示');
 						}
 					}
-					if(txtreport=='z_anadc1' || txtreport=='z_anadc3' || txtreport=='z_anadc5' || txtreport=='z_anadc7'||txtreport=='z_anadc6'||txtreport=='z_anadc8')
+					if(txtreport=='z_anadc1' || txtreport=='z_anadc3' || txtreport=='z_anadc5' || txtreport=='z_anadc7'||txtreport=='z_anadc6'||txtreport=='z_anadc8'|| txtreport=='z_anadc9' ||txtreport=='z_anadc10')
 						$('#btnSvg').show();
 				});
 				$('#btnSvg').click(function(e) {
 					if(txtreport=='z_anadc1' || txtreport=='z_anadc3' || txtreport=='z_anadc5' || txtreport=='z_anadc7')
 						$('#pieChart').show();
-					if(txtreport=='z_anadc6'||txtreport=='z_anadc8'){
+					if(txtreport=='z_anadc6'||txtreport=='z_anadc8'|| txtreport=='z_anadc9' ||txtreport=='z_anadc10'){
 						$('#barChart').show();
 						$(".control").show();
 					}
@@ -62,7 +62,7 @@
 						part2a=$('#txtPart2a').val();
 					if(!emp($('#txtSss2a').val()))
 						sss2a=$('#txtSss2a').val();
-					q_func('qtxt.query','z_anadc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + encodeURI($('#txtDate1').val()) + ';' + encodeURI($('#txtDate2').val()) + ';' + encodeURI($('#txtXmon').val()) + ';' + encodeURI($('#txtCust1a').val())+ ';' + encodeURI(cust2a)+ ';' + encodeURI($('#txtPart1a').val())+ ';' + encodeURI(part2a)+ ';' + encodeURI($('#txtSss1a').val())+ ';' + encodeURI(sss2a));
+					q_func('qtxt.query','z_anadc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + encodeURI($('#txtDate1').val()) + ';' + encodeURI($('#txtDate2').val()) + ';' + encodeURI($('#txtXmon').val()) + ';' + encodeURI($('#txtCust1a').val())+ ';' + encodeURI(cust2a)+ ';' + encodeURI($('#txtPart1a').val())+ ';' + encodeURI(part2a)+ ';' + encodeURI($('#txtSss1a').val())+ ';' + encodeURI(sss2a)+ ';' + encodeURI($('#txtXyear1').val())+ ';' + encodeURI($('#txtXyear2').val()));
 				});
 				$("#btnNext").click(function(e) {
                     $('#barChart').data('info').next($('#barChart'));
@@ -209,8 +209,8 @@
 							}); 
                         }
                         //長條圖
+                        var bar=new Array();
                         if(txtreport=='z_anadc6'||txtreport=='z_anadc8'){
-                        	var bar=new Array();
                         	//var t_maxMoney=5000000,t_minMoney=-5000000;
 	                        if (as[0] != undefined) {
 	                        	for (i = 0; i < as.length; i++) {
@@ -360,15 +360,64 @@
 			                        bar[i].minmoney=x_minmoney;
 			                   	}
 	                        }
-	                        $('#barChart').barChart({
-								data : bar,
-							});
-							$('#txtCurPage').val(1).change(function(e) {
-                                $(this).val(parseInt($(this).val()));
-                                $('#barChart').data('info').page($('#barChart'), $(this).val());
-                            });
-                            $('#txtTotPage').val(bar.length);
 						}
+						
+						if( txtreport=='z_anadc9' ||txtreport=='z_anadc10'){
+							 if (as[0] != undefined) {
+							 	var custno='';
+							 	var n = -1;
+							 	var x_maxmoney=0,x_minmoney=0;
+	                        	for (i = 0; i < as.length; i++) {
+	                        		var t_detail;
+	                        		if(custno==''||custno!=(txtreport=='z_anadc9'?as[i].custno:as[i].sssno)){
+	                        			x_maxmoney=0;
+	                        			x_minmoney=0;
+	                        		}
+		                        	t_detail = {
+	                                        mon : as[i].mon,
+	                                        money01 : as[i].money01,
+	                                        salarycost01 : as[i].salarycost01,
+	                                        partcost01 : as[i].partcost01,
+	                                        total01 : as[i].total01,
+	                                        money02 : as[i].money02,
+	                                        salarycost02 : as[i].salarycost02,
+	                                        partcost02 : as[i].partcost02,
+	                                        total02 : as[i].total02
+	                                };
+	                                //判斷該客戶的最大值與最小值
+	                                x_maxmoney=Math.max(x_maxmoney,dec(as[i].total01),dec(as[i].total02))
+	                                x_minmoney=Math.min(x_minmoney,dec(as[i].total01),dec(as[i].total02))
+	                                if(custno==''||custno!=(txtreport=='z_anadc9'?as[i].custno:as[i].sssno)){
+			                        	bar.push({
+				                        			custno:txtreport=='z_anadc9'?as[i].custno:as[i].sssno,
+				                        			comp:txtreport=='z_anadc9'?as[i].comp:as[i].namea,
+				                        			xyear1:as[i].xyear1,
+				                        			xyear2:as[i].xyear2,
+				                        			partno:as[i].partno,
+				                        			part:as[i].part,
+				                        			detail : [t_detail],
+				                        			maxmoney:x_maxmoney,
+				                        			minmoney:x_minmoney
+				                        });
+				                        custno=(txtreport=='z_anadc9'?as[i].custno:as[i].sssno);
+				                        n++;
+			                        }else{
+			                        	bar[n].detail.push(t_detail);
+			                        	bar[n].maxmoney=x_maxmoney;
+			                        	bar[n].minmoney=x_minmoney;
+			                        }
+	                        	}
+	                        }
+						}
+						
+						$('#barChart').barChart({
+							data : bar,
+						});
+						$('#txtCurPage').val(1).change(function(e) {
+                            $(this).val(parseInt($(this).val()));
+                        	$('#barChart').data('info').page($('#barChart'), $(this).val());
+                        });
+                        $('#txtTotPage').val(bar.length);
                         break;
                 }
             }
@@ -572,7 +621,7 @@
 							t_cminMoney = (t_cminMoney).replace(/ /g,'&nbsp;');
 							var t_n = round((t_width - 20) / t_detail.length, 0);
                             var x, y, w, h, bx, by, t_output, t_money;
-                            tmpPath += '<text x="' + (450) + '" y="' + (20) + '" fill="black">【' + obj.data('info').Data[obj.data('info').curIndex].custno + '】' + obj.data('info').Data[obj.data('info').curIndex].comp +(txtreport=='z_anadc6'?'─'+obj.data('info').Data[obj.data('info').curIndex].part:'')+ '</text>';
+                            tmpPath += '<text x="' + (450) + '" y="' + (20) + '" fill="black">【' + obj.data('info').Data[obj.data('info').curIndex].custno + '】' + obj.data('info').Data[obj.data('info').curIndex].comp +(txtreport=='z_anadc6'||txtreport=='z_anadc9'?'─'+obj.data('info').Data[obj.data('info').curIndex].part:'')+ '</text>';
                             tmpPath += '<text x="' + (70) + '" y="' + (20) + '" fill="black">金額</text>';
                             tmpPath += '<text x="' + (50 + t_width + 50) + '" y="' + (50 + t_height + 30) + '" fill="black">月份</text>';
                             
@@ -594,6 +643,9 @@
                             var x_money=round(((t_maxMoney+Math.abs(t_minMoney))/10),0);
                             x_money=dec(x_money.toString().substr(0,1))*Math.pow(10,(x_money).toString().length-1);
                             
+                           	if(x_money==0)
+                           		x_money=500;
+                            
                             t_money = x_money;
                             while (t_money < t_maxMoney) {
                             	t_cmoney = FormatNumber(t_money);
@@ -614,177 +666,276 @@
                                 tmpPath += '<text x="' + x + '" y="' + y + '" fill="black" style="font-family: \'Times New Roman\';">' + t_cmoney + '</text>';
                                 t_money -= x_money;
                             }
-
-                            //損益的顏色
-                            tmpPath += '<defs>' + '<linearGradient id="barchart_profitColor1" x1="0%" y1="0%" x2="100%" y2="0%">' + '<stop offset="0%" style="stop-color:rgb(206,206,255);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(147,147,255);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
-                            tmpPath += '<defs>' + '<linearGradient id="barchart_profitColor2" x1="0%" y1="0%" x2="100%" y2="0%">' + '<stop offset="0%" style="stop-color:rgb(255,220,185);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(225,175,96);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
-
-                            //損益
-                            for (var i = 0; i < t_detail.length; i++) {
-                                t_output = dec(t_detail[i].total);
-                                h = Math.abs(round(t_output / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0));
-                                x = 100 + 10 + t_n * i - (i == 0 ? 9 : 10);
-                                if(t_output >= 0){
-                                	y = t_Y - h;
-                                }else{
-                                	y = t_Y;
-                                }
-                                tmpPath += '<rect id="barChart_profit' + i + '" class="barChart_profit" x="' + x + '" y="' + y + '" width="' + t_n + '" height="' + h + '" fill="url(#barchart_profitColor1)"/>';
-                            }
-                            //收入
-                            for (var i = 0; i < t_detail.length; i++) {//連接線
-                                x = 100 + 10 + t_n * i;
-                                y = t_Y - round(dec(t_detail[i].money) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
-                                if (i > 0)
-                                    tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(255,0,0);stroke-width:1"/>';
-                                bx = x;
-                                by = y;
-                            }
-                            for (var i = 0; i < t_detail.length; i++) {
-                                x = 100 + 10 + t_n * i;
-                                y = t_Y - round(dec(t_detail[i].money) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
-                                tmpPath += '<circle id="barChart_in' + i + '" class="barChart_in" class="" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
-                            }
-                            //費用攤提
-                            for (var i = 0; i < t_detail.length; i++) {//連接線
-                                x = 100 + 10 + t_n * i;
-                                y = t_Y - round(dec(t_detail[i].partcost) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
-                                if (i > 0)
-                                    tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(0,255,0);stroke-width:1"/>';
-                                bx = x;
-                                by = y;
-                            }
-                            for (var i = 0; i < t_detail.length; i++) {
-                                x = 100 + 10 + t_n * i;
-                                y = t_Y - round(dec(t_detail[i].partcost) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
-                                tmpPath += '<circle id="barChart_out' + i + '" class="barChart_out" class="" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
-                                tmpPath += '<text id="barChart_mon' + i + '" class="barChart_mon" x="' + (x - 10) + '" y="' + (50 + t_height + 30) + '" fill="black">' + t_detail[i].mon + '</text>';
-                            }
-                            //薪資
-                            for (var i = 0; i < t_detail.length; i++) {//連接線
-                                x = 100 + 10 + t_n * i;
-                                y = t_Y - round(dec(t_detail[i].salarycost) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
-                                if (i > 0)
-                                    tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(255,255,0);stroke-width:1"/>';
-                                bx = x;
-                                by = y;
-                            }
-                            for (var i = 0; i < t_detail.length; i++) {
-                                x = 100 + 10 + t_n * i;
-                                y = t_Y - round(dec(t_detail[i].salarycost) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
-                                tmpPath += '<circle id="barChart_salary' + i + '" class="barChart_salary" class="" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(255,255,0)"/>';
-                            }
-                            
-                            //符號說明
-                            tmpPath += '<line x1="800" y1="50" x2="820" y2="50" style="stroke:rgb(0,0,0);stroke-width:1"/>';
-                            tmpPath += '<circle class="" cx="810" cy="50" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
-                            tmpPath += '<text x="830" y="55" fill="black">費用攤提</text>';
-
-                            tmpPath += '<line x1="800" y1="75" x2="820" y2="75" style="stroke:rgb(0,0,0);stroke-width:1"/>';
-                            tmpPath += '<circle class="" cx="810" cy="75" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
-                            tmpPath += '<text x="830" y="80" fill="black">收入</text>';
-                            
-                            tmpPath += '<line x1="800" y1="100" x2="820" y2="100" style="stroke:rgb(0,0,0);stroke-width:1"/>';
-                            tmpPath += '<circle class="" cx="810" cy="100" r="5" stroke="black" stroke-width="2" fill="rgb(255,255,0)"/>';
-                            if(txtreport=='z_anadc6')
-                            	tmpPath += '<text x="830" y="105" fill="black">薪資攤提</text>';
-                            else if(txtreport=='z_anadc8')
-                            	tmpPath += '<text x="830" y="105" fill="black">薪資</text>';
-                            	
-                            tmpPath += '<rect x="800" y="115" width="20" height="20" fill="url(#barchart_profitColor1)"/>';
-                            tmpPath += '<text x="830" y="130" fill="black">損益</text>';
-
-                            obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
-                            //事件
-                            obj.children('svg').find('.barChart_in').hover(function(e) {
-                                $(this).attr('fill', 'rgb(255,151,151)');
-                                var n = $(this).attr('id').replace('barChart_in', '');
-                                $('#barChart_mon' + n).attr('fill', 'rgb(187,94,0)');
-                            }, function(e) {
-                                $(this).attr('fill', 'rgb(255,0,0)');
-                                var n = $(this).attr('id').replace('barChart_in', '');
-                                $('#barChart_mon' + n).attr('fill', 'black');
-                            }).click(function(e){
-                            	var obj = $(this).parent().parent();
-                                var n = $(this).attr('id').replace('barChart_in', '');
-                                var t_index = obj.data('info').curIndex;
-                                var alerttxt='';
-                                if(txtreport=='z_anadc6')
-                                	alerttxt='客戶名稱：'+obj.data('info').Data[t_index].comp+'\n'
-                                else if(txtreport=='z_anadc8')
-                                	alerttxt='員工名稱：'+obj.data('info').Data[t_index].comp+'\n'
-                                alerttxt+='收入金額：'+obj.data('info').Data[t_index].detail[n].money
-                            	alert(alerttxt);
-                            });
-                            
-                            obj.children('svg').find('.barChart_out').hover(function(e) {
-                                $(this).attr('fill', 'rgb(255,151,151)');
-                                var n = $(this).attr('id').replace('barChart_out', '');
-                                $('#barChart_mon' + n).attr('fill', 'rgb(187,94,0)');
-                            }, function(e) {
-                                $(this).attr('fill', 'rgb(0,255,0)');
-                                var n = $(this).attr('id').replace('barChart_out', '');
-                                $('#barChart_mon' + n).attr('fill', 'black');
-                            }).click(function(e){
-                            	var obj = $(this).parent().parent();
-                                var n = $(this).attr('id').replace('barChart_out', '');
-                                var t_index = obj.data('info').curIndex;
-                                var alerttxt='';
-                               	if(txtreport=='z_anadc6')
-                                	alerttxt='客戶名稱：'+obj.data('info').Data[t_index].comp+'\n'
-                                else if(txtreport=='z_anadc8')
-                                	alerttxt='員工名稱：'+obj.data('info').Data[t_index].comp+'\n'
-                                alerttxt+='費用攤提金額：'+obj.data('info').Data[t_index].detail[n].partcost
-                            	alert(alerttxt);
-                            });
-                            
-                            obj.children('svg').find('.barChart_salary').hover(function(e) {
-                                $(this).attr('fill', 'rgb(255,151,151)');
-                                var n = $(this).attr('id').replace('barChart_salary', '');
-                                $('#barChart_mon' + n).attr('fill', 'rgb(187,94,0)');
-                            }, function(e) {
-                                $(this).attr('fill', 'rgb(255,255,0)');
-                                var n = $(this).attr('id').replace('barChart_salary', '');
-                                $('#barChart_mon' + n).attr('fill', 'black');
-                            }).click(function(e){
-                            	var obj = $(this).parent().parent();
-                                var n = $(this).attr('id').replace('barChart_salary', '');
-                                var t_index = obj.data('info').curIndex;
-                                var alerttxt='';
-                               	if(txtreport=='z_anadc6'){
-                                	alerttxt='客戶名稱：'+obj.data('info').Data[t_index].comp+'\n'
-                                	alerttxt+='薪資攤提：'+obj.data('info').Data[t_index].detail[n].salarycost
-                                }else if(txtreport=='z_anadc8'){
-                                	alerttxt='員工名稱：'+obj.data('info').Data[t_index].comp+'\n'
-                                	alerttxt+='薪資：'+obj.data('info').Data[t_index].detail[n].salarycost
-                                }
-                            	alert(alerttxt);
-                            });
-                            
-                            obj.children('svg').find('.barChart_profit').hover(function(e) {
-                                $(this).attr('fill', 'url(#barchart_profitColor2)');
-                                var n = $(this).attr('id').replace('barChart_profit', '');
-                                $('#barChart_mon' + n).attr('fill', 'rgb(187,94,0)');
-                            }, function(e) {
-                                $(this).attr('fill', 'url(#barchart_profitColor1)');
-                                var n = $(this).attr('id').replace('barChart_profit', '');
-                                $('#barChart_mon' + n).attr('fill', 'black');
-                            }).click(function(e){
-                            	var obj = $(this).parent().parent();
-                                var n = $(this).attr('id').replace('barChart_profit', '');
-                                var t_index = obj.data('info').curIndex;
-                                var alerttxt='';
-                                if(txtreport=='z_anadc6')
-                                	alerttxt='客戶名稱：'+obj.data('info').Data[t_index].comp+'\n'
-                                else if(txtreport=='z_anadc8')
-                                	alerttxt='員工名稱：'+obj.data('info').Data[t_index].comp+'\n'
-                                alerttxt+='收入：'+obj.data('info').Data[t_index].detail[n].money+'\n'
-                                alerttxt+=txtreport=='z_anadc6'?'薪資攤提：':'薪資：'+obj.data('info').Data[t_index].detail[n].salarycost+'\n'
-                                alerttxt+='費用攤提：'+obj.data('info').Data[t_index].detail[n].partcost+'\n'
-                                alerttxt+='損益：'+obj.data('info').Data[t_index].detail[n].total
-                            	alert(alerttxt);
-                            });
-
+							
+							if(txtreport=='z_anadc6'||txtreport=='z_anadc8'){
+	                            //損益的顏色
+	                            tmpPath += '<defs>' + '<linearGradient id="barchart_profitColor1" x1="0%" y1="0%" x2="100%" y2="0%">' + '<stop offset="0%" style="stop-color:rgb(206,206,255);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(147,147,255);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
+	                            tmpPath += '<defs>' + '<linearGradient id="barchart_profitColor2" x1="0%" y1="0%" x2="100%" y2="0%">' + '<stop offset="0%" style="stop-color:rgb(255,220,185);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(225,175,96);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
+	
+	                            //損益
+	                            for (var i = 0; i < t_detail.length; i++) {
+	                                t_output = dec(t_detail[i].total);
+	                                h = Math.abs(round(t_output / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0));
+	                                x = 100 + 10 + t_n * i - (i == 0 ? 9 : 10);
+	                                if(t_output >= 0){
+	                                	y = t_Y - h;
+	                                }else{
+	                                	y = t_Y;
+	                                }
+	                                tmpPath += '<rect id="barChart_profit' + i + '" class="barChart_profit" x="' + x + '" y="' + y + '" width="' + t_n + '" height="' + h + '" fill="url(#barchart_profitColor1)"/>';
+	                            }
+	                            //收入
+	                            for (var i = 0; i < t_detail.length; i++) {//連接線
+	                                x = 100 + 10 + t_n * i;
+	                                y = t_Y - round(dec(t_detail[i].money) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+	                                if (i > 0)
+	                                    tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(255,0,0);stroke-width:1"/>';
+	                                bx = x;
+	                                by = y;
+	                            }
+	                            for (var i = 0; i < t_detail.length; i++) {
+	                                x = 100 + 10 + t_n * i;
+	                                y = t_Y - round(dec(t_detail[i].money) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+	                                tmpPath += '<circle id="barChart_in' + i + '" class="barChart_in" class="" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
+	                            }
+	                            //費用攤提
+	                            for (var i = 0; i < t_detail.length; i++) {//連接線
+	                                x = 100 + 10 + t_n * i;
+	                                y = t_Y - round(dec(t_detail[i].partcost) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+	                                if (i > 0)
+	                                    tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(0,255,0);stroke-width:1"/>';
+	                                bx = x;
+	                                by = y;
+	                            }
+	                            for (var i = 0; i < t_detail.length; i++) {
+	                                x = 100 + 10 + t_n * i;
+	                                y = t_Y - round(dec(t_detail[i].partcost) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+	                                tmpPath += '<circle id="barChart_out' + i + '" class="barChart_out" class="" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
+	                                tmpPath += '<text id="barChart_mon' + i + '" class="barChart_mon" x="' + (x - 10) + '" y="' + (50 + t_height + 30) + '" fill="black">' + t_detail[i].mon + '</text>';
+	                            }
+	                            //薪資
+	                            for (var i = 0; i < t_detail.length; i++) {//連接線
+	                                x = 100 + 10 + t_n * i;
+	                                y = t_Y - round(dec(t_detail[i].salarycost) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+	                                if (i > 0)
+	                                    tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(255,255,0);stroke-width:1"/>';
+	                                bx = x;
+	                                by = y;
+	                            }
+	                            for (var i = 0; i < t_detail.length; i++) {
+	                                x = 100 + 10 + t_n * i;
+	                                y = t_Y - round(dec(t_detail[i].salarycost) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+	                                tmpPath += '<circle id="barChart_salary' + i + '" class="barChart_salary" class="" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(255,255,0)"/>';
+	                            }
+	                            
+	                            //符號說明
+	                            tmpPath += '<line x1="800" y1="50" x2="820" y2="50" style="stroke:rgb(0,0,0);stroke-width:1"/>';
+	                            tmpPath += '<circle class="" cx="810" cy="50" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
+	                            tmpPath += '<text x="830" y="55" fill="black">費用攤提</text>';
+	
+	                            tmpPath += '<line x1="800" y1="75" x2="820" y2="75" style="stroke:rgb(0,0,0);stroke-width:1"/>';
+	                            tmpPath += '<circle class="" cx="810" cy="75" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
+	                            tmpPath += '<text x="830" y="80" fill="black">收入</text>';
+	                            
+	                            tmpPath += '<line x1="800" y1="100" x2="820" y2="100" style="stroke:rgb(0,0,0);stroke-width:1"/>';
+	                            tmpPath += '<circle class="" cx="810" cy="100" r="5" stroke="black" stroke-width="2" fill="rgb(255,255,0)"/>';
+	                            if(txtreport=='z_anadc6')
+	                            	tmpPath += '<text x="830" y="105" fill="black">薪資攤提</text>';
+	                            else if(txtreport=='z_anadc8')
+	                            	tmpPath += '<text x="830" y="105" fill="black">薪資</text>';
+	                            	
+	                            tmpPath += '<rect x="800" y="115" width="20" height="20" fill="url(#barchart_profitColor1)"/>';
+	                            tmpPath += '<text x="830" y="130" fill="black">損益</text>';
+	
+	                            obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+	                            //事件
+	                            obj.children('svg').find('.barChart_in').hover(function(e) {
+	                                $(this).attr('fill', 'rgb(255,151,151)');
+	                                var n = $(this).attr('id').replace('barChart_in', '');
+	                                $('#barChart_mon' + n).attr('fill', 'rgb(187,94,0)');
+	                            }, function(e) {
+	                                $(this).attr('fill', 'rgb(255,0,0)');
+	                                var n = $(this).attr('id').replace('barChart_in', '');
+	                                $('#barChart_mon' + n).attr('fill', 'black');
+	                            }).click(function(e){
+	                            	var obj = $(this).parent().parent();
+	                                var n = $(this).attr('id').replace('barChart_in', '');
+	                                var t_index = obj.data('info').curIndex;
+	                                var alerttxt='';
+	                                if(txtreport=='z_anadc6')
+	                                	alerttxt='客戶名稱：'+obj.data('info').Data[t_index].comp+'\n'
+	                                else if(txtreport=='z_anadc8')
+	                                	alerttxt='員工名稱：'+obj.data('info').Data[t_index].comp+'\n'
+	                                alerttxt+='收入金額：'+obj.data('info').Data[t_index].detail[n].money
+	                            	alert(alerttxt);
+	                            });
+	                            
+	                            obj.children('svg').find('.barChart_out').hover(function(e) {
+	                                $(this).attr('fill', 'rgb(255,151,151)');
+	                                var n = $(this).attr('id').replace('barChart_out', '');
+	                                $('#barChart_mon' + n).attr('fill', 'rgb(187,94,0)');
+	                            }, function(e) {
+	                                $(this).attr('fill', 'rgb(0,255,0)');
+	                                var n = $(this).attr('id').replace('barChart_out', '');
+	                                $('#barChart_mon' + n).attr('fill', 'black');
+	                            }).click(function(e){
+	                            	var obj = $(this).parent().parent();
+	                                var n = $(this).attr('id').replace('barChart_out', '');
+	                                var t_index = obj.data('info').curIndex;
+	                                var alerttxt='';
+	                               	if(txtreport=='z_anadc6')
+	                                	alerttxt='客戶名稱：'+obj.data('info').Data[t_index].comp+'\n'
+	                                else if(txtreport=='z_anadc8')
+	                                	alerttxt='員工名稱：'+obj.data('info').Data[t_index].comp+'\n'
+	                                alerttxt+='費用攤提金額：'+obj.data('info').Data[t_index].detail[n].partcost
+	                            	alert(alerttxt);
+	                            });
+	                            
+	                            obj.children('svg').find('.barChart_salary').hover(function(e) {
+	                                $(this).attr('fill', 'rgb(255,151,151)');
+	                                var n = $(this).attr('id').replace('barChart_salary', '');
+	                                $('#barChart_mon' + n).attr('fill', 'rgb(187,94,0)');
+	                            }, function(e) {
+	                                $(this).attr('fill', 'rgb(255,255,0)');
+	                                var n = $(this).attr('id').replace('barChart_salary', '');
+	                                $('#barChart_mon' + n).attr('fill', 'black');
+	                            }).click(function(e){
+	                            	var obj = $(this).parent().parent();
+	                                var n = $(this).attr('id').replace('barChart_salary', '');
+	                                var t_index = obj.data('info').curIndex;
+	                                var alerttxt='';
+	                               	if(txtreport=='z_anadc6'){
+	                                	alerttxt='客戶名稱：'+obj.data('info').Data[t_index].comp+'\n'
+	                                	alerttxt+='薪資攤提：'+obj.data('info').Data[t_index].detail[n].salarycost
+	                                }else if(txtreport=='z_anadc8'){
+	                                	alerttxt='員工名稱：'+obj.data('info').Data[t_index].comp+'\n'
+	                                	alerttxt+='薪資：'+obj.data('info').Data[t_index].detail[n].salarycost
+	                                }
+	                            	alert(alerttxt);
+	                            });
+	                            
+	                            obj.children('svg').find('.barChart_profit').hover(function(e) {
+	                                $(this).attr('fill', 'url(#barchart_profitColor2)');
+	                                var n = $(this).attr('id').replace('barChart_profit', '');
+	                                $('#barChart_mon' + n).attr('fill', 'rgb(187,94,0)');
+	                            }, function(e) {
+	                                $(this).attr('fill', 'url(#barchart_profitColor1)');
+	                                var n = $(this).attr('id').replace('barChart_profit', '');
+	                                $('#barChart_mon' + n).attr('fill', 'black');
+	                            }).click(function(e){
+	                            	var obj = $(this).parent().parent();
+	                                var n = $(this).attr('id').replace('barChart_profit', '');
+	                                var t_index = obj.data('info').curIndex;
+	                                var alerttxt='';
+	                                if(txtreport=='z_anadc6')
+	                                	alerttxt='客戶名稱：'+obj.data('info').Data[t_index].comp+'\n'
+	                                else if(txtreport=='z_anadc8')
+	                                	alerttxt='員工名稱：'+obj.data('info').Data[t_index].comp+'\n'
+	                                alerttxt+='收入：'+obj.data('info').Data[t_index].detail[n].money+'\n'
+	                                alerttxt+=txtreport=='z_anadc6'?'薪資攤提：':'薪資：'+obj.data('info').Data[t_index].detail[n].salarycost+'\n'
+	                                alerttxt+='費用攤提：'+obj.data('info').Data[t_index].detail[n].partcost+'\n'
+	                                alerttxt+='損益：'+obj.data('info').Data[t_index].detail[n].total
+	                            	alert(alerttxt);
+	                            });
+							}else if(txtreport=='z_anadc9'||txtreport=='z_anadc10'){
+								//第一年
+	                            for (var i = 0; i < t_detail.length; i++) {//連接線
+	                                x = 100 + 10 + t_n * i;
+	                                y = t_Y - round(dec(t_detail[i].total01) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+	                                if (i > 0)
+	                                    tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(0,255,0);stroke-width:1"/>';
+	                                bx = x;
+	                                by = y;
+	                            }
+	                            for (var i = 0; i < t_detail.length; i++) {
+	                                x = 100 + 10 + t_n * i;
+	                                y = t_Y - round(dec(t_detail[i].total01) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+	                                tmpPath += '<circle id="barChart_out' + i + '" class="barChart_out" class="" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
+	                                tmpPath += '<text id="barChart_mon' + i + '" class="barChart_mon" x="' + (x - 10) + '" y="' + (50 + t_height + 30) + '" fill="black">' + t_detail[i].mon + '</text>';
+	                            }
+	                            //第二年
+	                            for (var i = 0; i < t_detail.length; i++) {//連接線
+	                                x = 100 + 10 + t_n * i;
+	                                y = t_Y - round(dec(t_detail[i].total02) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+	                                if (i > 0)
+	                                    tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(255,0,0);stroke-width:1"/>';
+	                                bx = x;
+	                                by = y;
+	                            }
+	                            for (var i = 0; i < t_detail.length; i++) {
+	                                x = 100 + 10 + t_n * i;
+	                                y = t_Y - round(dec(t_detail[i].total02) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+	                                tmpPath += '<circle id="barChart_in' + i + '" class="barChart_in" class="" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
+	                            }
+	                            
+	                            //符號說明
+	                            tmpPath += '<line x1="800" y1="50" x2="820" y2="50" style="stroke:rgb(0,0,0);stroke-width:1"/>';
+	                            tmpPath += '<circle class="" cx="810" cy="50" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
+	                            tmpPath += '<text x="830" y="55" fill="black">'+obj.data('info').Data[obj.data('info').curIndex].xyear1+'年</text>';
+	
+	                            tmpPath += '<line x1="800" y1="75" x2="820" y2="75" style="stroke:rgb(0,0,0);stroke-width:1"/>';
+	                            tmpPath += '<circle class="" cx="810" cy="75" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
+	                            tmpPath += '<text x="830" y="80" fill="black">'+obj.data('info').Data[obj.data('info').curIndex].xyear2+'年</text>';
+	                            
+	                            obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+	                            //事件
+	                            obj.children('svg').find('.barChart_out').hover(function(e) {
+	                                $(this).attr('fill', 'rgb(255,151,151)');
+	                                var n = $(this).attr('id').replace('barChart_out', '');
+	                                $('#barChart_mon' + n).attr('fill', 'rgb(187,94,0)');
+	                            }, function(e) {
+	                                $(this).attr('fill', 'rgb(0,255,0)');
+	                                var n = $(this).attr('id').replace('barChart_out', '');
+	                                $('#barChart_mon' + n).attr('fill', 'black');
+	                            }).click(function(e){
+	                            	var obj = $(this).parent().parent();
+	                                var n = $(this).attr('id').replace('barChart_out', '');
+	                                var t_index = obj.data('info').curIndex;
+	                                var alerttxt='';
+	                               	if(txtreport=='z_anadc9'){
+	                                	alerttxt='收入：'+obj.data('info').Data[t_index].detail[n].money01+'\n'
+	                                	alerttxt+='費用攤提：'+obj.data('info').Data[t_index].detail[n].partcost01+'\n'
+	                                	alerttxt+='薪資攤提：'+obj.data('info').Data[t_index].detail[n].salarycost01+'\n'
+	                                	alerttxt+='損益：'+obj.data('info').Data[t_index].detail[n].total01
+	                                }
+	                                else if(txtreport=='z_anadc10'){
+	                                	alerttxt='收入：'+obj.data('info').Data[t_index].detail[n].money01+'\n'
+	                                	alerttxt+='費用攤提：'+obj.data('info').Data[t_index].detail[n].partcost01+'\n'
+	                                	alerttxt+='薪資：'+obj.data('info').Data[t_index].detail[n].salarycost01+'\n'
+	                                	alerttxt+='損益：'+obj.data('info').Data[t_index].detail[n].total01
+	                                }
+	                            	alert(alerttxt);
+	                            });
+	                            
+	                            obj.children('svg').find('.barChart_in').hover(function(e) {
+	                                $(this).attr('fill', 'rgb(255,151,151)');
+	                                var n = $(this).attr('id').replace('barChart_in', '');
+	                                $('#barChart_mon' + n).attr('fill', 'rgb(187,94,0)');
+	                            }, function(e) {
+	                                $(this).attr('fill', 'rgb(255,0,0)');
+	                                var n = $(this).attr('id').replace('barChart_in', '');
+	                                $('#barChart_mon' + n).attr('fill', 'black');
+	                            }).click(function(e){
+	                            	var obj = $(this).parent().parent();
+	                                var n = $(this).attr('id').replace('barChart_in', '');
+	                                var t_index = obj.data('info').curIndex;
+	                                var alerttxt='';
+	                                if(txtreport=='z_anadc9'){
+	                                	alerttxt='收入：'+obj.data('info').Data[t_index].detail[n].money02+'\n'
+	                                	alerttxt+='費用攤提：'+obj.data('info').Data[t_index].detail[n].partcost02+'\n'
+	                                	alerttxt+='薪資攤提：'+obj.data('info').Data[t_index].detail[n].salarycost02+'\n'
+	                                	alerttxt+='損益：'+obj.data('info').Data[t_index].detail[n].total02
+	                                }
+	                                else if(txtreport=='z_anadc10'){
+	                                	alerttxt='收入：'+obj.data('info').Data[t_index].detail[n].money02+'\n'
+	                                	alerttxt+='費用攤提：'+obj.data('info').Data[t_index].detail[n].partcost02+'\n'
+	                                	alerttxt+='薪資：'+obj.data('info').Data[t_index].detail[n].salarycost02+'\n'
+	                                	alerttxt+='損益：'+obj.data('info').Data[t_index].detail[n].total02
+	                                }
+	                            	alert(alerttxt);
+	                            });
+	                            
+							}//end txtreport=='z_anadc9'||txtreport=='z_anadc10'
                         }
                     });
                     $(this).data('info').init($(this));
