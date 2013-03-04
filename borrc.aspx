@@ -125,6 +125,7 @@
             }
 
             function btnPrint() {
+                q_box('z_borr.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function btnOk() {
@@ -229,9 +230,9 @@
                 var outMoney = 0;
                 for(var i = 0; i < q_bbsCount; i++) {
                     if($("#cmbTypea_" + i).val() == '1')
-                        outMoney += $("#txtMoney_" + i).val();
+                        outMoney += dec($("#txtMoney_" + i).val());
                     else
-                        inMoney += $("#txtMoney_" + i).val();
+                        inMoney += dec($("#txtMoney_" + i).val());
                 }
                 $("#txtBwmoney").val(outMoney);
                 $("#txtPay").val(inMoney);
