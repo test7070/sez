@@ -29,6 +29,7 @@
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
             ['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno,txtCust', 'cust_b.aspx'],
+            ['txtAcomp', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
             ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno])
 
             $(document).ready(function() {
@@ -128,6 +129,7 @@
             }
 
             function btnPrint() {
+                q_box('z_borr.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function btnOk() {
@@ -195,6 +197,7 @@
             }
 
             function sum() {
+            	/*
                 switch($("#cmbTaxtype").val()) {
                     case '1':
                         //extra
@@ -211,14 +214,14 @@
                     default:
                         $("#txtTax").val(0);
                 }
-
+				*/
                 var inMoney = 0;
                 var outMoney = 0;
                 for(var i = 0; i < q_bbsCount; i++) {
                     if($("#cmbTypea_" + i).val() == '1')
-                        outMoney += $("#txtMoney_" + i).val();
+                        outMoney += dec($("#txtMoney_" + i).val());
                     else
-                        inMoney += $("#txtMoney_" + i).val();
+                        inMoney += dec($("#txtMoney_" + i).val());
                 }
                 $("#txtBwmoney").val(outMoney);
                 $("#txtPay").val(inMoney);
