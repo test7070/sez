@@ -28,7 +28,12 @@
             brwKey = 'noa';
             q_desc = 1;
             //ajaxPath = ""; //  execute in Root
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtMinusitemno', 'lblMinusitem', 'chgitem', 'noa,item,acc1,acc2', 'txtMinusitemno,txtMinusitem,txtAcc1,txtAcc2', 'chgitem_b.aspx'], ['txtPlusitemno', 'lblPlusitem', 'chgitem', 'noa,item,acc1,acc2', 'txtPlusitemno,txtPlusitem,txtAcc1,txtAcc2', 'chgitem_b.aspx'], ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
+            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
+            , ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
+            , ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+            , ['txtMinusitemno', 'lblMinusitem', 'chgitem', 'noa,item,acc1,acc2', 'txtMinusitemno,txtMinusitem,txtAcc1,txtAcc2', 'chgitem_b.aspx']
+            , ['txtPlusitemno', 'lblPlusitem', 'chgitem', 'noa,item,acc1,acc2', 'txtPlusitemno,txtPlusitem,txtAcc1,txtAcc2', 'chgitem_b.aspx']
+            , ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
            	q_xchg = 1;
             brwCount2 = 20;
            
@@ -472,6 +477,11 @@
 						<td class="td2" colspan="3">
 						<input id="txtAcc1"  type="text" class="txt c2"/>
 						<input id="txtAcc2"  type="text"  class="txt c3"/>
+						</td>
+						<td><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
+						<td colspan="2">
+							<input id="txtTggno"  type="text" class="txt c2"/>
+							<input id="txtTgg"  type="text"  class="txt c3"/>
 						</td>
 					</tr>
 					<tr>
