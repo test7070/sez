@@ -617,15 +617,6 @@
                             //t_maxMoney=(dec(t_maxMoney.toString().substr(0,1))+1)*Math.pow(10,t_maxMoney.toString().length-1);
                             
                             var t_minMoney = obj.data('info').Data[obj.data('info').curIndex].minmoney;
-                            /*if(t_minMoney>0)
-                            	t_minMoney=(dec(t_minMoney.toString().substr(0,1))+1)*Math.pow(10,t_minMoney.toString().length-1);
-                            if(t_minMoney<0)
-                            	t_minMoney=(dec(t_minMoney.toString().substr(0,2))-1)*Math.pow(10,t_minMoney.toString().length-2);
-                            	*/
-                            //var t_cmaxMoney = FormatNumber(t_maxMoney);
-                            //t_cmaxMoney = (t_cmaxMoney).replace(/ /g,'&nbsp;');
-							//var t_cminMoney = FormatNumber(t_minMoney);
-							//t_cminMoney = (t_cminMoney).replace(/ /g,'&nbsp;');
 							var t_n = round((t_width - 20) / t_detail.length, 0);
                             var x, y, w, h, bx, by, t_output, t_money;
                             tmpPath += '<text x="' + (450) + '" y="' + (20) + '" fill="black">【' + obj.data('info').Data[obj.data('info').curIndex].custno + '】' + obj.data('info').Data[obj.data('info').curIndex].comp +(txtreport=='z_anadc6'||txtreport=='z_anadc9'?'─'+obj.data('info').Data[obj.data('info').curIndex].part:'')+ '</text>';
@@ -633,19 +624,17 @@
                             tmpPath += '<text x="' + (50 + t_width + 50) + '" y="' + (50 + t_height + 30) + '" fill="black">月份</text>';
                             
 							x = 50;
-							
-							var t_Y = 50 + t_height - round((0+Math.abs(t_minMoney)) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
-							
+                            var t_Y = 50 + t_height - round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_height, 0);
                             tmpPath += '<line x1="95" y1="' + t_Y + '" x2="100" y2="' + t_Y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-                           	tmpPath += '<text x="' + x + '" y="' + t_Y + '" fill="black" style="font-family: \'Times New Roman\';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</text>';
-                           	//X軸
+                            tmpPath += '<text text-anchor="end" x="90" y="' + t_Y + '" fill="black">0</text>';
+                            //X軸
                             tmpPath += '<line x1="100" y1="' + (t_Y) + '" x2="' + (100 + t_width) + '" y2="' + (t_Y) + '" style="stroke:rgb(0,0,0);stroke-width:1"/>';
-                            
+
                             //Y
-                            tmpPath += '<text x="30" y="' + (50) + '" fill="black" style="font-family: \'Times New Roman\';">' + FormatNumber(t_maxMoney) + '</text>';
+                            tmpPath += '<text text-anchor="end" x="90" y="' + (50) + '" fill="black">' + FormatNumber(t_maxMoney) + '</text>';
                             tmpPath += '<line x1="95" y1="50" x2="100" y2="50" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-                            tmpPath += '<text x="30" y="' + (50+t_height) + '" fill="black" style="font-family: \'Times New Roman\';">' + FormatNumber(t_minMoney) + '</text>';
-                            tmpPath += '<line x1="95" y1="' + (50+t_height) + '" x2="100" y2="' + (50+t_height) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                            tmpPath += '<text text-anchor="end" x="90" y="' + (50 + t_height) + '" fill="black">' + FormatNumber(t_minMoney) + '</text>';
+                            tmpPath += '<line x1="95" y1="' + (50 + t_height) + '" x2="100" y2="' + (50 + t_height) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
                             
                             var t_range = round((t_maxMoney - t_minMoney)/5,0);
                             var i = Math.pow(10,(t_range+'').length-1);
