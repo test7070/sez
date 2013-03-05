@@ -158,7 +158,7 @@
                         break;
                 	case 'calctypes':
 						var as = _q_appendData("calctypes", "", true);
-						var t_item = "";
+						var t_item = "@";
 						var item = new Array({
 								noa : '',
 								typea : '',
@@ -259,7 +259,8 @@
                 	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
                 		$('#cmbCalctype_'+j).change(function(e){
                 			var n = parseInt($(this).attr('id').replace('cmbCalctype_',''));
-                			$('#txtDiscount_' + n).val(calctypeItem[$(this)[0].selectedIndex].discount);
+                			var m = $(this)[0].selectedIndex;
+                			$('#txtDiscount_' + n).val(calctypeItem[m].discount);
                 			sum();
                 		});
                 		$('#txtMount_' + j).change(function(e){
@@ -637,8 +638,8 @@
 					<tr>
 						<td><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
 						<td colspan="2"><input id="txtOrdeno" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblAcomp" class="lbl"> </a></td>
-						<td colspan="2"><select id="cmbCno" class="txt c1"> </select></td>
+						<td><span> </span><a id="lblAcomp" class="lbl" style="display: none;"> </a></td>
+						<td colspan="2"><select id="cmbCno" class="txt c1" style="display: none;"> </select></td>
 						<td><span> </span><a id="lblType" class="lbl"> </a></td>
 						<td><select id="cmbType" class="txt c1"> </select></td>
 					</tr>
@@ -650,14 +651,14 @@
 							<input id="txtTypea" type="text" style="float:left; width:30%;"/>
 							<select id="cmbTypea2" style="float:left; width:70%;"> </select>
 						</td>
-					</tr>
-					<tr>
 						<td><span> </span><a id="lblPrice" class="lbl"> </a></td>
 						<td><input id="txtPrice" type="text" class="txt c1 num"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
-						<td colspan="2">
-							<input id="txtCustno"  type="text" style="float:left; width:40%;"/>
-							<input id="txtComp"  type="text" style="float:left; width:60%;"/>
+						<td colspan="3">
+							<input id="txtCustno"  type="text" style="float:left; width:35%;"/>
+							<input id="txtComp"  type="text" style="float:left; width:65%;"/>
 							<input id="txtNick"  type="text" style="display: none;"/>
 						</td>
 						<td><span> </span><a id="lblAddr" class="lbl"> </a></td>
