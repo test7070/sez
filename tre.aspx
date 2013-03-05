@@ -1,4 +1,3 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -22,9 +21,9 @@
 			isEditTotal = false;
             q_tables = 's';
             var q_name = "tre";
-            var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal','txtTolls','txtWorker','txtRc2ano','txtPaydate','txtPlusmoney','txtMinusmoney'];
+            var q_readonly = ['txtAccno','txtNoa', 'txtMoney', 'txtTotal','txtTolls','txtWorker','txtRc2ano','txtPaydate','txtPlusmoney','txtMinusmoney'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
-            var bbmNum = [['txtMoney', 10, 0],['txtTolls', 10, 0],['txtTotal', 10, 0],['txtPlusmoney', 10, 0],['txtMinusmoney', 10, 0]];
+            var bbmNum = [['txtUnopay', 10, 0],['txtMoney', 10, 0],['txtTolls', 10, 0],['txtTotal', 10, 0],['txtPlusmoney', 10, 0],['txtMinusmoney', 10, 0]];
             var bbsNum = [['txtMount', 10, 3],['txtPrice', 10, 3],['txtDiscount', 10, 3],['txtMoney', 10, 0],['txtTolls', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
@@ -36,6 +35,7 @@
             q_desc = 1;
             aPop = new Array(
             	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver','txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
+            	['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTggcomp', 'tgg_b.aspx'],
             	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
             	['txtBdriverno', '', 'driver', 'noa,namea', 'txtBdriverno', 'driver_b.aspx'],
           	  ['txtEdriverno', '', 'driver', 'noa,namea', 'txtEdriverno', 'driver_b.aspx']);
@@ -83,6 +83,9 @@
 					sum();
 				});
 				$('#txtMinusmoney').change(function(e) {
+					sum();
+				});
+				$('#txtUnopay').change(function(e) {
 					sum();
 				});
                 $('#btnTrans').click(function(e) {
@@ -247,7 +250,7 @@
             }
 
             function btnPrint() {
-            	q_box('z_tre.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
+            	q_box('z_tre.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -276,8 +279,9 @@
                 	t_tolls += q_float('txtTolls_'+i);
                 }
                 t_plusmoney = q_float('txtPlusmoney');
-				t_minusmoney = q_float('txtMinusmoney');            
-                t_total = t_money + t_tolls + t_plusmoney - t_minusmoney;
+				t_minusmoney = q_float('txtMinusmoney');   
+				t_unopay =  q_float('txtUnopay');       
+                t_total = t_money + t_tolls + t_plusmoney - t_minusmoney - t_unopay;
                 $('#txtTolls').val(t_tolls);
                 $('#txtMoney').val(t_money);
                 $('#txtTotal').val(t_total);
@@ -529,11 +533,12 @@
 						<td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewCarno'> </a></td>
 						<td align="center" style="width:140px; color:black;"><a id='vewDriver'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewMoney'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewTolls'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewPlusmoney'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewMinusmoney'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewTotal'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewMoney'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewTolls'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewPlusmoney'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewMinusmoney'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewTotal'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewUnopay'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
@@ -546,6 +551,7 @@
 						<td id="plusmoney,0,1" style="text-align: right;">~plusmoney,0,1</td>
 						<td id="minusmoney,0,1" style="text-align: right;">~minusmoney,0,1</td>
 						<td id="total,0,1" style="text-align: right;">~total,0,1</td>
+						<td id="unopay,0,1" style="text-align: right;">~unopay,0,1</td>
 					</tr>
 				</table>
 			</div>
@@ -572,8 +578,6 @@
 
 						<td><span> </span><a id="lblCarteam" class="lbl"> </a></td>
 						<td><select id="cmbCarteamno" class="txt c1">  </select></td>
-
-
 						<td class="td3" colspan="2"><span> </span><a id="lblDate3" class="lbl"> </a></td>
 						<td class="td5" colspan="3">
 						<input id="txtBdate" type="text"  class="txt c2"/>
@@ -588,7 +592,7 @@
 						<td>
 						<input type="button" id="btnCarchg" class="txt c1"/>
 						</td>
-						<td class="tdZ"></td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
@@ -603,7 +607,7 @@
 						<td class="td8"><span> </span><a id="lblDriver" class="lbl"> </a></td>
 						<td class="td9" colspan="2">
 						<input id="txtDriverno" type="text"  class="txt c2"/>
-						<input id="txtDriver" type="text"  class="txt c2"/>
+						<input id="txtDriver" type="text"  class="txt c3"/>
 						</td>
 					</tr>	
 					<tr>
@@ -637,7 +641,13 @@
 						<td><input id="txtTolls" type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
-						<td colspan="4"> </td>
+						<td><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
+						<td colspan="3">
+							<input id="txtTggno" type="text"  class="txt c2"/>
+							<input id="txtTggcomp" type="text"  class="txt c3"/>
+						</td>
+						<td><span> </span><a id="lblUnopay" class="lbl"> </a></td>
+						<td><input id="txtUnopay" type="text" class="txt c1 num" /></td>
 						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
 						<td><input id="txtTotal" type="text" class="txt c1 num" /></td>
 						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>

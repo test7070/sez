@@ -26,6 +26,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             q_desc = 1;
+            brwCount2 = 10;
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(['txtOilstationno', 'lblOilstation', 'oilstation', 'noa,station', 'txtOilstationno,txtOilstation', 'oilstation_b.aspx']);
             $(document).ready(function() {
@@ -127,7 +128,7 @@
             }
 
             function btnPrint() {
-				q_box('z_oil.aspx'+ "?;;;;"+r_accy,  '', "90%", "600px", q_getMsg("popPrint"));
+				q_box('z_oil.aspx'+ "?;;;;"+r_accy,  '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function btnOk() {
@@ -235,27 +236,29 @@
             }
             .dview {
                 float: left;
-                width: 98%;
+                width: 500px; 
+                border-width: 0px; 
             }
             .tview {
-                margin: 0;
-                padding: 2px;
-                border: 1px black double;
-                border-spacing: 0;
+                border: 5px solid gray;
                 font-size: medium;
-                background-color: #FFFF66;
-                color: blue;
+                background-color: black;
+            }
+            .tview tr {
+                height: 30px;
             }
             .tview td {
                 padding: 2px;
                 text-align: center;
-                border: 1px black solid;
+                border-width: 0px;
+                background-color: #FFFF66;
+                color: blue;
             }
             .dbbm {
                 float: left;
-                width: 98%;
-                margin: -1px;
-                border: 1px black solid;
+                width: 450px;
+                /*margin: -1px;        
+                border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -291,33 +294,12 @@
             .tbbm tr td .lbl.btn {
                 color: #4297D7;
                 font-weight: bolder;
-                font-size: medium;
             }
             .tbbm tr td .lbl.btn:hover {
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 98%;
-                float: left;
-            }
-            .txt.c2 {
-                width: 38%;
-                float: left;
-            }
-            .txt.c3 {
-                width: 60%;
-                float: left;
-            }
-            .txt.c4 {
-                width: 18%;
-                float: left;
-            }
-            .txt.c5 {
-                width: 80%;
-                float: left;
-            }
-            .txt.c6 {
-                width: 50%;
+                width: 100%;
                 float: left;
             }
             .txt.num {
@@ -337,97 +319,96 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+            }
+            .tbbs input[type="text"] {
+                width: 98%;
+            }
+            .tbbs a {
                 font-size: medium;
             }
-            .tbbm textarea {
-                font-size: medium;
+            .num {
+                text-align: right;
             }
-
+            .bbs {
+                float: left;
+            }
             input[type="text"], input[type="button"] {
+                font-size: medium;
+            }
+            select {
                 font-size: medium;
             }
 		</style>
 	</head>
-	<body>
+	<body ondragstart="return false" draggable="false"
+	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
+	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
+	>
 		<!--#include file="../inc/toolbar.inc"-->
-		<div id='dmain' >
-			<div class="dview" id="dview" style="float: left;  width:35%;"  >
-				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
+		<div id='dmain'>
+			<div class="dview" id="dview">
+				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:15%"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:15%"><a id='vewOilstation'> </a></td>
-						<td align="center" style="width:15%"><a id='vewPrice'> </a></td>
-						<td align="center" style="width:15%"><a id='vewMount'> </a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewOilstation'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewPrice'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewMount'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewMoney'> </a></td>
 					</tr>
 					<tr>
-						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
-						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='oilstation'>~oilstation</td>
+						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
+						<td id='datea' style="text-align: center;">~datea</td>
+						<td id='oilstation' style="text-align: center;">~oilstation</td>
 						<td id='price' style="text-align: right;">~price</td>
-						<td id='mount' style="text-align: right;">~mount</td>
+						<td id='mount,0,1' style="text-align: right;">~mount,0,1</td>
+						<td id='money,0,1' style="text-align: right;">~money,0,1</td>
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 60%;float: left;">
-				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
-					<tr>
-						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtNoa"  type="text"  class="txt c1"/>
-						</td>
-						<td class="td3"> </td>
-						<td class="td4"> </td>
-						<td class="td5"> </td>
+			<div class='dbbm'>
+				<table class="tbbm"  id="tbbm">
+					<tr style="height:1px;">
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtDatea"  type="text"  class="txt c1"/>
-						</td>
-						<td class="td3"> </td>
+						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td><input id="txtNoa"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblOilstation' class="lbl btn"> </a></td>
-						<td class="td2">
-						<input id="txtOilstationno"  type="text"  class="txt c2"/>
-						<input id="txtOilstation"  type="text"  class="txt c3"/>
-						</td>
-						<td class="td3"> </td>
+						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td><input id="txtDatea"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblPrice' class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtPrice"  type="text"  class="txt num c1"/>
-						</td>
-						<td class="td3"> </td>
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id='lblMount' class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtMount"  type="text"  class="txt num c1"/>
-						</td>
-						<td class="td3"> </td>
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtMoney"  type="text"  class="txt num c1"/>
-						</td>
-						<td class="td3"> </td>
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td class="td2" colspan="4">
-						<input id="txtMemo"  type="text"  class="txt c1"/>
+						<td><span> </span><a id='lblOilstation' class="lbl btn"> </a></td>
+						<td>
+							<input id="txtOilstationno"  type="text"  class="txt" style="width:35%"/>
+							<input id="txtOilstation"  type="text"  class="txt" style="width:65%"/>
 						</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td class="td2">
-						<input id="txtWorker"  type="text"  class="txt c1"/>
-						</td>
-						<td class="td3"> </td>
+						<td><span> </span><a id='lblPrice' class="lbl"> </a></td>
+						<td><input id="txtPrice"  type="text"  class="txt num c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblMount' class="lbl"> </a></td>
+						<td><input id="txtMount"  type="text"  class="txt num c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
+						<td><input id="txtMoney"  type="text"  class="txt num c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
+						<td colspan="2"><input id="txtMemo"  type="text"  class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

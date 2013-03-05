@@ -360,6 +360,14 @@
 			                        bar[i].minmoney=x_minmoney;
 			                   	}
 	                        }
+	                        $('#barChart').barChart({
+								data : bar,
+							});
+							$('#txtCurPage').val(1).change(function(e) {
+	                            $(this).val(parseInt($(this).val()));
+	                        	$('#barChart').data('info').page($('#barChart'), $(this).val());
+	                        });
+	                        $('#txtTotPage').val(bar.length);
 						}
 						
 						if( txtreport=='z_anadc9' ||txtreport=='z_anadc10'){
@@ -408,16 +416,15 @@
 			                        }
 	                        	}
 	                        }
+	                        $('#barChart').barChart({
+								data : bar,
+							});
+							$('#txtCurPage').val(1).change(function(e) {
+	                            $(this).val(parseInt($(this).val()));
+	                        	$('#barChart').data('info').page($('#barChart'), $(this).val());
+	                        });
+	                        $('#txtTotPage').val(bar.length);
 						}
-						
-						$('#barChart').barChart({
-							data : bar,
-						});
-						$('#txtCurPage').val(1).change(function(e) {
-                            $(this).val(parseInt($(this).val()));
-                        	$('#barChart').data('info').page($('#barChart'), $(this).val());
-                        });
-                        $('#txtTotPage').val(bar.length);
                         break;
                 }
             }
@@ -496,7 +503,11 @@
                                 var pointText = [x + radius + 35+xbranch, (i-ybranch) * 20 + 40];
                                 tmpPath += '<rect class="blockLogo" id="blockLogo_'+i+'" width="10" height="10" x="' + pointLogo[0] + '" y="' + pointLogo[1] + '" fill=' + fillColor + ' stroke=' + strokeColor + '/>';
                                 tmpPath += '<text class="blockText" id="blockText_'+i+'" x="' + pointText[0] + '" y="' + pointText[1] + '" fill="#000000">' + obj.data('info').value.data[i].text + '</text>';
-                                tmpPath += '<path class="block" id="block_'+i+'" d="M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + ' 0 1 ' + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z" fill=' + obj.data('info').value.data[i].currentFillColor + ' stroke=' + obj.data('info').value.data[i].currentStrokeColor + '/>';
+                                //tmpPath += '<path class="block" id="block_'+i+'" d="M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + ' 0 1 ' + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z" fill=' + obj.data('info').value.data[i].currentFillColor + ' stroke=' + obj.data('info').value.data[i].currentStrokeColor + '/>';
+                                if (degree != 360)
+                                    tmpPath += '<path class="block" id="block_' + i + '" d="M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + (degree > 180 ? ' 1 1 ' : ' 0 1 ') + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z" fill=' + obj.data('info').value.data[i].currentFillColor + ' stroke=' + obj.data('info').value.data[i].currentStrokeColor + '/>';
+                                else
+                                    tmpPath += '<circle class="block" id="block_' + i + '" cx="' + x + '" cy="' + y + '" r="' + radius + '" fill=' + obj.data('info').value.data[i].currentFillColor + ' stroke=' + obj.data('info').value.data[i].currentStrokeColor + '/>';
                             }
                             obj.append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
                             for ( i = 0; i < obj.data('info').value.data.length; i++) {
@@ -607,18 +618,9 @@
                          
                             var t_detail = obj.data('info').Data[obj.data('info').curIndex].detail;
                             var t_maxMoney = obj.data('info').Data[obj.data('info').curIndex].maxmoney;
-                            t_maxMoney=(dec(t_maxMoney.toString().substr(0,1))+1)*Math.pow(10,t_maxMoney.toString().length-1);
+                            //t_maxMoney=(dec(t_maxMoney.toString().substr(0,1))+1)*Math.pow(10,t_maxMoney.toString().length-1);
                             
                             var t_minMoney = obj.data('info').Data[obj.data('info').curIndex].minmoney;
-                            if(t_minMoney>0)
-                            	t_minMoney=(dec(t_minMoney.toString().substr(0,1))+1)*Math.pow(10,t_minMoney.toString().length-1);
-                            if(t_minMoney<0)
-                            	t_minMoney=(dec(t_minMoney.toString().substr(0,2))-1)*Math.pow(10,t_minMoney.toString().length-2);
-                            	
-                            var t_cmaxMoney = FormatNumber(t_maxMoney);
-                            t_cmaxMoney = (t_cmaxMoney).replace(/ /g,'&nbsp;');
-							var t_cminMoney = FormatNumber(t_minMoney);
-							t_cminMoney = (t_cminMoney).replace(/ /g,'&nbsp;');
 							var t_n = round((t_width - 20) / t_detail.length, 0);
                             var x, y, w, h, bx, by, t_output, t_money;
                             tmpPath += '<text x="' + (450) + '" y="' + (20) + '" fill="black">【' + obj.data('info').Data[obj.data('info').curIndex].custno + '】' + obj.data('info').Data[obj.data('info').curIndex].comp +(txtreport=='z_anadc6'||txtreport=='z_anadc9'?'─'+obj.data('info').Data[obj.data('info').curIndex].part:'')+ '</text>';
@@ -626,45 +628,39 @@
                             tmpPath += '<text x="' + (50 + t_width + 50) + '" y="' + (50 + t_height + 30) + '" fill="black">月份</text>';
                             
 							x = 50;
-							
-							var t_Y = 50 + t_height - round((0+Math.abs(t_minMoney)) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
-							
+                            var t_Y = 50 + t_height - round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_height, 0);
                             tmpPath += '<line x1="95" y1="' + t_Y + '" x2="100" y2="' + t_Y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-                           	tmpPath += '<text x="' + x + '" y="' + t_Y + '" fill="black" style="font-family: \'Times New Roman\';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</text>';
-                           	//X軸
+                            tmpPath += '<text text-anchor="end" x="90" y="' + t_Y + '" fill="black">0</text>';
+                            //X軸
                             tmpPath += '<line x1="100" y1="' + (t_Y) + '" x2="' + (100 + t_width) + '" y2="' + (t_Y) + '" style="stroke:rgb(0,0,0);stroke-width:1"/>';
-                            
+
                             //Y
-                            tmpPath += '<text x="30" y="' + (50) + '" fill="black" style="font-family: \'Times New Roman\';">' + t_cmaxMoney + '</text>';
+                            tmpPath += '<text text-anchor="end" x="90" y="' + (50) + '" fill="black">' + FormatNumber(t_maxMoney) + '</text>';
                             tmpPath += '<line x1="95" y1="50" x2="100" y2="50" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-                            tmpPath += '<text x="30" y="' + (50+t_height) + '" fill="black" style="font-family: \'Times New Roman\';">' + t_cminMoney + '</text>';
-                            tmpPath += '<line x1="95" y1="' + (50+t_height) + '" x2="100" y2="' + (50+t_height) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                            tmpPath += '<text text-anchor="end" x="90" y="' + (50 + t_height) + '" fill="black">' + FormatNumber(t_minMoney) + '</text>';
+                            tmpPath += '<line x1="95" y1="' + (50 + t_height) + '" x2="100" y2="' + (50 + t_height) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
                             
-                            var x_money=round(((t_maxMoney+Math.abs(t_minMoney))/10),0);
-                            x_money=dec(x_money.toString().substr(0,1))*Math.pow(10,(x_money).toString().length-1);
-                            
-                           	if(x_money==0)
-                           		x_money=500;
-                            
-                            t_money = x_money;
+                            var t_range = round((t_maxMoney - t_minMoney)/5,0);
+                            var i = Math.pow(10,(t_range+'').length-1);
+                            var t_range = Math.floor(t_range/i)*i;
+                            t_money = t_range;
                             while (t_money < t_maxMoney) {
-                            	t_cmoney = FormatNumber(t_money);
-                            	t_cmoney = (t_cmoney).replace(/ /g,'&nbsp;');
-                                x = 30;
-                                y = t_Y - round(t_money/ (t_maxMoney+Math.abs(t_minMoney))* t_height, 0);
-                                tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-                                tmpPath += '<text x="' + x + '" y="' + y + '" fill="black" style="font-family: \'Times New Roman\';">' + t_cmoney + '</text>';
-                                t_money += x_money;
+                            	if((t_maxMoney-t_money)/(t_maxMoney - t_minMoney)>0.05){
+	                                y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
+	                                tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+	                                tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money)+ '</text>';
+                            	}
+                            	t_money += t_range;
                             }
-                            t_money = -x_money;
+                            t_money = -t_range;
                             while (t_money > t_minMoney) {
-                            	t_cmoney = FormatNumber(t_money);
-                            	t_cmoney = (t_cmoney).replace(/ /g,'&nbsp;');
-                                x = 30;
-                                y = t_Y - round(t_money/ (t_maxMoney+Math.abs(t_minMoney))* t_height, 0);
-                                tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-                                tmpPath += '<text x="' + x + '" y="' + y + '" fill="black" style="font-family: \'Times New Roman\';">' + t_cmoney + '</text>';
-                                t_money -= x_money;
+                            	if(Math.abs(t_minMoney-t_money)/(t_maxMoney - t_minMoney)>0.05){
+	                                x = 90;
+	                                y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
+	                                tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+	                                tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money) + '</text>';
+                               	}
+                               	t_money -= t_range;
                             }
 							
 							if(txtreport=='z_anadc6'||txtreport=='z_anadc8'){

@@ -34,6 +34,7 @@
           
             q_brwCount();   
             q_gt(q_name, q_content, q_sqlCount, 1)
+            size_change();
 
         });
 
@@ -512,7 +513,7 @@
                 <td align="center" class="td1"><a id='lblUno_s'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblProductno_s'> </a></td>
                 <td align="center" class="td1"><a id='lblSpec_s'> </a></td>
-                <td align="center" style="width:28%;"><a id='lblSize_s'> </a></td>
+                <td align="center" style="width:28%;"><a id='lblSize_help'> </a></td>
                 <td align="center" class="td1"><a id='lblMount_s'> </a></td>
                 <td align="center" class="td2"><a id='lblWeight_s'> </a></td>
                 <td align="center" class="td2"><a id='lblPrice_s'> </a></td>
