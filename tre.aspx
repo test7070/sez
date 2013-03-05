@@ -24,7 +24,7 @@
             var q_name = "tre";
             var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal','txtTolls','txtWorker','txtRc2ano','txtPaydate','txtPlusmoney','txtMinusmoney'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
-            var bbmNum = [['txtMoney', 10, 0],['txtTolls', 10, 0],['txtTotal', 10, 0],['txtPlusmoney', 10, 0],['txtMinusmoney', 10, 0]];
+            var bbmNum = [['txtUnopay', 10, 0],['txtMoney', 10, 0],['txtTolls', 10, 0],['txtTotal', 10, 0],['txtPlusmoney', 10, 0],['txtMinusmoney', 10, 0]];
             var bbsNum = [['txtMount', 10, 3],['txtPrice', 10, 3],['txtDiscount', 10, 3],['txtMoney', 10, 0],['txtTolls', 10, 0]];
             var bbmMask = [];
             var bbsMask = [];
@@ -83,6 +83,9 @@
 					sum();
 				});
 				$('#txtMinusmoney').change(function(e) {
+					sum();
+				});
+				$('#txtUnopay').change(function(e) {
 					sum();
 				});
                 $('#btnTrans').click(function(e) {
@@ -276,8 +279,9 @@
                 	t_tolls += q_float('txtTolls_'+i);
                 }
                 t_plusmoney = q_float('txtPlusmoney');
-				t_minusmoney = q_float('txtMinusmoney');            
-                t_total = t_money + t_tolls + t_plusmoney - t_minusmoney;
+				t_minusmoney = q_float('txtMinusmoney');   
+				t_unopay =  q_float('txtUnopay');       
+                t_total = t_money + t_tolls + t_plusmoney - t_minusmoney - t_unopay;
                 $('#txtTolls').val(t_tolls);
                 $('#txtMoney').val(t_money);
                 $('#txtTotal').val(t_total);
@@ -529,11 +533,12 @@
 						<td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewCarno'> </a></td>
 						<td align="center" style="width:140px; color:black;"><a id='vewDriver'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewMoney'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewTolls'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewPlusmoney'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewMinusmoney'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewTotal'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewMoney'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewTolls'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewPlusmoney'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewMinusmoney'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewTotal'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewUnopay'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
@@ -546,6 +551,7 @@
 						<td id="plusmoney,0,1" style="text-align: right;">~plusmoney,0,1</td>
 						<td id="minusmoney,0,1" style="text-align: right;">~minusmoney,0,1</td>
 						<td id="total,0,1" style="text-align: right;">~total,0,1</td>
+						<td id="unopay,0,1" style="text-align: right;">~unopay,0,1</td>
 					</tr>
 				</table>
 			</div>
@@ -637,7 +643,9 @@
 						<td><input id="txtTolls" type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
-						<td colspan="4"> </td>
+						<td colspan="2"> </td>
+						<td><span> </span><a id="lblUnopay" class="lbl"> </a></td>
+						<td><input id="txtUnopay" type="text" class="txt c1 num" /></td>
 						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
 						<td><input id="txtTotal" type="text" class="txt c1 num" /></td>
 						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
