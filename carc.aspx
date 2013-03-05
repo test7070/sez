@@ -52,6 +52,8 @@
             bbmMask = [['txtDatea', r_picd],['txtPaydate', r_picd],['txtMon', r_picm],['txtAcdate',r_picd]];
             q_mask(bbmMask);
             bbsMask = [['txtCaradate', r_picd]];
+            
+            q_gt('sss', "where=^^ partno='07'^^" , 0, 0, 0, "", r_accy);	
 
             $('#btnImport').click(function () {
             		if(emp($('#txtMon').val()))
@@ -89,7 +91,20 @@
 		            }
 		            
 		            var sssno_count=0;
-		            if($('#chkSssno1')[0].checked==true){
+		            
+		            for(var i=0;i<ssscount;i++){
+		            	if($('#chkSssno'+i)[0].checked==true){
+		            		if(sssno_count==0)
+			            		t_where+="and (b.sssno='"+$('#chkSssno'+i).val()+"' "
+			            	else
+			            		t_where+="or b.sssno='"+$('#chkSssno'+i).val()+"' "
+			            	sssno_count++;
+		            	}
+		            }
+		            if(sssno_count>0)
+		            	t_where+=") ";
+		            
+		            /*if($('#chkSssno1')[0].checked==true){
 		            	t_where+="and (b.sssno='"+q_getMsg('lblSssno1')+"' "
 		            	sssno_count++;
 		            }
@@ -106,9 +121,8 @@
 		            	else
 		            		t_where+="or b.sssno='"+q_getMsg('lblSssno3')+"' "
 		            	sssno_count++;
-		            }
-		            if(sssno_count>0)
-		            	t_where+=") ";
+		            }*/
+		            
 		            
 		            
 		            t_where+=" ^^";
@@ -148,9 +162,20 @@
             b_pop = '';
         }
 
-
+		var sssno='';
+		var ssscount=0;
         function q_gtPost(t_name) {  
             switch (t_name) {
+            	case 'sss':
+            		var as = _q_appendData("sss", "", true);
+            		ssscount=as.length;
+            		for (var i = 0; i < as.length; i++) {
+            			sssno+="<input id='chkSssno"+i+"' type='checkbox' style='float: left;' value='"+as[i].noa+"'/><a class='lbl' style='float: left;'>"+as[i].noa+"</a>"
+            			//sssno+=as[i].noa+';';
+            		}
+            		$('#xsssno').append(sssno);
+            	break;
+            	
             	case 'carc_caras':
             	var caras = _q_appendData("caras", "", true);
             	for (var i = 0; i < caras.length; i++) {
@@ -645,10 +670,10 @@
             	<input id="txtCarno" type="text" class="txt c1"/>
             </td>
             <td class='td3' ><input id="btnImport" type="button" style="float: left;"/></td>
-            <td class='td4' colspan='2'>
-            	<input id="chkSssno1" type="checkbox" style="float: left;"/><a id="lblSssno1" class="lbl" style="float: left;"></a>
+            <td class='td4' colspan='2' id="xsssno">
+            	<!--<input id="chkSssno1" type="checkbox" style="float: left;"/><a id="lblSssno1" class="lbl" style="float: left;"></a>
             	<input id="chkSssno2" type="checkbox" style="float: left;"/><a id="lblSssno2" class="lbl" style="float: left;"></a>
-            	<input id="chkSssno3" type="checkbox" style="float: left;"/><a id="lblSssno3" class="lbl" style="float: left;"></a>
+            	<input id="chkSssno3" type="checkbox" style="float: left;"/><a id="lblSssno3" class="lbl" style="float: left;"></a>-->
             </td>
        </tr>
        <tr class="tr6">           
