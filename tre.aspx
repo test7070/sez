@@ -21,7 +21,7 @@
 			isEditTotal = false;
             q_tables = 's';
             var q_name = "tre";
-            var q_readonly = ['txtNoa', 'txtMoney', 'txtTotal','txtTolls','txtWorker','txtRc2ano','txtPaydate','txtPlusmoney','txtMinusmoney'];
+            var q_readonly = ['txtAccno','txtNoa', 'txtMoney', 'txtTotal','txtTolls','txtWorker','txtRc2ano','txtPaydate','txtPlusmoney','txtMinusmoney'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
             var bbmNum = [['txtUnopay', 10, 0],['txtMoney', 10, 0],['txtTolls', 10, 0],['txtTotal', 10, 0],['txtPlusmoney', 10, 0],['txtMinusmoney', 10, 0]];
             var bbsNum = [['txtMount', 10, 3],['txtPrice', 10, 3],['txtDiscount', 10, 3],['txtMoney', 10, 0],['txtTolls', 10, 0]];
@@ -35,6 +35,7 @@
             q_desc = 1;
             aPop = new Array(
             	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver','txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
+            	['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTggcomp', 'tgg_b.aspx'],
             	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
             	['txtBdriverno', '', 'driver', 'noa,namea', 'txtBdriverno', 'driver_b.aspx'],
           	  ['txtEdriverno', '', 'driver', 'noa,namea', 'txtEdriverno', 'driver_b.aspx']);
@@ -577,8 +578,6 @@
 
 						<td><span> </span><a id="lblCarteam" class="lbl"> </a></td>
 						<td><select id="cmbCarteamno" class="txt c1">  </select></td>
-
-
 						<td class="td3" colspan="2"><span> </span><a id="lblDate3" class="lbl"> </a></td>
 						<td class="td5" colspan="3">
 						<input id="txtBdate" type="text"  class="txt c2"/>
@@ -593,7 +592,7 @@
 						<td>
 						<input type="button" id="btnCarchg" class="txt c1"/>
 						</td>
-						<td class="tdZ"></td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
@@ -608,7 +607,7 @@
 						<td class="td8"><span> </span><a id="lblDriver" class="lbl"> </a></td>
 						<td class="td9" colspan="2">
 						<input id="txtDriverno" type="text"  class="txt c2"/>
-						<input id="txtDriver" type="text"  class="txt c2"/>
+						<input id="txtDriver" type="text"  class="txt c3"/>
 						</td>
 					</tr>	
 					<tr>
@@ -642,7 +641,11 @@
 						<td><input id="txtTolls" type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
-						<td colspan="2"> </td>
+						<td><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
+						<td colspan="3">
+							<input id="txtTggno" type="text"  class="txt c2"/>
+							<input id="txtTggcomp" type="text"  class="txt c3"/>
+						</td>
 						<td><span> </span><a id="lblUnopay" class="lbl"> </a></td>
 						<td><input id="txtUnopay" type="text" class="txt c1 num" /></td>
 						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
