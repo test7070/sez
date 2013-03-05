@@ -295,12 +295,12 @@
                         if (q_cur == 2)
                         {
                         	var as = _q_appendData("car2", "", true);
-	                    	if(as[0]==undefined)
+	                    	if(as[0]==undefined){
 	                    		if(!emp($('#txtChangecarno').val())){
 	                				q_func( 'changecarno.change', $('#txtNoa').val()+','+$('#txtChangecarno').val());
                 					//q_func( 'cara.carnoChange', 't_old,t_new');
 								}
-	                    	else{
+	                    	}else{
 	                    		alert('車牌重覆!!');
 	                    	}
                         }
