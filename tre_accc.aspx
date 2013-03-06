@@ -103,6 +103,12 @@
 		            if (s1.length == 4)
 		                $(this).val(s1 + '.');
 		        });
+		        $('#lblChkbno').click(function(e){
+		        	if($('#txtChkbno').val().length>0 && $('#txtChkeno').val().length>0)
+                    	q_pop('', "gqb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";(gqbno between '" + $('#txtChkbno').val() + "' and '" + $('#txtChkeno').val() + "');" + r_accy + '_' + r_cno, 'gqb', 'gqbno', 'gqbno', "95%", "95%", q_getMsg('popGqb'), true);
+                	else
+                		alert('無'+q_getMsg('lblChkbno')+'。');
+		        });
 		    }
 
 
@@ -557,7 +563,7 @@
 						<td class="td7"> </td>
 					</tr>
 					<tr class="tr6">
-						<td class="td1"><span> </span><a id='lblChkbno' class="lbl">  </a></td>
+						<td class="td1"><span> </span><a id='lblChkbno' class="lbl btn">  </a></td>
 						<td class="td2"><input id="txtChkbno" type="text"  class="txt c1"/></td>
 						<td align="center"><a id="lblChkeno"  style="font-weight: bold;font-size: 24px;"> </a></td>
 						<td class="td4"><input id="txtChkeno" type="text"  class="txt c1"/> </td>
