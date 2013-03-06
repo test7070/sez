@@ -125,14 +125,12 @@
                 $('#txtAccno').val(s2[0]);
                 $('#txtVccno').val(s2[1]);
                 $('#txtPaybno').val(s2[2]);
-               
-
             }
+            
             function btnOk() {
             	if($.trim($('#txtNick').val()).length==0)
             		$('#txtNick').val($('#txtComp').val());
  
-
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
@@ -141,7 +139,6 @@
                 sum();
                 $('#txtWorker').val(r_name);
                 
-               
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
@@ -209,38 +206,32 @@
             }
 
             function bbsSave(as) {
-                if (parseFloat(as['Product'])==0) {
+                if (!as['product']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
                 q_nowf();
-                as['noa'] = abbm2['noa'];
-              if (t_err) {
-                    alert(t_err)
-                    return false;
-                }
+                
                 return true;
             }
 
             function sum() {
             	var t1 = 0,t_money = 0,t_cost=0;
-            for (var j = 0; j < q_bbsCount; j++) {
-				t_money+=dec($('#txtMoney_'+j).val());
-				t_cost+=dec($('#txtCost_'+j).val());
-            }  // j
-			q_tr('txtMoney',t_money);
-			q_tr('txtCost',t_cost);
-			
-            	if(!(q_cur==1 || q_cur==2))
-					return;
-					
+            	for (var j = 0; j < q_bbsCount; j++) {
+					t_money+=dec($('#txtMoney_'+j).val());
+					t_cost+=dec($('#txtCost_'+j).val());
+            	}  // j
+				q_tr('txtMoney',t_money);
+				q_tr('txtCost',t_cost);
             }
+            
             function refresh(recno) {
                 _refresh(recno);
             }
+            
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                 if (q_cur != 1 && q_cur != 2) {
+				if (q_cur != 1 && q_cur != 2) {
                   $('#btnInput').attr('disabled', 'disabled');
                 } else {
                     $('#btnInput').removeAttr('disabled');
