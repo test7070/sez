@@ -76,9 +76,8 @@
 				$('#q_report').q_report({
 					fileName : 'z_anadc',
 					options : [ {
-                            type : '0',
-                            name : 'accy',
-                            value : q_getId()[4]
+                            type : '6',
+                            name : 'accy'
                         },{/*1*/
 	                        type : '1',
 	                        name : 'date'
@@ -127,6 +126,7 @@
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
 	                $('#txtXmon').val(t_year+'/'+t_month);
+	                $('#txtAccy').val(t_year);
 	                $('#txtXyear1').val((dec(t_year)-1)>99?(dec(t_year)-1):'0'+(dec(t_year)-1));
 	                $('#txtXyear2').val(t_year);
 	                
