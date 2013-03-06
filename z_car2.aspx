@@ -27,13 +27,21 @@
             });
             function q_gfPost() {
                  q_gt('carteam', '', 0, 1, 0, "");
+                 q_gt('sss', "where=^^ partno='07'^^" , 0, 0, 0, "", r_accy);
             }
 
             function q_boxClose(t_name) {
             }
-
+			var sssno='';
             function q_gtPost(t_name) {
             	  switch (t_name) {
+            	  	case 'sss':
+            			var as = _q_appendData("sss", "", true);
+            			for (var i = 0; i < as.length; i++) {
+            				sssno+=as[i].noa+'.';
+            			}
+            			sssno=sssno.substr(0,sssno.length-1);
+            		break;
                     case 'carteam':
                         var as = _q_appendData("carteam", "", true);
                         for( i = 0; i < as.length; i++) {
@@ -41,7 +49,7 @@
                         }    
                         break;
                   }
-                     if(t_item.length>0 ){
+                     if(t_item.length>0 &&sssno.length>0){
 	                $('#q_report').q_report({
 	                    fileName : 'z_car2',
                         options : [{
@@ -109,7 +117,7 @@
 	                    }, {
 	                        type : '8', //select
 	                        name : 'sssno',
-	                        value : ('070120,070121,070122').split(',')
+	                        value : (sssno).split('.')
 	                    }, {
 	                        type : '6',
 	                        name : 'xcarnos'
