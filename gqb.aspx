@@ -452,7 +452,7 @@
 							<input id="txtComp"  type="text" class="txt" style="width:70%;"/>
 						</td>
 					</tr>
-					<tr>
+					<tr> 
 						<td colspan="5"><a id="lblGqbs" style="color: #104E8B ;font-weight:bolder;font-size: 18px; text-align: left;"></a></td>
 					</tr>
 					<tr>
