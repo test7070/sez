@@ -607,28 +607,19 @@
                         refresh : function(obj) {
                         	obj.width(450).height(450);
                             obj.html('');
-                            var tmpPath = '', shiftX, shiftY, degree, fillColor, strokeColor, t_text;
+                            var tmpPath = '', degree, fillColor, strokeColor, t_text;
                             var x = obj.data('info').value.x;
                             var y = obj.data('info').value.y;
                             var radius = obj.data('info').value.radius;
                             for ( i = 0; i < obj.data('info').value.data.length; i++) {
-                                if (i == obj.data('info').focusIndex) {
-                                    shiftX = Math.round(10 * Math.cos(obj.data('info').value.data[i].bDegree + obj.data('info').value.data[i].degree / 2), 0);
-                                    shiftY = Math.round(10 * Math.sin(obj.data('info').value.data[i].bDegree + obj.data('info').value.data[i].degree / 2), 0);
-                                    fillColor = '"' + obj.data('info').focusfillColor + '"';
-                                    strokeColor = '"' + obj.data('info').value.data[i].strokeColor + '"';
-                                } else {
-                                    shiftX = 0;
-                                    shiftY = 0;
-                                    fillColor = '"' + obj.data('info').value.data[i].fillColor + '"';
-                                    strokeColor = '"' + obj.data('info').value.data[i].strokeColor + '"';
-                                }
+                                fillColor = '"' + obj.data('info').value.data[i].fillColor + '"';
+                                strokeColor = '"' + obj.data('info').value.data[i].strokeColor + '"';
                                 degree = Math.round(obj.data('info').value.data[i].degree * 360 / (2 * Math.PI), 0);
                                 obj.data('info').value.data[i].currentFillColor = fillColor;
                                 obj.data('info').value.data[i].currentStrokeColor = strokeColor;
-                                obj.data('info').value.data[i].point1 = [x + shiftX, y + shiftY];
-                                obj.data('info').value.data[i].point2 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].bDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].bDegree), 0)];
-                                obj.data('info').value.data[i].point3 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].eDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].eDegree), 0)];
+                                obj.data('info').value.data[i].point1 = [x, y];
+                                obj.data('info').value.data[i].point2 = [x + Math.round(radius * Math.cos(obj.data('info').value.data[i].bDegree), 0), y + Math.round(radius * Math.sin(obj.data('info').value.data[i].bDegree), 0)];
+                                obj.data('info').value.data[i].point3 = [x + Math.round(radius * Math.cos(obj.data('info').value.data[i].eDegree), 0), y + Math.round(radius * Math.sin(obj.data('info').value.data[i].eDegree), 0)];
                                 var pointLogo = [x + radius + 20, i * 20 + 30];
                                 var pointText = [x + radius + 35, i * 20 + 40];
                                 tmpPath += '<rect class="blockLogo" id="blockLogo_' + i + '" width="10" height="10" x="' + pointLogo[0] + '" y="' + pointLogo[1] + '" fill=' + fillColor + ' stroke=' + strokeColor + '/>';
@@ -658,10 +649,38 @@
                                 var obj = $(this).parent().parent();
                                 $('#block_' + $(this).data('info').index).attr('fill', obj.data('info').focusfillColor);
                                 $('#blockLogo_' + $(this).data('info').index).attr('fill', obj.data('info').focusfillColor);
+  								
+  								var i = $(this).data('info').index;
+                                var x = obj.data('info').value.x;
+                            	var y = obj.data('info').value.y;
+                            	var radius = obj.data('info').value.radius;
+                                degree = Math.round(obj.data('info').value.data[i].degree * 360 / (2 * Math.PI), 0);
+                                shiftX = Math.round(10 * Math.cos(obj.data('info').value.data[i].bDegree + obj.data('info').value.data[i].degree / 2), 0);
+                                shiftY = Math.round(10 * Math.sin(obj.data('info').value.data[i].bDegree + obj.data('info').value.data[i].degree / 2), 0);
+                                obj.data('info').value.data[i].point1 = [x + shiftX, y + shiftY];
+                                obj.data('info').value.data[i].point2 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].bDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].bDegree), 0)];
+                                obj.data('info').value.data[i].point3 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].eDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].eDegree), 0)];							
+                            	if (degree != 360){
+                            		$('#block_'+i).attr('d','M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + (degree > 180 ? ' 1 1 ' : ' 0 1 ') + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z');    
+                            	}  
                             }, function(e) {
                                 var obj = $(this).parent().parent();
                                 $('#block_' + $(this).data('info').index).attr('fill', obj.data('info').fillColor[$(this).data('info').index]);
                                 $('#blockLogo_' + $(this).data('info').index).attr('fill', obj.data('info').fillColor[$(this).data('info').index]);
+                            
+                            	var i = $(this).data('info').index;
+                                var x = obj.data('info').value.x;
+                            	var y = obj.data('info').value.y;
+                            	var radius = obj.data('info').value.radius;
+                                degree = Math.round(obj.data('info').value.data[i].degree * 360 / (2 * Math.PI), 0);
+                                shiftX = 0;
+                                shiftY = 0;
+                                obj.data('info').value.data[i].point1 = [x + shiftX, y + shiftY];
+                                obj.data('info').value.data[i].point2 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].bDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].bDegree), 0)];
+                                obj.data('info').value.data[i].point3 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].eDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].eDegree), 0)];							
+                            	if (degree != 360){
+                            		$('#block_'+i).attr('d','M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + (degree > 180 ? ' 1 1 ' : ' 0 1 ') + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z');
+                           		}
                             }).click(function(e) {
                                 var obj = $(this).parent().parent();
                                 //alert(obj.data('info').value.data[$(this).data('info').index].text);
@@ -1117,28 +1136,20 @@
                         refresh : function(obj) {
                         	obj.width(600).height(450);
                             obj.html('');
-                            var tmpPath = '', shiftX, shiftY, degree, fillColor, strokeColor, t_text;
+                            var tmpPath = '', degree, fillColor, strokeColor, t_text;
                             var x = obj.data('info').value.x;
                             var y = obj.data('info').value.y;
                             var radius = obj.data('info').value.radius;
                             for ( i = 0; i < obj.data('info').value.data.length; i++) {
-                                if (i == obj.data('info').focusIndex) {
-                                    shiftX = Math.round(10 * Math.cos(obj.data('info').value.data[i].bDegree + obj.data('info').value.data[i].degree / 2), 0);
-                                    shiftY = Math.round(10 * Math.sin(obj.data('info').value.data[i].bDegree + obj.data('info').value.data[i].degree / 2), 0);
-                                    fillColor = '"' + obj.data('info').focusfillColor + '"';
-                                    strokeColor = '"' + obj.data('info').value.data[i].strokeColor + '"';
-                                } else {
-                                    shiftX = 0;
-                                    shiftY = 0;
-                                    fillColor = '"' + obj.data('info').value.data[i].fillColor + '"';
-                                    strokeColor = '"' + obj.data('info').value.data[i].strokeColor + '"';
-                                }
+                                fillColor = '"' + obj.data('info').value.data[i].fillColor + '"';
+                                strokeColor = '"' + obj.data('info').value.data[i].strokeColor + '"';
+                                
                                 degree = Math.round(obj.data('info').value.data[i].degree * 360 / (2 * Math.PI), 0);
                                 obj.data('info').value.data[i].currentFillColor = fillColor;
                                 obj.data('info').value.data[i].currentStrokeColor = strokeColor;
-                                obj.data('info').value.data[i].point1 = [x + shiftX, y + shiftY];
-                                obj.data('info').value.data[i].point2 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].bDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].bDegree), 0)];
-                                obj.data('info').value.data[i].point3 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].eDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].eDegree), 0)];
+                                obj.data('info').value.data[i].point1 = [x, y];
+                                obj.data('info').value.data[i].point2 = [x + Math.round(radius * Math.cos(obj.data('info').value.data[i].bDegree), 0), y + Math.round(radius * Math.sin(obj.data('info').value.data[i].bDegree), 0)];
+                                obj.data('info').value.data[i].point3 = [x + Math.round(radius * Math.cos(obj.data('info').value.data[i].eDegree), 0), y + Math.round(radius * Math.sin(obj.data('info').value.data[i].eDegree), 0)];
                                 var pointLogo = [x + radius + 20, i * 20 + 30];
                                 var pointText = [x + radius + 35, i * 20 + 40];
                                 tmpPath += '<rect class="blockLogo" id="blockLogo_' + i + '" width="10" height="10" x="' + pointLogo[0] + '" y="' + pointLogo[1] + '" fill=' + fillColor + ' stroke=' + strokeColor + '/>';
@@ -1174,10 +1185,38 @@
                                 var obj = $(this).parent().parent();
                                 $('#block_' + $(this).data('info').index).attr('fill', obj.data('info').focusfillColor);
                                 $('#blockLogo_' + $(this).data('info').index).attr('fill', obj.data('info').focusfillColor);
+  								
+  								var i = $(this).data('info').index;
+                                var x = obj.data('info').value.x;
+                            	var y = obj.data('info').value.y;
+                            	var radius = obj.data('info').value.radius;
+                                degree = Math.round(obj.data('info').value.data[i].degree * 360 / (2 * Math.PI), 0);
+                                shiftX = Math.round(10 * Math.cos(obj.data('info').value.data[i].bDegree + obj.data('info').value.data[i].degree / 2), 0);
+                                shiftY = Math.round(10 * Math.sin(obj.data('info').value.data[i].bDegree + obj.data('info').value.data[i].degree / 2), 0);
+                                obj.data('info').value.data[i].point1 = [x + shiftX, y + shiftY];
+                                obj.data('info').value.data[i].point2 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].bDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].bDegree), 0)];
+                                obj.data('info').value.data[i].point3 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].eDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].eDegree), 0)];							
+                            	if (degree != 360){
+                            		$('#block_'+i).attr('d','M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + (degree > 180 ? ' 1 1 ' : ' 0 1 ') + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z');    
+                            	}  
                             }, function(e) {
                                 var obj = $(this).parent().parent();
                                 $('#block_' + $(this).data('info').index).attr('fill', obj.data('info').fillColor[$(this).data('info').index]);
                                 $('#blockLogo_' + $(this).data('info').index).attr('fill', obj.data('info').fillColor[$(this).data('info').index]);
+                            
+                            	var i = $(this).data('info').index;
+                                var x = obj.data('info').value.x;
+                            	var y = obj.data('info').value.y;
+                            	var radius = obj.data('info').value.radius;
+                                degree = Math.round(obj.data('info').value.data[i].degree * 360 / (2 * Math.PI), 0);
+                                shiftX = 0;
+                                shiftY = 0;
+                                obj.data('info').value.data[i].point1 = [x + shiftX, y + shiftY];
+                                obj.data('info').value.data[i].point2 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].bDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].bDegree), 0)];
+                                obj.data('info').value.data[i].point3 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].eDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].eDegree), 0)];							
+                            	if (degree != 360){
+                            		$('#block_'+i).attr('d','M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + (degree > 180 ? ' 1 1 ' : ' 0 1 ') + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z');
+                           		}
                             }).click(function(e) {
                                 var obj = $(this).parent().parent();
                                 //alert(obj.data('info').value.data[$(this).data('info').index].text);
