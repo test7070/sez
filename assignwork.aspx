@@ -125,6 +125,7 @@
                 $('#txtAccno').val(s2[0]);
                 $('#txtVccno').val(s2[1]);
                 $('#txtPaybno').val(s2[2]);
+               
 
             }
             function btnOk() {
@@ -154,6 +155,7 @@
                     return;
                 q_box('assignwork_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
             }
+           
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
@@ -189,6 +191,7 @@
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
             }
+             
             function bbsAssign() {
                 for(var i = 0; i < q_bbsCount; i++) {
                 
@@ -237,7 +240,14 @@
             }
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                 if (q_cur != 1 && q_cur != 2) {
+                  $('#btnInput').attr('disabled', 'disabled');
+                } else {
+                    $('#btnInput').removeAttr('disabled');
+                }
             }
+                
+            
             function btnMinus(id) {
                 _btnMinus(id);
                 sum();
