@@ -67,6 +67,8 @@
                 $('#textDiscount').mask('999');
                 q_cmbParse("cmbIsource", q_getPara('cara.isource'));
                 
+                q_gt('sss', "where=^^ partno='07'^^" , 0, 0, 0, "", r_accy);	
+                
                 $('#btnImport').click(function () {
                 	if(emp($('#txtCarno').val())){
                 		alert('車牌號碼請先輸入!!');
@@ -106,7 +108,7 @@
 						$('#textDiscount').val(100);
 						$('#textBcarno').val($('#txtCarno').val());
 						$('#textEcarno').val($('#txtCarno').val());
-						$('#textSssno').val('070120.070121.070122');
+						$('#textSssno').val(sssno);
 						if(r_userno.substr(0,2)!='07')
 							q_msg( $(this), '要結轉前請先詢問監理部相關人員!!');
 					} else{
@@ -189,9 +191,17 @@
                 }/// end Switch
                 b_pop = '';
             }
-
+			
+			var sssno='';
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'sss':
+            			var as = _q_appendData("sss", "", true);
+            			for (var i = 0; i < as.length; i++) {
+            				sssno+=as[i].noa+'.';
+            			}
+            			sssno=sssno.substr(0,sssno.length-1);
+            		break;
                 	case 'car2':
                 		if(dateimport){
                 			var as = _q_appendData("car2", "", true);

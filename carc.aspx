@@ -92,7 +92,7 @@
 		            
 		            var sssno_count=0;
 		            
-		            for(var i=0;i<ssscount;i++){
+		            for(var i=0;i<sssnumber;i++){
 		            	if($('#chkSssno'+i)[0].checked==true){
 		            		if(sssno_count==0)
 			            		t_where+="and (b.sssno='"+$('#chkSssno'+i).val()+"' "
@@ -122,9 +122,7 @@
 		            		t_where+="or b.sssno='"+q_getMsg('lblSssno3')+"' "
 		            	sssno_count++;
 		            }*/
-		            
-		            
-		            
+		           
 		            t_where+=" ^^";
 			        q_gt('carc_caras', t_where , 0, 0, 0, "", r_accy);			   
 			 });
@@ -163,14 +161,14 @@
         }
 
 		var sssno='';
-		var ssscount=0;
+		var sssnumber=0;
         function q_gtPost(t_name) {  
             switch (t_name) {
             	case 'sss':
             		var as = _q_appendData("sss", "", true);
-            		ssscount=as.length;
+            		sssnumber=as.length;
             		for (var i = 0; i < as.length; i++) {
-            			sssno+="<input id='chkSssno"+i+"' type='checkbox' style='float: left;' value='"+as[i].noa+"'/><a class='lbl' style='float: left;'>"+as[i].noa+"</a>"
+            			sssno+="<input id='chkSssno"+i+"' type='checkbox' style='float: left;' value='"+as[i].noa+"' disabled='disabled'/><a class='lbl' style='float: left;'>"+as[i].noa+"</a>"
             			//sssno+=as[i].noa+';';
             		}
             		$('#xsssno').append(sssno);
@@ -339,6 +337,17 @@
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
             
+            if (t_para) {
+		    	$('#btnImport').attr('disabled', 'disabled');
+		    	for(var i=0;i<sssnumber;i++){
+		    		$('#chkSssno'+i).attr('disabled', 'disabled');
+		    	}
+		    }else {
+		    	$('#btnImport').removeAttr('disabled');
+		    	for(var i=0;i<sssnumber;i++){
+		    		$('#chkSssno'+i).removeAttr('disabled');
+		    	}
+		    }
         }
 
         function btnMinus(id) {
