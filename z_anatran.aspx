@@ -66,6 +66,7 @@
                             break;
                         case 'chart02':
                             //alert('z_anatran.txt,' + t_report + ',' + encodeURI(r_accy) + ';' + encodeURI($('#txtTrandate1').val()) + ';' + encodeURI($('#txtTrandate2').val()) + ';' + encodeURI(t_val) + ';' + encodeURI($('#txtXcarno').val()));
+                            $('#Loading').Loading();
                             q_func('qtxt.query.chart02', 'z_anatran.txt,' + t_report + ',' + encodeURI(r_accy) + ';' + encodeURI($('#txtTrandate1').val()) + ';' + encodeURI($('#txtTrandate2').val()) + ';' + encodeURI(t_val) + ';' + encodeURI($('#txtXcarno').val()));
                             break;
                         default:
@@ -157,7 +158,9 @@
                         break;
                     case 'qtxt.query.chart02':
                         var as = _q_appendData("tmp0", "", true, true);
-                        if (as[0] != undefined) {
+                        if (as[0] == undefined) 
+                        	$('#Loading').data('info').stop();
+                        else{
                             var n = -1;
                             var t_maxMoney = 0, t_minMoney = 0, t_inmoney = 0, t_outmoney = 0;
                             var tot_inmoney=0,tot_outmoney=0,tot_profit=0;
@@ -249,7 +252,7 @@
                                 if (t_minMoney > t_carno[i].profit)
                                     t_minMoney = t_carno[i].profit;
                             }
-                            
+                            $('#Loading').data('info').stop();
                             $('#chart02').barChart02({
                                 data : t_carno,
                                 maxMoney : t_maxMoney,
@@ -360,8 +363,50 @@
                 var re = /(\d{1,3})(?=(\d{3})+$)/g;
                 return arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
-
+			
             ;(function($, undefined) {
+            	$.fn.Loading = function() {
+            		$(this).data('info', {
+            			timer : null,
+            			color : null,
+            			curIndex : 0,
+            			init : function(){
+            				obj = $('#Loading'); 
+            				obj.html('').width(250).height(100).show();
+            				var r,g,b;
+            				var tmpPath = '<rect x="0" y="0" width="200" height="150" style="fill:rgb(255,255,255);"/>';       
+            				obj.data('info').color=new Array();
+            				for(var i=0; i<10; i++){
+            					r = 255-(i+1)*25;
+            					g = 255;
+            					b = round(255/(i+1),0)-10;
+            					obj.data('info').color.push('rgb('+r+','+g+','+b+')');
+            					x = (i+1)*20;
+            					y = 50;
+            					tmpPath += '<rect id="Loading_block_' + i + '"  x="' + x + '" y="' + y + '" width="15" height="15"/>';
+            				}
+            				tmpPath += '<text x="20" y="90" fill="black">資料讀取中...</text>';
+            				obj.append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+            				obj.data('info').timer = setInterval(function(){obj.data('info').start()},500);
+            			},
+            			start : function(){   
+            				obj = $('#Loading'); 
+            				for(var i=0;i<10;i++){
+            					if (i ==obj.data('info').curIndex )
+            						$('#Loading_block_'+i).attr('fill','rgb(255,143,25)');
+            					else
+            						$('#Loading_block_'+i).attr('fill',obj.data('info').color[i]);
+            				}
+            				obj.data('info').curIndex = (obj.data('info').curIndex+1)%(obj.data('info').color.length);
+            			},
+            			stop : function(){
+            				obj = $('#Loading'); 
+            				clearInterval(obj.data('info').timer);
+            				obj.hide();
+            			}
+            		});
+            		$(this).data('info').init();
+            	}
                 $.fn.barChart01 = function(value) {
                     $(this).data('info', {
                         curIndex : -1,
@@ -1260,6 +1305,7 @@
 				<input type="text" id="txtTotPage" class="control" style="float:left;text-align: right;width:60px; font-size: medium;" readonly="readonly"/>
 			</div>
 			<div id="chart">
+				<div id='Loading' class="z_anatran chart"> </div>
 				<div id='chart01' class="z_anatran chart"> </div>
 				<div id='chart01_1' class="z_anatran chart"> </div>
 
