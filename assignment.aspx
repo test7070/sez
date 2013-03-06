@@ -15,6 +15,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
+            q_desc=1;
 			q_tables = 's';
             var q_name = "assignment";
             var q_readonly = ['txtWorker'];
@@ -28,9 +29,9 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
-            ['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtComp_', 'tgg_b.aspx'],
-            ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
+            aPop = new Array(['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtComp_', 'tgg_b.aspx']);
+            //['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx']
+            //['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -359,12 +360,12 @@
 						<td class="td2" colspan="2"><input type="text" id="txtItem" class="txt c1"/></td>
 						<td><input id="btnAssignpaper" type="button" class="txt c1" /> </td>	
 					</tr>
-					<tr>
+					<!--<tr>
 						<td class="td1"><span> </span><a id='lblTggno' class="lbl btn"> </a></td>
 						<td class="td2"colspan="2"><input type="text" id="txtTggno" style="width: 30%;"/>
 							<input type="text" id="txtComp" style="width: 70%;"/>
 						</td>	
-					</tr>
+					</tr>-->
 					<tr>
 						<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
 						<td class="td2"colspan="2"><input type="text" id="txtMoney" class="txt num c1"/></td>	
@@ -403,9 +404,9 @@
                         <span style="display:block; width:1%;float:left;"> </span>
 						<input type="text" id="txtComp.*"  style="width:85%; float:left;"/>
 					</td>
-					<td><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+					<td><!--<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                         <input type="text" id="txtProductno.*"  style="width:85%; float:left;"/>
-                        <span style="display:block; width:1%;float:left;"> </span>
+                        <span style="display:block; width:1%;float:left;"> </span>-->
 						<input type="text" id="txtProduct.*"  style="width:85%; float:left;"/>
 					</td>
 					<td><input id="txtDays.*" type="text" style="width: 95%;"/></td>

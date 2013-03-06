@@ -34,7 +34,9 @@
                 }
                 if(!q_paraChk())
                     return;
-
+				
+				brwCount2 = 0;
+            	brwCount = -1;
                 main();
             });
             function main() {

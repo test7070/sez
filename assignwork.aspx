@@ -93,7 +93,7 @@
             	switch (t_name) {
             		case 'assignment':
 	            	var as = _q_appendData("assignments", "", true);
-	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtTggno,txtComp,txtProductno,txtProduct,txtDays,txtMoney,txtCost,txtMemo', as.length, as, 'tggno,comp,productno,product,days,money,cost,memo', '');
+	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtTggno,txtComp,txtProduct,txtDays,txtMoney,txtCost,txtMemo', as.length, as, 'tggno,comp,product,days,money,cost,memo', '');
 	            	sum();
             	break;
                 	case 'part':
@@ -544,10 +544,10 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
-					<td><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+					<td><!--<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                         <input type="text" id="txtProductno.*"  style="width:30%; float:left;"/>
-                        <span style="display:block; width:1%;float:left;"> </span>
-						<input type="text" id="txtProduct.*"  style="width:60%; float:left;"/>
+                        <span style="display:block; width:1%;float:left;"> </span>-->
+						<input type="text" id="txtProduct.*"  class="txt c1"/>
 					</td>
 					<td><input id="txtDays.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMoney.*" type="text" class="txt num c1"/></td>
