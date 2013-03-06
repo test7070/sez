@@ -81,6 +81,10 @@
                          	type : '8',
                             name : 'xfilter',
                             value : q_getMsg('tfilter').split('&')
+                        }, {/*8*/
+                            type : '5',
+                            name : 'xsort02',
+                            value : q_getMsg('tsort02').split('&')
                         }]
                     });
                     q_popAssign();

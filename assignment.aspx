@@ -19,8 +19,8 @@
             var q_name = "assignment";
             var q_readonly = ['txtWorker'];
             var q_readonlys = [];
-            var bbmNum = [];
-            var bbsNum = [];
+            var bbmNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1]];
+            var bbsNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -81,7 +81,6 @@
             	if($.trim($('#txtNick').val()).length==0)
             		$('#txtNick').val($('#txtComp').val());
  
-
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
@@ -90,7 +89,6 @@
                 sum();
                 $('#txtWorker').val(r_name);
                 
-               
                 var t_noa = trim($('#txtNoa').val());
                 if (t_noa.length == 0)
                     return;
@@ -134,24 +132,20 @@
             }
 
             function bbsSave(as) {
-                if (parseFloat(as['Product'])==0) {
+                if (!as['product']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
                 q_nowf();
-                as['noa'] = abbm2['noa'];
-                if (t_err) {
-                    alert(t_err)
-                    return false;
-                }
+                
                 return true;
             }
 
             function sum() {
             	if(!(q_cur==1 || q_cur==2))
 					return;
-					
             }
+            
             function refresh(recno) {
                 _refresh(recno);
             }
