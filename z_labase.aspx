@@ -18,6 +18,7 @@
 		aPop  =  new Array(['txtXsssno', 'lblXsssno', 'sss', 'noa,namea','txtSssno', 'sss_b.aspx'],
 			['txtXcomp', 'lblXcomp', 'acomp', 'noa,acomp', 'txtXcomp', 'acomp_b.aspx'],
 			['txtXcustno', 'lblXcustno', 'cust', 'noa,comp', 'txtXcustno', 'cust_b.aspx'],
+			['txtSssall', '', 'sssall', 'noa,namea', 'txtSssall', 'sssall_b.aspx'],
 			['txtCarownerno', 'lblCarownerno', 'carowner', 'noa,namea', 'txtCarownerno', 'carowner_b.aspx']);
 		
              if (location.href.indexOf('?') < 0) {
@@ -30,10 +31,7 @@
             function q_gfPost() {
                $('#q_report').q_report({
                         fileName : 'z_labase',
-                        options : [ {
-                        type : '1',
-                        name : 'xmon'
-                    },{
+                        options : [{
                         type : '2',
                         name : 'xsssno',
                         dbf : 'sss',
@@ -81,7 +79,16 @@
                             dbf : 'sssall',
                             index : 'noa,namea',
                             src : 'sssall_b.aspx'
-                        }]
+                        }, {
+                            type : '2',
+                            name : 'xxsssall',
+                            dbf : 'sssall',
+                            index : 'noa,namea',
+                            src : 'sssall_b.aspx'
+                        }, {
+                        type : '1',
+                        name : 'xmon'
+                    }]
                     });
                 q_popAssign();
                 

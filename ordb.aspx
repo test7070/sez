@@ -21,7 +21,7 @@
             var q_readonlys = [];
             var bbmNum = [['txtFloata', 10, 5, 1],['txtMoney', 10, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotalus', 10, 0, 1]];
             var bbsNum = [['txtMount', 10, 0, 1],['txtPrice', 10, 3, 1],['txtTotal', 10, 0, 1]];
-            var bbmMask = [];
+            var bbmMask = [['txtOdate', '999/99/99']];
             var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -57,7 +57,7 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbKind", q_getPara('ordb.kind')); 
                 q_cmbParse("cmbCoin", q_getPara('sys.coin'));      
-                q_cmbParse("cmbPaytype", q_getPara('rc2.paytype'));  
+                q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
                 
@@ -101,11 +101,7 @@
 	                	alert(q_getMsg('lblDatea')+'錯誤。');
 	                	return;
 	            }
-	            $('#txtOdate').val($.trim($('#txtOdate').val()));
-	                if (checkId($('#txtOdate').val())==0){
-	                	alert(q_getMsg('lblOdate')+'錯誤。');
-	                	return;
-	            }	
+	           	
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if(t_err.length > 0) {
                     alert(t_err);
@@ -141,7 +137,13 @@
                 q_box('ordb_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
 
-            function combPay_chg() {
+            function combPaytype_chg() {
+                var cmb = document.getElementById("combPaytype")
+                if (!q_cur)
+                    cmb.value = '';
+                else
+                    $('#txtPaytype').val(cmb.value);
+                cmb.value = '';
             }
 
             function bbsAssign() {
@@ -452,6 +454,10 @@
                 width: 95%;
                 float: left;
             }
+            .txt.c8 {
+                width: 47%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -538,7 +544,8 @@
                 <td class="td2" colspan="2"><input id="txtTggno" type="text" class="txt c4"/>
                 <input id="txtTgg"  type="text" class="txt c5"/></td>
                 <td class="td4"><span> </span><a id='lblPaytype' class="lbl"></a></td>
-                <td class="td5"  colspan='2'><select id="cmbPaytype" class="txt c1" ></select><input id="txtPay" type="hidden" class="txt c1"/></td>
+                <td class="td5"  colspan='2'><input id="txtPaytype" type="text" class="txt c8"/>
+						<select id="combPaytype" class="txt c8" onchange='combPaytype_chg()'></select></td>
                 <td class="td7"><span> </span><a id='lblTrantype' class="lbl"></a></td>
                 <td class="td8"><select id="cmbTrantype" class="txt c1" name="D1" ></select></td> 
             </tr>
