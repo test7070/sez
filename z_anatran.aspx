@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 
@@ -24,7 +24,7 @@
             var isInit = false;
             var t_carkind = null;
             var t_carno = null;
-
+			q_name = 'z_anatran';
             Array.prototype.indexOfField = function(propertyName, value) {
                 for (var z = 0; z < this.length; z++)
                     if (this[z][propertyName] === value)
@@ -43,7 +43,10 @@
                 q_gt('carkind', '', 0, 0, 0, "");
                 q_gt('acomp', '', 0, 0, 0);
                 q_gt('calctype', '', 0, 0, 0);
-
+				
+				$('#btnXXX').click(function(e){
+					 btnAuthority(q_name);
+				});
                 $("#btnRun").click(function(e) {
                 	$('#txtXcarno').val($.trim($('#txtXcarno').val()));
                     var t_val = '';
@@ -1246,6 +1249,7 @@
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container" style="width:2000px;">
 				<div id="q_report"> </div>
+				<input type="button" id="btnXXX" style="float:left; width:80px;font-size: medium;" value="權限"/>
 			</div>
 			<div style="display:inline-block;width:2000px;">
 				<input type="button" id="btnRun" style="float:left; width:80px;font-size: medium;" value="執行"/>
