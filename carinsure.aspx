@@ -10,7 +10,7 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'carinsure', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 6;
+            var q_name = 'carinsure', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as;
             var t_sqlname = 'carinsure_load';
             t_postname = q_name;
             var isBott = false;
@@ -40,7 +40,8 @@
                 }
                 if(!q_paraChk())
                     return;
-
+				brwCount2 = 0;
+            	brwCount = -1;
                 main();
             });
             function main() {
@@ -66,7 +67,7 @@
 							b_seq = t_IdSeq;
 							
 							if(b_seq>='1'){
-								$('#txtBdate_'+b_seq).val($('#txtEdate_'+(dec(b_seq)-1)).val());
+								$('#txtBdate_'+b_seq).val($('#txtEdate_0').val());
 								$('#txtEdate_'+b_seq).val((dec($('#txtBdate_'+b_seq).val().substr(0,3))+1)+$('#txtBdate_'+b_seq).val().substr(3,7));
 								$('#txtInmon_'+b_seq).val($('#txtBdate_'+b_seq).val().substr(0,6));
 							}
@@ -74,6 +75,7 @@
            			}
            		}
                 _bbsAssign();//'tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
+                $('#txtInsurerno_'+q_bbsCount-10).focus();
             }
 
             function btnOk() {

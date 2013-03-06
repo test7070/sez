@@ -535,21 +535,21 @@
 						</tr>
 						<tr class="tr5">
 							<td class="td1"><span> </span><a id='lblAddr_home' class="lbl"></a></td>
-							<td class="td2" colspan="6">
+							<td class="td2" colspan="5">
 								<input id="txtZip_home" type="text" class="txt c4"/>
 								<input id="txtAddr_home" type="text" class="txt c5"/>
 							</td>
 						</tr>
 						<tr class="tr6">
 							<td class="td1"><span> </span><a id='lblAddr_conn' class="lbl"></a></td>
-							<td class="td2" colspan="6">
+							<td class="td2" colspan="5">
 								<input id="txtZip_conn" type="text" class="txt c4"/>
 								<input id="txtAddr_conn" type="text" class="txt c5"/>
 							</td>
 						</tr>
 						<tr class="tr7">
                             <td class="td1"><span> </span><a id='lblMemo2' class="lbl"></a></td>
-                            <td class="td2" colspan="6">
+                            <td class="td2" colspan="5">
                                 <input id="txtMemo2" type="text" class="txt c1"/>
                             </td>
                         </tr>
