@@ -390,11 +390,12 @@
 	                                        money02 : as[i].money02,
 	                                        salarycost02 : as[i].salarycost02,
 	                                        partcost02 : as[i].partcost02,
-	                                        total02 : as[i].total02
+	                                        total02 : as[i].total02,
+	                                        total03 : as[i].total03
 	                                };
 	                                //判斷該客戶的最大值與最小值
-	                                x_maxmoney=Math.max(x_maxmoney,dec(as[i].total01),dec(as[i].total02))
-	                                x_minmoney=Math.min(x_minmoney,dec(as[i].total01),dec(as[i].total02))
+	                                x_maxmoney=Math.max(x_maxmoney,dec(as[i].total01),dec(as[i].total02),dec(as[i].total03))
+	                                x_minmoney=Math.min(x_minmoney,dec(as[i].total01),dec(as[i].total02),dec(as[i].total03))
 	                                if(custno==''||custno!=(txtreport=='z_anadc9'?as[i].custno:as[i].sssno)){
 			                        	bar.push({
 				                        			custno:txtreport=='z_anadc9'?as[i].custno:as[i].sssno,
@@ -834,6 +835,22 @@
 	                            	alert(alerttxt);
 	                            });
 							}else if(txtreport=='z_anadc9'||txtreport=='z_anadc10'){
+								//損益相差的顏色
+	                            tmpPath += '<defs>' + '<linearGradient id="barchart_profitColor1" x1="0%" y1="0%" x2="100%" y2="0%">' + '<stop offset="0%" style="stop-color:rgb(206,206,255);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(147,147,255);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
+	                            tmpPath += '<defs>' + '<linearGradient id="barchart_profitColor2" x1="0%" y1="0%" x2="100%" y2="0%">' + '<stop offset="0%" style="stop-color:rgb(255,220,185);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(225,175,96);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
+								//損益相差
+	                            for (var i = 0; i < t_detail.length; i++) {
+	                                t_output = dec(t_detail[i].total03);
+	                                h = Math.abs(round(t_output / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0));
+	                                x = 100 + 10 + t_n * i - (i == 0 ? 9 : 10);
+	                                if(t_output >= 0){
+	                                	y = t_Y - h;
+	                                }else{
+	                                	y = t_Y;
+	                                }
+	                                tmpPath += '<rect id="barChart_profit' + i + '" class="barChart_profit" x="' + x + '" y="' + y + '" width="' + t_n + '" height="' + h + '" fill="url(#barchart_profitColor1)"/>';
+	                            }
+								
 								//第一年
 	                            for (var i = 0; i < t_detail.length; i++) {//連接線
 	                                x = 100 + 10 + t_n * i;
@@ -865,6 +882,9 @@
 	                            }
 	                            
 	                            //符號說明
+	                            tmpPath += '<rect x="800" y="90" width="20" height="20" fill="url(#barchart_profitColor1)"/>';
+	                            tmpPath += '<text x="830" y="105" fill="black">損益相差</text>';
+	                            
 	                            tmpPath += '<line x1="800" y1="50" x2="820" y2="50" style="stroke:rgb(0,0,0);stroke-width:1"/>';
 	                            tmpPath += '<circle class="" cx="810" cy="50" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
 	                            tmpPath += '<text x="830" y="55" fill="black">'+obj.data('info').Data[obj.data('info').curIndex].xyear1+'年</text>';
@@ -931,6 +951,24 @@
 	                            	alert(alerttxt);
 	                            });
 	                            
+	                            obj.children('svg').find('.barChart_profit').hover(function(e) {
+	                                $(this).attr('fill', 'url(#barchart_profitColor2)');
+	                                var n = $(this).attr('id').replace('barChart_profit', '');
+	                                $('#barChart_mon' + n).attr('fill', 'rgb(187,94,0)');
+	                            }, function(e) {
+	                                $(this).attr('fill', 'url(#barchart_profitColor1)');
+	                                var n = $(this).attr('id').replace('barChart_profit', '');
+	                                $('#barChart_mon' + n).attr('fill', 'black');
+	                            }).click(function(e){
+	                            	var obj = $(this).parent().parent();
+	                                var n = $(this).attr('id').replace('barChart_profit', '');
+	                                var t_index = obj.data('info').curIndex;
+	                                var alerttxt='';
+	                                alerttxt=obj.data('info').Data[obj.data('info').curIndex].xyear1+'年損益：'+obj.data('info').Data[t_index].detail[n].total01+'\n'
+	                                alerttxt+=obj.data('info').Data[obj.data('info').curIndex].xyear2+'年損益：'+obj.data('info').Data[t_index].detail[n].total02+'\n'
+	                                alerttxt+='損益相差：'+obj.data('info').Data[t_index].detail[n].total03
+	                            	alert(alerttxt);
+	                            });
 							}//end txtreport=='z_anadc9'||txtreport=='z_anadc10'
                         }
                     });
