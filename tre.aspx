@@ -21,7 +21,7 @@
 			isEditTotal = false;
             q_tables = 's';
             var q_name = "tre";
-            var q_readonly = ['txtAccno','txtNoa', 'txtMoney', 'txtTotal','txtTolls','txtWorker','txtRc2ano','txtPaydate','txtPlusmoney','txtMinusmoney'];
+            var q_readonly = ['txtAccno','txtNoa', 'txtMoney', 'txtTotal','txtTolls','txtWorker','txtRc2ano','txtPaydate','txtPlusmoney','txtMinusmoney','txtAccno','txtAccno2','txtYear2','txtYear1'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
             var bbmNum = [['txtUnopay', 10, 0],['txtMoney', 10, 0],['txtTolls', 10, 0],['txtTotal', 10, 0],['txtPlusmoney', 10, 0],['txtMinusmoney', 10, 0]];
             var bbsNum = [['txtMount', 10, 3],['txtPrice', 10, 3],['txtDiscount', 10, 3],['txtMoney', 10, 0],['txtTolls', 10, 0]];
@@ -38,7 +38,7 @@
             	['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTggcomp', 'tgg_b.aspx'],
             	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'],
             	['txtBdriverno', '', 'driver', 'noa,namea', 'txtBdriverno', 'driver_b.aspx'],
-          	  ['txtEdriverno', '', 'driver', 'noa,namea', 'txtEdriverno', 'driver_b.aspx']);
+          	  	['txtEdriverno', '', 'driver', 'noa,namea', 'txtEdriverno', 'driver_b.aspx']);
 
             q_xchg = 1;
             brwCount2 = 20;
@@ -73,7 +73,10 @@
 				
 				q_gt('carteam', '', 0, 0, 0, "");
 				$('#lblAccno').click(function () {
-		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtYear1').val() + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+		        });
+				$('#lblAccno2').click(function () {
+		            q_pop('txtAccno2', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + $('#txtYear2').val() + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 		        });
 
                 $('#txtTolls').change(function(e) {
@@ -181,6 +184,10 @@
 
             function btnOk() {
             	$('#txtDatea').val($.trim($('#txtDatea').val()));
+            	if($('#txtUnopay').val() !='' && $('#txtTggno').val() == ''){
+                	alert('請填寫' + q_getMsg('lblTgg'));
+                	return;
+            	}
                 if (checkId($('#txtDatea').val())==0){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
@@ -650,8 +657,10 @@
 						<td><input id="txtUnopay" type="text" class="txt c1 num" /></td>
 						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
 						<td><input id="txtTotal" type="text" class="txt c1 num" /></td>
+						<!--
 						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
 						<td><input id="txtAccno" type="text"  class="txt c1"/></td>
+						-->
 					</tr>
 					<tr class="tr7">
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -659,6 +668,15 @@
 						<td class="td8"> </td>
 						<td class="td9"><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td class="tdA"><input id="txtWorker" type="text" class="txt c1" /></td>
+					</tr>
+					<tr class="tr8">
+						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
+						<td><input id="txtAccno" type="text"  class="txt c1"/></td>
+						<td><input id="txtYear1" type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblAccno2" class="lbl btn"> </a></td>
+						<td><input id="txtAccno2" type="text"  class="txt c1"/> </td>
+						<td><input id="txtYear2" type="text"  class="txt c1"/> </td>
+
 					</tr>
 				</table>
 			</div>
