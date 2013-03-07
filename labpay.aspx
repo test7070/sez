@@ -145,8 +145,8 @@
 			            	custroutines[i].product=$('#txtProduct').val();
 		            	}
 
-		            	q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtComp,txtMount,txtProduct,txtProductno'
-		            								, custroutines.length, custroutines, 'custno,comp,mount,product,productno', 'txtCustno,txtComp,txtProductno,txtProduct');
+		            	q_gridAddRow(bbsHtm, 'tbbs', 'txtCustno,txtComp,txtMount,txtProduct,txtProductno,txtMoney'
+		            								, custroutines.length, custroutines, 'custno,comp,mount,product,productno,money', 'txtCustno,txtComp,txtProductno,txtProduct');
 		            	
                         break;
                     case q_name:
@@ -192,8 +192,6 @@
                             t_IdSeq = -1;
                             q_bodyId($(this).attr('id'));
                             b_seq = t_IdSeq;
-                            $('#txtProductno_' + b_seq).val($('#txtProductno').val());
-                            $('#txtProduct_' + b_seq).val($('#txtProduct').val());
                             $('#txtAcc1_' + b_seq).val($('#txtAcc1').val());
                             $('#txtAcc2_' + b_seq).val($('#txtAcc2').val());
                         });
@@ -535,6 +533,7 @@
 						</td>
 						<td class="td5"></td>
 					</tr>
+					<!--
 					<tr>
 						<td class="td1"><span> </span><a id='lblAcc3' class="lbl btn"></a></td>
 						<td class="td2">
@@ -556,7 +555,7 @@
 						<td class="td4"></td>
 						<td class="td5"></td>
 					</tr>
-
+					-->
 					<tr>
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
 						<td class="td2" colspan="3">
