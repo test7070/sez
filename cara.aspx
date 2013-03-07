@@ -17,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "cara";
-            var q_readonly = ['txtNoa','txtIprev','txtInterest','txtItotal','txtTotal','txtPaytotal','txtBprev','txtBin','txtBtotal','txtAccno'];
+            var q_readonly = ['txtNoa','txtIprev','txtInterest','txtItotal','txtTotal','txtPaytotal','txtBprev','txtBin','txtBtotal','txtAccno','textUnpay'];
             var q_readonlys = ['txtCaritem','txtUmmnoa'];
             var bbmNum = [['txtIprev', 15, 0, 1],['txtIset', 15, 0, 1],['txtBprev', 15, 0, 1],['txtInterest', 15, 0, 1],['txtBin', 15, 0, 1],['txtItotal', 15, 0, 1],['txtBtotal', 15, 0, 1],['txtTotal', 15, 0, 1],['txtPaytotal', 15, 0, 1]];
             var bbsNum = [['txtOutmoney', 15, 0, 1],['txtInmoney', 15, 0, 1],['txtCost', 15, 0, 1]];
@@ -195,6 +195,14 @@
 			var sssno='';
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'vcc':
+                		var as = _q_appendData("vcc", "", true);
+                		var unpay=0;
+                		for (var i = 0; i < as.length; i++) {
+                			unpay+=dec(as[i].unpay);
+                		}
+                		q_tr('textUnpay',unpay);
+                	break;
                 	case 'sss':
             			var as = _q_appendData("sss", "", true);
             			for (var i = 0; i < as.length; i++) {
@@ -461,6 +469,10 @@
                  		break;
                  	}
                  }
+                 
+                 //1020307新增讀取VCCA未收金額(textUnpay)
+                 var t_where = "where=^^ custno ='"+$('#txtCarownerno').val()+"'^^";
+                 q_gt('vcc', t_where , 0, 0, 0, "", r_accy);
             }
 
             function btnIns() {
@@ -955,13 +967,14 @@
 				<table class="tbbm"  id="tbbm"  border="0" cellpadding='2'  cellspacing='5'>
 					<tr class="tr1">
 						<td class="td1" ><span> </span><a id="lblCarno" class="lbl btn"></a></td>
-						<td class="td2" colspan="4">
+						<td class="td2" colspan="3">
 							<input id="txtCarno"  type="text"  class="txt" style="width:90px;"/>
 							<input id="txtCarownerno"  type="text" class="txt" style="width:50px;"/>
 							<input id="txtCarowner"  type="text" class="txt" style="width:90px;"/>
 						</td>
-						<td class="td6"><!--<span> </span><a id='lblCarseek' class="lbl"></a>--><!--<input id="textCarseek"  type="text" class="txt c1"/>--></td>
-						<td class="td7"><!--<input id="btnImport" type="button" />--></td>
+						<td class="td5"><span> </span><a id='lblUnpay' class="lbl"></a></td>
+						<td class="td6"><input id="textUnpay"  type="text" class="txt num c1"/></td>
+						<td class="td7"></td>
 						<td class="td8"><input id="btnNextmon" type="button" /></td>
 					</tr>
 					<tr class="tr2">

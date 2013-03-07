@@ -24,6 +24,32 @@
                 _q_boxClose();
                 q_getId();
                 q_gf('', 'z_car2');
+                $('#btnMontax').hide();
+                $('#textMon').hide();
+                		
+                $('#btnMontax').click(function() {
+                	if(!emp($('#textMon').val())){
+                		if($('#textMon').val().substr(4,2)=='03')
+                			var montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('春',memo)>0 and left(mon,3)='"+$('#textMon').val().substr(0,3)+"' and caritemno='502' order by carno;"+r_accy;
+                		if($('#textMon').val().substr(4,2)=='04')
+                			var montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('上',memo)>0 and left(mon,3)='"+$('#textMon').val().substr(0,3)+"' and caritemno='501' order by carno;"+r_accy;
+                		if($('#textMon').val().substr(4,2)=='06')
+                			var montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('夏',memo)>0 and left(mon,3)='"+$('#textMon').val().substr(0,3)+"' and caritemno='502' order by carno;"+r_accy;
+                		if($('#textMon').val().substr(4,2)=='09')
+                			var montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('秋',memo)>0 and left(mon,3)='"+$('#textMon').val().substr(0,3)+"' and caritemno='502' order by carno;"+r_accy;
+                		if($('#textMon').val().substr(4,2)=='10')
+                			var montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('下',memo)>0 and left(mon,3)='"+$('#textMon').val().substr(0,3)+"' and caritemno='501' order by carno;"+r_accy;
+                		if($('#textMon').val().substr(4,2)=='12')
+                			var montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('冬',memo)>0 and left(mon,3)='"+$('#textMon').val().substr(0,3)+"' and caritemno='502' order by carno;"+r_accy;
+                		q_box((montaxhtml), 'cartax', "90%", "600px", q_getMsg("popCartax"));
+                	}
+                });
+                $('#q_report').click(function(e) {
+                	if($(".select")[0].nextElementSibling.innerText=='監理稅金收單表'){
+                		$('#btnMontax').show();
+                		$('#textMon').show();
+                	}
+                });
             });
             function q_gfPost() {
                  q_gt('carteam', '', 0, 1, 0, "");
@@ -317,6 +343,10 @@
                	});
             	//-----------------------------
             	}
+            	
+            	$('#textMon').mask('999/99');
+                $('#textMon').val(q_date().substr(0,6));
+                $('#btnMontax').val('監理稅金收單作業');
             }
 		</script>
 	</head>
@@ -329,6 +359,8 @@
 			<div id="container">
 				<div id="q_report"> </div>
 			</div>
+			<input id="textMon"  type="text"  class="txt c1"/>
+			<input id="btnMontax" type="button" />
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
