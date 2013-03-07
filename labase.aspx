@@ -60,6 +60,9 @@
              $('#btnSalinsures').click(function (e) {
 		            q_box("salinsures_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'salinsures', "1000px", "700px", q_getMsg("popSalinsures"));
 		        });
+             $('#btnLabased').click(function (e) {
+		            q_box("labased.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labased', "80%", "95%", q_getMsg("popLabased"));
+		        });
 		     $('#btnUmmb').click(function () {
 		            if ($('#txtNoa').val().length > 0)
 		                q_func('labase.gen', r_accy + ',' + $('#txtNoa').val());
@@ -1068,6 +1071,9 @@
             <td class="td2"><input id="txtInsur_fund" type="text" class="txt num c1" /></td>
             <td class='td3'><span> </span><a id="lblInsur_disaster" class="lbl"> </a></td>
             <td class="td4"><input id="txtInsur_disaster" type="text" class="txt num c1" /></td>
+            <td class='td5'></td>
+            <td class='td5'></td>
+            <td class="td6" colspan="2"><span> </span><input id="btnLabased" type="button"/></td> 
         </tr>
         <tr class="tr3">
             <!--<td class='td1'><span> </span><a id="lblTypea" class="lbl" > </a></td>

@@ -119,7 +119,7 @@
 	<body>
 		<div  id="dbbs"  >
 			<!--#include file="../inc/pop_modi.inc"-->
-			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:80%'  >
+			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
 				<tr style='color:white; background:#003366;' >
 					<input class="txt c1"  id="txtNoa.*" type="hidden"  />
                     <input id="txtNoq.*" type="hidden" />
