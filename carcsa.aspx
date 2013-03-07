@@ -18,7 +18,7 @@
             q_desc = 1;
             q_tables = 's';
             var q_name = "carcsa";
-            var q_readonly = ['txtNoa','txtWorker','txtWeight','txtMount','txtCarno'
+            var q_readonly = ['txtNoa','txtWorker','txtWeight','txtMount','txtCarno','txtCarno2'
             ,'txtInmoney','txtIntotal','txtOutmoney','txtOutplus','txtOutminus','txtOuttotal'];
             var q_readonlys = ['txtInmoney','txtOutmoney'];
             var bbmNum = [['txtWeight',10,3,1],['txtMount',10,3,1],['txtPrice',10,3,1]
@@ -222,7 +222,10 @@
 
             function btnOk() {
             	var t_carno = '';
+            	$('#txtCarno2').val('');
             	for (var i = 0; i < q_bbsCount; i++) {
+            		if($('#txtCarno2').val().lenght==0)
+            			$('#txtCarno2').val($.trim($('#txtCarno_'+i).val()));
             		if(t_carno.indexOf($.trim($('#txtCarno_'+i).val()))==-1)
             			t_carno += (t_carno.length>0?',':'') + $.trim($('#txtCarno_'+i).val());
             	}
@@ -568,16 +571,13 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTrandate'> </a></td>
-						<td align="center" style="width:120px; color:black;"><a id='vewOrdeno'> </a></td>
+						<td align="center" style="width:150px; color:black;"><a id='vewOrdeno'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewCartype'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewMon'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewMon'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewInterval'> </a></td>
-						<td align="center" style="width:60px; color:black;"><a id='vewBtime'> </a></td>
-						<td align="center" style="width:60px; color:black;"><a id='vewOntime'> </a></td>
-						<td align="center" style="width:60px; color:black;"><a id='vewEtime'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewWeight'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewMount'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewTypea'> </a></td>
+						<td align="center" style="width:60px; color:black;"><a id='vewTypea'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTimes'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewInmoney'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewInplus'> </a></td>
@@ -593,19 +593,16 @@
 						<td id="cartype" style="text-align: center;">~cartype</td>
 						<td id="mon" style="text-align: center;">~mon</td>
 						<td id="interval=carcsa.interval" style="text-align: center;">~interval=carcsa.interval</td>
-						<td id="btime" style="text-align: center;">~btime</td>
-						<td id="ontime" style="text-align: center;">~ontime</td>
-						<td id="etime" style="text-align: center;">~etime</td>
 						<td id="weight" style="text-align: right;">~weight</td>
 						<td id="mount" style="text-align: right;">~mount</td>
 						<td id="typea" style="text-align: right;">~typea</td>
 						<td id="times" style="text-align: right;">~times</td>
-						<td id="inmoney" style="text-align: right;">~inmoney</td>
-						<td id="inplus" style="text-align: right;">~inplus</td>
-						<td id="inminus" style="text-align: right;">~inminus</td>
-						<td id="intotal" style="text-align: right;">~intotal</td>
-						<td id="carno,7" style="text-align: left;">~carno,7</td>
-						<td id="outtotal" style="text-align: right;">~outtotal</td>
+						<td id="inmoney,0,1" style="text-align: right;">~inmoney,0,1</td>
+						<td id="inplus,0,1" style="text-align: right;">~inplus,0,1</td>
+						<td id="inminus,0,1" style="text-align: right;">~inminus,0,1</td>
+						<td id="intotal,0,1" style="text-align: right;">~intotal,0,1</td>
+						<td id="carno2" style="text-align: left;">~carno2</td>
+						<td id="outtotal,0,1" style="text-align: right;">~outtotal,0,1</td>
 					</tr>
 				</table>
 			</div>
@@ -710,7 +707,10 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCarno" class="lbl"> </a></td>
-						<td colspan="7"><input id="txtCarno" type="text" class="txt c1"/></td>
+						<td colspan="7">
+							<input id="txtCarno" type="text" class="txt c1"/>
+							<input id="txtCarno2" type="text" style="display:none;"/>	
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
