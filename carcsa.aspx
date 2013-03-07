@@ -93,7 +93,7 @@
             function mainPost() {
 
                 q_getFormat();
-                bbmMask = [['txtTdate', r_picd],['txtTrandate', r_picd], ['txtBtime', '99:99'], ['txtEtime', '99:99'], ['txtMon', r_picm]];
+                bbmMask = [['txtTrandate', r_picd], ['txtBtime', '99:99'], ['txtEtime', '99:99'], ['txtMon', r_picm]];
                 q_mask(bbmMask);
 				
 				q_gt('acomp', '', 0, 0, 0, "");
@@ -227,10 +227,6 @@
             	
             	if ($('#txtTrandate').val().length==0 || !q_cd($('#txtTrandate').val())){
                 	alert(q_getMsg('lblTrandate')+'錯誤。');
-                	return;
-                }
-            	if (!q_cd($('#txtTdate').val())){
-                	alert(q_getMsg('lblTdate')+'錯誤。');
                 	return;
                 }
                 $('#txtMon').val($.trim($('#txtMon').val()));
@@ -569,7 +565,6 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTrandate'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewTdate'> </a></td>
 						<td align="center" style="width:120px; color:black;"><a id='vewOrdeno'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewCartype'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMon'> </a></td>
@@ -591,7 +586,6 @@
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="trandate" style="text-align: center;">~trandate</td>
-						<td id="tdate" style="text-align: center;">~tdate</td>
 						<td id="ordeno" style="text-align: center;">~ordeno</td>
 						<td id="cartype" style="text-align: center;">~cartype</td>
 						<td id="mon" style="text-align: center;">~mon</td>
@@ -714,8 +708,6 @@
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl btn"> </a></td>
 						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id="lblTdate" class="lbl"> </a></td>
-						<td><input id="txtTdate" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
