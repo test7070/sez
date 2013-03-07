@@ -30,7 +30,7 @@
             brwCount2 = 7;//15
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(['txtSalesno', 'lblSales', 'sss', 'noa,namea,partno,part', 'txtSalesno,txtSales,txtPartno,txtPart', 'sss_b.aspx']
-            , ['txtProductno', 'lblProductno', 'ucc', 'noa,product,saleprice', 'txtProductno,txtProduct,txtMoney', 'ucc_b.aspx']
+            , ['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
             ,['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx']
             ,['txtCno_', 'btnCno_', 'acomp', 'noa,acomp', 'txtCno_,txtAcomp_', 'acomp_b.aspx']);
             $(document).ready(function() {
