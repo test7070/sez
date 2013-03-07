@@ -19,7 +19,8 @@
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
             aPop = new Array(['txtPartno', '', 'part', 'noa,part', 'txtPartno', "part_b.aspx"],
-            ['txtCustno', '', 'cust', 'noa,part', 'txtCustno', "cust_b.aspx"]);
+            ['txtCustno', '', 'cust', 'noa,part', 'txtCustno', "cust_b.aspx"],
+            ['txtSalesno', '', 'sss', 'noa,namea', 'txtSalesno', "sss_b.aspx"]);
             $(document).ready(function() {
             	q_getId();
                 q_gf('', 'z_vcctran');
@@ -58,6 +59,12 @@
 	                        dbf : 'cust',
 	                        index : 'noa,acomp',
 	                        src : 'acomp_b.aspx'
+	                    }, {
+	                        type : '2',
+	                        name : 'salesno',
+	                        dbf : 'sss',
+	                        index : 'noa,namea',
+	                        src : 'sss_b.aspx'
 	                    }]
                     });
                 q_popAssign();
