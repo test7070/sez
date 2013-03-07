@@ -79,7 +79,7 @@
 			currentData.prototype = {
 				data : [],
 				/*排除的欄位,新增時不複製*/
-				exclude : ['txtNoa', 'txtNoq', 'txtWorker', 'txtTrdno', 'txtTreno', 'txtPton', 'txtPton2', 'txtGross', 'txtWeight', 'txtLtime', 'txtStime', 'txtDtime', 'txtBmiles', 'txtEmiles', 'txtMiles'],
+				exclude : ['txtMemo','txtNoa', 'txtNoq', 'txtWorker', 'txtTrdno', 'txtTreno', 'txtPton', 'txtPton2', 'txtGross', 'txtWeight', 'txtLtime', 'txtStime', 'txtDtime', 'txtBmiles', 'txtEmiles', 'txtMiles'],
 				/*記錄當前的資料*/
 				copy : function() {
 					curData.data = new Array();
