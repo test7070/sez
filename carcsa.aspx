@@ -33,7 +33,8 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             aPop = new Array(
-            ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'],
+            ['txtAddrno', 'lblAddr', 'addr', 'noa,addr,productno,product', 'txtAddrno,txtAddr,txtUccno,txtProduct', 'addr_b.aspx'],
+            ['txtUccno', 'lblProduct', 'ucca', 'noa,product', 'txtUccno,txtProduct', 'ucca_b.aspx'],
             ['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'],
         	['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'],
         	['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']);
@@ -45,7 +46,7 @@
 			currentData.prototype = {
 				data : [],
 				/*新增時複製的欄位*/
-				include : ['txtTrandate','txtMon','cmbInterval','txtCustno','txtComp','txtNick','txtAddrno','txtAddr','cmbCno'],
+				include : ['txtTrandate','txtMon','cmbInterval','txtCustno','txtComp','txtNick','txtAddrno','txtAddr','txtUccno','txtProduct'],
 				/*記錄當前的資料*/
 				copy : function() {
 					curData.data = new Array();
@@ -154,6 +155,8 @@
                         if (as[0] != undefined) {
 	                        $('#txtAddrno').val(as[0].noa);
 	                        $('#txtAddr').val(as[0].addr);
+	                        $('#txtUccno').val(as[0].productno);
+	                        $('#txtProduct').val(as[0].product);
                         }
                         break;
                 	case 'calctypes':
@@ -659,6 +662,14 @@
 						<td colspan="2">
 							<input id="txtAddrno"  type="text"  style="float:left; width:50%;"/>
 							<input id="txtAddr"  type="text"  style="float:left; width:50%;"/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4"> </td>
+						<td><span> </span><a id="lblProduct" class="lbl"> </a></td>
+						<td colspan="2">
+							<input id="txtUccno"  type="text"  style="float:left; width:50%;"/>
+							<input id="txtProduct"  type="text"  style="float:left; width:50%;"/>
 						</td>
 					</tr>
 					<tr>
