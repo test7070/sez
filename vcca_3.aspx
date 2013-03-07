@@ -163,7 +163,6 @@
                     	try{
 	                    	$('#txtAccno').val(result.split(';')[0]);
 	                    	$('#txtVccno').val(result.split(';')[1]);
-	                    	$('#txtMemo').val(result.split(';')[4]);
                     	}catch(e){
                     		alert(e.toString());
                     	}
