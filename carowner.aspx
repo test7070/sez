@@ -555,7 +555,7 @@
                         </tr>
                         <tr class="tr8">
                             <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-                            <td class="td2" colspan="6">
+                            <td class="td2" colspan="5">
                                 <textarea id="txtMemo" cols="10" rows="5" style="width: 93%; height: 50px;"></textarea>
                             </td>
                         </tr>

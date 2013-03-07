@@ -646,13 +646,13 @@
             function btnCancel() {
                 _btnCancel();
             }
-           	
-            function KeyDown(){
-				if ( event.keyCode=='116' ){
-				   location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";noa<='"+$('#txtNoa').val()+"';"+r_accy;
+           	$(document).keydown(function(e) {
+				if ( e.keyCode=='116' ){
+				   location.href = (location.origin==undefined?'':location.origin)+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";noa<='"+$('#txtNoa').val()+"';"+r_accy;
 				   event.returnValue= false;
 				  }
-			 }
+			});
+            
 		var scrollcount=1;
         function scroll(viewid,scrollid,size){
         	if(scrollcount>1)
@@ -887,7 +887,7 @@
 		}
 		</style>
 	</head>
-	<body onkeydown="KeyDown()"><!--onkeydown="KeyDown()"-->
+	<body><!--onkeydown="KeyDown()"-->
 		<div id="divNextmon" class='popDiv' style="top:50px;right:180px;">
 			<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:300px">
 	            <tr>

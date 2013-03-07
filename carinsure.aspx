@@ -75,7 +75,12 @@
            			}
            		}
                 _bbsAssign();//'tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
-                $('#txtInsurerno_'+q_bbsCount-10).focus();
+                for(var j = 0; j < q_bbsCount; j++) {//跳至空白行
+                	if(emp($('#txtInsurerno_'+j).val())){
+                		$('#txtInsurerno_'+j).focus();
+                		break;
+                	}
+                }
             }
 
             function btnOk() {

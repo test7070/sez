@@ -542,12 +542,14 @@
                 q_tr('txtSalemoney', round(depmoney + imsale1 + imsale2 + imsale3 - dec($('#txtDiscountmoney').val()), 0));
 
             }
-			function KeyDown(){
-				if ( event.keyCode=='116' ){
-				   location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";a.noa>='"+$('#txtNoa').val()+"';"+r_accy;
+
+			 $(document).keydown(function(e) {
+				if ( e.keyCode=='116' ){
+				   location.href = (location.origin==undefined?'':location.origin)+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";a.noa>='"+$('#txtNoa').val()+"';"+r_accy;
 				   event.returnValue= false;
 				  }
-			 }
+			});
+			 
 			 function checkId(str) {
                 if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
                     var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
@@ -688,9 +690,7 @@
 	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
-	onkeydown="KeyDown()"
-	>
+	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
 			<div class="dview" id="dview">
