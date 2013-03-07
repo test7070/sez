@@ -62,10 +62,10 @@
                     $("#txtTotPage").val(0);
                     switch(t_report) {
                         case 'chart01':
+                            $('#Loading').Loading();
                             q_func('z_anatran.' + t_report, encodeURI(r_accy) + ';' + encodeURI($('#txtTrandate1').val()) + ';' + encodeURI($('#txtTrandate2').val()) + ';' + encodeURI(t_val) + ';' + encodeURI($.trim($('#txtXcarno').val())));
                             break;
                         case 'chart02':
-                            //alert('z_anatran.txt,' + t_report + ',' + encodeURI(r_accy) + ';' + encodeURI($('#txtTrandate1').val()) + ';' + encodeURI($('#txtTrandate2').val()) + ';' + encodeURI(t_val) + ';' + encodeURI($('#txtXcarno').val()));
                             $('#Loading').Loading();
                             q_func('qtxt.query.chart02', 'z_anatran.txt,' + t_report + ',' + encodeURI(r_accy) + ';' + encodeURI($('#txtTrandate1').val()) + ';' + encodeURI($('#txtTrandate2').val()) + ';' + encodeURI(t_val) + ';' + encodeURI($('#txtXcarno').val()));
                             break;
@@ -86,7 +86,9 @@
                 switch(t_func) {
                     case 'z_anatran.chart01':
                         var as = _q_appendData("tmp0", "", true, true);
-                        if (as[0] != undefined) {
+                        if (as[0] == undefined) 
+                        	$('#Loading').data('info').stop();
+                        else{
                             var n = -1;
                             var t_maxMoney = 0, t_minMoney = 0, t_outmoney = 0;
                             t_carno = new Array();
@@ -141,6 +143,7 @@
                                     }
                                 }
                             }
+                            $('#Loading').data('info').stop();
                             $('#chart01').barChart01({
                                 data : t_carno,
                                 maxMoney : t_maxMoney,
@@ -370,7 +373,7 @@
             			timer : null,
             			color : null,
             			curIndex : 0,
-            			init : function(){
+            			start : function(){
             				obj = $('#Loading'); 
             				obj.html('').width(250).height(100).show();
             				var r,g,b;
@@ -383,15 +386,15 @@
             					obj.data('info').color.push('rgb('+r+','+g+','+b+')');
             					x = (i+1)*20;
             					y = 50;
-            					tmpPath += '<rect id="Loading_block_' + i + '"  x="' + x + '" y="' + y + '" width="15" height="15"/>';
+            					tmpPath += '<rect id="Loading_block_' + i + '"  x="' + x + '" y="' + y + '" width="15" height="15" fill="rgb(255,255,255)"/>';
             				}
             				tmpPath += '<text x="20" y="90" fill="black">資料讀取中...</text>';
             				obj.append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
-            				obj.data('info').timer = setInterval(function(){obj.data('info').start()},500);
+            				obj.data('info').timer = setInterval(function(){$('#Loading').data('info').func()},500);
             			},
-            			start : function(){   
-            				obj = $('#Loading'); 
-            				for(var i=0;i<10;i++){
+            			func : function(){   
+            				obj = $('#Loading');
+        					for(var i=0;i<10;i++){
             					if (i ==obj.data('info').curIndex )
             						$('#Loading_block_'+i).attr('fill','rgb(255,143,25)');
             					else
@@ -405,7 +408,7 @@
             				obj.hide();
             			}
             		});
-            		$(this).data('info').init();
+            		$(this).data('info').start();
             	}
                 $.fn.barChart01 = function(value) {
                     $(this).data('info', {
