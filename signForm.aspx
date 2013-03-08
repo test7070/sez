@@ -401,8 +401,8 @@
                </td>
                <td class="td3"><span> </span><a id="lblForm" class="lbl"></a></td>
                <td class="td4"><input id="txtForm" type="text" class="txt c1" /></td>
-               <td class="td5"><span> </span><a id="lblYears" class="lbl"></a></td>
-               <td class="td6"><input id="txtYears" type="text" class="txt c2" /><a id="lblYears_yn" class="txt c3"></a></td>
+               <td class="td5"><span> </span><a id="lblYears" class="lbl" style="display:none"></a></td>
+               <td class="td6"><input id="txtYears" type="text" class="txt c2" style="display:none"/><a id="lblYears_yn" class="txt c3" style="display:none"></a></td>
             </tr>
             <tr>
             	<td class="td1"><span> </span><a id="lblApprov" class="lbl btn"></a></td>
@@ -443,12 +443,7 @@
                <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
                <td class="td2" colspan="5"><textarea id="txtMemo" cols="10" rows="5" style="width: 99%; height: 50px;"></textarea></td>
             </tr>
-			<tr>
-				<td class="td1"><span> </span><a id='lblWorkman' class="lbl"></a></td>
-            	<td class="td2"><input id="txtWorkmanno"  type="text" class="txt c2"/>
-            		<input id="txtWorkman"  type="text" class="txt c3"/>
-            	</td>
-			</tr>
+		
         </table>
         </div>
         </div>

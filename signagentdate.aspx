@@ -19,7 +19,7 @@
         var q_name="signagentdate";
         var q_readonly = [];
         var bbmNum = [];  
-        var bbmMask = []; 
+        var bbmMask = [['txtBtime', '99:99'],['txtEtime', '99:99']]; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
 		aPop = new Array(['txtCheckerno', 'lblChecker','sss','noa,namea', 'txtCheckerno,txtChecker','sss_b.aspx']);
@@ -42,7 +42,7 @@
 
 
         function mainPost() { 
-        	bbmMask = [['txtBdate',r_picd],['txtEdate',r_picd]];
+        	bbmMask = [['txtBdate',r_picd],['txtEdate',r_picd],['txtBtime', '99:99'],['txtEtime', '99:99']];
         	q_mask(bbmMask);
         	var t_where = "where=^^ checkerno ='"+ abbm[q_recno].checkerno +"' ^^";
 			q_gt('signagent', t_where, 0, 0, 0, "");
@@ -165,35 +165,12 @@
             }
         	
         	
-            var t_err = '';
-
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
-
-            if ( dec( $('#txtCredit').val()) > 9999999999)
-                t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
-
-            if ( dec( $('#txtStartn').val()) > 31)
-                t_err = t_err + q_getMsg( "lblStartn")+q_getMsg( "msgErr")+'\r';
-            if (dec( $('#txtGetdate').val()) > 31)
-                t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
-
-            if( t_err.length > 0) {
-                alert(t_err);
-                return;
-            }
+            var t_date = trim($('#txtBdate').val());
             var t_noa = trim($('#txtNoa').val());
-            if (emp($('#txtUacc1').val()))
-                $('#txtUacc1').val('1123.' + t_noa);
-            if (emp($('#txtUacc2').val()))
-                $('#txtUacc2').val('1121.' + t_noa);
-            if (emp($('#txtUacc3').val()))
-                $('#txtUacc3').val( '2131.'+t_noa);
-
-
-            if ( t_noa.length==0 )  
-                q_gtnoa(q_name, t_noa);
-            else
-                wrServer(  t_noa);
+                if (t_noa.length == 0 || t_noa == "AUTO")
+                    q_gtnoa(q_name, replaceAll('P' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                else
+                    wrServer(t_noa);
         }
 
         function wrServer( key_value) {
@@ -448,6 +425,8 @@
                	<input id="txtEdate"  type="text" class="txt c6"/>
                </td>
                <td class="td3"></td>
+               <td class="td1"><span> </span><a id='lblNoa' class="lbl" style="display:none"></a></td>
+               <td class="td2"><input id="txtNoa"  type="text" class="txt c1" style="display:none"/></td>
             </tr>
              <tr>
                <td class="td1"><span> </span><a id='lblTime' class="lbl"></a></td>
@@ -456,18 +435,6 @@
                	<input id="txtEtime"  type="text" class="txt c7"/><a id="lblEtime" class="txt c8"></a>
                </td>
                <td class="td3"></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-               <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-               <td class="td3" ></td>
-               <td class="td4"></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblPart' class="lbl"></a></td>
-               <td class="td2"><input id="txtPart"  type="text" class="txt c1"/></td>
-               <td class="td3" ></td>
-               <td class="td4"></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblChecker' class="lbl btn"></a></td>

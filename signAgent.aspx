@@ -142,35 +142,12 @@
  
         }
         function btnOk() {
-            var t_err = '';
-
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
-
-            if ( dec( $('#txtCredit').val()) > 9999999999)
-                t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
-
-            if ( dec( $('#txtStartn').val()) > 31)
-                t_err = t_err + q_getMsg( "lblStartn")+q_getMsg( "msgErr")+'\r';
-            if (dec( $('#txtGetdate').val()) > 31)
-                t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
-
-            if( t_err.length > 0) {
-                alert(t_err);
-                return;
-            }
-            var t_noa = trim($('#txtNoa').val());
-            if (emp($('#txtUacc1').val()))
-                $('#txtUacc1').val('1123.' + t_noa);
-            if (emp($('#txtUacc2').val()))
-                $('#txtUacc2').val('1121.' + t_noa);
-            if (emp($('#txtUacc3').val()))
-                $('#txtUacc3').val( '2131.'+t_noa);
-
-
-            if ( t_noa.length==0 )  
-                q_gtnoa(q_name, t_noa);
-            else
-                wrServer(  t_noa);
+        	var t_checkerno = trim($('#txtCheckerno').val());
+             var t_noa = trim($('#txtNoa').val());
+                if (t_noa.length == 0 || t_noa == "AUTO")
+                    q_gtnoa(q_name, replaceAll('P' + (t_checkerno.length == 0 ? q_checkerno() : t_checkerno), '/', ''));
+                else
+                    wrServer(t_noa);
         }
 
         function wrServer( key_value) {
@@ -372,29 +349,9 @@
         </div>
         <div class='dbbm' style="width: 60%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
-            <tr>
-               <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-               <td class="td2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-               <td class="td3" ></td>
-               <td class="td4"></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblPart' class="lbl"></a></td>
-               <td class="td2"><input id="txtPart"  type="text" class="txt c1"/></td>
-               <td class="td3" ></td>
-               <td class="td4"></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblSignformno' class="lbl"></a></td>
-               <td class="td2"><input id="txtSignformno"  type="text" class="txt c1"/></td>
-               <td class="td3" ></td>
-               <td class="td4"></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblFormname' class="lbl"></a></td>
-               <td class="td2"><input id="txtFormname"  type="text" class="txt c1"/></td>
-               <td class="td3" ></td>
-               <td class="td4"></td>
+            <tr style="display:none">
+               <td class="td1"><span> </span><a id='lblNoa' class="lbl" style="display:none"></a></td>
+               <td class="td2"><input id="txtNoa"  type="text" class="txt c1" style="display:none"/></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblChecker' class="lbl btn"></a></td>
