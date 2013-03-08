@@ -58,6 +58,8 @@
                 $('#q_report').click(function(e) {
                 	if($(".select")[0].nextSibling.innerText=='監理稅金收單表'){
                 		$('#cartax').show();
+                	}else{
+                		$('#cartax').hide();
                 	}
                 });
             });
@@ -380,11 +382,21 @@
 				<div id="q_report"> </div>
 			</div>
 			<div id="cartax">
-				<a id="lblxYear" class="lbl">年度</a>
-				<input id="textYear"  type="text"  class="txt c1"/></br>
-				<a id="lblxTax" class="lbl">稅金</a>
-				<select id="combTax" class="txt c1"> </select></br>
-				<input id="btnMontax" type="button" />
+				<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:300px">
+					<tr>
+						<td align="center" style="width:35%"><a id="lblxYear" class="lbl">年度</a></td>
+						<td align="left" style="width:65%"><input id="textYear"  type="text"  class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td align="center" style="width:35%"><a id="lblxTax" class="lbl">稅金</a></td>
+						<td align="left" style="width:65%"><select id="combTax" class="txt c1"> </select></td>
+					</tr>
+					<tr>
+						<td align="center" colspan="2">
+							<input id="btnMontax" type="button" />
+						</td>
+					</tr>
+				</table>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
