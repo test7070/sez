@@ -45,6 +45,8 @@
             	$('#cmbPaperSize').hide();
             	$('#chkLandScape').hide();
             	$('#chkDownPrint').hide();
+            	$('#q_acDiv').hide();
+            	$('label').text('');
             });
             function q_gfPost() {
             	q_langShow();
@@ -60,7 +62,25 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 		<div id="q_menu"> </div>
+		<br>
+        <div id='dmain' style="overflow:hidden;">
+		<table>
+			<tr>
+				<td>
+					<td class="td1"><span> </span><a id='lblOsssno' class="lbl">  </a></td>
+					<td class="td2"><input id="txtOsssno"  type="text"  class="txt c1"/></td>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<td class="td1"><span> </span><a id='lblNsssno' class="lbl">  </a></td>
+					<td class="td2"><input id="txtNsssno"  type="text"  class="txt c1"/></td>
+				</td>
+			</tr>
+		</table>
+        </div> 
 		<!--#include file="../inc/print_ctrl.inc"-->
+
 	</body>
 </html>
            

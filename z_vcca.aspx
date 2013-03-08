@@ -58,6 +58,7 @@
                     }]
                 });
                 q_popAssign();
+                q_getFormat();
 				q_langShow();
                 $('#txtMon1').mask('999/99');
                 $('#txtMon2').mask('999/99');             

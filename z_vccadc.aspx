@@ -3,17 +3,17 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title> </title>
-		<script src="../script/jquery.min.js" type="text/javascript"> </script>
-		<script src='../script/qj2.js' type="text/javascript"> </script>
-		<script src='qset.js' type="text/javascript"> </script>
-		<script src='../script/qj_mess.js' type="text/javascript"> </script>
-		<script src="../script/qbox.js" type="text/javascript"> </script>
-		<script src='../script/mask.js' type="text/javascript"> </script>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
-		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
-		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
-		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             t_cno = '';
             $(document).ready(function() {
@@ -31,6 +31,7 @@
                         for ( i = 0; i < as.length; i++) {
                             t_cno += (t_cno.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].nick;
                         }
+                        t_cno += ',checkAll@全選';
                         break;
                 }
                 if(t_cno.length==0)
@@ -71,6 +72,7 @@
                 });
                 q_popAssign();
 				q_langShow();
+                $('#txtXmon1').mask('999/99');
                 $('#txtXmon2').mask('999/99');
                 $('#txtBmon1').mask('999/99');
                 $('#txtBmon2').mask('999/99');
@@ -141,11 +143,22 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtEmon2').val(t_year+'/'+t_month);
-	           
+	                
+            		$("input[type='checkbox'][value='checkAll']").click(function() {
+            			if($(this).next('span').text() == '全選'){
+							$("input[type='checkbox']").attr('checked',true);
+							$(this).removeAttr('checked');
+							$(this).next('span').text('取消全選');
+						}else if($(this).next('span').text() == '取消全選'){
+							$("input[type='checkbox']").removeAttr('checked');
+							$(this).next('span').text('全選');
+						}
+					});	                    
             }
 
             function q_boxClose(s2) {
             }
+            
 	</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
