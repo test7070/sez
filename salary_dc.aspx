@@ -438,92 +438,68 @@
 						var as = _q_appendData("salpresents", "", true);
 						for (var i = 0; i < as.length; i++) {
 							//判斷是否哪些員工要計算薪水
-		                    if ((!emp(as[i].ft_date) && as[i].ft_date >date_1)||(!emp(as[i].outdate)&&as[i].outdate<date_1)) {//||as[i].indate>$('#txtMon').val()
+		                    if (!emp(as[i].outdate)&&as[i].outdate<date_1) {//(!emp(as[i].ft_date) && as[i].ft_date >date_1)||as[i].indate>$('#txtMon').val()
 		                        as.splice(i, 1);
 		                        i--;
 		                    }else{
-		                    	//12/20大昌的勞健保會在勞健保作業計算
-		                    	//判斷勞健保(部份公式再load已計算)
-		                    		//大昌健保直接抓labase的bbm
-									//健保費：只要離職 就一整個月不算(除離職日=月底最後一天 要算) 新進人員 就整月算
-									//勞保費：只要當月新進 或當月離職 就依照在職日數/30 去算	通常都是下期收 除了有離職的
-									//福利金：下期收 但新進人員到職未滿90日 不收；離職人員 只要離職當月就不收
-		                    	/*if(as[i].indate>=$('#txtMon').val()+'/01'&&date_2>=as[i].indate){//新進日在薪資月份內
-		                    		if (($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1)||($('#cmbMonkind').find("option:selected").text().indexOf('本月')>-1)){
-		                    			//在職日數
-		                    			var indays=parseInt(Math.abs(Date.parse(as[i].indate) -Date.parse(date_2)) /1000/60/60/24);
-		                    			//as[i].ch_health//健保費
-		                    			as[i].ch_labor=Math.round(as[i].ch_labor*indays/30); //勞保費
-		                    			as[i].ch_labor_comp=Math.round(as[i].ch_labor_comp*indays/30);//勞退公司
-		                    			as[i].ch_labor_self=Math.round(as[i].ch_labor_self*indays/30);//勞退個人
-		                    			as[i].tax=Math.round(as[i].tax*indays/30);//所得稅
-		                    		}else{
-		                    			as[i].ch_health=0;//健保費
-		                    			as[i].ch_labor=0; //勞保費
-		                    			as[i].ch_labor_comp=0;//勞退公司
-		                    			as[i].ch_labor_self=0;//勞退個人
-		                    			as[i].tax=0;//所得稅
+		                    	//新進員工薪資(不滿一個月)=本俸+主管津貼+交通津貼+工作津貼+其他津貼/30*工作天數(且福利金=0全勤=0)
+		                    	if(as[i].indate>date_1){//計算工作天數
+		                    		var t_date=as[i].indate,inday=0;
+		                    		while(t_date<=date_2){
+		                    			//日期加一天
+									    var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
+									    nextdate.setDate(nextdate.getDate() +1)
+									    t_date=''+(nextdate.getFullYear()-1911)+'/';
+									    //月份
+									    if(nextdate.getMonth()+1<10)
+									    	t_date=t_date+'0'+(nextdate.getMonth()+1)+'/';
+									    else
+									       	t_date=t_date+(nextdate.getMonth()+1)+'/';
+									    //日期
+									    if(nextdate.getDate()<10)
+									    	t_date=t_date+'0'+(nextdate.getDate());
+									    else
+									     	t_date=t_date+(nextdate.getDate());
+									     if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6){
+									     	inday+=0;
+									     }else{
+									     	inday++;
+									     }
 		                    		}
-		                    	}else if(as[i].outdate>=date_1 && date_2>=as[i].outdate){//離職日在搜尋範圍內
-		                    		//在職日數
-		                    		var indays=parseInt(Math.abs(Date.parse($('#txtMon').val()+'/01') -Date.parse(as[i].outdate)) /1000/60/60/24);
-		                    		//勞保退保日數
-		                    		var labor1days=parseInt(Math.abs(Date.parse($('#txtMon').val()+'/01') -Date.parse(as[i].labor1_edate)) /1000/60/60/24);
-		                    		//勞退退保日數
-		                    		var labor2days=parseInt(Math.abs(Date.parse($('#txtMon').val()+'/01') -Date.parse(as[i].labor2_edate)) /1000/60/60/24);
-		                    			
-		                    		if(as[i].outdate==date_2)
-		                    			as[i].ch_health=as[i].ch_health;	//健保費
-		                    		else
-		                    			as[i].ch_health=0;
-		                    		as[i].ch_labor=Math.round(as[i].ch_labor*labor1days/30);//勞保費
-		                    		as[i].ch_labor_comp=Math.round(as[i].ch_labor_comp*labor2days/30);//勞退公司
-		                    		as[i].ch_labor_self=Math.round(as[i].ch_labor_self*labor2days/30);//勞退個人
-		                    		as[i].tax=Math.round(as[i].tax*indays/30);//所得稅
-		                    	}else{
-		                    		if (($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1)||($('#cmbMonkind').find("option:selected").text().indexOf('本月')>-1)){
-		                    			//as[i].ch_health//健保費
-		                    			//as[i].ch_labor //勞保費
-		                    			//as[i].ch_labor_comp//勞退公司
-		                    			//as[i].ch_labor_self//勞退個人
-		                    			//as[i].tax//所得稅
-		                    		}else{
-		                    			as[i].ch_health=0;//健保費
-		                    			as[i].ch_labor=0; //勞保費
-		                    			as[i].ch_labor_comp=0;//勞退公司
-		                    			as[i].ch_labor_self=0;//勞退個人
-		                    			as[i].tax=0;//所得稅
-		                    		}
-		                    	}*/
-		                    //請假扣薪
-		                    if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
-		                    	as[i].day= dec(as[i].inday);//給薪日數=上班天數
-		                    	as[i].mi_saliday=0;
-		                    }else{
-		                    	as[i].day=0;
-		                    	as[i].mi_saliday=(dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary)); //扣薪日數=病假(時)+事假(時)+曠工(時)+無薪(時)
-		                    	//病假扣薪=(本薪+津貼)/30/8*病假時數/2---->病假扣薪扣一半
-		                    	as[i].mi_sick=(dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth))/30/8*dec(as[i].hr_sick)/2;
-		                    	//事假扣薪=(本薪+津貼)/30/8*事假時數
-		                    	as[i].mi_person=(dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth))/30/8*dec(as[i].hr_person);
-		                    	//無薪扣薪=(本薪+津貼)/30/8*無薪時數
-		                    	as[i].mi_nosalary=(dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth))/30/8*dec(as[i].hr_nosalary);
-		                    	//曠工扣薪=(本薪+津貼)/30/8*曠工時數
-		                    	as[i].mi_leave=(dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth))/30/8*dec(as[i].hr_leave);
+		                    		
+		                    		as[i].memo="新進員工(工作日:"+inday+")";
+		                    		as[i].bo_full=0;
+		                    		as[i].iswelfare='false';
+		                    	}
 		                    	
-		                    }
-		                    //全勤獎金
-		                    if(($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1)||($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1))
-		                    	as[i].bo_full=as[i].bo_full/2;
-		                    //只要有請假與遲到一律都沒有全勤獎金
-		                    if((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].late))>0)
-		                    	as[i].bo_full=0;
+			                    //請假扣薪
+			                    if ($('#cmbPerson').find("option:selected").text().indexOf('日薪')>-1){
+			                    	as[i].day= dec(as[i].inday);//給薪日數=上班天數
+			                    	as[i].mi_saliday=0;
+			                    }else{
+			                    	as[i].day=0;
+			                    	as[i].mi_saliday=(dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].hr_nosalary)); //扣薪日數=病假(時)+事假(時)+曠工(時)+無薪(時)
+			                    	//病假扣薪=(本薪+津貼)/30/8*病假時數/2---->病假扣薪扣一半
+			                    	as[i].mi_sick=(dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth))/30/8*dec(as[i].hr_sick)/2;
+			                    	//事假扣薪=(本薪+津貼)/30/8*事假時數
+			                    	as[i].mi_person=(dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth))/30/8*dec(as[i].hr_person);
+			                    	//無薪扣薪=(本薪+津貼)/30/8*無薪時數
+			                    	as[i].mi_nosalary=(dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth))/30/8*dec(as[i].hr_nosalary);
+			                    	//曠工扣薪=(本薪+津貼)/30/8*曠工時數
+			                    	as[i].mi_leave=(dec(as[i].salary)+dec(as[i].bo_admin)+dec(as[i].bo_traffic)+dec(as[i].bo_special)+dec(as[i].bo_oth))/30/8*dec(as[i].hr_leave);
+			                    }
+			                    //全勤獎金
+			                    if(($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1)||($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1))
+			                    	as[i].bo_full=as[i].bo_full/2;
+			                    //只要有請假與遲到一律都沒有全勤獎金
+			                    if((dec(as[i].hr_sick)+dec(as[i].hr_person)+dec(as[i].hr_leave)+dec(as[i].late))>0)
+			                    	as[i].bo_full=0;
 		                    
-		                    //其他項目
-		                    	//應稅其他=應稅其他+生產獎金+夜班津貼+值班津貼
-		                    	/*if(!($('#cmbPerson').find("option:selected").text().indexOf('外勞')>-1))
-		                    		as[i].tax_other=dec(as[i].tax_other)+dec(as[i].bo_born)+dec(as[i].bo_night)+dec(as[i].bo_day);*/
-		                   	//加班時數
+		                    	//其他項目
+		                    		//應稅其他=應稅其他+生產獎金+夜班津貼+值班津貼
+		                    		/*if(!($('#cmbPerson').find("option:selected").text().indexOf('外勞')>-1))
+		                    			as[i].tax_other=dec(as[i].tax_other)+dec(as[i].bo_born)+dec(as[i].bo_night)+dec(as[i].bo_day);*/
+		                   		//加班時數
 		                   		var t_fir =46,bef_fir01,bef_fir02;
 		                   		as[i].addh21=as[i].addh1;
 		                   		as[i].addh22=as[i].addh2;
@@ -821,7 +797,13 @@
         	getdtmp();
         	for (var j = 0; j < q_bbsCount; j++) {
         		//小計=本俸+公費+主管津貼+交通津貼+特別津貼+其他津貼+其他加項
-        		q_tr('txtTotal1_'+j,dec($('#txtMoney_'+j).val())+dec($('#txtPubmoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtPlus_'+j).val()));
+        		if($('#txtMemo_'+j).val().indexOf('新進員工')>-1){
+        			var inday=0;
+        			inday=dec($('#txtMemo_'+j).val().substr($('#txtMemo_'+j).val().indexOf(':')+1,$('#txtMemo_'+j).val().indexOf(')')-$('#txtMemo_'+j).val().indexOf(':')-1));
+        			q_tr('txtTotal1_'+j,round((dec($('#txtMoney_'+j).val())+dec($('#txtPubmoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val()))/30*inday,0)+dec($('#txtPlus_'+j).val()));
+        		}else{
+        			q_tr('txtTotal1_'+j,dec($('#txtMoney_'+j).val())+dec($('#txtPubmoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtPlus_'+j).val()));
+        		}
         		
         		if(($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1)||($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1)){
         			q_tr('txtMi_sick_'+j,round((q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))/30/8*q_float('txtHr_sick_'+j)/2,0));

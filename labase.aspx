@@ -58,7 +58,7 @@
             q_mask(bbsMask);
 
              $('#btnSalinsures').click(function (e) {
-		            q_box("salinsures_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'salinsures', "1000px", "700px", q_getMsg("popSalinsures"));
+		            q_box("salinsures_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'salinsures', "95%", "95%", q_getMsg("popSalinsures"));
 		        });
              $('#btnLabased').click(function (e) {
 		            q_box("labased.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labased', "80%", "95%", q_getMsg("popLabased"));
