@@ -137,7 +137,7 @@
 					<input class="txt" id="txtOutmoney.*" type="text" style="width:95%; text-align:right"  />
 					</td>
 					<td class="td4">
-					<input class="txt" id="txtPaydate.*" type="text" style="width:95%; text-align:right"  />
+					<input class="txt" id="txtPaydate.*" type="text" style="width:95%; text-align:center"  />
 					</td>
 					<td class="td5">
 					<input class="txt" id="txtSheetyn.*" type="text" style="width:95%; text-align: center;"  />

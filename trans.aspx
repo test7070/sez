@@ -17,7 +17,7 @@
 			}
 
 			var q_name = "trans";
-			var q_readonly = ['txtNoa', 'txtTotal', 'txtTotal2', 'txtTrdno', 'txtTreno', 'txtWorkerno', 'txtWorker','txtWeight3'];
+			var q_readonly = ['txtOrdeno','txtNoa', 'txtTotal', 'txtTotal2', 'txtTrdno', 'txtTreno', 'txtWorkerno', 'txtWorker','txtWeight3'];
 			var bbmNum = new Array(['txtWeight3',10,3],['txtWeight2',10,3],['txtUnpack', 10, 0], ['txtInmount', 10, 3], ['txtPrice', 10, 3], ['txtPrice2', 10, 3], ['txtPrice3', 10, 3], ['txtDiscount', 10, 3], ['txtMiles', 10, 0], ['txtBmiles', 10, 0], ['txtEmiles', 10, 0], ['txtGross', 10, 3], ['txtWeight', 10, 3], ['txtOutmount', 10, 3], ['txtTotal', 10, 0], ['txtOverw', 10, 0], ['txtTotal2', 10, 0], ['txtCommission', 10, 0], ['txtGps', 10, 0], ['txtPton', 10, 3], ['txtPton2', 10, 3], ['txtOverh', 10, 0], ['txtOverw', 10, 0], ['txtTolls', 10, 0], ['txtReserve', 10, 0]);
 			var bbmMask = new Array(['txtTrandate', '999/99/99'], ['txtDatea', '999/99/99'], ['txtBilldate', '999/99/99'], ['txtCldate', '999/99/99'], ['txtLtime', '99:99'], ['txtStime', '99:99'], ['txtDtime', '99:99'], ['txtMon', '999/99']);
 			q_sqlCount = 6;
@@ -79,7 +79,7 @@
 			currentData.prototype = {
 				data : [],
 				/*排除的欄位,新增時不複製*/
-				exclude : ['txtMemo','txtNoa', 'txtNoq', 'txtWorker', 'txtTrdno', 'txtTreno', 'txtPton', 'txtPton2', 'txtGross', 'txtWeight', 'txtLtime', 'txtStime', 'txtDtime', 'txtBmiles', 'txtEmiles', 'txtMiles'],
+				exclude : ['txtOrdeno','txtMemo','txtNoa', 'txtNoq', 'txtWorker', 'txtTrdno', 'txtTreno', 'txtPton', 'txtPton2', 'txtGross', 'txtWeight', 'txtLtime', 'txtStime', 'txtDtime', 'txtBmiles', 'txtEmiles', 'txtMiles'],
 				/*記錄當前的資料*/
 				copy : function() {
 					curData.data = new Array();
@@ -356,7 +356,7 @@
 				if (q_cur > 0 && q_cur < 4)
 					return;
 
-				q_box('trans_s.aspx', q_name + '_s', "550px", "650px", q_getMsg("popSeek"));
+				q_box('trans_s.aspx', q_name + '_s', "550px", "95%", q_getMsg("popSeek"));
 				$('#dview').css('width', '100%');
 				$('#dview').css('display', '');
 				$('#dbbm').css('width', '0%');
@@ -398,7 +398,7 @@
 			}
 
 			function btnPrint() {
-				q_box('z_trans.aspx' + "?;;;;" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
+				q_box('z_trans.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 			}
 
 			function btnOk() {

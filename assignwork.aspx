@@ -158,6 +158,8 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtItemno').focus();
                 $('#txtDatea').val(q_date());
+                $('#txtOdate').val(q_date());
+                $('#txtWdate').val(q_date());
 				t_date = new Date(dec(q_date().substring(0,3))+1911 + q_date().substring(3));
 	            t_date.setDate(t_date.getDate()+4);
 	            t_year = t_date.getUTCFullYear()-1911;
@@ -168,9 +170,9 @@
 	            t_day = t_day>9?t_day+'':'0'+t_day;
 	            $('#txtPaydate').val(t_year+'/'+t_month+'/'+t_day);
 	            $('#txtPaydate').val(t_year+'/'+t_month+'/'+t_day);
-	            $('#cmbPartno2').val('06');
-	            $('#txtSalesno2').val('060188');
-	            $('#txtSales2').val('邱奕龍');
+	            //$('#cmbPartno2').val('06');
+	            $('#txtSalesno').val(r_userno);
+	            $('#txtSales').val(r_name);
                 $('#txtItem').focus();
             }
             function btnModi() {
