@@ -107,9 +107,7 @@
 			<!--#include file="../inc/pop_modi.inc"-->
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
 				<tr style='color:white; background:#003366;' >
-					<td class="td1" align="center" style="width:1%; max-width:20px;">
-					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
-					</td>
+					
 					<td class="td2" align="center" style="width:7%;"><a id='lblMon'></a></td>
 					<td class="td8" align="center" style="width:30%;"><a id='lblMemo'></a></td>
 					<td class="td3" align="center" style="width:10%;"><a id='lblOutmoney'></a></td>
@@ -119,9 +117,7 @@
 					<td class="td7" align="center" style="width:20%;"><a id='lblTaxmemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
-					<td class="td1" align="center">
-					<input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  />
-					</td>
+					
 					<td class="td2">
 					<input class="txt" id="txtMon.*" type="text" style="width:95%; text-align: center;"  />
 					</td>
