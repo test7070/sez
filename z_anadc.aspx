@@ -32,7 +32,7 @@
 					$('#dataSearch').show();
 					$(".control").hide();
 					for(var i =0 ;i<$('#q_report').data().info.reportData.length;i++){
-						if($(".select")[0].nextElementSibling.innerText==$('#q_report').data().info.reportData[i].reportName){
+						if($(".select")[0].nextSibling.innerText==$('#q_report').data().info.reportData[i].reportName){
 							//下面註解取得q_lang的z_xxxxx
 							txtreport=$('#q_report').data().info.reportData[i].report;
 							if(txtreport=='z_anadc1' || txtreport=='z_anadc3' || txtreport=='z_anadc5' || txtreport=='z_anadc7')

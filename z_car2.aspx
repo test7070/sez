@@ -56,7 +56,7 @@
                 });
                 
                 $('#q_report').click(function(e) {
-                	if($(".select")[0].nextElementSibling.innerText=='監理稅金收單表'){
+                	if($(".select")[0].nextSibling.innerText=='監理稅金收單表'){
                 		$('#cartax').show();
                 	}
                 });
