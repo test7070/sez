@@ -9,10 +9,14 @@
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
+        <link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
             var q_name = "trans_s";
-			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno', 'cust_b.aspx'],
-		    ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
+			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa', 'txtCustno', 'cust_b.aspx'],
+		    ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno', 'driver_b.aspx'], 
 		    ['txtStraddrno', 'lblStraddr', 'addr', 'noa,addr', 'txtStraddrno', 'addr_b.aspx'],
             ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx']);
             $(document).ready(function() {
@@ -34,7 +38,11 @@
                 q_gt('calctype2', '', 0, 0, 0, "calctypes");
                 q_cmbParse("cmbTrd", '@全部,Y@已立帳,N@未立帳');
                 q_cmbParse("cmbTre", '@全部,Y@已立帳,N@未立帳');
-                $('#txtBdate').focus();
+                $('#txtBdate').datepicker();
+				$('#txtEdate').datepicker(); 
+				$('#txtBtrandate').datepicker();
+				$('#txtEtrandate').datepicker(); 
+                $('#txtNoa').focus();
             }
 
             function q_gtPost(t_name) {
@@ -60,29 +68,20 @@
             }
 
             function q_seekStr() {
-                t_noa = $('#txtNoa').val();
-		        t_driverno = $('#txtDriverno').val();
-		        t_driver = $('#txtDriver').val();
-		        t_custno = $('#txtCustno').val();
-		        t_comp = $('#txtComp').val();
-		        t_carno = $('#txtCarno').val();
-		        t_po = $('#txtPo').val();
-		        t_caseno = $('#txtCaseno').val();
-		        t_straddrno = $('#txtStraddrno').val();
+                t_noa = $.trim($('#txtNoa').val());
+		        t_driverno = $.trim($('#txtDriverno').val());
+		        t_driver = $.trim($('#txtDriver').val());
+		        t_custno = $.trim($('#txtCustno').val());
+		        t_comp = $.trim($('#txtComp').val());
+		        t_carno = $.trim($('#txtCarno').val());
+		        t_po = $.trim($('#txtPo').val());
+		        t_caseno = $.trim($('#txtCaseno').val());
+		        t_straddrno = $.trim($('#txtStraddrno').val());
 
 		        t_bdate = $('#txtBdate').val();
 		        t_edate = $('#txtEdate').val();
-		        ;
-		        t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
-		        /// 100.  .
-		        t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
-		        /// 100.  .
 		        t_btrandate = $('#txtBtrandate').val();
 		        t_etrandate = $('#txtEtrandate').val();
-		        t_btrandate = t_btrandate.length > 0 && t_btrandate.indexOf("_") > -1 ? t_btrandate.substr(0, t_btrandate.indexOf("_")) : t_btrandate;
-		        /// 100.  .
-		        t_etrandate = t_etrandate.length > 0 && t_etrandate.indexOf("_") > -1 ? t_etrandate.substr(0, t_etrandate.indexOf("_")) : t_etrandate;
-		        /// 100.  .
 		        t_trd = $.trim($('#cmbTrd').val());
 		        t_tre = $.trim($('#cmbTre').val());
 		        t_carteam = $.trim($('#cmbCarteam').val());
@@ -94,7 +93,16 @@
 		        + q_sqlPara2("noa", t_noa) 
 		        + q_sqlPara2("datea", t_bdate, t_edate) 
 		        + q_sqlPara2("Trandate", t_btrandate, t_etrandate) 
-		        + q_sqlPara_or(["caseno", "caseno2"], t_caseno) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver) + q_sqlPara2("custno", t_custno) + q_sqlPara2("straddrno", t_straddrno) + q_sqlPara2("comp", t_comp) + q_sqlPara2("carno", t_carno) + q_sqlPara2("po", t_po);
+		        + q_sqlPara_or(["caseno", "caseno2"], t_caseno) 
+		        + q_sqlPara2("driverno", t_driverno) 
+		        + q_sqlPara2("custno", t_custno) 
+		        + q_sqlPara2("straddrno", t_straddrno) 
+		        + q_sqlPara2("carno", t_carno) 
+		        + q_sqlPara2("po", t_po);
+		        if (t_comp.length>0)
+                    t_where += " and patindex('%" + t_comp + "%',comp)>0";
+                if (t_driver.length>0)
+                    t_where += " and patindex('%" + t_driver + "%',driver)>0";
 		       	if(t_trd=='Y')
 		       		t_where += " and len(trdno)>0"
 		       	if(t_trd=='N')
@@ -141,6 +149,12 @@
 					<td><select id="cmbTre" style="width:215px; font-size:medium;" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
+					<td>
+					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
 					<td   style="width:35%;" ><a id='lblDatea'></a></td>
 					<td style="width:65%;  ">
 					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
@@ -157,12 +171,6 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
-					<td>
-					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
-					</td>
-				</tr>
-				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCarno'></a></td>
 					<td>
 					<input class="txt" id="txtCarno" type="text" style="width:215px; font-size:medium;" />
@@ -171,17 +179,25 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblDriverno'></a></td>
 					<td>
-					<input class="txt" id="txtDriverno" type="text" style="width:90px; font-size:medium;" />
-					&nbsp;
-					<input class="txt" id="txtDriver" type="text" style="width:115px;font-size:medium;" />
+					<input class="txt" id="txtDriverno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblDriver'></a></td>
+					<td>
+					<input class="txt" id="txtDriver" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCustno'></a></td>
 					<td>
-					<input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" />
-					&nbsp;
-					<input class="txt" id="txtComp" type="text" style="width:115px;font-size:medium;" />
+					<input class="txt" id="txtCustno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblComp'></a></td>
+					<td>
+					<input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>

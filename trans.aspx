@@ -356,7 +356,7 @@
 				if (q_cur > 0 && q_cur < 4)
 					return;
 
-				q_box('trans_s.aspx', q_name + '_s', "550px", "650px", q_getMsg("popSeek"));
+				q_box('trans_s.aspx', q_name + '_s', "550px", "95%", q_getMsg("popSeek"));
 				$('#dview').css('width', '100%');
 				$('#dview').css('display', '');
 				$('#dbbm').css('width', '0%');
@@ -398,7 +398,7 @@
 			}
 
 			function btnPrint() {
-				q_box('z_trans.aspx' + "?;;;;" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
+				q_box('z_trans.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
 			}
 
 			function btnOk() {
