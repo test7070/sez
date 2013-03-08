@@ -43,6 +43,10 @@
                         dbf : 'acomp',
                         index : 'noa,acomp',
                         src : 'acomp_b.aspx'
+                    }, {
+                    	type : '0',
+                        name : 'accy',
+                        value : q_getId()[4]
                     }]
                 });
                 q_popAssign();

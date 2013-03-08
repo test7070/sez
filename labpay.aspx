@@ -17,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "labpay";
-            var q_readonly = ['txtNoa', 'txtApprover','txtAccno','txtVccno'];
+            var q_readonly = ['txtNoa', 'txtApprover','txtAccno','txtBvccno','txtEvccno'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [['txtMount', 10, 0, 1], ['txtBkbcc', 10, 0, 1]];
@@ -78,7 +78,10 @@
                     	q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
                 });
                 $('#lblVccno').click(function() {
-                    q_pop('txtBvccno', "vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtVccno').val() + "';" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+			        t_bvccno = $('#txtBvccno').val();
+			        t_evccno = $('#txtEvccno').val();
+        			var t_where = " 1=1 " + q_sqlPara2("noa", t_bvccno,t_evccno);
+					q_pop('txtBvccno', "vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+ t_where +";" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
                 });
 				$('#btnImport').click(function () {
                 	if(emp($('#txtSalesno').val()) || emp($('#txtSales').val())){
@@ -199,6 +202,18 @@
                     }
                 }
                 _bbsAssign();
+            }
+            
+			function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+				var s2 = xmlString.split(';');
+                abbm[q_recno]['accno'] = s2[0];
+                abbm[q_recno]['bvccno'] = s2[1];
+                abbm[q_recno]['evccno'] = s2[2];
+                $('#txtAccno').val(s2[0]);
+                $('#txtBvccno').val(s2[0]);
+                $('#txtEvccno').val(s2[1]);
             }
 
             function btnIns() {
