@@ -31,6 +31,7 @@
 					$('#barChart').hide();
 					$('#dataSearch').show();
 					$(".control").hide();
+					
 					for(var i =0 ;i<$('#q_report').data().info.reportData.length;i++){
 						if($(".select")[0].nextSibling.innerText==$('#q_report').data().info.reportData[i].reportName){
 							//下面註解取得q_lang的z_xxxxx
@@ -45,12 +46,12 @@
 						$('#btnSvg').show();
 				});
 				$('#btnSvg').click(function(e) {
-					if(txtreport=='z_anadc1' || txtreport=='z_anadc3' || txtreport=='z_anadc5' || txtreport=='z_anadc7')
+					/*if(txtreport=='z_anadc1' || txtreport=='z_anadc3' || txtreport=='z_anadc5' || txtreport=='z_anadc7')
 						$('#pieChart').show();
 					if(txtreport=='z_anadc6'||txtreport=='z_anadc8'|| txtreport=='z_anadc9' ||txtreport=='z_anadc10'){
 						$('#barChart').show();
 						$(".control").show();
-					}
+					}*/
 						
 					$('#dataSearch').hide();
 					
@@ -63,6 +64,7 @@
 					if(!emp($('#txtSss2a').val()))
 						sss2a=$('#txtSss2a').val();
 					q_func('qtxt.query','z_anadc.txt,'+txtreport+','+encodeURI(r_accy) + ';' + encodeURI($('#txtDate1').val()) + ';' + encodeURI($('#txtDate2').val()) + ';' + encodeURI($('#txtXmon').val()) + ';' + encodeURI($('#txtCust1a').val())+ ';' + encodeURI(cust2a)+ ';' + encodeURI($('#txtPart1a').val())+ ';' + encodeURI(part2a)+ ';' + encodeURI($('#txtSss1a').val())+ ';' + encodeURI(sss2a)+ ';' + encodeURI($('#txtXyear1').val())+ ';' + encodeURI($('#txtXyear2').val()));
+					$('#Loading').Loading();
 				});
 				$("#btnNext").click(function(e) {
                     $('#barChart').data('info').next($('#barChart'));
@@ -207,6 +209,8 @@
 								y: 250,
 								radius: 200
 							}); 
+							$('#Loading').data('info').stop();
+							$('#pieChart').show();
                         }
                         //長條圖
                         var bar=new Array();
@@ -368,6 +372,9 @@
 	                        	$('#barChart').data('info').page($('#barChart'), $(this).val());
 	                        });
 	                        $('#txtTotPage').val(bar.length);
+	                        $('#Loading').data('info').stop();
+	                        $('#barChart').show();
+							$(".control").show();
 						}
 						
 						if( txtreport=='z_anadc9' ||txtreport=='z_anadc10'){
@@ -425,6 +432,9 @@
 	                        	$('#barChart').data('info').page($('#barChart'), $(this).val());
 	                        });
 	                        $('#txtTotPage').val(bar.length);
+	                        $('#Loading').data('info').stop();
+	                        $('#barChart').show();
+							$(".control").show();
 						}
                         break;
                 }
@@ -444,6 +454,48 @@
 			}
             
 			;(function($, undefined) {
+				$.fn.Loading = function() {
+            		$(this).data('info', {
+            			timer : null,
+            			color : null,
+            			curIndex : 0,
+            			start : function(){
+            				obj = $('#Loading'); 
+            				obj.html('').width(250).height(100).show();
+            				var r,g,b;
+            				var tmpPath = '<rect x="0" y="0" width="200" height="150" style="fill:rgb(255,255,255);"/>';       
+            				obj.data('info').color=new Array();
+            				for(var i=0; i<10; i++){
+            					r = 255-(i+1)*25;
+            					g = 255;
+            					b = round(255/(i+1),0)-10;
+            					obj.data('info').color.push('rgb('+r+','+g+','+b+')');
+            					x = (i+1)*20;
+            					y = 50;
+            					tmpPath += '<rect id="Loading_block_' + i + '"  x="' + x + '" y="' + y + '" width="15" height="15" fill="rgb(255,255,255)"/>';
+            				}
+            				tmpPath += '<text x="20" y="90" fill="black">資料讀取中...</text>';
+            				obj.append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+            				obj.data('info').timer = setInterval(function(){$('#Loading').data('info').func()},500);
+            			},
+            			func : function(){   
+            				obj = $('#Loading');
+        					for(var i=0;i<10;i++){
+            					if (i ==obj.data('info').curIndex )
+            						$('#Loading_block_'+i).attr('fill','rgb(255,143,25)');
+            					else
+            						$('#Loading_block_'+i).attr('fill',obj.data('info').color[i]);
+            				}
+            				obj.data('info').curIndex = (obj.data('info').curIndex+1)%(obj.data('info').color.length);
+            			},
+            			stop : function(){
+            				obj = $('#Loading'); 
+            				clearInterval(obj.data('info').timer);
+            				obj.hide();
+            			}
+            		});
+            		$(this).data('info').start();
+            	}
                 $.fn.pieChart = function(value) {
                     $(this).data('info', {
                         value : value,
@@ -996,6 +1048,7 @@
 			<div id="svgbet">
 				<input id="btnSvg" type="button" />
 			</div>
+			<div id='Loading'> </div>
 			<div id='pieChart'> </div>
 			<input type="button" id="btnPrevious" class="control" style="float:left; width:80px;font-size: medium;" value="上一頁"/>
 				<input type="button" id="btnNext" class="control" style="float:left; width:80px;font-size: medium;" value="下一頁"/>
