@@ -20,7 +20,7 @@
             var q_readonly = ['txtNoa', 'txtApprover','txtAccno','txtBvccno','txtEvccno'];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtMount', 10, 0, 1], ['txtBkbcc', 10, 0, 1]];
+            var bbsNum = [['txtMount', 10, 0, 1], ['txtMoney', 14, 0, 1], ['txtPlusmoney', 14, 0, 1], ['txtMinusmoney', 14, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_desc = 1;
@@ -94,8 +94,7 @@
                 		$('#txtProductno').focus();
                 		return;
                 	}
-                	dateimport=true;
-                	//上期欠款
+                	
 		            var t_where = "where=^^ salesno ='"+$('#txtSalesno').val()+"' ";
 		            t_where+= "and sales ='"+$('#txtSales').val()+"' ";
 		            t_where+= "and productno ='"+$('#txtProductno').val()+"' ";
@@ -131,16 +130,8 @@
                 b_pop = '';
             }
 
-            var ischecker = false;
             function q_gtPost(t_name) {
                 switch (t_name) {
-                    case 'authority':
-                        var as = _q_appendData('authority', '', true);
-                        if (as.length > 0 && as[0]["pr_run"] == "true")
-                            ischecker = true;
-                        else
-                            ischecker = false;
-                        break;
                     case 'custroutine':
 		            	var custroutines = _q_appendData("custroutines", "", true);
 		            	for(var i = 0;i < custroutines.length;i++){
@@ -317,36 +308,6 @@
             function btnCancel() {
                 _btnCancel();
             }
-
-            function checkId(str) {
-                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//�����Ҧr��
-                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
-                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-                    if ((n % 10) == 0)
-                        return 1;
-                } else if ((/^[0-9]{8}$/g).test(str)) {
-                    var key = '12121241';
-                    var n = 0;
-                    var m = 0;
-                    for (var i = 0; i < 8; i++) {
-                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-                        m += Math.floor(n / 10) + n % 10;
-                    }
-                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-                        return 2;
-                } else if ((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {
-                    var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
-                    if (regex.test(str))
-                        return 3;
-                } else if ((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {
-                    str = (parseInt(str.substring(0, 3)) + 1911) + str.substring(3);
-                    var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
-                    if (regex.test(str))
-                        return 4
-                }
-                return 0;
-            }
 		</script>
 		<style type="text/css">
             #dmain {
@@ -494,45 +455,24 @@
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
-					<tr style="height:1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
-					</tr>
 					<tr>
-						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td>
-						<input id="txtDatea"  type="text" class="txt c1" />
-						</td>
-						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td>
-						<input id="txtNoa" type="text" class="txt c1" />
-						</td>
+						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td class="td2">	<input id="txtDatea"  type="text" class="txt c1" /></td>
+						<td class="td3"><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td class="td4">	<input id="txtNoa" type="text" class="txt c1" /></td>
+						<td class="td5"></td>
+						<td class="td6"></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblSalesno' class="lbl btn"></a></td>
-						<td class="td2">
-						<input id="txtSalesno"  type="text" class="txt c1" />
-						</td>
-						<td class="td3" colspan="2">
-						<input id="txtSales" type="text" class="txt c1" />
-						</td>
-						<td class="td5"></td>
+						<td class="td2"><input id="txtSalesno"  type="text" class="txt c1" /></td>
+						<td class="td3" colspan="2"><input id="txtSales" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblProduct' class="lbl btn"></a></td>
-						<td class="td2">
-							<input id="txtProductno"  type="text" class="txt c1" />
-						</td>
-						<td class="td3">
-							<input id="txtProduct" type="text" class="txt c1" />
-						</td>
+						<td class="td2"><input id="txtProductno"  type="text" class="txt c1" /></td>
+						<td class="td3"><input id="txtProduct" type="text" class="txt c1" /></td>
 						<td class="td4"><input id="btnImport" type="button" /></td>
-						<td class="td5"></td>
 						<!--
 						<td class="td4"><span> </span><a id='lblMoney' class="lbl"></a></td>
 						<td class="td5"><input id="txtMoney"  type="text" class="txt num c1" /></td>
@@ -540,13 +480,8 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblAcc1' class="lbl btn"></a></td>
-						<td class="td2">
-						<input id="txtAcc1"  type="text" class="txt c1" />
-						</td>
-						<td class="td3" colspan="2">
-						<input id="txtAcc2" type="text" class="txt c1" />
-						</td>
-						<td class="td5"></td>
+						<td class="td2"><input id="txtAcc1"  type="text" class="txt c1" /></td>
+						<td class="td3" colspan="2"><input id="txtAcc2" type="text" class="txt c1" /></td>
 					</tr>
 					<!--
 					<tr>
@@ -573,9 +508,7 @@
 					-->
 					<tr>
 						<td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
-						<td class="td2" colspan="3">
-						<input id="txtMemo"  type="text"  style="width: 99%;"/>
-						</td>
+						<td class="td2" colspan="3"><input id="txtMemo"  type="text"  style="width: 99%;"/></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblVccno" class="lbl btn"></a></td>
@@ -691,7 +624,6 @@
 					</td>
 					-->
 				</tr>
-
 			</table>
 		</div>
 		<input id="q_sys" type="hidden" />
