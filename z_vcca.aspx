@@ -49,6 +49,12 @@
                         type : '8',
                         name : 'xcno',
                         value : t_cno.split(',')
+                    }, {
+                        type : '2',
+                        name : 'xcust',
+                        dbf : 'cust',
+                        index : 'noa,comp',
+                        src : 'cust_b.aspx'
                     }]
                 });
                 q_popAssign();

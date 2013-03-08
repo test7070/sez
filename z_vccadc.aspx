@@ -15,11 +15,27 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+            t_cno = '';
             $(document).ready(function() {
             	q_getId();
                 q_gf('', 'z_vccadc');
             });
             function q_gfPost() {
+            	q_gt('acomp', '', 0, 0, 0);
+            }
+			function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'acomp':
+                        t_cno = '';
+                        var as = _q_appendData("acomp", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_cno += (t_cno.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].nick;
+                        }
+                        break;
+                }
+                if(t_cno.length==0)
+                	return;
+                
                 $('#q_report').q_report({
                     fileName : 'z_vccadc',
                     options : [ {
@@ -47,10 +63,14 @@
                     	type : '0',
                         name : 'accy',
                         value : q_getId()[4]
-                    }]
+                    }, {/*2*/
+                        type : '8',
+                        name : 'xcno',
+                        value : t_cno.split(',')
+                   }]
                 });
                 q_popAssign();
-                $('#txtXmon1').mask('999/99');
+				q_langShow();
                 $('#txtXmon2').mask('999/99');
                 $('#txtBmon1').mask('999/99');
                 $('#txtBmon2').mask('999/99');
@@ -125,8 +145,6 @@
             }
 
             function q_boxClose(s2) {
-            }
-            function q_gtPost(s2) {
             }
 	</script>
 	</head>
