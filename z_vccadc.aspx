@@ -16,6 +16,7 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             t_cno = '';
+            t_isinit = false;
             $(document).ready(function() {
             	q_getId();
                 q_gf('', 'z_vccadc');
@@ -34,9 +35,9 @@
                         t_cno += ',checkAll@全選';
                         break;
                 }
-                if(t_cno.length==0)
-                	return;
-                
+              
+               if (!t_isinit && t_cno.length > 0 ) {
+               	t_isinit = true;  
                 $('#q_report').q_report({
                     fileName : 'z_vccadc',
                     options : [ {
@@ -155,7 +156,7 @@
 						}
 					});	                    
             }
-
+		}
             function q_boxClose(s2) {
             }
             
