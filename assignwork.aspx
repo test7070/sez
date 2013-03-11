@@ -173,7 +173,6 @@
 	            //$('#cmbPartno2').val('06');
 	            $('#txtSalesno').val(r_userno);
 	            $('#txtSales').val(r_name);
-                $('#txtItem').focus();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
