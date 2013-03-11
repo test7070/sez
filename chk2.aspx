@@ -18,9 +18,9 @@
             q_tables = 's';
             var q_name = "chk2";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtMoney'];
-            var q_readonlys = [];
-            var bbmNum = [['txtMoney', 10, 0]];
-            var bbsNum = [['txtMoney', 10, 0]];
+            var q_readonlys = ['txtCheckno'];
+            var bbmNum = [['txtMoney', 10, 0, 1]];
+            var bbsNum = [['txtMoney', 10, 0, 1]];
             var bbmMask = [['txtDatea', '999/99/99']];
             var bbsMask = [['txtDatea', '999/99/99']];
             q_sqlCount = 6;
@@ -129,7 +129,8 @@
                             q_bodyId($(this).attr('id'));
                             b_seq = t_IdSeq;
                             $('#trSel_' + b_seq).removeClass('sel');
-                            if ($('#chkSel_' +b_seq)[0].checked) {//判斷是否被選取
+ 
+                            if ($('#chkSel_' +b_seq).prop('checked')) {//判斷是否被選取
                                 $('#trSel_' + b_seq).addClass('chksel');
                                 //變色
                             } else {
@@ -176,7 +177,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['checkno']) {
+                if (as['sel']!='true') {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -200,7 +201,7 @@
             function refresh(recno) {
                 _refresh(recno);
                 for (var j = 0; j < q_bbsCount; j++) {
-                    if ($('#chkSel_' + j )[0].checked) {//判斷是否被選取
+                    if ($('#chkSel_' + j ).prop('checked')) {//判斷是否被選取
                         $('#trSel_' + j).addClass('chksel');
                         //變色
                     } else {

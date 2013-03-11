@@ -352,7 +352,9 @@
                         break;
                 }  /// end switch
             }
-
+			
+			//1020311增加修改完單據後會重新整理網頁(解決次月金額變動而沒有重新整理的問題)
+			var isbtnok=false;
             function btnOk() {
                 if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
@@ -376,7 +378,8 @@
 
                 $('#txtWorker').val(r_name)
                 sum();
-
+				
+				isbtnok=true;
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if(s1.length == 0 || s1 == "AUTO")
                     wrServer($('#txtCarno').val()+'-'+$('#txtMon').val());
@@ -448,6 +451,10 @@
            			}
            		}
                 _bbsAssign();
+                
+                if(isbtnok){
+                	location.href = (location.origin==undefined?'':location.origin)+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";noa<='"+$('#txtNoa').val()+"';"+r_accy;
+                }
                 
                 //收款的資料禁止修改
                 if(q_cur==2){

@@ -53,6 +53,14 @@
                 q_mask(bbmMask);
         		bbsMask = [['txtMon', r_picm]];
                 q_mask(bbsMask);
+                
+                $('#btnImported').click(function() {
+                	if(!emp($('#txtMon').val())){
+                		//找出去年全部會計4大類的資料(dmoney-cmoney),取得%數的分母
+                		var t_where = "where=^^ left(accc2,2)=right('"+$('#txtMon').val()+"',2) ^^";
+				        q_gt('accc', t_where , 0, 1, 0, "", r_accy + '_' + r_cno);
+                	}
+                });
             }
 			
             function q_boxClose(s2) {
@@ -63,9 +71,31 @@
                         break;
                 }  
             }
-
+			
+			var accc4total=0;
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'accc':
+                		var as = _q_appendData("acccs", "", true);
+                		accc4total=0;
+                		for(var i = 0;i < as.length;i++){
+                			if(as[i].accc5.substr(0,1)=='4')
+                				accc4total+=dec(as[i].dmoney)-dec(as[i].cmoney);
+		            	}
+                		
+                		var t_where = "where=^^ mon ='"+$('#txtMon').val()+"' ^^";
+				        q_gt('accu', t_where , 0, 0, 0, "", r_accy);	
+                		break;
+                	case 'accu':
+                		var as = _q_appendData("accus", "", true);
+                		for(var i = 0;i < as.length;i++){
+                			as[i].per=round(dec(as[i].money)/accc4total,0);
+                		}
+                		
+                		q_gridAddRow(bbsHtm, 'tbbs', 'txtAcc1,txtAcc2,txtPer,txtMoney,txtPartno,txtPart,txtMemo'
+		            	, as.length, as, 'acc1,acc2,per,money,partno,part,memo', 'txtAcc1');
+                		
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -117,9 +147,19 @@
             }
 
             function btnOk() {
+            	t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  
+	            if (t_err.length > 0) {
+	                alert(t_err);
+	                return;
+	            }
+
+            	//$('#txtWorker').val(r_name)
+            	
+            	sum();
+            	
                 var t_noa = trim($('#txtNoa').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_date(), '/', ''));
+                    q_gtnoa(q_name, replaceAll($('#txtMon').val(), '/', ''));
                 else
                     wrServer(t_noa);
             }
@@ -329,7 +369,7 @@
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='mon' style="text-align: center;">~mon</td>
-						<td id='total' style="text-align: left;">~total</td>
+						<td id='total,0,1' style="text-align: center;">~total,0,1</td>
 					</tr>
 				</table>
 			</div>
@@ -349,6 +389,7 @@
 						<td><input class="btn"  id="btnImported" type="button" value='預估資料匯入'/></td>
 						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
 						<td><input id="txtTotal" type="text" class="txt num c1"/></td>
+						<td></td>
 					</tr>
 					<!--<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
