@@ -189,7 +189,7 @@
                         t_where4 = " where[4]=^^ 1=0 order by noa ^^";
                         t_where5 = " where[5]=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";
                     }
-                    q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + t_where1 + t_where2 + t_where3+ t_where4+t_where5, 'umm_trd', "70%", "600px", q_getMsg('popUmm_trd'));
+                    q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + t_where1 + t_where2 + t_where3+ t_where4+t_where5, 'umm_trd', "95%", "95%", q_getMsg('popUmm_trd'));
                 });
             }
 
