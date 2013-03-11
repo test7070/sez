@@ -33,22 +33,22 @@
                 		var montaxhtml='1=1';
                 		switch ($('#combTax').val()) {
                 			case '01':
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('上',memo)>0 and left(mon,3)='"+$('#textYear').val()+"' and caritemno='501' order by carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('上',a.memo)>0 and left(a.mon,3)='"+$('#textYear').val()+"' and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
                 			break;
                 			case '02':
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('下',memo)>0 and left(mon,3)='"+$('#textYear').val()+"' and caritemno='501' order by carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('下',a.memo)>0 and left(a.mon,3)='"+$('#textYear').val()+"' and caritemno='501' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
                 			break;
                 			case '03':
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('春',memo)>0 and left(mon,3)='"+$('#textYear').val()+"' and caritemno='502' order by carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('春',a.memo)>0 and left(a.mon,3)='"+$('#textYear').val()+"' and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
                 			break;
                 			case '04':
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('夏',memo)>0 and left(mon,3)='"+$('#textYear').val()+"' and caritemno='502' order by carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('夏',a.memo)>0 and left(a.mon,3)='"+$('#textYear').val()+"' and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
                 			break;
                 			case '05':
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('秋',memo)>0 and left(mon,3)='"+$('#textYear').val()+"' and caritemno='502' order by carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('秋',a.memo)>0 and left(a.mon,3)='"+$('#textYear').val()+"' and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
                 			break;
                 			case '06':
-                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('冬',memo)>0 and left(mon,3)='"+$('#textYear').val()+"' and caritemno='502' order by carno;"+r_accy;
+                				montaxhtml="cartax_b.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";CHARINDEX('冬',a.memo)>0 and left(a.mon,3)='"+$('#textYear').val()+"' and caritemno='502' and b.cardealno='"+$('#combCardealno').val()+"' order by a.carno;"+r_accy;
                 			break;
                 		}
                 		q_box((montaxhtml), 'cartax', "90%", "600px", q_getMsg("popCartax"));
@@ -66,11 +66,12 @@
             function q_gfPost() {
                  q_gt('carteam', '', 0, 1, 0, "");
                  q_gt('sss', "where=^^ partno='07'^^" , 0, 0, 0, "", r_accy);
+                 q_gt('cardeal', '', 0, 1, 0, "");
             }
 
             function q_boxClose(t_name) {
             }
-			var sssno='';
+			var sssno='',xcardealno='';
             function q_gtPost(t_name) {
             	  switch (t_name) {
             	  	case 'sss':
@@ -81,6 +82,13 @@
             			sssno=sssno.substr(0,sssno.length-1);
             			$('#textSno').val(sssno);
             		break;
+            		case 'cardeal':
+                        var as = _q_appendData("cardeal", "", true);
+                        for( i = 0; i < as.length; i++) {
+                            xcardealno = xcardealno + (xcardealno.length>0?',':'') + as[i].noa +'@' + as[i].comp;
+                        }
+                        q_cmbParse("combCardealno", xcardealno);
+                        break;
                     case 'carteam':
                         var as = _q_appendData("carteam", "", true);
                         for( i = 0; i < as.length; i++) {
@@ -88,7 +96,7 @@
                         }    
                         break;
                   }
-                     if(t_item.length>0 &&sssno.length>0){
+                     if(t_item.length>0 &&xcardealno.length>0&&sssno.length>0){
 	                $('#q_report').q_report({
 	                    fileName : 'z_car2',
                         options : [{
@@ -390,6 +398,10 @@
 					<tr>
 						<td align="center" style="width:35%"><a id="lblxTax" class="lbl">稅金</a></td>
 						<td align="left" style="width:65%"><select id="combTax" class="txt c1"> </select></td>
+					</tr>
+					<tr>
+						<td align="center" style="width:35%"><a id="lblxCardealno" class="lbl">車行</a></td>
+						<td align="left" style="width:65%"><select id="combCardealno" class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td align="center" colspan="2">
