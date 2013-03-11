@@ -120,10 +120,10 @@
 					<input class="txt" id="txtProductno.*" type="text" style="width:95%; text-align: center;"  />
 					</td>
 					<td class="td3">
-					<input class="txt" id="txtProduct.*" type="text" style="width:95%; text-align: center;"  />
+					<input class="txt" id="txtProduct.*" type="text" style="width:95%; text-align: left;"  />
 					</td>
 					<td class="td4">
-					<input class="txt" id="txtMemo.*" type="text" style="width:95%; text-align: center;"  />
+					<input class="txt" id="txtMemo.*" type="text" style="width:95%; text-align: left;"  />
 					</td>
 				</tr>
 			</table>
