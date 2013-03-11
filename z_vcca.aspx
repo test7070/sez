@@ -16,6 +16,7 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             t_cno = '';
+                t_isinit = false;
             $(document).ready(function() {
                 q_getId();
                 q_gf('', 'z_vcca');  
@@ -33,34 +34,35 @@
                         }
                         break;
                 }
-                if(t_cno.length > 0){
-	                $('#q_report').q_report({
-	                    fileName : 'z_vcca',
-	                    options : [{
-	                        type : '0',
-	                        name : 'accy',
-	                        value : q_getId()[4]
-	                    }, {/*1*/
-	                        type : '1',
-	                        name : 'mon'
-	                    }, {/*2*/
-	                        type : '8',
-	                        name : 'xcno',
-	                        value : t_cno.split(',')
-	                    }, {
-	                        type : '2',
-	                        name : 'xcust',
-	                        dbf : 'cust',
-	                        index : 'noa,comp',
-	                        src : 'cust_b.aspx'
-	                    }]
-	                });
-	                q_popAssign();
-	                q_getFormat();
-					q_langShow();
-	                $('#txtMon1').mask('999/99');
-	                $('#txtMon2').mask('999/99');   
-	        	}          
+               if (!t_isinit && t_cno.length > 0 ) {
+               	t_isinit = true;
+                $('#q_report').q_report({
+                    fileName : 'z_vcca',
+                    options : [{
+                        type : '0',
+                        name : 'accy',
+                        value : q_getId()[4]
+                    }, {/*1*/
+                        type : '1',
+                        name : 'mon'
+                    }, {/*2*/
+                        type : '8',
+                        name : 'xcno',
+                        value : t_cno.split(',')
+                    }, {
+                        type : '2',
+                        name : 'xcust',
+                        dbf : 'cust',
+                        index : 'noa,comp',
+                        src : 'cust_b.aspx'
+                    }]
+                });
+                q_popAssign();
+                q_getFormat();
+				q_langShow();
+                $('#txtMon1').mask('999/99');
+                $('#txtMon2').mask('999/99');             
+            }
             }
             function q_boxClose(s2) {
             }
