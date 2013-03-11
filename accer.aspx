@@ -28,7 +28,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            brwCount2 = 7;//15
+            brwCount2 = 3;//15
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
             ['txtPartno_', 'btnPart_', 'part', 'noa,part', 'txtPartno_,txtPart_', "part_b.aspx"]);
@@ -335,17 +335,18 @@
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
-					<tr>
+					<tr class="tr1" style="display:none">
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
-						<td>	<input id="txtNoa" type="text" style="float:left;"/></td>
+						<td>	<input id="txtNoa" type="text" class="txt c1"/></td>
+						<td></td>
+						<td></td>
 						<td></td>
 						<td></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMon" class="lbl"> </a></td>
 						<td><input id="txtMon" type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
+						<td><input class="btn"  id="btnImported" type="button" value='預估資料匯入'/></td>
 						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
 						<td><input id="txtTotal" type="text" class="txt num c1"/></td>
 					</tr>

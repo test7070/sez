@@ -28,9 +28,9 @@
     }
 
     function q_seekStr() {   
-        t_years = $('#txtYears').val();
+        t_mon = $('#txtMon').val();
 
-        var t_where = " 1=1 " + q_sqlPara2("years", t_years) ;
+        var t_where = " 1=1 " + q_sqlPara2("mon", t_mon) ;
         t_where = ' where=^^' + t_where + '^^ '; 
         return t_where;
     }

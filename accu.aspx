@@ -116,9 +116,9 @@
         function btnIns() {
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-            $('#txtYears').val(q_date().substring(0,6));
+            $('#txtMon').val(q_date().substring(0,6));
             
-            $('#txtYears').focus();
+            $('#txtMon').focus();
         }
         var t_mobile=[];//�ȦsBBS
         function btnModi() {
@@ -346,12 +346,12 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:20%"><a id='vewYears'></a></td>
+                <td align="center" style="width:20%"><a id='vewMon'></a></td>
                 <td align="center" style="width:25%"><a id='vewTotal'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
-                   <td align="center" id='years'>~years</td>
+                   <td align="center" id='mon'>~mon</td>
                    <td align="center" id='total,0,1'>~total,0,1</td>
             </tr>
         </table>
@@ -363,8 +363,8 @@
                	<td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
         </tr>
         <tr class="tr2">
-               <td class="td1"><span> </span><a id='lblYears' class="lbl"></a></td>
-               <td class="td2"><input id="txtYears"  type="text"  class="txt c1"/></td>
+               <td class="td1"><span> </span><a id='lblMon' class="lbl"></a></td>
+               <td class="td2"><input id="txtMon"  type="text"  class="txt c1"/></td>
                <td class="td3"><span> </span><a id='lblTotal' class="lbl"></a></td>
                <td class="td4"><input id="txtTotal"  type="text"  class="txt num c1"/></td>
         </tr>
