@@ -18,9 +18,9 @@
             q_tables = 's';
             var q_name = "chk2";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtMoney'];
-            var q_readonlys = [];
-            var bbmNum = [['txtMoney', 10, 0]];
-            var bbsNum = [['txtMoney', 10, 0]];
+            var q_readonlys = ['txtCheckno'];
+            var bbmNum = [['txtMoney', 10, 0, 1]];
+            var bbsNum = [['txtMoney', 10, 0, 1]];
             var bbmMask = [['txtDatea', '999/99/99']];
             var bbsMask = [['txtDatea', '999/99/99']];
             q_sqlCount = 6;
@@ -177,7 +177,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['checkno']) {
+                if (as['sel']!='true') {
                     as[bbsKey[1]] = '';
                     return;
                 }
