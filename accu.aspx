@@ -20,7 +20,7 @@
         var q_readonlys = [];
         var bbmNum = [['txtTotal',14 , 0, 1]]; 
         var bbsNum = [['txtMoney',12 , 0, 1],['txtWeight',12 , 3, 1]];
-        var bbmMask = [];
+        var bbmMask = [['txtYears', '999/99']];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Noa';
         q_desc=1;
@@ -48,7 +48,7 @@
         }  
         function mainPost() { 
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
+            bbmMask = [['txtYears', r_picm]];
             q_mask(bbmMask);
             
         }
@@ -116,8 +116,8 @@
         function btnIns() {
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-            $('#txtYears').val(q_date().substring(0,3));
-            $('#txtDatea').val(q_date());
+            $('#txtYears').val(q_date().substring(0,6));
+            
             $('#txtYears').focus();
         }
         var t_mobile=[];//�ȦsBBS
