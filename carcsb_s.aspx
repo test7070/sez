@@ -69,6 +69,7 @@
 				t_carno = $.trim($('#txtCarno').val());
 				t_custno = $.trim($('#txtCustno').val());
 				t_comp = $.trim($('#txtComp').val());
+				t_tranno = $.trim($('#txtTranno').val());
 
 				
 				var t_where = " 1=1 " 
@@ -76,6 +77,7 @@
 				+ q_sqlPara2("noa", t_noa) 
 				+ q_sqlPara2("datea", t_bdate, t_edate) 
 				+ q_sqlPara2("mon", t_mon)
+				+ q_sqlPara2("tranno", t_tranno)
 				+ q_sqlPara2("custno", t_custno);
 				if (t_carno.length>0)
                     t_where += " and patindex('%" + t_carno + "%',carno)>0";
