@@ -147,11 +147,11 @@
 	                
             		$("input[type='checkbox'][value='checkAll']").click(function() {
             			if($(this).next('span').text() == '全選'){
-							$("input[type='checkbox']").attr('checked',true);
+							$("input[type='checkbox'][value!='']").attr('checked',true);
 							$(this).removeAttr('checked');
 							$(this).next('span').text('取消全選');
 						}else if($(this).next('span').text() == '取消全選'){
-							$("input[type='checkbox']").removeAttr('checked');
+							$("input[type='checkbox'][value!='']").removeAttr('checked');
 							$(this).next('span').text('全選');
 						}
 					});	                    

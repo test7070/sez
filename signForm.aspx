@@ -113,44 +113,54 @@
 			//檢察E-mail欄位有勾沒寫---開始---
 			if($('#chkIsmailchecker').is(':checked') && emp($('#txtMailchecker').val())){
 				alert('請填寫' + q_getMsg('lblChecker')+'的'+q_getMsg('lblIsmailchecker')+'欄位');
+				$('#txtMailchecker').focus();
 				return;
 			}
 			if($('#chkIsmailapprovema').is(':checked') && emp($('#txtMailapprovema').val())){
 				alert('請填寫' + q_getMsg('lblApprovema')+'的'+q_getMsg('lblIsmailapprovema')+'欄位');
+				$('#txtMailapprovema').focus();
 				return;
 			}
 			if($('#chkIsmailapprovefi').is(':checked') && emp($('#txtMailapprovefi').val())){
 				alert('請填寫' + q_getMsg('lblApprovefi')+'的'+q_getMsg('lblIsmailapprovefi')+'欄位');
+				$('#txtMailapprovefi').focus();
 				return;
 			}
 			if($('#chkIsmailapprovegm').is(':checked') && emp($('#txtMailapprovegm').val())){
 				alert('請填寫' + q_getMsg('lblApprovegm')+'的'+q_getMsg('lblIsmailapprovegm')+'欄位');
+				$('#txtMailapprovegm').focus();
 				return;
 			}
 			if($('#chkIsmailapprovebs').is(':checked') && emp($('#txtMailapprovebs').val())){
 				alert('請填寫' + q_getMsg('lblApprovebs')+'的'+q_getMsg('lblIsmailapprovebs')+'欄位');
+				$('#txtMailapprovebs').focus();
 				return;
 			}
 			//檢察E-mail欄位有勾沒寫---結束---
 			//檢察簡訊欄位有勾沒寫---開始---
 			if($('#chkIsmesschecker').is(':checked') && emp($('#txtMesschecker').val())){
 				alert('請填寫' + q_getMsg('lblChecker')+'的'+q_getMsg('lblIsmesschecker')+'欄位');
+				$('#txtMesschecker').focus();
 				return;
 			}
 			if($('#chkIsmessapprovema').is(':checked') && emp($('#txtMessapprovema').val())){
 				alert('請填寫' + q_getMsg('lblApprovema')+'的'+q_getMsg('lblIsmessapprovema')+'欄位');
+				$('#txtMessapprovema').focus();
 				return;
 			}
 			if($('#chkIsmessapprovefi').is(':checked') && emp($('#txtMessapprovefi').val())){
 				alert('請填寫' + q_getMsg('lblApprovefi')+'的'+q_getMsg('lblIsmessapprovefi')+'欄位');
+				$('#txtMessapprovefi').focus();
 				return;
 			}
 			if($('#chkIsmessapprovegm').is(':checked') && emp($('#txtMessapprovegm').val())){
 				alert('請填寫' + q_getMsg('lblApprovegm')+'的'+q_getMsg('lblIsmessapprovegm')+'欄位');
+				$('#txtMessapprovegm').focus();
 				return;
 			}
 			if($('#chkIsmessapprovebs').is(':checked') && emp($('#txtMessapprovebs').val())){
 				alert('請填寫' + q_getMsg('lblApprovebs')+'的'+q_getMsg('lblIsmessapprovebs')+'欄位');
+				$('#txtMessapprovebs').focus();
 				return;
 			}
 			//檢察簡訊欄位有勾沒寫---結束---
@@ -353,13 +363,14 @@
 		<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 			<tr>
 				<td align="center" style="width:5%"><a id='vewChk'></a></td>
-				<td align="center" style="width:10%"><a id='vewNoa'></a></td>
+				<td align="center" style="width:8%"><a id='vewNoa'></a></td>
 				<td align="center" style="width:15%"><a id='vewFormname'></a></td>
-				<td align="center" style="width:10%"><a id='vewPart'></a></td>
-				<td align="center" style="width:10%"><a id='vewChecker'></a></td>
-				<td align="center" style="width:10%"><a id='vewApprov'></a></td>
-				<td align="center" style="width:10%"><a id='vewApprove'></a></td>
-				<td align="center" style="width:10%"><a id='vewApprove2'></a></td>
+				<td align="center" style="width:8%"><a id='vewPart'></a></td>
+				<td align="center" style="width:8%"><a id='vewChecker'></a></td>
+				<td align="center" style="width:8%"><a id='vewApprovema'></a></td>
+				<td align="center" style="width:8%"><a id='vewApprovefi'></a></td>
+				<td align="center" style="width:8%"><a id='vewApprovegm'></a></td>
+				<!--<td align="center" style="width:8%"><a id='vewApprovebs'></a></td>-->
 				<td align="center" style="width:20%"><a id='vewMemo'></a></td>
 			</tr>
 			<tr>
@@ -368,9 +379,10 @@
 				<td align="center" id='formname'>~formname</td>
 				<td align="center" id='part'>~part</td>
 				<td align="center" id='checker'>~checker</td>
-				<td align="center" id='approv'>~approv</td>
-				<td align="center" id='approve'>~approve</td>
-				<td align="center" id='approve2'>~approve2</td>
+				<td align="center" id='approvema'>~approvema</td>
+				<td align="center" id='approvefi'>~approvefi</td>
+				<td align="center" id='approvegm'>~approvegm</td>
+				<!--<td align="center" id='approvebs'>~approvebs</td>-->
 				<td align="center" id='memo'>~memo</td>
 			</tr>
 		</table>
