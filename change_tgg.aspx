@@ -20,7 +20,7 @@
 			}
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'change_sss');
+                q_gf('', 'change_tgg');
                 $('#btnIns').hide();
                 $('#btnModi').hide();
                 $('#btnDele').hide();
@@ -36,10 +36,10 @@
                 $('#pageNow').hide();
                 $('#pageAll').hide();
             	$('#btnChange').click(function() {
-					if($('#txtOsssno').val() != '' && $('#txtNsssno').val() != ''){
-	                	q_func( 'change_sss.change', $('#txtOsssno').val()+','+$('#txtNsssno').val());
+					if($('#txtOtggno').val() != '' && $('#txtNtggno').val() != ''){
+	                	q_func( 'change_tgg.change', $('#txtOtggno').val()+','+$('#txtNtggno').val());
 					}else{
-						alert(q_getMsg('lblOsssno')+'、'+q_getMsg('lblNsssno')+'為必填項!');
+						alert(q_getMsg('lblOtggno')+'、'+q_getMsg('lblNtggno')+'為必填項!');
 					}
 				});
 				$('#btnAuthority').click(function(){
@@ -53,7 +53,6 @@
             }
             function q_gtPost(s2) {
             }
-            
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -61,18 +60,18 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 		<!--#include file="../inc/toolbar.inc"-->
-        <div id='dmain' style="overflow:hidden;">
+       <div id='dmain' style="overflow:hidden;">
 		<table>
 			<tr>
 				<td>
-					<td class="td1"><span> </span><a id='lblOsssno' class="lbl">  </a></td>
-					<td class="td2"><input id="txtOsssno"  type="text"  class="txt c1"/></td>
+					<td class="td1"><span> </span><a id='lblOtggno' class="lbl">  </a></td>
+					<td class="td2"><input id="txtOtggno"  type="text"  class="txt c1"/></td>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<td class="td1"><span> </span><a id='lblNsssno' class="lbl">  </a></td>
-					<td class="td2"><input id="txtNsssno"  type="text"  class="txt c1"/></td>
+					<td class="td1"><span> </span><a id='lblNtggno' class="lbl">  </a></td>
+					<td class="td2"><input id="txtNtggno"  type="text"  class="txt c1"/></td>
 				</td>
 			</tr>
 			<tr>
@@ -84,3 +83,5 @@
         </div> 
 	</body>
 </html>
+           
+          
