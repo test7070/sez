@@ -16,7 +16,7 @@
             }
             q_desc=1;
 			q_tables = 's';
-            var q_name = "custroutine";
+            var q_name = "accer";
             var q_readonly = ['txtNoa','txtPartno','txtPart'];
 			var q_readonlys = ['txtMoney'];
             var bbmNum = [];
@@ -59,32 +59,7 @@
                 	cmbTypea_chg();
                 })
             }
-			function cmbTypea_chg(){
-               	for(var j = 0;j < q_bbsCount;j++){
-		               if($('#cmbTypea').val().substr(0,2) == '發票'){
-	                		$('#txtCno_' + j).removeAttr('disabled');
-	           				$('#txtAcomp_' + j).removeAttr('disabled');
-	           				$('#btnCno_' + j).removeAttr('disabled');
-	           				$('#txtTaxrate_' + j).removeAttr('disabled');
-		               		$('#txtMount_' + j).attr('disabled','disabled');
-		               		$('#txtPrice_' + j).attr('disabled','disabled');	                		
-	                	}else if($('#cmbTypea').val().substr(0,2) == '會計'){
-               				$('#txtCno_' + j).attr('disabled','disabled');
-               				$('#txtAcomp_' + j).attr('disabled','disabled');
-               				$('#btnCno_' + j).attr('disabled','disabled');
-               				$('#txtTaxrate_' + j).attr('disabled','disabled');
-	                		$('#txtMount_' + j).removeAttr('disabled');
-	                		$('#txtPrice_' + j).removeAttr('disabled');                		
-	                	}else{
-	                		$('#txtMount_' + j).removeAttr('disabled');
-	                		$('#txtPrice_' + j).removeAttr('disabled'); 
-	                		$('#txtCno_' + j).removeAttr('disabled');
-	           				$('#txtAcomp_' + j).removeAttr('disabled');
-	           				$('#btnCno_' + j).removeAttr('disabled');
-	           				$('#txtTaxrate_' + j).removeAttr('disabled');  
-	                	}
-	           }
-			}
+			
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -107,13 +82,13 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('custroutine_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
+                q_box('accer_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
-                $('#txtSalesno').focus();
+                $('#txtMon').focus();
                 cmbTypea_chg();
             }
             
@@ -367,44 +342,19 @@
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
-					<tr style="height:1px;">
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td class="tdZ"> </td>
-					</tr>
 					<tr>
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
-						<td>
-							<input id="txtNoa" type="text" style="float:left;"/>
-						</td>	
+						<td>	<input id="txtNoa" type="text" style="float:left;"/></td>
+						<td></td>
+						<td></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblSales" class="lbl btn"> </a></td>
-						<td>
-							<input id="txtSalesno" type="text" style="float:left; width:40%;"/>
-							<input id="txtSales" type="text" style="float:left; width:60%;"/>
-						</td>
+						<td><span> </span><a id="lblMon" class="lbl btn"> </a></td>
+						<td><input id="txtMon" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblPartno" class="lbl"> </a></td>
-						<td>
-							<input id="txtPartno" type="text" style="display:none;"/>
-							<input id="txtPart" type="text" class="txt c1"/>
-						</td>
-
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblTypea" class="lbl"> </a></td>
-						<td><select id="cmbTypea" class="txt c1"> </select></td>						
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblProductno" class="lbl btn"> </a></td>
-						<td>
-							<input id="txtProductno" type="text" style="float:left; width:30%;"/>
-							<input id="txtProduct" type="text" style="float:left; width:70%;"/>
-						</td>
+						<td><span> </span><a id="lblMoney" class="lbl btn"> </a></td>
+						<td><input id="txtMoney" type="text" class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -417,15 +367,12 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
-                <td align="center" style="width:18%"><a id='lblCustnos'></a></td>
-                <td align="center" style="width:7%"><a id='lblMounts'></a></td>
-                <td align="center" style="width:7%"><a id='lblPrices'></a></td>
-                <td align="center" style="width:7%"><a id='lblMoneys'></a></td>
-                <td align="center" style="width:18%"><a id='lblCnos'></a></td>
-                <td align="center" style="width:7%"><a id='lblTaxrates'></a></td>
-                <td align="center" style="width:15%"><a id='lblMemos'></a></td>
-                <td align="center" style="width:7%"><a id='lblBdate'></a></td>
-                <td align="center" style="width:7%"><a id='lblEdate'></a></td>
+                <td align="center" style="width:10%"><a id='lblAcc1s'></a></td>
+                <td align="center" style="width:12%"><a id='lblAcc2s'></a></td>
+                <td align="center" style="width:10%"><a id='lblPers'></a></td>
+                <td align="center" style="width:10%"><a id='lblMoneys'></a></td>
+                <td align="center" style="width:10%"><a id='lblPart'></a></td>
+                <td align="center" style="width:15%"><a id='lblMemo'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
