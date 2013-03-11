@@ -21,7 +21,7 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
         aPop = new Array(
-        	['txtNoa', 'lblNoa', 'acc', 'acc1,acc2', 'txtNoa,txtNamea', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+        	['txtNoa', 'lblNoa', 'acc', 'acc1,acc2', 'txtNoa', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
         	['txtDepl_ac', 'lblAcc', 'acc', 'acc1,acc2', 'txtDepl_ac,txtNamea2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
         );
         $(document).ready(function () {
@@ -45,17 +45,17 @@
 			q_getFormat();
         	bbmMask = [['txtIndate', r_picd],['txtFixdate', r_picd]];
             q_mask(bbmMask);
-            $('#btnAccc').click(function () {
-            	q_box("acczt.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" , '', "95%", "650px", q_getMsg('popOrde'));
+            $('#btnAcczt').click(function () {
+            	q_box("acczt.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" +  r_accy , '', "95%", "650px", q_getMsg('popAcczt'));
             })
-            $('#btnCommand4').click(function () {
-            	q_box("accza.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" , '', "95%", "650px", q_getMsg('popOrde'));
+            $('#btnAccza').click(function () {
+            	q_box("accza.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" +  r_accy , '', "95%", "650px", q_getMsg('popAccza'));
             })
-            $('#btnCommand1').click(function () {
-            	q_box("acczs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" +  r_accy , '', "95%", "650px", q_getMsg('popOrde'));
+            $('#btnAcczs').click(function () {
+            	q_box("acczs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';" +  r_accy , '', "95%", "650px", q_getMsg('popAcczs'));
             })
-            $('#btnCommand2').click(function () {
-				q_box('z_accz.aspx' + "?;;;;" + r_accy, '', '95%', '650px', q_getMsg("popPrint"));
+            $('#btnAccz').click(function () {
+				q_box('z_accz.aspx' + "?;;;;" + r_accy, '', '95%', '650px', q_getMsg("popAccz"));
             })
             $('#txtNoa').change(function(){
             	var s1 = trim($(this).val());
@@ -168,7 +168,8 @@
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
-            $('#txtNoa').focus();
+            $('#txtNoa').attr('disabled', 'disabled');
+            $('#txtNamea').focus();
         }
 
         function btnPrint() {
@@ -193,7 +194,7 @@
             if ( t_noa.length==0 )  
                 q_gtnoa(q_name, t_noa);
             else
-                wrServer(  t_noa);
+                wrServer( t_noa);
         }
 
         function wrServer( key_value) {
@@ -470,7 +471,7 @@
                <td class="td1"><span> </span><a id='lblYear_depl' class="lbl"></a></td>
                <td class="td2"><input id="txtYear_depl"  type="text" class="txt num c1"/></td>
                <td class="td3"></td>
-               <td class="td4"><input id="btnCommand3" type="button"  /></td>
+               <td class="td4"><input id="btnTurncut" type="button"  /></td>
 	           <td class="td5" ></td>
                <td class="td6"></td>
             </tr>
@@ -478,7 +479,7 @@
                <td class="td1"><span> </span><a id='lblIndate' class="lbl"></a></td>
                <td class="td2"><input id="txtIndate"  type="text" class="txt c1" /></td>
                <td class="td3"></td>
-               <td class="td4"><input id="btnAccc" type="button" /></td>
+               <td class="td4"><input id="btnAcczt" type="button" /></td>
 	           <td class="td5"></td>
                <td class="td6"></td>
             </tr> 
@@ -486,7 +487,7 @@
                <td class="td1"><span> </span><a id='lblRate' class="lbl"></a></td>
                <td class="td2"><input id="txtRate" type="text" class="txt num c1" /></td>
 	           <td class="td3"></td>
-               <td class="td4"><input id="btnCommand4" type="button"  /></td>
+               <td class="td4"><input id="btnAccza" type="button"  /></td>
                <td class="td5"></td>
                <td class="td6"></td>
             </tr> 
@@ -494,7 +495,7 @@
                <td class="td1"><span> </span><a id='lblScrapvalue' class="lbl"></a></td>
                <td class="td2"><input id="txtScrapvalue"  type="text" class="txt num c1" /></td>
                <td class="td3"><span> </span><a id="lblNscrapvalue" class="lbl"></a></td>
-               <td class="td4"><input id="btnCommand2" type="button"  /></td>
+               <td class="td4"><input id="btnAccz" type="button"  /></td>
                <td class="td5"></td>
                <td class="td6"></td>
             </tr>
@@ -502,7 +503,7 @@
                 <td class="td1"><span> </span><a id='lblTotal' class="lbl"></a></td>
                 <td class="td2"><input id="txtTotal"  type="text" class="txt num c1" /></td> 
                 <td class="td3"></td>
-                <td class="td4"><input id="btnCommand1" type="button" /></td> 
+                <td class="td4"><input id="btnAcczs" type="button" /></td> 
                 <td class="td5"></td>
                 <td class="td6"></td> 
             </tr>       
