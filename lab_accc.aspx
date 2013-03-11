@@ -58,6 +58,12 @@
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtMon').val().substr( 0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAcc'), true);
                 });
+                $('#lblVccno').click(function() {
+			        t_bvccno = $('#txtBvccno').val();
+			        t_evccno = $('#txtEvccno').val();
+        			var t_where = " 1=1 " + q_sqlPara2("noa", t_bvccno,t_evccno);
+					q_pop('txtBvccno', "vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+ t_where +";" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+                });
                 $('#txtDatea').focusout(function() {
                     q_cd($(this).val(), $(this));
                 });
@@ -476,7 +482,7 @@
 						</td>
 					</tr>-->
 					<tr>
-						<td><span> </span><a id='lblVccno' class="lbl"> </a></td>
+						<td><span> </span><a id='lblVccno' class="lbl btn"> </a></td>
 						<td colspan="3">
 						<input id="txtBvccno"  type="text" style="float:left; width:45%;"/>
 						<span style="float:left; width:5px;"> </span><span style="float:left; width:20px; font-weight: bold;font-size: 20px;">～</span><span style="float:left; width:5px;"> </span>
