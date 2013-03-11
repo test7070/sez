@@ -16,6 +16,7 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             t_cno = '';
+            t_init = false;
             $(document).ready(function() {
             	q_getId();
                 q_gf('', 'z_vccadc');
@@ -34,126 +35,125 @@
                         t_cno += ',checkAll@全選';
                         break;
                 }
-                if(t_cno.length==0)
-                	return;
-                
-                $('#q_report').q_report({
-                    fileName : 'z_vccadc',
-                    options : [ {
-                        type : '1',
-                        name : 'xmon'
-                    },{
-                        type : '1',
-                        name : 'bmon'
-                    }, {
-                        type : '1',
-                        name : 'emon'
-                    }, {
-                        type : '2',
-                        name : 'xcust',
-                        dbf : 'cust',
-                        index : 'noa,comp',
-                        src : 'cust_b.aspx'
-                    }, {
-                        type : '2',
-                        name : 'xacomp',
-                        dbf : 'acomp',
-                        index : 'noa,acomp',
-                        src : 'acomp_b.aspx'
-                    }, {
-                    	type : '0',
-                        name : 'accy',
-                        value : q_getId()[4]
-                    }, {/*2*/
-                        type : '8',
-                        name : 'xcno',
-                        value : t_cno.split(',')
-                   }]
-                });
-                q_popAssign();
-				q_langShow();
-                $('#txtXmon1').mask('999/99');
-                $('#txtXmon2').mask('999/99');
-                $('#txtBmon1').mask('999/99');
-                $('#txtBmon2').mask('999/99');
-                $('#txtEmon1').mask('999/99');
-                $('#txtEmon2').mask('999/99');
-                
-                var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtXmon1').val(t_year+'/'+t_month);
-	                
-	                t_date = new Date();
-	                t_date.setDate(35);
-	                t_date.setDate(0);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtXmon2').val(t_year+'/'+t_month);
+                if(!t_init && t_cno.length > 0){
+	                $('#q_report').q_report({
+	                    fileName : 'z_vccadc',
+	                    options : [ {
+	                        type : '1',
+	                        name : 'xmon'
+	                    },{
+	                        type : '1',
+	                        name : 'bmon'
+	                    }, {
+	                        type : '1',
+	                        name : 'emon'
+	                    }, {
+	                        type : '2',
+	                        name : 'xcust',
+	                        dbf : 'cust',
+	                        index : 'noa,comp',
+	                        src : 'cust_b.aspx'
+	                    }, {
+	                        type : '2',
+	                        name : 'xacomp',
+	                        dbf : 'acomp',
+	                        index : 'noa,acomp',
+	                        src : 'acomp_b.aspx'
+	                    }, {
+	                    	type : '0',
+	                        name : 'accy',
+	                        value : q_getId()[4]
+	                    }, {/*2*/
+	                        type : '8',
+	                        name : 'xcno',
+	                        value : t_cno.split(',')
+	                   }]
+	                });
+	                q_popAssign();
+					q_langShow();
+	                $('#txtXmon1').mask('999/99');
+	                $('#txtXmon2').mask('999/99');
+	                $('#txtBmon1').mask('999/99');
+	                $('#txtBmon2').mask('999/99');
+	                $('#txtEmon1').mask('999/99');
+	                $('#txtEmon2').mask('999/99');
 	                
 	                var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtBmon1').val(t_year+'/'+t_month);
-	                
-	                t_date = new Date();
-	                t_date.setDate(35);
-	                t_date.setDate(0);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtBmon2').val(t_year+'/'+t_month);
-	             var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtEmon1').val(t_year+'/'+t_month);
-	                
-	                t_date = new Date();
-	                t_date.setDate(35);
-	                t_date.setDate(0);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtEmon2').val(t_year+'/'+t_month);
-	                
-            		$("input[type='checkbox'][value='checkAll']").click(function() {
-            			if($(this).next('span').text() == '全選'){
-							$("input[type='checkbox']").attr('checked',true);
-							$(this).removeAttr('checked');
-							$(this).next('span').text('取消全選');
-						}else if($(this).next('span').text() == '取消全選'){
-							$("input[type='checkbox']").removeAttr('checked');
-							$(this).next('span').text('全選');
-						}
-					});	                    
+		                t_date = new Date();
+		                t_date.setDate(1);
+		                t_year = t_date.getUTCFullYear()-1911;
+		                t_year = t_year>99?t_year+'':'0'+t_year;
+		                t_month = t_date.getUTCMonth()+1;
+		                t_month = t_month>9?t_month+'':'0'+t_month;
+		                t_day = t_date.getUTCDate();
+		                t_day = t_day>9?t_day+'':'0'+t_day;
+		                $('#txtXmon1').val(t_year+'/'+t_month);
+		                
+		                t_date = new Date();
+		                t_date.setDate(35);
+		                t_date.setDate(0);
+		                t_year = t_date.getUTCFullYear()-1911;
+		                t_year = t_year>99?t_year+'':'0'+t_year;
+		                t_month = t_date.getUTCMonth()+1;
+		                t_month = t_month>9?t_month+'':'0'+t_month;
+		                t_day = t_date.getUTCDate();
+		                t_day = t_day>9?t_day+'':'0'+t_day;
+		                $('#txtXmon2').val(t_year+'/'+t_month);
+		                
+		                var t_date,t_year,t_month,t_day;
+		                t_date = new Date();
+		                t_date.setDate(1);
+		                t_year = t_date.getUTCFullYear()-1911;
+		                t_year = t_year>99?t_year+'':'0'+t_year;
+		                t_month = t_date.getUTCMonth()+1;
+		                t_month = t_month>9?t_month+'':'0'+t_month;
+		                t_day = t_date.getUTCDate();
+		                t_day = t_day>9?t_day+'':'0'+t_day;
+		                $('#txtBmon1').val(t_year+'/'+t_month);
+		                
+		                t_date = new Date();
+		                t_date.setDate(35);
+		                t_date.setDate(0);
+		                t_year = t_date.getUTCFullYear()-1911;
+		                t_year = t_year>99?t_year+'':'0'+t_year;
+		                t_month = t_date.getUTCMonth()+1;
+		                t_month = t_month>9?t_month+'':'0'+t_month;
+		                t_day = t_date.getUTCDate();
+		                t_day = t_day>9?t_day+'':'0'+t_day;
+		                $('#txtBmon2').val(t_year+'/'+t_month);
+		             var t_date,t_year,t_month,t_day;
+		                t_date = new Date();
+		                t_date.setDate(1);
+		                t_year = t_date.getUTCFullYear()-1911;
+		                t_year = t_year>99?t_year+'':'0'+t_year;
+		                t_month = t_date.getUTCMonth()+1;
+		                t_month = t_month>9?t_month+'':'0'+t_month;
+		                t_day = t_date.getUTCDate();
+		                t_day = t_day>9?t_day+'':'0'+t_day;
+		                $('#txtEmon1').val(t_year+'/'+t_month);
+		                
+		                t_date = new Date();
+		                t_date.setDate(35);
+		                t_date.setDate(0);
+		                t_year = t_date.getUTCFullYear()-1911;
+		                t_year = t_year>99?t_year+'':'0'+t_year;
+		                t_month = t_date.getUTCMonth()+1;
+		                t_month = t_month>9?t_month+'':'0'+t_month;
+		                t_day = t_date.getUTCDate();
+		                t_day = t_day>9?t_day+'':'0'+t_day;
+		                $('#txtEmon2').val(t_year+'/'+t_month);
+		                
+	            		$("input[type='checkbox'][value='checkAll']").click(function() {
+	            			if($(this).next('span').text() == '全選'){
+								$("input[type='checkbox']").attr('checked',true);
+								$(this).removeAttr('checked');
+								$(this).next('span').text('取消全選');
+							}else if($(this).next('span').text() == '取消全選'){
+								$("input[type='checkbox']").removeAttr('checked');
+								$(this).next('span').text('全選');
+							}
+						});	  
+				}                  
             }
 
             function q_boxClose(s2) {

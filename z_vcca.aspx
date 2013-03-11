@@ -33,35 +33,34 @@
                         }
                         break;
                 }
-                if(t_cno.length==0)
-                	return;
-                
-                $('#q_report').q_report({
-                    fileName : 'z_vcca',
-                    options : [{
-                        type : '0',
-                        name : 'accy',
-                        value : q_getId()[4]
-                    }, {/*1*/
-                        type : '1',
-                        name : 'mon'
-                    }, {/*2*/
-                        type : '8',
-                        name : 'xcno',
-                        value : t_cno.split(',')
-                    }, {
-                        type : '2',
-                        name : 'xcust',
-                        dbf : 'cust',
-                        index : 'noa,comp',
-                        src : 'cust_b.aspx'
-                    }]
-                });
-                q_popAssign();
-                q_getFormat();
-				q_langShow();
-                $('#txtMon1').mask('999/99');
-                $('#txtMon2').mask('999/99');             
+                if(t_cno.length > 0){
+	                $('#q_report').q_report({
+	                    fileName : 'z_vcca',
+	                    options : [{
+	                        type : '0',
+	                        name : 'accy',
+	                        value : q_getId()[4]
+	                    }, {/*1*/
+	                        type : '1',
+	                        name : 'mon'
+	                    }, {/*2*/
+	                        type : '8',
+	                        name : 'xcno',
+	                        value : t_cno.split(',')
+	                    }, {
+	                        type : '2',
+	                        name : 'xcust',
+	                        dbf : 'cust',
+	                        index : 'noa,comp',
+	                        src : 'cust_b.aspx'
+	                    }]
+	                });
+	                q_popAssign();
+	                q_getFormat();
+					q_langShow();
+	                $('#txtMon1').mask('999/99');
+	                $('#txtMon2').mask('999/99');   
+	        	}          
             }
             function q_boxClose(s2) {
             }

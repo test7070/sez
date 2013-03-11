@@ -20,7 +20,7 @@
 			}
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'change_sss');
+                q_gf('', 'change_cust');
                 $('#btnIns').hide();
                 $('#btnModi').hide();
                 $('#btnDele').hide();
@@ -36,10 +36,10 @@
                 $('#pageNow').hide();
                 $('#pageAll').hide();
             	$('#btnChange').click(function() {
-					if($('#txtOsssno').val() != '' && $('#txtNsssno').val() != ''){
-	                	q_func( 'change_sss.change', $('#txtOsssno').val()+','+$('#txtNsssno').val());
+					if($('#txtOcustno').val() != '' && $('#txtNcustno').val() != ''){
+	                	q_func( 'change_cust.change', $('#txtOcustno').val()+','+$('#txtNcustno').val());
 					}else{
-						alert(q_getMsg('lblOsssno')+'、'+q_getMsg('lblNsssno')+'為必填項!');
+						alert(q_getMsg('lblOcustno')+'、'+q_getMsg('lblNcustno')+'為必填項!');
 					}
 				});
 				$('#btnAuthority').click(function(){
@@ -53,7 +53,6 @@
             }
             function q_gtPost(s2) {
             }
-            
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -65,14 +64,14 @@
 		<table>
 			<tr>
 				<td>
-					<td class="td1"><span> </span><a id='lblOsssno' class="lbl">  </a></td>
-					<td class="td2"><input id="txtOsssno"  type="text"  class="txt c1"/></td>
+					<td class="td1"><span> </span><a id='lblOcustno' class="lbl">  </a></td>
+					<td class="td2"><input id="txtOcustno"  type="text"  class="txt c1"/></td>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<td class="td1"><span> </span><a id='lblNsssno' class="lbl">  </a></td>
-					<td class="td2"><input id="txtNsssno"  type="text"  class="txt c1"/></td>
+					<td class="td1"><span> </span><a id='lblNcustno' class="lbl">  </a></td>
+					<td class="td2"><input id="txtNcustno"  type="text"  class="txt c1"/></td>
 				</td>
 			</tr>
 			<tr>
@@ -84,3 +83,5 @@
         </div> 
 	</body>
 </html>
+           
+          

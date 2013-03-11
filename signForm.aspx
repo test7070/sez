@@ -440,6 +440,18 @@
                <td class="td6"><input id="txtApprove2con"  type="text" class="txt c1"/></td>
             </tr>
             <tr>
+               <td class="td1"><span> </span><a id='lblApprovebs' class="lbl btn"></a></td>
+               <td class="td2"><input id="txtApprovebsno"  type="text" class="txt c2"/>
+               	<input id="txtApprovebs"  type="text" class="txt c3"/>
+               </td>
+               <td class="td3"><span> </span><a id='lblApprove2part' class="lbl btn"></a></td>
+               <td class="td4"><input id="txtApprove2partno"  type="text" class="txt c2"/>
+               	<input id="txtApprove2part"  type="text" class="txt c3"/>
+               </td>
+               <td class="td5"><span> </span><a id='lblApprove2con' class="lbl"></a></td>
+               <td class="td6"><input id="txtApprove2con"  type="text" class="txt c1"/></td>
+            </tr>
+            <tr>
                <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
                <td class="td2" colspan="5"><textarea id="txtMemo" cols="10" rows="5" style="width: 99%; height: 50px;"></textarea></td>
             </tr>
