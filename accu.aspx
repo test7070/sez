@@ -16,17 +16,17 @@
         }
         q_tables = 's';
         var q_name = "accu";
-        var q_readonly = ['txtNoa'];
-        var q_readonlys = [];
+        var q_readonly = ['txtNoa','txtTotal'];
+        var q_readonlys = ['txtAcc2'];
         var bbmNum = [['txtTotal',14 , 0, 1]]; 
         var bbsNum = [['txtMoney',12 , 0, 1],['txtWeight',12 , 3, 1]];
-        var bbmMask = [['txtYears', '999/99']];
+        var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Noa';
         q_desc=1;
         //ajaxPath = ""; 
         
-		 aPop = new Array(['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+		 aPop = new Array(['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
 		 ['txtPartno_', 'btnPartno_', 'part', 'noa,part', 'txtPartno_,txtPart_', "part_b.aspx"]);
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -48,9 +48,8 @@
         }  
         function mainPost() { 
             q_getFormat();
-            bbmMask = [['txtYears', r_picm]];
+            bbmMask = [['txtMon', r_picm]];
             q_mask(bbmMask);
-            
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -86,7 +85,7 @@
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   
-                q_gtnoa(q_name, replaceAll('A' + $('#txtYears').val(), '/', ''));
+                q_gtnoa(q_name, replaceAll($('#txtMon').val(), '/', ''));
             else
                 wrServer(s1);
         }
@@ -97,15 +96,11 @@
 
            	q_box('accu_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
         }
-
-        function combPay_chg() {  
-        }
-		
-		
+        
         function bbsAssign() {
         	for(var j = 0; j < q_bbsCount; j++) {
             	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-            		$('#txtFee_' + j).change(function () {
+            		$('#txtMoney_' + j).change(function () {
 						sum();
 				    });
 				}
@@ -120,7 +115,7 @@
             
             $('#txtMon').focus();
         }
-        var t_mobile=[];//�ȦsBBS
+       	
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
@@ -146,18 +141,6 @@
             }
 
             q_nowf();
-            as['mon'] = abbm2['mon'];
-
-            //            t_err ='';
-            //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-            //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-            //            
-            //            if (t_err) {
-            //                alert(t_err)
-            //                return false;
-            //            }
-            //            
             return true;
         }
 
@@ -300,7 +283,7 @@
                 float: left;
             }
             .txt.c2 {
-                width: 35%;
+                width: 84%;
                 float: left;
             }
             .txt.c3 {
@@ -383,14 +366,17 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input class="btn"  id="btnAcc1.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                        <input type="text" id="txtAcc1.*"  style="width:80%; float:left;"/></td>
+                <td >
+                		<input type="text" id="txtAcc1.*"  class="txt c2"/>
+                		<input class="btn"  id="btnAcc1.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+                </td>
                 <td ><input class="txt c1" id="txtAcc2.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtMoney.*" type="text" /></td>
-               <td><input class="btn"  id="btnPartno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                        <input type="text" id="txtPartno.*"  style="width:80%; float:left;"/>
-                        <span style="display:block; width:1%;float:left;"> </span>
-						<input type="text" id="txtPart.*"  style="width:80%; float:left;"/></td>
+               <td>
+                        <input type="text" id="txtPartno.*"  class="txt c2"/>
+                        <input class="btn"  id="btnPartno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+						<input type="text" id="txtPart.*"  class="txt c1"/>
+				</td>
                 <td ><input class="txt num c1" id="txtWeight.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" />
                 		<input id="txtNoq.*" type="hidden" /></td>
