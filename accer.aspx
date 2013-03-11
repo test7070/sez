@@ -147,6 +147,16 @@
             }
 
             function btnOk() {
+            	t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  
+	            if (t_err.length > 0) {
+	                alert(t_err);
+	                return;
+	            }
+
+            	//$('#txtWorker').val(r_name)
+            	
+            	sum();
+            	
                 var t_noa = trim($('#txtNoa').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
                     q_gtnoa(q_name, replaceAll($('#txtMon').val(), '/', ''));
@@ -359,7 +369,7 @@
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='mon' style="text-align: center;">~mon</td>
-						<td id='total' style="text-align: left;">~total</td>
+						<td id='total,0,1' style="text-align: center;">~total,0,1</td>
 					</tr>
 				</table>
 			</div>
@@ -379,6 +389,7 @@
 						<td><input class="btn"  id="btnImported" type="button" value='預估資料匯入'/></td>
 						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
 						<td><input id="txtTotal" type="text" class="txt num c1"/></td>
+						<td></td>
 					</tr>
 					<!--<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
