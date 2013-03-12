@@ -8,6 +8,10 @@
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
+        <link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             var q_name = "umm_s";
 			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno', 'cust_b.aspx']);
@@ -24,11 +28,13 @@
             function q_gfPost() {
                 q_getFormat();
                 q_langShow();
-                bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+                bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd], ['txtMon', r_picd]];
                 q_mask(bbmMask);
                 q_gt('part', '', 0, 0, 0, "");
                 q_gt('acomp', '', 0, 0, 0, "");
-                $('#txtBdate').focus();
+                $('#txtBdate').datepicker();
+				$('#txtEdate').datepicker(); 
+                $('#txtNoa').focus();
             }
 
             function q_gtPost(t_name) {
@@ -61,6 +67,7 @@
                 t_cust = $.trim($('#txtCust').val());
                 t_part = $('#cmbPart').find(":selected").text();
                 t_cno = $.trim($('#cmbCno').val());
+                t_checkno = $.trim($('#txtCheckno').val());
 
                 var t_where = " 1=1 " 
                 + q_sqlPara2("datea", t_bdate, t_edate) 
@@ -73,7 +80,8 @@
                     t_where += " and patindex('%" + t_part + "%',part)>0";
 				if (t_custno.length>0)
                     t_where += " and (patindex('%" + t_custno + "%',custno)>0 or patindex('%" + t_custno + "%',custno2)>0)";
-               
+               	if (t_checkno.length>0)
+                    t_where += " and patindex('%" + t_checkno + "%',checkno)>0";
                 t_where = ' where=^^' + t_where + '^^ ';
                // alert(t_where);
                 return t_where;
@@ -104,6 +112,10 @@
 					<td><select id="cmbCno" style="width:215px; font-size:medium;" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
+					<td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr'>
 					<td   style="width:35%;" ><a id='lblDatea'> </a></td>
 					<td style="width:65%;  ">
 					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
@@ -118,16 +130,16 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
-					<td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
-				</tr>
-				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCustno'> </a></td>
 					<td><input class="txt" id="txtCustno" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCust'> </a></td>
 					<td><input class="txt" id="txtCust" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCheckno'> </a></td>
+					<td><input class="txt" id="txtCheckno" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
