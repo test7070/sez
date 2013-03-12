@@ -15,18 +15,21 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-            
             aPop = new Array(['txtYacc1', '', 'acc', 'acc1,acc2', 'txtYacc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
-            
+
             $(document).ready(function() {
                 q_getId();
                 q_gf('', 'z_gqb');
 
             });
-            function q_gfPost() {         	
+            function q_gfPost() {
                 $('#q_report').q_report({
                     fileName : 'z_gqb',
                     options : [{
+                        type : '0',
+                        name : 'accy',
+                        value : r_accy + "_" + r_cno
+                    }, {
                         type : '0',
                         name : 'ctypea',
                         value : q_getPara('gqb.typea')
@@ -77,19 +80,19 @@
                 $('#txtIndate1').datepicker();
                 $('#txtIndate2').mask('999/99/99');
                 $('#txtIndate2').datepicker();
-                
+
                 $('#txtYdate1').mask('999/99/99');
                 $('#txtYdate1').datepicker();
                 $('#txtYdate2').mask('999/99/99');
                 $('#txtYdate2').datepicker();
-                
-                $('#txtYacc1').change(function () {
-		            var s1 = trim($(this).val());
-		            if (s1.length > 4 && s1.indexOf('.') < 0)
-		                $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
-		            if (s1.length == 4)
-		                $(this).val(s1 + '.');
-		        });
+
+                $('#txtYacc1').change(function() {
+                    var s1 = trim($(this).val());
+                    if (s1.length > 4 && s1.indexOf('.') < 0)
+                        $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
+                    if (s1.length == 4)
+                        $(this).val(s1 + '.');
+                });
             }
 
             function q_boxClose(t_name) {
