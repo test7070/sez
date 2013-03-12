@@ -118,6 +118,9 @@
                 $('#btnLabases').click(function(e) {
                     q_box("labase.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labase', "95%", "95%", q_getMsg("popLabase"));
                 });
+                $('#btnSsspart').click(function(e) {
+                    q_box("ssspart_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'ssspart', "60%", "95%", q_getMsg("popSsspart"));
+                });
                 $('#btnSaladjust').click(function(e) {
                     q_box("salAdjust.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'saladjust', "95%", "95%", q_getMsg("popSaladjust"));
                 });
@@ -629,7 +632,7 @@
 					</tr>
 					<tr>
 						<td> </td>
-						<td> </td>
+						<td><input id='btnSsspart' type="button"/></td>
 						<td><input id='btnSaladjust' type="button"/></td>
 						<td><input id='btnLabases' type="button" />	</td>
 					</tr>

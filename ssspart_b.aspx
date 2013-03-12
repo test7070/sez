@@ -159,7 +159,7 @@
 	</head>
 	<body>
 		<div  id="dbbs"  >
-			<table align="center" id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:50%'  >
+			<table align="center" id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:80%'  >
 				<tr style='color:White; background:#003366;' >
 					<td align="center">
 						<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
