@@ -28,8 +28,10 @@
 
             $(document).ready(function() {
                 bbmKey = [];
-                bbsKey = ['noa'];
-                if (location.href.indexOf('?') < 0){}// debug
+                bbsKey = ['noa','noq'];
+                if (location.href.indexOf('?') < 0){
+                	
+                }// debug
                 if (!q_paraChk())
                     return;
                 main();
@@ -42,30 +44,39 @@
                 mainBrow(6, t_content, t_sqlname, t_postname);
             }
 
+		    function mainPost() {
+		        q_getFormat();
+		        q_gt('part', '', 0, 0, 0, "");
+		    }
             function bbsAssign() {/// 表身運算式
+        		for(var i = 0; i < q_bbsCount; i++) {
+        			$('#txtRank_' + i).change(function(){
+						t_IdSeq = -1; 
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						if(dec($('#txtRank_' + b_seq).val()) <1 || dec($('#txtRank_' + b_seq).val()) > 8){
+							alert(q_getMsg('lblRank') + '輸入範圍為1~8');
+							$('#txtRank_' + b_seq).val('1');
+							return;
+						}
+        			});
+        		}
                 _bbsAssign();
             }
 
             function btnOk() {
-        		for(var i = 0; i < q_bbsCount; i++) {
-        			if(desc($('#txtRank').val()) <1 or desc($('#txtRank').val()) > 8){
-        				alert(q_getMsg('lblRank') + '輸入範圍為1~8');
-        				return;
-        			}
-        		}
                 t_key = q_getHref();
 
                 _btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
             }
 
             function bbsSave(as) {
-                if (!as['rank']) {
+                if (!as['rank'] || as['partno'] == '') {
                     as[bbsKey[0]] = '';
                     return;
                 }
                 q_getId2('', as);
                 return true;
-
             }
 
             function btnModi() {
@@ -90,8 +101,25 @@
                 _refresh();
             }
 
-            function q_gtPost(t_postname) {  /// 資料下載後 ...
-                //        q_gtPost2(t_postname);
+            function q_gtPost(t_name) {  /// 資料下載後 ...
+		        switch (t_name) {
+		    	case 'part':
+					var as = _q_appendData("part", "", true);
+					if (as[0] != undefined) {
+						var t_item = "@";
+						for (i = 0; i < as.length; i++) {
+							t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+						}
+						q_cmbParse("cmbPartno", t_item, 's');
+						refresh(q_recno);  /// 第一次需要重新載入
+
+					}
+					break;
+				case q_name:
+					if (q_cur == 4)
+						q_Seek_gtPost();
+					break;
+		        }
             }
 
             function readonly(t_para, empty) {
@@ -99,8 +127,9 @@
             }
 
             function btnMinus(id) {
+            	b_seq = id.split('_')[1];
+            	$('#cmbPartno_' + b_seq).val('');
                 _btnMinus(id);
-                sum();
             }
 
             function btnPlus(org_htm, dest_tag, afield) {
@@ -108,6 +137,14 @@
                 if (q_tables == 's')
                     bbsAssign();
                 /// 表身運算式
+            }
+            function refresh(recno) {
+                _refresh(recno);
+				for(var j = 0; j < q_bbsCount;j++){
+					if (abbs[j].partno != undefined) {
+						$('#cmbPartno_' + j).val(abbs[j].partno);
+					}
+				}
             }
 
 		</script>
@@ -122,20 +159,20 @@
 	</head>
 	<body>
 		<div  id="dbbs"  >
-			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
+			<table align="center" id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:50%'  >
 				<tr style='color:White; background:#003366;' >
 					<td align="center">
-					<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
+						<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
 					</td>
 					<td align="center"><a id='lblPart'></a></td>
 					<td align="center"><a id='lblRank'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
-					<td style="width:1%;">
+					<td align="center" style="width:1%;">
 						<input class="btn"  id="btnMinus.*" type="button" value='－' style="font-weight: bold; "  />
 					</td>
 					<td style="width:6%;">
-						<input class="txt" id="txtPart.*" type="text" maxlength='90' style="width:98%;"   />
+						<select id="cmbPartno.*"  style="float:left;width:95%;" > </select>
 					</td>
 					<td style="width:6%;">
 						<input class="txt" id="txtRank.*" type="text" maxlength='90' style="width:98%;"   />
