@@ -375,12 +375,15 @@
 		            $('#txtPart_' + i).val($('#cmbPartno_' + i).find(":selected").text());
 		        }
             	//為了查詢
-            	var t_part = '';
+            	var t_part = '',t_checkno = '';
             	for (var i = 0; i < q_bbsCount; i++) {
             		if(t_part.indexOf($.trim($('#txtPart_'+i).val()))==-1)
             			t_part += (t_part.length>0?',':'') + $.trim($('#txtPart_'+i).val());
+            		if($.trim($('#txtCheckno_'+i).val()).length>0 && t_checkno.indexOf($.trim($('#txtCheckno_'+i).val()))==-1)
+            			t_checkno += (t_checkno.length>0?',':'') + $.trim($('#txtCheckno_'+i).val());
             	}
             	$('#txtPart').val(t_part);
+            	$('#txtCheckno').val(t_checkno);
             	
             	$('#txtAcomp').val($('#cmbCno').find(":selected").text());
                 $('#txtMon').val($.trim($('#txtMon').val()));
@@ -452,7 +455,7 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('umm_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
+                q_box('umm_s.aspx', q_name + '_s', "600px", "500px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
@@ -793,6 +796,7 @@
 						<td>
 							<input id="txtNoa" type="text" class="txt c1"/>
 							<input id="txtPart" type="text" style="display:none;"/>
+							<input id="txtCheckno" type="text" style="display:none;"/>
 						</td>
 						<td><span> </span><a id='lblDatea' class="lbl"></a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
