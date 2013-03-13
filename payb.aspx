@@ -354,6 +354,7 @@
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
+                sum();
                 $('#txtProductno').focus();
             }
 
@@ -368,11 +369,7 @@
             }
 
             function bbsSave(as) {
-                if (emp(as['invono']) && emp(as['rc2no'])) {
-                    as[bbsKey[1]] = '';
-                    return;
-                }
-                if (!as['total'] && !as['money'] && !as['memo']) {
+                if (!as['rc2no'] && !as['invono'] && !as['total'] && !as['money'] && !as['memo']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
