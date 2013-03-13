@@ -34,7 +34,7 @@
 				q_getFormat();
 				q_langShow();
 
-				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd],['txtBtrandate', r_picd], ['txtEtrandate', r_picd],['txtBmon', r_picm], ['txtEmon', r_picm]];
+				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd],['txtBtrandate', r_picd], ['txtEtrandate', r_picd],['txtMon', r_picm]];
 				q_mask(bbmMask);
 				q_gt('acomp', '', 0, 0, 0, "");
 				q_cmbParse("cmbInterval", '@全部,'+q_getPara('carcsa.interval'));
