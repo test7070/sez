@@ -75,9 +75,7 @@
             	 		//判斷員工是否是外勞
 			           var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
 			           q_gt('sss', t_where , 0, 0, 0, "", r_accy);
-			           //判斷員工是否重覆儲存
-			           var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
-			           q_gt('labase', t_where , 0, 0, 0, "", r_accy);
+			           
 			           //判斷員工家屬
 			           var t_where = "where=^^noa='"+$('#txtNoa').val()+"'^^";
             			q_gt('labases_sum', t_where, 0, 0, 0, "", r_accy);
@@ -629,13 +627,7 @@
             			q_tr('txtHe_person',q_float('txtHe_person')-q_float('txtAs_health'))
             		break;
                 case q_name: 
-                	if (q_cur == 1){
-	                	var as = _q_appendData("labase", "", true);
-	            			if(as[0]!=undefined)
-	            				insed=true;
-	            			else
-	            				insed=false;
-       				}
+                	
                 	if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
@@ -673,17 +665,14 @@
 		    	}
 			}
         
-		var insed=false;//判斷是否重覆輸入員工
+		//var insed=false;//判斷是否重覆輸入員工
         function btnOk() {
             t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
             }
-			if (insed) {
-                alert('該員工重覆建立勞健保資料!!');
-                return;
-            }
+			
 			
             $('#txtWorker').val(r_name)
             //sum();
