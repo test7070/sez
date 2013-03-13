@@ -25,11 +25,17 @@
                         options : [ {
                         type : '6',
                         name : 'xnoa'
-                    }]
+                    }, {/*2*/
+                            type : '6',
+                            name : 'date'
+                        }]
                     });
                 q_popAssign();
                 if(q_getId()[5])
                 	$('#txtXnoa').val(q_getId()[5].substring(4));
+                $('#txtDate').mask('999/99/99');
+                $('#txtDate').datepicker();
+                $('#txtDate').val(q_date());
             }
 
             function q_boxClose(s2) {
