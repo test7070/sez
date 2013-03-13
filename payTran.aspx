@@ -345,12 +345,15 @@
 		            $('#txtPart_' + i).val($('#cmbPartno_' + i).find(":selected").text());
 		        }
 		        //為了查詢
-            	var t_part = '';
+            	var t_part = '',t_checkno = '';
             	for (var i = 0; i < q_bbsCount; i++) {
             		if(t_part.indexOf($.trim($('#txtPart2_'+i).val()))==-1)
             			t_part += (t_part.length>0?',':'') + $.trim($('#txtPart2_'+i).val());
+            		if($.trim($('#txtCheckno_'+i).val()).length>0 && t_checkno.indexOf($.trim($('#txtCheckno_'+i).val()))==-1)
+            			t_checkno += (t_checkno.length>0?',':'') + $.trim($('#txtCheckno_'+i).val());
             	}
             	$('#txtPart2').val(t_part);
+            	$('#txtCheckno').val(t_checkno);
             	
 		        $('#txtAcomp').val($('#cmbCno').find(":selected").text());
 				$('#txtMon').val($.trim($('#txtMon').val()));
@@ -427,7 +430,7 @@
 		        if (q_cur > 0 && q_cur < 4)// 1-3
 		            return;
 
-		        q_box('pay_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
+		        q_box('pay_s.aspx', q_name + '_s', "550px", "600px", q_getMsg("popSeek"));
 		    }
 
 		    function combPay_chg() {
@@ -508,7 +511,7 @@
 		    }
 
 		    function btnPrint() {
-		        q_box("z_payp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'pay', "95%", "650px", m_print);
+		        q_box("z_payp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'pay', "95%", "95%", m_print);
 		    }
 
 		    function wrServer(key_value) {
@@ -754,9 +757,10 @@
 						<td class="tdZ"></td>
 					</tr>
 					<tr class="tr1">
-						<td class="td1" ><span> </span><a id='lblNoa' class="lbl"></a></td>
-						<td class="td2" >
-						<input id="txtNoa" type="text" class="txt c1"/>
+						<td><span> </span><a id='lblNoa' class="lbl"></a></td>
+						<td>
+							<input id="txtNoa" type="text" class="txt c1"/>
+							<input id="txtCheckno" type="text" style="display:none;"/>
 						</td>
 						<td class="td3" ><span> </span><a id='lblDatea' class="lbl"></a></td>
 						<td class="td4" >

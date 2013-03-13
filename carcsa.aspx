@@ -575,9 +575,8 @@
 						<td align="center" style="width:80px; color:black;"><a id='vewCartype'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewMon'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewInterval'> </a></td>
-						<td align="center" style="width:60px; color:black;"><a id='vewWeight'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewComp'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewMount'> </a></td>
-						<td align="center" style="width:60px; color:black;"><a id='vewTypea'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTimes'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewInmoney'> </a></td>
 						<td align="center" style="width:60px; color:black;"><a id='vewInplus'> </a></td>
@@ -593,9 +592,8 @@
 						<td id="cartype" style="text-align: center;">~cartype</td>
 						<td id="mon" style="text-align: center;">~mon</td>
 						<td id="interval=carcsa.interval" style="text-align: center;">~interval=carcsa.interval</td>
-						<td id="weight" style="text-align: right;">~weight</td>
+						<td id="nick" style="text-align: left;">~nick</td>
 						<td id="mount" style="text-align: right;">~mount</td>
-						<td id="typea" style="text-align: right;">~typea</td>
 						<td id="times" style="text-align: right;">~times</td>
 						<td id="inmoney,0,1" style="text-align: right;">~inmoney,0,1</td>
 						<td id="inplus,0,1" style="text-align: right;">~inplus,0,1</td>
