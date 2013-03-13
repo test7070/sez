@@ -80,7 +80,6 @@
                 $('#txtIndate1').datepicker();
                 $('#txtIndate2').mask('999/99/99');
                 $('#txtIndate2').datepicker();
-<<<<<<< HEAD
                 var t_date, t_year, t_month, t_day;
                 t_date = new Date();
                 t_date.setDate(1);
@@ -103,7 +102,6 @@
                 t_day = t_day > 9 ? t_day + '' : '0' + t_day;
                 $('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
                 $('#txtIndate2').val(t_year + '/' + t_month + '/' + t_day);
-=======
 
                 $('#txtYdate1').mask('999/99/99');
                 $('#txtYdate1').datepicker();
@@ -117,7 +115,6 @@
                     if (s1.length == 4)
                         $(this).val(s1 + '.');
                 });
->>>>>>> d86c10a90c2ce10fa7cfbae32e17b7f7571f41a9
             }
 
             function q_boxClose(t_name) {
