@@ -30,8 +30,11 @@
 	                        name : 'accy',
 	                        value : r_accy
 	                    },  {
-	                        type : '1',
-	                        name : 'xnoa'
+	                        type : '2',
+	                        name : 'xnoa',
+	                        dbf : 'accz',
+	                        index : 'noa,namea',
+	                        src : 'accz_b.aspx'
 	                    }, {
 	                        type : '6',
 	                        name : 'edate'
