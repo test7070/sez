@@ -183,6 +183,8 @@
                     $('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
                     $('#txtXnoa1').css("width", "90px");
                     $('#txtXnoa2').css("width", "90px");
+                    
+                    t_init=true;
                 }
             }
 
