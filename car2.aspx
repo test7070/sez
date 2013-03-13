@@ -179,12 +179,7 @@
 				
 				$('#txtSssno').blur(function() {
                     $('#txtManage').focus();
-                }).keydown(function(e) {
-			 		if ( e.keyCode=='13' ){
-			 			event.returnValue= false;
-				   		event.keyCode= 9;
-				  	}
-				});
+                });
                 
                 $('#txtUlicensemon').blur(function() {
                     if(!emp($('#txtUlicensemon').val())&&$('#txtUlicensemon').val()!='04')
