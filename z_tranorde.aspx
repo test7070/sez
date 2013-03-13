@@ -66,7 +66,11 @@
                          	type : '8',
                             name : 'xdetail',
                             value : q_getMsg('tdetail').split('&')
-                        }]
+                        },{
+                        type : '8',
+                        name : 'xctype',
+                        value : (('').concat(new Array("貨櫃","平板","散裝"))).split(',')
+                    }]
                 });
                 q_popAssign();
 
