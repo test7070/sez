@@ -143,30 +143,120 @@
                     }
                 });
                 $('#txtImprovedate1').blur(function() {
+                	if (!emp($('#txtInvoicemoney').val())) {
+                        if (dec($('#txtInvoicemoney').val()) >= 1000000) {
+                            $('#txtDurableyear').val(10);
+                        } else {
+                            if (replaceAll($('#txtNoa').val(), '-', '').length == 4)//板台
+                                $('#txtDurableyear').val(5);
+                            else//車頭
+                                $('#txtDurableyear').val(4);
+                        }
+                    }
                     Sale();
                 });
                 $('#txtImprovemoney1').blur(function() {
+                	if (!emp($('#txtInvoicemoney').val())) {
+                        if (dec($('#txtInvoicemoney').val()) >= 1000000) {
+                            $('#txtDurableyear').val(10);
+                        } else {
+                            if (replaceAll($('#txtNoa').val(), '-', '').length == 4)//板台
+                                $('#txtDurableyear').val(5);
+                            else//車頭
+                                $('#txtDurableyear').val(4);
+                        }
+                    }
                     Sale();
                 });
                 $('#txtImprovedate2').blur(function() {
+                	if (!emp($('#txtInvoicemoney').val())) {
+                        if (dec($('#txtInvoicemoney').val()) >= 1000000) {
+                            $('#txtDurableyear').val(10);
+                        } else {
+                            if (replaceAll($('#txtNoa').val(), '-', '').length == 4)//板台
+                                $('#txtDurableyear').val(5);
+                            else//車頭
+                                $('#txtDurableyear').val(4);
+                        }
+                    }
                     Sale();
                 });
                 $('#txtImprovemoney2').blur(function() {
+                	if (!emp($('#txtInvoicemoney').val())) {
+                        if (dec($('#txtInvoicemoney').val()) >= 1000000) {
+                            $('#txtDurableyear').val(10);
+                        } else {
+                            if (replaceAll($('#txtNoa').val(), '-', '').length == 4)//板台
+                                $('#txtDurableyear').val(5);
+                            else//車頭
+                                $('#txtDurableyear').val(4);
+                        }
+                    }
                     Sale();
                 });
                 $('#txtImprovedate3').blur(function() {
+                	if (!emp($('#txtInvoicemoney').val())) {
+                        if (dec($('#txtInvoicemoney').val()) >= 1000000) {
+                            $('#txtDurableyear').val(10);
+                        } else {
+                            if (replaceAll($('#txtNoa').val(), '-', '').length == 4)//板台
+                                $('#txtDurableyear').val(5);
+                            else//車頭
+                                $('#txtDurableyear').val(4);
+                        }
+                    }
                     Sale();
                 });
                 $('#txtImprovemoney3').blur(function() {
+                	if (!emp($('#txtInvoicemoney').val())) {
+                        if (dec($('#txtInvoicemoney').val()) >= 1000000) {
+                            $('#txtDurableyear').val(10);
+                        } else {
+                            if (replaceAll($('#txtNoa').val(), '-', '').length == 4)//板台
+                                $('#txtDurableyear').val(5);
+                            else//車頭
+                                $('#txtDurableyear').val(4);
+                        }
+                    }
                     Sale();
                 });
                 $('#txtDiscountdate').blur(function() {
+                	if (!emp($('#txtInvoicemoney').val())) {
+                        if (dec($('#txtInvoicemoney').val()) >= 1000000) {
+                            $('#txtDurableyear').val(10);
+                        } else {
+                            if (replaceAll($('#txtNoa').val(), '-', '').length == 4)//板台
+                                $('#txtDurableyear').val(5);
+                            else//車頭
+                                $('#txtDurableyear').val(4);
+                        }
+                    }
                     Sale();
                 });
                 $('#txtDiscountmoney').blur(function() {
+                	if (!emp($('#txtInvoicemoney').val())) {
+                        if (dec($('#txtInvoicemoney').val()) >= 1000000) {
+                            $('#txtDurableyear').val(10);
+                        } else {
+                            if (replaceAll($('#txtNoa').val(), '-', '').length == 4)//板台
+                                $('#txtDurableyear').val(5);
+                            else//車頭
+                                $('#txtDurableyear').val(4);
+                        }
+                    }
                     Sale();
                 });
                 $('#txtSaledate').blur(function() {
+                	if (!emp($('#txtInvoicemoney').val())) {
+                        if (dec($('#txtInvoicemoney').val()) >= 1000000) {
+                            $('#txtDurableyear').val(10);
+                        } else {
+                            if (replaceAll($('#txtNoa').val(), '-', '').length == 4)//板台
+                                $('#txtDurableyear').val(5);
+                            else//車頭
+                                $('#txtDurableyear').val(4);
+                        }
+                    }
                     Sale();
                 });
                 
@@ -333,6 +423,18 @@
                     return;
 
                 _btnModi();
+                $('txtSaledate').val(q_date());
+                if (!emp($('#txtInvoicemoney').val())) {
+                        if (dec($('#txtInvoicemoney').val()) >= 1000000) {
+                            $('#txtDurableyear').val(10);
+                        } else {
+                            if (replaceAll($('#txtNoa').val(), '-', '').length == 4)//板台
+                                $('#txtDurableyear').val(5);
+                            else//車頭
+                                $('#txtDurableyear').val(4);
+                        }
+                    }
+                 Sale();
                 $('#txtNoa').focus();
             }
 
