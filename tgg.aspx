@@ -40,6 +40,39 @@
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
             });
+			function currentData() {
+			}
+			currentData.prototype = {
+				data : [],
+				/*排除的欄位,新增時不複製*/
+				exclude : [],
+				/*記錄當前的資料*/
+				copy : function() {
+					curData.data = new Array();
+					for (var i in fbbm) {
+						var isExclude = false;
+						for (var j in curData.exclude) {
+							if (fbbm[i] == curData.exclude[j]) {
+								isExclude = true;
+								break;
+							}
+						}
+						if (!isExclude) {
+							curData.data.push({
+								field : fbbm[i],
+								value : $('#' + fbbm[i]).val()
+							});
+						}
+					}
+				},
+				/*貼上資料*/
+				paste : function() {
+					for (var i in curData.data) {
+						$('#' + curData.data[i].field).val(curData.data[i].value);
+					}
+				}
+			};
+			var curData = new currentData();
 
             function main() {
                 if (dataErr) {
@@ -83,6 +116,7 @@
                     t_where = "noa='" + $('#txtNoa').val() + "'";
                     q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('lblConn'));
                 });
+
             }
             function q_boxClose(s2) {
                 var ret;
@@ -114,7 +148,14 @@
                 q_box('tgg_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
             }
             function btnIns() {
+            	if($('#Copy').is(':checked')){
+            		curData.copy();
+            	}
                 _btnIns();
+            	if($('#Copy').is(':checked')){
+            		curData.paste();
+            	}
+            	$('#Copy').removeAttr('checked');
                 $('#txtNoa').focus();
             }
 
@@ -529,6 +570,10 @@
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td align="right">
+							<input id="Copy" type="checkbox" />
+							<span> </span><a id="lblCopy" class="lbl"></a>
+						</td>
 					</tr>
 				</table>
 			</div>

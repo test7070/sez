@@ -45,6 +45,39 @@
 			mainForm(0); // 1=Last  0=Top
 		}  ///  end Main()
 
+			function currentData() {
+			}
+			currentData.prototype = {
+				data : [],
+				/*排除的欄位,新增時不複製*/
+				exclude : [],
+				/*記錄當前的資料*/
+				copy : function() {
+					curData.data = new Array();
+					for (var i in fbbm) {
+						var isExclude = false;
+						for (var j in curData.exclude) {
+							if (fbbm[i] == curData.exclude[j]) {
+								isExclude = true;
+								break;
+							}
+						}
+						if (!isExclude) {
+							curData.data.push({
+								field : fbbm[i],
+								value : $('#' + fbbm[i]).val()
+							});
+						}
+					}
+				},
+				/*貼上資料*/
+				paste : function() {
+					for (var i in curData.data) {
+						$('#' + curData.data[i].field).val(curData.data[i].value);
+					}
+				}
+			};
+			var curData = new currentData();
 
 		function mainPost() { 
 			q_mask(bbmMask);
@@ -93,7 +126,14 @@
 		}
 
 		function btnIns() {
-			_btnIns();
+            if($('#Copy').is(':checked')){
+            	curData.copy();
+            }
+            _btnIns();
+            if($('#Copy').is(':checked')){
+            	curData.paste();
+            }
+            	$('#Copy').removeAttr('checked');
 			$('#txtNoa').focus();
 		}
 
@@ -572,6 +612,10 @@
 				</td>
 				<td class="td2" colspan="5">
 					<textarea id="txtMemo" cols="10" rows="5" style="width: 99%; height: 50px;"></textarea>
+				</td>
+				<td align="right">
+					<input id="Copy" type="checkbox" />
+					<span> </span><a id="lblCopy" class="lbl"></a>
 				</td>
 			</tr>
 		
