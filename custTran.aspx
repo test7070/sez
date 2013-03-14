@@ -135,7 +135,7 @@
             }
 
             function btnPrint() {
-                q_box('z_custtran.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "90%", "600px", q_getMsg("popPrint"));
+                q_box('z_custtran.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
             }
             function btnOk() {        	
             	if ($('#txtSerial').val().length > 0 && checkId($('#txtSerial').val())!=2)
