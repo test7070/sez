@@ -583,7 +583,7 @@
 						<td><span> </span><a id='lblOutdate' class="lbl"> </a></td>
 						<td><input id="txtOutdate"  type="text" class="txt c1" /></td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td><span> </span><a id='lblHealth_bdate' class="lbl"> </a></td>
 						<td><input id="txtHealth_bdate" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblHealth_edate' class="lbl"> </a></td>
@@ -600,7 +600,7 @@
 						<td><input id="txtLabor2_bdate" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblLabor2_edate' class="lbl"> </a></td>
 						<td><input id="txtLabor2_edate" type="text" class="txt c1"/></td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td><span> </span><a id="lblPart" class="lbl btn"> </a></td>
 						<td>

@@ -25,6 +25,7 @@
             var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
+            brwCount2= 13;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
@@ -54,7 +55,12 @@
             	q_getFormat();
                 bbmMask = [['txtOdate', r_picd], ['txtWdate', r_picd], ['txtPaydate', r_picd], ['txtEnddate', r_picd]];
             	q_mask(bbmMask);
+            	bbsMask = [['txtSenddate', r_picd], ['txtApprdate', r_picd], ['txtRepdate', r_picd]];
+            	
+            	
                 q_gt('part', '', 0, 0, 0, "");
+                 q_cmbParse("cmbKind", ('').concat(new Array( '工商','土地')));
+                
             	$('#btnInput').click(function () {
             		if(emp($('#txtItemno').val())){
             			alert('請先輸入項目!!');
@@ -73,6 +79,25 @@
              	});
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
+                });
+                
+                $('#cmbKind').change(function() {
+                	if ($('#cmbKind').find("option:selected").text().indexOf('工商')>-1){
+                		if(q_bbsCount<=10)
+                			$('#btnPlus'+j).click();
+                		for (var j = 0; j < q_bbsCount; j++) {
+                			$('#btnMinus_'+j).click();	
+                		}
+                		//工商自動帶產品內容與費用
+	            		autoicins();
+	            		$(".land").hide();
+                	}
+                	if ($('#cmbKind').find("option:selected").text().indexOf('土地')>-1){
+                		for (var j = 0; j < q_bbsCount; j++) {
+                			$('#btnMinus_'+j).click();	
+                		}
+                		$(".land").show();
+                	}
                 });
             }
 			function cmbpaybno(id){
@@ -136,6 +161,8 @@
                     alert(t_err);
                     return;
                 }
+                $('#txtPronick').val($('#txtProject').val().substr(0,15));
+                
                 sum();
                 $('#txtWorker').val(r_name);
                 
@@ -173,7 +200,31 @@
 	            //$('#cmbPartno2').val('06');
 	            $('#txtSalesno').val(r_userno);
 	            $('#txtSales').val(r_name);
+	            
+	            //工商自動帶產品內容與費用
+	            autoicins();
             }
+            
+            function autoicins() {
+            	$('#txtProduct_0').val('行號預查規費');
+	            q_tr('txtCost_0',300);
+	            $('#txtProduct_1').val('公司預查規費');
+	            q_tr('txtCost_1',150);
+	            $('#txtProduct_2').val('銀行手續費');
+	            q_tr('txtCost_2',10);
+	            $('#txtProduct_3').val('會計師簽證費');
+	            q_tr('txtCost_3',400);
+	            $('#txtProduct_4').val('營利規費');
+	            q_tr('txtCost_4',1000);
+	            $('#txtProduct_5').val('公司規費');
+	            q_tr('txtCost_5',1000);
+	            $('#txtProduct_6').val('特許規費');
+	            $('#txtProduct_7').val('運輸執照規費');
+	            $('#txtProduct_8').val('代刻印章');
+	            $('#txtProduct_9').val('代登報紙');
+	            $('#txtProduct_10').val('雜項規費');
+            }
+            
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
@@ -204,6 +255,12 @@
                 
                 }
                 _bbsAssign();
+                	if ($('#cmbKind').find("option:selected").text().indexOf('工商')>-1){
+	            		$(".land").hide();
+                	}
+                	if ($('#cmbKind').find("option:selected").text().indexOf('土地')>-1){
+                		$(".land").show();
+                	}
             }
 
             function bbsSave(as) {
@@ -419,30 +476,21 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width：100px;color:black;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width：100px;color:black;"><a id='vewItem'> </a></td>
-						<td align="center" style="width：100px;color:black;"><a id='vewCustnick'> </a></td>
+						<td align="center" style="width:5%; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="color:black;" width="40%"><a id='vewProject'> </a></td>
+						<td align="center" style="color:black;" width="35%"><a id='vewCustnick'> </a></td>
+						<td align="center" style="color:black;" width="20%"><a id='vewKind'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
-						<td id="noa" style="text-align: center;">~noa</td>
-						<td id="item" style="text-align: center;">~item</td>
+						<td id="pronick" style="text-align: center;">~pronick</td>
 						<td id="custnick" style="text-align: center;">~custnick</td>
+						<td id="kind" style="text-align: center;">~kind</td>
 					</tr>
 				</table>
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
-					<tr style="height:1px;">
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td class="tdZ"> </td>
-					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtDatea" class="txt c1"/>	</td>	
@@ -450,6 +498,14 @@
 						<td class="td4"><input type="text" id="txtNoa" class="txt c1"/>	</td>	
 					</tr>
 					<tr>
+						<td class="td1"><span> </span><a id='lblProject' class="lbl"> </a></td>
+						<td class="td2" colspan="2"><input type="text" id="txtProject" class="txt c1"/>	
+						<input type="text" id="txtPronick" style="display: none;"/>	
+						</td>	
+						<td class="td3"><span> </span><a id='lblKind' class="lbl"> </a></td>
+						<td class="td4"><select id="cmbKind" class="txt c1"> </select></td>	
+					</tr>
+					<tr class="land">
 						<td class="td1"><span> </span><a id='lblItem' class="lbl btn"> </a></td>
 						<td class="td2"colspan="2"><input type="text" id="txtItemno" style="width: 30%;"/>
 							<input type="text" id="txtItem" style="width: 70%;"/></td>
@@ -533,11 +589,15 @@
 					<td  align="center" style="width:2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:25%;"><a id='lblProductno_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblDays_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblMoney_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblCost_s'> </a></td>
-					<td align="center" style="width:25%;"><a id='lblTggno_s'> </a></td>
+					<td align="center" style="width:15%;"><a id='lblProductno_s'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblDays_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblMoney_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblCost_s'> </a></td>
+					<td align="center" style="width:3%;"><a id='lblIsprepay_s'> </a></td>
+					<td align="center" style="width:20%;"><a id='lblTggno_s'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblSenddate_s'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblApprdate_s'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblRepdate_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -553,12 +613,15 @@
 					<td><input id="txtDays.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMoney.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtCost.*" type="text" class="txt num c1"/></td>
+					<td align="center"><input id="chkIsprepay.*" type="checkbox"/></td>
 					<td><input class="btn"  id="btnTggno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                         <input type="text" id="txtTggno.*"  style="width:30%; float:left;"/>
                         <span style="display:block; width:1%;float:left;"> </span>
 						<input type="text" id="txtComp.*"  style="width:60%; float:left;"/>
 					</td>
-					
+					<td><input id="txtSenddate.*" type="text" class="txt c1"/></td>
+					<td><input id="txtApprdate.*" type="text" class="txt c1"/></td>
+					<td><input id="txtRepdate.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
 				</tr>
 			</table>

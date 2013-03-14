@@ -33,6 +33,7 @@
 				q_mask(bbmMask);
 
 				$('#txtBodate').focus();
+				q_cmbParse("cmbKind", ('').concat(new Array( '工商','土地')));
 			}
 
 			function q_seekStr() {
@@ -60,7 +61,7 @@
 					+q_sqlPara2("itemno", t_itemno)
 					+q_sqlPara2("item", t_item);
 
-				t_where = ' where=^^' + t_where + '^^ ';
+				t_where = " where=^^" + t_where + " and kind='"+$('#cmbKind').val()+"'^^";
 				return t_where;
 			}
 		</script>
@@ -110,6 +111,12 @@
 					<td>
 					<input class="txt" id="txtItemno" type="text" style="width:90px; font-size:medium;" />
 					<input class="txt" id="txtItem" type="text" style="width:115px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblKind'> </a></td>
+					<td>
+					<select id="cmbKind" class="txt c1"> </select>
 					</td>
 				</tr>
 			</table>

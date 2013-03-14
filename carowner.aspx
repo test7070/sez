@@ -508,7 +508,7 @@
 							<td class="td1"><span> </span><a id='lblIndate' class="lbl"></a></td>
 							<td class="td2"><input id="txtIndate" type="text" class="txt c1"/></td>
 						</tr>
-						<tr>
+						<!--<tr>
 							<td class="td1"><span> </span><a id='lblHealth_bdate' class="lbl"></a></td>
 							<td class="td2"><input id="txtHealth_bdate" type="text" class="txt c1"/></td>
 							<td class="td3"><span> </span><a id='lblHealth_edate' class="lbl"></a></td>
@@ -525,7 +525,7 @@
 							<td class="td2"><input id="txtLabor2_bdate" type="text" class="txt c1"/></td>
 							<td class="td3"><span> </span><a id='lblLabor2_edate' class="lbl"></a></td>
 							<td class="td4"><input id="txtLabor2_edate" type="text" class="txt c1"/></td>
-						</tr>
+						</tr>-->
 						<tr>
 							<td class="td1"><span> </span><a id='lblAcomp' class="lbl btn" ></a></td>
 							<td class="td2" colspan="3">
