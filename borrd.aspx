@@ -21,12 +21,12 @@
             var q_readonly = ['txtNoa', 'txtWorker', 'txtPaybno'];
             var q_readonlys = [];
             var q_readonlyt = ['txtVccno'];
-            var bbmNum = [['txtMoney',10,0,1],['txtCharge',10,0,1],['txtVccday',10,0]];
-            var bbsNum = [];
-            var bbtNum = [];
-            var bbmMask = [];
-            var bbsMask = [];
-            var bbtMask = [];
+            var bbmNum = [['txtMoney',10,0,1],['txtCharge',10,0,1]];
+            var bbsNum = [['txtRate',10,2],['txtMoney',10,0,1]];
+            var bbtNum = [['txtMoney',10,0,1]];
+            var bbmMask = [['txtDatea','999/99/99'],['txtBegindate','999/99/99'],['txtEnddate','999/99/99'],['txtPaydate','999/99/99'],['txtVccday','99']];
+            var bbsMask = [['txtDatea','999/99/99']];
+            var bbtMask = [['txtDatea','999/99/99']];
             
             q_sqlCount = 6;
             brwCount = 6;
@@ -40,7 +40,8 @@
             aPop = new Array(
              ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtCustnick', 'cust_b.aspx']
             ,['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtTggnick', 'tgg_b.aspx']
-            );
+            ,['txtAcc1', 'lblAcca', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
+            ,['txtTacc1', 'lblTaca', 'acc', 'acc1,acc2', 'txtTacc1,txtTacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -61,6 +62,24 @@
             function mainPost() {
                 q_mask(bbmMask);
                 $('#txtDatea').datepicker();
+                $('#txtBegindate').datepicker();
+                $('#txtEnddate').datepicker();
+                $('#txtPaydate').datepicker();
+                
+                $('#txtAcc1').change(function () {
+		            var s1 = trim($(this).val());
+		            if (s1.length > 4 && s1.indexOf('.') < 0)
+		                $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
+		            if (s1.length == 4)
+		                $(this).val(s1 + '.');
+		        });
+		        $('#txtTacc1').change(function () {
+		            var s1 = trim($(this).val());
+		            if (s1.length > 4 && s1.indexOf('.') < 0)
+		                $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
+		            if (s1.length == 4)
+		                $(this).val(s1 + '.');
+		        });
             }
 
             function q_gtPost(t_name) {
@@ -137,7 +156,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['money']) {
+                if (!as['datea']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -527,7 +546,6 @@
 						</td>
 						<td style="width:20px;"> </td>
 						<td style="width:200px; text-align: center;">請款單號</td>
-						<td style="width:120px; text-align: center;">請款日期</td>
 						<td style="width:100px; text-align: center;">金額</td>
 						<td style="width:350px; text-align: center;">備註</td>
 					</tr>
@@ -538,7 +556,6 @@
 						</td>
 						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td><input id="txtVccno..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtDatea..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtMoney..*"  type="text" style="width:95%; text-align: right;"/></td>
 						<td><input id="txtMemo..*"  type="text" style="width:95%; text-align: left;"/></td>
 					</tr>
