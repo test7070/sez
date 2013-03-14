@@ -18,7 +18,7 @@
             var q_name = "oil";
             var q_readonly = ['txtNoa','txtWorker','txtMoney','txtCurmount','txtCurmoney','txtBmiles','txtMiles','txtRate'];
             var bbmNum = new Array(['txtBmiles',10,0],['txtEmiles',10,0],['txtMiles',10,0],['txtRate',10,2],['txtMount',10,2],['txtPrice',10,2],['txtMoney',10,0],['txtCurmount',10,2],['txtCurmoney',10,2]);
-            var bbmMask = [['txtDatea','999/99/99']];
+            var bbmMask = [['txtDatea','999/99/99'],['txtTimea','99:99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -189,8 +189,9 @@
 						var t_carno = $.trim($('#txtCarno').val());
 						var t_datea = $.trim($('#txtDatea').val());
 						var t_noa = $.trim($('#txtNoa').val());
+						var t_timea = $.trim($('#txtTimea').val());
 						if(t_carno.length>0 && t_datea.length>0){
-							t_where = " where=^^ noa!='"+t_noa+"' and carno='"+t_carno+"' and datea<='"+t_datea+"' and not(datea='"+t_datea+"' and noa>'"+t_noa+"')^^ ";
+							t_where = " where=^^ noa!='"+t_noa+"' and carno='"+t_carno+"' and datea<='"+t_datea+"' and not(datea='"+t_datea+"' and timea>'"+t_timea+"')^^ ";
 							q_gt('oil_top', t_where, 0, 0, 0, "", r_accy);
 						}
 						$('#txtDriverno').focus();
@@ -239,6 +240,10 @@
 	                if (checkId($('#txtDatea').val())==0){
 	                	alert(q_getMsg('lblDatea')+'錯誤。');
 	                	return;
+	            }
+	            if ($('#txtTimea').val().length > 0 && !(/(?:[01][0-9]|2[0-3]):[0-5][0-9]/g).test($('#txtTimea').val())){
+	            	alert(q_getMsg('lblTimea')+'錯誤。');
+	            	return;
 	            }
                 $('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
@@ -597,6 +602,10 @@
 						<td class="td2">
 						<input id="txtDatea"  type="text"  class="txt c1"/>
 						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblTimea' class="lbl"> </a></td>
+						<td><input id="txtTimea"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id='lblIscustom' class="lbl"> </a></td>
 						<td><input id="chkIscustom"  type="checkbox"/>	</td>
 					</tr>
