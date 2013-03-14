@@ -288,9 +288,11 @@
                 
                 var yufu=false;
                 for (var j = 0; j < q_bbsCount; j++) {
-                	if($('#cmbKind_'+j).val().indexOf('預付')>-1){
-                		yufu=true;
-                		break;
+                	if($('#cmbKind_'+j).val()!=null){
+	                	if($('#cmbKind_'+j).val().indexOf('預付')>-1){
+	                		yufu=true;
+	                		break;
+	                	}
                 	}
                 }
                 

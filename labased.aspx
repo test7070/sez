@@ -46,6 +46,7 @@
                 }
                 mainBrow(6, t_content, t_sqlname, t_postname);
                 q_mask(bbmMask);
+                bbsMask = [['txtHealth_bdate', '999/99/99'], ['txtHealth_edate', '999/99/99'], ['txtLabor1_bdate', '999/99/99'], ['txtLabor1_edate', '999/99/99'], ['txtLabor2_bdate', '999/99/99'], ['txtLabor2_edate', '999/99/99']];
             }
 
             function q_gtPost(t_name) {
