@@ -573,13 +573,13 @@
 							<input id="txtJob"  type="text" class="txt c3" />	
 						</td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td class="td1"><span> </span><a id='lblAcomp' class="lbl btn" ></a></td>
 						<td class="td2" colspan="3">
 							<input id="txtCno"type="text" class="txt c2" style="width: 30%"/>
 							<input id="txtComp"  type="text"  class="txt c3" style="width: 69%"/>
 						</td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td class="td1"><span> </span><a id='lblRecord' class="lbl"></a></td>
 						<td class="td2">

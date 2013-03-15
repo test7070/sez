@@ -24,7 +24,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            brwCount2 = 20;
+            brwCount2 = 15;
             //ajaxPath = ""; //  execute in Root
             aPop = new Array();
 
@@ -613,13 +613,13 @@
 							<input id="txtJob"  type="text" style="display: none;"/>
 						</td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td colspan="3">
 							<select id="cmbCno" class="txt c1"> </select>
 							<input id="txtAcomp"  type="text" style="display: none;"/>
 						</td>
-					</tr>					
+					</tr>-->					
 					<tr>
 						<td><span> </span><a id="lblConn" class="lbl"> </a></td>
 						<td><input id="txtConn"  type="text"  class="txt c1"/></td>

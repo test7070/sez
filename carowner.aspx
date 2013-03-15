@@ -525,14 +525,14 @@
 							<td class="td2"><input id="txtLabor2_bdate" type="text" class="txt c1"/></td>
 							<td class="td3"><span> </span><a id='lblLabor2_edate' class="lbl"></a></td>
 							<td class="td4"><input id="txtLabor2_edate" type="text" class="txt c1"/></td>
-						</tr>-->
+						</tr>
 						<tr>
 							<td class="td1"><span> </span><a id='lblAcomp' class="lbl btn" ></a></td>
 							<td class="td2" colspan="3">
 								<input id="txtCno"type="text" class="txt c2" style="width: 30%"/>
 								<input id="txtComp"  type="text"  class="txt c3" style="width: 69%"/>
 							</td>
-						</tr>
+						</tr>-->
 						<tr class="tr5">
 							<td class="td1"><span> </span><a id='lblAddr_home' class="lbl"></a></td>
 							<td class="td2" colspan="5">
