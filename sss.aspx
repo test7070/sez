@@ -24,7 +24,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            brwCount2 = 20;
+            brwCount2 = 15;
             //ajaxPath = ""; //  execute in Root
             aPop = new Array();
 
@@ -583,7 +583,7 @@
 						<td><span> </span><a id='lblOutdate' class="lbl"> </a></td>
 						<td><input id="txtOutdate"  type="text" class="txt c1" /></td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td><span> </span><a id='lblHealth_bdate' class="lbl"> </a></td>
 						<td><input id="txtHealth_bdate" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblHealth_edate' class="lbl"> </a></td>
@@ -600,7 +600,7 @@
 						<td><input id="txtLabor2_bdate" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblLabor2_edate' class="lbl"> </a></td>
 						<td><input id="txtLabor2_edate" type="text" class="txt c1"/></td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td><span> </span><a id="lblPart" class="lbl btn"> </a></td>
 						<td>
@@ -613,13 +613,13 @@
 							<input id="txtJob"  type="text" style="display: none;"/>
 						</td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td colspan="3">
 							<select id="cmbCno" class="txt c1"> </select>
 							<input id="txtAcomp"  type="text" style="display: none;"/>
 						</td>
-					</tr>					
+					</tr>-->					
 					<tr>
 						<td><span> </span><a id="lblConn" class="lbl"> </a></td>
 						<td><input id="txtConn"  type="text"  class="txt c1"/></td>

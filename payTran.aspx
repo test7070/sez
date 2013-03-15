@@ -13,7 +13,7 @@
 		    q_desc = 1
 		    q_tables = 's';
 		    var q_name = "pay";
-		    var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno','txtSale','txtTotal','txtPaysale','txtUnpay','txtOpay','textOpay'];
+		    var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno','txtSale','txtTotal','txtPaysale','txtUnpay','txtOpay','textOpay','txtWorker2'];
 		    var q_readonlys = ['txtRc2no', 'txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2'];
 		    var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]);
 		    var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtUnpayorg', 10, 0, 1]];
@@ -377,7 +377,11 @@
 		            return false;
 		        }
 
-		        $('#txtWorker').val(r_name);
+                if(q_cur ==1){
+                	$('#txtWorker').val(r_name);
+                }else if(q_cur ==2){
+                	$('#txtWorker2').val(r_name);
+                }
 		        var t_money = 0, t_chgs = 0, t_paysale,t_mon='';
 		        for (var i = 0; i < q_bbsCount; i++) {
 		            t_money = q_float('txtMoney_' + i);
@@ -845,6 +849,7 @@
 							<input id="txtRc2no"  type="text" class="txt c1"/>
 							<p style="height:1%;"></p>
 							<input id="txtWorker"  type="text" class="txt c1"/>
+							<input id="txtWorker2"  type="text" class="txt c1" style="display:none;"/>
 						</td>
 						<td>
 							<input type="button" id="btnAuto" style="width:80%;color:red;"/>
