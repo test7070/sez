@@ -295,9 +295,9 @@
 	                	}
                 	}
                 }
-                if(q_cur =1){
+                if(q_cur ==1){
                 	$('#txtWorker').val(r_name);
-                }else if(q_cur =2){
+                }else if(q_cur ==2){
                 	$('#txtWorker2').val(r_name);
                 }
                 if(yufu &&$('#txtPayc').val().indexOf('預付')==-1)

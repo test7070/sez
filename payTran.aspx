@@ -377,9 +377,9 @@
 		            return false;
 		        }
 
-                if(q_cur =1){
+                if(q_cur ==1){
                 	$('#txtWorker').val(r_name);
-                }else if(q_cur =2){
+                }else if(q_cur ==2){
                 	$('#txtWorker2').val(r_name);
                 }
 		        var t_money = 0, t_chgs = 0, t_paysale,t_mon='';
