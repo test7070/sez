@@ -68,11 +68,11 @@
 		            }
 		            if($('#chkFuel')[0].checked==true)
 		            {
-		            	t_where+="caritemno='502' or ";
+		            	t_where+="(caritemno='502' and (sheetyn='y' or sheetyn='Y')) or ";
 		            }
 		            if($('#chkLicense')[0].checked==true)
 		            {
-		            	t_where+="caritemno='501' or ";
+		            	t_where+="(caritemno='501' and (sheetyn='y' or sheetyn='Y')) or ";
 		            }
 		            if($('#chkOther')[0].checked==true)
 		            {
@@ -122,7 +122,8 @@
 		            		t_where+="or b.sssno='"+q_getMsg('lblSssno3')+"' "
 		            	sssno_count++;
 		            }*/
-		           
+		           //金額=0的不顯示
+		           	t_where+=" and a.outmoney!=0";
 		            t_where+=" ^^";
 			        q_gt('carc_caras', t_where , 0, 0, 0, "", r_accy);			   
 			 });
