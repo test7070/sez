@@ -32,7 +32,7 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
-            brwCount2=15;
+            brwCount2=21;
             q_brwCount();  
             q_gt(q_name, q_content, q_sqlCount, 1) 
         });

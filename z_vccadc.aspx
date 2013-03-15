@@ -69,7 +69,10 @@
                         type : '8',
                         name : 'xcno',
                         value : t_cno.split(',')
-                   }]
+                     },{
+                        type : '1',
+                        name : 'xinvono'
+                  }]
                 });
                 q_popAssign();
 				q_langShow();
