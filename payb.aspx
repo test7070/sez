@@ -17,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "payb";
-            var q_readonly = ['txtVccno','txtAccno','txtNoa', 'txtMoney', 'txtTax', 'txtDiscount', 'txtTotal', 'txtWorker','txtUnpay','txtPayed'];
+            var q_readonly = ['txtVccno','txtAccno','txtNoa', 'txtMoney', 'txtTax', 'txtDiscount', 'txtTotal', 'txtWorker','txtUnpay','txtPayed','txtWorker2'];
             var q_readonlys = ['txtTotal','txtMoney'];
             var bbmNum = [['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtDiscount', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtPayed', 10, 0, 1]];
             var bbsNum = [['txtPrice', 10, 0, 1], ['txtDiscount', 10, 0, 1], ['txtMount', 10, 0, 1], ['txtMoney', 10, 0, 1], ['txtTax', 10, 0, 1], ['txtTotal', 10, 0, 1]];
@@ -275,7 +275,7 @@
             function btnOk() {
                 if ($.trim($('#txtNick').val()).length == 0)
                     $('#txtNick').val($('#txtComp').val());
-                $('#txtWorker').val(r_name);
+                
                 $('#txtAcomp').val($('#cmbCno').find(":selected").text());
                 $('#txtPart').val($('#cmbPartno').find(":selected").text());
 
@@ -295,7 +295,11 @@
 	                	}
                 	}
                 }
-                
+                if(q_cur =1){
+                	$('#txtWorker').val(r_name);
+                }else if(q_cur =2){
+                	$('#txtWorker2').val(r_name);
+                }
                 if(yufu &&$('#txtPayc').val().indexOf('預付')==-1)
                 	$('#txtPayc').val($('#txtPayc').val()+' 預付');
 				
@@ -371,7 +375,8 @@
             }
 
             function bbsSave(as) {
-                if (!as['rc2no'] && !as['invono'] && !as['total'] && !as['money'] && !as['memo']) {
+               // if (!as['rc2no'] && !as['invono'] && !as['total'] && !as['money'] && !as['memo']) {
+                if (!as['money'] || !as['acc1']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -713,8 +718,12 @@
 					<tr>
 						<td><span> </span><a id='lblPic' class="lbl"> </a></td>
 						<td><input id="txtPic"  type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
+						<td><input id="txtWorker2"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>

@@ -20,7 +20,7 @@
         var q_readonlys = [];
         var bbmNum = []; 
         var bbsNum = [];
-        var bbmMask = [];
+        var bbmMask = [['txtMon',r_picm]];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Noa';
         q_desc=1;
@@ -112,6 +112,7 @@
 
         function btnIns() {
             _btnIns();
+            $('#txtNoa').val('AUTO');
             $('#txtMon').val(q_date());
             $('#txtMon').focus();
         }
