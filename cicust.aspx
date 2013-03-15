@@ -15,7 +15,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="cicust";
-        var q_readonly = ['txtWorker','txtNoa'];
+        var q_readonly = ['txtWorker'];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -112,9 +112,8 @@
                 sum();
                 $('#txtWorker').val(r_name);
             var t_noa = trim($('#txtNoa').val());
-            var t_cno = trim($('#txtCno').val());
             if ( t_noa.length==0 )  
-                q_gtnoa(q_name,replaceAll((t_cno.length == 0 ? t_cno : t_cno), '/', ''));
+                q_gtnoa(q_name, t_noa);
             else
                 wrServer(  t_noa);
         }
@@ -309,22 +308,22 @@
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:20%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:25%"><a id='vewCno'></a></td>
-                <td align="center" style="width:40%"><a id='vewComp'></a></td>
+                <td align="center" style="width:25%"><a id='vewCarowner'></a></td>
+                <td align="center" style="width:40%"><a id='vewUser'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='cno'>~cno</td>
-                   <td align="center" id='comp'>~comp</td>
+                   <td align="center" id='carowner'>~carowner</td>
+                   <td align="center" id='user'>~user</td>
             </tr>
         </table>
         </div>
         <div class='dbbm' style="width: 70%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
           <tr class="tr1">
-               <td class="td1"><span> </span><a id="lblCarno" class="lbl"></a></td>
-               <td class="td2"><input id="txtCarno" type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
+               <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblCardeal" class="lbl"></a></td>
                <td class="td4"><input id="txtCardealno" type="text" class="txt c1"/></td>
                <td class="td5" colspan="2"><input id="txtCardeal" type="text" class="txt c1"/></td> 
@@ -344,18 +343,18 @@
                <td class="td6"></td> 
             </tr>
             <tr class="tr5">
-               <td class="td1"><span> </span><a id="lblConn" class="lbl"></a></td>
-               <td class="td2"><input id="txtConn" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblFax" class="lbl"></a></td>
-               <td class="td4"><input id="txtFax" type="text" class="txt c1"/></td>
-               <td class="td5"></td>
-               <td class="td6"></td> 
-            </tr>
-            <tr class="tr6">
                <td class="td1"><span> </span><a id="lblTel1" class="lbl"></a></td>
                <td class="td2"><input id="txtTel1" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblTel2" class="lbl"></a></td>
                <td class="td4"><input id="txtTel2" type="text" class="txt c1"/></td>
+               <td class="td5"></td>
+               <td class="td6"></td> 
+            </tr>
+            <tr class="tr6">
+               <td class="td1"><span> </span><a id="lblMobile" class="lbl"></a></td>
+               <td class="td2"><input id="txtMobile" type="text" class="txt c1"/></td>
+               <td class="td3"><span> </span><a id="lblFax" class="lbl"></a></td>
+               <td class="td4"><input id="txtFax" type="text" class="txt c1"/></td>
                <td class="td5"></td>
                <td class="td6"></td> 
             </tr>
@@ -364,7 +363,29 @@
                <td class="td2"><input id="txtZip_addr" type="text" class="txt c1"/></td>
                <td class="td3" colspan="3"><input id="txtAddr" type="text" class="txt c1"/></td>
             </tr>
-            <tr class="tr6">
+            <tr class="tr8">
+               <td class="td1"><span> </span><a id="lblCarbrand" class="lbl"></a></td>
+               <td class="td2"><input id="txtCarbrand" type="text" class="txt c1"/></td>
+               <td class="td3"><span> </span><a id="lblCartype" class="lbl"></a></td>
+               <td class="td4"><input id="txtCartype" type="text" class="txt c1"/></td>
+               <td class="td5"><span> </span><a id="lblYears" class="lbl"></a></td>
+               <td class="td6"><input id="txtYears" type="text" class="txt c1"/></td> 
+            </tr>
+            <tr class="tr9">
+               <td class="td1"><span> </span><a id="lblPassdate" class="lbl"></a></td>
+               <td class="td2"><input id="txtPassdate" type="text" class="txt c1"/></td>
+               <td class="td3"><span> </span><a id="lblEngineno" class="lbl"></a></td>
+               <td class="td4"><input id="txtEngineno" type="text" class="txt c1"/></td>
+               <td class="td5"><span> </span><a id="lblCc" class="lbl"></a></td>
+               <td class="td6"><input id="txtCc" type="text" class="txt c1"/></td> 
+            </tr>
+            <tr class="tr10">
+               <td class="td1"><span> </span><a id="lblCarnotransaction" class="lbl"></a></td>
+               <td class="td2"><input id="txtCarnotransaction" type="text" class="txt c1"/></td>
+               <td class="td3"><span> </span><a id="lblCartransaction" class="lbl"></a></td>
+               <td class="td4"><input id="txtCartransaction" type="text" class="txt c1"/></td> 
+            </tr>
+            <tr class="tr11">
                <td class="td1"><span> </span><a id="lblWorker" class="lbl"></a></td>
                <td class="td2"><input id="txtWorker" type="text" class="txt c1"/></td>
                <td class="td3"> </td>
