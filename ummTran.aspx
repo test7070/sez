@@ -409,7 +409,7 @@
                     return false;
                 }
 
-                if(q_cur =u1){
+                if(q_cur ==1){
                 	$('#txtWorker').val(r_name);
                 }else if(q_cur ==2){
                 	$('#txtWorker2').val(r_name);
