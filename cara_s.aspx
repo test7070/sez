@@ -43,8 +43,10 @@
         t_bmon = t_bmon.length > 0 && t_bmon.indexOf("_") > -1 ? t_bmon.substr(0, t_bmon.indexOf("_")) : t_bmon;  /// 100.  .
         t_emon = t_emon.length > 0 && t_emon.indexOf("_") > -1 ? t_emon.substr(0, t_emon.indexOf("_")) : t_emon;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +q_sqlPara2("carno", t_carno)+q_sqlPara2("carowner", t_carowner)+ q_sqlPara2("mon", t_bmon, t_emon);
-
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +q_sqlPara2("carowner", t_carowner)+ q_sqlPara2("mon", t_bmon, t_emon);
+		if(!emp(t_carno))
+				t_where+= " and (carno='"+t_carno+"' or CHARINDEX('"+t_carno+"',STUFF(REPLACE((select ','+b.oldcarno from carChange b where cara.carno=b.noa FOR XML PATH('')),' ',''),1,1,''))>0) ";
+				
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
     }

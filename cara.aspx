@@ -17,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "cara";
-            var q_readonly = ['txtNoa','txtIprev','txtInterest','txtItotal','txtTotal','txtPaytotal','txtBprev','txtBin','txtBtotal','txtAccno','textUnpay'];
+            var q_readonly = ['txtNoa','txtIprev','txtInterest','txtItotal','txtTotal','txtPaytotal','txtBprev','txtBin','txtBtotal','txtAccno','textUnpay','txtOldcarno'];
             var q_readonlys = ['txtCaritem','txtUmmnoa'];
             var bbmNum = [['txtIprev', 15, 0, 1],['txtIset', 15, 0, 1],['txtBprev', 15, 0, 1],['txtInterest', 15, 0, 1],['txtBin', 15, 0, 1],['txtItotal', 15, 0, 1],['txtBtotal', 15, 0, 1],['txtTotal', 15, 0, 1],['txtPaytotal', 15, 0, 1]];
             var bbsNum = [['txtOutmoney', 15, 0, 1],['txtInmoney', 15, 0, 1],['txtCost', 15, 0, 1]];
@@ -979,9 +979,8 @@
 							<input id="txtCarownerno"  type="text" class="txt" style="width:50px;"/>
 							<input id="txtCarowner"  type="text" class="txt" style="width:90px;"/>
 						</td>
-						<td class="td5"><span> </span><a id='lblUnpay' class="lbl"></a></td>
-						<td class="td6"><input id="textUnpay"  type="text" class="txt num c1"/></td>
-						<td class="td7"></td>
+						<td class="td5"><span> </span><a id='lblOldcarno' class="lbl"></a></td>
+						<td class="td6" colspan="2"><input id="txtOldcarno"  type="text" class="txt c1"/></td>
 						<td class="td8"><input id="btnNextmon" type="button" /></td>
 					</tr>
 					<tr class="tr2">
@@ -1009,8 +1008,8 @@
 						<td class="td2"><input id="txtTotal"  type="text" class="txt num c1">	</td>
 						<td class="td3"><span> </span><a id='lblItotal' class="lbl"></a></td>
 						<td class="td4"><input id="txtItotal"  type="text" class="txt num c1"/></td>
-						<td class="td5"></td>
-						<td class="td6"></td>
+						<td class="td5"><span> </span><a id='lblUnpay' class="lbl"></a></td>
+						<td class="td6"><input id="textUnpay"  type="text" class="txt num c1"/></td>
 						<td class="td7"><span> </span><a id='lblBtotal' class="lbl"></a></td>
 						<td class="td8"><input id="txtBtotal"  type="text" class="txt num c1"/></td>
 					<!--直接讓速查顯示10筆
