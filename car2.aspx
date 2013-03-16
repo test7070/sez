@@ -853,6 +853,11 @@
 							<input id="txtDriverno" type="text"  style='width:40%; float:left;'/>
 							<input id="txtDriver" type="text"  style='width:60%; float:left;'/>
 						</td>
+						<td> </td>
+						<td colspan="2">
+							<input id="chkOption01"  type="checkbox" style='float:left;'/>
+							<span> </span><a id='lblOption01' class="lbl" style='float:left;'> </a>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCarowner" class="lbl btn"> </a></td>

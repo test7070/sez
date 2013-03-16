@@ -52,6 +52,9 @@
                     },{
                         type : '6',
                         name : 'xmon'
+                    },{
+                        type : '6',
+                        name : 'partno'
                     }]
                     });
                 q_popAssign();

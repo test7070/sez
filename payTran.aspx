@@ -269,13 +269,14 @@
 						
 						q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,cmbPartno,txtPart,txtMemo,txtPayc,txtIndate', as.length, as, 'noa,paysale,_unpay,_unpay,part,partno,part,memo,payc,paydate', 'txtRc2no', '');
 						var t_memo = '';
-						for (var i = 0; i < q_bbsCount; i++) {
+						//為了使PAYB備註能帶到傳票,先註解
+						/*for (var i = 0; i < q_bbsCount; i++) {
 							if($.trim($('#txtMemo_'+i).val()).length>0){
 								t_memo = t_memo+(t_memo.length>0?'\n':'')+ $.trim($('#txtMemo_'+i).val());
 								$('#txtMemo_'+i).val('');
 							}
 				        }
-				        $('#txtMemo').val(t_memo);
+				        $('#txtMemo').val(t_memo);*/
 		                t_Saving = false;
 		                sum();
 

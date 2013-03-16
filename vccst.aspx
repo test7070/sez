@@ -373,9 +373,9 @@
             _btnOk( null, bbmKey[0], bbsKey[1], '', 2);  // key_value
         }
 
-        function bbsSave(as) {   /// �? �g�J��Ʈw�e�A�g�J�ݭn���
+        function bbsSave(as) {   
             if (!as['productno'] && !as['product'] && !as['spec'] && !dec( as['total'])) {  //���s�ɱ��
-                as[bbsKey[1]] = '';   /// noq ���šA���s��
+                as[bbsKey[1]] = '';
                 return;
             }
 
