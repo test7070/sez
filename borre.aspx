@@ -153,10 +153,10 @@
                 _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
             }
 
-            function bbsSave(as) {/// ?? ?g?J???w?e?A?g?J??n???
-                if(!as['checkno']) {//???s????
+            function bbsSave(as) {
+                if(!as['checkno']) {
                     as[bbsKey[1]] = '';
-                    /// noq ????A???s??
+                    
                     return;
                 }
 

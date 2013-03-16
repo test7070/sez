@@ -79,6 +79,7 @@
                     return false;
             }
             function btnOk() {
+            	var t_err = '';
             	if($.trim($('#txtNick').val()).length==0)
             		$('#txtNick').val($('#txtComp').val());
  

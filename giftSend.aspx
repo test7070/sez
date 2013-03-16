@@ -157,6 +157,7 @@
             }
 
             function bbsSave(as) {
+            	t_err = '';
                 if (!as['custno']) {
                     as[bbsKey[1]] = '';
                     return;

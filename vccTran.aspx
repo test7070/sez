@@ -279,6 +279,7 @@
             }
 
             function bbsSave(as) {
+            	t_err = '';
                 if (parseFloat(as['total'])==0) {
                     as[bbsKey[1]] = '';
                     return;

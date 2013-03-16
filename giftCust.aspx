@@ -141,6 +141,7 @@
             }
 
             function bbsSave(as) {
+            	t_err = '';
                 if (!as['datea']) {
                     as[bbsKey[1]] = '';
                     return;
