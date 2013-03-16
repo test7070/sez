@@ -376,7 +376,7 @@
 
             function bbsSave(as) {
                // if (!as['rc2no'] && !as['invono'] && !as['total'] && !as['money'] && !as['memo']) {
-                if (!as['money'] || !as['acc1']) {
+                if (as['money'] ==0 && as['tax'] ==0 && as['acc1'] ==0) {
                     as[bbsKey[1]] = '';
                     return;
                 }
