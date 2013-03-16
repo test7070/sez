@@ -184,7 +184,7 @@
 						//重新分配室內金額
 			           	if(dec($('#txtComptotal').val())>0&&dec($('#txtTalktotal').val())>0){
 				           	for(var j = 0; j < q_bbsCount; j++) {
-				           		if(!emp($('#txtTalkfee_'+j).val()))
+				           		if(dec($('#txtTalkfee_'+j).val())!=0)
 				           			q_tr('txtTelfee_'+j,round((q_float('txtTalkfee_'+j)/q_float('txtTalktotal'))*q_float('txtComptotal'),0));
 				           			q_tr('txtTotal_'+j,q_float('txtTelfee_'+j)+q_float('txtPhonefee_'+j));
 				           	}
