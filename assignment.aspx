@@ -116,7 +116,7 @@
                 $('#txtItem').focus();
             }
             function btnPrint() {
-            	q_box('z_assignment.aspx', '', "90%", "650px", m_print);
+            	//q_box('z_assignment.aspx', '', "90%", "650px", m_print);
             }
             function wrServer(key_value) {
                 var i;
@@ -358,7 +358,7 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblItem' class="lbl"> </a></td>
 						<td class="td2" colspan="2"><input type="text" id="txtItem" class="txt c1"/></td>
-						<td><input id="btnAssignpaper" type="button" class="txt c1" /> </td>	
+						<!--<td><input id="btnAssignpaper" type="button" class="txt c1" /> </td>-->	
 					</tr>
 					<!--<tr>
 						<td class="td1"><span> </span><a id='lblTggno' class="lbl btn"> </a></td>
