@@ -81,7 +81,32 @@
 
 		function mainPost() { 
 			q_mask(bbmMask);
+			w_button = '<input id="btnReceiver" type="button">';
+	      	$('input[id=btnReceiver]').click(function(){ 
+	      		if(q_cur == 1 || q_cur == 2 ){
+	      			alert('123');
+	            	$(this).remove();
+	            }
+	     	});
+     		$('#chkIsmailchecker').click(function(){
+     			name = $('#txtChecker').val();
+     			if($(this).is(':checked') && name != ''){
+     				if(check_btnReceiver(name))
+     					$(w_button).val(name).appendTo($('#Receiver_box'));
+     			}
+     		});
 		}
+		function check_btnReceiver(name){//如果有重複名字傳回False
+			check_err = 0;
+			$('[id=btnReceiver]').each(function(i){ 
+				if($(this).val() == name){
+					check_err = 0;
+				}else{
+					check_err = 1;
+				}
+			});
+			return check_err;
+      	}
 		function txtCopy(dest, source) {
 			var adest = dest.split(',');
 			var asource = source.split(',');
@@ -452,6 +477,19 @@
 				<td class="td7">
 				</td>
 				<td class="td8">
+				</td>
+			</tr>
+			<tr>
+				<td class="td1">
+					<span> </span><a id='lblReceiver' class="lbl"></a>
+				</td>
+				<td class="td2">
+					<input id="txtReceiver"  type="text" class="txt c1"/>
+				</td>
+				<td colspan="4" class="td3">
+					<div id="Receiver_box">
+						<input id="btnReceiver" type="button" style="display:none;">
+					</div>
 				</td>
 			</tr>
 			<tr>

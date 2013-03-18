@@ -242,7 +242,7 @@
 
                             ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart,txtMemo,cmbPartno', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2,partno,part2,memo,partno', '');
                             /// 最後 aEmpField 不可以有【數字欄位】
-                            
+                            sum();
                             $('#txtAcc1_0').focus();
                         }
                         break;
@@ -563,7 +563,8 @@
             }
 
             function bbsSave(as) {
-                if (!as['acc1'] && (!as['money'] || as['money'] == 0) && !as['memo'] && !as['vccno'] && (!as['paysale'] || as['paysale'] == 0)) {
+                //if (!as['acc1'] && (!as['money'] || as['money'] == 0) && !as['memo'] && !as['vccno'] && (!as['paysale'] || as['paysale'] == 0)) {
+                if (!as['acc1'] && (!as['money'] || as['money'] == 0) && (!as['paysale'] || as['paysale'] == 0)) {
                     as[bbsKey[1]] = '';
                     return;
                 }

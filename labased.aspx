@@ -130,10 +130,10 @@
 					<td class="td2" align="center" style="width:18%;"><a id='lblAcomp_s'></a></td>
 					<td class="td3" align="center" style="width:8%;"><a id='lblHealth_bdate'></a></td>
 					<td class="td4" align="center" style="width:8%;"><a id='lblHealth_edate'></a></td>
-					<td class="td5" align="center" style="width:8%;"><a id='lblLabor1_bdate'></a></td>
-					<td class="td6" align="center" style="width:8%;"><a id='lblLabor1_edate'></a></td>
-					<td class="td7" align="center" style="width:8%;"><a id='lblLabor2_bdate'></a></td>
-					<td class="td8" align="center" style="width:8%;"><a id='lblLabor2_edate'></a></td>
+					<td class="td5" align="center" style="width:8%;"><a id='lblLabor_bdate'></a></td>
+					<td class="td6" align="center" style="width:8%;"><a id='lblLabor_edate'></a></td>
+					<td class="td7" align="center" style="width:8%;"><a id='lblRetire_bdate'></a></td>
+					<td class="td8" align="center" style="width:8%;"><a id='lblRetire_edate'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td class="td1" align="center">
@@ -146,10 +146,10 @@
 					</td>
 					<td class="td3"><input id="txtHealth_bdate.*" type="text" class="txt c1" style="width:95%;"/></td>
 					<td class="td4"><input id="txtHealth_edate.*" type="text" class="txt c1" style="width:95%;"/></td>
-					<td class="td5"><input id="txtLabor1_bdate.*" type="text" class="txt c1" style="width:95%;"/></td>
-					<td class="td6"><input id="txtLabor1_edate.*" type="text" class="txt c1" style="width:95%;"/></td>
-					<td class="td7"><input id="txtLabor2_bdate.*" type="text" class="txt c1" style="width:95%;"/></td>
-					<td class="td8"><input id="txtLabor2_edate.*" type="text" class="txt c1" style="width:95%;"/></td>
+					<td class="td5"><input id="txtLabor_bdate.*" type="text" class="txt c1" style="width:95%;"/></td>
+					<td class="td6"><input id="txtLabor_edate.*" type="text" class="txt c1" style="width:95%;"/></td>
+					<td class="td7"><input id="txtRetire_bdate.*" type="text" class="txt c1" style="width:95%;"/></td>
+					<td class="td8"><input id="txtRetire_edate.*" type="text" class="txt c1" style="width:95%;"/></td>
 				</tr>
 			</table>
 			
