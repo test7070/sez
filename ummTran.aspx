@@ -563,7 +563,8 @@
             }
 
             function bbsSave(as) {
-                if (!as['acc1'] && (!as['money'] || as['money'] == 0) && !as['memo'] && !as['vccno'] && (!as['paysale'] || as['paysale'] == 0)) {
+                //if (!as['acc1'] && (!as['money'] || as['money'] == 0) && !as['memo'] && !as['vccno'] && (!as['paysale'] || as['paysale'] == 0)) {
+                if (!as['acc1'] && (!as['money'] || as['money'] == 0) && (!as['paysale'] || as['paysale'] == 0)) {
                     as[bbsKey[1]] = '';
                     return;
                 }
