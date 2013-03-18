@@ -96,12 +96,12 @@
                 q_gt('acomp', '', 0, 0, 0, "");
                 q_gt('part', '', 0, 0, 0, "");
                 q_gt('salm', '', 0, 0, 0, "");
-                $("#cmbCno").focus(function() {
+                /*$("#cmbCno").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
                 }).blur(function() {
                     $(this).attr('size', '1');
-                });
+                });*/
                 $("#cmbPartno").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
@@ -169,7 +169,8 @@
                                 t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
                             }
                             q_cmbParse("cmbPartno", t_item);
-                            $("#cmbPartno").val(abbm[q_recno].partno);
+                            if(abbm[q_recno]!=undefined)
+                            	$("#cmbPartno").val(abbm[q_recno].partno);
                         }
                         break;
                     case 'salm':
@@ -180,10 +181,11 @@
                                 t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].job;
                             }
                             q_cmbParse("cmbJobno", t_item);
-                            $("#cmbJobno").val(abbm[q_recno].jobno);
+                            if(abbm[q_recno]!=undefined)
+                            	$("#cmbJobno").val(abbm[q_recno].jobno);
                         }
                         break;
-                	case 'acomp':
+                	/*case 'acomp':
                         var as = _q_appendData("acomp", "", true);
                         var t_item = " @ ";
                         for ( i = 0; i < as.length; i++) {
@@ -191,7 +193,7 @@
                         }
                         q_cmbParse("cmbCno", t_item);
                         $("#cmbCno").val(abbm[q_recno].cno);
-                        break;
+                        break;*/
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -242,7 +244,7 @@
                 	alert(q_getMsg('lblOutdate')+'錯誤。');
                 	return;
                 }
-                if (!q_cd($('#txtHealth_bdate').val())){
+                /*if (!q_cd($('#txtHealth_bdate').val())){
                 	alert(q_getMsg('lblHealth_bdate')+'錯誤。');
                 	return;
                 }
@@ -265,9 +267,9 @@
                 if (!q_cd($('#txtLabor2_edate').val())){
                 	alert(q_getMsg('lblLabor2_edate')+'錯誤。');
                 	return;
-                }
+                }*/
 
-            	$('#txtAcomp').val($('#cmbCno').find(":selected").text());
+            	//$('#txtAcomp').val($('#cmbCno').find(":selected").text());
                 $('#txtPart').val($('#cmbPartno').find(":selected").text());
                 $('#txtJob').val($('#cmbJobno').find(":selected").text());
                 

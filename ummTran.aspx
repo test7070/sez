@@ -167,11 +167,11 @@
 						else
 							t_where2 = " where[2]=^^ 1=1 ^^";
 							
-						t_where3 += " ) and ((b.outdate='' and b.suspdate='' and b.enddate='') or a.total!=0";
+						/*t_where3 += " ) and ((b.outdate='' and b.suspdate='' and b.enddate='') or a.total!=0";
 						
 						t_where3 +=" or left(b.outdate,3)>='"+(dec(q_date().substr(0,3))-1)+"'"
 						t_where3 +=" or left(b.suspdate,3)>='"+(dec(q_date().substr(0,3))-1)+"'"
-						t_where3 +=" or left(b.enddate,3)>='"+(dec(q_date().substr(0,3))-1)+"'"
+						t_where3 +=" or left(b.enddate,3)>='"+(dec(q_date().substr(0,3))-1)+"'"*/
 						
 						t_where3 +=") ^^"
 						
