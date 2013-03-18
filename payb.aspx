@@ -466,10 +466,9 @@
             }
 
             function btnDele() {
-            	if($('#txtPayed').val() > 0){
-            		return;
+            	if($('#txtPayed').val() == 0){
+                	_btnDele();
             	}
-                _btnDele();
             }
 
             function btnCancel() {
