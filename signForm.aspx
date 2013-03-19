@@ -17,7 +17,7 @@
 			alert("An error occurred:\r\n" + error.Message);
 		}
 		var q_name="signform";
-		var q_readonly = [];
+		var q_readonly = ['txtReceiver'];
 		var bbmNum = [];  
 		var bbmMask = []; 
 		q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -81,24 +81,60 @@
 
 		function mainPost() { 
 			q_mask(bbmMask);
-			w_button = '<input id="btnReceiver" type="button">';
-	      	$('input[id=btnReceiver]').click(function(){ 
-	      		if(q_cur == 1 || q_cur == 2 ){
-	      			alert('123');
-	            	$(this).remove();
-	            }
-	     	});
      		$('#chkIsmailchecker').click(function(){
      			name = $('#txtChecker').val();
      			if($(this).is(':checked') && name != ''){
      				if(check_btnReceiver(name))
-     					$(w_button).val(name).appendTo($('#Receiver_box'));
+     					append_btn(name,'add');
+     			}
+     		});
+     		$('#chkIsmailapprovema').click(function(){
+     			name = $('#txtApprovema').val();
+     			if($(this).is(':checked') && name != ''){
+     				if(check_btnReceiver(name))
+     					append_btn(name,'add');
+     			}
+     		});
+     		$('#chkIsmailapprovefi').click(function(){
+     			name = $('#txtApprovefi').val();
+     			if($(this).is(':checked') && name != ''){
+     				if(check_btnReceiver(name))
+     					append_btn(name,'add');
+     			}
+     		});
+     		$('#chkIsmailapprovegm').click(function(){
+     			name = $('#txtApprovegm').val();
+     			if($(this).is(':checked') && name != ''){
+     				if(check_btnReceiver(name))
+     					append_btn(name,'add');
+     			}
+     		});
+     		$('#chkIsmailapprovebs').click(function(){
+     			name = $('#txtApprovebs').val();
+     			if($(this).is(':checked') && name != ''){
+     				if(check_btnReceiver(name))
+     					append_btn(name,'add');
      			}
      		});
 		}
+		function append_btn(name,want){
+			if(want == 'add'){
+				w_button = '<input id="btnReceiver" type="button">';
+				$(w_button).val(name).appendTo($('#Receiver_box')).bind('click', function(event) {
+							   $(this).remove();
+							   replace_str = $('#txtReceiver').val();
+							   replace_str = replace_str.replace(replace_str,name + ';');
+							   $('#txtReceiver').val(replace_str);
+							   append_btn(name,'reload');
+				});
+				$('#txtReceiver').val($('#txtReceiver').val() + name + ';');
+			}else if(want == 'reload'){
+				alert('123');
+			}
+		}
 		function check_btnReceiver(name){//如果有重複名字傳回False
 			check_err = 0;
-			$('[id=btnReceiver]').each(function(i){ 
+			$('[id="btnReceiver"]').each(function(i){ 
 				if($(this).val() == name){
 					check_err = 0;
 				}else{
