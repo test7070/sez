@@ -31,8 +31,8 @@
 		$(document).ready(function () {
 			bbmKey = ['noa'];
 			q_brwCount();
-			q_gt(q_name, q_content, q_sqlCount, 1)
-			$('#txtNoa').focus
+			q_gt(q_name, q_content, q_sqlCount, 1);
+			$('#txtNoa').focus;
 		});
 
 		//////////////////   end Ready
@@ -84,36 +84,91 @@
      		$('#chkIsmailchecker').click(function(){
      			name = $('#txtChecker').val();
      			if($(this).is(':checked') && name != ''){
-     				if(check_btnReceiver(name))
+     				if(check_btnReceiver(name) == 1)
      					append_btn(name,'add');
+     			}else if(!$(this).is(':checked') && name != ''){
+					append_btn(name,'del');
      			}
      		});
      		$('#chkIsmailapprovema').click(function(){
      			name = $('#txtApprovema').val();
      			if($(this).is(':checked') && name != ''){
-     				if(check_btnReceiver(name))
+     				if(check_btnReceiver(name) == 1)
      					append_btn(name,'add');
+     			}else if(!$(this).is(':checked') && name != ''){
+					append_btn(name,'del');
      			}
      		});
      		$('#chkIsmailapprovefi').click(function(){
      			name = $('#txtApprovefi').val();
      			if($(this).is(':checked') && name != ''){
-     				if(check_btnReceiver(name))
+     				if(check_btnReceiver(name) == 1)
      					append_btn(name,'add');
+     			}else if(!$(this).is(':checked') && name != ''){
+					append_btn(name,'del');
      			}
      		});
      		$('#chkIsmailapprovegm').click(function(){
      			name = $('#txtApprovegm').val();
      			if($(this).is(':checked') && name != ''){
-     				if(check_btnReceiver(name))
+     				if(check_btnReceiver(name) == 1)
      					append_btn(name,'add');
+     			}else if(!$(this).is(':checked') && name != ''){
+					append_btn(name,'del');
      			}
      		});
      		$('#chkIsmailapprovebs').click(function(){
      			name = $('#txtApprovebs').val();
      			if($(this).is(':checked') && name != ''){
-     				if(check_btnReceiver(name))
+     				if(check_btnReceiver(name) == 1)
      					append_btn(name,'add');
+     			}else if(!$(this).is(':checked') && name != ''){
+					append_btn(name,'del');
+     			}
+     		});
+     		$('#chkIsmesschecker').click(function(){
+     			name = $('#txtChecker').val();
+     			if($(this).is(':checked') && name != ''){
+     				if(check_btnReceiver(name) == 1)
+     					append_btn(name,'add');
+     			}else if(!$(this).is(':checked') && name != ''){
+					append_btn(name,'del');
+     			}
+     		});
+     		$('#chkIsmessapprovema').click(function(){
+     			name = $('#txtApprovema').val();
+     			if($(this).is(':checked') && name != ''){
+     				if(check_btnReceiver(name) == 1)
+     					append_btn(name,'add');
+     			}else if(!$(this).is(':checked') && name != ''){
+					append_btn(name,'del');
+     			}
+     		});
+     		$('#chkIsmessapprovefi').click(function(){
+     			name = $('#txtApprovefi').val();
+     			if($(this).is(':checked') && name != ''){
+     				if(check_btnReceiver(name) == 1)
+     					append_btn(name,'add');
+     			}else if(!$(this).is(':checked') && name != ''){
+					append_btn(name,'del');
+     			}
+     		});
+     		$('#chkIsmessapprovegm').click(function(){
+     			name = $('#txtApprovegm').val();
+     			if($(this).is(':checked') && name != ''){
+     				if(check_btnReceiver(name) == 1)
+     					append_btn(name,'add');
+     			}else if(!$(this).is(':checked') && name != ''){
+					append_btn(name,'del');
+     			}
+     		});
+     		$('#chkIsmessapprovebs').click(function(){
+     			name = $('#txtApprovebs').val();
+     			if($(this).is(':checked') && name != ''){
+     				if(check_btnReceiver(name) == 1)
+     					append_btn(name,'add');
+     			}else if(!$(this).is(':checked') && name != ''){
+					append_btn(name,'del');
      			}
      		});
 		}
@@ -121,26 +176,42 @@
 			if(want == 'add'){
 				w_button = '<input id="btnReceiver" type="button">';
 				$(w_button).val(name).appendTo($('#Receiver_box')).bind('click', function(event) {
+						if(q_cur == 1 || q_cur ==2){
 							   $(this).remove();
-							   replace_str = $('#txtReceiver').val();
-							   replace_str = replace_str.replace(replace_str,name + ';');
-							   $('#txtReceiver').val(replace_str);
-							   append_btn(name,'reload');
+							   append_btn(name,'del');
+						}
 				});
 				$('#txtReceiver').val($('#txtReceiver').val() + name + ';');
-			}else if(want == 'reload'){
-				alert('123');
-			}
-		}
-		function check_btnReceiver(name){//如果有重複名字傳回False
-			check_err = 0;
-			$('[id="btnReceiver"]').each(function(i){ 
-				if($(this).val() == name){
-					check_err = 0;
-				}else{
-					check_err = 1;
+				}else if(want == 'reload'){
+					hiddenBtn = '<input id="btnReceiver" type="button" style="display:none;">';
+					$('#Receiver_box').html(hiddenBtn);
+					btnName = $('#txtReceiver').val();
+					$('#txtReceiver').val('');
+					btnName = btnName.split(';');
+					for(var i = 0;i<btnName.length-1;i++){
+						append_btn(btnName[i],'add');
+					}
+				}else if(want == 'del'){
+					replace_str = $('#txtReceiver').val();
+					replace_str = ReplaceAll(replace_str,name+';','');
+					$('#txtReceiver').val(replace_str);
+					append_btn(name,'reload');
 				}
-			});
+		}
+		
+		function ReplaceAll(strSource, strFind, strRepl) {
+		    var str = new String(strSource);
+		    while (str.indexOf(strFind) != -1) {
+		          str=str.replace(strFind, strRepl);
+		    }
+		   return str;
+		}
+		
+		function check_btnReceiver(name){//如果有重複名字傳回0
+			check_err = 0;
+			str = $('#txtReceiver').val();
+			if(str.match(name) == null)	check_err = 1;
+			else check_err = 0;
 			return check_err;
       	}
 		function txtCopy(dest, source) {
@@ -211,60 +282,31 @@
 		function btnOk() {
 			var t_err = '';
 			t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-			//檢察E-mail欄位有勾沒寫---開始---
-			if($('#chkIsmailchecker').is(':checked') && emp($('#txtMailchecker').val())){
-				alert('請填寫' + q_getMsg('lblChecker')+'的'+q_getMsg('lblIsmailchecker')+'欄位');
-				$('#txtMailchecker').focus();
-				return;
+			chkChker_chk = new Array('chkIsmailchecker','chkIsmailapprovema','chkIsmailapprovefi',
+									'chkIsmailapprovegm','chkIsmailapprovebs','chkIsmesschecker',
+									'chkIsmessapprovema','chkIsmessapprovefi','chkIsmessapprovegm',
+									'chkIsmessapprovebs'
+									);
+			chkChker_lbl1 = new Array('lblChecker','lblApprovema','lblApprovefi','lblApprovegm',
+									'lblApprovebs','lblChecker','lblApprovema','lblApprovefi','lblApprovegm',
+									'lblApprovebs'
+									);
+			chkChker_lbl2 = new Array('lblIsmailchecker','lblIsmailapprovema','lblIsmailapprovefi',
+									'lblIsmailapprovegm','lblIsmailapprovebs','lblIsmesschecker','lblIsmessapprovema',
+									'lblIsmessapprovefi','lblIsmessapprovegm','lblIsmessapprovebs'
+									);
+			chkChker_txt = new Array('txtMailchecker','txtMailapprovema','txtMailapprovefi','txtMailapprovegm',
+									'txtMailapprovebs','txtMesschecker','txtMessapprovema','txtMessapprovefi','txtMessapprovegm',
+									'txtMessapprovebs'
+									);
+			for(var i = 0;i < chkChker_chk.length;i++){
+				if($('#' + chkChker_chk[i]).is(':checked') && emp($('#' + chkChker_txt[i]).val())){
+					alert('請填寫' + q_getMsg(chkChker_lbl1[i])+'的'+q_getMsg(chkChker_lbl2[i])+'欄位');
+					$('#' + chkChker_txt[i]).focus();
+					return;
+				}				
 			}
-			if($('#chkIsmailapprovema').is(':checked') && emp($('#txtMailapprovema').val())){
-				alert('請填寫' + q_getMsg('lblApprovema')+'的'+q_getMsg('lblIsmailapprovema')+'欄位');
-				$('#txtMailapprovema').focus();
-				return;
-			}
-			if($('#chkIsmailapprovefi').is(':checked') && emp($('#txtMailapprovefi').val())){
-				alert('請填寫' + q_getMsg('lblApprovefi')+'的'+q_getMsg('lblIsmailapprovefi')+'欄位');
-				$('#txtMailapprovefi').focus();
-				return;
-			}
-			if($('#chkIsmailapprovegm').is(':checked') && emp($('#txtMailapprovegm').val())){
-				alert('請填寫' + q_getMsg('lblApprovegm')+'的'+q_getMsg('lblIsmailapprovegm')+'欄位');
-				$('#txtMailapprovegm').focus();
-				return;
-			}
-			if($('#chkIsmailapprovebs').is(':checked') && emp($('#txtMailapprovebs').val())){
-				alert('請填寫' + q_getMsg('lblApprovebs')+'的'+q_getMsg('lblIsmailapprovebs')+'欄位');
-				$('#txtMailapprovebs').focus();
-				return;
-			}
-			//檢察E-mail欄位有勾沒寫---結束---
-			//檢察簡訊欄位有勾沒寫---開始---
-			if($('#chkIsmesschecker').is(':checked') && emp($('#txtMesschecker').val())){
-				alert('請填寫' + q_getMsg('lblChecker')+'的'+q_getMsg('lblIsmesschecker')+'欄位');
-				$('#txtMesschecker').focus();
-				return;
-			}
-			if($('#chkIsmessapprovema').is(':checked') && emp($('#txtMessapprovema').val())){
-				alert('請填寫' + q_getMsg('lblApprovema')+'的'+q_getMsg('lblIsmessapprovema')+'欄位');
-				$('#txtMessapprovema').focus();
-				return;
-			}
-			if($('#chkIsmessapprovefi').is(':checked') && emp($('#txtMessapprovefi').val())){
-				alert('請填寫' + q_getMsg('lblApprovefi')+'的'+q_getMsg('lblIsmessapprovefi')+'欄位');
-				$('#txtMessapprovefi').focus();
-				return;
-			}
-			if($('#chkIsmessapprovegm').is(':checked') && emp($('#txtMessapprovegm').val())){
-				alert('請填寫' + q_getMsg('lblApprovegm')+'的'+q_getMsg('lblIsmessapprovegm')+'欄位');
-				$('#txtMessapprovegm').focus();
-				return;
-			}
-			if($('#chkIsmessapprovebs').is(':checked') && emp($('#txtMessapprovebs').val())){
-				alert('請填寫' + q_getMsg('lblApprovebs')+'的'+q_getMsg('lblIsmessapprovebs')+'欄位');
-				$('#txtMessapprovebs').focus();
-				return;
-			}
-			//檢察簡訊欄位有勾沒寫---結束---
+			append_btn(name,'reload');
 			if( t_err.length > 0) {
 				alert(t_err);
 				return;
@@ -288,6 +330,7 @@
 		}
 		function refresh(recno) {
 			_refresh(recno);
+			append_btn(name,'reload');
 
 		}
 
@@ -530,6 +573,10 @@
 			</tr>
 			<tr>
 				<td class="td1">
+					<div style="float:left;">
+						<input id="Copy" type="checkbox" />
+						<span> </span><a id="lblCopy"></a>
+					</div>
 					<span> </span><a id='lblChecker' class="lbl btn"></a>
 				</td>
 				<td class="td2">
@@ -688,8 +735,6 @@
 					<textarea id="txtMemo" cols="10" rows="5" style="width: 99%; height: 50px;"></textarea>
 				</td>
 				<td align="right">
-					<input id="Copy" type="checkbox" />
-					<span> </span><a id="lblCopy" class="lbl"></a>
 				</td>
 			</tr>
 		
