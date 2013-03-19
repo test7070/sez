@@ -68,11 +68,11 @@
 		            }
 		            if($('#chkFuel')[0].checked==true)
 		            {
-		            	t_where+="(caritemno='502' and (sheetyn='y' or sheetyn='Y')) or ";
+		            	t_where+="(caritemno='502') or ";
 		            }
 		            if($('#chkLicense')[0].checked==true)
 		            {
-		            	t_where+="(caritemno='501' and (sheetyn='y' or sheetyn='Y')) or ";
+		            	t_where+="(caritemno='501') or ";
 		            }
 		            if($('#chkOther')[0].checked==true)
 		            {
