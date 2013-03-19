@@ -83,7 +83,7 @@
                             t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
                         }
                         q_cmbParse("cmbSendmemo", t_item);
-                        $("#cmbSendmemo").val(abbm[q_recno].namea);
+                        $("#cmbSendmemo").val(abbm[q_recno].sendmemono);
                         break;
                     case q_name:
                         if (q_cur == 4)
