@@ -89,8 +89,8 @@
                 t_month = t_month > 9 ? t_month + '' : '0' + t_month;
                 t_day = t_date.getUTCDate();
                 t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-                $('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
-				$('#txtIndate1').val(t_year + '/' + t_month + '/' + t_day);
+                //$('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
+				//$('#txtIndate1').val(t_year + '/' + t_month + '/' + t_day);
                 t_date = new Date();
                 t_date.setDate(35);
                 t_date.setDate(0);
@@ -100,8 +100,8 @@
                 t_month = t_month > 9 ? t_month + '' : '0' + t_month;
                 t_day = t_date.getUTCDate();
                 t_day = t_day > 9 ? t_day + '' : '0' + t_day;
-                $('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
-                $('#txtIndate2').val(t_year + '/' + t_month + '/' + t_day);
+                //$('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
+                //$('#txtIndate2').val(t_year + '/' + t_month + '/' + t_day);
 
                 $('#txtYdate1').mask('999/99/99');
                 $('#txtYdate1').datepicker();
