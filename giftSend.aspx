@@ -55,7 +55,7 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
-                
+                q_gt('giftsendt', '', 0, 0, 0, "", r_accy);
                 $('#txtPrice').blur(function () {
 	            	for(var j = 0; j < q_bbsCount; j++) {
 	            		q_tr('txtMoney_'+j,q_float('txtMount_'+j)*q_float('txtPrice'));
@@ -76,14 +76,15 @@
 
             function q_gtPost(t_name) {
             	switch (t_name) {
-            		case 'sendmemo':
+            		case 'giftsendt':
                         var as = _q_appendData("giftsendt", "", true);
                         var t_item = " @ ";
                         for ( i = 0; i < as.length; i++) {
                             t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
                         }
                         q_cmbParse("cmbSendmemo", t_item);
-                        $("#cmbSendmemo").val(abbm[q_recno].sendmemono);
+                        if(abbm[q_recno])
+                        	$("#cmbSendmemo").val(abbm[q_recno].noa);
                         break;
                     case q_name:
                         if (q_cur == 4)
