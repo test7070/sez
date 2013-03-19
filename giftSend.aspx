@@ -77,7 +77,7 @@
             function q_gtPost(t_name) {
             	switch (t_name) {
             		case 'sendmemo':
-                        var as = _q_appendData("sendmemo", "", true);
+                        var as = _q_appendData("giftsendt", "", true);
                         var t_item = " @ ";
                         for ( i = 0; i < as.length; i++) {
                             t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
