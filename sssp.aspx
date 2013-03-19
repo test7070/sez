@@ -49,7 +49,7 @@
 
 		    function mainPost() {
 		        q_getFormat();
-		        bbmMask = [['txtBirthday', r_picd], ['txtFt_date', r_picd], ['txtIndate', r_picd], ['txtOutdate', r_picd], ['txtMobile1', '9999999999'], ['txtMobile2', '9999999999'], ['txtHealth_bdate', r_picd], ['txtHealth_edate', r_picd], ['txtLabor1_bdate', r_picd], ['txtLabor1_edate', r_picd], ['txtLabor2_bdate', r_picd], ['txtLabor2_edate', r_picd]];
+		        bbmMask = [['txtBirthday', r_picd], ['txtFt_date', r_picd], ['txtIndate', r_picd], ['txtOutdate', r_picd], ['txtMobile1', '9999999999'], ['txtMobile2', '9999999999']];
 		        q_mask(bbmMask);
 		        
 		        q_cmbParse("cmbTypea", q_getPara('sss.typea'));
@@ -63,7 +63,7 @@
 		        $('#btnLabase').click(function (e) {
 		            q_box("labase.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labase', "95%", "95%", q_getMsg("popLabase"));
 		        });
-		        $('#txtIndate').blur(function (e) {
+		        /*$('#txtIndate').blur(function (e) {
 		            if (!emp($('#txtIndate').val())) {
 		                $('#txtHealth_bdate').val($('#txtIndate').val());
 		                $('#txtLabor1_bdate').val($('#txtIndate').val());
@@ -76,7 +76,7 @@
 		                $('#txtLabor1_edate').val($('#txtOutdate').val());
 		                $('#txtLabor2_edate').val($('#txtOutdate').val());
 		            }
-		        });
+		        });*/
 		        $('#lblAddr_conn').click(function (e) {
 		            if (!emp($('#txtAddr_home').val())) {
 		                $('#txtAddr_conn').val($('#txtAddr_home').val());
@@ -234,7 +234,7 @@
                 	alert(q_getMsg('lblOutdate')+'錯誤。');
                 	return;
                 }
-                if (!q_cd($('#txtHealth_bdate').val())){
+                /*if (!q_cd($('#txtHealth_bdate').val())){
                 	alert(q_getMsg('lblHealth_bdate')+'錯誤。');
                 	return;
                 }
@@ -257,7 +257,7 @@
                 if (!q_cd($('#txtLabor2_edate').val())){
                 	alert(q_getMsg('lblLabor2_edate')+'錯誤。');
                 	return;
-                }
+                }*/
 		        var t_noa = $.trim($('#txtNoa').val());
 				
 				if(!emp($('#txtId').val()))
