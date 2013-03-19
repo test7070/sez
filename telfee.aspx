@@ -19,7 +19,7 @@
         var q_readonly = ['txtNoa'];
         var q_readonlys = [];
         var bbmNum = [['txtTotal',14 , 0, 1],['txtNotax',14 , 0, 1],['txtTax',14 , 0, 1]]; 
-        var bbsNum = [['txtOfee',12 , 0, 1],['txtFee',12 , 0, 1],['txtTaxrate',12 , 0, 1]];
+        var bbsNum = [['txtOfee',12 , 0, 1],['txtFee',12 , 0, 1],['txtTaxrate',12 , 0, 1],['txtSettax',12 , 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Noa';
@@ -246,8 +246,13 @@
             var t1 = 0, t_unit, t_mount, t_weight = 0,t_total=0,t_notax=0,t_tax=0;
             for (var j = 0; j < q_bbsCount; j++) {
 				t_total+=dec($('#txtFee_'+j).val());
-				if($('#chkIstax_0')[0].checked=true){
-					var tax=round(dec($('#txtFee_'+j).val())*dec($('#txtTaxrate_'+j).val())/100,0);
+				if($('#chkIstax_0')[0].checked==true){
+					var tax=0
+					if(dec($('#txtSettax_'+j).val())>0)
+						tax=dec($('#txtSettax_'+j).val());
+					else
+						tax=round(dec($('#txtFee_'+j).val())/(1+dec($('#txtTaxrate_'+j).val())/100)*dec($('#txtTaxrate_'+j).val())/100,0);
+						
 					t_tax+=tax;
 					t_notax+=dec($('#txtFee_'+j).val())-tax;
 				}else{
@@ -485,6 +490,7 @@
                 <td align="center" style="width: 10%;"><a id='lblFee'></a></td>
                 <td align="center" style="width: 5%;"><a id='lblIstax'></a></td>
                 <td align="center" style="width: 8%;"><a id='lblTaxrate'></a></td>
+                <td align="center" style="width: 8%;"><a id='lblSettax'></a></td>
                 <td align="center"><a id='lblMemo'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -495,6 +501,7 @@
                 <td ><input class="txt num c1" id="txtFee.*" type="text" /></td>
                  <td align="center"><input id="chkIstax.*" type="checkbox"/></td>
                 <td ><input class="txt num c1" id="txtTaxrate.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtSettax.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" />
                 		<input id="txtNoq.*" type="hidden" /></td>
             </tr>

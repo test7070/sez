@@ -594,6 +594,7 @@
 					<td align="center" style="width:6%;"><a id='lblDays_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblMoney_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblCost_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblRealcost_s'> </a></td>
 					<td align="center" style="width:3%;"><a id='lblIsprepay_s'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblTggno_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblSenddate_s'> </a></td>
@@ -614,6 +615,7 @@
 					<td><input id="txtDays.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMoney.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtCost.*" type="text" class="txt num c1"/></td>
+					<td><input id="txtRealcost.*" type="text" class="txt num c1"/></td>
 					<td align="center"><input id="chkIsprepay.*" type="checkbox"/></td>
 					<td><input class="btn"  id="btnTggno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                         <input type="text" id="txtTggno.*"  style="width:30%; float:left;"/>
