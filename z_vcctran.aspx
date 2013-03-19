@@ -114,7 +114,11 @@
                         }, {/*13*/
 	                        type : '6',
 	                        name : 'ykind'
-	                    }]
+	                    }, {
+                        type : '7', //select
+                        name : 'typea',
+                        value : [q_getPara('report.all')].concat(q_getPara('lab_accc.typea').split(','))
+                    }]
                     });
                     q_popAssign();
                     q_langShow();

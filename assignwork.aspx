@@ -56,7 +56,7 @@
                 bbmMask = [['txtOdate', r_picd], ['txtWdate', r_picd], ['txtPaydate', r_picd], ['txtEnddate', r_picd]];
             	q_mask(bbmMask);
             	bbsMask = [['txtSenddate', r_picd], ['txtApprdate', r_picd], ['txtRepdate', r_picd]];
-            	
+            	q_cmbParse("cmbProject", ('').concat(new Array( '設立','預查','負責人','公司名稱','股東變更','遷址','董監改選','董監補選','董監持股變動','董監解任','變更印鑑','增資','減資','營業項目','停業','復業','抄錄','證明','歇業','遺產稅','贈產稅','修章')));
             	
                 q_gt('part', '', 0, 0, 0, "");
                  q_cmbParse("cmbKind", ('').concat(new Array( '工商','土地')));
@@ -500,7 +500,7 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblProject' class="lbl"> </a></td>
-						<td class="td2" colspan="2"><input type="text" id="txtProject" class="txt c1"/>	
+						<td class="td2" colspan="2"><select id="cmbProject" class="txt c1"> </select>	
 						<input type="text" id="txtPronick" style="display: none;"/>	
 						</td>	
 						<td class="td3"><span> </span><a id='lblKind' class="lbl"> </a></td>

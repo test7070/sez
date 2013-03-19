@@ -29,6 +29,7 @@
                 bbmMask = [['txtDatea', r_picd],['txtBcontdate', r_picd],['txtEcontdate', r_picd],['txtChangecontdate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbStype", q_getPara('cont.stype'));
+                q_cmbParse("cmbEnsuretype", ('').concat(new Array( '定存單質押','不可撤銷保證','銀行本票質押','商業本票質押','現金質押')));
                 $('#txtBdate').focus();
             }
 
@@ -37,6 +38,7 @@
             	t_datea = $('#txtDatea').val();
             	t_stype = $('#cmbStype').val();
             	t_contract = $('#txtContract').val();
+            	t_ensuretype = $('#txtEnsuretype').val();
             	t_bcontdate = $('#txtBcontdate').val();
             	t_econtdate = $('#txtEcontdate').val();
             	t_changecontdate = $('#txtChangecontdate').val();
@@ -55,6 +57,7 @@
                 	q_sqlPara2("datea", t_datea) + 
                 	q_sqlPara2("stype", t_stype) + 
                 	q_sqlPara2("contract", t_contract) + 
+                	q_sqlPara2("ensuretype", t_ensuretype) + 
                 	q_sqlPara2("bcontdate", t_bcontdate, t_econtdate) + 
                 	q_sqlPara2("econtdate", t_bcontdate, t_econtdate) + 
                 	q_sqlPara2("changecontdate", t_changecontdate) + 
@@ -90,6 +93,10 @@
 				<tr class='seek_tr'>
 	                <td class='seek'  style="width:20%;"><a id='lblStype'></a></td>
 	                <td><select id="cmbStype" class="txt c1"> </select></td>
+				</tr>
+				<tr class='seek_tr'>
+	                <td class='seek'  style="width:20%;"><a id='lblEnsuretype'></a></td>
+	                <td><select id="cmbEnsuretype" class="txt c1"> </select></td>
 				</tr>
 				<tr class='seek_tr'>
 	                <td class='seek'  style="width:20%;"><a id='lblContract'></a></td>
