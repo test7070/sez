@@ -51,8 +51,12 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd]];
+                bbmMask = [['txtDatea', r_picd],['txtSenddate', r_picd]];
                 q_mask(bbmMask);
+                q_gt('giftsendt', '', 0, 0, 0, "", r_accy);
+                
+                 
+
             }
 
 			 function q_popPost(s1) {
@@ -76,8 +80,18 @@
                 b_pop = '';
             }
 
-            function q_gtPost(t_name) {
+             function q_gtPost(t_name) {
             	switch (t_name) {
+            		case 'giftsendt':
+                        var as = _q_appendData("giftsendt", "", true);
+                        var t_item = " @ ";
+                        for ( i = 0; i < as.length; i++) {
+                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
+                        }
+                        q_cmbParse("cmbSendmemo", t_item);
+                        if(abbm[q_recno])
+                        	$("#cmbSendmemo").val(abbm[q_recno].noa);
+                        break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -121,6 +135,7 @@
                 _btnIns();
                $('#txtDatea').focus();
                 $('#txtDatea').val(q_date());
+                $('#txtSenddate').val(q_date());
                 $('#txtNoa').val('AUTO');
             }
             function btnModi() {
@@ -150,6 +165,10 @@
 							q_tr('txtMoney_'+b_seq,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq));
 			            	sum();
 			       		});
+			       		
+			       		 $('#btnGiverno_'+i).click(function() {
+                    q_box('giftSend.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtGiverno_'+i).val()), '', "95%", "95%", "回禮");
+                });
 			       		
 			       		$('#txtMoney_'+i).blur(function () {
 			            	sum();
@@ -375,13 +394,13 @@
 					<tr>
 						<td align="center" style="width:5%; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:25%;color:black;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:25%;color:black;"><a id='vewFestival'> </a></td>
+						<td align="center" style="width:25%;color:black;"><a id='vewSendmemo'> </a></td>
 						<td align="center" style="width:40%;color:black;"><a id='vewSales'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="noa" style="text-align: center;">~noa</td>
-						<td id="festival" style="text-align: center;">~festival</td>
+						<td id="sendmemo" style="text-align: center;">~sendmemo</td>
 						<td id="sales" style="text-align: center;">~sales</td>
 					</tr>
 				</table>
@@ -399,14 +418,17 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtNoa" class="txt c1"/>	</td>	
+						<td class="td2"><input type="text" id="txtNoa" class="txt c1"/>	</td>
+						<td class="td3"> </td>
+						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtDatea" class="txt c1"/>	</td>		
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtDatea" class="txt c1"/>	</td>
+						<td class="td1"><span> </span><a id='lblSenddate' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtSenddate" class="txt c1"/>	</td>
 						<td class="td3"> </td>
-						<td class="td4"><span> </span><a id='lblFestival' class="lbl"> </a></td>
-						<td class="td5"><input type="text" id="txtFestival" class="txt c1"/></td>	
+						<td class="td4"><span> </span><a id='lblSendmemo' class="lbl"> </a></td>
+						<td class="td5"><select id="cmbSendmemo" class="txt c1"> </select></td>	
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCno' class="lbl btn"> </a></td>
@@ -439,12 +461,15 @@
 					<td  align="center" style="width: 2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:20%;"><a id='lblCust_s'> </a></td>
-					<td align="center" style="width:20%;"><a id='lblGiftno_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblMount_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblPrice_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblMoney_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblGiver_s'> </a></td>
+					<td align="center" style="width:15%;"><a id='lblCust_s'> </a></td>
+					<td align="center" style="width:15%;"><a id='lblGiftno_s'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblMount_s'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblMoney_s'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblGiver_s'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblSalute_s'> </a></td>
+					<td align="center" style="width:5%;"><a id='lblNosalute_s'> </a></td>
+					<td align="center" style="width:15%;"><a id='lblGiverno_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -466,6 +491,10 @@
 					<td><input id="txtPrice.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtMoney.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtGiver.*" type="text" style="width: 95%;"/></td>
+					<td><input id="txtSalute.*" type="text" style="width: 95%;"/></td>
+					<td><input id="chkNosalute" type="checkbox" style=' '/></td>
+					<td><input class="btn"  id="btnGiverno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+                        <input type="text" id="txtGiverno.*"  style="width:85%; float:left;"/></td>
 					<td><input id="txtMemo.*" type="text" style="width: 95%;"/></td>
 				</tr>
 			</table>
