@@ -423,7 +423,9 @@
 					</tr>
 					<tr class="tr9">
 						<td class="td1"><span> </span><a id='lblTel' class="lbl"> </a></td>
-						<td class="td2" colspan="5"><input type="text" id="txtTel" class="txt c1"/></td>	
+						<td class="td2" colspan="3"><input type="text" id="txtTel" class="txt c1"/></td>
+						<td class="td1"><span> </span><a id='lblMobile' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtMobile" class="txt c1"/></td>	
 					</tr>	
 					<tr class="tr10">
 						<td class="td1"><span> </span><a id='lblEmail' class="lbl"> </a></td>
@@ -433,6 +435,16 @@
 						<td class="td1"><span> </span><a id='lblAddr_cust' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtZip_cust" class="txt c1"/></td>
 						<td class="td3" colspan="4"><input type="text" id="txtAddr_cust" class="txt c1"/></td>
+					</tr>
+					<tr class="tr11">
+						<td class="td1"><span> </span><a id='lblAddr_home' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtZip_home" class="txt c1"/></td>
+						<td class="td3" colspan="4"><input type="text" id="txtAddr_home" class="txt c1"/></td>
+					</tr>
+					<tr class="tr11">
+						<td class="td1"><span> </span><a id='lblAddr_other' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtZip_other" class="txt c1"/></td>
+						<td class="td3" colspan="4"><input type="text" id="txtAddr_other" class="txt c1"/></td>
 					</tr>
 					<tr class="tr12">
 						<td class="td1"><span> </span><a id='lblSendtype' class="lbl"> </a></td>

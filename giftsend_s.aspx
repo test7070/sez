@@ -40,7 +40,7 @@
 				t_noa = $.trim($('#txtNoa').val());
 				t_bdate = $.trim($('#txtBdate').val());
 				t_edate = $.trim($('#txtEdate').val());
-				t_festival = $.trim($('#txtFestival').val());
+				t_sendmemo = $.trim($('#txtSendmemo').val());
 				t_cno = $.trim($('#txtCno').val());
 				t_acomp = $.trim($('#txtAcomp').val());
 				t_salesno = $.trim($('#txtSalesno').val());
@@ -53,7 +53,7 @@
 				var t_where = " 1=1 "
 					+q_sqlPara2("noa", t_noa)
 					+q_sqlPara2("datea", t_bdate, t_edate)
-					+q_sqlPara2("festival", t_festival)
+					+q_sqlPara2("sendmemo", t_sendmemo)
 					+q_sqlPara2("cno", t_cno)
 					+q_sqlPara2("acomp", t_acomp)
 					+q_sqlPara2("salesno", t_salesno)
@@ -92,9 +92,9 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblFestival'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblSendmemo'></a></td>
 					<td>
-					<input class="txt" id="txtFestival" type="text" style="width:215px; font-size:medium;" />
+					<input class="txt" id="txtSendmemo" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
