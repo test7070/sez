@@ -28,7 +28,22 @@
         q_mask(bbmMask);
         $('#txtBdate').focus();
          
+         q_gt('salchgitem', '', 0, 0, 0, "");
     }
+    
+    function q_gtPost(t_name) {  
+            switch (t_name) {
+            	case 'salchgitem':
+						var as = _q_appendData("salchgitem", "", true);
+                        var t_item = " @ ";
+                        for ( i = 0; i < as.length; i++) {
+                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].item;
+                        }
+                        q_cmbParse("cmbPlusitem", t_item);
+                        q_cmbParse("cmbMinusitem", t_item);
+					break;
+            }  /// end switch
+        }
 
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();
@@ -44,7 +59,7 @@
         
 
         var t_where = " 1=1 " + q_sqlPara2("datea", t_bdate, t_edate)  
-        + q_sqlPara2("namea", t_namea)  + q_sqlPara2("sssno", t_sssno)+ q_sqlPara2("noa", t_noa);
+        + q_sqlPara2("namea", t_namea)  + q_sqlPara2("sssno", t_sssno)+ q_sqlPara2("noa", t_noa)+ q_sqlPara2("minusitem", $('#cmbMinusitem').val())+ q_sqlPara2("plusitem", $('#cmbPlusitem').val());
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -72,6 +87,14 @@
                 <td class='seek'  style="width:20%;"><a id='lblSssno'></a></td>
                 <td><input class="txt" id="txtSssno" type="text" style="width:90px; font-size:medium;" />&nbsp;
                 	<input class="txt" id="txtNamea" type="text" style="width:115px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class="td1"><span> </span><a id="lblMinusitem" class="lbl"> </a></td>
+				<td class="td2" ><select id="cmbMinusitem" class="txt c1"></select>
+            </tr>
+            <tr class='seek_tr'>
+                <td class="td1"><span> </span><a id="lblPlusitem" class="lbl"> </a></td>
+				<td class="td2"><select id="cmbPlusitem" class="txt c1"></select>
             </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
