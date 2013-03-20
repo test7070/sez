@@ -104,6 +104,7 @@
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
 		                    }
 							q_cmbParse("cmbCno", t_item);
+							if(abbm[q_recno])
 		                    $("#cmbCno").val(abbm[q_recno].cno);
 		                }
 		                break;
@@ -115,6 +116,7 @@
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
 		                    }
 							q_cmbParse("cmbPartno", t_item);
+							if(abbm[q_recno])
 		                    $("#cmbPartno").val(abbm[q_recno].partno);
 		                }
 		                break;
@@ -126,6 +128,7 @@
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
 		                    }
 		                    q_cmbParse("cmbStoreno", t_item);
+		                    if(abbm[q_recno])
 		                    $("#cmbStoreno").val(abbm[q_recno].storeno);
 		                }
 		                break;

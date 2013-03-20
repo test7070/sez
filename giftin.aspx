@@ -104,18 +104,20 @@
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
 		                    }
 							q_cmbParse("cmbCno", t_item);
-		                    $("#cmbCno").val(abbm[q_recno].cno);
+							if(abbm[q_recno])
+		                    	$("#cmbCno").val(abbm[q_recno].cno);
 		                }
 		                break;
                     case 'part':
 		                var as = _q_appendData("part", "", true);
 		                if (as[0] != undefined) {
-		                    var t_item = "";
+		                    var t_item = " @ ";
 		                    for (i = 0; i < as.length; i++) {
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
 		                    }
 							q_cmbParse("cmbPartno", t_item);
-		                    $("#cmbPartno").val(abbm[q_recno].partno);
+							if(abbm[q_recno])
+		                    	$("#cmbPartno").val(abbm[q_recno].partno);
 		                }
 		                break;
                     case 'store':
@@ -126,7 +128,8 @@
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
 		                    }
 		                    q_cmbParse("cmbStoreno", t_item);
-		                    $("#cmbStoreno").val(abbm[q_recno].storeno);
+		                    if(abbm[q_recno])
+		                    	$("#cmbStoreno").val(abbm[q_recno].storeno);
 		                }
 		                break;
                     case q_name:
@@ -530,6 +533,10 @@
 						<td>
 							<select id="cmbPartno" class="txt c1"> </select>
 							<input id="txtPart" type="text" style="display:none;"/>
+						</td>
+						<td><span> </span><a id="lblStore" class="lbl"> </a></td>
+						<td>
+							<select id="cmbStoreno" class="txt c1"> </select>
 						</td>
 					</tr>
 					<tr>
