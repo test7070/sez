@@ -68,11 +68,17 @@
 		            }
 		            if($('#chkFuel')[0].checked==true)
 		            {
-		            	t_where+="(caritemno='502') or ";
+		            	if($('#chkIsheetyn')[0].checked==true)
+		            		t_where+="(caritemno='502' and (sheetyn='y' or sheetyn='Y')) or "; 
+		            	else
+		            		t_where+="(caritemno='502') or ";
 		            }
 		            if($('#chkLicense')[0].checked==true)
 		            {
-		            	t_where+="(caritemno='501') or ";
+		            	if($('#chkIsheetyn')[0].checked==true)
+		            		t_where+="(caritemno='501' and (sheetyn='y' or sheetyn='Y')) or "; 
+		            	else
+		            		t_where+="(caritemno='501') or ";
 		            }
 		            if($('#chkOther')[0].checked==true)
 		            {
@@ -658,6 +664,7 @@
             </td>
 			<td class='td3'><span> </span></td>
             <td class='td4'><input id="btnCarlender" type="button" style="float: left;"/></td>
+            <td class='td5'><input id="chkIsheetyn" type="checkbox" style="float: left;"/><a id="lblIsheetyn" class="lbl" style="float: left;"></a></td>
        </tr>
        <tr class="tr5">           
 			<td class='td1'><span> </span><a id="lblCarowner" class="lbl btn"></a></td>

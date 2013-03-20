@@ -17,7 +17,7 @@
             }
 			q_tables = 's';
             var q_name = "giftcust";
-            var q_readonly = ['txtNoa','txtWorker','textAge'];
+            var q_readonly = ['txtWorker','textAge'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [];
@@ -98,8 +98,8 @@
                 
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
-                if (t_noa.length == 0 || t_noa == "AUTO")
-		            q_gtnoa(q_name, replaceAll('KGC'));
+                if (t_noa.length == 0)
+		            q_gtnoa(q_name, 'KGC');
 		        else
 		            wrServer(t_noa);
             }
@@ -113,7 +113,7 @@
                 _btnIns();
                $('#txtDatea').focus();
                $('#txtDatea').val(q_date());
-               $('#txtNoa').val('AUTO');
+               //$('#txtNoa').val('AUTO');
                $('#textAge').val('');
             }
             function btnModi() {
@@ -121,6 +121,7 @@
                     return;
                 _btnModi();           
                 $('#txtNoa').attr('readonly','readonly');
+                $('#txtNoa').css('background-color','rgb(237, 237, 238)');
                 $('#txtDatea').focus();
             }
             function btnPrint() {

@@ -58,6 +58,7 @@
                 bbmMask = [['txtDatea', r_picd], ['txtPledgedate',r_picd],['txtPaydate',r_picd],['txtZip_cust', '999-99'],['txtBcontdate', r_picd],['txtEcontdate', r_picd],['txtChangecontdate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbStype", q_getPara('cont.stype'));
+                q_cmbParse("cmbEnsuretype", ('').concat(new Array( '定存單質押','不可撤銷保證','銀行本票質押','商業本票質押','現金質押')));
             }
 
             function q_boxClose(s2) {
@@ -448,6 +449,8 @@
 							<input id="txtCno"  type="text" class="txt" style="width:20%; float: left;"/>
 							<input id="txtAcomp"  type="text" class="txt" style="width:80%; float: left;"/>
 							</td>
+							<td class="td1"><span> </span><a id='lblEnsuretype' class="lbl"> </a></td>
+							<td class="td2" ><select id="cmbEnsuretype" class="txt c1"> </select></td>
 						</tr>
 						<tr class="tr5"> 
 							<td class="td1"><span> </span><a id="lblCar_conn" class="lbl btn"> </a></td>

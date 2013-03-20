@@ -17,10 +17,10 @@
             }
 			q_tables = 's';
             var q_name = "assignwork";
-            var q_readonly = ['txtWorker','txtNoa','txtVccno','txtPaybno','txtAccno'];
+            var q_readonly = ['txtWorker','txtNoa','txtVccno','txtPaybno','txtAccno','txtMoney','txtCost'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1]];
-            var bbsNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1]];
+            var bbsNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1],['txtRealcost',14, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -56,7 +56,7 @@
                 bbmMask = [['txtOdate', r_picd], ['txtWdate', r_picd], ['txtPaydate', r_picd], ['txtEnddate', r_picd]];
             	q_mask(bbmMask);
             	bbsMask = [['txtSenddate', r_picd], ['txtApprdate', r_picd], ['txtRepdate', r_picd]];
-            	
+            	q_cmbParse("cmbProject", ('').concat(new Array( '設立','預查','負責人','公司名稱','股東變更','遷址','董監改選','董監補選','董監持股變動','董監解任','變更印鑑','增資','減資','營業項目','停業','復業','抄錄','證明','歇業','遺產稅','贈產稅','修章')));
             	
                 q_gt('part', '', 0, 0, 0, "");
                  q_cmbParse("cmbKind", ('').concat(new Array( '工商','土地')));
@@ -196,7 +196,6 @@
 	            t_month = t_month>9?t_month+'':'0'+t_month;
 	            t_day = t_date.getUTCDate();
 	            t_day = t_day>9?t_day+'':'0'+t_day;
-	            $('#txtPaydate').val(t_year+'/'+t_month+'/'+t_day);
 	            $('#txtPaydate').val(t_year+'/'+t_month+'/'+t_day);
 	            //$('#cmbPartno2').val('06');
 	            $('#txtSalesno').val(r_userno);
@@ -500,7 +499,7 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblProject' class="lbl"> </a></td>
-						<td class="td2" colspan="2"><input type="text" id="txtProject" class="txt c1"/>	
+						<td class="td2" colspan="2"><select id="cmbProject" class="txt c1"> </select>	
 						<input type="text" id="txtPronick" style="display: none;"/>	
 						</td>	
 						<td class="td3"><span> </span><a id='lblKind' class="lbl"> </a></td>
@@ -594,6 +593,7 @@
 					<td align="center" style="width:6%;"><a id='lblDays_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblMoney_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblCost_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblRealcost_s'> </a></td>
 					<td align="center" style="width:3%;"><a id='lblIsprepay_s'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblTggno_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblSenddate_s'> </a></td>
@@ -614,6 +614,7 @@
 					<td><input id="txtDays.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMoney.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtCost.*" type="text" class="txt num c1"/></td>
+					<td><input id="txtRealcost.*" type="text" class="txt num c1"/></td>
 					<td align="center"><input id="chkIsprepay.*" type="checkbox"/></td>
 					<td><input class="btn"  id="btnTggno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                         <input type="text" id="txtTggno.*"  style="width:30%; float:left;"/>

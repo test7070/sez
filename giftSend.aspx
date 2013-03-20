@@ -53,7 +53,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd]];
+                bbmMask = [['txtDatea', r_picd],['txtSenddate', r_picd]];
                 q_mask(bbmMask);
                 q_gt('giftsendt', '', 0, 0, 0, "", r_accy);
                 $('#txtPrice').blur(function () {
@@ -84,7 +84,7 @@
                         }
                         q_cmbParse("cmbSendmemo", t_item);
                         if(abbm[q_recno])
-                        	$("#cmbSendmemo").val(abbm[q_recno].noa);
+                        	$("#cmbSendmemo").val(abbm[q_recno].sendmemo);
                         break;
                     case q_name:
                         if (q_cur == 4)
@@ -129,6 +129,7 @@
                 _btnIns();
                $('#txtDatea').focus();
                 $('#txtDatea').val(q_date());
+                $('#txtSenddate').val(q_date());
                 $('#txtNoa').val('AUTO');
             }
             function btnModi() {
@@ -407,11 +408,14 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtNoa" class="txt c1"/>	</td>	
+						<td class="td2"><input type="text" id="txtNoa" class="txt c1"/>	</td>
+						<td class="td3"> </td>
+						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtDatea" class="txt c1"/>	</td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtDatea" class="txt c1"/>	</td>
+						<td class="td1"><span> </span><a id='lblSenddate' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtSenddate" class="txt c1"/>	</td>
 						<td class="td3"> </td>
 						<td class="td4"><span> </span><a id='lblSendmemo' class="lbl"> </a></td>
 						<td class="td5"><select id="cmbSendmemo" class="txt c1"> </select></td>	
