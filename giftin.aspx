@@ -111,7 +111,7 @@
                     case 'part':
 		                var as = _q_appendData("part", "", true);
 		                if (as[0] != undefined) {
-		                    var t_item = "";
+		                    var t_item = " @ ";
 		                    for (i = 0; i < as.length; i++) {
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
 		                    }
