@@ -56,6 +56,7 @@
                 bbmMask = [['txtDatea', r_picd],['txtSenddate', r_picd]];
                 q_mask(bbmMask);
                 q_gt('giftsendt', '', 0, 0, 0, "", r_accy);
+                q_gt('store', '', 0, 0, 0, "");
                 $('#txtPrice').blur(function () {
 	            	for(var j = 0; j < q_bbsCount; j++) {
 	            		q_tr('txtMoney_'+j,q_float('txtMount_'+j)*q_float('txtPrice'));
@@ -86,6 +87,18 @@
                         if(abbm[q_recno])
                         	$("#cmbSendmemo").val(abbm[q_recno].sendmemo);
                         break;
+                    case 'store':
+		                var as = _q_appendData("store", "", true);
+		                if (as[0] != undefined) {
+		                    var t_item = "";
+		                    for (i = 0; i < as.length; i++) {
+		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
+		                    }
+		                    q_cmbParse("cmbStoreno", t_item);
+		                    if(abbm[q_recno])
+		                    	$("#cmbStoreno").val(abbm[q_recno].storeno);
+		                }
+		                break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -470,6 +483,10 @@
 						<input id="txtGift" type="text"  class="txt c3"/></td>
 						<td class="td4"><span> </span><a id='lblPrice' class="lbl"> </a></td>
 						<td class="td5"><input type="text" id="txtPrice" class="txt num c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblStore" class="lbl"> </a></td>
+						<td><select id="cmbStoreno" class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMessage' class="lbl"> </a></td>
