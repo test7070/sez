@@ -83,11 +83,13 @@
 			q_mask(bbmMask);
 			q_gt('part', '', 0, 0, 0, "");
 			$("#btnAddReceiver").click(function(e) {
-				t_where = '';
-				if($('#cmbPartno').val() != 'All'){
-					t_where = "partno='"+$('#cmbPartno').val()+"'";
+				if(q_cur == 1 || q_cur == 2){
+					t_where = '';
+					if($('#combPartno').val() != 'All'){
+						t_where = "partno='"+$('#combPartno').val()+"'";
+					}
+					q_box("sssall_check_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where , 'sssall', "50%", "650px", q_getMsg('popSssallcheck'));
 				}
-				q_box("sssall_check_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where , 'sssall', "50%", "650px", q_getMsg('popSssallcheck'));
 			});
 
 		}
@@ -142,7 +144,7 @@
                         for ( i = 0; i < as.length; i++) {
                         	t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
                         }
-                        q_cmbParse("cmbPartno", t_item);
+                        q_cmbParse("combPartno", t_item);
                     }
                 	break;
 				case q_name: if (q_cur == 4)  
@@ -216,7 +218,6 @@
 			else
 				wrServer(  t_noa);
 		}
-
 		function wrServer( key_value) {
 			var i;
 
@@ -466,7 +467,7 @@
 					<span> </span><a id='lblReceiverChker' class="lbl"></a>
 				</td>
 				<td colspan="2" class="td4">
-					<select id="cmbPartno" class="txt" style="width:50%;"> </select>
+					<select id="combPartno" class="txt c1" style="width:50%;"> </select>
 					<input id="btnAddReceiver" type="button" style="width:20%;">
 				</td>
 				<td class="td5">
