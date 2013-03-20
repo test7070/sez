@@ -531,6 +531,10 @@
 							<select id="cmbPartno" class="txt c1"> </select>
 							<input id="txtPart" type="text" style="display:none;"/>
 						</td>
+						<td><span> </span><a id="lblStore" class="lbl"> </a></td>
+						<td>
+							<select id="cmbStoreno" class="txt c1"> </select>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblTgg" class="lbl btn"> </a></td>
