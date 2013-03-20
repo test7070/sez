@@ -409,11 +409,7 @@
                     return false;
                 }
 
-                if(q_cur ==1){
-                	$('#txtWorker').val(r_name);
-                }else if(q_cur ==2){
-                	$('#txtWorker2').val(r_name);
-                }
+                
                 var t_money = 0, t_chgs = 0, t_paysale, t_mon = '';
                 for (var i = 0; i < q_bbsCount; i++) {
                     t_money = q_float('txtMoney_' + i);
@@ -435,7 +431,14 @@
                     alert(m_empty + q_getMsg('lblAcc1') + q_trv(t_money + t_chgs));
                     return false;
                 }
-
+				
+				if(q_cur ==1){
+                	$('#txtWorker').val(r_name);
+                }else if(q_cur ==2){
+                	$('#txtWorker2').val(r_name);
+                }else{
+                	alert("error: btnok!")
+                }
                 var t_opay = q_float('txtOpay');
                 var t_unopay = q_float('txtUnopay');
                 var t1 = q_float('txtPaysale') + q_float('txtOpay') - q_float('txtUnopay');
@@ -444,8 +447,6 @@
                     alert('收款金額  ＋ 費用 ＝' + q_trv(t2) + '\r 【不等於】 沖帳金額 ＋ 預收 －　預收沖帳 ＝' + q_trv(t1) + '\r【差額】=' + Math.abs(t1 - t2));
                     return false;
                 }
-                //alert(sum_paysale + " --" + (sum_money + sum_chgs));
-                $('#txtWorker').val(r_name);
 
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
@@ -869,11 +870,12 @@
 						<td class="td1"><a id='lblMemo' class="lbl"></a></td>
 						<td class="td2" colspan='3' >						<textarea id="txtMemo"  rows='3' cols='3' style="width: 99%; height: 50px;" ></textarea></td>
 						<td class="td5">
-							<a id='lblWorker' class="lbl"></a>
+							<a id='lblWorker' class="lbl" style="text-align: right;display:block;width:95%;"> </a>
+							<a id='lblWorker2' class="lbl" style="text-align: right;display:block;width:95%;"> </a>
 						</td>
 						<td class="td6" >
 							<input id="txtWorker"  type="text" class="txt c1"/>
-							<input id="txtWorker2"  type="text" class="txt c1" style="display:none;"/>
+							<input id="txtWorker2"  type="text" class="txt c1"/>
 						</td>
 						<td class="td7">
 						<input type="button" id="btnAuto" class="txt c1 "  style="color:Red"/>
