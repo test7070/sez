@@ -106,6 +106,24 @@
             			}
             		}
             		$('#txtComptotal').val(comptotal);
+            		
+            		//計算調節器加總
+            		var talk_total=0;
+						for (var j = 0; j < q_bbsCount; j++) {
+	           				if(!emp($('#txtTalkfee_'+j).val()))
+	           					talk_total+=dec($('#txtTalkfee_'+j).val());
+						}
+						q_tr('txtTalktotal',talk_total);
+						
+						//重新分配室內金額
+			           	if(dec($('#txtComptotal').val())>0&&dec($('#txtTalktotal').val())>0){
+				           	for(var j = 0; j < q_bbsCount; j++) {
+				           		if(dec($('#txtTalkfee_'+j).val())!=0)
+				           			q_tr('txtTelfee_'+j,round((q_float('txtTalkfee_'+j)/q_float('txtTalktotal'))*q_float('txtComptotal'),0));
+				           			q_tr('txtTotal_'+j,q_float('txtTelfee_'+j)+q_float('txtPhonefee_'+j));
+				           	}
+			           	}
+            		sum();
             	break;
                 case q_name: 
                 	if(q_cur==1){
@@ -163,14 +181,14 @@
 						t_IdSeq = -1;
 						q_bodyId($(this).attr('id'));
 						b_seq = t_IdSeq;
-						q_tr('txtTotal_'+b_seq,q_float('txtTelfee_'+b_seq)+q_float('txtPhonefee_'+b_seq));
+						//q_tr('txtTotal_'+b_seq,q_float('txtTelfee_'+b_seq)+q_float('txtPhonefee_'+b_seq));
 						sum();
 				    });
 				    $('#txtPhonefee_' + j).change(function () {
 						t_IdSeq = -1;
 						q_bodyId($(this).attr('id'));
 						b_seq = t_IdSeq;
-						q_tr('txtTotal_'+b_seq,q_float('txtTelfee_'+b_seq)+q_float('txtPhonefee_'+b_seq));
+						//q_tr('txtTotal_'+b_seq,q_float('txtTelfee_'+b_seq)+q_float('txtPhonefee_'+b_seq));
 						sum();
 				    });
 				    $('#txtTalkfee_' + j).change(function () {
@@ -246,6 +264,7 @@
         function sum() {
             var t1 = 0, t_unit, t_mount, t_total=0;
             for (var j = 0; j < q_bbsCount; j++) {
+            	q_tr('txtTotal_'+j,q_float('txtTelfee_'+j)+q_float('txtPhonefee_'+j));
 				t_total+=dec($('#txtTotal_'+j).val());
             }  // j
 			q_tr('txtTotal',t_total);

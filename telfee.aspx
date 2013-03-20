@@ -246,13 +246,14 @@
             var t1 = 0, t_unit, t_mount, t_weight = 0,t_total=0,t_notax=0,t_tax=0;
             for (var j = 0; j < q_bbsCount; j++) {
 				t_total+=dec($('#txtFee_'+j).val());
-				if($('#chkIstax_0')[0].checked==true){
+				if($('#chkIstax_'+j)[0].checked==true){
 					var tax=0
 					if(dec($('#txtSettax_'+j).val())>0)
 						tax=dec($('#txtSettax_'+j).val());
 					else
 						tax=round(dec($('#txtFee_'+j).val())/(1+dec($('#txtTaxrate_'+j).val())/100)*dec($('#txtTaxrate_'+j).val())/100,0);
 						
+					$('#txtMemo_'+j).val('稅金:'+tax);
 					t_tax+=tax;
 					t_notax+=dec($('#txtFee_'+j).val())-tax;
 				}else{
