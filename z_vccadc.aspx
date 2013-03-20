@@ -72,6 +72,9 @@
                      },{
                         type : '1',
                         name : 'xinvono'
+                     },{
+                        type : '6',
+                        name : 'xyear'
                   }]
                 });
                 q_popAssign();
@@ -82,6 +85,7 @@
                 $('#txtBmon2').mask('999/99');
                 $('#txtEmon1').mask('999/99');
                 $('#txtEmon2').mask('999/99');
+                $('#txtXyear').mask('999');
                 
                 var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
@@ -148,6 +152,13 @@
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtEmon2').val(t_year+'/'+t_month);
 	                
+	                t_date = new Date();
+	                t_date.setDate(35);
+	                t_date.setDate(0);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                $('#txtXyear').val(t_year);
+
             		$("input[type='checkbox'][value='checkAll']").click(function() {
             			if($(this).next('span').text() == '全選'){
 							$("input[type='checkbox'][value!='']").attr('checked',true);
