@@ -31,8 +31,10 @@
             brwKey = 'noa';
             aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,nick', 'txtCno,txtAcomp', 'Acomp_b.aspx'],
             ['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-            ['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx'],
-            ['txtGiftno_', 'btnGiftno_', 'bcc', 'noa,product,price', 'txtGiftno_,txtGift_,txtPrice_', 'bcc_b.aspx']);
+            ['txtCustno_', 'btnCustno_', 'giftcust', 'noa,namea', 'txtCustno_,txtNamea_', 'giftcust_b.aspx'],
+            ['txtGiftno_', 'btnGiftno_', 'bcc', 'noa,product,price', 'txtGiftno_,txtGift_,txtPrice_', 'bcc_b.aspx'],
+            ['txtGiver_', 'lblGiver_s', 'sss', 'namea,noa', 'txtGiver_', 'sss_b.aspx'],
+            ['txtSalute_', 'lblSalute_s', 'sss', 'namea,noa', 'txtSalute_', 'sss_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -90,7 +92,7 @@
                         }
                         q_cmbParse("cmbSendmemo", t_item);
                         if(abbm[q_recno])
-                        	$("#cmbSendmemo").val(abbm[q_recno].noa);
+                        	$("#cmbSendmemo").val(abbm[q_recno].sendmemo);
                         break;
                     case q_name:
                         if (q_cur == 4)
@@ -167,8 +169,15 @@
 			       		});
 			       		
 			       		 $('#btnGiverno_'+i).click(function() {
-                    q_box('giftSend.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtGiverno_'+i).val()), '', "95%", "95%", "回禮");
-                });
+			       		 	t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+			       		 	$('#text_Noq').val(b_seq);
+			       		 	if(!emp($('#txtGiverno_'+b_seq).val()))
+			       		 		q_box("giftsend.aspx?;;;noa='"+ trim($('#txtGiverno_'+b_seq).val())+"';"+ r_accy, 'ticket', "95%", "95%", q_getMsg("popGiftsend"));
+			       		 	else
+			       		 		q_box("giftsend.aspx", 'ticket', "95%", "95%", q_getMsg("popGiftsend"));
+                		});
 			       		
 			       		$('#txtMoney_'+i).blur(function () {
 			            	sum();
@@ -453,6 +462,7 @@
 						<td class="td4"><input type="text" id="txtWorker" class="txt c1"/></td>	
 					</tr>
 				</table>
+				<input id="text_Noq"  type="hidden" class="txt c1"/>	
 			</div>
 		</div>
 		<div class='dbbs'>
@@ -480,7 +490,7 @@
 					<td><input class="btn"  id="btnCustno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                         <input type="text" id="txtCustno.*"  style="width:85%; float:left;"/>
                         <span style="display:block; width:1%;float:left;"> </span>
-						<input type="text" id="txtComp.*"  style="width:85%; float:left;"/>
+						<input type="text" id="txtNamea.*"  style="width:85%; float:left;"/>
 					</td>
 					<td><input class="btn"  id="btnGiftno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                         <input type="text" id="txtGiftno.*"  style="width:85%; float:left;"/>
@@ -492,7 +502,7 @@
 					<td><input id="txtMoney.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtGiver.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtSalute.*" type="text" style="width: 95%;"/></td>
-					<td><input id="chkNosalute" type="checkbox" style=' '/></td>
+					<td><input id="chkNosalute.*" type="checkbox" style=' '/></td>
 					<td><input class="btn"  id="btnGiverno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                         <input type="text" id="txtGiverno.*"  style="width:85%; float:left;"/></td>
 					<td><input id="txtMemo.*" type="text" style="width: 95%;"/></td>
