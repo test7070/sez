@@ -17,10 +17,10 @@
             }
 			q_tables = 's';
             var q_name = "assignwork";
-            var q_readonly = ['txtWorker','txtNoa','txtVccno','txtPaybno','txtAccno'];
+            var q_readonly = ['txtWorker','txtNoa','txtVccno','txtPaybno','txtAccno','txtMoney','txtCost'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1]];
-            var bbsNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1]];
+            var bbsNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1],['txtRealcost',14, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -196,7 +196,6 @@
 	            t_month = t_month>9?t_month+'':'0'+t_month;
 	            t_day = t_date.getUTCDate();
 	            t_day = t_day>9?t_day+'':'0'+t_day;
-	            $('#txtPaydate').val(t_year+'/'+t_month+'/'+t_day);
 	            $('#txtPaydate').val(t_year+'/'+t_month+'/'+t_day);
 	            //$('#cmbPartno2').val('06');
 	            $('#txtSalesno').val(r_userno);

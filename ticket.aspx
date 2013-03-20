@@ -217,14 +217,35 @@
                 _btnCancel();
             }
             
-            function returnparent() {
+            /*function returnparent() {
             	if(window.parent.q_name=='cara'){
 					 var wParent = window.parent.document;
 					 var b_seq= wParent.getElementById("text_Noq").value
 					 wParent.getElementById("txtMemo_"+b_seq).value=$('#txtTicketno').val()+$('#txtIrregularities').val();
 					 wParent.getElementById("txtOutmoney_"+b_seq).value=$('#txtMoney').val();
 				 }
-			}
+			}*/
+			
+			if(navigator.appName=="Microsoft Internet Explorer"){
+            	window.onbeforeunload = function(e){
+					 if(window.parent.q_name=='cara'){
+						 var wParent = window.parent.document;
+						 var b_seq= wParent.getElementById("text_Noq").value
+						 wParent.getElementById("txtMemo_"+b_seq).value=$('#txtTicketno').val()+$('#txtIrregularities').val();
+						 wParent.getElementById("txtOutmoney_"+b_seq).value=$('#txtMoney').val();
+					 }
+				}
+            }else{
+            	window.onunload = function(e){
+					  if(window.parent.q_name=='cara'){
+						 var wParent = window.parent.document;
+						 var b_seq= wParent.getElementById("text_Noq").value
+						 wParent.getElementById("txtMemo_"+b_seq).value=$('#txtTicketno').val()+$('#txtIrregularities').val();
+						 wParent.getElementById("txtOutmoney_"+b_seq).value=$('#txtMoney').val();
+					 }
+				}
+            }
+			
 			function checkId(str) {
                 if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
                     var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
@@ -381,7 +402,7 @@
 
 		</style>
 	</head>
-	<body onunload='returnparent()'>
+	<body>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' style="overflow:hidden;">
 			<div class="dview" id="dview">

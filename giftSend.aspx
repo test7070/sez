@@ -84,7 +84,7 @@
                         }
                         q_cmbParse("cmbSendmemo", t_item);
                         if(abbm[q_recno])
-                        	$("#cmbSendmemo").val(abbm[q_recno].noa);
+                        	$("#cmbSendmemo").val(abbm[q_recno].sendmemo);
                         break;
                     case q_name:
                         if (q_cur == 4)
@@ -248,6 +248,24 @@
 
             function btnCancel() {
                 _btnCancel();
+            }
+            
+            if(navigator.appName=="Microsoft Internet Explorer"){
+            	window.onbeforeunload = function(e){
+				  if(window.parent.q_name=='giftreceive'){
+						 var wParent = window.parent.document;
+						 var b_seq= wParent.getElementById("text_Noq").value
+						 wParent.getElementById("txtGiverno_"+b_seq).value=$('#txtNoa').val();
+					 }
+				}
+            }else{
+            	window.onunload = function(e){
+				  if(window.parent.q_name=='giftreceive'){
+						 var wParent = window.parent.document;
+						 var b_seq= wParent.getElementById("text_Noq").value
+						 wParent.getElementById("txtGiverno_"+b_seq).value=$('#txtNoa').val();
+					 }
+				}
             }
 		</script>
 		<style type="text/css">
