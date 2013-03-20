@@ -17,7 +17,7 @@
 			alert("An error occurred:\r\n" + error.Message);
 		}
 		var q_name="signform";
-		var q_readonly = ['txtReceiver'];
+		var q_readonly = [];
 		var bbmNum = [];  
 		var bbmMask = []; 
 		q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -81,139 +81,16 @@
 
 		function mainPost() { 
 			q_mask(bbmMask);
-     		$('#chkIsmailchecker').click(function(){
-     			name = $('#txtChecker').val();
-     			if($(this).is(':checked') && name != ''){
-     				if(check_btnReceiver(name) == 1)
-     					append_btn(name,'add');
-     			}else if(!$(this).is(':checked') && name != ''){
-					append_btn(name,'del');
-     			}
-     		});
-     		$('#chkIsmailapprovema').click(function(){
-     			name = $('#txtApprovema').val();
-     			if($(this).is(':checked') && name != ''){
-     				if(check_btnReceiver(name) == 1)
-     					append_btn(name,'add');
-     			}else if(!$(this).is(':checked') && name != ''){
-					append_btn(name,'del');
-     			}
-     		});
-     		$('#chkIsmailapprovefi').click(function(){
-     			name = $('#txtApprovefi').val();
-     			if($(this).is(':checked') && name != ''){
-     				if(check_btnReceiver(name) == 1)
-     					append_btn(name,'add');
-     			}else if(!$(this).is(':checked') && name != ''){
-					append_btn(name,'del');
-     			}
-     		});
-     		$('#chkIsmailapprovegm').click(function(){
-     			name = $('#txtApprovegm').val();
-     			if($(this).is(':checked') && name != ''){
-     				if(check_btnReceiver(name) == 1)
-     					append_btn(name,'add');
-     			}else if(!$(this).is(':checked') && name != ''){
-					append_btn(name,'del');
-     			}
-     		});
-     		$('#chkIsmailapprovebs').click(function(){
-     			name = $('#txtApprovebs').val();
-     			if($(this).is(':checked') && name != ''){
-     				if(check_btnReceiver(name) == 1)
-     					append_btn(name,'add');
-     			}else if(!$(this).is(':checked') && name != ''){
-					append_btn(name,'del');
-     			}
-     		});
-     		$('#chkIsmesschecker').click(function(){
-     			name = $('#txtChecker').val();
-     			if($(this).is(':checked') && name != ''){
-     				if(check_btnReceiver(name) == 1)
-     					append_btn(name,'add');
-     			}else if(!$(this).is(':checked') && name != ''){
-					append_btn(name,'del');
-     			}
-     		});
-     		$('#chkIsmessapprovema').click(function(){
-     			name = $('#txtApprovema').val();
-     			if($(this).is(':checked') && name != ''){
-     				if(check_btnReceiver(name) == 1)
-     					append_btn(name,'add');
-     			}else if(!$(this).is(':checked') && name != ''){
-					append_btn(name,'del');
-     			}
-     		});
-     		$('#chkIsmessapprovefi').click(function(){
-     			name = $('#txtApprovefi').val();
-     			if($(this).is(':checked') && name != ''){
-     				if(check_btnReceiver(name) == 1)
-     					append_btn(name,'add');
-     			}else if(!$(this).is(':checked') && name != ''){
-					append_btn(name,'del');
-     			}
-     		});
-     		$('#chkIsmessapprovegm').click(function(){
-     			name = $('#txtApprovegm').val();
-     			if($(this).is(':checked') && name != ''){
-     				if(check_btnReceiver(name) == 1)
-     					append_btn(name,'add');
-     			}else if(!$(this).is(':checked') && name != ''){
-					append_btn(name,'del');
-     			}
-     		});
-     		$('#chkIsmessapprovebs').click(function(){
-     			name = $('#txtApprovebs').val();
-     			if($(this).is(':checked') && name != ''){
-     				if(check_btnReceiver(name) == 1)
-     					append_btn(name,'add');
-     			}else if(!$(this).is(':checked') && name != ''){
-					append_btn(name,'del');
-     			}
-     		});
-		}
-		function append_btn(name,want){
-			if(want == 'add'){
-				w_button = '<input id="btnReceiver" type="button">';
-				$(w_button).val(name).appendTo($('#Receiver_box')).bind('click', function(event) {
-						if(q_cur == 1 || q_cur ==2){
-							   $(this).remove();
-							   append_btn(name,'del');
-						}
-				});
-				$('#txtReceiver').val($('#txtReceiver').val() + name + ';');
-				}else if(want == 'reload'){
-					hiddenBtn = '<input id="btnReceiver" type="button" style="display:none;">';
-					$('#Receiver_box').html(hiddenBtn);
-					btnName = $('#txtReceiver').val();
-					$('#txtReceiver').val('');
-					btnName = btnName.split(';');
-					for(var i = 0;i<btnName.length-1;i++){
-						append_btn(btnName[i],'add');
-					}
-				}else if(want == 'del'){
-					replace_str = $('#txtReceiver').val();
-					replace_str = ReplaceAll(replace_str,name+';','');
-					$('#txtReceiver').val(replace_str);
-					append_btn(name,'reload');
+			q_gt('part', '', 0, 0, 0, "");
+			$("#btnAddReceiver").click(function(e) {
+				t_where = '';
+				if($('#cmbPartno').val() != 'All'){
+					t_where = "partno='"+$('#cmbPartno').val()+"'";
 				}
+				q_box("sssall_check_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where , 'sssall', "50%", "650px", q_getMsg('popSssallcheck'));
+			});
+
 		}
-		
-		function ReplaceAll(strSource, strFind, strRepl) {
-		    var str = new String(strSource);
-		    while (str.indexOf(strFind) != -1) {
-		          str=str.replace(strFind, strRepl);
-		    }
-		   return str;
-		}
-		
-		function check_btnReceiver(name){//如果有重複名字傳回0
-			check_err = 0;
-			str = $('#txtReceiver').val();
-			if(str.match(name) == null)	check_err = 1;
-			else check_err = 0;
-			return check_err;
-      	}
 		function txtCopy(dest, source) {
 			var adest = dest.split(',');
 			var asource = source.split(',');
@@ -236,6 +113,19 @@
 		function q_boxClose( s2) { 
 			var ret; 
 			switch (b_pop) {  
+            	case 'sssall':
+            		b_ret = getb_ret();         ///  q_box() 執行後，選取的資料
+            		if (!b_ret || b_ret.length == 0)
+                        return;
+					for(var i = 0;i < b_ret.length;i++){
+						str = $('#txtReceiver').val();
+						name = b_ret[i].namea;
+						if(str.match(name) == null){
+							newstr = str + name + ';';
+							$('#txtReceiver').val(newstr);
+						}
+					}
+            		break;
 				case q_name + '_s':
 				 q_boxClose2(s2); ///   q_boxClose 3/4
 				 break;
@@ -245,6 +135,16 @@
 
 		function q_gtPost(t_name) {  
 			switch (t_name) {
+				case 'part':
+                	var as = _q_appendData("part", "", true);
+                    if (as[0] != undefined) {
+                    	var t_item = "All@全部";
+                        for ( i = 0; i < as.length; i++) {
+                        	t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+                        }
+                        q_cmbParse("cmbPartno", t_item);
+                    }
+                	break;
 				case q_name: if (q_cur == 4)  
 					q_Seek_gtPost();
 				 break;
@@ -306,7 +206,6 @@
 					return;
 				}				
 			}
-			append_btn(name,'reload');
 			if( t_err.length > 0) {
 				alert(t_err);
 				return;
@@ -330,8 +229,6 @@
 		}
 		function refresh(recno) {
 			_refresh(recno);
-			append_btn(name,'reload');
-
 		}
 
 		function readonly(t_para, empty) {
@@ -565,10 +462,18 @@
 				<td class="td2">
 					<input id="txtReceiver"  type="text" class="txt c1"/>
 				</td>
-				<td colspan="4" class="td3">
-					<div id="Receiver_box">
-						<input id="btnReceiver" type="button" style="display:none;">
-					</div>
+				<td class="td3">
+					<span> </span><a id='lblReceiverChker' class="lbl"></a>
+				</td>
+				<td colspan="2" class="td4">
+					<select id="cmbPartno" class="txt" style="width:50%;"> </select>
+					<input id="btnAddReceiver" type="button" style="width:20%;">
+				</td>
+				<td class="td5">
+				</td>
+				<td class="td6">
+				</td>
+				<td class="td7">
 				</td>
 			</tr>
 			<tr>

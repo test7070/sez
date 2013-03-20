@@ -85,6 +85,10 @@
                             type : '5',
                             name : 'xsort02',
                             value : q_getMsg('tsort02').split('&')
+                        }, {/*9*/
+                         	type : '8',
+                            name : 'xoption',
+                            value : q_getMsg('toption').split('&')
                         }]
                     });
                     q_popAssign();
