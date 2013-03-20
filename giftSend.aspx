@@ -84,7 +84,7 @@
                         }
                         q_cmbParse("cmbSendmemo", t_item);
                         if(abbm[q_recno])
-                        	$("#cmbSendmemo").val(abbm[q_recno].noa);
+                        	$("#cmbSendmemo").val(abbm[q_recno].sendmemo);
                         break;
                     case q_name:
                         if (q_cur == 4)
