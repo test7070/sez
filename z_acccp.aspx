@@ -39,7 +39,11 @@
                         type : '8', //checkbox
                         name : 'zno',
                         value : q_getPara('z_acccp.typea').split(',')
-                    }]
+                    },{
+                            type : '0',
+                            name : 'accty',
+                            value : r_accy 
+                        }]
                 });
                     q_popAssign();
 

@@ -392,7 +392,7 @@
                 float: left;
             }
             .txt.c4 {
-                width: 43%;
+                width: 40%;
                 float: left;
             }
             .txt.num {
@@ -476,18 +476,17 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
                 <td align="center" style="width:15%"><a id='lblTimes'></a></td>
+                <td align="center" style="width:13%"><a id='lblCnos'></a></td>
                 <td align="center" style="width:23%"><a id='lblAcomps'></a></td>
                 <td align="center" style="width:55%"><a id='lblMemos'></a></td>
                 <td align="center" style="width:4%"><a id='lblTele_pollings'></a></td>
             </tr>
             <tr >
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input class="txt c4" id="txtBtime.*" type="text" /><a style="float: left;">&nbsp;~&nbsp;</a><input class="txt c4" id="txtEtime.*" type="text" /></td>
+                <td ><input class="txt c4" id="txtBtime.*" type="text" /><a style="float: left;">&sim;</a><input class="txt c4" id="txtEtime.*" type="text" /></td>
                 <td><input class="btn"  id="btnAcomp.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                        <input type="text" id="txtCno.*"  style="width:85%; float:left;"/>
-                        <span style="display:block; width:1%;float:left;"> </span>
-						<input type="text" id="txtAcomp.*"  style="width:85%; float:left;"/>
-					</td>
+                        <input type="text" id="txtCno.*"  style="width:80%; float:left;"/></td>
+				<td><input type="text" id="txtAcomp.*"  style="width:98%; float:left;"/></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
                 <td ><input id="chkTele_polling.*" type="checkbox"/><input id="txtNoq.*" type="hidden" /></td>
             </tr>

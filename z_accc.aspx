@@ -95,6 +95,10 @@
                             type : '8', //checkbox
                             name : 'balance',
                             value : (('').concat(new Array("餘額"))).split(',')
+                        },{
+                            type : '0',
+                            name : 'accty',
+                            value : r_accy 
                         }]
                     });
                     q_popAssign();
