@@ -17,17 +17,36 @@
 		<script type="text/javascript">
 		aPop = new Array(['txtSssno', '', 'sss', 'noa,namea', 'txtSssno', "sss_b.aspx"],
 						 ['txtPartno', '', 'part', 'noa,part', 'txtPartno', "part_b.aspx"]);
+			t_isinit = false;
+            t_part = '';
+            t_store = '';
 			t_giftsendt = '';
-            t_isinit = false;
             $(document).ready(function() {
             	q_getId();
             	q_gf('', 'z_gift');
             });
              function q_gfPost() {
+                q_gt('store', '', 0, 0, 0);
+                q_gt('part', '', 0, 0, 0);
 				q_gt('giftsendt', '', 0, 0, 0, "");
             }
             function q_gtPost(t_name) {
             	 switch (t_name) {
+                    case 'part':
+                        t_part = '';
+                        var as = _q_appendData("part", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_part += (t_part.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+                        }
+                        break;
+                    case 'store':
+                        t_store = '';
+                        var as = _q_appendData("store", "", true);
+                        t_store += '99@全部';
+                        for ( i = 0; i < as.length; i++) {
+                            t_store += (t_store.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
+                        }
+                        break;
                     case 'giftsendt':
                         t_giftsendt = '';
                         var as = _q_appendData("giftsendt", "", true);
@@ -47,7 +66,21 @@
                             type : '5',
                             name : 'tsendmemo',
                             value : [q_getPara('report.all')].concat(t_giftsendt.split(','))
-                        }]
+						}, {/*2*/
+                            type : '2',
+                            name : 'bcc',
+                            dbf : 'bcc',
+                            index : 'noa,product',
+                            src : 'bcc_b.aspx'
+                        },{/*3*/
+							type : '5',
+							name : 'xstore',
+							value : t_store.split(',')
+						},{/*4*/
+							type : '8',
+							name : 'xpart',
+							value : t_part.split(',')
+						}]
                     });
                 q_langShow();
                 q_popAssign();
