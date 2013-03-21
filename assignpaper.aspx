@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'assignpaper', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
+            var q_name = 'assignpaper', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
             var t_sqlname = 'assignpaper_load';
             t_postname = q_name;
             var isBott = false;
@@ -55,6 +55,42 @@
                 for(var j = 0; j < q_bbsCount; j++) {
                 }
                 _bbsAssign();//_bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
+            }
+            
+            function btnModi() {
+                _btnModi();
+                if(emp($('#txtProduct_0').val())){//表示第一次新增
+	                $('#txtProduct_0').val('運輸執照正本');
+	                $('#txtMount_0').val(1);
+	                $('#txtUnit_0').val('份');
+	                $('#txtProduct_1').val('會員證');
+	                $('#txtMount_1').val(1);
+	                $('#txtUnit_1').val('份');
+	                $('#txtProduct_2').val('監理處函');
+	                $('#txtMount_2').val(1);
+	                $('#txtUnit_2').val('份');
+	                $('#txtProduct_3').val('登記事項表');
+	                $('#txtMount_3').val(1);
+	                $('#txtUnit_3').val('份');
+	                $('#txtProduct_4').val('章程');
+	                $('#txtMount_4').val(1);
+	                $('#txtUnit_4').val('份');
+	                $('#txtProduct_5').val('公文(公文准文)正本');
+	                $('#txtMount_5').val(1);
+	                $('#txtUnit_5').val('份');
+	                $('#txtProduct_6').val('股東名冊');
+	                $('#txtMount_6').val(1);
+	                $('#txtUnit_6').val('份');
+	                $('#txtProduct_7').val('工商憑証');
+	                $('#txtMount_7').val(1);
+	                $('#txtUnit_7').val('張');
+	                $('#txtProduct_8').val('公司、負責人及股東印鑑');
+	                $('#txtMount_8').val(1);
+	                $('#txtUnit_8').val('枚');
+	                $('#txtProduct_9').val('規費單');
+	                $('#txtMount_9').val(1);
+	                $('#txtUnit_9').val('張');
+                }
             }
 
             function btnOk() {
@@ -108,23 +144,17 @@
 					<td class="td1" align="center" style="width:1%; max-width:20px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td class="td2" align="center" style="width:7%;"><a id='lblProductno_s'></a></td>
-					<td class="td8" align="center" style="width:50%;"><a id='lblProduct_s'></a></td>
+					<td class="td8" align="center" style="width:40%;"><a id='lblProduct_s'></a></td>
+					<td class="td8" align="center" style="width:10%;"><a id='lblMount_s'></a></td>
+					<td class="td8" align="center" style="width:5%;"><a id='lblUnit_s'></a></td>
 					<td class="td8" align="center" style="width:40%;"><a id='lblMemo_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
-					<td class="td1" align="center">
-					<input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  />
-					</td>
-					<td class="td2">
-					<input class="txt" id="txtProductno.*" type="text" style="width:95%; text-align: center;"  />
-					</td>
-					<td class="td3">
-					<input class="txt" id="txtProduct.*" type="text" style="width:95%; text-align: left;"  />
-					</td>
-					<td class="td4">
-					<input class="txt" id="txtMemo.*" type="text" style="width:95%; text-align: left;"  />
-					</td>
+					<td class="td1" align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  /></td>
+					<td class="td2"><input class="txt" id="txtProduct.*" type="text" style="width:95%; text-align: left;"  /></td>
+					<td class="td3"><input class="txt" id="txtMount.*" type="text" style="width:95%; text-align: left;"  /></td>
+					<td class="td4"><input class="txt" id="txtUnit.*" type="text" style="width:95%; text-align: left;"  /></td>
+					<td class="td5"><input class="txt" id="txtMemo.*" type="text" style="width:95%; text-align: left;"  /></td>
 				</tr>
 			</table>
 			

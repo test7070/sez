@@ -82,16 +82,25 @@
 		function mainPost() { 
 			q_mask(bbmMask);
 			q_gt('part', '', 0, 0, 0, "");
-			$("#btnAddReceiver").click(function(e) {
-				if(q_cur == 1 || q_cur == 2){
+			change_cur();
+			$("#combPartno").change(function(e) {
+				if((q_cur == 1 || q_cur == 2) && $('#combPartno').val() != ''){
 					t_where = '';
-					if($('#combPartno').val() != 'All'){
-						t_where = "partno='"+$('#combPartno').val()+"'";
+					choice_check = $('#combPartno').val();
+					choice_check = choice_check.split('-');
+					if(choice_check[0] != 'All'){
+						t_where = "partno='"+choice_check[0]+"'";
 					}
-					q_box("sssall_check_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where , 'sssall', "50%", "650px", q_getMsg('popSssallcheck'));
+					if(choice_check[1] == 'All'){
+						if(choice_check[0] != 'All'){
+							t_where = "where=^^ " + t_where + " ^^";
+						}
+				        q_gt('sssall', t_where , 0, 0, 0, "", r_accy);	
+					}else{
+						q_box("sssall_check_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where , 'sssall', "50%", "650px", q_getMsg('popSssallcheck'));
+					}
 				}
 			});
-
 		}
 		function txtCopy(dest, source) {
 			var adest = dest.split(',');
@@ -116,6 +125,7 @@
 			var ret; 
 			switch (b_pop) {  
             	case 'sssall':
+            		$('#combPartno').val('');
             		b_ret = getb_ret();         ///  q_box() 執行後，選取的資料
             		if (!b_ret || b_ret.length == 0)
                         return;
@@ -137,14 +147,28 @@
 
 		function q_gtPost(t_name) {  
 			switch (t_name) {
+                case 'sssall':
+                	var as = _q_appendData("sssall", "", true);
+					for(var i = 0;i < as.length;i++){
+						str = $('#txtReceiver').val();
+						name = as[i].namea;
+						if(str.match(name) == null){
+							newstr = str + name + ';';
+							$('#txtReceiver').val(newstr);
+						}
+					}
+					$('#combPartno').val('');
+                	break;
 				case 'part':
                 	var as = _q_appendData("part", "", true);
                     if (as[0] != undefined) {
-                    	var t_item = "All@全部";
+                    	var t_item = "@,All@全部";
+                    	var t_item2 = ",All-All@全部(全選)";
                         for ( i = 0; i < as.length; i++) {
                         	t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
+                        	t_item2 = t_item2 + (t_item2.length > 0 ? ',' : '') + as[i].noa + '-All@' + as[i].part + '(全選)';
                         }
-                        q_cmbParse("combPartno", t_item);
+                        q_cmbParse("combPartno", t_item + t_item2);
                     }
                 	break;
 				case q_name: if (q_cur == 4)  
@@ -167,7 +191,8 @@
             if($('#Copy').is(':checked')){
             	curData.paste();
             }
-            	$('#Copy').removeAttr('checked');
+            $('#Copy').removeAttr('checked');
+            change_cur();
 			$('#txtNoa').focus();
 		}
 
@@ -175,11 +200,22 @@
 			if (emp($('#txtNoa').val()))
 				return;
 			_btnModi();
+			change_cur();
 			$('#txtNoa').focus();
 		}
 
 		function btnPrint() {
  
+		}
+		function change_cur(){
+			if(q_cur == 1 || q_cur == 2){
+				$('#combPartno').removeAttr('disabled');
+				$('#combPartno').css('background-color', 'rgb(255, 255, 255)');
+			}else{
+				$('#combPartno').attr('disabled','disabled');
+				$('#combPartno').css('background-color', 'rgb(237, 237, 238)');
+			}
+
 		}
 		function btnOk() {
 			var t_err = '';
@@ -230,6 +266,7 @@
 		}
 		function refresh(recno) {
 			_refresh(recno);
+			change_cur();
 		}
 
 		function readonly(t_para, empty) {
@@ -393,9 +430,6 @@
 			input[type="text"],input[type="button"] {     
 				font-size: medium;
 			}
-			span {     
-				text-align:right;
-			}
     </style>
 </head>
 <body>
@@ -457,24 +491,28 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="td1">
-					<span> </span><a id='lblReceiver' class="lbl"></a>
+				<td class="td1" align="right">
+					<span> </span><a id="lblReceiver" class="lbl"></a>
 				</td>
 				<td class="td2">
+					<select id="combPartno" class="txt c1"> </select>
+				</td>
+				<td colspan="2" class="td3">
 					<input id="txtReceiver"  type="text" class="txt c1"/>
 				</td>
-				<td class="td3">
-					<span> </span><a id='lblReceiverChker' class="lbl"></a>
-				</td>
-				<td colspan="2" class="td4">
-					<select id="combPartno" class="txt c1" style="width:50%;"> </select>
-					<input id="btnAddReceiver" type="button" style="width:20%;">
+				<td class="td4" align="right">
+					<input id="chkIsmailreceiver" type="checkbox" />
+					<span> </span><a id="lblIsmailreceiver" class="lbl"></a>
 				</td>
 				<td class="td5">
+					<input id="txtMailreceiver"  type="text" class="txt c1"/>
 				</td>
-				<td class="td6">
+				<td class="td6" align="right">
+					<input id="chkIsmessreceiver" type="checkbox" />
+					<span> </span><a id="lblIsmessreceiver" class="lbl"></a>
 				</td>
 				<td class="td7">
+					<input id="txtMessreceiver"  type="text" class="txt c1"/>
 				</td>
 			</tr>
 			<tr>
