@@ -99,6 +99,10 @@
                 		$(".land").show();
                 	}
                 });
+                
+                $('#btnAssignpaper').click(function (e) {
+		            q_box("assignpaper.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'assignpaper', "95%", "95%", q_getMsg("popAssignpaper"));
+		        });
             }
 			function cmbpaybno(id){
 					t_where = "noa='" + $('#txtPaybno' + id).val() + "'";
@@ -568,6 +572,7 @@
 						<td class="td3">
 							<input id="chkIscombine" type="checkbox" style="float: left;"/><a id="lblIscombine" class="lbl" style="float: left;"></a>
 						</td>
+						<td class="td3"><input id="btnAssignpaper" type="button" class="txt c1" /></td>
 					</tr>
 					<tr>
 			            <td class='td1'><span> </span><a id="lblPaybno" class="lbl btn"></a></td>
