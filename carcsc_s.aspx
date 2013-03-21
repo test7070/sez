@@ -74,6 +74,7 @@
 				t_custno = $.trim($('#txtCustno').val());
 				t_comp = $.trim($('#txtComp').val());
 				t_boatno = $.trim($('#txtBoatno').val());
+				t_tranno =$.trim($('#txtTranno').val());
 				
 				var t_where = " 1=1 " 
 				+ q_sqlPara2("calctype", t_calctype) 
@@ -82,6 +83,7 @@
 				+ q_sqlPara2("trandate", t_btrandate, t_etrandate) 
 				+ q_sqlPara2("mon", t_mon)
 				+ q_sqlPara2("boatno", t_boatno)
+				+ q_sqlPara2("tranno",t_tranno)
 				+ q_sqlPara2("custno", t_custno);
 				if (t_carno.length>0)
                     t_where += " and patindex('%" + t_carno + "%',carno)>0";
