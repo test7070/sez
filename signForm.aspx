@@ -82,6 +82,7 @@
 		function mainPost() { 
 			q_mask(bbmMask);
 			q_gt('part', '', 0, 0, 0, "");
+			change_cur();
 			$("#btnAddReceiver").click(function(e) {
 				if(q_cur == 1 || q_cur == 2){
 					t_where = '';
@@ -167,7 +168,8 @@
             if($('#Copy').is(':checked')){
             	curData.paste();
             }
-            	$('#Copy').removeAttr('checked');
+            $('#Copy').removeAttr('checked');
+            change_cur();
 			$('#txtNoa').focus();
 		}
 
@@ -175,11 +177,22 @@
 			if (emp($('#txtNoa').val()))
 				return;
 			_btnModi();
+			change_cur();
 			$('#txtNoa').focus();
 		}
 
 		function btnPrint() {
  
+		}
+		function change_cur(){
+			if(q_cur == 1 || q_cur == 2){
+				$('#combPartno').removeAttr('disabled');
+				$('#combPartno').css('background-color', 'rgb(255, 255, 255)');
+			}else{
+				$('#combPartno').attr('disabled','disabled');
+				$('#combPartno').css('background-color', 'rgb(237, 237, 238)');
+			}
+
 		}
 		function btnOk() {
 			var t_err = '';
@@ -230,6 +243,7 @@
 		}
 		function refresh(recno) {
 			_refresh(recno);
+			change_cur();
 		}
 
 		function readonly(t_para, empty) {

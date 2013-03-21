@@ -29,12 +29,6 @@
                     return;
                 }
                 mainBrow(6, t_content, t_sqlname, t_postname);
-            	$('#btnClickall').click(function() {
-		 			for (var j = 0; j < brwCount2; j++) {
-						if(!emp($('#txtNoa_'+j).val()))
-							$('#chkSel_'+j)[0].checked="true";
-					}
-				});
             }
 
             function q_gtPost() {
@@ -42,7 +36,21 @@
 
             function refresh() {
                 _refresh();
-                $('#btnClickall').val('全選');
+            	$('#btnClickall').click(function() {
+            		if($('#btnClickall').val() == '全選'){
+			 			for (var j = 0; j < brwCount2; j++) {
+							if(!emp($('#txtNoa_'+j).val()))
+								$('#chkSel_'+j).attr('checked',true);
+						}
+						$('#btnClickall').val('取消全選');
+					}else if($('#btnClickall').val() == '取消全選'){
+			 			for (var j = 0; j < brwCount2; j++) {
+							if(!emp($('#txtNoa_'+j).val()))
+								$('#chkSel_'+j).removeAttr('checked');
+						}
+						$('#btnClickall').val('全選');
+					}
+				});
             }
             
             function bbsAssign() {  /// checked 
@@ -59,7 +67,7 @@
 		<div  id="dbbs"  >
 			<table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
 				<tr>
-					<th align="center" ><input id="btnClickall" type="button"></th>
+					<th align="center" ><input id="btnClickall" type="button" value="全選"></th>
 					<th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
 					<th align="center" style='color:Blue;' ><a id='lblNamea'></a></th>
 				</tr>
