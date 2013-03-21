@@ -278,7 +278,7 @@
 	                $('#chkSssno').children('input').attr('checked', 'checked');
 	                
 	                //---------------------------車行
-	                $('#txtCardeal1a').blur(function() {
+	                $('#txtCardeal1a').change(function() {
                     	if(emp($('#txtCardeal1a').val())){
                     		$('#txtCardeal1b').val('');
                     	}
@@ -286,17 +286,15 @@
                     		$('#txtCardeal2a').val($('#txtCardeal1a').val());
                     		$('#txtCardeal2b').val($('#txtCardeal1b').val());
                     	}
-                    	$('#btnOk').click()
                 	});
-                	$('#txtCardeal2a').blur(function() {
+                	$('#txtCardeal2a').change(function() {
                     	if(emp($('#txtCardeal2a').val())){
                     		$('#txtCardeal2b').val('');
                     	}
-                    	$('#btnOk').click()
                 	});
                 	//---------------------------
                 	//---------------------------車主
-                	$('#txtCarowner1a').blur(function() {
+                	$('#txtCarowner1a').change(function() {
                     	if(emp($('#txtCarowner1a').val())){
                     		$('#txtCarowner1b').val('');
                     	}
@@ -304,17 +302,15 @@
                     		$('#txtCarowner2a').val($('#txtCarowner1a').val());
                     		$('#txtCarowner2b').val($('#txtCarowner1b').val());
                     	}
-                    	$('#btnOk').click()
                 	});
-                	$('#txtCarowner2a').blur(function() {
+                	$('#txtCarowner2a').change(function() {
                     	if(emp($('#txtCarowner2a').val())){
                     		$('#txtCarowner2b').val('');
                     	}
-                    	$('#btnOk').click()
                 	});
                 	//---------------------------
                 	//---------------------------車種樣式
-                	$('#txtCarspec1a').blur(function() {
+                	$('#txtCarspec1a').change(function() {
                     	if(emp($('#txtCarspec1a').val())){
                     		$('#txtCarspec1b').val('');
                     	}
@@ -322,17 +318,15 @@
                     		$('#txtCarspec2a').val($('#txtCarspec1a').val());
                     		$('#txtCarspec2b').val($('#txtCarspec1b').val());
                     	}
-                    	$('#btnOk').click()
                 	});
-                	$('#txtCarspec2a').blur(function() {
+                	$('#txtCarspec2a').change(function() {
                     	if(emp($('#txtCarspec2a').val())){
                     		$('#txtCarspec2b').val('');
                     	}
-                    	$('#btnOk').click()
                 	});
                 	//---------------------------
                 	//---------------------------保險公司
-                	$('#txtCarinsurer1a').blur(function() {
+                	$('#txtCarinsurer1a').change(function() {
                     	if(emp($('#txtCarinsurer1a').val())){
                     		$('#txtCarinsurer1b').val('');
                     	}
@@ -340,19 +334,16 @@
                     		$('#txtCarinsurer2a').val($('#txtCarinsurer1a').val());
                     		$('#txtCarinsurer2b').val($('#txtCarinsurer1b').val());
                     	}
-                    	$('#btnOk').click()
                 	});
-                	$('#txtCarinsurer2a').blur(function() {
+                	$('#txtCarinsurer2a').change(function() {
                     	if(emp($('#txtCarinsurer2a').val())){
                     		$('#txtCarinsurer2b').val('');
                     	}
-                    	$('#btnOk').click()
                 	});
-                	$('#txtTcarno1').blur(function() {
+                	$('#txtTcarno1').change(function() {
                     	if(emp($('#txtTcarno2').val())){
                     		$('#txtTcarno2').val($('#txtTcarno1').val());
                     	}
-                    	$('#btnOk').click()
                 	});
 					//---------------------------
             	//----------------多車欄位設定----------------
@@ -362,15 +353,11 @@
             		q_msg( $(this), '輸入格式為：車牌.車牌.車牌.......');
                 }).blur(function () {
 					q_msg();
-					$('#btnOk').click()
 	        	});
             	//----------------------------------
             	//---------------結尾欄位設定-------------------
             	$('#Xmemo').css("width","410px");
             	$('#txtXmemo').css("width","320px");
-            	$('#txtXmemo').blur(function() {
-                    	$('#btnOk').click()
-               	});
             	//-----------------------------
             	}
             	
