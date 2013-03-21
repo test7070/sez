@@ -268,7 +268,7 @@
             }
 
             function bbsSave(as) {
-                if(!as['trandate'] && !as['carno'] && !as['straddr']) {
+                if (!as['tranno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
