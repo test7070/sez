@@ -327,6 +327,8 @@
 			}
 
 			function sum() {
+				if(!(q_cur==1 || q_cur==2))
+					return;
 				var t_mount, t_price, t_money = 0, t_tax, t_discount;
 				for (var j = 0; j < q_bbsCount; j++) {
 					t_mount = q_float('txtMount_'+j);
