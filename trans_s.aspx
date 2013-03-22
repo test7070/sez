@@ -104,13 +104,13 @@
                 if (t_driver.length>0)
                     t_where += " and patindex('%" + t_driver + "%',driver)>0";
 		       	if(t_trd=='Y')
-		       		t_where += " and len(trdno)>0"
+		       		t_where += " and len(isnull(trdno,''))>0"
 		       	if(t_trd=='N')
-		       		t_where += " and len(trdno)=0"
+		       		t_where += " and len(isnull(trdno,''))=0"
 		       	if(t_tre=='Y')
-		       		t_where += " and len(treno)>0"
+		       		t_where += " and len(isnull(treno,''))>0"
 		       	if(t_tre=='N')
-		       		t_where += " and len(treno)=0"	
+		       		t_where += " and len(isnull(treno,''))=0"	
 		       		
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
