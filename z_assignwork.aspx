@@ -42,7 +42,10 @@
 	                        dbf : 'sss',
 	                        index : 'noa,namea',
 	                        src : 'sss_b.aspx'
-                        }]
+                        },{
+                        	type : '6',
+                        	name : 'xnoa'
+                    	}]
                     });
                 q_popAssign();
                 $('#txtDate1').mask('999/99/99');
@@ -69,7 +72,8 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
-              
+              		var wParent = window.parent.document;
+					$('#txtXnoa').val(wParent.getElementById("txtNoa").value);
             }
 
             function q_boxClose(s2) {

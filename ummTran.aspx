@@ -144,19 +144,19 @@
                       //  var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
 						t_where = "(a.custno='" + $.trim($('#txtCustno').val()) + "'";
 						t_where3 = " where[3]=^^ (c.noa='" + $('#txtCustno').val() + "' ";
-						t_where4 = " where[4]=^^ (a.custno='" + $('#txtCustno').val() + "' ";
+						//t_where5 = " where[5]=^^ (a.custno='" + $('#txtCustno').val() + "' ";
 						
 						if(!emp($('#txtDatea').val()))
-							t_where5 = " where[5]=^^ mon='"+$('#txtDatea').val().substr(0,6)+"' ^^";
+							t_where4 = " where[4]=^^ mon='"+$('#txtDatea').val().substr(0,6)+"' ^^";
 						else
-							t_where5 = " where[5]=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";
+							t_where4 = " where[4]=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";
 						
                         if (!emp($('#txtCustno2').val())) {
                             var t_custno2 = ($('#txtCustno2').val()).split(",");
                             for (var i = 0; i < t_custno2.length; i++) {
                                 t_where += " or a.custno ='" + t_custno2[i] + "'"
                                 t_where3 += " or c.noa ='" + t_custno2[i] + "'"
-                                t_where4 += " or a.custno ='" + t_custno2[i] + "'"
+                                //t_where5 += " or a.custno ='" + t_custno2[i] + "'"
                             }
                         }
                         t_where+=") and (a.unpay+isnull(b.paysale,0))!=0 ";
@@ -173,9 +173,9 @@
 						t_where3 +=" or left(b.suspdate,3)>='"+(dec(q_date().substr(0,3))-1)+"'"
 						t_where3 +=" or left(b.enddate,3)>='"+(dec(q_date().substr(0,3))-1)+"'"*/
 						
-						t_where3 +=") ^^"
+						t_where3 +=") order by noa ^^"
 						
-						t_where4 += " ) and (CHARINDEX('會計',kind)>0 or CHARINDEX('代書',kind)>0) order by noa ^^";
+						//t_where5 += " ) and (CHARINDEX('會計',kind)>0 or CHARINDEX('代書',kind)>0) ^^";
                         	
                        // 最後一個t_whereX 加 order by noa^^";
 
@@ -185,11 +185,11 @@
                         t_where = "^^1=0^^";
                         t_where1 = " where[1]=^^1=0^^";
                         t_where2 = " where[2]=^^ 1=1 ^^";
-                        t_where3 = " where[3]=^^ 1=0 ^^";
-                        t_where4 = " where[4]=^^ 1=0 order by noa ^^";
-                        t_where5 = " where[5]=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";
+                        t_where3 = " where[3]=^^ 1=0 order by noa ^^";
+                        //t_where5 = " where[5]=^^ 1=0 order by noa ^^";
+                        t_where4 = " where[4]=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";
                     }
-                    q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + t_where1 + t_where2 + t_where3+ t_where4+t_where5, 'umm_trd', "95%", "95%", q_getMsg('popUmm_trd'));
+                    q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + t_where1 + t_where2 + t_where3+ t_where4, 'umm_trd', "95%", "95%", q_getMsg('popUmm_trd'));
                 });
             }
 
