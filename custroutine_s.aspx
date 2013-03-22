@@ -11,7 +11,7 @@
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             var q_name = "custroutine_s";
-            aPop = new Array(['txtNoa', 'lblNoa', 'cust', 'noa,nick', 'txtNoa', 'cust_b.aspx']);
+            aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,nick', 'txtCustno', 'cust_b.aspx']);
             $(document).ready(function() {
                 main();
             });
