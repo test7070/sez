@@ -239,7 +239,7 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                 	n += $.trim($('#txtCarno_'+i).val()).length>0?1:0;
                 }
-                if(n != string.length){
+                if(n != string.length && q_cur==2){
                 	alert('stPost 出車單回傳錯誤!');
                 	return;
                 }
