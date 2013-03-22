@@ -240,7 +240,7 @@
                 	n += $.trim($('#txtCarno_'+i).val()).length>0?1:0;
                 }
                 if(n != string.length && q_cur==2){
-                	alert('stPost 出車單回傳錯誤!');
+                	alert('stPost 出車單回傳錯誤!'+n+'_'+string.length +'_'+string);
                 	return;
                 }
                 if(string[0]!=undefined){        
