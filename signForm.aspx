@@ -83,24 +83,30 @@
 			q_mask(bbmMask);
 			q_gt('part', '', 0, 0, 0, "");
 			change_cur();
-			$("#combPartno").change(function(e) {
-				if((q_cur == 1 || q_cur == 2) && $('#combPartno').val() != ''){
-					t_where = '';
-					choice_check = $('#combPartno').val();
-					choice_check = choice_check.split('-');
-					if(choice_check[0] != 'All'){
-						t_where = "partno='"+choice_check[0]+"'";
-					}
-					if(choice_check[1] == 'All'){
-						if(choice_check[0] != 'All'){
-							t_where = "where=^^ " + t_where + " ^^";
-						}
-				        q_gt('sssall', t_where , 0, 0, 0, "", r_accy);	
-					}else{
-						q_box("sssall_check_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where , 'sssall', "50%", "650px", q_getMsg('popSssallcheck'));
-					}
-				}
+			$("#combPartno").change(function() {
+				combtodo($(this));
 			});
+			$("#combPartno2").change(function() {
+				combtodo($(this));
+			});
+		}
+		function combtodo(do_object){
+			if((q_cur == 1 || q_cur == 2) && do_object.val() != ''){
+				t_where = '';
+				choice_check = do_object.val();
+				choice_check = choice_check.split('-');
+				if(choice_check[0] != 'All'){
+					t_where = "partno='"+choice_check[0]+"'";
+				}
+				if(choice_check[1] == 'All'){
+					if(choice_check[0] != 'All'){
+						t_where = "where=^^ " + t_where + " ^^";
+					}
+			        q_gt('sssall', t_where , 0, 0, 0, "", r_accy);	
+				}else{
+					q_box("sssall_check_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where , 'sssall', "50%", "650px", q_getMsg('popSssallcheck'));
+				}
+			}
 		}
 		function txtCopy(dest, source) {
 			var adest = dest.split(',');
@@ -125,16 +131,23 @@
 			var ret; 
 			switch (b_pop) {  
             	case 'sssall':
-            		$('#combPartno').val('');
+            		var now_txtObject;
+            		if($('#combPartno').val() != ''){
+            			now_txtObject = $('#txtReceiver');
+            			$('#combPartno').val('');
+            		}else{
+            			now_txtObject = $('#txtEnder');
+            			$('#combPartno2').val('');
+            		}
             		b_ret = getb_ret();         ///  q_box() 執行後，選取的資料
             		if (!b_ret || b_ret.length == 0)
                         return;
 					for(var i = 0;i < b_ret.length;i++){
-						str = $('#txtReceiver').val();
+						str = now_txtObject.val();
 						name = b_ret[i].namea;
 						if(str.match(name) == null){
 							newstr = str + name + ';';
-							$('#txtReceiver').val(newstr);
+							now_txtObject.val(newstr);
 						}
 					}
             		break;
@@ -149,15 +162,22 @@
 			switch (t_name) {
                 case 'sssall':
                 	var as = _q_appendData("sssall", "", true);
+             		var now_txtObject;
+            		if($('#combPartno').val() != ''){
+            			now_txtObject = $('#txtReceiver');
+						$('#combPartno').val('');
+            		}else{
+            			now_txtObject = $('#txtEnder');
+ 						$('#combPartno2').val('');
+           			}
 					for(var i = 0;i < as.length;i++){
-						str = $('#txtReceiver').val();
+						str = now_txtObject.val();
 						name = as[i].namea;
 						if(str.match(name) == null){
 							newstr = str + name + ';';
-							$('#txtReceiver').val(newstr);
+							now_txtObject.val(newstr);
 						}
 					}
-					$('#combPartno').val('');
                 	break;
 				case 'part':
                 	var as = _q_appendData("part", "", true);
@@ -169,6 +189,7 @@
                         	t_item2 = t_item2 + (t_item2.length > 0 ? ',' : '') + as[i].noa + '-All@' + as[i].part + '(全選)';
                         }
                         q_cmbParse("combPartno", t_item + t_item2);
+                        q_cmbParse("combPartno2", t_item + t_item2);
                     }
                 	break;
 				case q_name: if (q_cur == 4)  
@@ -211,9 +232,13 @@
 			if(q_cur == 1 || q_cur == 2){
 				$('#combPartno').removeAttr('disabled');
 				$('#combPartno').css('background-color', 'rgb(255, 255, 255)');
+				$('#combPartno2').removeAttr('disabled');
+				$('#combPartno2').css('background-color', 'rgb(255, 255, 255)');
 			}else{
 				$('#combPartno').attr('disabled','disabled');
 				$('#combPartno').css('background-color', 'rgb(237, 237, 238)');
+				$('#combPartno2').attr('disabled','disabled');
+				$('#combPartno2').css('background-color', 'rgb(237, 237, 238)');
 			}
 
 		}
@@ -221,26 +246,19 @@
 			var t_err = '';
 			t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
 			chkChker_chk = new Array('chkIsmailchecker','chkIsmailapprovema','chkIsmailapprovefi',
-									'chkIsmailapprovegm','chkIsmailapprovebs','chkIsmesschecker',
-									'chkIsmessapprovema','chkIsmessapprovefi','chkIsmessapprovegm',
-									'chkIsmessapprovebs'
-									);
-			chkChker_lbl1 = new Array('lblChecker','lblApprovema','lblApprovefi','lblApprovegm',
-									'lblApprovebs','lblChecker','lblApprovema','lblApprovefi','lblApprovegm',
-									'lblApprovebs'
-									);
-			chkChker_lbl2 = new Array('lblIsmailchecker','lblIsmailapprovema','lblIsmailapprovefi',
-									'lblIsmailapprovegm','lblIsmailapprovebs','lblIsmesschecker','lblIsmessapprovema',
-									'lblIsmessapprovefi','lblIsmessapprovegm','lblIsmessapprovebs'
-									);
-			chkChker_txt = new Array('txtMailchecker','txtMailapprovema','txtMailapprovefi','txtMailapprovegm',
-									'txtMailapprovebs','txtMesschecker','txtMessapprovema','txtMessapprovefi','txtMessapprovegm',
-									'txtMessapprovebs'
+									'chkIsmailapprovegm','chkIsmailapprovebs','chkIsmailreceiver',
+									'chkIsmailender',
+									'chkIsmesschecker','chkIsmessapprovema','chkIsmessapprovefi',
+									'chkIsmessapprovegm','chkIsmessapprovebs','chkIsmessreceiver',
+									'chkIsmessender'
 									);
 			for(var i = 0;i < chkChker_chk.length;i++){
-				if($('#' + chkChker_chk[i]).is(':checked') && emp($('#' + chkChker_txt[i]).val())){
-					alert('請填寫' + q_getMsg(chkChker_lbl1[i])+'的'+q_getMsg(chkChker_lbl2[i])+'欄位');
-					$('#' + chkChker_txt[i]).focus();
+				chkChker_lbl1 = 'lbl' + chkChker_chk[i].substr(9).substr(0,1).toUpperCase() + chkChker_chk[i].substr(10);
+				chkChker_lbl2 = 'lbl' + chkChker_chk[i].substr(3);
+				chkChker_txt = 'txt' + chkChker_chk[i].substring(5).substring(0,1).toUpperCase() + chkChker_chk[i].substring(6);
+				if($('#' + chkChker_chk[i]).is(':checked') && emp($('#' + chkChker_txt).val())){
+					alert('請填寫' + q_getMsg(chkChker_lbl1)+'的'+q_getMsg(chkChker_lbl2)+'欄位');
+					$('#' + chkChker_txt).focus();
 					return;
 				}				
 			}
@@ -669,6 +687,31 @@
 				</td>
 				<td class="td8">
 					<input id="txtApprovebscon"  type="text" class="txt c1"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="td1" align="right">
+					<span> </span><a id="lblEnder" class="lbl"></a>
+				</td>
+				<td class="td2">
+					<select id="combPartno2" class="txt c1"> </select>
+				</td>
+				<td colspan="2" class="td3">
+					<input id="txtEnder"  type="text" class="txt c1"/>
+				</td>
+				<td class="td4" align="right">
+					<input id="chkIsmailender" type="checkbox" />
+					<span> </span><a id="lblIsmailender" class="lbl"></a>
+				</td>
+				<td class="td5">
+					<input id="txtMailender"  type="text" class="txt c1"/>
+				</td>
+				<td class="td6" align="right">
+					<input id="chkIsmessender" type="checkbox" />
+					<span> </span><a id="lblIsmessender" class="lbl"></a>
+				</td>
+				<td class="td7">
+					<input id="txtMessender"  type="text" class="txt c1"/>
 				</td>
 			</tr>
 			<tr>

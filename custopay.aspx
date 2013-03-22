@@ -48,6 +48,16 @@
 			q_getFormat();
         	bbmMask = [];
             q_mask(bbmMask);
+            $('#lblAccno').click(function() {
+            	if($('#txtDatea').val().substring(0,3).length>0)
+                q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
+            });
+            $('#lblUmmfromto').click(function() {
+			    t_bummno = $('#txtBummno').val();
+			    t_eummno = $('#txtEummno').val();
+        		var t_where = " 1=1 " + q_sqlPara2("noa", t_bummno,t_eummno);
+				q_pop('txtBummno', "umm.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+ t_where +";" + r_accy + '_' + r_cno, 'umm', 'noa', 'datea', "95%", "95%", q_getMsg('popUmm'), true);
+            });
         }
         function q_boxClose( s2) {
             var ret; 
@@ -118,11 +128,11 @@
 	        if (!(q_cur == 1 || q_cur == 2))
 	        	return false;
 	        abbm[q_recno]['accno'] = xmlString.split(";")[0];
-	        abbm[q_recno]['ummfrom'] = xmlString.split(";")[1];
-	        abbm[q_recno]['ummto'] = xmlString.split(";")[2];
+	        abbm[q_recno]['bummno'] = xmlString.split(";")[1];
+	        abbm[q_recno]['eummno'] = xmlString.split(";")[2];
 	        $('#txtAccno').val(xmlString.split(";")[0]);
-	        $('#txtUmmfrom').val(xmlString.split(";")[1]);
-	        $('#txtUmmto').val(xmlString.split(";")[2]);
+	        $('#txtBummno').val(xmlString.split(";")[1]);
+	        $('#txtEummno').val(xmlString.split(";")[2]);
         }
         function refresh(recno) {
             _refresh(recno);
@@ -324,10 +334,10 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
-						<td><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
+						<td><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td> </td>
 					</tr>
 					<tr>
@@ -357,18 +367,18 @@
 						<td> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblAccno" class="lbl"> </a></td>
+						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
 						<td><input id="txtAccno" type="text" class="txt c1"/></td>
 						<td> </td>
 						<td> </td>
 						<td> </td>												
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblUmmfromto" class="lbl"> </a></td>
+						<td><span> </span><a id="lblUmmfromto" class="lbl btn"> </a></td>
 						<td colspan="2">
-							<input id="txtUmmfrom" type="text" style="float:left; width:40%;"/>
+							<input id="txtBummno" type="text" style="float:left; width:40%;"/>
 							<span> </span>
-							<input id="txtUmmto" type="text" style="float:left; width:40%;"/>
+							<input id="txtEummno" type="text" style="float:left; width:40%;"/>
 						</td>
 						<td> </td>
 						<td> </td>
