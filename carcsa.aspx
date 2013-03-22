@@ -20,7 +20,7 @@
             var q_name = "carcsa";
             var q_readonly = ['txtNoa','txtWorker','txtWeight','txtMount','txtCarno','txtCarno2'
             ,'txtInmoney','txtIntotal','txtOutmoney','txtOutplus','txtOutminus','txtOuttotal'];
-            var q_readonlys = ['txtInmoney','txtOutmoney'];
+            var q_readonlys = ['txtInmoney','txtOutmoney','txtTranno'];
             var bbmNum = [['txtWeight',10,3,1],['txtMount',10,3,1],['txtPrice',10,3,1]
             ,['txtInmoney',10,0,1],['txtInplus',10,0,1],['txtInminus',10,0,1],['txtIntotal',10,0,1]
             ,['txtOutmoney',10,0,1],['txtOutplus',10,0,1],['txtOutminus',10,0,1],['txtOuttotal',10,0,1]];
@@ -136,6 +136,18 @@
                 $('#txtInminus').change(function() {
                     sum();
                 });
+                $('#btnTran').click(function(){
+                	var t_where = '',t_tranno='';
+                    for (var i = 0; i < q_bbsCount; i++) {
+                    	t_tranno = $.trim($('#txtTranno_'+i).val());
+                    	if(t_tranno.length>0)
+                    		t_where += (t_where.length > 0 ? ' or ' : '') + "noa='" + t_tranno + "'";
+                    }
+                   	if(t_where.length>0)
+                   		q_pop('', "trans.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno+";", 'vcca', 'noa', 'datea', "95%", "95%", q_getMsg('popTrans'), true);
+               		else
+               			alert('無出車單號。');
+                });
             }
 
             function q_boxClose(s2) {
@@ -219,7 +231,24 @@
 						break;
 				}
 			}
-
+			function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                var string =  xmlString.split(';');
+                var n = 0;
+                for (var i = 0; i < q_bbsCount; i++) {
+                	n += $.trim($('#txtCarno_'+i).val()).length>0?1:0;
+                }
+                if(n != string.length){
+                	alert('stPost 出車單回傳錯誤!');
+                	return;
+                }
+                if(string[0]!=undefined){        
+                	for(var i in string) {
+                		$('#txtTranno_'+i).val(string[i]);
+                	}
+                }
+            }
             function btnOk() {
             	var t_carno = '';
             	$('#txtCarno2').val('');
@@ -717,6 +746,12 @@
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl btn"> </a></td>
 						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td><input type="button" id="btnTran" value="出車單明細"/> </td>
 					</tr>
 				</table>
 			</div>
@@ -739,6 +774,7 @@
 					<td align="center" style="width:80px;"><a id='lblOuts'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblOutpluss'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblOutminuss'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblTranno'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
 					<td>
@@ -765,6 +801,7 @@
 					<td><input  id="txtOutmoney.*" type="text" class="txt c1 num"/></td>
 					<td><input  id="txtOutplus.*" type="text" class="txt c1 num"/></td>
 					<td><input  id="txtOutminus.*" type="text" class="txt c1 num"/></td>
+					<td><input  id="txtTranno.*" type="text" class="txt c1"/></td>
 				</tr>
 			</table>
 		</div>

@@ -16,7 +16,7 @@
             }
             aPop = new Array(['txtAcc1', 'lblAcc', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
             var q_name = "banktran";
-            var q_readonly = ['txtNoa', 'txtWorker'];
+            var q_readonly = ['txtNoa', 'txtWorker','txtAccno'];
             var bbmNum = [];
             var bbmMask = [];
             q_sqlCount = 6;
