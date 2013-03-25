@@ -21,7 +21,7 @@
 			isEditTotal = false;
             q_tables = 's';
             var q_name = "tre";
-            var q_readonly = ['txtAccno','txtNoa', 'txtMoney', 'txtTotal','txtTolls','txtWorker','txtRc2ano','txtPaydate','txtPlusmoney','txtMinusmoney','txtAccno','txtAccno2','txtYear2','txtYear1'];
+            var q_readonly = ['txtAccno','txtNoa', 'txtMoney', 'txtTotal','txtTolls','txtWorker2','txtWorker','txtRc2ano','txtPaydate','txtPlusmoney','txtMinusmoney','txtAccno','txtAccno2','txtYear2','txtYear1'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
             var bbmNum = [['txtUnopay', 10, 0],['txtMoney', 10, 0],['txtTolls', 10, 0],['txtTotal', 10, 0],['txtPlusmoney', 10, 0],['txtMinusmoney', 10, 0]];
             var bbsNum = [['txtMount', 10, 3],['txtPrice', 10, 3],['txtDiscount', 10, 3],['txtMoney', 10, 0],['txtTolls', 10, 0]];
@@ -198,7 +198,10 @@
                 $('#txtMon').val($.trim($('#txtMon').val()));
                 if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()))
                     alert(q_getMsg('lblMon')+'錯誤。');
-            	 $('#txtWorker').val(r_name);
+            	 if(q_cur==1)
+	           	$('#txtWorker').val(r_name);
+	        else
+	           	$('#txtWorker2').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if(t_err.length > 0) {
                     alert(t_err);

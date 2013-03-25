@@ -18,7 +18,7 @@
             isEditTotal = false;
             q_tables = 's';
             var q_name = "trd";
-            var q_readonly = ['txtTaxrate', 'txtTax', 'txtNoa', 'txtMoney', 'txtTotal', 'txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney', 'txtVccano','txtAccno','txtAccno2','txtYear2','txtYear1'];
+            var q_readonly = ['txtTaxrate', 'txtTax', 'txtNoa', 'txtMoney', 'txtTotal','txtWorker2','txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney', 'txtVccano','txtAccno','txtAccno2','txtYear2','txtYear1'];
             var q_readonlys = ['txtOrdeno', 'txtTranno', 'txtTrannoq'];
             var bbmNum = [['txtMoney', 10, 0], ['txtTaxrate', 10, 1], ['txtTax', 10, 0], ['txtTotal', 10, 0], ['txtDiscount', 10, 0], ['txtMount', 10, 3], ['txtPlus', 10, 0], ['txtPlusmoney', 10, 0], ['txtMinusmoney', 10, 0]];
             var bbsNum = [['txtTranmoney', 10, 0], ['txtOverweightcost', 10, 0], ['txtOthercost', 10, 0], ['txtMount', 10, 3], ['txtPrice', 10, 3], ['txtTotal', 10, 0]];
@@ -339,7 +339,10 @@
 					return;
 				}
 
-                $('#txtWorker').val(r_name);
+                if(q_cur==1)
+	           	$('#txtWorker').val(r_name);
+	        else
+	           	$('#txtWorker2').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
