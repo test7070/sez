@@ -64,7 +64,7 @@
 				bbsMask = [['txtDatea', r_picd],['txtIndate', r_picd],['txtPdate', r_picd],['txtUdate', r_picd],['txtPaydate', r_picd]];
                 //q_mask(bbsMask);
                 $('#textNextmon').mask('999/99');
-                $('#textDiscount').mask('999');
+                $('#textDiscount').mask('99');
                 q_cmbParse("cmbIsource", q_getPara('cara.isource'));
                 
                 q_gt('sss', "where=^^ partno='07'^^" , 0, 0, 0, "", r_accy);	
@@ -105,7 +105,7 @@
 					if ($('#divNextmon').is(":hidden")) {
 						$('#divNextmon').show();
 						$('#textNextmon').val(q_date().substr(0,6));
-						$('#textDiscount').val(100);
+						$('#textDiscount').val(0);
 						$('#textBcarno').val($('#txtCarno').val());
 						$('#textEcarno').val($('#txtCarno').val());
 						$('#textSssno').val(sssno);
@@ -121,7 +121,7 @@
 				$('#lbl_divNextmon').click(function(e) {//按下資料匯入
 					$('#divNextmon').hide();
 					if(!emp($('#textNextmon').val())&&!emp($('#textDiscount').val())){
-						q_func( 'cara.genNext',$('#textNextmon').val()+','+$('#textDiscount').val()+','+$('#textBcarno').val()+','+$('#textEcarno').val()+','+$('#textSssno').val()+','+r_name);//genNext(string t_mon , string t_discount, string t_worker);
+						q_func( 'cara.genNext',$('#textNextmon').val()+','+dec($('#textDiscount').val())+','+$('#textBcarno').val()+','+$('#textEcarno').val()+','+$('#textSssno').val()+','+r_name);//genNext(string t_mon , string t_discount, string t_worker);
 			    	}
 				});
 				
