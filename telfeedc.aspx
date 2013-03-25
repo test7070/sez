@@ -90,7 +90,8 @@
             			var telfees = _q_appendData("telfees", "", true);
             			if(telfees[0]!=undefined){
 	            			for(var i = 0; i < telfees.length; i++) {
-	            				if(telfees[i].namea.substr(0,2)=='公司'){
+	            				if(telfees[i].namea.substr(0,2)=='公司' && telfees[i].namea.indexOf('亞太')==-1){
+	            					//0322 大昌電話費只將中華電信的費用來做節費器攤提
 	            					comptotal+=dec(telfees[i].fee);
 	            				}
 		            			for(var j = 0; j < q_bbsCount; j++) {
