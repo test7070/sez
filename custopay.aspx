@@ -15,7 +15,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="custopay";
-        var q_readonly = ['txtNoa','txtAccno','txtUmmfrom','txtUmmto'];
+        var q_readonly = ['txtNoa','txtAccno','txtBummno','txtEummno','txtWorker','txtWorker2'];
         var bbmNum = [['txtMoney', 10, 0, 1]];
         var bbmMask = [];
         q_sqlCount = 6;
@@ -26,7 +26,9 @@
         //ajaxPath = ""; //  execute in Root
         aPop = new Array(
 						['txtCustfromno', 'lblCustfrom', 'cust', 'noa,comp', 'txtCustfromno,txtCustfrom', 'cust_b.aspx'],
-						['txtCusttono', 'lblCustto', 'cust', 'noa,comp', 'txtCusttono,txtCustto', 'cust_b.aspx']
+						['txtCusttono', 'lblCustto', 'cust', 'noa,comp', 'txtCusttono,txtCustto', 'cust_b.aspx'],
+						['txtPartfromno', 'lblPartfromno', 'part', 'noa,part', 'txtPartfromno,txtPartfrom', 'part_b.aspx'],
+						['txtParttono', 'lblParttono', 'part', 'noa,part', 'txtParttono,txtPartto', 'part_b.aspx']
         				);
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -56,7 +58,7 @@
 			    t_bummno = $('#txtBummno').val();
 			    t_eummno = $('#txtEummno').val();
         		var t_where = " 1=1 " + q_sqlPara2("noa", t_bummno,t_eummno);
-				q_pop('txtBummno', "umm.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+ t_where +";" + r_accy + '_' + r_cno, 'umm', 'noa', 'datea', "95%", "95%", q_getMsg('popUmm'), true);
+				q_pop('txtBummno', "ummtran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+ t_where +";" + r_accy + '_' + r_cno, 'umm', 'noa', 'datea', "95%", "95%", q_getMsg('popUmm'), true);
             });
         }
         function q_boxClose( s2) {
@@ -107,6 +109,10 @@
                 alert(t_err);
                 return;
             }
+			if(q_cur==1)
+	           	$('#txtWorker').val(r_name);
+	        else
+	           	$('#txtWorker2').val(r_name);
 			var t_noa = trim($('#txtNoa').val());
 			var t_date = trim($('#txtDatea').val());
     		if (t_noa.length == 0 || t_noa == "AUTO")
@@ -346,8 +352,12 @@
 							<input id="txtCustfromno" type="text" class="txt c1" style="width:30%"/>
 							<input id="txtCustfrom" type="text" class="txt c1" style="width:68%"/>
 						</td>
-						<td> </td>
-						<td> </td>
+						<td><span> </span><a id="lblPartfromno" class="lbl btn"> </a></td>
+						<td>
+							<input id="txtPartfromno" type="text" class="txt c1" style="width:30%"/>
+							<input id="txtPartfrom" type="text" class="txt c1" style="width:68%"/>
+						</td>
+
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCustto" class="lbl btn"> </a></td>
@@ -355,9 +365,11 @@
 							<input id="txtCusttono" type="text" class="txt c1" style="width:30%"/>
 							<input id="txtCustto" type="text" class="txt c1" style="width:68%"/>
 						</td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
+						<td><span> </span><a id="lblParttono" class="lbl btn"> </a></td>
+						<td>
+							<input id="txtParttono" type="text" class="txt c1" style="width:30%"/>
+							<input id="txtPartto" type="text" class="txt c1" style="width:68%"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
@@ -381,6 +393,17 @@
 							<input id="txtEummno" type="text" style="float:left; width:40%;"/>
 						</td>
 						<td> </td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td>
+							<input id="txtWorker" type="text" class="txt c1"/>
+						</td>
+						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
+						<td>
+							<input id="txtWorker2" type="text" class="txt c1"/>
+						</td>
 						<td> </td>
 					</tr>
 		        </table>
