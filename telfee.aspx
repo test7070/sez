@@ -80,6 +80,7 @@
 	            	
 	            	for(var j = 0; j < q_bbsCount; j++){
 	            		for (var i = 0; i < as.length; i++) {
+	            			as[i].taxrate=5;
 		                    if (as[i].telno == $('#txtMobile_'+j).val()) {
 		                        as.splice(i, 1);
 		                        i--;
@@ -87,7 +88,7 @@
 		                }
 		            }
 		            
-	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtMobile,txtOfee,txtFee,txtNamea', as.length, as, 'telno,total,total,namea', 'txtMobile');
+	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtMobile,txtOfee,txtFee,txtNamea,txtTaxrate', as.length, as, 'telno,total,total,namea,taxrate', 'txtMobile');
 	            	sum();
             	break;
                 case q_name: 
