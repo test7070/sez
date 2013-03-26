@@ -68,6 +68,11 @@
 	        	t_where = "where=^^mon ='"+$('#txtMon').val()+"'^^"
 	           	q_gt('telfee', t_where , 0, 0, 0, "", r_accy);
 	        });
+	        
+	        scroll("tbbs","box",1);
+	        $('#scrollplus').click(function () {
+	            	$('#btnPlus').click();
+	       	});
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -350,6 +355,33 @@
         function btnCancel() {
             _btnCancel();
         }
+        
+        var scrollcount=1;
+        function scroll(viewid,scrollid,size){
+        	if(scrollcount>1)
+        	$('#box_'+(scrollcount-1)).remove();
+			var scroll = document.getElementById(scrollid);
+			var tb2 = document.getElementById(viewid).cloneNode(true);
+			var len = tb2.rows.length;
+			for(var i=tb2.rows.length;i>size;i--){
+		                tb2.deleteRow(size);
+			}
+			//tb2.rows[0].deleteCell(0);
+			tb2.rows[0].cells[0].children[0].id="scrollplus"
+			var bak = document.createElement("div");
+			bak.id="box_"+scrollcount
+			scrollcount++;
+			scroll.appendChild(bak);
+			bak.appendChild(tb2);
+			bak.style.position = "absolute";
+			bak.style.backgroundColor = "#fff";
+		    bak.style.display = "block";
+			bak.style.left = 0;
+			bak.style.top = "0px";
+			scroll.onscroll = function(){
+				bak.style.top = this.scrollTop+"px";
+			}
+		}
     </script>
     <style type="text/css">
            #dmain {
@@ -460,6 +492,12 @@
              input[type="text"],input[type="button"] {     
                 font-size: medium;
             }
+            #box{
+				height:430px;
+				width: 100%;
+				overflow-y:auto;
+				position:relative;
+		}
     </style>
     </head>
 <body>
@@ -505,20 +543,23 @@
         </tr>
         </table>
         </div>
+        <div id="box">
         <div class='dbbs' > 
-        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  style="width:100%;">
+        <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  style="width: 1245px;">
             <tr style='color:White; background:#003366;' >
-                <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width: 10%;"><a id='lblPart'></a></td>
-                <td align="center" style="width: 10%;"><a id='lblSss'></a></td>
-                <td align="center" style="width: 8%;"><a id='lblTalkfee'></a></td>
-                <td align="center" style="width: 8%;"><a id='lblTelfee'></a></td>
-                <td align="center" style="width: 8%;"><a id='lblPhonefee'></a></td>
-                <td align="center" style="width: 10%;"><a id='lblTotals'></a></td>
-                <td align="center"><a id='lblMemo'></a></td>
+                <td align="center" id='hide_Plus'  style="width: 35px;">
+                	<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
+                </td>
+                <td align="center" style="width: 123px;"><a id='lblPart'></a></td>
+                <td align="center" style="width: 123px;"><a id='lblSss'></a></td>
+                <td align="center" style="width: 98px;"><a id='lblTalkfee'></a></td>
+                <td align="center" style="width: 98px;;"><a id='lblTelfee'></a></td>
+                <td align="center" style="width: 98px;;"><a id='lblPhonefee'></a></td>
+                <td align="center" style="width: 123px;"><a id='lblTotals'></a></td>
+                <td align="center" style="width: 538px;"><a id='lblMemo'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
+                <td align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td >
                 	<input id="txtPartno.*" type="text" class="txt c5"/>
                 	<input class="btn"  id="btnPart.*" type="button" value='.' style=" float: left;font-weight: bold;width:1%;" />
@@ -537,6 +578,7 @@
                 		<input id="txtNoq.*" type="hidden" /></td>
             </tr>
         </table>
+        </div>
         </div>
         </div>
         <input id="q_sys" type="hidden" />
