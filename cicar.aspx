@@ -17,10 +17,10 @@
             }
 			q_tables = 's';
             var q_name = "cicar";
-            var q_readonly = ['txtWorker','txtNoa','txtVccno','txtPaybno','txtAccno'];
+            var q_readonly = [];
             var q_readonlys = [];
-            var bbmNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1]];
-            var bbsNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1]];
+            var bbmNum = [];
+            var bbsNum = [];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -47,33 +47,10 @@
 
             function mainPost() {
             	q_getFormat();
-                bbmMask = [['txtOdate', r_picd], ['txtWdate', r_picd], ['txtPaydate', r_picd], ['txtEnddate', r_picd]];
+                bbmMask = [];
             	q_mask(bbmMask);
-                q_gt('part', '', 0, 0, 0, "");
-            	$('#btnInput').click(function () {
-            		if(emp($('#txtItemno').val())){
-            			alert('�Х��J����!!');
-            		return;
-            	}
-		           	t_where = "where=^^ noa=(select noa from assignment where noa ='"+$('#txtItemno').val()+"') ^^"
-		           	q_gt('assignment', t_where , 0, 0, 0, "", r_accy);
-	        	});
-             	$('#lblVccno').click(function() {
-		     		t_where = "noa='" + $('#txtVccno').val() + "'";
-            		q_box("vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vcc', "95%", "95%", q_getMsg('popVcctran'));
-             	});
-             	$('#lblPaybno').click(function() {
-		     		t_where = "noa='" + $('#txtPaybno').val() + "'";
-            		q_box("payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "95%", q_getMsg('popPaytran'));
-             	});
-                $('#lblAccno').click(function() {
-                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
-                });
             }
-			function cmbpaybno(id){
-					t_where = "noa='" + $('#txtPaybno' + id).val() + "'";
-            		q_box("payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'payb', "95%", "650px", q_getMsg('popPayb'));
-			}
+
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -85,25 +62,6 @@
             }
 
             function q_gtPost(t_name) {
-            	switch (t_name) {
-            		case 'assignment':
-	            	var as = _q_appendData("assignments", "", true);
-	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtTggno,txtComp,txtProduct,txtDays,txtMoney,txtCost,txtMemo', as.length, as, 'tggno,comp,product,days,money,cost,memo', '');
-	            	sum();
-            	break;
-                	case 'part':
-                        var as = _q_appendData("part", "", true);
-                        if (as[0] != undefined) {
-                            var t_item = "";
-                            for ( i = 0; i < as.length; i++) {
-                                t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].part;
-                            }
-                            q_cmbParse("cmbPartno2", t_item);
-                             if (abbm[q_recno] != undefined) {
-	                        	$("#cmbPartno2").val(abbm[q_recno].partno2);
-	                        }
-                        }
-                        break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -113,27 +71,16 @@
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
-				var s2 = xmlString.split(';');
-                abbm[q_recno]['accno'] = s2[0];
-                abbm[q_recno]['vccno'] = s2[1];
-                abbm[q_recno]['paybno'] = s2[2];
-                $('#txtAccno').val(s2[0]);
-                $('#txtVccno').val(s2[1]);
-                $('#txtPaybno').val(s2[2]);
             }
             
             function btnOk() {
-            	if($.trim($('#txtNick').val()).length==0)
-            		$('#txtNick').val($('#txtComp').val());
- 
+				t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
-                sum();
-                $('#txtWorker').val(r_name);
-                
+               
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
@@ -145,36 +92,17 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
-                q_box('assignwork_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
             }
            
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
-                $('#txtItemno').focus();
                 $('#txtDatea').val(q_date());
-                $('#txtOdate').val(q_date());
-                $('#txtWdate').val(q_date());
-				t_date = new Date(dec(q_date().substring(0,3))+1911 + q_date().substring(3));
-	            t_date.setDate(t_date.getDate()+4);
-	            t_year = t_date.getUTCFullYear()-1911;
-	            t_year = t_year>99?t_year+'':'0'+t_year;
-	            t_month = t_date.getUTCMonth()+1;
-	            t_month = t_month>9?t_month+'':'0'+t_month;
-	            t_day = t_date.getUTCDate();
-	            t_day = t_day>9?t_day+'':'0'+t_day;
-	            $('#txtPaydate').val(t_year+'/'+t_month+'/'+t_day);
-	            $('#txtPaydate').val(t_year+'/'+t_month+'/'+t_day);
-	            //$('#cmbPartno2').val('06');
-	            $('#txtSalesno').val(r_userno);
-	            $('#txtSales').val(r_name);
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();           
-                $('#txtNoa').attr('readonly','readonly');
-                $('#txtItemno').focus();
             }
             function btnPrint() {
             	
@@ -187,14 +115,7 @@
              
             function bbsAssign() {
                 for(var i = 0; i < q_bbsCount; i++) {
-                
                 	if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-                	$('#txtMoney_'+i).blur(function () {
-			            	sum();
-			       		});
-			       	$('#txtCost_'+i).blur(function () {
-			            	sum();
-			       		});
                     }
                 
                 }
@@ -211,15 +132,6 @@
                 return true;
             }
 
-            function sum() {
-            	var t1 = 0,t_money = 0,t_cost=0;
-            	for (var j = 0; j < q_bbsCount; j++) {
-					t_money+=dec($('#txtMoney_'+j).val());
-					t_cost+=dec($('#txtCost_'+j).val());
-            	}  // j
-				q_tr('txtMoney',t_money);
-				q_tr('txtCost',t_cost);
-            }
             
             function refresh(recno) {
                 _refresh(recno);
@@ -227,17 +139,11 @@
             
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-				if (q_cur != 1 && q_cur != 2) {
-                  $('#btnInput').attr('disabled', 'disabled');
-                } else {
-                    $('#btnInput').removeAttr('disabled');
-                }
             }
                 
             
             function btnMinus(id) {
                 _btnMinus(id);
-                sum();
             }
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
