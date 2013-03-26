@@ -388,7 +388,7 @@
             }
             .dview {
                 float: left;
-                width:300px;
+                width:350px;
                 border-width: 0px;
             }
             .tview {
@@ -536,12 +536,14 @@
 						<td align="center" style="width:100px"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:100px"><a id='vewBdate'> </a></td>
 						<td align="center" style="width:60px"><a id='vewCarteamno'> </a></td>
+						<td align="center" style="width:60px"><a id='vewTotal'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox"/></td>
 						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='bdate edate' style="text-align: center;">~bdate ~edate</td>
 						<td id="carteamno=cmbCarteamno" style="text-align: center;">~carteamno=cmbCarteamno</td>
+						<td id="total,0,1" style="text-align: center;">~total,0,1</td>
 					</tr>
 				</table>
 			</div>
