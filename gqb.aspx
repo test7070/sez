@@ -53,10 +53,10 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('gqb.typea'));
                 $("#cmbTypea").focus(function() {
-                    var len = $("#cmbTypea").children().length > 0 ? $("#cmbTypea").children().length : 1;
-                    $("#cmbTypea").attr('size', len + "");
+                    var len = $(this).children().length > 0 ? $(this).children().length : 1;
+                    $(this).attr('size', len + "");
                 }).blur(function() {
-                    $("#cmbTypea").attr('size', '1');
+                    $(this).attr('size', '1');
                 });
                 //判斷支票編號是否重複
                 $('#txtGqbno').change(function() {
@@ -90,14 +90,12 @@
                                 alert("票據號碼已重複輸入");
                                 $('#txtGqbno').focus();
                             }
-                            //q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
                         }
                         if (q_cur == 2) {
                             if (gqbno[0] != undefined && t_gqbno != $('#txtGqbno').val()) {
                                 alert("票據號碼已重複輸入");
                                 $('#txtGqbno').focus();
                             }
-                            //q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
                         }
                         break;
                 }  /// end switch
@@ -152,7 +150,8 @@
                     $('#txtGqbno').focus();
                     return;
                 }
-
+				//****************************************
+				//有問題有問題有問題有問題有問題有問題有問題有問題有問題有問題有問題
                 if (q_cur == 1) {
                     if (gqbno[0] != undefined) {
                         alert("票據號碼已重複輸入");
@@ -167,7 +166,7 @@
                         return;
                     }
                 }
-
+				//*********************************************
                 var t_date = trim($('#txtIndate').val());
                 var tt_gqbno = trim($('#txtGqbno').val());
                 var t_noa = trim($('#txtNoa').val());
