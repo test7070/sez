@@ -1,4 +1,3 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -401,19 +400,19 @@
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:140px; color:black;"><a id='vewComp'> </a></td>
-						<td align="center" style="width:170px; color:black;"><a id='vewMinusitem'> </a></td>
+						<td align="center" style="width:300px; color:black;"><a id='vewItem'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewMinusmoney'> </a></td>
-						<td align="center" style="width:170px; color:black;"><a id='vewPlusitem'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewPlusmoney'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewTrdno'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="datea" style="text-align: center;">~datea</td>
 						<td id="comp,4" style="text-align: center;">~comp,4</td>
-						<td id="minusitem" style="text-align: left;">~minusitem</td>
-						<td id="minusmoney" style="text-align: right;">~minusmoney</td>
-						<td id="plusitem" style="text-align: left;">~plusitem</td>
-						<td id="plusmoney" style="text-align: right;">~plusmoney</td>
+						<td id="minusitem plusitem" style="text-align: left;">~minusitem ~plusitem</td>
+						<td id="minusmoney,0,1" style="text-align: right;">~minusmoney,0,1</td>
+						<td id="plusmoney,0,1" style="text-align: right;">~plusmoney,0,1</td>
+						<td id="trdno" style="text-align: left;">~trdno</td>
 					</tr>
 				</table>
 			</div>
