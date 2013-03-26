@@ -462,13 +462,15 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:20%"><a id='vewDatea'></a></td>
+                <!--<td align="center" style="width:20%"><a id='vewDatea'></a></td>-->
                 <td align="center" style="width:25%"><a id='vewMon'></a></td>
+                <td align="center" style="width:25%"><a id='vewTotal'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
-                   <td align="center" id='datea'>~datea</td>
+                   <!--<td align="center" id='datea'>~datea</td>-->
                    <td align="center" id='mon'>~mon</td>
+                   <td align="center" id='total,0,1'>~total,0,1</td>
             </tr>
         </table>
         </div>
