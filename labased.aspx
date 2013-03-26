@@ -76,7 +76,22 @@
             }
 
             function btnOk() {
-            	
+            	if(q_getHref()[0] == 'noa' && q_getHref()[1] != '' ){
+	            	for(var i = 0 ;i < q_bbsCount;i++){
+	            		if($('#txtHealth_bdate_' + i).val() == ''){
+							$('#txtHealth_bdate_' + i).val($('#txtHealth_bdate_' + (i+1)).val());
+	            		}
+	            		if($('#txtLabor_bdate_' + i).val() == ''){
+							$('#txtLabor_bdate_' + i).val($('#txtLabor_bdate_' + (i+1)).val());
+	            		}
+	            		if($('#txtRetire_bdate_' + i).val() == ''){
+							$('#txtRetire_bdate_' + i).val($('#txtRetire_bdate_' + (i+1)).val());
+	            		}
+	            	}
+            	}else{
+            		alert("read error!");
+            		return;
+            	}
                 t_key = q_getHref();
                 _btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
             }
