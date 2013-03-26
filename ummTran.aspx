@@ -14,7 +14,7 @@
             q_tables = 's';
             var q_name = "umm";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtCno', 'txtAcomp', 'txtSale', 'txtTotal', 'txtPaysale', 'txtUnpay', 'txtOpay', 'textOpay','txtAccno','txtWorker2'];
-            var q_readonlys = ['txtVccno', 'txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2'];
+            var q_readonlys = ['txtVccno', 'txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2','txtMemo2'];
             var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]);
             var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUpay', 10, 0, 1], ['txtUnpayorg', 10, 0, 1]];
             var bbmMask = [];
@@ -76,12 +76,6 @@
 
                 $('#lblAccc').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substr(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "92%", q_getMsg('btnAccc'), true);
-                });
-
-                $('#txtCustno').change(function() {
-                    getOpay();
-                    if($('#txtCustno').val().substr(0,1)>='0'&&$('#txtCustno').val().substr(0,1)<='z')
-                    	$('#btnVcc').click();
                 });
 
                 $('#txtOpay').change(function() {
@@ -206,6 +200,7 @@
                         sum();
                         break;
                     case 'txtCustno':
+                    	getOpay();
                     	if($('#txtCustno').val().substr(0,1)>='0'&&$('#txtCustno').val().substr(0,1)<='z')
                         	$('#btnVcc').click();
                         break;
@@ -240,7 +235,8 @@
                                 $('#txtPart2_' + i).val('');
                             }
 
-                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart,txtMemo,cmbPartno', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2,partno,part2,memo,partno', '');
+                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart,txtMemo2,cmbPartno', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2,partno,part2,memo,partno', '');
+  
                             /// 最後 aEmpField 不可以有【數字欄位】
                             sum();
                             $('#txtAcc1_0').focus();
@@ -339,6 +335,7 @@
                         }
 
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2', as.length, as, 'noa,paysale,_unpay,_unpay,part2', 'txtVccno', '');
+                       	
                         sum();
 
                         break;
@@ -916,14 +913,14 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:1%;"> </td>
-					<td align="center" style="width:8%;"><a id='lblAcc1'></a></td>
-					<td align="center" style="width:5%;"><a id='lblMoney'></a></td>
+					<td align="center" style="width:7%;"><a id='lblAcc1'></a></td>
+					<td align="center" style="width:8%;"><a id='lblMoney'></a></td>
 					<td align="center" style="width:9%;"><a id='lblCheckno'></a></td>
 					<td align="center" style="width:8%;"><a id='lblAccount'></a></td>
-					<td align="center" style="width:8%;"><a id='lblBank'></a></td>
+					<td align="center" style="width:7%;"><a id='lblBank'></a></td>
 					<td align="center" style="width:5%;"><a id='lblIndate'></a></td>
 					<td align="center" style="width:5%;"><a id='lblChgsTran'></a></td>
-					<td align="center" style="width:8%;"><a id='lblMemos'></a></td>
+					<td align="center" style="width:7%;"><a id='lblMemos'></a></td>
 					<td align="center" style="width:5%;"><a id='lblPaysales'></a></td>
 					<td align="center" style="width:5%;"><a id='lblUnpay_s'></a></td>
 				</tr>
@@ -941,6 +938,7 @@
 					</td>
 					<td>
 					<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
+					<input type="text" id="txtMemo.*" style="width:95%;"/>
 					</td>
 					<td>
 					<input type="text" id="txtCheckno.*"  style="width:95%;" />
@@ -964,7 +962,7 @@
 						<input type="text" id="txtPart.*" style="display:none;"/>
 					</td>
 					<td>
-					<input type="text" id="txtMemo.*" style="width:95%;"/>
+					<input type="text" id="txtMemo2.*" style="width:95%;"/>
 					<input type="text" id="txtVccno.*" style="width:95%;" />
 					</td>
 					<td>
