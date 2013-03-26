@@ -17,8 +17,8 @@
 		    }
 		    q_desc = 1
 		    var q_name = "tre_accc";
-		    var q_readonly = ['txtNoa', 'txtWorker', 'txtPaybno', 'txtPayeno', 'txtChkeno', 'txtAccno1', 'txtAccno2', 'txtAccno3', 'txtBdriver', 'txtEdriver'];
-		    var bbmNum = [['txtOpay', 11, 0, 1], ['txtUnopay', 11, 0, 1]];
+		    var q_readonly = ['txtNoa', 'txtWorker', 'txtPaybno', 'txtPayeno', 'txtChkeno', 'txtAccno1', 'txtAccno2', 'txtAccno3', 'txtBdriver', 'txtEdriver','txtTotal'];
+		    var bbmNum = [['txtOpay', 11, 0, 1], ['txtUnopay', 11, 0, 1], ['txtTotal', 11, 0, 1]];
 		    var bbmMask = [];
 		    q_sqlCount = 6;
 		    brwCount = 6;
@@ -143,6 +143,9 @@
 		                        break;
 		                    case 4:
 		                        $('#txtMemo').val(s2[i]);
+		                        break;
+		                    case 5:
+		                        $('#txtTotal').val(s2[i]);
 		                        break;
 		                } //end switch
 		            } //end for
@@ -405,7 +408,7 @@
             }
             .dbbm {
                 float: left;
-                width: 650px;
+                width: 700px;/*650px*/
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -584,7 +587,9 @@
 						<td><input id="txtChkbno" type="text"  class="txt c1"/></td>
 						<td align="center"><a id="lblChkeno"  style="font-weight: bold;font-size: 24px;"> </a></td>
 						<td><input id="txtChkeno" type="text"  class="txt c1"/> </td>
-						<td>
+						<td><span> </span><a id='lblTotal' class="lbl">  </a> </td>
+						<td><input id="txtTotal"  type="text"  class="txt num c1"/> </td>
+						<td style="display:none;">
 							<input id="txtAcc1" style="display:none;"/>
                         	<input id="txtAcc2" style="display:none;"/>
                         </td>
