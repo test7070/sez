@@ -58,17 +58,42 @@
                 q_gt('conttype', '', 0, 0, 0, "");
                 
                  $('#lblConn_cust').click(function() {
-                    t_where = "noa='" + $('#txtNoa').val() + "'";
+                 	var cust2sql="";
+                 	var t_custno2 = ($('#txtCust2').val()).split(",");
+                 	 for (var i = 0; i < t_custno2.length; i++) {
+                 	 	cust2sql += " or noa ='" + t_custno2[i] + "'"
+                 	 }
+                 	
+                    t_where = "noa='" + $('#txtCustno').val() + "'"+cust2sql;
                     q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'Conn_cust', "95%", "650px", q_getMsg('lblConn'));
                 });
                $('#lblStype').click(function(e) {
 					q_box("conttype.aspx", 'conttype', "90%", "600px", q_getMsg("popConttype"));
+				});
+				
+				$('#lblCust2').click(function(e) {
+					q_box("cust_b2.aspx", 'cust', "90%", "600px", q_getMsg("popCust"));
 				});
             }
 
             function q_boxClose(s2) {
                var ret;
                 switch (b_pop) {
+                	case 'cust':
+                		ret = getb_ret();
+                        if(q_cur > 0 && q_cur < 4){
+	                        if(ret[0]!=undefined){
+	                        	for (var i = 0; i < ret.length; i++) {
+	                        		if($('#txtCust2').val().length>0){
+		                            	var temp=$('#txtCust2').val();
+		                            	$('#txtCust2').val(temp+','+ret[i].noa);
+		                            }else{
+		                            	$('#txtCust2').val(ret[i].noa);
+		                            } 
+	                        	}
+	                        }
+						}
+						break;
                 	case 'conttype':
                         q_gt('conttype', '', 0, 0, 0, "");
                         break;	
@@ -89,6 +114,7 @@
                             t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].typea;
                         }
                         q_cmbParse("cmbStype", t_item);
+                        if(abbm[q_recno])
                         $("#cmbStype").val(abbm[q_recno].stype);
                         break;
                     case q_name:
@@ -455,15 +481,14 @@
 							<input id="txtComp"  type="text" class="txt" style="width:70%; float: left;"/>
 							<input id="txtNick"  type="text" style="display: none;"/>
 							</td>
-							<td class="td5"><span> </span><a id='lblCust2' class="lbl"></a></td>
-							<td class="td6">
+							<td class="td5"><span> </span><a id='lblCust2' class="lbl btn"></a></td>
+							<td class="td6" colspan="2">
 							<input id="txtCust2" type="text" class="txt c1"/>
 							</td>
-							<td class="td7"><span> </span><a id='lblConn_cust'  class="lbl btn"> </a></td>
-							<td class="td8">
+							<td class="td7" ><span> </span><a id='lblConn_cust'  class="lbl btn"> </a></td>
+							<!--<td class="td8">
 							<input id="txtConn_cust"  type="text"  class="txt c1"/>
-							</td>
-							
+							</td>-->
 						</tr>
 						<tr class="tr9">
 							<td class="td1" ><span> </span><a id='lblEtype' class="lbl"> </a></td>

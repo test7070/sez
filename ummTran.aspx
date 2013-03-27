@@ -54,29 +54,13 @@
 				q_gt('part', '', 0, 0, 0, "");
 		        q_gt('acomp', '', 0, 0, 0, "");
 		        
-                function umm_trd() {
-                    var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
-                    t_where = "where=^^ custno=" + t_custno + " and unpay!=0 ";
-                    t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "'";
-
-                    var j = 0, s2 = '', s1 = '';
-                    for (var i = 0; i < q_bbsCount; i++) {
-                        if ($.trim($('#txtVccno_' + i).val()).length > 0) {
-                            s2 = s2 + (j == 0 ? "" : " or ") + " noa='" + $('#txtVccno_' + i).val() + "'";
-                            s1 = s1 + (j == 0 ? "" : " or ") + " vccno='" + $('#txtVccno_' + i).val() + "'";
-                            j++;
-                        }
-                    }
-
-                    t_where = t_where + (s2.length > 0 ? " or (" + s2 + ")" : '') + "^^";
-                    t_where1 = t_where1 + (s1.length > 0 ? " or (" + s2 + ")" : '') + "^^";
-                    q_gt('umm_trd', t_where + t_where1, 0, 0, 0, "", r_accy);
-                }
-
-
                 $('#lblAccc').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substr(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "92%", q_getMsg('btnAccc'), true);
                 });
+                
+                $('#lblCust2').click(function(e) {
+					q_box("cust_b2.aspx", 'cust', "90%", "600px", q_getMsg("popCust"));
+				});
 
                 $('#txtOpay').change(function() {
                     sum();
@@ -186,7 +170,26 @@
                     q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + t_where1 + t_where2 + t_where3+ t_where4, 'umm_trd', "95%", "95%", q_getMsg('popUmm_trd'));
                 });
             }
+			
+			function umm_trd() {
+                    var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
+                    t_where = "where=^^ custno=" + t_custno + " and unpay!=0 ";
+                    t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "'";
 
+                    var j = 0, s2 = '', s1 = '';
+                    for (var i = 0; i < q_bbsCount; i++) {
+                        if ($.trim($('#txtVccno_' + i).val()).length > 0) {
+                            s2 = s2 + (j == 0 ? "" : " or ") + " noa='" + $('#txtVccno_' + i).val() + "'";
+                            s1 = s1 + (j == 0 ? "" : " or ") + " vccno='" + $('#txtVccno_' + i).val() + "'";
+                            j++;
+                        }
+                    }
+
+                    t_where = t_where + (s2.length > 0 ? " or (" + s2 + ")" : '') + "^^";
+                    t_where1 = t_where1 + (s1.length > 0 ? " or (" + s2 + ")" : '') + "^^";
+                    q_gt('umm_trd', t_where + t_where1, 0, 0, 0, "", r_accy);
+            }
+			
             function getOpay() {
                 var t_custno = $('#txtCustno').val();
                 var s2 = (q_cur == 2 ? " and noa!='" + $('#txtNoa').val() + "'" : '');
@@ -242,6 +245,21 @@
                             $('#txtAcc1_0').focus();
                         }
                         break;
+                    case 'cust':
+                		ret = getb_ret();
+                        if(q_cur > 0 && q_cur < 4){
+	                        if(ret[0]!=undefined){
+	                        	for (var i = 0; i < ret.length; i++) {
+	                        		if($('#txtCustno2').val().length>0){
+		                            	var temp=$('#txtCustno2').val();
+		                            	$('#txtCustno2').val(temp+','+ret[i].noa);
+		                            }else{
+		                            	$('#txtCustno2').val(ret[i].noa);
+		                            } 
+	                        	}
+	                        }
+						}
+						break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         break;
@@ -822,7 +840,7 @@
 						<td class="6">
 						<input type="button" id="btnVcc" class="txt c1 " />
 						</td>
-						<td class="td7"><span> </span><a id='lblCust2' class="lbl"></a></td>
+						<td class="td7"><span> </span><a id='lblCust2' class="lbl btn"></a></td>
 						<td class="td8">
 						<input id="txtCustno2" type="text" class="txt c1"/>
 						</td>
