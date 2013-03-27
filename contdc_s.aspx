@@ -28,11 +28,25 @@
                 q_langShow();
                 bbmMask = [['txtDatea', r_picd],['txtBcontdate', r_picd],['txtEcontdate', r_picd],['txtChangecontdate', r_picd]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbStype", q_getPara('cont.stype'));
+                //q_cmbParse("cmbStype", q_getPara('cont.stype'));
                 q_cmbParse("cmbEnsuretype", ('').concat(new Array( '定存單質押','不可撤銷保證','銀行本票質押','商業本票質押','現金質押')));
                 $('#txtBdate').focus();
+                q_gt('conttype', '', 0, 0, 0, "");
             }
-
+			 function q_gtPost(t_name) {
+                switch (t_name) {
+                   case 'conttype':
+                        var as = _q_appendData("conttype", "", true);
+                        var t_stype = " @ ";
+                        for ( i = 0; i < as.length; i++) {
+                            t_stype = t_stype + (t_stype.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].typea;
+                        }
+                        q_cmbParse("cmbStype", t_stype);
+                        break;
+						
+                }
+              }
+            
             function q_seekStr() {
             	t_noa = $('#txtNoa').val();
             	t_datea = $('#txtDatea').val();
