@@ -27,7 +27,7 @@
             q_desc = 1;
             aPop = new Array(
             ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,conn', 'txtCustno,txtComp,txtNick,txtConn_cust', 'cust_b.aspx']
-            , ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+            , ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp,nick', 'txtCno,txtAcomp,txtAcompnick', 'acomp_b.aspx']
             , ['txtSales', 'lblSales', 'sss', 'namea,noa', 'txtSales,txtSalesno', 'sss_b.aspx']
             , ['txtAssigner', 'lblAssigner', 'sss', 'namea,noa', 'txtAssigner,txtAssignerno', 'sss_b.aspx']
             , ['txtAssistant', 'lblAssistant', 'sss', 'namea,noa', 'txtAssistant,txtAssistantno', 'sss_b.aspx']
@@ -421,6 +421,7 @@
 							<td class='td2' colspan="3">
 							<input id="txtCno"  type="text" class="txt" style="width:20%; float: left;"/>
 							<input id="txtAcomp"  type="text" class="txt" style="width:80%; float: left;"/>
+							<input id="txtAcompnick"  type="text" style="display: none;"/>
 							</td>
 							<td class="td5"><span> </span><a id="lblGuarantor" class="lbl"> </a></td>
 							<td class="td6" >
