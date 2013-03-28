@@ -564,7 +564,10 @@
                 }
                 
                 q_tr('txtInterest',t_interest);//本月息額不含001,002,102,201,202,203,306,401
-                q_tr('txtItotal',dec($('#txtIprev').val())+dec($('#txtInterest').val()));//累計息額=上月息額+本月息額
+                if(dec($('#txtIprev').val())+dec($('#txtInterest').val())<0)
+                	q_tr('txtItotal',0);//累計息額=上月息額+本月息額
+                else
+                	q_tr('txtItotal',dec($('#txtIprev').val())+dec($('#txtInterest').val()));//累計息額=上月息額+本月息額
                 q_tr('txtBin',t_bin);//本月借支-入款=201-102-112
                 q_tr('txtBtotal',dec($('#txtBprev').val())+dec($('#txtBin').val()));//本月借支餘額=上月借支餘額+本月借支-入款
                 q_tr('txtTotal',t_total);//金額合計
