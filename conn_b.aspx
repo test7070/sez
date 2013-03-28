@@ -128,7 +128,7 @@
 	</head>
 	<body>
 		<div  id="dbbs"  >
-			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
+			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%;font-size: 14px;'  >
 				<tr style='color:White; background:#003366;' >
 					<td align="center">
 					<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
@@ -138,32 +138,40 @@
 					<td align="center"><a id='lblPart'></a></td>
 					<td align="center"><a id='lblTel'></a></td>
 					<td align="center"><a id='lblExt'></a></td>
+					<td align="center"><a id='lblFax'></a></td>
 					<td align="center"><a id='lblMobile'></a></td>
+					<td align="center"><a id='lblEmail'></a></td>
 					<td align="center"><a id='lblAddr'></a></td>
 				</tr>
-				<tr  style='background:#cad3ff;'>
+				<tr  style='background:#cad3ff;font-size: 14px;'>
 					<td style="width:1%;">
-					<input class="btn"  id="btnMinus.*" type="button" value='－' style="font-weight: bold; "  />
+					<input class="btn"  id="btnMinus.*" type="button" value='－' style="font-weight: bold;"  />
 					</td>
 					<td style="width:6%;">
-					<input class="txt"  id="txtNamea.*" maxlength='30'type="text" style="width:98%;"  />
+					<input class="txt"  id="txtNamea.*" type="text" style="width:98%;"  />
 					</td>
 					<td style="width:6%;">
-					<input class="txt" id="txtJob.*" type="text" maxlength='90' style="width:98%;"   />
+					<input class="txt" id="txtJob.*" type="text" style="width:98%;"   />
 					</td>
 					<td style="width:6%;">
-					<input class="txt" id="txtPart.*" type="text" maxlength='90' style="width:98%;"   />
+					<input class="txt" id="txtPart.*" type="text" style="width:98%;"   />
 					</td>
-					<td style="width:12%;">
-					<input class="txt" id="txtTel.*" type="text" maxlength='10' style="width:94%;"  />
+					<td style="width:10%;">
+					<input class="txt" id="txtTel.*" type="text" style="width:94%;"  />
 					</td>
 					<td style="width:5%;">
-					<input class="txt" id="txtExt.*" type="text" maxlength='10' style="width:94%; text-align:right"  />
+					<input class="txt" id="txtExt.*" type="text" style="width:94%; text-align:right"  />
+					</td>
+					<td style="width:10%;">
+					<input class="txt" id="txtFax.*" type="text" style="width:94%;"  />
+					</td>
+					<td style="width:10%;">
+					<input class="txt" id="txtMobile.*" type="text" style="width:98%;"   />
 					</td>
 					<td style="width:12%;">
-					<input class="txt" id="txtMobile.*" type="text" maxlength='90' style="width:98%;"   />
+					<input class="txt" id="txtEmail.*" type="text" style="width:98%;"   />
 					</td>
-					<td style="width:25%;">
+					<td style="width:20%;">
 					<input class="txt" id="txtAddr.*" type="text" maxlength='90' style="width:98%;"  />
 					<input id="txtNoq.*" type="hidden" />
 					<input id="recno.*" type="hidden" />
