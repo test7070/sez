@@ -35,6 +35,10 @@
             aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
             , ['txtStraddrno_', 'btnStraddr_', 'addr', 'noa,addr', 'txtStraddrno_,txtStraddr_', 'addr_b2.aspx']
             , ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,conn,tel,fax,zip_comp,addr_comp', 'txtCustno,txtComp,txtNick,txtConn_cust,txtTel_cust,txtFax_cust,txtZip_cust,txtAddr_cust', 'cust_b.aspx']
+            , ['txtConn_acomp', 'lblConn_acomp', 'sss', 'namea,noa', 'txtConn_acomp', 'sss_b.aspx']
+            , ['txtAssistant', 'lblAssistant', 'sss', 'namea,noa', 'txtAssistant', 'sss_b.aspx']
+            , ['txtCar_conn', 'lblCar_conn', 'sss', 'namea,noa', 'txtCar_conn', 'sss_b.aspx']
+            , ['txtDisatcher', 'lblDisatcher', 'sss', 'namea,noa', 'txtDisatcher', 'sss_b.aspx']
             , ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -397,7 +401,7 @@
 								<input id="txtCno"  type="text" class="txt" style="width:20%; float: left;"/>
 								<input id="txtAcomp"  type="text" class="txt" style="width:80%; float: left;"/>
 							</td>
-							<td><span> </span><a id="lblConn_acomp" class="lbl"> </a></td>
+							<td><span> </span><a id="lblConn_acomp" class="lbl btn"> </a></td>
 							<td><input id="txtConn_acomp"  type="text"  class="txt c1"/></td>
 							<td><span> </span><a id="lblConn_acomp_tel" class="lbl"> </a></td>
 							<td><input id="txtConn_acomp_tel"  type="text"  class="txt c1"/></td>
@@ -407,7 +411,7 @@
 							<td> </td>
 							<td> </td>
 							<td> </td>
-							<td><span> </span><a id="lblAssistant" class="lbl"> </a></td>
+							<td><span> </span><a id="lblAssistant" class="lbl btn"> </a></td>
 							<td><input id="txtAssistant"  type="text"  class="txt c1"/>	</td>
 							<td><span> </span><a id="lblAssistanttel" class="lbl"> </a></td>
 							<td><input id="txtAssistanttel"  type="text"  class="txt c1"/>	</td>
@@ -417,7 +421,7 @@
 							<td> </td>
 							<td> </td>
 							<td> </td>
-							<td><span> </span><a id="lblCar_conn" class="lbl"> </a></td>
+							<td><span> </span><a id="lblCar_conn" class="lbl btn"> </a></td>
 							<td><input id="txtCar_conn"  type="text"  class="txt c1"/>	</td>
 							<td><span> </span><a id="lblDisatcher" class="lbl"> </a></td>
 							<td><input id="txtDisatcher"  type="text"  class="txt c1"/></td>
