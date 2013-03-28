@@ -212,21 +212,27 @@
             function autoicins() {
             	$('#txtProduct_0').val('行號預查規費');
 	            q_tr('txtCost_0',300);
+	            q_tr('txtRealcost_0',310);
 	            $('#txtProduct_1').val('公司預查規費');
 	            q_tr('txtCost_1',150);
-	            $('#txtProduct_2').val('銀行手續費');
-	            q_tr('txtCost_2',10);
-	            $('#txtProduct_3').val('會計師簽證費');
-	            q_tr('txtCost_3',400);
-	            $('#txtProduct_4').val('營利規費');
+	            q_tr('txtRealcost_1',160);
+	            //--銀行手續費3/21含在預查規費中
+	            //$('#txtProduct_2').val('銀行手續費');
+	            //q_tr('txtCost_2',10);
+	            $('#txtProduct_2').val('會計師簽證費');
+	            q_tr('txtCost_2',400);
+	            q_tr('txtRealcost_2',400);
+	            $('#txtProduct_3').val('營利規費');
+	            q_tr('txtCost_3',1000);
+	            q_tr('txtRealcost_3',1000);
+	            $('#txtProduct_4').val('公司規費');
 	            q_tr('txtCost_4',1000);
-	            $('#txtProduct_5').val('公司規費');
-	            q_tr('txtCost_5',1000);
-	            $('#txtProduct_6').val('特許規費');
-	            $('#txtProduct_7').val('運輸執照規費');
-	            $('#txtProduct_8').val('代刻印章');
-	            $('#txtProduct_9').val('代登報紙');
-	            $('#txtProduct_10').val('雜項規費');
+	            q_tr('txtRealcost_4',1000);
+	            $('#txtProduct_5').val('特許規費');
+	            $('#txtProduct_6').val('運輸執照規費');
+	            $('#txtProduct_7').val('代刻印章');
+	            $('#txtProduct_8').val('代登報紙');
+	            $('#txtProduct_9').val('雜項規費');
             }
             
             function btnModi() {
