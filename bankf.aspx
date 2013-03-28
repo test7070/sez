@@ -132,6 +132,11 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                 if (q_cur != 1 && q_cur != 2) {
+                    $('#btnInput').attr('disabled', 'disabled');
+                } else {
+                    $('#btnInput').removeAttr('disabled');
+                }
             }
 
             function btnMinus(id) {
