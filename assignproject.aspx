@@ -17,7 +17,7 @@
             }
 
             
-            var q_name = "assigncost";
+            var q_name = "assignproject";
             var q_readonly = [];
             var bbmNum = [];
             
