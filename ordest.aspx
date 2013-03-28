@@ -1,4 +1,3 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
     <head>
@@ -353,6 +352,21 @@
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            if (t_para) {
+            	for (var j = 0; j < q_bbsCount; j++) {
+		            $('#textSize1_'+j).attr('disabled', 'disabled');
+		            $('#textSize2_'+j).attr('disabled', 'disabled');
+		            $('#textSize3_'+j).attr('disabled', 'disabled');
+		            $('#textSize4_'+j).attr('disabled', 'disabled');
+		    	}
+		    }else {
+		    	for (var j = 0; j < q_bbsCount; j++) {
+		        	$('#textSize1_'+j).removeAttr('disabled');
+		        	$('#textSize2_'+j).removeAttr('disabled');
+		        	$('#textSize3_'+j).removeAttr('disabled');
+		        	$('#textSize4_'+j).removeAttr('disabled');
+		        }
+			}
         }
 
         function btnMinus(id) {
@@ -409,13 +423,13 @@
             	{
             		$('#lblSize_help').text("厚度x寬度x長度");
 	            	for (var j = 0; j < q_bbsCount; j++) {
-			           $('#txtSize4_'+j).hide();
+			           $('#textSize4_'+j).hide();
 			           $('#x3_'+j).hide();
 			         	$('#Size').css('width','222px');
-			         	q_tr('txtSize1_'+ j ,q_float('txtDime_'+j));
-			         	q_tr('txtSize2_'+ j ,q_float('txtWidth_'+j));
-			         	q_tr('txtSize3_'+ j ,q_float('txtLengthb_'+j));
-			         	$('#txtSize4_'+j).val(0);
+			         	q_tr('textSize1_'+ j ,q_float('txtDime_'+j));
+			         	q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
+			         	q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
+			         	$('#textSize4_'+j).val(0);
 			         	$('#txtRadius_'+j).val(0)
 			         }
 			     }
@@ -423,13 +437,13 @@
 		         {
 		         	$('#lblSize_help').text("短徑x長徑x厚度x長度");
 			         for (var j = 0; j < q_bbsCount; j++) {
-			         	$('#txtSize4_'+j).show();
+			         	$('#textSize4_'+j).show();
 			         	$('#x3_'+j).show();
 			         	$('#Size').css('width','297px');
-			         	q_tr('txtSize1_'+ j ,q_float('txtRadius_'+j));
-			         	q_tr('txtSize2_'+ j ,q_float('txtWidth_'+j));
-			         	q_tr('txtSize3_'+ j ,q_float('txtDime_'+j));
-			         	q_tr('txtSize4_'+ j ,q_float('txtLengthb_'+j));
+			         	q_tr('textSize1_'+ j ,q_float('txtRadius_'+j));
+			         	q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
+			         	q_tr('textSize3_'+ j ,q_float('txtDime_'+j));
+			         	q_tr('textSize4_'+ j ,q_float('txtLengthb_'+j));
 			         }
 			     }
 			}
@@ -583,7 +597,7 @@
     </style>
 </head>
 <body>
-    <form id="form1" runat="server" style="height: 100%">
+    <!--<form id="form1" runat="server" style="height: 100%">-->
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' style="overflow:hidden;">
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
@@ -692,13 +706,13 @@
         </div>
         </div>
 
-        <div class='dbbs' > <%--style="overflow-x: hidden; overflow-y: scroll; height:200px"  --%>
+        <div class='dbbs' >
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:10%;"><a id='lblProductno'> </a></td>
                 <td align="center" style="width:13%;"><a id='lblProduct'> </a></td>
-                <td align="center" style="width:8%"><a id='lblSpec_st'> </a></td>
+                <!--<td align="center" style="width:8%"><a id='lblSpec_st'> </a></td>-->
                 <td align="center" style="width:28%"><a id='lblSize'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblMount'> </a></td>
@@ -714,17 +728,18 @@
                                        <input class="txt c6"  id="txtNo2.*" type="text" /></td>
                 <td ><input class="txt c7" id="txtProduct.*" type="text" />
                 <input class="txt c7" id="txtUno.*" type="text" /></td>
-                <td><input class="txt c7" id="txtSpec.*" type="text" /></td>
+                <!--<td><input class="txt c7" id="txtSpec.*" type="text" /></td>-->
                 <td>
-                	<input class="txt num c8" id="txtSize1.*" type="text"/><div id="x1" style="float: left"> x</div>
-                		<input class="txt num c8" id="txtSize2.*" type="text"/><div id="x2" style="float: left"> x</div>
-                        <input class="txt num c8" id="txtSize3.*" type="text"/><div id="x3.*" style="float: left"> x</div>
-                         <input class="txt num c8" id="txtSize4.*" type="text"/>
+                	<input class="txt num c8" id="textSize1.*" type="text"/><div id="x1" style="float: left"> x</div>
+                		<input class="txt num c8" id="textSize2.*" type="text"/><div id="x2" style="float: left"> x</div>
+                        <input class="txt num c8" id="textSize3.*" type="text"/><div id="x3.*" style="float: left"> x</div>
+                         <input class="txt num c8" id="textSize4.*" type="text"/>
                          <!--上為虛擬下為實際-->
                          <input id="txtRadius.*" type="hidden"/>
                 		<input  id="txtWidth.*" type="hidden"/>
                         <input  id="txtDime.*" type="hidden"/>
                          <input id="txtLengthb.*" type="hidden"/>
+                         <input class="txt c7" id="txtSpec.*" type="text" />
                 </td>
                 <td ><input class="txt c7" id="txtUnit.*" type="text"/></td>
                 <td ><input class="txt num c7" id="txtMount.*" type="text" /></td>
@@ -737,11 +752,9 @@
                 <input class="txt c2" id="txtNo3.*" type="text"  />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
             </tr>
-
         </table>
         </div>
         <input id="q_sys" type="hidden" />
-    
-    </form>
+    <!--</form>-->
 </body>
 </html>
