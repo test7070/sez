@@ -17,6 +17,7 @@
             }
 
             var q_name = "bankf";
+
             var q_readonly = ['txtNoa','txtAccno','txtDatea','txtWorker'];
             var bbmNum = [['txtMoney', 8, 3,1],['txtMoney2', 8, 3,1],['txtFixedp', 3, 3,1],['txtMobilep', 3, 3,1]];
             var bbmMask = [];

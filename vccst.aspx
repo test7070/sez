@@ -40,17 +40,17 @@
 
         //////////////////   end Ready
        function main() {
-           if (dataErr)  /// ��J��ƿ�~
+           if (dataErr)  /// 載入資料錯誤
            {
                dataErr = false;
                return;
            }
 
-            mainForm(1); // 1=�̫�@��  0=�Ĥ@��
+            mainForm(1); // 1=最後一筆  0=第一筆
 
         }  ///  end Main()
 
-        function mainPost() { // ��J��Ƨ��A�� refresh �e
+        function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
             bbmMask = [['txtDatea', r_picd ]];
             q_mask(bbmMask);
@@ -123,11 +123,11 @@
                         var i, j = 0;
                         ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtRadius,txtOrdeno,txtNo2,txtPrice,txtMount,txtWeight,txtTotal,txtMemo', b_ret.length, b_ret
                                                            , 'productno,product,spec,size,dime,width,lengthb,radius,noa,no2,price,mount,weight,total,memo'
-                                                           , 'txtProductno,txtProduct,txtSpec');   /// �̫� aEmpField ���i�H���i�Ʀr���j
+                                                           , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
 						size_change();
                         /*for (i = 0; i < ret.length; i++) {
-                            k = ret[i];  ///ret[i]  �x�s tbbs ���
+                            k = ret[i];  ///ret[i]  儲存 tbbs 指標
                             if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
                                 $('#txtMount_' + k).val(b_ret[i]['notv']);
                                 $('#txtWeight_' + k).val(divide0(b_ret[i]['weight'] * b_ret[i]['notv'], b_ret[i]['mount']));
@@ -149,36 +149,36 @@
         }
 
 
-        function q_gtPost(t_name) {  /// ��ƤU��� ...
+        function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
-                case 'tgg':  ////  ���� key in �s���A�a�J form
+                case 'tgg':   ////  直接 key in 編號，帶入 form
                     q_changeFill(t_name, 'txtTggno,txtComp,txtTel,txtPost,txtAddr,txtPaytype,cmbTrantype', 'noa,comp,tel,post_fact,addr_fact,paytype,trantype');
                     break;
 
-                case 'acomp':  ////  ���� key in �s���A�a�J form
+                case 'acomp':   ////  直接 key in 編號，帶入 form
                     q_changeFill(t_name, 'txtCno,txtAcomp', 'noa,acomp');
                     break;
 
-                /*case 'store':  ////  ���� key in �s���A�a�J form
+                /*case 'store':   ////  直接 key in 編號，帶入 form
                     //q_changeFill(t_name, 'txtStoreno,txtStore', 'noa,store');
                     q_changeFill(t_name, 'txtStoreno_' + b_seq + ',txtStore_' + b_seq, 'noa,store');
                     break;*/
 
-                case 'car':  ////  ���� key in �s���A�a�J form
+                case 'car':   ////  直接 key in 編號，帶入 form
                     q_changeFill(t_name, 'txtCarno,txtCar', 'noa,car');
                     break;
 
-                /*case 'sss':  ////  ���� key in �s���A�a�J form
+                /*case 'sss':   ////  直接 key in 編號，帶入 form
                     q_changeFill(t_name, 'txtSalesno,txtSales', 'noa,namea');
                     break;*/
 
-                case 'ucc':  ////  ���� key in �s���A�a�J form
+                case 'ucc':   ////  直接 key in 編號，帶入 form
                     q_changeFill(t_name, 'txtProductno_' + b_seq+ ',txtProduct_' + b_seq+ ',txtUnit_' + b_seq, 'noa,product,unit');
                     break;
 				case 'ucc_style':
             			theory_st(q_name,b_seq,'txtWeight');
             		break;
-                case q_name: if (q_cur == 4)   // �d��
+                case q_name: if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
             }  /// end switch
