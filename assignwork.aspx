@@ -58,9 +58,14 @@
             	bbsMask = [['txtSenddate', r_picd], ['txtApprdate', r_picd], ['txtRepdate', r_picd]];
             	q_cmbParse("cmbProject", ('').concat(new Array( '設立','預查','負責人','公司名稱','股東變更','遷址','董監改選','董監補選','董監持股變動','董監解任','變更印鑑','增資','減資','增減資','營業項目','停業','復業','抄錄','公司證明','資格證明','歇業','遺產稅','贈產稅','修章')));
             	q_cmbParse("cmbProduct", ('').concat(new Array( '','行號預查規費','公司預查規費','銀行手續費','會計師簽證費','營利規費','公司規費','特許規費','建管規費','運輸執照規費','代刻印章','代登報紙','雜項規費','代辦費')),'s');
+            	q_gt('assignproduct', '', 0, 0, 0, "");
+            	q_gt('assignproject', '', 0, 0, 0, "");
             	
                 q_gt('part', '', 0, 0, 0, "");
                  q_cmbParse("cmbKind", ('').concat(new Array( '工商','土地')));
+                $('#lblProject').click(function(e) {
+					q_box("assignproject.aspx", 'conttype', "90%", "600px", q_getMsg("popAssignproject"));
+				});
                 
             	$('#btnInput').click(function () {
             		if(emp($('#txtItemno').val())){
@@ -121,6 +126,17 @@
 
             function q_gtPost(t_name) {
             	switch (t_name) {
+            			case 'assignproject':
+                        var as = _q_appendData("assignproject", "", true);
+                        var t_item = " @ ";
+                        for ( i = 0; i < as.length; i++) {
+                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
+                        }
+                        q_cmbParse("cmbProject", t_item);
+                        if(abbm[q_recno])
+                        $("#cmbProject").val(abbm[q_recno].project);
+                        break;
+
             		case 'assignment':
 	            	var as = _q_appendData("assignments", "", true);
 	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtTggno,txtComp,txtProduct,txtDays,txtMoney,txtCost,txtMemo', as.length, as, 'tggno,comp,product,days,money,cost,memo', '');

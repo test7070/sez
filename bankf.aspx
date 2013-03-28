@@ -19,7 +19,7 @@
             var q_name = "bankf";
 
             var q_readonly = ['txtNoa','txtAccno','txtDatea','txtWorker'];
-            var bbmNum = [['txtMoney', 8, 3,1],['txtMoney2', 8, 3,1],['txtFixedp', 3, 3,1],['txtMobilep', 3, 3,1]];
+            var bbmNum = [['txtMoney', 8, 3,1],['txtMoney2', 8, 3,1],['txtInterestrate', 3, 3,1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -49,7 +49,8 @@
             	bbmMask = [['txtIndate', r_picd],['txtEnddate', r_picd],['txtUndate', r_picd],['txtPaydate', r_picd],['txtDatea', r_picd]];
                 q_mask(bbmMask);
                  q_cmbParse("cmbType", ('').concat(new Array( '一個月','二個月','三個月','四個月','五個月','六個月','七個月','八個月','九個月','十個月','十一個月','十三個月','一年','二年','三年')));
-                  q_cmbParse("cmbPayitype", ('').concat(new Array('定期存款')));
+                  q_cmbParse("cmbPayitype", ('').concat(new Array('到期付息')));
+                  q_cmbParse("cmbRate", ('').concat(new Array('固定利率','機動利率')));
 				$('#txtPayacc1').change(function() {
 					var str=$.trim($(this).val());
                 	if((/^[0-9]{4}$/g).test(str))
@@ -356,10 +357,9 @@
 						<td colspan="2"><input id="txtAccount"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblFixedp' class="lbl"> </a></td>
-						<td><input id="txtFixedp"  type="text" class="txt num c2" />%</td>
-						<td><span> </span><a id='lblMobilep' class="lbl"> </a></td>
-						<td><input id="txtMobilep"  type="text" class="txt num c2" />%</td>
+						<td><span> </span><a id='lblRate' class="lbl"> </a></td>
+						<td><select id="cmbRate"  class="txt c1" > </select></td>
+						<td><input id="txtInterestrate"  type="text" class="txt num c2" />%</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPayitype' class="lbl"> </a></td>
