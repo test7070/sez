@@ -73,9 +73,11 @@
                     }]
                 });
                 q_popAssign();
+                /*
                 q_getFormat();
                 q_langShow();
-                
+                */
+                $('#End select').val('N');
                 $('#txtDate1').mask('999/99/99');
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');

@@ -196,7 +196,7 @@
                 return;
             }
 
-            q_box('quats_b.aspx', 'quats;' + t_where, "95%", "650px", q_getMsg('popQuat'));
+            q_box('quatst_b.aspx', 'quats;' + t_where, "95%", "650px", q_getMsg('popQuat'));
         }
 
         function btnOk() {
