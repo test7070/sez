@@ -109,7 +109,6 @@
 							t_carchgno += (t_carchgno.length>0?',':'')+curData.carchgno[i];
 						t_carchgno='carchgno='+t_carchgno;
 					}
-
 					t_where = "  carno='" + $('#txtCarno').val() + "' and driverno='"+ $('#txtDriverno').val() +"' and  (treno='" + $('#txtNoa').val() + "' or len(isnull(treno,''))=0) ";
 					q_box("carchg_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_carchgno + ";", 'carchg', "95%", "650px", q_getMsg('popCarchg'));
 
@@ -184,7 +183,8 @@
 
             function btnOk() {
             	$('#txtDatea').val($.trim($('#txtDatea').val()));
-            	if($('#txtUnopay').val() !='' && $('#txtTggno').val() == ''){
+            	$('#txtUnopay').val(q_float('txtUnopay'));
+            	if(q_float('txtUnopay') != 0 && $('#txtTggno').val() == ''){
                 	alert('請填寫' + q_getMsg('lblTgg'));
                 	return;
             	}
