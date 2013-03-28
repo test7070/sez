@@ -47,6 +47,7 @@
             function mainPost() {
             	bbmMask = [['txtIndate', r_picd],['txtEnddate', r_picd],['txtUndate', r_picd],['txtPaydate', r_picd],['txtDatea', r_picd]];
                 q_mask(bbmMask);
+                 q_cmbParse("cmbType", ('').concat(new Array( '一個月','二個月','三個月','四個月','五個月','六個月','七個月','八個月','九個月','十個月','十一個月','十三個月','一年','二年','三年')));
 				$('#txtPayacc1').change(function() {
 					var str=$.trim($(this).val());
                 	if((/^[0-9]{4}$/g).test(str))
@@ -336,7 +337,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblType' class="lbl"> </a></td>
-						<td><input id="txtType" type="text" class="txt c1" /></td>
+						<td><select id="cmbType" class="txt c1"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBank' class="lbl btn"> </a></td>
