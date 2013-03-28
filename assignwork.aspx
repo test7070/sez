@@ -57,6 +57,7 @@
             	q_mask(bbmMask);
             	bbsMask = [['txtSenddate', r_picd], ['txtApprdate', r_picd], ['txtRepdate', r_picd]];
             	q_cmbParse("cmbProject", ('').concat(new Array( '設立','預查','負責人','公司名稱','股東變更','遷址','董監改選','董監補選','董監持股變動','董監解任','變更印鑑','增資','減資','營業項目','停業','復業','抄錄','證明','歇業','遺產稅','贈產稅','修章')));
+            	q_cmbParse("cmbProduct", ('').concat(new Array( '','行號預查規費','公司預查規費','銀行手續費','會計師簽證費','營利規費','公司規費','特許規費','建管規費','運輸執照規費','代刻印章','代登報紙','雜項規費','代辦費')),'s');
             	
                 q_gt('part', '', 0, 0, 0, "");
                  q_cmbParse("cmbKind", ('').concat(new Array( '工商','土地')));
@@ -206,19 +207,18 @@
 	            $('#txtSales').val(r_name);
 	            
 	            //工商自動帶產品內容與費用
-	            autoicins();
+	            //autoicins();
             }
             
             function autoicins() {
-            	$('#txtProduct_0').val('行號預查規費');
+            	/*$('#txtProduct_0').val('行號預查規費');
 	            q_tr('txtCost_0',300);
 	            q_tr('txtRealcost_0',310);
 	            $('#txtProduct_1').val('公司預查規費');
 	            q_tr('txtCost_1',150);
 	            q_tr('txtRealcost_1',160);
-	            //--銀行手續費3/21含在預查規費中
-	            //$('#txtProduct_2').val('銀行手續費');
-	            //q_tr('txtCost_2',10);
+	            $('#txtProduct_2').val('銀行手續費');
+	            q_tr('txtCost_2',10);
 	            $('#txtProduct_2').val('會計師簽證費');
 	            q_tr('txtCost_2',400);
 	            q_tr('txtRealcost_2',400);
@@ -232,7 +232,7 @@
 	            $('#txtProduct_6').val('運輸執照規費');
 	            $('#txtProduct_7').val('代刻印章');
 	            $('#txtProduct_8').val('代登報紙');
-	            $('#txtProduct_9').val('雜項規費');
+	            $('#txtProduct_9').val('雜項規費');*/
             }
             
             function btnModi() {
@@ -255,14 +255,16 @@
                 for(var i = 0; i < q_bbsCount; i++) {
                 
                 	if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-                	$('#txtMoney_'+i).blur(function () {
+                		$('#txtMoney_'+i).blur(function () {
 			            	sum();
 			       		});
-			       	$('#txtCost_'+i).blur(function () {
+			       		$('#txtCost_'+i).blur(function () {
+			            	sum();
+			       		});
+			       		$('#chkIsprepay_'+i).change(function () {
 			            	sum();
 			       		});
                     }
-                
                 }
                 _bbsAssign();
                 	if ($('#cmbKind').find("option:selected").text().indexOf('工商')>-1){
@@ -287,7 +289,12 @@
             	var t1 = 0,t_money = 0,t_cost=0;
             	for (var j = 0; j < q_bbsCount; j++) {
 					t_money+=dec($('#txtMoney_'+j).val());
-					t_cost+=dec($('#txtCost_'+j).val());
+					if($('#chkIsprepay_'+j)[0].checked){
+						if(dec($('#txtRealcost_'+j).val())!=0)
+							t_cost+=dec($('#txtRealcost_'+j).val());
+						else
+							t_cost+=dec($('#txtCost_'+j).val());
+					}
             	}  // j
 				q_tr('txtMoney',t_money);
 				q_tr('txtCost',t_cost);
@@ -624,8 +631,9 @@
 					</td>
 					<td><!--<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                         <input type="text" id="txtProductno.*"  style="width:30%; float:left;"/>
-                        <span style="display:block; width:1%;float:left;"> </span>-->
-						<input type="text" id="txtProduct.*"  class="txt c1"/>
+                        <span style="display:block; width:1%;float:left;"> </span>
+						<input type="text" id="txtProduct.*"  class="txt c1"/>-->
+						<select id="cmbProduct.*" class="txt c1" style="font-size: medium;"> </select>
 					</td>
 					<td><input id="txtDays.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMoney.*" type="text" class="txt num c1"/></td>
