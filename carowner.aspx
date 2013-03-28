@@ -14,10 +14,11 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
+
             var q_name = "carowner";
             var q_readonly = ['txtNoa'];
             var bbmNum = [];
-            var bbmMask = [['txtZip_home','999-99'],['txtZip_conn','999-99'],['txtBirthday','999/99/99']];
+            var bbmMask = [['txtZip_home', '999-99'], ['txtZip_conn', '999-99'], ['txtBirthday', '999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -29,96 +30,76 @@
                 bbmKey = ['noa'];
                 q_brwCount();
 
-               q_gt(q_name, q_content, q_sqlCount, 1)
+                q_gt(q_name, q_content, q_sqlCount, 1);
             });
             //////////////////   end Ready
             function main() {
-                if(dataErr) {
+                if (dataErr) {
                     dataErr = false;
                     return;
                 }
-                
+
                 mainForm(0);
             }
 
-            function mainPost() { 
-            	bbmMask = [['txtBirthday', r_picd],['txtIndate', r_picd],['txtHealth_bdate', r_picd], ['txtHealth_edate', r_picd], ['txtLabor1_bdate', r_picd], ['txtLabor1_edate', r_picd], ['txtLabor2_bdate', r_picd], ['txtLabor2_edate', r_picd]];
-		        q_mask(bbmMask);
-            	q_cmbParse("cmbSex",q_getPara('sys.sex'));
-            	$('#lblBalance').parent().click(function(e) {
-					q_box("balance.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'balance', "95%", "95%", q_getMsg("popBalance"));
-				});
-            	$('#lblCarlender').parent().click(function(e) {
-					q_box("carlender.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'carlender', "95%", "95%", q_getMsg("popCarlender"));
-				});
-				$('#lblLabase').parent().click(function(e) {
-					q_box("labase.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labase', "95%", "95%", q_getMsg("popLabase"));
-				});
-            }
-
-            function txtCopy(dest, source) {
-                var adest = dest.split(',');
-                var asource = source.split(',');
-                $('#' + adest[0]).focus(function() {
-                    if(trim($(this).val()).length == 0)
-                        $(this).val(q_getMsg('msgCopy'));
+            function mainPost() {
+                bbmMask = [['txtBirthday', r_picd], ['txtIndate', r_picd], ['txtHealth_bdate', r_picd], ['txtHealth_edate', r_picd], ['txtLabor1_bdate', r_picd], ['txtLabor1_edate', r_picd], ['txtLabor2_bdate', r_picd], ['txtLabor2_edate', r_picd]];
+                q_mask(bbmMask);
+                q_cmbParse("cmbSex", q_getPara('sys.sex'));
+                $('#lblBalance').parent().click(function(e) {
+                    q_box("balance.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'balance', "95%", "95%", q_getMsg("popBalance"));
                 });
-                $('#' + adest[0]).focusout(function() {
-                    var t_copy = ($(this).val().substr(0, 1) == '=');
-                    var t_clear = ($(this).val().substr(0, 2) == ' =');
-                    for(var i = 0; i < adest.length; i++) { {
-                            if(t_copy)
-                                $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                            if(t_clear)
-                                $('#' + adest[i]).val('');
-                        }
-                    }
+                $('#lblCarlender').parent().click(function(e) {
+                    q_box("carlender.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'carlender', "95%", "95%", q_getMsg("popCarlender"));
+                });
+                $('#lblLabase').parent().click(function(e) {
+                    q_box("labase.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labase', "95%", "95%", q_getMsg("popLabase"));
                 });
             }
 
             function q_boxClose(s2) {
-            var ret; 
-            switch (b_pop) {   
-                case q_name + '_s':
-                    q_boxClose2(s2); ///   q_boxClose 3/4
-                    break;
-            }   /// end Switch
-            	
+                var ret;
+                switch (b_pop) {
+                    case q_name + '_s':
+                        q_boxClose2(s2);
+                        ///   q_boxClose 3/4
+                        break;
+                }   /// end Switch
+
             }
 
             function q_gtPost(t_name) {
-            	switch (t_name) {
-                case q_name:
-                	if(q_cur==1){
-                		var caras = _q_appendData("carowner", "", true);
-                		if(as[0]!=undefined){
-                			$('#txtNoa').val(as[0].noa.substr(0,1)+(dec(as[0].noa.substr(1))+1));
-                		}
-                	}
-                	 
-                	if (q_cur == 4)   
-                        q_Seek_gtPost();
+                switch (t_name) {
+                    case q_name:
+                        if (q_cur == 1) {
+                            var caras = _q_appendData("carowner", "", true);
+                            if (as[0] != undefined) {
+                                $('#txtNoa').val(as[0].noa.substr(0, 1) + (dec(as[0].noa.substr(1)) + 1));
+                            }
+                        }
 
-                    break;
-            }  /// end switch
+                        if (q_cur == 4)
+                            q_Seek_gtPost();
+
+                        break;
+                }  /// end switch
             }
 
             function _btnSeek() {
-                if(q_cur > 0 && q_cur < 4)// 1-3
+                if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
                 q_box('carowner_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
             }
-            
+
             function btnIns() {
                 _btnIns();
                 $('#txtNamea').focus();
                 var t_where = "where=^^ noa=(select MAX(noa) from carOwner) ^^";
-                q_gt('carowner', t_where , 0, 0, 0, "", r_accy);
+                q_gt('carowner', t_where, 0, 0, 0, "", r_accy);
             }
 
             function btnModi() {
-                if(emp($('#txtNoa').val()))
+                if (emp($('#txtNoa').val()))
                     return;
 
                 _btnModi();
@@ -130,15 +111,15 @@
             }
 
             function btnOk() {
-            	if ($('#txtBirthday').val().length>0&&checkId($('#txtBirthday').val())!=4){
-                	alert(q_getMsg('lblBirthday')+'錯誤。');
-                	return;
-           		}
-            	if ($('#txtIdno').val().length>0&&checkId($('#txtIdno').val())!=1){
-                	alert(q_getMsg('lblIdno')+'錯誤。');
-                	return;
-           		}
-            	var t_err = '';
+                if ($('#txtBirthday').val().length > 0 && checkId($('#txtBirthday').val()) != 4) {
+                    alert(q_getMsg('lblBirthday') + '錯誤。');
+                    return;
+                }
+                if ($('#txtIdno').val().length > 0 && checkId($('#txtIdno').val()) != 1) {
+                    alert(q_getMsg('lblIdno') + '錯誤。');
+                    return;
+                }
+                var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
                 var t_noa = $('#txtNoa').val();
                 wrServer(t_noa);
@@ -147,18 +128,19 @@
             function wrServer(key_value) {
                 var i;
                 xmlSql = '';
-                if(q_cur == 2)/// popSave
+                if (q_cur == 2)/// popSave
                     xmlSql = q_preXml();
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], '', '', 2);
             }
+
             function refresh(recno) {
                 _refresh(recno);
             }
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                
+
             }
 
             function btnMinus(id) {
@@ -212,7 +194,8 @@
             function btnCancel() {
                 _btnCancel();
             }
-			function checkId(str) {
+
+            function checkId(str) {
                 if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
                     var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
                     var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
@@ -229,37 +212,39 @@
                     }
                     if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
                         return 2;
-                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 3;
-                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
-                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 4
-               	}
-               	return 0;//錯誤
+                } else if ((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//西元年
+                    var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
+                    if (regex.test(str))
+                        return 3;
+                } else if ((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//民國年
+                    str = (parseInt(str.substring(0, 3)) + 1911) + str.substring(3);
+                    var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
+                    if (regex.test(str))
+                        return 4
+                }
+                return 0;
+                //錯誤
             }
+
             function returnparent() {
-            	if(window.parent.q_name=='car2'){
-				 	var wParent = window.parent.document;
-				 	wParent.getElementById("txtCarownerno").value=$('#txtNoa').val();
-				 	wParent.getElementById("txtCarowner").value=$('#txtNamea').val();
-				 	wParent.getElementById("cmbSex").value=$('#cmbSex').val();
-				 	wParent.getElementById("txtIdno").value=$('#txtIdno').val();
-				 	wParent.getElementById("txtBirthday").value=$('#txtBirthday').val();
-				 	wParent.getElementById("txtTel1").value=$('#txtTel1').val();
-				 	wParent.getElementById("txtTel2").value=$('#txtTel2').val();
-				 	wParent.getElementById("txtMobile").value=$('#txtMobile').val();
-				 	wParent.getElementById("txtFax").value=$('#txtFax').val();
-				 	wParent.getElementById("txtAddr_conn").value=$('#txtAddr_conn').val();
-				 	wParent.getElementById("txtAddr_home").value=$('#txtAddr_home').val();
-				 }
-			}
-        </script>
+                if (window.parent.q_name == 'car2') {
+                    var wParent = window.parent.document;
+                    wParent.getElementById("txtCarownerno").value = $('#txtNoa').val();
+                    wParent.getElementById("txtCarowner").value = $('#txtNamea').val();
+                    wParent.getElementById("cmbSex").value = $('#cmbSex').val();
+                    wParent.getElementById("txtIdno").value = $('#txtIdno').val();
+                    wParent.getElementById("txtBirthday").value = $('#txtBirthday').val();
+                    wParent.getElementById("txtTel1").value = $('#txtTel1').val();
+                    wParent.getElementById("txtTel2").value = $('#txtTel2').val();
+                    wParent.getElementById("txtMobile").value = $('#txtMobile').val();
+                    wParent.getElementById("txtFax").value = $('#txtFax').val();
+                    wParent.getElementById("txtAddr_conn").value = $('#txtAddr_conn').val();
+                    wParent.getElementById("txtAddr_home").value = $('#txtAddr_home').val();
+                }
+            }
+		</script>
 		<style type="text/css">
-             #dmain {
+            #dmain {
                 overflow: hidden;
             }
             .dview {
@@ -367,73 +352,73 @@
                 padding: 0px;
                 margin: -1px;
             }
-            
-             input[type="text"],input[type="button"] {     
+
+            input[type="text"], input[type="button"] {
                 font-size: medium;
             }
             .popDiv {
-				position: absolute;
-				z-index: 99;
-				background: #4297D7;
-				height: 370px;
-				width: 500px;
-				border: 2px #EEEEEE solid;
-				border-radius: 5px;
-				padding-top: 10px;
-				display: none;/*default*/
-			}
-			.popDiv .block {
-				border: 1px #CCD9F2 solid;
-				border-radius: 5px;
-			}
-			.popDiv .block .col {
-				display: block;
-				width: 600px;
-				height: 30px;
-				margin-top: 5px;
-				margin-left: 5px;
-			}
-			.btnLbl {
-				background: #cad3ff;
-				border-radius: 5px;
-				display: block;
-				width: 95px;
-				height: 25px;
-				float: left;
-				cursor: default;
-			}
-			.btnLbl.tb {
-				float: right;
-			}
-			.btnLbl.button {
-				cursor: pointer;
-				background: #76A2FE;
-			}
-			.btnLbl.button.close {
-				background: #cad3ff;
-			}
-			.btnLbl.button:hover {
-				background: #FF8F19;
-			}
-			.btnLbl a {
-				color: blue;
-				font-size: medium;
-				height: 25px;
-				line-height: 25px;
-				display: block;
-				text-align: center;
-			}
-			.btnLbl.button a {
-				color: #000000;
-			}
-			.btnLbl.close a {
-				color: red;
-				font-size: 16px;
-				height: 25px;
-				line-height: 25px;
-				display: block;
-				text-align: center;
-			}
+                position: absolute;
+                z-index: 99;
+                background: #4297D7;
+                height: 370px;
+                width: 500px;
+                border: 2px #EEEEEE solid;
+                border-radius: 5px;
+                padding-top: 10px;
+                display: none;/*default*/
+            }
+            .popDiv .block {
+                border: 1px #CCD9F2 solid;
+                border-radius: 5px;
+            }
+            .popDiv .block .col {
+                display: block;
+                width: 600px;
+                height: 30px;
+                margin-top: 5px;
+                margin-left: 5px;
+            }
+            .btnLbl {
+                background: #cad3ff;
+                border-radius: 5px;
+                display: block;
+                width: 95px;
+                height: 25px;
+                float: left;
+                cursor: default;
+            }
+            .btnLbl.tb {
+                float: right;
+            }
+            .btnLbl.button {
+                cursor: pointer;
+                background: #76A2FE;
+            }
+            .btnLbl.button.close {
+                background: #cad3ff;
+            }
+            .btnLbl.button:hover {
+                background: #FF8F19;
+            }
+            .btnLbl a {
+                color: blue;
+                font-size: medium;
+                height: 25px;
+                line-height: 25px;
+                display: block;
+                text-align: center;
+            }
+            .btnLbl.button a {
+                color: #000000;
+            }
+            .btnLbl.close a {
+                color: red;
+                font-size: 16px;
+                height: 25px;
+                line-height: 25px;
+                display: block;
+                text-align: center;
+            }
 		</style>
 	</head>
 	<body onunload='returnparent()'>
@@ -468,7 +453,9 @@
 							<input id="txtNamea"  type="text" class="txt c1"/>
 							</td>
 							<td class="td5"><span> </span><a id='lblSpouse' class="lbl"></a></td>
-							<td class="td6"><input id="txtSpouse"  type="text" class="txt c1"/></td>
+							<td class="td6">
+							<input id="txtSpouse"  type="text" class="txt c1"/>
+							</td>
 						</tr>
 						<tr class="tr2">
 							<td class="td1"><span> </span><a id='lblBirthday' class="lbl"></a></td>
@@ -480,9 +467,7 @@
 							<input id="txtIdno"  type="text" class="txt c1"/>
 							</td>
 							<td class="td5" ><span> </span><a id='lblSex' class="lbl"></a></td>
-							<td class="td6" >
-								<select id="cmbSex" class="txt c6"></select>
-							</td>
+							<td class="td6" ><select id="cmbSex" class="txt c6"></select></td>
 						</tr>
 						<tr class="tr3">
 							<td class="td1"><span> </span><a id='lblTel1' class="lbl"></a></td>
@@ -506,59 +491,59 @@
 						</tr>
 						<tr>
 							<td class="td1"><span> </span><a id='lblIndate' class="lbl"></a></td>
-							<td class="td2"><input id="txtIndate" type="text" class="txt c1"/></td>
+							<td class="td2">
+							<input id="txtIndate" type="text" class="txt c1"/>
+							</td>
 						</tr>
 						<!--<tr>
-							<td class="td1"><span> </span><a id='lblHealth_bdate' class="lbl"></a></td>
-							<td class="td2"><input id="txtHealth_bdate" type="text" class="txt c1"/></td>
-							<td class="td3"><span> </span><a id='lblHealth_edate' class="lbl"></a></td>
-							<td class="td4"><input id="txtHealth_edate" type="text" class="txt c1"/></td>
+						<td class="td1"><span> </span><a id='lblHealth_bdate' class="lbl"></a></td>
+						<td class="td2"><input id="txtHealth_bdate" type="text" class="txt c1"/></td>
+						<td class="td3"><span> </span><a id='lblHealth_edate' class="lbl"></a></td>
+						<td class="td4"><input id="txtHealth_edate" type="text" class="txt c1"/></td>
 						</tr>
 						<tr>
-							<td class="td1"><span> </span><a id='lblLabor1_bdate' class="lbl"></a></td>
-							<td class="td2"><input id="txtLabor1_bdate" type="text" class="txt c1"/></td>
-							<td class="td3"><span> </span><a id='lblLabor1_edate' class="lbl"></a></td>
-							<td class="td4"><input id="txtLabor1_edate" type="text" class="txt c1"/></td>
+						<td class="td1"><span> </span><a id='lblLabor1_bdate' class="lbl"></a></td>
+						<td class="td2"><input id="txtLabor1_bdate" type="text" class="txt c1"/></td>
+						<td class="td3"><span> </span><a id='lblLabor1_edate' class="lbl"></a></td>
+						<td class="td4"><input id="txtLabor1_edate" type="text" class="txt c1"/></td>
 						</tr>
 						<tr>
-							<td class="td1"><span> </span><a id='lblLabor2_bdate' class="lbl"></a></td>
-							<td class="td2"><input id="txtLabor2_bdate" type="text" class="txt c1"/></td>
-							<td class="td3"><span> </span><a id='lblLabor2_edate' class="lbl"></a></td>
-							<td class="td4"><input id="txtLabor2_edate" type="text" class="txt c1"/></td>
+						<td class="td1"><span> </span><a id='lblLabor2_bdate' class="lbl"></a></td>
+						<td class="td2"><input id="txtLabor2_bdate" type="text" class="txt c1"/></td>
+						<td class="td3"><span> </span><a id='lblLabor2_edate' class="lbl"></a></td>
+						<td class="td4"><input id="txtLabor2_edate" type="text" class="txt c1"/></td>
 						</tr>
 						<tr>
-							<td class="td1"><span> </span><a id='lblAcomp' class="lbl btn" ></a></td>
-							<td class="td2" colspan="3">
-								<input id="txtCno"type="text" class="txt c2" style="width: 30%"/>
-								<input id="txtComp"  type="text"  class="txt c3" style="width: 69%"/>
-							</td>
+						<td class="td1"><span> </span><a id='lblAcomp' class="lbl btn" ></a></td>
+						<td class="td2" colspan="3">
+						<input id="txtCno"type="text" class="txt c2" style="width: 30%"/>
+						<input id="txtComp"  type="text"  class="txt c3" style="width: 69%"/>
+						</td>
 						</tr>-->
 						<tr class="tr5">
 							<td class="td1"><span> </span><a id='lblAddr_home' class="lbl"></a></td>
 							<td class="td2" colspan="5">
-								<input id="txtZip_home" type="text" class="txt c4"/>
-								<input id="txtAddr_home" type="text" class="txt c5"/>
+							<input id="txtZip_home" type="text" class="txt c4"/>
+							<input id="txtAddr_home" type="text" class="txt c5"/>
 							</td>
 						</tr>
 						<tr class="tr6">
 							<td class="td1"><span> </span><a id='lblAddr_conn' class="lbl"></a></td>
 							<td class="td2" colspan="5">
-								<input id="txtZip_conn" type="text" class="txt c4"/>
-								<input id="txtAddr_conn" type="text" class="txt c5"/>
+							<input id="txtZip_conn" type="text" class="txt c4"/>
+							<input id="txtAddr_conn" type="text" class="txt c5"/>
 							</td>
 						</tr>
 						<tr class="tr7">
-                            <td class="td1"><span> </span><a id='lblMemo2' class="lbl"></a></td>
-                            <td class="td2" colspan="5">
-                                <input id="txtMemo2" type="text" class="txt c1"/>
-                            </td>
-                        </tr>
-                        <tr class="tr8">
-                            <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-                            <td class="td2" colspan="5">
-                                <textarea id="txtMemo" cols="10" rows="5" style="width: 93%; height: 50px;"></textarea>
-                            </td>
-                        </tr>
+							<td class="td1"><span> </span><a id='lblMemo2' class="lbl"></a></td>
+							<td class="td2" colspan="5">
+							<input id="txtMemo2" type="text" class="txt c1"/>
+							</td>
+						</tr>
+						<tr class="tr8">
+							<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
+							<td class="td2" colspan="5">							<textarea id="txtMemo" cols="10" rows="5" style="width: 93%; height: 50px;"></textarea></td>
+						</tr>
 					</table>
 					<div style="border-radius: 5px; height:30px; padding: 5px 0 0 5px; ">
 						<div id='divBalance' class='btnLbl button'>
