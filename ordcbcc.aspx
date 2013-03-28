@@ -52,7 +52,7 @@
                 q_mask(bbmMask);
                 q_cmbParse("cmbStype", q_getPara('rc2.stype')); 
                 q_cmbParse("cmbCoin", q_getPara('sys.coin'));      
-                q_cmbParse("cmbPaytype", q_getPara('rc2.pay'));  
+                q_cmbParse("cmbPaytype", q_getPara('rc2.paytype'));  
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype')); 
             }
