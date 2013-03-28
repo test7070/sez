@@ -75,7 +75,7 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd], ['txtOdate', r_picd]];  
 
-//            q_cmbParse("cmbStype", q_getPara('vcc_stype')); // 需在 main_form() 後執行，才會載入 系統參數  
+			q_cmbParse("cmbTypea", q_getPara('uca.typea')); // 需在 main_form() 後執行，才會載入 系統參數  
 
             $('#btnTgg').click(function () { pop('tgg'); });   /// 接 q_browFill()
             $('#btnTgg').mouseenter(function () { $(this).css('cursor', 'pointer') });
@@ -382,7 +382,7 @@
         <div class='dbbm' style="width: 68%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr><td class="label1"><a id='lblNoa'></a></td> <td class='column1'><input  type="text" style="width:100%" id="txtNoa" /></td><td class="label2"><a id='lblDatea'></a></td><td class='column2'><input  type="text" id="txtDatea" style="width:100%"/></td><td class='label3'><a id='lblDate2'></a></td><td class='column3'><input  type="text" id="txtDate2" style="width:100%"/></td></tr>
-        <tr><td class="label1"><a id='lblType'></a></td><td><select id="cmbType" style='width:100%;'/></td><td  class="label2"><a id='lblProduct'></a></td><td colspan='3'><input  type="text" id="txtProduct" style="width:100%" /></td></tr>
+        <tr><td class="label1"><a id='lblType'></a></td><td><select id="cmbTypea" style='width:100%;'/></td><td  class="label2"><a id='lblProduct'></a></td><td colspan='3'><input  type="text" id="txtProduct" style="width:100%" /></td></tr>
         <tr><td class="label1"><a id='lblEngprono'></a></td><td><input  type="text" id="txtEngprono"  style="width:100%"/></td><td class="label2"><a id='lblEngpro'></a></td><td class='column2'  colspan='3'><input  type="text" id="txtEngpro" style="width:100%"/></td></tr>
         <tr><td class="label1"><a id='lblProcess'></a></td><td><input  type="text" id="txtProcessNo"  style="width:45%"/><input  type="text" id="txtProcess"  style="width:45%"/></td><td class="label2"><a id='lblSpec'></a></td><td colspan='3'><input  type="text" id="txtSpec"  style="width:100%"/></td></tr>
         <tr><td class="label1"><a id='lblMold'></a></td><td><input  type="text" id="txtMoldno" style="width:45%" /><input  type="text" id="txtMold" style="width:45%" /></td> <td class="label2"><a id='lblTgg'></a></td><td><input  type="text" id="txtTggno"  style="width:100%"/></td><td colspan='2'><input  class="label3" type="text" id="txtComp"   style="width:100%"/></td></tr>

@@ -43,13 +43,13 @@
             }
 
             function mainPost() {
-                var tmp = location.href.split(';');
-               
-                for(x in tmp)
+                var tmp = location.href.split(';');         
+                for(x in tmp){
 	                if(tmp[x].substring(0, 9).toUpperCase() == 'CARCHGNO='){ 
 	                  	curCarchg_b.isData=true;
 	                  	curCarchg_b.noa = tmp[x].substring(9).split(',');
 	                }
+	             }
             }
 
             function bbsAssign() {
