@@ -3,13 +3,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
     <title></title>
-    <script src='../script/qj2.js' type="text/javascript"></script>
-    <script src='qset.js' type="text/javascript"></script>
-    <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
-    <script src="../script/qbox.js" type="text/javascript"></script>
-    <script src='../script/mask.js' type="text/javascript"></script>
-    <link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
+		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
     <script type="text/javascript">
         this.errorHandler = null;
         function onPageError(error) {
@@ -22,9 +26,9 @@
         var q_readonly = ['txtComp'];
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq'];
         var bbmNum = [['txtPrice', 10, 3]];  // 允許 key 小數
-        var bbmNum_comma = [];
+        //var bbmNum_comma = [];
         var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
-        var bbsNum_comma = []; 
+        //var bbsNum_comma = []; 
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = '';
@@ -273,7 +277,7 @@
 
             format();
         }
-
+		/*
         function format() {  ////  主要為數字 comma
             var i;
 
@@ -282,11 +286,12 @@
             q_formats(bbsNum_comma, bbsNum);   /// 顯示 , keyin 只為了小數點顯示
             q_init = 0;
         }
+        */
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
 
-            format();
+            //format();
         }
 
         function readonly(t_para, empty) {
@@ -428,8 +433,14 @@
         <tr><td class='label1'><a id="lblDatea" ></a></td><td><input id="txtDatea" maxlength='30' type="text" style='width:45%;'/></td>
             <td class='label2'><a id="lblNoa" ></a></td><td> <input id="txtNoa"   type="text"  maxlength='20'   style='width:98%;'/></td> </tr>
         <tr>
-        <td class='label1'><input id="btnStation" type="button" value='.' style='width: auto; font-size: medium;'  /></td><td><input id="txtStationno" maxlength='30' type="text"  style='width:45%;'/><input id="txtStation" maxlength='90' type="text"  style='width:48%;'/></td>
-            <td class='label2'><a id="lblWorkno" ></a></td><td><input id="Text1" maxlength='30' type="text"  style='width:98%;'/></td></tr>
+        <td class='label1'>
+        	<input id="btnStation" type="button" value='.' style='width: auto; font-size: medium;'  /></td>
+        	<td>
+        		<input id="txtStationno" maxlength='30' type="text"  style='width:45%;'/>
+        		<input id="txtStation" maxlength='90' type="text"  style='width:48%;'/>
+        	</td>
+            <td class='label2'><a id="lblWorkno" ></a></td>
+            <td><input id="txtWorkno" maxlength='30' type="text"  style='width:98%;'/></td></tr>
 
         <tr>        
             <td align="right"><input id="btnStore" type="button" value='.' style='width: auto; font-size: medium;'  /></td>

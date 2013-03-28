@@ -3,13 +3,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
     <title></title>
-    <script src='../script/qj2.js' type="text/javascript"></script>
-    <script src='qset.js' type="text/javascript"></script>
-    <script src='../script/qj_mess.js' type="text/javascript"></script>
-    <script src="../script/jquery-1.6.1.min.js" type="text/javascript"></script>
-    <script src="../script/qbox.js" type="text/javascript"></script>
-    <script src='../script/mask.js' type="text/javascript"></script>
-    <link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
+		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
     <script type="text/javascript">
         this.errorHandler = null;
         function onPageError(error) {
@@ -22,9 +26,7 @@
         var q_readonly = ['txtComp']; 
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq']; 
         var bbmNum = [['txtPrice', 10, 3]];  // 允許 key 小數
-        var bbmNum_comma = [];
         var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
-        var bbsNum_comma = []; 
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
@@ -255,7 +257,7 @@
 
             format();
         }
-
+		/*
         function format() {  ////  主要為數字 comma
             var i;
 
@@ -264,11 +266,12 @@
             q_formats(bbsNum_comma, bbsNum);   /// 顯示 , keyin 只為了小數點顯示
             q_init = 0;
         }
+        */
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
 
-            format();
+            //format();
         }
 
         function readonly(t_para, empty) {
@@ -389,7 +392,7 @@
 <body>
     <form id="form1" runat="server" style="height: 98%">
 <!--#include file="../inc/toolbar.inc"-->
-        <div class="dview" id="dview" style="float: left;  width:32%;"  >
+        <div class="dview" id="dview" style="float: left;  width:30%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
@@ -398,63 +401,101 @@
                 <td align="center" style="width:40%"><a id='vewProduct'></a></td>
             </tr>
              <tr>
-                   <td ><input id="chkBrow.*" type="checkbox" style=' '/>.</td>
+                   <td ><input id="chkBrow.*" type="checkbox"></td>
                    <td align="center" id='ordeno'>~ordeno</td>
                    <td align="center" id='comp,4'>~comp,4</td>
                    <td align="center" id='productno product'>~productno ~product</td>
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 68%;float: left;">
+        <div class='dbbm' style="width: 70%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
-
-        <tr>
-        <td class='label1'><a id="lblNoa" ></a></td><td> <input id="txtNoa"   type="text"  maxlength='20'   style='width:98%;'/></td>
-        <td class='label2'><a id="lblCucdate" ></a></td><td><input id="txtCuadate" maxlength='30' type="text" style='width:98%;'/></td>
-		<td class='label3'><a id="lblMount" ></a></td><td><input id="txtMount" maxlength='30' type="text"  style='width:98%;'/></td> </tr>
-
-        <tr>
-        <td class='label1'><a id="lblDatea" ></a></td><td><input id="txtDatea" maxlength='10' type="text"  style='width:45%;'/>
-                  <a id="lblEnda" ></a><input id="txtEnda" maxlength='30' type="text" style='width:10%;'/></td>
-        <td class='label2'><a id="lblWorkdate" ></a></td><td><input id="txtWorkdate" maxlength='30' type="text"  style='width:98%;'/></td>
-        <td class='label3'><a id="lblInmount" ></a></td><td><input id="txtInmount" maxlength='30' type="text"  style='width:98%;text-align:right;'/></td></tr>
-
-        <tr>
-		<td class='label1'><a id="lblProductno" ></a></td><td><input id="txtProductno" maxlength='30' type="text"  style='width:98%;'/></td>
-        <td class='label2'><a id="lblEnddate2" ></a></td><td><input id="txtEnddate2" maxlength='30' type="text"  style='width:98%;'/></td>
-        <td class='label3'><a id="lblRmount" ></a></td><td><input id="txtRmount" maxlength='30' type="text"  style='width:98%;text-align:right;'/></td></tr>
-
-        <tr>
-		<td class='label1'><a id="lblProduct" ></a></td><td><input id="txtProduct" maxlength='90' type="text"  style='width:98%;'/></td>
-        <td class='label2'><a id="lblEnddate" ></a></td><td><input id="txtEnddate" maxlength='30' type="text"  style='width:98%;'/></td>
-        <td class='label3'><a id="lblErrmount" ></a></td><td><input id="txtErrmount" maxlength='30' type="text"  style='width:98%;text-align:right;'/></td></tr>
-
-        <tr>
-		<td class='label1'><a id="lblStation" ></a></td><td><input id="txtStationno" maxlength='30' type="text"  style='width:45%;'/><input id="txtStation" maxlength='90' type="text"  style='width:50%;'/></td>
-		<td class='label2'><a id="lblRank" ></a></td><td><input id="txtRank" maxlength='30' type="text"  style='width:98%;'/></td>
-        <td class='label3'><a id="lblOrdeno" ></a></td><td><input id="txtOrdeno" maxlength='30' type="text"  style='width:80%;'/>  <input id="txtNo2" maxlength='10' type="text"  style='width:10%;'/></td></tr>
-        
-        <tr>
-        <td class='label1'><a id="lblComp" ></a></td><td><input id="txtTggno" maxlength='90' type="text"  style='width:45%;'/><input id="txtComp" maxlength='90' type="text"  style='width:50%;'/></td>
-		<td class='label2'><a id="lblPrice" ></a></td><td><input id="txtPrice" maxlength='30' type="text"  style='width:98%;text-align:right;'/></td>
-        <td class='label3'><a id="lblCucno" ></a></td><td><input id="txtCucno" maxlength='30' type="text"  style='width:98%;'/></td></tr>
-
-        <tr>
-        <td class='label1'><a id="lblProcess" ></a></td><td><input id="txtProcessNo" maxlength='30' type="text"  style='width:45%;'/><input id="txtProcess" maxlength='30' type="text"  style='width:50%;'/>
-          </td>
-		<td class='label2'><a id="lblHours" ></a></td><td><input id="txtHours" maxlength='30' type="text"  style='width:98%;text-align:right;'/></td>
-        <td class='label3'><a id="lblUno" ></a></td><td><input id="txtUno" maxlength='30' type="text"  style='width:98%;'/></td></tr>
-        
-        <tr>
-        <td class='label1'><a id="lblMold" ></a></td><td><input id="txtMoldno" maxlength='30' type="text"  style='width:45%;'/><input  type="text" id="txtMold" style="width:50%" /></td>
-        <td class='label2'><a id="lblMemo" ></a></td><td colspan='3'><input id="txtMemo" maxlength='90' type="text"  style='width:98%;'/></td></tr>
-
-
-
+	        <tr>
+		        <td class='label1'><span> </span><a id="lblNoa" > </a></td>
+		        <td><input id="txtNoa"   type="text"  maxlength='20'   style='width:98%;'/></td>
+		        <td class='label2'><span> </span><a id="lblCucdate" > </a></td>
+		        <td><input id="txtCuadate" maxlength='30' type="text" style='width:98%;'/></td>
+				<td class='label3'><span> </span><a id="lblMount" > </a></td>
+				<td><input id="txtMount" maxlength='30' type="text"  style='width:98%;'/></td> 
+			</tr>
+	        <tr>
+		        <td class='label1'><span> </span><a id="lblDatea" > </a></td>
+		        <td>
+		        	<input id="txtDatea" maxlength='10' type="text"  style='width:45%;'/>
+		            <span> </span><a id="lblEnda" > </a>
+		            <input id="txtEnda" maxlength='30' type="text" style='width:10%;'/>
+		        </td>
+		        <td class='label2'><span> </span><a id="lblWorkdate" > </a></td>
+		        <td><input id="txtWorkdate" maxlength='30' type="text"  style='width:98%;'/></td>
+		        <td class='label3'><span> </span><a id="lblInmount" > </a></td>
+		        <td><input id="txtInmount" maxlength='30' type="text"  style='width:98%;text-align:right;'/></td>
+	        </tr>
+	        <tr>
+				<td class='label1'><span> </span><a id="lblProductno" > </a></td>
+				<td><input id="txtProductno" maxlength='30' type="text"  style='width:98%;'/></td>
+		        <td class='label2'><span> </span><a id="lblEnddate2" > </a></td>
+		        <td><input id="txtEnddate2" maxlength='30' type="text"  style='width:98%;'/></td>
+		        <td class='label3'><span> </span><a id="lblRmount" > </a></td>
+		        <td><input id="txtRmount" maxlength='30' type="text"  style='width:98%;text-align:right;'/></td>
+	        </tr>
+	        <tr>
+				<td class='label1'><span> </span><a id="lblProduct" > </a></td>
+				<td><input id="txtProduct" maxlength='90' type="text"  style='width:98%;'/></td>
+		        <td class='label2'><span> </span><a id="lblEnddate" > </a></td>
+		        <td><input id="txtEnddate" maxlength='30' type="text"  style='width:98%;'/></td>
+		        <td class='label3'><span> </span><a id="lblErrmount" > </a></td>
+		        <td><input id="txtErrmount" maxlength='30' type="text"  style='width:98%;text-align:right;'/></td>
+	        </tr>
+	        <tr>
+				<td class='label1'><span> </span><a id="lblStation" > </a></td>
+				<td>
+					<input id="txtStationno" maxlength='30' type="text"  style='width:45%;'/>
+					<input id="txtStation" maxlength='90' type="text"  style='width:50%;'/>
+				</td>
+				<td class='label2'><span> </span><a id="lblRank" > </a></td>
+				<td><input id="txtRank" maxlength='30' type="text"  style='width:98%;'/></td>
+		        <td class='label3'><span> </span><a id="lblOrdeno" > </a></td>
+		        <td>
+		        	<input id="txtOrdeno" maxlength='30' type="text"  style='width:80%;'/>
+					<input id="txtNo2" maxlength='10' type="text"  style='width:10%;'/>
+				</td>
+			</tr>
+	        <tr>
+		        <td class='label1'><span> </span><a id="lblComp" > </a></td>
+		        <td>
+		        	<input id="txtTggno" maxlength='90' type="text"  style='width:45%;'/>
+		        	<input id="txtComp" maxlength='90' type="text"  style='width:50%;'/>
+		        </td>
+				<td class='label2'><span> </span><a id="lblPrice" > </a></td>
+				<td><input id="txtPrice" maxlength='30' type="text"  style='width:98%;text-align:right;'/></td>
+		        <td class='label3'><span> </span><a id="lblCucno" > </a></td>
+		        <td><input id="txtCucno" maxlength='30' type="text"  style='width:98%;'/></td>
+	        </tr>
+	
+	        <tr>
+		        <td class='label1'><span> </span><a id="lblProcess" > </a></td>
+		        <td>
+		        	<input id="txtProcessNo" maxlength='30' type="text"  style='width:45%;'/>
+		        	<input id="txtProcess" maxlength='30' type="text"  style='width:50%;'/>
+		        </td>
+				<td class='label2'><span> </span><a id="lblHours" > </a></td>
+				<td><input id="txtHours" maxlength='30' type="text"  style='width:98%;text-align:right;'/></td>
+		        <td class='label3'><span> </span><a id="lblUno" > </a></td>
+		        <td><input id="txtUno" maxlength='30' type="text"  style='width:98%;'/></td>
+	        </tr>
+	        <tr>
+		        <td class='label1'><span> </span><a id="lblMold" > </a></td>
+		        <td>
+		        	<input id="txtMoldno" maxlength='30' type="text"  style='width:45%;'/>
+		        	<input  type="text" id="txtMold" style="width:50%" />
+		        </td>
+		        <td class='label2'><span> </span><a id="lblMemo" > </a></td>
+		        <td colspan='3'><input id="txtMemo" maxlength='90' type="text"  style='width:98%;'/></td>
+	        </tr>
         </table>
         </div>
 
-        <div class='dbbs' > <%--style="overflow-x: hidden; overflow-y: scroll; height:200px"  --%>
+        <div class='dbbs'>
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
