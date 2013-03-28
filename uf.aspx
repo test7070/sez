@@ -28,7 +28,9 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'], ['txtBankno', 'lblBankno', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);
+            aPop = new Array(
+            ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']
+            , ['txtBankno', 'lblBank', 'bank', 'noa,bank,account', 'txtBankno,txtBank,txtAccount', 'bank_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
