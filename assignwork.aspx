@@ -56,7 +56,7 @@
                 bbmMask = [['txtOdate', r_picd], ['txtWdate', r_picd], ['txtPaydate', r_picd], ['txtEnddate', r_picd]];
             	q_mask(bbmMask);
             	bbsMask = [['txtSenddate', r_picd], ['txtApprdate', r_picd], ['txtRepdate', r_picd]];
-            	q_cmbParse("cmbProject", ('').concat(new Array( '設立','預查','負責人','公司名稱','股東變更','遷址','董監改選','董監補選','董監持股變動','董監解任','變更印鑑','增資','減資','營業項目','停業','復業','抄錄','證明','歇業','遺產稅','贈產稅','修章')));
+            	q_cmbParse("cmbProject", ('').concat(new Array( '設立','預查','負責人','公司名稱','股東變更','遷址','董監改選','董監補選','董監持股變動','董監解任','變更印鑑','增資','減資','增減資','營業項目','停業','復業','抄錄','公司證明','資格證明','歇業','遺產稅','贈產稅','修章')));
             	q_cmbParse("cmbProduct", ('').concat(new Array( '','行號預查規費','公司預查規費','銀行手續費','會計師簽證費','營利規費','公司規費','特許規費','建管規費','運輸執照規費','代刻印章','代登報紙','雜項規費','代辦費')),'s');
             	
                 q_gt('part', '', 0, 0, 0, "");

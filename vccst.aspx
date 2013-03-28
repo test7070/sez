@@ -203,7 +203,7 @@
         }
 
         function btnOk() {
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtTggno', q_getMsg('lblTggno')], ['txtCno', q_getMsg('btnAcomp')]]);  // �ˬd�ť� 
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtTggno', q_getMsg('lblTggno')], ['txtCno', q_getMsg('btnAcomp')]]);  // 檢查空白 
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
@@ -212,7 +212,7 @@
             sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
-            if (s1.length == 0 || s1 == "AUTO")   /// �۰ʲ��ͽs��
+            if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
                 q_gtnoa(q_name, replaceAll('I' + $('#txtDatea').val(), '/', ''));
             else
                 wrServer(s1);
@@ -241,39 +241,39 @@
             cmb.value = '';
         }
 
-        function bbsAssign() {  /// �?�B�⦡
+        function bbsAssign() {  /// 表身運算式
             _bbsAssign();
             for (var j = 0; j < ( q_bbsCount==0 ? 1 : q_bbsCount); j++) {
                 $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
                 $('#btnProductno_' + j).click(function () {
-                    t_IdSeq = -1;  /// �n��  �~��ϥ� q_bodyId()
+                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
                     q_bodyId($(this).attr('id'));
                     b_seq = t_IdSeq;
                     pop('ucc', '_'+b_seq);
                  });
                  $('#txtProductno_' + j).change(function () {
-                     t_IdSeq = -1;  /// �n��  �~��ϥ� q_bodyId()
+                     t_IdSeq = -1; /// 要先給  才能使用 q_bodyId()
                      q_bodyId($(this).attr('id'));
                      b_seq = t_IdSeq;
-                     q_change($(this), 'ucc', 'noa', 'noa,product');  /// �� q_gtPost()
+                     q_change($(this), 'ucc', 'noa', 'noa,product');  /// 接 q_gtPost()
                  });
 
                  $('#btnStore_' + j).click(function () {
-                    t_IdSeq = -1;  /// �n��  �~��ϥ� q_bodyId()
+                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
                     q_bodyId($(this).attr('id'));
                     b_seq = t_IdSeq;
                     pop('store', '_'+b_seq);
                  });
                  $('#txtStoreno_' + j).change(function () {
-                     t_IdSeq = -1;  /// �n��  �~��ϥ� q_bodyId()
+                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
                      q_bodyId($(this).attr('id'));
                      b_seq = t_IdSeq;
-                     q_change($(this), 'store', 'noa', 'noa,store');  /// �� q_gtPost()
+                     q_change($(this), 'store', 'noa', 'noa,store');  /// 接 q_gtPost()
                  });
                  
-                 //�N�������ƭȱa�J������íp�⤽��----------------------------------------------------------
+                 //將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
 		                 $('#txtSize1_' + j).change(function () {
-		                     t_IdSeq = -1;  /// �n��  �~��ϥ� q_bodyId()
+		                     t_IdSeq = -1;  
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
 		                     
@@ -288,7 +288,7 @@
 							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
 		                 });
 		                 $('#txtSize2_' + j).change(function () {
-		                     t_IdSeq = -1;  /// �n��  �~��ϥ� q_bodyId()
+		                     t_IdSeq = -1;  
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
 		                     
@@ -303,7 +303,7 @@
 							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
 		                 });
 		                 $('#txtSize3_' + j).change(function () {
-		                     t_IdSeq = -1;  /// �n��  �~��ϥ� q_bodyId()
+		                     t_IdSeq = -1;  
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
 					         	
@@ -318,7 +318,7 @@
 							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
 		                 });
 		                 $('#txtSize4_' + j).change(function () {
-		                     t_IdSeq = -1;  /// �n��  �~��ϥ� q_bodyId()
+		                     t_IdSeq = -1;  
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
 		                     
@@ -374,7 +374,7 @@
         }
 
         function bbsSave(as) {   
-            if (!as['productno'] && !as['product'] && !as['spec'] && !dec( as['total'])) {  //���s�ɱ��
+            if (!as['productno'] && !as['product'] && !as['spec'] && !dec( as['total'])) {  //不存檔條件
                 as[bbsKey[1]] = '';
                 return;
             }
@@ -515,7 +515,7 @@
 			         }
 			     }
 		}
-		function theory_st(q_name,id,txtweight) { //id ��BBS��id,txtweight���nbbs�g�J�����
+		function theory_st(q_name,id,txtweight) { //id 為BBS的id,txtweight為要bbs寫入的欄位
 			var calc="";
 			var as = _q_appendData("ucc", "", true);
 			if(as[0]==undefined)
@@ -523,13 +523,13 @@
 				alert('請輸入正確材質');
 				return;
 			}
-			//�P�_�?�Ѧ�theory:40
+			//判斷表身參考theory:40
 			if(q_name=='uccb'||q_name=='uccc'||q_name=='cubu'||q_name=='ins'||q_name=='rc2s'||
 				q_name=='ina'||q_name=='cut'||q_name=='cnn'||q_name=='cng'||q_name=='vccd'||
 				q_name=='rc2'||q_name=='ordc'||q_name=='ordb'||q_name=='get') 
 			{
-		        calc=as[0].calc3;//�w�s
-			}else{//���~�P�P��L
+		        calc=as[0].calc3;//庫存
+			}else{//內外銷與其他
 				var cmb = document.getElementById("cmbStype");
 				if (!cmb) {
 					alert('cmbStype 不存在');
@@ -537,9 +537,9 @@
 				}
 				//qsys....orde.stype
 				if($('#cmbStype').val()==3)
-				    calc=as[0].calc2;	//�~�P
+				    calc=as[0].calc2;	//外銷
 				else
-					calc=as[0].calc;	//���P�P��L
+					calc=as[0].calc;//內銷與其他
 		
 			}
 			//�ŭȧP�_
@@ -555,7 +555,7 @@
 				$('#txtMount_'+id).val(0);
 
 			eval('var result=' +calc.replace(/DIME/g,$('#txtDime_'+id).val()).replace(/WIDTH/g,$('#txtWidth_'+id).val()).replace(/LENGTH/g,$('#txtLengthb_'+id).val()).replace(/RADIUS/g,$('#txtRadius_'+id).val()));
-		    //�p��=DIME �e��=WIDTH ���=LENGTH �~�| =RADIUS
+		    //厚度=DIME 寬度=WIDTH 長度=LENGTH 外徑 =RADIUS
 			q_tr(txtweight+'_'+id ,result*q_float('txtMount_'+id));//$('#'+txtweight+'_'+id).val(result*dec($('#txtMount_'+id).val()));
 			
 			var weight_total=0;
