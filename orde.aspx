@@ -192,7 +192,7 @@
                 return;
             }
 
-            q_box('quats_b.aspx', 'quats;' + t_where, "95%", "650px", q_getMsg('popQuat'));
+            q_box('quatst_b.aspx', 'quats;' + t_where, "95%", "650px", q_getMsg('popQuat'));
         }
 
         function btnOk() {
@@ -650,32 +650,45 @@
                 <td align="center"><a id='lblMount'> </a></td>
                 <td align="center"><a id='lblWeights'> </a></td>
                 <td align="center"><a id='lblPrices'> </a></td>
-                <td align="center"><a id='lblRadius'> </a></td>
                 <td align="center"><a id='lblTotals'> </a></td>
                 <td align="center"><a id='lblMemos'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td style="width:10%; text-align:center"><input class="txt c6"  id="txtProductno.*" maxlength='30'type="text" style="width:98%;" />
-                                       <input class="btn"  id="btnProduct.*" type="button" value='...' style=" font-weight: bold;" />
-                                       <input class="txt c6"  id="txtNo2.*" type="text" /></td>
-                <td style="width:15%;"><input class="txt c7" id="txtProduct.*" type="text" />
-                <input class="txt c7" id="txtUno.*" type="text" /></td>
-                <td style="width:16%;"><input class="txt num c6" id="txtDime.*" type="text" />x
-                                    <input class="txt num c6" id="txtWidth.*" type="text"   />x
-                                    <input class="txt num c6" id="txtLengthb.*" type="text" />
-                                    <input class="txt c7" id="txtSpec.*" type="text"  /></td>
-                <td style="width:4%;"><input class="txt c7" id="txtUnit.*" type="text"/></td>
-                <td style="width:5%;"><input class="txt num c7" id="txtMount.*" type="text" /></td>
-                <td style="width:8%;"><input class="txt num c7" id="txtWeight.*" type="text" /></td>
-                <td style="width:6%;"><input class="txt num c7" id="txtPrice.*" type="text"  /></td>
-                <td style="width:6%;"><input class="txt num c7" id="txtRadius.*" type="text"  /></td>
-                <td style="width:8%;"><input class="txt num c7" id="txtTotal.*" type="text" />
-                                      <input class="txt num c7" id="txtGweight.*" type="text"/></td>
-                <td style="width:12%;"><input class="txt c7" id="txtMemo.*" type="text" />
-                <input class="txt" id="txtQuatno.*" type="text"  />
-                <input class="txt c2" id="txtNo3.*" type="text"  />
-                <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
+                <td style="width:1%;">
+                	<input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" />
+                </td>
+                <td style="width:10%; text-align:center">
+                	<input class="txt c6"  id="txtProductno.*" maxlength='30'type="text" style="width:98%;" />
+                    <input class="btn"  id="btnProduct.*" type="button" value='...' style=" font-weight: bold;" />
+                    <input class="txt c6"  id="txtNo2.*" type="text" />
+                </td>
+                <td style="width:15%;">
+                	<input class="txt c7" id="txtProduct.*" type="text" />
+                </td>
+                <td style="width:16%;">
+                    <input class="txt c7" id="txtSpec.*" type="text"  /></td>
+                <td style="width:4%;">
+                	<input class="txt c7" id="txtUnit.*" type="text"/>
+                </td>
+                <td style="width:5%;">
+                	<input class="txt num c7" id="txtMount.*" type="text" />
+                </td>
+                <td style="width:8%;">
+                	<input class="txt num c7" id="txtWeight.*" type="text" />
+                </td>
+                <td style="width:6%;">
+                	<input class="txt num c7" id="txtPrice.*" type="text"  />
+                </td>
+                <td style="width:8%;">
+                	<input class="txt num c7" id="txtTotal.*" type="text" />
+                    <input class="txt num c7" id="txtGweight.*" type="text"/>
+                </td>
+                <td style="width:12%;">
+	                <input class="txt c7" id="txtMemo.*" type="text" />
+	                <input class="txt" id="txtQuatno.*" type="text"  />
+	                <input class="txt c2" id="txtNo3.*" type="text"  />
+	                <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
+                </td>
             </tr>
 
         </table>

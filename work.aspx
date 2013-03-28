@@ -340,7 +340,7 @@
         }    
         .tbbm
         {
-            FONT-SIZE: 12pt;
+            font-size: 15px;
             COLOR: blue;
             TEXT-ALIGN: left;
             border-color: white; 
@@ -375,7 +375,7 @@
         }           
          .label1
         {
-            width: 8%; text-align:right;
+            width: 12%; text-align:right;
         }       
         .label2
         {
@@ -383,10 +383,8 @@
         }
         .label3
         {
-            width: 8%; text-align:right;
+            width: 12%; text-align:right;
         }
-       
-      
     </style>
 </head>
 <body>
@@ -412,7 +410,7 @@
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 	        <tr>
 		        <td class='label1'><span> </span><a id="lblNoa" > </a></td>
-		        <td><input id="txtNoa"   type="text"  maxlength='20'   style='width:98%;'/></td>
+		        <td><input id="txtNoa"   type="text"  maxlength='20' style='width:98%;'/></td>
 		        <td class='label2'><span> </span><a id="lblCucdate" > </a></td>
 		        <td><input id="txtCuadate" maxlength='30' type="text" style='width:98%;'/></td>
 				<td class='label3'><span> </span><a id="lblMount" > </a></td>
@@ -421,7 +419,7 @@
 	        <tr>
 		        <td class='label1'><span> </span><a id="lblDatea" > </a></td>
 		        <td>
-		        	<input id="txtDatea" maxlength='10' type="text"  style='width:45%;'/>
+		        	<input id="txtDatea" maxlength='10' type="text" style='width:45%;'/>
 		            <span> </span><a id="lblEnda" > </a>
 		            <input id="txtEnda" maxlength='30' type="text" style='width:10%;'/>
 		        </td>
@@ -433,8 +431,8 @@
 	        <tr>
 				<td class='label1'><span> </span><a id="lblProductno" > </a></td>
 				<td><input id="txtProductno" maxlength='30' type="text"  style='width:98%;'/></td>
-		        <td class='label2'><span> </span><a id="lblEnddate2" > </a></td>
-		        <td><input id="txtEnddate2" maxlength='30' type="text"  style='width:98%;'/></td>
+		        <td class='label2'><span> </span><a id="lblUindate" > </a></td>
+		        <td><input id="txtUindate" maxlength='30' type="text"  style='width:98%;'/></td>
 		        <td class='label3'><span> </span><a id="lblRmount" > </a></td>
 		        <td><input id="txtRmount" maxlength='30' type="text"  style='width:98%;text-align:right;'/></td>
 	        </tr>
@@ -450,7 +448,7 @@
 				<td class='label1'><span> </span><a id="lblStation" > </a></td>
 				<td>
 					<input id="txtStationno" maxlength='30' type="text"  style='width:45%;'/>
-					<input id="txtStation" maxlength='90' type="text"  style='width:50%;'/>
+					<input id="txtStation" maxlength='90' type="text"  style='width:45%;'/>
 				</td>
 				<td class='label2'><span> </span><a id="lblRank" > </a></td>
 				<td><input id="txtRank" maxlength='30' type="text"  style='width:98%;'/></td>
@@ -464,7 +462,7 @@
 		        <td class='label1'><span> </span><a id="lblComp" > </a></td>
 		        <td>
 		        	<input id="txtTggno" maxlength='90' type="text"  style='width:45%;'/>
-		        	<input id="txtComp" maxlength='90' type="text"  style='width:50%;'/>
+		        	<input id="txtComp" maxlength='90' type="text"  style='width:45%;'/>
 		        </td>
 				<td class='label2'><span> </span><a id="lblPrice" > </a></td>
 				<td><input id="txtPrice" maxlength='30' type="text"  style='width:98%;text-align:right;'/></td>
@@ -476,7 +474,7 @@
 		        <td class='label1'><span> </span><a id="lblProcess" > </a></td>
 		        <td>
 		        	<input id="txtProcessNo" maxlength='30' type="text"  style='width:45%;'/>
-		        	<input id="txtProcess" maxlength='30' type="text"  style='width:50%;'/>
+		        	<input id="txtProcess" maxlength='30' type="text"  style='width:45%;'/>
 		        </td>
 				<td class='label2'><span> </span><a id="lblHours" > </a></td>
 				<td><input id="txtHours" maxlength='30' type="text"  style='width:98%;text-align:right;'/></td>
@@ -487,7 +485,7 @@
 		        <td class='label1'><span> </span><a id="lblMold" > </a></td>
 		        <td>
 		        	<input id="txtMoldno" maxlength='30' type="text"  style='width:45%;'/>
-		        	<input  type="text" id="txtMold" style="width:50%" />
+		        	<input  type="text" id="txtMold" style="width:45%" />
 		        </td>
 		        <td class='label2'><span> </span><a id="lblMemo" > </a></td>
 		        <td colspan='3'><input id="txtMemo" maxlength='90' type="text"  style='width:98%;'/></td>

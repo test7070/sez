@@ -10,11 +10,22 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = 'salinsures', t_content = ' ', bbsKey = ['noa'], as; 
-    var isBott = false;  /// 是否已按過 最後一頁
-    var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
-    var i,s1;
+	    var q_name = 'salinsures', t_content = ' ', bbsKey = ['noa,mon'], afilter = [] , as; 
+	    var t_postname = q_name;
+        var t_sqlname = 'salinsures_load';
+	    var isBott = false;  /// 是否已按過 最後一頁
+	    var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
+	    var i,s1;
+		var afield, t_htm;
+	    var q_readonly = [];
+	    var q_readonlys = [];
+	    var bbmNum = [];
+	    var bbsNum = [];
+	    var bbmMask = [];
+	    var bbsMask = [];
         $(document).ready(function () {
+			bbmKey = [];
+			bbsKey = ['noa', 'mon'];
             main();
         });         /// end ready
 
@@ -24,9 +35,37 @@
                 dataErr = false;
                 return;
             }
-            mainBrow(0,t_content);
+                mainBrow(6, t_content, t_sqlname, t_postname);
+                q_mask(bbmMask);
          }
-
+        function btnOk() {
+			t_key = q_getHref();
+			_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
+		}
+		function bbsSave(as) {
+			if(!as['noa']) {// Dont Save Condition
+				as[bbsKey[0]] = '';
+				return;
+			}
+			q_getId2('', as);
+			return true;
+		}
+		function bbsAssign() {
+			_bbsAssign();//_bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
+		}
+		function readonly(t_para, empty) {
+			_readonly(t_para, empty);
+		}
+		
+		function btnMinus(id) {
+			_btnMinus(id);
+		}
+		
+		function btnPlus(org_htm, dest_tag, afield) {
+			_btnPlus(org_htm, dest_tag, afield);
+			if(q_tables == 's')
+				bbsAssign();
+		}
         function q_gtPost() {  
         }
 
@@ -65,32 +104,38 @@
 <div  id="dbbs"  >
        <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style="width: 150%;">
             <tr>
-                <th align="center" > </th>
-                <th align="center" style='color:Blue;' class="td2"><a id='lblNoa'></a></th>
-                <th align="center" style='color:Blue;' class="td2"><a id='lblMon'></a></th>
-                <th align="center" style='color:Blue;' class="td1"><a id='lblHe_person'></a></th>
-                <th align="center" style='color:Blue;' class="td1"><a id='lblHe_comp'></a></th>
-                <th align="center" style='color:Blue;' class="td1"><a id='lblLa_person'></a></th>
-                <th align="center" style='color:Blue;' class="td1"><a id='lblLa_comp'></a></th>
-                <th align="center" style='color:Blue;' class="td1"><a id='lblRe_person'></a></th>
-                <th align="center" style='color:Blue;' class="td1"><a id='lblRe_comp'></a></th>
-                <th align="center" style='color:Blue;' class="td2"><a id='lblTotal1'></a></th>
-                <th align="center" style='color:Blue;' class="td2"><a id='lblTotal2'></a></th>
-                <th align="center" style='color:Blue;' class="td2"><a id='lblPayc'></a></th>
-                <th align="center" style='color:Blue;' class="td2"><a id='lblPay'></a></th>
-                <th align="center" style='color:Blue;' class="td2"><a id='lblUnpay'></a></th>
-                <th align="center" style='color:Blue;' class="td2"><a id='lblSalary'></a></th>
-                <th align="center" style='color:Blue;' class="td2"><a id='lblSa_retire'></a></th>
-                <th align="center" style='color:Blue;' class="td2"><a id='lblSa_labor'></a></th>
-                <th align="center" style='color:Blue;' class="td2"><a id='lblSa_health'></a></th>
-                <th align="center" style='color:Blue;' class="td2"><a id='lblMount'></a></th>
-                <th align="center" style='color:Blue;' class="td2"><a id='lblDisaster'></a></th>
-                <!--<th align="center" style='color:Blue;' class="td1"><a id='lblComp'></a></th>-->
-                <th align="center" style='color:Blue;' class="td1"><a id='lblMemo'></a></th>
+				<td class="td1" align="center" style="width:1%; max-width:20px;">
+					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
+				</td>
+                <td align="center" style='color:Blue;' class="td2"><a id='lblNoa'></a></td>
+                <td align="center" style='color:Blue;' class="td2"><a id='lblMon'></a></td>
+                <td align="center" style='color:Blue;' class="td1"><a id='lblHe_person'></a></td>
+                <td align="center" style='color:Blue;' class="td1"><a id='lblHe_comp'></a></td>
+                <td align="center" style='color:Blue;' class="td1"><a id='lblLa_person'></a></td>
+                <td align="center" style='color:Blue;' class="td1"><a id='lblLa_comp'></a></td>
+                <td align="center" style='color:Blue;' class="td1"><a id='lblRe_person'></a></td>
+                <td align="center" style='color:Blue;' class="td1"><a id='lblRe_comp'></a></td>
+                <td align="center" style='color:Blue;' class="td2"><a id='lblTotal1'></a></td>
+                <td align="center" style='color:Blue;' class="td2"><a id='lblTotal2'></a></td>
+                <td align="center" style='color:Blue;' class="td2"><a id='lblPayc'></a></td>
+                <td align="center" style='color:Blue;' class="td2"><a id='lblPay'></a></td>
+                <td align="center" style='color:Blue;' class="td2"><a id='lblUnpay'></a></td>
+                <td align="center" style='color:Blue;' class="td2"><a id='lblSalary'></a></td>
+                <td align="center" style='color:Blue;' class="td2"><a id='lblSa_retire'></a></td>
+                <td align="center" style='color:Blue;' class="td2"><a id='lblSa_labor'></a></td>
+                <td align="center" style='color:Blue;' class="td2"><a id='lblSa_health'></a></td>
+                <td align="center" style='color:Blue;' class="td2"><a id='lblMount'></a></td>
+                <td align="center" style='color:Blue;' class="td2"><a id='lblDisaster'></a></td>
+                <!--<td align="center" style='color:Blue;' class="td1"><a id='lblComp'></a></td>-->
+                <td align="center" style='color:Blue;' class="td1"><a id='lblMemo'></a></td>
             </tr>
             <tr>
-                <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
-                <td ><input class="txt c1" id="txtNoa.*" type="text"   readonly="readonly" /></td>
+					<td class="td1" align="center">
+						<input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  />
+					</td>
+                <td >
+                	<input class="txt c1" id="txtNoa.*" type="text"   readonly="readonly" />
+                </td>
                 <td ><input class="txt c1" id="txtMon.*" type="text"   readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtHe_person.*"  type="text"  readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtHe_comp.*"  type="text"  readonly="readonly" /></td>
@@ -113,7 +158,7 @@
                 <td ><input class="txt c1" id="txtMemo.*" type="text"  readonly="readonly" /></td>
             </tr>
         </table>
-  <!--#include file="../inc/brow_ctrl.inc"--> 
+			<!--#include file="../inc/pop_modi.inc"-->
 </div>
 </body>
 </html> 

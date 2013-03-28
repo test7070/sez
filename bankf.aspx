@@ -17,13 +17,9 @@
             }
 
             var q_name = "bankf";
-<<<<<<< HEAD
-            var q_readonly = ['txtNoa','txtAccno','txtWorker'];
-            var bbmNum = [['txtMoney', 10, 3],['txtMoney2', 10, 3]];
-=======
+
             var q_readonly = ['txtNoa','txtAccno','txtDatea','txtWorker'];
-            var bbmNum = [['txtMoney', 8, 3,1],['txtMoney2', 8, 3,1]];
->>>>>>> d21dcdea2b2194800abeaec37cf452d2ff81289a
+            var bbmNum = [['txtMoney', 8, 3,1],['txtMoney2', 8, 3,1],['txtInterestrate', 3, 3,1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -32,7 +28,7 @@
             brwKey = 'noa';
             brwCount2 = 16;
             aPop = new Array(['txtPayacc1', 'lblPayacc', 'acc', 'acc1,acc2', 'txtPayacc1,txtPayacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
-							 ['txtBankno', 'lblBank', 'acc', 'acc1,acc2', 'txtBankno,txtBank', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+							 ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', "bank_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
 							 ['txtBank2no', 'lblBank2', 'bank', 'noa,bank', 'txtBank2no,txtBank2', 'bank_b.aspx']);
 
             $(document).ready(function() {
@@ -53,6 +49,8 @@
             	bbmMask = [['txtIndate', r_picd],['txtEnddate', r_picd],['txtUndate', r_picd],['txtPaydate', r_picd],['txtDatea', r_picd]];
                 q_mask(bbmMask);
                  q_cmbParse("cmbType", ('').concat(new Array( '一個月','二個月','三個月','四個月','五個月','六個月','七個月','八個月','九個月','十個月','十一個月','十三個月','一年','二年','三年')));
+                  q_cmbParse("cmbPayitype", ('').concat(new Array('到期付息')));
+                  q_cmbParse("cmbRate", ('').concat(new Array('固定利率','機動利率')));
 				$('#txtPayacc1').change(function() {
 					var str=$.trim($(this).val());
                 	if((/^[0-9]{4}$/g).test(str))
@@ -112,7 +110,7 @@
                	var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
-		            q_gtnoa(q_name, replaceAll('F' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+		            q_gtnoa(q_name, replaceAll('FF' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 		        else
 		            wrServer(t_noa);
             }
@@ -134,6 +132,11 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                 if (q_cur != 1 && q_cur != 2) {
+                    $('#btnInput').attr('disabled', 'disabled');
+                } else {
+                    $('#btnInput').removeAttr('disabled');
+                }
             }
 
             function btnMinus(id) {
@@ -260,6 +263,10 @@
                 width: 100%;
                 float: left;
             }
+            .txt.c2 {
+                width: 70%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -343,11 +350,29 @@
 					<tr>
 						<td><span> </span><a id='lblType' class="lbl"> </a></td>
 						<td><select id="cmbType" class="txt c1"> </select></td>
+						<td><input id="chkAuto" type="checkbox" style=' '/><span> </span><a id="lblAuto"> </a></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBank' class="lbl btn"> </a></td>
 						<td><input id="txtBankno" type="text" class="txt c1" /></td>
 						<td><input id="txtBank" type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblAccount' class="lbl"> </a></td>
+						<td colspan="2"><input id="txtAccount"  type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblRate' class="lbl"> </a></td>
+						<td><select id="cmbRate"  class="txt c1" > </select></td>
+						<td><input id="txtInterestrate"  type="text" class="txt num c2" />%</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblPayitype' class="lbl"> </a></td>
+						<td><select id="cmbPayitype" class="txt c1"> </select></td>
+					</tr>
+					<tr>
+						<td align="right"><span> </span><input id="btnInput" type="button"/></td>
+						<td colspan="2"><input id="txtInput" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblIndate' class="lbl"> </a></td>

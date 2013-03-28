@@ -17,7 +17,7 @@
             }
 
             
-            var q_name = "conttype";
+            var q_name = "assignproduct";
             var q_readonly = [];
             var bbmNum = [];
             
@@ -320,14 +320,14 @@
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:20%"><a id='vewNoa'></a></td>
-						<td align="center" style="width:20%"><a id='vewTypea'></a></td>
+						<td align="center" style="width:20%"><a id='vewProduct'></a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
 						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='typea'>~typea</td>
+						<td align="center" id='product'>~product</td>
 					</tr>
 				</table>
 			</div>
@@ -342,9 +342,9 @@
 						<td class="td4"></td>	
 					</tr>
 					<tr class="tr2">
-						<td class="td1"><span> </span><a id="lblTypea" class="lbl"></a></td>
+						<td class="td1"><span> </span><a id="lblProduct" class="lbl"></a></td>
 						<td class="td2">
-						<input id="txtTypea" type="text" class="txt c1"/>
+						<input id="txtProduct" type="text" class="txt c1"/>
 						</td>
 					</tr>
 					<tr class="tr3"><td style="height:400px;"></td></tr>
