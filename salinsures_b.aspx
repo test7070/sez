@@ -23,9 +23,11 @@
 	    var bbsNum = [];
 	    var bbmMask = [];
 	    var bbsMask = [];
+	    aPop = new Array(['txtCno_', 'btnCno_', 'acomp', 'noa,acomp', 'txtCno_,txtComp_', 'acomp_b.aspx']);
+	    
         $(document).ready(function () {
 			bbmKey = [];
-			bbsKey = ['noa', 'mon'];
+			bbsKey = ['noa', 'mon','cno'];
             main();
         });         /// end ready
 
@@ -40,7 +42,7 @@
          }
         function btnOk() {
 			t_key = q_getHref();
-			_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
+			_btnOk(t_key[1], bbsKey[0], bbsKey[1], bbsKey[2], '', 2);
 		}
 		function bbsSave(as) {
 			if(!as['noa']) {// Dont Save Condition
@@ -101,42 +103,42 @@
 </head>
 
 <body> 
-<div  id="dbbs"  >
-       <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style="width: 150%;">
+<div  id="dbbs"  style="width: 3000px;">
+       <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style="width: 3000px;">
             <tr>
-				<td class="td1" align="center" style="width:1%; max-width:20px;">
+				<td class="td1" align="center" style="width:36px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 				</td>
-                <td align="center" style='color:Blue;' class="td2"><a id='lblNoa'></a></td>
-                <td align="center" style='color:Blue;' class="td2"><a id='lblMon'></a></td>
-                <td align="center" style='color:Blue;' class="td1"><a id='lblHe_person'></a></td>
-                <td align="center" style='color:Blue;' class="td1"><a id='lblHe_comp'></a></td>
-                <td align="center" style='color:Blue;' class="td1"><a id='lblLa_person'></a></td>
-                <td align="center" style='color:Blue;' class="td1"><a id='lblLa_comp'></a></td>
-                <td align="center" style='color:Blue;' class="td1"><a id='lblRe_person'></a></td>
-                <td align="center" style='color:Blue;' class="td1"><a id='lblRe_comp'></a></td>
-                <td align="center" style='color:Blue;' class="td2"><a id='lblTotal1'></a></td>
-                <td align="center" style='color:Blue;' class="td2"><a id='lblTotal2'></a></td>
-                <td align="center" style='color:Blue;' class="td2"><a id='lblPayc'></a></td>
-                <td align="center" style='color:Blue;' class="td2"><a id='lblPay'></a></td>
-                <td align="center" style='color:Blue;' class="td2"><a id='lblUnpay'></a></td>
-                <td align="center" style='color:Blue;' class="td2"><a id='lblSalary'></a></td>
-                <td align="center" style='color:Blue;' class="td2"><a id='lblSa_retire'></a></td>
-                <td align="center" style='color:Blue;' class="td2"><a id='lblSa_labor'></a></td>
-                <td align="center" style='color:Blue;' class="td2"><a id='lblSa_health'></a></td>
-                <td align="center" style='color:Blue;' class="td2"><a id='lblMount'></a></td>
-                <td align="center" style='color:Blue;' class="td2"><a id='lblDisaster'></a></td>
-                <!--<td align="center" style='color:Blue;' class="td1"><a id='lblComp'></a></td>-->
-                <td align="center" style='color:Blue;' class="td1"><a id='lblMemo'></a></td>
+                <!--<td align="center" style="color:Blue; width:36px;" class="td2"><a id='lblNoa'></a></td>-->
+                <td align="center" style="color:Blue;width:80px;" class="td2"><a id='lblMon'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td1"><a id='lblHe_person'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td1"><a id='lblHe_comp'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td1"><a id='lblLa_person'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td1"><a id='lblLa_comp'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td1"><a id='lblRe_person'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td1"><a id='lblRe_comp'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblTotal1'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblTotal2'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblPayc'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblPay'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblUnpay'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblSalary'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblSa_retire'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblSa_labor'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblSa_health'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblMount'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblDisaster'></a></td>
+                <td align="center" style="color:Blue;width:300px;" class="td1"><a id='lblComp'></a></td>
+                <td align="center" style="color:Blue;width:300px;" class="td1"><a id='lblMemo'></a></td>
             </tr>
             <tr>
 					<td class="td1" align="center">
 						<input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  />
 					</td>
                 <td >
-                	<input class="txt c1" id="txtNoa.*" type="text"   readonly="readonly" />
+                	<input class="txt c1" id="txtMon.*" type="text"   readonly="readonly" />
+                	<input class="txt c1" id="txtNoa.*" type="hidden"   readonly="readonly" />
                 </td>
-                <td ><input class="txt c1" id="txtMon.*" type="text"   readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtHe_person.*"  type="text"  readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtHe_comp.*"  type="text"  readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtLa_person.*"  type="text"   readonly="readonly" /></td>
@@ -154,7 +156,11 @@
                 <td ><input class="txt num c1" id="txtSa_health.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtDisaster.*" type="text"  readonly="readonly" /></td>
-                <!--<td ><input class="txt c1" id="txtComp.*" type="text"  readonly="readonly" /></td>-->
+                <td >
+                	<input class="txt c1" id="txtCno.*" type="text"  readonly="readonly"  style="width: 20%;"/>
+                	<input id="btnCno.*" type="button" value="." style="width: 1%;" />
+                	<input class="txt c1" id="txtComp.*" type="text"  readonly="readonly"  style="width: 70%;"/>
+                </td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text"  readonly="readonly" /></td>
             </tr>
         </table>
