@@ -15,6 +15,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
+            q_desc=1;
 			q_tables = 's';
             var q_name = "assignwork";
             var q_readonly = ['txtWorker','txtNoa','txtVccno','txtPaybno','txtAccno','txtMoney','txtCost'];
@@ -34,7 +35,7 @@
             ['txtItemno', 'lblItem', 'assignment', 'noa,item', 'txtItemno,txtItem', 'assignment_b.aspx'],
             ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
             ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea,partno', 'txtSalesno2,txtSales2,cmbPartno2', 'sss_b.aspx'],
-            ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
+            ['txtProductno_', 'btnProductno_', 'assignproduct', 'noa,product', 'txtProductno_,txtProduct_', 'assignproduct_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -56,13 +57,14 @@
                 bbmMask = [['txtOdate', r_picd], ['txtWdate', r_picd], ['txtPaydate', r_picd], ['txtEnddate', r_picd]];
             	q_mask(bbmMask);
             	bbsMask = [['txtSenddate', r_picd], ['txtApprdate', r_picd], ['txtRepdate', r_picd]];
-            	q_cmbParse("cmbProject", ('').concat(new Array( '設立','預查','負責人','公司名稱','股東變更','遷址','董監改選','董監補選','董監持股變動','董監解任','變更印鑑','增資','減資','增減資','營業項目','停業','復業','抄錄','公司證明','資格證明','歇業','遺產稅','贈產稅','修章')));
-            	q_cmbParse("cmbProduct", ('').concat(new Array( '','行號預查規費','公司預查規費','銀行手續費','會計師簽證費','營利規費','公司規費','特許規費','建管規費','運輸執照規費','代刻印章','代登報紙','雜項規費','代辦費')),'s');
-            	q_gt('assignproduct', '', 0, 0, 0, "");
+            	//q_cmbParse("cmbProject", ('').concat(new Array( '設立','預查','負責人','公司名稱','股東變更','遷址','董監改選','董監補選','董監持股變動','董監解任','變更印鑑','增資','減資','增減資','營業項目','停業','復業','抄錄','公司證明','資格證明','歇業','遺產稅','贈產稅','修章')));
+            	//q_cmbParse("cmbProduct", ('').concat(new Array( '','行號預查規費','公司預查規費','銀行手續費','會計師簽證費','營利規費','公司規費','特許規費','建管規費','運輸執照規費','代刻印章','代登報紙','雜項規費','代辦費')),'s');
             	q_gt('assignproject', '', 0, 0, 0, "");
+            	//q_gt('assignproduct', '', 0, 0, 0, "");
             	
                 q_gt('part', '', 0, 0, 0, "");
                  q_cmbParse("cmbKind", ('').concat(new Array( '工商','土地')));
+                 
                 $('#lblProject').click(function(e) {
 					q_box("assignproject.aspx", 'conttype', "90%", "600px", q_getMsg("popAssignproject"));
 				});
@@ -123,20 +125,34 @@
                 }
                 b_pop = '';
             }
-
+			
+			var project='';
+			var projectnumber=0;
             function q_gtPost(t_name) {
             	switch (t_name) {
             			case 'assignproject':
                         var as = _q_appendData("assignproject", "", true);
-                        var t_item = " @ ";
-                        for ( i = 0; i < as.length; i++) {
-                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
-                        }
-                        q_cmbParse("cmbProject", t_item);
-                        if(abbm[q_recno])
-                        $("#cmbProject").val(abbm[q_recno].project);
+	                    projectnumber=as.length;
+	            		for (var i = 0; i < as.length; i++) {
+	            			project+="<input id='checkProjectno"+i+"' type='checkbox' style='float: left;' value='"+as[i].noa+"' disabled='disabled'/><a class='lbl'  id='aprojectno"+i+"' style='float: left;'>"+as[i].namea+"</a>"
+	            			if(i%4==3)
+	            			project+="<BR>";
+	            			//sssno+=as[i].noa+';';
+	            		}
+	            		$('#xproject').append(project);
+	            		
+	            		//更新勾選
+	            		var xprojectno = abbm[q_recno].project.split(',');
+	            		for (var i = 0; i < xprojectno.length; i++) {
+	            			for (var j = 0; j < projectnumber; j++) {
+	            				if($('#checkProjectno'+j).val()==xprojectno[i]){
+	            					$('#checkProjectno'+j)[0].checked=true;
+	            				}else{
+	            					$('#checkProjectno'+j)[0].checked=false;
+	            				}
+	            			}
+	            		}
                         break;
-
             		case 'assignment':
 	            	var as = _q_appendData("assignments", "", true);
 	            	q_gridAddRow(bbsHtm, 'tbbs', 'txtTggno,txtComp,txtProduct,txtDays,txtMoney,txtCost,txtMemo', as.length, as, 'tggno,comp,product,days,money,cost,memo', '');
@@ -183,7 +199,20 @@
                     alert(t_err);
                     return;
                 }
-                $('#txtPronick').val($('#cmbProject').val().substr(0,15));
+                
+                var projectno='';
+                var projectnamea='';
+                for (var i = 0; i < projectnumber; i++) {
+                	if($('#checkProjectno'+i)[0].checked){
+                		projectno+=","+$('#checkProjectno'+i).val();
+                		projectnamea+=","+$('#aprojectno'+i).text();
+                	}
+                }
+                projectno=projectno.substr(1,projectno.length);
+                projectnamea=projectnamea.substr(1,projectnamea.length);
+                
+                $('#txtProject').val(projectno);
+                $('#txtPronick').val(projectnamea);
                 
                 sum();
                 $('#txtWorker').val(r_name);
@@ -218,38 +247,10 @@
 	            t_day = t_date.getUTCDate();
 	            t_day = t_day>9?t_day+'':'0'+t_day;
 	            $('#txtPaydate').val(t_year+'/'+t_month+'/'+t_day);
-	            //$('#cmbPartno2').val('06');
 	            $('#txtSalesno').val(r_userno);
 	            $('#txtSales').val(r_name);
-	            
-	            //工商自動帶產品內容與費用
-	            //autoicins();
             }
-            
-            function autoicins() {
-            	/*$('#txtProduct_0').val('行號預查規費');
-	            q_tr('txtCost_0',300);
-	            q_tr('txtRealcost_0',310);
-	            $('#txtProduct_1').val('公司預查規費');
-	            q_tr('txtCost_1',150);
-	            q_tr('txtRealcost_1',160);
-	            $('#txtProduct_2').val('銀行手續費');
-	            q_tr('txtCost_2',10);
-	            $('#txtProduct_2').val('會計師簽證費');
-	            q_tr('txtCost_2',400);
-	            q_tr('txtRealcost_2',400);
-	            $('#txtProduct_3').val('營利規費');
-	            q_tr('txtCost_3',1000);
-	            q_tr('txtRealcost_3',1000);
-	            $('#txtProduct_4').val('公司規費');
-	            q_tr('txtCost_4',1000);
-	            q_tr('txtRealcost_4',1000);
-	            $('#txtProduct_5').val('特許規費');
-	            $('#txtProduct_6').val('運輸執照規費');
-	            $('#txtProduct_7').val('代刻印章');
-	            $('#txtProduct_8').val('代登報紙');
-	            $('#txtProduct_9').val('雜項規費');*/
-            }
+           
             
             function btnModi() {
                 if (emp($('#txtNoa').val()))
@@ -318,14 +319,29 @@
             
             function refresh(recno) {
                 _refresh(recno);
+                //更新勾選
+	            var xprojectno = abbm[q_recno].project.split(',');
+	            	for (var i = 0; i < xprojectno.length; i++) {
+	            		for (var j = 0; j < projectnumber; j++) {
+	            			if($('#checkProjectno'+j).val()==xprojectno[i]){
+	            				$('#checkProjectno'+j)[0].checked=true;
+	            			}else{
+	            				$('#checkProjectno'+j)[0].checked=false;
+	            			}
+	            		}
+	            	}
             }
             
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-				if (q_cur != 1 && q_cur != 2) {
-                  $('#btnInput').attr('disabled', 'disabled');
+				if (t_para) {
+					for (var i = 0; i < projectnumber; i++) {
+	                	$('#checkProjectno'+i).attr('disabled', 'disabled');
+                	}
                 } else {
-                    $('#btnInput').removeAttr('disabled');
+                	for (var i = 0; i < projectnumber; i++) {
+	                	$('#checkProjectno'+i).removeAttr('disabled');
+                	}
                 }
             }
                 
@@ -531,8 +547,9 @@
 						<td class="td4"><input type="text" id="txtNoa" class="txt c1"/>	</td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblProject' class="lbl"> </a></td>
-						<td class="td2" colspan="2"><select id="cmbProject" class="txt c1"> </select>	
+						<td class="td1"><span> </span><a id='lblProject' class="lbl btn"> </a></td>
+						<td class="td2" colspan="2" id="xproject">	
+						<input type="text" id="txtProject" style="display: none;"/>	
 						<input type="text" id="txtPronick" style="display: none;"/>	
 						</td>	
 						<td class="td3"><span> </span><a id='lblKind' class="lbl"> </a></td>
@@ -645,11 +662,11 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
-					<td><!--<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+					<td><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                         <input type="text" id="txtProductno.*"  style="width:30%; float:left;"/>
                         <span style="display:block; width:1%;float:left;"> </span>
-						<input type="text" id="txtProduct.*"  class="txt c1"/>-->
-						<select id="cmbProduct.*" class="txt c1" style="font-size: medium;"> </select>
+						<input type="text" id="txtProduct.*"  class="txt" style="width:50%;"/>
+						<!--<select id="cmbProduct.*" class="txt c1" style="font-size: medium;"> </select>-->
 					</td>
 					<td><input id="txtDays.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMoney.*" type="text" class="txt num c1"/></td>
