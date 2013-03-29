@@ -48,7 +48,7 @@
             function mainPost() {
             	bbmMask = [['txtIndate', r_picd],['txtEnddate', r_picd],['txtUndate', r_picd],['txtPaydate', r_picd],['txtDatea', r_picd]];
                 q_mask(bbmMask);
-                 q_cmbParse("cmbType", ('').concat(new Array( '一個月','三個月','六個月','一年','十八個月','二年'),'三年')));
+                 q_cmbParse("cmbType", ('').concat(new Array( '一個月','三個月','六個月','一年','十八個月','二年','三年')));
                   q_cmbParse("cmbPayitype", ('').concat(new Array('到期付息','每月付息','到期入本金')));
                   q_cmbParse("cmbRate", ('').concat(new Array('固定利率','機動利率')));
 				$('#txtPayacc1').change(function() {
