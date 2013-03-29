@@ -133,10 +133,10 @@
             			case 'assignproject':
                         var as = _q_appendData("assignproject", "", true);
 	                    projectnumber=as.length;
-	                    project+="<table>"
+	                    project+="<table style='width:100%;'>"
 	            		for (var i = 0; i < as.length; i++) {
 	            			if(i%4==0)
-	            			project+="<tr>";
+	            			project+="<tr style='height: 20px;'>";
 	            			project+="<td><input id='checkProjectno"+i+"' type='checkbox' style='float: left;' value='"+as[i].noa+"' disabled='disabled'/><a class='lbl'  id='aprojectno"+i+"' style='float: left;'>"+as[i].namea+"</a></td>"
 	            			if(i%4==3)
 	            			project+="</tr>";
