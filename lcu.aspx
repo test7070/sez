@@ -126,9 +126,9 @@
                 var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
 				if (t_noa.length == 0 || t_noa == "AUTO")
-					q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
-				else
-					wrServer(t_noa);
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_lcu') + $('#txtDatea').val(), '/', ''));
+                else
+                    wrServer(t_noa);
             }
 
             function wrServer(key_value) {
