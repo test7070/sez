@@ -27,7 +27,7 @@
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'Noa';
+            brwKey = 'noa';
             q_desc = 1;
             //ajaxPath = "";
             aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']

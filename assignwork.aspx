@@ -133,12 +133,16 @@
             			case 'assignproject':
                         var as = _q_appendData("assignproject", "", true);
 	                    projectnumber=as.length;
+	                    project+="<table style='width:100%;'>"
 	            		for (var i = 0; i < as.length; i++) {
-	            			project+="<input id='checkProjectno"+i+"' type='checkbox' style='float: left;' value='"+as[i].noa+"' disabled='disabled'/><a class='lbl'  id='aprojectno"+i+"' style='float: left;'>"+as[i].namea+"</a>"
+	            			if(i%4==0)
+	            			project+="<tr style='height: 20px;'>";
+	            			project+="<td><input id='checkProjectno"+i+"' type='checkbox' style='float: left;' value='"+as[i].noa+"' disabled='disabled'/><a class='lbl'  id='aprojectno"+i+"' style='float: left;'>"+as[i].namea+"</a></td>"
 	            			if(i%4==3)
-	            			project+="<BR>";
+	            			project+="</tr>";
 	            			//sssno+=as[i].noa+';';
 	            		}
+	            		project+="</table>"
 	            		$('#xproject').append(project);
 	            		
 	            		//更新勾選
@@ -249,6 +253,11 @@
 	            $('#txtPaydate').val(t_year+'/'+t_month+'/'+t_day);
 	            $('#txtSalesno').val(r_userno);
 	            $('#txtSales').val(r_name);
+	            
+	            //清除勾選
+	            for (var j = 0; j < projectnumber; j++) {
+	            	$('#checkProjectno'+j)[0].checked=false;
+	            }
             }
            
             
@@ -548,18 +557,16 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblProject' class="lbl btn"> </a></td>
-						<td class="td2" colspan="2" id="xproject">	
+						<td class="td2" colspan="4" id="xproject">	
 						<input type="text" id="txtProject" style="display: none;"/>	
 						<input type="text" id="txtPronick" style="display: none;"/>	
 						</td>	
-						<td class="td3"><span> </span><a id='lblKind' class="lbl"> </a></td>
-						<td class="td4"><select id="cmbKind" class="txt c1"> </select></td>	
 					</tr>
 					<tr class="land">
 						<td class="td1"><span> </span><a id='lblItem' class="lbl btn"> </a></td>
 						<td class="td2"colspan="2"><input type="text" id="txtItemno" style="width: 30%;"/>
 							<input type="text" id="txtItem" style="width: 70%;"/></td>
-							<td class="td3"><input type="button" id="btnInput" /></td>		
+						<td class="td3"><input type="button" id="btnInput" /></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
@@ -568,6 +575,8 @@
 							<input type="text" id="txtComp" style="width: 70%;"/>
 							<input id="txtCustnick"  type="text" style="display: none;"/>
 						</td>
+						<td class="td4"><span> </span><a id='lblKind' class="lbl"> </a></td>
+						<td class="td5"><select id="cmbKind" class="txt c1"> </select></td>	
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblSales' class="lbl btn"> </a></td>
