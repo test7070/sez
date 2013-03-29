@@ -96,7 +96,7 @@
             }
 
             function btnPrint() {
-            	q_box('z_bankf.aspx'+ "?;;;;"+r_accy+";", '', "90%", "650px", m_print);
+            	q_box('z_bankf.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", m_print);
             }
 
             function btnOk() {
