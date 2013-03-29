@@ -16,9 +16,9 @@
             }
 
             var q_name = "oil";
-            var q_readonly = ['txtNoa','txtWorker','txtMoney','txtCurmount','txtCurmoney','txtBmiles','txtMiles','txtRate'];
-            var bbmNum = new Array(['txtBmiles',10,0],['txtEmiles',10,0],['txtMiles',10,0],['txtRate',10,2],['txtMount',10,2],['txtPrice',10,2],['txtMoney',10,0],['txtCurmount',10,2],['txtCurmoney',10,2]);
-            var bbmMask = [['txtDatea','999/99/99'],['txtTimea','99:99']];
+            var q_readonly = ['txtNoa', 'txtWorker', 'txtMoney', 'txtCurmount', 'txtCurmoney', 'txtBmiles', 'txtMiles', 'txtRate'];
+            var bbmNum = new Array(['txtBmiles', 10, 0], ['txtEmiles', 10, 0], ['txtMiles', 10, 0], ['txtRate', 10, 2], ['txtMount', 10, 2], ['txtPrice', 10, 2], ['txtMoney', 10, 0], ['txtCurmount', 10, 2], ['txtCurmoney', 10, 2]);
+            var bbmMask = [['txtDatea', '999/99/99'], ['txtOildate', '999/99/99'], ['txtTimea', '99:99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -27,45 +27,45 @@
             q_desc = 1;
             q_xchg = 1;
             brwCount2 = 20;
-    
-            aPop = new Array(
-            	['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver','txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'],
-            	['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], 
-            	['txtOilstationno', 'lblOilstation', 'oilstation', 'noa,station', 'txtOilstationno,txtOilstation', 'oilstation_b.aspx']);
-            
-            function currentData() {}
-			currentData.prototype = {
-				data : [],
-				/*新增時複製的欄位*/
-				include : ['txtDatea','txtPrice','txtOilstationno','txtOilstation','cmbProduct','txtPrice'],
-				/*記錄當前的資料*/
-				copy : function() {
-					curData.data = new Array();
-					for (var i in fbbm) {
-						var isInclude = false;
-						for (var j in curData.include) {
-							if (fbbm[i] == curData.include[j]) {
-								isInclude = true;
-								break;
-							}
-						}
-						if (isInclude) {
-							curData.data.push({
-								field : fbbm[i],
-								value : $('#' + fbbm[i]).val()
-							});
-						}
-					}
-				},
-				/*貼上資料*/
-				paste : function() {
-					for (var i in curData.data) {
-						$('#' + curData.data[i].field).val(curData.data[i].value);
-					}
-				}
-			};
-			var curData = new currentData();
-            
+
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtOilstationno', 'lblOilstation', 'oilstation', 'noa,station', 'txtOilstationno,txtOilstation', 'oilstation_b.aspx']);
+
+            function currentData() {
+            }
+
+
+            currentData.prototype = {
+                data : [],
+                /*新增時複製的欄位*/
+                include : ['txtDatea', 'txtOildate', 'txtPrice', 'txtOilstationno', 'txtOilstation', 'cmbProduct', 'txtPrice'],
+                /*記錄當前的資料*/
+                copy : function() {
+                    curData.data = new Array();
+                    for (var i in fbbm) {
+                        var isInclude = false;
+                        for (var j in curData.include) {
+                            if (fbbm[i] == curData.include[j]) {
+                                isInclude = true;
+                                break;
+                            }
+                        }
+                        if (isInclude) {
+                            curData.data.push({
+                                field : fbbm[i],
+                                value : $('#' + fbbm[i]).val()
+                            });
+                        }
+                    }
+                },
+                /*貼上資料*/
+                paste : function() {
+                    for (var i in curData.data) {
+                        $('#' + curData.data[i].field).val(curData.data[i].value);
+                    }
+                }
+            };
+            var curData = new currentData();
+
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -82,41 +82,41 @@
 
             function mainPost() {
                 q_mask(bbmMask);
-				q_cmbParse("cmbProduct", q_getPara('oil.product'));
-				$('#cmbProduct').focus(function(){
-                	var len = $("#cmbProduct").children().length>0?$("#cmbProduct").children().length:1;
-                	$("#cmbProduct").attr('size',len+"");
-                }).blur(function(){
-                	$("#cmbProduct").attr('size','1');
+                q_cmbParse("cmbProduct", q_getPara('oil.product'));
+                $('#cmbProduct').focus(function() {
+                    var len = $("#cmbProduct").children().length > 0 ? $("#cmbProduct").children().length : 1;
+                    $("#cmbProduct").attr('size', len + "");
+                }).blur(function() {
+                    $("#cmbProduct").attr('size', '1');
                 });
-                $('#txtMount').change(function(){
-                	sum();
+                $('#txtMount').change(function() {
+                    sum();
                 });
-                $('#txtPrice').change(function(){
-                	sum();
+                $('#txtPrice').change(function() {
+                    sum();
                 });
-                $('#txtMemo').change(function(){
-                	if($.trim($('#txtMemo').val()).substring(0, 1) == '.'){
-	                	$('#txtMoney').removeAttr('readonly').css('background-color','white').css('color','black');
-                	}else{
-                		$('#txtMoney').attr('readonly','readonly').css('background-color','rgb(237, 237, 238)').css('color','green');
-                		sum();
-                	}
+                $('#txtMemo').change(function() {
+                    if ($.trim($('#txtMemo').val()).substring(0, 1) == '.') {
+                        $('#txtMoney').removeAttr('readonly').css('background-color', 'white').css('color', 'black');
+                    } else {
+                        $('#txtMoney').attr('readonly', 'readonly').css('background-color', 'rgb(237, 237, 238)').css('color', 'green');
+                        sum();
+                    }
                 });
-                $('#chkIscustom').change(function(e){
-                	if($('#chkIscustom').prop('checked')){
-	           			$('#txtMiles').removeAttr('readonly').css('color','black').css('background-color','white');
-	           		}	
+                $('#chkIscustom').change(function(e) {
+                    if ($('#chkIscustom').prop('checked')) {
+                        $('#txtMiles').removeAttr('readonly').css('color', 'black').css('background-color', 'white');
+                    }
                 });
-                $('#txtEmiles').change(function(){
-                	sum();
+                $('#txtEmiles').change(function() {
+                    sum();
                 });
-                $('#txtMiles').change(function(){
-                	sum();
+                $('#txtMiles').change(function() {
+                    sum();
                 });
-               	$('#lblBmiles').click(function(e){
-                	if(q_cur==1 || q_cur==2)
-                		q_popPost('txtCarno'); 
+                $('#lblBmiles').click(function(e) {
+                    if (q_cur == 1 || q_cur == 2)
+                        q_popPost('txtCarno');
                 });
             }
 
@@ -132,72 +132,73 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'oil_top':
-                		var as = _q_appendData("oil", "", true);
-                		if(as[0]!=undefined){
-							$('#txtBmiles').val(as[0].emiles);
-							sum();                			
-                		}
-                		break;
+                    case 'oil_top':
+                        var as = _q_appendData("oil", "", true);
+                        if (as[0] != undefined) {
+                            $('#txtBmiles').val(as[0].emiles);
+                            sum();
+                        }
+                        break;
                     case 'oilorg':
                         var as = _q_appendData("oilorg", "", true);
-                        if(as[0]!=undefined){
-							var t_mount = 0,t_money=0;
-	                        for( i = 0; i < as.length; i++) {
-	                            t_mount += parseFloat(as[i].mount)*1000;
-	                            t_money += parseFloat(as[i].money);
-	                        }
-	                        t_mount = t_mount/1000;
-	                        $("#txtCurmount").addClass('finish');
-	                        $("#txtCurmount").val(t_mount);
-	                        $("#txtCurmoney").addClass('finish');
-	        				$("#txtCurmoney").val(t_money);
-	                        t_where = " where=^^ noa='"+$('#txtOilstationno').val()+"' ^^ ";
-							q_gt('oilstation', t_where, 0, 0, 0, "", r_accy); 
-						}            
+                        if (as[0] != undefined) {
+                            var t_mount = 0, t_money = 0;
+                            for ( i = 0; i < as.length; i++) {
+                                t_mount += parseFloat(as[i].mount) * 1000;
+                                t_money += parseFloat(as[i].money);
+                            }
+                            t_mount = t_mount / 1000;
+                            $("#txtCurmount").addClass('finish');
+                            $("#txtCurmount").val(t_mount);
+                            $("#txtCurmoney").addClass('finish');
+                            $("#txtCurmoney").val(t_money);
+                            t_where = " where=^^ noa='" + $('#txtOilstationno').val() + "' ^^ ";
+                            q_gt('oilstation', t_where, 0, 0, 0, "", r_accy);
+                        }
                         break;
                     case 'oilstation':
-                		var as = _q_appendData("oilstation", "", true);
-                		if(as[0]!=undefined){
-                			if(as[0].isl=='false'){
-                				$("#txtCurmount").val('');
-                				$("#txtCurmount").data('isl',false);
-                			}else
-                				$("#txtCurmount").data('isl',true);
-                				
-                			if(as[0].ism=='false'){
-                				$("#txtCurmoney").val('');
-                				$("#txtCurmoney").data('isl',false);
-                			}else
-                				$("#txtCurmoney").data('ism',true);
-							sum();            			
-                		}
-                		break;
+                        var as = _q_appendData("oilstation", "", true);
+                        if (as[0] != undefined) {
+                            if (as[0].isl == 'false') {
+                                $("#txtCurmount").val('');
+                                $("#txtCurmount").data('isl', false);
+                            } else
+                                $("#txtCurmount").data('isl', true);
+
+                            if (as[0].ism == 'false') {
+                                $("#txtCurmoney").val('');
+                                $("#txtCurmoney").data('isl', false);
+                            } else
+                                $("#txtCurmoney").data('ism', true);
+                            sum();
+                        }
+                        break;
                     case q_name:
-                        if(q_cur == 4)
+                        if (q_cur == 4)
                             q_Seek_gtPost();
 
-                        if(q_cur == 1 || q_cur == 2)
+                        if (q_cur == 1 || q_cur == 2)
                             q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 
                         break;
                 }
             }
+
             function q_popPost(id) {
-				switch(id) {
-					case 'txtCarno':
-						var t_carno = $.trim($('#txtCarno').val());
-						var t_datea = $.trim($('#txtDatea').val());
-						var t_noa = $.trim($('#txtNoa').val());
-						var t_timea = $.trim($('#txtTimea').val());
-						if(t_carno.length>0 && t_datea.length>0){
-							t_where = " where=^^ noa!='"+t_noa+"' and carno='"+t_carno+"' and datea<='"+t_datea+"' and not(datea='"+t_datea+"' and timea>'"+t_timea+"')^^ ";
-							q_gt('oil_top', t_where, 0, 0, 0, "", r_accy);
-						}
-						$('#txtDriverno').focus();
-						break;
-				}
-			}
+                switch(id) {
+                    case 'txtCarno':
+                        var t_carno = $.trim($('#txtCarno').val());
+                        var t_datea = $.trim($('#txtOildate').val());
+                        var t_noa = $.trim($('#txtNoa').val());
+                        var t_timea = $.trim($('#txtTimea').val());
+                        if (t_carno.length > 0 && t_datea.length > 0) {
+                            t_where = " where=^^ noa!='" + t_noa + "' and carno='" + t_carno + "' and oildate<='" + t_datea + "' and not(oildate='" + t_datea + "' and timea>'" + t_timea + "')^^ ";
+                            q_gt('oil_top', t_where, 0, 0, 0, "", r_accy);
+                        }
+                        $('#txtDriverno').focus();
+                        break;
+                }
+            }
 
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
@@ -211,12 +212,12 @@
                 _btnIns();
                 curData.paste();
                 $('#txtNoa').val('AUTO');
-                $('#txtDatea').focus(); 
-                $('#chkIscustom').prop('checked',false);
+                $('#txtDatea').focus();
+                $('#chkIscustom').prop('checked', false);
                 $('#txtOrgmount').val($('#txtMount').val());
                 $('#txtOrgmoney').val($('#txtMoney').val());
-                if($('#txtOilstationno').val().length>0)
-                	q_gt('oilorg', "where=^^oilstationno='"+$.trim($('#txtOilstationno').val())+"'^^", 0, 0, 0, "");
+                if ($('#txtOilstationno').val().length > 0)
+                    q_gt('oilorg', "where=^^oilstationno='" + $.trim($('#txtOilstationno').val()) + "'^^", 0, 0, 0, "");
                 sum();
             }
 
@@ -227,36 +228,40 @@
                 _btnModi();
                 $('#txtDatea').focus();
                 $('#txtOrgmount').val($('#txtMount').val());
-                 $('#txtOrgmoney').val($('#txtMoney').val());
+                $('#txtOrgmoney').val($('#txtMoney').val());
                 sum();
             }
 
             function btnPrint() {
-				q_box('z_oil.aspx'+ "?;;;;"+r_accy,  '', "95%", "95%", q_getMsg("popPrint"));
+                q_box('z_oil.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function btnOk() {
-	            $('#txtDatea').val($.trim($('#txtDatea').val()));
-	                if (checkId($('#txtDatea').val())==0){
-	                	alert(q_getMsg('lblDatea')+'錯誤。');
-	                	return;
-	            }
-	            if ($('#txtTimea').val().length > 0 && !(/(?:[01][0-9]|2[0-3]):[0-5][0-9]/g).test($('#txtTimea').val())){
-	            	alert(q_getMsg('lblTimea')+'錯誤。');
-	            	return;
-	            }
+                $('#txtDatea').val($.trim($('#txtDatea').val()));
+                if (checkId($('#txtDatea').val()) == 0) {
+                    alert(q_getMsg('lblDatea') + '錯誤。');
+                    return;
+                }
+                if (!q_cd($('#txtOildate').val())) {
+                    alert(q_getMsg('lblOildate') + '錯誤。');
+                    return;
+                }
+                if ($('#txtTimea').val().length > 0 && !(/(?:[01][0-9]|2[0-3]):[0-5][0-9]/g).test($('#txtTimea').val())) {
+                    alert(q_getMsg('lblTimea') + '錯誤。');
+                    return;
+                }
                 $('#txtWorker').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-                if(t_err.length > 0) {
+                if (t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
-                if($.trim($('#txtMemo').val()).substring(0, 1) != '.'){
-                	sum();
+                if ($.trim($('#txtMemo').val()).substring(0, 1) != '.') {
+                    sum();
                 }
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
-                if(t_noa.length == 0 || t_noa == "AUTO")
+                if (t_noa.length == 0 || t_noa == "AUTO")
                     q_gtnoa(q_name, replaceAll(q_getPara('sys.key_oil') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
@@ -276,19 +281,19 @@
                 _refresh(recno);
                 $("#txtCurmount").removeClass('finish');
                 $("#txtCurmoney").removeClass('finish');
-                if($('#txtOilstationno').val().length>0)
-                	q_gt('oilorg', "where=^^oilstationno='"+$.trim($('#txtOilstationno').val())+"'^^", 0, 0, 0, "");
-           		if(q_cur==1 || q_cur==2){
-           			if($('#chkIscustom').prop('checked')){
-	           			$('#txtMiles').removeAttr('readonly').css('color','black').css('background-color','white');
-	           		}	
-           		}
+                if ($('#txtOilstationno').val().length > 0)
+                    q_gt('oilorg', "where=^^oilstationno='" + $.trim($('#txtOilstationno').val()) + "'^^", 0, 0, 0, "");
+                if (q_cur == 1 || q_cur == 2) {
+                    if ($('#chkIscustom').prop('checked')) {
+                        $('#txtMiles').removeAttr('readonly').css('color', 'black').css('background-color', 'white');
+                    }
+                }
             }
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                if((q_cur==1 || q_cur==2) && $.trim($('#txtMemo').val()).substring(0, 1) == '.'){
-                	$('#txtMoney').removeAttr('readonly').css('background-color','white').css('color','black');
+                if ((q_cur == 1 || q_cur == 2) && $.trim($('#txtMemo').val()).substring(0, 1) == '.') {
+                    $('#txtMoney').removeAttr('readonly').css('background-color', 'white').css('color', 'black');
                 }
             }
 
@@ -343,53 +348,55 @@
             function btnCancel() {
                 _btnCancel();
             }
-            function sum(){    
-            	if(!(q_cur==1 || q_cur==2))
-            	   	return;
-            	//alert($("#txtCurmount").data('isl')+' '+$("#txtCurmoney").data('ism'));
-            	var t_bmiles = q_float('txtBmiles');
-            	var t_emiles = q_float('txtEmiles');
-            	var t_miles = q_float('txtMiles');
-            	var t_mount = q_float('txtMount');
-            	var t_orgmount = q_float('txtOrgmount');
-            	var t_curmount = q_float('txtCurmount');
-            	var t_price = q_float('txtPrice');
-            	//---------------------------------------------------------------------------------
-            	if(!$('#chkIscustom').prop('checked')){
-            		t_miles = round(t_emiles - t_bmiles,0);
-            		$('#txtMiles').val(t_miles);
-            	}
-            	t_rate = t_mount==0 ? 0 : round(t_miles / t_mount,2);
-            	$('#txtRate').val(t_rate);
-            	
-            	if($("#txtCurmount").data('isl') && $("#txtCurmount").hasClass('finish')  &&  (q_cur==1 || q_cur==2)){
-            		$('#txtCurmount').val((t_curmount*1000+t_orgmount*1000-t_mount*1000)/1000);
-            		$('#txtOrgmount').val(t_mount);
-            	}
-            	if($.trim($('#txtMemo').val()).substring(0, 1) == '.'){
-            		
-            	}else{         		
-	            	$("#txtMoney").val(Math.round(t_mount * t_price,0));
-            	}
-            	var t_money = q_float('txtMoney');
-	            var t_orgmoney = q_float('txtOrgmoney');
-	            var t_curmoney = q_float('txtCurmoney');
-	            if($("#txtCurmoney").data('ism') && $("#txtCurmoney").hasClass('finish')  &&  (q_cur==1 || q_cur==2)){
-            		$('#txtCurmoney').val(t_curmoney+t_orgmoney-t_money);
-            		$('#txtOrgmoney').val(t_money);
-            	}
-            }
-            function q_popFunc(id,key_value){
-            	switch(id) {
-                    case 'txtOilstationno':
-                    	if(key_value.length>0)
-                			q_gt('oilorg', "where=^^oilstationno='"+$.trim(key_value)+"'^^", 0, 0, 0, "");
-       
-                    	break;
-                }
-			}
 
-			function checkId(str) {
+            function sum() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return;
+                //alert($("#txtCurmount").data('isl')+' '+$("#txtCurmoney").data('ism'));
+                var t_bmiles = q_float('txtBmiles');
+                var t_emiles = q_float('txtEmiles');
+                var t_miles = q_float('txtMiles');
+                var t_mount = q_float('txtMount');
+                var t_orgmount = q_float('txtOrgmount');
+                var t_curmount = q_float('txtCurmount');
+                var t_price = q_float('txtPrice');
+                //---------------------------------------------------------------------------------
+                if (!$('#chkIscustom').prop('checked')) {
+                    t_miles = round(t_emiles - t_bmiles, 0);
+                    $('#txtMiles').val(t_miles);
+                }
+                t_rate = t_mount == 0 ? 0 : round(t_miles / t_mount, 2);
+                $('#txtRate').val(t_rate);
+
+                if ($("#txtCurmount").data('isl') && $("#txtCurmount").hasClass('finish') && (q_cur == 1 || q_cur == 2)) {
+                    $('#txtCurmount').val((t_curmount * 1000 + t_orgmount * 1000 - t_mount * 1000) / 1000);
+                    $('#txtOrgmount').val(t_mount);
+                }
+                if ($.trim($('#txtMemo').val()).substring(0, 1) == '.') {
+
+                } else {
+                    $("#txtMoney").val(Math.round(t_mount * t_price, 0));
+                }
+                var t_money = q_float('txtMoney');
+                var t_orgmoney = q_float('txtOrgmoney');
+                var t_curmoney = q_float('txtCurmoney');
+                if ($("#txtCurmoney").data('ism') && $("#txtCurmoney").hasClass('finish') && (q_cur == 1 || q_cur == 2)) {
+                    $('#txtCurmoney').val(t_curmoney + t_orgmoney - t_money);
+                    $('#txtOrgmoney').val(t_money);
+                }
+            }
+
+            function q_popFunc(id, key_value) {
+                switch(id) {
+                    case 'txtOilstationno':
+                        if (key_value.length > 0)
+                            q_gt('oilorg', "where=^^oilstationno='" + $.trim(key_value) + "'^^", 0, 0, 0, "");
+
+                        break;
+                }
+            }
+
+            function checkId(str) {
                 if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
                     var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
                     var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
@@ -406,17 +413,18 @@
                     }
                     if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
                         return 2;
-                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 3;
-                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
-                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 4
-               	}
-               	return 0;//錯誤
+                } else if ((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//西元年
+                    var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
+                    if (regex.test(str))
+                        return 3;
+                } else if ((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//民國年
+                    str = (parseInt(str.substring(0, 3)) + 1911) + str.substring(3);
+                    var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
+                    if (regex.test(str))
+                        return 4
+                }
+                return 0;
+                //錯誤
             }
 
 		</script>
@@ -426,8 +434,8 @@
             }
             .dview {
                 float: left;
-                width: 1000px; 
-                border-width: 0px; 
+                width: 1000px;
+                border-width: 0px;
             }
             .tview {
                 border: 5px solid gray;
@@ -447,11 +455,11 @@
             .dbbm {
                 float: left;
                 width: 1000px;
-                /*margin: -1px;        
-                border: 1px black solid;*/
+                /*margin: -1px;
+                 border: 1px black solid;*/
                 border-radius: 5px;
             }
-			.tbbm {
+            .tbbm {
                 padding: 0px;
                 border: 1px white double;
                 border-spacing: 0;
@@ -565,7 +573,9 @@
 						<td align="center" style="width:60px; color:black;"><a id='vewRate'> </a></td>
 					</tr>
 					<tr>
-						<td ><input id="chkBrow.*" type="checkbox" style=''/></td>
+						<td >
+						<input id="chkBrow.*" type="checkbox" style=''/>
+						</td>
 						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='carno' style="text-align: center;">~carno</td>
 						<td id='driver' style="text-align: center;">~driver</td>
@@ -596,24 +606,36 @@
 						<td class="td2">
 						<input id="txtNoa"  type="text"  class="txt c1"/>
 						</td>
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td2">
+						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td>
 						<input id="txtDatea"  type="text"  class="txt c1"/>
 						</td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblOildate' class="lbl"> </a></td>
+						<td>
+						<input id="txtOildate"  type="text"  class="txt c1"/>
+						</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblTimea' class="lbl"> </a></td>
-						<td><input id="txtTimea"  type="text"  class="txt c1"/></td>
+						<td>
+						<input id="txtTimea"  type="text"  class="txt c1"/>
+						</td>
 						<td><span> </span><a id='lblIscustom' class="lbl"> </a></td>
-						<td><input id="chkIscustom"  type="checkbox"/>	</td>
+						<td>
+						<input id="chkIscustom"  type="checkbox"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblCarno' class="lbl"> </a></td>
-						<td><input id="txtCarno"  type="text"  class="txt c1"/>	</td>
+						<td>
+						<input id="txtCarno"  type="text"  class="txt c1"/>
+						</td>
 						<td><span> </span><a id='lblBmiles' class="lbl" title="按一下可重新載入。"> </a></td>
-						<td><input id="txtBmiles"  type="text"  class="txt c1 num" />	</td>
+						<td>
+						<input id="txtBmiles"  type="text"  class="txt c1 num" />
+						</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDriver' class="lbl btn"> </a></td>
@@ -622,7 +644,9 @@
 						<input id="txtDriver"  type="text"  class="txt c3"/>
 						</td>
 						<td><span> </span><a id='lblEmiles' class="lbl"> </a></td>
-						<td><input id="txtEmiles"  type="text"  class="txt c1 num"/>	</td>
+						<td>
+						<input id="txtEmiles"  type="text"  class="txt c1 num"/>
+						</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblOilstation' class="lbl btn"> </a></td>
@@ -631,18 +655,24 @@
 						<input id="txtOilstation"  type="text"  class="txt c3"/>
 						</td>
 						<td><span> </span><a id='lblMiles' class="lbl"> </a></td>
-						<td><input id="txtMiles"  type="text"  class="txt c1 num"/>	</td>				
+						<td>
+						<input id="txtMiles"  type="text"  class="txt c1 num"/>
+						</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblProduct' class="lbl"> </a></td>
-						<td class="td2"><select id="cmbProduct" class="txt c1"> </select></td>
+						<td class="td2"><select id="cmbProduct" class="txt c1"></select></td>
 						<td><span> </span><a id='lblRate' class="lbl"> </a></td>
-						<td><input id="txtRate"  type="text"  class="txt c1 num"/>	</td>	
+						<td>
+						<input id="txtRate"  type="text"  class="txt c1 num"/>
+						</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblPrice' class="lbl"> </a></td>
-						<td class="td2"><input id="txtPrice"  type="text"  class="txt num c1"/></td>
-						<td class="td3"> </td>
+						<td class="td2">
+						<input id="txtPrice"  type="text"  class="txt num c1"/>
+						</td>
+						<td class="td3"></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMount' class="lbl"> </a></td>
@@ -651,7 +681,9 @@
 						<input id="txtOrgmount"  type="text"  style="display: none;"/>
 						</td>
 						<td class="td3"><span> </span><a id='lblCurmount' class="lbl"> </a></td>
-						<td class="td4"><input id="txtCurmount"  type="text"  class="txt num c1"/></td>
+						<td class="td4">
+						<input id="txtCurmount"  type="text"  class="txt num c1"/>
+						</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
@@ -660,7 +692,9 @@
 						<input id="txtOrgmoney"  type="text"  style="display: none;"/>
 						</td>
 						<td class="td3"><span> </span><a id='lblCurmoney' class="lbl"> </a></td>
-						<td class="td4"><input id="txtCurmoney"  type="text"  class="txt num c1"/></td>
+						<td class="td4">
+						<input id="txtCurmoney"  type="text"  class="txt num c1"/>
+						</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
@@ -673,12 +707,12 @@
 						<td class="td2">
 						<input id="txtWorker"  type="text"  class="txt c1"/>
 						</td>
-						<td class="td3"> </td>
+						<td class="td3"></td>
 					</tr>
-					<tr> </tr>
-					<tr> </tr>
-					<tr> </tr>
-					<tr> </tr>
+					<tr></tr>
+					<tr></tr>
+					<tr></tr>
+					<tr></tr>
 				</table>
 			</div>
 		</div>
