@@ -19,7 +19,7 @@
             var q_name = "bankf";
 
             var q_readonly = ['txtNoa','txtAccno','txtDatea','txtWorker'];
-            var bbmNum = [['txtMoney', 8, 3,1],['txtMoney2', 8, 3,1],['txtInterestrate', 3, 3,1]];
+            var bbmNum = [['txtMoney', 12, 3,1],['txtMoney2', 12, 3,1],['txtInterestrate', 6, 3]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -49,8 +49,9 @@
             	bbmMask = [['txtIndate', r_picd],['txtEnddate', r_picd],['txtUndate', r_picd],['txtPaydate', r_picd],['txtDatea', r_picd]];
                 q_mask(bbmMask);
                  q_cmbParse("cmbType", ('').concat(new Array( '一個月','二個月','三個月','四個月','五個月','六個月','七個月','八個月','九個月','十個月','十一個月','十三個月','一年','二年','三年')));
-                  q_cmbParse("cmbPayitype", ('').concat(new Array('到期付息')));
+                  q_cmbParse("cmbPayitype", ('').concat(new Array('到期付息','每月付息','到期付本金')));
                   q_cmbParse("cmbRate", ('').concat(new Array('固定利率','機動利率')));
+                  q_gt('acomp', '', 0, 0, 0, "");
 				$('#txtPayacc1').change(function() {
 					var str=$.trim($(this).val());
                 	if((/^[0-9]{4}$/g).test(str))
@@ -69,6 +70,18 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'acomp':
+		                var as = _q_appendData("acomp", "", true);
+		                if (as[0] != undefined) {
+		                    var t_item = "@";
+		                    for (i = 0; i < as.length; i++) {
+		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+		                    }
+							q_cmbParse("cmbCno", t_item);
+							if(abbm[q_recno])
+		                    $("#cmbCno").val(abbm[q_recno].cno);
+		                }
+		                break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -100,6 +113,7 @@
             }
 
             function btnOk() {
+            	$('#txtAcomp').val($('#cmbCno').find(":selected").text());
                 var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
@@ -342,6 +356,13 @@
 						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblAcomp" class="lbl"> </a></td>
+						<td colspan="2">
+							<select id="cmbCno" class="txt c1"> </select>
+							<input id="txtAcomp" type="text" style="display:none;"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblLcno' class="lbl"> </a></td>
