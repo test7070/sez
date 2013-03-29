@@ -16,7 +16,7 @@
         }
         q_tables = 's';
         var q_name = "orde";
-        var q_readonly = ['txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales'];
+        var q_readonly = ['txtNoa','txtWorker','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales'];
         var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtTheory']; 
         var bbmNum = [];  // 允許 key 小數
         var bbsNum = [['txtPrice', 12, 3], ['txtWeight', 11, 2], ['txtMount', 9, 2]];
@@ -26,7 +26,6 @@
         //ajaxPath = ""; // 只在根目錄執行，才需設定
 		 aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
 		 ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-		  ['txtWorker', 'lblWorker', 'sss', 'namea', 'txtWorker', 'sss_b.aspx'],
 		 ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
 		 ['txtCustno','lblCust','cust','noa,comp,paytype','txtCustno,txtComp,txtPaytype','cust_b.aspx']);
         $(document).ready(function () {
@@ -74,11 +73,16 @@
 			       		$('#btnOk').removeAttr('disabled');
 				}
 			});
-            $('#lblQuat').click(function () { btnQuat(); });
-
-
-            $('#btnOrdem').click(function () { q_pop('txtNoa', "ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'ordem', 'noa', 'comp', "90%", "800px", q_getMsg('popOrdem')); });
-
+            $('#btnOrdem').click(function () {
+            	q_pop('txtNoa', "ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'ordem', 'noa', 'comp', "90%", "800px", q_getMsg('popOrdem')); 
+            });
+            $('#btnQuat').click(function(){
+            	btnQuat();
+            })
+            $('#lblQuat').click(function(){
+            	btnQuat();
+            })
+			
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、訂單視窗  關閉時執行
@@ -173,7 +177,6 @@
                 case 'ucc':  ////  直接 key in 編號，帶入 form
                     q_changeFill(t_name, 'txtProductno_' + b_seq + ',txtProduct_' + b_seq + ',txtUnit_' + b_seq, 'noa,product,unit');
                     break;
-
                 case q_name: if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
@@ -607,8 +610,10 @@
                 <td class="td1"><span> </span><a id='lblAddr2' class="lbl"></a></td>
                 <td class="td2"><input id="txtPost2"  type="text" class="txt c1"/></td>
                 <td class="td3" colspan='4' ><input id="txtAddr2"  type="text" class="txt c1" /></td>
-                <td class="td7" >&nbsp;</td>
-                <td class="td8"><input id="btnOrdem" type="button" value='' /></td> 
+                <td align="center" class="td7" colspan="2" >
+                	<input id="btnQuat" type="button" value='' />
+                	<input id="btnOrdem" type="button" value='' />
+                </td> 
             </tr>
             <tr class="tr7">
                 <td class="td1"><span> </span><a id='lblMoney' class="lbl"></a></td>
@@ -624,7 +629,7 @@
                 <td class="td2" colspan='2'><input id="txtTotalus" type="text" class="txt c1"/></td> 
                 <td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
                 <td class="td5" colspan='2'><input id="txtWeight"  type="text" class="txt c1"/></td>
-                <td class="td7"><span> </span><a id='lblWorker' class="lbl btn"></a></td>
+                <td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
                 <td class="td8"><input id="txtWorker" type="text" class="txt c1" /></td> 
             </tr>
             <tr>
@@ -656,6 +661,7 @@
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;">
                 	<input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" />
+                	<input id="txtNoq.*" type="hidden" />
                 </td>
                 <td style="width:10%; text-align:center">
                 	<input class="txt c6"  id="txtProductno.*" maxlength='30'type="text" style="width:98%;" />

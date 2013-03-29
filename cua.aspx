@@ -17,18 +17,22 @@
 
             q_tables = 's';
             var q_name = "cua";
-            var q_readonly = [];
+            var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [];
             var bbmMask = [];
-            var bbsMask = [];
+            var bbsMask = [['txtDatea', r_picd],['txtUindate', r_picd]];
             q_sqlCount = 6;
             brwCount = 6;
             brwCount2 = 5;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
+            aPop = new Array(
+            	['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
+            	['txtStationno_', 'btnStationno_', 'station', 'noa,station', 'txtStationno_,txtStation_', 'station_b.aspx']
+           	);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -47,8 +51,9 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
+            	bbsMask = [['txtDatea', r_picd],['txtUindate', r_picd]];
+                q_mask(bbsMask);
                 $('#btnWork').click(function() {
                     q_func('cua.genwork', $('#txtNoa').val()+",");
                 });
@@ -58,6 +63,11 @@
                 	if(ordeno.length > 0)
                 		t_where = "noa='" + ordeno + "'";
                     q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
+                });
+                $('#btnOrde').click(function() {
+	            	t_where = '';
+			        t_where = "where=^^ noa ='"+$('#txtOrdeno').val()+"' ^^";           	
+	            	q_gt('orde', t_where , 0, 0, 0, "", r_accy);
                 });
             }
 
@@ -73,6 +83,12 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+					case 'orde':
+						var as = _q_appendData("ordes", "", true);
+						if(as[0]!=undefined){
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdemount', 1, as, 'productno,product,unit,mount', 'txtProductno');
+		                }
+	                	break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -87,7 +103,11 @@
                     alert(t_err);
                     return;
                 }
-               	var t_noa = trim($('#txtNoa').val());
+				if(q_cur==1)
+	            	$('#txtWorker').val(r_name);
+	            else
+	            	$('#txtWorker2').val(r_name);
+            	var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
 		            q_gtnoa(q_name, replaceAll('C' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
@@ -131,7 +151,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['bccno'] && !as['bccname']) {
+                if (!as['productno'] && !as['product']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -271,6 +291,9 @@
                 width: 100%;
                 float: left;
             }
+            .txt.c2 {
+                width: 95%;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -360,7 +383,7 @@
 					<tr>
 						<td></td>
 						<td colspan="2">
-							<input id="btnOrdeimport" type="button" />
+							<input id="btnOrde" type="button" />
 							<input id="btnOrdewindow" type="button" />
 							<input id="btnWork" type="button" />
 						</td>
@@ -375,28 +398,36 @@
 					<td  align="center" style="width:1%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:1%;"> </td>
 					<td align="center" style="width:5%;"><a id='lblDatea_s'></a></td>
-					<td align="center" style="width:18%;"><a id='lblProductno_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblProduct_s'></a></td>
+					<td colspan="2" align="center" style="width:15%;"><a id='lblProductno_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblUnit_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblOrdemount_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblCuamount_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblInmount_s'></a></td>
+					<td colspan="2" align="center" style="width:15%;"><a id='lblStationno_s'></a></td>
+					<td align="center" style="width:5%;"><a id='lblUindate_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
-					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td><input id="txtDatea.*" type="text" style="width: 95%;" /></td>
-					<td><input id="txtProductno.*" type="text" style="width: 95%; text-align: right;"/></td>
-					<td><input id="txtProduct.*" type="text" style="width: 95%; text-align: right;"/></td>
-					<td><input id="txtUnit.*" type="text" style="width: 95%; text-align: right;"/></td>
-					<td><input id="txtOrdemount.*" type="text" style="width: 95%; text-align: right;"/></td>
-					<td><input id="txtCuamount.*" type="text" style="width: 95%; text-align: right;"/></td>
-					<td><input id="txtInmount.*" type="text" style="width: 95%; text-align: right;"/></td>
+					<td colspan="2">
+						<input id="txtProductno.*" type="text" style="width: 30%;"/>
+						<input id="txtProduct.*" type="text" style="width: 58%;"/>
+						<input id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+					</td>
+					<td><input id="txtUnit.*" type="text" style="width: 95%;"/></td>
+					<td><input id="txtOrdemount.*" type="text" class="txt num c2"/></td>
+					<td><input id="txtCuamount.*" type="text" class="txt num c2"/></td>
+					<td><input id="txtInmount.*" type="text" class="txt num c2"/></td>
+					<td colspan="2">
+						<input id="txtStationno.*" type="text" style="width: 30%;"/>
+						<input id="txtStation.*" type="text" style="width: 58%;"/>
+						<input id="btnStationno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+					</td>
+					<td><input id="txtUindate.*" type="text" style="width: 95%;"/></td>
 				</tr>
 			</table>
 		</div>
