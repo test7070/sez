@@ -100,19 +100,17 @@
             }
 
             function btnOk() {
-                var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
+				if (!q_cd($('#txtDatea').val())){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
+                	return;
                 }
                 $('#txtWorker').val(r_name);
                	var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
-		            q_gtnoa(q_name, replaceAll('FF' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-		        else
-		            wrServer(t_noa);
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_bankf') + $('#txtDatea').val(), '/', ''));
+                else
+                    wrServer(t_noa);
             }
 
             function wrServer(key_value) {

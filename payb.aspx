@@ -57,7 +57,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm], ['txtVbdate', r_picd], ['txtVedate', r_picd], ['txtPaydate', r_picd]];
+                bbmMask = [['txtIndate', r_picd],['txtDatea', r_picd], ['txtMon', r_picm], ['txtVbdate', r_picd], ['txtVedate', r_picd], ['txtPaydate', r_picd]];
                 q_mask(bbmMask);
                 q_gt('acomp', '', 0, 0, 0, "");
                 q_gt('part', '', 0, 0, 0, "");
@@ -75,6 +75,11 @@
                 });
                 //........................下拉選單
                 q_cmbParse("cmbKind", q_getPara('payb.kind'), 's');
+                q_cmbParse("cmbXpayc", q_getMsg('payc').split('&').join());
+                $("#cmbXpayc").change(function(e) {
+                	if(q_cur==1 || q_cur==2)
+					$('#txtPayc').val($(this).find(":selected").text()); 
+				});
                 //.........................
                 //........................單據匯入
                 $('#btnFix').click(function() {
@@ -279,11 +284,26 @@
                 $('#txtAcomp').val($('#cmbCno').find(":selected").text());
                 $('#txtPart').val($('#cmbPartno').find(":selected").text());
 
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
+                if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
+                	return;
                 }
+                if (!q_cd($('#txtPaydate').val())){
+                	alert(q_getMsg('lblPaydate')+'錯誤。'); 
+                	return;
+                }
+                if (!q_cd($('#txtIndate').val())){
+                	alert(q_getMsg('lblIndate')+'錯誤。'); 
+                	return;
+                }
+                if (!q_cd($('#txtVbdate').val()) || !q_cd($('#txtVedate').val())){
+                	alert(q_getMsg('lblVdate')+'錯誤。'); 
+                	return; 
+                }
+               	if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
+                    alert(q_getMsg('lblMon') + '錯誤。');
+                    return;
+                }       
                 sum();
                 
                 var yufu=false;
@@ -676,11 +696,14 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblPayc' class="lbl"></a></td>
+						<td><span> </span><a id='lblPayc' class="lbl"> </a></td>
 						<td colspan="2">
-							<input id="txtPayc" type="text" style="float:left; width:50%;"/>
-							<input id="txtPaydate" type="text" style="float:left; width:50%;"/>
+							<input id="txtPayc" type="text" style="float:left; width:45%;"/>
+							<select id="cmbXpayc" style="float:left; width:10%;"> </select>
+							<input id="txtPaydate" type="text" style="float:left; width:45%;"/>
 						</td>
+						<td><span> </span><a id='lblIndate' class="lbl"> </a></td>
+						<td><input id="txtIndate" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblVdate'class="lbl" > </a></td>

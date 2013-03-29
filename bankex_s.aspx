@@ -11,7 +11,7 @@
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             var q_name = "bankex_s";
-			aPop = new Array(['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);
+			aPop = new Array(['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
             $(document).ready(function() {
                 main();
             });
@@ -27,9 +27,9 @@
             }
 
             function q_seekStr() {
-                t_bankno = $.trim($('#txtBankno').val());
+                t_acc1 = $.trim($('#txtAcc1').val());
        
-                var t_where = " 1=1 " + q_sqlPara2("bankno", t_bankno);                	    
+                var t_where = " 1=1 " + q_sqlPara2("acc1", t_acc1);                	    
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
@@ -47,10 +47,10 @@
 		<div style="width:95%; text-align:center;padding:15px;">
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblBank'> </a></td>
+					<td class='seek'  style="width:20%;"><a id='lblAcc1'> </a></td>
 					<td style="width:75%;">
-					<input class="txt" id="txtBankno" type="text" style="width:35%; font-size:medium;" />
-					<input class="txt" id="txtBank" type="text" style="width:60%; font-size:medium;" />
+					<input class="txt" id="txtAcc1" type="text" style="width:35%; font-size:medium;" />
+					<input class="txt" id="txtAcc2" type="text" style="width:60%; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
