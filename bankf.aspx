@@ -19,7 +19,7 @@
             var q_name = "bankf";
 
             var q_readonly = ['txtNoa','txtAccno','txtDatea','txtWorker'];
-            var bbmNum = [['txtMoney', 8, 3,1],['txtMoney2', 8, 3,1],['txtInterestrate', 3, 3,1]];
+            var bbmNum = [['txtMoney', 8, 2,1],['txtMoney2', 8, 2,1],['txtInterestrate', 2, 2,1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -48,8 +48,8 @@
             function mainPost() {
             	bbmMask = [['txtIndate', r_picd],['txtEnddate', r_picd],['txtUndate', r_picd],['txtPaydate', r_picd],['txtDatea', r_picd]];
                 q_mask(bbmMask);
-                 q_cmbParse("cmbType", ('').concat(new Array( '一個月','二個月','三個月','四個月','五個月','六個月','七個月','八個月','九個月','十個月','十一個月','十三個月','一年','二年','三年')));
-                  q_cmbParse("cmbPayitype", ('').concat(new Array('到期付息')));
+                 q_cmbParse("cmbType", ('').concat(new Array( '一個月','三個月','六個月','一年','十八個月','二年','三年')));
+                  q_cmbParse("cmbPayitype", ('').concat(new Array('到期付息','每月付息','到期入本金')));
                   q_cmbParse("cmbRate", ('').concat(new Array('固定利率','機動利率')));
 				$('#txtPayacc1').change(function() {
 					var str=$.trim($(this).val());
@@ -96,7 +96,7 @@
             }
 
             function btnPrint() {
-            	q_box('z_bankf.aspx'+ "?;;;;"+r_accy+";", '', "90%", "650px", m_print);
+            	q_box('z_bankf.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", m_print);
             }
 
             function btnOk() {
@@ -195,7 +195,7 @@
             }
             .dview {
                 float: left;
-                width: 400px; 
+                width: 450px; 
                 border-width: 0px; 
             }
             .tview {
@@ -215,7 +215,7 @@
             }
             .dbbm {
                 float: left;
-                width: 550px;
+                width: 500px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -315,14 +315,16 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewIndate'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewType'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewEnddate'> </a></td>
+						<td align="center" style="width:120px; color:black;"><a id='vewType'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewBank'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMoney'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='indate' style="text-align: center;">~indate</td>
 						<td id='type' style="text-align: left;">~type</td>
-						<td id='enddate' style="text-align: center;">~enddate</td>
+						<td id='bank' style="text-align: left;">~bank</td>
+						<td id='money,2,1' style="text-align: right;">~money,2,1</td>
 					</tr>
 				</table>
 			</div>
