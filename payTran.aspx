@@ -277,7 +277,7 @@
 						//重新排列有到期日的
 						var tmp = new Array();
 						for(var i in as){
-							if(as[i].indate.length>0){
+							if(as[i].indate!=undefined && as[i].indate.length>0){
 								tmp.push({noa: as[i].noa,payc: as[i].payc, indate:as[i].indate});
 							}
 							as[i].memo = '';
