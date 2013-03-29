@@ -14,7 +14,7 @@
 		    q_tables = 's';
 		    var q_name = "pay";
 		    var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno','txtSale','txtTotal','txtPaysale','txtUnpay','txtOpay','textOpay','txtWorker2'];
-		    var q_readonlys = ['txtRc2no', 'txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2'];
+		    var q_readonlys = ['txtRc2no', 'txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2','txtMemo2'];
 		    var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]);
 		    var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtUnpayorg', 10, 0, 1]];
 		    var bbmMask = [];
@@ -241,10 +241,15 @@
 		                        $('#txtUnpay_' + i).val('');
 		                        $('#txtPart2_' + i).val('');
 		                        $('#txtUnpayorg_' + i).val('');
+		                        $('#txtIndate_' + i).val('');
 		                    }
-		                }
-		                var yufu=false;
+		                }	               
 		                var as = _q_appendData("tre", "", true);
+		               	if (as[0] == undefined){
+		               		alert('無資料。');
+		               		return;
+		               	} 
+		               	var yufu=false;
 		                for (var i = 0; i < as.length; i++) {
 		                    if (as[i].total - as[i].paysale == 0) {
 		                        as.splice(i, 1);
@@ -254,32 +259,36 @@
 		                        as[i].paysale = 0;
 		                    }
 		                    //判斷匯入資料是否有預付
-		                    if(as[i]!=undefined){
-			                    if(as[i].payc.indexOf('預付')>-1){
-			                    	yufu=true;
-			                    }
-		                    }
+			                if(as[i].payc.indexOf('預付')>-1){
+			                    yufu=true;
+			                }	               
 		                }
 		                
 		                //有預付存在每個備註插入預付，並在BBM預付單號上加上預付
 		                if(yufu){
-		                	for (var i = 0; i < as.length; i++) {
+		                	/*for (var i = 0; i < as.length; i++) {
 		                		as[i].memo='預付.'+as[i].memo
-		                	}
+		                	}*/
 		                	if($('#txtRc2no').val().indexOf('預付')==-1)
 		                		$('#txtRc2no').val('預付'+$('#txtRc2no').val());
 		                }
-						
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,cmbPartno,txtPart,txtMemo,txtPayc,txtIndate', as.length, as, 'noa,paysale,_unpay,_unpay,part,partno,part,memo,payc,paydate', 'txtRc2no', '');
-						var t_memo = '';
-						//為了使PAYB備註能帶到傳票,先註解
-						/*for (var i = 0; i < q_bbsCount; i++) {
-							if($.trim($('#txtMemo_'+i).val()).length>0){
-								t_memo = t_memo+(t_memo.length>0?'\n':'')+ $.trim($('#txtMemo_'+i).val());
-								$('#txtMemo_'+i).val('');
+						//--------------------------------------------------------
+						//重新排列有到期日的
+						var tmp = new Array();
+						for(var i in as){
+							if(as[i].indate.length>0){
+								tmp.push({payc: as[i].payc, indate:as[i].indate});
 							}
-				        }
-				        $('#txtMemo').val(t_memo);*/
+							as[i].payc = '';
+							as[i].indate = '';
+						}
+						for(var i in tmp){
+							as[i].payc = tmp[i].payc;
+							as[i].indate = tmp[i].indate;
+						}
+						
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,cmbPartno,txtPart,txtMemo2,txtPayc,txtIndate', as.length, as, 'noa,paysale,_unpay,_unpay,part,partno,part,memo,payc,paydate', 'txtRc2no', '');
+
 		                t_Saving = false;
 		                sum();
 
@@ -899,10 +908,10 @@
 					</td>
 					<td align="center" style="width:1%;"> </td>
 					<td align="center" style="width:8%;"><a id='lblAcc1'></a></td>
-					<td align="center" style="width:5%;"><a id='lblMoney'></a></td>
+					<td align="center" style="width:8%;"><a id='lblMoney'></a></td>
+					<td align="center" style="width:4%;"><a id='lblIndate'></a></td>
 					<td align="center" style="width:8%;"><a id='lblCheckno'></a></td>
-					<td align="center" style="width:8%;"><a id='lblBank'></a></td>
-					<td align="center" style="width:3%;"><a id='lblIndate'></a></td>
+					<td align="center" style="width:5%;"><a id='lblBank'></a></td>
 					<td align="center" style="width:3%;"><a id='lblChgsTran'></a></td>
 					<td align="center" style="width:5%;"><a id='lblMemos'></a></td>
 					<td align="center" style="width:3%;"><a id='lblPaysales'></a></td>
@@ -921,9 +930,13 @@
 						<input type="text" id="txtAcc2.*"  style="width:85%; float:left;"/>
 					</td>
 					<td>
-					<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
-					<input type="text" id="txtPayc.*"  style="float:left;width:85%;" />
-					<select id="cmbPayc2.*"  style="float:left;width:10%;"> </select>
+						<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
+						<input type="text" id="txtMemo.*" style="width:95%;"/>
+					</td>
+					<td>
+						<input type="text" id="txtPayc.*"  style="float:left;width:85%;" />
+						<select id="cmbPayc2.*"  style="float:left;width:10%;"> </select>
+						<input type="text" id="txtIndate.*" style="width:95%;" />
 					</td>
 					<td>
 					<input type="text" id="txtCheckno.*"  style="width:95%;" />
@@ -936,15 +949,12 @@
 						<input type="text" id="txtBank.*"  style="width:85%; float:left;"/>
 					</td>
 					<td>
-					<input type="text" id="txtIndate.*" style="width:95%;" />
-					</td>
-					<td>
 						<input type="text" id="txtChgs.*" style="text-align:right;width:95%;"/>
 						<select id="cmbPartno.*"  style="float:left;width:95%;" > </select>
 						<input type="text" id="txtPart.*" style="display:none;"/>
 					</td>
 					<td>
-					<input type="text" id="txtMemo.*" style="width:95%;"/>
+					<input type="text" id="txtMemo2.*" style="width:95%;"/>
                     <input type="text" id="txtRc2no.*" style="width:95%;" />
 					</td>
   					<td>
