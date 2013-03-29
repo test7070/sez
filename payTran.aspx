@@ -51,6 +51,9 @@
 		        bbsMask = [['txtIndate', r_picd]];
 		        q_gt('part', '', 0, 0, 0, "");
 		        q_gt('acomp', '', 0, 0, 0, "");
+		        
+		        q_cmbParse("cmbPayc2", q_getMsg('payc').split('&').join(),"s");
+		 
 		        $('#btnGqbPrint').click(function (e) {
 		            var t_noa = '', t_max, t_min;
 		            for (var i = 0; i < q_bbsCount; i++) {
@@ -446,7 +449,12 @@
 		        	$('#lblNo_'+i).text(i+1);	
 		            if ($('#btnMinus_' + i).hasClass('isAssign'))    /// 重要
 		                continue;
-				
+					
+					$('#cmbPayc2_' + i).change(function (e) {					
+		                var n = $(this).attr("id").replace(/cmbPayc2_/g,'');
+		                $("#txtPayc_"+n).val($(this).find(":selected").text());
+		            });
+		            
 		            $('#txtMoney_' + i).change(function (e) {
 		                sum();
 		            });
@@ -914,7 +922,8 @@
 					</td>
 					<td>
 					<input type="text" id="txtMoney.*" style="text-align:right;width:95%;"/>
-					<input type="text" id="txtPayc.*"  style="width:95%;" />
+					<input type="text" id="txtPayc.*"  style="float:left;width:85%;" />
+					<select id="cmbPayc2.*"  style="float:left;width:10%;"> </select>
 					</td>
 					<td>
 					<input type="text" id="txtCheckno.*"  style="width:95%;" />

@@ -20,7 +20,7 @@
             var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [];
+            var bbsNum = [['txtOrdemount', 10, 0, 1],['txtCuamount', 10, 0, 1],['txtInmount', 10, 0, 1]];
             var bbmMask = [];
             var bbsMask = [['txtDatea', r_picd],['txtUindate', r_picd]];
             q_sqlCount = 6;

@@ -478,10 +478,10 @@
                 	 <input class="txt c5" id="txtProduct.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtSpec.*" type="text" /> </td>
                 <td >
-                		<input class="txt num c8" id="txtSize1.*" type="text"/><div id="x1" style="float: left"> x</div>
-                		<input class="txt num c8" id="txtSize2.*" type="text"/><div id="x2" style="float: left"> x</div>
-                        <input class="txt num c8" id="txtSize3.*" type="text"/><div id="x3.*" style="float: left"> x</div>
-                         <input class="txt num c8" id="txtSize4.*" type="text"/>
+                		<input class="txt num c8" id="textSize1.*" type="text"/><div id="x1" style="float: left"> x</div>
+                		<input class="txt num c8" id="textSize2.*" type="text"/><div id="x2" style="float: left"> x</div>
+                        <input class="txt num c8" id="textSize3.*" type="text"/><div id="x3.*" style="float: left"> x</div>
+                         <input class="txt num c8" id="textSize4.*" type="text"/>
                          <!--上為虛擬下為實際-->
                          <input id="txtRadius.*" type="hidden"/>
                 		<input  id="txtWidth.*" type="hidden"/>
