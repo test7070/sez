@@ -204,7 +204,11 @@
                             type : '5',
                             name : 'cartax',
                             value : ('上期牌照稅,下期牌照稅,春季燃料稅,夏季燃料稅,秋季燃料稅,冬季燃料稅').split(',')
-                        }]
+                        }, {
+	                        type : '8', //select
+	                        name : 'sheetyn',
+	                        value : ('已收單,未收單').split(',')
+	                    }]
                     });
                     q_getFormat();
 	                q_langShow();

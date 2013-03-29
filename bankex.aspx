@@ -17,20 +17,21 @@
             isEditTotal = false;
             q_tables = 's';
             var q_name = "bankex";
-            var q_readonly = ['txtWorker','txtMoney','txtNoa'];
+            var q_readonly = ['txtWorker','txtInmoney','txtNoa','txtAccno'];
             var q_readonlys = [];
-            var bbmNum = [['txtMoney', 15, 0, 1]];
+            var bbmNum = [['txtMoney', 15, 0, 1],['txtCashout', 15, 0, 1],['txtCashin', 15, 0, 1]];
             var bbsNum = [['txtMoney', 15, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 4;
             brwCount = 4;
-            brwCount2 = 4;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-			aPop = new Array(['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx'],
-							 ['txtBankno_', 'btnBank_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']);
+			aPop = new Array(['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+							 ['txtAcc1_', 'btnAcc1_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+							 ['txtPart', 'lblPart', 'part', 'part,noa', 'txtPart,txtPartno', 'part_b.aspx'],
+							 ['txtPart_', 'btnPart_', 'part', 'part,noa', 'txtPart_,txtPartno_', 'part_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -50,6 +51,11 @@
                 q_getFormat();
                 bbmMask = [['txtDatea',r_picd]];
                 q_mask(bbmMask);
+                
+                   $('#lblAccno').click(function () {
+		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('btnAccc'), true);
+		        });
+
             }
 
             function q_boxClose(s2) {
@@ -71,13 +77,20 @@
                         break;
                 }
             }
-
             function btnOk() {
             	$('#txtWorker').val(r_name);
+            	var t_cashout,t_cashin,t_money;
+            	t_inmoney = dec($('#txtInmoney').val());
+            	t_cashin = dec($('#txtCashin').val());
+            	t_money = dec($('#txtMoney').val());
+            	if(t_inmoney != (t_cashin + t_money)){
+            		alert(t_cashin + ' + ' + t_money + ' 不等於 ' + t_inmoney);
+            		return;
+            	}
                 var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
-					q_gtnoa(q_name, replaceAll('Z'+(t_date.length == 0 ? q_date() : t_date), '/', ''));
+					q_gtnoa(q_name, replaceAll('X'+(t_date.length == 0 ? q_date() : t_date), '/', ''));
 				else
 					wrServer(t_noa);
             }
@@ -101,7 +114,8 @@
 				for(var i = 0;i < q_bbsCount;i++){
 					total += dec($('#txtMoney_'+i).val());
 				}
-				$('#txtMoney').val(total);
+				$('#txtInmoney').val(total);
+				
 			}
             function btnIns() {
                 _btnIns();
@@ -129,7 +143,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['bankno']) {
+                if (!as['acc1']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -204,13 +218,14 @@
             }
             .dview {
                 float: left;
-                width: 260px; 
+                width: 450px; 
                 border-width: 0px; 
             }
             .tview {
                 border: 5px solid gray;
                 font-size: medium;
                 background-color: black;
+                width: 100%;
             }
             .tview tr {
                 height: 30px;
@@ -224,7 +239,7 @@
             }
             .dbbm {
                 float: left;
-                width: 546px;
+                width: 540px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -271,8 +286,20 @@
             .tbbm tr td .lbl.btn:hover {
                 color: #FF8F19;
             }
+            .tbbm tr td .lbl.col{
+                color: #FF73B7;
+                font-weight: bolder;
+            }
             .txt.c1 {
                 width: 100%;
+                float: left;
+            }
+            .txt.c2 {
+                width: 30%;
+                float: left;
+            }
+            .txt.c3 {
+                width: 68%;
                 float: left;
             }
             .txt.num {
@@ -294,9 +321,7 @@
                 margin: -1px;
                 font-size:medium;
             }
-            .dbbs {
-                width: 950px;
-            }
+            
             .tbbs a {
                 font-size: medium;
             }
@@ -320,13 +345,19 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewDatea'></a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewBank'></a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewDatea'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewAcc1'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewCashout'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewCashin'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMoney'></a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" /></td>
 						<td id='datea' style="text-align: center;">~datea</td>
-						<td id='bank' style="text-align: center;">~bank</td>
+						<td id='acc2' style="text-align: center;">~acc2</td>
+						<td id='cashout,0,1' style="text-align: center;">~cashout,0,1</td>
+						<td id='cashin,0,1' style="text-align: center;">~cashin,0,1</td>
+						<td id='money,0,1' style="text-align: center;">~money,0,1</td>
 					</tr>
 				</table>
 			</div>
@@ -347,15 +378,27 @@
 						<td><input id="txtNoa" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblBank' class="lbl btn"> </a></td>
-						<td colspan="2">
-							<input id="txtBankno" type="text" style="float:left; width:40%;"/>
-							<input id="txtBank" type="text" style="float:left; width:60%;"/>
+						<td><span> </span><a id='lblAcc1' class="lbl btn"> </a></td>
+						<td ><input id="txtAcc1" type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="txtAcc2" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+							<td><span> </span><a id="lblCashout" class="lbl"> </a></td>
+						<td><input id="txtCashout" type="text" class="txt num c1" /></td>
+						<td><span> </span><a id="lblPart" class="lbl btn"> </a></td>
+						<td><input id="txtPart" type="text" class="txt c1"/>
+							<input id="txtPartno" type="text" style="display: none;"/>
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
+						<td><span> </span><a id="lblCashin" class="lbl col" > </a></td>
+						<td><input id="txtCashin" type="text" class="txt num c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblMoney" class="lbl col" > </a></td>
 						<td><input id="txtMoney" type="text" class="txt num c1" /></td>
+						<td><span> </span><a id="lblInmoney" class="lbl "> </a></td>
+						<td><input id="txtInmoney" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -364,6 +407,8 @@
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
+						<td><input id="txtAccno" type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
@@ -374,8 +419,9 @@
 					<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:50px;"><a id='lblBank_s'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblAcc1_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblMoney_s'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblPart_s'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -384,13 +430,19 @@
 						<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
 					<td >
-						<input id="txtBankno.*" type="text" class="txt c1" style="float:left;width:30%;"/>
-						<input id="txtBank.*" type="text" class="txt c1" style="float:left;width:60%;"/>
-						<input class="btn"  id="btnBank.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+						<input class="btn"  id="btnAcc1.*" type="button" value='.' style=" font-weight: bold;width:1%;float: left;" />
+						<input id="txtAcc1.*" type="text" class="txt c1" style="float:left;width:30%;"/>
+						<input id="txtAcc2.*" type="text" class="txt c1" style="float:left;width:58%;"/>
 					</td>
 					<td>
 						<input type="text" id="txtMoney.*" style="width:95%;text-align:right;" />
 					</td>
+					
+						<td><input class="btn"  id="btnPart.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+						<input type="text" id="txtPart.*"  style="width:78%; float:left;"/>
+						<input id="txtPartno.*" type="text" style="display: none;" />
+					</td>
+				
 					<td>
 						<input type="text" id="txtMemo.*" style="width:95%;" />
 					</td>
