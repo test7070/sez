@@ -264,25 +264,28 @@
 			                }	               
 		                }
 		                
+		                /*   會被q_gridAddRow蓋掉?
 		                //有預付存在每個備註插入預付，並在BBM預付單號上加上預付
 		                if(yufu){
-		                	/*for (var i = 0; i < as.length; i++) {
+		                	for (var i = 0; i < as.length; i++) {
 		                		as[i].memo='預付.'+as[i].memo
-		                	}*/
+		                	}
 		                	if($('#txtRc2no').val().indexOf('預付')==-1)
 		                		$('#txtRc2no').val('預付'+$('#txtRc2no').val());
-		                }
+		                }*/
 						//--------------------------------------------------------
 						//重新排列有到期日的
 						var tmp = new Array();
 						for(var i in as){
 							if(as[i].indate.length>0){
-								tmp.push({payc: as[i].payc, indate:as[i].indate});
+								tmp.push({noa: as[i].noa,payc: as[i].payc, indate:as[i].indate});
 							}
+							as[i].memo = '';
 							as[i].payc = '';
 							as[i].indate = '';
 						}
 						for(var i in tmp){
+							as[i].memo = tmp[i].noa;
 							as[i].payc = tmp[i].payc;
 							as[i].indate = tmp[i].indate;
 						}
