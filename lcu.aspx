@@ -123,6 +123,7 @@
                 	alert(q_getMsg('lblDate2')+'錯誤。');
                 	return;
                 }
+                $('#txtWorker').val(r_name);
                 var t_noa = trim($('#txtNoa').val());
 				var t_date = trim($('#txtDatea').val());
 				if (t_noa.length == 0 || t_noa == "AUTO")
