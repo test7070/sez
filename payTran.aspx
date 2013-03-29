@@ -280,7 +280,6 @@
 							if(as[i].indate!=undefined && as[i].indate.length>0){
 								tmp.push({noa: as[i].noa,payc: as[i].payc, indate:as[i].indate});
 							}
-							as[i].memo = '';
 							as[i].payc = '';
 							as[i].indate = '';
 						}
@@ -289,9 +288,10 @@
 							as[i].payc = tmp[i].payc;
 							as[i].indate = tmp[i].indate;
 						}
-						
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,cmbPartno,txtPart,txtMemo2,txtPayc,txtIndate', as.length, as, 'noa,paysale,_unpay,_unpay,part,partno,part,memo,payc,paydate', 'txtRc2no', '');
-
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,cmbPartno,txtPart,txtMemo2,txtPayc,txtIndate', as.length, as, 'noa,paysale,_unpay,_unpay,part,partno,part,memo,payc,indate', 'txtRc2no', '');
+						for(var i in tmp){
+							$('#txtMemo').val( tmp[i].noa);
+						}
 		                t_Saving = false;
 		                sum();
 
