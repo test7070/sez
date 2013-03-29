@@ -18,9 +18,9 @@
             isEditTotal = false;
             q_tables = 's';
             var q_name = "bankex";
-            var q_readonly = ['txtWorker', 'txtInmoney', 'txtNoa', 'txtAccno'];
+            var q_readonly = ['txtWorker', 'txtInmoney','txtCashout', 'txtNoa', 'txtAccno'];
             var q_readonlys = [];
-            var bbmNum = [['txtMoney', 15, 0, 1], ['txtCashout', 15, 0, 1], ['txtCashin', 15, 0, 1]];
+            var bbmNum = [['txtMoney', 15, 0, 1], ['txtCashout', 15, 0, 1], ['txtCashin', 15, 0, 1], ['txtInmoney', 15, 0, 1]];
             var bbsNum = [['txtMoney', 15, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
@@ -53,7 +53,12 @@
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('btnAccc'), true);
                 });
-
+				$('#txtCashin').change(function(e){
+					sum();
+				});
+				$('#txtMoney').change(function(e){
+					sum();
+				});
             }
 
             function q_boxClose(s2) {
@@ -110,12 +115,15 @@
             }
 
             function sum() {
+            	if(!(q_cur==1 || q_cur==2))
+            		return;
                 var total = 0;
                 for (var i = 0; i < q_bbsCount; i++) {
                     total += dec($('#txtMoney_' + i).val());
                 }
-                $('#txtInmoney').val(total);
-
+                $('#txtCashout').val(total);
+                
+                $("#txtInmoney").val(dec($('#txtCashin').val())+dec($('#txtMoney' ).val()));
             }
 
             function btnIns() {
@@ -130,10 +138,11 @@
                     return;
                 _btnModi();
                 $('#txtDatea').focus();
+                sum();
             }
 
             function btnPrint() {
-
+				q_box('z_bankex.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", m_print);
             }
 
             function wrServer(key_value) {
@@ -371,7 +380,6 @@
 						<td></td>
 						<td></td>
 						<td></td>
-						<td></td>
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
@@ -386,38 +394,36 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAcc1' class="lbl btn"> </a></td>
-						<td >
-						<input id="txtAcc1" type="text" class="txt c1"/>
-						</td>
-						<td colspan="2">
-						<input id="txtAcc2" type="text" class="txt c1"/>
-						</td>
+						<td><input id="txtAcc1" type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="txtAcc2" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCashout" class="lbl"> </a></td>
-						<td>
-						<input id="txtCashout" type="text" class="txt num c1" />
-						</td>
 						<td><span> </span><a id="lblPart" class="lbl btn"> </a></td>
 						<td>
-						<input id="txtPart" type="text" class="txt c1"/>
-						<input id="txtPartno" type="text" style="display: none;"/>
+							<input id="txtPart" type="text" class="txt c1"/>
+							<input id="txtPartno" type="text" style="display: none;"/>
 						</td>
+						<td><span> </span><a id="lblCashin" class="lbl" > </a></td>
+						<td><input id="txtCashin" type="text" class="txt num c1" />
+					</tr>
+					
+					<tr>
+						<td> </td>
+						<td> </td>
+						<td><span> </span><a id="lblMoney" class="lbl" > </a></td>
+						<td><input id="txtMoney" type="text" class="txt num c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCashin" class="lbl col" > </a></td>
-						<td>
-						<input id="txtCashin" type="text" class="txt num c1" />
-						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblMoney" class="lbl col" > </a></td>
-						<td>
-						<input id="txtMoney" type="text" class="txt num c1" />
-						</td>
+						<td> </td>
+						<td> </td> 
 						<td><span> </span><a id="lblInmoney" class="lbl "> </a></td>
-						<td>
-						<input id="txtInmoney" type="text" class="txt num c1" />
+						<td><input id="txtInmoney" type="text" class="txt num c1" /></td>
+					</tr>
+					<tr>
+						<td> </td>
+						<td> </td>
+						<td><span> </span><a id="lblCashout" class="lbl"> </a></td>
+						<td><input id="txtCashout" type="text" class="txt num c1" /></td>
 						</td>
 					</tr>
 					<tr>

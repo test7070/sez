@@ -19,7 +19,7 @@
             var q_name = "bankf";
 
             var q_readonly = ['txtNoa','txtAccno','txtDatea','txtWorker'];
-            var bbmNum = [['txtMoney', 8, 3,1],['txtMoney2', 8, 3,1],['txtInterestrate', 3, 3,1]];
+            var bbmNum = [['txtMoney', 8, 2,1],['txtMoney2', 8, 2,1],['txtInterestrate', 2, 2,1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -195,7 +195,7 @@
             }
             .dview {
                 float: left;
-                width: 400px; 
+                width: 450px; 
                 border-width: 0px; 
             }
             .tview {
@@ -215,7 +215,7 @@
             }
             .dbbm {
                 float: left;
-                width: 550px;
+                width: 500px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -315,14 +315,16 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewIndate'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewType'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewEnddate'> </a></td>
+						<td align="center" style="width:120px; color:black;"><a id='vewType'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewBank'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMoney'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='indate' style="text-align: center;">~indate</td>
 						<td id='type' style="text-align: left;">~type</td>
-						<td id='enddate' style="text-align: center;">~enddate</td>
+						<td id='bank' style="text-align: left;">~bank</td>
+						<td id='money,2,1' style="text-align: right;">~money,2,1</td>
 					</tr>
 				</table>
 			</div>
