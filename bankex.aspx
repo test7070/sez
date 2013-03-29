@@ -367,9 +367,9 @@
 						</td>
 						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='acc2' style="text-align: center;">~acc2</td>
-						<td id='cashout,0,1' style="text-align: center;">~cashout,0,1</td>
-						<td id='cashin,0,1' style="text-align: center;">~cashin,0,1</td>
-						<td id='money,0,1' style="text-align: center;">~money,0,1</td>
+						<td id='cashout,0,1' style="text-align:right;">~cashout,0,1</td>
+						<td id='cashin,0,1' style="text-align:right;">~cashin,0,1</td>
+						<td id='money,0,1' style="text-align:right;">~money,0,1</td>
 					</tr>
 				</table>
 			</div>
