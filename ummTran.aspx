@@ -592,6 +592,13 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                 if(q_cur==1 || q_cur==2){
+		        	$("#btnVcc").removeAttr("disabled");
+		        	$("#btnAuto").removeAttr("disabled");
+		        }else{
+		        	$("#btnVcc").attr("disabled","disabled");
+		        	$("#btnAuto").attr("disabled","disabled");
+		        }
                 getOpay();
                 //		        var t_custno = $('#txtCustno').val();
                 //		        q_gt("umm_opay", "where=^^custno='" + t_custno + "'^^", 1, 1, 0, '', r_accy);
@@ -599,6 +606,13 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                 if(q_cur==1 || q_cur==2){
+		        	$("#btnVcc").removeAttr("disabled");
+		        	$("#btnAuto").removeAttr("disabled");
+		        }else{
+		        	$("#btnVcc").attr("disabled","disabled");
+		        	$("#btnAuto").attr("disabled","disabled");
+		        }
             }
 
             function btnMinus(id) {

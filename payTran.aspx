@@ -562,6 +562,13 @@
 
 		    function refresh(recno) {
 		        _refresh(recno);
+		        if(q_cur==1 || q_cur==2){
+		        	$("#btnVcc").removeAttr("disabled");
+		        	$("#btnAuto").removeAttr("disabled");
+		        }else{
+		        	$("#btnVcc").attr("disabled","disabled");
+		        	$("#btnAuto").attr("disabled","disabled");
+		        }
 		        getOpay();
 		        //		        var t_tggno = $('#txtTggno').val();
 		        //		        q_gt("pay_opay", "where=^^tggno='" + t_tggno + "'^^", 1, 1, 0, '', r_accy);
@@ -569,6 +576,13 @@
 
 		    function readonly(t_para, empty) {
 		        _readonly(t_para, empty);
+		         if(q_cur==1 || q_cur==2){
+		        	$("#btnVcc").removeAttr("disabled");
+		        	$("#btnAuto").removeAttr("disabled");
+		        }else{
+		        	$("#btnVcc").attr("disabled","disabled");
+		        	$("#btnAuto").attr("disabled","disabled");
+		        }
 		    }
 
 		    function btnMinus(id) {
@@ -860,16 +874,16 @@
 						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr5">
-						<td class="td1"> <a id='lblMemo' class="lbl"></a></td>
-						<td class="td2" colspan='3' ><textarea id="txtMemo"  rows='3' cols='3' style="width: 99%; height: 50px;" ></textarea></td>
+						<td class="td1"> <a id='lblMemo' class="lbl"> </a></td>
+						<td class="td2" colspan='3' ><textarea id="txtMemo"  class="txt c1" style="height: 50px;" > </textarea></td>
 						<td class="td5" ><span> </span>
-							<a id='lblRc2no' class="lbl"></a>
-							<p style="height:1%;"></p><span> </span>
-							<a id='lblWorker' class="lbl"></a>
+							<a id='lblRc2no' class="lbl"> </a>
+							<p style="height:1%;"> </p><span> </span>
+							<a id='lblWorker' class="lbl"> </a>
 						</td>
 						<td class="td6" >
 							<input id="txtRc2no"  type="text" class="txt c1"/>
-							<p style="height:1%;"></p>
+							<p style="height:1%;"> </p>
 							<input id="txtWorker"  type="text" class="txt c1"/>
 							<input id="txtWorker2"  type="text" class="txt c1" style="display:none;"/>
 						</td>
@@ -937,19 +951,19 @@
 						<input type="text" id="txtMemo.*" style="width:95%;"/>
 					</td>
 					<td>
-						<input type="text" id="txtPayc.*"  style="float:left;width:85%;" />
+						<input type="text" id="txtPayc.*"  style="float:left;width:75%;" />
 						<select id="cmbPayc2.*"  style="float:left;width:10%;"> </select>
-						<input type="text" id="txtIndate.*" style="width:95%;" />
+						<input type="text" id="txtIndate.*" style="width:85%;" />
 					</td>
 					<td>
 					<input type="text" id="txtCheckno.*"  style="width:95%;" />
 					<input type="text" id="txtAccount.*"  style="width:95%;" />
 					</td>
 					<td>
-						<input class="btn"  id="btnBankno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                        <input type="text" id="txtBankno.*"  style="width:85%; float:left;"/>
-                        <span style="display:block; width:1%;float:left;"> </span>
-						<input type="text" id="txtBank.*"  style="width:85%; float:left;"/>
+						<input class="btn"  id="btnBankno.*" type="button" value='.' style=" font-weight: bold;width:5%;float:left;" />
+                        <input type="text" id="txtBankno.*"  style="width:80%; float:left;"/>
+                        <span style="display:block; width:5%;float:left;"> </span>
+						<input type="text" id="txtBank.*"  style="width:80%; float:left;"/>
 					</td>
 					<td>
 						<input type="text" id="txtChgs.*" style="text-align:right;width:95%;"/>
