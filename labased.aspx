@@ -76,6 +76,7 @@
             }
 
             function btnOk() {
+            				
             	if(q_getHref()[0] == 'noa' && q_getHref()[1] != '' ){
 	            	for(var i = 0 ;i < q_bbsCount;i++){
 	            		if($('#txtHealth_bdate_' + i).val() == ''){
@@ -87,6 +88,18 @@
 	            		if($('#txtRetire_bdate_' + i).val() == ''){
 							$('#txtRetire_bdate_' + i).val($('#txtRetire_bdate_' + (i+1)).val());
 	            		}
+	            		if($('#txtHealth_bdate_' + i).val().length>0 && !q_cd($('#txtHealth_bdate_' + i).val()))
+            		alert(q_getMsg('lblHealth_bdate')+'錯誤。');  
+            	if($('#txtHealth_edate_' + i).val().length>0 && !q_cd($('#txtHealth_edate_' + i).val()))
+            		alert(q_getMsg('lblHealth_edate')+'錯誤。');
+            	if($('#txtLabor_bdate_' + i).val().length>0 && !q_cd($('#txtLabor_bdate_' + i).val()))
+            		alert(q_getMsg('lblLabor_bdate')+'錯誤。');  
+            	if($('#txtLabor_edate_' + i).val().length>0 && !q_cd($('#txtLabor_edate_' + i).val()))
+            		alert(q_getMsg('lblLabor_edate')+'錯誤。');
+            	if($('#txtRetire_bdate_' + i).val().length>0 && !q_cd($('#txtRetire_bdate_' + i).val()))
+            		alert(q_getMsg('lblRetire_bdate')+'錯誤。');  
+            	if($('#txtRetire_edate_' + i).val().length>0 && !q_cd($('#txtRetire_edate_' + i).val()))
+            		alert(q_getMsg('lblRetire_edate')+'錯誤。');
 	            	}
             	}else{
             		alert("read error!");
@@ -94,6 +107,7 @@
             	}
                 t_key = q_getHref();
                 _btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
+                
             }
 
             function bbsSave(as) {
