@@ -187,15 +187,16 @@
             var t_custno = trim($('#txtCustno').val());
             var t_where='';
             if (t_custno.length > 0) {
-                t_where = "enda='N' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");  ////  sql AND 語法，請用 &&  
+                //t_where = "enda='N' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");  ////  sql AND 語法，請用 &&  
+                t_where = (t_custno.length > 0 ? q_sqlPara("bcustno", t_custno) : "");  ////  sql AND 語法，請用 &&  
                 t_where =  t_where ;
             }
             else {
                 alert(q_getMsg('msgCustEmp'));
                 return;
             }
-
-            q_box('quatst_b.aspx', 'quats;' + t_where, "95%", "650px", q_getMsg('popQuat'));
+            q_box("quatst_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'quats', "95%", "95%", q_getMsg('popQuats'));
+            //q_box('quatst_b.aspx', 'view_quats;' + t_where, "95%", "650px", q_getMsg('popQuat'));
         }
 
         function btnOk() {

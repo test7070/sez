@@ -12,8 +12,10 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = 'quats', t_bbsTag = 'tbbs', t_content = " field=productno,product,size,dime,width,lengthb,unit,mount,weight,notv,noa,no3,price  order=odate ", afilter = [], bbsKey = ['noa', 'no3'], t_count = 0, as;
-    var t_sqlname = 'quats_load2'; t_postname = q_name; brwCount2 = 12;
+    var q_name = 'view_quats', t_bbsTag = 'tbbs', t_content = " field=productno,product,size,dime,width,lengthb,unit,mount,weight,notv,noa,no3,price  order=odate ", afilter = [], bbsKey = ['noa', 'no3'], t_count = 0, as;
+    var t_sqlname = 'view_quats_load';
+    t_postname = q_name;
+    brwCount2 = 12;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield = [], afield, t_data, t_htm;
     var i, s1;
@@ -28,13 +30,13 @@
             dataErr = false;
             return;
         }
-        mainBrow(6, t_content, t_sqlname, t_postname);
+        mainBrow(6, t_content, t_sqlname, t_postname,r_accy);
     }
 
     function bbsAssign() {  /// checked 
         _bbsAssign();
     }
-    function q_gtPost(t_postname) { 
+    function q_gtPost(q_name) { 
 
     }
     function refresh() {
