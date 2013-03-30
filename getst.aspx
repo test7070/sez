@@ -489,7 +489,7 @@
 			}
 			//判斷表身參考theory:40
 			if(q_name=='uccb'||q_name=='uccc'||q_name=='cubu'||q_name=='ins'||q_name=='rc2s'||
-				q_name=='ina'||q_name=='cut'||q_name=='cnn'||q_name=='cng'||q_name=='vccd'||
+				q_name=='ina'||q_name=='cut'||q_name=='cnn'||q_name=='cng'||q_name=='vcc'||
 				q_name=='rc2'||q_name=='ordc'||q_name=='ordb'||q_name=='get') 
 			{
 		        calc=as[0].calc3;//庫存

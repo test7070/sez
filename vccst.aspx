@@ -546,15 +546,23 @@
 		
 		function theory_st(q_name,id,txtweight) { //id 為BBS的id,txtweight為要bbs寫入的欄位
 			var calc="";
+			//var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+id).val()+"' ^^"; 
+			//q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
 			var as = _q_appendData("ucc", "", true);
 			if(as[0]==undefined)
 			{
 				alert('請輸入正確材質');
 				return;
+			}else{
+				if(as[0].styleno=='')
+				{
+					alert('該品號尚未輸入樣式');
+					return;
+				}
 			}
 			//判斷表身參考theory:40
 			if(q_name=='uccb'||q_name=='uccc'||q_name=='cubu'||q_name=='ins'||q_name=='rc2s'||
-				q_name=='ina'||q_name=='cut'||q_name=='cnn'||q_name=='cng'||q_name=='vccd'||
+				q_name=='ina'||q_name=='cut'||q_name=='cnn'||q_name=='cng'||q_name=='vcc'||
 				q_name=='rc2'||q_name=='ordc'||q_name=='ordb'||q_name=='get') 
 			{
 		        calc=as[0].calc3;//庫存
@@ -568,10 +576,10 @@
 				if($('#cmbStype').val()==3)
 				    calc=as[0].calc2;	//外銷
 				else
-					calc=as[0].calc;//內銷與其他
+					calc=as[0].calc;	//內銷與其他
 		
 			}
-			//�ŭȧP�_
+			//空值判斷
 			if(emp($('#txtDime_'+id).val()))
 				$('#txtDime_'+id).val(0);
 			if(emp($('#txtWidth_'+id).val()))
@@ -591,7 +599,7 @@
 			for (var j = 0; j < q_bbsCount; j++) {
 				weight_total+=dec($('#'+txtweight+'_'+j).val());
             }
-			q_tr('txtWeight',weight_total);//$('#txtWeight').val(weight_total);
+			q_tr('txtTotal',weight_total);//$('#txtTotal').val(weight_total);
 		}
         
     </script>

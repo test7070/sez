@@ -82,6 +82,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtXmon').val(t_year+'/'+t_month);
 	                
 	                t_date = new Date();
 	                t_date.setDate(35);
