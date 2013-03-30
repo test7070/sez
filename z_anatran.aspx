@@ -69,6 +69,10 @@
                             $('#Loading').Loading();
                             q_func('qtxt.query.chart02', 'z_anatran.txt,' + t_report + ',' + encodeURI(r_accy) + ';' + encodeURI($('#txtTrandate1').val()) + ';' + encodeURI($('#txtTrandate2').val()) + ';' + encodeURI(t_val) + ';' + encodeURI($('#txtXcarno').val()));
                             break;
+                        case 'chart03':
+                        	$('#Loading').Loading();
+                            q_func('qtxt.query.chart03', 'z_anatran.txt,' + t_report + ',' + encodeURI(r_accy) + ';' + encodeURI($('#txtTrandate1').val()) + ';' + encodeURI($('#txtTrandate2').val()) + ';' + encodeURI($('#txtCust1a').val()) + ';' + encodeURI($('#txtCust2a').val())+ ';' + encodeURI($('#txtXpo').val()) );
+                            break;
                         default:
                             alert('錯誤：未定義報表');
                     }
@@ -274,6 +278,16 @@
                             $(".control").show();
                         }
                         break;
+                    case 'qtxt.query.chart03':
+                        var as = _q_appendData("tmp0", "", true, true);
+                        if (as[0] == undefined) {
+                        	$('#Loading').data('info').stop();
+                        	alert('no data');
+                        }
+                        else{
+                        	$('#Loading').data('info').stop();
+                        }                  
+                        break;
                     default:
                         alert('q_funcPost undefined');
                         break;
@@ -316,6 +330,15 @@
                             type : '8',
                             name : 'xcarkind',
                             value : t_carkind.split(',')
+                        }, {/*5*/
+                            type : '2',
+                            name : 'cust',
+                            dbf : 'cust',
+                            index : 'noa,comp',
+                            src : 'cust_b.aspx'
+                        }, {/*6*/
+                            type : '6',
+                            name : 'xpo'
                         }]
                     });
                     q_popAssign();
