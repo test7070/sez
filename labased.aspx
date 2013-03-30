@@ -22,7 +22,7 @@
             var bbmNum = [];
             var bbsNum = [];
             var bbmMask = [];
-            var bbsMask = [];
+            var bbsMask = [['txtHealth_bdate', '999/99/99'], ['txtHealth_edate', '999/99/99'], ['txtLabor_bdate', '999/99/99'], ['txtLabor_edate', '999/99/99'], ['txtRetire_bdate', '999/99/99'], ['txtRetire_edate', '999/99/99']];
 
             aPop = new Array(['txtCno_', 'btnCno_', 'acomp', 'noa,acomp', 'txtCno_,txtAcomp_', 'acomp_b.aspx']);
 
