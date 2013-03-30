@@ -88,7 +88,7 @@
 	            		if($('#txtRetire_bdate_' + i).val() == ''){
 							$('#txtRetire_bdate_' + i).val($('#txtRetire_bdate_' + (i+1)).val());
 	            		}
-	            		if($('#txtHealth_bdate_' + i).val().length>0 && !q_cd($('#txtHealth_bdate_' + i).val()))
+	            if($('#txtHealth_bdate_' + i).val().length>0 && !q_cd($('#txtHealth_bdate_' + i).val()))
             		alert(q_getMsg('lblHealth_bdate')+'錯誤。');  
             	if($('#txtHealth_edate_' + i).val().length>0 && !q_cd($('#txtHealth_edate_' + i).val()))
             		alert(q_getMsg('lblHealth_edate')+'錯誤。');
