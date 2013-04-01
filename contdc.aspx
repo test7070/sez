@@ -16,7 +16,7 @@
             }
 
             var q_name = "contdc";
-            var q_readonly = ['txtNoa', 'txtWorker', 'txtApv'];
+            var q_readonly = ['txtNoa', 'txtWorker', 'txtApv', 'txtWorker2'];
             var bbmNum = new Array(['txtOilbase', 5, 2,1]);
             var bbmMask = [['txtDatea','999/99/99'],['txtTimea','99:99']];
             q_sqlCount = 6;
