@@ -32,7 +32,6 @@
             brwKey = 'noa';
             aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick,conn,conntel', 'txtCustno,txtComp,txtCustnick,txtConn,txtConntel', 'cust_b.aspx'],
             ['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtComp_', 'tgg_b.aspx'],
-            ['txtItemno', 'lblItem', 'assignment', 'noa,item', 'txtItemno,txtItem', 'assignment_b.aspx'],
             ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
             ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea,partno', 'txtSalesno2,txtSales2,cmbPartno2', 'sss_b.aspx'],
             ['txtProductno_', 'btnProductno_', 'assignproduct', 'noa,product', 'txtProductno_,txtProduct_', 'assignproduct_b.aspx']);
@@ -57,13 +56,33 @@
                 bbmMask = [['txtOdate', r_picd], ['txtWdate', r_picd], ['txtPaydate', r_picd], ['txtEnddate', r_picd]];
             	q_mask(bbmMask);
             	bbsMask = [['txtSenddate', r_picd], ['txtApprdate', r_picd], ['txtRepdate', r_picd]];
-            	//q_cmbParse("cmbProject", ('').concat(new Array( '設立','預查','負責人','公司名稱','股東變更','遷址','董監改選','董監補選','董監持股變動','董監解任','變更印鑑','增資','減資','增減資','營業項目','停業','復業','抄錄','公司證明','資格證明','歇業','遺產稅','贈產稅','修章')));
-            	//q_cmbParse("cmbProduct", ('').concat(new Array( '','行號預查規費','公司預查規費','銀行手續費','會計師簽證費','營利規費','公司規費','特許規費','建管規費','運輸執照規費','代刻印章','代登報紙','雜項規費','代辦費')),'s');
+            	q_cmbParse("cmbItem", ('').concat(new Array( '','所有權第一次登記','所有權移轉登記','抵押權登記','抵押權塗銷登記','抵押權內容變更登記','標示變更登記','書狀換(補)發登記')));
+            	q_cmbParse("cmbReason", ('').concat(new Array( '@')));
             	q_gt('assignproject', '', 0, 0, 0, "");
             	//q_gt('assignproduct', '', 0, 0, 0, "");
             	
                 q_gt('part', '', 0, 0, 0, "");
                  q_cmbParse("cmbKind", ('').concat(new Array( '工商','土地')));
+                 
+                 $('#cmbItem').change(function(e) {
+                 	$('#cmbReason').text('');
+                 	if($('#cmbItem').val()=='所有權第一次登記'){
+                 		q_cmbParse("cmbReason", ('').concat(new Array('','第一次登記')));
+                 	}else if($('#cmbItem').val()=='所有權移轉登記'){
+                 		q_cmbParse("cmbReason", ('').concat(new Array('','買賣','贈與','繼承','分割繼承','拍賣','共有物分割')));
+                 	}else if($('#cmbItem').val()=='抵押權登記'){
+                 		q_cmbParse("cmbReason", ('').concat(new Array('','設定','法定','讓與')));
+                 	}else if($('#cmbItem').val()=='抵押權塗銷登記'){
+                 		q_cmbParse("cmbReason", ('').concat(new Array('','清償','拋棄','混同','判決塗銷')));
+                 	}else if($('#cmbItem').val()=='抵押權內容變更登記'){
+                 		q_cmbParse("cmbReason", ('').concat(new Array('','權利價值變更','權力內容等變更')));
+                 	}else if($('#cmbItem').val()=='標示變更登記'){
+                 		q_cmbParse("cmbReason", ('').concat(new Array('','分割','合併','地目變更')));
+                 	}else if($('#cmbItem').val()=='書狀換(補)發登記'){
+                 		q_cmbParse("cmbReason", ('').concat(new Array('','書狀換(補)發登記')));
+                 	}
+                 	$("#cmbReason").val(abbm[q_recno].reason);
+				})
                  
                 $('#lblProject').click(function(e) {
 					q_box("assignproject.aspx", 'conttype', "90%", "600px", q_getMsg("popAssignproject"));
@@ -90,21 +109,13 @@
                 });
                 
                 $('#cmbKind').change(function() {
-                	if ($('#cmbKind').find("option:selected").text().indexOf('工商')>-1){
-                		if(q_bbsCount<=10)
-                			$('#btnPlus'+j).click();
-                		for (var j = 0; j < q_bbsCount; j++) {
-                			$('#btnMinus_'+j).click();	
-                		}
-                		//工商自動帶產品內容與費用
-	            		autoicins();
+                	if ($('#cmbKind').find("option:selected").text().indexOf('工商')>-1){  
 	            		$(".land").hide();
+	            		$(".inco").show();
                 	}
                 	if ($('#cmbKind').find("option:selected").text().indexOf('土地')>-1){
-                		for (var j = 0; j < q_bbsCount; j++) {
-                			$('#btnMinus_'+j).click();	
-                		}
                 		$(".land").show();
+                		$(".inco").hide();
                 	}
                 });
                 
@@ -204,20 +215,24 @@
                     alert(t_err);
                     return;
                 }
-                
-                var projectno='';
-                var projectnamea='';
-                for (var i = 0; i < projectnumber; i++) {
-                	if($('#checkProjectno'+i)[0].checked){
-                		projectno+=","+$('#checkProjectno'+i).val();
-                		projectnamea+=","+$('#aprojectno'+i).text();
-                	}
+                if ($('#cmbKind').find("option:selected").text().indexOf('工商')>-1){
+	                var projectno='';
+	                var projectnamea='';
+	                for (var i = 0; i < projectnumber; i++) {
+	                	if($('#checkProjectno'+i)[0].checked){
+	                		projectno+=","+$('#checkProjectno'+i).val();
+	                		projectnamea+=","+$('#aprojectno'+i).text();
+	                	}
+	                }
+	                projectno=projectno.substr(1,projectno.length);
+	                projectnamea=projectnamea.substr(1,projectnamea.length);
+	                
+	                $('#txtProject').val(projectno);
+	                $('#txtPronick').val(projectnamea);
+                }else{
+                	$('#txtPronick').val($('#cmbItem').val()+'('+$('#cmbReason').val()+')');
                 }
-                projectno=projectno.substr(1,projectno.length);
-                projectnamea=projectnamea.substr(1,projectnamea.length);
                 
-                $('#txtProject').val(projectno);
-                $('#txtPronick').val(projectnamea);
                 
                 sum();
                 $('#txtWorker').val(r_name);
@@ -254,6 +269,10 @@
 	            $('#txtPaydate').val(t_year+'/'+t_month+'/'+t_day);
 	            $('#txtSalesno').val(r_userno);
 	            $('#txtSales').val(r_name);
+	            
+	            $('#cmbKind').change();
+	            $('#cmbReason').val('');
+               	$('#cmbItem').val('');
 	            
 	            //清除勾選
 	            for (var j = 0; j < projectnumber; j++) {
@@ -294,12 +313,6 @@
                     }
                 }
                 _bbsAssign();
-                	if ($('#cmbKind').find("option:selected").text().indexOf('工商')>-1){
-	            		$(".land").hide();
-                	}
-                	if ($('#cmbKind').find("option:selected").text().indexOf('土地')>-1){
-                		$(".land").show();
-                	}
             }
 
             function bbsSave(as) {
@@ -333,18 +346,44 @@
 	            for (var j = 0; j < projectnumber; j++) {
 	            	$('#checkProjectno'+j)[0].checked=false;
 	            }
-                //更新勾選
-	            var xprojectno = abbm[q_recno].project.split(',');
-	            	for (var j = 0; j < projectnumber; j++) {
-	            		for (var i = 0; i < xprojectno.length; i++) {
-	            			if($('#checkProjectno'+j).val()==xprojectno[i]){
-	            				$('#checkProjectno'+j)[0].checked=true;
-	            				break;
-	            			}else{
-	            				$('#checkProjectno'+j)[0].checked=false;
-	            			}
-	            		}
-	            	}
+                
+                if ($('#cmbKind').find("option:selected").text().indexOf('工商')>-1){
+                		$(".inco").show();
+	            		$(".land").hide();
+	            	//更新勾選
+	            	var xprojectno = abbm[q_recno].project.split(',');
+	            		for (var j = 0; j < projectnumber; j++) {
+	            			for (var i = 0; i < xprojectno.length; i++) {
+	            				if($('#checkProjectno'+j).val()==xprojectno[i]){
+	            					$('#checkProjectno'+j)[0].checked=true;
+	            					break;
+	            				}else{
+		            				$('#checkProjectno'+j)[0].checked=false;
+		            			}
+	    	        		}
+	        	    	}
+                }
+                if ($('#cmbKind').find("option:selected").text().indexOf('土地')>-1){
+                		$(".inco").hide();
+                		$(".land").show();
+                	$('#cmbReason').text('');
+                 	if($('#cmbItem').val()=='所有權第一次登記'){
+                 		q_cmbParse("cmbReason", ('').concat(new Array('','第一次登記')));
+                 	}else if($('#cmbItem').val()=='所有權移轉登記'){
+                 		q_cmbParse("cmbReason", ('').concat(new Array('','買賣','贈與','繼承','分割繼承','拍賣','共有物分割')));
+                 	}else if($('#cmbItem').val()=='抵押權登記'){
+                 		q_cmbParse("cmbReason", ('').concat(new Array('','設定','法定','讓與')));
+                 	}else if($('#cmbItem').val()=='抵押權塗銷登記'){
+                 		q_cmbParse("cmbReason", ('').concat(new Array('','清償','拋棄','混同','判決塗銷')));
+                 	}else if($('#cmbItem').val()=='抵押權內容變更登記'){
+                 		q_cmbParse("cmbReason", ('').concat(new Array('','權利價值變更','權力內容等變更')));
+                 	}else if($('#cmbItem').val()=='標示變更登記'){
+                 		q_cmbParse("cmbReason", ('').concat(new Array('','分割','合併','地目變更')));
+                 	}else if($('#cmbItem').val()=='書狀換(補)發登記'){
+                 		q_cmbParse("cmbReason", ('').concat(new Array('','書狀換(補)發登記')));
+                 	}
+                 	$("#cmbReason").val(abbm[q_recno].reason);
+                }
             }
             
             function readonly(t_para, empty) {
@@ -559,20 +598,27 @@
 						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtDatea" class="txt c1"/>	</td>	
 						<td class="td3"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtNoa" class="txt c1"/>	</td>	
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id='lblProject' class="lbl btn"> </a></td>
-						<td class="td2" colspan="4" id="xproject">	
+						<td class="td4"><input type="text" id="txtNoa" class="txt c1"/>
 						<input type="text" id="txtProject" style="display: none;"/>	
 						<input type="text" id="txtPronick" style="display: none;"/>	
+						</td>
+					</tr>
+					<tr class="inco">
+						<td class="td1"><span> </span><a id='lblProject' class="lbl btn"> </a></td>
+						<td class="td2" colspan="4" id="xproject">	
 						</td>	
 					</tr>
 					<tr class="land">
-						<td class="td1"><span> </span><a id='lblItem' class="lbl btn"> </a></td>
-						<td class="td2"colspan="2"><input type="text" id="txtItemno" style="width: 30%;"/>
-							<input type="text" id="txtItem" style="width: 70%;"/></td>
-						<td class="td3"><input type="button" id="btnInput" /></td>
+						<td class="td1"><span> </span><a id='lblItem' class="lbl"> </a></td>
+						<td class="td2"><select id="cmbItem" class="txt c1"> </select></td>
+						<td class="td3"><span> </span><a id='lblReason' class="lbl"> </a></td>
+						<td class="td4"><select id="cmbReason" class="txt c1"> </select></td>
+					</tr>
+					<tr class="land">
+						<td class="td1"><span> </span><a id='lblRightp' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtRightp" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblObligationp' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtObligationp" class="txt c1"/>	</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
