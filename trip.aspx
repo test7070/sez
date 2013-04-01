@@ -25,7 +25,7 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtNamea', 'sss_b.aspx'],
-        							['txtCno_', 'btnAcomp_', 'cust', 'noa,comp', 'txtCno_,txtAcomp_', 'cust_b.aspx']);
+        				 ['txtCno_', 'btnAcomp_', 'custtgg', 'noa,comp', 'txtCno_,txtAcomp_', 'custtgg_b.aspx']);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
