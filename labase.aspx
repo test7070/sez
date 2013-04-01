@@ -16,7 +16,7 @@
         }
         q_tables = 's';
         var q_name = "labase";
-        var q_readonly = ['txtWorker'];
+        var q_readonly = ['txtWorker','txtWorker2'];
         var q_readonlys = [];
         var bbmNum = [['txtSalary', 15, 0, 1],['txtSa_retire', 15, 0, 1],['txtRe_comp', 15, 0, 1],['txtRe_person', 15, 0, 1],['txtSa_labor', 15, 0, 1],['txtAs_labor', 15, 0, 1],['txtLa_person', 15, 0, 1],['txtLa_comp', 15, 0, 1],['txtSa_health', 15, 0, 1],['txtAs_health', 15, 0, 1],['txtHe_person', 15, 0, 1],['txtHe_comp', 15, 0, 1],['txtTax', 15, 0, 1],['txtMount', 15, 0, 1],['txtDisaster', 15, 0, 1]];  
         var bbsNum = [['txtCh_money', 15, 0, 1],['txtAs_health', 15, 0, 1]];
@@ -674,7 +674,10 @@
             }
 			
 			
-            $('#txtWorker').val(r_name)
+              if(q_cur==1)
+	           	$('#txtWorker').val(r_name);
+	        else
+	           	$('#txtWorker2').val(r_name);
             //sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -1118,7 +1121,9 @@
         </tr>  
         <tr class="tr2">
             <td class='td1'><span> </span><a id="lblMemo" class="lbl" > </a></td>
-            <td class="td2" colspan="7"><input id="txtMemo" type="text" class="txt c1" /></td>
+            <td class="td2" colspan="5"><input id="txtMemo" type="text" class="txt c1" /></td>
+            <td class='td7'><span> </span><a id="lblWorker2" class="lbl"> </a></td>
+            <td class="td8"><input id="txtWorker2" type="text" class="txt c1" /></td>
         </tr>                                                            
         </table>
         </div>
