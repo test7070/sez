@@ -18,11 +18,43 @@
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
+              function z_tran() {
+            }
+            z_tran.prototype = {
+                isInit : false,
+                data : {
+                    acomp : null
+                },
+                isLoad : function() {
+                    var isLoad = true;
+                    for (var x in this.data) {
+                        isLoad = isLoad && (this.data[x] != null);
+                    }
+                    return isLoad;
+                }
+            };
+            t_data = new z_tran();
             $(document).ready(function() {
                 q_getId();
                 q_gf('', 'z_bankf');   
             });
-            function q_gfPost() {
+             function q_gfPost() {
+                q_gt('acomp', '', 0, 0, 0);
+            }
+
+            function q_gtPost(t_name) {
+           	switch (t_name) {
+                    case 'acomp':
+                        t_data.data['acomp'] = '';
+                        var as = _q_appendData("acomp", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_data.data['acomp'] += (t_data.data['acomp'].length > 0 ? ',' : '') + as[i].noa + '@' + as[i].nick;
+                        }
+                        break;
+                }
+
+                if (t_data.isLoad() && !t_data.isInit) {
+                    t_data.isInit = true;
                 $('#q_report').q_report({
                     fileName : 'z_bankf',
                     options : [{
@@ -38,11 +70,13 @@
                         dbf : 'acc',
                         index : 'acc1,acc2',
                         src :  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
-                    }, {
-                        type : '1',
-                        name : 'xlcno'
-                    }]
+                    }, {/*14*/
+                            type : '8',
+                            name : 'xcno',
+                            value : t_data.data['acomp'].split(',')
+                        }]
                 });
+                $('#chkXcno').css('font-size','14px');
                 
                 $('#txtAcc1a').change(function () {
 		                var s1 = trim($(this).val(1112));
@@ -61,6 +95,7 @@
 		        });
 		            
                     q_popAssign();
+                    q_langShow();
 
                 $('#txtXdate1').mask('999/99/99');
                 $('#txtXdate2').mask('999/99/99');
@@ -85,6 +120,11 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtXdate2').val(t_year + '/' + t_month+'/'+t_day);
+	                
+	                
+              }
+            }
+            function q_boxClose(t_name) {
             }
 		</script>
 	</head>

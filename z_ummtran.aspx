@@ -25,7 +25,7 @@
 			});
 			function q_gfPost() {
 
-				$('#qReport').q_report({
+				$('#q_report').q_report({
 					fileName : 'z_ummtran',
 					options : [{
 						type : '0',
@@ -107,7 +107,7 @@
 		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
-				<div id="qReport"></div>
+				<div id="q_report"></div>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
