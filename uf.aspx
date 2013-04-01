@@ -17,7 +17,7 @@
 			q_desc=1;
             q_tables = 's';
             var q_name = "uf";
-            var q_readonly = ['txtAccno', 'txtNoa', 'txtWorker', 'txtMoney'];
+            var q_readonly = ['txtAccno', 'txtNoa', 'txtWorker', 'txtWorker2', 'txtMoney'];
             var q_readonlys = ['txtCheckno'];
             var bbmNum = [['txtMoney', 10, 0, 1]];
             var bbsNum = [['txtMoney', 10, 0, 1]];
@@ -122,8 +122,15 @@
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     return;
                 }
-                $('#txtWorker').val(r_name)
+                
                 sum();
+				if(q_cur ==1){
+                	$('#txtWorker').val(r_name);
+                }else if(q_cur ==2){
+                	$('#txtWorker2').val(r_name);
+                }else{
+                	alert("error: btnok!")
+                }
 
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
@@ -464,6 +471,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
+						<td></td>
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
@@ -480,6 +488,8 @@
 						<input id="txtBankno" type="text" style="float:left; width:40%;"/>
 						<input id="txtBank"  type="text" style="float:left; width:60%;"/>
 						</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblAccount" class="lbl" > </a></td>
 						<td colspan="2">
 						<input id="txtAccount" type="text" class="txt c1" />
@@ -490,14 +500,16 @@
 						<td>
 						<input id="txtMoney"  type="text" class="txt num c1" />
 						</td>
-					</tr>
-					<tr>
 						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
 						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
-						<td><span> </span>
-						<input type="button" id="btnGqb" class="txt c1 " value="託收匯入" style="width:80%;">
+						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
+						<td><input id="txtWorker2"  type="text" class="txt c1"/></td>
+						<td><span> </span></td>
+						<td><input type="button" id="btnGqb" class="txt c1 " value="託收匯入" style="width:80%;">
 					</tr>
 				</table>
 			</div>
@@ -512,7 +524,7 @@
 					<td align="center" class="td1"></td>
 					<td align="center" class="td1"><a id='lblCheckno'></a></td>
 					<td align="center" class="td1" style="width:20%"><a id='lblBanknos'></a></td>
-					<td align="center" style="width:15%"><a id='lblBank'></a></td>
+					<td align="center" style="width:15%"><a id='lblBanks'></a></td>
 					<td align="center" class="td1" style="width:10%"><a id='lblDateas'></a></td>
 					<td align="center" class="td1"><a id='lblMoneys'></a></td>
 					<td align="center" class="td1" style="width:15%"><a id='lblTaccl'></a></td>

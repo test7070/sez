@@ -18,7 +18,7 @@
 
             var q_name = "bankf";
 
-            var q_readonly = ['txtNoa','txtAccno','txtDatea','txtWorker'];
+            var q_readonly = ['txtNoa','txtAccno','txtDatea','txtWorker','txtWorker2'];
 
             var bbmNum = [['txtMoney', 8, 2,1],['txtMoney2', 8, 2,1],['txtInterestrate', 2, 2,1]];
 
@@ -56,6 +56,9 @@
 
                   q_cmbParse("cmbRate", ('').concat(new Array('固定利率','機動利率')));
                   q_gt('acomp', '', 0, 0, 0, "");
+                  $('#lblAccno').click(function() {
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('btnAccc'), true);
+                });
 				$('#txtPayacc1').change(function() {
 					var str=$.trim($(this).val());
                 	if((/^[0-9]{4}$/g).test(str))
@@ -124,7 +127,14 @@
                 	return;
 
                 }
-                $('#txtWorker').val(r_name);
+                if(q_cur ==1){
+                	$('#txtWorker').val(r_name);
+                }else if(q_cur ==2){
+                	$('#txtWorker2').val(r_name);
+                }else{
+                	alert("error: btnok!")
+                }
+                
                	var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
@@ -433,6 +443,8 @@
 					<tr>
 						<td><span> </span><a id='lblPaydate' class="lbl"> </a></td>
 						<td><input id="txtPaydate" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
+						<td><input id="txtAccno" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBank2' class="lbl"> </a></td>
@@ -444,10 +456,10 @@
 						<td colspan="3" ><textarea id="txtMemo"  style="width:100%; height: 60px;"> </textarea></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblAccno' class="lbl"> </a></td>
-						<td><input id="txtAccno" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
+						<td><input id="txtWorker2" type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
