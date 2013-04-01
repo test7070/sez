@@ -249,7 +249,7 @@
             }
             .dbbm {
                 float: left;
-                width: 540px;
+                width: 500px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
