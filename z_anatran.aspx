@@ -1360,7 +1360,7 @@
                             }
                         },
                         refresh : function(obj) {
-                            
+                           /* 
                             
                             var objWidth = 950;
                             var objHeight = obj.data('info').custData.length * 40 + 200;
@@ -1388,7 +1388,7 @@
                             var t_n = round((t_width - 20) / t_cust.length, 0);
 
                             obj.width(objWidth).height(objHeight).html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
-                            
+                            */
                         }
                     });
                     $(this).data('info').init($(this));
