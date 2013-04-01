@@ -19,11 +19,9 @@
             var q_name = "bankf";
 
             var q_readonly = ['txtNoa','txtAccno','txtDatea','txtWorker'];
-<<<<<<< HEAD
-            var bbmNum = [['txtMoney', 12, 3,1],['txtMoney2', 12, 3,1],['txtInterestrate', 6, 3]];
-=======
+
             var bbmNum = [['txtMoney', 8, 2,1],['txtMoney2', 8, 2,1],['txtInterestrate', 2, 2,1]];
->>>>>>> d90f3896d21812527e0fca7cf74619096fddfaec
+
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -52,13 +50,10 @@
             function mainPost() {
             	bbmMask = [['txtIndate', r_picd],['txtEnddate', r_picd],['txtUndate', r_picd],['txtPaydate', r_picd],['txtDatea', r_picd]];
                 q_mask(bbmMask);
-<<<<<<< HEAD
-                 q_cmbParse("cmbType", ('').concat(new Array( '一個月','二個月','三個月','四個月','五個月','六個月','七個月','八個月','九個月','十個月','十一個月','十三個月','一年','二年','三年')));
-                  q_cmbParse("cmbPayitype", ('').concat(new Array('到期付息','每月付息','到期付本金')));
-=======
+                 
                  q_cmbParse("cmbType", ('').concat(new Array( '一個月','三個月','六個月','一年','十八個月','二年','三年')));
                   q_cmbParse("cmbPayitype", ('').concat(new Array('到期付息','每月付息','到期入本金')));
->>>>>>> d90f3896d21812527e0fca7cf74619096fddfaec
+
                   q_cmbParse("cmbRate", ('').concat(new Array('固定利率','機動利率')));
                   q_gt('acomp', '', 0, 0, 0, "");
 				$('#txtPayacc1').change(function() {
@@ -122,18 +117,12 @@
             }
 
             function btnOk() {
-<<<<<<< HEAD
+
             	$('#txtAcomp').val($('#cmbCno').find(":selected").text());
-                var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
-=======
 				if (!q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
->>>>>>> d90f3896d21812527e0fca7cf74619096fddfaec
+
                 }
                 $('#txtWorker').val(r_name);
                	var t_noa = trim($('#txtNoa').val());
@@ -408,7 +397,7 @@
 						<td><span> </span><a id='lblPayitype' class="lbl"> </a></td>
 						<td><select id="cmbPayitype" class="txt c1"> </select></td>
 					</tr>
-					<tr>
+					<tr style="display: none;">
 						<td align="right"><span> </span><input id="btnInput" type="button"/></td>
 						<td colspan="2"><input id="txtInput" type="text" class="txt c1" /></td>
 					</tr>
