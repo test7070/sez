@@ -30,7 +30,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            
+            q_desc = 1;
 			aPop = new Array(
 								['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], 
 								['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'], 
