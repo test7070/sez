@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title> </title>
+		<title></title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 
@@ -24,7 +24,7 @@
             var isInit = false;
             var t_carkind = null;
             var t_carno = null;
-			q_name = 'z_anatran';
+            q_name = 'z_anatran';
             Array.prototype.indexOfField = function(propertyName, value) {
                 for (var z = 0; z < this.length; z++)
                     if (this[z][propertyName] === value)
@@ -44,11 +44,11 @@
                 q_gt('acomp', '', 0, 0, 0);
                 q_gt('calctype', '', 0, 0, 0);
 				
-				$('#btnXXX').click(function(e){
-					 btnAuthority(q_name);
-				});
+                $('#btnXXX').click(function(e) {
+                    btnAuthority(q_name);
+                });
                 $("#btnRun").click(function(e) {
-                	$('#txtXcarno').val($.trim($('#txtXcarno').val()));
+                    $('#txtXcarno').val($.trim($('#txtXcarno').val()));
                     var t_val = '';
                     var t_elements = $("#chkXcarkind").children('input:checked');
                     for (var x = 0; x < t_elements.length; x++) {
@@ -70,8 +70,8 @@
                             q_func('qtxt.query.chart02', 'z_anatran.txt,' + t_report + ',' + encodeURI(r_accy) + ';' + encodeURI($('#txtTrandate1').val()) + ';' + encodeURI($('#txtTrandate2').val()) + ';' + encodeURI(t_val) + ';' + encodeURI($('#txtXcarno').val()));
                             break;
                         case 'chart03':
-                        	$('#Loading').Loading();
-                            q_func('qtxt.query.chart03', 'z_anatran.txt,' + t_report + ',' + encodeURI(r_accy) + ';' + encodeURI($('#txtTrandate1').val()) + ';' + encodeURI($('#txtTrandate2').val()) + ';' + encodeURI($('#txtCust1a').val()) + ';' + encodeURI($('#txtCust2a').val())+ ';' + encodeURI($('#txtXpo').val()) );
+                            $('#Loading').Loading();
+                            q_func('qtxt.query.chart03', 'z_anatran.txt,' + t_report + ',' + encodeURI(r_accy) + ';' + encodeURI($('#txtTrandate1').val()) + ';' + encodeURI($('#txtTrandate2').val()) + ';' + encodeURI($('#txtCust1a').val()) + ';' + encodeURI($('#txtCust2a').val()) + ';' + encodeURI($('#txtXpo').val()));
                             break;
                         default:
                             alert('錯誤：未定義報表');
@@ -79,10 +79,10 @@
 
                 });
                 $("#btnNext").click(function(e) {
-                    $('#'+$(this).data('chart')).data('info').next($('#'+$(this).data('chart')));
+                    $('#' + $(this).data('chart')).data('info').next($('#' + $(this).data('chart')));
                 });
                 $("#btnPrevious").click(function(e) {
-                	$('#'+$(this).data('chart')).data('info').previous($('#'+$(this).data('chart')));
+                    $('#' + $(this).data('chart')).data('info').previous($('#' + $(this).data('chart')));
                 });
             }
 
@@ -90,9 +90,9 @@
                 switch(t_func) {
                     case 'z_anatran.chart01':
                         var as = _q_appendData("tmp0", "", true, true);
-                        if (as[0] == undefined) 
-                        	$('#Loading').data('info').stop();
-                        else{
+                        if (as[0] == undefined)
+                            $('#Loading').hide();
+                        else {
                             var n = -1;
                             var t_maxMoney = 0, t_minMoney = 0, t_outmoney = 0;
                             t_carno = new Array();
@@ -140,82 +140,82 @@
                                             detail : [t_detail]
                                         });
                                     } else {
-                                    	t_carno[n].inmoney += parseFloat(as[i].inmoney.length == 0 ? '0' : as[i].inmoney);
+                                        t_carno[n].inmoney += parseFloat(as[i].inmoney.length == 0 ? '0' : as[i].inmoney);
                                         t_carno[n].outmoney += t_outmoney;
                                         t_carno[n].profit += parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit);
                                         t_carno[n].detail.push(t_detail);
                                     }
                                 }
                             }
-                            $('#Loading').data('info').stop();
+                            $('#Loading').hide();
                             $('#chart01').barChart01({
                                 data : t_carno,
                                 maxMoney : t_maxMoney,
                                 minMoney : t_minMoney
                             });
                             $('#txtTotPage').val(t_carno.length);
-                            $('#txtCurPage').data('chart','chart01').val(1).change(function(e) {
+                            $('#txtCurPage').data('chart', 'chart01').val(1).change(function(e) {
                                 $(this).val(parseInt($(this).val()));
-                                $('#'+$(this).data('chart')).data('info').page($('#'+$(this).data('chart')), $(this).val());
+                                $('#' + $(this).data('chart')).data('info').page($('#' + $(this).data('chart')), $(this).val());
                             });
-                            $("#btnNext").data('chart','chart01');
+                            $("#btnNext").data('chart', 'chart01');
                             $("#btnPrevious").data('chart', 'chart01');
                             $(".control").show();
                         }
                         break;
                     case 'qtxt.query.chart02':
                         var as = _q_appendData("tmp0", "", true, true);
-                        if (as[0] == undefined) 
-                        	$('#Loading').data('info').stop();
-                        else{
+                        if (as[0] == undefined)
+                            $('#Loading').hide();
+                        else {
                             var n = -1;
                             var t_maxMoney = 0, t_minMoney = 0, t_inmoney = 0, t_outmoney = 0;
-                            var tot_inmoney=0,tot_outmoney=0,tot_profit=0;
+                            var tot_inmoney = 0, tot_outmoney = 0, tot_profit = 0;
                             t_carno = new Array();
                             for (var i in as) {
                                 if (as[i].carno != undefined) {
                                     n = t_carno.indexOfField("carno", as[i].carno);
                                     t_inmoney = parseFloat(as[i].inmoney.length == 0 ? '0' : as[i].inmoney);
                                     t_outmoney = parseFloat(as[i].oilmoney.length == 0 ? '0' : as[i].oilmoney) + parseFloat(as[i].fixa1.length == 0 ? '0' : as[i].fixa1) + parseFloat(as[i].fixa2.length == 0 ? '0' : as[i].fixa2) + parseFloat(as[i].tire1.length == 0 ? '0' : as[i].tire1) + parseFloat(as[i].tire2.length == 0 ? '0' : as[i].tire2) + parseFloat(as[i].tolls.length == 0 ? '0' : as[i].tolls) + parseFloat(as[i].ticket.length == 0 ? '0' : as[i].ticket) + parseFloat(as[i].reserve.length == 0 ? '0' : as[i].reserve) + parseFloat(as[i].carsal.length == 0 ? '0' : as[i].carsal) + parseFloat(as[i].tax.length == 0 ? '0' : as[i].tax) + parseFloat(as[i].depreciation.length == 0 ? '0' : as[i].depreciation) - parseFloat(as[i].driverpay.length == 0 ? '0' : as[i].driverpay);
-									if(n == -1){
-										t_maxMoney = 0;
-                            			t_minMoney = 0;
-									}
-									if (t_maxMoney < t_inmoney)
-	                                    t_maxMoney = t_inmoney;
-	                                if (t_maxMoney < t_outmoney)
-	                                    t_maxMoney = t_outmoney;
-	                                if (t_maxMoney < parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit))
-	                                    t_maxMoney = parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit);
-	
-	                                if (t_minMoney > t_inmoney)
-	                                    t_minMoney = t_inmoney;
-	                                if (t_minMoney > t_outmoney)
-	                                    t_minMoney = t_outmoney;
-	                                if (t_minMoney > parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit))
-	                                    t_minMoney = parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit);
+                                    if (n == -1) {
+                                        t_maxMoney = 0;
+                                        t_minMoney = 0;
+                                    }
+                                    if (t_maxMoney < t_inmoney)
+                                        t_maxMoney = t_inmoney;
+                                    if (t_maxMoney < t_outmoney)
+                                        t_maxMoney = t_outmoney;
+                                    if (t_maxMoney < parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit))
+                                        t_maxMoney = parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit);
+
+                                    if (t_minMoney > t_inmoney)
+                                        t_minMoney = t_inmoney;
+                                    if (t_minMoney > t_outmoney)
+                                        t_minMoney = t_outmoney;
+                                    if (t_minMoney > parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit))
+                                        t_minMoney = parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit);
                                     t_detail = {
                                         mon : as[i].mon,
                                         inmoney : t_inmoney,
-                                   		tranmiles : parseFloat(as[i].tranmiles.length == 0 ? '0' : as[i].tranmiles),
-										oilmoney : parseFloat(as[i].oilmoney.length == 0 ? '0' : as[i].oilmoney),
-										oilmount : parseFloat(as[i].oilmount.length == 0 ? '0' : as[i].oilmount),
-										oilmiles : parseFloat(as[i].oilmiles.length == 0 ? '0' : as[i].oilmiles),
-										fixa1 : parseFloat(as[i].fixa1.length == 0 ? '0' : as[i].fixa1),
-										fixa2 : parseFloat(as[i].fixa2.length == 0 ? '0' : as[i].fixa2),
-										tire1 : parseFloat(as[i].tire1.length == 0 ? '0' : as[i].tire1),
-										tire2 : parseFloat(as[i].tire2.length == 0 ? '0' : as[i].tire2),
-										driverpay : parseFloat(as[i].driverpay.length == 0 ? '0' : as[i].driverpay),
-										tolls : parseFloat(as[i].tolls.length == 0 ? '0' : as[i].tolls),
-										ticket : parseFloat(as[i].ticket.length == 0 ? '0' : as[i].ticket),
-										reserve : parseFloat(as[i].reserve.length == 0 ? '0' : as[i].reserve),
-										carsal : parseFloat(as[i].carsal.length == 0 ? '0' : as[i].carsal),
-										tax : parseFloat(as[i].tax.length == 0 ? '0' : as[i].tax),
-										depreciation : parseFloat(as[i].depreciation.length == 0 ? '0' : as[i].depreciation),
-										profit : parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit),
-										outmoney : t_outmoney
+                                        tranmiles : parseFloat(as[i].tranmiles.length == 0 ? '0' : as[i].tranmiles),
+                                        oilmoney : parseFloat(as[i].oilmoney.length == 0 ? '0' : as[i].oilmoney),
+                                        oilmount : parseFloat(as[i].oilmount.length == 0 ? '0' : as[i].oilmount),
+                                        oilmiles : parseFloat(as[i].oilmiles.length == 0 ? '0' : as[i].oilmiles),
+                                        fixa1 : parseFloat(as[i].fixa1.length == 0 ? '0' : as[i].fixa1),
+                                        fixa2 : parseFloat(as[i].fixa2.length == 0 ? '0' : as[i].fixa2),
+                                        tire1 : parseFloat(as[i].tire1.length == 0 ? '0' : as[i].tire1),
+                                        tire2 : parseFloat(as[i].tire2.length == 0 ? '0' : as[i].tire2),
+                                        driverpay : parseFloat(as[i].driverpay.length == 0 ? '0' : as[i].driverpay),
+                                        tolls : parseFloat(as[i].tolls.length == 0 ? '0' : as[i].tolls),
+                                        ticket : parseFloat(as[i].ticket.length == 0 ? '0' : as[i].ticket),
+                                        reserve : parseFloat(as[i].reserve.length == 0 ? '0' : as[i].reserve),
+                                        carsal : parseFloat(as[i].carsal.length == 0 ? '0' : as[i].carsal),
+                                        tax : parseFloat(as[i].tax.length == 0 ? '0' : as[i].tax),
+                                        depreciation : parseFloat(as[i].depreciation.length == 0 ? '0' : as[i].depreciation),
+                                        profit : parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit),
+                                        outmoney : t_outmoney
                                     };
-                                    
+
                                     if (n == -1) {
                                         t_carno.push({
                                             carkindno : as[i].carkindno,
@@ -226,26 +226,26 @@
                                             outmoney : t_outmoney,
                                             profit : parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit),
                                             maxMoney : t_maxMoney,
-                                			minMoney : t_minMoney,
+                                            minMoney : t_minMoney,
                                             detail : [t_detail]
                                         });
                                     } else {
-                                    	t_carno[n].maxMoney = t_maxMoney;
-                                		t_carno[n].minMoney = t_minMoney;
-                                    	t_carno[n].inmoney+=t_inmoney;
-                                    	t_carno[n].outmoney+=t_outmoney;
-                                    	t_carno[n].profit+=parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit);
+                                        t_carno[n].maxMoney = t_maxMoney;
+                                        t_carno[n].minMoney = t_minMoney;
+                                        t_carno[n].inmoney += t_inmoney;
+                                        t_carno[n].outmoney += t_outmoney;
+                                        t_carno[n].profit += parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit);
                                         t_carno[n].detail.push(t_detail);
                                     }
                                     tot_inmoney += t_inmoney;
                                     tot_outmoney += t_outmoney;
-                                    tot_profit +=parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit);
+                                    tot_profit += parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit);
                                 }
                             }
                             t_maxMoney = 0;
                             t_minMoney = 0;
-                            for(var i in t_carno){
-                            	if (t_maxMoney < t_carno[i].inmoney)
+                            for (var i in t_carno) {
+                                if (t_maxMoney < t_carno[i].inmoney)
                                     t_maxMoney = t_carno[i].inmoney;
                                 if (t_maxMoney < t_carno[i].outmoney)
                                     t_maxMoney = t_carno[i].outmoney;
@@ -259,7 +259,7 @@
                                 if (t_minMoney > t_carno[i].profit)
                                     t_minMoney = t_carno[i].profit;
                             }
-                            $('#Loading').data('info').stop();
+                            $('#Loading').hide();
                             $('#chart02').barChart02({
                                 data : t_carno,
                                 maxMoney : t_maxMoney,
@@ -269,24 +269,39 @@
                                 profit : tot_profit
                             });
                             $('#txtTotPage').val(1);
-                            $('#txtCurPage').data('chart','chart02').val(1).change(function(e) {
+                            $('#txtCurPage').data('chart', 'chart02').val(1).change(function(e) {
                                 $(this).val(parseInt($(this).val()));
-                                $('#'+$(this).data('chart')).data('info').page($('#'+$(this).data('chart')), $(this).val());
+                                $('#' + $(this).data('chart')).data('info').page($('#' + $(this).data('chart')), $(this).val());
                             });
-                            $("#btnNext").data('chart','chart02');
-                            $("#btnPrevious").data('chart','chart02');
+                            $("#btnNext").data('chart', 'chart02');
+                            $("#btnPrevious").data('chart', 'chart02');
                             $(".control").show();
                         }
                         break;
                     case 'qtxt.query.chart03':
                         var as = _q_appendData("tmp0", "", true, true);
                         if (as[0] == undefined) {
-                        	$('#Loading').data('info').stop();
-                        	alert('no data');
+                            $('#Loading').hide();
+                            alert('no data');
+                        } else {
+                        	var n = -1;
+                            var t_maxMoney = 0, t_minMoney = 0, t_inmoney = 0, t_outmoney = 0;
+                            var tot_inmoney = 0, tot_outmoney = 0, tot_profit = 0;
+                            t_cust = new Array();
+                            for (var i in as) {
+                                if (as[i].custno != undefined) {
+                                	n = t_carno.indexOfField("carno", as[i].carno);
+                                    t_inmoney = parseFloat(as[i].inmoney.length == 0 ? '0' : as[i].inmoney);
+                                    t_outmoney = parseFloat(as[i].oilmoney.length == 0 ? '0' : as[i].oilmoney) + parseFloat(as[i].fixa1.length == 0 ? '0' : as[i].fixa1) + parseFloat(as[i].fixa2.length == 0 ? '0' : as[i].fixa2) + parseFloat(as[i].tire1.length == 0 ? '0' : as[i].tire1) + parseFloat(as[i].tire2.length == 0 ? '0' : as[i].tire2) + parseFloat(as[i].tolls.length == 0 ? '0' : as[i].tolls) + parseFloat(as[i].ticket.length == 0 ? '0' : as[i].ticket) + parseFloat(as[i].reserve.length == 0 ? '0' : as[i].reserve) + parseFloat(as[i].carsal.length == 0 ? '0' : as[i].carsal) + parseFloat(as[i].tax.length == 0 ? '0' : as[i].tax) + parseFloat(as[i].depreciation.length == 0 ? '0' : as[i].depreciation) - parseFloat(as[i].driverpay.length == 0 ? '0' : as[i].driverpay);
+                                    if (n == -1) {
+                                        t_maxMoney = 0;
+                                        t_minMoney = 0;
+                                    }
+                                }
+                           	}
+                                	
+                            $('#Loading').hide();
                         }
-                        else{
-                        	$('#Loading').data('info').stop();
-                        }                  
                         break;
                     default:
                         alert('q_funcPost undefined');
@@ -389,50 +404,30 @@
                 var re = /(\d{1,3})(?=(\d{3})+$)/g;
                 return arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
-			
+
             ;(function($, undefined) {
-            	$.fn.Loading = function() {
-            		$(this).data('info', {
-            			timer : null,
-            			color : null,
-            			curIndex : 0,
-            			start : function(){
-            				obj = $('#Loading'); 
-            				obj.html('').width(250).height(100).show();
-            				var r,g,b;
-            				var tmpPath = '<rect x="0" y="0" width="200" height="150" style="fill:rgb(255,255,255);"/>';       
-            				obj.data('info').color=new Array();
-            				for(var i=0; i<10; i++){
-            					r = 255-(i+1)*25;
-            					g = 255;
-            					b = round(255/(i+1),0)-10;
-            					obj.data('info').color.push('rgb('+r+','+g+','+b+')');
-            					x = (i+1)*20;
-            					y = 50;
-            					tmpPath += '<rect id="Loading_block_' + i + '"  x="' + x + '" y="' + y + '" width="15" height="15" fill="rgb(255,255,255)"/>';
-            				}
-            				tmpPath += '<text x="20" y="90" fill="black">資料讀取中...</text>';
-            				obj.append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
-            				obj.data('info').timer = setInterval(function(){$('#Loading').data('info').func()},500);
-            			},
-            			func : function(){   
-            				obj = $('#Loading');
-        					for(var i=0;i<10;i++){
-            					if (i ==obj.data('info').curIndex )
-            						$('#Loading_block_'+i).attr('fill','rgb(255,143,25)');
-            					else
-            						$('#Loading_block_'+i).attr('fill',obj.data('info').color[i]);
-            				}
-            				obj.data('info').curIndex = (obj.data('info').curIndex+1)%(obj.data('info').color.length);
-            			},
-            			stop : function(){
-            				obj = $('#Loading'); 
-            				clearInterval(obj.data('info').timer);
-            				obj.hide();
-            			}
-            		});
-            		$(this).data('info').start();
-            	}
+                $.fn.Loading = function() {
+                    $(this).data('info', {
+                        init : function(obj) {
+                        	obj.html('').width(250).height(100).show();
+                            var tmpPath = '<defs>' 
+                            + '<filter id="f1" x="0" y="0">' 
+                            + '<feGaussianBlur in="SourceGraphic" stdDeviation="5" />' 
+                            + '</filter>' 
+                            + '<filter id="f2" x="0" y="0">' 
+                            + '<feGaussianBlur in="SourceGraphic" stdDeviation="5" />' 
+                            + '</filter>' 
+                            + '</defs>'
+                            + '<rect width="200" height="10" fill="yellow" filter="url(#f1)"/>' 
+                            + '<rect x="0" y="0" width="20" height="10" fill="RGB(223,116,1)" stroke="yellow" stroke-width="2" filter="url(#f2)">' 
+                            + '<animate attributeName="x" attributeType="XML" begin="0s" dur="6s" fill="freeze" from="0" to="200" repeatCount="indefinite"/>' 
+                            + '</rect>';
+                            tmpPath += '<text x="40" y="35" fill="black">資料讀取中...</text>';
+                            obj.append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+                        }
+                    });
+                    $(this).data('info').init($(this));
+                }             
                 $.fn.barChart01 = function(value) {
                     $(this).data('info', {
                         curIndex : -1,
@@ -489,7 +484,7 @@
                             var t_minMoney = obj.data('info').minMoney;
                             var t_n = round((t_width - 20) / t_detail.length, 0);
                             var x, y, w, h, bx, by, t_output, t_money;
-                            tmpPath += '<text x="' + (500) + '" y="' + (20) + '" fill="black" style="font-family: \'Times New Roman\';">【' + obj.data('info').carData[obj.data('info').curIndex].carkind + '】' + obj.data('info').carData[obj.data('info').curIndex].carno +'&nbsp;'+obj.data('info').carData[obj.data('info').curIndex].caryear+ '</text>';
+                            tmpPath += '<text x="' + (500) + '" y="' + (20) + '" fill="black" style="font-family: \'Times New Roman\';">【' + obj.data('info').carData[obj.data('info').curIndex].carkind + '】' + obj.data('info').carData[obj.data('info').curIndex].carno + '&nbsp;' + obj.data('info').carData[obj.data('info').curIndex].caryear + '</text>';
                             tmpPath += '<text x="' + (70) + '" y="' + (20) + '" fill="black">金額</text>';
                             tmpPath += '<text x="' + (50 + t_width + 50) + '" y="' + (50 + t_height + 30) + '" fill="black">日期</text>';
 
@@ -505,28 +500,28 @@
                             tmpPath += '<line x1="95" y1="50" x2="100" y2="50" style="stroke:rgb(0,0,0);stroke-width:2"/>';
                             tmpPath += '<text text-anchor="end" x="90" y="' + (50 + t_height) + '" fill="black">' + FormatNumber(t_minMoney) + '</text>';
                             tmpPath += '<line x1="95" y1="' + (50 + t_height) + '" x2="100" y2="' + (50 + t_height) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-                            
-                            var t_range = round((t_maxMoney - t_minMoney)/5,0);
-                            var i = Math.pow(10,(t_range+'').length-1);
-                            var t_range = Math.floor(t_range/i)*i;
+
+                            var t_range = round((t_maxMoney - t_minMoney) / 5, 0);
+                            var i = Math.pow(10, (t_range + '').length - 1);
+                            var t_range = Math.floor(t_range / i) * i;
                             t_money = t_range;
                             while (t_money < t_maxMoney) {
-                            	if((t_maxMoney-t_money)/(t_maxMoney - t_minMoney)>0.05){
-	                                y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
-	                                tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-	                                tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money)+ '</text>';
-                            	}
-                            	t_money += t_range;
+                                if ((t_maxMoney - t_money) / (t_maxMoney - t_minMoney) > 0.05) {
+                                    y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
+                                    tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                                    tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money) + '</text>';
+                                }
+                                t_money += t_range;
                             }
                             t_money = -t_range;
                             while (t_money > t_minMoney) {
-                            	if(Math.abs(t_minMoney-t_money)/(t_maxMoney - t_minMoney)>0.05){
-	                                x = 90;
-	                                y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
-	                                tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-	                                tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money) + '</text>';
-                               	}
-                               	t_money -= t_range;
+                                if (Math.abs(t_minMoney - t_money) / (t_maxMoney - t_minMoney) > 0.05) {
+                                    x = 90;
+                                    y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
+                                    tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                                    tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money) + '</text>';
+                                }
+                                t_money -= t_range;
                             }
 
                             //支出的顏色
@@ -547,7 +542,7 @@
                             }
                             //毛利
                             for (var i = 0; i < t_detail.length; i++) {//連接線
-                                x = round(100 + t_n * (i+1) - t_n/2,0);
+                                x = round(100 + t_n * (i + 1) - t_n / 2, 0);
                                 y = t_Y - round(t_detail[i].profit / (t_maxMoney - t_minMoney) * t_height, 0);
                                 if (i > 0)
                                     tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(0,255,0);stroke-width:1"/>';
@@ -555,13 +550,13 @@
                                 by = y;
                             }
                             for (var i = 0; i < t_detail.length; i++) {
-                                x = round(100 + t_n * (i+1) - t_n/2,0);
+                                x = round(100 + t_n * (i + 1) - t_n / 2, 0);
                                 y = t_Y - round(t_detail[i].profit / (t_maxMoney - t_minMoney) * t_height, 0);
                                 tmpPath += '<circle id="chart01_profit' + i + '" class="chart01_profit" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
                             }
                             //收入
                             for (var i = 0; i < t_detail.length; i++) {//連接線
-                                x = round(100 + t_n * (i+1) - t_n/2,0);
+                                x = round(100 + t_n * (i + 1) - t_n / 2, 0);
                                 y = t_Y - round(t_detail[i].inmoney / (t_maxMoney - t_minMoney) * t_height, 0);
                                 if (i > 0)
                                     tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(255,0,0);stroke-width:1"/>';
@@ -569,26 +564,26 @@
                                 by = y;
                             }
                             for (var i = 0; i < t_detail.length; i++) {
-                                x = round(100 + t_n * (i+1) - t_n/2,0);
+                                x = round(100 + t_n * (i + 1) - t_n / 2, 0);
                                 y = t_Y - round(t_detail[i].inmoney / (t_maxMoney - t_minMoney) * t_height, 0);
                                 tmpPath += '<circle id="chart01_in' + i + '" class="chart01_in" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
                                 tmpPath += '<text text-anchor="middle" id="chart01_datea' + i + '" class="chart01_datea" x="' + x + '" y="' + (50 + t_height + 30) + '" fill="black">' + t_detail[i].datea.substring(7, 9) + '</text>';
                             }
-                            //符號說明   
+                            //符號說明
                             tmpPath += '<line x1="760" y1="50" x2="780" y2="50" style="stroke:rgb(255,0,0);stroke-width:1"/>';
                             tmpPath += '<circle class="" cx="770" cy="50" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
                             tmpPath += '<text x="790" y="55" fill="black">收入：</text>';
-							tmpPath += '<text text-anchor="end" x="910" y="55" fill="black">'+FormatNumber(obj.data('info').carData[obj.data('info').curIndex].inmoney)+'</text>';
-							
+                            tmpPath += '<text text-anchor="end" x="910" y="55" fill="black">' + FormatNumber(obj.data('info').carData[obj.data('info').curIndex].inmoney) + '</text>';
+
                             tmpPath += '<rect x="760" y="65" width="20" height="20" fill="url(#chart01_outColor1)"/>';
                             tmpPath += '<text x="790" y="80" fill="black">支出：</text>';
-							tmpPath += '<text text-anchor="end" x="910" y="80" fill="black">'+FormatNumber(obj.data('info').carData[obj.data('info').curIndex].outmoney)+'</text>';
-							
+                            tmpPath += '<text text-anchor="end" x="910" y="80" fill="black">' + FormatNumber(obj.data('info').carData[obj.data('info').curIndex].outmoney) + '</text>';
+
                             tmpPath += '<line x1="760" y1="100" x2="780" y2="100" style="stroke:rgb(0,180,125);stroke-width:1"/>';
                             tmpPath += '<circle class="" cx="770" cy="100" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
                             tmpPath += '<text x="790" y="105" fill="black">淨利：</text>';
-							tmpPath += '<text text-anchor="end" x="910" y="105" fill="black">'+FormatNumber(obj.data('info').carData[obj.data('info').curIndex].profit)+'</text>';
-							
+                            tmpPath += '<text text-anchor="end" x="910" y="105" fill="black">' + FormatNumber(obj.data('info').carData[obj.data('info').curIndex].profit) + '</text>';
+
                             obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
                             //事件
                             obj.children('svg').find('.chart01_profit').hover(function(e) {
@@ -679,7 +674,7 @@
                             obj.data('info').refresh(obj);
                         },
                         refresh : function(obj) {
-                        	obj.width(450).height(450);
+                            obj.width(450).height(450);
                             obj.html('');
                             var tmpPath = '', degree, fillColor, strokeColor, t_text;
                             var x = obj.data('info').value.x;
@@ -723,38 +718,38 @@
                                 var obj = $(this).parent().parent();
                                 $('#block_' + $(this).data('info').index).attr('fill', obj.data('info').focusfillColor);
                                 $('#blockLogo_' + $(this).data('info').index).attr('fill', obj.data('info').focusfillColor);
-  								
-  								var i = $(this).data('info').index;
+
+                                var i = $(this).data('info').index;
                                 var x = obj.data('info').value.x;
-                            	var y = obj.data('info').value.y;
-                            	var radius = obj.data('info').value.radius;
+                                var y = obj.data('info').value.y;
+                                var radius = obj.data('info').value.radius;
                                 degree = Math.round(obj.data('info').value.data[i].degree * 360 / (2 * Math.PI), 0);
                                 shiftX = Math.round(10 * Math.cos(obj.data('info').value.data[i].bDegree + obj.data('info').value.data[i].degree / 2), 0);
                                 shiftY = Math.round(10 * Math.sin(obj.data('info').value.data[i].bDegree + obj.data('info').value.data[i].degree / 2), 0);
                                 obj.data('info').value.data[i].point1 = [x + shiftX, y + shiftY];
                                 obj.data('info').value.data[i].point2 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].bDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].bDegree), 0)];
-                                obj.data('info').value.data[i].point3 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].eDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].eDegree), 0)];							
-                            	if (degree != 360){
-                            		$('#block_'+i).attr('d','M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + (degree > 180 ? ' 1 1 ' : ' 0 1 ') + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z');    
-                            	}  
+                                obj.data('info').value.data[i].point3 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].eDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].eDegree), 0)];
+                                if (degree != 360) {
+                                    $('#block_' + i).attr('d', 'M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + (degree > 180 ? ' 1 1 ' : ' 0 1 ') + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z');
+                                }
                             }, function(e) {
                                 var obj = $(this).parent().parent();
                                 $('#block_' + $(this).data('info').index).attr('fill', obj.data('info').fillColor[$(this).data('info').index]);
                                 $('#blockLogo_' + $(this).data('info').index).attr('fill', obj.data('info').fillColor[$(this).data('info').index]);
-                            
-                            	var i = $(this).data('info').index;
+
+                                var i = $(this).data('info').index;
                                 var x = obj.data('info').value.x;
-                            	var y = obj.data('info').value.y;
-                            	var radius = obj.data('info').value.radius;
+                                var y = obj.data('info').value.y;
+                                var radius = obj.data('info').value.radius;
                                 degree = Math.round(obj.data('info').value.data[i].degree * 360 / (2 * Math.PI), 0);
                                 shiftX = 0;
                                 shiftY = 0;
                                 obj.data('info').value.data[i].point1 = [x + shiftX, y + shiftY];
                                 obj.data('info').value.data[i].point2 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].bDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].bDegree), 0)];
-                                obj.data('info').value.data[i].point3 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].eDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].eDegree), 0)];							
-                            	if (degree != 360){
-                            		$('#block_'+i).attr('d','M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + (degree > 180 ? ' 1 1 ' : ' 0 1 ') + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z');
-                           		}
+                                obj.data('info').value.data[i].point3 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].eDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].eDegree), 0)];
+                                if (degree != 360) {
+                                    $('#block_' + i).attr('d', 'M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + (degree > 180 ? ' 1 1 ' : ' 0 1 ') + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z');
+                                }
                             }).click(function(e) {
                                 var obj = $(this).parent().parent();
                                 //alert(obj.data('info').value.data[$(this).data('info').index].text);
@@ -763,8 +758,8 @@
                     });
                     $(this).data('info').init($(this));
                 }
-            	
-            	$.fn.barChart02 = function(value) {
+
+                $.fn.barChart02 = function(value) {
                     $(this).data('info', {
                         curIndex : -1,
                         carData : value.data,
@@ -832,41 +827,41 @@
                             tmpPath += '<text text-anchor="end" x="90" y="' + t_Y + '" fill="black">0</text>';
                             //X軸
                             tmpPath += '<line x1="100" y1="' + (t_Y) + '" x2="' + (100 + t_width) + '" y2="' + (t_Y) + '" style="stroke:rgb(0,0,0);stroke-width:1"/>';
-							tmpPath += '<text x="' + (50 + t_width + 50) + '" y="' + (50 + t_height + 30) + '" fill="black">車牌</text>';
-							
+                            tmpPath += '<text x="' + (50 + t_width + 50) + '" y="' + (50 + t_height + 30) + '" fill="black">車牌</text>';
+
                             //Y
-                            tmpPath += '<text text-anchor="end" x="90" y="' + (50) + '" fill="black">' + FormatNumber(t_maxMoney)+ '</text>';
+                            tmpPath += '<text text-anchor="end" x="90" y="' + (50) + '" fill="black">' + FormatNumber(t_maxMoney) + '</text>';
                             tmpPath += '<line x1="95" y1="50" x2="100" y2="50" style="stroke:rgb(0,0,0);stroke-width:2"/>';
                             tmpPath += '<text text-anchor="end" x="90" y="' + (50 + t_height) + '" fill="black">' + FormatNumber(t_minMoney) + '</text>';
                             tmpPath += '<line x1="95" y1="' + (50 + t_height) + '" x2="100" y2="' + (50 + t_height) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-                            
-                            var t_range = round((t_maxMoney - t_minMoney)/5,0);
-                            var i = Math.pow(10,(t_range+'').length-1);
-                            var t_range = Math.floor(t_range/i)*i;
+
+                            var t_range = round((t_maxMoney - t_minMoney) / 5, 0);
+                            var i = Math.pow(10, (t_range + '').length - 1);
+                            var t_range = Math.floor(t_range / i) * i;
                             t_money = t_range;
                             while (t_money < t_maxMoney) {
-                            	if((t_maxMoney-t_money)/(t_maxMoney - t_minMoney)>0.05){
-	                                y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
-	                                tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-	                                tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money)+ '</text>';
-                            	}
-                            	t_money += t_range;
+                                if ((t_maxMoney - t_money) / (t_maxMoney - t_minMoney) > 0.05) {
+                                    y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
+                                    tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                                    tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money) + '</text>';
+                                }
+                                t_money += t_range;
                             }
                             t_money = -t_range;
                             while (t_money > t_minMoney) {
-                            	if(Math.abs(t_minMoney-t_money)/(t_maxMoney - t_minMoney)>0.05){
-	                                x = 90;
-	                                y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
-	                                tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-	                                tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money) + '</text>';
-                               	}
-                               	t_money -= t_range;
+                                if (Math.abs(t_minMoney - t_money) / (t_maxMoney - t_minMoney) > 0.05) {
+                                    x = 90;
+                                    y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
+                                    tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                                    tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money) + '</text>';
+                                }
+                                t_money -= t_range;
                             }
 
                             //支出的顏色
                             tmpPath += '<defs>' + '<linearGradient id="chart02_outColor1" x1="0%" y1="0%" x2="100%" y2="0%">' + '<stop offset="0%" style="stop-color:rgb(206,206,255);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(147,147,255);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
                             tmpPath += '<defs>' + '<linearGradient id="chart02_outColor2" x1="0%" y1="0%" x2="100%" y2="0%">' + '<stop offset="0%" style="stop-color:rgb(255,220,185);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(225,175,96);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
-							
+
                             //支出
                             for (var i = 0; i < t_carno.length; i++) {
                                 t_output = t_carno[i].outmoney;
@@ -879,10 +874,10 @@
                                 }
                                 tmpPath += '<rect id="chart02_out' + i + '" class="chart02_out" x="' + x + '" y="' + y + '" width="' + t_n + '" height="' + h + '" fill="url(#chart02_outColor1)"/>';
                             }
-                            
+
                             //毛利
                             for (var i = 0; i < t_carno.length; i++) {//連接線
-                                x = round(100 + t_n * (i+1) - t_n/2,0);
+                                x = round(100 + t_n * (i + 1) - t_n / 2, 0);
                                 y = t_Y - round(t_carno[i].profit / (t_maxMoney - t_minMoney) * t_height, 0);
                                 if (i > 0)
                                     tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(0,255,0);stroke-width:1"/>';
@@ -890,13 +885,13 @@
                                 by = y;
                             }
                             for (var i = 0; i < t_carno.length; i++) {
-                                x = round(100 + t_n * (i+1) - t_n/2,0);
+                                x = round(100 + t_n * (i + 1) - t_n / 2, 0);
                                 y = t_Y - round(t_carno[i].profit / (t_maxMoney - t_minMoney) * t_height, 0);
                                 tmpPath += '<circle id="chart02_profit' + i + '" class="chart02_profit" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
                             }
                             //收入
                             for (var i = 0; i < t_carno.length; i++) {//連接線
-                                x = round(100 + t_n * (i+1) - t_n/2,0);
+                                x = round(100 + t_n * (i + 1) - t_n / 2, 0);
                                 y = t_Y - round(t_carno[i].inmoney / (t_maxMoney - t_minMoney) * t_height, 0);
                                 if (i > 0)
                                     tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(255,0,0);stroke-width:1"/>';
@@ -904,31 +899,31 @@
                                 by = y;
                             }
                             for (var i = 0; i < t_carno.length; i++) {
-                                x = round(100 + t_n * (i+1) - t_n/2,0);
+                                x = round(100 + t_n * (i + 1) - t_n / 2, 0);
                                 y = t_Y - round(t_carno[i].inmoney / (t_maxMoney - t_minMoney) * t_height, 0);
                                 tmpPath += '<circle id="chart02_in' + i + '" class="chart02_in" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
                             }
                             //X 文字
                             for (var i = 0; i < t_carno.length; i++) {
-                            	x = round(100 + t_n * (i+1) - t_n/2,0);
-                            	y = 50 + t_height + 40;
-                            	tmpPath += '<text text-anchor="middle" id="chart02_carno' + i + '" class="chart02_carno" x="' + x + '" y="' + y + '" transform="rotate(90 ' + x + ',' + y + ')" fill="black" >' + t_carno[i].carno + '</text>';
+                                x = round(100 + t_n * (i + 1) - t_n / 2, 0);
+                                y = 50 + t_height + 40;
+                                tmpPath += '<text text-anchor="middle" id="chart02_carno' + i + '" class="chart02_carno" x="' + x + '" y="' + y + '" transform="rotate(90 ' + x + ',' + y + ')" fill="black" >' + t_carno[i].carno + '</text>';
                             }
                             //符號說明
                             tmpPath += '<line x1="760" y1="50" x2="780" y2="50" style="stroke:rgb(255,0,0);stroke-width:1"/>';
                             tmpPath += '<circle class="" cx="770" cy="50" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
                             tmpPath += '<text x="790" y="55" fill="black">收入：</text>';
-							tmpPath += '<text text-anchor="end" x="910" y="55" fill="black">'+FormatNumber(obj.data('info').inmoney)+'</text>';
-							
+                            tmpPath += '<text text-anchor="end" x="910" y="55" fill="black">' + FormatNumber(obj.data('info').inmoney) + '</text>';
+
                             tmpPath += '<rect x="760" y="65" width="20" height="20" fill="url(#chart02_outColor1)"/>';
                             tmpPath += '<text x="790" y="80" fill="black">支出：</text>';
-							tmpPath += '<text text-anchor="end" x="910" y="80" fill="black">'+FormatNumber(obj.data('info').outmoney)+'</text>';
-							
+                            tmpPath += '<text text-anchor="end" x="910" y="80" fill="black">' + FormatNumber(obj.data('info').outmoney) + '</text>';
+
                             tmpPath += '<line x1="760" y1="100" x2="780" y2="100" style="stroke:rgb(0,180,125);stroke-width:1"/>';
                             tmpPath += '<circle class="" cx="770" cy="100" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
                             tmpPath += '<text x="790" y="105" fill="black">淨利：</text>';
-							tmpPath += '<text text-anchor="end" x="910" y="105" fill="black">'+FormatNumber(obj.data('info').profit)+'</text>';
-							
+                            tmpPath += '<text text-anchor="end" x="910" y="105" fill="black">' + FormatNumber(obj.data('info').profit) + '</text>';
+
                             obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
                             //事件
                             obj.children('svg').find('.chart02_profit').hover(function(e) {
@@ -960,8 +955,10 @@
                             }).click(function(e) {
                                 var obj = $(this).parent().parent();
                                 var n = $(this).attr('id').replace('chart02_out', '');
-                                
-                                $('#chart02_1').chart02_1({data : obj.data('info').carData[n]});
+
+                                $('#chart02_1').chart02_1({
+                                    data : obj.data('info').carData[n]
+                                });
                             });
                         }
                     });
@@ -996,7 +993,7 @@
                             var t_minMoney = obj.data('info').carData.minMoney;
                             var t_n = round((t_width - 20) / t_detail.length, 0);
                             var x, y, w, h, bx, by, t_output, t_money;
-                            tmpPath += '<text x="' + (500) + '" y="' + (20) + '" fill="black" style="font-family: \'Times New Roman\';">【' + obj.data('info').carData.carkind + '】' + obj.data('info').carData.carno +'&nbsp;'+obj.data('info').carData.caryear+ '</text>';
+                            tmpPath += '<text x="' + (500) + '" y="' + (20) + '" fill="black" style="font-family: \'Times New Roman\';">【' + obj.data('info').carData.carkind + '】' + obj.data('info').carData.carno + '&nbsp;' + obj.data('info').carData.caryear + '</text>';
                             tmpPath += '<text x="' + (70) + '" y="' + (20) + '" fill="black">金額</text>';
 
                             x = 50;
@@ -1005,41 +1002,41 @@
                             tmpPath += '<text text-anchor="end" x="90" y="' + t_Y + '" fill="black">0</text>';
                             //X軸
                             tmpPath += '<line x1="100" y1="' + (t_Y) + '" x2="' + (100 + t_width) + '" y2="' + (t_Y) + '" style="stroke:rgb(0,0,0);stroke-width:1"/>';
-							tmpPath += '<text x="' + (50 + t_width + 50) + '" y="' + (50 + t_height + 30) + '" fill="black">車牌</text>';
-							
+                            tmpPath += '<text x="' + (50 + t_width + 50) + '" y="' + (50 + t_height + 30) + '" fill="black">車牌</text>';
+
                             //Y
-                            tmpPath += '<text text-anchor="end" x="90" y="' + (50) + '" fill="black">' + FormatNumber(t_maxMoney)+ '</text>';
+                            tmpPath += '<text text-anchor="end" x="90" y="' + (50) + '" fill="black">' + FormatNumber(t_maxMoney) + '</text>';
                             tmpPath += '<line x1="95" y1="50" x2="100" y2="50" style="stroke:rgb(0,0,0);stroke-width:2"/>';
                             tmpPath += '<text text-anchor="end" x="90" y="' + (50 + t_height) + '" fill="black">' + FormatNumber(t_minMoney) + '</text>';
                             tmpPath += '<line x1="95" y1="' + (50 + t_height) + '" x2="100" y2="' + (50 + t_height) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-                            
-                            var t_range = round((t_maxMoney - t_minMoney)/5,0);
-                            var i = Math.pow(10,(t_range+'').length-1);
-                            var t_range = Math.floor(t_range/i)*i;
+
+                            var t_range = round((t_maxMoney - t_minMoney) / 5, 0);
+                            var i = Math.pow(10, (t_range + '').length - 1);
+                            var t_range = Math.floor(t_range / i) * i;
                             t_money = t_range;
                             while (t_money < t_maxMoney) {
-                            	if((t_maxMoney-t_money)/(t_maxMoney - t_minMoney)>0.05){
-	                                y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
-	                                tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-	                                tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money)+ '</text>';
-                            	}
-                            	t_money += t_range;
+                                if ((t_maxMoney - t_money) / (t_maxMoney - t_minMoney) > 0.05) {
+                                    y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
+                                    tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                                    tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money) + '</text>';
+                                }
+                                t_money += t_range;
                             }
                             t_money = -t_range;
                             while (t_money > t_minMoney) {
-                            	if(Math.abs(t_minMoney-t_money)/(t_maxMoney - t_minMoney)>0.05){
-	                                x = 90;
-	                                y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
-	                                tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-	                                tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money) + '</text>';
-                               	}
-                               	t_money -= t_range;
+                                if (Math.abs(t_minMoney - t_money) / (t_maxMoney - t_minMoney) > 0.05) {
+                                    x = 90;
+                                    y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
+                                    tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                                    tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money) + '</text>';
+                                }
+                                t_money -= t_range;
                             }
 
                             //支出的顏色
                             tmpPath += '<defs>' + '<linearGradient id="chart02_1_outColor1" x1="0%" y1="0%" x2="100%" y2="0%">' + '<stop offset="0%" style="stop-color:rgb(206,206,255);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(147,147,255);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
                             tmpPath += '<defs>' + '<linearGradient id="chart02_1_outColor2" x1="0%" y1="0%" x2="100%" y2="0%">' + '<stop offset="0%" style="stop-color:rgb(255,220,185);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(225,175,96);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
-							
+
                             //支出
                             for (var i = 0; i < t_detail.length; i++) {
                                 t_output = t_detail[i].outmoney;
@@ -1052,10 +1049,10 @@
                                 }
                                 tmpPath += '<rect id="chart02_1_out' + i + '" class="chart02_1_out" x="' + x + '" y="' + y + '" width="' + t_n + '" height="' + h + '" fill="url(#chart02_outColor1)"/>';
                             }
-                            
+
                             //毛利
                             for (var i = 0; i < t_detail.length; i++) {//連接線
-                                x = round(100 + t_n * (i+1) - t_n/2,0);
+                                x = round(100 + t_n * (i + 1) - t_n / 2, 0);
                                 y = t_Y - round(t_detail[i].profit / (t_maxMoney - t_minMoney) * t_height, 0);
                                 if (i > 0)
                                     tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(0,255,0);stroke-width:1"/>';
@@ -1063,13 +1060,13 @@
                                 by = y;
                             }
                             for (var i = 0; i < t_detail.length; i++) {
-                                x = round(100 + t_n * (i+1) - t_n/2,0);
+                                x = round(100 + t_n * (i + 1) - t_n / 2, 0);
                                 y = t_Y - round(t_detail[i].profit / (t_maxMoney - t_minMoney) * t_height, 0);
                                 tmpPath += '<circle id="chart02_1_profit' + i + '" class="chart02_1_profit" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
                             }
                             //收入
                             for (var i = 0; i < t_detail.length; i++) {//連接線
-                                x = round(100 + t_n * (i+1) - t_n/2,0);
+                                x = round(100 + t_n * (i + 1) - t_n / 2, 0);
                                 y = t_Y - round(t_detail[i].inmoney / (t_maxMoney - t_minMoney) * t_height, 0);
                                 if (i > 0)
                                     tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(255,0,0);stroke-width:1"/>';
@@ -1077,31 +1074,31 @@
                                 by = y;
                             }
                             for (var i = 0; i < t_detail.length; i++) {
-                                x = round(100 + t_n * (i+1) - t_n/2,0);
+                                x = round(100 + t_n * (i + 1) - t_n / 2, 0);
                                 y = t_Y - round(t_detail[i].inmoney / (t_maxMoney - t_minMoney) * t_height, 0);
                                 tmpPath += '<circle id="chart02_1_in' + i + '" class="chart02_1_in" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
                             }
                             //X 文字
                             for (var i = 0; i < t_detail.length; i++) {
-                            	x = round(100 + t_n * (i+1) - t_n/2,0);
-                            	y = 50 + t_height + 40;
-                            	tmpPath += '<text text-anchor="middle" id="chart02_1_mon' + i + '" class="chart02_1_mon" x="' + x + '" y="' + y + '" transform="rotate(45 ' + x + ',' + y + ')" fill="black">' + t_detail[i].mon + '</text>';
+                                x = round(100 + t_n * (i + 1) - t_n / 2, 0);
+                                y = 50 + t_height + 40;
+                                tmpPath += '<text text-anchor="middle" id="chart02_1_mon' + i + '" class="chart02_1_mon" x="' + x + '" y="' + y + '" transform="rotate(45 ' + x + ',' + y + ')" fill="black">' + t_detail[i].mon + '</text>';
                             }
                             //符號說明
                             tmpPath += '<line x1="760" y1="50" x2="780" y2="50" style="stroke:rgb(255,0,0);stroke-width:1"/>';
                             tmpPath += '<circle class="" cx="770" cy="50" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
                             tmpPath += '<text x="790" y="55" fill="black">收入：</text>';
-							tmpPath += '<text text-anchor="end" x="910" y="55" fill="black">'+FormatNumber(obj.data('info').carData.inmoney)+'</text>';
-							
+                            tmpPath += '<text text-anchor="end" x="910" y="55" fill="black">' + FormatNumber(obj.data('info').carData.inmoney) + '</text>';
+
                             tmpPath += '<rect x="760" y="65" width="20" height="20" fill="url(#chart02_outColor1)"/>';
                             tmpPath += '<text x="790" y="80" fill="black">支出：</text>';
-							tmpPath += '<text text-anchor="end" x="910" y="80" fill="black">'+FormatNumber(obj.data('info').carData.outmoney)+'</text>';
-							
+                            tmpPath += '<text text-anchor="end" x="910" y="80" fill="black">' + FormatNumber(obj.data('info').carData.outmoney) + '</text>';
+
                             tmpPath += '<line x1="760" y1="100" x2="780" y2="100" style="stroke:rgb(0,180,125);stroke-width:1"/>';
                             tmpPath += '<circle class="" cx="770" cy="100" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
                             tmpPath += '<text x="790" y="105" fill="black">淨利：</text>';
-							tmpPath += '<text text-anchor="end" x="910" y="105" fill="black">'+FormatNumber(obj.data('info').carData.profit)+'</text>';
-							
+                            tmpPath += '<text text-anchor="end" x="910" y="105" fill="black">' + FormatNumber(obj.data('info').carData.profit) + '</text>';
+
                             obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
                             //事件
                             obj.children('svg').find('.chart02_1_profit').hover(function(e) {
@@ -1185,7 +1182,7 @@
                 $.fn.chart02_2 = function(value) {
                     $(this).data('info', {
                         value : value,
-                        fillColor : ["#E76E6D", "#E7AB6D", "#E6E76D", "#A9E76D", "#6DA9E7", "#AB6DE7", "#E76DE6","#1FBBBD","#6D924A","#19FCFF","#FF19FC"],
+                        fillColor : ["#E76E6D", "#E7AB6D", "#E6E76D", "#A9E76D", "#6DA9E7", "#AB6DE7", "#E76DE6", "#1FBBBD", "#6D924A", "#19FCFF", "#FF19FC"],
                         strokeColor : ["#000000"],
                         focusfillColor : "#FFEEFE",
                         focusIndex : -1,
@@ -1208,7 +1205,7 @@
                             obj.data('info').refresh(obj);
                         },
                         refresh : function(obj) {
-                        	obj.width(600).height(450);
+                            obj.width(600).height(450);
                             obj.html('');
                             var tmpPath = '', degree, fillColor, strokeColor, t_text;
                             var x = obj.data('info').value.x;
@@ -1217,7 +1214,7 @@
                             for ( i = 0; i < obj.data('info').value.data.length; i++) {
                                 fillColor = '"' + obj.data('info').value.data[i].fillColor + '"';
                                 strokeColor = '"' + obj.data('info').value.data[i].strokeColor + '"';
-                                
+
                                 degree = Math.round(obj.data('info').value.data[i].degree * 360 / (2 * Math.PI), 0);
                                 obj.data('info').value.data[i].currentFillColor = fillColor;
                                 obj.data('info').value.data[i].currentStrokeColor = strokeColor;
@@ -1240,7 +1237,7 @@
                             tmpPath += '<text class="blockText" id="blockText_' + i + '" x="' + pointText[0] + '" y="' + pointText[1] + '" fill="#000000" >司機自付：</text>';
                             t_text = FormatNumber(obj.data('info').value.driverpay);
                             tmpPath += '<text class="blockText" id="blockText_' + i + '" text-anchor="end"  x="' + (pointText[0] + 150) + '" y="' + pointText[1] + '" fill="#000000" >' + t_text + '</text>';
-                                
+
                             tmpPath += '<text x="20" y="40" fill="black">【' + obj.data('info').value.carkind + '】' + obj.data('info').value.carno + '</text>';
                             tmpPath += '<text x="200" y="40" fill="black">' + obj.data('info').value.mon + '</text>';
                             obj.append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
@@ -1259,38 +1256,38 @@
                                 var obj = $(this).parent().parent();
                                 $('#block_' + $(this).data('info').index).attr('fill', obj.data('info').focusfillColor);
                                 $('#blockLogo_' + $(this).data('info').index).attr('fill', obj.data('info').focusfillColor);
-  								
-  								var i = $(this).data('info').index;
+
+                                var i = $(this).data('info').index;
                                 var x = obj.data('info').value.x;
-                            	var y = obj.data('info').value.y;
-                            	var radius = obj.data('info').value.radius;
+                                var y = obj.data('info').value.y;
+                                var radius = obj.data('info').value.radius;
                                 degree = Math.round(obj.data('info').value.data[i].degree * 360 / (2 * Math.PI), 0);
                                 shiftX = Math.round(10 * Math.cos(obj.data('info').value.data[i].bDegree + obj.data('info').value.data[i].degree / 2), 0);
                                 shiftY = Math.round(10 * Math.sin(obj.data('info').value.data[i].bDegree + obj.data('info').value.data[i].degree / 2), 0);
                                 obj.data('info').value.data[i].point1 = [x + shiftX, y + shiftY];
                                 obj.data('info').value.data[i].point2 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].bDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].bDegree), 0)];
-                                obj.data('info').value.data[i].point3 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].eDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].eDegree), 0)];							
-                            	if (degree != 360){
-                            		$('#block_'+i).attr('d','M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + (degree > 180 ? ' 1 1 ' : ' 0 1 ') + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z');    
-                            	}  
+                                obj.data('info').value.data[i].point3 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].eDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].eDegree), 0)];
+                                if (degree != 360) {
+                                    $('#block_' + i).attr('d', 'M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + (degree > 180 ? ' 1 1 ' : ' 0 1 ') + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z');
+                                }
                             }, function(e) {
                                 var obj = $(this).parent().parent();
                                 $('#block_' + $(this).data('info').index).attr('fill', obj.data('info').fillColor[$(this).data('info').index]);
                                 $('#blockLogo_' + $(this).data('info').index).attr('fill', obj.data('info').fillColor[$(this).data('info').index]);
-                            
-                            	var i = $(this).data('info').index;
+
+                                var i = $(this).data('info').index;
                                 var x = obj.data('info').value.x;
-                            	var y = obj.data('info').value.y;
-                            	var radius = obj.data('info').value.radius;
+                                var y = obj.data('info').value.y;
+                                var radius = obj.data('info').value.radius;
                                 degree = Math.round(obj.data('info').value.data[i].degree * 360 / (2 * Math.PI), 0);
                                 shiftX = 0;
                                 shiftY = 0;
                                 obj.data('info').value.data[i].point1 = [x + shiftX, y + shiftY];
                                 obj.data('info').value.data[i].point2 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].bDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].bDegree), 0)];
-                                obj.data('info').value.data[i].point3 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].eDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].eDegree), 0)];							
-                            	if (degree != 360){
-                            		$('#block_'+i).attr('d','M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + (degree > 180 ? ' 1 1 ' : ' 0 1 ') + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z');
-                           		}
+                                obj.data('info').value.data[i].point3 = [x + shiftX + Math.round(radius * Math.cos(obj.data('info').value.data[i].eDegree), 0), y + shiftY + Math.round(radius * Math.sin(obj.data('info').value.data[i].eDegree), 0)];
+                                if (degree != 360) {
+                                    $('#block_' + i).attr('d', 'M' + obj.data('info').value.data[i].point1[0] + ' ' + obj.data('info').value.data[i].point1[1] + ' L' + obj.data('info').value.data[i].point2[0] + ' ' + obj.data('info').value.data[i].point2[1] + ' A' + radius + ' ' + radius + ' ' + degree + (degree > 180 ? ' 1 1 ' : ' 0 1 ') + obj.data('info').value.data[i].point3[0] + ' ' + obj.data('info').value.data[i].point3[1] + ' Z');
+                                }
                             }).click(function(e) {
                                 var obj = $(this).parent().parent();
                                 //alert(obj.data('info').value.data[$(this).data('info').index].text);
@@ -1307,7 +1304,6 @@
             }
             .control {
                 display: none;
-                
             }
 		</style>
 	</head>
@@ -1316,10 +1312,10 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	>
-		<div id="q_menu"> </div>
+		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container" style="width:2000px;">
-				<div id="q_report"> </div>
+				<div id="q_report"></div>
 				<input type="button" id="btnXXX" style="float:left; width:80px;font-size: medium;" value="權限"/>
 			</div>
 			<div style="display:inline-block;width:2000px;">
@@ -1331,13 +1327,13 @@
 				<input type="text" id="txtTotPage" class="control" style="float:left;text-align: right;width:60px; font-size: medium;" readonly="readonly"/>
 			</div>
 			<div id="chart">
-				<div id='Loading' class="z_anatran chart"> </div>
-				<div id='chart01' class="z_anatran chart"> </div>
-				<div id='chart01_1' class="z_anatran chart"> </div>
+				<div id='Loading' class="z_anatran chart"></div>
+				<div id='chart01' class="z_anatran chart"></div>
+				<div id='chart01_1' class="z_anatran chart"></div>
 
-				<div id='chart02' class="z_anatran chart"> </div>
-				<div id='chart02_1' class="z_anatran chart"> </div>
-				<div id='chart02_2' class="z_anatran chart"> </div>
+				<div id='chart02' class="z_anatran chart"></div>
+				<div id='chart02_1' class="z_anatran chart"></div>
+				<div id='chart02_2' class="z_anatran chart"></div>
 			</div>
 		</div>
 		<div class="prt" style="display:none;">
