@@ -147,10 +147,11 @@
 	            		
 	            		//更新勾選
 	            		var xprojectno = abbm[q_recno].project.split(',');
-	            		for (var i = 0; i < xprojectno.length; i++) {
-	            			for (var j = 0; j < projectnumber; j++) {
+	            		for (var j = 0; j < projectnumber; j++) {
+	            			for (var i = 0; i < xprojectno.length; i++) {
 	            				if($('#checkProjectno'+j).val()==xprojectno[i]){
 	            					$('#checkProjectno'+j)[0].checked=true;
+	            					break;
 	            				}else{
 	            					$('#checkProjectno'+j)[0].checked=false;
 	            				}
@@ -328,12 +329,17 @@
             
             function refresh(recno) {
                 _refresh(recno);
+                //清除勾選
+	            for (var j = 0; j < projectnumber; j++) {
+	            	$('#checkProjectno'+j)[0].checked=false;
+	            }
                 //更新勾選
 	            var xprojectno = abbm[q_recno].project.split(',');
-	            	for (var i = 0; i < xprojectno.length; i++) {
-	            		for (var j = 0; j < projectnumber; j++) {
+	            	for (var j = 0; j < projectnumber; j++) {
+	            		for (var i = 0; i < xprojectno.length; i++) {
 	            			if($('#checkProjectno'+j).val()==xprojectno[i]){
 	            				$('#checkProjectno'+j)[0].checked=true;
+	            				break;
 	            			}else{
 	            				$('#checkProjectno'+j)[0].checked=false;
 	            			}
