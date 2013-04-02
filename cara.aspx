@@ -121,6 +121,7 @@
 				$('#lbl_divNextmon').click(function(e) {//按下資料匯入
 					$('#divNextmon').hide();
 					if(!emp($('#textNextmon').val())&&!emp($('#textDiscount').val())){
+						q_msg( $(this), '資料結轉中........請稍待........請勿關閉此網頁!!');
 						q_func( 'cara.genNext',$('#textNextmon').val()+','+dec($('#textDiscount').val())+','+$('#textBcarno').val()+','+$('#textEcarno').val()+','+$('#textSssno').val()+','+r_name);//genNext(string t_mon , string t_discount, string t_worker);
 			    	}
 				});
@@ -152,7 +153,7 @@
 			
 			function q_funcPost(t_func, result) {
 		        location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";carno='"+$('#txtCarno').val()+"';"+r_accy;
-		        alert('功能執行完畢');
+		        alert('結轉功能執行完畢!!');
 		    } //endfunction
 			
             function q_boxClose(s2) {///   q_boxClose 2/4
