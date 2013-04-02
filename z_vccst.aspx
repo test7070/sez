@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title> </title>
-		<script src="/../script/jquery.min.js" type="text/javascript"> </script>
+		<script src="../script/jquery.min.js" type="text/javascript"> </script>
 		<script src='../script/qj2.js' type="text/javascript"> </script>
 		<script src='qset.js' type="text/javascript"> </script>
 		<script src='../script/qj_mess.js' type="text/javascript"> </script>
@@ -23,48 +23,46 @@
                 q_gf('', 'z_vccst');
             });
             function q_gfPost() {
-                $('#qreport').q_report({
+                $('#q_report').q_report({
                     fileName : 'z_vccst',
                     options : [{
                         type : '0',
                         name : 'accy',
-                        value : q_getId()[4]
+                        value : q_getId()[4] //[1]
                     },{
                         type : '1',
-                        name : 'date'   //日期
+                        name : 'date'   //日期[2][3]1
                     },{
                         type : '1',
-                        name : 'xmon'   //月份
+                        name : 'xmon'   //月份[4][5]2
                     },{
                         type : '1',
-                        name : 'xpno'   //材質
+                        name : 'xpno'   //材質[6][7]4
                     },{
                         type : '1',
-                        name : 'xspec'   //特性
+                        name : 'xspec'   //特性[8][9]8
                     },{
                         type : '1',
-                        name : 'xdime'   //厚度
+                        name : 'xdime'   //厚度[10][11]16
                     },{
                         type : '1',
-                        name : 'xwidth'   //寬度
+                        name : 'xwidth'   //寬度[12][13]32
                     },{
                         type : '1',
-                        name : 'xlength'   //長度
+                        name : 'xlength'   //長度[14][15]64
                     },{
                         type : '2',
-                        name : 'xcust',    //客戶
+                        name : 'xcust',    //客戶[16][17]128
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
                     },{
                         type : '5',
                         name : 'xtype',
-                        value : [q_getPara('report.all')].concat(new Array('內銷','外銷','代工'))   //型態
+                        value : [q_getPara('report.all')].concat(new Array('內銷','外銷','代工'))   //型態[18]256
                     }]
                 });
                 q_popAssign();
-                q_getFormat();
-                q_langShow();
                 
                 $('#txtXmon1').mask('999/99');
                 $('#txtXmon2').mask('999/99');
@@ -122,11 +120,14 @@
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
-		<div id="container">
-			<div id="qreport"> </div>
-		</div>
-		<div class="prt" >
-			<!--#include file="../inc/print_ctrl.inc"-->
+		<div id="q_menu"> </div>
+		<div style="position: absolute;top: 10px;left:50px;z-index: 1;">
+			<div id="container">
+				<div id="q_report"> </div>
+			</div>
+			<div class="prt" style="margin-left: -40px;">
+				<!--#include file="../inc/print_ctrl.inc"-->
+			</div>
 		</div>
 	</body>
 </html>
