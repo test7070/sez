@@ -23,7 +23,7 @@
                 q_gf('', 'z_vccst');
             });
             function q_gfPost() {
-                $('#qReport').q_report({
+                $('#qreport').q_report({
                     fileName : 'z_vccst',
                     options : [{
                         type : '0',
@@ -31,7 +31,7 @@
                         value : q_getId()[4]
                     },{
                         type : '1',
-                        name : 'xdate'   //日期
+                        name : 'date'   //日期
                     },{
                         type : '1',
                         name : 'xmon'   //月份
@@ -52,10 +52,14 @@
                         name : 'xlength'   //長度
                     },{
                         type : '2',
-                        name : 'cust',    //客戶
+                        name : 'xcust',    //客戶
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
+                    },{
+                        type : '5',
+                        name : 'xtype',
+                        value : [q_getPara('report.all')].concat(new Array('內銷','外銷','代工'))   //型態
                     }]
                 });
                 q_popAssign();
@@ -119,7 +123,7 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 		<div id="container">
-			<div id="qReport"> </div>
+			<div id="qreport"> </div>
 		</div>
 		<div class="prt" >
 			<!--#include file="../inc/print_ctrl.inc"-->
