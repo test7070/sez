@@ -152,6 +152,13 @@
                 _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
             }
 
+           function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                abbm[q_recno]['accno'] = xmlString;
+               	$('#txtAccno').val(xmlString);
+            }
+
             function bbsSave(as) {
                 if (!as['acc1']) {
                     as[bbsKey[1]] = '';
