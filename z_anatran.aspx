@@ -285,22 +285,45 @@
                             alert('no data');
                         } else {
                         	var n = -1;
-                            var t_maxMoney = 0, t_minMoney = 0, t_inmoney = 0, t_outmoney = 0;
+                            var t_maxMoney = 0, t_minMoney = 0, t_inmoney = 0;
                             var tot_inmoney = 0, tot_outmoney = 0, tot_profit = 0;
                             t_cust = new Array();
                             for (var i in as) {
                                 if (as[i].custno != undefined) {
-                                	n = t_carno.indexOfField("carno", as[i].carno);
-                                    t_inmoney = parseFloat(as[i].inmoney.length == 0 ? '0' : as[i].inmoney);
-                                    t_outmoney = parseFloat(as[i].oilmoney.length == 0 ? '0' : as[i].oilmoney) + parseFloat(as[i].fixa1.length == 0 ? '0' : as[i].fixa1) + parseFloat(as[i].fixa2.length == 0 ? '0' : as[i].fixa2) + parseFloat(as[i].tire1.length == 0 ? '0' : as[i].tire1) + parseFloat(as[i].tire2.length == 0 ? '0' : as[i].tire2) + parseFloat(as[i].tolls.length == 0 ? '0' : as[i].tolls) + parseFloat(as[i].ticket.length == 0 ? '0' : as[i].ticket) + parseFloat(as[i].reserve.length == 0 ? '0' : as[i].reserve) + parseFloat(as[i].carsal.length == 0 ? '0' : as[i].carsal) + parseFloat(as[i].tax.length == 0 ? '0' : as[i].tax) + parseFloat(as[i].depreciation.length == 0 ? '0' : as[i].depreciation) - parseFloat(as[i].driverpay.length == 0 ? '0' : as[i].driverpay);
+                                	n = t_carno.indexOfField("custno", as[i].custno);
                                     if (n == -1) {
-                                        t_maxMoney = 0;
-                                        t_minMoney = 0;
+                                    	t_cust.push({
+                                    		custno : as[i].custno,
+                                    		inmoney : parseFloat(as[i].inmoney.length == 0 ? '0' : as[i].inmoney),
+                                    		profit : parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit)
+                                    	});
+                                    }else{
+                                    	t_cust[n].inmoney += parseFloat(as[i].inmoney.length == 0 ? '0' : as[i].inmoney);
+                                    	t_cust[n].profit += parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit);
                                     }
                                 }
                            	}
+                           	for(var i in t_cust){
+                           		t_maxMoney = (t_maxMoney > t_cust[i].inmoney)?t_maxMoney:t_cust[i].inmoney;
+                           		t_maxMoney = (t_maxMoney > t_cust[i].profit)?t_maxMoney:t_cust[i].profit;
+                           		t_minMoney = (t_minMoney < t_cust[i].inmoney)?t_minMoney:t_cust[i].inmoney;
+                           		t_minMoney = (t_minMoney < t_cust[i].profit)?t_minMoney:t_cust[i].profit;
+                           	}
                                 	
                             $('#Loading').hide();
+                            $('#chart03').barChart03({
+                                data : t_cust,
+                                maxMoney : t_maxMoney,
+                                minMoney : t_minMoney
+                            });
+                            $('#txtTotPage').val(1);
+                            $('#txtCurPage').data('chart', 'chart03').val(1).change(function(e) {
+                                $(this).val(parseInt($(this).val()));
+                                $('#' + $(this).data('chart')).data('info').page($('#' + $(this).data('chart')), $(this).val());
+                            });
+                            $("#btnNext").data('chart', 'chart03');
+                            $("#btnPrevious").data('chart', 'chart03');
+                            $(".control").show();
                         }
                         break;
                     default:
@@ -1292,6 +1315,80 @@
                                 var obj = $(this).parent().parent();
                                 //alert(obj.data('info').value.data[$(this).data('info').index].text);
                             });
+                        }
+                    });
+                    $(this).data('info').init($(this));
+                }
+                $.fn.barChart03 = function(value) {
+                    $(this).data('info', {
+                        curIndex : -1,
+                        custData : value.data,
+                        maxMoney : value.maxMoney,
+                        minMoney : value.minMoney,
+                        maxPage : 1,
+                        init : function(obj) {
+                            if (value.length == 0) {
+                                alert('無資料。');
+                                return;
+                            }
+                            obj.data('info').curIndex = 0;
+                            obj.data('info').refresh(obj);
+                        },
+                        page : function(obj, n) {
+                            if (n > 0 && n <= obj.data('info').maxPage) {
+                                obj.data('info').curIndex = n - 1;
+                                obj.data('info').refresh(obj);
+                            } else
+                                alert('頁數錯誤。');
+                        },
+                        next : function(obj) {
+                            if (obj.data('info').curIndex == obj.data('info').maxPage - 1)
+                                alert('已到最後頁。');
+                            else {
+                                obj.data('info').curIndex++;
+                                $('#txtCurPage').val(obj.data('info').curIndex + 1);
+                                obj.data('info').refresh(obj);
+                            }
+                        },
+                        previous : function(obj) {
+                            if (obj.data('info').curIndex == 0)
+                                alert('已到最前頁。');
+                            else {
+                                obj.data('info').curIndex--;
+                                $('#txtCurPage').val(obj.data('info').curIndex + 1);
+                                obj.data('info').refresh(obj);
+                            }
+                        },
+                        refresh : function(obj) {
+                           /* 
+                            
+                            var objWidth = 950;
+                            var objHeight = obj.data('info').custData.length * 40 + 200;
+                            //背景
+                            var tmpPath = '<rect x="0" y="0" width="'+objWidth+'" height="'+objHeight+'" style="fill:rgb(220,220,220);stroke-width:1;stroke:rgb(0,0,0)"/>';
+							//圖表背景顏色
+                            var bkColor1 = ['rgb(210,233,255)', 'rgb(255,238,221)'];
+                            //圖表分幾個區塊
+                            var bkN = 10;
+							t_width = Math.round(700/bkN,0);
+							t_height = 
+                            for (var i = 0; i < t_n; i++){
+                            	x = 0;
+                            	y = 0;
+                            	
+                            	tmpPath += '<rect x="'+(100+)+'" y="' + (50 + ) + '" width="' + t_width + '" height="' + (t_height / t_n) + '" style="fill:' + t_color1[i % t_color1.length] + ';"/>';
+                            }
+                                
+                            //Y軸
+                            tmpPath += '<line x1="100" y1="50" x2="100" y2="' + (50 + t_height) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+
+                            var t_cust = obj.data('info').custData;
+                            var t_maxMoney = obj.data('info').maxMoney;
+                            var t_minMoney = obj.data('info').minMoney;
+                            var t_n = round((t_width - 20) / t_cust.length, 0);
+
+                            obj.width(objWidth).height(objHeight).html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+                            */
                         }
                     });
                     $(this).data('info').init($(this));
