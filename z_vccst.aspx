@@ -23,7 +23,7 @@
                 q_gf('', 'z_vccst');
             });
             function q_gfPost() {
-                $('#qReport').q_report({
+                $('#q_report').q_report({
                     fileName : 'z_vccst',
                     options : [{
                         type : '0',
@@ -59,7 +59,6 @@
                     }]
                 });
                 q_popAssign();
-                q_getFormat();
                 q_langShow();
                 
                 $('#txtXmon1').mask('999/99');
@@ -119,7 +118,7 @@
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
 		<div id="container">
-			<div id="qReport"> </div>
+			<div id="q_report"> </div>
 		</div>
 		<div class="prt" >
 			<!--#include file="../inc/print_ctrl.inc"-->
