@@ -55,7 +55,17 @@
                     },{
                         type : '6',
                         name : 'partno'
-                    }]
+                    }, {
+                        type : '2',
+                        name : 'xpartno',
+                        dbf : 'part',
+                        index : 'noa,part',
+                        src : 'part_b.aspx'
+                    },{
+						type : '0',
+						name : 'xaccy',
+						value : r_accy
+					}]
                     });
                 q_popAssign();
                  $('#txtDate1').mask('999/99/99');
