@@ -30,7 +30,6 @@
 			function q_gfPost() {
 				q_getFormat();
 				q_langShow();
-				q_mask(bbmMask);
 
 				$('#txtNoa').focus();
 			}
@@ -39,12 +38,18 @@
 				t_custno = $.trim($('#txtCustno').val());
 				t_addrno = $.trim($('#txtAddrno').val());
 				t_salesno = $.trim($('#txtSalesno').val());
+				t_comp = $.trim($('#txtComp').val());
+				t_addr = $.trim($('#txtAddr').val());
+				t_sales = $.trim($('#txtSales').val());
 				
 
 				var t_where = " 1=1 "
 					+q_sqlPara2("custno", t_custno)
 					+q_sqlPara2("addrno", t_addrno)
-					+q_sqlPara2("salesno", t_salesno);
+					+q_sqlPara2("salesno", t_salesno)
+					+q_sqlPara2("comp", t_comp)
+					+q_sqlPara2("addr", t_addr)
+					+q_sqlPara2("sales", t_sales);
 
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;

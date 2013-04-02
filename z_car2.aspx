@@ -208,7 +208,11 @@
 	                        type : '5', //select
 	                        name : 'sheetyn',
 	                        value : ('已收單,未收單').split(',')
-	                    }]
+	                    },{
+							type : '0',
+							name : 'xaccy',
+							value : r_accy
+						}]
                     });
                     q_getFormat();
 	                q_langShow();
