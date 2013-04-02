@@ -43,7 +43,7 @@
                 q_gt('carkind', '', 0, 0, 0, "");
                 q_gt('acomp', '', 0, 0, 0);
                 q_gt('calctype', '', 0, 0, 0);
-				
+
                 $('#btnXXX').click(function(e) {
                     btnAuthority(q_name);
                 });
@@ -71,7 +71,12 @@
                             break;
                         case 'chart03':
                             $('#Loading').Loading();
-                            q_func('qtxt.query.chart03', 'z_anatran.txt,' + t_report + ',' + encodeURI(r_accy) + ';' + encodeURI($('#txtTrandate1').val()) + ';' + encodeURI($('#txtTrandate2').val()) + ';' + encodeURI($('#txtCust1a').val()) + ';' + encodeURI($('#txtCust2a').val()) + ';' + encodeURI($('#txtXpo').val()));
+                            t_btrandate = encodeURI($('#txtTrandate1').val());
+                            t_etrandate = encodeURI($.trim($('#txtTrandate2').val()).length == 0 ? '#non' : $('#txtTrandate2').val());
+                            t_bcustno = encodeURI($('#txtCust1a').val());
+                            t_ecustno = encodeURI($.trim($('#txtCust2a').val()).length == 0 ? '#non' : $('#txtCust2a').val());
+                            t_po = encodeURI($('#txtXpo').val());
+                            q_func('qtxt.query.chart03', 'z_anatran.txt,' + t_report + ',' + encodeURI(r_accy) + ';' + t_btrandate + ';' + t_etrandate + ';' + t_bcustno + ';' + t_ecustno + ';' + t_po);
                             break;
                         default:
                             alert('錯誤：未定義報表');
@@ -284,46 +289,41 @@
                             $('#Loading').hide();
                             alert('no data');
                         } else {
-                        	var n = -1;
-                            var t_maxMoney = 0, t_minMoney = 0, t_inmoney = 0;
-                            var tot_inmoney = 0, tot_outmoney = 0, tot_profit = 0;
-                            t_cust = new Array();
+                            var n = -1;
+                            var t_maxMoney = 0, t_minMoney = 0, t_inmoney = 0, t_profit = 0;
+                            var t_cust = new Array();
                             for (var i in as) {
-                                if (as[i].custno != undefined) {
-                                	n = t_carno.indexOfField("custno", as[i].custno);
-                                    if (n == -1) {
-                                    	t_cust.push({
-                                    		custno : as[i].custno,
-                                    		inmoney : parseFloat(as[i].inmoney.length == 0 ? '0' : as[i].inmoney),
-                                    		profit : parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit)
-                                    	});
-                                    }else{
-                                    	t_cust[n].inmoney += parseFloat(as[i].inmoney.length == 0 ? '0' : as[i].inmoney);
-                                    	t_cust[n].profit += parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit);
-                                    }
-                                }
-                           	}
-                           	for(var i in t_cust){
-                           		t_maxMoney = (t_maxMoney > t_cust[i].inmoney)?t_maxMoney:t_cust[i].inmoney;
-                           		t_maxMoney = (t_maxMoney > t_cust[i].profit)?t_maxMoney:t_cust[i].profit;
-                           		t_minMoney = (t_minMoney < t_cust[i].inmoney)?t_minMoney:t_cust[i].inmoney;
-                           		t_minMoney = (t_minMoney < t_cust[i].profit)?t_minMoney:t_cust[i].profit;
-                           	}
-                                	
+                            	t_inmoney = parseFloat(as[i].inmoney);
+                                t_profit = parseFloat(as[i].profit);
+                                //t_inmoney = parseFloat(as[i].inmoney.length == 0 ? '0' : as[i].inmoney);
+                                //t_profit = parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit);
+                                t_maxMoney = (t_maxMoney > t_inmoney) ? t_maxMoney : t_inmoney;
+                                t_maxMoney = (t_maxMoney > t_profit) ? t_maxMoney : t_profit;
+                                t_minMoney = (t_minMoney < t_inmoney) ? t_minMoney : t_inmoney;
+                                t_minMoney = (t_minMoney < t_profit) ? t_minMoney : t_profit;
+                                t_cust.push({
+                                    custno : as[i].custno,
+                                    comp : as[i].comp,
+                                    nick : as[i].nick,
+                                    inmoney : t_inmoney,
+                                    profit : t_profit
+                                });
+                            }
+							alert(t_maxMoney+'__'+t_minMoney);
                             $('#Loading').hide();
                             $('#chart03').barChart03({
                                 data : t_cust,
                                 maxMoney : t_maxMoney,
                                 minMoney : t_minMoney
                             });
-                            $('#txtTotPage').val(1);
-                            $('#txtCurPage').data('chart', 'chart03').val(1).change(function(e) {
-                                $(this).val(parseInt($(this).val()));
-                                $('#' + $(this).data('chart')).data('info').page($('#' + $(this).data('chart')), $(this).val());
-                            });
-                            $("#btnNext").data('chart', 'chart03');
-                            $("#btnPrevious").data('chart', 'chart03');
-                            $(".control").show();
+                            /* $('#txtTotPage').val(1);
+                             $('#txtCurPage').data('chart', 'chart03').val(1).change(function(e) {
+                             $(this).val(parseInt($(this).val()));
+                             $('#' + $(this).data('chart')).data('info').page($('#' + $(this).data('chart')), $(this).val());
+                             });
+                             $("#btnNext").data('chart', 'chart03');
+                             $("#btnPrevious").data('chart', 'chart03');
+                             $(".control").show();*/
                         }
                         break;
                     default:
@@ -432,25 +432,14 @@
                 $.fn.Loading = function() {
                     $(this).data('info', {
                         init : function(obj) {
-                        	obj.html('').width(250).height(100).show();
-                            var tmpPath = '<defs>' 
-                            + '<filter id="f1" x="0" y="0">' 
-                            + '<feGaussianBlur in="SourceGraphic" stdDeviation="5" />' 
-                            + '</filter>' 
-                            + '<filter id="f2" x="0" y="0">' 
-                            + '<feGaussianBlur in="SourceGraphic" stdDeviation="5" />' 
-                            + '</filter>' 
-                            + '</defs>'
-                            + '<rect width="200" height="10" fill="yellow" filter="url(#f1)"/>' 
-                            + '<rect x="0" y="0" width="20" height="10" fill="RGB(223,116,1)" stroke="yellow" stroke-width="2" filter="url(#f2)">' 
-                            + '<animate attributeName="x" attributeType="XML" begin="0s" dur="6s" fill="freeze" from="0" to="200" repeatCount="indefinite"/>' 
-                            + '</rect>';
+                            obj.html('').width(250).height(100).show();
+                            var tmpPath = '<defs>' + '<filter id="f1" x="0" y="0">' + '<feGaussianBlur in="SourceGraphic" stdDeviation="5" />' + '</filter>' + '<filter id="f2" x="0" y="0">' + '<feGaussianBlur in="SourceGraphic" stdDeviation="5" />' + '</filter>' + '</defs>' + '<rect width="200" height="10" fill="yellow" filter="url(#f1)"/>' + '<rect x="0" y="0" width="20" height="10" fill="RGB(223,116,1)" stroke="yellow" stroke-width="2" filter="url(#f2)">' + '<animate attributeName="x" attributeType="XML" begin="0s" dur="6s" fill="freeze" from="0" to="200" repeatCount="indefinite"/>' + '</rect>';
                             tmpPath += '<text x="40" y="35" fill="black">資料讀取中...</text>';
                             obj.append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
                         }
                     });
                     $(this).data('info').init($(this));
-                }             
+                }
                 $.fn.barChart01 = function(value) {
                     $(this).data('info', {
                         curIndex : -1,
@@ -1360,35 +1349,69 @@
                             }
                         },
                         refresh : function(obj) {
-                           /* 
-                            
                             var objWidth = 950;
-                            var objHeight = obj.data('info').custData.length * 40 + 200;
+                            var objHeight = obj.data('info').custData.length * 30 + 200;
                             //背景
-                            var tmpPath = '<rect x="0" y="0" width="'+objWidth+'" height="'+objHeight+'" style="fill:rgb(220,220,220);stroke-width:1;stroke:rgb(0,0,0)"/>';
-							//圖表背景顏色
+                            var tmpPath = '<rect x="0" y="0" width="' + objWidth + '" height="' + objHeight + '" style="fill:rgb(220,220,220);stroke-width:1;stroke:rgb(0,0,0)"/>';
+                            //圖表背景顏色
                             var bkColor1 = ['rgb(210,233,255)', 'rgb(255,238,221)'];
                             //圖表分幾個區塊
                             var bkN = 10;
-							t_width = Math.round(700/bkN,0);
-							t_height = 
-                            for (var i = 0; i < t_n; i++){
-                            	x = 0;
-                            	y = 0;
-                            	
-                            	tmpPath += '<rect x="'+(100+)+'" y="' + (50 + ) + '" width="' + t_width + '" height="' + (t_height / t_n) + '" style="fill:' + t_color1[i % t_color1.length] + ';"/>';
-                            }
-                                
-                            //Y軸
-                            tmpPath += '<line x1="100" y1="50" x2="100" y2="' + (50 + t_height) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                            var strX = 100, strY = 100;                      
+                            var t_width = 700;
+                            var t_height = obj.data('info').custData.length * 30;
 
+                            for (var i = 0; i < bkN; i++) {
+                                x = Math.round(t_width / bkN, 0) * i;
+                                y = 0;
+                                tmpPath += '<rect x="' + (strX + x) + '" y="' + (strY + y) + '" width="' + Math.round(t_width / bkN, 0) + '" height="' + (t_height) + '" style="fill:' + bkColor1[i % bkColor1.length] + ';"/>';
+                            }
+							
+							var t_maxMoney = obj.data('info').custData.maxMoney;
+                            var t_minMoney = obj.data('info').custData.minMoney;
+                            t_minMoney = -10000;
+                            var t_X = strX + round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_width, 0);
+                            alert(t_maxMoney+'__'+t_minMoney);
+                            //X軸
+                            tmpPath += '<line x1="'+strX+'" y1="'+strY+'" x2="'+(strX+t_width)+'" y2="'+strY+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+							//tmpPath += '<text text-anchor="end"  x="40" y="90" fill="#000000" >客戶</text>';
+							// /
+							tmpPath += '<line x1="0" y1="0" x2="'+strX+'" y2="'+strY+'" style="stroke:rgb(255,255,255);stroke-width:2"/>';
+							//Y軸
+                            tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+obj.data('info').custData.length * 30)+'" style="stroke:rgb(255,0,0);stroke-width:2"/>';
+							//tmpPath += '<text text-anchor="end"  x="90" y="30" fill="#000000" >金額</text>';
+							
+							
+							/*
+							var t_range = round((t_maxMoney - t_minMoney) / 5, 0);
+                            var i = Math.pow(10, (t_range + '').length - 1);
+                            var t_range = Math.floor(t_range / i) * i;
+                            t_money = t_range;
+                            while (t_money < t_maxMoney) {
+                                if ((t_maxMoney - t_money) / (t_maxMoney - t_minMoney) > 0.05) {
+                                    y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
+                                    tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                                    tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money) + '</text>';
+                                }
+                                t_money += t_range;
+                            }
+                            t_money = -t_range;
+                            while (t_money > t_minMoney) {
+                                if (Math.abs(t_minMoney - t_money) / (t_maxMoney - t_minMoney) > 0.05) {
+                                    x = 90;
+                                    y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
+                                    tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                                    tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money) + '</text>';
+                                }
+                                t_money -= t_range;
+                            }*/
+							
                             var t_cust = obj.data('info').custData;
                             var t_maxMoney = obj.data('info').maxMoney;
                             var t_minMoney = obj.data('info').minMoney;
                             var t_n = round((t_width - 20) / t_cust.length, 0);
 
                             obj.width(objWidth).height(objHeight).html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
-                            */
                         }
                     });
                     $(this).data('info').init($(this));
@@ -1431,6 +1454,8 @@
 				<div id='chart02' class="z_anatran chart"></div>
 				<div id='chart02_1' class="z_anatran chart"></div>
 				<div id='chart02_2' class="z_anatran chart"></div>
+
+				<div id='chart03' class="z_anatran chart"></div>
 			</div>
 		</div>
 		<div class="prt" style="display:none;">
