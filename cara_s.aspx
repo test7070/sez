@@ -36,6 +36,7 @@
 
     function q_seekStr() {   
         var t_noa = $('#txtNoa').val();
+        var t_accno = $('#txtAccno').val();
         var t_bmon = $('#txtBmon').val();
         var t_emon = $('#txtEmon').val();
         var t_carno = $('#txtCarno').val();
@@ -43,7 +44,7 @@
         t_bmon = t_bmon.length > 0 && t_bmon.indexOf("_") > -1 ? t_bmon.substr(0, t_bmon.indexOf("_")) : t_bmon;  /// 100.  .
         t_emon = t_emon.length > 0 && t_emon.indexOf("_") > -1 ? t_emon.substr(0, t_emon.indexOf("_")) : t_emon;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +q_sqlPara2("carowner", t_carowner)+ q_sqlPara2("mon", t_bmon, t_emon);
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("accno", t_accno) +q_sqlPara2("carowner", t_carowner)+ q_sqlPara2("mon", t_bmon, t_emon);
 		if(!emp(t_carno))
 				t_where+= " and (carno='"+t_carno+"' or CHARINDEX('"+t_carno+"',STUFF(REPLACE((select ','+b.oldcarno from carChange b where cara.carno=b.noa FOR XML PATH('')),' ',''),1,1,''))>0) ";
 				
@@ -69,7 +70,7 @@
                 <span style="display:inline-block; vertical-align:middle">&sim;</span>
                 <input class="txt" id="txtEmon" type="text" style="width:93px; font-size:medium;" /></td>
             </tr>
-             <tr class='seek_tr'>
+            <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
@@ -77,6 +78,10 @@
                 <td class='seek'  style="width:20%;"><a id='lblCarowner'></a></td>
                 <td style="width:65%;  "><input class="txt" id="txtCarownerno" type="text" style="width:90px; font-size:medium;" />
                 <input class="txt" id="txtCarowner" type="text" style="width:93px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblAccno'></a></td>
+                <td><input class="txt" id="txtAccno" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 

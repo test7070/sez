@@ -62,11 +62,13 @@
 				t_edate = $('#txtEdate').val();
 				t_tggno = $.trim($('#txtTggno').val());
 				t_tgg = $.trim($('#txtTgg').val());
+				t_accno = $.trim($('#txtAccno').val());
 
 				var t_where = " 1=1 "
 				+ q_sqlPara2("cno", t_cno)
 				+ q_sqlPara2("partno", t_partno)
 				+ q_sqlPara2("noa", t_noa)
+				+ q_sqlPara2("accno", t_accno)
 				+ q_sqlPara2("mon", t_mon)
 				+ q_sqlPara2("datea", t_bdate, t_edate)
 				+ q_sqlPara2("tggno", t_tggno);
@@ -139,6 +141,10 @@
 				<tr class='seek_tr'>
 					<td><a id='lblTgg'> </a></td>
 					<td><input id="txtTgg" type="text"/></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td><a id='lblAccno'> </a></td>
+					<td><input class="txt" id="txtAccno" type="text"/></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
