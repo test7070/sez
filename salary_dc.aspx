@@ -634,7 +634,9 @@
 
         function combPay_chg() {  
         }
-
+		
+		var nomi='';
+		
         function bbsAssign() {  
         	for(var j = 0; j < q_bbsCount; j++) {
            		if (!$('#btnMinus_' + j).hasClass('isAssign')) {
@@ -791,7 +793,7 @@
             //            
             return true;
         }
-
+        
         function sum() {
         	//bbs計算
         	getdtmp();
