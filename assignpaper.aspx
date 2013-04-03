@@ -90,6 +90,21 @@
 	                $('#txtProduct_9').val('規費單');
 	                $('#txtMount_9').val(1);
 	                $('#txtUnit_9').val('張');
+	                $('#txtProduct_10').val('會計師簽證收據');
+	                $('#txtMount_10').val(1);
+	                $('#txtUnit_10').val('張');
+	                $('#txtProduct_11').val('公司登記規費單');
+	                $('#txtMount_11').val(1);
+	                $('#txtUnit_11').val('張');
+	                $('#txtProduct_12').val('公司預查規費單');
+	                $('#txtMount_12').val(1);
+	                $('#txtUnit_12').val('張');
+	                $('#txtProduct_13').val('會員證規費單');
+	                $('#txtMount_13').val(1);
+	                $('#txtUnit_13').val('張');
+	                $('#txtProduct_14').val('運輸執照費');
+	                $('#txtMount_14').val(1);
+	                $('#txtUnit_14').val('張');
                 }
             }
 
