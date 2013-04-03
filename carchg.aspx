@@ -142,6 +142,7 @@
 							$('#txtAcc1').val(now_acc1 + as[0].carownerno);
 							$('#txtAcc2').val(now_acc2 + '-' + as[0].carowner);
 						}
+						$('#txtMinusitem').focus();
 						break;
 					case 'carteam':
 						var as = _q_appendData("carteam", "", true);
@@ -152,13 +153,6 @@
 						q_cmbParse("cmbCarteamno", t_item);
 						$("#cmbCarteamno").val(abbm[q_recno].carteamno);
 						q_gridv('tview', browHtm, fbrow, abbm, aindex, brwNowPage, brwCount);
-						break;
-					case 'car2':
-						var as = _q_appendData("car2", "", true);
-						if(as[0]!=undefined){
-							$('#txtAcc1').val('1123.'+as[0].carownerno);
-						}
-						$('#txtMinusitem').focus();
 						break;
 					case q_name:
 						if (q_cur == 4)
@@ -173,7 +167,7 @@
 			function q_popPost(id) {
 				switch(id) {
 					case 'txtMinusitemno':
-						if(q_cur==1 || q_cur==2){
+						if((q_cur==1 || q_cur==2) && ($('#txtMinusitem').val() == '監理部扣款')){
 							t_where = '';
 							if($('#txtCarno').val() != ''){
 								t_where = "where=^^ carno='"+$('#txtCarno').val()+"' ^^";
