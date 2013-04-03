@@ -142,6 +142,13 @@
 						$("#cmbCarteamno").val(abbm[q_recno].carteamno);
 						q_gridv('tview', browHtm, fbrow, abbm, aindex, brwNowPage, brwCount);
 						break;
+					case 'car2':
+						var as = _q_appendData("car2", "", true);
+						if(as[0]!=undefined){
+							$('#txtAcc1').val('1123.'+as[0].carownerno);
+						}
+						$('#txtMinusitem').focus();
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
@@ -154,8 +161,14 @@
 			}
 			function q_popPost(id) {
 				switch(id) {
-					case 'txtMinusitemno':
-						if(q_cur==1 || q_cur==2){
+					case 'txtMinusitemno':	
+						if(q_cur==1 || q_cur==2){			
+							/*if($('#txtMinusitemno').val()=='03' && $.trim($('#txtCarno').val()).length>0){
+								//監理部
+								q_gt('car2', 'a.carno='+$.trim($('#txtCarno').val()), 0, 0, 0, "");
+							}else{
+								$('#txtMinusitem').focus();
+							}*/
 							$('#txtMinusitem').focus();
 						}
 						break;
