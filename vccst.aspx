@@ -54,7 +54,7 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd ]];
             q_mask(bbmMask);
-            q_cmbParse("cmbTypea", q_getPara('rc2.typea'));  
+            q_cmbParse("cmbTypea", q_getPara('vcc.typea'));  
             //q_cmbParse("cmbStype", q_getPara('rc2.stype'));   
             q_cmbParse("cmbCoin", q_getPara('sys.coin'));      
              q_cmbParse("combPaytype", q_getPara('rc2.paytype'));  
@@ -277,7 +277,7 @@
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
 		                     
-		                    if ($('#cmbKind').find("option:selected").text().indexOf('�O')>-1)
+		                    if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
 		            		{	
 		            			q_tr('txtDime_'+b_seq ,q_float('textSize1_'+b_seq));//�p��$('#txtDime_'+b_seq).val($('#textSize1_' + b_seq).val());
 		            		}else{
@@ -292,7 +292,7 @@
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
 		                     
-		                    if ($('#cmbKind').find("option:selected").text().indexOf('�O')>-1)
+		                    if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
 		            		{	
 		            			q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//�e��$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
 		            		}else{
@@ -307,11 +307,11 @@
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
 					         	
-		                     if ($('#cmbKind').find("option:selected").text().indexOf('�O')>-1)
+		                     if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
 		            		{	
-		            			q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));//���$('#txtLengthb_'+b_seq).val($('#textSize3_' + b_seq).val());	
+		            			q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));//$('#txtLengthb_'+b_seq).val($('#textSize3_' + b_seq).val());	
 		            		}else{
-		            			q_tr('txtDime_'+b_seq ,q_float('textSize3_'+b_seq));//�p��$('#txtDime_'+b_seq).val($('#textSize3_' + b_seq).val());		
+		            			q_tr('txtDime_'+b_seq ,q_float('textSize3_'+b_seq));//$('#txtDime_'+b_seq).val($('#textSize3_' + b_seq).val());		
 		            		}
 		                     
 		                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
@@ -322,11 +322,11 @@
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
 		                     
-		                     if ($('#cmbKind').find("option:selected").text().indexOf('�O')>-1)
+		                     if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
 		            		{	
-		            			q_tr('txtRadius_'+b_seq ,q_float('textSize4_'+b_seq));//�u�|��0 $('#txtRadius_'+b_seq).val($('#textSize4_' + b_seq).val());	
+		            			q_tr('txtRadius_'+b_seq ,q_float('textSize4_'+b_seq));// $('#txtRadius_'+b_seq).val($('#textSize4_' + b_seq).val());	
 		            		}else{
-		            			q_tr('txtLengthb_'+b_seq ,q_float('textSize4_'+b_seq));//���$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());	
+		            			q_tr('txtLengthb_'+b_seq ,q_float('textSize4_'+b_seq));//$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());	
 		            		}
 		            		
 		                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
@@ -410,8 +410,8 @@
             t_float = (emp(t_float) ? 1 : t_float);
             for (var j = 0; j < q_bbsCount; j++) {
                 t_unit = $('#txtUnit_' + j).val();
-                t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());  // �p��q
-                t_weight = t_weight + dec($('#txtWeight_' + j).val()); // ���q�X�p
+                t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());
+                t_weight = t_weight + dec($('#txtWeight_' + j).val());
                 $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount)*t_float, 0));
                 t1 = t1 + dec($('#txtTotal_' + j).val());
             }  // j
@@ -426,7 +426,6 @@
 
         }
 
-        ///////////////////////////////////////////////////  �H�U���Ѩƥ�{���A���ݭn�ɭק�
         function refresh(recno) {
             _refresh(recno);
             size_change();
@@ -459,7 +458,7 @@
         function btnPlus(org_htm, dest_tag, afield) {
             _btnPlus(org_htm, dest_tag, afield);
             if (q_tables == 's')
-                bbsAssign();  /// �?�B�⦡ 
+                bbsAssign(); 
         }
 
         function q_appendData(t_Table) {
@@ -749,7 +748,7 @@
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
-                   <td align="center" id='typea=rc2.typea'>~typea=rc2.typea</td>
+                   <td align="center" id='typea=vcc.typea'>~typea=vcc.typea</td>
                    <td align="center" id='datea'>~datea</td>
                    <td align="center" id='noa'>~noa</td>
                    <td align="center" id='custno comp,4'>~custno ~comp,4</td>

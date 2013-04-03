@@ -60,6 +60,10 @@
                         type : '5',
                         name : 'xtype',
                         value : [q_getPara('report.all')].concat(new Array('內銷','外銷','代工'))   //型態[18]256
+                    },{
+                        type : '5',
+                        name : 'xtype',
+                        value : new Array('鋼管','捲帶片')   //類別1[19]512
                     }]
                 });
                 q_popAssign();
