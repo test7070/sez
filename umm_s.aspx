@@ -68,10 +68,12 @@
                 t_part = $('#cmbPart').find(":selected").text();
                 t_cno = $.trim($('#cmbCno').val());
                 t_checkno = $.trim($('#txtCheckno').val());
+                t_accno = $.trim($('#txtAccno').val());
 
                 var t_where = " 1=1 " 
                 + q_sqlPara2("datea", t_bdate, t_edate) 
                 + q_sqlPara2("mon", t_mon) 
+                + q_sqlPara2("accno", t_accno) 
                 + q_sqlPara2("noa", t_noa) 
 				+ q_sqlPara2("cno", t_cno);
 				if (t_cust.length>0)
@@ -140,6 +142,10 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCheckno'> </a></td>
 					<td><input class="txt" id="txtCheckno" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblAccno'> </a></td>
+					<td><input class="txt" id="txtAccno" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
