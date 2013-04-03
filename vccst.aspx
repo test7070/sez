@@ -242,7 +242,6 @@
         }
 
         function bbsAssign() {  /// 表身運算式
-            _bbsAssign();
             for (var j = 0; j < ( q_bbsCount==0 ? 1 : q_bbsCount); j++) {
                 $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
                 $('#btnProductno_' + j).click(function () {
@@ -339,6 +338,8 @@
                 $('#txtMount_' + j).focusout(function () { sum(); });
 
             } //j
+            _bbsAssign();
+            size_change();
         }
 
         function btnIns() {
