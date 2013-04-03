@@ -106,7 +106,7 @@
 					sum();
 				});	
 				$('#btnVcc').click(function(e){
-					$('#btnVcc').val('請稍後。');
+					$('#btnVcc').val('請稍後。').attr('disabled','disabled');
 					q_func('vcca.genvcc',$('#txtNoa').val());
 				});	
 				$('#lblAccno').click(function() {
@@ -167,6 +167,7 @@
                     		alert(e.toString());
                     	}
 						$('#btnVcc').val(q_getMsg('btnVcc'));
+						$('#btnVcc').removeAttr('disabled');
                         break;
                 }
             }
