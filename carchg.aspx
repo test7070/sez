@@ -153,6 +153,13 @@
 						$("#cmbCarteamno").val(abbm[q_recno].carteamno);
 						q_gridv('tview', browHtm, fbrow, abbm, aindex, brwNowPage, brwCount);
 						break;
+					case 'car2':
+						var as = _q_appendData("car2", "", true);
+						if(as[0]!=undefined){
+							$('#txtAcc1').val('1123.'+as[0].carownerno);
+						}
+						$('#txtMinusitem').focus();
+						break;
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();

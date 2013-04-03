@@ -555,7 +555,7 @@
 			}else{
 				if(as[0].styleno=='')
 				{
-					alert('該品號尚未輸入樣式');
+					//alert('該品號尚未輸入樣式');
 					return;
 				}
 			}
