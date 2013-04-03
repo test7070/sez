@@ -1394,7 +1394,7 @@
                                 } 
  								y = strY + i*40 + 5;
                                 tmpPath += '<rect class="chart03_item" id="chart03_inmoney' + i + '" x="' + x + '" y="' + y + '" width="' + W + '" height="' + 15 + '" fill="url(#chart03_color1)"/>';
-                            	tmpPath += '<text class="chart03_item" id="chart03_cinmoney'+i+'" x="'+(x+W)+'" y="'+(y+15)+'" fill="#000000" >'+FormatNumber(t_output)+'</text>';	
+                            	tmpPath += '<text class="chart03_item" id="chart03_cinmoney'+i+'" x="'+(x+W+5)+'" y="'+(y+15)+'" fill="#000000" >'+FormatNumber(t_output)+'</text>';	
                             	//毛利
                             	t_output = t_detail[i].profit;
                                 W = Math.abs(round(t_output / (t_maxMoney - t_minMoney) * t_width, 0));
@@ -1405,25 +1405,26 @@
                                 }                          
  								y = strY + i*40 + 20;
                                 tmpPath += '<rect class="chart03_item" id="chart03_profit' + i + '" x="' + x + '" y="' + y + '" width="' + W + '" height="' + 15 + '" fill="url(#chart03_color3)"/>';
-                           		tmpPath += '<text class="chart03_item" id="chart03_cprofit'+i+'" x="'+(x+W)+'" y="'+(y+15)+'" fill="#000000" >'+FormatNumber(t_output)+'</text>';	
+                           		tmpPath += '<text class="chart03_item" id="chart03_cprofit'+i+'" x="'+(x+W + 5)+'" y="'+(y+15)+'" fill="#000000" >'+FormatNumber(t_output)+'</text>';	
                             	
                             	tmpPath +='</g>';
                             }
                             //X軸
                             tmpPath += '<line x1="'+strX+'" y1="'+strY+'" x2="'+(strX+t_width)+'" y2="'+strY+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
 							//tmpPath += '<text text-anchor="end"  x="'+t_X+'" y="'+(strY-5)+'" fill="#000000" >0</text>';
-							tmpPath += '<text text-anchor="end"  x="'+strX+'" y="'+(strY-5)+'" fill="#000000" >'+FormatNumber(t_minMoney)+'</text>';
+							tmpPath += '<text x="'+strX+'" y="'+(strY-5)+'" fill="#000000" >'+FormatNumber(t_minMoney)+'</text>';
 							tmpPath += '<text text-anchor="end"  x="'+(strX+t_width)+'" y="'+(strY-5)+'" fill="#000000" >'+FormatNumber(t_maxMoney)+'</text>';						
 							//Y軸
                             tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+obj.data('info').custData.length * 40)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
                             
-                            
-                            var t_cust = obj.data('info').custData;
-                            var t_maxMoney = obj.data('info').maxMoney;
-                            var t_minMoney = obj.data('info').minMoney;
-                            var t_n = round((t_width - 20) / t_cust.length, 0);
-
+                            //符號說明
+                            tmpPath += '<rect x="'+(strX+t_width+50)+'" y="5" width="20" height="20" fill="url(#chart03_color1)"/>';
+                            tmpPath += '<text x="'+(strX+t_width+70)+'" y="20" fill="black">運費收入</text>';
+							tmpPath += '<rect x="'+(strX+t_width+50)+'" y="30" width="20" height="20" fill="url(#chart03_color3)"/>';
+                            tmpPath += '<text x="'+(strX+t_width+70)+'" y="45" fill="black">毛利</text>';
+							
                             obj.width(objWidth).height(objHeight).html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+                        	
                         	//事件
                         	obj.children('svg').find('.chart03_item').hover(function(e) {
                         		var n = $(this).parent().attr('id').replace('chart03_item','');
