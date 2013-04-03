@@ -293,37 +293,36 @@
                             var t_maxMoney = 0, t_minMoney = 0, t_inmoney = 0, t_profit = 0;
                             var t_cust = new Array();
                             for (var i in as) {
-                            	t_inmoney = parseFloat(as[i].inmoney);
-                                t_profit = parseFloat(as[i].profit);
-                                //t_inmoney = parseFloat(as[i].inmoney.length == 0 ? '0' : as[i].inmoney);
-                                //t_profit = parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit);
-                                t_maxMoney = (t_maxMoney > t_inmoney) ? t_maxMoney : t_inmoney;
-                                t_maxMoney = (t_maxMoney > t_profit) ? t_maxMoney : t_profit;
-                                t_minMoney = (t_minMoney < t_inmoney) ? t_minMoney : t_inmoney;
-                                t_minMoney = (t_minMoney < t_profit) ? t_minMoney : t_profit;
-                                t_cust.push({
-                                    custno : as[i].custno,
-                                    comp : as[i].comp,
-                                    nick : as[i].nick,
-                                    inmoney : t_inmoney,
-                                    profit : t_profit
-                                });
+                            	if(as[i].custno!=undefined){
+                            		t_inmoney = parseFloat(as[i].inmoney.length == 0 ? '0' : as[i].inmoney);
+	                                t_profit = parseFloat(as[i].profit.length == 0 ? '0' : as[i].profit);
+	                                t_maxMoney = (t_maxMoney > t_inmoney) ? t_maxMoney : t_inmoney;
+	                                t_maxMoney = (t_maxMoney > t_profit) ? t_maxMoney : t_profit;
+	                                t_minMoney = (t_minMoney < t_inmoney) ? t_minMoney : t_inmoney;
+	                                t_minMoney = (t_minMoney < t_profit) ? t_minMoney : t_profit;
+	                                t_cust.push({
+	                                    custno : as[i].custno,
+	                                    comp : as[i].comp,
+	                                    nick : as[i].nick,
+	                                    inmoney : t_inmoney,
+	                                    profit : t_profit
+	                                });
+                            	}
                             }
-							alert(t_maxMoney+'__'+t_minMoney);
                             $('#Loading').hide();
                             $('#chart03').barChart03({
                                 data : t_cust,
                                 maxMoney : t_maxMoney,
                                 minMoney : t_minMoney
                             });
-                            /* $('#txtTotPage').val(1);
+                             $('#txtTotPage').val(1);
                              $('#txtCurPage').data('chart', 'chart03').val(1).change(function(e) {
                              $(this).val(parseInt($(this).val()));
                              $('#' + $(this).data('chart')).data('info').page($('#' + $(this).data('chart')), $(this).val());
                              });
                              $("#btnNext").data('chart', 'chart03');
                              $("#btnPrevious").data('chart', 'chart03');
-                             $(".control").show();*/
+                             $(".control").show();
                         }
                         break;
                     default:
@@ -1350,16 +1349,16 @@
                         },
                         refresh : function(obj) {
                             var objWidth = 950;
-                            var objHeight = obj.data('info').custData.length * 30 + 200;
+                            var objHeight = obj.data('info').custData.length * 40 + 200;
                             //背景
                             var tmpPath = '<rect x="0" y="0" width="' + objWidth + '" height="' + objHeight + '" style="fill:rgb(220,220,220);stroke-width:1;stroke:rgb(0,0,0)"/>';
                             //圖表背景顏色
                             var bkColor1 = ['rgb(210,233,255)', 'rgb(255,238,221)'];
                             //圖表分幾個區塊
                             var bkN = 10;
-                            var strX = 100, strY = 100;                      
+                            var strX = 100, strY = 50;                      
                             var t_width = 700;
-                            var t_height = obj.data('info').custData.length * 30;
+                            var t_height = obj.data('info').custData.length * 40;
 
                             for (var i = 0; i < bkN; i++) {
                                 x = Math.round(t_width / bkN, 0) * i;
@@ -1367,51 +1366,83 @@
                                 tmpPath += '<rect x="' + (strX + x) + '" y="' + (strY + y) + '" width="' + Math.round(t_width / bkN, 0) + '" height="' + (t_height) + '" style="fill:' + bkColor1[i % bkColor1.length] + ';"/>';
                             }
 							
-							var t_maxMoney = obj.data('info').custData.maxMoney;
-                            var t_minMoney = obj.data('info').custData.minMoney;
-                            t_minMoney = -10000;
-                            var t_X = strX + round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_width, 0);
-                            alert(t_maxMoney+'__'+t_minMoney);
+							var t_maxMoney = obj.data('info').maxMoney;
+                            var t_minMoney = obj.data('info').minMoney;
+                            var t_X = strX + round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_width, 0);                                
+							
+							var t_detail = obj.data('info').custData;
+							t_detail.sort(function(a,b){
+								return b.inmoney-a.inmoney;
+							});
+							tmpPath += '<defs>' + '<linearGradient id="chart03_color3" x1="0%" y1="0%" x2="0%" y2="100%">' + '<stop offset="0%" style="stop-color:rgb(206,206,255);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(147,147,255);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
+                            tmpPath += '<defs>' + '<linearGradient id="chart03_color2" x1="0%" y1="0%" x2="0%" y2="100%">' + '<stop offset="0%" style="stop-color:rgb(255,220,185);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(225,175,96);stop-opacity:1" />' + '</linearGradient>' + '</defs>';					
+                            tmpPath += '<defs>' + '<linearGradient id="chart03_color4" x1="0%" y1="0%" x2="0%" y2="100%">' + '<stop offset="0%" style="stop-color:rgb(206,255,206);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(147,255,147);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
+                            tmpPath += '<defs>' + '<linearGradient id="chart03_color1" x1="0%" y1="0%" x2="0%" y2="100%">' + '<stop offset="0%" style="stop-color:rgb(255,185,220);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(225,96,175);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
+							for (var i = 0; i < t_detail.length; i++) {    
+								tmpPath +='<g id="chart03_item'+i+'">';
+								//客戶名稱      
+                                x = strX - 5;
+ 								y = strY + i*40 + 24;
+                                tmpPath += '<text class="chart03_item" id="chart03_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+t_detail[i].nick+'</text>';	
+                            	//收入
+                            	t_output = t_detail[i].inmoney;
+                                W = Math.abs(round(t_output / (t_maxMoney - t_minMoney) * t_width, 0));
+                                if(t_output>0){
+                                	x = t_X;
+                                }else{
+                                	x = t_X - W;
+                                } 
+ 								y = strY + i*40 + 5;
+                                tmpPath += '<rect class="chart03_item" id="chart03_inmoney' + i + '" x="' + x + '" y="' + y + '" width="' + W + '" height="' + 15 + '" fill="url(#chart03_color1)"/>';
+                            	tmpPath += '<text class="chart03_item" id="chart03_cinmoney'+i+'" x="'+(x+W)+'" y="'+(y+15)+'" fill="#000000" >'+FormatNumber(t_output)+'</text>';	
+                            	//毛利
+                            	t_output = t_detail[i].profit;
+                                W = Math.abs(round(t_output / (t_maxMoney - t_minMoney) * t_width, 0));
+                                if(t_output>0){
+                                	x = t_X;
+                                }else{
+                                	x = t_X - W;
+                                }                          
+ 								y = strY + i*40 + 20;
+                                tmpPath += '<rect class="chart03_item" id="chart03_profit' + i + '" x="' + x + '" y="' + y + '" width="' + W + '" height="' + 15 + '" fill="url(#chart03_color3)"/>';
+                           		tmpPath += '<text class="chart03_item" id="chart03_cprofit'+i+'" x="'+(x+W)+'" y="'+(y+15)+'" fill="#000000" >'+FormatNumber(t_output)+'</text>';	
+                            	
+                            	tmpPath +='</g>';
+                            }
                             //X軸
                             tmpPath += '<line x1="'+strX+'" y1="'+strY+'" x2="'+(strX+t_width)+'" y2="'+strY+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-							//tmpPath += '<text text-anchor="end"  x="40" y="90" fill="#000000" >客戶</text>';
-							// /
-							tmpPath += '<line x1="0" y1="0" x2="'+strX+'" y2="'+strY+'" style="stroke:rgb(255,255,255);stroke-width:2"/>';
+							//tmpPath += '<text text-anchor="end"  x="'+t_X+'" y="'+(strY-5)+'" fill="#000000" >0</text>';
+							tmpPath += '<text text-anchor="end"  x="'+strX+'" y="'+(strY-5)+'" fill="#000000" >'+FormatNumber(t_minMoney)+'</text>';
+							tmpPath += '<text text-anchor="end"  x="'+(strX+t_width)+'" y="'+(strY-5)+'" fill="#000000" >'+FormatNumber(t_maxMoney)+'</text>';						
 							//Y軸
-                            tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+obj.data('info').custData.length * 30)+'" style="stroke:rgb(255,0,0);stroke-width:2"/>';
-							//tmpPath += '<text text-anchor="end"  x="90" y="30" fill="#000000" >金額</text>';
-							
-							
-							/*
-							var t_range = round((t_maxMoney - t_minMoney) / 5, 0);
-                            var i = Math.pow(10, (t_range + '').length - 1);
-                            var t_range = Math.floor(t_range / i) * i;
-                            t_money = t_range;
-                            while (t_money < t_maxMoney) {
-                                if ((t_maxMoney - t_money) / (t_maxMoney - t_minMoney) > 0.05) {
-                                    y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
-                                    tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-                                    tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money) + '</text>';
-                                }
-                                t_money += t_range;
-                            }
-                            t_money = -t_range;
-                            while (t_money > t_minMoney) {
-                                if (Math.abs(t_minMoney - t_money) / (t_maxMoney - t_minMoney) > 0.05) {
-                                    x = 90;
-                                    y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
-                                    tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-                                    tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money) + '</text>';
-                                }
-                                t_money -= t_range;
-                            }*/
-							
+                            tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+obj.data('info').custData.length * 40)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                            
+                            
                             var t_cust = obj.data('info').custData;
                             var t_maxMoney = obj.data('info').maxMoney;
                             var t_minMoney = obj.data('info').minMoney;
                             var t_n = round((t_width - 20) / t_cust.length, 0);
 
                             obj.width(objWidth).height(objHeight).html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+                        	//事件
+                        	obj.children('svg').find('.chart03_item').hover(function(e) {
+                        		var n = $(this).parent().attr('id').replace('chart03_item','');
+                        		
+                                $('#chart03_nick'+n).attr('fill', 'rgb(255,0,0)');
+                                $('#chart03_inmoney'+n).attr('fill', 'url(#chart03_color2)');
+                                $('#chart03_cinmoney'+n).attr('fill', 'rgb(255,0,0)');
+                                $('#chart03_profit'+n).attr('fill', 'url(#chart03_color4)');
+                                $('#chart03_cprofit'+n).attr('fill', 'rgb(255,0,0)');
+                               
+                            }, function(e) {
+                                var n = $(this).parent().attr('id').replace('chart03_item','');
+                        		
+                                $('#chart03_nick'+n).attr('fill', 'rgb(0,0,0)');
+                                $('#chart03_inmoney'+n).attr('fill', 'url(#chart03_color1)');
+                                $('#chart03_cinmoney'+n).attr('fill', 'rgb(0,0,0)');
+                                $('#chart03_profit'+n).attr('fill', 'url(#chart03_color3)');
+                                $('#chart03_cprofit'+n).attr('fill', 'rgb(0,0,0)');
+                            });
                         }
                     });
                     $(this).data('info').init($(this));
