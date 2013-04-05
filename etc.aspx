@@ -19,7 +19,7 @@
             var q_name = "etc";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtCurmoney'];
             var bbmNum = new Array(['txtMoney', 10, 0], ['txtCurmoney', 10, 2]);
-            var bbmMask = [['txtKdate', '999/99/99'], ['txtMon', '999/99'], ['txtTimea', '99:99:99']];
+            var bbmMask = [['txtDatea', '999/99/99'], ['txtMon', '999/99'], ['txtTimea', '99:99:99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -37,7 +37,7 @@
             currentData.prototype = {
                 data : [],
                 /*新增時複製的欄位*/
-                include : ['txtKdate', 'txtCarno', 'txtDriverno', 'txtDriver', 'txtStation', 'txtArrow', 'cmbTypea', 'txtMoney'],
+                include : ['txtDatea', 'txtCarno', 'txtDriverno', 'txtDriver', 'txtStation', 'txtArrow', 'cmbTypea', 'txtMoney'],
                 /*記錄當前的資料*/
                 copy : function() {
                     curData.data = new Array();
@@ -176,9 +176,9 @@
                 _btnIns();
                 curData.paste();
                 $('#txtNoa').val('AUTO');
-                if ($('#txtKdate').val().length == 0)
-                    $('#txtKdate').val(q_date());
-                $('#txtKdate').focus();
+                if ($('#txtDatea').val().length == 0)
+                    $('#txtDatea').val(q_date());
+                $('#txtDatea').focus();
                 $('#txtOrgmoney').val($('#txtMoney').val());
                 //if($('#txtOilstationno').val().length>0)
                 //q_gt('oilorg', "where=^^oilstationno='"+$.trim($('#txtOilstationno').val())+"'^^", 0, 0, 0, "");
@@ -190,7 +190,7 @@
                     return;
 
                 _btnModi();
-                $('#txtKdate').focus();
+                $('#txtDatea').focus();
                 $('#txtOrgmoney').val($('#txtMoney').val());
                 sum();
             }
@@ -205,9 +205,9 @@
 					alert(q_getMsg('lblMon')+'錯誤。');   
 					return;
 				}
-            	$('#txtKdate').val($.trim($('#txtKdate').val()));
-                if (checkId($('#txtKdate').val())==0){
-                	alert(q_getMsg('lblKdate')+'錯誤。');
+            	$('#txtDatea').val($.trim($('#txtDatea').val()));
+                if (checkId($('#txtDatea').val())==0){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
             	}
             	
@@ -223,7 +223,7 @@
                 sum();
 
                 var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtKdate').val());
+                var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
                     q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
@@ -484,7 +484,7 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewKdate'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTimea'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewCarno'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewDriver'> </a></td>
@@ -499,7 +499,7 @@
 						<td>
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
-						<td id='kdate' style="text-align: center;">~kdate</td>
+						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='timea' style="text-align: center;">~timea</td>
 						<td id='carno' style="text-align: center;">~carno</td>
 						<td id='driver' style="text-align: center;">~driver</td>
@@ -524,9 +524,9 @@
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblKdate' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td class="td2">
-						<input id="txtKdate"  type="text"  class="txt c1"/>
+						<input id="txtDatea"  type="text"  class="txt c1"/>
 						</td>
 						<td><span> </span><a id='lblTimea' class="lbl"> </a></td>
 						<td>

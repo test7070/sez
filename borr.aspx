@@ -23,7 +23,7 @@
             var bbmNum = [['txtCash', 10, 0], ['txtChecka', 10, 0], ['txtMoney', 10, 0], ['txtInterest', 10, 0], ['txtTotal', 10, 0], ['txtPay', 10, 0], ['txtUnpay', 10, 0]];
             var bbsNum = [['txtMoney', 10, 0, 1]];
             var bbtNum = [['txtMoney', 10, 0, 1]];
-            var bbmMask = [['txtKdate', '999/99/99'], ['txtBegindate', '999/99/99'], ['txtEnddate', '999/99/99']];
+            var bbmMask = [['txtDatea', '999/99/99'], ['txtBegindate', '999/99/99'], ['txtEnddate', '999/99/99']];
             var bbsMask = [['txtDatea', '999/99/99'], ['txtIndate', '999/99/99']];
             var bbtMask = [['txtMon', '999/99']];
             var q_readonlyt = [];
@@ -78,8 +78,8 @@
                 });
                 
                 $('#lblAccno').click(function() {
-                	if($('#txtKdate').val().substring(0,3).length>0)
-                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtKdate').val().substring(0,3)+ '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
+                	if($('#txtDatea').val().substring(0,3).length>0)
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3)+ '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
                 });
             }
 
@@ -118,15 +118,15 @@
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
-                $('#txtKdate').val(q_date());
-                $('#txtKdate').focus();
+                $('#txtDatea').val(q_date());
+                $('#txtDatea').focus();
             }
 
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtKdate').focus();
+                $('#txtDatea').focus();
             }
 
             function btnPrint() {
@@ -134,15 +134,15 @@
             }
 
             function btnOk() {
-            	if ($('#txtKdate').val().length==0 || !q_cd($('#txtKdate').val())){
-                	alert(q_getMsg('lblKdate')+'錯誤。');
+            	if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
                 }
                 sum();
                 $('#txtWorker').val(r_name);
                
                 var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtKdate').val());
+                var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
                     q_gtnoa(q_name, replaceAll(q_getPara('sys.key_borr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
@@ -461,7 +461,7 @@
 				<table class="tview" id="tview" >
 					<tr>
 						<td style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td style="width:100px; color:black;"><a id='vewKdate'> </a></td>
+						<td style="width:100px; color:black;"><a id='vewDatea'> </a></td>
 						<td style="width:80px; color:black;"><a id='vewCust'> </a></td>
 						<td style="width:80px; color:black;"><a id='vewMoney'> </a></td>
 						<td style="width:80px; color:black;"><a id='vewInterest'> </a></td>
@@ -474,7 +474,7 @@
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
-						<td id='kdate' style="text-align: center;">~kdate</td>
+						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='custnick' style="text-align: center;">~custnick</td>
 						<td id='money,0,1' style="text-align: right;">~money,0,1</td>
 						<td id='interest,0,1' style="text-align: right;">~interest,0,1</td>
@@ -505,9 +505,9 @@
 						<td colspan="2">
 						<input id="txtNoa"  type="text" class="txt c1"/>
 						</td>
-						<td><span> </span><a id="lblKdate" class="lbl"> </a></td>
+						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td>
-						<input id="txtKdate"  type="text"  class="txt c1"/>
+						<input id="txtDatea"  type="text"  class="txt c1"/>
 						</td>
 					</tr>
 					<tr>

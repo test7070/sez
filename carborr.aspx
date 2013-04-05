@@ -21,13 +21,13 @@
             var q_readonlys = [];
             var bbmNum = [['txtMoney',10,0],['txtComppay',10,0],['txtMount',10,0],['txtDriverpay',10,0],['txtPay',10,0]];
             var bbsNum = [['txtMoney',10,0]];
-            var bbmMask = [['txtMon','999/99'],['txtKdate','999/99/99'],['txtTicketdate','999/99/99']];
+            var bbmMask = [['txtMon','999/99'],['txtDatea','999/99/99'],['txtTicketdate','999/99/99']];
             var bbsMask = [['txtMon','999/99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'Kdate';
+            brwKey = 'Datea';
             q_desc = 1;
             q_xchg = 1;
             brwCount2 = 20;
@@ -137,8 +137,8 @@
             }
 
             function btnOk() {
-                if ($('#txtKdate').val().length>0 && !q_cd($('#txtKdate').val())){
-                	alert(q_getMsg('lblKdate')+'錯誤。');
+                if ($('#txtDatea').val().length>0 && !q_cd($('#txtDatea').val())){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
            		}
                 if (!q_cd($('#txtTicketdate').val())){
@@ -165,7 +165,7 @@
                     return;
                 }
                 var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtKdate').val());
+                var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
                     q_gtnoa(q_name, replaceAll(q_getPara('sys.key_carborr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
@@ -228,9 +228,9 @@
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
-                $('#txtKdate').val(q_date());
-                $('#txtKdate').focus();
-                $('#txtMon').val($('#txtKdate').val().substring(0,6));
+                $('#txtDatea').val(q_date());
+                $('#txtDatea').focus();
+                $('#txtMon').val($('#txtDatea').val().substring(0,6));
                 t_curMoney = 0;
                 t_curMon=$('#txtMon').val();
                 t_curDriverno=$('#txtDriverno').val();
@@ -245,7 +245,7 @@
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtKdate').focus();
+                $('#txtDatea').focus();
                 t_curMoney = 0;
                 t_curMon=$('#txtMon').val();
                 t_curDriverno=$('#txtDriverno').val();
@@ -508,7 +508,7 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'></a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewKdate'></a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewDatea'></a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewCarno'></a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewDriver'></a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTypea'></a></td>
@@ -522,7 +522,7 @@
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
-						<td id='kdate' style="text-align: center;">~kdate</td>
+						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='carno' style="text-align: center;">~carno</td>
 						<td id='driver' style="text-align: center;">~driver</td>
 						<td id='typea' style="text-align: center;">~typea</td>
@@ -552,8 +552,8 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblKdate" class="lbl"> </a></td>
-						<td><input id="txtKdate" type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
+						<td><input id="txtDatea" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCarno" class="lbl"> </a></td>

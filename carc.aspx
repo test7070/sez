@@ -17,13 +17,13 @@
         q_desc=1;
         q_tables = 's';
         var q_name = "carc";
-        var q_readonly = ['txtNoa','txtKdate','txtWorker','txtWorker2','txtPaybno','txtAccno'];
+        var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2','txtPaybno','txtAccno'];
         var q_readonlys = ['txtCarownerno','txtCarowner','txtCarno','txtCaradate','txtCaritemno','txtCaritem','txtInmoney','txtMemo','txtCarano','txtCaranoq'];
         var bbmNum = [['txtTotal',14, 0, 1]];  
         var bbsNum = [['txtOutmoney',14, 0, 1],['txtInmoney',14, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
-        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Kdate';
+        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
         aPop = new Array(['txtCaritemno_', 'btnCaritem_', 'caritem', 'noa,item', 'txtCaritemno_,txtCaritem_', 'caritem_b.aspx'],
         ['txtTggno', 'lblTggno', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
          ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno],
@@ -49,7 +49,7 @@
         function mainPost() { 
         
             q_getFormat();
-            bbmMask = [['txtKdate', r_picd],['txtPaydate', r_picd],['txtMon', r_picm],['txtAcdate',r_picd]];
+            bbmMask = [['txtDatea', r_picd],['txtPaydate', r_picd],['txtMon', r_picm],['txtAcdate',r_picd]];
             q_mask(bbmMask);
             bbsMask = [['txtCaradate', r_picd]];
             
@@ -208,9 +208,9 @@
         }
 
         function btnOk() {
-        	$('#txtKdate').val($.trim($('#txtKdate').val()));
-                if (checkId($('#txtKdate').val())==0){
-                	alert(q_getMsg('lblKdate')+'錯誤。');
+        	$('#txtDatea').val($.trim($('#txtDatea').val()));
+                if (checkId($('#txtDatea').val())==0){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
             }            
 			$('#txtPaydate').val($.trim($('#txtPaydate').val()));
@@ -258,7 +258,7 @@
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   
-                q_gtnoa(q_name, replaceAll('C' + $('#txtKdate').val(), '/', ''));
+                q_gtnoa(q_name, replaceAll('C' + $('#txtDatea').val(), '/', ''));
             else
                 wrServer(s1);
         }
@@ -283,7 +283,7 @@
         function btnIns() {
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-            $('#txtKdate').val(q_date());
+            $('#txtDatea').val(q_date());
             $('#txtMon').val(q_date().substr(0,6));
             $('#txtPaydate').val(q_date());
             $('#txtAcdate').val(q_date());
@@ -622,13 +622,13 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:30%"><a id='vewKdate'></a></td>
+                <td align="center" style="width:30%"><a id='vewDatea'></a></td>
                 <td align="center" style="width:65%"><a id='vewCheckpay'></a></td>
                 <!--<td align="center"><a id='vewNoa'></a></td>-->
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
-                   <td align="center" id='kdate'>~kdate</td>
+                   <td align="center" id='datea'>~datea</td>
                    <td align="center" id='checkpay'>~checkpay</td>
                    <!--<td align="center" id='noa'>~noa</td>-->
             </tr>
@@ -637,8 +637,8 @@
         <div class='dbbm' style="width: 68%;float:left">
         <table class="tbbm"  id="tbbm"  border="0" cellpadding='2'  cellspacing='0'>
         <tr class="tr1">
-            <td class='td1'><span> </span><a id="lblKdate" class="lbl"></a></td>
-            <td class='td2'><input id="txtKdate" type="text" class="txt c1"/></td>        	
+            <td class='td1'><span> </span><a id="lblDatea" class="lbl"></a></td>
+            <td class='td2'><input id="txtDatea" type="text" class="txt c1"/></td>        	
             <td class='td3'><span> </span><a id="lblNoa" class="lbl"></a></td>
             <td class='td4'><input id="txtNoa"  type="text" class="txt c1" /></td>
             <td class='td5'></td>

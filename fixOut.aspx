@@ -28,7 +28,7 @@
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'Kdate';
+            brwKey = 'Datea';
             aPop = new Array(['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtCarplateno', 'lblCarplateno', 'carplate', 'noa,carplate,driver', 'txtCarplateno', 'carplate_b.aspx'], ['txtProductno_', 'btnProductno_', 'fixucc', 'noa,namea,brand,unit,inprice', 'txtProductno_,txtProduct_,txtBrand_,txtUnit_,txtPrice_', 'fixucc_b.aspx'], ['txtTireno_', 'btnTirestk_', 'view_tirestk', 'noa,productno,product,brandno,brand,price', 'txtTireno_,txtProductno_,txtProduct_,txtBrandno_,txtBrand_,txtPrice_', 'tirestk_b.aspx']);
 
             function currentData() {
@@ -38,7 +38,7 @@
             currentData.prototype = {
                 data : [],
                 /*新增時複製的欄位*/
-                include : ['txtKdate', 'txtOutdate', 'txtMon', 'cmbTypea'],
+                include : ['txtDatea', 'txtOutdate', 'txtMon', 'cmbTypea'],
                 /*記錄當前的資料*/
                 copy : function() {
                     curData.data = new Array();
@@ -86,7 +86,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtKdate', r_picd], ['txtOutdate', r_picd], ['txtMon', r_picm]];
+                bbmMask = [['txtDatea', r_picd], ['txtOutdate', r_picd], ['txtMon', r_picm]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('fixout.typea'));
                 q_cmbParse("cmbPosition", q_getPara('tire.position'), 's');
@@ -133,8 +133,8 @@
             }
 
             function btnOk() {
-                if ($('#txtKdate').val().length == 0 || !q_cd($('#txtKdate').val())) {
-                    alert(q_getMsg('lblKdate') + '錯誤。');
+                if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
+                    alert(q_getMsg('lblDatea') + '錯誤。');
                     return;
                 }
                 if (!q_cd($('#txtOutdate').val())) {
@@ -164,7 +164,7 @@
                 sum();
 
                 var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtKdate').val());
+                var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
                     q_gtnoa(q_name, replaceAll(q_getPara('sys.key_fixout') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
@@ -251,8 +251,8 @@
 
                 $('#txtNoa').val('AUTO');
                 $('#cmbTypea').val('01');
-                if ($('#txtKdate').val().length == 0)
-                    $('#txtKdate').val(q_date());
+                if ($('#txtDatea').val().length == 0)
+                    $('#txtDatea').val(q_date());
                 if ($('#txtMon').val().length == 0)
                     $('#txtMon').val(q_date().substring(0, 6));
                 $('#txtCarno').focus();
@@ -540,7 +540,7 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:20%"><a id='vewKdate'> </a></td>
+						<td align="center" style="width:20%"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:20%"><a id='vewOutdate'> </a></td>
 						<td align="center" style="width:20%"><a id='vewCarno'> </a></td>
 						<td align="center" style="width:20%"><a id='vewDriver'> </a></td>
@@ -550,7 +550,7 @@
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
-						<td align="center" id='kdate'>~kdate</td>
+						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='outdate'>~outdate</td>
 						<td align="center" id='carno'>~carno</td>
 						<td align="center" id='driver'>~driver</td>
@@ -575,9 +575,9 @@
 						<td>
 						<input id="txtOutdate"type="text" class="txt c1"/>
 						</td>
-						<td><span> </span><a id="lblKdate" class="lbl" > </a></td>
+						<td><span> </span><a id="lblDatea" class="lbl" > </a></td>
 						<td>
-						<input id="txtKdate"type="text" class="txt c1"/>
+						<input id="txtDatea"type="text" class="txt c1"/>
 						</td>
 						<td><span> </span><a id="lblMon" class="lbl" > </a></td>
 						<td>

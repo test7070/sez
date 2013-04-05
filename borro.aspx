@@ -48,11 +48,11 @@
             }///  end Main()
 
             function mainPost() {
-            	bbmMask = [['txtKdate', r_picd]];
+            	bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('borr.typea'), 's');
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-				$('#txtKdate').focusout(function () {
+				$('#txtDatea').focusout(function () {
                      	   q_cd( $(this).val() ,$(this));
 	                });
                 $("#txtPayc").change(function() {
@@ -134,9 +134,9 @@
 
             function btnOk() {
                 var t_err = '';
-				$('#txtKdate').val($.trim($('#txtKdate').val()));
-                if (checkId($('#txtKdate').val())==0){
-                	alert(q_getMsg('lblKdate')+'錯誤。');
+				$('#txtDatea').val($.trim($('#txtDatea').val()));
+                if (checkId($('#txtDatea').val())==0){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
                 }  
                 //  t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
@@ -445,14 +445,14 @@
 				<table class="tview" id="tview" >
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
-						<td align="center" style="width:25%"><a id='vewKdate'></a></td>
+						<td align="center" style="width:25%"><a id='vewDatea'></a></td>
 						<td align="center" style="width:25%"><a id='vewNoa'></a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
-						<td align="center" id='kdate'>~kdate</td>
+						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='noa'>~noa</td>
 					</tr>
 				</table>
@@ -460,9 +460,9 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr1">
-						<td class="td1" ><span> </span><a id="lblKdate" class="lbl"> </a></td>
+						<td class="td1" ><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td class="td2">
-						<input id="txtKdate"  type="text"  class="txt c1"/>
+						<input id="txtDatea"  type="text"  class="txt c1"/>
 						</td>
 						<td class="td3" ><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td class="td4">

@@ -28,7 +28,7 @@
 			brwCount = 6;
 			brwList = [];
 			brwNowPage = 0;
-			brwKey = 'Kdate';
+			brwKey = 'Datea';
 			aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtNick', 'tgg_b.aspx'], 
 			['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], 
 			['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
@@ -54,7 +54,7 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtKdate', r_picd], ['txtIndate', r_picd], ['txtMon', r_picm]];
+				bbmMask = [['txtDatea', r_picd], ['txtIndate', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
 				q_cmbParse("cmbTypea", q_getPara('fixin.typea'));
 				q_cmbParse("cmbTiretype", q_getPara('tire.typea'), 's');
@@ -169,8 +169,8 @@
 			}
 
 			function btnOk() {
-                if ($('#txtKdate').val().length==0 || !q_cd($('#txtKdate').val())){
-                	alert(q_getMsg('lblKdate')+'錯誤。');
+                if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
             	}
                 if (!q_cd($('#txtIndate').val())){
@@ -201,7 +201,7 @@
 				sum();
 
 				var t_noa = trim($('#txtNoa').val());
-				var t_date = trim($('#txtKdate').val());
+				var t_date = trim($('#txtDatea').val());
 				if (t_noa.length == 0 || t_noa == "AUTO")
 					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_fixin') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 				else
@@ -286,7 +286,7 @@
 			function btnIns() {
 				_btnIns();
 				$('#txtNoa').val('AUTO');
-				$('#txtKdate').val(q_date());
+				$('#txtDatea').val(q_date());
 				$('#txtMon').val(q_date().substring(0,6));
 				$('#txtIndate').focus();
 			}
@@ -571,7 +571,7 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'> </a></td>
-						<td align="center" style="width:20%"><a id='vewKdate'> </a></td>
+						<td align="center" style="width:20%"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:20%"><a id='vewIndate'> </a></td>
 						<td align="center" style="width:20%"><a id='vewTgg'> </a></td>
 					</tr>
@@ -579,7 +579,7 @@
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=' '/>
 						</td>
-						<td align="center" id='kdate'>~kdate</td>
+						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='indate'>~indate</td>
 						<td align="center" id='nick'>~nick</td>
 
@@ -602,8 +602,8 @@
 					<tr>
 						<td><span> </span><a id="lblIndate" class="lbl"> </a></td>
 						<td><input id="txtIndate"type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblKdate" class="lbl" > </a></td>
-						<td><input id="txtKdate"type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblDatea" class="lbl" > </a></td>
+						<td><input id="txtDatea"type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblMon" class="lbl" > </a></td>
 						<td><input id="txtMon"type="text" class="txt c1"/></td>
 					</tr>

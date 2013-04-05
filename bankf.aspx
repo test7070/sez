@@ -18,7 +18,7 @@
 
             var q_name = "bankf";
 
-            var q_readonly = ['txtNoa','txtAccno','txtKdate','txtWorker','txtWorker2'];
+            var q_readonly = ['txtNoa','txtAccno','txtDatea','txtWorker','txtWorker2'];
 
             var bbmNum = [['txtMoney', 8, 2,1],['txtMoney2', 8, 2,1],['txtInterestrate', 2, 2,1]];
 
@@ -48,7 +48,7 @@
             }
 
             function mainPost() {
-            	bbmMask = [['txtIndate', r_picd],['txtEnddate', r_picd],['txtUndate', r_picd],['txtPaydate', r_picd],['txtKdate', r_picd]];
+            	bbmMask = [['txtIndate', r_picd],['txtEnddate', r_picd],['txtUndate', r_picd],['txtPaydate', r_picd],['txtDatea', r_picd]];
                 q_mask(bbmMask);
                  
                  q_cmbParse("cmbType", ('').concat(new Array( '一個月','三個月','六個月','一年','十八個月','二年','三年')));
@@ -104,7 +104,7 @@
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
-				$('#txtKdate').val(q_date());
+				$('#txtDatea').val(q_date());
                 $('#txtLcno').focus();
             }
             function btnModi() {
@@ -122,8 +122,8 @@
             function btnOk() {
 
             	$('#txtAcomp').val($('#cmbCno').find(":selected").text());
-				if (!q_cd($('#txtKdate').val())){
-                	alert(q_getMsg('lblKdate')+'錯誤。');
+				if (!q_cd($('#txtDatea').val())){
+                	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
 
                 }
@@ -136,9 +136,9 @@
                 }
                 
                	var t_noa = trim($('#txtNoa').val());
-		        var t_date = trim($('#txtKdate').val());
+		        var t_date = trim($('#txtDatea').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_bankf') + $('#txtKdate').val(), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_bankf') + $('#txtDatea').val(), '/', ''));
                 else
                     wrServer(t_noa);
             }
@@ -370,8 +370,8 @@
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblKdate' class="lbl"> </a></td>
-						<td><input id="txtKdate"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblAcomp" class="lbl"> </a></td>

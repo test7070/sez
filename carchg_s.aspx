@@ -65,7 +65,7 @@
 				t_driver = $('#txtDriver').val();
 				t_carteam = $('#cmbCarteam').val();
 				t_tre = $('#cmbTre').val();
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("kdate", t_bdate, t_edate) + q_sqlPara2("carno", t_carno) + q_sqlPara2("driverno", t_driverno)
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("carno", t_carno) + q_sqlPara2("driverno", t_driverno)
 										 + q_sqlPara2("acc1", t_acc1) + q_sqlPara2("acc2", t_acc2);
 				if (t_carteam.length > 0)
                     t_where += q_sqlPara2("carteamno", t_carteam);
@@ -104,7 +104,7 @@
 					<td><select id="cmbTre" style="width:215px; font-size:medium;" ></select></td>
 				</tr>
 				<tr class='seek_tr'>
-					<td   style="width:35%;" ><a id='lblKdate'></a></td>
+					<td   style="width:35%;" ><a id='lblDatea'></a></td>
 					<td style="width:65%;  ">
 					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>

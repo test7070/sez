@@ -128,7 +128,7 @@
 		            var tmp = $('#txtCarchgno').val().split(',');
 		            for (var i in tmp)
 		                t_where += (t_where.length > 0 ? ' or ' : '') + "noa='" + tmp[i] + "'";
-		            q_pop('txtCarchgno', "carchg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno, 'custchg', 'noa', 'kdate', "92%", "1000px", q_getMsg('popCarchg'), true);
+		            q_pop('txtCarchgno', "carchg.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";" + r_accy + '_' + r_cno, 'custchg', 'noa', 'datea', "92%", "1000px", q_getMsg('popCarchg'), true);
 		        });
 		        //alert('mainpost');
 		    }
