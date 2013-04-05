@@ -16,7 +16,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="carpack";
-        var q_readonly = ['txtNoa','txtDatea','txtWorker'];
+        var q_readonly = ['txtNoa','txtKdate','txtWorker'];
         var bbmNum = [['txtMoney',10,0,0,1],['txtMount',4,0,0,1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -46,7 +46,7 @@
 
         function mainPost() { 
           	q_getFormat();
-            bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd],['txtEdate', r_picd]];
+            bbmMask = [['txtKdate', r_picd],['txtBdate', r_picd],['txtEdate', r_picd]];
             q_mask(bbmMask);
             
             $('#txtMount').change(function() {
@@ -86,7 +86,7 @@
         function btnIns() {
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-            $('#txtDatea').val(q_date());
+            $('#txtKdate').val(q_date());
             $('#txtBdate').val(q_date());
             $('#txtRate').val(8);
             $('#txtCardealno').focus();
@@ -118,7 +118,7 @@
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   
-                q_gtnoa(q_name, replaceAll('P' + $('#txtDatea').val(), '/', ''));
+                q_gtnoa(q_name, replaceAll('P' + $('#txtKdate').val(), '/', ''));
             else
                 wrServer(s1);
         }
@@ -334,8 +334,8 @@
                <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblCardeal" class="lbl btn" ></a></td>
                <td class="td4"><input id="txtCardealno"  type="text" class="txt c2" /><input id="txtCardeal" type="text" class="txt c3"/></td>
-               <td class="td5"><span> </span><a id="lblDatea" class="lbl"></a></td>
-               <td class="td6"><input id="txtDatea"  type="text" class="txt c1"/></td>
+               <td class="td5"><span> </span><a id="lblKdate" class="lbl"></a></td>
+               <td class="td6"><input id="txtKdate"  type="text" class="txt c1"/></td>
         </tr>
 	     <tr>
                <td class="td1"><span> </span><a id='lblBdate' class="lbl"></a></td>

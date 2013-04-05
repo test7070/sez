@@ -105,7 +105,7 @@
             		q_box("payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "95%", q_getMsg('popPaytran'));
              	});
                 $('#lblAccno').click(function() {
-                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtKdate').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
                 });
                 
                 $('#cmbKind').change(function() {
@@ -238,7 +238,7 @@
                 $('#txtWorker').val(r_name);
                 
                 var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtDatea').val());
+                var t_date = trim($('#txtKdate').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
                     q_gtnoa(q_name, replaceAll('F' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
@@ -255,7 +255,7 @@
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtItemno').focus();
-                $('#txtDatea').val(q_date());
+                $('#txtKdate').val(q_date());
                 $('#txtOdate').val(q_date());
                 $('#txtWdate').val(q_date());
 				t_date = new Date(dec(q_date().substring(0,3))+1911 + q_date().substring(3));
@@ -595,8 +595,8 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr>
-						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtDatea" class="txt c1"/>	</td>	
+						<td class="td1"><span> </span><a id='lblKdate' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtKdate" class="txt c1"/>	</td>	
 						<td class="td3"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td4"><input type="text" id="txtNoa" class="txt c1"/>
 						<input type="text" id="txtProject" style="display: none;"/>	

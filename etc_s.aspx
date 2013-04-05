@@ -43,7 +43,7 @@
                 t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
                 t_typea = $('#cmbTypea').val();
 
-                var t_where = " 1=1 " + q_sqlPara2("typea", t_typea) + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver) + q_sqlPara2("carno", t_carno);
+                var t_where = " 1=1 " + q_sqlPara2("typea", t_typea) + q_sqlPara2("noa", t_noa) + q_sqlPara2("kdate", t_bdate, t_edate) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver) + q_sqlPara2("carno", t_carno);
 
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
@@ -62,7 +62,7 @@
 		<div style='width:400px; text-align:center;padding:15px;' >
 			<table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
 				<tr class='seek_tr'>
-					<td   style="width:35%;" ><a id='lblDate'></a></td>
+					<td   style="width:35%;" ><a id='lblKdate'></a></td>
 					<td style="width:65%;  ">
 					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>

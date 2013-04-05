@@ -24,7 +24,7 @@
             var bbmNum = [['txtMoney',10,0,1],['txtCharge',10,0,1]];
             var bbsNum = [['txtRate',10,2],['txtMoney',10,0,1]];
             var bbtNum = [['txtMoney',10,0,1]];
-            var bbmMask = [['txtDatea','999/99/99'],['txtBegindate','999/99/99'],['txtEnddate','999/99/99'],['txtPaydate','999/99/99'],['txtVccday','99']];
+            var bbmMask = [['txtKdate','999/99/99'],['txtBegindate','999/99/99'],['txtEnddate','999/99/99'],['txtPaydate','999/99/99'],['txtVccday','99']];
             var bbsMask = [['txtDatea','999/99/99']];
             var bbtMask = [['txtDatea','999/99/99']];
             
@@ -61,7 +61,7 @@
 
             function mainPost() {
                 q_mask(bbmMask);
-                $('#txtDatea').datepicker();
+                $('#txtKdate').datepicker();
                 $('#txtBegindate').datepicker();
                 $('#txtEnddate').datepicker();
                 $('#txtPaydate').datepicker();
@@ -118,15 +118,15 @@
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
-                $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
+                $('#txtKdate').val(q_date());
+                $('#txtKdate').focus();
             }
 
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtDatea').focus();
+                $('#txtKdate').focus();
             }
 
             function btnPrint() {
@@ -134,15 +134,15 @@
             }
 
             function btnOk() {
-                if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
-                    alert(q_getMsg('lblDatea') + '錯誤。');
+                if ($('#txtKdate').val().length == 0 || !q_cd($('#txtKdate').val())) {
+                    alert(q_getMsg('lblKdate') + '錯誤。');
                     return;
                 }
                 sum();
                 $('#txtWorker').val(r_name);
 
                 var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtDatea').val());
+                var t_date = trim($('#txtKdate').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
                     q_gtnoa(q_name, replaceAll(q_getPara('sys.key_borrd') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
@@ -416,7 +416,7 @@
 				<table class="tview" id="tview" >
 					<tr>
 						<td style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td style="width:100px; color:black;"><a id='vewDatea'> </a></td>
+						<td style="width:100px; color:black;"><a id='vewKdate'> </a></td>
 						<td style="width:100px; color:black;"><a id='vewTgg'> </a></td>
 						<td style="width:100px; color:black;"><a id='vewPaydate'> </a></td>
 						<td style="width:80px; color:black;"><a id='vewMoney'> </a></td>
@@ -428,7 +428,7 @@
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" style=''/></td>
-						<td id='datea' style="text-align: center;">~datea</td>
+						<td id='kdate' style="text-align: center;">~kdate</td>
 						<td id='tggnick' style="text-align: center;">~tggnick</td>
 						<td id='paydate' style="text-align: center;">~paydate</td>
 						<td id='money,0,1' style="text-align: right;">~money,0,1</td>
@@ -457,8 +457,8 @@
 					<tr>
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td colspan="2"><input id="txtNoa"  type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td><input id="txtDatea"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblKdate" class="lbl"> </a></td>
+						<td><input id="txtKdate"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblBegindate" class="lbl"> </a></td>
 						<td><input id="txtBegindate"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblEnddate" class="lbl"> </a></td>

@@ -17,7 +17,7 @@
             }
 
             var q_name = "bankm";
-            var q_readonly = ['txtNoa','txtAccno','txtDatea'];
+            var q_readonly = ['txtNoa','txtAccno','txtKdate'];
             var bbmNum = [['txtMoney', 10, 3],['txtMoney2', 10, 3]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -80,7 +80,7 @@
             function btnIns() {
                 _btnIns();
                 $('#txtNoa').val('AUTO');
-				$('#txtDatea').val(q_date());
+				$('#txtKdate').val(q_date());
                 $('#txtLcno').focus();
             }
             function btnModi() {
@@ -103,7 +103,7 @@
                     return;
                 }
                	var t_noa = trim($('#txtNoa').val());
-		        var t_date = trim($('#txtDatea').val());
+		        var t_date = trim($('#txtKdate').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
 		            q_gtnoa(q_name, replaceAll('M' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 		        else
@@ -324,8 +324,8 @@
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblKdate' class="lbl"> </a></td>
+						<td><input id="txtKdate"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblLcno' class="lbl"> </a></td>

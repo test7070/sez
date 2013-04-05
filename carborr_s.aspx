@@ -50,7 +50,7 @@
 				t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
 				t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
 
-				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("typea", t_typea) + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("carno", t_carno) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver);
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("typea", t_typea) + q_sqlPara2("kdate", t_bdate, t_edate) + q_sqlPara2("carno", t_carno) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("driver", t_driver);
 
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
@@ -75,7 +75,7 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td   style="width:35%;" ><a id='lblDate'></a></td>
+					<td   style="width:35%;" ><a id='lblKdate'></a></td>
 					<td style="width:65%;  ">
 					<input class="txt" id="txtBdate" type="text" style="width:90px; font-size:medium;" />
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>

@@ -49,7 +49,7 @@
 
 				var t_where = " 1=1 "
 					+q_sqlPara2("noa", t_noa)
-					+q_sqlPara2("datea", t_bdate, t_edate)
+					+q_sqlPara2("kdate", t_bdate, t_edate)
 					+q_sqlPara2("outdate", t_boutdate, t_eoutdate)
 					+q_sqlPara2("mon", t_mon)
 					+q_sqlPara2("carno", t_carno)

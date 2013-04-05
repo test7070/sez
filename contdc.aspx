@@ -18,7 +18,7 @@
             var q_name = "contdc";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtApv', 'txtWorker2'];
             var bbmNum = new Array(['txtOilbase', 5, 2,1]);
-            var bbmMask = [['txtDatea','999/99/99'],['txtTimea','99:99']];
+            var bbmMask = [['txtKdate','999/99/99'],['txtTimea','99:99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -50,7 +50,7 @@
 
             function mainPost() {
                q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtOildate',r_picd], ['txtPledgedate',r_picd],['txtPaydate',r_picd],['txtBcontdate', r_picd],['txtEcontdate', r_picd],['txtChangecontdate', r_picd]];
+                bbmMask = [['txtKdate', r_picd], ['txtOildate',r_picd], ['txtPledgedate',r_picd],['txtPaydate',r_picd],['txtBcontdate', r_picd],['txtEcontdate', r_picd],['txtChangecontdate', r_picd]];
                 q_mask(bbmMask);
                // q_cmbParse("cmbStype", q_getPara('cont.stype'));
                 q_cmbParse("cmbEnsuretype", ('').concat(new Array( '定存單質押','不可撤銷保證','銀行本票質押','商業本票質押','現金質押')));
@@ -133,8 +133,8 @@
             function btnIns() {
                  _btnIns();
                 $('#txtNoa').val('AUTO');
-                $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
+                $('#txtKdate').val(q_date());
+                $('#txtKdate').focus();
                 $('#txtTotal').val('0');
             }
 
@@ -142,7 +142,7 @@
               if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtDatea').focus();
+                $('#txtKdate').focus();
             }
 
             function btnPrint() {
@@ -162,7 +162,7 @@
                 }
                 
                 var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtDatea').val());
+                var t_date = trim($('#txtKdate').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
                     q_gtnoa(q_name, replaceAll('C'+ (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
@@ -375,14 +375,14 @@
 				<table class="tview" id="tview">
 					<tr>
 							<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-							<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
+							<td align="center" style="width:80px; color:black;"><a id='vewKdate'> </a></td>
 							<td align="center" style="width:100px; color:black;"><a id='vewComp'> </a></td>
 						</tr>
 						<tr>
 							<td >
 							<input id="chkBrow.*" type="checkbox" style=''/>
 							</td>
-							<td align="center" id='datea'>~datea</td>
+							<td align="center" id='kdate'>~kdate</td>
 							<td align="center" id='nick'>~nick</td>
 						</tr>
 				</table>
@@ -405,9 +405,9 @@
 							<td class="td2" colspan="2">
 							<input id="txtNoa" type="text" class="txt c1"/>
 							</td>
-							<td class="td3"><span> </span><a id='lblDatea' class="lbl"> </a></td>
+							<td class="td3"><span> </span><a id='lblKdate' class="lbl"> </a></td>
 							<td class="td4">
-							<input id="txtDatea" type="text"  class="txt c1"/>
+							<input id="txtKdate" type="text"  class="txt c1"/>
 							</td>
 							<td class="td5"><span> </span><a id="lblStype" class="lbl btn"> </a></td>
 							<td class="td6"><select id="cmbStype" class="txt c1"> </select></td>

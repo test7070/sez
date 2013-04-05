@@ -29,7 +29,7 @@
             brwCount2 = 7;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'Datea';
+            brwKey = 'Kdate';
             aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
             , ['txtBccno_', 'btnBccno_', 'bcc', 'noa,product,unit,price', 'txtBccno_,txtBccname_,txtUnit_,txtPrice_', 'bcc_b.aspx']
             ,['txtBuyer', 'lblBuyer', 'sss', 'namea,noa', 'txtBuyer', 'sss_b.aspx']);
@@ -50,7 +50,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd],['txtIndate', r_picd], ['txtMon', r_picm]];
+                bbmMask = [['txtKdate', r_picd],['txtIndate', r_picd], ['txtMon', r_picm]];
 
                 q_mask(bbmMask);
                 q_gt('store', '', 0, 0, 0, "");
@@ -61,7 +61,7 @@
                 $('#txtInvono').change(function() {
                 	$(this).val($.trim($(this).val().toUpperCase()));
                 	if ($(this).val().length > 0 && !(/^[A-Z]{2}[0-9]{8}$/g).test($(this).val()))
-                    	alert(q_getMsg('lblInvono')+'��~�C');
+                    	alert(q_getMsg('lblInvono')+'錯誤');
                 });
                 $('#cmbTaxtype').focus(function() {
 					var len = $(this).children().length > 0 ? $(this).children().length : 1;
@@ -144,11 +144,11 @@
             	$('#txtPart').val($('#cmbPartno').find(":selected").text());
                 $('#txtMon').val($.trim($('#txtMon').val()));
                 if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
-                    alert(q_getMsg('lblMon') + '��~�C');
+                    alert(q_getMsg('lblMon') + '錯誤');
                     return;
                 }
-                if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())) {
-                    alert(q_getMsg('lblDatea') + '��~�C');
+                if ($('#txtKdate').val().length==0 || !q_cd($('#txtKdate').val())) {
+                    alert(q_getMsg('lblKdate') + '錯誤');
                     return;
                 }
                 sum();
@@ -159,7 +159,7 @@
                     return;
                 }
                	var t_noa = trim($('#txtNoa').val());
-		        var t_date = trim($('#txtDatea').val());
+		        var t_date = trim($('#txtKdate').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
 		            q_gtnoa(q_name, replaceAll('KG' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 		        else
@@ -195,17 +195,17 @@
             function btnIns() {
                 _btnIns();
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-                $('#txtDatea').val(q_date());
+                $('#txtKdate').val(q_date());
                 $('#txtIndate').val(q_date());
                 $('#txtMon').val(q_date().substr(0, 6));
-                $('#txtDatea').focus();
+                $('#txtKdate').focus();
             }
 
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtDatea').focus();
+                $('#txtKdate').focus();
                 sum();
             }
 
@@ -495,13 +495,13 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewKadte'> </a></td>
 						<td align="center" style="width:90px; color:black;"><a id='vewInvono'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewTotal'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" /></td>
-						<td id="datea" style="text-align: center;">~datea</td>
+						<td id="kdate" style="text-align: center;">~kdate</td>
 						<td id="invono" style="text-align: center;">~invono</td>
 						<td id="total,0,1" style="text-align: right;">~total,0,1</td>
 					</tr>
@@ -521,8 +521,8 @@
 					<tr>
 						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
 						<td><input id="txtNoa"  type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblKdate' class="lbl"> </a></td>
+						<td><input id="txtKdate"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblIndate' class="lbl"> </a></td>
 						<td><input id="txtIndate"  type="text" class="txt c1"/></td>
 					</tr>

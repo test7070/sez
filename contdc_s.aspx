@@ -26,7 +26,7 @@
             function q_gfPost() {
                 q_getFormat();
                 q_langShow();
-                bbmMask = [['txtDatea', r_picd],['txtBcontdate', r_picd],['txtEcontdate', r_picd],['txtChangecontdate', r_picd]];
+                bbmMask = [['txtKdate', r_picd],['txtBcontdate', r_picd],['txtEcontdate', r_picd],['txtChangecontdate', r_picd]];
                 q_mask(bbmMask);
                 //q_cmbParse("cmbStype", q_getPara('cont.stype'));
                 q_cmbParse("cmbEnsuretype", ('').concat(new Array( '定存單質押','不可撤銷保證','銀行本票質押','商業本票質押','現金質押')));
@@ -49,7 +49,7 @@
             
             function q_seekStr() {
             	t_noa = $('#txtNoa').val();
-            	t_datea = $('#txtDatea').val();
+            	t_datea = $('#txtKdate').val();
             	t_stype = $('#cmbStype').val();
             	t_contract = $('#txtContract').val();
             	t_ensuretype = $('#txtEnsuretype').val();
@@ -68,7 +68,7 @@
 
                 var t_where = " 1=1 " + 
                 	q_sqlPara2("noa", t_noa) + 
-                	q_sqlPara2("datea", t_datea) + 
+                	q_sqlPara2("kdate", t_datea) + 
                 	q_sqlPara2("stype", t_stype) + 
                 	q_sqlPara2("contract", t_contract) + 
                 	q_sqlPara2("ensuretype", t_ensuretype) + 
@@ -101,8 +101,8 @@
 	                <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
-	                <td class='seek'  style="width:20%;"><a id='lblDatea'></a></td>
-	                <td><input class="txt" id="txtDatea" type="text" style="width:215px; font-size:medium;" /></td>
+	                <td class='seek'  style="width:20%;"><a id='lblKdate'></a></td>
+	                <td><input class="txt" id="txtKdate" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
 	                <td class='seek'  style="width:20%;"><a id='lblStype'></a></td>

@@ -40,7 +40,7 @@
 			currentData.prototype = {
 				data : [],
 				/*新增時複製的欄位*/
-				include : ['txtDatea','txtCustno','txtCust','cmbCarteamno','txtMinusitemno','txtMinusitem','txtMinusmoney'
+				include : ['txtKdate','txtCustno','txtCust','cmbCarteamno','txtMinusitemno','txtMinusitem','txtMinusmoney'
 					,'txtPlusitemno','txtPlusitem','txtPlusmoney','txtAcc1','txtAcc2','txtMemo'],
 				/*記錄當前的資料*/
 				copy : function() {
@@ -86,7 +86,7 @@
 			}///  end Main()
 
 			function mainPost() {
-				bbmMask = [['txtDatea', r_picd]];
+				bbmMask = [['txtKdate', r_picd]];
 				q_mask(bbmMask);
 				q_gt('carteam', '', 0, 0, 0, "");
 
@@ -118,7 +118,7 @@
 					$('#txtPlusitem').focus();
 				});
 				$('#lblAccno').click(function () {
-	            	q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
+	            	q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtKdate').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 	       		});
 
 			}
@@ -195,14 +195,14 @@
                 _btnIns();
                 curData.paste();
 				$('#txtNoa').val('AUTO');
-				$('#txtDatea').focus();
+				$('#txtKdate').focus();
 			}
 
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
 				_btnModi();
-				$('#txtDatea').focus();
+				$('#txtKdate').focus();
 				sum();
 			}
 
@@ -211,9 +211,9 @@
 			}
 
 			function btnOk() {
-				$('#txtDatea').val($.trim($('#txtDatea').val()));
-                if (checkId($('#txtDatea').val())==0){
-                	alert(q_getMsg('lblDatea')+'錯誤。');
+				$('#txtKdate').val($.trim($('#txtKdate').val()));
+                if (checkId($('#txtKdate').val())==0){
+                	alert(q_getMsg('lblKdate')+'錯誤。');
                 	return;
                 }
 				$('#txtWorker').val(r_name);
@@ -224,7 +224,7 @@
 				}
 				sum();
 				var t_noa = trim($('#txtNoa').val());
-				var t_date = trim($('#txtDatea').val());
+				var t_date = trim($('#txtKdate').val());
 				if (t_noa.length == 0 || t_noa == "AUTO")
 					q_gtnoa(q_name, replaceAll(q_getPara('sys.key_carchg') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 				else
@@ -475,7 +475,7 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewCarteam'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewKdate'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewCarno'> </a></td>
 						<td align="center" style="width:140px; color:black;"><a id='vewDriver'> </a></td>
 						<td align="center" style="width:250px; color:black;"><a id='vewItem'> </a></td>
@@ -486,7 +486,7 @@
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="carteamno=cmbCarteamno" style="text-align: center;">~carteamno=cmbCarteamno</td>
-						<td id="datea" style="text-align: center;">~datea</td>
+						<td id="kdate" style="text-align: center;">~kdate</td>
 						<td id="carno" style="text-align: center;">~carno</td>
 						<td id="driver" style="text-align: left;">~driver</td>
 						<td id="minusitem plusitem" style="text-align: left;">~minusitem ~plusitem</td>
@@ -511,8 +511,8 @@
 					<tr>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblKdate' class="lbl"> </a></td>
+						<td><input id="txtKdate"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCust" class="lbl btn" > </a></td>

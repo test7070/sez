@@ -32,7 +32,7 @@
 			brwCount = 6;
 			brwList = [];
 			brwNowPage = 0;
-			brwKey = 'Datea';
+			brwKey = 'Kdate';
 			q_desc = 1;
 			aPop = new Array(['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'],
 							 ['txtBdriverno', '', 'driver', 'noa,namea', 'txtBdriverno,txtBdriver', 'driver_b.aspx'],
@@ -53,7 +53,7 @@
 
 			function mainPost() {
 				q_getFormat();
-				bbmMask = [['txtDatea', r_picd], ['txtNoa', r_picm], ['txtMon', r_picm]];
+				bbmMask = [['txtKdate', r_picd], ['txtNoa', r_picm], ['txtMon', r_picm]];
 				q_mask(bbmMask);
 				 $('#btnCarsal').click(function(e) {
 				 	if($('#txtMon').val().length==0){
@@ -100,9 +100,9 @@
 			}
 
 			function btnOk() {
- 				$('#txtDatea').val($.trim($('#txtDatea').val()));
-                	if (checkId($('#txtDatea').val())==0){
-                		alert(q_getMsg('lblDatea')+'錯誤。');
+ 				$('#txtKdate').val($.trim($('#txtKdate').val()));
+                	if (checkId($('#txtKdate').val())==0){
+                		alert(q_getMsg('lblKdate')+'錯誤。');
                 		return;
             		}				
 				$('#txtNoa').val($.trim($('#txtNoa').val()));
@@ -111,7 +111,7 @@
 						return;
 				}							
 				
-				if(r_accy.substring(0,3)!=$('#txtDatea').val().substring(0,3)){
+				if(r_accy.substring(0,3)!=$('#txtKdate').val().substring(0,3)){
             		alert('登錄日期需與會計年度相同!');
             		return;
             	}
@@ -191,7 +191,7 @@
 
 			function btnIns() {
 				_btnIns();
-				$('#txtDatea').val(q_date());
+				$('#txtKdate').val(q_date());
 				$('#txtNoa').focus();
 				$('#txtNoa').removeAttr('readonly');
 				
@@ -201,7 +201,7 @@
 				if (emp($('#txtNoa').val()))
 					return;
 				_btnModi();
-				$('#txtDatea').focus();
+				$('#txtKdate').focus();
 				sum();
 			}
 
@@ -528,9 +528,9 @@
 						<td class="td2">
 						<input id="txtNoa" type="text" class="txt c1"/>
 						</td>
-						<td class="td3"><span> </span><a id="lblDatea" class="lbl"> </a></td>
+						<td class="td3"><span> </span><a id="lblKdate" class="lbl"> </a></td>
 						<td class="td4">
-						<input id="txtDatea" type="text"  class="txt c1"/>
+						<input id="txtKdate" type="text"  class="txt c1"/>
 						</td>
 					</tr>
 					<tr class="tr3">

@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'carchg', t_bbsTag = 'tbbs', t_content = " field=noa,datea,plusitem,plusmoney,minusitem,minusmoney,treno ", afilter = [], bbsKey = ['noa'], as;
+            var q_name = 'carchg', t_bbsTag = 'tbbs', t_content = " field=noa,kdate,plusitem,plusmoney,minusitem,minusmoney,treno ", afilter = [], bbsKey = ['noa'], as;
             //, t_where = '';
             var t_sqlname = 'carchg';
             t_postname = q_name;
@@ -97,7 +97,7 @@
 				<tr style='color:white; background:#003366;' >
 					<td class="td1" align="center" style="width:25px;">&nbsp;</td>
 					<td class="td2" align="center" style="width:120px;"><a id='lblNoa'></a></td>
-					<td class="td3" align="center" style="width:80px;"><a id='lblDatea'></a></td>
+					<td class="td3" align="center" style="width:80px;"><a id='lblKdate'></a></td>
 					<td class="td2" align="center" style="width:120px;"><a id='lblPlusitem'></a></td>
 					<td class="td4" align="center" style="width:100px;"><a id='lblPlusmoney'></a></td>
 					<td class="td5" align="center" style="width:120px;"><a id='lblMinusitem'></a></td>
@@ -109,7 +109,7 @@
 						<input type="text" id="txtTreno.*" style="display:none;"/>
 					</td>
 					<td><input type="text" id="txtNoa.*" class="txt" style="width:95%;"/></td>
-					<td><input type="text" id="txtDatea.*" class="txt" style="width:95%;"/></td>
+					<td><input type="text" id="txtKdate.*" class="txt" style="width:95%;"/></td>
 					<td><input type="text" id="txtPlusitem.*" class="txt" style="width:95%;"/></td>
 					<td><input type="text" id="txtPlusmoney.*" class="txt" style="width:95%;"/></td>
 					<td><input type="text" id="txtMinusitem.*" class="txt" style="width:95%;"/></td>

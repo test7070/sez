@@ -53,7 +53,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd],['txtSenddate', r_picd]];
+                bbmMask = [['txtKdate', r_picd],['txtSenddate', r_picd]];
                 q_mask(bbmMask);
                 q_gt('giftsendt', '', 0, 0, 0, "", r_accy);
                 q_gt('store', '', 0, 0, 0, "");
@@ -125,7 +125,7 @@
                 
                
                 var t_noa = trim($('#txtNoa').val());
-		        var t_date = trim($('#txtDatea').val());
+		        var t_date = trim($('#txtKdate').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
 		            q_gtnoa(q_name, replaceAll('KGS' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 		            //q_gtnoa(q_name, replaceAll('TEST' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
@@ -140,8 +140,8 @@
             }
             function btnIns() {
                 _btnIns();
-               $('#txtDatea').focus();
-                $('#txtDatea').val(q_date());
+               $('#txtKdate').focus();
+                $('#txtKdate').val(q_date());
                 $('#txtSenddate').val(q_date());
                 $('#txtNoa').val('AUTO');
             }
@@ -441,8 +441,8 @@
 						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtNoa" class="txt c1"/>	</td>
 						<td class="td3"> </td>
-						<td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtDatea" class="txt c1"/>	</td>	
+						<td class="td1"><span> </span><a id='lblKdate' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtKdate" class="txt c1"/>	</td>	
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblSenddate' class="lbl"> </a></td>
