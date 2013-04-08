@@ -56,7 +56,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm]];
+                bbmMask = [['txtDatea', r_picd], ['txtMon', r_picm],['txtCarno', r_picd]];
                 q_mask(bbmMask);
                 //q_cmbParse("cmbStype", q_getPara('vcc.stype'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
@@ -619,9 +619,9 @@
 						<td><input id="txtTax" type="text" class="txt c1 num"/>	</td>
 					</tr>
 					<tr>
-						<td> </td>
-						<td> </td>
-						<td> </td>
+						<td colspan="2"><span> </span><a id="lblCarno" class="lbl"> </a></td>
+						<td><input id="txtCarno" type="text" class="txt c1"/> </td>
+						
 						<td> </td>
 						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
 						<td><input id="txtTotal" type="text" class="txt c1 num"/></td>
