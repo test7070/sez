@@ -25,6 +25,7 @@
                 q_getId();
                 q_gf('', 'z_car2');
                 $('#cartax').hide();
+                $('#carnotice').hide();
                 
                 q_cmbParse("combTax", ('').concat(new Array( '01@上期牌照稅','02@下期牌照稅','03@春季燃料稅','04@夏季燃料稅','05@秋季燃料稅','06@冬季燃料稅')));
                 		
@@ -55,12 +56,46 @@
                 	}
                 });
                 
+                $('#btnNotice').click(function() {
+                	var xbdate=!emp($('#textBdate').val())?$('#textBdate').val():'';
+                	var xedate=!emp($('#textEdate').val())?$('#textEdate').val():'999/99/99';
+                	var xsssno=!emp($('#textSSSno').val())?$('#textSSSno').val():sssno;
+                	var sss_sql='';
+                	var sssno_count=0;
+                	//檢查最後一個是否有.
+                	if(xsssno.substr(xsssno.length-1,xsssno.length)=='.')
+                		xsssno=xsssno.substr(0,xsssno.length-1);
+                		
+                	while(xsssno.indexOf('.')>-1){
+                		if(sssno_count==0)
+			            	sss_sql+="and (sssno='"+xsssno.substr(0,xsssno.indexOf('.'))+"' "
+			            else
+			            	sss_sql+="or sssno='"+xsssno.substr(0,xsssno.indexOf('.'))+"' "
+			            sssno_count++;
+			            xsssno=xsssno.substr(xsssno.indexOf('.')+1,xsssno.length);
+                	}
+                	
+                	if(sssno_count>0)
+		            	sss_sql+="or sssno='"+xsssno+"')";
+		            else
+		            	sss_sql+="and sssno='"+xsssno+"'"
+
+                	q_box("carnotice.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";(checkdate between '"+xbdate+"' and '"+xedate+"' ) "+sss_sql+";"+r_accy,
+                		 'car2', "90%", "600px", q_getMsg("popNotice"));
+                });
+                
                 $('#q_report').click(function(e) {
                 	if($(".select")[0].nextSibling.innerText=='監理稅金收單表'){
                 		$('#cartax').show();
                 	}else{
                 		$('#cartax').hide();
                 	}
+                	if($(".select")[0].nextSibling.innerText=='驗車查詢'){
+                		$('#carnotice').show();
+                	}else{
+                		$('#carnotice').hide();
+                	}
+                	
                 });
             });
             
@@ -81,7 +116,7 @@
             				sssno+=as[i].noa+'.';
             			}
             			sssno=sssno.substr(0,sssno.length-1);
-            			$('#textSno').val(sssno);
+            			$('#textSSSno').val(sssno);
             		break;
             		case 'cardeal':
                         var as = _q_appendData("cardeal", "", true);
@@ -272,6 +307,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#textBdate').val(t_year+'/'+t_month+'/'+t_day);
 	                
 	                t_date = new Date();
 	                t_date.setDate(35);
@@ -283,6 +319,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#textEdate').val(t_year+'/'+t_month+'/'+t_day);
 	                
 	                $('#chkSssno').children('input').attr('checked', 'checked');
 	                
@@ -373,6 +410,11 @@
             	$('#textYear').mask('999');
                 $('#textYear').val(q_date().substr(0,3));
                 $('#btnMontax').val('監理稅金收單作業');
+                
+                
+                $('#textBdate').mask('999/99/99');
+                $('#textEdate').mask('999/99/99');
+                $('#btnNotice').val('驗車通知作業');
             }
 		</script>
 	</head>
@@ -402,6 +444,26 @@
 					<tr>
 						<td align="center" colspan="2">
 							<input id="btnMontax" type="button" />
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="carnotice">
+				<table  border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;width:300px">
+					<tr>
+						<td align="center" style="width:35%"><a id="lblxDatea" class="lbl">日期</a></td>
+						<td align="left" style="width:65%">
+							<input id="textBdate"  type="text"  class="txt" style="width: 40%;"/>~
+							<input id="textEdate"  type="text"  class="txt" style="width: 40%;"/>
+						</td>
+					</tr>
+					<tr>
+						<td align="center" style="width:35%"><a id="lblxSSSno" class="lbl">管理者</a></td>
+						<td align="left" style="width:65%"><input id="textSSSno"  type="text"  class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td align="center" colspan="2">
+							<input id="btnNotice" type="button" />
 						</td>
 					</tr>
 				</table>

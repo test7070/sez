@@ -316,7 +316,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['product']) {
+                if (!as['product']&&!as['comp']) {
                     as[bbsKey[1]] = '';
                     return;
                 }

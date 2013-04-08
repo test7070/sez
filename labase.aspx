@@ -1088,6 +1088,8 @@
             <td class="td4"><input id="txtRe_comp" type="text" class="txt num c1" /></td>
             <td class='td5'><span> </span><a id="lblRe_person" class="lbl"> </a></td>
             <td class="td6"><input id="txtRe_person" type="text" class="txt num c1" /></td>
+            <td class='td5'><span> </span><a id="lblPlus2" class="lbl"> </a></td>
+            <td class="td6"><input id="txtPlus2" type="text" class="txt num c1" /></td>
         </tr>
         <tr class="tr5">
             <td class='td1'><span> </span><a id="lblSa_labor" class="lbl" > </a></td>
