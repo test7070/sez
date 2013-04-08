@@ -90,7 +90,11 @@
 				$('#lblPaybno').click(function(){
 		     		t_where = "noa='" + $('#txtPaybno').val() + "'";
 					q_box("payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "650px", q_getMsg('popPaytran'));
-				})
+				});
+				hiddenField();
+				$('#cmbTypea').change(function(){
+					hiddenField();
+				});
             }
             
             function q_funcPost(t_func, result) {	//後端傳回
@@ -171,6 +175,7 @@
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
+                hiddenField();
                 $('#txtMon').val(q_date().substring(0,6));
                 $('#txtDatea').focus();
             }
@@ -179,6 +184,7 @@
                  if (emp($('#txtNoa').val()))
                     return;
                 _btnModi(1);
+                hiddenField();
                 $('#txtDatea').focus();
             }
 
@@ -209,9 +215,16 @@
                     return;
             }
 
+			function hiddenField(){
+				if($('#cmbTypea').val() == '發票'){
+					$('#hiddenCust').show();
+				}else{
+					$('#hiddenCust').hide();
+				}
+			}
             function refresh(recno) {
                 _refresh(recno);
-
+				hiddenField();
             }
 
             function readonly(t_para, empty) {
@@ -449,6 +462,16 @@
 						<td colspan="2">
 						<input id="txtSalesno"  type="text" style="float:left; width:40%;"/>
 						<input id="txtSales"  type="text" style="float:left; width:60%;"/>
+						</td>
+					</tr>
+					<tr id="hiddenCust">
+						<td><span> </span><a id='lblBcustno' class="lbl btn"> </a></td>
+						<td colspan="5">
+							<input id="txtBcustno"  type="text" style="float:left; width:15%;"/>
+							<input id="txtBcust"  type="text" style="float:left; width:30%;"/>
+							<span style="float:left; width:5px;"> </span><span style="float:left; width:20px; font-weight: bold;font-size: 20px;">～</span><span style="float:left; width:5px;"> </span>
+							<input id="txtEcustno"  type="text" style="float:left; width:15%;"/>
+							<input id="txtEcust"  type="text" style="float:left; width:30%;"/>
 						</td>
 					</tr>
 					<tr>
