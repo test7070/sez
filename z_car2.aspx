@@ -411,10 +411,16 @@
                 $('#textYear').val(q_date().substr(0,3));
                 $('#btnMontax').val('監理稅金收單作業');
                 
-                
                 $('#textBdate').mask('999/99/99');
                 $('#textEdate').mask('999/99/99');
                 $('#btnNotice').val('驗車通知作業');
+                
+                if(window.parent.q_name=='cara' || window.parent.q_name=='car2'){
+                	var wParent = window.parent.document;
+					$('#txtTcarno1').val(wParent.getElementById("txtCarno").value);
+					$('#txtTcarno2').val(wParent.getElementById("txtCarno").value);
+				}
+					
             }
 		</script>
 	</head>

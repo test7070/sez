@@ -18,7 +18,7 @@
         var q_name = "labase";
         var q_readonly = ['txtWorker','txtWorker2'];
         var q_readonlys = [];
-        var bbmNum = [['txtSalary', 15, 0, 1],['txtSa_retire', 15, 0, 1],['txtRe_comp', 15, 0, 1],['txtRe_person', 15, 0, 1],['txtSa_labor', 15, 0, 1],['txtAs_labor', 15, 0, 1],['txtLa_person', 15, 0, 1],['txtLa_comp', 15, 0, 1],['txtSa_health', 15, 0, 1],['txtAs_health', 15, 0, 1],['txtHe_person', 15, 0, 1],['txtHe_comp', 15, 0, 1],['txtTax', 15, 0, 1],['txtMount', 15, 0, 1],['txtDisaster', 15, 0, 1]];  
+        var bbmNum = [['txtSalary', 15, 0, 1],['txtSa_retire', 15, 0, 1],['txtRe_comp', 15, 0, 1],['txtRe_person', 15, 0, 1],['txtSa_labor', 15, 0, 1],['txtAs_labor', 15, 0, 1],['txtLa_person', 15, 0, 1],['txtLa_comp', 15, 0, 1],['txtSa_health', 15, 0, 1],['txtAs_health', 15, 0, 1],['txtHe_person', 15, 0, 1],['txtHe_comp', 15, 0, 1],['txtTax', 15, 0, 1],['txtMount', 15, 0, 1],['txtDisaster', 15, 0, 1],['txtPlus2', 15, 0, 1]];  
         var bbsNum = [['txtCh_money', 15, 0, 1],['txtAs_health', 15, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
@@ -84,12 +84,8 @@
 			     	if(q_getPara('sys.comp').indexOf('大昌')>-1){
 			     		if($('#txtNoa').val().substr(0,1)=='G'){
 			     			$('#chkIssssp')[0].checked=true;
-			     			//$('#txtInsur_fund').val(0.025);
-		            		//$('#txtInsur_disaster').val(0.11);
 			     		}else{
 			     			$('#chkIssssp')[0].checked=false;
-			     			//$('#txtInsur_fund').val(0.025);
-	            			//$('#txtInsur_disaster').val(0.34);
 			     		}
 			     	}
 			     }
@@ -243,10 +239,8 @@
 	            $('#chkIssssp').change(function () {
 	            	if($('#chkIssssp')[0].checked){//寄保人員
 	            		$('#txtInsur_fund').val(0.025);
-	            		//$('#txtInsur_disaster').val(0.11);
 	            	}else{//一般員工
 	            		$('#txtInsur_fund').val(0.025);
-	            		//$('#txtInsur_disaster').val(0.34);
 	            	}
 	            	
 	            	if(emp($('#txtSalary').val())||dec($('#txtSalary').val())==0){
@@ -274,10 +268,8 @@
             	if(q_getPara('sys.comp').indexOf('大昌')>-1){
 				  	if($('#txtNoa').val().substr(0,1)=='G'){
 				   		$('#chkIssssp')[0].checked=true;
-			        	//$('#txtInsur_disaster').val(0.11);
 				   	}else{
 				   		$('#chkIssssp')[0].checked=false;
-		        		//$('#txtInsur_disaster').val(0.34);
 					}
 				}
             }
@@ -754,8 +746,6 @@
             $('#txtNamea').attr('disabled', 'disabled');
             $('#chkIsforeign').attr('disabled', 'disabled');
             $('#txtSalary').focus();
-            //$('#txtMon').attr('readonly',true);
-		    //$('#txtMon').attr('disabled', 'disabled');
 		    t_la_person=dec($('#txtLa_person').val())+dec($('#txtAs_labor').val())
 		    t_he_person=dec($('#txtHe_person').val())+dec($('#txtAs_health').val())
 		    //取得健勞保退保日期
@@ -788,16 +778,6 @@
             q_nowf();
             as['date'] = abbm2['date'];
 
-            //            t_err ='';
-            //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-            //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-            //            
-            //            if (t_err) {
-            //                alert(t_err)
-            //                return false;
-            //            }
-            //            
             return true;
         }
 
@@ -809,13 +789,10 @@
             }  // j
             $('#txtMount').val(t_mount);
         }
-        ///////////////////////////////////////////////////  ?H?U??????{???A????n????
+        
         function refresh(recno) {
             _refresh(recno);
-			/*if (q_cur==0) {
-		            $('#txtMon').removeAttr('disabled');
-		            $('#txtMon').css('background-color','white');           
-		    }*/
+			
         }
 
         function readonly(t_para, empty) {
