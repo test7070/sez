@@ -252,16 +252,24 @@
                     }
                 });
                 $("#btnGPS").click(function(){
+                	//data: '{"GroupName":"CHITC377","CommandId":"230386","StatusCode":0}',
+                	var t_data = {
+                		GroupName : "CHITC377",
+                		CommandId : "230386",
+                		StatusCode : 1
+                	};
+					var json = JSON.stringify(t_data);
+	
                 	$.ajax({
 					    url: 'QueryCommandStatus.aspx',
 					    type: 'POST',
-					    data: '{"GroupName":"CHITC377","CommandId":"230386","StatusCode":0}',
+					    data: json,
 					    dataType: 'json',
 					    success: function(data){
-							alert('Success:'+data['QueryCommandStatusResult']);
+							alert('Success:'+data['QueryCommandStatusResult']+'_'+data['StatusCode']);
 					    },
 				        complete: function(){
-				        	alert('finish');
+				        	//alert('finish');
 				        },
 					    error: function(jqXHR, exception) {
 				            if (jqXHR.status === 0) {
