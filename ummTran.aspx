@@ -913,7 +913,7 @@
 						<input type="button" id="btnBank" class="txt c1 "  />
 						</td>
 					</tr>
-					<tr>
+					<!--簽核<tr>
 						<td class="td1"><span> </span><a id="lblChecker" class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtchecker" type="text" class="txt c2"/>
@@ -934,7 +934,7 @@
 						<input id="txtApprove2"  type="text" class="txt c2"/>
 						<input id="txtApprove2memo"  type="text" class="txt c3"/>
 						</td>
-					</tr>
+					</tr>-->
 				</table>
 			</div>
 		</div>
