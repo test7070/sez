@@ -27,7 +27,8 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = [];
+            aPop = new Array(['txtRc2acc1', 'lblRc2acc', 'acc', 'acc1,acc2', 'txtRc2acc1,txtRc2acc2,txtVccacc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+            							['txtVccacc1', 'lblVccacc', 'acc', 'acc1,acc2', 'txtVccacc1,txtVccacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -343,11 +344,19 @@
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><span> </span><a id="lblProduct" class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtProduct" type="text" class="txt c1"/>
-						</td>
+						<td class="td2"><input id="txtProduct" type="text" class="txt c1"/></td>
 					</tr>
-					<tr class="tr3"><td style="height:400px;"></td></tr>
+					<tr class="tr3">
+						<td class="td1"><span> </span><a id="lblRc2acc" class="lbl btn"></a></td>
+						<td class="td2"><input id="txtRc2acc1" type="text" class="txt c1"/></td>
+						<td class="td3"><input id="txtRc2acc2" type="text" class="txt c1"/></td>
+					</tr>
+					<tr class="tr4">
+						<td class="td1"><span> </span><a id="lblVccacc" class="lbl btn"></a></td>
+						<td class="td2"><input id="txtVccacc1" type="text" class="txt c1"/></td>
+						<td class="td3"><input id="txtVccacc2" type="text" class="txt c1"/></td>
+					</tr>
+					<tr class="tr5"><td style="height:400px;"></td></tr>
 				</table>
 			</div>
 			</div>

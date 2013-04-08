@@ -115,10 +115,10 @@
                     alert(q_getMsg('lblBirthday') + '錯誤。');
                     return;
                 }
-                if ($('#txtIdno').val().length > 0 && checkId($('#txtIdno').val()) != 1) {
+                /*if ($('#txtIdno').val().length > 0 && checkId($('#txtIdno').val()) != 1) {
                     alert(q_getMsg('lblIdno') + '錯誤。');
                     return;
-                }
+                }*/
                 var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
                 var t_noa = $('#txtNoa').val();
