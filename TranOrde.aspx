@@ -251,6 +251,37 @@
                         $('#txtCasetype2').val(string);
                     }
                 });
+                $("#btnGPS").click(function(){
+                	$.ajax({
+					    url: 'QueryCommandStatus.aspx',
+					    type: 'POST',
+					    data: '{"GroupName":"CHITC377","CommandId":"230386","StatusCode":0}',
+					    dataType: 'json',
+					    success: function(data){
+							alert('Success:'+data['QueryCommandStatusResult']);
+					    },
+				        complete: function(){
+				        	alert('finish');
+				        },
+					    error: function(jqXHR, exception) {
+				            if (jqXHR.status === 0) {
+				                alert('Not connect.\n Verify Network.');
+				            } else if (jqXHR.status == 404) {
+				                alert('Requested page not found. [404]');
+				            } else if (jqXHR.status == 500) {
+				                alert('Internal Server Error [500].');
+				            } else if (exception === 'parsererror') {
+				                alert('Requested JSON parse failed.');
+				            } else if (exception === 'timeout') {
+				                alert('Time out error.');
+				            } else if (exception === 'abort') {
+				                alert('Ajax request aborted.');
+				            } else {
+				                alert('Uncaught Error.\n' + jqXHR.responseText);
+				            }
+				        }
+					});
+                });
             }
 
             function display() {
@@ -719,6 +750,9 @@
 						</td>
 						<td>
 						<input type="button" id="btnPrinttrand" />
+						</td>
+						<td>
+						<input type="button" id="btnGPS" />
 						</td>
 					</tr>
 					<tr>
