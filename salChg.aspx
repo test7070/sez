@@ -46,13 +46,13 @@
             bbmMask = [['txtDatea', r_picd],['txtMon', r_picm]];
             q_mask(bbmMask);
             
-            q_cmbParse("cmbTypea", q_getPara('salchg.typea'));
+            /*q_cmbParse("cmbTypea", q_getPara('salchg.typea'));
             $("#cmbTypea").focus(function() {
 				var len = $("#cmbTypea").children().length > 0 ? $("#cmbTypea").children().length : 1;
 				$("#cmbTypea").attr('size', len + "");
 			}).blur(function() {
 				$("#cmbTypea").attr('size', '1');
-			});
+			});*/
 			
 			q_gt('salchgitem', '', 0, 0, 0, "");
 			$('#lblAccno').click(function () {
