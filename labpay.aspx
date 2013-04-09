@@ -17,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "labpay";
-            var q_readonly = ['txtNoa', 'txtApprover','txtAccno','txtBvccno','txtEvccno'];
+            var q_readonly = ['txtNoa','txtPaybno', 'txtApprover','txtAccno','txtBvccno','txtEvccno'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [['txtMount', 10, 0, 1], ['txtMoney', 14, 0, 1], ['txtPlusmoney', 14, 0, 1], ['txtMinusmoney', 14, 0, 1]];
@@ -61,7 +61,7 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd]];
+                bbmMask = [['txtDatea', r_picd],['txtPaydate', r_picd]];
                 q_mask(bbmMask);
                 $('#txtAcc1').change(function() {
                     var s1 = trim($(this).val());
@@ -202,9 +202,13 @@
                 abbm[q_recno]['accno'] = s2[0];
                 abbm[q_recno]['bvccno'] = s2[1];
                 abbm[q_recno]['evccno'] = s2[2];
+                abbm[q_recno]['paybno'] = s2[3];
                 $('#txtAccno').val(s2[0]);
-                $('#txtBvccno').val(s2[0]);
-                $('#txtEvccno').val(s2[1]);
+                //$('#txtBvccno').val(s2[0]);
+                //$('#txtEvccno').val(s2[1]);
+                $('#txtBvccno').val(s2[1]);
+                $('#txtEvccno').val(s2[2]);
+                $('#txtPaybno').val(s2[3]);
             }
 
             function btnIns() {
@@ -517,6 +521,12 @@
 							<span style="float:left; width:5px;"> </span><span style="float:left; width:20px; font-weight: bold;font-size: 20px;">～</span><span style="float:left; width:5px;"> </span>
 							<input id="txtEvccno"  type="text" style="float:left; width:45%;"/>
 						</td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id="lblPaybno" class="lbl btn"></a></td>
+						<td class="td2"><input id="txtPaybno" type="text" class="txt c1" /></td>
+						<td class="td3"><span> </span><a id="lblPaydate" class="lbl"></a></td>
+						<td class="td4"><input id="txtPaydate" type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id="lblAccno" class="lbl btn"></a></td>
