@@ -78,6 +78,8 @@
                 $('#txtStrdate2').mask('999/99/99');
 				$('#txtDldate1').mask('999/99/99');
                 $('#txtDldate2').mask('999/99/99');
+				$('#txtOdate1').mask('999/99/99');
+                $('#txtOdate2').mask('999/99/99');
                 
                 var t_date, t_year, t_month, t_day;
                 t_date = new Date();

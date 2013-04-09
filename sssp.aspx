@@ -55,7 +55,7 @@
 		        q_cmbParse("cmbTypea", q_getPara('sss.typea'));
 		        q_cmbParse("cmbSex", q_getPara('sss.sex'));
 		        q_cmbParse("cmbPerson", q_getPara('person.typea'));
-		        q_cmbParse("cmbRecord", ('').concat(new Array('��p', '�ꤤ', '����', '��¾', '�j�M', '�j��', '�Ӥh', '�դh')));
+		        //q_cmbParse("cmbRecord", ('').concat(new Array('��p', '�ꤤ', '����', '��¾', '�j�M', '�j��', '�Ӥh', '�դh')));
 		        q_cmbParse("cmbBlood", ('').concat(new Array('A', 'B', 'AB', 'O')));
 		        $('#btnLabases').click(function (e) {
 		            q_box("labases_b.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'labases', "850px", "600px", q_getMsg("popLabases"));

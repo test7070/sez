@@ -50,7 +50,8 @@
                 q_mask(bbmMask);
                 bbmMask2 = new Array(['txtBdate', r_picd], ['txtEdate', r_picd]);
                 q_mask(bbmMask2);
-                //q_cmbParse("cmbCarteamno", q_getPara('.taxtype'));
+                /*
+                q_cmbParse("cmbCarteamno", q_getPara('.taxtype'));
                 q_gt('carteam', '', 0, 0, 0, "");
                 $('#btnChoutprice').click(function() {
                     q_func("traneprice.eprice", $('#txtNoa').val());
@@ -63,6 +64,7 @@
                     $("#cmbCarteamno").attr('size', '1');
 
                 });
+                */
                 $("#cmbCalctype").focus(function() {
                     var len = $("#cmbCalctype").children().length > 0 ? $("#cmbCalctype").children().length : 1;
                     $("#cmbCalctype").attr('size', len + "");
@@ -92,6 +94,7 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	/*
                     case 'carteam':
                         var as = _q_appendData("carteam", "", true);
                         var t_item = "";
@@ -102,6 +105,7 @@
                         if (abbm.length > 0)
                             $("#cmbCarteamno").val(abbm[q_recno].carteamno);
                         break;
+                    */
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();

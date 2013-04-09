@@ -67,7 +67,7 @@
 		        //零用金下拉式與TXT輸入
 		        q_cmbParse("cmbDc", q_getPara('chgcash.typea'));
 		        q_gt('part', '', 0, 0, 0, "");
-		        q_gt('carteam', '', 0, 0, 0, "");
+		        //q_gt('carteam', '', 0, 0, 0, "");
 		        q_gt('chgpart', '', 0, 0, 0, "");
 		        
 
