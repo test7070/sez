@@ -471,7 +471,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblPart' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblPart' class="lbl"> </a></td>
 						<td>
 							<input id="txtPartno"  type="text" style="display:none;"/>
 							<input id="txtPart"  type="text" class="txt c1"/>

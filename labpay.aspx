@@ -83,6 +83,10 @@
         			var t_where = " 1=1 " + q_sqlPara2("noa", t_bvccno,t_evccno);
 					q_pop('txtBvccno', "vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+ t_where +";" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
                 });
+				$('#lblPaybno').click(function() {
+					t_where = "noa='" + $('#txtPaybno').val() + "'";
+					q_box("payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "95%", q_getMsg('popPaytran'));
+				});
 				$('#btnImport').click(function () {
                 	if(emp($('#txtSalesno').val()) || emp($('#txtSales').val())){
                 		alert('請先輸入[業務]!!');
