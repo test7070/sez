@@ -48,7 +48,7 @@
 
             mainForm(0); 
         }  
-		var t_la_person=0,t_he_person=0;
+		var t_la_person=0,t_he_person=0,z_he_person=0;
 		var cal=false;//判斷計算各自投保金額
         function mainPost() { 
             q_getFormat();
@@ -71,7 +71,7 @@
             	 if(!emp($('#txtNoa').val())){
             	 	//取得健勞保退保日期
 	            	var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^ top=1";
-	            	q_gt('sssall', t_where, 0, 0, 0, "", r_accy);
+	            	q_gt('labased', t_where, 0, 0, 0, "", r_accy);
             	 		//判斷員工是否是外勞
 			           var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
 			           q_gt('sss', t_where , 0, 0, 0, "", r_accy);
@@ -287,18 +287,18 @@
 		var insur_disaster=0.13;
         function q_gtPost(t_name) {
             switch (t_name) {
-            	case 'sssall':
-            		var as = _q_appendData("sss", "", true);
+            	case 'labased':
+            		var as = _q_appendData("labased", "", true);
             		if(as[0]!=undefined){
             			health_bdate=as[0].health_bdate;
             			health_edate=as[0].health_edate;
-            			labor1_bdate=as[0].labor1_bdate;
-            			labor1_edate=as[0].labor1_edate;
-            			labor2_bdate=as[0].labor2_bdate;
-            			labor2_edate=as[0].labor2_edate;
+            			labor1_bdate=as[0].labor_bdate;
+            			labor1_edate=as[0].labor_edate;
+            			labor2_bdate=as[0].retire_bdate;
+            			labor2_edate=as[0].retire_edate;
             			
             			//取得健勞保退保日期
-	            		var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^ top=1";
+	            		var t_where = "where=^^ a.noa='"+$('#txtNoa').val()+"' ^^ top=1";
 	            		q_gt('labase_insur', t_where, 0, 0, 0, "", r_accy);
             		}
             	break;
@@ -565,6 +565,7 @@
 	            						{
 	            							q_tr('txtHe_person',0);//健保自付額
 		            						t_he_person=0;
+		            						z_he_person=0;
 		            						q_tr('txtHe_comp',0);//健保公司負擔
 	            						}else{
 		            						if(dec($('#txtMount').val())>3){
@@ -574,6 +575,7 @@
 		            							q_tr('txtHe_person',dec(labhealths[i].he_person)*(1+dec($('#txtMount').val())));
 		            							t_he_person=dec(labhealths[i].he_person)*(1+dec($('#txtMount').val()));
 		            						}
+		            						z_he_person=labhealths[i].he_person;
 		            						q_tr('txtHe_comp',labhealths[i].he_comp);//健保公司負擔
 		            						
 		            						if(q_getPara('sys.comp').indexOf('大昌')>-1&&$('#chkIssssp')[0].checked){
@@ -593,6 +595,7 @@
 	            						{
 	            							q_tr('txtHe_person',0);//健保自付額
 		            						t_he_person=0;
+		            						z_he_person=0;
 		            						q_tr('txtHe_comp',0);//健保公司負擔
 	            						}else{
 		            						if(dec($('#txtMount').val())>3){
@@ -602,6 +605,7 @@
 		            							q_tr('txtHe_person',dec(labhealths[i].he_person)*(1+dec($('#txtMount').val())));
 		            							t_he_person=dec(labhealths[i].he_person)*(1+dec($('#txtMount').val()));
 		            						}
+		            						z_he_person=labhealths[i].he_person;
 		            						q_tr('txtHe_comp',labhealths[i].he_comp);//健保公司負擔
 		            						
 		            						if(q_getPara('sys.comp').indexOf('大昌')>-1&&$('#chkIssssp')[0].checked){
@@ -632,7 +636,7 @@
 		                if(!emp($('#txtNoa').val())){
 		                	//取得健勞保退保日期
 	            			var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^ top=1";
-	            			q_gt('sssall', t_where, 0, 0, 0, "", r_accy);
+	            			q_gt('labased', t_where, 0, 0, 0, "", r_accy);
 			           		//判斷員工是否重覆儲存
 			           		var t_where = "where=^^ noa ='"+$('#txtNoa').val()+"' ^^";
 			           		q_gt('labase', t_where , 0, 0, 0, "", r_accy);
@@ -704,9 +708,14 @@
 				    });
 				    
 				    $('#txtNamea_' + j).change(function () {
+				    	t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
 				    	if(emp($('#txtSa_health').val())||dec($('#txtSa_health').val())==0){
 		            		return;
 		            	}
+		            	$('#txtCh_money_'+b_seq).val(z_he_person);
+		            	
 	            		cal=true;
 	            		sum();//計算家屬
 		            	//取得健保薪資等級表
@@ -750,7 +759,7 @@
 		    t_he_person=dec($('#txtHe_person').val())+dec($('#txtAs_health').val())
 		    //取得健勞保退保日期
             	var t_where = "where=^^ noa='"+$('#txtNoa').val()+"' ^^ top=1";
-            	q_gt('sssall', t_where, 0, 0, 0, "", r_accy);
+            	q_gt('labased', t_where, 0, 0, 0, "", r_accy);
             
             //判斷車主是否有異動資料	
             if($('#txtNoa').val().substr(0,1)=='H'){
