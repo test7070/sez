@@ -14,7 +14,7 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var q_name="ciinsu";
+        var q_name="cisale";
         var q_readonly = ['txtWorker','txtWorker2'];
         var bbmNum = []; 
         var bbmMask = []; 
@@ -281,12 +281,12 @@
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:25%"><a id='vewNoa'></a></td>
-                <td align="center" style="width:40%"><a id='vewInsurer'></a></td>
+                <td align="center" style="width:40%"><a id='vewNamea'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='insurer'>~insurer</td>
+                   <td align="center" id='namea'>~namea</td>
             </tr>
         </table>
         </div>
@@ -295,20 +295,19 @@
             <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
                <td class="td2"><input id="txtNoa" type="text" class="txt c1"/> </td>
-               <td class="td3"> </td>
-               <td class="td4"> </td>
-               <td class="td5"> </td>
-               <td class="td6"> </td>              
+               <td class="td3"><span> </span><a id='lblNamea' class="lbl"> </a></td>
+               <td class="td4"><input id="txtNamea" type="text" class="txt c1"/></td>
+               <td class="td5"><span> </span><a id='lbl' class="lbl"> </a></td>
+               <td class="td6"><input id="txtNamea" type="text" class="txt c1"/></td>              
             </tr>
            <tr>
-               <td class="td1"><span> </span><a id='lblInsurer' class="lbl"> </a></td>
-               <td class="td2" colspan="3"><input id="txtInsurer" type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id='lblBirthday' class="lbl"> </a></td>
+               <td class="td2" colspan="2"><input id="txtBirthday" type="text" class="txt c1"/></td>
                <td class="td5"> </td>
                <td class="td6"> </td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblSerial' class="lbl"> </a></td>
-               <td class="td2" colspan="2"><input id="txtSerial" type="text" class="txt c1"/></td>
+               
                <td class="td4"> </td>
                <td class="td5"> </td>
                <td class="td6"> </td>
@@ -351,7 +350,7 @@
                <td class="td3" align="left"><span> </span>%</td>
                <td class="td1"><span> </span><a id='lblForcediscount' class="lbl"></a></td>
                <td class="td2"><input id="txtForcediscount"  type="text" class="txt num c1" /></td>
-               <td class="td3" align="left"><span> </span>元</td>
+               <td class="td3" align="left"><span> </span>��</td>
             </tr> 
 	       <tr>
                <td class="td1"><span> </span><a id='lblAccdiscount' class="lbl"></a></td>
