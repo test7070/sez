@@ -83,6 +83,10 @@
             function mainPost() {
                 q_mask(bbmMask);
                 
+                $('#btnLoadtranorde').click(function(e){
+                	t_where = "";
+                	q_gt('view_tranorde', t_where, 0, 0, 0, "", r_accy);
+                });
             }
 
             function q_boxClose(s2) {
@@ -96,7 +100,7 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'view_tranorde':
+                	case 'tranorde':
                 		break;
                     default:
                     	break;
@@ -356,6 +360,16 @@
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
+            #tranorde_tb{
+            	padding: 0px;
+                border: 1px white double;
+                border-spacing: 0;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                background: #cad3ff;
+                width: 100%;
+            }
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -365,7 +379,16 @@
 	>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
-			<div id="chart">
+			<div id="tranorde">
+				<table id="tranorde_tb">
+                	<th>
+                		<td id="tranorde_noa" align="center" style="width:120px; color:black;">訂單編號</td>
+                		<td id="tranorde_dldate" align="center" style="width:100px; color:black;">預計完工日</td>
+                		<td id="tranorde_nick" align="center" style="width:100px; color:black;">客戶</td>
+                		<td id="tranorde_addr" align="center" style="width:150px; color:black;">起迄地點</td>
+                	
+                	</th>
+				</table>				
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
