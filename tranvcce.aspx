@@ -360,15 +360,20 @@
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
-            #tranorde_tb{
-            	padding: 0px;
-                border: 1px white double;
-                border-spacing: 0;
-                border-collapse: collapse;
+            #tranorde_table {
+                border: 5px solid gray;
                 font-size: medium;
+                background-color: white;
+            }
+            #tranorde_table tr {
+                height: 30px;
+            }
+            #tranorde_table td {
+                padding: 2px;
+                text-align: center;
+                border-width: 0px;
+                background-color: pink;
                 color: blue;
-                background: #cad3ff;
-                width: 100%;
             }
 		</style>
 	</head>
@@ -379,16 +384,29 @@
 	>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
-			<div id="tranorde">
-				<table id="tranorde_tb">
-                	<th>
-                		<td id="tranorde_noa" align="center" style="width:120px; color:black;">訂單編號</td>
-                		<td id="tranorde_dldate" align="center" style="width:100px; color:black;">預計完工日</td>
-                		<td id="tranorde_nick" align="center" style="width:100px; color:black;">客戶</td>
-                		<td id="tranorde_addr" align="center" style="width:150px; color:black;">起迄地點</td>
-                	
-                	</th>
-				</table>				
+			<div id="tranorde" style="width:950px;">
+				<table id="tranorde_table">
+					<tr>
+						<td id="tranorde_chk" align="center" style="width:20px; color:black;"> </td>
+						<td id="tranorde_sel" align="center" style="width:20px; color:black;"> </td>
+	            		<td id="tranorde_noa" align="center" style="width:120px; color:black;">訂單編號</td>
+	            		<td id="tranorde_dldate" align="center" style="width:100px; color:black;">預計完工日</td>
+	            		<td id="tranorde_nick" align="center" style="width:100px; color:black;">客戶</td>
+	            		<td id="tranorde_addr" align="center" style="width:150px; color:black;">起迄地點</td>
+	            		<td id="tranorde_mount" align="center" style="width:80px; color:black;">預計收數量</td>
+					</tr>
+					<tr>
+						<td style="text-align: center;"><input id="tranorde_chk0" type="checkbox"/></td>
+						<td id='datea' style="text-align: center;">~datea</td>
+						<td id='carno' style="text-align: center;">~carno</td>
+						<td id='driver' style="text-align: center;">~driver</td>
+						<td id='nick' style="text-align: center;">~nick</td>
+						<td id='addr' style="text-align: center;">~addr</td>
+						<td id='weight' style="text-align: right;">~weight</td>
+						<td id='mount' style="text-align: right;">~mount</td>
+					</tr>
+				</table>
+								
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
