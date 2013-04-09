@@ -17,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "lab_accc";
-            var q_readonly = ['txtNoa', 'txtSales', 'txtPart', 'txtPaybno', 'txtWorker', 'txtAccno', 'txtBvccno', 'txtEvccno'];
+            var q_readonly = ['txtNoa', 'txtSales','txtPart', 'txtPaybno', 'txtWorker', 'txtAccno', 'txtBvccno', 'txtEvccno'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [];
@@ -29,8 +29,7 @@
             brwNowPage = 0;
             brwKey = 'Noa';
             aPop = new Array(['txtSalesno', 'lblSalesno', 'sss', 'noa,namea,partno,part', 'txtSalesno,txtSales,txtPartno,txtPart', 'sss_b.aspx']
-            , ['txtBcustno', '', 'cust', 'noa,comp', 'txtBcustno', 'cust_b.aspx']
-            , ['txtEcustno', '', 'cust', 'noa,comp', 'txtEcustno', 'cust_b.aspx']
+            , ['txtBcustno', 'lblBcustno', 'cust', 'noa,comp', 'txtBcustno,txtBcust', 'cust_b.aspx']
             , ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             , ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
             brwCount2 = 8;
@@ -466,16 +465,13 @@
 					</tr>
 					<tr id="hiddenCust">
 						<td><span> </span><a id='lblBcustno' class="lbl btn"> </a></td>
-						<td colspan="5">
-							<input id="txtBcustno"  type="text" style="float:left; width:15%;"/>
-							<input id="txtBcust"  type="text" style="float:left; width:30%;"/>
-							<span style="float:left; width:5px;"> </span><span style="float:left; width:20px; font-weight: bold;font-size: 20px;">～</span><span style="float:left; width:5px;"> </span>
-							<input id="txtEcustno"  type="text" style="float:left; width:15%;"/>
-							<input id="txtEcust"  type="text" style="float:left; width:30%;"/>
+						<td colspan="2">
+							<input id="txtBcustno"  type="text" style="float:left; width:40%;"/>
+							<input id="txtBcust"  type="text" style="float:left; width:60%;"/>
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblPart' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblPart' class="lbl"> </a></td>
 						<td>
 							<input id="txtPartno"  type="text" style="display:none;"/>
 							<input id="txtPart"  type="text" class="txt c1"/>
