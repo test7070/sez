@@ -137,12 +137,21 @@
 					case 'car2':
 						var as = _q_appendData("car2", "", true);
 						if (as[0] != undefined) {
-							var now_acc1 = $('#txtAcc1').val();
+							/*var now_acc1 = $('#txtAcc1').val();
 							var now_acc2 = $('#txtAcc2').val();
 							$('#txtAcc1').val(now_acc1 + as[0].carownerno);
-							$('#txtAcc2').val(now_acc2 + '-' + as[0].carowner);
-						}
-						$('#txtMinusitem').focus();
+							$('#txtAcc2').val(now_acc2 + '-' + as[0].carowner);*/
+							var t_acc1 = '1123.'+as[0].carownerno
+							$('#txtAcc1').val(t_acc1);
+							var t_where = "where=^^ acc1='"+t_acc1+"' ^^"
+							q_gt('acc', t_where , 0, 0, 0, "", r_accy+'_1');
+						}						
+						break;
+					case 'acc':
+						var as = _q_appendData("acc", "", true);
+						if (as[0] != undefined) {
+							$('#txtAcc2').val(as[0].acc2);
+						}						
 						break;
 					case 'carteam':
 						var as = _q_appendData("carteam", "", true);
@@ -166,6 +175,16 @@
 			}
 			function q_popPost(id) {
 				switch(id) {
+					case 'txtCarno':
+						if((q_cur==1 || q_cur==2) && ($('#txtMinusitem').val() == '監理部扣款')){
+							t_where = '';
+							if($('#txtCarno').val() != ''){
+								t_where = "where=^^ carno='"+$('#txtCarno').val()+"' ^^";
+								q_gt('car2', t_where , 0, 0, 0, "", r_accy);
+							}
+							$('#txtDriverno').focus();
+						}
+						break;
 					case 'txtMinusitemno':
 						if((q_cur==1 || q_cur==2) && ($('#txtMinusitem').val() == '監理部扣款')){
 							t_where = '';
