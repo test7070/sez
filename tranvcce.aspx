@@ -25,13 +25,21 @@
             brwNowPage = 0;
             brwKey = 'noa';
             q_desc = 1;
-            //q_xchg = 1;
-            brwCount2 = 5;
+            q_xchg = 1;
+            brwCount2 = 10;
 
            /* aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
             , ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
             );*/
-
+			function tranorde(){}
+			tranorde.prototype={
+				data : null,
+				init : function(){
+					var obj = $('#tranorde');
+					obj.append('<table id></table>');
+				}
+			}
+			
             function currentData() {
             }
             currentData.prototype = {
@@ -83,10 +91,11 @@
             function mainPost() {
                 q_mask(bbmMask);
                 
-                $('#btnLoadtranorde').click(function(e){
+                $('#btnTranorde').click(function(e){
                 	t_where = "";
                 	q_gt('view_tranorde', t_where, 0, 0, 0, "", r_accy);
                 });
+                
             }
 
             function q_boxClose(s2) {
@@ -100,7 +109,9 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'tranorde':
+                	case 'view_tranorde':
+                		var as = _q_appendData("view_tranorde", "", true);
+                		alert(as.length);
                 		break;
                     default:
                     	break;
@@ -384,6 +395,32 @@
 	>
 		<!--#include file="../inc/toolbar.inc"-->
 		<div id='dmain' >
+			<div class="dview" id="dview" >
+				<table class="tview" id="tview">
+					<tr>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewCarno'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewDriver'> </a></td>	
+						<td align="center" style="width:100px; color:black;"><a id='vewNick'> </a></td>	
+						<td align="center" style="width:100px; color:black;"><a id='vewAddr'> </a></td>	
+						<td align="center" style="width:80px; color:black;"><a id='vewWeight'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewMount'> </a></td>									
+					</tr>
+					<tr>
+						<td >
+						<input id="chkBrow.*" type="checkbox" style=''/>
+						</td>
+						<td id='datea' style="text-align: center;">~datea</td>
+						<td id='carno' style="text-align: center;">~carno</td>
+						<td id='driver' style="text-align: center;">~driver</td>
+						<td id='nick' style="text-align: center;">~nick</td>
+						<td id='addr' style="text-align: center;">~addr</td>
+						<td id='weight' style="text-align: right;">~weight</td>
+						<td id='mount' style="text-align: right;">~mount</td>
+					</tr>
+				</table>
+			</div>
 			<div id="tranorde" style="width:950px;">
 				<table id="tranorde_table">
 					<tr>
@@ -397,13 +434,93 @@
 					</tr>
 					<tr>
 						<td style="text-align: center;"><input id="tranorde_chk0" type="checkbox"/></td>
-						<td id='datea' style="text-align: center;">~datea</td>
-						<td id='carno' style="text-align: center;">~carno</td>
-						<td id='driver' style="text-align: center;">~driver</td>
-						<td id='nick' style="text-align: center;">~nick</td>
-						<td id='addr' style="text-align: center;">~addr</td>
-						<td id='weight' style="text-align: right;">~weight</td>
-						<td id='mount' style="text-align: right;">~mount</td>
+						<td id="tranorde_sel0" style="text-align: center;"> </td>
+						<td id="tranorde_noa0" style="text-align: center;"> </td>
+						<td id="tranorde_dldate0" style="text-align: center;"> </td>
+						<td id="tranorde_nick0" style="text-align: center;"> </td>
+						<td id="tranorde_addr0" style="text-align: center;"> </td>
+						<td id="tranorde_mount0" style="text-align: center;"> </td>
+					</tr>
+					<tr>
+						<td style="text-align: center;"><input id="tranorde_chk1" type="checkbox"/></td>
+						<td id="tranorde_sel1" style="text-align: center;"> </td>
+						<td id="tranorde_noa1" style="text-align: center;"> </td>
+						<td id="tranorde_dldate1" style="text-align: center;"> </td>
+						<td id="tranorde_nick1" style="text-align: center;"> </td>
+						<td id="tranorde_addr1" style="text-align: center;"> </td>
+						<td id="tranorde_mount1" style="text-align: center;"> </td>
+					</tr>
+					<tr>
+						<td style="text-align: center;"><input id="tranorde_chk2" type="checkbox"/></td>
+						<td id="tranorde_sel2" style="text-align: center;"> </td>
+						<td id="tranorde_noa2" style="text-align: center;"> </td>
+						<td id="tranorde_dldate2" style="text-align: center;"> </td>
+						<td id="tranorde_nick2" style="text-align: center;"> </td>
+						<td id="tranorde_addr2" style="text-align: center;"> </td>
+						<td id="tranorde_mount2" style="text-align: center;"> </td>
+					</tr>
+					<tr>
+						<td style="text-align: center;"><input id="tranorde_chk3" type="checkbox"/></td>
+						<td id="tranorde_sel3" style="text-align: center;"> </td>
+						<td id="tranorde_noa3" style="text-align: center;"> </td>
+						<td id="tranorde_dldate3" style="text-align: center;"> </td>
+						<td id="tranorde_nick3" style="text-align: center;"> </td>
+						<td id="tranorde_addr3" style="text-align: center;"> </td>
+						<td id="tranorde_mount3" style="text-align: center;"> </td>
+					</tr>
+					<tr>
+						<td style="text-align: center;"><input id="tranorde_chk4" type="checkbox"/></td>
+						<td id="tranorde_sel4" style="text-align: center;"> </td>
+						<td id="tranorde_noa4" style="text-align: center;"> </td>
+						<td id="tranorde_dldate4" style="text-align: center;"> </td>
+						<td id="tranorde_nick4" style="text-align: center;"> </td>
+						<td id="tranorde_addr4" style="text-align: center;"> </td>
+						<td id="tranorde_mount4" style="text-align: center;"> </td>
+					</tr>
+					<tr>
+						<td style="text-align: center;"><input id="tranorde_chk5" type="checkbox"/></td>
+						<td id="tranorde_sel5" style="text-align: center;"> </td>
+						<td id="tranorde_noa5" style="text-align: center;"> </td>
+						<td id="tranorde_dldate5" style="text-align: center;"> </td>
+						<td id="tranorde_nick5" style="text-align: center;"> </td>
+						<td id="tranorde_addr5" style="text-align: center;"> </td>
+						<td id="tranorde_mount5" style="text-align: center;"> </td>
+					</tr>
+					<tr>
+						<td style="text-align: center;"><input id="tranorde_chk6" type="checkbox"/></td>
+						<td id="tranorde_sel6" style="text-align: center;"> </td>
+						<td id="tranorde_noa6" style="text-align: center;"> </td>
+						<td id="tranorde_dldate6" style="text-align: center;"> </td>
+						<td id="tranorde_nick6" style="text-align: center;"> </td>
+						<td id="tranorde_addr6" style="text-align: center;"> </td>
+						<td id="tranorde_mount6" style="text-align: center;"> </td>
+					</tr>
+					<tr>
+						<td style="text-align: center;"><input id="tranorde_chk7" type="checkbox"/></td>
+						<td id="tranorde_sel7" style="text-align: center;"> </td>
+						<td id="tranorde_noa7" style="text-align: center;"> </td>
+						<td id="tranorde_dldate7" style="text-align: center;"> </td>
+						<td id="tranorde_nick7" style="text-align: center;"> </td>
+						<td id="tranorde_addr7" style="text-align: center;"> </td>
+						<td id="tranorde_mount7" style="text-align: center;"> </td>
+					</tr>
+					<tr>
+						<td style="text-align: center;"><input id="tranorde_chk8" type="checkbox"/></td>
+						<td id="tranorde_sel8" style="text-align: center;"> </td>
+						<td id="tranorde_noa8" style="text-align: center;"> </td>
+						<td id="tranorde_dldate8" style="text-align: center;"> </td>
+						<td id="tranorde_nick8" style="text-align: center;"> </td>
+						<td id="tranorde_addr8" style="text-align: center;"> </td>
+						<td id="tranorde_mount8" style="text-align: center;"> </td>
+					</tr>
+					<tr>
+						<td style="text-align: center;"><input id="tranorde_chk9" type="checkbox"/></td>
+						<td id="tranorde_sel9" style="text-align: center;"> </td>
+						<td id="tranorde_noa9" style="text-align: center;"> </td>
+						<td id="tranorde_dldate9" style="text-align: center;"> </td>
+						<td id="tranorde_nick9" style="text-align: center;"> </td>
+						<td id="tranorde_addr9" style="text-align: center;"> </td>
+						<td id="tranorde_mount9" style="text-align: center;"> </td>
 					</tr>
 				</table>
 								
@@ -465,35 +582,12 @@
 						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td><input id="txtNoa"  type="text"  class="txt c1"/></td>
+						<td> </td>
+						<td><input id="btnTranorde"  type="button" value="訂單"/></td>
 					</tr>
 				</table>
 			</div>
-			<div class="dview" id="dview" >
-				<table class="tview" id="tview">
-					<tr>
-						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewCarno'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewDriver'> </a></td>	
-						<td align="center" style="width:100px; color:black;"><a id='vewNick'> </a></td>	
-						<td align="center" style="width:100px; color:black;"><a id='vewAddr'> </a></td>	
-						<td align="center" style="width:80px; color:black;"><a id='vewWeight'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewMount'> </a></td>									
-					</tr>
-					<tr>
-						<td >
-						<input id="chkBrow.*" type="checkbox" style=''/>
-						</td>
-						<td id='datea' style="text-align: center;">~datea</td>
-						<td id='carno' style="text-align: center;">~carno</td>
-						<td id='driver' style="text-align: center;">~driver</td>
-						<td id='nick' style="text-align: center;">~nick</td>
-						<td id='addr' style="text-align: center;">~addr</td>
-						<td id='weight' style="text-align: right;">~weight</td>
-						<td id='mount' style="text-align: right;">~mount</td>
-					</tr>
-				</table>
-			</div>
+			
 			
 		</div>
 		<input id="q_sys" type="hidden" />
