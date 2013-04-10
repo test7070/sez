@@ -77,7 +77,7 @@
                         }]
                 });
                 $('#chkXcno').css('font-size','14px');
-                
+                $('#chkXcno').children('input').attr('checked', 'checked');
                 $('#txtAcc1a').change(function () {
 		                var s1 = trim($(this).val(1112));
 		                if (s1.length > 4 && s1.indexOf('.') < 0)
