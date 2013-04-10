@@ -80,7 +80,7 @@
 		            else
 		            	sss_sql+="and sssno='"+xsssno+"'"
 
-                	q_box("carnotice.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";(checkdate between '"+xbdate+"' and '"+xedate+"' ) "+sss_sql+";"+r_accy,
+                	q_box("carnotice.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";(checkdate between '"+xbdate+"' and '"+xedate+"' ) "+sss_sql+" and len(outdate)=0 and len(enddate)=0 and len(wastedate)=0;"+r_accy,
                 		 'car2', "90%", "600px", q_getMsg("popNotice"));
                 });
                 
