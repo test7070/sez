@@ -17,7 +17,7 @@
 
             var q_name = "tranvcce";
             var q_readonly = ['txtNoa'];
-            var bbmNum = new Array();
+            var bbmNum = [];
             var bbmMask = [['txtDatea', '999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
@@ -28,17 +28,144 @@
             q_xchg = 1;
             brwCount2 = 10;
 
-           /* aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
             , ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
-            );*/
+            );
 			function tranorde(){}
 			tranorde.prototype={
 				data : null,
-				init : function(){
-					var obj = $('#tranorde');
-					obj.append('<table id></table>');
+				tbCount : 10,
+				curPage : -1,
+				totPage : 0,
+				curIndex : '',
+				init : function(obj){
+					//------------------------
+					$('.tranorde_chk').click(function(e){
+						$(".tranorde_chk").not(this).prop('checked',false);
+						$(".tranorde_chk").not(this).parent().parent().find('td').css('background','pink');
+						$(this).prop('checked',true);
+						$(this).parent().parent().find('td').css('background','#FF8800');
+					});
+					//------------------------
+					this.data = new Array();
+					if(obj[0]!=undefined){
+						for(var i in obj)
+							if(obj[i]['noa']!=undefined)
+								this.data.push(obj[i]);
+					}
+					this.totPage = Math.ceil(this.data.length/this.tbCount);
+					$('#textTotPage').val(this.totPage);
+					this.sort('noa',false);
+				},
+				sort : function(index,isFloat){
+					this.curIndex = index;
+	
+					if(isFloat){
+						this.data.sort(function(a,b){
+							var m = parseFloat(a[tranorde.curIndex]==undefined?"0":a[tranorde.curIndex]);
+							var n = parseFloat(b[tranorde.curIndex]==undefined?"0":b[tranorde.curIndex]);
+							if(m==n){
+								if ( a['noa'] < b['noa'] )
+									return 1;
+								if ( a['noa'] > b['noa'] )
+									return -1;
+								return 0;
+							}else
+								return n-m;
+						});
+					}else{
+						this.data.sort(function(a,b){
+							var m = a[tranorde.curIndex]==undefined?"":a[tranorde.curIndex];
+							var n = b[tranorde.curIndex]==undefined?"":b[tranorde.curIndex];
+							if(m==n){
+								if ( a['noa'] < b['noa'] )
+									return 1;
+								if ( a['noa'] > b['noa'] )
+									return -1;
+								return 0;
+							}else{
+								if ( m < n )
+									return 1;
+								if ( m > n )
+									return -1;
+								return 0;
+							}
+						});
+					}
+					this.page(1);
+				},
+				next : function(){
+					if(this.curPage==this.totPage){
+						alert('最末頁。');
+						return;
+					}
+					this.curPage++;
+					$('#textCurPage').val(this.curPage);
+					this.refresh();
+				},
+				previous : function(){
+					if(this.curPage==1){
+						alert('最前頁。');
+						return;
+					}
+					this.curPage--;
+					$('#textCurPage').val(this.curPage);
+					this.refresh();
+				},
+				page : function(n){
+					if(n<=0 || n>this.totPage){
+						this.curPage = 1;
+						$('#textCurPage').val(this.curPage);
+						this.refresh();
+						return;
+					}
+					this.curPage = n;
+					$('#textCurPage').val(this.curPage);
+					this.refresh();
+				},
+				refresh : function(){
+					var n = (this.curPage-1) * this.tbCount;
+					for(var i = 0; i < this.tbCount; i++){
+						if((n+i)<this.data.length){
+							$('#tranorde_chk'+i).removeAttr('disabled');
+							$('#tranorde_noa'+i).html(this.data[n+i]['noa']);
+							$('#tranorde_dldate'+i).html(this.data[n+i]['dldate']);
+							$('#tranorde_nick'+i).html(this.data[n+i]['nick']);
+							$('#tranorde_addr'+i).html(this.data[n+i]['addr']);
+							$('#tranorde_product'+i).html(this.data[n+i]['product']);
+							$('#tranorde_mount'+i).html(this.data[n+i]['mount']);
+							$('#tranorde_vccecount'+i).html(this.data[n+i]['vccecount']);
+						}else{
+							$('#tranorde_chk'+i).attr('disabled','disabled');
+							$('#tranorde_noa'+i).html('');
+							$('#tranorde_dldate'+i).html('');
+							$('#tranorde_nick'+i).html('');
+							$('#tranorde_addr'+i).html('');
+							$('#tranorde_product'+i).html('');
+							$('#tranorde_mount'+i).html('');
+							$('#tranorde_vccecount'+i).html('');
+						}
+					}
+					$('#tranorde_chk0').click();
+					$('#tranorde_chk0').prop('checked','true');
+				},
+				paste : function(){
+					if(this.totPage<=0)
+						return;
+					var n = (this.curPage-1) * this.tbCount;
+					for(var i = 0; i < this.tbCount; i++){
+						//alert($('#tranorde_chk'+i).attr('id')+'_'+$('#tranorde_chk'+i).prop('checked'));
+						if($('#tranorde_chk'+i).prop('checked')){
+							$('#txtOrdeno').val(this.data[n+i]['noa']);
+							$('#txtCustno').val(this.data[n+i]['custno']);
+							$('#txtCust').val(this.data[n+i]['comp']);
+							$('#txtAddrno').val(this.data[n+i]['addrno']);
+							$('#txtAddr').val(this.data[n+i]['addr']);
+						}
+					}
 				}
 			}
+			tranorde = new tranorde();
 			
             function currentData() {
             }
@@ -48,17 +175,17 @@
                 include : ['txtDatea'],
                 /*記錄當前的資料*/
                 copy : function() {
-                    curData.data = new Array();
+                    this.data = new Array();
                     for (var i in fbbm) {
                         var isInclude = false;
-                        for (var j in curData.include) {
-                            if (fbbm[i] == curData.include[j]) {
+                        for (var j in this.include) {
+                            if (fbbm[i] == this.include[j]) {
                                 isInclude = true;
                                 break;
                             }
                         }
                         if (isInclude) {
-                            curData.data.push({
+                            this.data.push({
                                 field : fbbm[i],
                                 value : $('#' + fbbm[i]).val()
                             });
@@ -67,8 +194,8 @@
                 },
                 /*貼上資料*/
                 paste : function() {
-                    for (var i in curData.data) {
-                        $('#' + curData.data[i].field).val(curData.data[i].value);
+                    for (var i in this.data) {
+                        $('#' + this.data[i].field).val(this.data[i].value);
                     }
                 }
             };
@@ -91,9 +218,26 @@
             function mainPost() {
                 q_mask(bbmMask);
                 
-                $('#btnTranorde').click(function(e){
+                $('#btnTranorde_refresh').click(function(e){
                 	t_where = "";
                 	q_gt('view_tranorde', t_where, 0, 0, 0, "", r_accy);
+                });
+                //自動載入訂單
+                $('#btnTranorde_refresh').click();
+                
+                $('#btnTranorde_previous').click(function(e){
+                	tranorde.previous();
+                });
+                $('#btnTranorde_next').click(function(e){
+                	tranorde.next();
+                });
+                $('#textCurPage').change(function(e){
+                	tranorde.page(parseInt($(this).val()));
+                });
+                
+                //--------------
+                $('#btnTest').click(function(){
+                	$('#tranorde_chk0').click();
                 });
                 
             }
@@ -111,8 +255,13 @@
                 switch (t_name) {
                 	case 'view_tranorde':
                 		var as = _q_appendData("view_tranorde", "", true);
-                		alert(as.length);
+                		if(as[0]!=undefined)
+                			tranorde.init(as);
                 		break;
+                	case q_name:
+                        if (q_cur == 4)
+                            q_Seek_gtPost();
+                        break;
                     default:
                     	break;
                 }
@@ -140,6 +289,7 @@
 
             function btnIns() {
                 _btnIns();
+                tranorde.paste();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').focus();
             }
@@ -164,7 +314,7 @@
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_oil') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tranvcce') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
             }
@@ -426,104 +576,135 @@
 					<tr>
 						<td id="tranorde_chk" align="center" style="width:20px; color:black;"> </td>
 						<td id="tranorde_sel" align="center" style="width:20px; color:black;"> </td>
-	            		<td id="tranorde_noa" align="center" style="width:120px; color:black;">訂單編號</td>
-	            		<td id="tranorde_dldate" align="center" style="width:100px; color:black;">預計完工日</td>
-	            		<td id="tranorde_nick" align="center" style="width:100px; color:black;">客戶</td>
-	            		<td id="tranorde_addr" align="center" style="width:150px; color:black;">起迄地點</td>
-	            		<td id="tranorde_mount" align="center" style="width:80px; color:black;">預計收數量</td>
+	            		<td id="tranorde_noa" onclick="tranorde.sort('noa',false)" align="center" style="width:120px; color:black;">訂單編號</td>
+	            		<td id="tranorde_dldate" onclick="tranorde.sort('dldate',false)" align="center" style="width:100px; color:black;">預計完工日</td>
+	            		<td id="tranorde_nick" onclick="tranorde.sort('custno',false)" align="center" style="width:100px; color:black;">客戶</td>
+	            		<td id="tranorde_addr" onclick="tranorde.sort('addrno',false)" align="center" style="width:150px; color:black;">起迄地點</td>
+	            		<td id="tranorde_product" onclick="tranorde.sort('productno',false)" align="center" style="width:100px; color:black;">品名</td>
+	            		<td id="tranorde_mount" onclick="tranorde.sort('mount',true)" align="center" style="width:80px; color:black;">預計收數量</td>
+	            		<td id="tranorde_vccecount" onclick="tranorde.sort('vccecount',true)" align="center" style="width:80px; color:black;">已派數量</td>
 					</tr>
-					<tr>
-						<td style="text-align: center;"><input id="tranorde_chk0" type="checkbox"/></td>
-						<td id="tranorde_sel0" style="text-align: center;"> </td>
+					<tr id="tranorde_tr0">
+						<td style="text-align: center;"><input id="tranorde_chk0" class="tranorde_chk" type="checkbox"></input></td>
+						<td style="text-align: center; font-weight: bolder; color:black;">1</td>
 						<td id="tranorde_noa0" style="text-align: center;"> </td>
 						<td id="tranorde_dldate0" style="text-align: center;"> </td>
 						<td id="tranorde_nick0" style="text-align: center;"> </td>
-						<td id="tranorde_addr0" style="text-align: center;"> </td>
-						<td id="tranorde_mount0" style="text-align: center;"> </td>
+						<td id="tranorde_addr0" style="text-align: left;"> </td>
+						<td id="tranorde_product0" style="text-align: left;"> </td>
+						<td id="tranorde_mount0" style="text-align: right;"> </td>
+						<td id="tranorde_vccecount0" style="text-align: right;"> </td>
 					</tr>
-					<tr>
-						<td style="text-align: center;"><input id="tranorde_chk1" type="checkbox"/></td>
-						<td id="tranorde_sel1" style="text-align: center;"> </td>
+					<tr id="tranorde_tr1">
+						<td style="text-align: center;"><input id="tranorde_chk1" class="tranorde_chk" type="checkbox"></input></td>
+						<td style="text-align: center; font-weight: bolder; color:black;">2</td>
 						<td id="tranorde_noa1" style="text-align: center;"> </td>
 						<td id="tranorde_dldate1" style="text-align: center;"> </td>
 						<td id="tranorde_nick1" style="text-align: center;"> </td>
-						<td id="tranorde_addr1" style="text-align: center;"> </td>
-						<td id="tranorde_mount1" style="text-align: center;"> </td>
+						<td id="tranorde_addr1" style="text-align: left;"> </td>
+						<td id="tranorde_product1" style="text-align: left;"> </td>
+						<td id="tranorde_mount1" style="text-align: right;"> </td>
+						<td id="tranorde_vccecount1" style="text-align: right;"> </td>
 					</tr>
-					<tr>
-						<td style="text-align: center;"><input id="tranorde_chk2" type="checkbox"/></td>
-						<td id="tranorde_sel2" style="text-align: center;"> </td>
+					<tr id="tranorde_tr2">
+						<td style="text-align: center;"><input id="tranorde_chk2" class="tranorde_chk" type="checkbox"></input></td>
+						<td style="text-align: center; font-weight: bolder; color:black;">3</td>
 						<td id="tranorde_noa2" style="text-align: center;"> </td>
 						<td id="tranorde_dldate2" style="text-align: center;"> </td>
 						<td id="tranorde_nick2" style="text-align: center;"> </td>
-						<td id="tranorde_addr2" style="text-align: center;"> </td>
-						<td id="tranorde_mount2" style="text-align: center;"> </td>
+						<td id="tranorde_addr2" style="text-align: left;"> </td>
+						<td id="tranorde_product2" style="text-align: left;"> </td>
+						<td id="tranorde_mount2" style="text-align: right;"> </td>
+						<td id="tranorde_vccecount2" style="text-align: right;"> </td>
 					</tr>
-					<tr>
-						<td style="text-align: center;"><input id="tranorde_chk3" type="checkbox"/></td>
-						<td id="tranorde_sel3" style="text-align: center;"> </td>
+					<tr id="tranorde_tr3">
+						<td style="text-align: center;"><input id="tranorde_chk3" class="tranorde_chk" type="checkbox"></input></td>
+						<td style="text-align: center; font-weight: bolder; color:black;">4</td>
 						<td id="tranorde_noa3" style="text-align: center;"> </td>
 						<td id="tranorde_dldate3" style="text-align: center;"> </td>
 						<td id="tranorde_nick3" style="text-align: center;"> </td>
-						<td id="tranorde_addr3" style="text-align: center;"> </td>
-						<td id="tranorde_mount3" style="text-align: center;"> </td>
+						<td id="tranorde_addr3" style="text-align: left;"> </td>
+						<td id="tranorde_product3" style="text-align: left;"> </td>
+						<td id="tranorde_mount3" style="text-align: right;"> </td>
+						<td id="tranorde_vccecount3" style="text-align: right;"> </td>
 					</tr>
-					<tr>
-						<td style="text-align: center;"><input id="tranorde_chk4" type="checkbox"/></td>
-						<td id="tranorde_sel4" style="text-align: center;"> </td>
+					<tr id="tranorde_tr4">
+						<td style="text-align: center;"><input id="tranorde_chk4" class="tranorde_chk" type="checkbox"></input></td>
+						<td style="text-align: center; font-weight: bolder; color:black;">5</td>
 						<td id="tranorde_noa4" style="text-align: center;"> </td>
 						<td id="tranorde_dldate4" style="text-align: center;"> </td>
 						<td id="tranorde_nick4" style="text-align: center;"> </td>
-						<td id="tranorde_addr4" style="text-align: center;"> </td>
-						<td id="tranorde_mount4" style="text-align: center;"> </td>
+						<td id="tranorde_addr4" style="text-align: left;"> </td>
+						<td id="tranorde_product4" style="text-align: left;"> </td>
+						<td id="tranorde_mount4" style="text-align: right;"> </td>
+						<td id="tranorde_vccecount4" style="text-align: right;"> </td>
 					</tr>
-					<tr>
-						<td style="text-align: center;"><input id="tranorde_chk5" type="checkbox"/></td>
-						<td id="tranorde_sel5" style="text-align: center;"> </td>
+					<tr id="tranorde_tr5">
+						<td style="text-align: center;"><input id="tranorde_chk5" class="tranorde_chk" type="checkbox"></input></td>
+						<td style="text-align: center; font-weight: bolder; color:black;">6</td>
 						<td id="tranorde_noa5" style="text-align: center;"> </td>
 						<td id="tranorde_dldate5" style="text-align: center;"> </td>
 						<td id="tranorde_nick5" style="text-align: center;"> </td>
-						<td id="tranorde_addr5" style="text-align: center;"> </td>
-						<td id="tranorde_mount5" style="text-align: center;"> </td>
+						<td id="tranorde_addr5" style="text-align: left;"> </td>
+						<td id="tranorde_product5" style="text-align: left;"> </td>
+						<td id="tranorde_mount5" style="text-align: right;"> </td>
+						<td id="tranorde_vccecount5" style="text-align: right;"> </td>
 					</tr>
-					<tr>
-						<td style="text-align: center;"><input id="tranorde_chk6" type="checkbox"/></td>
-						<td id="tranorde_sel6" style="text-align: center;"> </td>
+					<tr id="tranorde_tr6">
+						<td style="text-align: center;"><input id="tranorde_chk6" class="tranorde_chk" type="checkbox"></input></td>
+						<td style="text-align: center; font-weight: bolder; color:black;">7</td>
 						<td id="tranorde_noa6" style="text-align: center;"> </td>
 						<td id="tranorde_dldate6" style="text-align: center;"> </td>
 						<td id="tranorde_nick6" style="text-align: center;"> </td>
-						<td id="tranorde_addr6" style="text-align: center;"> </td>
-						<td id="tranorde_mount6" style="text-align: center;"> </td>
+						<td id="tranorde_addr6" style="text-align: left;"> </td>
+						<td id="tranorde_product6" style="text-align: left;"> </td>
+						<td id="tranorde_mount6" style="text-align: right;"> </td>
+						<td id="tranorde_vccecount6" style="text-align: right;"> </td>
 					</tr>
-					<tr>
-						<td style="text-align: center;"><input id="tranorde_chk7" type="checkbox"/></td>
-						<td id="tranorde_sel7" style="text-align: center;"> </td>
+					<tr id="tranorde_tr7">
+						<td style="text-align: center;"><input id="tranorde_chk7" class="tranorde_chk" type="checkbox"></input></td>
+						<td style="text-align: center; font-weight: bolder; color:black;">8</td>
 						<td id="tranorde_noa7" style="text-align: center;"> </td>
 						<td id="tranorde_dldate7" style="text-align: center;"> </td>
 						<td id="tranorde_nick7" style="text-align: center;"> </td>
-						<td id="tranorde_addr7" style="text-align: center;"> </td>
-						<td id="tranorde_mount7" style="text-align: center;"> </td>
+						<td id="tranorde_addr7" style="text-align: left;"> </td>
+						<td id="tranorde_product7" style="text-align: left;"> </td>
+						<td id="tranorde_mount7" style="text-align: right;"> </td>
+						<td id="tranorde_vccecount7" style="text-align: right;"> </td>
 					</tr>
-					<tr>
-						<td style="text-align: center;"><input id="tranorde_chk8" type="checkbox"/></td>
-						<td id="tranorde_sel8" style="text-align: center;"> </td>
+					<tr id="tranorde_tr8">
+						<td style="text-align: center;"><input id="tranorde_chk8" class="tranorde_chk" type="checkbox"></input></td>
+						<td style="text-align: center; font-weight: bolder; color:black;">9</td>
 						<td id="tranorde_noa8" style="text-align: center;"> </td>
 						<td id="tranorde_dldate8" style="text-align: center;"> </td>
 						<td id="tranorde_nick8" style="text-align: center;"> </td>
-						<td id="tranorde_addr8" style="text-align: center;"> </td>
-						<td id="tranorde_mount8" style="text-align: center;"> </td>
+						<td id="tranorde_addr8" style="text-align: left;"> </td>
+						<td id="tranorde_product8" style="text-align: left;"> </td>
+						<td id="tranorde_mount8" style="text-align: right;"> </td>
+						<td id="tranorde_vccecount8" style="text-align: right;"> </td>
 					</tr>
-					<tr>
-						<td style="text-align: center;"><input id="tranorde_chk9" type="checkbox"/></td>
-						<td id="tranorde_sel9" style="text-align: center;"> </td>
+					<tr id="tranorde_tr9">
+						<td style="text-align: center;"><input id="tranorde_chk9" class="tranorde_chk" type="checkbox"></input></td>
+						<td style="text-align: center; font-weight: bolder; color:black;">10</td>
 						<td id="tranorde_noa9" style="text-align: center;"> </td>
 						<td id="tranorde_dldate9" style="text-align: center;"> </td>
 						<td id="tranorde_nick9" style="text-align: center;"> </td>
-						<td id="tranorde_addr9" style="text-align: center;"> </td>
-						<td id="tranorde_mount9" style="text-align: center;"> </td>
+						<td id="tranorde_addr9" style="text-align: left;"> </td>
+						<td id="tranorde_product9" style="text-align: left;"> </td>
+						<td id="tranorde_mount9" style="text-align: right;"> </td>
+						<td id="tranorde_vccecount9" style="text-align: right;"> </td>
 					</tr>
-				</table>
-								
+				</table>							
+			</div>
+			<div id="tranorde_control" style="width:950px;">
+				<input id="btnTranorde_refresh"  type="button" style="float:left;width:100px;" value="訂單刷新"/>
+				<input id="btnTranorde_previous"  type="button" style="float:left;width:100px;" value="上一頁"/>
+				<input id="btnTranorde_next"  type="button" style="float:left;width:100px;" value="下一頁"/>
+				<input id="textCurPage"  type="text" style="float:left;width:100px;text-align: right;"/>
+				<span style="float:left;display:block;width:10px;font-size: 25px;">/</span>
+				<input id="textTotPage"  type="text" readonly="readonly" style="float:left;width:100px;color:green;"/>
+				<input id="btnTest" type="button" value="test"/>
+			
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
@@ -539,8 +720,12 @@
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblDatea' class="lbl"> </a></td</td>
+						<td><input id="txtDatea"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id='lblOrdeno' class="lbl"> </a></td</td>
 						<td><input id="txtOrdeno"  type="text"  class="txt c1"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblCust' class="lbl"> </a></td</td>
 						<td colspan="2">
 							<input id="txtCustno"  type="text"  style="float:left; width:50%;"/>
@@ -553,8 +738,6 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblDatea' class="lbl"> </a></td</td>
-						<td><input id="txtDatea"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id='lblCarno' class="lbl"> </a></td</td>
 						<td><input id="txtCarno"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id='lblDriver' class="lbl"> </a></td</td>
@@ -582,8 +765,6 @@
 						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td><input id="txtNoa"  type="text"  class="txt c1"/></td>
-						<td> </td>
-						<td><input id="btnTranorde"  type="button" value="訂單"/></td>
 					</tr>
 				</table>
 			</div>
