@@ -134,6 +134,17 @@
 		               	q_tr('txtPaysale', t_pay);	  
 		               	q_tr('txtUnpay', t_money - t_pay);*/
 		         });
+		         
+		         $('#btnPayvcc').click(function (e) {
+		            var t_where = "where=^^ (a.custno='" + $('#txtTggno').val() + "'";
+		            if (!emp($('#txtTggno2').val())) {
+		            	var t_tggno2 = ($('#txtTggno2').val()).split(",");
+                        for (var i = 0; i < t_tggno2.length; i++) {
+                        	t_where += " or a.custno ='" + t_tggno2[i] + "'";
+                        }
+                        t_where+=")";
+		            }
+		        });
 		    }
 
 		    function pay_tre() {
@@ -836,6 +847,9 @@
                         <td class="td1" ><span> </span><a id='lblTgg2' class="lbl"></a></td>
 						<td class="td2" colspan='3'>
                         <input id="txtTggno2" type="text" class="txt c1"/>
+						</td>
+						<td class="5">
+						<input type="button" id="btnPayvcc" class="txt c1 " />
 						</td>
 					</tr>
 					<tr class="tr3">
