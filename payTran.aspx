@@ -136,15 +136,18 @@
 		         });
 		         
 		         $('#btnPayvcc').click(function (e) {
-		            var t_where = "where=^^ (a.custno='" + $('#txtTggno').val() + "'";
+		            var t_where = " (a.custno='" + $('#txtTggno').val() + "'";
 		            if (!emp($('#txtTggno2').val())) {
 		            	var t_tggno2 = ($('#txtTggno2').val()).split(",");
                         for (var i = 0; i < t_tggno2.length; i++) {
                         	t_where += " or a.custno ='" + t_tggno2[i] + "'";
                         }
 		            }
-		            t_where+=") and CHARINDEX('代收',product)>0 and (b.total-isnull(c.paysale,0))!=0";
-		            q_gt('pay_vcc', t_where, 0, 0, 0, "", r_accy);
+		            t_where+=") and CHARINDEX('代收',product)>0 and (b.total-isnull(c.paysale,0))!=0 ";
+		            
+		            q_box("pay_vcc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+r_accy , 'pay_vcc', "95%", "95%", q_getMsg('popPay_vcc'));
+		            
+		            //q_gt('pay_vcc', t_where, 0, 0, 0, "", r_accy);
 		        });
 		    }
 
@@ -193,6 +196,10 @@
 		    function q_boxClose(s2) {
 		        var ret;
 		        switch (b_pop) {
+		        	case 'pay_vcc':
+                        
+                        break;
+		        	
 		            case q_name + '_s':
 		                q_boxClose2(s2);
 		                break;
@@ -211,12 +218,6 @@
 			
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
-		        	case 'pay_vcc':
-		        		var as = _q_appendData("view_vcc", "", true);
-		        		if (as[0] != undefined) {
-		        			
-		        		}
-		        		break;
 		        	case 'part':
 		                var as = _q_appendData("part", "", true);
 		                if (as[0] != undefined) {
@@ -597,9 +598,11 @@
 		         if(q_cur==1 || q_cur==2){
 		        	$("#btnVcc").removeAttr("disabled");
 		        	$("#btnAuto").removeAttr("disabled");
+		        	$("#btnPayvcc").removeAttr("disabled");
 		        }else{
 		        	$("#btnVcc").attr("disabled","disabled");
 		        	$("#btnAuto").attr("disabled","disabled");
+		        	$("#btnPayvcc").attr("disabled","disabled");
 		        }
 		    }
 
