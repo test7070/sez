@@ -386,8 +386,10 @@
             }
 
             function btnDele() {
-            	if($('#txtPayed').val() == 0){
+            	if(dec($('#txtPayed').val()) == 0){
                 	_btnDele();
+            	}else{
+            		alert('該請款單據已付款!!!')
             	}
             }
 
@@ -636,7 +638,7 @@
 						<td><span> </span><a id='lblKind' class="lbl"> </a></td>
 						<td><input type="text" id="txtKind" class="txt c1"/></td>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td><input type="text" id="txtWorker" class="txt c1"/></td>
+						<td><input type="text" id="txtWorker" class="txt c1"/><input type="hidden" id="txtPayed"/></td>
 					</tr>
 				</table>
 			</div>

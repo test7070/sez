@@ -50,7 +50,7 @@
 
             function mainPost() {
                q_getFormat();
-                bbmMask = [['txtDatea', r_picd], ['txtOildate',r_picd], ['txtPledgedate',r_picd],['txtPaydate',r_picd],['txtBcontdate', r_picd],['txtEcontdate', r_picd],['txtChangecontdate', r_picd]];
+                bbmMask = [['txtDatea', r_picd], ['txtPledgedate',r_picd],['txtPaydate',r_picd],['txtBcontdate', r_picd],['txtEcontdate', r_picd],['txtChangecontdate', r_picd]];
                 q_mask(bbmMask);
                // q_cmbParse("cmbStype", q_getPara('cont.stype'));
                 q_cmbParse("cmbEnsuretype", ('').concat(new Array( '定存單質押','不可撤銷保證','銀行本票質押','商業本票質押','現金質押')));
@@ -58,13 +58,13 @@
                 q_gt('conttype', '', 0, 0, 0, "");
                 
                  $('#lblConn_cust').click(function() {
-                 	var cust2sql="";
+                 	/*var cust2sql="";
                  	var t_custno2 = ($('#txtCust2').val()).split(",");
                  	 for (var i = 0; i < t_custno2.length; i++) {
                  	 	cust2sql += " or noa ='" + t_custno2[i] + "'"
-                 	 }
+                 	 }*/
                  	
-                    t_where = "noa='" + $('#txtCustno').val() + "'"+cust2sql;
+                    t_where = "noa='" + $('#txtCustno').val() + "'";//+cust2sql;
                     q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'Conn_cust', "95%", "650px", q_getMsg('lblConn'));
                 });
                $('#lblStype').click(function(e) {
@@ -79,7 +79,7 @@
             function q_boxClose(s2) {
                var ret;
                 switch (b_pop) {
-                	case 'cust':
+                	/*case 'cust':
                 		ret = getb_ret();
                         if(q_cur > 0 && q_cur < 4){
 	                        if(ret[0]!=undefined){
@@ -93,7 +93,7 @@
 	                        	}
 	                        }
 						}
-						break;
+						break;*/
                 	case 'conttype':
                         q_gt('conttype', '', 0, 0, 0, "");
                         break;	
@@ -482,10 +482,10 @@
 							<input id="txtComp"  type="text" class="txt" style="width:70%; float: left;"/>
 							<input id="txtNick"  type="text" style="display: none;"/>
 							</td>
-							<td class="td5"><span> </span><a id='lblCust2' class="lbl btn"></a></td>
+							<!--<td class="td5"><span> </span><a id='lblCust2' class="lbl btn"></a></td>
 							<td class="td6" colspan="2">
 							<input id="txtCust2" type="text" class="txt c1"/>
-							</td>
+							</td>-->
 							<td class="td7" ><span> </span><a id='lblConn_cust'  class="lbl btn"> </a></td>
 							<!--<td class="td8">
 							<input id="txtConn_cust"  type="text"  class="txt c1"/>

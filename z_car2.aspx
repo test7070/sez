@@ -80,7 +80,7 @@
 		            else
 		            	sss_sql+="and sssno='"+xsssno+"'"
 
-                	q_box("carnotice.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";(checkdate between '"+xbdate+"' and '"+xedate+"' ) "+sss_sql+";"+r_accy,
+                	q_box("carnotice.aspx?"+ r_userno + ";" + r_name + ";" + q_id + ";(checkdate between '"+xbdate+"' and '"+xedate+"' ) "+sss_sql+" and len(outdate)=0 and len(enddate)=0 and len(wastedate)=0;"+r_accy,
                 		 'car2', "90%", "600px", q_getMsg("popNotice"));
                 });
                 
@@ -107,6 +107,7 @@
 
             function q_boxClose(t_name) {
             }
+            var iscarno=0;
 			var sssno='',xcardealno='';
             function q_gtPost(t_name) {
             	  switch (t_name) {
@@ -414,11 +415,13 @@
                 $('#textBdate').mask('999/99/99');
                 $('#textEdate').mask('999/99/99');
                 $('#btnNotice').val('驗車通知作業');
-                
-                if(window.parent.q_name=='cara' || window.parent.q_name=='car2'){
-                	var wParent = window.parent.document;
-					$('#txtTcarno1').val(wParent.getElementById("txtCarno").value);
-					$('#txtTcarno2').val(wParent.getElementById("txtCarno").value);
+                if(iscarno<3){
+	                if(window.parent.q_name=='cara' || window.parent.q_name=='car2'){
+	                	var wParent = window.parent.document;
+						$('#txtTcarno1').val(wParent.getElementById("txtCarno").value);
+						$('#txtTcarno2').val(wParent.getElementById("txtCarno").value);
+						iscarno++;
+					}
 				}
 					
             }
