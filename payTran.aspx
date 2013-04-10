@@ -142,8 +142,9 @@
                         for (var i = 0; i < t_tggno2.length; i++) {
                         	t_where += " or a.custno ='" + t_tggno2[i] + "'";
                         }
-                        t_where+=")";
 		            }
+		            t_where+=") and CHARINDEX('代收',product)>0 and (b.total-isnull(c.paysale,0))!=0";
+		            q_gt('pay_vcc', t_where, 0, 0, 0, "", r_accy);
 		        });
 		    }
 
@@ -210,6 +211,12 @@
 			
 		    function q_gtPost(t_name) {
 		        switch (t_name) {
+		        	case 'pay_vcc':
+		        		var as = _q_appendData("view_vcc", "", true);
+		        		if (as[0] != undefined) {
+		        			
+		        		}
+		        		break;
 		        	case 'part':
 		                var as = _q_appendData("part", "", true);
 		                if (as[0] != undefined) {
@@ -849,6 +856,8 @@
                         <input id="txtTggno2" type="text" class="txt c1"/>
 						</td>
 						<td class="5">
+						</td>
+						<td class="6">
 						<input type="button" id="btnPayvcc" class="txt c1 " />
 						</td>
 					</tr>
