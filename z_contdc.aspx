@@ -15,11 +15,43 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+		 function z_contdc() {
+            }
+            z_contdc.prototype = {
+                isInit : false,
+                data : {
+                    conttype : null
+                },
+                isLoad : function() {
+                    var isLoad = true;
+                    for (var x in this.data) {
+                        isLoad = isLoad && (this.data[x] != null);
+                    }
+                    return isLoad;
+                }
+            };
+            t_data = new z_contdc();
+            
             $(document).ready(function() {
                 q_getId();
                 q_gf('', 'z_contdc');
             });
             function q_gfPost() {
+                q_gt('conttype', '', 0, 0, 0);
+            }
+             function q_gtPost(t_name) {
+           	switch (t_name) {
+                    case 'conttype':
+                        t_data.data['conttype'] = '';
+                        var as = _q_appendData("conttype", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_data.data['conttype'] += (t_data.data['conttype'].length > 0 ? ',' : '') + as[i].noa + '@' + as[i].typea;
+                        }
+                        break;
+                }
+
+                if (t_data.isLoad() && !t_data.isInit) {
+                    t_data.isInit = true;
                 $('#q_report').q_report({
                     fileName : 'z_contdc',
                     options : [{
@@ -46,7 +78,15 @@
                     },{
                         type : '1',
                         name : 'date'
-                    }]
+                    },{
+                            type : '5',
+                            name : 'xstype',
+                            value : t_data.data['conttype'].split(',')
+                    },{
+                            type : '5',
+                            name : 'xetype',
+                            value : (('').concat(new Array("存入","存出"))).split(',')
+                        }]
                 });
                 q_popAssign();
 
@@ -82,13 +122,10 @@
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
             }
-
-            function q_boxClose(s2) {
             }
 
-            function q_gtPost(s2) {
+			function q_boxClose(t_name) {
             }
-
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
