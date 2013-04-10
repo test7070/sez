@@ -17,7 +17,7 @@
 			q_desc=1;
             q_tables = 's';
             var q_name = "uf";
-            var q_readonly = ['txtAccno', 'txtNoa', 'txtWorker', 'txtWorker2', 'txtMoney'];
+            var q_readonly = ['txtAccno', 'txtNoa', 'txtWorker', 'txtWorker2', 'txtMoney', 'txtCheckno'];
             var q_readonlys = ['txtCheckno'];
             var bbmNum = [['txtMoney', 10, 0, 1]];
             var bbsNum = [['txtMoney', 10, 0, 1]];
@@ -118,12 +118,19 @@
             }
 
             function btnOk() {
+            	sum();
+            	var t_checkno = "";
+            	for (var i = 0; i < q_bbsCount; i++) {           		
+            		if($.trim($('#txtCheckno_' + i).val()).length>0){
+            			t_checkno += (t_checkno.length>0?",":"") + $.trim($('#txtCheckno_' + i).val());
+            		}
+		        }
+		        $('#txtCheckno').val(t_checkno);
                 if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     return;
                 }
-                
-                sum();
+
 				if(q_cur ==1){
                 	$('#txtWorker').val(r_name);
                 }else if(q_cur ==2){
@@ -144,7 +151,7 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('uf_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
+                q_box('uf_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
@@ -465,7 +472,7 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr0" style="height:1px;">
-						<td></td>
+						<td><input id="txtCheckno"type="text" style="display:none;"/></td>
 						<td></td>
 						<td></td>
 						<td></td>
