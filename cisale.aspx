@@ -15,7 +15,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="cisale";
-        var q_readonly = ['txtWorker','txtWorker2'];
+        var q_readonly = [];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -41,6 +41,7 @@
 			q_getFormat();
         	bbmMask = [];
             q_mask(bbmMask);
+            q_cmbParse("cmbSex", ('').concat(new Array('','男','女')));
         }
         function q_boxClose( s2) {
             var ret; 
@@ -82,10 +83,6 @@
         function btnPrint() {
         }
         function btnOk() {
-            if(q_cur==1)
-	           	$('#txtWorker').val(r_name);
-	        else
-	           	$('#txtWorker2').val(r_name);
             var t_noa = trim($('#txtNoa').val());
             if ( t_noa.length==0 )  
                 q_gtnoa(q_name, t_noa);
@@ -297,26 +294,26 @@
                <td class="td2"><input id="txtNoa" type="text" class="txt c1"/> </td>
                <td class="td3"><span> </span><a id='lblNamea' class="lbl"> </a></td>
                <td class="td4"><input id="txtNamea" type="text" class="txt c1"/></td>
-               <td class="td5"><span> </span><a id='lbl' class="lbl"> </a></td>
-               <td class="td6"><input id="txtNamea" type="text" class="txt c1"/></td>              
+               <td class="td5"><span> </span><a id='lblSex' class="lbl"> </a></td>
+               <td class="td6"><select id="cmbSex" class="txt c1"> </select></td>              
             </tr>
            <tr>
-               <td class="td1"><span> </span><a id='lblBirthday' class="lbl"> </a></td>
-               <td class="td2" colspan="2"><input id="txtBirthday" type="text" class="txt c1"/></td>
-               <td class="td5"> </td>
-               <td class="td6"> </td>
-            </tr>
-            <tr>
+               <td class="td1"><span> </span><a id='lblId' class="lbl"> </a></td>
+               <td class="td2"> <input id="txtId" type="text" class="txt c1"/></td>
+               <td class="td3"><span> </span><a id='lblBirthday' class="lbl"> </a></td>
+               <td class="td4"> <input id="txtBirthday" type="text" class="txt c1"/></td>
                
-               <td class="td4"> </td>
-               <td class="td5"> </td>
-               <td class="td6"> </td>
             </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblTel' class="lbl"></a></td>
-               <td class="td2" colspan="2"><input id="txtTel"  type="text" class="txt c1"/></td>
-               <td class="td4"><span> </span><a id='lblFax' class="lbl"></a></td>
-               <td class="td5" colspan="2"><input id="txtFax"  type="text"  class="txt c1" /></td>
+               <td class="td1"><span> </span><a id='lblMobile' class="lbl"> </a></td>
+               <td class="td2"> <input id="txtMobile" type="text" class="txt c1"/></td>
+               <td class="td3"><span> </span><a id='lblTel' class="lbl"></a></td>
+               <td class="td4" colspan="2"><input id="txtTel"  type="text" class="txt c1"/></td>
+               
+            </tr>
+            <tr>
+               <td class="td4"><span> </span><a id='lblEmail' class="lbl"></a></td>
+               <td class="td5" colspan="2"><input id="txtEmail"  type="text"  class="txt c1" /></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
@@ -325,53 +322,13 @@
                <td class="td6"></td>
  	       </tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblConn' class="lbl"></a></td>
-               <td class="td2"><input id="txtConn"  type="text" class="txt c1" /></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
+               <td class="td1"><span> </span><a id='lblIndate' class="lbl"></a></td>
+               <td class="td2"><input id="txtIndate"  type="text" class="txt c1" /></td>
+               <td class="td3"><span> </span><a id='lblOutdate' class="lbl"></a></td>
+               <td class="td4"><input id="txtOutdate"  type="text" class="txt c1" /></td>
                <td class="td5"></td>
                <td class="td6"></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblTel_conn' class="lbl"></a></td>
-               <td class="td2" colspan="2"><input id="txtTel_conn"  type="text" class="txt c1"/></td>
-               <td class="td4"><span> </span><a id='lblFax_conn' class="lbl"></a></td>
-               <td class="td5" colspan="2"><input id="txtFax_conn"  type="text"  class="txt c1" /></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblAddr_conn' class="lbl"></a></td>
-               <td class="td2" ><input id="txtZip_conn"  type="text" class="txt c1" /></td>
-               <td class="td3"colspan="3" ><input id="txtAddr_conn"  type="text" class="txt c1" /></td>
-               <td class="td6"></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblArbdiscount' class="lbl"></a></td>
-               <td class="td2"><input id="txtArbdiscount"  type="text" class="txt num c1" /></td>
-               <td class="td3" align="left"><span> </span>%</td>
-               <td class="td1"><span> </span><a id='lblForcediscount' class="lbl"></a></td>
-               <td class="td2"><input id="txtForcediscount"  type="text" class="txt num c1" /></td>
-               <td class="td3" align="left"><span> </span>��</td>
-            </tr> 
-	       <tr>
-               <td class="td1"><span> </span><a id='lblAccdiscount' class="lbl"></a></td>
-               <td class="td2"><input id="txtAccdiscount"  type="text" class="txt num c1" /></td>
-               <td class="td3" align="left"><span> </span>%</td>
-               <td class="td1"><span> </span><a id='lblWaterdiscount' class="lbl"></a></td>
-               <td class="td2"><input id="txtWaterdiscount"  type="text" class="txt num c1" /></td>
-               <td class="td3"><span> </span>%</td>
-            </tr> 
-            <tr>
-               <td class="td1"><span> </span><a id='lblCode' class="lbl"> </a></td>
-               <td class="td2"><input id="txtCode"  type="text" class="txt c1" /></td>
-               <td class="td3"><span> </span><a id="lblWorker" class="lbl"> </a></td>
-			   <td class="td4"><input id="txtWorker" type="text" class="txt c1" /></td>
-               <td class="td5"><span> </span><a id="lblWorker2" class="lbl"> </a></td>
-			   <td class="td6"><input id="txtWorker2" type="text"  class="txt c1"/></td>
-            </tr>      
-           <tr>
-               <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
-               <td class="td2" colspan="5"><textarea id="txtMemo" rows="3" cols="5" style="width: 98%; height: 50px;"></textarea></td>               
-            </tr>        
+            </tr>     
         </table>
         </div>
         </div>

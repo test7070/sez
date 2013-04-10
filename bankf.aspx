@@ -20,7 +20,7 @@
 
             var q_readonly = ['txtNoa','txtAccno','txtDatea','txtWorker','txtWorker2'];
 
-            var bbmNum = [['txtMoney', 8, 2,1],['txtMoney2', 8, 2,1],['txtInterestrate', 2, 2,1]];
+            var bbmNum = [['txtMoney', 8, 2,1],['txtMoney2', 8, 2,1],['txtInterestrate', 6, 3,1]];
 
             var bbmMask = [];
             q_sqlCount = 6;
@@ -54,6 +54,7 @@
                  q_cmbParse("cmbType", ('').concat(new Array( '','一個月','二個月','三個月','四個月','五個月','六個月','七個月','八個月','九個月','十個月','十一個月')));
                  q_cmbParse("cmbTypeyear", ('').concat(new Array( '','一年','二年','三年')));
                   q_cmbParse("cmbPayitype", ('').concat(new Array('到期付息','每月付息','到期入本金')));
+                  q_cmbParse("cmbMoneytype", ('').concat(new Array('台幣','美元','日幣','港幣','人民幣','歐元','英鎊','新加坡幣')));
 
                   q_cmbParse("cmbRate", ('').concat(new Array('固定利率','機動利率')));
                   q_gt('acomp', '', 0, 0, 0, "");
@@ -226,7 +227,7 @@
             }
             .dview {
                 float: left;
-                width: 450px; 
+                width: 550px; 
                 border-width: 0px; 
             }
             .tview {
@@ -246,7 +247,7 @@
             }
             .dbbm {
                 float: left;
-                width: 500px;
+                width: 650px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -346,16 +347,21 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewIndate'> </a></td>
-						<td align="center" style="width:120px; color:black;"><a id='vewType'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewTypeyear'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewType'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewBank'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewMoney'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewMoneytype'> </a></td>
+						
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='indate' style="text-align: center;">~indate</td>
+						<td id='typeyear' style="text-align: left;">~typeyear</td>
 						<td id='type' style="text-align: left;">~type</td>
 						<td id='bank' style="text-align: left;">~bank</td>
 						<td id='money,2,1' style="text-align: right;">~money,2,1</td>
+						<td id='moneytype' style="text-align: left;">~moneytype</td>
 					</tr>
 				</table>
 			</div>
@@ -399,6 +405,11 @@
 					<tr>
 						<td><span> </span><a id='lblAccount' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtAccount"  type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblMoneytype' class="lbl"> </a></td>
+						<td><select id="cmbMoneytype"  class="txt c1" > </select></td>
+						
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblRate' class="lbl"> </a></td>
