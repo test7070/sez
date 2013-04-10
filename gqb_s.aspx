@@ -61,6 +61,7 @@
 				t_tcompno = $.trim($('#txtTcompno').val());
 				t_tcomp = $.trim($('#txtTcomp').val());
 				t_bankno = $.trim($('#txtBankno').val());
+				t_money = $.trim($('#txtMoney').val());
 				
 				var t_where = " 1=1 " 
 				+ q_sqlPara2("typea", t_typea)
@@ -71,6 +72,8 @@
 				+ q_sqlPara2("compno", t_compno)
 				+ q_sqlPara2("tcompno", t_tcompno)
 				+ q_sqlPara2("bankno", t_bankno);
+				if (t_money.length>0)
+					t_where += " and money="+t_money;
 				if (t_comp.length>0)
                     t_where += " and patindex('%" + t_comp + "%',comp)>0";
                 if (t_tcomp.length>0)
@@ -146,6 +149,10 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblBankno'> </a></td>
 					<td><input class="txt" id="txtBankno" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblMoney'> </a></td>
+					<td><input class="txt" id="txtMoney" type="text" style="width:215px; font-size:medium; text-align: right;" /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
