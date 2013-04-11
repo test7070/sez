@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'view_vcc', t_bbsTag = 'tbbs', t_content = " field=noa,paysale,total,part2,comp,memo  order=odate ", afilter = [], bbsKey = ['noa'], as;
+            var q_name = 'view_vcc', t_bbsTag = 'tbbs', t_content = " field=noa,noq  order=odate ", afilter = [], bbsKey = ['noa'], as;
             //, t_where = '';
             var t_sqlname = 'pay_vcc_load';
             t_postname = q_name;
@@ -23,7 +23,7 @@
             $(document).ready(function() {
                 if (location.href.indexOf('?') < 0)// debug
                 {
-                    location.href = location.href + "?;;;^^1=0^^where[1]=^^1=0^^";
+                    location.href = location.href + "?;;;^^1=0^^";
                     return;
                 }
                 if (!q_paraChk())
@@ -44,9 +44,23 @@
                     }
                 });
             }
-
+			var x_vccsno='';
             function bbsAssign() {
                 _bbsAssign();
+                
+				 if(window.parent.q_name=='pay'){
+					 var wParent = window.parent.document;
+					 x_vccsno= wParent.getElementById("txtVccsno").value;
+				}
+				
+				var vccsnos=x_vccsno.split(',');
+				
+				for (var j = 0; j < brwCount2; j++) {
+					for(var i=0;i<vccsnos.length;i++){
+						if(vccsnos[0]==$('#txtNoa_' + j).val()+$('#txtNoq_' + j).val()&&!emp($('#txtNoa_' + j).val()))
+						$('#chkSel_'+j)[0].checked = "true";
+					}
+                }
             }
 
             function q_gtPost() {

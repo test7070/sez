@@ -143,11 +143,13 @@
                         	t_where += " or a.custno ='" + t_tggno2[i] + "'";
                         }
 		            }
-		            t_where+=") and CHARINDEX('代收',product)>0 and (b.total-isnull(c.paysale,0))!=0 ";
+		            t_where+=") and CHARINDEX('代收',product)>0";
+		            
+		            //不含已存在的資料(且不包含本身的vccsno)
+		            t_where+=" and CHARINDEX(a.noa+b.noq , (select ','+vccsno from pay where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')))=0";
+		            
 		            
 		            q_box("pay_vcc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+r_accy , 'pay_vcc', "95%", "95%", q_getMsg('popPay_vcc'));
-		            
-		            //q_gt('pay_vcc', t_where, 0, 0, 0, "", r_accy);
 		        });
 		    }
 
@@ -197,7 +199,21 @@
 		        var ret;
 		        switch (b_pop) {
 		        	case 'pay_vcc':
-                        
+                        if (q_cur > 0 && q_cur < 4) {//  q_cur： 0 = 瀏覽狀態  1=新增  2=修改 3=刪除  4=查詢
+                            b_ret = getb_ret();
+                            ///  q_box() 執行後，選取的資料
+                            if (!b_ret || b_ret.length == 0)
+                                return;
+                            //將勾選資料存入到vccsno
+                            var t_vccsno=''  
+                            for (var i = 0; i < b_ret.length; i++) {
+                            	if(i==0)
+                            		t_vccsno+=b_ret[i].noa+b_ret[i].noq;
+                            	else
+                            		t_vccsno+=','+b_ret[i].noa+b_ret[i].noq;
+                            }
+                            $('#txtVccsno').val(t_vccsno);
+                        }
                         break;
 		        	
 		            case q_name + '_s':
@@ -862,6 +878,7 @@
 						</td>
 						<td class="6">
 						<input type="button" id="btnPayvcc" class="txt c1 " />
+						<input id="txtVccsno" type="hidden"/>
 						</td>
 					</tr>
 					<tr class="tr3">
