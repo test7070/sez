@@ -721,6 +721,9 @@
 						<td>
 						<input type="button" id="btnPrinttrand" />
 						</td>
+						<td>
+						<input type="checkbox" id="chkEnda">手動結案</input>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblStrdate" class="lbl"> </a></td>
