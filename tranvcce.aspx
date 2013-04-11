@@ -230,6 +230,8 @@
             }
 
             function mainPost() {
+            	$('#btnIns').attr('value',$('#btnIns').attr('value')+"(F8)");
+            	$('#btnOk').attr('value',$('#btnOk').attr('value')+"(F9)");
                 q_mask(bbmMask);
                 q_cmbParse("combCtype", ('').concat(new Array( '全部','貨櫃','平板','散裝')));
                 q_cmbParse("combDtype", ('').concat(new Array( '全部','出口','進口')));
