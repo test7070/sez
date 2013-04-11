@@ -165,10 +165,12 @@
             }
             
 	        function bbsSave(as) {
+	        	/*
 	            if (!as['custno'] ) {  
 	                as[bbsKey[1]] = '';   
 	                return;
 	            }
+	            */
 	            q_nowf();
 	            return true;
 	        }
