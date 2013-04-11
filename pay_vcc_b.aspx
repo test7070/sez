@@ -57,7 +57,7 @@
 				
 				for (var j = 0; j < brwCount2; j++) {
 					for(var i=0;i<vccsnos.length;i++){
-						if(vccsnos[0]==$('#txtNoa_' + j).val()+$('#txtNoq_' + j).val()&&!emp($('#txtNoa_' + j).val()))
+						if(vccsnos[i]==$('#txtNoa_' + j).val()+$('#txtNoq_' + j).val()&&!emp($('#txtNoa_' + j).val()))
 						$('#chkSel_'+j)[0].checked = "true";
 					}
                 }

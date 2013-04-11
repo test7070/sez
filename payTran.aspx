@@ -136,14 +136,17 @@
 		         });
 		         
 		         $('#btnPayvcc').click(function (e) {
-		            var t_where = " (a.custno='" + $('#txtTggno').val() + "'";
+		            var t_where ='';
+		            /*t_where= " (a.custno='" + $('#txtTggno').val() + "'";
 		            if (!emp($('#txtTggno2').val())) {
 		            	var t_tggno2 = ($('#txtTggno2').val()).split(",");
                         for (var i = 0; i < t_tggno2.length; i++) {
                         	t_where += " or a.custno ='" + t_tggno2[i] + "'";
                         }
 		            }
-		            t_where+=") and CHARINDEX('代收',product)>0";
+		            t_where+=") and ";
+		            */
+		            t_where+="CHARINDEX('代收',product)>0 and CHARINDEX('會計',kind)>0";
 		            
 		            //不含已存在的資料(且不包含本身的vccsno)
 		            t_where+=" and CHARINDEX(a.noa+b.noq , (select ','+vccsno from pay where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')))=0";
