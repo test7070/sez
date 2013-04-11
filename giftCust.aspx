@@ -28,7 +28,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'Acomp_b.aspx'],
+            aPop = new Array(['txtPartno', 'lblPartno', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
             ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
             ['txtSssno_', 'btnSssno_', 'sss', 'noa,namea', 'txtSssno_,txtNamea_', 'sss_b.aspx']);
             $(document).ready(function() {
@@ -383,9 +383,9 @@
 						<td class="td2"><input type="text" id="txtDatea" class="txt c1"/>	</td>	
 					</tr>
 					<tr class="tr2">
-						<td class="td1"><span> </span><a id='lblCno' class="lbl btn"> </a></td>
-						<td class="td2" colspan="2"><input type="text" id="txtCno" class="txt c2"/>
-							<input type="text" id="txtAcomp" class="txt c3"/>
+						<td class="td1"><span> </span><a id='lblPartno' class="lbl btn"> </a></td>
+						<td class="td2" colspan="2"><input type="text" id="txtPartno" class="txt c2"/>
+							<input type="text" id="txtPart" class="txt c3"/>
 						</td>	
 					</tr>
 					<tr class="tr3">

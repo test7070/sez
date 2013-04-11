@@ -18,10 +18,10 @@
 
             q_tables = 't';
             var q_name = "borrd";
-            var q_readonly = ['txtNoa', 'txtWorker', 'txtPaybno'];
+            var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtPaybno'];
             var q_readonlys = [];
             var q_readonlyt = ['txtVccno'];
-            var bbmNum = [['txtMoney',10,0,1],['txtCharge',10,0,1]];
+            var bbmNum = [['txtMoney',10,0,1],['txtMoney2',10,0,1],['txtCharge',10,0,1]];
             var bbsNum = [['txtRate',10,2],['txtMoney',10,0,1]];
             var bbtNum = [['txtMoney',10,0,1]];
             var bbmMask = [['txtDatea','999/99/99'],['txtBegindate','999/99/99'],['txtEnddate','999/99/99'],['txtPaydate','999/99/99'],['txtVccday','99']];
@@ -139,7 +139,13 @@
                     return;
                 }
                 sum();
-                $('#txtWorker').val(r_name);
+                if(q_cur ==1){
+                	$('#txtWorker').val(r_name);
+                }else if(q_cur ==2){
+                	$('#txtWorker2').val(r_name);
+                }else{
+                	alert("error: btnok!")
+                }
 
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
@@ -480,6 +486,8 @@
 						<td><span> </span><a id="lblAcc1" class="lbl btn"> </a></td>
 						<td><input id="txtAcc1" type="text" class="txt c1"/></td>
 						<td colspan="2"><input id="txtAcc2" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblMoney2" class="lbl"> </a></td>
+						<td><input id="txtMoney2" type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCharge" class="lbl"> </a></td>
@@ -505,8 +513,10 @@
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
+						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblPaybno" class="lbl btn"> </a></td>
-						<td><input id="txtPaybno" type="text" class="txt c1"/></td>
+						<td colspan="2"><input id="txtPaybno" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

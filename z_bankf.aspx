@@ -74,7 +74,13 @@
                             type : '8',
                             name : 'xcno',
                             value : t_data.data['acomp'].split(',')
-                        }]
+                     }, {
+                        type : '2',
+                        name : 'xbankno',
+                        dbf : 'bank',
+                        index : 'noa,bank',
+                        src :  'bank_b.aspx'
+                    }]
                 });
                 $('#chkXcno').css('font-size','14px');
                 $('#chkXcno').children('input').attr('checked', 'checked');
