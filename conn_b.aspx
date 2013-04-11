@@ -142,6 +142,7 @@
 					<td align="center"><a id='lblMobile'></a></td>
 					<td align="center"><a id='lblEmail'></a></td>
 					<td align="center"><a id='lblAddr'></a></td>
+					<td align="center"><a id='lblMemo'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;font-size: 14px;'>
 					<td style="width:1%;">
@@ -171,10 +172,13 @@
 					<td style="width:12%;">
 					<input class="txt" id="txtEmail.*" type="text" style="width:98%;"   />
 					</td>
-					<td style="width:20%;">
+					<td style="width:15%;">
 					<input class="txt" id="txtAddr.*" type="text" maxlength='90' style="width:98%;"  />
 					<input id="txtNoq.*" type="hidden" />
 					<input id="recno.*" type="hidden" />
+					</td>
+					<td style="width:20%;">
+					<input class="txt" id="txtMemo.*" type="text" style="width:98%;"  />
 					</td>
 				</tr>
 			</table>

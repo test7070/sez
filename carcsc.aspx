@@ -637,6 +637,11 @@
 						<td><span> </span><a id="lblOutmoney" class="lbl"> </a></td>
 						<td><input id="txtOutmoney"  type="text"  class="txt num c1"/></td>
 					</tr>
+					
+					<tr>
+						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td colspan="7"><input id="txtMemo" type="text" class="txt c1"/></td>
+					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
