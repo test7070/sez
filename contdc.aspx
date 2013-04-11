@@ -26,7 +26,7 @@
             brwKey = 'noa';
             q_desc = 1;
             aPop = new Array(
-            ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,conn', 'txtCustno,txtComp,txtNick,txtConn_cust', 'cust_b.aspx']
+            ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,conn', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
             , ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp,nick', 'txtCno,txtAcomp,txtAcompnick', 'acomp_b.aspx']
             , ['txtSales', 'lblSales', 'sss', 'namea,noa', 'txtSales,txtSalesno', 'sss_b.aspx']
             , ['txtAssigner', 'lblAssigner', 'sss', 'namea,noa', 'txtAssigner,txtAssignerno', 'sss_b.aspx']
