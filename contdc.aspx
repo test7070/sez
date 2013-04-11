@@ -95,7 +95,8 @@
 						}
 						break;*/
                 	case 'conttype':
-                        q_gt('conttype', '', 0, 0, 0, "");
+                        //q_gt('conttype', '', 0, 0, 0, "");
+                        location.href = (location.origin==undefined?'':location.origin)+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";;"+r_accy;
                         break;	
                     case q_name + '_s':
                         q_boxClose2(s2);
@@ -104,18 +105,45 @@
                 }/// end Switch
                 b_pop = '';
             }
-
+            
+            var xstype='';
+			var stypenumber=0;
             function q_gtPost(t_name) {
                switch (t_name) {
                	case 'conttype':
                         var as = _q_appendData("conttype", "", true);
-                        var t_item = " @ ";
+                        stypenumber=as.length;
+	                    xstype+="<table style='width:100%;'>"
+	            		for (var i = 0; i < as.length; i++) {
+	            			if(i%4==0)
+	            			xstype+="<tr style='height: 20px;'>";
+	            			xstype+="<td><input id='checkStype"+i+"' type='checkbox' style='float: left;' value='"+as[i].noa+"' disabled='disabled'/><a class='lbl'  id='stypeno"+i+"' style='float: left;'>"+as[i].typea+"</a></td>"
+	            			if(i%4==3)
+	            			xstype+="</tr>";
+	            		}
+	            		xstype+="</table>"
+	            		$('#stype').append(xstype);
+	            		
+	            		//更新勾選
+	            		var xstypeno = abbm[q_recno].stype.split(',');
+	            		for (var j = 0; j < stypenumber; j++) {
+	            			for (var i = 0; i < xstypeno.length; i++) {
+	            				if($('#checkStype'+j).val()==xstypeno[i]){
+	            					$('#checkStype'+j)[0].checked=true;
+	            					break;
+	            				}else{
+	            					$('#checkStype'+j)[0].checked=false;
+	            				}
+	            			}
+	            		}
+	            		
+                        /*var t_item = " @ ";
                         for ( i = 0; i < as.length; i++) {
                             t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].typea;
                         }
                         q_cmbParse("cmbStype", t_item);
                         if(abbm[q_recno])
-                        $("#cmbStype").val(abbm[q_recno].stype);
+                        $("#cmbStype").val(abbm[q_recno].stype);*/
                         break;
                     case q_name:
                         if (q_cur == 4)
@@ -136,6 +164,11 @@
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
                 $('#txtTotal').val('0');
+                
+                //清除勾選
+	            for (var j = 0; j < stypenumber; j++) {
+	            	$('#checkStype'+j)[0].checked=false;
+	            }
             }
 
             function btnModi() {
@@ -152,14 +185,24 @@
             function btnOk() {
 	        
                  if(q_cur==1)
-	           	$('#txtWorker').val(r_name);
-	        else
-	           	$('#txtWorker2').val(r_name);
+		           	$('#txtWorker').val(r_name);
+		        else
+		           	$('#txtWorker2').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
+                
+                var stypeno='';
+              for (var i = 0; i < stypenumber; i++) {
+	          		if($('#checkStype'+i)[0].checked){
+	                	stypeno+=","+$('#checkStype'+i).val();
+	           		}
+	           }
+	           stypeno=stypeno.substr(1,stypeno.length);
+	                
+	           $('#txtStype').val(stypeno);
                 
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
@@ -181,10 +224,37 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                
+                //清除勾選
+	            for (var j = 0; j < stypenumber; j++) {
+	            	$('#checkStype'+j)[0].checked=false;
+	            }
+	            
+	            //更新勾選
+	            var xstypeno = abbm[q_recno].stype.split(',');
+	            for (var j = 0; j < stypenumber; j++) {
+	            	for (var i = 0; i < xstypeno.length; i++) {
+	            		if($('#checkStype'+j).val()==xstypeno[i]){
+	            			$('#checkStype'+j)[0].checked=true;
+	            			break;
+	            		}else{
+	            			$('#checkStype'+j)[0].checked=false;
+	            		}
+	            	}
+	            }
             }
 
             function readonly(t_para, empty) {
                _readonly(t_para, empty);
+               if (t_para) {
+					for (var i = 0; i < stypenumber; i++) {
+	                	$('#checkStype'+i).attr('disabled', 'disabled');
+                	}
+                } else {
+                	for (var i = 0; i < stypenumber; i++) {
+	                	$('#checkStype'+i).removeAttr('disabled');
+                	}
+                }
             }
 
             function btnMinus(id) {
@@ -409,8 +479,12 @@
 							<td class="td4">
 							<input id="txtDatea" type="text"  class="txt c1"/>
 							</td>
-							<td class="td5"><span> </span><a id="lblStype" class="lbl btn"> </a></td>
-							<td class="td6"><select id="cmbStype" class="txt c1"> </select></td>
+						</tr>
+						<tr class="tr1">
+							<td class="td1"><span> </span><a id="lblStype" class="lbl btn"> </a>
+								<input id="txtStype"  type="hidden"  class="txt c1"/>
+							</td>
+							<td class="td2" colspan="5" id="stype"> </td>
 						</tr>
 						<tr class="tr2">
 							<td class="td1"><span> </span><a id='lblContract' class="lbl"> </a></td>
