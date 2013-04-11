@@ -248,7 +248,11 @@
 							type : '0',
 							name : 'xaccy',
 							value : r_accy
-						}]
+						}, {
+	                        type : '5', //select
+	                        name : 'iacc',
+	                        value : ('顯示,不顯示').split(',')
+	                    }]
                     });
                     q_getFormat();
 	                q_langShow();
