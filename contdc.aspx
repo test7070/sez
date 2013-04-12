@@ -57,7 +57,7 @@
                 q_cmbParse("cmbEtype", ('').concat(new Array( '存入','存出')));
                 q_gt('conttype', '', 0, 0, 0, "");
                 
-                 $('#lblConn_cust').click(function() {
+                 $('#btnConn_cust').click(function() {
                  	/*var cust2sql="";
                  	var t_custno2 = ($('#txtCust2').val()).split(",");
                  	 for (var i = 0; i < t_custno2.length; i++) {
@@ -560,7 +560,7 @@
 							<td class="td6" colspan="2">
 							<input id="txtCust2" type="text" class="txt c1"/>
 							</td>-->
-							<td class="td7" ><span> </span><a id='lblConn_cust'  class="lbl btn"> </a></td>
+							<td class="td7" ><input id="btnConn_cust" type="button" /></td>
 							<!--<td class="td8">
 							<input id="txtConn_cust"  type="text"  class="txt c1"/>
 							</td>-->
