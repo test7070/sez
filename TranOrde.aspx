@@ -22,7 +22,7 @@
             q_tables = 's';
             var q_name = "tranorde";
             var q_readonly = ['txtNoa', 'txtTranquatno', 'txtTranquatnoq', 'txtContract', 'txtWorker','txtCasetype','txtCasetype2'];
-            var q_readonlys = ['txtTranno', 'txtTrannoq'];
+            var q_readonlys = [];
             var bbsNum = [];
             var bbsMask = new Array(['txtTrandate', '999/99/99']);
             var bbmNum = new Array();
@@ -39,8 +39,8 @@
             aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], 
             ['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'], 
             ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'], 
-            ['txtCarno_', '', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx'],
-             ['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'], 
+            /*['txtCarno_', '', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx'],*/
+             /*['txtDriverno_', '', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx'],*/ 
             ['txtDeliveryno', 'lblDeliveryno', 'trando', 'deliveryno,po', 'txtDeliveryno,txtPo', 'trando_b.aspx'],
             ['txtCasepackaddr', 'lblCasepackaddr', 'addrcase', 'addr,noa', 'txtCasepackaddr', 'addrcase_b.aspx'],
             ['txtCaseopenaddr', 'lblCaseopenaddr', 'addrcase', 'addr,noa', 'txtCaseopenaddr', 'addrcase_b.aspx'], 
@@ -275,9 +275,9 @@
                 _bbsAssign();
                 for (var i = 0; i < q_bbsCount; i++) {
                     $('#lblNo_' + i).text(i + 1);
-                    if (!$('#txtTrandate_' + i).hasClass('isAssign')) {
+                    /*if (!$('#txtTrandate_' + i).hasClass('isAssign')) {
                         $('#txtTrandate_' + i).addClass('isAssign');
-                    }
+                    }*/
                 }
             }
 
@@ -1003,13 +1003,8 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"></td>
-					<td align="center" style="width:120px"><a id='lblCaseno_s'> </a></td>
-					<td align="center" style="width:100px"><a id='lblTrandate_s'></a></td>
-					<td align="center" style="width:70px"><a id='lblCarno_s'></a></td>
-					<td align="center" style="width:70px"><a id='lblDriverno_s'></a></td>
-					<td align="center" style="width:70px"><a id='lblDriver_s'></a></td>
-					<td align="center" style="width:100px"><a id='lblMemo_s'></a></td>
-					<td align="center" style="width:120px"><a id='lblTranno_s'></a></td>
+					<td align="center" style="width:150px"><a id='lblCaseno_s'> </a></td>
+					<td align="center" style="width:150px"><a id='lblMemo_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -1019,26 +1014,10 @@
 					<input type="text" id="txtNoq.*" style="display:none;"/>
 					</td>
 					<td >
-					<input type="text" class="txt c1 font1" id="txtCaseno.*"  />
+					<input type="text" id="txtCaseno.*" style="width:95%;" />
 					</td>
 					<td >
-					<input type="text" class="txt c1" id="txtTrandate.*"  />
-					</td>
-					<td >
-					<input type="text" class="txt c1" id="txtCarno.*"  />
-					</td>
-					<td >
-					<input type="text" class="txt c1" id="txtDriverno.*"  />
-					</td>
-					<td >
-					<input type="text" class="txt c1" id="txtDriver.*"  />
-					</td>
-					<td >
-					<input type="text" class="txt c1" id="txtMemo.*"  />
-					</td>
-					<td>
-					<input type="text" id="txtTranno.*" class="txt c1"/>
-					<input type="text" id="txtTrannoq.*" style="display:none;"/>
+					<input type="text" id="txtMemo.*" style="width:95%;" />
 					</td>
 				</tr>
 
