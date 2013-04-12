@@ -48,7 +48,7 @@
 
         function mainPost() { 
 			q_getFormat();
-        	bbmMask = [];
+        	 bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
             $('#lblAccno').click(function() {
             	if($('#txtDatea').val().substring(0,3).length>0)
