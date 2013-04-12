@@ -214,6 +214,21 @@
                             type : '5',
                             name : 'xsort18',
                             value : q_getMsg('tsort18').split('&')
+                        }, {/*29*/
+                            type : '6',
+                            name : 'ycheckrate'
+                        }, {/*30*/
+                            type : '5',
+                            name : 'ysort01',
+                            value : q_getMsg('tsort01').split('&')
+                        }, {/*31*/
+                         	type : '8',
+                            name : 'yfilter',
+                            value : q_getMsg('tfilter').split('&')
+                        }, {/*32*/
+                         	type : '8',
+                            name : 'yoption01',
+                            value : q_getMsg('toption').split('&')
                         }]
                     });
                     q_popAssign();
