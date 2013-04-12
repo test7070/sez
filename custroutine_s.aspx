@@ -11,7 +11,8 @@
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             var q_name = "custroutine_s";
-            aPop = new Array(['txtCustno', 'lblCustno', 'cust', 'noa,nick', 'txtCustno', 'cust_b.aspx']);
+            aPop = new Array(['txtProductno','lblProduct','ucc','noa,product','txtProductno,txtProduct','ucc_b.aspx']
+        									,['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno', 'sss_b.aspx']);
             $(document).ready(function() {
                 main();
             });
@@ -44,17 +45,19 @@
             function q_seekStr() {
             	t_partno = $.trim($('#cmbPart').val());
             	t_typea = $.trim($('#cmbTypea').val());
-                t_custno = $.trim($('#txtCustno').val());
-                t_cust = $.trim($('#txtCust').val());
-                
+                /*t_custno = $.trim($('#txtCustno').val());
+                t_cust = $.trim($('#txtCust').val());*/
+               t_productno = $('#txtProductno').val();
+        		t_product = $('#txtProduct').val();
+        		t_salesno = $('#txtSalesno').val();
                 
                 var t_where = " 1=1 " 
-                + q_sqlPara2("custno", t_custno)
                 + q_sqlPara2("partno", t_partno)
-                + q_sqlPara2("typea", t_typea);
-				if (t_cust.length > 0)
-                    t_where += " and patindex('%" + t_cust + "%',comp)>0";
-                t_where = ' where=^^' + t_where + '^^ ';
+                + q_sqlPara2("typea", t_typea)
+                + q_sqlPara2("salesno", t_salesno)
+                + q_sqlPara2("productno", t_productno)+ q_sqlPara2("product", t_product);
+                
+                t_where = "where=^^" + t_where + "^^ ";
                 return t_where;
             }
 		</script>
@@ -83,6 +86,15 @@
 					<td><select id="cmbTypea" style="width:215px; font-size:medium;" > </select></td>
 				</tr>
 				<tr class='seek_tr'>
+	                <td   style="width:35%;" ><a id='lblSalesno'></a></td>
+	                <td style="width:65%;  "><input class="txt" id="txtSalesno" type="text" style="width:215px; font-size:medium;" /></td>
+	            </tr>
+	              <tr class='seek_tr'>
+	                <td style="width:35%;" ><a id='lblProductno'></a></td>
+	                <td style="width:65%;  "><input class="txt" id="txtProductno" type="text" style="width:90px; font-size:medium;" />
+	                	<input class="txt" id="txtProduct" type="text" style="width:115px; font-size:medium;" /></td>
+	            </tr>
+				<!--<tr class='seek_tr'>
 					<td style="width:35%;" ><a id='lblCustno'> </a></td>
 					<td style="width:65%;  ">
 					<input class="txt" id="txtCustno" type="text" style="width:215px; font-size:medium;" />
@@ -91,7 +103,7 @@
 					<td style="width:35%;" ><a id='lblCust'> </a></td>
 					<td style="width:65%;  ">
 					<input class="txt" id="txtCust" type="text" style="width:215px; font-size:medium;" />
-				</tr>
+				</tr>-->
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
 		</div>

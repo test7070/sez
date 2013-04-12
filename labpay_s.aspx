@@ -13,8 +13,7 @@
     var q_name = "labpay_s";
 	 aPop = new Array(['txtProductno','lblProduct','ucc','noa,product,vccacc1,vccacc2','txtProductno,txtProduct,txtAcc1,txtAcc2','ucc_b.aspx'],
         ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno]
-        ,['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno', 'sss_b.aspx'],
-       ['txtProductno', 'lblProduct', 'ucc', 'noa,product,vccacc1,vccacc2', 'txtProductno,txtProduct,txtAcc1,txtAcc2', 'ucc_b.aspx']);
+        ,['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno', 'sss_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
