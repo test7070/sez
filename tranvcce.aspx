@@ -33,7 +33,7 @@
             , ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx']
             , ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'] 
             , ['txtProductno', 'lblProduct', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'] 
-            , ['txtCaseno', 'lblCaseno', 'view_tranordes', 'caseno,memo', 'txtCaseno', 'tranordes_b.aspx'
+            , ['txtCaseno', 'lblCaseno', 'view_tranordes', 'caseno,memo,zcaseno', 'txtCaseno', 'tranordes_b.aspx'
                 ,"where=^^ a.noa='txtOrdeno' and not exists(select * from tranvcce"+r_accy+" where noa!='txtNoa' and caseno=a.caseno) ^^" ]
             );
   
