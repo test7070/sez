@@ -2,13 +2,17 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
+        <link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
 			var q_name = "fixa_s";
 			var aPop = new Array(
@@ -33,8 +37,11 @@
 
 				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd],['txtBfixadate', r_picd], ['txtEfixadate', r_picd], ['txtMon', r_picm]];
 				q_mask(bbmMask);
-
-				$('#txtBdate').focus();
+				$('#txtBdate').datepicker();
+				$('#txtEdate').datepicker(); 
+				$('#txtEfixadate').datepicker();
+				$('#txtBfixadate').datepicker(); 
+				$('#txtNoa').focus();
 			}
 
 			function q_seekStr() {
@@ -48,7 +55,8 @@
 				t_carplateno = $.trim($('#txtCarplateno').val());
 				t_driverno = $.trim($('#txtDriverno').val());
 				t_tggno = $.trim($('#txtTggno').val());
-
+				t_invono = $.trim($('#txtInvono').val());
+				
 				var t_where = " 1=1 "
 					+q_sqlPara2("datea", t_bdate, t_edate)
 					+q_sqlPara2("fixadate", t_bfixadate, t_efixadate)
@@ -57,8 +65,8 @@
 					+q_sqlPara2("carno", t_carno)
 					+q_sqlPara2("carplateno", t_carplateno)
 					+q_sqlPara2("driverno", t_driverno)
-					+q_sqlPara2("tggno", t_tggno);
-
+					+q_sqlPara2("tggno", t_tggno)
+					+q_sqlPara2("invono", t_invono);
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -125,6 +133,12 @@
 					<td class='seek'  style="width:20%;"><a id='lblTgg'></a></td>
 					<td>
 					<input class="txt" id="txtTggno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblInvono'></a></td>
+					<td>
+					<input class="txt" id="txtInvono" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
