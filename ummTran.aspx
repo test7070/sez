@@ -27,7 +27,7 @@
             brwCount2 = 5;
             brwKey = 'Datea';
             aPop = new Array(
-            	['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']
+            	['txtCustno', 'lblCust', 'cust_sssall', 'noa,comp', 'txtCustno,txtComp', 'cust_sssall_b.aspx']
             	, ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2,acc7', 'txtAcc1_,txtAcc2_,txtMemo_,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             	, ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']
             	, ['txtUmmaccno_', '', 'ummacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'ummacc_b.aspx']);
@@ -238,7 +238,7 @@
                                 $('#txtPart2_' + i).val('');
                             }
 
-                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart,txtMemo2,cmbPartno', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part2,partno,part2,memo,partno', '');
+                            ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtVccno,txtPaysale,txtUnpay,txtUnpayorg,txtPart2,txtPartno,txtPart,txtMemo2,cmbPartno', b_ret.length, b_ret, 'noa,paysale,_unpay,_unpay,part,partno,part,memo,partno', '');
   
                             /// 最後 aEmpField 不可以有【數字欄位】
                             sum();

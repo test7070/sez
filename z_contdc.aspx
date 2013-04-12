@@ -79,16 +79,16 @@
                         type : '1',
                         name : 'date'
                     },{
-                            type : '5',
+                            type : '8',
                             name : 'xstype',
                             value : t_data.data['conttype'].split(',')
                     },{
                             type : '5',
                             name : 'xetype',
-                            value : (('').concat(new Array("存入","存出"))).split(',')
+                            value : [q_getPara('report.all')].concat(new Array("存入","存出"))
                     },{
                         type : '6',
-                        name : 'xindate'
+                        name : 'xpaydate'
                     }]
                 });
                 q_popAssign();
@@ -98,7 +98,7 @@
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
-                $('#txtXindate').mask('999/99/99');
+                $('#txtXpaydate').mask('999/99/99');
                 $('#txtDate2').datepicker();
                 
                 $('#txtMon1').mask('999/99');
@@ -118,7 +118,6 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
-	                $('#txtXindate').val(t_year+'/'+t_month+'/'+t_day);
 	                t_date = new Date();
 	                t_date.setDate(35);
 	                t_date.setDate(0);
