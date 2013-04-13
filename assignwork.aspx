@@ -18,7 +18,7 @@
             q_desc=1;
 			q_tables = 's';
             var q_name = "assignwork";
-            var q_readonly = ['txtWorker','txtNoa','txtVccno','txtPaybno','txtAccno','txtMoney','txtCost'];
+            var q_readonly = ['txtWorker','txtNoa','txtVccno','txtPaybno','txtAccno2','txtAccno','txtMoney','txtCost'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1]];
             var bbsNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1],['txtRealcost',14, 0, 1]];
@@ -106,6 +106,9 @@
              	});
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
+                });
+                $('#lblAccno2').click(function() {
+                    q_pop('txtAccno2', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
                 });
                 
                 $('#cmbKind').change(function() {
@@ -200,9 +203,11 @@
                 abbm[q_recno]['accno'] = s2[0];
                 abbm[q_recno]['vccno'] = s2[1];
                 abbm[q_recno]['paybno'] = s2[2];
+                abbm[q_recno]['payno'] = s2[3];
                 $('#txtAccno').val(s2[0]);
                 $('#txtVccno').val(s2[1]);
                 $('#txtPaybno').val(s2[2]);
+                $('#txtPayno').val(s2[3]);
             }
             
             function btnOk() {
@@ -674,24 +679,27 @@
 						<td class="td4"><input type="text" id="txtCost" class="txt num c1"/></td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblVccno' class="lbl btn"> </a></td>
-						<td class="td2"><input type="text" id="txtVccno" class="txt c1"/></td>	
-						<td class="td3">
+						<td class="td1"></td>
+						<td class="td2">
 							<input id="chkIscombine" type="checkbox" style="float: left;"/><a id="lblIscombine" class="lbl" style="float: left;"></a>
 						</td>
-						<td class="td3"><input id="btnAssignpaper" type="button" class="txt c1" /></td>
+						<td class="td3">
+							<input id="chkEnda" type="checkbox" style="float: left;"/>
+							<a id="lblEnda" class="lbl" style="float: left;"></a>
+						</td>
+						<td class="td4"><input id="btnAssignpaper" type="button" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblVccno' class="lbl btn"> </a></td>
+						<td class="td2"><input type="text" id="txtVccno" class="txt c1"/></td>	
+						<td class="td3"><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
+						<td class="td4"><input type="text" id="txtAccno" class="txt c1"/></td>	
 					</tr>
 					<tr>
 			            <td class='td1'><span> </span><a id="lblPaybno" class="lbl btn"></a></td>
 			            <td class='td2'><input id="txtPaybno"  type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id='lblAccno' class="lbl btn"> </a></td>
-						<td class="td2"><input type="text" id="txtAccno" class="txt c1"/></td>	
-						<td class="td3">
-							<input id="chkEnda" type="checkbox" style="float: left;"/><a id="lblEnda" class="lbl" style="float: left;"></a>
-						</td>
-						<td class="td4"></td>
+			            <td class='td3'><span> </span><a id="lblAccno2" class="lbl btn"></a></td>
+			            <td class='td4'><input id="txtAccno2"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
