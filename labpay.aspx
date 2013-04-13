@@ -99,6 +99,9 @@
                 		return;
                 	}
                 	
+                	if(emp($('#txtDatea').val()))
+                		$('#txtDatea').val(q_date());
+                	
 		            var t_where = "where=^^ salesno ='"+$('#txtSalesno').val()+"' ";
 		            t_where+= "and sales ='"+$('#txtSales').val()+"' ";
 		            t_where+= "and productno ='"+$('#txtProductno').val()+"' ";
@@ -138,6 +141,15 @@
                 switch (t_name) {
                     case 'custroutine':
 		            	var custroutines = _q_appendData("custroutines", "", true);
+		            	
+		            	//判斷是否在區間內
+		            	for(var i = 0;i < custroutines.length;i++){
+		            		if(!($('#txtDatea').val()>=custroutines[i].bdate && $('#txtDatea').val()<=custroutines[i].edate)){
+				            	custroutines.splice(i, 1);
+	                            i--;
+                           }
+		            	}
+		            	
 		            	for(var i = 0;i < custroutines.length;i++){
 			            	custroutines[i].productno=$('#txtProductno').val();
 			            	custroutines[i].product=$('#txtProduct').val();
@@ -230,7 +242,7 @@
             }
 
             function btnPrint() {
-                q_box('z_labpay.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+                //q_box('z_labpay.aspx', '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {

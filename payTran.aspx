@@ -164,7 +164,7 @@
 		            }
 		            var t_tggno = $.trim($('#txtTggno').val());
 		            var t_driverno = ""; 
-		            var t_where = "where=^^ (tggno='" + t_tggno + "'" + (t_tggno.length == 0 ? " and 1=0 " : "") + " and unpay>0)";   /// for payb
+		            var t_where = "where=^^ (tggno='" + t_tggno + "'" + (t_tggno.length == 0 ? " and 1=0 " : "") + " and unpay!=0)";   /// for payb
 		            var t_where1 = " where[1]=^^ noa!='" + $('#txtNoa').val() + "'";  // for pays
 		            var t_where2 = " where[2]=^^ 1=0 and  driverno='" + t_driverno + "'" + (t_driverno.length == 0 ? " and 1=0 " : "") + " and unpay!=0 ";  // for tre
 		            
@@ -172,7 +172,7 @@
 		            if (!emp($('#txtTggno2').val())) {
                             var t_tggno2 = ($('#txtTggno2').val()).split(",");
                             for (var i = 0; i < t_tggno2.length; i++) {
-                                t_where += " or (tggno ='" + t_tggno2[i] + "' and unpay>0)"
+                                t_where += " or (tggno ='" + t_tggno2[i] + "' and unpay!=0)"
                             }
                    }
                    

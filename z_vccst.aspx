@@ -39,7 +39,7 @@
                         type : '1',
                         name : 'xpno'   //材質[6][7]4
                     },{
-                        type : '1',
+                        type : '6',
                         name : 'xspec'   //特性[8][9]8
                     },{
                         type : '1',
