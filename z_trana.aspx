@@ -20,7 +20,10 @@
             }
             var isInit = false;
             var t_carkind = null;
-           
+            var t_carteam = null;
+            var t_calctypes = null;
+            aPop = new Array(['txtXcarno', 'lblXcarno', 'car2', 'a.noa,driverno,driver', 'txtXcarno', 'car2_b.aspx']
+            , ['txtXaddr', 'lblXaddr', 'addr', 'noa,addr', 'txtXaddr', 'addr_b.aspx']);
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
@@ -43,13 +46,28 @@
 	                        for ( i = 0; i < as.length; i++) {
 	                            t_carkind += (t_carkind.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].kind;
 	                        }
+	                        t_carkind += (t_carkind.length > 0 ? ',' : '') +  'all@全部';
+                        }
+                        break;
+                   	case 'carteam':
+                        t_carteam = '';
+                        var as = _q_appendData("carteam", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_carteam += (t_carteam.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].team;
+                        }
+                        break;
+                    case 'calctypes':
+                        t_calctypes = '';
+                        var as = _q_appendData("calctypes", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_calctypes += (t_calctypes.length > 0 ? ',' : '') + as[i].noa + as[i].noq + '@' + as[i].typea;
                         }
                         break;
                     default:
                     	break;
                 }
 
-                if (t_carkind!=null && !isInit) {
+                if (t_carkind!=null && t_carteam!=null && t_calctypes!=null && !isInit) {
                     isInit = true;
                     $('#q_report').q_report({
                         fileName : 'z_trana',
@@ -64,31 +82,68 @@
                             type : '1',
                             name : 'trandate'
                         }, {/*3*/
+                            type : '2',
+                            name : 'cust',
+                            dbf : 'cust',
+                            index : 'noa,comp',
+                            src : 'cust_b.aspx'
+                        }, {/*4*/
+                            type : '2',
+                            name : 'addr',
+                            dbf : 'addr',
+                            index : 'noa,addr',
+                            src : 'addr_b.aspx'
+                        }, {/*5*/
+                            type : '2',
+                            name : 'driver',
+                            dbf : 'driver',
+                            index : 'noa,namea',
+                            src : 'driver_b.aspx'
+                        }, {/*6*/
                             type : '6',
                             name : 'xcarno'
-                        }, {/*4*/
+                        }, {/*7*/
+                            type : '6',
+                            name : 'xpo'
+                        }, {/*8*/
                          	type : '8',
                             name : 'xcarkind',
                             value : t_carkind.split(',')
-                        }, {/*5*/
+                        }, {/*9*/
+                            type : '8',
+                            name : 'xcarteam',
+                            value : t_carteam.split(',')
+                        }, {/*10*/
+                            type : '8',
+                            name : 'xcalctypes',
+                            value : t_calctypes.split(',')
+                        }, {/*11*/
                             type : '6',
                             name : 'xcheckrate'
-                        }, {/*6*/
+                        }, {/*12*/
                             type : '5',
                             name : 'xsort01',
                             value : q_getMsg('tsort01').split('&')
-                        }, {/*7*/
+                        }, {/*13*/
                          	type : '8',
-                            name : 'xfilter',
-                            value : q_getMsg('tfilter').split('&')
-                        }, {/*8*/
+                            name : 'xfilter01',
+                            value : q_getMsg('tfilter01').split('&')
+                        }, {/*14*/
+                         	type : '8',
+                            name : 'xoption01',
+                            value : q_getMsg('toption01').split('&')
+                        }, {/*15*/
                             type : '5',
                             name : 'xsort02',
                             value : q_getMsg('tsort02').split('&')
-                        }, {/*9*/
+                        }, {/*16*/
                          	type : '8',
-                            name : 'xoption',
-                            value : q_getMsg('toption').split('&')
+                            name : 'xfilter04',
+                            value : q_getMsg('tfilter04').split('&')
+                        }, {/*17*/
+                            type : '5',
+                            name : 'xsort04',
+                            value : q_getMsg('tsort04').split('&')
                         }]
                     });
                     q_popAssign();
@@ -105,8 +160,10 @@
 					
 					$('#txtXcheckrate').val(q_getMsg('trate1'));
                     $('#chkXcarkind').children('input').attr('checked', 'checked');
+                    $('#chkXcarteam').children('input').attr('checked', 'checked');
+                    $('#chkXcalctypes').children('input').attr('checked', 'checked');
                     
-                    //$('#chkXfilter').children('input').attr('checked', 'checked');
+        
                     //日期不要自動給值
                     /*var t_date, t_year, t_month, t_day;
                      t_date = new Date();

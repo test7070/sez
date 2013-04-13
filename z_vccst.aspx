@@ -40,19 +40,19 @@
                         name : 'xpno'   //材質[6][7]4
                     },{
                         type : '6',
-                        name : 'xspec'   //特性[8][9]8
+                        name : 'xspec'   //特性[8]8
                     },{
                         type : '1',
-                        name : 'xdime'   //厚度[10][11]16
+                        name : 'xdime'   //厚度[9][10]16
                     },{
                         type : '1',
-                        name : 'xwidth'   //寬度[12][13]32
+                        name : 'xwidth'   //寬度[11][12]32
                     },{
                         type : '1',
-                        name : 'xlength'   //長度[14][15]64
+                        name : 'xlength'   //長度[13][14]64
                     },{
                         type : '2',
-                        name : 'xcust',    //客戶[16][17]128
+                        name : 'xcust',    //客戶[15][16]128
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'

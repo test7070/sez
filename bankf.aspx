@@ -20,7 +20,7 @@
 
             var q_readonly = ['txtNoa','txtAccno','txtDatea','txtWorker','txtWorker2'];
 
-            var bbmNum = [['txtMoney', 8, 2,1],['txtMoney2', 8, 2,1],['txtInterestrate', 6, 3,1]];
+            var bbmNum = [['txtMoney', 11, 2,1],['txtMoney2', 8, 2,1],['txtInterestrate', 6, 3,1]];
 
             var bbmMask = [];
             q_sqlCount = 6;
@@ -83,6 +83,7 @@
 		                var as = _q_appendData("acomp", "", true);
 		                if (as[0] != undefined) {
 		                    var t_item = "@";
+		                    
 		                    for (i = 0; i < as.length; i++) {
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
 		                    }
@@ -346,8 +347,8 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:120px; color:black;"><a id='vewNick'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewIndate'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewTypeyear'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewType'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewBank'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewMoney'> </a></td>
@@ -356,9 +357,9 @@
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
+						<td id='nick' style="text-align: left;">~nick</td>
 						<td id='indate' style="text-align: center;">~indate</td>
-						<td id='typeyear' style="text-align: left;">~typeyear</td>
-						<td id='type' style="text-align: left;">~type</td>
+						<td id='typeyear type' style="text-align: left;">~typeyear ~type</td>
 						<td id='bank' style="text-align: left;">~bank</td>
 						<td id='money,2,1' style="text-align: right;">~money,2,1</td>
 						<td id='moneytype' style="text-align: left;">~moneytype</td>
@@ -385,6 +386,7 @@
 						<td colspan="2">
 							<select id="cmbCno" class="txt c1"> </select>
 							<input id="txtAcomp" type="text" style="display:none;"/>
+							<input id="txtNick" type="text" style="display:none;"/>
 						</td>
 					</tr>
 					<tr>
