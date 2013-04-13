@@ -107,7 +107,11 @@
                         },{/*1*/
 	                        type : '1',
 	                        name : 'xyear'
-						}]
+						}, {
+	                        type : '5', //select
+	                        name : 'details',
+	                        value : ('統計,明細').split(',')
+	                    }]
 				});
 				q_popAssign();
 				$('#txtDate1').mask('999/99/99');
