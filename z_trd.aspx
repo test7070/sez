@@ -29,26 +29,33 @@
 						type : '0',
 						name : 'accy',
 						value : q_getId()[4]
-					}, {
+					}, {/*1*/
 						type : '2',
 						name : 'cust',
 						dbf : 'cust',
 						index : 'noa,comp',
 						src : 'cust_b.aspx'
-					}, {
+					}, {/*2*/
 						type : '1',
 						name : 'date'
-					}, {
+					}, {/*3*/
 						type : '6',
 						name : 'xvccano'
-					}, {
+					}, {/*4*/
 						type : '5', //select
 						name : 'xsort1',
 						value : q_getPara('z_trd.sort1').split(',')
-					}, {
+					}, {/*5*/
 						type : '6', 
 						name : 'xnoa'
-					}]
+					}, {/*6*/
+						type : '1',
+						name : 'mon'
+					}, {/*7*/
+                     	type : '8',
+                        name : 'xoption05',
+                        value : q_getMsg('toption05').split('&')
+                    }]
 				});
 				q_getFormat();
 				q_langShow();
@@ -58,6 +65,9 @@
 				$('#txtDate1').datepicker();
 				$('#txtDate2').mask('999/99/99');
 				$('#txtDate2').datepicker();
+				
+				$('#txtMon1').mask('999/99');
+				$('#txtMon2').mask('999/99');
 				
 				var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
                 t_noa  =  t_noa.replace('noa=','');
