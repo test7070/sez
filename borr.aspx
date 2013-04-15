@@ -18,15 +18,15 @@
 
             q_tables = 't';
             var q_name = "borr";
-            var q_readonly = ['txtNoa', 'txtCash', 'txtChecka', 'txtMoney', 'txtInterest', 'txtTotal', 'txtPay', 'txtUnpay', 'txtWorker','txtAccno'];
+            var q_readonly = ['txtNoa', 'txtCash', 'txtChecka', 'txtVccno' , 'txtMoney', 'txtInterest', 'txtTotal', 'txtPay', 'txtUnpay', 'txtWorker','txtAccno'];
             var q_readonlys = [];
+            var q_readonlyt = ['txtVccno','txtAccno'];
             var bbmNum = [['txtCash', 10, 0], ['txtChecka', 10, 0], ['txtMoney', 10, 0], ['txtInterest', 10, 0], ['txtTotal', 10, 0], ['txtPay', 10, 0], ['txtUnpay', 10, 0]];
             var bbsNum = [['txtMoney', 10, 0, 1]];
             var bbtNum = [['txtMoney', 10, 0, 1]];
             var bbmMask = [['txtDatea', '999/99/99'], ['txtBegindate', '999/99/99'], ['txtEnddate', '999/99/99']];
             var bbsMask = [['txtDatea', '999/99/99'], ['txtIndate', '999/99/99']];
             var bbtMask = [['txtMon', '999/99']];
-            var q_readonlyt = [];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -36,8 +36,11 @@
             q_xchg = 1;
             brwCount2 = 20;
 
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtCustnick', 'cust_b.aspx']
-           ,['txtBankno_', '', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx']);
+            aPop = new Array(
+								['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtCustnick', 'cust_b.aspx'],
+								['txtBankno_', '', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
+								['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
+							);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -76,6 +79,10 @@
                 $("#txtRate").change(function() {
                     sum();
                 });
+				$('#lblVccno').click(function() {
+					t_where = "noa='" + $('#txtVccno').val() + "'";
+					q_pop('txtVccno', "vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+ t_where +";" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+				});
                 
                 $('#lblAccno').click(function() {
                 	if($('#txtDatea').val().substring(0,3).length>0)
@@ -96,8 +103,11 @@
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
-                abbm[q_recno]['accno'] = xmlString;
-               	$('#txtAccno').val(xmlString);
+				var s2 = xmlString.split(';');
+                abbm[q_recno]['accno'] = s2[0];
+                abbm[q_recno]['vccno'] = s2[1];
+               	$('#txtAccno').val(s2[0]);
+               	$('#txtVccno').val(s2[1]);
             }
 
             function q_boxClose(s2) {
@@ -383,6 +393,10 @@
                 width: 100%;
                 float: left;
             }
+            .txt.c2 {
+                width: 130%;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -513,9 +527,16 @@
 					<tr>
 						<td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
 						<td colspan="4">
-						<input id="txtCustno"  type="text" style="width:25%; float:left;"/>
-						<input id="txtCust"  type="text" style="width:75%; float:left;"/>
-						<input id="txtCustnick"  type="text" style="display: none;"/>
+							<input id="txtCustno"  type="text" style="width:25%; float:left;"/>
+							<input id="txtCust"  type="text" style="width:75%; float:left;"/>
+							<input id="txtCustnick"  type="text" style="display: none;"/>
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblSalesno" class="lbl btn"> </a></td>
+						<td colspan="4">
+							<input id="txtSalesno"  type="text" style="width:25%; float:left;"/>
+							<input id="txtSales"  type="text" style="width:75%; float:left;"/>
 						</td>
 					</tr>
 					<tr>
@@ -584,15 +605,25 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td>
-						<input id="txtWorker" type="text" class="txt c1"/>
+							<span> </span><a id="lblWorker" class="lbl"> </a>
 						</td>
-						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
 						<td>
-						<input id="txtAccno" type="text" class="txt c1"/>
+							<input id="txtWorker" type="text" class="txt c1"/>
 						</td>
-						<td colspan="4"> </td>
+						<td>
+							<span> </span><a id="lblAccno" class="lbl btn"> </a>
+						</td>
+						<td>
+							<input id="txtAccno" type="text" class="txt c1"/>
+						</td>
+						<td>
+							<span> </span><a id="lblVccno" class="lbl btn"> </a>
+						</td>
+						<td>
+							<input id="txtVccno" type="text" class="txt c2"/>
+						</td>
+						<td colspan="2"> </td>
 						<td><span> </span><a id="lblUnpay" class="lbl"> </a></td>
 						<td>
 						<input id="txtUnpay" type="text" class="txt c1 num"/>
@@ -664,16 +695,20 @@
 						<td style="width:100px; text-align: center;">請款月份</td>
 						<td style="width:100px; text-align: center;">金額</td>
 						<td style="width:350px; text-align: center;">備註</td>
+						<td style="width:150px; text-align: center;">請款單號</td>
+						<td style="width:150px; text-align: center;">傳票號碼</td>
 					</tr>
 					<tr>
 						<td>
-						<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold; width:90%;" value="－"/>
-						<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
+							<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold; width:90%;" value="－"/>
+							<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
 						</td>
 						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td><input id="txtMon..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtMoney..*"  type="text" style="width:95%; text-align: right;"/></td>
 						<td><input id="txtMemo..*"  type="text" style="width:95%; text-align: left;"/></td>
+						<td><input id="txtVccno..*" type="text" class="txt c1"/></td>
+						<td><input id="txtAccno..*"  type="text" class="txt c1"/></td>
 					</tr>
 				</tbody>
 			</table>
