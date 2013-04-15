@@ -38,7 +38,7 @@
                 switch (t_name) {
                    case 'conttype':
                         var as = _q_appendData("conttype", "", true);
-                        var t_stype = " @ ";
+                        var t_stype = "@";
                         for ( i = 0; i < as.length; i++) {
                             t_stype = t_stype + (t_stype.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].typea;
                         }

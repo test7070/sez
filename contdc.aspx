@@ -123,20 +123,20 @@
 	            		}
 	            		xstype+="</table>"
 	            		$('#stype').append(xstype);
-	            		
-	            		//更新勾選
-	            		var xstypeno = abbm[q_recno].stype.split(',');
-	            		for (var j = 0; j < stypenumber; j++) {
-	            			for (var i = 0; i < xstypeno.length; i++) {
-	            				if($('#checkStype'+j).val()==xstypeno[i]){
-	            					$('#checkStype'+j)[0].checked=true;
-	            					break;
-	            				}else{
-	            					$('#checkStype'+j)[0].checked=false;
-	            				}
-	            			}
+	            		if(abbm[q_recno]){
+		            		//更新勾選
+		            		var xstypeno = abbm[q_recno].stype.split(',');
+		            		for (var j = 0; j < stypenumber; j++) {
+		            			for (var i = 0; i < xstypeno.length; i++) {
+		            				if($('#checkStype'+j).val()==xstypeno[i]){
+		            					$('#checkStype'+j)[0].checked=true;
+		            					break;
+		            				}else{
+		            					$('#checkStype'+j)[0].checked=false;
+		            				}
+		            			}
+		            		}
 	            		}
-	            		
                         /*var t_item = " @ ";
                         for ( i = 0; i < as.length; i++) {
                             t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].typea;
@@ -229,18 +229,19 @@
 	            for (var j = 0; j < stypenumber; j++) {
 	            	$('#checkStype'+j)[0].checked=false;
 	            }
-	            
-	            //更新勾選
-	            var xstypeno = abbm[q_recno].stype.split(',');
-	            for (var j = 0; j < stypenumber; j++) {
-	            	for (var i = 0; i < xstypeno.length; i++) {
-	            		if($('#checkStype'+j).val()==xstypeno[i]){
-	            			$('#checkStype'+j)[0].checked=true;
-	            			break;
-	            		}else{
-	            			$('#checkStype'+j)[0].checked=false;
-	            		}
-	            	}
+	            if(abbm[q_recno]){
+		            //更新勾選
+		            var xstypeno = abbm[q_recno].stype.split(',');
+		            for (var j = 0; j < stypenumber; j++) {
+		            	for (var i = 0; i < xstypeno.length; i++) {
+		            		if($('#checkStype'+j).val()==xstypeno[i]){
+		            			$('#checkStype'+j)[0].checked=true;
+		            			break;
+		            		}else{
+		            			$('#checkStype'+j)[0].checked=false;
+		            		}
+		            	}
+		            }
 	            }
             }
 
