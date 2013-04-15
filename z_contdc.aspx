@@ -56,36 +56,36 @@
                     fileName : 'z_contdc',
                     options : [{
                         type : '6',
-                        name : 'xnoa'
+                        name : 'xnoa'//[1]
                     }, {
                         type : '6',
-                        name : 'custno'
+                        name : 'custno'//[2]
                     }, {
                         type : '2',
-                        name : 'addrno',
+                        name : 'addrno',//[3][4]
                         dbf : 'addr',
                         index : 'noa,addr',
                         src : 'addr_b2.aspx'
                     }, {
                         type : '6',
-                        name : 'cno'
+                        name : 'cno'//[5]
                     },{
                         type : '1',
-                        name : 'date'
+                        name : 'date'//[6][7]
                     },{
                             type : '8',
-                            name : 'xstype',
+                            name : 'xstype',//[8]
                             value : t_data.data['conttype'].split(',')
                     },{
                             type : '5',
-                            name : 'xetype',
+                            name : 'xetype',//[9]
                             value : [q_getPara('report.all')].concat(new Array("存入","存出"))
                     },{
                         type : '6',
-                        name : 'xpaydate'
+                        name : 'xpaydate'//[10]
                     }, {/*28*/
                             type : '5',
-                            name : 'xsort1',
+                            name : 'xsort1',//[11]
                             value : q_getMsg('tsort1').split('&')
                         }]
                 });
