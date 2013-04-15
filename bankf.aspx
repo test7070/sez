@@ -107,16 +107,17 @@
 		                }
 		                break;
                 	case 'bankf':
-                		if(q_cur == 1 || q_cur == 2){
-			                var as = _q_appendData("bankf", "", true);
-			                if (as[0] != undefined){
-			                	CheckLcno = true;
-			                	alert(q_getMsg('lblLcno')+'重複。');
-			                	$('#txtLcno').focus();
-			                }else{
-			                	CheckLcno = false;
-			                }
-		                }
+                		if(q_cur != 0){
+							var as = _q_appendData("bankf", "", true);
+							if (as[0] != undefined){
+								if(abbm[q_recno].lcno == as[0].lcno)
+									CheckLcno = false;
+								else
+									CheckLcno = true;
+							}else{
+								CheckLcno = false;
+							}
+						}
 		                break;
                     case q_name:
                         if (q_cur == 4)
