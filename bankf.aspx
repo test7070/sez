@@ -124,7 +124,7 @@
             function btnOk() {
 
             	$('#txtAcomp').val($('#cmbCno').find(":selected").text());
-            	$('#txtNick').val($('#cmbCno').find(":selected").text());
+            	
 				if (!q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
