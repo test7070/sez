@@ -335,7 +335,7 @@
             }
             .dview {
                 float: left;
-                width: 20%;
+                width: 30%;
                 border-width: 0px;
             }
             .tview {
@@ -355,7 +355,7 @@
             }
             .dbbm {
                 float: left;
-                width: 80%;
+                width: 70%;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -462,6 +462,7 @@
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
 						<td align="center" style="width:25%"><a id='vewNoa'></a></td>
 						<td align="center" style="width:20%"><a id='vewDatea'></a></td>
+						<td align="center" style="width:25%"><a id='vewSales'></a></td>
 					</tr>
 					<tr>
 						<td >
@@ -469,7 +470,7 @@
 						</td>
 						<td align="center" id='noa'>~noa</td>
 						<td align="center" id='datea'>~datea</td>
-
+						<td align="center" id='sales'>~sales</td>
 					</tr>
 				</table>
 			</div>
@@ -534,7 +535,7 @@
 						<td class="td1"><span> </span><a id="lblVccno" class="lbl btn"></a></td>
 						<td class="td2" colspan="2">
 							<input id="txtBvccno"  type="text" style="float:left; width:45%;"/>
-							<span style="float:left; width:5px;"> </span><span style="float:left; width:20px; font-weight: bold;font-size: 20px;">～</span><span style="float:left; width:5px;"> </span>
+							<span style="float:left; width:5px;"> </span><span style="float:left; width:15px; font-weight: bold;font-size: 15px;">～</span><span style="float:left; width:5px;"> </span>
 							<input id="txtEvccno"  type="text" style="float:left; width:45%;"/>
 						</td>
 					</tr>

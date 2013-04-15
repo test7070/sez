@@ -58,11 +58,8 @@
                         type : '6',
                         name : 'xnoa'
                     }, {
-                        type : '2',
-                        name : 'custno',
-                        dbf : 'cust',
-                        index : 'noa,comp',
-                        src : 'cust_b.aspx'
+                        type : '6',
+                        name : 'custno'
                     }, {
                         type : '2',
                         name : 'addrno',
@@ -70,11 +67,8 @@
                         index : 'noa,addr',
                         src : 'addr_b2.aspx'
                     }, {
-                        type : '2',
-                        name : 'cno',
-                        dbf : 'acomp',
-                        index : 'noa,acomp',
-                        src : 'acomp_b.aspx'
+                        type : '6',
+                        name : 'cno'
                     },{
                         type : '1',
                         name : 'date'
@@ -89,11 +83,15 @@
                     },{
                         type : '6',
                         name : 'xpaydate'
-                    }]
+                    }, {/*28*/
+                            type : '5',
+                            name : 'xsort1',
+                            value : q_getMsg('tsort1').split('&')
+                        }]
                 });
                 q_popAssign();
                 q_langShow();
-
+				 $('#chkXstype').children('input').attr('checked', 'checked');
                 $('#txtDate1').mask('999/99/99');
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
@@ -108,26 +106,21 @@
                 t_noa  =  t_noa.replace('noa=','');
                 $('#txtXnoa').val(t_noa);
                 
-	             var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
-	                t_date = new Date();
-	                t_date.setDate(35);
-	                t_date.setDate(0);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
+                $('#Custno').css("width","410px");
+            	$('#txtCustno').css("width","320px");
+            	$('#txtCustno').focus(function() {
+            		q_msg( $(this), '輸入格式為：客戶.客戶.客戶.......');
+                }).blur(function () {
+					q_msg();
+	        	});
+	        	$('#Cno').css("width","410px");
+            	$('#txtCno').css("width","320px");
+            	$('#txtCno').focus(function() {
+            		q_msg( $(this), '輸入格式為：公司.公司.公司.......');
+                }).blur(function () {
+					q_msg();
+	        	});
+                
             }
             }
 
