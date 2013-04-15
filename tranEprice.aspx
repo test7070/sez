@@ -51,18 +51,17 @@
                 bbmMask2 = new Array(['txtBdate', r_picd], ['txtEdate', r_picd]);
                 q_mask(bbmMask2);
                 //q_cmbParse("cmbCarteamno", q_getPara('.taxtype'));
-                q_gt('carteam', '', 0, 0, 0, "");
+                //q_gt('carteam', '', 0, 0, 0, "");
                 $('#btnChoutprice').click(function() {
                     q_func("traneprice.eprice", $('#txtNoa').val());
                 });
 
-                $("#cmbCarteamno").focus(function() {
+                /*$("#cmbCarteamno").focus(function() {
                     var len = $("#cmbCarteamno").children().length > 0 ? $("#cmbCarteamno").children().length : 1;
                     $("#cmbCarteamno").attr('size', len + "");
                 }).blur(function() {
                     $("#cmbCarteamno").attr('size', '1');
-
-                });
+                });*/
                 $("#cmbCalctype").focus(function() {
                     var len = $("#cmbCalctype").children().length > 0 ? $("#cmbCalctype").children().length : 1;
                     $("#cmbCalctype").attr('size', len + "");
