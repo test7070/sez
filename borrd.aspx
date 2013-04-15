@@ -539,7 +539,8 @@
 						<td style="width:20px;"> </td>
 						<td style="width:120px;"><a id='lbl_datea'> </a></td>
 						<td style="width:100px;"><a id='lbl_rate'> </a></td>		
-						<td style="width:100px;"><a id='lbl_money'> </a></td>
+						<td style="width:100px;"><a id='lbl_ratemon'> </a></td>		
+						<td style="width:100px;"><a id='lbl_fixmoney'> </a></td>
 						<td style="width:200px;"><a id='lbl_memo'> </a></td>
 					</tr>
 					<tr style='background:#cad3ff;'>
@@ -550,8 +551,9 @@
 						<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td><input class="txt" id="txtDatea.*" type="text" style="width:95%; text-align: center;"/></td>
 						<td><input class="txt" id="txtRate.*" type="text" style="width:95%; text-align: right;"/></td>
-						<td><input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;"/></td>
+						<td><input class="txt" id="txtFixmoney.*" type="text" style="width:95%; text-align: right;"/></td>
 						<td><input class="txt" id="txtMemo.*" type="text" style="width:95%; text-align: left;"/></td>
+						<td><input class="txt" id="txtRatemon.*" type="text" style="width:95%; text-align: right;"/></td>
 					</tr>
 				</table>
 			</div>

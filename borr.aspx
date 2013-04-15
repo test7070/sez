@@ -21,7 +21,7 @@
             var q_readonly = ['txtNoa', 'txtCash', 'txtChecka', 'txtVccno' , 'txtMoney', 'txtInterest', 'txtTotal', 'txtPay', 'txtUnpay', 'txtWorker','txtAccno'];
             var q_readonlys = [];
             var q_readonlyt = ['txtVccno','txtAccno'];
-            var bbmNum = [['txtCash', 10, 0], ['txtChecka', 10, 0], ['txtMoney', 10, 0], ['txtInterest', 10, 0], ['txtTotal', 10, 0], ['txtPay', 10, 0], ['txtUnpay', 10, 0]];
+            var bbmNum = [['txtCash', 10, 0],['txtFixmoney', 10, 0], ['txtChecka', 10, 0], ['txtMoney', 10, 0], ['txtInterest', 10, 0], ['txtTotal', 10, 0], ['txtPay', 10, 0], ['txtUnpay', 10, 0]];
             var bbsNum = [['txtMoney', 10, 0, 1]];
             var bbtNum = [['txtMoney', 10, 0, 1]];
             var bbmMask = [['txtDatea', '999/99/99'], ['txtBegindate', '999/99/99'], ['txtEnddate', '999/99/99']];
@@ -580,10 +580,14 @@
 						</td>
 					</tr>
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td><span> </span><a id="lblRatemon" class="lbl"> </a></td>
+						<td>
+							<input id="txtRatemon" type="text" class="txt c1 num"/>
+						</td>
+						<td><span> </span><a id="lblFixmoney" class="lbl"> </a></td>
+						<td>
+							<input id="txtFixmoney" type="text" class="txt c1 num"/>
+						</td>
 						<td></td>
 						<td></td>
 						<td></td>
