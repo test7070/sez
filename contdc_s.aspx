@@ -11,7 +11,8 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             var q_name = "contdc_s";
-
+			aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'cno,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
+			['txtCustno', 'lblCustno', 'cust', 'custno,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
             $(document).ready(function() {
                 main();
             });
@@ -29,7 +30,7 @@
                 bbmMask = [['txtDatea', r_picd],['txtBcontdate', r_picd],['txtEcontdate', r_picd],['txtChangecontdate', r_picd]];
                 q_mask(bbmMask);
                 //q_cmbParse("cmbStype", q_getPara('cont.stype'));
-                q_cmbParse("cmbEnsuretype", ('').concat(new Array( '定存單質押','不可撤銷保證','銀行本票質押','商業本票質押','現金質押')));
+                q_cmbParse("cmbEnsuretype", ('').concat(new Array( '','定存單質押','不可撤銷保證','銀行本票質押','商業本票質押','現金質押')));
                 $('#txtBdate').focus();
                 q_gt('conttype', '', 0, 0, 0, "");
             }

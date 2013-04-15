@@ -83,7 +83,6 @@
 		                var as = _q_appendData("acomp", "", true);
 		                if (as[0] != undefined) {
 		                    var t_item = "@";
-		                    
 		                    for (i = 0; i < as.length; i++) {
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
 		                    }
@@ -125,6 +124,7 @@
             function btnOk() {
 
             	$('#txtAcomp').val($('#cmbCno').find(":selected").text());
+            	$('#txtNick').val($('#cmbCno').find(":selected").text());
 				if (!q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
