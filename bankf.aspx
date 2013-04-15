@@ -21,8 +21,9 @@
             var q_readonly = ['txtNoa','txtAccno','txtDatea','txtWorker','txtWorker2'];
 
             var bbmNum = [['txtMoney', 11, 2,1],['txtMoney2', 8, 2,1],['txtInterestrate', 6, 3,1]];
-
             var bbmMask = [];
+            var compArr = new Array();
+            var CheckLcno = true; //有重複為true 無重複為false
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -66,6 +67,14 @@
                 	if((/^[0-9]{4}$/g).test(str))
                 		$(this).val(str+'.');
 				});
+				$("#cmbCno").change(function(){
+					var selectVal = $('#cmbCno').val();
+					$('#txtNick').val(compArr[selectVal].nick);
+				});
+				$('#txtLcno').change(function(){
+					var t_where = "where=^^ lcno='" + $('#txtLcno').val() + "' ^^";
+					q_gt('bankf', t_where, 0, 0, 0, "");
+				});
             }
             function q_boxClose(s2) {
                 var ret;
@@ -85,11 +94,29 @@
 		                    var t_item = "@";
 		                    for (i = 0; i < as.length; i++) {
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+		                        compArr[as[i].noa] = new Array();
+		                        compArr[as[i].noa].cno = as[i].cno;
+		                        compArr[as[i].noa].acomp = as[i].acomp;
+		                        compArr[as[i].noa].nick = as[i].nick;
 		                    }
 							q_cmbParse("cmbCno", t_item);
 							if(abbm[q_recno])
-		                    $("#cmbCno").val(abbm[q_recno].cno);
+		                    	$("#cmbCno").val(abbm[q_recno].cno);
+		                    $('#txtNick').val(compArr[abbm[q_recno].cno].nick);
 		                }
+		                break;
+                	case 'bankf':
+                		if(q_cur != 0){
+							var as = _q_appendData("bankf", "", true);
+							if (as[0] != undefined){
+								if(abbm[q_recno].lcno == as[0].lcno)
+									CheckLcno = false;
+								else
+									CheckLcno = true;
+							}else{
+								CheckLcno = false;
+							}
+						}
 		                break;
                     case q_name:
                         if (q_cur == 4)
@@ -120,16 +147,26 @@
             function btnPrint() {
             	q_box('z_bankf.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", m_print);
             }
+<<<<<<< HEAD
 
             function btnOk() {
 
             	$('#txtAcomp').val($('#cmbCno').find(":selected").text());
             	
+=======
+			
+			function btnOk() {
+				$('#txtAcomp').val($('#cmbCno').find(":selected").text());
+>>>>>>> 8befa5fd904c736e75a261a682ca18137d8716a6
 				if (!q_cd($('#txtDatea').val())){
-                	alert(q_getMsg('lblDatea')+'錯誤。');
-                	return;
+					alert(q_getMsg('lblDatea')+'錯誤。');
+				return;
 
-                }
+				}
+				if(CheckLcno){
+					alert(q_getMsg('lblLcno')+'重複。');
+					return;
+				}
                 if(q_cur ==1){
                 	$('#txtWorker').val(r_name);
                 }else if(q_cur ==2){
@@ -137,7 +174,6 @@
                 }else{
                 	alert("error: btnok!")
                 }
-                
                	var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
