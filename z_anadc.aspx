@@ -23,12 +23,14 @@
 				$('#pieChart').hide();
 				$('#btnSvg').hide();
 				$('#barChart').hide();
+				$('#barChart2').hide();
 				$(".control").hide();
 				
 				$('#q_report').click(function(e) {
 					$('#btnSvg').hide();
 					$('#pieChart').hide();
 					$('#barChart').hide();
+					$('#barChart2').hide();
 					$('#dataSearch').show();
 					$(".control").hide();
 					
@@ -38,11 +40,11 @@
 							txtreport=$('#q_report').data().info.reportData[i].report;
 							if(txtreport=='z_anadc1' || txtreport=='z_anadc3' || txtreport=='z_anadc5' || txtreport=='z_anadc7')
 								$('#btnSvg').val($('#q_report').data().info.reportData[i].reportName+'圓餅圖顯示');
-							if(txtreport=='z_anadc6'||txtreport=='z_anadc8' || txtreport=='z_anadc9' ||txtreport=='z_anadc10')
+							if(txtreport=='z_anadc6'||txtreport=='z_anadc8' || txtreport=='z_anadc9' ||txtreport=='z_anadc10' || txtreport=='z_anadc2' ||txtreport=='z_anadc4')
 								$('#btnSvg').val($('#q_report').data().info.reportData[i].reportName+'長條圖顯示');
 						}
 					}
-					if(txtreport=='z_anadc1' || txtreport=='z_anadc3' || txtreport=='z_anadc5' || txtreport=='z_anadc7'||txtreport=='z_anadc6'||txtreport=='z_anadc8'|| txtreport=='z_anadc9' ||txtreport=='z_anadc10')
+					if(txtreport=='z_anadc1' || txtreport=='z_anadc3' || txtreport=='z_anadc5' || txtreport=='z_anadc7'||txtreport=='z_anadc6'||txtreport=='z_anadc8'|| txtreport=='z_anadc9' ||txtreport=='z_anadc10' || txtreport=='z_anadc2' ||txtreport=='z_anadc4')
 						$('#btnSvg').show();
 				});
 				$('#btnSvg').click(function(e) {
@@ -160,7 +162,7 @@
                     case 'qtxt.query':
                         var as = _q_appendData("tmp0", "", true, true);
                         //圓餅圖
-                        if(txtreport=='z_anadc1' || txtreport=='z_anadc3' || txtreport=='z_anadc5' || txtreport=='z_anadc7'){
+                        if(txtreport=='z_anadc5' || txtreport=='z_anadc7'){
 	                        //刪除負數的客戶或員工
 	                        for (i = 0; i < as.length; i++) {
 	                        	if(dec(as[i].total)<=0){
@@ -213,10 +215,10 @@
 								y: 250,
 								radius: 200
 							}); 
-							$('#Loading').data('info').stop();
+							$('#Loading').hide();
 							$('#pieChart').show();
                         }
-                        //長條圖
+                        //長條圖(直)
                         var bar=new Array();
                         if(txtreport=='z_anadc6'||txtreport=='z_anadc8'){
                         	//var t_maxMoney=5000000,t_minMoney=-5000000;
@@ -376,7 +378,7 @@
 	                        	$('#barChart').data('info').page($('#barChart'), $(this).val());
 	                        });
 	                        $('#txtTotPage').val(bar.length);
-	                        $('#Loading').data('info').stop();
+	                        $('#Loading').hide();
 	                        $('#barChart').show();
 							$(".control").show();
 						}
@@ -436,10 +438,45 @@
 	                        	$('#barChart').data('info').page($('#barChart'), $(this).val());
 	                        });
 	                        $('#txtTotPage').val(bar.length);
-	                        $('#Loading').data('info').stop();
+	                        $('#Loading').hide();
 	                        $('#barChart').show();
 							$(".control").show();
 						}
+                        
+                         //長條圖2(橫)
+                         if( txtreport=='z_anadc2' ||txtreport=='z_anadc4'){
+                         	if (as[0] == undefined) {
+                            	$('#Loading').hide();
+                            	alert('沒有資料!!');
+                        	}else{
+							 	var custno='';
+							 	var n = -1;
+							 	var x_maxmoney=0,x_minmoney=0;
+	                        	for (i = 0; i < as.length; i++) {
+	                                //判斷該客戶的最大值與最小值
+	                                x_maxmoney=Math.max(x_maxmoney,dec(as[i].total))
+	                                x_minmoney=Math.min(x_minmoney,dec(as[i].total))           
+			                        bar.push({
+				                        			custno:txtreport=='z_anadc2'?as[i].custno:as[i].sssno,
+				                        			comp:txtreport=='z_anadc2'?as[i].comp:as[i].namea,
+				                        			total:as[i].total
+				                        });
+	                        	}
+	                        }
+	                        $('#barChart2').barChart2({
+								data : bar,
+								maxMoney : x_maxmoney,
+                                minMoney : x_minmoney
+							});
+							$('#txtCurPage').val(1).change(function(e) {
+	                            $(this).val(parseInt($(this).val()));
+	                        	$('#barChart2').data('info').page($('#barChart2'), $(this).val());
+	                        });
+	                        $('#txtTotPage').val(bar.length);
+	                        $('#Loading').hide();
+	                        $('#barChart2').show();
+							//$(".control").show();
+                         }
                         break;
                 }
             }
@@ -459,47 +496,16 @@
             
 			;(function($, undefined) {
 				$.fn.Loading = function() {
-            		$(this).data('info', {
-            			timer : null,
-            			color : null,
-            			curIndex : 0,
-            			start : function(){
-            				obj = $('#Loading'); 
-            				obj.html('').width(250).height(100).show();
-            				var r,g,b;
-            				var tmpPath = '<rect x="0" y="0" width="200" height="150" style="fill:rgb(255,255,255);"/>';       
-            				obj.data('info').color=new Array();
-            				for(var i=0; i<10; i++){
-            					r = 255-(i+1)*25;
-            					g = 255;
-            					b = round(255/(i+1),0)-10;
-            					obj.data('info').color.push('rgb('+r+','+g+','+b+')');
-            					x = (i+1)*20;
-            					y = 50;
-            					tmpPath += '<rect id="Loading_block_' + i + '"  x="' + x + '" y="' + y + '" width="15" height="15" fill="rgb(255,255,255)"/>';
-            				}
-            				tmpPath += '<text x="20" y="90" fill="black">資料讀取中...</text>';
-            				obj.append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
-            				obj.data('info').timer = setInterval(function(){$('#Loading').data('info').func()},500);
-            			},
-            			func : function(){   
-            				obj = $('#Loading');
-        					for(var i=0;i<10;i++){
-            					if (i ==obj.data('info').curIndex )
-            						$('#Loading_block_'+i).attr('fill','rgb(255,143,25)');
-            					else
-            						$('#Loading_block_'+i).attr('fill',obj.data('info').color[i]);
-            				}
-            				obj.data('info').curIndex = (obj.data('info').curIndex+1)%(obj.data('info').color.length);
-            			},
-            			stop : function(){
-            				obj = $('#Loading'); 
-            				clearInterval(obj.data('info').timer);
-            				obj.hide();
-            			}
-            		});
-            		$(this).data('info').start();
-            	}
+                    $(this).data('info', {
+                        init : function(obj) {
+                            obj.html('').width(250).height(100).show();
+                            var tmpPath = '<defs>' + '<filter id="f1" x="0" y="0">' + '<feGaussianBlur in="SourceGraphic" stdDeviation="5" />' + '</filter>' + '<filter id="f2" x="0" y="0">' + '<feGaussianBlur in="SourceGraphic" stdDeviation="5" />' + '</filter>' + '</defs>' + '<rect width="200" height="10" fill="yellow" filter="url(#f1)"/>' + '<rect x="0" y="0" width="20" height="10" fill="RGB(223,116,1)" stroke="yellow" stroke-width="2" filter="url(#f2)">' + '<animate attributeName="x" attributeType="XML" begin="0s" dur="6s" fill="freeze" from="0" to="200" repeatCount="indefinite"/>' + '</rect>';
+                            tmpPath += '<text x="40" y="35" fill="black">資料讀取中...</text>';
+                            obj.append('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+                        }
+                    });
+                    $(this).data('info').init($(this));
+                }
                 $.fn.pieChart = function(value) {
                     $(this).data('info', {
                         value : value,
@@ -605,7 +611,7 @@
                             		txttmp='客戶名稱：'+obj.data('info').value.data[$(this).data('info').index].text+'\n';
                             		txttmp+='收入金額：'+obj.data('info').value.data[$(this).data('info').index].money+'\n'
                             		txttmp+='薪資攤提：'+obj.data('info').value.data[$(this).data('info').index].salarycost+'\n'
-                            		txttmp+='費用攤提：'+obj.data('info').value.data[$(this).data('info').index].partcost+'\n'
+                            		//txttmp+='費用攤提：'+obj.data('info').value.data[$(this).data('info').index].partcost+'\n'
                             		txttmp+='損益：'+obj.data('info').value.data[$(this).data('info').index].total+'\n'
                             		txttmp+='所佔比例：'+round(dec(obj.data('info').value.data[$(this).data('info').index].rate)*100,2)+'%'
                             		alert(txttmp);
@@ -614,7 +620,7 @@
                             		txttmp='客戶名稱：'+obj.data('info').value.data[$(this).data('info').index].text+'\n';
                             		txttmp+='收入金額：'+obj.data('info').value.data[$(this).data('info').index].money+'\n'
                             		txttmp+='薪資：'+obj.data('info').value.data[$(this).data('info').index].salary+'\n'
-                            		txttmp+='費用攤提：'+obj.data('info').value.data[$(this).data('info').index].partcost+'\n'
+                            		//txttmp+='費用攤提：'+obj.data('info').value.data[$(this).data('info').index].partcost+'\n'
                             		txttmp+='損益：'+obj.data('info').value.data[$(this).data('info').index].total+'\n'
                             		txttmp+='所佔比例：'+round(dec(obj.data('info').value.data[$(this).data('info').index].rate)*100,2)+'%'
                             		alert(txttmp);
@@ -751,7 +757,7 @@
 	                                y = t_Y - round(dec(t_detail[i].money) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
 	                                tmpPath += '<circle id="barChart_in' + i + '" class="barChart_in" class="" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
 	                            }
-	                            //費用攤提
+	                            /*//費用攤提
 	                            for (var i = 0; i < t_detail.length; i++) {//連接線
 	                                x = 100 + 10 + t_n * i;
 	                                y = t_Y - round(dec(t_detail[i].partcost) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
@@ -765,7 +771,7 @@
 	                                y = t_Y - round(dec(t_detail[i].partcost) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
 	                                tmpPath += '<circle id="barChart_out' + i + '" class="barChart_out" class="" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
 	                                tmpPath += '<text id="barChart_mon' + i + '" class="barChart_mon" x="' + (x - 10) + '" y="' + (50 + t_height + 30) + '" fill="black">' + t_detail[i].mon + '</text>';
-	                            }
+	                            }*/
 	                            //薪資
 	                            for (var i = 0; i < t_detail.length; i++) {//連接線
 	                                x = 100 + 10 + t_n * i;
@@ -782,9 +788,9 @@
 	                            }
 	                            
 	                            //符號說明
-	                            tmpPath += '<line x1="800" y1="50" x2="820" y2="50" style="stroke:rgb(0,0,0);stroke-width:1"/>';
-	                            tmpPath += '<circle class="" cx="810" cy="50" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
-	                            tmpPath += '<text x="830" y="55" fill="black">費用攤提</text>';
+	                            //tmpPath += '<line x1="800" y1="50" x2="820" y2="50" style="stroke:rgb(0,0,0);stroke-width:1"/>';
+	                            //tmpPath += '<circle class="" cx="810" cy="50" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
+	                            //tmpPath += '<text x="830" y="55" fill="black">費用攤提</text>';
 	
 	                            tmpPath += '<line x1="800" y1="75" x2="820" y2="75" style="stroke:rgb(0,0,0);stroke-width:1"/>';
 	                            tmpPath += '<circle class="" cx="810" cy="75" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
@@ -840,7 +846,7 @@
 	                                	alerttxt='客戶名稱：'+obj.data('info').Data[t_index].comp+'\n'
 	                                else if(txtreport=='z_anadc8')
 	                                	alerttxt='員工名稱：'+obj.data('info').Data[t_index].comp+'\n'
-	                                alerttxt+='費用攤提金額：'+obj.data('info').Data[t_index].detail[n].partcost
+	                                //alerttxt+='費用攤提金額：'+obj.data('info').Data[t_index].detail[n].partcost
 	                            	alert(alerttxt);
 	                            });
 	                            
@@ -859,10 +865,10 @@
 	                                var alerttxt='';
 	                               	if(txtreport=='z_anadc6'){
 	                                	alerttxt='客戶名稱：'+obj.data('info').Data[t_index].comp+'\n'
-	                                	alerttxt+='薪資攤提：'+obj.data('info').Data[t_index].detail[n].salarycost
+	                                	alerttxt+='薪資攤提：'+obj.data('info').Data[t_index].detail[n].salarycost+'\n'
 	                                }else if(txtreport=='z_anadc8'){
 	                                	alerttxt='員工名稱：'+obj.data('info').Data[t_index].comp+'\n'
-	                                	alerttxt+='薪資：'+obj.data('info').Data[t_index].detail[n].salarycost
+	                                	alerttxt+='薪資：'+obj.data('info').Data[t_index].detail[n].salarycost+'\n'
 	                                }
 	                            	alert(alerttxt);
 	                            });
@@ -885,8 +891,8 @@
 	                                else if(txtreport=='z_anadc8')
 	                                	alerttxt='員工名稱：'+obj.data('info').Data[t_index].comp+'\n'
 	                                alerttxt+='收入：'+obj.data('info').Data[t_index].detail[n].money+'\n'
-	                                alerttxt+=txtreport=='z_anadc6'?'薪資攤提：':'薪資：'+obj.data('info').Data[t_index].detail[n].salarycost+'\n'
-	                                alerttxt+='費用攤提：'+obj.data('info').Data[t_index].detail[n].partcost+'\n'
+	                                alerttxt+=(txtreport=='z_anadc6'?'薪資攤提：':'薪資：')+obj.data('info').Data[t_index].detail[n].salarycost+'\n'
+	                                //alerttxt+='費用攤提：'+obj.data('info').Data[t_index].detail[n].partcost+'\n'
 	                                alerttxt+='損益：'+obj.data('info').Data[t_index].detail[n].total
 	                            	alert(alerttxt);
 	                            });
@@ -966,13 +972,13 @@
 	                                var alerttxt='';
 	                               	if(txtreport=='z_anadc9'){
 	                                	alerttxt='收入：'+obj.data('info').Data[t_index].detail[n].money01+'\n'
-	                                	alerttxt+='費用攤提：'+obj.data('info').Data[t_index].detail[n].partcost01+'\n'
+	                                	//alerttxt+='費用攤提：'+obj.data('info').Data[t_index].detail[n].partcost01+'\n'
 	                                	alerttxt+='薪資攤提：'+obj.data('info').Data[t_index].detail[n].salarycost01+'\n'
 	                                	alerttxt+='損益：'+obj.data('info').Data[t_index].detail[n].total01
 	                                }
 	                                else if(txtreport=='z_anadc10'){
 	                                	alerttxt='收入：'+obj.data('info').Data[t_index].detail[n].money01+'\n'
-	                                	alerttxt+='費用攤提：'+obj.data('info').Data[t_index].detail[n].partcost01+'\n'
+	                                	//alerttxt+='費用攤提：'+obj.data('info').Data[t_index].detail[n].partcost01+'\n'
 	                                	alerttxt+='薪資：'+obj.data('info').Data[t_index].detail[n].salarycost01+'\n'
 	                                	alerttxt+='損益：'+obj.data('info').Data[t_index].detail[n].total01
 	                                }
@@ -994,13 +1000,13 @@
 	                                var alerttxt='';
 	                                if(txtreport=='z_anadc9'){
 	                                	alerttxt='收入：'+obj.data('info').Data[t_index].detail[n].money02+'\n'
-	                                	alerttxt+='費用攤提：'+obj.data('info').Data[t_index].detail[n].partcost02+'\n'
+	                                	//alerttxt+='費用攤提：'+obj.data('info').Data[t_index].detail[n].partcost02+'\n'
 	                                	alerttxt+='薪資攤提：'+obj.data('info').Data[t_index].detail[n].salarycost02+'\n'
 	                                	alerttxt+='損益：'+obj.data('info').Data[t_index].detail[n].total02
 	                                }
 	                                else if(txtreport=='z_anadc10'){
 	                                	alerttxt='收入：'+obj.data('info').Data[t_index].detail[n].money02+'\n'
-	                                	alerttxt+='費用攤提：'+obj.data('info').Data[t_index].detail[n].partcost02+'\n'
+	                                	//alerttxt+='費用攤提：'+obj.data('info').Data[t_index].detail[n].partcost02+'\n'
 	                                	alerttxt+='薪資：'+obj.data('info').Data[t_index].detail[n].salarycost02+'\n'
 	                                	alerttxt+='損益：'+obj.data('info').Data[t_index].detail[n].total02
 	                                }
@@ -1026,6 +1032,147 @@
 	                            	alert(alerttxt);
 	                            });
 							}//end txtreport=='z_anadc9'||txtreport=='z_anadc10'
+                        }
+                    });
+                    $(this).data('info').init($(this));
+                }
+            	$.fn.barChart2 = function(value) {
+                    $(this).data('info', {
+                        curIndex : -1,
+                        custData : value.data,
+                        maxMoney : value.maxMoney,
+                        minMoney : value.minMoney,
+                        maxPage : 1,
+                        init : function(obj) {
+                            if (value.length == 0) {
+                                alert('無資料。');
+                                return;
+                            }
+                            obj.data('info').curIndex = 0;
+                            obj.data('info').refresh(obj);
+                        },
+                        page : function(obj, n) {
+                            if (n > 0 && n <= obj.data('info').maxPage) {
+                                obj.data('info').curIndex = n - 1;
+                                obj.data('info').refresh(obj);
+                            } else
+                                alert('頁數錯誤。');
+                        },
+                        next : function(obj) {
+                            if (obj.data('info').curIndex == obj.data('info').maxPage - 1)
+                                alert('已到最後頁。');
+                            else {
+                                obj.data('info').curIndex++;
+                                $('#txtCurPage').val(obj.data('info').curIndex + 1);
+                                obj.data('info').refresh(obj);
+                            }
+                        },
+                        previous : function(obj) {
+                            if (obj.data('info').curIndex == 0)
+                                alert('已到最前頁。');
+                            else {
+                                obj.data('info').curIndex--;
+                                $('#txtCurPage').val(obj.data('info').curIndex + 1);
+                                obj.data('info').refresh(obj);
+                            }
+                        },
+                        refresh : function(obj) {
+                            var objWidth = 950;
+                            var objHeight = obj.data('info').custData.length * 40 + 100;
+                            //背景
+                            var tmpPath = '<rect x="0" y="0" width="' + objWidth + '" height="' + objHeight + '" style="fill:rgb(220,220,220);stroke-width:1;stroke:rgb(0,0,0)"/>';
+                            //圖表背景顏色
+                            var bkColor1 = ['rgb(210,233,255)', 'rgb(255,238,221)'];
+                            //圖表分幾個區塊
+                            var bkN = 10;
+                            var strX = 100, strY = 50;                      
+                            var t_width = 700;
+                            var t_height = obj.data('info').custData.length * 40;
+
+                            for (var i = 0; i < bkN; i++) {
+                                x = Math.round(t_width / bkN, 0) * i;
+                                y = 0;
+                                tmpPath += '<rect x="' + (strX + x) + '" y="' + (strY + y) + '" width="' + Math.round(t_width / bkN, 0) + '" height="' + (t_height) + '" style="fill:' + bkColor1[i % bkColor1.length] + ';"/>';
+                            }
+							
+							var t_maxMoney = obj.data('info').maxMoney;
+                            var t_minMoney = obj.data('info').minMoney;
+                            var t_X = strX + round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_width, 0);                                
+							
+							var t_detail = obj.data('info').custData;
+							/*t_detail.sort(function(a,b){
+								return b.inmoney-a.inmoney;
+							});*/
+							tmpPath += '<defs>' + '<linearGradient id="chart2_color3" x1="0%" y1="0%" x2="0%" y2="100%">' + '<stop offset="0%" style="stop-color:rgb(206,206,255);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(147,147,255);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
+                            tmpPath += '<defs>' + '<linearGradient id="chart2_color2" x1="0%" y1="0%" x2="0%" y2="100%">' + '<stop offset="0%" style="stop-color:rgb(255,220,185);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(225,175,96);stop-opacity:1" />' + '</linearGradient>' + '</defs>';					
+                            tmpPath += '<defs>' + '<linearGradient id="chart2_color4" x1="0%" y1="0%" x2="0%" y2="100%">' + '<stop offset="0%" style="stop-color:rgb(206,255,206);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(147,255,147);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
+                            tmpPath += '<defs>' + '<linearGradient id="chart2_color1" x1="0%" y1="0%" x2="0%" y2="100%">' + '<stop offset="0%" style="stop-color:rgb(255,185,220);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(225,96,175);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
+							for (var i = 0; i < t_detail.length; i++) {    
+								tmpPath +='<g id="chart2_item'+i+'">';
+								//客戶名稱      
+                                x = strX - 5;
+ 								y = strY + i*40 + 24;
+                                tmpPath += '<text class="chart2_item" id="chart2_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+t_detail[i].comp+'</text>';	
+                            	//收入
+                            	t_output = dec(t_detail[i].total);
+                                W = Math.abs(round(t_output / (t_maxMoney - t_minMoney) * t_width, 0));
+                                if(t_output>0){
+                                	x = t_X;
+                                }else{
+                                	x = t_X - W;
+                                } 
+ 								y = strY + i*40 + 5;
+                                tmpPath += '<rect class="chart2_item" id="chart2_inmoney' + i + '" x="' + x + '" y="' + y + '" width="' + W + '" height="' + 15 + '" fill="url(#chart2_color1)"/>';
+                            	tmpPath += '<text class="chart2_item" id="chart2_cinmoney'+i+'" x="'+(x+W+5)+'" y="'+(y+15)+'" fill="#000000" >'+FormatNumber(t_output)+'</text>';	
+                            	//毛利
+                            	/*t_output = t_detail[i].profit;
+                                W = Math.abs(round(t_output / (t_maxMoney - t_minMoney) * t_width, 0));
+                                if(t_output>0){
+                                	x = t_X;
+                                }else{
+                                	x = t_X - W;
+                                }                          
+ 								y = strY + i*40 + 20;
+                                tmpPath += '<rect class="chart2_item" id="chart2_profit' + i + '" x="' + x + '" y="' + y + '" width="' + W + '" height="' + 15 + '" fill="url(#chart2_color3)"/>';
+                           		tmpPath += '<text class="chart2_item" id="chart2_cprofit'+i+'" x="'+(x+W + 5)+'" y="'+(y+15)+'" fill="#000000" >'+FormatNumber(t_output)+'</text>';	
+                            	
+                            	tmpPath +='</g>';*/
+                            }
+                            //X軸
+                            tmpPath += '<line x1="'+strX+'" y1="'+strY+'" x2="'+(strX+t_width)+'" y2="'+strY+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+							//tmpPath += '<text text-anchor="end"  x="'+t_X+'" y="'+(strY-5)+'" fill="#000000" >0</text>';
+							tmpPath += '<text x="'+strX+'" y="'+(strY-5)+'" fill="#000000" >'+FormatNumber(t_minMoney)+'</text>';
+							tmpPath += '<text text-anchor="end"  x="'+(strX+t_width)+'" y="'+(strY-5)+'" fill="#000000" >'+FormatNumber(t_maxMoney)+'</text>';						
+							//Y軸
+                            tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+obj.data('info').custData.length * 40)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                            
+                            //符號說明
+                            tmpPath += '<rect x="'+(strX+t_width+50)+'" y="5" width="20" height="20" fill="url(#chart2_color1)"/>';
+                            tmpPath += '<text x="'+(strX+t_width+70)+'" y="20" fill="black">收入</text>';
+							/*tmpPath += '<rect x="'+(strX+t_width+50)+'" y="30" width="20" height="20" fill="url(#chart2_color3)"/>';
+                            tmpPath += '<text x="'+(strX+t_width+70)+'" y="45" fill="black">毛利</text>';*/
+							
+                            obj.width(objWidth).height(objHeight).html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+                        	
+                        	//事件
+                        	obj.children('svg').find('.chart2_item').hover(function(e) {
+                        		var n = $(this).parent().attr('id').replace('chart2_item','');
+                        		
+                                $('#chart2_nick'+n).attr('fill', 'rgb(255,0,0)');
+                                $('#chart2_inmoney'+n).attr('fill', 'url(#chart2_color2)');
+                                $('#chart2_cinmoney'+n).attr('fill', 'rgb(255,0,0)');
+                                $('#chart2_profit'+n).attr('fill', 'url(#chart2_color4)');
+                                $('#chart2_cprofit'+n).attr('fill', 'rgb(255,0,0)');
+                               
+                            }, function(e) {
+                                var n = $(this).parent().attr('id').replace('chart2_item','');
+                        		
+                                $('#chart2_nick'+n).attr('fill', 'rgb(0,0,0)');
+                                $('#chart2_inmoney'+n).attr('fill', 'url(#chart2_color1)');
+                                $('#chart2_cinmoney'+n).attr('fill', 'rgb(0,0,0)');
+                                $('#chart2_profit'+n).attr('fill', 'url(#chart2_color3)');
+                                $('#chart2_cprofit'+n).attr('fill', 'rgb(0,0,0)');
+                            });
                         }
                     });
                     $(this).data('info').init($(this));
@@ -1060,6 +1207,7 @@
 				<span style="display:block; float:left; width:20px;"><label class="control" style="vertical-align: middle;font-size: medium;">／</label></span>
 				<input type="text" id="txtTotPage" class="control" style="float:left;text-align: right;width:60px; font-size: medium;" readonly="readonly"/>
 			<div id='barChart'></div>
+			<div id='barChart2'></div>
 			<div id='dataSearch' class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
