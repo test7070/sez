@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
+<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -50,21 +50,18 @@
                 q_mask(bbmMask);
                 bbmMask2 = new Array(['txtBdate', r_picd], ['txtEdate', r_picd]);
                 q_mask(bbmMask2);
-                /*
-                q_cmbParse("cmbCarteamno", q_getPara('.taxtype'));
-                q_gt('carteam', '', 0, 0, 0, "");
+                //q_cmbParse("cmbCarteamno", q_getPara('.taxtype'));
+                //q_gt('carteam', '', 0, 0, 0, "");
                 $('#btnChoutprice').click(function() {
                     q_func("traneprice.eprice", $('#txtNoa').val());
                 });
 
-                $("#cmbCarteamno").focus(function() {
+                /*$("#cmbCarteamno").focus(function() {
                     var len = $("#cmbCarteamno").children().length > 0 ? $("#cmbCarteamno").children().length : 1;
                     $("#cmbCarteamno").attr('size', len + "");
                 }).blur(function() {
                     $("#cmbCarteamno").attr('size', '1');
-
-                });
-                */
+                });*/
                 $("#cmbCalctype").focus(function() {
                     var len = $("#cmbCalctype").children().length > 0 ? $("#cmbCalctype").children().length : 1;
                     $("#cmbCalctype").attr('size', len + "");
@@ -94,7 +91,6 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	/*
                     case 'carteam':
                         var as = _q_appendData("carteam", "", true);
                         var t_item = "";
@@ -105,7 +101,6 @@
                         if (abbm.length > 0)
                             $("#cmbCarteamno").val(abbm[q_recno].carteamno);
                         break;
-                    */
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
