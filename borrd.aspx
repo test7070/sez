@@ -20,7 +20,7 @@
             var q_name = "borrd";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtPaybno'];
             var q_readonlys = [];
-            var q_readonlyt = ['txtVccno'];
+            var q_readonlyt = ['txtVccno','txtAccno'];
             var bbmNum = [['txtMoney',10,0,1],['txtMoney2',10,0,1],['txtCharge',10,0,1]];
             var bbsNum = [['txtRate',10,2],['txtMoney',10,0,1]];
             var bbtNum = [['txtMoney',10,0,1]];
@@ -39,6 +39,7 @@
 
             aPop = new Array(
              ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtCustnick', 'cust_b.aspx']
+			,['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
             ,['txtTggno', 'lblTgg', 'tgg', 'noa,comp,nick', 'txtTggno,txtTgg,txtTggnick', 'tgg_b.aspx']
             ,['txtAcc1', 'lblAcca', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
             ,['txtTacc1', 'lblTaca', 'acc', 'acc1,acc2', 'txtTacc1,txtTacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
@@ -481,6 +482,15 @@
 						<td><input id="txtPaydate"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblSalesno" class="lbl btn"> </a></td>
+						<td colspan="3">
+							<input id="txtSalesno"  type="text" style="width:25%; float:left;"/>
+							<input id="txtSales"  type="text" style="width:75%; float:left;"/>
+						</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
 						<td><input id="txtMoney" type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblAcc1" class="lbl btn"> </a></td>
@@ -558,6 +568,7 @@
 						<td style="width:200px; text-align: center;">請款單號</td>
 						<td style="width:100px; text-align: center;">金額</td>
 						<td style="width:350px; text-align: center;">備註</td>
+						<td style="width:200px; text-align: center;">傳票號碼</td>
 					</tr>
 					<tr>
 						<td>
@@ -568,6 +579,7 @@
 						<td><input id="txtVccno..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtMoney..*"  type="text" style="width:95%; text-align: right;"/></td>
 						<td><input id="txtMemo..*"  type="text" style="width:95%; text-align: left;"/></td>
+						<td><input id="txtAccno..*" type="text" style="width:95%;"/></td>
 					</tr>
 				</tbody>
 			</table>
