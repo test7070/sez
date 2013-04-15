@@ -253,8 +253,9 @@
             	var t_carno = '';
             	$('#txtCarno2').val('');
             	for (var i = 0; i < q_bbsCount; i++) {
-            		if($('#txtCarno2').val().lenght==0)
+            		if($('#txtCarno2').val().length==0){
             			$('#txtCarno2').val($.trim($('#txtCarno_'+i).val()));
+            		}
             		if(t_carno.indexOf($.trim($('#txtCarno_'+i).val()))==-1)
             			t_carno += (t_carno.length>0?',':'') + $.trim($('#txtCarno_'+i).val());
             	}
