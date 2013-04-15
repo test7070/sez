@@ -147,17 +147,8 @@
             function btnPrint() {
             	q_box('z_bankf.aspx'+ "?;;;;"+r_accy+";", '', "95%", "95%", m_print);
             }
-<<<<<<< HEAD
-
-            function btnOk() {
-
-            	$('#txtAcomp').val($('#cmbCno').find(":selected").text());
-            	
-=======
-			
 			function btnOk() {
 				$('#txtAcomp').val($('#cmbCno').find(":selected").text());
->>>>>>> 8befa5fd904c736e75a261a682ca18137d8716a6
 				if (!q_cd($('#txtDatea').val())){
 					alert(q_getMsg('lblDatea')+'錯誤。');
 				return;

@@ -11,8 +11,8 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             var q_name = "contdc_s";
-			aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'cno,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
-			['txtCustno', 'lblCustno', 'cust', 'custno,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
+			aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
+			['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
             $(document).ready(function() {
                 main();
             });
