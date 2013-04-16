@@ -188,7 +188,7 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
-                $('#cmbTypea').val(2);
+                $('#cmbTypea').val(2).focus();
 
                 //自動產生序號
                 for (var j = 0; j <= q_bbsCount; j++) {
