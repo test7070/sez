@@ -32,8 +32,6 @@
 
             function currentData() {
             }
-
-
             currentData.prototype = {
                 data : [],
                 /*新增時複製的欄位*/
@@ -95,13 +93,13 @@
                 $('#txtPrice').change(function() {
                     sum();
                 });
-                $('#txtMemo').change(function() {
-                    if ($.trim($('#txtMemo').val()).substring(0, 1) == '.') {
-                        $('#txtMoney').removeAttr('readonly').css('background-color', 'white').css('color', 'black');
-                    } else {
-                        $('#txtMoney').attr('readonly', 'readonly').css('background-color', 'rgb(237, 237, 238)').css('color', 'green');
+                $('#chkIscustom2').click(function() {
+                	if($('#chkIscustom2').prop('checked')){
+                		$('#txtMoney').removeAttr('readonly').css('background-color', 'white').css('color', 'black');
+                	}else{
+                		$('#txtMoney').attr('readonly', 'readonly').css('background-color', 'rgb(237, 237, 238)').css('color', 'green');
                         sum();
-                    }
+                	}
                 });
                 $('#chkIscustom').change(function(e) {
                     if ($('#chkIscustom').prop('checked')) {
@@ -151,7 +149,7 @@
                             $("#txtCurmount").addClass('finish');
                             $("#txtCurmount").val(t_mount);
                             $("#txtCurmoney").addClass('finish');
-                            $("#txtCurmoney").val(t_money);
+                            $("#txtCurmoney").val(FormatNumber(t_money));
                             t_where = " where=^^ noa='" + $('#txtOilstationno').val() + "' ^^ ";
                             q_gt('oilstation', t_where, 0, 0, 0, "", r_accy);
                         }
@@ -256,7 +254,7 @@
                     alert(t_err);
                     return;
                 }
-                if ($.trim($('#txtMemo').val()).substring(0, 1) != '.') {
+                if(!$('#chkIscustom2').prop('checked')){
                     sum();
                 }
                 var t_noa = trim($('#txtNoa').val());
@@ -292,7 +290,7 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                if ((q_cur == 1 || q_cur == 2) && $.trim($('#txtMemo').val()).substring(0, 1) == '.') {
+                if ((q_cur == 1 || q_cur == 2) && $('#chkIscustom2').prop('checked')) {
                     $('#txtMoney').removeAttr('readonly').css('background-color', 'white').css('color', 'black');
                 }
             }
@@ -372,18 +370,17 @@
                     $('#txtCurmount').val((t_curmount * 1000 + t_orgmount * 1000 - t_mount * 1000) / 1000);
                     $('#txtOrgmount').val(t_mount);
                 }
-                if ($.trim($('#txtMemo').val()).substring(0, 1) == '.') {
-
-                } else {
-                    $("#txtMoney").val(Math.round(t_mount * t_price, 0));
+                if (!$('#chkIscustom2').prop('checked')) {
+                    $("#txtMoney").val(FormatNumber(Math.round(t_mount * t_price, 0)));
                 }
                 var t_money = q_float('txtMoney');
                 var t_orgmoney = q_float('txtOrgmoney');
                 var t_curmoney = q_float('txtCurmoney');
                 if ($("#txtCurmoney").data('ism') && $("#txtCurmoney").hasClass('finish') && (q_cur == 1 || q_cur == 2)) {
-                    $('#txtCurmoney').val(t_curmoney + t_orgmoney - t_money);
+                    $('#txtCurmoney').val(FormatNumber(t_curmoney + t_orgmoney - t_money));
                     $('#txtOrgmoney').val(t_money);
                 }
+                
             }
 
             function q_popFunc(id, key_value) {
@@ -425,6 +422,12 @@
                 }
                 return 0;
                 //錯誤
+            }
+            function FormatNumber(n) {
+                n += "";
+                var arr = n.split(".");
+                var re = /(\d{1,3})(?=(\d{3})+$)/g;
+                return arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
 
 		</script>
@@ -695,6 +698,10 @@
 						<td class="td4">
 						<input id="txtCurmoney"  type="text"  class="txt num c1"/>
 						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblIscustom2' class="lbl"> </a></td>
+						<td><input id="chkIscustom2"  type="checkbox"/> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>

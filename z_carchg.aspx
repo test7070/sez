@@ -52,19 +52,25 @@
 						}, {/*1*/
 							type : '1',
 							name : 'date'
-						}, {/*3*/
+						}, {/*2*/
 							type : '2',
 							name : 'driver',
 							dbf : 'driver',
 							index : 'noa,namea',
 							src : 'driver_b.aspx'
-						}, {/*4*/
+						}, {/*3*/
 							type : '6',
 							name : 'zrc2no'
-						},{/*8*/
+						},{/*4*/
 							type : '8',
 							name : 'xcarteam',
 							value : t_carteam.split(',')
+						}, {/*5*/
+							type : '2',
+							name : 'acc',
+							dbf : 'acc',
+							index : 'acc1,acc2',
+							src : "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
 						}]
 					});
 					q_popAssign();
