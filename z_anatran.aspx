@@ -592,7 +592,7 @@
 
                             tmpPath += '<line x1="760" y1="100" x2="780" y2="100" style="stroke:rgb(0,180,125);stroke-width:1"/>';
                             tmpPath += '<circle class="" cx="770" cy="100" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
-                            tmpPath += '<text x="790" y="105" fill="black">淨利：</text>';
+                            tmpPath += '<text x="790" y="105" fill="black">毛利：</text>';
                             tmpPath += '<text text-anchor="end" x="910" y="105" fill="black">' + FormatNumber(obj.data('info').carData[obj.data('info').curIndex].profit) + '</text>';
 
                             obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
@@ -932,7 +932,7 @@
 
                             tmpPath += '<line x1="760" y1="100" x2="780" y2="100" style="stroke:rgb(0,180,125);stroke-width:1"/>';
                             tmpPath += '<circle class="" cx="770" cy="100" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
-                            tmpPath += '<text x="790" y="105" fill="black">淨利：</text>';
+                            tmpPath += '<text x="790" y="105" fill="black">毛利：</text>';
                             tmpPath += '<text text-anchor="end" x="910" y="105" fill="black">' + FormatNumber(obj.data('info').profit) + '</text>';
 
                             obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
@@ -1107,7 +1107,7 @@
 
                             tmpPath += '<line x1="760" y1="100" x2="780" y2="100" style="stroke:rgb(0,180,125);stroke-width:1"/>';
                             tmpPath += '<circle class="" cx="770" cy="100" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
-                            tmpPath += '<text x="790" y="105" fill="black">淨利：</text>';
+                            tmpPath += '<text x="790" y="105" fill="black">毛利：</text>';
                             tmpPath += '<text text-anchor="end" x="910" y="105" fill="black">' + FormatNumber(obj.data('info').carData.profit) + '</text>';
 
                             obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
