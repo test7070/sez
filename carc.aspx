@@ -144,9 +144,9 @@
 		     		t_where = "noa='" + $('#txtPaybno').val() + "'";
             		q_box("payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "650px", q_getMsg('popPaytran'));
              });
-             $('#txtAcdate').focusout(function() {
+             /*$('#txtAcdate').focusout(function() {
 	             $('#txtMon').val($(this).val().substr(0,6));
-             });
+             });*/
              $('#txtAcc1').change(function () {
 			 	var s1 = trim($(this).val());
 			    if (s1.length > 4 && s1.indexOf('.') < 0)
