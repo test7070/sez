@@ -16,7 +16,7 @@
             }
 
             var q_name = "tranvcce";
-            var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtCommandid'];
+            var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtCommandid','txtOrdeno'];
             var bbmNum = [];
             var bbmMask = [['txtDatea', '999/99/99']];
             q_sqlCount = 6;
