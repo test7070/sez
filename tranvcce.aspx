@@ -9,6 +9,10 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -271,6 +275,7 @@
                 q_mask(bbmMask);
                 q_cmbParse("combCtype", ('').concat(new Array( '全部','貨櫃','平板','散裝')));
                 q_cmbParse("combDtype", ('').concat(new Array( '全部','出口','進口')));
+                $('#txtDatea').datepicker();
 				//--------------------------------------------------
                 $('#btnTranorde_refresh').click(function(e) {
                     t_where = " (isnull(mount,0)>isnull(vccecount,0)) ";
