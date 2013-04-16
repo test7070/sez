@@ -951,9 +951,9 @@
 						<td>
 						<input type="text" id="txtCheckself" class="txt c1"/>
 						</td>
-						<td><span> </span><a id="lblCheckInstru" class="lbl"> </a></td>
+						<td><span> </span><a id="lblCheckinstru" class="lbl"> </a></td>
 						<td>
-						<input type="text" id="txtCheckInstru" class="txt c1"/>
+						<input type="text" id="txtCheckinstru" class="txt c1"/>
 						</td>
 						<td><span> </span><a id="lblCasedo" class="lbl"> </a></td>
 						<td>
