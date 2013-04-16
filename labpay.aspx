@@ -36,7 +36,7 @@
             				 ['txtAcc3', 'lblAcc3', 'acc', 'acc1,acc2', 'txtAcc3,txtAcc4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
              				 ['txtCustno_', 'btnCustno_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx'],
             				 ['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', 'tgg_b.aspx'],
-							 ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,vccacc1,vccacc2', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
+							 ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
 							 ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
 							 ['txtProductno2_', 'btnProductno2_', 'ucc', 'noa,product,vccacc1,vccacc2', 'txtProductno2_,txtProduct2_,txtAcc3_,txtAcc4_', 'ucc_b.aspx'],
 							 ['txtAcc3_', 'btnAcc1_', 'acc', 'acc1,acc2', 'txtAcc3_,txtAcc4_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
@@ -118,7 +118,7 @@
                         $('#txtAcc1').focus();
                         break;
                     case 'txtProductno_':
-                        $('#txtMinusmoney_' + b_seq).focus();
+                        $('#txtMoney_' + b_seq).focus();
                         break;
                     case 'txtProductno2_':
                         $('#txtPlusmoney_' + b_seq).focus();
