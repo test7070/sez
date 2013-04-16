@@ -184,7 +184,7 @@
                             $('#txtAddr').val(this.data[n+i]['addr']);
                             $('#txtMemo').val(this.data[n+i]['memo']);
                             $('#txtMount').val(1);
-                            t_msg = this.data[n+i]['nick']+' '+this.data[n+i]['addr'];
+                            t_msg = this.data[n+i]['addr'];
                             //出口
                             t_msg += (this.data[n+i]['empdock'].length>0?', '+this.data[n+i]['empdock']+'領':'');
                         	t_msg += (this.data[n+i]['dock'].length>0?', 交'+this.data[n+i]['dock']:'');
