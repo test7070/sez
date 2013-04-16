@@ -118,7 +118,11 @@
                         type : '5', //select
                         name : 'typea',
                         value : [q_getPara('report.all')].concat(q_getPara('lab_accc.typea').split(','))
-                    }]
+                    }, {/*16*/
+                         	type : '8',
+                            name : 'xfilter',
+                            value : q_getMsg('tfilter').split('&')
+                        }]
                     });
                     q_popAssign();
                     q_langShow();
