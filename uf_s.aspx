@@ -38,10 +38,7 @@
                 t_worker = $('#txtWorker').val();
                 t_bdate = $('#txtBdate').val();
                 t_edate = $('#txtEdate').val();
-                t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;
-                /// 100.  .
-                t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;
-                /// 100.  .
+                t_money = parseFloat($('#txtMoney').val());
 
                 t_checkno = $.trim($('#txtCheckno').val());
 				
@@ -52,6 +49,8 @@
                 + q_sqlPara2("datea", t_bdate, t_edate);
 				if(t_checkno.length>0)
 					t_where += " and patindex('%"+t_checkno+"%',checkno)>0";
+				if(t_money!=0)
+					t_where += " and patindex('%"+','+t_money+','+"%',cmoney)>0";
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
@@ -98,6 +97,12 @@
 					<td class='seek'  style="width:20%;"><a id='lblCheckno'></a></td>
 					<td>
 					<input class="txt" id="txtCheckno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblMoney'></a></td>
+					<td>
+					<input class="txt" id="txtMoney" type="text" style="width:215px; font-size:medium;text-align: right;" />
 					</td>
 				</tr>
 			</table>
