@@ -59,7 +59,7 @@
                         name : 'xnoa'//[1]
                     }, {
                         type : '6',
-                        name : 'custno'//[2]
+                        name : 'xcustno'//[2]
                     }, {
                         type : '2',
                         name : 'addrno',//[3][4]
@@ -68,7 +68,7 @@
                         src : 'addr_b2.aspx'
                     }, {
                         type : '6',
-                        name : 'cno'//[5]
+                        name : 'xcno'//[5]
                     },{
                         type : '1',
                         name : 'date'//[6][7]
@@ -106,16 +106,16 @@
                 t_noa  =  t_noa.replace('noa=','');
                 $('#txtXnoa').val(t_noa);
                 
-                $('#Custno').css("width","410px");
-            	$('#txtCustno').css("width","320px");
-            	$('#txtCustno').focus(function() {
+                $('#Xcustno').css("width","410px");
+            	$('#txtXcustno').css("width","320px");
+            	$('#txtXcustno').focus(function() {
             		q_msg( $(this), '輸入格式為：客戶.客戶.客戶.......');
                 }).blur(function () {
 					q_msg();
 	        	});
-	        	$('#Cno').css("width","410px");
-            	$('#txtCno').css("width","320px");
-            	$('#txtCno').focus(function() {
+	        	$('#Xcno').css("width","410px");
+            	$('#txtXcno').css("width","320px");
+            	$('#txtXcno').focus(function() {
             		q_msg( $(this), '輸入格式為：公司.公司.公司.......');
                 }).blur(function () {
 					q_msg();

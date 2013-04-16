@@ -18,7 +18,7 @@
             q_desc=1;
 			q_tables = 's';
             var q_name = "assignwork";
-            var q_readonly = ['txtWorker','txtNoa','txtVccno','txtPaybno','txtAccno2','txtAccno','txtMoney','txtCost'];
+            var q_readonly = ['txtWorker','txtNoa','txtVccno','txtPaybno','txtAccno2','txtAccno','txtMoney','txtCost','txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1]];
             var bbsNum = [['txtMoney',14, 0, 1],['txtCost',14, 0, 1],['txtRealcost',14, 0, 1]];
@@ -240,7 +240,10 @@
                 
                 
                 sum();
-                $('#txtWorker').val(r_name);
+                if(q_cur==1)
+	            	$('#txtWorker').val(r_name);
+            	else
+            		$('#txtWorker2').val(r_name);
                 
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
@@ -704,6 +707,8 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtWorker" class="txt c1"/></td>	
+						<td class="td3"><span> </span><a id='lblWorker2' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtWorker2" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
