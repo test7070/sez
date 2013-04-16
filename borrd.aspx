@@ -551,9 +551,9 @@
 						<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td><input class="txt" id="txtDatea.*" type="text" style="width:95%; text-align: center;"/></td>
 						<td><input class="txt" id="txtRate.*" type="text" style="width:95%; text-align: right;"/></td>
+						<td><input class="txt" id="txtRatemon.*" type="text" style="width:95%; text-align: right;"/></td>
 						<td><input class="txt" id="txtFixmoney.*" type="text" style="width:95%; text-align: right;"/></td>
 						<td><input class="txt" id="txtMemo.*" type="text" style="width:95%; text-align: left;"/></td>
-						<td><input class="txt" id="txtRatemon.*" type="text" style="width:95%; text-align: right;"/></td>
 					</tr>
 				</table>
 			</div>

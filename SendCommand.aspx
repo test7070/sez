@@ -24,7 +24,10 @@
             Response.Write("<p>" + item.CarId + "</p>");
             Response.Write("<p>" + item.Message + "</p>");
             Response.Write("<p>" + item.CommandId + "</p>");   */ 
-
+			item.GroupName = System.Web.HttpUtility.UrlDecode(item.GroupName);
+			item.CarId = System.Web.HttpUtility.UrlDecode(item.CarId);
+			item.Message = System.Web.HttpUtility.UrlDecode(item.Message);
+			
             string targetUrl = "http://115.85.145.34/Service/Service.asmx?op=SendCommand";
             string parame = "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">" +
                         " <soap:Body>" +

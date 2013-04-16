@@ -17,7 +17,7 @@
 			q_desc=1;
             q_tables = 's';
             var q_name = "uf";
-            var q_readonly = ['txtAccno', 'txtNoa', 'txtWorker', 'txtWorker2', 'txtMoney', 'txtCheckno'];
+            var q_readonly = ['txtAccno', 'txtNoa', 'txtWorker', 'txtWorker2', 'txtMoney', 'txtCheckno','txtCmoney'];
             var q_readonlys = ['txtCheckno'];
             var bbmNum = [['txtMoney', 10, 0, 1]];
             var bbsNum = [['txtMoney', 10, 0, 1]];
@@ -120,12 +120,19 @@
             function btnOk() {
             	sum();
             	var t_checkno = "";
+            	var t_cmoney = "",t_money=0;
             	for (var i = 0; i < q_bbsCount; i++) {           		
             		if($.trim($('#txtCheckno_' + i).val()).length>0){
             			t_checkno += (t_checkno.length>0?",":"") + $.trim($('#txtCheckno_' + i).val());
             		}
+            		t_money = parseFloat($('#txtMoney_' + i).val());
+            		if(t_money!=0){
+            			t_cmoney += ','+t_money+','
+            		}
 		        }
 		        $('#txtCheckno').val(t_checkno);
+		        $('#txtCmoney').val(t_cmoney);
+		        
                 if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     return;
@@ -188,7 +195,7 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
-                $('#cmbTypea').val(2);
+                $('#cmbTypea').val(2).focus();
 
                 //自動產生序號
                 for (var j = 0; j <= q_bbsCount; j++) {
@@ -473,7 +480,7 @@
 				<table class="tbbm"  id="tbbm">
 					<tr class="tr0" style="height:1px;">
 						<td><input id="txtCheckno"type="text" style="display:none;"/></td>
-						<td></td>
+						<td><input id="txtCmoney"type="text" style="display:none;"/></td>
 						<td></td>
 						<td></td>
 						<td></td>
