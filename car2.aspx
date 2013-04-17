@@ -53,7 +53,7 @@
                 q_gt('carbrand', '', 0, 0, 0, "");
                 q_gt('carkind', '', 0, 0, 0, "");
                 q_gt('carspec', '', 0, 0, 0, "");
-                q_gt('carstyle', '', 0, 0, 0, "");
+                //q_gt('carstyle', '', 0, 0, 0, "");
                 q_gt('cardeal', '', 0, 0, 0, "");
 				
 				$(".carowner").hide();
@@ -993,6 +993,10 @@
 						<td><input id="txtInmoney" type="text" class="txt c1 num"/> </td>
 						<td><span> </span><a id="lblIsprint" class="lbl"> </a></td>
 						<td><select id="cmbIsprint" class="txt c1"> </select> </td>
+					</tr>
+					<tr class="other">
+						<td><span> </span><a id="lblSendsign" class="lbl"> </a></td>
+						<td colspan="3"><input type="text" id="txtSendsign" class="txt c1"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
