@@ -16,7 +16,7 @@
         }
         q_tables = 's';
         var q_name = "salexam";
-        var q_readonly = ['txtNoa','txtDatea','txtWorker'];
+        var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2'];
         var q_readonlys = [];
         var bbmNum = [];  // 允許 key 小數
         var bbsNum = [];
@@ -53,13 +53,27 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd],['txtYear', '999']];
             q_mask(bbmMask);
+            if(r_rank>=8){
+            	$('#checkIsall').show();
+            	$('#lblIsall').show();
+            }else{
+            	$('#checkIsall').hide();
+            	$('#lblIsall').hide();
+            }
+            
             
             $('#btnImport').click(function() {
-            	if(r_rank==9)//總事長評量副總
-            		var t_where = "where=^^ (partno ='02' and jobno='02') ^^";
-            	else if(r_rank==8)//副總評量各主管(含監理部經理)以及部門以下員工
-            		var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or jobno<='03' or (partno='07' and jobno<='04')) and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
-            	else{
+            	if(r_rank==9){//總事長評量副總
+            		if($('#checkIsall')[0].checked==true)
+            			var t_where = "where=^^ noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
+            		else
+            			var t_where = "where=^^ (partno ='02' and jobno='02') ^^";
+            	}else if(r_rank==8){//副總評量各主管(含監理部經理)以及部門以下員工
+            		if($('#checkIsall')[0].checked==true)
+            			var t_where = "where=^^ noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
+            		else
+            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or jobno<='03' or (partno='07' and jobno<='04')) and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
+            	}else{
             		if($('#txtPartno').val()=='03')//財務部跟內帳部一起
             			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='04') and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
             		else if($('#txtPartno').val()=='08')//運輸部跟中鋼部一起
@@ -110,8 +124,12 @@
                 alert(t_err);
                 return;
             }
-			$('#txtWorkerno').val(r_userno);
-            $('#txtWorker').val(r_name);
+             if(q_cur==1){
+             	$('#txtWorkerno').val(r_userno);
+	            $('#txtWorker').val(r_name);
+            }else
+            	$('#txtWorker2').val(r_name);
+            	
             sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -544,11 +562,15 @@
             	<input id="txtPart" type="text" class="txt c3"/>
             </td>
             <td class='td3'><input id="btnImport" type="button" style="width: auto;font-size: medium;"/></td>
+            <td class='td4'><input id="checkIsall" type="checkbox" /><span> </span><a id="lblIsall"> </a></td>
         </tr>
         <tr>
             <td class="td1"><span> </span><a id="lblWorker" class="lbl"></a></td>
             <td class="td2">
             	<input id="txtWorker" type="text" class="txt c1"/><input id="txtWorkerno" type="hidden" class="txt c1"/></td>
+            <td class="td3"><span> </span><a id="lblWorker2" class="lbl"></a></td>
+            <td class="td4">
+            	<input id="txtWorker2" type="text" class="txt c1"/></td>
         </tr>
         </table>
         </div>
