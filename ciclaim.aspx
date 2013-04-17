@@ -458,7 +458,7 @@
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblInsurer' class="lbl btn"> </a></td>
-						<td class="td2" colspan="3"><input type="text" id="txtInsurer" class="txt c2"/>
+						<td class="td2" colspan="3"><input type="text" id="txtInsurerno" class="txt c2"/>
 							<input type="text" id="txtInsurer" class="txt c3"/>
 						</td>
 						<td class="td5"><span> </span><a id='lblCaseno' class="lbl"> </a></td>
