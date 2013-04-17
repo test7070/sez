@@ -57,6 +57,7 @@
                 q_mask(bbmMask);
                 q_gt('giftsendt', '', 0, 0, 0, "", r_accy);
                 q_gt('store', '', 0, 0, 0, "");
+                q_cmbParse("cmbSendtype", ('').concat(new Array( '','宅配','邱董親送','同仁親送','自取')));
                 $('#txtPrice').blur(function () {
 	            	for(var j = 0; j < q_bbsCount; j++) {
 	            		q_tr('txtMoney_'+j,q_float('txtMount_'+j)*q_float('txtPrice'));
@@ -457,7 +458,8 @@
 							<input type="text" id="txtAcomp" class="txt c3"/>
 						</td>
 						<td class="td4"><span> </span><a id='lblSendtype' class="lbl"> </a></td>
-						<td class="td5"><input type="text" id="txtSendtype" class="txt c1"/></td>	
+						<!--<td class="td5"><input type="text" id="txtSendtype" class="txt c1"/></td>-->
+						<td class="td5"><select id="cmbSendtype" class="txt c1"> </select></td>	
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCno2' class="lbl btn"> </a></td>
