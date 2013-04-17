@@ -107,18 +107,12 @@
                     $('#txtDate2').mask('99/99');
 					
 					$('#txtAcc1a').change(function(e) {
-	                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
-	                    	$(this).val($(this).val()+'.');	
-	                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
-	                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
-	                    }
+						var patt = /(\d{4})([^\.,.]*)$/g;
+						$(this).val($(this).val().replace(patt,"$1.$2"));
             		});
             		$('#txtAcc2a').change(function(e) {
-	                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
-	                    	$(this).val($(this).val()+'.');	
-	                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
-	                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
-	                    }
+	                    var patt = /(\d{4})([^\.,.]*)$/g;
+						$(this).val($(this).val().replace(patt,"$1.$2"));
             		});
                 		
                     $('#chkXbalacc1').children('input').attr('checked', 'checked');
