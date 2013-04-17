@@ -38,7 +38,7 @@
                 t_worker = $('#txtWorker').val();
                 t_bdate = $('#txtBdate').val();
                 t_edate = $('#txtEdate').val();
-                t_money = parseFloat($('#txtMoney').val());
+                t_money = parseFloat($('#txtMoney').val().length==0?'0':$('#txtMoney').val());
 
                 t_checkno = $.trim($('#txtCheckno').val());
 				
