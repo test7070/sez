@@ -50,21 +50,6 @@
                 q_mask(bbmMask);
             	bbsMask = [['txtDatea', r_picd],['txtUindate', r_picd]];
                 q_mask(bbsMask);
-                $('#btnWork').click(function() {
-                    q_func('cua.genwork', $('#txtNoa').val()+",");
-                });
-                $('#btnOrdewindow').click(function() {
-                	t_where = '';
-                	ordeno = $('#txtOrdeno').val();
-                	if(ordeno.length > 0)
-                		t_where = "noa='" + ordeno + "'";
-                    q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
-                });
-                $('#btnOrde').click(function() {
-	            	t_where = '';
-			        t_where = "where=^^ noa ='"+$('#txtOrdeno').val()+"' ^^";           	
-	            	q_gt('orde', t_where , 0, 0, 0, "", r_accy);
-                });
             }
 
             function q_boxClose(s2) {
@@ -79,12 +64,6 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-					case 'orde':
-						var as = _q_appendData("ordes", "", true);
-						if(as[0]!=undefined){
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdemount', 1, as, 'productno,product,unit,mount', 'txtProductno');
-		                }
-	                	break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();

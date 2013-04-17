@@ -241,6 +241,10 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
+				if($('#txtDatea').val().substring(0,6) < '102/04'){
+					alert('禁止修改!!');
+					return;
+				}
                 _btnModi();
                 $('#txtDatea').focus();
             }
