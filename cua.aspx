@@ -398,6 +398,7 @@
 					<td  align="center" style="width:1%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
+					<td align="center" style="width:2%;"><a id='lblNo2_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblDatea_s'></a></td>
 					<td colspan="2" align="center" style="width:15%;"><a id='lblProductno_s'></a></td>
 					<td align="center" style="width:5%;"><a id='lblUnit_s'></a></td>
@@ -412,6 +413,7 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
+					<td><input id="txtNo2.*" type="text" style="width: 90%;" /></td>
 					<td><input id="txtDatea.*" type="text" style="width: 95%;" /></td>
 					<td colspan="2">
 						<input id="txtProductno.*" type="text" style="width: 30%;"/>
