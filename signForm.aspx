@@ -719,6 +719,14 @@
 			</tr>
 			<tr>
 				<td class="td1">
+					<span> </span><a id="lblSigncon" class="lbl"></a>
+				</td>
+				<td class="td2" colspan="3">
+					<input id="txtSigncon"  type="text" class="txt c1"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="td1">
 					<span> </span><a id='lblMemo' class="lbl"></a>
 				</td>
 				<td class="td2" colspan="5">
