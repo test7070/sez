@@ -16,23 +16,19 @@
             }
 
             q_tables = 's';
-            var q_name = "cua";
-            var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
+            var q_name = "model";
+            var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtOrdemount', 10, 0, 1],['txtCuamount', 10, 0, 1],['txtInmount', 10, 0, 1]];
+            var bbsNum = [];
             var bbmMask = [];
-            var bbsMask = [['txtDatea', r_picd],['txtUindate', r_picd]];
+            var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
             brwCount2 = 5;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Datea';
-            aPop = new Array(
-            	['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
-            	['txtStationno_', 'btnStationno_', 'station', 'noa,station', 'txtStationno_,txtStation_', 'station_b.aspx']
-           	);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -54,21 +50,6 @@
                 q_mask(bbmMask);
             	bbsMask = [['txtDatea', r_picd],['txtUindate', r_picd]];
                 q_mask(bbsMask);
-                $('#btnWork').click(function() {
-                    q_func('cua.genwork', $('#txtNoa').val()+",");
-                });
-                $('#btnOrdewindow').click(function() {
-                	t_where = '';
-                	ordeno = $('#txtOrdeno').val();
-                	if(ordeno.length > 0)
-                		t_where = "noa='" + ordeno + "'";
-                    q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
-                });
-                $('#btnOrde').click(function() {
-	            	t_where = '';
-			        t_where = "where=^^ noa ='"+$('#txtOrdeno').val()+"' ^^";           	
-	            	q_gt('orde', t_where , 0, 0, 0, "", r_accy);
-                });
             }
 
             function q_boxClose(s2) {
@@ -83,12 +64,6 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-					case 'orde':
-						var as = _q_appendData("ordes", "", true);
-						if(as[0]!=undefined){
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdemount', 1, as, 'productno,product,unit,mount', 'txtProductno');
-		                }
-	                	break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -337,13 +312,13 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewOrdeno'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewYear'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" /></td>
-						<td id="datea" style="text-align: center;">~datea</td>
-						<td id="ordeno" style="text-align: center;">~ordeno</td>
+						<td id="noa" style="text-align: center;">~noa</td>
+						<td id="year" style="text-align: center;">~year</td>
 					</tr>
 				</table>
 			</div>

@@ -72,6 +72,26 @@
 
             }
             function bbsAssign() {
+            	for(var j = 0; j < q_bbsCount; j++) {
+            		$('#txtHealth_bdate_' + j).blur(function () {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						if(!emp($('#txtHealth_bdate_'+b_seq).val()) && emp($('#txtLabor_bdate_'+b_seq).val()))
+               				$('#txtLabor_bdate_'+b_seq).val($('#txtHealth_bdate_'+b_seq).val());
+               			if(!emp($('#txtHealth_bdate_'+b_seq).val()) && emp($('#txtRetire_bdate_'+b_seq).val()))
+               				$('#txtRetire_bdate_'+b_seq).val($('#txtHealth_bdate_'+b_seq).val());
+				    });
+				    $('#txtHealth_edate_' + j).blur(function () {
+						t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+						if(!emp($('#txtHealth_edate_'+b_seq).val()) && emp($('#txtLabor_edate_'+b_seq).val()))
+               				$('#txtLabor_edate_'+b_seq).val($('#txtHealth_edate_'+b_seq).val());
+               			if(!emp($('#txtHealth_edate_'+b_seq).val()) && emp($('#txtRetire_edate_'+b_seq).val()))
+               				$('#txtRetire_edate_'+b_seq).val($('#txtHealth_edate_'+b_seq).val());
+				    });
+            	}
                 _bbsAssign();//_bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
             }
 
