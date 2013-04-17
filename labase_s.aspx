@@ -12,7 +12,8 @@
 <script type="text/javascript">
     var q_name = "labase_s";
     var aPop = new Array(['txtNoa', '', 'sssall', 'noa,namea', 'txtNoa,txtNamea', 'sssall_b.aspx'],
-    					 ['txtComp', '', 'sssall', 'namea,noa', 'txtComp', 'sssall_b.aspx']);
+    					 ['txtComp', '', 'sssall', 'namea,noa', 'txtComp', 'sssall_b.aspx'],
+    					 ['txtCno', '', 'acomp', 'noa,acomp', 'txtCno,', 'acomp_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -29,20 +30,27 @@
         bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
         q_mask(bbmMask);
         $('#txtBdate').focus();
-         
+         q_cmbParse("cmbStatus", ('').concat(new Array( '','退保','未退保')));
     }
 
     function q_seekStr() {   
     	t_noa = $('#txtNoa').val();
     	t_namea = $('#txtNamea').val();
     	t_comp = $('#txtComp').val();
+    	t_cno = $('#txtCno').val();
+    	t_status = $('#cmbStatus').val();
         //t_bdate = $('#txtBdate').val();
         //t_edate = $('#txtEdate').val(); 
         //t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         //t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
         var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("namea", t_namea) + q_sqlPara2("comp", t_comp);
-        
+        if(!emp(t_cno))
+        	t_where+=" and noa in(select noa from labased where noa+noq in(select noa+MAX(noq) from labased group by noa)and cno='"+t_cno+"')";
+        if(t_status=='未退保')
+        	t_where+=" and noa in(select noa from labased where noa+noq in(select noa+MAX(noq) from labased group by noa)and len(health_edate)=0)";
+        if(t_status=='退保')
+        	t_where+=" and noa in(select noa from labased where noa+noq in(select noa+MAX(noq) from labased group by noa)and len(health_edate)>0)";
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -69,6 +77,15 @@
                 <td><input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" />
                 </td>
             </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblCno'> </a></td>
+                <td><input class="txt" id="txtCno" type="text" style="width:215px; font-size:medium;" />
+                </td>
+            </tr>
+            <tr class='seek_tr'>
+	                <td class='seek'  style="width:20%;"><a id='lblStatus'> </a></td>
+	                <td><select id="cmbStatus" class="txt c1"> </select></td>
+				</tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
 </div>
