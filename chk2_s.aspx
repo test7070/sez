@@ -39,7 +39,7 @@
                 t_worker = $('#txtWorker').val();
                 t_bdate = $('#txtBdate').val();
                 t_edate = $('#txtEdate').val();
-                t_money = parseFloat($('#txtMoney').val());
+                t_money = parseFloat($('#txtMoney').val().length==0?'0':$('#txtMoney').val());
 				
 				t_checkno = $.trim($('#txtCheckno').val());
 				
@@ -48,6 +48,7 @@
 					t_where += " and patindex('%"+t_checkno+"%',checkno)>0";
 				if(t_money!=0)
 					t_where += " and patindex('%"+','+t_money+','+"%',cmoney)>0";
+				//alert(t_where);
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }

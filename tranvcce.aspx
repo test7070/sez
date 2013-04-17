@@ -184,7 +184,7 @@
                             $('#txtAddr').val(this.data[n+i]['addr']);
                             $('#txtMemo').val(this.data[n+i]['memo']);
                             $('#txtMount').val(1);
-                            t_msg = "";
+                            t_msg = this.data[n+i]['addr'];
                             //出口
                             t_msg += (this.data[n+i]['empdock'].length>0?(t_msg.length>0?', ':'')+this.data[n+i]['empdock']+'領':'');
                         	t_msg += (this.data[n+i]['dock'].length>0?(t_msg.length>0?', ':'')+'交'+this.data[n+i]['dock']:'');
@@ -274,9 +274,15 @@
             	$('#btnIns').attr('value',$('#btnIns').attr('value')+"(F8)");
             	$('#btnOk').attr('value',$('#btnOk').attr('value')+"(F9)");
                 q_mask(bbmMask);
+                $('#txtDatea').datepicker();
                 q_cmbParse("combCtype", ('').concat(new Array( '全部','貨櫃','平板','散裝')));
                 q_cmbParse("combDtype", ('').concat(new Array( '全部','出口','進口')));
-                $('#txtDatea').datepicker();
+                q_cmbParse("combMemo", ('').concat(q_getMsg('combmemo').split('&')));
+                $('#combMemo').click(function(e){
+					if(q_cur==1 || q_cur==2){
+						$('#txtMemo').val($('#combMemo>option:selected').text()+$('#txtMemo').val());
+					}                	
+                });
 				//--------------------------------------------------
                 $('#btnTranorde_refresh').click(function(e) {
                     t_where = " (isnull(mount,0)>isnull(vccecount,0)) ";
@@ -1008,9 +1014,10 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td</td>
-						<td colspan="7">
+						<td colspan="6">
 						<input id="txtMemo"  type="text"  class="txt c1"/>
 						</td>
+						<td><select id="combMemo" style="width:20px;"> </select></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMsg' class="lbl"> </a></td</td>

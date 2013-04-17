@@ -26,7 +26,7 @@
             var bbtNum = [['txtMoney', 10, 0, 1]];
             var bbmMask = [['txtDatea', '999/99/99'], ['txtBegindate', '999/99/99'], ['txtEnddate', '999/99/99']];
             var bbsMask = [['txtDatea', '999/99/99'], ['txtIndate', '999/99/99']];
-            var bbtMask = [['txtMon', '999/99']];
+            var bbtMask = [['txtDatea', '999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -254,15 +254,16 @@
                     else
                         t_pay += q_float('txtMoney_' + i);
                 }
+        
                 $('#txtCash').val(t_cash);
                 $('#txtChecka').val(t_checka);
                 t_money = t_cash + t_checka;
-                $('#txtMoney').val(t_money);
+                $('#txtMoney').val(FormatNumber(t_money));
                 t_interest = round(t_money * t_days / 30 * q_float('txtRate') / 100, 0);
-                $('#txtInterest').val(t_interest);
-                $('#txtTotal').val(t_money + t_interest);
-                $('#txtPay').val(t_pay);
-                $('#txtUnpay').val(t_money + t_interest - t_pay);
+                $('#txtInterest').val(FormatNumber(t_interest));
+                $('#txtTotal').val(FormatNumber(t_money + t_interest));
+                $('#txtPay').val(FormatNumber(t_pay));
+                $('#txtUnpay').val(FormatNumber(t_money + t_interest - t_pay));
             }
 
             function q_appendData(t_Table) {
@@ -318,6 +319,12 @@
                     default:
                         break;
                 }
+            }
+            function FormatNumber(n) {
+                n += "";
+                var arr = n.split(".");
+                var re = /(\d{1,3})(?=(\d{3})+$)/g;
+                return arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
 		</script>
 		<style type="text/css">
@@ -442,7 +449,7 @@
                 font-size: medium;
             }
             #dbbt {
-                width: 600px;
+                width: 950px;
             }
             #tbbt {
                 margin: 0;
@@ -696,8 +703,8 @@
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold; width:90%;" value="＋"/>
 						</td>
 						<td style="width:20px;"> </td>
-						<td style="width:100px; text-align: center;">請款月份</td>
-						<td style="width:100px; text-align: center;">金額</td>
+						<td style="width:120px; text-align: center;">請款日期</td>
+						<td style="width:100px; text-align: center;">金額(利息)</td>
 						<td style="width:350px; text-align: center;">備註</td>
 						<td style="width:150px; text-align: center;">請款單號</td>
 						<td style="width:150px; text-align: center;">傳票號碼</td>
