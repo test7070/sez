@@ -23,7 +23,7 @@
 			}
             $(document).ready(function() {
             	q_getId();
-                q_gf('', 'z_umm');
+                q_gf('', 'z_anaumm');
                 
                 //圖型設定
                 $('#btnSvg').val('圖形顯示');
@@ -41,11 +41,11 @@
 						if($(".select")[0].nextSibling.innerText==$('#q_report').data().info.reportData[i].reportName){
 							//下面註解取得q_lang的z_xxxxx
 							txtreport=$('#q_report').data().info.reportData[i].report;
-							if(txtreport=='z_umm4')
+							if(txtreport=='z_anaumm4')
 								$('#btnSvg').val($('#q_report').data().info.reportData[i].reportName+'長條圖顯示');
 						}
 					}
-					if(txtreport=='z_umm4')
+					if(txtreport=='z_anaumm4')
 						$('#btnSvg').show();
 				});
 				
@@ -56,7 +56,7 @@
 					var xdate2='#non';
 					if(!emp($('#txtXdate2').val()))
 						xdate2=$('#txtXdate2').val();
-					q_func('qtxt.query','z_umm.txt,'+txtreport+','+encodeURI(r_accy) + ';' + encodeURI($('#txtXdate1').val()) + ';' + encodeURI(xdate2));
+					q_func('qtxt.query','z_anaumm.txt,'+txtreport+','+encodeURI(r_accy+'_'+r_cno) + ';' + encodeURI($('#txtXdate1').val()) + ';' + encodeURI(xdate2));
 					$('#Loading').Loading();
 				});
 				$("#btnNext").click(function(e) {
@@ -68,7 +68,7 @@
             });
             function q_gfPost() {
                $('#q_report').q_report({
-                        fileName : 'z_umm',
+                        fileName : 'z_anaumm',
                         options : [{
                         type : '6',
                         name : 'xcno'
@@ -167,33 +167,67 @@
             function q_funcPost(t_func, result) {
                 switch(t_func) {
                     case 'qtxt.query':
-                    var bar=new Array();
-                    //長條圖(橫)
-                     if( txtreport=='z_umm4'){
-                     	if (as[0] == undefined) {
-                           	$('#Loading').hide();
-                           	alert('沒有資料!!');
-                        }else{
-                        	var n = -1;
-							var x_maxmoney=0,x_minmoney=0;
-	                        for (i = 0; i < as.length; i++) {
-	                        	
+                    	var as = _q_appendData("tmp0", "", true, true);
+                    	var bar=new Array();
+	                    //長條圖
+	                     if( txtreport=='z_anaumm4'){
+	                     	if (as[0] == undefined) {
+	                           	$('#Loading').hide();
+	                           	alert('沒有資料!!');
+	                        }else{
+	                        	var mon='';
+	                        	var n = -1;
+								var x_maxmoney=0,x_minmoney=0;
+		                        for (i = 0; i < as.length; i++) {
+		                        	var t_detail;
+		                        	if(mon==''||mon!=as[i].mon){
+		                        		x_maxmoney=0;
+		                        		x_minmoney=0;
+		                        	}
+		                        	t_detail = {
+		                        		datea : as[i].accc2,
+		                                inmoney : as[i].inmoney,
+		                                paymoney : as[i].paymoney,
+		                                ainmoney : as[i].ainmoney,
+		                                binmoney : as[i].binmoney,
+		                                cinmoney : as[i].cinmoney,
+		                                apaymoney : as[i].apaymoney,
+		                                bpaymoney : as[i].bpaymoney,
+		                                cpaymoney : as[i].cpaymoney
+									};
+		                        	//判斷該月份的最大值與最小值
+		                            x_maxmoney=Math.max(x_maxmoney,dec(as[i].inmoney),dec(as[i].paymoney),dec(as[i].inmoney)-dec(as[i].paymoney))
+		                            x_minmoney=Math.min(x_minmoney,dec(as[i].inmoney),dec(as[i].paymoney),dec(as[i].inmoney)-dec(as[i].paymoney))
+		                        	if(mon==''||mon!=as[i].mon){
+		                        		bar.push({
+					                        mon:as[i].mon,
+					                        detail : [t_detail],
+					                        maxmoney:x_maxmoney,
+					                        minmoney:x_minmoney
+										});
+										mon=as[i].mon;
+										n++;
+		                        	}else{
+				                        bar[n].detail.push(t_detail);
+				                        bar[n].maxmoney=x_maxmoney;
+				                    	bar[n].minmoney=x_minmoney;
+									}
+		                        }
 	                        }
-                        }
-						$('#barChart').barChart({
-							data : bar,
-							maxMoney : x_maxmoney,
-                            minMoney : x_minmoney
-						});
-						$('#txtCurPage').val(1).change(function(e) {
-		                    $(this).val(parseInt($(this).val()));
-	                       	$('#barChart').data('info').page($('#barChart'), $(this).val());
-	                    });
-	                    $('#txtTotPage').val(bar.length);
-	                    $('#Loading').hide();
-	                    $('#barChart').show();
-						$(".control").show();
-                    }
+							$('#barChart').barChart({
+								data : bar,
+								maxMoney : x_maxmoney,
+	                            minMoney : x_minmoney
+							});
+							$('#txtCurPage').val(1).change(function(e) {
+			                    $(this).val(parseInt($(this).val()));
+		                       	$('#barChart').data('info').page($('#barChart'), $(this).val());
+		                    });
+		                    $('#txtTotPage').val(bar.length);
+		                    $('#Loading').hide();
+		                    $('#barChart').show();
+							$(".control").show();
+	                    }
                     break;
                 }
             }
@@ -211,12 +245,9 @@
                     $(this).data('info').init($(this));
                 }
                 $.fn.barChart = function(value) {
-                    $(this).data('info', {
+                	$(this).data('info', {
                         curIndex : -1,
-                        custData : value.data,
-                        maxMoney : value.maxMoney,
-                        minMoney : value.minMoney,
-                        maxPage : 1,
+                        Data : value.data,
                         init : function(obj) {
                             if (value.length == 0) {
                                 alert('無資料。');
@@ -226,14 +257,14 @@
                             obj.data('info').refresh(obj);
                         },
                         page : function(obj, n) {
-                            if (n > 0 && n <= obj.data('info').maxPage) {
+                            if (n > 0 && n <= obj.data('info').Data.length) {
                                 obj.data('info').curIndex = n - 1;
                                 obj.data('info').refresh(obj);
                             } else
                                 alert('頁數錯誤。');
                         },
                         next : function(obj) {
-                            if (obj.data('info').curIndex == obj.data('info').maxPage - 1)
+                            if (obj.data('info').curIndex == obj.data('info').Data.length - 1)
                                 alert('已到最後頁。');
                             else {
                                 obj.data('info').curIndex++;
@@ -251,101 +282,182 @@
                             }
                         },
                         refresh : function(obj) {
-                            var objWidth = 950;
-                            var objHeight = obj.data('info').custData.length * 40 + 100;
-                            //背景
-                            var tmpPath = '<rect x="0" y="0" width="' + objWidth + '" height="' + objHeight + '" style="fill:rgb(220,220,220);stroke-width:1;stroke:rgb(0,0,0)"/>';
-                            //圖表背景顏色
-                            var bkColor1 = ['rgb(210,233,255)', 'rgb(255,238,221)'];
-                            //圖表分幾個區塊
-                            var bkN = 10;
-                            var strX = 100, strY = 50;                      
-                            var t_width = 700;
-                            var t_height = obj.data('info').custData.length * 40;
-
-                            for (var i = 0; i < bkN; i++) {
-                                x = Math.round(t_width / bkN, 0) * i;
-                                y = 0;
-                                tmpPath += '<rect x="' + (strX + x) + '" y="' + (strY + y) + '" width="' + Math.round(t_width / bkN, 0) + '" height="' + (t_height) + '" style="fill:' + bkColor1[i % bkColor1.length] + ';"/>';
-                            }
-							
-							var t_maxMoney = obj.data('info').maxMoney;
-                            var t_minMoney = obj.data('info').minMoney;
-                            var t_X = strX + round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_width, 0);                                
-							
-							var t_detail = obj.data('info').custData;
-							/*t_detail.sort(function(a,b){
-								return b.inmoney-a.inmoney;
-							});*/
-							tmpPath += '<defs>' + '<linearGradient id="chart_color3" x1="0%" y1="0%" x2="0%" y2="100%">' + '<stop offset="0%" style="stop-color:rgb(206,206,255);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(147,147,255);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
-                            tmpPath += '<defs>' + '<linearGradient id="chart_color2" x1="0%" y1="0%" x2="0%" y2="100%">' + '<stop offset="0%" style="stop-color:rgb(255,220,185);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(225,175,96);stop-opacity:1" />' + '</linearGradient>' + '</defs>';					
-                            tmpPath += '<defs>' + '<linearGradient id="chart_color4" x1="0%" y1="0%" x2="0%" y2="100%">' + '<stop offset="0%" style="stop-color:rgb(206,255,206);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(147,255,147);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
-                            tmpPath += '<defs>' + '<linearGradient id="chart_color1" x1="0%" y1="0%" x2="0%" y2="100%">' + '<stop offset="0%" style="stop-color:rgb(255,185,220);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(225,96,175);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
-							for (var i = 0; i < t_detail.length; i++) {    
-								tmpPath +='<g id="chart_item'+i+'">';
-								//客戶名稱      
-                                x = strX - 5;
- 								y = strY + i*40 + 24;
-                                tmpPath += '<text class="chart_item" id="chart_nick'+i+'" text-anchor="end"  x="'+x+'" y="'+y+'" fill="#000000" >'+t_detail[i].comp+'</text>';	
-                            	//收入
-                            	t_output = dec(t_detail[i].total);
-                                W = Math.abs(round(t_output / (t_maxMoney - t_minMoney) * t_width, 0));
-                                if(t_output>0){
-                                	x = t_X;
-                                }else{
-                                	x = t_X - W;
-                                } 
- 								y = strY + i*40 + 5;
-                                tmpPath += '<rect class="chart_item" id="chart_inmoney' + i + '" x="' + x + '" y="' + y + '" width="' + W + '" height="' + 15 + '" fill="url(#chart_color1)"/>';
-                            	tmpPath += '<text class="chart_item" id="chart_cinmoney'+i+'" x="'+(x+W+5)+'" y="'+(y+15)+'" fill="#000000" >'+FormatNumber(t_output)+'</text>';	
-                            	//毛利
-                            	/*t_output = t_detail[i].profit;
-                                W = Math.abs(round(t_output / (t_maxMoney - t_minMoney) * t_width, 0));
-                                if(t_output>0){
-                                	x = t_X;
-                                }else{
-                                	x = t_X - W;
-                                }                          
- 								y = strY + i*40 + 20;
-                                tmpPath += '<rect class="chart_item" id="chart_profit' + i + '" x="' + x + '" y="' + y + '" width="' + W + '" height="' + 15 + '" fill="url(#chart_color3)"/>';
-                           		tmpPath += '<text class="chart_item" id="chart_cprofit'+i+'" x="'+(x+W + 5)+'" y="'+(y+15)+'" fill="#000000" >'+FormatNumber(t_output)+'</text>';	
-                            	
-                            	tmpPath +='</g>';*/
-                            }
-                            //X軸
-                            tmpPath += '<line x1="'+strX+'" y1="'+strY+'" x2="'+(strX+t_width)+'" y2="'+strY+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
-							//tmpPath += '<text text-anchor="end"  x="'+t_X+'" y="'+(strY-5)+'" fill="#000000" >0</text>';
-							tmpPath += '<text x="'+strX+'" y="'+(strY-5)+'" fill="#000000" >'+FormatNumber(t_minMoney)+'</text>';
-							tmpPath += '<text text-anchor="end"  x="'+(strX+t_width)+'" y="'+(strY-5)+'" fill="#000000" >'+FormatNumber(t_maxMoney)+'</text>';						
-							//Y軸
-                            tmpPath += '<line x1="'+t_X+'" y1="'+strY+'" x2="'+t_X+'" y2="'+(strY+obj.data('info').custData.length * 40)+'" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                        	obj.width(950).height(500);
+                            var t_color1 = ['rgb(210,233,255)', 'rgb(255,238,221)'];
+                            var t_n = 10;
+                            //分幾個區塊
+                            var t_height = 350, t_width = 600;
+                            var tmpPath = '<rect x="0" y="0" width="950" height="500" style="fill:rgb(220,220,220);stroke-width:1;stroke:rgb(0,0,0)"/>';
+                            for (var i = 0; i < t_n; i++)
+                                tmpPath += '<rect x="100" y="' + (50 + (t_height / t_n) * i) + '" width="' + t_width + '" height="' + (t_height / t_n) + '" style="fill:' + t_color1[i % t_color1.length] + ';"/>';                          
+                            //Y軸
+                            tmpPath += '<line x1="100" y1="50" x2="100" y2="' + (50 + t_height) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                         
+                            var t_detail = obj.data('info').Data[obj.data('info').curIndex].detail;
+                            var t_maxMoney = obj.data('info').Data[obj.data('info').curIndex].maxmoney;
+                            //t_maxMoney=(dec(t_maxMoney.toString().substr(0,1))+1)*Math.pow(10,t_maxMoney.toString().length-1);
                             
+                            var t_minMoney = obj.data('info').Data[obj.data('info').curIndex].minmoney;
+							var t_n = round((t_width - 20) / t_detail.length, 0);
+                            var x, y, w, h, bx, by, t_output, t_money;
+                            tmpPath += '<text x="' + (450) + '" y="' + (20) + '" fill="black">【' + obj.data('info').Data[obj.data('info').curIndex].mon + '月】</text>';
+                            tmpPath += '<text x="' + (70) + '" y="' + (20) + '" fill="black">金額</text>';
+                            tmpPath += '<text x="' + (50 + t_width + 50) + '" y="' + (50 + t_height + 30) + '" fill="black">日期</text>';
+                            
+                            x = 50;
+                            var t_Y = 50 + t_height - round((0 - t_minMoney) / (t_maxMoney - t_minMoney) * t_height, 0);
+                            tmpPath += '<line x1="95" y1="' + t_Y + '" x2="100" y2="' + t_Y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                            tmpPath += '<text text-anchor="end" x="90" y="' + t_Y + '" fill="black">0</text>';
+                            //X軸
+                            tmpPath += '<line x1="100" y1="' + (t_Y) + '" x2="' + (100 + t_width) + '" y2="' + (t_Y) + '" style="stroke:rgb(0,0,0);stroke-width:1"/>';
+
+                            //Y
+                            tmpPath += '<text text-anchor="end" x="90" y="' + (50) + '" fill="black">' + FormatNumber(t_maxMoney) + '</text>';
+                            tmpPath += '<line x1="95" y1="50" x2="100" y2="50" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                            tmpPath += '<text text-anchor="end" x="90" y="' + (50 + t_height) + '" fill="black">' + FormatNumber(t_minMoney) + '</text>';
+                            tmpPath += '<line x1="95" y1="' + (50 + t_height) + '" x2="100" y2="' + (50 + t_height) + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+                            
+                            var t_range = round((t_maxMoney - t_minMoney)/5,0);
+                            var i = Math.pow(10,(t_range+'').length-1);
+                            var t_range = Math.floor(t_range/i)*i;
+                            t_money = t_range;
+                            while (t_money < t_maxMoney) {
+                            	if((t_maxMoney-t_money)/(t_maxMoney - t_minMoney)>0.05){
+	                                y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
+	                                tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+	                                tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money)+ '</text>';
+                            	}
+                            	t_money += t_range;
+                            }
+                            t_money = -t_range;
+                            while (t_money > t_minMoney) {
+                            	if(Math.abs(t_minMoney-t_money)/(t_maxMoney - t_minMoney)>0.05){
+	                                x = 90;
+	                                y = t_Y - round(t_money / (t_maxMoney - t_minMoney) * t_height, 0);
+	                                tmpPath += '<line x1="95" y1="' + y + '" x2="100" y2="' + y + '" style="stroke:rgb(0,0,0);stroke-width:2"/>';
+	                                tmpPath += '<text text-anchor="end" x="90" y="' + y + '" fill="black">' + FormatNumber(t_money) + '</text>';
+                               	}
+                               	t_money -= t_range;
+                            }
+                            
+                            //損益的顏色
+	                        tmpPath += '<defs>' + '<linearGradient id="barchart_profitColor1" x1="0%" y1="0%" x2="100%" y2="0%">' + '<stop offset="0%" style="stop-color:rgb(206,206,255);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(147,147,255);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
+	                        tmpPath += '<defs>' + '<linearGradient id="barchart_profitColor2" x1="0%" y1="0%" x2="100%" y2="0%">' + '<stop offset="0%" style="stop-color:rgb(255,220,185);stop-opacity:1" />' + '<stop offset="100%" style="stop-color:rgb(225,175,96);stop-opacity:1" />' + '</linearGradient>' + '</defs>';
+	
+	                        //損益
+	                        for (var i = 0; i < t_detail.length; i++) {
+	                        	t_output = dec(t_detail[i].inmoney)-dec(t_detail[i].paymoney);
+	                            h = Math.abs(round(t_output / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0));
+	                            x = 100 + 10 + t_n * i - (i == 0 ? 9 : 10);
+	                            if(t_output >= 0){
+	                            	y = t_Y - h;
+	                            }else{
+	                            	y = t_Y;
+	                            }
+	                            tmpPath += '<rect id="barChart_profit' + i + '" class="barChart_profit" x="' + x + '" y="' + y + '" width="' + t_n + '" height="' + h + '" fill="url(#barchart_profitColor1)"/>';
+	                        }
+	                        //收入
+	                        for (var i = 0; i < t_detail.length; i++) {//連接線
+	                            x = 100 + 10 + t_n * i;
+	                            y = t_Y - round(dec(t_detail[i].inmoney) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+	                            if (i > 0)
+	                                tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(255,0,0);stroke-width:1"/>';
+	                            bx = x;
+	                            by = y;
+	                        }
+	                        for (var i = 0; i < t_detail.length; i++) {
+	                            x = 100 + 10 + t_n * i;
+	                            y = t_Y - round(dec(t_detail[i].inmoney) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+	                            tmpPath += '<circle id="barChart_in' + i + '" class="barChart_in" class="" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
+	                        }
+	                        //支出
+	                        for (var i = 0; i < t_detail.length; i++) {//連接線
+	                            x = 100 + 10 + t_n * i;
+	                            y = t_Y - round(dec(t_detail[i].paymoney) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+	                            if (i > 0)
+									tmpPath += '<line x1="' + bx + '" y1="' + by + '" x2="' + x + '" y2="' + y + '" style="stroke:rgb(0,255,0);stroke-width:1"/>';
+								bx = x;
+	                            by = y;
+							}
+							for (var i = 0; i < t_detail.length; i++) {
+	                        	x = 100 + 10 + t_n * i;
+	                            y = t_Y - round(dec(t_detail[i].paymoney) / (t_maxMoney+Math.abs(t_minMoney)) * t_height, 0);
+	                            tmpPath += '<circle id="barChart_out' + i + '" class="barChart_out" class="" cx="' + x + '" cy="' + y + '" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
+	                            tmpPath += '<text id="barChart_date' + i + '" class="barChart_date" x="' + (x - 10) + '" y="' + (50 + t_height + 30) + '" fill="black">' + t_detail[i].datea.substr(3,2) + '</text>';
+							}
+	                            
                             //符號說明
-                            tmpPath += '<rect x="'+(strX+t_width+50)+'" y="5" width="20" height="20" fill="url(#chart_color1)"/>';
-                            tmpPath += '<text x="'+(strX+t_width+70)+'" y="20" fill="black">收入</text>';
-							/*tmpPath += '<rect x="'+(strX+t_width+50)+'" y="30" width="20" height="20" fill="url(#chart_color3)"/>';
-                            tmpPath += '<text x="'+(strX+t_width+70)+'" y="45" fill="black">毛利</text>';*/
-							
-                            obj.width(objWidth).height(objHeight).html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
-                        	
-                        	//事件
-                        	obj.children('svg').find('.chart_item').hover(function(e) {
-                        		var n = $(this).parent().attr('id').replace('chart_item','');
-                        		
-                                $('#chart_nick'+n).attr('fill', 'rgb(255,0,0)');
-                                $('#chart_inmoney'+n).attr('fill', 'url(#chart_color2)');
-                                $('#chart_cinmoney'+n).attr('fill', 'rgb(255,0,0)');
-                                $('#chart_profit'+n).attr('fill', 'url(#chart_color4)');
-                                $('#chart_cprofit'+n).attr('fill', 'rgb(255,0,0)');
-                               
+                            tmpPath += '<line x1="800" y1="45" x2="820" y2="45" style="stroke:rgb(0,0,0);stroke-width:1"/>';
+                            tmpPath += '<circle class="" cx="810" cy="45" r="5" stroke="black" stroke-width="2" fill="rgb(0,255,0)"/>';
+                            tmpPath += '<text x="830" y="50" fill="black">支出</text>';
+
+                            tmpPath += '<line x1="800" y1="75" x2="820" y2="75" style="stroke:rgb(0,0,0);stroke-width:1"/>';
+	                        tmpPath += '<circle class="" cx="810" cy="75" r="5" stroke="black" stroke-width="2" fill="rgb(255,0,0)"/>';
+	                        tmpPath += '<text x="830" y="80" fill="black">收入</text>';
+
+                            tmpPath += '<rect x="800" y="95" width="20" height="20" fill="url(#barchart_profitColor1)"/>';
+                            tmpPath += '<text x="830" y="110" fill="black">損益</text>';
+
+                            obj.html('<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="graph">' + tmpPath + '</svg> ');
+                            //事件
+                            obj.children('svg').find('.barChart_in').hover(function(e) {
+                                $(this).attr('fill', 'rgb(255,151,151)');
+                                var n = $(this).attr('id').replace('barChart_in', '');
+                                $('#barChart_date' + n).attr('fill', 'rgb(187,94,0)');
                             }, function(e) {
-                                var n = $(this).parent().attr('id').replace('chart_item','');
-                        		
-                                $('#chart_nick'+n).attr('fill', 'rgb(0,0,0)');
-                                $('#chart_inmoney'+n).attr('fill', 'url(#chart_color1)');
-                                $('#chart_cinmoney'+n).attr('fill', 'rgb(0,0,0)');
-                                $('#chart_profit'+n).attr('fill', 'url(#chart_color3)');
-                                $('#chart_cprofit'+n).attr('fill', 'rgb(0,0,0)');
+                                $(this).attr('fill', 'rgb(255,0,0)');
+                                var n = $(this).attr('id').replace('barChart_in', '');
+                                $('#barChart_date' + n).attr('fill', 'black');
+                            }).click(function(e){
+                            	var obj = $(this).parent().parent();
+                                var n = $(this).attr('id').replace('barChart_in', '');
+                                var t_index = obj.data('info').curIndex;
+                                var alerttxt='';
+                                alerttxt+='收入總金額：'+obj.data('info').Data[t_index].detail[n].inmoney+'\n';
+                                alerttxt+='現金收入金額：'+obj.data('info').Data[t_index].detail[n].ainmoney+'\n';
+                                alerttxt+='銀行存款收入金額：'+obj.data('info').Data[t_index].detail[n].binmoney+'\n';
+                                alerttxt+='應收票據收入金額：'+obj.data('info').Data[t_index].detail[n].cinmoney;
+                            	alert(alerttxt);
+                            });
+	                            
+                            obj.children('svg').find('.barChart_out').hover(function(e) {
+                                $(this).attr('fill', 'rgb(255,151,151)');
+                                var n = $(this).attr('id').replace('barChart_out', '');
+                                $('#barChart_date' + n).attr('fill', 'rgb(187,94,0)');
+                            }, function(e) {
+                                $(this).attr('fill', 'rgb(0,255,0)');
+                                var n = $(this).attr('id').replace('barChart_out', '');
+                                $('#barChart_date' + n).attr('fill', 'black');
+                            }).click(function(e){
+                            	var obj = $(this).parent().parent();
+                                var n = $(this).attr('id').replace('barChart_out', '');
+                                var t_index = obj.data('info').curIndex;
+                                var alerttxt='';
+                               	alerttxt+='支出總金額：'+obj.data('info').Data[t_index].detail[n].paymoney+'\n';
+                                alerttxt+='現金支出金額：'+obj.data('info').Data[t_index].detail[n].apaymoney+'\n';
+                                alerttxt+='銀行存款支出金額：'+obj.data('info').Data[t_index].detail[n].bpaymoney+'\n';
+                                alerttxt+='應收票據支出金額：'+obj.data('info').Data[t_index].detail[n].cpaymoney;
+                            	alert(alerttxt);
+                            });
+
+                            obj.children('svg').find('.barChart_profit').hover(function(e) {
+                                $(this).attr('fill', 'url(#barchart_profitColor2)');
+                                var n = $(this).attr('id').replace('barChart_profit', '');
+                                $('#barChart_date' + n).attr('fill', 'rgb(187,94,0)');
+                            }, function(e) {
+                                $(this).attr('fill', 'url(#barchart_profitColor1)');
+                                var n = $(this).attr('id').replace('barChart_profit', '');
+                                $('#barChart_date' + n).attr('fill', 'black');
+                            }).click(function(e){
+                            	var obj = $(this).parent().parent();
+                                var n = $(this).attr('id').replace('barChart_profit', '');
+                                var t_index = obj.data('info').curIndex;
+                                var alerttxt='';
+                                alerttxt+='損益總金額：'+FormatNumber(dec(obj.data('info').Data[t_index].detail[n].inmoney)-dec(obj.data('info').Data[t_index].detail[n].paymoney))+'\n';
+                                alerttxt+='現金損益金額：'+FormatNumber(dec(obj.data('info').Data[t_index].detail[n].ainmoney)-dec(obj.data('info').Data[t_index].detail[n].apaymoney))+'\n';
+                                alerttxt+='銀行存款損益金額：'+FormatNumber(dec(obj.data('info').Data[t_index].detail[n].binmoney)-dec(obj.data('info').Data[t_index].detail[n].bpaymoney))+'\n';
+                                alerttxt+='應收票據損益金額：'+FormatNumber(dec(obj.data('info').Data[t_index].detail[n].cinmoney)-dec(obj.data('info').Data[t_index].detail[n].cpaymoney));
+                            	alert(alerttxt);
                             });
                         }
                     });
