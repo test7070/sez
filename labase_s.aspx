@@ -12,7 +12,7 @@
 <script type="text/javascript">
     var q_name = "labase_s";
     var aPop = new Array(['txtNoa', '', 'sssall', 'noa,namea', 'txtNoa,txtNamea', 'sssall_b.aspx'],
-    					 ['txtComp', '', 'sssall', 'namea,noa', 'txtComp', 'sssall_b.aspx'],
+    					 ['txtCustno', '', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
     					 ['txtCno', '', 'acomp', 'noa,acomp', 'txtCno,', 'acomp_b.aspx']);
     $(document).ready(function () {
         main();
@@ -36,6 +36,7 @@
     function q_seekStr() {   
     	t_noa = $('#txtNoa').val();
     	t_namea = $('#txtNamea').val();
+    	t_custno = $('#txtCustno').val();
     	t_comp = $('#txtComp').val();
     	t_cno = $('#txtCno').val();
     	t_status = $('#cmbStatus').val();
@@ -44,14 +45,21 @@
         //t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         //t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("namea", t_namea) + q_sqlPara2("comp", t_comp);
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("namea", t_namea) + q_sqlPara2("custno", t_custno)+ q_sqlPara2("comp", t_comp);
         if(!emp(t_cno))
         	t_where+=" and noa in(select noa from labased where noa+noq in(select noa+MAX(noq) from labased group by noa)and cno='"+t_cno+"')";
         if(t_status=='未退保')
         	t_where+=" and noa in(select noa from labased where noa+noq in(select noa+MAX(noq) from labased group by noa)and len(health_edate)=0)";
         if(t_status=='退保')
         	t_where+=" and noa in(select noa from labased where noa+noq in(select noa+MAX(noq) from labased group by noa)and len(health_edate)>0)";
-
+		
+		t_where+=" and (1=1 ";
+		if($('#chkIssssp')[0].checked==true)
+			t_where+=" and issssp='1'";
+        if($('#chkIsforeign')[0].checked==true)
+			t_where+=" and isforeign='1'";
+		t_where+=")"
+		
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
     }
@@ -73,6 +81,11 @@
                 <td><input class="txt" id="txtNamea" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblCustno'> </a></td>
+                <td><input class="txt" id="txtCustno" type="text" style="width:215px; font-size:medium;" />
+                </td>
+            </tr>
+            <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblComp'> </a></td>
                 <td><input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" />
                 </td>
@@ -83,9 +96,15 @@
                 </td>
             </tr>
             <tr class='seek_tr'>
-	                <td class='seek'  style="width:20%;"><a id='lblStatus'> </a></td>
-	                <td><select id="cmbStatus" class="txt c1"> </select></td>
-				</tr>
+	            <td class='seek'  style="width:20%;"><a id='lblStatus'> </a></td>
+	            <td><select id="cmbStatus" class="txt c1"> </select></td>
+			</tr>
+			<tr class='seek_tr'>
+	            <td colspan="2">
+	            	<input id="chkIssssp" type="checkbox" /><span> </span><a id="lblIssssp"> </a>
+	            	<input id="chkIsforeign" type="checkbox"/><span> </span><a id="lblIsforeign"> </a>
+	            </td>
+			</tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
 </div>
