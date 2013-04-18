@@ -89,7 +89,16 @@
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
                 });
             }
-
+			function browVccno(obj){
+				var noa = $.trim($(obj).val());
+            	if(noa.length>0)
+            		q_box("vcctran.aspx?;;;noa='" + noa + "';"+r_accy, 'vcc', "95%", "95%", q_getMsg("popVcctran"));
+			}
+			function browAccno(obj){
+				var noa = $.trim($(obj).val());
+            	if(noa.length>0)
+            		q_box("accc.aspx?;;;accc3='" + noa + "';"+r_accy+"_1", 'accc', "95%", "95%", q_getMsg("popAccc"));
+			}
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case q_name:
@@ -593,8 +602,8 @@
 						<td><input id="txtMon..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtMoney..*"  type="text" style="width:95%; text-align: right;"/></td>
 						<td><input id="txtMemo..*"  type="text" style="width:95%; text-align: left;"/></td>
-						<td><input id="txtVccno..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtAccno..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtVccno..*" onclick="browVccno(this)" type="text" style="width:95%;"/></td>
+						<td><input id="txtAccno..*" onclick="browAccno(this)" type="text" style="width:95%;"/></td>
 					</tr>
 				</tbody>
 			</table>

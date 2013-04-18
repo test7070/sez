@@ -15,7 +15,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="cicardeal";
-        var q_readonly = ['txtWorker','txtNoa'];
+        var q_readonly = ['txtWorker'];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -95,12 +95,11 @@
                     alert(t_err);
                     return;
                 }
-                sum();
                 $('#txtWorker').val(r_name);
             var t_noa = trim($('#txtNoa').val());
             var t_cno = trim($('#txtCno').val());
             if ( t_noa.length==0 )  
-                q_gtnoa(q_name,replaceAll((t_cno.length == 0 ? t_cno : t_cno), '/', ''));
+                q_gtnoa(q_name, t_noa);
             else
                 wrServer(  t_noa);
         }
@@ -296,13 +295,13 @@
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:20%"><a id='vewNoa'></a></td>
                 <td align="center" style="width:25%"><a id='vewCno'></a></td>
-                <td align="center" style="width:40%"><a id='vewComp'></a></td>
+                <td align="center" style="width:40%"><a id='vewNick'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                    <td align="center" id='noa'>~noa</td>
                    <td align="center" id='cno'>~cno</td>
-                   <td align="center" id='comp'>~comp</td>
+                   <td align="center" id='nick'>~nick</td>
             </tr>
         </table>
         </div>
@@ -354,7 +353,7 @@
             </tr>
             <tr class="tr7">
                <td class="td1"><span> </span><a id="lblAddr" class="lbl"></a></td>
-               <td class="td2"><input id="txtZip_addr" type="text" class="txt c1"/></td>
+               <td class="td2"><input id="txtZip" type="text" class="txt c1"/></td>
                <td class="td3" colspan="3"><input id="txtAddr" type="text" class="txt c1"/></td>
             </tr>
             <tr class="tr6">

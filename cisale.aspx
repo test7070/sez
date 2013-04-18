@@ -17,7 +17,7 @@
         var q_name="cisale";
         var q_readonly = [];
         var bbmNum = []; 
-        var bbmMask = []; 
+        var bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtBirthday", "999/99/99"]]; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         aPop = new Array();
         $(document).ready(function () {
@@ -39,7 +39,7 @@
 
         function mainPost() { 
 			q_getFormat();
-        	bbmMask = [];
+        	bbmMask = [['txtIndate', r_picd], ['txtOutdate', r_picd], ['txtBirthday', r_picd]];
             q_mask(bbmMask);
             q_cmbParse("cmbSex", ('').concat(new Array('','男','女')));
         }
@@ -65,6 +65,7 @@
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
+        q_box('cisale_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
         }
 
         function btnIns() {
@@ -308,18 +309,17 @@
                <td class="td1"><span> </span><a id='lblMobile' class="lbl"> </a></td>
                <td class="td2"> <input id="txtMobile" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id='lblTel' class="lbl"></a></td>
-               <td class="td4" colspan="2"><input id="txtTel"  type="text" class="txt c1"/></td>
+               <td class="td4" colspan="3"><input id="txtTel"  type="text" class="txt c1"/></td>
                
             </tr>
             <tr>
                <td class="td4"><span> </span><a id='lblEmail' class="lbl"></a></td>
-               <td class="td5" colspan="2"><input id="txtEmail"  type="text"  class="txt c1" /></td>
+               <td class="td5" colspan="5"><input id="txtEmail"  type="text"  class="txt c1" /></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
                <td class="td2" ><input id="txtZip"  type="text" class="txt c1" /></td>
-               <td class="td3"colspan="3" ><input id="txtAddr"  type="text" class="txt c1" /></td>
-               <td class="td6"></td>
+               <td class="td3"colspan="4" ><input id="txtAddr"  type="text" class="txt c1" /></td>
  	       </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblIndate' class="lbl"></a></td>
@@ -328,6 +328,10 @@
                <td class="td4"><input id="txtOutdate"  type="text" class="txt c1" /></td>
                <td class="td5"></td>
                <td class="td6"></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
+               <td class="td2" colspan="5"><input id="txtMemo"  type="text"  class="txt c1" /></td>
             </tr>     
         </table>
         </div>

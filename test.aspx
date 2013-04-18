@@ -5,6 +5,31 @@
 		<title></title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script type="text/javascript">
+			
+			
+			$(document).ready(function() {
+				$.ajaxSetup({
+  					timeout : 1000
+				});
+				$('#erp').click(function(e){
+					erpWin = window.open('http://60.249.136.206');
+					erpWin.setTimeout('zzz()', 5000);
+					
+			 		/*$.get("http://60.249.136.206/se/login.aspx",'', function(response,status,xhr){
+    						alert(xhr);
+  					}).error(function(){
+						alert('error');
+					});*/
+				});
+				$('#mail').click(function(e){
+					var newwin = window.open("http://www.dachang.com.tw:8081/roundcube/"); 
+					//newwin.location= ""; 
+				});			         
+			});
+			function zzz(){
+				alert($(erpWin.document).length);
+			}
+			
 			$(document).ready(function() {
 				$('#txtA').change(function(e){
 					var re = /(\d{4})([^\.,.]*)$/g;
