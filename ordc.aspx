@@ -17,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "ordc";
-            var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa'];
+            var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa','txtWorker','txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [['txtFloata', 10, 5, 1],['txtMoney', 10, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotalus', 10, 0, 1]];
             var bbsNum = [['txtMount', 10, 0, 1],['txtPrice', 10, 3, 1],['txtTotal', 10, 0, 1]];
@@ -32,7 +32,6 @@
 							            ,['txtProductno2_', 'btnProduct2_', 'fixucc', 'noa,namea,unit,inprice', 'txtProductno2_,txtProduct_,txtUnit_,txtPrice_', 'fixucc_b.aspx']
 							            ,['txtProductno3_', 'btnProduct3_', 'ucc', 'noa,product,unit,inprice', 'txtProductno3_,txtProduct_,txtUnit_,txtPrice_', 'uccc_b.aspx']
             							,['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
-            							,['txtWorker', 'lblWorker', 'sss', 'namea', 'txtWorker', 'sss_b.aspx']
             							,['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']
             							,['txtTggno','lblTgg','tgg','noa,comp,paytype','txtTggno,txtTgg,txtPaytype','tgg_b.aspx']);
             $(document).ready(function() {
@@ -92,7 +91,7 @@
 		                t_where = t_where;
 		            }
 		            else {
-		                alert(q_getMsg('msgTggEmp'));
+		                alert('請輸入' + q_getMsg('lblTgg'));
 		                return;
 		            }
 		            q_box('ordbs_b.aspx', 'ordbs;' + t_where, "95%", "650px", q_getMsg('popOrdbs'));
@@ -178,7 +177,10 @@
               			$('#txtProductno_'+j).val($('#txtProductno3_'+j).val());
 			         }
               	}
-                
+				if(q_cur==1)
+					$('#txtWorker').val(r_name);
+				else
+					$('#txtWorker2').val(r_name);
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if(s1.length == 0 || s1 == "AUTO")
                     q_gtnoa(q_name, replaceAll('G' + $('#txtOdate').val(), '/', ''));
@@ -641,10 +643,7 @@
                 <td class="td1"><span> </span><a id='lblOrdb' class="lbl btn"></a></td>
             	<td class="td2"><input id="txtOrdbno"  type="text" class="txt c1" /></td>
             	<td class="td3"><span> </span><a id='lblTotalus' class="lbl"></a></td>
-                <td class="td4"><input id="txtTotalus"  type="text" class="txt num c1" /></td> 
-                <td class="td5"><span> </span><a id='lblWorker' class="lbl btn"></a></td>
-                <td class="td6"><input id="txtWorker"  type="text" class="txt c1" /></td> 
-            	
+                <td class="td4"><input id="txtTotalus"  type="text" class="txt num c1" /></td>  	
             </tr>
             <tr class="tr8">
                 <td class="td1"><span> </span><a id='lblAeno' class="lbl"></a></td>
@@ -653,6 +652,10 @@
                 <td class="td4"><input id="txtEnda"  type="text" class="txt c1" /></td> 
                 <!--<td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
                 <td class="td5" colspan='2'><input id="txtWeight"  type="text" class="txt num c1" /></td>--> 
+                <td class="td5"><span> </span><a id='lblWorker' class="lbl"></a></td>
+                <td class="td6"><input id="txtWorker"  type="text" class="txt c1" /></td> 
+                <td class="td7"><span> </span><a id='lblWorker2' class="lbl"></a></td>
+                <td class="td8"><input id="txtWorker2"  type="text" class="txt c1" /></td> 
             </tr>
             <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>

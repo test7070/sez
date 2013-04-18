@@ -129,15 +129,18 @@
             }
 
             function sum() {
-            	var t_inprice = q_float('txtInprice');
-            	var t_inmount = q_float('txtInmount');
-            	var t_inmoney = round(t_inprice*t_inmount,0);
-            	var t_outprice = q_float('txtOutprice');
-            	var t_outmount = q_float('txtOutmount');
-            	var t_discount = q_float('txtDiscount');
-            	var t_outmoney = round(t_outprice*t_outmount*t_discount,0);
-            	$('#txtInmoney').val(t_inmoney);
-            	$('#txtOutmoney').val(t_outmoney);
+            	if(q_cur==1 || q_cur==2){
+            		var t_inprice = q_float('txtInprice');
+	            	var t_inmount = q_float('txtInmount');
+	            	var t_inmoney = round(t_inprice*t_inmount,0);
+	            	//alert(t_inprice+"_"+t_inmount+'_'+t_inmoney+'_'+q_round(t_inprice*t_inmount,0));
+	            	var t_outprice = q_float('txtOutprice');
+	            	var t_outmount = q_float('txtOutmount');
+	            	var t_discount = q_float('txtDiscount');
+	            	var t_outmoney = round(t_outprice*t_outmount*t_discount,0);
+	            	$('#txtInmoney').val(t_inmoney);
+	            	$('#txtOutmoney').val(t_outmoney);
+            	}
             }
 
             function q_boxClose(s2) {
@@ -198,6 +201,7 @@
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
+                sum();
                 $('#txtDatea').focus();
             }
 

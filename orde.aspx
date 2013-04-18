@@ -16,7 +16,7 @@
         }
         q_tables = 's';
         var q_name = "orde";
-        var q_readonly = ['txtNoa','txtWorker','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales'];
+        var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales'];
         var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtTheory']; 
         var bbmNum = [];  // 允許 key 小數
         var bbsNum = [['txtPrice', 12, 3], ['txtWeight', 11, 2], ['txtMount', 9, 2]];
@@ -206,7 +206,10 @@
                 return;
             }
 
-            $('#txtWorker').val(r_name)
+			if(q_cur==1)
+				$('#txtWorker').val(r_name);
+			else
+				$('#txtWorker2').val(r_name);
             sum();
 
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -630,12 +633,14 @@
                 <td class="td2" colspan='2'><input id="txtTotalus" type="text" class="txt c1"/></td> 
                 <td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
                 <td class="td5" colspan='2'><input id="txtWeight"  type="text" class="txt c1"/></td>
-                <td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
-                <td class="td8"><input id="txtWorker" type="text" class="txt c1" /></td> 
-            </tr>
+           </tr>
             <tr>
             	<td class="td1"><span> </span><a id="lblApv" class="lbl"></a></td>
             	<td class="td2"><input id="txtApv" type="text"  class="txt c1" disabled="disabled"/></td>
+                <td class="td3"><span> </span><a id='lblWorker' class="lbl"></a></td>
+                <td class="td4"><input id="txtWorker" type="text" class="txt c1" /></td> 
+                <td class="td3"><span> </span><a id='lblWorker2' class="lbl"></a></td>
+                <td class="td4"><input id="txtWorker2" type="text" class="txt c1" /></td> 
             </tr>
             <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblMemo' class='lbl'></a></td>

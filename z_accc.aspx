@@ -107,13 +107,27 @@
                     $('#txtDate2').mask('99/99');
 					
 					$('#txtAcc1a').change(function(e) {
+	                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
+	                    	$(this).val($(this).val()+'.');	
+	                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
+	                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
+	                    }
+            		});
+            		$('#txtAcc2a').change(function(e) {
+	                    if($(this).val().length==4 && $(this).val().indexOf('.')==-1){
+	                    	$(this).val($(this).val()+'.');	
+	                    }else if($(this).val().length>4 && $(this).val().indexOf('.')==-1){
+	                    	$(this).val($(this).val().substring(0,4)+'.'+$(this).val().substring(4));	
+	                    }
+            		});
+					/*$('#txtAcc1a').change(function(e) {
 						var patt = /(\d{4})([^\.,.]*)$/g;
 						$(this).val($(this).val().replace(patt,"$1.$2"));
             		});
             		$('#txtAcc2a').change(function(e) {
 	                    var patt = /(\d{4})([^\.,.]*)$/g;
-						$(this).val($(this).val().replace(patt,"$1.$2"));
-            		});
+	                    $(this).val($(this).val().replace(patt,"$1.$2"));
+            		});*/
                 		
                     $('#chkXbalacc1').children('input').attr('checked', 'checked');
                     var t_date, t_year, t_month, t_day;
@@ -140,7 +154,19 @@
 
                 }
             }
-
+			/*function q_popPost(id) {
+                switch(id) {
+                    case 'txtAcc1a':
+                        var patt = /(\d{4})([^\.,.]*)$/g;
+						$('#txtAcc1a').val($(this).val().replace(patt,"$1.$2"));
+                        break;
+                    case 'txtAcc2a':
+                        var patt = /(\d{4})([^\.,.]*)$/g;
+						$('#txtAcc2a').val($(this).val().replace(patt,"$1.$2"));
+                        break;
+                }
+            }*/
+            
             function q_boxClose(t_name) {
             }
 
