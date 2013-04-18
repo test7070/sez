@@ -168,6 +168,11 @@
                     $('#tranorde_chk0').click();
                     $('#tranorde_chk0').prop('checked', 'true');
                 },
+                browNoa : function(obj){
+                	var noa = $.trim($(obj).html());
+                	if(noa.length>0)
+                		q_box("tranorde.aspx?;;;noa='" + noa + "';"+r_accy, 'tranorde', "95%", "95%", q_getMsg("popTranorde"));
+                },
                 paste : function() {
                     if (this.totPage <= 0)
                         return;
@@ -784,7 +789,7 @@
 						<input id="tranorde_chk0" class="tranorde_chk" type="checkbox">
 						</input></td>
 						<td style="text-align: center; font-weight: bolder; color:black;">1</td>
-						<td id="tranorde_noa0" style="text-align: center;"></td>
+						<td id="tranorde_noa0" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype0" style="text-align: center;"></td>
 						<td id="tranorde_dldate0" style="text-align: center;"></td>
 						<td id="tranorde_nick0" style="text-align: center;"></td>
@@ -800,7 +805,7 @@
 						<input id="tranorde_chk1" class="tranorde_chk" type="checkbox">
 						</input></td>
 						<td style="text-align: center; font-weight: bolder; color:black;">2</td>
-						<td id="tranorde_noa1" style="text-align: center;"></td>
+						<td id="tranorde_noa1" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype1" style="text-align: center;"></td>
 						<td id="tranorde_dldate1" style="text-align: center;"></td>
 						<td id="tranorde_nick1" style="text-align: center;"></td>
@@ -816,7 +821,7 @@
 						<input id="tranorde_chk2" class="tranorde_chk" type="checkbox">
 						</input></td>
 						<td style="text-align: center; font-weight: bolder; color:black;">3</td>
-						<td id="tranorde_noa2" style="text-align: center;"></td>
+						<td id="tranorde_noa2" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype2" style="text-align: center;"></td>
 						<td id="tranorde_dldate2" style="text-align: center;"></td>
 						<td id="tranorde_nick2" style="text-align: center;"></td>
@@ -832,7 +837,7 @@
 						<input id="tranorde_chk3" class="tranorde_chk" type="checkbox">
 						</input></td>
 						<td style="text-align: center; font-weight: bolder; color:black;">4</td>
-						<td id="tranorde_noa3" style="text-align: center;"></td>
+						<td id="tranorde_noa3" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype3" style="text-align: center;"></td>
 						<td id="tranorde_dldate3" style="text-align: center;"></td>
 						<td id="tranorde_nick3" style="text-align: center;"></td>
@@ -848,7 +853,7 @@
 						<input id="tranorde_chk4" class="tranorde_chk" type="checkbox">
 						</input></td>
 						<td style="text-align: center; font-weight: bolder; color:black;">5</td>
-						<td id="tranorde_noa4" style="text-align: center;"></td>
+						<td id="tranorde_noa4" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype4" style="text-align: center;"></td>
 						<td id="tranorde_dldate4" style="text-align: center;"></td>
 						<td id="tranorde_nick4" style="text-align: center;"></td>
@@ -864,7 +869,7 @@
 						<input id="tranorde_chk5" class="tranorde_chk" type="checkbox">
 						</input></td>
 						<td style="text-align: center; font-weight: bolder; color:black;">6</td>
-						<td id="tranorde_noa5" style="text-align: center;"></td>
+						<td id="tranorde_noa5" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype5" style="text-align: center;"></td>
 						<td id="tranorde_dldate5" style="text-align: center;"></td>
 						<td id="tranorde_nick5" style="text-align: center;"></td>
@@ -880,7 +885,7 @@
 						<input id="tranorde_chk6" class="tranorde_chk" type="checkbox">
 						</input></td>
 						<td style="text-align: center; font-weight: bolder; color:black;">7</td>
-						<td id="tranorde_noa6" style="text-align: center;"></td>
+						<td id="tranorde_noa6" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype6" style="text-align: center;"></td>
 						<td id="tranorde_dldate6" style="text-align: center;"></td>
 						<td id="tranorde_nick6" style="text-align: center;"></td>
@@ -896,7 +901,7 @@
 						<input id="tranorde_chk7" class="tranorde_chk" type="checkbox">
 						</input></td>
 						<td style="text-align: center; font-weight: bolder; color:black;">8</td>
-						<td id="tranorde_noa7" style="text-align: center;"></td>
+						<td id="tranorde_noa7" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype7" style="text-align: center;"></td>
 						<td id="tranorde_dldate7" style="text-align: center;"></td>
 						<td id="tranorde_nick7" style="text-align: center;"></td>
@@ -912,7 +917,7 @@
 						<input id="tranorde_chk8" class="tranorde_chk" type="checkbox">
 						</input></td>
 						<td style="text-align: center; font-weight: bolder; color:black;">9</td>
-						<td id="tranorde_noa8" style="text-align: center;"></td>
+						<td id="tranorde_noa8" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype8" style="text-align: center;"></td>
 						<td id="tranorde_dldate8" style="text-align: center;"></td>
 						<td id="tranorde_nick8" style="text-align: center;"></td>
@@ -928,7 +933,7 @@
 						<input id="tranorde_chk9" class="tranorde_chk" type="checkbox">
 						</input></td>
 						<td style="text-align: center; font-weight: bolder; color:black;">10</td>
-						<td id="tranorde_noa9" style="text-align: center;"></td>
+						<td id="tranorde_noa9" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype9" style="text-align: center;"></td>
 						<td id="tranorde_dldate9" style="text-align: center;"></td>
 						<td id="tranorde_nick9" style="text-align: center;"></td>
