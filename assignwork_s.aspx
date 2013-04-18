@@ -34,6 +34,7 @@
 
 				$('#txtBodate').focus();
 				q_cmbParse("cmbKind", ('').concat(new Array( '工商','土地')));
+				q_cmbParse("cmbEnda", ('').concat(new Array( '@','1@結案','0@未結案')));
 			}
 
 			function q_seekStr() {
@@ -46,6 +47,7 @@
 				t_comp = $.trim($('#txtComp').val());
 				t_itemno = $.trim($('#txtItemno').val());
 				t_item = $.trim($('#txtItem').val());
+				t_enda = $.trim($('#cmbEnda').val());
 				
 			    t_bodate = t_bodate.length > 0 && t_bodate.indexOf("_") > -1 ? t_bodate.substr(0, t_bodate.indexOf("_")) : t_bodate;  /// 100.  .
         		t_eodate = t_eodate.length > 0 && t_eodate.indexOf("_") > -1 ? t_eodate.substr(0, t_eodate.indexOf("_")) : t_eodate;  /// 100.  .
@@ -59,6 +61,7 @@
 					+q_sqlPara2("custno", t_custno)
 					+q_sqlPara2("comp", t_comp)
 					+q_sqlPara2("itemno", t_itemno)
+					+q_sqlPara2("enda", t_enda)
 					+q_sqlPara2("item", t_item);
 
 				t_where = " where=^^" + t_where + " and kind='"+$('#cmbKind').val()+"'^^";
@@ -117,6 +120,12 @@
 					<td class='seek'  style="width:20%;"><a id='lblKind'> </a></td>
 					<td>
 					<select id="cmbKind" class="txt c1"> </select>
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblEnda'> </a></td>
+					<td>
+						<select id="cmbEnda" class="txt c1"> </select>
 					</td>
 				</tr>
 			</table>

@@ -45,6 +45,10 @@
                         },{
                         	type : '6',
                         	name : 'xnoa'
+                    	},{
+                        	type : '5',
+                        	name : 'enda',
+	                        value : ('全部,結案,未結案').split(',')
                     	}]
                     });
                 q_popAssign();
