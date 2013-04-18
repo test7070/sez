@@ -1,4 +1,3 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -31,6 +30,12 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
+        
+        aPop = new Array(
+        	['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
+        	['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
+        	);
+
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -59,67 +64,23 @@
             
         }  ///  end Main()
 
-        function pop(form) {
-            b_pop = form;
-            switch (form) {
-                case 'cust': q_pop('txtCustno', 'cust_b.aspx', 'cust', 'noa', 'comp', "60%", "650px", q_getMsg('popCust')); break;
-                case 'ucc': q_pop('txtProductno_' + b_seq, 'ucc_b.aspx', 'ucc', 'noa', 'product', "70%", "650px", q_getMsg('popUcc')); break;
-
-            }
-        }
 
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd], ['txtDatea', r_picd]];  
-
-//            q_cmbParse("cmbTaxtype", q_getPara('taxtype'));  
-
-            $('#btnquat').click(function () { btnquat(); });
-
-//            $('#btnCust').click(function () { pop('cust'); });   /// 接 q_browFill()
-//            $('#btnCust').mouseenter(function () { $(this).css('cursor', 'pointer') });
-//            $("#txtCustno").change(function () { q_change($(this), 'cust', 'noa', 'noa,comp,tel,post_fact,addr_fact,pay,trantype'); }); /// 接 q_gtPost()
+            bbmMask = [['txtDatea', r_picd], ['txtDatea', r_picd], ['txtWorkdate', r_picd], ['txtUindate', r_picd], ['txtEnddate', r_picd]];
+            q_mask(bbmMask);
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
             var ret; 
             switch (b_pop) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
-                case 'cust':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtCustno,txtComp,txtTel,txtPost,txtAddr,txtPay,cmbTrantype', ret, 'noa,comp,tel,post_fact,addr_fact,pay,trantype');
-                    break;
-
-                case 'ucc':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtProductno_' + b_seq + ',txtProduct_' + b_seq, ret, 'noa,product');
-                    break;
-
-                case 'ordes':
-                    if (q_cur > 0 && q_cur < 4) {
-                        b_ret = getb_ret();
-                        if (!b_ret || b_ret.length == 0)
-                            return;
-                        var i, j = 0;
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2', b_ret.length, b_ret
-                                                           , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2'
-                                                           , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
-                        bbsAssign();
-
-                        for (i = 0; i < ret.length; i++) {
-                            k = ret[i];  ///ret[i]  儲存 tbbs 指標
-                            if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
-                                $('#txtMount_' + k).val(b_ret[i]['notv']);
-                                $('#txtWeight_' + k).val(divide0(b_ret[i]['weight'] * b_ret[i]['notv'], b_ret[i]['mount']));
-                            }
-                            else {
-                                $('#txtWeight_' + k).val(b_ret[i]['notv']);
-                                $('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv'], b_ret[i]['weight']));
-                            }
-
-                        }  /// for i
-                    }
-                    break;
-                
+            	case 'td':
+            		ret = getb_ret();
+	                if(ret[0]!=undefined){
+	                	$('#txtTproductno_'+b_seq).val(ret[0].noa)
+	                	$('#txtTproduct_'+b_seq).val(ret[0].product)
+	                }
+            		break;
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -130,37 +91,15 @@
 
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
-                case 'cust':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtCustno,txtComp,txtTel,txtPost,txtAddr,txtPay,cmbTrantype', 'noa,comp,tel,post_fact,addr_fact,pay,trantype');
-                    break;
-
-                case 'ucc':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtProductno_' + b_seq + ',txtProduct_' + b_seq + ',txtUnit_' + b_seq, 'noa,product,unit');
-                    break;
-
                 case q_name: if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
             }  /// end switch
         }
         
-//        function btnquat() {
-//            var t_custno = trim($('#txtCustno').val());
-//            var t_where='';
-//            if (t_custno.length > 0) {
-//                t_where = "enda='N' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");  ////  sql AND 語法，請用 &&  
-//                t_where =  t_where ;
-//            }
-//            else {
-//                alert(q_getMsg('msgCustEmp'));
-//                return;
-//            }
-
-//            q_box('ordes_b.aspx', 'ordes;' + t_where , "95%", "650px", "報價視窗");
-//        }
 
         function btnOk() {
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCustno', q_getMsg('lblCustno')], ['txtCno', q_getMsg('btnAcomp')]]);  // 檢查空白 
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')] ]);  // 檢查空白 
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
@@ -187,23 +126,18 @@
         }
 
         function bbsAssign() {  /// 表身運算式
+        	for(var j = 0; j < q_bbsCount; j++) {
+           		if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+           			$('#btnTproductno_' + j).click(function () {
+           				t_IdSeq = -1;
+						q_bodyId($(this).attr('id'));
+						b_seq = t_IdSeq;
+           				t_where = "CHARINDEX(noa,(select td from uca a left join ucas b on a.noa=b.noa where a.noa='"+$('#txtProductno').val()+"' and b.productno='"+$('#txtProductno_'+b_seq).val()+"'))>0";
+           				q_box("ucc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'td', "95%", "650px", q_getMsg('popTd'));
+           			});
+           		}
+           	}
             _bbsAssign();
-            for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
-                $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
-                $('#btnProductno_' + j).click(function () {
-                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                    q_bodyId($(this).attr('id'));
-                    b_seq = t_IdSeq;
-                    pop('ucc');
-                 });
-                 $('#txtProductno_' + j).change(function () {
-                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                     q_bodyId($(this).attr('id'));
-                     b_seq = t_IdSeq;
-                     q_change($(this), 'ucc', 'noa', 'noa,product,unit');  /// 接 q_gtPost()
-                 });
-
-            } //j
         }
 
         function btnIns() {
@@ -232,20 +166,7 @@
                 return;
             }
 
-            q_nowf();
-            as['date'] = abbm2['date'];
-            as['custno'] = abbm2['custno'];
-
-//            t_err ='';
-//            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-//                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-//            
-//            if (t_err) {
-//                alert(t_err)
-//                return false;
-//            }
-//            
+            q_nowf();      
             return true;
         }
 
@@ -257,21 +178,9 @@
 
             format();
         }
-		/*
-        function format() {  ////  主要為數字 comma
-            var i;
-
-            q_format(bbmNum_comma, bbmNum);   /// 顯示 , keyin 只為了小數點顯示
-
-            q_formats(bbsNum_comma, bbsNum);   /// 顯示 , keyin 只為了小數點顯示
-            q_init = 0;
-        }
-        */
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
-
-            //format();
         }
 
         function readonly(t_para, empty) {
@@ -509,23 +418,45 @@
                 <td align="center"><a id='lblMemos'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td style="width:10%; text-align:center"><input class="txt"  id="txtProcess.*" maxlength='30'type="text" style="width:98%;" /></td>
-                <td style="width:20%;"><input class="txt"  id="txtProductno.*" maxlength='30'type="text" style="width:98%;" />
-                <input class="txt" id="txtProduct.*" type="text" maxlength='90' style="width:98%;" /></td>
-
-                <td style="width:4%;"><input class="txt" id="txtUnit.*" type="text" maxlength='10' style="width:94%;"/></td>
-                <td style="width:8%;"><input class="txt" id="txtCucdate.*" type="text" maxlength='10' style="width:94%;"/></td>
-                <td style="width:8%;"><input class="txt" id="txtMount.*" type="text" maxlength='20' style="width:94%; text-align:right;text-align:right;"/></td>
-                <td style="width:8%;"><input class="txt" id="txtGmount.*" type="text" maxlength='20' style="width:96%; text-align:right;text-align:right;"/></td>
-                <td style="width:8%;"><input class="txt" id="txtEmount.*" type="text"  maxlength='20' style="width:96%; text-align:right;text-align:right;"/></td>
-                <td style="width:3%;"><input class="txt" id="txtTd.*" type="text" maxlength='20' style="width:96%; text-align:right;"/>
-                                      <input class="btn"  id="btnProductno.*" type="button" value='...' style=" font-weight: bold;" /></td>
-                <td style="width:20%;"><input class="txt"  id="txtTproductno.*" maxlength='30'type="text" style="width:98%;" />
-                                       <input class="txt" id="txtTproduct.*" type="text" maxlength='90' style="width:98%;" /></td>
-
-                <td style="width:12%;"><input class="txt" id="txtMemo.*" type="text" maxlength='90' style="width:98%;"/>
-                <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
+                <td style="width:1%;">
+                	<input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" />
+                </td>
+                <td style="width:10%; text-align:center">
+                	<input class="txt"  id="txtProcess.*" maxlength='30'type="text" style="width:98%;" />
+                </td>
+                <td style="width:20%;">
+                	<input class="txt"  id="txtProductno.*" maxlength='30'type="text" style="width:98%;" />
+                	<input class="txt" id="txtProduct.*" type="text" maxlength='90' style="width:98%;" />
+                	<input class="btn"  id="btnProductno.*" type="button" value='...' style=" font-weight: bold;" />
+                </td>
+                <td style="width:4%;">
+                	<input class="txt" id="txtUnit.*" type="text" maxlength='10' style="width:94%;"/>
+                </td>
+                <td style="width:8%;">
+                	<input class="txt" id="txtCucdate.*" type="text" maxlength='10' style="width:94%;"/>
+                </td>
+                <td style="width:8%;">
+                	<input class="txt" id="txtMount.*" type="text" maxlength='20' style="width:94%; text-align:right;text-align:right;"/>
+                </td>
+                <td style="width:8%;">
+                	<input class="txt" id="txtGmount.*" type="text" maxlength='20' style="width:96%; text-align:right;text-align:right;"/>
+                </td>
+                <td style="width:8%;">
+                	<input class="txt" id="txtEmount.*" type="text"  maxlength='20' style="width:96%; text-align:right;text-align:right;"/>
+                </td>
+                <td style="width:3%;">
+                	<!--<input class="txt" id="txtTd.*" type="text" maxlength='20' style="width:96%; text-align:right;"/>-->
+                	<input id="chkIstd" type="checkbox" style="float: left;"/>
+                    <input class="btn"  id="btnTproductno.*" type="button" value='...' style=" font-weight: bold;" />
+                </td>
+                <td style="width:20%;">
+                	<input class="txt"  id="txtTproductno.*" maxlength='30'type="text" style="width:98%;" />
+                    <input class="txt" id="txtTproduct.*" type="text" maxlength='90' style="width:98%;" />
+                </td>
+                <td style="width:12%;">
+                	<input class="txt" id="txtMemo.*" type="text" maxlength='90' style="width:98%;"/>
+                	<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
+                </td>
             </tr>
         </table>
         </div>
