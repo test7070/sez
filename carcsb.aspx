@@ -126,8 +126,14 @@
 				});
 				$('#txtBdate_export').datepicker();
 				$('#txtEdate_export').datepicker(); 
+				$('#lblTranno').click(function(e){
+					var noa = $.trim($('#txtTranno').val());
+	            	if(noa.length>0)
+	            		q_box("trans.aspx?;;;noa='" + noa + "';"+r_accy, 'trans', "95%", "95%", q_getMsg("popTarans"));
+		
+				});
             }
-
+			
             function sum() {
             	if(q_cur==1 || q_cur==2){
             		var t_inprice = q_float('txtInprice');
@@ -569,7 +575,7 @@
 						<td><input id="txtOutmoney"  type="text"  class="txt num c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblTranno" class="lbl"> </a></td>
+						<td><span> </span><a id="lblTranno" class="lbl btn"> </a></td>
 						<td><input id="txtTranno"  type="text"  class="txt c1"/></td>
 					</tr>
 				</table>

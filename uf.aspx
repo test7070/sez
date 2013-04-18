@@ -79,7 +79,11 @@
                 });
                 //.........................
             }
-
+			function browGqb(obj){
+				var noa = $.trim($(obj).val());
+            	if(noa.length>0)
+            		q_box("gqb.aspx?;;;gqbno='" + noa + "';"+r_accy, 'gqb', "95%", "95%", q_getMsg("popGqb"));
+			}
             function q_boxClose(s2) {///   q_boxClose 2/4
                 var
                 ret;
@@ -552,7 +556,7 @@
 					</td>
 					<td id="ufseq.*" style="width:1%;"></td ><!--序號欄位-->
 					<td >
-					<input id="txtCheckno.*" type="text" style="width: 95%"/>
+					<input id="txtCheckno.*" onclick="browGqb(this)" type="text" style="width: 95%"/>
 					</td>
 					<td >
 					<input id="txtBankno.*" type="text" style="width: 95%"/>

@@ -81,8 +81,24 @@
 		            if (s1.length == 4)
 		                $(this).val(s1 + '.');
 		        });
+             	$('#lblPaybno').click(function() {
+		     		t_where = "noa='" + $('#txtPaybno').val() + "'";
+            		q_box("payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "95%", q_getMsg('popPaytran'));
+             	});
+                $('#lblAccno').click(function() {
+                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
+                });
             }
-
+			function browVccno(obj){
+				var noa = $.trim($(obj).val());
+            	if(noa.length>0)
+            		q_box("vcctran.aspx?;;;noa='" + noa + "';"+r_accy, 'vcc', "95%", "95%", q_getMsg("popVcctran"));
+			}
+			function browAccno(obj){
+				var noa = $.trim($(obj).val());
+            	if(noa.length>0)
+            		q_box("accc.aspx?;;;accc3='" + noa + "';"+r_accy+"_1", 'accc', "95%", "95%", q_getMsg("popAccc"));
+			}
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case q_name:
@@ -390,7 +406,7 @@
                 font-size: medium;
             }
             #dbbt {
-                width: 600px;
+                width: 750px;
             }
             #tbbt {
                 margin: 0;
@@ -521,12 +537,16 @@
 						<td colspan="6"><input id="txtMemo" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
+						<td><input id="txtAccno" type="text" class="txt c1"/></td>
+						<td colspan="2"><span> </span><a id="lblPaybno" class="lbl btn"> </a></td>
+						<td><input id="txtPaybno" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
+						<td colspan="2"><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblPaybno" class="lbl btn"> </a></td>
-						<td colspan="2"><input id="txtPaybno" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
@@ -567,9 +587,10 @@
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold; width:90%;" value="＋"/>
 						</td>
 						<td style="width:20px;"> </td>
-						<td style="width:200px; text-align: center;">請款單號</td>
+						<td style="width:200px; text-align: center;">請款日期	</td>
 						<td style="width:100px; text-align: center;">金額</td>
 						<td style="width:350px; text-align: center;">備註</td>
+						<td style="width:200px; text-align: center;">請款單號</td>
 						<td style="width:200px; text-align: center;">傳票號碼</td>
 					</tr>
 					<tr>
@@ -578,10 +599,11 @@
 						<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
 						</td>
 						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-						<td><input id="txtVccno..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtMon..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtMoney..*"  type="text" style="width:95%; text-align: right;"/></td>
 						<td><input id="txtMemo..*"  type="text" style="width:95%; text-align: left;"/></td>
-						<td><input id="txtAccno..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtVccno..*" onclick="browVccno(this)" type="text" style="width:95%;"/></td>
+						<td><input id="txtAccno..*" onclick="browAccno(this)" type="text" style="width:95%;"/></td>
 					</tr>
 				</tbody>
 			</table>

@@ -43,12 +43,13 @@
         }  ///  end Main()
         /// aPop[] 定義 textBox ,button 要開啟的視窗，autoComplete 欄位
         /// aPop[]用法 [ (1)textBox , (2)button, (3)table, (4)table field , (5)form textbox , (6).aspx ]);
-        aPop = [['txtCustno', 'btnCust', 'cust', 'noa,comp,tel,zip_fact,addr_fact,pay,trantype', 'txtCustno,txtComp,txtTel,txtZipcode,txtAddr,txtPay,cmbTrantype', 'cust_b.aspx'],
+        aPop = new Array(['txtCustno', 'btnCust', 'cust', 'noa,comp,tel,zip_fact,addr_fact,paytype,trantype', 'txtCustno,txtComp,txtTel,txtZipcode,txtAddr,txtPay,cmbTrantype', 'cust_b.aspx'],
                 ['txtStoreno', 'btnStore', 'store', 'noa,store', 'txtStoreno,txtStore', 'store_b.aspx'],
                 ['txtCarno', 'btnCar', 'car', 'noa,car', 'txtCarno,txtCar', 'car_b.aspx'],
                 ['txtAcomp', 'btnAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
                 ['txtSalesno', 'btnSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-                ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']];
+                ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']
+              );
 
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();  /// 載入系統參數  qSys , qLang
@@ -100,7 +101,6 @@
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、訂單視窗  關閉時執行
             var ret;
-
             switch (b_pop) {
                 case 'ordes':
                     if (q_cur > 0 && q_cur < 4) {   //  q_cur： 0 = 瀏覽狀態  1=新增  2=修改 3=刪除  4=查詢
@@ -116,8 +116,7 @@
                             if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
                                 $('#txtMount_' + k).val(b_ret[i]['notv']);
                                 $('#txtWeight_' + k).val(divide0(b_ret[i]['weight'] * b_ret[i]['notv'], b_ret[i]['mount']));
-                            }
-                            else {
+                            }else {
                                 $('#txtWeight_' + k).val(b_ret[i]['notv']);   // divide0(a,b)   return a/b;
                                 $('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv'], b_ret[i]['weight']));
                             }
@@ -125,7 +124,6 @@
                         }  /// for i
                     }
                     break;
-
                 case q_name + '_s':  // 查詢視窗  關閉後  vcc_s.aspx
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -347,7 +345,6 @@
         function btnCancel() {
             _btnCancel();
         }
-
     </script>
     <style type="text/css">
         .tview

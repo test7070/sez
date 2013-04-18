@@ -15,6 +15,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
+            q_desc=1;
 			q_tables = 's';
             var q_name = "giftsend";
             var q_readonly = ['txtNoa','txtWorker','txtTotal'];
@@ -491,16 +492,6 @@
 						<td><select id="cmbStoreno" class="txt c1"> </select></td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblMessage' class="lbl"> </a></td>
-						<td class="td2" colspan="5"><input type="text" id="txtMessage" class="txt c1"/></td>
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id='lblUpname' class="lbl"> </a></td>
-						<td class="td2" colspan="2"><input type="text" id="txtUpname" class="txt c1"/></td>
-						<td class="td4"><span> </span><a id='lblDownname' class="lbl"> </a></td>
-						<td class="td5" colspan="2"><input type="text" id="txtDownname" class="txt c1"/></td>	
-					</tr>
-					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td class="td2" colspan="5"><input type="text" id="txtMemo" class="txt c1"/></td>	
 					</tr>
@@ -519,10 +510,14 @@
 					<td  align="center" style="width: 2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:20%;"><a id='lblCust_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblMount_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblMoney_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblReceiver_s'> </a></td>
+					<td align="center" style="width:15%;"><a id='lblCust_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblJob_s'> </a></td>
+					<td align="center" style="width:5%;"><a id='lblMount_s'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblMoney_s'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblReceiver_s'> </a></td>
+					<td align="center" style="width:10%;"><a id='lblUpname_s'> </a></td>
+					<td align="center" style="width:10%;"><a id='lblDownname_s'> </a></td>
+					<td align="center" style="width:20%;"><a id='lblMessage_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -535,9 +530,13 @@
                         <span style="display:block; width:1%;float:left;"> </span>
 						<input type="text" id="txtNamea.*"  style="width:85%; float:left;"/>
 					</td>
+					<td><input id="txtJob.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtMoney.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtReceiver.*" type="text" style="width: 95%;"/></td>
+					<td><input id="txtUpname.*" type="text" style="width: 95%;"/></td>
+					<td><input id="txtDownname.*" type="text" style="width: 95%;"/></td>
+					<td><input id="txtMessage.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtMemo.*" type="text" style="width: 95%;"/></td>
 				</tr>
 			</table>

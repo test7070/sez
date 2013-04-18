@@ -12,7 +12,7 @@
 		<script type="text/javascript">
 			var q_name = "giftcust_s";
 			var aPop = new Array(
-				['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], 
+				['txtPartno', 'lblPartno', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'], 
 				['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
 
 			$(document).ready(function() {
@@ -39,8 +39,8 @@
 				t_noa = $.trim($('#txtNoa').val());
 				t_bdate = $.trim($('#txtBdate').val());
 				t_edate = $.trim($('#txtEdate').val());
-				t_cno = $.trim($('#txtCno').val());
-				t_acomp = $.trim($('#txtAcomp').val());
+				t_partno = $.trim($('#txtPartno').val());
+				t_part = $.trim($('#txtPart').val());
 				t_custno = $.trim($('#txtCustno').val());
 				t_comp = $.trim($('#txtComp').val());
 			    t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
@@ -49,8 +49,8 @@
 				var t_where = " 1=1 "
 					+q_sqlPara2("noa", t_noa)
 					+q_sqlPara2("datea", t_bdate, t_edate)
-					+q_sqlPara2("cno", t_cno)
-					+q_sqlPara2("acomp", t_acomp)
+					+q_sqlPara2("partno", t_partno)
+					+q_sqlPara2("part", t_part)
 					+q_sqlPara2("custno", t_custno)
 					+q_sqlPara2("comp", t_comp)
 
@@ -85,10 +85,10 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblCno'> </a></td>
+					<td class='seek'  style="width:20%;"><a id='lblPartno'> </a></td>
 					<td>
-					<input class="txt" id="txtCno" type="text" style="width:90px; font-size:medium;" />
-					<input class="txt" id="txtAcomp" type="text" style="width:115px; font-size:medium;" />
+					<input class="txt" id="txtPartno" type="text" style="width:90px; font-size:medium;" />
+					<input class="txt" id="txtPart" type="text" style="width:115px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>

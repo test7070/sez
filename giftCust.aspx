@@ -30,7 +30,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             aPop = new Array(['txtPartno', 'lblPartno', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
-            ['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+            ['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'],
             ['txtSssno_', 'btnSssno_', 'sss', 'noa,namea', 'txtSssno_,txtNamea_', 'sss_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -356,13 +356,15 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:25%;color:black;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:55%;color:black;"><a id='vewNamea'> </a></td>
+						<td align="center" style="width:20%;color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:40%;color:black;"><a id='vewNamea'> </a></td>
+						<td align="center" style="width:30%;color:black;"><a id='vewNick'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="noa" style="text-align: center;">~noa</td>
 						<td id="namea" style="text-align: center;">~namea</td>
+						<td id="nick" style="text-align: center;">~nick</td>
 					</tr>
 				</table>
 			</div>
@@ -404,7 +406,10 @@
 					</tr>
 					<tr class="tr5">
 						<td class="td3"><span> </span><a id='lblCustno' class="lbl btn"> </a></td>
-						<td class="td4" colspan="2"><input type="text" id="txtCustno" class="txt c2"/><input type="text" id="txtComp" class="txt c3"/></td>						
+						<td class="td4" colspan="2"><input type="text" id="txtCustno" class="txt c2"/>
+							<input type="text" id="txtComp" class="txt c3"/>
+							<input type="text" id="txtNick" style="display: none;"/>
+							</td>						
 					</tr>
 					
 					<tr class="tr6">

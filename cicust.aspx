@@ -17,10 +17,10 @@
         var q_name="cicust";
         var q_readonly = ['txtWorker'];
         var bbmNum = []; 
-        var bbmMask = []; 
+        var bbmMask = [["txtPassdate", "999/99"]]; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		
+		 aPop = [['txtCardealno', 'lblCardeal', 'cicardeal', 'cno,comp', 'txtCardealno,txtCardeal', 'cicardeal_b.aspx']];
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -39,8 +39,11 @@
 
 
         function mainPost() { 
+            bbmMask = [ ['txtPassdate', r_picm]];
             q_mask(bbmMask);
-
+			$('#btnCicardeal').click(function(e) {
+					q_box("cicardeal.aspx?;;;cno='" + $('#txtCardealno').val() + "'", 'cicardeal', "90%", "95%", q_getMsg("popCicardeal"));
+				});
         }
         function txtCopy(dest, source) {
             
@@ -48,21 +51,7 @@
         
         function q_boxClose( s2) {
             var ret; 
-            switch (b_pop) {                   
-            	case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-                
+            switch (b_pop) {                
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -83,7 +72,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('cicust_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+            q_box('cicust_s.aspx', q_name + '_s', "500px", "450px", q_getMsg( "popSeek"));
         }
 
         function btnIns() {
@@ -109,7 +98,6 @@
                     alert(t_err);
                     return;
                 }
-                sum();
                 $('#txtWorker').val(r_name);
             var t_noa = trim($('#txtNoa').val());
             if ( t_noa.length==0 )  
@@ -309,13 +297,13 @@
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
                 <td align="center" style="width:20%"><a id='vewNoa'></a></td>
                 <td align="center" style="width:25%"><a id='vewCarowner'></a></td>
-                <td align="center" style="width:40%"><a id='vewUser'></a></td>
+                <td align="center" style="width:40%"><a id='vewUsera'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                    <td align="center" id='noa'>~noa</td>
                    <td align="center" id='carowner'>~carowner</td>
-                   <td align="center" id='user'>~user</td>
+                   <td align="center" id='usera'>~usera</td>
             </tr>
         </table>
         </div>
@@ -324,23 +312,18 @@
           <tr class="tr1">
                <td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
                <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblCardeal" class="lbl"></a></td>
-               <td class="td4"><input id="txtCardealno" type="text" class="txt c1"/></td>
-               <td class="td5" colspan="2"><input id="txtCardeal" type="text" class="txt c1"/></td> 
+               <td class="td3"><span> </span><a id="lblCardeal" class="lbl btn"></a></td>
+               <td class="td4" colspan="2"><input id="txtCardealno" type="text" class="txt c2"/>
+               <input id="txtCardeal" type="text" class="txt c3"/></td> 
+               <td class="td6"><input id="btnCicardeal" type="button"/></td>
             </tr>
             <tr class="tr3">
                <td class="td1"><span> </span><a id="lblCarowner" class="lbl"></a></td>
                <td class="td2"><input id="txtCarowner" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblUser" class="lbl"></a></td>
-               <td class="td4"><input id="txtUser" type="text" class="txt c1"/></td>
-            </tr>
-			<tr class="tr4">
-               <td class="td1"><span> </span><a id="lblBirthday" class="lbl"></a></td>
-               <td class="td2"><input id="txtBirthday" type="text" class="txt c1"/></td>
+               <td class="td3"><span> </span><a id="lblUsera" class="lbl"></a></td>
+               <td class="td4"><input id="txtUsera" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblSerial" class="lbl"></a></td>
                <td class="td4"><input id="txtSerial" type="text" class="txt c1"/></td>
-               <td class="td5"></td>
-               <td class="td6"></td> 
             </tr>
             <tr class="tr5">
                <td class="td1"><span> </span><a id="lblTel1" class="lbl"></a></td>

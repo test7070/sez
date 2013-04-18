@@ -22,6 +22,7 @@
         aPop = new Array();
         $(document).ready(function () {
             bbmKey = ['noa'];
+            brwCount2=10;
             q_brwCount();
             q_gt(q_name, q_content, q_sqlCount, 1)
             $('#txtNoa').focus
@@ -41,7 +42,6 @@
 			q_getFormat();
         	bbmMask = [];
             q_mask(bbmMask);
-            q_cmbParse("cmbSex", ('').concat(new Array('','�k','�k')));
         }
         function q_boxClose( s2) {
             var ret; 
@@ -65,6 +65,7 @@
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
+        q_box('ciinsutype_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
         }
 
         function btnIns() {
