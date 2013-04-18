@@ -149,7 +149,7 @@
                             $('#tranorde_product' + i).html(this.data[n+i]['product']);
                             $('#tranorde_mount' + i).html(this.data[n+i]['mount']);
                             $('#tranorde_vccecount' + i).html(this.data[n+i]['vccecount']);
-                            $('#tranorde_empdock' + i).html(this.data[n+i]['empdock']);
+                            $('#tranorde_empdock' + i).html('<a style="float:left;display:block;width:40px;">'+ this.data[n+i]['empdock']+'</a>'+'<a style="float:left;display:block;width:80px;">'+ this.data[n+i]['so']+'</a>');
                             $('#tranorde_port2' + i).html(this.data[n+i]['port2']);
                         } else {
                             $('#tranorde_chk' + i).attr('disabled', 'disabled');
@@ -186,32 +186,32 @@
                             $('#txtMount').val(1);
                             t_msg = this.data[n+i]['addr'];
                             //出口
-                            t_msg += (this.data[n+i]['empdock'].length>0?(t_msg.length>0?', ':'')+this.data[n+i]['empdock']+'領':'');
-                        	t_msg += (this.data[n+i]['dock'].length>0?(t_msg.length>0?', ':'')+'交'+this.data[n+i]['dock']:'');
+                            t_msg += (this.data[n+i]['empdock'].length>0?(t_msg.length>0?',':'')+this.data[n+i]['empdock']+'領':'');
+                        	t_msg += (this.data[n+i]['dock'].length>0?(t_msg.length>0?',':'')+'交'+this.data[n+i]['dock']:'');
                        		t_msg += (this.data[n+i]['docketno1'].length>0?(t_msg.length>0?', ':'')+'案號'+this.data[n+i]['docketno1']:'');
-                        	t_msg += (this.data[n+i]['boat'].length>0?(t_msg.length>0?', ':'')+'船公司'+this.data[n+i]['boat']:'');
-                        	t_msg += (this.data[n+i]['boatname'].length>0?(t_msg.length>0?', ':'')+'船次'+this.data[n+i]['boatname']:'');
-                        	t_msg += (this.data[n+i]['do1'].length>0?(t_msg.length>0?', ':'')+'領櫃編號'+this.data[n+i]['do1']:'');
-                        	t_msg += (this.data[n+i]['so'].length>0?(t_msg.length>0?', ':'')+'SO:'+this.data[n+i]['so']:'');
+                        	t_msg += (this.data[n+i]['boat'].length>0?(t_msg.length>0?',':'')+'船公司'+this.data[n+i]['boat']:'');
+                        	t_msg += (this.data[n+i]['boatname'].length>0?(t_msg.length>0?',':'')+'船次'+this.data[n+i]['boatname']:'');
+                        	t_msg += (this.data[n+i]['do1'].length>0?(t_msg.length>0?',':'')+'領櫃編號'+this.data[n+i]['do1']:'');
+                        	t_msg += (this.data[n+i]['so'].length>0?(t_msg.length>0?',':'')+'SO:'+this.data[n+i]['so']:'');
                         	t_msg += (this.data[n+i]['casepackaddr'].length>0?(t_msg.length>0?', ':'')+'裝櫃地點'+this.data[n+i]['casepackaddr']:'');
-                        	t_msg += (this.data[n+i]['port'].length>0?(t_msg.length>0?', ':'')+'港口'+this.data[n+i]['port']:'');
-                        	t_msg += (this.data[n+i]['casetype'].length>0?(t_msg.length>0?', ':'')+'櫃型'+this.data[n+i]['casetype']:'');
+                        	t_msg += (this.data[n+i]['port'].length>0?(t_msg.length>0?',':'')+'港口'+this.data[n+i]['port']:'');
+                        	t_msg += (this.data[n+i]['casetype'].length>0?(t_msg.length>0?',':'')+'櫃型'+this.data[n+i]['casetype']:'');
                         	//進口
-                        	t_msg += (this.data[n+i]['takeno'].length>0?(t_msg.length>0?', ':'')+'領櫃編號'+this.data[n+i]['takeno']:'');
-                        	t_msg += (this.data[n+i]['casepresent'].length>0?(t_msg.length>0?', ':'')+'代表櫃號'+this.data[n+i]['casepresent']:'');
-                        	t_msg += (this.data[n+i]['product2'].length>0?(t_msg.length>0?', ':'')+'品名:'+this.data[n+i]['product2']:'');
-                        	t_msg += (this.data[n+i]['containertype'].length>0?(t_msg.length>0?', ':'')+'櫃別'+this.data[n+i]['containertype']:'');
-                        	t_msg += (this.data[n+i]['docketno2'].length>0?(t_msg.length>0?', ':'')+'案號'+this.data[n+i]['docketno2']:'');
-                        	t_msg += (this.data[n+i]['port2'].length>0?(t_msg.length>0?', ':'')+this.data[n+i]['port2']+'領':'');
-                        	t_msg += (this.data[n+i]['empdock2'].length>0?(t_msg.length>0?', ':'')+'交'+this.data[n+i]['empdock2']:'');
-                        	t_msg += (this.data[n+i]['trackno'].length>0?(t_msg.length>0?', ':'')+'追蹤號碼'+this.data[n+i]['trackno']:'');
-                            t_msg += (this.data[n+i]['caseassign'].length>0?(t_msg.length>0?', ':'')+'指定櫃號'+this.data[n+i]['caseassign']:'');
-                        	t_msg += (this.data[n+i]['do2'].length>0?(t_msg.length>0?', ':'')+'提單'+this.data[n+i]['do2']:'');
-                        	t_msg += (this.data[n+i]['checkself'].length>0?(t_msg.length>0?', ':'')+'自檢'+this.data[n+i]['checkself']:'');
-                        	t_msg += (this.data[n+i]['checkinstru'].length>0?(t_msg.length>0?', ':'')+'儀檢'+this.data[n+i]['checkinstru']:'');
-                        	t_msg += (this.data[n+i]['casedo'].length>0?(t_msg.length>0?', ':'')+'押運'+this.data[n+i]['casedo']:'');
-                        	t_msg += (this.data[n+i]['caseopenaddr'].length>0?(t_msg.length>0?', ':'')+'拆櫃地點'+this.data[n+i]['caseopenaddr']:'');
-                        	t_msg += (this.data[n+i]['casetype2'].length>0?(t_msg.length>0?', ':'')+'櫃型'+this.data[n+i]['casetype2']:'');
+                        	t_msg += (this.data[n+i]['port2'].length>0?(t_msg.length>0?',':'')+this.data[n+i]['port2']+'領':'');
+                        	t_msg += (this.data[n+i]['empdock2'].length>0?(t_msg.length>0?',':'')+'交'+this.data[n+i]['empdock2']:'');
+                        	t_msg += (this.data[n+i]['takeno'].length>0?(t_msg.length>0?',':'')+'領櫃編號'+this.data[n+i]['takeno']:'');
+                        	t_msg += (this.data[n+i]['casepresent'].length>0?(t_msg.length>0?',':'')+'代表櫃號'+this.data[n+i]['casepresent']:'');
+                        	t_msg += (this.data[n+i]['product2'].length>0?(t_msg.length>0?',':'')+'品名:'+this.data[n+i]['product2']:'');
+                        	t_msg += (this.data[n+i]['containertype'].length>0?(t_msg.length>0?',':'')+'櫃別'+this.data[n+i]['containertype']:'');
+                        	t_msg += (this.data[n+i]['docketno2'].length>0?(t_msg.length>0?',':'')+'案號'+this.data[n+i]['docketno2']:'');
+                        	t_msg += (this.data[n+i]['trackno'].length>0?(t_msg.length>0?',':'')+'追蹤號碼'+this.data[n+i]['trackno']:'');
+                            t_msg += (this.data[n+i]['caseassign'].length>0?(t_msg.length>0?',':'')+'指定櫃號'+this.data[n+i]['caseassign']:'');
+                        	t_msg += (this.data[n+i]['do2'].length>0?(t_msg.length>0?',':'')+'提單'+this.data[n+i]['do2']:'');
+                        	t_msg += (this.data[n+i]['checkself'].length>0?(t_msg.length>0?',':'')+'自檢'+this.data[n+i]['checkself']:'');
+                        	t_msg += (this.data[n+i]['checkinstru'].length>0?(t_msg.length>0?',':'')+'儀檢'+this.data[n+i]['checkinstru']:'');
+                        	t_msg += (this.data[n+i]['casedo'].length>0?(t_msg.length>0?',':'')+'押運'+this.data[n+i]['casedo']:'');
+                        	t_msg += (this.data[n+i]['caseopenaddr'].length>0?(t_msg.length>0?',':'')+'拆櫃地點'+this.data[n+i]['caseopenaddr']:'');
+                        	t_msg += (this.data[n+i]['casetype2'].length>0?(t_msg.length>0?',':'')+'櫃型'+this.data[n+i]['casetype2']:'');
                         	
                         	$('#txtMsg').val(t_msg);
                         }
@@ -776,7 +776,7 @@
 						<td id="tranorde_product" onclick="tranorde.sort('productno',false)" title="品名" align="center" style="width:100px; color:black;">品名</td>
 						<td id="tranorde_mount" onclick="tranorde.sort('mount',true)" align="center" style="width:80px; color:black;">收數量</td>
 						<td id="tranorde_vccecount" onclick="tranorde.sort('vccecount',true)" align="center" style="width:80px; color:black;">已派數量</td>
-						<td id="tranorde_empdock" onclick="tranorde.sort('empdock',false)" title="領" align="center" style="width:80px; color:black;">出口櫃</td>
+						<td id="tranorde_empdock" onclick="tranorde.sort('empdock',false)" title="領,S/O" align="center" style="width:120px; color:black;">出口櫃</td>
 						<td id="tranorde_port2" onclick="tranorde.sort('port2',false)" title="領櫃碼頭" align="center" style="width:80px; color:black;">進口櫃</td>
 					</tr>
 					<tr id="tranorde_tr0">
