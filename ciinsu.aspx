@@ -64,6 +64,7 @@
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
+         q_box('ciinsu_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
         }
 
         function btnIns() {
@@ -302,7 +303,7 @@
             </tr>
            <tr>
                <td class="td1"><span> </span><a id='lblInsurer' class="lbl"> </a></td>
-               <td class="td2" colspan="3"><input id="txtInsurer" type="text" class="txt c1"/></td>
+               <td class="td2" colspan="2"><input id="txtInsurer" type="text" class="txt c1"/></td>
                <td class="td5"> </td>
                <td class="td6"> </td>
             </tr>
