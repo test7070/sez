@@ -37,8 +37,12 @@
 		t_cardealno = $('#txtCardealno').val();
 		t_cardeal = $('#txtCardeal').val();
 		
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +q_sqlPara2("carowner", t_carowner)
-        +q_sqlPara2("serial", t_serial)+q_sqlPara2("carbrand", t_serial)+q_sqlPara2("cardealno", t_cardealno)
+        var t_where = " 1=1 " 
+        + q_sqlPara2("noa", t_noa) 
+        +q_sqlPara2("carowner", t_carowner)
+        +q_sqlPara2("serial", t_serial)
+        +q_sqlPara2("carbrand", t_carbrand)
+        +q_sqlPara2("cardealno", t_cardealno)
         +q_sqlPara2("cardeal", t_cardeal);
 
         t_where = ' where=^^' + t_where + '^^ ';

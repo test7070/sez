@@ -17,10 +17,10 @@
             }
 			q_tables = 's';
             var q_name = "ciclaim";
-            var q_readonly = ['txtNoa','txtWorker','txtTotal'];
+            var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
             var q_readonlys = [];
-            var bbmNum = new Array(['txtPrice', 10, 0, 1],['txtTotal',10,0,1]);
-            var bbsNum = new Array(['txtMoney', 10, 0, 1],['txtMount', 10, 0, 1]);
+            var bbmNum = new Array(['txtClaims', 10, 0, 1],['txtPaymoney',10,0,1]);
+            var bbsNum = new Array(['txtCost', 10, 0, 1]);
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -28,12 +28,12 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,nick', 'txtCno,txtAcomp', 'Acomp_b.aspx']);
+            aPop = new Array(['txtInsurerno', 'lblInsurer', 'ciinsu', 'noa,insurer', 'txtInsurerno,txtInsurer', 'ciinsu_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
-                q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
+                q_gt(q_name, q_content, q_sqlCount, 1)
             });
 
             function main() {
@@ -47,16 +47,9 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd],['txtSenddate', r_picd]];
+                bbmMask = [['txtDatea', r_picd],['txtHdate', r_picd],['txtEnddate', r_picd]];
                 q_mask(bbmMask);
-                q_gt('giftsendt', '', 0, 0, 0, "", r_accy);
-                q_gt('store', '', 0, 0, 0, "");
-                $('#txtPrice').blur(function () {
-	            	for(var j = 0; j < q_bbsCount; j++) {
-	            		q_tr('txtMoney_'+j,q_float('txtMount_'+j)*q_float('txtPrice'));
-	            	}
-	            	sum();
-	       		});
+               
             }
 
             function q_boxClose(s2) {
@@ -71,28 +64,6 @@
 
             function q_gtPost(t_name) {
             	switch (t_name) {
-            		case 'giftsendt':
-                        var as = _q_appendData("giftsendt", "", true);
-                        var t_item = " @ ";
-                        for ( i = 0; i < as.length; i++) {
-                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
-                        }
-                        q_cmbParse("cmbSendmemo", t_item);
-                        if(abbm[q_recno])
-                        	$("#cmbSendmemo").val(abbm[q_recno].sendmemo);
-                        break;
-                    case 'store':
-		                var as = _q_appendData("store", "", true);
-		                if (as[0] != undefined) {
-		                    var t_item = " @ ";
-		                    for (i = 0; i < as.length; i++) {
-		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].store;
-		                    }
-		                    q_cmbParse("cmbStoreno", t_item);
-		                    if(abbm[q_recno])
-		                    	$("#cmbStoreno").val(abbm[q_recno].storeno);
-		                }
-		                break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -109,18 +80,8 @@
 	           	$('#txtWorker').val(r_name);
 	        else
 	           	$('#txtWorker2').val(r_name);
-            	if($.trim($('#txtNick').val()).length==0)
-            		$('#txtNick').val($('#txtComp').val());
  
 
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }
-                sum();
-                
-               
                 var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
@@ -133,13 +94,13 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
-                q_box('giftsend_s.aspx', q_name + '_s', "550px", "430px", q_getMsg("popSeek"));
+                q_box('ciclaim_s.aspx', q_name + '_s', "550px", "430px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
                $('#txtDatea').focus();
                 $('#txtDatea').val(q_date());
-                $('#txtSenddate').val(q_date());
+                
                 $('#txtNoa').val('AUTO');
             }
             function btnModi() {
@@ -147,10 +108,10 @@
                     return;
                 _btnModi();           
                 $('#txtNoa').attr('readonly','readonly');
-                $('#txtItem').focus();
+
             }
             function btnPrint() {
-            	q_box('z_giftsend.aspx', '', "90%", "650px", m_print);
+            	//q_box('z_giftsend.aspx', '', "90%", "650px", m_print);
             }
             function wrServer(key_value) {
                 var i;
@@ -181,7 +142,7 @@
 
             function bbsSave(as) {
             	t_err = '';
-                if (!as['custno']) {
+                if (!as['itemno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -195,11 +156,11 @@
             }
 
             function sum() {
-				var total = 0,t_bin=0,t_interest=0,t_paytotal=0;
-                for(var j = 0; j < q_bbsCount; j++) {
-                	total=total+q_float('txtMoney_'+j);
-                }
-                q_tr('txtTotal',total);
+				//var total = 0,t_bin=0,t_interest=0,t_paytotal=0;
+                //for(var j = 0; j < q_bbsCount; j++) {
+                	//total=total+q_float('txtMoney_'+j);
+                //}
+                //q_tr('txtTotal',total);
             }
             
             function refresh(recno) {
@@ -260,23 +221,7 @@
                 _btnCancel();
             }
             
-            if(navigator.appName=="Microsoft Internet Explorer"){
-            	window.onbeforeunload = function(e){
-				  if(window.parent.q_name=='giftreceive'){
-						 var wParent = window.parent.document;
-						 var b_seq= wParent.getElementById("text_Noq").value
-						 wParent.getElementById("txtGiverno_"+b_seq).value=$('#txtNoa').val();
-					 }
-				}
-            }else{
-            	window.onunload = function(e){
-				  if(window.parent.q_name=='giftreceive'){
-						 var wParent = window.parent.document;
-						 var b_seq= wParent.getElementById("text_Noq").value
-						 wParent.getElementById("txtGiverno_"+b_seq).value=$('#txtNoa').val();
-					 }
-				}
-            }
+           
 		</script>
 		<style type="text/css">
             #dmain {
@@ -284,7 +229,7 @@
             }
             .dview {
                 float: left;
-                width: 30%;
+                width: 35%;
                 border-width: 0px;
             }
             .tview {
@@ -309,7 +254,7 @@
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
-                width: 70%;
+                width: 65%;
             }
             .tbbm {
                 padding: 0px;
@@ -411,10 +356,10 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:25%;color:black;"><a id='vewCarno'> </a></td>
-						<td align="center" style="width:25%;color:black;"><a id='vewDriver'> </a></td>
-						<td align="center" style="width:40%;color:black;"><a id='vewInsurer'> </a></td>
-						<td align="center" style="width:40%;color:black;"><a id='vewOdate'> </a></td>
+						<td align="center" style="width:15%;color:black;"><a id='vewCarno'> </a></td>
+						<td align="center" style="width:15%;color:black;"><a id='vewDriver'> </a></td>
+						<td align="center" style="width:30%;color:black;"><a id='vewInsurer'> </a></td>
+						<td align="center" style="width:15%;color:black;"><a id='vewOdate'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
@@ -441,7 +386,7 @@
 						<td class="td2"><input type="text" id="txtNoa" class="txt c1"/>	</td>
 						<td class="td3"><span> </span><a id='lblCarno' class="lbl"> </a></td>
 						<td class="td4"><input type="text" id="txtCarno" class="txt c1"/>	</td>
-						<td class="td3"><span> </span><a id='lblDaeta' class="lbl"> </a></td>
+						<td class="td3"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td class="td4"><input type="text" id="txtDatea" class="txt c1"/>	</td>	
 					</tr>
 					<tr>
@@ -468,18 +413,18 @@
 						<td class="td6"><input type="text" id="txtCaseno" class="txt c1"/>	</td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblOdate' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtOdate" class="txt c1"/>	</td>
+						<td class="td1"><span> </span><a id='lblHdate' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtHdate" class="txt c1"/>	</td>
 						<td class="td1"><span> </span><a id='lblOtime' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtOtime" class="txt c1"/>	</td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblOaddr' class="lbl btn"> </a></td>
-						<td class="td2" colspan="5"><input type="text" id="txtOaddr" class="txt c2"/></td>	
+						<td class="td1"><span> </span><a id='lblOaddr' class="lbl"> </a></td>
+						<td class="td2" colspan="5"><input type="text" id="txtOaddr" class="txt c1"/></td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblReason' class="lbl btn"> </a></td>
-						<td class="td2" colspan="5"><input type="text" id="txtReason" class="txt c2"/></td>	
+						<td class="td1"><span> </span><a id='lblReason' class="lbl"> </a></td>
+						<td class="td2" colspan="5"><input type="text" id="txtReason" class="txt c1"/></td>	
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblHandle' class="lbl"> </a></td>

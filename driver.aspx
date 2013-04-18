@@ -409,8 +409,8 @@
 						<td class="td6">
 						<input id="txtBirthday" type="text" class="txt c1"/>
 						</td>
-						<td class="td1"><span> </span><a id='lblIndate' class="lbl"></a></td>
-						<td class="td2"><input id="txtIndate" type="text" class="txt c1"/></td>
+						<td class="td1"><span> </span><a id='lblIndate' class="lbl" style="display: none;"></a></td>
+						<td class="td2"><input id="txtIndate" type="text" class="txt c1" style="display: none;"/></td>
 					</tr>
 					<tr  class="tr3">
 						<td class="td1" ><span> </span><a id="lblTel" class="lbl"></a></td>

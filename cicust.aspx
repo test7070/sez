@@ -17,7 +17,7 @@
         var q_name="cicust";
         var q_readonly = ['txtWorker'];
         var bbmNum = []; 
-        var bbmMask = []; 
+        var bbmMask = [["txtPassdate", "999/99"]]; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
 		 aPop = [['txtCardealno', 'lblCardeal', 'cicardeal', 'cno,comp', 'txtCardealno,txtCardeal', 'cicardeal_b.aspx']];
@@ -39,6 +39,7 @@
 
 
         function mainPost() { 
+            bbmMask = [ ['txtPassdate', r_picm]];
             q_mask(bbmMask);
 			$('#btnCicardeal').click(function(e) {
 					q_box("cicardeal.aspx?;;;cno='" + $('#txtCardealno').val() + "'", 'cicardeal', "90%", "95%", q_getMsg("popCicardeal"));
@@ -71,7 +72,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('cicust_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
+            q_box('cicust_s.aspx', q_name + '_s', "500px", "450px", q_getMsg( "popSeek"));
         }
 
         function btnIns() {
@@ -311,7 +312,7 @@
           <tr class="tr1">
                <td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
                <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblCardeal" class="lbl"></a></td>
+               <td class="td3"><span> </span><a id="lblCardeal" class="lbl btn"></a></td>
                <td class="td4" colspan="2"><input id="txtCardealno" type="text" class="txt c2"/>
                <input id="txtCardeal" type="text" class="txt c3"/></td> 
                <td class="td6"><input id="btnCicardeal" type="button"/></td>
@@ -321,14 +322,8 @@
                <td class="td2"><input id="txtCarowner" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblUsera" class="lbl"></a></td>
                <td class="td4"><input id="txtUsera" type="text" class="txt c1"/></td>
-            </tr>
-			<tr class="tr4">
-               <td class="td1"><span> </span><a id="lblBirthday" class="lbl"></a></td>
-               <td class="td2"><input id="txtBirthday" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id="lblSerial" class="lbl"></a></td>
                <td class="td4"><input id="txtSerial" type="text" class="txt c1"/></td>
-               <td class="td5"></td>
-               <td class="td6"></td> 
             </tr>
             <tr class="tr5">
                <td class="td1"><span> </span><a id="lblTel1" class="lbl"></a></td>
