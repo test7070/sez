@@ -74,6 +74,30 @@
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
+					case 'ordes':
+	                    if (q_cur > 0 && q_cur < 4) {
+	                        b_ret = getb_ret();
+	                        if (!b_ret || b_ret.length == 0)
+	                            return;
+	                        var i, j = 0;
+	                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdemount', b_ret.length, b_ret
+	                                                           , 'productno,product,unit,mount'
+	                                                           , 'txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+	                        bbsAssign();
+	                        for (i = 0; i < ret.length; i++) {
+	                            k = ret[i];  ///ret[i]  儲存 tbbs 指標
+	                            if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
+	                                $('#txtMount_' + k).val(b_ret[i]['notv']);
+	                                $('#txtWeight_' + k).val(divide0(b_ret[i]['weight'] * b_ret[i]['notv'], b_ret[i]['mount']));
+	                            }
+	                            else {
+	                                $('#txtWeight_' + k).val(b_ret[i]['notv']);
+	                                $('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv'], b_ret[i]['weight']));
+	                            }
+	
+	                        }  /// for i
+	                    }
+						break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         break;

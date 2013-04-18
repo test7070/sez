@@ -17,9 +17,9 @@
 
             q_tables = 's';
             var q_name = "model";
-            var q_readonly = [];
+            var q_readonly = ['txtWorker','txtWorker2'];
             var q_readonlys = [];
-            var bbmNum = [];
+            var bbmNum = [['txtYearmount', 10, 0, 1],['txtUsecount', 10, 0, 1],['txtInmount', 10, 0, 1],['txtMount', 10, 0, 1]];
             var bbsNum = [];
             var bbmMask = [];
             var bbsMask = [];
@@ -28,7 +28,8 @@
             brwCount2 = 5;
             brwList = [];
             brwNowPage = 0;
-            brwKey = 'Datea';
+            brwKey = 'Noa';
+			aPop = new Array(['txtStationno', 'lblStationno', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx']);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -42,14 +43,13 @@
                     dataErr = false;
                     return;
                 }
-                mainForm(1);
+                mainForm(0);
             }
 
             function mainPost() {
                 q_getFormat();
-                q_mask(bbmMask);
-            	bbsMask = [['txtDatea', r_picd],['txtUindate', r_picd]];
-                q_mask(bbsMask);
+                var bbmMask = [['txtIndate',r_picd]];
+                q_mask(bbmMask)
             }
 
             function q_boxClose(s2) {
@@ -82,12 +82,7 @@
 	            	$('#txtWorker').val(r_name);
 	            else
 	            	$('#txtWorker2').val(r_name);
-            	var t_noa = trim($('#txtNoa').val());
-		        var t_date = trim($('#txtDatea').val());
-		        if (t_noa.length == 0 || t_noa == "AUTO")
-		            q_gtnoa(q_name, replaceAll('C' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-		        else
-		            wrServer(t_noa);
+				wrServer(t_noa);
             }
 
             function _btnSeek() {
@@ -102,16 +97,15 @@
 
             function btnIns() {
                 _btnIns();
-                $('#txtNoa').val('AUTO');
-                $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
+                $('#txtIndate').val(q_date());
+                $('#txtNoa').focus();
             }
 
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtDatea').focus();
+                $('#txtNoa').focus();
             }
 
             function btnPrint() {
@@ -200,7 +194,6 @@
             }
             .dview {
                 float: left;
-                width: 260px;
                 border-width: 0px;
             }
             .tview {
@@ -220,7 +213,7 @@
             }
             .dbbm {
                 float: left;
-                width: 690px;
+                width: 750px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -288,7 +281,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 100%;
+                width: 960px;
             }
             .tbbs a {
                 font-size: medium;
@@ -313,12 +306,12 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewYear'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewModel'> </a></td>
 					</tr>
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="noa" style="text-align: center;">~noa</td>
-						<td id="year" style="text-align: center;">~year</td>
+						<td id="model" style="text-align: center;">~model</td>
 					</tr>
 				</table>
 			</div>
@@ -332,37 +325,44 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td><input id="txtDatea" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td><input id="txtNoa" type="text" class="txt c1"/> </td>
+						<td><input id="txtNoa" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblModel' class="lbl"> </a></td>
+						<td><input id="txtModel" type="text" class="txt c1"/> </td>
+						<td> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblEnddatea' class="lbl"> </a></td>
-						<td><input id="txtEnddatea" type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblOrdeno' class="lbl"> </a></td>
-						<td><input id="txtOrdeno" type="text" class="txt c1"/> </td>
+						<td><span> </span><a id='lblYearmount' class="lbl"> </a></td>
+						<td><input id="txtYearmount" type="text" class="txt c1 num"/></td>
+						<td><span> </span><a id='lblUsecount' class="lbl"> </a></td>
+						<td><input id="txtUsecount" type="text" class="txt c1 num"/> </td>
+						<td> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
-						<td colspan="3">
-							<textarea id="txtMemo" rows="5" cols="10" style="width: 98%; height: 50px;"></textarea>
+						<td><span> </span><a id='lblMoldingcycle' class="lbl"> </a></td>
+						<td><input id="txtMoldingcycle" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblStationno' class="lbl btn"> </a></td>
+						<td colspan="2">
+							<input id="txtStationno" type="text" style="width:35%" class="txt"/>
+							<input id="txtStation" type="text" style="width:65%" class="txt"/>
 						</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblIndate' class="lbl"> </a></td>
+						<td><input id="txtIndate" type="text" class="txt c1"/></td>
+						<td><span> </span><a id='lblInmount' class="lbl"> </a></td>
+						<td><input id="txtInmount" type="text" class="txt c1 num"/></td>
+						<td><span> </span><a id='lblMount' class="lbl"> </a></td>
+						<td><input id="txtMount" type="text" class="txt c1 num"/></td>
+						<td> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td><input id="txtWorker2"  type="text"  class="txt c1"/></td>
-					</tr>	
-					<tr>
-						<td></td>
-						<td colspan="2">
-							<input id="btnOrde" type="button" />
-							<input id="btnOrdewindow" type="button" />
-							<input id="btnWork" type="button" />
-						</td>
-						<td></td>
+						<td> </td>
 					</tr>	
 				</table>
 			</div>
@@ -373,38 +373,18 @@
 					<td  align="center" style="width:1%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:2%;"><a id='lblNo2_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblDatea_s'></a></td>
-					<td colspan="2" align="center" style="width:15%;"><a id='lblProductno_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblUnit_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblOrdemount_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblCuamount_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblInmount_s'></a></td>
-					<td colspan="2" align="center" style="width:15%;"><a id='lblStationno_s'></a></td>
-					<td align="center" style="width:5%;"><a id='lblUindate_s'></a></td>
+					<td align="center" style="width:20%;"><a id='lblSuitproduct_s'></a></td>
+					<td align="center" style="width:40%;"><a id='lblMemo_s'></a></td>
+					<td align="center" style="width:40%;"><a id='lblMemo2_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
-					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
-					<input id="txtNoq.*" type="text" style="display: none;" />
+						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
+						<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
-					<td><input id="txtNo2.*" type="text" style="width: 90%;" /></td>
-					<td><input id="txtDatea.*" type="text" style="width: 95%;" /></td>
-					<td colspan="2">
-						<input id="txtProductno.*" type="text" style="width: 30%;"/>
-						<input id="txtProduct.*" type="text" style="width: 58%;"/>
-						<input id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
-					</td>
-					<td><input id="txtUnit.*" type="text" style="width: 95%;"/></td>
-					<td><input id="txtOrdemount.*" type="text" class="txt num c2"/></td>
-					<td><input id="txtCuamount.*" type="text" class="txt num c2"/></td>
-					<td><input id="txtInmount.*" type="text" class="txt num c2"/></td>
-					<td colspan="2">
-						<input id="txtStationno.*" type="text" style="width: 30%;"/>
-						<input id="txtStation.*" type="text" style="width: 58%;"/>
-						<input id="btnStationno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
-					</td>
-					<td><input id="txtUindate.*" type="text" style="width: 95%;"/></td>
+					<td><input id="txtSuitproduct.*" type="text" style="width:95%;" /></td>
+					<td><input id="txtMemo.*" type="text" style="width:95%;" /></td>
+					<td><input id="txtMemo2.*" type="text" style="width:95%;" /></td>
 				</tr>
 			</table>
 		</div>
