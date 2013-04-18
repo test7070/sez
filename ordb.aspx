@@ -59,6 +59,9 @@
                 q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  
                 q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
+                $('#btnOrde').click(function() {
+                     q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'ordes', "95%", "95%", q_getMsg('popOrde'));
+                });
                 
                 $('#cmbPaytype').change(function () {
 	            	$('#txtPay').val($('#cmbPaytype').find("option:selected").text())
@@ -77,6 +80,18 @@
                 var
                 ret;
                 switch (b_pop) {
+					case 'ordes':
+	                    if (q_cur > 0 && q_cur < 4) {
+	                        b_ret = getb_ret();
+	                        if (!b_ret || b_ret.length == 0)
+	                            return;
+	                        var i, j = 0;
+	                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMount,txtPrice,txtOrdeno,txtNo2', b_ret.length, b_ret
+	                                                           , 'productno,product,unit,mount,price,noa,no2'
+	                                                           , 'txtOrdeno,txtNo2');   /// 最後 aEmpField 不可以有【數字欄位】
+	                        sum();
+	                    }
+						break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
@@ -155,14 +170,12 @@
 				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 				                q_bodyId($(this).attr('id'));
 				                b_seq = t_IdSeq;
-								q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq));
 								sum();
 				            });
 				            $('#txtPrice_' + j).change(function () {
 				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 				                q_bodyId($(this).attr('id'));
 				                b_seq = t_IdSeq;
-				                q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq));
 				                sum();
 				            });
             		  }
@@ -227,6 +240,7 @@
                 var t1 = 0, t_unit, t_mount, t_weight = 0;
                 var t_money=0;
                 for(var j = 0; j < q_bbsCount; j++) {
+                	q_tr('txtTotal_'+j ,q_float('txtMount_'+j)*q_float('txtPrice_'+j));
 					t_money+=q_float('txtTotal_'+j);
                 }  // j
 				q_tr('txtMoney' ,t_money);
