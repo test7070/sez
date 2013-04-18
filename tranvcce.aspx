@@ -186,9 +186,9 @@
                             $('#txtMount').val(1);
                             t_msg = this.data[n+i]['addr'];
                             //出口
+                            t_msg += (this.data[n+i]['docketno1'].length>0?(t_msg.length>0?', ':'')+'案號'+this.data[n+i]['docketno1']:'');
                             t_msg += (this.data[n+i]['empdock'].length>0?(t_msg.length>0?',':'')+this.data[n+i]['empdock']+'領':'');
                         	t_msg += (this.data[n+i]['dock'].length>0?(t_msg.length>0?',':'')+'交'+this.data[n+i]['dock']:'');
-                       		t_msg += (this.data[n+i]['docketno1'].length>0?(t_msg.length>0?', ':'')+'案號'+this.data[n+i]['docketno1']:'');
                         	t_msg += (this.data[n+i]['boat'].length>0?(t_msg.length>0?',':'')+'船公司'+this.data[n+i]['boat']:'');
                         	t_msg += (this.data[n+i]['boatname'].length>0?(t_msg.length>0?',':'')+'船次'+this.data[n+i]['boatname']:'');
                         	t_msg += (this.data[n+i]['do1'].length>0?(t_msg.length>0?',':'')+'領櫃編號'+this.data[n+i]['do1']:'');
