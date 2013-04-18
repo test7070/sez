@@ -261,6 +261,19 @@
             	}
             	$('#txtCarno').val(t_carno);
             	
+            	if ($('#txtCustno').val().length==0){
+                	alert('請輸入'+q_getMsg('lblCust')+'。');
+                	return;
+                }
+                if ($('#txtAddrno').val().length==0){
+                	alert('請輸入'+q_getMsg('lblAddr')+'。');
+                	return;
+                }
+                if ($('#txtUccno').val().length==0){
+                	alert('請輸入'+q_getMsg('lblProduct')+'。');
+                	return;
+                }
+                
             	if ($('#txtTrandate').val().length==0 || !q_cd($('#txtTrandate').val())){
                 	alert(q_getMsg('lblTrandate')+'錯誤。');
                 	return;

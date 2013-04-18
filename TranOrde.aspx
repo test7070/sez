@@ -576,7 +576,7 @@
                 background-color: #FFEC8B;
             }
             .tbbm .tdZ {
-                width: 2%;
+                width: 1%;
             }
             .tbbm tr td span {
                 float: right;
@@ -825,6 +825,9 @@
 					</tr>
 					<tr class="trX">
 						<td><span> </span><a id="lblExcon" class="lbl" style="color: #ff0033;font-weight:bolder;"> </a></td>
+						<td><span> </span><a id="lblDocketno1" class="lbl"> </a></td>
+						<td>
+						<input type="text" id="txtDocketno1" class="txt c1"/> </td>
 						<td> </td>
 						<td>
 						<input type="text" id="txtEmpdock" class="txt c1"/>
@@ -834,10 +837,7 @@
 						<td>
 						<input type="text" id="txtDock" class="txt c1"/>
 						</td>
-						<td><span> </span><a id="lblDocketno1" class="lbl"> </a></td>
-						<td>
-						<input type="text" id="txtDocketno1" class="txt c1"/> </td>
-						<td></td>
+						<td> </td>
 					</tr>
 					<tr class="trX">
 						<td> </td>
