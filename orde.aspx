@@ -74,7 +74,7 @@
 				}
 			});
             $('#btnOrdem').click(function () {
-            	q_pop('txtNoa', "ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'ordem', 'noa', 'comp', "90%", "800px", q_getMsg('popOrdem')); 
+            	q_pop('txtNoa', "ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";ordem.noa='" + $('#txtNoa').val() + "';;" + q_cur, 'ordem', 'noa', 'comp', "90%", "800px", q_getMsg('popOrdem'),true); 
             });
             $('#btnQuat').click(function(){
             	btnQuat();
@@ -188,7 +188,7 @@
             var t_where='';
             if (t_custno.length > 0) {
                 //t_where = "enda='N' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");  ////  sql AND 語法，請用 &&  
-                t_where = (t_custno.length > 0 ? q_sqlPara("bcustno", t_custno) : "");  ////  sql AND 語法，請用 &&  
+                t_where = (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");  ////  sql AND 語法，請用 &&  
                 t_where =  t_where ;
             }
             else {
