@@ -149,7 +149,11 @@
                			alert('無出車單號。');
                 });
             }
-
+			function browTrans(obj){
+				var noa = $.trim($(obj).val());
+            	if(noa.length>0)
+            		q_box("trans.aspx?;;;noa='" + noa + "';"+r_accy, 'trans', "95%", "95%", q_getMsg("popTarans"));
+			}
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -815,7 +819,7 @@
 					<td><input  id="txtOutmoney.*" type="text" class="txt c1 num"/></td>
 					<td><input  id="txtOutplus.*" type="text" class="txt c1 num"/></td>
 					<td><input  id="txtOutminus.*" type="text" class="txt c1 num"/></td>
-					<td><input  id="txtTranno.*" type="text" class="txt c1"/></td>
+					<td><input  id="txtTranno.*" onclick="browTrans(this)" type="text" class="txt c1"/></td>
 				</tr>
 			</table>
 		</div>

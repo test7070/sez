@@ -59,7 +59,11 @@
                 });
 
             }
-
+			function browGqb(obj){
+				var noa = $.trim($(obj).val());
+            	if(noa.length>0)
+            		q_box("gqb.aspx?;;;gqbno='" + noa + "';"+r_accy, 'gqb', "95%", "95%", q_getMsg("popGqb"));
+			}
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -514,7 +518,7 @@
 					<input id="chkSel.*" type="checkbox"/>
 					</td>
 					<td >
-					<input class="txt c1" id="txtCheckno.*" type="text"  style="width: 95%"/>
+					<input class="txt c1" id="txtCheckno.*" onclick="browGqb(this)" type="text"  style="width: 95%"/>
 					</td>
 					<td >
 					<input id="txtBank.*" type="text" style="width: 95%;"/>
