@@ -359,14 +359,14 @@
 						<td align="center" style="width:15%;color:black;"><a id='vewCarno'> </a></td>
 						<td align="center" style="width:15%;color:black;"><a id='vewDriver'> </a></td>
 						<td align="center" style="width:30%;color:black;"><a id='vewInsurer'> </a></td>
-						<td align="center" style="width:15%;color:black;"><a id='vewOdate'> </a></td>
+						<td align="center" style="width:15%;color:black;"><a id='vewHdate'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="carno" style="text-align: center;">~carno</td>
 						<td id="driver" style="text-align: center;">~driver</td>
 						<td id="insurer" style="text-align: center;">~insurer</td>
-						<td id="odate" style="text-align: center;">~odate</td>
+						<td id="hdate" style="text-align: center;">~hdate</td>
 					</tr>
 				</table>
 			</div>
@@ -384,10 +384,43 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtNoa" class="txt c1"/>	</td>
-						<td class="td3"><span> </span><a id='lblCarno' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtCarno" class="txt c1"/>	</td>
 						<td class="td3"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td class="td4"><input type="text" id="txtDatea" class="txt c1"/>	</td>	
+					</tr>
+					<tr>
+						<td class="td3"><span> </span><a id='lblCarno' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtCarno" class="txt c1"/>	</td>
+						<td style="text-align: center;"><input id="btnCar" type="button" style="width:50%;"/></td>
+						<td style="text-align: center;"><input id="btnCaredit" type="button" /></td>
+					</tr>
+					<tr class="car">
+						<td class="td1"><span> </span><a id='lblCarowner' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtCarowner" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblCardeal' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtCardeal" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblUsera' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtUsera" class="txt c1"/>	</td>
+					</tr>
+					<tr class="car2">
+						<td class="td1"><span> </span><a id='lblTel_car' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtTelcar" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblModile_car' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtModilecar" class="txt c1"/>	</td>
+						<td class="td5"><span> </span><a id='lblSerial_car' class="lbl"> </a></td>
+						<td class="td6"><input type="text" id="txtSerialcar" class="txt c1"/>	</td>
+					</tr>
+					<tr class="car2">
+						<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtZipcar" class="txt c1"/>	</td>
+						<td class="td3" colspan="4"><input type="text" id="txtAddrcar" class="txt c1"/>	</td>
+					</tr>
+					<tr class="car2">
+						<td class="td1"><span> </span><a id='lblCarbrand' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtCarbrand" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lbl' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtModile" class="txt c1"/>	</td>
+						<td class="td5"><span> </span><a id='lblSerial' class="lbl"> </a></td>
+						<td class="td6"><input type="text" id="txtSerial" class="txt c1"/>	</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDriver' class="lbl"> </a></td>

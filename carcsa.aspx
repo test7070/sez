@@ -99,7 +99,6 @@
 				
 				q_gt('acomp', '', 0, 0, 0, "");
 				q_gt('calctype2', '', 0, 0, 0, "calctypes");
-				q_gt('carcsatype', '', 0, 0, 0, "");
 				q_cmbParse("cmbOntime", ',Y');
 				q_cmbParse("cmbInterval", q_getPara('carcsa.interval'));
                 //q_cmbParse("cmbType", '@,'+q_getPara('carcsa.type'));
@@ -136,6 +135,9 @@
                 });
                 $('#txtInminus').change(function() {
                     sum();
+                });
+                $('#lblType').click(function(){
+                	q_box("carcsatype.aspx?" + r_userno + ";" + r_name + ";" + q_time, 'carcsatype', "95%", "95%", q_getMsg('popCarcsatype'));
                 });
                 $('#btnTran').click(function(){
                 	var t_where = '',t_tranno='';
@@ -694,7 +696,7 @@
 						<td colspan="2"><input id="txtOrdeno" type="text" class="txt c1"/></td>
 						<td><span> </span><a id="lblAcomp" class="lbl" style="display: none;"> </a></td>
 						<td colspan="2"><select id="cmbCno" class="txt c1" style="display: none;"> </select></td>
-						<td><span> </span><a id="lblType" class="lbl"> </a></td>
+						<td><span> </span><a id="lblType" class="lbl btn"> </a></td>
 						<td><select id="cmbType" class="txt c1"> </select></td>
 					</tr>
 					<tr>

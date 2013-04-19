@@ -457,7 +457,7 @@
 				var t_carno = $.trim($('#txtCarno').val());
 				var t_msg = $.trim($('#txtMemo').val())+' '+$.trim($('#txtMsg').val());
 				
-            	if(t_carno.length>0 && t_msg.length>0 && !$('#chkSendcommandresult').prop('checked') && $('#txtCommandid').val().length==0){
+            	if(t_carno.length>0 && t_msg.length>0 && $('#chkSendcommandresult').prop('checked') && $('#txtCommandid').val().length==0){
             		//GPS訊息
             		var t_data = {
 	            		GroupName : encodeURI("CHITC195"),
@@ -472,8 +472,6 @@
 					    data: json,
 					    dataType: 'json',
 					    success: function(data){
-					    	if(data['SendCommandResult']=="true")
-								$('#chkSendcommandresult').prop('checked',true);
 							$('#txtCommandid').val(data['CommandId']);
 					    },
 				        complete: function(){
@@ -528,7 +526,6 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                $('#chkSendcommandresult').attr('disabled','disabled');
             }
 
             function btnMinus(id) {
@@ -1029,7 +1026,7 @@
 						<td colspan="6">
 							<input id="txtMsg"  type="text"  class="txt c1"/>
 						</td>
-						<td><input id="chkSendcommandresult"  type="checkbox">訊息發送</input></td>
+						<td><input id="chkSendcommandresult"  type="checkbox"><a title="有勾才會發送" style="color:red;">訊息發送</a></input></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
