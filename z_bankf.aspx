@@ -80,7 +80,11 @@
                         dbf : 'bank',
                         index : 'noa,bank',
                         src :  'bank_b.aspx'
-                    }]
+                    }, {/*28*/
+                            type : '5',
+                            name : 'xsort1',//[11]
+                            value : q_getMsg('tsort1').split('&')
+                        }]
                 });
                 $('#chkXcno').css('font-size','14px');
                 $('#chkXcno').children('input').attr('checked', 'checked');
