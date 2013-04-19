@@ -97,6 +97,9 @@
                 	}
                 	
                 });
+                $('#lblXspecno').click(function(e) {
+                	q_box("carstyle_b2.aspx?;;;;", 'carstyle', "90%", "600px", q_getMsg("popCarstyle"));
+                });
             });
             
             function q_gfPost() {
@@ -252,7 +255,10 @@
 	                        type : '5', //select
 	                        name : 'iacc',
 	                        value : ('顯示,不顯示').split(',')
-	                    }]
+	                    }, {
+                            type : '6',
+                            name : 'xspecno'
+                        }]
                     });
                     q_getFormat();
 	                q_langShow();
