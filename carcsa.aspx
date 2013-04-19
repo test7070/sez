@@ -96,7 +96,7 @@
                 q_getFormat();
                 bbmMask = [['txtTrandate', r_picd], ['txtBtime', '99:99'], ['txtEtime', '99:99'], ['txtMon', r_picm]];
                 q_mask(bbmMask);
-				q_gt('carcsatype', '', 0, 0, 0, "");
+				
 				q_gt('acomp', '', 0, 0, 0, "");
 				q_gt('calctype2', '', 0, 0, 0, "calctypes");
 				q_cmbParse("cmbOntime", ',Y');
@@ -111,7 +111,7 @@
 		                input.selectionEnd =8;
 		            }
 				});
-              $('#cmbType').change(function() {         
+                $('#cmbType').change(function() {         
                     var tmp = $('#cmbType').find(":selected").text().split('_');
                     if(tmp.length==4){
                     	$('#txtCartype').val(tmp[0]);
@@ -157,10 +157,6 @@
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
-                	case 'conttype':
-                        //q_gt('conttype', '', 0, 0, 0, "");
-                        location.href = (location.origin==undefined?'':location.origin)+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";;"+r_accy;
-                        break;	
                     case q_name + '_s':
                         q_boxClose2(s2);
                         break;
