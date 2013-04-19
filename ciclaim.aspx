@@ -384,10 +384,35 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtNoa" class="txt c1"/>	</td>
-						<td class="td3"><span> </span><a id='lblCarno' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtCarno" class="txt c1"/>	</td>
 						<td class="td3"><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td class="td4"><input type="text" id="txtDatea" class="txt c1"/>	</td>	
+					</tr>
+					<tr>
+						<td class="td3"><span> </span><a id='lblCarno' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtCarno" class="txt c1"/>	</td>
+						<td style="text-align: center;"><input id="btnCar" type="button" style="width:50%;"/></td>
+						<td style="text-align: center;"><input id="btnCaredit" type="button" /></td>
+					</tr>
+					<tr class="car">
+						<td class="td1"><span> </span><a id='lblCarowner' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtCarowner" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblCardeal' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtCardeal" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblUsera' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtUsera" class="txt c1"/>	</td>
+					</tr>
+					<tr class="car2">
+						<td class="td1"><span> </span><a id='lblTel' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtTel" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblModile' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtModile" class="txt c1"/>	</td>
+						<td class="td5"><span> </span><a id='lblSerial' class="lbl"> </a></td>
+						<td class="td6"><input type="text" id="txtSerial" class="txt c1"/>	</td>
+					</tr>
+					<tr class="car2">
+						<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtZip" class="txt c1"/>	</td>
+						<td class="td3" colspan="4"><input type="text" id="txtAddr" class="txt c1"/>	</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDriver' class="lbl"> </a></td>

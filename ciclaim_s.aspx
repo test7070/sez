@@ -10,7 +10,7 @@
     <script src='../script/mask.js' type="text/javascript"></script>
 	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-    var q_name = "cicust_s";
+    var q_name = "ciclaim_s";
 	aPop = new Array(['txtNoa', '', 'cicust', 'noa,carowner', 'txtNoa,txtCarowner', "cicust_b.aspx?"],
 	['txtCardealno', '', 'cicardeal', 'cno,comp', 'txtCardealno,txtCardeal', "Cicardeal_b.aspx?"]);
     $(document).ready(function () {
