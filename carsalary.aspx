@@ -18,13 +18,13 @@
             var afield, t_htm;
             var i, s1;
 
-            var decbbs = ['money'];
+            var decbbs = [];
             var decbbm = [];
             var q_readonly = [];
             var q_readonlys = [];
             var bbmNum = [];
             //var bbmNum_comma = [];
-            var bbsNum = [['txtMoney', 10, 0, 1]];
+            var bbsNum = [['txtJan', 10, 0, 1],['txtFeb', 10, 0, 1],['txtMar', 10, 0, 1],['txtApr', 10, 0, 1],['txtMay', 10, 0, 1],['txtJun', 10, 0, 1],['txtJul', 10, 0, 1],['txtAug', 10, 0, 1],['txtSep', 10, 0, 1],['txtOct', 10, 0, 1],['txtNov', 10, 0, 1],['txtDec', 10, 0, 1]];
             //var bbsNum_comma = ['txtMoney'];
             var bbmMask = [];
             var bbsMask = [['txtYear', '999']];
@@ -40,8 +40,8 @@
                 }
                 if(!q_paraChk())
                     return;
-				brwCount2 = 0;
-            	brwCount = -1;
+				brwCount2 = 15;
+            	brwCount = 15;
                 main();
             });
             function main() {
@@ -55,17 +55,274 @@
             }
 
             function q_gtPost(t_name) {
-
+				switch (t_name) {
+            	  	case 'carsalary':
+            	  		if(q_cur==2){
+	            			var as = _q_appendData("carsalary", "", true);
+	            			if(as[0]!=undefined){
+	            				$(txtmon+b_seq).val(0);
+	            				alert('此人該月份已投保過薪資!!');
+	            			}
+	            		}
+            		break;
+                  }
             }
-
+			
+			var txtmon='';
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
            			if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-           				$('#txtId_'+j).change(function () {
+           				$('#txtJan_'+j).change(function () {
            					t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
+							if(emp($('#txtId_'+b_seq).val())){
+								$('#txtJan_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblId'));
+								$('#txtId_'+b_seq).focus();
+								return;
+							}
+							if(emp($('#txtYear_'+b_seq).val())){
+								$('#txtJan_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblYear'));
+								$('#txtYear_'+b_seq).focus();
+								return;
+							}
 							//搜尋資料庫有重複輸入跳出警告
+							txtmon='#txtJan_';
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and jan !=0 ^^";
+							q_gt('carsalary', t_where, 0, 0, 0, "");
+           				});
+           				$('#txtFeb_'+j).change(function () {
+           					t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(emp($('#txtId_'+b_seq).val())){
+								$('#txtFeb_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblId'));
+								$('#txtId_'+b_seq).focus();
+								return;
+							}
+							if(emp($('#txtYear_'+b_seq).val())){
+								$('#txtFeb_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblYear'));
+								$('#txtYear_'+b_seq).focus();
+								return;
+							}
+							//搜尋資料庫有重複輸入跳出警告
+							txtmon='#txtFeb_';
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and feb !=0 ^^";
+							q_gt('carsalary', t_where, 0, 0, 0, "");
+           				});
+           				$('#txtMar_'+j).change(function () {
+           					t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(emp($('#txtId_'+b_seq).val())){
+								$('#txtMar_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblId'));
+								$('#txtId_'+b_seq).focus();
+								return;
+							}
+							if(emp($('#txtYear_'+b_seq).val())){
+								$('#txtMar_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblYear'));
+								$('#txtYear_'+b_seq).focus();
+								return;
+							}
+							//搜尋資料庫有重複輸入跳出警告
+							txtmon='#txtMar_';
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and mar !=0 ^^";
+							q_gt('carsalary', t_where, 0, 0, 0, "");
+           				});
+           				$('#txtApr_'+j).change(function () {
+           					t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(emp($('#txtId_'+b_seq).val())){
+								$('#txtApr_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblId'));
+								$('#txtId_'+b_seq).focus();
+								return;
+							}
+							if(emp($('#txtYear_'+b_seq).val())){
+								$('#txtApr_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblYear'));
+								$('#txtYear_'+b_seq).focus();
+								return;v
+							}
+							//搜尋資料庫有重複輸入跳出警告
+							txtmon='#txtApr_';
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and apr !=0 ^^";
+							q_gt('carsalary', t_where, 0, 0, 0, "");
+           				});
+           				$('#txtMay_'+j).change(function () {
+           					t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(emp($('#txtId_'+b_seq).val())){
+								$('#txtMay_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblId'));
+								$('#txtId_'+b_seq).focus();
+								return;
+							}
+							if(emp($('#txtYear_'+b_seq).val())){
+								$('#txtMay_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblYear'));
+								$('#txtYear_'+b_seq).focus();
+								return;
+							}
+							//搜尋資料庫有重複輸入跳出警告
+							txtmon='#txtMay_';
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and may !=0 ^^";
+							q_gt('carsalary', t_where, 0, 0, 0, "");
+           				});
+           				$('#txtJun_'+j).change(function () {
+           					t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(emp($('#txtId_'+b_seq).val())){
+								$('#txtJun_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblId'));
+								$('#txtId_'+b_seq).focus();
+								return;
+							}
+							if(emp($('#txtYear_'+b_seq).val())){
+								$('#txtJun_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblYear'));
+								$('#txtYear_'+b_seq).focus();
+								return;
+							}
+							//搜尋資料庫有重複輸入跳出警告
+							txtmon='#txtJun_';
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and jun !=0 ^^";
+							q_gt('carsalary', t_where, 0, 0, 0, "");
+           				});
+           				$('#txtJul_'+j).change(function () {
+           					t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(emp($('#txtId_'+b_seq).val())){
+								$('#txtJul_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblId'));
+								$('#txtId_'+b_seq).focus();
+								return;
+							}
+							if(emp($('#txtYear_'+b_seq).val())){
+								$('#txtJul_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblYear'));
+								$('#txtYear_'+b_seq).focus();
+								return;
+							}
+							//搜尋資料庫有重複輸入跳出警告
+							txtmon='#txtJul_';
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and jul !=0 ^^";
+							q_gt('carsalary', t_where, 0, 0, 0, "");
+           				});
+           				$('#txtAug_'+j).change(function () {
+           					t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(emp($('#txtId_'+b_seq).val())){
+								$('#txtAug_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblId'));
+								$('#txtId_'+b_seq).focus();
+								return;
+							}
+							if(emp($('#txtYear_'+b_seq).val())){
+								$('#txtAug_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblYear'));
+								$('#txtYear_'+b_seq).focus();
+								return;
+							}
+							//搜尋資料庫有重複輸入跳出警告
+							txtmon='#txtAug_';
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and aug !=0 ^^";
+							q_gt('carsalary', t_where, 0, 0, 0, "");
+           				});
+           				$('#txtSep_'+j).change(function () {
+           					t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(emp($('#txtId_'+b_seq).val())){
+								$('#txtSep_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblId'));
+								$('#txtId_'+b_seq).focus();
+								return;
+							}
+							if(emp($('#txtYear_'+b_seq).val())){
+								$('#txtSep_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblYear'));
+								$('#txtYear_'+b_seq).focus();
+								return;
+							}
+							//搜尋資料庫有重複輸入跳出警告
+							txtmon='#txtSep_';
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and sep !=0 ^^";
+							q_gt('carsalary', t_where, 0, 0, 0, "");
+           				});
+           				$('#txtOct_'+j).change(function () {
+           					t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(emp($('#txtId_'+b_seq).val())){
+								$('#txtOct_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblId'));
+								$('#txtId_'+b_seq).focus();
+								return;
+							}
+							if(emp($('#txtYear_'+b_seq).val())){
+								$('#txtOct_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblYear'));
+								$('#txtYear_'+b_seq).focus();
+								return;
+							}
+							//搜尋資料庫有重複輸入跳出警告
+							txtmon='#txtOct_';
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and oct !=0 ^^";
+							q_gt('carsalary', t_where, 0, 0, 0, "");
+           				});
+           				$('#txtNov_'+j).change(function () {
+           					t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(emp($('#txtId_'+b_seq).val())){
+								$('#txtNov_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblId'));
+								$('#txtId_'+b_seq).focus();
+								return;
+							}
+							if(emp($('#txtYear_'+b_seq).val())){
+								$('#txtNov_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblYear'));
+								$('#txtYear_'+b_seq).focus();
+								return;
+							}
+							//搜尋資料庫有重複輸入跳出警告
+							txtmon='#txtNov_';
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and nov !=0 ^^";
+							q_gt('carsalary', t_where, 0, 0, 0, "");
+           				});
+           				$('#txtDec_'+j).change(function () {
+           					t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(emp($('#txtId_'+b_seq).val())){
+								$('#txtDec_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblId'));
+								$('#txtId_'+b_seq).focus();
+								return;
+							}
+							if(emp($('#txtYear_'+b_seq).val())){
+								$('#txtDec_'+b_seq).val(0);
+								alert('請先輸入'+q_getMsg('lblYear'));
+								$('#txtYear_'+b_seq).focus();
+								return;
+							}
+							//搜尋資料庫有重複輸入跳出警告
+							txtmon='#txtDec_';
+							var t_where = "where=^^  id='"+$('#txtId_'+b_seq).val()+"' and year='"+$('#txtYear_'+b_seq).val()+"' and dec !=0 ^^";
+							q_gt('carsalary', t_where, 0, 0, 0, "");
            				});
            			}
            		}
@@ -118,7 +375,7 @@
 	<body>
 		<div  id="dbbs"  >
 			<!--#include file="../inc/pop_modi.inc"-->
-			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:2000px'  >
+			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:1800px'  >
 				<tr style='color:white; background:#003366;' >
 					<td class="td1" align="center" style="width:1%; max-width:20px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
@@ -162,37 +419,37 @@
 					<input class="txt" id="txtJan.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
 					<td class="td7">
-					<input class="txt" id="txtFeb.*" type="text" style="width:95%;"  />
+					<input class="txt" id="txtFeb.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
 					<td class="td8">
-					<input class="txt" id="txtMar.*" type="text" style="width:95%;"  />
+					<input class="txt" id="txtMar.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
 					<td class="td9">
-					<input class="txt" id="txtApr.*" type="text" style="width:95%;"  />
+					<input class="txt" id="txtApr.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
 					<td class="td10">
-					<input class="txt" id="txtMay.*" type="text" style="width:95%;"  />
+					<input class="txt" id="txtMay.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
 					<td class="td11">
-					<input class="txt" id="txtJun.*" type="text" style="width:95%;"  />
+					<input class="txt" id="txtJun.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
 					<td class="td12">
-					<input class="txt" id="txtJul.*" type="text" style="width:95%;"  />
+					<input class="txt" id="txtJul.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
 					<td class="td13">
-					<input class="txt" id="txtAug.*" type="text" style="width:95%;"  />
+					<input class="txt" id="txtAug.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
 					<td class="td14">
-					<input class="txt" id="txtSep.*" type="text" style="width:95%;"  />
+					<input class="txt" id="txtSep.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
 					<td class="td15">
-					<input class="txt" id="txtOct.*" type="text" style="width:95%;"  />
+					<input class="txt" id="txtOct.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
 					<td class="td16">
-					<input class="txt" id="txtNov.*" type="text" style="width:95%;"  />
+					<input class="txt" id="txtNov.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
 					<td class="td17">
-					<input class="txt" id="txtDec.*" type="text" style="width:95%;"  />
+					<input class="txt" id="txtDec.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
 					<td class="td18">
                     	<input class="txt" id="txtMemo.*" type="text" style="width:95%;"  />
