@@ -142,6 +142,10 @@
                             type : '8',
                             name : 'xdc',
                             value : q_getPara('chgcash.typea').split(',')
+                        }, {/*28*/
+                            type : '5',
+                            name : 'xtitle',//[11]
+                            value : q_getMsg('ttitle').split('&')
                         }]
                     });
                     q_popAssign();
