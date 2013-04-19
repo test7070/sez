@@ -23,9 +23,9 @@
         var q_name = "workb";
         var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
         var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
-        var q_readonly = ['txtComp'];
+        var q_readonly = ['txtWorker','txtNoa'];
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq'];
-        var bbmNum = [['txtPrice', 10, 3]];  // 允許 key 小數
+        var bbmNum = [];  // 允許 key 小數
         //var bbmNum_comma = [];
         var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
         //var bbsNum_comma = []; 
@@ -275,7 +275,7 @@
 
             }  // j
 
-            format();
+            //format();
         }
 		/*
         function format() {  ////  主要為數字 comma

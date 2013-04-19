@@ -893,9 +893,9 @@
 						<td>
 						<input type="text" id="txtTakeno" class="txt c1"/>
 						</td>
-						<td><span> </span><a id="lblCasePresent" class="lbl"> </a></td>
+						<td><span> </span><a id="lblCasepresent" class="lbl"> </a></td>
 						<td>
-						<input type="text" id="txtCasePresent" class="txt c1"/></td>
+						<input type="text" id="txtCasepresent" class="txt c1"/></td>
 						<td><span> </span><a id="lblProduct2" class="lbl"> </a></td>
 						<td colspan="2">
 						<input type="text" id="txtProduct2" class="txt c1"/> </td>
@@ -935,9 +935,9 @@
 						<td>
 						<input type="text" id="txtTrackno" class="txt c1"/>
 						</td>
-						</td><td><span> </span><a id="lblCaseAssign" class="lbl"> </a></td>
+						</td><td><span> </span><a id="lblCaseassign" class="lbl"> </a></td>
 						<td>
-						<input type="text" id="txtCaseAssign" class="txt c1"/>
+						<input type="text" id="txtCaseassign" class="txt c1"/>
 						</td>
 						<td><span> </span><a id="lblDo2" class="lbl"> </a></td>
 						<td colspan="2">

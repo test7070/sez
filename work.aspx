@@ -34,7 +34,8 @@
         aPop = new Array(
         	['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
         	['txtTggno', 'lblComp', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
-        	['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
+        	['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
+        	['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx']
         	);
 
 
@@ -68,8 +69,10 @@
 
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
-            bbmMask = [['txtDatea', r_picd], ['txtDatea', r_picd], ['txtWorkdate', r_picd], ['txtUindate', r_picd], ['txtEnddate', r_picd]];
+            bbmMask = [['txtDatea', r_picd], ['txtWorkdate', r_picd], ['txtUindate', r_picd], ['txtCuadate',r_picd] , ['txtEnddate', r_picd]];
             q_mask(bbmMask);
+            bbsMask = [['txtCucdate',r_picd]];
+            q_mask(bbsMask);
             
             $('#txtProductno').change(function () {
             	var t_where = "where=^^ noa ='"+$('#txtProductno').val()+"' ^^";
@@ -175,6 +178,7 @@
 
         function btnIns() {
             _btnIns();
+            $('#txtDatea').val(q_date());
          }
         function btnModi() {
             if (emp($('#txtNoa').val()))
@@ -464,7 +468,7 @@
 				<td class="td6"><input id="txtErrmount" type="text"  class="txt"/></td> 
 			</tr>
 	        <tr class="tr5">
-		        <td class="td1"><span> </span><a id="lblStation" class="lbl"> </a></td>
+		        <td class="td1"><span> </span><a id="lblStation" class="lbl btn"> </a></td>
 		        <td class="td2">
 		        	<input id="txtStationno" type="text"  class="txt" style="width: 45%"/>
 		        	<input id="txtStation" type="text"  class="txt" style="width: 45%"/>
@@ -536,9 +540,9 @@
                 </td>
                 <td><input id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td><input id="txtCucdate.*" type="text" class="txt c1"/></td>
-                <td><input id="txtMount.*" type="text" class="txt c1"/></td>
-                <td><input id="txtGmount.*" type="text" class="txt c1"/></td>
-                <td><input id="txtEmount.*" type="text" class="txt c1"/></td>
+                <td><input id="txtMount.*" type="text" class="txt c1 num"/></td>
+                <td><input id="txtGmount.*" type="text" class="txt c1 num"/></td>
+                <td><input id="txtEmount.*" type="text" class="txt c1 num"/></td>
                 <td>
                 	<!--<input id="txtTd.*" type="text" class="txt c1"/>-->
                 	<input id="chkIstd.*" type="checkbox" style="float: left;"/>
