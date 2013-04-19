@@ -24,7 +24,7 @@
 				q_getFormat();
 				q_langShow();
 
-				bbmMask = [['txtMon', r_picm],['txtBdate', r_picd],['txtEdate', r_picd]];
+				bbmMask = [['txtMon', r_picm],['txtBdate', r_picd],['txtEdate', r_picd],['txtBpaydate', r_picd],['txtEpaydate', r_picd]];
 				q_mask(bbmMask);
 				q_gt('acomp', '', 0, 0, 0, "");
 				q_gt('part', '', 0, 0, 0, "");
@@ -63,6 +63,9 @@
 				t_tggno = $.trim($('#txtTggno').val());
 				t_tgg = $.trim($('#txtTgg').val());
 				t_accno = $.trim($('#txtAccno').val());
+				t_bpaydate = $('#txtBpaydate').val();
+				t_epaydate = $('#txtEpaydate').val();
+				
 
 				var t_where = " 1=1 "
 				+ q_sqlPara2("cno", t_cno)
@@ -71,6 +74,7 @@
 				+ q_sqlPara2("accno", t_accno)
 				+ q_sqlPara2("mon", t_mon)
 				+ q_sqlPara2("datea", t_bdate, t_edate)
+				+ q_sqlPara2("paydate", t_bpaydate, t_epaydate)
 				+ q_sqlPara2("tggno", t_tggno);
 				if (t_tgg.length > 0)
                     t_where += " and patindex('%" + t_tgg + "%',comp)>0";
@@ -128,6 +132,14 @@
 						<input id="txtBdate" type="text" style="width:40%; float:left;" />
 						<span style="width:20px; display: block; float:left;">~</span>
 						<input id="txtEdate" type="text" style="width:40%; float:left;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td><a id='lblPaydate'> </a></td>
+					<td>
+						<input id="txtBpaydate" type="text" style="width:40%; float:left;" />
+						<span style="width:20px; display: block; float:left;">~</span>
+						<input id="txtEpaydate" type="text" style="width:40%; float:left;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
