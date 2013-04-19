@@ -24,7 +24,12 @@
         var bbsNum = [['txtPrice', 12, 3], ['txtWeight', 11, 2, 1], ['txtMount', 9, 2, 1], ['txtTotal', , , 1]]; // detail 允許 key 小數  [物件,整數位數,小數位數, comma Display]
         var bbmMask = []; // post 後給值  master Mask
         var bbsMask = []; // post 後給值  detail Mask
-        q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'datea';
+        q_sqlCount = 6; 
+        brwCount = 6; 
+        brwCount2 = 11; 
+        brwList = []; 
+        brwNowPage = 0; 
+        brwKey = 'datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
 
         $(document).ready(function () {
