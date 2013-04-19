@@ -10,9 +10,9 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'giftcust', t_content = ' field=noa,namea', bbsKey = ['noa'], as;
+            var q_name = 'giftcust', t_content = ' field=noa,namea,comp,job', bbsKey = ['noa'], as;
             var isBott = false;
-            
+            q_desc=1;
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
             var i, s1;
             $(document).ready(function() {
@@ -43,19 +43,39 @@
 		<div  id="dbbs"  >
 			<table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
 				<tr>
-					<th align="center" ></th>
-					<th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
-					<th align="center" style='color:Blue;' ><a id='lblNamea'></a></th>
+					<th align="center" style="width:2%;"></th>
+					<th align="center" style='width:10%;color:Blue;' ><a id='lblNoaa'></a></th>
+					<th align="center" style='width:15%;color:Blue;' ><a id='lblCustno'></a></th>
+					<th align="center" style='width:15%;color:Blue;' ><a id='lblJob'></a></th>
+					<th align="center" style='width:15%;color:Blue;' ><a id='lblNamea'></a></th>
+					<th align="center" style='width:15%;color:Blue;' ><a id='lblTel'></a></th>
+					<th align="center" style='width:15%;color:Blue;' ><a id='lblMobile'></a></th>
+					<th align="center" style='color:Blue;' ><a id='lblSendtype'></a></th>
 				</tr>
 				<tr>
-					<td style="width:2%;">
+					<td>
 					<input name="sel"  id="radSel.*" type="radio" />
 					</td>
-					<td style="width:20%;">
+					<td>
 					<input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
-					<td style="width:75%;">
+					<td>
+					<input class="txt" id="txtComp.*" type="text" style="width:98%;"  readonly="readonly" />
+					</td>
+					<td>
+					<input class="txt" id="txtJob.*" type="text" style="width:98%;"  readonly="readonly" />
+					</td>
+					<td>
 					<input class="txt" id="txtNamea.*" type="text" style="width:98%;"  readonly="readonly" />
+					</td>
+					<td>
+					<input class="txt" id="txtTel.*" type="text" style="width:98%;"  readonly="readonly" />
+					</td>
+					<td>
+					<input class="txt" id="txtMobile.*" type="text" style="width:98%;"  readonly="readonly" />
+					</td>
+					<td>
+					<input class="txt" id="txtSendtype.*" type="text" style="width:98%;"  readonly="readonly" />
 					</td>
 				</tr>
 			</table>

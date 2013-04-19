@@ -28,7 +28,8 @@
             //var bbsNum_comma = ['txtMoney'];
             var bbmMask = [];
             var bbsMask = [['txtYear', '999']];
-            aPop = [];
+            aPop = [['txtNamea_', '', 'carowner', 'namea,idno,addr_home', 'txtNamea_,txtId_,txtAddr_', 'carowner_b.aspx'],
+            ['txtId_', '', 'carsalary', 'id,namea', 'txtId_', '']];
 
             $(document).ready(function() {
                 bbmKey = [];
