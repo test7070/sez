@@ -23,13 +23,17 @@
             var bbmNum = [['txtMoney', 11, 2,1],['txtMoney2', 8, 2,1],['txtInterestrate', 6, 3,1]];
             var bbmMask = [];
             var compArr = new Array();
-            var CheckLcno = true; //有重複為true 無重複為false
+            var CheckLcno //有重複為true 無重複為false
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
             brwCount2 = 16;
+            if(q_cur == 1)
+            	CheckLcno = true;
+            else
+            	CheckLcno = false;
             aPop = new Array(['txtPayacc1', 'lblPayacc', 'acc', 'acc1,acc2', 'txtPayacc1,txtPayacc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
 							 ['txtBankno', 'lblBank', 'bank', 'noa,bank', 'txtBankno,txtBank', "bank_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
 							 ['txtBank2no', 'lblBank2', 'bank', 'noa,bank', 'txtBank2no,txtBank2', 'bank_b.aspx']);
@@ -72,6 +76,7 @@
 					$('#txtNick').val(compArr[selectVal].nick);
 				});
 				$('#txtLcno').change(function(){
+					$('#btnOk').attr('disabled','disabled');
 					var t_where = "where=^^ lcno='" + $('#txtLcno').val() + "' ^^";
 					q_gt('bankf', t_where, 0, 0, 0, "");
 				});
@@ -106,10 +111,10 @@
 		                }
 		                break;
                 	case 'bankf':
-                		if(q_cur != 0){
+                		if(q_cur != 0 && q_cur != 4){
 							var as = _q_appendData("bankf", "", true);
 							if (as[0] != undefined){
-								if(abbm[q_recno].lcno == as[0].lcno)
+								if(q_cur == 2 && abbm[q_recno].lcno == as[0].lcno)
 									CheckLcno = false;
 								else
 									CheckLcno = true;
@@ -117,6 +122,9 @@
 								CheckLcno = false;
 							}
 						}
+                        if (q_cur == 4)
+                            q_Seek_gtPost();
+                        $('#btnOk').removeAttr('disabled');
 		                break;
                     case q_name:
                         if (q_cur == 4)
