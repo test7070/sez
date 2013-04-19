@@ -71,9 +71,12 @@
                     var t_where = "";
 
                     if (emp($('#txtBankno').val())) {
-                        t_where = "where=^^ len(isnull(a.tbankno,''))=0 and isnull(a.enda,'')!='Y' and isnull(b.sel,0) = 0^^";
+                        t_where = "where=^^ len(isnull(a.tbankno,''))=0 and isnull(a.enda,'')!='Y' and isnull(b.sel,0) = 0 and a.typea='"+$('#cmbTypea').val()+"'^^";
                     } else {
-                        t_where = "where=^^ a.tbankno='" + $('#txtBankno').val() + "' and isnull(a.enda,'')!='Y' and isnull(b.sel,0) = 0  ^^";
+                    	if($('#cmbTypea').val()=='1')
+                        	t_where = "where=^^   a.tbankno='" + $('#txtBankno').val() + "' and isnull(a.enda,'')!='Y' and isnull(b.sel,0) = 0 and a.typea='"+$('#cmbTypea').val()+"'^^";
+                    	if($('#cmbTypea').val()=='2')
+                    		t_where = "where=^^   a.bankno='" + $('#txtBankno').val() + "' and isnull(a.enda,'')!='Y' and isnull(b.sel,0) = 0  and a.typea='"+$('#cmbTypea').val()+"'^^";
                     }
                     q_gt('uf_gqb', t_where, 0, 0);
                 });
@@ -129,7 +132,7 @@
             		if($.trim($('#txtCheckno_' + i).val()).length>0){
             			t_checkno += (t_checkno.length>0?",":"") + $.trim($('#txtCheckno_' + i).val());
             		}
-            		t_money = parseFloat($('#txtMoney_' + i).val());
+            		t_money = parseFloat($('#txtMoney_' + i).val().length==0?'0':$('#txtMoney_' + i).val().replace(',',''));
             		if(t_money!=0){
             			t_cmoney += ','+t_money+','
             		}
