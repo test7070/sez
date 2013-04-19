@@ -99,9 +99,10 @@
 				q_gt('carcsatype', '', 0, 0, 0, "");
 				q_gt('acomp', '', 0, 0, 0, "");
 				q_gt('calctype2', '', 0, 0, 0, "calctypes");
+				q_gt('carcsatype', '', 0, 0, 0, "");
 				q_cmbParse("cmbOntime", ',Y');
 				q_cmbParse("cmbInterval", q_getPara('carcsa.interval'));
-                q_cmbParse("cmbType", '@,'+q_getPara('carcsa.type'));
+                //q_cmbParse("cmbType", '@,'+q_getPara('carcsa.type'));
                 q_cmbParse("cmbTypea2", ('').concat(new Array('', '全拖', '半拖', '小時', '塊')));
 
 				$("#txtAddrno").focus(function() {
@@ -213,6 +214,20 @@
 	                        q_cmbParse("cmbCno", t_item);
 	                        if (abbm[q_recno] != undefined) {
 	                        	$("#cmbCno").val(abbm[q_recno].cno);
+	                        }
+                        }
+                        break;
+                	case 'carcsatype':
+                        var as = _q_appendData("carcsatype", "", true);
+                        if (as[0] != undefined) {
+	                        var t_item = " @ ";
+	                        for ( i = 0; i < as.length; i++) {
+	                            t_item = t_item + (t_item.length > 0 ? ',' : '');
+	                            t_item = t_item + as[i].cartype + '_' + as[i].memo + '_' + as[i].typea + '_' + as[i].price;
+	                        }
+	                        q_cmbParse("cmbType", t_item);
+	                        if (abbm[q_recno] != undefined) {
+	                        	$("#cmbType").val(abbm[q_recno].cno);
 	                        }
                         }
                         break;
