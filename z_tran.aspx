@@ -229,6 +229,10 @@
                          	type : '8',
                             name : 'yoption01',
                             value : q_getMsg('toption').split('&')
+                        }, {/*33*/
+                         	type : '5',
+                            name : 'yoption27',
+                            value : q_getMsg('toption27').split('&')
                         }]
                     });
                     q_popAssign();
