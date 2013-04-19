@@ -98,6 +98,9 @@
 					$(".carnocchange").hide();
 				});
 				
+				$('#btnCarsalary').click(function(e) {
+					q_box("carsalary.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'carsalary', "90%", "95%", q_getMsg("popCarsalary"));
+				});
 				$('#btnCarinsurance').click(function(e) {
 					q_box("carinsure.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'carinsure', "90%", "95%", q_getMsg("popCarinsure"));
 				});
@@ -1014,8 +1017,8 @@
 						<td> </td>
 						<td><input id="btnCarexpense" type="button" style="width:80%;"/> </td>
 						<td><input id="btnSale" type="button" style="width:80%;"/> </td>	
-						<td><!--<input id="btnCarlender" type="button" style="width:80%;"/> --></td>
-						<td> </td>
+						<td><input id="btnCarsalary" type="button" style="width:80%;"/></td>
+						<td><!--<input id="btnCarlender" type="button" style="width:80%;"/> --> </td>
 						<td><input id="btnCarnochange" type="button" /></td>
 					</tr>
 					<tr class="carexpense">
