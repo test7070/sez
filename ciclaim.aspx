@@ -359,14 +359,14 @@
 						<td align="center" style="width:15%;color:black;"><a id='vewCarno'> </a></td>
 						<td align="center" style="width:15%;color:black;"><a id='vewDriver'> </a></td>
 						<td align="center" style="width:30%;color:black;"><a id='vewInsurer'> </a></td>
-						<td align="center" style="width:15%;color:black;"><a id='vewOdate'> </a></td>
+						<td align="center" style="width:15%;color:black;"><a id='vewHdate'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="carno" style="text-align: center;">~carno</td>
 						<td id="driver" style="text-align: center;">~driver</td>
 						<td id="insurer" style="text-align: center;">~insurer</td>
-						<td id="odate" style="text-align: center;">~odate</td>
+						<td id="hdate" style="text-align: center;">~hdate</td>
 					</tr>
 				</table>
 			</div>

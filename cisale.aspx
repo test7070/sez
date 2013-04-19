@@ -259,6 +259,7 @@
             }
             .tbbm select {
                 border-width: 1px;
+                font-size:medium;
                 padding: 0px;
                 margin: -1px;
             }
