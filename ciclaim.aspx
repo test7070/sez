@@ -402,17 +402,25 @@
 						<td class="td4"><input type="text" id="txtUsera" class="txt c1"/>	</td>
 					</tr>
 					<tr class="car2">
-						<td class="td1"><span> </span><a id='lblTel' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtTel" class="txt c1"/>	</td>
-						<td class="td3"><span> </span><a id='lblModile' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtModile" class="txt c1"/>	</td>
-						<td class="td5"><span> </span><a id='lblSerial' class="lbl"> </a></td>
-						<td class="td6"><input type="text" id="txtSerial" class="txt c1"/>	</td>
+						<td class="td1"><span> </span><a id='lblTel_car' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtTelcar" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblModile_car' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtModilecar" class="txt c1"/>	</td>
+						<td class="td5"><span> </span><a id='lblSerial_car' class="lbl"> </a></td>
+						<td class="td6"><input type="text" id="txtSerialcar" class="txt c1"/>	</td>
 					</tr>
 					<tr class="car2">
 						<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtZip" class="txt c1"/>	</td>
-						<td class="td3" colspan="4"><input type="text" id="txtAddr" class="txt c1"/>	</td>
+						<td class="td2"><input type="text" id="txtZipcar" class="txt c1"/>	</td>
+						<td class="td3" colspan="4"><input type="text" id="txtAddrcar" class="txt c1"/>	</td>
+					</tr>
+					<tr class="car2">
+						<td class="td1"><span> </span><a id='lblCarbrand' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtCarbrand" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lbl' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtModile" class="txt c1"/>	</td>
+						<td class="td5"><span> </span><a id='lblSerial' class="lbl"> </a></td>
+						<td class="td6"><input type="text" id="txtSerial" class="txt c1"/>	</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDriver' class="lbl"> </a></td>
