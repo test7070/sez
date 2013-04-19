@@ -32,9 +32,9 @@
                 t_cno =$.trim( $('#txtCno').val());
                 t_acomp =$.trim( $('#txtAcomp').val());
                 
-                
-       
-                var t_where = " 1=1 " + q_sqlPara2("lcno", t_lcno) + q_sqlPara2("cno", t_cno) + q_sqlPara2("acomp", t_acomp);
+      
+                var t_where = " 1=1 " + q_sqlPara2("lcno", t_lcno) + q_sqlPara2("cno", t_cno) 
+                + q_sqlPara2("acomp", t_acomp);
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
