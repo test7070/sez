@@ -97,9 +97,6 @@
                 	}
                 	
                 });
-                $('#lblXspecno').click(function(e) {
-                	q_box("carstyle_b2.aspx?;;;;", 'carstyle', "90%", "600px", q_getMsg("popCarstyle"));
-                });
             });
             
             function q_gfPost() {
@@ -108,7 +105,22 @@
                  q_gt('cardeal', '', 0, 1, 0, "");
             }
 
-            function q_boxClose(t_name) {
+            function q_boxClose(s2) {
+                var ret;
+                switch (b_pop) {
+                	case 'carspec':
+                        ret = getb_ret();
+                        var xcarspec='';
+                        if(ret[0]!=undefined){
+                        	for (var i = 0; i < ret.length; i++) {
+                        		xcarspec+=ret[i].noa+'.'
+                        	}
+                        }
+                        xcarspec=xcarspec.substr(0,xcarspec.length-1);
+                        $('#txtXspecno').val(xcarspec);
+                        break;	
+                }   /// end Switch
+				b_pop = '';
             }
             var iscarno=0;
 			var sssno='',xcardealno='';
@@ -433,7 +445,12 @@
 						iscarno++;
 					}
 				}
-					
+				$('#Xspecno').css("width","410px");
+				$('#txtXspecno').css("width","320px");
+				$('#lblXspecno').css("color","#0000ff");
+				$('#lblXspecno').click(function(e) {
+                	q_box("carspec_b2.aspx?;;;;", 'carspec', "90%", "600px", q_getMsg("popCarspec"));
+                });
             }
 		</script>
 	</head>

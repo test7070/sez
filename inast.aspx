@@ -534,6 +534,7 @@
             }
 			q_tr('txtTotal',weight_total);//$('#txtTotal').val(weight_total);
 		}
+	</script>
     <style type="text/css">
                   #dmain {
                 overflow: hidden;
