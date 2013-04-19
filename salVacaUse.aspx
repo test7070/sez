@@ -15,7 +15,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
             var q_name = "salvacause";
-            var q_readonly = ['txtNoa','txtHr_special','txtTot_special'];
+            var q_readonly = ['txtNoa','txtHr_special','txtTot_special','txtJob'];
             var bbmNum = [['txtHr_used',10,1,1],['txtHr_special',10,1,1],['txtTot_special',10,1,1]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -25,7 +25,7 @@
             brwKey = 'noa';
             q_desc=1;
             //ajaxPath = ""; //  execute in Root
-			 aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea,partno,part,id', 'txtSssno,txtNamea,txtPartno,txtPart,txtId', 'sss_b.aspx'],
+			 aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea,partno,part,id,job,jobno', 'txtSssno,txtNamea,txtPartno,txtPart,txtId,txtJob,txtJobno', 'sss_b.aspx'],
 			 ['txtHtype', 'lblHtype', 'salhtype', 'noa,namea', 'txtHtype,txtHname', 'salhtype_b.aspx']);
             $(document).ready(function() {
                bbmKey = ['noa'];
@@ -50,7 +50,6 @@
             	q_getFormat();
             	bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd],['txtEdate', r_picd],['txtBtime', '99:99'],['txtEtime', '99:99']];
 				q_mask(bbmMask);
-				
 				$('#txtSssno').change(function () {
 	            	if(!emp($('#txtSssno').val())){
 	            		//找員工的特休假可用天數和特休假剩餘天數
@@ -310,6 +309,11 @@
 				           		var t_where = "where=^^ datea ='"+$('#txtDatea').val()+"' and sssno='"+$('#txtSssno').val()+"' ^^";
 				           		q_gt('salvacause', t_where , 0, 0, 0, "", r_accy);
 			        	}
+			        	var jobname = $('#txtJob').val();
+			        	if(jobname.indexOf('副總') != -1)
+				        	$('#txtSendboss').val('1');
+				        else
+				        	$('#txtSendboss').val('0');
 		                break;
 		    	}
 			}
@@ -616,6 +620,14 @@
 							</td>
 							<td class="td5"><span> </span><a id='lblId' class="lbl"></a></td>
 							<td class="td6"><input id="txtId"  type="text" class="txt c1" /></td>
+						</tr>
+						<tr>
+							<td class="td1"><span> </span><a id='lblJob' class="lbl"></a></td>
+							<td class="td2">
+								<input id="txtJob"  type="text" class="txt c1" />
+								<input id="txtJobno"  type="text" style="display:none;" />
+								<input id="txtSendboss"  type="text" style="display:none;" />
+							</td>
 						</tr>
 						<tr>
 							<td class="td1" ><span> </span>	<a id='lblHtype' class="lbl btn" ></a></td>

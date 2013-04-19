@@ -514,6 +514,8 @@
 					return;
 
 				}
+				if($('#txtOutdate').val() != '')
+					$('#txtSendsign').val($('#txtOutdate').val() + '遷出');
 	           	var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
 

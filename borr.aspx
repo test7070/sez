@@ -22,7 +22,7 @@
             var q_readonlys = [];
             var q_readonlyt = ['txtVccno','txtAccno'];
             var bbmNum = [['txtCash', 10, 0],['txtFixmoney', 10, 0], ['txtChecka', 10, 0], ['txtMoney', 10, 0], ['txtInterest', 10, 0], ['txtTotal', 10, 0], ['txtPay', 10, 0], ['txtUnpay', 10, 0]];
-            var bbsNum = [['txtMoney', 10, 0, 1]];
+            var bbsNum = [['txtMoney', 10, 0, 1],['txtInterest', 10, 0, 1]];
             var bbtNum = [['txtMoney', 10, 0, 1]];
             var bbmMask = [['txtDatea', '999/99/99'], ['txtBegindate', '999/99/99'], ['txtEnddate', '999/99/99']];
             var bbsMask = [['txtDatea', '999/99/99'], ['txtIndate', '999/99/99']];
@@ -362,7 +362,7 @@
             }
             .dbbm {
                 float: left;
-                width: 950px;
+                width: 100%;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -430,7 +430,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 950px;
+                width: 100%;
             }
             .dbbs .tbbs {
                 margin: 0;
@@ -458,7 +458,7 @@
                 font-size: medium;
             }
             #dbbt {
-                width: 950px;
+                width: 100%;
             }
             #tbbt {
                 margin: 0;
@@ -661,6 +661,7 @@
 						<td style="width:80px;"><a id='lbl_typea'> </a></td>
 						<td style="width:80px;"><a id='lbl_datea'> </a></td>
 						<td style="width:80px;"><a id='lbl_money'> </a></td>
+						<td style="width:80px;"><a id='lbl_Interest'> </a></td>
 						<td style="width:150px;"><a id='lbl_checkno'> </a></td>
 						<td style="width:80px;"><a id='lbl_indate'> </a></td>
 						<td style="width:80px;"><a id='lbl_bankno'> </a></td>
@@ -680,6 +681,9 @@
 						</td>
 						<td>
 						<input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;"/>
+						</td>
+						<td>
+						<input class="txt" id="txtInterest.*" type="text" style="width:95%; text-align: right;"/>
 						</td>
 						<td>
 						<input class="txt" id="txtCheckno.*" type="text" style="width:95%; text-align: left;"/>
