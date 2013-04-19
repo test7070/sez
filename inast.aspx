@@ -477,7 +477,7 @@
 				q_gt('uccb', t_where , 0, 0, 0, "", r_accy);
             }
             
-            function theory_st(q_name,id,txtweight) { //id 為BBS的id,txtweight為要bbs寫入的欄位
+		function theory_st(q_name,id,txtweight) { //id 為BBS的id,txtweight為要bbs寫入的欄位
 			var calc="";
 			//var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+id).val()+"' ^^"; 
 			//q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
