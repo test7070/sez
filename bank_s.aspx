@@ -19,6 +19,10 @@
             function main() {
                 mainSeek();
                 q_gf('', q_name);
+                $('#txtAcc1').change(function(e) {
+					var patt = /(\d{4})([^\.,.]*)$/g;
+					$(this).val($(this).val().replace(patt,"$1.$2"));
+        		});
             }
 
             function q_gfPost() {
@@ -30,13 +34,17 @@
                 t_noa =$.trim( $('#txtNoa').val());
                 t_bank = $.trim($('#txtBank').val());
                 t_conn = $.trim($('#txtConn').val());
+                t_account = $.trim($('#txtAccount').val());
+                t_acc1 = $.trim($('#txtAcc1').val());
        
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa);
+                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("acc1", t_acc1);
 				if (t_bank.length > 0)
                 	t_where += " and patindex('%" + t_bank + "%',bank)>0";
                 if (t_conn.length > 0)
                 	t_where += " and patindex('%" + t_conn + "%',conn)>0";
-                	    
+                if (t_account.length > 0)
+                	t_where += " and patindex('%" + t_account + "%',account)>0";
+                		    
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
@@ -69,6 +77,18 @@
 					<td class='seek'  style="width:20%;"><a id='lblConn'> </a></td>
 					<td style="width:75%;">
 					<input class="txt" id="txtConn" type="text" style="width:95%; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblAccount'> </a></td>
+					<td style="width:75%;">
+					<input class="txt" id="txtAccount" type="text" style="width:95%; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblAcc1'> </a></td>
+					<td style="width:75%;">
+					<input class="txt" id="txtAcc1" type="text" style="width:95%; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
