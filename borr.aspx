@@ -26,7 +26,7 @@
             var bbtNum = [['txtMoney', 10, 0, 1]];
             var bbmMask = [['txtDatea', '999/99/99'], ['txtBegindate', '999/99/99'], ['txtEnddate', '999/99/99']];
             var bbsMask = [['txtDatea', '999/99/99'], ['txtIndate', '999/99/99']];
-            var bbtMask = [['txtDatea', '999/99/99']];
+            var bbtMask = [['txtMon', '999/99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -117,6 +117,12 @@
                 abbm[q_recno]['vccno'] = s2[1];
                	$('#txtAccno').val(s2[0]);
                	$('#txtVccno').val(s2[1]);
+               	var b_seq = '0';
+               	for(var i = 3;i<s2.length;i+3){
+               		$('#txtUmmno_' + b_seq).val(s2[i]);
+               		$('#txtAccno_' + b_seq).val(s2[i+1]);
+               		$('#txtVccno_' + b_seq).val(s2[i+2]);
+               	}
             }
 
             function q_boxClose(s2) {
@@ -662,46 +668,63 @@
 						<td style="width:80px;"><a id='lbl_datea'> </a></td>
 						<td style="width:80px;"><a id='lbl_money'> </a></td>
 						<td style="width:80px;"><a id='lbl_Interest'> </a></td>
-						<td style="width:150px;"><a id='lbl_checkno'> </a></td>
+						<td style="width:200px;"><a id='lbl_Acc1'> </a></td>
+						<td style="width:100px;"><a id='lbl_checkno'> </a></td>
 						<td style="width:80px;"><a id='lbl_indate'> </a></td>
 						<td style="width:80px;"><a id='lbl_bankno'> </a></td>
 						<td style="width:80px;"><a id='lbl_bank'> </a></td>
 						<td style="width:150px;"><a id='lbl_account'> </a></td>
 						<td style="width:150px;"><a id='lbl_memo'> </a></td>
+						<td style="width:100px;"><a id='lbl_ummno'> </a></td>
+						<td style="width:100px;"><a id='lbl_accno'> </a></td>
+						<td style="width:100px;"><a id='lbl_vccno'> </a></td>
 					</tr>
 					<tr  style='background:#cad3ff;'>
 						<td align="center">
-						<input id="btnMinus.*" type="button" style="font-size: medium; font-weight: bold; width:90%;" value="－"/>
-						<input id="txtNoq.*" type="text" style="display: none;"/>
+							<input id="btnMinus.*" type="button" style="font-size: medium; font-weight: bold; width:90%;" value="－"/>
+							<input id="txtNoq.*" type="text" style="display: none;"/>
 						</td>
 						<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td><select id="cmbTypea.*" style="width:95%; text-align: center;"> </select></td>
 						<td>
-						<input class="txt" id="txtDatea.*" type="text" style="width:95%; text-align: center;"/>
+							<input class="txt" id="txtDatea.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;"/>
+							<input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtInterest.*" type="text" style="width:95%; text-align: right;"/>
+							<input class="txt" id="txtInterest.*" type="text" style="width:95%; text-align: right;"/>
+						</td>
+						<td >
+							<input id="txtAcc1.*" type="text" class="txt c1" style="float:left;width:30%;"/>
+							<input id="txtAcc2.*" type="text" class="txt c1" style="float:left;width:60%;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtCheckno.*" type="text" style="width:95%; text-align: left;"/>
+							<input class="txt" id="txtCheckno.*" type="text" style="width:95%; text-align: left;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtIndate.*" type="text" style="width:95%; text-align: center;"/>
+							<input class="txt" id="txtIndate.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtBankno.*" type="text" style="width:95%; text-align: left;"/>
+							<input class="txt" id="txtBankno.*" type="text" style="width:95%; text-align: left;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtBank.*" type="text" style="width:95%; text-align: left;"/>
+							<input class="txt" id="txtBank.*" type="text" style="width:95%; text-align: left;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtAccount.*" type="text" style="width:95%; text-align: left;"/>
+							<input class="txt" id="txtAccount.*" type="text" style="width:95%; text-align: left;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtMemo.*" type="text" style="width:95%; text-align: left;"/>
+							<input class="txt" id="txtMemo.*" type="text" style="width:95%; text-align: left;"/>
+						</td>
+						<td>
+							<input class="txt" id="txtUmmno.*" type="text" style="width:95%; text-align: left;"/>
+						</td>
+						<td>
+							<input class="txt" id="txtAccno.*" type="text" style="width:95%; text-align: left;"/>
+						</td>
+						<td>
+							<input class="txt" id="txtVccno.*" type="text" style="width:95%; text-align: left;"/>
 						</td>
 					</tr>
 				</table>
