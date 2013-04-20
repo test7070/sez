@@ -12,7 +12,8 @@
 		<script type="text/javascript">
 			var q_name = "giftcust_s";
 			var aPop = new Array(
-				['txtPartno', 'lblPartno', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'], 
+				['txtPartno', 'lblPartno', 'part', 'noa,part', 'txtPartno,txtPart', 'part_b.aspx'],
+				['txtNoa', '', 'giftcust', 'noa,namea', 'txtNoa,txtNamea', 'giftcust_b.aspx'], 
 				['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
 
 			$(document).ready(function() {
@@ -37,6 +38,7 @@
 
 			function q_seekStr() {
 				t_noa = $.trim($('#txtNoa').val());
+				t_namea = $.trim($('#txtNamea').val());
 				t_bdate = $.trim($('#txtBdate').val());
 				t_edate = $.trim($('#txtEdate').val());
 				t_partno = $.trim($('#txtPartno').val());
@@ -53,6 +55,7 @@
 					+q_sqlPara2("part", t_part)
 					+q_sqlPara2("custno", t_custno)
 					+q_sqlPara2("comp", t_comp)
+					+q_sqlPara2("namea", t_namea)
 
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
@@ -82,6 +85,12 @@
 					<td class='seek'  style="width:20%;"><a id='lblNoa'> </a></td>
 					<td>
 					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblNamea'> </a></td>
+					<td>
+					<input class="txt" id="txtNamea" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
