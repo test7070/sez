@@ -24,6 +24,7 @@
             var bbsNum = new Array(['txtMoney', 10, 0, 1],['txtMount', 10, 0, 1]);
             var bbmMask = [];
             var bbsMask = [];
+           
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -34,7 +35,8 @@
             ['txtPartno', 'lblPartno', 'part', 'noa,part', 'txtPartno,txtPart', 'Acomp_b.aspx'],
             ['txtCustno', 'lblCustno', 'giftCust', 'noa,custnamea', 'txtCustno,txtNamea', 'giftcust_b.aspx'],
             ['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-            ['txtCustno_', 'btnCustno_', 'giftcust', 'noa,namea,namea', 'txtCustno_,txtNamea_,txtReceiver_,txtMount_', 'giftcust_b.aspx','95%'],
+            ['txtComp_', 'btnComp_', 'cust', 'comp,noa,nick', 'txtComp_,txtCustno2_,txtNick_', 'cust_b.aspx'],
+            ['txtCustno_', 'btnCustno_', 'giftcust', 'noa,namea,namea,job,comp,custno,nick', 'txtCustno_,txtNamea_,txtReceiver_,txtJob_,txtComp_,txtCustno2_,txtNick_,txtMount_', 'giftcust_b.aspx'],
             ['txtGiftno', 'lblGiftno', 'bcc', 'noa,product,price', 'txtGiftno,txtGift,txtPrice', 'bcc_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -59,6 +61,8 @@
                 q_gt('giftsendt', '', 0, 0, 0, "", r_accy);
                 q_gt('store', '', 0, 0, 0, "");
                 q_cmbParse("cmbSendtype", ('').concat(new Array( '','宅配','邱董親送','同仁親送','自取')));
+               q_cmbParse('cmbAddr', ('').concat(new Array( '','公司','住宅','其他')),'s');
+               
                 $('#txtPrice').blur(function () {
 	            	for(var j = 0; j < q_bbsCount; j++) {
 	            		q_tr('txtMoney_'+j,q_float('txtMount_'+j)*q_float('txtPrice'));
@@ -81,7 +85,7 @@
             	switch (t_name) {
             		case 'giftsendt':
                         var as = _q_appendData("giftsendt", "", true);
-                        var t_item = " @ ";
+		                    var t_item = "@";
                         for ( i = 0; i < as.length; i++) {
                             t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
                         }
@@ -164,8 +168,13 @@
             }
             function bbsAssign() {
                 for(var i = 0; i < q_bbsCount; i++) {
+                	
                 	if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-                		
+                		$('#cmbAddr_'+j).change(function(e){
+                			var n = parseInt($(this).attr('id').replace('cmbAddr_',''));
+                			var m = $(this)[0].selectedIndex;
+                			sum();
+                		});
                 		$('#txtMount_'+i).blur(function () {
                 			t_IdSeq = -1;
                 			q_bodyId($(this).attr('id'));
@@ -403,6 +412,18 @@
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
+            .tbbm select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                font-size: medium;
+            }
+            .tbbs select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                font-size: medium;
+            }
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -451,7 +472,9 @@
 						<td class="td2"><input type="text" id="txtSenddate" class="txt c1"/>	</td>
 						<td class="td3"> </td>
 						<td class="td4"><span> </span><a id='lblSendmemo' class="lbl"> </a></td>
-						<td class="td5"><select id="cmbSendmemo" class="txt c1"> </select></td>	
+						<td class="td5"><select id="cmbSendmemo" class="txt c1"> </select>
+							</td>	
+						
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCno' class="lbl btn"> </a></td>
@@ -510,13 +533,15 @@
 					<td  align="center" style="width: 2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:15%;"><a id='lblCust_s'> </a></td>
+					<td align="center" style="width:12%;"><a id='lblCust_s'> </a></td>
 					<td align="center" style="width:7%;"><a id='lblJob_s'> </a></td>
+					<td align="center" style="width:14%;"><a id='lblComp_s'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblAddr_s'> </a></td>
 					<td align="center" style="width:5%;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblMoney_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblReceiver_s'> </a></td>
+					<td align="center" style="display: none;"><a id='lblReceiver_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblUpname_s'> </a></td>
-					<td align="center" style="width:10%;"><a id='lblDownname_s'> </a></td>
+					<td align="center" style="display: none;"><a id='lblDownname_s'> </a></td>
 					<td align="center" style="width:20%;"><a id='lblMessage_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
 				</tr>
@@ -531,11 +556,17 @@
 						<input type="text" id="txtNamea.*"  style="width:85%; float:left;"/>
 					</td>
 					<td><input id="txtJob.*" type="text" style="width: 95%;"/></td>
+					<td><input class="btn"  id="btnComp.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+						<input type="text" id="txtComp.*"  style="width:85%; float:left;"/>
+						<input type="text" id="txtCustno2.*"  style="display: none;"/>
+						<input type="text" id="txtNick.*"  style="display: none;"/>
+					</td>
+					<td><select id="cmbAddr.*" class="txt c1"> </select></td>
 					<td><input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtMoney.*" type="text" style="width: 95%;text-align: right;"/></td>
-					<td><input id="txtReceiver.*" type="text" style="width: 95%;"/></td>
+					<td style="display: none;"><input id="txtReceiver.*" type="text" /></td>
 					<td><input id="txtUpname.*" type="text" style="width: 95%;"/></td>
-					<td><input id="txtDownname.*" type="text" style="width: 95%;"/></td>
+					<td style="display: none;"><input id="txtDownname.*" type="text" /></td>
 					<td><input id="txtMessage.*" type="text" style="width: 95%;"/></td>
 					<td><input id="txtMemo.*" type="text" style="width: 95%;"/></td>
 				</tr>

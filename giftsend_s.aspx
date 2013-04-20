@@ -32,15 +32,27 @@
 
 				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
 				q_mask(bbmMask);
-
+				q_gt('giftsendt', '', 0, 0, 0, "", r_accy);
 				$('#txtBdate').focus();
 			}
+			function q_gtPost(t_name) {
+                switch (t_name) {
+                case 'giftsendt':
+                        var as = _q_appendData("giftsendt", "", true);
+                        var t_item = " @ ";
+                        for ( i = 0; i < as.length; i++) {
+                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
+                        }
+                        q_cmbParse("cmbSendmemo", t_item);
+                        break;
+            }
+           }
 
 			function q_seekStr() {
 				t_noa = $.trim($('#txtNoa').val());
 				t_bdate = $.trim($('#txtBdate').val());
 				t_edate = $.trim($('#txtEdate').val());
-				t_sendmemo = $.trim($('#txtSendmemo').val());
+				t_sendmemo = $('#cmbSendmemo').val();
 				t_cno = $.trim($('#txtCno').val());
 				t_acomp = $.trim($('#txtAcomp').val());
 				t_salesno = $.trim($('#txtSalesno').val());
@@ -93,9 +105,7 @@
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblSendmemo'></a></td>
-					<td>
-					<input class="txt" id="txtSendmemo" type="text" style="width:215px; font-size:medium;" />
-					</td>
+					<td><select class="txt" id="cmbSendmemo" style="width:215px; font-size:medium;"> </select></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCno'></a></td>
