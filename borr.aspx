@@ -117,8 +117,6 @@
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
-                        if (q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
                         break;
                 }
             }
@@ -130,11 +128,12 @@
                 abbm[q_recno]['vccno'] = s2[1];
                	$('#txtAccno').val(s2[0]);
                	$('#txtVccno').val(s2[1]);
-               	var b_seq = '0';
-               	for(var i = 3;i<s2.length;i+3){
+               	var b_seq = 0;
+               	for(var i = 3;i<s2.length;i+=3){
                		$('#txtUmmno_' + b_seq).val(s2[i]);
                		$('#txtAccno_' + b_seq).val(s2[i+1]);
                		$('#txtVccno_' + b_seq).val(s2[i+2]);
+               		b_seq += 1 ;
                	}
             }
 
@@ -357,7 +356,7 @@
 		</script>
 		<style type="text/css">
             #dmain {
-                overflow: hidden;
+                /*overflow: hidden;*/
             }
             .dview {
                 float: left;
@@ -449,7 +448,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 100%;
+                width: 130%;
             }
             .dbbs .tbbs {
                 margin: 0;
