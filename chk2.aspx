@@ -96,7 +96,7 @@
             		if($.trim($('#txtCheckno_' + i).val()).length>0){
             			t_checkno += (t_checkno.length>0?",":"") + $.trim($('#txtCheckno_' + i).val());
             		}
-            		t_money = parseFloat($('#txtMoney_' + i).val());
+            		t_money = parseFloat($('#txtMoney_' + i).val().length==0?'0':$('#txtMoney_' + i).val().replace(',',''));
             		if(t_money!=0){
             			t_cmoney += ','+t_money+','
             		}

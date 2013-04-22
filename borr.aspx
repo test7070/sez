@@ -19,14 +19,14 @@
             q_tables = 't';
             var q_name = "borr";
             var q_readonly = ['txtNoa', 'txtCash', 'txtChecka', 'txtVccno' , 'txtMoney', 'txtInterest', 'txtTotal', 'txtPay', 'txtUnpay', 'txtWorker','txtAccno'];
-            var q_readonlys = [];
+            var q_readonlys = ['txtUmmno','txtVccno','txtAccno'];
             var q_readonlyt = ['txtVccno','txtAccno'];
             var bbmNum = [['txtCash', 10, 0],['txtFixmoney', 10, 0], ['txtChecka', 10, 0], ['txtMoney', 10, 0], ['txtInterest', 10, 0], ['txtTotal', 10, 0], ['txtPay', 10, 0], ['txtUnpay', 10, 0]];
             var bbsNum = [['txtMoney', 10, 0, 1],['txtInterest', 10, 0, 1]];
             var bbtNum = [['txtMoney', 10, 0, 1]];
             var bbmMask = [['txtDatea', '999/99/99'], ['txtBegindate', '999/99/99'], ['txtEnddate', '999/99/99']];
             var bbsMask = [['txtDatea', '999/99/99'], ['txtIndate', '999/99/99']];
-            var bbtMask = [['txtDatea', '999/99/99']];
+            var bbtMask = [['txtMon', '999/99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -80,25 +80,37 @@
                     sum();
                 });
 				$('#lblVccno').click(function() {
-					t_where = "noa='" + $('#txtVccno').val() + "'";
-					q_pop('txtVccno', "vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+ t_where +";" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+					browTicketForm($(this).get(0));
 				});
                 
                 $('#lblAccno').click(function() {
-                	if($('#txtDatea').val().substring(0,3).length>0)
-                    q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3)+ '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
+					browTicketForm($(this).get(0));
                 });
             }
-			function browVccno(obj){
-				var noa = $.trim($(obj).val());
-            	if(noa.length>0)
-            		q_box("vcctran.aspx?;;;noa='" + noa + "';"+r_accy, 'vcc', "95%", "95%", q_getMsg("popVcctran"));
-			}
-			function browAccno(obj){
-				var noa = $.trim($(obj).val());
-            	if(noa.length>0)
-            		q_box("accc.aspx?;;;accc3='" + noa + "';"+r_accy+"_1", 'accc', "95%", "95%", q_getMsg("popAccc"));
-			}
+            function browTicketForm(obj){
+            	if(q_cur != 1 && q_cur !=2){
+	            	if($(obj).attr('id').substring(0,3) == 'lbl')
+	            		obj = $('#txt' + $(obj).attr('id').substring(3));
+	            	var noa = $.trim($(obj).val());
+	            	var openName = $(obj).attr('id').split('_')[0].substring(3).toLowerCase();
+	            	if(noa.length>0){
+	            		switch (openName) {
+	                    case 'vccno':
+							q_box("vcctran.aspx?;;;noa='" + noa + "';"+r_accy, 'vcc', "95%", "95%", q_getMsg("popVcctran"));
+	                        break;
+	                    case 'accno':
+							q_box("accc.aspx?;;;accc3='" + noa + "';"+r_accy+"_1", 'accc', "95%", "95%", q_getMsg("popAccc"));
+	                        break;
+	                    case 'ummno':
+							q_box("ummtran.aspx?;;;noa='" + noa + "';"+r_accy, 'umm', "95%", "95%", q_getMsg("popUmmtran"));
+	                        break;
+	                    case 'checkno':
+							q_box("gqb.aspx?;;;gqbno='" + noa + "';"+r_accy, 'gqb', "95%", "95%", q_getMsg("popGqb"));
+	                        break;
+	                	}
+	            	}
+            	}
+            }
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case q_name:
@@ -117,6 +129,12 @@
                 abbm[q_recno]['vccno'] = s2[1];
                	$('#txtAccno').val(s2[0]);
                	$('#txtVccno').val(s2[1]);
+               	var b_seq = '0';
+               	for(var i = 3;i<s2.length;i+3){
+               		$('#txtUmmno_' + b_seq).val(s2[i]);
+               		$('#txtAccno_' + b_seq).val(s2[i+1]);
+               		$('#txtVccno_' + b_seq).val(s2[i+2]);
+               	}
             }
 
             function q_boxClose(s2) {
@@ -655,53 +673,70 @@
 				<table id="tbbs" class='tbbs'>
 					<tr style='color:white; background:#003366;' >
 						<td style="width:20px;">
-						<input id="btnPlus" type="button" style="font-size: medium; font-weight: bold; width:90%;" value="＋"/>
+						<input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
 						<td style="width:20px;"> </td>
 						<td style="width:80px;"><a id='lbl_typea'> </a></td>
 						<td style="width:80px;"><a id='lbl_datea'> </a></td>
 						<td style="width:80px;"><a id='lbl_money'> </a></td>
 						<td style="width:80px;"><a id='lbl_Interest'> </a></td>
-						<td style="width:150px;"><a id='lbl_checkno'> </a></td>
+						<td style="width:200px;"><a id='lbl_Acc1'> </a></td>
+						<td style="width:100px;"><a id='lbl_checkno'> </a></td>
 						<td style="width:80px;"><a id='lbl_indate'> </a></td>
 						<td style="width:80px;"><a id='lbl_bankno'> </a></td>
 						<td style="width:80px;"><a id='lbl_bank'> </a></td>
 						<td style="width:150px;"><a id='lbl_account'> </a></td>
 						<td style="width:150px;"><a id='lbl_memo'> </a></td>
+						<td style="width:100px;"><a id='lbl_ummno'> </a></td>
+						<td style="width:100px;"><a id='lbl_accno'> </a></td>
+						<td style="width:100px;"><a id='lbl_vccno'> </a></td>
 					</tr>
 					<tr  style='background:#cad3ff;'>
 						<td align="center">
-						<input id="btnMinus.*" type="button" style="font-size: medium; font-weight: bold; width:90%;" value="－"/>
-						<input id="txtNoq.*" type="text" style="display: none;"/>
+							<input id="btnMinus.*" type="button" style="font-size: medium; font-weight: bold;" value="－"/>
+							<input id="txtNoq.*" type="text" style="display: none;"/>
 						</td>
 						<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td><select id="cmbTypea.*" style="width:95%; text-align: center;"> </select></td>
 						<td>
-						<input class="txt" id="txtDatea.*" type="text" style="width:95%; text-align: center;"/>
+							<input class="txt" id="txtDatea.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;"/>
+							<input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtInterest.*" type="text" style="width:95%; text-align: right;"/>
+							<input class="txt" id="txtInterest.*" type="text" style="width:95%; text-align: right;"/>
+						</td>
+						<td >
+							<input id="txtAcc1.*" type="text" class="txt c1" style="float:left;width:30%;"/>
+							<input id="txtAcc2.*" type="text" class="txt c1" style="float:left;width:60%;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtCheckno.*" type="text" style="width:95%; text-align: left;"/>
+							<input class="txt" id="txtCheckno.*" onclick="browTicketForm(this)" type="text" style="width:95%; text-align: left;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtIndate.*" type="text" style="width:95%; text-align: center;"/>
+							<input class="txt" id="txtIndate.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtBankno.*" type="text" style="width:95%; text-align: left;"/>
+							<input class="txt" id="txtBankno.*" type="text" style="width:95%; text-align: left;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtBank.*" type="text" style="width:95%; text-align: left;"/>
+							<input class="txt" id="txtBank.*" type="text" style="width:95%; text-align: left;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtAccount.*" type="text" style="width:95%; text-align: left;"/>
+							<input class="txt" id="txtAccount.*" type="text" style="width:95%; text-align: left;"/>
 						</td>
 						<td>
-						<input class="txt" id="txtMemo.*" type="text" style="width:95%; text-align: left;"/>
+							<input class="txt" id="txtMemo.*" type="text" style="width:95%; text-align: left;"/>
+						</td>
+						<td>
+							<input class="txt" id="txtUmmno.*" onclick="browTicketForm(this)" type="text" style="width:95%; text-align: left;"/>
+						</td>
+						<td>
+							<input class="txt" id="txtAccno.*" onclick="browTicketForm(this)" type="text" style="width:95%; text-align: left;"/>
+						</td>
+						<td>
+							<input class="txt" id="txtVccno.*" onclick="browTicketForm(this)" type="text" style="width:95%; text-align: left;"/>
 						</td>
 					</tr>
 				</table>
@@ -713,7 +748,7 @@
 				<tbody>
 					<tr class="head" style="color:white; background:#003366;">
 						<td style="width:20px;">
-						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold; width:90%;" value="＋"/>
+						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
 						<td style="width:20px;"> </td>
 						<td style="width:120px; text-align: center;">請款日期</td>
@@ -724,15 +759,15 @@
 					</tr>
 					<tr>
 						<td>
-							<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold; width:90%;" value="－"/>
+							<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold;" value="－"/>
 							<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
 						</td>
 						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td><input id="txtMon..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtMoney..*"  type="text" style="width:95%; text-align: right;"/></td>
 						<td><input id="txtMemo..*"  type="text" style="width:95%; text-align: left;"/></td>
-						<td><input id="txtVccno..*" onclick="browVccno(this)" type="text" class="txt c1"/></td>
-						<td><input id="txtAccno..*" onclick="browAccno(this)" type="text" class="txt c1"/></td>
+						<td><input id="txtVccno..*" onclick="browTicketForm(this)" type="text" class="txt c1"/></td>
+						<td><input id="txtAccno..*" onclick="browTicketForm(this)" type="text" class="txt c1"/></td>
 					</tr>
 				</tbody>
 			</table>

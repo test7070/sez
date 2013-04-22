@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'giftcust', t_content = ' field=noa,namea,comp,job', bbsKey = ['noa'], as;
+            var q_name = 'giftcust', t_content = ' field=noa,namea,comp,job,custno,nick', bbsKey = ['noa'], as;
             var isBott = false;
             q_desc=1;
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';

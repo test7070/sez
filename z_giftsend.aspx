@@ -17,11 +17,28 @@
 		<script type="text/javascript">
 		aPop = new Array(['txtSssno', '', 'sss', 'noa,namea', 'txtSssno', "sss_b.aspx"],
 						 ['txtPartno', '', 'part', 'noa,part', 'txtPartno', "part_b.aspx"]);
+			t_isinit = false;
+			t_giftsendt = '';
             $(document).ready(function() {
             	q_getId();
             	q_gf('', 'z_giftsend');
             });
-            function q_gfPost() {
+             function q_gfPost() {
+				q_gt('giftsendt', '', 0, 0, 0, "");
+            }
+             function q_gtPost(t_name) {
+            	 switch (t_name) {
+                    case 'giftsendt':
+                        t_giftsendt = '';
+                        var as = _q_appendData("giftsendt", "", true);
+                        for ( i = 0; i < as.length; i++) {
+                            t_giftsendt += (t_giftsendt.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].namea;
+                        }
+                        break;
+                }
+                     if (!t_isinit && t_giftsendt.length > 0 ) {
+                	t_isinit = true;
+            
                $('#q_report').q_report({
                         fileName : 'z_giftsend',
                         options : [{
@@ -39,9 +56,14 @@
                         dbf : 'bcc',
                         index : 'noa,product',
                         src : 'bcc_b.aspx'
-                    }]
+                    }, {/*6*/
+                            type : '5',
+                            name : 'tsendmemo',
+                            value : [q_getPara('report.all')].concat(t_giftsendt.split(','))
+						}]
                     });
                 q_popAssign();
+                q_langShow();
                 $('#txtDate1').mask('999/99/99');
 	             $('#txtDate1').datepicker();
 	             $('#txtDate2').mask('999/99/99');
@@ -66,12 +88,10 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
-              
+            }  
             }
 
             function q_boxClose(s2) {
-            }
-            function q_gtPost(s2) {
             }
 		</script>
 	</head>
