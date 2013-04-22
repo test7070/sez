@@ -76,18 +76,20 @@
             var ret; 
             switch (b_pop) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
             	case 'td':
-            		ret = getb_ret();
-	                if(ret[0]!=undefined){
-	                	for (var i = 0; i < ret.length; i++) {
-	                		t_td+=ret[i].noa+',';
-	                	}
-	                	if(t_td.length>0){
-	                		t_td=t_td.substr(0,t_td.length-1);
-	                		$('#txtTd_'+b_seq).val(t_td);
-	                		//判斷替代品是否會造成BOM無窮迴圈
-	                		q_func('qtxt.query','bom.txt,bom,'+ encodeURI(t_td) + ';' + encodeURI($('#txtNoa').val()));
-	                	}
-	                }
+            		if(q_cur>0 &&q_cur<3){
+	            		ret = getb_ret();
+		                if(ret[0]!=undefined){
+		                	for (var i = 0; i < ret.length; i++) {
+		                		t_td+=ret[i].noa+'.';
+		                	}
+		                	if(t_td.length>0){
+		                		t_td=t_td.substr(0,t_td.length-1);
+		                		$('#txtTd_'+b_seq).val(t_td);
+		                		//判斷替代品是否會造成BOM無窮迴圈
+		                		q_func('qtxt.query','bom.txt,bom,'+ encodeURI(t_td) + ';' + encodeURI($('#txtNoa').val()));
+		                	}
+		                }
+	               }
             		break;
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
@@ -163,13 +165,17 @@
 								$('#txtNoa').focus();
 								return;
 							}else{
-								q_msg( $(this), '輸入格式為：品號,品號,品號,.......');
+								q_msg( $(this), '輸入格式為：品號.品號.品號........');
 							}
                 		}).change(function() {
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 							if(!emp($('#txtTd_'+b_seq).val())){
+								if($('#txtTd_'+b_seq).val().indexOf(';')>0||$('#txtTd_'+b_seq).val().indexOf(',')>0){
+									$('#txtTd_'+b_seq).val(replaceAll($('#txtTd_'+b_seq).val(), ',', '.'))
+									$('#txtTd_'+b_seq).val(replaceAll($('#txtTd_'+b_seq).val(), ';', '.'))
+								}
 								t_td=$('#txtTd_'+b_seq).val();
 		                		//判斷替代品是否會造成BOM無窮迴圈
 		                		q_func('qtxt.query','bom.txt,bom,'+ encodeURI(t_td) + ';' + encodeURI($('#txtNoa').val()));
@@ -188,12 +194,12 @@
                 			if(t_td.length>0){
                 				alert('替代品會造成BOM錯誤!!請重新填入!!');
                 				$('#txtTd_'+b_seq).val('');
-                				t_td='';
                 			}else{
                 				alert('BOM錯誤!!該品號不能填入!!');
                 				$('#btnMinus_'+b_seq).click();
                 			}
                 		}
+                		t_td='';
                 	break;
                 }
               };
