@@ -264,11 +264,23 @@
                 	alert('stPost 出車單回傳錯誤!'+n+'_'+string.length +'_'+string);
                 	return;
                 }
+                var t_noa = abbm[q_recno]['noa'];
+				var b_seq = 0;
+               	var i = 0;
+				for (var j = 0; j < abbs.length; j++) {
+					if(abbs[j]['noa'] == t_noa){
+						abbs[j]['tranno'] = string[i];
+						$('#txtTranno_'+i).val(string[i]);
+						i++;
+						b_seq++;
+					}
+				}                /*
                 if(string[0]!=undefined){        
                 	for(var i in string) {
                 		$('#txtTranno_'+i).val(string[i]);
                 	}
                 }
+                */
             }
             function btnOk() {
             	var t_carno = '';
