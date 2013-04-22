@@ -22,7 +22,7 @@
 
             q_tables = 's';
             var q_name = "transvcce";
-            var q_readonly = ['txtNoa','txtMount','txtWorker','txtWorker2'];
+            var q_readonly = ['txtNoa','txtMount','txtWorker','txtWorker2','txtOrdeno'];
             var q_readonlys = ['txtCommandid'];
             var bbmNum = [['txtMount',10,0,1]];
             var bbsNum = [['txtMount',10,0,1]];
