@@ -1,4 +1,3 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -144,6 +143,19 @@
 
 
         function bbsAssign() {  /// 表身運算式
+        	for(var j = 0; j < q_bbsCount; j++) {
+           			if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+						$('#txtProductno_'+j).change(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							
+							if(!emp($('#txtProductno_'+b_seq).val())&&!emp($('#txtNoa').val()))
+		                    	q_func('qtxt.query','bom.txt,bom,'+ encodeURI($('#txtProductno_'+b_seq).val()) + ';' + encodeURI($('#txtNoa').val()));
+                		});
+						
+           			}
+           		}
             _bbsAssign();
             for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
                 $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
@@ -166,6 +178,18 @@
 
             } //j
         }
+        
+        function q_funcPost(t_func, result) {
+                switch(t_func) {
+                	case 'qtxt.query':
+                		var as = _q_appendData("tmp0", "", true, true);
+                		if (as[0] == undefined) {
+                			alert('BOM錯誤!!該品號不能填入!!');
+                			$('#btnMinus_'+b_seq).click();
+                		}
+                	break;
+                }
+              };
 
         function btnIns() {
             _btnIns();
