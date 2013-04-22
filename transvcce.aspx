@@ -517,7 +517,7 @@
 					        	SendCommand(this.sel-1); 			         
 					        },
 						    error: function(jqXHR, exception) {
-						    	alert('Error:'+t_carno);
+						    	alert('Error:'+this.carno);
 					            if (jqXHR.status === 0) {
 					                alert('Not connect.\n Verify Network.');
 					            } else if (jqXHR.status == 404) {
