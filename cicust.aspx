@@ -39,11 +39,14 @@
 
 
         function mainPost() { 
-            bbmMask = [ ['txtPassdate', r_picm]];
+            bbmMask = [ ['txtPassdate', r_picm],['txtBirthday', r_picd]];
             q_mask(bbmMask);
 			$('#btnCicardeal').click(function(e) {
 					q_box("cicardeal.aspx?;;;cno='" + $('#txtCardealno').val() + "'", 'cicardeal', "90%", "95%", q_getMsg("popCicardeal"));
 				});
+			$('#btnCicar').click(function (e) {
+		            q_box("cicar_b.aspx?;;;carno='" + $('#txtCarno').val() + "'", 'cicar', "95%", "95%", q_getMsg("popCicar"));
+		        });
         }
         function txtCopy(dest, source) {
             
@@ -100,6 +103,7 @@
                 }
                 $('#txtWorker').val(r_name);
             var t_noa = trim($('#txtNoa').val());
+            $('#txtCarno').val(t_noa);
             if ( t_noa.length==0 )  
                 q_gtnoa(q_name, t_noa);
             else
@@ -311,7 +315,9 @@
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
           <tr class="tr1">
                <td class="td1"><span> </span><a id="lblNoa" class="lbl"></a></td>
-               <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
+               <td class="td2"><input id="txtNoa" type="text" class="txt c1"/>
+               	<input id="txtCarno" type="text"  style='display:none;'/>
+               </td>
                <td class="td3"><span> </span><a id="lblCardeal" class="lbl btn"></a></td>
                <td class="td4" colspan="2"><input id="txtCardealno" type="text" class="txt c2"/>
                <input id="txtCardeal" type="text" class="txt c3"/></td> 
@@ -326,12 +332,12 @@
                <td class="td4"><input id="txtSerial" type="text" class="txt c1"/></td>
             </tr>
             <tr class="tr5">
-               <td class="td1"><span> </span><a id="lblTel1" class="lbl"></a></td>
-               <td class="td2"><input id="txtTel1" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id="lblTel2" class="lbl"></a></td>
-               <td class="td4"><input id="txtTel2" type="text" class="txt c1"/></td>
-               <td class="td5"></td>
-               <td class="td6"></td> 
+               <td class="td1"><span> </span><a id="lblBirthday" class="lbl"></a></td>
+               <td class="td2"><input id="txtBirthday" type="text" class="txt c1"/></td>
+               <td class="td3"><span> </span><a id="lblTel1" class="lbl"></a></td>
+               <td class="td4"><input id="txtTel1" type="text" class="txt c1"/></td>
+               <td class="td5"><span> </span><a id="lblTel2" class="lbl"></a></td>
+               <td class="td6"><input id="txtTel2" type="text" class="txt c1"/></td>
             </tr>
             <tr class="tr6">
                <td class="td1"><span> </span><a id="lblMobile" class="lbl"></a></td>
@@ -371,7 +377,7 @@
             <tr class="tr11">
                <td class="td1"><span> </span><a id="lblWorker" class="lbl"></a></td>
                <td class="td2"><input id="txtWorker" type="text" class="txt c1"/></td>
-               <td class="td3"> </td>
+               <td class="td3"><input id="btnCicar" type="button"/></td>
                <td class="td4"> </td>
                <td class="td5"> </td>
                <td class="td6"> </td> 
