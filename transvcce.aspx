@@ -562,7 +562,7 @@
                 $('#txtDatea').focus();
             }
             function btnPrint() {
-            	q_box('z_transvcce.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()), '', "90%", "95%", m_print);
+            	q_box('z_transvcce.aspx'+ "?;;;;"+r_accy+";noa="+trim($('#txtNoa').val()), '', "95%", "95%", m_print);
             }
             function wrServer(key_value) {
                 var i;
