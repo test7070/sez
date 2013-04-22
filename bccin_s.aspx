@@ -53,7 +53,15 @@
                         break;
                 }
             }
-
+			function wbbsSearchStr(bbsField,value,bbmkey,bbskey,bbmTableName){
+				var wbbsStr = '';
+				if(bbsField.length > 0){
+					wbbsStr = " and ((select count(*) from " + bbmTableName + "s ";
+					wbbsStr = wbbsStr + "where " + bbsField + "='" + value + "' and ";
+					wbbsStr = wbbsStr + bbskey + " = " + bbmTableName + '.' + bbskey + ")>0)";
+				}
+				return wbbsStr;					
+			}
             function q_seekStr() {
                 t_noa = $.trim($('#txtNoa').val());
                 t_bdate = $.trim($('#txtBdate').val());
@@ -62,8 +70,12 @@
                 t_store = $('#cmbStore').val();
                 t_bccno = $.trim($('#txtBccno').val());
 
-                var t_where = " 1=1 " + q_sqlPara2("partno", t_part) + q_sqlPara2("storeno", t_store) + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate);
-                t_where = t_where + " and (0=" + t_bccno.length + " or (select count(*) from bccins where bccno='" + t_bccno + "' and noa = bccin.noa) > 0)";
+                var t_where = " 1=1 " +
+                				q_sqlPara2("partno", t_part) + 
+                				q_sqlPara2("storeno", t_store) + 
+                				q_sqlPara2("noa", t_noa) + 
+                				q_sqlPara2("datea", t_bdate, t_edate) + 
+                				wbbsSearchStr('bccno',t_bccno,'noa','noa','bccin');
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
