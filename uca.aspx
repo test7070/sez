@@ -78,7 +78,7 @@
             	case 'td':
             		if(q_cur>0 &&q_cur<3){
 	            		ret = getb_ret();
-		                if(ret[0]!=undefined){
+		                if(ret!=null){
 		                	for (var i = 0; i < ret.length; i++) {
 		                		t_td+=ret[i].noa+'.';
 		                	}
@@ -157,6 +157,7 @@
 							t_IdSeq = -1;
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
+							$('#text_Noq').val(b_seq);
 							q_box("ucc_b2.aspx", 'td', "95%", "650px", q_getMsg('popTd'));
                 		});
                 		$('#txtTd_'+j).focusin(function() {
@@ -533,6 +534,7 @@
 				<td class="td5"><span> </span><a id="lblTrans" class="lbl"> </a></td>
 				<td class="td6"><input id="txtTrans" type="text"  class="txt"/></td> 
 			</tr>
+			<input id="text_Noq" type="hidden" />
         </table>
         </div>
         <div class='dbbs' >

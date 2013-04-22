@@ -10,7 +10,10 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-			var q_name = 'ucc', t_content = ' field=noa,product,unit,vccacc1,vccacc2', bbsKey = ['noa'], as;
+			var q_name = 'ucc', t_content = ' field=noa,product,unit,vccacc1,vccacc2 order=odate', bbsKey = ['noa'], as;
+			 var t_sqlname = 'ucc_load';
+            t_postname = q_name;
+            brwCount2 = 17;
 			var isBott = false;
 			/// 是否已按過 最後一頁
 			var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
@@ -23,15 +26,34 @@
 					dataErr = false;
 					return;
 				}
-				mainBrow();
+				mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
 			}
 
 			function q_gtPost() {
 
 			}
+			
+			var xuccno=''
+			function bbsAssign() {
+                _bbsAssign();
+            }
 
 			function refresh() {
 				_refresh();
+				 if(window.parent.q_name=='uca'){
+					 var wParent = window.parent.document;
+					 var b_seq= wParent.getElementById("text_Noq").value
+					 xuccno= wParent.getElementById("txtTd_"+b_seq).value;
+				}
+				
+				var xuccnos=xuccno.split('.');
+				
+				for (var j = 0; j < brwCount; j++) {
+					for(var i=0;i<xuccnos.length;i++){
+						if(xuccnos[i]==$('#txtNoa_' + j).val())
+							$('#chkSel_'+j)[0].checked = "true";
+					}
+                }
 			}
 		</script>
 		<style type="text/css">
