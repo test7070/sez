@@ -39,7 +39,8 @@
             aPop = new Array(
 								['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtCustnick', 'cust_b.aspx'],
 								['txtBankno_', '', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
-								['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
+								['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+								['txtAcc1_', '', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
 							);
 
             $(document).ready(function() {
@@ -88,7 +89,7 @@
                 });
             }
             function browTicketForm(obj){
-            	if(q_cur != 1 && q_cur !=2){
+            	if(($(obj).attr('readonly') == 'readonly') || ($(obj).attr('id').substring(0,3) == 'lbl')){
 	            	if($(obj).attr('id').substring(0,3) == 'lbl')
 	            		obj = $('#txt' + $(obj).attr('id').substring(3));
 	            	var noa = $.trim($(obj).val());

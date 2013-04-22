@@ -20,7 +20,7 @@
         var q_name = "worka";
         var decbbs = ['mount','weight'];
         var decbbm = ['mount'];
-        var q_readonly = [];
+        var q_readonly = ['txtWorker'];
         var q_readonlys = [];
         var bbmNum = [];  // 允許 key 小數
         var bbsNum = [];
