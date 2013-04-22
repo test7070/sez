@@ -972,68 +972,68 @@
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblCust' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblCust' class="lbl"> </a></td>
 						<td colspan="4">
 						<input id="txtCustno"  type="text"  style="float:left; width:30%;"/>
 						<input id="txtComp"  type="text"  style="float:left; width:70%;"/>
 						<input id="txtNick"  type="text"  style="display:none;"/>
 						</td>
-						<td><span> </span><a id='lblAddr' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblAddr' class="lbl"> </a></td>
 						<td colspan="2">
 						<input id="txtAddrno"  type="text"  style="float:left; width:50%;"/>
 						<input id="txtAddr"  type="text"  style="float:left; width:50%;"/>
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblOrdeno' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblOrdeno' class="lbl"> </a></td>
 						<td>
 						<input id="txtOrdeno"  type="text"  class="txt c1"/>
 						</td>
-						<td><span> </span><a id='lblDatea' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td>
 						<input id="txtDatea"  type="text"  class="txt c1"/>
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblCarno' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblCarno' class="lbl"> </a></td>
 						<td>
 						<input id="txtCarno"  type="text"  class="txt c1"/>
 						</td>
-						<td><span> </span><a id='lblDriver' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblDriver' class="lbl"> </a></td>
 						<td colspan="2">
 						<input id="txtDriverno"  type="text"  style="float:left; width:40%;"/>
 						<input id="txtDriver"  type="text"  style="float:left; width:40%;"/>
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblWeight' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblWeight' class="lbl"> </a></td>
 						<td>
 						<input id="txtWeight"  type="text"  class="txt c1 num"/>
 						</td>
-						<td><span> </span><a id='lblMount' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblMount' class="lbl"> </a></td>
 						<td>
 						<input id="txtMount"  type="text"  class="txt c1 num"/>
 						</td>
-						<td><span> </span><a id='lblCaseno' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblCaseno' class="lbl"> </a></td>
 						<td colspan="2">
 						<input id="txtCaseno"  type="text"  class="txt c1"/>
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblMemo' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan="6">
 						<input id="txtMemo"  type="text"  class="txt c1"/>
 						</td>
 						<td><select id="combMemo" style="width:20px;"> </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblTrandate' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblTrandate' class="lbl"> </a></td>
 						<td><input id="txtTrandate"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id='lblTrantime' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblTrantime' class="lbl"> </a></td>
 						<td><input id="txtTrantime"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblMsg' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblMsg' class="lbl"> </a></td>
 						<td colspan="6">
 							<input id="txtMsg"  type="text"  class="txt c1"/>
 						</td>
@@ -1052,7 +1052,7 @@
 						<td>
 						<input id="txtNoa"  type="text"  class="txt c1"/>
 						</td>
-						<td><input id="txtCommandid"  type="text"  class="txt c1"/><td>
+						<td><input id="txtCommandid"  type="text"  class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

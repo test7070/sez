@@ -36,6 +36,12 @@
 			q_desc = 1;
             q_xchg = 1;
             brwCount2 = 10;
+            
+            aPop = new Array(['txtCarno_', '', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
+            , ['txtDriverno_', 'btnDriverno_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']
+            , ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx']
+            , ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'] 
+            );
 			//---------------------------------------------------------------------
 			function tranorde() {
             }
@@ -82,6 +88,16 @@
                 	string+='</table>';
                 	
                 	$('#tranorde').append(string);
+                	
+                	string='<input id="btnTranorde_refresh"  type="button" style="float:left;width:100px;" value="訂單刷新"/>';
+                	string+='<input id="btnTranorde_previous"  type="button" style="float:left;width:100px;" value="上一頁"/>';
+                	string+='<input id="btnTranorde_next"  type="button" style="float:left;width:100px;" value="下一頁"/>';
+                	string+='<input id="textCurPage"  type="text" style="float:left;width:100px;text-align: right;"/>';
+                	string+='<span style="float:left;display:block;width:10px;font-size: 25px;">/</span>';
+                	string+='<input id="textTotPage"  type="text" readonly="readonly" style="float:left;width:100px;color:green;"/>';
+                	string+='<select id="combCtype" style="float:left;width:100px;"> </select>';
+                	string+='<select id="combDtype" style="float:left;width:100px;"> </select>';
+                	$('#tranorde_control').append(string);
                 },
                 init : function(obj) {
                     
@@ -183,7 +199,7 @@
                             $('#tranorde_mount' + i).html(this.data[n+i]['mount']);
                             $('#tranorde_vccecount' + i).html(this.data[n+i]['vccecount']);
                             $('#tranorde_empdock' + i).html('<a style="float:left;display:block;width:40px;">'+ this.data[n+i]['empdock']+'</a>'+'<a style="float:left;display:block;width:80px;">'+ this.data[n+i]['so']+'</a>');
-                            $('#tranorde_port2' + i).html('<a style="float:left;display:block;width:40px;">'+ this.data[n+i]['port2']+'</a>'+'<a style="float:left;display:block;width:80px;">'+ this.data[n+i]['checkself']+'</a>');
+                            $('#tranorde_port2' + i).html('<a style="float:left;display:block;width:40px;">'+ this.data[n+i]['port2']+'</a>'+'<a style="float:left;display:block;width:80px;">'+ this.data[n+i]['checkself']+ this.data[n+i]['trackno']+'</a>');
                         } else {
                             $('#tranorde_chk' + i).attr('disabled', 'disabled');
                             $('#tranorde_noa' + i).html('');
@@ -256,9 +272,10 @@
                 }
             }
             tranorde = new tranorde();
-            tranorde.load();
+            
 			//---------------------------------------------------------------------
             $(document).ready(function() {
+            	tranorde.load();
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
@@ -323,6 +340,13 @@
                         break;
                 }
                 b_pop = '';
+            }
+            function q_popPost(id) {
+            	alert(id);
+                switch (id) {
+                    default:
+                        break;
+                }
             }
 
             function q_gtPost(t_name) {
@@ -519,7 +543,7 @@
             }
             .dview {
                 float: left;
-                width: 320px;
+                width: 950px;
                 border-width: 0px;
             }
             .tview {
@@ -539,7 +563,7 @@
             }
             .dbbm {
                 float: left;
-                width: 630px;
+                width: 950px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -622,6 +646,25 @@
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
+            #tranorde_table {
+                border: 5px solid gray;
+                font-size: medium;
+                background-color: white;
+            }
+            #tranorde_table tr {
+                height: 30px;
+            }
+            #tranorde_table td {
+                padding: 2px;
+                text-align: center;
+                border-width: 0px;
+                background-color: pink;
+                color: blue;
+            }
+            #tranorde_header td:hover{
+            	background : yellow;
+            	cursor : pointer;
+            }
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -671,50 +714,42 @@
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblCust' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblCust' class="lbl"> </a></td>
 						<td colspan="4">
 						<input id="txtCustno"  type="text"  style="float:left; width:30%;"/>
 						<input id="txtComp"  type="text"  style="float:left; width:70%;"/>
 						<input id="txtNick"  type="text"  style="display:none;"/>
 						</td>
-						<td><span> </span><a id='lblAddr' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblAddr' class="lbl"> </a></td>
 						<td colspan="2">
 						<input id="txtAddrno"  type="text"  style="float:left; width:50%;"/>
 						<input id="txtAddr"  type="text"  style="float:left; width:50%;"/>
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblOrdeno' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblOrdeno' class="lbl"> </a></td>
 						<td>
 						<input id="txtOrdeno"  type="text"  class="txt c1"/>
 						</td>
-						<td><span> </span><a id='lblDatea' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td>
 						<input id="txtDatea"  type="text"  class="txt c1"/>
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblWeight' class="lbl"> </a></td</td>
-						<td>
-						<input id="txtWeight"  type="text"  class="txt c1 num"/>
-						</td>
-						<td><span> </span><a id='lblMount' class="lbl"> </a></td</td>
-						<td>
-						<input id="txtMount"  type="text"  class="txt c1 num"/>
-						</td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblMemo' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan="6">
 						<input id="txtMemo"  type="text"  class="txt c1"/>
 						</td>
 						<td><select id="combMemo" style="width:20px;"> </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblTrandate' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblTrandate' class="lbl"> </a></td>
 						<td><input id="txtTrandate"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id='lblTrantime' class="lbl"> </a></td</td>
+						<td><span> </span><a id='lblTrantime' class="lbl"> </a></td>
 						<td><input id="txtTrantime"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id='lblMount' class="lbl"> </a></td>
+						<td><input id="txtMount"  type="text"  class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
@@ -740,28 +775,29 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:100px;"><a id='lblCarno_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblDriverno_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblDriver_s'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblWeight_s'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblMount_s'> </a></td>
-					<td align="center" style="width:300px;"><a id='lblMsg_s'> </a></td>
+					<td align="center" style="width:70px;"><a id='lblCarno_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblDriver_s'> </a></td>
+					<td align="center" style="width:60px;"><a id='lblMount_s'> </a></td>
+					<td align="center" style="width:400px;"><a id='lblMsg_s'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblIssend_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
+					<input id="txtSendcommandresult.*" type="text" style="display: none;" />
+					<input id="txtCommandid.*" type="text" style="display: none;" />
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td><input id="txtCarno.*" type="text" style="width: 95%;"/></td>
 					<td>
 						<input id="btnDriverno.*" type="button" style="float:left;width:15px;"/>
-						<input id="txtDriverno.*"type="text" style="float:left;width: 80px;"/>			
+						<input id="txtDriverno.*"type="text" style="float:left;width: 80px;"/>	
+						<input id="txtDriver.*" type="text" style="float:left;width:100px;"/>		
 					</td>
-					<td><input id="txtDriver.*" type="text" style="width: 95%;"/></td>
-					<td><input id="txtWeight.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtMsg.*" type="text" style="width: 95%;"/></td>
+					<td align="center" ><input id="chkIssend.*" type="checkbox" /></td>
 				</tr>
 			</table>
 		</div>
