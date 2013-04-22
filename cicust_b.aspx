@@ -10,7 +10,9 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = 'cicust', t_content = 'field=noa,carowner', bbsKey = ['noa'], as; 
+    var q_name = 'cicust', 
+    t_content = 'field=noa,carowner, cardeal,usera,tel1,mobile,serial,birthday,zip_addr,addr,years,carbrand,cartype,passdate,cc,engineno from cicust'
+   , bbsKey = ['noa'], as; 
     var isBott = false;  
     var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
     var i,s1;

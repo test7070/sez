@@ -28,7 +28,8 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtInsurerno', 'lblInsurer', 'ciinsu', 'noa,insurer', 'txtInsurerno,txtInsurer', 'ciinsu_b.aspx']);
+            aPop = new Array(['txtInsurerno', 'lblInsurer', 'ciinsu', 'noa,insurer', 'txtInsurerno,txtInsurer', 'ciinsu_b.aspx'],
+            ['txtCarno', 'lblCarno', 'cicust', 'noa,carowner,cardeal,usera,tel1,mobile,serial,birthday,zip_addr,addr,years,carbrand,cartype,passdate,cc,engineno', 'txtCarno,txtCarowner,txtCardeal,txtUsera,txtTelcar,txtMobilecar,txtSerialcar,txtBirthday,txtZipcar,txtAddrcar,txtYearscar,txtCarbrand,txtCartype,txtPassdate,txtCc,txtEngineno', 'cicust_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -47,9 +48,28 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd],['txtHdate', r_picd],['txtEnddate', r_picd]];
+                bbmMask = [['txtDatea', r_picd],['txtHdate', r_picd],['txtEnddate', r_picd],['txtBirthday', r_picd],['txtPassdate', r_picd]];
                 q_mask(bbmMask);
-               
+                
+                $(".carcust").hide();
+                
+               $("#btnCarcust").val("＋");
+				$("#btnCarcust").toggle(function(e) {
+					$(".carcust").show();
+					$("#btnCarcust").val("－");
+				}, function(e) {
+					$(".carcust").hide();
+					$("#btnCarcust").val("＋");
+				});
+				
+				$("#btnCaredit").val("車主新增/修改");
+				$('#btnCaredit').click(function(e) {
+					if(emp($('#txtCarno').val()))
+						q_box("cicust.aspx?;;;;", 'cicust', "90%", "600px", q_getMsg("popCicust"));
+					else
+						q_box("cicust.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'cicust', "90%", "600px", q_getMsg("popCicust"));
+				});
+				
             }
 
             function q_boxClose(s2) {
@@ -336,7 +356,9 @@
             .tbbs a {
                 font-size: medium;
             }
-
+			.carcust{
+				background: #FFBB73;
+			}
             .num {
                 text-align: right;
             }
@@ -388,39 +410,54 @@
 						<td class="td4"><input type="text" id="txtDatea" class="txt c1"/>	</td>	
 					</tr>
 					<tr>
-						<td class="td3"><span> </span><a id='lblCarno' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtCarno" class="txt c1"/>	</td>
-						<td style="text-align: center;"><input id="btnCar" type="button" style="width:50%;"/></td>
+						<td class="td1"><span> </span><a id='lblCarno' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtCarno" class="txt c1"/>	</td>
+						<td style="text-align: center;"><input id="btnCarcust" type="button" style="width:50%;"/></td>
 						<td style="text-align: center;"><input id="btnCaredit" type="button" /></td>
 					</tr>
-					<tr class="car">
-						<td class="td1"><span> </span><a id='lblCarowner' class="lbl"> </a></td>
+					<tr class="carcust">
+						<td class="td1"><span> </span><a id='lblCarowner_car' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtCarowner" class="txt c1"/>	</td>
-						<td class="td3"><span> </span><a id='lblCardeal' class="lbl"> </a></td>
+						<td class="td3"><span> </span><a id='lblCardeal_car' class="lbl"> </a></td>
 						<td class="td4"><input type="text" id="txtCardeal" class="txt c1"/>	</td>
-						<td class="td3"><span> </span><a id='lblUsera' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtUsera" class="txt c1"/>	</td>
+						<td class="td5"><span> </span><a id='lblUsera_car' class="lbl"> </a></td>
+						<td class="td6"><input type="text" id="txtUsera" class="txt c1"/>	</td>
+						<td class="tdZ"> </td>
 					</tr>
-					<tr class="car2">
+					<tr class="carcust">
 						<td class="td1"><span> </span><a id='lblTel_car' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtTelcar" class="txt c1"/>	</td>
-						<td class="td3"><span> </span><a id='lblModile_car' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtModilecar" class="txt c1"/>	</td>
-						<td class="td5"><span> </span><a id='lblSerial_car' class="lbl"> </a></td>
-						<td class="td6"><input type="text" id="txtSerialcar" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblMobile_car' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtMobilecar" class="txt c1"/>	</td>
+						<td class="td1"><span> </span><a id='lblSerial_car' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtSerialcar" class="txt c1"/>	</td>
+						<td class="tdZ"> </td>
 					</tr>
-					<tr class="car2">
-						<td class="td1"><span> </span><a id='lblAddr' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtZipcar" class="txt c1"/>	</td>
-						<td class="td3" colspan="4"><input type="text" id="txtAddrcar" class="txt c1"/>	</td>
+					<tr class="carcust">
+						<td class="td5"><span> </span><a id='lblBirthday_car' class="lbl"> </a></td>
+						<td class="td6"><input type="text" id="txtBirthday" class="txt c1"/>	</td>
+						<td class="td1"><span> </span><a id='lblAddr_car' class="lbl"> </a></td>
+						<td class="td2" colspan="3"><input type="text" id="txtZipcar" class="txt c2"/>
+						<input type="text" id="txtAddrcar" class="txt c3"/>	</td>
+						<td class="tdZ"> </td>
 					</tr>
-					<tr class="car2">
-						<td class="td1"><span> </span><a id='lblCarbrand' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtCarbrand" class="txt c1"/>	</td>
-						<td class="td3"><span> </span><a id='lbl' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtModile" class="txt c1"/>	</td>
-						<td class="td5"><span> </span><a id='lblSerial' class="lbl"> </a></td>
-						<td class="td6"><input type="text" id="txtSerial" class="txt c1"/>	</td>
+					<tr class="carcust">
+						<td class="td1"><span> </span><a id='lblYears_car' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtYearscar" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblCarbrand_car' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtCarbrand" class="txt c1"/>	</td>
+						<td class="td5"><span> </span><a id='lblCartype_car' class="lbl"> </a></td>
+						<td class="td6"><input type="text" id="txtCartype" class="txt c1"/>	</td>
+						<td class="tdZ"> </td>
+					</tr>
+					<tr class="carcust">
+						<td class="td1"><span> </span><a id='lblPassdate_car' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtPassdate" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblCc_car' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtCc" class="txt c1"/>	</td>
+						<td class="td5"><span> </span><a id='lblEngineno_car' class="lbl"> </a></td>
+						<td class="td6"><input type="text" id="txtEngineno" class="txt c1"/>	</td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDriver' class="lbl"> </a></td>
