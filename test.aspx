@@ -8,32 +8,12 @@
 			
 			
 			$(document).ready(function() {
-				$.ajaxSetup({
-  					timeout : 1000
-				});
-				$('#erp').click(function(e){
-					erpWin = window.open('http://60.249.136.206');
-					erpWin.setTimeout('zzz()', 5000);
-					
-			 		/*$.get("http://60.249.136.206/se/login.aspx",'', function(response,status,xhr){
-    						alert(xhr);
-  					}).error(function(){
-						alert('error');
-					});*/
-				});
-				$('#mail').click(function(e){
-					var newwin = window.open("http://www.dachang.com.tw:8081/roundcube/"); 
-					//newwin.location= ""; 
-				});			         
-			});
-			function zzz(){
-				alert($(erpWin.document).length);
-			}
-			
-			$(document).ready(function() {
 				$('#txtA').change(function(e){
-					var re = /(\d{4})([^\.,.]*)$/g;
-					alert($(this).val().replace(re,"$1.$2"));
+					
+					var patt = /^(?:[0-1][0-9]|2[0-3])\:([0-5][0-9])$/g;
+					alert(patt.test($(this).val()));
+					/*var re = /(\d{4})([^\.,.]*)$/g;
+					alert($(this).val().replace(re,"$1.$2"));*/
 				});
 				
 			//(?:0?[1-9]|1[0-2])$

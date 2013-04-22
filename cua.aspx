@@ -65,8 +65,12 @@
                     q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
                 });
                 $('#btnOrde').click(function() {
-	            	t_where = '';
-			        t_where = "where=^^ noa ='"+$('#txtOrdeno').val()+"' ^^";           	
+                	var ordeno = $('#txtOrdeno').val();
+                	if(ordeno.length == 0){
+                		alert('請填寫' + q_getMsg('lblOrdeno') + '。');
+                		return;
+                	}
+			        t_where = "where=^^ noa ='"+ordeno+"' ^^";           	
 	            	q_gt('orde', t_where , 0, 0, 0, "", r_accy);
                 });
             }
