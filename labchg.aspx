@@ -156,14 +156,15 @@
                 abbm[q_recno]['paybno'] = xmlString.split(";")[1];
                 $('#txtAccno').val(xmlString.split(";")[0]);
                 $('#txtPaybno').val(xmlString.split(";")[1]);
-                for(var i = 0; i < q_bbsCount ; i++){
-	                for (var j = 0; j < abbs.length; j++) {
-	                    if (abbs[j]['noa'] == $('#txtNoa').val() && abbs[j]['noq'] == $('#txtNoq_'+i).val()) {
-	                        abbs[j]['vccno'] = xmlString.split(";")[2 + i];
-	                       	$('#txtVccno_' + i).val(xmlString.split(";")[2 + i]);
-	                    }
-	                }
-	            }
+                var t_noa = abbm[q_recno]['noa'];
+                var i = 0;
+				for (var j = 0; j < abbs.length; j++) {
+					if(abbs[j]['noa'] == t_noa){
+						abbs[j]['vccno'] = xmlString.split(";")[2 + i];
+						$('#txtVccno_' + i).val(xmlString.split(";")[2 + i]);
+						i++;
+					}
+				}
 			}
             function btnPrint() {
 				q_box('z_labchg.aspx?;;;'+r_accy, '', "95%", "95%", q_getMsg("popPrint"));
