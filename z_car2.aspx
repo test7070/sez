@@ -275,6 +275,9 @@
                     q_getFormat();
 	                q_langShow();
 	                q_popAssign();
+	                $('#textYear').mask('999');
+	            	$('#textBdate').mask('999/99/99');
+	                $('#textEdate').mask('999/99/99');
 					$('#txtMon1').mask('999/99');
 	                $('#txtMon2').mask('999/99');
 	                $('#txtXmon').mask('999/99');
@@ -430,12 +433,9 @@
             	//-----------------------------
             	}
             	
-            	$('#textYear').mask('999');
                 $('#textYear').val(q_date().substr(0,3));
                 $('#btnMontax').val('監理稅金收單作業');
                 
-                $('#textBdate').mask('999/99/99');
-                $('#textEdate').mask('999/99/99');
                 $('#btnNotice').val('驗車通知作業');
                 if(iscarno<3){
 	                if(window.parent.q_name=='cara' || window.parent.q_name=='car2'){
