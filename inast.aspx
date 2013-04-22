@@ -405,20 +405,20 @@
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
                 if (t_para) {
-            	for (var j = 0; j < q_bbsCount; j++) {
-		            $('#textSize1_'+j).attr('disabled', 'disabled');
-		            $('#textSize2_'+j).attr('disabled', 'disabled');
-		            $('#textSize3_'+j).attr('disabled', 'disabled');
-		            $('#textSize4_'+j).attr('disabled', 'disabled');
-		    	}
-		    }else {
-		    	for (var j = 0; j < q_bbsCount; j++) {
-		        	$('#textSize1_'+j).removeAttr('disabled');
-		        	$('#textSize2_'+j).removeAttr('disabled');
-		        	$('#textSize3_'+j).removeAttr('disabled');
-		        	$('#textSize4_'+j).removeAttr('disabled');
-		        }
-			}
+	            	for (var j = 0; j < q_bbsCount; j++) {
+			            $('#textSize1_'+j).attr('disabled', 'disabled');
+			            $('#textSize2_'+j).attr('disabled', 'disabled');
+			            $('#textSize3_'+j).attr('disabled', 'disabled');
+			            $('#textSize4_'+j).attr('disabled', 'disabled');
+			    	}
+			    }else {
+			    	for (var j = 0; j < q_bbsCount; j++) {
+			        	$('#textSize1_'+j).removeAttr('disabled');
+			        	$('#textSize2_'+j).removeAttr('disabled');
+			        	$('#textSize3_'+j).removeAttr('disabled');
+			        	$('#textSize4_'+j).removeAttr('disabled');
+			        }
+				}
             }
 
             function btnMinus(id) {
