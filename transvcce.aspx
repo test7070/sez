@@ -667,7 +667,7 @@
                 overflow: hidden;
             }
             .dview {
-                float: left;
+                /*float: left;*/
                 width: 950px;
                 border-width: 0px;
             }
@@ -687,7 +687,7 @@
                 color: blue;
             }
             .dbbm {
-                float: left;
+                /*float: left;*/
                 width: 950px;
                 /*margin: -1px;
                  border: 1px black solid;*/
