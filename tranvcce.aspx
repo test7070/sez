@@ -22,7 +22,7 @@
             var q_name = "tranvcce";
             var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtCommandid','txtOrdeno'];
             var bbmNum = [];
-            var bbmMask = [['txtDatea', '999/99/99']];
+            var bbmMask = [['txtDatea', '999/99/99'],['txtTrandate', '999/99/99'],['txtTrantime', '99:99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -143,19 +143,19 @@
                             $('#tranorde_chk' + i).removeAttr('disabled');
                             $('#tranorde_noa' + i).html(this.data[n+i]['noa']);
                             $('#tranorde_ctype' + i).html(this.data[n+i]['ctype']);
-                            $('#tranorde_dldate' + i).html(this.data[n+i]['dldate']);
+                            $('#tranorde_strdate' + i).html(this.data[n+i]['strdate']);
                             $('#tranorde_nick' + i).html(this.data[n+i]['nick']);
                             $('#tranorde_addr' + i).html(this.data[n+i]['addr']);
                             $('#tranorde_product' + i).html(this.data[n+i]['product']);
                             $('#tranorde_mount' + i).html(this.data[n+i]['mount']);
                             $('#tranorde_vccecount' + i).html(this.data[n+i]['vccecount']);
                             $('#tranorde_empdock' + i).html('<a style="float:left;display:block;width:40px;">'+ this.data[n+i]['empdock']+'</a>'+'<a style="float:left;display:block;width:80px;">'+ this.data[n+i]['so']+'</a>');
-                            $('#tranorde_port2' + i).html(this.data[n+i]['port2']);
+                            $('#tranorde_port2' + i).html('<a style="float:left;display:block;width:40px;">'+ this.data[n+i]['port2']+'</a>'+'<a style="float:left;display:block;width:80px;">'+ this.data[n+i]['checkself']+'</a>');
                         } else {
                             $('#tranorde_chk' + i).attr('disabled', 'disabled');
                             $('#tranorde_noa' + i).html('');
                             $('#tranorde_ctype' + i).html('');
-                            $('#tranorde_dldate' + i).html('');
+                            $('#tranorde_strdate' + i).html('');
                             $('#tranorde_nick' + i).html('');
                             $('#tranorde_addr' + i).html('');
                             $('#tranorde_product' + i).html('');
@@ -280,6 +280,7 @@
             	$('#btnOk').attr('value',$('#btnOk').attr('value')+"(F9)");
                 q_mask(bbmMask);
                 $('#txtDatea').datepicker();
+                $('#txtTrandate').datepicker();
                 q_cmbParse("combCtype", ('').concat(new Array( '全部','貨櫃','平板','散裝')));
                 q_cmbParse("combDtype", ('').concat(new Array( '全部','出口','進口')));
                 q_cmbParse("combMemo", ('').concat(q_getMsg('combmemo').split('&')));
@@ -442,6 +443,15 @@
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     return;
                 }
+                $('#txtTrandate').val($.trim($('#txtTrandate').val()));
+                if ($('#txtTrandate').val().length!=0 && checkId($('#txtTrandate').val()) == 0) {
+                    alert(q_getMsg('lblTrandate') + '錯誤。');
+                    return;
+                }
+                if($('#txtTrantime').val().length!=0 && !(/^(?:[0-1][0-9]|2[0-3])\:([0-5][0-9])$/g).test($('#txtTrantime').val())){
+                	alert(q_getMsg('lblTrantime') + '錯誤。');
+                    return;
+                }
                 $('#txtOrdeno').val($.trim($('#txtOrdeno').val()));
                 if ($('#txtDatea').val().length == 0) {
                     alert('無'+q_getMsg('lblOrdeno') + '。');
@@ -455,7 +465,9 @@
                 	alert("error: btnok!")
                 }
 				var t_carno = $.trim($('#txtCarno').val());
-				var t_msg = $.trim($('#txtMemo').val())+' '+$.trim($('#txtMsg').val());
+				var t_msg = $.trim($('#txtMemo').val())
+					+(($('#txtTrandate').val()+$('#txtTrantime').val()).length > 0?',出車時間'+$('#txtTrandate').val()+'-'+$('#txtTrantime').val():'')
+					+$.trim($('#txtMsg').val());
 				
             	if(t_carno.length>0 && t_msg.length>0 && $('#chkSendcommandresult').prop('checked') && $('#txtCommandid').val().length==0){
             		//GPS訊息
@@ -772,14 +784,14 @@
 						<td id="tranorde_sel" align="center" style="width:20px; color:black;"></td>
 						<td id="tranorde_noa" onclick="tranorde.sort('noa',false)" title="訂單編號" align="center" style="width:120px; color:black;">訂單編號</td>
 						<td id="tranorde_ctype" onclick="tranorde.sort('ctype',false)" title="類型" align="center" style="width:50px; color:black;">類型</td>
-						<td id="tranorde_dldate" onclick="tranorde.sort('dldate',false)" title="預計完工日" align="center" style="width:100px; color:black;">完工日</td>
+						<td id="tranorde_strdate" onclick="tranorde.sort('strdate',false)" title="開工日期" align="center" style="width:100px; color:black;">開工日</td>
 						<td id="tranorde_nick" onclick="tranorde.sort('custno',false)" title="客戶" align="center" style="width:100px; color:black;">客戶</td>
 						<td id="tranorde_addr" onclick="tranorde.sort('addrno',false)" title="起迄地點" align="center" style="width:200px; color:black;">起迄地點</td>
 						<td id="tranorde_product" onclick="tranorde.sort('productno',false)" title="品名" align="center" style="width:100px; color:black;">品名</td>
 						<td id="tranorde_mount" onclick="tranorde.sort('mount',true)" align="center" style="width:80px; color:black;">收數量</td>
 						<td id="tranorde_vccecount" onclick="tranorde.sort('vccecount',true)" align="center" style="width:80px; color:black;">已派數量</td>
 						<td id="tranorde_empdock" onclick="tranorde.sort('empdock',false)" title="領,S/O" align="center" style="width:120px; color:black;">出口櫃</td>
-						<td id="tranorde_port2" onclick="tranorde.sort('port2',false)" title="領櫃碼頭" align="center" style="width:80px; color:black;">進口櫃</td>
+						<td id="tranorde_port2" onclick="tranorde.sort('port2',false)" title="領櫃碼頭,自檢" align="center" style="width:120px; color:black;">進口櫃</td>
 					</tr>
 					<tr id="tranorde_tr0">
 						<td style="text-align: center;">
@@ -788,7 +800,7 @@
 						<td style="text-align: center; font-weight: bolder; color:black;">1</td>
 						<td id="tranorde_noa0" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype0" style="text-align: center;"></td>
-						<td id="tranorde_dldate0" style="text-align: center;"></td>
+						<td id="tranorde_strdate0" style="text-align: center;"></td>
 						<td id="tranorde_nick0" style="text-align: center;"></td>
 						<td id="tranorde_addr0" style="text-align: left;"></td>
 						<td id="tranorde_product0" style="text-align: left;"></td>
@@ -804,7 +816,7 @@
 						<td style="text-align: center; font-weight: bolder; color:black;">2</td>
 						<td id="tranorde_noa1" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype1" style="text-align: center;"></td>
-						<td id="tranorde_dldate1" style="text-align: center;"></td>
+						<td id="tranorde_strdate1" style="text-align: center;"></td>
 						<td id="tranorde_nick1" style="text-align: center;"></td>
 						<td id="tranorde_addr1" style="text-align: left;"></td>
 						<td id="tranorde_product1" style="text-align: left;"></td>
@@ -820,7 +832,7 @@
 						<td style="text-align: center; font-weight: bolder; color:black;">3</td>
 						<td id="tranorde_noa2" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype2" style="text-align: center;"></td>
-						<td id="tranorde_dldate2" style="text-align: center;"></td>
+						<td id="tranorde_strdate2" style="text-align: center;"></td>
 						<td id="tranorde_nick2" style="text-align: center;"></td>
 						<td id="tranorde_addr2" style="text-align: left;"></td>
 						<td id="tranorde_product2" style="text-align: left;"></td>
@@ -836,7 +848,7 @@
 						<td style="text-align: center; font-weight: bolder; color:black;">4</td>
 						<td id="tranorde_noa3" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype3" style="text-align: center;"></td>
-						<td id="tranorde_dldate3" style="text-align: center;"></td>
+						<td id="tranorde_strdate3" style="text-align: center;"></td>
 						<td id="tranorde_nick3" style="text-align: center;"></td>
 						<td id="tranorde_addr3" style="text-align: left;"></td>
 						<td id="tranorde_product3" style="text-align: left;"></td>
@@ -852,7 +864,7 @@
 						<td style="text-align: center; font-weight: bolder; color:black;">5</td>
 						<td id="tranorde_noa4" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype4" style="text-align: center;"></td>
-						<td id="tranorde_dldate4" style="text-align: center;"></td>
+						<td id="tranorde_strdate4" style="text-align: center;"></td>
 						<td id="tranorde_nick4" style="text-align: center;"></td>
 						<td id="tranorde_addr4" style="text-align: left;"></td>
 						<td id="tranorde_product4" style="text-align: left;"></td>
@@ -868,7 +880,7 @@
 						<td style="text-align: center; font-weight: bolder; color:black;">6</td>
 						<td id="tranorde_noa5" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype5" style="text-align: center;"></td>
-						<td id="tranorde_dldate5" style="text-align: center;"></td>
+						<td id="tranorde_strdate5" style="text-align: center;"></td>
 						<td id="tranorde_nick5" style="text-align: center;"></td>
 						<td id="tranorde_addr5" style="text-align: left;"></td>
 						<td id="tranorde_product5" style="text-align: left;"></td>
@@ -884,7 +896,7 @@
 						<td style="text-align: center; font-weight: bolder; color:black;">7</td>
 						<td id="tranorde_noa6" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype6" style="text-align: center;"></td>
-						<td id="tranorde_dldate6" style="text-align: center;"></td>
+						<td id="tranorde_strdate6" style="text-align: center;"></td>
 						<td id="tranorde_nick6" style="text-align: center;"></td>
 						<td id="tranorde_addr6" style="text-align: left;"></td>
 						<td id="tranorde_product6" style="text-align: left;"></td>
@@ -900,7 +912,7 @@
 						<td style="text-align: center; font-weight: bolder; color:black;">8</td>
 						<td id="tranorde_noa7" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype7" style="text-align: center;"></td>
-						<td id="tranorde_dldate7" style="text-align: center;"></td>
+						<td id="tranorde_strdate7" style="text-align: center;"></td>
 						<td id="tranorde_nick7" style="text-align: center;"></td>
 						<td id="tranorde_addr7" style="text-align: left;"></td>
 						<td id="tranorde_product7" style="text-align: left;"></td>
@@ -916,7 +928,7 @@
 						<td style="text-align: center; font-weight: bolder; color:black;">9</td>
 						<td id="tranorde_noa8" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype8" style="text-align: center;"></td>
-						<td id="tranorde_dldate8" style="text-align: center;"></td>
+						<td id="tranorde_strdate8" style="text-align: center;"></td>
 						<td id="tranorde_nick8" style="text-align: center;"></td>
 						<td id="tranorde_addr8" style="text-align: left;"></td>
 						<td id="tranorde_product8" style="text-align: left;"></td>
@@ -932,7 +944,7 @@
 						<td style="text-align: center; font-weight: bolder; color:black;">10</td>
 						<td id="tranorde_noa9" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>
 						<td id="tranorde_ctype9" style="text-align: center;"></td>
-						<td id="tranorde_dldate9" style="text-align: center;"></td>
+						<td id="tranorde_strdate9" style="text-align: center;"></td>
 						<td id="tranorde_nick9" style="text-align: center;"></td>
 						<td id="tranorde_addr9" style="text-align: left;"></td>
 						<td id="tranorde_product9" style="text-align: left;"></td>
@@ -1020,6 +1032,12 @@
 						<input id="txtMemo"  type="text"  class="txt c1"/>
 						</td>
 						<td><select id="combMemo" style="width:20px;"> </select></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblTrandate' class="lbl"> </a></td</td>
+						<td><input id="txtTrandate"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id='lblTrantime' class="lbl"> </a></td</td>
+						<td><input id="txtTrantime"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMsg' class="lbl"> </a></td</td>
