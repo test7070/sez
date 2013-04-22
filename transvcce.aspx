@@ -22,11 +22,11 @@
 
             q_tables = 's';
             var q_name = "transvcce";
-            var q_readonly = ['txtNoa'];
-            var q_readonlys = [];
-            var bbmNum = [];
-            var bbsNum = [];
-            var bbmMask = [];
+            var q_readonly = ['txtNoa','txtMount','txtWorker','txtWorker2'];
+            var q_readonlys = ['txtCommandid'];
+            var bbmNum = [['txtMount',10,0,1]];
+            var bbsNum = [['txtMount',10,0,1]];
+            var bbmMask = [['txtDatea', '999/99/99'],['txtTrandate', '999/99/99'],['txtTrantime', '99:99']];
             var bbsMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -51,6 +51,20 @@
                 curPage : -1,
                 totPage : 0,
                 curIndex : '',
+                lock : function(){
+                	for(var i=0;i<this.tbCount;i++){
+                		if($('#tranorde_chk' + i).attr('disabled')!='disabled'){
+                			$('#tranorde_chk' + i).addClass('lock').attr('disabled', 'disabled');
+                		}
+                	}
+                },
+                unlock : function(){
+                	for(var i=0;i<this.tbCount;i++){
+                		if($('#tranorde_chk' + i).hasClass('lock')){
+                			$('#tranorde_chk' + i).removeClass('lock').removeAttr('disabled');
+                		}
+                	}
+                },
                 load : function(){
                 	var string = '<table id="tranorde_table">';
                 	string+='<tr id="tranorde_header">';
@@ -58,7 +72,7 @@
                 	string+='<td id="tranorde_sel" align="center" style="width:20px; color:black;"></td>';
                 	string+='<td id="tranorde_noa" onclick="tranorde.sort(\'noa\',false)" title="訂單編號" align="center" style="width:120px; color:black;">訂單編號</td>';
                 	string+='<td id="tranorde_ctype" onclick="tranorde.sort(\'ctype\',false)" title="類型" align="center" style="width:50px; color:black;">類型</td>';
-                	string+='<td id="tranorde_dldate" onclick="tranorde.sort(\'dldate\',false)" title="預計完工日" align="center" style="width:100px; color:black;">完工日</td>';
+                	string+='<td id="tranorde_strdate" onclick="tranorde.sort(\'strdate\',false)" title="開工日期" align="center" style="width:100px; color:black;">開工日</td>';
                 	string+='<td id="tranorde_nick" onclick="tranorde.sort(\'custno\',false)" title="客戶" align="center" style="width:100px; color:black;">客戶</td>'
                 	string+='<td id="tranorde_addr" onclick="tranorde.sort(\'addrno\',false)" title="起迄地點" align="center" style="width:200px; color:black;">起迄地點</td>'
                 	string+='<td id="tranorde_product" onclick="tranorde.sort(\'productno\',false)" title="品名" align="center" style="width:100px; color:black;">品名</td>'
@@ -75,7 +89,7 @@
 						string+='<td style="text-align: center; font-weight: bolder; color:black;">'+(i+1)+'</td>';
 						string+='<td id="tranorde_noa'+i+'" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>';
 						string+='<td id="tranorde_ctype'+i+'" style="text-align: center;"></td>';
-						string+='<td id="tranorde_dldate'+i+'" style="text-align: center;"></td>';
+						string+='<td id="tranorde_strdate'+i+'" style="text-align: center;"></td>';
 						string+='<td id="tranorde_nick'+i+'" style="text-align: center;"></td>';
 						string+='<td id="tranorde_addr'+i+'" style="text-align: left;"></td>';
 						string+='<td id="tranorde_product'+i+'" style="text-align: left;"></td>';
@@ -100,9 +114,6 @@
                 	$('#tranorde_control').append(string);
                 },
                 init : function(obj) {
-                    
-                    
-                    
                     $('.tranorde_chk').click(function(e) {
                         $(".tranorde_chk").not(this).prop('checked', false);
                         $(".tranorde_chk").not(this).parent().parent().find('td').css('background', 'pink');
@@ -226,9 +237,7 @@
                     if (this.totPage <= 0)
                         return;
                     var n = (this.curPage - 1) * this.tbCount;
-                    var t_msg = '';
                     for (var i = 0; i < this.tbCount; i++) {
-                        //alert($('#tranorde_chk'+i).attr('id')+'_'+$('#tranorde_chk'+i).prop('checked'));
                         if ($('#tranorde_chk' + i).prop('checked')) {
                             $('#txtOrdeno').val(this.data[n+i]['noa']);
                             $('#txtCustno').val(this.data[n+i]['custno']);
@@ -236,8 +245,18 @@
                             $('#txtNick').val(this.data[n+i]['nick']);
                             $('#txtAddrno').val(this.data[n+i]['addrno']);
                             $('#txtAddr').val(this.data[n+i]['addr']);
-                            $('#txtMemo').val(this.data[n+i]['memo']);
-                            $('#txtMount').val(1);
+                            $('#txtMemo').val(this.data[n+i]['memo']);   
+                        }
+                    }
+                },
+                paste2 : function(sel) {
+                    if (this.totPage <= 0)
+                        return;
+                    var n = (this.curPage - 1) * this.tbCount;
+                    var t_msg = '';
+                    for (var i = 0; i < this.tbCount; i++) {
+                        if ($('#tranorde_chk' + i).prop('checked')) {  
+                        	$('#txtMount_'+sel).val(1);
                             t_msg = this.data[n+i]['addr'];
                             //出口
                             t_msg += (this.data[n+i]['docketno1'].length>0?(t_msg.length>0?', ':'')+'案號'+this.data[n+i]['docketno1']:'');
@@ -266,9 +285,10 @@
                         	t_msg += (this.data[n+i]['casedo'].length>0?(t_msg.length>0?',':'')+'押運'+this.data[n+i]['casedo']:'');
                         	t_msg += (this.data[n+i]['caseopenaddr'].length>0?(t_msg.length>0?',':'')+'拆櫃地點'+this.data[n+i]['caseopenaddr']:'');
                         	t_msg += (this.data[n+i]['casetype2'].length>0?(t_msg.length>0?',':'')+'櫃型'+this.data[n+i]['casetype2']:'');
-                        	$('#txtMsg').val(t_msg);
+                        	$('#txtMsg_'+sel).val(t_msg);
                         }
                     }
+                    sum();
                 }
             }
             tranorde = new tranorde();
@@ -342,8 +362,14 @@
                 b_pop = '';
             }
             function q_popPost(id) {
-            	alert(id);
+            	
                 switch (id) {
+                	case 'txtCarno_':
+                		tranorde.paste2(b_seq);
+                		break; 
+                	case 'txtDriverno_':
+                		tranorde.paste2(b_seq);
+                		break; 
                     default:
                         break;
                 }
@@ -375,14 +401,15 @@
 	                        	t_vccecount = (t_vccecount.length==0?"0":t_vccecount);
 	                        	t_where=" noa='"+t_noa+"'";
 	                        	t_where="where=^^"+t_where+"^^";
-                   				q_gt('tranvcce', t_where, 0, 0, 0, "ccc_"+t_noa+"_"+t_ordeno+"_"+t_mount+"_"+t_vccecount, r_accy);         	
+                   				q_gt('transvcce', t_where, 0, 0, 0, "ccc_"+t_noa+"_"+t_ordeno+"_"+t_mount+"_"+t_vccecount, r_accy);         	
 	                        }else{
 	                        	var t_noa = trim($('#txtNoa').val());
 				                var t_date = trim($('#txtDatea').val());
 				                if (t_noa.length == 0 || t_noa == "AUTO")
-				                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tranvcce') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+				                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_transvcce') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 				                else
 				                    wrServer(t_noa);
+				                tranorde.unlock();
 	                        }	                    	
                     	}else if(t_name.substring(0,3)=='ccc'){
                     		//回寫已收數量
@@ -391,7 +418,7 @@
                     		var t_mount = parseFloat(t_name.split('_')[3]);
                     		var t_vccecount = parseFloat(t_name.split('_')[4]);
                     		var t_curVccecount = t_vccecount + t_mount;
-                    		var as = _q_appendData("tranvcce", "", true);
+                    		var as = _q_appendData("transvcce", "", true);
                     		if (as[0] != undefined){            
                     			t_curVccecount -= parseFloat(as[0]['mount']==undefined?"0":as[0]['mount']);
                     		}
@@ -405,9 +432,10 @@
                 			var t_noa = trim($('#txtNoa').val());
 			                var t_date = trim($('#txtDatea').val());
 			                if (t_noa.length == 0 || t_noa == "AUTO")
-			                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tranvcce') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+			                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_transvcce') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 			                else
 			                    wrServer(t_noa);
+			                tranorde.unlock();
                     	}
                         break;
                 }
@@ -420,7 +448,97 @@
                 $('#txtAccno').val(xmlString);*/
             }
             function btnOk() {
-            	
+                if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())) {
+                    alert(q_getMsg('lblDatea') + '錯誤。');
+                    return;
+                }
+                if (!q_cd($('#txtTrandate').val())) {
+                    alert(q_getMsg('lblTrandate') + '錯誤。');
+                    return;
+                }
+                if($('#txtTrantime').val().length!=0 && !(/^(?:[0-1][0-9]|2[0-3])\:([0-5][0-9])$/g).test($('#txtTrantime').val())){
+                	alert(q_getMsg('lblTrantime') + '錯誤。');
+                    return;
+                }
+                $('#txtOrdeno').val($.trim($('#txtOrdeno').val()));
+                if ($('#txtDatea').val().length == 0) {
+                    alert('無'+q_getMsg('lblOrdeno') + '。');
+                    return;
+                }
+                if(q_cur ==1){
+                	$('#txtWorker').val(r_name);
+                }else if(q_cur ==2){
+                	$('#txtWorker2').val(r_name);
+                }else{
+                	alert("error: btnok!")
+                }
+                sum();
+                SendCommand(q_bbsCount-1);
+            }
+            
+            function SendCommand(n){
+            	if(n<0){
+            		t_noa = $.trim($('#txtNoa').val());
+            		t_ordeno = $.trim($('#txtOrdeno').val());
+            		t_mount = $.trim($('#txtMount').val()).length ==0 ? '0':$.trim($('#txtMount').val());
+            		t_where = "noa='"+t_ordeno+"'"
+            		t_where="where=^^"+t_where+"^^";
+                    q_gt('view_tranorde', t_where, 0, 0, 0, "bbb_"+t_noa+"_"+t_ordeno+"_"+t_mount, r_accy);
+            	}else{        		
+            		var t_isSend = $('#chkIssend_'+n).prop('checked');
+            		var t_carno = $.trim($('#txtCarno_'+n).val());
+					var t_msg = $.trim($('#txtMemo').val())
+						+(($('#txtTrandate').val()+$('#txtTrantime').val()).length > 0?',出車時間'+$('#txtTrandate').val()+'-'+$('#txtTrantime').val():'')
+						+$.trim($('#txtMsg_'+n).val());
+					var t_commandid = $('#txtCommandid_'+n).val();
+					var t_Sendcommandresult = $('#chkSendcommandresult_'+n).prop('checked');
+					if(t_isSend && t_carno.length>0 && t_msg.length>0 && !t_Sendcommandresult && t_commandid.length==0){
+	            		//GPS訊息
+	            		var t_data = {
+		            		GroupName : encodeURI("CHITC195"),
+		            		CarId : encodeURI(t_carno),
+		            		Message : encodeURI(t_msg),
+		            		StatusCode : 1
+		            	};
+						var json = JSON.stringify(t_data);
+		            	$.ajax({
+		            		carno : t_carno,
+		            		sel: n,
+						    url: 'SendCommand.aspx',
+						    type: 'POST',
+						    data: json,
+						    dataType: 'json',
+						    success: function(data){
+						    	if(data['SendCommandResult']="true")
+						    		$('#chkSendcommandresult_'+this.sel).prop('checked',true);	
+								$('#txtCommandid_'+this.sel).val(data['CommandId']);
+						    },
+					        complete: function(){
+					        	SendCommand(this.sel-1); 			         
+					        },
+						    error: function(jqXHR, exception) {
+						    	alert('Error:'+t_carno);
+					            if (jqXHR.status === 0) {
+					                alert('Not connect.\n Verify Network.');
+					            } else if (jqXHR.status == 404) {
+					                alert('Requested page not found. [404]');
+					            } else if (jqXHR.status == 500) {
+					                alert('Internal Server Error [500].');
+					            } else if (exception === 'parsererror') {
+					                alert('Requested JSON parse failed.');
+					            } else if (exception === 'timeout') {
+					                alert('Time out error.');
+					            } else if (exception === 'abort') {
+					                alert('Ajax request aborted.');
+					            } else {
+					                alert('Uncaught Error.\n' + jqXHR.responseText);
+					            }
+					        }
+						});
+	            	}else{
+            		    SendCommand(n-1);     		
+	            	}
+            	}
             }
 
             function _btnSeek() {
@@ -429,14 +547,17 @@
                 q_box('transvcce_s.aspx', q_name + '_s', "550px", "600px", q_getMsg("popSeek"));
             }
             function btnIns() {
+            	tranorde.lock();
                 _btnIns();
-                tranorde.paste();             
+                tranorde.paste(); 
+                        
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').focus();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
+                tranorde.lock();
                 _btnModi();           
                 $('#txtDatea').focus();
             }
@@ -451,37 +572,42 @@
             function bbsAssign() {
                 for(var i = 0; i < q_bbsCount; i++) {
                 	$('#lblNo_'+i).text(i+1);	
+                	$('#chkSendcommandresult_'+i).attr('disabled','disabled');
                 	if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-                		
+                		$('#txtMount_'+i).change(function(){
+                			sum();
+                		});
                     }
                 }
                 _bbsAssign();
             }
 
             function bbsSave(as) {
-            	t_err = '';
-                if (parseFloat(as['total'])==0) {
+                if (!as['carno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
                 q_nowf();
-                as['noa'] = abbm2['noa'];
-                if (t_err) {
-                    alert(t_err)
-                    return false;
-                }
                 return true;
             }
 
             function sum() {
             	if(!(q_cur==1 || q_cur==2))
 					return;	
+				var t_mount = 0;
+				for(var i = 0; i < q_bbsCount; i++) {
+                	t_mount += q_float('txtMount_'+i);
+                }
+                $('#txtMount').val(t_mount);
             }
             function refresh(recno) {
                 _refresh(recno);
             }
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                for(var i = 0; i < q_bbsCount; i++) {
+                	$('#chkSendcommandresult_'+i).attr('disabled','disabled');
+                }
             }
             function btnMinus(id) {
                 _btnMinus(id);
@@ -533,9 +659,8 @@
 
             function btnCancel() {
                 _btnCancel();
-            }
-            
-            
+                tranorde.unlock();
+            }      
 		</script>
 		<style type="text/css">
             #dmain {
@@ -634,7 +759,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 950px;
+                width: 1200px;
             }
             .tbbs a {
                 font-size: medium;
@@ -678,10 +803,9 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewTrandate'> </a></td>
+						<td align="center" style="width:200px; color:black;"><a id='vewTrandate'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewNick'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewAddr'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewWeight'> </a></td>
+						<td align="center" style="width:200px; color:black;"><a id='vewAddr'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMount'> </a></td>
 					</tr>
 					<tr>
@@ -691,7 +815,6 @@
 						<td id='trandate trantime' style="text-align: center;">~trandate ~trantime</td>
 						<td id='nick' style="text-align: center;">~nick</td>
 						<td id='addr' style="text-align: center;">~addr</td>
-						<td id='weight' style="text-align: right;">~weight</td>
 						<td id='mount' style="text-align: right;">~mount</td>
 					</tr>
 				</table>
@@ -780,13 +903,13 @@
 					<td align="center" style="width:60px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:400px;"><a id='lblMsg_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblIssend_s'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblSendcommandresult_s'> </a></td>
+					<td align="center" style="width:70px;"><a id='lblCommandid_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
-					<input id="txtSendcommandresult.*" type="text" style="display: none;" />
-					<input id="txtCommandid.*" type="text" style="display: none;" />
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td><input id="txtCarno.*" type="text" style="width: 95%;"/></td>
@@ -798,6 +921,8 @@
 					<td><input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtMsg.*" type="text" style="width: 95%;"/></td>
 					<td align="center" ><input id="chkIssend.*" type="checkbox" /></td>
+					<td align="center" ><input id="chkSendcommandresult.*" type="checkbox" /></td>
+					<td><input id="txtCommandid.*" type="text" style="width: 95%;"/></td>
 				</tr>
 			</table>
 		</div>
