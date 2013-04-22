@@ -7,9 +7,13 @@
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             var q_name = "bccin_s";
+            aPop = new Array(
+            	['txtBccno', 'lblBccno', 'bcc', 'noa,product', 'txtBccno', 'bcc_b.aspx']
+            	);
             $(document).ready(function() {
                 main();
             });
@@ -56,9 +60,10 @@
                 t_edate = $.trim($('#txtEdate').val());
                 t_part = $('#cmbPart').val();
                 t_store = $('#cmbStore').val();
+                t_bccno = $.trim($('#txtBccno').val());
 
                 var t_where = " 1=1 " + q_sqlPara2("partno", t_part) + q_sqlPara2("storeno", t_store) + q_sqlPara2("noa", t_noa) + q_sqlPara2("datea", t_bdate, t_edate);
-
+                t_where = t_where + " and (0=" + t_bccno.length + " or (select count(*) from bccins where bccno='" + t_bccno + "' and noa = bccin.noa) > 0)";
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
@@ -99,6 +104,12 @@
 					<td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
 					<td>
 					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblBccno'></a></td>
+					<td>
+					<input class="txt" id="txtBccno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
