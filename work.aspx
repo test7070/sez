@@ -44,10 +44,10 @@
             bbsKey = ['noa', 'noq'];
 
             q_brwCount();  // 計算 合適  brwCount 
-
-            if (!q_gt(q_name, q_content, q_sqlCount, 1))  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
-                return;
-
+			q_gt(q_name, q_content, q_sqlCount, 1)
+			
+            /*if (!q_gt(q_name, q_content, q_sqlCount, 1))  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
+                return;*/
         });
 
         //////////////////   end Ready

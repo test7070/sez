@@ -39,7 +39,8 @@
             aPop = new Array(
 								['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtCustnick', 'cust_b.aspx'],
 								['txtBankno_', '', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
-								['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
+								['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+								['txtAcc1_', '', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
 							);
 
             $(document).ready(function() {
@@ -88,7 +89,7 @@
                 });
             }
             function browTicketForm(obj){
-            	if(q_cur != 1 && q_cur !=2){
+            	if(($(obj).attr('readonly') == 'readonly') || ($(obj).attr('id').substring(0,3) == 'lbl')){
 	            	if($(obj).attr('id').substring(0,3) == 'lbl')
 	            		obj = $('#txt' + $(obj).attr('id').substring(3));
 	            	var noa = $.trim($(obj).val());
@@ -116,8 +117,6 @@
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
-                        if (q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
                         break;
                 }
             }
@@ -129,11 +128,12 @@
                 abbm[q_recno]['vccno'] = s2[1];
                	$('#txtAccno').val(s2[0]);
                	$('#txtVccno').val(s2[1]);
-               	var b_seq = '0';
-               	for(var i = 3;i<s2.length;i+3){
+               	var b_seq = 0;
+               	for(var i = 3;i<s2.length;i+=3){
                		$('#txtUmmno_' + b_seq).val(s2[i]);
                		$('#txtAccno_' + b_seq).val(s2[i+1]);
                		$('#txtVccno_' + b_seq).val(s2[i+2]);
+               		b_seq += 1 ;
                	}
             }
 
@@ -356,7 +356,7 @@
 		</script>
 		<style type="text/css">
             #dmain {
-                overflow: hidden;
+                /*overflow: hidden;*/
             }
             .dview {
                 float: left;
@@ -448,7 +448,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 100%;
+                width: 130%;
             }
             .dbbs .tbbs {
                 margin: 0;
