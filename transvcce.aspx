@@ -25,7 +25,7 @@
             var q_readonly = ['txtNoa','txtMount','txtWorker','txtWorker2','txtOrdeno'];
             var q_readonlys = ['txtCommandid'];
             var bbmNum = [['txtMount',10,0,1]];
-            var bbsNum = [['txtMount',10,0,1]];
+            var bbsNum = [['txtMount',10,0,1],['txtSel',10,0,1]];
             var bbmMask = [['txtDatea', '999/99/99'],['txtTrandate', '999/99/99'],['txtTrantime', '99:99']];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -85,7 +85,7 @@
 					for(var i=0;i<this.tbCount;i++){
 						string+='<tr id="tranorde_tr'+i+'">';
 						string+='<td style="text-align: center;">';
-						string+='<input id="tranorde_chk'+i+'" class="tranorde_chk" type="checkbox"></input></td>';
+						string+='<input id="tranorde_chk'+i+'" class="tranorde_chk" type="checkbox"/></td>';
 						string+='<td style="text-align: center; font-weight: bolder; color:black;">'+(i+1)+'</td>';
 						string+='<td id="tranorde_noa'+i+'" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>';
 						string+='<td id="tranorde_ctype'+i+'" style="text-align: center;"></td>';
@@ -249,46 +249,11 @@
                         }
                     }
                 },
-                paste2 : function(sel) {
-                    if (this.totPage <= 0)
-                        return;
-                    var n = (this.curPage - 1) * this.tbCount;
-                    var t_msg = '';
-                    for (var i = 0; i < this.tbCount; i++) {
-                        if ($('#tranorde_chk' + i).prop('checked')) {  
-                        	$('#txtMount_'+sel).val(1);
-                            t_msg = this.data[n+i]['addr'];
-                            //出口
-                            t_msg += (this.data[n+i]['docketno1'].length>0?(t_msg.length>0?', ':'')+'案號'+this.data[n+i]['docketno1']:'');
-                            t_msg += (this.data[n+i]['empdock'].length>0?(t_msg.length>0?',':'')+this.data[n+i]['empdock']+'領':'');
-                        	t_msg += (this.data[n+i]['dock'].length>0?(t_msg.length>0?',':'')+'交'+this.data[n+i]['dock']:'');
-                        	t_msg += (this.data[n+i]['boat'].length>0?(t_msg.length>0?',':'')+'船公司'+this.data[n+i]['boat']:'');
-                        	t_msg += (this.data[n+i]['boatname'].length>0?(t_msg.length>0?',':'')+'船次'+this.data[n+i]['boatname']:'');
-                        	t_msg += (this.data[n+i]['do1'].length>0?(t_msg.length>0?',':'')+'領櫃編號'+this.data[n+i]['do1']:'');
-                        	t_msg += (this.data[n+i]['so'].length>0?(t_msg.length>0?',':'')+'SO:'+this.data[n+i]['so']:'');
-                        	t_msg += (this.data[n+i]['casepackaddr'].length>0?(t_msg.length>0?', ':'')+'裝櫃地點'+this.data[n+i]['casepackaddr']:'');
-                        	t_msg += (this.data[n+i]['port'].length>0?(t_msg.length>0?',':'')+'港口'+this.data[n+i]['port']:'');
-                        	t_msg += (this.data[n+i]['casetype'].length>0?(t_msg.length>0?',':'')+'櫃型'+this.data[n+i]['casetype']:'');
-                        	//進口
-                        	t_msg += (this.data[n+i]['port2'].length>0?(t_msg.length>0?',':'')+this.data[n+i]['port2']+'領':'');
-                        	t_msg += (this.data[n+i]['empdock2'].length>0?(t_msg.length>0?',':'')+'交'+this.data[n+i]['empdock2']:'');
-                        	t_msg += (this.data[n+i]['takeno'].length>0?(t_msg.length>0?',':'')+'領櫃編號'+this.data[n+i]['takeno']:'');
-                        	t_msg += (this.data[n+i]['casepresent'].length>0?(t_msg.length>0?',':'')+'代表櫃號'+this.data[n+i]['casepresent']:'');
-                        	t_msg += (this.data[n+i]['product2'].length>0?(t_msg.length>0?',':'')+'品名:'+this.data[n+i]['product2']:'');
-                        	t_msg += (this.data[n+i]['containertype'].length>0?(t_msg.length>0?',':'')+'櫃別'+this.data[n+i]['containertype']:'');
-                        	t_msg += (this.data[n+i]['docketno2'].length>0?(t_msg.length>0?',':'')+'案號'+this.data[n+i]['docketno2']:'');
-                        	t_msg += (this.data[n+i]['trackno'].length>0?(t_msg.length>0?',':'')+'追蹤號碼'+this.data[n+i]['trackno']:'');
-                            t_msg += (this.data[n+i]['caseassign'].length>0?(t_msg.length>0?',':'')+'指定櫃號'+this.data[n+i]['caseassign']:'');
-                        	t_msg += (this.data[n+i]['do2'].length>0?(t_msg.length>0?',':'')+'提單'+this.data[n+i]['do2']:'');
-                        	t_msg += (this.data[n+i]['checkself'].length>0?(t_msg.length>0?',':'')+'自檢'+this.data[n+i]['checkself']:'');
-                        	t_msg += (this.data[n+i]['checkinstru'].length>0?(t_msg.length>0?',':'')+'儀檢'+this.data[n+i]['checkinstru']:'');
-                        	t_msg += (this.data[n+i]['casedo'].length>0?(t_msg.length>0?',':'')+'押運'+this.data[n+i]['casedo']:'');
-                        	t_msg += (this.data[n+i]['caseopenaddr'].length>0?(t_msg.length>0?',':'')+'拆櫃地點'+this.data[n+i]['caseopenaddr']:'');
-                        	t_msg += (this.data[n+i]['casetype2'].length>0?(t_msg.length>0?',':'')+'櫃型'+this.data[n+i]['casetype2']:'');
-                        	$('#txtMsg_'+sel).val(t_msg);
-                        }
-                    }
-                    sum();
+                paste2 : function(ordeno,sel) {
+                	if(ordeno.length == 0)
+                		return;
+                	var t_where = "where=^^ noa='"+ordeno+"'^^"
+                	q_gt('view_tranorde', t_where, 0, 0, 0,'ddd_'+ordeno+'_'+sel, r_accy);
                 }
             }
             tranorde = new tranorde();
@@ -362,13 +327,12 @@
                 b_pop = '';
             }
             function q_popPost(id) {
-            	
                 switch (id) {
                 	case 'txtCarno_':
-                		tranorde.paste2(b_seq);
+                		tranorde.paste2($('#txtOrdeno').val(),b_seq);
                 		break; 
                 	case 'txtDriverno_':
-                		tranorde.paste2(b_seq);
+                		tranorde.paste2($('#txtOrdeno').val(),b_seq);
                 		break; 
                     default:
                         break;
@@ -384,8 +348,6 @@
                         else
                         	alert('無資料。');
                         break;
-                    case 'bbb':
-                    	
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -436,6 +398,45 @@
 			                else
 			                    wrServer(t_noa);
 			                tranorde.unlock();
+                    	}else if(t_name.substring(0,3)=='ddd'){
+                    		var t_ordeno = t_name.split('_')[1];
+                    		var sel = t_name.split('_')[2];
+	                    	var as = _q_appendData("view_tranorde", "", true);
+	                    	if (as[0] != undefined){
+	                            $('#txtMount_'+sel).val(1);
+	                            t_msg = as[0]['addr'];
+	                            //出口
+	                            t_msg += (as[0]['docketno1'].length>0?(t_msg.length>0?', ':'')+'案號'+as[0]['docketno1']:'');
+	                            t_msg += (as[0]['empdock'].length>0?(t_msg.length>0?',':'')+as[0]['empdock']+'領':'');
+	                        	t_msg += (as[0]['dock'].length>0?(t_msg.length>0?',':'')+'交'+as[0]['dock']:'');
+	                        	t_msg += (as[0]['boat'].length>0?(t_msg.length>0?',':'')+'船公司'+as[0]['boat']:'');
+	                        	t_msg += (as[0]['boatname'].length>0?(t_msg.length>0?',':'')+'船次'+as[0]['boatname']:'');
+	                        	t_msg += (as[0]['do1'].length>0?(t_msg.length>0?',':'')+'領櫃編號'+as[0]['do1']:'');
+	                        	t_msg += (as[0]['so'].length>0?(t_msg.length>0?',':'')+'SO:'+as[0]['so']:'');
+	                        	t_msg += (as[0]['casepackaddr'].length>0?(t_msg.length>0?', ':'')+'裝櫃地點'+as[0]['casepackaddr']:'');
+	                        	t_msg += (as[0]['port'].length>0?(t_msg.length>0?',':'')+'港口'+as[0]['port']:'');
+	                        	t_msg += (as[0]['casetype'].length>0?(t_msg.length>0?',':'')+'櫃型'+as[0]['casetype']:'');
+	                        	//進口
+	                        	t_msg += (as[0]['port2'].length>0?(t_msg.length>0?',':'')+as[0]['port2']+'領':'');
+	                        	t_msg += (as[0]['empdock2'].length>0?(t_msg.length>0?',':'')+'交'+as[0]['empdock2']:'');
+	                        	t_msg += (as[0]['takeno'].length>0?(t_msg.length>0?',':'')+'領櫃編號'+as[0]['takeno']:'');
+	                        	t_msg += (as[0]['casepresent'].length>0?(t_msg.length>0?',':'')+'代表櫃號'+as[0]['casepresent']:'');
+	                        	t_msg += (as[0]['product2'].length>0?(t_msg.length>0?',':'')+'品名:'+as[0]['product2']:'');
+	                        	t_msg += (as[0]['containertype'].length>0?(t_msg.length>0?',':'')+'櫃別'+as[0]['containertype']:'');
+	                        	t_msg += (as[0]['docketno2'].length>0?(t_msg.length>0?',':'')+'案號'+as[0]['docketno2']:'');
+	                        	t_msg += (as[0]['trackno'].length>0?(t_msg.length>0?',':'')+'追蹤號碼'+as[0]['trackno']:'');
+	                            t_msg += (as[0]['caseassign'].length>0?(t_msg.length>0?',':'')+'指定櫃號'+as[0]['caseassign']:'');
+	                        	t_msg += (as[0]['do2'].length>0?(t_msg.length>0?',':'')+'提單'+as[0]['do2']:'');
+	                        	t_msg += (as[0]['checkself'].length>0?(t_msg.length>0?',':'')+'自檢'+as[0]['checkself']:'');
+	                        	t_msg += (as[0]['checkinstru'].length>0?(t_msg.length>0?',':'')+'儀檢'+as[0]['checkinstru']:'');
+	                        	t_msg += (as[0]['casedo'].length>0?(t_msg.length>0?',':'')+'押運'+as[0]['casedo']:'');
+	                        	t_msg += (as[0]['caseopenaddr'].length>0?(t_msg.length>0?',':'')+'拆櫃地點'+as[0]['caseopenaddr']:'');
+	                        	t_msg += (as[0]['casetype2'].length>0?(t_msg.length>0?',':'')+'櫃型'+as[0]['casetype2']:'');
+	                        	$('#txtMsg_'+sel).val(t_msg);
+	                        	sum();
+	                        }else{
+	                        	alert('查無訂單。');
+	                        }
                     	}
                         break;
                 }
@@ -583,7 +584,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['carno']) {
+                if (!as['carno'] && parseFloat(as['mount'].length==0?'0':as['mount'])==0) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -667,7 +668,7 @@
                 overflow: hidden;
             }
             .dview {
-                float: left;
+                /*float: left;*/
                 width: 950px;
                 border-width: 0px;
             }
@@ -687,7 +688,7 @@
                 color: blue;
             }
             .dbbm {
-                float: left;
+                /*float: left;*/
                 width: 950px;
                 /*margin: -1px;
                  border: 1px black solid;*/
@@ -819,74 +820,60 @@
 					</tr>
 				</table>
 			</div>
-			<div id="tranorde" style="float:left;width:1500px;">
-			</div>	
-			<div id="tranorde_control" style="width:950px;">
-			</div>	
+			<div id="tranorde" style="float:left;width:1500px;"> </div>	
+			<div id="tranorde_control" style="width:950px;"> </div>	
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height: 1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblCust' class="lbl"> </a></td>
+						<td><span> </span><a id="lblCus"t class="lbl"> </a></td>
 						<td colspan="4">
 						<input id="txtCustno"  type="text"  style="float:left; width:30%;"/>
 						<input id="txtComp"  type="text"  style="float:left; width:70%;"/>
 						<input id="txtNick"  type="text"  style="display:none;"/>
 						</td>
-						<td><span> </span><a id='lblAddr' class="lbl"> </a></td>
+						<td><span> </span><a id="lblAddr" class="lbl"> </a></td>
 						<td colspan="2">
 						<input id="txtAddrno"  type="text"  style="float:left; width:50%;"/>
 						<input id="txtAddr"  type="text"  style="float:left; width:50%;"/>
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblOrdeno' class="lbl"> </a></td>
-						<td>
-						<input id="txtOrdeno"  type="text"  class="txt c1"/>
-						</td>
-						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td>
-						<input id="txtDatea"  type="text"  class="txt c1"/>
-						</td>
+						<td><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
+						<td><input id="txtOrdeno"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
+						<td><input id="txtDatea"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan="6">
-						<input id="txtMemo"  type="text"  class="txt c1"/>
-						</td>
+						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td colspan="6"><input id="txtMemo" type="text" class="txt c1"/></td>
 						<td><select id="combMemo" style="width:20px;"> </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblTrandate' class="lbl"> </a></td>
+						<td><span> </span><a id="lblTrandate" class="lbl"> </a></td>
 						<td><input id="txtTrandate"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id='lblTrantime' class="lbl"> </a></td>
+						<td><span> </span><a id="lblTrantime" class="lbl"> </a></td>
 						<td><input id="txtTrantime"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id='lblMount' class="lbl"> </a></td>
 						<td><input id="txtMount"  type="text"  class="txt c1 num"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td>
-						<input id="txtWorker"  type="text"  class="txt c1"/>
-						</td>
-						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
-						<td>
-						<input id="txtWorker2"  type="text"  class="txt c1"/>
-						</td>
-						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td>
-						<input id="txtNoa"  type="text"  class="txt c1"/>
-						</td>
+						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
+						<td><input id="txtWorker2"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
+						<td><input id="txtNoa"  type="text"  class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
@@ -910,6 +897,7 @@
 					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
+					<input id="txtSel.*" type="text" style="display: none;" />
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td><input id="txtCarno.*" type="text" style="width: 95%;"/></td>

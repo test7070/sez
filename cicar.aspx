@@ -17,7 +17,7 @@
             }
 			q_tables = 's';
             var q_name = "cicar";
-            var q_readonly = [];
+            var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [];
@@ -28,7 +28,10 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            /*aPop = new Array();*/
+           aPop = new Array(['txtInsurerno', 'lblInsurer', 'ciinsu', 'noa,insurer', 'txtInsurerno,txtInsurer', 'ciinsu_b.aspx'],
+            ['txtSalesno', 'lblSales', 'cisale', 'noa,namea', 'txtSalesno,txtSales', 'cisale_b.aspx'],
+            ['txtInsutypeno_', 'btnInsutypeno_', 'ciinsutype', 'noa,insutype', 'txtInsutypeno_,txtInsutype_', 'ciinsutype_b.aspx'],
+           	['txtCarno', 'lblCarno', 'cicust', 'noa,carowner,cardeal,usera,tel1,mobile,serial,birthday,zip_addr,addr,years,carbrand,cartype,passdate,cc,engineno', 'txtCarno,txtCarowner,txtCardeal,txtUsera,txtTelcar,txtMobilecar,txtSerialcar,txtBirthday,txtZipcar,txtAddrcar,txtYearscar,txtCarbrand,txtCartype,txtPassdate,txtCc,txtEngineno', 'ciinsu_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -47,8 +50,26 @@
 
             function mainPost() {
             	q_getFormat();
-                bbmMask = [];
+                bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd],['txtEdate', r_picd],['txtBirthday', r_picd],['txtPassdate', r_picm]];
             	q_mask(bbmMask);
+            	 $(".carcust").hide();
+                
+               $("#btnCarcust").val("＋");
+				$("#btnCarcust").toggle(function(e) {
+					$(".carcust").show();
+					$("#btnCarcust").val("－");
+				}, function(e) {
+					$(".carcust").hide();
+					$("#btnCarcust").val("＋");
+				});
+				
+				$("#btnCaredit").val("車主新增/修改");
+				$('#btnCaredit').click(function(e) {
+					if(emp($('#txtCarno').val()))
+						q_box("cicust.aspx?;;;;", 'cicust', "90%", "600px", q_getMsg("popCicust"));
+					else
+						q_box("cicust.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'cicust', "90%", "600px", q_getMsg("popCicust"));
+				});
             }
 
             function q_boxClose(s2) {
@@ -79,6 +100,7 @@
 	           	$('#txtWorker').val(r_name);
 	        else
 	           	$('#txtWorker2').val(r_name);
+	           	sum();
 				t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
@@ -97,6 +119,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
+                    q_box('cicar_s.aspx', q_name + '_s', "550px", "600px", q_getMsg("popSeek"));
             }
            
             function btnIns() {
@@ -128,7 +151,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['product']) {
+                if (!as['insutypeno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -137,7 +160,18 @@
                 return true;
             }
 
-            
+            function sum() {
+            var t1 = 0,t_cost = 0, t_total = 0;
+            for (var j = 0; j < q_bbsCount; j++) {
+				t_cost+=dec($('#txtCost_'+j).val());
+				t_total+=dec($('#txtTotal_'+j).val());
+            }  // j
+			q_tr('txtTotal',t_cost);
+			q_tr('txtPay',t_total);
+            	if(!(q_cur==1 || q_cur==2))
+					return;
+					
+            }
             function refresh(recno) {
                 _refresh(recno);
             }
@@ -306,7 +340,9 @@
                 font-size: medium;
                 width: 100%;
             }
-
+			.carcust{
+				background: #FFBB73;
+			}
             .num {
                 text-align: right;
             }
@@ -334,9 +370,11 @@
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
-						<td id="noa" style="text-align: center;">~noa</td>
-						<td id="item" style="text-align: center;">~item</td>
-						<td id="custnick" style="text-align: center;">~custnick</td>
+						<td id="carno" style="text-align: center;">~carno</td>
+						<td id="cardno" style="text-align: center;">~cardno</td>
+						<td id="insurancenum" style="text-align: center;">~insurancenum</td>
+						<td id="insurer" style="text-align: center;">~insurer</td>
+						<td id="sales" style="text-align: center;">~sales</td>
 					</tr>
 				</table>
 			</div>
@@ -360,7 +398,52 @@
 					<tr>
 						<td class="td1"><span> </span><a id='lblCarno' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtCarno" class="txt c1"/>	</td>
-						
+						<td style="text-align: center;"><input id="btnCarcust" type="button" style="width:50%;"/></td>
+						<td style="text-align: center;"><input id="btnCaredit" type="button" /></td>
+					</tr>
+					<tr class="carcust">
+						<td class="td1"><span> </span><a id='lblCarowner_car' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtCarowner" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblCardeal_car' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtCardeal" class="txt c1"/>	</td>
+						<td class="td5"><span> </span><a id='lblUsera_car' class="lbl"> </a></td>
+						<td class="td6"><input type="text" id="txtUsera" class="txt c1"/>	</td>
+						<td class="tdZ"> </td>
+					</tr>
+					<tr class="carcust">
+						<td class="td1"><span> </span><a id='lblTel_car' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtTelcar" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblMobile_car' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtMobilecar" class="txt c1"/>	</td>
+						<td class="td1"><span> </span><a id='lblSerial_car' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtSerialcar" class="txt c1"/>	</td>
+						<td class="tdZ"> </td>
+					</tr>
+					<tr class="carcust">
+						<td class="td5"><span> </span><a id='lblBirthday_car' class="lbl"> </a></td>
+						<td class="td6"><input type="text" id="txtBirthday" class="txt c1"/>	</td>
+						<td class="td1"><span> </span><a id='lblAddr_car' class="lbl"> </a></td>
+						<td class="td2" colspan="3"><input type="text" id="txtZipcar" class="txt c2"/>
+						<input type="text" id="txtAddrcar" class="txt c3"/>	</td>
+						<td class="tdZ"> </td>
+					</tr>
+					<tr class="carcust">
+						<td class="td1"><span> </span><a id='lblYears_car' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtYearscar" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblCarbrand_car' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtCarbrand" class="txt c1"/>	</td>
+						<td class="td5"><span> </span><a id='lblCartype_car' class="lbl"> </a></td>
+						<td class="td6"><input type="text" id="txtCartype" class="txt c1"/>	</td>
+						<td class="tdZ"> </td>
+					</tr>
+					<tr class="carcust">
+						<td class="td1"><span> </span><a id='lblPassdate_car' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtPassdate" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblCc_car' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtCc" class="txt c1"/>	</td>
+						<td class="td5"><span> </span><a id='lblEngineno_car' class="lbl"> </a></td>
+						<td class="td6"><input type="text" id="txtEngineno" class="txt c1"/>	</td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblInsurer' class="lbl btn"> </a></td>
@@ -423,7 +506,8 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
-					<td><input id="txtInsutypeno.*" type="text" class="txt c1"/></td>
+					<td><input id="btnInsutypeno.*" type="button" value="." style="float:left;width: 20%;"/>
+						<input id="txtInsutypeno.*" type="text" style="width: 75%;"/></td>
 					<td><input id="txtInsutype.*" type="text" class="txt c1"/></td>
 					<td><input id="txtCoda.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtCost.*" type="text" class="txt num c1"/></td>

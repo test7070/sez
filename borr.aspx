@@ -126,15 +126,22 @@
 				var s2 = xmlString.split(';');
                 abbm[q_recno]['accno'] = s2[0];
                 abbm[q_recno]['vccno'] = s2[1];
+                var t_noa = abbm[q_recno]['noa'];
                	$('#txtAccno').val(s2[0]);
                	$('#txtVccno').val(s2[1]);
                	var b_seq = 0;
-               	for(var i = 3;i<s2.length;i+=3){
-               		$('#txtUmmno_' + b_seq).val(s2[i]);
-               		$('#txtAccno_' + b_seq).val(s2[i+1]);
-               		$('#txtVccno_' + b_seq).val(s2[i+2]);
-               		b_seq += 1 ;
-               	}
+               	var i = 2;
+				for (var j = 0; j < abbs.length; j++) {
+					if(abbs[j]['noa'] == t_noa){
+						abbs[j]['ummno'] = s2[++i];
+						abbs[j]['accno'] = s2[++i];
+						abbs[j]['vccno'] = s2[++i];
+						$('#txtUmmno_' + b_seq).val(s2[i]);
+						$('#txtAccno_' + b_seq).val(s2[i+1]);
+						$('#txtVccno_' + b_seq).val(s2[i+2]);
+						b_seq++;
+					}
+				}
             }
 
             function q_boxClose(s2) {
@@ -204,8 +211,8 @@
 
             function refresh(recno) {
                 _refresh(recno);
-                if (q_cur > 0 && q_cur < 4)
-                    sum();
+                //if (q_cur > 0 && q_cur < 4)
+                //    sum();
             }
 
             function readonly(t_para, empty) {
