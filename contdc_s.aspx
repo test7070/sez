@@ -27,7 +27,7 @@
             function q_gfPost() {
                 q_getFormat();
                 q_langShow();
-                bbmMask = [['txtDatea', r_picd],['txtBcontdate', r_picd],['txtEcontdate', r_picd],['txtChangecontdate', r_picd]];
+                bbmMask = [['txtDatea', r_picd],['txtBcontdate', r_picd],['txtEcontdate', r_picd],['txtBchangecontdate', r_picd],['txtEchangecontdate', r_picd]];
                 q_mask(bbmMask);
                 //q_cmbParse("cmbStype", q_getPara('cont.stype'));
                 q_cmbParse("cmbEnsuretype", ('').concat(new Array( '','定存單質押','不可撤銷保證','銀行本票質押','商業本票質押','現金質押')));
@@ -53,10 +53,11 @@
             	t_datea = $('#txtDatea').val();
             	t_stype = $('#cmbStype').val();
             	t_contract = $('#txtContract').val();
-            	t_ensuretype = $('#txtEnsuretype').val();
+            	t_ensuretype = $('#cmbEnsuretype').val();
             	t_bcontdate = $('#txtBcontdate').val();
             	t_econtdate = $('#txtEcontdate').val();
-            	t_changecontdate = $('#txtChangecontdate').val();
+            	t_bchangecontdate = $('#txtBchangecontdate').val();
+            	t_echangecontdate = $('#txtEchangecontdate').val();
             	t_cno = $('#txtCno').val();
             	t_acomp = $('#txtAcomp').val();
             	t_custno = $('#txtCustno').val();
@@ -75,7 +76,7 @@
                 	q_sqlPara2("ensuretype", t_ensuretype) + 
                 	q_sqlPara2("bcontdate", t_bcontdate, t_econtdate) + 
                 	q_sqlPara2("econtdate", t_bcontdate, t_econtdate) + 
-                	q_sqlPara2("changecontdate", t_changecontdate) + 
+                	q_sqlPara2("changecontdate", t_bchangecontdate, t_echangecontdate) + 
                 	q_sqlPara2("cno", t_cno) + 
                 	q_sqlPara2("acomp", t_acomp) + 
                 	q_sqlPara2("custno", t_custno) + 
@@ -127,7 +128,12 @@
 				</tr>
 				<tr class='seek_tr'>
 	                <td class='seek'  style="width:20%;"><a id='lblChangecontdate'></a></td>
-	                <td><input class="txt" id="txtChangecontdate" type="text" style="width:215px; font-size:medium;" /></td>
+	                <td style="width:65%;  ">
+					<input class="txt" id="txtBchangecontdate" type="text" style="width:90px; font-size:medium;" />
+					<span style="display:inline-block; vertical-align:middle">&sim;</span>
+					<input class="txt" id="txtEchangecontdate" type="text" style="width:93px; font-size:medium;" />
+					</td>
+	                <!--<td><input class="txt" id="txtChangecontdate" type="text" style="width:215px; font-size:medium;" /></td>-->
 				</tr>
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblAcomp'></a></td>
