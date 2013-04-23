@@ -102,11 +102,11 @@
                 	string+='</table>';
                 	
                 	$('#tranorde').append(string);
-                	
+                	              
                 	string='<input id="btnTranorde_refresh"  type="button" style="float:left;width:100px;" value="訂單刷新"/>';
-                	string+='<input id="btnTranorde_previous"  type="button" style="float:left;width:100px;" value="上一頁"/>';
-                	string+='<input id="btnTranorde_next"  type="button" style="float:left;width:100px;" value="下一頁"/>';
-                	string+='<input id="textCurPage"  type="text" style="float:left;width:100px;text-align: right;"/>';
+                	string+='<input id="btnTranorde_previous" onclick="tranorde.previous()" type="button" style="float:left;width:100px;" value="上一頁"/>';
+                	string+='<input id="btnTranorde_next" onclick="tranorde.next()" type="button" style="float:left;width:100px;" value="下一頁"/>';
+                	string+='<input id="textCurPage" onchange="tranorde.page(parseInt($(this).val()))" type="text" style="float:left;width:100px;text-align: right;"/>';
                 	string+='<span style="float:left;display:block;width:10px;font-size: 25px;">/</span>';
                 	string+='<input id="textTotPage"  type="text" readonly="readonly" style="float:left;width:100px;color:green;"/>';
                 	string+='<select id="combCtype" style="float:left;width:100px;"> </select>';
@@ -304,17 +304,7 @@
                     q_gt('view_tranorde', t_where, 0, 0, 0,'aaa', r_accy);
                 });    
                 //自動載入訂單
-                $('#btnTranorde_refresh').click();
-
-                $('#btnTranorde_previous').click(function(e) {
-                    tranorde.previous();
-                });
-                $('#btnTranorde_next').click(function(e) {
-                    tranorde.next();
-                });
-                $('#textCurPage').change(function(e) {
-                    tranorde.page(parseInt($(this).val()));
-                });     
+                $('#btnTranorde_refresh').click();   
             }
 
             function q_boxClose(s2) {
