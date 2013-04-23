@@ -69,6 +69,10 @@
 		        }
 		        cut_save_db();
 		     });
+		     //變動尺寸欄位
+	            $('#cmbKind').change(function () {
+	            	size_change();
+			     });
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -307,6 +311,73 @@
         function bbsAssign() {  
         	for(var j = 0; j < q_bbsCount; j++) {
             	if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+            		//將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
+					$('#textSize1_' + j).change(function () {
+			            t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+			            q_bodyId($(this).attr('id'));
+			            b_seq = t_IdSeq;
+			                     
+			            if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+			            {	
+			            	q_tr('txtDime_'+b_seq ,q_float('textSize1_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#textSize1_' + b_seq).val());
+			            }else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+			            	q_tr('txtRadius_'+b_seq ,q_float('textSize1_'+b_seq));//短徑$('#txtRadius_'+b_seq).val($('#textSize1_' + b_seq).val());	
+			            }
+			            		
+			            theory(b_seq);
+		                cut_save_db();
+		                sum();
+		            });
+		            $('#textSize2_' + j).change(function () {
+		            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                q_bodyId($(this).attr('id'));
+		                b_seq = t_IdSeq;
+		                     
+		                if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+		            	{	
+		            		q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//寬度$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
+		            	}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+		            		q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//長徑$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
+		            	}
+		                     
+						theory(b_seq);
+		                cut_save_db();
+		                sum();
+					});
+		            $('#textSize3_' + j).change(function () {
+		            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                q_bodyId($(this).attr('id'));
+		                b_seq = t_IdSeq;
+					         	
+		                if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+		            	{	
+		            		q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize3_' + b_seq).val());	
+						}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+		            		q_tr('txtDime_'+b_seq ,q_float('textSize3_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#textSize3_' + b_seq).val());		
+						}else{//鋼筋、胚
+		            		q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));
+						}
+		                     
+		                theory(b_seq);
+		                cut_save_db();
+		                sum();
+					});
+		            $('#textSize4_' + j).change(function () {
+		            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                q_bodyId($(this).attr('id'));
+		                b_seq = t_IdSeq;
+		                     
+		                if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+		            	{	
+		            		q_tr('txtRadius_'+b_seq ,q_float('textSize4_'+b_seq));//短徑為0 $('#txtRadius_'+b_seq).val($('#textSize4_' + b_seq).val());	
+						}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+		            		q_tr('txtLengthb_'+b_seq ,q_float('textSize4_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());	
+						}
+		            		
+		                theory(b_seq);
+		                cut_save_db();
+		                sum();
+					});
             		//計算理論重
             		$('#txtRadius_' + j).change(function () {
 		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -380,10 +451,12 @@
         		}
         	}
             _bbsAssign();
+            size_change();
         }
 
         function btnIns() {
             _btnIns();
+            $('#cmbKind').val(q_getPara('vcc.kind'));
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
@@ -393,6 +466,7 @@
                 return;
             _btnModi();
             $('#txtProduct').focus();
+            size_change();
             //取得品名的密度-計算理論重
             var t_where = "where=^^ noa = '"+ $('#txtProductno').val()+"' ^^"; 
 			q_gt('ucc', t_where , 0, 0, 0, "", r_accy);
@@ -434,10 +508,26 @@
 
         function refresh(recno) {
             _refresh(recno);
+            size_change();
        }
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            if (t_para) {
+	            	for (var j = 0; j < q_bbsCount; j++) {
+			            $('#textSize1_'+j).attr('disabled', 'disabled');
+			            $('#textSize2_'+j).attr('disabled', 'disabled');
+			            $('#textSize3_'+j).attr('disabled', 'disabled');
+			            $('#textSize4_'+j).attr('disabled', 'disabled');
+			    	}
+			    }else {
+			    	for (var j = 0; j < q_bbsCount; j++) {
+			        	$('#textSize1_'+j).removeAttr('disabled');
+			        	$('#textSize2_'+j).removeAttr('disabled');
+			        	$('#textSize3_'+j).removeAttr('disabled');
+			        	$('#textSize4_'+j).removeAttr('disabled');
+			        }
+				}
         }
 
         function btnMinus(id) {
@@ -803,8 +893,8 @@
             <td class="td4"><input id="txtNoa" type="text" class="txt c1"/></td>
             <td class='td5'><span> </span><a id="lblType"class="lbl" ></a></td>
             <td class="td6"><select id="cmbTypea" class="txt c1"></select></td> 
-            <td class='td7'><span> </span><a id="lblOrdeno" class="lbl"></a></td>
-            <td class="td8"><input id="txtOrdeno" type="text" class="txt c2"/></td>
+             <td class='td7'><span> </span><a id="lblKind" class="lbl"> </a></td>
+            <td class="td8"><select id="cmbKind" class="txt c1"> </select></td>
         </tr>
         <tr>
             <td class='td1'><span> </span><a id="lblMech" class="lbl btn" ></a></td>
@@ -841,7 +931,8 @@
             <td class='td1'><span> </span><a id="lblOweight" class="lbl" ></a></td>
             <td class="td2"><input id="txtOweight" type="text" class="txt num c1" /></td>
             <td class='td3'><span> </span><a id="lblEweight" class="lbl"></a></td>
-            <td class="td4"><input id="txtEweight" type="text" class="txt num c1" /></td>           
+            <td class="td4"><input id="txtEweight" type="text" class="txt num c1" /></td>
+                   
         </tr>     
         <tr>
             <td class='td1'><span> </span><a id="lblGweight" class="lbl" ></a></td>
@@ -881,8 +972,8 @@
             <td class="td8"><input id="txtTranmoney" type="text" class="txt num c2" /></td>
         </tr>
         <tr>
-            <td class="td1"></td>
-            <td class="td2"></td>
+            <td class='td1'><span> </span><a id="lblOrdeno" class="lbl"></a></td>
+            <td class="td2"><input id="txtOrdeno" type="text" class="txt c2"/></td>
             <td class="td3"></td>
             <td class="td4"></td>
             <td class="td5"></td>
