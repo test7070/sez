@@ -311,7 +311,11 @@
                 float: left;
             }
             .txt.c2 {
-                width: 20%;
+                width: 25%;
+                float: left;
+            }
+            .txt.c3 {
+                width: 75%;
                 float: left;
             }
             .txt.num {
@@ -420,10 +424,10 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr class="carcust">
-						<td class="td5"><span> </span><a id='lblBirthday_car' class="lbl"> </a></td>
-						<td class="td6"><input type="text" id="txtBirthday" class="txt c1"/>	</td>
-						<td class="td1"><span> </span><a id='lblAddr_car' class="lbl"> </a></td>
-						<td class="td2" colspan="3"><input type="text" id="txtZipcar" class="txt c2"/>
+						<td class="td1"><span> </span><a id='lblBirthday_car' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtBirthday" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblAddr_car' class="lbl"> </a></td>
+						<td class="td4" colspan="3"><input type="text" id="txtZipcar" class="txt c2"/>
 						<input type="text" id="txtAddrcar" class="txt c3"/>	</td>
 						<td class="tdZ"> </td>
 					</tr>

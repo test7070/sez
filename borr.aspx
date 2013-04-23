@@ -589,10 +589,11 @@
 						<td>
 						<input id="txtChecka"  type="text" class="txt c1 num" />
 						</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td align="right" colspan="2">
+						<input id="chkIsnointe" type="checkbox" style=' '/><a id="lblIsnointe" class="lbl"> </a>
+						</td>
+						<td> </td>
+						<td> </td>
 						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
 						<td>
 						<input id="txtMoney" type="text" class="txt c1 num"/>
