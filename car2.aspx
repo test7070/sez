@@ -300,7 +300,7 @@
                 });
                 
                 $('#txtCaryear').blur(function() {
-                    if(!emp($('#txtCaryear').val())&&(/^[0-9]{4}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtCaryear').val()))
+                    //if(!emp($('#txtCaryear').val())&&(/^[0-9]{4}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtCaryear').val()))
                     if((dec($('#txtCaryear').val().substr(0,4))-1911)>99)
                     	$('#txtCaryeartw').val((dec($('#txtCaryear').val().substr(0,4))-1911)+'/'+$('#txtCaryear').val().substr(5,2));
                     else
@@ -509,11 +509,10 @@
                 	return;
            		}
 				$('#txtCaryeartw').val($.trim($('#txtCaryeartw').val()));
-				if ($('#txtCaryeartw').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtCaryeartw').val())){
+				/*if ($('#txtCaryeartw').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtCaryeartw').val())){
 					alert(q_getMsg('lblCaryeartw')+'錯誤。');
 					return;
-
-				}
+				}*/
 				if($('#txtOutdate').val() != '')
 					$('#txtSendsign').val($('#txtOutdate').val() + '遷出');
 	           	var t_err = '';

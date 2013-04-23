@@ -15,8 +15,8 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
-			var txtreport='';
-			aPop = new Array(['txtXpart', '', 'part', 'part,noa', 'txtXpart', "part_b.aspx"]);
+			var txtreport='',t_txtreport='';
+			aPop = new Array(['txtXpart', '', 'part', 'noa,part', 'txtXpart', "part_b.aspx"]);
 			
             if (location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
@@ -47,6 +47,45 @@
 					}
 					if(txtreport=='z_anaumm4')
 						$('#btnSvg').show();
+					
+					if(t_txtreport!=txtreport){
+						//直接執行
+						var accy=r_accy+"_"+r_cno;
+						var xaccy=r_accy;
+						var bxpartno=$('#txtXpartno1a').val().length==0?'#non':$('#txtXpartno1a').val()
+						var expartno=$('#txtXpartno2a').val().length==0?'ZZZZZ':$('#txtXpartno2a').val()
+						var bxcust=$('#txtXcust1a').val().length==0?'#non':$('#txtXcust1a').val()
+						var excust=$('#txtXcust2a').val().length==0?'ZZZZZ':$('#txtXcust2a').val()
+						var bscno=$('#txtScno1a').val().length==0?'#non':$('#txtScno1a').val()
+						var escno=$('#txtScno2a').val().length==0?'ZZZZZ':$('#txtScno2a').val()
+					
+						var bxdate=q_date();
+						//取得前一天
+						var nextdate=new Date(dec(bxdate.substr(0,3))+1911,dec(bxdate.substr(4,2))-1,dec(bxdate.substr(7,2)));
+					    nextdate.setDate(nextdate.getDate() -1)
+					    //bxdate=''+(nextdate.getFullYear()-1911)+'/';
+					    //月份
+					    if(nextdate.getMonth()+1<10)
+					    	bxdate='0'+(nextdate.getMonth()+1)+'/';
+					    else
+					       	bxdate=(nextdate.getMonth()+1)+'/';
+					    //日期
+					    if(nextdate.getDate()<10)
+					    	bxdate=bxdate+'0'+(nextdate.getDate());
+					    else
+					     	bxdate=bxdate+(nextdate.getDate());
+					     	
+						var exdate=bxdate;
+						var xmon=$('#txtXmon').val().length==0?q_date().substr(0,6):$('#txtXmon').val()
+						var bacc=$('#txtAcc1a').val().length==0?'#non':$('#txtAcc1a').val()
+						var eacc=$('#txtAcc2a').val().length==0?'ZZZZZ':$('#txtAcc2a').val()
+		                
+						var t_where = accy+ ';' + xaccy + ';' + bxpartno + ';' + expartno + ';' + bxcust + ';' + excust+ ';' + bscno+ ';'+ escno+ ';' + bxdate+ ';' + exdate+ ';' + xmon+ ';' + bacc+ ';' + eacc;
+						var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",bxdate=" + bxdate + ",exdate=" + exdate + ",r_cno=" + r_cno;
+				        q_gtx(txtreport, t_where + ";;" + t_para + ";;z_anaumm;;" + q_getMsg('qTitle'));
+			       		
+			       		t_txtreport=txtreport
+			       }
 				});
 				
 				$('#btnSvg').click(function(e) {
@@ -67,65 +106,68 @@
                 });
             });
             function q_gfPost() {
-               $('#q_report').q_report({
-                        fileName : 'z_anaumm',
-                        options : [{
-                        type : '6',
-                        name : 'xcno'
-                    },{
-                        type : '6',
-                        name : 'xpart'
-                    }, {
-                        type : '1',
-                        name : 'date'
-                    }, {
+				$('#q_report').q_report({
+                	fileName : 'z_anaumm',
+                    options : [{//[1]
+						type : '0',
+						name : 'accy',
+						value : r_accy+"_"+r_cno
+					},{//[2]
+						type : '0',
+						name : 'xaccy',
+						value : r_accy
+					}, {//[3][4]
+                        type : '2',
+                        name : 'xpartno',
+                        dbf : 'part',
+                        index : 'noa,part',
+                        src : 'part_b.aspx'
+                    }, {//[5][6]
                         type : '2',
                         name : 'xcust',
                         dbf : 'cust',
                         index : 'noa,comp',
                         src : 'cust_b.aspx'
-                    },{
-                        type : '1',
-                        name : 'xdate'
-                    },{
-						type : '0',
-						name : 'accy',
-						value : r_accy+"_"+r_cno
-					},{
-						type : '0',
-						name : 'xaccy',
-						value : r_accy
-					}, {
+                    }, {//[7][8]
                         type : '2',
                         name : 'scno',
                         dbf : 'acomp',
                         index : 'noa,acomp',
                         src : 'acomp_b.aspx'
-                    },{
+                    },{//[9][10]
+                        type : '1',
+                        name : 'xdate'
+                    },{//[11]
                         type : '6',
                         name : 'xmon'
+                    }, {//[12][13]
+                        type : '2',
+                        name : 'acc',
+                        dbf : 'acc',
+                        index : 'acc1,acc2',
+                        src :  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
                     }]
-                    });
+				});
                 q_popAssign();
-                 $('#txtDate1').mask('999/99/99');
-	             $('#txtDate1').datepicker();
-	             $('#txtDate2').mask('999/99/99');
-	             $('#txtDate2').datepicker(); 
-	             $('#txtXdate1').mask('99/99');
-	             $('#txtXdate2').mask('99/99'); 
                 
+                $('#txtDate1').mask('999/99/99');
+	            $('#txtDate1').datepicker();
+	            $('#txtDate2').mask('999/99/99');
+	            $('#txtDate2').datepicker(); 
+	            $('#txtXdate1').mask('99/99');
+	            $('#txtXdate2').mask('99/99'); 
                 
-                 var t_date,t_year,t_month,t_day;
-	                t_date = new Date();
-	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
-	                t_year = t_year>99?t_year+'':'0'+t_year;
-	                t_month = t_date.getUTCMonth()+1;
-	                t_month = t_month>9?t_month+'':'0'+t_month;
-	                t_day = t_date.getUTCDate();
-	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
-	                $('#txtXmon').val(t_year+'/'+t_month);
+                var t_date,t_year,t_month,t_day;
+					t_date = new Date();
+		            t_date.setDate(1);
+		            t_year = t_date.getUTCFullYear()-1911;
+		            t_year = t_year>99?t_year+'':'0'+t_year;
+		            t_month = t_date.getUTCMonth()+1;
+		            t_month = t_month>9?t_month+'':'0'+t_month;
+		            t_day = t_date.getUTCDate();
+		            t_day = t_day>9?t_day+'':'0'+t_day;
+		            $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
+		            $('#txtXmon').val(t_year+'/'+t_month);
 	                
 	                t_date = new Date();
 	                t_date.setDate(35);
@@ -137,7 +179,8 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
-	                var t_date,t_year,t_month,t_day;
+				
+				var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
 	                t_year = t_date.getUTCFullYear()-1911;
@@ -158,7 +201,8 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtXdate2').val(t_month+'/'+t_day);
-	                }
+	                
+			}
             function q_boxClose(s2) {
             }
             function q_gtPost(s2) {
@@ -471,7 +515,6 @@
                 var re = /(\d{1,3})(?=(\d{3})+$)/g;
                 return arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
-            
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
