@@ -49,6 +49,7 @@
             q_mask(bbmMask); 
              q_cmbParse("cmbTypea", q_getPara('cut.typea'));
              q_cmbParse("cmbType2", q_getPara('cut.type2'));
+             q_cmbParse("cmbKind", q_getPara('cut.kind'));
              //重新計算理論重 
             $('#cmbTypea').change(function () {
 				for(var j = 0; j < q_bbsCount; j++) {
@@ -68,6 +69,10 @@
 		        }
 		        cut_save_db();
 		     });
+		     //變動尺寸欄位
+	            $('#cmbKind').change(function () {
+	            	size_change();
+			     });
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -306,6 +311,73 @@
         function bbsAssign() {  
         	for(var j = 0; j < q_bbsCount; j++) {
             	if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+            		//將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
+					$('#textSize1_' + j).change(function () {
+			            t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+			            q_bodyId($(this).attr('id'));
+			            b_seq = t_IdSeq;
+			                     
+			            if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+			            {	
+			            	q_tr('txtDime_'+b_seq ,q_float('textSize1_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#textSize1_' + b_seq).val());
+			            }else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+			            	q_tr('txtRadius_'+b_seq ,q_float('textSize1_'+b_seq));//短徑$('#txtRadius_'+b_seq).val($('#textSize1_' + b_seq).val());	
+			            }
+			            		
+			            theory(b_seq);
+		                cut_save_db();
+		                sum();
+		            });
+		            $('#textSize2_' + j).change(function () {
+		            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                q_bodyId($(this).attr('id'));
+		                b_seq = t_IdSeq;
+		                     
+		                if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+		            	{	
+		            		q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//寬度$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
+		            	}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+		            		q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//長徑$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
+		            	}
+		                     
+						theory(b_seq);
+		                cut_save_db();
+		                sum();
+					});
+		            $('#textSize3_' + j).change(function () {
+		            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                q_bodyId($(this).attr('id'));
+		                b_seq = t_IdSeq;
+					         	
+		                if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+		            	{	
+		            		q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize3_' + b_seq).val());	
+						}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+		            		q_tr('txtDime_'+b_seq ,q_float('textSize3_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#textSize3_' + b_seq).val());		
+						}else{//鋼筋、胚
+		            		q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));
+						}
+		                     
+		                theory(b_seq);
+		                cut_save_db();
+		                sum();
+					});
+		            $('#textSize4_' + j).change(function () {
+		            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+		                q_bodyId($(this).attr('id'));
+		                b_seq = t_IdSeq;
+		                     
+		                if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+		            	{	
+		            		q_tr('txtRadius_'+b_seq ,q_float('textSize4_'+b_seq));//短徑為0 $('#txtRadius_'+b_seq).val($('#textSize4_' + b_seq).val());	
+						}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+		            		q_tr('txtLengthb_'+b_seq ,q_float('textSize4_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());	
+						}
+		            		
+		                theory(b_seq);
+		                cut_save_db();
+		                sum();
+					});
             		//計算理論重
             		$('#txtRadius_' + j).change(function () {
 		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -379,10 +451,12 @@
         		}
         	}
             _bbsAssign();
+            size_change();
         }
 
         function btnIns() {
             _btnIns();
+            $('#cmbKind').val(q_getPara('vcc.kind'));
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
@@ -392,6 +466,7 @@
                 return;
             _btnModi();
             $('#txtProduct').focus();
+            size_change();
             //取得品名的密度-計算理論重
             var t_where = "where=^^ noa = '"+ $('#txtProductno').val()+"' ^^"; 
 			q_gt('ucc', t_where , 0, 0, 0, "", r_accy);
@@ -419,16 +494,6 @@
             q_nowf();
             as['date'] = abbm2['date'];
 
-            //            t_err ='';
-            //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-            //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-            //            
-            //            if (t_err) {
-            //                alert(t_err)
-            //                return false;
-            //            }
-            //            
             return true;
         }
 
@@ -443,10 +508,26 @@
 
         function refresh(recno) {
             _refresh(recno);
+            size_change();
        }
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            if (t_para) {
+	            	for (var j = 0; j < q_bbsCount; j++) {
+			            $('#textSize1_'+j).attr('disabled', 'disabled');
+			            $('#textSize2_'+j).attr('disabled', 'disabled');
+			            $('#textSize3_'+j).attr('disabled', 'disabled');
+			            $('#textSize4_'+j).attr('disabled', 'disabled');
+			    	}
+			    }else {
+			    	for (var j = 0; j < q_bbsCount; j++) {
+			        	$('#textSize1_'+j).removeAttr('disabled');
+			        	$('#textSize2_'+j).removeAttr('disabled');
+			        	$('#textSize3_'+j).removeAttr('disabled');
+			        	$('#textSize4_'+j).removeAttr('disabled');
+			        }
+				}
         }
 
         function btnMinus(id) {
@@ -568,35 +649,89 @@
 		}
 		
 		function checkId(str) {
-                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
-                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
-                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-                    if ((n % 10) == 0)
-                        return 1;
-                } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
-                    var key = '12121241';
-                    var n = 0;
-                    var m = 0;
-                    for (var i = 0; i < 8; i++) {
-                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-                        m += Math.floor(n / 10) + n % 10;
-                    }
-                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-                        return 2;
-                }else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 3;
-                }else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
-                	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
-                	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
-               		if(regex.test(str))
-               			return 4
-               	}
-               	return 0;//錯誤
-            }
-
+			if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
+            	var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
+            	var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
+                var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
+                if ((n % 10) == 0)
+                	return 1;
+			} else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
+				var key = '12121241';
+                var n = 0;
+                var m = 0;
+                for (var i = 0; i < 8; i++) {
+                	n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
+                    m += Math.floor(n / 10) + n % 10;
+				}
+                if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
+                	return 2;
+			}else if((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//西元年
+            	var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
+               	if(regex.test(str))
+					return 3;
+			}else if((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)){//民國年
+            	str = (parseInt(str.substring(0,3))+1911)+str.substring(3);
+                var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$"); 
+               	if(regex.test(str))
+               		return 4
+			}
+            return 0;//錯誤
+	}
+	function size_change () {
+		  if( $('#cmbKind').find("option:selected").text().indexOf('板')>-1){
+            $('#lblSize_help').text("厚度x寬度x長度");
+	        	for (var j = 0; j < q_bbsCount; j++) {
+	            	$('#textSize1_'+j).show();
+	            	$('#textSize2_'+j).show();
+	            	$('#textSize3_'+j).show();
+			        $('#textSize4_'+j).hide();
+			        $('#x1_'+j).show();
+			        $('#x2_'+j).show();
+			        $('#x3_'+j).hide();
+			        $('#Size').css('width','222px');
+			        q_tr('textSize1_'+ j ,q_float('txtDime_'+j));
+			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
+			        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
+			        $('#textSize4_'+j).val(0);
+			        $('#txtRadius_'+j).val(0)
+				}
+			}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+				$('#lblSize_help').text("短徑x長徑x厚度x長度");
+			    for (var j = 0; j < q_bbsCount; j++) {
+			    	$('#textSize1_'+j).show();
+	            	$('#textSize2_'+j).show();
+	            	$('#textSize3_'+j).show();
+			        $('#textSize4_'+j).show();
+			        $('#x1_'+j).show();
+			        $('#x2_'+j).show();
+			        $('#x3_'+j).show();
+			        $('#Size').css('width','297px');
+			        q_tr('textSize1_'+ j ,q_float('txtRadius_'+j));
+			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
+			        q_tr('textSize3_'+ j ,q_float('txtDime_'+j));
+			        q_tr('textSize4_'+ j ,q_float('txtLengthb_'+j));
+				}
+			}else{//鋼筋和鋼胚
+				$('#lblSize_help').text("長度");
+	            for (var j = 0; j < q_bbsCount; j++) {
+	            	$('#textSize1_'+j).hide();
+	            	$('#textSize2_'+j).hide();
+	            	$('#textSize3_'+j).show();
+			        $('#textSize4_'+j).hide();
+			        $('#x1_'+j).hide();
+			        $('#x2_'+j).hide();
+			        $('#x3_'+j).hide();
+			        $('#Size').css('width','70px');
+			        $('#textSize1_'+j).val(0);
+			        $('#txtDime_'+j).val(0)
+			        $('#textSize2_'+j).val(0);
+			        $('#txtWidth_'+j).val(0)
+			        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
+			        $('#textSize4_'+j).val(0);
+			        $('#txtRadius_'+j).val(0)
+				}
+			}
+		}
 
     </script>
     <style type="text/css">
@@ -686,6 +821,10 @@
                 width: 80%;
                 float: left;
             }
+            .txt.c8 {
+                width: 65px;
+                float: left;
+            }
             .txt.num {
                 text-align: right;
             }
@@ -754,8 +893,8 @@
             <td class="td4"><input id="txtNoa" type="text" class="txt c1"/></td>
             <td class='td5'><span> </span><a id="lblType"class="lbl" ></a></td>
             <td class="td6"><select id="cmbTypea" class="txt c1"></select></td> 
-            <td class='td7'><span> </span><a id="lblOrdeno" class="lbl"></a></td>
-            <td class="td8"><input id="txtOrdeno" type="text" class="txt c2"/></td>
+             <td class='td7'><span> </span><a id="lblKind" class="lbl"> </a></td>
+            <td class="td8"><select id="cmbKind" class="txt c1"> </select></td>
         </tr>
         <tr>
             <td class='td1'><span> </span><a id="lblMech" class="lbl btn" ></a></td>
@@ -792,7 +931,8 @@
             <td class='td1'><span> </span><a id="lblOweight" class="lbl" ></a></td>
             <td class="td2"><input id="txtOweight" type="text" class="txt num c1" /></td>
             <td class='td3'><span> </span><a id="lblEweight" class="lbl"></a></td>
-            <td class="td4"><input id="txtEweight" type="text" class="txt num c1" /></td>           
+            <td class="td4"><input id="txtEweight" type="text" class="txt num c1" /></td>
+                   
         </tr>     
         <tr>
             <td class='td1'><span> </span><a id="lblGweight" class="lbl" ></a></td>
@@ -832,8 +972,8 @@
             <td class="td8"><input id="txtTranmoney" type="text" class="txt num c2" /></td>
         </tr>
         <tr>
-            <td class="td1"></td>
-            <td class="td2"></td>
+            <td class='td1'><span> </span><a id="lblOrdeno" class="lbl"></a></td>
+            <td class="td2"><input id="txtOrdeno" type="text" class="txt c2"/></td>
             <td class="td3"></td>
             <td class="td4"></td>
             <td class="td5"></td>
@@ -851,9 +991,10 @@
                 <td align="center"><a id='lblCustno'></a></td>
                 <td align="center"><a id='lblComps'></a></td>
                 <td align="center"><a id='lblStyle'></a></td>
-                <td align="center"><a id='lblDimes'></a></td>
+                <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
+                <!--<td align="center"><a id='lblDimes'></a></td>
                 <td align="center"><a id='lblWidths'></a></td>
-                <td align="center"><a id='lblLengthbs'></a></td>
+                <td align="center"><a id='lblLengthbs'></a></td>-->
                 <td align="center"><a id='lblMounts'></a></td>
                 <td align="center"><a id='lblDivide'></a></td>
                 <td align="center"><a id='lblTheory'></a></td>
@@ -868,7 +1009,7 @@
                 <td align="center" ><a id='lblSpecs'></a></td>
                 <td align="center"><a id='lblWprice'></a></td>
                 <td align="center"><a id='lblSize'></a></td>
-                <td align="center"><a id='lblRadiuss'></a></td>
+                <!--<td align="center"><a id='lblRadiuss'></a></td>-->
                 <td align="center"><a id='lblMweight'></a></td>
                 <td align="center"><a id='lblOrdenos'></a></td>
                 <td align="center" ><a id='lblNo2'></a></td>
@@ -880,9 +1021,19 @@
                 <td ><input id="txtCustno.*" type="text" style="width: 80%;"/><input id="btnCust.*" type="button" value="..." style="width: 14%;"/></td>
                 <td ><input class="txt num c1" id="txtCust.*" type="text" /></td>
                 <td style="width: 2%;"><input class="txt c1" id="txtStyle.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtDime.*" type="text" /></td>
+                <!--<td ><input class="txt num c1" id="txtDime.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtWidth.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtLengthb.*" type="text" /></td>
+                <td ><input class="txt num c1" id="txtLengthb.*" type="text" /></td>-->
+                <td><input class="txt num c8" id="textSize1.*" type="text" disabled="disabled"/><div id="x1.*" style="float: left"> x</div>
+                		<input class="txt num c8" id="textSize2.*" type="text" disabled="disabled"/><div id="x2.*" style="float: left"> x</div>
+                        <input class="txt num c8" id="textSize3.*" type="text" disabled="disabled"/><div id="x3.*" style="float: left"> x</div>
+                         <input class="txt num c8" id="textSize4.*" type="text" disabled="disabled"/>
+                         <!--上為虛擬下為實際-->
+                         <input id="txtRadius.*" type="hidden"/>
+                		<input  id="txtWidth.*" type="hidden"/>
+                        <input  id="txtDime.*" type="hidden"/>
+                         <input id="txtLengthb.*" type="hidden"/>
+                </td>
                 <td style="width: 2%;"><input class="txt num c1" id="txtMount.*" type="text" /></td>
                 <td style="width: 2%;"><input class="txt num c1" id="txtDivide.*" type="text" /></td>
                 <td style="width: 2%;"><input class="txt num c1" id="txtTheory.*" type="text" /></td>
@@ -897,7 +1048,7 @@
                 <td style="width: 2%;"><input class="txt c1" id="txtSpec.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtWprice.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtSize.*" type="text" /></td>
-                <td ><input class="txt num c1" id="txtRadius.*" type="text" /></td>
+                <!--<td ><input class="txt num c1" id="txtRadius.*" type="text" /></td>-->
                 <td ><input class="txt num c1" id="txtMweight.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtOrdeno.*" type="text" /></td>
                 <td style="width: 2%;"><input class="txt c1" id="txtNo2.*" type="text" /></td>
