@@ -826,7 +826,7 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblCus"t class="lbl"> </a></td>
+						<td><span> </span><a id="lblCust"t class="lbl"> </a></td>
 						<td colspan="4">
 						<input id="txtCustno"  type="text"  style="float:left; width:30%;"/>
 						<input id="txtComp"  type="text"  style="float:left; width:70%;"/>
