@@ -85,7 +85,7 @@
 					for(var i=0;i<this.tbCount;i++){
 						string+='<tr id="tranorde_tr'+i+'">';
 						string+='<td style="text-align: center;">';
-						string+='<input id="tranorde_chk'+i+'" class="tranorde_chk" type="checkbox"></input></td>';
+						string+='<input id="tranorde_chk'+i+'" class="tranorde_chk" type="checkbox"/></td>';
 						string+='<td style="text-align: center; font-weight: bolder; color:black;">'+(i+1)+'</td>';
 						string+='<td id="tranorde_noa'+i+'" onclick="tranorde.browNoa(this)" style="text-align: center;"></td>';
 						string+='<td id="tranorde_ctype'+i+'" style="text-align: center;"></td>';
@@ -583,7 +583,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['carno']) {
+                if (!as['carno'] && praseFloat((as['mount'].length==0?'0':as['mount']))==0) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -819,74 +819,60 @@
 					</tr>
 				</table>
 			</div>
-			<div id="tranorde" style="float:left;width:1500px;">
-			</div>	
-			<div id="tranorde_control" style="width:950px;">
-			</div>	
+			<div id="tranorde" style="float:left;width:1500px;"> </div>	
+			<div id="tranorde_control" style="width:950px;"> </div>	
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height: 1px;">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td class="tdZ"></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblCust' class="lbl"> </a></td>
+						<td><span> </span><a id="lblCus"t class="lbl"> </a></td>
 						<td colspan="4">
 						<input id="txtCustno"  type="text"  style="float:left; width:30%;"/>
 						<input id="txtComp"  type="text"  style="float:left; width:70%;"/>
 						<input id="txtNick"  type="text"  style="display:none;"/>
 						</td>
-						<td><span> </span><a id='lblAddr' class="lbl"> </a></td>
+						<td><span> </span><a id="lblAddr" class="lbl"> </a></td>
 						<td colspan="2">
 						<input id="txtAddrno"  type="text"  style="float:left; width:50%;"/>
 						<input id="txtAddr"  type="text"  style="float:left; width:50%;"/>
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblOrdeno' class="lbl"> </a></td>
-						<td>
-						<input id="txtOrdeno"  type="text"  class="txt c1"/>
-						</td>
-						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td>
-						<input id="txtDatea"  type="text"  class="txt c1"/>
-						</td>
+						<td><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
+						<td><input id="txtOrdeno"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
+						<td><input id="txtDatea"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-						<td colspan="6">
-						<input id="txtMemo"  type="text"  class="txt c1"/>
-						</td>
+						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td colspan="6"><input id="txtMemo" type="text" class="txt c1"/></td>
 						<td><select id="combMemo" style="width:20px;"> </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblTrandate' class="lbl"> </a></td>
+						<td><span> </span><a id="lblTrandate" class="lbl"> </a></td>
 						<td><input id="txtTrandate"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id='lblTrantime' class="lbl"> </a></td>
+						<td><span> </span><a id="lblTrantime" class="lbl"> </a></td>
 						<td><input id="txtTrantime"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id='lblMount' class="lbl"> </a></td>
 						<td><input id="txtMount"  type="text"  class="txt c1 num"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td>
-						<input id="txtWorker"  type="text"  class="txt c1"/>
-						</td>
-						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
-						<td>
-						<input id="txtWorker2"  type="text"  class="txt c1"/>
-						</td>
-						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td>
-						<input id="txtNoa"  type="text"  class="txt c1"/>
-						</td>
+						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
+						<td><input id="txtWorker2"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
+						<td><input id="txtNoa"  type="text"  class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
