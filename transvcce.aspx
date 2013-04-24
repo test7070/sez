@@ -389,6 +389,7 @@
 			                    wrServer(t_noa);
 			                tranorde.unlock();
                     	}else if(t_name.substring(0,3)=='ddd'){
+                    		//複製訂單資料
                     		var t_ordeno = t_name.split('_')[1];
                     		var sel = t_name.split('_')[2];
 	                    	var as = _q_appendData("view_tranorde", "", true);
@@ -468,6 +469,7 @@
             }
             
             function SendCommand(n){
+            	//訊息一筆一筆發送
             	if(n<0){
             		t_noa = $.trim($('#txtNoa').val());
             		t_ordeno = $.trim($('#txtOrdeno').val());
