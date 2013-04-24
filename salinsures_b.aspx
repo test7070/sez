@@ -117,17 +117,17 @@
                 <td align="center" style="color:Blue;width:120px;" class="td1"><a id='lblLa_comp'></a></td>
                 <td align="center" style="color:Blue;width:120px;" class="td1"><a id='lblRe_person'></a></td>
                 <td align="center" style="color:Blue;width:120px;" class="td1"><a id='lblRe_comp'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblDisaster'></a></td>
                 <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblTotal1'></a></td>
                 <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblTotal2'></a></td>
-                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblPayc'></a></td>
+                <!--<td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblPayc'></a></td>
                 <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblPay'></a></td>
-                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblUnpay'></a></td>
+                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblUnpay'></a></td>-->
                 <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblSalary'></a></td>
                 <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblSa_retire'></a></td>
                 <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblSa_labor'></a></td>
                 <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblSa_health'></a></td>
                 <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblMount'></a></td>
-                <td align="center" style="color:Blue;width:120px;" class="td2"><a id='lblDisaster'></a></td>
                 <td align="center" style="color:Blue;width:300px;" class="td1"><a id='lblComp'></a></td>
                 <td align="center" style="color:Blue;width:300px;" class="td1"><a id='lblMemo'></a></td>
             </tr>
@@ -145,17 +145,17 @@
                 <td ><input class="txt num c1" id="txtLa_comp.*"  type="text"   readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtRe_person.*"  type="text"   readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtRe_comp.*"  type="text"  readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtDisaster.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtTotal1.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtTotal2.*" type="text"   readonly="readonly" /></td>
-                <td ><input class="txt c1" id="txtPayc.*" type="text"   readonly="readonly" /></td>
+                <!--<td ><input class="txt c1" id="txtPayc.*" type="text"   readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtPay.*" type="text"   readonly="readonly" /></td>
-                <td ><input class="txt num c1" id="txtUnpay.*" type="text"  readonly="readonly" /></td>
+                <td ><input class="txt num c1" id="txtUnpay.*" type="text"  readonly="readonly" /></td>-->
                 <td ><input class="txt num c1" id="txtSalary.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtSa_retire.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtSa_labor.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtSa_health.*" type="text"  readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtMount.*" type="text"  readonly="readonly" /></td>
-                <td ><input class="txt num c1" id="txtDisaster.*" type="text"  readonly="readonly" /></td>
                 <td >
                 	<input class="txt c1" id="txtCno.*" type="text"  readonly="readonly"  style="width: 20%;"/>
                 	<input id="btnCno.*" type="button" value="." style="width: 1%;" />

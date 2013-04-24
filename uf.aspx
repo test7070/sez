@@ -50,10 +50,19 @@
             }
 
             function mainPost() {
+<<<<<<< HEAD
 				bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
                 q_getFormat();
                 
+=======
+
+                q_getFormat();
+                bbmMask = [['txtDatea', r_picd]];
+                bbsMask = [['txtDatea', r_picd]];
+                q_mask(bbmMask);
+                q_mask(bbsMask);
+>>>>>>> 5ce9f6d89b9ad61985246e14b49fb8768c8a2cf3
                 q_cmbParse("cmbTypea", q_getPara('uf.typea'));
                 $("#cmbTypea").focus(function() {
                     var len = $("#cmbTypea").children().length > 0 ? $("#cmbTypea").children().length : 1;
@@ -237,7 +246,7 @@
             }
 
             function bbsSave(as) {
-                if (as['sel'] != 'true') {
+                if (as['sel'] != 'true' && as['checkno'].substring(as['checkno'].length,as['checkno'].length-1) != '##') {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -315,9 +324,8 @@
             }
 
             function btnPlus(org_htm, dest_tag, afield) {
-                _btnPlus(org_htm, dest_tag, afield);
+				_btnPlus(org_htm, dest_tag, afield);
 				sum();
-
             }
 
             function q_appendData(t_Table) {
