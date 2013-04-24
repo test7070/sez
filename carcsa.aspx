@@ -96,7 +96,7 @@
                 q_getFormat();
                 bbmMask = [['txtTrandate', r_picd], ['txtBtime', '99:99'], ['txtEtime', '99:99'], ['txtMon', r_picm]];
                 q_mask(bbmMask);
-				
+				q_gt('carcsatype', '', 0, 0, 0, "");
 				q_gt('acomp', '', 0, 0, 0, "");
 				q_gt('calctype2', '', 0, 0, 0, "calctypes");
 				q_cmbParse("cmbOntime", ',Y');
