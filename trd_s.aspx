@@ -42,8 +42,8 @@
 				t_edate = $('#txtEdate').val();
 				t_invono = $.trim($('#txtInvono').val());
 				t_umm = $.trim($('#cmbUmm').val());
-				
-				var t_where = " 1=1 and (len(isnull(datea,''))!=9 or datea>='101/08/01') " + q_sqlPara2("noa", t_noa) + q_sqlPara2("custno", t_custno) + q_sqlPara2("mon", t_mon) + q_sqlPara2("datea", t_bdate, t_edate);
+				//and (len(isnull(datea,''))!=9 or datea>='101/08/01')
+				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("custno", t_custno) + q_sqlPara2("mon", t_mon) + q_sqlPara2("datea", t_bdate, t_edate);
 				if (t_comp.length > 0)
                     t_where += " and patindex('%" + t_comp + "%',comp)>0";
 				if (t_invono.length > 0)

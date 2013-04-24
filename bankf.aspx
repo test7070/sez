@@ -64,7 +64,7 @@
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + r_accy + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('btnAccc'), true);
                 });
-                $('#txtAcc1a').change(function(e) {
+                $('#txtAcc1').change(function(e) {
 					var patt = /(\d{4})([^\.,.]*)$/g;
 					$(this).val($(this).val().replace(patt,"$1.$2"));
         		});
