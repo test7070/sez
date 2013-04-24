@@ -60,7 +60,7 @@
                 q_mask(bbmMask);
                 q_gt('giftsendt', '', 0, 0, 0, "", r_accy);
                 q_gt('store', '', 0, 0, 0, "");
-                q_cmbParse("cmbSendtype", ('').concat(new Array( '','宅配','邱董親送','同仁親送','自取')));
+                q_cmbParse("cmbSendtype", ('').concat(new Array( '','宅配','邱董親送','同仁親送','自取')),'s');
                q_cmbParse('cmbAddr', ('').concat(new Array( '','公司','住宅','其他')),'s');
                
                 $('#txtPrice').blur(function () {
@@ -119,8 +119,8 @@
             function btnOk() {
             	if($.trim($('#txtNick').val()).length==0)
             		$('#txtNick').val($('#txtComp').val());
- 
-
+ 				$('#txtSendmemot').val($('#cmbSendmemo').find("option:selected").text());
+				
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
@@ -172,6 +172,11 @@
                 	if (!$('#btnMinus_' + i).hasClass('isAssign')) {
                 		$('#cmbAddr_'+j).change(function(e){
                 			var n = parseInt($(this).attr('id').replace('cmbAddr_',''));
+                			var m = $(this)[0].selectedIndex;
+                			sum();
+                		});
+                		$('#cmbSendtype_'+j).change(function(e){
+                			var n = parseInt($(this).attr('id').replace('cmbSendtype_',''));
                 			var m = $(this)[0].selectedIndex;
                 			sum();
                 		});
@@ -444,7 +449,7 @@
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="noa" style="text-align: center;">~noa</td>
-						<td id="sendmemo" style="text-align: center;">~sendmemo</td>
+						<td id="sendmemot" style="text-align: center;">~sendmemot</td>
 						<td id="sales" style="text-align: center;">~sales</td>
 					</tr>
 				</table>
@@ -473,6 +478,7 @@
 						<td class="td3"> </td>
 						<td class="td4"><span> </span><a id='lblSendmemo' class="lbl"> </a></td>
 						<td class="td5"><select id="cmbSendmemo" class="txt c1"> </select>
+							<input type="text" id="txtSendmemot" style="display: none;"/>
 							</td>	
 						
 					</tr>
@@ -480,10 +486,7 @@
 						<td class="td1"><span> </span><a id='lblCno' class="lbl btn"> </a></td>
 						<td class="td2" colspan="2"><input type="text" id="txtCno" class="txt c2"/>
 							<input type="text" id="txtAcomp" class="txt c3"/>
-						</td>
-						<td class="td4"><span> </span><a id='lblSendtype' class="lbl"> </a></td>
-						<!--<td class="td5"><input type="text" id="txtSendtype" class="txt c1"/></td>-->
-						<td class="td5"><select id="cmbSendtype" class="txt c1"> </select></td>	
+						</td>	
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCno2' class="lbl btn"> </a></td>
@@ -537,6 +540,7 @@
 					<td align="center" style="width:7%;"><a id='lblJob_s'> </a></td>
 					<td align="center" style="width:14%;"><a id='lblComp_s'> </a></td>
 					<td align="center" style="width:6%;"><a id='lblAddr_s'> </a></td>
+					<td align="center" style="width:8%;"><a id='lblSendtype_s'> </a></td>
 					<td align="center" style="width:5%;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblMoney_s'> </a></td>
 					<td align="center" style="display: none;"><a id='lblReceiver_s'> </a></td>
@@ -562,6 +566,7 @@
 						<input type="text" id="txtNick.*"  style="display: none;"/>
 					</td>
 					<td><select id="cmbAddr.*" class="txt c1"> </select></td>
+					<td><select id="cmbSendtype.*" class="txt c1"> </select></td>
 					<td><input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtMoney.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td style="display: none;"><input id="txtReceiver.*" type="text" /></td>
