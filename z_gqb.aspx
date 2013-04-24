@@ -66,24 +66,28 @@
                     }, {/*8*/
                         type : '6',
                         name : 'yacc1'
+                    }, {/*8*/
+                        type : '1',
+                        name : 'xchkdate'
                     }, {/*5*/
                         type : '2',
                         name : 'xcno',
                         dbf : 'acomp',
                         index : 'noa,acomp',
                         src : 'acomp_b.aspx'
-                    }, {/*8*/
-                        type : '6',
-                        name : 'xindate'
                     }]
                 });
                 q_popAssign();
                 q_langShow();
-				$('#txtXindate').val(q_date());
+				
                 $('#txtDate1').mask('999/99/99');
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
+                $('#txtXchkdate1').mask('999/99/99');
+                $('#txtXchkdate1').datepicker();
+                $('#txtXchkdate1').mask('999/99/99');
+                $('#txtXchkdate1').datepicker();
 
                 $('#txtIndate1').mask('999/99/99');
                 $('#txtIndate1').datepicker();

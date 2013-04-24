@@ -514,6 +514,7 @@
 					<td align="center" style="width:80px;"><a id='vewDatea_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='vewMoney_s'> </a></td>
 					<td align="center" style="width:160px;display:none;"><a id='vewTcomp_s'> </a></td>
+					<td align="center" style="width:20px;"><a id='vewChkin'> </a></td>
 				</tr>
 				<tr id="trSel.*" style='background:#cad3ff;'>
 					<td style="width:1%;">
@@ -541,6 +542,9 @@
 					<input id="btnTcomp.*" type="button" value="." style="float:left;width: 1%;"/>
 					<input id="txtTcompno.*" type="text" style="width: 25%;float: left;"/>
 					<input id="txtTcomp.*" type="text" style="width: 50%;float: left;"/>
+					</td>
+					<td >
+					<input id="chkIns.*" type="checkbox"/>
 					</td>
 				</tr>
 			</table>

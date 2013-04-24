@@ -50,10 +50,10 @@
             }
 
             function mainPost() {
-
-                q_getFormat();
-                bbmMask = [['txtDatea', r_picd]];
+				bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
+                q_getFormat();
+                
                 q_cmbParse("cmbTypea", q_getPara('uf.typea'));
                 $("#cmbTypea").focus(function() {
                     var len = $("#cmbTypea").children().length > 0 ? $("#cmbTypea").children().length : 1;
