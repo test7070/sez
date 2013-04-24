@@ -362,13 +362,8 @@
 	                        	t_where="where=^^"+t_where+"^^";
                    				q_gt('transvcce', t_where, 0, 0, 0, "ccc_"+t_noa+"_"+t_ordeno+"_"+t_mount+"_"+t_vccecount, r_accy);         	
 	                        }else{
-	                        	var t_noa = trim($('#txtNoa').val());
-				                var t_date = trim($('#txtDatea').val());
-				                if (t_noa.length == 0 || t_noa == "AUTO")
-				                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_transvcce') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-				                else
-				                    wrServer(t_noa);
-				                tranorde.unlock();
+	                        	//查無訂單,直接存檔
+	                        	SaveData();
 	                        }	                    	
                     	}else if(t_name.substring(0,3)=='ccc'){
                     		//回寫已收數量
@@ -388,13 +383,7 @@
                 				}
                 			}
                     		tranorde.refresh();
-                			var t_noa = trim($('#txtNoa').val());
-			                var t_date = trim($('#txtDatea').val());
-			                if (t_noa.length == 0 || t_noa == "AUTO")
-			                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_transvcce') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-			                else
-			                    wrServer(t_noa);
-			                tranorde.unlock();
+                			SaveData();
                     	}else if(t_name.substring(0,3)=='ddd'){
                     		//複製訂單資料
                     		var t_ordeno = t_name.split('_')[1];
@@ -473,6 +462,21 @@
                 }
                 sum();
                 SendCommand(q_bbsCount-1);
+            }
+            function SaveData(){
+            	var t_carno = "";
+            	for(var i = 0; i < q_bbsCount; i++) {
+            		if($.trim($('#txtCarno_'+i).val()).length>0)
+            			t_carno += (t_carno.length>0?',':'')+$.trim($('#txtCarno_'+i).val());
+            	}
+            	$('#txtCarno').val(t_carno);
+            	var t_noa = trim($('#txtNoa').val());
+                var t_date = trim($('#txtDatea').val());
+                if (t_noa.length == 0 || t_noa == "AUTO")
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_transvcce') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                else
+                    wrServer(t_noa);
+                tranorde.unlock();
             }
             
             function SendCommand(n){
@@ -808,6 +812,7 @@
 						<td align="center" style="width:100px; color:black;"><a id='vewNick'> </a></td>
 						<td align="center" style="width:200px; color:black;"><a id='vewAddr'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMount'> </a></td>
+						<td align="center" style="width:350px; color:black;"><a id='vewCarno'> </a></td>
 					</tr>
 					<tr>
 						<td >
@@ -817,6 +822,7 @@
 						<td id='nick' style="text-align: center;">~nick</td>
 						<td id='addr' style="text-align: center;">~addr</td>
 						<td id='mount' style="text-align: right;">~mount</td>
+						<td id='carno' style="text-align: left;">~carno</td>
 					</tr>
 				</table>
 			</div>
@@ -825,7 +831,7 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height: 1px;">
-						<td> </td>
+						<td><input type="text" id="txtCarno" style="display:none;"> </td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
