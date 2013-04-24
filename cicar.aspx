@@ -31,7 +31,7 @@
            aPop = new Array(['txtInsurerno', 'lblInsurer', 'ciinsu', 'noa,insurer', 'txtInsurerno,txtInsurer', 'ciinsu_b.aspx'],
             ['txtSalesno', 'lblSales', 'cisale', 'noa,namea', 'txtSalesno,txtSales', 'cisale_b.aspx'],
             ['txtInsutypeno_', 'btnInsutypeno_', 'ciinsutype', 'noa,insutype', 'txtInsutypeno_,txtInsutype_', 'ciinsutype_b.aspx'],
-           	['txtCarno', 'lblCarno', 'cicust', 'noa,carowner,cardeal,usera,tel1,mobile,serial,birthday,zip_addr,addr,years,carbrand,cartype,passdate,cc,engineno', 'txtCarno,txtCarowner,txtCardeal,txtUsera,txtTelcar,txtMobilecar,txtSerialcar,txtBirthday,txtZipcar,txtAddrcar,txtYearscar,txtCarbrand,txtCartype,txtPassdate,txtCc,txtEngineno', 'ciinsu_b.aspx']);
+           	['txtCarno', 'lblCarno', 'cicust', 'noa,carowner,cardeal,cardealno,usera,tel1,mobile,serial,birthday,zip_addr,addr,years,carbrand,cartype,passdate,cc,engineno', 'txtCarno,txtCarowner,txtCardeal,txtCardealno,txtUsera,txtTelcar,txtMobilecar,txtSerialcar,txtBirthday,txtZipcar,txtAddrcar,txtYearscar,txtCarbrand,txtCartype,txtPassdate,txtCc,txtEngineno', 'ciinsu_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -409,7 +409,9 @@
 						<td class="td1"><span> </span><a id='lblCarowner_car' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtCarowner" class="txt c1"/>	</td>
 						<td class="td3"><span> </span><a id='lblCardeal_car' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtCardeal" class="txt c1"/>	</td>
+						<td class="td4"><input type="text" id="txtCardeal" class="txt c1"/>
+										<input type="text" id="txtCardealno" style="display: none;"/>
+								</td>
 						<td class="td5"><span> </span><a id='lblUsera_car' class="lbl"> </a></td>
 						<td class="td6"><input type="text" id="txtUsera" class="txt c1"/>	</td>
 						<td class="tdZ"> </td>
