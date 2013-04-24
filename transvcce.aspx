@@ -14,6 +14,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+			//登錄日期: 實際派車日期,  出車日期，時間只是純粹傳給司機看的而已
             this.errorHandler = null;
 
             function onPageError(error) {
@@ -24,8 +25,8 @@
             var q_name = "transvcce";
             var q_readonly = ['txtNoa','txtMount','txtWorker','txtWorker2','txtOrdeno'];
             var q_readonlys = ['txtCommandid'];
-            var bbmNum = [['txtMount',10,0,1]];
-            var bbsNum = [['txtMount',10,0,1],['txtSel',10,0,1]];
+            var bbmNum = [['txtMount',10,1,1]];
+            var bbsNum = [['txtMount',10,1,1],['txtSel',10,0,1]];
             var bbmMask = [['txtDatea', '999/99/99'],['txtTrandate', '999/99/99'],['txtTrantime', '99:99']];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -131,6 +132,7 @@
                     this.sort('noa', false);
                 },
                 sort : function(index, isFloat) {
+                	//訂單排序
                     this.curIndex = index;
 
                     if (isFloat) {
@@ -197,6 +199,7 @@
                     this.refresh();
                 },
                 refresh : function() {
+                	//頁面更新
                     var n = (this.curPage - 1) * this.tbCount;
                     for (var i = 0; i < this.tbCount; i++) {
                         if ((n + i) < this.data.length) {
@@ -206,9 +209,16 @@
                             $('#tranorde_strdate' + i).html(this.data[n+i]['strdate']);
                             $('#tranorde_nick' + i).html(this.data[n+i]['nick']);
                             $('#tranorde_addr' + i).html(this.data[n+i]['addr']);
-                            $('#tranorde_product' + i).html(this.data[n+i]['product']);
-                            $('#tranorde_mount' + i).html(this.data[n+i]['mount']);
-                            $('#tranorde_vccecount' + i).html(this.data[n+i]['vccecount']);
+                            $('#tranorde_product' + i).html(this.data[n+i]['product']);  
+                            //只顯示到小數位第一位
+                            if(this.data[n+i]['mount'].indexOf('.')<0) 
+                            	$('#tranorde_mount' + i).html(this.data[n+i]['mount']+'.0');
+                            else             
+                            	$('#tranorde_mount' + i).html(this.data[n+i]['mount'].replace(/(\d*)\.(\d)(\d)*$/g,'$1.$2'));
+                            if(this.data[n+i]['vccecount'].indexOf('.')<0)  	
+                            	$('#tranorde_vccecount' + i).html(this.data[n+i]['vccecount']+'.0');
+                            else
+                            	$('#tranorde_vccecount' + i).html(this.data[n+i]['vccecount'].replace(/(\d*)\.(\d)(\d)*$/g,'$1.$2'));
                             $('#tranorde_empdock' + i).html('<a style="float:left;display:block;width:40px;">'+ this.data[n+i]['empdock']+'</a>'+'<a style="float:left;display:block;width:80px;">'+ this.data[n+i]['so']+'</a>');
                             $('#tranorde_port2' + i).html('<a style="float:left;display:block;width:40px;">'+ this.data[n+i]['port2']+'</a>'+'<a style="float:left;display:block;width:80px;">'+ this.data[n+i]['checkself']+ this.data[n+i]['trackno']+'</a>');
                         } else {
@@ -229,11 +239,13 @@
                     $('#tranorde_chk0').prop('checked', 'true');
                 },
                 browNoa : function(obj){
+                	//瀏覽訂單
                 	var noa = $.trim($(obj).html());
                 	if(noa.length>0)
                 		q_box("tranorde.aspx?;;;noa='" + noa + "';"+r_accy, 'tranorde', "95%", "95%", q_getMsg("popTranorde"));
                 },
                 paste : function() {
+                	//複製資料
                     if (this.totPage <= 0)
                         return;
                     var n = (this.curPage - 1) * this.tbCount;
@@ -250,6 +262,7 @@
                     }
                 },
                 paste2 : function(ordeno,sel) {
+                	//複製資料
                 	if(ordeno.length == 0)
                 		return;
                 	var t_where = "where=^^ noa='"+ordeno+"'^^"
@@ -344,6 +357,7 @@
                         break;
                     default:
                     	if(t_name.substring(0,3)=='bbb'){ 
+                    		//計算已派數量,並更新頁面顯示資料
                     		var t_noa = t_name.split('_')[1];
                     		var t_ordeno = t_name.split('_')[2];
                     		var t_mount = parseFloat(t_name.split('_')[3]);
@@ -355,13 +369,8 @@
 	                        	t_where="where=^^"+t_where+"^^";
                    				q_gt('transvcce', t_where, 0, 0, 0, "ccc_"+t_noa+"_"+t_ordeno+"_"+t_mount+"_"+t_vccecount, r_accy);         	
 	                        }else{
-	                        	var t_noa = trim($('#txtNoa').val());
-				                var t_date = trim($('#txtDatea').val());
-				                if (t_noa.length == 0 || t_noa == "AUTO")
-				                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_transvcce') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-				                else
-				                    wrServer(t_noa);
-				                tranorde.unlock();
+	                        	//查無訂單,直接存檔
+	                        	SaveData();
 	                        }	                    	
                     	}else if(t_name.substring(0,3)=='ccc'){
                     		//回寫已收數量
@@ -381,20 +390,14 @@
                 				}
                 			}
                     		tranorde.refresh();
-                			var t_noa = trim($('#txtNoa').val());
-			                var t_date = trim($('#txtDatea').val());
-			                if (t_noa.length == 0 || t_noa == "AUTO")
-			                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_transvcce') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-			                else
-			                    wrServer(t_noa);
-			                tranorde.unlock();
+                			SaveData();
                     	}else if(t_name.substring(0,3)=='ddd'){
                     		//複製訂單資料
                     		var t_ordeno = t_name.split('_')[1];
                     		var sel = t_name.split('_')[2];
 	                    	var as = _q_appendData("view_tranorde", "", true);
 	                    	if (as[0] != undefined){
-	                            $('#txtMount_'+sel).val(1);
+	                            $('#txtMount_'+sel).val('1.0');
 	                            t_msg = as[0]['addr'];
 	                            //出口
 	                            t_msg += (as[0]['docketno1'].length>0?(t_msg.length>0?', ':'')+'案號'+as[0]['docketno1']:'');
@@ -467,9 +470,24 @@
                 sum();
                 SendCommand(q_bbsCount-1);
             }
+            function SaveData(){
+            	var t_carno = "";
+            	for(var i = 0; i < q_bbsCount; i++) {
+            		if($.trim($('#txtCarno_'+i).val()).length>0)
+            			t_carno += (t_carno.length>0?',':'')+$.trim($('#txtCarno_'+i).val());
+            	}
+            	$('#txtCarno').val(t_carno);
+            	var t_noa = trim($('#txtNoa').val());
+                var t_date = trim($('#txtDatea').val());
+                if (t_noa.length == 0 || t_noa == "AUTO")
+                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_transvcce') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                else
+                    wrServer(t_noa);
+                tranorde.unlock();
+            }
             
             function SendCommand(n){
-            	//訊息一筆一筆發送
+            	//訊息一筆一筆發送,送完後再存檔
             	if(n<0){
             		t_noa = $.trim($('#txtNoa').val());
             		t_ordeno = $.trim($('#txtOrdeno').val());
@@ -494,6 +512,7 @@
 		            		StatusCode : 1
 		            	};
 						var json = JSON.stringify(t_data);
+		            	//INPUT及OUTPUT參數,參照SendCommand.aspx
 		            	$.ajax({
 		            		carno : t_carno,
 		            		sel: n,
@@ -591,7 +610,7 @@
 				for(var i = 0; i < q_bbsCount; i++) {
                 	t_mount += q_float('txtMount_'+i);
                 }
-                $('#txtMount').val(t_mount);
+                $('#txtMount').val(FormatNumber(t_mount));
             }
             function refresh(recno) {
                 _refresh(recno);
@@ -654,6 +673,12 @@
                 _btnCancel();
                 tranorde.unlock();
             }      
+            function FormatNumber(n) {
+                n += "";
+                var arr = n.split(".");
+                var re = /(\d{1,3})(?=(\d{3})+$)/g;
+                return arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+            }
 		</script>
 		<style type="text/css">
             #dmain {
@@ -796,19 +821,21 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:200px; color:black;"><a id='vewTrandate'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewNick'> </a></td>
 						<td align="center" style="width:200px; color:black;"><a id='vewAddr'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMount'> </a></td>
+						<td align="center" style="width:350px; color:black;"><a id='vewCarno'> </a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
-						<td id='trandate trantime' style="text-align: center;">~trandate ~trantime</td>
+						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='nick' style="text-align: center;">~nick</td>
 						<td id='addr' style="text-align: center;">~addr</td>
-						<td id='mount' style="text-align: right;">~mount</td>
+						<td id='mount,1,1' style="text-align: right;">~mount,1,1</td>
+						<td id='carno' style="text-align: left;">~carno</td>
 					</tr>
 				</table>
 			</div>
@@ -817,7 +844,7 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height: 1px;">
-						<td> </td>
+						<td><input type="text" id="txtCarno" style="display:none;"> </td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
@@ -843,8 +870,8 @@
 					<tr>
 						<td><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
 						<td><input id="txtOrdeno"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td><input id="txtDatea"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblDatea" title="實際派車日期" class="lbl"> </a></td>
+						<td><input id="txtDatea"  type="text" title="實際派車日期" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -852,12 +879,12 @@
 						<td><select id="combMemo" style="width:20px;"> </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblTrandate" class="lbl"> </a></td>
-						<td><input id="txtTrandate"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id="lblTrantime" class="lbl"> </a></td>
-						<td><input id="txtTrantime"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id='lblMount' class="lbl"> </a></td>
-						<td><input id="txtMount"  type="text"  class="txt c1 num"/></td>
+						<td><span> </span><a id="lblTrandate" title="發送訊息給司機用" class="lbl"> </a></td>
+						<td><input id="txtTrandate"  type="text" title="發送訊息給司機用" class="txt c1"/></td>
+						<td><span> </span><a id="lblTrantime" title="發送訊息給司機用" class="lbl"> </a></td>
+						<td><input id="txtTrantime" title="發送訊息給司機用" type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblMount" title="總數量" class="lbl"> </a></td>
+						<td><input id="txtMount" title="總數量" type="text"  class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
@@ -881,7 +908,7 @@
 					<td align="center" style="width:200px;"><a id='lblDriver_s'> </a></td>
 					<td align="center" style="width:60px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:400px;"><a id='lblMsg_s'> </a></td>
-					<td align="center" style="width:40px;"><a id='lblIssend_s'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblIssend_s' title="若要發送訊息給司機，請打勾。"> </a></td>
 					<td align="center" style="width:40px;"><a id='lblSendcommandresult_s'> </a></td>
 					<td align="center" style="width:70px;"><a id='lblCommandid_s'> </a></td>
 				</tr>
@@ -900,7 +927,7 @@
 					</td>
 					<td><input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtMsg.*" type="text" style="width: 95%;"/></td>
-					<td align="center" ><input id="chkIssend.*" type="checkbox" /></td>
+					<td align="center" ><input id="chkIssend.*" title="若要發送訊息給司機，請打勾。" type="checkbox" /></td>
 					<td align="center" ><input id="chkSendcommandresult.*" type="checkbox" /></td>
 					<td><input id="txtCommandid.*" type="text" style="width: 95%;"/></td>
 				</tr>
