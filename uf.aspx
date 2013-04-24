@@ -18,7 +18,7 @@
             q_tables = 's';
             var q_name = "uf";
             var q_readonly = ['txtAccno', 'txtNoa', 'txtWorker', 'txtWorker2', 'txtMoney', 'txtCheckno','txtCmoney'];
-            var q_readonlys = ['txtCheckno'];
+            var q_readonlys = [];
             var bbmNum = [['txtMoney', 10, 0, 1]];
             var bbsNum = [['txtMoney', 10, 0, 1]];
             var bbmMask = [];
@@ -105,7 +105,6 @@
                         var as = _q_appendData("gqb", "", true);
                         //if(as.length>q_bbsCount)
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtCheckno,txtBankno,txtBank,txtDatea,txtMoney,txtTaccl', as.length, as, 'gqbno,bankno,bank,indate,money,accl', '');
-
                         for (var j = 0; j < q_bbsCount; j++) {
                             $('#ufseq_' + j).text(j + 1);
                             //自動產生序號
@@ -113,6 +112,8 @@
                             //取消變色
                             $('#chkSel_' + j).prop("checked", false);
                             //將單據內的票據取消
+                            $('#txtCheckno_' + j).attr('readonly','readonly');
+                            $('#txtCheckno_' + j).css('background-color', 'rgb(237, 237, 238)').css('color','green');
                         }// j
 
                         sum();
@@ -195,6 +196,7 @@
                     });
                 }//end for
                 _bbsAssign();
+                ChecknoReadonly()
             }
 
             function btnIns() {
@@ -219,6 +221,7 @@
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
+                ChecknoReadonly();
                 $('#txtDatea').focus();
             }
 
@@ -281,8 +284,17 @@
                         //取消變色
                     }
                 }
-
+				ChecknoReadonly();
             }
+			
+			function ChecknoReadonly(){
+				for (var j = 0; j < q_bbsCount; j++) {
+					if((q_cur ==1 || q_cur ==2) && $('#txtCheckno_' + j).val() != ''){
+						$('#txtCheckno_' + j).attr('readonly','readonly');
+						$('#txtCheckno_' + j).css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					}
+				}// j
+			}
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
@@ -291,15 +303,21 @@
                 } else {
                     $('#btnGqb').removeAttr('disabled');
                 }
+				ChecknoReadonly();
             }
 
             function btnMinus(id) {
                 _btnMinus(id);
+                var fieldId = id.split('_')[1];
+				$('#txtCheckno_' + fieldId).removeAttr('readonly');
+				$('#txtCheckno_' + fieldId).css('background-color', 'rgb(255, 255, 255)').css('color','');
                 sum();
             }
 
             function btnPlus(org_htm, dest_tag, afield) {
                 _btnPlus(org_htm, dest_tag, afield);
+				sum();
+
             }
 
             function q_appendData(t_Table) {
