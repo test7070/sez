@@ -14,6 +14,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+			//登錄日期: 實際派車日期,  出車日期，時間只是純粹傳給司機看的而已
             this.errorHandler = null;
 
             function onPageError(error) {
