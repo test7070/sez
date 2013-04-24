@@ -66,11 +66,20 @@
                     }, {/*8*/
                         type : '6',
                         name : 'yacc1'
+                    }, {/*5*/
+                        type : '2',
+                        name : 'xcno',
+                        dbf : 'acomp',
+                        index : 'noa,acomp',
+                        src : 'acomp_b.aspx'
+                    }, {/*8*/
+                        type : '6',
+                        name : 'xindate'
                     }]
                 });
                 q_popAssign();
                 q_langShow();
-
+				$('#txtXindate').val(q_date());
                 $('#txtDate1').mask('999/99/99');
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');

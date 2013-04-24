@@ -501,6 +501,7 @@
 					<td align="center" style="width:8%;"><a id='lblCoda_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblCost_s'> </a></td>
 					<td align="center" style="width:8%;"><a id='lblDiscount_s'> </a></td>
+					<td align="center" style="width:10%;"><a id='lblIncome_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblTotal_s'> </a></td>
 					<td align="center" style="width:10%;"><a id='lblPlus_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
@@ -516,6 +517,7 @@
 					<td><input id="txtCoda.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtCost.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtDiscount.*" type="text" class="txt num c1"/></td>
+					<td><input id="txtIncome.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtTotal.*" type="text" class="txt num c1"/></td>
 					<td><input id="txtPlus.*" type="text" class="txt c1"/></td>
 					<td><input id="txtMemo.*" type="text" class="txt c1"/></td>
