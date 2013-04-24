@@ -25,8 +25,8 @@
             var q_name = "transvcce";
             var q_readonly = ['txtNoa','txtMount','txtWorker','txtWorker2','txtOrdeno'];
             var q_readonlys = ['txtCommandid'];
-            var bbmNum = [['txtMount',10,0,1]];
-            var bbsNum = [['txtMount',10,0,1],['txtSel',10,0,1]];
+            var bbmNum = [['txtMount',10,1,1]];
+            var bbsNum = [['txtMount',10,1,1],['txtSel',10,0,1]];
             var bbmMask = [['txtDatea', '999/99/99'],['txtTrandate', '999/99/99'],['txtTrantime', '99:99']];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -209,9 +209,16 @@
                             $('#tranorde_strdate' + i).html(this.data[n+i]['strdate']);
                             $('#tranorde_nick' + i).html(this.data[n+i]['nick']);
                             $('#tranorde_addr' + i).html(this.data[n+i]['addr']);
-                            $('#tranorde_product' + i).html(this.data[n+i]['product']);
-                            $('#tranorde_mount' + i).html(this.data[n+i]['mount']);
-                            $('#tranorde_vccecount' + i).html(this.data[n+i]['vccecount']);
+                            $('#tranorde_product' + i).html(this.data[n+i]['product']);  
+                            //只顯示到小數位第一位
+                            if(this.data[n+i]['mount'].indexOf('.')<0) 
+                            	$('#tranorde_mount' + i).html(this.data[n+i]['mount']+'.0');
+                            else             
+                            	$('#tranorde_mount' + i).html(this.data[n+i]['mount'].replace(/(\d*)\.(\d)(\d)*$/g,'$1.$2'));
+                            if(this.data[n+i]['vccecount'].indexOf('.')<0)  	
+                            	$('#tranorde_vccecount' + i).html(this.data[n+i]['vccecount']+'.0');
+                            else
+                            	$('#tranorde_vccecount' + i).html(this.data[n+i]['vccecount'].replace(/(\d*)\.(\d)(\d)*$/g,'$1.$2'));
                             $('#tranorde_empdock' + i).html('<a style="float:left;display:block;width:40px;">'+ this.data[n+i]['empdock']+'</a>'+'<a style="float:left;display:block;width:80px;">'+ this.data[n+i]['so']+'</a>');
                             $('#tranorde_port2' + i).html('<a style="float:left;display:block;width:40px;">'+ this.data[n+i]['port2']+'</a>'+'<a style="float:left;display:block;width:80px;">'+ this.data[n+i]['checkself']+ this.data[n+i]['trackno']+'</a>');
                         } else {
@@ -390,7 +397,7 @@
                     		var sel = t_name.split('_')[2];
 	                    	var as = _q_appendData("view_tranorde", "", true);
 	                    	if (as[0] != undefined){
-	                            $('#txtMount_'+sel).val(1);
+	                            $('#txtMount_'+sel).val('1.0');
 	                            t_msg = as[0]['addr'];
 	                            //出口
 	                            t_msg += (as[0]['docketno1'].length>0?(t_msg.length>0?', ':'')+'案號'+as[0]['docketno1']:'');
@@ -603,7 +610,7 @@
 				for(var i = 0; i < q_bbsCount; i++) {
                 	t_mount += q_float('txtMount_'+i);
                 }
-                $('#txtMount').val(t_mount);
+                $('#txtMount').val(FormatNumber(t_mount));
             }
             function refresh(recno) {
                 _refresh(recno);
@@ -666,6 +673,12 @@
                 _btnCancel();
                 tranorde.unlock();
             }      
+            function FormatNumber(n) {
+                n += "";
+                var arr = n.split(".");
+                var re = /(\d{1,3})(?=(\d{3})+$)/g;
+                return arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+            }
 		</script>
 		<style type="text/css">
             #dmain {
@@ -821,7 +834,7 @@
 						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='nick' style="text-align: center;">~nick</td>
 						<td id='addr' style="text-align: center;">~addr</td>
-						<td id='mount' style="text-align: right;">~mount</td>
+						<td id='mount,1,1' style="text-align: right;">~mount,1,1</td>
 						<td id='carno' style="text-align: left;">~carno</td>
 					</tr>
 				</table>

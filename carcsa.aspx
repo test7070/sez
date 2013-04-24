@@ -18,7 +18,7 @@
             q_desc = 1;
             q_tables = 's';
             var q_name = "carcsa";
-            var q_readonly = ['txtNoa','txtWorker','txtWeight','txtMount','txtCarno','txtCarno2'
+            var q_readonly = ['txtNoa','txtWorker','txtWorker2','txtWeight','txtMount','txtCarno','txtCarno2'
             ,'txtInmoney','txtIntotal','txtOutmoney','txtOutplus','txtOutminus','txtOuttotal'];
             var q_readonlys = ['txtInmoney','txtOutmoney','txtTranno'];
             var bbmNum = [['txtWeight',10,3,1],['txtMount',10,3,1],['txtPrice',10,3,1]
@@ -314,8 +314,10 @@
                 $('#txtMon').val($.trim($('#txtMon').val()));
                 if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val()))
                     alert(q_getMsg('lblMon')+'錯誤。');
-
-                $('#txtWorker').val(r_name);
+				if(q_cur==1)
+                	$('#txtWorker').val(r_name);
+                else
+                	$('#txtWorker2').val(r_name);
                 sum();
 
                 var t_noa = trim($('#txtNoa').val());
@@ -345,6 +347,9 @@
                 			sum();
                 		});
                 		$('#txtDiscount_' + j).change(function(e){
+                			sum();
+                		});
+                		$('#txtOutprice_' + j).change(function(e){
                 			sum();
                 		});
                 		$('#txtOutplus_' + j).change(function(e){
@@ -793,8 +798,8 @@
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl btn"> </a></td>
 						<td><input id="txtWorker"  type="text"  class="txt c1"/></td>
-						<td> </td>
-						<td> </td>
+						<td><span> </span><a id="lblWorker2" class="lbl btn"> </a></td>
+						<td><input id="txtWorker2"  type="text"  class="txt c1"/></td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
