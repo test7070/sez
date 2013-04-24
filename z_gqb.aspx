@@ -86,8 +86,8 @@
                 $('#txtDate2').datepicker();
                 $('#txtXchkdate1').mask('999/99/99');
                 $('#txtXchkdate1').datepicker();
-                $('#txtXchkdate1').mask('999/99/99');
-                $('#txtXchkdate1').datepicker();
+                $('#txtXchkdate2').mask('999/99/99');
+                $('#txtXchkdate2').datepicker();
 
                 $('#txtIndate1').mask('999/99/99');
                 $('#txtIndate1').datepicker();
