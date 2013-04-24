@@ -851,8 +851,8 @@
 					<tr>
 						<td><span> </span><a id="lblOrdeno" class="lbl"> </a></td>
 						<td><input id="txtOrdeno"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
-						<td><input id="txtDatea"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblDatea" title="實際派車日期" class="lbl"> </a></td>
+						<td><input id="txtDatea"  type="text" title="實際派車日期" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -860,12 +860,12 @@
 						<td><select id="combMemo" style="width:20px;"> </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblTrandate" class="lbl"> </a></td>
-						<td><input id="txtTrandate"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id="lblTrantime" class="lbl"> </a></td>
-						<td><input id="txtTrantime"  type="text"  class="txt c1"/></td>
-						<td><span> </span><a id='lblMount' class="lbl"> </a></td>
-						<td><input id="txtMount"  type="text"  class="txt c1 num"/></td>
+						<td><span> </span><a id="lblTrandate" title="發送訊息給司機用" class="lbl"> </a></td>
+						<td><input id="txtTrandate"  type="text" title="發送訊息給司機用" class="txt c1"/></td>
+						<td><span> </span><a id="lblTrantime" title="發送訊息給司機用" class="lbl"> </a></td>
+						<td><input id="txtTrantime" title="發送訊息給司機用" type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblMount" title="總數量" class="lbl"> </a></td>
+						<td><input id="txtMount" title="總數量" type="text"  class="txt c1 num"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
@@ -889,7 +889,7 @@
 					<td align="center" style="width:200px;"><a id='lblDriver_s'> </a></td>
 					<td align="center" style="width:60px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:400px;"><a id='lblMsg_s'> </a></td>
-					<td align="center" style="width:40px;"><a id='lblIssend_s'> </a></td>
+					<td align="center" style="width:40px;"><a id='lblIssend_s' title="若要發送訊息給司機，請打勾。"> </a></td>
 					<td align="center" style="width:40px;"><a id='lblSendcommandresult_s'> </a></td>
 					<td align="center" style="width:70px;"><a id='lblCommandid_s'> </a></td>
 				</tr>
@@ -908,7 +908,7 @@
 					</td>
 					<td><input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td><input id="txtMsg.*" type="text" style="width: 95%;"/></td>
-					<td align="center" ><input id="chkIssend.*" type="checkbox" /></td>
+					<td align="center" ><input id="chkIssend.*" title="若要發送訊息給司機，請打勾。" type="checkbox" /></td>
 					<td align="center" ><input id="chkSendcommandresult.*" type="checkbox" /></td>
 					<td><input id="txtCommandid.*" type="text" style="width: 95%;"/></td>
 				</tr>
