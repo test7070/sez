@@ -110,6 +110,10 @@
                         break;
                     case 'bankf':
                         if (q_cur != 0 && q_cur != 4) {
+				            if (q_cur == 1)
+				                CheckLcno = true;
+				            else
+				                CheckLcno = false;
                             var as = _q_appendData("bankf", "", true);
                             if (as[0] != undefined) {
                                 if (q_cur == 2 && abbm[q_recno].lcno == as[0].lcno)
