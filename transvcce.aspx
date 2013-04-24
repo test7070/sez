@@ -14,6 +14,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+			//登錄日期: 實際派車日期,  出車日期，時間只是純粹傳給司機看的而已
             this.errorHandler = null;
 
             function onPageError(error) {
@@ -131,6 +132,7 @@
                     this.sort('noa', false);
                 },
                 sort : function(index, isFloat) {
+                	//訂單排序
                     this.curIndex = index;
 
                     if (isFloat) {
@@ -197,6 +199,7 @@
                     this.refresh();
                 },
                 refresh : function() {
+                	//頁面更新
                     var n = (this.curPage - 1) * this.tbCount;
                     for (var i = 0; i < this.tbCount; i++) {
                         if ((n + i) < this.data.length) {
@@ -229,11 +232,13 @@
                     $('#tranorde_chk0').prop('checked', 'true');
                 },
                 browNoa : function(obj){
+                	//瀏覽訂單
                 	var noa = $.trim($(obj).html());
                 	if(noa.length>0)
                 		q_box("tranorde.aspx?;;;noa='" + noa + "';"+r_accy, 'tranorde', "95%", "95%", q_getMsg("popTranorde"));
                 },
                 paste : function() {
+                	//複製資料
                     if (this.totPage <= 0)
                         return;
                     var n = (this.curPage - 1) * this.tbCount;
@@ -250,6 +255,7 @@
                     }
                 },
                 paste2 : function(ordeno,sel) {
+                	//複製資料
                 	if(ordeno.length == 0)
                 		return;
                 	var t_where = "where=^^ noa='"+ordeno+"'^^"
@@ -344,6 +350,7 @@
                         break;
                     default:
                     	if(t_name.substring(0,3)=='bbb'){ 
+                    		//計算已派數量,並更新頁面顯示資料
                     		var t_noa = t_name.split('_')[1];
                     		var t_ordeno = t_name.split('_')[2];
                     		var t_mount = parseFloat(t_name.split('_')[3]);
@@ -469,7 +476,7 @@
             }
             
             function SendCommand(n){
-            	//訊息一筆一筆發送
+            	//訊息一筆一筆發送,送完後再存檔
             	if(n<0){
             		t_noa = $.trim($('#txtNoa').val());
             		t_ordeno = $.trim($('#txtOrdeno').val());
@@ -494,6 +501,7 @@
 		            		StatusCode : 1
 		            	};
 						var json = JSON.stringify(t_data);
+		            	//INPUT及OUTPUT參數,參照SendCommand.aspx
 		            	$.ajax({
 		            		carno : t_carno,
 		            		sel: n,
