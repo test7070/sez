@@ -536,6 +536,12 @@
 			{
 				//alert('請輸入正確材質');
 				return;
+			}else{
+				if(as[0].styleno=='')
+				{
+					//alert('該品號尚未輸入樣式');
+					return;
+				}
 			}
 			//判斷表身參考theory:40
 			if(q_name=='uccb'||q_name=='uccc'||q_name=='cubu'||q_name=='ins'||q_name=='rc2s'||
