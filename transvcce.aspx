@@ -808,7 +808,7 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:200px; color:black;"><a id='vewTrandate'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewNick'> </a></td>
 						<td align="center" style="width:200px; color:black;"><a id='vewAddr'> </a></td>
 						<td align="center" style="width:80px; color:black;"><a id='vewMount'> </a></td>
@@ -818,7 +818,7 @@
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
-						<td id='trandate trantime' style="text-align: center;">~trandate ~trantime</td>
+						<td id='datea' style="text-align: center;">~datea</td>
 						<td id='nick' style="text-align: center;">~nick</td>
 						<td id='addr' style="text-align: center;">~addr</td>
 						<td id='mount' style="text-align: right;">~mount</td>
