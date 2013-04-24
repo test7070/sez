@@ -31,7 +31,7 @@
             brwKey = 'noa';
             aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,nick', 'txtCno,txtAcomp', 'Acomp_b.aspx'],
             ['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-            ['txtCustno_', 'btnCustno_', 'giftcust', 'noa,namea', 'txtCustno_,txtNamea_', 'giftcust_b.aspx'],
+            ['txtCustno_', 'btnCustno_', 'giftcust', 'noa,namea,job,comp,custno,nick', 'txtCustno_,txtNamea_,txtJob_,txtComp_,txtCustno2_,txtNick_', 'giftcust_b.aspx'],
             ['txtGiftno_', 'btnGiftno_', 'bcc', 'noa,product,price', 'txtGiftno_,txtGift_,txtPrice_', 'bcc_b.aspx'],
             ['txtGiver_', 'lblGiver_s', 'sss', 'namea,noa', 'txtGiver_', 'sss_b.aspx'],
             ['txtSalute_', 'lblSalute_s', 'sss', 'namea,noa', 'txtSalute_', 'sss_b.aspx']);
@@ -120,7 +120,7 @@
             function btnOk() {
             	if($.trim($('#txtNick').val()).length==0)
             		$('#txtNick').val($('#txtComp').val());
- 
+ 				$('#txtSendmemot').val($('#cmbSendmemo').find("option:selected").text());
 
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
@@ -421,7 +421,7 @@
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="noa" style="text-align: center;">~noa</td>
-						<td id="sendmemo" style="text-align: center;">~sendmemo</td>
+						<td id="sendmemot" style="text-align: center;">~sendmemot</td>
 						<td id="sales" style="text-align: center;">~sales</td>
 					</tr>
 				</table>
@@ -449,7 +449,9 @@
 						<td class="td2"><input type="text" id="txtSenddate" class="txt c1"/>	</td>
 						<td class="td3"> </td>
 						<td class="td4"><span> </span><a id='lblSendmemo' class="lbl"> </a></td>
-						<td class="td5"><select id="cmbSendmemo" class="txt c1"> </select></td>	
+						<td class="td5"><select id="cmbSendmemo" class="txt c1"> </select>
+							<input type="text" id="txtSendmemot" style="display: none;"/>
+						</td>	
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblCno' class="lbl btn"> </a></td>
@@ -485,15 +487,17 @@
 					<td  align="center" style="width: 2%;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:15%;"><a id='lblCust_s'> </a></td>
-					<td align="center" style="width:15%;"><a id='lblGiftno_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblMount_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblPrice_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblMoney_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblGiver_s'> </a></td>
-					<td align="center" style="width:8%;"><a id='lblSalute_s'> </a></td>
-					<td align="center" style="width:5%;"><a id='lblNosalute_s'> </a></td>
-					<td align="center" style="width:15%;"><a id='lblGiverno_s'> </a></td>
+					<td align="center" style="width:9%;"><a id='lblCust_s'> </a></td>
+					<td align="center" style="width:7%;"><a id='lblJob_s'> </a></td>
+					<td align="center" style="width:12%;"><a id='lblComp_s'> </a></td>
+					<td align="center" style="width:13%;"><a id='lblGiftno_s'> </a></td>
+					<td align="center" style="width:5%;"><a id='lblMount_s'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblPrice_s'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblMoney_s'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblGiver_s'> </a></td>
+					<td align="center" style="width:6%;"><a id='lblSalute_s'> </a></td>
+					<td align="center" style="width:4%;"><a id='lblNosalute_s'> </a></td>
+					<td align="center" style="width:14%;"><a id='lblGiverno_s'> </a></td>
 					<td align="center" ><a id='lblMemo_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
@@ -502,9 +506,15 @@
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
 					<td><input class="btn"  id="btnCustno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                        <input type="text" id="txtCustno.*"  style="width:85%; float:left;"/>
+                        <input type="text" id="txtCustno.*"  style="width:80%; float:left;"/>
                         <span style="display:block; width:1%;float:left;"> </span>
-						<input type="text" id="txtNamea.*"  style="width:85%; float:left;"/>
+						<input type="text" id="txtNamea.*"  style="width:80%; float:left;"/>
+					</td>
+					<td><input id="txtJob.*" type="text" style="width: 95%;"/></td>
+					<td><input class="btn"  id="btnComp.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+						<input type="text" id="txtComp.*"  style="width:85%; float:left;"/>
+						<input type="text" id="txtCustno2.*"  style="display: none;"/>
+						<input type="text" id="txtNick.*"  style="display: none;"/>
 					</td>
 					<td><input class="btn"  id="btnGiftno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                         <input type="text" id="txtGiftno.*"  style="width:85%; float:left;"/>

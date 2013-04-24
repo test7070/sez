@@ -88,13 +88,21 @@
                         }, {
                         type : '1',
                         name : 'xmon'
-                    }]
+                    }, {
+	                        type : '5', //select
+	                        name : 'xlab',
+	                        value : ('全部,投保,退保').split(',')
+	                    }, {
+	                        type : '1',
+                       		name : 'salary'
+	                    }]
                     });
                 q_popAssign();
                 
                 $('#txtXmon1').mask('999/99');
                 $('#txtXmon2').mask('999/99');
                 $('#txtCmon').mask('999/99');
+                
                 
                  var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
@@ -113,6 +121,8 @@
 	                $('#txtXmon2').val(t_year+'/'+t_month);
 	                
 	                $('#txtXyear').val(t_year);
+	                $('#txtSalary1').val(0);
+	                $('#txtSalary2').val(999999);
             }
 
             function q_boxClose(s2) {
