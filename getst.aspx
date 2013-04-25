@@ -75,63 +75,7 @@
 		     });
 
         }
-		
-		function size_change () {
-		  if( $('#cmbKind').find("option:selected").text().indexOf('板')>-1){
-            $('#lblSize_help').text("厚度x寬度x長度");
-	        	for (var j = 0; j < q_bbsCount; j++) {
-	            	$('#textSize1_'+j).show();
-	            	$('#textSize2_'+j).show();
-	            	$('#textSize3_'+j).show();
-			        $('#textSize4_'+j).hide();
-			        $('#x1_'+j).show();
-			        $('#x2_'+j).show();
-			        $('#x3_'+j).hide();
-			        $('#Size').css('width','222px');
-			        q_tr('textSize1_'+ j ,q_float('txtDime_'+j));
-			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
-			        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
-			        $('#textSize4_'+j).val(0);
-			        $('#txtRadius_'+j).val(0)
-				}
-			}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
-				$('#lblSize_help').text("短徑x長徑x厚度x長度");
-			    for (var j = 0; j < q_bbsCount; j++) {
-			    	$('#textSize1_'+j).show();
-	            	$('#textSize2_'+j).show();
-	            	$('#textSize3_'+j).show();
-			        $('#textSize4_'+j).show();
-			        $('#x1_'+j).show();
-			        $('#x2_'+j).show();
-			        $('#x3_'+j).show();
-			        $('#Size').css('width','297px');
-			        q_tr('textSize1_'+ j ,q_float('txtRadius_'+j));
-			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
-			        q_tr('textSize3_'+ j ,q_float('txtDime_'+j));
-			        q_tr('textSize4_'+ j ,q_float('txtLengthb_'+j));
-				}
-			}else{//鋼筋和鋼胚
-				$('#lblSize_help').text("長度");
-	            for (var j = 0; j < q_bbsCount; j++) {
-	            	$('#textSize1_'+j).hide();
-	            	$('#textSize2_'+j).hide();
-	            	$('#textSize3_'+j).show();
-			        $('#textSize4_'+j).hide();
-			        $('#x1_'+j).hide();
-			        $('#x2_'+j).hide();
-			        $('#x3_'+j).hide();
-			        $('#Size').css('width','70px');
-			        $('#textSize1_'+j).val(0);
-			        $('#txtDime_'+j).val(0)
-			        $('#textSize2_'+j).val(0);
-			        $('#txtWidth_'+j).val(0)
-			        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
-			        $('#textSize4_'+j).val(0);
-			        $('#txtRadius_'+j).val(0)
-				}
-			}
-		}
-		
+        
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
             var ret; 
             switch (b_pop) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
@@ -474,6 +418,62 @@
         function btnCancel() {
             _btnCancel();
         }
+        
+        function size_change () {
+		  if( $('#cmbKind').find("option:selected").text().indexOf('板')>-1){
+            $('#lblSize_help').text("厚度x寬度x長度");
+	        	for (var j = 0; j < q_bbsCount; j++) {
+	            	$('#textSize1_'+j).show();
+	            	$('#textSize2_'+j).show();
+	            	$('#textSize3_'+j).show();
+			        $('#textSize4_'+j).hide();
+			        $('#x1_'+j).show();
+			        $('#x2_'+j).show();
+			        $('#x3_'+j).hide();
+			        $('#Size').css('width','222px');
+			        q_tr('textSize1_'+ j ,q_float('txtDime_'+j));
+			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
+			        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
+			        $('#textSize4_'+j).val(0);
+			        $('#txtRadius_'+j).val(0)
+				}
+			}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+				$('#lblSize_help').text("短徑x長徑x厚度x長度");
+			    for (var j = 0; j < q_bbsCount; j++) {
+			    	$('#textSize1_'+j).show();
+	            	$('#textSize2_'+j).show();
+	            	$('#textSize3_'+j).show();
+			        $('#textSize4_'+j).show();
+			        $('#x1_'+j).show();
+			        $('#x2_'+j).show();
+			        $('#x3_'+j).show();
+			        $('#Size').css('width','297px');
+			        q_tr('textSize1_'+ j ,q_float('txtRadius_'+j));
+			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
+			        q_tr('textSize3_'+ j ,q_float('txtDime_'+j));
+			        q_tr('textSize4_'+ j ,q_float('txtLengthb_'+j));
+				}
+			}else{//鋼筋和鋼胚
+				$('#lblSize_help').text("長度");
+	            for (var j = 0; j < q_bbsCount; j++) {
+	            	$('#textSize1_'+j).hide();
+	            	$('#textSize2_'+j).hide();
+	            	$('#textSize3_'+j).show();
+			        $('#textSize4_'+j).hide();
+			        $('#x1_'+j).hide();
+			        $('#x2_'+j).hide();
+			        $('#x3_'+j).hide();
+			        $('#Size').css('width','70px');
+			        $('#textSize1_'+j).val(0);
+			        $('#txtDime_'+j).val(0)
+			        $('#textSize2_'+j).val(0);
+			        $('#txtWidth_'+j).val(0)
+			        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
+			        $('#textSize4_'+j).val(0);
+			        $('#txtRadius_'+j).val(0)
+				}
+			}
+		}
         
         function theory_st(q_name,id,txtweight) { //id 為BBS的id,txtweight為要bbs寫入的欄位
 			var calc="";

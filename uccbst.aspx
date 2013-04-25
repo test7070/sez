@@ -16,7 +16,7 @@
         }
         var q_name="uccb";
         var q_readonly = [];
-        var bbmNum = []; 
+        var bbmNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtWeight', 10, 3, 1],['txtPrice', 10, 2, 1],['txtSprice', 10, 2, 1],['txtEmount', 10, 0, 1],['txtGmount', 10, 0, 1],['txtGweight', 10, 3, 1],['txtEweight', 10, 3, 1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
@@ -46,63 +46,74 @@
             q_cmbParse("cmbItype", q_getPara('uccc.itype'));
             bbmMask = [['txtSdate', r_picd],['txtOdate', r_picd]];
         	q_mask(bbmMask);
-        }
-
-        function txtCopy(dest, source) {
-            var adest = dest.split(',');
-            var asource = source.split(',');
-            $('#' + adest[0]).focus(function () { if (trim($(this).val()).length == 0) $(this).val( q_getMsg('msgCopy')); });
-            $('#' + adest[0]).focusout(function () {
-                var t_copy = ($(this).val().substr(0, 1) == '=');
-                var t_clear = ($(this).val().substr(0, 2) == ' =') ;
-                for (var i = 0; i < adest.length; i++) {
-                    {
-                        if (t_copy)
-                            $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                        if( t_clear)
-                            $('#' + adest[i]).val('');
-                    }
-                }
-            });
+        	
+        	$('#textSize1').change(function () {
+				if ($('#txtProduct').val().indexOf('板')>-1|| $('#txtProduct').val().indexOf('捲')>-1){
+					q_tr('txtDime' ,q_float('textSize1'));//厚度
+				}else if($('#txtProduct').val().indexOf('管')>-1){
+					q_tr('txtRadius' ,q_float('textSize1'));//短徑	
+				}
+			});
+			$('#textSize2').change(function () {
+				if ($('#txtProduct').val().indexOf('板')>-1|| $('#txtProduct').val().indexOf('捲')>-1){
+					q_tr('txtWidth',q_float('textSize2'));//寬度	
+				}else if($('#txtProduct').val().indexOf('管')>-1){
+					q_tr('txtWidth',q_float('textSize2'));//長徑	
+				}
+			});
+			$('#textSize3').change(function () {
+				if ($('#txtProduct').val().indexOf('板')>-1|| $('#txtProduct').val().indexOf('捲')>-1){
+					q_tr('txtLengthb',q_float('textSize3'));//長度	
+				}else if($('#txtProduct').val().indexOf('管')>-1){
+					q_tr('txtDime',q_float('textSize3'));//厚度		
+				}else{//鋼筋、胚
+					q_tr('txtLengthb' ,q_float('textSize3'));
+				}
+			});
+			$('#textSize4').change(function () {
+				if ($('#txtProduct').val().indexOf('板')>-1|| $('#txtProduct').val().indexOf('捲')>-1){
+					q_tr('txtRadius' ,q_float('textSize4'));//短徑	
+				}else if($('#txtProduct').val().indexOf('管')>-1){
+		        	q_tr('txtLengthb' ,q_float('textSize4'));//長度	
+				}
+			});
+			$('#txtProductno').change(function () {
+				size_change ();
+			});
+			$('#txtProduct').change(function () {
+				size_change ();
+			});
+			$('#txtUnit').focusin(function () {
+				size_change ();
+			});
+			$('#textSize1').focusin(function () {
+				size_change ();
+			});
+			$('#textSize2').focusin(function () {
+				size_change ();
+			});
+			$('#textSize3').focusin(function () {
+				size_change ();
+			});
+			$('#textSize4').focusin(function () {
+				size_change ();
+			});
         }
         
         function q_boxClose( s2) { 
             var ret; 
             switch (b_pop) {   
-                case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-                
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
             }   /// end Switch
         }
 
-
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case 'sss':  
-                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                    break;
-
-                case q_name: if (q_cur == 4)   
+                case q_name: 
+                	if (q_cur == 4)   
                         q_Seek_gtPost();
-
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                     break;
             }  /// end switch
         }
@@ -114,27 +125,19 @@
             q_box('uccb_s.aspx', q_name + '_s', "500px", "550px", q_getMsg("popSeek"));
         }
 
-        function combPay_chg() {   
-            var cmb = document.getElementById("combPay")
-            if (!q_cur) 
-                cmb.value = '';
-            else
-                $('#txtPay').val(cmb.value);
-            cmb.value = '';
-        }
-
         function btnIns() {
             _btnIns();
             $('#txtNoa').focus();
             $('#txtNoa').val('AUTO');
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
+            size_change ();
         }
 
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
-
             _btnModi();
+            size_change ();
         }
 
         function btnPrint() {
@@ -173,16 +176,25 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
             _btnOk(key_value, bbmKey[0], '','',2);
         }
-
-        
         
         function refresh(recno) {
             _refresh(recno);
-           
+           size_change ();
         }
 
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
+            if (t_para) {
+				$('#textSize1').attr('disabled', 'disabled');
+				$('#textSize2').attr('disabled', 'disabled');
+				$('#textSize3').attr('disabled', 'disabled');
+				$('#textSize4').attr('disabled', 'disabled');
+			}else {
+				$('#textSize1').removeAttr('disabled');
+				$('#textSize2').removeAttr('disabled');
+				$('#textSize3').removeAttr('disabled');
+				$('#textSize4').removeAttr('disabled');
+			}
         }
 
         function btnMinus(id) {
@@ -232,6 +244,58 @@
         function btnCancel() {
             _btnCancel();
         }
+        
+        function size_change () {
+        	var vcckind='';
+        	if($('#txtProduct').val()=='')
+        		vcckind=q_getPara('vcc.kind');
+        		
+        	if( $('#txtProduct').val().indexOf('板')>-1 || $('#txtProduct').val().indexOf('捲')>-1 || vcckind=='1'){
+            	$('#lblSize1').text("厚度：");
+            	$('#lblSize2').text("寬度：");
+            	$('#lblSize3').text("長度：");
+            	$('#lblSize1').show();
+            	$('#lblSize2').show();
+            	$('#lblSize3').show();
+            	$('#lblSize4').hide();
+	            $('#textSize1').show();
+	            $('#textSize2').show();
+	            $('#textSize3').show();
+			    $('#textSize4').hide();
+			    q_tr('textSize1',q_float('txtDime'));
+			    q_tr('textSize2',q_float('txtWidth'));
+			    q_tr('textSize3',q_float('txtLengthb'));
+			}else if( $('#txtProduct').val().indexOf('管')>-1 || vcckind=='2'){
+				$('#lblSize1').text("短徑：");
+            	$('#lblSize2').text("長徑：");
+            	$('#lblSize3').text("厚度：");
+            	$('#lblSize4').text("長度：");
+            	$('#lblSize1').show();
+            	$('#lblSize2').show();
+            	$('#lblSize3').show();
+            	$('#lblSize4').show();
+			    $('#textSize1').show();
+	            $('#textSize2').show();
+	            $('#textSize3').show();
+				$('#textSize4').show();
+			    q_tr('textSize1',q_float('txtRadius'));
+			    q_tr('textSize2',q_float('txtWidth'));
+			    q_tr('textSize3',q_float('txtDime'));
+			    q_tr('textSize4',q_float('txtLengthb'));
+			}else{//鋼筋和鋼胚
+				$('#lblSize3').text("長度：");
+				$('#lblSize1').hide();
+            	$('#lblSize2').hide();
+            	$('#lblSize3').show();
+            	$('#lblSize4').hide();
+	            $('#textSize1').hide();
+	            $('#textSize2').hide();
+	            $('#textSize3').show();
+			    $('#textSize4').hide();
+			    q_tr('textSize3' ,q_float('txtLengthb'));
+			}
+        }
+        
         function checkId(str) {
                 if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
                     var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
@@ -351,11 +415,14 @@
             }
             .txt.c6 {
                 width: 25%;
-                
             }
             .txt.c7 {
                 width: 95%;
                 float: left;
+            }
+            .txt.c8 {
+            	float:left;
+                width: 65px;
             }
             .txt.num {
                 text-align: right;
@@ -394,13 +461,11 @@
                 <td align="center" style="width:5%"><a id='vewChk'> </a></td>
                 <td align="center" style="width:20%"><a id='vewNoa'> </a></td>
                 <td align="center" style="width:25%"><a id='vewProduct'> </a></td>
-                
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
                    <td align="center" id='noa'>~noa</td>
                    <td align="center" id='product,4'>~product,4</td>
-                  
             </tr>
         </table>
         </div>
@@ -427,12 +492,32 @@
             <td class="tdA"><input id="txtSource" type="text" class="txt c1"/> </td>
         </tr>
         <tr class="tr3">
-            <td class='td1'><span> </span><a id="lblDime" class="lbl "> </a></td>
-            <td class="td2"><input id="txtDime"  type="text" class="txt c1"/></td>
+            <td class='td1'><span> </span><a id="lblSizest" class="lbl"> </a></td>
+        	<td class="td2" colspan="7">
+        		<a id="lblSize1" class="lbl" style="float:left;"> </a>
+				<input class="txt num c8" id="textSize1" type="text" disabled="disabled"/>
+				<a id="lblSize2" class="lbl" style="float:left;"> </a>
+				<input class="txt num c8" id="textSize2" type="text" disabled="disabled"/>
+				<a id="lblSize3" class="lbl" style="float:left;"> </a>
+				<input class="txt num c8" id="textSize3" type="text" disabled="disabled"/>
+				<a id="lblSize4" class="lbl" style="float:left;"> </a>
+				<input class="txt num c8" id="textSize4" type="text" disabled="disabled"/>
+				<!--上為虛擬下為實際-->
+				<input id="txtRadius" type="hidden"/>
+				<input  id="txtWidth" type="hidden"/>
+				<input  id="txtDime" type="hidden"/>
+				<input id="txtLengthb" type="hidden"/>
+			</td>
+            <!--<td class='td1'><span> </span><a id="lblDime" class="lbl"> </a></td>
+            <td class="td2"><input id="txtDime"  type="text" class="txt num c1"/></td>
             <td class='td3'><span> </span><a id="lblWidth" class="lbl"> </a></td>
-            <td class="td4"><input id="txtWidth" type="text" class="txt c1" /></td>
-            <td class='td5'><span> </span><a id="lblLengthb" class="lbl"> </a></td>
-            <td class="td6"><input id="txtLengthb" type="text" class="txt c1" /></td>
+            <td class="td4"><input id="txtWidth" type="text" class="txt num c1" /></td>
+            <td class='td5'><span> </span><a id="lblLength" class="lbl"> </a></td>
+            <td class="td6"><input id="txtLengthb" type="text"  class="txt num c1" /></td>
+            <td class='td7'><span> </span><a id="lblRadius" class="lbl"> </a></td>
+            <td class="td8"><input id="txtRadius" type="text"  class="txt num c1" /></td>-->
+        </tr>
+        <tr class="tr4">
             <td class='td7'><span> </span><a id="lblStoreno" class="lbl btn"> </a></td>
             <td class="td8" colspan="3"><input id="txtStoreno" type="text" class="txt c4" />
             	<input id="txtStore" type="text" class="txt c5" /></td>

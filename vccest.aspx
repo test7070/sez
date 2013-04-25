@@ -19,8 +19,8 @@
         var q_name = "vcce";
         var q_readonly = ['txtNoa'];
         var q_readonlys = [];
-        var bbmNum = [];  
-        var bbsNum = [];
+        var bbmNum = [['txtWeight', 15, 3, 1],['txtTotal', 10, 2, 1]];  
+        var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],['txtPrice', 10, 2, 1],['txtEweight', 15, 3, 1],['txtEcount', 10, 0, 1],['txtAdjweight', 15, 3, 1],['txtAdjcount', 10, 0, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';
@@ -431,7 +431,7 @@
 			for (var j = 0; j < q_bbsCount; j++) {
 				weight_total+=dec($('#'+txtweight+'_'+j).val());
             }
-			q_tr('txtTotal',weight_total);//$('#txtTotal').val(weight_total);
+			q_tr('txtWeight',weight_total);//$('#txtTotal').val(weight_total);
 		}
     </script>
     <style type="text/css">
