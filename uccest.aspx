@@ -19,7 +19,7 @@
         var q_readonly = ['txtNoa'];
         var q_readonlys = [];
         var bbmNum = [];  
-        var bbsNum = [['txtSize1', 10, 3, 1],['txtSize2', 10, 2, 1],['txtSize3', 10, 3, 1],['txtSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtPrice', 10, 2, 1],['txtTotal', 10, 0, 1],['txtEweight', 10, 1, 1],['txtAdjweight', 10, 1, 1],['txtEweight2', 10, 1, 1]];
+        var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtPrice', 10, 2, 1],['txtTotal', 10, 0, 1],['txtEweight', 10, 1, 1],['txtAdjweight', 10, 1, 1],['txtEweight2', 10, 1, 1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList = []; brwNowPage = 0; brwKey = 'Datea';

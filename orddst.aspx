@@ -18,8 +18,8 @@
             var q_name = "quat";
             var q_readonly = ['txtComp', 'txtAcomp','txtSales'];
             var q_readonlys = [];
-            var bbmNum = [];
-            var bbsNum = [];
+            var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1],['txtWeight', 15, 2, 1]];
+            var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],['txtPrice', 10, 2, 1],['txtTheory', 15, 3, 1],['txtTotal', 15, 2, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;

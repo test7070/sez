@@ -16,7 +16,7 @@
         }
         var q_name="uccc";
         var q_readonly = [];
-        var bbmNum = []; 
+        var bbmNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtWeight', 10, 3, 1],['txtPrice', 10, 2, 1],['txtSprice', 10, 2, 1],['txtEmount', 10, 0, 1],['txtGmount', 10, 0, 1],['txtGweight', 10, 3, 1],['txtEweight', 10, 3, 1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
