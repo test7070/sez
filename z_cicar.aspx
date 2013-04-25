@@ -15,7 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
-		aPop = new Array(['txtXcarno', '', 'cicust', 'carno,carowner', 'txtCarno', 'cicust_b.aspx'],
+		aPop = new Array(['txtXcarno', '', 'cicust', 'noa,carowner', 'txtCarno', 'cicust_b.aspx'],
 						 ['txtXcardealno', '', 'cicardeal', 'noa,comp', 'txtXcardealno', 'cardeal_b.aspx'],
 						 ['txtXcarinsu', '', 'ciinsu', 'noa,insurer', 'txtXcarinsu', 'ciinsu_b.aspx']
 		);
@@ -30,27 +30,34 @@
                 $('#q_report').q_report({
                     fileName : 'z_cicar',
                     options : [ {
-                        type : '1',
+                        type : '6',
                         name : 'xcarno'
                     },{
-                        type : '1',
+                        type : '6',
                         name : 'xcardealno'
                     },{
-                        type : '1',
+                        type : '6',
                         name : 'xcarinsu'
                     },{
-                        type : '6',
+                        type : '1',
                         name : 'bdate'
                     },{
-                        type : '6',
+                        type : '1',
                         name : 'edate'
                     }]
                 });
                 		            
                     q_popAssign();
 
-                $('#txtDate1').mask('99/99');
-                $('#txtDate2').mask('99/99');
+                $('#txtBdate1').mask('999/99/99');
+                $('#txtBdate1').datepicker();
+                $('#txtBdate2').mask('999/99/99');
+                $('#txtBdate2').datepicker();
+                
+                $('#txtEdate1').mask('999/99/99');
+                $('#txtEdate1').datepicker();
+                $('#txtEdate2').mask('999/99/99');
+                $('#txtEdate2').datepicker();
             }
 		</script>
 	</head>

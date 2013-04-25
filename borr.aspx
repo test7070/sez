@@ -608,9 +608,9 @@
 						<td>
 						<input id="txtEnddate" type="text" class="txt c1"/>
 						</td>
-						<td><span> </span><a id="lblDays" class="lbl"> </a></td>
+						<td><span> </span><a id="lblVccday" class="lbl"> </a></td>
 						<td>
-						<input id="txtDays"  type="text" class="txt c1 num"/>
+						<input id="txtVccday"  type="text" class="txt c1 num"/>
 						</td>
 						<td><span> </span><a id="lblRate" class="lbl"> </a></td>
 						<td>
