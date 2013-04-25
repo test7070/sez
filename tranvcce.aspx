@@ -207,6 +207,8 @@
                         	t_msg += (this.data[n+i]['takeno'].length>0?(t_msg.length>0?',':'')+'領櫃編號'+this.data[n+i]['takeno']:'');
                         	t_msg += (this.data[n+i]['casepresent'].length>0?(t_msg.length>0?',':'')+'代表櫃號'+this.data[n+i]['casepresent']:'');
                         	t_msg += (this.data[n+i]['product2'].length>0?(t_msg.length>0?',':'')+'品名:'+this.data[n+i]['product2']:'');
+                        	t_msg += (this.data[n+i]['option01'].length>0?(t_msg.length>0?',':'')+'過磅'+this.data[n+i]['option01']:'');
+                        	t_msg += (this.data[n+i]['option02'].length>0?(t_msg.length>0?',':'')+'加工'+this.data[n+i]['option02']:'');
                         	t_msg += (this.data[n+i]['containertype'].length>0?(t_msg.length>0?',':'')+'櫃別'+this.data[n+i]['containertype']:'');
                         	t_msg += (this.data[n+i]['docketno2'].length>0?(t_msg.length>0?',':'')+'案號'+this.data[n+i]['docketno2']:'');
                         	t_msg += (this.data[n+i]['trackno'].length>0?(t_msg.length>0?',':'')+'追蹤號碼'+this.data[n+i]['trackno']:'');
