@@ -140,11 +140,9 @@
                 case 'tgg':   ////  直接 key in 編號，帶入 form
                     q_changeFill(t_name, 'txtTggno,txtComp,txtTel,txtPost,txtAddr,txtPaytype,cmbTrantype', 'noa,comp,tel,post_fact,addr_fact,paytype,trantype');
                     break;
-
                 case 'acomp':   ////  直接 key in 編號，帶入 form
                     q_changeFill(t_name, 'txtCno,txtAcomp', 'noa,acomp');
                     break;
-                    
                 case 'ucc':   ////  直接 key in 編號，帶入 form
                     q_changeFill(t_name, 'txtProductno_' + b_seq+ ',txtProduct_' + b_seq+ ',txtUnit_' + b_seq, 'noa,product,unit');
                     break;
@@ -585,7 +583,7 @@
 			for (var j = 0; j < q_bbsCount; j++) {
 				weight_total+=dec($('#'+txtweight+'_'+j).val());
             }
-			q_tr('txtTotal',weight_total);//$('#txtTotal').val(weight_total);
+			q_tr('txtWeight',weight_total);//$('#txtTotal').val(weight_total);
 		}
         
     </script>

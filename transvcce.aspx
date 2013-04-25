@@ -425,6 +425,8 @@
 	                        	t_msg += (as[0]['checkinstru'].length>0?(t_msg.length>0?',':'')+'儀檢'+as[0]['checkinstru']:'');
 	                        	t_msg += (as[0]['casedo'].length>0?(t_msg.length>0?',':'')+'押運'+as[0]['casedo']:'');
 	                        	t_msg += (as[0]['caseopenaddr'].length>0?(t_msg.length>0?',':'')+'拆櫃地點'+as[0]['caseopenaddr']:'');
+	                        	t_msg += (as[0]['option01'].length>0?(t_msg.length>0?',':'')+'過磅'+as[0]['option01']:'');
+	                        	t_msg += (as[0]['option02'].length>0?(t_msg.length>0?',':'')+'加工'+as[0]['option02']:'');
 	                        	t_msg += (as[0]['casetype2'].length>0?(t_msg.length>0?',':'')+'櫃型'+as[0]['casetype2']:'');
 	                        	$('#txtMsg_'+sel).val(t_msg);
 	                        	sum();

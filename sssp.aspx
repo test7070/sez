@@ -16,7 +16,7 @@
 		    }
 
 		    var q_name = "sssp";
-		    var q_readonly = ['txtNoa'];
+		    var q_readonly = [];
 		    var bbmNum = [];
 		    var bbmMask = [];
 		    q_sqlCount = 6;

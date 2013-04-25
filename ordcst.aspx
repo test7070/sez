@@ -531,7 +531,7 @@
 			for (var j = 0; j < q_bbsCount; j++) {
 				weight_total+=dec($('#'+txtweight+'_'+j).val());
             }
-			q_tr('txtTotal',weight_total);//$('#txtTotal').val(weight_total);
+			q_tr('txtWeight',weight_total);//$('#txtTotal').val(weight_total);
 		}
 			function checkId(str) {
                 if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號

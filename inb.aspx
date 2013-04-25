@@ -62,8 +62,12 @@
 				$('#btnInbwimport').click(function (e) {
 					q_box("inbw_b.aspx?;;;noa='" + $('#txtNoa').val() + "';" + r_accy, 'inbm', "95%", "95%", q_getMsg("popInbw"));
 				});
-				$('#btnCuaimport').click(function (e) {
-				});		
+                $('#btnCuaimport').click(function() {
+	            	q_gt('cua_cuas','' , 0, 0, 0, "", r_accy);
+                });
+
+
+
             }
 		
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -79,6 +83,12 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+					case 'cua_cuas':
+						var as = _q_appendData("cua_cuas", "", true);
+						if(as[0]!=undefined){
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtMount,txtCuano,txtOrdeno', 1, as, 'noa,productno,mount,noa,ordeno', 'txtProductno');
+		                }
+	                	break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();

@@ -1080,22 +1080,22 @@
         <tr class="tr5">
             <td class='td1'><span> </span><a id="lblSa_labor" class="lbl" > </a></td>
             <td class="td2"><input id="txtSa_labor" type="text" class="txt num c1" /></td>
-            <td class='td3'><span> </span><a id="lblAs_labor" class="lbl"> </a></td>
-            <td class="td4"><input id="txtAs_labor" type="text" class="txt num c1" /></td>
-            <td class='td5'><span> </span><a id="lblLa_person" class="lbl"> </a></td>
-            <td class="td6"><input id="txtLa_person" type="text" class="txt num c1" /></td>
             <td class='td7'><span> </span><a id="lblLa_comp" class="lbl"> </a></td>
             <td class="td8"><input id="txtLa_comp" type="text" class="txt num c1" /></td>
+            <td class='td5'><span> </span><a id="lblLa_person" class="lbl"> </a></td>
+            <td class="td6"><input id="txtLa_person" type="text" class="txt num c1" /></td>
+            <td class='td3'><span> </span><a id="lblAs_labor" class="lbl"> </a></td>
+            <td class="td4"><input id="txtAs_labor" type="text" class="txt num c1" /></td>
         </tr>
         <tr class="tr6">
             <td class='td1'><span> </span><a id="lblSa_health" class="lbl" > </a></td>
             <td class="td2"><input id="txtSa_health" type="text" class="txt num c1" /></td>
-            <td class='td3'><span> </span><a id="lblAs_health" class="lbl"> </a></td>
-            <td class="td4"><input id="txtAs_health" type="text" class="txt num c1" /></td>
-            <td class='td5'><span> </span><a id="lblHe_person" class="lbl"> </a></td>
-            <td class="td6"><input id="txtHe_person" type="text" class="txt num c1" /></td>
             <td class='td7'><span> </span><a id="lblHe_comp" class="lbl"> </a></td>
             <td class="td8"><input id="txtHe_comp" type="text" class="txt num c1" /></td>
+            <td class='td5'><span> </span><a id="lblHe_person" class="lbl"> </a></td>
+            <td class="td6"><input id="txtHe_person" type="text" class="txt num c1" /></td>
+            <td class='td3'><span> </span><a id="lblAs_health" class="lbl"> </a></td>
+            <td class="td4"><input id="txtAs_health" type="text" class="txt num c1" /></td>
         </tr>                               
         <tr class="tr7">
             <td class='td1'><span> </span><a id="lblTax" class="lbl" > </a></td>
