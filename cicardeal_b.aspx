@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = 'cicardeal', t_content = 'field=cno,comp,nick,serial', bbsKey = ['noa'], as; 
+    var q_name = 'cicardeal', t_content = 'field=noa,cardeal', bbsKey = ['noa'], as; 
     var isBott = false;  
     var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
     var i,s1;
@@ -43,13 +43,13 @@
        <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
             <tr>
                 <th align="center" > </th>
-                <th align="center" style='color:Blue;' ><a id='lblCno'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblComp'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblCardeal'></a></th>
             </tr>
             <tr>
                 <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
-                <td style="width:20%;"><input class="txt" id="txtCno.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-                <td style="width:45%;"><input class="txt" id="txtComp.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:20%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:45%;"><input class="txt" id="txtCardeal.*" type="text" style="width:98%;"  readonly="readonly" /></td>
             </tr>
         </table>
   <!--#include file="../inc/brow_ctrl.inc"--> 

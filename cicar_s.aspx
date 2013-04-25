@@ -1,5 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title></title>
@@ -11,10 +10,10 @@
 	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "cicar_s";
-	aPop = new Array(['txtInsurerno', 'lblInsurer', 'ciinsu', 'noa,insurer', 'txtInsurerno,txtInsurer', 'ciinsu_b.aspx'],
-	['txtCardeal', '', 'cicardeal', 'comp,cno', 'txtCardeal', 'cicardeal_b.aspx'],
-	['txtSales', '', 'cisale', 'namea,noa', 'txtSales', 'cisale_b.aspx'],
-	['txtCarno', 'lblCarno', 'cicust', 'noa,carowner', 'txtCarno', 'cicust_b.aspx']);
+	aPop = new Array(
+		['txtNoa', '', 'cicar', 'noa', 'txtNoa', 'cicar_b.aspx']
+		['txtSaleno', '', 'cisale', 'noa,namea', 'txtSale,txtSaleno', 'cisale_b.aspx'],
+			['txtCustno', 'lblCarno', 'cicust', 'noa,cust', 'txtCust,txtCustno', 'cicust_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -34,30 +33,14 @@
 
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();  
-		t_carno = $('#txtCarno').val();
-		t_cardeal = $('#txtCardeal').val();
-		t_insurerno = $('#txtInsurerno').val();
-		t_insurer = $('#txtInsurer').val();
-		t_bbdate = $('#txtBbdate').val();
-		t_ebdate = $('#txtEbdate').val();
-		t_bedate = $('#txtBedate').val();
-		t_eedate = $('#txtEedate').val();
-		t_sales = $('#txtSales').val();
-		t_cardno = $('#txtCardno').val();
-		t_insurancenum = $('#txtInsurancenum').val();
+		t_custno = $('#txtCustno').val();
+		t_saleno = $('#txtSaleno').val();
 		
         var t_where = " 1=1 " 
         + q_sqlPara2("noa", t_noa) 
-        +q_sqlPara2("carno", t_carno)
-        +q_sqlPara2("cardeal", t_cardeal)
-        +q_sqlPara2("insurerno", t_insurerno)
-        +q_sqlPara2("insurer", t_insurer)
-        +q_sqlPara2("bdate", t_bbdate,ebdate)
-        +q_sqlPara2("edate", t_bedate,eedate)
-        +q_sqlPara2("sales", t_sales)
-        +q_sqlPara2("cardno", t_cardno)
-        +q_sqlPara2("insurancenum", t_insurancenum);
-
+        +q_sqlPara2("custno", t_custno)
+        +q_sqlPara2("saleno", t_saleno)
+        
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
     }
@@ -75,49 +58,21 @@
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
             <tr class='seek_tr'>
-					<td style="width:35%;" ><a id='lblBdate'></a></td>
+					<td style="width:35%;" ><a id='lblCust'></a></td>
 					<td style="width:65%;  ">
-					<input class="txt" id="txtBbdate" type="text" style="width:90px; font-size:medium;" />
+					<input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" />
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>
-					<input class="txt" id="txtEbdate" type="text" style="width:93px; font-size:medium;" />
+					<input class="txt" id="txtCust" type="text" style="width:93px; font-size:medium;" />
 					</td>
 			</tr>
 			<tr class='seek_tr'>
-					<td style="width:35%;" ><a id='lblEdate'></a></td>
+					<td style="width:35%;" ><a id='lblSale'></a></td>
 					<td style="width:65%;  ">
-					<input class="txt" id="txtBedate" type="text" style="width:90px; font-size:medium;" />
+					<input class="txt" id="txtSaleno" type="text" style="width:90px; font-size:medium;" />
 					<span style="display:inline-block; vertical-align:middle">&sim;</span>
-					<input class="txt" id="txtEedate" type="text" style="width:93px; font-size:medium;" />
+					<input class="txt" id="txtSale" type="text" style="width:93px; font-size:medium;" />
 					</td>
-				</tr>
-             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblCarno'></a></td>
-                <td><input class="txt" id="txtCarno" type="text" style="width:215px; font-size:medium;" /></td>
-             </tr>
-             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblSales'></a></td>
-                <td><input class="txt" id="txtSales" type="text" style="width:215px; font-size:medium;" /></td>
-             </tr>
-             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblInsurerno'></a></td>
-                <td><input class="txt" id="txtInsurerno" type="text" style="width:215px; font-size:medium;" /></td>
-             </tr>
-             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblInsurer'></a></td>
-                <td><input class="txt" id="txtInsurer" type="text" style="width:215px; font-size:medium;" /></td>
-             </tr>
-              <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblCardeal'></a></td>
-                <td><input class="txt" id="txtCardeal" type="text" style="width:215px; font-size:medium;" /></td>
-             </tr>
-             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblCardno'></a></td>
-                <td><input class="txt" id="txtCardno" type="text" style="width:215px; font-size:medium;" /></td>
-             </tr>
-             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblInsurancenum'></a></td>
-                <td><input class="txt" id="txtInsurancenum" type="text" style="width:215px; font-size:medium;" /></td>
-             </tr>
+			</tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
 </div>

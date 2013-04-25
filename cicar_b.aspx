@@ -123,27 +123,15 @@
 					<td class="td1" align="center" style="width:1%; max-width:20px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-				<td align="center" style="width:8%;" class="td2"><a id='lblCarno'> </a></td>
-                <td align="center" style="width:20%;" class="td1"><a id='lblInsurer'> </a></td>
-                <td align="center" style="width:12%;" class="td1"><a id='lblCardno'> </a></td>
-                <td align="center" style="width:8%;" class="td1"><a id='lblBdate'> </a></td>
-                <td align="center" style="width:8%;" class="td1"><a id='lblEdate'> </a></td>
-                <td align="center" style="width:12%;" class="td1"><a id='lblInsurancenum'> </a></td>
+				<td align="center" style="width:20%;" class="td2"><a id='lblNoa'> </a></td>
+                <td align="center" style="width:36%;" class="td1"><a id='lblCust'> </a></td>
+                <td align="center" style="width:36%;" class="td1"><a id='lblSale'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
-					<td class="td1" align="center">
-					<input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  />
-					</td>
-					<td >
-                	<input id="txtCarno.*" type="text"   readonly="readonly" />
-                	<input id="txtNoa.*" type="hidden"   readonly="readonly" />
-                </td>
-                <td ><input  id="txtInsurerno.*"  type="text"  readonly="readonly" style="width: 25%;"/>
-                	<input  id="txtInsurer.*"  type="text"  readonly="readonly" style="width: 70%;"/></td>
-                <td ><input id="txtCardno.*"  type="text"  readonly="readonly" /></td>
-                <td ><input id="txtBdate.*"  type="text"   readonly="readonly" /></td>
-                <td ><input id="txtEdate.*"  type="text"   readonly="readonly" /></td>
-                <td ><input id="txtInsurancenum.*"  type="text"   readonly="readonly" /></td>
+					<td class="td1" align="center"><input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  /></td>
+					<td ><input id="txtNoa.*" type="text"   readonly="readonly" /></td>
+                	<td ><input id="txtCust.*"  type="text"   readonly="readonly" /></td>
+                	<td ><input id="txtSale.*"  type="text"   readonly="readonly" /></td>
 				</tr>
 			</table>
 		</div>
