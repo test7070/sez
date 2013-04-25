@@ -541,7 +541,7 @@
 		}
 	</script>
     <style type="text/css">
-                  #dmain {
+           #dmain {
                 overflow: hidden;
             }
             .dview {
@@ -634,12 +634,10 @@
             .txt.c7 {
             	float:left;
                 width: 22%;
-                
             }
             .txt.c8 {
             	float:left;
                 width: 65px;
-                
             }
             .txt.num {
                 text-align: right;
