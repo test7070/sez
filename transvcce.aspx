@@ -416,6 +416,8 @@
 	                        	t_msg += (as[0]['takeno'].length>0?(t_msg.length>0?',':'')+'領櫃編號'+as[0]['takeno']:'');
 	                        	t_msg += (as[0]['casepresent'].length>0?(t_msg.length>0?',':'')+'代表櫃號'+as[0]['casepresent']:'');
 	                        	t_msg += (as[0]['product2'].length>0?(t_msg.length>0?',':'')+'品名:'+as[0]['product2']:'');
+	                        	t_msg += (as[0]['option01'].length>0?(t_msg.length>0?',':'')+'過磅'+as[0]['option01']:'');
+	                        	t_msg += (as[0]['option02'].length>0?(t_msg.length>0?',':'')+'加工'+as[0]['option02']:'');
 	                        	t_msg += (as[0]['containertype'].length>0?(t_msg.length>0?',':'')+'櫃別'+as[0]['containertype']:'');
 	                        	t_msg += (as[0]['docketno2'].length>0?(t_msg.length>0?',':'')+'案號'+as[0]['docketno2']:'');
 	                        	t_msg += (as[0]['trackno'].length>0?(t_msg.length>0?',':'')+'追蹤號碼'+as[0]['trackno']:'');
