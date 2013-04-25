@@ -51,6 +51,9 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
+            
+            q_cmbParse("cmbKind", q_getPara('rc2est.kind'));
+            
             /* 若非本會計年度則無法存檔 */
 			$('#txtDatea').focusout(function () {
 				if($(this).val().substr( 0,3)!= r_accy){
@@ -59,6 +62,11 @@
 				}else{
 			       		$('#btnOk').removeAttr('disabled');
 				}
+			});
+			
+			//變動尺寸欄位
+			$('#cmbKind').change(function () {
+	        	size_change();
 			});
         }
 
@@ -75,7 +83,11 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case q_name: if (q_cur == 4)   
+                case 'ucc_style':
+            			theory_st(q_name,b_seq,'txtWeight');
+            		break;
+                case q_name: 
+                	if (q_cur == 4)   
                         q_Seek_gtPost();
                     break;
             }  /// end switch
@@ -222,6 +234,62 @@
         function btnCancel() {
             _btnCancel();
         }
+        
+        function size_change () {
+		  if( $('#cmbKind').find("option:selected").text().indexOf('板')>-1){
+            $('#lblSize_help').text("厚度x寬度x長度");
+	        	for (var j = 0; j < q_bbsCount; j++) {
+	            	$('#textSize1_'+j).show();
+	            	$('#textSize2_'+j).show();
+	            	$('#textSize3_'+j).show();
+			        $('#textSize4_'+j).hide();
+			        $('#x1_'+j).show();
+			        $('#x2_'+j).show();
+			        $('#x3_'+j).hide();
+			        $('#Size').css('width','222px');
+			        q_tr('textSize1_'+ j ,q_float('txtDime_'+j));
+			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
+			        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
+			        $('#textSize4_'+j).val(0);
+			        $('#txtRadius_'+j).val(0)
+				}
+			}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+				$('#lblSize_help').text("短徑x長徑x厚度x長度");
+			    for (var j = 0; j < q_bbsCount; j++) {
+			    	$('#textSize1_'+j).show();
+	            	$('#textSize2_'+j).show();
+	            	$('#textSize3_'+j).show();
+			        $('#textSize4_'+j).show();
+			        $('#x1_'+j).show();
+			        $('#x2_'+j).show();
+			        $('#x3_'+j).show();
+			        $('#Size').css('width','297px');
+			        q_tr('textSize1_'+ j ,q_float('txtRadius_'+j));
+			        q_tr('textSize2_'+ j ,q_float('txtWidth_'+j));
+			        q_tr('textSize3_'+ j ,q_float('txtDime_'+j));
+			        q_tr('textSize4_'+ j ,q_float('txtLengthb_'+j));
+				}
+			}else{//鋼筋和鋼胚
+				$('#lblSize_help').text("長度");
+	            for (var j = 0; j < q_bbsCount; j++) {
+	            	$('#textSize1_'+j).hide();
+	            	$('#textSize2_'+j).hide();
+	            	$('#textSize3_'+j).show();
+			        $('#textSize4_'+j).hide();
+			        $('#x1_'+j).hide();
+			        $('#x2_'+j).hide();
+			        $('#x3_'+j).hide();
+			        $('#Size').css('width','70px');
+			        $('#textSize1_'+j).val(0);
+			        $('#txtDime_'+j).val(0)
+			        $('#textSize2_'+j).val(0);
+			        $('#txtWidth_'+j).val(0)
+			        q_tr('textSize3_'+ j ,q_float('txtLengthb_'+j));
+			        $('#textSize4_'+j).val(0);
+			        $('#txtRadius_'+j).val(0)
+				}
+			}
+		}
     </script>
     <style type="text/css">
                 #dmain {
@@ -406,9 +474,10 @@
         <tr class="tr1">
             <td class='td1'><span> </span><a id="lblDatea" class="lbl"> </a></td>
             <td class="td2"><input id="txtDatea"  type="text" class="txt c1"/></td>
-            <td class="td4"><span> </span><a id="lblNoa" class="lbl"> </a></td>
-            <td class="td5"><input id="txtNoa"  type="text" class="txt c1"/> </td>
-            <td class='td6'> </td>
+            <td class="td3"><span> </span><a id="lblNoa" class="lbl"> </a></td>
+            <td class="td4"><input id="txtNoa"  type="text" class="txt c1"/> </td>
+            <td class='td5'><span> </span><a id="lblKind" class="lbl"> </a></td>
+            <td class="td6"><select id="cmbKind" class="txt c1"> </select></td>
             <td class="td7"> </td>
             <td class="td8"> </td>
         </tr>
