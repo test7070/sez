@@ -431,7 +431,7 @@
 			for (var j = 0; j < q_bbsCount; j++) {
 				weight_total+=dec($('#'+txtweight+'_'+j).val());
             }
-			q_tr('txtTotal',weight_total);//$('#txtTotal').val(weight_total);
+			q_tr('txtWeight',weight_total);//$('#txtTotal').val(weight_total);
 		}
     </script>
     <style type="text/css">

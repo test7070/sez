@@ -108,57 +108,56 @@
             _bbsAssign();
             for (var j = 0; j < ( q_bbsCount==0 ? 1 : q_bbsCount); j++) {
             	//將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
-		                 $('#txtSize1_' + j).change(function () {
-		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-		                     q_bodyId($(this).attr('id'));
-		                     b_seq = t_IdSeq;
+				$('#textSize1_' + j).change(function () {
+					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
 		                     
-		                    if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
-		            		{	
-		            			q_tr('txtDime_'+b_seq ,q_float('txtSize1_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#txtSize1_' + b_seq).val());
-		            		}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
-		            			q_tr('txtRadius_'+b_seq ,q_float('txtSize1_'+b_seq));//短徑$('#txtRadius_'+b_seq).val($('#txtSize1_' + b_seq).val());	
-		            		}
-		                 });
-		                 $('#txtSize2_' + j).change(function () {
-		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-		                     q_bodyId($(this).attr('id'));
-		                     b_seq = t_IdSeq;
+					if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+					{	
+						q_tr('txtDime_'+b_seq ,q_float('textSize1_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#textSize1_' + b_seq).val());
+					}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+						q_tr('txtRadius_'+b_seq ,q_float('textSize1_'+b_seq));//短徑$('#txtRadius_'+b_seq).val($('#textSize1_' + b_seq).val());	
+					}
+				});
+				$('#textSize2_' + j).change(function () {
+					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
 		                     
-		                    if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
-		            		{	
-		            			q_tr('txtWidth_'+b_seq ,q_float('txtSize2_'+b_seq));//寬度$('#txtWidth_'+b_seq).val($('#txtSize2_' + b_seq).val());	
-		            		}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
-		            			q_tr('txtWidth_'+b_seq ,q_float('txtSize2_'+b_seq));//長徑$('#txtWidth_'+b_seq).val($('#txtSize2_' + b_seq).val());	
-		            		}
-		                 });
-		                 $('#txtSize3_' + j).change(function () {
-		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-		                     q_bodyId($(this).attr('id'));
-		                     b_seq = t_IdSeq;
+					if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+					{	
+						q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//寬度$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
+					}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+						q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//長徑$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
+					}
+				});
+				$('#textSize3_' + j).change(function () {
+					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
 					         	
-		                     if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
-		            		{	
-		            			q_tr('txtLengthb_'+b_seq ,q_float('txtSize3_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#txtSize3_' + b_seq).val());	
-		            		}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
-		            			q_tr('txtDime_'+b_seq ,q_float('txtSize3_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#txtSize3_' + b_seq).val());		
-		            		}else{//鋼筋、胚
-		            			q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));
-		            		}
-		                 });
-		                 $('#txtSize4_' + j).change(function () {
-		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-		                     q_bodyId($(this).attr('id'));
-		                     b_seq = t_IdSeq;
+					if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+					{	
+						q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize3_' + b_seq).val());	
+					}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+						q_tr('txtDime_'+b_seq ,q_float('textSize3_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#textSize3_' + b_seq).val());		
+					}else{//鋼筋、胚
+						q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));
+					}
+				});
+				$('#textSize4_' + j).change(function () {
+					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
 		                     
-		                     if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
-		            		{	
-		            			q_tr('txtRadius_'+b_seq ,q_float('txtSize4_'+b_seq));//短徑為0 $('#txtRadius_'+b_seq).val($('#txtSize4_' + b_seq).val());	
-		            		}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
-		            			q_tr('txtLengthb_'+b_seq ,q_float('txtSize4_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#txtSize4_' + b_seq).val());	
-		            		}
-
-		                 });
+					if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+					{	
+						q_tr('txtRadius_'+b_seq ,q_float('textSize4_'+b_seq));//短徑為0 $('#txtRadius_'+b_seq).val($('#textSize4_' + b_seq).val());	
+					}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+						q_tr('txtLengthb_'+b_seq ,q_float('textSize4_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());	
+					}
+				});
                 //-------------------------------------------------
             	$('#txtPrice_' + j).focusout(function () { sum(); });
                 $('#txtMount_' + j).focusout(function () { sum(); });
