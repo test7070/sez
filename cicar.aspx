@@ -46,6 +46,7 @@
 
             function mainPost() {
                 q_mask(bbmMask);
+                q_gt('cicardeal', '', 0, 0, 0, "");
                 
                 $(".custdetail").hide();
                 $("#btnCustdetail").val("＋");
@@ -95,6 +96,15 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'cicardeal':
+                		var as = _q_appendData("cicardeal", "", true);
+                        var t_item = " @ ";
+                        for ( i = 0; i < as.length; i++) {
+                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].nick;
+                        }
+                        q_cmbParse("cmbCardealno", t_item);
+                        $("#cmbCardealno").val(abbm[q_recno].cardealno);
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
