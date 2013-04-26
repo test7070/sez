@@ -304,24 +304,7 @@
                <td class="td2"> <input id="txtId" type="text" class="txt c1"/></td>
                <td class="td3"><span> </span><a id='lblBirthday' class="lbl"> </a></td>
                <td class="td4"> <input id="txtBirthday" type="text" class="txt c1"/></td>
-               
             </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblMobile' class="lbl"> </a></td>
-               <td class="td2"> <input id="txtMobile" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id='lblTel' class="lbl"></a></td>
-               <td class="td4" colspan="3"><input id="txtTel"  type="text" class="txt c1"/></td>
-               
-            </tr>
-            <tr>
-               <td class="td4"><span> </span><a id='lblEmail' class="lbl"></a></td>
-               <td class="td5" colspan="5"><input id="txtEmail"  type="text"  class="txt c1" /></td>
-            </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
-               <td class="td2" ><input id="txtZip"  type="text" class="txt c1" /></td>
-               <td class="td3"colspan="4" ><input id="txtAddr"  type="text" class="txt c1" /></td>
- 	       </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblIndate' class="lbl"></a></td>
                <td class="td2"><input id="txtIndate"  type="text" class="txt c1" /></td>
@@ -330,6 +313,21 @@
                <td class="td5"></td>
                <td class="td6"></td>
             </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblMobile' class="lbl"> </a></td>
+               <td class="td2" colspan="2"> <input id="txtMobile" type="text" class="txt c1"/></td>
+               <td class="td3"><span> </span><a id='lblTel' class="lbl"></a></td>
+               <td class="td4" colspan="2"><input id="txtTel"  type="text" class="txt c1"/></td>
+            </tr>
+            <tr>
+               <td class="td4"><span> </span><a id='lblEmail' class="lbl"></a></td>
+               <td class="td5" colspan="4"><input id="txtEmail"  type="text"  class="txt c1" /></td>
+            </tr>
+            <tr>
+               <td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
+               <td class="td2"colspan="4" ><input id="txtAddr"  type="text" class="txt c1" /></td>
+ 	       </tr>
+            
             <tr>
                <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
                <td class="td2" colspan="5"><input id="txtMemo"  type="text"  class="txt c1" /></td>

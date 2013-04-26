@@ -10,9 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = 'cicust', 
-    t_content = 'field=noa,carowner, cardeal,cardealno,usera,tel1,mobile,serial,birthday,zip_addr,addr,years,carbrand,cartype,passdate,cc,engineno from cicust'
-   , bbsKey = ['noa'], as; 
+    var q_name = 'cicust', t_content = 'field=noa,cust', bbsKey = ['noa'], as; 
     var isBott = false;  
     var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
     var i,s1;
@@ -46,12 +44,12 @@
             <tr>
                 <th align="center" > </th>
                 <th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
-                <th align="center" style='color:Blue;' ><a id='lblCarowner'></a></th>
+                <th align="center" style='color:Blue;' ><a id='lblCust'></a></th>
             </tr>
             <tr>
                 <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
                 <td style="width:20%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-                <td style="width:45%;"><input class="txt" id="txtCarowner.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:45%;"><input class="txt" id="txtCust.*" type="text" style="width:98%;"  readonly="readonly" /></td>
             </tr>
         </table>
   <!--#include file="../inc/brow_ctrl.inc"--> 
