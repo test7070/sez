@@ -29,7 +29,7 @@
                 var t_width = document.body.offsetWidth > document.body.scrollWidth ? document.body.offsetWidth : document.body.scrollWidth;
                 var t_height = document.body.offsetHeight > document.body.scrollHeight ? document.body.offsetHeight : document.body.scrollHeight;
                 if ($('#divLock').length == 0)
-                    $('body').append('<div id="divLock"> </div>');
+                    $(document.body).append('<div id="divLock"> </div>');
                 $('#divLock').css('width', t_width).css('height', t_height);
                 $('#divLock').css('background', 'black').css('opacity', 0.2);
                 $('#divLock').css('display', '').css('position', 'absolute').css('top', 0).css('left', 0).focus();
