@@ -30,20 +30,17 @@
                 $('#q_report').q_report({
                     fileName : 'z_ciinsui',
                     options : [ {
-                        type : '6',
+                        type : '1',
                         name : 'xcarno'
-                    },{
-                        type : '6',
-                        name : 'xdriver'
-                    },{
-                        type : '6',
-                        name : 'xid'
-                    },{
-                        type : '6',
-                        name : 'xcarinsu'
+                    }, {
+                        type : '2',
+                        name : 'xinsurerno',
+                        dbf : 'insur',
+                        index : 'noa,comp',
+                        src : 'cust_b.aspx'
                     },{
                         type : '1',
-                        name : 'hdate'
+                        name : 'xdate'
                     },{
                         type : '1',
                         name : 'xdate'
