@@ -350,7 +350,7 @@
                 font-size: medium;
             }
             #dbbt {
-                width: 230%;
+                width: 100%;
             }
             #tbbt {
                 margin: 0;
