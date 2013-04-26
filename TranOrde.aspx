@@ -922,9 +922,9 @@
 						<td>
 						<input type="text" id="txtEmpdock2" class="txt c1"/>
 						</td>
-						<td><span> </span><a id="lblOption02" class="lbl"> </a></td>
-						<td><input type="text" id="txtOption02" class="txt c1"/> </td>
 						<td> </td>
+						<td><input type="text" id="txtOption02" class="txt c1"/> </td>
+						<td><span style="float: left;"> </span><a id="lblOption02" class="lbl" style="float: left;"> </a></td>
 						<td> </td>
 					</tr>
 					<tr class="trY">

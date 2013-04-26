@@ -131,6 +131,7 @@
                     this.totPage = Math.ceil(this.data.length / this.tbCount);
                     $('#textTotPage').val(this.totPage);
                     this.sort('noa', false);
+                    Unlock();
                 },
                 sort : function(index, isFloat) {
                 	//訂單排序
@@ -315,6 +316,7 @@
                     if(t_dtype=='進口')
                     	t_where += (t_where.length>0?' and ':'') + "len(isnull(port2,''))>0";	
                     t_where="where=^^"+t_where+"^^";
+                    Lock();
                     q_gt('view_tranorde', t_where, 0, 0, 0,'aaa', r_accy);
                 });    
                 //自動載入訂單
@@ -349,8 +351,10 @@
                         var as = _q_appendData("view_tranorde", "", true);
                         if (as[0] != undefined)
                             tranorde.init(as);
-                        else
+                        else{
+                        	Unlock();
                         	alert('無資料。');
+                        }
                         break;
                     case q_name:
                         if (q_cur == 4)
@@ -427,7 +431,7 @@
 	                        	t_msg += (as[0]['casedo'].length>0?(t_msg.length>0?',':'')+'押運'+as[0]['casedo']:'');
 	                        	t_msg += (as[0]['caseopenaddr'].length>0?(t_msg.length>0?',':'')+'拆櫃地點'+as[0]['caseopenaddr']:'');
 	                        	t_msg += (as[0]['option01'].length>0?(t_msg.length>0?',':'')+as[0]['option01']+'過磅':'');
-	                        	t_msg += (as[0]['option02'].length>0?(t_msg.length>0?',':'')+'加封'+as[0]['option02']:'');
+	                        	t_msg += (as[0]['option02'].length>0?(t_msg.length>0?',':'')+as[0]['option02']+'加封':'');
 	                        	t_msg += (as[0]['casetype2'].length>0?(t_msg.length>0?',':'')+'櫃型'+as[0]['casetype2']:'');
 	                        	$('#txtMsg_'+sel).val(t_msg);
 	                        	sum();
