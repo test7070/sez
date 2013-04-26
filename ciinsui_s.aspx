@@ -43,6 +43,7 @@
 		t_eedate = $('#txtEedate').val();
 		t_sales = $('#txtSales').val();
 		t_insurancenum = $('#txtInsurancenum').val();
+		t_cardno = $('#txtCardno').val();
 		
         var t_where = " 1=1 " 
         + q_sqlPara2("noa", t_noa) 
@@ -53,7 +54,8 @@
         +q_sqlPara2("edate", t_bedate,eedate)
         +q_sqlPara2("sales", t_sales)
         +q_sqlPara2("insurancenum", t_insurancenum);
-
+		+ q_sqlPara2("cardno", t_cardno) 
+		
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
     }
@@ -105,6 +107,10 @@
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblInsurancenum'></a></td>
                 <td><input class="txt" id="txtInsurancenum" type="text" style="width:215px; font-size:medium;" /></td>
+             </tr>
+             <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblCardno'></a></td>
+                <td><input class="txt" id="txtCardno" type="text" style="width:215px; font-size:medium;" /></td>
              </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
