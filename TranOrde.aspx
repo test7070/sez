@@ -908,9 +908,9 @@
 						<td><select id="cmbContainertype" class="txt c1"> </select></td>
 						<td><span> </span><a id="lblDocketno2" class="lbl"> </a></td>
 						<td><input type="text" id="txtDocketno2" class="txt c1"/> </td>
-						<td><span> </span><a id="lblOption01" class="lbl"> </a></td>
-						<td><input type="text" id="txtOption01" class="txt c1"/> </td>
 						<td> </td>
+						<td><input type="text" id="txtOption01" class="txt c1"/> </td>
+						<td><span style="float: left;"> </span><a id="lblOption01" class="lbl" style="float: left;"> </a></td>
 						<td> </td>
 					</tr>
 					<tr class="trY">

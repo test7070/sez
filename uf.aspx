@@ -50,19 +50,11 @@
             }
 
             function mainPost() {
-<<<<<<< HEAD
-				bbmMask = [['txtDatea', r_picd]];
-                q_mask(bbmMask);
-                q_getFormat();
-                
-=======
-
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd]];
                 bbsMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
                 q_mask(bbsMask);
->>>>>>> 5ce9f6d89b9ad61985246e14b49fb8768c8a2cf3
                 q_cmbParse("cmbTypea", q_getPara('uf.typea'));
                 $("#cmbTypea").focus(function() {
                     var len = $("#cmbTypea").children().length > 0 ? $("#cmbTypea").children().length : 1;
@@ -87,6 +79,7 @@
                     	if($('#cmbTypea').val()=='2')
                     		t_where = "where=^^   a.bankno='" + $('#txtBankno').val() + "' and isnull(a.enda,'')!='Y' and isnull(b.sel,0) = 0  and a.typea='"+$('#cmbTypea').val()+"'^^";
                     }
+                    Lock();
                     q_gt('uf_gqb', t_where, 0, 0);
                 });
                 //.........................
@@ -124,7 +117,7 @@
                             $('#txtCheckno_' + j).attr('readonly','readonly');
                             $('#txtCheckno_' + j).css('background-color', 'rgb(237, 237, 238)').css('color','green');
                         }// j
-
+						Unlock();
                         sum();
                         break;
                     case q_name:
@@ -370,6 +363,38 @@
 
             function btnCancel() {
                 _btnCancel();
+            }
+            function Lock() {
+                var t_width = document.body.offsetWidth > document.body.scrollWidth ? document.body.offsetWidth : document.body.scrollWidth;
+                var t_height = document.body.offsetHeight > document.body.scrollHeight ? document.body.offsetHeight : document.body.scrollHeight;
+                if ($('#divLock').length == 0)
+                    $('body').append('<div id="divLock"> </div>');
+                $('#divLock').css('width', t_width).css('height', t_height);
+                $('#divLock').css('background', 'black').css('opacity', 0.2);
+                $('#divLock').css('display', '').css('position', 'absolute').css('top', 0).css('left', 0).focus();
+            	addResizeEvent(function(){
+            		if($('#divLock').css('display')!='none')
+            			return;
+            		var t_width = document.body.offsetWidth > document.body.scrollWidth ? document.body.offsetWidth : document.body.scrollWidth;
+                	var t_height = document.body.offsetHeight > document.body.scrollHeight ? document.body.offsetHeight : document.body.scrollHeight;
+            		$('#divLock').css('width', t_width).css('height', t_height);
+            	});
+            }
+			function Unlock() {
+				$('#divLock').css('display', 'none');
+			}		
+            function addResizeEvent(func) {
+                var oldonresize = window.onresize;
+                if ( typeof window.onresize != 'function') {
+                    window.onresize = func;
+                } else {
+                    window.onresize = function() {
+                        if (oldonresize) {
+                            oldonresize();
+                        }
+                        func();
+                    }
+                }
             }
 		</script>
 		<style type="text/css">
