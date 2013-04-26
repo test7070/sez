@@ -402,7 +402,7 @@
                 return arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
 			Number.prototype.round = function(arg) {
-			    return accDiv(Math.round(accMul(this, Math.pow(10,arg))), Math.pow(10,arg));
+			    return Math.round(this * Math.pow(10,arg))/ Math.pow(10,arg);
 			}
 			Number.prototype.div = function(arg) {
 			    return accDiv(this, arg);
