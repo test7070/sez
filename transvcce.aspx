@@ -426,8 +426,8 @@
 	                        	t_msg += (as[0]['checkinstru'].length>0?(t_msg.length>0?',':'')+'儀檢'+as[0]['checkinstru']:'');
 	                        	t_msg += (as[0]['casedo'].length>0?(t_msg.length>0?',':'')+'押運'+as[0]['casedo']:'');
 	                        	t_msg += (as[0]['caseopenaddr'].length>0?(t_msg.length>0?',':'')+'拆櫃地點'+as[0]['caseopenaddr']:'');
-	                        	t_msg += (as[0]['option01'].length>0?(t_msg.length>0?',':'')+'過磅'+as[0]['option01']:'');
-	                        	t_msg += (as[0]['option02'].length>0?(t_msg.length>0?',':'')+'加工'+as[0]['option02']:'');
+	                        	t_msg += (as[0]['option01'].length>0?(t_msg.length>0?',':'')+as[0]['option01']+'過磅':'');
+	                        	t_msg += (as[0]['option02'].length>0?(t_msg.length>0?',':'')+'加封'+as[0]['option02']:'');
 	                        	t_msg += (as[0]['casetype2'].length>0?(t_msg.length>0?',':'')+'櫃型'+as[0]['casetype2']:'');
 	                        	$('#txtMsg_'+sel).val(t_msg);
 	                        	sum();
@@ -471,6 +471,7 @@
                 	alert("error: btnok!")
                 }
                 sum();
+                Lock();
                 SendCommand(q_bbsCount-1);
             }
             function SaveData(){
@@ -487,6 +488,7 @@
                 else
                     wrServer(t_noa);
                 tranorde.unlock();
+                Unlock;
             }
             
             function SendCommand(n){
@@ -681,6 +683,38 @@
                 var arr = n.split(".");
                 var re = /(\d{1,3})(?=(\d{3})+$)/g;
                 return arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+            }
+            function Lock() {
+                var t_width = document.body.offsetWidth > document.body.scrollWidth ? document.body.offsetWidth : document.body.scrollWidth;
+                var t_height = document.body.offsetHeight > document.body.scrollHeight ? document.body.offsetHeight : document.body.scrollHeight;
+                if ($('#divLock').length == 0)
+                    $('body').append('<div id="divLock"> </div>');
+                $('#divLock').css('width', t_width).css('height', t_height);
+                $('#divLock').css('background', 'black').css('opacity', 0.2);
+                $('#divLock').css('display', '').css('position', 'absolute').css('top', 0).css('left', 0).focus();
+            	addResizeEvent(function(){
+            		if($('#divLock').css('display')!='none')
+            			return;
+            		var t_width = document.body.offsetWidth > document.body.scrollWidth ? document.body.offsetWidth : document.body.scrollWidth;
+                	var t_height = document.body.offsetHeight > document.body.scrollHeight ? document.body.offsetHeight : document.body.scrollHeight;
+            		$('#divLock').css('width', t_width).css('height', t_height);
+            	});
+            }
+			function Unlock() {
+				$('#divLock').css('display', 'none');
+			}		
+            function addResizeEvent(func) {
+                var oldonresize = window.onresize;
+                if ( typeof window.onresize != 'function') {
+                    window.onresize = func;
+                } else {
+                    window.onresize = function() {
+                        if (oldonresize) {
+                            oldonresize();
+                        }
+                        func();
+                    }
+                }
             }
 		</script>
 		<style type="text/css">

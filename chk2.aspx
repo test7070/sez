@@ -56,6 +56,7 @@
 
                 $('#btnGqb').click(function() {
                     t_where = "where=^^ len(isnull(tbankno,''))=0 and a.typea='1' and isnull(b.sel,0)=0 ^^";
+                    Lock();
                     q_gt('chk2_gqb', t_where, 0, 0, 0, "", r_accy);
                 });
 
@@ -81,6 +82,7 @@
                         var as = _q_appendData("gqb", "", true);
                         //if(as.length>q_bbsCount)
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtCheckno,txtBank,txtBankno,txtAccount,txtDatea,txtMoney,txtTcompno,txtTcomp', as.length, as, 'gqbno,bank,bankno,account,indate,money,tcompno,tcomp', '');
+                        Unlock();
                         break;
                     case q_name:
                         if (q_cur == 4)
@@ -299,7 +301,38 @@
             function btnCancel() {
                 _btnCancel();
             }
-
+			function Lock() {
+                var t_width = document.body.offsetWidth > document.body.scrollWidth ? document.body.offsetWidth : document.body.scrollWidth;
+                var t_height = document.body.offsetHeight > document.body.scrollHeight ? document.body.offsetHeight : document.body.scrollHeight;
+                if ($('#divLock').length == 0)
+                    $('body').append('<div id="divLock"> </div>');
+                $('#divLock').css('width', t_width).css('height', t_height);
+                $('#divLock').css('background', 'black').css('opacity', 0.2);
+                $('#divLock').css('display', '').css('position', 'absolute').css('top', 0).css('left', 0).focus();
+            	addResizeEvent(function(){
+            		if($('#divLock').css('display')!='none')
+            			return;
+            		var t_width = document.body.offsetWidth > document.body.scrollWidth ? document.body.offsetWidth : document.body.scrollWidth;
+                	var t_height = document.body.offsetHeight > document.body.scrollHeight ? document.body.offsetHeight : document.body.scrollHeight;
+            		$('#divLock').css('width', t_width).css('height', t_height);
+            	});
+            }
+			function Unlock() {
+				$('#divLock').css('display', 'none');
+			}		
+            function addResizeEvent(func) {
+                var oldonresize = window.onresize;
+                if ( typeof window.onresize != 'function') {
+                    window.onresize = func;
+                } else {
+                    window.onresize = function() {
+                        if (oldonresize) {
+                            oldonresize();
+                        }
+                        func();
+                    }
+                }
+            }
 		</script>
 		<style type="text/css">
             #dmain {
