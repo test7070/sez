@@ -683,10 +683,15 @@
                 tranorde.unlock();
             }      
             function FormatNumber(n) {
+            	var xx = "";
+            	if(n<0){
+            		n = Math.abs(n);
+            		xx = "-";
+            	}     		
                 n += "";
                 var arr = n.split(".");
                 var re = /(\d{1,3})(?=(\d{3})+$)/g;
-                return arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+                return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
             function Lock() {
                 var t_width = document.body.offsetWidth > document.body.scrollWidth ? document.body.offsetWidth : document.body.scrollWidth;

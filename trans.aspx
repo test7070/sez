@@ -276,7 +276,7 @@
 				if(q_float('txtWeight2')==0)
 					$('#txtWeight3').val(0);
 				else	
-					$('#txtWeight3').val(FormatNumber(q_float('txtInmount').sub(q_float('txtWeight2')).round(3)));
+					$('#txtWeight3').val(FormatNumber(round(q_float('txtInmount').sub(q_float('txtWeight2')),3)));
 				if ($('#txtDiscount').val().length == 0) {
 					$('#txtDiscount').val('1');
 				}
@@ -295,8 +295,8 @@
 					t_price = q_float('txtPrice2');
 				$("#txtTotal2").val(FormatNumber(t_mount.mul(t_price).mul(t_discount).round(0)));
 
-				var bmiles = q_float('txtBmiles'); 
-				var emiles = q_float('txtEmiles'); 
+				var bmiles = q_float('txtBmiles');
+				var emiles = q_float('txtEmiles');
 				if (bmiles != 0 && emiles != 0)
 					$('#txtMiles').val(emiles.sub(bmiles));
 			}
@@ -678,10 +678,15 @@
                	return 0;//錯誤
             }
             function FormatNumber(n) {
+            	var xx = "";
+            	if(n<0){
+            		n = Math.abs(n);
+            		xx = "-";
+            	}     		
                 n += "";
                 var arr = n.split(".");
                 var re = /(\d{1,3})(?=(\d{3})+$)/g;
-                return arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+                return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
 			Number.prototype.round = function(arg) {
 			    return Math.round(this * Math.pow(10,arg))/ Math.pow(10,arg);
@@ -719,7 +724,7 @@
 			    return (arg1 * m + arg2 * m) / m
 			}
 			Number.prototype.sub = function(arg) {
-			    return accSub(arg, this);
+			    return accSub(this,arg);
 			}
 			function accSub(arg1, arg2) {
 			    var r1, r2, m, n;
