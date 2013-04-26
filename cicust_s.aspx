@@ -31,19 +31,14 @@
 
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();  
-		t_carowner = $('#txtCarowner').val();
-		t_serial = $('#txtSerial').val();
-		t_carbrand = $('#txtCarbrand').val();
-		t_cardealno = $('#txtCardealno').val();
-		t_cardeal = $('#txtCardeal').val();
+		t_cust = $('#txtCust').val();
+		t_id = $('#txtId').val();
 		
         var t_where = " 1=1 " 
         + q_sqlPara2("noa", t_noa) 
-        +q_sqlPara2("carowner", t_carowner)
-        +q_sqlPara2("serial", t_serial)
-        +q_sqlPara2("carbrand", t_carbrand)
-        +q_sqlPara2("cardealno", t_cardealno)
-        +q_sqlPara2("cardeal", t_cardeal);
+        +q_sqlPara2("cust", t_cust)
+        +q_sqlPara2("id", t_id)
+        
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -62,24 +57,12 @@
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
              <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblCarowner'></a></td>
-                <td><input class="txt" id="txtCarowner" type="text" style="width:215px; font-size:medium;" /></td>
+                <td class='seek'  style="width:20%;"><a id='lblCust'></a></td>
+                <td><input class="txt" id="txtCust" type="text" style="width:215px; font-size:medium;" /></td>
              </tr>
              <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblSerial'></a></td>
-                <td><input class="txt" id="txtSerial" type="text" style="width:215px; font-size:medium;" /></td>
-             </tr>
-             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblCarbrand'></a></td>
-                <td><input class="txt" id="txtCarbrand" type="text" style="width:215px; font-size:medium;" /></td>
-             </tr>
-             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblCardealno'></a></td>
-                <td><input class="txt" id="txtCardealno" type="text" style="width:215px; font-size:medium;" /></td>
-             </tr>
-              <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblCardeal'></a></td>
-                <td><input class="txt" id="txtCardeal" type="text" style="width:215px; font-size:medium;" /></td>
+                <td class='seek'  style="width:20%;"><a id='lblId'></a></td>
+                <td><input class="txt" id="txtId" type="text" style="width:215px; font-size:medium;" /></td>
              </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
