@@ -80,7 +80,7 @@
 				
 				//更換車牌
 				$('#btnChangecarno').click(function(e) {
-					
+					//執行後端fun
 				});
             }
             
@@ -111,6 +111,11 @@
                         break;
                 }  /// end switch
             }
+            
+            function q_funcPost(t_func, result) {
+		        location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";a.noa='"+$('#txtChangecarno').val()+"';"+r_accy;
+		        alert('功能執行完畢');
+		    } //endfunction
 
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
