@@ -24,7 +24,7 @@
                 dataErr = false;
                 return;
             }
-            mainBrow(0,t_content);
+            mainBrow();
          }
 
         function q_gtPost() {  
