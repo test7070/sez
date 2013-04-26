@@ -30,8 +30,8 @@
             brwKey = 'noa';
            aPop = new Array(['txtInsurerno', 'lblInsurer', 'ciinsu', 'noa,insurer', 'txtInsurerno,txtInsurer', 'ciinsu_b.aspx'],
             ['txtSalesno', 'lblSales', 'cisale', 'noa,namea', 'txtSalesno,txtSales', 'cisale_b.aspx'],
-            ['txtInsutypeno_', 'btnInsutypeno_', 'ciinsutype', 'noa,insutype', 'txtInsutypeno_,txtInsutype_', 'ciinsutype_b.aspx'],
-           	['txtCarno', 'lblCarno', 'cicust', 'noa,carowner,cardeal,cardealno,usera,tel1,mobile,serial,birthday,zip_addr,addr,years,carbrand,cartype,passdate,cc,engineno', 'txtCarno,txtCarowner,txtCardeal,txtCardealno,txtUsera,txtTelcar,txtMobilecar,txtSerialcar,txtBirthday,txtZipcar,txtAddrcar,txtYearscar,txtCarbrand,txtCartype,txtPassdate,txtCc,txtEngineno', 'ciinsu_b.aspx']);
+            ['txtInsutypeno_', 'btnInsutypeno_', 'ciinsutype', 'noa,insutype', 'txtInsutypeno_,txtInsutype_', 'ciinsutype_b.aspx']
+           	);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -52,17 +52,7 @@
             	q_getFormat();
                 bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd],['txtEdate', r_picd],['txtBirthday', r_picd],['txtPassdate', r_picm]];
             	q_mask(bbmMask);
-            	 $(".carcust").hide();
-                
-               
-				
-				$("#btnCaredit").val("車主新增/修改");
-				$('#btnCaredit').click(function(e) {
-					if(emp($('#txtCarno').val()))
-						q_box("cicust.aspx?;;;;", 'cicust', "90%", "600px", q_getMsg("popCicust"));
-					else
-						q_box("cicust.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'cicust', "90%", "600px", q_getMsg("popCicust"));
-				});
+            	 
             }
 
             function q_boxClose(s2) {
@@ -126,7 +116,7 @@
                 _btnModi();           
             }
             function btnPrint() {
-            	
+            	q_box('z_ciinsui.aspx', '', "95%", "95%", q_getMsg("popPrint"));
             }
             function wrServer(key_value) {
                 var i;
@@ -154,13 +144,7 @@
             }
 
             function sum() {
-            var t1 = 0,t_cost = 0, t_total = 0;
-            for (var j = 0; j < q_bbsCount; j++) {
-				t_cost+=dec($('#txtCost_'+j).val());
-				t_total+=dec($('#txtTotal_'+j).val());
-            }  // j
-			q_tr('txtTotal',t_cost);
-			q_tr('txtPay',t_total);
+            
             	if(!(q_cur==1 || q_cur==2))
 					return;
 					
@@ -231,7 +215,7 @@
             }
             .dview {
                 float: left;
-                width: 30%;
+                width: 40%;
                 border-width: 0px;
             }
             .tview {
@@ -252,7 +236,7 @@
             }
             .dbbm {
                 float: left;
-                width: 70%;
+                width: 60%;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -358,12 +342,12 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:100px;color:black;"><a id='vewCarno'> </a></td>
-						<td align="center" style="width:100px;color:black;"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:100px;color:black;"><a id='vewInsurancenum'> </a></td>
-						<td align="center" style="width:100px;color:black;"><a id='vewInsurer'> </a></td>
-						<td align="center" style="width:100px;color:black;"><a id='vewSales'> </a></td>
+						<td align="center" style="width:2%; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:13%;color:black;"><a id='vewCarno'> </a></td>
+						<td align="center" style="width:15%;color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:15%;color:black;"><a id='vewInsurancenum'> </a></td>
+						<td align="center" style="width:20%;color:black;"><a id='vewInsurer'> </a></td>
+						<td align="center" style="width:13%;color:black;"><a id='vewSales'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
@@ -396,8 +380,7 @@
 						<td class="td1"><span> </span><a id='lblCarno' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtCarno" class="txt c1"/>	</td>
 						<td class="td3"><span> </span><a id='lblInsurancenum' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtInsurancenum" class="txt c1"/>	</td>
-						<td style="text-align: center;"><input id="btnCaredit" type="button" /></td>
+						<td class="td4" colspan="2"><input type="text" id="txtInsurancenum" class="txt c1"/>	</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblInsurer' class="lbl btn"> </a></td>

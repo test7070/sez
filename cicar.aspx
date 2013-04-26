@@ -9,26 +9,25 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
             var q_name = "cicar";
-            var q_readonly = ['txtWorker','txtWorker2','txtCust','txtSale'];
+            var q_readonly = ['txtWorker','txtWorker2','txtCust','txtSale','txtBirthday','txtId','txtMobile','txtTel1','txtTel2','txtFax','txtAddr1','txtAddr2'];
             var bbmNum = [];
-            var bbmMask = [];
+            var bbmMask = [["txtYear", "9999/99"],["txtPassdate", "999/99"]];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
             brwCount2 = 20;
-            //q_alias = 'a';
+            q_alias = 'a';
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(['txtSaleno', '', 'cisale', 'noa,namea', 'txtSaleno,txtSale', 'cisale_b.aspx'],
-			['txtCustno', 'lblCarno', 'cicust', 'noa,cust', 'txtCustno,txtCust', 'cicust_b.aspx'])
+			['txtCustno', 'lblCarno', 'cicust', 'noa,cust,birthday,id,mobile,tel1,tel2,fax,addr1,addr2', 'txtCustno,txtCust,txtBirthday,txtId,txtMobile,txtTel1,txtTel2,txtFax,txtAddr1,txtAddr2', 'cicust_b.aspx'])
             
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -41,13 +40,50 @@
                     dataErr = false;
                     return;
                 }
-                q_mask(bbmMask);
+                
                 mainForm(0);
             }
 
             function mainPost() {
+                q_mask(bbmMask);
+                q_gt('cicardeal', '', 0, 0, 0, "");
                 
+                $(".custdetail").hide();
+                $("#btnCustdetail").val("＋");
+				$("#btnCustdetail").toggle(function(e) {
+					$(".custdetail").show();
+					$("#btnCustdetail").val("－");
+				}, function(e) {
+					$(".custdetail").hide();
+					$("#btnCustdetail").val("＋");
+				});
+				
+				$(".carnochange").hide();
+				$("#btnNoachange").toggle(function(e) {
+					$(".carnochange").show();
+				}, function(e) {
+					$(".carnochange").hide();
+				});
+				
+				$('#btnInsui').click(function(e) {
+					q_box("ciinsui.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'ciinsui', "90%", "95%", q_getMsg("popInsui"));
+				});
+				$('#btnChange').click(function(e) {
+					q_box("cichange.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'cichange', "90%", "95%", q_getMsg("popChange"));
+				});
+                $('#btnCust').click(function(e) {
+					q_box("cicust.aspx?;;;noa='" + $('#txtCustno').val() + "'", 'cicust', "90%", "95%", q_getMsg("popCust"));
+				});
+                $('#btnSale').click(function(e) {
+					q_box("cisale.aspx?;;;noa='" + $('#txtSaleno').val() + "'", 'cisale', "90%", "95%", q_getMsg("popSale"));
+				});
+				
+				//更換車牌
+				$('#btnChangecarno').click(function(e) {
+					//執行後端fun
+				});
             }
+            
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -60,12 +96,26 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'cicardeal':
+                		var as = _q_appendData("cicardeal", "", true);
+                        var t_item = " @ ";
+                        for ( i = 0; i < as.length; i++) {
+                            t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].nick;
+                        }
+                        q_cmbParse("cmbCardealno", t_item);
+                        $("#cmbCardealno").val(abbm[q_recno].cardealno);
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
                 }  /// end switch
             }
+            
+            function q_funcPost(t_func, result) {
+		        location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";a.noa='"+$('#txtChangecarno').val()+"';"+r_accy;
+		        alert('功能執行完畢');
+		    } //endfunction
 
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
@@ -83,7 +133,7 @@
                     return;
                 _btnModi();
                 $('#txtNoa').attr('readonly','readonly');
-                $('#txtCustno').focus();
+                $('#txtNoa').focus();
             }
 
             function btnPrint() {
@@ -286,8 +336,14 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size: medium;
             }
-
+			.tbbm .custdetail {
+               background-color: #FFEC8B;
+            }
+            .tbbm .carnochange {
+               background-color: #DAA520;
+            }
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
@@ -328,9 +384,39 @@
 						<td><span> </span><a id='lblCust' class="lbl btn"> </a></td>
 						<td><input id="txtCustno"  type="text"  class="txt c1"/></td>
 						<td><input id="txtCust"  type="text"  class="txt c1"/></td>
+						<td><input id="btnCustdetail" type="button" style="width:50%;"/></td>
+						<td><input id="btnCust" type="button" style="width:80%;"/></td>
+					</tr>
+					<tr class="custdetail">
+						<td><span> </span><a id='lblBirthday' class="lbl"> </a></td>
+						<td><input type="text" id="txtBirthday" class="txt c1"/>	</td>
+						<td><span> </span><a id='lblId' class="lbl"> </a></td>
+						<td><input type="text" id="txtId" class="txt c1"/>	</td>
+						<td><span> </span><a id='lblMobile' class="lbl"> </a></td>
+						<td><input type="text" id="txtMobile" class="txt c1"/>	</td>
+					</tr>
+					<tr class="custdetail">
+						<td><span> </span><a id='lblTel1' class="lbl"> </a></td>
+						<td><input type="text" id="txtTel1" class="txt c1"/>	</td>
+						<td><span> </span><a id='lblTel2' class="lbl"> </a></td>
+						<td><input type="text" id="txtTel2" class="txt c1"/>	</td>
+						<td><span> </span><a id='lblFax' class="lbl"> </a></td>
+						<td><input type="text" id="txtFax" class="txt c1"/>	</td>
+					</tr>
+					<tr class="custdetail">
+						<td><span> </span><a id='lblAddr1' class="lbl"> </a></td>
+						<td colspan="5"><input type="text" id="txtAddr1" class="txt c1"/>	</td>
+					</tr>
+					<tr class="custdetail">
+						<td><span> </span><a id='lblAddr2' class="lbl"> </a></td>
+						<td colspan="5"><input type="text" id="txtAddr2" class="txt c1"/>	</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblSale' class="lbl btn"> </a></td>
 						<td><input id="txtSaleno"  type="text"  class="txt c1"/></td>
 						<td><input id="txtSale"  type="text"  class="txt c1"/></td>
+						<td></td>
+						<td><input id="btnSale" type="button" style="width:80%;"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblYear' class="lbl"> </a></td>
@@ -357,6 +443,20 @@
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td> </td>
+						<td><input id="btnInsui" type="button" style="width:80%;"/> </td>
+						<td><input id="btnChange" type="button" style="width:80%;"/> </td>
+						<td><input id="btnNoachange" type="button" style="width:80%;"/> </td>
+					</tr>
+					<tr class="carnochange">
+						<td><span> </span><a id="lblChangecarno" class="lbl"> </a></td>
+						<td><input id="txtChangecarno"  type="text"  class="txt c1"/></td>
+						<td><input id="btnChangecarno" type="button" /></td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 					</tr>
 				</table>
 			</div>
