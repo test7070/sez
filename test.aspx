@@ -44,7 +44,17 @@
                     }
                 }
             }
-			
+			function FormatNumber(n) {
+            	var xx = "";
+            	if(n<0){
+            		n = Math.abs(n);
+            		xx = "-";
+            	}     		
+                n += "";
+                var arr = n.split(".");
+                var re = /(\d{1,3})(?=(\d{3})+$)/g;
+                return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+            }
 			Number.prototype.round = function(arg) {
 			    return Math.round(this * Math.pow(10,arg))/ Math.pow(10,arg);
 			}
@@ -81,7 +91,7 @@
 			    return (arg1 * m + arg2 * m) / m
 			}
 			Number.prototype.sub = function(arg) {
-			    return accSub(arg, this);
+			    return accSub(this,arg);
 			}
 			function accSub(arg1, arg2) {
 			    var r1, r2, m, n;
