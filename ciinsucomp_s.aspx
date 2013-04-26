@@ -10,8 +10,8 @@
     <script src='../script/mask.js' type="text/javascript"></script>
 	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-    var q_name = "ciinsu_s";
-	aPop = new Array(['txtNoa', '', 'ciinsu', 'noa,insurer', 'txtNoa,txtInsurer', "ciinsu_b.aspx?"]);
+    var q_name = "ciinsucomp_s";
+	aPop = new Array(['txtNoa', '', 'ciinsucomp', 'noa,insurer', 'txtNoa,txtInsurer', "ciinsucomp_b.aspx?"]);
     $(document).ready(function () {
         main();
     });         /// end ready
