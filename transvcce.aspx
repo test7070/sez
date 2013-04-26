@@ -443,12 +443,11 @@
                 }
             }
 
-            /*function q_stPost() {
+            function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
-                abbm[q_recno]['accno'] = xmlString;
-                $('#txtAccno').val(xmlString);
-            }*/
+                Unlock();
+            }
             function btnOk() {
                 if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
@@ -492,7 +491,6 @@
                 else
                     wrServer(t_noa);
                 tranorde.unlock();
-                Unlock;
             }
             
             function SendCommand(n){
