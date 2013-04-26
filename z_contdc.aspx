@@ -87,6 +87,10 @@
 							type : '5',
 							name : 'xsort1',//[11]
 							value : q_getMsg('tsort1').split('&')
+	                    },{
+							type : '5',
+							name : 'xbeend',//[12]
+							value : [q_getPara('report.all')].concat(new Array("已繳回","未繳回"))
 						}]
 	                });
 	                q_popAssign();
