@@ -137,6 +137,9 @@
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "97%", "1054px", q_getMsg('btnAccc'), true);
                 });
+                $('#btnCustwork').click(function() {
+					q_box("custtran.aspx?;;;noa='" + $('#txtCustno').val() + "'", 'cust', "95%", "95%", q_getMsg("popCust"));  
+                });
 				$('#lblInvono').click(function() {
                     var t_where = "";
                     var tmp = $('#txtInvono').val().split(',');
@@ -568,10 +571,7 @@
 							<input type="text" id="txtComp" style="float:left;width:70%;"/>
 							<input type="text" id="txtNick" style="display:none;"/>
 						</td>
-						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
-						<td><input type="text" id="txtTel" class="txt c1"/>	</td>
-						
-						
+						<td><input id="btnCustwork" type="button"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblPaytype' class="lbl"> </a></td>
@@ -580,6 +580,8 @@
 							<span> </span><a id='lblTrantype' class="lbl"> </a>
 						</td>
 						<td><select id="cmbTrantype" class="txt c1"> </select></td>
+						<td><span> </span><a id='lblTel' class="lbl"> </a></td>
+						<td><input type="text" id="txtTel" class="txt c1"/>	</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddr' class="lbl"> </a></td>

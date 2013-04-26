@@ -30,34 +30,33 @@
                 $('#q_report').q_report({
                     fileName : 'z_cicar',
                     options : [ {
-                        type : '6',
+                        type : '1',
                         name : 'xcarno'
-                    },{
-                        type : '6',
-                        name : 'xcardealno'
-                    },{
-                        type : '6',
-                        name : 'xcarinsu'
+                    }, {
+                        type : '2',
+                        name : 'xcardealno',
+                        dbf : 'cicardeal',
+                        index : 'noa,cardeal',
+                        src : 'cicardeal_b.aspx'
+                    }, {
+                        type : '2',
+                        name : 'xinsurerno',
+                        dbf : 'ciinsucomp',
+                        index : 'noa,comp',
+                        src : 'ciinsucomp_b.aspx'
                     },{
                         type : '1',
-                        name : 'bdate'
-                    },{
-                        type : '1',
-                        name : 'edate'
+                        name : 'xdate'
                     }]
                 });
                 		            
                     q_popAssign();
 
-                $('#txtBdate1').mask('999/99/99');
-                $('#txtBdate1').datepicker();
-                $('#txtBdate2').mask('999/99/99');
-                $('#txtBdate2').datepicker();
+                $('#txtXdate1').mask('999/99/99');
+                $('#txtXdate1').datepicker();
+                $('#txtXdate2').mask('999/99/99');
+                $('#txtXdate2').datepicker();
                 
-                $('#txtEdate1').mask('999/99/99');
-                $('#txtEdate1').datepicker();
-                $('#txtEdate2').mask('999/99/99');
-                $('#txtEdate2').datepicker();
             }
 		</script>
 	</head>
