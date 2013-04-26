@@ -55,12 +55,13 @@
                     }
                 }
             }
+
             function addRefreshEvent(func) {
                 var oldonrefresh = window.onrefresh;
                 if ( typeof window.onrefresh != 'function') {
                     window.onrefresh = func;
                 } else {
-                    window.onrefresh= function() {
+                    window.onrefresh = function() {
                         if (oldonrefresh) {
                             oldonrefresh();
                         }
@@ -77,5 +78,6 @@
 	</head>
 	<body>
 		<input id="txtA" style="width:200px;"/>
+		
 	</body>
 </html>
