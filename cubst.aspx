@@ -53,6 +53,7 @@
 
             function mainPost() {
                 q_mask(bbmMask);
+                q_cmbParse("cmbTypea", q_getPara('cub.typea'));  
             }
 
             function q_gtPost(t_name) {
@@ -403,20 +404,63 @@
 						<td></td>
 						<td></td>
 						<td></td>
+						<td></td>
+						<td></td>
 						<td class="tdZ"></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
-						<td>
-							<input id="txtNoa"  type="text" class="txt c1"/>
-						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblDatea" class="lbl"> </a></td>
 						<td>
 							<input id="txtDatea"  type="text" class="txt c1"/>
 						</td>
+						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
+						<td>
+							<input id="txtNoa"  type="text" class="txt c1"/>
+						</td>
+						<td><span> </span><a id="lblTypea" class="lbl"> </a></td>
+						<td>
+							<select id="cmbTypea" class="txt c1"> </select>
+						</td>
 					</tr>
+					<tr>
+		                <td><span> </span><a id="lblBdate" class="lbl" ></a></td>
+		                <td colspan="2">
+		                	<input id="txtBdate" type="text" style="width:45%;"/>
+		                	<span style="float:left; display:block; width:20px;"><a> ～ </a></span>
+		                	<input id="txtEdate" type="text" style="width:45%;"/>
+		                </td>
+		                <td><span> </span><a id="lblBdime" class="lbl" ></a></td>
+		                <td colspan="2">
+		                	<input id="txtBdime" type="text" style="width:45%;"/>
+		                	<span style="float:left; display:block; width:20px;"><a> ～ </a></span>
+		                	<input id="txtEdime" type="text" style="width:45%;"/>
+		                </td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblIdime" class="lbl" ></a></td>
+						<td>
+							<input id="txtIdime"  type="text" class="txt c1"/>
+						</td>
+						<td><span> </span><a id="lblOdime" class="lbl" ></a></td>
+						<td>
+							<input id="txtOdime"  type="text" class="txt c1"/>
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblWaste" class="lbl" ></a></td>
+						<td>
+							<input id="txtWaste"  type="text" class="txt c1"/>
+						</td>
+						<td><span> </span><a id="lblMo" class="lbl" ></a></td>
+						<td>
+							<input id="txtMo"  type="text" class="txt c1"/>
+						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblMemo" class="lbl" ></a></td>
+						<td colspan="4"><input id="txtMemo" type="text" class="txt c1"/></td>  
+					</tr>
+					
 				</table>
 			</div>
 			<div class='dbbs'>
@@ -426,22 +470,31 @@
 						<input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
 						<td style="width:20px;"> </td>
-						<td style="width:80px;"><a id='lbl_uno'> </a></td>
+						<td style="width:80px;"><a id='lbl_custno'> </a></td>
 						<td style="width:80px;"><a id='lbl_productno'> </a></td>
 						<td style="width:80px;"><a id='lbl_spec'> </a></td>
 						<td style="width:80px;"><a id='lbl_dime'> </a></td>
 						<td style="width:80px;"><a id='lbl_width'> </a></td>
  						<td style="width:80px;"><a id='lbl_length'> </a></td>
+						<td style="width:80px;"><a id='lbl_size'> </a></td>
+						<td style="width:80px;"><a id='lbl_mount'> </a></td>
 						<td style="width:80px;"><a id='lbl_weight'> </a></td>
-						<td style="width:80px;"><a id='lbl_sale'> </a></td>
-						<td style="width:80px;"><a id='lbl_ordc'> </a></td>
-						<td style="width:80px;"><a id='lbl_lget'> </a></td>
-						<td style="width:80px;"><a id='lbl_jget'> </a></td>
-						<td style="width:80px;"><a id='lbl_oth'> </a></td>
-						<td style="width:80px;"><a id='lbl_source'> </a></td>
-						<td style="width:80px;"><a id='lbl_ordcno'> </a></td>
-						<td style="width:80px;"><a id='lbl_storeno'> </a></td>
-						<td style="width:80px;"><a id='lbl_store'> </a></td>
+						<td style="width:80px;"><a id='lbl_hweight'> </a></td>
+						<td style="width:80px;"><a id='lbl_uno'> </a></td>
+						<td style="width:80px;"><a id='lbl_need'> </a></td>
+						<td style="width:80px;"><a id='lbl_bdime'> </a></td>
+						<td style="width:80px;"><a id='lbl_edime'> </a></td>
+						<td style="width:80px;"><a id='lbl_memo'> </a></td>
+						<td style="width:80px;"><a id='lbl_date2'> </a></td>
+						<td style="width:80px;"><a id='lbl_enda'> </a></td>
+						<td style="width:80px;"><a id='lbl_ordeno'> </a></td>
+						<td style="width:80px;"><a id='lbl_no2'> </a></td>
+						<td style="width:80px;"><a id='lbl_price'> </a></td>
+						<td style="width:80px;"><a id='lbl_class'> </a></td>
+						<td style="width:80px;"><a id='lbl_datea'> </a></td>
+						<td style="width:80px;"><a id='lbl_product'> </a></td>
+						<td style="width:80px;"><a id='lbl_prt'> </a></td>
+						<td style="width:80px;"><a id='lbl_hend'> </a></td>
 					</tr>
 					<tr  style='background:#cad3ff;'>
 						<td align="center">
@@ -450,7 +503,7 @@
 						</td>
 						<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td>
-							<input class="txt" id="txtUno.*" type="text" style="width:95%; text-align: center;"/>
+							<input class="txt" id="txtCustno.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
 						<td>
 							<input class="txt" id="txtProductno.*" type="text" style="width:95%; text-align: center;"/>
@@ -468,34 +521,61 @@
 							<input class="txt" id="txtLength.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
 						<td>
+							<input class="txt" id="txtSize.*" type="text" style="width:95%; text-align: center;"/>
+						</td>
+						<td>
+							<input class="txt" id="txtMount.*" type="text" style="width:95%; text-align: center;"/>
+						</td>
+						<td>
 							<input class="txt" id="txtWeight.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtSale.*" type="text" style="width:95%; text-align: center;"/>
+							<input class="txt" id="txtHweight.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtOrdc.*" type="text" style="width:95%; text-align: center;"/>
+							<input class="txt" id="txtUno.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtLget.*" type="text" style="width:95%; text-align: center;"/>
+							<input class="txt" id="txtNeed.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtJget.*" type="text" style="width:95%; text-align: center;"/>
+							<input class="txt" id="txtBdime.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtOth.*" type="text" style="width:95%; text-align: center;"/>
+							<input class="txt" id="txtEdime.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtSource.*" type="text" style="width:95%; text-align: center;"/>
+							<input class="txt" id="txtMemo.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtOrdcno.*" type="text" style="width:95%; text-align: center;"/>
+							<input class="txt" id="txtDate2.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtStoreno.*" type="text" style="width:95%; text-align: center;"/>
+							<input class="txt" id="txtEnda.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtStore.*" type="text" style="width:95%; text-align: center;"/>
+							<input class="txt" id="txtOrdeno.*" type="text" style="width:95%; text-align: center;"/>
+						</td>
+						<td>
+							<input class="txt" id="txtNo2.*" type="text" style="width:95%; text-align: center;"/>
+						</td>
+						<td>
+							<input class="txt" id="txtPrice.*" type="text" style="width:95%; text-align: center;"/>
+						</td>
+						<td>
+							<input class="txt" id="txtClass.*" type="text" style="width:95%; text-align: center;"/>
+						</td>
+						<td>
+							<input class="txt" id="txtDatea.*" type="text" style="width:95%; text-align: center;"/>
+						</td>
+						<td>
+							<input class="txt" id="txtProduct.*" type="text" style="width:95%; text-align: center;"/>
+						</td>
+						<td>
+							<input class="txt" id="txtPrt.*" type="text" style="width:95%; text-align: center;"/>
+						</td>
+						<td>
+							<input class="txt" id="txtHend.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
 					</tr>
 				</table>
@@ -510,27 +590,31 @@
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
 						<td style="width:20px;"> </td>
-						<td style="width:120px; text-align: center;">訂購單編號</td>
-						<td style="width:120px; text-align: center;">預交日期</td>
-						<td style="width:120px; text-align: center;">客戶編號</td>
-						<td style="width:120px; text-align: center;">客戶名稱</td>
-						<td style="width:120px; text-align: center;">品名編號</td>
-						<td style="width:120px; text-align: center;">品名</td>
-						<td style="width:120px; text-align: center;">規格</td>
-						<td style="width:120px; text-align: center;">預定出貨日期</td>
-						<td style="width:120px; text-align: center;">厚度</td>
-						<td style="width:120px; text-align: center;">寬度</td>
-						<td style="width:120px; text-align: center;">長度</td>
-						<td style="width:120px; text-align: center;">重量</td>
+						<td style="width:120px; text-align: center;">原鋼捲編號</td>
+						<td style="width:120px; text-align: center;">原鋼捲領料數</td>
+						<td style="width:120px; text-align: center;">領料重</td>
+						<td style="width:120px; text-align: center;">餘料寬</td>
+						<td style="width:120px; text-align: center;">餘料長</td>
+						<td style="width:120px; text-align: center;">尺寸</td>
+						<td style="width:120px; text-align: center;">型</td>
 						<td style="width:120px; text-align: center;">數量</td>
-						<td style="width:120px; text-align: center;">單價</td>
-						<td style="width:120px; text-align: center;">等級</td>
-						<td style="width:120px; text-align: center;">小計</td>
-						<td style="width:120px; text-align: center;">硬度</td>
-						<td style="width:120px; text-align: center;">表色</td>
-						<td style="width:120px; text-align: center;">底色</td>
-						<td style="width:120px; text-align: center;">結案</td>
-						<td style="width:120px; text-align: center;">取消</td>
+						<td style="width:120px; text-align: center;">入庫重</td>
+						<td style="width:120px; text-align: center;">餘料編號</td>
+						<td style="width:120px; text-align: center;">餘料客戶</td>
+						<td style="width:120px; text-align: center;">廢料</td>
+						<td style="width:120px; text-align: center;">倉庫</td>
+						<td style="width:120px; text-align: center;">儲位</td>
+						<td style="width:120px; text-align: center;">餘料備註</td>
+						<td style="width:120px; text-align: center;">餘料毛重</td>
+						<td style="width:120px; text-align: center;">餘料品名</td>
+						<td style="width:120px; text-align: center;">餘料板面</td>
+						<td style="width:120px; text-align: center;">餘料硬度</td>
+						<td style="width:120px; text-align: center;">裁剪單號</td>
+						<td style="width:120px; text-align: center;">印</td>
+						<td style="width:120px; text-align: center;">原鋼捲儲位異動</td>
+						<td style="width:120px; text-align: center;">外加成本</td>
+						<td style="width:120px; text-align: center;">原鋼捲餘毛重</td>
+						<td style="width:120px; text-align: center;">成本單價</td>
 					</tr>
 					<tr>
 						<td>

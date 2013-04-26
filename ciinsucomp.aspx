@@ -14,7 +14,7 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
-        var q_name="ciinsu";
+        var q_name="ciinsucomp";
         var q_readonly = ['txtWorker','txtWorker2'];
         var bbmNum = []; 
         var bbmMask = []; 
@@ -64,7 +64,7 @@
         function _btnSeek() {
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
-         q_box('ciinsu_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
+         q_box('ciinsucomp_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
         }
 
         function btnIns() {
@@ -303,28 +303,21 @@
             </tr>
            <tr>
                <td class="td1"><span> </span><a id='lblInsurer' class="lbl"> </a></td>
-               <td class="td2" colspan="2"><input id="txtInsurer" type="text" class="txt c1"/></td>
-               <td class="td5"> </td>
-               <td class="td6"> </td>
+               <td class="td2" colspan="3"><input id="txtInsurer" type="text" class="txt c1"/></td>
+               <td class="td4"><span> </span><a id='lblNick' class="lbl"> </a></td>
+               <td class="td5"><input id="txtNick" type="text" class="txt c1"/></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblSerial' class="lbl"> </a></td>
-               <td class="td2" colspan="2"><input id="txtSerial" type="text" class="txt c1"/></td>
-               <td class="td4"> </td>
-               <td class="td5"> </td>
-               <td class="td6"> </td>
-            </tr>
-            <tr>
+               <td class="td2"><input id="txtSerial" type="text" class="txt c1"/></td>
                <td class="td1"><span> </span><a id='lblTel' class="lbl"></a></td>
-               <td class="td2" colspan="2"><input id="txtTel"  type="text" class="txt c1"/></td>
+               <td class="td2"><input id="txtTel"  type="text" class="txt c1"/></td>
                <td class="td4"><span> </span><a id='lblFax' class="lbl"></a></td>
-               <td class="td5" colspan="2"><input id="txtFax"  type="text"  class="txt c1" /></td>
+               <td class="td5"><input id="txtFax"  type="text"  class="txt c1" /></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
-               <td class="td2" ><input id="txtZip"  type="text" class="txt c1" /></td>
-               <td class="td3"colspan="3" ><input id="txtAddr"  type="text" class="txt c1" /></td>
-               <td class="td6"></td>
+               <td class="td2"colspan="5" ><input id="txtAddr"  type="text" class="txt c1" /></td>
  	       </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblConn' class="lbl"></a></td>
@@ -342,9 +335,7 @@
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblAddr_conn' class="lbl"></a></td>
-               <td class="td2" ><input id="txtZip_conn"  type="text" class="txt c1" /></td>
-               <td class="td3"colspan="3" ><input id="txtAddr_conn"  type="text" class="txt c1" /></td>
-               <td class="td6"></td>
+               <td class="td3"colspan="5" ><input id="txtAddr_conn"  type="text" class="txt c1" /></td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblArbdiscount' class="lbl"></a></td>
@@ -363,12 +354,10 @@
                <td class="td3"><span> </span>%</td>
             </tr> 
             <tr>
-               <td class="td1"><span> </span><a id='lblCode' class="lbl"> </a></td>
-               <td class="td2"><input id="txtCode"  type="text" class="txt c1" /></td>
-               <td class="td3"><span> </span><a id="lblWorker" class="lbl"> </a></td>
-			   <td class="td4"><input id="txtWorker" type="text" class="txt c1" /></td>
-               <td class="td5"><span> </span><a id="lblWorker2" class="lbl"> </a></td>
-			   <td class="td6"><input id="txtWorker2" type="text"  class="txt c1"/></td>
+               <td class="td1"><span> </span><a id="lblWorker" class="lbl"> </a></td>
+			   <td class="td2"><input id="txtWorker" type="text" class="txt c1" /></td>
+               <td class="td3"><span> </span><a id="lblWorker2" class="lbl"> </a></td>
+			   <td class="td4"><input id="txtWorker2" type="text"  class="txt c1"/></td>
             </tr>      
            <tr>
                <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
