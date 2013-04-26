@@ -9,19 +9,7 @@
 
             }
             $(document).ready(function() {
-				alert(38.660*83.000);
-				alert(Math.round(38.660*83.000,0));
-                Lock();
-
-                /*$('#txtA').change(function(e){
-
-                var patt = /^(?:[0-1][0-9]|2[0-3])\:([0-5][0-9])$/g;
-                alert(patt.test($(this).val()));
-                var re = /(\d{4})([^\.,.]*)$/g;
-                alert($(this).val().replace(re,"$1.$2"));
-                });*/
-
-                //(?:0?[1-9]|1[0-2])$
+				
 
             });
             function Lock() {
