@@ -443,12 +443,11 @@
                 }
             }
 
-            /*function q_stPost() {
+            function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
-                abbm[q_recno]['accno'] = xmlString;
-                $('#txtAccno').val(xmlString);
-            }*/
+                Unlock();
+            }
             function btnOk() {
                 if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
@@ -492,7 +491,6 @@
                 else
                     wrServer(t_noa);
                 tranorde.unlock();
-                Unlock;
             }
             
             function SendCommand(n){
@@ -683,16 +681,21 @@
                 tranorde.unlock();
             }      
             function FormatNumber(n) {
+            	var xx = "";
+            	if(n<0){
+            		n = Math.abs(n);
+            		xx = "-";
+            	}     		
                 n += "";
                 var arr = n.split(".");
                 var re = /(\d{1,3})(?=(\d{3})+$)/g;
-                return arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+                return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
             function Lock() {
                 var t_width = document.body.offsetWidth > document.body.scrollWidth ? document.body.offsetWidth : document.body.scrollWidth;
                 var t_height = document.body.offsetHeight > document.body.scrollHeight ? document.body.offsetHeight : document.body.scrollHeight;
                 if ($('#divLock').length == 0)
-                    $('body').append('<div id="divLock"> </div>');
+                    $(document.body).append('<div id="divLock"> </div>');
                 $('#divLock').css('width', t_width).css('height', t_height);
                 $('#divLock').css('background', 'black').css('opacity', 0.2);
                 $('#divLock').css('display', '').css('position', 'absolute').css('top', 0).css('left', 0).focus();

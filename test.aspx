@@ -5,18 +5,31 @@
 		<title></title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script type="text/javascript">
-            window.onresize = function(event) {
-
-            }
             $(document).ready(function() {
-				
+				Lock();
 
             });
+            function Lock1() {
+                var t_width = document.body.clientWidth > document.body.scrollWidth ? document.body.clientWidth : document.body.scrollWidth;
+                var t_height = document.body.clientHeight > document.body.scrollHeight ? document.body.clientHeight : document.body.scrollHeight;
+                if ($('#divLock').length == 0)
+                    $('body').append('<div id="divLock"> </div>');
+                $('#divLock').css('width', t_width).css('height', t_height);
+                $('#divLock').css('background', 'black').css('opacity', 0.2);
+                $('#divLock').css('display', '').css('position', 'absolute').css('top', 0).css('left', 0).focus();
+            	addResizeEvent(function(){
+            		if($('#divLock').css('display')!='none')
+            			return;
+            		var t_width = document.body.clientWidth > document.body.scrollWidth ? document.body.clientWidth : document.body.scrollWidth;
+                	var t_height = document.body.clientHeight > document.body.scrollHeight ? document.body.clientHeight : document.body.scrollHeight;
+            		$('#divLock').css('width', t_width).css('height', t_height);
+            	});
+            }
             function Lock() {
                 var t_width = document.body.offsetWidth > document.body.scrollWidth ? document.body.offsetWidth : document.body.scrollWidth;
                 var t_height = document.body.offsetHeight > document.body.scrollHeight ? document.body.offsetHeight : document.body.scrollHeight;
                 if ($('#divLock').length == 0)
-                    $('body').append('<div id="divLock"> </div>');
+                    $(document.body).append('<div id="divLock"> </div>');
                 $('#divLock').css('width', t_width).css('height', t_height);
                 $('#divLock').css('background', 'black').css('opacity', 0.2);
                 $('#divLock').css('display', '').css('position', 'absolute').css('top', 0).css('left', 0).focus();
@@ -44,7 +57,17 @@
                     }
                 }
             }
-			
+			function FormatNumber(n) {
+            	var xx = "";
+            	if(n<0){
+            		n = Math.abs(n);
+            		xx = "-";
+            	}     		
+                n += "";
+                var arr = n.split(".");
+                var re = /(\d{1,3})(?=(\d{3})+$)/g;
+                return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+            }
 			Number.prototype.round = function(arg) {
 			    return Math.round(this * Math.pow(10,arg))/ Math.pow(10,arg);
 			}
@@ -81,7 +104,7 @@
 			    return (arg1 * m + arg2 * m) / m
 			}
 			Number.prototype.sub = function(arg) {
-			    return accSub(arg, this);
+			    return accSub(this,arg);
 			}
 			function accSub(arg1, arg2) {
 			    var r1, r2, m, n;
