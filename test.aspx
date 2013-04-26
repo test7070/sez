@@ -58,7 +58,7 @@
             }
 			
 			Number.prototype.round = function(arg) {
-			    return Math.round(accDiv(accMul(this, Math.pow(10,arg)), Math.pow(10,arg)));
+			    return accDiv(Math.round(accMul(this, Math.pow(10,arg))), Math.pow(10,arg));
 			}
 			Number.prototype.div = function(arg) {
 			    return accDiv(this, arg);

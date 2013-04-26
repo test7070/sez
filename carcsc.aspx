@@ -160,8 +160,8 @@
             }
 
             function sum() {
-            	$('#txtInmoney').val(q_float('txtInprice').mul(q_float('txtInmount')).round(0));
-                $('#txtOutmoney').val(q_float('txtOutprice').mul(q_float('txtDiscount')).mul(q_float('txtOutmount')).round(0));
+            	$('#txtInmoney').val(FormatNumber(q_float('txtInprice').mul(q_float('txtInmount')).round(0)));
+                $('#txtOutmoney').val(FormatNumber(q_float('txtOutprice').mul(q_float('txtDiscount')).mul(q_float('txtOutmount')).round(0)));
             }
 			function xround(n,m){
 				
@@ -395,8 +395,14 @@
                 return 0;
                 //錯誤
             }
+            function FormatNumber(n) {
+                n += "";
+                var arr = n.split(".");
+                var re = /(\d{1,3})(?=(\d{3})+$)/g;
+                return arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+            }
 			Number.prototype.round = function(arg) {
-			    return Math.round(accDiv(accMul(this, Math.pow(10,arg)), Math.pow(10,arg)));
+			    return accDiv(Math.round(accMul(this, Math.pow(10,arg))), Math.pow(10,arg));
 			}
 			Number.prototype.div = function(arg) {
 			    return accDiv(this, arg);
