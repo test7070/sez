@@ -17,7 +17,7 @@
             }
 			q_tables = 's';
             var q_name = "ciclaim";
-            var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
+            var q_readonly = ['txtNoa','txtDatea','txtWorker','txtWorker2'];
             var q_readonlys = [];
             var bbmNum = new Array(['txtClaims', 10, 0, 1],['txtPaymoney',10,0,1]);
             var bbsNum = new Array(['txtCost', 10, 0, 1]);
@@ -28,8 +28,9 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
+            q_desc=1;
             aPop = new Array(['txtInsurerno', 'lblInsurer', 'ciinsu', 'noa,insurer', 'txtInsurerno,txtInsurer', 'ciinsu_b.aspx'],
-            ['txtCarno', 'lblCarno', 'cicust', 'noa,carowner,cardeal,usera,tel1,mobile,serial,birthday,zip_addr,addr,years,carbrand,cartype,passdate,cc,engineno', 'txtCarno,txtCarowner,txtCardeal,txtUsera,txtTelcar,txtMobilecar,txtSerialcar,txtBirthday,txtZipcar,txtAddrcar,txtYearscar,txtCarbrand,txtCartype,txtPassdate,txtCc,txtEngineno', 'cicust_b.aspx']);
+            ['txtCarno', 'lblCarno', 'cicar', 'a.noa,cust,id,mobile,tel1,addr1','txtCarno,txtDriver,txtId,txtMobile,txtTel,txtAddr,txtInsurerno', 'cicar_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
@@ -42,34 +43,22 @@
                     dataErr = false;
                     return;
                 }
-
                 mainForm(1);
             }
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea', r_picd],['txtHdate', r_picd],['txtEnddate', r_picd],['txtBirthday', r_picd],['txtPassdate', r_picd]];
+                bbmMask = [['txtDatea', r_picd],['txtHdate', r_picd],['txtEnddate', r_picd],['txtOtime', '99:99']];
                 q_mask(bbmMask);
                 
-                $(".carcust").hide();
-                
-               $("#btnCarcust").val("＋");
-				$("#btnCarcust").toggle(function(e) {
-					$(".carcust").show();
-					$("#btnCarcust").val("－");
-				}, function(e) {
-					$(".carcust").hide();
-					$("#btnCarcust").val("＋");
+                //當入當期投保公司
+                $('#txtInsurerno').focusin(function(e) {
+					if(emp($('#txtInsurerno').val())){
+						var t_where = "where=^^ carno ='"+$('#txtCarno').val()+"' and ('"+q_date()+"' between bdate and edate)  ^^";
+						q_gt('ciinsui', t_where, 0, 0, 0, "");
+					}
+						
 				});
-				
-				$("#btnCaredit").val("車主新增/修改");
-				$('#btnCaredit').click(function(e) {
-					if(emp($('#txtCarno').val()))
-						q_box("cicust.aspx?;;;;", 'cicust', "90%", "600px", q_getMsg("popCicust"));
-					else
-						q_box("cicust.aspx?;;;noa='" + $('#txtCarno').val() + "'", 'cicust', "90%", "600px", q_getMsg("popCicust"));
-				});
-				
             }
 
             function q_boxClose(s2) {
@@ -84,6 +73,13 @@
 
             function q_gtPost(t_name) {
             	switch (t_name) {
+            		case 'ciinsui':
+                 		var as = _q_appendData("ciinsui", "", true);
+                 		if(as[0]){
+                 			$('#txtInsurerno').val(as[0].insurerno);
+                 			$('#txtInsurer').val(as[0].insurer);
+                 		}
+                 		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -105,8 +101,7 @@
                 var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
-		            q_gtnoa(q_name, replaceAll('KGS' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-		            //q_gtnoa(q_name, replaceAll('TEST' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+		            q_gtnoa(q_name, replaceAll('AI' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 		        else
 		            wrServer(t_noa);
             }
@@ -118,20 +113,20 @@
             }
             function btnIns() {
                 _btnIns();
-               $('#txtDatea').focus();
                 $('#txtDatea').val(q_date());
-                
                 $('#txtNoa').val('AUTO');
+                $('#txtCarno').focus();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();           
                 $('#txtNoa').attr('readonly','readonly');
+                $('#txtCarno').focus();
 
             }
             function btnPrint() {
-            	//q_box('z_giftsend.aspx', '', "90%", "650px", m_print);
+            	
             }
             function wrServer(key_value) {
                 var i;
@@ -141,20 +136,9 @@
             function bbsAssign() {
                 for(var i = 0; i < q_bbsCount; i++) {
                 	if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-                		
-                		$('#txtMount_'+i).blur(function () {
-                			t_IdSeq = -1;
-                			q_bodyId($(this).attr('id'));
-							b_seq = t_IdSeq;
-							
-							q_tr('txtMoney_'+b_seq,q_float('txtMount_'+b_seq)*q_float('txtPrice'));
+                		$('#txtCost_'+i).change(function () {
 			            	sum();
 			       		});
-			       		
-			       		$('#txtMoney_'+i).blur(function () {
-			            	sum();
-			       		});
-			       		
                     }
                 }
                 _bbsAssign();
@@ -176,11 +160,11 @@
             }
 
             function sum() {
-				//var total = 0,t_bin=0,t_interest=0,t_paytotal=0;
-                //for(var j = 0; j < q_bbsCount; j++) {
-                	//total=total+q_float('txtMoney_'+j);
-                //}
-                //q_tr('txtTotal',total);
+				var total = 0,t_bin=0,t_interest=0,t_paytotal=0;
+                for(var j = 0; j < q_bbsCount; j++) {
+                	total=total+q_float('txtCost_'+j);
+                }
+                q_tr('txtClaims',total);
             }
             
             function refresh(recno) {
@@ -378,86 +362,27 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:15%;color:black;"><a id='vewCarno'> </a></td>
-						<td align="center" style="width:15%;color:black;"><a id='vewDriver'> </a></td>
-						<td align="center" style="width:30%;color:black;"><a id='vewInsurer'> </a></td>
-						<td align="center" style="width:15%;color:black;"><a id='vewHdate'> </a></td>
+						<td align="center" style="width:30%;color:black;"><a id='vewHdate'> </a></td>
+						<td align="center" style="width:30%;color:black;"><a id='vewCarno'> </a></td>
+						<td align="center" style="width:30%;color:black;"><a id='vewDriver'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
+						<td id="hdate" style="text-align: center;">~hdate</td>
 						<td id="carno" style="text-align: center;">~carno</td>
 						<td id="driver" style="text-align: center;">~driver</td>
-						<td id="insurer" style="text-align: center;">~insurer</td>
-						<td id="hdate" style="text-align: center;">~hdate</td>
 					</tr>
 				</table>
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
-					<tr style="height:1px;">
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td class="tdZ"> </td>
-					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtNoa" class="txt c1"/>	</td>
-						<td class="td3"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtDatea" class="txt c1"/>	</td>	
-					</tr>
-					<tr>
-						<td class="td1"><span> </span><a id='lblCarno' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblCarno' class="lbl btn"> </a></td>
 						<td class="td2"><input type="text" id="txtCarno" class="txt c1"/>	</td>
-						<td style="text-align: center;"><input id="btnCarcust" type="button" style="width:50%;"/></td>
-						<td style="text-align: center;"><input id="btnCaredit" type="button" /></td>
-					</tr>
-					<tr class="carcust">
-						<td class="td1"><span> </span><a id='lblCarowner_car' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtCarowner" class="txt c1"/>	</td>
-						<td class="td3"><span> </span><a id='lblCardeal_car' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtCardeal" class="txt c1"/>	</td>
-						<td class="td5"><span> </span><a id='lblUsera_car' class="lbl"> </a></td>
-						<td class="td6"><input type="text" id="txtUsera" class="txt c1"/>	</td>
-						<td class="tdZ"> </td>
-					</tr>
-					<tr class="carcust">
-						<td class="td1"><span> </span><a id='lblTel_car' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtTelcar" class="txt c1"/>	</td>
-						<td class="td3"><span> </span><a id='lblMobile_car' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtMobilecar" class="txt c1"/>	</td>
-						<td class="td1"><span> </span><a id='lblSerial_car' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtSerialcar" class="txt c1"/>	</td>
-						<td class="tdZ"> </td>
-					</tr>
-					<tr class="carcust">
-						<td class="td5"><span> </span><a id='lblBirthday_car' class="lbl"> </a></td>
-						<td class="td6"><input type="text" id="txtBirthday" class="txt c1"/>	</td>
-						<td class="td1"><span> </span><a id='lblAddr_car' class="lbl"> </a></td>
-						<td class="td2" colspan="3"><input type="text" id="txtZipcar" class="txt c2"/>
-						<input type="text" id="txtAddrcar" class="txt c3"/>	</td>
-						<td class="tdZ"> </td>
-					</tr>
-					<tr class="carcust">
-						<td class="td1"><span> </span><a id='lblYears_car' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtYearscar" class="txt c1"/>	</td>
-						<td class="td3"><span> </span><a id='lblCarbrand_car' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtCarbrand" class="txt c1"/>	</td>
-						<td class="td5"><span> </span><a id='lblCartype_car' class="lbl"> </a></td>
-						<td class="td6"><input type="text" id="txtCartype" class="txt c1"/>	</td>
-						<td class="tdZ"> </td>
-					</tr>
-					<tr class="carcust">
-						<td class="td1"><span> </span><a id='lblPassdate_car' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtPassdate" class="txt c1"/>	</td>
-						<td class="td3"><span> </span><a id='lblCc_car' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtCc" class="txt c1"/>	</td>
-						<td class="td5"><span> </span><a id='lblEngineno_car' class="lbl"> </a></td>
-						<td class="td6"><input type="text" id="txtEngineno" class="txt c1"/>	</td>
-						<td class="tdZ"> </td>
+						<td class="td3"><span> </span><a id='lblNoa' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtNoa" class="txt c1"/>	</td>
+						<td class="td5"><span> </span><a id='lblDatea' class="lbl"> </a></td>
+						<td class="td6"><input type="text" id="txtDatea" class="txt c1"/>	</td>	
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblDriver' class="lbl"> </a></td>
@@ -471,22 +396,21 @@
 						<td class="td1"><span> </span><a id='lblTel' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtTel" class="txt c1"/>	</td>
 						<td class="td3"><span> </span><a id='lblAddr' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtZip" class="txt c1"/>	</td>
-						<td class="td5"colspan="2"><input type="text" id="txtAddr" class="txt c1"/>	</td>	
+						<td class="td4"colspan="3"><input type="text" id="txtAddr" class="txt c1"/>	</td>	
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblInsurer' class="lbl btn"> </a></td>
 						<td class="td2" colspan="3"><input type="text" id="txtInsurerno" class="txt c2"/>
 							<input type="text" id="txtInsurer" class="txt c3"/>
 						</td>
-						<td class="td5"><span> </span><a id='lblCaseno' class="lbl"> </a></td>
-						<td class="td6"><input type="text" id="txtCaseno" class="txt c1"/>	</td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblHdate' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtHdate" class="txt c1"/>	</td>
-						<td class="td1"><span> </span><a id='lblOtime' class="lbl"> </a></td>
-						<td class="td2"><input type="text" id="txtOtime" class="txt c1"/>	</td>	
+						<td class="td1"><span> </span><a id='lblCaseno' class="lbl"> </a></td>
+						<td class="td2"><input type="text" id="txtCaseno" class="txt c1"/>	</td>
+						<td class="td3"><span> </span><a id='lblHdate' class="lbl"> </a></td>
+						<td class="td4"><input type="text" id="txtHdate" class="txt c1"/>	</td>
+						<td class="td5"><span> </span><a id='lblOtime' class="lbl"> </a></td>
+						<td class="td6"><input type="text" id="txtOtime" class="txt c1"/>	</td>	
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblOaddr' class="lbl"> </a></td>

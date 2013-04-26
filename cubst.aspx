@@ -622,27 +622,31 @@
 							<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
 						</td>
 						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-						<td><input id="txtOrdeno..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtDate2..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtCustno..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtComp..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtProductno..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtProduct..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtSpec..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtDate3..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtDime..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtUno..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtGmount..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtGweight..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtWidth..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtLength..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtWeight..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtSize..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtStyle..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtMount..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtPrice..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtClass..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtTotal..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtWeight..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtBno..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtCustno..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtXbutt..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtStoreno..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtPlace..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtMemo..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtMweight..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtProductno..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtSpec..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtHard..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtScolor..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtUcolor..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtEnda..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtCancel..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtCutno..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtPrt..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtPlace2..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtPrice2..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtMweight2..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtMprice..*" type="text" style="width:95%;"/></td>
 					</tr>
 				</tbody>
 			</table>
