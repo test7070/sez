@@ -29,7 +29,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
            aPop = new Array(
-           	['txtCarno', 'lblCarno', 'cicar', 'a.noa,saleno', 'txtCarno,txtSaleno', 'cicar_b.aspx'],
+           	['txtCarno', 'lblCarno', 'cicar', 'a.noa,saleno,sale', 'txtCarno,txtSaleno,txtSale,txtInsurancenum', 'cicar_b.aspx'],
            	['txtInsurerno', 'lblInsurer', 'ciinsucomp', 'noa,insurer', 'txtInsurerno,txtInsurer', 'ciinsucomp_b.aspx'],
             ['txtSaleno', 'lblSale', 'cisale', 'noa,namea', 'txtSaleno,txtSale', 'cisale_b.aspx'],
             ['txtInsutypeno_', 'btnInsutypeno_', 'ciinsutype', 'noa,insutype', 'txtInsutypeno_,txtInsutype_', 'ciinsutype_b.aspx']
@@ -55,14 +55,6 @@
                 bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd],['txtEdate', r_picd],['txtBirthday', r_picd],['txtPassdate', r_picm]];
             	q_mask(bbmMask);
             	
-            	$('#txtSaleno').focusin(function(e) {
-					if(emp($('#txtSale').val())){
-						var t_where = "where=^^ noa ='"+$('#txtSaleno').val()+"' ^^";
-						q_gt('cisale', t_where, 0, 0, 0, "");
-					}
-						
-				});
-            	
             }
 
             function q_boxClose(s2) {
@@ -77,11 +69,6 @@
 
             function q_gtPost(t_name) {
                  switch (t_name) {
-                 	case 'cisale':
-                 		var as = _q_appendData("cisale", "", true);
-                 		if(as[0])
-                 			$('#txtSale').val(as[0].namea);
-                 		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
