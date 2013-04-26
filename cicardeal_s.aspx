@@ -11,7 +11,7 @@
 	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "cicardeal_s";
-	aPop = new Array(['txtCno', '', 'cicardeal', 'cno,comp,serial', 'txtCno,txtComp,txtSerial', "cicardeal_b.aspx?"]);
+	aPop = new Array(['txtCno', '', 'cicardeal', 'noa,cardeal,serial', 'txtNoa,txtCardeal,txtSerial', "cicardeal_b.aspx?"]);
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -29,11 +29,11 @@
     }
 
     function q_seekStr() {   
-        t_cno = $('#txtCno').val();  
-		t_comp = $('#txtComp').val();
+        t_noa = $('#txtNoa').val();  
+		t_cardeal = $('#txtCardeal').val();
 		t_serial = $('#txtSerial').val();
 
-        var t_where = " 1=1 " + q_sqlPara2("cno", t_cno) +q_sqlPara2("comp", t_comp)+q_sqlPara2("serial", t_serial);
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +q_sqlPara2("cardeal", t_cardeal)+q_sqlPara2("serial", t_serial);
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -48,12 +48,12 @@
 <div style='width:400px; text-align:center;padding:15px;' >
        <table id="seek"  border="1"   cellpadding='3' cellspacing='2' style='width:100%;' >
             <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblCno'></a></td>
-                <td><input class="txt" id="txtCno" type="text" style="width:215px; font-size:medium;" /></td>
+                <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
+                <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
              <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblComp'></a></td>
-                <td><input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" /></td>
+                <td class='seek'  style="width:20%;"><a id='lblCardeal'></a></td>
+                <td><input class="txt" id="txtCardeal" type="text" style="width:215px; font-size:medium;" /></td>
              </tr>
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblSerial'></a></td>
