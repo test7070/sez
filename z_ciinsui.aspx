@@ -35,15 +35,18 @@
                     }, {
                         type : '2',
                         name : 'xinsurerno',
-                        dbf : 'insur',
+                        dbf : 'ciinsucomp',
                         index : 'noa,comp',
-                        src : 'cust_b.aspx'
+                        src : 'ciinsucomp_b.aspx'
                     },{
                         type : '1',
                         name : 'xdate'
-                    },{
-                        type : '1',
-                        name : 'xdate'
+                    }, {
+                        type : '2',
+                        name : 'xsales',
+                        dbf : 'cisale',
+                        index : 'noa,namea',
+                        src : 'cisale_b.aspx'
                     }]
                 });
                 		            
