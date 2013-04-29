@@ -167,7 +167,6 @@
                     		if(t_noa != 'AUTO' && t_noa.length > 0){
                     			alert('check OK!');
                     		}
-							
                     	});
                     }
                 }
