@@ -22,7 +22,7 @@
             var bbmNum = [['txtMoney', 10, 0, 1]];
             var bbsNum = [['txtMoney', 10, 0, 1]];
             var bbmMask = [];
-            var bbsMask = [];
+            var bbsMask = [['txtDatea','999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -50,11 +50,10 @@
             }
 
             function mainPost() {
-                q_getFormat();
                 bbmMask = [['txtDatea', r_picd]];
-                bbsMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
-                q_mask(bbsMask);
+                bbsMask = [['txtDatea', r_picd]];
+                q_getFormat();
                 q_cmbParse("cmbTypea", q_getPara('uf.typea'));
                 $("#cmbTypea").focus(function() {
                     var len = $("#cmbTypea").children().length > 0 ? $("#cmbTypea").children().length : 1;
