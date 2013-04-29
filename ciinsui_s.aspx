@@ -11,10 +11,10 @@
 	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "ciinsui_s";
-	aPop = new Array(['txtInsurerno', 'lblInsurer', 'ciinsu', 'noa,insurer', 'txtInsurerno,txtInsurer', 'ciinsu_b.aspx'],
+	aPop = new Array(['txtInsurerno', 'lblInsurer', 'ciinsucomp', 'noa,insurer', 'txtInsurerno,txtInsurer', 'ciinsucomp_b.aspx'],
 	['txtCardeal', '', 'cicardeal', 'comp,cno', 'txtCardeal', 'cicardeal_b.aspx'],
 	['txtSales', '', 'cisale', 'namea,noa', 'txtSales', 'cisale_b.aspx'],
-	['txtCarno', 'lblCarno', 'cicust', 'noa,carowner', 'txtCarno', 'cicust_b.aspx']);
+	['txtCarno', 'lblCarno', 'cicar', 'noa', 'txtCarno', 'cicar_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -53,8 +53,8 @@
         +q_sqlPara2("bdate", t_bbdate,ebdate)
         +q_sqlPara2("edate", t_bedate,eedate)
         +q_sqlPara2("sales", t_sales)
-        +q_sqlPara2("insurancenum", t_insurancenum);
-		+ q_sqlPara2("cardno", t_cardno) 
+        +q_sqlPara2("insurancenum", t_insurancenum)
+		+ q_sqlPara2("cardno", t_cardno) ;
 		
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;

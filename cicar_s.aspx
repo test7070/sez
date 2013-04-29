@@ -14,6 +14,7 @@
 		['txtNoa', 'lblNoa', 'cicar', 'noa', 'txtNoa', 'cicar_b.aspx'],
 		['txtSaleno', 'lblCust', 'cisale', 'noa,namea', 'txtSale,txtSaleno', 'cisale_b.aspx'],
 			['txtCustno', 'lblSale', 'cicust', 'noa,cust', 'txtCust,txtCustno', 'cicust_b.aspx']);
+
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -39,7 +40,7 @@
         var t_where = " 1=1 " 
         + q_sqlPara2("noa", t_noa) 
         +q_sqlPara2("custno", t_custno)
-        +q_sqlPara2("saleno", t_saleno)
+        +q_sqlPara2("saleno", t_saleno);
         
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
