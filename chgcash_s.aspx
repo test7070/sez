@@ -8,14 +8,17 @@
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
-        		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+        <link href="../qbox.css" rel="stylesheet" type="text/css" />
+        <link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
             var q_name = "chgcash_s";
-			aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno,txtSss', 'sss_b.aspx']);
+			aPop = new Array(['txtSssno', 'lblSss', 'sss', 'noa,namea', 'txtSssno', 'sss_b.aspx']);
             $(document).ready(function() {
                 main();
             });
-            /// end ready
 
             function main() {
                 mainSeek();
@@ -30,6 +33,8 @@
                // q_gt('part', '', 0, 0, 0, "");
                 q_gt('chgpart', '', 0, 0, 0, "");
                 q_cmbParse("cmbDc", '@全部,' + q_getPara('chgcash.typea'));
+                $('#txtBdate').datepicker();
+				$('#txtEdate').datepicker(); 
                 $('#txtBdate').focus();
             }
 
@@ -57,7 +62,7 @@
             function q_seekStr() {
             	t_noa = $.trim($('#txtNoa').val());
                 t_sssno = $.trim($('#txtSssno').val());
-                t_sss = $.trim($('#txtSss').val());
+                t_namea = $.trim($('#txtNamea').val());
                 t_bdate = $.trim($('#txtBdate').val());
                 t_edate = $.trim($('#txtEdate').val());
                 t_chgpart = $.trim($('#cmbChgpart').val());
@@ -66,11 +71,12 @@
                 var t_where = " 1=1 "  
                 + q_sqlPara2("noa", t_noa) 
                 + q_sqlPara2("sssno", t_sssno) 
-                + q_sqlPara2("sss", t_sss) 
                 + q_sqlPara2("datea", t_bdate, t_edate) 
                 + q_sqlPara2("chgpartno", t_chgpart) 
                 + q_sqlPara2("dc", t_dc);
-
+				
+				if(t_namea.length>0)
+					t_where += ' patindex("%'+t_namea+'%",namea)>0 ';
                 t_where = ' where=^^' + t_where + '^^ ';
                // alert(t_where);
                 return t_where;
@@ -109,15 +115,19 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblSss'></a></td>
-					<td>
-					<input class="txt" id="txtSssno" type="text" style="width:90px; font-size:medium;" />
-					&nbsp;
-					<input class="txt" id="txtSss" type="text" style="width:115px; font-size:medium;" />
+					<td   style="width:35%;" ><a id='lblSssno'> </a></td>
+					<td style="width:65%;  ">
+					<input class="txt" id="txtSssno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td   style="width:35%;" ><a id='lblNoa'></a></td>
+					<td   style="width:35%;" ><a id='lblNamea'> </a></td>
+					<td style="width:65%;  ">
+					<input class="txt" id="txtNamea" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr> 
+				<tr class='seek_tr'>
+					<td   style="width:35%;" ><a id='lblNoa'> </a></td>
 					<td style="width:65%;  ">
 					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
 					</td>
