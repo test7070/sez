@@ -62,7 +62,7 @@
 				$('#btnInbwimport').click(function (e) {
 					q_box("inbw_b.aspx?;;;noa='" + $('#txtNoa').val() + "';" + r_accy, 'inbm', "95%", "95%", q_getMsg("popInbw"));
 				});
-                $('#btnCuaimport').click(function() {
+                $('#btnOrdeimport').click(function() {
 	            	q_gt('cua_cuas','' , 0, 0, 0, "", r_accy);
                 });
 
@@ -410,7 +410,7 @@
         </tr>
         <tr class="tr3">
 	        <td class='td1' colspan="4" style="text-align:center;">
-				<input id="btnCuaimport" type="button" />
+				<input id="btnOrdeimport" type="button" />
 				<input id="btnInbmimport" type="button" />
 				<input id="btnInbwimport" type="button" />
 	        </td>
