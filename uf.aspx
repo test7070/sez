@@ -155,7 +155,7 @@
                 }else{
                 	alert("error: btnok!")
                 }
-
+				Lock();
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
@@ -266,6 +266,7 @@
                     $('#txtAccno').val(xmlString);
                     /// 顯示 server 端，產生之傳票號碼
                 }
+                Unlock();
             }
 
             ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
@@ -365,19 +366,15 @@
                 _btnCancel();
             }
             function Lock() {
-                var t_width = document.body.offsetWidth > document.body.scrollWidth ? document.body.offsetWidth : document.body.scrollWidth;
-                var t_height = document.body.offsetHeight > document.body.scrollHeight ? document.body.offsetHeight : document.body.scrollHeight;
                 if ($('#divLock').length == 0)
                     $('body').append('<div id="divLock"> </div>');
-                $('#divLock').css('width', t_width).css('height', t_height);
+                $('#divLock').css('width', Math.max(document.body.clientWidth, document.body.scrollWidth)).css('height', Math.max(document.body.clientHeight, document.body.scrollHeight));
                 $('#divLock').css('background', 'black').css('opacity', 0.2);
                 $('#divLock').css('display', '').css('position', 'absolute').css('top', 0).css('left', 0).focus();
             	addResizeEvent(function(){
             		if($('#divLock').css('display')!='none')
             			return;
-            		var t_width = document.body.offsetWidth > document.body.scrollWidth ? document.body.offsetWidth : document.body.scrollWidth;
-                	var t_height = document.body.offsetHeight > document.body.scrollHeight ? document.body.offsetHeight : document.body.scrollHeight;
-            		$('#divLock').css('width', t_width).css('height', t_height);
+            		$('#divLock').css('width', Math.max(document.body.clientWidth, document.body.scrollWidth)).css('height', Math.max(document.body.clientHeight, document.body.scrollHeight));
             	});
             }
 			function Unlock() {

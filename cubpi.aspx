@@ -52,6 +52,8 @@
             }
 
             function mainPost() {
+            	bbmMask = [['txtDatea',r_picd]];
+            	bbtMask = [['txtDate2',r_picd],['txtDate3',r_picd]]
                 q_mask(bbmMask);
             }
 
