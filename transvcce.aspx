@@ -696,7 +696,7 @@
                     $('body').append('<div id="divLock"> </div>');
                 $('#divLock').css('width', Math.max(document.body.clientWidth, document.body.scrollWidth)).css('height', Math.max(document.body.clientHeight, document.body.scrollHeight));
                 $('#divLock').css('background', 'black').css('opacity', 0.2);
-                $('#divLock').css('display', '').css('position', 'absolute').css('top', 0).css('left', 0).focus();
+                $('#divLock').css('display', '').css('z-index', '999').css('position', 'absolute').css('top', 0).css('left', 0).focus();
             	addResizeEvent(function(){
             		if($('#divLock').css('display')!='none')
             			return;

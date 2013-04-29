@@ -107,9 +107,9 @@
                 		$('#txtDatea').val(q_date());
                 	
 		            var t_where = "where=^^ salesno ='"+$('#txtSalesno').val()+"' ";
-		            t_where+= "and sales ='"+$('#txtSales').val()+"' ";
+		            //t_where+= "and sales ='"+$('#txtSales').val()+"' ";
 		            t_where+= "and productno ='"+$('#txtProductno').val()+"' ";
-		            t_where+= "and product ='"+$('#txtProduct').val()+"' ";
+		            //t_where+= "and product ='"+$('#txtProduct').val()+"' ";
 		            t_where+=" ^^";
 			        q_gt('custroutine', t_where , 0, 0, 0, "", r_accy);
 		     	});
@@ -144,7 +144,21 @@
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case 'custroutine':
+                    
+                    	var custroutine = _q_appendData("custroutine", "", true);
 		            	var custroutines = _q_appendData("custroutines", "", true);
+		            	
+		            	for(var i = 0;i < custroutines.length;i++){
+		            		var inrange=false;
+		            		for(var j = 0;j < custroutine.length;j++){
+		            			if(custroutines[i].noa==custroutine[j].noa)
+		            				inrange=true;
+		            		}
+		            		if(!inrange){
+		            			custroutines.splice(i, 1);
+	                            i--;
+		            		}
+		            	}
 		            	
 		            	//判斷是否在區間內
 		            	for(var i = 0;i < custroutines.length;i++){

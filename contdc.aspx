@@ -25,7 +25,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             q_desc = 1;
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,conn', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], ['txtCno', 'lblAcomp', 'acomp', 'noa,acomp,nick', 'txtCno,txtAcomp,txtAcompnick', 'acomp_b.aspx'], ['txtSales', 'lblSales', 'sss', 'namea,noa', 'txtSales,txtSalesno', 'sss_b.aspx'], ['txtAssigner', 'lblAssigner', 'sss', 'namea,noa', 'txtAssigner,txtAssignerno', 'sss_b.aspx'], ['txtAssistant', 'lblAssistant', 'sss', 'namea,noa', 'txtAssistant,txtAssistantno', 'sss_b.aspx'], ['txtCar_conn', 'lblCar_conn', 'sss', 'namea,noa', 'txtCar_conn,txtCar_connno', 'sss_b.aspx'], ['txtBankno', 'lblBankno', 'bank', 'noa,Bank', 'txtBankno,txtBank', 'bank_b.aspx']);
+            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,conn', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], ['txtSales', 'lblSales', 'sss', 'namea,noa', 'txtSales,txtSalesno', 'sss_b.aspx'], ['txtAssigner', 'lblAssigner', 'sss', 'namea,noa', 'txtAssigner,txtAssignerno', 'sss_b.aspx'], ['txtAssistant', 'lblAssistant', 'sss', 'namea,noa', 'txtAssistant,txtAssistantno', 'sss_b.aspx'], ['txtCar_conn', 'lblCar_conn', 'sss', 'namea,noa', 'txtCar_conn,txtCar_connno', 'sss_b.aspx'], ['txtBankno', 'lblBankno', 'bank', 'noa,Bank', 'txtBankno,txtBank', 'bank_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -42,12 +42,13 @@
 
             function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtTimea', '99:99'], ['txtEnddate', r_picd],['txtDatea', r_picd], ['txtPledgedate', r_picd], ['txtPaydate', r_picd], ['txtBcontdate', r_picd], ['txtEcontdate', r_picd], ['txtChangecontdate', r_picd]];
+                bbmMask = [['txtEnddate', r_picd],['txtDatea', r_picd], ['txtPledgedate', r_picd], ['txtPaydate', r_picd], ['txtBcontdate', r_picd], ['txtEcontdate', r_picd], ['txtChangecontdate', r_picd]];
                 q_mask(bbmMask);
                 // q_cmbParse("cmbStype", q_getPara('cont.stype'));
                 q_cmbParse("cmbEnsuretype", ('').concat(new Array('', '定存單質押', '不可撤銷保證', '銀行本票質押', '商業本票質押', '現金質押')));
-                q_cmbParse("cmbEtype", ('').concat(new Array('存入', '存出')));
+                q_cmbParse("cmbEtype", ('').concat(new Array('','存入', '存出')));
                 q_gt('conttype', '', 0, 0, 0, "");
+                q_gt('acomp', '', 0, 0, 0, "");
 
                 $('#btnConn_cust').click(function() {
                     /*var cust2sql="";
@@ -138,6 +139,21 @@
                          if(abbm[q_recno])
                          $("#cmbStype").val(abbm[q_recno].stype);*/
                         break;
+                    case 'acomp':
+                    var as = _q_appendData("acomp", "", true);
+                    	var t_item = " @ ";
+                    	var t_item2 = " @ ";
+                         for ( i = 0; i < as.length; i++) {
+                         	t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+                         	t_item2 = t_item2 + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].nick;
+                         }
+                         q_cmbParse("cmbCno", t_item);
+                         q_cmbParse("cmbCnonick", t_item2);
+                         if(abbm[q_recno]){
+                         	$("#cmbCno").val(abbm[q_recno].cno);
+                         	$("#cmbCnonick").val(abbm[q_recno].cno);
+                         }
+                    	break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -148,7 +164,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('contdc_s.aspx', q_name + '_s', "500px", "550px", q_getMsg("popSeek"));
+                q_box('contdc_s.aspx', q_name + '_s', "500px", "650px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -176,11 +192,6 @@
             }
 
             function btnOk() {
-
-                if (q_cur == 1)
-                    $('#txtWorker').val(r_name);
-                else
-                    $('#txtWorker2').val(r_name);
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
@@ -196,6 +207,15 @@
                 stypeno = stypeno.substr(1, stypeno.length);
 
                 $('#txtStype').val(stypeno);
+                
+                $('#txtAcomp').val($('#cmbCno').find(":selected").text());
+                $('#cmbCnonick').val($('#cmbCno').val());
+                $('#txtAcompnick').val($('#cmbCnonick').find(":selected").text());
+                
+                if (q_cur == 1)
+                    $('#txtWorker').val(r_name);
+                else
+                    $('#txtWorker2').val(r_name);
 
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
@@ -317,7 +337,7 @@
             }
             .dview {
                 float: left;
-                width: 250px;
+                width: 350px;
                 border-width: 0px;
             }
             .tview {
@@ -443,15 +463,17 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:80px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewNoa'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewComp'> </a></td>
+						<td align="center" style="width:80px; color:black;"><a id='vewEcontdate'> </a></td>
 					</tr>
 					<tr>
 						<td >
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
-						<td align="center" id='datea'>~datea</td>
+						<td align="center" id='noa'>~noa</td>
 						<td align="center" id='nick'>~nick</td>
+						<td align="center" id='econtdate'>~econtdate</td>
 					</tr>
 				</table>
 			</div>
@@ -524,11 +546,13 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
+						<td><span> </span><a id="lblAcomp" class="lbl"> </a></td>
 						<td colspan="3">
-							<input id="txtCno"  type="text" class="txt" style="width:20%; float: left;"/>
-							<input id="txtAcomp"  type="text" class="txt" style="width:80%; float: left;"/>
-							<input id="txtAcompnick"  type="text" style="display: none;"/>
+							<select id="cmbCno" class="txt c1"> </select>
+							<select id="cmbCnonick" class="txt c1" style="display:none;"> </select>
+							<!--<input id="txtCno"  type="text" class="txt" style="width:20%; float: left;"/>-->
+							<input id="txtAcomp"  type="hidden" class="txt" style="width:80%; float: left;"/>
+							<input id="txtAcompnick"  type="hidden" style="display: none;"/>
 						</td>
 					</tr>
 					<tr>

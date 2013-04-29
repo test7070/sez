@@ -15,8 +15,8 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-		aPop = new Array(['txtSssno', '', 'sss', 'noa,namea', 'txtSssno', "sss_b.aspx"],
-						 ['txtPartno', '', 'part', 'noa,part', 'txtPartno', "part_b.aspx"]);
+		aPop = new Array();
+		
 			t_isinit = false;
 			t_giftsendt = '';
             $(document).ready(function() {
@@ -64,10 +64,12 @@
                     });
                 q_popAssign();
                 q_langShow();
+                
                 $('#txtDate1').mask('999/99/99');
 	             $('#txtDate1').datepicker();
 	             $('#txtDate2').mask('999/99/99');
 	             $('#txtDate2').datepicker(); 
+	             
 	             var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);

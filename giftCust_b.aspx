@@ -12,7 +12,7 @@
 		<script type="text/javascript">
             var q_name = 'giftcust', t_content = ' field=noa,namea,comp,job,custno,nick', bbsKey = ['noa'], as;
             var isBott = false;
-            q_desc=1;
+            //q_desc=1;
             var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
             var i, s1;
             $(document).ready(function() {
@@ -21,7 +21,7 @@
             // end ready
 
             function main() {
-                if(dataErr)// ��J��ƿ�~
+                if(dataErr)// 
                 {
                     dataErr = false;
                     return;

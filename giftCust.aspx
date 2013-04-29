@@ -16,7 +16,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 			q_tables = 's';
-			q_desc=1;
+			//q_desc=1;
             var q_name = "giftcust";
             var q_readonly = ['txtWorker','textAge'];
             var q_readonlys = [];
@@ -45,7 +45,7 @@
                     return;
                 }
 
-                mainForm(1);
+                mainForm(0);
             }
 
             function mainPost() {

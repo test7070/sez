@@ -63,14 +63,17 @@
                     switch(t_report) {
                         case 'chart01':
                             $('#Loading').Loading();
+                            Lock();
                             q_func('z_anatran.' + t_report, encodeURI(r_accy) + ';' + encodeURI($('#txtTrandate1').val()) + ';' + encodeURI($('#txtTrandate2').val()) + ';' + encodeURI(t_val) + ';' + encodeURI($.trim($('#txtXcarno').val())));
                             break;
                         case 'chart02':
                             $('#Loading').Loading();
+                            Lock();
                             q_func('qtxt.query.chart02', 'z_anatran.txt,' + t_report + ',' + encodeURI(r_accy) + ';' + encodeURI($('#txtTrandate1').val()) + ';' + encodeURI($('#txtTrandate2').val()) + ';' + encodeURI(t_val) + ';' + encodeURI($('#txtXcarno').val()));
                             break;
                         case 'chart03':
                             $('#Loading').Loading();
+                            Lock();
                             t_btrandate = encodeURI($('#txtTrandate1').val());
                             t_etrandate = encodeURI($.trim($('#txtTrandate2').val()).length == 0 ? '#non' : $('#txtTrandate2').val());
                             t_bcustno = encodeURI($('#txtCust1a').val());
@@ -95,8 +98,10 @@
                 switch(t_func) {
                     case 'z_anatran.chart01':
                         var as = _q_appendData("tmp0", "", true, true);
-                        if (as[0] == undefined)
-                            $('#Loading').hide();
+                        if (as[0] == undefined){
+                        	$('#Loading').hide();
+                            Unlock();
+                        }
                         else {
                             var n = -1;
                             var t_maxMoney = 0, t_minMoney = 0, t_outmoney = 0;
@@ -153,6 +158,7 @@
                                 }
                             }
                             $('#Loading').hide();
+                            Unlock();
                             $('#chart01').barChart01({
                                 data : t_carno,
                                 maxMoney : t_maxMoney,
@@ -170,8 +176,10 @@
                         break;
                     case 'qtxt.query.chart02':
                         var as = _q_appendData("tmp0", "", true, true);
-                        if (as[0] == undefined)
-                            $('#Loading').hide();
+                        if (as[0] == undefined){
+                        	$('#Loading').hide();
+                        	Unlock();
+                        }
                         else {
                             var n = -1;
                             var t_maxMoney = 0, t_minMoney = 0, t_inmoney = 0, t_outmoney = 0;
@@ -265,6 +273,7 @@
                                     t_minMoney = t_carno[i].profit;
                             }
                             $('#Loading').hide();
+                            Unlock();
                             $('#chart02').barChart02({
                                 data : t_carno,
                                 maxMoney : t_maxMoney,
@@ -287,7 +296,7 @@
                         var as = _q_appendData("tmp0", "", true, true);
                         if (as[0] == undefined) {
                             $('#Loading').hide();
-                            alert('no data');
+                            Unlock();
                         } else {
                             var n = -1;
                             var t_maxMoney = 0, t_minMoney = 0, t_inmoney = 0, t_profit = 0;
@@ -310,6 +319,7 @@
                             	}
                             }
                             $('#Loading').hide();
+                            Unlock();
                             $('#chart03').barChart03({
                                 data : t_cust,
                                 maxMoney : t_maxMoney,
@@ -1449,6 +1459,34 @@
                     $(this).data('info').init($(this));
                 }
             })($);
+            function Lock() {
+                if ($('#divLock').length == 0)
+                    $('body').append('<div id="divLock"> </div>');
+                $('#divLock').css('width', Math.max(document.body.clientWidth, document.body.scrollWidth)).css('height', Math.max(document.body.clientHeight, document.body.scrollHeight));
+                $('#divLock').css('background', 'black').css('opacity', 0.2);
+                $('#divLock').css('display', '').css('z-index', '999').css('position', 'absolute').css('top', 0).css('left', 0).focus();
+            	addResizeEvent(function(){
+            		if($('#divLock').css('display')!='none')
+            			return;
+            		$('#divLock').css('width', Math.max(document.body.clientWidth, document.body.scrollWidth)).css('height', Math.max(document.body.clientHeight, document.body.scrollHeight));
+            	});
+            }
+			function Unlock() {
+				$('#divLock').css('display', 'none');
+			}		
+            function addResizeEvent(func) {
+                var oldonresize = window.onresize;
+                if ( typeof window.onresize != 'function') {
+                    window.onresize = func;
+                } else {
+                    window.onresize = function() {
+                        if (oldonresize) {
+                            oldonresize();
+                        }
+                        func();
+                    }
+                }
+            }
 		</script>
 		<style type="text/css">
             .pieChart .graph {

@@ -9,9 +9,13 @@
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             var q_name = "contdc_s";
-			aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'],
+			aPop = new Array(
 			['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx']);
             $(document).ready(function() {
                 main();
@@ -33,6 +37,14 @@
                 q_cmbParse("cmbEnsuretype", ('').concat(new Array( '','定存單質押','不可撤銷保證','銀行本票質押','商業本票質押','現金質押')));
                 $('#txtBdate').focus();
                 q_gt('conttype', '', 0, 0, 0, "");
+                q_gt('acomp', '', 0, 0, 0, "");
+                
+                $('#txtBcontdate').datepicker();
+                $('#txtEcontdate').datepicker();
+                $('#txtBecontdate').datepicker();
+                $('#txtEecontdate').datepicker();
+                $('#txtBchangecontdate').datepicker();
+                $('#txtEchangecontdate').datepicker();
             }
 			 function q_gtPost(t_name) {
                 switch (t_name) {
@@ -43,6 +55,14 @@
                             t_stype = t_stype + (t_stype.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].typea;
                         }
                         q_cmbParse("cmbStype", t_stype);
+                        break;
+                    case 'acomp':
+                        var as = _q_appendData("acomp", "", true);
+                        var t_stype = "@";
+                        for ( i = 0; i < as.length; i++) {
+                            t_stype = t_stype + (t_stype.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+                        }
+                        q_cmbParse("cmbCno", t_stype);
                         break;
 						
                 }
@@ -56,10 +76,12 @@
             	t_ensuretype = $('#cmbEnsuretype').val();
             	t_bcontdate = $('#txtBcontdate').val();
             	t_econtdate = $('#txtEcontdate').val();
+            	t_becontdate = $('#txtBecontdate').val();
+            	t_eecontdate = $('#txtEecontdate').val();
             	t_bchangecontdate = $('#txtBchangecontdate').val();
             	t_echangecontdate = $('#txtEchangecontdate').val();
-            	t_cno = $('#txtCno').val();
-            	t_acomp = $('#txtAcomp').val();
+            	t_cno = $('#cmbCno').val();
+            	//t_acomp = $('#txtAcomp').val();
             	t_custno = $('#txtCustno').val();
             	t_comp = $('#txtComp').val();
 
@@ -76,9 +98,10 @@
                 	q_sqlPara2("ensuretype", t_ensuretype) + 
                 	q_sqlPara2("bcontdate", t_bcontdate, t_econtdate) + 
                 	q_sqlPara2("econtdate", t_bcontdate, t_econtdate) + 
+                	q_sqlPara2("econtdate", t_becontdate, t_eecontdate) + 
                 	q_sqlPara2("changecontdate", t_bchangecontdate, t_echangecontdate) + 
                 	q_sqlPara2("cno", t_cno) + 
-                	q_sqlPara2("acomp", t_acomp) + 
+                	//q_sqlPara2("acomp", t_acomp) + 
                 	q_sqlPara2("custno", t_custno) + 
                 	q_sqlPara2("comp", t_comp);
 
@@ -127,6 +150,14 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
+					<td   style="width:35%;" ><a id='lblEcontdate'></a></td>
+					<td style="width:65%;  ">
+					<input class="txt" id="txtBecontdate" type="text" style="width:90px; font-size:medium;" />
+					<span style="display:inline-block; vertical-align:middle">&sim;</span>
+					<input class="txt" id="txtEecontdate" type="text" style="width:93px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
 	                <td class='seek'  style="width:20%;"><a id='lblChangecontdate'></a></td>
 	                <td style="width:65%;  ">
 					<input class="txt" id="txtBchangecontdate" type="text" style="width:90px; font-size:medium;" />
@@ -138,8 +169,9 @@
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblAcomp'></a></td>
                 <td>
-                	<input class="txt" id="txtCno" type="text" style="width:90px; font-size:medium;" />&nbsp;
-                	<input class="txt" id="txtAcomp" type="text" style="width:115px; font-size:medium;" />
+                	<select id="cmbCno" class="txt c1"> </select>
+                	<!--<input class="txt" id="txtCno" type="text" style="width:90px; font-size:medium;" />&nbsp;
+                	<input class="txt" id="txtAcomp" type="text" style="width:115px; font-size:medium;" />-->
                 </td>
             </tr>
              <tr class='seek_tr'>
