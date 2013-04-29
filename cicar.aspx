@@ -83,7 +83,11 @@
 				
 				//更換車牌
 				$('#btnChangecarno').click(function(e) {
-					//執行後端fun
+					//先檢查是否有重複車牌
+					if(!emp($('#txtChangecarno').val())&&q_cur==2){
+                		var t_where = "where=^^ a.noa ='"+$('#txtChangecarno').val()+"' ^^";
+						q_gt('cicar', t_where, 0, 0, 0, "");
+					}
 				});
             }
             
@@ -110,6 +114,17 @@
                         	$("#cmbCardealno").val(abbm[q_recno].cardealno);
                 		break;
                     case q_name:
+                    	if(q_car==2){
+                    		var as = _q_appendData("cicar", "", true);
+                    		if(as[0]==undefined){
+	                    		if(!emp($('#txtChangecarno').val())){
+	                				//q_func( 'changecarno.change', $('#txtNoa').val()+','+$('#txtChangecarno').val());
+								}
+	                    	}else{
+	                    		alert('車牌重覆!!');
+	                    	}
+                    	}
+                    	
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
