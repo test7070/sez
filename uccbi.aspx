@@ -56,8 +56,7 @@
             }
 
             function mainPost() {
-            	bbmMask = [['txtDatea',r_picd]];
-            	bbtMask = [['txtDate2',r_picd],['txtDate3',r_picd]]
+            	bbmMask = [];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('uccst.typea'));
             }
@@ -91,16 +90,14 @@
 
             function btnIns() {
                 _btnIns();
-                $('#txtNoa').val('AUTO');
-                $('#txtDatea').val(q_date());
-                $('#txtDatea').focus();
+                $('#txtNoa').focus();
             }
 
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtDatea').focus();
+                $('#txtNoa').focus();
             }
 
             function btnPrint() {
@@ -127,7 +124,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['money']) {
+                if (!as['memo']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -139,7 +136,6 @@
             function refresh(recno) {
                 _refresh(recno);
                 //if (q_cur > 0 && q_cur < 4)
-                //    sum();
             }
 
             function readonly(t_para, empty) {
@@ -163,9 +159,23 @@
                     $('#lblNo_' + i).text(i + 1);
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
                     	$('#btnBom_bi_' + i).click(function(){
-                    		var t_noa = $('#txtNoa').val();
-                    		if(t_noa != 'AUTO' && t_noa.length > 0){
-                    			alert('check OK!');
+                    		var typeVal = $('#cmbTypea').val();
+                    		if(typeVal == 2 || typeVal == 3){
+	                    		var t_noa = $('#txtNoa').val();
+	                    		if(t_noa != 'AUTO' && t_noa.length > 0){
+	                    			b_seq = $(this).attr('id').split('_')[2];
+	                    			w_noq = $('#txtNoq_' + b_seq).val();
+	                    			if(w_noq.length != 0){
+	                    				bomKey = $('#txtNoa').val() + w_noq;
+	                    				q_box("bom_b.aspx?;;;noa='" + bomKey + "';"+r_accy, 'bom', "95%", "95%", q_getMsg("popBom"));
+	                    			}else{
+	                    				alert('請先存檔後再點選BOM!!');
+	                    			}
+	                    		}else{
+	                    			alert('請先輸入編號並存檔!!');
+	                    		}
+                    		}else{
+                    			alert('非 製成品,半成品');
                     		}
                     	});
                     }
@@ -180,9 +190,6 @@
                     }
                 }
                 _bbtAssign();
-            }
-
-            function sum() {
             }
 
             function q_appendData(t_Table) {
@@ -427,7 +434,7 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblDensity_bi' class="lbl"> </a></td>
-						<td><input id="txtDensity" type="text" class="txt c1" /></td>
+						<td><input id="txtDensity" type="text" class="txt c1 num" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblUnit_bi' class="lbl"> </a></td>
