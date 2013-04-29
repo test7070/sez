@@ -17,7 +17,7 @@
             var q_name = "cicar";
             var q_readonly = ['txtWorker','txtWorker2','txtCust','txtSale','txtBirthday','txtId','txtMobile','txtTel1','txtTel2','txtFax','txtAddr1','txtAddr2'];
             var bbmNum = [];
-            var bbmMask = [["txtYear", "9999/99"],["txtPassdate", "999/99"]];
+            var bbmMask = [["txtYear", "9999/99"],["txtPassdate", "999/99/99"],["txtIndate", "999/99/99"],["txtOutdate", "999/99/99"],["txtRefdate", "999/99/99"],["txtSuspdate", "999/99/99"],["txtWastedate", "999/99/99"],["txtEnddate", "999/99/99"]];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -67,6 +67,9 @@
 				
 				$('#btnInsui').click(function(e) {
 					q_box("ciinsui.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'ciinsui', "90%", "95%", q_getMsg("popInsui"));
+				});
+				$('#btnClaim').click(function(e) {
+					q_box("ciclaim.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'ciinsui', "90%", "95%", q_getMsg("popInsui"));
 				});
 				$('#btnChange').click(function(e) {
 					q_box("cichange.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'cichange', "90%", "95%", q_getMsg("popChange"));
@@ -436,6 +439,22 @@
 						<td><input type="text" id="txtEngineno" class="txt c1"/>	</td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblIndate' class="lbl"> </a></td>
+						<td><input type="text" id="txtIndate" class="txt c1"/>	</td>
+						<td><span> </span><a id='lblOutdate' class="lbl"> </a></td>
+						<td><input type="text" id="txtOutdate" class="txt c1"/>	</td>
+						<td><span> </span><a id='lblRefdate' class="lbl"> </a></td>
+						<td><input type="text" id="txtRefdate" class="txt c1"/>	</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblSuspdate' class="lbl"> </a></td>
+						<td><input type="text" id="txtSuspdate" class="txt c1"/>	</td>
+						<td><span> </span><a id='lblWastedate' class="lbl"> </a></td>
+						<td><input type="text" id="txtWastedate" class="txt c1"/></td>
+						<td><span> </span><a id='lblEnddate' class="lbl"> </a></td>
+						<td><input type="text" id="txtEnddate" class="txt c1"/></td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan="5"><textarea id="txtMemo" style="width:98%; height:100px;"> </textarea></td>
 					</tr>
@@ -448,6 +467,7 @@
 					<tr>
 						<td> </td>
 						<td><input id="btnInsui" type="button" style="width:80%;"/> </td>
+						<td><input id="btnClaim" type="button" style="width:80%;"/> </td>
 						<td><input id="btnChange" type="button" style="width:80%;"/> </td>
 						<td><input id="btnNoachange" type="button" style="width:80%;"/> </td>
 					</tr>
