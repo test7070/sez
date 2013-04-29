@@ -9,7 +9,6 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-		<script src="//59.125.143.170/jquery/js/qset.js" type="text/javascript"></script>
 		<script type="text/javascript">
             var q_name = 'carchange', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 10;
             var t_sqlname = 'carchange_load';
