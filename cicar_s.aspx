@@ -11,9 +11,9 @@
 <script type="text/javascript">
     var q_name = "cicar_s";
 	aPop = new Array(
-		['txtNoa', '', 'cicar', 'noa', 'txtNoa', 'cicar_b.aspx']
-		['txtSaleno', '', 'cisale', 'noa,namea', 'txtSale,txtSaleno', 'cisale_b.aspx'],
-		['txtCustno', 'lblCarno', 'cicust', 'noa,cust', 'txtCust,txtCustno', 'cicust_b.aspx']);
+		['txtNoa', '', 'cicar', 'noa', 'txtNoa', 'cicar_b.aspx?']
+		['txtSaleno', '', 'cisale', 'noa,namea', 'txtSale,txtSaleno', 'cisale_b.aspx?'],
+		['txtCustno', 'lblCarno', 'cicust', 'noa,cust', 'txtCust,txtCustno', 'cicust_b.aspx?']);
     $(document).ready(function () {
         main();
     });         /// end ready
