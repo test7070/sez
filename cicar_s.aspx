@@ -11,9 +11,9 @@
 <script type="text/javascript">
     var q_name = "cicar_s";
 	aPop = new Array(
-		['txtNoa', '', 'cicar', 'noa', 'txtNoa', 'cicar_b.aspx']
-		['txtSaleno', '', 'cisale', 'noa,namea', 'txtSale,txtSaleno', 'cisale_b.aspx'],
-			['txtCustno', 'lblCarno', 'cicust', 'noa,cust', 'txtCust,txtCustno', 'cicust_b.aspx']);
+		['txtNoa', 'lblNoa', 'cicar', 'noa', 'txtNoa', 'cicar_b.aspx'],
+		['txtSaleno', 'lblCust', 'cisale', 'noa,namea', 'txtSale,txtSaleno', 'cisale_b.aspx'],
+			['txtCustno', 'lblSale', 'cicust', 'noa,cust', 'txtCust,txtCustno', 'cicust_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -61,16 +61,14 @@
 					<td style="width:35%;" ><a id='lblCust'></a></td>
 					<td style="width:65%;  ">
 					<input class="txt" id="txtCustno" type="text" style="width:90px; font-size:medium;" />
-					<span style="display:inline-block; vertical-align:middle">&sim;</span>
-					<input class="txt" id="txtCust" type="text" style="width:93px; font-size:medium;" />
+					<input class="txt" id="txtCust" type="text" style="width:115px; font-size:medium;" />
 					</td>
 			</tr>
 			<tr class='seek_tr'>
 					<td style="width:35%;" ><a id='lblSale'></a></td>
 					<td style="width:65%;  ">
 					<input class="txt" id="txtSaleno" type="text" style="width:90px; font-size:medium;" />
-					<span style="display:inline-block; vertical-align:middle">&sim;</span>
-					<input class="txt" id="txtSale" type="text" style="width:93px; font-size:medium;" />
+					<input class="txt" id="txtSale" type="text" style="width:115px; font-size:medium;" />
 					</td>
 			</tr>
         </table>

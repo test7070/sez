@@ -103,7 +103,8 @@
                             t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].nick;
                         }
                         q_cmbParse("cmbCardealno", t_item);
-                        $("#cmbCardealno").val(abbm[q_recno].cardealno);
+                        if(abbm[q_recno])
+                        	$("#cmbCardealno").val(abbm[q_recno].cardealno);
                 		break;
                     case q_name:
                         if (q_cur == 4)
@@ -121,7 +122,7 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('cust_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
+                q_box('cicar_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
