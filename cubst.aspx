@@ -52,6 +52,9 @@
             }
 
             function mainPost() {
+            	q_getFormat();
+				bbmMask = [['txtDatea',r_picd],['txtBdate',r_picd],['txtEdate',r_picd]];
+				bbsMask = [['txtDate2',r_picd],['txtDatea',r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbTypea", q_getPara('cub.typea'));  
             }
@@ -323,7 +326,7 @@
                 font-size: medium;
             }
             .dbbs {
-                width: 130%;
+                width: 150%;
             }
             .dbbs .tbbs {
                 margin: 0;
@@ -610,7 +613,7 @@
 						<td style="width:120px; text-align: center;">餘料板面</td>
 						<td style="width:120px; text-align: center;">餘料硬度</td>
 						<td style="width:120px; text-align: center;">裁剪單號</td>
-						<td style="width:120px; text-align: center;">印</td>
+						<td style="width:20px; text-align: center;">印</td>
 						<td style="width:120px; text-align: center;">原鋼捲儲位異動</td>
 						<td style="width:120px; text-align: center;">外加成本</td>
 						<td style="width:120px; text-align: center;">原鋼捲餘毛重</td>

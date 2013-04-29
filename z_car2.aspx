@@ -270,7 +270,11 @@
 	                    }, {
                             type : '6',
                             name : 'xspecno'
-                        }]
+                        }, {
+	                        type : '8', //select
+	                        name : 'carc',
+	                        value : ('未付立帳').split('.')
+	                    }]
                     });
                     q_getFormat();
 	                q_langShow();
