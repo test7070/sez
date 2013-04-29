@@ -692,19 +692,15 @@
                 return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
             function Lock() {
-                var t_width = document.body.offsetWidth > document.body.scrollWidth ? document.body.offsetWidth : document.body.scrollWidth;
-                var t_height = document.body.offsetHeight > document.body.scrollHeight ? document.body.offsetHeight : document.body.scrollHeight;
                 if ($('#divLock').length == 0)
-                    $(document.body).append('<div id="divLock"> </div>');
-                $('#divLock').css('width', t_width).css('height', t_height);
+                    $('body').append('<div id="divLock"> </div>');
+                $('#divLock').css('width', Math.max(document.body.clientWidth, document.body.scrollWidth)).css('height', Math.max(document.body.clientHeight, document.body.scrollHeight));
                 $('#divLock').css('background', 'black').css('opacity', 0.2);
-                $('#divLock').css('display', '').css('position', 'absolute').css('top', 0).css('left', 0).focus();
+                $('#divLock').css('display', '').css('z-index', '999').css('position', 'absolute').css('top', 0).css('left', 0).focus();
             	addResizeEvent(function(){
             		if($('#divLock').css('display')!='none')
             			return;
-            		var t_width = document.body.offsetWidth > document.body.scrollWidth ? document.body.offsetWidth : document.body.scrollWidth;
-                	var t_height = document.body.offsetHeight > document.body.scrollHeight ? document.body.offsetHeight : document.body.scrollHeight;
-            		$('#divLock').css('width', t_width).css('height', t_height);
+            		$('#divLock').css('width', Math.max(document.body.clientWidth, document.body.scrollWidth)).css('height', Math.max(document.body.clientHeight, document.body.scrollHeight));
             	});
             }
 			function Unlock() {

@@ -767,21 +767,21 @@
 					<tr>
 						<td><span> </span><a id="lblInmoney" class="lbl"> </a></td>
 						<td><input id="txtInmoney"  type="text" class="txt c1 num" /></td>
-						<td><span> </span><a id="lblInplus" class="lbl"> </a></td>
+						<td><span> </span><a id="lblInplus" class="lbl" style="text-decoration:line-through;"> </a></td>
 						<td><input id="txtInplus"  type="text" class="txt c1 num" /></td>
-						<td><span> </span><a id="lblInminus" class="lbl"> </a></td>
+						<td><span> </span><a id="lblInminus" class="lbl" style="text-decoration:line-through;"> </a></td>
 						<td><input id="txtInminus"  type="text" class="txt c1 num" /></td>
-						<td><span> </span><a id="lblIntotal" class="lbl"> </a></td>
+						<td><span> </span><a id="lblIntotal" class="lbl" style="text-decoration:line-through;"> </a></td>
 						<td><input id="txtIntotal"  type="text" class="txt c1 num" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblOutmoney" class="lbl" title="數量*發單價*折扣"> </a></td>
 						<td><input id="txtOutmoney"  type="text" class="txt c1 num" /></td>
-						<td><span> </span><a id="lblOutplus" class="lbl" title="司機加項*折扣"> </a></td>
+						<td><span> </span><a id="lblOutplus" class="lbl" style="text-decoration:line-through;" title="司機加項*折扣"> </a></td>
 						<td><input id="txtOutplus"  type="text" class="txt c1 num" /></td>
-						<td><span> </span><a id="lblOutminus" class="lbl"> </a></td>
+						<td><span> </span><a id="lblOutminus" class="lbl" style="text-decoration:line-through;"> </a></td>
 						<td><input id="txtOutminus"  type="text" class="txt c1 num" /></td>
-						<td><span> </span><a id="lblOuttotal" class="lbl"> </a></td>
+						<td><span> </span><a id="lblOuttotal" class="lbl" style="text-decoration:line-through;"> </a></td>
 						<td><input id="txtOuttotal"  type="text" class="txt c1 num" /></td>
 					</tr>
 					<tr>
@@ -824,8 +824,8 @@
 					<td align="center" style="width:80px;"><a id='lblDiscounts'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblOutprice'> </a></td>
 					<td align="center" style="width:80px;"><a id='lblOuts'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblOutpluss'> </a></td>
-					<td align="center" style="width:80px;"><a id='lblOutminuss'> </a></td>
+					<td align="center" style="width:80px;"><a id='lblOutpluss' style="text-decoration:line-through;"> </a></td>
+					<td align="center" style="width:80px;"><a id='lblOutminuss' style="text-decoration:line-through;"> </a></td>
 					<td align="center" style="width:150px;"><a id='lblTranno'> </a></td>
 				</tr>
 				<tr style='background:#cad3ff;'>
@@ -850,8 +850,8 @@
 					<td><input  id="txtInmoney.*" type="text" class="txt c1 num"/></td>
 					<td><input  id="txtDiscount.*" type="text" class="txt c1 num"/></td>
 					<td><input  id="txtOutprice.*" type="text" class="txt c1 num"/></td>
-					<td><input  id="txtOutmoney.*" type="text" class="txt c1 num"/></td>
-					<td><input  id="txtOutplus.*" type="text" class="txt c1 num"/></td>
+					<td><input  id="txtOutmoney.*" type="text" class="txt c1 num" /></td>
+					<td><input  id="txtOutplus.*" type="text" class="txt c1 num" style="text-decoration:line-through;"/></td>
 					<td><input  id="txtOutminus.*" type="text" class="txt c1 num"/></td>
 					<td><input  id="txtTranno.*" onclick="browTrans(this)" type="text" class="txt c1"/></td>
 				</tr>

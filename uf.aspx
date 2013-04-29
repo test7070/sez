@@ -22,7 +22,7 @@
             var bbmNum = [['txtMoney', 10, 0, 1]];
             var bbsNum = [['txtMoney', 10, 0, 1]];
             var bbmMask = [];
-            var bbsMask = [];
+            var bbsMask = [['txtDatea','999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -50,11 +50,10 @@
             }
 
             function mainPost() {
-                q_getFormat();
                 bbmMask = [['txtDatea', r_picd]];
-                bbsMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
-                q_mask(bbsMask);
+                bbsMask = [['txtDatea', r_picd]];
+                q_getFormat();
                 q_cmbParse("cmbTypea", q_getPara('uf.typea'));
                 $("#cmbTypea").focus(function() {
                     var len = $("#cmbTypea").children().length > 0 ? $("#cmbTypea").children().length : 1;
@@ -155,7 +154,7 @@
                 }else{
                 	alert("error: btnok!")
                 }
-
+				Lock();
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
@@ -266,6 +265,7 @@
                     $('#txtAccno').val(xmlString);
                     /// 顯示 server 端，產生之傳票號碼
                 }
+                Unlock();
             }
 
             ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
@@ -365,19 +365,15 @@
                 _btnCancel();
             }
             function Lock() {
-                var t_width = document.body.offsetWidth > document.body.scrollWidth ? document.body.offsetWidth : document.body.scrollWidth;
-                var t_height = document.body.offsetHeight > document.body.scrollHeight ? document.body.offsetHeight : document.body.scrollHeight;
                 if ($('#divLock').length == 0)
                     $('body').append('<div id="divLock"> </div>');
-                $('#divLock').css('width', t_width).css('height', t_height);
+                $('#divLock').css('width', Math.max(document.body.clientWidth, document.body.scrollWidth)).css('height', Math.max(document.body.clientHeight, document.body.scrollHeight));
                 $('#divLock').css('background', 'black').css('opacity', 0.2);
-                $('#divLock').css('display', '').css('position', 'absolute').css('top', 0).css('left', 0).focus();
+                $('#divLock').css('display', '').css('z-index', '999').css('position', 'absolute').css('top', 0).css('left', 0).focus();
             	addResizeEvent(function(){
             		if($('#divLock').css('display')!='none')
             			return;
-            		var t_width = document.body.offsetWidth > document.body.scrollWidth ? document.body.offsetWidth : document.body.scrollWidth;
-                	var t_height = document.body.offsetHeight > document.body.scrollHeight ? document.body.offsetHeight : document.body.scrollHeight;
-            		$('#divLock').css('width', t_width).css('height', t_height);
+            		$('#divLock').css('width', Math.max(document.body.clientWidth, document.body.scrollWidth)).css('height', Math.max(document.body.clientHeight, document.body.scrollHeight));
             	});
             }
 			function Unlock() {
