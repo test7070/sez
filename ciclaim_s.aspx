@@ -11,9 +11,8 @@
 	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "ciclaim_s";
-	aPop = new Array(['txtInsurerno', 'lblInsurer', 'ciinsu', 'noa,insurer', 'txtInsurerno,txtInsurer', 'ciinsu_b.aspx'],
-	['txtCardeal', '', 'cicardeal', 'comp,cno', 'txtCardeal', 'cicardeal_b.aspx'],
-	['txtCarno', 'lblCarno', 'cicust', 'noa,carowner', 'txtCarno', 'cicust_b.aspx']);
+	aPop = new Array(['txtInsurerno', 'lblInsurer', 'ciinsucomp', 'noa,insurer', 'txtInsurerno,txtInsurer', 'ciinsucomp_b.aspx'],
+		['txtCarno', 'lblCarno', 'cicar', 'a.noa', 'txtCarno', 'cicar_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -35,7 +34,6 @@
         t_noa = $('#txtNoa').val();  
 		t_carno = $('#txtCarno').val();
 		t_driver = $('#txtDriver').val();
-		t_cardeal = $('#txtCardeal').val();
 		t_insurerno = $('#txtInsurerno').val();
 		t_insurer = $('#txtInsurer').val();
 		t_bhdate = $('#txtBhdate').val();
@@ -45,10 +43,9 @@
         + q_sqlPara2("noa", t_noa) 
         +q_sqlPara2("carno", t_carno)
         +q_sqlPara2("driver", t_driver)
-        +q_sqlPara2("cardeal", t_cardeal)
         +q_sqlPara2("insurerno", t_insurerno)
         +q_sqlPara2("insurer", t_insurer)
-        +q_sqlPara2("hdate", t_bhdate,ehdate);
+        +q_sqlPara2("hdate", t_bhdate,t_ehdate);
 
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
@@ -89,10 +86,6 @@
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblInsurer'></a></td>
                 <td><input class="txt" id="txtInsurer" type="text" style="width:215px; font-size:medium;" /></td>
-             </tr>
-              <tr class='seek_tr'>
-                <td class='seek'  style="width:20%;"><a id='lblCardeal'></a></td>
-                <td><input class="txt" id="txtCardeal" type="text" style="width:215px; font-size:medium;" /></td>
              </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 

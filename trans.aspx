@@ -275,32 +275,30 @@
 			function sum() {
 				if(q_float('txtWeight2')==0)
 					$('#txtWeight3').val(0);
-				else
-					$('#txtWeight3').val(round(q_float('txtInmount')-q_float('txtWeight2'),3));
+				else	
+					$('#txtWeight3').val(FormatNumber(round(q_float('txtInmount').sub(q_float('txtWeight2')),3)));
 				if ($('#txtDiscount').val().length == 0) {
 					$('#txtDiscount').val('1');
 				}
-				var t_mount = q_float('txtInmount');
-				t_mount += q_float('txtPton');
+				var t_mount = q_float('txtInmount').add(q_float('txtPton'));
 				$('#txtMount').val(t_mount);
 				var t_price = q_float('txtPrice');
-				
-				$("#txtTotal").val(Math.round(Math.floor(1000*t_mount * t_price)/1000));
 
-				var t_discount = $.trim($('#txtDiscount').val()).length == 0 ? 0 : parseFloat($.trim($('#txtDiscount').val().replace(/,/g, '')), 10);
-				t_mount = $.trim($('#txtOutmount').val()).length == 0 ? 0 : parseFloat($.trim($('#txtOutmount').val().replace(/,/g, '')), 10);
-				t_mount = t_mount + ($.trim($('#txtPton2').val()).length == 0 ? 0 : parseFloat($.trim($('#txtPton2').val().replace(/,/g, '')), 10));
+				$("#txtTotal").val(FormatNumber(t_mount.mul(t_price).round(0)));
+
+				var t_discount = q_float('txtDiscount');
+				t_mount = q_float('txtOutmount').add(q_float('txtPton2'));
 				$('#txtMount2').val(t_mount);
 				if (curData.isOutside())
-					t_price = $.trim($('#txtPrice3').val()).length == 0 ? 0 : parseFloat($.trim($('#txtPrice3').val().replace(/,/g, '')), 10);
+					t_price = q_float('txtPrice3');  
 				else
-					t_price = $.trim($('#txtPrice2').val()).length == 0 ? 0 : parseFloat($.trim($('#txtPrice2').val().replace(/,/g, '')), 10);
-				$("#txtTotal2").val(Math.round(t_mount * t_price * t_discount, 0));
+					t_price = q_float('txtPrice2');
+				$("#txtTotal2").val(FormatNumber(t_mount.mul(t_price).mul(t_discount).round(0)));
 
-				var bmiles = $.trim($('#txtBmiles').val()).length == 0 ? 0 : parseInt($.trim($('#txtBmiles').val().replace(/,/g, '')), 10);
-				var emiles = $.trim($('#txtEmiles').val()).length == 0 ? 0 : parseInt($.trim($('#txtEmiles').val().replace(/,/g, '')), 10);
+				var bmiles = q_float('txtBmiles');
+				var emiles = q_float('txtEmiles');
 				if (bmiles != 0 && emiles != 0)
-					$('#txtMiles').val(emiles - bmiles);
+					$('#txtMiles').val(emiles.sub(bmiles));
 			}
 
 			function q_boxClose(s2) {
@@ -679,6 +677,63 @@
                	}
                	return 0;//錯誤
             }
+            function FormatNumber(n) {
+            	var xx = "";
+            	if(n<0){
+            		n = Math.abs(n);
+            		xx = "-";
+            	}     		
+                n += "";
+                var arr = n.split(".");
+                var re = /(\d{1,3})(?=(\d{3})+$)/g;
+                return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+            }
+			Number.prototype.round = function(arg) {
+			    return Math.round(this * Math.pow(10,arg))/ Math.pow(10,arg);
+			}
+			Number.prototype.div = function(arg) {
+			    return accDiv(this, arg);
+			}
+            function accDiv(arg1, arg2) {
+			    var t1 = 0, t2 = 0, r1, r2;
+			    try { t1 = arg1.toString().split(".")[1].length } catch (e) { }
+			    try { t2 = arg2.toString().split(".")[1].length } catch (e) { }
+			    with (Math) {
+			        r1 = Number(arg1.toString().replace(".", ""))
+			        r2 = Number(arg2.toString().replace(".", ""))
+			        return (r1 / r2) * pow(10, t2 - t1);
+			    }
+			}
+			Number.prototype.mul = function(arg) {
+			    return accMul(arg, this);
+			}
+			function accMul(arg1, arg2) {
+			    var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
+			    try { m += s1.split(".")[1].length } catch (e) { }
+			    try { m += s2.split(".")[1].length } catch (e) { }
+			    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
+			}
+			Number.prototype.add = function(arg) {
+			    return accAdd(arg, this);
+			}
+			function accAdd(arg1, arg2) {
+			    var r1, r2, m;
+			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
+			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+			    m = Math.pow(10, Math.max(r1, r2))
+			    return (arg1 * m + arg2 * m) / m
+			}
+			Number.prototype.sub = function(arg) {
+			    return accSub(this,arg);
+			}
+			function accSub(arg1, arg2) {
+			    var r1, r2, m, n;
+			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
+			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+			    m = Math.pow(10, Math.max(r1, r2));
+			    n = (r1 >= r2) ? r1 : r2;
+			    return ((arg1 * m - arg2 * m) / m).toFixed(n);
+			}
 		</script>
 		<style type="text/css">
 			#dmain {

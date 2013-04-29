@@ -16,7 +16,7 @@
         }
         var q_name="ciinsucomp";
         var q_readonly = ['txtWorker','txtWorker2'];
-        var bbmNum = []; 
+        var bbmNum = [['txtArbdiscount', 5, 2, 1],['txtForcediscount', 10, 0, 1],['txtAccdiscount', 5, 2, 1],['txtWaterdiscount', 5, 2, 1]]; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         aPop = new Array();
@@ -87,6 +87,10 @@
 	           	$('#txtWorker').val(r_name);
 	        else
 	           	$('#txtWorker2').val(r_name);
+	        
+	        if(emp($('#txtNick').val()))
+	        	$('#txtNick').val($('#txtInsurer').val().substr(0,4));
+	        
             var t_noa = trim($('#txtNoa').val());
             if ( t_noa.length==0 )  
                 q_gtnoa(q_name, t_noa);
@@ -287,7 +291,7 @@
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
                    <td align="center" id='noa'>~noa</td>
-                   <td align="center" id='insurer'>~insurer</td>
+                   <td align="center" id='nick'>~nick</td>
             </tr>
         </table>
         </div>

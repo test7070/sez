@@ -17,10 +17,10 @@
             }
 			q_tables = 's';
             var q_name = "ciinsui";
-            var q_readonly = ['txtWorker','txtWorker2'];
+            var q_readonly = ['txtDatea','txtWorker','txtWorker2','txtSale','txtInsurer','txtTotal','txtPay','txtNoa'];
             var q_readonlys = [];
-            var bbmNum = [];
-            var bbsNum = [];
+            var bbmNum = [['txtTotal', 15, 0, 1],['txtMoney', 15, 0, 1],['txtPay', 15, 0, 1]];
+            var bbsNum = [['txtCoda', 15, 0, 1],['txtCost', 15, 0, 1],['txtDiscount', 15, 0, 1],['txtIncome', 15, 0, 1],['txtTotal', 15, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -28,8 +28,10 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-           aPop = new Array(['txtInsurerno', 'lblInsurer', 'ciinsu', 'noa,insurer', 'txtInsurerno,txtInsurer', 'ciinsu_b.aspx'],
-            ['txtSalesno', 'lblSales', 'cisale', 'noa,namea', 'txtSalesno,txtSales', 'cisale_b.aspx'],
+           aPop = new Array(
+           	['txtCarno', 'lblCarno', 'cicar', 'a.noa,saleno,sale', 'txtCarno,txtSaleno,txtSale,txtInsurancenum', 'cicar_b.aspx'],
+           	['txtInsurerno', 'lblInsurer', 'ciinsucomp', 'noa,insurer', 'txtInsurerno,txtInsurer', 'ciinsucomp_b.aspx'],
+            ['txtSaleno', 'lblSale', 'cisale', 'noa,namea', 'txtSaleno,txtSale', 'cisale_b.aspx'],
             ['txtInsutypeno_', 'btnInsutypeno_', 'ciinsutype', 'noa,insutype', 'txtInsutypeno_,txtInsutype_', 'ciinsutype_b.aspx']
            	);
             $(document).ready(function() {
@@ -52,7 +54,7 @@
             	q_getFormat();
                 bbmMask = [['txtDatea', r_picd],['txtBdate', r_picd],['txtEdate', r_picd],['txtBirthday', r_picd],['txtPassdate', r_picm]];
             	q_mask(bbmMask);
-            	 
+            	
             }
 
             function q_boxClose(s2) {
@@ -79,22 +81,24 @@
             }
             
             function btnOk() {
-				if(q_cur==1)
-	           	$('#txtWorker').val(r_name);
-	        else
-	           	$('#txtWorker2').val(r_name);
-	           	sum();
 				t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
                     return;
                 }
+                
+                if(q_cur==1)
+		           	$('#txtWorker').val(r_name);
+		        else
+		           	$('#txtWorker2').val(r_name);
+		           	
+	           	sum();
                
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    q_gtnoa(q_name, replaceAll('SU'+(t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
             }
@@ -109,11 +113,13 @@
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
+                $('#txtCarno').focus();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-                _btnModi();           
+                _btnModi();
+                $('#txtCarno').focus();
             }
             function btnPrint() {
             	q_box('z_ciinsui.aspx', '', "95%", "95%", q_getMsg("popPrint"));
@@ -127,8 +133,21 @@
             function bbsAssign() {
                 for(var i = 0; i < q_bbsCount; i++) {
                 	if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+                		$('#txtDiscount_'+i).change(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							if(!emp($('#txtCost_'+b_seq).val())&&!emp($('#txtDiscount_'+b_seq).val()))
+								q_tr('txtIncome_'+b_seq,round(dec($('#txtCost_'+b_seq).val())*dec($('#txtDiscount_'+b_seq).val())/100,0))
+		                    sum();
+                		});
+                		$('#txtIncome_'+i).change(function() {
+		                    sum();
+                		});
+                		$('#txtTotal_'+i).change(function() {
+		                    sum();
+                		});
                     }
-                
                 }
                 _bbsAssign();
             }
@@ -144,10 +163,15 @@
             }
 
             function sum() {
-            
-            	if(!(q_cur==1 || q_cur==2))
-					return;
-					
+            	var t_total = 0,t_pay=0;
+                for(var j = 0; j < q_bbsCount; j++) {
+                	if(!emp($('#txtInsutypeno_'+j).val())){
+                		t_total+=dec($('#txtIncome_'+j).val());
+                		t_pay+=dec($('#txtTotal_'+j).val());
+                	}
+				}
+				q_tr('txtTotal',t_total);
+				q_tr('txtPay',t_pay);
             }
             function refresh(recno) {
                 _refresh(recno);
@@ -344,18 +368,18 @@
 					<tr>
 						<td align="center" style="width:2%; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:13%;color:black;"><a id='vewCarno'> </a></td>
-						<td align="center" style="width:15%;color:black;"><a id='vewNoa'> </a></td>
+						<td align="center" style="width:15%;color:black;"><a id='vewCardno'> </a></td>
 						<td align="center" style="width:15%;color:black;"><a id='vewInsurancenum'> </a></td>
 						<td align="center" style="width:20%;color:black;"><a id='vewInsurer'> </a></td>
-						<td align="center" style="width:13%;color:black;"><a id='vewSales'> </a></td>
+						<td align="center" style="width:13%;color:black;"><a id='vewSale'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
 						<td id="carno" style="text-align: center;">~carno</td>
-						<td id="noa" style="text-align: center;">~noa</td>
+						<td id="cardno" style="text-align: center;">~cardno</td>
 						<td id="insurancenum" style="text-align: center;">~insurancenum</td>
 						<td id="insurer" style="text-align: center;">~insurer</td>
-						<td id="sales" style="text-align: center;">~sales</td>
+						<td id="sale" style="text-align: center;">~sale</td>
 					</tr>
 				</table>
 			</div>
@@ -377,18 +401,20 @@
 						<td class="td4"><input type="text" id="txtDatea" class="txt c1"/>	</td>
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblCarno' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblCarno' class="lbl btn"> </a></td>
 						<td class="td2"><input type="text" id="txtCarno" class="txt c1"/>	</td>
 						<td class="td3"><span> </span><a id='lblInsurancenum' class="lbl"> </a></td>
-						<td class="td4" colspan="2"><input type="text" id="txtInsurancenum" class="txt c1"/>	</td>
+						<td class="td4"><input type="text" id="txtInsurancenum" class="txt c1"/></td>
+						<td class="td5"><span> </span><a id='lblCardno' class="lbl"> </a></td>
+						<td class="td6"><input type="text" id="txtCardno" class="txt c1"/>	</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblInsurer' class="lbl btn"> </a></td>
 						<td class="td2" colspan="2"><input type="text" id="txtInsurerno" class="txt c2"/>
 						<input type="text" id="txtInsurer" class="txt c3"/>	</td>
-						<td class="td3"><span> </span><a id='lblSales' class="lbl btn"> </a></td>
-						<td class="td4" colspan="2"><input type="text" id="txtSalesno" class="txt c2"/>	
-						<input type="text" id="txtSales" class="txt c3"/>	</td>
+						<td class="td3"><span> </span><a id='lblSale' class="lbl btn"> </a></td>
+						<td class="td4" colspan="2"><input type="text" id="txtSaleno" class="txt c2"/>	
+						<input type="text" id="txtSale" class="txt c3"/>	</td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblBdate' class="lbl"> </a></td>
