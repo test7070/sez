@@ -17,6 +17,7 @@
 			var i, s1;
 			$(document).ready(function() {
 				main();
+				r_accy='';
 			});
 			function main() {
 				if (dataErr) {

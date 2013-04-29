@@ -15,7 +15,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
+			
             var q_name = "ucc";
             var q_readonly = ['txtWorker'];
             var bbmNum = [['txtSprice',10,0],['txtPrice',10,0]];
@@ -33,6 +33,7 @@
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1)
                 $('#txtNoa').focus
+                r_accy=''
             });
             function main() {
                 if (dataErr) {

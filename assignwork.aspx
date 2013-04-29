@@ -125,6 +125,9 @@
                 $('#btnAssignpaper').click(function (e) {
 		            q_box("assignpaper.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'assignpaper', "95%", "95%", q_getMsg("popAssignpaper"));
 		        });
+		       $('#btnCust').click(function() {
+					q_box("custtran.aspx", 'cust', "95%", "95%", q_getMsg("popCust"));  
+                });
             }
 			function cmbpaybno(id){
 					t_where = "noa='" + $('#txtPaybno' + id).val() + "'";
@@ -644,6 +647,8 @@
 							<input id="txtSalesno" type="text"  style="float:left; width:30%;"/>
 							<input id="txtSales" type="text"  style="float:left; width:70%;"/>
 						</td>
+						<td> </td>
+						<td><input id="btnCust" type="button"></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSales2' class="lbl btn"> </a></td>

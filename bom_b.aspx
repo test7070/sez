@@ -4,11 +4,16 @@
 		<meta http-equiv="Content-Language" content="en-us" />
 		<title></title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
-		<script src="../script/qj2.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
-		<script src="../script/qj_mess.js" type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             var q_name = 'bom', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 15;
             var t_sqlname = 'bom_load';
@@ -25,6 +30,11 @@
             var bbsNum = [];
             var bbmMask = [];
             var bbsMask = [];
+            aPop = new Array(
+					['txtTggno_', 'btnTggno_', 'tgg', 'noa,comp', 'txtTggno_,txtTgg_', 'tgg_b.aspx'],
+ 					['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
+ 					['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx']
+           	);
 
             $(document).ready(function() {
                 bbmKey = [];
@@ -44,7 +54,7 @@
                     dataErr = false;
                     return;
                 }
-                mainBrow(6, t_content, t_sqlname, t_postname);
+                mainBrow(6, t_content, t_sqlname, t_postname,r_accy);
             }
 
             function bbsAssign() {/// 表身運算式
@@ -52,21 +62,16 @@
             }
 
             function btnOk() {
-                sum();
-
                 t_key = q_getHref();
-
                 _btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
             }
 
             function bbsSave(as) {
-                if (!as['namea'] && !as['tel'] && !as['addr'] && !as['mobile']) {
+                if (!as['process'] && !as['product'] ) {
                     as[bbsKey[0]] = '';
                     return;
                 }
-
                 q_getId2('', as);
-
                 return true;
 
             }
@@ -76,7 +81,6 @@
 
                 if (!t_key)
                     return;
-
                 _btnModi(1);
 
                 for ( i = 0; i < abbsDele.length; i++) {
@@ -92,10 +96,6 @@
                 //        refresh2();
                 _refresh();
             }
-
-            function sum() {
-            }
-
             function q_gtPost(t_postname) {  /// 資料下載後 ...
                 //        q_gtPost2(t_postname);
             }
@@ -106,7 +106,6 @@
 
             function btnMinus(id) {
                 _btnMinus(id);
-                sum();
             }
 
             function btnPlus(org_htm, dest_tag, afield) {
@@ -124,61 +123,100 @@
                 font-weight: bold;
                 BACKGROUND-COLOR: #76a2fe
             }
+            .txt.num{
+            	text-align: right;
+            }
 		</style>
 	</head>
 	<body>
 		<div  id="dbbs"  >
-			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%;font-size: 14px;'  >
+			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:180%;font-size: 14px;'  >
 				<tr style='color:White; background:#003366;' >
 					<td align="center">
 					<input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  />
 					</td>
-					<td align="center"><a id='lblNamea'></a></td>
-					<td align="center"><a id='lblJob'></a></td>
-					<td align="center"><a id='lblPart'></a></td>
-					<td align="center"><a id='lblTel'></a></td>
-					<td align="center"><a id='lblExt'></a></td>
-					<td align="center"><a id='lblFax'></a></td>
-					<td align="center"><a id='lblMobile'></a></td>
-					<td align="center"><a id='lblEmail'></a></td>
-					<td align="center"><a id='lblAddr'></a></td>
+					<td align="center"><a id='lblProcess'></a></td>
+					<td align="center"><a id='lblProductno'></a></td>
+					<td align="center"><a id='lblProduct'></a></td>
+					<td align="center"><a id='lblUnit'></a></td>
+					<td align="center"><a id='lblMount'></a></td>
+					<td align="center"><a id='lblOuts'></a></td>
+					<td align="center"><a id='lblTggno'></a></td>
+					<td align="center"><a id='lblTgg'></a></td>
+					<td align="center"><a id='lblMechno'></a></td>
+					<td align="center"><a id='lblMech'></a></td>
+					<td align="center"><a id='lblModelno'></a></td>
+					<td align="center"><a id='lblModel'></a></td>
+					<td align="center"><a id='lblBase'></a></td>
+					<td align="center"><a id='lblLoss'></a></td>
 					<td align="center"><a id='lblMemo'></a></td>
+					<td align="center"><a id='lblUweight'></a></td>
+					<td align="center"><a id='lblDaymount'></a></td>
+					<td align="center"><a id='lblDayprod'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;font-size: 14px;'>
 					<td style="width:1%;">
-					<input class="btn"  id="btnMinus.*" type="button" value='－' style="font-weight: bold;"  />
+						<input class="btn"  id="btnMinus.*" type="button" value='－' style="font-weight: bold;"  />
 					</td>
-					<td style="width:6%;">
-					<input class="txt"  id="txtNamea.*" type="text" style="width:98%;"  />
+					<td>
+						<input class="txt"  id="txtProcess.*" type="text" style="width:98%;"  />
 					</td>
-					<td style="width:6%;">
-					<input class="txt" id="txtJob.*" type="text" style="width:98%;"   />
+					<td>
+						<input class="txt"  id="txtProductno.*" type="text" style="width:80%;"  />
+						<input id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
 					</td>
-					<td style="width:6%;">
-					<input class="txt" id="txtPart.*" type="text" style="width:98%;"   />
+					<td>
+						<input class="txt"  id="txtProduct.*" type="text" style="width:98%;"  />
 					</td>
-					<td style="width:10%;">
-					<input class="txt" id="txtTel.*" type="text" style="width:94%;"  />
+					<td>
+						<input class="txt"  id="txtUnit.*" type="text" style="width:98%;"  />
 					</td>
-					<td style="width:5%;">
-					<input class="txt" id="txtExt.*" type="text" style="width:94%; text-align:right"  />
+					<td>
+						<input class="txt"  id="txtMount.*" type="text" style="width:98%;"  />
 					</td>
-					<td style="width:10%;">
-					<input class="txt" id="txtFax.*" type="text" style="width:94%;"  />
+					<td>
+						<input class="txt"  id="txtOuts.*" type="text" style="width:98%;"  />
 					</td>
-					<td style="width:10%;">
-					<input class="txt" id="txtMobile.*" type="text" style="width:98%;"   />
+					<td>
+						<input class="txt"  id="txtTggno.*" type="text" style="width:80%;"  />
+						<input id="btnTggno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
 					</td>
-					<td style="width:12%;">
-					<input class="txt" id="txtEmail.*" type="text" style="width:98%;"   />
+					<td>
+						<input class="txt"  id="txtTgg.*" type="text" style="width:98%;"  />
 					</td>
-					<td style="width:15%;">
-					<input class="txt" id="txtAddr.*" type="text" maxlength='90' style="width:98%;"  />
-					<input id="txtNoq.*" type="hidden" />
-					<input id="recno.*" type="hidden" />
+					<td>
+						<input class="txt"  id="txtMechno.*" type="text" style="width:80%;"  />
+						<input id="btnMechno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
 					</td>
-					<td style="width:20%;">
-					<input class="txt" id="txtMemo.*" type="text" style="width:98%;"  />
+					<td>
+						<input class="txt"  id="txtMech.*" type="text" style="width:98%;"  />
+					</td>
+					<td>
+						<input class="txt"  id="txtModelno.*" type="text" style="width:98%;"  />
+					</td>
+					<td>
+						<input class="txt"  id="txtModel.*" type="text" style="width:98%;"  />
+					</td>
+					<td>
+						<input class="txt num"  id="txtBase.*" type="text" style="width:98%;"  />
+					</td>
+					<td>
+						<input class="txt num"  id="txtLoss.*" type="text" style="width:98%;"  />
+					</td>
+					<td>
+						<input class="txt"  id="txtMemo.*" type="text" style="width:98%;"  />
+					</td>
+					<td>
+						<input class="txt num"  id="txtUweight.*" type="text" style="width:98%;"  />
+					</td>
+					<td>
+						<input class="txt num"  id="txtDaymount.*" type="text" style="width:98%;"  />
+					</td>
+					<td>
+						<input class="txt num"  id="txtDayprod.*" type="text" style="width:98%;"  />
+					</td>
+					<td style="display:none;">
+						<input id="txtNoq.*" type="hidden" />
 					</td>
 				</tr>
 			</table>
