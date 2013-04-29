@@ -65,7 +65,10 @@
 						type : '0',
 						name : 'xaccy',
 						value : r_accy
-					}]
+					}, {
+                        type : '1',
+                        name : 'smon'
+                    }]
                     });
                 q_popAssign();
                  $('#txtDate1').mask('999/99/99');
@@ -74,7 +77,9 @@
 	             $('#txtDate2').datepicker();  
                  $('#txtXdate1').mask('99/99');
 	             $('#txtXdate2').mask('99/99');
-	             $('#txtXmon').mask('999/99');  
+	             $('#txtXmon').mask('999/99'); 
+	             $('#txtSmon1').mask('999/99');
+	             $('#txtSmon2').mask('999/99');   
                 
                 
                  var t_date,t_year,t_month,t_day;
@@ -88,6 +93,8 @@
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
 	                $('#txtXmon').val(t_year+'/'+t_month);
+	                $('#txtSmon1').val(t_year+'/'+t_month);
+	                $('#txtSmon2').val(t_year+'/'+t_month);
 	                t_date = new Date();
 	                t_date.setDate(35);
 	                t_date.setDate(0);

@@ -30,8 +30,8 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,nick', 'txtCno,txtAcomp', 'Acomp_b.aspx'],
-            ['txtCno2', 'lblCno2', 'acomp', 'noa,nick', 'txtCno2,txtAcomp2', 'Acomp_b.aspx'],
+            aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'Acomp_b.aspx'],
+            ['txtCno2', 'lblCno2', 'acomp', 'noa,acomp', 'txtCno2,txtAcomp2', 'Acomp_b.aspx'],
             ['txtPartno', 'lblPartno', 'part', 'noa,part', 'txtPartno,txtPart', 'Acomp_b.aspx'],
             ['txtCustno', 'lblCustno', 'giftCust', 'noa,custnamea', 'txtCustno,txtNamea', 'giftcust_b.aspx'],
             ['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
@@ -60,6 +60,7 @@
                 q_mask(bbmMask);
                 q_gt('giftsendt', '', 0, 0, 0, "", r_accy);
                 q_gt('store', '', 0, 0, 0, "");
+                q_gt('acomp', '', 0, 0, 0, "");
                 q_cmbParse("cmbSendtype", ('').concat(new Array( '','宅配','邱董親送','同仁親送','自取')),'s');
                q_cmbParse('cmbAddr', ('').concat(new Array( '','公司','住宅','其他')),'s');
                
@@ -105,6 +106,19 @@
 		                    	$("#cmbStoreno").val(abbm[q_recno].storeno);
 		                }
 		                break;
+		            case 'acomp':
+		            	var as = _q_appendData("acomp", "", true);
+                    	var t_item = " @ ";
+                         for ( i = 0; i < as.length; i++) {
+                         	t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+                         }
+                         q_cmbParse("cmbCno", t_item);
+                         q_cmbParse("cmbCno2", t_item);
+                         if(abbm[q_recno]){
+                         	$("#cmbCno").val(abbm[q_recno].cno);
+                         	$("#cmbCno2").val(abbm[q_recno].cno2);
+                         }
+		            	break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -127,9 +141,12 @@
                     return;
                 }
                 sum();
+                
+                $('#txtAcomp').val($('#cmbCno').find(":selected").text());
+                $('#txtAcomp2').val($('#cmbCno2').find(":selected").text());
+                
                 $('#txtWorker').val(r_name);
                 
-               
                 var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
 		        if (t_noa.length == 0 || t_noa == "AUTO")
@@ -483,15 +500,19 @@
 						
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblCno' class="lbl btn"> </a></td>
-						<td class="td2" colspan="2"><input type="text" id="txtCno" class="txt c2"/>
-							<input type="text" id="txtAcomp" class="txt c3"/>
+						<td class="td1"><span> </span><a id='lblCno' class="lbl"> </a></td>
+						<td class="td2" colspan="2">
+							<select id="cmbCno" class="txt c1"> </select>
+							<!--<input type="text" id="txtCno" class="txt c2"/>-->
+							<input type="hidden" id="txtAcomp" class="txt c3"/>
 						</td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblCno2' class="lbl btn"> </a></td>
-						<td class="td2" colspan="2"><input type="text" id="txtCno2" class="txt c2"/>
-							<input type="text" id="txtAcomp2" class="txt c3"/>
+						<td class="td1"><span> </span><a id='lblCno2' class="lbl"> </a></td>
+						<td class="td2" colspan="2">
+							<select id="cmbCno2" class="txt c1"> </select>
+							<!--<input type="text" id="txtCno2" class="txt c2"/>-->
+							<input type="hidden" id="txtAcomp2" class="txt c3"/>
 						</td>
 						<td class="td4"><span> </span><a id='lblInvono' class="lbl"> </a></td>
 						<td class="td5"><input type="text" id="txtInvono" class="txt c1"/></td>
