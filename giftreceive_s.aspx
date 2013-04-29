@@ -31,17 +31,30 @@
 
 				bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
 				q_mask(bbmMask);
-
+				q_gt('acomp', '', 0, 0, 0, "");
 				$('#txtBdate').focus();
 			}
-
+			
+			function q_gtPost(t_name) {
+                switch (t_name) {
+				case 'acomp':
+                        var as = _q_appendData("acomp", "", true);
+                        var t_stype = "@";
+                        for ( i = 0; i < as.length; i++) {
+                            t_stype = t_stype + (t_stype.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+                        }
+                        q_cmbParse("cmbCno", t_stype);
+                        break;
+				}
+           }
+			
 			function q_seekStr() {
 				t_noa = $.trim($('#txtNoa').val());
 				t_bdate = $.trim($('#txtBdate').val());
 				t_edate = $.trim($('#txtEdate').val());
 				t_sendmemo = $.trim($('#txtSendmemo').val());
-				t_cno = $.trim($('#txtCno').val());
-				t_acomp = $.trim($('#txtAcomp').val());
+				t_cno = $.trim($('#cmbCno').val());
+				//t_acomp = $.trim($('#txtAcomp').val());
 				t_salesno = $.trim($('#txtSalesno').val());
 				t_sales = $.trim($('#txtSales').val());
 			    t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
@@ -49,9 +62,9 @@
 
 				var t_where = " 1=1 "
 					+q_sqlPara2("noa", t_noa)
-					+q_sqlPara2("datea", t_bdate, t_edate)
+					+q_sqlPara2("case when len(senddate)<9 then senddate+'01' else senddate end", t_bdate, t_edate)
 					+q_sqlPara2("cno", t_cno)
-					+q_sqlPara2("acomp", t_acomp)
+					//+q_sqlPara2("acomp", t_acomp)
 					+q_sqlPara2("salesno", t_salesno)
 					+q_sqlPara2("sales", t_sales)
 					+q_sqlPara2("sendmemo", t_sendmemo);
@@ -95,8 +108,9 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCno'> </a></td>
 					<td>
-					<input class="txt" id="txtCno" type="text" style="width:90px; font-size:medium;" />
-					<input class="txt" id="txtAcomp" type="text" style="width:115px; font-size:medium;" />
+						<select id="cmbCno" class="txt c1"> </select>
+					<!--<input class="txt" id="txtCno" type="text" style="width:90px; font-size:medium;" />
+					<input class="txt" id="txtAcomp" type="text" style="width:115px; font-size:medium;" />-->
 					</td>
 				</tr>
 				<tr class='seek_tr'>

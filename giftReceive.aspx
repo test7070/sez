@@ -57,7 +57,7 @@
                 q_mask(bbmMask);
                 q_gt('giftsendt', '', 0, 0, 0, "", r_accy);
                 q_gt('store', '', 0, 0, 0, "");
-                 
+                 q_gt('acomp', '', 0, 0, 0, "");
 
             }
 
@@ -106,6 +106,17 @@
 		                    	$("#cmbStoreno").val(abbm[q_recno].storeno);
 		                }
 		                break;
+					case 'acomp':
+		            	var as = _q_appendData("acomp", "", true);
+                    	var t_item = " @ ";
+                         for ( i = 0; i < as.length; i++) {
+                         	t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].acomp;
+                         }
+                         q_cmbParse("cmbCno", t_item);
+                         if(abbm[q_recno]){
+                         	$("#cmbCno").val(abbm[q_recno].cno);
+                         }
+		            	break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -128,6 +139,8 @@
                     return;
                 }
                 sum();
+                
+                $('#txtAcomp').val($('#cmbCno').find(":selected").text());
                 $('#txtWorker').val(r_name);
                 
                
@@ -454,9 +467,11 @@
 						</td>	
 					</tr>
 					<tr>
-						<td class="td1"><span> </span><a id='lblCno' class="lbl btn"> </a></td>
-						<td class="td2" colspan="2"><input type="text" id="txtCno" class="txt c2"/>
-							<input type="text" id="txtAcomp" class="txt c3"/>
+						<td class="td1"><span> </span><a id='lblCno' class="lbl"> </a></td>
+						<td class="td2" colspan="2">
+							<select id="cmbCno" class="txt c1"> </select>
+							<!--<input type="text" id="txtCno" class="txt c2"/>-->
+							<input type="hidden" id="txtAcomp" class="txt c3"/>
 						</td>
 					</tr>
 					<tr>
