@@ -155,7 +155,7 @@
                 }else{
                 	alert("error: btnok!")
                 }
-
+				Lock();
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
@@ -266,6 +266,7 @@
                     $('#txtAccno').val(xmlString);
                     /// 顯示 server 端，產生之傳票號碼
                 }
+                Unlock();
             }
 
             ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
