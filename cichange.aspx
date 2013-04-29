@@ -130,7 +130,7 @@
 					<input class="txt" id="txtOldnoa.*" type="text" maxlength='90' style="width:95%;"   />
 					</td>
 					<td class="td4">
-					<input class="txt" id="txtCust.*" type="text" maxlength='10' style="width:95%;"  />
+					<input class="txt" id="txtOldcust.*" type="text" maxlength='10' style="width:95%;"  />
 					</td>
 					<td class="td5">
 					<input class="txt" id="txtRefdate.*" type="text" maxlength='10' style="width:95%;"  />

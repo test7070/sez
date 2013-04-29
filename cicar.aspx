@@ -66,10 +66,10 @@
 				});
 				
 				$('#btnInsui').click(function(e) {
-					q_box("ciinsui.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'ciinsui', "90%", "95%", q_getMsg("popInsui"));
+					q_box("ciinsui.aspx?;;;carno='" + $('#txtNoa').val() + "'", 'ciinsui', "90%", "95%", q_getMsg("popInsui"));
 				});
 				$('#btnClaim').click(function(e) {
-					q_box("ciclaim.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'ciinsui', "90%", "95%", q_getMsg("popInsui"));
+					q_box("ciclaim.aspx?;;;carno='" + $('#txtNoa').val() + "'", 'ciinsui', "90%", "95%", q_getMsg("popInsui"));
 				});
 				$('#btnChange').click(function(e) {
 					q_box("cichange.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'cichange', "90%", "95%", q_getMsg("popChange"));
@@ -83,6 +83,11 @@
 				
 				//更換車牌
 				$('#btnChangecarno').click(function(e) {
+					if(emp($('#txtChangecarno').val())&&q_cur==2){
+						alert('請輸入'+q_getMsg('lblChangecarno')+'!!');
+						return;
+					}
+					
 					//先檢查是否有重複車牌
 					if(!emp($('#txtChangecarno').val())&&q_cur==2){
                 		var t_where = "where=^^ a.noa ='"+$('#txtChangecarno').val()+"' ^^";
@@ -100,7 +105,7 @@
                         break;
                 }  
             }
-
+            var changenoa=false;
             function q_gtPost(t_name) {
                 switch (t_name) {
                 	case 'cicardeal':
@@ -114,11 +119,12 @@
                         	$("#cmbCardealno").val(abbm[q_recno].cardealno);
                 		break;
                     case q_name:
-                    	if(q_car==2){
+                    	if(q_cur==2){
                     		var as = _q_appendData("cicar", "", true);
                     		if(as[0]==undefined){
 	                    		if(!emp($('#txtChangecarno').val())){
-	                				//q_func( 'changecarno.change', $('#txtNoa').val()+','+$('#txtChangecarno').val());
+	                    			changenoa=true;
+	                				q_func('qtxt.query','cichange.txt,cichange,'+encodeURI('noa') + ';' + encodeURI($('#txtNoa').val()) + ';' + encodeURI($('#txtChangecarno').val()) + ';' + encodeURI($('#txtCustno').val())+ ';' + encodeURI($('#txtCust').val()) + ';' + encodeURI(q_date())+ ';' + encodeURI(r_name));
 								}
 	                    	}else{
 	                    		alert('車牌重覆!!');
@@ -132,8 +138,11 @@
             }
             
             function q_funcPost(t_func, result) {
-		        location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";a.noa='"+$('#txtChangecarno').val()+"';"+r_accy;
-		        alert('功能執行完畢');
+            	if(changenoa==true){
+		        	location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";a.noa>'"+$('#txtChangecarno').val()+"';"+r_accy;
+		        	alert('功能執行完畢');
+		        	changenoa=false;
+		        }
 		    } //endfunction
 
             function _btnSeek() {
@@ -146,11 +155,19 @@
                 _btnIns();
                 $('#txtNoa').focus();
             }
-
+			
+			//暫存資料
+			var t_custno='',t_cust='',t_refdate='',t_suspdate='',t_wastedate='',t_enddate=''
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
+                t_custno=$('#txtCustno').val();
+                t_cust=$('#txtCust').val();
+                t_refdate=$('#txtRefdate').val();
+                t_suspdate=$('#txtSuspdate').val();
+                t_wastedate=$('#txtWastedate').val();
+                t_enddate=$('#txtEnddate').val();
                 $('#txtNoa').attr('readonly','readonly');
                 $('#txtNoa').focus();
             }
@@ -165,10 +182,31 @@
                     alert(t_err);
                     return;
                 }
+                
                 if(q_cur==1)
                 	$('#txtWorker' ).val(r_name);
                 if(q_cur==2)
                 	$('#txtWorker2' ).val(r_name);
+                	
+                //判斷是否有變動資料
+                if(q_cur==2){
+                	//客戶過戶
+                	if(t_custno!=$('#txtCustno').val()||t_cust!=$('#txtCust').val())
+                		q_func('qtxt.query','cichange.txt,cichange,'+encodeURI('cust') + ';' + encodeURI($('#txtNoa').val()) + ';' + encodeURI('non') + ';' + encodeURI(t_custno)+ ';' + encodeURI(t_cust) + ';' + encodeURI(q_date())+ ';' + encodeURI(r_name));
+                	//復駛
+                	if(t_refdate!=$('#txtRefdate').val() && !emp($('#txtRefdate').val()))
+                		q_func('qtxt.query','cichange.txt,cichange,'+encodeURI('refdate') + ';' + encodeURI($('#txtNoa').val()) + ';' + encodeURI('non') + ';' + encodeURI($('#txtCustno').val())+ ';' + encodeURI($('#txtCust').val()) + ';' + encodeURI($('#txtRefdate').val())+ ';' + encodeURI(r_name));
+                	//停駛
+                	if(t_suspdate!=$('#txtSuspdate').val() && !emp($('#txtSuspdate').val()))
+                		q_func('qtxt.query','cichange.txt,cichange,'+encodeURI('suspdate') + ';' + encodeURI($('#txtNoa').val()) + ';' + encodeURI('non') + ';' + encodeURI($('#txtCustno').val())+ ';' + encodeURI($('#txtCust').val()) + ';' + encodeURI($('#txtSuspdate').val())+ ';' + encodeURI(r_name));
+                	//註銷
+                	if(t_wastedate!=$('#txtWastedate').val() && !emp($('#txtWastedate').val()))
+                		q_func('qtxt.query','cichange.txt,cichange,'+encodeURI('wastedate') + ';' + encodeURI($('#txtNoa').val()) + ';' + encodeURI('non') + ';' + encodeURI($('#txtCustno').val())+ ';' + encodeURI($('#txtCust').val()) + ';' + encodeURI($('#txtWastedate').val())+ ';' + encodeURI(r_name));
+                	//報廢
+                	if(t_enddate!=$('#txtEnddate').val() && !emp($('#txtEnddate').val()))
+                		q_func('qtxt.query','cichange.txt,cichange,'+encodeURI('enddate') + ';' + encodeURI($('#txtNoa').val()) + ';' + encodeURI('non') + ';' + encodeURI($('#txtCustno').val())+ ';' + encodeURI($('#txtCust').val()) + ';' + encodeURI($('#txtEnddate').val())+ ';' + encodeURI(r_name));
+                	
+                }
                 	
                 var t_noa = trim($('#txtNoa').val());
                 if (t_noa.length == 0)
