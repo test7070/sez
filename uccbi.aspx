@@ -169,7 +169,7 @@
 	                    				bomKey = $('#txtNoa').val() + w_noq;
 	                    				q_box("bom_b.aspx?;;;noa='" + bomKey + "';"+r_accy, 'bom', "95%", "95%", q_getMsg("popBom"));
 	                    			}else{
-	                    				alert('請先存檔後再點選BOM!!');
+	                    				alert('請先填選備註後存檔!!');
 	                    			}
 	                    		}else{
 	                    			alert('請先輸入編號並存檔!!');
