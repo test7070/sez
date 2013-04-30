@@ -40,8 +40,9 @@
                         src :  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
                     }]
                 });
+               
                 
-                $('#txtAcc1a').change(function () {
+               $('#txtAcc1a').change(function () {
 		                var s1 = trim($(this).val(1112));
 		                if (s1.length > 4 && s1.indexOf('.') < 0)
 		                    $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));

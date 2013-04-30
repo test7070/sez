@@ -17,7 +17,7 @@
 		<script type="text/javascript">
 		aPop = new Array(['txtXcarno', '', 'cicust', 'noa,carowner', 'txtCarno', 'cicust_b.aspx'],
 						 ['txtXcardealno', '', 'cicardeal', 'noa,comp', 'txtXcardealno', 'cardeal_b.aspx'],
-						 ['txtXcarinsu', '', 'ciinsu', 'noa,insurer', 'txtXcarinsu', 'ciinsu_b.aspx']
+						 ['txtXcarinsu', '', 'ciinsucomp', 'noa,insurer', 'txtXcarinsu', 'ciinsucomp_b.aspx']
 		);
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
@@ -42,7 +42,7 @@
                         type : '2',
                         name : 'xinsurerno',
                         dbf : 'ciinsucomp',
-                        index : 'noa,comp',
+                        index : 'noa,insurer',
                         src : 'ciinsucomp_b.aspx'
                     },{
                         type : '1',
