@@ -186,12 +186,14 @@
             	if(n<0){
             		var t_checkno ='';
             		for(var i=0;i<q_bbsCount;i++){
-            			t_checkno += (t_checkno.length>0?',':'') + $('#txtCheckno_'+i).val();
+            			if($('#txtCheckno_'+i).val().length>0)
+            				t_checkno += (t_checkno.length>0?',':'') + $('#txtCheckno_'+i).val();
             		}
             		$('#txtCheckno1').val(t_checkno);
             		t_checkno ='';
             		for(var i=0;i<q_bbtCount;i++){
-            			t_checkno += (t_checkno.length>0?',':'') + $('#txtCheckno__'+i).val();
+            			if($('#txtCheckno__'+i).val().length>0)
+            				t_checkno += (t_checkno.length>0?',':'') + $('#txtCheckno__'+i).val();
             		}
             		$('#txtCheckno2').val(t_checkno);
             		if(q_cur ==1){
