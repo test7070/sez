@@ -22,14 +22,14 @@
 
             q_tables = 't';
             var q_name = "borrc";
-            var q_readonly = ['txtCheckno1','txtCheckno2','txtNoa','txtPaymoney','txtMoney','txtVccno','txtPaybno','txtAccno','txtAccy','txtWorker','txtWorker2'];
+            var q_readonly = ['txtCheckno','txtNoa','txtPaymoney','txtMoney','txtVccno','txtPaybno','txtAccno','txtAccy','txtWorker','txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney',10,0,1],['txtPaymoney',10,0,1]];
             var bbsNum = [['txtMoney',10,0,1]];
             var bbtNum = [['txtMoney',10,0,1]];
             var bbmMask = [['txtDatea', '999/99/99']];
             var bbsMask = [['txtIndate', '999/99/99']];
-            var bbtMask = [];
+            var bbtMask = [['txtIndate', '999/99/99']];
             
             q_sqlCount = 6;
             brwCount = 6;
@@ -189,13 +189,11 @@
             			if($('#txtCheckno_'+i).val().length>0)
             				t_checkno += (t_checkno.length>0?',':'') + $('#txtCheckno_'+i).val();
             		}
-            		$('#txtCheckno1').val(t_checkno);
-            		t_checkno ='';
             		for(var i=0;i<q_bbtCount;i++){
             			if($('#txtCheckno__'+i).val().length>0)
             				t_checkno += (t_checkno.length>0?',':'') + $('#txtCheckno__'+i).val();
             		}
-            		$('#txtCheckno2').val(t_checkno);
+            		$('#txtCheckno').val(t_checkno);
             		if(q_cur ==1){
 		            	$('#txtWorker').val(r_name);
 		            }else if(q_cur ==2){
@@ -269,7 +267,8 @@
                 for (var i = 0; i < q_bbtCount; i++) {
                     $('#lblNo__' + i).text(i + 1);
                     if (!$('#btnMinut__' + i).hasClass('isAssign')) {
-                    	 $('#txtAcc1__'+i).change(function(e) {
+                    	$('#txtIndate__'+i).datepicker();
+                	 	$('#txtAcc1__'+i).change(function(e) {
 		                    var patt = /(\d{4})([^\.,.]*)$/g;
 		                    $(this).val($(this).val().replace(patt,"$1.$2"));
 		        		});
@@ -576,8 +575,8 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height: 1px;">
-						<td><input type="text" id="txtCheckno1" style="display:none;"></td>
-						<td><input type="text" id="txtCheckno2" style="display:none;"></td>
+						<td><input type="text" id="txtCheckno" style="display:none;"></td>
+						<td> </td>
 						<td> </td>
 						<td> </td>
 						<td class="tdZ"> </td>
