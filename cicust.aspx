@@ -15,7 +15,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="cicust";
-        var q_readonly = ['txtWorker'];
+        var q_readonly = ['txtWorker','txtWorker2'];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -101,7 +101,13 @@
                     alert(t_err);
                     return;
                 }
-                $('#txtWorker').val(r_name);
+             
+              if(q_cur==1)
+		           	$('#txtWorker').val(r_name);
+		        else
+		           	$('#txtWorker2').val(r_name);
+		           	
+             
             var t_noa = trim($('#txtNoa').val());
             $('#txtCarno').val(t_noa);
             if ( t_noa.length==0 )  
@@ -344,8 +350,14 @@
                <td class="td2" colspan="3"><input id="txtAddr2" type="text" class="txt c1"/></td>
             </tr>
             <tr class="tr7">
+               <td class="td1"><span> </span><a id="lblMemo" class="lbl"></a></td>
+               <td class="td2" colspan="3"><input id="txtMemo" type="text" class="txt c1"/></td>
+            </tr>
+            <tr class="tr8">
                <td class="td1"><span> </span><a id="lblWorker" class="lbl"></a></td>
                <td class="td2"><input id="txtWorker" type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id="lblWorker2" class="lbl"></a></td>
+               <td class="td2"><input id="txtWorker2" type="text" class="txt c1"/></td>
             </tr>
         </table>
         </div>
