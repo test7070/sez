@@ -29,7 +29,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             q_desc=1;
-            aPop = new Array(['txtInsurerno', 'lblInsurer', 'ciinsu', 'noa,insurer', 'txtInsurerno,txtInsurer', 'ciinsu_b.aspx'],
+            aPop = new Array(['txtInsurerno', 'lblInsurer', 'ciinsucomp', 'noa,insurer', 'txtInsurerno,txtInsurer', 'ciinsucomp_b.aspx'],
             ['txtCarno', 'lblCarno', 'cicar', 'a.noa,cust,id,mobile,tel1,addr1','txtCarno,txtDriver,txtId,txtMobile,txtTel,txtAddr,txtInsurerno', 'cicar_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];

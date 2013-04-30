@@ -17,7 +17,7 @@
 		<script type="text/javascript">
 		aPop = new Array(['txtXcarno', '', 'cicust', 'noa,carowner', 'txtCarno', 'cicust_b.aspx'],
 						 ['txtXcardealno', '', 'cicardeal', 'noa,comp', 'txtXcardealno', 'cardeal_b.aspx'],
-						 ['txtXcarinsu', '', 'ciinsu', 'noa,insurer', 'txtXcarinsu', 'ciinsu_b.aspx']
+						 ['txtXcarinsu', '', 'ciinsucomp', 'noa,insurer', 'txtXcarinsu', 'ciinsucomp_b.aspx']
 		);
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
@@ -42,11 +42,14 @@
                         type : '2',
                         name : 'xinsurerno',
                         dbf : 'ciinsucomp',
-                        index : 'noa,comp',
+                        index : 'noa,insurer',
                         src : 'ciinsucomp_b.aspx'
                     },{
                         type : '1',
                         name : 'xdate'
+                    },{
+                        type : '1',
+                        name : 'sdate'
                     }]
                 });
                 		            
@@ -56,7 +59,31 @@
                 $('#txtXdate1').datepicker();
                 $('#txtXdate2').mask('999/99/99');
                 $('#txtXdate2').datepicker();
+                $('#txtSdate1').mask('999/99/99');
+                $('#txtSdate1').datepicker();
+                $('#txtSdate2').mask('999/99/99');
+                $('#txtSdate2').datepicker();
                 
+                var t_date,t_year,t_month,t_day;
+	                t_date = new Date();
+	                t_date.setDate(1);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                t_day = t_date.getUTCDate();
+	                t_day = t_day>9?t_day+'':'0'+t_day;
+	                $('#txtSdate1').val(t_year+'/'+t_month+'/'+t_day);
+	                t_date = new Date();
+	                t_date.setDate(35);
+	                t_date.setDate(0);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                t_day = t_date.getUTCDate();
+	                t_day = t_day>9?t_day+'':'0'+t_day;
+	                $('#txtSdate2').val(t_year+'/'+t_month+'/'+t_day);
             }
 		</script>
 	</head>
