@@ -63,7 +63,12 @@
 					q_box("inbw_b.aspx?;;;noa='" + $('#txtNoa').val() + "';" + r_accy, 'inbm', "95%", "95%", q_getMsg("popInbw"));
 				});
                 $('#btnOrdeimport').click(function() {
-	            	q_gt('cua_cuas','' , 0, 0, 0, "", r_accy);
+                	t_where = '';
+                	ordeno = '';//$('#txtOrdeno').val();
+                	if(ordeno.length > 0)
+                		t_where = "noa='" + ordeno + "'";
+                    q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
+	            	//q_gt('cua_cuas','' , 0, 0, 0, "", r_accy);
                 });
 
 
@@ -73,6 +78,18 @@
             function q_boxClose(s2) {///   q_boxClose 2/4
 				var	ret;
                 switch (b_pop) {
+					case 'ordes':
+	                    if (q_cur > 0 && q_cur < 4) {
+	                        b_ret = getb_ret();
+	                        if (!b_ret || b_ret.length == 0)
+	                            return;
+	                        var i, j = 0;
+	                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtOrdeno', b_ret.length, b_ret
+	                                                           , 'productno,noa'
+	                                                           , 'txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+	                        bbsAssign();	
+	                    }
+						break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
@@ -114,9 +131,6 @@
                     return;
             }
 
-            function combPay_chg() {
-            }
-
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
             		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
@@ -151,7 +165,7 @@
             }
 
             function bbsSave(as) {
-                if(!as['mount']) {
+                if(!as['productno']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
