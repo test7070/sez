@@ -24,7 +24,7 @@
             var bbmNum = [['txtCash', 10, 0],['txtFixmoney', 10, 0], ['txtChecka', 10, 0], ['txtMoney', 10, 0], ['txtInterest', 10, 0], ['txtTotal', 10, 0], ['txtPay', 10, 0], ['txtUnpay', 10, 0]];
             var bbsNum = [['txtMoney', 10, 0, 1],['txtInterest', 10, 0, 1]];
             var bbtNum = [['txtMoney', 10, 0, 1]];
-            var bbmMask = [['txtDatea', '999/99/99'], ['txtBegindate', '999/99/99'], ['txtEnddate', '999/99/99']];
+            var bbmMask = [['txtDatea', '999/99/99'], ['txtBegindate', '999/99/99'], ['txtEnddate', '999/99/99'],['textMon_windows','999/99']];
             var bbsMask = [['txtDatea', '999/99/99'], ['txtIndate', '999/99/99']];
             var bbtMask = [['txtMon', '999/99']];
             q_sqlCount = 6;
@@ -87,7 +87,32 @@
                 $('#lblAccno').click(function() {
 					browTicketForm($(this).get(0));
                 });
+                $('#btnInterest').click(function(){
+                	$('#InterestWindows').toggle();
+                });
+                $('#btnCloseWindows').click(function(){
+                	$('#InterestWindows').toggle();
+                });
+                $('#btnProcessInterest').click(function(){
+                	var P_Mon = $('#textMon_windows').val();
+                	if(P_Mon.length != 0){
+                		$('#btnProcessInterest').attr('disabled','disabled');
+                		q_func('dayborr.process', P_Mon);
+                	}else{
+                		alert('請輸入' + q_getMsg('lblMon_windows'));
+                	}
+                });
             }
+            
+			function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'dayborr.process':
+						alert(result);
+						$('#btnProcessInterest').removeAttr('disabled','disabled');
+					break;
+				}
+			}
+
             function browTicketForm(obj){
             	if(($(obj).attr('readonly') == 'readonly') || ($(obj).attr('id').substring(0,3) == 'lbl')){
 	            	if($(obj).attr('id').substring(0,3) == 'lbl')
@@ -299,7 +324,6 @@
                 $('#txtPay').val(FormatNumber(t_pay));
                 $('#txtUnpay').val(FormatNumber(t_money + t_interest - t_pay));
             }
-
             function q_appendData(t_Table) {
                 return _q_appendData(t_Table);
             }
@@ -503,6 +527,14 @@
                 text-align: center;
                 border: 2px pink double;
             }
+            #InterestWindows{
+            	display:none;
+            	width:20%;
+            	background-color: #cad3ff;
+            	border: 5px solid gray;
+            	position: absolute;
+            	z-index: 9999;
+            }
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -667,9 +699,25 @@
 							<span> </span><a id="lblVccno" class="lbl btn"> </a>
 						</td>
 						<td>
-							<input id="txtVccno" type="text" class="txt c2"/>
+							<input id="txtVccno" type="text" class="txt c1"/>
 						</td>
-						<td colspan="2"> </td>
+						<td colspan="2" align="center">
+							<div id="InterestWindows">
+								<table>
+									<tr>
+										<td style="width:30%;"><span> </span><a id="lblMon_windows" class="lbl"> </a></td>
+										<td style="width:70%;"><input id="textMon_windows" type="text" class="txt c1"/></td>
+									</tr>
+									<tr>
+										<td colspan="2" align="center">
+											<input id="btnProcessInterest" type="button">
+											<input id="btnCloseWindows" type="button" value="關閉視窗">
+										</td>
+									</tr>
+								</table>
+							</div>
+							<input id="btnInterest" type="button">
+						</td>
 						<td><span> </span><a id="lblUnpay" class="lbl"> </a></td>
 						<td>
 						<input id="txtUnpay" type="text" class="txt c1 num"/>

@@ -88,7 +88,33 @@
                 $('#lblAccno').click(function() {
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
                 });
+                
+                $('#btnInterest').click(function(){
+                	$('#InterestWindows').toggle();
+                });
+                $('#btnCloseWindows').click(function(){
+                	$('#InterestWindows').toggle();
+                });
+                $('#btnProcessInterest').click(function(){
+                	var P_Mon = $('#textMon_windows').val();
+                	if(P_Mon.length != 0){
+                		$('#btnProcessInterest').attr('disabled','disabled');
+                		q_func('dayborrd.process', P_Mon);
+                	}else{
+                		alert('請輸入' + q_getMsg('lblMon_windows'));
+                	}
+                });
+
             }
+			function q_funcPost(t_func, result) {
+				switch(t_func) {
+					case 'dayborrd.process':
+						alert(result);
+						$('#btnProcessInterest').removeAttr('disabled','disabled');
+					break;
+				}
+			}
+			
 			function browVccno(obj){
 				var noa = $.trim($(obj).val());
             	if(noa.length>0)
@@ -426,6 +452,14 @@
                 text-align: center;
                 border: 2px pink double;
             }
+            #InterestWindows{
+            	display:none;
+            	width:20%;
+            	background-color: #cad3ff;
+            	border: 5px solid gray;
+            	position: absolute;
+            	z-index: 9999;
+            }
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -547,6 +581,23 @@
 						<td><input id="txtWorker" type="text" class="txt c1"/></td>
 						<td colspan="2"><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
+						<td colspan="2" align="center">
+							<div id="InterestWindows">
+								<table>
+									<tr>
+										<td style="width:30%;"><span> </span><a id="lblMon_windows" class="lbl"> </a></td>
+										<td style="width:70%;"><input id="textMon_windows" type="text" class="txt c1"/></td>
+									</tr>
+									<tr>
+										<td colspan="2" align="center">
+											<input id="btnProcessInterest" type="button">
+											<input id="btnCloseWindows" type="button" value="關閉視窗">
+										</td>
+									</tr>
+								</table>
+							</div>
+							<input id="btnInterest" type="button">
+						</td>
 					</tr>
 				</table>
 			</div>

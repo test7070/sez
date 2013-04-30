@@ -11,6 +11,7 @@
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
 			var q_name = "trancommi_s";
+			var bbmMask = [];
 			aPop = new Array(
 								['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'], 
 								['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno,txtAddr', 'addr_b.aspx'], 
@@ -30,7 +31,6 @@
 			function q_gfPost() {
 				q_getFormat();
 				q_langShow();
-
 				$('#txtNoa').focus();
 			}
 
