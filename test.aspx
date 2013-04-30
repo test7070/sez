@@ -6,9 +6,24 @@
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script type="text/javascript">
             $(document).ready(function() {
-				Lock();
+				//Lock();
+				$('#txtA').change(function(){
+					$('#txtB').val(FormatNumber($('#txtA').val()));
+				});
 
             });
+            function FormatNumber(n) {
+            	var xx = "";
+            	if(n<0){
+            		n = Math.abs(n);
+            		xx = "-";
+            	}     		
+                n += "";
+                var arr = n.split(".");
+                var re = /(\d{1,3})(?=(\d{3})+$)/g;
+                return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+            }
+            
             function Lock() {
                 if ($('#divLock').length == 0)
                     $('body').append('<div id="divLock"> </div>');
@@ -37,17 +52,7 @@
                     }
                 }
             }
-			function FormatNumber(n) {
-            	var xx = "";
-            	if(n<0){
-            		n = Math.abs(n);
-            		xx = "-";
-            	}     		
-                n += "";
-                var arr = n.split(".");
-                var re = /(\d{1,3})(?=(\d{3})+$)/g;
-                return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
-            }
+			
 			Number.prototype.round = function(arg) {
 			    return Math.round(this * Math.pow(10,arg))/ Math.pow(10,arg);
 			}
@@ -106,6 +111,6 @@
 	</head>
 	<body>
 		<input id="txtA" style="width:200px;"/>
-		
+		<input id="txtB" style="width:200px;"/>
 	</body>
 </html>
