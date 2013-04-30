@@ -79,6 +79,20 @@
                     check2[i].checked = check1.checked;
                 }
             }
+            
+        function btnOk() {
+            //20130430
+            if(window.parent.q_name=='pay'){
+				 var wParent = window.parent.document;
+				 var paynoa=wParent.getElementById("txtNoa").value;
+				 var paydatea=wParent.getElementById("txtDatea").value;
+				 var payyear=paydatea.substr(0,3);
+				 
+				q_func  ( pay.post , payyear+', '+paynoa+' , 0');
+				q_func  ( pay.post , payyear+', '+paynoa+' , 1');
+				 
+			}
+		}
 		</script>
 		<style type="text/css">
             #dmain {
