@@ -129,7 +129,7 @@
 		            t_where+=")";
 		            t_where+=" and CHARINDEX('代收',a.product)>0";
 		            t_where+=" group by a.custno,a.noa,a.product";
-		            //unpay t_where+=" HAVING (sum(a.money) -isnull((select sum(paysale) from payaccs where rc2no=a.noa and memo2=a.product),0))!=0 ^^";
+		            //unpay t_where+=" HAVING (sum(a.money) -isnull((select sum(paysale) from payaccs where rc2no=a.noa and memo2=a.product+';'+a.custno),0))!=0 ^^";
 		            
 		            q_gt('payacc_labpay', t_where, 0, 0, 0, "", r_accy);
 		        });
