@@ -129,8 +129,25 @@
                     		}else{
                     			checkGqb_bbt(t_sel-1);
                     		}
-                    	}else if(t_name.substring(0,10)=='gqb_change'){
-                    		var t_sel = parseFloat(t_name.split('_')[2]);                    		
+                    	}else if(t_name.substring(0,11)=='gqb_change1'){
+                    		//先檢查VIEW_GQB,再檢查GQB
+                    		var t_sel = parseFloat(t_name.split('_')[2]); 
+                    		var t_checkno = t_name.split('_')[3];                		
+                    		var as = _q_appendData("view_gqb", "", true);
+                    		if(as[0]!=undefined){
+                    			var t_msg = '票據已存在:';
+                    			for(var i in as)
+                    				if(as[i]['tablea']!=undefined)
+                    					t_msg += String.fromCharCode(13) + '【'+as[i]['title']+'】'+as[i]['checkno'];
+                    			alert(t_msg);
+                    			Unlock();
+                    		}else{
+                    			var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
+                				q_gt('gqb', t_where, 0, 0, 0, "gqb_change2_"+t_sel, r_accy);
+                    		}
+                    	}else if(t_name.substring(0,11)=='gqb_change2'){
+                    		//檢查GQB
+                    		var t_sel = parseFloat(t_name.split('_')[2]);               		
                     		var as = _q_appendData("gqb", "", true);
                     		if(as[0]!=undefined){
                     			alert('支票【'+as[0]['gqbno']+'】已存在');
@@ -253,12 +270,12 @@
                 			sum();
                 		});
                 		$('#txtCheckno_'+i).change(function(){
-                			if(q_cur==1){//新增時才需檢查
-                				Lock();
-                				var n = $(this).attr('id').replace('txtCheckno_','');
-	                			var t_where = "where=^^ gqbno = '" + $('#txtCheckno_'+n).val() + "' ^^";
-	                			q_gt('gqb', t_where, 0, 0, 0, "gqb_change_"+n, r_accy);
-                			}
+            				Lock();
+            				var n = $(this).attr('id').replace('txtCheckno_','');
+            				var t_noa = $('#txtNoa').val();
+            				var t_checkno = $('#txtCheckno_'+n).val() ;
+                			var t_where = "where=^^ checkno = '" + t_checkno + "' and noa!='"+ t_noa +"' ^^";
+                			q_gt('view_gqb', t_where, 0, 0, 0, "gqb_change1_"+n+"_"+t_checkno, r_accy);
                 		});
                     }
                 }
@@ -278,12 +295,12 @@
                 			sum();
                 		});
                 		$('#txtCheckno__'+i).change(function(){
-                			if(q_cur==1){//新增時才需檢查
-                				Lock();
-                				var n = $(this).attr('id').replace('txtCheckno__','');
-	                			var t_where = "where=^^ gqbno = '" + $('#txtCheckno__'+n).val() + "' ^^";
-	                			q_gt('gqb', t_where, 0, 0, 0, "gqb_change_"+n, r_accy);
-                			}
+            				Lock();
+            				var n = $(this).attr('id').replace('txtCheckno__','');
+                			var t_noa = $('#txtNoa').val();
+            				var t_checkno = $('#txtCheckno__'+n).val() ;
+                			var t_where = "where=^^ checkno = '" + t_checkno + "' and noa!='"+ t_noa +"' ^^";
+                			q_gt('view_gqb', t_where, 0, 0, 0, "gqb_change1_"+n+"_"+t_checkno, r_accy);
                 		});
                     }
                 }
