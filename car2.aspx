@@ -18,7 +18,7 @@
             var q_name = "car2";
             var q_readonly = ['txtCardeal', 'txtCarowner', 'cmbSex', 'txtIdno', 'txtBirthday', 'txtTel1', 'txtTel2', 'txtMobile', 'txtFax', 'txtAddr_conn', 'txtAddr_home', 'txtDriver'];
             var bbmNum = [['txtInmoney', 10, 0],['txtInvoicemoney', 10, 0], ['txtOutmoney', 10, 0], ['txtIrange', 10, 0], ["txtManage", 10, 0], ["txtReserve", 10, 0], ["txtHelp", 10, 0], ["txtVrate", 5, 2], ["txtRrate", 5, 2], ["txtOrate", 5, 2], ["txtIrate", 5, 2], ["txtPrate", 5, 2], ["txtUlicense", 10, 0], ["txtDlicense", 10, 0], ["txtSpring", 10, 0], ["txtSummer", 10, 0], ["txtFalla", 10, 0], ["txtWinter", 10, 0], ["txtCylinder", 2, 0], ["txtSalemoney", 10, 0,1], ["txtImprovemoney1", 10, 0], ["txtImprovemoney2", 10, 0], ["txtImprovemoney3", 10, 0], ["txtDiscountmoney", 10, 0], ["txtDurableyear", 2, 0, 0, 0]];
-            var bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"], ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999/99"], ["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"], ["txtImprovedate1", "999/99/99"], ["txtImprovedate2", "999/99/99"], ["txtImprovedate3", "999/99/99"], ["txtDiscountdate", "999/99/99"], ["txtSuspdate", "999/99/99"], ["txtOverdate", "999/99/99"], ["txtEnddate", "999/99/99"], ["txtWastedate", "999/99/99"], ["txtReissuedate", "999/99/99"]];
+            var bbmMask = [["txtIndate", "999/99/99"], ["txtOutdate", "999/99/99"], ["txtPassdate", "999/99/99"], ["txtLimitdate", "999/99/99"], ["txtCheckdate", "999/99/99"], ["txtCaryear", "9999/99"], ["txtCaryeartw", "999/99"], ["txtSaledate", "999/99/99"], ["txtImprovedate1", "999/99/99"], ["txtImprovedate2", "999/99/99"], ["txtImprovedate3", "999/99/99"], ["txtDiscountdate", "999/99/99"], ["txtSuspdate", "999/99/99"], ["txtOverdate", "999/99/99"], ["txtEnddate", "999/99/99"], ["txtWastedate", "999/99/99"], ["txtReissuedate", "999/99/99"], ["txtSigndate", "999/99/99"]];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -312,25 +312,25 @@
                 	var tx_memo=t_memo;
                 	$('#txtSendsign').val('');
                 	if(q_cur==2 &&t_cardeal!=$('#cmbCardealno').find(":selected").text() && t_cardeal!=''){
-                		$('#txtSendsign').val(q_date()+' '+t_cardeal+'過戶到'+$('#cmbCardealno').find(":selected").text());
-                		tx_memo=q_date()+' '+t_cardeal+'過戶到'+$('#cmbCardealno').find(":selected").text()+'\n'+tx_memo;
+                		$('#txtSendsign').val($('#txtSigndate').val()+' '+t_cardeal+'過戶到'+$('#cmbCardealno').find(":selected").text());
+                		tx_memo=$('#txtSigndate').val()+' '+t_cardeal+'過戶到'+$('#cmbCardealno').find(":selected").text()+'\n'+tx_memo;
                 	}
                 	
                 	if(q_cur==2 &&t_outplace!=$('#txtInplace').val()){
                 		$('#txtSendsign').val($('#txtInplace').val()+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
-                		tx_memo=$('#txtOutplace').val()+tx_memo+' ';
+                		tx_memo=$('#txtOutplace').val()+'\n'+tx_memo;
                 	}
                 	if(q_cur==2 &&t_outdate!=$('#txtOutdate').val()){
                 		$('#txtSendsign').val($('#txtOutdate').val()+'遷出'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
-                		tx_memo=$('#txtOutdate').val()+'遷出'+tx_memo+' ';
+                		tx_memo=$('#txtOutdate').val()+'遷出'+'\n'+tx_memo;
                 	}
                 	if(q_cur==2 &&t_enddate!=$('#txtEnddate').val()){
                 		$('#txtSendsign').val($('#txtEnddate').val()+'報廢'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
-                		tx_memo=$('#txtEnddate').val()+'報廢'+tx_memo+' ';
+                		tx_memo=$('#txtEnddate').val()+'報廢'+'\n'+tx_memo;
                 	}
                 	if(q_cur==2 &&t_wastedate!=$('#txtWastedate').val()){
                 		$('#txtSendsign').val($('#txtWastedate').val()+'繳銷'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
-                		tx_memo=$('#txtWastedate').val()+'繳銷'+tx_memo+' ';
+                		tx_memo=$('#txtWastedate').val()+'繳銷'+'\n'+tx_memo;
                 	}
                 	$('#txtMemo').val(tx_memo);
 				});
@@ -417,6 +417,33 @@
 				});
 				
 				$("#txtOutplace").change(function() {
+                	var tx_memo=t_memo;
+                	$('#txtSendsign').val('');
+                	if(q_cur==2 &&t_cardeal!=$('#cmbCardealno').find(":selected").text() && t_cardeal!=''){
+                		$('#txtSendsign').val(q_date()+' '+t_cardeal+'過戶到'+$('#cmbCardealno').find(":selected").text());
+                		tx_memo=q_date()+' '+t_cardeal+'過戶到'+$('#cmbCardealno').find(":selected").text()+'\n'+tx_memo;
+                	}
+                	
+                	if(q_cur==2 &&t_outplace!=$('#txtOutplace').val()){
+                		$('#txtSendsign').val($('#txtOutplace').val()+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
+                		tx_memo=$('#txtOutplace').val()+tx_memo+' ';
+                	}
+                	if(q_cur==2 &&t_outdate!=$('#txtOutdate').val()){
+                		$('#txtSendsign').val($('#txtOutdate').val()+'遷出'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
+                		tx_memo=$('#txtOutdate').val()+'遷出'+tx_memo+' ';
+                	}
+                	if(q_cur==2 &&t_enddate!=$('#txtEnddate').val()){
+                		$('#txtSendsign').val($('#txtEnddate').val()+'報廢'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
+                		tx_memo=$('#txtEnddate').val()+'報廢'+tx_memo+' ';
+                	}
+                	if(q_cur==2 &&t_wastedate!=$('#txtWastedate').val()){
+                		$('#txtSendsign').val($('#txtWastedate').val()+'繳銷'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
+                		tx_memo=$('#txtWastedate').val()+'繳銷'+tx_memo+' ';
+                	}
+                	$('#txtMemo').val(tx_memo);
+				});
+				
+				$("#txtSigndate").change(function() {
                 	var tx_memo=t_memo;
                 	$('#txtSendsign').val('');
                 	if(q_cur==2 &&t_cardeal!=$('#cmbCardealno').find(":selected").text() && t_cardeal!=''){
@@ -586,9 +613,11 @@
                  t_wastedate=$("#txtWastedate").val();
                  t_memo=$("#txtMemo").val();
                  t_outplace=$("#txtOutplace").val();
+                 
                  //清除異動
-                if(!emp($('#txtSendsign').val()))
-                	$('#txtSendsign').val('');
+                //if(!emp($('#txtSendsign').val()))
+                	//$('#txtSendsign').val('');
+                //$('#txtSigndate').val(q_date());
                  
                 $('#txtNoa').focus();
             }
@@ -665,8 +694,9 @@
 					alert(q_getMsg('lblCaryeartw')+'錯誤。');
 					return;
 				}*/
-				if($('#txtOutdate').val() != '')
-					$('#txtSendsign').val($('#txtOutdate').val() + '遷出');
+				if(emp($('#txtSendsign').val()))
+                	$('#txtSigndate').val('');
+					
 	           	var t_err = '';
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
 
@@ -1151,6 +1181,8 @@
 						<td><select id="cmbIsprint" class="txt c1"> </select> </td>
 					</tr>
 					<tr class="other">
+						<td><span> </span><a id="lblSigndate" class="lbl"> </a></td>
+						<td><input type="text" id="txtSigndate" class="txt c1"></td>
 						<td><span> </span><a id="lblSendsign" class="lbl"> </a></td>
 						<td colspan="3"><input type="text" id="txtSendsign" class="txt c1"></td>
 					</tr>

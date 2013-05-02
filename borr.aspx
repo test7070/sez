@@ -18,13 +18,13 @@
 
             q_tables = 't';
             var q_name = "borr";
-            var q_readonly = ['txtNoa', 'txtCash', 'txtChecka', 'txtVccno' , 'txtMoney', 'txtInterest', 'txtTotal', 'txtPay', 'txtUnpay', 'txtWorker','txtAccno'];
-            var q_readonlys = ['txtUmmno','txtVccno','txtAccno'];
-            var q_readonlyt = ['txtVccno','txtAccno'];
-            var bbmNum = [['txtCash', 10, 0],['txtFixmoney', 10, 0], ['txtChecka', 10, 0], ['txtMoney', 10, 0], ['txtInterest', 10, 0], ['txtTotal', 10, 0], ['txtPay', 10, 0], ['txtUnpay', 10, 0]];
-            var bbsNum = [['txtMoney', 10, 0, 1],['txtInterest', 10, 0, 1]];
+            var q_readonly = ['txtNoa', 'txtCash', 'txtChecka', 'txtVccno', 'txtMoney', 'txtInterest', 'txtTotal', 'txtPay', 'txtUnpay', 'txtWorker', 'txtWorker2', 'txtAccno'];
+            var q_readonlys = ['txtUmmno', 'txtVccno', 'txtAccno'];
+            var q_readonlyt = ['txtVccno', 'txtAccno'];
+            var bbmNum = [['txtCash', 10, 0], ['txtFixmoney', 10, 0], ['txtChecka', 10, 0], ['txtMoney', 10, 0], ['txtInterest', 10, 0], ['txtTotal', 10, 0], ['txtPay', 10, 0], ['txtUnpay', 10, 0]];
+            var bbsNum = [['txtMoney', 10, 0, 1], ['txtInterest', 10, 0, 1]];
             var bbtNum = [['txtMoney', 10, 0, 1]];
-            var bbmMask = [['txtDatea', '999/99/99'], ['txtBegindate', '999/99/99'], ['txtEnddate', '999/99/99'],['textMon_windows','999/99']];
+            var bbmMask = [['txtDatea', '999/99/99'], ['txtBegindate', '999/99/99'], ['txtEnddate', '999/99/99'], ['textMon_windows', '999/99']];
             var bbsMask = [['txtDatea', '999/99/99'], ['txtIndate', '999/99/99']];
             var bbtMask = [['txtMon', '999/99']];
             q_sqlCount = 6;
@@ -36,12 +36,7 @@
             q_xchg = 1;
             brwCount2 = 20;
 
-            aPop = new Array(
-								['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtCustnick', 'cust_b.aspx'],
-								['txtBankno_', '', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
-								['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
-								['txtAcc1_', '', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
-							);
+            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtCust,txtCustnick', 'cust_b.aspx'], ['txtBankno_', '', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'], ['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtAcc1_', '', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -80,93 +75,186 @@
                 $("#txtRate").change(function() {
                     sum();
                 });
-				$('#lblVccno').click(function() {
-					browTicketForm($(this).get(0));
-				});
-                
-                $('#lblAccno').click(function() {
-					browTicketForm($(this).get(0));
+                $('#lblVccno').click(function() {
+                    browTicketForm($(this).get(0));
                 });
-                $('#btnInterest').click(function(){
-                	$('#InterestWindows').toggle();
-                });
-                $('#btnCloseWindows').click(function(){
-                	$('#InterestWindows').toggle();
-                });
-                $('#btnProcessInterest').click(function(){
-                	var P_Mon = $('#textMon_windows').val();
-                	if(P_Mon.length != 0){
-                		$('#btnProcessInterest').attr('disabled','disabled');
-                		q_func('dayborr.process', P_Mon);
-                	}else{
-                		alert('請輸入' + q_getMsg('lblMon_windows'));
-                	}
-                });
-            }
-            
-			function q_funcPost(t_func, result) {
-				switch(t_func) {
-					case 'dayborr.process':
-						alert(result);
-						$('#btnProcessInterest').removeAttr('disabled','disabled');
-					break;
-				}
-			}
 
-            function browTicketForm(obj){
-            	if(($(obj).attr('readonly') == 'readonly') || ($(obj).attr('id').substring(0,3) == 'lbl')){
-	            	if($(obj).attr('id').substring(0,3) == 'lbl')
-	            		obj = $('#txt' + $(obj).attr('id').substring(3));
-	            	var noa = $.trim($(obj).val());
-	            	var openName = $(obj).attr('id').split('_')[0].substring(3).toLowerCase();
-	            	if(noa.length>0){
-	            		switch (openName) {
-	                    case 'vccno':
-							q_box("vcctran.aspx?;;;noa='" + noa + "';"+r_accy, 'vcc', "95%", "95%", q_getMsg("popVcctran"));
-	                        break;
-	                    case 'accno':
-							q_box("accc.aspx?;;;accc3='" + noa + "';"+r_accy+"_1", 'accc', "95%", "95%", q_getMsg("popAccc"));
-	                        break;
-	                    case 'ummno':
-							q_box("ummtran.aspx?;;;noa='" + noa + "';"+r_accy, 'umm', "95%", "95%", q_getMsg("popUmmtran"));
-	                        break;
-	                    case 'checkno':
-							q_box("gqb.aspx?;;;gqbno='" + noa + "';"+r_accy, 'gqb', "95%", "95%", q_getMsg("popGqb"));
-	                        break;
-	                	}
-	            	}
-            	}
+                $('#lblAccno').click(function() {
+                    browTicketForm($(this).get(0));
+                });
+                $('#btnInterest').click(function() {
+                    $('#InterestWindows').toggle();
+                });
+                $('#btnCloseWindows').click(function() {
+                    $('#InterestWindows').toggle();
+                });
+                $('#btnProcessInterest').click(function() {
+                    var P_Mon = $('#textMon_windows').val();
+                    if (P_Mon.length != 0) {
+                        $('#btnProcessInterest').attr('disabled', 'disabled');
+                        q_func('dayborr.process', P_Mon);
+                    } else {
+                        alert('請輸入' + q_getMsg('lblMon_windows'));
+                    }
+                });
             }
+
+            function q_funcPost(t_func, result) {
+                switch(t_func) {
+                    case 'dayborr.process':
+                        alert(result);
+                        $('#btnProcessInterest').removeAttr('disabled', 'disabled');
+                        break;
+                }
+            }
+
+            function browTicketForm(obj) {
+                if (($(obj).attr('readonly') == 'readonly') || ($(obj).attr('id').substring(0, 3) == 'lbl')) {
+                    if ($(obj).attr('id').substring(0, 3) == 'lbl')
+                        obj = $('#txt' + $(obj).attr('id').substring(3));
+                    var noa = $.trim($(obj).val());
+                    var openName = $(obj).attr('id').split('_')[0].substring(3).toLowerCase();
+                    if (noa.length > 0) {
+                        switch (openName) {
+                            case 'vccno':
+                                q_box("vcctran.aspx?;;;noa='" + noa + "';" + r_accy, 'vcc', "95%", "95%", q_getMsg("popVcctran"));
+                                break;
+                            case 'accno':
+                                q_box("accc.aspx?;;;accc3='" + noa + "';" + r_accy + "_1", 'accc', "95%", "95%", q_getMsg("popAccc"));
+                                break;
+                            case 'ummno':
+                                q_box("ummtran.aspx?;;;noa='" + noa + "';" + r_accy, 'umm', "95%", "95%", q_getMsg("popUmmtran"));
+                                break;
+                            case 'checkno':
+                                q_box("gqb.aspx?;;;gqbno='" + noa + "';" + r_accy, 'gqb', "95%", "95%", q_getMsg("popGqb"));
+                                break;
+                        }
+                    }
+                }
+            }
+
             function q_gtPost(t_name) {
                 switch (t_name) {
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
+                    default:
+                        if (t_name.substring(0, 13) == 'gqb_btnOkbbs1') {
+                            //存檔時   bbs 支票號碼   先檢查VIEW_GQB,再檢查GQB
+                            var t_sel = parseFloat(t_name.split('_')[2]);
+                            var t_checkno = t_name.split('_')[3];
+                            var t_noa = t_name.split('_')[4];
+                            var as = _q_appendData("view_gqb", "", true);
+                            if (as[0] != undefined) {
+                                var t_isExist = false, t_msg = '';
+                                for (var i in as) {
+                                    if (as[i]['tablea'] != undefined) {
+                                        t_isExist = true;
+                                        if (as[i]['noa'] != t_noa) {
+                                            t_msg += (t_msg.length == 0 ? '票據已存在:' : '') + String.fromCharCode(13) + '【' + as[i]['title'] + as[i]['noa'] + '】' + as[i]['checkno'];
+                                        }
+                                    }
+                                }
+                                if (t_isExist && t_msg.length == 0) {
+                                    checkGqb_bbs(t_sel - 1);
+                                } else if (t_isExist && t_msg.length > 0) {
+                                    alert('票據重覆。' + String.fromCharCode(13) + t_msg);
+                                    Unlock();
+                                } else if (t_msg.length > 0) {
+                                    alert(t_msg);
+                                    Unlock();
+                                } else {
+                                    //檢查GQB
+                                    var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
+                                    q_gt('gqb', t_where, 0, 0, 0, "gqb_btnOkbbs2_" + t_sel, r_accy);
+                                }
+                            } else {
+                                //檢查GQB
+                                var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
+                                q_gt('gqb', t_where, 0, 0, 0, "gqb_btnOkbbs2_" + t_sel, r_accy);
+                            }
+                        } else if (t_name.substring(0, 13) == 'gqb_btnOkbbs2') {
+                            //存檔時   bbs 支票號碼檢查
+                            //檢查GQB
+                            var t_sel = parseFloat(t_name.split('_')[2]);
+                            var as = _q_appendData("gqb", "", true);
+                            if (as[0] != undefined) {
+                                alert('支票【' + as[0]['gqbno'] + '】已存在');
+                                Unlock();
+                            } else {
+                                checkGqb_bbs(t_sel - 1);
+                            }
+                        } else if (t_name.substring(0, 11) == 'gqb_change1') {
+                            //先檢查VIEW_GQB,再檢查GQB
+                            var t_sel = parseFloat(t_name.split('_')[2]);
+                            var t_checkno = t_name.split('_')[3];
+                            var t_noa = t_name.split('_')[4];
+                            var as = _q_appendData("view_gqb", "", true);
+                            if (as[0] != undefined) {
+                                var t_isExist = false, t_msg = '';
+                                for (var i in as) {
+                                    if (as[i]['tablea'] != undefined) {
+                                        t_isExist = true;
+                                        if (as[i]['noa'] != t_noa) {
+                                            t_msg += (t_msg.length == 0 ? '票據已存在:' : '') + String.fromCharCode(13) + '【' + as[i]['title'] + as[i]['noa'] + '】' + as[i]['checkno'];
+                                        }
+                                    }
+                                }
+                                if (t_isExist && t_msg.length == 0) {
+                                    Unlock();
+                                } else if (t_isExist && t_msg.length > 0) {
+                                    alert('票據重覆。' + String.fromCharCode(13) + t_msg);
+                                    Unlock();
+                                } else if (t_msg.length > 0) {
+                                    alert(t_msg);
+                                    Unlock();
+                                } else {
+                                    //檢查GQB
+                                    var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
+                                    q_gt('gqb', t_where, 0, 0, 0, "gqb_change2_" + t_sel, r_accy);
+                                }
+                            } else {
+                                //檢查GQB
+                                var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
+                                q_gt('gqb', t_where, 0, 0, 0, "gqb_change2_" + t_sel, r_accy);
+                            }
+                        } else if (t_name.substring(0, 11) == 'gqb_change2') {
+                            //檢查GQB
+                            var t_sel = parseFloat(t_name.split('_')[2]);
+                            var as = _q_appendData("gqb", "", true);
+                            if (as[0] != undefined) {
+                                alert('支票【' + as[0]['gqbno'] + '】已存在');
+                            }
+                            Unlock();
+                        }
+                        break;
                 }
             }
+
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
-				var s2 = xmlString.split(';');
+                var s2 = xmlString.split(';');
                 abbm[q_recno]['accno'] = s2[0];
                 abbm[q_recno]['vccno'] = s2[1];
                 var t_noa = abbm[q_recno]['noa'];
-               	$('#txtAccno').val(s2[0]);
-               	$('#txtVccno').val(s2[1]);
-               	var b_seq = 0;
-               	var i = 2;
-				for (var j = 0; j < abbs.length; j++) {
-					if(abbs[j]['noa'] == t_noa){
-						abbs[j]['ummno'] = s2[++i];
-						abbs[j]['accno'] = s2[++i];
-						abbs[j]['vccno'] = s2[++i];
-						$('#txtUmmno_' + b_seq).val(s2[i]);
-						$('#txtAccno_' + b_seq).val(s2[i+1]);
-						$('#txtVccno_' + b_seq).val(s2[i+2]);
-						b_seq++;
-					}
-				}
+                $('#txtAccno').val(s2[0]);
+                $('#txtVccno').val(s2[1]);
+                var b_seq = 0;
+                var i = 2;
+                for (var j = 0; j < abbs.length; j++) {
+                    if (abbs[j]['noa'] == t_noa) {
+                        abbs[j]['ummno'] = s2[++i];
+                        abbs[j]['accno'] = s2[++i];
+                        abbs[j]['vccno'] = s2[++i];
+                        $('#txtUmmno_' + b_seq).val(s2[i]);
+                        $('#txtAccno_' + b_seq).val(s2[i + 1]);
+                        $('#txtVccno_' + b_seq).val(s2[i + 2]);
+                        b_seq++;
+                    }
+                }
+                Unlock();
             }
 
             function q_boxClose(s2) {
@@ -203,19 +291,50 @@
             }
 
             function btnOk() {
-            	if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
-                	alert(q_getMsg('lblDatea')+'錯誤。');
-                	return;
+                Lock();
+                if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
+                    alert(q_getMsg('lblDatea') + '錯誤。');
+                    Unlock();
+                    return;
                 }
                 sum();
-                $('#txtWorker').val(r_name);
-               
-                var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtDatea').val());
-                if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_borr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-                else
-                    wrServer(t_noa);
+                //先檢查BBS沒問題才存檔
+                checkGqb_bbs(q_bbsCount - 1);
+
+            }
+
+            function checkGqb_bbs(n) {
+                if (n < 0) {
+                    //為了查詢
+                    var t_checkno = '';
+                    for (var i = 0; i < q_bbsCount; i++) {
+                        if ($.trim($('#txtCheckno_' + i).val()).length > 0 && t_checkno.indexOf($.trim($('#txtCheckno_' + i).val())) == -1)
+                            t_checkno += (t_checkno.length > 0 ? ',' : '') + $.trim($('#txtCheckno_' + i).val());
+                    }
+                    $('#txtCheckno').val(t_checkno);
+                    if (q_cur == 1) {
+                        $('#txtWorker').val(r_name);
+                    } else if (q_cur == 2) {
+                        $('#txtWorker2').val(r_name);
+                    } else {
+                        alert("error: btnok!");
+                    }
+                    var t_noa = trim($('#txtNoa').val());
+                    var t_date = trim($('#txtDatea').val());
+                    if (t_noa.length == 0 || t_noa == "AUTO")
+                        q_gtnoa(q_name, replaceAll(q_getPara('sys.key_borr') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    else
+                        wrServer(t_noa);
+                } else {
+                    if ($.trim($('#txtCheckno_' + n).val()).length > 0) {
+                        var t_noa = $('#txtNoa').val();
+                        var t_checkno = $('#txtCheckno_' + n).val();
+                        var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
+                        q_gt('view_gqb', t_where, 0, 0, 0, "gqb_btnOkbbs1_" + n + "_" + t_checkno + "_" + t_noa, r_accy);
+                    } else {
+                        checkGqb_bbs(n - 1);
+                    }
+                }
             }
 
             function wrServer(key_value) {
@@ -225,7 +344,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['money']) {
+                if (parseFloat(as['money'].length==0?"0":""+as['money'])==0 && parseFloat(as['interest'].length==0?"0":""+as['interest'])==0) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -260,6 +379,19 @@
                 for (var i = 0; i < q_bbsCount; i++) {
                     $('#lblNo_' + i).text(i + 1);
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+                        $('#txtAcc1_' + i).change(function() {
+                            var patt = /(\d{4})([^\.,.]*)$/g;
+                            $(this).val($(this).val().replace(patt, "$1.$2"));
+                            sum();
+                        });
+                        $('#txtCheckno_' + i).change(function() {
+                            Lock();
+                            var n = $(this).attr('id').replace('txtCheckno_', '');
+                            var t_noa = $('#txtNoa').val();
+                            var t_checkno = $('#txtCheckno_' + n).val();
+                            var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
+                            q_gt('view_gqb', t_where, 0, 0, 0, "gqb_change1_" + n + "_" + t_checkno + "_" + t_noa, r_accy);
+                        });
                         $('#txtMoney_' + i).change(function() {
                             sum();
                         });
@@ -313,9 +445,9 @@
                     else
                         t_pay += q_float('txtMoney_' + i);
                 }
-        
-                $('#txtCash').val(t_cash);
-                $('#txtChecka').val(t_checka);
+
+                $('#txtCash').val(FormatNumber(t_cash));
+                $('#txtChecka').val(FormatNumber(t_checka));
                 t_money = t_cash + t_checka;
                 $('#txtMoney').val(FormatNumber(t_money));
                 t_interest = round(t_money * t_days / 30 * q_float('txtRate') / 100, 0);
@@ -324,6 +456,7 @@
                 $('#txtPay').val(FormatNumber(t_pay));
                 $('#txtUnpay').val(FormatNumber(t_money + t_interest - t_pay));
             }
+
             function q_appendData(t_Table) {
                 return _q_appendData(t_Table);
             }
@@ -378,11 +511,48 @@
                         break;
                 }
             }
+
             function FormatNumber(n) {
+                var xx = "";
+                if (n < 0) {
+                    n = Math.abs(n);
+                    xx = "-";
+                }
                 n += "";
                 var arr = n.split(".");
                 var re = /(\d{1,3})(?=(\d{3})+$)/g;
-                return arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+                return xx + arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+            }
+
+            function Lock() {
+                if ($('#divLock').length == 0)
+                    $('body').append('<div id="divLock"> </div>');
+                $('#divLock').css('width', Math.max(document.body.clientWidth, document.body.scrollWidth)).css('height', Math.max(document.body.clientHeight, document.body.scrollHeight));
+                $('#divLock').css('background', 'black').css('opacity', 0.2);
+                $('#divLock').css('display', '').css('z-index', '999').css('position', 'absolute').css('top', 0).css('left', 0).focus();
+                addResizeEvent(function() {
+                    if ($('#divLock').css('display') != 'none')
+                        return;
+                    $('#divLock').css('width', Math.max(document.body.clientWidth, document.body.scrollWidth)).css('height', Math.max(document.body.clientHeight, document.body.scrollHeight));
+                });
+            }
+
+            function Unlock() {
+                $('#divLock').css('display', 'none');
+            }
+
+            function addResizeEvent(func) {
+                var oldonresize = window.onresize;
+                if ( typeof window.onresize != 'function') {
+                    window.onresize = func;
+                } else {
+                    window.onresize = function() {
+                        if (oldonresize) {
+                            oldonresize();
+                        }
+                        func();
+                    }
+                }
             }
 		</script>
 		<style type="text/css">
@@ -527,13 +697,13 @@
                 text-align: center;
                 border: 2px pink double;
             }
-            #InterestWindows{
-            	display:none;
-            	width:20%;
-            	background-color: #cad3ff;
-            	border: 5px solid gray;
-            	position: absolute;
-            	z-index: 9999;
+            #InterestWindows {
+                display: none;
+                width: 20%;
+                background-color: #cad3ff;
+                border: 5px solid gray;
+                position: absolute;
+                z-index: 9999;
             }
 		</style>
 	</head>
@@ -575,7 +745,7 @@
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td></td>
+						<td><input id="txtCheckno"  type="text" style="display:none;"/></td>
 						<td></td>
 						<td></td>
 						<td></td>
@@ -600,16 +770,16 @@
 					<tr>
 						<td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
 						<td colspan="4">
-							<input id="txtCustno"  type="text" style="width:25%; float:left;"/>
-							<input id="txtCust"  type="text" style="width:75%; float:left;"/>
-							<input id="txtCustnick"  type="text" style="display: none;"/>
+						<input id="txtCustno"  type="text" style="width:25%; float:left;"/>
+						<input id="txtCust"  type="text" style="width:75%; float:left;"/>
+						<input id="txtCustnick"  type="text" style="display: none;"/>
 						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblSalesno" class="lbl btn"> </a></td>
 						<td colspan="4">
-							<input id="txtSalesno"  type="text" style="width:25%; float:left;"/>
-							<input id="txtSales"  type="text" style="width:75%; float:left;"/>
+						<input id="txtSalesno"  type="text" style="width:25%; float:left;"/>
+						<input id="txtSales"  type="text" style="width:75%; float:left;"/>
 						</td>
 					</tr>
 					<tr>
@@ -622,10 +792,10 @@
 						<input id="txtChecka"  type="text" class="txt c1 num" />
 						</td>
 						<td align="right" colspan="2">
-						<input id="chkIsnointe" type="checkbox" style=' '/><a id="lblIsnointe" class="lbl"> </a>
-						</td>
-						<td> </td>
-						<td> </td>
+						<input id="chkIsnointe" type="checkbox" style=' '/>
+						<a id="lblIsnointe" class="lbl"> </a></td>
+						<td></td>
+						<td></td>
 						<td><span> </span><a id="lblMoney" class="lbl"> </a></td>
 						<td>
 						<input id="txtMoney" type="text" class="txt c1 num"/>
@@ -656,11 +826,11 @@
 					<tr>
 						<td><span> </span><a id="lblRatemon" class="lbl"> </a></td>
 						<td>
-							<input id="txtRatemon" type="text" class="txt c1 num"/>
+						<input id="txtRatemon" type="text" class="txt c1 num"/>
 						</td>
 						<td><span> </span><a id="lblFixmoney" class="lbl"> </a></td>
 						<td>
-							<input id="txtFixmoney" type="text" class="txt c1 num"/>
+						<input id="txtFixmoney" type="text" class="txt c1 num"/>
 						</td>
 						<td></td>
 						<td></td>
@@ -683,45 +853,43 @@
 						</td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
+						<td><input id="txtWorker" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
 						<td>
-							<span> </span><a id="lblWorker" class="lbl"> </a>
+						<input id="txtAccno" type="text" class="txt c1"/>
 						</td>
+						<td><span> </span><a id="lblVccno" class="lbl btn"> </a></td>
 						<td>
-							<input id="txtWorker" type="text" class="txt c1"/>
-						</td>
-						<td>
-							<span> </span><a id="lblAccno" class="lbl btn"> </a>
-						</td>
-						<td>
-							<input id="txtAccno" type="text" class="txt c1"/>
-						</td>
-						<td>
-							<span> </span><a id="lblVccno" class="lbl btn"> </a>
-						</td>
-						<td>
-							<input id="txtVccno" type="text" class="txt c1"/>
+						<input id="txtVccno" type="text" class="txt c1"/>
 						</td>
 						<td colspan="2" align="center">
-							<div id="InterestWindows">
-								<table>
-									<tr>
-										<td style="width:30%;"><span> </span><a id="lblMon_windows" class="lbl"> </a></td>
-										<td style="width:70%;"><input id="textMon_windows" type="text" class="txt c1"/></td>
-									</tr>
-									<tr>
-										<td colspan="2" align="center">
-											<input id="btnProcessInterest" type="button">
-											<input id="btnCloseWindows" type="button" value="關閉視窗">
-										</td>
-									</tr>
-								</table>
-							</div>
-							<input id="btnInterest" type="button">
+						<div id="InterestWindows">
+							<table>
+								<tr>
+									<td style="width:30%;"><span> </span><a id="lblMon_windows" class="lbl"> </a></td>
+									<td style="width:70%;">
+									<input id="textMon_windows" type="text" class="txt c1"/>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" align="center">
+									<input id="btnProcessInterest" type="button">
+									<input id="btnCloseWindows" type="button" value="關閉視窗">
+									</td>
+								</tr>
+							</table>
+						</div>
+						<input id="btnInterest" type="button">
 						</td>
 						<td><span> </span><a id="lblUnpay" class="lbl"> </a></td>
 						<td>
 						<input id="txtUnpay" type="text" class="txt c1 num"/>
 						</td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
+						<td><input id="txtWorker2" type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
@@ -731,7 +899,7 @@
 						<td style="width:20px;">
 						<input id="btnPlus" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
-						<td style="width:20px;"> </td>
+						<td style="width:20px;"></td>
 						<td style="width:80px;"><a id='lbl_typea'> </a></td>
 						<td style="width:80px;"><a id='lbl_datea'> </a></td>
 						<td style="width:80px;"><a id='lbl_money'> </a></td>
@@ -749,50 +917,50 @@
 					</tr>
 					<tr  style='background:#cad3ff;'>
 						<td align="center">
-							<input id="btnMinus.*" type="button" style="font-size: medium; font-weight: bold;" value="－"/>
-							<input id="txtNoq.*" type="text" style="display: none;"/>
+						<input id="btnMinus.*" type="button" style="font-size: medium; font-weight: bold;" value="－"/>
+						<input id="txtNoq.*" type="text" style="display: none;"/>
 						</td>
 						<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-						<td><select id="cmbTypea.*" style="width:95%; text-align: center;"> </select></td>
+						<td><select id="cmbTypea.*" style="width:95%; text-align: center;"></select></td>
 						<td>
-							<input class="txt" id="txtDatea.*" type="text" style="width:95%; text-align: center;"/>
+						<input class="txt" id="txtDatea.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;"/>
+						<input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtInterest.*" type="text" style="width:95%; text-align: right;"/>
+						<input class="txt" id="txtInterest.*" type="text" style="width:95%; text-align: right;"/>
 						</td>
 						<td >
-							<input id="txtAcc1.*" type="text" class="txt c1" style="float:left;width:30%;"/>
-							<input id="txtAcc2.*" type="text" class="txt c1" style="float:left;width:60%;"/>
+						<input id="txtAcc1.*" type="text" class="txt c1" style="float:left;width:30%;"/>
+						<input id="txtAcc2.*" type="text" class="txt c1" style="float:left;width:60%;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtCheckno.*" onclick="browTicketForm(this)" type="text" style="width:95%; text-align: left;"/>
+						<input class="txt" id="txtCheckno.*" onclick="browTicketForm(this)" type="text" style="width:95%; text-align: left;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtIndate.*" type="text" style="width:95%; text-align: center;"/>
+						<input class="txt" id="txtIndate.*" type="text" style="width:95%; text-align: center;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtBankno.*" type="text" style="width:95%; text-align: left;"/>
+						<input class="txt" id="txtBankno.*" type="text" style="width:95%; text-align: left;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtBank.*" type="text" style="width:95%; text-align: left;"/>
+						<input class="txt" id="txtBank.*" type="text" style="width:95%; text-align: left;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtAccount.*" type="text" style="width:95%; text-align: left;"/>
+						<input class="txt" id="txtAccount.*" type="text" style="width:95%; text-align: left;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtMemo.*" type="text" style="width:95%; text-align: left;"/>
+						<input class="txt" id="txtMemo.*" type="text" style="width:95%; text-align: left;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtUmmno.*" onclick="browTicketForm(this)" type="text" style="width:95%; text-align: left;"/>
+						<input class="txt" id="txtUmmno.*" onclick="browTicketForm(this)" type="text" style="width:95%; text-align: left;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtAccno.*" onclick="browTicketForm(this)" type="text" style="width:95%; text-align: left;"/>
+						<input class="txt" id="txtAccno.*" onclick="browTicketForm(this)" type="text" style="width:95%; text-align: left;"/>
 						</td>
 						<td>
-							<input class="txt" id="txtVccno.*" onclick="browTicketForm(this)" type="text" style="width:95%; text-align: left;"/>
+						<input class="txt" id="txtVccno.*" onclick="browTicketForm(this)" type="text" style="width:95%; text-align: left;"/>
 						</td>
 					</tr>
 				</table>
@@ -803,10 +971,10 @@
 			<table id="tbbt">
 				<tbody>
 					<tr class="head" style="color:white; background:#003366;">
-						<td style="width:20px;">
+						<td style="width:60px;">
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
-						<td style="width:20px;"> </td>
+						<td style="width:20px;"></td>
 						<td style="width:120px; text-align: center;">請款日期</td>
 						<td style="width:100px; text-align: center;">金額(利息)</td>
 						<td style="width:350px; text-align: center;">備註</td>
@@ -814,16 +982,26 @@
 						<td style="width:150px; text-align: center;">傳票號碼</td>
 					</tr>
 					<tr>
-						<td>
-							<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold;" value="－"/>
-							<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
+						<td><!--<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold;" value="－"/>--><span> </span><a id="lblCancel_t" class="lbl"> </a>
+						<input id="chkCancel..*" type="checkbox"/>
+						<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
 						</td>
 						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-						<td><input id="txtMon..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtMoney..*"  type="text" style="width:95%; text-align: right;"/></td>
-						<td><input id="txtMemo..*"  type="text" style="width:95%; text-align: left;"/></td>
-						<td><input id="txtVccno..*" onclick="browTicketForm(this)" type="text" class="txt c1"/></td>
-						<td><input id="txtAccno..*" onclick="browTicketForm(this)" type="text" class="txt c1"/></td>
+						<td>
+						<input id="txtMon..*" type="text" style="width:95%;"/>
+						</td>
+						<td>
+						<input id="txtMoney..*"  type="text" style="width:95%; text-align: right;"/>
+						</td>
+						<td>
+						<input id="txtMemo..*"  type="text" style="width:95%; text-align: left;"/>
+						</td>
+						<td>
+						<input id="txtVccno..*" onclick="browTicketForm(this)" type="text" class="txt c1"/>
+						</td>
+						<td>
+						<input id="txtAccno..*" onclick="browTicketForm(this)" type="text" class="txt c1"/>
+						</td>
 					</tr>
 				</tbody>
 			</table>

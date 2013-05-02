@@ -5,9 +5,11 @@
 		<title></title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script type="text/javascript">
+		
             $(document).ready(function() {
 				//Lock();
 				$('#txtA').change(function(){
+					
 					$('#txtB').val(FormatNumber($('#txtA').val()));
 				});
 

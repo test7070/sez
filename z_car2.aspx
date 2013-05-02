@@ -358,10 +358,10 @@
                     	if(emp($('#txtCardeal1a').val())){
                     		$('#txtCardeal1b').val('');
                     	}
-                    	if(emp($('#txtCardeal2a').val())&&!emp($('#txtCardeal1a').val())){
+                    	//if(emp($('#txtCardeal2a').val())&&!emp($('#txtCardeal1a').val())){
                     		$('#txtCardeal2a').val($('#txtCardeal1a').val());
                     		$('#txtCardeal2b').val($('#txtCardeal1b').val());
-                    	}
+                    	//}
                 	});
                 	$('#txtCardeal2a').blur(function() {
                     	if(emp($('#txtCardeal2a').val())){
@@ -374,10 +374,10 @@
                     	if(emp($('#txtCarowner1a').val())){
                     		$('#txtCarowner1b').val('');
                     	}
-                    	if(!emp($('#txtCarowner1a').val())){
+                    	//if(!emp($('#txtCarowner1a').val())){
                     		$('#txtCarowner2a').val($('#txtCarowner1a').val());
                     		$('#txtCarowner2b').val($('#txtCarowner1b').val());
-                    	}
+                    	//}
                 	});
                 	$('#txtCarowner2a').blur(function() {
                     	if(emp($('#txtCarowner2a').val())){
@@ -390,10 +390,10 @@
                     	if(emp($('#txtCarspec1a').val())){
                     		$('#txtCarspec1b').val('');
                     	}
-                    	if(emp($('#txtCarspec2a').val())&&!emp($('#txtCarspec1a').val())){
+                    	//if(emp($('#txtCarspec2a').val())&&!emp($('#txtCarspec1a').val())){
                     		$('#txtCarspec2a').val($('#txtCarspec1a').val());
                     		$('#txtCarspec2b').val($('#txtCarspec1b').val());
-                    	}
+                    	//}
                 	});
                 	$('#txtCarspec2a').blur(function() {
                     	if(emp($('#txtCarspec2a').val())){
@@ -406,10 +406,10 @@
                     	if(emp($('#txtCarinsurer1a').val())){
                     		$('#txtCarinsurer1b').val('');
                     	}
-                    	if(emp($('#txtCarinsurer2a').val())&&!emp($('#txtCarinsurer1a').val())){
+                    	//if(emp($('#txtCarinsurer2a').val())&&!emp($('#txtCarinsurer1a').val())){
                     		$('#txtCarinsurer2a').val($('#txtCarinsurer1a').val());
                     		$('#txtCarinsurer2b').val($('#txtCarinsurer1b').val());
-                    	}
+                    	//}
                 	});
                 	$('#txtCarinsurer2a').blur(function() {
                     	if(emp($('#txtCarinsurer2a').val())){
@@ -417,11 +417,27 @@
                     	}
                 	});
                 	$('#txtTcarno1').blur(function() {
-                    	if(emp($('#txtTcarno2').val())){
+                    	//if(emp($('#txtTcarno2').val())){
                     		$('#txtTcarno2').val($('#txtTcarno1').val());
-                    	}
+                    	//}
                 	});
 					//---------------------------
+					//---------------------------科目名稱
+                	$('#txtCaritemno1a').blur(function() {
+                    	if(emp($('#txtCaritemno1a').val())){
+                    		$('#txtCaritemno1b').val('');
+                    	}
+                    	//if(emp($('#txtCarspec2a').val())&&!emp($('#txtCarspec1a').val())){
+                    		$('#txtCaritemno2a').val($('#txtCaritemno1a').val());
+                    		$('#txtCaritemno2b').val($('#txtCaritemno1b').val());
+                    	//}
+                	});
+                	$('#txtCaritemno2a').blur(function() {
+                    	if(emp($('#txtCaritemno2a').val())){
+                    		$('#txtCaritemnosb').val('');
+                    	}
+                	});
+                	//---------------------------
             	//----------------多車欄位設定----------------
             	$('#Xcarnos').css("width","410px");
             	$('#txtXcarnos').css("width","320px");
