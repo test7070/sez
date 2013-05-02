@@ -803,7 +803,7 @@
 			<table id="tbbt">
 				<tbody>
 					<tr class="head" style="color:white; background:#003366;">
-						<td style="width:20px;">
+						<td style="width:60px;">
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
 						<td style="width:20px;"> </td>
@@ -815,7 +815,9 @@
 					</tr>
 					<tr>
 						<td>
-							<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold;" value="－"/>
+							<!--<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold;" value="－"/>-->
+							<span> </span><a id="lblCancel_t" class="lbl"> </a>
+							<input id="chkCancel..*" type="checkbox"/>
 							<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
 						</td>
 						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
