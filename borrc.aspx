@@ -250,7 +250,7 @@
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
-                //alert(xmlString);
+                abbm[q_recno]['accno'] = xmlString;
                 Unlock();
             }
             function btnOk() {
@@ -380,7 +380,7 @@
                     if (!$('#btnMinut__' + i).hasClass('isAssign')) {
                     	$('#txtIndate__'+i).datepicker();
                 	 	$('#txtAcc1__'+i).change(function(e) {
-		                    var patt = /(\d{4})([^\.,.]*)$/g;
+		                    var patt = /^(\d{4})([^\.,.]*)$/g;
 		                    $(this).val($(this).val().replace(patt,"$1.$2"));
 		        		});
 		        		$('#txtMoney__'+i).change(function(){

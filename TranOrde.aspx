@@ -143,6 +143,11 @@
 		            	q_box("tranordet.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'tranordet', "95%", "95%", q_getMsg("popTranorde"));
 		        	}
 		        });
+		        $('#btnTransvcce').click(function(e){
+		        	var noa = $.trim($('#txtNoa').val());
+                	if(noa.length>0)
+                		q_box("transvcce.aspx?;;;ordeno='" + noa + "';"+r_accy, 'transvcce', "95%", "95%", q_getMsg("popTransvcce"));
+		        });
                 $('#txtDatea').datepicker();
                 $('#txtCldate').datepicker();
                 $('#txtNodate').datepicker();
@@ -738,6 +743,8 @@
 						<td>
 						<select id="cmbCtype" class="txt c1"></select>
 						</td>
+						<td></td>
+						<td><input type="button" id="btnTransvcce" value="派車明細"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCust" class="lbl"> </a></td>
