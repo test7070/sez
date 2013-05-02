@@ -167,7 +167,8 @@
                 			Unlock();
                 			return;
                 		}
-                sum();      
+                sum();
+                //先檢查BBS再檢查BBT沒問題才存檔      
                 checkGqb_bbs(q_bbsCount-1);			
             }
             function checkGqb_bbs(n){
