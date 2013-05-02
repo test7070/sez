@@ -432,7 +432,7 @@
                 font-size: medium;
             }
             #dbbt {
-                width: 750px;
+                width: 800px;
             }
             #tbbt {
                 margin: 0;
@@ -634,8 +634,8 @@
 			<table id="tbbt">
 				<tbody>
 					<tr class="head" style="color:white; background:#003366;">
-						<td style="width:20px;">
-						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold; width:90%;" value="＋"/>
+						<td style="width:90px;">
+						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
 						</td>
 						<td style="width:20px;"> </td>
 						<td style="width:200px; text-align: center;">請款日期	</td>
@@ -646,8 +646,9 @@
 					</tr>
 					<tr>
 						<td>
-						<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold; width:90%;" value="－"/>
-						<input class="txt" id="txtNoq..*" type="text" style="display: none;"/>
+							<!--<input id="btnMinut..*"  type="button" style="font-size: medium; font-weight: bold;" value="－"/>-->
+							<span> </span><a id="lblCancel_t" class="lbl"> </a>
+							<input id="chkCancel..*" type="checkbox"/>
 						</td>
 						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td><input id="txtMon..*" type="text" style="width:95%;"/></td>
