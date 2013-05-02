@@ -22,7 +22,7 @@
 
             q_tables = 't';
             var q_name = "borrc";
-            var q_readonly = ['txtCheckno','txtNoa','txtPaymoney','txtMoney','txtVccno','txtPaybno','txtAccno','txtAccy','txtWorker','txtWorker2'];
+            var q_readonly = ['txtCheckno','txtNoa','txtPaymoney','txtMoney','txtVccno','txtPayno','txtAccno','txtAccy','txtWorker','txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney',10,0,1],['txtPaymoney',10,0,1]];
             var bbsNum = [['txtMoney',10,0,1]];
@@ -65,15 +65,15 @@
             	$('#btnOk').attr('value',$('#btnOk').attr('value')+"(F9)");
                 q_mask(bbmMask);
                 $('#txtDatea').datepicker();
-                $('#lblPaybno').click(function() {
-                	if($('#txtPaybno').val().length>0){
-                		t_where = "noa='" + $('#txtPaybno').val() + "'";
-            		q_box("payb.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'payb', "95%", "95%", q_getMsg('popPayb'));
+                $('#lblPayno').click(function() {
+                	if($(this).val().length>0){
+                		t_where = "noa='" + $('#txtPayno').val() + "'";
+            		q_box("pay.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pay', "95%", "95%", q_getMsg('popPay'));
                 	}
              	});
              	$('#lblVccno').click(function() {
                 	if($('#txtVccno').val().length>0){
-                		t_where = "noa='" + $('#txtVccno').val() + "'";
+                		t_where = "noa='" + $(this).val() + "'";
             		q_box("vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'vcc', "95%", "95%", q_getMsg('popVcctran'));
                 	}
              	});
@@ -107,43 +107,132 @@
                             q_Seek_gtPost();
                         break;
                     default:
-                    	if(t_name.substring(0,12)=='gqb_btnOkbbs'){
+                    	if(t_name.substring(0,13)=='gqb_btnOkbbs1'){
+                    		//存檔時   bbs 支票號碼   先檢查VIEW_GQB,再檢查GQB
+                    		var t_sel = parseFloat(t_name.split('_')[2]); 
+                    		var t_checkno = t_name.split('_')[3];  
+                    		var t_noa =  t_name.split('_')[4];               		
+                    		var as = _q_appendData("view_gqb", "", true);
+                    		if(as[0]!=undefined){
+                    			var t_isExist = false,t_msg = '';
+                    			for(var i in as){
+                    				if(as[i]['tablea']!=undefined ){
+                    					t_isExist = true;
+                    					if( as[i]['noa'] != t_noa){
+                    						t_msg += (t_msg.length==0?'票據已存在:':'')+String.fromCharCode(13) + '【'+as[i]['title']+'】'+as[i]['checkno'];
+                    					}
+                    				}
+                    			}
+                    			if(t_isExist && t_msg.length==0){
+                    				checkGqb_bbs(t_sel-1);
+                    			}
+                    			else if(t_isExist && t_msg.length>0){
+                    				alert('票據重覆。'+String.fromCharCode(13)+t_msg);
+                    				Unlock();
+                    			}else if(t_msg.length>0){
+                    				alert(t_msg);
+                    				Unlock();
+                    			}else{
+                    				//檢查GQB
+	                				var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
+	            					q_gt('gqb', t_where, 0, 0, 0, "gqb_btnOkbbs2_"+t_sel, r_accy);
+                    			}
+                    		}else{
+                				//檢查GQB
+                				var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
+            					q_gt('gqb', t_where, 0, 0, 0, "gqb_btnOkbbs2_"+t_sel, r_accy);
+                    		}
+                    	}else if(t_name.substring(0,13)=='gqb_btnOkbbs2'){
                     		//存檔時   bbs 支票號碼檢查
-                    		var t_sel = parseFloat(t_name.split('_')[2]);                    		
+                    		//檢查GQB
+                    		var t_sel = parseFloat(t_name.split('_')[2]);               		
                     		var as = _q_appendData("gqb", "", true);
                     		if(as[0]!=undefined){
                     			alert('支票【'+as[0]['gqbno']+'】已存在');
                     			Unlock();
-                    			return;
                     		}else{
                     			checkGqb_bbs(t_sel-1);
                     		}
-                    	}else if(t_name.substring(0,12)=='gqb_btnOkbbt'){
+                    	}else if(t_name.substring(0,13)=='gqb_btnOkbbt1'){
+                    		//存檔時   bbst 支票號碼   先檢查VIEW_GQB,再檢查GQB
+                    		var t_sel = parseFloat(t_name.split('_')[2]); 
+                    		var t_checkno = t_name.split('_')[3];  
+                    		var t_noa =  t_name.split('_')[4];       
+                    		var as = _q_appendData("view_gqb", "", true);
+                    		if(as[0]!=undefined){
+                    			var t_isExist = false,t_msg = '';
+                    			for(var i in as){
+                    				if(as[i]['tablea']!=undefined ){
+                    					t_isExist = true;
+                    					if( as[i]['noa'] != t_noa){
+                    						t_msg += (t_msg.length==0?'票據已存在:':'')+String.fromCharCode(13) + '【'+as[i]['title']+as[i]['noa']+'】'+as[i]['checkno'];
+                    					}
+                    				}
+                    			}
+                    			if(t_isExist && t_msg.length==0){
+                    				checkGqb_bbt(t_sel-1);
+                    			}
+                    			else if(t_isExist && t_msg.length>0){
+                    				alert('票據重覆。'+String.fromCharCode(13)+t_msg);
+                    				Unlock();
+                    			}
+                    			else if(t_msg.length>0){
+                    				alert(t_msg);
+                    				Unlock();
+                    			}else{
+                    				//檢查GQB
+	                				var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
+	            					q_gt('gqb', t_where, 0, 0, 0, "gqb_btnOkbbt2_"+t_sel, r_accy);
+                    			}
+                    		}else{
+                				//檢查GQB
+                				var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
+            					q_gt('gqb', t_where, 0, 0, 0, "gqb_btnOkbbt2_"+t_sel, r_accy);
+                    		}
+                    	}else if(t_name.substring(0,13)=='gqb_btnOkbbt2'){
                     		//存檔時   bbt 支票號碼檢查
-                    		var t_sel = parseFloat(t_name.split('_')[2]);                    		
+                    		//檢查GQB
+                    		var t_sel = parseFloat(t_name.split('_')[2]);               		
                     		var as = _q_appendData("gqb", "", true);
                     		if(as[0]!=undefined){
                     			alert('支票【'+as[0]['gqbno']+'】已存在');
                     			Unlock();
-                    			return;
                     		}else{
                     			checkGqb_bbt(t_sel-1);
                     		}
                     	}else if(t_name.substring(0,11)=='gqb_change1'){
                     		//先檢查VIEW_GQB,再檢查GQB
                     		var t_sel = parseFloat(t_name.split('_')[2]); 
-                    		var t_checkno = t_name.split('_')[3];                		
+                    		var t_checkno = t_name.split('_')[3];  
+                    		var t_noa =  t_name.split('_')[4];           
                     		var as = _q_appendData("view_gqb", "", true);
                     		if(as[0]!=undefined){
-                    			var t_msg = '票據已存在:';
-                    			for(var i in as)
-                    				if(as[i]['tablea']!=undefined)
-                    					t_msg += String.fromCharCode(13) + '【'+as[i]['title']+'】'+as[i]['checkno'];
-                    			alert(t_msg);
-                    			Unlock();
+                    			var t_isExist = false,t_msg = '';
+                    			for(var i in as){
+                    				if(as[i]['tablea']!=undefined ){
+                    					t_isExist = true;
+                    					if( as[i]['noa'] != t_noa){
+                    						t_msg += (t_msg.length==0?'票據已存在:':'')+String.fromCharCode(13) + '【'+as[i]['title']+as[i]['noa']+'】'+as[i]['checkno'];
+                    					}
+                    				}
+                    			}
+                    			if(t_isExist && t_msg.length==0){
+                    				Unlock();
+                    			}else if(t_isExist && t_msg.length>0){
+                    				alert('票據重覆。'+String.fromCharCode(13)+t_msg);
+                    				Unlock();
+                    			}else if(t_msg.length>0){
+                    				alert(t_msg);
+                    				Unlock();
+                    			}else{
+                    				//檢查GQB
+	                				var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
+	            					q_gt('gqb', t_where, 0, 0, 0, "gqb_change2_"+t_sel, r_accy);
+                    			}
                     		}else{
-                    			var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
-                				q_gt('gqb', t_where, 0, 0, 0, "gqb_change2_"+t_sel, r_accy);
+                				//檢查GQB
+                				var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
+            					q_gt('gqb', t_where, 0, 0, 0, "gqb_change2_"+t_sel, r_accy);
                     		}
                     	}else if(t_name.substring(0,11)=='gqb_change2'){
                     		//檢查GQB
@@ -186,15 +275,17 @@
                 		}
                 sum();
                 //先檢查BBS再檢查BBT沒問題才存檔      
-                checkGqb_bbs(q_bbsCount-1);			
+                checkGqb_bbs(q_bbsCount-1);	
             }
             function checkGqb_bbs(n){
             	if(n<0){
             		checkGqb_bbt(q_bbtCount-1);
             	}else{
-            		if(q_cur==1 && $('#txtCheckno_'+n).val().length > 0 ){//新增時才需檢查
-            			var t_where = "where=^^ gqbno = '" + $('#txtCheckno_'+n).val() + "' ^^";
-	    				q_gt('gqb', t_where, 0, 0, 0, "gqb_btnOkbbs_"+n, r_accy);
+            		if($.trim($('#txtCheckno_'+n).val()).length>0){
+            			var t_noa = $('#txtNoa').val();
+	    				var t_checkno = $('#txtCheckno_'+n).val() ;   	
+	        			var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
+	        			q_gt('view_gqb', t_where, 0, 0, 0, "gqb_btnOkbbs1_"+n+"_"+t_checkno+"_"+ t_noa, r_accy);
             		}else{
             			checkGqb_bbs(n-1);
             		}
@@ -227,9 +318,11 @@
 	                    wrServer(t_noa);
 	                Unlock();
             	}else{
-            		if(q_cur==1 && $('#txtCheckno__'+n).val().length > 0 ){//新增時才需檢查
-            			var t_where = "where=^^ gqbno = '" + $('#txtCheckno__'+n).val() + "' ^^";
-	    				q_gt('gqb', t_where, 0, 0, 0, "gqb_btnOkbbt_"+n, r_accy);
+            		if($.trim($('#txtCheckno__'+n).val()).length>0){
+            			var t_noa = $('#txtNoa').val();
+	    				var t_checkno = $('#txtCheckno__'+n).val() ;   	
+	        			var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
+	        			q_gt('view_gqb', t_where, 0, 0, 0, "gqb_btnOkbbt1_"+n+"_"+t_checkno+"_"+ t_noa, r_accy);
             		}else{
             			checkGqb_bbt(n-1);
             		}
@@ -274,8 +367,8 @@
             				var n = $(this).attr('id').replace('txtCheckno_','');
             				var t_noa = $('#txtNoa').val();
             				var t_checkno = $('#txtCheckno_'+n).val() ;
-                			var t_where = "where=^^ checkno = '" + t_checkno + "' and noa!='"+ t_noa +"' ^^";
-                			q_gt('view_gqb', t_where, 0, 0, 0, "gqb_change1_"+n+"_"+t_checkno, r_accy);
+                			var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
+                			q_gt('view_gqb', t_where, 0, 0, 0, "gqb_change1_"+n+"_"+t_checkno+"_"+ t_noa, r_accy);
                 		});
                     }
                 }
@@ -299,8 +392,8 @@
             				var n = $(this).attr('id').replace('txtCheckno__','');
                 			var t_noa = $('#txtNoa').val();
             				var t_checkno = $('#txtCheckno__'+n).val() ;
-                			var t_where = "where=^^ checkno = '" + t_checkno + "' and noa!='"+ t_noa +"' ^^";
-                			q_gt('view_gqb', t_where, 0, 0, 0, "gqb_change1_"+n+"_"+t_checkno, r_accy);
+                			var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
+                			q_gt('view_gqb', t_where, 0, 0, 0, "gqb_change1_"+n+"_"+t_checkno+"_"+ t_noa, r_accy);
                 		});
                     }
                 }
@@ -624,6 +717,13 @@
 						<td colspan="3"><input id="txtMemo"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id="lblSales" class="lbl"> </a></td>
+						<td colspan="2">
+							<input id="txtSalesno"  type="text"  style="float:left; width:40%;"/>
+							<input id="txtSales"  type="text"  style="float:left; width:60%;"/>
+						</td>
+					</tr>
+					<tr>
 						<td><span> </span><a id="lblVccno" class="lbl btn"> </a></td>
 						<td><input id="txtVccno"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
@@ -633,8 +733,8 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblPaybno" class="lbl btn"> </a></td>
-						<td><input id="txtPaybno"  type="text"  class="txt c1"/></td>
+						<td><span> </span><a id="lblPayno" class="lbl btn"> </a></td>
+						<td><input id="txtPayno"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
