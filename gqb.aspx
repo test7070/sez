@@ -113,20 +113,27 @@
                     			}else{
                     				//檢查GQB
 	                				var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
-	            					q_gt('gqb', t_where, 0, 0, 0, "gqb_btnOk2", r_accy);
+	            					q_gt('gqb', t_where, 0, 0, 0, "gqb_btnOk2_"+t_noa, r_accy);
                     			}
                     		}else{
                 				//檢查GQB
                 				var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
-            					q_gt('gqb', t_where, 0, 0, 0, "gqb_btnOk2", r_accy);
+            					q_gt('gqb', t_where, 0, 0, 0, "gqb_btnOk2_"+t_noa, r_accy);
                     		}
                     	}else if(t_name.substring(0,10)=='gqb_btnOk2'){
                     		//存檔時   支票號碼檢查
                     		//檢查GQB
+                    		var t_noa =  t_name.split('_')[2];  
                     		var as = _q_appendData("gqb", "", true);
                     		if(as[0]!=undefined){
-                    			alert('支票【'+as[0]['gqbno']+'】已存在');
+                    			for(var i in as)
+                    				if(as[i]['noa']!=undefined && as[i]['noa']!=t_noa){
+                    					alert('支票【'+as[i]['gqbno']+'】已存在');
+                    					Unlock();
+                    					return;
+                    				}	
                     			Unlock();
+                    			save();
                     		}else{
                     			save();
                     		}
@@ -156,18 +163,21 @@
                     			}else{
                     				//檢查GQB
 	                				var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
-	            					q_gt('gqb', t_where, 0, 0, 0, "gqb_change2", r_accy);
+	            					q_gt('gqb', t_where, 0, 0, 0, "gqb_change2_"+t_noa, r_accy);
                     			}
                     		}else{
                 				//檢查GQB
                 				var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
-            					q_gt('gqb', t_where, 0, 0, 0, "gqb_change2", r_accy);
+            					q_gt('gqb', t_where, 0, 0, 0, "gqb_change2_"+t_noa, r_accy);
                     		}
                     	}else if(t_name.substring(0,11)=='gqb_change2'){
                     		//檢查GQB
+                    		var t_noa =  t_name.split('_')[2];   
                     		var as = _q_appendData("gqb", "", true);
                     		if(as[0]!=undefined){
-                    			alert('支票【'+as[0]['gqbno']+'】已存在');
+                    			for(var i in as)
+                    				if(as[i]['noa']!=undefined && as[i]['noa']!=t_noa)
+                    					alert('支票【'+as[i]['gqbno']+'】已存在');
                     		}
                     		Unlock();
                     	}
