@@ -250,7 +250,7 @@
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
-                //alert(xmlString);
+                abbm[q_recno]['accno'] = xmlString;
                 Unlock();
             }
             function btnOk() {
