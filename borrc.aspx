@@ -22,7 +22,7 @@
 
             q_tables = 't';
             var q_name = "borrc";
-            var q_readonly = ['txtCheckno','txtNoa','txtPaymoney','txtMoney','txtVccno','txtPayno','txtAccno','txtAccy','txtWorker','txtWorker2'];
+            var q_readonly = ['txtCheckno','txtNoa','txtPaymoney','txtMoney','txtVccno','txtPayno','txtAccno','txtWorker','txtWorker2'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney',10,0,1],['txtPaymoney',10,0,1]];
             var bbsNum = [['txtMoney',10,0,1]];
@@ -78,8 +78,8 @@
                 	}
              	});
                 $('#lblAccno').click(function() {
-                	if($('#txtAccno').val().length>0 && $('#txtAccy').val().length>0){
-                		q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtAccy').val() + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
+                	if($('#txtAccno').val().length>0){
+                		q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
                 	}
                 });
 			}
@@ -119,7 +119,7 @@
                     				if(as[i]['tablea']!=undefined ){
                     					t_isExist = true;
                     					if( as[i]['noa'] != t_noa){
-                    						t_msg += (t_msg.length==0?'票據已存在:':'')+String.fromCharCode(13) + '【'+as[i]['title']+'】'+as[i]['checkno'];
+                    						t_msg += (t_msg.length==0?'票據已存在:':'')+String.fromCharCode(13) + '【'+as[i]['title']+as[i]['noa']+'】'+as[i]['checkno'];
                     					}
                     				}
                     			}
@@ -250,6 +250,7 @@
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
+                alert(xmlString);
                 Unlock();
             }
             function btnOk() {
@@ -727,10 +728,7 @@
 						<td><span> </span><a id="lblVccno" class="lbl btn"> </a></td>
 						<td><input id="txtVccno"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
-						<td>
-							<input id="txtAccno"  type="text"  class="txt" style="width:80%;"/>
-							<input id="txtAccy"  type="text"  class="txt" style="width:20%;"/>
-						</td>
+						<td><input id="txtAccno"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblPayno" class="lbl btn"> </a></td>
