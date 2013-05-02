@@ -380,7 +380,7 @@
                     if (!$('#btnMinut__' + i).hasClass('isAssign')) {
                     	$('#txtIndate__'+i).datepicker();
                 	 	$('#txtAcc1__'+i).change(function(e) {
-		                    var patt = /(\d{4})([^\.,.]*)$/g;
+		                    var patt = /^(\d{4})([^\.,.]*)$/g;
 		                    $(this).val($(this).val().replace(patt,"$1.$2"));
 		        		});
 		        		$('#txtMoney__'+i).change(function(){

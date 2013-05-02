@@ -569,7 +569,7 @@
                     if ($('#btnMinus_' + i).hasClass('isAssign'))/// 重要
                         continue;
 					$('#txtAcc1_' + i).change(function() {
-                        var patt = /(\d{4})([^\.,.]*)$/g;
+                        var patt = /^(\d{4})([^\.,.]*)$/g;
 	                    $(this).val($(this).val().replace(patt,"$1.$2"));
                         sum();
                     });
