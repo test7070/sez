@@ -409,6 +409,7 @@
 		            return false;
 		        abbm[q_recno]['accno'] = xmlString;
 		        //$('#txtAccno').val(xmlString);
+		        Unlock();
 		    }
 
 		    function sum() {
@@ -530,7 +531,6 @@
 			            q_gtnoa(q_name, replaceAll(q_getPara('sys.key_paytran') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 			        else
 			            wrServer(t_noa);
-	                Unlock();
             	}else{
             		if($.trim($('#txtCheckno_'+n).val()).length>0){
             			var t_noa = $('#txtNoa').val();

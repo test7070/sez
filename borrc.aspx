@@ -250,7 +250,7 @@
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return false;
-                alert(xmlString);
+                //alert(xmlString);
                 Unlock();
             }
             function btnOk() {
@@ -317,7 +317,6 @@
 	                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_borrc') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
 	                else
 	                    wrServer(t_noa);
-	                Unlock();
             	}else{
             		if($.trim($('#txtCheckno__'+n).val()).length>0){
             			var t_noa = $('#txtNoa').val();
