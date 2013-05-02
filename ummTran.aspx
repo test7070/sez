@@ -191,8 +191,7 @@
             }
 			
             function getOpay() {
-            	if(q_cur==1 || q_cur==2)
-            		Lock();
+            	Lock();
                 var t_custno = $('#txtCustno').val();
                 var s2 = (q_cur == 2 ? " and noa!='" + $('#txtNoa').val() + "'" : '');
                 var t_where = "where=^^custno='" + t_custno + "'" + s2 + "^^";
@@ -449,10 +448,10 @@
             }
 			function checkGqb_bbs(n){
             	if(n<0){
-            		//為了查詢
             		for (var i = 0; i < q_bbsCount; i++) {
 			            $('#txtPart_' + i).val($('#cmbPartno_' + i).find(":selected").text());
 			        }
+			        //為了查詢
 	            	var t_part = '',t_checkno = '';
 	            	for (var i = 0; i < q_bbsCount; i++) {
 	            		if(t_part.indexOf($.trim($('#txtPart_'+i).val()))==-1)
