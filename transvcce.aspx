@@ -356,6 +356,13 @@
                         	alert('無資料。');
                         }
                         break;
+                    case 'LoadCaseno':
+                    	var as = _q_appendData("view_tranordes", "", true);
+		               	if (as[0] != undefined){
+		               		q_gridAddRow(bbsHtm, 'tbbs', 'txtCaseno', as.length, as, 'caseno', '', '');
+		               	}
+		               	Unlock();
+                    	break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -424,7 +431,11 @@
 	                        	t_msg += (as[0]['containertype'].length>0?(t_msg.length>0?',':'')+'櫃別'+as[0]['containertype']:'');
 	                        	t_msg += (as[0]['docketno2'].length>0?(t_msg.length>0?',':'')+'案號'+as[0]['docketno2']:'');
 	                        	t_msg += (as[0]['trackno'].length>0?(t_msg.length>0?',':'')+'追蹤號碼'+as[0]['trackno']:'');
-	                            t_msg += (as[0]['caseassign'].length>0?(t_msg.length>0?',':'')+'指定櫃號'+as[0]['caseassign']:'');
+	                        	if($.trim($('#txtCaseno_'+sel).val()).length>0){
+	                        		t_msg += (t_msg.length>0?',':'')+'指定櫃號'+$.trim($('#txtCaseno_'+sel).val());
+	                        	}else{
+	                        		t_msg += (as[0]['caseassign'].length>0?(t_msg.length>0?',':'')+'指定櫃號'+as[0]['caseassign']:'');
+	                        	}
 	                        	t_msg += (as[0]['do2'].length>0?(t_msg.length>0?',':'')+'提單'+as[0]['do2']:'');
 	                        	t_msg += (as[0]['checkself'].length>0?(t_msg.length>0?',':'')+'自檢'+as[0]['checkself']:'');
 	                        	t_msg += (as[0]['checkinstru'].length>0?(t_msg.length>0?',':'')+'儀檢'+as[0]['checkinstru']:'');
@@ -572,6 +583,14 @@
                         
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').focus();
+                
+                var t_ordeno = $.trim($('#txtOrdeno').val());
+                if(t_ordeno.length>0){
+                	Lock();
+                	var t_where = "where=^^ noa='"+t_ordeno+"' and not exists(select c.* from transvcce"+r_accy+" b left join transvcces102 c on b.noa=c.noa where b.ordeno=a.noa and isnull(c.caseno,'')=a.caseno) ^^";
+                	q_gt('view_tranordes', t_where, 0, 0, 0, "LoadCaseno", r_accy);
+                }
+                
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
