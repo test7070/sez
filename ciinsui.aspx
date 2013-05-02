@@ -15,6 +15,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
+            q_desc = 1;
 			q_tables = 's';
             var q_name = "ciinsui";
             var q_readonly = ['txtDatea','txtWorker','txtWorker2','txtSale','txtInsurer','txtTotal','txtPay','txtNoa'];
@@ -122,7 +123,7 @@
                 $('#txtCarno').focus();
             }
             function btnPrint() {
-            	q_box('z_ciinsui.aspx', '', "95%", "95%", q_getMsg("popPrint"));
+            	
             }
             function wrServer(key_value) {
                 var i;

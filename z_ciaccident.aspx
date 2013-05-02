@@ -15,10 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
-		aPop = new Array(['txtXcarno', '', 'cicust', 'noa,carowner', 'txtCarno', 'cicust_b.aspx'],
-						 ['txtXcardealno', '', 'cicardeal', 'noa,comp', 'txtXcardealno', 'cardeal_b.aspx'],
-						 ['txtXcarinsu', '', 'ciinsu', 'noa,insurer', 'txtXcarinsu', 'ciinsu_b.aspx']
-		);
+		aPop = new Array(['txtXinsurerno', '', 'ciinsucomp', 'noa,insurer', 'txtXinsurerno', 'ciinsucomp_b.aspx']);
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
@@ -30,7 +27,10 @@
                 $('#q_report').q_report({
                     fileName : 'z_ciaccident',
                     options : [ {
-                        type : '6',
+                        type : '1',
+                        name : 'xnoa'
+                    },{
+                        type : '1',
                         name : 'xcarno'
                     },{
                         type : '6',
@@ -38,9 +38,12 @@
                     },{
                         type : '6',
                         name : 'xid'
-                    },{
-                        type : '6',
-                        name : 'xcarinsu'
+                    }, {
+                        type : '2',
+                        name : 'xinsurerno',
+                        dbf : 'ciinsucomp',
+                        index : 'noa,insurer',
+                        src : 'ciinsucomp_b.aspx'
                     },{
                         type : '1',
                         name : 'hdate'
