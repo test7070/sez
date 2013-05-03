@@ -25,11 +25,11 @@
             }
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_cicar');   
+                q_gf('', 'z_ciinsui');   
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_cicar',
+                    fileName : 'z_ciinsui',
                     options : [{
                         type : '2',
                         name : 'xcarno',
