@@ -447,31 +447,15 @@
 		                    	if(as[i].indate>date_1){//計算工作天數
 		                    		var t_date=as[i].indate,inday=0;
 		                    		inday=dec(date_2.substr(7,2))-dec(t_date.substr(7,2))+1
-		                    		/*while(t_date<=date_2){
-		                    			//日期加一天
-									    var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
-									    nextdate.setDate(nextdate.getDate() +1)
-									    t_date=''+(nextdate.getFullYear()-1911)+'/';
-									    //月份
-									    if(nextdate.getMonth()+1<10)
-									    	t_date=t_date+'0'+(nextdate.getMonth()+1)+'/';
-									    else
-									       	t_date=t_date+(nextdate.getMonth()+1)+'/';
-									    //日期
-									    if(nextdate.getDate()<10)
-									    	t_date=t_date+'0'+(nextdate.getDate());
-									    else
-									     	t_date=t_date+(nextdate.getDate());
-									     if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6){
-									     	inday+=0;
-									     }else{
-									     	inday++;
-									     }
-		                    		}*/
-		                    		
+		                    				                    		
 		                    		as[i].memo="新進員工(工作日:"+inday+")";
 		                    		as[i].bo_full=0;
 		                    		as[i].iswelfare='false';
+		                    		
+		                    		//勞保勞退變動
+		                    		as[i].ch_labor=round(dec(as[i].ch_labor)/30*inday,0)
+		                    		as[i].ch_labor_comp=round(dec(as[i].ch_labor_comp)/30*inday,0)
+		                    		as[i].ch_labor_self=round(dec(as[i].ch_labor_self)/30*inday,0)
 		                    	}
 		                    	
 			                    //請假扣薪
