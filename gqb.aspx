@@ -59,9 +59,9 @@
                 });
                 $('#txtGqbno').change(function() {
                 	//判斷支票編號是否重複
-                	if($.trim($(this).val())>0){
-                		var t_where = "where=^^ gqbno = '" + $(this).val() + "' ^^";
-                    	q_gt('gqb', t_where, 0, 0, 0, "gqb_change1", r_accy);
+                	if($.trim($(this).val()).length>0){
+                		var t_where = "where=^^ checkno = '" + $(this).val() + "' ^^";
+                    	q_gt('view_gqb', t_where, 0, 0, 0, "gqb_change1", r_accy);
                 	}
                 });
                 $('#lblAccno').click(function() {
@@ -212,7 +212,6 @@
 
                 _btnModi();
                 $('#txtGqbno').focus();
-                t_gqbno = $('#txtGqbno').val();
             }
 
             function btnPrint() {
