@@ -92,6 +92,7 @@
                     var P_Mon = $('#textMon_windows').val();
                     if (P_Mon.length != 0) {
                         $('#btnProcessInterest').attr('disabled', 'disabled');
+                        Lock();
                         q_func('dayborr.process', P_Mon);
                     } else {
                         alert('請輸入' + q_getMsg('lblMon_windows'));
@@ -102,7 +103,8 @@
             function q_funcPost(t_func, result) {
                 switch(t_func) {
                     case 'dayborr.process':
-                        alert(result);
+                        alert('Done!'+result);
+						Unlock();
                         $('#btnProcessInterest').removeAttr('disabled', 'disabled');
                         break;
                 }
