@@ -14,7 +14,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
+			q_desc=1;
             q_tables = 's';
             var q_name = "lab_accc";
             var q_readonly = ['txtNoa', 'txtSales','txtPart', 'txtPaybno', 'txtWorker', 'txtAccno', 'txtBvccno', 'txtEvccno'];
@@ -229,10 +229,7 @@
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
                 if (t_para) {
-                	if(r_rank>='9' || r_name==$('#txtWorker').val())
-		            	$('#btnGen').removeAttr('disabled');
-		            else
-		            	$('#btnGen').attr('disabled', 'disabled');
+					$('#btnGen').removeAttr('disabled');
 		        }
 		        else {
 		        	$('#btnGen').attr('disabled', 'disabled');
