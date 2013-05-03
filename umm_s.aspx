@@ -69,7 +69,8 @@
                 t_cno = $.trim($('#cmbCno').val());
                 t_checkno = $.trim($('#txtCheckno').val());
                 t_accno = $.trim($('#txtAccno').val());
-
+				t_vccno = $.trim($('#txtVccno').val());
+				
                 var t_where = " 1=1 " 
                 + q_sqlPara2("datea", t_bdate, t_edate) 
                 + q_sqlPara2("mon", t_mon) 
@@ -83,7 +84,10 @@
 				if (t_custno.length>0)
                     t_where += " and (patindex('%" + t_custno + "%',custno)>0 or patindex('%" + t_custno + "%',custno2)>0)";
                	if (t_checkno.length>0)
-                    t_where += " and patindex('%" + t_checkno + "%',checkno)>0";
+                    t_where += " and exists(select noa from umms where umms.noa=umm.noa and patindex('%" + t_checkno + "%',umms.checkno)>0)";
+                if (t_vccno.length>0)
+                	t_where += " and exists(select noa from umms where umms.noa=umm.noa and patindex('%" + t_vccno + "%',umms.vccno)>0)";
+                
                 t_where = ' where=^^' + t_where + '^^ ';
                // alert(t_where);
                 return t_where;
@@ -146,6 +150,10 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblAccno'> </a></td>
 					<td><input class="txt" id="txtAccno" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblVccno'> </a></td>
+					<td><input class="txt" id="txtVccno" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->
