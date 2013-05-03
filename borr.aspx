@@ -141,17 +141,20 @@
                         break;
                     default:
                         if (t_name.substring(0, 13) == 'gqb_btnOkbbs1') {
-                            //存檔時   bbs 支票號碼   先檢查VIEW_GQB,再檢查GQB
+                            //存檔時   bbs 支票號碼   先檢查view_gqb_chk,再檢查GQB
                             var t_sel = parseFloat(t_name.split('_')[2]);
                             var t_checkno = t_name.split('_')[3];
                             var t_noa = t_name.split('_')[4];
-                            var as = _q_appendData("view_gqb", "", true);
+                            var t_ummno = t_name.split('_')[5];
+                            var as = _q_appendData("view_gqb_chk", "", true);
                             if (as[0] != undefined) {
                                 var t_isExist = false, t_msg = '';
                                 for (var i in as) {
                                     if (as[i]['tablea'] != undefined) {
                                         t_isExist = true;
-                                        if (as[i]['noa'] != t_noa) {
+                                        if(as[i]['tablea']=='umms' && as[i]['noa']==t_ummno){
+                                        	//忽略
+                                        }else if (as[i]['noa'] != t_noa) {
                                             t_msg += (t_msg.length == 0 ? '票據已存在:' : '') + String.fromCharCode(13) + '【' + as[i]['title'] + as[i]['noa'] + '】' + as[i]['checkno'];
                                         }
                                     }
@@ -186,17 +189,20 @@
                                 checkGqb_bbs(t_sel - 1);
                             }
                         } else if (t_name.substring(0, 11) == 'gqb_change1') {
-                            //先檢查VIEW_GQB,再檢查GQB
+                            //先檢查view_gqb_chk,再檢查GQB
                             var t_sel = parseFloat(t_name.split('_')[2]);
                             var t_checkno = t_name.split('_')[3];
                             var t_noa = t_name.split('_')[4];
-                            var as = _q_appendData("view_gqb", "", true);
+                            var t_ummno = t_name.split('_')[5];
+                            var as = _q_appendData("view_gqb_chk", "", true);
                             if (as[0] != undefined) {
                                 var t_isExist = false, t_msg = '';
                                 for (var i in as) {
                                     if (as[i]['tablea'] != undefined) {
                                         t_isExist = true;
-                                        if (as[i]['noa'] != t_noa) {
+                                        if(as[i]['tablea']=='umms' && as[i]['noa']==t_ummno){
+                                        	//忽略
+                                        }else if (as[i]['noa'] != t_noa) {
                                             t_msg += (t_msg.length == 0 ? '票據已存在:' : '') + String.fromCharCode(13) + '【' + as[i]['title'] + as[i]['noa'] + '】' + as[i]['checkno'];
                                         }
                                     }
@@ -329,8 +335,9 @@
                     if ($.trim($('#txtCheckno_' + n).val()).length > 0) {
                         var t_noa = $('#txtNoa').val();
                         var t_checkno = $('#txtCheckno_' + n).val();
+                        var t_ummno = $('#txtUmmno_'+n).val();
                         var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
-                        q_gt('view_gqb', t_where, 0, 0, 0, "gqb_btnOkbbs1_" + n + "_" + t_checkno + "_" + t_noa, r_accy);
+                        q_gt('view_gqb_chk', t_where, 0, 0, 0, "gqb_btnOkbbs1_" + n + "_" + t_checkno + "_" + t_noa+ "_" + t_ummno, r_accy);
                     } else {
                         checkGqb_bbs(n - 1);
                     }
@@ -389,8 +396,9 @@
                             var n = $(this).attr('id').replace('txtCheckno_', '');
                             var t_noa = $('#txtNoa').val();
                             var t_checkno = $('#txtCheckno_' + n).val();
+                            var t_ummno = $('#txtUmmno_'+n).val();
                             var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
-                            q_gt('view_gqb', t_where, 0, 0, 0, "gqb_change1_" + n + "_" + t_checkno + "_" + t_noa, r_accy);
+                            q_gt('view_gqb_chk', t_where, 0, 0, 0, "gqb_change1_" + n + "_" + t_checkno + "_" + t_noa+ "_" +t_ummno, r_accy);
                         });
                         $('#txtMoney_' + i).change(function() {
                             sum();
