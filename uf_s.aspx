@@ -48,9 +48,9 @@
                 + q_sqlPara2("worker", t_worker) 
                 + q_sqlPara2("datea", t_bdate, t_edate);
 				if(t_checkno.length>0)
-					t_where += " and patindex('%"+t_checkno+"%',checkno)>0";
+					t_where += " and exists(select noa from ufs where ufs.noa=uf.noa and patindex('%" + t_checkno + "%',ufs.checkno)>0)";
 				if(t_money!=0)
-					t_where += " and patindex('%"+','+t_money+','+"%',cmoney)>0";
+					t_where += " and exists(select noa from ufs where ufs.noa=uf.noa and ufs.money="+t_money+")";
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
