@@ -15,9 +15,10 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
-		aPop = new Array(['txtXcarno', '', 'cicust', 'noa,carowner', 'txtCarno', 'cicust_b.aspx'],
+		aPop = new Array(['txtXcarno', '', 'cicar', 'a.noa,cust', 'txtXcarno', 'cicar_b.aspx'],
 						 ['txtXcardealno', '', 'cicardeal', 'noa,comp', 'txtXcardealno', 'cardeal_b.aspx'],
-						 ['txtXcarinsu', '', 'ciinsu', 'noa,insurer', 'txtXcarinsu', 'ciinsu_b.aspx']
+						 ['txtXinsurerno', '', 'ciinsucomp', 'noa,insurer', 'txtXinsurerno', 'ciinsucomp_b.aspx'],
+						  ['txtXsales', '', 'cisale', 'noa,namea', 'txtXsales', 'cisale_b.aspx']
 		);
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
@@ -29,18 +30,30 @@
             function q_gfPost() {
                 $('#q_report').q_report({
                     fileName : 'z_ciinsui',
-                    options : [ {
-                        type : '1',
-                        name : 'xcarno'
+                    options : [{
+                        type : '2',
+                        name : 'xcarno',
+                        dbf : 'cicar',
+                        index : 'a.noa,cust',
+                        src : 'cicar_b.aspx'
+                    }, {
+                        type : '2',
+                        name : 'xcardealno',
+                        dbf : 'cicardeal',
+                        index : 'noa,cardeal',
+                        src : 'cicardeal_b.aspx'
                     }, {
                         type : '2',
                         name : 'xinsurerno',
                         dbf : 'ciinsucomp',
-                        index : 'noa,comp',
+                        index : 'noa,insurer',
                         src : 'ciinsucomp_b.aspx'
                     },{
                         type : '1',
                         name : 'xdate'
+                    },{
+                        type : '1',
+                        name : 'sdate'
                     }, {
                         type : '2',
                         name : 'xsales',
@@ -49,18 +62,37 @@
                         src : 'cisale_b.aspx'
                     }]
                 });
-                		            
-                    q_popAssign();
-
-                $('#txtHdate1').mask('999/99/99');
-                $('#txtHdate1').datepicker();
-                $('#txtHdate2').mask('999/99/99');
-                $('#txtHdate2').datepicker();
-                
+                q_langShow();
+	                q_popAssign();
                 $('#txtXdate1').mask('999/99/99');
                 $('#txtXdate1').datepicker();
                 $('#txtXdate2').mask('999/99/99');
                 $('#txtXdate2').datepicker();
+                $('#txtSdate1').mask('999/99/99');
+                $('#txtSdate1').datepicker();
+                $('#txtSdate2').mask('999/99/99');
+                $('#txtSdate2').datepicker();
+                
+                var t_date,t_year,t_month,t_day;
+	                t_date = new Date();
+	                t_date.setDate(1);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                t_day = t_date.getUTCDate();
+	                t_day = t_day>9?t_day+'':'0'+t_day;
+	                $('#txtSdate1').val(t_year+'/'+t_month+'/'+t_day);
+	                t_date = new Date();
+	                t_date.setDate(35);
+	                t_date.setDate(0);
+	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_year>99?t_year+'':'0'+t_year;
+	                t_month = t_date.getUTCMonth()+1;
+	                t_month = t_month>9?t_month+'':'0'+t_month;
+	                t_day = t_date.getUTCDate();
+	                t_day = t_day>9?t_day+'':'0'+t_day;
+	                $('#txtSdate2').val(t_year+'/'+t_month+'/'+t_day);
             }
 		</script>
 	</head>

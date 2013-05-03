@@ -20,7 +20,7 @@
             var q_name = "borrd";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtPaybno'];
             var q_readonlys = [];
-            var q_readonlyt = ['txtVccno','txtAccno'];
+            var q_readonlyt = ['txtMon','txtMoney','txtMemo','txtVccno','txtAccno'];
             var bbmNum = [['txtMoney',10,0,1],['txtMoney2',10,0,1],['txtCharge',10,0,1]];
             var bbsNum = [['txtRate',10,2],['txtMoney',10,0,1]];
             var bbtNum = [['txtMoney',10,0,1]];

@@ -173,7 +173,7 @@
             }
 
             function btnPrint() {
-            	q_box('z_cicar.aspx', '', "90%", "600px", q_getMsg("popPrint"));
+            	
             }
             function btnOk() { 
                 var t_err = '';

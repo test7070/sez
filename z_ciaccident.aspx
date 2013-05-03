@@ -15,7 +15,8 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
-		aPop = new Array(['txtXinsurerno', '', 'ciinsucomp', 'noa,insurer', 'txtXinsurerno', 'ciinsucomp_b.aspx']);
+		aPop = new Array(['txtXcarno', '', 'cicar', 'a.noa,cust', 'txtXcarno', 'cicar_b.aspx'],
+			['txtXinsurerno', '', 'ciinsucomp', 'noa,insurer', 'txtXinsurerno', 'ciinsucomp_b.aspx']);
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
@@ -30,8 +31,11 @@
                         type : '1',
                         name : 'xnoa'
                     },{
-                        type : '1',
-                        name : 'xcarno'
+                        type : '2',
+                        name : 'xcarno',
+                        dbf : 'cicar',
+                        index : 'a.noa,cust',
+                        src : 'cicar_b.aspx'
                     },{
                         type : '6',
                         name : 'xdriver'
@@ -54,6 +58,10 @@
                 });
                 		            
                     q_popAssign();
+                var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
+                t_noa  =  t_noa.replace('noa=','');
+                $('#txtXnoa1').val(t_noa).width(100);
+                $('#txtXnoa2').val(t_noa).width(100);
 
                 $('#txtHdate1').mask('999/99/99');
                 $('#txtHdate1').datepicker();
