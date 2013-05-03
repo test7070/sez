@@ -13,7 +13,9 @@
 			var q_name = "assignwork_s";
 			var aPop = new Array(
 				['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], 
-				['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']);
+				['txtSalesno', 'lblSalesno', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+				['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+				['txtProductno', 'btnProductno', 'assignproduct', 'noa,product', 'txtProductno,txtProduct', 'assignproduct_b.aspx']);
 
 			$(document).ready(function() {
 				main();
@@ -110,10 +112,10 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblItemno'> </a></td>
+					<td class='seek'  style="width:20%;"><a id='lblProductno'> </a></td>
 					<td>
-					<input class="txt" id="txtItemno" type="text" style="width:90px; font-size:medium;" />
-					<input class="txt" id="txtItem" type="text" style="width:115px; font-size:medium;" />
+					<input class="txt" id="txtProductno" type="text" style="width:90px; font-size:medium;" />
+					<input class="txt" id="txtProduct" type="text" style="width:115px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>
