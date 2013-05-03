@@ -431,45 +431,31 @@
             }   /// end Switch
         }
 
-
+		var imports=false;
         function q_gtPost(t_name) {  
             switch (t_name) {
                 case 'salarydc_import':  
 						var as = _q_appendData("salpresents", "", true);
+						imports=true;
 						for (var i = 0; i < as.length; i++) {
 							//判斷是否哪些員工要計算薪水
 		                    if (!emp(as[i].outdate)&&as[i].outdate<date_1) {//(!emp(as[i].ft_date) && as[i].ft_date >date_1)||as[i].indate>$('#txtMon').val()
 		                        as.splice(i, 1);
 		                        i--;
 		                    }else{
-		                    	//新進員工薪資(不滿一個月)=本俸+主管津貼+交通津貼+工作津貼+其他津貼/30*工作天數(且福利金=0全勤=0)
+		                    	//新進員工薪資(不滿一個月)=本俸+主管津貼+交通津貼+工作津貼+其他津貼/30*工作天數(且福利金=0全勤=0) 5/3含六日
 		                    	if(as[i].indate>date_1){//計算工作天數
 		                    		var t_date=as[i].indate,inday=0;
-		                    		while(t_date<=date_2){
-		                    			//日期加一天
-									    var nextdate=new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2)));
-									    nextdate.setDate(nextdate.getDate() +1)
-									    t_date=''+(nextdate.getFullYear()-1911)+'/';
-									    //月份
-									    if(nextdate.getMonth()+1<10)
-									    	t_date=t_date+'0'+(nextdate.getMonth()+1)+'/';
-									    else
-									       	t_date=t_date+(nextdate.getMonth()+1)+'/';
-									    //日期
-									    if(nextdate.getDate()<10)
-									    	t_date=t_date+'0'+(nextdate.getDate());
-									    else
-									     	t_date=t_date+(nextdate.getDate());
-									     if(new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==0||new Date(dec(t_date.substr(0,3))+1911,dec(t_date.substr(4,2))-1,dec(t_date.substr(7,2))).getDay()==6){
-									     	inday+=0;
-									     }else{
-									     	inday++;
-									     }
-		                    		}
-		                    		
+		                    		inday=dec(date_2.substr(7,2))-dec(t_date.substr(7,2))+1
+		                    				                    		
 		                    		as[i].memo="新進員工(工作日:"+inday+")";
 		                    		as[i].bo_full=0;
 		                    		as[i].iswelfare='false';
+		                    		
+		                    		//勞保勞退變動
+		                    		as[i].ch_labor=round(dec(as[i].ch_labor)/30*inday,0)
+		                    		as[i].ch_labor_comp=round(dec(as[i].ch_labor_comp)/30*inday,0)
+		                    		as[i].ch_labor_self=round(dec(as[i].ch_labor_self)/30*inday,0)
 		                    	}
 		                    	
 			                    //請假扣薪
@@ -797,13 +783,20 @@
         	getdtmp();
         	for (var j = 0; j < q_bbsCount; j++) {
         		//小計=本俸+公費+主管津貼+交通津貼+特別津貼+其他津貼+其他加項
-        		if($('#txtMemo_'+j).val().indexOf('新進員工')>-1){
+        		//5/3本俸+公費+主管津貼+交通津貼+特別津貼+其他津貼直接換算
+        		if($('#txtMemo_'+j).val().indexOf('新進員工')>-1&&imports){
         			var inday=0;
         			inday=dec($('#txtMemo_'+j).val().substr($('#txtMemo_'+j).val().indexOf(':')+1,$('#txtMemo_'+j).val().indexOf(')')-$('#txtMemo_'+j).val().indexOf(':')-1));
-        			q_tr('txtTotal1_'+j,round((dec($('#txtMoney_'+j).val())+dec($('#txtPubmoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val()))/30*inday,0)+dec($('#txtPlus_'+j).val()));
-        		}else{
-        			q_tr('txtTotal1_'+j,dec($('#txtMoney_'+j).val())+dec($('#txtPubmoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtPlus_'+j).val()));
+        			q_tr('txtMoney_'+j,round((dec($('#txtMoney_'+j).val()))/30*inday,0));
+        			q_tr('txtPubmoney_'+j,round((dec($('#txtPubmoney_'+j).val()))/30*inday,0));
+        			q_tr('txtBo_admin_'+j,round((dec($('#txtBo_admin_'+j).val()))/30*inday,0));
+        			q_tr('txtBo_traffic_'+j,round((dec($('#txtBo_traffic_'+j).val()))/30*inday,0));
+        			q_tr('txtBo_special_'+j,round((dec($('#txtBo_special_'+j).val()))/30*inday,0));
+        			q_tr('txtBo_oth_'+j,round((dec($('#txtBo_oth_'+j).val()))/30*inday,0));
+        			imports=false;
         		}
+        		
+        		q_tr('txtTotal1_'+j,dec($('#txtMoney_'+j).val())+dec($('#txtPubmoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtPlus_'+j).val()));
         		
         		if(($('#cmbMonkind').find("option:selected").text().indexOf('上期')>-1)||($('#cmbMonkind').find("option:selected").text().indexOf('下期')>-1)){
         			q_tr('txtMi_sick_'+j,round((q_float('txtMoney_'+j)+q_float('txtBo_admin_'+j)+q_float('txtBo_traffic_'+j)+q_float('txtBo_special_'+j)+q_float('txtBo_oth_'+j))/30/8*q_float('txtHr_sick_'+j)/2,0));

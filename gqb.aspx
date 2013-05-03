@@ -59,9 +59,9 @@
                 });
                 $('#txtGqbno').change(function() {
                 	//判斷支票編號是否重複
-                	if($.trim($(this).val())>0){
-                		var t_where = "where=^^ gqbno = '" + $(this).val() + "' ^^";
-                    	q_gt('gqb', t_where, 0, 0, 0, "gqb_change1", r_accy);
+                	if($.trim($(this).val()).length>0){
+                		var t_where = "where=^^ checkno = '" + $(this).val() + "' ^^";
+                    	q_gt('view_gqb_chk', t_where, 0, 0, 0, "gqb_change1", r_accy);
                 	}
                 });
                 $('#lblAccno').click(function() {
@@ -87,10 +87,10 @@
                         break;
                     default:
                     	if(t_name.substring(0,10)=='gqb_btnOk1'){
-                    		//存檔時  支票號碼   先檢查VIEW_GQB,再檢查GQB
+                    		//存檔時  支票號碼   先檢查view_gqb_chk,再檢查GQB
                     		var t_checkno = t_name.split('_')[2];  
                     		var t_noa =  t_name.split('_')[3];               		
-                    		var as = _q_appendData("view_gqb", "", true);
+                    		var as = _q_appendData("view_gqb_chk", "", true);
                     		if(as[0]!=undefined){
                     			var t_isExist = false,t_msg = '';
                     			for(var i in as){
@@ -138,10 +138,10 @@
                     			save();
                     		}
                     	}else if(t_name.substring(0,11)=='gqb_change1'){
-                    		//先檢查VIEW_GQB,再檢查GQB
+                    		//先檢查view_gqb_chk,再檢查GQB
                     		var t_checkno = t_name.split('_')[2];  
                     		var t_noa =  t_name.split('_')[3];           
-                    		var as = _q_appendData("view_gqb", "", true);
+                    		var as = _q_appendData("view_gqb_chk", "", true);
                     		if(as[0]!=undefined){
                     			var t_isExist = false,t_msg = '';
                     			for(var i in as){
@@ -212,7 +212,6 @@
 
                 _btnModi();
                 $('#txtGqbno').focus();
-                t_gqbno = $('#txtGqbno').val();
             }
 
             function btnPrint() {
@@ -236,7 +235,7 @@
         			var t_noa = $('#txtNoa').val();
     				var t_checkno = $('#txtGqbno').val() ;   	
         			var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
-        			q_gt('view_gqb', t_where, 0, 0, 0, "gqb_btnOk1_"+t_checkno+"_"+ t_noa, r_accy);
+        			q_gt('view_gqb_chk', t_where, 0, 0, 0, "gqb_btnOk1_"+t_checkno+"_"+ t_noa, r_accy);
         		}else{
         			alert("請輸入票據號碼");
         			Unlock();

@@ -108,11 +108,11 @@
                         break;
                     default:
                     	if(t_name.substring(0,13)=='gqb_btnOkbbs1'){
-                    		//存檔時   bbs 支票號碼   先檢查VIEW_GQB,再檢查GQB
+                    		//存檔時   bbs 支票號碼   先檢查view_gqb_chk,再檢查GQB
                     		var t_sel = parseFloat(t_name.split('_')[2]); 
                     		var t_checkno = t_name.split('_')[3];  
                     		var t_noa =  t_name.split('_')[4];               		
-                    		var as = _q_appendData("view_gqb", "", true);
+                    		var as = _q_appendData("view_gqb_chk", "", true);
                     		if(as[0]!=undefined){
                     			var t_isExist = false,t_msg = '';
                     			for(var i in as){
@@ -154,11 +154,11 @@
                     			checkGqb_bbs(t_sel-1);
                     		}
                     	}else if(t_name.substring(0,13)=='gqb_btnOkbbt1'){
-                    		//存檔時   bbst 支票號碼   先檢查VIEW_GQB,再檢查GQB
+                    		//存檔時   bbst 支票號碼   先檢查view_gqb_chk,再檢查GQB
                     		var t_sel = parseFloat(t_name.split('_')[2]); 
                     		var t_checkno = t_name.split('_')[3];  
                     		var t_noa =  t_name.split('_')[4];       
-                    		var as = _q_appendData("view_gqb", "", true);
+                    		var as = _q_appendData("view_gqb_chk", "", true);
                     		if(as[0]!=undefined){
                     			var t_isExist = false,t_msg = '';
                     			for(var i in as){
@@ -201,11 +201,11 @@
                     			checkGqb_bbt(t_sel-1);
                     		}
                     	}else if(t_name.substring(0,11)=='gqb_change1'){
-                    		//先檢查VIEW_GQB,再檢查GQB
+                    		//先檢查view_gqb_chk,再檢查GQB
                     		var t_sel = parseFloat(t_name.split('_')[2]); 
                     		var t_checkno = t_name.split('_')[3];  
                     		var t_noa =  t_name.split('_')[4];           
-                    		var as = _q_appendData("view_gqb", "", true);
+                    		var as = _q_appendData("view_gqb_chk", "", true);
                     		if(as[0]!=undefined){
                     			var t_isExist = false,t_msg = '';
                     			for(var i in as){
@@ -286,7 +286,7 @@
             			var t_noa = $('#txtNoa').val();
 	    				var t_checkno = $('#txtCheckno_'+n).val() ;   	
 	        			var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
-	        			q_gt('view_gqb', t_where, 0, 0, 0, "gqb_btnOkbbs1_"+n+"_"+t_checkno+"_"+ t_noa, r_accy);
+	        			q_gt('view_gqb_chk', t_where, 0, 0, 0, "gqb_btnOkbbs1_"+n+"_"+t_checkno+"_"+ t_noa, r_accy);
             		}else{
             			checkGqb_bbs(n-1);
             		}
@@ -322,7 +322,7 @@
             			var t_noa = $('#txtNoa').val();
 	    				var t_checkno = $('#txtCheckno__'+n).val() ;   	
 	        			var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
-	        			q_gt('view_gqb', t_where, 0, 0, 0, "gqb_btnOkbbt1_"+n+"_"+t_checkno+"_"+ t_noa, r_accy);
+	        			q_gt('view_gqb_chk', t_where, 0, 0, 0, "gqb_btnOkbbt1_"+n+"_"+t_checkno+"_"+ t_noa, r_accy);
             		}else{
             			checkGqb_bbt(n-1);
             		}
@@ -368,7 +368,7 @@
             				var t_noa = $('#txtNoa').val();
             				var t_checkno = $('#txtCheckno_'+n).val() ;
                 			var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
-                			q_gt('view_gqb', t_where, 0, 0, 0, "gqb_change1_"+n+"_"+t_checkno+"_"+ t_noa, r_accy);
+                			q_gt('view_gqb_chk', t_where, 0, 0, 0, "gqb_change1_"+n+"_"+t_checkno+"_"+ t_noa, r_accy);
                 		});
                     }
                 }
@@ -393,7 +393,7 @@
                 			var t_noa = $('#txtNoa').val();
             				var t_checkno = $('#txtCheckno__'+n).val() ;
                 			var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
-                			q_gt('view_gqb', t_where, 0, 0, 0, "gqb_change1_"+n+"_"+t_checkno+"_"+ t_noa, r_accy);
+                			q_gt('view_gqb_chk', t_where, 0, 0, 0, "gqb_change1_"+n+"_"+t_checkno+"_"+ t_noa, r_accy);
                 		});
                     }
                 }

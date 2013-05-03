@@ -27,7 +27,7 @@
 	    
         $(document).ready(function () {
 			bbmKey = [];
-			bbsKey = ['noa', 'mon','cno'];
+			bbsKey = ['noa', 'mon'];
             main();
         });         /// end ready
 
@@ -42,7 +42,7 @@
          }
         function btnOk() {
 			t_key = q_getHref();
-			_btnOk(t_key[1], bbsKey[0], bbsKey[1], bbsKey[2], '', 2);
+			_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
 		}
 		function bbsSave(as) {
 			if(!as['noa']) {// Dont Save Condition

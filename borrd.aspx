@@ -24,7 +24,7 @@
             var bbmNum = [['txtMoney',10,0,1],['txtMoney2',10,0,1],['txtCharge',10,0,1]];
             var bbsNum = [['txtRate',10,2],['txtMoney',10,0,1]];
             var bbtNum = [['txtMoney',10,0,1]];
-            var bbmMask = [['txtDatea','999/99/99'],['txtBegindate','999/99/99'],['txtEnddate','999/99/99'],['txtPaydate','999/99/99'],['txtVccday','99']];
+            var bbmMask = [['textMon_windows','999/99'],['txtDatea','999/99/99'],['txtBegindate','999/99/99'],['txtEnddate','999/99/99'],['txtPaydate','999/99/99'],['txtVccday','99']];
             var bbsMask = [['txtDatea','999/99/99']];
             var bbtMask = [['txtDatea','999/99/99']];
             
