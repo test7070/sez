@@ -57,11 +57,12 @@
 				var wbbsStr = '';
 				if(bbsField.length > 0){
 					wbbsStr = " and ((select count(*) from " + bbmTableName + "s ";
-					wbbsStr = wbbsStr + "where " + bbsField + "='" + value + "' and ";
+					wbbsStr = wbbsStr + "where " + 'left( ' + bbsField + ',' + bbsField.length + ")='" + value + "' and ";
 					wbbsStr = wbbsStr + bbskey + " = " + bbmTableName + '.' + bbskey + ")>0)";
 				}
-				return wbbsStr;					
+				return wbbsStr;
 			}
+
             function q_seekStr() {
                 t_noa = $.trim($('#txtNoa').val());
                 t_bdate = $.trim($('#txtBdate').val());
