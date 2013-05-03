@@ -269,7 +269,7 @@
                 $('#txtDatea').val(q_date());
                 $('#txtOdate').val(q_date());
                 $('#txtWdate').val(q_date());
-				t_date = new Date(dec(q_date().substring(0,3))+1911 + q_date().substring(3));
+				/*t_date = new Date(dec(q_date().substring(0,3))+1911 + q_date().substring(3));
 	            t_date.setDate(t_date.getDate()+4);
 	            t_year = t_date.getUTCFullYear()-1911;
 	            t_year = t_year>99?t_year+'':'0'+t_year;
@@ -277,7 +277,7 @@
 	            t_month = t_month>9?t_month+'':'0'+t_month;
 	            t_day = t_date.getUTCDate();
 	            t_day = t_day>9?t_day+'':'0'+t_day;
-	            $('#txtPaydate').val(t_year+'/'+t_month+'/'+t_day);
+	            $('#txtPaydate').val(t_year+'/'+t_month+'/'+t_day);*/
 	            $('#txtSalesno').val(r_userno);
 	            $('#txtSales').val(r_name);
 	            
@@ -321,6 +321,14 @@
 			       		$('#chkIsprepay_'+i).change(function () {
 			            	sum();
 			       		});
+			       		$('#txtRealcost_'+i).blur(function () {
+			       			t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							
+							$('#chkIsprepay_'+b_seq)[0].checked=true;
+			            	sum();
+			       		});
                     }
                 }
                 _bbsAssign();
@@ -362,16 +370,18 @@
                 		$(".inco").show();
 	            		$(".land").hide();
 	            	//更新勾選
-	            	var xprojectno = abbm[q_recno].project.split(',');
-	            		for (var j = 0; j < projectnumber; j++) {
-	            			for (var i = 0; i < xprojectno.length; i++) {
-	            				if($('#checkProjectno'+j).val()==xprojectno[i]){
-	            					$('#checkProjectno'+j)[0].checked=true;
-	            					break;
-	            				}else{
-		            				$('#checkProjectno'+j)[0].checked=false;
-		            			}
-	    	        		}
+	            	if(abbm[q_recno]){
+		            	var xprojectno = abbm[q_recno].project.split(',');
+		            		for (var j = 0; j < projectnumber; j++) {
+		            			for (var i = 0; i < xprojectno.length; i++) {
+		            				if($('#checkProjectno'+j).val()==xprojectno[i]){
+		            					$('#checkProjectno'+j)[0].checked=true;
+		            					break;
+		            				}else{
+			            				$('#checkProjectno'+j)[0].checked=false;
+			            			}
+		    	        		}
+		        	    	}
 	        	    	}
                 }
                 if ($('#cmbKind').find("option:selected").text().indexOf('土地')>-1){
@@ -393,7 +403,8 @@
                  	}else if($('#cmbItem').val()=='書狀換(補)發登記'){
                  		q_cmbParse("cmbReason", ('').concat(new Array('','書狀換(補)發登記')));
                  	}
-                 	$("#cmbReason").val(abbm[q_recno].reason);
+                 	if(abbm[q_recno])
+                 		$("#cmbReason").val(abbm[q_recno].reason);
                 }
             }
             

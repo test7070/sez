@@ -35,7 +35,7 @@
 				q_mask(bbmMask);
 
 				$('#txtBodate').focus();
-				q_cmbParse("cmbKind", ('').concat(new Array( '工商','土地')));
+				q_cmbParse("cmbKind", ('').concat(new Array( '全部','工商','土地')));
 				q_cmbParse("cmbEnda", ('').concat(new Array( '@','1@結案','0@未結案')));
 			}
 
@@ -65,8 +65,11 @@
 					+q_sqlPara2("itemno", t_itemno)
 					+q_sqlPara2("enda", t_enda)
 					+q_sqlPara2("item", t_item);
-
-				t_where = " where=^^" + t_where + " and kind='"+$('#cmbKind').val()+"'^^";
+					
+				if($('#cmbKind').val()=='全部')
+					t_where = " where=^^" + t_where + "^^";
+				else
+					t_where = " where=^^" + t_where + " and kind='"+$('#cmbKind').val()+"'^^";
 				return t_where;
 			}
 		</script>
