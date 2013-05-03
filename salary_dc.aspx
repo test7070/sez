@@ -431,11 +431,12 @@
             }   /// end Switch
         }
 
-
+		var imports=false;
         function q_gtPost(t_name) {  
             switch (t_name) {
                 case 'salarydc_import':  
 						var as = _q_appendData("salpresents", "", true);
+						imports=true;
 						for (var i = 0; i < as.length; i++) {
 							//判斷是否哪些員工要計算薪水
 		                    if (!emp(as[i].outdate)&&as[i].outdate<date_1) {//(!emp(as[i].ft_date) && as[i].ft_date >date_1)||as[i].indate>$('#txtMon').val()
@@ -799,7 +800,7 @@
         	for (var j = 0; j < q_bbsCount; j++) {
         		//小計=本俸+公費+主管津貼+交通津貼+特別津貼+其他津貼+其他加項
         		//5/3本俸+公費+主管津貼+交通津貼+特別津貼+其他津貼直接換算
-        		if($('#txtMemo_'+j).val().indexOf('新進員工')>-1){
+        		if($('#txtMemo_'+j).val().indexOf('新進員工')>-1&&imports){
         			var inday=0;
         			inday=dec($('#txtMemo_'+j).val().substr($('#txtMemo_'+j).val().indexOf(':')+1,$('#txtMemo_'+j).val().indexOf(')')-$('#txtMemo_'+j).val().indexOf(':')-1));
         			q_tr('txtMoney_'+j,round((dec($('#txtMoney_'+j).val()))/30*inday,0));
@@ -808,6 +809,7 @@
         			q_tr('txtBo_traffic_'+j,round((dec($('#txtBo_traffic_'+j).val()))/30*inday,0));
         			q_tr('txtBo_special_'+j,round((dec($('#txtBo_special_'+j).val()))/30*inday,0));
         			q_tr('txtBo_oth_'+j,round((dec($('#txtBo_oth_'+j).val()))/30*inday,0));
+        			imports=false;
         		}
         		
         		q_tr('txtTotal1_'+j,dec($('#txtMoney_'+j).val())+dec($('#txtPubmoney_'+j).val())+dec($('#txtBo_admin_'+j).val())+dec($('#txtBo_traffic_'+j).val())+dec($('#txtBo_special_'+j).val())+dec($('#txtBo_oth_'+j).val())+dec($('#txtPlus_'+j).val()));
