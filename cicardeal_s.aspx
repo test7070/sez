@@ -11,7 +11,7 @@
 	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var q_name = "cicardeal_s";
-	aPop = new Array(['txtCno', '', 'cicardeal', 'noa,cardeal,serial', 'txtNoa,txtCardeal,txtSerial', "cicardeal_b.aspx?"]);
+	aPop = new Array(['txtNoa', '', 'cicardeal', 'noa,cardeal,serial', 'txtNoa,txtCardeal,txtSerial', "cicardeal_b.aspx?"]);
     $(document).ready(function () {
         main();
     });         /// end ready

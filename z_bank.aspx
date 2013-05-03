@@ -38,7 +38,11 @@
                         dbf : 'acc',
                         index : 'acc1,acc2',
                         src :  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
-                    }]
+                    }, {/*28*/
+                            type : '5',
+                            name : 'xsort1',//[11]
+                            value : q_getMsg('tsort1').split('&')
+                        }]
                 });
                
                 

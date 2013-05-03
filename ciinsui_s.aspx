@@ -14,7 +14,7 @@
 	aPop = new Array(['txtInsurerno', 'lblInsurer', 'ciinsucomp', 'noa,insurer', 'txtInsurerno,txtInsurer', 'ciinsucomp_b.aspx'],
 	['txtCardeal', '', 'cicardeal', 'comp,cno', 'txtCardeal', 'cicardeal_b.aspx'],
 	['txtSales', '', 'cisale', 'namea,noa', 'txtSales', 'cisale_b.aspx'],
-	['txtCarno', 'lblCarno', 'cicar', 'noa', 'txtCarno', 'cicar_b.aspx']);
+	['txtCarno', 'lblCarno', 'cicar', 'a.noa', 'txtCarno', 'cicar_b.aspx']);
     $(document).ready(function () {
         main();
     });         /// end ready
@@ -27,7 +27,7 @@
     function q_gfPost() {
         q_getFormat();
         q_langShow();
-		bbmMask = [['txtBhdate', r_picd], ['txtEhdate', r_picd]];
+		bbmMask = [['txtBbdate', r_picd], ['txtEbdate', r_picd],['txtBedate', r_picd], ['txtEedate', r_picd]];
 		q_mask(bbmMask);
         $('#txtNoa').focus();
     }
@@ -50,9 +50,9 @@
         +q_sqlPara2("carno", t_carno)
         +q_sqlPara2("insurerno", t_insurerno)
         +q_sqlPara2("insurer", t_insurer)
-        +q_sqlPara2("bdate", t_bbdate,ebdate)
-        +q_sqlPara2("edate", t_bedate,eedate)
-        +q_sqlPara2("sales", t_sales)
+        +q_sqlPara2("bdate", t_bbdate,t_ebdate)
+        +q_sqlPara2("edate", t_bedate,t_eedate)
+        +q_sqlPara2("sale", t_sales)
         +q_sqlPara2("insurancenum", t_insurancenum)
 		+ q_sqlPara2("cardno", t_cardno) ;
 		

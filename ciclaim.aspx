@@ -126,7 +126,7 @@
 
             }
             function btnPrint() {
-            	q_box('z_ciaccident.aspx', '', "90%", "600px", q_getMsg("popPrint"));
+            	q_box('z_ciaccident.aspx'+ "?;;;;" + ";noa="+ $('#txtNoa').val(), '', "90%", "600px", q_getMsg("popPrint"));
             }
             function wrServer(key_value) {
                 var i;
@@ -362,12 +362,14 @@
 				<table class="tview" id="tview">
 					<tr>
 						<td align="center" style="width:5%; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:30%;color:black;"><a id='vewHdate'> </a></td>
-						<td align="center" style="width:30%;color:black;"><a id='vewCarno'> </a></td>
-						<td align="center" style="width:30%;color:black;"><a id='vewDriver'> </a></td>
+						<td align="center" style="width:22%;color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:22%;color:black;"><a id='vewHdate'> </a></td>
+						<td align="center" style="width:23%;color:black;"><a id='vewCarno'> </a></td>
+						<td align="center" style="width:23%;color:black;"><a id='vewDriver'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" /></td>
+						<td id="datea" style="text-align: center;">~datea</td>
 						<td id="hdate" style="text-align: center;">~hdate</td>
 						<td id="carno" style="text-align: center;">~carno</td>
 						<td id="driver" style="text-align: center;">~driver</td>
