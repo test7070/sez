@@ -191,7 +191,7 @@
             }
 			
             function getOpay() {
-            	Lock();
+            	Lock(1,{opacity:0});
                 var t_custno = $('#txtCustno').val();
                 var s2 = (q_cur == 2 ? " and noa!='" + $('#txtNoa').val() + "'" : '');
                 var t_where = "where=^^custno='" + t_custno + "'" + s2 + "^^";
@@ -328,7 +328,7 @@
                         var s1 = q_trv((as.length > 0 ? round(as[0].total, 0) : 0));
                         $('#textOpay').val(s1);
                         $('#textOpayOrg').val(s1);
-						Unlock();
+						Unlock(1);
                         break;
                     case 'umm_trd':
                         for (var i = 0; i < q_bbsCount; i++) {
@@ -715,34 +715,7 @@
             function btnCancel() {
                 _btnCancel();
             }
-            function Lock() {
-                if ($('#divLock').length == 0)
-                    $('body').append('<div id="divLock"> </div>');
-                $('#divLock').css('width', Math.max(document.body.clientWidth, document.body.scrollWidth)).css('height', Math.max(document.body.clientHeight, document.body.scrollHeight));
-                $('#divLock').css('background', 'black').css('opacity', 0.2);
-                $('#divLock').css('display', '').css('z-index', '999').css('position', 'absolute').css('top', 0).css('left', 0).focus();
-            	addResizeEvent(function(){
-            		if($('#divLock').css('display')!='none')
-            			return;
-            		$('#divLock').css('width', Math.max(document.body.clientWidth, document.body.scrollWidth)).css('height', Math.max(document.body.clientHeight, document.body.scrollHeight));
-            	});
-            }
-			function Unlock() {
-				$('#divLock').css('display', 'none');
-			}		
-            function addResizeEvent(func) {
-                var oldonresize = window.onresize;
-                if ( typeof window.onresize != 'function') {
-                    window.onresize = func;
-                } else {
-                    window.onresize = function() {
-                        if (oldonresize) {
-                            oldonresize();
-                        }
-                        func();
-                    }
-                }
-            }
+            
 		</script>
 		<style type="text/css">
             #dmain {
