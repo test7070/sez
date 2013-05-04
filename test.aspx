@@ -2,18 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title></title>
-		<script src="../script/jquery.min.js" type="text/javascript"></script>
-		<script type="text/javascript">
+		<title> </title>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
 		
-            $(document).ready(function() {
-				//Lock();
-				$('#txtA').change(function(){
-					
-					$('#txtB').val(FormatNumber($('#txtA').val()));
-				});
+		<script type="text/javascript">
 
+            $(document).ready(function() {
+				Lock(100);
+			
+				//alert(document.documentMode);
+				//Unlock(100);
             });
+        		
             function FormatNumber(n) {
             	var xx = "";
             	if(n<0){
@@ -25,32 +25,57 @@
                 var re = /(\d{1,3})(?=(\d{3})+$)/g;
                 return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
-            
-            function Lock() {
-                if ($('#divLock').length == 0)
-                    $('body').append('<div id="divLock"> </div>');
-                $('#divLock').css('width', Math.max(document.body.clientWidth, document.body.scrollWidth)).css('height', Math.max(document.body.clientHeight, document.body.scrollHeight));
-                $('#divLock').css('background', 'black').css('opacity', 0.2);
-                $('#divLock').css('display', '').css('z-index', '999').css('position', 'absolute').css('top', 0).css('left', 0).focus();
-            	addResizeEvent(function(){
-            		if($('#divLock').css('display')!='none')
-            			return;
-            		$('#divLock').css('width', Math.max(document.body.clientWidth, document.body.scrollWidth)).css('height', Math.max(document.body.clientHeight, document.body.scrollHeight));
-            	});
+           
+            function Lock(key,setting) {
+            	var t_key = '';
+            	var t_background = 'black';
+            	var t_opacity = 0.2;
+            	/*var t_width = Math.max(document.body.clientWidth, document.body.scrollWidth);
+            	    t_height = Math.max(document.body.clientHeight, document.body.scrollHeight);*/
+            	var t_width = $(document).width();
+            	var t_height = $(document).height();
+            		
+            	if(arguments[0]!=undefined)
+            		t_key = arguments[0];
+            	if(arguments[1]!=undefined){
+            		if(arguments[1].background!=undefined)
+            			t_background=arguments[1].background;
+            		if(arguments[1].opacity!=undefined)
+            			t_opacity=arguments[1].opacity;
+            	}	
+            	
+                if ($('#divLock'+t_key).length == 0)
+                    $('body').append('<div id="divLock'+t_key+'"> </div>');
+                $('#divLock'+t_key).css('width', $(document).width()).css('height', $(document).height());
+                $('#divLock'+t_key).css('background', t_background).css('opacity', t_opacity);
+                $('#divLock'+t_key).css('display', '').css('z-index', '999').css('position', 'absolute').css('top', 0).css('left', 0).focus();
+            	addResizeEvent(
+            		"if($('#divLock"+t_key+"').css('display')!='none')"+
+            		"$('#divLock"+t_key+"').css('width', $(document).width()).css('height', $(document).height());"
+            	);
             }
-			function Unlock() {
-				$('#divLock').css('display', 'none');
+			function Unlock(key) {
+				var t_key = '';
+				if(arguments[0]!=undefined)
+            		t_key = arguments[0];
+				$('#divLock'+t_key).css('display', 'none');
 			}		
             function addResizeEvent(func) {
                 var oldonresize = window.onresize;
                 if ( typeof window.onresize != 'function') {
-                    window.onresize = func;
+                	if(typeof(func)=='string')
+                    	eval('window.onresize = function(){'+func+'}');
+                    else
+                		window.onresize = func;
                 } else {
                     window.onresize = function() {
                         if (oldonresize) {
                             oldonresize();
                         }
-                        func();
+                        if(typeof(func)=='string')
+                        	eval(func);
+                        else
+	                		func();
                     }
                 }
             }
@@ -106,9 +131,6 @@
             
 		</script>
 		<style type="text/css">
-            aa {
-                position: absolute;
-            }
 		</style>
 	</head>
 	<body>
