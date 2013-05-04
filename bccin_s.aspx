@@ -53,7 +53,6 @@
                         break;
                 }
             }
-            
 			function wbbsSearchStr(txtName){
 				var wbbsStr = '';
 				var bbsAt,value,t_name;
