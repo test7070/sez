@@ -45,8 +45,15 @@
                         }]
                 });
                
-                
-               $('#txtAcc1a').change(function () {
+                $('#txtAcc1a').change(function(e) {
+                    var patt = /^(\d{4})([^\.,.]*)$/g;
+                    $(this).val($(this).val().replace(patt,"$1.$2"));
+        		});
+        		$('#txtAcc2a').change(function(e) {
+                    var patt = /^(\d{4})([^\.,.]*)$/g;
+                    $(this).val($(this).val().replace(patt,"$1.$2"));
+        		});
+              /* $('#txtAcc1a').change(function () {
 		                var s1 = trim($(this).val(1112));
 		                if (s1.length > 4 && s1.indexOf('.') < 0)
 		                    $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
@@ -60,7 +67,7 @@
 		                    $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
 		                if (s1.length == 4)
 		                    $(this).val(s1 + '.');
-		            });
+		            });*/
 		            
                     q_popAssign();
 
