@@ -780,6 +780,7 @@
                 <td align="center" style="width:6%;"><a id='lblMount_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblGweight_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblWeight_st'> </a></td>
+                <td align="center" style="width:8%;"><a id='lblClass_st'> </a></td>
                 <!--<td align="center" style="width:4%;"><a id='lblType_s'> </a></td>-->
                 <td align="center"><a id='lblMemo_st'> </a></td>
             </tr>
@@ -810,6 +811,7 @@
                 <td><input class="txt num c1" id="txtGweight.*" type="text"/></td>
                 <td><input class="txt num c1" id="txtWeight.*" type="text" /></td>
                 <!--<td><input class="txt c1" id="txtTypea.*" type="text" /></td>-->
+                <td><input class="txt c1" id="txtClass.*" type="text" />
                 <td><input class="txt c1" id="txtMemo.*" type="text" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
             </tr>
