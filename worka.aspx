@@ -414,7 +414,7 @@
         <div class='dbbm' style="width: 68%;float:left">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
         <tr><td class='label1'><a id="lblType" ></a></td>
-            <td class="column1"><select id="cmbTypea" class="txt c1"/></td>
+            <td class="column1"><select id="cmbTypea" class="txt c1"> </select></td>
             <td class='label2'><a id="lblDatea" ></a></td>
             <td class="column2"><input id="txtDatea" type="text" class="txt c1"/></td>
             <td class='label3'><a id="lblNoa" ></a></td>
@@ -452,7 +452,7 @@
         </table>
         </div>
 
-        <div class='dbbs'><%--style="overflow-x: hidden; overflow-y: scroll; height:200px"  --%>
+        <div class='dbbs'>
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
@@ -466,14 +466,29 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td style="width:20%;"><input class="txt"  id="txtProductno.*" type="text" style="width:85%;" /><input class="btn"  id="btnProductno.*" type="button" value='...' style="width:12%;"  /></td>
-                <td style="width:20%;"><input id="txtProduct.*" type="text" class="txt c1"/></td>
-                <td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c1"/></td>
-                <td style="width:12%;"><input id="txtMount.*" type="text" class="txt c1" style="text-align:right"/></td>
-                <td style="width:10%;"><input id="txtProcess.*" type="text" class="txt c1"/></td>
-                <td style="width:10%;"><input id="txtTypea.*" type="text" class="txt c1"/></td>
-                <td style="width:12%;"><input id="txtMemo.*" type="text" class="txt c1"/>
-                <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
+                <td style="width:20%;">
+                	<input class="txt"  id="txtProductno.*" type="text" style="width:85%;" />
+                	<input class="btn"  id="btnProductno.*" type="button" value='...' style="width:10%;"  />
+                </td>
+                <td style="width:20%;">
+                	<input id="txtProduct.*" type="text" class="txt c1"/>
+                </td>
+                <td style="width:4%;">
+                	<input id="txtUnit.*" type="text" class="txt c1"/>
+                </td>
+                <td style="width:12%;">
+                	<input id="txtMount.*" type="text" class="txt c1" style="text-align:right"/>
+                </td>
+                <td style="width:10%;">
+                	<input id="txtProcess.*" type="text" class="txt c1"/>
+                </td>
+                <td style="width:10%;">
+                	<input id="txtTypea.*" type="text" class="txt c1"/>
+                </td>
+                <td style="width:12%;">
+                	<input id="txtMemo.*" type="text" class="txt c1"/>
+                	<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
+                </td>
             </tr>
         </table>
         </div>

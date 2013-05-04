@@ -44,25 +44,15 @@
                             value : q_getMsg('tsort1').split('&')
                         }]
                 });
-               
-                
-               $('#txtAcc1a').change(function () {
-		                var s1 = trim($(this).val(1112));
-		                if (s1.length > 4 && s1.indexOf('.') < 0)
-		                    $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
-		                if (s1.length == 4)
-		                    $(this).val(s1 + '.');
-		                    
-		            });
-		            $('#txtAcc2a').change(function () {
-		                var s1 = trim($(this).val(1112));
-		                if (s1.length > 4 && s1.indexOf('.') < 0)
-		                    $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
-		                if (s1.length == 4)
-		                    $(this).val(s1 + '.');
-		            });
-		            
-                    q_popAssign();
+                q_popAssign();
+                $('#txtAcc1a').change(function(e) {
+                    var patt = /^(\d{4})([^\.,.]*)$/g;
+                    $(this).val($(this).val().replace(patt,"$1.$2"));
+        		});
+        		$('#txtAcc2a').change(function(e) {
+                    var patt = /^(\d{4})([^\.,.]*)$/g;
+                    $(this).val($(this).val().replace(patt,"$1.$2"));
+        		});
 
                 $('#txtDate1').mask('99/99');
                 $('#txtDate2').mask('99/99');
