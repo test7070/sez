@@ -47,7 +47,7 @@
                         	name : 'xnoa'
                     	},{
                         	type : '5',
-                        	name : 'enda',
+                        	name : 'xenda',
 	                        value : ('全部,結案,未結案').split(',')
                     	}]
                     });
