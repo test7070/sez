@@ -307,7 +307,7 @@
 		        if (q_cur > 0 && q_cur < 4)// 1-3
 		            return;
 
-		        q_box('pay_s.aspx', q_name + '_s', "550px", "600px", q_getMsg("popSeek"));
+		        q_box('payacc_s.aspx', q_name + '_s', "550px", "600px", q_getMsg("popSeek"));
 		    }
 
 		    function combPay_chg() {
@@ -380,7 +380,7 @@
 		    }
 
 		    function btnPrint() {
-		        q_box("z_payp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'pay', "95%", "95%", m_print);
+		        //q_box("z_payp.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'pay', "95%", "95%", m_print);
 		    }
 
 		    function wrServer(key_value) {

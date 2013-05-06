@@ -302,6 +302,7 @@
                 $('#combMemo').click(function(e){
 					if(q_cur==1 || q_cur==2){
 						$('#txtMemo').val($('#combMemo>option:selected').text()+$('#txtMemo').val());
+						$('#combMemo').val(0);
 					}                	
                 });
 				//--------------------------------------------------

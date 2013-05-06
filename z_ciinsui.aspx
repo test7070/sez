@@ -70,14 +70,14 @@
                 });
                 q_langShow();
 	                q_popAssign();
-                $('#txtXdate1').mask('999/99/99');
-                $('#txtXdate1').datepicker();
-                $('#txtXdate2').mask('999/99/99');
-                $('#txtXdate2').datepicker();
-                $('#txtSdate1').mask('999/99/99');
-                $('#txtSdate1').datepicker();
-                $('#txtSdate2').mask('999/99/99');
-                $('#txtSdate2').datepicker();
+                $('#txtBdate1').mask('999/99/99');
+                $('#txtBdate1').datepicker();
+                $('#txtBdate2').mask('999/99/99');
+                $('#txtBdate2').datepicker();
+                $('#txtEdate1').mask('999/99/99');
+                $('#txtEdate1').datepicker();
+                $('#txtEdate2').mask('999/99/99');
+                $('#txtEdate2').datepicker();
                 
                 var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
@@ -88,7 +88,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtSdate1').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtEdate1').val(t_year+'/'+t_month+'/'+t_day);
 	                t_date = new Date();
 	                t_date.setDate(35);
 	                t_date.setDate(0);
@@ -98,7 +98,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtSdate2').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtEdate2').val(t_year+'/'+t_month+'/'+t_day);
             }
 		</script>
 	</head>
