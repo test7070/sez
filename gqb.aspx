@@ -105,7 +105,7 @@
                     				save();
                     			}
                     			else if(t_isExist && t_msg.length>0){
-                    				alert('票據重覆。'+String.fromCharCode(13)+t_msg);
+                    				alert('請由以下單據修改。'+String.fromCharCode(13)+t_msg);
                     				Unlock();
                     			}else if(t_msg.length>0){
                     				alert(t_msg);
@@ -155,7 +155,7 @@
                     			if(t_isExist && t_msg.length==0){
                     				Unlock();
                     			}else if(t_isExist && t_msg.length>0){
-                    				alert('票據重覆。'+String.fromCharCode(13)+t_msg);
+                    				alert('請由以下單據修改。'+String.fromCharCode(13)+t_msg);
                     				Unlock();
                     			}else if(t_msg.length>0){
                     				alert(t_msg);

@@ -23,6 +23,9 @@
                $('#q_report').q_report({
                         fileName : 'z_salvacause',
                         options : [{
+                        type : '6',
+                        name : 'xnoa'
+                    },{
                         type : '1',
                         name : 'xdate'
                     },{
@@ -36,6 +39,10 @@
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
+                
+                 var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
+                t_noa  =  t_noa.replace('noa=','');
+                $('#txtXnoa').val(t_noa).width(100);
                 
                 $('#txtXdate1').mask('999/99/99');
                 $('#txtXdate1').datepicker();
