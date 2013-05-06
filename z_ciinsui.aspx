@@ -70,14 +70,14 @@
                 });
                 q_langShow();
 	                q_popAssign();
-                $('#txtXdate1').mask('999/99/99');
-                $('#txtXdate1').datepicker();
-                $('#txtXdate2').mask('999/99/99');
-                $('#txtXdate2').datepicker();
-                $('#txtSdate1').mask('999/99/99');
-                $('#txtSdate1').datepicker();
-                $('#txtSdate2').mask('999/99/99');
-                $('#txtSdate2').datepicker();
+                $('#txtBdate1').mask('999/99/99');
+                $('#txtBdate1').datepicker();
+                $('#txtBdate2').mask('999/99/99');
+                $('#txtBdate2').datepicker();
+                $('#txtEdate1').mask('999/99/99');
+                $('#txtEdate1').datepicker();
+                $('#txtEdate2').mask('999/99/99');
+                $('#txtEdate2').datepicker();
                 
                 var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
