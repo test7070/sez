@@ -28,7 +28,12 @@
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
-        aPop = new Array(['txtStationno', 'btnStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],['txtStoreno','btnStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
+        aPop = new Array(
+					['txtStationno', 'btnStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
+					['txtStoreno','btnStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
+					['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
+					['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
+        );
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
@@ -462,15 +467,17 @@
                 <td align="center"><a id='lblMounts'></a></td>
                 <td align="center"><a id='lblProcesss'></a></td>
                 <td align="center"><a id='lblTypes'></a></td>
+                <td align="center"><a id='lblMechno'></a></td>
+                <td align="center"><a id='lblMech'></a></td>
                 <td align="center"><a id='lblMemos'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td style="width:20%;">
-                	<input class="txt"  id="txtProductno.*" type="text" style="width:85%;" />
+                <td style="width:10%;">
+                	<input class="txt"  id="txtProductno.*" type="text" style="width:80%;" />
                 	<input class="btn"  id="btnProductno.*" type="button" value='...' style="width:10%;"  />
                 </td>
-                <td style="width:20%;">
+                <td style="width:10%;">
                 	<input id="txtProduct.*" type="text" class="txt c1"/>
                 </td>
                 <td style="width:4%;">
@@ -484,6 +491,13 @@
                 </td>
                 <td style="width:10%;">
                 	<input id="txtTypea.*" type="text" class="txt c1"/>
+                </td>
+                <td style="width:10%;">
+                	<input class="txt"  id="txtMechno.*" type="text" style="width:80%;" />
+                	<input class="btn"  id="btnMechno.*" type="button" value='...' style="width:10%;"  />
+                </td>
+                <td style="width:10%;">
+                	<input id="txtMech.*" type="text" class="txt c1"/>
                 </td>
                 <td style="width:12%;">
                 	<input id="txtMemo.*" type="text" class="txt c1"/>
