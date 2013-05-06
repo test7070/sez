@@ -16,7 +16,8 @@
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
 			aPop = new Array(['txtXcarno', 'lblXcarno', 'car2', 'a.noa,driverno,driver', 'txtXcarno', 'car2_b.aspx']
-			,['txtXcarplateno', 'lblXcarplate', 'carplate', 'noa,carplate,driver', 'txtXcarplateno', 'carplate_b.aspx']);
+			,['txtXcarplateno', 'lblXcarplate', 'carplate', 'noa,carplate,driver', 'txtXcarplateno', 'carplate_b.aspx']
+			,['txtXproductno', 'lblXproductno', 'fixucc', 'noa,namea', 'txtXproductno', 'fixucc_b.aspx']);
 			$(document).ready(function() {
 				_q_boxClose();
 				q_getId();
@@ -59,7 +60,7 @@
 						src : 'tgg_b.aspx'
 					}, {/*7*/
 						type : '2',
-						name : 'product',
+						name : 'xproduct',
 						dbf : 'fixucc',
 						index : 'noa,namea',
 						src : 'fixucc_b.aspx'
