@@ -27,7 +27,7 @@
 		    brwNowPage = 0;
 		    brwKey = 'Datea';
 		    aPop = new Array(
-            ['txtCustno', 'lblCust', 'cust', 'noa,comp', 'txtCustno,txtComp', 'cust_b.aspx'],
+            ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
              ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
              ['txtBankno_', 'btnBankno_', 'bank', 'noa,bank', 'txtBankno_,txtBank_', 'bank_b.aspx'],
              ['txtUmmaccno_', '', 'payacc', 'noa,typea', 'txtUmmaccno_,txtTypea_', 'payacc_b.aspx'],
@@ -112,21 +112,8 @@
 		         });
 		         
 		         $('#btnLabpay').click(function (e) {
-		         	if ($.trim($('#txtCustno').val()) == 0) {  
-		                alert('Empty=' + q_getMsg('lblCust'));
-		                return false;
-		            }
-		            //客戶
-		            var t_custno = $.trim($('#txtCustno').val());
-		            var t_where = "where=^^ (a.custno='" + t_custno + "'" + (t_custno.length == 0 ? " and 1=0 " : "");
-		            //客戶2
-		            if (!emp($('#txtCustno2').val())) {
-                            var t_custno2 = ($('#txtCustno2').val()).split(",");
-                            for (var i = 0; i < t_custno2.length; i++) {
-                                t_where += " or a.custno ='" + t_custno2[i] + "'";
-                            }
-                   }
-		            t_where+=")";
+		         	var t_where = "where=^^ ";
+		           	t_where+="(b.sales='"+r_name+"')"
 		            t_where+=" and CHARINDEX('代收',a.product)>0";
 		            t_where+=" group by a.custno,a.noa,a.product";
 		            //unpay t_where+=" HAVING (sum(a.money) -isnull((select sum(paysale) from payaccs where rc2no=a.noa and memo2=a.product+';'+a.custno),0))!=0 ^^";
@@ -272,7 +259,7 @@
 		        }
 		        
 		        if ($.trim($('#txtCustno').val()) == 0) {
-		            alert(m_empty + q_getMsg('lblCust'));
+		            alert(m_empty + q_getMsg('lblTggno'));
 		            return false;
 		        }
 
@@ -661,9 +648,9 @@
 						<td class="td8"><input id="txtPayc" type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr2">
-                        <td class="td1" ><span> </span><a id='lblCust' class="lbl btn"></a></td>
+                        <td class="td1" ><span> </span><a id='lblTgg' class="lbl btn"></a></td>
 						<td class="td2" colspan='3'>
-                        <input id="txtCustno" type="text" class="txt c4"/>
+                        <input id="txtTggno" type="text" class="txt c4"/>
                         <input id="txtComp"  type="text" class="txt c5" />
 						</td>
 						<td class="td4">
@@ -676,18 +663,6 @@
 						<td class="td7" >
 						<input id="txtMon"  type="text" class="txt c1"/>
 						</td>
-					</tr>
-					<tr class="tr2">
-                        <td class="td1" ><span> </span><a id='lblCust2' class="lbl"></a></td>
-						<td class="td2" colspan='3'>
-                        <input id="txtCustno2" type="text" class="txt c1"/>
-						</td>
-						<td class="5">
-						</td>
-						<td class="6">
-						</td>
-						<td><span> </span><a id='lblAccc' class="lbl btn"> </a></td>
-						<td><input id="txtAccno"  type="text" class="txt c1"/></td>
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblSale' class="lbl"></a></td>
@@ -726,12 +701,13 @@
 						<td class="td1"> <a id='lblMemo' class="lbl"> </a></td>
 						<td class="td2" colspan='3' ><textarea id="txtMemo"  class="txt c1" style="height: 50px;" > </textarea></td>
 						<td class="td5" ><span> </span>
-							<a id='lblRc2no' class="lbl"> </a>
+							<a id='lblAccc' class="lbl btn"> </a><!--<a id='lblRc2no' class="lbl"> </a>-->
 							<p style="height:1%;"> </p><span> </span>
 							<a id='lblWorker' class="lbl"> </a>
 						</td>
 						<td class="td6" >
-							<input id="txtRc2no"  type="text" class="txt c1"/>
+							<input id="txtAccno"  type="text" class="txt c1"/>
+							<!--<input id="txtRc2no"  type="text" class="txt c1"/>-->
 							<p style="height:1%;"> </p>
 							<input id="txtWorker"  type="text" class="txt c1"/>
 							<input id="txtWorker2"  type="text" class="txt c1" style="display:none;"/>
