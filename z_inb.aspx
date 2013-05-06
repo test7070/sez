@@ -20,42 +20,23 @@
             }
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_bank');   
+                q_gf('', 'z_inb');   
             });
-            function q_gfPost() {
-                $('#q_report').q_report({
-                    fileName : 'z_bank',
-                    options : [{
-                        type : '0',
-                        name : 'accy',
-                        value : r_accy+"_"+r_cno
-                    }, {
-                        type : '1',
-                        name : 'date'
-                    }, {
-                        type : '2',
-                        name : 'acc',
-                        dbf : 'acc',
-                        index : 'acc1,acc2',
-                        src :  "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno
-                    }, {/*28*/
-                            type : '5',
-                            name : 'xsort1',//[11]
-                            value : q_getMsg('tsort1').split('&')
-                        }]
+			function q_gfPost() {
+				$('#q_report').q_report({
+					fileName : 'z_inb',
+					options : [{
+						type : '0',
+						name : 'accy',
+						value : r_accy
+					}, {
+						type : '1',
+						name : 'xdate'
+					}]
                 });
                 q_popAssign();
-                $('#txtAcc1a').change(function(e) {
-                    var patt = /^(\d{4})([^\.,.]*)$/g;
-                    $(this).val($(this).val().replace(patt,"$1.$2"));
-        		});
-        		$('#txtAcc2a').change(function(e) {
-                    var patt = /^(\d{4})([^\.,.]*)$/g;
-                    $(this).val($(this).val().replace(patt,"$1.$2"));
-        		});
-
-                $('#txtDate1').mask('99/99');
-                $('#txtDate2').mask('99/99');
+                $('#txtXdate1').mask('999/99/99');
+                $('#txtXdate2').mask('999/99/99');
                  var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
@@ -65,7 +46,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate1').val(t_month+'/'+t_day);
+	                $('#txtXdate1').val(t_year+'/'+t_month+'/'+t_day);
 	                
 	                t_date = new Date();
 	                t_date.setDate(35);
@@ -76,7 +57,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtDate2').val(t_month+'/'+t_day);
+	                $('#txtXdate2').val(t_year+'/'+t_month+'/'+t_day);
             }
 		</script>
 	</head>
@@ -88,6 +69,11 @@
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
 				<div id="q_report"> </div>
+			</div>
+			<div id="Notice" style="display: block;">
+				<span style="margin-left:5px;">
+					<font color="red">**大張報表紙(US Std Fanfold) 直印**</font>
+				</span>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
