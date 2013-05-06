@@ -88,6 +88,13 @@
                 q_cmbParse("cmbCtype", ('').concat(new Array( '貨櫃','平板','散裝')));
                 q_cmbParse("cmbStype", q_getPara('vcc.stype'));
                 q_cmbParse("cmbUnit", q_getPara('sys.unit'));
+                q_cmbParse("combMemo", ('').concat(q_getMsg('combmemo').split('&')));
+                $('#combMemo').click(function(e){
+					if(q_cur==1 || q_cur==2){
+						$('#txtMemo').val($('#combMemo>option:selected').text()+$('#txtMemo').val());
+						$('#combMemo').val(0);
+					}                	
+                });
                 $("#cmbStype").focus(function() {
                     var len = $("#cmbStype").children().length > 0 ? $("#cmbStype").children().length : 1;
                     $("#cmbStype").attr('size', len + "");
@@ -825,7 +832,7 @@
 						<td colspan="5">
 						<input type="text" id="txtMemo" class="txt c1"/>
 						</td>
-						<td><span> </span><a id="lblCancel" class="lbl"> </a></td>
+						<td><select id="combMemo" style="float:left;width:20px;"> </select><span> </span><a id="lblCancel" class="lbl"> </a></td>
 						<td>
 						<input type="text" id="txtCancel" class="txt c1"/>
 						</td>
