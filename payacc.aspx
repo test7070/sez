@@ -113,7 +113,12 @@
 		         
 		         $('#btnLabpay').click(function (e) {
 		         	var t_where = "where=^^ ";
-		           	t_where+="(b.sales='"+r_name+"')"
+		         	if($('#txtTggno').val().indexOf('-')>-1){
+		         		var salesno=$('#txtTggno').val().substr($('#txtTggno').val().indexOf('-')+1,$('#txtTggno').val().length)
+		         		t_where+="(b.salesno='"+salesno+"')"
+		         	}else{
+		         		t_where+="(b.sales='"+r_name+"')"
+		         	}
 		            t_where+=" and CHARINDEX('代收',a.product)>0";
 		            t_where+=" group by a.custno,a.noa,a.product";
 		            //unpay t_where+=" HAVING (sum(a.money) -isnull((select sum(paysale) from payaccs where rc2no=a.noa and memo2=a.product+';'+a.custno),0))!=0 ^^";
