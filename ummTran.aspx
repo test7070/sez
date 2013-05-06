@@ -378,7 +378,7 @@
                     				checkGqb_bbs(t_sel-1);
                     			}
                     			else if(t_isExist && t_msg.length>0){
-                    				alert('票據重覆。'+String.fromCharCode(13)+t_msg);
+                    				alert('請由以下單據修改。'+String.fromCharCode(13)+t_msg);
                     				Unlock();
                     			}else if(t_msg.length>0){
                     				alert(t_msg);
@@ -423,7 +423,7 @@
                     			if(t_isExist && t_msg.length==0){
                     				Unlock();
                     			}else if(t_isExist && t_msg.length>0){
-                    				alert('票據重覆。'+String.fromCharCode(13)+t_msg);
+                    				alert('請由以下單據修改。'+String.fromCharCode(13)+t_msg);
                     				Unlock();
                     			}else if(t_msg.length>0){
                     				alert(t_msg);
@@ -560,7 +560,7 @@
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
 
-                q_box('umm_s.aspx', q_name + '_s', "600px", "500px", q_getMsg("popSeek"));
+                q_box('umm_s.aspx', q_name + '_s', "600px", "550px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {

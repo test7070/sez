@@ -164,7 +164,7 @@
                                 if (t_isExist && t_msg.length == 0) {
                                     checkGqb_bbs(t_sel - 1);
                                 } else if (t_isExist && t_msg.length > 0) {
-                                    alert('票據重覆。' + String.fromCharCode(13) + t_msg);
+                                    alert('資料異常。' + String.fromCharCode(13) + t_msg);
                                     Unlock();
                                 } else if (t_msg.length > 0) {
                                     alert(t_msg);

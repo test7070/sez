@@ -162,7 +162,7 @@
 		    }
 
 		    function getOpay() {
-		    	Lock();
+		    	Lock(1,{opacity:0});
 		        var t_tggno = $('#txtTggno').val();
 		        var s2 = (q_cur == 2 ? " and noa!='" + $('#txtNoa').val() + "'" : '');
 		        var t_where = "where=^^tggno='" + t_tggno + "'" + s2 + "^^";
@@ -243,7 +243,7 @@
 
 		                $('#textOpay').val(s1);
 		                $('#textOpayOrg').val(s1);
-						Unlock();
+						Unlock(1);
 		                break;
 		            case 'pay_tre':
 		                for (var i = 0; i < q_bbsCount; i++) {
@@ -331,7 +331,7 @@
                     				checkGqb_bbs(t_sel-1);
                     			}
                     			else if(t_isExist && t_msg.length>0){
-                    				alert('票據重覆。'+String.fromCharCode(13)+t_msg);
+                    				alert('請由以下單據修改。'+String.fromCharCode(13)+t_msg);
                     				Unlock();
                     			}else if(t_msg.length>0){
                     				alert(t_msg);
@@ -376,7 +376,7 @@
                     			if(t_isExist && t_msg.length==0){
                     				Unlock();
                     			}else if(t_isExist && t_msg.length>0){
-                    				alert('票據重覆。'+String.fromCharCode(13)+t_msg);
+                    				alert('請由以下單據修改。'+String.fromCharCode(13)+t_msg);
                     				Unlock();
                     			}else if(t_msg.length>0){
                     				alert(t_msg);

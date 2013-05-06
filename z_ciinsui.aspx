@@ -38,6 +38,12 @@
                         src : 'cicar_b.aspx'
                     }, {
                         type : '2',
+                        name : 'xcust',
+                        dbf : 'cicust',
+                        index : 'noa,cust',
+                        src : 'cicust_b.aspx'
+                    }, {
+                        type : '2',
                         name : 'xcardealno',
                         dbf : 'cicardeal',
                         index : 'noa,cardeal',
@@ -50,10 +56,10 @@
                         src : 'ciinsucomp_b.aspx'
                     },{
                         type : '1',
-                        name : 'xdate'
+                        name : 'bdate'
                     },{
                         type : '1',
-                        name : 'sdate'
+                        name : 'edate'
                     }, {
                         type : '2',
                         name : 'xsales',

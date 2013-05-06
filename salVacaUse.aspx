@@ -347,7 +347,7 @@
             }
 
             function btnPrint() {
- 				q_box('z_salvacause.aspx', '', "95%", "650px", q_getMsg("popPrint"));
+ 				q_box('z_salvacause.aspx'+ "?;;;;" + ";noa="+ $('#txtNoa').val(), '', "95%", "650px", q_getMsg("popPrint"));
             }
 
             function btnOk() {

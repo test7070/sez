@@ -604,38 +604,7 @@
                 return 0;
                 //錯誤
             }
-            function Lock() {
-                var t_width = document.body.offsetWidth > document.body.scrollWidth ? document.body.offsetWidth : document.body.scrollWidth;
-                var t_height = document.body.offsetHeight > document.body.scrollHeight ? document.body.offsetHeight : document.body.scrollHeight;
-                if ($('#divLock').length == 0)
-                    $('body').append('<div id="divLock"> </div>');
-                $('#divLock').css('width', t_width).css('height', t_height);
-                $('#divLock').css('background', 'black').css('opacity', 0.2);
-                $('#divLock').css('display', '').css('position', 'absolute').css('top', 0).css('left', 0).focus();
-            	addResizeEvent(function(){
-            		if($('#divLock').css('display')!='none')
-            			return;
-            		var t_width = document.body.offsetWidth > document.body.scrollWidth ? document.body.offsetWidth : document.body.scrollWidth;
-                	var t_height = document.body.offsetHeight > document.body.scrollHeight ? document.body.offsetHeight : document.body.scrollHeight;
-            		$('#divLock').css('width', t_width).css('height', t_height);
-            	});
-            }
-			function Unlock() {
-				$('#divLock').css('display', 'none');
-			}		
-            function addResizeEvent(func) {
-                var oldonresize = window.onresize;
-                if ( typeof window.onresize != 'function') {
-                    window.onresize = func;
-                } else {
-                    window.onresize = function() {
-                        if (oldonresize) {
-                            oldonresize();
-                        }
-                        func();
-                    }
-                }
-            }
+            
 		</script>
 		<style type="text/css">
             #dmain {
