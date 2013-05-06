@@ -20,7 +20,7 @@
             }
 
             var q_name = "gqb";
-            var q_readonly = ['txtTdate','txtEnda','txtTbankno','txtTbank','txtTacc1','txtEndaccno','txtAcc1','txtBkaccno'];
+            var q_readonly = ['txtWorker','txtWorker2','txtTdate','txtEnda','txtTbankno','txtTbank','txtTacc1','txtEndaccno','txtAcc1','txtBkaccno'];
             var bbmNum = [['txtMoney', 10, 0]];
             var bbmMask = [['txtDatea', '999/99/99'], ['txtIndate', '999/99/99'], ['txtTdate', '999/99/99']];
             q_sqlCount = 6;
@@ -105,7 +105,7 @@
                     				save();
                     			}
                     			else if(t_isExist && t_msg.length>0){
-                    				alert('票據重覆。'+String.fromCharCode(13)+t_msg);
+                    				alert('請由以下單據修改。'+String.fromCharCode(13)+t_msg);
                     				Unlock();
                     			}else if(t_msg.length>0){
                     				alert(t_msg);
@@ -155,7 +155,7 @@
                     			if(t_isExist && t_msg.length==0){
                     				Unlock();
                     			}else if(t_isExist && t_msg.length>0){
-                    				alert('票據重覆。'+String.fromCharCode(13)+t_msg);
+                    				alert('請由以下單據修改。'+String.fromCharCode(13)+t_msg);
                     				Unlock();
                     			}else if(t_msg.length>0){
                     				alert(t_msg);
@@ -243,6 +243,13 @@
         		}
             }
             function save(){
+            	if(q_cur ==1){
+	            	$('#txtWorker').val(r_name);
+	            }else if(q_cur ==2){
+	            	$('#txtWorker2').val(r_name);
+	            }else{
+	            	alert("error: btnok!")
+	            }
             	var t_date = trim($('#txtIndate').val());
                 var tt_gqbno = trim($('#txtGqbno').val());
                 var t_noa = trim($('#txtNoa').val());
@@ -566,6 +573,12 @@
 						<td colspan="2"><input id="txtAcc1"  type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblBkaccno' class="lbl"> </a></td>
 						<td><input id="txtBkaccno"  type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+						<td><input id="txtWorker"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
+						<td><input id="txtWorker2"  type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>

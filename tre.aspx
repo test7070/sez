@@ -99,6 +99,7 @@
 		            	}
 						$(this).attr('disabled','disabled');
 						$(this).val('Watting...');
+						Lock();
 	                	q_func('tre.import',r_accy+','+$('#cmbCarteamno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
                 	}
                 });
@@ -118,8 +119,10 @@
             function q_funcPost(t_func, result) {
                 switch(t_func) {
                     case 'tre.import':
-						if(result.length==0)
+						if(result.length==0){
 							alert('No data!');
+							Unlock();
+						}
 						else
 							location.reload();
                         break;

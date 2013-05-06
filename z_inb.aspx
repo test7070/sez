@@ -15,71 +15,29 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
-		aPop = new Array(['txtXcarno', '', 'cicar', 'a.noa,cust', 'txtXcarno', 'cicar_b.aspx'],
-						 ['txtXcardealno', '', 'cicardeal', 'noa,comp', 'txtXcardealno', 'cardeal_b.aspx'],
-						 ['txtXinsurerno', '', 'ciinsucomp', 'noa,insurer', 'txtXinsurerno', 'ciinsucomp_b.aspx'],
-						  ['txtXsales', '', 'cisale', 'noa,namea', 'txtXsales', 'cisale_b.aspx']
-		);
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_ciinsui');   
+                q_gf('', 'z_inb');   
             });
-            function q_gfPost() {
-                $('#q_report').q_report({
-                    fileName : 'z_ciinsui',
-                    options : [{
-                        type : '2',
-                        name : 'xcarno',
-                        dbf : 'cicar',
-                        index : 'a.noa,cust',
-                        src : 'cicar_b.aspx'
-                    }, {
-                        type : '2',
-                        name : 'xcust',
-                        dbf : 'cicust',
-                        index : 'noa,cust',
-                        src : 'cicust_b.aspx'
-                    }, {
-                        type : '2',
-                        name : 'xcardealno',
-                        dbf : 'cicardeal',
-                        index : 'noa,cardeal',
-                        src : 'cicardeal_b.aspx'
-                    }, {
-                        type : '2',
-                        name : 'xinsurerno',
-                        dbf : 'ciinsucomp',
-                        index : 'noa,insurer',
-                        src : 'ciinsucomp_b.aspx'
-                    },{
-                        type : '1',
-                        name : 'bdate'
-                    },{
-                        type : '1',
-                        name : 'edate'
-                    }, {
-                        type : '2',
-                        name : 'xsales',
-                        dbf : 'cisale',
-                        index : 'noa,namea',
-                        src : 'cisale_b.aspx'
-                    }]
+			function q_gfPost() {
+				$('#q_report').q_report({
+					fileName : 'z_inb',
+					options : [{
+						type : '0',
+						name : 'accy',
+						value : r_accy
+					}, {
+						type : '1',
+						name : 'xdate'
+					}]
                 });
-                q_langShow();
-	                q_popAssign();
-                $('#txtBdate1').mask('999/99/99');
-                $('#txtBdate1').datepicker();
-                $('#txtBdate2').mask('999/99/99');
-                $('#txtBdate2').datepicker();
-                $('#txtEdate1').mask('999/99/99');
-                $('#txtEdate1').datepicker();
-                $('#txtEdate2').mask('999/99/99');
-                $('#txtEdate2').datepicker();
-                
-                var t_date,t_year,t_month,t_day;
+                q_popAssign();
+                $('#txtXdate1').mask('999/99/99');
+                $('#txtXdate2').mask('999/99/99');
+                 var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
 	                t_year = t_date.getUTCFullYear()-1911;
@@ -88,7 +46,8 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtEdate1').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtXdate1').val(t_year+'/'+t_month+'/'+t_day);
+	                
 	                t_date = new Date();
 	                t_date.setDate(35);
 	                t_date.setDate(0);
@@ -98,7 +57,7 @@
 	                t_month = t_month>9?t_month+'':'0'+t_month;
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
-	                $('#txtEdate2').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtXdate2').val(t_year+'/'+t_month+'/'+t_day);
             }
 		</script>
 	</head>
@@ -110,6 +69,11 @@
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
 				<div id="q_report"> </div>
+			</div>
+			<div id="Notice" style="display: block;">
+				<span style="margin-left:5px;">
+					<font color="red">**大張報表紙(US Std Fanfold) 直印**</font>
+				</span>
 			</div>
 			<div class="prt" style="margin-left: -40px;">
 				<!--#include file="../inc/print_ctrl.inc"-->
