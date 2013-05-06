@@ -374,6 +374,7 @@
                 _btnIns();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
+                $('#chkEnda').prop('checked',false);
                 $('#txtDatea').focus();
                 display();
             }
