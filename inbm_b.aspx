@@ -83,8 +83,11 @@
 				$("#combBommemo").live("change",function(){
 					if(q_cur == 2){
 						var t_where = '';
-						t_where = "where=^^ noa='Test01001' ^^";
-						q_gt('bom', t_where, 0, 0, 0, "",r_accy);
+						var wnoa = $(this).val();
+						if(wnoa != '0'){
+							t_where = "where=^^ noa='" + $(this).val() + "' ^^";
+							q_gt('bom', t_where, 0, 0, 0, "",r_accy);
+						}
 					}
 				});
 				q_gt('ucc', '', 0, 0, 0, "");
@@ -93,14 +96,14 @@
 			function q_gtPost(t_name) {
 				switch (t_name) {
 					case 'ucc':
+						var t_item = "0@請 選 擇 B O M 摘 要";
 						var as = _q_appendData("uccs", "", true);
 						if (as[0] != undefined) {
-							var t_item = "0@請 選 擇 B O M 摘 要";
 							for ( i = 0; i < as.length; i++) {
 								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + as[i].noq + '@' + as[i].memo;
 							}
-							q_cmbParse("combBommemo", t_item);
 						}
+						q_cmbParse("combBommemo", t_item);
 					break;
 					case 'bom':
 						var as = _q_appendData("bom", "", true);
