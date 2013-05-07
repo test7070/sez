@@ -149,9 +149,11 @@
                          }
                          q_cmbParse("cmbCno", t_item);
                          q_cmbParse("cmbCnonick", t_item2);
+                         q_cmbParse("cmbGuarantorno", t_item);
                          if(abbm[q_recno]){
                          	$("#cmbCno").val(abbm[q_recno].cno);
                          	$("#cmbCnonick").val(abbm[q_recno].cno);
+                         	$("#cmbGuarantorno").val(abbm[q_recno].guarantorno);
                          }
                     	break;
                     case q_name:
@@ -211,6 +213,7 @@
                 $('#txtAcomp').val($('#cmbCno').find(":selected").text());
                 $('#cmbCnonick').val($('#cmbCno').val());
                 $('#txtAcompnick').val($('#cmbCnonick').find(":selected").text());
+                $('#txtGuarantor').val($('#cmbGuarantorno').find(":selected").text());
                 
                 if (q_cur == 1)
                     $('#txtWorker').val(r_name);
@@ -554,6 +557,11 @@
 							<input id="txtAcomp"  type="hidden" class="txt" style="width:80%; float: left;"/>
 							<input id="txtAcompnick"  type="hidden" style="display: none;"/>
 						</td>
+						<td ><span> </span><a id="lblGuarantor" class="lbl"> </a></td>
+						<td  colspan="3">
+							<select id="cmbGuarantorno" class="txt c1">
+							<input id="txtGuarantor"  type="hidden"/>
+						</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblSales" class="lbl btn"></a></td>
@@ -606,12 +614,14 @@
 						<td class="tdZ trX"> </td>
 					</tr>
 					<tr>
-						<td class="trX"><span> </span><a id="lblGuarantor" class="lbl"> </a></td>
-						<td class="trX" colspan="3"><input id="txtGuarantor"  type="text"  class="txt c1"/></td>
 						<td class="trX"><span> </span><a id='lblPledgedate' class="lbl"> </a></td>
 						<td class="trX"><input id="txtPledgedate" type="text"  class="txt c1"/></td>
 						<td class="trX"><span> </span><a id='lblPaydate' class="lbl"> </a></td>
 						<td class="trX"><input id="txtPaydate" type="text"  class="txt c1"/></td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
 						<td class="tdZ trX"> </td>
 					</tr>
 					<tr>
