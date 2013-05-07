@@ -554,6 +554,8 @@
 							<input id="txtAcomp"  type="hidden" class="txt" style="width:80%; float: left;"/>
 							<input id="txtAcompnick"  type="hidden" style="display: none;"/>
 						</td>
+						<td ><span> </span><a id="lblGuarantor" class="lbl"> </a></td>
+						<td  colspan="3"><input id="txtGuarantor"  type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblSales" class="lbl btn"></a></td>
@@ -606,12 +608,14 @@
 						<td class="tdZ trX"> </td>
 					</tr>
 					<tr>
-						<td class="trX"><span> </span><a id="lblGuarantor" class="lbl"> </a></td>
-						<td class="trX" colspan="3"><input id="txtGuarantor"  type="text"  class="txt c1"/></td>
 						<td class="trX"><span> </span><a id='lblPledgedate' class="lbl"> </a></td>
 						<td class="trX"><input id="txtPledgedate" type="text"  class="txt c1"/></td>
 						<td class="trX"><span> </span><a id='lblPaydate' class="lbl"> </a></td>
 						<td class="trX"><input id="txtPaydate" type="text"  class="txt c1"/></td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
 						<td class="tdZ trX"> </td>
 					</tr>
 					<tr>
