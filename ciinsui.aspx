@@ -123,7 +123,7 @@
                 $('#txtCarno').focus();
             }
             function btnPrint() {
-            	
+            	q_box('z_ciinsui.aspx'+ "?;;;;" + ";noa="+ $('#txtNoa').val(), '', "90%", "600px", q_getMsg("popPrint"));
             }
             function wrServer(key_value) {
                 var i;

@@ -15,46 +15,46 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-		aPop = new Array(['txtXcustno1', '', 'cust', 'noa,comp', 'txtXcustno1', 'cust_b.aspx'],
-		['txtXcustno2', '', 'cust', 'noa,comp', 'txtXcustno2', 'cust_b.aspx']);
-            if (location.href.indexOf('?') < 0) {
-                location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
-            }
-            $(document).ready(function() {
-                q_gf('', 'z_custtran');
-                q_getId();
-            });
-            function q_gfPost() {
-                $('#q_report').q_report({
-                    fileName : 'z_custtran',
-                    options : [{
-                        type : '0',
-                        name : 'accy',
-                        value : q_getId()[4]
-                    },{/*7*/
-                            type : '1',
-                            name : 'xcustno',
-                        }, {/*13*/
-                        type : '8',
-                        name : 'xoption03',
-                        value : ('sender@寄件人,recipient@收件人').split(',')
-                    }]
-                });
-                q_getFormat();
+			if (location.href.indexOf('?') < 0) {
+				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
+			}
+			$(document).ready(function() {
+				_q_boxClose();
+				q_getId();
+				q_gf('', 'z_accashf');
+			});
+			function q_gfPost() {
+				$('#q_report').q_report({
+					fileName : 'z_accashf',
+					options : [{
+						type : '0',
+						name : 'accy',
+						value : q_getId()[4]
+					},{
+						type : '6',
+						name : 'xnoa'
+					}]
+				});
+				q_popAssign();
                 q_langShow();
-                q_popAssign();
 
-                var t_noa = typeof (q_getId()[5]) == 'undefined' ? '' : q_getId()[5];
-                t_noa = t_noa.replace('noa=', '');
-                $('#txtXcustno1').val(t_noa).width(100);
-                $('#txtXcustno2').val(t_noa).width(100);
-            }
+				var t_noa=typeof(q_getId()[3])=='undefined'?'':q_getId()[3];
+				$('#txtXnoa').val(t_noa);
+			}
+
+			function q_boxClose(t_name) {
+			}
+
+			function q_gtPost(t_name) {
+				
+			}
 		</script>
 	</head>
 	<body ondragstart="return false" draggable="false"
 	ondragenter="event.dataTransfer.dropEffect='none'; event.stopPropagation(); event.preventDefault();"
 	ondragover="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
 	ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();">
+
 		<div id="q_menu"></div>
 		<div style="position: absolute;top: 10px;left:50px;z-index: 1;width:2000px;">
 			<div id="container">
@@ -64,5 +64,6 @@
 				<!--#include file="../inc/print_ctrl.inc"-->
 			</div>
 		</div>
+
 	</body>
 </html>
