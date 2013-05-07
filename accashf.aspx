@@ -49,6 +49,7 @@
             t_money2=0;
             
             //gindex: 00(只有文字顯示),01(資料明細),02(小計),97、98、99固定
+            //gno  對應XLS
             var list = new Array(); 
             list.push({gindex:"00",groupno:"A",gtitle:"營業活動之現金流量：",gno:"1"});
             list.push({gindex:"01",groupno:"A",gtitle:"本期淨利",gno:"3"});
