@@ -153,8 +153,8 @@
 					<td class="td2" align="center" style="width:30%;"><a id='lblProduct_s'></a></td>
 					<td class="td3" align="center" style="width:15%;"><a id='lblGweight_s'></a></td>
 					<td class="td3" align="center" style="width:15%;"><a id='lblWeight_s'></a></td>
-					<td class="td4" align="center" style="width:20%;"><a id='lblPrice_s'></a></td>
-					<td class="td5" align="center" style="width:20%;"><a id='lblMoney_s'></a></td>
+					<td class="td4" align="center" style="width:20%;display: none;"><a id='lblPrice_s'></a></td>
+					<td class="td5" align="center" style="width:20%;display: none;"><a id='lblMoney_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td class="td1" align="center">
@@ -172,10 +172,10 @@
 					<td class="td3">
 						<input class="txt" id="txtWeight.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
-					<td class="td4">
+					<td class="td4" style="display: none;">
 						<input class="txt" id="txtPrice.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
-					<td class="td5">
+					<td class="td5" style="display: none;">
 						<input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
 				</tr>

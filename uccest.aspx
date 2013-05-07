@@ -161,7 +161,16 @@
                 //-------------------------------------------------
             	$('#txtPrice_' + j).focusout(function () { sum(); });
                 $('#txtMount_' + j).focusout(function () { sum(); });
-
+				
+				//20130507如果是廢料則批號=廢料編號
+				$('#txtProductno_' + j).change(function() {
+					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					
+					if($('#txtProductno_'+b_seq).val().substr(0,1)='W' && $('#txtProduct_'+b_seq).val().indexOf('廢料')>-1)
+						$('#txtUno_'+b_seq).val($('#txtProductno_'+b_seq).val());
+				});
             }
         }
 
