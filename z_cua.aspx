@@ -20,11 +20,11 @@
             }
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_inb');   
+                q_gf('', 'z_cua');   
             });
 			function q_gfPost() {
 				$('#q_report').q_report({
-					fileName : 'z_inb',
+					fileName : 'z_cua',
 					options : [{
 						type : '0',
 						name : 'accy',

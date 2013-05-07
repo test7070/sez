@@ -151,8 +151,8 @@
 					</td>
 					<td class="td2" align="center" style="width:40%;"><a id='lblSssno_s'></a></td>
 					<td class="td4" align="center" style="width:20%;"><a id='lblMount_s'></a></td>
-					<td class="td5" align="center" style="width:20%;"><a id='lblPrice_s'></a></td>
-					<td class="td6" align="center" style="width:20%;"><a id='lblTotal_s'></a></td>
+					<td class="td5" align="center" style="width:20%;display: none;"><a id='lblPrice_s'></a></td>
+					<td class="td6" align="center" style="width:20%;display: none;"><a id='lblTotal_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td class="td1" align="center">
@@ -167,10 +167,10 @@
 					<td class="td3">
 						<input class="txt" id="txtMount.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
-					<td class="td4">
+					<td class="td4" style="display: none;">
 						<input class="txt" id="txtPrice.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
-					<td class="td5">
+					<td class="td5" style="display: none;">
 						<input class="txt" id="txtTotal.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
 				</tr>

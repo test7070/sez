@@ -53,60 +53,28 @@
 
 			$('#txtDatea').focus();
 			
-		}  ///  end Main()
-
-	   /* function pop(form) {
-			b_pop = form;
-			switch (form) {
-				case 'ucc': q_pop('txtProductno_' + b_seq, 'ucc_b.aspx', 'ucc', 'noa', 'product', "70%", "650px", q_getMsg('popUcc')); break;
-				case 'store': q_pop('txtStoreno', 'store_b.aspx', 'store', 'noa', 'store', "60%", "650px", q_getMsg('popStore')); break;
-				case 'station': q_pop('txtStationno', 'station_b.aspx', 'station', 'noa', 'station', "60%", "650px", q_getMsg('popStation')); break;
-			}
-		}*/
-
+		} 
 		function mainPost() { // 載入資料完，未 refresh 前
 			q_getFormat();
 			bbmMask = [['txtDatea', r_picd], ['txtCucdate', r_picd]];
 			q_mask(bbmMask);
-
 			q_cmbParse("cmbTypea", q_getPara('worka.typea'));   // 需在 main_form() 後執行，才會載入 系統參數
-
-		   /* $('#btnStore').click(function () { pop('store'); }); /// 接 q_browFill()
-			$('#btnStore').mouseenter(function () { $(this).css('cursor', 'pointer') });
-			$("#txtStoreno").change(function () { q_change($(this), 'store', 'noa', 'noa,store'); }); /// 接 q_gtPost()
-
-			$('#btnStation').click(function () { pop('station'); }); /// 接 q_browFill()
-			$('#btnStation').mouseenter(function () { $(this).css('cursor', 'pointer') });
-			$("#txtStationno").change(function () { q_change($(this), 'station', 'noa', 'noa,station'); }); /// 接 q_gtPost()
-
-			$('#btnquat').click(function () { btnquat(); });*/
+			/*$('#btnquat').click(function () { btnquat(); });*/
 			$('#btnCuaimport').click(function(){
-				
+				var t_where = '';
+				var ordeno = $('#txtOrdeno').val();
+				if(ordeno && ordeno.length >0){
+					t_where = "where=^^ ordeno='" + ordeno + "' ^^";
+					q_gt('cua_cuas',t_where , 0, 0, 0, "", r_accy);
+				}else{
+					alert('請輸入' + q_getMsg('lblOrdeno'));
+				}
 			});
 		}
 
 		function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
 			var ret; 
 			switch (b_pop) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
-				case 'tgg':  ////  直接 key in 編號，帶入 form
-					q_changeFill(t_name, 'txtTggno,txtComp,txtTel,txtPost,txtAddr,txtPay,cmbTrantype', 'noa,comp,tel,post_fact,addr_fact,pay,trantype');
-					break;
-
-				case 'ucc':
-					ret = getb_ret();
-					if (q_cur > 0 && q_cur < 4) q_browFill('txtProductno_' + b_seq + ',txtProduct_' + b_seq, ret, 'noa,product');
-					break;
-
-				case 'store':
-					ret = getb_ret();
-					if (q_cur > 0 && q_cur < 4) q_browFill('txtStoreno,txtStore', ret, 'noa,store');
-					break;
-
-				case 'station':
-					ret = getb_ret();
-					if (q_cur > 0 && q_cur < 4) q_browFill('txtStationno,txtStation', ret, 'noa,station');
-					break;
-
 				case 'ordes':
 					if (q_cur > 0 && q_cur < 4) {
 						b_ret = getb_ret();
@@ -143,38 +111,18 @@
 
 		function q_gtPost(t_name) {  /// 資料下載後 ...
 			switch (t_name) {
-				case 'ucc':  ////  直接 key in 編號，帶入 form
-					q_changeFill(t_name, 'txtProductno_' + b_seq + ',txtProduct_' + b_seq + ',txtUnit_' + b_seq, 'noa,product,unit');
+				case 'cua_cuas':
+					var as = _q_appendData("cua_cuas", "", true);
+					if(as[0]!=undefined){
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProduct,txtProductno,txtUnit,txtMount', 1, as,
+						 'product,productno,unit,cuamount', 'txtProductno');
+					}
 					break;
-
-				case 'store':  ////  直接 key in 編號，帶入 form
-					q_changeFill(t_name, 'txtStoreno,txtStore', 'noa,store');
-					break;
-
-				case 'station':  ////  直接 key in 編號，帶入 form
-					q_changeFill(t_name, 'txtStationno,txtStation', 'noa,station');
-					break;
-
 				case q_name: if (q_cur == 4)   // 查詢
-						q_Seek_gtPost();
+					q_Seek_gtPost();
 					break;
-			}  /// end switch
+				}  /// end switch
 		}
-		
-//		function btnquat() {
-//			var t_custno = trim($('#txtCustno').val());
-//			var t_where='';
-//			if (t_custno.length > 0) {
-//				t_where = "enda='N' && " + (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");  ////  sql AND 語法，請用 &&  
-//				t_where =  t_where ;
-//			}
-//			else {
-//				alert(q_getMsg('msgCustEmp'));
-//				return;
-//			}
-
-//			q_box('ordes_b.aspx', 'ordes;' + t_where , "95%", "650px", "報價視窗");
-//		}
 
 		function btnOk() {
 			t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // 檢查空白 
@@ -198,9 +146,6 @@
 				return;
 
 			q_box('worka_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
-		}
-
-		function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
 		}
 
 		function bbsAssign() {  /// 表身運算式
@@ -255,16 +200,6 @@
 			q_nowf();
 			as['date'] = abbm2['date'];
 			as['custno'] = abbm2['custno'];
-//			t_err ='';
-//			if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-//				t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-//			
-//			if (t_err) {
-//				alert(t_err)
-//				return false;
-//			}
-//			
 			return true;
 		}
 

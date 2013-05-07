@@ -32,7 +32,6 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'noa';
-            q_desc = 1;
             brwCount2 = 7;
             aPop = new Array(
             	['txtProductno__', 'btnProductno__', 'ucc', 'noa,product', 'txtProductno__,txtProduct__', 'ucc_b.aspx'],

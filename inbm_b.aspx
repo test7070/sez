@@ -52,6 +52,7 @@
 				q_getFormat();
 				bbsMask = [];
 		        q_mask(bbsMask);
+		        CreateBomComb();
 			}
 		
 		    function bbsAssign() {
@@ -73,7 +74,44 @@
 					}
 		        _bbsAssign();
 		    }
-		
+			
+			function CreateBomComb(){
+				var comb_str;
+				comb_str = '<select id="combBommemo" style="margin-right: 50px;"></select>';
+				/*要放在btnTop之前 */
+				$('#btnTop').before(comb_str);
+				$("#combBommemo").live("change",function(){
+					if(q_cur == 2){
+						var t_where = '';
+						var wnoa = $(this).val();
+						if(wnoa != '0'){
+							t_where = "where=^^ noa='" + $(this).val() + "' ^^";
+							q_gt('bom', t_where, 0, 0, 0, "",r_accy);
+						}
+					}
+				});
+				q_gt('ucc', '', 0, 0, 0, "");
+			}
+
+			function q_gtPost(t_name) {
+				switch (t_name) {
+					case 'ucc':
+						var t_item = "0@請 選 擇 B O M 摘 要";
+						var as = _q_appendData("uccs", "", true);
+						if (as[0] != undefined) {
+							for ( i = 0; i < as.length; i++) {
+								t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + as[i].noq + '@' + as[i].memo;
+							}
+						}
+						q_cmbParse("combBommemo", t_item);
+					break;
+					case 'bom':
+						var as = _q_appendData("bom", "", true);
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProduct,txtProductno', as.length, as, 'product,productno', '');
+					break;
+                }
+            }
+            
 		    function btnOk() {
 		        sum();
 		
@@ -111,10 +149,6 @@
 		    }
 		    function sum() { }
 		
-		    function q_gtPost(t_postname) {
-		
-		    }
-		
 		    function readonly(t_para, empty) {
 		        _readonly(t_para, empty);
 		    }
@@ -140,7 +174,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="dbbs"  >
+		<div id="dbbs">
 			<!--#include file="../inc/pop_modi.inc"-->
 			<table id="tbbs" class='tbbs'  border="2"  cellpadding='2' cellspacing='1' style='width:100%'  >
 				<tr style='color:white; background:#003366;' >
@@ -153,8 +187,8 @@
 					<td class="td2" align="center" style="width:30%;"><a id='lblProduct_s'></a></td>
 					<td class="td3" align="center" style="width:15%;"><a id='lblGweight_s'></a></td>
 					<td class="td3" align="center" style="width:15%;"><a id='lblWeight_s'></a></td>
-					<td class="td4" align="center" style="width:20%;"><a id='lblPrice_s'></a></td>
-					<td class="td5" align="center" style="width:20%;"><a id='lblMoney_s'></a></td>
+					<td class="td4" align="center" style="width:20%;display: none;"><a id='lblPrice_s'></a></td>
+					<td class="td5" align="center" style="width:20%;display: none;"><a id='lblMoney_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td class="td1" align="center">
@@ -172,10 +206,10 @@
 					<td class="td3">
 						<input class="txt" id="txtWeight.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
-					<td class="td4">
+					<td class="td4" style="display: none;">
 						<input class="txt" id="txtPrice.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
-					<td class="td5">
+					<td class="td5" style="display: none;">
 						<input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
 				</tr>
