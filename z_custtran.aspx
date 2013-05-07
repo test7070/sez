@@ -15,6 +15,8 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
+		aPop = new Array(['txtXcustno1', '', 'cust', 'noa,comp', 'txtXcustno1', 'cust_b.aspx'],
+		['txtXcustno2', '', 'cust', 'noa,comp', 'txtXcustno2', 'cust_b.aspx']);
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
             }
@@ -29,10 +31,10 @@
                         type : '0',
                         name : 'accy',
                         value : q_getId()[4]
-                    }, {
-                        type : '6',
-                        name : 'xcustno'
-                    }, {/*13*/
+                    },{/*7*/
+                            type : '1',
+                            name : 'xcustno',
+                        }, {/*13*/
                         type : '8',
                         name : 'xoption03',
                         value : ('sender@寄件人,recipient@收件人').split(',')
@@ -44,7 +46,8 @@
 
                 var t_noa = typeof (q_getId()[5]) == 'undefined' ? '' : q_getId()[5];
                 t_noa = t_noa.replace('noa=', '');
-                $('#txtXcustno').val(t_noa);
+                $('#txtXcustno1').val(t_noa).width(100);
+                $('#txtXcustno2').val(t_noa).width(100);
             }
 		</script>
 	</head>
