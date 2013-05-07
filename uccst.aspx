@@ -48,7 +48,7 @@
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
-                    case q_name + '_s':
+                    case q_name + 'st_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
                         break;
@@ -67,6 +67,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
+                q_box(q_name+'st_s.aspx', q_name + '_s', "500px", "330px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
@@ -294,7 +295,7 @@
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='noa' style="text-align: center;">~noa</td>
-						<td id='namea' style="text-align: left;">~namea</td>
+						<td id='product' style="text-align: left;">~product</td>
 					</tr>
 				</table>
 			</div>
@@ -312,8 +313,8 @@
 						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblNamea_st' class="lbl"> </a></td>
-						<td colspan="2"><input id="txtNamea"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblProduct_st' class="lbl"> </a></td>
+						<td colspan="2"><input id="txtProduct"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSpec_st' class="lbl"> </a></td>
