@@ -582,5 +582,38 @@
 			</table>
 		</div>
 		<input id="q_sys" type="hidden" />
+		<div id="dbbt" >
+			<table id="tbbt">
+				<tbody>
+					<tr class="head" style="color:white; background:#003366;">
+						<td style="width:60px;">
+						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
+						</td>
+						<td style="width:20px;"></td>
+						<td style="width:120px; text-align: center;">會計科目</td>
+						<td style="width:120px; text-align: center;">項目</td>
+						<td style="width:80px; text-align: center;">借貸設定</td>
+						<td style="width:100px; text-align: center;">金額</td>
+						<td style="width:100px; text-align: center;">小計</td>
+					</tr>
+					<tr>
+						<td align="center">
+						<input class="btn"  id="btnMinus..*" type="button" value='-' style=" font-weight: bold;display: none;" />
+						<input class="btn"  id="btnPlusX..*" type="button" value='+' style="font-weight: bold;"  />
+						<input id="txtNoq..*" type="text" style="display: none;" />
+						<input id="txtSel..*" type="text" style="display: none;" />
+						<input id="txtGno..*" type="text" style="display: none;" />
+						<input id="txtGindex..*" type="text" style="display: none;" />
+						</td>
+						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+						<td><input id="txtAcc1..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtGtitle..*"  type="text" style="width:95%; text-align: right;"/></td>
+						<td><select id="cmbDc" style="width:95%;"> </select></td>
+						<td><input id="txtMoney1..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtMoney2..*" type="text" style="width:95%;"/></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</body>
 </html>
