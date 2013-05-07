@@ -139,8 +139,8 @@
             
             function q_funcPost(t_func, result) {
             	if(changenoa==true){
-		        	location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";a.noa>'"+$('#txtChangecarno').val()+"';"+r_accy;
-		        	alert('功能執行完畢');
+		        	location.href = location.origin+location.pathname+"?" + r_userno + ";" + r_name + ";" + q_id + ";a.noa>='"+$('#txtChangecarno').val()+"';"+r_accy;
+		        	alert('更換車牌成功!!');
 		        	changenoa=false;
 		        }
 		    } //endfunction
