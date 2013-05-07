@@ -15,7 +15,7 @@
 		    var q_name = "payacc";
 		    var q_readonly = ['txtNoa', 'txtWorker', 'txtAccno','txtSale','txtTotal','txtPaysale','txtUnpay','txtOpay','textOpay','txtWorker2'];
 		    var q_readonlys = ['txtRc2no', 'txtUnpay', 'txtUnpayorg', 'txtAcc2', 'txtPart2','txtMemo2'];
-		    var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtOpay', 10, 0, 1], ['txtUnopay', 10, 0, 1], ['textOpay', 10, 0, 1]);
+		    var bbmNum = new Array(['txtSale', 10, 0, 1], ['txtTotal', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1]);
 		    var bbsNum = [['txtMoney', 10, 0, 1], ['txtChgs', 10, 0, 1], ['txtPaysale', 10, 0, 1], ['txtUnpay', 10, 0, 1], ['txtUnpayorg', 10, 0, 1]];
 		    var bbmMask = [];
 		    var bbsMask = [];
@@ -25,7 +25,7 @@
 		    brwCount2 = 5;
 		    brwList = [];
 		    brwNowPage = 0;
-		    brwKey = 'Datea';
+		    brwKey = 'Noa';
 		    aPop = new Array(
             ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtComp', 'tgg_b.aspx'],
              ['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_,txtMoney_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
@@ -123,10 +123,9 @@
 		         	}else{
 		         		t_where+="(b.sales='"+r_name+"')"
 		         	}
-		         		
-		            t_where+=" and CHARINDEX('代收',a.product)>0 and b.datea>='102/05/01' and a.productno='"+$('#cmbProductno').val()+"'";
+		         	
+		            t_where+=" and CHARINDEX('代收',a.product)>0  and b.datea>='102/05/01' and a.productno='"+$('#cmbProductno').val()+"'";
 		            t_where+=" group by a.custno,a.noa,a.productno,a.memo,a.comp";
-		            //unpay t_where+=" HAVING (sum(a.money) -isnull((select sum(paysale) from payaccs where rc2no=a.noa and memo2=a.product+';'+a.custno),0))!=0 ^^";
 		            
 		            q_gt('payacc_labpay', t_where, 0, 0, 0, "", r_accy);
 		        });
@@ -200,6 +199,9 @@
 		                        t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].product;
 		                    }
 		                    q_cmbParse("cmbProductno", t_item);
+		                    if (abbm[q_recno]) {
+	                        	$("#cmbProductno").val(abbm[q_recno].productno);
+	                        }
 		                }
 		                break;
 		            case q_name:
@@ -255,12 +257,6 @@
             	$('#txtPart2').val(t_part);
             	$('#txtCheckno').val(t_checkno);
             	
-		        //$('#txtAcomp').val($('#cmbCno').find(":selected").text());
-				$('#txtMon').val($.trim($('#txtMon').val()));
-					if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
-						alert(q_getMsg('lblMon')+'錯誤。');   
-						return;
-				} 		
 		        var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // 檢查空白 
 		        if (t_err.length > 0) {
 		            alert(t_err);
@@ -272,8 +268,8 @@
 		        	t_money+=q_float('txtMoney_' + j);
 		        }
 		        
-		        if ($.trim($('#txtCustno').val()) == 0) {
-		            alert(m_empty + q_getMsg('lblTggno'));
+		        if ($.trim($('#txtTggno').val()) == 0) {
+		            alert(m_empty + q_getMsg('lblTgg'));
 		            return false;
 		        }
 
@@ -371,14 +367,14 @@
 		                sum();
 		            });
 		            
-		            $('#chkSel_' + i).click(function () {
+		            $('#chkIssel_' + i).click(function () {
 	                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 	                    q_bodyId($(this).attr('id'));
 	                    b_seq = t_IdSeq;
-						 if($('#chkSel_' +b_seq)[0].checked){	//判斷是否被選取
-		                	$('#trSel_'+ b_seq).addClass('chksel');//變色
+						 if($('#chkIssel_' +b_seq)[0].checked){	//判斷是否被選取
+		                	$('#trSel_'+ b_seq).addClass('chkIssel');//變色
 		                }else{
-		                	$('#trSel_'+b_seq).removeClass('chksel');//取消變色
+		                	$('#trSel_'+b_seq).removeClass('chkIssel');//取消變色
 		                }
 	                });
 		        }
@@ -431,6 +427,15 @@
 		        }else{
 		        	$("#btnAuto").attr("disabled","disabled");
 		        }
+		        
+		        for (var i = 0; i < q_bbsCount; i++) {
+		        	if($('#chkIssel_' +i)[0].checked){	//判斷是否被選取
+		               	$('#trSel_'+ i).addClass('chkIssel');//變色
+		            }else{
+		            	$('#trSel_'+i).removeClass('chkIssel');//取消變色
+					}
+				}
+		        
 		    }
 
 		    function readonly(t_para, empty) {
@@ -615,7 +620,7 @@
             .num {
                 text-align: right;
             }
-            .tbbs tr.chksel { background:bisque;} 
+            .tbbs tr.chkIssel { background:bisque;} 
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -638,7 +643,7 @@
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
 						<td align="center" id='datea'>~datea</td>
-						<td align="center" id='comp,4'>~comp,4</td>
+						<td align="center" id='comp'>~comp</td>
 						<td id='total,0,1' style="text-align: right;">~total,0,1</td>
 					</tr>
 				</table>
@@ -732,7 +737,7 @@
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					<input id="txtNoq.*" type="text" style="display: none;" />
 					</td>
-					<td ><input id="chkSel.*" type="checkbox"/></td>
+					<td ><input id="chkIssel.*" type="checkbox"/></td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td>
 					<input type="text" id="txtCustno.*" style="width:95%;"/>
@@ -748,8 +753,8 @@
 					<input type="text" id="txtUnpayorg.*" style="text-align:right;width:95%;"/>
 					</td>
 					<td>
-						<input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                         <input type="text" id="txtAcc1.*"  style="width:85%; float:left;"/>
+                        <input class="btn"  id="btnAcc.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                         <span style="display:block; width:1%;float:left;"> </span>
 						<input type="text" id="txtAcc2.*"  style="width:85%; float:left;"/>
 					</td>
