@@ -83,7 +83,7 @@
 			q_mask(bbmMask);
 			q_gt('part', '', 0, 0, 0, "");
 			change_cur();
-			q_cmbParse("cmbSingcon", q_getPara('sign.process'));
+			//q_cmbParse("cmbSingcon", q_getPara('sign.process'));
 			$("#combPartno").change(function() {
 				combtodo($(this));
 			});
@@ -504,12 +504,15 @@
 					<input id="txtPartno" type="text" class="txt c2" />
 					<input id="txtPart" type="text" class="txt c3" />
 				</td>
-				<td class="td7">
-					<span> </span><a id='lblSingcon' class="lbl"> </a>
+				<td class="td7" align="right">
+					<input id="chkSignprocess" type="checkbox" />
+					<span> </span><a id='lblSignprocess' class="lbl"> </a>
 				</td>
+				<!--
 				<td class="td8">
 					<select id="cmbSingcon" class="txt c1"> </select>
 				</td>
+				-->
 			</tr>
 			<tr>
 				<td class="td1" align="right">
@@ -724,6 +727,11 @@
 				<td class="td2" colspan="3">
 					<input id="txtSigncon"  type="text" class="txt c1"/>
 				</td>
+				<td class="td3" align="right">
+					<input id="chkOnedata" type="checkbox" />
+					<span> </span><a id="lblOnedata" class="lbl"></a>
+				</td>
+
 			</tr>
 			<tr>
 				<td class="td1">
