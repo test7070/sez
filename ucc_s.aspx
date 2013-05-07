@@ -10,36 +10,36 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = "ucc_s";
-	aPop = new Array(['txtNoa', '', 'ucc', 'noa,product', 'txtNoa,txtProduct', "ucc_b.aspx"]);
-    $(document).ready(function () {
-        main();
-    });         /// end ready
-
-    function main() {
-        mainSeek();
-        q_gf('', q_name);
-    }
-
-    function q_gfPost() {
-        q_getFormat();
-        q_langShow();
-
-       bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
-        q_mask(bbmMask);
-
-        $('#txtBdate').focus();
-    }
-
-    function q_seekStr() {   
-        t_noa = $('#txtNoa').val();  
-		t_product = $('#txtProduct').val();
-
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +q_sqlPara2("product", t_product);
-
-        t_where = ' where=^^' + t_where + '^^ ';
-        return t_where;
-    }
+		    var q_name = "ucc_s";
+			aPop = new Array(['txtNoa', '', 'ucc', 'noa,product', 'txtNoa,txtProduct', "ucc_b.aspx"]);
+		    $(document).ready(function () {
+		        main();
+		    });         /// end ready
+		
+		    function main() {
+		        mainSeek();
+		        q_gf('', q_name);
+		    }
+		
+		    function q_gfPost() {
+		        q_getFormat();
+		        q_langShow();
+		
+		       bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
+		        q_mask(bbmMask);
+		
+		        $('#txtBdate').focus();
+		    }
+		
+		    function q_seekStr() {   
+		        t_noa = $('#txtNoa').val();  
+				t_product = $('#txtProduct').val();
+		
+		        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) +q_sqlPara2("product", t_product);
+		
+		        t_where = ' where=^^' + t_where + '^^ ';
+		        return t_where;
+		    }
 </script>
 <style type="text/css">
     .seek_tr
