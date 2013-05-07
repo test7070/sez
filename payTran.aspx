@@ -116,13 +116,13 @@
 		                sum();
 		         });
 		         
-		         $('#btnPayvcc').click(function (e) {
+		       /*  $('#btnPayvcc').click(function (e) {
 		            var t_where ='';
 		            t_where+="CHARINDEX('代收',product)>0 and CHARINDEX('會計',kind)>0";
 		            //不含已存在的資料(且不包含本身的vccsno)
 		            t_where+=" and CHARINDEX(a.noa+b.noq , (select ','+vccsno from pay where noa!='"+$('#txtNoa').val()+"' FOR XML PATH('')))=0";
 		            q_box("pay_vcc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+r_accy , 'pay_vcc', "95%", "95%", q_getMsg('popPay_vcc'));
-		        });
+		        });*/
 		    }
 
 		    function pay_tre() {
@@ -658,11 +658,11 @@
 		         if(q_cur==1 || q_cur==2){
 		        	$("#btnVcc").removeAttr("disabled");
 		        	$("#btnAuto").removeAttr("disabled");
-		        	$("#btnPayvcc").removeAttr("disabled");
+		        	
 		        }else{
 		        	$("#btnVcc").attr("disabled","disabled");
 		        	$("#btnAuto").attr("disabled","disabled");
-		        	$("#btnPayvcc").attr("disabled","disabled");
+		        	
 		        }
 		    }
 
@@ -919,12 +919,12 @@
 						<td class="td2" colspan='3'>
                         <input id="txtTggno2" type="text" class="txt c1"/>
 						</td>
-						<td class="5">
+						<td><span> </span><a id='lblPart' class="lbl btn"> </a></td>
+						<td ><input id="txtPartno"  type="text" style="width: 35%;"/>
+							<input id="txtPart"  type="text" style="width: 63%;"/>
 						</td>
-						<td class="6">
-						<input type="button" id="btnPayvcc" class="txt c1 " />
-						<input id="txtVccsno" type="hidden"/>
-						</td>
+						<td> </td>
+                        	
 					</tr>
 					<tr class="tr3">
 						<td class="td1"><span> </span><a id='lblSale' class="lbl"></a></td>
@@ -964,18 +964,21 @@
 					<tr>
 						<td class="td1"> <a id='lblMemo' class="lbl"> </a></td>
 						<td class="td2" colspan='3' ><textarea id="txtMemo"  class="txt c1" style="height: 50px;" > </textarea></td>
-						<td><span> </span><a id='lblRc2no' class="lbl btn"> </a></td>
-						<td><input id="txtRc2no"  type="text" class="txt c1"/></td>
+						<td align="right"><span> </span><a id='lblRc2no' class="lbl btn" style="width: 80%;"> </a>
+								<input type="button" id="btnAuto" style="width:80%;color:red;"/>
+						</td>
+						
+						<td><input id="txtRc2no"  type="text" class="txt c1"/>
+						
+						<input type="button" id="btnGqbPrint" style="width:80%;"/>
+                        
+						</td>
+						<td align="right"><a id='lblWorker' class="lbl btn" style="width:80%;"> </a>
+							<a id='lblWorker2' class="lbl btn"style="width:80%;" ></a>
+						</td>
 						<td>
-							<input type="button" id="btnAuto" style="width:80%;color:red;"/>
-                        	<input type="button" id="btnGqbPrint" style="width:80%;"/>
-                        </td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblWorker' class="lbl btn"> </a></td>
-						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
-						<td><span> </span><a id='lblWorker2' class="lbl btn"> </a></td>
-						<td><input id="txtWorker2"  type="text" class="txt c1"/></td>
+							<input id="txtWorker"  type="text" class="txt c1" />
+						<input id="txtWorker2"  type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
