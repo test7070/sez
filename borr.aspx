@@ -109,20 +109,29 @@
                         break;
                 }
             }
-
+            
             function browTicketForm(obj) {
+            	//資料欄位名稱不可有'_'否則會有問題
                 if (($(obj).attr('readonly') == 'readonly') || ($(obj).attr('id').substring(0, 3) == 'lbl')) {
                     if ($(obj).attr('id').substring(0, 3) == 'lbl')
                         obj = $('#txt' + $(obj).attr('id').substring(3));
                     var noa = $.trim($(obj).val());
                     var openName = $(obj).attr('id').split('_')[0].substring(3).toLowerCase();
+					var isBbs = false,isBbt = false,n = -1;
+					if($(obj).attr('id').indexOf('__')>0){
+						isBbt = true;
+						n = $(obj).attr('id').split('__')[1];
+					}else if($(obj).attr('id').indexOf('_')>0){
+						isBbs = true;
+						n = $(obj).attr('id').split('_')[1];
+					}
                     if (noa.length > 0) {
                         switch (openName) {
-                            case 'vccno':
-                                q_box("vcctran.aspx?;;;noa='" + noa + "';" + r_accy, 'vcc', "95%", "95%", q_getMsg("popVcctran"));
+                            case 'vccno':                        
+                                q_box("vcctran.aspx?;;;noa='" + noa + "';" + (isBbt?$('#txtMon__'+n).val().substring(0,3):(isBbs?$('#txtDatea_'+n).val().substring(0,3):$('#txtDatea').val().substring(0,3))), 'vcc', "95%", "95%", q_getMsg("popVcctran"));
                                 break;
                             case 'accno':
-                                q_box("accc.aspx?;;;accc3='" + noa + "';" + r_accy + "_1", 'accc', "95%", "95%", q_getMsg("popAccc"));
+                                q_box("accc.aspx?;;;accc3='" + noa + "';" + (isBbt?$('#txtMon__'+n).val().substring(0,3):(isBbs?$('#txtDatea_'+n).val().substring(0,3):$('#txtDatea').val().substring(0,3))) + "_1", 'accc', "95%", "95%", q_getMsg("popAccc"));
                                 break;
                             case 'ummno':
                                 q_box("ummtran.aspx?;;;noa='" + noa + "';" + r_accy, 'umm', "95%", "95%", q_getMsg("popUmmtran"));
