@@ -60,7 +60,7 @@
 					q_box("inbm_b.aspx?;;;noa='" + $('#txtNoa').val() + "';" + r_accy, 'inbm', "95%", "95%", q_getMsg("popInbm"));
 				});
 				$('#btnInbwimport').click(function (e) {
-					q_box("inbw_b.aspx?;;;noa='" + $('#txtNoa').val() + "';" + r_accy, 'inbm', "95%", "95%", q_getMsg("popInbw"));
+					q_box("inbw_b.aspx?;;;noa='" + $('#txtNoa').val() + "';" + r_accy, 'inbw', "95%", "95%", q_getMsg("popInbw"));
 				});
                 $('#btnOrdeimport').click(function() {
                 	t_where = '';
@@ -77,17 +77,15 @@
 		
             function q_boxClose(s2) {///   q_boxClose 2/4
 				var	ret;
+				b_ret = getb_ret();
                 switch (b_pop) {
 					case 'ordes':
 	                    if (q_cur > 0 && q_cur < 4) {
-	                        b_ret = getb_ret();
 	                        if (!b_ret || b_ret.length == 0)
 	                            return;
-	                        var i, j = 0;
 	                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtOrdeno', b_ret.length, b_ret
 	                                                           , 'productno,noa'
 	                                                           , 'txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
-	                        bbsAssign();	
 	                    }
 						break;
                     case q_name + '_s':
@@ -183,6 +181,13 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
+                if (t_para) {
+					$('#btnInbmimport').removeAttr('disabled');
+					$('#btnInbwimport').removeAttr('disabled');
+                } else {
+					$('#btnInbmimport').attr('disabled', 'disabled');
+					$('#btnInbwimport').attr('disabled', 'disabled');
+                }
             }
 
             function btnMinus(id) {

@@ -25,7 +25,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             q_desc = 1;
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,conn', 'txtCustno,txtComp,txtNick', 'cust_b.aspx'], ['txtSales', 'lblSales', 'sss', 'namea,noa', 'txtSales,txtSalesno', 'sss_b.aspx'], ['txtAssigner', 'lblAssigner', 'sss', 'namea,noa', 'txtAssigner,txtAssignerno', 'sss_b.aspx'], ['txtAssistant', 'lblAssistant', 'sss', 'namea,noa', 'txtAssistant,txtAssistantno', 'sss_b.aspx'], ['txtCar_conn', 'lblCar_conn', 'sss', 'namea,noa', 'txtCar_conn,txtCar_connno', 'sss_b.aspx'], ['txtBankno', 'lblBankno', 'bank', 'noa,Bank', 'txtBankno,txtBank', 'bank_b.aspx']);
+            aPop = new Array(['txtCustno', 'lblCust', 'custtgg', 'noa,comp,nick,conn', 'txtCustno,txtComp,txtNick', 'custtgg_b.aspx'], ['txtSales', 'lblSales', 'sss', 'namea,noa', 'txtSales,txtSalesno', 'sss_b.aspx'], ['txtAssigner', 'lblAssigner', 'sss', 'namea,noa', 'txtAssigner,txtAssignerno', 'sss_b.aspx'], ['txtAssistant', 'lblAssistant', 'sss', 'namea,noa', 'txtAssistant,txtAssistantno', 'sss_b.aspx'], ['txtCar_conn', 'lblCar_conn', 'sss', 'namea,noa', 'txtCar_conn,txtCar_connno', 'sss_b.aspx'], ['txtBankno', 'lblBankno', 'bank', 'noa,Bank', 'txtBankno,txtBank', 'bank_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
@@ -51,12 +51,6 @@
                 q_gt('acomp', '', 0, 0, 0, "");
 
                 $('#btnConn_cust').click(function() {
-                    /*var cust2sql="";
-                     var t_custno2 = ($('#txtCust2').val()).split(",");
-                     for (var i = 0; i < t_custno2.length; i++) {
-                     cust2sql += " or noa ='" + t_custno2[i] + "'"
-                     }*/
-
                     t_where = "noa='" + $('#txtCustno').val() + "'";
                     //+cust2sql;
                     q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'Conn_cust', "95%", "650px", q_getMsg('lblConn'));
@@ -73,21 +67,6 @@
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
-                    /*case 'cust':
-                     ret = getb_ret();
-                     if(q_cur > 0 && q_cur < 4){
-                     if(ret[0]!=undefined){
-                     for (var i = 0; i < ret.length; i++) {
-                     if($('#txtCust2').val().length>0){
-                     var temp=$('#txtCust2').val();
-                     $('#txtCust2').val(temp+','+ret[i].noa);
-                     }else{
-                     $('#txtCust2').val(ret[i].noa);
-                     }
-                     }
-                     }
-                     }
-                     break;*/
                     case 'conttype':
                         //q_gt('conttype', '', 0, 0, 0, "");
                         location.href = (location.origin == undefined ? '' : location.origin) + location.pathname + "?" + r_userno + ";" + r_name + ";" + q_id + ";;" + r_accy;
