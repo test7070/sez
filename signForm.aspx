@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -730,6 +729,13 @@
 				<td class="td3" align="right">
 					<input id="chkOnedata" type="checkbox" />
 					<span> </span><a id="lblOnedata" class="lbl"></a>
+				</td>
+				<td class="td4"></td>
+				<td class="td5">
+					<span> </span><a id="lblSignpost" class="lbl"></a>
+				</td>
+				<td class="td6">
+					<input id="txtSignpost"  type="text" class="txt c1"/>
 				</td>
 
 			</tr>

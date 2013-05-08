@@ -313,25 +313,29 @@
                 	$('#txtSendsign').val('');
                 	if(q_cur==2 &&t_cardeal!=$('#cmbCardealno').find(":selected").text() && t_cardeal!=''){
                 		$('#txtSendsign').val($('#txtSigndate').val()+' '+t_cardeal+'過戶到'+$('#cmbCardealno').find(":selected").text());
-                		tx_memo=$('#txtSigndate').val()+' '+t_cardeal+'過戶到'+$('#cmbCardealno').find(":selected").text();
+                		tx_memo=$('#txtSigndate').val()+' '+t_cardeal+'過戶到'+$('#cmbCardealno').find(":selected").text()+tx_memo;
                 	}
                 	
-                	if(q_cur==2 &&t_outplace!=$('#txtOutplace').val()){
+                	if(q_cur==2 &&t_outplace!=$('#txtOutplace').val()&&!emp($('#txtOutplace').val())){
                 		$('#txtSendsign').val($('#txtOutplace').val()+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
-                		tx_memo=$('#txtOutplace').val();
+                		tx_memo=$('#txtOutplace').val()+tx_memo;
                 	}
-                	if(q_cur==2 &&t_outdate!=$('#txtOutdate').val()){
+                	if(q_cur==2 &&t_outdate!=$('#txtOutdate').val() &&!emp($('#txtOutdate').val())){
                 		$('#txtSendsign').val($('#txtOutdate').val()+'遷出'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
-                		tx_memo=$('#txtOutdate').val()+'遷出';
+                		tx_memo=$('#txtOutdate').val()+'遷出'+tx_memo;
                 	}
-                	if(q_cur==2 &&t_enddate!=$('#txtEnddate').val()){
+                	if(q_cur==2 &&t_enddate!=$('#txtEnddate').val() &&!emp($('#txtEnddate').val())){
                 		$('#txtSendsign').val($('#txtEnddate').val()+'報廢'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
-                		tx_memo=$('#txtEnddate').val()+'報廢';
+                		tx_memo=$('#txtEnddate').val()+'報廢'+tx_memo;
                 	}
-                	if(q_cur==2 &&t_wastedate!=$('#txtWastedate').val()){
+                	if(q_cur==2 &&t_wastedate!=$('#txtWastedate').val() &&!emp($('#txtWastedate').val())){
                 		$('#txtSendsign').val($('#txtWastedate').val()+'繳銷'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
-                		tx_memo=$('#txtWastedate').val()+'繳銷';
+                		tx_memo=$('#txtWastedate').val()+'繳銷'+tx_memo;
                 	}
+                	if(q_cur==2 &&t_carowner!=$('#txtCarowner').val() &&!emp($('#txtCarowner').val())){
+                		tx_memo='車主'+t_carowner+'換成'+$('#txtCarowner').val()+','+tx_memo;
+                	}
+                	
                 	$('#txtMemo').val(tx_memo+'\n'+t_memo);
 				});
 				
@@ -343,22 +347,26 @@
                 		tx_memo=$('#txtSigndate').val()+' '+t_cardeal+'過戶到'+$('#cmbCardealno').find(":selected").text()+tx_memo;
                 	}
                 	
-                	if(q_cur==2 &&t_outplace!=$('#txtOutplace').val()){
+                	if(q_cur==2 &&t_outplace!=$('#txtOutplace').val()&&!emp($('#txtOutplace').val())){
                 		$('#txtSendsign').val($('#txtOutplace').val()+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtOutplace').val()+tx_memo;
                 	}
-                	if(q_cur==2 &&t_outdate!=$('#txtOutdate').val()){
+                	if(q_cur==2 &&t_outdate!=$('#txtOutdate').val() &&!emp($('#txtOutdate').val())){
                 		$('#txtSendsign').val($('#txtOutdate').val()+'遷出'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtOutdate').val()+'遷出'+tx_memo;
                 	}
-                	if(q_cur==2 &&t_enddate!=$('#txtEnddate').val()){
+                	if(q_cur==2 &&t_enddate!=$('#txtEnddate').val() &&!emp($('#txtEnddate').val())){
                 		$('#txtSendsign').val($('#txtEnddate').val()+'報廢'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtEnddate').val()+'報廢'+tx_memo;
                 	}
-                	if(q_cur==2 &&t_wastedate!=$('#txtWastedate').val()){
+                	if(q_cur==2 &&t_wastedate!=$('#txtWastedate').val() &&!emp($('#txtWastedate').val())){
                 		$('#txtSendsign').val($('#txtWastedate').val()+'繳銷'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtWastedate').val()+'繳銷'+tx_memo;
                 	}
+                	if(q_cur==2 &&t_carowner!=$('#txtCarowner').val() &&!emp($('#txtCarowner').val())){
+                		tx_memo='車主'+t_carowner+'換成'+$('#txtCarowner').val()+','+tx_memo;
+                	}
+                	
                 	$('#txtMemo').val(tx_memo+'\n'+t_memo);
 				});
 				
@@ -370,22 +378,26 @@
                 		tx_memo=$('#txtSigndate').val()+' '+t_cardeal+'過戶到'+$('#cmbCardealno').find(":selected").text()+tx_memo;
                 	}
                 	
-                	if(q_cur==2 &&t_outplace!=$('#txtOutplace').val()){
+                	if(q_cur==2 &&t_outplace!=$('#txtOutplace').val()&&!emp($('#txtOutplace').val())){
                 		$('#txtSendsign').val($('#txtOutplace').val()+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtOutplace').val()+tx_memo;
                 	}
-                	if(q_cur==2 &&t_outdate!=$('#txtOutdate').val()){
+                	if(q_cur==2 &&t_outdate!=$('#txtOutdate').val() &&!emp($('#txtOutdate').val())){
                 		$('#txtSendsign').val($('#txtOutdate').val()+'遷出'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtOutdate').val()+'遷出'+tx_memo;
                 	}
-                	if(q_cur==2 &&t_enddate!=$('#txtEnddate').val()){
+                	if(q_cur==2 &&t_enddate!=$('#txtEnddate').val() &&!emp($('#txtEnddate').val())){
                 		$('#txtSendsign').val($('#txtEnddate').val()+'報廢'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtEnddate').val()+'報廢'+tx_memo;
                 	}
-                	if(q_cur==2 &&t_wastedate!=$('#txtWastedate').val()){
+                	if(q_cur==2 &&t_wastedate!=$('#txtWastedate').val() &&!emp($('#txtWastedate').val())){
                 		$('#txtSendsign').val($('#txtWastedate').val()+'繳銷'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtWastedate').val()+'繳銷'+tx_memo;
                 	}
+                	if(q_cur==2 &&t_carowner!=$('#txtCarowner').val() &&!emp($('#txtCarowner').val())){
+                		tx_memo='車主'+t_carowner+'換成'+$('#txtCarowner').val()+','+tx_memo;
+                	}
+                	
                 	$('#txtMemo').val(tx_memo+'\n'+t_memo);
 				});
 				
@@ -397,22 +409,26 @@
                 		tx_memo=$('#txtSigndate').val()+' '+t_cardeal+'過戶到'+$('#cmbCardealno').find(":selected").text()+tx_memo;
                 	}
                 	
-                	if(q_cur==2 &&t_outplace!=$('#txtOutplace').val()){
+                	if(q_cur==2 &&t_outplace!=$('#txtOutplace').val()&&!emp($('#txtOutplace').val())){
                 		$('#txtSendsign').val($('#txtOutplace').val()+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtOutplace').val()+tx_memo;
                 	}
-                	if(q_cur==2 &&t_outdate!=$('#txtOutdate').val()){
+                	if(q_cur==2 &&t_outdate!=$('#txtOutdate').val() &&!emp($('#txtOutdate').val())){
                 		$('#txtSendsign').val($('#txtOutdate').val()+'遷出'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtOutdate').val()+'遷出'+tx_memo;
                 	}
-                	if(q_cur==2 &&t_enddate!=$('#txtEnddate').val()){
+                	if(q_cur==2 &&t_enddate!=$('#txtEnddate').val() &&!emp($('#txtEnddate').val())){
                 		$('#txtSendsign').val($('#txtEnddate').val()+'報廢'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtEnddate').val()+'報廢'+tx_memo;
                 	}
-                	if(q_cur==2 &&t_wastedate!=$('#txtWastedate').val()){
+                	if(q_cur==2 &&t_wastedate!=$('#txtWastedate').val() &&!emp($('#txtWastedate').val())){
                 		$('#txtSendsign').val($('#txtWastedate').val()+'繳銷'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtWastedate').val()+'繳銷'+tx_memo;
                 	}
+                	if(q_cur==2 &&t_carowner!=$('#txtCarowner').val() &&!emp($('#txtCarowner').val())){
+                		tx_memo='車主'+t_carowner+'換成'+$('#txtCarowner').val()+','+tx_memo;
+                	}
+                	
                 	$('#txtMemo').val(tx_memo+'\n'+t_memo);
 				});
 				
@@ -424,22 +440,26 @@
                 		tx_memo=$('#txtSigndate').val()+' '+t_cardeal+'過戶到'+$('#cmbCardealno').find(":selected").text()+tx_memo;
                 	}
                 	
-                	if(q_cur==2 &&t_outplace!=$('#txtOutplace').val()){
+                	if(q_cur==2 &&t_outplace!=$('#txtOutplace').val()&&!emp($('#txtOutplace').val())){
                 		$('#txtSendsign').val($('#txtOutplace').val()+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtOutplace').val()+tx_memo;
                 	}
-                	if(q_cur==2 &&t_outdate!=$('#txtOutdate').val()){
+                	if(q_cur==2 &&t_outdate!=$('#txtOutdate').val() &&!emp($('#txtOutdate').val())){
                 		$('#txtSendsign').val($('#txtOutdate').val()+'遷出'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtOutdate').val()+'遷出'+tx_memo;
                 	}
-                	if(q_cur==2 &&t_enddate!=$('#txtEnddate').val()){
+                	if(q_cur==2 &&t_enddate!=$('#txtEnddate').val() &&!emp($('#txtEnddate').val())){
                 		$('#txtSendsign').val($('#txtEnddate').val()+'報廢'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtEnddate').val()+'報廢'+tx_memo;
                 	}
-                	if(q_cur==2 &&t_wastedate!=$('#txtWastedate').val()){
+                	if(q_cur==2 &&t_wastedate!=$('#txtWastedate').val() &&!emp($('#txtWastedate').val())){
                 		$('#txtSendsign').val($('#txtWastedate').val()+'繳銷'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtWastedate').val()+'繳銷'+tx_memo;
                 	}
+                	if(q_cur==2 &&t_carowner!=$('#txtCarowner').val() &&!emp($('#txtCarowner').val())){
+                		tx_memo='車主'+t_carowner+'換成'+$('#txtCarowner').val()+','+tx_memo;
+                	}
+                	
                 	$('#txtMemo').val(tx_memo+'\n'+t_memo);
 				});
 				
@@ -451,26 +471,96 @@
                 		tx_memo=$('#txtSigndate').val()+' '+t_cardeal+'過戶到'+$('#cmbCardealno').find(":selected").text()+tx_memo;
                 	}
                 	
-                	if(q_cur==2 &&t_outplace!=$('#txtOutplace').val()){
+                	if(q_cur==2 &&t_outplace!=$('#txtOutplace').val()&&!emp($('#txtOutplace').val())){
                 		$('#txtSendsign').val($('#txtOutplace').val()+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtOutplace').val()+tx_memo;
                 	}
-                	if(q_cur==2 &&t_outdate!=$('#txtOutdate').val()){
+                	if(q_cur==2 &&t_outdate!=$('#txtOutdate').val() &&!emp($('#txtOutdate').val())){
                 		$('#txtSendsign').val($('#txtOutdate').val()+'遷出'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtOutdate').val()+'遷出'+tx_memo;
                 	}
-                	if(q_cur==2 &&t_enddate!=$('#txtEnddate').val()){
+                	if(q_cur==2 &&t_enddate!=$('#txtEnddate').val() &&!emp($('#txtEnddate').val())){
                 		$('#txtSendsign').val($('#txtEnddate').val()+'報廢'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtEnddate').val()+'報廢'+tx_memo;
                 	}
-                	if(q_cur==2 &&t_wastedate!=$('#txtWastedate').val()){
+                	if(q_cur==2 &&t_wastedate!=$('#txtWastedate').val() &&!emp($('#txtWastedate').val())){
                 		$('#txtSendsign').val($('#txtWastedate').val()+'繳銷'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
                 		tx_memo=$('#txtWastedate').val()+'繳銷'+tx_memo;
                 	}
+                	if(q_cur==2 &&t_carowner!=$('#txtCarowner').val() &&!emp($('#txtCarowner').val())){
+                		tx_memo='車主'+t_carowner+'換成'+$('#txtCarowner').val()+','+tx_memo;
+                	}
+                	
+                	$('#txtMemo').val(tx_memo+'\n'+t_memo);
+				});
+				
+				$("#txtCarownerno").change(function() {
+                	var tx_memo='';
+                	$('#txtSendsign').val('');
+                	if(q_cur==2 &&t_cardeal!=$('#cmbCardealno').find(":selected").text() && t_cardeal!=''){
+                		$('#txtSendsign').val($('#txtSigndate').val()+' '+t_cardeal+'過戶到'+$('#cmbCardealno').find(":selected").text());
+                		tx_memo=$('#txtSigndate').val()+' '+t_cardeal+'過戶到'+$('#cmbCardealno').find(":selected").text()+tx_memo;
+                	}
+                	
+                	if(q_cur==2 &&t_outplace!=$('#txtOutplace').val()&&!emp($('#txtOutplace').val())){
+                		$('#txtSendsign').val($('#txtOutplace').val()+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
+                		tx_memo=$('#txtOutplace').val()+tx_memo;
+                	}
+                	if(q_cur==2 &&t_outdate!=$('#txtOutdate').val() &&!emp($('#txtOutdate').val())){
+                		$('#txtSendsign').val($('#txtOutdate').val()+'遷出'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
+                		tx_memo=$('#txtOutdate').val()+'遷出'+tx_memo;
+                	}
+                	if(q_cur==2 &&t_enddate!=$('#txtEnddate').val() &&!emp($('#txtEnddate').val())){
+                		$('#txtSendsign').val($('#txtEnddate').val()+'報廢'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
+                		tx_memo=$('#txtEnddate').val()+'報廢'+tx_memo;
+                	}
+                	if(q_cur==2 &&t_wastedate!=$('#txtWastedate').val() &&!emp($('#txtWastedate').val())){
+                		$('#txtSendsign').val($('#txtWastedate').val()+'繳銷'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
+                		tx_memo=$('#txtWastedate').val()+'繳銷'+tx_memo;
+                	}
+                	if(q_cur==2 &&t_carowner!=$('#txtCarowner').val() &&!emp($('#txtCarowner').val())){
+                		tx_memo='車主'+t_carowner+'換成'+$('#txtCarowner').val()+','+tx_memo;
+                	}
+                	
                 	$('#txtMemo').val(tx_memo+'\n'+t_memo);
 				});
 				
             }
+            
+            function q_popPost(s1) {
+		    	switch (s1) {
+		    		case 'txtCarownerno':
+		    		var tx_memo='';
+                	$('#txtSendsign').val('');
+                	if(q_cur==2 &&t_cardeal!=$('#cmbCardealno').find(":selected").text() && t_cardeal!=''){
+                		$('#txtSendsign').val($('#txtSigndate').val()+' '+t_cardeal+'過戶到'+$('#cmbCardealno').find(":selected").text());
+                		tx_memo=$('#txtSigndate').val()+' '+t_cardeal+'過戶到'+$('#cmbCardealno').find(":selected").text()+tx_memo;
+                	}
+                	
+                	if(q_cur==2 &&t_outplace!=$('#txtOutplace').val()&&!emp($('#txtOutplace').val())){
+                		$('#txtSendsign').val($('#txtOutplace').val()+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
+                		tx_memo=$('#txtOutplace').val()+tx_memo;
+                	}
+                	if(q_cur==2 &&t_outdate!=$('#txtOutdate').val() &&!emp($('#txtOutdate').val())){
+                		$('#txtSendsign').val($('#txtOutdate').val()+'遷出'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
+                		tx_memo=$('#txtOutdate').val()+'遷出'+tx_memo;
+                	}
+                	if(q_cur==2 &&t_enddate!=$('#txtEnddate').val() &&!emp($('#txtEnddate').val())){
+                		$('#txtSendsign').val($('#txtEnddate').val()+'報廢'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
+                		tx_memo=$('#txtEnddate').val()+'報廢'+tx_memo;
+                	}
+                	if(q_cur==2 &&t_wastedate!=$('#txtWastedate').val() &&!emp($('#txtWastedate').val())){
+                		$('#txtSendsign').val($('#txtWastedate').val()+'繳銷'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
+                		tx_memo=$('#txtWastedate').val()+'繳銷'+tx_memo;
+                	}
+                	if(q_cur==2 &&t_carowner!=$('#txtCarowner').val() &&!emp($('#txtCarowner').val())){
+                		tx_memo='車主'+t_carowner+'換成'+$('#txtCarowner').val()+','+tx_memo;
+                	}
+                	
+                	$('#txtMemo').val(tx_memo+'\n'+t_memo);
+		    		break;
+		    	}
+			}
 
             function q_boxClose(s2) {
 
@@ -586,7 +676,7 @@
             }
 			
 			//暫存資料
-			var t_cardeal='',t_outdate='',t_enddate='',t_wastedate='',t_memo='',t_outplace='';
+			var t_cardeal='',t_outdate='',t_enddate='',t_wastedate='',t_memo='',t_outplace='',t_carowner='';
 			
             function btnModi() {
                 if (emp($('#txtNoa').val()))
@@ -613,6 +703,7 @@
                  t_wastedate=$("#txtWastedate").val();
                  t_memo=$("#txtMemo").val();
                  t_outplace=$("#txtOutplace").val();
+                 t_carowner=$('#txtCarowner').val();
                  
                  //清除異動
                 //if(!emp($('#txtSendsign').val()))
