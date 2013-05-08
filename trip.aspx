@@ -9,6 +9,10 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -56,7 +60,7 @@
                 q_mask(bbmMask);
                 bbsMask = [['txtBtime', '99:99'], ['txtEtime', '99:99']];
                 q_mask(bbsMask);
-
+				$('#txtDatea').datepicker();
                 $('#txtSssno').change(function() {
                     //aPop後會檢查 員工是否重覆輸入出差日期
                 });
@@ -180,7 +184,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('trip_s.aspx', q_name + '_s', "530px", "400px", q_getMsg("popSeek"));
+                q_box('trip_s.aspx', q_name + '_s', "600px", "500px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
