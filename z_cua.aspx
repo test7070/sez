@@ -18,6 +18,7 @@
             if (location.href.indexOf('?') < 0) {
                 location.href = location.href + "?;;;;"+((new Date()).getUTCFullYear()-1911);
             }
+            
             $(document).ready(function() {
                 q_getId();
                 q_gf('', 'z_cua');   
@@ -37,6 +38,16 @@
                 q_popAssign();
                 $('#txtXdate1').mask('999/99/99');
                 $('#txtXdate2').mask('999/99/99');
+                $('#txtXdate1').focusout(function(){
+                	var Xdate1 = $('#txtXdate1').val();
+                	var lastDays = '',w_year = '',w_mon = '';
+                	if(Xdate1.length == 9){
+                		w_year = Xdate1.substring(0,3);
+                		w_mon = padL(Xdate1.substring(4,6),'0',2);
+                		lastDays = $.datepicker._getDaysInMonth(w_year,w_mon-1);
+                		$('#txtXdate2').val(w_year + '/' + w_mon + '/' + lastDays);
+                	}
+                })
                  var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);

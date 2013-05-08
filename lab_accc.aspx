@@ -123,7 +123,7 @@
                         break;
                 }
             }
-
+						
             function btnOk() {
                 $('#txtWorker').val(r_name);
                 if($('#txtSalesno').val()==0){
@@ -221,9 +221,22 @@
 					$('#hiddenCust').hide();
 				}
 			}
+			function GetBcust(){
+				if(q_cur == 0 || q_cur == 2){
+					var Custno = $('#txtBcustno').val();
+					var Cust = $('#txtBcust').val();
+					var NowRecno = q_recno;
+					if(Custno.length > 0 && Cust == ''){
+						q_popChange($('#txtBcustno'));
+						$('#txtBcust').unbind("focus");
+					}
+				}
+			}
+			
             function refresh(recno) {
                 _refresh(recno);
 				hiddenField();
+				GetBcust();
             }
 
             function readonly(t_para, empty) {
