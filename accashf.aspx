@@ -19,14 +19,16 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            q_tables = 's';
+            q_tables = 't';
             var q_name = "accashf";
             var q_readonly = ['txtNoa','txtWorker','txtWorker2'];
             var q_readonlys = ['txtMoney2'];
             var bbmNum = [];
             var bbsNum = [['txtMoney1',10,0,1],['txtMoney2',10,0,1]];
+            var bbtNum = [['txtMoney1',10,0,1],['txtMoney2',10,0,1]];
             var bbmMask = [['txtAccy','999'],['txtDatea','999/99/99']];
             var bbsMask = [];
+            var bbtMask = [];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -34,11 +36,12 @@
             brwKey = 'accy';
             q_desc = 1;
             brwCount2 = 4;
-            aPop = new Array();
+            aPop = new Array(['txtAcc1__', '', 'acc', 'acc1,acc2', 'txtAcc1__,txtGtitle__', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
 
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
+                bbtKey = ['noa', 'noq'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy)
             });
@@ -80,6 +83,20 @@
             list.push({gindex:"98",groupno:"",gtitle:"期初現金餘額",gno:"6"});
             list.push({gindex:"99",groupno:"",gtitle:"期末現金餘額",gno:"7"});
             
+            var list2 = new Array();
+            list2.push({gindex:"00",groupno:"A",gtitle:"營業活動之現金流量：",gno:"1"});
+            list2.push({gindex:"02",groupno:"A",gtitle:"營業活動之淨現金流入",gno:"4"});
+            
+            list2.push({gindex:"00",groupno:"B",gtitle:"投資活動之現金流量：",gno:"1"});
+            list2.push({gindex:"02",groupno:"B",gtitle:"投資活動之淨現金流入",gno:"4"});
+            
+            list2.push({gindex:"00",groupno:"C",gtitle:"融資活動之現金流量：",gno:"1"});
+            list2.push({gindex:"02",groupno:"C",gtitle:"融資活動之淨現金流入",gno:"4"});
+            
+            list2.push({gindex:"97",groupno:"",gtitle:"本期現金增加數",gno:"5"});
+            list2.push({gindex:"98",groupno:"",gtitle:"期初現金餘額",gno:"6"});
+            list2.push({gindex:"99",groupno:"",gtitle:"期末現金餘額",gno:"7"});
+            
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -91,12 +108,45 @@
             function mainPost() {
                 q_getFormat();
                 q_mask(bbmMask);
-
+                //q_cmbParse("cmbDc",q_getMsg('dc').split('&').join(),'t');
             }
-
+			function loadAccc(){
+            	var t_acc1 = new Array();
+            	var t_acc1x = new Array();//需包含子科目的
+            	var t_where = "";
+            	for (var i = 0; i < q_bbtCount; i++) {
+            		if($('#txtGindex__'+i).val()=='01' && $.trim($('#txtAcc1__'+i).val()).length>0){
+            			t_acc1.push($.trim($('#txtAcc1__'+i).val()));
+            			if($.trim($('#txtAcc1__'+i).val()).length==5)
+            				t_acc1x.push($.trim($('#txtAcc1__'+i).val()));
+            		}
+            	}
+            	for(var i=0;i<t_acc1x.length;i++){
+            		for(var j=0;j<t_acc1.length;j++){
+            			if(t_acc1[j].length>5 && t_acc1[j].substring(0,5)==t_acc1x[i]){
+            				t_acc1x.splice(i,1);
+            				i--;
+            				break;
+            			}
+            		}
+            	}
+            	for(var i=0;i<t_acc1.length;i++){
+            		if(t_acc1x.indexOf(t_acc1[i])>=0){
+            			//包含子科目
+            			t_where += (t_where.length>0?"or":"") + " left(accc5,5)='"+t_acc1[i]+"'";
+            		}else{
+            			t_where += (t_where.length>0?"or":"") + " accc5='"+t_acc1[i]+"'";
+            		}
+            	}
+            	if(t_where.length>0)
+            		t_where = "where=^^"+t_where+"^^";
+            	q_gt('gqb', t_where, 0, 0, 0, "gqb_btnOkbbs2_"+t_sel, r_accy);
+			}
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'acccs':
                 	
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -179,6 +229,62 @@
                 }
                 _bbsAssign();
             }
+            function bbtAssign() {
+                for (var i = 0; i < q_bbtCount; i++) {
+                    $('#lblNo__' + i).text(i + 1);
+                    if (!$('#btnMinut__' + i).hasClass('isAssign')) {
+                    	$('#txtAcc1__'+i).change(function(e){
+                    		var patt = /^(\d{4})([^\.,.]*)$/g;
+		                    $(this).val($(this).val().replace(patt,"$1.$2"));
+                    	});
+                    	$('#txtGtitle__'+i).change(function(e){
+                    		sum();	
+                    	});
+                    	$('#txtMoney1__'+i).change(function(e){
+                    		sum();	
+                    	});
+                		$('#btnPlutX__'+i).click(function(){
+                			if(q_cur!=1 && q_cur!=2)
+                				return;
+                			var n = parseInt($(this).attr('id').replace('btnPlutX__',''));         			
+                			var t_qindex = $('#txtQindex__'+i).val();
+                			var m = -1;//計算最後一筆表身資料在哪
+                			for(var i = q_bbtCount;i>=0;i--){
+                				if($.trim($('#txtGtitle__'+i).val()).length==0 && q_float('txtMoney1__'+i)==0 && q_float('txtMoney2__'+i)==0){
+                					
+                				}else{
+                					m = i;
+                					break;
+                				}
+                			}
+                			if(m+1==q_bbtCount){
+                				$('#btnPlut').click();
+                			}
+                			for(var i=m+1;i>n+1;i--){
+                				$('#txtGno__'+i).val($('#txtGno__'+(i-1)).val());
+                				$('#txtGindex__'+i).val($('#txtGindex__'+(i-1)).val());
+                				$('#txtAcc1__'+i).val($('#txtAcc1__'+(i-1)).val());
+                				$('#txtGroupno__'+i).val($('#txtGroupno__'+(i-1)).val());
+                				$('#txtGtitle__'+i).val($('#txtGtitle__'+(i-1)).val());
+                				$('#cmbDc__'+i).val($('#cmbDc__'+(i-1)).val());
+                				$('#txtMoney1__'+i).val($('#txtMoney1__'+(i-1)).val());
+                				$('#txtMoney2__'+i).val($('#txtMoney2__'+(i-1)).val());
+                			}
+                			$('#txtGno__'+(n+1)).val('3');
+                			$('#txtGindex__'+(n+1)).val('01');
+                			$('#txtAcc1__'+(n+1)).val('');
+                			$('#txtGroupno__'+(n+1)).val($('#txtGroupno__'+n).val());
+            				$('#txtGtitle__'+(n+1)).val('');
+            				$('#cmbDc__'+(n+1)).val('');
+            				$('#txtMoney1__'+(n+1)).val('');
+            				$('#txtMoney2__'+(n+1)).val('');
+            				refreshBbt();
+                		});
+                		
+                    }
+                }
+                _bbtAssign();
+            }
             function refreshBbs(){
             	//gindex: 00(只有文字顯示),01(資料明細),02(小計),97、98、99固定
             	for (var i = 0; i < q_bbsCount; i++) {
@@ -187,45 +293,86 @@
             		else
             			$('#btnPlusX_'+i).attr('disabled','disabled');
             		$('#btnPlusX_'+i).css("display","none");
-            		$('#txtGtitle_'+i).removeAttr("readonly").css("color","black");
-        			$('#txtMoney1_'+i).removeAttr("readonly").css("color","black").css("background","white");
-            		$('#txtMoney2_'+i).removeAttr("readonly").css("color","black");
+            		$('#txtGtitle_'+i).css("display","").attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
+        			$('#txtMoney1_'+i).css("display","none").attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
+            		$('#txtMoney2_'+i).css("display","none").attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
             		switch($('#txtGindex_'+i).val()){
             			case '00':
             				$('#btnPlusX_'+i).css("display","");
-            				$('#txtGtitle_'+i).attr("readonly","readonly").css("color","green");
-            				$('#txtMoney1_'+i).attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)").val('');
-            				$('#txtMoney2_'+i).attr("readonly","readonly").css("color","green").val('');
             				break;
             			case '01':
             				$('#btnPlusX_'+i).css("display","");
-            				$('#txtMoney2_'+i).val('');
+            				$('#txtGtitle_'+i).removeAttr('readonly').css("color","black").css("background","white");
+            				$('#txtMoney1_'+i).css("display","").removeAttr('readonly').css("color","black").css("background","white");
             				break;
             			case '02':
-            				$('#txtGtitle_'+i).attr("readonly","readonly").css("color","green");
-            				$('#txtMoney1_'+i).attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)").val('');
-            				$('#txtMoney2_'+i).attr("readonly","readonly").css("color","green");
+            				$('#txtGtitle_'+i).attr("readonly","readonly").css("color","green").css("color","green").css("background","rgb(237, 237, 238)");
+            				$('#txtMoney2_'+i).css("display","");
             				break;
             			case '97':
-            				$('#txtGtitle_'+i).attr("readonly","readonly").css("color","green");
-            				$('#txtMoney1_'+i).attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)").val('');
-            				$('#txtMoney2_'+i).attr("readonly","readonly").css("color","green");
+            				$('#txtMoney2_'+i).css("display","");
             				break;
             			case '98':
-            				$('#txtGtitle_'+i).attr("readonly","readonly").css("color","green");
-            				$('#txtMoney2_'+i).attr("readonly","readonly").css("color","green").val('');
+            				$('#txtMoney1_'+i).css("display","").removeAttr('readonly').css("color","black").css("background","white");
             				break;
             			case '99':
-            				$('#txtGtitle_'+i).attr("readonly","readonly").css("color","green");
-            				$('#txtMoney1_'+i).attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
-            				$('#txtMoney2_'+i).attr("readonly","readonly").css("color","green");
+            				$('#txtMoney2_'+i).css("display","");
+            				break;
+            			default:
+            				$('#txtGtitle_'+i).css("display","none").val('');
+            				break;
+            		}
+            	}
+            }
+            function refreshBbt(){
+            	//gindex: 00(只有文字顯示),01(資料明細),02(小計),97、98、99固定
+            	for (var i = 0; i < q_bbtCount; i++) {
+            		if(q_cur==1 || q_cur==2)
+            			$('#btnPlutX__'+i).removeAttr('disabled');
+            		else
+            			$('#btnPlutX__'+i).attr('disabled','disabled');
+            		$('#btnPlutX__'+i).css("display","none");
+            		$('#txtAcc1__'+i).css("display","none");
+            		$('#cmbDc__'+i).css("display","none");
+            		$('#chkIsall__'+i).css("display","none");
+            		$('#txtGtitle__'+i).css("display","").attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
+        			$('#txtMoney1__'+i).css("display","none").attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
+            		$('#txtMoney2__'+i).css("display","none").attr("readonly","readonly").css("color","green").css("background","rgb(237, 237, 238)");
+            		switch($('#txtGindex__'+i).val()){
+            			case '00':
+            				$('#btnPlutX__'+i).css("display","");
+            				break;
+            			case '01':
+            				$('#btnPlutX__'+i).css("display","");
+            				$('#txtAcc1__'+i).css("display","");
+            				$('#cmbDc__'+i).css("display","");
+            				//if()
+            					$('#chkIsall__'+i).css("display","");
+            				$('#txtGtitle__'+i).removeAttr('readonly').css("color","black").css("background","white");
+            				$('#txtMoney1__'+i).css("display","").removeAttr('readonly').css("color","black").css("background","white");
+            				break;
+            			case '02':
+            				$('#txtGtitle__'+i).attr("readonly","readonly").css("color","green").css("color","green").css("background","rgb(237, 237, 238)");
+            				$('#txtMoney2__'+i).css("display","");
+            				break;
+            			case '97':
+            				$('#txtMoney2__'+i).css("display","");
+            				break;
+            			case '98':
+            				$('#txtMoney1__'+i).css("display","").removeAttr('readonly').css("color","black").css("background","white");
+            				break;
+            			case '99':
+            				$('#txtMoney2__'+i).css("display","");
+            				break;
+            			default:
+            				$('#txtGtitle__'+i).css("display","none").val('');
             				break;
             		}
             	}
             }
             
             function sum(){
-            	
+            	//---------------------------------bbs------------------------------
             	var t_group = new Array();
             	var t_data = new Array();
             	var t_97 = 0;
@@ -259,6 +406,40 @@
             			$('#txtMoney2_'+i).val('');
             		}
             	}
+            	//---------------------------------bbt------------------------------
+            	t_group = new Array();
+            	t_data = new Array();
+            	t_97 = 0;
+            	t_98 = 0;
+            	for (var i = 0; i < q_bbtCount; i++) {
+            		if($('#txtGindex__'+i).val()=='01' && $.trim($('#txtGtitle__'+i).val()).length>0){
+            			n = t_group.indexOf($('#txtGroupno__'+i).val())
+            			t_97 += q_float('txtMoney1__'+i);
+            			if(n>=0){
+            				t_data[n] += q_float('txtMoney1__'+i);
+            			}else{
+            				t_group.push($('#txtGroupno__'+i).val());
+            				t_data.push(q_float('txtMoney1__'+i));
+            			}
+            		}
+            		if($('#txtGindex__'+i).val()=='98'){
+            			t_98 = q_float('txtMoney1__'+i);
+            		}
+            	}
+            	//小計
+            	for (var i = 0; i < q_bbtCount; i++) {
+            		if($('#txtGindex__'+i).val()=='02'){
+            			n = t_group.indexOf($('#txtGroupno__'+i).val());
+            			if(n>=0)
+            				$('#txtMoney2__'+i).val(FormatNumber(t_data[n]));
+            		}else if($('#txtGindex__'+i).val()=='97'){
+            			$('#txtMoney2_'+i).val(FormatNumber(t_97));
+            		}else if($('#txtGindex__'+i).val()=='99'){
+            			$('#txtMoney2__'+i).val(FormatNumber(t_97+t_98));
+            		}else{
+            			$('#txtMoney2__'+i).val('');
+            		}
+            	}
             }
             function q_stPost() {
                 if (!(q_cur == 1 || q_cur == 2))
@@ -282,6 +463,15 @@
                 	$('#txtGtitle_'+i).val(list[i].gtitle);
                 }
                 refreshBbs();
+                while(q_bbtCount<list2.length)
+                	$('#btnPlut').click();
+                for(var i=0;i<list2.length;i++){
+                	$('#txtGno__'+i).val(list2[i].gno);
+                	$('#txtGindex__'+i).val(list2[i].gindex);
+                	$('#txtGroupno__'+i).val(list2[i].groupno);
+                	$('#txtGtitle__'+i).val(list2[i].gtitle);
+                }
+                refreshBbt();
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
@@ -293,6 +483,7 @@
                 _btnModi();
                 $('#txtDatea').focus();
                 refreshBbs();
+                refreshBbt();
                 sum();
             }
 
@@ -312,13 +503,21 @@
                     return;
                 }
                 q_nowf();
-                as['noa'] = abbm2['noa'];
+                return true;
+            }
+            function bbtSave(as) {
+                if (!as['gtitle']) {
+                    as[bbtKey[1]] = '';
+                    return;
+                }
+                q_nowf();
                 return true;
             }
 
             function refresh(recno) {
                 _refresh(recno);
                 refreshBbs();
+                refreshBbt();
             }
 
             function readonly(t_para, empty) {
@@ -394,8 +593,8 @@
             }
             .dview {
                 float: left;
-                width: 150px; 
-                border-width: 0px; 
+                width: 150px;
+                border-width: 0px;
             }
             .tview {
                 border: 5px solid gray;
@@ -415,11 +614,11 @@
             .dbbm {
                 float: left;
                 width: 650px;
-                /*margin: -1px;        
-                border: 1px black solid;*/
+                /*margin: -1px;
+                 border: 1px black solid;*/
                 border-radius: 5px;
             }
-			.tbbm {
+            .tbbm {
                 padding: 0px;
                 border: 1px white double;
                 border-spacing: 0;
@@ -433,10 +632,15 @@
                 height: 35px;
             }
             .tbbm tr td {
-                width: 9%;
+                width: 10%;
             }
             .tbbm .tdZ {
-                width: 2%;
+                width: 1%;
+            }
+            td .schema {
+                display: block;
+                width: 95%;
+                height: 0px;
             }
             .tbbm tr td span {
                 float: right;
@@ -477,23 +681,44 @@
                 border-width: 1px;
                 padding: 0px;
                 margin: -1px;
+                font-size: medium;
             }
             .dbbs {
-                width: 2000px;
+            	float:left;
+                width: 550px;
             }
             .tbbs a {
                 font-size: medium;
             }
-            input[type="text"], input[type="button"] {
-                font-size: medium;
-            }
+
             .num {
                 text-align: right;
             }
-            select {
+            input[type="text"], input[type="button"] {
                 font-size: medium;
             }
-
+            #dbbt {
+            	float:left;
+                width: 850px;
+            }
+            #tbbt {
+                margin: 0;
+                padding: 2px;
+                border: 2px pink double;
+                border-spacing: 1;
+                border-collapse: collapse;
+                font-size: medium;
+                color: blue;
+                background: pink;
+                width: 100%;
+            }
+            #tbbt tr {
+                height: 35px;
+            }
+            #tbbt tr td {
+                text-align: center;
+                border: 2px pink double;
+            }
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -554,13 +779,13 @@
 		<div class='dbbs'>
 			<table id="tbbs" class='tbbs'>
 				<tr style='color:white; background:#003366;' >
-					<td  align="center" style="width:30px;">
+					<td align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;display: none;"  />
 					</td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:120px;"><a id='lblGtitle_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblMoney1_s'> </a></td>
-					<td align="center" style="width:100px;"><a id='lblMoney2_s'> </a></td>
+					<td align="center" style="width:200px;"><a id='lblGtitle_s'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblMoney1_s'> </a></td>
+					<td align="center" style="width:150px;"><a id='lblMoney2_s'> </a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td align="center">
@@ -586,20 +811,23 @@
 			<table id="tbbt">
 				<tbody>
 					<tr class="head" style="color:white; background:#003366;">
-						<td style="width:60px;">
-						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;" value="＋"/>
+						<td align="center" style="width:30px;">
+						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;display: none;" value="＋"/>
+						<input id="buttonLoad" onclick="loadAccc()" value="匯入" type="button" style="font-size: medium; font-weight: bold;"/>
 						</td>
 						<td style="width:20px;"></td>
+						
 						<td style="width:120px; text-align: center;">會計科目</td>
-						<td style="width:120px; text-align: center;">項目</td>
+						<td style="width:200px; text-align: center;">項目</td>
 						<td style="width:80px; text-align: center;">借貸設定</td>
-						<td style="width:100px; text-align: center;">金額</td>
-						<td style="width:100px; text-align: center;">小計</td>
+						<td style="width:80px; text-align: center;">含子科目</td>
+						<td style="width:150px; text-align: center;">金額</td>
+						<td style="width:150px; text-align: center;">小計</td>
 					</tr>
 					<tr>
 						<td align="center">
-						<input class="btn"  id="btnMinus..*" type="button" value='-' style=" font-weight: bold;display: none;" />
-						<input class="btn"  id="btnPlusX..*" type="button" value='+' style="font-weight: bold;"  />
+						<input class="btn"  id="btnMinut..*" type="button" value='-' style=" font-weight: bold;display: none;" />
+						<input class="btn"  id="btnPlutX..*" type="button" value='+' style="font-weight: bold;"  />
 						<input id="txtNoq..*" type="text" style="display: none;" />
 						<input id="txtSel..*" type="text" style="display: none;" />
 						<input id="txtGno..*" type="text" style="display: none;" />
@@ -607,8 +835,9 @@
 						</td>
 						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td><input id="txtAcc1..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtGtitle..*"  type="text" style="width:95%; text-align: right;"/></td>
-						<td><select id="cmbDc" style="width:95%;"> </select></td>
+						<td><input id="txtGtitle..*"  type="text" style="width:95%;"/></td>
+						<td><select id="cmbDc..*" style="width:95%;"> </select></td>
+						<td align="center"><input id="chkIsall..*" type="checkbox"/></td>
 						<td><input id="txtMoney1..*" type="text" style="width:95%;"/></td>
 						<td><input id="txtMoney2..*" type="text" style="width:95%;"/></td>
 					</tr>
