@@ -70,9 +70,6 @@
                     q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
 	            	//q_gt('cua_cuas','' , 0, 0, 0, "", r_accy);
                 });
-
-
-
             }
 		
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -83,9 +80,8 @@
 	                    if (q_cur > 0 && q_cur < 4) {
 	                        if (!b_ret || b_ret.length == 0)
 	                            return;
-	                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtOrdeno', b_ret.length, b_ret
-	                                                           , 'productno,noa'
-	                                                           , 'txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+                        	ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtOrdeno,txtBweight', b_ret.length, b_ret, 'productno,noa,weight','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+							sum()
 	                    }
 						break;
                     case q_name + '_s':
@@ -182,12 +178,29 @@
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
                 if (t_para) {
-					$('#btnInbmimport').removeAttr('disabled');
-					$('#btnInbwimport').removeAttr('disabled');
+                	if($('#txtNoa').val()==''){
+                		$('#btnInbmimport').attr('disabled', 'disabled');
+						$('#btnInbwimport').attr('disabled', 'disabled');
+                	}else{
+						$('#btnInbmimport').removeAttr('disabled');
+						$('#btnInbwimport').removeAttr('disabled');
+					}
                 } else {
 					$('#btnInbmimport').attr('disabled', 'disabled');
 					$('#btnInbwimport').attr('disabled', 'disabled');
                 }
+            }
+            
+            function sum() {
+            	var t_gwelght=0,t_twelght = 0, t_welght = 0;
+                for (var j = 0; j < q_bbsCount; j++) {
+					t_twelght+=dec($('#txtGweight_'+j).val());
+					t_twelght+=dec($('#txtTheory_'+j).val());
+					t_welght+=dec($('#txtWeight_'+j).val())
+                } // j
+                q_tr('txtGwelght',t_gwelght);
+                q_tr('txtTwelght',t_twelght);
+                q_tr('txtWelght',t_welght);
             }
 
             function btnMinus(id) {
