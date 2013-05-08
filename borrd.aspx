@@ -457,7 +457,7 @@
             	background-color: #cad3ff;
             	border: 5px solid gray;
             	position: absolute;
-            	z-index: 9999;
+            	z-index: 50;
             }
 		</style>
 	</head>
