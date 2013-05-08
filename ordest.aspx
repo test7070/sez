@@ -16,7 +16,7 @@
         }
         q_tables = 's';
         var q_name = "orde";
-        var q_readonly = ['txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales'];
+        var q_readonly = ['txtWorker','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales'];
         var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtTheory']; 
         var bbmNum = [];  // 允許 key 小數
         var bbsNum = [['txtPrice', 12, 3], ['txtWeight', 11, 2], ['txtMount', 9, 2]];
@@ -857,9 +857,7 @@
             </tr>
             <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblMemo' class='lbl'> </a></td>
-                <td class="td2" colspan='5'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"></textarea></td>
-                <td class="td5"><span> </span><a id='lblWorker' class="lbl"> </a></td>
-                <td class="td6"><input id="txtWorker"  type="text" class="txt c1" /></td> 
+                <td class="td2" colspan='5'><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"></textarea></td> 
             </tr>
         </table>
         </div>
@@ -878,13 +876,16 @@
                 <td align="center" style="width:8%;"><a id='lblWeights'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblPrices'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblTotals'> </a></td>
+                <td align="center" style="width:7%;"><a id='lblClasss'> </a></td>
                 <td align="center"><a id='lblMemos'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td ><input class="txt c6"  id="txtProductno.*" maxlength='30'type="text" style="width:98%;" />
-                                       <input class="btn"  id="btnProduct.*" type="button" value='...' style=" font-weight: bold;" />
-                                       <input class="txt c6"  id="txtNo2.*" type="text" /></td>
+				<td><input class="btn"  id="btnProduct.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+                    <input type="text" id="txtProductno.*"  style="width:76%; float:left;"/>
+                    <span style="display:block; width:1%;float:left;"> </span>
+					<input type="text" id="txtNo2.*"  style="width:76%; float:left;"/>
+				</td>                   
                 <td ><input class="txt c7" id="txtProduct.*" type="text" />
                 <input class="txt c7" id="txtUno.*" type="text" /></td>
                 <!--<td><input class="txt c7" id="txtSpec.*" type="text" /></td>-->
@@ -906,6 +907,7 @@
                 <td ><input class="txt num c7" id="txtPrice.*" type="text"  /></td>
                 <td ><input class="txt num c7" id="txtTotal.*" type="text" />
                                       <input class="txt num c7" id="txtGweight.*" type="text"/></td>
+                <td ><input class="txt c7" id="txtClass.*" type="text"  /></td>
                 <td ><input class="txt c7" id="txtMemo.*" type="text" />
                 <input class="txt c2" id="txtQuatno.*" type="text"  />
                 <input class="txt c2" id="txtNo3.*" type="text"  />

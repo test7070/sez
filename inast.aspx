@@ -765,13 +765,14 @@
                 <td align="center" style="width:6%;"><a id='lblPrice_s'> </a></td>
                 <td align="center" style="width:5%;"><a id='lblPlace_s'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblSource_s'> </a></td>-->
+                <td align="center" style="width:6%;"><a id='lblClass_st'> </a></td>
                 <td align="center"><a id='lblMemo_st'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
                 <td ><input  id="txtUno.*" type="text" class="txt c1"/></td>
                 <!--<td ><input class="txt c1" id="txtStore.*" type="text" /> </td>-->
-                <td ><input  id="txtProductno.*" type="text" style="width:70%;" /><input class="btn"  id="btnProductno.*" type="button" value='...' style="width:16%;"  /></td>
+                <td ><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;" /><input  id="txtProductno.*" type="text" style="width:70%;" /></td>
                 <td ><input class="txt c1" id="txtProduct.*" type="text" /></td>
                 <!--<td><input class="txt c1" id="txtSpec.*" type="text"/></td>-->
                 <!--<td ><input class="txt c1" id="txtUnit.*" type="text"/></td>
@@ -795,6 +796,7 @@
                 <td ><input class="txt c1" id="txtPrice.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtPlace.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtSource.*" type="text" /></td>-->
+                <td ><input class="txt c1" id="txtClass.*" type="text"  /></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" />
                 		<input class="txt c1" id="txtRc2no.*" type="text" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>

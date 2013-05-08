@@ -692,9 +692,11 @@
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
                 <td ><input class="txt c1" id="txtStoreno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtUno.*" type="text" /></td>
-                <td ><input class="txt c3" id="txtProductno.*" type="text" />
-                	<input class="btn"  id="btnProductno.*" type="button" value='...' style="width:16%;"  />
-                	 <input class="txt c1" id="txtProduct.*" type="text" /></td>
+               	<td><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+                    <input type="text" id="txtProductno.*"  style="width:80%; float:left;"/>
+                    <span style="display:block; width:1%;float:left;"> </span>
+					<input type="text" id="txtProduct.*"  style="width:80%; float:left;"/>
+				</td>
                 <td><input class="txt num c8" id="textSize1.*" type="text" disabled="disabled"/><div id="x1.*" style="float: left"> x</div>
                 		<input class="txt num c8" id="textSize2.*" type="text" disabled="disabled"/><div id="x2.*" style="float: left"> x</div>
                         <input class="txt num c8" id="textSize3.*" type="text" disabled="disabled"/><div id="x3.*" style="float: left"> x</div>
