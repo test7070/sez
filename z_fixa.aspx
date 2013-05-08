@@ -64,11 +64,14 @@
 						dbf : 'fixucc',
 						index : 'noa,namea',
 						src : 'fixucc_b.aspx'
-                    }, {
+                    }, {/*8*/
 	                    type : '5', //select
 	                    name : 'xorder',
 	                    value : ('車號,司機,維修日期,料名編號').split(',')
- 					}]
+ 					}, {/*9*/
+						type : '1',
+						name : 'date'
+					}]
 				});
 				q_popAssign();
 				q_getFormat();
@@ -76,6 +79,10 @@
 
 				$('#txtMon1').mask('999/99');
 				$('#txtMon2').mask('999/99');
+				$('#txtDate1').mask('999/99/99');
+                $('#txtDate1').datepicker();
+                $('#txtDate2').mask('999/99/99');
+                $('#txtDate2').datepicker();
 
 				var t_date, t_year, t_month, t_day;
 				t_date = new Date();

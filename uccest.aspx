@@ -104,8 +104,7 @@
         function combPay_chg() {   
         }
 
-        function bbsAssign() {  
-            _bbsAssign();
+        function bbsAssign() { 
             for (var j = 0; j < ( q_bbsCount==0 ? 1 : q_bbsCount); j++) {
             	//將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
 				$('#textSize1_' + j).change(function () {
@@ -168,11 +167,21 @@
 					q_bodyId($(this).attr('id'));
 					b_seq = t_IdSeq;
 					
-					if($('#txtProductno_'+b_seq).val().substr(0,1)='W' && $('#txtProduct_'+b_seq).val().indexOf('廢料')>-1)
+					if($('#txtProductno_'+b_seq).val().substr(0,1)=='W' && $('#txtProduct_'+b_seq).val().indexOf('廢料')>-1)
 						$('#txtUno_'+b_seq).val($('#txtProductno_'+b_seq).val());
 				});
             }
+            _bbsAssign();
         }
+        
+        function q_popPost(s1) {
+			switch (s1) {
+				case 'txtProductno_':
+					if($('#txtProductno_'+b_seq).val().substr(0,1)=='W' && $('#txtProduct_'+b_seq).val().indexOf('廢料')>-1)
+						$('#txtUno_'+b_seq).val($('#txtProductno_'+b_seq).val());
+				break;
+			}
+		}
 
         function btnIns() {
             _btnIns();

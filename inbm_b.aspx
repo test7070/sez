@@ -18,7 +18,7 @@
 		    var q_readonly = [];
 		    var q_readonlys = [];
 		    var bbmNum = [];
-		    var bbsNum = [['txtWeight', 10, 2, 1],['txtPrice', 10, 2, 1],['txtMoney', 10, 2, 1]];
+		    var bbsNum = [['txtGweight', 10, 2, 1],['txtWeight', 10, 2, 1],['txtPrice', 10, 2, 1],['txtMoney', 10, 2, 1]];
 		    var bbmMask = [];
 		    var bbsMask = [];
             aPop = new Array(
