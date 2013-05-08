@@ -413,17 +413,17 @@
             	for (var j = 0; j < q_bbsCount; j++) {
             		t_money = round(q_float('txtMount_'+j) * q_float('txtPrice_'+j),0);
             		t_total = t_money + q_float('txtTax_'+j) - q_float('txtDiscount_'+j);        		
-            		$('#txtMoney_'+j).val(t_money);
-            		$('#txtTotal_'+j).val(t_total);
+            		$('#txtMoney_'+j).val(FormatNumber(t_money));
+            		$('#txtTotal_'+j).val(FormatNumber(t_total));
             		tot_money+=t_money;
             		tot_tax+=q_float('txtTax_'+j);
             		tot_discount+=q_float('txtDiscount_'+j);
             		tot_total+=t_total;
             	}
-                $('#txtMoney').val(tot_money);
-            	$('#txtTax').val(tot_tax);
-            	$('#txtDiscount').val(tot_discount);
-            	$('#txtTotal').val(tot_total);
+                $('#txtMoney').val(FormatNumber(tot_money));
+            	$('#txtTax').val(FormatNumber(tot_tax));
+            	$('#txtDiscount').val(FormatNumber(tot_discount));
+            	$('#txtTotal').val(FormatNumber(tot_total));
             }
 
             function refresh(recno) {
@@ -506,6 +506,17 @@
                 //$('#txtAccno').val(xmlString.split(";")[0]);
                 //$('#txtPayed').val(xmlString.split(";")[1]);
                 //$('#txtUnpay').val(xmlString.split(";")[2]);
+            }
+            function FormatNumber(n) {
+            	var xx = "";
+            	if(n<0){
+            		n = Math.abs(n);
+            		xx = "-";
+            	}     		
+                n += "";
+                var arr = n.split(".");
+                var re = /(\d{1,3})(?=(\d{3})+$)/g;
+                return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
 		</script>
 		<style type="text/css">
