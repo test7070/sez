@@ -18,7 +18,7 @@
 
             q_tables = 't';
             var q_name = "borrd";
-            var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtPaybno'];
+            var q_readonly = ['txtNoa', 'txtWorker', 'txtWorker2', 'txtPaybno','txtAccno'];
             var q_readonlys = [];
             var q_readonlyt = ['txtMon','txtMoney','txtMemo','txtVccno','txtAccno'];
             var bbmNum = [['txtMoney',10,0,1],['txtMoney2',10,0,1],['txtCharge',10,0,1]];
@@ -68,18 +68,12 @@
                 $('#txtPaydate').datepicker();
                 
                 $('#txtAcc1').change(function () {
-		            var s1 = trim($(this).val());
-		            if (s1.length > 4 && s1.indexOf('.') < 0)
-		                $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
-		            if (s1.length == 4)
-		                $(this).val(s1 + '.');
+		            var patt = /^(\d{4})([^\.,.]*)$/g;
+                    $(this).val($(this).val().replace(patt, "$1.$2"));
 		        });
 		        $('#txtTacc1').change(function () {
-		            var s1 = trim($(this).val());
-		            if (s1.length > 4 && s1.indexOf('.') < 0)
-		                $(this).val(s1.substr(0, 4) + '.' + s1.substr(4));
-		            if (s1.length == 4)
-		                $(this).val(s1 + '.');
+		            var patt = /^(\d{4})([^\.,.]*)$/g;
+                    $(this).val($(this).val().replace(patt, "$1.$2"));
 		        });
              	$('#lblPaybno').click(function() {
 		     		t_where = "noa='" + $('#txtPaybno').val() + "'";
@@ -119,13 +113,15 @@
 			
 			function browVccno(obj){
 				var noa = $.trim($(obj).val());
+				var n = $(obj).attr('id').replace('txtVccno__','');
             	if(noa.length>0)
-            		q_box("vcctran.aspx?;;;noa='" + noa + "';"+r_accy, 'vcc', "95%", "95%", q_getMsg("popVcctran"));
+            		q_box("vcctran.aspx?;;;noa='" + noa + "';"+$('#txtMon__'+n).val().substring(0,3), 'vcc', "95%", "95%", q_getMsg("popVcctran"));
 			}
 			function browAccno(obj){
 				var noa = $.trim($(obj).val());
+				var n = $(obj).attr('id').replace('txtAccno__','');
             	if(noa.length>0)
-            		q_box("accc.aspx?;;;accc3='" + noa + "';"+r_accy+"_1", 'accc', "95%", "95%", q_getMsg("popAccc"));
+            		q_box("accc.aspx?;;;accc3='" + noa + "';"+$('#txtMon__'+n).val().substring(0,3)+"_1", 'accc', "95%", "95%", q_getMsg("popAccc"));
 			}
             function q_gtPost(t_name) {
                 switch (t_name) {
