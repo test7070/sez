@@ -137,9 +137,10 @@
                         		if(as[i].partno == t_partno)
                         			n++;
                         	}
-                        	while(n>q_bbsCount){
+                        	q_gridAddRow(bbsHtm, 'tbbs', 'txtRc2no', as.length, as, 'noa', 'txtRc2no', '');
+                        	/*while(n>q_bbsCount){
                         		$('#btnPlus').click();
-                        	}
+                        	}*/
                         	//reset
 	                        for (var j = 0; j < q_bbsCount; j++) {
 	                            $('#txtRc2no_'+j).val('');

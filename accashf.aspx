@@ -236,6 +236,7 @@
                     	$('#txtAcc1__'+i).change(function(e){
                     		var patt = /^(\d{4})([^\.,.]*)$/g;
 		                    $(this).val($(this).val().replace(patt,"$1.$2"));
+		                    refreshBbt();
                     	});
                     	$('#txtGtitle__'+i).change(function(e){
                     		sum();	
@@ -263,6 +264,7 @@
                 			for(var i=m+1;i>n+1;i--){
                 				$('#txtGno__'+i).val($('#txtGno__'+(i-1)).val());
                 				$('#txtGindex__'+i).val($('#txtGindex__'+(i-1)).val());
+                				$('#chkIsall__'+i).prop('checked',$('#chkIsall__'+(i-1)).prop('checked'));
                 				$('#txtAcc1__'+i).val($('#txtAcc1__'+(i-1)).val());
                 				$('#txtGroupno__'+i).val($('#txtGroupno__'+(i-1)).val());
                 				$('#txtGtitle__'+i).val($('#txtGtitle__'+(i-1)).val());
@@ -272,6 +274,7 @@
                 			}
                 			$('#txtGno__'+(n+1)).val('3');
                 			$('#txtGindex__'+(n+1)).val('01');
+                			$('#chkIsall__'+(n+1)).prop('checked',false);
                 			$('#txtAcc1__'+(n+1)).val('');
                 			$('#txtGroupno__'+(n+1)).val($('#txtGroupno__'+n).val());
             				$('#txtGtitle__'+(n+1)).val('');
@@ -346,7 +349,7 @@
             				$('#btnPlutX__'+i).css("display","");
             				$('#txtAcc1__'+i).css("display","");
             				$('#cmbDc__'+i).css("display","");
-            				//if()
+            				if($.trim($('#txtAcc1__'+i).val()).length==5)
             					$('#chkIsall__'+i).css("display","");
             				$('#txtGtitle__'+i).removeAttr('readonly').css("color","black").css("background","white");
             				$('#txtMoney1__'+i).css("display","").removeAttr('readonly').css("color","black").css("background","white");
