@@ -15,48 +15,27 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-		aPop = new Array(['txtItemno', '', 'assignment', 'noa,item', 'txtItemno', "assignment_b.aspx"]);
+		aPop = new Array(['txtTggno', '', 'tgg', 'noa,comp', 'txtTggno', "tgg_b.aspx"]);
             $(document).ready(function() {
             	q_getId();
-            	q_gf('', 'z_assignwork');
+            	q_gf('', 'z_payb');
             });
             function q_gfPost() {
                $('#q_report').q_report({
-                        fileName : 'z_assignwork',
+                        fileName : 'z_payb',
                         options : [{
                         	type : '1',
                         	name : 'date'
-                    	}, {
-	                        type : '8',
-	                        name : 'xkind',
-	                        value : ('工商,土地').split(',')
-	                    },{
-	                        type : '2',
-	                        name : 'cust',
-	                        dbf : 'cust',
-	                        index : 'noa,comp',
-	                        src : 'cust_b.aspx'
-                        },{
-	                        type : '2',
-	                        name : 'sss',
-	                        dbf : 'sss',
-	                        index : 'noa,namea',
-	                        src : 'sss_b.aspx'
-                        },{
-                        	type : '6',
-                        	name : 'xnoa'
                     	},{
-                        	type : '5',
-                        	name : 'xenda',
-	                        value : ('全部,結案,未結案').split(',')
-                    	}, {/*28*/
-                            type : '5',
-                            name : 'xsort1',//[11]
-                            value : q_getMsg('tsort1').split('&')
+	                        type : '2',
+	                        name : 'tggno',
+	                        dbf : 'tgg',
+	                        index : 'noa,comp',
+	                        src : 'tgg_b.aspx'
                         },{
                         	type : '5',
-                        	name : 'xpay',
-	                        value : ('全部,已付,未付').split(',')
+                        	name : 'xsignend',
+	                        value : ('全部,簽核,未簽核').split(',')
                     	}]
                     });
                 q_popAssign();
@@ -84,8 +63,7 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
-              		var wParent = window.parent.document;
-					$('#txtXnoa').val(wParent.getElementById("txtNoa").value);
+              		
             }
 
             function q_boxClose(s2) {

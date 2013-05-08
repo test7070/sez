@@ -11,7 +11,7 @@
         <link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             var q_name = "uccdc_s";
-			aPop = new Array(
+			aPop = new Array(['txtNoa', '', 'ucc', 'noa,product', 'txtNoa,txtItem', "ucc_b.aspx"],
 			  ['txtVacc1', 'lblVacc1', 'acc', 'acc1,acc2', 'txtVacc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
 			, ['txtRacc1', 'lblRacc1', 'acc', 'acc1,acc2', 'txtRacc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
             $(document).ready(function() {
