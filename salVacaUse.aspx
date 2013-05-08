@@ -32,7 +32,10 @@
 	            q_brwCount();
 	           //q_gt(q_name, q_content, q_sqlCount, 1)
 	            //$('#txtNoa').focus
-	            q_gt('sss', "where=^^noa='" + r_userno + "'^^", q_sqlCount, 1)
+	            if(r_rank < 7)
+	            	q_gt('sss', "where=^^noa='" + r_userno + "'^^", q_sqlCount, 1)
+	            else
+	            	q_gt(q_name, q_content, q_sqlCount, 1)
         });
 
             //////////////////   end Ready
@@ -248,20 +251,23 @@
                 switch (t_name) {
                 	case 'authority':
 		                var as = _q_appendData('authority', '', true);
-		                if(r_rank >=7)
-		                	q_content = "";
-		                else if (as.length > 0 && as[0]["pr_modi"] == "true")
-		                    q_content = "where=^^partno='"+ssspartno+"'^^";
-		                else
-		                    q_content = "where=^^sssno='" + r_userno + "'^^";
-
+		                if(as[0]!=undefined){
+			                if(r_rank >=7)
+			                	q_content = "";
+			                else if (as.length > 0 && as[0]["pr_modi"] == "true")
+			                    q_content = "where=^^partno='"+ssspartno+"'^^";
+			                else
+			                    q_content = "where=^^sssno='" + r_userno + "'^^";
+						}
 		                q_gt(q_name, q_content, q_sqlCount, 1)
 		                break;
                 	
                     case 'sss':
                         	var as = _q_appendData('sss', '', true);
-                        	ssspartno=as[0].partno;
-                        	q_gt('authority', "where=^^a.noa='salvacause' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
+                        	if(as[0]!=undefined){
+	                        	ssspartno=as[0].partno;
+	                        	q_gt('authority', "where=^^a.noa='salvacause' and a.sssno='" + r_userno + "'^^", q_sqlCount, 1)
+                        	}
                         break;
                         
                    case 'salvaca':
