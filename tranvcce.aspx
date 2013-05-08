@@ -196,7 +196,7 @@
                         	t_msg += (this.data[n+i]['dock'].length>0?(t_msg.length>0?',':'')+'交'+this.data[n+i]['dock']:'');
                         	t_msg += (this.data[n+i]['boat'].length>0?(t_msg.length>0?',':'')+'船公司'+this.data[n+i]['boat']:'');
                         	t_msg += (this.data[n+i]['boatname'].length>0?(t_msg.length>0?',':'')+'船次'+this.data[n+i]['boatname']:'');
-                        	t_msg += (this.data[n+i]['do1'].length>0?(t_msg.length>0?',':'')+'領櫃編號'+this.data[n+i]['do1']:'');
+                        	t_msg += (this.data[n+i]['do1'].length>0?(t_msg.length>0?',':'')+'領編'+this.data[n+i]['do1']:'');
                         	t_msg += (this.data[n+i]['so'].length>0?(t_msg.length>0?',':'')+'SO:'+this.data[n+i]['so']:'');
                         	t_msg += (this.data[n+i]['casepackaddr'].length>0?(t_msg.length>0?', ':'')+'裝櫃地點'+this.data[n+i]['casepackaddr']:'');
                         	t_msg += (this.data[n+i]['port'].length>0?(t_msg.length>0?',':'')+'港口'+this.data[n+i]['port']:'');
@@ -204,14 +204,14 @@
                         	//進口
                         	t_msg += (this.data[n+i]['port2'].length>0?(t_msg.length>0?',':'')+this.data[n+i]['port2']+'領':'');
                         	t_msg += (this.data[n+i]['empdock2'].length>0?(t_msg.length>0?',':'')+'交'+this.data[n+i]['empdock2']:'');
-                        	t_msg += (this.data[n+i]['takeno'].length>0?(t_msg.length>0?',':'')+'領櫃編號'+this.data[n+i]['takeno']:'');
+                        	t_msg += (this.data[n+i]['takeno'].length>0?(t_msg.length>0?',':'')+'領編'+this.data[n+i]['takeno']:'');
                         	t_msg += (this.data[n+i]['casepresent'].length>0?(t_msg.length>0?',':'')+'代表櫃號'+this.data[n+i]['casepresent']:'');
                         	t_msg += (this.data[n+i]['product2'].length>0?(t_msg.length>0?',':'')+'品名:'+this.data[n+i]['product2']:'');
                         	t_msg += (this.data[n+i]['option01'].length>0?(t_msg.length>0?',':'')+'過磅'+this.data[n+i]['option01']:'');
                         	t_msg += (this.data[n+i]['option02'].length>0?(t_msg.length>0?',':'')+'加工'+this.data[n+i]['option02']:'');
                         	t_msg += (this.data[n+i]['containertype'].length>0?(t_msg.length>0?',':'')+'櫃別'+this.data[n+i]['containertype']:'');
                         	t_msg += (this.data[n+i]['docketno2'].length>0?(t_msg.length>0?',':'')+'案號'+this.data[n+i]['docketno2']:'');
-                        	t_msg += (this.data[n+i]['trackno'].length>0?(t_msg.length>0?',':'')+'追蹤號碼'+this.data[n+i]['trackno']:'');
+                        	t_msg += (this.data[n+i]['trackno'].length>0?(t_msg.length>0?',':'')+'追蹤'+this.data[n+i]['trackno']:'');
                             t_msg += (this.data[n+i]['caseassign'].length>0?(t_msg.length>0?',':'')+'指定櫃號'+this.data[n+i]['caseassign']:'');
                         	t_msg += (this.data[n+i]['do2'].length>0?(t_msg.length>0?',':'')+'提單'+this.data[n+i]['do2']:'');
                         	t_msg += (this.data[n+i]['checkself'].length>0?(t_msg.length>0?',':'')+'自檢'+this.data[n+i]['checkself']:'');
