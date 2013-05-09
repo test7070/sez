@@ -116,7 +116,8 @@
             				var t_noq=('0000').substr(('0000'+i).length-4);
             				for(var j = 0; j < q_bbsCount; j++) {
             					if($('#txtOrdeno_'+j).val().substr(0,1)==$('#txtOrdeno_'+i).val().substr(0,1)&&!emp($('#txtNoq_'+j).val()))
-            						t_noq=$('#txtNoq_'+j).val().substr($('#txtNoq_'+j).val().length-4);
+            						if (t_noq<$('#txtNoq_'+j).val().substr($('#txtNoq_'+j).val().length-4))
+            							t_noq=$('#txtNoq_'+j).val().substr($('#txtNoq_'+j).val().length-4);
             				}
             				t_noq=('0000'+(dec(t_noq)+1)).substr(('0000'+(dec(t_noq)+1)).length-4);
             				
