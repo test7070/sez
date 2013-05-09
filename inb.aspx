@@ -109,13 +109,23 @@
 
             function btnOk() {
             	//自訂noq(八位)
-            	var i=1;
-            	if(q_car==1){
-            		for(var j = 0; j < q_bbsCount; j++) {
-            			if(!emp($('#txtProductno_'+j).val())){
-            				var t_noq=('000'+i).substr(('000'+i).length-3);
+            	if(q_cur==1 || q_cur==2){
+            		for(var i = 0; i < q_bbsCount; i++) {
+            			if(!emp($('#txtProductno_'+i).val())&&emp($('#txtNoq_'+i).val())){
+            				//尋找該訂單最大的noq
+            				var t_noq=('0000').substr(('0000'+i).length-4);
+            				for(var j = 0; j < q_bbsCount; j++) {
+            					if($('#txtOrdeno_'+j).val().substr(0,1)==$('#txtOrdeno_'+i).val().substr(0,1)&&!emp($('#txtNoq_'+j).val()))
+            						if (t_noq<$('#txtNoq_'+j).val().substr($('#txtNoq_'+j).val().length-4))
+            							t_noq=$('#txtNoq_'+j).val().substr($('#txtNoq_'+j).val().length-4);
+            				}
+            				t_noq=('0000'+(dec(t_noq)+1)).substr(('0000'+(dec(t_noq)+1)).length-4);
             				
-            				i++;
+            				//依照訂單編號的順序
+            				if(!emp($('#txtOrdeno_'+i).val()))
+            					$('#txtNoq_'+i).val($('#txtOrdeno_'+i).val().substr(0,1)+$('#txtOrdeno_'+i).val().substr($('#txtOrdeno_'+i).val().length-3)+t_noq);
+            				else
+            					$('#txtNoq_'+i).val('Z999'+t_noq);
             			}
             		}
             	}

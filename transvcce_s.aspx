@@ -15,7 +15,8 @@
 		<script type="text/javascript">
             var q_name = "transvcce_s";
 			aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,nick', 'txtCustno', 'cust_b.aspx'],
-		    ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno', 'addr_b.aspx']);
+		    ['txtAddrno', 'lblAddr', 'addr', 'noa,addr', 'txtAddrno', 'addr_b.aspx'],
+		    ['txtCarno', '', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx']);
             $(document).ready(function() {
                 main();
             });
@@ -47,7 +48,9 @@
 		        t_edate = $('#txtEdate').val();
 		        t_btrandate = $('#txtBtrandate').val();
 		        t_etrandate = $('#txtEtrandate').val();
-
+				t_carno = $.trim($('#txtCarno').val());
+				t_caseno = $.trim($('#txtCaseno').val());
+				
 		        var t_where = " 1=1 " 
 		        + q_sqlPara2("noa", t_noa) 
 		        + q_sqlPara2("ordeno", t_ordeno) 
@@ -57,6 +60,10 @@
 		        + q_sqlPara2("addrno", t_addrno);
 		        if (t_comp.length>0)
                     t_where += " and patindex('%" + t_comp + "%',comp)>0";
+                if(t_carno.length>0)
+					t_where += " and exists(select noa from transvcces"+r_accy+" where transvcces"+r_accy+".noa=transvcce"+r_accy+".noa and patindex('%" + t_carno+ "%',transvcces"+r_accy+".carno)>0)";
+		        if(t_caseno.length>0)
+					t_where += " and exists(select noa from transvcces"+r_accy+" where transvcces"+r_accy+".noa=transvcce"+r_accy+".noa and patindex('%" + t_caseno+ "%',transvcces"+r_accy+".caseno)>0)";
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
             }
@@ -121,6 +128,18 @@
 					<td class='seek'  style="width:20%;"><a id='lblAddr'></a></td>
 					<td>
 					<input class="txt" id="txtAddrno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCarno'></a></td>
+					<td>
+					<input class="txt" id="txtCarno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCaseno'></a></td>
+					<td>
+					<input class="txt" id="txtCaseno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>

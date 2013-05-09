@@ -84,7 +84,7 @@
         			//var t_where = " 1=1 " + q_sqlPara2("noa", t_bvccno,t_evccno);
         			var t_where = " 1=1 " + q_sqlPara2("ordeno", t_noa);
 					//q_pop('txtBvccno', "vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+ t_where +";" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
-					q_pop('txtNoa', "vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+ t_where +";" + r_accy + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
+					q_pop('txtNoa', "vcctran.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";"+ t_where +";" + $('#txtDatea').val().substr( 0,3) + '_' + r_cno, 'vcc', 'noa', 'datea', "95%", "95%", q_getMsg('popVcc'), true);
                 
                 });
 				/*$('#lblPaybno').click(function() {

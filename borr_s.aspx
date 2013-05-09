@@ -46,12 +46,15 @@
 
 				t_custno = $.trim($('#txtCustno').val());
 				t_comp = $.trim($('#txtComp').val());
+				t_checkno = $.trim($('#txtCheckno').val());
 				
 				var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)
 				+ q_sqlPara2("datea", t_bdate, t_edate) 
 				+ q_sqlPara2("custno", t_custno);
 				if (t_comp.length>0)
                     t_where += " and patindex('%" + t_comp + "%',comp)>0";
+                if(t_checkno.length>0)
+					t_where += " and exists(select noa from borrs where borrs.noa=borr.noa and patindex('%" + t_checkno+ "%',borrs.checkno)>0)";
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -91,6 +94,10 @@
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblComp'> </a></td>
 					<td><input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblCheckno'> </a></td>
+					<td><input class="txt" id="txtCheckno" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->

@@ -117,13 +117,13 @@
                 //0926改為開啟視窗
                 $('#btnVcc').click(function(e) {
                     //umm_trd();
-                    var t_where2='',t_where3='',t_where4='',t_where5='',t_where6='';
+                    var t_where2='',t_where3='',t_where4='',t_where5='',t_where6='',t_where7='';
                     if (!emp($('#txtCustno').val())) {
                       //  var t_custno = "'" + $.trim($('#txtCustno').val()) + "'";
 						t_where = "(a.custno='" + $.trim($('#txtCustno').val()) + "'";
 						t_where6= " where[6]=^^ (a.custno='" + $.trim($('#txtCustno').val()) + "'";
 						t_where3 = " where[3]=^^ (c.noa='" + $('#txtCustno').val() + "' ";
-						t_where5 = " where[5]=^^ (a.custno='" + $('#txtCustno').val() + "' ";
+						t_where5 = " where[5]=^^(((a.custno='" + $('#txtCustno').val() + "' ";
 						
 						if(!emp($('#txtDatea').val()))
 							t_where4 = " where[4]=^^ mon='"+$('#txtDatea').val().substr(0,6)+"' ^^";
@@ -151,7 +151,9 @@
 						t_where3 +=") ^^"
 						
 						//1020410會計部從102/04/01開始用明細匯入
-						t_where5 += " ) and (CHARINDEX('會計',kind)>0) and a.unpay!=0 and a.datea>='102/04/01' order by noa^^";
+						//1020509要不包含單據的立帳單
+						t_where5 += " ) and (CHARINDEX('會計',kind)>0) and a.unpay!=0) or ((a.noa+isnull(b.product,'')+b.noq in (select vccno+memo2 from umms where noa='"+$('#txtNoa').val()+"')))) and a.datea>='102/04/01' order by noa^^";
+						t_where7 = " where[7]=^^ noa!='"+$('#txtNoa').val()+"' ^^";
                         	
                        // 最後一個t_whereX 加 order by noa^^";
 
@@ -166,8 +168,9 @@
                         t_where3 = " where[3]=^^ 1=0 ^^";
                         t_where5 = " where[5]=^^ 1=0 order by noa ^^";
                         t_where4 = " where[4]=^^ carno+mon in (select carno+MAX(mon) from cara group by carno) ^^";
+                        t_where7 = " where[7]=^^ 1=1 ^^";
                     }
-                    q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + t_where1 + t_where2 + t_where3+ t_where4+ t_where5+ t_where6, 'umm_trd', "95%", "95%", q_getMsg('popUmm_trd'));
+                    q_box("umm_trd_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + t_where1 + t_where2 + t_where3+ t_where4+ t_where5+ t_where6+t_where7, 'umm_trd', "95%", "95%", q_getMsg('popUmm_trd'));
                 });
             }
 			
