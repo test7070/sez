@@ -96,16 +96,21 @@
                 	q_sqlPara2("stype", t_stype) + 
                 	q_sqlPara2("contract", t_contract) + 
                 	q_sqlPara2("ensuretype", t_ensuretype) + 
-                	q_sqlPara2("bcontdate", t_bcontdate, t_econtdate) + 
-                	q_sqlPara2("econtdate", t_bcontdate, t_econtdate) + 
                 	q_sqlPara2("econtdate", t_becontdate, t_eecontdate) + 
                 	q_sqlPara2("changecontdate", t_bchangecontdate, t_echangecontdate) + 
                 	q_sqlPara2("cno", t_cno) + 
                 	//q_sqlPara2("acomp", t_acomp) + 
                 	q_sqlPara2("custno", t_custno) + 
                 	q_sqlPara2("comp", t_comp);
+                	
+                	var t_contdatewhere=''
+                	if(t_bcontdate!='' || t_econtdate!=''){
+                		t_contdatewhere=" and ('"+t_bcontdate+"' between bcontdate and econtdate or '"+t_econtdate+"' between bcontdate and econtdate";
+                		t_contdatewhere+=" or bcontdate between '"+t_bcontdate+"' and '"+t_econtdate+"' or econtdate between '"+t_bcontdate+"' and '"+t_econtdate+"' )"
+                	}
+                	
 
-                t_where = ' where=^^' + t_where + '^^ ';
+                t_where = ' where=^^' + t_where +t_contdatewhere+ '^^ ';
                 return t_where;
             }
 		</script>
