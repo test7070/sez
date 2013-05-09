@@ -71,13 +71,27 @@
             }
 
             function btnOk() {
+            	Lock();
+            	for (var i = 0; i < q_bbsCount; i++) {
+            		for (var j = i+1; j < q_bbsCount; j++) {
+            			if($('#txtMon_'+i).val()==$('#txtMon_'+j).val()){
+							alert($('#txtMon_'+i).val()+'月份重覆');
+							Unlock();
+							return;            				
+            			}
+            		}	
+            	}
                 var t_noa = trim($('#txtNoa').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
                     q_gtnoa(q_name, replaceAll(q_date(), '/', ''));
                 else
                     wrServer(t_noa);
             }
-
+			function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                Unlock();
+            }	
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
@@ -86,8 +100,21 @@
             }
 
             function bbsAssign() {
-                for (var ix = 0; ix < q_bbsCount; ix++) {
-                    $('#lblNo_' + ix).text(ix + 1);
+                for (var i = 0; i < q_bbsCount; i++) {
+                    $('#lblNo_' + i).text(i + 1);
+                    if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+                    	$('#txtMon_'+i).change(function(e){
+                    		var n = parseFloat($(this).attr('id').replace('txtMon_',''));
+                    		for (var i = 0; i < q_bbsCount; i++) {
+                    			if( n!=i && $('#txtMon_'+i).val()==$(this).val()){
+                    				Lock();
+                    				alert($(this).val()+'月份重覆。');
+                    				Unlock();
+                    				break;
+                    			}
+                    		}
+                    	});
+                    }
                 }
                 _bbsAssign();
             }

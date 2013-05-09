@@ -108,15 +108,22 @@
             function mainPost() {
                 q_getFormat();
                 q_mask(bbmMask);
-                //alert(q_getMsg('dc').split('&').join());
-                //q_cmbParse("cmbDc",q_getMsg('dc').split('&').join(),'t');
+                alert(q_getMsg('dc').split('&').join());
+                q_cmbParse("cmbDc",q_getMsg('dc').split('&').join(),'t');
+            }
+            function btnLoad_click(){
+            	Lock();
+            	loadAccc(q_bbtCount-1);
             }
 			function loadAccc(n){
 				if(n<0){
 					sum();
+					Unlock();
 				}else{
 					if($('#txtGindex__'+n).val()=='01' && $.trim($('#txtAcc1__'+n).val()).length>0){
+						var t_accy = ($.trim($('#txtAccy').val()).length==0?r_accy:$.trim($('#txtAccy').val()));
 						var t_where = "";
+						$('#txtMoney1__'+n).val(0);
 						//5碼的才需判斷是否要包含子科目
 						var t_acc1 = $.trim($('#txtAcc1__'+n).val());
 						if(t_acc1.length==5 && $('#chkIsall__'+n).prop('checked')){
@@ -124,8 +131,9 @@
 						}else{
 							t_where = " accc5='"+t_acc1+"'";
 						}
+						
 						t_where = "where=^^"+t_where+"^^";
-						q_gt('acccs_sum', t_where, 0, 0, 0, "acccs_sum_"+n, r_accy+"_1");
+						q_gt('acccs_sum', t_where, 0, 0, 0, "acccs_sum_"+n, t_accy+"_1");
 					}
 					else{
 						loadAccc(n-1);
@@ -144,10 +152,13 @@
                     		var as = _q_appendData("acccs", "", true);
                     		if(as[0]!=undefined){
                     			var t_money = 0;
-                    			if($('#cmdDc__'+n).val()=='1')
-                    				t_money = parseFloat(as[0].dmoney.length==0?"0":as[0].dmoney)-parseFloat(as[0].cmoney.length==0?"0":as[0].cmoney);
-                    			else if($('#cmdDc__'+n).val()=='2')
+                    			//1借，２貸，　沒輸入的都當借
+                    			if($('#cmdDc__'+n).val()=='2')
                     				t_money = parseFloat(as[0].cmoney.length==0?"0":as[0].cmoney)-parseFloat(as[0].dmoney.length==0?"0":as[0].dmoney);
+                    			else{
+                    				$('#cmdDc__'+n).val('1');
+                    				t_money = parseFloat(as[0].dmoney.length==0?"0":as[0].dmoney)-parseFloat(as[0].cmoney.length==0?"0":as[0].cmoney);
+                    			}
                     			$('#txtMoney1__'+n).val(FormatNumber(round(t_money,0)));
                     		}
                     		loadAccc(n-1);
@@ -336,12 +347,18 @@
             	}
             }
             function refreshBbt(){
+            	if(q_cur==1 || q_cur==2){
+            		$('#btnLoad').removeAttr('disabled');
+            	}else{
+            		$('#btnLoad').attr('disabled','disabled');
+            	}
             	//gindex: 00(只有文字顯示),01(資料明細),02(小計),97、98、99固定
             	for (var i = 0; i < q_bbtCount; i++) {
-            		if(q_cur==1 || q_cur==2)
+            		if(q_cur==1 || q_cur==2){
             			$('#btnPlutX__'+i).removeAttr('disabled');
-            		else
+            		}else{
             			$('#btnPlutX__'+i).attr('disabled','disabled');
+            		}
             		$('#btnPlutX__'+i).css("display","none");
             		$('#txtAcc1__'+i).css("display","none");
             		$('#cmbDc__'+i).css("display","none");
@@ -831,7 +848,7 @@
 					<tr class="head" style="color:white; background:#003366;">
 						<td align="center" style="width:30px;">
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;display: none;" value="＋"/>
-						<input id="buttonLoad" onclick="loadAccc(q_bbtCount-1)" value="匯入" type="button" style="font-size: medium; font-weight: bold;"/>
+						<input id="btnLoad" onclick="btnLoad_click()" value="匯入" type="button" style="font-size: medium; font-weight: bold;"/>
 						</td>
 						<td style="width:20px;"></td>
 						
