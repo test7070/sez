@@ -5,9 +5,6 @@
 		<title></title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
-
-		<script src='//59.125.143.170/jquery/js/qset.js' type="text/javascript"></script>
-
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>

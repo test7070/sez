@@ -108,49 +108,51 @@
             function mainPost() {
                 q_getFormat();
                 q_mask(bbmMask);
+                //alert(q_getMsg('dc').split('&').join());
                 //q_cmbParse("cmbDc",q_getMsg('dc').split('&').join(),'t');
             }
-			function loadAccc(){
-            	var t_acc1 = new Array();
-            	var t_acc1x = new Array();//需包含子科目的
-            	var t_where = "";
-            	for (var i = 0; i < q_bbtCount; i++) {
-            		if($('#txtGindex__'+i).val()=='01' && $.trim($('#txtAcc1__'+i).val()).length>0){
-            			t_acc1.push($.trim($('#txtAcc1__'+i).val()));
-            			if($.trim($('#txtAcc1__'+i).val()).length==5)
-            				t_acc1x.push($.trim($('#txtAcc1__'+i).val()));
-            		}
-            	}
-            	for(var i=0;i<t_acc1x.length;i++){
-            		for(var j=0;j<t_acc1.length;j++){
-            			if(t_acc1[j].length>5 && t_acc1[j].substring(0,5)==t_acc1x[i]){
-            				t_acc1x.splice(i,1);
-            				i--;
-            				break;
-            			}
-            		}
-            	}
-            	for(var i=0;i<t_acc1.length;i++){
-            		if(t_acc1x.indexOf(t_acc1[i])>=0){
-            			//包含子科目
-            			t_where += (t_where.length>0?"or":"") + " left(accc5,5)='"+t_acc1[i]+"'";
-            		}else{
-            			t_where += (t_where.length>0?"or":"") + " accc5='"+t_acc1[i]+"'";
-            		}
-            	}
-            	if(t_where.length>0)
-            		t_where = "where=^^"+t_where+"^^";
-            	q_gt('gqb', t_where, 0, 0, 0, "gqb_btnOkbbs2_"+t_sel, r_accy);
+			function loadAccc(n){
+				if(n<0){
+					sum();
+				}else{
+					if($('#txtGindex__'+n).val()=='01' && $.trim($('#txtAcc1__'+n).val()).length>0){
+						var t_where = "";
+						//5碼的才需判斷是否要包含子科目
+						var t_acc1 = $.trim($('#txtAcc1__'+n).val());
+						if(t_acc1.length==5 && $('#chkIsall__'+n).prop('checked')){
+							t_where = " left(accc5,5)='"+t_acc1+"'";
+						}else{
+							t_where = " accc5='"+t_acc1+"'";
+						}
+						t_where = "where=^^"+t_where+"^^";
+						q_gt('acccs_sum', t_where, 0, 0, 0, "acccs_sum_"+n, r_accy+"_1");
+					}
+					else{
+						loadAccc(n-1);
+					}
+				}
 			}
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'acccs':
-                	
-                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
                         break;
+                    default:
+                    	if(t_name.substring(0,10)=='acccs_sum_'){
+                    		var n = parseFloat(t_name.split('_')[2]);
+                    		var as = _q_appendData("acccs", "", true);
+                    		if(as[0]!=undefined){
+                    			var t_money = 0;
+                    			if($('#cmdDc__'+n).val()=='1')
+                    				t_money = parseFloat(as[0].dmoney.length==0?"0":as[0].dmoney)-parseFloat(as[0].cmoney.length==0?"0":as[0].cmoney);
+                    			else if($('#cmdDc__'+n).val()=='2')
+                    				t_money = parseFloat(as[0].cmoney.length==0?"0":as[0].cmoney)-parseFloat(as[0].dmoney.length==0?"0":as[0].dmoney);
+                    			$('#txtMoney1__'+n).val(FormatNumber(round(t_money,0)));
+                    		}
+                    		loadAccc(n-1);
+                    	}
+                    	break;
                 }
             }
 
@@ -258,9 +260,15 @@
                 					break;
                 				}
                 			}
+                			var t_chk = new Array();
+                			for(var i=0;i<q_bbtCount;i++)
+                				t_chk.push($('#chkIsall__'+i).prop('checked'));
                 			if(m+1==q_bbtCount){
-                				$('#btnPlut').click();
+                				$('#btnPlut').click();//會使CHECKBOX狀態改變
                 			}
+                			for(var i=0;i<t_chk.length;i++)
+                				$('#chkIsall__'+i).prop('checked',t_chk[i]);
+                				
                 			for(var i=m+1;i>n+1;i--){
                 				$('#txtGno__'+i).val($('#txtGno__'+(i-1)).val());
                 				$('#txtGindex__'+i).val($('#txtGindex__'+(i-1)).val());
@@ -344,6 +352,7 @@
             		switch($('#txtGindex__'+i).val()){
             			case '00':
             				$('#btnPlutX__'+i).css("display","");
+            				$('#chkIsall__'+i).prop('checked',false);
             				break;
             			case '01':
             				$('#btnPlutX__'+i).css("display","");
@@ -355,19 +364,24 @@
             				$('#txtMoney1__'+i).css("display","").removeAttr('readonly').css("color","black").css("background","white");
             				break;
             			case '02':
+            				$('#chkIsall__'+i).prop('checked',false);
             				$('#txtGtitle__'+i).attr("readonly","readonly").css("color","green").css("color","green").css("background","rgb(237, 237, 238)");
             				$('#txtMoney2__'+i).css("display","");
             				break;
             			case '97':
+            				$('#chkIsall__'+i).prop('checked',false);
             				$('#txtMoney2__'+i).css("display","");
             				break;
             			case '98':
+            				$('#chkIsall__'+i).prop('checked',false);
             				$('#txtMoney1__'+i).css("display","").removeAttr('readonly').css("color","black").css("background","white");
             				break;
             			case '99':
+            				$('#chkIsall__'+i).prop('checked',false);
             				$('#txtMoney2__'+i).css("display","");
             				break;
             			default:
+            				$('#chkIsall__'+i).prop('checked',false);
             				$('#txtGtitle__'+i).css("display","none").val('');
             				break;
             		}
@@ -429,6 +443,7 @@
             			t_98 = q_float('txtMoney1__'+i);
             		}
             	}
+            	
             	//小計
             	for (var i = 0; i < q_bbtCount; i++) {
             		if($('#txtGindex__'+i).val()=='02'){
@@ -816,7 +831,7 @@
 					<tr class="head" style="color:white; background:#003366;">
 						<td align="center" style="width:30px;">
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;display: none;" value="＋"/>
-						<input id="buttonLoad" onclick="loadAccc()" value="匯入" type="button" style="font-size: medium; font-weight: bold;"/>
+						<input id="buttonLoad" onclick="loadAccc(q_bbtCount-1)" value="匯入" type="button" style="font-size: medium; font-weight: bold;"/>
 						</td>
 						<td style="width:20px;"></td>
 						
@@ -838,11 +853,14 @@
 						</td>
 						<td><a id="lblNo..*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 						<td><input id="txtAcc1..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtGtitle..*"  type="text" style="width:95%;"/></td>
+						<td>
+							<input type="text" id="txtGroupno..*" style="display: none;" />
+							<input id="txtGtitle..*"  type="text" style="width:95%;"/>
+						</td>
 						<td><select id="cmbDc..*" style="width:95%;"> </select></td>
 						<td align="center"><input id="chkIsall..*" type="checkbox"/></td>
-						<td><input id="txtMoney1..*" type="text" style="width:95%;"/></td>
-						<td><input id="txtMoney2..*" type="text" style="width:95%;"/></td>
+						<td><input id="txtMoney1..*" type="text" style="width:95%; text-align: right;"/></td>
+						<td><input id="txtMoney2..*" type="text" style="width:95%; text-align: right;"/></td>
 					</tr>
 				</tbody>
 			</table>

@@ -749,13 +749,17 @@
                 <td align="center" style="width:8%"><a id='lblWeights_st'></a></td>
                 <td align="center" style="width:8%"><a id='lblPrices_st'></a></td>
                 <td align="center" style="width:10%"><a id='lblTotals_st'></a></td>
+                <td align="center" style="width:8%"><a id='lblClass_st'></a></td>
                 <td align="center"><a id='lblMemos_st'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
               	<td><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-              	<td><input class="txt c1"  id="txtProductno.*" type="text" />
-                       <input class="txt c3" id="txtNo3.*" type="text" />
-                       <input class="btn"  id="btnProduct.*" type="button" value='...' style=" font-weight: bold;" /></td>
+                <td>
+					<input class="btn"  id="btnProduct.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+                    <input type="text" id="txtProductno.*"  style="width:76%; float:left;"/>
+                    <span style="display:block; width:1%;float:left;"> </span>
+					<input type="text" id="txtNo3.*"  style="width:76%; float:left;"/>
+				</td>
                 <td><input class="txt c1" id="txtProduct.*" type="text" />
               			<input class="txt c1" id="txtUno.*" type="text" /></td>
                 <!--<td><input class="txt c1" id="txtSpec.*" type="text"  /></td>-->
@@ -776,6 +780,7 @@
                 <td><input class="txt num c1" id="txtPrice.*" type="text" /></td>
                 <td><input class="txt num c1" id="txtTotal.*" type="text" />
                        <input class="txt num c1" id="txtTheory.*" type="text" /></td>
+                <td><input class="txt c1" id="txtClass.*" type="text" /></td>
                 <td><input class="txt c1" id="txtMemo.*" type="text" />
                 <input class="txt c3" id="txtOrdeno.*" type="text" />
                 <input class="txt c2" id="txtNo2.*" type="text" />

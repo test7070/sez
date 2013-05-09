@@ -19,7 +19,7 @@
             q_tables = 's';
             var q_name = "inb";
             var q_readonly = ['txtNoa'];
-            var q_readonlys = [];
+            var q_readonlys = ['txtNoa','txtNoq'];
             var bbmNum = [['txtGwelght', 10, 2, 1],['txtTwelght', 10, 2, 1],['txtWelght', 10, 2, 1]];
             var bbsNum = [['txtLength', 10, 2, 1],['txtBweight', 10, 2, 1],['txtMount', 10, 2, 1],
             ['txtWeight', 10, 2, 1],['txtPdm',10,2,1],['txtGweight',10,2,1],['txtMount2',10,2,1],['txtTheory',10,2,1],
@@ -108,6 +108,18 @@
             }
 
             function btnOk() {
+            	//自訂noq(八位)
+            	var i=1;
+            	if(q_car==1){
+            		for(var j = 0; j < q_bbsCount; j++) {
+            			if(!emp($('#txtProductno_'+j).val())){
+            				var t_noq=('000'+i).substr(('000'+i).length-3);
+            				
+            				i++;
+            			}
+            		}
+            	}
+            	
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if(t_err.length > 0) {
                     alert(t_err);
@@ -115,7 +127,7 @@
                 }
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if(s1.length == 0 || s1 == "AUTO")
-                    q_gtnoa(q_name, replaceAll('G' + $('#txtDatea').val(), '/', ''));
+                    q_gtnoa(q_name, replaceAll('IB' + $('#txtDatea').val(), '/', ''));
                 else
                     wrServer(s1);
             }
@@ -489,7 +501,9 @@
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
                 <td ><input  id="txtDatea.*" type="text" class="txt c1"/></td>
-                <td ><input  id="txtUno.*" type="text" class="txt c1"/></td>
+                <td ><input  id="txtUno.*" type="hidden" class="txt c1"/>
+                	<input id="txtNoq.*" type="text" class="txt c1"/>
+                </td>
                 <td >
                 	<input  id="txtProductno.*" type="text" style="width:70%;" />
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:16%;"  />
@@ -519,7 +533,7 @@
                 <td ><input  id="txtCuaw.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtStore.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtUweight.*" type="text" class="txt c1 num"/></td>
-                <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
+                <input id="recno.*" type="hidden" /></td>
             </tr>
         </table>
         </div>
