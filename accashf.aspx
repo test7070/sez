@@ -472,7 +472,7 @@
             			if(n>=0)
             				$('#txtMoney2__'+i).val(FormatNumber(t_data[n]));
             		}else if($('#txtGindex__'+i).val()=='97'){
-            			$('#txtMoney2_'+i).val(FormatNumber(t_97));
+            			$('#txtMoney2__'+i).val(FormatNumber(t_97));
             		}else if($('#txtGindex__'+i).val()=='99'){
             			$('#txtMoney2__'+i).val(FormatNumber(t_97+t_98));
             		}else{

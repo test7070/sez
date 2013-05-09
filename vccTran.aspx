@@ -19,7 +19,7 @@
             q_tables = 's';
             q_desc = 1;
             var q_name = "vcc";
-            var q_readonly = ['txtNoa', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTotal','txtAccno','txtWorker','txtKind'];
+            var q_readonly = ['txtNoa', 'txtComp', 'txtAcomp', 'txtMoney', 'txtTotal','txtAccno','txtWorker','txtWorker2','txtKind'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney', 10, 0], ['txtTax', 10, 0], ['txtTotal', 10, 0]];
             var bbsNum = [['txtPrice', 12, 3], ['txtMount', 9, 2], ['txtTotal', 10, 0]];
@@ -220,7 +220,13 @@
                     return;
                 }
                 sum();
-                $('#txtWorker').val(r_name);
+                if(q_cur ==1){
+	            	$('#txtWorker').val(r_name);
+	            }else if(q_cur ==2){
+	            	$('#txtWorker2').val(r_name);
+	            }else{
+	            	alert("error: btnok!")
+	            }
                 $('#txtAcomp').val($('#cmbCno').find(":selected").text());
                 $('#txtPart').val($('#cmbPartno').find(":selected").text());
                 $('#txtPart2').val($('#cmbPartno2').find(":selected").text());
@@ -641,6 +647,14 @@
 						<td><input type="text" id="txtKind" class="txt c1"/></td>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input type="text" id="txtWorker" class="txt c1"/><input type="hidden" id="txtPayed"/></td>
+					</tr>
+					<tr>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
+						<td><input type="text" id="txtWorker2" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
