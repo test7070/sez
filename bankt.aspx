@@ -309,7 +309,7 @@
 						<td><span> </span><a id='lblNamea' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtNamea"  type="text" class="txt c1" /></td>
 					</tr>
-					<tr>
+					<tr style="display: none;">
 						<td><span> </span><a id='lblTgroup' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtTgroup" type="text" class="txt c1" /></td>
 					</tr>
