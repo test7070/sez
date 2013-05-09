@@ -30,6 +30,7 @@
 		aPop = new Array(
 					['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 					['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
+					['txtCuano','lblCuano','cua','noa,store','txtStoreno,txtStore','store_b.aspx'],
 					['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
 					['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']
 		);
@@ -62,12 +63,12 @@
 			/*$('#btnquat').click(function () { btnquat(); });*/
 			$('#btnCuaimport').click(function(){
 				var t_where = '';
-				var ordeno = $('#txtOrdeno').val();
-				if(ordeno && ordeno.length >0){
-					t_where = "where=^^ noa='" + ordeno + "' ^^";
+				var cuano = $('#lblCuano').val();
+				if(cuano && cuano.length >0){
+					t_where = "where=^^ noa='" + cuano + "' ^^";
 					q_gt('cua_cuas',t_where , 0, 0, 0, "", r_accy);
 				}else{
-					alert('請輸入' + q_getMsg('lblOrdeno'));
+					alert('請輸入' + q_getMsg('lblCuano'));
 				}
 			});
 		}
