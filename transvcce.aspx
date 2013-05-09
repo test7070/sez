@@ -360,7 +360,7 @@
                     case 'LoadCaseno':
                     	var as = _q_appendData("view_tranordes", "", true);
 		               	if (as[0] != undefined){
-		               		q_gridAddRow(bbsHtm, 'tbbs', 'txtCaseno', as.length, as, 'caseno', '', '');
+		               		q_gridAddRow(bbsHtm, 'tbbs', 'txtCaseno,txtMsg', as.length, as, 'caseno,memo', '', '');
 		               	}
 		               	Unlock();
                     	break;

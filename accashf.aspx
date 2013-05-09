@@ -108,8 +108,12 @@
             function mainPost() {
                 q_getFormat();
                 q_mask(bbmMask);
-                alert(q_getMsg('dc').split('&').join());
+                //alert(q_getMsg('dc').split('&').join());
                 q_cmbParse("cmbDc",q_getMsg('dc').split('&').join(),'t');
+                $('#btnLoad').click(function(){
+                	Lock();
+            		loadAccc(q_bbtCount-1);
+                });
             }
             function btnLoad_click(){
             	Lock();
@@ -848,7 +852,7 @@
 					<tr class="head" style="color:white; background:#003366;">
 						<td align="center" style="width:30px;">
 						<input id="btnPlut" type="button" style="font-size: medium; font-weight: bold;display: none;" value="＋"/>
-						<input id="btnLoad" onclick="btnLoad_click()" value="匯入" type="button" style="font-size: medium; font-weight: bold;"/>
+						<input id="btnLoad" value="匯入" type="button" style="font-size: medium; font-weight: bold;"/>
 						</td>
 						<td style="width:20px;"></td>
 						
