@@ -360,7 +360,7 @@
                     case 'LoadCaseno':
                     	var as = _q_appendData("view_tranordes", "", true);
 		               	if (as[0] != undefined){
-		               		q_gridAddRow(bbsHtm, 'tbbs', 'txtCaseno', as.length, as, 'caseno', '', '');
+		               		q_gridAddRow(bbsHtm, 'tbbs', 'txtCaseno,txtMsg', as.length, as, 'caseno,memo', '', '');
 		               	}
 		               	Unlock();
                     	break;
@@ -418,7 +418,7 @@
 	                        	t_msg += (as[0]['dock'].length>0?(t_msg.length>0?',':'')+'交'+as[0]['dock']:'');
 	                        	t_msg += (as[0]['boat'].length>0?(t_msg.length>0?',':'')+'船公司'+as[0]['boat']:'');
 	                        	t_msg += (as[0]['boatname'].length>0?(t_msg.length>0?',':'')+'船次'+as[0]['boatname']:'');
-	                        	t_msg += (as[0]['do1'].length>0?(t_msg.length>0?',':'')+'領櫃編號'+as[0]['do1']:'');
+	                        	t_msg += (as[0]['do1'].length>0?(t_msg.length>0?',':'')+'領編'+as[0]['do1']:'');
 	                        	t_msg += (as[0]['so'].length>0?(t_msg.length>0?',':'')+'SO:'+as[0]['so']:'');
 	                        	t_msg += (as[0]['casepackaddr'].length>0?(t_msg.length>0?', ':'')+'裝櫃地點'+as[0]['casepackaddr']:'');
 	                        	t_msg += (as[0]['port'].length>0?(t_msg.length>0?',':'')+'港口'+as[0]['port']:'');
@@ -426,12 +426,12 @@
 	                        	//進口
 	                        	t_msg += (as[0]['port2'].length>0?(t_msg.length>0?',':'')+as[0]['port2']+'領':'');
 	                        	t_msg += (as[0]['empdock2'].length>0?(t_msg.length>0?',':'')+'交'+as[0]['empdock2']:'');
-	                        	t_msg += (as[0]['takeno'].length>0?(t_msg.length>0?',':'')+'領櫃編號'+as[0]['takeno']:'');
+	                        	t_msg += (as[0]['takeno'].length>0?(t_msg.length>0?',':'')+'領編'+as[0]['takeno']:'');
 	                        	t_msg += (as[0]['casepresent'].length>0?(t_msg.length>0?',':'')+'代表櫃號'+as[0]['casepresent']:'');
 	                        	t_msg += (as[0]['product2'].length>0?(t_msg.length>0?',':'')+'品名:'+as[0]['product2']:'');
 	                        	t_msg += (as[0]['containertype'].length>0?(t_msg.length>0?',':'')+'櫃別'+as[0]['containertype']:'');
 	                        	t_msg += (as[0]['docketno2'].length>0?(t_msg.length>0?',':'')+'案號'+as[0]['docketno2']:'');
-	                        	t_msg += (as[0]['trackno'].length>0?(t_msg.length>0?',':'')+'追蹤號碼'+as[0]['trackno']:'');
+	                        	t_msg += (as[0]['trackno'].length>0?(t_msg.length>0?',':'')+'追蹤'+as[0]['trackno']:'');
 	                        	if($.trim($('#txtCaseno_'+sel).val()).length>0){
 	                        		t_msg += (t_msg.length>0?',':'')+'指定櫃號'+$.trim($('#txtCaseno_'+sel).val());
 	                        	}else{

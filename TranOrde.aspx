@@ -21,7 +21,7 @@
 
             q_tables = 's';
             var q_name = "tranorde";
-            var q_readonly = ['txtNoa', 'txtTranquatno', 'txtTranquatnoq', 'txtContract', 'txtWorker','txtCasetype','txtCasetype2'];
+            var q_readonly = ['txtNoa', 'txtTranquatno', 'txtTranquatnoq', 'txtContract', 'txtWorker', 'txtWorker2','txtCasetype','txtCasetype2'];
             var q_readonlys = [];
             var bbsNum = [];
             var bbsMask = new Array(['txtTrandate', '999/99/99']);
@@ -396,12 +396,20 @@
                     $('#txtDldate').val($('#txtCldate').val());
                 if ($('#txtDldate').val().length == 0 && $('#txtMadate').val().length > 0)
                     $('#txtDldate').val($('#txtMadate').val());
+                if($('#txtNick').val().length==0)    
+                   $('#txtNick').val($('#txtComp').val().substring(0,4)); 
                 $('#txtDatea').val($.trim($('#txtDatea').val()));
                 if (checkId($('#txtDatea').val()) == 0) {
                     alert(q_getMsg('lblDatea') + '錯誤。');
                     return;
                 }
-                $('#txtWorker').val(r_name);
+                if(q_cur ==1){
+	            	$('#txtWorker').val(r_name);
+	            }else if(q_cur ==2){
+	            	$('#txtWorker2').val(r_name);
+	            }else{
+	            	alert("error: btnok!")
+	            }
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
@@ -996,6 +1004,10 @@
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td>
 						<input id="txtWorker" type="text"  class="txt c1"/>
+						</td>
+						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
+						<td>
+						<input id="txtWorker2" type="text"  class="txt c1"/>
 						</td>
 					</tr>
 					<tr class="schema_tr" style="display:none;"></tr>
