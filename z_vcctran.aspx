@@ -114,15 +114,18 @@
                         }, {/*13*/
 	                        type : '6',
 	                        name : 'ykind'
-	                    }, {
+	                    }, {/*14*/
                         type : '5', //select
                         name : 'typea',
                         value : [q_getPara('report.all')].concat(q_getPara('lab_accc.typea').split(','))
-                    }, {/*16*/
+                    }, {/*15*/
                          	type : '8',
                             name : 'xfilter',
                             value : q_getMsg('tfilter').split('&')
-                        }]
+                        }, {/*16*/
+	                        type : '6',
+	                        name : 'xpaydate'
+	                    }]
                     });
                     q_popAssign();
                     q_langShow();
@@ -133,6 +136,8 @@
                     $('#txtDate1').datepicker();
                     $('#txtDate2').mask('999/99/99');
                     $('#txtDate2').datepicker();
+                    $('#txtXpaydate').mask('999/99/99');
+                    $('#txtXpaydate').datepicker();
                     
                     $('#txtYmon1').mask('999/99');
                     $('#txtYmon2').mask('999/99');
