@@ -769,7 +769,7 @@
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
-                   <td align="center" id='datea'>~datea</td>
+                   <td align="center" id='odate'>~odate</td>
                    <td align="center" id='noa'>~noa</td>
                    <td align="center" id='custno comp,4'>~custno ~comp,4</td>
             </tr>
@@ -778,8 +778,8 @@
         <div class='dbbm' style="width: 68%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
             <tr class="tr1">
-               <td class="td1"><span> </span><a id='lblDatea' class="lbl"> </a></td>
-               <td class="td2"> <input id="txtDatea"  type="text"  class="txt c1"/></td>
+               <td class="td1"><span> </span><a id='lblOdate' class="lbl"> </a></td>
+               <td class="td2"> <input id="txtOdate"  type="text"  class="txt c1"/></td>
                <td class="td3"> <select id="cmbStype" class="txt c1"> </select></td>
                <td class="td4"><span> </span><a id='lblKind' class="lbl"> </a></td>
                <td class="td5"><select id="cmbKind" class="txt c1"> </select></td>
