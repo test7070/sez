@@ -18,7 +18,7 @@
             q_tables = 's';
             var q_name = "vccar";
             var q_readonly = ['txtNoa'];
-            var q_readonlys = ['txtNoq'];
+            var q_readonlys = [];
             var bbmNum = [];
             var bbsNum = [];
             var bbmMask = [];
@@ -100,7 +100,7 @@
                     for( i = 1; i <= n/50; i++){
                     	t_string = ('00' + i);
                     	t_string = t_string.substring(t_string.length-2,t_string.length);
-                    	$('#txtNoq_'+(i-1)).val(t_string);
+                    	$('#txtNo2_'+(i-1)).val(t_string);
                     	if(i==1)
                     		$('#txtBinvono_'+(i-1)).val(t_invono);
                     	else{
@@ -143,7 +143,7 @@
             function sum() {
                 var t1 = 0, t_unit, t_mount, t_weight = 0, t_count = 0;
                 for (var j = 0; j < q_bbsCount; j++) {
-                    if (!emp($('#txtNoq_' + j).val()))
+                    if (!emp($('#txtNo2_' + j).val()))
                         t_count++;
                 }// j
                 $('#txtSeq').val(t_count);
@@ -223,7 +223,7 @@
             }
 
             function bbsSave(as) {
-                if (!as['noq']) {
+                if (!as['no2']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
@@ -517,7 +517,7 @@
 					<td  align="center" style="width:30px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td align="center" style="width:50px;"><a id='lblNoq'> </a></td>
+					<td align="center" style="width:50px;"><a id='lblNo2'> </a></td>
 					<td align="center" style="width:300px;"><a id='lblInvonos'> </a></td>
 					<td align="center" style="width:200px;"><a id='lblCust'> </a></td>
 					<td align="center" style="width:100px;"><a id='lblDatea'> </a></td>
@@ -527,7 +527,7 @@
 					<td align="center">
 					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 					</td>
-					<td><input type="text" id="txtNoq.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtNo2.*" style="width:95%;text-align:center;"/></td>
 					<td>
 						<input id="txtBinvono.*"  type="text" style="float:left;width: 130px;"/>
 						<a id="lblSymbol3"style="float:left;width: 20px;"> </a>
@@ -539,7 +539,10 @@
 						<input type="text" id="txtComp.*"  style="width: 63%;float: left;"/>
 					</td>
 					<td><input type="text" id="txtDatea.*" style="width:95%;"/></td>
-					<td><input type="text" id="txtMemo.*" style="width:95%;"/></td>
+					<td>
+						<input type="text" id="txtMemo.*" style="width:95%;"/>
+						<input type="text" id="txtNoq.*" style="display:none;"/>
+					</td>
 				</tr>
 			</table>
 		</div>
