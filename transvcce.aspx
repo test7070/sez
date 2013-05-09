@@ -360,7 +360,7 @@
                     case 'LoadCaseno':
                     	var as = _q_appendData("view_tranordes", "", true);
 		               	if (as[0] != undefined){
-		               		q_gridAddRow(bbsHtm, 'tbbs', 'txtCaseno,txtMsg', as.length, as, 'caseno,memo', '', '');
+		               		q_gridAddRow(bbsHtm, 'tbbs', 'txtCaseno,txtMsg,txtMemo', as.length, as, 'caseno,memo,memo', '', '');
 		               	}
 		               	Unlock();
                     	break;
@@ -445,7 +445,9 @@
 	                        	t_msg += (as[0]['option01'].length>0?(t_msg.length>0?',':'')+as[0]['option01']+'過磅':'');
 	                        	t_msg += (as[0]['option02'].length>0?(t_msg.length>0?',':'')+as[0]['option02']+'加封':'');
 	                        	t_msg += (as[0]['casetype2'].length>0?(t_msg.length>0?',':'')+'櫃型'+as[0]['casetype2']:'');
-	                        	$('#txtMsg_'+sel).val(t_msg);
+	                        	
+	                        	t_memo = $.trim($('#txtMemo_'+sel).val());
+	                        	$('#txtMsg_'+sel).val(t_memo+(t_memo.length>0?',':'')+t_msg);
 	                        	sum();
 	                        }else{
 	                        	alert('查無訂單。');
@@ -959,7 +961,10 @@
 						<input id="txtDriver.*" type="text" style="float:left;width:100px;"/>		
 					</td>
 					<td><input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/></td>
-					<td><input id="txtCaseno.*" type="text" style="width: 95%;"/></td>
+					<td>
+						<input id="txtCaseno.*" type="text" style="width: 95%;"/>
+						<input id="txtMemo.*" type="text" style="display: none;"/>
+					</td>
 					<td><input id="txtMsg.*" type="text" style="width: 95%;"/></td>
 					<td align="center" ><input id="chkIssend.*" title="若要發送訊息給司機，請打勾。" type="checkbox" /></td>
 					<td align="center" ><input id="chkSendcommandresult.*" type="checkbox" /></td>
