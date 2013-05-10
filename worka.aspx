@@ -34,7 +34,8 @@
 					['txtCuano','lblCuano','cua','noa,datea','txtCuano,txtCuadate','cua_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
 					['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
 					['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx'],
-					['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
+					['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
+					['txtOrdeno','lblOrdeno','ordes','noa,no2,productno,product','txtOrdeno,txtNo2,txtProductno,txtProduct','ordes_b.aspx','95%']
 		);
 		$(document).ready(function () {
 			bbmKey = ['noa'];
@@ -484,7 +485,7 @@
 			<td><input id="txtCuadate" type="text"  class="txt c1"/></td>
 		</tr>
 		<tr>
-			<td><span> </span><a id='lblOrdeno' class="lbl"> </a></td>
+			<td><span> </span><a id='lblOrdeno' class="lbl btn"> </a></td>
 			<td><input id="txtOrdeno" type="text"  style='width:75%;'/><input id="txtNo2" type="text"  style='width:25%;'/></td>
 			<td><span> </span><a id='lblMold' class="lbl"> </a></td>
 			<td><input id="txtMoldno" type="text" class="txt c2"/><input id="txtMold" type="text" class="txt c3"/></td>
