@@ -36,7 +36,7 @@
             , ['txtCustno', 'lblCustno', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
             , ['txtUccno', 'lblUcc', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx']
             , ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
-            , ['txtBoatno', 'lblBoatno', 'boat', 'noa,boat', 'txtBoatno,txtBoat', 'boat_b.aspx']
+            , ['txtBoatno', 'lblBoatno', 'boat', 'noa,boat', '0txtBoatno,txtBoat', 'boat_b.aspx']
             ,['txtAddrno', 'lblAddr', 'addr', 'noa,addr,productno,product', 'txtAddrno,txtAddr,txtUccno,txtProduct', 'addr_b.aspx']);
 			
 			var calctypeItem = new Array();
