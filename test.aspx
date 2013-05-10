@@ -8,7 +8,9 @@
 		<script type="text/javascript">
 
             $(document).ready(function() {
-				Lock(100);
+            	$('#txtA').change(function(){
+            		$('#txtB').val($(this).val().replace( /^([[a-z,A-Z,0-9,_]*\^]*)([a-z,A-Z,0-9,_]*)$/g, "$2"));
+            	});
 			
 				//alert(document.documentMode);
 				//Unlock(100);
