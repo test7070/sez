@@ -31,7 +31,7 @@
             , ['txtCustno2', 'lblCust2', 'cust', 'noa,comp', 'txtCustno2,txtCust2', 'cust_b.aspx']
             , ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
             , ['txtSalesno2', 'lblSales2', 'sss', 'noa,namea', 'txtSalesno2,txtSales2', 'sss_b.aspx']
-            , ['txtGrpno', 'lblCust', 'cust', 'noa,comp', 'txtGrpno,txtGrpname', 'cust_b.aspx'])
+            , ['txtGrpno', 'lblGrp', 'team', 'noa,team', 'txtGrpno,txtGrpname', 'team_b.aspx'])
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
