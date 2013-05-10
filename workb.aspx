@@ -496,6 +496,8 @@
 			</td>
 			<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
 			<td><input id="txtWorkno" type="text" class="txt c1"/></td>
+			<td><input type="button" id="btnImport"></td>
+
 		</tr>
         <tr>
 			<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
