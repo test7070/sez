@@ -16,7 +16,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            var q_name = "bankt";
+            var q_name = "banktd";
             var q_readonly = ['txtWorker'];
             var bbmNum = [];
             var bbmMask = [];
@@ -65,7 +65,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('bankt_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
+                q_box('banktd_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
@@ -309,7 +309,7 @@
 						<td><span> </span><a id='lblNamea' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtNamea"  type="text" class="txt c1" /></td>
 					</tr>
-					<tr >
+					<tr style="display: none;">
 						<td><span> </span><a id='lblTgroup' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtTgroup" type="text" class="txt c1" /></td>
 					</tr>

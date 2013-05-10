@@ -207,9 +207,11 @@
 						$('#btnInbmimport').removeAttr('disabled');
 						$('#btnInbwimport').removeAttr('disabled');
 					}
+					$('#btnOrdeimport').attr('disabled', 'disabled');
                 } else {
+                	$('#btnOrdeimport').attr('disabled', 'disabled');
 					$('#btnInbmimport').attr('disabled', 'disabled');
-					$('#btnInbwimport').attr('disabled', 'disabled');
+					$('#btnOrdeimport').removeAttr('disabled');
                 }
             }
             

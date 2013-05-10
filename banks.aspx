@@ -15,9 +15,9 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-			q_xchg = 1;
+
             var q_name = "banks";
-            var q_readonly = [['txtNoa'],['txtAcc2'],['txtWorker'],['txtWorker2']];
+            var q_readonly = [['txtNoa'],['txtAccno'],['txtWorker']];
             var bbmNum = [['txtMoney', 10, 0, 1], ['txtMoney2', 10, 0, 1], ['txtMoney3', 10, 0, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -48,7 +48,13 @@
             function mainPost() {
 				bbmMask = [['txtDatea', r_picd],['txtEnddate', r_picd],['txtPaydate', r_picd]];
                 q_mask(bbmMask);
+                q_cmbParse("cmbBankt", q_getPara('bankt.typea'));
 				$('#txtAcc1').change(function() {
+					var str=$.trim($(this).val());
+                	if((/^[0-9]{4}$/g).test(str))
+                		$(this).val(str+'.');
+				});
+				$('#txtAcc3').change(function() {
 					var str=$.trim($(this).val());
                 	if((/^[0-9]{4}$/g).test(str))
                 		$(this).val(str+'.');
@@ -76,19 +82,21 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('banks_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
+                q_box('banks_s.aspx', q_name + '_s', "500px", "500px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
                 $('#txtDatea').val(q_date());
             	$('#txtNoa').val('AUTO');
                 $('#txtDatea').focus();
+                bankt_change();
             }
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
                 $('#txtDatea').focus();
+                bankt_change();
             }
 
             function btnPrint() {
@@ -102,12 +110,7 @@
                     alert(t_err);
                     return;
                 }
-                
-                if(q_cur==1)
-	            	$('#txtWorker').val(r_name);
-            	else
-            		$('#txtWorker2').val(r_name);
-            		
+                $('#txtWorker').val(r_name);
 				var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
@@ -182,7 +185,34 @@
             function btnCancel() {
                 _btnCancel();
             }
-           
+            function bankt_change(){
+				bankt_val = $('#cmbBankt').val();
+				if(bankt_val == '1'){
+					$('#txtAcc1').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtAcc2').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtEnddate').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtAcc3').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtAcc4').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtMoney2').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtCheckno').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtPaydate').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtBankno3').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtMoney3').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtBank3').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+				}else if(bankt_val == '2'){
+					$('#txtAcc3').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtAcc4').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtMoney2').val('0').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtCheckno').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtPaydate').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtBankno3').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtMoney3').val('0').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtBank3').val('').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+					$('#txtAcc1').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtAcc2').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+					$('#txtEnddate').attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+				}
+            }
 		</script>
 		<style type="text/css">
             #dmain {
@@ -190,7 +220,7 @@
             }
             .dview {
                 float: left;
-                width: 950px; 
+                width: 400px; 
                 border-width: 0px; 
             }
             .tview {
@@ -210,7 +240,7 @@
             }
             .dbbm {
                 float: left;
-                width:950px;
+                width: 600px;
                 /*margin: -1px;        
                 border: 1px black solid;*/
                 border-radius: 5px;
@@ -254,14 +284,6 @@
             }
             .txt.c1 {
                 width: 100%;
-                float: left;
-            }
-            .txt.c2 {
-                width: 25%;
-                float: left;
-            }
-            .txt.c3 {
-                width: 74%;
                 float: left;
             }
             .txt.num {
@@ -312,31 +334,20 @@
 			<div class="dview" id="dview">
 				<table class="tview" id="tview">
 					<tr>
-						<td align="center" style="width:1%; color:black;"><a id='vewChk'> </a></td>
-						<td align="center" style="width:10%; color:black;"><a id='vewDatea'> </a></td>
-						<td align="center" style="width:10%; color:black;"><a id='vewAccount'> </a></td>
-						<td align="center" style="width:15%; color:black;"><a id='vewBankname'> </a></td>
-						<td align="center" style="width:8%; color:black;"><a id='vewInmoney'> </a></td>
-						<td align="center" style="width:8%; color:black;"><a id='vewOutmoney'> </a></td>
-						<td align="center" style="width:10%; color:black;"><a id='vewAcc1'> </a></td>
-						<td align="center" style="width:15%; color:black;"><a id='vewAcc2'> </a></td>
+						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
+						<td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewBank'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='datea' style="text-align: center;">~datea</td>
-						<td id='account' style="text-align: left;">~account</td>
-						<td id='bankname' style="text-align: left;">~bankname</td>
-						<td id='inmoney' style="text-align: left;">~inmoney</td>
-						<td id='outmoney' style="text-align: left;">~outmoney</td>
-						<td id='acc1' style="text-align: left;">~acc1</td>
-						<td id='acc2' style="text-align: left;">~acc2</td>
+						<td id='bank' style="text-align: left;">~bank</td>
 					</tr>
 				</table>
 			</div>
 			<div class='dbbm'>
 				<table class="tbbm"  id="tbbm">
 					<tr style="height:1px;">
-						<td> </td>
 						<td> </td>
 						<td> </td>
 						<td> </td>
@@ -350,41 +361,86 @@
 						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblAccount' class="lbl"> </a></td>
-						<td><input id="txtAccount"  type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblAcc1' class="lbl btn"> </a></td>
-						<td colspan="2"><input id="txtAcc1"  type="text" class="txt c2" />
-							<input id="txtAcc2"  type="text" class="txt c3" />
-						</td>
+						<td><span> </span><a id='lblBank' class="lbl btn"> </a></td>
+						<td><input id="txtBankno"  type="text" class="txt c1" /></td>
+						<td><input id="txtBank"  type="text" class="txt c1" /></td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblLcno' class="lbl"> </a></td>
+						<td><input id="txtLcno" type="text" class="txt c1" /></td>
+						<td> </td>
+						<td> </td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblBankt' class="lbl btn"> </a></td>
 						<td><input id="txtBanktno" type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblBankname' class="lbl"> </a></td>
-						<td colspan="2"><input id="txtBanktname" type="text" class="txt c1" /></td>
-						
+						<td><input id="txtBanktname" type="text" class="txt c1" /></td>
+						<td><select id="cmbBankt" class="txt c1" onchange="bankt_change();"> </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblInmoney' class="lbl"> </a></td>
-						<td><input id="txtInmoney" type="text" class="txt num c1" /></td>
-						<td><span> </span><a id='lblOutmoney' class="lbl"> </a></td>
-						<td><input id="txtOutmoney" type="text" class="txt num c1" /></td>
+						<td><span> </span><a id='lblMoney' class="lbl"> </a></td>
+						<td><input id="txtMoney" type="text" class="txt num c1" /></td>
+						<td> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblOtherbank' class="lbl"> </a></td>
-						<td><input id="txtOtherbank" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblCointype' class="lbl"> </a></td>
+						<td><input id="txtCointype" type="text" class="txt c1" /></td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblFloat' class="lbl"> </a></td>
+						<td><input id="txtFloat" type="text" class="txt num c1" /></td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblAcc1' class="lbl btn"> </a></td>
+						<td><input id="txtAcc1" type="text" class="txt c1" /></td>
+						<td><input id="txtAcc2" type="text" class="txt c1" /></td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblEnddate' class="lbl"> </a></td>
+						<td><input id="txtEnddate" type="text" class="txt c1" /></td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblAcc2' class="lbl btn"> </a></td>
+						<td><input id="txtAcc3" type="text" class="txt c1" /></td>
+						<td><input id="txtAcc4" type="text" class="txt c1" /></td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblMoney2' class="lbl"> </a></td>
+						<td><input id="txtMoney2" type="text" class="txt num c1" /></td>
+						<td> </td>
+					</tr>
+					<tr>
 						<td><span> </span><a id='lblCheckno' class="lbl"> </a></td>
 						<td><input id="txtCheckno" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblPaydate' class="lbl"> </a></td>
+						<td><input id="txtPaydate" type="text" class="txt c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblBankno3' class="lbl"> </a></td>
+						<td><input id="txtBankno3" type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblMoney3' class="lbl"> </a></td>
+						<td><input id="txtMoney3" type="text" class="txt num c1" /></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id='lblBank3' class="lbl"> </a></td>
+						<td colspan="3"><input id="txtBank3" type="text" class="txt c1" /></td>
+
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan="3" ><textarea id="txtMemo"  style="width:100%; height: 60px;"> </textarea></td>
 					</tr>
 					<tr>
+						<td><span> </span><a id='lblAccno' class="lbl"> </a></td>
+						<td><input id="txtAccno" type="text" class="txt c1" /></td>
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker" type="text" class="txt c1" /></td>
-						<td><span> </span><a id='lblWorker2' class="lbl"> </a></td>
-						<td><input id="txtWorker2" type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>

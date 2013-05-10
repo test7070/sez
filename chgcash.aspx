@@ -561,9 +561,7 @@
 						<td align="center" style="width:100px; color:black;"><a id='vewDatea'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewMoney'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewChgpart'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewChecker'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewApprv'> </a></td>
-						<td align="center" style="width:100px; color:black;"><a id='vewApprove'> </a></td>
+						<td align="center" style="width:250px; color:black;"><a id='vewAcc2'> </a></td>
 					</tr>
 					<tr>
 						<td >
@@ -572,9 +570,7 @@
 						<td id="datea" style="text-align: center;">~datea</td>
 						<td id="money,0,1" style="text-align: right;">~money,0,1</td>
 						<td id="chgpart" style="text-align: center;">~chgpart</td>
-						<td id="checker" style="text-align: left;">~checker</td>
-						<td id="apprv" style="text-align: left;">~apprv</td>
-						<td id="approve" style="text-align: left;">~approve</td>
+						<td id="acc2" style="text-align: center;">~acc2</td>
 					</tr>
 				</table>
 			</div>
@@ -635,29 +631,10 @@
 					<tr>
 						<td><span> </span><a id="lblOrg" class="lbl"> </a></td>
 						<td><input id="txtOrg"  type="text" class="txt num c1" /></td>
-						<td> </td>
-						<td> </td>
-						<td><span> </span><a id="lblChecker" class="lbl"> </a></td>
-						<td><input id="txtChecker"  type="text" class="txt c1" /></td>
-						<td colspan="2"><input id="txtCheckmemo"  type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id="lblAccno" class="lbl btn"> </a></td>
 						<td><input id="txtAccno"  type="text"  class="txt c1"/></td>
-						<td> </td>
-						<td> </td>
-						<td><span> </span><a id="lblApprv" class="lbl"> </a></td>
-						<td><input id="txtApprv"  type="text" class="txt c1"/></td>
-						<td colspan="2"><input id="txtApprvmemo"  type="text" class="txt c1"/></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
-						<td><input id="txtWorker"  type="text" class="txt c1"/></td>	
-						<td> </td>
-						<td> </td>				
-						<td><span> </span><a id="lblApprove" class="lbl"> </a></td>
-						<td><input id="txtApprove"  type="text" class="txt c1" /></td>
-						<td colspan="2"><input id="txtApprovememo"  type="text" class="txt c1" /></td>
+						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>
