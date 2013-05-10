@@ -641,6 +641,8 @@
                 <td class="td4"><input id="txtWorker" type="text" class="txt c1" /></td> 
                 <td class="td3"><span> </span><a id='lblWorker2' class="lbl"></a></td>
                 <td class="td4"><input id="txtWorker2" type="text" class="txt c1" /></td> 
+                <td class="td3"><span> </span><a id='lblEnda' class="lbl"></a></td>
+                <td class="td4"><input id="chkEnda" type="checkbox"/></td> 
             </tr>
             <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblMemo' class='lbl'></a></td>
@@ -650,7 +652,7 @@
         </div>
         </div>
 
-        <div class='dbbs' > <%--style="overflow-x: hidden; overflow-y: scroll; height:200px"  --%>
+        <div class='dbbs' >
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
@@ -663,18 +665,18 @@
                 <td align="center"><a id='lblPrices'> </a></td>
                 <td align="center"><a id='lblTotals'> </a></td>
                 <td align="center"><a id='lblMemos'> </a></td>
+                <td align="center"><a id='lblEndas'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;">
                 	<input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" />
-                	<input id="txtNoq.*" type="hidden" />
                 </td>
                 <td style="width:10%; text-align:center">
                 	<input class="txt c6"  id="txtProductno.*" maxlength='30'type="text" style="width:98%;" />
                     <input class="btn"  id="btnProduct.*" type="button" value='...' style=" font-weight: bold;" />
                     <input class="txt c6"  id="txtNo2.*" type="text" />
                 </td>
-                <td style="width:15%;">
+                <td style="width:16%;">
                 	<input class="txt c7" id="txtProduct.*" type="text" />
                 </td>
                 <td style="width:16%;">
@@ -682,7 +684,7 @@
                 <td style="width:4%;">
                 	<input class="txt c7" id="txtUnit.*" type="text"/>
                 </td>
-                <td style="width:5%;">
+                <td style="width:6%;">
                 	<input class="txt num c7" id="txtMount.*" type="text" />
                 </td>
                 <td style="width:8%;">
@@ -697,9 +699,12 @@
                 </td>
                 <td style="width:12%;">
 	                <input class="txt c7" id="txtMemo.*" type="text" />
-	                <input class="txt" id="txtQuatno.*" type="text"  />
-	                <input class="txt c2" id="txtNo3.*" type="text"  />
-	                <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
+	                <input class="txt" id="txtQuatno.*" type="text" style="width: 70%;" />
+	                <input class="txt" id="txtNo3.*" type="text"  style="width: 20%;"/>
+	               <input id="recno.*" type="hidden" />
+                </td>
+                <td style="width:4%;" align="center">
+	                <input id="chkEnda.*" type="checkbox"/>
                 </td>
             </tr>
 
