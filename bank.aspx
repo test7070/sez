@@ -26,8 +26,8 @@
             brwNowPage = 0;
             brwKey = 'noa';
             brwCount2 = 20;
-            aPop = new Array(['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
-
+            aPop = new Array(['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']);
+            
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 brwCount2 = 20
@@ -344,6 +344,11 @@
 						<td><span> </span><a id='lblAccount' class="lbl"> </a></td>
 						<td colspan="3"><input id="txtAccount"  type="text" class="txt c1" /></td>
 					</tr>
+					<td><span> </span><a id="lblAcomp" class="lbl" > </a></td>
+						<td colspan="3">
+						<input id="txtCno" type="text" style="float:left; width:25%;"/>
+						<input id="txtAcomp"  type="text" style="float:left; width:73%;"/>
+						</td>
 					<tr>
 						<td><span> </span><a id='lblAcc1' class="lbl"> </a></td>
 						<td><input id="txtAcc1" type="text" class="txt c1" /></td>

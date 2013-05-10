@@ -597,7 +597,7 @@
 						<td><select id="cmbTaxtype" class="txt c1" > </select></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblSerial' class="lbl"> </a></td>
+						<td><span> </span><a id='lblSerial' class="lbl btn"> </a></td>
 						<td><input id="txtSerial" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblBuyer' class="lbl"> </a></td>
 						<td colspan="3">

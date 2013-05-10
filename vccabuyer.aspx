@@ -86,7 +86,7 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'vccabuyer':
+                    case q_name:
                 		if(q_cur==1 || q_cur==2){
 							var as = _q_appendData("vccabuyer", "", true);
 							if (as[0] == undefined) {
@@ -98,15 +98,8 @@
 							} else {
 								alert("統一編號已存在。");
 							}
-						}
-						break;
-                    case q_name:
-                        if (q_cur == 4)
+						}else if (q_cur == 4)
                             q_Seek_gtPost();
-
-                        if (q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                         break;
                 }  /// end switch
             }

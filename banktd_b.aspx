@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = 'bank', t_content = 'field=noa,bank', bbsKey = ['noa'], as; 
+    var q_name = 'banktd', t_content = 'field=noa,namea ', bbsKey = ['noa'], as; 
     var isBott = false;  
     var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
     var i,s1;
@@ -44,12 +44,12 @@
             <tr>
                 <th align="center" > </th>
                 <th align="center" style='color:Blue;'><a id='lblNoa'> </a></th>
-                <th align="center" style='color:Blue;'><a id='lblBank'> </a></th>
+                <th align="center" style='color:Blue;'><a id='lblNamea'> </a></th>
             </tr>
             <tr>
                 <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
                 <td style="width:20%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-                <td style="width:45%;"><input class="txt" id="txtBank.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:45%;"><input class="txt" id="txtNamea.*" type="text" style="width:98%;"  readonly="readonly" /></td>
                 
             </tr>
         </table>
