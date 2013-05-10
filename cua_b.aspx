@@ -11,6 +11,7 @@
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
     var q_name = 'cua' , t_content = ' field=noa', bbsKey = ['noa'], as, t_where = '';
+    var t_sqlname = 'cua_load'; t_postname = q_name;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield=[],afield,t_data,t_htm, t_bbsTag = 'tbbs';
     var i, s1;
@@ -25,9 +26,12 @@
                 dataErr = false;
                 return;
             }
-            mainBrow(); 
+            mainBrow(6, t_content, t_sqlname, t_postname , r_accy );
          }
-
+         
+         function bbsAssign() {  
+        	_bbsAssign();
+ 		}
 
         function q_gtPost() {  ///  for   store2 
          

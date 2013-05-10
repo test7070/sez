@@ -22,7 +22,7 @@
 		var q_readonly = ['txtWorker'];
 		var q_readonlys = [];
 		var bbmNum = [];  // 允許 key 小數
-		var bbsNum = [['txtMount', 12, 0 , 1]];
+		var bbsNum = [['txtMount', 12, 0 , 1],['txtWeight', 15, 2 , 1]];
 		var bbmMask = [];
 		var bbsMask = [];
 		q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
@@ -30,7 +30,7 @@
 		aPop = new Array(
 					['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 					['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
-					['txtCuano','lblCuano','cua','noa','txtCuano','cua_b.aspx'],
+					['txtCuano','lblCuano','cua','noa','txtCuano','cua_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
 					['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
 					['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']
 		);
@@ -70,6 +70,14 @@
 				}else{
 					alert('請輸入' + q_getMsg('lblCuano'));
 				}
+			});
+			
+			$('#btnOrde').click(function(){
+				t_where = '';
+                ordeno = $('#txtOrdeno').val();
+                if(ordeno.length > 0)
+                	t_where = "noa='" + ordeno + "'";
+                q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
 			});
 		}
 
@@ -484,6 +492,7 @@
 		<tr>
 			<td colspan="3" align="center">
 				<input type="button" id="btnCuaimport">
+				<input type="button" id="btnOrde"/>
 				<input type="button" id="btnAMimport">
 			</td>
 		</tr>
@@ -498,6 +507,7 @@
 				<td align="center"><a id='lblProducts'></a></td>
 				<td align="center"><a id='lblUnit'></a></td>
 				<td align="center"><a id='lblMounts'></a></td>
+				<td align="center"><a id='lblWeights'></a></td>
 				<td align="center"><a id='lblProcesss'></a></td>
 				<td align="center"><a id='lblTypes'></a></td>
 				<td align="center"><a id='lblMechno'></a></td>
@@ -516,8 +526,11 @@
 				<td style="width:4%;">
 					<input id="txtUnit.*" type="text" class="txt c1"/>
 				</td>
-				<td style="width:12%;">
+				<td style="width:8%;">
 					<input id="txtMount.*" type="text" class="txt c1" style="text-align:right"/>
+				</td>
+				<td style="width:8%;">
+					<input id="txtWeight.*" type="text" class="txt c1" style="text-align:right"/>
 				</td>
 				<td style="width:10%;">
 					<input id="txtProcess.*" type="text" class="txt c1"/>
