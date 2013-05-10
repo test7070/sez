@@ -241,11 +241,12 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                if (t_para) {
-					$('#btnGen').removeAttr('disabled');
+                if (q_cur != 2) {
+					$('#btnGen').attr('disabled', 'disabled');
+					
 		        }
 		        else {
-		        	$('#btnGen').attr('disabled', 'disabled');
+		        	$('#btnGen').removeAttr('disabled');
 		        }
             }
 
