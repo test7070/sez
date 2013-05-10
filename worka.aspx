@@ -30,7 +30,7 @@
 		aPop = new Array(
 					['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 					['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
-					['txtCuano','lblCuano','cua','noa,store','txtStoreno,txtStore','store_b.aspx'],
+					['txtCuano','lblCuano','cua','noa','txtCuano','cua_b.aspx'],
 					['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
 					['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']
 		);
@@ -459,22 +459,23 @@
 			<td><input id="txtStoreno"  type="text" class="txt c2"/><input id="txtStore" type="text" class="txt c3"/></td> 
 			<td><span> </span><a id='lblProcess' class="lbl"> </a></td>
 			<td><input id="txtProcessno" type="text" class="txt c2"/><input id="txtProcess" type="text"  class="txt c3"/></td>
-			<td><span> </span><a id='lblCuano' class="lbl btn"> </a><!--<a id='lblOrdeno' class="lbl btn"> </a>--></td>
+			<td><span> </span><a id='lblCuano' class="lbl btn"> </a></td>
 			<td>
 				<input id="txtCuano" type="text"  class="txt c1"/>
-				<!--<input id="txtOrdeno" type="text"  style='width:75%;'/><input id="txtNo2" type="text"  style='width:25%;'/>-->
 			</td>
 		</tr>
 		<tr>
-			<td><span> </span><a id='lblProductno' class="lbl"> </a></td>
-			<td><input id="txtProductno" type="text"  class="txt c1"/></td>
+			<td><span> </span><a id='lblOrdeno' class="lbl btn"> </a></td>
+			<td><input id="txtOrdeno" type="text"  style='width:75%;'/><input id="txtNo2" type="text"  style='width:25%;'/></td>
 			<td><span> </span><a id='lblMold' class="lbl"> </a></td>
 			<td><input id="txtMoldno" type="text" class="txt c2"/><input id="txtMold" type="text" class="txt c3"/></td>
 			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 			<td><input id="txtWorker" type="text"  class="txt c1"/></td></tr>
 		<tr>
+			<td><span> </span><a id='lblProductno' class="lbl"> </a></td>
+			<td><input id="txtProductno" type="text"  class="txt c1"/></td>
 			<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
-			<td colspan='5'><input id="txtProduct" type="text"  style="width: 99%;"/></td>
+			<td colspan='3'><input id="txtProduct" type="text"  style="width: 99%;"/></td>
 		</tr>
 		<tr>
 			<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
