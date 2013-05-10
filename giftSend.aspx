@@ -217,7 +217,7 @@
 
             function bbsSave(as) {
             	t_err = '';
-                if (!as['custno']) {
+                if (!as['mount']) {
                     as[bbsKey[1]] = '';
                     return;
                 }
