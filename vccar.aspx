@@ -9,6 +9,10 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -18,7 +22,7 @@
             q_tables = 's';
             var q_name = "vccar";
             var q_readonly = ['txtNoa'];
-            var q_readonlys = [];
+            var q_readonlys = ['txtNo2','txtBinvono','txtEinvono'];
             var bbmNum = [];
             var bbsNum = [];
             var bbmMask = [];
@@ -30,14 +34,15 @@
             brwNowPage = 0;
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
-            aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx'], ['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx']);
+            aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
+            , ['txtCustno_', 'btnCust_', 'cust', 'noa,comp', 'txtCustno_,txtComp_', 'cust_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'noq'];
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
             });
-
+			
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -52,7 +57,10 @@
                 bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
                 bbsMask = [['txtDatea', r_picd]];
-
+				
+				$('#txtBdate').datepicker();
+				$('#txtEdate').datepicker();
+				
                 $('#txtBinvono').focus(function(e){
                 	$(this).css("color","black");
                 }).blur(function(e) {
@@ -137,6 +145,28 @@
                             q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
 
                         break;
+                    default:
+                    	if(t_name.substring(0,11)=='checkInvono'){
+                    		var n = parseFloat(t_name.split('_')[1]); 
+                    		var as = _q_appendData("vccars", "", true);
+	                        if (as[0] != undefined){
+	                        	for(var i in as){
+	                            	if(as[i].binvono == $('#txtBinvono_'+n).val()){
+	                            		alert(as[i].einvono+'已存在。單號【'+as[i].noa+'】');
+	                            	}else if(as[i].einvono == $('#txtEinvono_'+n).val()){
+	                            		alert(as[i].einvono+'已存在。單號【'+as[i].noa+'】');
+	                            	}else{
+	                            		alert('例外錯誤。 n='+n);
+	                            	}
+	                            	Unlock();
+	                            	return;
+	                            }
+	                        }
+	                        else{
+	                        	chkInvono(n-1);
+	                        }
+                    	}
+                    	break;
                 }  /// end switch
             }
 
@@ -175,36 +205,77 @@
             }
 
             function btnOk() {
+            	Lock();
                 $('#txtBdate').val($.trim($('#txtBdate').val()));
                 if (checkId($('#txtBdate').val()) == 0) {
                     alert(q_getMsg('lblBdate') + '錯誤。');
+                    Unlock();
                     return;
                 }
                 $('#txtEdate').val($.trim($('#txtEdate').val()));
                 if (checkId($('#txtEdate').val()) == 0) {
                     alert(q_getMsg('lblBdate') + '錯誤。');
+                    Unlock();
                     return;
                 }
-                var t_err = '';
-                
+                if($.trim($('#txtBinvono').val()).length==0 || $.trim($('#txtEinvono').val()).length==0){
+                	alert(q_getMsg('lblInvono') + '錯誤。');
+                    Unlock();
+                    return;
+                }
+                //檢查BBS有無錯誤
+                t_minInvono = 999999999;
+                t_maxInvono = -1;
+				for (var i = 0; i < q_bbsCount; i++) {
+					if($('#txtBinvono_'+i).val().length>0)
+						if($('#txtBinvono_'+i).val().substring(0,2)!=$('#txtBinvono').val().substring(0,2)){
+							alert('異常：請重新產生本數。');
+		                    Unlock();
+		                    return;
+						}else
+							t_minInvono = Math.min(t_minInvono,parseFloat($('#txtBinvono_'+i).val().substring(2,10)));
+					if($('#txtEinvono_'+i).val().length>0)
+						if($('#txtEinvono_'+i).val().substring(0,2)!=$('#txtEinvono').val().substring(0,2)){
+							alert('異常：請重新產生本數。');
+		                    Unlock();
+		                    return;
+						}else
+							t_maxInvono = Math.max(t_maxInvono,parseFloat($('#txtEinvono_'+i).val().substring(2,10)));
+				}  
+				if(t_minInvono!=parseFloat($('#txtBinvono').val().substring(2,10)) || t_maxInvono!=parseFloat($('#txtEinvono').val().substring(2,10)) ){
+					alert('異常：請重新產生本數。');
+                    Unlock();
+                    return;
+				}
                 sum();
-                var t_noa = trim($('#txtNoa').val());
-                var t_bdate = trim($('#txtBdate').val());
-                if (t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll((t_bdate.length == 0 ? q_bdate() : t_bdate), '/', ''));
-                else
-                    wrServer(t_noa);
+                //檢查BBS有無重覆
+                chkInvono(q_bbsCount-1);
+            }
+            function chkInvono(n){
+            	if(n<0){
+            		var t_noa = trim($('#txtNoa').val());
+	                var t_bdate = trim($('#txtBdate').val());
+	                if (t_noa.length == 0 || t_noa == "AUTO")
+	                    q_gtnoa(q_name, replaceAll((t_bdate.length == 0 ? q_bdate() : t_bdate), '/', ''));
+	                else
+	                    wrServer(t_noa);
+            	}else{
+            		t_where="where=^^ binvono='"+$('#txtBinvono_'+n).val()+"' or einvono='"+$('#txtEinvono_'+n).val()+"' ^^";
+                    q_gt('vccars', t_where, 0, 0, 0, "checkInvono_"+n, r_accy);
+            	}
+            }
+            function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                Unlock();
             }
 
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
                     if (!$('#btnMinus_' + i).hasClass('isAssign')) {
                         $('#txtBinvono_' + i).change(function() {
-                            
                         });
                         $('#txtEinvono_' + i).change(function() {
-                           
-
                         });
                     }
                 }
@@ -227,9 +298,7 @@
                     as[bbsKey[1]] = '';
                     return;
                 }
-
                 q_nowf();
-
                 return true;
             }
 
@@ -504,7 +573,7 @@
 						<td><input id="txtRev"  type="text"  class="txt c1"/></td>
 						<td> </td>
 						<td>
-							<input class="btn"  id="btnSeq" type="button" />
+							<input class="btn"  id="btnSeq" type="button"/>
 							<input id="txtSeq" type="text" style="display:none;"/>
 						</td>
 					</tr>

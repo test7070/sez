@@ -207,11 +207,9 @@
 						$('#btnInbmimport').removeAttr('disabled');
 						$('#btnInbwimport').removeAttr('disabled');
 					}
-					$('#btnOrdeimport').attr('disabled', 'disabled');
                 } else {
-                	$('#btnOrdeimport').attr('disabled', 'disabled');
-					$('#btnInbmimport').attr('disabled', 'disabled');
-					$('#btnOrdeimport').removeAttr('disabled');
+                	$('#btnInbmimport').attr('disabled', 'disabled');
+					$('#btnInbwimport').attr('disabled', 'disabled');
                 }
             }
             
@@ -509,6 +507,7 @@
                 <td align="center" style="width:3%;"><a id='lblCuaw_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblStore_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblUweight_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblEnda_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -544,8 +543,9 @@
                 <td ><input  id="txtCuac.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtCuaw.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtStore.*" type="text" class="txt c1"/></td>
-                <td ><input  id="txtUweight.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtUweight.*" type="text" class="txt c1 num"/>
                 <input id="recno.*" type="hidden" /></td>
+                <td ><input id="chkEnda.*" type="checkbox"/></td>
             </tr>
         </table>
         </div>
