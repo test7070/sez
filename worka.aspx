@@ -30,9 +30,10 @@
 		aPop = new Array(
 					['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 					['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
-					['txtCuano','lblCuano','cua','noa','txtCuano','cua_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
+					['txtCuano','lblCuano','cua','noa,datea','txtCuano,txtCuadate','cua_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
 					['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
-					['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']
+					['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx'],
+					['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
 		);
 		$(document).ready(function () {
 			bbmKey = ['noa'];
@@ -57,7 +58,7 @@
 		} 
 		function mainPost() { // 載入資料完，未 refresh 前
 			q_getFormat();
-			bbmMask = [['txtDatea', r_picd], ['txtCucdate', r_picd]];
+			bbmMask = [['txtDatea', r_picd], ['txtCuadate', r_picd]];
 			q_mask(bbmMask);
 			q_cmbParse("cmbTypea", q_getPara('worka.typea'));   // 需在 main_form() 後執行，才會載入 系統參數
 			/*$('#btnquat').click(function () { btnquat(); });*/
@@ -467,19 +468,19 @@
 				<input id="txtStationno" type="text" class="txt c2"/>
 				<input id="txtStation" type="text" class="txt c3"/>
 			</td>
-			<td><span> </span><a id='lblCucdate' class="lbl"> </a></td>
-			<td><input id="txtCucdate" type="text"  class="txt c1"/></td>
+			<td><span> </span><a id='lblProcess' class="lbl"> </a></td>
+			<td><input id="txtProcessno" type="text" class="txt c2"/><input id="txtProcess" type="text"  class="txt c3"/></td>
 			<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
 			<td><input id="txtWorkno" type="text"  class="txt c1"/></td></tr>
 		<tr>		
 			<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
 			<td><input id="txtStoreno"  type="text" class="txt c2"/><input id="txtStore" type="text" class="txt c3"/></td> 
-			<td><span> </span><a id='lblProcess' class="lbl"> </a></td>
-			<td><input id="txtProcessno" type="text" class="txt c2"/><input id="txtProcess" type="text"  class="txt c3"/></td>
 			<td><span> </span><a id='lblCuano' class="lbl btn"> </a></td>
 			<td>
 				<input id="txtCuano" type="text"  class="txt c1"/>
 			</td>
+			<td><span> </span><a id='lblCuadate' class="lbl"> </a></td>
+			<td><input id="txtCuadate" type="text"  class="txt c1"/></td>
 		</tr>
 		<tr>
 			<td><span> </span><a id='lblOrdeno' class="lbl"> </a></td>
@@ -489,7 +490,7 @@
 			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 			<td><input id="txtWorker" type="text"  class="txt c1"/></td></tr>
 		<tr>
-			<td><span> </span><a id='lblProductno' class="lbl"> </a></td>
+			<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
 			<td><input id="txtProductno" type="text"  class="txt c1"/></td>
 			<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
 			<td colspan='3'><input id="txtProduct" type="text"  style="width: 99%;"/></td>

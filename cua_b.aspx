@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = 'cua' , t_content = ' field=noa', bbsKey = ['noa'], as, t_where = '';
+    var q_name = 'cua' , t_content = ' field=noa,datea', bbsKey = ['noa'], as, t_where = '';
     var t_sqlname = 'cua_load'; t_postname = q_name;
     var isBott = false;  /// 是否已按過 最後一頁
     var txtfield=[],afield,t_data,t_htm, t_bbsTag = 'tbbs';
@@ -53,7 +53,9 @@
             </tr>
             <tr>
                 <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
-                <td style="width:97%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
+                <td style="width:97%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
+                	<input class="txt" id="txtDatea.*" type="hidden"/>
+                </td>
             </tr>
         </table>
   <!--#include file="../inc/brow_ctrl.inc"--> 
