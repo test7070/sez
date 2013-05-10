@@ -15,6 +15,7 @@
 		function onPageError(error) {
 			alert("An error occurred:\r\n" + error.Message);
 		}
+		q_desc=1;
 		q_tables = 's';
 		var q_name = "worka";
 		var decbbs = ['mount','weight'];
@@ -22,7 +23,7 @@
 		var q_readonly = ['txtWorker'];
 		var q_readonlys = [];
 		var bbmNum = [];  // 允許 key 小數
-		var bbsNum = [['txtMount', 12, 0 , 1]];
+		var bbsNum = [['txtMount', 12, 0 , 1],['txtWeight', 15, 2 , 1]];
 		var bbmMask = [];
 		var bbsMask = [];
 		q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
@@ -30,9 +31,10 @@
 		aPop = new Array(
 					['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 					['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
-					['txtCuano','lblCuano','cua','noa,store','txtStoreno,txtStore','store_b.aspx'],
+					['txtCuano','lblCuano','cua','noa,datea','txtCuano,txtCuadate','cua_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
 					['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
-					['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']
+					['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx'],
+					['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx']
 		);
 		$(document).ready(function () {
 			bbmKey = ['noa'];
@@ -57,19 +59,27 @@
 		} 
 		function mainPost() { // 載入資料完，未 refresh 前
 			q_getFormat();
-			bbmMask = [['txtDatea', r_picd], ['txtCucdate', r_picd]];
+			bbmMask = [['txtDatea', r_picd], ['txtCuadate', r_picd]];
 			q_mask(bbmMask);
 			q_cmbParse("cmbTypea", q_getPara('worka.typea'));   // 需在 main_form() 後執行，才會載入 系統參數
 			/*$('#btnquat').click(function () { btnquat(); });*/
 			$('#btnCuaimport').click(function(){
 				var t_where = '';
-				var cuano = $('#lblCuano').val();
+				var cuano = $('#txtCuano').val();
 				if(cuano && cuano.length >0){
-					t_where = "where=^^ noa='" + cuano + "' ^^";
+					t_where = "where=^^ a.noa='" + cuano + "' ^^";
 					q_gt('cua_cuas',t_where , 0, 0, 0, "", r_accy);
 				}else{
 					alert('請輸入' + q_getMsg('lblCuano'));
 				}
+			});
+			
+			$('#btnOrde').click(function(){
+				t_where = '';
+                ordeno = $('#txtOrdeno').val();
+                if(ordeno.length > 0)
+                	t_where = "noa='" + ordeno + "'";
+                q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
 			});
 		}
 
@@ -82,12 +92,12 @@
 						if (!b_ret || b_ret.length == 0)
 							return;
 						var i, j = 0;
-						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2', b_ret.length, b_ret
-														   , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2'
-														   , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
+						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMonunt,txtWeight', b_ret.length, b_ret
+														   , 'productno,product,unit,mount,weight'
+														   , 'txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
 						bbsAssign();
 
-						for (i = 0; i < ret.length; i++) {
+						/*for (i = 0; i < ret.length; i++) {
 							k = ret[i];  ///ret[i]  儲存 tbbs 指標
 							if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
 								$('#txtMount_' + k).val(b_ret[i]['notv']);
@@ -98,7 +108,7 @@
 								$('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv'], b_ret[i]['weight']));
 							}
 
-						}  /// for i
+						}  /// for i*/
 					}
 					break;
 				
@@ -216,6 +226,15 @@
 
 		function readonly(t_para, empty) {
 			_readonly(t_para, empty);
+			if (t_para) {
+				$('#btnCuaimport').attr('disabled', 'disabled');
+				$('#btnOrde').attr('disabled', 'disabled');
+				$('#btnAMimport').attr('disabled', 'disabled');
+			}else {
+				$('#btnCuaimport').removeAttr('disabled');
+				$('#btnOrde').removeAttr('disabled');
+				$('#btnAMimport').removeAttr('disabled');
+			}
 		}
 
 		function btnMinus(id) {
@@ -450,31 +469,32 @@
 				<input id="txtStationno" type="text" class="txt c2"/>
 				<input id="txtStation" type="text" class="txt c3"/>
 			</td>
-			<td><span> </span><a id='lblCucdate' class="lbl"> </a></td>
-			<td><input id="txtCucdate" type="text"  class="txt c1"/></td>
+			<td><span> </span><a id='lblProcess' class="lbl"> </a></td>
+			<td><input id="txtProcessno" type="text" class="txt c2"/><input id="txtProcess" type="text"  class="txt c3"/></td>
 			<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
 			<td><input id="txtWorkno" type="text"  class="txt c1"/></td></tr>
 		<tr>		
 			<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
 			<td><input id="txtStoreno"  type="text" class="txt c2"/><input id="txtStore" type="text" class="txt c3"/></td> 
-			<td><span> </span><a id='lblProcess' class="lbl"> </a></td>
-			<td><input id="txtProcessno" type="text" class="txt c2"/><input id="txtProcess" type="text"  class="txt c3"/></td>
-			<td><span> </span><a id='lblCuano' class="lbl btn"> </a><!--<a id='lblOrdeno' class="lbl btn"> </a>--></td>
+			<td><span> </span><a id='lblCuano' class="lbl btn"> </a></td>
 			<td>
 				<input id="txtCuano" type="text"  class="txt c1"/>
-				<!--<input id="txtOrdeno" type="text"  style='width:75%;'/><input id="txtNo2" type="text"  style='width:25%;'/>-->
 			</td>
+			<td><span> </span><a id='lblCuadate' class="lbl"> </a></td>
+			<td><input id="txtCuadate" type="text"  class="txt c1"/></td>
 		</tr>
 		<tr>
-			<td><span> </span><a id='lblProductno' class="lbl"> </a></td>
-			<td><input id="txtProductno" type="text"  class="txt c1"/></td>
+			<td><span> </span><a id='lblOrdeno' class="lbl"> </a></td>
+			<td><input id="txtOrdeno" type="text"  style='width:75%;'/><input id="txtNo2" type="text"  style='width:25%;'/></td>
 			<td><span> </span><a id='lblMold' class="lbl"> </a></td>
 			<td><input id="txtMoldno" type="text" class="txt c2"/><input id="txtMold" type="text" class="txt c3"/></td>
 			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 			<td><input id="txtWorker" type="text"  class="txt c1"/></td></tr>
 		<tr>
+			<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
+			<td><input id="txtProductno" type="text"  class="txt c1"/></td>
 			<td><span> </span><a id='lblProduct' class="lbl"> </a></td>
-			<td colspan='5'><input id="txtProduct" type="text"  style="width: 99%;"/></td>
+			<td colspan='3'><input id="txtProduct" type="text"  style="width: 99%;"/></td>
 		</tr>
 		<tr>
 			<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
@@ -483,6 +503,7 @@
 		<tr>
 			<td colspan="3" align="center">
 				<input type="button" id="btnCuaimport">
+				<input type="button" id="btnOrde"/>
 				<input type="button" id="btnAMimport">
 			</td>
 		</tr>
@@ -497,6 +518,7 @@
 				<td align="center"><a id='lblProducts'></a></td>
 				<td align="center"><a id='lblUnit'></a></td>
 				<td align="center"><a id='lblMounts'></a></td>
+				<td align="center"><a id='lblWeights'></a></td>
 				<td align="center"><a id='lblProcesss'></a></td>
 				<td align="center"><a id='lblTypes'></a></td>
 				<td align="center"><a id='lblMechno'></a></td>
@@ -515,8 +537,11 @@
 				<td style="width:4%;">
 					<input id="txtUnit.*" type="text" class="txt c1"/>
 				</td>
-				<td style="width:12%;">
+				<td style="width:8%;">
 					<input id="txtMount.*" type="text" class="txt c1" style="text-align:right"/>
+				</td>
+				<td style="width:8%;">
+					<input id="txtWeight.*" type="text" class="txt c1" style="text-align:right"/>
 				</td>
 				<td style="width:10%;">
 					<input id="txtProcess.*" type="text" class="txt c1"/>
