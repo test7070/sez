@@ -10,7 +10,7 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = "banktd_s";
+    var q_name = "funda_s";
 	 aPop = new Array(['txtNoa', '', 'bankt', 'noa,namea', 'txtNoa,txtNamea', 'bankt_b.aspx']);
     $(document).ready(function () {
         main();

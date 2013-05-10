@@ -19,7 +19,7 @@
             var q_name = "banks";
             var q_readonly = [['txtNoa'],['txtAccno'],['txtWorker']];
             var bbmNum = [['txtMoney', 10, 0, 1], ['txtMoney2', 10, 0, 1], ['txtMoney3', 10, 0, 1]];
-            var bbmMask = [];
+            var bbmMask = [['txtDatea,999/99/99'],['txtEnddate,999/99/99'],['txtPaydate,999/99/99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -96,7 +96,7 @@
                     return;
                 _btnModi();
                 $('#txtDatea').focus();
-                bankt_change();
+                
             }
 
             function btnPrint() {
@@ -127,7 +127,6 @@
 
             function refresh(recno) {
                 _refresh(recno);
-                bankt_change();
             }
 
             function readonly(t_para, empty) {
