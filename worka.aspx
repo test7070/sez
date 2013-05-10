@@ -63,9 +63,9 @@
 			/*$('#btnquat').click(function () { btnquat(); });*/
 			$('#btnCuaimport').click(function(){
 				var t_where = '';
-				var cuano = $('#lblCuano').val();
+				var cuano = $('#txtCuano').val();
 				if(cuano && cuano.length >0){
-					t_where = "where=^^ noa='" + cuano + "' ^^";
+					t_where = "where=^^ a.noa='" + cuano + "' ^^";
 					q_gt('cua_cuas',t_where , 0, 0, 0, "", r_accy);
 				}else{
 					alert('請輸入' + q_getMsg('lblCuano'));
@@ -90,12 +90,12 @@
 						if (!b_ret || b_ret.length == 0)
 							return;
 						var i, j = 0;
-						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtOrdeno,txtNo2', b_ret.length, b_ret
-														   , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2'
-														   , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
+						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtMonunt,txtWeight', b_ret.length, b_ret
+														   , 'productno,product,unit,mount,weight'
+														   , 'txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
 						bbsAssign();
 
-						for (i = 0; i < ret.length; i++) {
+						/*for (i = 0; i < ret.length; i++) {
 							k = ret[i];  ///ret[i]  儲存 tbbs 指標
 							if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
 								$('#txtMount_' + k).val(b_ret[i]['notv']);
@@ -106,7 +106,7 @@
 								$('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv'], b_ret[i]['weight']));
 							}
 
-						}  /// for i
+						}  /// for i*/
 					}
 					break;
 				
@@ -224,6 +224,15 @@
 
 		function readonly(t_para, empty) {
 			_readonly(t_para, empty);
+			if (t_para) {
+				$('#btnCuaimport').attr('disabled', 'disabled');
+				$('#btnOrde').attr('disabled', 'disabled');
+				$('#btnAMimport').attr('disabled', 'disabled');
+			}else {
+				$('#btnCuaimport').removeAttr('disabled');
+				$('#btnOrde').removeAttr('disabled');
+				$('#btnAMimport').removeAttr('disabled');
+			}
 		}
 
 		function btnMinus(id) {
@@ -473,7 +482,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td><span> </span><a id='lblOrdeno' class="lbl btn"> </a></td>
+			<td><span> </span><a id='lblOrdeno' class="lbl"> </a></td>
 			<td><input id="txtOrdeno" type="text"  style='width:75%;'/><input id="txtNo2" type="text"  style='width:25%;'/></td>
 			<td><span> </span><a id='lblMold' class="lbl"> </a></td>
 			<td><input id="txtMoldno" type="text" class="txt c2"/><input id="txtMold" type="text" class="txt c3"/></td>
