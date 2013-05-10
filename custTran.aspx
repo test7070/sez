@@ -449,13 +449,13 @@
 					<tr>
 						<td><span> </span><a id='lblType' class="lbl"> </a></td>
 						<td><select id="cmbTypea"  class="txt c1"> </select></td>
-						<td><span> </span><a id='lblTeam' class="lbl"> </a></td>
-						<td><input id="txtTeam"   type="text"  class="txt c1"/>	</td>
 						<td><span> </span><a id="lblGrp"  class="lbl btn"> </a></td>
 						<td>
 							<input id="txtGrpno" type="text" style="float:left; width:40%;"/>
 							<input id="txtGrpname" type="text" style="float:left; width:60%;"/>
 						</td>
+						<td><span> </span><a id='lblTeampaytype' class="lbl"> </a></td>
+						<td><input id="txtTeampaytype" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblAddr_fact' class="lbl"> </a></td>
@@ -504,6 +504,8 @@
 					<tr>
 						<td><span> </span><a id="lblCredit" class="lbl btn"> </a></td>
 						<td><input id="txtCredit" type="text" class="txt num c1" />	</td>
+						<td><span> </span><a id='lblTeam' class="lbl"> </a></td>
+						<td><input id="txtTeam"   type="text"  class="txt c1"/>	</td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblInvest" class="lbl btn"> </a></td>
