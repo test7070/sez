@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -16,7 +16,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 			q_xchg = 1;
-            var q_name = "banksd";
+            var q_name = "funds";
             var q_readonly = [['txtNoa'],['txtAcc2'],['txtWorker'],['txtWorker2']];
             var bbmNum = [['txtMoney', 10, 0, 1], ['txtMoney2', 10, 0, 1], ['txtMoney3', 10, 0, 1]];
             var bbmMask = [];
@@ -27,7 +27,7 @@
             brwKey = 'noa';
             brwCount2 = 20;
             aPop = new Array(['txtBankno', 'lblBank', 'bank2', 'noa,bank2,account', 'txtBankno,txtBank', 'bank2_b.aspx'],
-            				 ['txtBanktno', 'lblBankt', 'bankt', 'noa,namea', 'txtBanktno,txtBanktname', 'bankt_b.aspx'],
+            				 ['txtBanktno', 'lblBankt', 'funda', 'noa,namea', 'txtBanktno,txtBanktname', 'funda_b.aspx'],
            					 ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
            					 ['txtAcc3', 'lblAcc2', 'acc', 'acc1,acc2', 'txtAcc3,txtAcc4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
             $(document).ready(function() {
@@ -76,7 +76,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('banks_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
+                q_box('funds_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();
@@ -124,7 +124,7 @@
 
             function refresh(recno) {
                 _refresh(recno);
-                bankt_change();
+                
             }
 
             function readonly(t_para, empty) {

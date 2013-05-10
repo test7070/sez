@@ -709,7 +709,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblPayc' class="lbl"> </a></td>
+						<td><span> </span><a id='lblPayc' class="lbl" style="font-size: 14px;"> </a></td>
 						<td colspan="2">
 							<input id="txtPayc" type="text" style="float:left; width:45%;"/>
 							<select id="cmbXpayc" style="float:left; width:10%;"> </select>
