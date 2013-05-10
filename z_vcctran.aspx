@@ -90,8 +90,7 @@
                             dbf : 'sss',
                             index : 'noa,namea',
                             src : 'sss_b.aspx'
-                        }//////////////////////////////////
-                        , {/*8*/
+                        }, {/*8*/
 	                        type : '1',
 	                        name : 'ydate'
 	                    }, {/*9*/
@@ -115,18 +114,28 @@
 	                        type : '6',
 	                        name : 'ykind'
 	                    }, {/*14*/
-                        type : '5', //select
-                        name : 'typea',
-                        value : [q_getPara('report.all')].concat(q_getPara('lab_accc.typea').split(','))
-                    }, {/*15*/
+                        	type : '5', //select
+                        	name : 'typea',
+                        	value : [q_getPara('report.all')].concat(q_getPara('lab_accc.typea').split(','))
+                   		}, {/*15*/
                          	type : '8',
                             name : 'xfilter',
                             value : q_getMsg('tfilter').split('&')
                         }, {/*16*/
 	                        type : '6',
 	                        name : 'xpaydate'
-	                    }]
-                    });
+	                    }, {/*17*/
+							type : '6',
+							name : 'xvccno'
+						}, {/*18*/
+							type : '5',
+							name : 'xsort3',
+							value : q_getMsg('tsort3').split('&')
+						}, {/*19*/
+							type : '1',
+							name : 'ummdate'
+						}]
+                    	});
                     q_popAssign();
                     q_langShow();
 
@@ -161,6 +170,7 @@
                     t_day = t_date.getUTCDate();
                     t_day = t_day > 9 ? t_day + '' : '0' + t_day;
                     $('#txtXmon1').val(t_year + '/' + t_month);
+                    $('#txtYmon1').val(t_year + '/' + t_month);
 
                     t_date = new Date();
                     t_date.setDate(35);
@@ -172,6 +182,7 @@
                     t_day = t_date.getUTCDate();
                     t_day = t_day > 9 ? t_day + '' : '0' + t_day;
                     $('#txtXmon2').val(t_year + '/' + t_month);
+                    $('#txtYmon2').val(t_year + '/' + t_month);
 
                     var t_date, t_year, t_month, t_day;
                     t_date = new Date();
