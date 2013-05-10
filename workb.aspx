@@ -26,13 +26,17 @@
         var q_readonly = ['txtWorker','txtNoa'];
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq'];
         var bbmNum = [];  // 允許 key 小數
-        //var bbmNum_comma = [];
-        var bbsNum = [['txtMount', 15, 4], ['txtGmount', 15, 4], ['txtEmount', 15, 4]];
-        //var bbsNum_comma = []; 
+        var bbsNum = [['txtMount', 15, 0,1], ['txtBorn', 15, 0,1], ['txtBweight', 15, 2,1], ['txtWeight', 15, 2,1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = '';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
+        
+        aPop = new Array(
+					['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
+					['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
+					['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']
+		);
 
         $(document).ready(function () {
             bbmKey = ['noa'];
@@ -40,8 +44,7 @@
 
             q_brwCount();  // 計算 合適  brwCount 
 
-            if (!q_gt(q_name, q_content, q_sqlCount, 1))  /// q_sqlCount=最前面 top=筆數， q_init 為載入 q_sys.xml 與 q_LIST
-                return;
+            q_gt(q_name, q_content, q_sqlCount, 1, 0, '', r_accy);
 
         });
 
@@ -396,7 +399,7 @@
                 float: left;
             }
             .txt.c5 {
-                width: 80%;
+                width: 90%;
                 float: left;
             }
             .txt.c6 {
@@ -521,19 +524,31 @@
                 <td align="center"><a id='lblMounts'></a></td>
                 <td align="center"><a id='lblErrmount'></a></td>
                 <td align="center"><a id='lblMemos'></a></td>
+                <td align="center"><a id='lblEnda'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td style="width:15%;"><input class="txt"  id="txtProductno.*" maxlength='30'type="text" style="width:80%;" /><input class="btn"  id="btnProductno.*" type="button" value='...' style="width:16%;"  /></td>
-                <td style="width:25%;"><input class="txt" id="txtProduct.*" type="text" maxlength='90' style="width:98%;" /></td>
-                <td style="width:4%;"><input class="txt" id="txtUnit.*" type="text" maxlength='10' style="width:94%;"/></td>
-                <td style="width:10%;"><input class="txt" id="txtBorn.*" type="text" maxlength='10' style="width:94%; text-align:right"/></td>
-                <td style="width:12%;"><input class="txt" id="txtMount.*" type="text" maxlength='10' style="width:94%; text-align:right"/></td>
-                <td style="width:10%;"><input class="txt" id="txtErrmount.*" type="text" maxlength='10' style="width:94%; text-align:right"/></td>
-                <td style="width:12%;"><input class="txt" id="txtMemo.*" type="text" maxlength='90' style="width:98%;"/>
-                <input class="txt" id="txtOrdeno.*" type="text" maxlength='30' style="width:65%;" />
-                <input class="txt" id="txtNo2.*" type="text" maxlength='5' style="width:20%;" />
-                <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
+                <td style="width:15%;">
+                	<input id="txtProductno.*" type="text" style="width:80%;"/>
+                	<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:8%;"  />
+                </td>
+                <td style="width:25%;"><input id="txtProduct.*" type="text" class="txt c1"/></td>
+                <td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c1"/></td>
+                <td style="width:10%;">
+                	<input id="txtBorn.*" type="text" class="txt c1 num"/>
+                	<input id="txtBweight.*" type="text" class="txt c1 num"/>
+                </td>
+                <td style="width:10%;">
+                	<input id="txtMount.*" type="text" class="txt c1 num"/>
+                	<input id="txtWeight.*" type="text" class="txt c1 num"/>
+                </td>
+                <td style="width:10%;"><input id="txtErrmount.*" type="text" class="txt c1 num"/></td>
+                <td><input id="txtMemo.*" type="text" class="txt c1"/>
+                	<input id="txtOrdeno.*" type="text" style="width:70%;"/>
+                	<input id="txtNo2.*" type="text" style="width:20%;"/>
+                	<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
+                </td>
+                <td style="width:4%;"><input id="chkEnda.*" type="checkbox"/></td>
             </tr>
         </table>
         </div>
