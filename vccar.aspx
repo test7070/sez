@@ -90,7 +90,7 @@
                 		return;
                 	var t_binvono = $('#txtBinvono').val(), t_einvono = $('#txtEinvono').val();
                 	if(!(/^[A-Z]{2}[0-9]{6}(?:00|50)$/g).test(t_binvono) || !(/^[A-Z]{2}[0-9]{6}(?:49|99)$/g).test(t_einvono) ){
-                		//alert(q_getMsg('lblInvono') + '錯誤。');
+                		alert(q_getMsg('lblInvono') + '錯誤。');
                 		return;
                 	}
                 	var n = parseInt(t_einvono.substring(2,10)) - parseInt(t_binvono.substring(2,10)) + 1;
