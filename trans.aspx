@@ -881,7 +881,7 @@
 					<tr class="th1">
 						<td align="center" style="width:30px;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:120px"><a id='vewNoa'> </a></td>
-						<td align="center" style="width:100px;"><a id='vewDatea'> </a></td>
+						<td align="center" style="width:100px;"><a id='vewTrandate'> </a></td>
 						<td align="center" style="width:100px;"><a id='vewComp'> </a></td>
 						<td align="center" style="width:100px;"><a id='vewDriver'> </a></td>
 						<td align="center" style="width:100px;"><a id='vewCarno'> </a></td>
@@ -901,7 +901,7 @@
 						<input id="chkBrow.*" type="checkbox" style=''/>
 						</td>
 						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='datea'>~datea</td>
+						<td align="center" id='trandate'>~trandate</td>
 						<td align="center" id='nick'>~nick</td>
 						<td align="center" id='driver'>~driver</td>
 						<td align="center" id='carno'>~carno</td>
