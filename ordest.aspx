@@ -911,7 +911,7 @@
                 <td ><input class="txt c7" id="txtMemo.*" type="text" />
                 <input class="txt c2" id="txtQuatno.*" type="text"  />
                 <input class="txt c2" id="txtNo3.*" type="text"  />
-                <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
+                <!--<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>-->
             </tr>
         </table>
         </div>
