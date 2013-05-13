@@ -48,7 +48,6 @@
 				q_getFormat();
 				bbsMask = [];
 		        q_mask(bbsMask);
-		        CreateBomComb();
 			}
 		
 		    function bbsAssign() {
@@ -138,33 +137,46 @@
 					<td class="td1" align="center" style="width:1%; max-width:20px;">
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
-					<td class="td2" align="center" style="width:30%;"><a id='lblProduct_s'></a></td>
-					<td class="td3" align="center" style="width:15%;"><a id='lblGweight_s'></a></td>
-					<td class="td3" align="center" style="width:15%;"><a id='lblWeight_s'></a></td>
-					<td class="td4" align="center" style="width:20%;display: none;"><a id='lblPrice_s'></a></td>
-					<td class="td5" align="center" style="width:20%;display: none;"><a id='lblMoney_s'></a></td>
+					<td class="td2" align="center" style="width:15%;"><a id='lblUno_s'></a></td>
+					<td class="td3" align="center" style="width:15%;"><a id='lblProduct_s'></a></td>
+					<td class="td4" align="center" style="width:10%;"><a id='lblProductno_s'></a></td>
+					<td class="td5" align="center" style="width:10%;"><a id='lblDime_s'></a></td>
+					<td class="td6" align="center" style="width:10%;"><a id='lblWidth_s'></a></td>
+					<td class="td7" align="center" style="width:10%;"><a id='lblLength_s'></a></td>
+					<td class="td8" align="center" style="width:10%;"><a id='lblMount_s'></a></td>
+					<td class="td9" align="center" style="width:10%;"><a id='lblWeight_s'></a></td>
+					<td class="td10" align="center" style="width:10%;"><a id='lblSource_s'></a></td>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td class="td1" align="center">
 						<input class="btn"  id="btnMinus.*" type="button" value='-' style="font-weight: bold; "  />
 					</td>
 					<td class="td2">
-                        <input type="text" id="txtProductno.*"  style="width:30%; float:left;"/>
-                        <span style="display:block; width:1%;float:left;"> </span>
-						<input type="text" id="txtProduct.*"  class="txt" style="width:60%;"/>
-						<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:1%;" />
+						<input class="txt" id="txtUno.*" type="text" style="width:95%;"  />
 					</td>
 					<td class="td3">
-						<input class="txt" id="txtGweight.*" type="text" style="width:95%; text-align: right;"  />
+						<input class="txt" id="txtProduct.*" type="text" style="width:95%;"  />
 					</td>
-					<td class="td3">
+					<td class="td4">
+						<input class="txt" id="txtProductno.*" type="text" style="width:95%;"  />
+					</td>
+					<td class="td5">
+						<input class="txt" id="txtDime.*" type="text" style="width:95%; text-align: right;"  />
+					</td>
+					<td class="td6">
+						<input class="txt" id="txtWidth.*" type="text" style="width:95%; text-align: right;"  />
+					</td>
+					<td class="td7">
+						<input class="txt" id="txtLength.*" type="text" style="width:95%; text-align: right;"  />
+					</td>
+					<td class="td8">
+						<input class="txt" id="txtMount.*" type="text" style="width:95%; text-align: right;"  />
+					</td>
+					<td class="td9">
 						<input class="txt" id="txtWeight.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
-					<td class="td4" style="display: none;">
-						<input class="txt" id="txtPrice.*" type="text" style="width:95%; text-align: right;"  />
-					</td>
-					<td class="td5" style="display: none;">
-						<input class="txt" id="txtMoney.*" type="text" style="width:95%; text-align: right;"  />
+					<td class="td9">
+						<input class="txt" id="txtSource.*" type="text" style="width:95%;"  />
 					</td>
 				</tr>
 			</table>

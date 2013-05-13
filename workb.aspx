@@ -63,54 +63,30 @@
             
         }  ///  end Main()
 
-        function pop(form) {
-            b_pop = form;
-            switch (form) {
-                case 'cust': q_pop('txtCustno', 'cust_b.aspx', 'cust', 'noa', 'comp', "60%", "650px", q_getMsg('popCust')); break;
-                case 'ucc': q_pop('txtProductno_' + b_seq, 'ucc_b.aspx', 'ucc', 'noa', 'product', "70%", "650px", q_getMsg('popUcc')); break;
-                case 'store': q_pop('txtStoreno', 'store_b.aspx', 'store', 'noa', 'store', "60%", "650px", q_getMsg('popStore')); break;
-                case 'station': q_pop('txtStationno', 'station_b.aspx', 'station', 'noa', 'station', "60%", "650px", q_getMsg('popStation')); break;
-            }
-        }
-
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
             bbmMask = [['txtDatea', r_picd], ['txtDatea', r_picd]];
             q_mask(bbmMask);
-            $('#btnQuat').click(function () { btnquat(); });
-            $('#btnStore').click(function () { pop('store'); }); /// 接 q_browFill()
-            $('#btnStore').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtStoreno").change(function () { q_change($(this), 'store', 'noa', 'noa,store'); }); /// 接 q_gtPost()
-
-            $('#btnStation').click(function () { pop('station'); }); /// 接 q_browFill()
-            $('#btnStation').mouseenter(function () { $(this).css('cursor', 'pointer') });
-            $("#txtStationno").change(function () { q_change($(this), 'station', 'noa', 'noa,station'); }); /// 接 q_gtPost()
+            $('#btnImport').click(function(){
+            	q_box("workas_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'workas', "95%", "95%", q_getMsg('popWorkas'));
+            });
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
             var ret; 
             switch (b_pop) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
-                case 'tgg':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtTggno,txtComp,txtTel,txtPost,txtAddr,txtPay,cmbTrantype', 'noa,comp,tel,post_fact,addr_fact,pay,trantype');
-                    break;
-
-                case 'ucc':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtProductno_' + b_seq + ',txtProduct_' + b_seq, ret, 'noa,product');
-                    break;
-
-
-                case 'store':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtStoreno,txtStore', ret, 'noa,store');
-                    break;
-
-                case 'station':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtStationno,txtStation', ret, 'noa,station');
-                    break;
-
-
+                case 'workas':
+                    if (q_cur > 0 && q_cur < 4) {
+                        b_ret = getb_ret();
+                        if (!b_ret || b_ret.length == 0)
+                            return;
+                        var i, j = 0;
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtBorn,txtBweight', b_ret.length, b_ret
+                                                           , 'productno,product,unit,mount,weight'
+                                                           , 'txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+                        bbsAssign();
+                       }
+					break;            	
                 case 'ordes':
                     if (q_cur > 0 && q_cur < 4) {
                         b_ret = getb_ret();
@@ -121,7 +97,6 @@
                                                            , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no2'
                                                            , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
-
                         for (i = 0; i < ret.length; i++) {
                             k = ret[i];  ///ret[i]  儲存 tbbs 指標
                             if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
@@ -192,23 +167,12 @@
         }
 
         function bbsAssign() {  /// 表身運算式
-            _bbsAssign();
-            for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
-                $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
-                $('#btnProductno_' + j).click(function () {
-                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                    q_bodyId($(this).attr('id'));
-                    b_seq = t_IdSeq;
-                    pop('ucc');
-                 });
-                 $('#txtProductno_' + j).change(function () {
-                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                     q_bodyId($(this).attr('id'));
-                     b_seq = t_IdSeq;
-                     q_change($(this), 'ucc', 'noa', 'noa,product,unit');  /// 接 q_gtPost()
-                 });
-
-            } //j
+			for(var i = 0; i < q_bbsCount; i++) {
+				if (!$('#btnMinus_' + i).hasClass('isAssign')) {
+					
+				}
+			}
+			_bbsAssign();
         }
 
         function btnIns() {
@@ -248,13 +212,6 @@
             return true;
         }
 
-        function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0;
-            for (var j = 0; j < q_bbsCount; j++) {
-
-            }  // j
-        }
-		
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
