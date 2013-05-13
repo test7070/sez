@@ -31,6 +31,7 @@
         bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
         q_mask(bbmMask);
         $('#txtBdate').focus();
+        q_cmbParse("cmbChecker", ('').concat(new Array( '全部','未核准','已核准')));
     }
 
     function q_seekStr() {   
@@ -47,7 +48,12 @@
 
         var t_where = " 1=1 " + q_sqlPara2("datea", t_bdate, t_edate) + q_sqlPara2("partno", t_partno)  + q_sqlPara2("part", t_part)
         + q_sqlPara2("sssno", t_sssno)  + q_sqlPara2("namea", t_namea)+ q_sqlPara2("senderno", t_senderno)  + q_sqlPara2("sender", t_sender);
-
+		
+		if($('#cmbChecker').val()=='未核准')
+			t_where+=" and checker='' "
+		if($('#cmbChecker').val()=='已核准')
+			t_where+=" and checker!='' "
+		
         t_where = ' where=^^' + t_where + '^^ ';
         return t_where;
     }
@@ -80,6 +86,10 @@
                 <td class='seek'  style="width:20%;"><a id='lblSenderno'></a></td>
                 <td><input class="txt" id="txtSenderno" type="text" style="width:90px; font-size:medium;" />&nbsp;
                 	<input class="txt" id="txtSender" type="text" style="width:115px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblChecker'></a></td>
+                <td><select id="cmbChecker" class="txt c1"> </select></td>
             </tr>
         </table>
   <!--#include file="../inc/seek_ctrl.inc"--> 
