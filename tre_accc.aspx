@@ -78,11 +78,13 @@
 		            q_pop('txtAccno3', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno3').val() + "';" + $('#txtDatea').val().substr(0, 3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
 		            //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
 		        });
-
-		        $('#btnAccc').click(function () {
-		            if ($('#txtNoa').val().length > 0)
-		                q_func('tre_accc.gen', r_accy + ',' + $('#txtNoa').val());
-		        });
+		        
+				var str=q_auth();
+				var patt=/tre_accc,1,1,1/g;
+				var result=patt.test(str);
+				if (result==true){
+		        $('#btnAccc').click(function () {show_confirm()});}
+		        
 
 		        $('#btnGqb').click(function () {
 		            q_box('z_gqbp.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtChkbno').val()), '', "92%", "92%", "支票列印");
@@ -108,8 +110,17 @@
                 	else
                 		alert('無'+q_getMsg('lblChkbno')+'。');
 		        });
-		    }
-
+		   }
+			function show_confirm()
+				{
+					var r=confirm("你確定要執行嗎?");
+					if (r==true)
+  					{alert("確定執行");
+  					if ($('#txtNoa').val().length > 0)
+		                q_func('tre_accc.gen', r_accy + ',' + $('#txtNoa').val());}
+					else
+  					{alert("取消執行");}
+				}
 
 		    function q_funcPost(t_func, result) {
 		        
@@ -616,6 +627,7 @@
 					<tr>
 						<td> </td>
 						<td colspan="2"><input id="btnAccc" type="button"/></td>
+						<td colspan="2" align="left"><a id="lblPunchline" style="color: #FF55A8;font-weight: bolder;font-size: 18px;"></a> </td>
 					</tr>
 					<tr>
 						<td> </td>

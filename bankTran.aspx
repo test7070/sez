@@ -45,10 +45,17 @@
                 bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
 				q_cmbParse("cmbCode",q_getPara('banktran.code'));
-                $('#btnGen').click(function() {
-                    q_func('banktran.gen', $('#txtNoa').val()+",");
-                });
-
+                
+               
+                var str= q_auth;
+				
+				
+				if ((/banktran,1,1,1/g).test(str)){
+		        $('#btnGen').click(function() {  show_confirm()});
+		        }
+               
+                
+				
                 $('#btnGen2').click(function() {
                     q_func('banktran.gen2', $('#txtNoa').val() + ",");
                 });
@@ -57,7 +64,15 @@
                     q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('popAccc'), true);
                 });
             }
-
+			function show_confirm()
+				{
+					var r=confirm("你確定要執行嗎?");
+					if (r==true)
+  					{alert("確定執行");
+  					 q_func('banktran.gen', $('#txtNoa').val()+",");}
+					else
+  					{alert("取消執行");}
+				}
             function q_funcPost(t_func, result) {
                 var s1 = location.href;
                 var t_path = (s1.substr(7, 5) == 'local' ? xlsPath : s1.substr(0, s1.indexOf('/', 10)) + '/htm/');
@@ -213,7 +228,7 @@
                     $('#btnGen2').attr('disabled', 'disabled');
                 }
             }
-
+			
             function btnMinus(id) {
                 _btnMinus(id);
             }
@@ -265,6 +280,7 @@
             function btnCancel() {
                 _btnCancel();
             }
+           
 		</script>
 		<style type="text/css">
 			#dmain {
@@ -447,6 +463,7 @@
 					<tr>
 						<td> </td>
 						<td><input id="btnGen"  type="button"  /></td>
+						<td colspan="2" align="left"><a id="lblPunchline" style="color: #FF55A8;font-weight: bolder;font-size: 18px;"></a> </td>
 						<td><input id="btnGen2"  type="button" style=" display:none"  /></td>
 					</tr>
 					<tr>

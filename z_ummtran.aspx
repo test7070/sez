@@ -2,18 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title></title>
-		<script src="../script/jquery.min.js" type="text/javascript"></script>
-		<script src='../script/qj2.js' type="text/javascript"></script>
-		<script src='qset.js' type="text/javascript"></script>
-		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src="../script/qbox.js" type="text/javascript"></script>
-		<script src='../script/mask.js' type="text/javascript"></script>
+		<title> </title>
+		<script src="../script/jquery.min.js" type="text/javascript"> </script>
+		<script src='../script/qj2.js' type="text/javascript"> </script>
+		<script src='qset.js' type="text/javascript"> </script>
+		<script src='../script/qj_mess.js' type="text/javascript"> </script>
+		<script src="../script/qbox.js" type="text/javascript"> </script>
+		<script src='../script/mask.js' type="text/javascript"> </script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
-		<script src="css/jquery/ui/jquery.ui.core.js"></script>
-		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
-		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
+		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
 			if (location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
@@ -27,30 +27,30 @@
 
 				$('#q_report').q_report({
 					fileName : 'z_ummtran',
-					options : [{
+					options : [{/*[1]*/
 						type : '0',
 						name : 'accy',
 						value : q_getId()[4]
-					}, {/*1*/
+					}, {/*1-[2][3]-帳款月份*/
 						type : '1',
 						name : 'mon'
-					}, {/*2*/
+					}, {/*2-[4][5]-請款月份*/
 						type : '1',
 						name : 'ummmon'
-					}, {/*3*/
+					}, {/*3[6][7]-客戶*/
 						type : '2',
 						name : 'cust',
 						dbf : 'cust',
 						index : 'noa,comp',
 						src : 'cust_b.aspx'
-					}, {/*4*/
+					}, {/*4[8]-請款單號*/
 						type : '6',
 						name : 'xtrdno'
-					}, {/*5*/
+					}, {/*5[9]-排序方式*/
 						type : '5',
 						name : 'xsort3',
 						value : q_getMsg('tsort3').split('&')
-					}, {/*6*/
+					}, {/*6[10][11]-收款日期*/
 						type : '1',
 						name : 'ummdate'
 					}]
