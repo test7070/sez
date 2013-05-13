@@ -82,7 +82,14 @@
             $('#lblQuat').click(function(){
             	btnQuat();
             })
-			
+			$('#btnOrdet').click(function(){
+				var noa = $('#txtNoa').val();
+				if(!emp(noa) && noa !='AUTO'){
+					t_where = '';
+					t_where = "noa='" + noa + "'";
+					q_box("ordet_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordet', "95%", "95%", q_getMsg('popOrdet'));
+				}
+			});
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、訂單視窗  關閉時執行
@@ -633,6 +640,9 @@
                 <td class="td2" colspan='2'><input id="txtTotalus" type="text" class="txt c1"/></td> 
                 <td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
                 <td class="td5" colspan='2'><input id="txtWeight"  type="text" class="txt c1"/></td>
+                <td class="td6"></td>
+                <td class="td7"><input id="btnOrdet" type="button"/></td>
+				
            </tr>
             <tr>
             	<td class="td1"><span> </span><a id="lblApv" class="lbl"></a></td>

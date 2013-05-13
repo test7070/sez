@@ -62,21 +62,21 @@
 	           	if(p35<=10)
 	           		totalstr+='<BR>郵資3.5庫存剩'+p35+'張';
 	           	if(p50<=10)
-	           		totalstr+='<BR>郵資2.0庫存剩'+p50+'張';
+	           		totalstr+='<BR>郵資5.0庫存剩'+p50+'張';
 	           	if(p100<=10)
-	           		totalstr+='<BR>郵資2.0庫存剩'+p100+'張';
+	           		totalstr+='<BR>郵資10.0庫存剩'+p100+'張';
 	           	if(p120<=10)
-	           		totalstr+='<BR>郵資2.0庫存剩'+p120+'張';
+	           		totalstr+='<BR>郵資12.0庫存剩'+p120+'張';
 	           	if(p130<=10)
-	           		totalstr+='<BR>郵資2.0庫存剩'+p130+'張';
+	           		totalstr+='<BR>郵資13.0庫存剩'+p130+'張';
 	           	if(p150<=10)
-	           		totalstr+='<BR>郵資2.0庫存剩'+p150+'張';
+	           		totalstr+='<BR>郵資15.0庫存剩'+p150+'張';
 	           	if(p200<=10)
-	           		totalstr+='<BR>郵資2.0庫存剩'+p200+'張';
+	           		totalstr+='<BR>郵資20.0庫存剩'+p200+'張';
 	           	if(p250<=10)
-	           		totalstr+='<BR>郵資2.0庫存剩'+p250+'張';
+	           		totalstr+='<BR>郵資25.0庫存剩'+p250+'張';
 	           	if(p320<=10)
-	           		totalstr+='<BR>郵資2.0庫存剩'+p320+'張';
+	           		totalstr+='<BR>郵資32.0庫存剩'+p320+'張';
 	           totalstr=totalstr.substr(4)
 	           q_msg( $(this), totalstr); 
 	        }).blur(function () {
@@ -288,7 +288,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('postout_s.aspx', q_name + '_s', "500px", "330px", q_getMsg( "popSeek"));
+            q_box('postout_s.aspx', q_name + '_s', "510px", "360px", q_getMsg( "popSeek"));
         }
 
         function combPay_chg() {   

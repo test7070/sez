@@ -9,7 +9,9 @@
 
             $(document).ready(function() {
             	$('#txtA').change(function(){
-            		$('#txtB').val($(this).val().replace( /^([[a-z,A-Z,0-9,_]*\^]*)([a-z,A-Z,0-9,_]*)$/g, "$2"));
+            		//alert((/^([\w]+)$/g).test($(this).val()));
+            		alert((/^(\w+|\w+\u002D\w+)$/g).test($(this).val()));
+            		//$('#txtB').val($(this).val().replace( /^([[a-z,A-Z,0-9,_]*\^]*)([a-z,A-Z,0-9,_]*)$/g, "$2"));
             	});
 			
 				//alert(document.documentMode);

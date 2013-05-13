@@ -79,9 +79,17 @@
 
 
             $('#btnOrdem').click(function () { q_pop('txtNoa', "ordem_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";noa='" + $('#txtNoa').val() + "';;" + q_cur, 'ordem', 'noa', 'comp', "90%", "800px", q_getMsg('popOrdem')); });
-			 $('#cmbKind').change(function () {
-	            	size_change();
-			     });
+			$('#cmbKind').change(function () {
+				size_change();
+			});
+			$('#btnOrdet').click(function(){
+				var noa = $('#txtNoa').val();
+				if(!emp(noa) && noa !='AUTO'){
+					t_where = '';
+					t_where = "noa='" + noa + "'";
+					q_box("ordet_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordet', "95%", "95%", q_getMsg('popOrdet'));
+				}
+			});
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、訂單視窗  關閉時執行
@@ -854,6 +862,9 @@
                 <td class="td4"><input id="chkAeno" type="checkbox"/></td>
                 <td class="td5"><span> </span><a id='lblEnd' class="lbl"> </a></td>
                 <td class="td6"><input id="txtEnda"  type="text" class="txt c1" /></td>
+                <td class="td7"></td>
+                <td class="td8"><input id="btnOrdet" type="button"/></td>
+                
             </tr>
             <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblMemo' class='lbl'> </a></td>
