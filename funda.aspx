@@ -16,7 +16,7 @@
                 alert("An error occurred:\r\n" + error.Message);
             }
 
-            var q_name = "banktd";
+            var q_name = "funda";
             var q_readonly = ['txtWorker'];
             var bbmNum = [];
             var bbmMask = [];
@@ -65,7 +65,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('banktd_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
+                q_box('funda_s.aspx', q_name + '_s', "500px", "400px", q_getMsg("popSeek"));
             }
             function btnIns() {
                 _btnIns();

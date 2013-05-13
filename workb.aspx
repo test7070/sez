@@ -185,7 +185,7 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('workb_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
+            q_box('workb_s.aspx', q_name + '_s', "510px", "350px", q_getMsg("popSeek"));
         }
 
         function combPay_chg() {   /// 只有 comb 開頭，才需要寫 onChange()   ，其餘 cmb 連結資料庫
@@ -496,6 +496,8 @@
 			</td>
 			<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
 			<td><input id="txtWorkno" type="text" class="txt c1"/></td>
+			<td><input type="button" id="btnImport"></td>
+
 		</tr>
         <tr>
 			<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>

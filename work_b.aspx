@@ -10,26 +10,32 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = 'banktd', t_content = 'field=noa,namea ', bbsKey = ['noa'], as; 
-    var isBott = false;  
-    var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
-    var i,s1;
+    var q_name = 'work' , t_content = ' field=noa,datea', bbsKey = ['noa'], as, t_where = '';
+    var t_sqlname = 'work_load'; t_postname = q_name;
+    var isBott = false;  /// 是否已按過 最後一頁
+    var txtfield=[],afield,t_data,t_htm, t_bbsTag = 'tbbs';
+    var i, s1;
+        
         $(document).ready(function () {
             main();
         });         /// end ready
 
         function main() {
-            if (dataErr)  
+            if (dataErr)  /// 載入資料錯誤
             {
                 dataErr = false;
                 return;
             }
-            mainBrow(0,t_content);
+            mainBrow(6, t_content, t_sqlname, t_postname , r_accy );
          }
+         
+         function bbsAssign() {  
+        	_bbsAssign();
+ 		}
 
-        function q_gtPost() {  
+        function q_gtPost() {  ///  for   store2 
+         
         }
-
         function refresh() {
             _refresh();
         }
@@ -43,14 +49,13 @@
        <table id="tbbs"  border="2"  cellpadding='0' cellspacing='0' style='width:98%' >
             <tr>
                 <th align="center" > </th>
-                <th align="center" style='color:Blue;'><a id='lblNoa'> </a></th>
-                <th align="center" style='color:Blue;'><a id='lblNamea'> </a></th>
+                <th align="center" style='color:Blue;' ><a id='lblNoa'></a></th>
             </tr>
             <tr>
                 <td style="width:2%;"><input name="sel"  id="radSel.*" type="radio" /></td>
-                <td style="width:20%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-                <td style="width:45%;"><input class="txt" id="txtNamea.*" type="text" style="width:98%;"  readonly="readonly" /></td>
-                
+                <td style="width:97%;"><input class="txt" id="txtNoa.*" type="text" style="width:98%;"  readonly="readonly" />
+                	<input class="txt" id="txtDatea.*" type="hidden"/>
+                </td>
             </tr>
         </table>
   <!--#include file="../inc/brow_ctrl.inc"--> 

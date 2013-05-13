@@ -11,7 +11,7 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 
 		<script type="text/javascript">
-    var q_name = "banksd_s";
+    var q_name = "funds_s";
 	aPop = new Array(['txtBankt', '', 'bankt', 'noa,namea', 'txtBankt,txtBanktname', 'bankt_b.aspx']);
     $(document).ready(function () {
         main();

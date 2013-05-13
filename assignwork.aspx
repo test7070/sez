@@ -259,7 +259,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
-                q_box('assignwork_s.aspx', q_name + '_s', "550px", "400px", q_getMsg("popSeek"));
+                q_box('assignwork_s.aspx', q_name + '_s', "550px", "530px", q_getMsg("popSeek"));
             }
            
             function btnIns() {
