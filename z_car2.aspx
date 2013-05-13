@@ -151,126 +151,126 @@
                      if(t_item.length>0 &&xcardealno.length>0&&sssno.length>0){
 	                $('#q_report').q_report({
 	                    fileName : 'z_car2',
-                        options : [{
+                        options : [{/*1-[1][2]-月份*/
                             type : '1',
                             name : 'mon'
-                        }, {
+                        }, {/*2-[3][4]-日期*/
                             type : '1',
                             name : 'date'
-                        }, {
+                        }, {/*3-[5][6]-車行*/
                             type : '2',
                             name : 'cardeal',
                             dbf : 'cardeal',
                             index : 'noa,comp',
                             src : 'cardeal_b.aspx'
-                        }, {
+                        }, {/*4-[7][8]-車主*/
                             type : '2',
                             name : 'carowner',
                             dbf : 'carowner',
                             index : 'noa,namea',
                             src : 'carowner_b.aspx'
-                        }, {
+                        }, {/*5-[9][10]-司機*/
                             type : '2',
                             name : 'driver',
                             dbf : 'driver',
                             index : 'noa,namea',
                             src : 'driver_b.aspx'
-                        }, {
+                        }, {/*6-[11][12]-管理人員*/
                             type : '2',
                             name : 'sss',
                             dbf : 'sss',
                             index : 'noa,namea',
                             src : 'sss_b.aspx'
-                        }, {
+                        }, {/*7-[13]-車隊*/
 	                        type : '8', //select
 	                        name : 'xcarteamno',
 	                        value : t_item.split(',')
-	                    }, {
+	                    }, {/*8-[14]-車牌*/
                             type : '6',
                             name : 'xcarno'
-                        }, {
+                        }, {/*9-[15]-截止日期*/
                             type : '6',
                             name : 'enddate'
-                        }, {
+                        }, {/*10-[16][17]-車牌號碼*/
                             type : '1',
                             name : 'Tcarno'
-                        }, {
+                        }, {/*11-[18]-月份*/
                             type : '6',
                             name : 'xmon'
-                        },{
+                        },{/*12-[19][20]-保險公司*/
                             type : '2',
                             name : 'carinsurer',
                             dbf : 'insurer',
                             index : 'noa,comp',
                             src : 'insurer_b.aspx'
-                        },{
+                        },{/*13-[21][22]-車種樣式*/
                             type : '2',
                             name : 'carspec',
                             dbf : 'carspec',
                             index : 'noa,spec',
                             src : 'carspec_b.aspx'
-                        }, {
+                        }, {/*14-[23]-列印*/
 	                        type : '8', //select
 	                        name : 'pdate',
 	                        value : ('遷出,報廢,繳銷,報停').split(',')
-	                    }, {
+	                    }, {/*15-[24]-管理帳號*/
 	                        type : '8', //select
 	                        name : 'sssno',
 	                        value : (sssno).split('.')
-	                    }, {
+	                    }, {/*16-[25]-多車*/
 	                        type : '6',
 	                        name : 'xcarnos'
-	                    }, {
+	                    }, {/*17-[26][27]-金額範圍*/
                             type : '1',
                             name : 'xmoney'
-                        }, {
+                        }, {/*18-[28]-排序依車號、金額*/
 	                        type : '5', //select
 	                        name : 'xorder',
 	                        value : ('車號,金額').split(',')
-                    	}, {
+                    	}, {/*19-[29]-排序依車主、金額*/
 	                        type : '5', //select
 	                        name : 'zorder',
 	                        value : ('車主,金額').split(',')
-                    	}, {
+                    	}, {/*20-[30]結尾*/
 	                        type : '6',
 	                        name : 'xmemo'
-	                    }, {
+	                    }, {/*21-[31]-排序依車行、車主、驗車日期*/
 	                        type : '5', //select
 	                        name : 'yorder',
 	                        value : ('車行,車主,驗車日期').split(',')
-                    	}, {
+                    	}, {/*22 -[32]-科目名稱*/
                             type : '2',
                             name : 'caritemno',
                             dbf : 'caritem',
                             index : 'noa,item',
                             src : 'caritem_b.aspx'
-                        }, {
+                        }, {/*23-[33]-排序依車牌、車行、車主*/
 	                        type : '5', //select
 	                        name : 'worder',
 	                        value : ('車牌,車行,車主').split(',')
-                    	}, {
+                    	}, {/*24-[34]-年度*/
                             type : '6',
                             name : 'xyear'
-                        }, {
+                        }, {/*25-[35]稅金*/
                             type : '5',
                             name : 'cartax',
                             value : ('上期牌照稅,下期牌照稅,春季燃料稅,夏季燃料稅,秋季燃料稅,冬季燃料稅').split(',')
-                        }, {
+                        }, {/*26-[36]已收單、未收單*/
 	                        type : '5', //select
 	                        name : 'sheetyn',
 	                        value : ('已收單,未收單').split(',')
-	                    },{
+	                    },{/*27-[37]*/
 							type : '0',
 							name : 'xaccy',
 							value : r_accy
-						}, {
+						}, {/*28-[37]內帳*/
 	                        type : '5', //select
 	                        name : 'iacc',
 	                        value : ('顯示,不顯示').split(',')
-	                    }, {
+	                    }, {/*29-[38]車種種類*/
                             type : '6',
                             name : 'xspecno'
-                        }, {
+                        }, {/*30-[39]未付立帳*/
 	                        type : '8', //select
 	                        name : 'carc',
 	                        value : ('未付立帳').split('.')

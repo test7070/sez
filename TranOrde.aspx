@@ -120,6 +120,10 @@
 		                input.selectionEnd =8;
 		            }
 				});
+				$('#btnUnpresent').click(function() {
+					q_pop('', "carpresent.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy + '_' + r_cno, '', '', '', "92%", "1054px", q_getMsg('popCarpresent'), true);
+
+				});
                 $("#btnTranquat").click(function(e) {
                     if ($('#txtCustno').val().length == 0) {
                         alert('請輸入客戶編號!');
@@ -757,9 +761,9 @@
 						</td>
 						<td><span> </span><a id="lblCtype" class="lbl"> </a></td>
 						<td>
-						<select id="cmbCtype" class="txt c1"></select>
+						<select id="cmbCtype" class="txt c1"> </select>
 						</td>
-						<td></td>
+						<td><input type="button" id="btnUnpresent" value="未出車"/> </td>
 						<td><input type="button" id="btnTransvcce" value="派車明細"/></td>
 					</tr>
 					<tr>

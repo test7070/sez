@@ -60,6 +60,10 @@
                         type : '5', //select
                         name : 'xtype',
                         value : (('').concat(new Array("收","發"))).split(',')
+                    },{
+                        type : '0',
+                        name : 'r_xname',
+                        value : r_name
                     }]
                 });
                 q_popAssign();
