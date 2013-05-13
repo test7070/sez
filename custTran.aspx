@@ -37,7 +37,10 @@
                 q_brwCount();
                 q_gt(q_name, q_content, q_sqlCount, 1);
             });
-
+			$(document).click(function(){
+				if($('#CreditShow').css('display') != 'none')
+					$('#CreditShow').css('display','none');
+			});
             function main() {
                 if (dataErr) {
                     dataErr = false;
@@ -91,7 +94,18 @@
                     t_where = "noa='" + $('#txtNoa').val() + "'";
                     q_box("custdetail_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'custdetail', "95%", "650px", q_getMsg('btnDetail'));
                 });
+                $('#lblCredit').click(function(){
+					var t_noa = $('#txtNoa').val();
+					var t_where = '';
+					if($('#CreditShow').css('display') != 'none')
+						$('#CreditShow').css('display','none');
+					else if(!emp(t_noa)){
+	                	t_where = "where=^^a.noa='" + t_noa + "' ^^";
+	                	q_gt('credit_sum', t_where, 1, 1, 0, '', r_accy);
+                	}
+                });
             }
+            
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
@@ -104,6 +118,28 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'credit_sum':
+                		var creditMsg = '<table>';
+                		var credit,unorde = 0,ungqb = 0,umm_opay = 0,umm_unpay = 0,vcc_unpay = 0,total = 0,unpay = 0;
+	                		var as = _q_appendData('credit_sum', '', true);
+                			if(as[0] != undefined){
+                				credit = parseFloat(as[0].credit);
+                				unorde = parseFloat(as[0].unorde);
+                				ungqb = parseFloat(as[0].ungqb);
+                				umm_opay = parseFloat(as[0].umm_opay);
+                				umm_unpay = parseFloat(as[0].umm_unpay);
+                				vcc_unpay = parseFloat(as[0].vcc_unpay);
+                				unpay = umm_unpay + vcc_unpay;
+                				total = credit - unorde - ungqb - (umm_unpay+vcc_unpay) + umm_opay;
+                				creditMsg += '<tr><td class="title">可用額度：</td><td class="val">' + credit + '</td></tr>';
+                				creditMsg += '<tr><td class="title">-未出訂單：</td><td class="val">' + unorde + '</td></tr>';
+                				creditMsg += '<tr><td class="title">-應收票據：</td><td class="val">' + ungqb + '</td></tr>';
+                				creditMsg += '<tr><td class="title">-應收帳款：</td><td class="val">' + unpay + '</td></tr>';
+                				creditMsg += '<tr><td class="title">+預收貨款：</td><td class="val">' + umm_opay + '</td></tr>';
+                				creditMsg += '<tr><td class="title">=額度餘額：</td><td class="val">' + total + '</td></tr>';
+                				$('#CreditShow').html(creditMsg).toggle();
+                			}
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -376,6 +412,22 @@
             select {
                 font-size: medium;
             }
+            #CreditShow {
+                display: none;
+                padding:3px;
+                background-color: #cad3ff;
+                border: 5px solid gray;
+                position: absolute;
+                z-index: 50;
+            }
+            #CreditShow .title {
+				width:40%;
+				text-align: right;
+            }
+            #CreditShow .val {
+				width:60%;
+				text-align: right;
+            }
 		</style>
 	</head>
 	<body ondragstart="return false" draggable="false"
@@ -504,6 +556,10 @@
 					<tr>
 						<td><span> </span><a id="lblCredit" class="lbl btn"> </a></td>
 						<td><input id="txtCredit" type="text" class="txt num c1" />	</td>
+						<td>
+							<div id="CreditShow">
+							</div>
+						</td>
 						<td><span> </span><a id='lblTeam' class="lbl"> </a></td>
 						<td><input id="txtTeam"   type="text"  class="txt c1"/>	</td>
 					</tr>

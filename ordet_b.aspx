@@ -18,9 +18,12 @@
 		    var q_readonly = [];
 		    var q_readonlys = [];
 		    var bbmNum = [];
-		    var bbsNum = [];
+		    var bbsNum = [['txtDime', 10, 0, 1],['txtWidth', 10, 0, 1],['txtLengthb', 10, 0, 1],['txtMount', 10, 0, 1],['txtWeight', 10, 0, 1]];
 		    var bbmMask = [];
 		    var bbsMask = [];
+		    var aPop = new Array(
+		    				['txtProductno_', 'btnProductno_', 'assignproduct', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
+		    				);
 		    $(document).ready(function () {
 		        bbmKey = [];
 		        bbsKey = ['noa', 'noq'];
@@ -131,7 +134,7 @@
 					<td class="td4" align="center" style="width:10%;"><a id='lblProductno_s'></a></td>
 					<td class="td5" align="center" style="width:10%;"><a id='lblDime_s'></a></td>
 					<td class="td6" align="center" style="width:10%;"><a id='lblWidth_s'></a></td>
-					<td class="td7" align="center" style="width:10%;"><a id='lblLength_s'></a></td>
+					<td class="td7" align="center" style="width:10%;"><a id='lblLengthb_s'></a></td>
 					<td class="td8" align="center" style="width:10%;"><a id='lblMount_s'></a></td>
 					<td class="td9" align="center" style="width:10%;"><a id='lblWeight_s'></a></td>
 					<td class="td10" align="center" style="width:10%;"><a id='lblSource_s'></a></td>
@@ -144,7 +147,8 @@
 						<input class="txt" id="txtUno.*" type="text" style="width:95%;"  />
 					</td>
 					<td class="td3">
-						<input class="txt" id="txtProduct.*" type="text" style="width:95%;"  />
+						<input class="txt" id="txtProduct.*" type="text" style="width:85%;"  />
+						<input type="button" id="btnProductno.*" value="." style="width:10%;">
 					</td>
 					<td class="td4">
 						<input class="txt" id="txtProductno.*" type="text" style="width:95%;"  />
@@ -156,7 +160,7 @@
 						<input class="txt" id="txtWidth.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
 					<td class="td7">
-						<input class="txt" id="txtLength.*" type="text" style="width:95%; text-align: right;"  />
+						<input class="txt" id="txtLengthb.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
 					<td class="td8">
 						<input class="txt" id="txtMount.*" type="text" style="width:95%; text-align: right;"  />
