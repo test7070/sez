@@ -51,23 +51,14 @@
 			}
 		
 		    function bbsAssign() {
-		    		for(var j = 0; j < q_bbsCount; j++) {
-		            	if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-						}
-					}
 		        _bbsAssign();
 		    }
 
 			function q_gtPost(t_name) {
-				switch (t_name) {
-					case q_name:
-					break;
-                }
+
             }
             
 		    function btnOk() {
-		        sum();
-		
 		        t_key = q_getHref();
 		
 		        _btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);  // (key_value, bbmKey[0], bbsKey[1], '', 2);
@@ -100,7 +91,6 @@
 		    function refresh() {
 		        _refresh();
 		    }
-		    function sum() { }
 		
 		    function readonly(t_para, empty) {
 		        _readonly(t_para, empty);
@@ -108,7 +98,6 @@
 		
 		    function btnMinus(id) {
 		        _btnMinus(id);
-		        sum();
 		    }
 		
 		    function btnPlus(org_htm, dest_tag, afield) {
@@ -175,7 +164,7 @@
 					<td class="td9">
 						<input class="txt" id="txtWeight.*" type="text" style="width:95%; text-align: right;"  />
 					</td>
-					<td class="td9">
+					<td class="td10">
 						<input class="txt" id="txtSource.*" type="text" style="width:95%;"  />
 					</td>
 				</tr>
