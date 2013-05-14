@@ -32,7 +32,7 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             aPop = new Array(
-            	['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_', 'ucc_b.aspx']
+            	['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']
 			);
 
             $(document).ready(function() {
@@ -80,7 +80,7 @@
 	                    if (q_cur > 0 && q_cur < 4) {
 	                        if (!b_ret || b_ret.length == 0)
 	                            return;
-                        	ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtOrdeno,txtBweight', b_ret.length, b_ret, 'productno,noa,weight','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+                        	ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdeno,txtNo2,txtBweight', b_ret.length, b_ret, 'productno,product,unit,noa,no2,weight','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
 							sum()
 	                    }
 						break;
@@ -97,7 +97,7 @@
 					case 'cua_cuas':
 						var as = _q_appendData("cua_cuas", "", true);
 						if(as[0]!=undefined){
-							q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtMount,txtCuano,txtOrdeno', 1, as, 'noa,productno,mount,noa,ordeno', 'txtProductno');
+							q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtUnit,txtMount,txtCuano,txtOrdeno,txtNo2', 1, as, 'noa,productno,product,unit,mount,noa,ordeno,no2', 'txtProductno');
 		                }
 	                	break;
                     case q_name:
@@ -499,7 +499,7 @@
                 <td align="center" style="width:3%;"><a id='lblTime_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblClass_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblCuano_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblOrdeno_s'> </a></td>
+                <td align="center" style="width:5%;"><a id='lblOrdeno_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblRtime_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblReason_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblGproduct_s'> </a></td>
@@ -518,6 +518,8 @@
                 <td >
                 	<input  id="txtProductno.*" type="text" style="width:70%;" />
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:16%;"  />
+                	<input  id="txtProduct.*" type="hidden"/>
+                	<input  id="txtUnit.*" type="hidden"/>
                 </td>
                 <td ><input  id="txtSpec.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtLength.*" type="text" class="txt c1 num"/></td>
@@ -536,7 +538,9 @@
                 <td ><input  id="txtTime.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtClass.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtCuano.*" type="text" class="txt c1"/></td>
-                <td ><input  id="txtOrdeno.*" type="text" class="txt c1"/></td>
+                <td ><input  id="txtOrdeno.*" type="text" class="txt" style="width: 70%;"/>
+                	<input  id="txtNo2.*" type="text" class="txt" style="width: 20%;"/>
+                </td>
                 <td ><input  id="txtRtime.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtReason.*" type="text" class="txt c1"/></td>
                 <td ><input  id="txtGproduct.*" type="text" class="txt c1"/></td>

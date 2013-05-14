@@ -68,13 +68,27 @@
             bbmMask = [['txtDatea', r_picd], ['txtDatea', r_picd]];
             q_mask(bbmMask);
             $('#btnImport').click(function(){
-            	q_box("workas_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'workas', "95%", "95%", q_getMsg('popWorkas'));
+            	//20130513改為用inbs匯入
+            	//q_box("workas_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'workas', "95%", "95%", q_getMsg('popWorkas'));
+            	q_box("inbs_b.aspx?;;;enda=0;" + r_accy, 'inbs', "95%", "95%", q_getMsg("popInbs"));
             });
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
             var ret; 
             switch (b_pop) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
+            	case 'inbs':
+                    if (q_cur > 0 && q_cur < 4) {
+                        b_ret = getb_ret();
+                        if (!b_ret || b_ret.length == 0)
+                            return;
+                        var i, j = 0;
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdeno,txtNo2', b_ret.length, b_ret
+                                                           , 'productno,product,unit,ordeno,no2'
+                                                           , 'txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+                        bbsAssign();
+                       }
+					break;
                 case 'workas':
                     if (q_cur > 0 && q_cur < 4) {
                         b_ret = getb_ret();
