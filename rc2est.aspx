@@ -674,17 +674,17 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center"><a id='lblStoreno_st'> </a></td>
-                <td align="center"><a id='lblUno_st'> </a></td>
-                <td align="center"><a id='lblProduct_st'> </a></td>
+                <td align="center" style="width: 7%;"><a id='lblStoreno_st'> </a></td>
+                <td align="center" style="width: 7%;"><a id='lblUno_st'> </a></td>
+                <td align="center" style="width: 8%;"><a id='lblProductno_st'> </a></td>
+                <td align="center" style="width: 9%;"><a id='lblProduct_st'> </a></td>
                 <!--<td align="center" class="td1"><a id='lblSpec_st'> </a></td>-->
                 <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
-                <td align="center"><a id='lblMount_st'> </a></td>
-                <td align="center"><a id='lblWeight_st'> </a></td>
-                <td align="center"><a id='lblPrice_st'> </a></td>
-                <td align="center"><a id='lblClass_st'> </a></td>
-                <td align="center"><a id='lblHand_st'> </a></td>
-                <td align="center"><a id='lblEnds_st'> </a></td>
+                <td align="center" style="width: 6%;"><a id='lblMount_st'> </a></td>
+                <td align="center" style="width: 6%;"><a id='lblWeight_st'> </a></td>
+                <td align="center" style="width: 6%;"><a id='lblPrice_st'> </a></td>
+                <td align="center" style="width: 5%;"><a id='lblHand_st'> </a></td>
+                <td align="center" style="width: 5%;"><a id='lblEnds_st'> </a></td>
                 <td align="center"><a id='lblMemo_st'> </a></td>
                 <td align="center"><a id='lblDescr_st'> </a></td>
             </tr>
@@ -693,10 +693,10 @@
                 <td ><input class="txt c1" id="txtStoreno.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtUno.*" type="text" /></td>
                	<td><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                    <input type="text" id="txtProductno.*"  style="width:80%; float:left;"/>
-                    <span style="display:block; width:1%;float:left;"> </span>
-					<input type="text" id="txtProduct.*"  style="width:80%; float:left;"/>
+                    <input type="text" id="txtProductno.*"  style="width:75%; float:left;"/>
+                    <input id="txtClass.*" type="text" style="width: 75%;"/>
 				</td>
+				<td><input type="text" id="txtProduct.*" class="txt c1"/></td>
                 <td><input class="txt num c8" id="textSize1.*" type="text" disabled="disabled"/><div id="x1.*" style="float: left"> x</div>
                 		<input class="txt num c8" id="textSize2.*" type="text" disabled="disabled"/><div id="x2.*" style="float: left"> x</div>
                         <input class="txt num c8" id="textSize3.*" type="text" disabled="disabled"/><div id="x3.*" style="float: left"> x</div>
@@ -711,7 +711,7 @@
                 <td ><input class="txt num c1" id="txtMount.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtWeight.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtPrice.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtClass.*" type="text" /></td>
+                
                 <td ><input class="txt c1" id="txtHand.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtEnds.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>

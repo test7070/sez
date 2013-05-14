@@ -589,11 +589,11 @@
         }
         .tbbs .td2
         {
-            width: 5%;
+            width: 6%;
         }
         .tbbs .td3
         {
-            width: 7%;
+            width: 10%;
         }
     </style>
 </head>
@@ -684,30 +684,29 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
-                <td align="center" class="td1"><a id='lblNoq_s'> </a></td>
-                <td align="center" class="td1"><a id='lblUno_s'> </a></td>
-                <td align="center" style="width:12%;"><a id='lblProductno_s'> </a></td>
+                <td align="center" class="td2"><a id='lblUno_s'> </a></td>
+                <td align="center" class="td3"><a id='lblProductno_st'> </a></td>
+                <td align="center" class="td3"><a id='lblProduct_st'> </a></td>
                 <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
-                <td align="center" class="td1"><a id='lblMount_s'> </a></td>
+                <td align="center" class="td2"><a id='lblMount_s'> </a></td>
                 <td align="center" class="td2"><a id='lblWeight_s'> </a></td>
                 <td align="center" class="td2"><a id='lblPrice_s'> </a></td>
-                <td align="center" class="td2"><a id='lblEnds_s'> </a></td>
+                <td align="center" class="td1"><a id='lblEnds_s'> </a></td>
                 <td align="center" class="td2"><a id='lblEweight_s'> </a></td>
                 <td align="center" class="td2"><a id='lblEcount_s'> </a></td>
                 <td align="center" class="td2"><a id='lblAdjweight_s'> </a></td>
                 <td align="center" class="td2"><a id='lblAdjcount_s'> </a></td>
-                <td align="center" class="td2"><a id='lblClass_s'> </a></td>
                 <td align="center"><a id='lblMemo_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td ><input class="txt c1" id="txtNoq.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtUno.*" type="text" /></td>
+                <td ><input class="txt c1" id="txtUno.*" type="text" />
+                	<input class="txt c1" id="txtNoq.*" type="text" /></td>
                 <td><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                    <input type="text" id="txtProductno.*"  style="width:76%; float:left;"/>
-                    <span style="display:block; width:1%;float:left;"> </span>
-					<input type="text" id="txtProduct.*"  style="width:76%; float:left;"/>
-				</td>  
+                    <input type="text" id="txtProductno.*"  style="width:83%;"/>
+					<input id="txtClass.*" type="text" style="width: 83%;"/>
+				</td> 
+				<td><input type="text" id="txtProduct.*" class="txt c1"/></td> 
                 <td><input class="txt num c8" id="textSize1.*" type="text" disabled="disabled"/><div id="x1.*" style="float: left"> x</div>
                 		<input class="txt num c8" id="textSize2.*" type="text" disabled="disabled"/><div id="x2.*" style="float: left"> x</div>
                         <input class="txt num c8" id="textSize3.*" type="text" disabled="disabled"/><div id="x3.*" style="float: left"> x</div>
@@ -727,7 +726,7 @@
                 <td ><input class="txt num c1" id="txtEcount.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtAdjweight.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtAdjcount.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtClass.*" type="text" /></td>
+                
                 <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
             </tr>
         </table>
