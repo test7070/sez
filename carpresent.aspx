@@ -60,7 +60,7 @@
             $('#btnIns').val("未出車匯入");
             $('#btnSeek').hide();//查詢
             //$('#btnPrint').hide();//列印
-            $('#btnAuthority').hide();//權限
+            //$('#btnAuthority').hide();//權限
             $('#btnSign').hide();//簽核
             $('#tbbm').hide();//BBM隱藏
 			
@@ -150,9 +150,9 @@
             		}
             	}
             	if(as[0]!=undefined&&t_carpresents[0]!=undefined){
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtCarno,txtCarteam,txtMemo', as.length, as, 'carno,team,memo', '');
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtCarno,txtDriver,txtCarteam,txtMemo', as.length, as, 'carno,namea,team,memo', '');
             	}else{
-            		q_gridAddRow(bbsHtm, 'tbbs', 'txtCarno,txtCarteam', as.length, as, 'carno,team', '');
+            		q_gridAddRow(bbsHtm, 'tbbs', 'txtCarno,txtDriver,txtCarteam', as.length, as, 'carno,namea,team', '');
             	}
             	
             	$('#txtUnpresent').val(as.length);
@@ -207,7 +207,7 @@
                 		
 		                //呼叫要匯入的資料
 						var t_where = "where=^^ a.cartype='2' and len( carno)=6 AND CHARINDEX( '-',carno) > 0 and len(outdate)=0 and len(suspdate)=0 and carno not in (select noa from carChange where len(enddate)>0 or len(wastedate)>0 or len(canceldate)>0) ";
-						t_where=t_where+"and a.carno not in (select carno from trans102 where carno in(select noa from car2 where cartype='2') and datea='"+t_date+"' group by carno) and a.driverno!=''^^";
+						t_where=t_where+"and a.carno not in (select carno from trans"+r_accy+" where carno in(select noa from car2 where cartype='2') and datea='"+t_date+"' group by carno) and a.driverno!=''^^";
 					    q_gt('car2_carteam', t_where , 0, 0, 0, "", r_accy);
 			    	}
                 	if (q_cur == 4)   
@@ -726,7 +726,7 @@
                 <td align="center" class="td2" style="width:10%;"><a id='lblDateas'></a></td>
                 <td align="center" style="width:10%;"><a id='lblWeeks'></a></td>
                 <td align="center" class="td3" style="width:10%;"><a id='lblCarnos'></a></td>
-                <td align="center" class="td2" style="width:10%;"><a id='lblCarteams'></a></td>
+                <td align="center" class="td2" style="width:10%;"><a id='lblDrivers'></a></td>
                 <td align="center" class="td3"><a id='lblMemos'></a></td>
             </tr>
             <tr>
@@ -734,7 +734,10 @@
                 <td ><input class="txt c1" id="txtDatea.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtWeek.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtCarno.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtCarteam.*" type="text" /></td>
+                <td >
+                	<input class="txt c1" id="txtDriver.*" type="text" />
+                	<input class="txt c1" id="txtCarteam.*" type="hidden" />
+                </td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" />
                 		<input id="chkMemo1.*" type="checkbox" hidden="true"/><label id="labmemo1.*" hidden="true">司機請假</label>
                 		<input id="chkMemo2.*" type="checkbox" hidden="true"/><label id="labmemo2.*" hidden="true">本日無工作</label>

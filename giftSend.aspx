@@ -176,7 +176,7 @@
                 $('#txtItem').focus();
             }
             function btnPrint() {
-            	q_box('z_giftsend.aspx', '', "90%", "650px", m_print);
+            	q_box("z_giftsend.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + $('#txtNoa').val() + ";" + r_accy + "_" + r_cno, 'giftsend', "95%", "650px", q_getMsg("popPrint"));
             }
             function wrServer(key_value) {
                 var i;
