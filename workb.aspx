@@ -160,9 +160,8 @@
                 return;
             }
 
-            $('#txtWorker').val(r_name)
-            sum();
-
+            $('#txtWorker').val(r_name);
+            
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
             if (s1.length == 0 || s1 == "AUTO")   /// 自動產生編號
                 q_gtnoa(q_name, replaceAll('B' + $('#txtDatea').val(), '/', ''));
@@ -237,7 +236,6 @@
 
         function btnMinus(id) {
             _btnMinus(id);
-            sum();
         }
 
         function btnPlus(org_htm, dest_tag, afield) {
