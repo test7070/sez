@@ -79,11 +79,10 @@
 		            //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
 		        });
 		        
-				var str=q_auth();
-				var patt=/tre_accc,1,1,1/g;
-				var result=patt.test(str);
-				if (result==true){
-		        $('#btnAccc').click(function () {show_confirm()});}
+				if ((/^.*(tre_accc,1,[0|1],1,[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())){
+		        $('#btnAccc').click(function () {show_confirm()});
+		        }
+		        
 		        
 
 		        $('#btnGqb').click(function () {

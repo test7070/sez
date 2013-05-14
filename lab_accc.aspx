@@ -529,6 +529,7 @@
 						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
 						<td><input id="btnGen" type="button" /></td>
+						<td colspan="2" align="left"><a id="lblPunchline" style="color: #FF55A8;font-weight: bolder;font-size: 18px;"></a> </td>
 					</tr>
 				</table>
 			</div>

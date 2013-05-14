@@ -48,36 +48,39 @@
                 	t_isinit = true;
                     $('#q_report').q_report({
                         fileName : 'z_oil',
-                        options : [{
+                        options : [{/*[1]*/
                             type : '0',
                             name : 'accy',
                             value : q_getId()[4]
-                        }, {/*1*/
+                        }, {/*1-[2][3]日期*/
                             type : '1',
                             name : 'date'
-                        }, {/*2*/
+                        }, {/*1-[4][5]加油日期*/
+                            type : '1',
+                            name : 'xoildate'
+                        }, {/*2-[6]-車號*/
                             type : '6',
                             name : 'xcarno'
-                        }, {/*3*/
+                        }, {/*3-[7][8]-司機*//*01*/
                             type : '2',
                             name : 'driver',
                             dbf : 'driver',
                             index : 'noa,namea',
                             src : 'driver_b.aspx'
-                        }, {/*4*/
+                        }, {/*4[9][10]-站名*/
                             type : '2',
                             name : 'oilstation',
                             dbf : 'oilstation',
                             index : 'noa,station',
                             src : 'oilstation_b.aspx'
-                        }, {/*5*/
+                        }, {/*5-[11][12]-月份*/
                             type : '1',
                             name : 'mon'
-                        }, {/*6*/
+                        }, {/*6-[13]車別*/
                             type : '8',
                             name : 'xcarkind',
                             value : t_carkind.split(',')
-                        }, {/*6*/
+                        }, {/*7-[14]儲油槽*/
                             type : '8',
                             name : 'xoilkind',
                             value : t_oilkind.split(',')
@@ -89,6 +92,11 @@
                     $('#txtDate1').datepicker();
                     $('#txtDate2').mask('999/99/99');
                     $('#txtDate2').datepicker();
+                    $('#txtXoildate1').mask('999/99/99');
+                    $('#txtXoildate1').datepicker();
+                    $('#txtXoildate2').mask('999/99/99');
+                    $('#txtXoildate2').datepicker();
+                    
                     $('#txtMon1').mask('999/99');
                     $('#txtMon2').mask('999/99');
 					$('#chkXcarkind').children('input').attr('checked', 'checked');
@@ -103,6 +111,7 @@
                     t_day = t_date.getUTCDate();
                     t_day = t_day > 9 ? t_day + '' : '0' + t_day;
                     $('#txtDate1').val(t_year + '/' + t_month + '/' + t_day);
+                    $('#txtXoildate1').val(t_year + '/' + t_month + '/' + t_day);
 
                     t_date = new Date();
                     t_date.setDate(35);
@@ -114,6 +123,7 @@
                     t_day = t_date.getUTCDate();
                     t_day = t_day > 9 ? t_day + '' : '0' + t_day;
                     $('#txtDate2').val(t_year + '/' + t_month + '/' + t_day);
+                    $('#txtXoildate2').val(t_year + '/' + t_month + '/' + t_day);
 
                     var t_date, t_year, t_month, t_day;
                     t_date = new Date();
