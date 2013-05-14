@@ -663,27 +663,28 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
               <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:9%;"><a id='lblProductno'></a></td>
-                <td align="center" style="width:12%;"><a id='lblUno'></a></td>
+                <td align="center" style="width:8%;"><a id='lblUno_st'></a></td>
+                <td align="center" style="width:9%;"><a id='lblProductnos_st'></a></td>
+                <td align="center" style="width:12%;"><a id='lblProduct_st'></a></td>
                 <td align="center" style="width:18%;" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblUnit'></a></td>
-                <td align="center" style="width:5%;"><a id='lblMount'></a></td>
-                <td align="center" style="width:8%;"><a id='lblWeights'></a></td>
-                <td align="center" style="width:6%;"><a id='lblPrices'></a></td>
-                <td align="center" style="width:8%;"><a id='lblTotals'></a></td>
-                <td align="center" style="width:8%;"><a id='lblClasss'></a></td>
-                <td align="center"><a id='lblMemos'></a></td>
+                <td align="center" style="width:4%;"><a id='lblUnit_st'></a></td>
+                <td align="center" style="width:5%;"><a id='lblMount_st'></a></td>
+                <td align="center" style="width:8%;"><a id='lblWeight_st'></a></td>
+                <td align="center" style="width:6%;"><a id='lblPrice_st'></a></td>
+                <td align="center" style="width:8%;"><a id='lblTotal_st'></a></td>
+                <td align="center"><a id='lblMemo_st'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+                <td><input id="txtUno.*" type="text"  class="txt c7"/>
+                	<input type="text" id="txtNo3.*"  class="txt c7"/>
+                </td>
                 <td>
 					<input class="btn"  id="btnProduct.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                    <input type="text" id="txtProductno.*"  style="width:76%; float:left;"/>
-                    <span style="display:block; width:1%;float:left;"> </span>
-					<input type="text" id="txtNo3.*"  style="width:76%; float:left;"/>
+                    <input type="text" id="txtProductno.*"  style="width:80%; float:left;"/>
+                    <input id="txtClass.*" type="text" style="width: 80%;"/>
 				</td>
-                <td ><input id="txtProduct.*" type="text" class="txt c7"/>
-                <input class="txt" id="txtUno.*" type="text"  class="txt c2"/></td>
+                <td ><input id="txtProduct.*" type="text" class="txt c7"/></td>
                 <td><input class="txt num c8" id="textSize1.*" type="text" disabled="disabled"/><div id="x1.*" style="float: left"> x</div>
                 		<input class="txt num c8" id="textSize2.*" type="text" disabled="disabled"/><div id="x2.*" style="float: left"> x</div>
                         <input class="txt num c8" id="textSize3.*" type="text" disabled="disabled"/><div id="x3.*" style="float: left"> x</div>
@@ -701,7 +702,7 @@
                 <td ><input id="txtPrice.*" type="text" class="txt num c7" /></td>
                 <td ><input id="txtTotal.*" type="text" class="txt num c7" />
                                       <input id="txtTheory.*" type="text" class="txt num c7" /></td>
-                <td><input id="txtClass.*" type="text" class="txt c7"/>
+                
                 <td><input id="txtMemo.*" type="text" class="txt c7"/>
                 <input class="txt" id="txtOrdeno.*" type="text"style="width:65%;" />
                 <input class="txt" id="txtNo2.*" type="text" style="width:20%;" />

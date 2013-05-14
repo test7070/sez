@@ -29,7 +29,7 @@
 			,['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
 		    ,['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp,serial', 'txtBuyerno,txtBuyer,txtSerial', 'cust_b.aspx']
 			,['txtProductno', 'lblProduct', 'ucca', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit', 'ucca_b.aspx']
-			,['txtSerial', 'lblSerial', 'cust', 'serial,noa,comp', 'txtSerial,txtBuyerno,txtBuyer', 'cust_b.aspx']);
+			,['txtSerial', 'lblSerial', 'cust', 'serial,noa,comp', 'txtSerial', 'cust_b.aspx']);
 			brwCount2 = 10;
 			function currentData() {
 			}

@@ -45,16 +45,10 @@
                 bbmMask = [['txtDatea', r_picd], ['txtBdate', r_picd], ['txtEdate', r_picd]];
                 q_mask(bbmMask);
 				q_cmbParse("cmbCode",q_getPara('banktran.code'));
-                
-               
-                var str= q_auth;
 				
-				
-				if ((/banktran,1,1,1/g).test(str)){
+				if ((/^.*(banktran,1,[0|1],1,[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())){
 		        $('#btnGen').click(function() {  show_confirm()});
 		        }
-               
-                
 				
                 $('#btnGen2').click(function() {
                     q_func('banktran.gen2', $('#txtNoa').val() + ",");
