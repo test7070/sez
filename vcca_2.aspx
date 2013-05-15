@@ -29,7 +29,7 @@
 			,['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
 		    ,['txtBuyerno', 'lblBuyer', 'cust', 'noa,comp,serial', 'txtBuyerno,txtBuyer,txtSerial', 'cust_b.aspx']
 			,['txtProductno', 'lblProduct', 'ucca', 'noa,product,unit', 'txtProductno,txtProduct,txtUnit', 'ucca_b.aspx']
-			,['txtSerial', 'lblSerial', 'cust', 'serial,noa,comp', 'txtSerial', 'cust_b.aspx']);
+			);
 			brwCount2 = 10;
 			function currentData() {
 			}
@@ -101,6 +101,14 @@
 							curData.cust = str[i].substring(6).toUpperCase();	
 					}
 				}
+				$('#txtSerial').change(function() {
+                	$(this).val($.trim($(this).val()).toUpperCase());
+                	if ($(this).val().length > 0 && checkId($(this).val())!=2){
+                		Lock();
+	            		alert(q_getMsg('lblSerial')+'錯誤。');
+	            		Unlock();
+	            	}
+                });
 				q_cmbParse("cmbTaxtype",q_getPara('sys.taxtype'));
 				$('#txtDatea').focusout(function () {
                 	q_cd( $(this).val() ,$(this));
