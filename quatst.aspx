@@ -19,7 +19,11 @@
             var q_name = "quat";
             var q_readonly = ['txtComp', 'txtAcomp','txtSales','txtWorker'];
             var q_readonlys = [];
-            var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1],['txtWeight', 15, 3, 1]];
+            var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1],
+            			  ['txtWeight', 15, 3, 1],['txtTpayweight', 10, 2, 1],['txtTunpayweight', 15, 0, 1],
+            			  ['txtTtransferorde', 15, 3, 1],['txtTuntransferorde', 15, 3, 1],['txtMpayweight', 10, 2, 1],
+            			  ['txtMunpayweight', 15, 0, 1],['txtMtransferorde', 15, 3, 1],['txtMuntransferorde', 15, 3, 1]
+            			 ];
             var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],['txtPrice', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTheory', 15, 3, 1]];
             var bbmMask = [];
             var bbsMask = [];
@@ -592,6 +596,16 @@
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
+            .trX{
+            	background: pink;
+            }
+            .trTitle{
+            	padding-left: 18px;
+				font-size: 18px;
+				font-weight: bolder;
+				color: brown;
+				letter-spacing: 5px;
+            }
             
       
     </style>
@@ -688,6 +702,60 @@
                 <td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
                 <td class="td8"><input id="txtWorker"  type="text" class="txt c1" /></td> 
             </tr>
+					<tr>
+						<td class="tdZ trX" colspan="8"><span> </span><a id='lblTweight_st' class="trTitle"> </a></td>
+						<td class="tdZ trX"> </td>
+					</tr>
+					<tr>
+						<td class="trX"><span> </span><a id='lblTpayweight_st' class="lbl"> </a></td>
+						<td class="trX"><input id="txtTpayweight" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblTunpayweight_st' class="lbl"> </a></td>
+						<td class="trX"><input id="txtTunpayweight" type="text" class="txt c1 num" /></td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+					</tr>
+					<tr>
+						<td class="trX"><span> </span><a id='lblTtransferorde_st' class="lbl"> </a></td>
+						<td class="trX"><input id="txtTtransferorde" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblTuntransferorde_st' class="lbl"> </a></td>
+						<td class="trX"><input id="txtTuntransferorde" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblTenda_st' class="lbl"> </a></td>
+						<td class="trX"><input id="chkTenda" type="checkbox"/></td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+					</tr>
+					
+					<tr>
+						<td class="trX" colspan="8"><span> </span><a id='lblMweight_st' class="trTitle"> </a></td>
+						<td class="tdZ trX"> </td>
+					</tr>
+					<tr>
+						<td class="trX"><span> </span><a id='lblMpayweight_st' class="lbl"> </a></td>
+						<td class="trX"><input id="txtMpayweight" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblMunpayweight_st' class="lbl"> </a></td>
+						<td class="trX"><input id="txtMunpayweight" type="text" class="txt c1 num" /></td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+					</tr>
+					<tr>
+						<td class="trX"><span> </span><a id='lblMtransferorde_st' class="lbl"> </a></td>
+						<td class="trX"><input id="txtMtransferorde" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblMuntransferorde_st' class="lbl"> </a></td>
+						<td class="trX"><input id="txtMuntransferorde" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblMenda_st' class="lbl"> </a></td>
+						<td class="trX"><input id="chkMenda" type="checkbox"/></td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+					</tr>
+
             <tr class="tr9">
             	<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
                 <td class="td2" colspan='7' ><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"></textarea></td>

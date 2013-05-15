@@ -34,10 +34,10 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
+				            , ['txtCustno', 'lblCust', 'custtgg', 'noa,comp,nick,conn', 'txtCustno,txtComp,txtNick', 'custtgg_b.aspx']
 				            , ['txtSales', 'lblSales', 'sss', 'namea,noa', 'txtSales,txtSalesno', 'sss_b.aspx']
 				            , ['txtAssigner', 'lblAssigner', 'sss', 'namea,noa', 'txtAssigner,txtAssignerno', 'sss_b.aspx']
 				            , ['txtAssistant', 'lblAssistant', 'sss', 'namea,noa', 'txtAssistant,txtAssistantno', 'sss_b.aspx']
-				            , ['txtCar_conn', 'lblCar_conn', 'sss', 'namea,noa', 'txtCar_conn,txtCar_connno', 'sss_b.aspx']
 				            , ['txtBankno', 'lblBankno', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
