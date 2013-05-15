@@ -480,6 +480,7 @@
 						<td style="width:20px;"> </td>
 						<td style="width:200px;"><a id='lbl_custno'> </a></td>
 						<td style="width:200px;"><a id='lbl_productno'> </a></td>
+						<td style="width:200px;"><a id='lbl_class'> </a></td>
 						<td style="width:200px;"><a id='lbl_spec'> </a></td>
 						<td style="width:200px;"><a id='lbl_dime'> </a></td>
 						<td style="width:200px;"><a id='lbl_width'> </a></td>
@@ -498,7 +499,7 @@
 						<td style="width:200px;"><a id='lbl_ordeno'> </a></td>
 						<td style="width:200px;"><a id='lbl_no2'> </a></td>
 						<td style="width:200px;"><a id='lbl_price'> </a></td>
-						<td style="width:200px;"><a id='lbl_class'> </a></td>
+						
 						<td style="width:200px;"><a id='lbl_datea'> </a></td>
 						<td style="width:200px;"><a id='lbl_product'> </a></td>
 						<td style="width:200px;"><a id='lbl_prt'> </a></td>
@@ -515,6 +516,9 @@
 						</td>
 						<td>
 							<input id="txtProductno.*" type="text" class="txt c1"/>
+						</td>
+						<td>
+							<input id="txtClass.*" type="text" class="txt c1"/>
 						</td>
 						<td>
 							<input id="txtSpec.*" type="text" class="txt c1"/>
@@ -569,9 +573,6 @@
 						</td>
 						<td>
 							<input id="txtPrice.*" type="text" class="txt c1 num"/>
-						</td>
-						<td>
-							<input id="txtClass.*" type="text" class="txt c1"/>
 						</td>
 						<td>
 							<input id="txtDatea.*" type="text" class="txt c1"/>
