@@ -772,22 +772,24 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:10%;"><a id='lblUno_st'> </a></td>
-                <td align="center" style="width:8%;"><a id='lblProductno_st'> </a></td>
-                <td align="center" style="width:10%;"><a id='lblProduct_st'> </a></td>
+                <td align="center" style="width:10%;"><a id='lblProductno_st'> </a></td>
+                <td align="center" style="width:12%;"><a id='lblProduct_st'> </a></td>
                 <!--<td align="center" style="width:10%;"><a id='lblSpec_st'> </a></td>-->
                 <!--<td align="center"><a id='lblRadius_s'> </a></td>-->
                 <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblMount_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblGweight_st'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblWeight_st'> </a></td>
-                <td align="center" style="width:8%;"><a id='lblClass_st'> </a></td>
                 <!--<td align="center" style="width:4%;"><a id='lblType_s'> </a></td>-->
                 <td align="center"><a id='lblMemo_st'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" /></td>
-                <td><input id="txtUno.*" type="text" style="width:75%;"/><input class="btn"  id="btnUno.*" type="button" value='...' style="width:15%;"  /></td>
-                <td ><input  id="txtProductno.*" type="text" style="width:70%;" /><input class="btn"  id="btnProductno.*" type="button" value='...' style="width:16%;"  /></td>
+                <td><input class="btn"  id="btnUno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+                	<input id="txtUno.*" type="text" style="width:75%;"/></td>
+                <td ><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;" />
+                	<input  id="txtProductno.*" type="text" style="width:80%;" />
+                	<input id="txtClass.*" type="text" style="width: 80%;"/></td>
                 <td><input class="txt c1" id="txtProduct.*" type="text" /></td>
                 <!--<td><input class="txt c1" id="txtSpec.*" type="text"/></td>-->
                 <!--<td style="width:8%;"><input class="txt num c1" id="txtSradius.*" type="text" />
@@ -811,7 +813,6 @@
                 <td><input class="txt num c1" id="txtGweight.*" type="text"/></td>
                 <td><input class="txt num c1" id="txtWeight.*" type="text" /></td>
                 <!--<td><input class="txt c1" id="txtTypea.*" type="text" /></td>-->
-                <td><input class="txt c1" id="txtClass.*" type="text" />
                 <td><input class="txt c1" id="txtMemo.*" type="text" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
             </tr>

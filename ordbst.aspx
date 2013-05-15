@@ -742,7 +742,7 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%"><a id='lblUno_st'></a></td>
-                <td align="center" style="width:8%"><a id='lblProductno_st'></a></td>
+                <td align="center" style="width:9%"><a id='lblProductno_st'></a></td>
                 <td align="center" style="width:13%"><a id='lblProduct_st'></a></td>
                 <!--<td align="center" style="width:8%"><a id='lblSpec_st'></a></td>-->
                 <td align="center" id='Size'><a id='lblSize_st'></a><BR><a id='lblSize_help'> </a></td>
