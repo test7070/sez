@@ -192,6 +192,10 @@
                 $('#txtAccno').val(xmlString);
             }
 			function btnOk() {	
+				if($('#cmbTaxtype').val() !=6 && emp($('#txtProductno').val())){
+                	alert(q_getMsg('lblProduct')+'未填寫。');
+                	return;
+				}
 				if ($('#txtDatea').val().length==0 || !q_cd($('#txtDatea').val())){
                 	alert(q_getMsg('lblDatea')+'錯誤。');
                 	return;
