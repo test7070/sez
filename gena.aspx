@@ -57,7 +57,8 @@
 				bbsMask = [];
 				q_mask(bbmMask);
 				$('#btnImport').click(function () {
-					//q_gt
+					var t_where = "where=^^ datea = between '"+$('#txtMon').val()+"/01' and '"+$('#txtMon').val()+"/31' ^^ top=1";
+			        q_gt('workb', t_where , 0, 0, 0, "", r_accy);
 				});
             }
 		
@@ -75,6 +76,12 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'workb':
+                			var as = _q_appendData("workb", "", true);
+                			
+                			
+                			
+                		break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -396,7 +403,7 @@
         	<td class="td1"><span> </span></td>
             <td class="td2">
             	<input id="chkIsouts" type="checkbox" style="float: left;"/>
-            	<a id="lblIsouts" class="lbl" style="float: left;"></a>
+            	<a id="lblIsouts" class="lbl" style="float: left;"> </a>
             </td>
         	<td class="td3"><span> </span></td>
             <td class="td4"><input id="btnImport" type="button" style="float: left;"/></td>
