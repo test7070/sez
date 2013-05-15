@@ -99,12 +99,16 @@
                 	var t_edate = $.trim($('#txtEdate').val());
                 	var t_btrandate = $.trim($('#txtBtrandate').val());
                 	var t_etrandate = $.trim($('#txtEtrandate').val());
+                	var t_baddrno = $.trim($('#txtStraddrno').val());
+                	var t_eaddrno = $.trim($('#txtEndaddrno').val());
                 	var t_where = "custno='"+t_custno+"'";
                 	t_where += t_noa.length>0?" and (len(isnull(trdno,''))=0 or trdno='"+t_noa+"')":" and len(isnull(trdno,''))=0";
                 	t_where += t_bdate.length>0?" and datea>='"+t_bdate+"'":"";
                 	t_where += t_edate.length>0?" and datea<='"+t_edate+"'":"";
                 	t_where += t_btrandate.length>0?" and trandate>='"+t_btrandate+"'":"";
                 	t_where += t_etrandate.length>0?" and trandate<='"+t_etrandate+"'":"";
+                	t_where += t_baddrno.length>0?" and straddrno>='"+t_baddrno+"'":"";
+                	t_where += t_eaddrno.length>0?" and straddrno<='"+t_eaddrno+"'":"";
                 	var t_po = "";
                 	if ($.trim($('#txtPo').val()).length > 0) {
                         var tmp = $.trim($('#txtPo').val()).split(',');
@@ -140,6 +144,12 @@
                     /*未請款發票才抓*/
                     t_where = "  buyerno='" + $('#txtCustno').val() + "' and (trdno='" + $('#txtNoa').val() + "' or len(isnull(trdno,''))=0) ";
                     q_box("vcca_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_vccano + ";", 'vcca1', "95%", "650px", q_getMsg('popVcca'));
+                });
+                $('#txtPlus').change(function(e){
+                	sum();
+                });
+                $('#txtDiscount').change(function(e){
+                	sum();
                 });
             }
 
@@ -766,7 +776,7 @@
 						<td class="tdZ"> </td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblAcomp" class="lbl"> </a></td>
+						<td><span> </span><a id="lblAcomp" class="lbl btn"> </a></td>
 						<td colspan="3">
 							<input id="txtCno" type="text"  class="txt" style="float: left; width:25%;"/>
 							<input id="txtAcomp" type="text"  class="txt"  style="float: left; width:75%;"/>
