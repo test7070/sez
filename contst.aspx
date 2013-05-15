@@ -16,11 +16,16 @@
             }
             q_desc=1;
             q_tables = 's';
-            var q_name = "contst";
+            var q_name = "cont";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtApv', 'txtWorker2'];
             var q_readonlys = [];
-            var bbmNum = [];
-            var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],['txtPrice', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTheory', 15, 3, 1]];
+            var bbmNum = [['txtTpayweight', 10, 2, 1],['txtTunpayweight', 15, 0, 1],['txtTtransferorde', 15, 3, 1],['txtTuntransferorde', 15, 3, 1],
+            			  ['txtMpayweight', 10, 2, 1],['txtMunpayweight', 15, 0, 1],['txtMtransferorde', 15, 3, 1],['txtMuntransferorde', 15, 3, 1]
+						 ];
+            var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],
+            			  ['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],
+            			  ['txtPrice', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTheory', 15, 3, 1]
+            			 ];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -54,11 +59,6 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbStype", q_getPara('vcc.stype')); 
-                q_cmbParse("cmbCoin", q_getPara('sys.coin'));     
-                q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  
-                q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
-                q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
                 q_cmbParse("cmbKind", q_getPara('quatst.kind'));
                 q_getFormat();
                 bbmMask = [['txtEnddate', r_picd],['txtDatea', r_picd], ['txtPledgedate', r_picd], ['txtPaydate', r_picd], ['txtBcontdate', r_picd], ['txtEcontdate', r_picd], ['txtChangecontdate', r_picd]];
@@ -678,8 +678,13 @@
             .trX{
             	background: pink;
             }
-            
-      
+            .trTitle{
+            	padding-left: 18px;
+				font-size: 18px;
+				font-weight: bolder;
+				color: brown;
+				letter-spacing: 5px;
+            }
     </style>
 </head>
 <body>
@@ -801,7 +806,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="8" class="trX"><span> </span><a style=" color:brown; font-size: 18px; font-weight: bolder;">&nbsp;&nbsp;&nbsp;&nbsp;保&nbsp;&nbsp;證&nbsp;&nbsp;金</a></td>
+						<td colspan="8" class="trX"><span> </span><a class="trTitle">保證金</a></td>
 						<td class="tdZ trX"> </td>
 					</tr>
 					<tr>
@@ -854,45 +859,57 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="trX" colspan="8">
-							<td><span> </span><a id='lblTweight' class="lbl"> </a></td>
-							<td class="tdZ trX"> </td>
-						</td>
+						<td class="tdZ trX" colspan="8"><span> </span><a id='lblTweight' class="trTitle"> </a></td>
+						<td class="tdZ trX"> </td>
 					</tr>
 					<tr>
 						<td class="trX"><span> </span><a id='lblTpayweight' class="lbl"> </a></td>
-						<td class="trX"><input id="txtTpayweight" type="text" class="txt c1" /></td>
+						<td class="trX"><input id="txtTpayweight" type="text" class="txt c1 num" /></td>
 						<td class="trX"><span> </span><a id='lblTunpayweight' class="lbl"> </a></td>
-						<td class="trX"><input id="txtTunpayweight" type="text" class="txt c1" /></td>
+						<td class="trX"><input id="txtTunpayweight" type="text" class="txt c1 num" /></td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
 					</tr>
 					<tr>
 						<td class="trX"><span> </span><a id='lblTtransferorde' class="lbl"> </a></td>
-						<td class="trX"><input id="txtTtransferorde" type="text" class="txt c1" /></td>
+						<td class="trX"><input id="txtTtransferorde" type="text" class="txt c1 num" /></td>
 						<td class="trX"><span> </span><a id='lblTuntransferorde' class="lbl"> </a></td>
-						<td class="trX"><input id="txtTuntransferorde" type="text" class="txt c1" /></td>
+						<td class="trX"><input id="txtTuntransferorde" type="text" class="txt c1 num" /></td>
 						<td class="trX"><span> </span><a id='lblTenda' class="lbl"> </a></td>
-						<td class="trX"><input id="txtTenda" type="text" class="txt c1" /></td>
+						<td class="trX"><input id="chkTenda" type="checkbox"/></td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
 					</tr>
 					
 					<tr>
-						<td class="trX" colspan="7">
-							<span> </span><a id='lblMweight' class="lbl"> </a>
-						</td>
+						<td class="trX" colspan="8"><span> </span><a id='lblMweight' class="trTitle"> </a></td>
 						<td class="tdZ trX"> </td>
 					</tr>
 					<tr>
 						<td class="trX"><span> </span><a id='lblMpayweight' class="lbl"> </a></td>
-						<td class="trX"><input id="txtMpayweight" type="text" class="txt c1" /></td>
+						<td class="trX"><input id="txtMpayweight" type="text" class="txt c1 num" /></td>
 						<td class="trX"><span> </span><a id='lblMunpayweight' class="lbl"> </a></td>
-						<td class="trX"><input id="txtMunpayweight" type="text" class="txt c1" /></td>
+						<td class="trX"><input id="txtMunpayweight" type="text" class="txt c1 num" /></td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
 					</tr>
 					<tr>
 						<td class="trX"><span> </span><a id='lblMtransferorde' class="lbl"> </a></td>
-						<td class="trX"><input id="txtMtransferorde" type="text" class="txt c1" /></td>
+						<td class="trX"><input id="txtMtransferorde" type="text" class="txt c1 num" /></td>
 						<td class="trX"><span> </span><a id='lblMuntransferorde' class="lbl"> </a></td>
-						<td class="trX"><input id="txtMuntransferorde" type="text" class="txt c1" /></td>
+						<td class="trX"><input id="txtMuntransferorde" type="text" class="txt c1 num" /></td>
 						<td class="trX"><span> </span><a id='lblMenda' class="lbl"> </a></td>
-						<td class="trX"><input id="txtMenda" type="text" class="txt c1" /></td>
+						<td class="trX"><input id="chkMenda" type="checkbox"/></td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
 					</tr>
 				</table>
 			</div>
@@ -900,17 +917,17 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
               <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:9%;"><a id='lblProductno_s'></a></td>
-                <td align="center"style="width:15%;"><a id='lblUno_s'></a></td>
-                <td align="center" style="width:18%;" id='Size'><a id='lblSize_st'> </a><a id='lblSize_help'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblUnit_s'></a></td>
-                <td align="center" style="width:5%;"><a id='lblMount_s'></a></td>
-                <td align="center" style="width:8%;"><a id='lblWeights_s'></a></td>
-                <td align="center" style="width:6%;"><a id='lblPrices_s'></a></td>
-                <td align="center" style="width:8%;"><a id='lblTotals_s'></a></td>
-                <td align="center" style="width:8%;"><a id='lblClasss_s'></a></td>
-                <td align="center"><a id='lblMemo_s'></a></td>
-                <td align="center"><a id='lblEnda_s'></a></td>
+                <td align="center" style="width:9%;"><a id='lblProductno_st_s'></a></td>
+                <td align="center"style="width:15%;"><a id='lblUno_st_s'></a></td>
+                <td align="center" style="width:18%;" id='Size'><a id='lblSize_st_s'> </a><a id='lblSize_help'> </a></td>
+                <td align="center" style="width:4%;"><a id='lblUnit_st_s'></a></td>
+                <td align="center" style="width:5%;"><a id='lblMount_st_s'></a></td>
+                <td align="center" style="width:8%;"><a id='lblWeights_st_s'></a></td>
+                <td align="center" style="width:6%;"><a id='lblPrices_st_s'></a></td>
+                <td align="center" style="width:8%;"><a id='lblTotals_st_s'></a></td>
+                <td align="center" style="width:8%;"><a id='lblClasss_st_s'></a></td>
+                <td align="center"><a id='lblMemo_st_s'></a></td>
+                <td align="center"><a id='lblEnda_st_s'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
