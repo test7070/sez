@@ -79,9 +79,24 @@
 						var xmon=$('#txtXmon').val().length==0?q_date().substr(0,6):$('#txtXmon').val()
 						var bacc=$('#txtAcc1a').val().length==0?'#non':$('#txtAcc1a').val()
 						var eacc=$('#txtAcc2a').val().length==0?'ZZZZZ':$('#txtAcc2a').val()
-		                
-						var t_where = accy+ ';' + xaccy + ';' + bxpartno + ';' + expartno + ';' + bxcust + ';' + excust+ ';' + bscno+ ';'+ escno+ ';' + bxdate+ ';' + exdate+ ';' + xmon+ ';' + bacc+ ';' + eacc + ';'+ bcarowner 
-						+';' + ecarowner+';'+sssno+';'+bxmoney+';'+exmoney+';'+zorder+';'+bmon+';'+emon+';'+xtrdno+';'+xsort05+';'+bummdate+';'+eummdate+';'+xvccno+';'+xsort06;
+						
+						var bcarowner=$('#txtCarowner1a').val().length==0?'#non':$('#txtCarowner1a').val()
+						var ecarowner=$('#txtCarowner2a').val().length==0?'#non':$('#txtCarowner2a').val()
+						var t_sssno='#non'
+						var bxmoney=$('#txtXmoney1').val().length==0?'#non':$('#txtXmoney1').val()
+						var exmoney=$('#txtXmoney2').val().length==0?'#non':$('#txtXmoney2').val()
+						var zorder='#non'
+						var bmon=$('#txtMon1').val().length==0?'#non':$('#txtMon1').val()
+						var emon=$('#txtMon2').val().length==0?'#non':$('#txtMon2').val()
+						var xtrdno='#non'
+						var xsort05='#non'
+						var bummdate=$('#txtUmmdate1').val().length==0?'#non':$('#txtUmmdate1').val()
+						var eummdate=$('#txtUmmdate2').val().length==0?'#non':$('#txtUmmdate2').val()
+						var xvccno='#non'
+						var xsort06='#non'
+						
+						var t_where = accy+ ';' + xaccy + ';' + bxpartno + ';' + expartno + ';' + bxcust + ';' + excust+ ';' + bscno+ ';'+ escno+ ';' + bxdate+ ';' + exdate+ ';' + xmon+ ';' + bacc+ ';' + eacc +
+						 ';'+ bcarowner+';' + ecarowner+';'+t_sssno+';'+bxmoney+';'+exmoney+';'+zorder+';'+bmon+';'+emon+';'+xtrdno+';'+xsort05+';'+bummdate+';'+eummdate+';'+xvccno+';'+xsort06;
 						
 						var t_para = "r_comp=" + q_getPara('sys.comp') + ",r_accy=" + r_accy + ",bxdate=" + bxdate + ",exdate=" + exdate + ",r_cno=" + r_cno;
 				        q_gtx(txtreport, t_where + ";;" + t_para + ";;z_anaumm;;" + q_getMsg('qTitle'));
