@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
@@ -9,6 +9,10 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -408,29 +412,29 @@
                 var t_price = q_float('txtPrice');
                 for (var j = 0; j < q_bbsCount; j++) {
                 	if(q_float('txtOutprice_'+j)==0 && $('#txtCarno_'+j).val().length>0)							
-						$('#txtOutprice_'+j).val(t_price );
+						$('#txtOutprice_'+j).val(FormatNumber(t_price));
 					t_outprice = q_float('txtOutprice_'+j);
                 	
-                    $('#txtInmoney_'+j).val( round(t_price*q_float('txtMount_'+j) ,0));
-                    $('#txtOutmoney_'+j).val( round(t_outprice*q_float('txtMount_'+j)*q_float('txtDiscount_'+j) ,0));
+                    $('#txtInmoney_'+j).val(FormatNumber((t_price.mul(q_float('txtMount_'+j))).round(0)));
+                    $('#txtOutmoney_'+j).val(FormatNumber((t_outprice.mul(q_float('txtMount_'+j)).mul(q_float('txtDiscount_'+j))).round(0)));
                     
                     t_mount += q_float('txtMount_'+j);
                     t_weight += q_float('txtWeight_'+j);
                     t_inmoney += q_float('txtInmoney_'+j);
                     t_outmoney += q_float('txtOutmoney_'+j);
-                    t_outplus += round(q_float('txtOutplus_'+j)*q_float('txtDiscount_'+j) ,0);
+                    t_outplus += (q_float('txtOutplus_'+j).mul(q_float('txtDiscount_'+j))).round(0);
                     t_outminus += q_float('txtOutminus_'+j);
                 }
                 
-                $('#txtMount').val(t_mount);
-                $('#txtWeight').val(t_weight);
-                $('#txtInmoney').val(t_inmoney);
-                $('#txtIntotal').val(t_inmoney+q_float('txtInplus')-q_float('txtInminus'));
+                $('#txtMount').val(FormatNumber(t_mount));
+                $('#txtWeight').val(FormatNumber(t_weight));
+                $('#txtInmoney').val(FormatNumber(t_inmoney));
+                $('#txtIntotal').val(FormatNumber(t_inmoney.add(q_float('txtInplus')).sub(q_float('txtInminus'))));
      
-                $('#txtOutmoney').val(t_outmoney);
-                $('#txtOutplus').val(t_outplus);
-                $('#txtOutminus').val(t_outminus);
-                $('#txtOuttotal').val(t_outmoney+t_outplus-t_outminus);
+                $('#txtOutmoney').val(FormatNumber(t_outmoney));
+                $('#txtOutplus').val(FormatNumber(t_outplus));
+                $('#txtOutminus').val(FormatNumber(t_outminus));
+                $('#txtOuttotal').val(FormatNumber(t_outmoney.add(t_outplus).sub(t_outminus)));
             }
 
             ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
@@ -494,38 +498,63 @@
             function btnCancel() {
                 _btnCancel();
             }
-
-            function checkId(str) {
-                if ((/^[a-z,A-Z][0-9]{9}$/g).test(str)) {//身分證字號
-                    var key = 'ABCDEFGHJKLMNPQRSTUVWXYZIO';
-                    var s = (key.indexOf(str.substring(0, 1)) + 10) + str.substring(1, 10);
-                    var n = parseInt(s.substring(0, 1)) * 1 + parseInt(s.substring(1, 2)) * 9 + parseInt(s.substring(2, 3)) * 8 + parseInt(s.substring(3, 4)) * 7 + parseInt(s.substring(4, 5)) * 6 + parseInt(s.substring(5, 6)) * 5 + parseInt(s.substring(6, 7)) * 4 + parseInt(s.substring(7, 8)) * 3 + parseInt(s.substring(8, 9)) * 2 + parseInt(s.substring(9, 10)) * 1 + parseInt(s.substring(10, 11)) * 1;
-                    if ((n % 10) == 0)
-                        return 1;
-                } else if ((/^[0-9]{8}$/g).test(str)) {//統一編號
-                    var key = '12121241';
-                    var n = 0;
-                    var m = 0;
-                    for (var i = 0; i < 8; i++) {
-                        n = parseInt(str.substring(i, i + 1)) * parseInt(key.substring(i, i + 1));
-                        m += Math.floor(n / 10) + n % 10;
-                    }
-                    if ((m % 10) == 0 || ((str.substring(6, 7) == '7' ? m + 1 : m) % 10) == 0)
-                        return 2;
-                } else if ((/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//西元年
-                    var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
-                    if (regex.test(str))
-                        return 3;
-                } else if ((/^[0-9]{3}\/[0-9]{2}\/[0-9]{2}$/g).test(str)) {//民國年
-                    str = (parseInt(str.substring(0, 3)) + 1911) + str.substring(3);
-                    var regex = new RegExp("^(?:(?:([0-9]{4}(-|\/)(?:(?:0?[1,3-9]|1[0-2])(-|\/)(?:29|30)|((?:0?[13578]|1[02])(-|\/)31)))|([0-9]{4}(-|\/)(?:0?[1-9]|1[0-2])(-|\/)(?:0?[1-9]|1\\d|2[0-8]))|(((?:(\\d\\d(?:0[48]|[2468][048]|[13579][26]))|(?:0[48]00|[2468][048]00|[13579][26]00))(-|\/)0?2(-|\/)29))))$");
-                    if (regex.test(str))
-                        return 4
-                }
-                return 0;
-                //錯誤
+			function FormatNumber(n) {
+            	var xx = "";
+            	if(n<0){
+            		n = Math.abs(n);
+            		xx = "-";
+            	}     		
+                n += "";
+                var arr = n.split(".");
+                var re = /(\d{1,3})(?=(\d{3})+$)/g;
+                return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
-
+			Number.prototype.round = function(arg) {
+			    return Math.round(this * Math.pow(10,arg))/ Math.pow(10,arg);
+			}
+			Number.prototype.div = function(arg) {
+			    return accDiv(this, arg);
+			}
+            function accDiv(arg1, arg2) {
+			    var t1 = 0, t2 = 0, r1, r2;
+			    try { t1 = arg1.toString().split(".")[1].length } catch (e) { }
+			    try { t2 = arg2.toString().split(".")[1].length } catch (e) { }
+			    with (Math) {
+			        r1 = Number(arg1.toString().replace(".", ""))
+			        r2 = Number(arg2.toString().replace(".", ""))
+			        return (r1 / r2) * pow(10, t2 - t1);
+			    }
+			}
+			Number.prototype.mul = function(arg) {
+			    return accMul(arg, this);
+			}
+			function accMul(arg1, arg2) {
+			    var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
+			    try { m += s1.split(".")[1].length } catch (e) { }
+			    try { m += s2.split(".")[1].length } catch (e) { }
+			    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
+			}
+			Number.prototype.add = function(arg) {
+		   		return accAdd(arg, this);
+			}
+			function accAdd(arg1, arg2) {
+			    var r1, r2, m;
+			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
+			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+			    m = Math.pow(10, Math.max(r1, r2))
+			    return (arg1 * m + arg2 * m) / m
+			}
+			Number.prototype.sub = function(arg) {
+			    return accSub(this,arg);
+			}
+			function accSub(arg1, arg2) {
+			    var r1, r2, m, n;
+			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
+			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+			    m = Math.pow(10, Math.max(r1, r2));
+			    n = (r1 >= r2) ? r1 : r2;
+			    return parseFloat(((arg1 * m - arg2 * m) / m).toFixed(n));
+			}
 		</script>
 		<style type="text/css">
             #dmain {
