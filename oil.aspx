@@ -1,14 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+		<script src="css/jquery/ui/jquery.ui.core.js"></script>
+		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
+		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -360,29 +364,27 @@
                 var t_price = q_float('txtPrice');
                 //---------------------------------------------------------------------------------
                 if (!$('#chkIscustom').prop('checked')) {
-                    t_miles = round(t_emiles - t_bmiles, 0);
-                    $('#txtMiles').val(t_miles);
+                    t_miles = t_emiles.sub(t_bmiles).round(0);
+                    $('#txtMiles').val(FormatNumber(t_miles));
                 }
-                t_rate = t_mount == 0 ? 0 : round(t_miles / t_mount, 2);
+                t_rate = t_mount == 0 ? 0 : t_miles.div(t_mount).round(2);
                 $('#txtRate').val(t_rate);
 
                 if ($("#txtCurmount").data('isl') && $("#txtCurmount").hasClass('finish') && (q_cur == 1 || q_cur == 2)) {
-                    $('#txtCurmount').val((t_curmount * 1000 + t_orgmount * 1000 - t_mount * 1000) / 1000);
-                    $('#txtOrgmount').val(t_mount);
+                    $('#txtCurmount').val(FormatNumber(t_curmount.add(t_orgmount).sub(t_mount)));
+                    $('#txtOrgmount').val(FormatNumber(t_mount));
                 }
                 if (!$('#chkIscustom2').prop('checked')) {
-                    $("#txtMoney").val(FormatNumber(Math.round(t_mount * t_price, 0)));
+                    $("#txtMoney").val(FormatNumber((t_mount.mul(t_price)).round(0)));
                 }
                 var t_money = q_float('txtMoney');
                 var t_orgmoney = q_float('txtOrgmoney');
                 var t_curmoney = q_float('txtCurmoney');
                 if ($("#txtCurmoney").data('ism') && $("#txtCurmoney").hasClass('finish') && (q_cur == 1 || q_cur == 2)) {
-                    $('#txtCurmoney').val(FormatNumber(t_curmoney + t_orgmoney - t_money));
-                    $('#txtOrgmoney').val(t_money);
+                    $('#txtCurmoney').val(FormatNumber(t_curmoney.add(t_orgmoney).sub(t_money)));
+                    $('#txtOrgmoney').val(FormatNumber(t_money));
                 }
-                
             }
-
             function q_popFunc(id, key_value) {
                 switch(id) {
                     case 'txtOilstationno':
@@ -424,11 +426,62 @@
                 //錯誤
             }
             function FormatNumber(n) {
+            	var xx = "";
+            	if(n<0){
+            		n = Math.abs(n);
+            		xx = "-";
+            	}     		
                 n += "";
                 var arr = n.split(".");
                 var re = /(\d{1,3})(?=(\d{3})+$)/g;
-                return arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
+                return xx+arr[0].replace(re, "$1,") + (arr.length == 2 ? "." + arr[1] : "");
             }
+			Number.prototype.round = function(arg) {
+			    return Math.round(this * Math.pow(10,arg))/ Math.pow(10,arg);
+			}
+			Number.prototype.div = function(arg) {
+			    return accDiv(this, arg);
+			}
+            function accDiv(arg1, arg2) {
+			    var t1 = 0, t2 = 0, r1, r2;
+			    try { t1 = arg1.toString().split(".")[1].length } catch (e) { }
+			    try { t2 = arg2.toString().split(".")[1].length } catch (e) { }
+			    with (Math) {
+			        r1 = Number(arg1.toString().replace(".", ""))
+			        r2 = Number(arg2.toString().replace(".", ""))
+			        return (r1 / r2) * pow(10, t2 - t1);
+			    }
+			}
+			Number.prototype.mul = function(arg) {
+			    return accMul(arg, this);
+			}
+			function accMul(arg1, arg2) {
+			    var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
+			    try { m += s1.split(".")[1].length } catch (e) { }
+			    try { m += s2.split(".")[1].length } catch (e) { }
+			    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
+			}
+			Number.prototype.add = function(arg) {
+		   		return accAdd(arg, this);
+			}
+			function accAdd(arg1, arg2) {
+			    var r1, r2, m;
+			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
+			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+			    m = Math.pow(10, Math.max(r1, r2))
+			    return (arg1 * m + arg2 * m) / m
+			}
+			Number.prototype.sub = function(arg) {
+			    return accSub(this,arg);
+			}
+			function accSub(arg1, arg2) {
+			    var r1, r2, m, n;
+			    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
+			    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+			    m = Math.pow(10, Math.max(r1, r2));
+			    n = (r1 >= r2) ? r1 : r2;
+			    return parseFloat(((arg1 * m - arg2 * m) / m).toFixed(n));
+			}
 
 		</script>
 		<style type="text/css">
