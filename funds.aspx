@@ -18,7 +18,7 @@
 			q_xchg = 1;
             var q_name = "funds";
             var q_readonly = [['txtNoa'],['txtAcc2'],['txtWorker'],['txtWorker2']];
-            var bbmNum = [['txtMoney', 10, 0, 1], ['txtMoney2', 10, 0, 1], ['txtMoney3', 10, 0, 1]];
+            var bbmNum = [['txtInmoney', 10, 0, 1], ['txtOutmoney', 10, 0, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -26,7 +26,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             brwCount2 = 20;
-            aPop = new Array(['txtBankno', 'lblBank', 'bank2', 'noa,bank2,account', 'txtBankno,txtBank', 'bank2_b.aspx'],
+            aPop = new Array(['txtBankno', 'lblBankno', 'bank2', 'noa,bank2,account', 'txtBankno,txtBank,txtAccount', 'bank2_b.aspx'],
             				 ['txtBanktno', 'lblBankt', 'funda', 'noa,namea', 'txtBanktno,txtBanktname', 'funda_b.aspx'],
            					 ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
            					 ['txtAcc3', 'lblAcc2', 'acc', 'acc1,acc2', 'txtAcc3,txtAcc4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
@@ -349,6 +349,10 @@
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td><input id="txtDatea"  type="text" class="txt c1" /></td>
 					</tr>
+						<td><span> </span><a id='lblBankno' class="lbl btn"> </a></td>
+						<td><input id="txtBankno"  type="text" class="txt c2" />
+							<input id="txtBank"  type="text" class="txt c3" />
+						</td>
 					<tr>
 						<td><span> </span><a id='lblAccount' class="lbl"> </a></td>
 						<td><input id="txtAccount"  type="text" class="txt c1" /></td>
