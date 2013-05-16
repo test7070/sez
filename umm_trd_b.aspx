@@ -39,7 +39,7 @@
                 }
                 mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
                 $('#chkAll').click(function() {
-                    for (var j = 0; j < brwCount2; j++) {
+                    for (var j = 0; j < q_bbsCount; j++) {
                         if (!emp($('#txtNoa_' + j).val()))
                             $('#chkSel_'+j)[0].checked = "true";
                     }
@@ -52,7 +52,7 @@
 
             function bbsAssign() {
                 _bbsAssign();
-                for (var j = 0; j < brwCount2; j++) {
+                for (var j = 0; j < q_bbsCount; j++) {
                     if (!emp($('#txtNoa_' + j).val())) {
                         q_tr('txtPaysale_' + j, q_float('txtTotal_' + j) - q_float('txtUnpay_' + j));
                         q_tr('txtOpay_' + j, q_float('txtUnpay_' + j));

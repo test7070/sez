@@ -416,16 +416,17 @@
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:14%;"><a id="lblProduct_s" > </a></td>
                 <td align="center" style="width:14%;"><a id='lblAcc_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblMount_s'> </a></td>
+                <td align="center" style="width:7%;"><a id='lblBornmount_s'> </a><a id='lblBornweight_s'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblMount1_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblMoney1_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblPrice1_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblMoney2_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblPrice2_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblMoney3_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblPrice3_s'> </a></td>
+                <td align="center" style="width:7%;"><a id='lblStuffmount_s'> </a><a id='lblStuffweight_s'> </a></td>
+                <td align="center" style="width:7%;"><a id='lblStuffmoney_s'> </a></td>
+                <td align="center" style="width:7%;"><a id='lblStuffprice_s'> </a></td>
+                <td align="center" style="width:7%;"><a id='lblFactitmoney_s'> </a></td>
+                <td align="center" style="width:7%;"><a id='lblFactitprice_s'> </a></td>
+                <td align="center" style="width:7%;"><a id='lblMakemoney_s'> </a></td>
+                <td align="center" style="width:7%;"><a id='lblMakeprice_s'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblMoney_s'> </a></td>
+                <td align="center" style="width:8%;"><a id='lblPrice_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -440,16 +441,23 @@
                 	<input class="btn"  id="btnAcc.*" type="button" value='.' style="width:16%;"  />
                 	<input  id="txtAcc2.*" type="text" class="txt c1"/>
                 </td>
-                <td ><input  id="txtMount.*" type="text" class="txt c1 num"/></td>
+                <td >
+                	<input  id="txtBornmount.*" type="text" class="txt c1 num"/>
+                	<input  id="txtBornweight.*" type="text" class="txt c1 num"/>
+                </td>
                 <td ><input  id="txtUnit.*" type="text" class="txt c1"/></td>
-                <td ><input  id="txtMount1.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtMoney1.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtPrice1.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtMoney2.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtPrice2.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtMoney3.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtPrice3.*" type="text" class="txt c1 num"/></td>
+                <td >
+                	<input  id="txtStuffmount.*" type="text" class="txt c1 num"/>
+                	<input  id="txtStuffweight.*" type="text" class="txt c1 num"/>
+                </td>
+                <td ><input  id="txtStuffmoney.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtStuffprice.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtFactitmoney.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtFactitprice.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtMakemoney.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtMakeprice.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtMoney.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtPrice.*" type="text" class="txt c1 num"/></td>
             </tr>
         </table>
         </div>
