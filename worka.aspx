@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
 	<title></title>
-	 <script src="../script/jquery.min.js" type="text/javascript"></script>
+	<script src="../script/jquery.min.js" type="text/javascript"></script>
 	<script src='../script/qj2.js' type="text/javascript"></script>
 	<script src='qset.js' type="text/javascript"></script>
 	<script src='../script/qj_mess.js' type="text/javascript"></script>
@@ -165,18 +165,6 @@
 			_bbsAssign();
 			for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
 				$('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
-				$('#btnProductno_' + j).click(function () {
-					t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-					q_bodyId($(this).attr('id'));
-					b_seq = t_IdSeq;
-					pop('ucc');
-				 });
-				 $('#txtProductno_' + j).change(function () {
-					 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-					 q_bodyId($(this).attr('id'));
-					 b_seq = t_IdSeq;
-					 q_change($(this), 'ucc', 'noa', 'noa,product,unit');  /// 接 q_gtPost()
-				 });
 
 			} //j
 		}
