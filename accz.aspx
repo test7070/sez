@@ -115,6 +115,12 @@
 				   		event.keyCode= 9;
 				  	}
 				});
+			$('#chkNscrapvalue').click(function(){
+				if($('#chkNscrapvalue').is(':checked'))
+					$('#txtScrapvalue').val(0).attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+				else
+					$('#txtScrapvalue').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+			});
         }
 		function sum(){
 			var endvalue = 0;
@@ -171,8 +177,11 @@
                 return;
             _btnModi();
             $('#txtNoa').attr('disabled', 'disabled');
-            $('#txtNamea').focus();
-           
+			if($('#chkNscrapvalue').is(':checked'))
+				$('#txtScrapvalue').val(0).attr('readonly','readonly').css('background-color', 'rgb(237, 237, 238)').css('color','green');
+			else
+				$('#txtScrapvalue').removeAttr('readonly').css('background-color', 'rgb(255, 255, 255)').css('color','');
+			$('#txtNamea').focus();
         }
 
         function btnPrint() {
@@ -468,8 +477,8 @@
             <tr>
                <td class="td1"><span> </span><a id='lblEndvalue' class="lbl"></a></td>
                <td class="td2"><input id="txtEndvalue"  type="text" class="txt num c1" /></td>
-               <td class="td3" align="right"><input id="chkIsendmodi" type="checkbox" /></td>
-               <td class="td4"><a id="lblIsendmodi"></a></td>
+               <td class="td3"><input id="chkIsendmodi" type="checkbox" /><a id="lblIsendmodi"></a></td>
+               <td class="td4"></td>
 	           <td class="td5"></td>
                <td class="td6"></td>
                
@@ -501,7 +510,10 @@
             <tr>
                <td class="td1"><span> </span><a id='lblScrapvalue' class="lbl"></a></td>
                <td class="td2"><input id="txtScrapvalue"  type="text" class="txt num c1" /></td>
-               <td class="td3"><span> </span><a id="lblNscrapvalue" class="lbl"></a></td>
+				<td class="td3">
+               		<input id="chkNscrapvalue" type="checkbox" class="txt"/>
+               		<span> </span><a id="lblNscrapvalue" class="txt"></a>
+				</td>
                <td class="td4"><input id="btnAccz" type="button"  /></td>
                <td class="td5"></td>
                <td class="td6"></td>
