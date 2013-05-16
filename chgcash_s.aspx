@@ -65,13 +65,15 @@
                 t_namea = $.trim($('#txtNamea').val());
                 t_bdate = $.trim($('#txtBdate').val());
                 t_edate = $.trim($('#txtEdate').val());
+                t_accno = $.trim($('#txtAccno').val());
                 t_chgpart = $.trim($('#cmbChgpart').val());
                 t_dc = $.trim($('#cmbDc').val());
 
                 var t_where = " 1=1 "  
                 + q_sqlPara2("noa", t_noa) 
                 + q_sqlPara2("sssno", t_sssno) 
-                + q_sqlPara2("datea", t_bdate, t_edate) 
+                + q_sqlPara2("datea", t_bdate, t_edate)
+                + q_sqlPara2("accno", t_accno) 
                 + q_sqlPara2("chgpartno", t_chgpart) 
                 + q_sqlPara2("dc", t_dc);
 				
@@ -130,6 +132,12 @@
 					<td   style="width:35%;" ><a id='lblNoa'> </a></td>
 					<td style="width:65%;  ">
 					<input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td style="width:35%;" ><a id='lblAccno'> </a></td>
+					<td style="width:65%;  ">
+					<input class="txt" id="txtAccno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
