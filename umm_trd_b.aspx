@@ -14,7 +14,8 @@
             //, t_where = '';
             var t_sqlname = 'umm_trd_load';
             t_postname = q_name;
-            brwCount2 = 12;
+            brwCount2 = 0;
+            brwCount = -1;
             var isBott = false;
             var txtfield = [], afield, t_data, t_htm;
             var bbsNum = [['txtPaysale', 10, 0], ['txtTotal', 10, 0], ['txtOpay', 10, 0]];
@@ -43,6 +44,10 @@
                             $('#chkSel_'+j)[0].checked = "true";
                     }
                 });
+                $('#btnNext').hide();
+                $('#btnBott').hide();
+                $('#btnPrev').hide();
+                $('#btnTop').hide();
             }
 
             function bbsAssign() {
