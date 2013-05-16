@@ -15,13 +15,13 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="accz";
-        var q_readonly = ['txtYear_depl','txtTotal'];
+        var q_readonly = ['txtYear_depl','txtTotal','txtNoa'];
         var bbmNum = [['txtMount',10, 0, 1],['txtEcount',10, 0, 1],['txtRate',3, 2, 1],['txtScrapvalue',14, 0, 1],['txtMoney',14, 0, 1],['txtFixmoney',14, 0, 1],['txtAccumulat',14, 0, 1],['txtYear_depl',14, 0, 1],['txtEndvalue',14, 0, 1],['txtTotal',14, 0, 1]]; 
         //var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
         aPop = new Array(
-        	['txtNoa', 'lblNoa', 'acc', 'acc1,acc2', 'txtNoa', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+        	['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
         	['txtDepl_ac', 'lblAcc', 'acc', 'acc1,acc2', 'txtDepl_ac,txtNamea2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
         );
         $(document).ready(function () {
@@ -43,7 +43,7 @@
 
         function mainPost() { 
 			q_getFormat();
-        	bbmMask = [['txtIndate', r_picd],['txtFixdate', r_picd]];
+        	bbmMask = [['txtIndate', r_picd],['txtFixdate', r_picd],['txtDatea', r_picd]];
             q_mask(bbmMask);
             $('#btnAcczt').click(function () {
             	q_box("acczt.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";;" +  r_accy , '', "95%", "650px", q_getMsg('popAcczt'));
@@ -57,7 +57,7 @@
             $('#btnAccz').click(function () {
 				q_box('z_accz.aspx' + "?;;;;" + r_accy, '', '95%', '650px', q_getMsg("popAccz"));
             })
-            $('#txtNoa').change(function(){
+            $('#txtAcc1').change(function(){
             	var s1 = trim($(this).val());
             	if(s1.length > 4 && s1.indexOf('.') <0)
             		$(this).val(s1.substr(0,4) + '.' + s1.substr(4));
@@ -126,8 +126,9 @@
 			var total = 0;
 			if(year > 0 && !($('#chkIsdepl')[0].checked==true)){
 				endvalue = (money + fixmoney)/(year+1);
-			}	
-			$('#txtEndvalue').val(endvalue.toFixed(0));
+			}
+			if(year > 0 && !($('#chkIsendmodi')[0].checked==true)){
+			$('#txtEndvalue').val(endvalue.toFixed(0));}
 			total = money + fixmoney-accumulat-year_depl;
 			$('#txtTotal').val(parseFloat(total,10));
 		}
@@ -160,6 +161,7 @@
         function btnIns() {
             _btnIns();
             $('#txtNoa').focus();
+            $('#txtDatea').val(q_date());
             $('#txtIndate').val(q_date());
             $('#txtRate').val('1.00');
         }
@@ -170,29 +172,19 @@
             _btnModi();
             $('#txtNoa').attr('disabled', 'disabled');
             $('#txtNamea').focus();
+           
         }
 
         function btnPrint() {
 			q_box('z_accz.aspx' + "?;;;;" + r_accy, '', '95%', '650px', q_getMsg("popPrint"));
         }
         function btnOk() {
-            if (!q_cd($('#txtIndate').val())) {
-            	alert(q_getMsg('lblIndate') + '錯誤。');
-                return;
-            }
-            if (!q_cd($('#txtFixdate').val())) {
-            	alert(q_getMsg('lblFixdate') + '錯誤。');
-                return;
-            }
-            var t_err = '';
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-            if( t_err.length > 0) {
-                alert(t_err);
-                return;
-            }
+             sum();
+       
             var t_noa = trim($('#txtNoa').val());
-            if ( t_noa.length==0 )  
-                q_gtnoa(q_name, t_noa);
+            var t_date = trim($('#txtDatea').val());
+            if ( t_noa.length == 0 || t_noa == "AUTO")  
+               q_gtnoa(q_name, replaceAll('AZ'+ (t_date.length == 0 ? q_date() : t_date), '/', ''));
             else
                 wrServer( t_noa);
         }
@@ -384,13 +376,13 @@
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>
-                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
+                <td align="center" style="width:25%"><a id='vewAcc1'></a></td>
                 <td align="center" style="width:40%"><a id='vewNamea'></a></td>
                 <td align="center" style="width:40%"><a id='vewDepl_ac'></a></td>
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
-                   <td align="center" id='noa'>~noa</td>
+                   <td align="center" id='acc1'>~acc1</td>
                    <td align="center" id='namea'>~namea</td>
                    <td align="center" id='depl_ac'>~depl_ac</td>
             </tr>
@@ -398,13 +390,28 @@
         </div>
         <div class='dbbm' style="width: 73%;float: left;">
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>
+            <tr style="height:1px;">
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td class="tdZ"> </td>
+					</tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblNoa' class="lbl btn"></a></td>
+               <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
                <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
-               <td class="td3" align="right"><input id="chkIsdepl" type="checkbox" /></td>
-               <td class="td4"><a id="lblDepl_ac"></a></td>
+               <td class="td3"><span> </span><a id='lblDatea' class="lbl"></a></td>
+               <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
                <td class="td5"></td>
                <td class="td6"></td>              
+            </tr>
+            <tr>
+            	<td class="td1"><span> </span><a id='lblAcc1' class="lbl btn"></a></td>
+               <td class="td2"><input id="txtAcc1" type="text" class="txt c1"/></td>
+               <td class="td3" align="right"><input id="chkIsdepl" type="checkbox" /></td>
+               <td class="td4"><a id="lblDepl_ac"></a></td>
             </tr>
            <tr>
                <td class="td1"><span> </span><a id="lblNamea" class="lbl"></a></td>
@@ -461,8 +468,8 @@
             <tr>
                <td class="td1"><span> </span><a id='lblEndvalue' class="lbl"></a></td>
                <td class="td2"><input id="txtEndvalue"  type="text" class="txt num c1" /></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
+               <td class="td3" align="right"><input id="chkIsendmodi" type="checkbox" /></td>
+               <td class="td4"><a id="lblIsendmodi"></a></td>
 	           <td class="td5"></td>
                <td class="td6"></td>
                
