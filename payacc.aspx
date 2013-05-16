@@ -373,9 +373,12 @@
 	                    b_seq = t_IdSeq;
 						 if($('#chkIssel_' +b_seq)[0].checked){	//判斷是否被選取
 		                	$('#trSel_'+ b_seq).addClass('chkIssel');//變色
+		                	$('#txtPaysale_'+ b_seq).val($('#txtUnpayorg_'+ b_seq).val());
 		                }else{
 		                	$('#trSel_'+b_seq).removeClass('chkIssel');//取消變色
+		                	$('#txtPaysale_'+ b_seq).val(0);
 		                }
+		                sum();
 	                });
 		        }
 
@@ -749,7 +752,7 @@
                     <input type="hidden" id="txtProductno.*" style="width:95%;" />
 					</td>
   					<td>
-					<input type="text" id="txtPaysale.*" style="text-align:right;width:95%;"/>
+					<input type="hidden" id="txtPaysale.*" style="text-align:right;width:95%;"/>
 					<input type="text" id="txtUnpayorg.*" style="text-align:right;width:95%;"/>
 					</td>
 					<td>
