@@ -17,17 +17,12 @@
             }
 			q_desc=1;
             q_tables = 's';
-            var q_name = "cost";
+            var q_name = "gene";
             var q_readonly = ['txtNoa'];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtBeginmount', 15, 0, 1],['txtBeginweight', 15, 3, 1],['txtBeginprice', 15, 2, 1],['txtBeginmoney', 15, 0, 1],['txtInmount', 15, 0, 1],['txtInweight', 15, 3, 1]
-            			,['txtInprice', 15, 2, 1],['txtInmoney', 15, 0, 1],['txtBornmount', 15, 0, 1],['txtBornweight', 15, 3, 1],['txtBornmoney', 15, 0, 1],['txtOutvmount', 15, 0, 1]
-            			,['txtOutvweight', 15, 3, 1],['txtOutvmoney', 15, 0, 1],['txtMount1', 15, 0, 1],['txtWeight1', 15, 3, 1],['txtMoney1', 15, 0, 1],['txtSalemount', 15, 0, 1]
-            			,['txtSaleweight', 15, 3, 1],['txtSalemoney', 15, 0, 1],['txtGetmount', 15, 0, 1],['txtGetweight', 15, 3, 1],['txtGetmoney', 15, 0, 1],['txtOutsmount', 15, 0, 1]
-            			,['txtOutsweight', 15, 3, 1],['txtOutsmoney', 15, 0, 1],['txtOthermount', 15, 0, 1],['txtOtherweight', 15, 3, 1],['txtOthermoney', 15, 0, 1],['txtLastmount', 15, 0, 1]
-            			,['txtLastweight', 15, 3, 1],['txtLastprice', 15, 2, 1],['txtLastmoney', 15, 0, 1],['txtSampmount', 15, 0, 1],['txtSampweight', 15, 3, 1],['txtSampmoney', 15, 0, 1]
-            			,['txtUccemount', 15, 0, 1],['txtUcceweight', 15, 3, 1],['txtUccemoney', 15, 0, 1]];
+            var bbsNum = [['txtMount', 10, 0, 1],['txtMount1', 10, 0, 1],['txtMoney', 10, 0, 1],['txtMoney1', 10, 0, 1],['txtMoney2', 10, 0, 1],['txtMoney3', 10, 0, 1]
+            			,['txtPrice1', 10, 0, 1],['txtPrice2', 10, 0, 1],['txtPrice3', 10, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -161,7 +156,7 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-                
+              
             }
             
             function sum() {
@@ -361,7 +356,7 @@
          	font-size:medium;
          	color:blue;
          	background:#cad3ff;
-         	width: 3000px;
+         	width: 100%;
          }
 		 .dbbs .tbbs tr{
 		 	height:35px;
@@ -402,97 +397,46 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:2%;"><a id="lblTypea_s" > </a></td>
-                <td align="center" style="width:7%;"><a id='lblProduct_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblBeginmount_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblBeginprice_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblBeginmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblInmount_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblInprice_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblInmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblBornmount_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblBornmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblOutvmount_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblOutvmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblMount1_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblMoney1_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblSalemount_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblSalemoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblGetmount_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblGetmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblOutsmount_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblOutsmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblOthermount_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblOthermoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblLastmount_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblLastprice_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblLastmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblSampmount_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblSampmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblUccemount_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblUccemoney_s'> </a></td>
+                <td align="center" style="width:14%;"><a id="lblProduct_s" > </a></td>
+                <td align="center" style="width:14%;"><a id='lblAcc1_s'> </a></td>
+                <td align="center" style="width:7%;"><a id='lblBornmount_s'> </a></br> / <a id='lblBornweight_s'> </a></td>
+                <td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
+                <td align="center" style="width:14%;"><a id='lblStuffno_s'> </a></td>
+                <td align="center" style="width:14%;"><a id='lblAcc3_s'> </a></td>
+                <td align="center" style="width:7%;"><a id='lblStuffmount_s'> </a></br> / <a id='lblStuffweight_s'> </a></td>
+                <td align="center" style="width:7%;"><a id='lblStuffmoney_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td ><input  id="txtTypea.*" type="text" class="txt c1" /></td>
                 <td >
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                 	<input  id="txtProductno.*" type="text" style="width:80%;" />
                 	<input  id="txtProduct.*" type="text" style="width:80%;"/>
                 	<input id="txtNoq.*" type="hidden" />
                 </td>
-                <td ><input  id="txtBeginmount.*" type="text" class="txt c1 num"/>
-                	<input  id="txtBeginweight.*" type="text" class="txt c1 num"/>
+                <td >
+                	<input class="btn"  id="btnAcc1.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+                	<input  id="txtAcc1.*" type="text" style="width:80%;" />
+                	<input  id="txtAcc2.*" type="text" style="width:80%;"/>
                 </td>
-                <td ><input  id="txtBeginprice.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtBeginmoney.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtInmount.*" type="text" class="txt c1 num"/>
-                	<input  id="txtInweight.*" type="text" class="txt c1 num"/>
-                </td>
-                <td ><input  id="txtInprice.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtInmoney.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtBornmount.*" type="text" class="txt c1 num"/>
-                	<input  id="txtBornweight.*" type="text" class="txt c1 num"/>
+                	 <input  id="txtBornweight.*" type="text" class="txt c1 num"/>
                 </td>
-                <td ><input  id="txtBornmoney.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtOutvmount.*" type="text" class="txt c1 num"/>
-                	<input  id="txtOutvweight.*" type="text" class="txt c1 num"/>
+                <td ><input  id="txtUnit.*" type="text" class="txt c1"/></td>
+                <td >
+                	<input class="btn"  id="btnStuffno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+                	<input  id="txtStuffno.*" type="text" style="width:80%;" />
+                	<input  id="txtStuffname.*" type="text" style="width:80%;"/>
                 </td>
-                <td ><input  id="txtOutvmoney.*" type="text" class="txt c1 num"/></td>
-                
-                <td ><input  id="txtMount1.*" type="text" class="txt c1 num"/>
-                	<input  id="txtWeight1.*" type="text" class="txt c1 num"/>
+                <td >
+                	<input class="btn"  id="btnAcc3.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
+                	<input  id="txtAcc3.*" type="text" style="width:80%;" />
+                	<input  id="txtAcc3.*" type="text" style="width:80%;"/>
                 </td>
-                <td ><input  id="txtMoney1.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtSalemount.*" type="text" class="txt c1 num"/>
-                	<input  id="txtSaleweight.*" type="text" class="txt c1 num"/>
+                <td ><input  id="txtStuffmount.*" type="text" class="txt c1 num"/>
+                	 <input  id="txtStuffweight.*" type="text" class="txt c1 num"/>
                 </td>
-                <td ><input  id="txtSalemoney.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtGetmount.*" type="text" class="txt c1 num"/>
-                	<input  id="txtGetweight.*" type="text" class="txt c1 num"/>
-                </td>
-                <td ><input  id="txtGetmoney.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtOutsmount.*" type="text" class="txt c1 num"/>
-                	<input  id="txtOutsweight.*" type="text" class="txt c1 num"/>
-                </td>
-                <td ><input  id="txtOutsmoney.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtOthermount.*" type="text" class="txt c1 num"/>
-                	<input  id="txtOtherweight.*" type="text" class="txt c1 num"/>
-                </td>
-                <td ><input  id="txtOthermoney.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtLastmount.*" type="text" class="txt c1 num"/>
-                	<input  id="txtLastweight.*" type="text" class="txt c1 num"/>
-                </td>
-                <td ><input  id="txtLastprice.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtLastmoney.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtSampmount.*" type="text" class="txt c1 num"/>
-                	<input  id="txtSampweight.*" type="text" class="txt c1 num"/>
-                </td>
-                <td ><input  id="txtSampmoney.*" type="text" class="txt c1 num"/></td>
-                <td ><input  id="txtUccemount.*" type="text" class="txt c1 num"/>
-                	<input  id="txtUcceweight.*" type="text" class="txt c1 num"/>
-                </td>
-                <td ><input  id="txtUccemoney.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtStuffmoney.*" type="text" class="txt c1 num"/></td>
             </tr>
         </table>
         </div>
