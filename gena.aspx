@@ -57,8 +57,23 @@
 				bbsMask = [];
 				q_mask(bbmMask);
 				$('#btnImport').click(function () {
-					var t_where = "where=^^ datea = between '"+$('#txtMon').val()+"/01' and '"+$('#txtMon').val()+"/31' ^^ top=1";
-			        q_gt('workb', t_where , 0, 0, 0, "", r_accy);
+					if(emp($('#txtMon').val())){
+						return;
+					}
+					//取得上個月
+					var prvmon='';
+					var t_prvmon=new Date(dec($('#txtMon').val().substr(0,3))+1911,dec($('#txtMon').val().substr(4,2))-1,1);
+				    t_prvmon.setDate(t_prvmon.getDate() -1)
+				    prvmon=''+(t_prvmon.getFullYear()-1911)+'/';
+				    //月份
+				    prvmon = prvmon+(t_prvmon.getMonth()>9?(t_prvmon.getMonth()+1)+'':'0'+(t_prvmon.getMonth()+1));
+					
+					var t_where = "where=^^ left(a.datea,6)= '"+$('#txtMon').val()+"' group by b.productno,b.product,b.unit ^^";
+					var t_where1 = "where[1]=^^ wa.ordeno+wa.no2 in (select ordeno+no2 from workbs"+r_accy+" where left(datea,6)= '"+$('#txtMon').val()+"')and wa.productno=b.productno ^^";
+					var t_where2 = "where[2]=^^ productno=b.productno and mon='"+prvmon+"' ^^";
+					var t_where3 = "where[3]=^^ left(rca.datea,6)='"+$('#txtMon').val()+"' and rcb.productno=b.productno ^^";
+					
+			        q_gt('gena_bi', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
 				});
             }
 		
@@ -76,11 +91,18 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'workb':
-                			var as = _q_appendData("workb", "", true);
-                			
-                			
-                			
+                	case 'gena_bi':
+                			var as = _q_appendData("worka", "", true);
+                			if(as[0]==undefined)
+                				return;
+                			for (var i = 0; i < as.length; i++) {
+                				//當期 bi 原料成本單價(期初金額+本期進貨金額) /(期初重量+本期進貨重量)
+                				as[i].stuffprice1=(as[i].bmoney+as[i].rmoney)/(as[i].bmount+as[i].rmount); //數量
+                				as[i].stuffprice2=(as[i].bmoney+as[i].rmoney)/(as[i].bweight+as[i].rweight); //重量
+                				as[i].stuffmoney1=as[i].wamount*stuffprice1; //數量->直接原料金額
+                				as[i].stuffmoney2=as[i].waweight*stuffprice2; //重量->直接原料金額
+                			}
+                			q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtBornmount,txtBornweight,txtUnit,txtStuffmount,txtStuffweight,txtStuffmoney', as.length, as, 'productno,product,wbmount,wbweight,unit,wamount,waweight,team', '');
                 		break;
                     case q_name:
                         if(q_cur == 4)
@@ -161,9 +183,9 @@
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
                 if (t_para) {
-					$('#btnImport').removeAttr('disabled');
+					$('#btnImport').attr('disabled', 'disabled');
                 } else {
-                	$('#btnImport').attr('disabled', 'disabled');
+                	$('#btnImport').removeAttr('disabled');
                 }
             }
             
@@ -414,19 +436,19 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:14%;"><a id="lblProduct_s" > </a></td>
-                <td align="center" style="width:14%;"><a id='lblAcc_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblBornmount_s'> </a><a id='lblBornweight_s'> </a></td>
+                <td align="center" style="width:13%;"><a id="lblProduct_s" > </a></td>
+                <td align="center" style="width:13%;"><a id='lblAcc_s'> </a></td>
+                <td align="center" style="width:9%;"><a id='lblBornmount_s'> </a></br> / <a id='lblBornweight_s'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblStuffmount_s'> </a><a id='lblStuffweight_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblStuffmoney_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblStuffprice_s'> </a></td>
+                <td align="center" style="width:9%;"><a id='lblStuffmount_s'> </a></br> / <a id='lblStuffweight_s'> </a></td>
+                <td align="center" style="width:6%;"><a id='lblStuffmoney_s'> </a></td>
+                <td align="center" style="width:6%;"><a id='lblStuffprice_s'> </a></td>
                 <td align="center" style="width:7%;"><a id='lblFactitmoney_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblFactitprice_s'> </a></td>
+                <td align="center" style="width:6%;"><a id='lblFactitprice_s'> </a></td>
                 <td align="center" style="width:7%;"><a id='lblMakemoney_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblMakeprice_s'> </a></td>
-                <td align="center" style="width:8%;"><a id='lblMoney_s'> </a></td>
-                <td align="center" style="width:8%;"><a id='lblPrice_s'> </a></td>
+                <td align="center" style="width:6%;"><a id='lblMakeprice_s'> </a></td>
+                <td align="center" style="width:7%;"><a id='lblMoney_s'> </a></td>
+                <td align="center" style="width:6%;"><a id='lblPrice_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
