@@ -141,30 +141,31 @@
                         if (q_cur == 4)
                             q_Seek_gtPost();
 
-                        if (q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                         break;
                     default:
                     	if(t_name.substring(0,11)=='checkInvono'){
                     		var n = parseFloat(t_name.split('_')[1]); 
                     		var as = _q_appendData("vccars", "", true);
 	                        if (as[0] != undefined){
-	                        	for(var i in as){
-	                            	if(as[i].binvono == $('#txtBinvono_'+n).val()){
-	                            		alert(as[i].einvono+'已存在。單號【'+as[i].noa+'】');
-	                            	}else if(as[i].einvono == $('#txtEinvono_'+n).val()){
-	                            		alert(as[i].einvono+'已存在。單號【'+as[i].noa+'】');
-	                            	}else{
-	                            		alert('例外錯誤。 n='+n);
-	                            	}
-	                            	Unlock();
-	                            	return;
+	                        	for(var i =0;i<as.length;i++){
+	                        		if(as[i].noa!=$('#txtNoa').val()){
+	                        			if(as[i].binvono == $('#txtBinvono_'+n).val()){
+		                            		alert(as[i].einvono+'已存在。單號【'+as[i].noa+'】');
+		                            		Unlock();
+	                            			return;
+		                            	}else if(as[i].einvono == $('#txtEinvono_'+n).val()){
+		                            		alert(as[i].einvono+'已存在。單號【'+as[i].noa+'】');
+		                            		Unlock();
+	                            			return;
+		                            	}else{
+		                            		alert('例外錯誤。 n='+n);
+		                            		Unlock();
+	                            			return;
+		                            	}
+	                        		}
 	                            }
 	                        }
-	                        else{
-	                        	chkInvono(n-1);
-	                        }
+	                        chkInvono(n-1);
                     	}
                     	break;
                 }  /// end switch
