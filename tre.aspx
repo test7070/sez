@@ -97,8 +97,6 @@
 		            		alert('年度異常!');
 		            		return;
 		            	}
-						$(this).attr('disabled','disabled');
-						$(this).val('Watting...');
 						Lock();
 	                	q_func('tre.import',r_accy+','+$('#cmbCarteamno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
                 	}
@@ -235,14 +233,11 @@
                 q_box('tre_s.aspx', q_name + '_s', "530px", "400px", q_getMsg("popSeek"));
             }
 
-            function combPay_chg() {
-            }
-
             function bbsAssign() {
-                _bbsAssign();
                 for(var ix = 0; ix < q_bbsCount; ix++) {
                 	$('#lblNo_'+ix).text(ix+1);	
                 }
+                _bbsAssign();
             }
 
             function btnIns() {

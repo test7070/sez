@@ -486,7 +486,7 @@
 					<tr>
 						<td><input id="chkBrow.*" type="checkbox"/></td>
 						<td id="datea" style="text-align: center;">~datea</td>
-						<td id="namea" style="text-align: center;">~datea</td>
+						<td id="namea" style="text-align: center;">~namea</td>
 					</tr>
 				</table>
 			</div>
