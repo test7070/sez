@@ -26,7 +26,7 @@
             brwNowPage = 0;
             brwKey = 'noa';
             brwCount2 = 20;
-            aPop = new Array(['txtBankno', 'lblBankno', 'bank2', 'noa,bank2,account', 'txtBankno,txtBank,txtAccount', 'bank2_b.aspx'],
+            aPop = new Array(['txtBankno', 'lblBankno', 'bank', 'noa,bank,account', 'txtBankno,txtBank,txtAccount', 'bank_b.aspx'],
             				 ['txtBanktno', 'lblBankt', 'funda', 'noa,namea', 'txtBanktno,txtBanktname', 'funda_b.aspx'],
            					 ['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1,txtAcc2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
            					 ['txtAcc3', 'lblAcc2', 'acc', 'acc1,acc2', 'txtAcc3,txtAcc4', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);

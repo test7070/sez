@@ -31,9 +31,10 @@
             brwNowPage = 0;
             brwKey = 'Noa';
             aPop = new Array(
-            	['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx'],
-            	['txtAcc1_', 'btnAcc1_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno]
-            	,['txtAcc3_', 'btnAcc3_', 'acc', 'acc1,acc2', 'txtAcc3_,txtAcc4_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno]
+            	['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_,txtAcc1_', 'ucc_b.aspx'],
+            	['txtAcc1_', 'btnAcc1_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno],
+            	['txtAcc3_', 'btnAcc3_', 'acc', 'acc1,acc2', 'txtAcc3_,txtAcc4_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno],
+            	['txtStuffno_', 'btnStuffno_', 'ucc', 'noa,product', 'txtStuffno_,txtStuffname_', 'ucc_b.aspx']
 			);
 
             $(document).ready(function() {
@@ -72,12 +73,6 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'workb':
-                			var as = _q_appendData("workb", "", true);
-                			
-                			
-                			
-                		break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -102,6 +97,7 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
+               q_box('gene_s.aspx', q_name + '_s', "500px", "300px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
@@ -390,6 +386,7 @@
             <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
             <td class="td3"><span> </span><a id="lblMon" class="lbl"> </a></td>
             <td class="td4"><input id="txtMon" type="text" class="txt c1"/></td>
+            <td></td>
         </tr>
         </table>
         </div>
@@ -409,14 +406,14 @@
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
                 <td >
-                	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                 	<input  id="txtProductno.*" type="text" style="width:80%;" />
+                	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:right;" />
                 	<input  id="txtProduct.*" type="text" style="width:80%;"/>
                 	<input id="txtNoq.*" type="hidden" />
                 </td>
                 <td >
-                	<input class="btn"  id="btnAcc1.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                 	<input  id="txtAcc1.*" type="text" style="width:80%;" />
+                	<input class="btn"  id="btnAcc1.*" type="button" value='.' style=" font-weight: bold;width:1%;float:right;" />
                 	<input  id="txtAcc2.*" type="text" style="width:80%;"/>
                 </td>
                 <td ><input  id="txtBornmount.*" type="text" class="txt c1 num"/>
@@ -424,13 +421,13 @@
                 </td>
                 <td ><input  id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td >
-                	<input class="btn"  id="btnStuffno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                 	<input  id="txtStuffno.*" type="text" style="width:80%;" />
+                	<input class="btn"  id="btnStuffno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:right;" />
                 	<input  id="txtStuffname.*" type="text" style="width:80%;"/>
                 </td>
                 <td >
-                	<input class="btn"  id="btnAcc3.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                 	<input  id="txtAcc3.*" type="text" style="width:80%;" />
+                	<input class="btn"  id="btnAcc3.*" type="button" value='.' style=" font-weight: bold;width:1%;float:right;" />
                 	<input  id="txtAcc4.*" type="text" style="width:80%;"/>
                 </td>
                 <td ><input  id="txtStuffmount.*" type="text" class="txt c1 num"/>

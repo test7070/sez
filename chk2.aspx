@@ -509,6 +509,7 @@
 					</td>
 					<td align="center" style="width:20px;"></td>
 					<td align="center" style="width:20px;"><a id='vewChks'> </a></td>
+					<td align="center" style="width:20px;"><a id='vewChkin'> </a></td>
 					<td align="center" style="width:100px;"><a id='vewCheckno_s'> </a></td>
 					<td align="center" style="width:100px;"><a id='vewBank_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='vewBankno_s'> </a></td>
@@ -516,7 +517,7 @@
 					<td align="center" style="width:80px;"><a id='vewDatea_s'> </a></td>
 					<td align="center" style="width:80px;"><a id='vewMoney_s'> </a></td>
 					<td align="center" style="width:160px;display:none;"><a id='vewTcomp_s'> </a></td>
-					<td align="center" style="width:20px;"><a id='vewChkin'> </a></td>
+					
 				</tr>
 				<tr id="trSel.*" style='background:#cad3ff;'>
 					<td style="width:1%;">
@@ -526,6 +527,9 @@
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td >
 					<input id="chkSel.*" type="checkbox"/>
+					</td>
+					<td >
+					<input id="chkIns.*" type="checkbox"/>
 					</td>
 					<td >
 					<input class="txt c1" id="txtCheckno.*" onclick="browGqb(this)" type="text"  style="width: 95%"/>
@@ -545,9 +549,7 @@
 					<input id="txtTcompno.*" type="text" style="width: 25%;float: left;"/>
 					<input id="txtTcomp.*" type="text" style="width: 50%;float: left;"/>
 					</td>
-					<td >
-					<input id="chkIns.*" type="checkbox"/>
-					</td>
+					
 				</tr>
 			</table>
 		</div>
