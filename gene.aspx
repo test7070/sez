@@ -102,6 +102,7 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
+               q_box('gene_s.aspx', q_name + '_s', "500px", "300px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
@@ -390,6 +391,7 @@
             <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
             <td class="td3"><span> </span><a id="lblMon" class="lbl"> </a></td>
             <td class="td4"><input id="txtMon" type="text" class="txt c1"/></td>
+            <td></td>
         </tr>
         </table>
         </div>
