@@ -404,33 +404,33 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:2%;"><a id="lblTypea_s" > </a></td>
-                <td align="center" style="width:7%;"><a id='lblProduct_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblBeginmount_s'> </a></td>
+                <td align="center" style="width:5%;"><a id='lblProduct_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblBeginmount_s'> </a></br> / <a id='lblBeginweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblBeginprice_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblBeginmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblInmount_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblInmount_s'> </a></br> / <a id='lblInweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblInprice_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblInmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblBornmount_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblBornmount_s'> </a></br> / <a id='lblBornweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblBornmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblOutvmount_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblOutvmount_s'> </a></br> / <a id='lblOutvweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblOutvmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblMount1_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblMount1_s'> </a></br> / <a id='lblWeight1_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblMoney1_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblSalemount_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblSalemount_s'> </a></br> / <a id='lblSaleweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblSalemoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblGetmount_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblGetmount_s'> </a></br> / <a id='lblGetweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblGetmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblOutsmount_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblOutsmount_s'> </a></br> / <a id='lblOutsweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblOutsmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblOthermount_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblOthermount_s'> </a></br> / <a id='lblOtherweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblOthermoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblLastmount_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblLastmount_s'> </a></br> / <a id='lblLastweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblLastprice_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblLastmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblSampmount_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblSampmount_s'> </a></br> / <a id='lblSampweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblSampmoney_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblUccemount_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblUccemount_s'> </a></br> / <a id='lblUcceweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblUccemoney_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
