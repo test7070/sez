@@ -17,7 +17,7 @@
 		    }
 		    q_desc = 1
 		    var q_name = "tre_accc";
-		    var q_readonly = ['txtNoa', 'txtWorker', 'txtPaybno', 'txtPayeno', 'txtChkeno', 'txtAccno1', 'txtAccno2', 'txtAccno3', 'txtBdriver', 'txtEdriver','txtTotal'];
+		    var q_readonly = ['txtNoa', 'txtWorker', 'txtPaybno', 'txtPayeno', 'txtChkeno', 'txtAccno1', 'txtAccno2', 'txtAccno3', 'txtBdriver', 'txtEdriver','txtTotal','txtTreno'];
 		    var bbmNum = [['txtOpay', 11, 0, 1], ['txtUnopay', 11, 0, 1], ['txtTotal', 11, 0, 1]];
 		    var bbmMask = [];
 		    q_sqlCount = 6;
@@ -79,12 +79,13 @@
 		            //q_gt('sss',  " field=noa,namea,rank where=^^LEFT(noa,1)='A'^^"); 
 		        });
 		        
+		        $('#lblTreno').click(function() {
+                 q_box('tre.aspx' + "?;;;charindex(noa,'"+$('#txtTreno').val()+"')>0;" + r_accy , '', "92%", "92%", "支票列印");
+                });
+		        
 				if ((/^.*(tre_accc,1,[0|1],1,[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())){
-		        $('#btnAccc').click(function () {show_confirm()});
-		        }
-		        
-		        
-
+		        $('#btnAccc').click(function () {show_confirm()})
+		       };
 		        $('#btnGqb').click(function () {
 		            q_box('z_gqbp.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtChkbno').val()), '', "92%", "92%", "支票列印");
 		        });
@@ -238,13 +239,13 @@
 		                //$("#cmbCarteamno2").val(abbm[q_recno].carteamno); 
 		                q_gridv('tview', browHtm, fbrow, abbm, aindex, brwNowPage, brwCount);
 		                refresh(q_recno);
-		                break;   
+		                break;
 		            case q_name:
 		                if (q_cur == 4)
 		                    q_Seek_gtPost();
 
-		                if (q_cur == 1 || q_cur == 2)
-		                    q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
+		               /* if (q_cur == 1 || q_cur == 2)
+		                    q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);*/
 
 		                break;
 		        }  /// end switch
@@ -638,6 +639,10 @@
 						<td><input id="txtAccno2" type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblAccno3" class="lbl btn"> </a></td>
 						<td><input id="txtAccno3" type="text"  class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblTreno" class="lbl btn"> </a></td>
+						<td colspan="4"><input id="txtTreno" type="text"  class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
