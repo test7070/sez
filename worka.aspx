@@ -10,7 +10,6 @@
 	<script src='../script/mask.js' type="text/javascript"></script>
 	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript">
-	
 		this.errorHandler = null;
 		function onPageError(error) {
 			alert("An error occurred:\r\n" + error.Message);
@@ -182,7 +181,7 @@
 			$('#txtProduct').focus();
 		}
 		function btnPrint() {
- 
+			q_box('z_worka.aspx'+ "?;;;noa="+trim($('#txtNoa').val())+";"+r_accy, '', "95%", "95%", m_print);
 		}
 
 		function wrServer( key_value) {

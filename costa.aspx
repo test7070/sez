@@ -17,11 +17,11 @@
             }
 			q_desc=1;
             q_tables = 's';
-            var q_name = "gene";
+            var q_name = "costa";
             var q_readonly = ['txtNoa'];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtBornmount', 15, 0, 1],['txtBornweight', 15, 3, 1],['txtStuffmount', 15, 0, 1],['txtStuffweight', 15, 3, 1],['txtStuffmoney', 15, 0, 1]];
+            var bbsNum = [['txtMoney', 15, 0, 1],['txtTotal', 15, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -33,7 +33,6 @@
             aPop = new Array(
             	['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx'],
             	['txtAcc1_', 'btnAcc1_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno]
-            	,['txtAcc3_', 'btnAcc3_', 'acc', 'acc1,acc2', 'txtAcc3_,txtAcc4_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno]
 			);
 
             $(document).ready(function() {
@@ -74,9 +73,6 @@
                 switch (t_name) {
                 	case 'workb':
                 			var as = _q_appendData("workb", "", true);
-                			
-                			
-                			
                 		break;
                     case q_name:
                         if(q_cur == 4)
@@ -102,7 +98,7 @@
             function _btnSeek() {
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
-               q_box('gene_s.aspx', q_name + '_s', "500px", "300px", q_getMsg("popSeek"));
+                q_box('costa_s.aspx', q_name + '_s', "500px", "300px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
@@ -227,7 +223,7 @@
             }
             .dview {
                 float: left;
-                width: 98%;
+                width: 350px;
             }
             .tview {
                 margin: 0;
@@ -245,9 +241,9 @@
             }
             .dbbm {
                 float: left;
-                width: 98%;
-                margin: -1px;
-                border: 1px black solid;
+                width: 400px;
+                /*margin: -1px;
+                border: 1px black solid;*/
                 border-radius: 5px;
             }
             .tbbm {
@@ -357,7 +353,7 @@
          	font-size:medium;
          	color:blue;
          	background:#cad3ff;
-         	width: 100%;
+         	width: 950px;
          }
 		 .dbbs .tbbs tr{
 		 	height:35px;
@@ -389,27 +385,32 @@
         <tr class="tr1">
         	<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
             <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
-            <td class="td3"><span> </span><a id="lblMon" class="lbl"> </a></td>
-            <td class="td4"><input id="txtMon" type="text" class="txt c1"/></td>
-            <td></td>
+            <td> </td>
+        </tr>
+        <tr class="tr2">
+            <td class="td1"><span> </span><a id="lblMon" class="lbl"> </a></td>
+            <td class="td2"><input id="txtMon" type="text" class="txt c1"/></td>
+            <td> </td>
+        </tr>
+        <tr class="tr3">
+        	<td class="td1"></td>
+            <td class="td2"><input id="btnTotal" type="button" /></td>
+            
+            <td> </td>
         </tr>
         </table>
         </div>
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
-                <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:14%;"><a id="lblProduct_s" > </a></td>
+                <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='－' style="font-weight: bold;"  /> </td>
+                <td align="center" style="width:14%;"><a id="lblProductno_s" > </a></td>
                 <td align="center" style="width:14%;"><a id='lblAcc1_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblBornmount_s'> </a></br> / <a id='lblBornweight_s'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblUnit_s'> </a></td>
-                <td align="center" style="width:14%;"><a id='lblStuffno_s'> </a></td>
-                <td align="center" style="width:14%;"><a id='lblAcc3_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblStuffmount_s'> </a></br> / <a id='lblStuffweight_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblStuffmoney_s'> </a></td>
+                <td align="center" style="width:10%;"><a id='lblMoney_s'> </a> </td>
+                <td align="center" style="width:10%;"><a id='lblTotal_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+                <td ><input class="btn"  id="btnMinus.*" type="button" value='＋' style=" font-weight: bold;" /></td>
                 <td >
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                 	<input  id="txtProductno.*" type="text" style="width:80%;" />
@@ -421,24 +422,9 @@
                 	<input  id="txtAcc1.*" type="text" style="width:80%;" />
                 	<input  id="txtAcc2.*" type="text" style="width:80%;"/>
                 </td>
-                <td ><input  id="txtBornmount.*" type="text" class="txt c1 num"/>
-                	 <input  id="txtBornweight.*" type="text" class="txt c1 num"/>
+                <td ><input  id="txtMoney.*" type="text" class="txt c1 num"/>
                 </td>
-                <td ><input  id="txtUnit.*" type="text" class="txt c1"/></td>
-                <td >
-                	<input class="btn"  id="btnStuffno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                	<input  id="txtStuffno.*" type="text" style="width:80%;" />
-                	<input  id="txtStuffname.*" type="text" style="width:80%;"/>
-                </td>
-                <td >
-                	<input class="btn"  id="btnAcc3.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                	<input  id="txtAcc3.*" type="text" style="width:80%;" />
-                	<input  id="txtAcc4.*" type="text" style="width:80%;"/>
-                </td>
-                <td ><input  id="txtStuffmount.*" type="text" class="txt c1 num"/>
-                	 <input  id="txtStuffweight.*" type="text" class="txt c1 num"/>
-                </td>
-                <td ><input  id="txtStuffmoney.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtTotal.*" type="text" class="txt c1 num"/></td>
             </tr>
         </table>
         </div>
