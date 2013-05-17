@@ -139,7 +139,26 @@
 		            var s2 = result.split(';');
 		            for (var i = 0; i < s2.length; i++) {
 		                switch (i) {
-		                    case 0:
+		                	case 0:
+		                        $('#txtAccno1').val(s2[i]);
+		                        break;
+		                    case 1:
+		                        $('#txtAccno2').val(s2[i]);
+		                        break;
+		                    case 2:
+		                        $('#txtAccno3').val(s2[i]);
+		                        break;
+		                    case 3:
+		                        $('#txtChkeno').val(s2[i]);
+		                        break;  
+		                    case 5:
+								$('#txtMemo').val(s2[i]);
+		                        break;
+							case 6:
+		                        $('#txtTotal').val(s2[i]);
+		                        break;
+							//t_accno + t_chkno + ";" + t_unChg + ";" + t_trenoAll + ";" + t_totMoney;
+		                    /*case 0:
 		                        $('#txtAccno1').val(s2[i]);
 		                        break;
 		                    case 1:
@@ -157,6 +176,7 @@
 		                    case 5:
 		                        $('#txtTotal').val(s2[i]);
 		                        break;
+		                    */
 		                } //end switch
 		            } //end for
 		        } //end  if
