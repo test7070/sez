@@ -24,18 +24,27 @@
                 $('#q_report').q_report({
                     fileName : 'z_worka',
                     options : [{
+						type : '0',
+						name : 'accy',
+                        value : q_getId()[4] //[1]
+                    },{
                         type : '1',
                         name : 'date'
+                    },{
+                        type : '6',
+                        name : 'xnoa'
                     }]
                 });
                 q_popAssign();
                 q_getFormat();
                 q_langShow();
-
                 $('#txtDate1').mask('999/99/99');
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
+                var t_key = q_getHref();
+                if(t_key != undefined)
+                	$('#txtXnoa').val(t_key[1]);
             }
 
             function q_boxClose(s2) {
