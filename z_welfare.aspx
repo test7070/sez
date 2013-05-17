@@ -21,8 +21,12 @@
             });
             function q_gfPost() {
                $('#q_report').q_report({
-                        fileName : 'z_welfare',
-                        options : [{
+					fileName : 'z_welfare',
+					options : [{
+						type : '0',
+						name : 'accy',
+                        value : q_getId()[4] //[1]
+                    },{
                         type : '1',
                         name : 'date'
                     }]
