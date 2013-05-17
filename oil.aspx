@@ -32,7 +32,9 @@
             q_xchg = 1;
             brwCount2 = 20;
 
-            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'], ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx'], ['txtOilstationno', 'lblOilstation', 'oilstation', 'noa,station', 'txtOilstationno,txtOilstation', 'oilstation_b.aspx']);
+            aPop = new Array(['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx']
+            , ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
+            , ['txtOilstationno', 'lblOilstation', 'oilstation', 'noa,station', 'txtOilstationno,txtOilstation', 'oilstation_b.aspx']);
 
             function currentData() {
             }
@@ -388,7 +390,7 @@
             function q_popFunc(id, key_value) {
                 switch(id) {
                     case 'txtOilstationno':
-                        if (key_value.length > 0)
+                        if (key_value > 0)
                             q_gt('oilorg', "where=^^oilstationno='" + $.trim(key_value) + "'^^", 0, 0, 0, "");
 
                         break;
