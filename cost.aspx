@@ -77,12 +77,6 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'workb':
-                			var as = _q_appendData("workb", "", true);
-                			
-                			
-                			
-                		break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -99,7 +93,7 @@
                 }
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if(s1.length == 0 || s1 == "AUTO")
-                    q_gtnoa(q_name, replaceAll('GE' + q_date(), '/', ''));
+                    q_gtnoa(q_name, replaceAll('GC' + q_date(), '/', ''));
                 else
                     wrServer(s1);
             }
@@ -168,7 +162,7 @@
             function sum() {
             	var t_gwelght=0,t_twelght = 0, t_welght = 0;
                 for (var j = 0; j < q_bbsCount; j++) {
-					
+					q_tr('txtBeginprice_',q_float('txtBeginmount_'+j))
                 } // j
             }
 
@@ -406,11 +400,11 @@
                 <td align="center" style="width:2%;"><a id="lblTypea_s" > </a></td>
                 <td align="center" style="width:5%;"><a id='lblProduct_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblBeginmount_s'> </a></br> / <a id='lblBeginweight_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblBeginprice_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblBeginmoney_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblBeginprice_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblInmount_s'> </a></br> / <a id='lblInweight_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblInprice_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblInmoney_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblInprice_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblBornmount_s'> </a></br> / <a id='lblBornweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblBornmoney_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblOutvmount_s'> </a></br> / <a id='lblOutvweight_s'> </a></td>
@@ -426,8 +420,8 @@
                 <td align="center" style="width:3%;"><a id='lblOthermount_s'> </a></br> / <a id='lblOtherweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblOthermoney_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblLastmount_s'> </a></br> / <a id='lblLastweight_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblLastprice_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblLastmoney_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblLastprice_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblSampmount_s'> </a></br> / <a id='lblSampweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblSampmoney_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblUccemount_s'> </a></br> / <a id='lblUcceweight_s'> </a></td>
