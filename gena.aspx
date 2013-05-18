@@ -60,6 +60,7 @@
 				q_mask(bbmMask);
 				$('#btnImport').click(function () {
 					if(emp($('#txtMon').val())){
+						alert('請先輸入'+q_getMsg('lblMon'));
 						return;
 					}
 					//取得上個月
@@ -106,7 +107,7 @@
                 				as[i].stuffmoney2=dec(as[i].waweight)*dec(as[i].stuffprice2); //重量->直接原料金額
                 				
                 				//會計科目處理
-                				as[i].acc1='1136'+as[i].productno;
+                				as[i].acc1='1136.'+as[i].productno;
                 				as[i].acc2='製成品-'+as[i].product;
                 			}
                 			//q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtAcc1,txtAcc2,txtBornmount,txtUnit,txtStuffmount,txtStuffmoney,txtStuffprice', as.length, as, 'productno,product,acc1,acc2,wbmount,unit,wamount,stuffmoney1,stuffprice1', '');

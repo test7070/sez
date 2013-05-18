@@ -57,6 +57,15 @@
 				bbmMask = [['txtMon', r_picm]];
 				bbsMask = [];
 				q_mask(bbmMask);
+				
+				$('#btnImport').click(function () {
+					if(emp($('#txtMon').val())){
+						alert('請先輸入'+q_getMsg('lblMon'));
+						return;
+					}
+					var t_where = "where=^^ left(a.datea,6)= '"+$('#txtMon').val()+"'^^";
+			        q_gt('gene_import', t_where, 0, 0, 0, "", r_accy);
+				});
             }
 		
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -73,6 +82,19 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'gene_import':
+                		var as = _q_appendData("workbs", "", true);
+                			if(as[0]==undefined)
+                				return;
+                			for (var i = 0; i < as.length; i++) {
+                				//會計科目處理
+                				as[i].acc1='1136.'+as[i].wbproductno;
+                				as[i].acc2='製成品-'+as[i].wbproduct;
+                				as[i].acc3='1137.'+as[i].waproductno;
+                				as[i].acc4='原料-'+as[i].waproduct;
+                			}
+                			q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtAcc1,txtAcc2,txtBornmount,txtBornweight,txtUnit,txtStuffno,txtStuffname,txtAcc3,txtAcc4,txtStuffmount,txtStuffweight,txtStuffmoney', as.length, as, 'wbproductno,wbproduct,acc1,acc2,wbmount,wbweight,unit,waproductno,waproduct,acc3,acc4,wamount,waweight,rctotal', '');
+                		break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -152,7 +174,11 @@
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
-              
+              if (t_para) {
+					$('#btnImport').attr('disabled', 'disabled');
+                } else {
+                	$('#btnImport').removeAttr('disabled');
+                }
             }
             
             function sum() {
