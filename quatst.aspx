@@ -17,7 +17,7 @@
             q_desc=1;
             q_tables = 's';
             var q_name = "quat";
-            var q_readonly = ['txtComp', 'txtAcomp','txtSales','txtWorker'];
+            var q_readonly = ['txtComp', 'txtAcomp','txtSales','txtWorker','txtNoa'];
             var q_readonlys = [];
             var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1],
             			  ['txtWeight', 15, 3, 1],['txtTpayweight', 10, 2, 1],['txtTunpayweight', 15, 0, 1],
@@ -34,7 +34,7 @@
             brwKey = 'Datea';
             aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
             ['txtCustno', 'lblCust', 'cust', 'noa,comp,paytype', 'txtCustno,txtComp,txtPaytype', 'cust_b.aspx'],
-            ['txtSales', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
+            ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'],
             ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
