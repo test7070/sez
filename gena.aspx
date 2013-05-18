@@ -104,9 +104,13 @@
                 				as[i].stuffprice2=dec((dec(as[i].bmoney)+dec(as[i].rmoney))/(dec(as[i].bweight)+dec(as[i].rweight))); //重量
                 				//as[i].stuffmoney1=dec(as[i].wamount)*dec(as[i].stuffprice1); //數量->直接原料金額
                 				as[i].stuffmoney2=dec(as[i].waweight)*dec(as[i].stuffprice2); //重量->直接原料金額
+                				
+                				//會計科目處理
+                				as[i].acc1='1136'+as[i].productno;
+                				as[i].acc2='製成品-'+as[i].product;
                 			}
-                			//q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtBornmount,txtUnit,txtStuffmount,txtStuffmoney,txtStuffprice', as.length, as, 'productno,product,wbmount,unit,wamount,stuffmoney1,stuffprice1', '');
-                			q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtBornweight,txtUnit,txtStuffweight,txtStuffmoney,txtStuffprice', as.length, as, 'productno,product,wbweight,unit,waweight,stuffmoney2,stuffprice2', '');
+                			//q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtAcc1,txtAcc2,txtBornmount,txtUnit,txtStuffmount,txtStuffmoney,txtStuffprice', as.length, as, 'productno,product,acc1,acc2,wbmount,unit,wamount,stuffmoney1,stuffprice1', '');
+                			q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtAcc1,txtAcc2,txtBornweight,txtUnit,txtStuffweight,txtStuffmoney,txtStuffprice', as.length, as, 'productno,product,acc1,acc2,wbweight,unit,waweight,stuffmoney2,stuffprice2', '');
                 			sum();
                 			//讀取直接人工54開頭和製造費用55開頭的會計科目
                 			var t_where = "where=^^ left(accc2,2)='"+$('#txtMon').val().substr(4,2)+"' and left(accc5,2)='54' ^^";
@@ -205,8 +209,17 @@
 
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
-            		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-            		  }
+					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+						$('#txtStuffprice_'+j).change(function() {sum();});
+						$('#txtStuffmount_'+j).change(function() {sum();});
+						$('#txtStuffweight_'+j).change(function() {sum();});
+						$('#txtStuffmoney_'+j).change(function() {sum();});
+						$('#txtFactitmoney_'+j).change(function() {sum();});
+						$('#txtMakemoney_'+j).change(function() {sum();});
+						$('#txtMoney_'+j).change(function() {sum();});
+						$('#txtBornmount_'+j).change(function() {sum();});
+						$('#txtBornweight_'+j).change(function() {sum();});
+					}
                 }
                 _bbsAssign();
             }
@@ -265,6 +278,17 @@
             function sum() {
             	var t_gwelght=0,t_twelght = 0, t_welght = 0;
                 for (var j = 0; j < q_bbsCount; j++) {
+                	//計算直接原料金額
+                	//q_tr('txtStuffmoney_'+j,round(q_float('txtStuffprice_'+j)*q_float('txtStuffmount_'+j),2));
+                	q_tr('txtStuffmoney_'+j,round(q_float('txtStuffprice_'+j)*q_float('txtStuffweight_'+j),2));
+                	
+                	//計算直接人工單價
+                	//q_tr('txtFactitprice_'+j,round(q_float('txtFactitmoney_'+j)/q_float('txtBornmount_'+j),2));
+                	q_tr('txtFactitprice_'+j,round(q_float('txtFactitmoney_'+j)/q_float('txtBornweight_'+j),2));
+                	//計算製造費用單價
+                	//q_tr('txtMakeprice_'+j,round(q_float('txtMakemoney_'+j)/q_float('txtBornmount_'+j),2));
+                	q_tr('txtMakeprice_'+j,round(q_float('txtMakemoney_'+j)/q_float('txtBornweight_'+j),2));
+                	
 					q_tr('txtMoney_'+j,q_float('txtStuffmoney_'+j)+q_float('txtFactitmoney_'+j)+q_float('txtMakemoney_'+j));
 					//看公司要用數量還是重量計算
 					if(q_float('txtBornmount_'+j)>=0){

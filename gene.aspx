@@ -386,7 +386,10 @@
             <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
             <td class="td3"><span> </span><a id="lblMon" class="lbl"> </a></td>
             <td class="td4"><input id="txtMon" type="text" class="txt c1"/></td>
-            <td></td>
+        </tr>
+        <tr class="tr1">
+        	<td class="td3"><span> </span></td>
+            <td class="td4"><input id="btnImport" type="button" style="float: left;"/></td>
         </tr>
         </table>
         </div>
