@@ -61,6 +61,9 @@
 				bbmMask = [['txtMon', r_picm]];
 				bbsMask = [];
 				q_mask(bbmMask);
+				
+				if(abbs[q_recno])
+					q_cmbParse("cmbTypea", q_getPara('cost.typea'), 's');
             }
 		
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -356,7 +359,7 @@
          	font-size:medium;
          	color:blue;
          	background:#cad3ff;
-         	width: 3000px;
+         	width: 3500px;
          }
 		 .dbbs .tbbs tr{
 		 	height:35px;
@@ -429,7 +432,7 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td ><input  id="txtTypea.*" type="text" class="txt c1" /></td>
+                <td ><select id="cmbTypea.*" class="txt c1"> </select></td>
                 <td >
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                 	<input  id="txtProductno.*" type="text" style="width:80%;" />
