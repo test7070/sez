@@ -310,7 +310,7 @@
             }
 
             function btnPrint() {
-
+				q_box('z_contstp.aspx', '', "95%", "95%", m_print);
             }
 
             function wrServer(key_value) {
