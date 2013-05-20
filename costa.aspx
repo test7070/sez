@@ -31,7 +31,6 @@
             brwNowPage = 0;
             brwKey = 'Noa';
             aPop = new Array(
-            	['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx'],
             	['txtAcc1_', 'btnAcc1_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno]
 			);
 
@@ -106,15 +105,45 @@
             		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
             		  }
                 }
+                
+                $('#tbbs .num').change(function() {sum();});
+                
                 _bbsAssign();
             }
 
             function btnIns() {
                 _btnIns();
-                
                 $('#txtNoa').val('AUTO');
                 $('#txtMon').val(q_date().substr(0,6));
                 $('#txtMon').focus();
+                
+                var t_acc1= new Array('5100.','5110.','5120.','5130.','5140.','5150.','5160.','5170.',
+													'5200.','5210.','5220.','5230.','5240.','5300.','5400.','5410.',
+													'5500.','5510.','5520.','5530.','5540.','5550.','5560.','5570.',
+													'5600.','5610.','5620.','5630.','5640.','5650.','5660.','5670.',
+													'5680.','5690.','5700.','5800.','5810.','5900.'
+				)
+                var t_acc2= new Array('直接原料','　期初存料', '　加：本期進料',' 　　　加工轉入','　減：期末存料','　　　出售原料'
+													,'　　　加工轉出','　　　商品盤盈','間接原料','　期初物料','　加：本期進料','　減：期末盤存'
+													,'　　　轉作製造費用','直接人工','製造費用','減：委外加工費沖轉','製造成本','加：期初在製品'
+													,'　　本期進貨','　　加工轉入','　　商品盤盈','減：期末在製品','　　轉自用'
+													,'　　加工轉出','製造品成本','加：期初製成品','　　本期進貨','　　委外加工轉入','　　下腳存貨'
+													,'　　商品盤盈','減：期末製成品','　　期末下腳存貨','　　加工轉出','　　轉自用'
+													,'　　商品盤虧','銷貨成本','加：出售原料成本','營業成本'
+				)
+				
+				for (var j = 0; j < t_acc1.length; j++) {
+                	if($('#txtAcc1_'+j).length==0)
+						$('#btnPlus').click();
+					$('#txtAcc1_'+j).val(t_acc1[j]);
+                }
+                
+                for (var j = 0; j < t_acc2.length; j++) {
+                	if($('#txtAcc2_'+j).length==0)
+						$('#btnPlus').click();
+					$('#txtAcc2_'+j).val(t_acc2[j]);
+                }
+                
             }
 
             function btnModi() {
@@ -157,10 +186,45 @@
             }
             
             function sum() {
-            	var t_gwelght=0,t_twelght = 0, t_welght = 0;
+            	var t_total1=0,t_total2 = 0, t_total3 = 0, t_total4 = 0, t_total5 = 0;
                 for (var j = 0; j < q_bbsCount; j++) {
-					
-                } // j
+                	//直接原料
+                	if($('#txtAcc1_'+j).val().substr(0,5)>='5110.' && $('#txtAcc1_'+j).val().substr(0,5)<='5130.')
+                		t_total1+=q_float('txtMoney_'+j);
+                	if($('#txtAcc1_'+j).val().substr(0,5)>='5140.' && $('#txtAcc1_'+j).val().substr(0,5)<='5170.')
+                		t_total1-=q_float('txtMoney_'+j);
+                	//製造成本
+                	if($('#txtAcc1_'+j).val().substr(0,5)>='5300.' && $('#txtAcc1_'+j).val().substr(0,5)<='5400.')
+                		t_total2+=q_float('txtMoney_'+j);
+                	if($('#txtAcc1_'+j).val().substr(0,5)=='5410.')
+                		t_total2-=q_float('txtMoney_'+j);
+                	//製造品成本
+                	if($('#txtAcc1_'+j).val().substr(0,5)>='5510.' && $('#txtAcc1_'+j).val().substr(0,5)<='5540.')
+                		t_total3+=q_float('txtMoney_'+j);
+                	if($('#txtAcc1_'+j).val().substr(0,5)>='5550.' && $('#txtAcc1_'+j).val().substr(0,5)<='5570.')
+                		t_total3-=q_float('txtMoney_'+j);
+					//銷貨成本
+                	if($('#txtAcc1_'+j).val().substr(0,5)>='5610.' && $('#txtAcc1_'+j).val().substr(0,5)<='5650.')
+                		t_total4+=q_float('txtMoney_'+j);
+                	if($('#txtAcc1_'+j).val().substr(0,5)>='5660.' && $('#txtAcc1_'+j).val().substr(0,5)<='5700.')
+                		t_total4-=q_float('txtMoney_'+j);
+                	//營業成本
+                	if($('#txtAcc1_'+j).val().substr(0,5)=='5810.')
+                		t_total5+=q_float('txtMoney_'+j);
+                }
+                
+                for (var j = 0; j < q_bbsCount; j++) {
+                	if($('#txtAcc1_'+j).val().substr(0,5)=='5100.')
+                		q_tr('txtTotal_'+j,t_total1);//直接原料
+                	if($('#txtAcc1_'+j).val().substr(0,5)=='5500.')
+                		q_tr('txtTotal_'+j,t_total2+t_total1);//製造成本
+                	if($('#txtAcc1_'+j).val().substr(0,5)=='5600.')
+                		q_tr('txtTotal_'+j,t_total3+t_total2+t_total1);//製造品成本
+					if($('#txtAcc1_'+j).val().substr(0,5)=='5800.')
+                		q_tr('txtTotal_'+j,t_total4+t_total3+t_total2+t_total1);//銷貨成本
+                	if($('#txtAcc1_'+j).val().substr(0,5)=='5900.')
+                		q_tr('txtTotal_'+j,t_total5+t_total4+t_total3+t_total2+t_total1);//營業成本
+                }
             }
 
             function btnMinus(id) {
@@ -385,42 +449,26 @@
         <tr class="tr1">
         	<td class="td1"><span> </span><a id="lblNoa" class="lbl"> </a></td>
             <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
-            <td> </td>
-        </tr>
-        <tr class="tr2">
-            <td class="td1"><span> </span><a id="lblMon" class="lbl"> </a></td>
-            <td class="td2"><input id="txtMon" type="text" class="txt c1"/></td>
-            <td> </td>
-        </tr>
-        <tr class="tr3">
-        	<td class="td1"></td>
-            <td class="td2"><input id="btnTotal" type="button" /></td>
-            
-            <td> </td>
+            <td class="td3"><span> </span><a id="lblMon" class="lbl"> </a></td>
+            <td class="td4"><input id="txtMon" type="text" class="txt c1"/></td>
         </tr>
         </table>
         </div>
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
-                <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='－' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:14%;"><a id="lblProductno_s" > </a></td>
+                <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
+
                 <td align="center" style="width:14%;"><a id='lblAcc1_s'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblMoney_s'> </a> </td>
                 <td align="center" style="width:10%;"><a id='lblTotal_s'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td ><input class="btn"  id="btnMinus.*" type="button" value='＋' style=" font-weight: bold;" /></td>
+                <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
                 <td >
-                	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
-                	<input  id="txtProductno.*" type="text" style="width:80%;" />
-                	<input  id="txtProduct.*" type="text" style="width:80%;"/>
-                	<input id="txtNoq.*" type="hidden" />
-                </td>
-                <td >
-                	<input class="btn"  id="btnAcc1.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                 	<input  id="txtAcc1.*" type="text" style="width:80%;" />
-                	<input  id="txtAcc2.*" type="text" style="width:80%;"/>
+                	<input class="btn"  id="btnAcc1.*" type="button" value='.' style=" font-weight: bold;width:1%;float:right;" />
+                	<input  id="txtAcc2.*" type="text" style="width:80%;"/><input id="txtNoq.*" type="hidden" />
                 </td>
                 <td ><input  id="txtMoney.*" type="text" class="txt c1 num"/>
                 </td>
