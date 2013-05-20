@@ -62,8 +62,8 @@
 				bbsMask = [];
 				q_mask(bbmMask);
 				
-				if(abbs[q_recno])
-					q_cmbParse("cmbTypea", q_getPara('cost.typea'), 's');
+				q_cmbParse("cmbTypea", q_getPara('cost.typea'), 's');
+					
             }
 		
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -165,7 +165,16 @@
             function sum() {
             	var t_gwelght=0,t_twelght = 0, t_welght = 0;
                 for (var j = 0; j < q_bbsCount; j++) {
-					q_tr('txtBeginprice_',q_float('txtBeginmount_'+j))
+                	//數量
+					q_tr('txtBeginprice_',q_float('txtBeginmoney_'+j)/q_float('txtBeginmount_'+j));
+					q_tr('txtInprice_',q_float('txtInmoney_'+j)/q_float('txtInmount_'+j));
+					
+					
+					//重量
+					q_tr('txtBeginprice_',q_float('txtBeginmoney_'+j)/q_float('txtBeginweight_'+j));
+					q_tr('txtInprice_',q_float('txtInmoney_'+j)/q_float('txtInweight_'+j));
+					
+					
                 } // j
             }
 
@@ -442,13 +451,13 @@
                 <td ><input  id="txtBeginmount.*" type="text" class="txt c1 num"/>
                 	<input  id="txtBeginweight.*" type="text" class="txt c1 num"/>
                 </td>
-                <td ><input  id="txtBeginprice.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtBeginmoney.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtBeginprice.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtInmount.*" type="text" class="txt c1 num"/>
                 	<input  id="txtInweight.*" type="text" class="txt c1 num"/>
                 </td>
-                <td ><input  id="txtInprice.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtInmoney.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtInprice.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtBornmount.*" type="text" class="txt c1 num"/>
                 	<input  id="txtBornweight.*" type="text" class="txt c1 num"/>
                 </td>
@@ -481,8 +490,8 @@
                 <td ><input  id="txtLastmount.*" type="text" class="txt c1 num"/>
                 	<input  id="txtLastweight.*" type="text" class="txt c1 num"/>
                 </td>
-                <td ><input  id="txtLastprice.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtLastmoney.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtLastprice.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtSampmount.*" type="text" class="txt c1 num"/>
                 	<input  id="txtSampweight.*" type="text" class="txt c1 num"/>
                 </td>
