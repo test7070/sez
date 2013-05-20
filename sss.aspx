@@ -62,6 +62,20 @@
                 //q_cmbParse("cmbRecord", ('').concat(new Array('國小', '國中', '高中', '高職', '大專', '大學', '碩士', '博士')));
                 q_cmbParse("cmbBlood", ('').concat(new Array('A', 'B', 'AB', 'O')));
                 
+                $('#txtNoa').change(function(e){
+                	$(this).val($.trim($(this).val()).toUpperCase());    	
+					if($(this).val().length>0){
+						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
+							t_where="where=^^ noa='"+$(this).val()+"'^^";
+                    		q_gt('sss', t_where, 0, 0, 0, "checkSssno_change", r_accy);
+						}else{
+							Lock();
+							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+							Unlock();
+						}
+					}
+                });
+                
                 $("#cmbTypea").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
@@ -152,6 +166,22 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'checkSssno_change':
+                		var as = _q_appendData("sss", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].namea);
+                        }
+                		break;
+                	case 'checkSssno_btnOk':
+                		var as = _q_appendData("sss", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].namea);
+                            Unlock();
+                            return;
+                        }else{
+                        	wrServer($('#txtNoa').val());
+                        }
+                		break;
                     case 'authority':
                         var as = _q_appendData('authority', '', true);
                         if (as.length > 0 && as[0]["pr_run"] == "true")
@@ -197,10 +227,6 @@
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
-
-                        if (q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                         break;
                 }  /// end switch
             }
@@ -212,6 +238,7 @@
             }
             function btnIns() {
                 _btnIns();
+                refreshBbm();
                 $('#txtNoa').focus();
             }
 
@@ -219,15 +246,28 @@
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi(1);
+                refreshBbm();
                 /// 允許修改
-                $('#txtComp').focus();
+                $('#txtNamea').focus();
                 $('#txtNoa').attr('disabled', 'disabled');
             }
 
             function btnPrint() {
             }
-
+			function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                Unlock();
+            }
             function btnOk() {
+            	Lock(); 
+            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
+            	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
+				}else{
+					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+					Unlock();
+					return;
+				}
                 if (!q_cd($('#txtBirthday').val())){
                 	alert(q_getMsg('lblBirthday')+'錯誤。');
                 	return;
@@ -244,43 +284,19 @@
                 	alert(q_getMsg('lblOutdate')+'錯誤。');
                 	return;
                 }
-                /*if (!q_cd($('#txtHealth_bdate').val())){
-                	alert(q_getMsg('lblHealth_bdate')+'錯誤。');
-                	return;
-                }
-                if (!q_cd($('#txtHealth_edate').val())){
-                	alert(q_getMsg('lblHealth_edate')+'錯誤。');
-                	return;
-                }
-                if (!q_cd($('#txtLabor1_bdate').val())){
-                	alert(q_getMsg('lblLabor1_bdate')+'錯誤。');
-                	return;
-                }
-                if (!q_cd($('#txtLabor1_edate').val())){
-                	alert(q_getMsg('lblLabor1_edate')+'錯誤。');
-                	return;
-                }
-                if (!q_cd($('#txtLabor2_bdate').val())){
-                	alert(q_getMsg('lblLabor2_bdate')+'錯誤。');
-                	return;
-                }
-                if (!q_cd($('#txtLabor2_edate').val())){
-                	alert(q_getMsg('lblLabor2_edate')+'錯誤。');
-                	return;
-                }*/
-
+               
             	//$('#txtAcomp').val($('#cmbCno').find(":selected").text());
                 $('#txtPart').val($('#cmbPartno').find(":selected").text());
                 $('#txtJob').val($('#cmbJobno').find(":selected").text());
                 
-                var t_noa = $.trim($('#txtNoa').val());
                 if (!emp($('#txtId').val()))
                     $('#txtId').val($('#txtId').val().toUpperCase());
-
-                if (t_noa.length == 0)
-                    q_gtnoa(q_name, t_noa);
-                else
-                    wrServer(t_noa);
+				if(q_cur==1){
+                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
+                    q_gt('sss', t_where, 0, 0, 0, "checkSssno_btnOk", r_accy);
+                }else{
+                	wrServer($('#txtNoa').val());
+                }
             }
 
             function wrServer(key_value) {
@@ -294,8 +310,15 @@
 
             function refresh(recno) {
                 _refresh(recno);
+               refreshBbm();
             }
-
+			function refreshBbm(){
+            	if(q_cur==1){
+            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
+            	}else{
+            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+            	}
+            }
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
             }

@@ -184,9 +184,6 @@
                         if (q_cur == 4)
                             q_Seek_gtPost();
 
-                        if (q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                         break;
                 }  /// end switch
             }

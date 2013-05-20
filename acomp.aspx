@@ -65,6 +65,19 @@
 
             function mainPost() {
                 q_mask(bbmMask);
+                $('#txtNoa').change(function(e){
+                	$(this).val($.trim($(this).val()).toUpperCase());    	
+					if($(this).val().length>0){
+						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
+							t_where="where=^^ noa='"+$(this).val()+"'^^";
+                    		q_gt('acomp', t_where, 0, 0, 0, "checkAcompno_change", r_accy);
+						}else{
+							Lock();
+							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+							Unlock();
+						}
+					}
+                });
                 $('#txtSerial').change(function(e){
 					$('#txtSerial').val($.trim($('#txtSerial').val()));
 					checkId($('#txtSerial').val());
@@ -160,6 +173,22 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'checkAcompno_change':
+                		var as = _q_appendData("acomp", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].acomp);
+                        }
+                		break;
+                	case 'checkAcompno_btnOk':
+                		var as = _q_appendData("acomp", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].acomp);
+                            Unlock();
+                            return;
+                        }else{
+                        	wrServer($('#txtNoa').val());
+                        }
+                		break;
                 	case 'stampuse':           		
                 		var as = _q_appendData("stampuse", "", true);
                         if (as[0] != undefined) {
@@ -223,10 +252,6 @@
                     
                         if (q_cur == 4)
                             q_Seek_gtPost();
-
-                        if (q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                         break;
                 }  /// end switch
             }
@@ -239,6 +264,7 @@
 
             function btnIns() {
                 _btnIns();
+                refreshBbm();
                 $('#txtNoa').focus();
             }
 
@@ -247,14 +273,19 @@
                     return;
 
                 _btnModi();
+                refreshBbm();
                 $('#txtNoa').attr('readonly', true);
-                $('#txtComp').focus();
+                $('#txtAcomp').focus();
             }
 
             function btnPrint() {
 
             }
-
+			function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                Unlock();
+            }
             function btnOk() {
             	var string = '';
             	for(var i in t_stamp){
@@ -263,12 +294,21 @@
 				}
             	$('#txtStamp').val(string);
             	
-                var t_noa = trim($('#txtNoa').val());
-
-                if (t_noa.length == 0)
-                    q_gtnoa(q_name, t_noa);
-                else
-                    wrServer(t_noa);
+            	Lock(); 
+            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
+            	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
+				}else{
+					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+					Unlock();
+					return;
+				}
+        	
+                if(q_cur==1){
+                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
+                    q_gt('acomp', t_where, 0, 0, 0, "checkAcompno_btnOk", r_accy);
+                }else{
+                	wrServer($('#txtNoa').val());
+                }
             }
 
             function wrServer(key_value) {
@@ -284,8 +324,15 @@
 
             function refresh(recno) {
                 _refresh(recno);
-                
+                refreshBbm();
                 display();	
+            }
+			function refreshBbm(){
+            	if(q_cur==1){
+            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
+            	}else{
+            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+            	}
             }
 
             function readonly(t_para, empty) {
