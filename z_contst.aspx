@@ -15,9 +15,9 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"></script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"></script>
 		<script type="text/javascript">
-		 function z_contdc() {
+		 function z_contst() {
             }
-            z_contdc.prototype = {
+            z_contst.prototype = {
                 isInit : false,
                 data : {
                     conttype : null
@@ -30,11 +30,11 @@
                     return isLoad;
                 }
             };
-            t_data = new z_contdc();
+            t_data = new z_contst();
             
             $(document).ready(function() {
                 q_getId();
-                q_gf('', 'z_contdc');
+                q_gf('', 'z_contst');
             });
             function q_gfPost() {
                 q_gt('conttype', '', 0, 0, 0);
@@ -53,7 +53,7 @@
 	                if (t_data.isLoad() && !t_data.isInit) {
 	                    t_data.isInit = true;
 	                $('#q_report').q_report({
-	                    fileName : 'z_contdc',
+	                    fileName : 'z_contst',
 	                    options : [{
 	                        type : '6',
 	                        name : 'xnoa'//[1]
@@ -171,14 +171,6 @@
 						break;
 				}
 				b_pop = '';
-			}
-			
-			function asButton(objectId){
-				var box_html = "<input type='button' id='" + objectId + "'/>";
-	            var box_val = $('#' + objectId).text();
-				$('#' + objectId).after(box_html).remove();
-				$('#' + objectId).val(box_val).attr('class','asbtn');
-				$('#' + objectId).css('width','100%').css('height','100%').css('margin-top','-3px');
 			}
 		</script>
 	</head>
