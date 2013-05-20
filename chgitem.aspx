@@ -145,7 +145,7 @@
 				}
 				 if(q_cur==1){
                 	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
-                    q_gt('chgitem', t_where, 0, 0, 0, "checkChgitem_btnOk", r_accy);
+                    q_gt('chgitem', t_where, 0, 0, 0, "checkChgitemno_btnOk", r_accy);
                 }else{
                 	wrServer($('#txtNoa').val());
                 }
