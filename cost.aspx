@@ -69,6 +69,19 @@
 				q_mask(bbmMask);
 				
 				q_cmbParse("cmbTypea", q_getPara('cost.typea'), 's');
+				
+				$('#btnImport').click(function () {
+					//取得上個月
+					var prvmon='';
+					var t_prvmon=new Date(dec($('#txtMon').val().substr(0,3))+1911,dec($('#txtMon').val().substr(4,2))-1,1);
+				    t_prvmon.setDate(t_prvmon.getDate() -1)
+				    prvmon=''+(t_prvmon.getFullYear()-1911)+'/';
+				    //月份
+				    prvmon = prvmon+(t_prvmon.getMonth()>9?(t_prvmon.getMonth()+1)+'':'0'+(t_prvmon.getMonth()+1));
+				    
+					var t_where = "where=^^ mon='"+prvmon+"' ^^";
+                	q_gt('cost', t_where, 0, 0, 0, "pevcost", r_accy+"_"+r_cno);
+                });
 					
             }
 		
@@ -86,6 +99,13 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'pevcost':
+                		var as = _q_appendData("costs", "", true);
+                		if(as[0]==undefined)
+                			return;
+                		else
+                			q_gridAddRow(bbsHtm, 'tbbs', 'cmbTypea,txtProductno,txtProduct,txtBeginmount,txtBeginweight,txtBeginmoney,txtBeginprice', as.length, as, 'typea,productno,product,lastmount,lastweight,lastmoney,lastprice', '');                	
+                		break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -444,6 +464,10 @@
             <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
             <td class="td3"><span> </span><a id="lblMon" class="lbl"> </a></td>
             <td class="td4"><input id="txtMon" type="text" class="txt c1"/></td>
+        </tr>
+         <tr class="tr1">
+        	<td class="td3"><span> </span></td>
+            <td class="td4"><input id="btnImport" type="button" style="float: left;"/></td>
         </tr>
         </table>
         </div>

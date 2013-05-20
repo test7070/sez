@@ -345,7 +345,7 @@
 		    	}
 			}
 			 function sendsignmemo() {
-			 		if(q_cur==2){
+			 		if(q_cur==1 || q_cur==2){ //20130520:會一次工讓車子遷入後又遷出
 	                	var tx_memo='';
 	                	$('#txtSendsign').val('');
 	                	if(t_cardeal!=$('#cmbCardealno').find(":selected").text() && t_cardeal!=''){
