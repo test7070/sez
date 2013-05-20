@@ -408,6 +408,9 @@
              input[type="text"],input[type="button"] {     
                 font-size: medium;
             }
+         .dbbs{
+         	width: 600px;
+         }
          .dbbs .tbbs{
          	margin:0;
          	padding:2px;
@@ -417,7 +420,7 @@
          	font-size:medium;
          	color:blue;
          	background:#cad3ff;
-         	width: 950px;
+         	width: 600px;
          }
 		 .dbbs .tbbs tr{
 		 	height:35px;
