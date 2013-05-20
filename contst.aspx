@@ -43,7 +43,7 @@
                 bbmKey = ['noa'];
                 bbsKey = ['noa', 'no3'];
                 q_brwCount();
-               q_gt(q_name, q_content, q_sqlCount, 1, 0, '')
+				q_gt(q_name, q_content, q_sqlCount, 1, 0, '')
             });
             
             //////////////////   end Ready

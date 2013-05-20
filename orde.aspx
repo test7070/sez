@@ -281,7 +281,7 @@
             $('#txtOdate').focus();
         }
         function btnPrint() {
-			q_box('z_orde.aspx' + "?;;;;" + r_accy, '', "90%", "600px", q_getMsg("popPrint"));
+			q_box('z_orde.aspx' + "?;;;;" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
         }
         
         function wrServer( key_value) {

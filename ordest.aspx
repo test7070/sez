@@ -18,15 +18,14 @@
         var q_name = "orde";
         var q_readonly = ['txtWorker','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales'];
         var q_readonlys = ['txtTotal', 'txtQuatno', 'txtNo2', 'txtNo3', 'txtTheory']; 
-        var bbmNum = [];  // 允許 key 小數
-        var bbsNum = [['txtPrice', 12, 3], ['txtWeight', 11, 2], ['txtMount', 9, 2]];
+        var bbmNum = [['txtMoney', 10, 2, 1],['txtTax', 10, 2, 1],['txtTotal', 10, 2, 1],['txtTotalus', 10, 2, 1],['txtWeight', 10, 2, 1]];  // 允許 key 小數
+        var bbsNum = [['txtPrice', 12, 3],['txtTotal', 12, 3], ['txtWeight', 11, 2], ['txtMount', 9, 2]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'odate';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
 		 aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx'],
 		 ['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], 
-		 ['txtWorker', 'lblWorker', 'sss', 'namea', 'txtWorker', 'sss_b.aspx'],
 		 ['txtCno','lblAcomp','acomp','noa,acomp','txtCno,txtAcomp','acomp_b.aspx'],
 		 ['txtCustno','lblCust','cust','noa,comp,paytype','txtCustno,txtComp,txtPaytype','cust_b.aspx']);
         $(document).ready(function () {
@@ -181,7 +180,7 @@
             var t_custno = trim($('#txtCustno').val());
             var t_where='';
             if (t_custno.length > 0) {
-                t_where = (t_custno.length > 0 ? q_sqlPara("bcustno", t_custno) : "");  ////  sql AND 語法，請用 &&  
+                t_where = (t_custno.length > 0 ? q_sqlPara("custno", t_custno) : "");  ////  sql AND 語法，請用 &&  
                 t_where =  t_where ;
             }
             else {
@@ -801,7 +800,7 @@
                <input id="txtAcomp" type="text" class="txt c5"/></td>
                <td class="td4"><span> </span><a id='lblFloata' class="lbl"> </a></td>
                <td class="td5"><select id="cmbCoin"class="txt c1"> </select></td>                 
-               <td class="td6"><input id="txtFloata" type="text" class="txt c1" /></td>                 
+               <td class="td6"><input id="txtFloata" type="text" class="txt c1 num" /></td>                 
                <td class="td7"><span> </span><a id="lblQuat"  class="lbl btn"> </a></td>
                <td class="td8"><input id="txtInvo" type="text" class="txt c1"/></td> 
             </tr>
@@ -852,7 +851,7 @@
                 <td class="td2" colspan='2'><input id="txtTotalus" type="text" class="txt c1"/></td> 
                 <td class="td4"><span> </span><a id='lblWeight' class="lbl"> </a></td>
                 <td class="td5" colspan='2'><input id="txtWeight"  type="text" class="txt c1"/></td>
-                <td class="td7"><span> </span><a id='lblWorker' class="lbl btn"> </a></td>
+                <td class="td7"><span> </span><a id='lblWorker' class="lbl"> </a></td>
                 <td class="td8"><input id="txtWorker" type="text" class="txt c1" /></td> 
             </tr>
             <tr>
@@ -861,7 +860,7 @@
             	<td class="td3"><span> </span><a id='lblAeno' class="lbl"> </a></td>
                 <td class="td4"><input id="chkAeno" type="checkbox"/></td>
                 <td class="td5"><span> </span><a id='lblEnd' class="lbl"> </a></td>
-                <td class="td6"><input id="txtEnda"  type="text" class="txt c1" /></td>
+                <td class="td6"><input id="chkEnda" type="checkbox"/></td>
                 <td class="td7"></td>
                 <td class="td8"><input id="btnOrdet" type="button"/></td>
                 
