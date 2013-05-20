@@ -21,12 +21,19 @@
             var q_readonly = ['txtNoa'];
             var q_readonlys = [];
             var bbmNum = [];
-            var bbsNum = [['txtBeginmount', 15, 0, 1],['txtBeginweight', 15, 3, 1],['txtBeginprice', 15, 2, 1],['txtBeginmoney', 15, 0, 1],['txtInmount', 15, 0, 1],['txtInweight', 15, 3, 1]
-            			,['txtInprice', 15, 2, 1],['txtInmoney', 15, 0, 1],['txtBornmount', 15, 0, 1],['txtBornweight', 15, 3, 1],['txtBornmoney', 15, 0, 1],['txtOutvmount', 15, 0, 1]
-            			,['txtOutvweight', 15, 3, 1],['txtOutvmoney', 15, 0, 1],['txtMount1', 15, 0, 1],['txtWeight1', 15, 3, 1],['txtMoney1', 15, 0, 1],['txtSalemount', 15, 0, 1]
-            			,['txtSaleweight', 15, 3, 1],['txtSalemoney', 15, 0, 1],['txtGetmount', 15, 0, 1],['txtGetweight', 15, 3, 1],['txtGetmoney', 15, 0, 1],['txtOutsmount', 15, 0, 1]
-            			,['txtOutsweight', 15, 3, 1],['txtOutsmoney', 15, 0, 1],['txtOthermount', 15, 0, 1],['txtOtherweight', 15, 3, 1],['txtOthermoney', 15, 0, 1],['txtLastmount', 15, 0, 1]
-            			,['txtLastweight', 15, 3, 1],['txtLastprice', 15, 2, 1],['txtLastmoney', 15, 0, 1],['txtSampmount', 15, 0, 1],['txtSampweight', 15, 3, 1],['txtSampmoney', 15, 0, 1]
+            var bbsNum = [
+            			['txtBeginmount', 15, 0, 1],['txtBeginweight', 15, 3, 1],['txtBeginmoney', 15, 0, 1],['txtBeginprice', 15, 2, 1]
+            			,['txtInmount', 15, 0, 1],['txtInweight', 15, 3, 1],['txtInmoney', 15, 0, 1],['txtInprice', 15, 2, 1]
+            			,['txtBornmount', 15, 0, 1],['txtBornweight', 15, 3, 1],['txtBornmoney', 15, 0, 1]
+            			,['txtOutvmount', 15, 0, 1],['txtOutvweight', 15, 3, 1],['txtOutvmoney', 15, 0, 1]
+            			,['txtMount1', 15, 0, 1],['txtWeight1', 15, 3, 1],['txtMoney1', 15, 0, 1]
+            			,['txtSalemount', 15, 0, 1],['txtSaleweight', 15, 3, 1],['txtSalemoney', 15, 0, 1]
+            			,['txtGetmount', 15, 0, 1],['txtGetweight', 15, 3, 1],['txtGetmoney', 15, 0, 1]
+            			,['txtOutsmount', 15, 0, 1],['txtOutsweight', 15, 3, 1],['txtOutsmoney', 15, 0, 1]
+            			,['txtBackmount', 15, 0, 1],['txtBackweight', 15, 3, 1],['txtBackmoney', 15, 0, 1]
+            			,['txtOthermount', 15, 0, 1],['txtOtherweight', 15, 3, 1],['txtOthermoney', 15, 0, 1]
+            			,['txtLastmount', 15, 0, 1],['txtLastweight', 15, 3, 1],['txtLastmoney', 15, 0, 1],['txtLastprice', 15, 2, 1]
+            			,['txtSampmount', 15, 0, 1],['txtSampweight', 15, 3, 1],['txtSampmoney', 15, 0, 1]
             			,['txtUccemount', 15, 0, 1],['txtUcceweight', 15, 3, 1],['txtUccemoney', 15, 0, 1]];
             var bbmMask = [];
             var bbsMask = [];
@@ -37,8 +44,7 @@
             brwNowPage = 0;
             brwKey = 'Noa';
             aPop = new Array(
-            	['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx'],
-            	['txtAcc1_', 'btnAcc_', 'acc', 'acc1,acc2', 'txtAcc1_,txtAcc2_', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy+ '_' + r_cno]
+            	['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
 			);
 
             $(document).ready(function() {
@@ -62,8 +68,21 @@
 				bbsMask = [];
 				q_mask(bbmMask);
 				
-				if(abbs[q_recno])
-					q_cmbParse("cmbTypea", q_getPara('cost.typea'), 's');
+				q_cmbParse("cmbTypea", q_getPara('cost.typea'), 's');
+				
+				$('#btnImport').click(function () {
+					//取得上個月
+					var prvmon='';
+					var t_prvmon=new Date(dec($('#txtMon').val().substr(0,3))+1911,dec($('#txtMon').val().substr(4,2))-1,1);
+				    t_prvmon.setDate(t_prvmon.getDate() -1)
+				    prvmon=''+(t_prvmon.getFullYear()-1911)+'/';
+				    //月份
+				    prvmon = prvmon+(t_prvmon.getMonth()>9?(t_prvmon.getMonth()+1)+'':'0'+(t_prvmon.getMonth()+1));
+				    
+					var t_where = "where=^^ mon='"+prvmon+"' ^^";
+                	q_gt('cost', t_where, 0, 0, 0, "pevcost", r_accy+"_"+r_cno);
+                });
+					
             }
 		
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -80,6 +99,13 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'pevcost':
+                		var as = _q_appendData("costs", "", true);
+                		if(as[0]==undefined)
+                			return;
+                		else
+                			q_gridAddRow(bbsHtm, 'tbbs', 'cmbTypea,txtProductno,txtProduct,txtBeginmount,txtBeginweight,txtBeginmoney,txtBeginprice', as.length, as, 'typea,productno,product,lastmount,lastweight,lastmoney,lastprice', '');                	
+                		break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
@@ -94,6 +120,9 @@
                     alert(t_err);
                     return;
                 }
+                
+                sum();
+                
                 var s1 = $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val();
                 if(s1.length == 0 || s1 == "AUTO")
                     q_gtnoa(q_name, replaceAll('GC' + q_date(), '/', ''));
@@ -110,6 +139,7 @@
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
             		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+            		  	$('#tbbs .num').change(function() {sum();});
             		  }
                 }
                 _bbsAssign();
@@ -165,7 +195,43 @@
             function sum() {
             	var t_gwelght=0,t_twelght = 0, t_welght = 0;
                 for (var j = 0; j < q_bbsCount; j++) {
-					q_tr('txtBeginprice_',q_float('txtBeginmount_'+j))
+                	//數量
+					/*
+					if(q_float('txtBeginmount_'+j)>0)
+						q_tr('txtBeginprice_'+j,round(q_float('txtBeginmoney_'+j)/q_float('txtBeginmount_'+j),2));
+					else
+						q_tr('txtBeginprice_'+j,0);
+					if(q_float('txtInmount_'+j)>0)
+						q_tr('txtInprice_'+j,round(q_float('txtInmoney_'+j)/q_float('txtInmount_'+j),2));
+					else
+						q_tr('txtInprice_'+j,0);
+					q_tr('txtMount1_'+,q_float('txtBeginmount_'+j)+q_float('txtInmount_'+j)+q_float('txtBornmount_'+j)+q_float('txtOutvmount_'+j));
+					q_tr('txtLastmount_'+j,q_float('txtMount1_'+j)-q_float('txtSalemount_'+j)-q_float('txtGetmount_'+j)-q_float('txtOutsmount_'+j)+q_float('txtBackmount_'+j)+q_float('txtOthermount_'+j));
+					*/
+					//重量
+					if(q_float('txtBeginweight_'+j)>0)
+						q_tr('txtBeginprice_'+j,round(q_float('txtBeginmoney_'+j)/q_float('txtBeginweight_'+j),2));
+					else
+						q_tr('txtBeginprice_'+j,0);
+					if(q_float('txtInweight_'+j)>0)
+						q_tr('txtInprice_'+j,round(q_float('txtInmoney_'+j)/q_float('txtInweight_'+j),2));
+					else
+						q_tr('txtInprice_'+j,0);
+					q_tr('txtWeight1_'+j,q_float('txtBeginweight_'+j)+q_float('txtInweight_'+j)+q_float('txtBornweight_'+j)+q_float('txtOutvweight_'+j));
+					q_tr('txtLastweight_'+j,q_float('txtWeight1_'+j)-q_float('txtSaleweight_'+j)-q_float('txtGetweight_'+j)-q_float('txtOutsweight_'+j)+q_float('txtBackweight_'+j)+q_float('txtOtherweight_'+j))
+					
+					//金額
+					q_tr('txtMoney1_'+j,q_float('txtBeginmoney_'+j)+q_float('txtInmoney_'+j)+q_float('txtBornmoney_'+j)+q_float('txtOutvmoney_'+j));
+					q_tr('txtLastmoney_'+j,q_float('txtMoney1_'+j)-q_float('txtSalemoney_'+j)-q_float('txtGetmoney_'+j)-q_float('txtOutsmoney_'+j)+q_float('txtBackmoney_'+j)+q_float('txtOthermoney_'+j));
+					//單價
+					//if(q_float('txtLastmount_'+j)>0)
+					//	q_tr('txtLastprice_'+j,round(q_float('txtLastmoney_'+j)/q_float('txtLastmount_'+j),2));
+					//else
+					//	q_tr('txtLastprice_'+j,0);
+					if(q_float('txtLastweight_'+j)>0)
+						q_tr('txtLastprice_'+j,round(q_float('txtLastmoney_'+j)/q_float('txtLastweight_'+j),2));
+					else
+						q_tr('txtLastprice_'+j,0);
                 } // j
             }
 
@@ -346,7 +412,12 @@
             .tbbm textarea {
             	font-size: medium;
             }
-            
+            .tbbs select {
+                border-width: 1px;
+                padding: 0px;
+                margin: -1px;
+                font-size:medium;
+            }
              input[type="text"],input[type="button"] {     
                 font-size: medium;
             }
@@ -359,7 +430,7 @@
          	font-size:medium;
          	color:blue;
          	background:#cad3ff;
-         	width: 3500px;
+         	width: 3600px;
          }
 		 .dbbs .tbbs tr{
 		 	height:35px;
@@ -394,13 +465,17 @@
             <td class="td3"><span> </span><a id="lblMon" class="lbl"> </a></td>
             <td class="td4"><input id="txtMon" type="text" class="txt c1"/></td>
         </tr>
+         <tr class="tr1">
+        	<td class="td3"><span> </span></td>
+            <td class="td4"><input id="btnImport" type="button" style="float: left;"/></td>
+        </tr>
         </table>
         </div>
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:2%;"><a id="lblTypea_s" > </a></td>
+                <td align="center" style="width:3%;"><a id="lblTypea_s" > </a></td>
                 <td align="center" style="width:5%;"><a id='lblProduct_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblBeginmount_s'> </a></br> / <a id='lblBeginweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblBeginmoney_s'> </a></td>
@@ -420,6 +495,8 @@
                 <td align="center" style="width:3%;"><a id='lblGetmoney_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblOutsmount_s'> </a></br> / <a id='lblOutsweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblOutsmoney_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblBackmount_s'> </a></br> / <a id='lblBackweight_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblBackmoney_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblOthermount_s'> </a></br> / <a id='lblOtherweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblOthermoney_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblLastmount_s'> </a></br> / <a id='lblLastweight_s'> </a></td>
@@ -432,23 +509,23 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td ><select id="cmbTypea.*" class="txt c1"> </select></td>
+                <td ><select id="cmbTypea.*" class="txt c1" > </select></td>
                 <td >
-                	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                 	<input  id="txtProductno.*" type="text" style="width:80%;" />
+                	<input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:right;" />
                 	<input  id="txtProduct.*" type="text" style="width:80%;"/>
                 	<input id="txtNoq.*" type="hidden" />
                 </td>
                 <td ><input  id="txtBeginmount.*" type="text" class="txt c1 num"/>
                 	<input  id="txtBeginweight.*" type="text" class="txt c1 num"/>
                 </td>
-                <td ><input  id="txtBeginprice.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtBeginmoney.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtBeginprice.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtInmount.*" type="text" class="txt c1 num"/>
                 	<input  id="txtInweight.*" type="text" class="txt c1 num"/>
                 </td>
-                <td ><input  id="txtInprice.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtInmoney.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtInprice.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtBornmount.*" type="text" class="txt c1 num"/>
                 	<input  id="txtBornweight.*" type="text" class="txt c1 num"/>
                 </td>
@@ -474,6 +551,10 @@
                 	<input  id="txtOutsweight.*" type="text" class="txt c1 num"/>
                 </td>
                 <td ><input  id="txtOutsmoney.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtBackmount.*" type="text" class="txt c1 num"/>
+                	<input  id="txtBackweight.*" type="text" class="txt c1 num"/>
+                </td>
+                <td ><input  id="txtBackmoney.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtOthermount.*" type="text" class="txt c1 num"/>
                 	<input  id="txtOtherweight.*" type="text" class="txt c1 num"/>
                 </td>
@@ -481,8 +562,8 @@
                 <td ><input  id="txtLastmount.*" type="text" class="txt c1 num"/>
                 	<input  id="txtLastweight.*" type="text" class="txt c1 num"/>
                 </td>
-                <td ><input  id="txtLastprice.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtLastmoney.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtLastprice.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtSampmount.*" type="text" class="txt c1 num"/>
                 	<input  id="txtSampweight.*" type="text" class="txt c1 num"/>
                 </td>

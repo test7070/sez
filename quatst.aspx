@@ -18,11 +18,12 @@
             q_tables = 's';
             var q_name = "quat";
             var q_readonly = ['txtComp', 'txtAcomp','txtSales','txtWorker','txtNoa'];
-            var q_readonlys = [];
+            var q_readonlys = ['txtNo3','txtNo2'];
             var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1],
-            			  ['txtWeight', 15, 3, 1],['txtTpayweight', 10, 2, 1],['txtTunpayweight', 15, 0, 1],
-            			  ['txtTtransferorde', 15, 3, 1],['txtTuntransferorde', 15, 3, 1],['txtMpayweight', 10, 2, 1],
-            			  ['txtMunpayweight', 15, 0, 1],['txtMtransferorde', 15, 3, 1],['txtMuntransferorde', 15, 3, 1]
+            			  ['txtFloata', 15, 3, 1],['txtWeight', 15, 3, 1],['txtTpayweight', 10, 2, 1],
+            			  ['txtTunpayweight', 15, 0, 1],['txtTtransferorde', 15, 3, 1],['txtTuntransferorde', 15, 3, 1],
+            			  ['txtMpayweight', 15, 3, 1],['txtMunpayweight', 15, 3, 1],['txtMtransferorde', 15, 3, 1],
+            			  ['txtMuntransferorde', 15, 3, 1]
             			 ];
             var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],['txtPrice', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTheory', 15, 3, 1]];
             var bbmMask = [];
