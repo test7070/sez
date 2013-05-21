@@ -53,6 +53,7 @@
 
                 mainForm(1);
             }
+            var stbi='';
             function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtMon', r_picm]];
@@ -63,6 +64,7 @@
 						alert('請先輸入'+q_getMsg('lblMon'));
 						return;
 					}
+					stbi=q_getPara('gena.import');//判斷要匯入bi或st資料
 					//取得上個月
 					var prvmon='';
 					var t_prvmon=new Date(dec($('#txtMon').val().substr(0,3))+1911,dec($('#txtMon').val().substr(4,2))-1,1);
@@ -71,12 +73,24 @@
 				    //月份
 				    prvmon = prvmon+(t_prvmon.getMonth()>9?(t_prvmon.getMonth()+1)+'':'0'+(t_prvmon.getMonth()+1));
 					
-					var t_where = "where=^^ left(a.datea,6)= '"+$('#txtMon').val()+"' group by b.productno,b.product,b.unit ^^";
-					var t_where1 = "where[1]=^^ wa.ordeno+wa.no2 in (select ordeno+no2 from workbs"+r_accy+" where left(datea,6)= '"+$('#txtMon').val()+"')and wa.productno=b.productno ^^";
-					var t_where2 = "where[2]=^^ productno=b.productno and mon='"+prvmon+"' ^^";
-					var t_where3 = "where[3]=^^ rcb.ordeno+rcb.no2 in (select ordeno+no2 from workbs102 where left(datea,6)= '"+$('#txtMon').val()+"' and productno=b.productno) ^^";
+					if(stbi=='st'){
+						var t_where = "where=^^ 1=0 and left(a.datea,6)= '"+$('#txtMon').val()+"' group by b.productno,b.product,b.unit ^^";
+						var t_where1 = "where[1]=^^ 1=1 group by b.productno,b.product,a.unit ^^";
+					}
+					if(stbi=='bi'){
+						var t_where = "where=^^ 1=1 and left(a.datea,6)= '"+$('#txtMon').val()+"' group by b.productno,b.product,b.unit ^^";
+						var t_where1 = "where[1]=^^ 1=0 group by b.productno,b.product,a.unit ^^";
+					}
+					//st
+					var t_where2 = "where[2]=^^ left(a.datea,6)='"+$('#txtMon').val()+"' ^^";
+					var t_where3 = "where[3]=^^ left(wa.datea,6)= '"+$('#txtMon').val()+"' and wa.productno=b.productno ^^";
+					var t_where4 = "where[4]=^^ uccb.productno=b.productno group by uccb.productno ^^";
+					//bi
+					var t_where5 = "where[5]=^^ wa.ordeno+wa.no2 in (select ordeno+no2 from workbs"+r_accy+" where left(datea,6)= '"+$('#txtMon').val()+"')and wa.productno=b.productno ^^";
+					var t_where6 = "where[6]=^^ productno=b.productno and mon='"+prvmon+"' ^^";
+					var t_where7 = "where[7]=^^ rcb.ordeno+rcb.no2 in (select ordeno+no2 from workbs102 where left(datea,6)= '"+$('#txtMon').val()+"' and productno=b.productno) ^^";
 					
-			        q_gt('gena_bi', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
+			        q_gt('gena_import', t_where+t_where1+t_where2+t_where3+t_where4+t_where5+t_where6+t_where7, 0, 0, 0, "", r_accy);
 				});
             }
 		
@@ -94,24 +108,30 @@
 			var t_factitmoney=0,t_makemoney=0;
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'gena_bi':
+                	case 'gena_import':
                 			var as = _q_appendData("worka", "", true);
                 			if(as[0]==undefined)
                 				return;
                 			for (var i = 0; i < as.length; i++) {
                 				//看公司要用數量還是重量計算
-                				//當期 bi 原料成本單價(期初金額+本期進貨金額) /(期初重量+本期進貨重量)
-                				//as[i].stuffprice1=(dec(as[i].bmoney)+dec(as[i].rmoney))/(dec(as[i].bmount)+dec(as[i].rmount)); //數量
-                				as[i].stuffprice2=dec((dec(as[i].bmoney)+dec(as[i].rmoney))/(dec(as[i].bweight)+dec(as[i].rweight))); //重量
-                				//as[i].stuffmoney1=dec(as[i].wamount)*dec(as[i].stuffprice1); //數量->直接原料金額
-                				as[i].stuffmoney2=dec(as[i].waweight)*dec(as[i].stuffprice2); //重量->直接原料金額
+                				if(stbi=='bi'){
+                					//當期 bi 原料成本單價(期初金額+本期進貨金額) /(期初重量+本期進貨重量)
+                					//as[i].sprice=(dec(as[i].bmoney)+dec(as[i].rmoney))/(dec(as[i].bmount)+dec(as[i].rmount)); //數量
+                					as[i].sprice=dec((dec(as[i].bmoney)+dec(as[i].rmoney))/(dec(as[i].bweight)+dec(as[i].rweight))); //重量
+                				}
+                				if(stbi=='st'){
+                					//當期 st 原料成本單價uccb.sprice
+                					as[i].sprice=dec(as[i].sprice); 
+                				}
+                				//as[i].stuffmoney1=dec(as[i].wamount)*dec(as[i].sprice); //數量->直接原料金額
+                				as[i].stuffmoney2=dec(as[i].waweight)*dec(as[i].sprice); //重量->直接原料金額
                 				
                 				//會計科目處理
                 				as[i].acc1='1136.'+as[i].productno;
                 				as[i].acc2='製成品-'+as[i].product;
                 			}
-                			//q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtAcc1,txtAcc2,txtBornmount,txtUnit,txtStuffmount,txtStuffmoney,txtStuffprice', as.length, as, 'productno,product,acc1,acc2,wbmount,unit,wamount,stuffmoney1,stuffprice1', '');
-                			q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtAcc1,txtAcc2,txtBornweight,txtUnit,txtStuffweight,txtStuffmoney,txtStuffprice', as.length, as, 'productno,product,acc1,acc2,wbweight,unit,waweight,stuffmoney2,stuffprice2', '');
+                			//q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtAcc1,txtAcc2,txtBornmount,txtUnit,txtStuffmount,txtStuffmoney,txtStuffprice', as.length, as, 'productno,product,acc1,acc2,wbmount,unit,wamount,stuffmoney1,sprice', '');
+                			q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtAcc1,txtAcc2,txtBornweight,txtUnit,txtStuffweight,txtStuffmoney,txtStuffprice', as.length, as, 'productno,product,acc1,acc2,wbweight,unit,waweight,stuffmoney2,sprice', '');
                 			sum();
                 			//讀取直接人工54開頭和製造費用55開頭的會計科目
                 			var t_where = "where=^^ left(accc2,2)='"+$('#txtMon').val().substr(4,2)+"' and left(accc5,2)='54' ^^";

@@ -1022,8 +1022,9 @@
 						<input type="text" id="txtIndate.*" style="width:85%;" />
 					</td>
 					<td>
-					<input type="text" id="txtCheckno.*"  style="width:95%;" />
-					<input type="text" id="txtAccount.*"  style="width:95%;" />
+						<input type="text" id="txtCheckno.*"  style="width:95%;" />
+						<input type="text" id="txtAccount.*"  style="width:95%;" />
+						<input type="text" id="txtTitle.*"  style="width:95%;" />
 					</td>
 					<td>
 						<input class="btn"  id="btnBankno.*" type="button" value='.' style=" font-weight: bold;width:5%;float:left;" />

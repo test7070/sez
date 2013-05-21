@@ -18,7 +18,7 @@
             q_desc=1;
             q_tables = 's';
             var q_name="welfare";
-            var q_readonly = ['txtNoa'];
+            var q_readonly = ['txtNoa','txtIncome','txtPay'];
             var q_readonlys = [];
             var bbmNum = [['txtIncome',10,0,0,1],['txtPay',10,0,0,1]];
             var bbsNum = [['txtIncome',10,0,0,1],['txtPay',10,0,0,1]];
