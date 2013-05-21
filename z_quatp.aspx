@@ -18,11 +18,11 @@
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_quatst');
+                q_gf('', 'z_quatp');
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_quatst',
+                    fileName : 'z_quatp',
                     options : [{
 						type : '0',
 						name : 'accy',

@@ -56,6 +56,29 @@
                 q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
                 q_cmbParse("cmbTrantype", q_getPara('sys.tran'));
 				
+				$('#txtNoa').change(function(e){
+                	$(this).val($.trim($(this).val()).toUpperCase());    	
+					if($(this).val().length>0){
+						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
+							t_where="where=^^ noa='"+$(this).val()+"'^^";
+                    		q_gt('cust', t_where, 0, 0, 0, "checkCustno_change", r_accy);
+						}else{
+							Lock();
+							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+							Unlock();
+						}
+					}
+                });
+                $('#txtSerial').change(function() {
+                	$(this).val($.trim($(this).val()).toUpperCase());
+                	if ($(this).val().length > 0 && checkId($(this).val())!=2){
+                		Lock();
+	            		alert(q_getMsg('lblSerial')+'錯誤。');
+	            		Unlock();
+	            	}
+                });
+
+				
 				$("#cmbTypea").focus(function() {
                     var len = $(this).children().length > 0 ? $(this).children().length : 1;
                     $(this).attr('size', len + "");
@@ -118,6 +141,23 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'checkCustno_change':
+                		var as = _q_appendData("cust", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].comp);
+                        }
+                		break;
+                	case 'checkCustno_btnOk':
+                		var as = _q_appendData("cust", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].comp);
+                            Unlock();
+                            return;
+                        }else{
+                        	wrServer($('#txtNoa').val());
+                        }
+                		break;
+
                 	case 'credit_sum':
                 		var creditMsg = '<table>';
                 		var credit,unorde = 0,ungqb = 0,umm_opay = 0,umm_unpay = 0,vcc_unpay = 0,total = 0,unpay = 0;
@@ -144,9 +184,6 @@
                         if (q_cur == 4)
                             q_Seek_gtPost();
 
-                        if (q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                         break;
                 }  /// end switch
             }
@@ -159,6 +196,7 @@
             }
             function btnIns() {
                 _btnIns();
+                refreshBbm();
                 $('#txtNoa').focus();
             }
 
@@ -166,6 +204,7 @@
                 if (emp($('#txtNoa').val()))
                     return;
                 _btnModi();
+                refreshBbm();
                 $('#txtNoa').attr('readonly','readonly');
                 $('#txtComp').focus();
             }
@@ -173,29 +212,42 @@
             function btnPrint() {
                 q_box('z_custtran.aspx' + "?;;;;" + r_accy + ";noa=" + trim($('#txtNoa').val()), '', "95%", "95%", q_getMsg("popPrint"));
             }
-            function btnOk() {        	
-            	if ($('#txtSerial').val().length > 0 && checkId($('#txtSerial').val())!=2)
+             function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                Unlock();
+            }
+            function btnOk() {
+            	Lock(); 
+            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
+            	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
+				}else{
+					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+					Unlock();
+					return;
+				}
+        	
+            	if ($('#txtSerial').val().length > 0 && checkId($('#txtSerial').val())!=2){
                     alert(q_getMsg('lblSerial')+'錯誤。');
+                    Unlock();
+            		return;
+				}
                 if($('#txtChkdate').val().length>0 && !q_cd($('#txtChkdate').val()))
             		alert(q_getMsg('lblChkdate')+'錯誤。');  
             	if($('#txtStartdate').val().length>0 && !q_cd($('#txtStartdate').val()))
             		alert(q_getMsg('lblStartdate')+'錯誤。');
-            		
+            		var t_err = '';	
             	if (dec($('#txtCredit').val()) > 9999999999)
                     t_err = t_err + q_getMsg('msgCreditErr') + '\r'; 
-                    		           
-                var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }
+                 
                 $('#txtWorker' ).val(r_name);
-                var t_noa = trim($('#txtNoa').val());
-                if (t_noa.length == 0)
-                    q_gtnoa(q_name, t_noa);
-                else
-                    wrServer(t_noa);
+                if(q_cur==1){
+                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
+                    q_gt('cust', t_where, 0, 0, 0, "checkCustno_btnOk", r_accy);
+                }else{
+                	wrServer($('#txtNoa').val());
+                }
+
             }
 
             function wrServer(key_value) {
@@ -207,7 +259,16 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                refreshBbm();
             }
+			function refreshBbm(){
+            	if(q_cur==1){
+            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
+            	}else{
+            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+            	}
+            }
+
 
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
