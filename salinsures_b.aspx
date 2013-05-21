@@ -1,33 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta http-equiv="Content-Language" content="en-us" />
-		<title> </title>
-		<script src="../script/jquery.min.js" type="text/javascript"> </script>
-		<script src="../script/qj2.js" type="text/javascript"> </script>
-		<script src='qset.js' type="text/javascript"> </script>
-		<script src="../script/qj_mess.js" type="text/javascript"> </script>
-		<script src="../script/qbox.js" type="text/javascript"> </script>
-    	<link href="../qbox.css" rel="stylesheet" type="text/css" />
+		<title></title>
+		<script src="../script/jquery.min.js" type="text/javascript"></script>
+		<script src='../script/qj2.js' type="text/javascript"></script>
+		<script src='qset.js' type="text/javascript"></script>
+		<script src='../script/qj_mess.js' type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
+		<script src="../script/qbox.js" type="text/javascript"></script>
+		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-	    var q_name = 'salinsures', t_content = ' ', bbsKey = ['noa,mon'], afilter = [] , as; 
-	    var t_postname = q_name;
+
+	    var q_name = 'salinsures', t_bbsTag = 'tbbs', t_content = "", afilter = [] , bbmKey = [], bbsKey = ['noa,noq'], as, brwCount2 = 12;
         var t_sqlname = 'salinsures_load';
-	    var isBott = false;  /// 是否已按過 最後一頁
-	    var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
-	    var i,s1;
-		var afield, t_htm;
-	    var q_readonly = [];
-	    var q_readonlys = [];
-	    var bbmNum = [];
-	    var bbsNum = [];
-	    var bbmMask = [];
-	    var bbsMask = [];
+        t_postname = q_name;
+        var isBott = false;
+
+        var afield, t_htm;
+        var i, s1;
+        var q_readonly = [];
+        var q_readonlys = [];
+        var bbmNum = [];
+        var bbsNum = [['txtHe_person', 15, 0, 1],['txtHe_comp', 15, 0, 1],['txtLa_person', 15, 0, 1],['txtLa_comp', 15, 0, 1],['txtRe_person', 15, 0, 1],['txtRe_comp', 15, 0, 1],['txtDisaster', 15, 0, 1],['txtTotal1', 15, 0, 1],['txtTotal2', 15, 0, 1],['txtPay', 15, 0, 1],['txtUnpay', 15, 0, 1],['txtSalary', 15, 0, 1],['txtSa_retire', 15, 0, 1],['txtSa_labor', 15, 0, 1],['txtSa_health', 15, 0, 1],['txtMount', 15, 0, 1]];
+        var bbmMask = [];
+	    var bbsMask = [['txtMon', '999/99']];
 	    aPop = new Array(['txtCno_', 'btnCno_', 'acomp', 'noa,acomp', 'txtCno_,txtComp_', 'acomp_b.aspx']);
 	    
         $(document).ready(function () {
 			bbmKey = [];
-			bbsKey = ['noa', 'mon'];
+			bbsKey = ['noa', 'noq'];
             main();
         });         /// end ready
 
@@ -37,15 +38,16 @@
                 dataErr = false;
                 return;
             }
-                mainBrow(6, t_content, t_sqlname, t_postname);
-                q_mask(bbmMask);
+            mainBrow(6, t_content, t_sqlname, t_postname);
+            q_mask(bbmMask);
+            bbsMask = [['txtMon', '999/99']];
          }
         function btnOk() {
 			t_key = q_getHref();
 			_btnOk(t_key[1], bbsKey[0], bbsKey[1], '', 2);
 		}
 		function bbsSave(as) {
-			if(!as['noa']) {// Dont Save Condition
+			if(!as['mon'] || !as['cno']) {// Dont Save Condition
 				as[bbsKey[0]] = '';
 				return;
 			}
@@ -53,8 +55,61 @@
 			return true;
 		}
 		function bbsAssign() {
-			_bbsAssign();//_bbsAssign('tbbs', bbsHtm, fbbs, '_', bbsMask, bbsNum, q_readonlys, 'btnPlus');
+			for(var j = 0; j < q_bbsCount; j++) {
+				$('#txtMon_'+j).blur(function() {
+					t_IdSeq = -1;
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					
+					if(!emp($('#txtMon_'+b_seq).val()) &&!emp($('#txtCno_'+b_seq).val())){
+						for(var k = 0; k < q_bbsCount; k++) { //檢查是否有重覆
+							if(b_seq!=k&&!emp($('#txtMon_'+k).val()) &&!emp($('#txtCno_'+k).val())&& $('#txtMon_'+b_seq).val()==$('#txtMon_'+k).val() &&$('#txtCno_'+b_seq).val()==$('#txtCno_'+k).val()){
+								alert('月份與公司重覆!!');
+								$('#txtMon_'+b_seq).val('');
+								return;
+							}
+						}
+					}
+				});
+				
+				$('#txtCno_'+j).blur(function() {
+					t_IdSeq = -1;
+					q_bodyId($(this).attr('id'));
+					b_seq = t_IdSeq;
+					
+					if(!emp($('#txtMon_'+b_seq).val()) &&!emp($('#txtCno_'+b_seq).val())){
+						for(var k = 0; k < q_bbsCount; k++) { //檢查是否有重覆
+							if(b_seq!=k&&!emp($('#txtMon_'+k).val()) &&!emp($('#txtCno_'+k).val())&& $('#txtMon_'+b_seq).val()==$('#txtMon_'+k).val() &&$('#txtCno_'+b_seq).val()==$('#txtCno_'+k).val()){
+								alert('月份與公司重覆!!');
+								$('#txtCno_'+b_seq).val('');
+								$('#txtComp_'+b_seq).val('');
+								return;
+							}
+						}
+					}
+				});
+			
+			}
+			_bbsAssign();
 		}
+		
+		function q_popPost(s1) {
+			switch (s1) {
+				case 'txtCno_':
+		             if(!emp($('#txtMon_'+b_seq).val()) &&!emp($('#txtCno_'+b_seq).val())){
+						for(var k = 0; k < q_bbsCount; k++) { //檢查是否有重覆
+							if(b_seq!=k&&!emp($('#txtMon_'+k).val()) &&!emp($('#txtCno_'+k).val())&& $('#txtMon_'+b_seq).val()==$('#txtMon_'+k).val() &&$('#txtCno_'+b_seq).val()==$('#txtCno_'+k).val()){
+								alert('月份與公司重覆!!');
+								$('#txtCno_'+b_seq).val('');
+								$('#txtComp_'+b_seq).val('');
+								return;
+							}
+						}
+					}
+				break;
+			}
+		}
+		
 		function readonly(t_para, empty) {
 			_readonly(t_para, empty);
 		}
@@ -138,6 +193,7 @@
                 <td >
                 	<input class="txt c1" id="txtMon.*" type="text"   readonly="readonly" />
                 	<input class="txt c1" id="txtNoa.*" type="hidden"   readonly="readonly" />
+                	<input class="txt c1" id="txtNoq.*" type="hidden"   readonly="readonly" />
                 </td>
                 <td ><input class="txt num c1" id="txtHe_person.*"  type="text"  readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtHe_comp.*"  type="text"  readonly="readonly" /></td>

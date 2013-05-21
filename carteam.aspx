@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -47,6 +47,19 @@
 		
             function mainPost() {
             	q_mask(bbmMask);
+            	$('#txtNoa').change(function(e){
+                	$(this).val($.trim($(this).val()).toUpperCase());    	
+					if($(this).val().length>0){
+						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
+							t_where="where=^^ noa='"+$(this).val()+"'^^";
+                    		q_gt('carteam', t_where, 0, 0, 0, "checkCarteamno_change", r_accy);
+						}else{
+							Lock();
+							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+							Unlock();
+						}
+					}
+                });
             }
 
             function q_boxClose(s2) {
@@ -61,13 +74,26 @@
             function q_gtPost(t_name) {
 
                 switch (t_name) {
+                	case 'checkCarteamno_change':
+                		var as = _q_appendData("carteam", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].team);
+                        }
+                		break;
+                	case 'checkCarteamno_btnOk':
+                		var as = _q_appendData("carteam", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].team);
+                            Unlock();
+                            return;
+                        }else{
+                        	wrServer($('#txtNoa').val());
+                        }
+                		break;
+
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
-
-                        if(q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                         break;
                 }
             }
@@ -79,23 +105,43 @@
             }
             function btnIns() {
                 _btnIns();
+                refreshBbm();
+                $('#txtNoa').focus();
             }
             function btnModi() {
             	
                 if(emp($('#txtNoa').val()))
                     return;
                 _btnModi();
+                refreshBbm();
+                $('#txtTeam').focus();
             }
             function btnPrint() { 
             }
-
+			function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                Unlock();
+            }
             function btnOk() {
             	if(emp($('#txtNoa').val())){
             		alert('Empty NO!');
             		return;
             	}
-            	var t_noa = $('#txtNoa').val();
-                wrServer(t_noa);
+            	Lock(); 
+            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
+            	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
+				}else{
+					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+					Unlock();
+					return;
+				}
+				if(q_cur==1){
+                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
+                    q_gt('carteam', t_where, 0, 0, 0, "checkCarteamno_btnOk", r_accy);
+                }else{
+                	wrServer($('#txtNoa').val());
+                }
             }
 
             function wrServer(key_value) {
@@ -107,8 +153,15 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                refreshBbm();
             }
-
+			function refreshBbm(){
+            	if(q_cur==1){
+            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
+            	}else{
+            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+            	}
+            }
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
             }

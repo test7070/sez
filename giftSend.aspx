@@ -70,6 +70,12 @@
 	            	}
 	            	sum();
 	       		});
+	       		if ((/^.*(giftcust,1,[0|1],[0|1],[0|1],[0|1],[0|1],[0|1],[0|1]).*$/g).test(q_auth.toString())){
+		       $('#btnGiftcust').click(function () {
+		            q_box('giftcust.aspx', '', "92%", "92%", "禮品客戶主檔");
+		        })
+		       };
+	       		
             }
 
             function q_boxClose(s2) {
@@ -537,6 +543,9 @@
 					<tr>
 						<td><span> </span><a id="lblStore" class="lbl"> </a></td>
 						<td><select id="cmbStoreno" class="txt c1"> </select></td>
+						<td> </td>
+						<td> </td>
+						<td class="td5"><input type="button" id="btnGiftcust" /></td>
 					</tr>
 					<tr>
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
@@ -546,7 +555,8 @@
 						<td class="td1"><span> </span><a id='lblTotal' class="lbl"> </a></td>
 						<td class="td2"><input type="text" id="txtTotal" class="txt num c1"/></td>
 						<td class="td3"><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td class="td4"><input type="text" id="txtWorker" class="txt c1"/></td>	
+						<td class="td4"><input type="text" id="txtWorker" class="txt c1"/></td>
+							
 					</tr>
 				</table>
 			</div>

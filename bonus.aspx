@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -28,7 +27,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Noa';
-            q_desc = 1;
+            
             aPop = new Array();
             $(document).ready(function() {
                 bbmKey = ['noa'];
@@ -47,6 +46,19 @@
             function mainPost() {
                 q_getFormat();
                 q_mask(bbmMask);
+                $('#txtNoa').change(function(e){
+                	$(this).val($.trim($(this).val()).toUpperCase());    	
+					if($(this).val().length>0){
+						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
+							t_where="where=^^ noa='"+$(this).val()+"'^^";
+                    		q_gt('bonus', t_where, 0, 0, 0, "checkBonusno_change", r_accy);
+						}else{
+							Lock();
+							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+							Unlock();
+						}
+					}
+                });
             }
             
             function q_funcPost(t_func, result) {
@@ -64,27 +76,48 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'checkBonusno_change':
+                		var as = _q_appendData("bonus", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].memo);
+                        }
+                		break;
+                case 'checkBonusno_btnOk':
+                		var as = _q_appendData("bonus", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].memo);
+                            Unlock();
+                            return;
+                        }else{
+                        	wrServer($('#txtNoa').val());
+                        }
+                		break;
                     case q_name:
                         if(q_cur == 4)
                             q_Seek_gtPost();
                         break;
                 }
             }
-
+			 function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                Unlock();
+            }
             function btnOk() {
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-                if(t_err.length > 0) {
-                    alert(t_err);
-                    return;
+                Lock(); 
+            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
+            	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
+				}else{
+					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+					Unlock();
+					return;
+				}
+				if(q_cur==1){
+                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
+                    q_gt('bonus', t_where, 0, 0, 0, "checkBonusno_btnOk", r_accy);
+                }else{
+                	wrServer($('#txtNoa').val());
                 }
-
-                var t_noa = trim($('#txtNoa').val());
-                if(t_noa.length == 0 || t_noa == "AUTO"){
-                	var t_date = trim($('#txtDatea').val());
-                    q_gtnoa(q_name, replaceAll(q_getPara('sys.key_bonus') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-                }
-                else
-                    wrServer(t_noa);
             }
 
 	        function _btnSeek() {
@@ -102,6 +135,7 @@
 
             function btnIns() {
                 _btnIns();
+                refreshBbm();
                 $('#txtNoa').focus();
             }
 
@@ -109,7 +143,8 @@
                 if(emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                $('#txtNoa').focus();
+                refreshBbm();
+                $('#txtMemo').focus();
             }
 
             function btnPrint() {
@@ -138,8 +173,15 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                refreshBbm();
             }
-
+			function refreshBbm(){
+            	if(q_cur==1){
+            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
+            	}else{
+            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+            	}
+            }
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
             }
