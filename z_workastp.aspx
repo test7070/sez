@@ -18,11 +18,11 @@
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_workap');
+                q_gf('', 'z_workastp');
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_workap',
+                    fileName : 'z_workastp',
                     options : [{
 						type : '0',
 						name : 'accy',
