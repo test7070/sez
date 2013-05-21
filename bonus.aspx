@@ -27,7 +27,7 @@
             brwList = [];
             brwNowPage = 0;
             brwKey = 'Noa';
-            q_desc = 1;
+            
             aPop = new Array();
             $(document).ready(function() {
                 bbmKey = ['noa'];
