@@ -280,7 +280,7 @@
 			//判斷餘料編號是否重複
 			for(var i = 0; i < q_bbsCount; i++) {
 				for(var j = 0; j < q_bbsCount; j++) {
-					if(i!=j&&$('#txtBno_'+i).val()==$('#txtBno_'+j).val())
+					if(i!=j&&!emp($('#txtBno_'+i).val())&&!emp($('#txtBno_'+j).val())&&$('#txtBno_'+i).val()==$('#txtBno_'+j).val())
 					{
 						alert("表身餘料編號重複");
 	                	return;
@@ -486,7 +486,7 @@
         }
 
         function bbsSave(as) {
-            if (!as['comp'] ) {  
+            if (!as['custno'] ) {  
                 as[bbsKey[1]] = '';   
                 return;
             }
