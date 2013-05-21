@@ -10,7 +10,7 @@
 		<script src="../script/qbox.js" type="text/javascript"> </script>
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-	    var q_name = 'salinsures', t_content = ' ', bbsKey = ['noa,mon'], afilter = [] , as; 
+	    var q_name = 'salinsures', t_content = ' ', bbsKey = ['noa,noq'], afilter = [] , as; 
 	    var t_postname = q_name;
         var t_sqlname = 'salinsures_load';
 	    var isBott = false;  /// 是否已按過 最後一頁
@@ -27,7 +27,7 @@
 	    
         $(document).ready(function () {
 			bbmKey = [];
-			bbsKey = ['noa', 'mon'];
+			bbsKey = ['noa', 'noq'];
             main();
         });         /// end ready
 
@@ -138,6 +138,7 @@
                 <td >
                 	<input class="txt c1" id="txtMon.*" type="text"   readonly="readonly" />
                 	<input class="txt c1" id="txtNoa.*" type="hidden"   readonly="readonly" />
+                	<input class="txt c1" id="txtNoq.*" type="hidden"   readonly="readonly" />
                 </td>
                 <td ><input class="txt num c1" id="txtHe_person.*"  type="text"  readonly="readonly" /></td>
                 <td ><input class="txt num c1" id="txtHe_comp.*"  type="text"  readonly="readonly" /></td>
