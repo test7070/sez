@@ -18,16 +18,12 @@
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
-                q_gf('', 'z_workap');
+                q_gf('', 'z_drun');
             });
             function q_gfPost() {
                 $('#q_report').q_report({
-                    fileName : 'z_workap',
+                    fileName : 'z_drun',
                     options : [{
-						type : '0',
-						name : 'accy',
-                        value : q_getId()[4] //[1]
-                    },{
                         type : '1',
                         name : 'date'
                     },{
@@ -42,9 +38,6 @@
                 $('#txtDate1').datepicker();
                 $('#txtDate2').mask('999/99/99');
                 $('#txtDate2').datepicker();
-                var t_key = q_getHref();
-                if(t_key != undefined)
-                	$('#txtXnoa').val(t_key[1]);
             }
 
             function q_boxClose(s2) {

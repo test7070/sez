@@ -391,7 +391,7 @@
             as['custno'] = abbm2['custno'];
 
             if (!as['enda'])
-                as['enda'] = 'N';
+                as['enda'] = '0';
             t_err ='';
             if (as['price'] != null && (dec(as['price']) > 99999999 || dec(as['price']) < -99999999))
                 t_err = q_getMsg('msgPriceErr') + as['price'] + '\n';
