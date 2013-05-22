@@ -22,7 +22,8 @@
             var isInit = false;
             var t_carkind = null;
             aPop = new Array(['txtXcarno', 'lblXcarno', 'car2', 'a.noa,driverno,driver', 'txtXcarno', 'car2_b.aspx']
-            , ['txtXaddr', 'lblXaddr', 'addr', 'noa,addr', 'txtXaddr', 'addr_b.aspx']);
+            , ['txtXaddr', 'lblXaddr', 'addr', 'noa,addr', 'txtXaddr', 'addr_b.aspx'],
+            ['txtYcarno', 'lblYcarno', 'car2', 'a.noa,driverno,driver', 'txtYcarno', 'car2_b.aspx']);
             $(document).ready(function() {
                 _q_boxClose();
                 q_getId();
@@ -162,6 +163,10 @@
                             type : '8',
                             name : 'ycalctypes',
                             value : t_data.data['calctypes'].split(',')
+                        }, {/*23-[26]排序(電腦編號、登錄日期、交運日期、車牌、客戶編號、司機編號、起迄地點)*///*5-4
+                            type : '5',
+                            name : 'ysort03',
+                            value : q_getMsg('tsort03').split('&')
                         }]
                     });
                     q_popAssign();
@@ -173,6 +178,18 @@
                     $('#txtTrandate2').datepicker();
                     $('#txtXcheckrate').val(q_getMsg('trate1'));
                     $('#chkXcarkind').children('input').attr('checked', 'checked');
+                    $('#txtYdate1').mask('999/99/99');
+                    $('#txtYdate1').datepicker();
+                    $('#txtYdate2').mask('999/99/99');
+                    $('#txtYdate2').datepicker();
+                    $('#txtYtrandate1').mask('999/99/99');
+                    $('#txtYtrandate1').datepicker();
+                    $('#txtYtrandate2').mask('999/99/99');
+                    $('#txtYtrandate2').datepicker();
+
+                    $('#chkYoption2').children('input').attr('checked', 'checked');
+                    $('#chkYcarteam').children('input').attr('checked', 'checked');
+                    $('#chkYcalctypes').children('input').attr('checked', 'checked');
 
                 }
             }
