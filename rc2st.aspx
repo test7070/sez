@@ -18,7 +18,7 @@
         var q_name = "rc2";
         var decbbs = [ 'money','total', 'weight', 'mount', 'price', 'sprice', 'dime', 'width', 'lengthb', 'weight2'];
         var decbbm = ['payed', 'unpay', 'usunpay', 'uspayed', 'ustotal', 'discount', 'money', 'tax', 'total', 'weight', 'floata', 'mount', 'price', 'tranmoney','totalus'];
-        var q_readonly = ['txtNoa']; 
+        var q_readonly = ['txtNoa','txtWorker']; 
         var q_readonlys= [];
         var bbmNum = [['txtTotalus', 10, 4, 1],['txtPrice', 10, 3, 1],['txtTranmoney', 10, 0, 1],['txtMoney', 10, 0, 1],['txtTotal', 10, 0, 1],['txtWeight', 10, 0, 1]];  // 允許 key 小數
         var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtWeight', 10, 1, 1],['txtPrice', 10, 2, 1],['txtTotal', 10, 0, 1],['txtGweight', 10, 1, 1]];
@@ -76,6 +76,23 @@
 			       		$('#btnOk').removeAttr('disabled');
 				}
 			});
+            $('#lblInvono').click(function(){
+				t_where = '';
+				t_invo = $('#txtInvono').val();
+                if(t_invo.length > 0){
+                	t_where = "noa='" + t_invo + "'";
+                	q_box("invoice.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'invo', "95%", "95%", q_getMsg('popInvo'));
+                }
+            });
+            $('#lblLcno').click(function(){
+				t_where = '';
+				t_lcno = $('#txtLcno').val();
+                if(t_lcno.length > 0){
+                	t_where = "lcno='" + t_lcno + "'";
+                	q_box("lcs.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'lcs', "95%", "95%", q_getMsg('popLcs'));
+                }
+            });
+		
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、廠商視窗、訂單視窗  關閉時執行
@@ -759,7 +776,7 @@
                <td class="td2" colspan='2' ><input id="txtCno"  type="text" class="txt c2"/><input id="txtAcomp" type="text" class="txt c3"/></td>
                 <td class="td4"><span> </span><a id='lblFloata' class="lbl"></a></td>
                 <td class="td5" colspan='2'><select id="cmbCoin" class="txt c2" ></select><input id="txtFloata"   type="text" class="txt num c2" /></td>
-                <td class="td7"><span> </span><a id='lblInvono' class="lbl"></a></td>
+                <td class="td7"><span> </span><a id='lblInvono' class="lbl btn"></a></td>
                 <td class="td8"><input id="txtInvono"  type="text" class="txt c1"/></td> 
             </tr>
 			<tr class="tr3">
@@ -767,6 +784,8 @@
                 <td class="td2" colspan='2'><input id="txtTggno" type="text" class="txt c2" /><input id="txtTgg"  type="text" class="txt c3"/></td>
                 <td class="td4"><span> </span><a id='lblPaytype' class="lbl"></a></td>
                 <td class="td5" colspan='2'><input id="txtPaytype" type="text" class="txt c3"/> <select id="combPaytype" class="txt c2" onchange='combPaytype_chg()'></select></td> 
+                <td class="td6"><span> </span><a id='lblLcno' class="lbl btn"></a></td>
+                <td class="td7"><input id="txtLcno"  type="text" class="txt c1"/></td> 
             </tr>
             <tr class="tr4">
                 <td class="td1"><span> </span><a id='lblTel' class="lbl"></a></td>
