@@ -14,23 +14,17 @@
 			function onPageError(error) {
 				alert("An error occurred:\r\n" + error.Message);
 			}
-			q_tables = 's';
-			var q_name = "invo";
+			var q_name = "cert";
 			var q_readonly = [];
-			var q_readonlys = [];
-			var bbmNum = [['txtTotal', 15, 0, 1],['txtUsd', 15, 0, 1]];
-			var bbsNum = [['txtQuantity', 15, 0, 1],['txtPrice', 15, 0, 1],['txtAmount', 15, 0, 1]];
+			var bbmNum = [];
 			var bbmMask = [];
-			var bbsMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
 			brwList = [];
 			brwNowPage = 0;
 			brwKey = 'noa';
-			aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
 			$(document).ready(function () {
 				bbmKey = ['noa'];
-				bbsKey = ['noa','noq'];
 				q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1)
 			});
@@ -44,39 +38,21 @@
 				mainForm(0); // 1=Last  0=Top
 			}  ///  end Main()
 	
-	
 			function mainPost() {
                 q_getFormat();
-                bbmMask = [['txtDatea',r_picd],['txtClosing',r_picd],['txtEtd',r_picd],['txtEta',r_picd]];
+                bbmMask = [];
                 q_mask(bbmMask);
-                $('#btnInvo').click(function(){
-                	t_where = '';
-                	t_noa = $('#txtNoa').val();
-                	if(t_noa.length > 0){
-                		t_where = "noa='" + t_noa + "'";
-                		q_box("invo_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'invo', "95%", "95%", q_getMsg('popInvo'));
-                	}
-                });
-                $('#btnPack').click(function(){
-                	t_where = '';
-                	t_noa = $('#txtNoa').val();
-                	if(t_noa.length > 0){
-                		t_where = "noa='" + t_noa + "'";
-                		q_box("packing_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'pack', "95%", "95%", q_getMsg('popPack'));
-                	}
-                });
 			}
 
-			function q_boxClose(s2) { ///   q_boxClose 2/4 
+			function q_boxClose(s2) {
 				var ret;
 				switch (b_pop) {   
 					case q_name + '_s':
 						  q_boxClose2(s2); ///   q_boxClose 3/4
 						  break;
-				}   /// end Switch
+				}
 			}
-	
-	
+			
 			function q_gtPost(t_name) { 
 				switch (t_name) {
 					case q_name: 
@@ -93,36 +69,17 @@
 
 			function btnIns() {
 				_btnIns();
-				$('#txtDatea').val(q_date());
-				$('#btnInvo').attr('disabled','disabled');
-				$('#btnPack').attr('disabled','disabled');
 				$('#txtNoa').focus();
 			}
 	
 			function btnModi() {
 				if (emp($('#txtNoa').val()))
 					return;
-				_btnModi(1);
+				_btnModi();
 			}
 	
 			function btnPrint() {
 	
-			}
-			
-			function bbsSave(as) {
-				if (!as['marks']) {
-					as[bbsKey[1]] = '';
-					return;
-				}
-				q_nowf();     
-				return true;
-			}
-			
-			
-			function bbsAssign() {
-				for (var j = 0; j < q_bbsCount; j++) {
-				}
-				_bbsAssign();
 			}
 
 			function btnOk() {
@@ -144,15 +101,8 @@
 	
 			function wrServer(key_value) {
 				var i;
-	
-				xmlSql = '';
-				if (q_cur == 2) 
-					xmlSql = q_preXml();
-	
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], '', '', 2);
-				$('#btnInvo').removeAttr('disabled');
-				$('#btnPack').removeAttr('disabled');
 			}
 	
 			function refresh(recno) {
@@ -211,8 +161,6 @@
 	
 			function btnCancel() {
 				_btnCancel();
-				$('#btnInvo').removeAttr('disabled');
-				$('#btnPack').removeAttr('disabled');
 			}
 	</script>
 	<style type="text/css">
@@ -292,12 +240,6 @@
 			margin:-1px;
 		}
 		input[type="text"], input[type="button"] {
-			font-size: medium;
-		}
-		.dbbs {
-			width: 100%;
-		}
-		.tbbs a {
 			font-size: medium;
 		}
     </style>
@@ -387,35 +329,7 @@
 			</table>
         </div>
 	</div>
-	<div class='dbbs'>
-		<table id="tbbs" class='tbbs'>
-			<tr style='color:white; background:#003366;' >
-				<td  align="center" style="width:1%;">
-					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
-				</td>
-				<td align="center" style="width:5%;"><a id='lblMarks_s'></a></td>
-				<td align="center" style="width:5%;"><a id='lblDescription_s'></a></td>
-				<td align="center" style="width:2%;"><a id='lblUnit_s'></a></td>
-				<td align="center" style="width:5%;"><a id='lblQuantity_s'></a></td>
-				<td align="center" style="width:5%;"><a id='lblPrice_s'></a></td>
-				<td align="center" style="width:5%;"><a id='lblAmount_s'></a></td>
-				<td align="center" style="width:5%;"><a id='lblMemo_s'></a></td>
-			</tr>
-			<tr  style='background:#cad3ff;'>
-				<td align="center">
-					<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
-					<input id="txtNoq.*" type="text" style="display: none;" />
-				</td>
-				<td><input id="txtMarks.*"  type="text"  class="txt c1"/></td>
-				<td><input id="txtDescription.*"  type="text"  class="txt c1"/></td>
-				<td><input id="txtUnit.*"  type="text"  class="txt c1"/></td>
-				<td><input id="txtQuantity.*"  type="text"  class="txt c1 num"/></td>
-				<td><input id="txtPrice.*"  type="text"  class="txt c1 num"/></td>
-				<td><input id="txtAmount.*"  type="text"  class="txt c1 num"/></td>
-				<td><input id="txtMemo.*"  type="text"  class="txt c1"/></td>
-			</tr>
-		</table>
-	</div>
+	<input id="q_sys" type="hidden" />
 	<input id="q_sys" type="hidden" />
 </body>
 </html>

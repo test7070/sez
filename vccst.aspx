@@ -80,6 +80,14 @@
 		       $('#cmbKind').change(function () {
             	size_change();
 		     });
+            $('#lblInvono').click(function(){
+				t_where = '';
+				t_invo = $('#txtInvono').val();
+                if(t_invo.length > 0){
+                	t_where = "noa='" + t_invo + "'";
+                	q_box("invoice.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'invo', "95%", "95%", q_getMsg('popInvo'));
+                }
+            });
 
         }
 
@@ -769,7 +777,7 @@
             <tr class="tr2">
                <td class="td1"><span> </span><a id='lblAcomp' class="lbl btn"></td>
                <td class="td2" colspan='3' ><input id="txtCno"  type="text" class="txt c4"/><input id="txtAcomp" type="text" class="txt c5"/></td>
-                <td class="td7"><span> </span><a id='lblInvono' class="lbl"></a></td>
+                <td class="td7"><span> </span><a id='lblInvono' class="lbl btn"></a></td>
                 <td class="td8" colspan="2"><input id="txtInvono"  type="text" class="txt c1"/></td> 
             </tr>
 			<tr class="tr3">
