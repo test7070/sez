@@ -73,14 +73,15 @@
 				    //月份
 				    prvmon = prvmon+(t_prvmon.getMonth()>9?(t_prvmon.getMonth()+1)+'':'0'+(t_prvmon.getMonth()+1));
 					
-					var t_where = "where=^^ 1=1 ^^";
-					var t_where1 = "where[1]=^^ productno=a.productno and mon='"+prvmon+"' ^^";
-					var t_where2 = "where[2]=^^ left(datea,6)='"+$('#txtMon').val()+"' and productno=a.productno ^^";
-					var t_where3 = "where[3]=^^ LEFT(a.datea,6)='"+$('#txtMon').val()+"' and LEFT(b.datea,6)='"+$('#txtMon').val()+"' group by a.productno ^^";
-					var t_where4 = "where[4]=^^ productno=sta.productno ^^";
-					var t_where5 = "where[5]=^^ LEFT(datea,6)='"+$('#txtMon').val()+"' group by productno ^^";
+					var t_where = "where=^^ 1=1 group by i.productno,u.product,u.unit ^^";
+					var t_where1 = "where[1]=^^ ordeno+no2=a.ordeno+a.no2 ^^";
+					var t_where2 = "where[2]=^^ productno=a.productno and mon='"+prvmon+"' ^^";
+					var t_where3 = "where[3]=^^ left(datea,6)='"+$('#txtMon').val()+"' and productno=a.productno ^^";
+					var t_where4 = "where[4]=^^ LEFT(a.datea,6)='"+$('#txtMon').val()+"' group by a.productno,a.ordeno,a.no2 ^^";
+					var t_where5 = "where[5]=^^ productno=sta.productno ^^";
+					var t_where6 = "where[6]=^^ LEFT(datea,6)='"+$('#txtMon').val()+"' group by productno ^^";
 					
-			        q_gt('gena_import', t_where+t_where1+t_where2+t_where3+t_where4+t_where5, 0, 0, 0, "", r_accy);
+			        q_gt('gena_import', t_where+t_where1+t_where2+t_where3+t_where4+t_where5+t_where6, 0, 0, 0, "", r_accy);
 				});
             }
 		
@@ -114,9 +115,9 @@
                 			}
                 			//看公司要用數量還是重量計算
                 			if(mw=='m')
-                				q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtAcc1,txtAcc2,txtBornmount,txtUnit,txtStuffmount,txtStuffprice', as.length, as, 'productno,product,acc1,acc2,bmount,unit,smount,mprice', '');	
+                				q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtAcc1,txtAcc2,txtBornmount,txtUnit,txtStuffmount,txtStuffmoney', as.length, as, 'productno,product,acc1,acc2,bmount,unit,smount,msmoney', '');	
                 			if(mw=='w')
-                				 q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtAcc1,txtAcc2,txtBornweight,txtUnit,txtStuffweight,txtStuffprice', as.length, as, 'productno,product,acc1,acc2,bweight,unit,sweight,wprice', '');
+                				 q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtAcc1,txtAcc2,txtBornweight,txtUnit,txtStuffweight,txtStuffmoney', as.length, as, 'productno,product,acc1,acc2,bweight,unit,sweight,wsmoney', '');
                 			
                 			sum();
                 			//讀取直接人工54開頭和製造費用55開頭的會計科目

@@ -369,7 +369,7 @@
 	                		$('#txtSendsign').val($('#txtWastedate').val()+'繳銷'+(!emp($('#txtSendsign').val())?','+$('#txtSendsign').val():''));
 	                		tx_memo=$('#txtWastedate').val()+'繳銷'+tx_memo;
 	                	}
-	                	if(t_carowner!=$('#txtCarowner').val() &&!emp($('#txtCarowner').val())){
+	                	if(t_carowner!=$('#txtCarowner').val() &&!emp($('#txtCarowner').val())&&t_carowner!=''){
 	                		tx_memo='車主'+trim(t_carowner)+q_date()+'換成'+$('#txtCarowner').val()+','+tx_memo;
 	                	}
 	                	$('#txtMemo').val(tx_memo+'\n'+t_memo);
@@ -485,6 +485,15 @@
                 $('#txtSummermon').val('06');
                 $('#txtFallamon').val('09');
                 $('#txtWintermon').val('12');
+                
+                //暫存資料
+                 t_cardeal='';
+                 t_outdate='';
+                 t_enddate='';
+                 t_wastedate='';
+                 t_memo='';
+                 t_outplace='';
+                 t_carowner='';
                 
                 $('#txtNoa').focus();
             }
