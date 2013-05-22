@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -7,10 +6,10 @@
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
-		<script src='../script/mask.js' type="text/javascript"></script>
 		<script src="../script/qbox.js" type="text/javascript"></script>
+		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-		
+
 		<script type="text/javascript">
             this.errorHandler = null;
             function onPageError(error) {
@@ -44,45 +43,25 @@
 
             function mainPost() {
             	q_mask(bbmMask);
-            }
-
-            function txtCopy(dest, source) {
-                var adest = dest.split(',');
-                var asource = source.split(',');
-                $('#' + adest[0]).focus(function() {
-                    if(trim($(this).val()).length == 0)
-                        $(this).val(q_getMsg('msgCopy'));
-                });
-                $('#' + adest[0]).focusout(function() {
-                    var t_copy = ($(this).val().substr(0, 1) == '=');
-                    var t_clear = ($(this).val().substr(0, 2) == ' =');
-                    for(var i = 0; i < adest.length; i++) { {
-                            if(t_copy)
-                                $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                            if(t_clear)
-                                $('#' + adest[i]).val('');
-                        }
-                    }
+            	$('#txtNoa').change(function(e){
+                	$(this).val($.trim($(this).val()).toUpperCase());    	
+					if($(this).val().length>0){
+						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
+							t_where="where=^^ noa='"+$(this).val()+"'^^";
+                    		q_gt('carbrand', t_where, 0, 0, 0, "checkCarbrandno_change", r_accy);
+						}else{
+							Lock();
+							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+							Unlock();
+						}
+					}
                 });
             }
 
+           
             function q_boxClose(s2) {
             	 var ret; 
-            switch (b_pop) {   
-                case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
+            switch (b_pop) {
                 
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
@@ -93,16 +72,25 @@
 
             function q_gtPost(t_name) {
              switch (t_name) {
-                case 'sss': 
-                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                    break;
+              	case 'checkCarbrandno_change':
+                		var as = _q_appendData("carbrand", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].brand);
+                        }
+                		break;
+                case 'checkCarbrandno_btnOk':
+                		var as = _q_appendData("carbrand", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].brand);
+                            Unlock();
+                            return;
+                        }else{
+                        	wrServer($('#txtNoa').val());
+                        }
+                		break;
 
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
-
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                     break;
             }  /// end switch
 
@@ -114,50 +102,62 @@
                q_box('carbrand_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
             }
 
-              function combPay_chg() {  
-            var cmb = document.getElementById("combPay")
-            if (!q_cur) 
-                cmb.value = '';
-            else
-                $('#txtPay').val(cmb.value);
-            cmb.value = '';
-        }
             function btnIns() {
                 _btnIns();
+                 refreshBbm();
+                $('#txtNoa').focus();
             }
 
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
                 _btnModi();
+                refreshBbm();
+                $('#txtBrand').focus();
             }
 
             function btnPrint() {
 
             }
-
+			function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                Unlock();
+            }
             function btnOk() {
-                var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
-
-                var t_noa = $('#txtNoa').val();
-
-                wrServer(t_noa);
+               Lock(); 
+            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
+            	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
+				}else{
+					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+					Unlock();
+					return;
+				}
+				if(q_cur==1){
+                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
+                    q_gt('carbrand', t_where, 0, 0, 0, "checkCarbrandno_btnOk", r_accy);
+                }else{
+                	wrServer($('#txtNoa').val());
+                }
             }
 
             function wrServer(key_value) {
                 var i;
-                xmlSql = '';
-                if(q_cur == 2)/// popSave
-                    xmlSql = q_preXml();
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], '', '', 2);
             }
 
             function refresh(recno) {
                 _refresh(recno);
+                refreshBbm();
             }
-
+			function refreshBbm(){
+            	if(q_cur==1){
+            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
+            	}else{
+            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+            	}
+            }
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
             }
@@ -223,7 +223,7 @@
                 text-align: center
             }
             .tbbm {
-                font-size: 12pt;
+                font-size: medium;
                 color: blue;
                 text-align: left;
                 border-color: white;
@@ -266,12 +266,15 @@
                 width: 85%;
                 float: left;
             }
+            input[type="text"], input[type="button"] {
+                font-size: medium;
+            }
 		</style>
 	</head>
 	<body>
 		<form id="form1" style="height: 100%;" action="">
 			<!--#include file="../inc/toolbar.inc"-->
-			<div class="dview" id="dview" style="float: left;  width:32%;"  >
+			<div class="dview" id="dview" style="float: left;  width:300px;"  >
 				<table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
 					<tr>
 						<td align="center" style="width:5%"><a id='vewChk'></a></td>
@@ -287,7 +290,7 @@
 					</tr>
 				</table>
 			</div>
-			<div class='dbbm' style="width: 68%;float:left">
+			<div class='dbbm' style="width: 500px;float:left">
 				<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='0'>
 					<tr class="tr1">
 						<td class="td1"><a id="lblNoa" class="label"></a></td>
@@ -296,10 +299,6 @@
 						</td>
 						<td class="td3"></td>	
 						<td class="td4"></td>	
-						<td class="td5"></td>	
-						<td class="td6"></td>	
-						<td class="td7"></td>	
-						<td class="td8"></td>	
 					</tr>
 					<tr class="tr2">
 						<td class="td1"><a id="lblBrand" class="label"></a></td>

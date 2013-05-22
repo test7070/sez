@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -46,42 +46,11 @@
 				q_mask(bbmMask);
         }
 
-        function txtCopy(dest, source) {
-            var adest = dest.split(',');
-            var asource = source.split(',');
-            $('#' + adest[0]).focus(function () { if (trim($(this).val()).length == 0) $(this).val( q_getMsg('msgCopy')); });
-            $('#' + adest[0]).focusout(function () {
-                var t_copy = ($(this).val().substr(0, 1) == '=');
-                var t_clear = ($(this).val().substr(0, 2) == ' =') ;
-                for (var i = 0; i < adest.length; i++) {
-                    {
-                        if (t_copy)
-                            $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                        if( t_clear)
-                            $('#' + adest[i]).val('');
-                    }
-                }
-            });
-        }
+       
         
         function q_boxClose( s2) { 
             var ret; 
-            switch (b_pop) {  
-                case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-                
+            switch (b_pop) {                
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -91,16 +60,9 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case 'sss':  
-                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                    break;
-
+               
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
-
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                     break;
             }  /// end switch
         }
@@ -112,18 +74,11 @@
             q_box('palchg_s.aspx', q_name + '_s', "500px", "330px", q_getMsg( "popSeek"));
         }
 
-        function combPay_chg() {   
-            var cmb = document.getElementById("combPay")
-            if (!q_cur) 
-                cmb.value = '';
-            else
-                $('#txtPay').val(cmb.value);
-            cmb.value = '';
-        }
-
         function btnIns() {
             _btnIns();
-            $('#txtNoa').focus();
+            $('#txtNoa').val('AUTO');
+            $('#txtDatea').val(q_date());
+            $('#txtDatea').focus();
         }
 
         function btnModi() {
@@ -138,35 +93,12 @@
  
         }
         function btnOk() {
-            var t_err = '';
-
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
-
-            if ( dec( $('#txtCredit').val()) > 9999999999)
-                t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
-
-            if ( dec( $('#txtStartn').val()) > 31)
-                t_err = t_err + q_getMsg( "lblStartn")+q_getMsg( "msgErr")+'\r';
-            if (dec( $('#txtGetdate').val()) > 31)
-                t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
-
-            if( t_err.length > 0) {
-                alert(t_err);
-                return;
-            }
-            var t_noa = trim($('#txtNoa').val());
-            if (emp($('#txtUacc1').val()))
-                $('#txtUacc1').val('1123.' + t_noa);
-            if (emp($('#txtUacc2').val()))
-                $('#txtUacc2').val('1121.' + t_noa);
-            if (emp($('#txtUacc3').val()))
-                $('#txtUacc3').val( '2131.'+t_noa);
-
-
-            if ( t_noa.length==0 )  
-                q_gtnoa(q_name, t_noa);
-            else
-                wrServer(  t_noa);
+			var t_noa = trim($('#txtNoa').val());
+                var t_date = trim($('#txtDatea').val());
+                if (t_noa.length == 0 || t_noa == "AUTO")
+                    q_gtnoa(q_name, replaceAll('PAL' + (t_date.length == 0 ? q_date() : t_date), '/', ''));
+                else
+                    wrServer(t_noa);
         }
 
         function wrServer( key_value) {

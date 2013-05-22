@@ -25,7 +25,7 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
 
-            brwCount2 = 2;
+            brwCount2 = 20;
             q_brwCount();
 
             q_gt(q_name, q_content, q_sqlCount, 1)
@@ -46,30 +46,22 @@
 
         function mainPost() { 
             q_mask(bbmMask);
-
+			$('#txtNoa').change(function(e){
+                	$(this).val($.trim($(this).val()).toUpperCase());    	
+					if($(this).val().length>0){
+						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
+							t_where="where=^^ noa='"+$(this).val()+"'^^";
+                    		q_gt('addrcase', t_where, 0, 0, 0, "checkAddrcaseno_change", r_accy);
+						}else{
+							Lock();
+							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+							Unlock();
+						}
+					}
+                });
         }
 
-
-        function txtCopy(dest, source) {
-            var adest = dest.split(',');
-            var asource = source.split(',');
-            $('#' + adest[0]).focus(function () { if (trim($(this).val()).length == 0) $(this).val( q_getMsg('msgCopy')); });
-            $('#' + adest[0]).focusout(function () {
-                var t_copy = ($(this).val().substr(0, 1) == '=');
-                var t_clear = ($(this).val().substr(0, 2) == ' =') ;
-                for (var i = 0; i < adest.length; i++) {
-                    {
-                        if (t_copy)
-                            $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                        if( t_clear)
-                            $('#' + adest[i]).val('');
-                    }
-                }
-            });
-        }
-        
-        function q_boxClose( s2) { 
+        function q_boxClose(s2) { 
             var ret; 
             switch (b_pop) {   
                 
@@ -82,9 +74,22 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case 'sss':  
-                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                    break;
+                	case 'checkAddrcaseno_change':
+                		var as = _q_appendData("addrcase", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].addr);
+                        }
+                		break;
+                	case 'checkAddrcaseno_btnOk':
+                		var as = _q_appendData("addrcase", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].addr);
+                            Unlock();
+                            return;
+                        }else{
+                        	wrServer($('#txtNoa').val());
+                        }
+                		break;
 
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
@@ -99,56 +104,47 @@
             q_box('addrcase_s.aspx', q_name + '_s', "500px", "310px", q_getMsg( "popSeek"));
         }
 
-        function combPay_chg() {   
-            var cmb = document.getElementById("combPay")
-            if (!q_cur) 
-                cmb.value = '';
-            else
-                $('#txtPay').val(cmb.value);
-            cmb.value = '';
-        }
-
         function btnIns() {
             _btnIns();
+            refreshBbm();
             $('#txtNoa').focus();
         }
 
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
-
             _btnModi();
-            $('#txtComp').focus();
+            refreshBbm();
+            $('#txtAddr').focus();
         }
 
         function btnPrint() {
- 
         }
-        function btnOk() {
-            var t_err = '';
-
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')] ]);
-
-            if( t_err.length > 0) {
-                alert(t_err);
-                return;
+        function q_stPost() {
+            if (!(q_cur == 1 || q_cur == 2))
+         return false;
+                Unlock();
             }
-            var t_noa = trim($('#txtNoa').val());
+        function btnOk() {
+          Lock(); 
+            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
+            	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
+				}else{
+					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+					Unlock();
+					return;
+				}
+				if(q_cur==1){
+                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
+                    q_gt('addrcase', t_where, 0, 0, 0, "checkAddrcaseno_btnOk", r_accy);
+                }else{
+                	wrServer($('#txtNoa').val());
+                }
 
-
-            if ( t_noa.length==0 )  
-                q_gtnoa(q_name, t_noa);
-            else
-                wrServer(  t_noa);
-        }
+        	        }
 
         function wrServer( key_value) {
             var i;
-
-            xmlSql = '';
-            if (q_cur == 2)   
-                xmlSql = q_preXml();
-
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
             _btnOk(key_value, bbmKey[0], '','',2);
         }
@@ -157,9 +153,15 @@
         
         function refresh(recno) {
             _refresh(recno);
-           
+          refreshBbm(); 
         }
-
+		function refreshBbm(){
+            	if(q_cur==1){
+            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
+            	}else{
+            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+            	}
+            }
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
         }
@@ -218,7 +220,7 @@
             }
             .dview {
                 float: left;
-                width: 38%;
+                width: 300px;
             }
             .tview {
                 margin: 0;
@@ -236,7 +238,7 @@
             }
             .dbbm {
                 float: left;
-                width: 60%;
+                width: 600px;
                 margin: -1px;
                 border: 1px black solid;
                 border-radius: 5px;
@@ -326,11 +328,11 @@
 <body>
 <!--#include file="../inc/toolbar.inc"-->
         <div id='dmain' >
-        <div class="dview" id="dview" style="float: left;  width:25%;"  >
+        <div class="dview" id="dview"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
                 <td align="center" style="width:5%"><a id='vewChk'></a></td>                
-                <td align="center" style="width:25%"><a id='vewNoa'></a></td>
+                <td align="center" style="width:15%"><a id='vewNoa'></a></td>
                 <td align="center" style="width:25%"><a id='vewAddr'></a></td>
             </tr>
              <tr>
@@ -340,7 +342,7 @@
             </tr>
         </table>
         </div>
-        <div class='dbbm' style="width: 73%;float: left;">
+        <div class='dbbm' >
         <table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing='5'>            
             <tr>
                <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
@@ -352,7 +354,7 @@
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblAddr' class="lbl"></a></td>
-               <td class="td2" colspan="2"><input id="txtAddr"  type="text" class="txt c1"/></td>
+               <td class="td2" colspan="3"><input id="txtAddr"  type="text" class="txt c1"/></td>
                <td class="td5"> </td>
                <td class="td6"> </td>
             </tr>
