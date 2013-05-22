@@ -67,6 +67,9 @@
                 $('#txtDatea').change(function() {
                     chkTrip('chk_trip_change');
                 });
+                $('#lblAgent').click(function () {
+	            	q_box("sss_b2.aspx", 'sss', "95%", "95%", q_getMsg("popSss"));
+	        	});
 
             }
 
@@ -74,6 +77,21 @@
                 var
                 ret;
                 switch (b_pop) {
+                	case 'sss':
+                        ret = getb_ret();
+                        if(q_cur > 0 && q_cur < 4){
+	                        if(ret[0]!=undefined){
+	                        	for (var i = 0; i < ret.length; i++) {
+	                        		if($('#txtAgent').val().length>0){
+		                            	var temp=$('#txtAgent').val();
+		                            	$('#txtAgent').val(temp+','+ret[i].namea);
+		                            }else{
+		                            	$('#txtAgent').val(ret[i].namea);
+		                            } 
+	                        	}
+	                        }
+						}
+                        break;
                     case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
@@ -516,6 +534,11 @@
 						<td>
 							<input id="txtPartno"  type="text" style="float:left;display:none;"/>
 							<input id="txtPart"  type="text" style="float:left;width:40%;"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="td1"><span> </span><a id='lblAgent' class="lbl btn"> </a></td>
+						<td class="td2" colspan="3"><input id="txtAgent"  type="text" class="txt c1"/>
 						</td>
 					</tr>
 					<tr>
