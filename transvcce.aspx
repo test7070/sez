@@ -943,6 +943,7 @@
 					<td align="center" style="width:60px;"><a id='lblMount_s'> </a></td>
 					<td align="center" style="width:120px;"><a id='lblCaseno_s'> </a></td>
 					<td align="center" style="width:280px;"><a id='lblMsg_s'> </a></td>
+					<td align="center" style="width:100px;"><a id='lblMemo2_s'> </a></td>
 					<td align="center" style="width:40px;"><a id='lblIssend_s' title="若要發送訊息給司機，請打勾。"> </a></td>
 					<td align="center" style="width:40px;"><a id='lblSendcommandresult_s'> </a></td>
 					<td align="center" style="width:70px;"><a id='lblCommandid_s'> </a></td>
@@ -963,9 +964,10 @@
 					<td><input id="txtMount.*" type="text" style="width: 95%;text-align: right;"/></td>
 					<td>
 						<input id="txtCaseno.*" type="text" style="width: 95%;"/>
-						<input id="txtMemo.*" type="text" style="display: none;"/>
+						<input id="txtMemo.*" type="text" style="display: none;" title="暫存資料用"。/>
 					</td>
 					<td><input id="txtMsg.*" type="text" style="width: 95%;"/></td>
+					<td><input id="txtMemo2.*" type="text" style="width: 95%;"/></td>
 					<td align="center" ><input id="chkIssend.*" title="若要發送訊息給司機，請打勾。" type="checkbox" /></td>
 					<td align="center" ><input id="chkSendcommandresult.*" type="checkbox" /></td>
 					<td><input id="txtCommandid.*" type="text" style="width: 95%;"/></td>
