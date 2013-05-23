@@ -288,7 +288,7 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-                Lock(1,{opacity:0});;
+                Lock(1,{opacity:0});
                 var t_where =" where=^^ vccno='"+ $('#txtNoa').val()+"'^^";
                 q_gt('umms', t_where, 0, 0, 0, 'btnModi',r_accy);
             }
