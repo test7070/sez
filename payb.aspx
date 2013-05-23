@@ -156,13 +156,13 @@
                         	}
                         	if(t_msg.length>0){
                         		alert('已沖帳:'+ t_msg);
-                        		Unlock();
+                        		Unlock(1);
                         		return;
                         	}
                         }
 	                	_btnModi();
 	                	sum();
-	                	Unlock();
+	                	Unlock(1);
                 		$('#txtMemo').focus();
                 		break;
                     case 'payb_fix':
@@ -430,7 +430,7 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-                Lock();
+                Lock(1,{opacity:0});
                 var t_where =" where=^^ rc2no='"+ $('#txtNoa').val()+"'^^";
                 q_gt('pays', t_where, 0, 0, 0, 'btnModi',r_accy);
             }
