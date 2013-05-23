@@ -87,10 +87,10 @@
                 $('#btnTrans').click(function(e) {
                 	if (!(q_cur == 1 || q_cur == 2))
                 		return;
-                	Lock();
+                	Lock(1,{opacity:0});
                 	if ($.trim($('#txtCustno').val()) == 0) {
                         alert('請輸入客戶');
-                        Unlock();
+                        Unlock(1);
                         return false;
                     }
                 	var t_noa = $.trim($('#txtNoa').val());
@@ -123,10 +123,10 @@
                 	
                 });
                 $("#btnCustchg").click(function(e) {
-                	Lock();
+                	Lock(1,{opacity:0});
                     if ($('#txtCustno').val().length == 0) {
                         alert('請輸入客戶編號!');
-                        Unlock();
+                        Unlock(1);
                         return;
                     }
                     t_custchgno = 'custchgno=' + $('#txtCustchgno').val();
@@ -134,10 +134,10 @@
                     q_box("custchg_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_custchgno + ";", 'custchg', "95%", "650px", q_getMsg('popCustchg'));
                 });
                 $("#btnVcca").click(function(e) {
-                    Lock();
+                    Lock(1,{opacity:0});
                     if ($('#txtCustno').val().length == 0) {
                         alert('請輸入客戶編號!');
-                        Unlock();
+                        Unlock(1);
                         return;
                     }
                     t_vccano = 'vccano=' + $('#txtVccano').val();
@@ -166,12 +166,12 @@
                         	}
                         	if(t_msg.length>0){
                         		alert('已沖帳:'+ t_msg);
-                        		Unlock();
+                        		Unlock(1);
                         		return;
                         	}
                         }
                     	_btnDele();
-                    	Unlock();
+                    	Unlock(1);
                 		break;
                 	case 'btnModi':
                 		var as = _q_appendData("umms", "", true);
@@ -184,13 +184,13 @@
                         	}
                         	if(t_msg.length>0){
                         		alert('已沖帳:'+ t_msg);
-                        		Unlock();
+                        		Unlock(1);
                         		return;
                         	}
                         }
                     	_btnModi();
 		                sum();
-		                Unlock();
+		                Unlock(1);
 		                $('#txtDatea').focus();
                 		break;
                 	case 'cust':
@@ -216,7 +216,7 @@
                         $('#txtPlusmoney').val(FormatNumber(t_plusmoney));
                         $('#txtMinusmoney').val(FormatNumber(t_minusmoney));
                         sum();
-                        Unlock();
+                        Unlock(1);
                         break;
                     case 'vcca1':
                         var as = _q_appendData("vcca", "", true);
@@ -228,7 +228,7 @@
                         }
                         $('#txtTax').val(FormatNumber(t_tax));
                         sum();
-                        Unlock();
+                        Unlock(1);
                         break;
                     case 'view_trans':
                         var as = _q_appendData("view_trans", "", true);
@@ -241,7 +241,7 @@
                             }
                         }
                         sum();
-                        Unlock();
+                        Unlock(1);
                         $('#txtCustno').focus();
                         break;
                     case q_name:
@@ -264,7 +264,7 @@
                             }
                             q_gt('custchg', "where=^^" + t_where + "^^", 0, 0, 0, "");
                         }else{
-                        	Unlock();
+                        	Unlock(1);
                         }
                         break;
                     case 'vcca1':
@@ -277,7 +277,7 @@
                             }
                             q_gt('vcca1', "where=^^" + t_where + "^^", 0, 0, 0, "");
                         }else{
-                        	Unlock();
+                        	Unlock(1);
                         }
                         break;
                     case q_name + '_s':
@@ -306,23 +306,23 @@
                 	abbm[q_recno]['year2'] = string[3];
                		//$('#txtYear2').val(string[3]);
                 }
-                Unlock();
+                Unlock(1);
             }
             function btnOk() {
-            	Lock();
+            	Lock(1,{opacity:0});
             	if($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())){
 					alert(q_getMsg('lblDatea')+'錯誤。');
-            		Unlock();
+            		Unlock(1);
             		return;
 				}
 				if($('#txtDatea').val().substring(0,3)!=r_accy){
 					alert('年度異常錯誤，請切換到【'+r_accy+'】年度再作業。');
-					Unlock();
+					Unlock(1);
             		return;
 				}
                 if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
                     alert(q_getMsg('lblMon') + '錯誤。');
-                    Unlock();
+                    Unlock(1);
 					return;
 				}
 				if ($('#txtMon').val().length == 0) {
@@ -368,7 +368,7 @@
             function btnModi() {
             	if (emp($('#txtNoa').val()))
                     return;
-                Lock();
+                Lock(1,{opacity:0});
                 var t_where =" where=^^ vccno='"+ $('#txtNoa').val()+"'^^";
                 q_gt('umms', t_where, 0, 0, 0, 'btnModi',r_accy);
             }
@@ -477,7 +477,7 @@
             }
 
             function btnDele() {
-                Lock();
+                Lock(1,{opacity:0});
                 var t_where =" where=^^ vccno='"+ $('#txtNoa').val()+"'^^";
                 q_gt('umms', t_where, 0, 0, 0, 'btnDele',r_accy);
             }
