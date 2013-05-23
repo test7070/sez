@@ -259,7 +259,7 @@
                             var t_where = '1!=1'; 
                             $('#txtCustchgno').val('');           
                             for (var i = 0; i < b_ret.length; i++) {
-                                $('#txtCustchgno').val(($('#txtCustchgno').val().length>0?',':'')+b_ret[i].noa);
+                                $('#txtCustchgno').val($('#txtCustchgno').val()+($('#txtCustchgno').val().length>0?',':'')+b_ret[i].noa);
                                 t_where += " or noa='" + b_ret[i].noa + "'";
                             }
                             q_gt('custchg', "where=^^" + t_where + "^^", 0, 0, 0, "");
@@ -272,7 +272,7 @@
                         	var t_where = '1!=1'; 
                             $('#txtVccano').val('');           
                             for (var i = 0; i < b_ret.length; i++) {
-                                $('#txtVccano').val(($('#txtVccano').val().length>0?',':'')+b_ret[i].noa);
+                                $('#txtVccano').val($('#txtVccano').val()+($('#txtVccano').val().length>0?',':'')+b_ret[i].noa);
                                 t_where += " or noa='" + b_ret[i].noa + "'";
                             }
                             q_gt('vcca1', "where=^^" + t_where + "^^", 0, 0, 0, "");
