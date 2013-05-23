@@ -64,13 +64,15 @@
                 t_bdate = $('#txtBdate').val();
                 t_edate = $('#txtEdate').val();
                 t_carteam = $('#cmbCarteam').val();
-
+				t_tranno = $.trim($('#txtTranno').val());
+				
                 var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("driverno", t_driverno) + q_sqlPara2("carno", t_carno) + q_sqlPara2("datea", t_bdate, t_edate);
                 if (t_carteam.length > 0)
                     t_where += q_sqlPara2("carteamno", t_carteam);
                 if (t_driver.length > 0)
                     t_where += " and patindex('%" + t_driver + "%',driver)>0";     
-
+				if(t_tranno.length>0)
+		       		t_where += " and exists(select noa from tres"+r_accy+" where tres"+r_accy+".noa=tre"+r_accy+".noa and tres"+r_accy+".tranno='"+t_tranno+"')";
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
             }
@@ -125,6 +127,12 @@
 					<td class='seek'  style="width:20%;"><a id='lblCarno'></a></td>
 					<td>
 					<input class="txt" id="txtCarno" type="text" style="width:90px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblTranno'></a></td>
+					<td>
+					<input class="txt" id="txtTranno" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 			</table>
