@@ -218,9 +218,14 @@
             	if($.trim($('#txtNick').val()).length==0)
             		$('#txtNick').val($('#txtComp').val());
  				
+ 				if ($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())) {
+                    alert(q_getMsg('lblDatea') + '錯誤。');
+                    Unlock();
+                    return;
+                }
  				if($('#txtPaydate').val().length==0 || !q_cd($('#txtPaydate').val())){
  					//預設次月5日,遇六日順延
- 					var t_paydate = $('#txtPaydate').val();
+ 					var t_paydate = $('#txtDatea').val();
             		var t_year = parseFloat(t_paydate.substring(0,3))+1911;
             		var t_mon = parseFloat(t_paydate.substring(4,6))-1;
             		var t_day = 5;
@@ -240,7 +245,6 @@
             		}
             		$('#txtPaydate').val((t_year-1911)+'/'+(t_mon+1)+'/'+t_day);
  				}
- 				
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
