@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -66,10 +65,6 @@
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
-
-						if (q_cur == 1 || q_cur == 2)
-							q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
 						break;
 				}  /// end switch
 			}
@@ -99,42 +94,18 @@
 				q_box('z_fixb.aspx', '', "800px", "600px", q_getMsg("popPrint"));
 			}
 
-			function btnOk() {
-				$('#txtDatea').val($.trim($('#txtDatea').val()));
-	                if (checkId($('#txtDatea').val())==0){
-	                	alert(q_getMsg('lblDatea')+'錯誤。');
-	                	return;
-	            }							
-	            $('#txtLdate').val($.trim($('#txtLdate').val()));
-	                if (checkId($('#txtLdate').val())==0){
-	                	alert(q_getMsg('lblLdate')+'錯誤。');
-	                	return;
-	            }							
-	            $('#txtNdate').val($.trim($('#txtNdate').val()));
-	                if (checkId($('#txtNdate').val())==0){
-	                	alert(q_getMsg('lblNdate')+'錯誤。');
-	                	return;
-	            }							
+			function btnOk() {	
 				$('#txtWorker').val(r_name);
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-                if(t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }   
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if(t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    q_gtnoa(q_name, replaceAll('FIB'+(t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
 			}
 
 			function wrServer(key_value) {
 				var i;
-
-				xmlSql = '';
-				if (q_cur == 2)/// popSave
-					xmlSql = q_preXml();
 
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], '', '', 2);

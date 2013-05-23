@@ -73,15 +73,12 @@
 				    //月份
 				    prvmon = prvmon+(t_prvmon.getMonth()>9?(t_prvmon.getMonth()+1)+'':'0'+(t_prvmon.getMonth()+1));
 					
-					var t_where = "where=^^ 1=1 group by i.productno,u.product,u.unit ^^";
-					var t_where1 = "where[1]=^^ ordeno+no2=a.ordeno+a.no2 ^^";
-					var t_where2 = "where[2]=^^ productno=a.productno and mon='"+prvmon+"' ^^";
-					var t_where3 = "where[3]=^^ left(datea,6)='"+$('#txtMon').val()+"' and productno=a.productno ^^";
-					var t_where4 = "where[4]=^^ LEFT(a.datea,6)='"+$('#txtMon').val()+"' group by a.productno,a.ordeno,a.no2 ^^";
-					var t_where5 = "where[5]=^^ productno=sta.productno ^^";
-					var t_where6 = "where[6]=^^ LEFT(datea,6)='"+$('#txtMon').val()+"' group by productno ^^";
+					var t_where = "where=^^ 1=1 ^^";
+					var t_where1 = "where[1]=^^ LEFT(datea,6)='"+$('#txtMon').val()+"' ^^";
+					var t_where2 = "where[2]=^^ mon='"+prvmon+"' ^^";
+					var t_where3 = "where[3]=^^ left(wba.datea,6)='"+$('#txtMon').val()+"' ^^";
 					
-			        q_gt('gena_import', t_where+t_where1+t_where2+t_where3+t_where4+t_where5+t_where6, 0, 0, 0, "", r_accy);
+			        q_gt('gena_import', t_where+t_where1+t_where2+t_where3, 0, 0, 0, "", r_accy);
 				});
             }
 		
@@ -109,9 +106,6 @@
                 				//會計科目處理
                 				as[i].acc1='1136.'+as[i].productno;
                 				as[i].acc2='製成品-'+as[i].product;
-                				//處理單價小數點(看公司)
-                				as[i].mprice=round(dec(as[i].mprice),2)
-                				as[i].wprice=round(dec(as[i].wprice),2)
                 			}
                 			//看公司要用數量還是重量計算
                 			if(mw=='m')
@@ -281,8 +275,8 @@
             	var t_gwelght=0,t_twelght = 0, t_welght = 0;
                 for (var j = 0; j < q_bbsCount; j++) {
                 	if(mw=='m'){
-                		//計算直接原料金額
-	                	q_tr('txtStuffmoney_'+j,round(q_float('txtStuffprice_'+j)*q_float('txtStuffmount_'+j),2));
+                		//計算直接原料單價
+	                	q_tr('txtStuffprice_'+j,round(q_float('txtStuffmoney_'+j)/q_float('txtBornmount_'+j),2));
 	                	
 	                	//計算直接人工單價
 	                	q_tr('txtFactitprice_'+j,round(q_float('txtFactitmoney_'+j)/q_float('txtBornmount_'+j),2));
@@ -296,8 +290,8 @@
 							q_tr('txtPrice_'+j,round(float('txtMoney_'+j)/q_float('txtBornmount_'+j),2));
                 	}
                 	if(mw=='w'){
-                		//計算直接原料金額
-	                	q_tr('txtStuffmoney_'+j,round(q_float('txtStuffprice_'+j)*q_float('txtStuffweight_'+j),2));
+                		//計算直接原料單價
+	                	q_tr('txtStuffprice_'+j,round(q_float('txtStuffmoney_'+j)/q_float('txtBornweight_'+j),2));
 	                	
 	                	//計算直接人工單價
 	                	q_tr('txtFactitprice_'+j,round(q_float('txtFactitmoney_'+j)/q_float('txtBornweight_'+j),2));

@@ -127,7 +127,7 @@
 
 		    function pay_tre() {
 		        if (q_cur == 1 || q_cur == 2) {
-		        	Lock();
+		        	Lock(1,{opacity:0});
 		            if ($.trim($('#txtTggno').val()) == 0) {  
 		                alert('Empty=' + q_getMsg('lblTgg'));
 		                return false;
@@ -259,7 +259,7 @@
 		                var as = _q_appendData("tre", "", true);
 		               	if (as[0] == undefined){
 		               		alert('無資料。');
-		               		Unlock();
+		               		Unlock(1);
 		               		return;
 		               	} 
 		               	var yufu=false;
@@ -304,7 +304,7 @@
 							$('#txtMemo').val( tmp[i].noa);
 						}
 		                sum();
-						Unlock();
+						Unlock(1);
 		                break;
 		            case q_name:
 		                if (q_cur == 4)
@@ -332,10 +332,10 @@
                     			}
                     			else if(t_isExist && t_msg.length>0){
                     				alert('請由以下單據修改。'+String.fromCharCode(13)+t_msg);
-                    				Unlock();
+                    				Unlock(1);
                     			}else if(t_msg.length>0){
                     				alert(t_msg);
-                    				Unlock();
+                    				Unlock(1);
                     			}else{
                     				//檢查GQB
 	                				var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
@@ -353,7 +353,7 @@
                     		var as = _q_appendData("gqb", "", true);
                     		if(as[0]!=undefined){
                     			alert('支票【'+as[0]['gqbno']+'】已存在');
-                    			Unlock();
+                    			Unlock(1);
                     		}else{
                     			checkGqb_bbs(t_sel-1);
                     		}
@@ -374,13 +374,13 @@
                     				}
                     			}
                     			if(t_isExist && t_msg.length==0){
-                    				Unlock();
+                    				Unlock(1);
                     			}else if(t_isExist && t_msg.length>0){
                     				alert('請由以下單據修改。'+String.fromCharCode(13)+t_msg);
-                    				Unlock();
+                    				Unlock(1);
                     			}else if(t_msg.length>0){
                     				alert(t_msg);
-                    				Unlock();
+                    				Unlock(1);
                     			}else{
                     				//檢查GQB
 	                				var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
@@ -398,7 +398,7 @@
                     		if(as[0]!=undefined){
                     			alert('支票【'+as[0]['gqbno']+'】已存在');
                     		}
-                    		Unlock();
+                    		Unlock(1);
                     	}
                         break;
 		        }
@@ -409,7 +409,7 @@
 		            return false;
 		        abbm[q_recno]['accno'] = xmlString;
 		        //$('#txtAccno').val(xmlString);
-		        Unlock();
+		        Unlock(1);
 		    }
 
 		    function sum() {
@@ -445,22 +445,22 @@
 		    }
 
 		    function btnOk() {
-		    	Lock();
+		    	Lock(1,{opacity:0});
 				$('#txtMon').val($.trim($('#txtMon').val()));
 					if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
 						alert(q_getMsg('lblMon')+'錯誤。');   
-						Unlock();
+						Unlock(1);
 						return;
 				} 		
 		        var t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // 檢查空白 
 		        if (t_err.length > 0) {
 		            alert(t_err);
-		            Unlock();
+		            Unlock(1);
 		            return;
 		        }
 		        if ($.trim($('#txtTggno').val()) == 0) {
 		            alert(m_empty + q_getMsg('lblTgg'));
-		            Unlock();
+		            Unlock(1);
 		            return false;
 		        }
 
@@ -477,7 +477,7 @@
 		        }
 				if (t_err) {
 		            alert(m_empty + q_getMsg('lblAcc1') + q_trv(t_money + t_chgs));
-		            Unlock();
+		            Unlock(1);
 		            return false;
 		        }
 		        sum();
@@ -487,7 +487,7 @@
 		        var t2 = q_float('txtTotal')+t_chgs;
 		        if (t1 != t2) {
 		            alert('付款金額  ＋ 費用 ＝' + q_trv(t2) + '\r 【不等於】 沖帳金額 ＋ 預付 －　預付沖帳 ＝' + q_trv(t1) + '\r【差額】=' + Math.abs(t1 - t2));
-		            Unlock();
+		            Unlock(1);
 		            return false;
 		        }
 		        
@@ -577,7 +577,7 @@
                         sum();
                     });
                     $('#txtCheckno_'+i).change(function(){
-        				Lock();
+        				Lock(1,{opacity:0});
         				var n = $(this).attr('id').replace('txtCheckno_','');
         				var t_noa = $('#txtNoa').val();
         				var t_checkno = $('#txtCheckno_'+n).val() ;

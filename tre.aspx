@@ -97,7 +97,7 @@
 		            		alert('年度異常!');
 		            		return;
 		            	}
-						Lock();
+						Lock(1,{opacity:0});
 	                	q_func('tre.import',r_accy+','+$('#cmbCarteamno').val()+','+$('#txtBdate').val()+','+$('#txtEdate').val()+','+$('#txtDate2').val()+','+r_name);
                 	}
                 });
@@ -119,7 +119,7 @@
                     case 'tre.import':
 						if(result.length==0){
 							alert('No data!');
-							Unlock();
+							Unlock(1);
 						}
 						else
 							location.reload();

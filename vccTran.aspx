@@ -165,12 +165,12 @@
                         	}
                         	if(t_msg.length>0){
                         		alert('已沖帳:'+ t_msg);
-                        		Unlock();
+                        		Unlock(1);
                         		return;
                         	}
                         }
                     	_btnDele();
-                    	Unlock();
+                    	Unlock(1);
                 		break;
                 	case 'btnModi':
                 		var as = _q_appendData("umms", "", true);
@@ -234,25 +234,25 @@
                     return false;
                 abbm[q_recno]['accno'] = xmlString;
                 $('#txtAccno').val(xmlString);
-                Unlock();
+                Unlock(1);
             }
             function btnOk() {
-            	Lock();
+            	Lock(1,{opacity:0});
             	if($.trim($('#txtNick').val()).length==0)
             		$('#txtNick').val($('#txtComp').val());
             	if($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())){
 					alert(q_getMsg('lblDatea')+'錯誤。');
-            		Unlock();
+            		Unlock(1);
             		return;
 				}
             	if($('#txtDatea').val().substring(0,3)!=r_accy){
 					alert('年度異常錯誤，請切換到【'+r_accy+'】年度再作業。');
-					Unlock();
+					Unlock(1);
             		return;
 				}
             	if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())){
             		alert(q_getMsg('lblMon')+'錯誤。');
-            		Unlock();
+            		Unlock(1);
             		return;
             	}
                 sum();
@@ -399,7 +399,7 @@
             }
 
             function btnDele() {
-            	Lock();
+            	Lock(1,{opacity:0});
                 var t_where =" where=^^ vccno='"+ $('#txtNoa').val()+"'^^";
                 q_gt('umms', t_where, 0, 0, 0, 'btnDele',r_accy);
             }
