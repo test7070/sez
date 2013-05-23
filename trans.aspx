@@ -39,7 +39,7 @@
 			,['txtDriverno', '', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
 			,['txtUccno', '', 'ucc', 'noa,product', 'txtUccno,txtProduct', 'ucc_b.aspx']
 			,['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
-			,['txtStraddrno', '', 'addr', 'noa,addr,productno,product,salesno,sales', 'txtStraddrno,txtStraddr,txtUccno,txtProduct,txtSalesno,txtSales', 'addr_b.aspx'] 
+			,['txtStraddrno', '', 'addr', 'noa,addr,productno,product,salesno,sales', 'txtStraddrno,txtStraddr,txtUccno,txtProduct,txtSalesno,txtSales,txtStraddr', 'addr_b.aspx'] 
 			);
 			function currentData() {
             }
