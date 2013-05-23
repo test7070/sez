@@ -47,6 +47,19 @@
             function mainPost() {
             	bbmMask = [['txtBegindatea', r_picd],['txtIndate', r_picd],['txtOutdate', r_picd]];
                 q_mask(bbmMask);
+                $('#txtNoa').change(function(e){
+                	$(this).val($.trim($(this).val()).toUpperCase());    	
+					if($(this).val().length>0){
+						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
+							t_where="where=^^ noa='"+$(this).val()+"'^^";
+                    		q_gt('fixucc', t_where, 0, 0, 0, "checkFixuccno_change", r_accy);
+						}else{
+							Lock();
+							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+							Unlock();
+						}
+					}
+                });
             }
 
             
@@ -63,14 +76,26 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'checkFixuccno_change':
+                		var as = _q_appendData("fixucc", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].namea);
+                        }
+                		break;
+               		case 'checkFixuccno_btnOk':
+                		var as = _q_appendData("fixucc", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].namea);
+                            Unlock();
+                            return;
+                        }else{
+                        	wrServer($('#txtNoa').val());
+                        }
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
-
-                        if (q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
-                        break;
+						 break;
                 }  /// end switch
             }
 
@@ -83,6 +108,7 @@
 
             function btnIns() {
                 _btnIns();
+                refreshBbm();
                 $('#txtNoa').focus();
             }
 
@@ -91,40 +117,52 @@
                     return;
 
                 _btnModi();
+                refreshBbm();
                 $('#txtNoa').focus();
             }
 
             function btnPrint() {
 
             }
-
+			function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                Unlock();
+            }
             function btnOk() {   	
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-		        if (t_err.length > 0) {
-		            alert(t_err);
-		            return;
-		        }
-		
-		        var t_noa = trim($('#txtNoa').val());
-		        wrServer(t_noa);
+               Lock(); 
+            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
+            	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
+				}else{
+					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+					Unlock();
+					return;
+				}
+				if(q_cur==1){
+                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
+                    q_gt('fixucc', t_where, 0, 0, 0, "checkFixuccno_btnOk", r_accy);
+                }else{
+                	wrServer($('#txtNoa').val());
+                }
             }
 
             function wrServer(key_value) {
                 var i;
-
-                xmlSql = '';
-                if (q_cur == 2)/// popSave
-                    xmlSql = q_preXml();
-
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
                 _btnOk(key_value, bbmKey[0], '', '', 2);
             }
 
             function refresh(recno) {
                 _refresh(recno);
-
+				refreshBbm();
             }
-
+			function refreshBbm(){
+            	if(q_cur==1){
+            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
+            	}else{
+            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+            	}
+            }
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
             }
