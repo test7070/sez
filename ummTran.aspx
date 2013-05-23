@@ -382,10 +382,10 @@
                     			}
                     			else if(t_isExist && t_msg.length>0){
                     				alert('請由以下單據修改。'+String.fromCharCode(13)+t_msg);
-                    				Unlock();
+                    				Unlock(1);
                     			}else if(t_msg.length>0){
                     				alert(t_msg);
-                    				Unlock();
+                    				Unlock(1);
                     			}else{
                     				//檢查GQB
 	                				var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
@@ -403,7 +403,7 @@
                     		var as = _q_appendData("gqb", "", true);
                     		if(as[0]!=undefined){
                     			alert('支票【'+as[0]['gqbno']+'】已存在');
-                    			Unlock();
+                    			Unlock(1);
                     		}else{
                     			checkGqb_bbs(t_sel-1);
                     		}
@@ -424,13 +424,13 @@
                     				}
                     			}
                     			if(t_isExist && t_msg.length==0){
-                    				Unlock();
+                    				Unlock(1);
                     			}else if(t_isExist && t_msg.length>0){
                     				alert('請由以下單據修改。'+String.fromCharCode(13)+t_msg);
-                    				Unlock();
+                    				Unlock(1);
                     			}else if(t_msg.length>0){
                     				alert(t_msg);
-                    				Unlock();
+                    				Unlock(1);
                     			}else{
                     				//檢查GQB
 	                				var t_where = "where=^^ gqbno = '" + t_checkno + "' ^^";
@@ -448,7 +448,7 @@
                     		if(as[0]!=undefined){
                     			alert('支票【'+as[0]['gqbno']+'】已存在');
                     		}
-                    		Unlock();
+                    		Unlock(1);
                     	}
                         break;
                 }
@@ -459,22 +459,22 @@
                     return false;
                 abbm[q_recno]['accno'] = xmlString;
                 //$('#txtAccno').val(xmlString);
-                Unlock();
+                Unlock(1);
             }
 
             function btnOk() {
-            	Lock();
+            	Lock(1,{opacity:0});
             	$('#txtAcomp').val($('#cmbCno').find(":selected").text());
                 $('#txtMon').val($.trim($('#txtMon').val()));
                 if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
                     alert(q_getMsg('lblMon') + '錯誤。');
-                    Unlock();
+                    Unlock(1);
                     return;
                 }
                 for (var i = 0; i < q_bbsCount; i++) {
                 	 if ($('#txtIndate_'+i).val().length > 0 && $('#txtIndate_'+i).val().indexOf('_')>-1) {
                     	alert(q_getMsg('lblIndate') + '錯誤。');
-                    	Unlock();
+                    	Unlock(1);
                     	return;
                 	}
                 }
@@ -482,12 +482,12 @@
                 // 檢查空白
                 if (t_err.length > 0) {
                     alert(t_err);
-                    Unlock();
+                    Unlock(1);
                     return;
                 }
                 if ($.trim($('#txtCustno').val()) == 0) {
                     alert(m_empty + q_getMsg('lblCust'));
-                    Unlock();
+                    Unlock(1);
                     return false;
                 }
                 var t_money = 0, t_chgs = 0, t_paysale, t_mon = '';
@@ -504,7 +504,7 @@
                 sum();
                 if (t_err) {
                     alert(m_empty + q_getMsg('lblAcc1') + q_trv(t_money + t_chgs));
-                    Unlock();
+                    Unlock(1);
                     return false;
                 }
 				
@@ -514,7 +514,7 @@
                 var t2 = q_float('txtTotal') + t_chgs;
                 if (t1 != t2) {
                     alert('收款金額  ＋ 費用 ＝' + q_trv(t2) + '\r 【不等於】 沖帳金額 ＋ 預收 －　預收沖帳 ＝' + q_trv(t1) + '\r【差額】=' + Math.abs(t1 - t2));
-                   	Unlock();
+                   	Unlock(1);
                     return false;
                 }
                 //先檢查BBS沒問題才存檔      
@@ -583,7 +583,7 @@
                         sum();
                     });
                     $('#txtCheckno_'+i).change(function(){
-        				Lock();
+        				Lock(1,{opacity:0});
         				var n = $(this).attr('id').replace('txtCheckno_','');
         				var t_noa = $('#txtNoa').val();
         				var t_checkno = $('#txtCheckno_'+n).val() ;

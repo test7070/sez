@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title> </title>
@@ -104,14 +103,25 @@
                 if (t_driver.length>0)
                     t_where += " and patindex('%" + t_driver + "%',driver)>0";
 		       	if(t_trd=='Y')
-		       		t_where += " and len(isnull(trdno,''))>0"
+		       		t_where += " and exists(select noa from view_trds"+r_accy+" where view_trds"+r_accy+".tranno=trans"+r_accy+".noa)";
 		       	if(t_trd=='N')
-		       		t_where += " and len(isnull(trdno,''))=0"
-		       	if(t_tre=='Y')
-		       		t_where += " and len(isnull(treno,''))>0"
-		       	if(t_tre=='N')
-		       		t_where += " and len(isnull(treno,''))=0"	
-		       		
+		       		t_where += " and not exists(select noa from view_trds"+r_accy+" where view_trds"+r_accy+".tranno=trans"+r_accy+".noa)";
+		       	if(t_tre=='Y'){
+		       		t_where +="and( exists(select view_tres102.noa from view_tres102"+ 
+					" left join calctypes on calctypes.noa+calctypes.noq= trans102.calctype"+
+					" where calctypes.isoutside=1 and view_tres102.tranno=trans102.noa)"+
+					" or exists(select carsal.noa from carsal"+
+					" left join calctypes on calctypes.noa+calctypes.noq= trans102.calctype"+
+					" where calctypes.isoutside=0 and carsal.noa=left(trans102.datea,6) and carsal.lock=1) )";
+		       	}
+		       	if(t_tre=='N'){
+		       		t_where +="and not(exists(select view_tres102.noa from view_tres102"+ 
+					" left join calctypes on calctypes.noa+calctypes.noq= trans102.calctype"+
+					" where calctypes.isoutside=1 and view_tres102.tranno=trans102.noa)"+
+					" or exists(select carsal.noa from carsal"+
+					" left join calctypes on calctypes.noa+calctypes.noq= trans102.calctype"+
+					" where calctypes.isoutside=0 and carsal.noa=left(trans102.datea,6) and carsal.lock=1) )";
+		       	}
 		        t_where = ' where=^^' + t_where + '^^ ';
 		        return t_where;
             }

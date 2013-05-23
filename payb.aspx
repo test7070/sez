@@ -81,7 +81,7 @@
                 //.........................
                 //........................單據匯入
                 $('#btnFix').click(function() {
-                	Lock();
+                	Lock(1,{opacity:0});
                     var t_noa = $.trim($('#txtNoa').val());
 					var t_tggno = $.trim($('#txtTggno').val());
 					var t_mon = $.trim($('#txtMon').val());				
@@ -92,7 +92,7 @@
                     	q_gt('payb_fix', t_where+t_where1, 0, 0, 0, "", r_accy);
 					}else{
 						alert('請輸入'+q_getMsg('lblMon')+'、'+q_getMsg('lblTgg'));	
-						Unlock();					
+						Unlock(1);					
 					}
                 });
                 //.........................
@@ -138,12 +138,12 @@
                         	}
                         	if(t_msg.length>0){
                         		alert('已沖帳:'+ t_msg);
-                        		Unlock();
+                        		Unlock(1);
                         		return;
                         	}
                         }
                     	_btnDele();
-                    	Unlock();
+                    	Unlock(1);
                 		break;
                 	case 'btnModi':
                 		var as = _q_appendData("pays", "", true);
@@ -156,13 +156,13 @@
                         	}
                         	if(t_msg.length>0){
                         		alert('已沖帳:'+ t_msg);
-                        		Unlock();
+                        		Unlock(1);
                         		return;
                         	}
                         }
 	                	_btnModi();
 	                	sum();
-	                	Unlock();
+	                	Unlock(1);
                 		$('#txtMemo').focus();
                 		break;
                     case 'payb_fix':
@@ -275,7 +275,7 @@
 	                        }
                         }
                         sum();
-                        Unlock();
+                        Unlock(1);
                         break;
                     case 'part':
                         var as = _q_appendData("part", "", true);
@@ -322,10 +322,10 @@
                 //$('#txtAccno').val(xmlString.split(";")[0]);
                 //$('#txtPayed').val(xmlString.split(";")[1]);
                 //$('#txtUnpay').val(xmlString.split(";")[2]);
-                Unlock();
+                Unlock(1);
             }
             function btnOk() {
-            	Lock();
+            	Lock(1,{opacity:0});
                 if ($.trim($('#txtNick').val()).length == 0)
                     $('#txtNick').val($('#txtComp').val());
                 $('#txtAcomp').val($('#cmbCno').find(":selected").text());
@@ -333,27 +333,27 @@
 
                 if($('#txtDatea').val().length == 0 || !q_cd($('#txtDatea').val())){
 					alert(q_getMsg('lblDatea')+'錯誤。');
-            		Unlock();
+            		Unlock(1);
             		return;
 				}
                 if (!q_cd($('#txtPaydate').val())){
                 	alert(q_getMsg('lblPaydate')+'錯誤。'); 
-                	Unlock();
+                	Unlock(1);
                 	return;
                 }
                 if (!q_cd($('#txtIndate').val())){
                 	alert(q_getMsg('lblIndate')+'錯誤。'); 
-                	Unlock();
+                	Unlock(1);
                 	return;
                 }
                 if (!q_cd($('#txtVbdate').val()) || !q_cd($('#txtVedate').val())){
                 	alert(q_getMsg('lblVdate')+'錯誤。');
-                	Unlock(); 
+                	Unlock(1); 
                 	return; 
                 }
                	if ($('#txtMon').val().length > 0 && !(/^[0-9]{3}\/(?:0?[1-9]|1[0-2])$/g).test($('#txtMon').val())) {
                     alert(q_getMsg('lblMon') + '錯誤。');
-                    Unlock();
+                    Unlock(1);
                     return;
                 }       
                 sum();
@@ -430,7 +430,7 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-                Lock();
+                Lock(1,{opacity:0});
                 var t_where =" where=^^ rc2no='"+ $('#txtNoa').val()+"'^^";
                 q_gt('pays', t_where, 0, 0, 0, 'btnModi',r_accy);
             }
@@ -534,7 +534,7 @@
             }
 
             function btnDele() {
-            	Lock();
+            	Lock(1,{opacity:0});
                 var t_where =" where=^^ rc2no='"+ $('#txtNoa').val()+"'^^";
                 q_gt('pays', t_where, 0, 0, 0, 'btnDele',r_accy);
             }
