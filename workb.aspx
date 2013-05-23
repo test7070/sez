@@ -473,12 +473,16 @@
 				<input id="txtStoreno" type="text" class="txt c2"/>
 				<input id="txtStore" type="text" class="txt c3"/>
 			</td>
-			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
-			<td><input id="txtWorker" type="text" class="txt c1"/></td>
+			<td><span> </span><a id='lblCuano' class="lbl"> </a></td>
+			<td><input id="txtCuano" type="text" class="txt c1"/></td>
 		</tr>
         <tr>
 			<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 			<td colspan='3'><input id="txtMemo" type="text" class="txt c1"/></td>
+		</tr>
+		 <tr>
+			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+			<td><input id="txtWorker" type="text" class="txt c1"/></td>
 		</tr>
         </table>
         </div>
