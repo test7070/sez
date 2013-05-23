@@ -9,8 +9,27 @@
 
             $(document).ready(function() {
             	$('#txtA').change(function(){
+            		var t_paydate = $('#txtA').val();
+            		var t_year = parseFloat(t_paydate.substring(0,3))+1911;
+            		var t_mon = parseFloat(t_paydate.substring(4,6))-1;
+            		var t_day = 5;
+            		if(t_mon == 11){
+            			t_year += 1;
+            			t_mon = 0;
+            		}else{
+            			t_mon += 1;
+            		}   
+            		switch((new Date(t_year,t_mon,t_day)).getDay()){
+            			case 0:
+            				t_day += 1;
+            				break;
+            			case 6:
+            				t_day += 2;
+            				break;
+            		}
+            		$('#txtB').val((t_year-1911)+'/'+(t_mon+1)+'/'+t_day);
             		//alert((/^([\w]+)$/g).test($(this).val()));
-            		alert((/^(\w+|\w+\u002D\w+)$/g).test($(this).val()));
+            		//alert((/^(\w+|\w+\u002D\w+)$/g).test($(this).val()));
             		//$('#txtB').val($(this).val().replace( /^([[a-z,A-Z,0-9,_]*\^]*)([a-z,A-Z,0-9,_]*)$/g, "$2"));
             	});
 			

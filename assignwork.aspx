@@ -217,7 +217,30 @@
             	var t_err = '';
             	if($.trim($('#txtNick').val()).length==0)
             		$('#txtNick').val($('#txtComp').val());
- 
+ 				
+ 				if($('#txtPaydate').val().length==0 || !q_cd($('#txtPaydate').val())){
+ 					//預設次月5日,遇六日順延
+ 					var t_paydate = $('#txtPaydate').val();
+            		var t_year = parseFloat(t_paydate.substring(0,3))+1911;
+            		var t_mon = parseFloat(t_paydate.substring(4,6))-1;
+            		var t_day = 5;
+            		if(t_mon == 11){
+            			t_year += 1;
+            			t_mon = 0;
+            		}else{
+            			t_mon += 1;
+            		}         
+            		switch((new Date(t_year,t_mon,t_day)).getDay()){
+            			case 0:
+            				t_day += 1;
+            				break;
+            			case 6:
+            				t_day += 2;
+            				break;
+            		}
+            		$('#txtPaydate').val((t_year-1911)+'/'+(t_mon+1)+'/'+t_day);
+ 				}
+ 				
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if (t_err.length > 0) {
                     alert(t_err);
