@@ -92,17 +92,11 @@
             }
 
             function btnPrint() {
-
+			q_box('z_funds.aspx' , '', "90%", "600px", q_getMsg("popPrint"));
             }
 
             function btnOk() {
-                var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtbanks', q_getMsg('lblbanks')]]);
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }
-                
+               
                 if(q_cur==1)
 	            	$('#txtWorker').val(r_name);
             	else

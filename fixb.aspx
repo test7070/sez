@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 	<head>
@@ -100,27 +99,9 @@
 			}
 
 			function btnOk() {
-				$('#txtDatea').val($.trim($('#txtDatea').val()));
-	                if (checkId($('#txtDatea').val())==0){
-	                	alert(q_getMsg('lblDatea')+'錯誤。');
-	                	return;
-	            }							
-	            $('#txtLdate').val($.trim($('#txtLdate').val()));
-	                if (checkId($('#txtLdate').val())==0){
-	                	alert(q_getMsg('lblLdate')+'錯誤。');
-	                	return;
-	            }							
-	            $('#txtNdate').val($.trim($('#txtNdate').val()));
-	                if (checkId($('#txtNdate').val())==0){
-	                	alert(q_getMsg('lblNdate')+'錯誤。');
-	                	return;
-	            }							
+				
+	           						
 				$('#txtWorker').val(r_name);
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
-                if(t_err.length > 0) {
-                    alert(t_err);
-                    return;
-                }   
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if(t_noa.length == 0 || t_noa == "AUTO")

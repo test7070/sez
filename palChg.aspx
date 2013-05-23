@@ -17,7 +17,7 @@
             alert("An error occurred:\r\n" + error.Message);
         }
         var q_name="palchg";
-        var q_readonly = [];
+        var q_readonly = ['txtNoa','txtWorker'];
         var bbmNum = []; 
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
@@ -93,6 +93,7 @@
  
         }
         function btnOk() {
+        	$('#txtWorker').val(r_name);
 			var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
