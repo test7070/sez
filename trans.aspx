@@ -340,10 +340,9 @@
                         	var t_isoutside = false;
                         	for(var i in trans.calctype){
 			            		if(trans.calctype[i].noa == $('#cmbCalctype').val()){
-			            			t_isoutside.isoutside = trans.calctype[i].isoutside;
+			            			t_isoutside = trans.calctype[i].isoutside;
 			            		}
-			        		}
-	        		
+			        		}	      
                         	if(t_isoutside)
                         		q_gt('view_tres', "where=^^ tranno='"+$('#txtNoa').val()+"' ^^", 0, 0, 0, 'isTre',r_accy);	
                         	else
@@ -603,6 +602,17 @@
 					Unlock(1);
             		return;
 				}
+				//---------------------------------------------------------------
+				for(var i in trans.calctype){
+        			if(trans.calctype[i].noa == $('#cmbCalctype').val()){
+        				if(trans.calctype[i].isoutside){
+        					$('#txtPrice2').val(0);
+        				}else{
+        					$('#txtPrice3').val(0);
+        				}
+        			}
+        		}
+        		sum();
 				//---------------------------------------------------------------
 				if(q_cur ==1){
                 	$('#txtWorker').val(r_name);
