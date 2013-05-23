@@ -183,13 +183,13 @@
                         	}
                         	if(t_msg.length>0){
                         		alert('已沖帳:'+ t_msg);
-                        		Unlock();
+                        		Unlock(1);
                         		return;
                         	}
                         }
                     	_btnModi();           
 		                sum();
-		                Unlock();
+		                Unlock(1);
 		                $('#txtDatea').focus();	
                 		break;
                 	case 'part':
@@ -288,7 +288,7 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-                Lock();
+                Lock(1,{opacity:0});;
                 var t_where =" where=^^ vccno='"+ $('#txtNoa').val()+"'^^";
                 q_gt('umms', t_where, 0, 0, 0, 'btnModi',r_accy);
             }
