@@ -22,7 +22,7 @@
             var q_name = "trd";
             var q_readonly = ['txtTax', 'txtNoa', 'txtMoney', 'txtTotal','txtWorker2','txtWorker', 'txtMount', 'txtStraddr', 'txtEndaddr', 'txtPlusmoney', 'txtMinusmoney', 'txtVccano', 'txtCustchgno','txtAccno','txtAccno2','txtYear2','txtYear1'];
             var q_readonlys = ['txtTranno', 'txtTrannoq','txtTrandate','txtStraddr','txtProduct','txtCarno','txtCustorde','txtCaseno','txtMount','txtPrice','txtTotal','txtTranmoney'];
-            var bbmNum = [['txtDiscount', 10, 0,1],['txtPlus', 10, 0,1],['txtMoney', 10, 0,1], ['txtTax', 10, 0,1], ['txtTotal', 10, 0,1], ['txtMount', 10, 3,1], ['txtPlusmoney', 10, 0,1], ['txtMinusmoney', 10, 0,1]];
+            var bbmNum = [['txtPlus', 10, 0,1],['txtDiscount', 10, 0,1],['txtMoney', 10, 0,1], ['txtTax', 10, 0,1], ['txtTotal', 10, 0,1], ['txtMount', 10, 3,1], ['txtPlusmoney', 10, 0,1], ['txtMinusmoney', 10, 0,1]];
             var bbsNum = [['txtTranmoney', 10, 0,1], ['txtOverweightcost', 10, 0,1], ['txtOthercost', 10, 0,1], ['txtMount', 10, 3,1], ['txtPrice', 10, 3,1], ['txtTotal', 10, 0,1]];
             var bbmMask = [];
             var bbsMask = [];
@@ -71,6 +71,12 @@
                 	if($('#txtYear2').val().length>0)
                     q_pop('txtAccno2', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno2').val() + "';" + $('#txtYear2').val()+ '_' + r_cno, 'accc', 'accc3', 'accc2', "95%", "95%", q_getMsg('popAccc'), true);
                 });
+                $('#txtPlus').change(function(e){
+                	sum();
+                });
+                $('#txtDiscount').change(function(e){
+                	sum();
+                });
 				$('#lblCustchgno').click(function(e){
 					var t_where = "1!=1";
 					var t_custchgno = $('#txtCustchgno').val().split(',');
@@ -101,25 +107,25 @@
                 	var t_etrandate = $.trim($('#txtEtrandate').val());
                 	var t_baddrno = $.trim($('#txtStraddrno').val());
                 	var t_eaddrno = $.trim($('#txtEndaddrno').val());
-                	var t_where = "custno='"+t_custno+"'";
-                	t_where += t_noa.length>0?" and (len(isnull(trdno,''))=0 or trdno='"+t_noa+"')":" and len(isnull(trdno,''))=0";
-                	t_where += t_bdate.length>0?" and datea>='"+t_bdate+"'":"";
-                	t_where += t_edate.length>0?" and datea<='"+t_edate+"'":"";
-                	t_where += t_btrandate.length>0?" and trandate>='"+t_btrandate+"'":"";
-                	t_where += t_etrandate.length>0?" and trandate<='"+t_etrandate+"'":"";
-                	t_where += t_baddrno.length>0?" and straddrno>='"+t_baddrno+"'":"";
-                	t_where += t_eaddrno.length>0?" and straddrno<='"+t_eaddrno+"'":"";
+                	var t_where = "(b.noa is null or b.noa='"+t_noa+"')";
+                	t_where += " and a.custno='"+t_custno+"'";
+                	t_where += t_bdate.length>0?" and a.datea>='"+t_bdate+"'":"";
+                	t_where += t_edate.length>0?" and a.datea<='"+t_edate+"'":"";
+                	t_where += t_btrandate.length>0?" and a.trandate>='"+t_btrandate+"'":"";
+                	t_where += t_etrandate.length>0?" and a.trandate<='"+t_etrandate+"'":"";
+                	t_where += t_baddrno.length>0?" and a.straddrno>='"+t_baddrno+"'":"";
+                	t_where += t_eaddrno.length>0?" and a.straddrno<='"+t_eaddrno+"'":"";
                 	var t_po = "";
                 	if ($.trim($('#txtPo').val()).length > 0) {
                         var tmp = $.trim($('#txtPo').val()).split(',');
                         t_po = ' and (';
                         for (var i in tmp)
-                        t_po += (i == 0 ? '' : ' or ') + "view_trans" + r_accy + ".po='" + tmp[i] + "'"
+                        t_po += (i == 0 ? '' : ' or ') + "a.po='" + tmp[i] + "'"
                         t_po += ')';
                         t_where += t_po;
                     }
-                	t_where = "where=^^"+t_where+"^^ order=^^datea,noa^^";
-                	q_gt('view_trans', t_where, 0, 0, 0, "", r_accy);
+                	t_where = "where=^^"+t_where+"^^";
+                	q_gt('trd_tran', t_where, 0, 0, 0, "", r_accy);
                 	
                 });
                 $("#btnCustchg").click(function(e) {
@@ -144,12 +150,6 @@
                     /*未請款發票才抓*/
                     t_where = "  buyerno='" + $('#txtCustno').val() + "' and (trdno='" + $('#txtNoa').val() + "' or len(isnull(trdno,''))=0) ";
                     q_box("vcca_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where + ";;" + t_vccano + ";", 'vcca1', "95%", "650px", q_getMsg('popVcca'));
-                });
-                $('#txtPlus').change(function(e){
-                	sum();
-                });
-                $('#txtDiscount').change(function(e){
-                	sum();
                 });
             }
 
@@ -230,7 +230,7 @@
                         sum();
                         Unlock(1);
                         break;
-                    case 'view_trans':
+                    case 'trd_tran':
                         var as = _q_appendData("view_trans", "", true);
                         q_gridAddRow(bbsHtm, 'tbbs', 'txtTrandate,txtTranno,txtTrannoq,txtCarno,txtStraddr,txtTranmoney,txtCaseno,txtMount,txtPrice,txtTotal,txtCustorde,txtProduct'
                         , as.length, as, 'trandate,noa,noq,carno,straddr,total,caseno,mount,price,total,custorde,product', '','');
@@ -316,7 +316,7 @@
             		return;
 				}
 				if($('#txtDatea').val().substring(0,3)!=r_accy){
-					alert('年度異常錯誤，請切換到【'+r_accy+'】年度再作業。');
+					alert('年度異常錯誤，請切換到【'+$('#txtDatea').val().substring(0,3)+'】年度再作業。');
 					Unlock(1);
             		return;
 				}
@@ -348,7 +348,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
-                q_box('trd_s.aspx', q_name + '_s', "600px", "450px", q_getMsg("popSeek"));
+                q_box('trd_ds_s.aspx', q_name + '_s', "600px", "450px", q_getMsg("popSeek"));
             }
 
             function bbsAssign() {
@@ -403,13 +403,12 @@
                     t_mount = t_mount.add(q_float('txtMount_' + i));
                 }
                 t_mount = t_mount.round(3);
-                var t_plus = q_float('txtPlus');
-                var t_discount = q_float('txtDiscount');
 				var t_plusmoney = q_float('txtPlusmoney');
 				var t_minusmoney = q_float('txtMinusmoney');
 				var t_tax = q_float('txtTax'); 
-				
-				var t_total = t_money.add(t_plus).sub(t_discount).add(t_plusmoney).sub(t_minusmoney).add(t_tax);
+				var t_plus = q_float('txtPlus');
+				var t_discount = q_float('txtDiscount'); 
+				var t_total = t_money.add(t_plusmoney).sub(t_minusmoney).add(t_tax).add(t_plus).sub(t_discount);
                
                 $('#txtMoney').val(FormatNumber(t_money));
                 $('#txtTotal').val(FormatNumber(t_total));
@@ -670,8 +669,6 @@
 						<td align="center" style="width:80px; color:black;"><a id="vewDatea"> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id="vewComp"> </a></td>
 						<td align="center" style="width:70px; color:black;"><a id="vewMoney"> </a></td>
-						<td align="center" style="width:70px; color:black;"><a id="vewPlus"> </a></td>
-						<td align="center" style="width:70px; color:black;"><a id="vewDiscount"> </a></td>
 						<td align="center" style="width:70px; color:black;"><a id="vewPlusmoney"> </a></td>
 						<td align="center" style="width:70px; color:black;"><a id="vewMinusmoney"> </a></td>
 						<td align="center" style="width:70px; color:black;"><a id="vewTax"> </a></td>
@@ -685,8 +682,6 @@
 						<td id="datea" style="text-align: center;">~datea</td>
 						<td id="nick" style="text-align: center;">~nick</td>
 						<td id="money,0,1" style="text-align: right;">~money,0,1</td>
-						<td id="plus,0,1" style="text-align: right;">~plus,0,1</td>
-						<td id="discount,0,1" style="text-align: right;">~discount,0,1</td>
 						<td id="plusmoney,0,1" style="text-align: right;">~plusmoney,0,1</td>
 						<td id="minusmoney,0,1" style="text-align: right;">~minusmoney,0,1</td>
 						<td id="tax,0,1" style="text-align: right;">~tax,0,1</td>
