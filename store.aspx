@@ -22,9 +22,10 @@
         var bbmMask = []; 
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
-		 aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
+		 //aPop = new Array(['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']);
         $(document).ready(function () {
             bbmKey = ['noa'];
+            brwCount2=10;
             q_brwCount();
             q_gt(q_name, q_content, q_sqlCount, 1)
             $('#txtNoa').focus
@@ -364,13 +365,13 @@
                <td class="td4"></td>
             
             </tr>
-            <tr>
+            <tr style="display: none;">
                <td class="td1"><span> </span><a id='lblStart' class="lbl"></a></td>
                <td class="td2"><input id="txtStart"  type="text" class="txt c1" /></td>
                <td class="td3"></td>
                <td class="td4"></td>
             </tr>
-            <tr>
+            <tr style="display: none;">
                <td class="td1"><span> </span><a id="lblTgg" class="lbl btn" ></a></td>
                <td class="td2"><input id="txtTggno"  type="text" class="txt c2"/><input id="txtTgg"  type="text" class="txt c3"/></td>
                <td class="td3"></td>

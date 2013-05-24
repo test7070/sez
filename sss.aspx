@@ -270,18 +270,22 @@
 				}
                 if (!q_cd($('#txtBirthday').val())){
                 	alert(q_getMsg('lblBirthday')+'錯誤。');
+               		 Unlock();
                 	return;
                 }
                 if (!q_cd($('#txtFt_date').val())){
                 	alert(q_getMsg('lblFt_date')+'錯誤。');
+                	Unlock();
                 	return;
                 }
                 if (!q_cd($('#txtIndate').val())){
                 	alert(q_getMsg('lblIndate')+'錯誤。');
+                	Unlock();
                 	return;
                 }
                 if (!q_cd($('#txtOutdate').val())){
                 	alert(q_getMsg('lblOutdate')+'錯誤。');
+                	Unlock();
                 	return;
                 }
                
