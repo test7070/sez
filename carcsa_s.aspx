@@ -1,15 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title></title>
+		<title> </title>
 		<script src="../script/jquery.min.js" type="text/javascript"></script>
 		<script src='../script/qj2.js' type="text/javascript"></script>
 		<script src='qset.js' type="text/javascript"></script>
 		<script src='../script/qj_mess.js' type="text/javascript"></script>
 		<script src='../script/mask.js' type="text/javascript"></script>
-		<link href="../qbox.css" rel="stylesheet" type="text/css" />
-		<link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+        <link href="../qbox.css" rel="stylesheet" type="text/css" />
+        <link href="css/jquery/themes/redmond/jquery.ui.all.css" rel="stylesheet" type="text/css" />
 		<script src="css/jquery/ui/jquery.ui.core.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
@@ -17,13 +16,13 @@
 			var q_name = "carcsa_s";
 			aPop=new Array(
 				['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno', 'car2_b.aspx']
+				,['txtDriverno', 'lblDriverno', 'driver', 'noa,namea', 'txtDriverno', 'driver_b.aspx']
 				,['txtCustno', 'lblCustno', 'cust', 'noa,comp', 'txtCustno', 'cust_b.aspx']);
 
 			
 			$(document).ready(function() {
 				main();
 			});
-			/// end ready
 
 			function main() {
 				mainSeek();
@@ -73,6 +72,8 @@
 				t_custno = $.trim($('#txtCustno').val());
 				t_comp = $.trim($('#txtComp').val());
 				t_cno = $('#cmbCno').val();
+				t_driverno = $.trim($('#txtDriverno').val());
+				t_tranno = $.trim($('#txtTranno').val());
 				
 				var t_where = " 1=1 " 
 				+ q_sqlPara2("noa", t_noa) 
@@ -83,10 +84,14 @@
 				+ q_sqlPara2("custno", t_custno)
 				+ q_sqlPara2("interval", t_interval)
 				+ q_sqlPara2("cno", t_cno);
-				if (t_carno.length>0)
-                    t_where += " and patindex('%" + t_carno + "%',carno)>0";
-                if (t_comp.length>0)
+				if (t_comp.length>0)
                     t_where += " and patindex('%" + t_comp + "%',comp)>0";
+				if (t_carno.length>0)
+                    t_where += " and exists(select noa from carcsas where carcsas.noa=carcsa.noa and carcsas.carno='"+t_carno+"')";
+                if (t_driverno.length>0)
+                    t_where += " and exists(select noa from carcsas where carcsas.noa=carcsa.noa and carcsas.driverno='"+t_driverno+"')";
+                if (t_tranno.length>0)
+                    t_where += " and exists(select noa from carcsas where carcsas.noa=carcsa.noa and carcsas.tranno='"+t_tranno+"')";
 				t_where = ' where=^^' + t_where + '^^ ';
 				return t_where;
 			}
@@ -148,12 +153,20 @@
 					<td><input class="txt" id="txtCarno" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblDriverno'> </a></td>
+					<td><input class="txt" id="txtDriverno" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblCustno'> </a></td>
 					<td><input class="txt" id="txtCustno" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
 					<td class='seek'  style="width:20%;"><a id='lblComp'> </a></td>
 					<td><input class="txt" id="txtComp" type="text" style="width:215px; font-size:medium;" /></td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblTranno'> </a></td>
+					<td><input class="txt" id="txtTranno" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->

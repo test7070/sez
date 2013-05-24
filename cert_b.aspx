@@ -15,8 +15,13 @@
 				alert("An error occurred:\r\n" + error.Message);
 			}
 			var q_name = "cert";
-			var q_readonly = [];
-			var bbmNum = [];
+			var q_readonly = ['txtNoa'];
+			var bbmNum = [['txtWeight', 10, 2, 1],['txtChemistry_c', 10, 2, 1],['txtChemistry_si', 10, 2, 1],
+						  ['txtChemistry_mn', 10, 2, 1],['txtChemistry_p', 10, 2, 1],['txtChemistry_s', 10, 2, 1],
+						  ['txtChemistry_cr', 10, 2, 1],['txtChemistry_ni', 10, 2, 1],['txtChemistry_n', 10, 2, 1],
+						  ['txtChemistry_cu', 10, 2, 1],['txtTs', 10, 2, 1],['txtYs', 10, 2, 1],
+						  ['txtElong', 10, 2, 1],['txtHrb', 10, 2, 1],['txtHv', 10, 2, 1],
+						 ];
 			var bbmMask = [];
 			q_sqlCount = 6;
 			brwCount = 6;
@@ -68,8 +73,24 @@
 			}
 
 			function btnIns() {
-				_btnIns();
-				$('#txtNoa').focus();
+				var Parent = window.parent;
+				var Cert_Seq = Parent.btnCert_Seq;
+				var t_uno = Parent.document.getElementById('txtUno_' + Cert_Seq);
+				var t_product = Parent.document.getElementById('txtProduct_' + Cert_Seq);
+				var t_productno = Parent.document.getElementById('txtProductno_' + Cert_Seq);
+				var t_weight = Parent.document.getElementById('txtWeight_' + Cert_Seq);
+				var t_bno = Parent.document.getElementById('txtBno_' + Cert_Seq);
+				if(Cert_Seq == -1 || Cert_Seq == null){
+					alert('無法取得【 ' + q_getMsg('lblNoa') + ' 】');
+					return;
+				}else{
+					_btnIns();
+					$('#txtProduct').val((t_product != null ? t_product.value: ''));
+					$('#txtProductno').val((t_productno != null ? t_productno.value: ''));
+					$('#txtWeight').val((t_weight != null ? t_weight.value: ''));
+					$('#txtHeat').val((t_bno != null ? t_bno.value: ''));
+					$('#txtNoa').val((t_uno != null ? t_uno.value: '')).focus();
+				}
 			}
 	
 			function btnModi() {
@@ -242,6 +263,19 @@
 		input[type="text"], input[type="button"] {
 			font-size: medium;
 		}
+		.trX{
+			background: pink;
+		}
+		.trXA{
+			background: #FFFF80;
+		}
+		.trTitle{
+			padding-left: 18px;
+			font-size: 18px;
+			font-weight: bolder;
+			color: brown;
+			letter-spacing: 5px;
+		}
     </style>
 </head>
 <body>
@@ -252,80 +286,86 @@
 				<tr>
 					<td align="center" style="width:5%"><a id='vewChk' class="lbl"> </a></td>
 					<td align="center" style="width:25%"><a id='vewNoa' class="lbl"> </a></td>
-					<td align="center" style="width:40%"><a id='vewVccno' class="lbl"> </a></td>
 				</tr>
 				<tr>
 					<td ><input id="chkBrow.*" type="checkbox" style=''/> </td>
 					<td align="center" id='noa'>~noa</td>
-					<td align="center" id='vccno'>~vccno</td>
 				</tr>
 			</table>
 		</div>
 		<div class='dbbm'>
 			<table class="tbbm"  id="tbbm"   border="0" cellpadding='2'  cellspacing=''>
 				<tr class="tr1">
-					<td class="td1" ><span> </span><a id='lblNoa' class="lbl"> </a></td>
+					<td class="td1"><span> </span><a id='lblNoa' class="lbl"> </a></td>
 					<td class="td2"><input id="txtNoa"  type="text"  class="txt c1"/></td>
-					<td class="td3"><span> </span><a id="lblVccno" class="lbl" style="font-size: 14px;"> </a></td>
-					<td class="td4"><input id="txtVccno" type="text" class="txt c1" /></td>
-					<td class="td5"><span> </span><a id="lblDatea" class="lbl"> </a></td>
-					<td class="td6"><input id="txtDatea" type="text" class="txt c1" /></td>
+					<td class="td3"><span> </span><a id="lblProduct" class="lbl"> </a></td>
+					<td class="td4"><input id="txtProduct" type="text" class="txt c1" /></td>
+					<td class="td5"><span> </span><a id="lblSize" class="lbl"> </a></td>
+					<td class="td6"><input id="txtSize" type="text" class="txt c1" /></td>
 				</tr>
 				<tr class="tr2">
-					<td class="td1" colspan="2"><span> </span><a id='lblComp' class="lbl"> </a></td>
-					<td class="td2" colspan="5"><input id="txtComp"  type="text" class="txt c1" /></td>
-				</tr>  
+					<td class="td1"><span> </span><a id='lblProductno' class="lbl"> </a></td>
+					<td class="td2"><input id="txtProductno"  type="text"  class="txt c1"/></td>
+					<td class="td3"><span> </span><a id="lblSpec" class="lbl"> </a></td>
+					<td class="td4"><input id="txtSpec" type="text" class="txt c1" /></td>
+					<td class="td5"><span> </span><a id="lblHeat" class="lbl"> </a></td>
+					<td class="td6"><input id="txtHeat" type="text" class="txt c1" /></td>
+				</tr> 
 				<tr class="tr3">
-					<td class="td1"><span> </span><a id='lblAddress' class="lbl"> </a></td>
-					<td class="td2" colspan="5"><input id="txtAddr"  type="text" class="txt c1" /></td>
+					<td class="td1"><span> </span><a id='lblWeight' class="lbl"> </a></td>
+					<td class="td2"><input id="txtWeight"  type="text"  class="txt c1 num"/></td>
+					<td class="td3"><span> </span><a id="lblSpecif" class="lbl"> </a></td>
+					<td class="td4"><input id="txtSpecif" type="text" class="txt c1" /></td>
+				</tr>
+				<tr>
+					<td colspan="6" class="trX"><span> </span><a class="trTitle" id="lblChemistry"></a></td>
 				</tr>
 				<tr class="tr4">
-					<td class="td1"><span> </span><a id='lblShipped' class="lbl"> </a></td>
-					<td class="td2" colspan="3"><input id="txtShipped"  type="text" class="txt c1" /></td>
+					<td class="td1 trX"><span> </span><a id='lblChemistry_c' class="lbl"> </a></td>
+					<td class="td2 trX"><input id="txtChemistry_c"  type="text"  class="txt c1 num"/></td>
+					<td class="td3 trX"><span> </span><a id="lblChemistry_si" class="lbl"> </a></td>
+					<td class="td4 trX"><input id="txtChemistry_si" type="text" class="txt c1 num" /></td>
+					<td class="td5 trX"><span> </span><a id="lblChemistry_mn" class="lbl"> </a></td>
+					<td class="td6 trX"><input id="txtChemistry_mn" type="text" class="txt c1 num" /></td>
 				</tr>
 				<tr class="tr5">
-					<td class="td1" ><span> </span><a id='lblFroma' class="lbl"> </a></td>
-					<td class="td2" colspan="5"><input id="txtFroma"  type="text"  class="txt c1"/></td>
+					<td class="td1 trX"><span> </span><a id='lblChemistry_p' class="lbl"> </a></td>
+					<td class="td2 trX"><input id="txtChemistry_p"  type="text"  class="txt c1 num"/></td>
+					<td class="td3 trX"><span> </span><a id="lblChemistry_s" class="lbl"> </a></td>
+					<td class="td4 trX"><input id="txtChemistry_s" type="text" class="txt c1 num" /></td>
+					<td class="td5 trX"><span> </span><a id="lblChemistry_cr" class="lbl"> </a></td>
+					<td class="td6 trX"><input id="txtChemistry_cr" type="text" class="txt c1 num" /></td>
 				</tr>                               
 				<tr class="tr6">
-					<td class="td1" ><span> </span><a id='lblToa' class="lbl"> </a></td>
-					<td class="td2" colspan="5"><input id="txtToa"  type="text"  class="txt c1"/></td>
+					<td class="td1 trX"><span> </span><a id='lblChemistry_ni' class="lbl"> </a></td>
+					<td class="td2 trX"><input id="txtChemistry_ni"  type="text"  class="txt c1 num"/></td>
+					<td class="td3 trX"><span> </span><a id="lblChemistry_n" class="lbl"> </a></td>
+					<td class="td4 trX"><input id="txtChemistry_n" type="text" class="txt c1 num" /></td>
+					<td class="td5 trX"><span> </span><a id="lblChemistry_cu" class="lbl"> </a></td>
+					<td class="td6 trX"><input id="txtChemistry_cu" type="text" class="txt c1 num" /></td>
 				</tr>                               
+				<tr>
+					<td colspan="6" class="trXA"><span> </span><a class="trTitle" id="lblMechanicalstrength"></a></td>
+				</tr>
 				<tr class="tr7">
-					<td class="td1" ><span> </span><a id='lblEtd' class="lbl"> </a></td>
-					<td class="td2"><input id="txtEtd"  type="text"  class="txt c1"/></td>
-					<td class="td3"><span> </span><a id="lblEta" class="lbl"> </a></td>
-					<td class="td4"><input id="txtEta" type="text" class="txt c1" /></td>
-					<td class="td5"><span> </span><a id='lblClosing' class="lbl"> </a></td>
-					<td class="td6"><input id="txtClosing"  type="text" class="txt c1" /></td>
+					<td class="td1 trXA"><span> </span><a id='lblTs' class="lbl"> </a></td>
+					<td class="td2 trXA"><input id="txtTs"  type="text"  class="txt c1 num"/></td>
+					<td class="td3 trXA"><span> </span><a id="lblYs" class="lbl"> </a></td>
+					<td class="td4 trXA"><input id="txtYs" type="text" class="txt c1 num" /></td>
+					<td class="td5 trXA"><span> </span><a id="lblElong" class="lbl"> </a></td>
+					<td class="td6 trXA"><input id="txtElong" type="text" class="txt c1 num" /></td>
+				</tr>
+				<tr>
+					<td colspan="6" class="trX"><span> </span><a class="trTitle" id="lblHardness"></a></td>
 				</tr>
 				<tr class="tr8">
-					<td class="td1" ><span> </span><a id='lblPno' class="lbl"> </a></td>
-					<td class="td2"><input id="txtPno"  type="text"  class="txt c1"/></td>
-					<td class="td3"><span> </span><a id="lblCno" class="lbl"> </a></td>
-					<td class="td4"><input id="txtCno" type="text" class="txt c1" /></td>
-					<td class="td5"><span> </span><a id="lblLcno" class="lbl"> </a></td>
-					<td class="td6"><input id="txtLcno" type="text" class="txt c1" /></td>
+					<td class="td1 trX"><span> </span><a id='lblHrb' class="lbl"> </a></td>
+					<td class="td2 trX"><input id="txtHrb"  type="text"  class="txt c1 num"/></td>
+					<td class="td3 trX"><span> </span><a id="lblHv" class="lbl"> </a></td>
+					<td class="td4 trX"><input id="txtHv" type="text" class="txt c1 num" /></td>
+					<td class="td5 trX"></td>
+					<td class="td6 trX"></td>
 				</tr>    
-				<tr class="tr9">
-					<td class="td1"><span> </span><a id="lblTotal" class="lbl"> </a></td>
-					<td class="td2"><input id="txtTotal" type="text" class="txt c1 num" /></td>
-					<td class="td3"><span> </span><a id="lblUsd" class="lbl"> </a></td>
-					<td class="td4"><input id="txtUsd" type="text" class="txt c1 num" /></td>
-					<td class="td5" colspan="2" align="center">
-						<input id="btnInvo" type="button">
-						<input id="btnPack" type="button">
-					</td>
-					
-				</tr>
-				<tr class="tr10">
-					<td class="td1"><span> </span><a id='lblTitle' class="lbl"> </a></td>
-					<td class="td2" colspan="5"><input id="txtTitle"  type="text" class="txt c1" /></td>
-				</tr>
-				<tr class="tr11">
-					<td class="td1"><span> </span><a id='lblMemo' class="lbl"> </a></td>
-					<td class="td2" colspan="5"><textarea id="txtMemo"  style="width:95%; height: 60px;"> </textarea></td>
-				</tr>
 			</table>
         </div>
 	</div>

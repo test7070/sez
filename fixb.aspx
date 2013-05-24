@@ -65,10 +65,6 @@
 					case q_name:
 						if (q_cur == 4)
 							q_Seek_gtPost();
-
-						if (q_cur == 1 || q_cur == 2)
-							q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
 						break;
 				}  /// end switch
 			}
@@ -98,24 +94,18 @@
 				q_box('z_fixb.aspx', '', "800px", "600px", q_getMsg("popPrint"));
 			}
 
-			function btnOk() {
-				
-	           						
+			function btnOk() {	
 				$('#txtWorker').val(r_name);
                 var t_noa = trim($('#txtNoa').val());
                 var t_date = trim($('#txtDatea').val());
                 if(t_noa.length == 0 || t_noa == "AUTO")
-                    q_gtnoa(q_name, replaceAll((t_date.length == 0 ? q_date() : t_date), '/', ''));
+                    q_gtnoa(q_name, replaceAll('FIB'+(t_date.length == 0 ? q_date() : t_date), '/', ''));
                 else
                     wrServer(t_noa);
 			}
 
 			function wrServer(key_value) {
 				var i;
-
-				xmlSql = '';
-				if (q_cur == 2)/// popSave
-					xmlSql = q_preXml();
 
 				$('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
 				_btnOk(key_value, bbmKey[0], '', '', 2);

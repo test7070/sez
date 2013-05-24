@@ -146,10 +146,24 @@
                 if(q_cur > 0 && q_cur < 4)// 1-3
                     return;
             }
-
-            function bbsAssign() {
-            	for(var j = 0; j < q_bbsCount; j++) {
-            		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+            
+			var btnCert_Seq = -1; ///用來給q_box開啟cert時判斷位置
+			function bbsAssign() {
+				$('.btnCert').val($('#lblCert_st').text());
+				for(var j = 0; j < q_bbsCount; j++) {
+					if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+	                	$('#btnCert_' + j).click(function(){
+			                t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+			                q_bodyId($(this).attr('id'));
+			                b_seq = t_IdSeq;
+			                btnCert_Seq = b_seq;
+		                	t_where = '';
+		                	t_uno = $('#txtUno_' + b_seq).val();
+		                	if(t_uno.length > 0){
+		                		t_where = "noa='" + t_uno + "'";
+		                		q_box("cert_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'cert', "95%", "95%", q_getMsg('popCert'));
+		                	}
+	                	});
             		  }
                 }
                 _bbsAssign();
@@ -508,6 +522,7 @@
                 <td align="center" style="width:3%;"><a id='lblStore_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblUweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblEnda_s'> </a></td>
+                <td align="center" style="width:3%;"><a id='lblCert_st'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -550,6 +565,7 @@
                 <td ><input  id="txtUweight.*" type="text" class="txt c1 num"/>
                 <input id="recno.*" type="hidden" /></td>
                 <td ><input id="chkEnda.*" type="checkbox"/></td>
+                <td><input id="btnCert.*" class="btnCert" type="button"/></td>
             </tr>
         </table>
         </div>
