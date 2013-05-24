@@ -85,6 +85,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)
                     return;
+                 q_box('uccbi_s.aspx', q_name + '_s', "500px", "550px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -401,12 +402,12 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:200px; color:black;"><a id='vewNoa_bi'> </a></td>
-						<td align="center" style="width:250px; color:black;"><a id='vewNamea_bi'> </a></td>
+						<td align="center" style="width:250px; color:black;"><a id='vewProduct_bi'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
 						<td id='noa' style="text-align: center;">~noa</td>
-						<td id='namea' style="text-align: left;">~namea</td>
+						<td id='product' style="text-align: left;">~product</td>
 					</tr>
 				</table>
 			</div>
@@ -424,8 +425,8 @@
 						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id='lblNamea_bi' class="lbl"> </a></td>
-						<td colspan="2"><input id="txtNamea"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id='lblProduct_bi' class="lbl"> </a></td>
+						<td colspan="2"><input id="txtProduct"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblSpec_bi' class="lbl"> </a></td>
@@ -434,18 +435,18 @@
 					<tr>
 						<td><span> </span><a id='lblDensity_bi' class="lbl"> </a></td>
 						<td><input id="txtDensity" type="text" class="txt c1 num" /></td>
+						<td><span> </span><a id='lblUweight_bi' class="lbl"> </a></td>
+						<td><input id="txtUweight" type="text" class="txt c1 num" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblUnit_bi' class="lbl"> </a></td>
 						<td><input id="txtUnit" type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblUnit2_bi' class="lbl"> </a></td>
 						<td><input id="txtUnit2"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTypea_bi' class="lbl"> </a></td>
-						<td><select id="cmbTypea" class="txt c1"></select></td>
+						<td><select id="cmbTypea" class="txt c1"> </select></td>
 					</tr>
 				</table>
 			</div>

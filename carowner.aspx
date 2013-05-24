@@ -46,6 +46,13 @@
                 bbmMask = [['txtBirthday', r_picd], ['txtIndate', r_picd], ['txtHealth_bdate', r_picd], ['txtHealth_edate', r_picd], ['txtLabor1_bdate', r_picd], ['txtLabor1_edate', r_picd], ['txtLabor2_bdate', r_picd], ['txtLabor2_edate', r_picd]];
                 q_mask(bbmMask);
                 q_cmbParse("cmbSex", q_getPara('sys.sex'));
+                
+                if(q_getPara('sys.project').toUpperCase()!="DC"){
+                	$("#divBalance").hide();
+                	$("#divCarlender").hide();
+                	$("#divLabase").hide();
+                }
+                
                 $('#lblBalance').parent().click(function(e) {
                     q_box("balance.aspx?;;;noa='" + $('#txtNoa').val() + "'", 'balance', "95%", "95%", q_getMsg("popBalance"));
                 });
