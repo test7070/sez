@@ -21,7 +21,7 @@
 
 			var q_name = "trans";
 			var q_readonly = ['txtWeight3','txtMiles','txtTotal','txtTotal2','txtNoa','txtOrdeno','txtWorker','txtWorker2'];
-			var bbmNum = [['txtWeight3',10,3,1],['txtWeight2',10,3,1],['txtInmount',10,3,1],['txtPton',10,3,1],['txtPrice',10,3,1],['txtTotal',10,0,1]
+			var bbmNum = [['txtGross',10,3,1],['txtWeight',10,3,1],['txtWeight3',10,3,1],['txtWeight2',10,3,1],['txtInmount',10,3,1],['txtPton',10,3,1],['txtPrice',10,3,1],['txtTotal',10,0,1]
 			,['txtOutmount',10,3,1],['txtPton2',10,3,1],['txtPrice2',10,3,1],['txtPrice3',10,3,1],['txtDiscount',10,2,1],['txtTotal2',10,0,1]
 			,['txtTolls',10,0,1],['txtReserve',10,0,1],['txtBmiles',10,0,1],['txtEmiles',10,0,1]];
 			var bbmMask = [['txtDatea','999/99/99'],['txtTrandate','999/99/99'],['txtMon','999/99'],['txtMon2','999/99'],['txtLtime','99:99'],['txtStime','99:99'],['txtDtime','99:99']];
@@ -49,7 +49,7 @@
                 include : ['txtDatea', 'txtTrandate','txtMon','txtMon2','txtCarno','txtDriverno','txtDriver'
                 	,'txtCustno','txtComp','txtNick','cmbCalctype','cmbCarteamno','txtStraddrno','txtStraddr'
                 	,'txtUccno','txtProduct','txtInmount','txtPrice','txtTotal'
-                	,'txtOutmount','txtPrice2','txtPrice3','txtTotal2','txtDiscount'
+                	,'txtOutmount','txtPrice2','txtPrice3','txtTotal2','txtDiscount','txtTolls'
                 	,'txtPo','txtCustorde','txtSalesno','txtSales'],
                 /*記錄當前的資料*/
                 copy : function() {
@@ -548,9 +548,10 @@
 				curData.paste();
 				$('#txtNoa').val('AUTO');
 				$('#txtNoq').val('001');
-				if($('#cmbCalctype').val().length==0)
+				if($('#cmbCalctype').val().length==0){
 					$('#cmbCalctype').val(trans.calctype[0].noa);
-				trans.calctypeChange();
+					trans.calctypeChange();
+				}
 				trans.refresh();
 				trans.checkData();
 				$('#txtDatea').focus();
@@ -1019,10 +1020,14 @@
 						<td><input id="txtReserve"  type="text" class="txt c1 num"/></td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblPo" class="lbl"> </a></td>
-						<td colspan="2"><input id="txtPo"  type="text" class="txt c1"/></td>
-						<td><span> </span><a id="lblCustorde" class="lbl"> </a></td>
-						<td colspan="2"><input id="txtCustorde" type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblGross" class="lbl"> </a></td>
+						<td><input id="txtGross" type="text"  class="txt num c1"/></td>
+						<td><span> </span><a id="lblWeight" class="lbl"> </a></td>
+						<td><input id="txtWeight" type="text"  class="txt num c1"/></td>
+						<td><span> </span><a id="lblWeight2" class="lbl"> </a></td>
+						<td><input id="txtWeight2" type="text"  class="txt num c1"/></td>
+						<td><span> </span><a id="lblWeight3" class="lbl"> </a></td>
+						<td><input id="txtWeight3" type="text"  class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblCaseno" class="lbl"> </a></td>
@@ -1032,6 +1037,12 @@
 						</td>
 						<td><span> </span><a id="lblCasetype" class="lbl"> </a></td>
 						<td><select id="cmbCasetype" class="txt c1"> </select></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblPo" class="lbl"> </a></td>
+						<td colspan="2"><input id="txtPo"  type="text" class="txt c1"/></td>
+						<td><span> </span><a id="lblCustorde" class="lbl"> </a></td>
+						<td colspan="2"><input id="txtCustorde" type="text" class="txt c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblBmiles" class="lbl"> </a></td>
@@ -1058,10 +1069,6 @@
 							<input id="txtSales"  type="text" style="float:left; width:50%;"/>
 						</td>
 						<td> </td>
-						<td><span> </span><a id="lblWeight2" class="lbl"> </a></td>
-						<td><input id="txtWeight2" type="text"  class="txt num c1"/></td>
-						<td><span> </span><a id="lblWeight3" class="lbl"> </a></td>
-						<td><input id="txtWeight3" type="text"  class="txt num c1"/></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
