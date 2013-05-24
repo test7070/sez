@@ -27,7 +27,9 @@
             brwKey = 'noa';
             //ajaxPath = ""; //  execute in Root
             aPop = new Array(['txtBrandno', 'lblBrand', 'carbrand', 'noa,brand', 'txtBrandno,txtBrand', 'carbrand_b.aspx'], 
-            ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'], 
+            ['txtCarplateno', 'lblCarplate', 'carplate', 'noa,carplate,driver', 'txtCarplateno', 'carplate_b.aspx'],
+            ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx'],
+            ['txtProductno', 'lblNamea', 'fixucc', 'noa,namea', 'txtProductno,txtProduct', 'fixucc_b.aspx'], 
             ['txtCarno', 'lblCarno', 'car2', 'a.noa','txtCarno', 'car2_b.aspx'],
             ['txtFixtggno', 'lblFixtgg', 'tgg', 'noa,comp', 'txtFixtggno,txtFixtgg', 'tgg_b.aspx']);
             $(document).ready(function() {
@@ -107,7 +109,7 @@
             function _btnSeek() {
                 if (q_cur > 0 && q_cur < 4)// 1-3
                     return;
-                q_box('tirestk_s.aspx', q_name + '_s', "500px", "380px", q_getMsg("popSeek"));
+                q_box('tirestk_s.aspx', q_name + '_s', "500px", "450px", q_getMsg("popSeek"));
             }
 
             function btnIns() {
@@ -399,7 +401,7 @@
 						<td class="td2"><select id="cmbTypea" class="txt c1"> </select></td>
 					</tr>
 					<tr class="tr3">
-						<td class="td1"><span> </span><a id='lblNamea' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblNamea' class="lbl btn"> </a></td>
 						<td class="td2" colspan="2">
 						<input id="txtProductno"  type="text"  class="txt" style="width: 25%;"/>
 						<input id="txtProduct"  type="text"  class="txt" style="width: 75%;"/>
@@ -413,11 +415,11 @@
 						</td>
 					</tr>
 					<tr class="tr5">
-						<td class="td1"><span> </span><a id='lblCarno' class="lbl"> </a></td>
+						<td class="td1"><span> </span><a id='lblCarno' class="lbl btn"> </a></td>
 						<td class="td2" >
 						<input id="txtCarno"  type="text"  class="txt c1"/>
 						</td>
-						<td class="td3"><span> </span><a id='lblCarplate' class="lbl"> </a></td>
+						<td class="td3"><span> </span><a id='lblCarplate' class="lbl btn"> </a></td>
 						<td class="td4">
 						<input id="txtCarplateno"  type="text"  class="txt c1"/>
 						</td>
