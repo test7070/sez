@@ -280,11 +280,11 @@
 	   </tr>
 	   <tr class="tr7">
 		 <td class="td1"><span> </span><a id='lblInvo'></a></td>
-         <td class="td2" colspan="9"><textarea id="txtInvo" cols="10" rows="5" style="width: 98%;height: 50px;"></textarea></td>
+         <td class="td2" colspan="9"><textarea id="txtMemotitle" cols="10" rows="5" style="width: 98%;height: 50px;"></textarea></td>
 	   </tr>    
 	   <tr class="tr8">
 		 <td class="td1"><span> </span><a id='lblInvom'></a></td>
-         <td class="td2" colspan="9"><textarea id="txtInvom" cols="10" rows="5" style="width: 98%;height: 50px;"></textarea></td>
+         <td class="td2" colspan="9"><textarea id="txtMemobottom" cols="10" rows="5" style="width: 98%;height: 50px;"></textarea></td>
 	   </tr>
 	   <tr class="tr9">
             <td class="td1" ><span> </span><a id='lblLcbauk'></a></td>
