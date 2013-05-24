@@ -226,6 +226,8 @@
 				});
 				
 				$('#txtInmount').change(function(){
+					if(!trans.isTre)
+						$('#txtOutmount').val($('#txtInmount').val());
 					sum();
 				});
 				$('#txtPton').change(function(){
@@ -979,8 +981,6 @@
 					<tr>
 						<td><span> </span><a id="lblInmount" class="lbl"> </a></td>
 						<td><input id="txtInmount"  type="text" class="txt c1 num"/></td>
-						<td><span> </span><a id="lblPton" class="lbl"> </a></td>
-						<td><input id="txtPton"  type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblPrice" class="lbl"> </a></td>
 						<td><input id="txtPrice"  type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblTotal" class="lbl"> </a></td>
@@ -992,8 +992,6 @@
 					<tr>
 						<td><span> </span><a id="lblOutmount" class="lbl"> </a></td>
 						<td><input id="txtOutmount"  type="text" class="txt c1 num"/></td>
-						<td><span> </span><a id="lblPton2" class="lbl"> </a></td>
-						<td><input id="txtPton2"  type="text" class="txt c1 num"/></td>
 						<td><span> </span>
 							<a id="lblPrice2" class="lbl"> </a>
 							<a id="lblPrice3" class="lbl"> </a>
@@ -1002,6 +1000,8 @@
 							<input id="txtPrice2"  type="text" class="txt c1 num"/>
 							<input id="txtPrice3"  type="text" class="txt c1 num"/>
 						</td>
+						<td><span> </span><a id="lblDiscount" class="lbl"> </a></td>
+						<td><input id="txtDiscount"  type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblTotal2" class="lbl"> </a></td>
 						<td>
 							<input id="txtMount2"  type="text" style="display:none;"/>
@@ -1009,9 +1009,10 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span> </span><a id="lblDiscount" class="lbl"> </a></td>
-						<td><input id="txtDiscount"  type="text" class="txt c1 num"/></td>
-						
+						<td><span> </span><a id="lblPton" class="lbl"> </a></td>
+						<td><input id="txtPton"  type="text" class="txt c1 num"/></td>
+						<td><span> </span><a id="lblPton2" class="lbl"> </a></td>
+						<td><input id="txtPton2"  type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblTolls" class="lbl"> </a></td>
 						<td><input id="txtTolls"  type="text" class="txt c1 num"/></td>
 						<td><span> </span><a id="lblReserve" class="lbl"> </a></td>
