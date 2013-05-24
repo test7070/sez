@@ -170,6 +170,13 @@
                 	case 'carcsaInit_1':
 						var as = _q_appendData("calctypes", "", true);
 						var t_item = "@";
+						carcsa.calctype.push({
+							noa : '',
+							typea : '',
+							discount : 0,
+							discount2 : 0,
+							isoutside : false
+						});
 						for ( i = 0; i < as.length; i++) {
 							if(as[i].noa+as[i].noq=="D01" || as[i].noa+as[i].noq=="D02" || as[i].noa+as[i].noq=="E01"){
 								//for 大昌
