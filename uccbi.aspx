@@ -435,18 +435,18 @@
 					<tr>
 						<td><span> </span><a id='lblDensity_bi' class="lbl"> </a></td>
 						<td><input id="txtDensity" type="text" class="txt c1 num" /></td>
+						<td><span> </span><a id='lblUweight_bi' class="lbl"> </a></td>
+						<td><input id="txtUweight" type="text" class="txt c1 num" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblUnit_bi' class="lbl"> </a></td>
 						<td><input id="txtUnit" type="text" class="txt c1" /></td>
-					</tr>
-					<tr>
 						<td><span> </span><a id='lblUnit2_bi' class="lbl"> </a></td>
 						<td><input id="txtUnit2"  type="text" class="txt c1" /></td>
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblTypea_bi' class="lbl"> </a></td>
-						<td><select id="cmbTypea" class="txt c1"></select></td>
+						<td><select id="cmbTypea" class="txt c1"> </select></td>
 					</tr>
 				</table>
 			</div>
