@@ -290,7 +290,7 @@
 					<tr>
 						<td align="center" style="width:20px; color:black;"><a id='vewChk'> </a></td>
 						<td align="center" style="width:100px; color:black;"><a id='vewNoa_st'> </a></td>
-						<td align="center" style="width:280px; color:black;"><a id='vewNamea_st'> </a></td>
+						<td align="center" style="width:280px; color:black;"><a id='vewProduct_st'> </a></td>
 					</tr>
 					<tr>
 						<td ><input id="chkBrow.*" type="checkbox" style=' '/></td>
