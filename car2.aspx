@@ -57,7 +57,11 @@
                 q_cmbParse("cmbCartype", q_getPara('car2.cartype'));
                 q_cmbParse("cmbIsprint", q_getPara('car2.isprint'));
                 q_cmbParse("cmbAuto", q_getPara('car2.auto'));
-
+                
+                if(q_getPara('sys.project').toUpperCase()!="DC"){
+                	$(".btn").hide();
+                }
+                
                 q_gt('carbrand', '', 0, 0, 0, "");
                 q_gt('carkind', '', 0, 0, 0, "");
                 q_gt('carspec', '', 0, 0, 0, "");
@@ -1117,7 +1121,7 @@
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td colspan="5"><textarea id="txtMemo" class="txt c1" style="height:100px;"> </textarea></td>
 					</tr>
-					<tr>
+					<tr class="btn">
 						<td> </td>
 						<td><input id="btnCarinsurance" type="button" style="width:80%;"/> </td>					
 						<td><input id="btnCaraccident" type="button" style="width:80%;"/> </td>
@@ -1125,7 +1129,7 @@
 						<td><input id="btnOil" type="button" style="width:80%;"/> </td>	
 						<td><input id="btnCartax" type="button" style="width:80%;"/> </td>
 					</tr>
-					<tr>
+					<tr class="btn">
 						<td> </td>
 						<td><input id="btnCarexpense" type="button" style="width:80%;"/> </td>
 						<td><input id="btnSale" type="button" style="width:80%;"/> </td>	
