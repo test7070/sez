@@ -31,6 +31,14 @@
             $(document).ready(function() {
                 bbmKey = ['noa'];
                 q_brwCount();
+                
+                //判斷舊車牌
+                if(q_content!="" && q_getId()[3].substr(0,6)=="a.noa="){
+                	t_oldnoa=replaceAll(q_getId()[3],'a.noa','a.oldnoa')
+                	t_where =" where=^^ "+q_getId()[3]+" or "+t_oldnoa+"^^ ";
+                	q_content=t_where;
+                }
+                
                 q_gt(q_name, q_content, q_sqlCount, 1)
 
             });
@@ -410,7 +418,8 @@
                             t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].nick;
                         }
                         q_cmbParse("cmbCardealno", t_item);
-                        $("#cmbCardealno").val(abbm[q_recno].cardealno);
+                        if(abbm[q_recno])
+                        	$("#cmbCardealno").val(abbm[q_recno].cardealno);
                         break;
                     case 'carbrand':
                         var as = _q_appendData("carbrand", "", true);
@@ -419,7 +428,8 @@
                             t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].brand;
                         }
                         q_cmbParse("cmbCarbrandno", t_item);
-                        $("#cmbCarbrandno").val(abbm[q_recno].carbrandno);
+                        if(abbm[q_recno])
+                        	$("#cmbCarbrandno").val(abbm[q_recno].carbrandno);
                         break;
                     case 'carkind':
                         var as = _q_appendData("carkind", "", true);
@@ -428,7 +438,8 @@
                             t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].kind;
                         }
                         q_cmbParse("cmbCarkindno", t_item);
-                        $("#cmbCarkindno").val(abbm[q_recno].carkindno);
+                        if(abbm[q_recno])
+                        	$("#cmbCarkindno").val(abbm[q_recno].carkindno);
                         break;
                     case 'carspec':
                         var as = _q_appendData("carspec", "", true);
@@ -437,7 +448,8 @@
                             t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].spec;
                         }
                         q_cmbParse("cmbCarspecno", t_item);
-                        $("#cmbCarspecno").val(abbm[q_recno].carspecno);
+                        if(abbm[q_recno])
+                        	$("#cmbCarspecno").val(abbm[q_recno].carspecno);
                         break;
                     case 'carstyle':
                         var as = _q_appendData("carstyle", "", true);
@@ -446,7 +458,8 @@
                             t_item = t_item + (t_item.length > 0 ? ',' : '') + as[i].noa + '@' + as[i].style;
                         }
                         q_cmbParse("cmbCarstyleno", t_item);
-                        $("#cmbCarstyleno").val(abbm[q_recno].carstyleno);
+                        if(abbm[q_recno])
+                        	$("#cmbCarstyleno").val(abbm[q_recno].carstyleno);
                         break;
                     case q_name:
                     	
