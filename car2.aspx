@@ -495,13 +495,15 @@
 
             function btnIns() {
                 _btnIns();
-                $(".carexpense").show();
-                $('#txtUlicensemon').val('04');
-                $('#txtDlicensemon').val('10');
-                $('#txtSpringmon').val('03');
-                $('#txtSummermon').val('06');
-                $('#txtFallamon').val('09');
-                $('#txtWintermon').val('12');
+                 if(q_getPara('sys.project').toUpperCase()!="DC"){
+	                $(".carexpense").show();
+	                $('#txtUlicensemon').val('04');
+	                $('#txtDlicensemon').val('10');
+	                $('#txtSpringmon').val('03');
+	                $('#txtSummermon').val('06');
+	                $('#txtFallamon').val('09');
+	                $('#txtWintermon').val('12');
+				}
                 
                 //暫存資料
                  t_cardeal='';
@@ -554,7 +556,8 @@
             }
 
             function btnPrint() {
-				q_box('z_car2.aspx', '', "90%", "600px", q_getMsg("popPrint"));
+            	 if(q_getPara('sys.project').toUpperCase()!="DC")
+					q_box('z_car2.aspx', '', "90%", "600px", q_getMsg("popPrint"));
             }
 
             function btnOk() {
@@ -634,7 +637,7 @@
                 var t_noa = $('#txtNoa').val();
                 $('#txtCarno').val(t_noa);
                 wrServer(t_noa);
-                if(q_cur=='1')
+                if(q_cur=='1'&& q_getPara('sys.project').toUpperCase()=="DC")
                 	$("#btnCarinsurance").click();
             }
 
