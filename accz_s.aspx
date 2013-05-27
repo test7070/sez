@@ -37,6 +37,7 @@
 
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();
+        t_acc1 = $('#txtAcc1').val();
         t_bdate = $('#txtBdate').val();
         t_edate = $('#txtEdate').val();
         t_depl_ac = $('#txtDepl_ac').val();
@@ -46,7 +47,7 @@
         t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
         t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .
 
-        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("namea", t_namea) + q_sqlPara2("datea", t_bdate, t_edate) +
+        var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("acc1", t_acc1) + q_sqlPara2("namea", t_namea) + q_sqlPara2("datea", t_bdate, t_edate) +
                            q_sqlPara2("depl_ac", t_depl_ac) + q_sqlPara2("namea2", t_namea2);
 
         t_where = ' where=^^' + t_where + '^^ ';
@@ -70,6 +71,10 @@
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblNoa'></a></td>
                 <td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
+            </tr>
+            <tr class='seek_tr'>
+                <td class='seek'  style="width:20%;"><a id='lblAcc1'></a></td>
+                <td><input class="txt" id="txtAcc1" type="text" style="width:215px; font-size:medium;" /></td>
             </tr>
              <tr class='seek_tr'>
                 <td class='seek'  style="width:20%;"><a id='lblNamea'></a></td>
