@@ -408,11 +408,15 @@
 						<td> </td>
 						<td class="tdZ"> </td>
 					</tr>
+			<tr style="display: none;">
+			   <td class="td1" ><span> </span><a id='lblNoa' class="lbl"></a></td>
+               <td class="td2" ><input id="txtNoa" type="text" class="txt c1"/></td>
+			</tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-               <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id='lblDatea' class="lbl"></a></td>
-               <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
+               <td class="td2"><input id="txtDatea" type="text" class="txt c1"/></td>
+               <td class="td3"></td>
+               <td class="td4"></td>
                <td class="td5"></td>
                <td class="td6"></td>              
             </tr>
