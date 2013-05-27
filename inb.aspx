@@ -21,7 +21,7 @@
             var q_readonly = ['txtNoa'];
             var q_readonlys = ['txtNoa','txtNoq'];
             var bbmNum = [['txtGwelght', 10, 2, 1],['txtTwelght', 10, 2, 1],['txtWelght', 10, 2, 1]];
-            var bbsNum = [['txtLength', 10, 2, 1],['txtBweight', 10, 2, 1],['txtMount', 10, 2, 1],
+            var bbsNum = [['txtLengthb', 10, 2, 1],['txtBweight', 10, 2, 1],['txtMount', 10, 2, 1],
             ['txtWeight', 10, 2, 1],['txtPdm',10,2,1],['txtGweight',10,2,1],['txtMount2',10,2,1],['txtTheory',10,2,1],
             ['txtCuac',10,2,1],['txtCuaw',10,2,1],['txtUweight', 10, 2, 1]];
             var bbmMask = [];
@@ -537,7 +537,7 @@
                 	<input  id="txtUnit.*" type="hidden"/>
                 </td>
                 <td ><input  id="txtSpec.*" type="text" class="txt c1"/></td>
-                <td ><input  id="txtLength.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtLengthb.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtBweight.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtMount.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtWeight.*" type="text" class="txt c1 num"/></td>

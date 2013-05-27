@@ -49,6 +49,7 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
+            q_cmbParse("cmbKind", q_getPara('vcce.kind'));  
 			/* 若非本會計年度則無法存檔 */
 			$('#txtDatea').focusout(function () {
 				if($(this).val().substr( 0,3)!= r_accy){
@@ -68,6 +69,16 @@
 					alert('請輸入【' + q_getMsg('lblOrdeno') + '】');
 				}
 			});
+			$('#btnOrdeimport').click(function(){
+				var ordeno = $('#txtOrdeno').val();
+				var t_where = '';
+				if(ordeno.length > 0){
+					t_where = "noa='" + ordeno + "'";
+            	   	q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
+				}else{
+					alert('請輸入【' + q_getMsg('lblOrdeno') + '】');
+				}
+			});
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
@@ -78,6 +89,14 @@
 						if (!b_ret || b_ret.length == 0)
 							return;
 						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtWeight,txtMount,txtMemo,txtUno', b_ret.length, b_ret, 'productno,product,bweight,born,memo,no2','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+	                    }
+						break;
+				case 'orde':
+					if (q_cur > 0 && q_cur < 4) {
+						if (!b_ret || b_ret.length == 0)
+							return;
+						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtWeight,txtMount,txtPrice', b_ret.length, b_ret,
+												 'productno,product,weight,mount,price','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
 	                    }
 						break;
                 case q_name + '_s':
@@ -424,14 +443,14 @@
         <tr class="tr3">
         	<td class='td1'><span> </span><a id="lblTel" class="lbl"> </a></td>
             <td class="td2" colspan="4"><input id="txtTel"  type="text" class="txt c7"/></td>
-            <td class="td6"><span> </span><a id="lblTrantype" class="lbl"> </a></td>
-            <td class="td7"><input id="txtTrantype"  type="text" class="txt c1"/> </td>
+            <td class="td3"><span> </span><a id="lblTrantype" class="lbl"> </a></td>
+            <td class="td4"><input id="txtTrantype"  type="text" class="txt c1"/> </td>
         </tr>
         <tr class="tr4">
             <td class='td1'><span> </span><a id="lblAddr_post" class="lbl"> </a></td>
             <td class="td2" colspan="4"><input id="txtAddr_post"  type="text" class="txt c7"/> </td>
-            <td class='td6'><span> </span><a id="lblStype" class="lbl"> </a> </td>
-            <td class="td7"><input id="txtStype"  type="text" class="txt c1"/> </td>
+            <td class='td3'><span> </span><a id="lblStype" class="lbl"> </a> </td>
+            <td class="td4"><input id="txtStype"  type="text" class="txt c1"/> </td>
         </tr>
         <tr class="tr5">
             <td class='td1'><span> </span><a id="lblDeivery_addr" class="lbl"> </a></td>
@@ -439,6 +458,7 @@
             <td class='td3'><span> </span><a id="lblOrdeno" class="lbl"> </a> </td>
             <td class="td4"><input id="txtOrdeno"  type="text" class="txt c1"/> </td>
             <td class="td5"><input id="btnWorkbimport" type="button"/> </td>
+            <td class="td6"><input id="btnOrdeimport" type="button"/> </td>
         </tr>   
         <tr class="tr6">
             <td class='td1'><span> </span><a id="lblWeight" class="lbl"> </a></td>

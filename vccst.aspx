@@ -71,15 +71,16 @@
 			       		$('#btnOk').removeAttr('disabled');
 				}
 			});
-             $('#lblAccc').click(function () {
-		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('btnAccc'), true);
-		        });
-		        $('#lblOrdc').click(function () {
-		            lblOrdc();
-		        });
-		       $('#cmbKind').change(function () {
-            	size_change();
-		     });
+			$('#lblAccc').click(function () {
+				q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('btnAccc'), true);
+			});
+			$('#lblOrdc').click(function () {
+				lblOrdc();
+			});
+			$('#cmbKind').change(function () {
+				size_change();
+			});
+			
             $('#lblInvono').click(function(){
 				t_where = '';
 				t_invo = $('#txtInvono').val();
@@ -88,27 +89,23 @@
                 	q_box("invoice.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'invo', "95%", "95%", q_getMsg('popInvo'));
                 }
             });
+			$('#btnImportVcce').click(function(){
+				if(q_cur == 1 || q_cur == 2){
+					var t_carno = $('#txtCarno2').val();
+					if(emp(t_carno)){
+						alert('請輸入 : 【' + q_getMsg('lblCarno2') + '】');
+					}else{
+						t_where = "where=^^ carno='" + t_carno + "' ^^";
+						q_gt('vcce', t_where , 0, 0, 0, "");
+	                }
+                	}
+                });
 
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 
             var ret; 
             switch (b_pop) {  
-                case 'tgg':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtTggno,txtComp,txtTel,txtPost,txtAddr,txtPaytype,cmbTrantype', ret, 'noa,comp,tel,post_fact,addr_fact,paytype,trantype'); 
-                    break;
-
-                case 'ucc':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill( 'txtProductno_' + b_seq+',txtProduct_' + b_seq , ret, 'noa,product'); 
-                    break;
-
-                case 'acomp':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4)  q_browFill('txtCno,txtAcomp' , ret , 'noa,acomp'); 
-                    break;
-
                 case 'ordcs':
                     if (q_cur > 0 && q_cur < 4) {
                         b_ret = getb_ret();
@@ -145,19 +142,17 @@
 
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
-                case 'tgg':   ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtTggno,txtComp,txtTel,txtPost,txtAddr,txtPaytype,cmbTrantype', 'noa,comp,tel,post_fact,addr_fact,paytype,trantype');
-                    break;
-                case 'acomp':   ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtCno,txtAcomp', 'noa,acomp');
-                    break;
-                case 'ucc':   ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtProductno_' + b_seq+ ',txtProduct_' + b_seq+ ',txtUnit_' + b_seq, 'noa,product,unit');
-                    break;
 				case 'ucc_style':
             			theory_st(q_name,b_seq,'txtWeight');
             		break;
-                case q_name: if (q_cur == 4)   // 查詢
+				case 'vcce':
+					var as = _q_appendData("vcces", "", true);
+					if(as[0]!=undefined){
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtSpec,textSize1,textSize2,textSize3,txtDime,txtWidth,txtLengthb,txtMount,txtWeight,txtPrice'
+								, as.length, as, 'uno,productno,product,spec,dime,width,lengthb,dime,width,lengthb,mount,weight,price', 'txtUno');
+					}
+					break;
+               case q_name: if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
             }  /// end switch
@@ -222,33 +217,7 @@
 
         function bbsAssign() {  /// 表身運算式
             for (var j = 0; j < ( q_bbsCount==0 ? 1 : q_bbsCount); j++) {
-                $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
-                $('#btnProductno_' + j).click(function () {
-                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                    q_bodyId($(this).attr('id'));
-                    b_seq = t_IdSeq;
-                    pop('ucc', '_'+b_seq);
-                 });
-                 $('#txtProductno_' + j).change(function () {
-                     t_IdSeq = -1; /// 要先給  才能使用 q_bodyId()
-                     q_bodyId($(this).attr('id'));
-                     b_seq = t_IdSeq;
-                     q_change($(this), 'ucc', 'noa', 'noa,product');  /// 接 q_gtPost()
-                 });
-
-                 $('#btnStore_' + j).click(function () {
-                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                    q_bodyId($(this).attr('id'));
-                    b_seq = t_IdSeq;
-                    pop('store', '_'+b_seq);
-                 });
-                 $('#txtStoreno_' + j).change(function () {
-                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                     q_bodyId($(this).attr('id'));
-                     b_seq = t_IdSeq;
-                     q_change($(this), 'store', 'noa', 'noa,store');  /// 接 q_gtPost()
-                 });
-                 
+                $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });                 
                  //將虛擬欄位數值帶入實際欄位並計算公式----------------------------------------------------------
 		                 $('#textSize1_' + j).change(function () {
 		                     t_IdSeq = -1;  
@@ -817,6 +786,7 @@
                 <td class="td2" colspan="3"><input id="txtCarno" type="text"  class="txt c4"/><input id="txtCar"  type="text" class="txt c5"/></td>
                 <td class="td4"><span> </span><a id='lblCarno2' class="lbl"></a></td>
                 <td class="td5"colspan="2"><input id="txtCarno2"    type="text" class="txt c1"/></td> 
+                <td class="td6"><input id="btnImportVcce" type="button" /></td> 
                
             </tr>
             <tr class="tr8">
