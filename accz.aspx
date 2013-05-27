@@ -21,9 +21,8 @@
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'noa';
         //ajaxPath = ""; //  execute in Root
         aPop = new Array(
-        	['txtAcc1', 'lblAcc1', 'acc', 'acc1,acc2', 'txtAcc1', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
-        	['txtDepl_ac', 'lblAcc', 'acc', 'acc1,acc2', 'txtDepl_ac,txtNamea2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]
-        );
+        	['txtDepl_ac', 'lblAcc', 'acc', 'acc1,acc2', 'txtDepl_ac,txtNamea2', "acc_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno],
+        	['txtPartno', 'lblPartno', 'acpart', 'noa,part', 'txtPartno,txtPart', "acpart_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + "; ;" + r_accy + '_' + r_cno]);
         $(document).ready(function () {
             bbmKey = ['noa'];
             q_brwCount();
@@ -31,6 +30,39 @@
             $('#txtNoa').focus
         });
         //////////////////   end Ready
+        function currentData() {
+            }
+            currentData.prototype = {
+                data : [],
+                /*新增時複製的欄位*/
+                include : ['txtAcc1', 'txtDepl_ac','txtNamea2','txtPartno','txtPart','txtMount','txtUnit'],
+                /*記錄當前的資料*/
+                copy : function() {
+                    this.data = new Array();
+                    for (var i in fbbm) {
+                        var isInclude = false;
+                        for (var j in this.include) {
+                            if (fbbm[i] == this.include[j]) {
+                                isInclude = true;
+                                break;
+                            }
+                        }
+                        if (isInclude) {
+                            this.data.push({
+                                field : fbbm[i],
+                                value : $('#' + fbbm[i]).val()
+                            });
+                        }
+                    }
+                },
+                /*貼上資料*/
+                paste : function() {
+                    for (var i in this.data) {
+                        $('#' + this.data[i].field).val(this.data[i].value);
+                    }
+                }
+            };
+            var curData = new currentData();
        function main() {
            if (dataErr)   
            {
@@ -161,11 +193,13 @@
             if (q_cur > 0 && q_cur < 4)  // 1-3
                 return;
 
-            q_box('accz_s.aspx', q_name + '_s', "500px", "330px", q_getMsg( "popSeek"));
+            q_box('accz_s.aspx', q_name + '_s', "500px", "400px", q_getMsg( "popSeek"));
         }
 
         function btnIns() {
-            _btnIns();
+            curData.copy();
+				_btnIns();
+			curData.paste();
             $('#txtNoa').focus();
             $('#txtDatea').val(q_date());
             $('#txtIndate').val(q_date());
@@ -408,16 +442,20 @@
 						<td> </td>
 						<td class="tdZ"> </td>
 					</tr>
+			<tr style="display: none;">
+			   <td class="td1" ><span> </span><a id='lblNoa' class="lbl"></a></td>
+               <td class="td2" ><input id="txtNoa" type="text" class="txt c1"/></td>
+			</tr>
             <tr>
-               <td class="td1"><span> </span><a id='lblNoa' class="lbl"></a></td>
-               <td class="td2"><input id="txtNoa" type="text" class="txt c1"/></td>
-               <td class="td3"><span> </span><a id='lblDatea' class="lbl"></a></td>
-               <td class="td4"><input id="txtDatea" type="text" class="txt c1"/></td>
+               <td class="td1"><span> </span><a id='lblDatea' class="lbl"></a></td>
+               <td class="td2"><input id="txtDatea" type="text" class="txt c1"/></td>
+               <td class="td3"></td>
+               <td class="td4"></td>
                <td class="td5"></td>
                <td class="td6"></td>              
             </tr>
             <tr>
-            	<td class="td1"><span> </span><a id='lblAcc1' class="lbl btn"></a></td>
+            	<td class="td1"><span> </span><a id='lblAcc1' class="lbl"></a></td>
                <td class="td2"><input id="txtAcc1" type="text" class="txt c1"/></td>
                <td class="td3" align="right"><input id="chkIsdepl" type="checkbox" /></td>
                <td class="td4"><a id="lblDepl_ac"></a></td>
@@ -425,14 +463,18 @@
            <tr>
                <td class="td1"><span> </span><a id="lblNamea" class="lbl"></a></td>
                <td class="td2"><input id="txtNamea"  type="text"  class="txt c1"/></td>
-               <td class="td3"></td>
-               <td class="td4"></td>
+               <td class="td3"><span> </span><a id='lblIndate' class="lbl"></a></td>
+               <td class="td4"><input id="txtIndate"  type="text" class="txt c1" /></td>
                <td class="td5"></td>
                <td class="td6"></td>
             </tr>            
             <tr>
                <td class="td1"><span> </span><a id='lblAcc' class="lbl btn"></a></td>
                <td class="td2"><input id="txtDepl_ac"  type="text" class="txt c2"/><input id="txtNamea2"  type="text" class="txt c3"/></td>
+               <td class="td3"><span> </span><a id="lblPartno" class="lbl btn"></a></td>
+               <td class="td4"><input id="txtPartno"  type="text"  class="txt c2"/>
+               							<input id="txtPart"  type="text"  class="txt c3"/>
+               </td>
             </tr>
             <tr>
                <td class="td1"><span> </span><a id='lblMount' class="lbl"></a></td>
@@ -478,7 +520,7 @@
                <td class="td1"><span> </span><a id='lblEndvalue' class="lbl"></a></td>
                <td class="td2"><input id="txtEndvalue"  type="text" class="txt num c1" /></td>
                <td class="td3"><input id="chkIsendmodi" type="checkbox" /><a id="lblIsendmodi"></a></td>
-               <td class="td4"></td>
+               <td class="td4"><input id="btnTurncut" type="button"  /></td></td>
 	           <td class="td5"></td>
                <td class="td6"></td>
                
@@ -487,18 +529,10 @@
                <td class="td1"><span> </span><a id='lblYear_depl' class="lbl"></a></td>
                <td class="td2"><input id="txtYear_depl"  type="text" class="txt num c1"/></td>
                <td class="td3"></td>
-               <td class="td4"><input id="btnTurncut" type="button"  /></td>
+               <td class="td4"><input id="btnAcczt" type="button" /></td>
 	           <td class="td5" ></td>
                <td class="td6"></td>
             </tr>
-            <tr>
-               <td class="td1"><span> </span><a id='lblIndate' class="lbl"></a></td>
-               <td class="td2"><input id="txtIndate"  type="text" class="txt c1" /></td>
-               <td class="td3"></td>
-               <td class="td4"><input id="btnAcczt" type="button" /></td>
-	           <td class="td5"></td>
-               <td class="td6"></td>
-            </tr> 
 	       <tr>
                <td class="td1"><span> </span><a id='lblRate' class="lbl"></a></td>
                <td class="td2"><input id="txtRate" type="text" class="txt num c1" /></td>

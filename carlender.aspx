@@ -11,7 +11,7 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		
 		<script type="text/javascript">
-            var q_name = 'carlender', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount2 = 6;
+            var q_name = 'carlender', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = [], t_count = 0, as, brwCount = -1, brwCount2 = 0;
             var t_sqlname = 'carlender_load';
             t_postname = q_name;
             var isBott = false;

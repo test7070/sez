@@ -74,11 +74,12 @@
             	Lock();
             	for (var i = 0; i < q_bbsCount; i++) {
             		for (var j = i+1; j < q_bbsCount; j++) {
-            			if($('#txtMon_'+i).val()==$('#txtMon_'+j).val()){
-							alert($('#txtMon_'+i).val()+'月份重覆');
-							Unlock();
-							return;            				
-            			}
+            			if($('#txtMon_'+i).val().length>0)
+	            			if($('#txtMon_'+i).val()==$('#txtMon_'+j).val()){
+								alert($('#txtMon_'+i).val()+'月份重覆');
+								Unlock();
+								return;            				
+	            			}
             		}	
             	}
                 var t_noa = trim($('#txtNoa').val());

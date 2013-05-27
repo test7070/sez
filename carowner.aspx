@@ -16,7 +16,7 @@
             }
 
             var q_name = "carowner";
-            var q_readonly = ['txtNoa'];
+            var q_readonly = [];
             var bbmNum = [];
             var bbmMask = [['txtZip_home', '999-99'], ['txtZip_conn', '999-99'], ['txtBirthday', '999/99/99']];
             q_sqlCount = 6;
@@ -82,6 +82,8 @@
                             var caras = _q_appendData("carowner", "", true);
                             if (as[0] != undefined) {
                                 $('#txtNoa').val(as[0].noa.substr(0, 1) + (dec(as[0].noa.substr(1)) + 1));
+                            }else{
+                            	$('#txtNoa').val('H001');
                             }
                         }
 
@@ -126,8 +128,11 @@
                     alert(q_getMsg('lblIdno') + '錯誤。');
                     return;
                 }*/
-                var t_err = '';
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
+               if(emp($('#txtNoa').val())){
+               		alert(q_getMsg('lblNoa')+'請填寫!!');
+               		return;
+               }
+               
                 var t_noa = $('#txtNoa').val();
                 wrServer(t_noa);
             }

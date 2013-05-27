@@ -200,15 +200,10 @@
 					var len = $("#cmbCalctype").children().length > 0 ? $("#cmbCalctype").children().length : 1;
 					$("#cmbCalctype").attr('size', len + "");
 					trans.refresh();
-					trans.calctypeChange();
 				}).blur(function() {
 					$("#cmbCalctype").attr('size', '1');
 					trans.refresh();
-					trans.calctypeChange();
 				}).change(function(e){
-					trans.refresh();
-					trans.calctypeChange();
-				}).click(function(e){
 					trans.refresh();
 					trans.calctypeChange();
 				});
