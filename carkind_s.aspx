@@ -24,20 +24,12 @@
         q_getFormat();
         q_langShow();
 
-       /* bbmMask = [['txtBdate', r_picd], ['txtEdate', r_picd]];
-        q_mask(bbmMask);
-
-        $('#txtBdate').focus();*/
+        $('#txtNoa').focus();
     }
 
     function q_seekStr() {   
         t_noa = $('#txtNoa').val();
-        t_kind = $('#txtkind').val();
-		/*t_bdate = $('#txtBdate').val();
-        t_edate = $('#txtEdate').val();
-        t_bdate = t_bdate.length > 0 && t_bdate.indexOf("_") > -1 ? t_bdate.substr(0, t_bdate.indexOf("_")) : t_bdate;  /// 100.  .
-        t_edate = t_edate.length > 0 && t_edate.indexOf("_") > -1 ? t_edate.substr(0, t_edate.indexOf("_")) : t_edate;  /// 100.  .*/
-
+        t_kind = $('#txtKind').val();
         var t_where = " 1=1 " + q_sqlPara2("noa", t_noa) + q_sqlPara2("kind", t_kind) ;
 
         t_where = ' where=^^' + t_where + '^^ ';
