@@ -11,7 +11,10 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
             var q_name = "tirestk_s";
-            var aPop = new Array(['txtFixtggno', '', 'tgg', 'noa,comp', 'txtFixtggno,txtFixtgg', 'tgg_b.aspx']);
+            var aPop = new Array(['txtFixtggno', '', 'tgg', 'noa,comp', 'txtFixtggno,txtFixtgg', 'tgg_b.aspx'],
+            ['txtCarplate', 'lblCarplate', 'carplate', 'noa,carplate,driver', 'txtCarplate', 'carplate_b.aspx'],
+            ['txtCarno', 'lblCarno', 'car2', 'a.noa','txtCarno', 'car2_b.aspx'],
+            ['txtProductno', '', 'fixucc', 'noa,namea', 'txtProductno', 'fixucc_b.aspx']);
             $(document).ready(function() {
                 main();
             });
@@ -38,7 +41,8 @@
 
             function q_seekStr() {
                 t_noa = $('#txtNoa').val();
-                t_namea = $('#txtNamea').val();
+                t_productno = $('#txtProductno').val();
+                t_product = $('#txtProduct').val();
                 t_carno = $('#txtCarno').val();
                 t_carplate = $('#txtCarplate').val();
                 t_fixtggno = $('#txtFixtggno').val();
@@ -46,8 +50,8 @@
 
                 
 
-                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("namea", t_namea) + q_sqlPara2("carno", t_carno) + 
-                q_sqlPara2("carplate", t_carplate) + q_sqlPara2("fixtggno", t_fixtggno) + q_sqlPara2("fixtgg", t_fixtgg);
+                var t_where = " 1=1 " + q_sqlPara2("noa", t_noa)+ q_sqlPara2("productno", t_productno)+ q_sqlPara2("product", t_product) + q_sqlPara2("carno", t_carno) + 
+                q_sqlPara2("carplateno", t_carplate) + q_sqlPara2("fixtggno", t_fixtggno) + q_sqlPara2("fixtgg", t_fixtgg);
 
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;
@@ -73,9 +77,15 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblNamea'></a></td>
+					<td class='seek'  style="width:20%;"><a id='lblProductno'></a></td>
 					<td>
-					<input class="txt" id="txtNamea" type="text" style="width:215px; font-size:medium;" />
+					<input class="txt" id="txtProductno" type="text" style="width:215px; font-size:medium;" />
+					</td>
+				</tr>
+				<tr class='seek_tr'>
+					<td class='seek'  style="width:20%;"><a id='lblProduct'></a></td>
+					<td>
+					<input class="txt" id="txtProduct" type="text" style="width:215px; font-size:medium;" />
 					</td>
 				</tr>
 				<tr class='seek_tr'>

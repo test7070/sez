@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -31,7 +30,6 @@
         $(document).ready(function () {
             bbmKey = ['noa'];
             bbsKey = ['noa', 'noq'];
-          
             q_brwCount();   
             q_gt(q_name, q_content, q_sqlCount, 1)
 
@@ -60,11 +58,28 @@
 			       		$('#btnOk').removeAttr('disabled');
 				}
 			});
+			$('#btnWorkbimport').click(function(){
+				var ordeno = $('#txtOrdeno').val();
+				var t_where = '';
+				if(ordeno.length > 0){
+					t_where = "ordeno='" + ordeno + "'";
+            	   	q_box("workb_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workb', "95%", "95%", q_getMsg('popWorkb'));
+				}else{
+					alert('請輸入【' + q_getMsg('lblOrdeno') + '】');
+				}
+			});
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
             var ret;
             switch (b_pop) {   
+				case 'workb':
+					if (q_cur > 0 && q_cur < 4) {
+						if (!b_ret || b_ret.length == 0)
+							return;
+						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtWeight,txtMount,txtMemo,txtUno', b_ret.length, b_ret, 'productno,product,bweight,born,memo,no2','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+	                    }
+						break;
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -421,8 +436,9 @@
         <tr class="tr5">
             <td class='td1'><span> </span><a id="lblDeivery_addr" class="lbl"> </a></td>
             <td class="td2" colspan="4"><input id="txtDeivery_addr"  type="text" class="txt c7"/> </td>
-            <td class='td6'><span> </span><a id="lblOrdeno" class="lbl"> </a> </td>
-            <td class="td7"><input id="txtOrdeno"  type="text" class="txt c1"/> </td>
+            <td class='td3'><span> </span><a id="lblOrdeno" class="lbl"> </a> </td>
+            <td class="td4"><input id="txtOrdeno"  type="text" class="txt c1"/> </td>
+            <td class="td5"><input id="btnWorkbimport" type="button"/> </td>
         </tr>   
         <tr class="tr6">
             <td class='td1'><span> </span><a id="lblWeight" class="lbl"> </a></td>
