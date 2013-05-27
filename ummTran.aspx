@@ -197,7 +197,12 @@
             	Lock(1,{opacity:0});
                 var t_custno = $('#txtCustno').val();
                 var s2 = (q_cur == 2 ? " and noa!='" + $('#txtNoa').val() + "'" : '');
-                var t_where = "where=^^custno='" + t_custno + "'" + s2 + "^^";
+                
+                if(q_cur==4 ||q_cur==0 )
+                	var t_where = "where=^^custno='" + t_custno + "'" + s2 + " and datea<='"+$('#txtDatea').val()+"' ^^";
+                else
+                	var t_where = "where=^^custno='" + t_custno + "'" + s2 + "^^";
+                
                 q_gt("umm_opay", t_where, 1, 1, 0, '', r_accy);
             }
 
