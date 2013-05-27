@@ -17,7 +17,7 @@
             }
 
             var q_name = "funda";
-            var q_readonly = ['txtWorker'];
+            var q_readonly = [];
             var bbmNum = [];
             var bbmMask = [];
             q_sqlCount = 6;
@@ -112,7 +112,11 @@
             function btnPrint() {
 
             }
-
+			function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                Unlock();
+            }
             function btnOk() {
                Lock(); 
             	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
@@ -128,7 +132,7 @@
                 }else{
                 	wrServer($('#txtNoa').val());
                 }
-                $('#txtWorker').val(r_name);
+                
             }
 
             function wrServer(key_value) {
@@ -359,10 +363,6 @@
 					<tr>
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan="3" ><textarea id="txtMemo"  style="width:100%; height: 60px;"> </textarea></td>
-					</tr>
-					<tr>
-						<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
-						<td><input id="txtWorker" type="text" class="txt c1" /></td>
 					</tr>
 				</table>
 			</div>
