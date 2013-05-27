@@ -72,7 +72,9 @@
                 });
                 $('#txtDatea').blur(function() {
                 	maxnoq='0000';
-                	q_gt(q_name,"noa in (select noa from inbs"+r_accy+" where noq like '"+replaceAll($('#txtDatea').val().substr(4,5),'/','')+"%' )" , 0, 0, 0, "", r_accy);
+                	
+                	var t_where = "where=^^ noa in (select noa from inbs"+r_accy+" where noq like '"+replaceAll($('#txtDatea').val().substr(4,5),'/','')+"%' ) ^^";
+                	q_gt(q_name,t_where , 0, 0, 0, "", r_accy);
                 });
             }
 		
@@ -180,16 +182,19 @@
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
                 
-                q_gt(q_name,"noa in (select noa from inbs"+r_accy+" where noq like '"+replaceAll($('#txtDatea').val().substr(4,5),'/','')+"%' )" , 0, 0, 0, "", r_accy);
                 maxnoq='0000';
+                var t_where = "where=^^ noa in (select noa from inbs"+r_accy+" where noq like '"+replaceAll($('#txtDatea').val().substr(4,5),'/','')+"%' ) ^^";
+                q_gt(q_name,t_where , 0, 0, 0, "", r_accy);
             }
 
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                q_gt(q_name,"noa in (select noa from inbs"+r_accy+" where noq like '"+replaceAll($('#txtDatea').val().substr(4,5),'/','')+"%' )" , 0, 0, 0, "", r_accy);
+                
                 maxnoq='0000';
+                var t_where = "where=^^ noa in (select noa from inbs"+r_accy+" where noq like '"+replaceAll($('#txtDatea').val().substr(4,5),'/','')+"%' ) ^^";
+                q_gt(q_name,t_where , 0, 0, 0, "", r_accy);
             }
 
             function btnPrint() {
