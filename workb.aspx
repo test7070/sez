@@ -495,6 +495,7 @@
                 <td align="center"><a id='lblProducts'></a></td>
                 <td align="center"><a id='lblUnit'></a></td>
                 <td align="center"><a id='lblBorn'></a></td>
+                <td align="center"><a id='lblTheory'></a></td>
                 <td align="center"><a id='lblMounts'></a></td>
                 <td align="center"><a id='lblErrmount'></a></td>
                 <td align="center"><a id='lblMemos'></a></td>
@@ -506,11 +507,14 @@
                 	<input id="txtProductno.*" type="text" style="width:80%;"/>
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:8%;"  />
                 </td>
-                <td style="width:25%;"><input id="txtProduct.*" type="text" class="txt c1"/></td>
+                <td style="width:20%;"><input id="txtProduct.*" type="text" class="txt c1"/></td>
                 <td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td style="width:10%;">
                 	<input id="txtBorn.*" type="text" class="txt c1 num"/>
                 	<input id="txtBweight.*" type="text" class="txt c1 num"/>
+                </td>
+                <td style="width:10%;">
+                	<input id="txtTheory.*" type="text" class="txt c1 num"/>
                 </td>
                 <td style="width:10%;">
                 	<input id="txtMount.*" type="text" class="txt c1 num"/>
