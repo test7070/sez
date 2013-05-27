@@ -59,7 +59,7 @@
                 q_cmbParse("cmbAuto", q_getPara('car2.auto'));
                 
                 if(q_getPara('sys.project').toUpperCase()!="DC"){
-                	$(".btn").hide();
+                	$(".btns").hide();
                 }
                 
                 q_gt('carbrand', '', 0, 0, 0, "");
@@ -1121,7 +1121,7 @@
 						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
 						<td colspan="5"><textarea id="txtMemo" class="txt c1" style="height:100px;"> </textarea></td>
 					</tr>
-					<tr class="btn">
+					<tr class="btns">
 						<td> </td>
 						<td><input id="btnCarinsurance" type="button" style="width:80%;"/> </td>					
 						<td><input id="btnCaraccident" type="button" style="width:80%;"/> </td>
@@ -1129,7 +1129,7 @@
 						<td><input id="btnOil" type="button" style="width:80%;"/> </td>	
 						<td><input id="btnCartax" type="button" style="width:80%;"/> </td>
 					</tr>
-					<tr class="btn">
+					<tr class="btns">
 						<td> </td>
 						<td><input id="btnCarexpense" type="button" style="width:80%;"/> </td>
 						<td><input id="btnSale" type="button" style="width:80%;"/> </td>	
