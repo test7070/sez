@@ -70,6 +70,9 @@
                     q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
 	            	//q_gt('cua_cuas','' , 0, 0, 0, "", r_accy);
                 });
+                $('#txtDatea').blur(function() {
+                	q_gt(q_name,"noa in (select noa from inbs"+r_accy+" where noq like '"+replaceAll($('#txtDatea').val().substr(4,5),'/','')+"%' )" , 0, 0, 0, "", r_accy);
+                });
             }
 		
             function q_boxClose(s2) {///   q_boxClose 2/4
@@ -101,6 +104,15 @@
 		                }
 	                	break;
                     case q_name:
+                    	if(q_cur==1 || q_cur==2){
+                    		var as = _q_appendData(q_name+'s', "", true);
+                    		if(as[0]!=undefined){
+                    			for (var i = 0; i < as.length; i++) {
+                    				if(as[i].noq.substr(0,4)==replaceAll($('#txtDatea').val().substr(4,5),'/','')&&as[i].noq.substr(5,4)>maxnoq)
+                    					maxnoq=as[i].noq.substr(5,4);
+                    			}
+                    		}
+                    	}
                         if(q_cur == 4)
                             q_Seek_gtPost();
                         break;
@@ -112,20 +124,9 @@
             	if(q_cur==1 || q_cur==2){
             		for(var i = 0; i < q_bbsCount; i++) {
             			if(!emp($('#txtProductno_'+i).val())&&emp($('#txtNoq_'+i).val())){
-            				//尋找該訂單最大的noq
-            				var t_noq=('0000').substr(('0000'+i).length-4);
-            				for(var j = 0; j < q_bbsCount; j++) {
-            					if($('#txtOrdeno_'+j).val().substr(0,1)==$('#txtOrdeno_'+i).val().substr(0,1)&&!emp($('#txtNoq_'+j).val()))
-            						if (t_noq<$('#txtNoq_'+j).val().substr($('#txtNoq_'+j).val().length-4))
-            							t_noq=$('#txtNoq_'+j).val().substr($('#txtNoq_'+j).val().length-4);
-            				}
-            				t_noq=('0000'+(dec(t_noq)+1)).substr(('0000'+(dec(t_noq)+1)).length-4);
-            				
-            				//依照訂單編號的順序
-            				if(!emp($('#txtOrdeno_'+i).val()))
-            					$('#txtNoq_'+i).val($('#txtOrdeno_'+i).val().substr(0,1)+$('#txtOrdeno_'+i).val().substr($('#txtOrdeno_'+i).val().length-3)+t_noq);
-            				else
-            					$('#txtNoq_'+i).val('Z999'+t_noq);
+            				var t_noq=('0000'+(dec(maxnoq)+1)).substr(('0000'+(dec(maxnoq)+1)).length-4);
+            				$('#txtNoq_'+i).val(replaceAll($('#txtDatea').val().substr(4,5),'/','')+t_noq);
+            				maxnoq=t_noq;
             			}
             		}
             	}
@@ -168,20 +169,25 @@
                 }
                 _bbsAssign();
             }
-
+			
+			
+			var maxnoq='0000';
             function btnIns() {
                 _btnIns();
                 
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
+                
+                q_gt(q_name,"noa in (select noa from inbs"+r_accy+" where noq like '"+replaceAll($('#txtDatea').val().substr(4,5),'/','')+"%' )" , 0, 0, 0, "", r_accy);
+                
             }
 
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                
+                q_gt(q_name,"noa in (select noa from inbs"+r_accy+" where noq like '"+replaceAll($('#txtDatea').val().substr(4,5),'/','')+"%' )" , 0, 0, 0, "", r_accy);
             }
 
             function btnPrint() {
