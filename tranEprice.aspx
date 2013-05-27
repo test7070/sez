@@ -16,7 +16,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
+			q_desc = 1;
             var q_name = "traneprice";
             var q_readonly = ['txtNoa', 'txtWorker'];
             var bbmNum = [['txtInprice', 10, 3, 1], ['txtOutprice', 10, 3, 1]];
