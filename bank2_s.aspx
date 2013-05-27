@@ -31,7 +31,7 @@
                 t_bank2 = $.trim($('#txtBank2').val());
        
                 var t_where = " 1=1 " + q_sqlPara2("noa", t_noa);
-				if (t_bank.length > 0)
+				if (t_bank2.length > 0)
                 	t_where += " and patindex('%" + t_bank2 + "%',bank2)>0";
                 t_where = ' where=^^' + t_where + '^^ ';
                 return t_where;

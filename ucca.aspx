@@ -1,4 +1,3 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -41,46 +40,26 @@
         }  ///  end Main()
 
 
-        function mainPost() { // ??J?????A?? refresh ?e
+        function mainPost() {
             q_mask(bbmMask);
             q_cmbParse("cmbTypea", q_getPara('ucc.typea'));
+            $('#txtNoa').change(function(e){
+                	$(this).val($.trim($(this).val()).toUpperCase());    	
+					if($(this).val().length>0){
+						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
+							t_where="where=^^ noa='"+$(this).val()+"'^^";
+                    		q_gt('ucca', t_where, 0, 0, 0, "checkUccano_change", r_accy);
+						}else{
+							Lock();
+							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+							Unlock();
+						}
+					}
+                });
                      } 
-        function txtCopy(dest, source) {
-            var adest = dest.split(',');
-            var asource = source.split(',');
-            $('#' + adest[0]).focus(function () { if (trim($(this).val()).length == 0) $(this).val(q_getMsg('msgCopy')); });
-            $('#' + adest[0]).focusout(function () {
-                var t_copy = ($(this).val().substr(0, 1) == '=');
-                var t_clear = ($(this).val().substr(0, 2) == ' =');
-                for (var i = 0; i < adest.length; i++) {
-                    {
-                        if (t_copy)
-                            $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                        if (t_clear)
-                            $('#' + adest[i]).val('');
-                    }
-                }
-            });
-        }
-
         function q_boxClose(s2) { 
             var ret;
             switch (b_pop) {   
-                case 'conn':
-
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                    break;
-
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -90,16 +69,24 @@
 
         function q_gtPost(t_name) {  
             switch (t_name) {
-                case 'sss':  
-                    q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                    break;
-
+            	case 'checkUccano_change':
+                		var as = _q_appendData("ucca", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].product);
+                        }
+                		break;
+                case 'checkUccano_btnOk':
+                		var as = _q_appendData("ucca", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].product);
+                            Unlock();
+                            return;
+                        }else{
+                        	wrServer($('#txtNoa').val());
+                        }
+                		break;
                 case q_name: if (q_cur == 4)   
                         q_Seek_gtPost();
-
-                    if (q_cur == 1 || q_cur == 2) 
-                        q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
                     break;
             }  /// end switch
         }
@@ -111,61 +98,43 @@
             q_box('ucca_s.aspx', q_name + '_s', "500px", "310px", q_getMsg("popSeek"));
         }
 
-        function combPay_chg() {   
-            var cmb = document.getElementById("combPay")
-            if (!q_cur)
-                cmb.value = '';
-            else
-                $('#txtPay').val(cmb.value);
-            cmb.value = '';
-        }
-
         function btnIns() {
             _btnIns();
+            refreshBbm();
             $('#txtNoa').focus();
         }
 
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
-
             _btnModi();
-            $('#txtComp').focus();
+            refreshBbm();
+            $('#txtProduct').focus();
         }
 
         function btnPrint() {
 
         }
-        function btnOk() {
-            var t_err = '';
-
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
-
-            if (dec($('#txtCredit').val()) > 9999999999)
-                t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
-
-            if (dec($('#txtStartn').val()) > 31)
-                t_err = t_err + q_getMsg("lblStartn") + q_getMsg("msgErr") + '\r';
-            if (dec($('#txtGetdate').val()) > 31)
-                t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
-
-            if (t_err.length > 0) {
-                alert(t_err);
-                return;
+        function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                Unlock();
             }
-            var t_noa = trim($('#txtNoa').val());
-            if (emp($('#txtUacc1').val()))
-                $('#txtUacc1').val('1123.' + t_noa);
-            if (emp($('#txtUacc2').val()))
-                $('#txtUacc2').val('1121.' + t_noa);
-            if (emp($('#txtUacc3').val()))
-                $('#txtUacc3').val('2131.' + t_noa);
-
-
-            if (t_noa.length == 0)  
-                q_gtnoa(q_name, t_noa);
-            else
-                wrServer(t_noa);
+        function btnOk() {
+ 			Lock(); 
+            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
+            	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
+				}else{
+					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+					Unlock();
+					return;
+				}
+				if(q_cur==1){
+                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
+                    q_gt('ucca', t_where, 0, 0, 0, "checkUccano_btnOk", r_accy);
+                }else{
+                	wrServer($('#txtNoa').val());
+                }
         }
 
         function wrServer(key_value) {
@@ -181,8 +150,15 @@
         
         function refresh(recno) {
             _refresh(recno);
+            refreshBbm();
         }
-
+		function refreshBbm(){
+            	if(q_cur==1){
+            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
+            	}else{
+            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+            	}
+            }
         function readonly(t_para, empty) {
             _readonly(t_para, empty);
         }
