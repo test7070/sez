@@ -15,7 +15,7 @@
             function onPageError(error) {
                 alert("An error occurred:\r\n" + error.Message);
             }
-
+			q_desc=1;
             q_tables = 's';
             var q_name = "inb";
             var q_readonly = ['txtNoa'];
@@ -72,7 +72,9 @@
                 });
                 $('#txtDatea').blur(function() {
                 	maxnoq='0000';
-                	q_gt(q_name,"noa in (select noa from inbs"+r_accy+" where noq like '"+replaceAll($('#txtDatea').val().substr(4,5),'/','')+"%' )" , 0, 0, 0, "", r_accy);
+                	
+                	var t_where = "where=^^ noa in (select noa from inbs"+r_accy+" where noq like '"+replaceAll($('#txtDatea').val().substr(4,5),'/','')+"%' ) ^^";
+                	q_gt(q_name,t_where , 0, 0, 0, "", r_accy);
                 });
             }
 		
@@ -98,6 +100,13 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'ucc': 
+						var as = _q_appendData("ucc", "", true);
+						if(as[0]!=undefined)
+							$('#txtTheory_'+b_seq).val(round(dec($('#txtLengthb_'+b_seq).val())*dec(as[0].uweight),2));
+						else
+							$('#txtTheory_'+b_seq).val(0);
+                    break;
 					case 'cua_cuas':
 						var as = _q_appendData("cua_cuas", "", true);
 						if(as[0]!=undefined){
@@ -166,6 +175,14 @@
 		                		q_box("cert_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'cert', "95%", "95%", q_getMsg('popCert'));
 		                	}
 	                	});
+	                	$('#txtLengthb_'+j).change(function() {
+							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+				            q_bodyId($(this).attr('id'));
+				            b_seq = t_IdSeq;
+							
+							var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"' ^^";
+	                		q_gt('ucc', t_where, 0, 0, 0, "", r_accy);
+						});
             		  }
                 }
                 _bbsAssign();
@@ -180,16 +197,19 @@
                 $('#txtDatea').val(q_date());
                 $('#txtDatea').focus();
                 
-                q_gt(q_name,"noa in (select noa from inbs"+r_accy+" where noq like '"+replaceAll($('#txtDatea').val().substr(4,5),'/','')+"%' )" , 0, 0, 0, "", r_accy);
                 maxnoq='0000';
+                var t_where = "where=^^ noa in (select noa from inbs"+r_accy+" where noq like '"+replaceAll($('#txtDatea').val().substr(4,5),'/','')+"%' ) ^^";
+                q_gt(q_name,t_where , 0, 0, 0, "", r_accy);
             }
 
             function btnModi() {
                 if(emp($('#txtNoa').val()))
                     return;
                 _btnModi();
-                q_gt(q_name,"noa in (select noa from inbs"+r_accy+" where noq like '"+replaceAll($('#txtDatea').val().substr(4,5),'/','')+"%' )" , 0, 0, 0, "", r_accy);
+                
                 maxnoq='0000';
+                var t_where = "where=^^ noa in (select noa from inbs"+r_accy+" where noq like '"+replaceAll($('#txtDatea').val().substr(4,5),'/','')+"%' ) ^^";
+                q_gt(q_name,t_where , 0, 0, 0, "", r_accy);
             }
 
             function btnPrint() {
@@ -545,7 +565,7 @@
                 	<input  id="txtUnit.*" type="hidden"/>
                 </td>
                 <td ><input  id="txtSpec.*" type="text" class="txt c1"/></td>
-                <td ><input  id="txtLength.*" type="text" class="txt c1 num"/></td>
+                <td ><input  id="txtLengthb.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtBweight.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtMount.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtWeight.*" type="text" class="txt c1 num"/></td>

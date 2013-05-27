@@ -70,6 +70,9 @@
 							}
 						}
 					}
+					
+					if(emp($('#txtNoq_'+b_seq).val()) && !emp($('#txtMon_'+b_seq).val())&&!emp($('#txtCno_'+b_seq).val()))
+						$('#txtNoq_'+b_seq).val(replaceAll($('#txtMon_'+b_seq).val(),'/','')+$('#txtCno_'+b_seq).val());
 				});
 				
 				$('#txtCno_'+j).blur(function() {
@@ -87,6 +90,8 @@
 							}
 						}
 					}
+					if(emp($('#txtNoq_'+b_seq).val()) && !emp($('#txtMon_'+b_seq).val())&&!emp($('#txtCno_'+b_seq).val()))
+						$('#txtNoq_'+b_seq).val(replaceAll($('#txtMon_'+b_seq).val(),'/','')+$('#txtCno_'+b_seq).val());
 				});
 			
 			}

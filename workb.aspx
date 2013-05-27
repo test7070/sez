@@ -26,7 +26,7 @@
         var q_readonly = ['txtWorker','txtNoa'];
         var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq'];
         var bbmNum = [];  // 允許 key 小數
-        var bbsNum = [['txtMount', 15, 0,1], ['txtBorn', 15, 0,1], ['txtBweight', 15, 2,1], ['txtWeight', 15, 2,1]];
+        var bbsNum = [['txtMount', 15, 0,1], ['txtBorn', 15, 0,1], ['txtBweight', 15, 2,1], ['txtWeight', 15, 2,1], ['txtLengthb', 15, 0,1], ['txtTheory', 15, 2,1]];
         var bbmMask = [];
         var bbsMask = [];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = '';
@@ -136,18 +136,15 @@
 
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
-                case 'ucc':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtProductno_' + b_seq + ',txtProduct_' + b_seq + ',txtUnit_' + b_seq, 'noa,product,unit');
+                case 'ucc': 
+					var as = _q_appendData("ucc", "", true);
+					if(as[0]!=undefined)
+						$('#txtTheory_'+b_seq).val(round(dec($('#txtLengthb_'+b_seq).val())*dec(as[0].uweight),2));
+					else
+						$('#txtTheory_'+b_seq).val(0);
                     break;
-
-                case 'store':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtStoreno,txtStore', 'noa,store');
-                    break;
-                case 'station':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtStationno,txtStation', 'noa,station');
-                    break;
-
-                case q_name: if (q_cur == 4)   // 查詢
+                case q_name: 
+                	if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
             }  /// end switch
@@ -182,7 +179,14 @@
         function bbsAssign() {  /// 表身運算式
 			for(var i = 0; i < q_bbsCount; i++) {
 				if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-					
+					$('#txtLengthb_'+i).change(function() {
+						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+			            q_bodyId($(this).attr('id'));
+			            b_seq = t_IdSeq;
+						
+						var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"' ^^";
+                		q_gt('ucc', t_where, 0, 0, 0, "", r_accy);
+					});
 				}
 			}
 			_bbsAssign();
@@ -220,6 +224,7 @@
 
             q_nowf();
             as['datea'] = abbm2['datea'];
+            as['cuano'] = abbm2['cuano'];
 
             return true;
         }
@@ -476,13 +481,15 @@
 			<td><span> </span><a id='lblCuano' class="lbl"> </a></td>
 			<td><input id="txtCuano" type="text" class="txt c1"/></td>
 		</tr>
-        <tr>
-			<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
-			<td colspan='3'><input id="txtMemo" type="text" class="txt c1"/></td>
-		</tr>
 		 <tr>
+		 	<td><span> </span><a id='lblBno' class="lbl"> </a></td>
+			<td><input id="txtBno" type="text" class="txt c1"/></td>
 			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
 			<td><input id="txtWorker" type="text" class="txt c1"/></td>
+		</tr>
+		<tr>
+			<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
+			<td colspan='3'><input id="txtMemo" type="text" class="txt c1"/></td>
 		</tr>
         </table>
         </div>
@@ -494,6 +501,7 @@
                 <td align="center"><a id='lblProductnos'></a></td>
                 <td align="center"><a id='lblProducts'></a></td>
                 <td align="center"><a id='lblUnit'></a></td>
+                <td align="center"><a id='lblLength'></a></td>
                 <td align="center"><a id='lblBorn'></a></td>
                 <td align="center"><a id='lblTheory'></a></td>
                 <td align="center"><a id='lblMounts'></a></td>
@@ -503,12 +511,15 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td style="width:15%;">
-                	<input id="txtProductno.*" type="text" style="width:80%;"/>
+                <td style="width:10%;">
+                	<input id="txtProductno.*" type="text" style="width:76%;"/>
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:8%;"  />
                 </td>
-                <td style="width:20%;"><input id="txtProduct.*" type="text" class="txt c1"/></td>
+                <td style="width:13%;"><input id="txtProduct.*" type="text" class="txt c1"/></td>
                 <td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c1"/></td>
+                <td style="width:8%;">
+                	<input id="txtLengthb.*" type="text" class="txt c1 num"/>
+                </td>
                 <td style="width:10%;">
                 	<input id="txtBorn.*" type="text" class="txt c1 num"/>
                 	<input id="txtBweight.*" type="text" class="txt c1 num"/>
