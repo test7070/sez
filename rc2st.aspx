@@ -61,7 +61,7 @@
              q_cmbParse("combPaytype", q_getPara('rc2.paytype'));  // comb 未連結資料庫
             q_cmbParse("cmbTrantype", q_getPara('rc2.tran'));
             q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));
-            q_cmbParse("cmbKind", q_getPara('rc2st.kind')); 
+            q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
              $('#lblAccc').click(function () {
 		            q_pop('txtAccno', "accc.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";accc3='" + $('#txtAccno').val() + "';" + $('#txtDatea').val().substring(0,3) + '_' + r_cno, 'accc', 'accc3', 'accc2', "92%", "1054px", q_getMsg('btnAccc'), true);
 		        });
@@ -461,7 +461,7 @@
         }
         
         function size_change () {
-		  if( $('#cmbKind').find("option:selected").text().indexOf('板')>-1){
+		  if( $('#cmbKind').val().substr(0,1)=='A'){
             $('#lblSize_help').text("厚度x寬度x長度");
 	        	for (var j = 0; j < q_bbsCount; j++) {
 	            	$('#textSize1_'+j).show();
@@ -478,7 +478,7 @@
 			        $('#textSize4_'+j).val(0);
 			        $('#txtRadius_'+j).val(0)
 				}
-			}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+			}else if( $('#cmbKind').val().substr(0,1)=='B'){
 				$('#lblSize_help').text("短徑x長徑x厚度x長度");
 			    for (var j = 0; j < q_bbsCount; j++) {
 			    	$('#textSize1_'+j).show();
