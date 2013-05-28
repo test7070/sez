@@ -495,7 +495,7 @@
 
             function btnIns() {
                 _btnIns();
-                 if(q_getPara('sys.project').toUpperCase()!="DC"){
+                 if(q_getPara('sys.project').toUpperCase()=="DC"){
 	                $(".carexpense").show();
 	                $('#txtUlicensemon').val('04');
 	                $('#txtDlicensemon').val('10');
@@ -556,7 +556,7 @@
             }
 
             function btnPrint() {
-            	 if(q_getPara('sys.project').toUpperCase()!="DC")
+            	 if(q_getPara('sys.project').toUpperCase()=="DC")
 					q_box('z_car2.aspx', '', "90%", "600px", q_getMsg("popPrint"));
             }
 
