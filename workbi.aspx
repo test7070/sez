@@ -62,7 +62,8 @@
             $('#txtDatea').focus();
             
         }  ///  end Main()
-
+		
+		var t_spec;//儲存spec陣列
         function mainPost() { // 載入資料完，未 refresh 前
             q_getFormat();
             bbmMask = [['txtDatea', r_picd], ['txtDatea', r_picd]];
@@ -72,6 +73,7 @@
             	//q_box("workas_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'workas', "95%", "95%", q_getMsg('popWorkas'));
             	q_box("inbs_b.aspx?;;;enda=0;" + r_accy, 'inbs', "95%", "95%", q_getMsg("popInbs"));
             });
+            q_gt('spec', '', 0, 0, 0, "", r_accy);
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -136,6 +138,9 @@
 
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
+            	case 'spec': 
+            		t_spec= _q_appendData("spec", "", true);
+            		break;
                 case 'ucc': 
 					var as = _q_appendData("ucc", "", true);
 					if(as[0]!=undefined)
@@ -179,13 +184,15 @@
         function bbsAssign() {  /// 表身運算式
 			for(var i = 0; i < q_bbsCount; i++) {
 				if (!$('#btnMinus_' + i).hasClass('isAssign')) {
-					$('#txtLengthb_'+i).change(function() {
+					$('#txtDime_'+i).change(function() {
 						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 			            q_bodyId($(this).attr('id'));
 			            b_seq = t_IdSeq;
 						
-						var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"' ^^";
-                		q_gt('ucc', t_where, 0, 0, 0, "", r_accy);
+						theory_bi('',dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val()))
+						
+						//var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"' ^^";
+                		//q_gt('ucc', t_where, 0, 0, 0, "", r_accy);
 					});
 				}
 			}
@@ -286,6 +293,19 @@
 
         function btnCancel() {
             _btnCancel();
+        }
+        
+        function theory_bi( spec,dime,width,lengthb ) {
+        	var uweight=0;//儲存單位重
+            if(t_spec[0]!=undefined){
+            	for (var i = 0; i < t_spec.length; i++) {
+            		if(t_spec[i].noa==spec){
+            			uweight=dec(t_spec[i].uweight)
+            			break;
+            		}
+            	}
+            	return round(dime*width*lengthb*uweight/1000,3);
+            }
         }
     </script>
     <style type="text/css">
@@ -424,7 +444,7 @@
          	font-size:medium;
          	color:blue;
          	background:#cad3ff;
-         	width: 100%;
+         	width: 1500px;
          }
 		 .dbbs .tbbs tr{
 		 	height:35px;
@@ -501,6 +521,7 @@
                 <td align="center" style="width:8%;"><a id='lblUno_s'></a></td>
                 <td align="center" style="width:10%;"><a id='lblProductnos'></a></td>
                 <td align="center" style="width:13%;"><a id='lblProducts'></a></td>
+                <td align="center" style="width:5%;"><a id='lblSpec'></a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'></a></td>
                 <td align="center" style="width:222px;"><a id='lblSize'></a></br><a id='lblSizes'></a></td>
                 <td align="center" style="width:7%;"><a id='lblBorn'></a></td>
@@ -518,6 +539,7 @@
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:8%;"  />
                 </td>
                 <td><input id="txtProduct.*" type="text" class="txt c1"/></td>
+                <td><input id="txtSpec.*" type="text" class="txt c1"/></td>
                 <td><input id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td>
                 	<input id="txtDime.*" type="text" class="txt c1 num c8"/><div id="x1.*" style="float: left"> x</div>
