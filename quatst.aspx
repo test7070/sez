@@ -20,12 +20,15 @@
             var q_readonly = ['txtComp', 'txtAcomp','txtSales','txtWorker','txtNoa'];
             var q_readonlys = ['txtNo3','txtNo2'];
             var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1],
-            			  ['txtFloata', 15, 3, 1],['txtWeight', 15, 3, 1],['txtTpayweight', 10, 2, 1],
-            			  ['txtTunpayweight', 15, 0, 1],['txtTtransferorde', 15, 3, 1],['txtTuntransferorde', 15, 3, 1],
-            			  ['txtMpayweight', 15, 3, 1],['txtMunpayweight', 15, 3, 1],['txtMtransferorde', 15, 3, 1],
-            			  ['txtMuntransferorde', 15, 3, 1]
+            			  ['txtFloata', 15, 3, 1],['txtWeight', 15, 3, 1],['txtGweight', 10, 2, 1],
+            			  ['txtEweight', 15, 0, 1],['txtOrdegweight', 15, 3, 1],['txtOrdeeweight', 15, 3, 1]
             			 ];
-            var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],['txtPrice', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTheory', 15, 3, 1]];
+            var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],
+            			  ['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],
+            			  ['txtPrice', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTheory', 15, 3, 1],
+            			  ['txtMgweight', 15, 3, 1],['txtMeweight', 15, 3, 1],['txtMtransferorde', 15, 3, 1],
+            			  ['txtMuntransferorde', 15, 3, 1]
+            ];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -461,7 +464,6 @@
         </script> 
    <style type="text/css">
         #dmain {
-                overflow: hidden;
             }
             .dview {
                 float: left;
@@ -582,7 +584,8 @@
                 font-size:medium;
             }
             .dbbs {
-                width: 100%;
+            	float:left;
+                width: 150%;
             }
             .tbbs a {
                 font-size: medium;
@@ -613,7 +616,7 @@
 </head>
 <body>
 <!--#include file="../inc/toolbar.inc"-->
-        <div id='dmain' style="overflow:hidden;">
+        <div id='dmain'>
         <div class="dview" id="dview">
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
@@ -708,10 +711,10 @@
 						<td class="tdZ trX"> </td>
 					</tr>
 					<tr>
-						<td class="trX"><span> </span><a id='lblTpayweight_st' class="lbl"> </a></td>
-						<td class="trX"><input id="txtTpayweight" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblTunpayweight_st' class="lbl"> </a></td>
-						<td class="trX"><input id="txtTunpayweight" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblGweight' class="lbl"> </a></td>
+						<td class="trX"><input id="txtGweight" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblEweight' class="lbl"> </a></td>
+						<td class="trX"><input id="txtEweight" type="text" class="txt c1 num" /></td>
 						<td class="tdZ trX"> </td>
 						<td class="tdZ trX"> </td>
 						<td class="tdZ trX"> </td>
@@ -719,44 +722,16 @@
 						<td class="tdZ trX"> </td>
 					</tr>
 					<tr>
-						<td class="trX"><span> </span><a id='lblTtransferorde_st' class="lbl"> </a></td>
-						<td class="trX"><input id="txtTtransferorde" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblTuntransferorde_st' class="lbl"> </a></td>
-						<td class="trX"><input id="txtTuntransferorde" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblTenda_st' class="lbl"> </a></td>
-						<td class="trX"><input id="chkTenda" type="checkbox"/></td>
+						<td class="trX"><span> </span><a id='lblOrdegweight' class="lbl"> </a></td>
+						<td class="trX"><input id="txtOrdegweight" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblOrdeeweight' class="lbl"> </a></td>
+						<td class="trX"><input id="txtOrdeeweight" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblEnda_st' class="lbl"> </a></td>
+						<td class="trX"><input id="chkEnda" type="checkbox"/></td>
 						<td class="tdZ trX"> </td>
 						<td class="tdZ trX"> </td>
 						<td class="tdZ trX"> </td>
 					</tr>
-					
-					<tr>
-						<td class="trX" colspan="8"><span> </span><a id='lblMweight_st' class="trTitle"> </a></td>
-						<td class="tdZ trX"> </td>
-					</tr>
-					<tr>
-						<td class="trX"><span> </span><a id='lblMpayweight_st' class="lbl"> </a></td>
-						<td class="trX"><input id="txtMpayweight" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblMunpayweight_st' class="lbl"> </a></td>
-						<td class="trX"><input id="txtMunpayweight" type="text" class="txt c1 num" /></td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-					</tr>
-					<tr>
-						<td class="trX"><span> </span><a id='lblMtransferorde_st' class="lbl"> </a></td>
-						<td class="trX"><input id="txtMtransferorde" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblMuntransferorde_st' class="lbl"> </a></td>
-						<td class="trX"><input id="txtMuntransferorde" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblMenda_st' class="lbl"> </a></td>
-						<td class="trX"><input id="chkMenda" type="checkbox"/></td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-					</tr>
-
             <tr class="tr9">
             	<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
                 <td class="td2" colspan='7' ><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"></textarea></td>
@@ -767,17 +742,21 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
               <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:9%;"><a id='lblProductno_st'></a></td>
-                <td align="center" style="width:15%;"><a id='lblProduct_st'></a></td>
-                <td align="center" style="width:8%;"><a id='lblClass_st'></a></td>
-                <td align="center" style="width:18%;" id='Size'><a id='lblSize_st'> </a><a id='lblSize_help'> </a></td>
+                <td align="center" style="width:8%;"><a id='lblProductno_st'></a></td>
+                <td align="center" style="width:10%;"><a id='lblProduct_st'></a></td>
+                <td align="center" style="width:6%;"><a id='lblClass_st'></a></td>
+                <td align="center" style="width:15%;" id='Size'><a id='lblSize_st'> </a><a id='lblSize_help'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblMount_st'></a></td>
-                <td align="center" style="width:8%;"><a id='lblWeight_st'></a></td>
-                <td align="center" style="width:6%;"><a id='lblPrice_st'></a></td>
-                <td align="center" style="width:8%;"><a id='lblTotal_st'></a></td>
-                <td align="center"><a id='lblMemo_st'></a></td>
-                <td align="center"><a id='lblEnda_st'></a></td>
+                <td align="center" style="width:5%;"><a id='lblWeight_st'></a></td>
+                <td align="center" style="width:5%;"><a id='lblPrice_st'></a></td>
+                <td align="center" style="width:5%;"><a id='lblTotal_st'></a></td>
+                <td align="center" style="width:10%;"><a id='lblMemo_st'></a></td>
+                <td align="center" style="width:5%;"><a id='lblGweight_st'></a></td>
+                <td align="center" style="width:5%;"><a id='lblEweight_st'></a></td>
+                <td align="center" style="width:5%;"><a id='lblOrdegweight_st'></a></td>
+                <td align="center" style="width:5%;"><a id='lblOrdeeweight_st'></a></td>
+                <td align="center" style="width:4%;"><a id='lblEnda_st'></a></td>
                 
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -812,7 +791,11 @@
                 <input class="txt" id="txtNo2.*" type="text" style="width:20%;" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
                 </td>
-                <td ><input id="chkEnda.*" type="checkbox"/></td>
+                <td ><input id="txtGweight.*" type="text" class="txt num c7" /></td>
+                <td ><input id="txtEweight.*" type="text" class="txt num c7" /></td>
+                <td ><input id="txtOrdegweight.*" type="text" class="txt num c7" /></td>
+                <td ><input id="txtOrdeeweight.*" type="text" class="txt num c7" /></td>
+                <td align="center"><input id="chkEnda.*" type="checkbox"/></td>
             </tr>
         </table>
         </div>

@@ -678,13 +678,6 @@
             .trX{
             	background: pink;
             }
-            .trTitle{
-            	padding-left: 18px;
-				font-size: 18px;
-				font-weight: bolder;
-				color: brown;
-				letter-spacing: 5px;
-            }
     </style>
 </head>
 <body>
@@ -858,78 +851,33 @@
 						<input id="txtApv"  type="text" class="txt c1" />
 						</td>
 					</tr>
-					<tr>
-						<td class="tdZ trX" colspan="8"><span> </span><a id='lblTweight' class="trTitle"> </a></td>
-						<td class="tdZ trX"> </td>
-					</tr>
-					<tr>
-						<td class="trX"><span> </span><a id='lblTpayweight' class="lbl"> </a></td>
-						<td class="trX"><input id="txtTpayweight" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblTunpayweight' class="lbl"> </a></td>
-						<td class="trX"><input id="txtTunpayweight" type="text" class="txt c1 num" /></td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-					</tr>
-					<tr>
-						<td class="trX"><span> </span><a id='lblTtransferorde' class="lbl"> </a></td>
-						<td class="trX"><input id="txtTtransferorde" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblTuntransferorde' class="lbl"> </a></td>
-						<td class="trX"><input id="txtTuntransferorde" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblTenda' class="lbl"> </a></td>
-						<td class="trX"><input id="chkTenda" type="checkbox"/></td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-					</tr>
-					
-					<tr>
-						<td class="trX" colspan="8"><span> </span><a id='lblMweight' class="trTitle"> </a></td>
-						<td class="tdZ trX"> </td>
-					</tr>
-					<tr>
-						<td class="trX"><span> </span><a id='lblMpayweight' class="lbl"> </a></td>
-						<td class="trX"><input id="txtMpayweight" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblMunpayweight' class="lbl"> </a></td>
-						<td class="trX"><input id="txtMunpayweight" type="text" class="txt c1 num" /></td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-					</tr>
-					<tr>
-						<td class="trX"><span> </span><a id='lblMtransferorde' class="lbl"> </a></td>
-						<td class="trX"><input id="txtMtransferorde" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblMuntransferorde' class="lbl"> </a></td>
-						<td class="trX"><input id="txtMuntransferorde" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblMenda' class="lbl"> </a></td>
-						<td class="trX"><input id="chkMenda" type="checkbox"/></td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-					</tr>
 				</table>
 			</div>
         <div class='dbbs' >
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
               <tr style='color:White; background:#003366;' >
-                <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:9%;"><a id='lblProductno_st_s'></a></td>
-                <td align="center" style="width:15%;"><a id='lblUno_st_s'></a></td>
-                <td align="center" style="width:18%;" id='Size'><a id='lblSize_st_s'> </a><a id='lblSize_help'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblUnit_st_s'></a></td>
-                <td align="center" style="width:5%;"><a id='lblMount_st_s'></a></td>
-                <td align="center" style="width:8%;"><a id='lblWeights_st_s'></a></td>
-                <td align="center" style="width:6%;"><a id='lblPrices_st_s'></a></td>
-                <td align="center" style="width:8%;"><a id='lblTotals_st_s'></a></td>
-                <td align="center" style="width:8%;"><a id='lblClasss_st_s'></a></td>
-                <td align="center"><a id='lblMemo_st_s'></a></td>
-                <td align="center"><a id='lblEnda_st_s'></a></td>
+                <td align="center" rowspan="2" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
+                <td align="center" rowspan="2" style="width:9%;"><a id='lblProductno_st_s'></a></td>
+                <td align="center" rowspan="2" style="width:15%;"><a id='lblUno_st_s'></a></td>
+                <td align="center" rowspan="2" style="width:18%;" id='Size'><a id='lblSize_st_s'> </a><a id='lblSize_help'> </a></td>
+                <td align="center" rowspan="2" style="width:4%;"><a id='lblUnit_st_s'></a></td>
+                <td align="center" rowspan="2" style="width:5%;"><a id='lblMount_st_s'></a></td>
+                <td align="center" rowspan="2" style="width:8%;"><a id='lblWeights_st_s'></a></td>
+                <td align="center" rowspan="2" style="width:6%;"><a id='lblPrices_st_s'></a></td>
+                <td align="center" rowspan="2" style="width:8%;"><a id='lblTotals_st_s'></a></td>
+                <td align="center" rowspan="2" style="width:8%;"><a id='lblClasss_st_s'></a></td>
+                <td align="center" rowspan="2"><a id='lblMemo_st_s'></a></td>
+                <td align="center" rowspan="2"><a id='lblEnda_st_s'></a></td>
+                <td align="center"><a id='lblTweight_st'></a></td>
             </tr>
-            <tr  style='background:#cad3ff;'>
+               <tr style='color:White; background:#003366;' >
+                <td align="center"><a id='lblTgweight_st'></a></td>
+                <td align="center"><a id='lblTeweight_st'></a></td>
+                <td align="center"><a id='lblTtransferorde_st'></a></td>
+                <td align="center"><a id='lblTuntransferorde_st'></a></td>
+                <td align="center"><a id='lblTenda_st'></a></td>
+            </tr>
+           <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
                  <td><input class="btn"  id="btnProduct.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                     <input type="text" id="txtProductno.*"  style="width:76%; float:left;"/>
