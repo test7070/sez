@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!doctype html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
     <head>
         <title> </title>
@@ -768,7 +768,7 @@
               <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:9%;"><a id='lblProductno_st'></a></td>
-                <td align="center"style="width:15%;"><a id='lblProduct_st'></a></td>
+                <td align="center" style="width:15%;"><a id='lblProduct_st'></a></td>
                 <td align="center" style="width:8%;"><a id='lblClass_st'></a></td>
                 <td align="center" style="width:18%;" id='Size'><a id='lblSize_st'> </a><a id='lblSize_help'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit_st'></a></td>
@@ -808,7 +808,7 @@
                                       <input id="txtTheory.*" type="text" class="txt num c7" /></td>
                 
                 <td><input id="txtMemo.*" type="text" class="txt c7"/>
-                <input class="txt" id="txtOrdeno.*" type="text"style="width:65%;" />
+                <input class="txt" id="txtOrdeno.*" type="text" style="width:65%;" />
                 <input class="txt" id="txtNo2.*" type="text" style="width:20%;" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
                 </td>

@@ -722,7 +722,7 @@
 						<td class="tdZ"></td>
 					</tr>
 					<tr>
-						<td><span> </span></span><a id='lblNoa' class="lbl"> </a></td>
+						<td><span> </span><a id='lblNoa' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtNoa" type="text" class="txt c1"/></td>
 						<td><span> </span><a id='lblDatea' class="lbl"> </a></td>
 						<td><input id="txtDatea" type="text"  class="txt c1"/></td>
@@ -784,7 +784,7 @@
 						</td>
 						<td ><span> </span><a id="lblGuarantor" class="lbl"> </a></td>
 						<td  colspan="3">
-							<select id="cmbGuarantorno" class="txt c1">
+							<select id="cmbGuarantorno" class="txt c1"> </select>
 							<input id="txtGuarantor"  type="hidden"/>
 						</td>
 					</tr>
@@ -918,7 +918,7 @@
               <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:9%;"><a id='lblProductno_st_s'></a></td>
-                <td align="center"style="width:15%;"><a id='lblUno_st_s'></a></td>
+                <td align="center" style="width:15%;"><a id='lblUno_st_s'></a></td>
                 <td align="center" style="width:18%;" id='Size'><a id='lblSize_st_s'> </a><a id='lblSize_help'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit_st_s'></a></td>
                 <td align="center" style="width:5%;"><a id='lblMount_st_s'></a></td>
@@ -957,7 +957,7 @@
                                       <input id="txtTheory.*" type="text" class="txt num c7" /></td>
                 <td ><input id="txtClass.*" type="text" class="txt c7" /></td>
                 <td><input id="txtMemo.*" type="text" class="txt c7"/>
-                <input class="txt" id="txtOrdeno.*" type="text"style="width:65%;" />
+                <input class="txt" id="txtOrdeno.*" type="text" style="width:65%;" />
                 <input class="txt" id="txtNo2.*" type="text" style="width:20%;" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
                 </td>

@@ -497,47 +497,49 @@
         <div class='dbbs' >
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
-                <td align="center"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center"><a id='lblProductnos'></a></td>
-                <td align="center"><a id='lblProducts'></a></td>
-                <td align="center"><a id='lblUnit'></a></td>
-                <td align="center"><a id='lblLength'></a></td>
-                <td align="center"><a id='lblBorn'></a></td>
-                <td align="center"><a id='lblTheory'></a></td>
-                <td align="center"><a id='lblMounts'></a></td>
-                <td align="center"><a id='lblErrmount'></a></td>
-                <td align="center"><a id='lblMemos'></a></td>
-                <td align="center"><a id='lblEnda'> </a></td>
+                <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
+                <td align="center" style="width:8%;"><a id='lblUno_s'></a></td>
+                <td align="center" style="width:10%;"><a id='lblProductnos'></a></td>
+                <td align="center" style="width:13%;"><a id='lblProducts'></a></td>
+                <td align="center" style="width:4%;"><a id='lblUnit'></a></td>
+                <td align="center" style="width:8%;"><a id='lblLength'></a></td>
+                <td align="center" style="width:10%;"><a id='lblBorn'></a></td>
+                <td align="center" style="width:10%;"><a id='lblTheory'></a></td>
+                <td align="center" style="width:10%;"><a id='lblMounts'></a></td>
+                <td align="center" style="width:10%;"><a id='lblErrmount'></a></td>
+                <td align="center" style="width:12%;"><a id='lblMemos'></a></td>
+                <td align="center" style="width:4%;"><a id='lblEnda'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
-                <td style="width:1%;"><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td style="width:10%;">
+                <td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
+                <td><input id="txtUno.*" type="text" class="txt c1"/></td>
+                <td>
                 	<input id="txtProductno.*" type="text" style="width:76%;"/>
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:8%;"  />
                 </td>
-                <td style="width:13%;"><input id="txtProduct.*" type="text" class="txt c1"/></td>
-                <td style="width:4%;"><input id="txtUnit.*" type="text" class="txt c1"/></td>
-                <td style="width:8%;">
+                <td><input id="txtProduct.*" type="text" class="txt c1"/></td>
+                <td><input id="txtUnit.*" type="text" class="txt c1"/></td>
+                <td>
                 	<input id="txtLengthb.*" type="text" class="txt c1 num"/>
                 </td>
-                <td style="width:10%;">
+                <td>
                 	<input id="txtBorn.*" type="text" class="txt c1 num"/>
                 	<input id="txtBweight.*" type="text" class="txt c1 num"/>
                 </td>
-                <td style="width:10%;">
+                <td>
                 	<input id="txtTheory.*" type="text" class="txt c1 num"/>
                 </td>
-                <td style="width:10%;">
+                <td>
                 	<input id="txtMount.*" type="text" class="txt c1 num"/>
                 	<input id="txtWeight.*" type="text" class="txt c1 num"/>
                 </td>
-                <td style="width:10%;"><input id="txtErrmount.*" type="text" class="txt c1 num"/></td>
+                <td><input id="txtErrmount.*" type="text" class="txt c1 num"/></td>
                 <td><input id="txtMemo.*" type="text" class="txt c1"/>
                 	<input id="txtOrdeno.*" type="text" style="width:70%;"/>
                 	<input id="txtNo2.*" type="text" style="width:20%;"/>
                 	<input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
                 </td>
-                <td style="width:4%;"><input id="chkEnda.*" type="checkbox"/></td>
+                <td><input id="chkEnda.*" type="checkbox"/></td>
             </tr>
         </table>
         </div>

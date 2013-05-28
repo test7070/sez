@@ -15,7 +15,7 @@
 				alert("An error occurred:\r\n" + error.Message);
 			}
 			var q_name = "cert";
-			var q_readonly = ['txtNoa'];
+			var q_readonly = [];
 			var bbmNum = [['txtWeight', 10, 2, 1],['txtChemistry_c', 10, 2, 1],['txtChemistry_si', 10, 2, 1],
 						  ['txtChemistry_mn', 10, 2, 1],['txtChemistry_p', 10, 2, 1],['txtChemistry_s', 10, 2, 1],
 						  ['txtChemistry_cr', 10, 2, 1],['txtChemistry_ni', 10, 2, 1],['txtChemistry_n', 10, 2, 1],
@@ -80,11 +80,9 @@
 				var t_productno = Parent.document.getElementById('txtProductno_' + Cert_Seq);
 				var t_weight = Parent.document.getElementById('txtWeight_' + Cert_Seq);
 				var t_bno = Parent.document.getElementById('txtBno_' + Cert_Seq);
-				if(Cert_Seq == -1 || Cert_Seq == null){
-					alert('無法取得【 ' + q_getMsg('lblNoa') + ' 】');
-					return;
-				}else{
-					_btnIns();
+				_btnIns();
+				$('#txtNoa').focus();
+				if(Cert_Seq != -1 && Cert_Seq != null){
 					$('#txtProduct').val((t_product != null ? t_product.value: ''));
 					$('#txtProductno').val((t_productno != null ? t_productno.value: ''));
 					$('#txtWeight').val((t_weight != null ? t_weight.value: ''));
@@ -105,7 +103,6 @@
 
 			function btnOk() {
 				var t_err = '';
-	
 				t_err = q_chkEmpField(['txtNoa', q_getMsg('lblNoa')]);
 
 				if (t_err.length > 0) {

@@ -249,7 +249,7 @@
     </script>
     <style type="text/css">
                 #dmain {
-                overflow: hidden;
+                overflow: auto;
             }
             .dview {
                 float: left;
@@ -366,7 +366,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 100%;
+                width: 160%;
             }
             .tbbs a {
                 font-size: medium;
