@@ -30,7 +30,7 @@
 		aPop = new Array(
 					['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 					['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
-					['txtCuano','lblCuano','cua','noa,datea','txtCuano,txtCuadate','cua_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
+					['txtCuano','lblCuano','inb','noa,datea','txtCuano,txtCuadate','inbs_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
 					['txtWorkno','lblWorkno','work','noa','txtWorkno','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
 					['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
 					['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx'],

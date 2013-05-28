@@ -51,7 +51,7 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-            q_cmbParse("cmbKind", q_getPara('uccest.kind'));
+            q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
             $('#cmbKind').change(function () {
             	size_change();
 		     });
@@ -112,10 +112,10 @@
 					q_bodyId($(this).attr('id'));
 					b_seq = t_IdSeq;
 		                     
-					if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+					if ($('#cmbKind').val().substr(0,1)=='A')
 					{	
 						q_tr('txtDime_'+b_seq ,q_float('textSize1_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#textSize1_' + b_seq).val());
-					}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+					}else if( $('#cmbKind').val().substr(0,1)=='B'){
 						q_tr('txtRadius_'+b_seq ,q_float('textSize1_'+b_seq));//短徑$('#txtRadius_'+b_seq).val($('#textSize1_' + b_seq).val());	
 					}
 				});
@@ -124,10 +124,10 @@
 					q_bodyId($(this).attr('id'));
 					b_seq = t_IdSeq;
 		                     
-					if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+					if ($('#cmbKind').val().substr(0,1)=='A')
 					{	
 						q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//寬度$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
-					}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+					}else if( $('#cmbKind').val().substr(0,1)=='B'){
 						q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//長徑$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
 					}
 				});
@@ -136,10 +136,10 @@
 					q_bodyId($(this).attr('id'));
 					b_seq = t_IdSeq;
 					         	
-					if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+					if ($('#cmbKind').val().substr(0,1)=='A')
 					{	
 						q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize3_' + b_seq).val());	
-					}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+					}else if( $('#cmbKind').val().substr(0,1)=='B'){
 						q_tr('txtDime_'+b_seq ,q_float('textSize3_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#textSize3_' + b_seq).val());		
 					}else{//鋼筋、胚
 						q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));
@@ -150,10 +150,10 @@
 					q_bodyId($(this).attr('id'));
 					b_seq = t_IdSeq;
 		                     
-					if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+					if ($('#cmbKind').val().substr(0,1)=='A')
 					{	
 						q_tr('txtRadius_'+b_seq ,q_float('textSize4_'+b_seq));//短徑為0 $('#txtRadius_'+b_seq).val($('#textSize4_' + b_seq).val());	
-					}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+					}else if($('#cmbKind').val().substr(0,1)=='B'){
 						q_tr('txtLengthb_'+b_seq ,q_float('textSize4_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());	
 					}
 				});
@@ -304,7 +304,7 @@
             _btnCancel();
         }
         function size_change () {
-		  if( $('#cmbKind').find("option:selected").text().indexOf('板')>-1){
+		  if($('#cmbKind').val().substr(0,1)=='A'){
             $('#lblSize_help').text("厚度x寬度x長度");
 	        	for (var j = 0; j < q_bbsCount; j++) {
 	            	$('#textSize1_'+j).show();
@@ -321,7 +321,7 @@
 			        $('#textSize4_'+j).val(0);
 			        $('#txtRadius_'+j).val(0)
 				}
-			}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+			}else if($('#cmbKind').val().substr(0,1)=='B'){
 				$('#lblSize_help').text("短徑x長徑x厚度x長度");
 			    for (var j = 0; j < q_bbsCount; j++) {
 			    	$('#textSize1_'+j).show();

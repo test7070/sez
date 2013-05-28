@@ -502,12 +502,12 @@
                 <td align="center" style="width:10%;"><a id='lblProductnos'></a></td>
                 <td align="center" style="width:13%;"><a id='lblProducts'></a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'></a></td>
-                <td align="center" style="width:8%;"><a id='lblLength'></a></td>
-                <td align="center" style="width:10%;"><a id='lblBorn'></a></td>
-                <td align="center" style="width:10%;"><a id='lblTheory'></a></td>
-                <td align="center" style="width:10%;"><a id='lblMounts'></a></td>
-                <td align="center" style="width:10%;"><a id='lblErrmount'></a></td>
-                <td align="center" style="width:12%;"><a id='lblMemos'></a></td>
+                <td align="center" style="width:222px;"><a id='lblSize'></a></br><a id='lblSizes'></a></td>
+                <td align="center" style="width:7%;"><a id='lblBorn'></a></td>
+                <td align="center" style="width:7%;"><a id='lblTheory'></a></td>
+                <td align="center" style="width:7%;"><a id='lblMounts'></a></td>
+                <td align="center" style="width:7%;"><a id='lblErrmount'></a></td>
+                <td align="center" ><a id='lblMemos'></a></td>
                 <td align="center" style="width:4%;"><a id='lblEnda'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -520,7 +520,9 @@
                 <td><input id="txtProduct.*" type="text" class="txt c1"/></td>
                 <td><input id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td>
-                	<input id="txtLengthb.*" type="text" class="txt c1 num"/>
+                	<input id="txtDime.*" type="text" class="txt c1 num c8"/><div id="x1.*" style="float: left"> x</div>
+                	<input id="txtWidth.*" type="text" class="txt c1 num c8"/><div id="x2.*" style="float: left"> x</div>
+                	<input id="txtLengthb.*" type="text" class="txt c1 num c8"/>
                 </td>
                 <td>
                 	<input id="txtBorn.*" type="text" class="txt c1 num"/>
