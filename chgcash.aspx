@@ -22,7 +22,7 @@
 		    isEditTotal = false;
 		    q_tables = 's';
 		    var q_name = "chgcash";
-		    var q_readonly = ['txtCarchgno', 'txtCustchgno', 'txtChgitem', 'txtChgpart', 'txtOrg', 'txtNamea', 'txtComp', 'txtAccno', 'txtNoa', 'txtWorker', 'txtMoney'];
+		    var q_readonly = ['txtCarchgno', 'txtCustchgno', 'txtChgitem', 'txtChgpart', 'txtOrg', 'txtNamea', 'txtComp', 'txtAccno', 'txtNoa', 'txtWorker', 'txtMoney', 'txtWorker2'];
 		    var q_readonlys = ['txtAcc2'];
 		    var bbmNum = [['txtMoney', 10, 0,1],['txtOrg', 12, 0, 1]];
 		    var bbsNum = [['txtMoney', 10, 0,1]];
@@ -221,7 +221,13 @@
 		        	}
 		        }
 		        sum();
-		        $('#txtWorker').val(r_name);
+		        if(q_cur ==1){
+	            	$('#txtWorker').val(r_name);
+	            }else if(q_cur ==2){
+	            	$('#txtWorker2').val(r_name);
+	            }else{
+	            	alert("error: btnok!")
+	            }
 		        $('#txtChgpart').val($('#cmbChgpartno').find(":selected").text());
 		        var t_noa = trim($('#txtNoa').val());
 		        var t_date = trim($('#txtDatea').val());
@@ -635,6 +641,12 @@
 						<td><input id="txtAccno"  type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblWorker" class="lbl"> </a></td>
 						<td><input id="txtWorker"  type="text" class="txt c1"/></td>
+					</tr>
+					<tr>
+						<td><span> </span><a id="lblMemo" class="lbl"> </a></td>
+						<td colspan="3"><input id="txtMemo"  type="text" class="txt c1" /></td>
+						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
+						<td><input id="txtWorker2"  type="text" class="txt c1"/></td>
 					</tr>
 				</table>
 			</div>

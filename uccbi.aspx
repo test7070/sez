@@ -435,8 +435,8 @@
 					<tr>
 						<td><span> </span><a id='lblDensity_bi' class="lbl"> </a></td>
 						<td><input id="txtDensity" type="text" class="txt c1 num" /></td>
-						<td><span> </span><a id='lblUweight_bi' class="lbl"> </a></td>
-						<td><input id="txtUweight" type="text" class="txt c1 num" /></td>
+						<!--<td><span> </span><a id='lblUweight_bi' class="lbl"> </a></td>
+						<td><input id="txtUweight" type="text" class="txt c1 num" /></td>-->
 					</tr>
 					<tr>
 						<td><span> </span><a id='lblUnit_bi' class="lbl"> </a></td>
