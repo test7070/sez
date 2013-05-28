@@ -33,6 +33,12 @@
                     },{
                         type : '6',
                         name : 'xdate'
+                    }, {
+                        type : '2',
+                        name : 'product',
+                        dbf : 'ucc',
+                        index : 'noa,product',
+                        src : 'ucc_b.aspx'
                     }]
                 });
                 q_popAssign();
