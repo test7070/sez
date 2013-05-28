@@ -18,7 +18,7 @@
 
             var q_name = "spec";
             var q_readonly = [];
-            var bbmNum = [];
+            var bbmNum = [['txtUweight', 15, 3, 1]];
             var bbmMask = [];
             q_sqlCount = 6;
             brwCount = 6;
@@ -43,16 +43,9 @@
             function mainPost() {
                 q_mask(bbmMask);
                 $('#txtNoa').change(function(e){
-                	$(this).val($.trim($(this).val()).toUpperCase());    	
 					if($(this).val().length>0){
-						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
-							t_where="where=^^ noa='"+$(this).val()+"'^^";
-                    		q_gt('spec', t_where, 0, 0, 0, "checkSpecno_change", r_accy);
-						}else{
-							Lock();
-							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01A01-001');
-							Unlock();
-						}
+						t_where="where=^^ noa='"+$(this).val()+"'^^";
+                    	q_gt('spec', t_where, 0, 0, 0, "checkSpecno_change", r_accy);
 					}
                 });
             }
@@ -119,13 +112,6 @@
             }
             function btnOk() {
                Lock(); 
-            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
-            	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
-				}else{
-					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
-					Unlock();
-					return;
-				}
 				if(q_cur==1){
                 	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
                     q_gt('spec', t_where, 0, 0, 0, "checkSpecno_btnOk", r_accy);

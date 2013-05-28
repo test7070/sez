@@ -50,12 +50,14 @@
 
                 mainForm(1);
             }
+            var t_spec;//儲存spec陣列
             function mainPost() {
 				q_getFormat();
 				bbmMask = [['txtDatea', r_picd]];
 				bbsMask = [['txtDatea', r_picd],['txtBtime', '99:99'],['txtEtime', '99:99'],['txtTime', '99:99'],['txtRtime', '99:99']];
 				q_mask(bbmMask);
 				q_mask(bbsMask);
+				q_gt('spec', '', 0, 0, 0, "", r_accy);
 				$('#btnInbmimport').click(function (e) {
 					q_box("inbm_b.aspx?;;;noa='" + $('#txtNoa').val() + "';" + r_accy, 'inbm', "95%", "95%", q_getMsg("popInbm"));
 				});
@@ -319,7 +321,18 @@
             function btnCancel() {
                 _btnCancel();
             }
-            
+            function theory_bi( spec,dime,width,lengthb ) {
+        	var uweight=0;//儲存單位重
+            if(t_spec[0]!=undefined){
+            	for (var i = 0; i < t_spec.length; i++) {
+            		if(t_spec[i].noa==spec){
+            			uweight=dec(t_spec[i].uweight)
+            			break;
+            		}
+            	}
+            	return round(dime*width*lengthb*uweight/1000,3);
+            }
+        }
         </script> 
     <style type="text/css">
                   #dmain {
