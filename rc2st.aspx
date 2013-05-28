@@ -239,7 +239,7 @@
 		                    if ($('#cmbKind').val().substr(0,1)=='A')
 		            		{	
 		            			q_tr('txtDime_'+b_seq ,q_float('textSize1_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#textSize1_' + b_seq).val());
-		            		}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+		            		}else if( $('#cmbKind').val().substr(0,1)=='B'){
 		            			q_tr('txtRadius_'+b_seq ,q_float('textSize1_'+b_seq));//短徑$('#txtRadius_'+b_seq).val($('#textSize1_' + b_seq).val());	
 		            		}
 		            		
