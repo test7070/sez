@@ -172,7 +172,8 @@
                                 });
                             }
                             q_cmbParse("cmbCno", t_item);
-                            if(q_recno>=0)
+                            if(abbm[q_recno] != undefined)
+                            //if(q_recno>=0)
                            		$("#cmbCno").val(abbm[q_recno].cno);
                             display();
                         }

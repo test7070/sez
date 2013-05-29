@@ -573,9 +573,7 @@
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
                 <td ><input  id="txtDatea.*" type="text" class="txt c1"/></td>
-                <td ><input  id="txtUno.*" type="hidden" class="txt c1"/>
-                	<input id="txtNoq.*" type="text" class="txt c1"/>
-                </td>
+                <td ><input id="txtNoq.*" type="text" class="txt c1"/></td>
                 <td >
                 	<input  id="txtProductno.*" type="text" style="width:70%;" />
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:16%;"  />
