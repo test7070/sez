@@ -448,9 +448,24 @@
 		                    if (s1.length == 4)
 		                        $('#txtAcc1_'+b_seq).val(s1 + '.');
                 		});
-						
+                		
+						$('#txtUmmnoa_'+j).click(function() {
+							t_IdSeq = -1;
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+		                    
+		                    if(!emp($('#txtUmmnoa_'+b_seq).val())){
+		                    	if($('#txtUmmnoa_'+b_seq).val().substr(0,2)=='FB')
+		                    		q_box("ummtran.aspx?;;;noa='" + $('#txtUmmnoa_'+b_seq).val() + "';" + r_accy, 'umm', "95%", "95%", q_getMsg("popUmmtran"));
+		                    	if($('#txtUmmnoa_'+b_seq).val().substr(0,2)=='BK')
+		                    		q_box("carchg.aspx?;;;noa='" + $('#txtUmmnoa_'+b_seq).val() + "';" + r_accy, 'carchg', "95%", "95%", q_getMsg("popCarchg"));
+		                    	if($('#txtUmmnoa_'+b_seq).val().substr(0,1)=='Z')
+		                    		q_box("lab_accc.aspx?;;;noa='" + $('#txtUmmnoa_'+b_seq).val() + "';" + r_accy, 'labaccc', "95%", "95%", q_getMsg("popLabaccc"));
+		                    }
+                		});
            			}
            		}
+
                 _bbsAssign();
                 
                 if(isbtnok){
