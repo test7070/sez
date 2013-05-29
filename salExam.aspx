@@ -64,15 +64,33 @@
             
             $('#btnImport').click(function() {
             	if(r_rank==9){//總事長評量副總
-            		if($('#checkIsall')[0].checked==true)
-            			var t_where = "where=^^ noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
-            		else
-            			var t_where = "where=^^ (partno ='02' and jobno='02') ^^";
+            		if(!emp($('#txtPartno').val())){
+            			if($('#txtPartno').val()=='03')//財務部跟內帳部一起
+	            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='04') and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
+	            		else if($('#txtPartno').val()=='08')//運輸部跟中鋼部一起
+	            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='09') and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
+	            		else
+	            			var t_where = "where=^^ partno ='"+$('#txtPartno').val()+"' and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
+            		}else{
+	            		if($('#checkIsall')[0].checked==true)
+	            			var t_where = "where=^^ noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
+	            		else
+	            			var t_where = "where=^^ (partno ='02' and jobno='02') ^^";
+            		}
             	}else if(r_rank==8){//副總評量各主管(含監理部經理)以及部門以下員工
-            		if($('#checkIsall')[0].checked==true)
-            			var t_where = "where=^^ noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
-            		else
-            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or jobno<='03' or (partno='07' and jobno<='04')) and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
+            		if(!emp($('#txtPartno').val())){
+            			if($('#txtPartno').val()=='03')//財務部跟內帳部一起
+	            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='04') and noa!='Z001' and noa!='010132'^^";
+	            		else if($('#txtPartno').val()=='08')//運輸部跟中鋼部一起
+	            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='09') and noa!='Z001' and noa!='010132'^^";
+	            		else
+	            			var t_where = "where=^^ partno ='"+$('#txtPartno').val()+"' and noa!='Z001' and noa!='010132'^^";
+            		}else{
+	            		if($('#checkIsall')[0].checked==true)
+	            			var t_where = "where=^^ noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
+	            		else
+	            			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or jobno<='03' or (partno='07' and jobno<='04')) and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
+            		}
             	}else{
             		if($('#txtPartno').val()=='03')//財務部跟內帳部一起
             			var t_where = "where=^^ (partno ='"+$('#txtPartno').val()+"' or partno='04') and noa!='"+r_userno+"' and noa!='Z001' and noa!='010132'^^";
@@ -108,6 +126,8 @@
             		}*/
             		if(q_cur==1 || q_cur==2){
             			var as = _q_appendData("sss", "", true);
+            			as.sort(function(a,b){return a.jobno-b.jobno;});  
+            			
             			q_gridAddRow(bbsHtm, 'tbbs', 'txtSssno,txtNamea,txtPartno,txtPart,txtJobno,txtJob', as.length, as, 'noa,namea,partno,part,jobno,job', '');
             		}
             		break;
