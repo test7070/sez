@@ -34,7 +34,7 @@
             brwNowPage = 0;
             brwKey = 'Datea';
             aPop = new Array(['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
-				            , ['txtCustno', 'lblCust', 'custtgg', 'noa,comp,nick,conn', 'txtCustno,txtComp,txtNick', 'custtgg_b.aspx']
+				            , ['txtTggno', 'lblTgg', 'custtgg', 'noa,comp,nick,conn', 'txtTggno,txtComp,txtNick', 'custtgg_b.aspx']
 				            , ['txtSales', 'lblSales', 'sss', 'namea,noa', 'txtSales,txtSalesno', 'sss_b.aspx']
 				            , ['txtAssigner', 'lblAssigner', 'sss', 'namea,noa', 'txtAssigner,txtAssignerno', 'sss_b.aspx']
 				            , ['txtAssistant', 'lblAssistant', 'sss', 'namea,noa', 'txtAssistant,txtAssistantno', 'sss_b.aspx']
@@ -730,16 +730,16 @@
 						<td><span> </span><a id='lblEnddate' class="lbl"> </a></td>
 						<td><input id="txtEnddate" type="text"  class="txt c1"/></td>
 					</tr>
-					<tr class="tr1">
+					<!--<tr class="tr1">
 						<td class="td1"><span> </span><a id="lblStype" class="lbl btn"> </a>
 						<input id="txtStype"  type="hidden"  class="txt c1"/>
 						</td>
 						<td class="td2" colspan="5" id="stype"></td>
-					</tr>
+					</tr>-->
 					<tr>
-						<td><span> </span><a id='lblCust' class="lbl btn"> </a></td>
+						<td><span> </span><a id='lblTgg' class="lbl btn"> </a></td>
 						<td colspan="3">
-							<input id="txtCustno"  type="text" class="txt" style="width:30%; float: left;"/>
+							<input id="txtTggno"  type="text" class="txt" style="width:30%; float: left;"/>
 							<input id="txtComp"  type="text" class="txt" style="width:70%; float: left;"/>
 							<input id="txtNick"  type="text" style="display: none;"/>
 						</td>
@@ -821,12 +821,12 @@
 						<td class="tdZ trX"> </td>
 					</tr>
 					<tr>
-						<td class="trX"><span> </span><a id="lblBankno" class="lbl btn"> </a></td>
+						<td class="trX"><span> </span><a id="lblBankno_st" class="lbl btn"> </a></td>
 						<td class="trX" colspan="3">
 							<input id="txtBankno" type="text" style="width:30%; float: left;"/>
 							<input id="txtBank"  type="text"  style="width:70%; float: left;"/>
 						</td>
-						<td class="trX"><span> </span><a id='lblCheckno' class="lbl"> </a></td>
+						<td class="trX"><span> </span><a id='lblCheckno_st' class="lbl"> </a></td>
 						<td class="trX" colspan="3"><input id="txtCheckno" type="text"  class="txt c1"/></td>
 						<td class="tdZ trX"> </td>
 					</tr>
@@ -912,10 +912,9 @@
                  <td><input class="btn"  id="btnProduct.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                     <input type="text" id="txtProductno.*"  style="width:76%; float:left;"/>
                     <span style="display:block; width:1%;float:left;"> </span>
-					<input type="text" id="txtNoq.*"  style="width:76%; float:left;"/>
+					<input type="text" id="txtNoq.*"  style="width:76%; float:left; display: none;"/>
 				</td> 
-                <td ><input id="txtProduct.*" type="text" class="txt c7"/>
-                <input class="txt" id="txtUno.*" type="text"  class="txt c2"/></td>
+                <td ><input id="txtProduct.*" type="text" class="txt c7"/></td>
                 <td><input class="txt num c8" id="textSize1.*" type="text" disabled="disabled"/><div id="x1.*" style="float: left"> x</div>
                 		<input class="txt num c8" id="textSize2.*" type="text" disabled="disabled"/><div id="x2.*" style="float: left"> x</div>
                         <input class="txt num c8" id="textSize3.*" type="text" disabled="disabled"/><div id="x3.*" style="float: left"> x</div>
