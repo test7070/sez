@@ -532,7 +532,10 @@
 			        else
 			            wrServer(t_noa);
             	}else{
-            		if($.trim($('#txtCheckno_'+n).val()).length>0){
+            		if($.trim($('#txtCheckno_'+n).val()).length>0 && $('#txtAcc1_'+n).val().substring(0,4)=='2121' && q_float('txtMoney_'+n)<0){
+            			//開退  ,2121 , 金額負
+            			checkGqb_bbs(n-1);
+            		}else if($.trim($('#txtCheckno_'+n).val()).length>0){
             			var t_noa = $('#txtNoa').val();
 	    				var t_checkno = $('#txtCheckno_'+n).val() ;   	
 	        			var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
@@ -582,7 +585,14 @@
         				var t_noa = $('#txtNoa').val();
         				var t_checkno = $('#txtCheckno_'+n).val() ;
             			var t_where = "where=^^ checkno = '" + t_checkno + "' ^^";
-            			q_gt('view_gqb_chk', t_where, 0, 0, 0, "gqb_change1_"+n+"_"+t_checkno+"_"+ t_noa, r_accy);
+            			if($.trim($('#txtCheckno_'+n).val()).length>0 && $('#txtAcc1_'+n).val().substring(0,4)=='2121' && q_float('txtMoney_'+n)<0){
+	            			//開退  ,2121 , 金額負
+	            			Unlock(1);
+	            		}else if($.trim($('#txtCheckno_'+n).val()).length>0){
+            				q_gt('view_gqb_chk', t_where, 0, 0, 0, "gqb_change1_"+n+"_"+t_checkno+"_"+ t_noa, r_accy);
+            			}else{
+            				Unlock(1);
+            			}
             		});
 		            $('#txtPaysale_' + i).change(function (e) {
 		                t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
