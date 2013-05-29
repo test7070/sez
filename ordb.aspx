@@ -18,7 +18,7 @@
             q_tables = 's';
             var q_name = "ordb";
             var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa','txtWorker','txtWorker2'];
-            var q_readonlys = [];
+            var q_readonlys = ['txtNo3'];
             var bbmNum = [['txtFloata', 10, 5, 1],['txtMoney', 10, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotalus', 10, 0, 1]];
             var bbsNum = [['txtMount', 10, 0, 1],['txtPrice', 10, 3, 1],['txtTotal', 10, 0, 1]];
             var bbmMask = [['txtOdate', '999/99/99']];
@@ -178,11 +178,61 @@
 				                b_seq = t_IdSeq;
 				                sum();
 				            });
+				            $('#txtProductno1_' + j).change(function () {
+				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+				                q_bodyId($(this).attr('id'));
+				                b_seq = t_IdSeq;
+				                if($('#cmbKind').find("option:selected").text().indexOf('物料')>-1){
+							           	$('#txtProductno_'+b_seq).val($('#txtProductno1_'+b_seq).val());
+				              	}else if($('#cmbKind').find("option:selected").text().indexOf('零件')>-1){
+							           	$('#txtProductno_'+b_seq).val($('#txtProductno2_'+b_seq).val());
+				              	}else{
+							           	$('#txtProductno_'+b_seq).val($('#txtProductno3_'+b_seq).val());
+				              	}
+				            });
+				            $('#txtProductno2_' + j).change(function () {
+				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+				                q_bodyId($(this).attr('id'));
+				                b_seq = t_IdSeq;
+				                if($('#cmbKind').find("option:selected").text().indexOf('物料')>-1){
+							           	$('#txtProductno_'+b_seq).val($('#txtProductno1_'+b_seq).val());
+				              	}else if($('#cmbKind').find("option:selected").text().indexOf('零件')>-1){
+							           	$('#txtProductno_'+b_seq).val($('#txtProductno2_'+b_seq).val());
+				              	}else{
+							           	$('#txtProductno_'+b_seq).val($('#txtProductno3_'+b_seq).val());
+				              	}
+				            });
+				            $('#txtProductno3_' + j).change(function () {
+				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+				                q_bodyId($(this).attr('id'));
+				                b_seq = t_IdSeq;
+				                if($('#cmbKind').find("option:selected").text().indexOf('物料')>-1){
+							           	$('#txtProductno_'+b_seq).val($('#txtProductno1_'+b_seq).val());
+				              	}else if($('#cmbKind').find("option:selected").text().indexOf('零件')>-1){
+							           	$('#txtProductno_'+b_seq).val($('#txtProductno2_'+b_seq).val());
+				              	}else{
+							           	$('#txtProductno_'+b_seq).val($('#txtProductno3_'+b_seq).val());
+				              	}
+				            });
             		  }
             	}
                 _bbsAssign();
                 product_change();
             }
+            
+            function q_popPost(s1) {
+		    	switch (s1) {
+			        case 'txtProductno1_':
+						$('#txtProductno_'+b_seq).val($('#txtProductno1_'+b_seq).val());
+						break
+					case 'txtProductno2_':
+						$('#txtProductno_'+b_seq).val($('#txtProductno2_'+b_seq).val());
+						break
+					case 'txtProductno3_':
+						$('#txtProductno_'+b_seq).val($('#txtProductno3_'+b_seq).val());
+				        break;
+		    	}
+			}
 
             function btnIns() {
                 _btnIns();
@@ -218,21 +268,11 @@
                 }
 
                 q_nowf();
-                as['date'] = abbm2['date'];
+                as['datea'] = abbm2['datea'];
 				as['kind'] = abbm2['kind'];
                 as['tggno'] = abbm2['tggno'];
                 as['odate'] = abbm2['kind'];
                 as['enda'] = abbm2['enda'];
-                //            t_err ='';
-                //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-                //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-                //
-                //            if (t_err) {
-                //                alert(t_err)
-                //                return false;
-                //            }
-                //
                 return true;
             }
 
