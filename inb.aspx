@@ -21,7 +21,7 @@
             var q_readonly = ['txtNoa'];
             var q_readonlys = ['txtNoa','txtNoq'];
             var bbmNum = [['txtGwelght', 10, 2, 1],['txtTwelght', 10, 2, 1],['txtWelght', 10, 2, 1]];
-            var bbsNum = [['txtLengthb', 10, 2, 1],['txtBweight', 10, 2, 1],['txtMount', 10, 2, 1],
+            var bbsNum = [['txtDime', 10, 2, 1],['txtWidth', 10, 2, 1],['txtLengthb', 10, 2, 1],['txtBweight', 10, 2, 1],['txtMount', 10, 2, 1],
             ['txtWeight', 10, 2, 1],['txtPdm',10,2,1],['txtGweight',10,2,1],['txtMount2',10,2,1],['txtTheory',10,2,1],
             ['txtCuac',10,2,1],['txtCuaw',10,2,1],['txtUweight', 10, 2, 1]];
             var bbmMask = [];
@@ -102,13 +102,9 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                	case 'ucc': 
-						var as = _q_appendData("ucc", "", true);
-						if(as[0]!=undefined)
-							$('#txtTheory_'+b_seq).val(round(dec($('#txtLengthb_'+b_seq).val())*dec(as[0].uweight),2));
-						else
-							$('#txtTheory_'+b_seq).val(0);
-                    break;
+                	case 'spec': 
+	            		t_spec= _q_appendData("spec", "", true);
+	            		break;
 					case 'cua_cuas':
 						var as = _q_appendData("cua_cuas", "", true);
 						if(as[0]!=undefined){
@@ -177,13 +173,33 @@
 		                		q_box("cert_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'cert', "95%", "95%", q_getMsg('popCert'));
 		                	}
 	                	});
-	                	$('#txtLengthb_'+j).change(function() {
+	                	$('#txtDime_'+j).change(function() {
 							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 				            q_bodyId($(this).attr('id'));
 				            b_seq = t_IdSeq;
 							
-							var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"' ^^";
-	                		q_gt('ucc', t_where, 0, 0, 0, "", r_accy);
+							q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
+						});
+						$('#txtWidth_'+j).change(function() {
+							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+				            q_bodyId($(this).attr('id'));
+				            b_seq = t_IdSeq;
+							
+							q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
+						});
+						$('#txtLengthb_'+j).change(function() {
+							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+				            q_bodyId($(this).attr('id'));
+				            b_seq = t_IdSeq;
+							
+							q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
+						});
+						$('#txtSpec_'+j).change(function() {
+							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+				            q_bodyId($(this).attr('id'));
+				            b_seq = t_IdSeq;
+							
+							q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
 						});
             		  }
                 }
@@ -321,18 +337,7 @@
             function btnCancel() {
                 _btnCancel();
             }
-            function theory_bi( spec,dime,width,lengthb ) {
-        	var uweight=0;//儲存單位重
-            if(t_spec[0]!=undefined){
-            	for (var i = 0; i < t_spec.length; i++) {
-            		if(t_spec[i].noa==spec){
-            			uweight=dec(t_spec[i].uweight)
-            			break;
-            		}
-            	}
-            	return round(dime*width*lengthb*uweight/1000,3);
-            }
-        }
+            
         </script> 
     <style type="text/css">
                   #dmain {
@@ -470,7 +475,7 @@
          	font-size:medium;
          	color:blue;
          	background:#cad3ff;
-         	width: 250%;
+         	width: 2800px;
          }
 		 .dbbs .tbbs tr{
 		 	height:35px;
@@ -536,9 +541,9 @@
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:3%;"><a id="lblDatea_s" > </a></td>
                 <td align="center" style="width:3%;"><a id='lblUno_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblProduct_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblSpec_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblLength_s'> </a></td>
+                <td align="center" ><a id='lblProduct_s'> </a></td>
+                <!--<td align="center" style="width:3%;"><a id='lblSpec_s'> </a></td>-->
+                <td align="center" style="width:222px;"><a id='lblSize'></a></br><a id='lblSizes'></a></td>
                 <td align="center" style="width:3%;"><a id='lblBweight_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblMount_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblWeight_s'> </a></td>
@@ -574,11 +579,16 @@
                 <td >
                 	<input  id="txtProductno.*" type="text" style="width:70%;" />
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:16%;"  />
-                	<input  id="txtProduct.*" type="hidden"/>
+                	<input  id="txtProduct.*" type="text" class="txt c1"/>
                 	<input  id="txtUnit.*" type="hidden"/>
                 </td>
-                <td ><input  id="txtSpec.*" type="text" class="txt c1"/></td>
-                <td ><input  id="txtLengthb.*" type="text" class="txt c1 num"/></td>
+                <!--<td ><input  id="txtSpec.*" type="text" class="txt c1"/></td>-->
+                <td >
+                	<input id="txtDime.*" type="text" class="txt c1 num c8"/><div id="x1.*" style="float: left"> x</div>
+                	<input id="txtWidth.*" type="text" class="txt c1 num c8"/><div id="x2.*" style="float: left"> x</div>
+                	<input id="txtLengthb.*" type="text" class="txt c1 num c8"/>
+                	<input  id="txtSpec.*" type="text" class="txt c1"/>
+                </td>
                 <td ><input  id="txtBweight.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtMount.*" type="text" class="txt c1 num"/></td>
                 <td ><input  id="txtWeight.*" type="text" class="txt c1 num"/></td>

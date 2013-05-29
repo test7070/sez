@@ -20,12 +20,14 @@
             var q_readonly = ['txtComp', 'txtAcomp','txtSales','txtWorker','txtNoa'];
             var q_readonlys = ['txtNo3','txtNo2'];
             var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1],
-            			  ['txtFloata', 15, 3, 1],['txtWeight', 15, 3, 1],['txtTpayweight', 10, 2, 1],
-            			  ['txtTunpayweight', 15, 0, 1],['txtTtransferorde', 15, 3, 1],['txtTuntransferorde', 15, 3, 1],
-            			  ['txtMpayweight', 15, 3, 1],['txtMunpayweight', 15, 3, 1],['txtMtransferorde', 15, 3, 1],
-            			  ['txtMuntransferorde', 15, 3, 1]
+            			  ['txtFloata', 15, 3, 1],['txtWeight', 15, 3, 1],['txtGweight', 10, 2, 1],
+            			  ['txtEweight', 15, 0, 1],['txtOrdgweight', 15, 3, 1],['txtOrdeweight', 15, 3, 1]
             			 ];
-            var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],['txtPrice', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTheory', 15, 3, 1]];
+            var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],
+            			  ['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],
+            			  ['txtPrice', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTheory', 15, 3, 1],['txtGweight', 10, 2, 1],
+            			  ['txtEweight', 15, 0, 1],['txtOrdgweight', 15, 3, 1],['txtOrdeweight', 15, 3, 1]
+            			 ];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -62,7 +64,7 @@
                 q_cmbParse("combPaytype", q_getPara('vcc.paytype'));  
                 q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
-                q_cmbParse("cmbKind", q_getPara('quatst.kind'));
+                q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
                 /* 若非本會計年度則無法存檔 */
 				$('#txtDatea').focusout(function () {
 					if($(this).val().substr( 0,3)!= r_accy){
@@ -140,10 +142,10 @@
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
 			                     
-			                if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+			                if ($('#cmbKind').val().substr(0,1)=='A')
 			            	{	
 			            		q_tr('txtDime_'+b_seq ,q_float('textSize1_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#textSize1_' + b_seq).val());
-							}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+							}else if($('#cmbKind').val().substr(0,1)=='B'){
 			            		q_tr('txtRadius_'+b_seq ,q_float('textSize1_'+b_seq));//短徑$('#txtRadius_'+b_seq).val($('#textSize1_' + b_seq).val());	
 							}
 			            		
@@ -155,10 +157,10 @@
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 			                     
-							if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+							if ($('#cmbKind').val().substr(0,1)=='A')
 							{	
 			            		q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//寬度$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
-							}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+							}else if($('#cmbKind').val().substr(0,1)=='B'){
 			            		q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//長徑$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
 							}
 			                     
@@ -170,10 +172,10 @@
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
 						         	
-			                if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+			                if ($('#cmbKind').val().substr(0,1)=='A')
 			            	{	
 			            		q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize3_' + b_seq).val());	
-							}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+							}else if($('#cmbKind').val().substr(0,1)=='B'){
 			            		q_tr('txtDime_'+b_seq ,q_float('textSize3_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#textSize3_' + b_seq).val());		
 							}else{//鋼筋、胚
 			            		q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));
@@ -187,10 +189,10 @@
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
 			                     
-			                if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+			                if ($('#cmbKind').val().substr(0,1)=='A')
 			            	{	
 			            		q_tr('txtRadius_'+b_seq ,q_float('textSize4_'+b_seq));//短徑為0 $('#txtRadius_'+b_seq).val($('#textSize4_' + b_seq).val());	
-							}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+							}else if($('#cmbKind').val().substr(0,1)=='B'){
 			            		q_tr('txtLengthb_'+b_seq ,q_float('textSize4_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());	
 							}
 			            		
@@ -347,7 +349,7 @@
             }
             
 		function size_change () {
-		  if( $('#cmbKind').find("option:selected").text().indexOf('板')>-1){
+		  if($('#cmbKind').val().substr(0,1)=='A'){
             $('#lblSize_help').html("厚度x寬度x長度<br>規格");
 	        	for (var j = 0; j < q_bbsCount; j++) {
 	            	$('#textSize1_'+j).show();
@@ -364,7 +366,7 @@
 			        $('#textSize4_'+j).val(0);
 			        $('#txtRadius_'+j).val(0)
 				}
-			}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+			}else if($('#cmbKind').val().substr(0,1)=='B'){
 				$('#lblSize_help').html("短徑x長徑x厚度x長度<br>規格");
 			    for (var j = 0; j < q_bbsCount; j++) {
 			    	$('#textSize1_'+j).show();
@@ -461,7 +463,6 @@
         </script> 
    <style type="text/css">
         #dmain {
-                overflow: hidden;
             }
             .dview {
                 float: left;
@@ -582,7 +583,8 @@
                 font-size:medium;
             }
             .dbbs {
-                width: 100%;
+            	float:left;
+                width: 150%;
             }
             .tbbs a {
                 font-size: medium;
@@ -613,7 +615,7 @@
 </head>
 <body>
 <!--#include file="../inc/toolbar.inc"-->
-        <div id='dmain' style="overflow:hidden;">
+        <div id='dmain'>
         <div class="dview" id="dview">
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
@@ -708,10 +710,10 @@
 						<td class="tdZ trX"> </td>
 					</tr>
 					<tr>
-						<td class="trX"><span> </span><a id='lblTpayweight_st' class="lbl"> </a></td>
-						<td class="trX"><input id="txtTpayweight" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblTunpayweight_st' class="lbl"> </a></td>
-						<td class="trX"><input id="txtTunpayweight" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblGweight' class="lbl"> </a></td>
+						<td class="trX"><input id="txtGweight" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblEweight' class="lbl"> </a></td>
+						<td class="trX"><input id="txtEweight" type="text" class="txt c1 num" /></td>
 						<td class="tdZ trX"> </td>
 						<td class="tdZ trX"> </td>
 						<td class="tdZ trX"> </td>
@@ -719,44 +721,16 @@
 						<td class="tdZ trX"> </td>
 					</tr>
 					<tr>
-						<td class="trX"><span> </span><a id='lblTtransferorde_st' class="lbl"> </a></td>
-						<td class="trX"><input id="txtTtransferorde" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblTuntransferorde_st' class="lbl"> </a></td>
-						<td class="trX"><input id="txtTuntransferorde" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblTenda_st' class="lbl"> </a></td>
-						<td class="trX"><input id="chkTenda" type="checkbox"/></td>
+						<td class="trX"><span> </span><a id='lblOrdgweight' class="lbl"> </a></td>
+						<td class="trX"><input id="txtOrdgweight" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblOrdeweight' class="lbl"> </a></td>
+						<td class="trX"><input id="txtOrdeweight" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblEnda' class="lbl"> </a></td>
+						<td class="trX"><input id="chkEnda" type="checkbox"/></td>
 						<td class="tdZ trX"> </td>
 						<td class="tdZ trX"> </td>
 						<td class="tdZ trX"> </td>
 					</tr>
-					
-					<tr>
-						<td class="trX" colspan="8"><span> </span><a id='lblMweight_st' class="trTitle"> </a></td>
-						<td class="tdZ trX"> </td>
-					</tr>
-					<tr>
-						<td class="trX"><span> </span><a id='lblMpayweight_st' class="lbl"> </a></td>
-						<td class="trX"><input id="txtMpayweight" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblMunpayweight_st' class="lbl"> </a></td>
-						<td class="trX"><input id="txtMunpayweight" type="text" class="txt c1 num" /></td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-					</tr>
-					<tr>
-						<td class="trX"><span> </span><a id='lblMtransferorde_st' class="lbl"> </a></td>
-						<td class="trX"><input id="txtMtransferorde" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblMuntransferorde_st' class="lbl"> </a></td>
-						<td class="trX"><input id="txtMuntransferorde" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblMenda_st' class="lbl"> </a></td>
-						<td class="trX"><input id="chkMenda" type="checkbox"/></td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
-					</tr>
-
             <tr class="tr9">
             	<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
                 <td class="td2" colspan='7' ><textarea id="txtMemo" cols="10" rows="5" style="width: 99%;height: 50px;"></textarea></td>
@@ -767,17 +741,21 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
               <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:9%;"><a id='lblProductno_st'></a></td>
-                <td align="center" style="width:15%;"><a id='lblProduct_st'></a></td>
-                <td align="center" style="width:8%;"><a id='lblClass_st'></a></td>
-                <td align="center" style="width:18%;" id='Size'><a id='lblSize_st'> </a><a id='lblSize_help'> </a></td>
+                <td align="center" style="width:8%;"><a id='lblProductno_st'></a></td>
+                <td align="center" style="width:10%;"><a id='lblProduct_st'></a></td>
+                <td align="center" style="width:6%;"><a id='lblClass_st'></a></td>
+                <td align="center" style="width:15%;" id='Size'><a id='lblSize_st'> </a><a id='lblSize_help'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblMount_st'></a></td>
-                <td align="center" style="width:8%;"><a id='lblWeight_st'></a></td>
-                <td align="center" style="width:6%;"><a id='lblPrice_st'></a></td>
-                <td align="center" style="width:8%;"><a id='lblTotal_st'></a></td>
-                <td align="center"><a id='lblMemo_st'></a></td>
-                <td align="center"><a id='lblEnda_st'></a></td>
+                <td align="center" style="width:5%;"><a id='lblWeight_st'></a></td>
+                <td align="center" style="width:5%;"><a id='lblPrice_st'></a></td>
+                <td align="center" style="width:5%;"><a id='lblTotal_st'></a></td>
+                <td align="center" style="width:10%;"><a id='lblMemo_st'></a></td>
+                <td align="center" style="width:5%;"><a id='lblGweight_st'></a></td>
+                <td align="center" style="width:5%;"><a id='lblEweight_st'></a></td>
+                <td align="center" style="width:5%;"><a id='lblOrdgweight_st'></a></td>
+                <td align="center" style="width:5%;"><a id='lblOrdeweight_st'></a></td>
+                <td align="center" style="width:4%;"><a id='lblEnda_st'></a></td>
                 
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -812,7 +790,11 @@
                 <input class="txt" id="txtNo2.*" type="text" style="width:20%;" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
                 </td>
-                <td ><input id="chkEnda.*" type="checkbox"/></td>
+                <td ><input id="txtGweight.*" type="text" class="txt num c7" /></td>
+                <td ><input id="txtEweight.*" type="text" class="txt num c7" /></td>
+                <td ><input id="txtOrdgweight.*" type="text" class="txt num c7" /></td>
+                <td ><input id="txtOrdeweight.*" type="text" class="txt num c7" /></td>
+                <td align="center"><input id="chkEnda.*" type="checkbox"/></td>
             </tr>
         </table>
         </div>
