@@ -13,7 +13,7 @@
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
     var q_name = 'view_quats', t_bbsTag = 'tbbs', t_content = " field=productno,product,size,dime,width,lengthb,unit,mount,weight,notv,noa,no3,price  order=odate ", afilter = [], bbsKey = ['noa', 'no3'], t_count = 0, as;
-    var t_sqlname = 'view_quats_load';
+    var t_sqlname = 'view_quats';
     t_postname = q_name;
     brwCount2 = 12;
     var isBott = false;  /// 是否已按過 最後一頁
