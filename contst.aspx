@@ -18,7 +18,7 @@
             q_tables = 's';
             var q_name = "cont";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtApv', 'txtWorker2'];
-            var q_readonlys = ['txtNo3'];
+            var q_readonlys = ['txtNoq'];
             var bbmNum = [['txtGweight', 10, 2, 1],['txtEweight', 15, 0, 1],['txtOrdgweight', 15, 3, 1],['txtOrdeweight', 15, 3, 1]];
             var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],
             			  ['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],
@@ -41,7 +41,7 @@
 				            , ['txtBankno', 'lblBankno', 'bank', 'noa,bank', 'txtBankno,txtBank', 'bank_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
-                bbsKey = ['noa', 'no3'];
+                bbsKey = ['noa', 'noq'];
                 q_brwCount();
 				q_gt(q_name, q_content, q_sqlCount, 1, 0, '')
             });
@@ -317,6 +317,7 @@
                 var i;
 
                 $('#txt' + bbmKey[0].substr(0, 1).toUpperCase() + bbmKey[0].substr(1)).val(key_value);
+                alert('123');
                 _btnOk(key_value, bbmKey[0], bbsKey[1], '', 2);
             }
 
@@ -911,7 +912,7 @@
                  <td><input class="btn"  id="btnProduct.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                     <input type="text" id="txtProductno.*"  style="width:76%; float:left;"/>
                     <span style="display:block; width:1%;float:left;"> </span>
-					<input type="text" id="txtNo3.*"  style="width:76%; float:left;"/>
+					<input type="text" id="txtNoq.*"  style="width:76%; float:left;"/>
 				</td> 
                 <td ><input id="txtProduct.*" type="text" class="txt c7"/>
                 <input class="txt" id="txtUno.*" type="text"  class="txt c2"/></td>
@@ -936,7 +937,7 @@
                 <td><input id="txtMemo.*" type="text" class="txt c7"/>
                 <input class="txt" id="txtOrdeno.*" type="text" style="width:65%;" />
                 <input class="txt" id="txtNo2.*" type="text" style="width:20%;" />
-                <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
+                <input id="txtNo3.*" type="hidden" /><input id="recno.*" type="hidden" />
                 </td>
                 <td ><input id="txtGweight.*" type="text" class="txt num c7" /></td>
                 <td ><input id="txtEweight.*" type="text" class="txt num c7" /></td>
