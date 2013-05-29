@@ -167,9 +167,9 @@
 			                b_seq = t_IdSeq;
 			                btnCert_Seq = b_seq;
 		                	t_where = '';
-		                	t_uno = $('#txtUno_' + b_seq).val();
-		                	if(t_uno.length > 0){
-		                		t_where = "noa='" + t_uno + "'";
+		                	t_sno = $('#txtSno_' + b_seq).val();
+		                	if(t_sno.length > 0){
+		                		t_where = "noa='" + t_sno + "'";
 		                		q_box("cert_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'cert', "95%", "95%", q_getMsg('popCert'));
 		                	}
 	                	});

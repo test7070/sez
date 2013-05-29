@@ -48,7 +48,7 @@
         }  
         function mainPost() { 
             q_getFormat();
-            q_cmbParse("cmbKind", q_getPara('ordbst.kind')); 
+            q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
              $('#cmbKind').change(function () {
@@ -503,7 +503,7 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 90%;
+                width: 97%;
                 float: left;
             }
             .txt.c2 {
@@ -574,15 +574,18 @@
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
-        .tbbs
-        {
-            FONT-SIZE: medium;
-            COLOR: blue ;
-            TEXT-ALIGN: left;
-             BORDER:1PX LIGHTGREY SOLID;
-             width:100% ; height:98% ;  
-        }  
-      
+        
+      	.dbbs .tbbs{
+         	margin:0;
+         	padding:2px;
+         	border:2px lightgrey double;
+         	border-spacing:1px;
+         	border-collapse:collapse;
+         	font-size:medium;
+         	color:blue;
+         	background:#cad3ff;
+         	width: 1700px;
+         }
        .tbbs .td1
         {
             width: 4%;
@@ -603,7 +606,7 @@
         ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
      >
 <!--#include file="../inc/toolbar.inc"-->
-    <div id='dmain' >
+    
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
@@ -730,7 +733,6 @@
                 <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
             </tr>
         </table>
-        </div>
         </div>
         <input id="q_sys" type="hidden" />
 </body>
