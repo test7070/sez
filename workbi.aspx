@@ -24,7 +24,7 @@
         var decbbs = ['weight', 'mount', 'gmount', 'emount', 'errmount', 'born'];
         var decbbm = ['mount', 'inmount', 'errmount', 'rmount', 'price', 'hours'];
         var q_readonly = ['txtWorker','txtNoa'];
-        var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq'];
+        var q_readonlys = ['txtOrdeno', 'txtNo2', 'txtNoq','txtUno'];
         var bbmNum = [];  // 允許 key 小數
         var bbsNum = [['txtMount', 15, 0,1], ['txtBorn', 15, 0,1], ['txtBweight', 15, 2,1], ['txtWeight', 15, 2,1], ['txtDime', 15, 0,1], ['txtWidth', 15, 0,1], ['txtLengthb', 15, 0,1], ['txtTheory', 15, 2,1]];
         var bbmMask = [];
@@ -149,12 +149,18 @@
         }
 
         function btnOk() {
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);  // 檢查空白 
+            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')],['txtBno', q_getMsg('lblBno')]]);  // 檢查空白 
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
             }
-
+            
+            if(q_cur==1){//新增時自動產生批號(依爐號編)
+            	for(var i = 0; i < q_bbsCount; i++) {
+            		$('#txtUno_'+i).val($('#txtBno').val()+'-'+(('000'+(i+1)).substr(('000'+(i+1)).length-3)));
+				}
+			}
+			
             $('#txtWorker').val(r_name);
             
             var s1 = $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val();
@@ -216,14 +222,23 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
-
+			refreshBbm();
          }
         function btnModi() {
             if (emp($('#txtNoa').val()))
                 return;
             _btnModi();
             $('#txtProduct').focus();
+            refreshBbm();
         }
+        function refreshBbm(){
+            if(q_cur==1){
+            	$('#txtBno').css('color','black').css('background','white').removeAttr('readonly');
+            }else{
+            	$('#txtBno').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+           	}
+       }
+        
         function btnPrint() {
 			q_box('z_workbp.aspx'+ "?;;;noa="+trim($('#txtNoa').val())+";"+r_accy, '', "95%", "95%", m_print);
         }
@@ -251,6 +266,7 @@
         ///////////////////////////////////////////////////  以下提供事件程式，有需要時修改
         function refresh(recno) {
             _refresh(recno);
+            refreshBbm();
         }
 
         function readonly(t_para, empty) {
