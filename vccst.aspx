@@ -96,10 +96,10 @@
 						alert('請輸入 : 【' + q_getMsg('lblCarno2') + '】');
 					}else{
 						t_where = "where=^^ carno='" + t_carno + "' ^^";
-						q_gt('vcce', t_where , 0, 0, 0, "");
+						q_gt('vcce', t_where , 0, 0, 0, "",r_accy);
 	                }
-                	}
-                });
+            	}
+			});
 
         }
 
