@@ -540,9 +540,9 @@
                 <!--<td align="center" style="width:5%;"><a id='lblSpec'></a></td>-->
                 <td align="center" style="width:4%;"><a id='lblUnit'></a></td>
                 <td align="center" style="width:222px;"><a id='lblSize'></a></br><a id='lblSizes'></a></td>
-                <td align="center" style="width:7%;"><a id='lblBorn'></a></td>
-                <td align="center" style="width:7%;"><a id='lblTheory'></a></td>
                 <td align="center" style="width:7%;"><a id='lblMounts'></a></td>
+                <td align="center" style="width:7%;"><a id='lblTheory'></a></td>
+                <td align="center" style="width:7%;"><a id='lblBorn'></a></td>
                 <td align="center" style="width:7%;"><a id='lblErrmount'></a></td>
                 <td align="center" ><a id='lblMemos'></a></td>
                 <td align="center" style="width:4%;"><a id='lblEnda'> </a></td>
@@ -564,15 +564,15 @@
                 	<input id="txtSpec.*" type="text" class="txt c1"/>
                 </td>
                 <td>
-                	<input id="txtBorn.*" type="text" class="txt c1 num"/>
-                	<input id="txtBweight.*" type="text" class="txt c1 num"/>
+                	<input id="txtMount.*" type="text" class="txt c1 num"/>
+                	<input id="txtWeight.*" type="text" class="txt c1 num"/>
                 </td>
                 <td>
                 	<input id="txtTheory.*" type="text" class="txt c1 num"/>
                 </td>
                 <td>
-                	<input id="txtMount.*" type="text" class="txt c1 num"/>
-                	<input id="txtWeight.*" type="text" class="txt c1 num"/>
+                	<input id="txtBorn.*" type="text" class="txt c1 num"/>
+                	<input id="txtBweight.*" type="text" class="txt c1 num"/>
                 </td>
                 <td><input id="txtErrmount.*" type="text" class="txt c1 num"/></td>
                 <td><input id="txtMemo.*" type="text" class="txt c1"/>

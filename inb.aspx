@@ -20,7 +20,7 @@
             var q_name = "inb";
             var q_readonly = ['txtNoa'];
             var q_readonlys = ['txtNoa','txtNoq'];
-            var bbmNum = [['txtGwelght', 10, 2, 1],['txtTwelght', 10, 2, 1],['txtWelght', 10, 2, 1]];
+            var bbmNum = [['txtGweight', 10, 2, 1],['txtTwelght', 10, 2, 1],['txtWelght', 10, 2, 1]];
             var bbsNum = [['txtDime', 10, 2, 1],['txtWidth', 10, 2, 1],['txtLengthb', 10, 2, 1],['txtBweight', 10, 2, 1],['txtMount', 10, 2, 1],
             ['txtWeight', 10, 2, 1],['txtPdm',10,2,1],['txtGweight',10,2,1],['txtMount2',10,2,1],['txtTheory',10,2,1],
             ['txtCuac',10,2,1],['txtCuaw',10,2,1],['txtUweight', 10, 2, 1]];
@@ -516,7 +516,7 @@
         </tr>
         <tr class="tr3">
 	        <td class='td1'><span> </span><a id="lblGweight" class="lbl" > </a></td>
-	        <td class="td2"><input id="txtGwelght" type="text"  class="txt c1 num"/>
+	        <td class="td2"><input id="txtGweight" type="text"  class="txt c1 num"/>
 	        <td class='td3'><span> </span><a id="lblTweight" class="lbl" > </a></td>
 	        <td class="td4"><input id="txtTwelght" type="text"  class="txt c1 num"/>
 	        <td class='td5'><span> </span><a id="lblWeight" class="lbl" > </a></td>
