@@ -64,7 +64,7 @@
 				 		alert('請輸入司機。');
 				 		return;
 				 	}
-				 		
+				 	Lock();	
                 	q_func('carsal.import',r_accy+','+$('#txtMon').val()+','+$('#txtBdriverno').val()+','+$('#txtEdriverno').val()+','+r_name);
                 });
                 $('#lblAccno').click(function() {
@@ -84,10 +84,11 @@
 			function q_funcPost(t_func, result) {
                 switch(t_func) {
                     case 'carsal.import':
+						q_func('carsal_post.post',$('#txtMon').val().substring(0,3)+','+$('#txtMon').val()+',1');
+                    	Unlock();
 						location.reload();
                         break;
                 }
-
             }
 			function q_gtPost(t_name) {
 				switch (t_name) {
