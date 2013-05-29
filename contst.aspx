@@ -59,7 +59,7 @@
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd]];
                 q_mask(bbmMask);
-                q_cmbParse("cmbKind", q_getPara('quatst.kind'));
+                q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
                 q_getFormat();
                 bbmMask = [['txtEnddate', r_picd],['txtDatea', r_picd], ['txtPledgedate', r_picd], ['txtPaydate', r_picd], ['txtBcontdate', r_picd], ['txtEcontdate', r_picd], ['txtChangecontdate', r_picd]];
                 q_mask(bbmMask);
@@ -215,10 +215,10 @@
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
 			                     
-			                if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+			                if ($('#cmbKind').val().substr(0,1)=='A')
 			            	{	
 			            		q_tr('txtDime_'+b_seq ,q_float('textSize1_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#textSize1_' + b_seq).val());
-							}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+							}else if($('#cmbKind').val().substr(0,1)=='B'){
 			            		q_tr('txtRadius_'+b_seq ,q_float('textSize1_'+b_seq));//短徑$('#txtRadius_'+b_seq).val($('#textSize1_' + b_seq).val());	
 							}
 			            		
@@ -230,10 +230,10 @@
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
 			                     
-							if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+							if ($('#cmbKind').val().substr(0,1)=='A')
 							{	
 			            		q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//寬度$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
-							}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+							}else if($('#cmbKind').val().substr(0,1)=='B'){
 			            		q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//長徑$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
 							}
 			                     
@@ -245,10 +245,10 @@
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
 						         	
-			                if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+			                if ($('#cmbKind').val().substr(0,1)=='A')
 			            	{	
 			            		q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize3_' + b_seq).val());	
-							}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+							}else if($('#cmbKind').val().substr(0,1)=='B'){
 			            		q_tr('txtDime_'+b_seq ,q_float('textSize3_'+b_seq));//厚度$('#txtDime_'+b_seq).val($('#textSize3_' + b_seq).val());		
 							}else{//鋼筋、胚
 			            		q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));
@@ -262,10 +262,10 @@
 			                q_bodyId($(this).attr('id'));
 			                b_seq = t_IdSeq;
 			                     
-			                if ($('#cmbKind').find("option:selected").text().indexOf('板')>-1)
+			                if ($('#cmbKind').val().substr(0,1)=='A')
 			            	{	
 			            		q_tr('txtRadius_'+b_seq ,q_float('textSize4_'+b_seq));//短徑為0 $('#txtRadius_'+b_seq).val($('#textSize4_' + b_seq).val());	
-							}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
+							}else if($('#cmbKind').val().substr(0,1)=='B'){
 			            		q_tr('txtLengthb_'+b_seq ,q_float('textSize4_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());	
 							}
 			            		
@@ -426,8 +426,8 @@
             }
             
 		function size_change () {
-		  if( $('#cmbKind').find("option:selected").text().indexOf('板')>-1){
-            $('#lblSize_help').html("厚度x寬度x長度<br>規格");
+		  if($('#cmbKind').val().substr(0,1)=='A'){
+            $('#lblSize_help').html("厚度x寬度x長度");
 	        	for (var j = 0; j < q_bbsCount; j++) {
 	            	$('#textSize1_'+j).show();
 	            	$('#textSize2_'+j).show();
@@ -443,8 +443,8 @@
 			        $('#textSize4_'+j).val(0);
 			        $('#txtRadius_'+j).val(0)
 				}
-			}else if( $('#cmbKind').find("option:selected").text().indexOf('管')>-1){
-				$('#lblSize_help').html("短徑x長徑x厚度x長度<br>規格");
+			}else if($('#cmbKind').val().substr(0,1)=='B'){
+				$('#lblSize_help').html("短徑x長徑x厚度x長度");
 			    for (var j = 0; j < q_bbsCount; j++) {
 			    	$('#textSize1_'+j).show();
 	            	$('#textSize2_'+j).show();
@@ -460,7 +460,7 @@
 			        q_tr('textSize4_'+ j ,q_float('txtLengthb_'+j));
 				}
 			}else{//鋼筋和鋼胚
-				$('#lblSize_help').text("長度/規格");
+				$('#lblSize_help').text("長度");
 	            for (var j = 0; j < q_bbsCount; j++) {
 	            	$('#textSize1_'+j).hide();
 	            	$('#textSize2_'+j).hide();
@@ -893,14 +893,14 @@
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%;"><a id='lblProductno_st_s'></a></td>
                 <td align="center" style="width:10%;"><a id='lblUno_st_s'></a></td>
-                <td align="center" style="width:15%;" id='Size'><a id='lblSize_st_s'> </a><a id='lblSize_help'> </a></td>
+                <td align="center" id='Size'><a id='lblSize_st_s'> </a><BR><a id='lblSize_help'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit_st_s'></a></td>
                 <td align="center" style="width:5%;"><a id='lblMount_st_s'></a></td>
                 <td align="center" style="width:5%;"><a id='lblWeights_st_s'></a></td>
                 <td align="center" style="width:5%;"><a id='lblPrices_st_s'></a></td>
                 <td align="center" style="width:5%;"><a id='lblTotals_st_s'></a></td>
                 <td align="center" style="width:8%;"><a id='lblClasss_st_s'></a></td>
-                <td align="center" style="width:10%;"><a id='lblMemo_st_s'></a></td>
+                <td align="center" ><a id='lblMemo_st_s'></a></td>
                 <td align="center" style="width:5%;"><a id='lblGweight_st_s'></a></td>
                 <td align="center" style="width:5%;"><a id='lblEweight_st_s'></a></td>
                 <td align="center" style="width:5%;"><a id='lblOrdgweight_st_s'></a></td>
