@@ -48,7 +48,7 @@
         }  
         function mainPost() { 
             q_getFormat();
-            q_cmbParse("cmbKind", q_getPara('ordbst.kind')); 
+            q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
              $('#cmbKind').change(function () {
@@ -63,11 +63,47 @@
 			       		$('#btnOk').removeAttr('disabled');
 				}
 			});
+			
+			$('#btnOrdeimport').click(function(){
+				var ordeno = $('#txtOrdeno').val();
+				var t_where = '';
+				if(ordeno.length > 0){
+					t_where = "noa='" + ordeno + "'";
+            	   	q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'orde', "95%", "95%", q_getMsg('popOrde'));
+				}else{
+					alert('請輸入【' + q_getMsg('lblOrdeno') + '】');
+				}
+			});
+			$('#btnWorkbimport').click(function(){
+				var ordeno = $('#txtOrdeno').val();
+				var t_where = '';
+				if(ordeno.length > 0){
+					t_where = "where = ^^ ordeno='" + ordeno + "' ^^";
+            	   	q_box("workb_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workb', "95%", "95%", q_getMsg('popWorkb'));
+				}else{
+					alert('請輸入【' + q_getMsg('lblOrdeno') + '】');
+				}
+			});
         }
 
         function q_boxClose(s2) { ///   q_boxClose 2/4 
             var ret;
             switch (b_pop) {   
+            	case 'workb':
+					if (q_cur > 0 && q_cur < 4) {
+						if (!b_ret || b_ret.length == 0)
+							return;
+						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtWeight,txtMount,txtMemo,txtUno', b_ret.length, b_ret, 'productno,product,bweight,born,memo,no2','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+	                    }
+						break;
+				case 'orde':
+					if (q_cur > 0 && q_cur < 4) {
+						if (!b_ret || b_ret.length == 0)
+							return;
+						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtWeight,txtMount,txtPrice', b_ret.length, b_ret,
+												 'productno,product,weight,mount,price','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+	                    }
+						break;
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
                     break;
@@ -503,7 +539,7 @@
                 color: #FF8F19;
             }
             .txt.c1 {
-                width: 90%;
+                width: 97%;
                 float: left;
             }
             .txt.c2 {
@@ -574,15 +610,18 @@
             input[type="text"], input[type="button"] {
                 font-size: medium;
             }
-        .tbbs
-        {
-            FONT-SIZE: medium;
-            COLOR: blue ;
-            TEXT-ALIGN: left;
-             BORDER:1PX LIGHTGREY SOLID;
-             width:100% ; height:98% ;  
-        }  
-      
+        
+      	.dbbs .tbbs{
+         	margin:0;
+         	padding:2px;
+         	border:2px lightgrey double;
+         	border-spacing:1px;
+         	border-collapse:collapse;
+         	font-size:medium;
+         	color:blue;
+         	background:#cad3ff;
+         	width: 1700px;
+         }
        .tbbs .td1
         {
             width: 4%;
@@ -603,7 +642,7 @@
         ondrop="event.dataTransfer.dropEffect='none';event.stopPropagation(); event.preventDefault();"
      >
 <!--#include file="../inc/toolbar.inc"-->
-    <div id='dmain' >
+    
         <div class="dview" id="dview" style="float: left;  width:32%;"  >
            <table class="tview" id="tview"   border="1" cellpadding='2'  cellspacing='0' style="background-color: #FFFF66;">
             <tr>
@@ -643,15 +682,14 @@
             <td class="td2" colspan="4"><input id="txtTel"  type="text" class="txt c7"/></td>
             <td class="td6"><span> </span><a id="lblTrantype" class="lbl"> </a></td>
             <td class="td7"><input id="txtTrantype"  type="text" class="txt c1"/> </td>
-            <td class="td8"><input id="btnOrde" type="button" /></td>
-            <td class="td9"><input id="btnSearchuno" type="button" /></td>
+            <!--<td class="td8"><input id="btnOrde" type="button" /></td>-->
         </tr>
         <tr class="tr4">
             <td class='td1'><span> </span><a id="lblAddr_post" class="lbl"> </a></td>
             <td class="td2" colspan="4"><input id="txtAddr_post"  type="text" class="txt c7"/> </td>
             <td class='td6'><span> </span><a id="lblStype" class="lbl"> </a> </td>
             <td class="td7"><input id="txtStype"  type="text" class="txt c1"/> </td>
-            <td class="td8"><input id="btnOrdeinput" type="button" /></td>
+            <td class="td9"><input id="btnSearchuno" type="button" /></td>
             <td class="td9"><input id="btnSearchstk" type="button" /></td>
         </tr>
         <tr class="tr5">
@@ -659,7 +697,8 @@
             <td class="td2" colspan="4"><input id="txtDeivery_addr"  type="text" class="txt c7"/> </td>
             <td class='td6'><span> </span><a id="lblOrdeno" class="lbl"> </a> </td>
             <td class="td7"><input id="txtOrdeno"  type="text" class="txt c1"/> </td>
-            
+            <td class="td8"><input id="btnOrdeimport" type="button" /></td>
+            <td class="td8"><input id="btnWorkbimport" type="button"/></td>
         </tr>   
         <tr class="tr6">
             <td class='td1'><span> </span><a id="lblWeight" class="lbl"> </a></td>
@@ -730,7 +769,6 @@
                 <td ><input class="txt c1" id="txtMemo.*" type="text" /></td>
             </tr>
         </table>
-        </div>
         </div>
         <input id="q_sys" type="hidden" />
 </body>

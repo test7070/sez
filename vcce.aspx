@@ -49,7 +49,7 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-            q_cmbParse("cmbKind", q_getPara('vcce.kind'));  
+            q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
 			/* 若非本會計年度則無法存檔 */
 			$('#txtDatea').focusout(function () {
 				if($(this).val().substr( 0,3)!= r_accy){
