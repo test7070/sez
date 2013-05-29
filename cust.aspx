@@ -27,7 +27,9 @@
             brwCount2 = 20;
             
             //ajaxPath = ""; //  execute in Root
-            aPop = new Array(['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx'], ['txtInvestdate', 'lblInvest', 'invest', 'datea,investmemo', 'txtInvestdate,txtInvestmemo', 'invest_b.aspx'], ['txtGrpno', 'lblCust', 'cust', 'noa,comp', 'txtGrpho,txtGrpname', 'cust_b.aspx']);
+            aPop = new Array(['txtSalesno', 'lblSales', 'sss', 'noa,namea', 'txtSalesno,txtSales', 'sss_b.aspx']
+            , ['txtInvestdate', 'lblInvest', 'invest', 'datea,investmemo', 'txtInvestdate,txtInvestmemo', 'invest_b.aspx']
+            , ['txtGrpno', 'lblGrp', 'team', 'noa,team', 'txtGrpno,txtGrpname', 'team_b.aspx']);
             $(document).ready(function() {
                 bbmKey = ['noa'];
 
@@ -58,11 +60,14 @@
                 q_cmbParse("cmbTypea", q_getPara('cust.typea'));
                 q_cmbParse("combPaytype", q_getPara('vcc.paytype'));
                 q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
-
-                $('#lblConn').click(function() {
+				 $('#btnConn').click(function() {
+                    t_where = "noa='" + $('#txtNoa').val() + "'";
+                    q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('btnConn'));
+                });
+                /*$('#lblConn').click(function() {
                     t_where = "noa='" + $('#txtNoa').val() + "'";
                     q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('lblConn'));
-                });
+                });*/
 
                 txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
                 txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
@@ -491,24 +496,30 @@
 						</td>
 					</tr>
 					<tr class="tr4">
-						<td class="td1"><span> </span><a id="lblConn" class="lbl btn"></td>
-						<td class="td2">
-						<input id="txtConn" type="text" class="txt c1"/>
-						</td>
 						<td class="td3"><span> </span><a id='lblType' class="lbl"></a></td>
 						<td class="td4"><select id="cmbTypea" class="txt c1"></select></td>
 						<td class="td5"><span> </span><a id='lblTeam' class="lbl"></a></td>
 						<td class="td6">
 						<input id="txtTeam"   type="text"  class="txt c1"/>
 						</td>
+						<td><input id="btnConn" type="button" /></td>
 					</tr>
 					<tr class="tr5">
+						<td><span> </span><a id="lblGrp"  class="lbl btn"> </a></td>
+						<td>
+							<input id="txtGrpno" type="text" style="float:left; width:40%;"/>
+							<input id="txtGrpname" type="text" style="float:left; width:60%;"/>
+						</td>
+						<td><span> </span><a id='lblTeampaytype' class="lbl"> </a></td>
+						<td><input id="txtTeampaytype" type="text" class="txt c1"/></td>
+					</tr>
+					<tr class="tr6">
 						<td class="td1"><span> </span><a id='lblTel' class="lbl"></a></td>
 						<td class="td2" colspan='5' >
 						<input id="txtTel" type="text"  class="txt c7"/>
 						</td>
 					</tr>
-					<tr class="tr6">
+					<tr class="tr7">
 						<td class="td1"><span> </span><a id='lblFax' class="lbl"></a></td>
 						<td class="td2" colspan='3' >
 						<input id="txtFax" type="text" class="txt c7"/>
@@ -518,7 +529,7 @@
 						<input id="txtMobile" type="text" class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr7">
+					<tr class="tr8">
 						<td class="td1"><span> </span><a id='lblAddr_fact' class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtZip_fact" type="text"  class="txt c1">
@@ -527,7 +538,7 @@
 						<input id="txtAddr_fact"  type="text" class="txt c7"/>
 						</td>
 					</tr>
-					<tr class="tr8">
+					<tr class="tr9">
 						<td class="td1"><span> </span><a id='lblAddr_comp' class="lbl"></a></td>
 						<td class="td2" >
 						<input id="txtZip_comp" type="text" class="txt c1"/>
@@ -536,7 +547,7 @@
 						<input id="txtAddr_comp"  type="text" class="txt c7"/>
 						</td>
 					</tr>
-					<tr class="tr9">
+					<tr class="tr10">
 						<td class="td1"><span> </span><a id='lblAddr_invo' class="lbl"></a></td>
 						<td class="td2" >
 						<input id="txtZip_invo" type="text" class="txt c1"/>
@@ -545,7 +556,7 @@
 						<input id="txtAddr_invo"  type="text" class="txt c7"/>
 						</td>
 					</tr>
-					<tr class="tr10">
+					<tr class="tr11">
 						<td class="td1"><span> </span><a id='lblAddr_home' class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtZip_home" type="text" class="txt c1"/>
@@ -554,13 +565,13 @@
 						<input id="txtAddr_home"  type="text" class="txt c7"/>
 						</td>
 					</tr>
-					<tr class="tr11">
+					<tr class="tr12">
 						<td class="td1"><span> </span><a class="lbl">E-mail</a></td>
 						<td class="td2" colspan='5'>
 						<input id="txtEmail"  type="text"  class="txt c7"/>
 						</td>
 					</tr>
-					<tr class="tr12">
+					<tr class="tr13">
 						<td class="td1"><span> </span><a id="lblCredit" class="lbl btn" ></a></td>
 						<td class="td2">
 						<input id="txtCredit" type="text" class="txt c1"/>
@@ -570,13 +581,8 @@
 						<input id="txtSalesno" type="text" class="txt c6"/>
 						<input id="txtSales"    type="text" class="txt c6"/>
 						</td>
-						<td class="td5"><span> </span><a id="lblCust" class="lbl btn"></a></td>
-						<td class="td6">
-						<input id="txtGrpno" type="text" class="txt c6"/>
-						<input id="txtGrpname" type="text" class="txt c6"/>
-						</td>
 					</tr>
-					<tr class="tr13">
+					<tr class="tr14">
 						<td class="td1"><span> </span><a id='lblChkstatus' class="lbl"></a></td>
 						<td class="td2" colspan='3'>
 						<input id="txtChkstatus"  type="text"  class="txt c7" />
@@ -586,7 +592,7 @@
 						<input id="txtUacc4"    type="text" class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr14">
+					<tr class="tr15">
 						<td class="td1"><span> </span><a id='lblChkdate' class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtChkdate" type="text" class="txt c1" />
@@ -600,7 +606,7 @@
 						<input id="txtUacc1" type="text" class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr15">
+					<tr class="tr16">
 						<td class="td1"><span> </span><a id='lblDuedate' class="lbl"></a></td>
 						<td class="td2">
 						<input id="txtDuedate" type="text" class="txt c1"/>
@@ -614,7 +620,7 @@
 						<input id="txtUacc2" type="text" class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr16">
+					<tr class="tr17">
 						<td class="td1"><span> </span><a id='lblTrantype' class="lbl"></a></td>
 						<td class="td2"><select id="cmbTrantype" class="txt c1"></select></td>
 						<td class="td3"><span> </span><a id='lblPaytype' class="lbl"></a></td>
@@ -626,7 +632,7 @@
 						<input id="txtUacc3" type="text" class="txt c1"/>
 						</td>
 					</tr>
-					<tr class="tr17">
+					<tr class="tr18">
 						<td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
 						<td class="td2" colspan='5'>						<textarea id="txtMemo"  rows='5' cols='10' style="width:99%; height: 50px;"></textarea></td>
 					</tr>
