@@ -32,6 +32,10 @@
                         dbf : 'ucc',
                         index : 'noa,product',
                         src : 'ucc_b.aspx'
+                    }, {
+						type : '0',
+						name : 'accy',
+						value : q_getId()[4]
                     }]
                 });
                 q_popAssign();
