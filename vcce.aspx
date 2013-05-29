@@ -49,7 +49,7 @@
             q_getFormat();
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
-            q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
+            q_cmbParse("cmbKind", q_getPara('vcce.kind'));  
 			/* 若非本會計年度則無法存檔 */
 			$('#txtDatea').focusout(function () {
 				if($(this).val().substr( 0,3)!= r_accy){
@@ -402,6 +402,10 @@
         {
             width: 8%;
         }
+        .tbbs .td4
+        {
+            width: 2%;
+        }
     </style>
 </head>
 <body>
@@ -489,7 +493,7 @@
                 <td align="center" class="td1"><a id='lblMount_s'> </a></td>
                 <td align="center" class="td2"><a id='lblWeight_s'> </a></td>
                 <td align="center" class="td2"><a id='lblPrice_s'> </a></td>
-                <td align="center" class="td2"><a id='lblEnds_s'> </a></td>
+                <td align="center" class="td4"><a id='lblEnds_s'> </a></td>
                 <td align="center" class="td2"><a id='lblEweight_s'> </a></td>
                 <td align="center" class="td2"><a id='lblEcount_s'> </a></td>
                 <td align="center" class="td2"><a id='lblAdjweight_s'> </a></td>
@@ -510,7 +514,7 @@
                 <td ><input class="txt num c1" id="txtMount.*" type="text"/></td>
                 <td ><input class="txt num c1" id="txtWeight.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtPrice.*" type="text" /></td>
-                <td ><input class="txt c1" id="txtEnds.*" type="text" /></td>
+                <td align="center"><input id="chkEnda.*" type="checkbox"/></td>
                 <td ><input class="txt num c1" id="txtEweight.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtEcount.*" type="text" /></td>
                 <td ><input class="txt num c1" id="txtAdjweight.*" type="text" /></td>

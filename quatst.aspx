@@ -350,7 +350,7 @@
             
 		function size_change () {
 		  if($('#cmbKind').val().substr(0,1)=='A'){
-            $('#lblSize_help').html("厚度x寬度x長度<br>規格");
+            $('#lblSize_help').html("厚度x寬度x長度");
 	        	for (var j = 0; j < q_bbsCount; j++) {
 	            	$('#textSize1_'+j).show();
 	            	$('#textSize2_'+j).show();
@@ -367,7 +367,7 @@
 			        $('#txtRadius_'+j).val(0)
 				}
 			}else if($('#cmbKind').val().substr(0,1)=='B'){
-				$('#lblSize_help').html("短徑x長徑x厚度x長度<br>規格");
+				$('#lblSize_help').html("短徑x長徑x厚度x長度");
 			    for (var j = 0; j < q_bbsCount; j++) {
 			    	$('#textSize1_'+j).show();
 	            	$('#textSize2_'+j).show();
@@ -383,7 +383,7 @@
 			        q_tr('textSize4_'+ j ,q_float('txtLengthb_'+j));
 				}
 			}else{//鋼筋和鋼胚
-				$('#lblSize_help').text("長度/規格");
+				$('#lblSize_help').text("長度");
 	            for (var j = 0; j < q_bbsCount; j++) {
 	            	$('#textSize1_'+j).hide();
 	            	$('#textSize2_'+j).hide();
@@ -744,13 +744,13 @@
                 <td align="center" style="width:8%;"><a id='lblProductno_st'></a></td>
                 <td align="center" style="width:10%;"><a id='lblProduct_st'></a></td>
                 <td align="center" style="width:6%;"><a id='lblClass_st'></a></td>
-                <td align="center" style="width:15%;" id='Size'><a id='lblSize_st'> </a><a id='lblSize_help'> </a></td>
+                <td align="center" id='Size'><a id='lblSize_st'> </a></br><a id='lblSize_help'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblMount_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblWeight_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblPrice_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblTotal_st'></a></td>
-                <td align="center" style="width:10%;"><a id='lblMemo_st'></a></td>
+                <td align="center" ><a id='lblMemo_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblGweight_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblEweight_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblOrdgweight_st'></a></td>
