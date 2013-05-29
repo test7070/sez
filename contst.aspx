@@ -18,13 +18,13 @@
             q_tables = 's';
             var q_name = "cont";
             var q_readonly = ['txtNoa', 'txtWorker', 'txtApv', 'txtWorker2'];
-            var q_readonlys = [];
-            var bbmNum = [['txtTpayweight', 10, 2, 1],['txtTunpayweight', 15, 0, 1],['txtTtransferorde', 15, 3, 1],['txtTuntransferorde', 15, 3, 1],
-            			  ['txtMpayweight', 10, 2, 1],['txtMunpayweight', 15, 0, 1],['txtMtransferorde', 15, 3, 1],['txtMuntransferorde', 15, 3, 1]
-						 ];
+            var q_readonlys = ['txtNo3'];
+            var bbmNum = [['txtGweight', 10, 2, 1],['txtEweight', 15, 0, 1],['txtOrdgweight', 15, 3, 1],['txtOrdeweight', 15, 3, 1]];
             var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],
             			  ['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],
-            			  ['txtPrice', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTheory', 15, 3, 1]
+            			  ['txtPrice', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTheory', 15, 3, 1],
+            			  ['txtGweight', 10, 2, 1],['txtEweight', 15, 0, 1],['txtOrdgweight', 15, 3, 1],
+            			  ['txtOrdeweight', 15, 3, 1]
             			 ];
             var bbmMask = [];
             var bbsMask = [];
@@ -539,7 +539,6 @@
         </script> 
    <style type="text/css">
         #dmain {
-                overflow: hidden;
             }
             .dview {
                 float: left;
@@ -660,7 +659,8 @@
                 font-size:medium;
             }
             .dbbs {
-                width: 100%;
+            	float:left;
+                width: 150%;
             }
             .tbbs a {
                 font-size: medium;
@@ -678,11 +678,18 @@
             .trX{
             	background: pink;
             }
+            .trTitle{
+            	padding-left: 18px;
+				font-size: 18px;
+				font-weight: bolder;
+				color: brown;
+				letter-spacing: 5px;
+            }
     </style>
 </head>
 <body>
 <!--#include file="../inc/toolbar.inc"-->
-        <div id='dmain' style="overflow:hidden;">
+        <div id='dmain'>
 			<div class="dview" id="dview" >
 				<table class="tview" id="tview">
 					<tr>
@@ -837,6 +844,32 @@
 						<td><span> </span><a id='lblMemo' class="lbl"> </a></td>
 						<td colspan="7"><textarea id="txtMemo" rows="5" cols="10" type="text" class="txt c1"></textarea></td>
 					</tr>
+					<tr>
+						<td class="tdZ trX" colspan="8"><span> </span><a id='lblTweight' class="trTitle"> </a></td>
+						<td class="tdZ trX"> </td>
+					</tr>
+					<tr>
+						<td class="trX"><span> </span><a id='lblGweight' class="lbl"> </a></td>
+						<td class="trX"><input id="txtGweight" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblEweight' class="lbl"> </a></td>
+						<td class="trX"><input id="txtEweight" type="text" class="txt c1 num" /></td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+					</tr>
+					<tr>
+						<td class="trX"><span> </span><a id='lblOrdgweight' class="lbl"> </a></td>
+						<td class="trX"><input id="txtOrdgweight" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblOrdeweight' class="lbl"> </a></td>
+						<td class="trX"><input id="txtOrdeweight" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblEnda' class="lbl"> </a></td>
+						<td class="trX"><input id="chkEnda" type="checkbox"/></td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+						<td class="tdZ trX"> </td>
+					</tr>
 					<tr class="tr13">
 						<td class="td1"><span> </span><a id='lblWorker' class="lbl"> </a></td>
 						<td class="td2">
@@ -856,26 +889,22 @@
         <div class='dbbs' >
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
               <tr style='color:White; background:#003366;' >
-                <td align="center" rowspan="2" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" rowspan="2" style="width:9%;"><a id='lblProductno_st_s'></a></td>
-                <td align="center" rowspan="2" style="width:15%;"><a id='lblUno_st_s'></a></td>
-                <td align="center" rowspan="2" style="width:18%;" id='Size'><a id='lblSize_st_s'> </a><a id='lblSize_help'> </a></td>
-                <td align="center" rowspan="2" style="width:4%;"><a id='lblUnit_st_s'></a></td>
-                <td align="center" rowspan="2" style="width:5%;"><a id='lblMount_st_s'></a></td>
-                <td align="center" rowspan="2" style="width:8%;"><a id='lblWeights_st_s'></a></td>
-                <td align="center" rowspan="2" style="width:6%;"><a id='lblPrices_st_s'></a></td>
-                <td align="center" rowspan="2" style="width:8%;"><a id='lblTotals_st_s'></a></td>
-                <td align="center" rowspan="2" style="width:8%;"><a id='lblClasss_st_s'></a></td>
-                <td align="center" rowspan="2"><a id='lblMemo_st_s'></a></td>
-                <td align="center" rowspan="2"><a id='lblEnda_st_s'></a></td>
-                <td align="center"><a id='lblTweight_st'></a></td>
-            </tr>
-               <tr style='color:White; background:#003366;' >
-                <td align="center"><a id='lblTgweight_st'></a></td>
-                <td align="center"><a id='lblTeweight_st'></a></td>
-                <td align="center"><a id='lblTtransferorde_st'></a></td>
-                <td align="center"><a id='lblTuntransferorde_st'></a></td>
-                <td align="center"><a id='lblTenda_st'></a></td>
+                <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
+                <td align="center" style="width:8%;"><a id='lblProductno_st_s'></a></td>
+                <td align="center" style="width:10%;"><a id='lblUno_st_s'></a></td>
+                <td align="center" style="width:15%;" id='Size'><a id='lblSize_st_s'> </a><a id='lblSize_help'> </a></td>
+                <td align="center" style="width:4%;"><a id='lblUnit_st_s'></a></td>
+                <td align="center" style="width:5%;"><a id='lblMount_st_s'></a></td>
+                <td align="center" style="width:5%;"><a id='lblWeights_st_s'></a></td>
+                <td align="center" style="width:5%;"><a id='lblPrices_st_s'></a></td>
+                <td align="center" style="width:5%;"><a id='lblTotals_st_s'></a></td>
+                <td align="center" style="width:8%;"><a id='lblClasss_st_s'></a></td>
+                <td align="center" style="width:10%;"><a id='lblMemo_st_s'></a></td>
+                <td align="center" style="width:5%;"><a id='lblGweight_st_s'></a></td>
+                <td align="center" style="width:5%;"><a id='lblEweight_st_s'></a></td>
+                <td align="center" style="width:5%;"><a id='lblOrdgweight_st_s'></a></td>
+                <td align="center" style="width:5%;"><a id='lblOrdeweight_st_s'></a></td>
+                <td align="center" style="width:4%;"><a id='lblEnda_st_s'></a></td>
             </tr>
            <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
@@ -909,7 +938,11 @@
                 <input class="txt" id="txtNo2.*" type="text" style="width:20%;" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
                 </td>
-                <td ><input id="chkEnda.*" type="checkbox"/></td>
+                <td ><input id="txtGweight.*" type="text" class="txt num c7" /></td>
+                <td ><input id="txtEweight.*" type="text" class="txt num c7" /></td>
+                <td ><input id="txtOrdgweight.*" type="text" class="txt num c7" /></td>
+                <td ><input id="txtOrdeweight.*" type="text" class="txt num c7" /></td>
+                <td align="center"><input id="chkEnda.*" type="checkbox"/></td>
             </tr>
         </table>
         </div>

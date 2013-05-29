@@ -21,14 +21,13 @@
             var q_readonlys = ['txtNo3','txtNo2'];
             var bbmNum = [['txtMoney', 15, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 15, 0, 1],['txtTotalus', 15, 2, 1],
             			  ['txtFloata', 15, 3, 1],['txtWeight', 15, 3, 1],['txtGweight', 10, 2, 1],
-            			  ['txtEweight', 15, 0, 1],['txtOrdegweight', 15, 3, 1],['txtOrdeeweight', 15, 3, 1]
+            			  ['txtEweight', 15, 0, 1],['txtOrdgweight', 15, 3, 1],['txtOrdeweight', 15, 3, 1]
             			 ];
             var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],
             			  ['textSize4', 10, 2, 1],['txtMount', 10, 0, 1],['txtWeight', 15, 3, 1],
-            			  ['txtPrice', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTheory', 15, 3, 1],
-            			  ['txtMgweight', 15, 3, 1],['txtMeweight', 15, 3, 1],['txtMtransferorde', 15, 3, 1],
-            			  ['txtMuntransferorde', 15, 3, 1]
-            ];
+            			  ['txtPrice', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTheory', 15, 3, 1],['txtGweight', 10, 2, 1],
+            			  ['txtEweight', 15, 0, 1],['txtOrdgweight', 15, 3, 1],['txtOrdeweight', 15, 3, 1]
+            			 ];
             var bbmMask = [];
             var bbsMask = [];
             q_sqlCount = 6;
@@ -722,11 +721,11 @@
 						<td class="tdZ trX"> </td>
 					</tr>
 					<tr>
-						<td class="trX"><span> </span><a id='lblOrdegweight' class="lbl"> </a></td>
-						<td class="trX"><input id="txtOrdegweight" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblOrdeeweight' class="lbl"> </a></td>
-						<td class="trX"><input id="txtOrdeeweight" type="text" class="txt c1 num" /></td>
-						<td class="trX"><span> </span><a id='lblEnda_st' class="lbl"> </a></td>
+						<td class="trX"><span> </span><a id='lblOrdgweight' class="lbl"> </a></td>
+						<td class="trX"><input id="txtOrdgweight" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblOrdeweight' class="lbl"> </a></td>
+						<td class="trX"><input id="txtOrdeweight" type="text" class="txt c1 num" /></td>
+						<td class="trX"><span> </span><a id='lblEnda' class="lbl"> </a></td>
 						<td class="trX"><input id="chkEnda" type="checkbox"/></td>
 						<td class="tdZ trX"> </td>
 						<td class="tdZ trX"> </td>
@@ -754,8 +753,8 @@
                 <td align="center" style="width:10%;"><a id='lblMemo_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblGweight_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblEweight_st'></a></td>
-                <td align="center" style="width:5%;"><a id='lblOrdegweight_st'></a></td>
-                <td align="center" style="width:5%;"><a id='lblOrdeeweight_st'></a></td>
+                <td align="center" style="width:5%;"><a id='lblOrdgweight_st'></a></td>
+                <td align="center" style="width:5%;"><a id='lblOrdeweight_st'></a></td>
                 <td align="center" style="width:4%;"><a id='lblEnda_st'></a></td>
                 
             </tr>
@@ -793,8 +792,8 @@
                 </td>
                 <td ><input id="txtGweight.*" type="text" class="txt num c7" /></td>
                 <td ><input id="txtEweight.*" type="text" class="txt num c7" /></td>
-                <td ><input id="txtOrdegweight.*" type="text" class="txt num c7" /></td>
-                <td ><input id="txtOrdeeweight.*" type="text" class="txt num c7" /></td>
+                <td ><input id="txtOrdgweight.*" type="text" class="txt num c7" /></td>
+                <td ><input id="txtOrdeweight.*" type="text" class="txt num c7" /></td>
                 <td align="center"><input id="chkEnda.*" type="checkbox"/></td>
             </tr>
         </table>
