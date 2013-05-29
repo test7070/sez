@@ -502,10 +502,10 @@
                 <td align="center" style="width:10%;"><a id='lblProductnos'></a></td>
                 <td align="center" style="width:13%;"><a id='lblProducts'></a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'></a></td>
-                <td align="center" style="width:8%;"><a id='lblLength'></a></td>
-                <td align="center" style="width:10%;"><a id='lblBorn'></a></td>
-                <td align="center" style="width:10%;"><a id='lblTheory'></a></td>
+                <!--<td align="center" style="width:8%;"><a id='lblLength'></a></td>-->
                 <td align="center" style="width:10%;"><a id='lblMounts'></a></td>
+                <td align="center" style="width:10%;"><a id='lblTheory'></a></td>
+                <td align="center" style="width:10%;"><a id='lblBorn'></a></td>
                 <td align="center" style="width:10%;"><a id='lblErrmount'></a></td>
                 <td align="center" style="width:12%;"><a id='lblMemos'></a></td>
                 <td align="center" style="width:4%;"><a id='lblEnda'> </a></td>
@@ -519,19 +519,19 @@
                 </td>
                 <td><input id="txtProduct.*" type="text" class="txt c1"/></td>
                 <td><input id="txtUnit.*" type="text" class="txt c1"/></td>
-                <td>
+                <td style="display: none;">
                 	<input id="txtLengthb.*" type="text" class="txt c1 num"/>
                 </td>
                 <td>
-                	<input id="txtBorn.*" type="text" class="txt c1 num"/>
-                	<input id="txtBweight.*" type="text" class="txt c1 num"/>
+                	<input id="txtMount.*" type="text" class="txt c1 num"/>
+                	<input id="txtWeight.*" type="text" class="txt c1 num"/>
                 </td>
                 <td>
                 	<input id="txtTheory.*" type="text" class="txt c1 num"/>
                 </td>
                 <td>
-                	<input id="txtMount.*" type="text" class="txt c1 num"/>
-                	<input id="txtWeight.*" type="text" class="txt c1 num"/>
+                	<input id="txtBorn.*" type="text" class="txt c1 num"/>
+                	<input id="txtBweight.*" type="text" class="txt c1 num"/>
                 </td>
                 <td><input id="txtErrmount.*" type="text" class="txt c1 num"/></td>
                 <td><input id="txtMemo.*" type="text" class="txt c1"/>

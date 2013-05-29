@@ -424,14 +424,14 @@
 						<td><span> </span><a id='lblNoa_bi' class="lbl"> </a></td>
 						<td><input id="txtNoa"  type="text" class="txt c1" /></td>
 					</tr>
-					<tr>
+					<tr >
 						<td><span> </span><a id='lblProduct_bi' class="lbl"> </a></td>
 						<td colspan="2"><input id="txtProduct"  type="text" class="txt c1" /></td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td><span> </span><a id='lblSpec_bi' class="lbl"> </a></td>
 						<td><input id="txtSpec" type="text" class="txt c1" /></td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td><span> </span><a id='lblDensity_bi' class="lbl"> </a></td>
 						<td><input id="txtDensity" type="text" class="txt c1 num" /></td>

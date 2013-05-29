@@ -192,7 +192,7 @@
                 alert(q_getMsg('msgCustEmp'));
                 return;
             }
-            q_box("quatst_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'quats', "95%", "95%", q_getMsg('popQuats'));
+            q_box("quatst_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+r_accy, 'quats', "95%", "95%", q_getMsg('popQuats'));
             //q_box('quatst_b.aspx', 'quats;' + t_where, "95%", "650px", q_getMsg('popQuat'));
         }
 
