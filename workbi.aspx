@@ -141,13 +141,6 @@
             	case 'spec': 
             		t_spec= _q_appendData("spec", "", true);
             		break;
-                case 'ucc': 
-					var as = _q_appendData("ucc", "", true);
-					if(as[0]!=undefined)
-						$('#txtTheory_'+b_seq).val(round(dec($('#txtLengthb_'+b_seq).val())*dec(as[0].uweight),2));
-					else
-						$('#txtTheory_'+b_seq).val(0);
-                    break;
                 case q_name: 
                 	if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
@@ -189,11 +182,30 @@
 			            q_bodyId($(this).attr('id'));
 			            b_seq = t_IdSeq;
 						
-						theory_bi('',dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val()))
-						
-						//var t_where = "where=^^ noa='"+$('#txtProductno_'+b_seq).val()+"' ^^";
-                		//q_gt('ucc', t_where, 0, 0, 0, "", r_accy);
+						q_tr('txtTheory_'+b_seq,theory_bi($('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
 					});
+					$('#txtWidth_'+i).change(function() {
+						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+			            q_bodyId($(this).attr('id'));
+			            b_seq = t_IdSeq;
+						
+						q_tr('txtTheory_'+b_seq,theory_bi($('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
+					});
+					$('#txtLengthb_'+i).change(function() {
+						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+			            q_bodyId($(this).attr('id'));
+			            b_seq = t_IdSeq;
+						
+						q_tr('txtTheory_'+b_seq,theory_bi($('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
+					});
+					$('#txtSpec_'+i).change(function() {
+						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+			            q_bodyId($(this).attr('id'));
+			            b_seq = t_IdSeq;
+						
+						q_tr('txtTheory_'+b_seq,theory_bi($('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
+					});
+					
 				}
 			}
 			_bbsAssign();
