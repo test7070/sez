@@ -400,9 +400,27 @@
                     		$(this).val($(this).val().replace(patt,"$1.$2"));
                 		});
                 		$('#txtMount_' + j).change(function(e) {
+                			var n = $(this).attr('id').replace('txtMount_','');
+                			var string = q_float('txtMount_'+n)+'@'+q_float('txtPrice_'+n)
+                			var t_memo = $.trim($('#txtMemo_'+n).val());
+                			if((/.*(\d\u0040\d).*/g).test(t_memo)){
+                				t_memo = t_memo.replace(/(\d+\u0040\d+)/g,string);
+                			}else{
+                				t_memo = string + t_memo;
+                			}
+                			$('#txtMemo_'+n).val(t_memo);
 	                        sum();
 	                    });
 	                    $('#txtPrice_' + j).change(function(e) {
+	                    	var n = $(this).attr('id').replace('txtPrice_','');
+                			var string = q_float('txtMount_'+n)+'@'+q_float('txtPrice_'+n)
+                			var t_memo = $.trim($('#txtMemo_'+n).val());
+                			if((/.*(\d+\u0040\d+).*/g).test(t_memo)){
+                				t_memo = t_memo.replace(/(\d+\u0040\d+)/g,string);
+                			}else{
+                				t_memo = string + t_memo;
+                			}
+                			$('#txtMemo_'+n).val(t_memo);
 	                        sum();
 	                    });
                 		$('#txtMoney_' + j).change(function(e) {
