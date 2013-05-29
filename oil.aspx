@@ -218,6 +218,7 @@
                 $('#txtNoa').val('AUTO');
                 $('#txtDatea').focus();
                 $('#chkIscustom').prop('checked', false);
+                $('#chkIscustom2').prop('checked', false);
                 $('#txtOrgmount').val($('#txtMount').val());
                 $('#txtOrgmoney').val($('#txtMoney').val());
                 if ($('#txtOilstationno').val().length > 0)
