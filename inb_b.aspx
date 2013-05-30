@@ -11,6 +11,8 @@
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
     var q_name = 'inb', t_content = ' field=datea,noa,spec', bbsKey = ['noa'], as, t_where = '';  // , afilter = ['noa', 'comp','nick']
+    var t_sqlname = 'inb';
+    t_postname = q_name;
     var isBott = false;  
     var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
     var i,s1;
@@ -24,13 +26,16 @@
                 dataErr = false;
                 return;
             }
-            mainBrow();
+            mainBrow(6, t_content, t_sqlname, t_postname,r_accy);
          }
 
 
         function q_gtPost() { 
     
         }
+        function bbsAssign() {  /// checked 
+        	_bbsAssign();
+    	}
         function refresh() {
             _refresh();
         }
