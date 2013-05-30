@@ -406,6 +406,7 @@
                 t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());  // 計價量
                 t_weight = t_weight + dec( $('#txtWeight_' + j).val()) ; // 重量合計
                 $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount) * t_float, 0));
+                q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1'+j));
                 t1 = t1 + dec($('#txtTotal_' + j).val());
             }  // j
 
@@ -735,7 +736,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 100%;
+                width: 120%;
             }
             .tbbs a {
                 font-size: medium;
@@ -868,8 +869,8 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:10%;"><a id='lblProductno'> </a></td>
-                <td align="center" style="width:13%;"><a id='lblProduct'> </a></td>
+                <td align="center" style="width:8%;"><a id='lblProductno'> </a></td>
+                <td align="center" style="width:10%;"><a id='lblProduct'> </a></td>
                 <td align="center" style="width:7%;"><a id='lblClasss'> </a></td>
                 <!--<td align="center" style="width:8%"><a id='lblSpec_st'> </a></td>-->
                 <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
@@ -878,7 +879,7 @@
                 <td align="center" style="width:8%;"><a id='lblWeights'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblPrices'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblTotals'> </a></td>
-                
+                <td align="center" style="width:10%;"><a id='lblGemounts'></a></td>
                 <td align="center"><a id='lblMemos'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -910,7 +911,10 @@
                 <td ><input class="txt num c7" id="txtPrice.*" type="text"  /></td>
                 <td ><input class="txt num c7" id="txtTotal.*" type="text" />
                      <input class="txt num c7" id="txtTheory.*" type="text"/></td>
-                
+                <td>
+                	<input class="txt num c1" id="txtC1.*" type="text" />
+                	<input class="txt num c1" id="txtNotv.*" type="text" />
+                </td>
                 <td ><input class="txt c7" id="txtMemo.*" type="text" />
                 <input class="txt c2" id="txtQuatno.*" type="text"  />
                 <input class="txt c2" id="txtNo3.*" type="text"  />
