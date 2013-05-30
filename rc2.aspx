@@ -97,44 +97,15 @@
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、廠商視窗、訂單視窗  關閉時執行
             var ret; 
             switch (b_pop) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
-                case 'tgg':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtTggno,txtComp,txtTel,txtPost,txtAddr,txtPaytype,cmbTrantype', ret, 'noa,comp,tel,post_fact,addr_fact,paytype,trantype'); 
-                    break;
-
-                case 'ucc':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill( 'txtProductno_' + b_seq+',txtProduct_' + b_seq , ret, 'noa,product'); 
-                    break;
-
-                case 'acomp':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4)  q_browFill('txtCno,txtAcomp' , ret , 'noa,acomp'); 
-                    break;
-
-                case 'store':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill( 'txtStoreno_' + b_seq+',txtStore_' + b_seq , ret, 'noa,store'); 
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'car':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4)  q_browFill('txtCarno,txtCar',ret , 'noa,car'); 
-                    break;
-
                 case 'ordcs':
                     if (q_cur > 0 && q_cur < 4) {
                         b_ret = getb_ret();
                         if (!b_ret || b_ret.length == 0)
                             return;
                         var i, j = 0;
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret
-                                                           , 'productno,product,unit,noa,no2,price,total,memo'
+                        $('#txtOrdeno').val(b_ret[0].noa);
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret
+                                                           , 'uno,productno,product,unit,mount,noa,no2,price,total,memo'
                                                            , 'txtProductno,txtProduct');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
 
@@ -163,31 +134,6 @@
 
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
-                case 'tgg':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtTggno,txtComp,txtTel,txtPost,txtAddr,txtPaytype,cmbTrantype', 'noa,comp,tel,post_fact,addr_fact,paytype,trantype');
-                    break;
-
-                case 'acomp':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtCno,txtAcomp', 'noa,acomp');
-                    break;
-
-                case 'store':  ////  直接 key in 編號，帶入 form
-                    //q_changeFill(t_name, 'txtStoreno,txtStore', 'noa,store');
-                    q_changeFill(t_name, 'txtStoreno_' + b_seq + ',txtStore_' + b_seq, 'noa,store');
-                    break;
-
-                case 'car':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtCarno,txtCar', 'noa,car');
-                    break;
-
-                case 'sss':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtSalesno,txtSales', 'noa,namea');
-                    break;
-
-                case 'ucc':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtProductno_' + b_seq+ ',txtProduct_' + b_seq+ ',txtUnit_' + b_seq, 'noa,product,unit');
-                    break;
-
                 case q_name: if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
@@ -200,16 +146,16 @@
             var t_where='';
             if (t_tggno.length > 0) {
             	if (t_ordeno.length > 0) 
-            		t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "");  ////  sql AND 語法，請用 &&
+            		t_where = "enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "");  ////  sql AND 語法，請用 &&
             	else
-                	t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");  ////  sql AND 語法，請用 &&
+                	t_where = "enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");  ////  sql AND 語法，請用 &&
                 t_where = t_where;
             }
             else {
-                alert(q_getMsg('msgTggEmp'));
+                alert(q_getMsg('msgtggEmp'));
                 return;
             }
-            q_box('ordcs_b.aspx', 'ordcs;' + t_where, "95%", "650px", q_getMsg('popOrdc'));
+            q_box("ordcs_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+r_accy, 'ordcs', "95%", "95%", q_getMsg('popOrdcs'));
         }
 		
 		function q_stPost() {
@@ -225,7 +171,11 @@
 					alert(q_getMsg('lblMon')+'錯誤。');   
 					return;
 			} 
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtTggno', q_getMsg('lblTggno')], ['txtCno', q_getMsg('lblAcomp')]]);  // 檢查空白 
+            t_err = q_chkEmpField([
+	            	['txtNoa', q_getMsg('lblNoa')],
+	            	['txtTggno', q_getMsg('lblTgg')],
+	            	['txtCno', q_getMsg('lblAcomp')]
+            	]);  // 檢查空白 
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
