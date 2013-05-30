@@ -118,6 +118,7 @@
                                                            , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
 						size_change();
+						
                         for (i = 0; i < ret.length; i++) {
                             k = ret[i];  ///ret[i]  儲存 tbbs 指標
                             if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
@@ -155,6 +156,8 @@
 						q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtSpec,textSize1,textSize2,textSize3,txtDime,txtWidth,txtLengthb,txtMount,txtWeight,txtPrice'
 								, as.length, as, 'uno,productno,product,spec,dime,width,lengthb,dime,width,lengthb,mount,weight,price', 'txtUno');
 					}
+					sum();
+					theory_refresh();
 					break;
                case q_name: if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
@@ -476,6 +479,17 @@
 
         function btnCancel() {
             _btnCancel();
+        }
+        
+        function theory_refresh() {
+            for (var j = 0; j < q_bbsCount; j++) {
+            	if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
+					q_tr('txtTheory_'+j,theory_bi(t_spec,$('#txtSpec_'+j).val(),dec($('#txtDime_'+j).val()),dec($('#txtWidth_'+j).val()),dec($('#txtLengthb_'+j).val())));
+				}else{
+					var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+j).val()+"' ^^"; 
+					q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+				}
+            }
         }
         
         function size_change () {

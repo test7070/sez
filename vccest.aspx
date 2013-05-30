@@ -79,13 +79,13 @@
 				var custno = $('#txtCustno').val();
 				var t_where = '';
 				if(ordeno.length > 0 || custno.length>0){
-					t_where = "where = ^^ 1=1";
+					t_where = " 1=1";
 					if(ordeno.length > 0)
 						t_where += " and ordeno='" + ordeno + "'";
 					if(custno.length > 0)
 						t_where += " and ordeno in (select noa from orde"+r_accy+" where custno='"+custno+"')";
-					t_where+=" ^^"
-            	   	q_box("workb_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'workb', "95%", "95%", q_getMsg('popWorkb'));
+					
+            	   	q_box("workb_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+ r_accy, 'workb', "95%", "95%", q_getMsg('popWorkb'));
 				}else{
 					alert('請輸入【' + q_getMsg('lblOrdeno') + '】或【' + q_getMsg('lblCustno') + '】');
 				}
