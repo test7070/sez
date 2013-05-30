@@ -732,7 +732,7 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%;"><a id='lblUno_s'> </a></td>
-                <td align="center" style="width:8%;"><a id='lblProductno_st'> </a></td>
+                <td align="center" style="width:6%;"><a id='lblProductno_st'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblProduct_st'> </a></td>
                 <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblMount_s'> </a></td>
@@ -751,8 +751,9 @@
                 	<input class="txt c1" id="txtNoq.*" type="text" /></td>
                 <td><input class="btn"  id="btnProductno.*" type="button" value='.' style=" font-weight: bold;width:1%;float:left;" />
                     <input type="text" id="txtProductno.*"  style="width:86%;"/>
+                    <span style="display:block; width:1%;float:left;"> </span>
 					<input id="txtClass.*" type="text c1" />
-				</td> 
+				</td>
 				<td><input type="text" id="txtProduct.*" class="txt c1"/></td> 
                 <td><input class="txt num c8" id="textSize1.*" type="text" disabled="disabled"/><div id="x1.*" style="float: left"> x</div>
                 		<input class="txt num c8" id="textSize2.*" type="text" disabled="disabled"/><div id="x2.*" style="float: left"> x</div>

@@ -93,33 +93,20 @@
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、廠商視窗、訂單視窗  關閉時執行
             var ret; 
             switch (b_pop) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
-                case 'tgg':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtTggno,txtComp,txtTel,txtPost,txtAddr,txtPaytype,cmbTrantype', ret, 'noa,comp,tel,post_fact,addr_fact,paytype,trantype'); 
-                    break;
-
-                case 'ucc':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill( 'txtProductno_' + b_seq+',txtProduct_' + b_seq , ret, 'noa,product'); 
-                    break;
-
-                case 'acomp':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4)  q_browFill('txtCno,txtAcomp' , ret , 'noa,acomp'); 
-                    break;
-                    
+                   
                 case 'ordcs':
                     if (q_cur > 0 && q_cur < 4) {
                         b_ret = getb_ret();
                         if (!b_ret || b_ret.length == 0)
                             return;
                         var i, j = 0;
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtRadius,txtOrdeno,txtNo2,txtPrice,txtMount,txtWeight,txtTotal,txtMemo', b_ret.length, b_ret
-                                                           , 'productno,product,spec,size,dime,width,lengthb,radius,noa,no2,price,mount,weight,total,memo'
+                        $('#txtOrdeno').val(b_ret[0].noa);
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtRadius,txtOrdeno,txtNo2,txtPrice,txtMount,txtWeight,txtTotal,txtMemo', b_ret.length, b_ret
+                                                           , 'uno,productno,product,spec,size,dime,width,lengthb,radius,noa,no2,price,mount,weight,total,memo'
                                                            , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
 						size_change();
-                        /*for (i = 0; i < ret.length; i++) {
+                        for (i = 0; i < ret.length; i++) {
                             k = ret[i];  ///ret[i]  儲存 tbbs 指標
                             if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
                                 $('#txtMount_' + k).val(b_ret[i]['notv']);
@@ -130,7 +117,7 @@
                                 $('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv'], b_ret[i]['weight']));
                             }
 
-                        }*/  /// for i
+                        }  /// for i
                     }
                     break;
                 
@@ -156,16 +143,17 @@
             var t_where='';
             if (t_tggno.length > 0) {
             	if (t_ordeno.length > 0) 
-            		t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
+            		t_where = "enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordeno.length > 0 ? q_sqlPara("noa", t_ordeno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
             	else
-                	t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
+                	/*t_where = "enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&*/
+                	t_where = "enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "");  ////  sql AND 語法，請用 &&
                 t_where = t_where;
             }
             else {
-                alert(q_getMsg('msgTggEmp'));
+                alert(q_getMsg('msgtggEmp'));
                 return;
             }
-            q_box('ordcsst_b.aspx', 'ordcs;' + t_where, "95%", "650px", q_getMsg('popOrdcs'));
+            q_box("ordcsst_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+r_accy, 'ordcs', "95%", "95%", q_getMsg('popOrdcs'));
         }
 
         function btnOk() {
@@ -174,7 +162,11 @@
 					alert(q_getMsg('lblMon')+'錯誤。');   
 					return;
 				} 
-		    t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtTggno', q_getMsg('lblTggno')], ['txtCno', q_getMsg('btnAcomp')]]);  // 檢查空白 
+		    t_err = q_chkEmpField([
+			    	['txtNoa', q_getMsg('lblNoa')],
+			    	['txtTggno', q_getMsg('lblTgg')],
+			    	['txtCno', q_getMsg('btnAcomp')]
+		    ]);  // 檢查空白 
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
@@ -307,7 +299,6 @@
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
             $('#txtDatea').val(q_date());
             $('#txtDatea').focus();
-            $('#cmbKind').val(q_getPara('vcc.kind'));
             size_change();
         }
 
