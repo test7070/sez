@@ -510,7 +510,7 @@
             </tr>
              <tr>
                    <td ><input id="chkBrow.*" type="checkbox" style=''/></td>
-                   <td align="center" id='datea'>~datea</td>
+                   <td align="center" id='odate'>~odate</td>
                    <td align="center" id='noa'>~noa</td>
                    <td align="center" id='custno comp,4'>~custno ~comp,4</td>
             </tr>
