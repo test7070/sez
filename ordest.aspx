@@ -122,6 +122,7 @@
                         if (!b_ret || b_ret.length == 0)
                             return;
                         var i, j = 0;
+						$('#txtQuatno').val(b_ret[0].noa);
                         ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtQuatno,txtNo3,txtPrice', b_ret.length, b_ret
                                                            , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no3,price'
                                                            , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
@@ -197,7 +198,11 @@
         }
 
         function btnOk() {
-            t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtCustno', q_getMsg('lblCustno')], ['txtCno', q_getMsg('btnAcomp')]]);  // 檢查空白 
+            t_err = q_chkEmpField([
+	            	['txtNoa', q_getMsg('lblNoa')],
+	            	['txtCustno', q_getMsg('lblCustno')],
+	            	['txtCno', q_getMsg('lblAcomp')]
+            	]);  // 檢查空白 
             if (t_err.length > 0) {
                 alert(t_err);
                 return;
@@ -364,7 +369,6 @@
         function btnIns() {
             _btnIns();
             $('#txt' + bbmKey[0].substr( 0,1).toUpperCase() + bbmKey[0].substr(1)).val('AUTO');
-            $('#cmbKind').val(q_getPara('vcc.kind'));
             $('#txtOdate').val(q_date());
             $('#txtOdate').focus();
             size_change();
@@ -825,7 +829,7 @@
                <td class="td5"><select id="cmbCoin"class="txt c1"> </select></td>                 
                <td class="td6"><input id="txtFloata" type="text" class="txt c1 num" /></td>                 
                <td class="td7"><span> </span><a id="lblQuat"  class="lbl btn"> </a></td>
-               <td class="td8"><input id="txtInvo" type="text" class="txt c1"/></td> 
+               <td class="td8"><input id="txtQuatno" type="text" class="txt c1"/></td> 
             </tr>
            <tr class="tr3">
                 <td class="td1"><span> </span><a id="lblCust" class="lbl btn"> </a></td>
@@ -923,8 +927,8 @@
                 <input class="txt c7" id="txtUno.*" type="text" /></td>
                 <!--<td><input class="txt c7" id="txtSpec.*" type="text" /></td>-->
                 <td>
-                	<input class="txt num c8" id="textSize1.*" type="text" disabled="disabled"/><div id="x1" style="float: left"> x</div>
-                		<input class="txt num c8" id="textSize2.*" type="text" disabled="disabled"/><div id="x2" style="float: left"> x</div>
+                	<input class="txt num c8" id="textSize1.*" type="text" disabled="disabled"/><div id="x1.*" style="float: left"> x</div>
+                		<input class="txt num c8" id="textSize2.*" type="text" disabled="disabled"/><div id="x2.*" style="float: left"> x</div>
                         <input class="txt num c8" id="textSize3.*" type="text" disabled="disabled"/><div id="x3.*" style="float: left"> x</div>
                          <input class="txt num c8" id="textSize4.*" type="text" disabled="disabled"/>
                          <!--上為虛擬下為實際-->
