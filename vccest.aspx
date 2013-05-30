@@ -103,6 +103,7 @@
 											'productno,product,dime,width,lengthb,spec,bweight,born,memo,uno','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
 							size_change();
 	                    }
+	                    sum();
 						break;
 				case 'orde':
 					if (q_cur > 0 && q_cur < 4) {
@@ -111,6 +112,7 @@
 						ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtWeight,txtMount,txtPrice', b_ret.length, b_ret,
 												 'productno,product,weight,mount,price','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
 	                    }
+	                    sum();
 						break;
                 case q_name + '_s':
                     q_boxClose2(s2); ///   q_boxClose 3/4
@@ -231,6 +233,10 @@
 		                     var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
 							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
 		                 });
+		                  $('#txtWeight_' + j).change(function () {
+		                     sum()
+		                 });
+		                 
             	}
 			}
             _bbsAssign();
@@ -287,9 +293,9 @@
         function sum() {
             var t1 = 0, t_unit, t_mount, t_weight = 0;
             for (var j = 0; j < q_bbsCount; j++) {
-
+				t_weight+=q_float('txtWeight_'+j);
             }  // j
-
+			q_tr('txtWeight',t_weight);
         }
 
         ///////////////////////////////////////////////////  
