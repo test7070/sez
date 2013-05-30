@@ -107,7 +107,7 @@
 					break;
 					case 'bom':
 						var as = _q_appendData("bom", "", true);
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProduct,txtProductno', as.length, as, 'product,productno', '');
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProduct,txtProductno,txtUnit,txtGweight,txtWeight', as.length, as, 'product,productno,unit,mount,mount', '');
 					break;
                 }
             }
@@ -185,6 +185,7 @@
 					<input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  />
 					</td>
 					<td class="td2" align="center" style="width:30%;"><a id='lblProduct_s'></a></td>
+					<td class="td3" align="center" style="width:15%;"><a id='lblUnit_s'></a></td>
 					<td class="td3" align="center" style="width:15%;"><a id='lblGweight_s'></a></td>
 					<td class="td3" align="center" style="width:15%;"><a id='lblWeight_s'></a></td>
 					<td class="td4" align="center" style="width:20%;display: none;"><a id='lblPrice_s'></a></td>
@@ -199,6 +200,9 @@
                         <span style="display:block; width:1%;float:left;"> </span>
 						<input type="text" id="txtProduct.*"  class="txt" style="width:60%;"/>
 						<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:1%;" />
+					</td>
+					<td class="td3">
+						<input class="txt" id="txtUnit.*" type="text" style="width:95%; text-align: center;"  />
 					</td>
 					<td class="td3">
 						<input class="txt" id="txtGweight.*" type="text" style="width:95%; text-align: right;"  />

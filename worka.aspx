@@ -30,7 +30,7 @@
 		aPop = new Array(
 					['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 					['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
-					['txtCuano','lblCuano','inb','noa,datea','txtCuano,txtCuadate','inbs_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
+					['txtCuano','lblCuano','inb','noa,datea','txtCuano,txtCuadate','inb_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
 					['txtWorkno','lblWorkno','work','noa','txtWorkno','work_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
 					['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
 					['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx'],
@@ -128,6 +128,16 @@
 					if(as[0]!=undefined){
 						q_gridAddRow(bbsHtm, 'tbbs', 'txtProduct,txtProductno,txtUnit,txtMount', 1, as,
 						 'product,productno,unit,cuamount', 'txtProductno');
+					}
+					t_where = "where=^^ noa='" + $('#txtCuano').val() + "' ^^";
+					q_gt('inbm',t_where , 0, 0, 0, "", r_accy);
+					
+					break;
+				case 'inbm':
+					var as = _q_appendData("inbm", "", true);
+					if(as[0]!=undefined){
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProduct,txtProductno,txtUint,txtWeight', 1, as,
+						 'product,productno,unit,weight', 'txtProductno');
 					}
 					break;
 				case q_name: if (q_cur == 4)   // 查詢
