@@ -157,7 +157,7 @@
 	                	alert(q_getMsg('lblOdate')+'錯誤。');
 	                	return;
 	            }	
-            	
+            	sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if(t_err.length > 0) {
                     alert(t_err);

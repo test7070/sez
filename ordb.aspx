@@ -115,7 +115,7 @@
 	                	alert(q_getMsg('lblDatea')+'錯誤。');
 	                	return;
 	            }
-	           	
+	           	sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if(t_err.length > 0) {
                     alert(t_err);
@@ -167,15 +167,9 @@
             	for(var j = 0; j < q_bbsCount; j++) {
             		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
             		  		$('#txtMount_' + j).change(function () {
-				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-				                q_bodyId($(this).attr('id'));
-				                b_seq = t_IdSeq;
 								sum();
 				            });
 				            $('#txtPrice_' + j).change(function () {
-				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-				                q_bodyId($(this).attr('id'));
-				                b_seq = t_IdSeq;
 				                sum();
 				            });
 				            $('#txtProductno1_' + j).change(function () {

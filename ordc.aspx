@@ -163,7 +163,7 @@
                     alert(t_err);
                     return;
                 }
-                
+                sum();
                 if($('#cmbKind').find("option:selected").text().indexOf('物料')>-1){
                 	for (var j = 0; j < q_bbsCount; j++) {
                 		$('#txtProductno_'+j).val($('#txtProductno1_'+j).val());
