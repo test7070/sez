@@ -171,7 +171,6 @@
                 alert(t_err);
                 return;
             }
-
             $('#txtWorker').val(r_name)
             sum();
 
@@ -309,19 +308,6 @@
             size_change();
             for (var j = 0; j < (q_bbsCount == 0 ? 1 : q_bbsCount); j++) {
                 $('#btnMinus_' + j).click(function () { btnMinus($(this).attr('id')); });
-                $('#btnProductno_' + j).click(function () {
-                    t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                    q_bodyId($(this).attr('id'));
-                    b_seq = t_IdSeq;
-                    pop('ucc');
-                 });
-                 $('#txtProductno_' + j).change(function () {
-                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-                     q_bodyId($(this).attr('id'));
-                     b_seq = t_IdSeq;
-                     q_change($(this), 'ucc', 'noa', 'noa,product,unit');  /// 接 q_gtPost()
-                 });
-                
                 $('#txtUnit_' + j).focusout(function () { sum(); });
                 $('#txtWeight_' + j).focusout(function () { sum(); });
                 $('#txtPrice_' + j).focusout(function () { sum(); });
