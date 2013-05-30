@@ -84,7 +84,7 @@
 	                    if (q_cur > 0 && q_cur < 4) {
 	                        if (!b_ret || b_ret.length == 0)
 	                            return;
-                        	ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdeno,txtNo2,txtBweight', b_ret.length, b_ret, 'productno,product,unit,noa,no2,weight','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+                        	ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtDime,txtWidth,txtLengthb,txtSpec,txtOrdeno,txtNo2,txtBweight', b_ret.length, b_ret, 'productno,product,unit,dime,width,lengthb,spec,noa,no2,weight','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
 							sum()
 	                    }
 						break;
@@ -457,7 +457,7 @@
          	font-size:medium;
          	color:blue;
          	background:#cad3ff;
-         	width: 1600px;
+         	width: 1800px;
          }
 		 .dbbs .tbbs tr{
 		 	height:35px;
@@ -525,33 +525,33 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:4%;"><a id="lblDatea_s" > </a></td>
-                <td align="center" style="width:4%;"><a id='lblUno_s'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblProduct_s'> </a></td>
+                <td align="center" style="width:5%;"><a id="lblDatea_s" > </a></td>
+                <td align="center" style="width:7%;"><a id='lblUno_s'> </a></td>
+                <td align="center" style="width:12%;"><a id='lblProduct_s'> </a></td>
                 <!--<td align="center" style="width:3%;"><a id='lblSpec_s'> </a></td>-->
-                <td align="center" style="width:11%;"><a id='lblSize'> </a></br><a id='lblSizes'></a></td>
-                <td align="center" style="width:3%;"><a id='lblBweight_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblMount_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblWeight_s'> </a></td>
+                <td align="center" style="width:222px;"><a id='lblSize'> </a></br><a id='lblSizes'></a></td>
+                <td align="center" style="width:5%;"><a id='lblBweight_s'> </a></td>
+                <td align="center" style="width:5%;"><a id='lblMount_s'> </a></td>
+                <td align="center" style="width:5%;"><a id='lblWeight_s'> </a></td>
                 <!--<td align="center" style="width:3%;"><a id='lblSno_s'> </a></td>-->
-                <td align="center" style="width:3%;"><a id='lblMemo_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblPdm_s'> </a></td>
+                <td align="center"><a id='lblMemo_s'> </a></td>
+                <td align="center" style="width:5%;"><a id='lblPdm_s'> </a></td>
                 <!--<td align="center" style="width:3%;"><a id='lblGweight_s'> </a></td>-->
                 <!--<td align="center" style="width:3%;"><a id='lblMount2_s'> </a></td>-->
-                <td align="center" style="width:3%;"><a id='lblBno_s'> </a></td>
-                <td align="center" style="width:3%;"><a id='lblTheory_s'> </a></td>
+                <td align="center" style="width:5%;"><a id='lblBno_s'> </a></td>
+                <td align="center" style="width:5%;"><a id='lblTheory_s'> </a></td>
                 <!--<td align="center" style="width:3%;"><a id='lblBtime_s'> </a></td>-->
                 <!--<td align="center" style="width:3%;"><a id='lblEtime_s'> </a></td>-->
                 <!--<td align="center" style="width:3%;"><a id='lblTime_s'> </a></td>-->
                 <!--<td align="center" style="width:3%;"><a id='lblClass_s'> </a></td>-->
                 <!--<td align="center" style="width:3%;"><a id='lblCuano_s'> </a></td>-->
-                <td align="center" style="width:7%;"><a id='lblOrdeno_s'> </a></td>
+                <td align="center" style="width:10%;"><a id='lblOrdeno_s'> </a></td>
                 <!--<td align="center" style="width:3%;"><a id='lblRtime_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblReason_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblGproduct_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblCuac_s'> </a></td>
                 <td align="center" style="width:3%;"><a id='lblCuaw_s'> </a></td>-->
-                <td align="center" style="width:3%;"><a id='lblStore_s'> </a></td>
+                <td align="center" style="width:7%;"><a id='lblStore_s'> </a></td>
                 <!--<td align="center" style="width:3%;"><a id='lblUweight_s'> </a></td>-->
                 <td align="center" style="width:3%;"><a id='lblEnda_s'> </a></td>
             </tr>
