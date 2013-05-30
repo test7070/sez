@@ -706,8 +706,8 @@
                 <td><input class="txt num c1" id="txtTotal.*" type="text" />
                         <!--<input class="txt num c1" id="txtTheory.*" type="text" />--></td>
                 <td>
-                	<input class="txt num c1" id="txtC2.*" type="text" />
-                	<input class="txt num c1" id="txtNotv2.*" type="text" />
+                	<input class="txt num c1" id="txtC1.*" type="text" />
+                	<input class="txt num c1" id="txtNotv.*" type="text" />
                 </td>
                 <td><input class="txt c1" id="txtMemo.*" type="text" />
                 	<input class="txt" id="txtOrdeno.*" type="text" style="width:73%;" />
