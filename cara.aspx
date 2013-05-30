@@ -574,9 +574,9 @@
                     }
                     //本月借支-入款
                     if($('#txtCaritemno_' + j).val()=='201')//借支
-                    	t_bin+=dec($('#txtOutmoney_' + j).val());
+                    	t_bin+=dec($('#txtOutmoney_' + j).val())-dec($('#txtInmoney_' + j).val());
                     if($('#txtCaritemno_' + j).val()=='102' ||$('#txtCaritemno_' + j).val()=='112' )//入款借支.入票借支
-                    	t_bin-=dec($('#txtInmoney_' + j).val());
+                    	t_bin-=dec($('#txtInmoney_' + j).val())-dec($('#txtOutmoney_' + j).val());
                 }
                 
                 q_tr('txtInterest',t_interest);//本月息額不含001,002,102,201,202,203,306,401
