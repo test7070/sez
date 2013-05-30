@@ -74,6 +74,11 @@
             	q_box("inbs_b.aspx?;;;enda=0;" + r_accy, 'inbs', "95%", "95%", q_getMsg("popInbs"));
             });
             q_gt('spec', '', 0, 0, 0, "", r_accy);
+            
+            //20130530排程號碼暫時跟爐號相同(後面再看客戶是否要分開)
+            $('#txtCuano').change(function(){
+            	$('#txtBno').val($('#txtCuano').val());
+            });
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
