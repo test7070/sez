@@ -286,7 +286,7 @@
                 t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());  // 計價量
                 t_weight = t_weight + dec( $('#txtWeight_' + j).val()) ; // 重量合計
                 $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount) * t_float, 0));
-				q_tr('txtNotv2_'+j ,q_float('txtMount_'+j)-q_float('txtC2'+j));
+				q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1'+j));
                 t1 = t1 + dec($('#txtTotal_' + j).val());
             }  // j
 
@@ -656,8 +656,8 @@
                     <input class="txt num c7" id="txtGweight.*" type="text"/>
                 </td>
                 <td style="width:8%;">
-                	<input class="txt num c1" id="txtC2.*" type="text" />
-                	<input class="txt num c1" id="txtNotv2.*" type="text" />
+                	<input class="txt num c1" id="txtC1.*" type="text" />
+                	<input class="txt num c1" id="txtNotv.*" type="text" />
                 </td>
                 <td style="width:12%;">
 	                <input class="txt c7" id="txtMemo.*" type="text" />

@@ -270,7 +270,7 @@
                 var t1 = 0, t_unit, t_mount, t_weight = 0;
                 var t_money=0;
                 for(var j = 0; j < q_bbsCount; j++) {
-                	q_tr('txtNotv2_'+j ,q_float('txtMount_'+j)-q_float('txtC2'+j));
+                	q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1'+j));
 					t_money+=q_float('txtTotal_'+j);
                 }  // j
 				q_tr('txtMoney' ,t_money);
