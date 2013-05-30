@@ -104,11 +104,12 @@
                             return;
                         var i, j = 0;
 						$('#txtQuatno').val(b_ret[0].noa);
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtQuatno,txtNo3,txtPrice', b_ret.length, b_ret
-                                                           , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no3,price'
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtQuatno,txtNo3,txtPrice,txtMount,txtWeight,txtClass,txtTheory', b_ret.length, b_ret
+                                                           , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no3,price,mount,weight,class,theory'
                                                            , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
-
+                        sum();
+						/*
                         for (i = 0; i < ret.length; i++) {
                             k = ret[i];  ///ret[i]  儲存 tbbs 指標
                             if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
@@ -121,6 +122,7 @@
                             }
 
                         }  /// for i
+                        */
                     }
                     break;
                 
@@ -833,26 +835,25 @@
             </tr>
             <tr class="tr7">
                 <td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
-                <td class="td2" colspan='2'><input id="txtMoney" type="text" class="txt c1"/></td> 
+                <td class="td2" colspan='2'><input id="txtMoney" type="text" class="txt num c1"/></td> 
                 <td class="td4"><span> </span><a id='lblTax' class="lbl"> </a></td>
-                <td class="td5"><input id="txtTax" type="text" class="txt c1"/></td>
+                <td class="td5"><input id="txtTax" type="text" class="txt num c1"/></td>
                 <td class="td6"><select id="cmbTaxtype" class="txt c1"  onchange='calTax()' > </select></td>
                 <td class="td7"><span> </span><a id='lblTotal' class="lbl"> </a></td>
-                <td class="td8"><input id="txtTotal" type="text" class="txt c1"/></td> 
+                <td class="td8"><input id="txtTotal" type="text" class="txt num c1"/></td> 
             </tr>
             <tr class="tr7">
                 <td class="td1"><span> </span><a id='lblTotalus' class="lbl"> </a></td>
-                <td class="td2" colspan='2'><input id="txtTotalus" type="text" class="txt c1"/></td> 
+                <td class="td2" colspan='2'><input id="txtTotalus" type="text" class="txt num c1"/></td> 
                 <td class="td4"><span> </span><a id='lblWeight' class="lbl"> </a></td>
-                <td class="td5" colspan='2'><input id="txtWeight"  type="text" class="txt c1"/></td>
+                <td class="td5" colspan='2'><input id="txtWeight"  type="text" class="txt num c1"/></td>
                 <td class="td7"><span> </span><a id='lblWorker' class="lbl"> </a></td>
                 <td class="td8"><input id="txtWorker" type="text" class="txt c1" /></td> 
             </tr>
             <tr>
             	<td class="td1"><span> </span><a id="lblApv" class="lbl"> </a></td>
             	<td class="td2"><input id="txtApv" type="text"  class="txt c1" disabled="disabled"/> </td>
-            	<td class="td3"><span> </span><a id='lblAeno' class="lbl"> </a></td>
-                <td class="td4"><input id="chkAeno" type="checkbox"/></td>
+            	
                 <td class="td5"><span> </span><a id='lblEnd' class="lbl"> </a></td>
                 <td class="td6"><input id="chkEnda" type="checkbox"/></td>
                 <td class="td7"></td>
@@ -873,7 +874,7 @@
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%;"><a id='lblProductno'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblProduct'> </a></td>
-                <td align="center" style="width:7%;"><a id='lblClasss'> </a></td>
+                <td align="center" style="width:4%;"><a id='lblClasss'> </a></td>
                 <!--<td align="center" style="width:8%"><a id='lblSpec_st'> </a></td>-->
                 <td align="center" id='Size'><a id='lblSize_st'> </a><BR><a id='lblSize_help'> </a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'> </a></td>
@@ -882,7 +883,7 @@
                 <td align="center" style="width:6%;"><a id='lblPrices'> </a></td>
                 <td align="center" style="width:8%;"><a id='lblTotals'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblGemounts'></a></td>
-                <td align="center"><a id='lblMemos'> </a></td>
+                <td align="center" style="width:15%;"><a id='lblMemos'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>

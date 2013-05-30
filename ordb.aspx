@@ -274,7 +274,7 @@
                 var t_money=0;
                 for(var j = 0; j < q_bbsCount; j++) {
                 	q_tr('txtTotal_'+j ,q_float('txtMount_'+j)*q_float('txtPrice_'+j));
-                	q_tr('txtNotv2_'+j ,q_float('txtMount_'+j)-q_float('txtC2'+j));
+                	q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1'+j));
 					t_money+=q_float('txtTotal_'+j);
                 }  // j
 				q_tr('txtMoney' ,t_money);
@@ -706,8 +706,8 @@
                 <td><input class="txt num c1" id="txtTotal.*" type="text" />
                         <!--<input class="txt num c1" id="txtTheory.*" type="text" />--></td>
                 <td>
-                	<input class="txt num c1" id="txtC2.*" type="text" />
-                	<input class="txt num c1" id="txtNotv2.*" type="text" />
+                	<input class="txt num c1" id="txtC1.*" type="text" />
+                	<input class="txt num c1" id="txtNotv.*" type="text" />
                 </td>
                 <td><input class="txt c1" id="txtMemo.*" type="text" />
                 	<input class="txt" id="txtOrdeno.*" type="text" style="width:73%;" />
