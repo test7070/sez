@@ -105,7 +105,7 @@
                         var i, j = 0;
                         $('#txtOrdeno').val(b_ret[0].noa);
                         ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret
-                                                           , 'uno,productno,product,unit,mount,noa,no2,price,total,memo'
+                                                           , 'uno,productno,product,unit,mount,noa,no2,price,total,memo,notv,notv2'
                                                            , 'txtProductno,txtProduct');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
 
@@ -116,11 +116,11 @@
                                 $('#txtWeight_' + k).val(divide0(b_ret[i]['weight'] * b_ret[i]['notv'], b_ret[i]['mount']));
                             }
                             else {
-                                $('#txtWeight_' + k).val(b_ret[i]['notv']);
-                                $('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv'], b_ret[i]['weight']));
+                                $('#txtWeight_' + k).val(b_ret[i]['notv2']);
+                                $('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv2'], b_ret[i]['weight']));
                             }
-
                         }  /// for i
+                        sum();
                     }
                     break;
                 
