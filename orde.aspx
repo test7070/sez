@@ -95,36 +95,6 @@
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、訂單視窗  關閉時執行
             var ret; 
             switch (b_pop) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
-                case 'cust':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtCustno,txtComp,txtTel,txtPost,txtAddr,txtPaytype,cmbTrantype', ret, 'noa,comp,tel,post_fact,addr_fact,paytype,trantype');
-                    break;
-
-                case 'ucc':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtProductno_' + b_seq + ',txtProduct_' + b_seq, ret, 'noa,product');
-                    break;
-
-                case 'acomp':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtCno,txtAcomp', ret, 'noa,acomp');
-                    break;
-
-                case 'store':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtStoreno,txtStore', ret, 'noa,store');
-                    break;
-
-                case 'sss':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                    break;
-
-                case 'car':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtCarno,txtCar', ret, 'noa,car');
-                    break;
-
                 case 'quats':
                     if (q_cur > 0 && q_cur < 4) {
                         b_ret = getb_ret();
@@ -161,29 +131,6 @@
 
         function q_gtPost(t_name) {  /// 資料下載後 ...
             switch (t_name) {
-                case 'cust':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtCustno,txtComp,txtTel,txtPost,txtAddr,txtPaytype,cmbTrantype', 'noa,comp,tel,post_fact,addr_fact,paytype,trantype');
-                    break;
-
-                case 'acomp':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtCno,txtAcomp', 'noa,acomp');
-                    break;
-
-                case 'store':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtStoreno,txtStore', 'noa,store');
-                    break;
-
-                case 'car':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtCarno,txtCar', 'noa,car');
-                    break;
-
-                case 'sss':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtSalesno,txtSales', 'noa,namea');
-                    break;
-
-                case 'ucc':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtProductno_' + b_seq + ',txtProduct_' + b_seq + ',txtUnit_' + b_seq, 'noa,product,unit');
-                    break;
                 case q_name: if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
@@ -212,7 +159,6 @@
                 alert(t_err);
                 return;
             }
-
 			if(q_cur==1)
 				$('#txtWorker').val(r_name);
 			else
@@ -340,6 +286,7 @@
                 t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());  // 計價量
                 t_weight = t_weight + dec( $('#txtWeight_' + j).val()) ; // 重量合計
                 $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount) * t_float, 0));
+				q_tr('txtNotv2_'+j ,q_float('txtMount_'+j)-q_float('txtC2'+j));
                 t1 = t1 + dec($('#txtTotal_' + j).val());
             }  // j
 
@@ -674,6 +621,7 @@
                 <td align="center"><a id='lblWeights'> </a></td>
                 <td align="center"><a id='lblPrices'> </a></td>
                 <td align="center"><a id='lblTotals'> </a></td>
+                <td align="center"><a id='lblGemounts'></a></td>
                 <td align="center"><a id='lblMemos'> </a></td>
                 <td align="center"><a id='lblEndas'> </a></td>
             </tr>
@@ -686,10 +634,10 @@
                     <input class="btn"  id="btnProduct.*" type="button" value='...' style=" font-weight: bold;" />
                     <input class="txt c6"  id="txtNo2.*" type="text" />
                 </td>
-                <td style="width:16%;">
+                <td style="width:12%;">
                 	<input class="txt c7" id="txtProduct.*" type="text" />
                 </td>
-                <td style="width:16%;">
+                <td style="width:12%;">
                     <input class="txt c7" id="txtSpec.*" type="text"  /></td>
                 <td style="width:4%;">
                 	<input class="txt c7" id="txtUnit.*" type="text"/>
@@ -706,6 +654,10 @@
                 <td style="width:8%;">
                 	<input class="txt num c7" id="txtTotal.*" type="text" />
                     <input class="txt num c7" id="txtGweight.*" type="text"/>
+                </td>
+                <td style="width:8%;">
+                	<input class="txt num c1" id="txtC2.*" type="text" />
+                	<input class="txt num c1" id="txtNotv2.*" type="text" />
                 </td>
                 <td style="width:12%;">
 	                <input class="txt c7" id="txtMemo.*" type="text" />

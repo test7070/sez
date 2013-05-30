@@ -115,7 +115,7 @@
 	                	alert(q_getMsg('lblDatea')+'錯誤。');
 	                	return;
 	            }
-	           	
+	           	sum();
                 t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')]]);
                 if(t_err.length > 0) {
                     alert(t_err);
@@ -167,15 +167,9 @@
             	for(var j = 0; j < q_bbsCount; j++) {
             		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
             		  		$('#txtMount_' + j).change(function () {
-				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-				                q_bodyId($(this).attr('id'));
-				                b_seq = t_IdSeq;
 								sum();
 				            });
 				            $('#txtPrice_' + j).change(function () {
-				            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
-				                q_bodyId($(this).attr('id'));
-				                b_seq = t_IdSeq;
 				                sum();
 				            });
 				            $('#txtProductno1_' + j).change(function () {
@@ -280,6 +274,7 @@
                 var t_money=0;
                 for(var j = 0; j < q_bbsCount; j++) {
                 	q_tr('txtTotal_'+j ,q_float('txtMount_'+j)*q_float('txtPrice_'+j));
+                	q_tr('txtNotv2_'+j ,q_float('txtMount_'+j)-q_float('txtC2'+j));
 					t_money+=q_float('txtTotal_'+j);
                 }  // j
 				q_tr('txtMoney' ,t_money);
@@ -684,6 +679,7 @@
                 <!--<td align="center"><a id='lblWeights'></a></td>-->
                 <td align="center" style="width:8%;"><a id='lblPrices'></a></td>
                 <td align="center" style="width:10%;"><a id='lblTotals'></a></td>
+                <td align="center" style="width:10%;"><a id='lblGemounts'></a></td>
                 <td align="center" style="width:15%;"><a id='lblMemos_st'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -707,6 +703,10 @@
                 <td><input class="txt num c1" id="txtPrice.*" type="text" /></td>
                 <td><input class="txt num c1" id="txtTotal.*" type="text" />
                         <!--<input class="txt num c1" id="txtTheory.*" type="text" />--></td>
+                <td>
+                	<input class="txt num c1" id="txtC2.*" type="text" />
+                	<input class="txt num c1" id="txtNotv2.*" type="text" />
+                </td>
                 <td><input class="txt c1" id="txtMemo.*" type="text" />
                 	<input class="txt" id="txtOrdeno.*" type="text" style="width:73%;" />
                 		<input class="txt" id="txtNo2.*" type="text" style="width:20%;" />
