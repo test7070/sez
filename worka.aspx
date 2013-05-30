@@ -23,8 +23,8 @@
 		var q_readonlys = [];
 		var bbmNum = [];  // 允許 key 小數
 		var bbsNum = [['txtMount', 12, 0 , 1],['txtWeight', 15, 2 , 1]];
-		var bbmMask = [];
-		var bbsMask = [['txtTimea','99:99']];
+		var bbmMask = [['txtTimea', '99:99']];
+		var bbsMask = [];
 		q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
 		//ajaxPath = ""; // 只在根目錄執行，才需設定
 		aPop = new Array(
