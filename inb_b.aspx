@@ -11,7 +11,7 @@
     	<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
     var q_name = 'inb', t_content = ' field=datea,noa,spec', bbsKey = ['noa'], as, t_where = '';  // , afilter = ['noa', 'comp','nick']
-    var isBott = false;  /// �O�_�w���L �̫�@��
+    var isBott = false;  
     var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
     var i,s1;
         $(document).ready(function () {
@@ -19,7 +19,7 @@
         });         /// end ready
 
         function main() {
-            if (dataErr)  /// ��J��ƿ�~
+            if (dataErr)  
             {
                 dataErr = false;
                 return;
