@@ -542,7 +542,7 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:8%;"><a id='lblUno_s'></a></td>
+                <td align="center" style="width:8%;display: none;"><a id='lblUno_s'></a></td>
                 <td align="center" style="width:5%;"><a id='lblTimea_st'></a></td>
                 <td align="center" style="width:10%;"><a id='lblProductnos'></a></td>
                 <td align="center" style="width:13%;"><a id='lblProducts'></a></td>
@@ -558,7 +558,7 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td><input id="txtUno.*" type="text" class="txt c1"/></td>
+                <td style="display: none;"><input id="txtUno.*" type="text" class="txt c1"/></td>
                 <td><input id="txtTimea.*" type="text" class="txt c1"/></td>
                 <td>
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:8%;"  />

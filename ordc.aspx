@@ -108,8 +108,8 @@
                         if (!b_ret || b_ret.length == 0)
                             return;
 						$('#txtOrdbno').val(b_ret[0].noa);
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtOrdbno,txtNo3,txtPrice,txtMount,txtTotal,txtMemo,txtUnit', b_ret.length, b_ret
-                                                           , 'productno,product,noa,no3,price,mount,total,memo,unit'
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtOrdbno,txtNo3,txtPrice,txtMount,txtWeight,txtTotal,txtMemo,txtUnit', b_ret.length, b_ret
+                                                           , 'productno,product,noa,no3,price,mount,weight,total,memo,unit'
                                                            , 'txtProductno,txtProduct');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
 						}

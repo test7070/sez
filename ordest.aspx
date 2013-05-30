@@ -831,7 +831,7 @@
                 <td class="td2"><input id="txtPost2"  type="text" class="txt c1"/></td>
                 <td class="td3" colspan='4' ><input id="txtAddr2"  type="text" class="txt c1" /></td>
                 <td class="td7" >&nbsp;</td>
-                <td class="td8"><input id="btnOrdem" type="button" value='' /></td> 
+                <td class="td8" style="display: none;"><input id="btnOrdem" type="button" value='' /></td> 
             </tr>
             <tr class="tr7">
                 <td class="td1"><span> </span><a id='lblMoney' class="lbl"> </a></td>
@@ -857,7 +857,7 @@
                 <td class="td5"><span> </span><a id='lblEnd' class="lbl"> </a></td>
                 <td class="td6"><input id="chkEnda" type="checkbox"/></td>
                 <td class="td7"></td>
-                <td class="td8"><input id="btnOrdet" type="button"/></td>
+                <td class="td8" style="display: none;"><input id="btnOrdet" type="button"/></td>
                 
             </tr>
             <tr class="tr9">
