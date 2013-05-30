@@ -761,7 +761,7 @@
 						<td class="tdZ trX" colspan="8"><span> </span><a id='lblTweight_st' class="trTitle"> </a></td>
 						<td class="tdZ trX"> </td>
 					</tr>
-					<tr>
+					<tr style="display: none;">
 						<td class="trX"><span> </span><a id='lblGweight' class="lbl"> </a></td>
 						<td class="trX"><input id="txtGweight" type="text" class="txt c1 num" /></td>
 						<td class="trX"><span> </span><a id='lblEweight' class="lbl"> </a></td>
@@ -779,8 +779,8 @@
 						<td class="trX"><input id="txtOrdeweight" type="text" class="txt c1 num" /></td>
 						<td class="trX"><span> </span><a id='lblEnda' class="lbl"> </a></td>
 						<td class="trX"><input id="chkEnda" type="checkbox"/></td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
+						<td class="trX"><span> </span><a id='lblCtrlweight' class="lbl"> </a></td>
+						<td class="trX"><input id="chkCtrlweight" type="checkbox"/></td>
 						<td class="tdZ trX"> </td>
 					</tr>
             <tr class="tr9">
@@ -838,8 +838,6 @@
                                       <input id="txtTheory.*" type="text" class="txt num c7" /></td>
                 
                 <td><input id="txtMemo.*" type="text" class="txt c7"/>
-                <input class="txt" id="txtOrdeno.*" type="text" style="width:65%;" />
-                <input class="txt" id="txtNo2.*" type="text" style="width:20%;" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
                 </td>
                 <td ><input id="txtGweight.*" type="text" class="txt num c7" /></td>
