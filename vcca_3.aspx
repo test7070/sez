@@ -25,7 +25,7 @@
             brwNowPage = 0;
             brwKey = 'Noa';
             aPop = new Array(['txtCno', 'lblAcomp', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
-            ,['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']        
+            ,['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', '0txtCustno,txtComp,txtNick', 'cust_b.aspx']        
             ,['txtSerial', 'lblSerial', 'vccabuyer', 'serial,buyer', '0txtSerial,txtBuyer', 'vccabuyer_b.aspx']
             ,['txtProductno', 'lblProduct', 'ucca', 'noa,product', 'txtProductno,txtProduct', 'ucca_b.aspx']);
 			brwCount2 = 15;

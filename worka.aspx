@@ -58,6 +58,7 @@
 			$('#txtDatea').focus();
 			
 		} 
+		var issf=''; //判斷是匯入輔料f還是原料s
 		function mainPost() { // 載入資料完，未 refresh 前
 			q_getFormat();
 			bbmMask = [['txtDatea', r_picd], ['txtCuadate', r_picd]];
@@ -70,6 +71,22 @@
 				if(cuano && cuano.length >0){
 					t_where = "where=^^ a.noa='" + cuano + "' ^^";
 					q_gt('cua_cuas',t_where , 0, 0, 0, "", r_accy);
+					$('#txtProcessno').val('001')
+					$('#txtProcess').val('原料投入')
+				}else{
+					alert('請輸入' + q_getMsg('lblCuano'));
+				}
+			});
+			
+			$('#btnAMimport').click(function(){
+				var t_where = '';
+				var cuano = $('#txtCuano').val();
+				if(cuano && cuano.length >0){
+					t_where = "where=^^ noa='" + $('#txtCuano').val() + "' ^^";
+					q_gt('inbm',t_where , 0, 0, 0, "", r_accy);
+					issf='f';
+					$('#txtProcessno').val('002')
+					$('#txtProcess').val('輔料投入')
 				}else{
 					alert('請輸入' + q_getMsg('lblCuano'));
 				}
@@ -97,19 +114,6 @@
 														   , 'productno,product,unit,mount,weight'
 														   , 'txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
 						bbsAssign();
-
-						/*for (i = 0; i < ret.length; i++) {
-							k = ret[i];  ///ret[i]  儲存 tbbs 指標
-							if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
-								$('#txtMount_' + k).val(b_ret[i]['notv']);
-								$('#txtWeight_' + k).val(divide0(b_ret[i]['weight'] * b_ret[i]['notv'], b_ret[i]['mount']));
-							}
-							else {
-								$('#txtWeight_' + k).val(b_ret[i]['notv']);
-								$('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv'], b_ret[i]['weight']));
-							}
-
-						}  /// for i*/
 					}
 					break;
 				
@@ -131,14 +135,28 @@
 					}
 					t_where = "where=^^ noa='" + $('#txtCuano').val() + "' ^^";
 					q_gt('inbm',t_where , 0, 0, 0, "", r_accy);
-					
+					issf='s';
 					break;
 				case 'inbm':
 					var as = _q_appendData("inbm", "", true);
-					if(as[0]!=undefined){
+					if(issf=='f'){//輔料
+						//第一筆不匯入
+						as.splice(0, 1);
+					}
+					if(issf=='s'){//原料
+						//只匯入第一筆
+						for (var i = 0; i < as.length; i++) {
+							if(i>=1){
+								as.splice(i, 1);
+	                        	i--;
+	                       }
+						}
+					}
+					if(as[0]!=undefined && issf!=''){
 						q_gridAddRow(bbsHtm, 'tbbs', 'txtProduct,txtProductno,txtUint,txtWeight', 1, as,
 						 'product,productno,unit,weight', 'txtProductno');
 					}
+					issf='';
 					break;
 				case q_name: if (q_cur == 4)   // 查詢
 					q_Seek_gtPost();
@@ -502,8 +520,8 @@
 		<tr>
 			<td colspan="3" align="center">
 				<input type="button" id="btnCuaimport">
-				<input type="button" id="btnOrde"/>
 				<input type="button" id="btnAMimport">
+				<input type="button" id="btnOrde"/>
 			</td>
 		</tr>
 		</table>
