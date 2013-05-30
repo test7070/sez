@@ -162,7 +162,7 @@
 							}
 			            		
 			            	if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-						    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
+						    	q_tr('txtTheory_'+b_seq,round(q_float('txtMount_'+b_seq)*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())),0));
 						    }else{
 						    	var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
 								q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
@@ -181,7 +181,7 @@
 							}
 			                     
 			                if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-						    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
+						    	q_tr('txtTheory_'+b_seq,round(q_float('txtMount_'+b_seq)*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())),0));
 						    }else{
 						    	var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
 								q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
@@ -202,7 +202,7 @@
 							}
 			                     
 			                if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-						    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
+						    	q_tr('txtTheory_'+b_seq,round(q_float('txtMount_'+b_seq)*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())),0));
 						    }else{
 						    	var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
 								q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
@@ -221,7 +221,7 @@
 							}
 			            		
 			                if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-						    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
+						    	q_tr('txtTheory_'+b_seq,round(q_float('txtMount_'+b_seq)*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())),0));
 						    }else{
 						    	var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
 								q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
@@ -231,8 +231,12 @@
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 							q_bodyId($(this).attr('id'));
 							b_seq = t_IdSeq;
-							var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
-							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+							if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
+						    	q_tr('txtTheory_'+b_seq,round(q_float('txtMount_'+b_seq)*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())),0));
+						    }else{
+						    	var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+								q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+							}
 							sum();
 						});
 						//-------------------------------------------------------------------------------------
@@ -243,7 +247,7 @@
 			                b_seq = t_IdSeq;
 			                
 			                if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-						    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
+						    	q_tr('txtTheory_'+b_seq,round(q_float('txtMount_'+b_seq)*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())),0));
 						    }
 						});
 						
@@ -761,7 +765,7 @@
 						<td class="tdZ trX" colspan="8"><span> </span><a id='lblTweight_st' class="trTitle"> </a></td>
 						<td class="tdZ trX"> </td>
 					</tr>
-					<tr>
+					<tr style="display: none;">
 						<td class="trX"><span> </span><a id='lblGweight' class="lbl"> </a></td>
 						<td class="trX"><input id="txtGweight" type="text" class="txt c1 num" /></td>
 						<td class="trX"><span> </span><a id='lblEweight' class="lbl"> </a></td>
@@ -779,8 +783,8 @@
 						<td class="trX"><input id="txtOrdeweight" type="text" class="txt c1 num" /></td>
 						<td class="trX"><span> </span><a id='lblEnda' class="lbl"> </a></td>
 						<td class="trX"><input id="chkEnda" type="checkbox"/></td>
-						<td class="tdZ trX"> </td>
-						<td class="tdZ trX"> </td>
+						<td class="trX"><span> </span><a id='lblCtrlweight' class="lbl"> </a></td>
+						<td class="trX"><input id="chkCtrlweight" type="checkbox"/></td>
 						<td class="tdZ trX"> </td>
 					</tr>
             <tr class="tr9">
@@ -838,8 +842,6 @@
                                       <input id="txtTheory.*" type="text" class="txt num c7" /></td>
                 
                 <td><input id="txtMemo.*" type="text" class="txt c7"/>
-                <input class="txt" id="txtOrdeno.*" type="text" style="width:65%;" />
-                <input class="txt" id="txtNo2.*" type="text" style="width:20%;" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
                 </td>
                 <td ><input id="txtGweight.*" type="text" class="txt num c7" /></td>
