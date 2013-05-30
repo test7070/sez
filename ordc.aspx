@@ -85,9 +85,9 @@
 		            var t_where='';
 		            if (t_tggno.length > 0) {
 		            	if (t_ordbno.length > 0) 
-		            		t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordbno.length > 0 ? q_sqlPara("noa", t_ordbno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
+		            		t_where = "enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+"&& " + (t_ordbno.length > 0 ? q_sqlPara("noa", t_ordbno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
 		            	else
-		                	t_where = "enda='N' && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
+		                	t_where = "enda=0 && " + (t_tggno.length > 0 ? q_sqlPara("tggno", t_tggno) : "")+" && kind='"+$('#cmbKind').val()+"'";  ////  sql AND 語法，請用 &&
 		                t_where = t_where;
 		            }
 		            else {
@@ -641,11 +641,13 @@
                 <td class="td5"><span> </span><a id='lblContract' class="lbl"></a></td>
                 <td class="td6"><input id="txtContract"  type="text" class="txt c1 lef"/></td>  
                 <td> </td> 
-                <td class="td7" align="right"><input id="chkAeno" type="checkbox"/>
-                				<a id='lblAeno' style="width: 50%;"></a></td>
+                <td class="td7" align="right">
+                	<input id="chkAeno" type="checkbox"/>
+					<a id='lblAeno' style="width: 50%;"></a>
+                </td>
                 <td class="td8" align="right">
+					<input id="chkEnda" type="checkbox"/>
                 	<a id='lblEnd' style="width: 40%;"></a><span> </span>
-                	<input id="txtEnda"  type="text" style="width: 40%;"/>
                 </td>	
             </tr>
             <tr class="tr8">

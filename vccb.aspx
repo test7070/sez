@@ -32,7 +32,7 @@
             q_desc = 1;
             aPop = new Array(
              ['txtCustno', 'lblCust', 'cust', 'noa,comp,nick', 'txtCustno,txtComp,txtNick', 'cust_b.aspx']
-            , ['txtInvono_', '', 'vcca', 'noa,datea,serial,custno,comp,cno,acomp', 'txtInvono_,txtIdate_,txtSerial_,txtCustno_,txtComp_,txtCno_,txtAcomp_', 'vcca_b.aspx']
+            , ['txtInvono_', '', 'vcca', 'noa,datea,serial,custno,comp,cno,acomp', '0txtInvono_,txtIdate_,txtSerial_,txtCustno_,txtComp_,txtCno_,txtAcomp_', 'vcca_b.aspx']
        		, ['txtTggno', 'lblTgg', 'tgg', 'noa,comp', 'txtTggno,txtTgg', 'tgg_b.aspx']
             , ['txtProductno_', 'btnProductno_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
 

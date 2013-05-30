@@ -271,7 +271,7 @@
                 as['datea'] = abbm2['datea'];
 				as['kind'] = abbm2['kind'];
                 as['tggno'] = abbm2['tggno'];
-                as['odate'] = abbm2['kind'];
+                as['odate'] = abbm2['odate'];
                 as['enda'] = abbm2['enda'];
                 return true;
             }
@@ -647,11 +647,13 @@
                 <td class="td4"><span> </span><a id='lblContract' class="lbl"></a></td>
                 <td class="td5"><input id="txtContract"  type="text" class="txt c1 lef"/></td>
                 <td> </td> 
-                <td class="td7" align="right"><input id="chkAeno" type="checkbox"/>
-                				<a id='lblAeno' style="width: 50%;"></a></td>
+                <td class="td7" align="right">
+                	<input id="chkAeno" type="checkbox"/>
+                	<a id='lblAeno' style="width: 50%;"></a>
+				</td>
                 <td class="td8" align="right">
+                	<input id="chkEnda" type="checkbox"/>
                 	<a id='lblEnd' style="width: 40%;"></a><span> </span>
-                	<input id="txtEnda"  type="text" style="width: 40%;"/>
                 </td>
             </tr>
             <tr class="tr8">
