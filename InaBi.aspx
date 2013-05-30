@@ -88,7 +88,7 @@
                 	case'uccb':
                 		var as = _q_appendData("uccb", "", true);
                 		if(as[0] != undefined){
-                			alert("�帹�w�s�b!!");
+                			alert("批號已存在!!");
                 			$('#txtUno_' +b_seq).val('');
                 		}
                 	break;
@@ -127,20 +127,20 @@
 
             function bbsAssign() {
             	for(var j = 0; j < q_bbsCount; j++) {
-            		  if (!$('#btnMinus_' + j).hasClass('isAssign')) {
-		                 //�P�_�O�_���ƩΤw�s�L�J�w----------------------------------------
+            		   if (!$('#btnMinus_' + j).hasClass('isAssign')) {
+		                 //判斷是否重複或已存過入庫----------------------------------------
 		                 $('#txtUno_' + j).change(function () {
-		                     t_IdSeq = -1;  /// �n��  �~��ϥ� q_bodyId()
+		                     t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 		                     q_bodyId($(this).attr('id'));
 		                     b_seq = t_IdSeq;
-		                     //�P�_�O�_����
+		                     //判斷是否重複
 		                     for(var k = 0; k < q_bbsCount; k++) {
 		                     	if(k!=b_seq && $('#txtUno_' +b_seq).val()==$('#txtUno_' +k).val() && !emp($('#txtUno_' +k).val())){
-		                     		alert("�帹���ƿ�J!!");
+		                     		alert("批號重複輸入!!");
 		                     		$('#txtUno_' +b_seq).val('');
 		                     	}
 		                     }
-		                     //�P�_�O�_�w�s�L�J�w
+		                     //判斷是否已存過入庫
 		                     var t_where = "where=^^ noa='"+$('#txtUno_' +b_seq).val()+"' ^^"; 
 				        	q_gt('uccb', t_where , 0, 0, 0, "", r_accy);
 		                 });
@@ -448,27 +448,29 @@
         	<td class="td3" colspan="2"><input id="txtProduct" type="text" class="txt c1"/></td>
         	<td> </td>
         </tr>
+        <tr class="tr1">
+        	<td class='td1'><span> </span><a id="lblWeight_bi" class="lbl"> </a></td>
+            <td class="td2"><input id="txtWeight" type="text" class="txt num c1"/></td>
+        </tr>
         </table>
         </div>
         <div class='dbbs' > 
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:10%;"><a id="lblUno_st" > </a></td>
                 <td align="center" style="width:8%;"><a id='lblProductno_s'> </a></td>
                 <td align="center" style="width:12%;"><a id='lblProduct_s'> </a></td>
                 <td align="center" style="width:6%;"><a id='lblUnit_s'> </a></td>
-                <td align="center" style="width:10%;"><a id='lblMount_s'> </a></td>
+                <td align="center" style="width:10%;"><a id='lblWeight_s'> </a></td>
                 <td align="center" style="width:10%;"><a id='lblType_s'> </a></td>
                 <td align="center"><a id='lblMemo_st'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td ><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td ><input  id="txtUno.*" type="text" class="txt c1"/></td>
                 <td ><input class="btn"  id="btnProductno.*" type="button" value='...' style="width:16%;"  /><input  id="txtProductno.*" type="text" style="width:70%;" /></td>
                 <td ><input class="txt c1" id="txtProduct.*" type="text" /></td>
                 <td ><input class="txt c1" id="txtUnit.*" type="text"/></td>
-                <td ><input class="txt num c1" id="txtMount.*" type="text"  /></td>
+                <td ><input class="txt num c1" id="txtWeight.*" type="text"  /></td>
                 <td ><input class="txt c1" id="txtTypea.*" type="text"/></td>
                 <td ><input class="txt c1" id="txtMemo.*" type="text" />
                 <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" /></td>
