@@ -28,13 +28,14 @@
         var bbmNum = [];  // 允許 key 小數
         var bbsNum = [['txtMount', 15, 0,1], ['txtBorn', 15, 0,1], ['txtBweight', 15, 2,1], ['txtWeight', 15, 2,1], ['txtDime', 15, 0,1], ['txtWidth', 15, 0,1], ['txtLengthb', 15, 0,1], ['txtTheory', 15, 2,1]];
         var bbmMask = [];
-        var bbsMask = [];
+        var bbsMask = [['txtTimea', '99:99']];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = '';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
         
         aPop = new Array(
 					['txtStationno', 'lblStation', 'station', 'noa,station', 'txtStationno,txtStation', 'station_b.aspx'],
 					['txtStoreno','lblStore','store','noa,store','txtStoreno,txtStore','store_b.aspx'],
+					['txtCuano','lblCuano','inb','noa,noa','txtCuano,txtBno','inb_b.aspx?' + r_userno + ";" + r_name + ";" + q_time + ";;" + r_accy],
 					['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx']
 		);
 
@@ -69,9 +70,12 @@
             bbmMask = [['txtDatea', r_picd]];
             q_mask(bbmMask);
             $('#btnImport').click(function(){
-            	//20130513改為用inbs匯入
-            	//q_box("workas_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'workas', "95%", "95%", q_getMsg('popWorkas'));
-            	q_box("inbs_b.aspx?;;;enda=0;" + r_accy, 'inbs', "95%", "95%", q_getMsg("popInbs"));
+            	if(emp($('#txtCuano').val())){
+            		alert('請輸入' + q_getMsg('lblCuano'));
+            		return;
+            	}
+            		
+            	q_box("inbs_b.aspx?;;;noa='"+$('#txtCuano').val()+"' and enda=0;" + r_accy, 'inbs', "95%", "95%", q_getMsg("popInbs"));
             });
             q_gt('spec', '', 0, 0, 0, "", r_accy);
             
@@ -90,8 +94,8 @@
                         if (!b_ret || b_ret.length == 0)
                             return;
                         var i, j = 0;
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtOrdeno,txtNo2', b_ret.length, b_ret
-                                                           , 'productno,product,unit,ordeno,no2'
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtDime,txtWidth,txtLengthb,txtSpec,txtOrdeno,txtNo2,txtWeight,txtMount,txtBweight,txtBorn,txtTheory', b_ret.length, b_ret
+                                                           , 'productno,product,unit,dime,width,lengthb,spec,ordeno,no2,bweight,mount,bweight,mount,theory'
                                                            , 'txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
                        }
@@ -510,8 +514,6 @@
 			</td>
 			<td><span> </span><a id='lblWorkno' class="lbl"> </a></td>
 			<td><input id="txtWorkno" type="text" class="txt c1"/></td>
-			<td><input type="button" id="btnImport"></td>
-
 		</tr>
         <tr>
 			<td><span> </span><a id='lblStore' class="lbl btn"> </a></td>
@@ -519,8 +521,9 @@
 				<input id="txtStoreno" type="text" class="txt c2"/>
 				<input id="txtStore" type="text" class="txt c3"/>
 			</td>
-			<td><span> </span><a id='lblCuano' class="lbl"> </a></td>
+			<td><span> </span><a id='lblCuano' class="lbl btn"> </a></td>
 			<td><input id="txtCuano" type="text" class="txt c1"/></td>
+			<td><input type="button" id="btnImport"></td>
 		</tr>
 		 <tr>
 		 	<td><span> </span><a id='lblBno' class="lbl"> </a></td>
