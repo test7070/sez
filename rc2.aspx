@@ -629,21 +629,20 @@
                 <td align="center" style="width:8%;"><a id='lblProductno'></a></td>
                 <td align="center" style="width:12%;"><a id='lblUno'></a></td>
                 <td align="center" style="width:4%;"><a id='lblUnit'></a></td>
-                <td align="center" style="width:7%;"><a id='lblMount'></a></td>
-                <td align="center" style="width:7%;"><a id='lblWeights'></a></td>
+                <td align="center" style="width:7%;"><a id='lblMount'></a></td>                
                 <td align="center" style="width:7%;"><a id='lblPrices'></a></td>
                 <td align="center" style="width:9%;"><a id='lblTotals'></a></td>
                 <td align="center" style="width:12%;"><a id='lblMemos'></a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td><input  id="txtProductno.*" type="text" style="width: 75%;"/>
-                                       <input class="btn"  id="btnProductno.*" type="button" value='...' style=" font-weight: bold; width: 16%;" /></td>
+                <td><input class="btn"  id="btnProductno.*" type="button" value='...' style=" font-weight: bold; width: 16%;" />
+                	<input  id="txtProductno.*" type="text" style="width: 75%;"/></td>
+                                       
                 <td><input  id="txtProduct.*" type="text" class="txt c1" />
                 <input  id="txtUno.*" type="text" class="txt c1"/></td>
                 <td><input id="txtUnit.*" type="text" class="txt c1"/></td>
                 <td><input id="txtMount.*" type="text" class="txt num c1" /></td>
-                <td><input id="txtWeight.*" type="text" class="txt num c1" /></td>
                 <td><input id="txtPrice.*" type="text"  class="txt num c1" /></td>
                 <td><input id="txtTotal.*" type="text" class="txt num c1" />
                                       <input id="txtGweight.*" type="text" class="txt num c1" /></td>
