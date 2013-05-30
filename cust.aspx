@@ -68,7 +68,21 @@
                     t_where = "noa='" + $('#txtNoa').val() + "'";
                     q_box("conn_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'conn', "95%", "650px", q_getMsg('lblConn'));
                 });*/
-
+				
+				$('#txtNoa').change(function(e){
+                	$(this).val($.trim($(this).val()).toUpperCase());    	
+					if($(this).val().length>0){
+						if((/^(\w+|\w+\u002D\w+)$/g).test($(this).val())){
+							t_where="where=^^ noa='"+$(this).val()+"'^^";
+                    		q_gt('cust', t_where, 0, 0, 0, "checkCustno_change", r_accy);
+						}else{
+							Lock();
+							alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+							Unlock();
+						}
+					}
+                });
+				
                 txtCopy('txtPost_comp,txtAddr_comp', 'txtPost_fact,txtAddr_fact');
                 txtCopy('txtPost_invo,txtAddr_invo', 'txtPost_comp,txtAddr_comp');
                 txtCopy('txtPost_home,txtAddr_home', 'txtPost_invo,txtAddr_invo');
@@ -83,48 +97,10 @@
                 });
 
             }
-
-            function txtCopy(dest, source) {
-                var adest = dest.split(',');
-                var asource = source.split(',');
-                $('#' + adest[0]).focus(function() {
-                    if (trim($(this).val()).length == 0)
-                        $(this).val(q_getMsg('msgCopy'));
-                });
-                $('#' + adest[0]).focusout(function() {
-                    var t_copy = ($(this).val().substr(0, 1) == '=');
-                    var t_clear = ($(this).val().substr(0, 2) == ' =');
-                    for (var i = 0; i < adest.length; i++) { {
-                            if (t_copy)
-                                $('#' + adest[i]).val($('#' + asource[i]).val());
-
-                            if (t_clear)
-                                $('#' + adest[i]).val('');
-                        }
-                    }
-                });
-            }
-
             function q_boxClose(s2) {
                 var ret;
                 switch (b_pop) {
-                    case 'conn':
-
-                        break;
-
-                    case 'sss':
-                        ret = getb_ret();
-                        if (q_cur > 0 && q_cur < 4)
-                            q_browFill('txtSalesno,txtSales', ret, 'noa,namea');
-                        break;
-
-                    case 'cust':
-                        ret = getb_ret();
-                        if (q_cur > 0 && q_cur < 4)
-                            q_browFill('txtGrpno,txtGrpname', ret, 'noa,comp');
-                        break;
-
-                    case q_name + '_s':
+                      case q_name + '_s':
                         q_boxClose2(s2);
                         ///   q_boxClose 3/4
                         break;
@@ -133,18 +109,26 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
-                    case 'sss':
-                        q_changeFill(t_name, ['txtSalesno', 'txtSales'], ['noa', 'namea']);
-                        break;
-
+ 					case 'checkCustno_change':
+                		var as = _q_appendData("cust", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].comp);
+                        }
+                		break;
+                	case 'checkCustno_btnOk':
+                		var as = _q_appendData("cust", "", true);
+                        if (as[0] != undefined){
+                        	alert('已存在 '+as[0].noa+' '+as[0].comp);
+                            Unlock();
+                            return;
+                        }else{
+                        	wrServer($('#txtNoa').val());
+                        }
+                		break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
-
-                        if (q_cur == 1 || q_cur == 2)
-                            q_changeFill(t_name, ['txtGrpno', 'txtGrpname'], ['noa', 'comp']);
-
-                        break;
+                 break;
                 }  /// end switch
             }
 
@@ -166,6 +150,7 @@
 
             function btnIns() {
                 _btnIns();
+                refreshBbm();
                 $('#txtNoa').focus();
             }
 
@@ -174,19 +159,28 @@
                     return;
 
                 _btnModi();
+                refreshBbm();
                 $('#txtComp').focus();
             }
 
             function btnPrint() {
 
             }
-
+			 function q_stPost() {
+                if (!(q_cur == 1 || q_cur == 2))
+                    return false;
+                Unlock();
+            }
             function btnOk() {
-            	
-                var t_err = '';
-
-                t_err = q_chkEmpField([['txtNoa', q_getMsg('lblNoa')], ['txtComp', q_getMsg('lblComp')]]);
-
+				Lock(); 
+            	$('#txtNoa').val($.trim($('#txtNoa').val()));   	
+            	if((/^(\w+|\w+\u002D\w+)$/g).test($('#txtNoa').val())){
+				}else{
+					alert('編號只允許 英文(A-Z)、數字(0-9)及dash(-)。'+String.fromCharCode(13)+'EX: A01、A01-001');
+					Unlock();
+					return;
+				}
+				
                 if (dec($('#txtCredit').val()) > 9999999999)
                     t_err = t_err + q_getMsg('msgCreditErr ') + '\r';
 
@@ -195,22 +189,13 @@
                 if (dec($('#txtGetdate').val()) > 31)
                     t_err = t_err + q_getMsg("lblGetdate") + q_getMsg("msgErr") + '\r'
 
-                if (t_err.length > 0) {
-                    alert(t_err);
-                    return;
+                 $('#txtWorker' ).val(r_name);
+                if(q_cur==1){
+                	t_where="where=^^ noa='"+$('#txtNoa').val()+"'^^";
+                    q_gt('cust', t_where, 0, 0, 0, "checkCustno_btnOk", r_accy);
+                }else{
+                	wrServer($('#txtNoa').val());
                 }
-                var t_noa = trim($('#txtNoa').val());
-                // if (emp($('#txtUacc1').val()))
-                //   $('#txtUacc1').val('1123.' + t_noa);
-                //if (emp($('#txtUacc2').val()))
-                //  $('#txtUacc2').val('1121.' + t_noa);
-                //if (emp($('#txtUacc3').val()))
-                //  $('#txtUacc3').val( '2131.'+t_noa);
-
-                if (t_noa.length == 0)
-                    q_gtnoa(q_name, t_noa);
-                else
-                    wrServer(t_noa);
             }
 
             function wrServer(key_value) {
@@ -226,8 +211,15 @@
 
             function refresh(recno) {
                 _refresh(recno);
+                refreshBbm();
             }
-
+			function refreshBbm(){
+            	if(q_cur==1){
+            		$('#txtNoa').css('color','black').css('background','white').removeAttr('readonly');
+            	}else{
+            		$('#txtNoa').css('color','green').css('background','RGB(237,237,237)').attr('readonly','readonly');
+            	}
+            }
             function readonly(t_para, empty) {
                 _readonly(t_para, empty);
             }
@@ -597,20 +589,16 @@
 						<td class="td2">
 						<input id="txtChkdate" type="text" class="txt c1" />
 						</td>
-						<td class="td3"><span> </span><a id='lblStartn' class="lbl"></a></td>
-						<td class="td4">
-						<input id="txtStartn" type="text" class="txt c1"/>
-						</td>
+						<td><span> </span><a id='lblStartdate' class="lbl"> </a></td>
+						<td><input id="txtStartdate" type="text" class="txt c1" />	</td>
 						<td class="td5"><span> </span><a id='lblUacc1' class="lbl"></a></td>
 						<td class="td6">
 						<input id="txtUacc1" type="text" class="txt c1"/>
 						</td>
 					</tr>
 					<tr class="tr16">
-						<td class="td1"><span> </span><a id='lblDuedate' class="lbl"></a></td>
-						<td class="td2">
-						<input id="txtDuedate" type="text" class="txt c1"/>
-						</td>
+						<td><span> </span><a id='lblDueday' class="lbl"> </a></td>
+						<td><input id="txtDueday" type="text" class="txt num c1"/>	</td>
 						<td class="td3"><span> </span><a id='lblGetdate' class="lbl"></a></td>
 						<td class="td4">
 						<input id="txtGetdate" type="text" class="txt c1"/>
