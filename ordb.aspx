@@ -698,14 +698,16 @@
                        <input class="txt num c6" id="txtLengthb.*" type="text" />
                        <input class="txt c1" id="txtSpec.*" type="text"  /></td>-->
                 <td><input class="txt c1" id="txtUnit.*" type="text" /></td>
-                <td><input class="txt num c1" id="txtMount.*" type="text" /></td>
+                <td><input class="txt num c1" id="txtMount.*" type="text" />
+                	<input class="txt num c1" id="txtWeight.*" type="text" />
+                </td>
                 <!--<td><input class="txt num c1" id="txtWeight.*" type="text"/></td>-->
                 <td><input class="txt num c1" id="txtPrice.*" type="text" /></td>
                 <td><input class="txt num c1" id="txtTotal.*" type="text" />
                         <!--<input class="txt num c1" id="txtTheory.*" type="text" />--></td>
                 <td>
-                	<input class="txt num c1" id="txtC2.*" type="text" />
-                	<input class="txt num c1" id="txtNotv2.*" type="text" />
+                	<input class="txt num c1" id="txtC1.*" type="text" />
+                	<input class="txt num c1" id="txtNotv.*" type="text" />
                 </td>
                 <td><input class="txt c1" id="txtMemo.*" type="text" />
                 	<input class="txt" id="txtOrdeno.*" type="text" style="width:73%;" />
