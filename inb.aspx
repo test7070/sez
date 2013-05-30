@@ -65,12 +65,8 @@
 					q_box("inbw_b.aspx?;;;noa='" + $('#txtNoa').val() + "';" + r_accy, 'inbw', "95%", "95%", q_getMsg("popInbw"));
 				});
                 $('#btnOrdeimport').click(function() {
-                	t_where = '';
-                	ordeno = '';//$('#txtOrdeno').val();
-                	if(ordeno.length > 0)
-                		t_where = "noa='" + ordeno + "'";
+                	t_where = 'enda is null or enda=0';
                     q_box("ordes_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'ordes', "95%", "95%", q_getMsg('popOrde'));
-	            	//q_gt('cua_cuas','' , 0, 0, 0, "", r_accy);
                 });
                 $('#txtDatea').blur(function() {
                 	maxnoq='0000';
