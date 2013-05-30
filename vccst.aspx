@@ -341,7 +341,7 @@
 
 
         function btnPrint() {
- 			q_box('z_rc2stp.aspx', '', "800px", "600px", q_getMsg("popPrint"));
+ 			q_box('z_vcctran.aspx', '', "95%", "95%", q_getMsg("popPrint"));
         }
 
         function wrServer( key_value) {
