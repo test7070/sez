@@ -28,7 +28,7 @@
         var bbmNum = [];  // 允許 key 小數
         var bbsNum = [['txtMount', 15, 0,1], ['txtBorn', 15, 0,1], ['txtBweight', 15, 2,1], ['txtWeight', 15, 2,1], ['txtDime', 15, 0,1], ['txtWidth', 15, 0,1], ['txtLengthb', 15, 0,1], ['txtTheory', 15, 2,1]];
         var bbmMask = [];
-        var bbsMask = [];
+        var bbsMask = [['txtTimea', '99:99']];
         q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = '';
         //ajaxPath = ""; // 只在根目錄執行，才需設定
         
@@ -539,7 +539,7 @@
         <table id="tbbs" class='tbbs'  border="1"  cellpadding='2' cellspacing='1'  >
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
-                <td align="center" style="width:8%;"><a id='lblUno_s'></a></td>
+                <td align="center" style="width:8%;display: none;"><a id='lblUno_s'></a></td>
                 <td align="center" style="width:5%;"><a id='lblTimea_st'></a></td>
                 <td align="center" style="width:10%;"><a id='lblProductnos'></a></td>
                 <td align="center" style="width:13%;"><a id='lblProducts'></a></td>
@@ -555,7 +555,7 @@
             </tr>
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
-                <td><input id="txtUno.*" type="text" class="txt c1"/></td>
+                <td style="display: none;"><input id="txtUno.*" type="text" class="txt c1"/></td>
                 <td><input id="txtTimea.*" type="text" class="txt c1"/></td>
                 <td>
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:8%;"  />

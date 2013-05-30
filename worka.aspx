@@ -62,7 +62,7 @@
 		var issf=''; //判斷是匯入輔料f還是原料s
 		function mainPost() { // 載入資料完，未 refresh 前
 			q_getFormat();
-			bbmMask = [['txtDatea', r_picd], ['txtCuadate', r_picd]];
+			bbmMask = [['txtDatea', r_picd], ['txtCuadate', r_picd],['txtTimea', '99:99']];
 			q_mask(bbmMask);
 			q_cmbParse("cmbTypea", q_getPara('worka.typea'));   // 需在 main_form() 後執行，才會載入 系統參數
 			/*$('#btnquat').click(function () { btnquat(); });*/
