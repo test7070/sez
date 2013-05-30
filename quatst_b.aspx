@@ -12,7 +12,7 @@
 		<script src='../script/mask.js' type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-    var q_name = 'view_quats', t_bbsTag = 'tbbs', t_content = " field=productno,product,size,dime,width,lengthb,unit,mount,weight,notv,noa,no3,price  order=odate ", afilter = [], bbsKey = ['noa', 'no3'], t_count = 0, as;
+    var q_name = 'view_quats', t_bbsTag = 'tbbs', t_content = " field=productno,product,size,dime,width,lengthb,unit,mount,weight,notv,noa,no3,price,spec,class  order=odate ", afilter = [], bbsKey = ['noa', 'no3'], t_count = 0, as;
     var t_sqlname = 'view_quats';
     t_postname = q_name;
     brwCount2 = 12;

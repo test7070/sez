@@ -104,11 +104,12 @@
                             return;
                         var i, j = 0;
 						$('#txtQuatno').val(b_ret[0].noa);
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtQuatno,txtNo3,txtPrice', b_ret.length, b_ret
-                                                           , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no3,price'
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtQuatno,txtNo3,txtPrice,txtMount,txtWeight,txtClass', b_ret.length, b_ret
+                                                           , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no3,price,mount,weight,class'
                                                            , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
-
+                        sum();
+						/*
                         for (i = 0; i < ret.length; i++) {
                             k = ret[i];  ///ret[i]  儲存 tbbs 指標
                             if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
@@ -121,6 +122,7 @@
                             }
 
                         }  /// for i
+                        */
                     }
                     break;
                 
