@@ -55,6 +55,8 @@
 
                 mainForm(1);
             }
+            
+            var t_spec;//儲存spec陣列
             function mainPost() {
                 q_getFormat();
                 bbmMask = [['txtDatea', r_picd]];
@@ -65,6 +67,7 @@
                 q_cmbParse("cmbTrantype", q_getPara('vcc.tran'));
                 q_cmbParse("cmbTaxtype", q_getPara('sys.taxtype'));  
                 q_cmbParse("cmbKind", q_getPara('sys.stktype')); 
+                q_gt('spec', '', 0, 0, 0, "", r_accy);
                 /* 若非本會計年度則無法存檔 */
 				$('#txtDatea').focusout(function () {
 					if($(this).val().substr( 0,3)!= r_accy){
@@ -76,6 +79,12 @@
 				//變動尺寸欄位
 				$('#cmbKind').change(function () {
 		        	size_change();
+				});
+				$('#txtFloata').change(function () {
+		        	q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
+				});
+				$('#txtTotal').change(function () {
+		        	q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
 				});
             }
 
@@ -93,6 +102,9 @@
 
             function q_gtPost(t_name) {
                 switch (t_name) {
+                	case 'spec': 
+	            		t_spec= _q_appendData("spec", "", true);
+	            	break;
                 	case 'ucc_style':
             			theory_st(q_name,b_seq,'txtTheory');
             		break;
@@ -149,8 +161,12 @@
 			            		q_tr('txtRadius_'+b_seq ,q_float('textSize1_'+b_seq));//短徑$('#txtRadius_'+b_seq).val($('#textSize1_' + b_seq).val());	
 							}
 			            		
-							var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
-							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+			            	if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
+						    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
+						    }else{
+						    	var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+								q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+							}
 						});
 						$('#textSize2_' + j).change(function () {
 							t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -164,8 +180,12 @@
 			            		q_tr('txtWidth_'+b_seq ,q_float('textSize2_'+b_seq));//長徑$('#txtWidth_'+b_seq).val($('#textSize2_' + b_seq).val());	
 							}
 			                     
-			                var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
-							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+			                if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
+						    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
+						    }else{
+						    	var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+								q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+							}
 						});
 						$('#textSize3_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -181,8 +201,12 @@
 			            		q_tr('txtLengthb_'+b_seq ,q_float('textSize3_'+b_seq));
 							}
 			                     
-			                var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
-							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+			                if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
+						    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
+						    }else{
+						    	var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+								q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+							}
 						});
 			            $('#textSize4_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -196,8 +220,12 @@
 			            		q_tr('txtLengthb_'+b_seq ,q_float('textSize4_'+b_seq));//長度$('#txtLengthb_'+b_seq).val($('#textSize4_' + b_seq).val());	
 							}
 			            		
-			                var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
-							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+			                if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
+						    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
+						    }else{
+						    	var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+								q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+							}
 						});
 			            $('#txtMount_' + j).change(function () {
 			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -205,8 +233,37 @@
 							b_seq = t_IdSeq;
 							var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
 							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+							sum();
 						});
 						//-------------------------------------------------------------------------------------
+						
+						$('#txtSpec_' + j).change(function () {
+			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+			                q_bodyId($(this).attr('id'));
+			                b_seq = t_IdSeq;
+			                
+			                if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
+						    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
+						    }
+						});
+						
+						$('#txtWeight_' + j).change(function () {
+			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							q_tr('txtTotal_'+b_seq,round(q_float('txtWeight_'+b_seq)*q_float('txtPrice_'+b_seq),0));
+							sum();
+						});
+						$('#txtPrice_' + j).change(function () {
+			            	t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
+							q_bodyId($(this).attr('id'));
+							b_seq = t_IdSeq;
+							q_tr('txtTotal_'+b_seq,round(q_float('txtWeight_'+b_seq)*q_float('txtPrice_'+b_seq),0));
+							sum();
+						});
+						
+						$('#txtTotal_' + j).change(function () {sum();});
+						$('#txtWeight_' + j).change(function () {sum();});
 					}
 				}
                 _bbsAssign();
@@ -247,27 +304,22 @@
                 }
 
                 q_nowf();
-                as['date'] = abbm2['date'];
-
-                //            t_err ='';
-                //            if (as['total'] != null && (dec(as['total']) > 999999999 || dec(as['total']) < -99999999))
-                //                t_err = q_getMsg('msgMoneyErr') + as['total'] + '\n';
-
-                //
-                //            if (t_err) {
-                //                alert(t_err)
-                //                return false;
-                //            }
-                //
+                as['datea'] = abbm2['datea'];
+                
                 return true;
             }
 
             function sum() {
-                var t1 = 0, t_unit, t_mount, t_weight = 0;
+                var t1 = 0, t_unit, t_mount, t_weight = 0,t_total=0;
                 for(var j = 0; j < q_bbsCount; j++) {
-
+					t_total+=q_float('txtTotal_'+j);
+					t_weight+=q_float('txtWeight_'+j);
                 }  // j
-
+				q_tr('txtMoney',t_total);
+				q_tr('txtWeight',t_weight);
+				q_tr('txtTotal',t_total);
+				calTax();
+				q_tr('txtTotalus',q_float('txtTotal')*q_float('txtFloata'));
             }
 
             function refresh(recno) {
@@ -584,7 +636,7 @@
             }
             .dbbs {
             	float:left;
-                width: 150%;
+                width: 1500px;
             }
             .tbbs a {
                 font-size: medium;
@@ -692,7 +744,7 @@
                 <td class="td2" colspan='2'><input id="txtMoney" type="text" class="txt num c1" /></td> 
                 <td class="td4"><span> </span><a id='lblTax' class="lbl"></a></td>
                 <td class="td5"><input id="txtTax" type="text"  class="txt num c1" /></td>
-                <td class="td6"><select id="cmbTaxtype" class="txt c1"></select></td>
+                <td class="td6"><select id="cmbTaxtype" class="txt c1" onchange='calTax()'></select></td>
                 <td class="td7"><span> </span><a id='lblTotal' class="lbl"></a></td>
                 <td class="td8"><input id="txtTotal" type="text"  class="txt num c1" />
                 </td> 
@@ -743,9 +795,9 @@
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%;"><a id='lblProductno_st'></a></td>
                 <td align="center" style="width:10%;"><a id='lblProduct_st'></a></td>
-                <td align="center" style="width:2%;"><a id='lblClass_st'></a></td>
+                <td align="center" style="width:3%;"><a id='lblClass_st'></a></td>
                 <td align="center" id='Size'><a id='lblSize_st'> </a></br><a id='lblSize_help'> </a></td>
-                <td align="center" style="width:2%;"><a id='lblUnit_st'></a></td>
+                <td align="center" style="width:3%;"><a id='lblUnit_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblMount_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblWeight_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblPrice_st'></a></td>
