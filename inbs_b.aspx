@@ -62,7 +62,7 @@
                 <td><input class="txt"  id="txtProductno.*" type="text" style="width:98%;" /></td>
                 <td><input class="txt" id="txtProduct.*" type="text" style="width:98%;" /></td>
                 <td><input class="txt" id="txtUnit.*" type="text" style="width:94%;"/></td>
-                <td><input class="txt" id="txtNoa.*" type="text" style="width:70%;"/><input class="txt" id="txtno2.*" type="text"  style="width:20%;"/></td>
+                <td><input class="txt" id="txtOrdeno.*" type="text" style="width:70%;"/><input class="txt" id="txtno2.*" type="text"  style="width:20%;"/></td>
              </tr>
         </table>
   <!--#include file="../inc/pop_ctrl.inc"--> 
