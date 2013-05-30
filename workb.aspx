@@ -72,6 +72,15 @@
             	//q_box("workas_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";", 'workas', "95%", "95%", q_getMsg('popWorkas'));
             	q_box("inbs_b.aspx?;;;enda=0;" + r_accy, 'inbs', "95%", "95%", q_getMsg("popInbs"));
             });
+			$('#btnCert').click(function(){
+				t_where = '';
+				t_bno = $('#txtBno').val();
+				btnCert_Seq = -2
+				if(t_bno.length > 0){
+					t_where = "left(noa," +t_bno.length + ")='" + t_bno + "'";
+					q_box("cert_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'cert', "95%", "95%", q_getMsg('popCert'));
+				}
+			});
         }
 
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、報價視窗  關閉時執行
@@ -480,6 +489,7 @@
 			</td>
 			<td><span> </span><a id='lblCuano' class="lbl"> </a></td>
 			<td><input id="txtCuano" type="text" class="txt c1"/></td>
+			<td><input type="button" id="btnCert"></td>
 		</tr>
 		 <tr>
 		 	<td><span> </span><a id='lblBno' class="lbl"> </a></td>
