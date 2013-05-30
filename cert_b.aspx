@@ -73,13 +73,13 @@
 			}
 
 			function btnIns() {
-				var Parent = window.parent;
-				var Cert_Seq = Parent.btnCert_Seq;
-				var t_uno = Parent.document.getElementById('txtUno_' + Cert_Seq);
-				var t_product = Parent.document.getElementById('txtProduct_' + Cert_Seq);
-				var t_productno = Parent.document.getElementById('txtProductno_' + Cert_Seq);
-				var t_weight = Parent.document.getElementById('txtWeight_' + Cert_Seq);
-				var t_bno = Parent.document.getElementById('txtBno_' + Cert_Seq);
+				var Cert_Seq = window.parent.btnCert_Seq;
+				var Parent = window.parent.document;
+				var t_uno = Parent.getElementById('txtUno_' + Cert_Seq);
+				var t_product = Parent.getElementById('txtProduct_' + Cert_Seq);
+				var t_productno = Parent.getElementById('txtProductno_' + Cert_Seq);
+				var t_weight = Parent.getElementById('txtWeight_' + Cert_Seq);
+				var t_bno = (Cert_Seq == -2?Parent.getElementById('txtBno'):Parent.getElementById('txtBno_' + Cert_Seq));
 				_btnIns();
 				$('#txtNoa').focus();
 				if(Cert_Seq != -1 && Cert_Seq != null){
