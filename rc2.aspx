@@ -104,7 +104,7 @@
                             return;
                         var i, j = 0;
                         $('#txtOrdeno').val(b_ret[0].noa);
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtUnit,txtMount,txtGweight,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtUnit,txtMount,txtWeight,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret
                                                            , 'uno,productno,product,unit,mount,weight,noa,no2,price,total,memo'
                                                            , 'txtProductno,txtProduct');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
@@ -305,16 +305,25 @@
         }
 
         function sum() {
-            var t1 = 0, t_unit, t_mount, t_weight = 0;
+           /* var t1 = 0, t_unit, t_mount, t_weight = 0;
             var t_float = dec($('#txtFloata').val());
             t_float = (emp(t_float) ? 1 : t_float);
             for (var j = 0; j < q_bbsCount; j++) {
                 t_unit = $('#txtUnit_' + j).val();
                 t_mount = (!t_unit || emp(t_unit) || trim( t_unit).toLowerCase() == 'kg' ?  $('#txtWeight_' + j).val() : $('#txtMount_' + j).val());  // 計價量
                 t_weight = t_weight + dec($('#txtWeight_' + j).val()); // 重量合計
-                $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount)*t_float, 0));
+               $('#txtTotal_' + j).val(round( $('#txtPrice_' + j).val() * dec( t_mount)*t_float, 0));
                 t1 = t1 + dec($('#txtTotal_' + j).val());
-            }  // j
+            } */
+            // j
+           var t1 = 0, t_unit, t_mount, t_weight = 0;
+                var t_money=0;
+                for(var j = 0; j < q_bbsCount; j++) {
+                	//q_tr('txtNotv_'+j ,q_float('txtMount_'+j)-q_float('txtC1'+j));
+					t_money+=q_float('txtTotal_'+j);
+                }  // j
+				q_tr('txtMoney' ,t_money);
+				q_tr('txtTotal' ,q_float('txtMoney')+q_float('txtTax'));
 
             $('#txtMoney').val(round(t1, 0));
             if( !emp( $('#txtPrice' ).val()))
@@ -642,7 +651,9 @@
                 <td><input  id="txtProduct.*" type="text" class="txt c1" />
                 <input  id="txtUno.*" type="text" class="txt c1"/></td>
                 <td><input id="txtUnit.*" type="text" class="txt c1"/></td>
-                <td><input id="txtMount.*" type="text" class="txt num c1" /></td>
+                <td><input id="txtMount.*" type="text" class="txt num c1" />
+                	<input id="txtWeight.*" type="hidden" class="txt num c1" />
+                </td>
                 <td><input id="txtPrice.*" type="text"  class="txt num c1" /></td>
                 <td><input id="txtTotal.*" type="text" class="txt num c1" />
                                       <input id="txtGweight.*" type="text" class="txt num c1" /></td>
