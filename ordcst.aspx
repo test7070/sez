@@ -17,7 +17,7 @@
 
             q_tables = 's';
             var q_name = "ordc";
-            var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa'];
+            var q_readonly = ['txtTgg', 'txtAcomp','txtSales','txtNoa','txtWorker'];
             var q_readonlys = [];
             var bbmNum = [['txtFloata', 10, 5, 1],['txtMoney', 10, 0, 1],['txtTax', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotalus', 10, 0, 1],['txtWeight', 10, 1, 1]];
             var bbsNum = [['textSize1', 10, 3, 1],['textSize2', 10, 2, 1],['textSize3', 10, 3, 1],['textSize4', 10, 2, 1],['txtRadius', 10, 3, 1],['txtWidth', 10, 2, 1],['txtDime', 10, 3, 1],['txtLengthb', 10, 2, 1],['txtMount', 10, 2, 1],['txtWeight', 10, 1, 1],['txtTheory', 10, 1, 1],['txtPrice', 10, 2, 1],['txtTotal', 10, 0, 1]];
@@ -104,6 +104,7 @@
                         b_ret = getb_ret();
                         if (!b_ret || b_ret.length == 0)
                             return;
+                        $('#txtOrdbno').val(b_ret[0].noa);
                         ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtDime,txtWidth,txtLengthb,txtRadius,txtOrdbno,txtNo3,txtPrice,txtMount,txtWeight,txtTotal,txtMemo,txtTheory', b_ret.length, b_ret
                                                            , 'productno,product,spec,dime,width,lengthb,radius,noa,no3,price,mount,weight,total,memo,theory'
                                                            , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
@@ -791,16 +792,18 @@
                 <td class="td2" colspan='2'><input id="txtTotalus" type="text" class="txt num c1" /></td> 
                 <td class="td4"><span> </span><a id='lblWeight' class="lbl"></a></td>
                 <td class="td5" colspan='2'><input id="txtWeight" type="text"  class="txt num c1" /></td>
-                <td class="td7"><span> </span><a id='lblWorker' class="lbl btn"></a></td>
-                <td class="td8"><input id="txtWorker"  type="text" class="txt c1" /></td> 
+                <td class="td7"><span> </span><a id='lblOrdb' class="lbl btn"></a></td>
+            	<td class="td8"><input id="txtOrdbno"  type="text" class="txt c1" /></td>
             </tr>
             <tr class="tr8">
             	<td class="td1"><span> </span><a id='lblAeno' class="lbl"></a></td>
                 <td class="td2"><input id="chkAeno" type="checkbox"/></td>
                 <td class="td3"><span> </span><a id='lblEnd' class="lbl"></a></td>
                 <td class="td4"><input id="chkEnda"  type="checkbox" /></td>
-                <td class="td5"><span> </span><a id='lblOrdb' class="lbl btn"></a></td>
-            	<td class="td6"><input id="txtOrdbno"  type="text" class="txt c1" /></td>
+                <td class="td5"></td>
+                <td class="td6"></td>
+                <td class="td7"><span> </span><a id='lblWorker' class="lbl"></a></td>
+                <td class="td8"><input id="txtWorker"  type="text" class="txt c1" /></td> 
             </tr>
             <tr class="tr9">
                 <td class="td1"><span> </span><a id='lblMemo' class="lbl"></a></td>
