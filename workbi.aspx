@@ -540,6 +540,7 @@
             <tr style='color:White; background:#003366;' >
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%;"><a id='lblUno_s'></a></td>
+                <td align="center" style="width:5%;"><a id='lblTimea_st'></a></td>
                 <td align="center" style="width:10%;"><a id='lblProductnos'></a></td>
                 <td align="center" style="width:13%;"><a id='lblProducts'></a></td>
                 <!--<td align="center" style="width:5%;"><a id='lblSpec'></a></td>-->
@@ -555,9 +556,10 @@
             <tr  style='background:#cad3ff;'>
                 <td><input class="btn"  id="btnMinus.*" type="button" value='－' style=" font-weight: bold;" /></td>
                 <td><input id="txtUno.*" type="text" class="txt c1"/></td>
+                <td><input id="txtTimea.*" type="text" class="txt c1"/></td>
                 <td>
-                	<input id="txtProductno.*" type="text" style="width:76%;"/>
                 	<input class="btn"  id="btnProductno.*" type="button" value='.' style="width:8%;"  />
+                	<input id="txtProductno.*" type="text" style="width:76%;"/>
                 </td>
                 <td><input id="txtProduct.*" type="text" class="txt c1"/></td>
                 <!--<td><input id="txtSpec.*" type="text" class="txt c1"/></td>-->
