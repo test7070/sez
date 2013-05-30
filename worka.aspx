@@ -23,7 +23,7 @@
 		var q_readonlys = [];
 		var bbmNum = [];  // 允許 key 小數
 		var bbsNum = [['txtMount', 12, 0 , 1],['txtWeight', 15, 2 , 1]];
-		var bbmMask = [];
+		var bbmMask = [['txtTimea', '99:99']];
 		var bbsMask = [];
 		q_sqlCount = 6; brwCount = 6; brwList =[] ; brwNowPage = 0 ; brwKey = 'Datea';
 		//ajaxPath = ""; // 只在根目錄執行，才需設定
@@ -35,6 +35,7 @@
 					['txtMechno_', 'btnMechno_', 'mech', 'noa,mech', 'txtMechno_,txtMech_', 'mech_b.aspx'],
 					['txtProductno_', 'btnProductno_', 'ucc', 'noa,product,unit', 'txtProductno_,txtProduct_,txtUnit_', 'ucc_b.aspx'],
 					['txtProductno', 'lblProductno', 'ucc', 'noa,product', 'txtProductno,txtProduct', 'ucc_b.aspx'],
+					['txtProcessno','lblProcess','process','noa,process','txtProcessno,txtProcess','process_b.aspx','95%'],
 					['txtOrdeno','lblOrdeno','ordes','noa,no2,productno,product','txtOrdeno,txtNo2,txtProductno,txtProduct','ordes_b.aspx','95%']
 		);
 		$(document).ready(function () {
@@ -486,7 +487,7 @@
 				<input id="txtStationno" type="text" class="txt c2"/>
 				<input id="txtStation" type="text" class="txt c3"/>
 			</td>
-			<td><span> </span><a id='lblProcess' class="lbl"> </a></td>
+			<td><span> </span><a id='lblProcess' class="lbl btn"> </a></td>
 			<td><input id="txtProcessno" type="text" class="txt c2"/><input id="txtProcess" type="text"  class="txt c3"/></td>
 			<td><span> </span><a id='lblWorkno' class="lbl btn"> </a></td>
 			<td><input id="txtWorkno" type="text"  class="txt c1"/></td></tr>
@@ -505,8 +506,8 @@
 			<td><input id="txtOrdeno" type="text"  style='width:75%;'/><input id="txtNo2" type="text"  style='width:25%;'/></td>
 			<td><span> </span><a id='lblMold' class="lbl"> </a></td>
 			<td><input id="txtMoldno" type="text" class="txt c2"/><input id="txtMold" type="text" class="txt c3"/></td>
-			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
-			<td><input id="txtWorker" type="text"  class="txt c1"/></td></tr>
+			<td><span> </span><a id='lblTimea' class="lbl"> </a></td>
+			<td><input id="txtTimea" type="text"  class="txt c1"/></td></tr>
 		<tr>
 			<td><span> </span><a id='lblProductno' class="lbl btn"> </a></td>
 			<td><input id="txtProductno" type="text"  class="txt c1"/></td>
@@ -523,6 +524,9 @@
 				<input type="button" id="btnAMimport">
 				<input type="button" id="btnOrde"/>
 			</td>
+			<td> </td>
+			<td><span> </span><a id='lblWorker' class="lbl"> </a></td>
+			<td><input id="txtWorker" type="text"  class="txt c1"/></td>
 		</tr>
 		</table>
 		</div>
@@ -536,7 +540,6 @@
 				<td align="center"><a id='lblUnit'></a></td>
 				<td align="center"><a id='lblMounts'></a></td>
 				<td align="center"><a id='lblWeights'></a></td>
-				<td align="center"><a id='lblProcesss'></a></td>
 				<td align="center"><a id='lblTypes'></a></td>
 				<td align="center"><a id='lblMechno'></a></td>
 				<td align="center"><a id='lblMech'></a></td>
@@ -559,9 +562,6 @@
 				</td>
 				<td style="width:8%;">
 					<input id="txtWeight.*" type="text" class="txt c1" style="text-align:right"/>
-				</td>
-				<td style="width:10%;">
-					<input id="txtProcess.*" type="text" class="txt c1"/>
 				</td>
 				<td style="width:10%;">
 					<input id="txtTypea.*" type="text" class="txt c1"/>

@@ -1,4 +1,4 @@
-<!doctype html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
     <head>
         <title> </title>
@@ -743,9 +743,9 @@
                 <td align="center" style="width:1%;"><input class="btn"  id="btnPlus" type="button" value='＋' style="font-weight: bold;"  /> </td>
                 <td align="center" style="width:8%;"><a id='lblProductno_st'></a></td>
                 <td align="center" style="width:10%;"><a id='lblProduct_st'></a></td>
-                <td align="center" style="width:6%;"><a id='lblClass_st'></a></td>
+                <td align="center" style="width:2%;"><a id='lblClass_st'></a></td>
                 <td align="center" id='Size'><a id='lblSize_st'> </a></br><a id='lblSize_help'> </a></td>
-                <td align="center" style="width:4%;"><a id='lblUnit_st'></a></td>
+                <td align="center" style="width:2%;"><a id='lblUnit_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblMount_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblWeight_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblPrice_st'></a></td>
@@ -755,7 +755,7 @@
                 <td align="center" style="width:5%;"><a id='lblEweight_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblOrdgweight_st'></a></td>
                 <td align="center" style="width:5%;"><a id='lblOrdeweight_st'></a></td>
-                <td align="center" style="width:4%;"><a id='lblEnda_st'></a></td>
+                <td align="center" style="width:2%;"><a id='lblEnda_st'></a></td>
                 
             </tr>
             <tr  style='background:#cad3ff;'>

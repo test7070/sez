@@ -14,6 +14,7 @@
         function onPageError(error) {
             alert("An error occurred:\r\n" + error.Message);
         }
+        q_desc = 1;
         q_tables = 's';
         var q_name = "orde";
         var q_readonly = ['txtWorker','txtComp', 'txtAcomp', 'txtMoney', 'txtTax', 'txtTotal', 'txtTotalus', 'txtWeight','txtSales'];
