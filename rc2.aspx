@@ -104,8 +104,8 @@
                             return;
                         var i, j = 0;
                         $('#txtOrdeno').val(b_ret[0].noa);
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtUnit,txtMount,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret
-                                                           , 'uno,productno,product,unit,mount,noa,no2,price,total,memo'
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtUnit,txtMount,txtGweight,txtOrdeno,txtNo2,txtPrice,txtTotal,txtMemo', b_ret.length, b_ret
+                                                           , 'uno,productno,product,unit,mount,weight,noa,no2,price,total,memo'
                                                            , 'txtProductno,txtProduct');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
 
