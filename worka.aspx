@@ -154,7 +154,7 @@
 						}
 					}
 					if(as[0]!=undefined && issf!=''){
-						q_gridAddRow(bbsHtm, 'tbbs', 'txtProduct,txtProductno,txtUint,txtWeight', 1, as,
+						q_gridAddRow(bbsHtm, 'tbbs', 'txtProduct,txtProductno,txtUnit,txtWeight', 1, as,
 						 'product,productno,unit,weight', 'txtProductno');
 					}
 					issf='';

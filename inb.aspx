@@ -84,7 +84,7 @@
 	                    if (q_cur > 0 && q_cur < 4) {
 	                        if (!b_ret || b_ret.length == 0)
 	                            return;
-                        	ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtDime,txtWidth,txtLengthb,txtSpec,txtOrdeno,txtNo2,txtBweight', b_ret.length, b_ret, 'productno,product,unit,dime,width,lengthb,spec,noa,no2,weight','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
+                        	ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtUnit,txtDime,txtWidth,txtLengthb,txtSpec,txtOrdeno,txtNo2,txtBweight,txtMount,txtTheory', b_ret.length, b_ret, 'productno,product,unit,dime,width,lengthb,spec,noa,no2,weight,mount,theory','txtProductno');   /// 最後 aEmpField 不可以有【數字欄位】
 							sum()
 	                    }
 						break;
@@ -229,7 +229,7 @@
                 }
 
                 q_nowf();
-                as['date'] = abbm2['date'];
+                as['datea'] = abbm2['datea'];
                 return true;
             }
 
