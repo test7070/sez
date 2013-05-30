@@ -682,7 +682,7 @@
                 <td align="center" style="width:8%;"><a id='lblPrices'> </a></td>
                 <!--<td align="center"><a id='lblRadius'> </a></td>-->
                 <td align="center" style="width:10%;"><a id='lblTotals'> </a></td>
-                <td align="center" style="width:10%;"><a id='lblGemounts'></a></td>
+                <td align="center" style="width:10%;"><a id='lblGemounts'> </a></td>
                 <td align="center" style="width:15%;"><a id='lblMemos'> </a></td>
             </tr>
             <tr  style='background:#cad3ff;'>
@@ -701,15 +701,17 @@
                         <input id="txtLengthb.*" type="text" class="txt num c6"/>
                         <input id="txtSpec.*" type="text"  class="txt c7"/></td>-->
                 <td><input  id="txtUnit.*" type="text"  class="txt c1"/></td>
-                <td><input id="txtMount.*" type="text" class="txt num c1" /></td>
+                <td><input id="txtMount.*" type="text" class="txt num c1" />
+                	<input class="txt num c1" id="txtWeight.*" type="text" />
+                </td>
                 <!--<td><input id="txtWeight.*" type="text" class="txt num c7" /></td>-->
                 <td><input id="txtPrice.*" type="text" class="txt num c1" /></td>
                 <!--<td><input id="txtRadius.*" type="text" class="txt num c7"  /></td>-->
                 <td><input id="txtTotal.*" type="text"class="txt num c1"/>
                        <!--<input id="txtTheory.*" type="text" class="txt num c7"/>--></td>
                 <td>
-                	<input class="txt num c1" id="txtC2.*" type="text" />
-                	<input class="txt num c1" id="txtNotv2.*" type="text" />
+                	<input class="txt num c1" id="txtC1.*" type="text" />
+                	<input class="txt num c1" id="txtNotv.*" type="text" />
                 </td>
                 <td><input  id="txtMemo.*" type="text" class="txt c1"/>
                 	<input class="txt" id="txtOrdbno.*" type="text"  style="width:73%;" />
