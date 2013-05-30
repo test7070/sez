@@ -71,6 +71,8 @@
 				if(cuano && cuano.length >0){
 					t_where = "where=^^ a.noa='" + cuano + "' ^^";
 					q_gt('cua_cuas',t_where , 0, 0, 0, "", r_accy);
+					$('#txtProcessno').val('001')
+					$('#txtProcess').val('原料投入')
 				}else{
 					alert('請輸入' + q_getMsg('lblCuano'));
 				}
@@ -83,6 +85,8 @@
 					t_where = "where=^^ noa='" + $('#txtCuano').val() + "' ^^";
 					q_gt('inbm',t_where , 0, 0, 0, "", r_accy);
 					issf='f';
+					$('#txtProcessno').val('002')
+					$('#txtProcess').val('輔料投入')
 				}else{
 					alert('請輸入' + q_getMsg('lblCuano'));
 				}
@@ -516,8 +520,8 @@
 		<tr>
 			<td colspan="3" align="center">
 				<input type="button" id="btnCuaimport">
-				<input type="button" id="btnOrde"/>
 				<input type="button" id="btnAMimport">
+				<input type="button" id="btnOrde"/>
 			</td>
 		</tr>
 		</table>
