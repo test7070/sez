@@ -96,26 +96,6 @@
         function q_boxClose( s2) { ///   q_boxClose 2/4 /// 查詢視窗、客戶視窗、訂單視窗  關閉時執行
             var ret; 
             switch (b_pop) {   /// 重要：不可以直接 return ，最後需執行 originalClose();
-                case 'cust':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtCustno,txtComp,txtTel,txtPost,txtAddr,txtPaytype,cmbTrantype', ret, 'noa,comp,tel,post_fact,addr_fact,paytype,trantype');
-                    break;
-
-                case 'ucc':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtProductno_' + b_seq + ',txtProduct_' + b_seq, ret, 'noa,product');
-                    break;
-
-                case 'acomp':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtCno,txtAcomp', ret, 'noa,acomp');
-                    break;
-
-                case 'store':
-                    ret = getb_ret();
-                    if (q_cur > 0 && q_cur < 4) q_browFill('txtStoreno,txtStore', ret, 'noa,store');
-                    break;
-
                 case 'quats':
                     if (q_cur > 0 && q_cur < 4) {
                         b_ret = getb_ret();
@@ -156,26 +136,9 @@
             	case 'spec': 
 	            		t_spec= _q_appendData("spec", "", true);
 	            	break;
-                case 'cust':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtCustno,txtComp,txtTel,txtPost,txtAddr,txtPaytype,cmbTrantype', 'noa,comp,tel,post_fact,addr_fact,paytype,trantype');
-                    break;
-
-                case 'acomp':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtCno,txtAcomp', 'noa,acomp');
-                    break;
-
-                case 'store':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtStoreno,txtStore', 'noa,store');
-                    break;
-
-                case 'ucc':  ////  直接 key in 編號，帶入 form
-                    q_changeFill(t_name, 'txtProductno_' + b_seq + ',txtProduct_' + b_seq + ',txtUnit_' + b_seq, 'noa,product,unit');
-                    break;
-                    
 				case 'ucc_style':
             			theory_st(q_name,b_seq,'txtGweight');
             			break;
-            			
                 case q_name: if (q_cur == 4)   // 查詢
                         q_Seek_gtPost();
                     break;
