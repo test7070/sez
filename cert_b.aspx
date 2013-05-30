@@ -83,11 +83,13 @@
 				_btnIns();
 				$('#txtNoa').focus();
 				if(Cert_Seq != -1 && Cert_Seq != null){
-					$('#txtProduct').val((t_product != null ? t_product.value: ''));
-					$('#txtProductno').val((t_productno != null ? t_productno.value: ''));
-					$('#txtWeight').val((t_weight != null ? t_weight.value: ''));
-					$('#txtHeat').val((t_bno != null ? t_bno.value: ''));
-					$('#txtNoa').val((t_uno != null ? t_uno.value: '')).focus();
+					if(AutoFill = confirm('代入資料?')){
+						$('#txtProduct').val((t_product != null ? t_product.value: ''));
+						$('#txtProductno').val((t_productno != null ? t_productno.value: ''));
+						$('#txtWeight').val((t_weight != null ? t_weight.value: ''));
+						$('#txtHeat').val((t_bno != null ? t_bno.value: ''));
+						$('#txtNoa').val((t_uno != null ? t_uno.value: '')).focus();
+					}
 				}
 			}
 	
