@@ -104,11 +104,12 @@
                             return;
                         var i, j = 0;
 						$('#txtQuatno').val(b_ret[0].noa);
-                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtQuatno,txtNo3,txtPrice', b_ret.length, b_ret
-                                                           , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no3,price'
+                        ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtUnit,txtQuatno,txtNo3,txtPrice,txtMount,txtWeight,txtClass', b_ret.length, b_ret
+                                                           , 'productno,product,spec,size,dime,width,lengthb,unit,noa,no3,price,mount,weight,class'
                                                            , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
-
+                        sum();
+						/*
                         for (i = 0; i < ret.length; i++) {
                             k = ret[i];  ///ret[i]  儲存 tbbs 指標
                             if (!b_ret[i]['unit'] || b_ret[i]['unit'].toUpperCase() == 'KG') {
@@ -121,6 +122,7 @@
                             }
 
                         }  /// for i
+                        */
                     }
                     break;
                 
@@ -214,9 +216,9 @@
 						}
 					           
 					    if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-					    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
-					    }else{
-					    	var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+							q_tr('txtTheory_'+b_seq,round(q_float('txtMount_'+b_seq)*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())),0));
+						}else{
+							var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
 							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
 						}
 					});
@@ -233,9 +235,9 @@
 						}
 					                     
 						if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-					    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
-					    }else{
-					    	var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+							q_tr('txtTheory_'+b_seq,round(q_float('txtMount_'+b_seq)*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())),0));
+						}else{
+							var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
 							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
 						}
 					});
@@ -254,9 +256,9 @@
 						}
 					                     
 						if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-					    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
-					    }else{
-					    	var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+							q_tr('txtTheory_'+b_seq,round(q_float('txtMount_'+b_seq)*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())),0));
+						}else{
+							var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
 							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
 						}
 					});
@@ -273,9 +275,9 @@
 						}
 					            		
 						if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-					    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
-					    }else{
-					    	var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+							q_tr('txtTheory_'+b_seq,round(q_float('txtMount_'+b_seq)*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())),0));
+						}else{
+							var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
 							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
 						}
 					});
@@ -283,8 +285,12 @@
 						t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
 					    q_bodyId($(this).attr('id'));
 					    b_seq = t_IdSeq;
-						var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
-						q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+						if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
+							q_tr('txtTheory_'+b_seq,round(q_float('txtMount_'+b_seq)*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())),0));
+						}else{
+							var t_where = "where=^^ a.noa = '"+ $('#txtProductno_'+b_seq).val()+"' ^^"; 
+							q_gt('ucc_style', t_where , 0, 0, 0, "", r_accy);
+						}
 						q_tr('txtTotal_'+b_seq ,q_float('txtMount_'+b_seq)*q_float('txtPrice_'+b_seq)*q_float('txtWeight_'+b_seq));
 						sum();
 					});
@@ -295,8 +301,8 @@
 			                b_seq = t_IdSeq;
 			                
 			                if($('#cmbKind').val().substr(1,1)=='4'){//鋼胚
-						    	q_tr('txtTheory_'+b_seq,theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())));
-						    }
+								q_tr('txtTheory_'+b_seq,round(q_float('txtMount_'+b_seq)*theory_bi(t_spec,$('#txtSpec_'+b_seq).val(),dec($('#txtDime_'+b_seq).val()),dec($('#txtWidth_'+b_seq).val()),dec($('#txtLengthb_'+b_seq).val())),0));
+							}
 						});
 						
 					$('#txtPrice_' + j).change(function () {
