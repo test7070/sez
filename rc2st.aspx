@@ -110,7 +110,7 @@
                         var i, j = 0;
                         $('#txtOrdeno').val(b_ret[0].noa);
                         ret = q_gridAddRow(bbsHtm, 'tbbs', 'txtUno,txtProductno,txtProduct,txtSpec,txtSize,txtDime,txtWidth,txtLengthb,txtRadius,txtOrdeno,txtNo2,txtPrice,txtMount,txtWeight,txtTotal,txtMemo', b_ret.length, b_ret
-                                                           , 'uno,productno,product,spec,size,dime,width,lengthb,radius,noa,no2,price,mount,weight,total,memo,notv,notv2'
+                                                           , 'uno,productno,product,spec,size,dime,width,lengthb,radius,noa,no2,price,mount,weight,total,memo'
                                                            , 'txtProductno,txtProduct,txtSpec');   /// 最後 aEmpField 不可以有【數字欄位】
                         bbsAssign();
 						size_change();
@@ -848,8 +848,8 @@
                         <input id="txtGweight.*" type="text" class="txt num c1" /></td>
                 <td><input id="btnCert.*" class="btnCert" type="button"/></td>
                 <td><input id="txtMemo.*" type="text" class="txt c1"/>
-	                <input id="txtOrdeno.*" type="text" style="width:65%;" />
-	                <input id="txtNo2.*" type="text" style="width:26%;" />
+	                <input id="txtOrdeno.*" type="text" style="float:left;width:65%;" />
+	                <input id="txtNo2.*" type="text" style="float:left;width:26%;" />
 	                <input id="txtNoq.*" type="hidden" /><input id="recno.*" type="hidden" />
                 </td>
             </tr>

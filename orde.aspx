@@ -113,8 +113,8 @@
                                 $('#txtWeight_' + k).val(divide0(b_ret[i]['weight'] * b_ret[i]['notv'], b_ret[i]['mount']));
                             }
                             else {
-                                $('#txtWeight_' + k).val(b_ret[i]['notv']);
-                                $('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv'], b_ret[i]['weight']));
+                                $('#txtWeight_' + k).val(b_ret[i]['notv2']);
+                                $('#txtMount_' + k).val(divide0(b_ret[i]['mount'] * b_ret[i]['notv2'], b_ret[i]['weight']));
                             }
 
                         }  /// for i
